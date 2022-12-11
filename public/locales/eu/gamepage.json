@@ -32,7 +32,7 @@
             "title": "Instalazioa gelditu"
         },
         "uninstall": {
-            "checkbox": "Aurrizkia ere ezabatzea gustatuko litzaizuke? Ezin da desegin.",
+            "checkbox": "Kendu aurrizkia: {{prefix}}{{newLine}}Oharra: Hau ezin da desegin eta babeskopiarik ez duten gordetze fitxategiak kenduko ditu ere.",
             "checkbox_prefix": "Aurrizkia",
             "message": "Joko hau desinstatu nahi duzu?",
             "title": "Desinslalatu"
@@ -95,6 +95,13 @@
     "generic": {
         "error": "Errore ezezaguna"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Linean egon behar da",
         "installedPlatform": "Instalatutako plataforma",
@@ -113,6 +120,9 @@
         "wineversion": "Ardoaren bertsioa"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Jokatu orain",
             "stop": "Ugalketa (Detener)"
@@ -130,16 +140,12 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download Canceled",
-            "remove": "Remove from download manager"
-        }
-    },
     "report_problem": "Joko hau gauzatzean arazo baten berri ematea",
     "sdl": {
         "title": "Instalatzeko osagaiak hautatzea"
+    },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
     },
     "sideload": {
         "field": {
@@ -161,14 +167,18 @@
     },
     "status": {
         "clickToUpdate": "Egin klik eguneratu ahal izateko",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Bertsio berria!",
         "installed": "Instalatuta",
         "installing": "Instalatu",
         "moving": "Instalazio mugikorra, itxaron",
         "notinstalled": "Joko hau ez instalatuta",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Artxiboak prozesatzen, mesedez itxaron",
         "queued": "Queued",
         "reparing": "Jokoaren konponketa, mesedez",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Deskargatutakoa, guztira",
         "uninstalling": "Uninstalling",
         "updating": "Jokoa eguneratzea"

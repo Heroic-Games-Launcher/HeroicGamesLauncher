@@ -94,6 +94,13 @@
     "generic": {
         "error": "Erro desconhecido"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Requer Internet",
         "installedPlatform": "Plataforma instalada",
@@ -112,6 +119,9 @@
         "wineversion": "Versão do Wine"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Jogar",
             "stop": "Jogando (Parar)"
@@ -129,16 +139,12 @@
         "login": "Entrar",
         "title": "Você NÃO está logado"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download Canceled",
-            "remove": "Remove from download manager"
-        }
-    },
     "report_problem": "Relatar um problema na execução deste jogo",
     "sdl": {
         "title": "Selecione os componentes para instalar"
+    },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
     },
     "sideload": {
         "field": {
@@ -160,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Clique para Atualizar",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Nova Versão Disponível!",
         "installed": "Instalado",
         "installing": "Instalando",
         "moving": "Movendo Instalação,Por favor Aguarde",
         "notinstalled": "Este jogo não está instalado",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Processando arquivos, aguarde",
         "queued": "Na fila",
         "reparing": "Reparando Jogo, Por favor Aguarde",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Total Baixado",
         "uninstalling": "Uninstalling",
         "updating": "Atualizando Jogo"

@@ -94,6 +94,13 @@
     "generic": {
         "error": "Error desconocido"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Requiere Online",
         "installedPlatform": "Plataforma de Instalación",
@@ -112,6 +119,9 @@
         "wineversion": "Version de Wine"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Jugar",
             "stop": "Detener"
@@ -129,16 +139,12 @@
         "login": "Iniciar Sesión",
         "title": "No ha iniciado sesión"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Descarga Cancelada",
-            "remove": "Remover de descargas"
-        }
-    },
     "report_problem": "Reportar un problema ejecutando este juego",
     "sdl": {
         "title": "Elija componentes a instalar"
+    },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
     },
     "sideload": {
         "field": {
@@ -160,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Clic para actualizar",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "¡Nueva versión disponible!",
         "installed": "Instalado",
         "installing": "Instalando",
         "moving": "Moviendo la instalación, por favor espere",
         "notinstalled": "Este juego no está instalado",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Procesando los archivos, por favor espere",
         "queued": "Encolado",
         "reparing": "Reparando el juego, por favor espere",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Total descargado",
         "uninstalling": "Uninstalling",
         "updating": "Actualización de juego"

@@ -144,6 +144,7 @@
         "yes": "JA"
     },
     "button": {
+        "cancel": "Abbrechen",
         "go_to_library": "Zur Bibliothek",
         "login": "Anmelden",
         "sync": "Synchronisieren",
@@ -171,18 +172,23 @@
         }
     },
     "docs": "Dokumentation",
-    "download": {
-        "manager": {
-            "empty": "Nichts herunterzuladen.",
-            "link": "Download-Manager",
-            "queue": {
-                "actions": "Aktion",
-                "element": "Name",
-                "platform": "Plattform",
-                "store": "Store"
-            },
-            "title": "Downloads"
-        }
+    "download-manager": {
+        "install-type": {
+            "install": "Install",
+            "update": "Update"
+        },
+        "label": {
+            "disk": "Festplatte",
+            "speed": "Download"
+        },
+        "link": "Downloads",
+        "queue": {
+            "end-time": "Beendet am",
+            "queue-time": "Hinzugefügt am",
+            "start-time": "Gestartet am",
+            "type": "Type"
+        },
+        "title": "Downloads"
     },
     "epic": {
         "offline-notification-body": "Online-Dienste funktionieren möglicherweise nicht vollständig, da die Server von Epic Games offline sind!",
@@ -221,6 +227,7 @@
         "custom_themes_path": "Verwende kein CSS aus unbekannten Quellen. Bei Zweifeln bitte in unserem Discord-Channel um eine Überprüfung.",
         "custom_themes_wiki": "Mehr Details zum Hinzufügen von benutzerdefinierten Designs findest du im Wiki. Klick hier.",
         "dxvk": "DXVK ist eine Vulkan-basierte Übersetzungsschicht für DirectX 9, 10 und 11 Spiele. Durch Aktivieren kann die Kompatibilität verbessert werden. Kann Probleme verursachen, insbesondere bei älteren DirectX-Spielen.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Esync zielt darauf ab, den Wineserver-Overhead in CPU-intensiven Spielen zu reduzieren. Durch Aktivieren kann die Leistung verbessert werden.",
         "fsync": "Fsync zielt darauf ab, den Wineserver-Overhead in CPU-intensiven Spielen zu reduzieren. Durch Aktivieren kann die Leistung auf unterstützten Linux-Kerneln verbessert werden.",
         "game_language": {
@@ -258,6 +265,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Klicke, um das Änderungsprotokoll anzusehen",
             "newReleases": "Update verfügbar!",
             "stable": "Stabil",
             "version": "Heroic-Version"
@@ -352,9 +360,10 @@
     "offline-message": {
         "hint": "Wir testen die Verbindung mit:{{newline}}github.com,{{newline}}gog.com und{{newline}}store.epicgames.com",
         "offline": "Offline",
-        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
+        "offline-retry-in": "Offline. Verbinde erneut in {{seconds}} Sekunden.",
         "retrying": "Versuche erneut"
     },
+    "Open": "",
     "options": {
         "advanced": {
             "key": "Variablenname",
@@ -396,6 +405,7 @@
         "alt-gogdl-bin": "Nutze eingebaute GOGDL-Binärdatei...",
         "alt-legendary-bin": "Nutze eingebaute Legendary-Binärdatei...",
         "custom_themes_path": "Wähle den Pfad für benutzerdefinierte CSS-Dateien",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix, in dem EGS installiert ist",
         "prefered_language": "2-Zeichen-Code (z. B.: \"en\" oder \"fr\")"
     },
@@ -407,10 +417,13 @@
     "progress": "Fortschritt",
     "queue": {
         "label": {
+            "canceled": "Abgebrochen",
             "clear": "Liste leeren",
             "downloading": "Lade herunter",
+            "empty": "Nichts zum Herunterladen",
             "finished": "Abgeschlossen",
-            "queued": "In Warteschlange"
+            "queued": "In Warteschlange",
+            "remove": "Aus Downloads entfernen"
         }
     },
     "Recent": "Zuletzt gespielte Spiele",
@@ -421,7 +434,6 @@
         "addgamestosteam": "Spiele automatisch zu Steam hinzufügen",
         "alt-gogdl-bin": "Wähle eine alternative GOGDL-Binärdatei zur Verwendung aus",
         "alt-legendary-bin": "Wähle eine alternative Legendary-Binärdatei",
-        "audiofix": "Audio-Fix (Pulse Audio Latenz)",
         "autodxvk": "Automatisches Installieren/Aktualisieren von DXVK im Prefix",
         "autosync": "Spielstände automatisch synchronisieren",
         "autovkd3d": "VKD3D automatisch im Präfix installieren/aktualisieren",
@@ -437,6 +449,7 @@
         "disable_controller": "Heroic-Navigation mit Gamepad deaktivieren",
         "discordRPC": "Discord Rich Presence aktivieren",
         "download-no-https": "Spiele ohne HTTPS herunterladen (nützlich für CDNs z. B. LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Mit installiertem Epic Games synchronisieren",
         "enableFSRHack": "FSR Hack aktivieren (Wine-Version muss es unterstützen)",
         "eosOverlay": {
@@ -464,6 +477,7 @@
         "FsrSharpnessStrenght": "FSR Schärfestärke",
         "fsync": "Fsync aktivieren",
         "gamemode": "GameMode benutzen (Feral Game Mode muss installiert sein)",
+        "hideChangelogsOnStartup": "Änderungsprotokolle beim Start nicht anzeigen",
         "language": "App-Sprache auswählen",
         "library_top_option": {
             "disabled": "Deaktiviert",

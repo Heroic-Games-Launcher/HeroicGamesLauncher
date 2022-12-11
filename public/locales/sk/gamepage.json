@@ -94,6 +94,13 @@
     "generic": {
         "error": "Neznáma chyba"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Vyžaduje sa online",
         "installedPlatform": "Nainštalovaná platforma",
@@ -112,6 +119,9 @@
         "wineversion": "Verzia vína"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Hrať teraz",
             "stop": "Prehráva sa (Stop)"
@@ -129,16 +139,12 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download Canceled",
-            "remove": "Remove from download manager"
-        }
-    },
     "report_problem": "Nahlásiť problém so spustením tejto hry",
     "sdl": {
         "title": "Vyberte komponenty na inštaláciu"
+    },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
     },
     "sideload": {
         "field": {
@@ -160,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Kliknutím aktualizujte",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "K dispozícii nová verzia!",
         "installed": "Nainštalované",
         "installing": "Inštaluje sa",
         "moving": "Prebieha inštalácia, čakajte",
         "notinstalled": "Táto hra nie je nainštalovaná",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Prebieha spracovanie súborov, čakajte",
         "queued": "Queued",
         "reparing": "Oprava hry, čakajte prosím",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Celkom stiahnutých",
         "uninstalling": "Uninstalling",
         "updating": "Aktualizácia hry"

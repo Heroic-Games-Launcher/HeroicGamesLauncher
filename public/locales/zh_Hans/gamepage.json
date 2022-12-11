@@ -94,6 +94,13 @@
     "generic": {
         "error": "未知错误"
     },
+    "hours": "小时",
+    "how-long-to-beat": {
+        "completionist": "完美通关",
+        "main-plus-extras": "主线+支线",
+        "main-story": "主线故事"
+    },
+    "howLongToBeat": "通关时长",
     "info": {
         "canRunOffline": "需要联网",
         "installedPlatform": "已安装平台",
@@ -112,6 +119,9 @@
         "wineversion": "Wine 版本"
     },
     "label": {
+        "game": {
+            "third-party-game": "不支持第三方游戏"
+        },
         "playing": {
             "start": "开始游戏",
             "stop": "游戏中（停止）"
@@ -126,19 +136,15 @@
     "not_logged_in": {
         "epic": "你在 Heroic 中未登录 Epic 账户。不要使用商店页面进行登录，请点击下面的按钮：",
         "gog": "你在 Heroic 中未登录 GOG 账户。不要使用商店页面进行登录，请点击下面的按钮：",
-        "login": "Log in",
+        "login": "登录",
         "title": "你未登录"
-    },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "取消了下载",
-            "remove": "从下载管理器中删除"
-        }
     },
     "report_problem": "报告运行此游戏时出现的问题",
     "sdl": {
         "title": "选择要安装的组件"
+    },
+    "setting": {
+        "use-default-wine-settings": "使用默认的 Wine 设置"
     },
     "sideload": {
         "field": {
@@ -160,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "点击更新",
+        "gameNotAvailable": "游戏不可用",
         "hasUpdates": "新版本可用！",
         "installed": "已安装",
         "installing": "安装中",
         "moving": "正在移动安装，请稍等",
         "notinstalled": "未安装此游戏",
+        "notSupported": "不支持",
+        "notSupportedGame": "不支持",
         "processing": "处理文件中，请稍等",
         "queued": "已加入队列",
         "reparing": "正在修复游戏，请稍等",
+        "this-game-uses-third-party": "该游戏使用第三方启动器，尚不支持",
         "totalDownloaded": "下载总计",
         "uninstalling": "卸载中",
         "updating": "游戏更新中"

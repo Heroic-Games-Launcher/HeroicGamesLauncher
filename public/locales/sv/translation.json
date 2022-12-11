@@ -24,8 +24,8 @@
         },
         "choose": "Välj",
         "choose-egs-prefix": "Ange prefix med befintlig EGS installation",
-        "choose-gogdl-binary": "Ange GOGDL binärfil (omstart krävs)",
-        "choose-legendary-binary": "Ange Legendary binärfil",
+        "choose-gogdl-binary": "Ange GOGDL programfil (omstart krävs)",
+        "choose-legendary-binary": "Ange Legendary programfil",
         "customWine": "Ange Wine/Proton version",
         "default-install-path": "Ange standard installationssökväg",
         "default-steam-path": "Sökväg till Steam.",
@@ -34,7 +34,7 @@
             "add": {
                 "steam": {
                     "body": "Misslyckades lägga till {{game}} i Steam:{{newLine}} {{error}}",
-                    "title": "Adding Error"
+                    "title": "Misslyckades lägga till spel"
                 }
             },
             "credentials": {
@@ -57,26 +57,26 @@
             },
             "generic": {
                 "message": "",
-                "title": "Select EXE to Run"
+                "title": "Ange programfil"
             },
             "launchAborted": "Start avbröts",
             "title": "Problem",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
-                "title": "Uncaught Exception occured!"
+                "message": "Okänt fel:{{newLine}}{{error}}{{newLine}}{{newLine}} Vänligen rapportera felet på vår Github.",
+                "title": "Okänt fel!"
             },
             "update": {
                 "message": "Uppdateringen misslyckades, kontrollera loggfilen eller försök igen senare.",
                 "title": "Problem vid uppdatering"
             },
             "wine-not-found": {
-                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
+                "invalid": "Angiven Wine version hittades ej. Installera denna version eller välj något annat i spelets inställningar{{newline}}Version: {{version}}{{newline}}Sökväg: {{path}}",
                 "message": "Ingen Wine version vald. Kontrollera spelinställningar!",
                 "title": "Wine hittades ej"
             },
             "winetricks": {
-                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
-                "title": "Winetricks error"
+                "message": "Winetricks misslyckades, felmeddelande:{{newLine}}{{error}}",
+                "title": "Winetricks problem"
             }
         },
         "info": {
@@ -102,20 +102,20 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
+                "message": "Är du säker att du vill grundåterställa Heroic? Detta raderar alla inställningar och cachefiler men raderar inte installerade spel eller Epic inloggningsuppgifter. Portabla versioner (AppImage, WinPortable, ...) av Heroic måste startas om manuellt efteråt.",
                 "title": "Grundåterställ Heroic"
             }
         },
         "runexe": {
-            "title": "Välj EXE"
+            "title": "Välj körbart program"
         },
         "select": {
             "button": "Ange val",
-            "exe": "Ange EXE"
+            "exe": "Ange programfil"
         },
         "shortcuts": {
             "message": "Genvägar skapades på Skrivbordet och Startmenyn",
-            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
+            "message-remove": "Genvägar togs bort från skrivbordet och startmenyn",
             "title": "Genvägar"
         },
         "sync": {
@@ -144,6 +144,7 @@
         "yes": "Ja"
     },
     "button": {
+        "cancel": "Cancel",
         "go_to_library": "Gå till Biblioteket",
         "login": "Logga in",
         "sync": "Synkronisering",
@@ -171,18 +172,23 @@
         }
     },
     "docs": "Documentation",
-    "download": {
-        "manager": {
-            "empty": "Nothing to download.",
-            "link": "Download Manager",
-            "queue": {
-                "actions": "Action",
-                "element": "Name",
-                "platform": "Platform",
-                "store": "Store"
-            },
-            "title": "Downloads"
-        }
+    "download-manager": {
+        "install-type": {
+            "install": "Install",
+            "update": "Update"
+        },
+        "label": {
+            "disk": "Disk",
+            "speed": "Download"
+        },
+        "link": "Downloads",
+        "queue": {
+            "end-time": "Finished at",
+            "queue-time": "Added at",
+            "start-time": "Started at",
+            "type": "Type"
+        },
+        "title": "Downloads"
     },
     "epic": {
         "offline-notification-body": "Onlinetjänster kanske inte fungerar korrekt då Epics servrar är nere för tillfället!",
@@ -221,6 +227,7 @@
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
@@ -258,6 +265,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Update Available!",
             "stable": "Stable",
             "version": "Heroic Version"
@@ -355,6 +363,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
+    "Open": "",
     "options": {
         "advanced": {
             "key": "Variable Name",
@@ -396,6 +405,7 @@
         "alt-gogdl-bin": "Använder inbyggd GOGDL version...",
         "alt-legendary-bin": "Använder inbyggd Legendary version...",
         "custom_themes_path": "Select the path to look for custom CSS files",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix för befintlig EGS installation",
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
@@ -407,10 +417,13 @@
     "progress": "Progress",
     "queue": {
         "label": {
+            "canceled": "Canceled",
             "clear": "Clear List",
             "downloading": "Downloading",
+            "empty": "Nothing to download",
             "finished": "Completed",
-            "queued": "Queued"
+            "queued": "Queued",
+            "remove": "Remove from Downloads"
         }
     },
     "Recent": "Nyligen spelat",
@@ -421,7 +434,6 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Ange alternativ GOGDL version (omstart krävs)",
         "alt-legendary-bin": "Ange alternativ Legendary version",
-        "audiofix": "Ljudfix (Pulse Audio latens)",
         "autodxvk": "Installera/uppdatera DXVK i prefix automatiskt",
         "autosync": "Synkronisera sparfiler automatiskt",
         "autovkd3d": "Installera/uppdatera VKD3D i prefix automatiskt",
@@ -437,6 +449,7 @@
         "disable_controller": "Deaktivera navigering via handkontroll",
         "discordRPC": "Aktivera Discord Rich Presence",
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Synkronisera med installerade Epic spel",
         "enableFSRHack": "Aktivera FSR Hack (Wine-versionen måste stödja det)",
         "eosOverlay": {
@@ -464,6 +477,7 @@
         "FsrSharpnessStrenght": "FSR skärpningsnivå",
         "fsync": "Aktivera Fsync",
         "gamemode": "Använd GameMode (Feral Game Mode måste vara installerat)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Välj språk",
         "library_top_option": {
             "disabled": "Deaktiverad",
@@ -515,7 +529,7 @@
         "showfps": "Visa FPS (DX9, 10 och 11)",
         "start-in-tray": "Starta minimerad",
         "steamruntime": "Använd Steam Runtime",
-        "winecrossoverbottle": "CrossOver Bottle",
+        "winecrossoverbottle": "CrossOver prefix",
         "wineprefix": "Wine-prefix mapp",
         "wineversion": "Wine version"
     },

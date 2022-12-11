@@ -1,5 +1,7 @@
-.gameListHeader {
-  padding-top: 1.5em;
+.dmItemList > .gameListHeader {
+  padding: var(--space-md) 0;
+  grid-template-columns: 2fr 1fr 1fr 1fr 10%;
+  margin: 0 var(--space-sm-fixed);
 }
 
 .downloadManager
@@ -40,7 +42,8 @@
 }
 
 .dmItemList {
-  border: solid 2px var(--text-default);
+  border: solid 2px var(--input-background);
+  background-color: var(--input-background);
   border-radius: 6px;
   margin: var(--space-3xs) var(--space-lg);
 }

@@ -64,7 +64,8 @@ export default function ToolManager(): JSX.Element | null {
       }
     }
 
-    refreshToolVersionInfo(true)
+    const shouldFetch = Boolean(toolVersions.length > 0)
+    refreshToolVersionInfo(shouldFetch)
   }, [])
 
   if (refreshing) {
@@ -78,34 +79,32 @@ export default function ToolManager(): JSX.Element | null {
   return (
     <>
       <h2>{t('tool.manager.title', 'Tool Manager')}</h2>
-      {toolVersions?.length ? (
-        <div className="toolManager">
-          <Tabs
-            className="tabs"
-            value={repository}
-            onChange={handleChangeTab}
-            centered={true}
-          >
-            {toolManagerSettings.showWineGe && (
-              <Tab className="tab" value={winege} label={winege} />
-            )}
-            {toolManagerSettings.showProtonGe && (
-              <Tab value={protonge} label={protonge} />
-            )}
-            {toolManagerSettings.showSodaBottles && (
-              <Tab value={sodabottles} label={sodabottles} />
-            )}
-            {toolManagerSettings.showDXVK && <Tab value={dxvk} label={dxvk} />}
-            {toolManagerSettings.showDXVKAsync && (
-              <Tab value={dxvkasync} label={dxvkasync} />
-            )}
-            {toolManagerSettings.showDXVKNVAPI && (
-              <Tab value={dxvknvapi} label={dxvknvapi} />
-            )}
-            {toolManagerSettings.showVKD3D && (
-              <Tab value={vkd3d} label={vkd3d} />
-            )}
-          </Tabs>
+      <div className="toolManager">
+        <Tabs
+          className="tabs"
+          value={repository}
+          onChange={handleChangeTab}
+          centered={true}
+        >
+          {toolManagerSettings.showWineGe && (
+            <Tab className="tab" value={winege} label={winege} />
+          )}
+          {toolManagerSettings.showProtonGe && (
+            <Tab value={protonge} label={protonge} />
+          )}
+          {toolManagerSettings.showSodaBottles && (
+            <Tab value={sodabottles} label={sodabottles} />
+          )}
+          {toolManagerSettings.showDXVK && <Tab value={dxvk} label={dxvk} />}
+          {toolManagerSettings.showDXVKAsync && (
+            <Tab value={dxvkasync} label={dxvkasync} />
+          )}
+          {toolManagerSettings.showDXVKNVAPI && (
+            <Tab value={dxvknvapi} label={dxvknvapi} />
+          )}
+          {toolManagerSettings.showVKD3D && <Tab value={vkd3d} label={vkd3d} />}
+        </Tabs>
+        {toolVersions.length ? (
           <div
             style={
               !toolVersions.length ? { backgroundColor: 'transparent' } : {}
@@ -126,12 +125,15 @@ export default function ToolManager(): JSX.Element | null {
                 return
               })}
           </div>
-        </div>
-      ) : (
-        <h3>
-          {t('tool.manager.error', 'Could not fetch Tool versions this time.')}
-        </h3>
-      )}
+        ) : (
+          <h5 className="toolList">
+            {t(
+              'tool.manager.error',
+              'Could not fetch Tool versions this time.'
+            )}
+          </h5>
+        )}
+      </div>
     </>
   )
 }

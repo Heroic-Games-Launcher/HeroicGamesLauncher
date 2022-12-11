@@ -94,6 +94,13 @@
     "generic": {
         "error": "Неизвестная ошибка"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Требуется онлайн",
         "installedPlatform": "Платформа",
@@ -112,6 +119,9 @@
         "wineversion": "Версия Wine"
     },
     "label": {
+        "game": {
+            "third-party-game": "Сторонняя игра НЕ поддерживается"
+        },
         "playing": {
             "start": "Начать игру",
             "stop": "Игра запущена (Остановить)"
@@ -129,16 +139,12 @@
         "login": "Войти",
         "title": "Вы НЕ авторизованы"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Загрузка отменена",
-            "remove": "Удалить из менеджера загрузок"
-        }
-    },
     "report_problem": "Сообщить о проблеме с запуском этой игры",
     "sdl": {
         "title": "Выбрать компоненты для установки"
+    },
+    "setting": {
+        "use-default-wine-settings": "Использовать настройки Wine по умолчанию"
     },
     "sideload": {
         "field": {
@@ -160,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Нажмите, чтобы обновить",
+        "gameNotAvailable": "Игра недоступна",
         "hasUpdates": "Доступна новая версия!",
         "installed": "Установлено",
         "installing": "Установка",
         "moving": "Перемещение установленных файлов. Пожалуйста, подождите",
         "notinstalled": "Игра не установлена",
+        "notSupported": "Не поддерживается",
+        "notSupportedGame": "Не поддерживается",
         "processing": "Обработка файлов, подождите",
         "queued": "Очередь",
         "reparing": "Восстановление игры. Пожалуйста, подождите",
+        "this-game-uses-third-party": "Эта игра использует сторонний лаунчер и пока не поддерживается",
         "totalDownloaded": "Всего загружено",
         "uninstalling": "Удаление",
         "updating": "Обновление игры"

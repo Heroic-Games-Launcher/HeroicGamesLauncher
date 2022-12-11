@@ -94,6 +94,13 @@
     "generic": {
         "error": "Erreur inconnue"
     },
+    "hours": "Heures",
+    "how-long-to-beat": {
+        "completionist": "Complétionniste",
+        "main-plus-extras": "Trame principale + Extras",
+        "main-story": "Histoire principale"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Connexion à internet requise",
         "installedPlatform": "Système",
@@ -112,6 +119,9 @@
         "wineversion": "Version de Wine"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Jouer maintenant",
             "stop": "Jeu en cours (Arrêter)"
@@ -129,16 +139,12 @@
         "login": "Connexion",
         "title": "Vous n'êtes PAS connecté"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Téléchargement Annulé",
-            "remove": "Supprimer du gestionnaire de téléchargement"
-        }
-    },
     "report_problem": "Signaler un problème de fonctionnement du jeu",
     "sdl": {
         "title": "Sélectionnez les composants à installer"
+    },
+    "setting": {
+        "use-default-wine-settings": "Utiliser les paramètres de Wine par défaut"
     },
     "sideload": {
         "field": {
@@ -160,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Cliquez pour mettre à jour",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Nouvelle version disponible !",
         "installed": "Installé",
         "installing": "Installation en cours",
         "moving": "Déplacement de l'installation, veuillez patienter",
         "notinstalled": "Ce jeu n'est pas installé",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Traitement des fichiers, veuillez patienter",
         "queued": "En file d'attente",
         "reparing": "Réparation du jeu en cours, veuillez patienter",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Total Téléchargé",
         "uninstalling": "Désinstallation",
         "updating": "Mise à jour du jeu"

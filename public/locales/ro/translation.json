@@ -144,6 +144,7 @@
         "yes": "DA"
     },
     "button": {
+        "cancel": "Cancel",
         "go_to_library": "Accesați Bibliotecă",
         "login": "Autentificare",
         "sync": "Sincronizează",
@@ -171,18 +172,23 @@
         }
     },
     "docs": "Documentație",
-    "download": {
-        "manager": {
-            "empty": "Nothing to download.",
-            "link": "Download Manager",
-            "queue": {
-                "actions": "Action",
-                "element": "Name",
-                "platform": "Platform",
-                "store": "Store"
-            },
-            "title": "Downloads"
-        }
+    "download-manager": {
+        "install-type": {
+            "install": "Install",
+            "update": "Update"
+        },
+        "label": {
+            "disk": "Disk",
+            "speed": "Download"
+        },
+        "link": "Downloads",
+        "queue": {
+            "end-time": "Finished at",
+            "queue-time": "Added at",
+            "start-time": "Started at",
+            "type": "Type"
+        },
+        "title": "Downloads"
     },
     "epic": {
         "offline-notification-body": "Este posibil ca serviciile online să nu funcționeze complet, deoarece serverele Epic Games sunt offline!",
@@ -221,6 +227,7 @@
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK este un strat translațional bazat pe Vulkan pentru jocurile DirectX 9, 10 și 11. Activarea poate îmbunătăți compatibilitatea. Poate cauza probleme în special pentru jocurile DirectX mai vechi.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Esync își propune să reducă supraîncărcarea serverului de vin în jocurile care necesită un proces intensiv. Activarea poate îmbunătăți performanța.",
         "fsync": "Fsync își propune să reducă supraîncărcarea serverului de vin în jocurile care necesită un proces intensiv. Activarea poate îmbunătăți performanța pe nucleele Linux acceptate.",
         "game_language": {
@@ -258,6 +265,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Actualizare disponibila",
             "stable": "Grajd",
             "version": "Versiune eroică"
@@ -355,6 +363,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
+    "Open": "",
     "options": {
         "advanced": {
             "key": "Nume variabilă",
@@ -396,6 +405,7 @@
         "alt-gogdl-bin": "Se utilizează binarul GOGDL încorporat...",
         "alt-legendary-bin": "Folosind binarul Legendary încorporat...",
         "custom_themes_path": "Select the path to look for custom CSS files",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefixul unde este instalat EGS",
         "prefered_language": "Cod de 2 caractere (adică: „en” sau „fr”)"
     },
@@ -407,10 +417,13 @@
     "progress": "Progres",
     "queue": {
         "label": {
+            "canceled": "Canceled",
             "clear": "Clear List",
             "downloading": "Downloading",
+            "empty": "Nothing to download",
             "finished": "Completed",
-            "queued": "Queued"
+            "queued": "Queued",
+            "remove": "Remove from Downloads"
         }
     },
     "Recent": "Jocuri Recente",
@@ -421,7 +434,6 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Alegeți un binar GOGDL alternativ pe care să îl utilizați",
         "alt-legendary-bin": "Alegeți un Legendary Binary alternativ pe care să îl utilizați",
-        "audiofix": "Fixare Audio (Latență în PulseAudio)",
         "autodxvk": "Instalare/Actualizare automată DXVK în Prefix",
         "autosync": "Salvări de sincronizare automată",
         "autovkd3d": "Instalare/Actualizare automată VKD3D pe Prefix",
@@ -437,6 +449,7 @@
         "disable_controller": "Dezactivați navigarea eroică folosind controlerul",
         "discordRPC": "Activați Discord Rich Presence",
         "download-no-https": "Descărcați jocuri fără HTTPS (util pentru CDN-uri, de exemplu, LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Sincronizare cu Epic Games instalat",
         "enableFSRHack": "Activați FSR Hack (versiunea Wine trebuie să o accepte)",
         "eosOverlay": {
@@ -464,6 +477,7 @@
         "FsrSharpnessStrenght": "Forța de claritate FSR",
         "fsync": "Activați Fsync",
         "gamemode": "Utilizați GameMode (Feral GameMode trebuie instalat)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Alegeți Limba aplicației",
         "library_top_option": {
             "disabled": "Dezactivat",

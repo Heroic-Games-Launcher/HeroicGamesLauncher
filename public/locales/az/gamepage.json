@@ -95,6 +95,13 @@
     "generic": {
         "error": "Naməlum xəta"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Onlayn Tələb olunur",
         "installedPlatform": "Quraşdırılmış Platforma",
@@ -113,6 +120,9 @@
         "wineversion": "Şərab versiyası"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "İndi oyna",
             "stop": "Oynanır (Dayandır)"
@@ -130,16 +140,12 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download Canceled",
-            "remove": "Remove from download manager"
-        }
-    },
     "report_problem": "Bu oyunu idarə edən problemi bildirin",
     "sdl": {
         "title": "Quraşdırılacaq komponentləri seçin"
+    },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
     },
     "sideload": {
         "field": {
@@ -161,14 +167,18 @@
     },
     "status": {
         "clickToUpdate": "Yeniləmək üçün klikləyin",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Yeni Versiya mövcuddur!",
         "installed": "Quraşdırılıb",
         "installing": "Quraşdırılır",
         "moving": "Quraşdırma köçürülür, zəhmət olmasa gözləyin",
         "notinstalled": "Bu oyun quraşdırılmayıb",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Fayllar emal olunur, gözləyin",
         "queued": "Queued",
         "reparing": "Oyun Təmir edilir, zəhmət olmasa gözləyin",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Toplam Endirilib",
         "uninstalling": "Uninstalling",
         "updating": "Oyun Yenilənir"

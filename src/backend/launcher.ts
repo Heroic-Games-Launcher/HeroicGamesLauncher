@@ -236,9 +236,7 @@ function setupEnvVars(gameSettings: GameSettings) {
     ret.__NV_PRIME_RENDER_OFFLOAD = '1'
     ret.__GLX_VENDOR_LIBRARY_NAME = 'nvidia'
   }
-  if (gameSettings.audioFix) {
-    ret.PULSE_LATENCY_MSEC = '60'
-  }
+
   if (gameSettings.enviromentOptions) {
     gameSettings.enviromentOptions.forEach((envEntry: EnviromentVariable) => {
       ret[envEntry.key] = removeQuoteIfNecessary(envEntry.value)
@@ -282,6 +280,9 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
 
   if (gameSettings.showFps) {
     ret.DXVK_HUD = 'fps'
+  }
+  if (gameSettings.enableDXVKFpsLimit) {
+    ret.DXVK_FRAME_RATE = gameSettings.DXVKFpsCap
   }
   if (gameSettings.enableFSR) {
     ret.WINE_FULLSCREEN_FSR = '1'
@@ -502,7 +503,7 @@ async function runWineCommand({
     : await GlobalConfig.get().getSettings()
   const { wineVersion, winePrefix } = settings
 
-  if (!skipPrefixCheckIKnowWhatImDoing) {
+  if (!skipPrefixCheckIKnowWhatImDoing && wineVersion.type !== 'crossover') {
     let requiredPrefixFiles = [
       'dosdevices',
       'drive_c',

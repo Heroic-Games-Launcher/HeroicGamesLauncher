@@ -161,21 +161,22 @@ export default React.memo(function Library(): JSX.Element {
       return library
     }
 
-    const isMac = ['osx', 'Mac']
+    const macArray = ['osx', 'Mac']
+    const isMac = platform === 'darwin'
 
     switch (filter) {
       case 'win':
         return library.filter((game) => {
           return game?.is_installed
             ? game?.install?.platform?.toLowerCase() === 'windows'
-            : process?.platform === 'darwin'
+            : isMac
             ? !game?.is_mac_native
             : !game?.is_linux_native
         })
       case 'mac':
         return library.filter((game) => {
           return game?.is_installed
-            ? isMac.includes(game?.install?.platform ?? '')
+            ? macArray.includes(game?.install?.platform ?? '')
             : game?.is_mac_native
         })
       case 'linux':
@@ -218,8 +219,8 @@ export default React.memo(function Library(): JSX.Element {
   const libraryToShow = useMemo(() => {
     let library: Array<GameInfo> = []
     if (showFavouritesLibrary) {
-      library = [...favourites].filter((g) =>
-        category === 'all' ? g : g.runner === category
+      library = [...favourites].filter((game) =>
+        category === 'all' ? game : game?.runner === category
       )
     } else {
       const isEpic = epic.username && epicCategories.includes(category)
@@ -244,7 +245,7 @@ export default React.memo(function Library(): JSX.Element {
       const fuse = new Fuse(filteredLibrary, options)
 
       if (filterText) {
-        const fuzzySearch = fuse.search(filterText).map((g) => g.item)
+        const fuzzySearch = fuse.search(filterText).map((game) => game?.item)
         library = fuzzySearch
       } else {
         library = filteredLibrary
@@ -270,9 +271,9 @@ export default React.memo(function Library(): JSX.Element {
       const gameB = b.title.toUpperCase().replace('THE ', '')
       return sortDescending ? (gameA > gameB ? -1 : 1) : gameA < gameB ? -1 : 1
     })
-    const installed = library.filter((g) => g.is_installed)
+    const installed = library.filter((game) => game?.is_installed)
     const notInstalled = library.filter(
-      (g) => !g.is_installed && !installing.includes(g.app_name)
+      (game) => !game?.is_installed && !installing.includes(game?.app_name)
     )
     const installingGames = library.filter(
       (g) => !g.is_installed && installing.includes(g.app_name)
@@ -291,6 +292,7 @@ export default React.memo(function Library(): JSX.Element {
     sortDescending,
     sortInstalled,
     showHidden,
+    hiddenGames,
     showFavouritesLibrary
   ])
 
@@ -337,10 +339,7 @@ export default React.memo(function Library(): JSX.Element {
           handleAddGameButtonClick={() => handleModal('', 'sideload', null)}
         />
 
-        {!!libraryToShow.length ||
-          (refreshing && !refreshingInTheBackground && (
-            <UpdateComponent inline />
-          ))}
+        {refreshing && !refreshingInTheBackground && <UpdateComponent inline />}
 
         {(!refreshing || refreshingInTheBackground) && (
           <GamesList

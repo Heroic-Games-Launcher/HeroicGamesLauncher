@@ -59,7 +59,7 @@
                 "message": "",
                 "title": "Select EXE to Run"
             },
-            "launchAborted": "Launch aborted",
+            "launchAborted": "راه اندازی متوقف شد",
             "title": "خطا",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
@@ -75,8 +75,8 @@
                 "title": "Wine یافت نشد"
             },
             "winetricks": {
-                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
-                "title": "Winetricks error"
+                "message": "Winetricks هنگام اجرا این خطا را برگرداند:{{newLine}}{{error}}",
+                "title": "خطای Winetricks"
             }
         },
         "info": {
@@ -144,6 +144,7 @@
         "yes": "بله"
     },
     "button": {
+        "cancel": "Cancel",
         "go_to_library": "رفتن به کتابخانه",
         "login": "ورود",
         "sync": "همگام سازی",
@@ -171,18 +172,23 @@
         }
     },
     "docs": "Documentation",
-    "download": {
-        "manager": {
-            "empty": "Nothing to download.",
-            "link": "Download Manager",
-            "queue": {
-                "actions": "Action",
-                "element": "Name",
-                "platform": "Platform",
-                "store": "Store"
-            },
-            "title": "Downloads"
-        }
+    "download-manager": {
+        "install-type": {
+            "install": "Install",
+            "update": "Update"
+        },
+        "label": {
+            "disk": "Disk",
+            "speed": "Download"
+        },
+        "link": "Downloads",
+        "queue": {
+            "end-time": "Finished at",
+            "queue-time": "Added at",
+            "start-time": "Started at",
+            "type": "Type"
+        },
+        "title": "Downloads"
     },
     "epic": {
         "offline-notification-body": "به علت آفلاین بودن سرورهای اپیک گیمز سرویسهای آنلاین ممکن است کار نکنند!",
@@ -221,6 +227,7 @@
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK لایه ترجمهcای بر پایه Vulkan برای بازی های DirectX 9، 10، 11 می باشد. فعال کردن ممکن است سبب افزایش سازگاری شود. ممکن است باعث ایجاد مشکلات خصوصا برای بازی های DirectX قدیمی شود.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Esync در بازی های متمرکز بر CPU سبب کاهش سربار wineserver میشود. فعال کردن ممکن است باعث افزایش کارایی شود.",
         "fsync": "Fsync در بازی های متمرکز بر CPU سبب کاهش سربار wineserver میشود. فعال کردن ممکن است در لینوکس کرنل های پشتیبانی شده باعث افزایش کارایی شود.",
         "game_language": {
@@ -258,6 +265,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "به روزرسانی موجود است!",
             "stable": "پایدار",
             "version": "Heroic Version"
@@ -355,6 +363,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
+    "Open": "",
     "options": {
         "advanced": {
             "key": "Variable Name",
@@ -396,6 +405,7 @@
         "alt-gogdl-bin": "استفاده از باینری GOGDL داخلی...",
         "alt-legendary-bin": "استفاده از باینری Legendary داخلی...",
         "custom_themes_path": "Select the path to look for custom CSS files",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "محل نصب شده EGS",
         "prefered_language": "کد دو حرفی (مانند \"en\" یا \"fr\")"
     },
@@ -407,10 +417,13 @@
     "progress": "Progress",
     "queue": {
         "label": {
+            "canceled": "Canceled",
             "clear": "Clear List",
             "downloading": "Downloading",
+            "empty": "Nothing to download",
             "finished": "Completed",
-            "queued": "Queued"
+            "queued": "Queued",
+            "remove": "Remove from Downloads"
         }
     },
     "Recent": "اخیرا بازی شده",
@@ -421,7 +434,6 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "انتخاب باینری GOGDL جایگزین برای استفاده",
         "alt-legendary-bin": "انتخاب باینری Legendary جایگزین",
-        "audiofix": "تنظیم صدا (تاخیر Pulse Audio)",
         "autodxvk": "نصب/بهروزرسانی خودکار DXVK در Prefix",
         "autosync": "همگامسازی خودکار ذخیرهها",
         "autovkd3d": "نصب/بهروزرسانی خودکار VKD3D در مسیر",
@@ -437,6 +449,7 @@
         "disable_controller": "غیر فعال کردن کنترل Heroic با استفاده از دسته",
         "discordRPC": "فعالسازی Discord Rich Presence",
         "download-no-https": "دانلود بازی ها بدون HTTPS (مفید برای CDNs مانند LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "همگامسازی با بازیهای اپیک نصب شده",
         "enableFSRHack": "فعالسازی FSR Hack (نسخه Wine باید از آن پشتیبانی کند)",
         "eosOverlay": {
@@ -464,6 +477,7 @@
         "FsrSharpnessStrenght": "قدرت تیزی FSR",
         "fsync": "فعالسازی Fsync",
         "gamemode": "استفاده از GameMode (Feral Game Mode باید نصب شده باشد)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "انتخاب زبان نرمافزار",
         "library_top_option": {
             "disabled": "غیر فعال",
@@ -538,7 +552,7 @@
         },
         "gameMode": {
             "eacRuntimeEnabled": {
-                "message": "ران تایم EAC که بدون GameMode به درستی کار نمی کند،\u200c فعال شده است. آیا می خواهید ران تایم EAC و GameMode را غیرفعال کنید؟",
+                "message": "ران تایم EAC که بدون GameMode به درستی کار نمی کند، فعال شده است. آیا می خواهید ران تایم EAC و GameMode را غیرفعال کنید؟",
                 "title": "ران تایم EAC فعال شد"
             }
         },

@@ -144,6 +144,7 @@
         "yes": "Sí"
     },
     "button": {
+        "cancel": "Cancel",
         "go_to_library": "Go to Library",
         "login": "Iniciar sesión",
         "sync": "Sincronizar",
@@ -171,18 +172,23 @@
         }
     },
     "docs": "Documentation",
-    "download": {
-        "manager": {
-            "empty": "Nothing to download.",
-            "link": "Download Manager",
-            "queue": {
-                "actions": "Action",
-                "element": "Name",
-                "platform": "Platform",
-                "store": "Store"
-            },
-            "title": "Downloads"
-        }
+    "download-manager": {
+        "install-type": {
+            "install": "Install",
+            "update": "Update"
+        },
+        "label": {
+            "disk": "Disk",
+            "speed": "Download"
+        },
+        "link": "Downloads",
+        "queue": {
+            "end-time": "Finished at",
+            "queue-time": "Added at",
+            "start-time": "Started at",
+            "type": "Type"
+        },
+        "title": "Downloads"
     },
     "epic": {
         "offline-notification-body": "Os servizos en liña podería non funcionar correctamente xa que os servidores de Epic Games están sen conexión!",
@@ -221,6 +227,7 @@
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
@@ -258,6 +265,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Update Available!",
             "stable": "Stable",
             "version": "Heroic Version"
@@ -355,6 +363,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
+    "Open": "",
     "options": {
         "advanced": {
             "key": "Variable Name",
@@ -396,6 +405,7 @@
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Usando o binario de Legendary embebeido...",
         "custom_themes_path": "Select the path to look for custom CSS files",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefixo onde está instalado EGS",
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
@@ -407,10 +417,13 @@
     "progress": "Progress",
     "queue": {
         "label": {
+            "canceled": "Canceled",
             "clear": "Clear List",
             "downloading": "Downloading",
+            "empty": "Nothing to download",
             "finished": "Completed",
-            "queued": "Queued"
+            "queued": "Queued",
+            "remove": "Remove from Downloads"
         }
     },
     "Recent": "Xogado recentemente",
@@ -421,7 +434,6 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Selecciona un binario de GOGDL alternativo a usar",
         "alt-legendary-bin": "Seleccione o binario de Legendary alternativo",
-        "audiofix": "Correción de audio (latencia de Pulseaudio)",
         "autodxvk": "Autoinstalar/actualizar DXVK no prefixo",
         "autosync": "Autosincronizar partidas gardadas",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
@@ -437,6 +449,7 @@
         "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Activar a presencia enriquecida de Discord",
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Sincronizar cos xogos instalados de Epic",
         "enableFSRHack": "Activar o hack de FSR (A versión de Wine debe soportalo)",
         "eosOverlay": {
@@ -464,6 +477,7 @@
         "FsrSharpnessStrenght": "FSR forza de nitidez",
         "fsync": "Activar Fsync",
         "gamemode": "Usar GameMode (Feral Game Mode debe estar instalado)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Seleccionar o idioma da aplicación",
         "library_top_option": {
             "disabled": "Disabled",

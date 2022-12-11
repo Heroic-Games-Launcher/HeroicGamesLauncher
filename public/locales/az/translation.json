@@ -144,6 +144,7 @@
         "yes": "HƏ"
     },
     "button": {
+        "cancel": "Cancel",
         "go_to_library": "Kitabxanaya gedin",
         "login": "Daxil ol",
         "sync": "Sinxronizasiya",
@@ -171,18 +172,23 @@
         }
     },
     "docs": "Sənədlər",
-    "download": {
-        "manager": {
-            "empty": "Nothing to download.",
-            "link": "Download Manager",
-            "queue": {
-                "actions": "Action",
-                "element": "Name",
-                "platform": "Platform",
-                "store": "Store"
-            },
-            "title": "Downloads"
-        }
+    "download-manager": {
+        "install-type": {
+            "install": "Install",
+            "update": "Update"
+        },
+        "label": {
+            "disk": "Disk",
+            "speed": "Download"
+        },
+        "link": "Downloads",
+        "queue": {
+            "end-time": "Finished at",
+            "queue-time": "Added at",
+            "start-time": "Started at",
+            "type": "Type"
+        },
+        "title": "Downloads"
     },
     "epic": {
         "offline-notification-body": "Epic Games serverləri oflayn olduğu üçün onlayn xidmətlər tam işləməyə bilər!",
@@ -221,6 +227,7 @@
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK DirectX 9, 10 və 11 oyunları üçün Vulkan əsaslı tərcümə qatıdır. Aktivləşdirmə uyğunluğu yaxşılaşdıra bilər. Xüsusilə köhnə DirectX oyunları üçün problemlər yarada bilər.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Esync, intensiv CPU tələb edən oyunlarda şərab serverinin yükünü azaltmağı hədəfləyir. Aktivləşdirmək performansı yaxşılaşdıra bilər.",
         "fsync": "Fsync, intensiv CPU tələb edən oyunlarda şərab serverinin yükünü azaltmağı hədəfləyir. Aktivləşdirilməsi dəstəklənən Linux nüvələrində performansı yaxşılaşdıra bilər.",
         "game_language": {
@@ -258,6 +265,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Yeniləmə Mövcuddur!",
             "stable": "Stabil",
             "version": "Qəhrəmanlıq versiyası"
@@ -355,6 +363,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
+    "Open": "",
     "options": {
         "advanced": {
             "key": "Dəyişən adı",
@@ -396,6 +405,7 @@
         "alt-gogdl-bin": "Daxili GOGDL ikili proqramından istifadə...",
         "alt-legendary-bin": "Daxili əfsanəvi ikili proqramdan istifadə...",
         "custom_themes_path": "Select the path to look for custom CSS files",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "EGS-nin quraşdırıldığı prefiks",
         "prefered_language": "2 simvollu kod (yəni: \"en\" və ya \"fr\")"
     },
@@ -407,10 +417,13 @@
     "progress": "Tərəqqi",
     "queue": {
         "label": {
+            "canceled": "Canceled",
             "clear": "Clear List",
             "downloading": "Downloading",
+            "empty": "Nothing to download",
             "finished": "Completed",
-            "queued": "Queued"
+            "queued": "Queued",
+            "remove": "Remove from Downloads"
         }
     },
     "Recent": "Bu yaxınlarda oynanılıb",
@@ -421,7 +434,6 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "İstifadə etmək üçün Alternativ GOGDL Binary seçin",
         "alt-legendary-bin": "Alternativ Əfsanəvi Binary seçin",
-        "audiofix": "Audio Düzəltmə (Pulse Audio Latency)",
         "autodxvk": "Prefiksdə DXVK-nı Avtomatik Quraşdırın/Yeniləyin",
         "autosync": "Avtosinxronizasiya Saxlayır",
         "autovkd3d": "Prefiksdə VKD3D-ni Avtomatik Quraşdırın/Yeniləyin",
@@ -437,6 +449,7 @@
         "disable_controller": "Nəzarətçidən istifadə edərək Qəhrəman naviqasiyasını söndürün",
         "discordRPC": "Discord Rich Presence-i aktivləşdirin",
         "download-no-https": "HTTPS olmadan oyunları endirin (CDN-lər üçün faydalıdır, məsələn, LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Quraşdırılmış Epic Games ilə sinxronizasiya edin",
         "enableFSRHack": "FSR Hack'i aktivləşdirin (Şərab versiyası onu dəstəkləməlidir)",
         "eosOverlay": {
@@ -464,6 +477,7 @@
         "FsrSharpnessStrenght": "FSR Kəskinlik Gücü",
         "fsync": "Fsync-i aktivləşdirin",
         "gamemode": "GameMode istifadə edin (Feral Game Mode quraşdırılmalıdır)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Tətbiq dilini seçin",
         "library_top_option": {
             "disabled": "Əlil",

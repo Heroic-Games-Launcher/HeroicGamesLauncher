@@ -645,7 +645,8 @@ export class GOGLibrary {
       title: info.title,
       canRunOffline: true,
       is_mac_native: info.worksOn.Mac,
-      is_linux_native: info.worksOn.Linux
+      is_linux_native: info.worksOn.Linux,
+      thirdPartyManagedApp: undefined
     }
 
     return object
@@ -686,6 +687,9 @@ export class GOGLibrary {
       return []
     }
     const apiData = await this.getGamesData(appName)
+    if (!apiData) {
+      return []
+    }
     const operatingSystems = apiData._embedded.supportedOperatingSystems
     let requirements = operatingSystems.find(
       (value: { operatingSystem: { name: string } }) =>

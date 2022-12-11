@@ -64,7 +64,6 @@
 .settingsTools {
   margin-block: var(--space-md);
   justify-content: left;
-  max-width: 512px;
 }
 
 .save {
@@ -86,7 +85,6 @@
   padding-block: var(--space-xs);
   display: flex;
   align-items: center;
-  justify-content: space-between;
   font: var(--font-secondary-regular-italic);
   font-size: var(--text-sm);
   line-height: var(--space-md);

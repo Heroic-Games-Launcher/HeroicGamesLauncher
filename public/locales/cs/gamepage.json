@@ -94,12 +94,19 @@
     "generic": {
         "error": "Neznámá chyba"
     },
+    "hours": "Hodiny",
+    "how-long-to-beat": {
+        "completionist": "Kompletionista",
+        "main-plus-extras": "Hlavní + extra",
+        "main-story": "Hlavní příběh"
+    },
+    "howLongToBeat": "Počet času na dokončení",
     "info": {
         "canRunOffline": "Vyžaduje se být online",
         "installedPlatform": "Nainstalovaná platforma",
         "path": "Cesta pro instalaci",
         "size": "Velikost",
-        "syncsaves": "Synchronizovat uložené soubory",
+        "syncsaves": "Synchronizace uložených souborů",
         "version": "Verze"
     },
     "install": {
@@ -112,6 +119,9 @@
         "wineversion": "Verze Wine"
     },
     "label": {
+        "game": {
+            "third-party-game": "Hra třetí strany NENÍ podporována"
+        },
         "playing": {
             "start": "Hrát",
             "stop": "Hraji (Zastavit)"
@@ -129,16 +139,12 @@
         "login": "Log in",
         "title": "NEjste přihlášeni"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Stahování zrušeno",
-            "remove": "Odebrat ze správce stahování"
-        }
-    },
     "report_problem": "Nahlásit problém se spouštěním této hry",
     "sdl": {
         "title": "Vyberte součásti k instalaci"
+    },
+    "setting": {
+        "use-default-wine-settings": "Použít výchozí nastavení Wine"
     },
     "sideload": {
         "field": {
@@ -160,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Click to Update",
+        "gameNotAvailable": "Hra není k dispozici",
         "hasUpdates": "Nová verze dostupná!",
         "installed": "Nainstalováno",
         "installing": "Instaluji",
         "moving": "Přesouvám instalaci, čekejte prosím",
         "notinstalled": "Tato hra není nainstalována",
+        "notSupported": "Není podporována",
+        "notSupportedGame": "Není podporována",
         "processing": "Zpracovávám soubory, čekejte prosím",
         "queued": "Ve frontě",
         "reparing": "Opravuji hru, čekejte prosím",
+        "this-game-uses-third-party": "Tato hra používá launcher třetí strany a zatím není podporována",
         "totalDownloaded": "Celkově staženo",
         "uninstalling": "Odinstalace",
         "updating": "Aktualizuji hru"

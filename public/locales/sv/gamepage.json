@@ -14,17 +14,17 @@
         },
         "no": "Nej",
         "repair": {
-            "message": "Vill du försöka reparera spelet? Det kan ta lång tid.",
+            "message": "Vill du försöka reparera spelet? Detta kan ta lång tid.",
             "title": "Verifiera och reparera"
         },
         "runexe": {
-            "title": "Välj EXE"
+            "title": "Välj körbart program"
         },
         "select": {
             "button": "Ange val"
         },
         "sideload": {
-            "exe": "Ange spelets EXE-fil"
+            "exe": "Ange spelets körbara fil"
         },
         "stopInstall": {
             "keepInstalling": "Fortsätt installationen",
@@ -94,6 +94,13 @@
     "generic": {
         "error": "Okänt fel"
     },
+    "hours": "Timmar",
+    "how-long-to-beat": {
+        "completionist": "Hundraprocentaren",
+        "main-plus-extras": "Primär story + extra",
+        "main-story": "Primär story"
+    },
+    "howLongToBeat": "Tidsåtgång för att klara spelet",
     "info": {
         "canRunOffline": "Kräver uppkoppling",
         "installedPlatform": "Installerad plattform",
@@ -112,6 +119,9 @@
         "wineversion": "Wine-version"
     },
     "label": {
+        "game": {
+            "third-party-game": "Tredjeparts-spel stöds ej"
+        },
         "playing": {
             "start": "Starta spelet",
             "stop": "Avsluta spel"
@@ -129,16 +139,12 @@
         "login": "Logga in",
         "title": "Du är ej inloggad!"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Nerladdning avbröts",
-            "remove": "Ta bort från nerladdningshanteraren"
-        }
-    },
     "report_problem": "Rapportera problem med spelet",
     "sdl": {
         "title": "Ange komponenter att installera"
+    },
+    "setting": {
+        "use-default-wine-settings": "Använd standardinställningar för Wine"
     },
     "sideload": {
         "field": {
@@ -160,16 +166,20 @@
     },
     "status": {
         "clickToUpdate": "Klicka för att uppdatera",
+        "gameNotAvailable": "Spel ej tillgängligt",
         "hasUpdates": "Ny version tillgänglig!",
         "installed": "Installerad",
         "installing": "Installerar",
         "moving": "Flyttar installationen, vänligen vänta",
         "notinstalled": "Detta spelet är inte installerat",
+        "notSupported": "Stöds ej",
+        "notSupportedGame": "Stöds ej",
         "processing": "Hanterar filer, vänligen vänta",
         "queued": "Väntar i kö",
         "reparing": "Reparerar spelet, vänligen vänta",
+        "this-game-uses-third-party": "Spelet använder tredjeparts-launcher och stöds ej i nuläget",
         "totalDownloaded": "Nedladdning",
-        "uninstalling": "Uninstalling",
+        "uninstalling": "Avinstallerar",
         "updating": "Updaterar spelet"
     },
     "submenu": {

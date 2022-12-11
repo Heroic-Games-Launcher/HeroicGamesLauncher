@@ -7,10 +7,16 @@
 }
 
 .progressHeader {
-  border: solid 2px var(--text-default);
+  border: solid 2px var(--input-background);
+  background-color: var(--input-background);
   border-radius: 6px;
+  margin: var(--space-3xs) var(--space-lg) var(--space-md);
+  padding: 0 var(--space-md);
+}
+
+.downloadBar {
   margin: var(--space-3xs) var(--space-lg) var(--space-xl);
-  padding: var(--space-md);
+  width: 400px;
 }
 
 .linearProgress {
@@ -19,7 +25,7 @@
 }
 
 .linearProgress > .MuiLinearProgress-bar {
-  background-color: var(--accent);
+  background-color: var(--success);
 }
 
 .progressChartValues {

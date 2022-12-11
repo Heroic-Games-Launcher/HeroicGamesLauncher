@@ -1,0 +1,34 @@
+.sideloadGrid {
+  display: grid;
+  justify-content: space-around;
+  grid-template-columns: 1fr 3fr;
+
+  .textInputFieldWrapper.Field .selectFieldWrapper.Field {
+    margin: 0 var(--space-xs);
+  }
+
+  .imageIcons {
+    margin: var(--space-lg) var(--space-lg) 0 0;
+    width: min-content;
+  }
+
+  .appImage {
+    margin-bottom: var(--space-md);
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    display: block;
+    max-width: 210px;
+    transition: 200ms;
+
+    &.blackWhiteImage {
+      filter: grayscale(100%);
+      transition: 200ms;
+    }
+  }
+
+  .titleIcon {
+    word-break: break-word;
+    display: flex;
+    justify-content: space-between;
+  }
+}

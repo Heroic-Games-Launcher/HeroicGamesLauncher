@@ -144,6 +144,7 @@
         "yes": "ΝΑΙ"
     },
     "button": {
+        "cancel": "Cancel",
         "go_to_library": "Μεταβείτε στη Συλλογή",
         "login": "Σύνδεση",
         "sync": "Συγχρονισμός",
@@ -171,18 +172,23 @@
         }
     },
     "docs": "Documentation",
-    "download": {
-        "manager": {
-            "empty": "Nothing to download.",
-            "link": "Download Manager",
-            "queue": {
-                "actions": "Action",
-                "element": "Name",
-                "platform": "Platform",
-                "store": "Store"
-            },
-            "title": "Downloads"
-        }
+    "download-manager": {
+        "install-type": {
+            "install": "Install",
+            "update": "Update"
+        },
+        "label": {
+            "disk": "Disk",
+            "speed": "Download"
+        },
+        "link": "Downloads",
+        "queue": {
+            "end-time": "Finished at",
+            "queue-time": "Added at",
+            "start-time": "Started at",
+            "type": "Type"
+        },
+        "title": "Downloads"
     },
     "epic": {
         "offline-notification-body": "Οι διαδικτυακές υπηρεσίες πιθανό να μη λειτουργούν πλήρως καθώς οι διακομιστές Epic Games ειναι εκτός σύνδεσης!",
@@ -221,6 +227,7 @@
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "Το DXVK είναι ένα πρόγραμμα μετάφρασης που βασίζεται σε Vulkan για παιχνίδια DirectX 9, 10 και 11. Η ενεργοποίηση μπορεί να βελτιώσει τη συμβατότητα. Μπορεί να προκαλέσει προβλήματα ειδικά για παλαιότερα παιχνίδια DirectX.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Το Esync στοχεύει να μειώσει το κόστος του wineserver σε παιχνίδια που χρησιμοποιούν εντατικά τη CPU. Η ενεργοποίηση μπορεί να βελτιώσει την απόδοση.",
         "fsync": "Το Fsync στοχεύει να μειώσει το κόστος του wineserver σε παιχνίδια που χρησιμοποιούν εντατικά τη CPU. Η ενεργοποίηση μπορεί να βελτιώσει την απόδοση σε υποστηριζόμενους πυρήνες Linux.",
         "game_language": {
@@ -258,6 +265,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Ενημέρωση διαθέσιμη!",
             "stable": "Σταθερή",
             "version": "Έκδοση Heroic"
@@ -355,6 +363,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
+    "Open": "",
     "options": {
         "advanced": {
             "key": "Variable Name",
@@ -396,6 +405,7 @@
         "alt-gogdl-bin": "Χρήση ενσωματωμένου δυαδικού αρχείου GOGDL...",
         "alt-legendary-bin": "Χρήση ενσωματωμένου δυαδικού αρχείου Legendary...",
         "custom_themes_path": "Select the path to look for custom CSS files",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Πρόθημα διαδρομής εγκατάστασης EGS",
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
@@ -407,10 +417,13 @@
     "progress": "Progress",
     "queue": {
         "label": {
+            "canceled": "Canceled",
             "clear": "Clear List",
             "downloading": "Downloading",
+            "empty": "Nothing to download",
             "finished": "Completed",
-            "queued": "Queued"
+            "queued": "Queued",
+            "remove": "Remove from Downloads"
         }
     },
     "Recent": "Παίχτηκε Πρόσφατα",
@@ -421,7 +434,6 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Επιλογή Εναλλακτικού δυαδικού GOGDL για χρήση",
         "alt-legendary-bin": "Επιλέξτε ένα εναλλακτικό δυαδικό αρχείο Legendary",
-        "audiofix": "Επισκευή ήχου (Καθυστέρηση Pulse Audio)",
         "autodxvk": "Αυτόματη Εγκατάσταση/Ενημέρωση DXVK με Πρόθημα",
         "autosync": "Αυτόματος συγχρονισμός δεδομένων",
         "autovkd3d": "Αυτόματη Εγκατάσταση/Ενημέρωση VKD3D με Πρόθημα",
@@ -437,6 +449,7 @@
         "disable_controller": "Απενεργοποίηση πλοήγησης με χρήση χειριστηρίου στο Heroic",
         "discordRPC": "Ενεργοποίηση Discord Rich Presence",
         "download-no-https": "Λήψη παιχνιδιών χωρίς HTTPS (χρήσιμο για CDN π.χ. LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Συγχρονισμός με εγκατεστημένο Epic Games",
         "enableFSRHack": "Ενεργοποίηση FSR Hack (Η έκδοση Wine πρέπει να το υποστηρίζει)",
         "eosOverlay": {
@@ -464,6 +477,7 @@
         "FsrSharpnessStrenght": "Βαθμός οξύτητας FSR",
         "fsync": "Ενεργοποίηση Fsync",
         "gamemode": "Χρήση λειτουργίας παιχνιδιού (απαραίτητη η εγκατάσταση του Feral Game Mode)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Διαλέξτε γλώσσα εφαρμογής",
         "library_top_option": {
             "disabled": "Disabled",

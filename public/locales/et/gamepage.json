@@ -94,6 +94,13 @@
     "generic": {
         "error": "Teadmata viga"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Võrguühendus nõutud",
         "installedPlatform": "Paigaldatud platvorm",
@@ -112,6 +119,9 @@
         "wineversion": "Wine'i versioon"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Mängi",
             "stop": "Mängib (Peata)"
@@ -129,16 +139,12 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download Canceled",
-            "remove": "Remove from download manager"
-        }
-    },
     "report_problem": "Teatage selle mängu käivitamise probleemist",
     "sdl": {
         "title": "Valige komponendid, mida installida"
+    },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
     },
     "sideload": {
         "field": {
@@ -160,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Uuendamiseks klõpsake",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Uus versioon saadaval!",
         "installed": "Installitud",
         "installing": "Paigaldamine",
         "moving": "Paigalduse liiguatamine, palun oodake",
         "notinstalled": "See mäng ei ole paigaldatud",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Failide töötlemine, palun oodake",
         "queued": "Queued",
         "reparing": "Mängu parandamine, palun oodake",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Allalaaditud kokku",
         "uninstalling": "Uninstalling",
         "updating": "Mängu uuendamine"

@@ -95,6 +95,13 @@
     "generic": {
         "error": "Ukjent feil"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Online nødvendig",
         "installedPlatform": "Installert plattform",
@@ -113,6 +120,9 @@
         "wineversion": "Vinversjon"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Leke nå",
             "stop": "Spiller (Stopp)"
@@ -130,16 +140,12 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download Canceled",
-            "remove": "Remove from download manager"
-        }
-    },
     "report_problem": "Rapporter et problem med å kjøre dette spillet",
     "sdl": {
         "title": "Velg komponenter som skal installeres"
+    },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
     },
     "sideload": {
         "field": {
@@ -161,14 +167,18 @@
     },
     "status": {
         "clickToUpdate": "Klikk for å oppdatere",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Ny versjon tilgjengelig!",
         "installed": "Installert",
         "installing": "Installerer",
         "moving": "Flytting Installasjon, vennligst vent",
         "notinstalled": "Dette spillet er ikke installert",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Behandler filer, vennligst vent",
         "queued": "Queued",
         "reparing": "Reparerer spillet, vennligst vent",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Totalt nedlastede",
         "uninstalling": "Uninstalling",
         "updating": "Oppdaterer spillet"

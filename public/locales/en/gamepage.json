@@ -94,6 +94,13 @@
     "generic": {
         "error": "Unknown error"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Online Required",
         "installedPlatform": "Installed Platform",
@@ -112,6 +119,9 @@
         "wineversion": "Wine version"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Play Now",
             "stop": "Playing (Stop)"
@@ -129,16 +139,12 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download Canceled",
-            "remove": "Remove from download manager"
-        }
-    },
     "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Select components to Install"
+    },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
     },
     "sideload": {
         "field": {
@@ -160,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Click to Update",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "New Version Available!",
         "installed": "Installed",
         "installing": "Installing",
         "moving": "Moving Installation, please wait",
         "notinstalled": "This game is not installed",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Processing files, please wait",
         "queued": "Queued",
         "reparing": "Repairing Game, please wait",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Total Downloaded",
         "uninstalling": "Uninstalling",
         "updating": "Updating Game"

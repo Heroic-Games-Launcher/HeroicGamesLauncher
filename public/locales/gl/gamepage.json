@@ -94,6 +94,13 @@
     "generic": {
         "error": "Unknown error"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Require Online",
         "installedPlatform": "Installed Platform",
@@ -112,6 +119,9 @@
         "wineversion": "Versión de Wine"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Xogar",
             "stop": "Deter"
@@ -129,16 +139,12 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download Canceled",
-            "remove": "Remove from download manager"
-        }
-    },
     "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Seleccione os compoñentes a instalar"
+    },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
     },
     "sideload": {
         "field": {
@@ -160,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Premer para actualizar",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Nova versión dispoñíbel!",
         "installed": "Instalado",
         "installing": "Instalando",
         "moving": "Instalación en movemento, agarda",
         "notinstalled": "Este xogo non está instalado",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Processing files, please wait",
         "queued": "Queued",
         "reparing": "Reparando xogo, agarda",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Total descargado",
         "uninstalling": "Uninstalling",
         "updating": "Actualización do xogo"

@@ -1,3 +1,4 @@
+import './index.scss'
 import short from 'short-uuid'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -19,6 +20,7 @@ import { useTranslation } from 'react-i18next'
 import { AvailablePlatforms } from '..'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
 import ContextProvider from 'frontend/state/ContextProvider'
+import classNames from 'classnames'
 
 type Props = {
   availablePlatforms: AvailablePlatforms
@@ -46,13 +48,14 @@ export default function SideloadDialog({
     t('sideload.field.title', 'Title')
   )
   const [selectedExe, setSelectedExe] = useState('')
-  const [imageUrl, setImageUrl] = useState('')
+  const [imageUrl, setImageUrl] = useState(fallbackImage)
+  const [searching, setSearching] = useState(false)
   const [app_name, setApp_name] = useState(appName ?? '')
   const [runningSetup, setRunningSetup] = useState(false)
   const [gameInfo, setGameInfo] = useState<Partial<GameInfo>>({})
   const editMode = Boolean(appName)
 
-  const { refreshLibrary } = useContext(ContextProvider)
+  const { refreshLibrary, platform } = useContext(ContextProvider)
 
   function handleTitle(value: string) {
     value = removeSpecialcharacters(value)
@@ -105,21 +108,26 @@ export default function SideloadDialog({
     setWine()
   }, [title])
 
-  useEffect(() => {
-    setTimeout(async () => {
-      try {
-        const res = await fetch(
-          `https://steamgrid.usebottles.com/api/search/${title}`
-        )
-        if (res.status === 200) {
-          const steamGridImage = (await res.json()) as string
+  async function searchImage() {
+    setSearching(true)
+
+    try {
+      const res = await fetch(
+        `https://steamgrid.usebottles.com/api/search/${title}`
+      )
+      if (res.status === 200) {
+        const steamGridImage = (await res.json()) as string
+        if (steamGridImage && steamGridImage.startsWith('http')) {
           setImageUrl(steamGridImage)
         }
-      } catch (error) {
-        console.log('Error when getting image from SteamGridDB')
+        setSearching(false)
       }
-    }, 2000)
-  }, [title])
+    } catch (error) {
+      console.error('Error when getting image from SteamGridDB')
+      setSearching(false)
+      window.api.logError(`${error}`)
+    }
+  }
 
   async function handleInstall(): Promise<void> {
     window.api.addNewApp({
@@ -144,11 +152,6 @@ export default function SideloadDialog({
       config: {
         ...gameSettings,
         winePrefix,
-        // @ts-expect-error: Issue here is that wineVersion might not be necessary for native games
-        //                   Ideally we'd solve this by having a base `GameSettings` interface with
-        //                   two children (`NativeGameSettings` and `NonNativeGameSettings`?), one with
-        //                   a wineVersion property of type `WineInstallation`, the other with one of
-        //                   type `undefined`
         wineVersion
       }
     })
@@ -197,7 +200,6 @@ export default function SideloadDialog({
         }
         await writeConfig({
           appName: app_name,
-          // @ts-expect-error See other ts-expect-error above
           config: { ...gameSettings, winePrefix, wineVersion }
         })
         await window.api.runWineCommand({
@@ -220,8 +222,13 @@ export default function SideloadDialog({
   }
 
   const platformIcon = availablePlatforms.filter(
-    (p) => p.name === platformToInstall
+    (p) => p.value === platformToInstall
   )[0]?.icon
+
+  const shouldShowRunExe =
+    platform !== 'win32' &&
+    platformToInstall !== 'Mac' &&
+    platformToInstall !== 'linux'
 
   return (
     <>
@@ -229,7 +236,7 @@ export default function SideloadDialog({
         <div className="sideloadGrid">
           <div className="imageIcons">
             <CachedImage
-              className="appImage"
+              className={classNames('appImage', { blackWhiteImage: searching })}
               src={imageUrl ? imageUrl : fallbackImage}
             />
             <span className="titleIcon">
@@ -248,6 +255,7 @@ export default function SideloadDialog({
                 'Add a title to your Game/App'
               )}
               onChange={(e) => handleTitle(e.target.value)}
+              onBlur={async () => searchImage()}
               htmlId="sideload-title"
               value={title}
               maxLength={40}
@@ -286,15 +294,17 @@ export default function SideloadDialog({
         </div>
       </DialogContent>
       <DialogFooter>
-        <button
-          onClick={async () => handleRunExe()}
-          className={`button is-secondary`}
-          disabled={runningSetup || !title.length}
-        >
-          {runningSetup
-            ? t('button.running-setup', 'Running Setup')
-            : t('button.run-exe-first', 'Run Installer First')}
-        </button>
+        {shouldShowRunExe && (
+          <button
+            onClick={async () => handleRunExe()}
+            className={`button is-secondary`}
+            disabled={runningSetup || !title.length}
+          >
+            {runningSetup
+              ? t('button.running-setup', 'Running Setup')
+              : t('button.run-exe-first', 'Run Installer First')}
+          </button>
+        )}
         <button
           onClick={async () => handleInstall()}
           className={`button is-primary`}

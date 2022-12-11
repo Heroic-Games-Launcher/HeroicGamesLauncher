@@ -94,6 +94,13 @@
     "generic": {
         "error": "Невядомая памылка"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Патрабуецца Інтэрнэт",
         "installedPlatform": "Усталяваная платформа",
@@ -112,6 +119,9 @@
         "wineversion": "Вінная версія"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Гуляць зараз",
             "stop": "Прайграванне (Стоп)"
@@ -129,16 +139,12 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download Canceled",
-            "remove": "Remove from download manager"
-        }
-    },
     "report_problem": "Паведаміць аб праблеме запуску гэтай гульні",
     "sdl": {
         "title": "Выберыце кампаненты для ўстаноўкі"
+    },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
     },
     "sideload": {
         "field": {
@@ -160,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Націсніце, каб абнавіць",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Даступная новая версія!",
         "installed": "Усталяваны",
         "installing": "Ўстаноўка",
         "moving": "Перанос усталёўкі, пачакайце",
         "notinstalled": "Гэтая гульня не ўстаноўлена",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Апрацоўка файлаў, пачакайце",
         "queued": "Queued",
         "reparing": "Ідзе рамонт гульні, пачакайце",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Усяго спампавана",
         "uninstalling": "Uninstalling",
         "updating": "Абнаўленне гульні"

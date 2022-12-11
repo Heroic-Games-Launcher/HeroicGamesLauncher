@@ -144,6 +144,7 @@
         "yes": "SÍ"
     },
     "button": {
+        "cancel": "Cancel·la",
         "go_to_library": "Vés a la biblioteca",
         "login": "Inicia la sessió",
         "sync": "Sincronitza",
@@ -171,18 +172,23 @@
         }
     },
     "docs": "Documentation",
-    "download": {
-        "manager": {
-            "empty": "No hi ha res per a descarregar.",
-            "link": "Download Manager",
-            "queue": {
-                "actions": "Action",
-                "element": "Name",
-                "platform": "Platform",
-                "store": "Botiga"
-            },
-            "title": "Downloads"
-        }
+    "download-manager": {
+        "install-type": {
+            "install": "Install",
+            "update": "Update"
+        },
+        "label": {
+            "disk": "Disc",
+            "speed": "Download"
+        },
+        "link": "Downloads",
+        "queue": {
+            "end-time": "Finalitzat a les",
+            "queue-time": "Afegit el",
+            "start-time": "Iniciat a les",
+            "type": "Type"
+        },
+        "title": "Downloads"
     },
     "epic": {
         "offline-notification-body": "Els serveis en línia potser no funcionen del tot, ja que els servidors d'Epic Games estan desconnectats!",
@@ -221,6 +227,7 @@
         "custom_themes_path": "No feu servir fitxers CSS de fonts poc fiables. Si teniu algun dubte, demaneu en el nostre canal de Discord que el revisin.",
         "custom_themes_wiki": "Llegiu la Wiki per a més detalls sobre com afegir temes personalitzats. Feu clic aquí.",
         "dxvk": "DXVK és una capa de traducció basada en Vulkan per a jocs que emprin DirectX 9, 10 i 11. Si s'habilita, pot millorar la compatibilitat. Pot causar problemes, especialment per als jocs que emprin versions del DirectX més antigues.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Esync té com a objectiu reduir sobrecàrregues del Wineserver en jocs intensius en CPU. Si s'activa, el rendiment pot millorar.",
         "fsync": "Fsync té com a objectiu reduir sobrecàrregues del Wineserver en jocs intensius en CPU. Si s'activa, el rendiment pot millorar en versions de Linux compatibles.",
         "game_language": {
@@ -258,6 +265,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Hi ha una actualització disponible!",
             "stable": "Estable",
             "version": "Heroic Version"
@@ -352,9 +360,10 @@
     "offline-message": {
         "hint": "Es comprova la connectivitat a:{{newline}}github.com,{{newline}}gog.com i{{newline}}store.epicgames.com",
         "offline": "Offline",
-        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
+        "offline-retry-in": "Sense connexió. Es tornarà a intentar d'aquí {{seconds}} segons.",
         "retrying": "Es torna a provar"
     },
+    "Open": "",
     "options": {
         "advanced": {
             "key": "Variable Name",
@@ -396,6 +405,7 @@
         "alt-gogdl-bin": "S'està usant un binari del GOGDL integrat.",
         "alt-legendary-bin": "S'està utilitzant el binari integrat del Legendary...",
         "custom_themes_path": "Trieu el camí per a buscar fitxers CSS personalitzats",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix on l'EGS està instal·lat",
         "prefered_language": "Codi de dos caràcters, com ara «en», «fr» o «ca»"
     },
@@ -407,10 +417,13 @@
     "progress": "Progress",
     "queue": {
         "label": {
+            "canceled": "Cancel·lat",
             "clear": "Esborra la llista",
             "downloading": "Es descarrega",
+            "empty": "No hi ha res per a descarregar",
             "finished": "Completat",
-            "queued": "A la cua"
+            "queued": "A la cua",
+            "remove": "Treu de les descàrregues"
         }
     },
     "Recent": "Jugats fa poc",
@@ -421,7 +434,6 @@
         "addgamestosteam": "Afegeix els jocs a l'Steam de manera automàtica",
         "alt-gogdl-bin": "Tria un fitxer binari alternatiu del GOGDL",
         "alt-legendary-bin": "Tria un binari alternatiu del Legendary",
-        "audiofix": "Corregeix l'àudio (latència del Pulse Audio)",
         "autodxvk": "Instal·la/Actualitza el DXVK al prefix automàticament",
         "autosync": "Sincronitza automàticament les partides desades",
         "autovkd3d": "Instal·la/Actualitza el VKD3D al prefix automàticament",
@@ -437,6 +449,7 @@
         "disable_controller": "Desactiva la navegació del Heroic amb el controlador",
         "discordRPC": "Activa la Discord Rich Presence",
         "download-no-https": "Descarrega jocs sense HTTPS (útil per CDNs com ara LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Sincronitza amb l'Epic Games instal·lat",
         "enableFSRHack": "Activa el FSR Hack (cal que la versió del Wine en sigui compatible)",
         "eosOverlay": {
@@ -464,6 +477,7 @@
         "FsrSharpnessStrenght": "Força de la nitidesa de l'FSR",
         "fsync": "Activa l'Fsync",
         "gamemode": "Utilitza el GameMode (cal que el Feral Game Mode estigui instal·lat)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Tria la llengua de l'aplicació",
         "library_top_option": {
             "disabled": "Desactivat",

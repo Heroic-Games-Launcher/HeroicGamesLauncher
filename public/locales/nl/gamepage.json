@@ -94,6 +94,13 @@
     "generic": {
         "error": "Unknown error"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Internetverbinding Verplicht",
         "installedPlatform": "Installed Platform",
@@ -112,6 +119,9 @@
         "wineversion": "Wine Version"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Nu spelen",
             "stop": "Aan het spelen (Stoppen)"
@@ -129,16 +139,12 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download Canceled",
-            "remove": "Remove from download manager"
-        }
-    },
     "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Selecteer componenten om te installeren"
+    },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
     },
     "sideload": {
         "field": {
@@ -160,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Klik om te Updaten",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Nieuwe versie beschikbaar!",
         "installed": "Geïnstalleerd",
         "installing": "Installeren",
         "moving": "Spel verplaatsen, geduld alstublieft",
         "notinstalled": "Dit spel is niet geïnstalleerd",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Processing files, please wait",
         "queued": "Queued",
         "reparing": "Spel aan het repareren, even geduld",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Totaal gedownload",
         "uninstalling": "Uninstalling",
         "updating": "Spel aan het updaten"

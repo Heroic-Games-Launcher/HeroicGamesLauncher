@@ -94,6 +94,13 @@
     "generic": {
         "error": "Unknown error"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Online-tila vaaditaan",
         "installedPlatform": "Installed Platform",
@@ -112,6 +119,9 @@
         "wineversion": "Wine Version"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Pelaa nyt",
             "stop": "Pelataan (pysäytä)"
@@ -129,16 +139,12 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download Canceled",
-            "remove": "Remove from download manager"
-        }
-    },
     "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Valitse asennettavat komponentit"
+    },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
     },
     "sideload": {
         "field": {
@@ -160,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Päivitä",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Uusi versio saatavilla!",
         "installed": "Asennettu",
         "installing": "Asennetaan",
         "moving": "Siirretään asennusta, odota",
         "notinstalled": "Tätä peliä ei ole asennettu",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Processing files, please wait",
         "queued": "Queued",
         "reparing": "Korjataan peliä, odota",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Ladattu yhteensä",
         "uninstalling": "Uninstalling",
         "updating": "Päivitetään peliä"

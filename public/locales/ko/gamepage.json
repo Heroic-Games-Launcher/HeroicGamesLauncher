@@ -94,6 +94,13 @@
     "generic": {
         "error": "알 수 없는 오류"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "네트워크 연결이 필요합니다",
         "installedPlatform": "설치된 플랫폼",
@@ -112,6 +119,9 @@
         "wineversion": "Wine 버전"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "지금 실행하기",
             "stop": "플레이 중지"
@@ -129,16 +139,12 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download Canceled",
-            "remove": "Remove from download manager"
-        }
-    },
     "report_problem": "게임 실행 중에 생긴 문제를 제보하기",
     "sdl": {
         "title": "설치할 구성 요소를 선택합니다"
+    },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
     },
     "sideload": {
         "field": {
@@ -160,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "업데이트하려면 클릭",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "새 버전이 있습니다!",
         "installed": "설치됨",
         "installing": "설치 중",
         "moving": "설치를 이동 중 입니다, 잠시만 기다려 주세요",
         "notinstalled": "이 게임은 설치 되지 않았습니다",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "파일을 처리 중입니다 잠시만 기다려 주십시오",
         "queued": "Queued",
         "reparing": "게임을 복구 중입니다, 잠시만 기다려 주세요",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "총 다운로드",
         "uninstalling": "Uninstalling",
         "updating": "게임 업데이트 중"

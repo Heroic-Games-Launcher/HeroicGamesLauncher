@@ -144,6 +144,7 @@
         "yes": "是"
     },
     "button": {
+        "cancel": "取消",
         "go_to_library": "前往仓库",
         "login": "登录",
         "sync": "同步",
@@ -171,18 +172,23 @@
         }
     },
     "docs": "文档",
-    "download": {
-        "manager": {
-            "empty": "没有可下载的。",
-            "link": "Download Manager",
-            "queue": {
-                "actions": "Action",
-                "element": "Name",
-                "platform": "Platform",
-                "store": "商店"
-            },
-            "title": "Downloads"
-        }
+    "download-manager": {
+        "install-type": {
+            "install": "Install",
+            "update": "Update"
+        },
+        "label": {
+            "disk": "磁盘",
+            "speed": "Download"
+        },
+        "link": "Downloads",
+        "queue": {
+            "end-time": "完成于",
+            "queue-time": "添加于",
+            "start-time": "启动于",
+            "type": "Type"
+        },
+        "title": "Downloads"
     },
     "epic": {
         "offline-notification-body": "在线服务可能无法完全工作，因为 Epic Games 服务器离线！",
@@ -221,6 +227,7 @@
         "custom_themes_path": "不要使用来自不受信任来源的 CSS 文件。有疑问时，请在我们的 Discord 频道请求审核。",
         "custom_themes_wiki": "查看 Wiki 了解添加定制主题的更多详情。单击此处。",
         "dxvk": "DXVK 是一个基于 Vulkan 的转译层，用于 DirectX 9、10和11游戏。启用也许会提高兼容性。但可能会导致问题，特别是对老的 DirectX 游戏。",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Esync 的目标是在 CPU 消耗很大的游戏中减少 wineserver 的开销。启用可能会提高性能。",
         "fsync": "Fsync 的目标是在 CPU 开销很大的游戏中减少 wineserver 的开销。启用可能会提高受支持的 Linux 内核的性能。",
         "game_language": {
@@ -258,6 +265,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "单击查看变更日志",
             "newReleases": "更新可用！",
             "stable": "稳定版",
             "version": "Heroic 版本"
@@ -352,9 +360,10 @@
     "offline-message": {
         "hint": "我们正检查到下列域名的连接：{{newline}}github.com、{{newline}}gog.com 和{{newline}}store.epicgames.com",
         "offline": "Offline",
-        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
+        "offline-retry-in": "离线。在 {{seconds}} 秒内重试。",
         "retrying": "重试"
     },
+    "Open": "",
     "options": {
         "advanced": {
             "key": "变量名称",
@@ -396,6 +405,7 @@
         "alt-gogdl-bin": "使用内置的 GOGDL 二进制文件...",
         "alt-legendary-bin": "使用内置的 Legendary 二进制文件...",
         "custom_themes_path": "选择查找自定义 CSS 文件的路径",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Epic 游戏商城安装位置",
         "prefered_language": "双字符代码 (如: \"en\" 或 \"fr\")"
     },
@@ -407,10 +417,13 @@
     "progress": "Progress",
     "queue": {
         "label": {
+            "canceled": "已取消",
             "clear": "清除列表",
             "downloading": "下载中",
+            "empty": "没有可下载的",
             "finished": "已完成",
-            "queued": "已加入队列"
+            "queued": "已加入队列",
+            "remove": "从下载中删除"
         }
     },
     "Recent": "最近玩过",
@@ -421,7 +434,6 @@
         "addgamestosteam": "自动添加游戏到 Steam",
         "alt-gogdl-bin": "选择要使用的备选 GOGDL 二进制文件",
         "alt-legendary-bin": "选择备选的 Legendary 二进制文件",
-        "audiofix": "音频修复（Pulse Audio延迟）",
         "autodxvk": "在前置自动安装并更新 DXVK",
         "autosync": "自动同步存档",
         "autovkd3d": "自动在前置中安装/更新 VKD3D",
@@ -437,6 +449,7 @@
         "disable_controller": "使用控制器禁止 Heroic 导航",
         "discordRPC": "启用Discord的Rich Presence（活动状态）",
         "download-no-https": "不使用 HTTPS 下载游戏 (对 LanCache 等 CDN 有用)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "与已安装的 Epic 游戏同步",
         "enableFSRHack": "启用 FSR（需要支持的WINE版本）",
         "eosOverlay": {
@@ -464,6 +477,7 @@
         "FsrSharpnessStrenght": "FSR 锐化强度",
         "fsync": "启用 Fsync",
         "gamemode": "使用 GameMode（需要已安装 Feral Game Mode）",
+        "hideChangelogsOnStartup": "启动程序时不显示变更日志",
         "language": "选择应用语言",
         "library_top_option": {
             "disabled": "已禁用",

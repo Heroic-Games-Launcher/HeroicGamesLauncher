@@ -144,6 +144,7 @@
         "yes": "ДА"
     },
     "button": {
+        "cancel": "Отмена",
         "go_to_library": "Перейти в библиотеку",
         "login": "Вход",
         "sync": "Синхронизировать",
@@ -171,22 +172,27 @@
         }
     },
     "docs": "Документация",
-    "download": {
-        "manager": {
-            "empty": "Нечего скачивать.",
-            "link": "Менеджер загрузок",
-            "queue": {
-                "actions": "Действие",
-                "element": "Название",
-                "platform": "Платформа",
-                "store": "Магазин"
-            },
-            "title": "Загрузки"
-        }
+    "download-manager": {
+        "install-type": {
+            "install": "Install",
+            "update": "Update"
+        },
+        "label": {
+            "disk": "Диск",
+            "speed": "Загрузка"
+        },
+        "link": "Загрузки",
+        "queue": {
+            "end-time": "Завершено в",
+            "queue-time": "Добавлено в",
+            "start-time": "Начало в",
+            "type": "Тип"
+        },
+        "title": "Загрузки"
     },
     "epic": {
         "offline-notification-body": "Онлайн-сервисы могут работать не полностью, так как серверы Epic Games отключены!",
-        "offline-notification-title": "офлайн"
+        "offline-notification-title": "Не в сети"
     },
     "Epic Games": "Epic Games",
     "error": "Ошибка",
@@ -221,6 +227,7 @@
         "custom_themes_path": "Не используйте CSS-файлы из ненадежных источников. Если вы сомневаетесь, попросите проверить их на нашем канале Discord.",
         "custom_themes_wiki": "Более подробную информацию о добавлении пользовательских тем можно найти в Вики. Нажмите здесь.",
         "dxvk": "DXVK - это транслятор вызовов в Vulkan для игр DirectX 9, 10 и 11. Включение может улучшить совместимость. Может вызвать проблемы, особенно для старых игр DirectX.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Esync направлен на снижение лишней нагрузки wineserver в играх с интенсивным использованием процессора. Включение может улучшить производительность.",
         "fsync": "Fsync направлен на снижение лишней нагрузки wineserver в играх с интенсивным использованием процессора. Включение может улучшить производительность на совместимых ядрах Linux.",
         "game_language": {
@@ -258,6 +265,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Нажмите, чтобы посмотреть список изменений",
             "newReleases": "Доступно обновление!",
             "stable": "Стабильный",
             "version": "Версия Heroic"
@@ -351,10 +359,11 @@
     },
     "offline-message": {
         "hint": "Мы проверяем подключение к: {{newline}}github.com, {{newline}}gog.com и {{newline}}store.epicgames.com",
-        "offline": "Offline",
-        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
+        "offline": "Не в сети",
+        "offline-retry-in": "Не в сети. Повторная попытка через {{seconds}} секунд.",
         "retrying": "Повтор"
     },
+    "Open": "",
     "options": {
         "advanced": {
             "key": "Имя переменной",
@@ -396,6 +405,7 @@
         "alt-gogdl-bin": "Используется встроенный GOGDL...",
         "alt-legendary-bin": "Используется встроенный Legendary...",
         "custom_themes_path": "Выберите путь для поиска пользовательских файлов CSS",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Префикс куда установлен EGS",
         "prefered_language": "2-значный код (например: \"en\" или \"fr\")"
     },
@@ -407,10 +417,13 @@
     "progress": "Прогресс",
     "queue": {
         "label": {
+            "canceled": "Отменено",
             "clear": "Очистить список",
             "downloading": "Загрузка",
+            "empty": "Нечего скачивать",
             "finished": "Завершено",
-            "queued": "Очередь"
+            "queued": "Очередь",
+            "remove": "Удалить из загрузок"
         }
     },
     "Recent": "Запускались недавно",
@@ -421,7 +434,6 @@
         "addgamestosteam": "Добавить игры в Steam автоматически",
         "alt-gogdl-bin": "Выбрать другой исполняемый файл GOGDL",
         "alt-legendary-bin": "Выбрать другой исполняемый файл Legendary",
-        "audiofix": "Фикс аудио (Задержка Pulse Audio)",
         "autodxvk": "Автоматически устанавливать/обновлять DXVK в префиксе",
         "autosync": "Автосинхронизация сохранений",
         "autovkd3d": "Автоматически устанавливать/обновлять VKD3D в префиксе",
@@ -437,6 +449,7 @@
         "disable_controller": "Отключить навигацию в Heroic с помощью контроллера",
         "discordRPC": "Включить Discord Rich Presence",
         "download-no-https": "Скачивание игр без HTTPS (полезно для CDN, например, LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Синхронизировать с установленнными играми EGS",
         "enableFSRHack": "Включить FSR Hack (версия Wine должна поддерживать)",
         "eosOverlay": {
@@ -464,6 +477,7 @@
         "FsrSharpnessStrenght": "Усиление резкости FSR",
         "fsync": "Включить Fsync",
         "gamemode": "Использовать GameMode (Нужен Feral GameMode)",
+        "hideChangelogsOnStartup": "Не показывать список изменений при запуске",
         "language": "Выберите язык приложения",
         "library_top_option": {
             "disabled": "Отключить",
@@ -494,7 +508,7 @@
         "maxRecentGames": "Показывать недавно запускавшихся игр",
         "maxworkers": "Максимальное количество потоков при скачивании",
         "minimize-on-launch": "Сворачивать Heroic в трей при запуске игры",
-        "offlinemode": "Запускать игру офлайн",
+        "offlinemode": "Запускать игру в офлайн-режиме",
         "prefered_language": "Предпочтительный язык (код языка)",
         "preferSystemLibs": "Предпочитать системные библиотеки",
         "primerun": {

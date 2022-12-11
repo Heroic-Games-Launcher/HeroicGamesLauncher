@@ -78,7 +78,7 @@
     "enabled": "مفعّل",
     "info": {
         "size": "حجم",
-        "version": "الإصدار",
+        "version": "نسخة",
         "syncsaves": "مزامنة المحفوظات",
         "canRunOffline": "الاتصال بشبكة الإنترنت مطلوب",
         "path": "مسار التثبيت",
@@ -99,9 +99,9 @@
         "change": "تغيير مسار التثبيت",
         "removeShortcut": "إزالة الاختصارات",
         "addToSteam": "أضف إلى Steam",
-        "disableEosOverlay": "تعطيل تراكب EOS",
+        "disableEosOverlay": "تعطيل طبقة EOS",
         "enableEosOverlay": "تفعيل تراكب EOS",
-        "removeFromSteam": "أخرجه من البخار"
+        "removeFromSteam": "أخرجه من Steam"
     },
     "install": {
         "another": "ثبّت في مسار آخر",
@@ -123,6 +123,9 @@
         },
         "saves": {
             "syncing": "المحفوظات قيد المزامنة"
+        },
+        "game": {
+            "third-party-game": "لعبة الطرف الثالث غير مدعومة"
         }
     },
     "launch": {
@@ -144,7 +147,11 @@
         "totalDownloaded": "إجمالي التنزيلات",
         "processing": "معالجة الملفات, الرجاء الانتظار",
         "queued": "في قائمة الانتظار",
-        "uninstalling": "إلغاء التثبيت"
+        "uninstalling": "إلغاء التثبيت",
+        "gameNotAvailable": "اللعبة غير متوفرة",
+        "notSupported": "غير مدعوم",
+        "notSupportedGame": "غير مدعوم",
+        "this-game-uses-third-party": "تستخدم هذه اللعبة قاذفة طرف ثالث وهي غير مدعومة حتى الآن"
     },
     "gamecard": {
         "moving": "قيد النقل",
@@ -199,5 +206,15 @@
             "image": "الصق عنوان URL للصورة هنا",
             "title": "أضف عنوانًا إلى لعبتك / تطبيقك"
         }
-    }
+    },
+    "setting": {
+        "use-default-wine-settings": "استخدم إعدادات النبيذ الافتراضية"
+    },
+    "hours": "ساعات",
+    "how-long-to-beat": {
+        "completionist": "المكمل",
+        "main-plus-extras": "رئيسي + إضافات",
+        "main-story": "القصة الرئيسية"
+    },
+    "howLongToBeat": "كم من الوقت للفوز"
 }

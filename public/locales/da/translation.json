@@ -154,7 +154,8 @@
             "version": "Heroisk version",
             "beta": "Beta",
             "newReleases": "Opdatering tilgængelig!",
-            "stable": "Stabil"
+            "stable": "Stabil",
+            "click-to-see-changelog": "Klik for at se ændringslog"
         },
         "settings": "Indstillinger gemmes automatisk",
         "save-sync": {
@@ -187,7 +188,8 @@
         "sync": "Synkronisere",
         "syncing": "Synkroniserer",
         "unsync": "Fjern synkronisering",
-        "login": "Log ind"
+        "login": "Log ind",
+        "cancel": "Afbestille"
     },
     "help": {
         "esync": "Esync sigter mod at reducere vinserveroverhead i CPU-intensive spil. Aktivering kan forbedre ydeevnen.",
@@ -378,7 +380,8 @@
         "prefered_language": "Foretrukken sprog (sprogkode)",
         "checkForUpdatesOnStartup": "Søg efter heroiske opdateringer ved opstart",
         "addgamestosteam": "Tilføj spil til Steam automatisk",
-        "custom_themes_path": "Sti til brugerdefinerede temaer"
+        "custom_themes_path": "Sti til brugerdefinerede temaer",
+        "hideChangelogsOnStartup": "Vis ikke ændringslogs ved opstart"
     },
     "wine": {
         "manager": {
@@ -625,7 +628,7 @@
     "download": {
         "manager": {
             "empty": "Intet at downloade.",
-            "link": "Download Manager",
+            "link": "Downloads",
             "queue": {
                 "actions": "Handling",
                 "element": "Navn",
@@ -640,7 +643,8 @@
         "hint": "Vi tjekker forbindelsen mod:{{newline}}github.com,{{newline}}gog.com og{{newline}}store.epicgames.com",
         "offline": "Offline",
         "retry-in": "Prøver igen om ... {{seconds}} sekunder",
-        "retrying": "Prøver igen"
+        "retrying": "Prøver igen",
+        "offline-retry-in": "Offline. Prøver igen om {{seconds}} sekunder."
     },
     "Other": "Andet",
     "queue": {
@@ -648,8 +652,29 @@
             "clear": "Ryd liste",
             "downloading": "Downloader",
             "finished": "Afsluttet",
-            "queued": "I kø"
+            "queued": "I kø",
+            "canceled": "Annulleret",
+            "empty": "Intet at downloade",
+            "remove": "Fjern fra downloads"
         }
     },
-    "add_game": "Tilføj spil"
+    "add_game": "Tilføj spil",
+    "download-manager": {
+        "install-type": {
+            "install": "Installer",
+            "update": "Opdater"
+        },
+        "label": {
+            "disk": "Disk",
+            "speed": "Hent"
+        },
+        "link": "Downloads",
+        "queue": {
+            "end-time": "Afsluttet kl",
+            "queue-time": "Tilføjet kl",
+            "start-time": "Startede kl",
+            "type": "Type"
+        },
+        "title": "Downloads"
+    }
 }

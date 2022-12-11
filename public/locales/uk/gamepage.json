@@ -94,6 +94,13 @@
     "generic": {
         "error": "Невідома помилка"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Чи потрібно бути в мережі",
         "installedPlatform": "Встановлена версія для ОС",
@@ -112,6 +119,9 @@
         "wineversion": "Версія Wine"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Грати",
             "stop": "Запущено (зупинити)"
@@ -129,16 +139,12 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download Canceled",
-            "remove": "Remove from download manager"
-        }
-    },
     "report_problem": "Повідомити про проблему запуску цієї гри",
     "sdl": {
         "title": "Оберіть компоненти для встановлення"
+    },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
     },
     "sideload": {
         "field": {
@@ -160,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Клацніть для оновлення",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Доступна нова версія!",
         "installed": "Встановлено",
         "installing": "Встановлення",
         "moving": "Переміщую встановлення, будь ласка зачекайте",
         "notinstalled": "Гра не встановлена",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Обробка файлів, будь ласка, зачекайте",
         "queued": "Queued",
         "reparing": "Відновлюю гру, будь ласка зачекайте",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Всього завантажено",
         "uninstalling": "Uninstalling",
         "updating": "Оновлюю гру"

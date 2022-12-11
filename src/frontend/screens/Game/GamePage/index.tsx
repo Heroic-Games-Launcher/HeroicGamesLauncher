@@ -45,6 +45,7 @@ import {
 } from 'frontend/components/UI/Dialog'
 
 import StoreLogos from 'frontend/components/UI/StoreLogos'
+import HowLongToBeat from 'frontend/components/UI/HowLongToBeat'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -58,15 +59,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   const [showModal, setShowModal] = useState({ game: '', show: false })
 
-  const {
-    libraryStatus,
-    handleGameStatus,
-    epic,
-    gog,
-    gameUpdates,
-    platform,
-    showDialogModal
-  } = useContext(ContextProvider)
+  const { libraryStatus, epic, gog, gameUpdates, platform, showDialogModal } =
+    useContext(ContextProvider)
 
   const { status } =
     libraryStatus.find((game) => game.appName === appName) || {}
@@ -74,7 +68,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [progress, previousProgress] = hasProgress(appName)
 
   const [gameInfo, setGameInfo] = useState(locationGameInfo)
-  const [updateRequested, setUpdateRequested] = useState(false)
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [savesPath, setSavesPath] = useState('')
   const [gogSaves, setGOGSaves] = useState<GOGCloudSavesLocation[]>([])
@@ -91,6 +84,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [winePrefix, setWinePrefix] = useState('')
   const [wineVersion, setWineVersion] = useState('')
   const [showRequirements, setShowRequirements] = useState(false)
+  const [gameAvailable, setGameAvailable] = useState(false)
 
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
@@ -104,10 +98,25 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const isReparing = status === 'repairing'
   const isMoving = status === 'moving'
   const isUninstalling = status === 'uninstalling'
+  const notAvailable = !gameAvailable && gameInfo.is_installed
+  const notSupportedGame = gameInfo.thirdPartyManagedApp === 'Origin'
 
   const backRoute = location.state?.fromDM ? '/download-manager' : '/library'
 
   const storage: Storage = window.localStorage
+
+  useEffect(() => {
+    const checkGameAvailable = async () => {
+      if (gameInfo.is_installed) {
+        const gameAvailable = await window.api.isGameAvailable({
+          appName,
+          runner
+        })
+        setGameAvailable(gameAvailable)
+      }
+    }
+    checkGameAvailable()
+  }, [appName, status])
 
   useEffect(() => {
     const updateGameInfo = async () => {
@@ -122,76 +131,66 @@ export default React.memo(function GamePage(): JSX.Element | null {
   useEffect(() => {
     const updateConfig = async () => {
       if (gameInfo) {
-        const { install, is_linux_native, is_mac_native, is_installed } =
-          gameInfo
-        if (is_installed) {
-          const installPlatform =
-            install.platform || (is_linux_native && isLinux)
-              ? 'linux'
-              : is_mac_native && isMac
-              ? 'Mac'
-              : 'Windows'
+        const { install, is_linux_native, is_mac_native } = gameInfo
 
-          if (runner !== 'sideload') {
-            getInstallInfo(appName, runner, installPlatform)
-              .then((info) => {
-                if (!info) {
-                  throw 'Cannot get game info'
-                }
-                setGameInstallInfo(info)
-              })
-              .catch((error) => {
-                console.error(error)
-                window.api.logError(`${`${error}`}`)
-                setHasError({ error: true, message: `${error}` })
-              })
-          }
+        const installPlatform =
+          install.platform || (is_linux_native && isLinux)
+            ? 'linux'
+            : is_mac_native && isMac
+            ? 'Mac'
+            : 'Windows'
 
-          try {
-            const {
-              autoSyncSaves,
-              savesPath,
-              gogSaves,
-              wineVersion,
-              winePrefix
-            } = await window.api.requestGameSettings(appName)
-
-            if (!isWin) {
-              let wine = wineVersion.name
-                .replace('Wine - ', '')
-                .replace('Proton - ', '')
-              if (wine.includes('Default')) {
-                wine = wine.split('-')[0]
+        if (runner !== 'sideload' && !notSupportedGame) {
+          getInstallInfo(appName, runner, installPlatform)
+            .then((info) => {
+              if (!info) {
+                throw 'Cannot get game info'
               }
-              setWineVersion(wine)
-              setWinePrefix(winePrefix)
-            }
+              setGameInstallInfo(info)
+            })
+            .catch((error) => {
+              console.error(error)
+              window.api.logError(`${`${error}`}`)
+              setHasError({ error: true, message: `${error}` })
+            })
+        }
 
-            if (gameInfo.cloud_save_enabled) {
-              setAutoSyncSaves(autoSyncSaves)
-              setGOGSaves(gogSaves ?? [])
-              return setSavesPath(savesPath)
+        try {
+          const {
+            autoSyncSaves,
+            savesPath,
+            gogSaves,
+            wineVersion,
+            winePrefix
+          } = await window.api.requestGameSettings(appName)
+
+          if (!isWin) {
+            let wine = wineVersion.name
+              .replace('Wine - ', '')
+              .replace('Proton - ', '')
+            if (wine.includes('Default')) {
+              wine = wine.split('-')[0]
             }
-          } catch (error) {
-            setHasError({ error: true, message: error })
-            window.api.logError(`${error}`)
+            setWineVersion(wine)
+            setWinePrefix(winePrefix)
           }
+
+          if (gameInfo.cloud_save_enabled) {
+            setAutoSyncSaves(autoSyncSaves)
+            setGOGSaves(gogSaves ?? [])
+            return setSavesPath(savesPath)
+          }
+        } catch (error) {
+          setHasError({ error: true, message: error })
+          window.api.logError(`${error}`)
         }
       }
     }
     updateConfig()
-  }, [isInstalling, isPlaying, appName, epic.library, gog.library])
+  }, [status, epic.library, gog.library, gameInfo])
 
-  async function handleUpdate() {
-    setUpdateRequested(true)
-    await handleGameStatus({
-      appName,
-      runner: gameInfo.runner,
-      status: 'updating'
-    })
-    await updateGame(appName, gameInfo.runner)
-    await handleGameStatus({ appName, runner: gameInfo.runner, status: 'done' })
-    setUpdateRequested(false)
+  function handleUpdate() {
+    updateGame({ appName, runner, gameInfo })
   }
 
   function handleModal() {
@@ -297,7 +296,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     storeUrl={gameInfo.store_url}
                     runner={gameInfo.runner}
                     handleUpdate={handleUpdate}
-                    disableUpdate={updateRequested || isUpdating}
+                    disableUpdate={isInstalling || isUpdating}
                     onShowRequirements={
                       hasRequirements
                         ? () => setShowRequirements(true)
@@ -317,6 +316,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       : ''
                     : ''}
                 </div>
+                <HowLongToBeat title={title} />
+
                 {is_installed && showCloudSaveInfo && (
                   <div
                     style={{
@@ -337,7 +338,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     {t('cloud_save_unsupported', 'Unsupported')}
                   </div>
                 )}
-                {!is_installed && !isSideloaded && (
+                {!is_installed && !isSideloaded && !notSupportedGame && (
                   <>
                     <div>
                       <b>{t('game.downloadSize', 'Download Size')}:</b>{' '}
@@ -428,7 +429,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     fontStyle: 'italic'
                   }}
                 >
-                  {getInstallLabel(is_installed)}
+                  {getInstallLabel(is_installed, notAvailable)}
                 </p>
               </div>
               {is_installed && Boolean(launchOptions.length) && (
@@ -447,7 +448,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
               )}
               <Anticheat gameInfo={gameInfo} />
               <div className="buttonsWrapper">
-                {is_installed && (
+                {is_installed && !isQueued && (
                   <button
                     disabled={
                       isReparing || isMoving || isUpdating || isUninstalling
@@ -459,7 +460,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     {getPlayLabel()}
                   </button>
                 )}
-                {is_installed ? (
+                {is_installed && (
                   <Link
                     to={pathname}
                     state={{
@@ -470,11 +471,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       hasCloudSave: cloud_save_enabled,
                       gameInfo
                     }}
-                    className={`button ${getButtonClass(is_installed)}`}
+                    className={`button is-primary`}
                   >
-                    {`${getButtonLabel(is_installed)}`}
+                    {t('submenu.settings')}
                   </Link>
-                ) : (
+                )}
+                {(!is_installed || isQueued) && (
                   <button
                     onClick={async () => handleInstall(is_installed)}
                     disabled={
@@ -482,7 +484,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       isUpdating ||
                       isReparing ||
                       isMoving ||
-                      isUninstalling
+                      isUninstalling ||
+                      notSupportedGame
                     }
                     autoFocus={true}
                     className={`button ${getButtonClass(is_installed)}`}
@@ -535,6 +538,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
   return <UpdateComponent />
 
   function getPlayBtnClass() {
+    if (notAvailable) {
+      return 'is-tertiary'
+    }
     if (isQueued) {
       return 'is-secondary'
     }
@@ -555,8 +561,22 @@ export default React.memo(function GamePage(): JSX.Element | null {
     return isPlaying ? t('label.playing.stop') : t('label.playing.start')
   }
 
-  function getInstallLabel(is_installed: boolean): React.ReactNode {
+  function getInstallLabel(
+    is_installed: boolean,
+    notAvailable?: boolean
+  ): React.ReactNode {
     const { eta, bytes, percent } = progress
+
+    if (notSupportedGame) {
+      return t(
+        'status.this-game-uses-third-party',
+        'This game uses third party launcher and it is not supported yet'
+      )
+    }
+
+    if (notAvailable) {
+      return t('status.gameNotAvailable', 'Game not available')
+    }
 
     if (isReparing) {
       return `${t('status.reparing')} ${percent ? `${percent}%` : '...'}`
@@ -622,15 +642,19 @@ export default React.memo(function GamePage(): JSX.Element | null {
     if (is_installed) {
       return 'is-primary'
     }
+
     return 'is-secondary'
   }
 
   function getButtonLabel(is_installed: boolean) {
-    if (is_installed) {
-      return t('submenu.settings')
+    if (notSupportedGame) {
+      return t('status.notSupported', 'Not supported')
     }
     if (isQueued) {
       return t('button.queue.remove', 'Remove from Queue')
+    }
+    if (is_installed) {
+      return t('submenu.settings')
     }
     if (isInstalling) {
       return t('button.cancel')
@@ -664,6 +688,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
         launchArguments,
         runner: gameInfo.runner,
         hasUpdate,
+        syncCloud: false, //manually sync before and after so we can update the buttons
         showDialogModal
       })
 
@@ -675,11 +700,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   async function handleInstall(is_installed: boolean) {
     if (isQueued) {
-      handleGameStatus({
-        appName,
-        runner: gameInfo.runner,
-        status: 'done'
-      })
       storage.removeItem(appName)
       return window.api.removeFromDMQueue(appName)
     }
@@ -698,7 +718,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
     return install({
       gameInfo,
-      handleGameStatus,
       installPath: folder,
       isInstalling,
       previousProgress,

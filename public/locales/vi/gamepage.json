@@ -94,6 +94,13 @@
     "generic": {
         "error": "Lỗi chưa xác định"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Cần kết nối mạng",
         "installedPlatform": "Nền tảng đã cài đặt",
@@ -112,6 +119,9 @@
         "wineversion": "Phiên bản Wine"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Chơi ngay",
             "stop": "Đang chơi (Dừng)"
@@ -129,16 +139,12 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download Canceled",
-            "remove": "Remove from download manager"
-        }
-    },
     "report_problem": "Báo cáo sự cố khi chạy game này",
     "sdl": {
         "title": "Chọn các thành phần cần cài"
+    },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
     },
     "sideload": {
         "field": {
@@ -160,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Nhấn để cập nhật",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Có phiên bản mới!",
         "installed": "Đã cài",
         "installing": "Đang cài đặt",
         "moving": "Đang chuyển, vui lòng đợi",
         "notinstalled": "Game chưa được cài",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Đang xử lý tệp, vui lòng đợi",
         "queued": "Queued",
         "reparing": "Đang sửa game, vui lòng đợi",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Tổng số đã tải",
         "uninstalling": "Uninstalling",
         "updating": "Đang cập nhật Game"

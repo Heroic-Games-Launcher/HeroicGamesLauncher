@@ -26,7 +26,9 @@ import {
   isMac,
   isWindows,
   installed,
-  configStore
+  configStore,
+  isLinux,
+  isFlatpak
 } from '../constants'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import {
@@ -46,6 +48,7 @@ import shlex from 'shlex'
 import { t } from 'i18next'
 import { isOnline } from '../online_monitor'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
+import { gameAnticheatInfo } from '../anticheat/utils'
 
 class LegendaryGame extends Game {
   public appName: string
@@ -435,7 +438,7 @@ class LegendaryGame extends Game {
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
     const noHttps = downloadNoHttps ? ['--no-https'] : []
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
-    const installSdl = sdlList.length
+    const installSdl = sdlList?.length
       ? this.getSdlList(sdlList)
       : ['--skip-sdl']
 
@@ -502,6 +505,19 @@ class LegendaryGame extends Game {
       return { status: 'error', error: res.error }
     }
     this.addShortcuts()
+
+    const anticheatInfo = gameAnticheatInfo(this.getGameInfo().namespace)
+
+    if (anticheatInfo && isLinux) {
+      const gameSettings = await this.getSettings()
+
+      gameSettings.eacRuntime =
+        anticheatInfo.anticheats.includes('Easy Anti-Cheat')
+      if (gameSettings.eacRuntime && isFlatpak) gameSettings.useGameMode = true
+      gameSettings.battlEyeRuntime =
+        anticheatInfo.anticheats.includes('BattlEye')
+    }
+
     return { status: 'done' }
   }
 
@@ -564,8 +580,18 @@ class LegendaryGame extends Game {
     return res
   }
 
-  public async import(path: string): Promise<ExecResult> {
-    const commandParts = ['import', this.appName, path]
+  public async import(
+    path: string,
+    platform: InstallPlatform
+  ): Promise<ExecResult> {
+    const commandParts = [
+      'import',
+      '--with-dlcs',
+      '--platform',
+      platform,
+      this.appName,
+      path
+    ]
 
     logInfo(`Importing ${this.appName}.`, { prefix: LogPrefix.Legendary })
 
@@ -653,7 +679,7 @@ class LegendaryGame extends Game {
       return false
     }
 
-    const offlineFlag = offlineMode ? '--offline' : ''
+    const offlineFlag = offlineMode ? ['--offline'] : []
     const exeOverrideFlag = gameSettings.targetExe
       ? ['--override-exe', gameSettings.targetExe]
       : []
@@ -719,19 +745,11 @@ class LegendaryGame extends Game {
       "Legendary's config from config.ini (before Heroic's settings):\n"
     )
 
-    try {
-      const json = JSON.parse(stdout)
-      // remove egl auth info
-      delete json['egl_parameters']
+    const json = JSON.parse(stdout)
+    // remove egl auth info
+    delete json['egl_parameters']
 
-      appendFileSync(
-        this.logFileLocation,
-        JSON.stringify(json, null, 2) + '\n\n'
-      )
-    } catch (error) {
-      // in case legendary's command fails and the output is not json
-      appendFileSync(this.logFileLocation, error + '\n' + stdout + '\n\n')
-    }
+    appendFileSync(this.logFileLocation, JSON.stringify(json, null, 2) + '\n\n')
 
     const commandParts = [
       'launch',

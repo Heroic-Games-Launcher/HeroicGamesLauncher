@@ -15,7 +15,7 @@ import {
 } from 'common/types'
 import * as axios from 'axios'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
-import { exec, spawn, spawnSync } from 'child_process'
+import { exec, ExecException, spawn, spawnSync } from 'child_process'
 import { existsSync, rmSync, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
@@ -31,7 +31,8 @@ import {
   isWindows,
   publicDir,
   GITHUB_API,
-  isSteamDeckGameMode
+  isSteamDeckGameMode,
+  isMac
 } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { basename, dirname, join, normalize } from 'path'
@@ -285,15 +286,16 @@ export const getSystemInfo = async () => {
   const { total, available } = await si.mem()
 
   // get OS information
-  const { distro, kernel, arch, platform } = await si.osInfo()
+  const { distro, kernel, arch, platform, release, codename } =
+    await si.osInfo()
 
   // get GPU information
   const { controllers } = await si.graphics()
   const graphicsCards = String(
     controllers.map(
       ({ name, model, vram, driverVersion }, i) =>
-        `GPU${i}: ${name ? name : model} VRAM: ${vram}MB DRIVER: ${
-          driverVersion ?? ''
+        `GPU${i}: ${name ? name : model} ${vram ? `VRAM: ${vram}MB` : ''} ${
+          driverVersion ? `DRIVER: ${driverVersion}` : ''
         } \n`
     )
   )
@@ -308,7 +310,7 @@ export const getSystemInfo = async () => {
   systemInfoCache = `Heroic Version: ${heroicVersion}
 Legendary Version: ${legendaryVersion}
 GOGdl Version: ${gogdlVersion}
-OS: ${distro} KERNEL: ${kernel} ARCH: ${arch}
+OS: ${isMac ? `${codename} ${release}` : distro} KERNEL: ${kernel} ARCH: ${arch}
 CPU: ${manufacturer} ${brand} @${speed} ${
     governor ? `GOVERNOR: ${governor}` : ''
   }
@@ -353,9 +355,11 @@ async function errorHandler(
           })
         }
       })
-      .catch(() =>
-        logInfo('operation interrupted', { prefix: LogPrefix.Backend })
-      )
+      .catch((err: ExecException) => {
+        // Grep returns 1 when it didn't find any text, which is fine in this case
+        if (err.code !== 1)
+          logInfo('operation interrupted', { prefix: LogPrefix.Backend })
+      })
   }
   if (error) {
     if (error.includes(deletedFolderMsg) && appName) {
@@ -772,6 +776,27 @@ export const getLatestReleases = async (): Promise<Release[]> => {
       prefix: LogPrefix.Backend
     })
     return []
+  }
+}
+
+export const getCurrentChangelog = async (): Promise<Release | null> => {
+  logInfo('Checking for current version changelog', {
+    prefix: LogPrefix.Backend
+  })
+
+  try {
+    const current = app.getVersion()
+
+    const { data: release } = await axios.default.get(
+      `${GITHUB_API}/tags/v${current}`
+    )
+
+    return release as Release
+  } catch (error) {
+    logError(['Error when checking for current Heroic changelog'], {
+      prefix: LogPrefix.Backend
+    })
+    return null
   }
 }
 

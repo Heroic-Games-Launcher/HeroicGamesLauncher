@@ -144,6 +144,7 @@
         "yes": "TAK"
     },
     "button": {
+        "cancel": "Cancel",
         "go_to_library": "Idź do Biblioteki",
         "login": "Zaloguj",
         "sync": "Synchronizuj",
@@ -171,18 +172,23 @@
         }
     },
     "docs": "Dokumentacja",
-    "download": {
-        "manager": {
-            "empty": "Nothing to download.",
-            "link": "Download Manager",
-            "queue": {
-                "actions": "Action",
-                "element": "Name",
-                "platform": "Platform",
-                "store": "Store"
-            },
-            "title": "Downloads"
-        }
+    "download-manager": {
+        "install-type": {
+            "install": "Install",
+            "update": "Update"
+        },
+        "label": {
+            "disk": "Disk",
+            "speed": "Download"
+        },
+        "link": "Downloads",
+        "queue": {
+            "end-time": "Finished at",
+            "queue-time": "Added at",
+            "start-time": "Started at",
+            "type": "Type"
+        },
+        "title": "Downloads"
     },
     "epic": {
         "offline-notification-body": "Usługi online mogą nie działać w pełni, ponieważ serwery Epic Games są offline!",
@@ -221,6 +227,7 @@
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK to oparta o Vulkan'a warstwa tłumacząca dla gier opratych o DirectX 9, 10 i 11, włączenie DXVK podnosi ich kompatybilność, lecz może powodować problemy szczególnie w starszych grach.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Zadaniem Esync'u jest zmniejszenie bottleneck'a spowodowanego przez Wine, w grach intensywnie wykorzystujących CPU. Włączenie może podnieść wydajność.",
         "fsync": "Zadaniem Esync'u jest zmniejszenie bottleneck'a spowodowanego przez Wine, w grach intensywnie wykorzystujących CPU. Włączenie może podnieść wydajność, lecz wymaga odpowiedniego wsparcia w kernelu.",
         "game_language": {
@@ -258,6 +265,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Dostępna Aktualizacja!",
             "stable": "Stabilna",
             "version": "Wersja Heroic"
@@ -355,6 +363,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
+    "Open": "",
     "options": {
         "advanced": {
             "key": "Variable Name",
@@ -396,6 +405,7 @@
         "alt-gogdl-bin": "Używanie wbudowanego pliku binarnego GOGDL...",
         "alt-legendary-bin": "Używanie wbudowanego pliku binarnego Legendary...",
         "custom_themes_path": "Select the path to look for custom CSS files",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefiks, w którym zainstalowany jest EGS",
         "prefered_language": "dwu-znakowy kod (np. : \"en\" lub \"pl\")"
     },
@@ -407,10 +417,13 @@
     "progress": "Progres",
     "queue": {
         "label": {
+            "canceled": "Canceled",
             "clear": "Clear List",
             "downloading": "Downloading",
+            "empty": "Nothing to download",
             "finished": "Completed",
-            "queued": "Queued"
+            "queued": "Queued",
+            "remove": "Remove from Downloads"
         }
     },
     "Recent": "Ostatnio uruchamiane",
@@ -421,7 +434,6 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Wybierz alternatywny plik binarny GOGDL",
         "alt-legendary-bin": "Wybierz alternatywny plik binarny Legendary",
-        "audiofix": "Łatka audio (Opóźnienie Pulse Audio)",
         "autodxvk": "Automatycznie instaluj/Aktualizuj DXVK w prefiksie",
         "autosync": "Automatyczna synchronizacja zapisów",
         "autovkd3d": "Automatyczne Instaluj/Aktualizuj VKD3D w prefiksie",
@@ -437,6 +449,7 @@
         "disable_controller": "Wyłącz nawigację kontrolerem",
         "discordRPC": "Włącz Discord Rich Presence",
         "download-no-https": "Pobieraj gry bez użycia szyfrowania HTTPS (przydatne przy CDN'ach np. LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Synchronizuj z zainstalowanym Epic Games",
         "enableFSRHack": "Włącz FSR Hack (Wymagana odpowiednia wersja Wine)",
         "eosOverlay": {
@@ -464,6 +477,7 @@
         "FsrSharpnessStrenght": "Siła wyostrzania FSR",
         "fsync": "Włącz Fsync",
         "gamemode": "Użyj GameMode (Wymagany zainstalowany Feral GameMode)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Wybierz język aplikacji",
         "library_top_option": {
             "disabled": "Wyłączone",

@@ -94,6 +94,13 @@
     "generic": {
         "error": "Άγνωστο Σφάλμα"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Απαιτείται Σύνδεση",
         "installedPlatform": "Εγκατεστημένη Πλατφόρμα",
@@ -112,6 +119,9 @@
         "wineversion": "Έκδοση Wine"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Παίξτε τώρα",
             "stop": "Σε παιχνίδι (Διακοπή)"
@@ -129,16 +139,12 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download Canceled",
-            "remove": "Remove from download manager"
-        }
-    },
     "report_problem": "Αναφορά προβλήματος κατά την εκτέλεση του παιχνιδιού",
     "sdl": {
         "title": "Διαλέξτε στοιχεία για εγκατάσταση"
+    },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
     },
     "sideload": {
         "field": {
@@ -160,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Πατήστε για Ενημέρωση",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Νέα ενημέρωση διαθέσιμη!",
         "installed": "Εγκατεστημένο",
         "installing": "Εγκατάσταση",
         "moving": "Μετακίνηση εγκατάστασης, παρακαλώ περιμένετε",
         "notinstalled": "Αυτό το παιχνίδι δεν είναι εγκατεστημένο",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Επεξεργασία αρχείων, παρακαλώ περιμένετε",
         "queued": "Queued",
         "reparing": "Επιδιόρθωση παιχνιδιού, παρακαλώ περιμένετε",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Σύνολο ληφθέντων",
         "uninstalling": "Uninstalling",
         "updating": "Ενημέρωση παιχνιδιού"

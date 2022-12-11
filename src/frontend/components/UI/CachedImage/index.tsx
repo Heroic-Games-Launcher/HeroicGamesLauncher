@@ -8,7 +8,9 @@ interface CachedImageProps {
 type Props = React.ImgHTMLAttributes<HTMLImageElement> & CachedImageProps
 
 const CachedImage = (props: Props) => {
-  const [useCache, setUseCache] = useState(props.src.startsWith('http'))
+  const [useCache, setUseCache] = useState(
+    props.src?.startsWith('http') || false
+  )
   const [useFallback, setUseFallback] = useState(false)
 
   const onError = () => {
@@ -27,7 +29,7 @@ const CachedImage = (props: Props) => {
   let src = useFallback ? props.fallback : props.src
   src = useCache ? `imagecache://${src}` : src
 
-  return <img {...props} src={src} onError={onError} />
+  return <img loading="lazy" {...props} src={src} onError={onError} />
 }
 
 export default React.memo(CachedImage)

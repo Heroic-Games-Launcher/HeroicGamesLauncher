@@ -95,6 +95,13 @@
     "generic": {
         "error": "Nepoznata greška"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Internet veza potrebna",
         "installedPlatform": "Instalirane platforme",
@@ -113,6 +120,9 @@
         "wineversion": "Wine verzija"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Igraj sada",
             "stop": "Igra se (Prekini)"
@@ -130,16 +140,12 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download Canceled",
-            "remove": "Remove from download manager"
-        }
-    },
     "report_problem": "Prijavi problem za ovu video igru",
     "sdl": {
         "title": "Odaberite komponente za instalaciju"
+    },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
     },
     "sideload": {
         "field": {
@@ -161,14 +167,18 @@
     },
     "status": {
         "clickToUpdate": "Klikni za ažuriranje",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Nova verzija dostupna!",
         "installed": "Instalirano",
         "installing": "Instalira se",
         "moving": "Premještanje instalacije, molimo pričekajte",
         "notinstalled": "Ova video igra nije instalirana",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "Obrada datoteka, pričekajte",
         "queued": "Queued",
         "reparing": "Popravljanje video igre, molimo čekajte",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Ukupno preuzeto",
         "uninstalling": "Uninstalling",
         "updating": "Ažuriranje video igre"

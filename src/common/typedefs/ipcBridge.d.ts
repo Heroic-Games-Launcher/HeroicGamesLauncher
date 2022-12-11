@@ -1,5 +1,6 @@
 import { EventEmitter } from 'node:events'
 import { IpcMainEvent, OpenDialogOptions } from 'electron'
+import { HowLongToBeatEntry } from 'howlongtobeat'
 
 import {
   Runner,
@@ -109,6 +110,7 @@ interface AsyncIPCFunctions {
   getPlatform: () => NodeJS.Platform
   showUpdateSetting: () => boolean
   getLatestReleases: () => Promise<Release[]>
+  getCurrentChangelog: () => Promise<Release | null>
   getGameInfo: (appName: string, runner: Runner) => Promise<GameInfo | null>
   getGameSettings: (
     appName: string,
@@ -134,10 +136,7 @@ interface AsyncIPCFunctions {
   getAlternativeWine: () => Promise<WineInstallation[]>
   readConfig: (config_class: 'library' | 'user') => Promise<GameInfo[] | string>
   requestSettings: (appName: string) => Promise<AppSettings | GameSettings>
-  writeConfig: (args: {
-    appName: string
-    config: AppSettings | GameSettings
-  }) => void
+  writeConfig: (args: { appName: string; config: Partial<AppSettings> }) => void
   refreshLibrary: (
     fullRefresh?: boolean,
     library?: Runner | 'all'
@@ -214,11 +213,16 @@ interface AsyncIPCFunctions {
   }
   getNumOfGpus: () => Promise<number>
   removeRecent: (appName: string) => Promise<void>
+  getHowLongToBeat: (title: string) => Promise<HowLongToBeatEntry | null>
   getDefaultSavePath: (
     appName: string,
     runner: Runner,
     alreadyDefinedGogSaves: GOGCloudSavesLocation[]
   ) => Promise<string | GOGCloudSavesLocation[]>
+  isGameAvailable: (args: {
+    appName: string
+    runner: Runner
+  }) => Promise<boolean>
 }
 
 // This is quite ugly & throws a lot of errors in a regular .ts file

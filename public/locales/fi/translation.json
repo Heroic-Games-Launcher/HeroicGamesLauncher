@@ -144,6 +144,7 @@
         "yes": "KYLLÄ"
     },
     "button": {
+        "cancel": "Cancel",
         "go_to_library": "Go to Library",
         "login": "Kirjaudu sisään",
         "sync": "Synkronoi",
@@ -171,18 +172,23 @@
         }
     },
     "docs": "Documentation",
-    "download": {
-        "manager": {
-            "empty": "Nothing to download.",
-            "link": "Download Manager",
-            "queue": {
-                "actions": "Action",
-                "element": "Name",
-                "platform": "Platform",
-                "store": "Store"
-            },
-            "title": "Downloads"
-        }
+    "download-manager": {
+        "install-type": {
+            "install": "Install",
+            "update": "Update"
+        },
+        "label": {
+            "disk": "Disk",
+            "speed": "Download"
+        },
+        "link": "Downloads",
+        "queue": {
+            "end-time": "Finished at",
+            "queue-time": "Added at",
+            "start-time": "Started at",
+            "type": "Type"
+        },
+        "title": "Downloads"
     },
     "epic": {
         "offline-notification-body": "Verkkopalvelut eivät välttämättä toimi kokonaisuudessaan Epic Games:in palvelinten ollessa vailla verkkoyhteyttä!",
@@ -221,6 +227,7 @@
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
@@ -258,6 +265,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Update Available!",
             "stable": "Stable",
             "version": "Heroic Version"
@@ -355,6 +363,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
+    "Open": "",
     "options": {
         "advanced": {
             "key": "Variable Name",
@@ -396,6 +405,7 @@
         "alt-gogdl-bin": "Käytetään sisäänrakennettua GOGDL-binääriä...",
         "alt-legendary-bin": "Käytetään sisäänrakennettua legendaarista binääriä...",
         "custom_themes_path": "Select the path to look for custom CSS files",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefiksi johon EGS on asennettu",
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
@@ -407,10 +417,13 @@
     "progress": "Progress",
     "queue": {
         "label": {
+            "canceled": "Canceled",
             "clear": "Clear List",
             "downloading": "Downloading",
+            "empty": "Nothing to download",
             "finished": "Completed",
-            "queued": "Queued"
+            "queued": "Queued",
+            "remove": "Remove from Downloads"
         }
     },
     "Recent": "Viimeksi pelatut",
@@ -421,7 +434,6 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Valitse vaihtoehtoinen GOGDL-binääri käytettäväksi (vaatii uudelleenkäynnistyksen)",
         "alt-legendary-bin": "Valitse vaihtoehtoinen Legendary-binääritiedosto (uudelleenkäynnistys vaaditaan)",
-        "audiofix": "Äänikorjaus (Pulse Audion viive)",
         "autodxvk": "Asenna automaattisesti/Päivitä DXVK Prefiksissä",
         "autosync": "Automaattisesti synkronoi tallennukset",
         "autovkd3d": "VKD3D:n automaattinen asennus/päivitys prefixille",
@@ -437,6 +449,7 @@
         "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Ota käyttöön Discord Rich Presence",
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Synkronoi asennetun Epic Gamesin kanssa",
         "enableFSRHack": "Ota käyttöön FSR Hack (Wine version tulee tukea sitä)",
         "eosOverlay": {
@@ -464,6 +477,7 @@
         "FsrSharpnessStrenght": "FSR terävyyden voimakkuus",
         "fsync": "Ota Fsync käyttöön",
         "gamemode": "Käytä GameModea (Feral Game Mode tulee olla asennettu)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Valitse applikaation kieli",
         "library_top_option": {
             "disabled": "Disabled",

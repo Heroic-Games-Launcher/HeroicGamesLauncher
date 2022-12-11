@@ -9,7 +9,12 @@ export default function FooterInfo() {
   return (
     <div>
       <span className="save">{t('info.settings')}</span>
-      {!isDefault && <span className="appName">AppName: {appName}</span>}
+      {!isDefault && (
+        <span className="appName">
+          AppName: &nbsp;
+          <span style={{ userSelect: 'all' }}> {appName}</span>
+        </span>
+      )}
     </div>
   )
 }

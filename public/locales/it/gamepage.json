@@ -94,6 +94,13 @@
     "generic": {
         "error": "Errore sconosciuto"
     },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Online richiesto",
         "installedPlatform": "Piattaforma installata",
@@ -112,6 +119,9 @@
         "wineversion": "Versione Wine"
     },
     "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
         "playing": {
             "start": "Esegui ora",
             "stop": "In esecuzione (Stop)"
@@ -129,16 +139,12 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
-    "Open": "",
-    "queue": {
-        "label": {
-            "canceled": "Download annullato",
-            "remove": "Remove from download manager"
-        }
-    },
     "report_problem": "Segnala un problema nell'esecuzione di questo gioco",
     "sdl": {
         "title": "Seleziona i componenti da installare"
+    },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
     },
     "sideload": {
         "field": {
@@ -160,14 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Clicca per aggiornare",
+        "gameNotAvailable": "Game not available",
         "hasUpdates": "Nuova versione disponibile!",
         "installed": "Installata",
         "installing": "Installazione in corso",
         "moving": "Spostamento dell'installazione in corso, per favore attendi",
         "notinstalled": "Questo gioco non è installato",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
         "processing": "File in elaborazione, attendere",
         "queued": "Messo in coda",
         "reparing": "Riparazione del gioco in corso, per favore attendi",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Totale scaricato",
         "uninstalling": "Uninstalling",
         "updating": "Aggiornamento in corso"

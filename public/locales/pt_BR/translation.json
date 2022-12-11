@@ -33,7 +33,7 @@
         "error": {
             "add": {
                 "steam": {
-                    "body": "Erro ao adicionar {{game}} à Steam:{{newLine}} {{error}}",
+                    "body": "Erro ao adicionar {{game}} ao Steam:{{newLine}} {{error}}",
                     "title": "Erro ao adicionar"
                 }
             },
@@ -144,6 +144,7 @@
         "yes": "SIM"
     },
     "button": {
+        "cancel": "Cancelar",
         "go_to_library": "Ir para a biblioteca",
         "login": "Conecte-se",
         "sync": "Sincronizar",
@@ -171,18 +172,23 @@
         }
     },
     "docs": "Documentation",
-    "download": {
-        "manager": {
-            "empty": "Nada para baixar",
-            "link": "Download Manager",
-            "queue": {
-                "actions": "Action",
-                "element": "Name",
-                "platform": "Platform",
-                "store": "Loja"
-            },
-            "title": "Downloads"
-        }
+    "download-manager": {
+        "install-type": {
+            "install": "Instalação",
+            "update": "Atualização"
+        },
+        "label": {
+            "disk": "Disco",
+            "speed": "Download"
+        },
+        "link": "Downloads",
+        "queue": {
+            "end-time": "Finalizou às",
+            "queue-time": "Adicionado às",
+            "start-time": "Iniciou às",
+            "type": "Tipo"
+        },
+        "title": "Downloads"
     },
     "epic": {
         "offline-notification-body": "Serviços online podem não funcionar totalmente, os servidores da Epic Games estão offline!",
@@ -221,6 +227,7 @@
         "custom_themes_path": "Não use arquivos CSS de fontes não confiáveis. Na dúvida, peça uma revisão no nosso canal do DIscord.",
         "custom_themes_wiki": "Cheque a Wiki para mais detalhes sobre adicionar temas personalizados. Clique aqui.",
         "dxvk": "DXVK é uma camada de tradução baseada em Vulkan para jogos DirectX 9, 10 e 11. A ativação pode melhorar a compatibilidade. Pode causar problemas especialmente para jogos DirectX mais antigos.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "O Esync visa reduzir a sobrecarga do wineserver em jogos com uso intensivo de CPU. A ativação pode melhorar o desempenho.",
         "fsync": "O Fsync visa reduzir a sobrecarga do wineserver em jogos com uso intensivo de CPU. A ativação pode melhorar o desempenho em kernels Linux suportados.",
         "game_language": {
@@ -258,8 +265,9 @@
     "info": {
         "heroic": {
             "beta": "Beta",
-            "newReleases": "Update Available!",
-            "stable": "Stable",
+            "click-to-see-changelog": "Click to see changelog",
+            "newReleases": "Atualização disponível!",
+            "stable": "Estável",
             "version": "Heroic Version"
         },
         "save-sync": {
@@ -273,7 +281,7 @@
         "warning": "Warning",
         "wine-path": "Caminho do Wine",
         "wine-prefix": {
-            "title": "Wine Prefix"
+            "title": "Prefixo Wine"
         },
         "wine-repfix": {
             "message": "O Wine usa o que é chamado de prefixo Wine para encapsular aplicativos do Windows. Este prefixo contém os arquivos de configuração do Wine e uma reprodução da hierarquia de arquivos de C: (o disco principal em um sistema operacional Windows). Nesta reprodução da unidade C:, são armazenados os arquivos salvos do jogo e as dependências instaladas via winetricks."
@@ -315,15 +323,15 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
-                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
+                    "corrupt": "{{game}} não pôde ser adicionado a todos os usuários do Steam encontrados. Consulte os registros para obter mais informações. É necessário reiniciar o Steam para que as alterações tenham efeito.",
+                    "success": "{{game}} foi adicionado com sucesso ao Steam. É necessário reiniciar o Steam para que as alterações tenham efeito.",
                     "title": "Adicionado ao Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
-                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
+                    "corrupt": "{{game}} não pôde ser removido de todos os usuários do Steam encontrados. Consulte os registros para obter mais informações. É necessário reiniciar o Steam para que as alterações tenham efeito.",
+                    "success": "{{game}} foi removido com sucesso do Steam. É necessário reiniciar o Steam para que as alterações tenham efeito.",
                     "title": "Removido do Steam"
                 }
             },
@@ -338,7 +346,7 @@
         },
         "moved": "Movido com sucesso",
         "moving": "Movendo jogo",
-        "new-heroic-version": "A new Heroic version was released!",
+        "new-heroic-version": "Uma nova versão do Heroic foi lançada!",
         "refresh": {
             "error": "Não foi possível buscar lançamentos do upstream, talvez por causa das restrições da API do Github! Tente mais tarde."
         },
@@ -355,22 +363,23 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
+    "Open": "",
     "options": {
         "advanced": {
-            "key": "Variable Name",
-            "placeHolderKey": "NAME",
-            "placeHolderValue": "Por exemplo: Caminho/Para/ExtraFiles",
-            "title": "Environment Variables",
+            "key": "Nome da variável",
+            "placeHolderKey": "NOME",
+            "placeHolderValue": "Por exemplo: Caminho/Para/ArquivosExtra",
+            "title": "Variáveis de ambiente",
             "value": "Valor"
         },
         "env_variables": {
             "error": {
-                "empty_key": "Variable names can't be empty",
-                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
-                "space_in_key": "Variable names can't contain spaces"
+                "empty_key": "Os nomes das variáveis não podem estar vazios",
+                "equal_sign_in_key": "Nomes de variáveis não podem conter o sinal \"=\"",
+                "space_in_key": "Nomes de variáveis não podem conter espaços"
             },
-            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
-            "info": "Set environment variables to append to the command."
+            "example": "NÃO inclua o sinal \"=\", por exemplo: para uma configuração como \"MY_FLAG=123\", defina MY_FLAG em NOME e 123 em VALOR.",
+            "info": "Defina as variáveis de ambiente para anexar ao comando."
         },
         "gameargs": {
             "placeholder": "Adicione os argumentos de inicialização aqui",
@@ -396,6 +405,7 @@
         "alt-gogdl-bin": "Usando binário do GOGDL embutido...",
         "alt-legendary-bin": "Usando o binário embutido do Legendary...",
         "custom_themes_path": "Select the path to look for custom CSS files",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefixo onde a EGS está instalada",
         "prefered_language": "Código de 2 caracteres (ou seja: \"en\" ou \"fr\")"
     },
@@ -407,10 +417,13 @@
     "progress": "Progress",
     "queue": {
         "label": {
-            "clear": "Clear List",
-            "downloading": "Downloading",
-            "finished": "Completed",
-            "queued": "Queued"
+            "canceled": "Canceledo",
+            "clear": "Limpar Lista",
+            "downloading": "Baixando",
+            "empty": "Nada na fila",
+            "finished": "Concluído",
+            "queued": "Na fila",
+            "remove": "Remover da fila"
         }
     },
     "Recent": "Jogados Recentemente",
@@ -421,12 +434,11 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Escolha um binário do GOGDL alternativo para usar",
         "alt-legendary-bin": "Escolha um binário alternativo do Legendary",
-        "audiofix": "Consertar áudio do jogo (latência do PulseAudio)",
         "autodxvk": "Instalar/atualizar o DXVK automaticamente no prefixo",
         "autosync": "Sincronizar saves automaticamente",
         "autovkd3d": "Instalar/Atualizar VKD3D automaticamente no prefixo",
         "change-target-exe": "Selecione um EXE alternativo para executar",
-        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
+        "checkForUpdatesOnStartup": "Verificar se há atualizações do Heroic ao iniciar",
         "crossover-version": "Versão do Crossover",
         "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Locais com Wine/Proton customizados",
@@ -437,6 +449,7 @@
         "disable_controller": "Desabilitar navegação por controle no Heroic",
         "discordRPC": "Habilitar o Discord Rich Presence",
         "download-no-https": "Baixar jogos sem HTTPS (útil para CDNs, por exemplo, LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Sincronizar com a Epic Games Store",
         "enableFSRHack": "Habilitar Hack FSR (a versão do Wine precisa suportar o recurso)",
         "eosOverlay": {
@@ -464,6 +477,7 @@
         "FsrSharpnessStrenght": "FSR Força de nitidez",
         "fsync": "Habilitar Fsync",
         "gamemode": "Usar o GameMode (precisa do gamemode instalado)",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Selecione o idioma do app",
         "library_top_option": {
             "disabled": "Desabilitada",
@@ -558,7 +572,7 @@
         "open-config-file": "Abrir arquivo de configuração",
         "reset-heroic": "Redefinir Heroic",
         "saves": {
-            "label": "Save Location:",
+            "label": "Salvar localização:",
             "warning": "O recurso Cloud Saves está em Beta, faça backup de seus saves antes de sincronizar (caso algo dê errado)"
         }
     },
@@ -606,7 +620,7 @@
         "show": "Mostrar"
     },
     "two_col_table": {
-        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+        "save_hint": "Alterações nesta tabela não são salvas automaticamente. Clique no botão +"
     },
     "Update Available!": "",
     "userselector": {
@@ -625,6 +639,6 @@
         }
     },
     "wine": {
-        "actions": "Action"
+        "actions": "Ações"
     }
 }

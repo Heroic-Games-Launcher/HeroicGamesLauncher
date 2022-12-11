@@ -293,10 +293,10 @@ export default function SidebarLinks() {
           <div className="Sidebar__itemIcon">
             <FontAwesomeIcon
               icon={faBarsProgress}
-              title={t('download.manager.link', 'Download Manager')}
+              title={t('download-manager.link', 'Downloads')}
             />
           </div>
-          <span>{t('download.manager.link', 'Download Manager')}</span>
+          <span>{t('download-manager.link', 'Downloads')}</span>
         </>
       </NavLink>
       {isLinux && (

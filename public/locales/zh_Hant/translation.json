@@ -144,6 +144,7 @@
         "yes": "是"
     },
     "button": {
+        "cancel": "Cancel",
         "go_to_library": "前往遊戲庫",
         "login": "登入",
         "sync": "同步",
@@ -171,18 +172,23 @@
         }
     },
     "docs": "Documentation",
-    "download": {
-        "manager": {
-            "empty": "Nothing to download.",
-            "link": "Download Manager",
-            "queue": {
-                "actions": "Action",
-                "element": "Name",
-                "platform": "Platform",
-                "store": "Store"
-            },
-            "title": "Downloads"
-        }
+    "download-manager": {
+        "install-type": {
+            "install": "Install",
+            "update": "Update"
+        },
+        "label": {
+            "disk": "Disk",
+            "speed": "Download"
+        },
+        "link": "Downloads",
+        "queue": {
+            "end-time": "Finished at",
+            "queue-time": "Added at",
+            "start-time": "Started at",
+            "type": "Type"
+        },
+        "title": "Downloads"
     },
     "epic": {
         "offline-notification-body": "因為Epic Games伺服器離線，可能無法提供完整線上服務！",
@@ -221,6 +227,7 @@
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK 是一個基於 Vulkan 的轉譯層，用於 DirectX 9、10和11遊戲。啟用也許會提高相容性。但可能會導致問題，特別是對老舊的 DirectX 遊戲。",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Esync 的目標是在 CPU 消耗很大的遊戲中減少 wineserver 的開銷。啟用可能會提高性能。",
         "fsync": "Fsync 的目標是在 CPU 開銷很大的遊戲中減少 wineserver 的開銷。啟用可能會提高受支持的 Linux 內核的性能。",
         "game_language": {
@@ -258,6 +265,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
+            "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Update Available!",
             "stable": "Stable",
             "version": "Heroic Version"
@@ -355,6 +363,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
+    "Open": "",
     "options": {
         "advanced": {
             "key": "Variable Name",
@@ -396,6 +405,7 @@
         "alt-gogdl-bin": "使用內置的 GOGDL 二進制文件...",
         "alt-legendary-bin": "使用內置的 Legendary 二進制文件...",
         "custom_themes_path": "Select the path to look for custom CSS files",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Epic Games商城安裝位置",
         "prefered_language": "雙字元代碼 (如: \"en\" 或 \"fr\")"
     },
@@ -407,10 +417,13 @@
     "progress": "Progress",
     "queue": {
         "label": {
+            "canceled": "Canceled",
             "clear": "Clear List",
             "downloading": "Downloading",
+            "empty": "Nothing to download",
             "finished": "Completed",
-            "queued": "Queued"
+            "queued": "Queued",
+            "remove": "Remove from Downloads"
         }
     },
     "Recent": "最近遊玩的遊戲",
@@ -421,7 +434,6 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "選擇要使用的備選 GOGDL 二進制文件",
         "alt-legendary-bin": "選擇備選的 Legendary 二進制文件",
-        "audiofix": "音頻修覆（Pulse Audio延遲）",
         "autodxvk": "在PREFIX自動安裝並更新DXVK",
         "autosync": "自動同步存檔",
         "autovkd3d": "自動在 Prefix 中安裝/更新 VKD3D",
@@ -437,6 +449,7 @@
         "disable_controller": "禁止使用控制器操作 Heroic",
         "discordRPC": "啟用Discord的Rich Presence（活動狀態）",
         "download-no-https": "不使用 HTTPS 下載遊戲 （對 LanCache 等 CDN 有用）",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "與已安裝的Epic Games同步",
         "enableFSRHack": "啟用FSR（需要支持的 Wine 版本）",
         "eosOverlay": {
@@ -464,6 +477,7 @@
         "FsrSharpnessStrenght": "FSR 銳利度",
         "fsync": "啟用 Fsync",
         "gamemode": "使用GameMode（需要已安裝Feral Game Mode）",
+        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "選擇 Heroic 語言",
         "library_top_option": {
             "disabled": "已關閉",
