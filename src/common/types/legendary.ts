@@ -51,7 +51,7 @@ interface GameMetadataInner {
   applicationId: string
   categories: { path: string }[]
   creationDate: string
-  customAttributes: {
+  customAttributes?: {
     [key in CustomAttributeType]: CustomAttributeValue | undefined
   }
   description: string
