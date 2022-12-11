@@ -34,7 +34,7 @@ import {
   gogInstalledGamesStore,
   gogLibraryStore,
   libraryStore,
-  wineDownloaderInfoStore
+  toolDownloaderInfoStore
 } from '../helpers/electronStores'
 import { sideloadLibrary } from 'frontend/helpers/electronStores'
 import { ToolVersionInfo } from 'common/types/toolmanager'
@@ -125,8 +125,8 @@ export class GlobalState extends PureComponent<Props> {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       username: (gogConfigStore.get('userData', null) as any)?.username || null
     },
-    toolVersions: wineDownloaderInfoStore.has('wine-releases')
-      ? (wineDownloaderInfoStore.get('wine-releases', []) as ToolVersionInfo[])
+    toolVersions: toolDownloaderInfoStore.has('wine-releases')
+      ? (toolDownloaderInfoStore.get('wine-releases', []) as ToolVersionInfo[])
       : [],
     error: false,
     filterText: '',

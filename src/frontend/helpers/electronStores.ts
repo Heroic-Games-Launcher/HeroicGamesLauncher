@@ -67,6 +67,6 @@ export {
   libraryStore,
   timestampStore,
   sideloadLibrary,
-  toolDownloaderInfoStore as wineDownloaderInfoStore,
+  toolDownloaderInfoStore,
   downloadManagerStore
 }
