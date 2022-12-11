@@ -2,7 +2,7 @@ import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
 
-import { GameStatus, Runner } from 'common/types'
+import { GameInfo, GameStatus } from 'common/types'
 
 import { createNewWindow, repair } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
@@ -14,22 +14,16 @@ import { CircularProgress } from '@mui/material'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 
 interface Props {
-  appName: string
-  isInstalled: boolean
-  title: string
+  gameInfo: GameInfo
   storeUrl: string
-  runner: Runner
   handleUpdate: () => void
   disableUpdate: boolean
   onShowRequirements?: () => void
 }
 
 export default function GamesSubmenu({
-  appName,
-  isInstalled,
-  title,
   storeUrl,
-  runner,
+  gameInfo,
   handleUpdate,
   disableUpdate,
   onShowRequirements
@@ -43,6 +37,17 @@ export default function GamesSubmenu({
   } = useContext(ContextProvider)
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
+
+  const {
+    app_name: appName,
+    title,
+    runner,
+    install,
+    is_installed: isInstalled,
+    folder_name
+  } = gameInfo
+
+  const installPath = isInstalled ? install?.install_path || folder_name : ''
 
   const [steamRefresh, setSteamRefresh] = useState<boolean>(false)
   const [addedToSteam, setAddedToSteam] = useState<boolean>(false)
@@ -315,6 +320,12 @@ export default function GamesSubmenu({
                       : t('submenu.enableEosOverlay', 'Enable EOS Overlay')}
                   </button>
                 ))}
+              <button
+                onClick={async () => handleOpenFolder(installPath!)}
+                className="link button is-text is-link"
+              >
+                {t('submenu.open-install-folder', 'Open Install Folder')}
+              </button>
             </>
           )}
           {!isSideloaded && (
@@ -352,4 +363,7 @@ export default function GamesSubmenu({
       )}
     </>
   )
+}
+function handleOpenFolder(installPath: string): void | PromiseLike<void> {
+  window.api.openFolder(installPath)
 }
