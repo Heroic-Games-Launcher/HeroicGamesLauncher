@@ -2,7 +2,7 @@ name: Build Linux
 
 on:
   pull_request:
-    branches: [main, beta, stable]
+    branches: [main, stable]
   workflow_dispatch:
     inputs:
       version:
