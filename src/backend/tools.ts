@@ -279,12 +279,11 @@ export const DXVK = {
     })
 
     // register dlls on the wine prefix
-    const overrideType = isMac ? 'native,builtin' : 'native'
     dlls.forEach(async (dll) => {
       // remove the .dll extension otherwise will fail
       dll = dll.replace('.dll', '')
       exec(
-        `WINEPREFIX='${winePrefix}' '${wineBin}' reg add 'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides' /v ${dll} /d ${overrideType} /f `,
+        `WINEPREFIX='${winePrefix}' '${wineBin}' reg add 'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides' /v ${dll} /d native,builtin /f `,
         execOptions,
         (err) => {
           if (err) {
