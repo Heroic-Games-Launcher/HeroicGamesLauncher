@@ -1,32 +1,51 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
-import { configStore } from 'frontend/helpers/electronStores'
 import { defaultWineVersion } from '..'
+import SettingsContext from '../SettingsContext'
 
 const AutoVKD3D = () => {
   const { t } = useTranslation()
+  const { appName, runner } = useContext(SettingsContext)
   const [autoInstallVkd3d, setAutoInstallVkd3d] = useSetting(
     'autoInstallVkd3d',
     false
   )
-  const home = configStore.get('userHome', '')
-  const [winePrefix] = useSetting('winePrefix', `${home}/.wine`)
+  const [modifyingVkd3d, setModifyingVkd3d] = useState(false)
+
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
-
   const isProton = wineVersion.type === 'proton'
-
   if (isProton) {
     return <></>
   }
 
-  const handleAutoInstallVkd3d = () => {
-    const action = autoInstallVkd3d ? 'restore' : 'backup'
-    window.api.toggleVKD3D({ winePrefix, winePath: wineVersion.bin, action })
-    return setAutoInstallVkd3d(!autoInstallVkd3d)
+  const handleAutoInstallVkd3d = async () => {
+    setModifyingVkd3d(true)
+    const validPrefix = await window.api.hasValidPrefix(appName, runner)
+    if (!validPrefix) {
+      setAutoInstallVkd3d(!autoInstallVkd3d)
+      setModifyingVkd3d(false)
+      return
+    }
+
+    const isInstalled = await window.api.isWorkaroundInstalled(
+      'vkd3d',
+      appName,
+      runner
+    )
+    let res
+    if (isInstalled) {
+      res = await window.api.removeWorkaround('vkd3d', appName, runner)
+    } else {
+      res = await window.api.installWorkaround('vkd3d', appName, runner)
+    }
+    if (res) {
+      setAutoInstallVkd3d(!autoInstallVkd3d)
+    }
+    setModifyingVkd3d(false)
   }
 
   return (
@@ -35,7 +54,13 @@ const AutoVKD3D = () => {
         htmlId="autovkd3d"
         value={autoInstallVkd3d}
         handleChange={handleAutoInstallVkd3d}
-        title={t('setting.autovkd3d', 'Auto Install/Update VKD3D on Prefix')}
+        title={
+          modifyingVkd3d
+            ? t('please-wait', 'Please wait...')
+            : t('setting.autovkd3d', 'Auto Install/Update VKD3D on Prefix')
+        }
+        fading={modifyingVkd3d}
+        disabled={modifyingVkd3d}
       />
 
       <FontAwesomeIcon

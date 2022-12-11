@@ -42,7 +42,7 @@ import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
 import { join } from 'path'
 import checkDiskSpace from 'check-disk-space'
-import { DXVK, Winetricks } from './tools'
+import { Winetricks } from './tools'
 import { GameConfig } from './game_config'
 import { GlobalConfig } from './config'
 import { LegendaryLibrary } from './legendary/library'
@@ -115,7 +115,7 @@ import {
 } from './logger/logger'
 import { gameInfoStore } from './legendary/electronStores'
 import { getFonts } from 'font-list'
-import { runWineCommand, verifyWinePrefix } from './launcher'
+import { runWineCommand, verifyWinePrefix, isValidPrefix } from './launcher'
 import shlex from 'shlex'
 import { addToQueue, initQueue } from './downloadmanager/downloadqueue'
 import {
@@ -168,7 +168,6 @@ async function initializeWindow(): Promise<BrowserWindow> {
   }
 
   setTimeout(() => {
-    DXVK.getLatest()
     Winetricks.download()
   }, 2500)
 
@@ -885,12 +884,35 @@ ipcMain.handle('requestSettings', async (event, appName) => {
   return mapOtherSettings(config)
 })
 
-ipcMain.handle('toggleDXVK', async (event, { winePrefix, winePath, action }) =>
-  DXVK.installRemove(winePrefix, winePath, 'dxvk', action)
+ipcMain.handle(
+  'installWorkaround',
+  async (e, workaround, appName, runner, ...args) =>
+    WorkaroundsManager.install(
+      workaround,
+      appName,
+      runner,
+      ...(args as [never])
+    )
 )
 
-ipcMain.on('toggleVKD3D', (event, { winePrefix, winePath, action }) => {
-  DXVK.installRemove(winePrefix, winePath, 'vkd3d', action)
+ipcMain.handle(
+  'removeWorkaround',
+  async (e, workaround, appName, runner, ...args) =>
+    WorkaroundsManager.remove(workaround, appName, runner, ...args)
+)
+
+ipcMain.handle(
+  'isWorkaroundInstalled',
+  async (e, workaround, appName, runner, ...args) =>
+    WorkaroundsManager.isInstalled(workaround, appName, runner, ...args)
+)
+
+ipcMain.handle('hasValidPrefix', async (e, appName, runner) => {
+  const gameSettings =
+    runner === 'sideload'
+      ? await getAppSettings(appName)
+      : await getGame(appName, runner).getSettings()
+  return isValidPrefix(gameSettings)
 })
 
 ipcMain.handle('writeConfig', (event, { appName, config }) => {

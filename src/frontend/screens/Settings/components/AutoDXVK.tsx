@@ -1,40 +1,51 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { defaultWineVersion } from '..'
 import useSetting from 'frontend/hooks/useSetting'
-import { configStore } from 'frontend/helpers/electronStores'
 import { ToggleSwitch } from 'frontend/components/UI'
+import SettingsContext from '../SettingsContext'
 
 const AutoDXVK = () => {
   const { t } = useTranslation()
-  const [autoInstallDxvk, setAutoInstallDxak] = useSetting(
+  const { appName, runner } = useContext(SettingsContext)
+  const [autoInstallDxvk, setAutoInstallDxvk] = useSetting(
     'autoInstallDxvk',
     false
   )
-  const home = configStore.get('userHome', '')
-  const [winePrefix] = useSetting('winePrefix', `${home}/.wine`)
-  const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
-  const [installingDxvk, setInstallingDxvk] = React.useState(false)
+  const [modifyingDxvk, setModifyingDxvk] = useState(false)
 
+  const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
   if (wineVersion.type !== 'wine') {
     return <></>
   }
 
   const handleAutoInstallDxvk = async () => {
-    const action = autoInstallDxvk ? 'restore' : 'backup'
-    setInstallingDxvk(true)
-    const res = await window.api.toggleDXVK({
-      winePrefix,
-      winePath: wineVersion.bin,
-      action
-    })
-
-    setInstallingDxvk(false)
-    if (res) {
-      setAutoInstallDxak(!autoInstallDxvk)
+    setModifyingDxvk(true)
+    // If we don't have a valid prefix yet, we don't want to try to modify DXVK
+    const validPrefix = await window.api.hasValidPrefix(appName, runner)
+    if (!validPrefix) {
+      setAutoInstallDxvk(!autoInstallDxvk)
+      setModifyingDxvk(false)
+      return
     }
+
+    const isInstalled = await window.api.isWorkaroundInstalled(
+      'dxvk',
+      appName,
+      runner
+    )
+    let res
+    if (isInstalled) {
+      res = await window.api.removeWorkaround('dxvk', appName, runner)
+    } else {
+      res = await window.api.installWorkaround('dxvk', appName, runner)
+    }
+    if (res) {
+      setAutoInstallDxvk(!autoInstallDxvk)
+    }
+    setModifyingDxvk(false)
   }
 
   return (
@@ -44,12 +55,12 @@ const AutoDXVK = () => {
         value={autoInstallDxvk}
         handleChange={handleAutoInstallDxvk}
         title={
-          installingDxvk
+          modifyingDxvk
             ? t('please-wait', 'Please wait...')
             : t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix')
         }
-        fading={installingDxvk}
-        disabled={installingDxvk}
+        fading={modifyingDxvk}
+        disabled={modifyingDxvk}
       />
 
       <FontAwesomeIcon

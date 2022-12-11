@@ -28,7 +28,6 @@ import {
 } from './logger/logger'
 import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
-import { DXVK } from './tools'
 import setup from './gog/setup'
 import { GOGGame } from './gog/games'
 import { LegendaryGame } from './legendary/games'
@@ -51,6 +50,7 @@ import shlex from 'shlex'
 import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
 import { setupUbisoftConnect } from './legendary/setup'
+import WorkaroundsManager from './wine/workarounds/manager'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
@@ -146,7 +146,10 @@ async function prepareLaunch(
   }
 }
 
-async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
+async function prepareWineLaunch(
+  game: LegendaryGame | GOGGame,
+  runner: Runner
+): Promise<{
   success: boolean
   failureReason?: string
   envVars?: Record<string, string>
@@ -214,21 +217,32 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
 
   // If DXVK/VKD3D installation is enabled, install it
   if (gameSettings.wineVersion.type === 'wine') {
-    if (gameSettings.autoInstallDxvk) {
-      await DXVK.installRemove(
-        gameSettings.winePrefix,
-        gameSettings.wineVersion.bin,
+    if (
+      gameSettings.autoInstallDxvk &&
+      // TODO: This will work differently once I implement Workaround updates
+      !(await WorkaroundsManager.isInstalled('dxvk', game.appName, runner))
+    ) {
+      const wasInstalled = await WorkaroundsManager.install(
         'dxvk',
-        'backup'
+        game.appName,
+        runner
       )
+      if (!wasInstalled) {
+        logError(['Failed to install DXVK while launching', game.appName])
+      }
     }
-    if (gameSettings.autoInstallVkd3d) {
-      await DXVK.installRemove(
-        gameSettings.winePrefix,
-        gameSettings.wineVersion.bin,
+    if (
+      gameSettings.autoInstallVkd3d &&
+      !(await WorkaroundsManager.isInstalled('vkd3d', game.appName, runner))
+    ) {
+      const wasInstalled = await WorkaroundsManager.install(
         'vkd3d',
-        'backup'
+        game.appName,
+        runner
       )
+      if (!wasInstalled) {
+        logError(['Failed to install VKD3D while launching', game.appName])
+      }
     }
   }
 
@@ -471,12 +485,7 @@ export async function verifyWinePrefix(
     mkdirSync(winePrefix, { recursive: true })
   }
 
-  // If the registry isn't available yet, things like DXVK installers might fail. So we have to wait on wineboot then
-  const systemRegPath =
-    wineVersion.type === 'proton'
-      ? join(winePrefix, 'pfx', 'system.reg')
-      : join(winePrefix, 'system.reg')
-  const haveToWait = !existsSync(systemRegPath)
+  const haveToWait = isValidPrefix(settings)
 
   const command = runWineCommand({
     commandParts: ['wineboot', '--init'],
@@ -501,6 +510,68 @@ export async function verifyWinePrefix(
     })
 }
 
+/**
+ * Verifies that a Wineprefix is valid (contains required files)
+ */
+export function isValidPrefix(settings: GameSettings): boolean {
+  const { wineVersion } = settings
+  const prefix = getFullPrefixPath(
+    settings.winePrefix,
+    wineVersion.type,
+    settings.wineCrossoverBottle
+  )
+
+  const requiredPrefixFiles = [
+    'dosdevices',
+    'drive_c',
+    'system.reg',
+    'user.reg',
+    'userdef.reg'
+  ]
+  if (wineVersion.type === 'proton') {
+    const requiredProtonFiles = [
+      'pfx.lock',
+      'tracked_files',
+      'version',
+      'config_info'
+    ]
+    requiredPrefixFiles.push(
+      ...requiredProtonFiles.map((path) => join('..', path))
+    )
+  }
+  const absoluteFilePaths = [
+    prefix,
+    ...requiredPrefixFiles.map((path) => join(prefix, path))
+  ]
+  return absoluteFilePaths.every(existsSync)
+}
+
+/**
+ * Resolves a Wine/Proton prefix or a CX Bottle name into a full path to the prefix (where `drive_c` is)
+ * @param prefix The Wine/Proton prefix to resolve
+ * @param prefixType The type of the Wine version used to create the prefix
+ * @param bottle Alternatively to `prefix`, the CX bottle name
+ */
+export function getFullPrefixPath(
+  prefix: string,
+  prefixType: WineInstallation['type'],
+  bottle: string
+): string {
+  switch (prefixType) {
+    case 'wine':
+      return prefix
+    case 'proton':
+      return join(prefix, 'pfx')
+    case 'crossover':
+      return join(
+        userHome,
+        'Library/Application Support/CrossOver/Bottles',
+        bottle,
+        'cxbottle.conf'
+      )
+  }
+}
+
 function launchCleanup(rpcClient?: RpcClient) {
   if (rpcClient) {
     rpcClient.disconnect()
@@ -522,29 +593,9 @@ async function runWineCommand({
     : GlobalConfig.get().getSettings()
   const { wineVersion, winePrefix } = settings
 
-  if (!skipPrefixCheckIKnowWhatImDoing && wineVersion.type !== 'crossover') {
-    let requiredPrefixFiles = [
-      'dosdevices',
-      'drive_c',
-      'system.reg',
-      'user.reg',
-      'userdef.reg'
-    ]
-    if (wineVersion.type === 'proton') {
-      requiredPrefixFiles = [
-        'pfx.lock',
-        'tracked_files',
-        'version',
-        'config_info',
-        ...requiredPrefixFiles.map((path) => join('pfx', path))
-      ]
-    }
-    requiredPrefixFiles = requiredPrefixFiles.map((path) =>
-      join(winePrefix, path)
-    )
-    requiredPrefixFiles.push(winePrefix)
-
-    if (!requiredPrefixFiles.every((path) => existsSync(path))) {
+  if (!skipPrefixCheckIKnowWhatImDoing) {
+    const validPrefix = isValidPrefix(settings)
+    if (!validPrefix) {
       logWarning(
         'Required prefix files are missing, running `verifyWinePrefix` to create prefix',
         LogPrefix.Backend
