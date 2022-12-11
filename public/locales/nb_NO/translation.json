@@ -617,6 +617,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
+        "logging_out": "Logging out",
         "logout": "Logg ut",
         "logout_confirmation": "Er du sikker på at du vil logge ut?",
         "manageaccounts": "Administrer kontoer",

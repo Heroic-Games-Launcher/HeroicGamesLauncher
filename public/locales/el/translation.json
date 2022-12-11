@@ -617,6 +617,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
+        "logging_out": "Logging out",
         "logout": "Αποσύνδεση",
         "logout_confirmation": "Είστε σίγουροι πως θέλετε να αποσυνδεθείτε;",
         "manageaccounts": "Διαχείριση Λογαριασμών",
