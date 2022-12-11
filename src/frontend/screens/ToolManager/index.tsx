@@ -8,6 +8,8 @@ import { useTranslation } from 'react-i18next'
 import { Tab, Tabs } from '@mui/material'
 import { StoreIpc } from 'frontend/helpers/electronStores'
 import { Type } from 'common/types/toolmanager'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 
 const ToolItem = lazy(
   async () => import('frontend/screens/ToolManager/components/ToolItem')
@@ -80,30 +82,44 @@ export default function ToolManager(): JSX.Element | null {
     <>
       <h2>{t('tool.manager.title', 'Tool Manager')}</h2>
       <div className="toolManager">
-        <Tabs
-          className="tabs"
-          value={repository}
-          onChange={handleChangeTab}
-          centered={true}
-        >
-          {toolManagerSettings.showWineGe && (
-            <Tab className="tab" value={winege} label={winege} />
-          )}
-          {toolManagerSettings.showProtonGe && (
-            <Tab value={protonge} label={protonge} />
-          )}
-          {toolManagerSettings.showSodaBottles && (
-            <Tab value={sodabottles} label={sodabottles} />
-          )}
-          {toolManagerSettings.showDXVK && <Tab value={dxvk} label={dxvk} />}
-          {toolManagerSettings.showDXVKAsync && (
-            <Tab value={dxvkasync} label={dxvkasync} />
-          )}
-          {toolManagerSettings.showDXVKNVAPI && (
-            <Tab value={dxvknvapi} label={dxvknvapi} />
-          )}
-          {toolManagerSettings.showVKD3D && <Tab value={vkd3d} label={vkd3d} />}
-        </Tabs>
+        <span className="tabsWrapper">
+          <Tabs
+            className="tabs"
+            value={repository}
+            onChange={handleChangeTab}
+            centered={true}
+          >
+            {toolManagerSettings.showWineGe && (
+              <Tab className="tab" value={winege} label={winege} />
+            )}
+            {toolManagerSettings.showProtonGe && (
+              <Tab value={protonge} label={protonge} />
+            )}
+            {toolManagerSettings.showSodaBottles && (
+              <Tab value={sodabottles} label={sodabottles} />
+            )}
+            {toolManagerSettings.showDXVK && <Tab value={dxvk} label={dxvk} />}
+            {toolManagerSettings.showDXVKAsync && (
+              <Tab value={dxvkasync} label={dxvkasync} />
+            )}
+            {toolManagerSettings.showDXVKNVAPI && (
+              <Tab value={dxvknvapi} label={dxvknvapi} />
+            )}
+            {toolManagerSettings.showVKD3D && (
+              <Tab value={vkd3d} label={vkd3d} />
+            )}
+          </Tabs>
+          <button
+            className={'FormControl__button'}
+            title={t('generic.library.refresh', 'Refresh Library')}
+            onClick={async () => refreshToolVersionInfo(true)}
+          >
+            <FontAwesomeIcon
+              className={'FormControl__segmentedFaIcon'}
+              icon={faSyncAlt}
+            />
+          </button>
+        </span>
         {toolVersions.length ? (
           <div
             style={

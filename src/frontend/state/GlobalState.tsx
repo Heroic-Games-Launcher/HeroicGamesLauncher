@@ -461,7 +461,7 @@ export class GlobalState extends PureComponent<Props> {
       .refreshToolVersionInfo(fetch)
       .then((releases) => {
         this.setState({
-          wineVersions: releases,
+          toolVersions: releases,
           refreshing: false
         })
         return
@@ -471,7 +471,7 @@ export class GlobalState extends PureComponent<Props> {
           // try to restore the saved information
           await window.api.refreshToolVersionInfo().then((releases) => {
             this.setState({
-              wineVersions: releases
+              toolVersions: releases
             })
           })
         }
