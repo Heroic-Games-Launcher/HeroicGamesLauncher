@@ -20,6 +20,7 @@ interface RunnerProps {
 export default function Runner(props: RunnerProps) {
   const maxNameLength = 20
   const { t } = useTranslation()
+  const [isLoggingOut, setIsLoggingOut] = React.useState(false)
 
   let buttonText = ''
   if (props.class === 'epic') {
@@ -29,9 +30,11 @@ export default function Runner(props: RunnerProps) {
   }
 
   async function handleLogout() {
+    setIsLoggingOut(true)
     await props.logoutAction()
     // FIXME: only delete local storage relate to one store, or only delete if logged out from both
     //window.localStorage.clear()
+    setIsLoggingOut(false)
   }
   return (
     <>
@@ -50,6 +53,10 @@ export default function Runner(props: RunnerProps) {
             <Link to={props.loginUrl} className="runnerLogin">
               {buttonText}
             </Link>
+          ) : isLoggingOut ? (
+            <div className="runnerLogin logged">
+              {t('userselector.logging_out', 'Logging out')}...
+            </div>
           ) : (
             <div
               className="runnerLogin logged"

@@ -617,6 +617,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
+        "logging_out": "Logging out",
         "logout": "退出登录",
         "logout_confirmation": "你确定要退出登录吗？",
         "manageaccounts": "管理帐户",

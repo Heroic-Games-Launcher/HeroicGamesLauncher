@@ -617,6 +617,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "دِسكُورد",
+        "logging_out": "Logging out",
         "logout": "سجل الخروج",
         "logout_confirmation": "هل أنت متأكد أنك تريد تسجيل الخروج ؟",
         "manageaccounts": "أدر الحسابات",

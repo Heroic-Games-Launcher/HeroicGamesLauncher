@@ -617,6 +617,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
+        "logging_out": "Logging out",
         "logout": "Sair",
         "logout_confirmation": "Logout?",
         "manageaccounts": "Manage Accounts",

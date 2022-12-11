@@ -617,6 +617,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "ഡിസ്കോഡ഻്",
+        "logging_out": "Logging out",
         "logout": "ഇറങ്ങൂ(ലോഗൌട്ട്)",
         "logout_confirmation": "Logout?",
         "manageaccounts": "Manage Accounts",

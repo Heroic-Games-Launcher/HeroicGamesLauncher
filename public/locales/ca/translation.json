@@ -617,6 +617,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
+        "logging_out": "Logging out",
         "logout": "Tanca la sessió",
         "logout_confirmation": "Segur que vols tancar la sessió?",
         "manageaccounts": "Gestiona els comptes",

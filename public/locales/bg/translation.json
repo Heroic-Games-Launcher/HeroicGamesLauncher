@@ -617,6 +617,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Дискорд",
+        "logging_out": "Logging out",
         "logout": "Излизане",
         "logout_confirmation": "Наистина ли искате да излезете?",
         "manageaccounts": "Управление на акаунтите",

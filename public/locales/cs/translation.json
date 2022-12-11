@@ -617,6 +617,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
+        "logging_out": "Logging out",
         "logout": "Odhlásit se",
         "logout_confirmation": "Opravdu se chcete odhlásit?",
         "manageaccounts": "Spravovat účty",
