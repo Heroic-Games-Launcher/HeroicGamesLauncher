@@ -191,25 +191,30 @@ abstract class GlobalConfig {
     if (!isMac) {
       return wineSet
     }
-    const apps = readdirSync(`${userHome}/Applications/Wineskin`)
-    for (const app of apps) {
-      if (app.includes('.app')) {
-        const wineBin = `${userHome}/Applications/Wineskin/${app}/Contents/SharedSupport/wine/bin/wine64`
-        try {
-          const { stdout: out } = await execAsync(`'${wineBin}' --version`)
-          const version = out.split('\n')[0]
-          wineSet.add({
-            ...this.getWineExecs(wineBin),
-            lib: `${userHome}/Applications/Wineskin/${app}/Contents/SharedSupport/wine/lib`,
-            lib32: `${userHome}/Applications/Wineskin/${app}/Contents/SharedSupport/wine/lib`,
-            name: `Wineskin - ${version}`,
-            type: 'wine',
-            bin: wineBin
-          })
-        } catch (error) {
-          logError(`Error getting wine version for ${wineBin}`, {
-            prefix: LogPrefix.GlobalConfig
-          })
+    const wineSkinPath = `${userHome}/Applications/Wineskin`
+    if (existsSync(wineSkinPath)) {
+      const apps = readdirSync(wineSkinPath)
+      for (const app of apps) {
+        if (app.includes('.app')) {
+          const wineBin = `${userHome}/Applications/Wineskin/${app}/Contents/SharedSupport/wine/bin/wine64`
+          if (existsSync(wineBin)) {
+            try {
+              const { stdout: out } = await execAsync(`'${wineBin}' --version`)
+              const version = out.split('\n')[0]
+              wineSet.add({
+                ...this.getWineExecs(wineBin),
+                lib: `${userHome}/Applications/Wineskin/${app}/Contents/SharedSupport/wine/lib`,
+                lib32: `${userHome}/Applications/Wineskin/${app}/Contents/SharedSupport/wine/lib`,
+                name: `Wineskin - ${version}`,
+                type: 'wine',
+                bin: wineBin
+              })
+            } catch (error) {
+              logError(`Error getting wine version for ${wineBin}`, {
+                prefix: LogPrefix.GlobalConfig
+              })
+            }
+          }
         }
       }
     }
