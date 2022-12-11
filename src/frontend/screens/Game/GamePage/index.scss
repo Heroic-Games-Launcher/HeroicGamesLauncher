@@ -223,6 +223,8 @@
     }
   }
   .buttonsWrapper {
+    margin: var(--space-md) 0;
+
     button {
       width: 30vw;
       max-width: 450px;

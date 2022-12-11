@@ -7,7 +7,6 @@ import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 import {
   getGameInfo,
   getInstallInfo,
-  getProgress,
   launch,
   sendKill,
   size,
@@ -34,7 +33,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faTriangleExclamation,
   faEllipsisV,
-  faCog
+  faCog,
+  faHardDrive,
+  faDownload
 } from '@fortawesome/free-solid-svg-icons'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
@@ -48,6 +49,7 @@ import {
 import StoreLogos from 'frontend/components/UI/StoreLogos'
 import HowLongToBeat from 'frontend/components/UI/HowLongToBeat'
 import { PLATFORMS_INFO } from 'frontend/helpers/constants'
+import { Box, LinearProgress, Typography } from '@mui/material'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -212,23 +214,16 @@ export default React.memo(function GamePage(): JSX.Element | null {
       runner,
       title,
       art_square,
-      install: {
-        install_path,
-        install_size,
-        version,
-        platform: installPlatform
-      },
+      install: { install_size, version, platform: installPlatform },
       is_installed,
       extra,
       developer,
       cloud_save_enabled,
-      canRunOffline,
-      folder_name
+      canRunOffline
     }: GameInfo = gameInfo
 
     hasRequirements = extra?.reqs?.length > 0
     hasUpdate = is_installed && gameUpdates?.includes(appName)
-    const appLocation = install_path || folder_name
 
     const downloadSize =
       gameInstallInfo?.manifest?.download_size &&
@@ -336,11 +331,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   </button>
 
                   <GameSubMenu
-                    appName={appName}
-                    isInstalled={is_installed}
-                    title={title}
+                    gameInfo={gameInfo}
                     storeUrl={gameInfo.store_url}
-                    runner={gameInfo.runner}
                     handleUpdate={handleUpdate}
                     disableUpdate={isInstalling || isUpdating}
                     onShowRequirements={
@@ -362,8 +354,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       : ''
                     : ''}
                 </div>
-                <HowLongToBeat title={title} />
-
                 {is_installed && showCloudSaveInfo && (
                   <div
                     style={{
@@ -387,11 +377,17 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 {!is_installed && !isSideloaded && !notSupportedGame && (
                   <>
                     <div>
-                      <b>{t('game.downloadSize', 'Download Size')}:</b>{' '}
+                      <FontAwesomeIcon
+                        icon={faDownload}
+                        title={t('game.downloadSize', 'Download Size')}
+                      />{' '}
                       {downloadSize ?? '...'}
                     </div>
                     <div>
-                      <b>{t('game.installSize', 'Install Size')}:</b>{' '}
+                      <FontAwesomeIcon
+                        icon={faHardDrive}
+                        title={t('game.installSize', 'Install Size')}
+                      />{' '}
                       {installSize ?? '...'}
                     </div>
                     <br />
@@ -401,22 +397,16 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   <>
                     {!isSideloaded && (
                       <div>
-                        <b>{t('info.size')}:</b> {install_size}
+                        <FontAwesomeIcon
+                          icon={faHardDrive}
+                          title={t('info.size', 'Size')}
+                        />{' '}
+                        {install_size}
                       </div>
                     )}
                     <div>
                       <b>{t('info.canRunOffline', 'Online Required')}:</b>{' '}
                       {t(canRunOffline ? 'box.no' : 'box.yes')}
-                    </div>
-                    <div
-                      className="clickable"
-                      onClick={() =>
-                        appLocation !== undefined
-                          ? window.api.openFolder(appLocation)
-                          : {}
-                      }
-                    >
-                      <b>{t('info.path')}:</b> {appLocation}
                     </div>
                     {!isWin && !isNative && (
                       <>
@@ -455,15 +445,23 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     {t('status.uninstalling', 'Uninstalling')}
                   </p>
                 )}
-                {isInstalling ||
-                  (isUpdating && (
-                    <progress
-                      className="installProgress"
-                      max={100}
-                      value={getProgress(progress)}
-                    />
-                  ))}
-                <p
+                {(isInstalling || isUpdating) && (
+                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Box sx={{ width: '50%', mr: 1 }}>
+                      <LinearProgress
+                        variant="determinate"
+                        color="success"
+                        value={progress.percent || 0}
+                      />
+                    </Box>
+                    <Box sx={{ minWidth: 35 }}>
+                      <Typography variant="body2">{`${Math.round(
+                        progress.percent || 0
+                      )}%`}</Typography>
+                    </Box>
+                  </Box>
+                )}
+                <span
                   style={{
                     color:
                       is_installed || isInstalling
@@ -472,8 +470,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     fontStyle: 'italic'
                   }}
                 >
-                  {getInstallLabel(is_installed, notAvailable)}
-                </p>
+                  {getInstallLabel(is_installed, downloadSize, notAvailable)}
+                </span>
               </div>
               {is_installed && Boolean(launchOptions.length) && (
                 <SelectField
@@ -521,6 +519,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   </button>
                 )}
               </div>
+              <HowLongToBeat title={title} />
+
               {is_installed && (
                 <NavLink
                   to={`/settings/${runner}/${appName}/log`}
@@ -590,6 +590,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   function getInstallLabel(
     is_installed: boolean,
+    downloadSize?: string | number,
     notAvailable?: boolean
   ): React.ReactNode {
     const { eta, bytes, percent } = progress
@@ -614,11 +615,13 @@ export default React.memo(function GamePage(): JSX.Element | null {
     }
 
     const currentProgress =
-      getProgress(progress) >= 99
+      progress.percent >= 99
         ? ''
         : `${
             percent && bytes
-              ? `${percent}% [${bytes}] ${eta ? `ETA: ${eta}` : ''}`
+              ? `${bytes} / ${downloadSize ? downloadSize : ''} | ${
+                  eta ? `ETA: ${eta}` : ''
+                }`
               : '...'
           }`
 
