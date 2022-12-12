@@ -18,7 +18,7 @@ export async function getHowLongToBeat(
       return cachedResponse as HowLongToBeatEntry
     }
 
-    logInfo([`Getting HowLongToBeat data for ${title}`, ''], {
+    logInfo(`Getting HowLongToBeat data for ${title}`, {
       prefix: LogPrefix.Backend
     })
 
