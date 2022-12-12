@@ -416,7 +416,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "please-wait": "Please wait...",
+    "please-wait": "请等待…",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -525,9 +525,9 @@
             "title": "在前置上运行 EXE"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "未找到保存文件夹，请手动选择",
             "placeholder": "选择存档的保存位置",
-            "warning": "Please check twice if the path is correct"
+            "warning": "请确保路径正确无误"
         },
         "select_theme": "选择主题",
         "showfps": "显示帧率（DX 9、10 和 11）",
@@ -635,7 +635,7 @@
         "actions": "动作",
         "manager": {
             "link": "Wine 管理器",
-            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
+            "not-found": "未找到 Wine 版本。请单击刷新按钮重试。",
             "title": "Wine 管理器",
             "unzipping": "解压缩"
         },

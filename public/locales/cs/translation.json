@@ -416,7 +416,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "please-wait": "Please wait...",
+    "please-wait": "Čekejte prosím...",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -525,9 +525,9 @@
             "title": "Spustit EXE na prefixu"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Složka pro uložení nebyla nalezena, vyberte ji prosím ručně",
             "placeholder": "Vyberte přesnou složku s uloženými soubory",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Zkontrolujte prosím dvakrát, zda je cesta správná"
         },
         "select_theme": "Vybrat motiv",
         "showfps": "Zobrazit FPS (DX9, 10 a 11)",
@@ -635,7 +635,7 @@
         "actions": "Action",
         "manager": {
             "link": "Správce Wine",
-            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
+            "not-found": "Nebyly nalezeny žádné verze Wine. Klikněte na ikonu obnovení a zkuste to znovu.",
             "title": "Správce Wine",
             "unzipping": "Rozbalování"
         },
