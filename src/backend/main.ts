@@ -1,4 +1,3 @@
-import { EventEmitter } from 'node:events'
 import { initImagesCache } from './images_cache'
 import { downloadAntiCheatData } from './anticheat/utils'
 import {
@@ -120,7 +119,7 @@ import {
   runOnceWhenOnline
 } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
-import { addRecentGame } from './recent_games'
+import { addRecentGame } from './recent_games/recent_games'
 import {
   addNewApp,
   appLogFileLocation,
@@ -135,14 +134,12 @@ import {
 import { callAbortController } from './utils/aborthandler/aborthandler'
 import { getDefaultSavePath } from './save_sync'
 import si from 'systeminformation'
-import { initTrayIcon } from './tray_icon'
+import { initTrayIcon } from './tray_icon/tray_icon'
 
 const { showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
 
 let mainWindow: BrowserWindow
-
-export const backendEvents = new EventEmitter()
 
 async function createWindow(): Promise<BrowserWindow> {
   configStore.set('userHome', userHome)
@@ -1527,6 +1524,7 @@ import './wine/runtimes/ipc_handler'
 import './downloadmanager/ipc_handler'
 import './utils/ipc_handler'
 import './howlongtobeat/ipc_handler'
+import './recent_games/ipc_handler'
 
 // import Store from 'electron-store'
 // interface StoreMap {

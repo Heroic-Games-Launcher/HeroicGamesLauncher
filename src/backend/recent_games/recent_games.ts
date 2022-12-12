@@ -1,8 +1,8 @@
-import { backendEvents } from './main'
 import { GameInfo, RecentGame } from 'common/types'
-import { BrowserWindow, ipcMain } from 'electron'
-import { GlobalConfig } from './config'
-import { configStore } from './constants'
+import { BrowserWindow } from 'electron'
+import { backendEvents } from '../backend_events'
+import { GlobalConfig } from '../config'
+import { configStore } from '../constants'
 
 const getRecentGames = async (options?: { limited: boolean }) => {
   const games = configStore.get('games.recent', []) as Array<RecentGame>
@@ -15,6 +15,16 @@ const getRecentGames = async (options?: { limited: boolean }) => {
   }
 }
 
+const setRecentGames = (recentGames: RecentGame[]) => {
+  // store
+  configStore.set('games.recent', recentGames)
+
+  // emit
+  const window = BrowserWindow.getAllWindows()[0]
+  window.webContents.send('recentGamesChanged', recentGames)
+  backendEvents.emit('recentGamesChanged', recentGames)
+}
+
 const addRecentGame = async (game: GameInfo) => {
   const games = await getRecentGames()
 
@@ -23,14 +33,7 @@ const addRecentGame = async (game: GameInfo) => {
     (a) => a.appName && a.appName !== game.app_name
   )
   updatedList.unshift({ appName: game.app_name, title: game.title })
-
-  // store
-  configStore.set('games.recent', updatedList)
-
-  // emit
-  const window = BrowserWindow.getAllWindows()[0]
-  window.webContents.send('recentGamesChanged', updatedList)
-  backendEvents.emit('recentGamesChanged')
+  setRecentGames(updatedList)
 }
 
 const removeRecentGame = async (appName: string) => {
@@ -38,16 +41,8 @@ const removeRecentGame = async (appName: string) => {
 
   if (games.length) {
     const updatedList = games.filter((a) => a.appName && a.appName !== appName)
-    configStore.set('games.recent', updatedList)
-
-    const window = BrowserWindow.getAllWindows()[0]
-    window.webContents.send('recentGamesChanged', updatedList)
-    backendEvents.emit('recentGamesChanged')
+    setRecentGames(updatedList)
   }
 }
 
-ipcMain.handle('removeRecent', async (_event, appName) =>
-  removeRecentGame(appName)
-)
-
-export { getRecentGames, addRecentGame, removeRecentGame }
+export { getRecentGames, addRecentGame, removeRecentGame, setRecentGames }
