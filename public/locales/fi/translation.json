@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Pikakuvakkeet luotiin työpöydälle ja Käynnistä-valikkoon",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Shortcuts were removed from Desktop and Start Menu",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Pikanäppäimet"
         },
         "sync": {
@@ -615,6 +617,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
+        "logging_out": "Logging out",
         "logout": "Kirjaudu ulos",
         "logout_confirmation": "Haluatko varmasti kirjautua ulos?",
         "manageaccounts": "Hallitse tilejä",

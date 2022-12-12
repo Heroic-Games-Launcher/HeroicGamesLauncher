@@ -42,7 +42,6 @@ export default function GamesSubmenu({
     showDialogModal
   } = useContext(ContextProvider)
   const isWin = platform === 'win32'
-  const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
 
   const [steamRefresh, setSteamRefresh] = useState<boolean>(false)
@@ -243,16 +242,14 @@ export default function GamesSubmenu({
                   {t('button.sideload.edit', 'Edit App/Game')}
                 </button>
               )}{' '}
-              {!isMac && (
-                <button
-                  onClick={() => handleShortcuts()}
-                  className="link button is-text is-link"
-                >
-                  {hasShortcuts
-                    ? t('submenu.removeShortcut', 'Remove shortcuts')
-                    : t('submenu.addShortcut', 'Add shortcut')}
-                </button>
-              )}
+              <button
+                onClick={() => handleShortcuts()}
+                className="link button is-text is-link"
+              >
+                {hasShortcuts
+                  ? t('submenu.removeShortcut', 'Remove shortcuts')
+                  : t('submenu.addShortcut', 'Add shortcut')}
+              </button>
               {steamRefresh ? (
                 refreshCircle()
               ) : (
