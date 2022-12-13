@@ -176,7 +176,7 @@
     "release:mac": "vite build && electron-builder -p always --mac",
     "release:win": "vite build && electron-builder -p always --win nsis portable",
     "dist:linux": "vite build && electron-builder --linux",
-    "dist:mac": "vite build && electron-builder --mac",
+    "dist:mac": "vite build && electron-builder --mac --x64 --arm64",
     "dist:win": "vite build && electron-builder --win",
     "lint": "eslint --cache -c .eslintrc --ext .tsx,ts ./src",
     "lint-fix": "eslint --fix -c .eslintrc --ext .tsx,ts ./src",

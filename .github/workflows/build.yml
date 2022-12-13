@@ -47,7 +47,7 @@ jobs:
           path: dist/Heroic-*.AppImage
           retention-days: 14
   build_mac:
-    runs-on: macos-11
+    runs-on: macos-latest
     steps:
       - name: Checkout repository.
         uses: actions/checkout@v2
