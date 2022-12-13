@@ -36,6 +36,7 @@ export default function GOGSyncSaves({
   const [syncType, setSyncType] = useState('--skip-upload')
   const [manuallyOutput, setManuallyOutput] = useState<string[]>([])
   const [manuallyOutputShow, setManuallyOutputShow] = useState<boolean>(false)
+  const [savePathModified, setSavePathModified] = useState(false)
 
   const { t } = useTranslation()
 
@@ -59,6 +60,10 @@ export default function GOGSyncSaves({
     }
     getLocations()
   }, [])
+
+  useEffect(() => {
+    if (savePathModified) setSavePathModified(false)
+  }, [savePathModified])
 
   const handleSync = async () => {
     setIsSyncing(true)
@@ -117,6 +122,7 @@ export default function GOGSyncSaves({
                   const saves = [...gogSaves]
                   saves[index].location = event.target.value
                   setGogSaves(saves)
+                  setSavePathModified(true)
                 }}
                 icon={
                   !value.location.length ? (
@@ -144,11 +150,13 @@ export default function GOGSyncSaves({
                             const saves = [...gogSaves]
                             saves[index].location = path || ''
                             setGogSaves(saves)
+                            setSavePathModified(true)
                           })
                     : () => {
                         const saves = [...gogSaves]
                         saves[index].location = ''
                         setGogSaves(saves)
+                        setSavePathModified(true)
                       }
                 }
                 afterInput={
