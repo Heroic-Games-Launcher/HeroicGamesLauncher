@@ -53,7 +53,8 @@
       "artifactName": "${productName}-${version}-Portable.${ext}"
     },
     "mac": {
-      "target": "dmg",
+      "artifactName": "${productName}-${version}-macOS-${arch}.${ext}",
+      "target": "pkg",
       "category": "public.app-category.games",
       "icon": "build/icon.icns",
       "asarUnpack": [
