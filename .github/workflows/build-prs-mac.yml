@@ -26,9 +26,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-      - name: Upload DMG.
+      - name: Upload x64 PKG.
         uses: actions/upload-artifact@v2
         with:
-          name: mac-dmg
-          path: dist/Heroic*.dmg
+          name: mac-x64-build
+          path: dist/Heroic*x64.pkg
+          retention-days: 14
+      - name: Upload ARM PKG.
+        uses: actions/upload-artifact@v2
+        with:
+          name: mac-arm64-build
+          path: dist/Heroic*arm64.pkg
           retention-days: 14
