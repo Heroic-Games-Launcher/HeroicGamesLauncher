@@ -34,9 +34,7 @@ function showDialogBoxModalAuto(props: {
         props.buttons
       )
     } catch (error) {
-      logWarning(['showDialogBoxModalAuto:', error], {
-        prefix: LogPrefix.Backend
-      })
+      logWarning(['showDialogBoxModalAuto:', error], LogPrefix.Backend)
       switch (props.type) {
         case 'ERROR':
           showErrorBox(props.title, props.message)

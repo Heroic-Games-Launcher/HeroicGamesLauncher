@@ -23,12 +23,10 @@ export async function handleProtocol(window: BrowserWindow, args: string[]) {
     arg = ''
   }
 
-  logInfo(`received '${url}'`, { prefix: LogPrefix.ProtocolHandler })
+  logInfo(`received '${url}'`, LogPrefix.ProtocolHandler)
 
   if (command === 'ping') {
-    return logInfo(['Received ping! Arg:', arg], {
-      prefix: LogPrefix.ProtocolHandler
-    })
+    return logInfo(['Received ping! Arg:', arg], LogPrefix.ProtocolHandler)
   }
 
   if (command === 'launch') {
@@ -40,14 +38,15 @@ export async function handleProtocol(window: BrowserWindow, args: string[]) {
       .shift()
 
     if (!game) {
-      return logError(`Could not receive game data for ${arg}!`, {
-        prefix: LogPrefix.ProtocolHandler
-      })
+      return logError(
+        `Could not receive game data for ${arg}!`,
+        LogPrefix.ProtocolHandler
+      )
     }
 
     const { is_installed, title, app_name, runner } = game
     if (!is_installed) {
-      logInfo(`"${arg}" not installed.`, { prefix: LogPrefix.ProtocolHandler })
+      logInfo(`"${arg}" not installed.`, LogPrefix.ProtocolHandler)
       const { response } = await dialog.showMessageBox(window, {
         buttons: [i18next.t('box.yes'), i18next.t('box.no')],
         cancelId: 1,
@@ -75,9 +74,7 @@ export async function handleProtocol(window: BrowserWindow, args: string[]) {
         }
       }
       if (response === 1) {
-        return logInfo('Not installing game', {
-          prefix: LogPrefix.ProtocolHandler
-        })
+        return logInfo('Not installing game', LogPrefix.ProtocolHandler)
       }
     }
     window.hide()

@@ -43,9 +43,10 @@ function addToFinished(element: DMQueueElement, status: DMStatus) {
   }
 
   downloadManager.set('finished', elements)
-  logInfo([element.params.appName, 'added to download manager finished.'], {
-    prefix: LogPrefix.DownloadManager
-  })
+  logInfo(
+    [element.params.appName, 'added to download manager finished.'],
+    LogPrefix.DownloadManager
+  )
 }
 
 /* 
@@ -85,9 +86,10 @@ async function initQueue() {
 
 function addToQueue(element: DMQueueElement) {
   if (!element) {
-    logError('Can not add undefined element to queue!', {
-      prefix: LogPrefix.DownloadManager
-    })
+    logError(
+      'Can not add undefined element to queue!',
+      LogPrefix.DownloadManager
+    )
     return
   }
 
@@ -115,9 +117,10 @@ function addToQueue(element: DMQueueElement) {
   }
 
   downloadManager.set('queue', elements)
-  logInfo([element.params.appName, 'added to download manager queue.'], {
-    prefix: LogPrefix.DownloadManager
-  })
+  logInfo(
+    [element.params.appName, 'added to download manager queue.'],
+    LogPrefix.DownloadManager
+  )
 
   getMainWindow().webContents.send('changedDMQueueInformation', elements)
 
@@ -146,9 +149,10 @@ function removeFromQueue(appName: string) {
       status: 'done'
     })
 
-    logInfo([appName, 'removed from download manager.'], {
-      prefix: LogPrefix.DownloadManager
-    })
+    logInfo(
+      [appName, 'removed from download manager.'],
+      LogPrefix.DownloadManager
+    )
 
     getMainWindow().webContents.send('changedDMQueueInformation', elements)
   }

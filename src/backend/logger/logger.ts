@@ -250,9 +250,7 @@ export function logChangedSetting(
 
     logInfo(
       `Changed config: ${changedSetting} from ${oldSetting} to ${newSetting}`,
-      {
-        prefix: LogPrefix.Backend
-      }
+      LogPrefix.Backend
     )
   })
 }

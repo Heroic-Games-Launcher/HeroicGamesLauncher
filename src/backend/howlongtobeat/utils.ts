@@ -12,15 +12,14 @@ export async function getHowLongToBeat(
     // check if we have a cached response
     const cachedResponse = howLongToBeatStore.get(title)
     if (cachedResponse) {
-      logInfo([`Using cached HowLongToBeat data for ${title}`, ''], {
-        prefix: LogPrefix.Backend
-      })
+      logInfo(
+        [`Using cached HowLongToBeat data for ${title}`, ''],
+        LogPrefix.Backend
+      )
       return cachedResponse as HowLongToBeatEntry
     }
 
-    logInfo(`Getting HowLongToBeat data for ${title}`, {
-      prefix: LogPrefix.Backend
-    })
+    logInfo(`Getting HowLongToBeat data for ${title}`, LogPrefix.Backend)
 
     const hltb = new HowLongToBeatService()
     const results = await hltb.search(title)
@@ -32,9 +31,10 @@ export async function getHowLongToBeat(
 
     return results[0]
   } catch (error) {
-    logError(['Was not able to get HowLongToBeat data', error], {
-      prefix: LogPrefix.Backend
-    })
+    logError(
+      ['Was not able to get HowLongToBeat data', error],
+      LogPrefix.Backend
+    )
     return null
   }
 }

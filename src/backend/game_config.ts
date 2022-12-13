@@ -57,9 +57,10 @@ abstract class GameConfig {
       try {
         version = JSON.parse(readFileSync(path, 'utf-8'))['version']
       } catch (error) {
-        logError(`Config file is corrupted, please check ${path}`, {
-          prefix: LogPrefix.Backend
-        })
+        logError(
+          `Config file is corrupted, please check ${path}`,
+          LogPrefix.Backend
+        )
         version = 'v0'
       }
       // Legacy config file without a version field, it's a v0 config.
@@ -94,7 +95,7 @@ abstract class GameConfig {
       default:
         logError(
           `[${appName}]: Invalid config version '${version}' requested.`,
-          { prefix: LogPrefix.GameConfig }
+          LogPrefix.GameConfig
         )
         break
     }
@@ -103,14 +104,15 @@ abstract class GameConfig {
       // Upgrade done, we need to fully reload config.
       logInfo(
         `[${appName}]: Upgraded outdated ${version} config to ${currentGameConfigVersion}.`,
-        { prefix: LogPrefix.GameConfig }
+        LogPrefix.GameConfig
       )
       return GameConfig.reload(appName, currentGameConfigVersion)
     } else if (version !== currentGameConfigVersion) {
       // Upgrade failed.
-      logError(`[${appName}]: Failed to upgrade outdated ${version} config.`, {
-        prefix: LogPrefix.GameConfig
-      })
+      logError(
+        `[${appName}]: Failed to upgrade outdated ${version} config.`,
+        LogPrefix.GameConfig
+      )
     }
   }
 
