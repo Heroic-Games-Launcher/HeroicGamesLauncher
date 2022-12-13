@@ -54,7 +54,7 @@
     },
     "mac": {
       "artifactName": "${productName}-${version}-macOS-${arch}.${ext}",
-      "target": "dmg",
+      "target": "zip",
       "category": "public.app-category.games",
       "icon": "build/icon.icns",
       "asarUnpack": [
