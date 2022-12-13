@@ -108,7 +108,7 @@ export default function GOGSyncSaves({
               <TextInputWithIconField
                 htmlId="inputSavePath"
                 placeholder={t('setting.savefolder.placeholder')}
-                value={gogSaves[index].location}
+                value={value.location}
                 label={
                   t('settings.saves.label', 'Save Location:') + ' ' + value.name
                 }
@@ -141,15 +141,19 @@ export default function GOGSyncSaves({
                             title: t('box.sync.title')
                           })
                           .then((path) => {
-                            setGogSaves([{ name: 'GOG', location: path || '' }])
+                            const saves = [...gogSaves]
+                            saves[index].location = path || ''
+                            setGogSaves(saves)
                           })
                     : () => {
-                        setGogSaves([{ name: 'GOG', location: '' }])
+                        const saves = [...gogSaves]
+                        saves[index].location = ''
+                        setGogSaves(saves)
                       }
                 }
                 afterInput={
                   <span className="smallMessage">
-                    {value.location.length > 1
+                    {gogSaves.length > 1
                       ? t(
                           'setting.savefolder.warning',
                           'Please check twice if the path is correct'
