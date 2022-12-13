@@ -1,3 +1,4 @@
+import { getFullPrefixPath } from 'backend/launcher'
 import {
   callAbortController,
   createAbortController,
@@ -13,7 +14,7 @@ import { logError, LogPrefix, logWarning } from '../../logger/logger'
 import { runLegendaryCommand } from '../library'
 import { LegendaryGame } from '../games'
 import { getGame } from '../../utils'
-import { verifyWinePrefix } from '../../launcher'
+import { isValidPrefix, verifyWinePrefix } from '../../launcher'
 import { sendFrontendMessage } from '../../main_window'
 
 const currentVersionPath = join(legendaryConfigPath, 'overlay_version.json')
@@ -180,10 +181,14 @@ async function enable(
   if (isLinux) {
     const game = getGame(appName, 'legendary')
     const gameSettings = await game.getSettings()
-    await verifyWinePrefix(gameSettings)
-    const { winePrefix, wineVersion } = gameSettings
-    prefix =
-      wineVersion.type === 'proton' ? join(winePrefix, 'pfx') : winePrefix
+    if (!isValidPrefix(gameSettings)) {
+      await verifyWinePrefix(gameSettings)
+    }
+    prefix = getFullPrefixPath(
+      gameSettings.winePrefix,
+      gameSettings.wineVersion.type,
+      gameSettings.wineCrossoverBottle
+    )
   }
   if (!isInstalled()) {
     const { response } = await dialog.showMessageBox({

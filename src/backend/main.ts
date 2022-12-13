@@ -577,11 +577,12 @@ ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
     ? await getAppSettings(appName)
     : await game.getSettings()
   const { wineVersion, winePrefix } = gameSettings
-  await verifyWinePrefix(gameSettings)
+  if (!isValidPrefix(gameSettings)) {
+    await verifyWinePrefix(gameSettings)
+  }
 
   switch (tool) {
     case 'winetricks':
-      await verifyWinePrefix(gameSettings)
       await Winetricks.run(wineVersion, winePrefix, event)
       break
     case 'winecfg':
@@ -1653,7 +1654,10 @@ ipcMain.handle(
     if (isWindows) {
       return execAsync(commandParts.join(' '))
     }
-    const { updated } = await verifyWinePrefix(gameSettings)
+    let updated = false
+    if (!isValidPrefix(gameSettings)) {
+      ;({ updated } = await verifyWinePrefix(gameSettings))
+    }
 
     if (runner === 'gog' && updated) {
       await setup(game.appName)
