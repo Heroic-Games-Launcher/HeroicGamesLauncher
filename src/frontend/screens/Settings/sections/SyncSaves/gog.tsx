@@ -161,7 +161,7 @@ export default function GOGSyncSaves({
                 }
                 afterInput={
                   <span className="smallMessage">
-                    {gogSaves.length > 1
+                    {gogSaves.length >= 1
                       ? t(
                           'setting.savefolder.warning',
                           'Please check twice if the path is correct'
