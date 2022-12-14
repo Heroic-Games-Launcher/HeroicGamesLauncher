@@ -107,10 +107,10 @@
             }
         },
         "runexe": {
-            "title": "Odaberi EXE za pokrenuti"
+            "title": "Odaberi EXE datoteku za pokretanje"
         },
         "select": {
-            "button": "Select",
+            "button": "Odaberi",
             "exe": "Select EXE"
         },
         "shortcuts": {
