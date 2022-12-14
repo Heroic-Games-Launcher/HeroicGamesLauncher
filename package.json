@@ -169,7 +169,7 @@
   "scripts": {
     "start": "vite",
     "codecheck": "tsc --noEmit",
-    "test": "jest --noStackTrace",
+    "test": "jest",
     "test-watch": "jest --watch --maxWorkers=25%",
     "test:ci": "jest --runInBand --silent",
     "release:linux": "vite build && electron-builder -p always --linux deb AppImage rpm pacman tar.xz",
