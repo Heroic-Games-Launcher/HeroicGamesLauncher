@@ -110,7 +110,9 @@
         "shortcuts": {
             "message": "Genveje var oprettet på Skrivebordet og i Start Menuen",
             "title": "Genveje",
-            "message-remove": "Genveje blev fjernet fra skrivebordet og startmenuen"
+            "message-remove": "Genveje blev fjernet fra skrivebordet og startmenuen",
+            "message-mac": "Genveje blev oprettet i mappen Programmer",
+            "message-remove-mac": "Genveje blev fjernet fra mappen Programmer"
         },
         "sync": {
             "button": "Vælg",
@@ -229,7 +231,8 @@
         "custom_themes_wiki": "Tjek Wiki for flere detaljer om tilføjelse af brugerdefinerede temaer. Klik her.",
         "steam_path": {
             "info": "Denne sti lader Heroic bestemme, hvilken version af Proton Steam bruger, til at tilføje ikke-Steam-spil til Steam."
-        }
+        },
+        "dxvkfpslimit": "Indstiller et billedhastighedsloft for DXVK-spil"
     },
     "notify": {
         "uninstalled": "Afinstalleret",
@@ -383,7 +386,8 @@
         "checkForUpdatesOnStartup": "Søg efter heroiske opdateringer ved opstart",
         "addgamestosteam": "Tilføj spil til Steam automatisk",
         "custom_themes_path": "Sti til brugerdefinerede temaer",
-        "hideChangelogsOnStartup": "Vis ikke ændringslogs ved opstart"
+        "hideChangelogsOnStartup": "Vis ikke ændringslogs ved opstart",
+        "dxvkfpslimit": "Begræns FPS (DX9, 10 og 11)"
     },
     "wine": {
         "manager": {
@@ -568,7 +572,8 @@
         "logout": "Log ud",
         "logout_confirmation": "Er du sikker på, at du vil logge ud?",
         "manageaccounts": "Administrer konti",
-        "quit": "Afslut"
+        "quit": "Afslut",
+        "logging_out": "Logger ud"
     },
     "anticheat": {
         "anticheats": "Anticheats",
@@ -605,7 +610,8 @@
         "alt-gogdl-bin": "Brug af indbygget GOGDL binær...",
         "alt-legendary-bin": "Bruger indbygget Legendary binær...",
         "egs-prefix": "Præfiks hvor EGS er installeret",
-        "custom_themes_path": "Vælg stien for at søge efter tilpassede CSS-filer"
+        "custom_themes_path": "Vælg stien for at søge efter tilpassede CSS-filer",
+        "dxvkfpsvalue": "Positiv heltalsværdi (f.eks. 30, 60, ...)"
     },
     "search": "Søg efter spil",
     "store": "Episk butik",
