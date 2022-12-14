@@ -115,9 +115,9 @@
         },
         "shortcuts": {
             "message": "Zástupci byli vytvořeni na ploše a v nabídce Start",
-            "message-mac": "Shortcuts were created on the Applications folder",
+            "message-mac": "Zástupci byli vytvořeni ve složce Aplikace",
             "message-remove": "Zástupci byli odebráni z plochy a nabídky Start",
-            "message-remove-mac": "Shortcuts were removed from the Applications folder",
+            "message-remove-mac": "Zástupci byli odstraněni ze složky Aplikace",
             "title": "Zástupci"
         },
         "sync": {
@@ -620,7 +620,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
-        "logging_out": "Logging out",
+        "logging_out": "Odhlašování",
         "logout": "Odhlásit se",
         "logout_confirmation": "Opravdu se chcete odhlásit?",
         "manageaccounts": "Spravovat účty",

@@ -115,9 +115,9 @@
         },
         "shortcuts": {
             "message": "Ярлыки созданы на рабочем столе и в меню «Пуск»",
-            "message-mac": "Shortcuts were created on the Applications folder",
+            "message-mac": "Ярлыки были созданы в папке «Программы»",
             "message-remove": "Ярлыки были удалены с рабочего стола и меню «Пуск»",
-            "message-remove-mac": "Shortcuts were removed from the Applications folder",
+            "message-remove-mac": "Ярлыки были удалены из папки «Программы»",
             "title": "Ярлыки"
         },
         "sync": {
@@ -418,7 +418,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "please-wait": "Please wait...",
+    "please-wait": "Пожалуйста, подождите...",
     "progress": "Прогресс",
     "queue": {
         "label": {
@@ -528,9 +528,9 @@
             "title": "Запустить EXE в префиксе"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Папка для сохранений не найдена, выберите ее вручную",
             "placeholder": "Выберите точную папку для сохранений игр",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Пожалуйста, проверьте дважды, правильно ли указан путь"
         },
         "select_theme": "Выбор темы",
         "showfps": "Показывать FPS (DX9, 10 и 11)",
@@ -620,7 +620,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Дискорд",
-        "logging_out": "Logging out",
+        "logging_out": "Выход",
         "logout": "Выйти из аккаунта",
         "logout_confirmation": "Вы уверены, что хотите выйти?",
         "manageaccounts": "Аккаунты",
@@ -638,7 +638,7 @@
         "actions": "Действие",
         "manager": {
             "link": "Менеджер Wine",
-            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
+            "not-found": "Версии Wine не найдены. Пожалуйста, нажмите на значок обновления, чтобы повторить попытку.",
             "title": "Менеджер Wine",
             "unzipping": "Распаковка"
         },
