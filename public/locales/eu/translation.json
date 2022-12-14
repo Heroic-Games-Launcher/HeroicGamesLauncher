@@ -229,6 +229,7 @@
         "custom_themes_path": "Ez erabili iturri ez-fidagarrien CSS fitxategiak. Zalantza izanez gero, eskatu azterketa bat gure Discord zerbitzarian.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK DirectX 9, 10 eta 11 jokoetarako Vulkan-en oinarritutako translazio-geruza da. Gaitzeak bateragarritasuna hobetu dezake. Arazoak sor ditzake bereziki DirectX joko zaharretan.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Esync-ek ardo-zerbitzariaren gainkostua murriztea du helburu PUZa duten jokoetan. Gaitzeak errendimendua hobe dezake.",
         "fsync": "Fsync-ek ardo-zerbitzariaren gainkostua murriztea du helburu PUZa duten jokoetan. Gaitzeak errendimendua hobetu dezake onartzen diren Linux nukleoetan.",
         "game_language": {
@@ -408,6 +409,7 @@
         "alt-gogdl-bin": "GOGDL bitarra integratua erabiltzen...",
         "alt-legendary-bin": "Kondairazko bitar integratua erabiltzen...",
         "custom_themes_path": "Select the path to look for custom CSS files",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "EGS instalatuta dagoen aurrizkia",
         "prefered_language": "2 karaktere kodea (hau da: \"en\" edo \"fr\")"
     },
@@ -452,6 +454,7 @@
         "disable_controller": "Desgaitu nabigazio heroikoa kontrolagailua erabiliz",
         "discordRPC": "Gaitu Discord presentzia aberatsa",
         "download-no-https": "Deskargatu jokoak HTTPS gabe (CDNetarako erabilgarria, adibidez, LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Sinkronizatu instalatutako Epic Games-ekin",
         "enableFSRHack": "Gaitu FSR Hack (Wine bertsioak onartu behar du)",
         "eosOverlay": {

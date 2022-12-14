@@ -3,13 +3,13 @@
         "login": "Inicia la sessió"
     },
     "message": {
-        "part1": "Per a iniciar sessió i instal·lar els vostres jocs, cal que seguiu primer les passes de sota:",
+        "part1": "Per a iniciar sessió i instal·lar jocs, cal que segueixis primer les passes de sota:",
         "part2": "Obre el",
         "part3": "Epic Store aquí",
         "part4": ", inicia la sessió i copia el teu",
-        "part5": "nombre authorization code",
+        "part5": "nombre informatiu del codi d'autorització",
         "part6": "Enganxa el",
-        "part7": "nombre authorization code",
+        "part7": "nombre informatiu del codi d'autorització",
         "part8": "a la caixa de sota i fes clic al botó d'inici de sessió."
     },
     "status": {

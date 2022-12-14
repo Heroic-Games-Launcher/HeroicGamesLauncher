@@ -310,7 +310,9 @@
             "title": "Kør EXE på præfiks"
         },
         "savefolder": {
-            "placeholder": "Vælg den nøjagtige gemte spilmappe"
+            "placeholder": "Vælg den nøjagtige gemte spilmappe",
+            "not-found": "Gem mappe blev ikke fundet, vælg den manuelt",
+            "warning": "Tjek venligst to gange, om stien er korrekt"
         },
         "select_theme": "Vælg tema",
         "showfps": "Vis FPS (DX9, 10 og 11)",
@@ -388,7 +390,8 @@
             "link": "Vinchef",
             "error": "Kunne ikke hente Wine/Proton-versioner denne gang.",
             "title": "Vinchef",
-            "unzipping": "Udpakker"
+            "unzipping": "Udpakker",
+            "not-found": "Ingen vinversioner fundet. Klik på opdateringsikonet for at prøve igen."
         },
         "release": "Udgivelses dato",
         "size": "Størrelse",
@@ -677,5 +680,6 @@
             "type": "Type"
         },
         "title": "Downloads"
-    }
+    },
+    "please-wait": "Vent venligst..."
 }

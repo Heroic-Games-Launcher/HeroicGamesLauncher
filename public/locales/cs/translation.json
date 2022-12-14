@@ -229,6 +229,7 @@
         "custom_themes_path": "Nepoužívejte soubory CSS z nedůvěryhodných zdrojů. V případě pochybností požádejte o kontrolu v našem Discord kanálu.",
         "custom_themes_wiki": "Zkontrolujte Wiki pro více podrobností o přidávání vlastních motivů. Klikněte sem.",
         "dxvk": "DXVK je překladová vrstva založená na Vulkanu pro hry DirectX 9, 10 a 11. Povolení může zlepšit kompatibilitu. Může ale způsobit problémy zejména u starších her s rozhraním DirectX.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Cílem Esync je snížit režii wineserveru ve hrách náročných na výkon procesoru. Povolení může zlepšit výkon.",
         "fsync": "Cílem Fsync je snížit režii wineserveru ve hrách náročných na výkon procesoru. Povolení může zlepšit výkon na podporovaných jádrech Linuxu.",
         "game_language": {
@@ -408,6 +409,7 @@
         "alt-gogdl-bin": "Pomocí vestavěného GOGDL...",
         "alt-legendary-bin": "Pomocí vestavěného Legendary...",
         "custom_themes_path": "Vyberte cestu k vyhledávání vlastních souborů CSS",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix kde je nainstalován EGS",
         "prefered_language": "2znakový kód (tj.: \"en\" nebo \"fr\")"
     },
@@ -416,7 +418,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "please-wait": "Please wait...",
+    "please-wait": "Čekejte prosím...",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -452,6 +454,7 @@
         "disable_controller": "Zakázat navigaci v Heroic pomocí ovladače",
         "discordRPC": "Povolit Discord Rich Presence",
         "download-no-https": "Stahovat hry bez HTTPS (užitečné pro CDN, např. LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Synchronizovat s nainstalovanými Epic Games",
         "enableFSRHack": "Povolte FSR Hack (verze Wine jej musí podporovat)",
         "eosOverlay": {
@@ -525,9 +528,9 @@
             "title": "Spustit EXE na prefixu"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Složka pro uložení nebyla nalezena, vyberte ji prosím ručně",
             "placeholder": "Vyberte přesnou složku s uloženými soubory",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Zkontrolujte prosím dvakrát, zda je cesta správná"
         },
         "select_theme": "Vybrat motiv",
         "showfps": "Zobrazit FPS (DX9, 10 a 11)",
@@ -635,7 +638,7 @@
         "actions": "Action",
         "manager": {
             "link": "Správce Wine",
-            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
+            "not-found": "Nebyly nalezeny žádné verze Wine. Klikněte na ikonu obnovení a zkuste to znovu.",
             "title": "Správce Wine",
             "unzipping": "Rozbalování"
         },
