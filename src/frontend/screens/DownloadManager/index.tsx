@@ -138,7 +138,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
                   className="button is-text"
                   onClick={() => handleClearList()}
                 >
-                  ({t('queue.label.clear', 'Clear List')})
+                  {t('queue.label.clear', 'Clear List')}
                 </button>
               </h5>
             </span>
