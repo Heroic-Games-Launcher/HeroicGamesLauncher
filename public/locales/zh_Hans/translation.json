@@ -115,9 +115,9 @@
         },
         "shortcuts": {
             "message": "桌面与开始菜单快捷方式已创建",
-            "message-mac": "Shortcuts were created on the Applications folder",
+            "message-mac": "快捷方式创建于应用程序文件夹上",
             "message-remove": "从桌面和启动菜单移除了快捷方式",
-            "message-remove-mac": "Shortcuts were removed from the Applications folder",
+            "message-remove-mac": "从应用程序文件夹删除了快捷方式",
             "title": "快捷方式"
         },
         "sync": {
@@ -620,7 +620,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
-        "logging_out": "Logging out",
+        "logging_out": "退出登录",
         "logout": "退出登录",
         "logout_confirmation": "你确定要退出登录吗？",
         "manageaccounts": "管理帐户",
