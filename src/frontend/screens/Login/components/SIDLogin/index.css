@@ -63,15 +63,17 @@
 }
 
 .sid-modal > .sid-input {
-  color: var(--text-default);
+  color: var(--text-secondary);
   font-size: var(--text-md);
   padding: var(--space-2xs);
-  background-color: var(--background);
+  background-color: var(--input-background);
   border: none;
-  height: 50px;
-  width: 250px;
-  border-radius: var(--space-sm);
-  margin: var(--space-sm);
+  height: 40px;
+  width: 60%;
+  border-radius: var(--space-3xs);
+  margin-bottom: var(--space-md);
+  box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+  font-family: var(--primary-font-family);
 }
 
 .SIDLoginModal .message > .material-icons {
