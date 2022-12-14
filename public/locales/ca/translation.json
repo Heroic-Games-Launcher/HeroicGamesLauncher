@@ -229,9 +229,9 @@
         "custom_themes_path": "No facis servir fitxers CSS de fonts poc fiables. Si tens cap dubte, demana en el nostre canal de Discord que el revisin.",
         "custom_themes_wiki": "Llegeix la Wiki per a més detalls sobre com afegir temes personalitzats. Fes clic aquí.",
         "dxvk": "DXVK és una capa de traducció basada en Vulkan per a jocs que emprin DirectX 9, 10 i 11. Si s'activa, podria millorar la compatibilitat. Pot causar problemes, especialment per als jocs que facin servir versions del DirectX més antigues.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Esync té com a objectiu reduir sobrecàrregues del Wineserver en jocs intensius en CPU. Si s'activa, podria millorar el rendiment.",
         "fsync": "Fsync té com a objectiu reduir sobrecàrregues del Wineserver en jocs intensius en CPU. Si s'activa, podria millorar el rendiment en versions de Linux compatibles.",
-        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "game_language": {
             "fallback": "Deixa-ho en blanc per a usar la llengua de l'Heroic.",
             "in_game_config": "No tots els jocs són compatibles amb aquesta configuració. En alguns s'ha de configurar la llengua quan s'executa el programa.",

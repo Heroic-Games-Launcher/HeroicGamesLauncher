@@ -229,8 +229,8 @@
         "custom_themes_path": "Ne használj CSS fájlt nem megbízható forrásokból. Kétség esetén, kérj egy felülvizsgálatot a Discord csatornánkban.",
         "custom_themes_wiki": "Nézze meg a Wikit az egyéni témák hozzáadásával kapcsolatos további részletekért. Kattints ide.",
         "dxvk": "A DXVK egy Vulkanon alapuló fordítási szoftverréteg a DirectX 9, 10 és 11 játékoknak. A bekapcsolása növelheti a kompatibilitást. Okozhat problémákat főleg a régebbi DirectX játékokkal.",
-        "esync": "Az Esync célja, hogy csökkentse a wineserver súlyát a CPU igényes játékokkal. A bekapcsolása növelheti a teljesítményt.",
         "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
+        "esync": "Az Esync célja, hogy csökkentse a wineserver súlyát a CPU igényes játékokkal. A bekapcsolása növelheti a teljesítményt.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
             "fallback": "Leave blank to use Heroic's language.",
