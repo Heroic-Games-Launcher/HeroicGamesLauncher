@@ -453,8 +453,8 @@
         "defaultWinePrefix": "Imposta cartella per i nuovi prefissi Wine",
         "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "Attiva \"Discord Rich Presence\"",
-        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "download-no-https": "Scarica i giochi senza HTTPS (utile per CDN come LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Sincronizza con l'Epic Games già installato",
         "enableFSRHack": "Attiva l'FSR Hack (la versione di Wine deve supportarlo)",
         "eosOverlay": {
