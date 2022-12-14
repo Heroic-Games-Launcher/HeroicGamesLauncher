@@ -115,9 +115,9 @@
         },
         "shortcuts": {
             "message": "أُنشئت الاختصارات على سطح المكتب وقائمة ابدأ",
-            "message-mac": "Shortcuts were created on the Applications folder",
+            "message-mac": "أُنشئت الاختصارات في مجلد التطبيقات",
             "message-remove": "أُزيلت الاختصارات من سطح المكتب وقائمة ابدأ",
-            "message-remove-mac": "Shortcuts were removed from the Applications folder",
+            "message-remove-mac": "أُزيلت الاختصارات من مجلد التطبيقات",
             "title": "الاختصارات"
         },
         "sync": {
@@ -261,7 +261,8 @@
         "wine": {
             "part1": "يبحث هِرُوِك عن إصدارات واين و بروتون وكروس.أوفر في المجلدات التالية:",
             "part2": "بالنسبة للأماكن الأخرى، استخدم ارتباطًا رمزيًا لأحد هذه المجلدات"
-        }
+        },
+        "dxvkfpslimit": "يضبط حدًا لمعدل الإطارات لألعاب DXVK"
     },
     "info": {
         "heroic": {
@@ -409,7 +410,8 @@
         "alt-legendary-bin": "يتم استخدام الملف الثنائي المدمج للِجَندَرِي...",
         "custom_themes_path": "حدد مسارًا للبحث عن ملفات سي.إس.إس مخصصة",
         "egs-prefix": "السابقة التي ثُبت فيها متجر ألعاب أََبِك",
-        "prefered_language": "رمز من حرفين (مثل \"en\" أو \"fr\")"
+        "prefered_language": "رمز من حرفين (مثل \"en\" أو \"fr\")",
+        "dxvkfpsvalue": "قيمة عدد صحيح ضار (على سبيل المثال ، 30 ، 60 ، ...)"
     },
     "platforms": {
         "linux": "لينكس",
@@ -535,7 +537,8 @@
         "steamruntime": "استخدم بيئة تشغيل ستيم",
         "winecrossoverbottle": "قارورة كروس.أوفر",
         "wineprefix": "مجلد سابقة واين",
-        "wineversion": "إصدار واين"
+        "wineversion": "إصدار واين",
+        "dxvkfpslimit": "حد FPS (DX9 و 10 و 11)"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -617,7 +620,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "دِسكُورد",
-        "logging_out": "Logging out",
+        "logging_out": "تسجيل الخروج",
         "logout": "سجل الخروج",
         "logout_confirmation": "هل أنت متأكد أنك تريد تسجيل الخروج ؟",
         "manageaccounts": "أدر الحسابات",
