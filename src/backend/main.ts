@@ -96,7 +96,8 @@ import {
   isFlatpak,
   publicDir,
   wineprefixFAQ,
-  customThemesWikiLink
+  customThemesWikiLink,
+  userHome
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
@@ -144,6 +145,7 @@ const { showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
 
 async function initializeWindow(): Promise<BrowserWindow> {
+  configStore.set('userHome', userHome)
   const mainWindow = createMainWindow()
 
   if ((isSteamDeckGameMode || isCLIFullscreen) && !isCLINoGui) {
