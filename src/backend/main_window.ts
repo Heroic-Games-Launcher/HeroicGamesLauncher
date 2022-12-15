@@ -16,10 +16,12 @@ export const getMainWindow = () => {
 // returns `false` if no mainWindow or no webContents
 // returns `true` if the message was sent to the webContents
 export const sendFrontendMessage = (message: string, ...payload: unknown[]) => {
+  // get the first BrowserWindow if for some reason we don't have a webContents
   if (!mainWindow?.webContents) {
     mainWindow = BrowserWindow.getAllWindows()[0]
   }
 
+  // return false if we still don't have a webContents
   if (!mainWindow?.webContents) {
     return false
   }

@@ -77,6 +77,7 @@ import {
   discordLink,
   heroicGamesConfigPath,
   heroicGithubURL,
+  userHome,
   icon,
   installed,
   kofiPage,
@@ -96,8 +97,7 @@ import {
   isFlatpak,
   publicDir,
   wineprefixFAQ,
-  customThemesWikiLink,
-  userHome
+  customThemesWikiLink
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
