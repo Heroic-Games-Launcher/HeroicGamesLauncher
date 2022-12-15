@@ -10,10 +10,10 @@ import { copySync } from 'fs-extra'
 import path from 'node:path'
 import { GOGLibrary } from './library'
 import { GameInfo, InstalledInfo } from 'common/types'
-import { execAsync, quoteIfNecessary } from '../utils'
+import { execAsync, quoteIfNecessary, spawnAsync } from '../utils'
 import { GameConfig } from '../game_config'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import { userHome, isWindows } from '../constants'
+import { userHome, isWindows, execOptions } from '../constants'
 import ini from 'ini'
 import { GlobalConfig } from '../config'
 import { isOnline } from '../online_monitor'
@@ -45,32 +45,34 @@ async function setup(
     { prefix: LogPrefix.Gog }
   )
 
-  const gameSettings = GameConfig.get(appName).config
+  let commandPrefix = ''
 
-  const isCrossover = gameSettings.wineVersion.type === 'crossover'
-  const crossoverBottle = gameSettings.wineCrossoverBottle
-  const crossoverEnv =
-    isCrossover && crossoverBottle ? `CX_BOTTLE=${crossoverBottle}` : ''
-  const isProton = gameSettings.wineVersion.type === 'proton'
-  const { defaultSteamPath } = await GlobalConfig.get().getSettings()
-  const prefix = isProton
-    ? `STEAM_COMPAT_CLIENT_INSTALL_PATH="${defaultSteamPath}" STEAM_COMPAT_DATA_PATH='${gameSettings.winePrefix
-        .replaceAll("'", '')
-        .replace('~', userHome)}'`
-    : `WINEPREFIX="${gameSettings.winePrefix
-        .replaceAll("'", '')
-        .replace('~', userHome)}"`
+  if (!isWindows) {
+    const gameSettings = GameConfig.get(appName).config
 
-  const commandPrefix = isWindows
-    ? ''
-    : `${isCrossover ? crossoverEnv : prefix} ${quoteIfNecessary(
-        gameSettings.wineVersion.bin
-      )} ${isProton ? 'runinprefix' : ''}`
-  // Make sure Proton initialized prefix correctly
-  if (isProton) {
-    await execAsync(
-      `${prefix} ${quoteIfNecessary(gameSettings.wineVersion.bin)} run reg /?` // This is a help command for reg, it's enough to initialize a prefix
-    ).catch()
+    const isCrossover = gameSettings.wineVersion.type === 'crossover'
+    const crossoverBottle = gameSettings.wineCrossoverBottle
+    const crossoverEnv =
+      isCrossover && crossoverBottle ? `CX_BOTTLE=${crossoverBottle}` : ''
+    const isProton = gameSettings.wineVersion.type === 'proton'
+    const { defaultSteamPath } = await GlobalConfig.get().getSettings()
+    const prefix = isProton
+      ? `STEAM_COMPAT_CLIENT_INSTALL_PATH="${defaultSteamPath}" STEAM_COMPAT_DATA_PATH='${gameSettings.winePrefix
+          .replaceAll("'", '')
+          .replace('~', userHome)}'`
+      : `WINEPREFIX="${gameSettings.winePrefix
+          .replaceAll("'", '')
+          .replace('~', userHome)}"`
+
+    commandPrefix = `${isCrossover ? crossoverEnv : prefix} ${quoteIfNecessary(
+      gameSettings.wineVersion.bin
+    )} ${isProton ? 'runinprefix' : ''}`
+    // Make sure Proton initialized prefix correctly
+    if (isProton) {
+      await execAsync(
+        `${prefix} ${quoteIfNecessary(gameSettings.wineVersion.bin)} run reg /?` // This is a help command for reg, it's enough to initialize a prefix
+      ).catch()
+    }
   }
   // Funny part begins here
   // Deterimine if it's basically from .script file or from manifest
@@ -133,6 +135,16 @@ async function setup(
             ],
             { prefix: LogPrefix.Gog }
           )
+          if (isWindows) {
+            await spawnAsync('reg', [
+              'add',
+              registryPath,
+              ...keyCommand.split(' '),
+              '/f',
+              '/reg:32'
+            ])
+            break
+          }
           await execAsync(command)
           break
         }
@@ -177,7 +189,20 @@ async function setup(
           let command = `${commandPrefix} "${executablePath}" ${exeArguments}`
           // Requires testing
           if (isWindows) {
-            command = `Start-Process -FilePath "${executablePath}" -Verb RunAs -ArgumentList "${exeArguments}"`
+            command = `Start-Process -FilePath "${executablePath}" -Verb RunAs -ArgumentList`
+            logInfo(
+              [
+                'Setup: Executing',
+                command,
+                `${workingDir || gameInfo.install.install_path}`
+              ],
+              { prefix: LogPrefix.Gog }
+            )
+            await spawnAsync('powershell', [
+              ...command.split(' '),
+              ...exeArguments.split(' ')
+            ])
+            break
           }
           logInfo(
             [
@@ -188,6 +213,7 @@ async function setup(
             { prefix: LogPrefix.Gog }
           )
           await execAsync(command, {
+            ...execOptions,
             cwd: workingDir || gameInfo.install.install_path
           })
           break
