@@ -2,7 +2,7 @@
     "accessibility": {
         "actions_font_family_no_default": "Police d'écriture pour les actions (Par défaut : ",
         "all_tiles_in_color": "Afficher les vignettes de tous les jeux en couleur",
-        "content_font_family_no_default": "Police d'écriture pour les contenus (Par défaut : ",
+        "content_font_family_no_default": "Police d'écriture pour les contenus (Par défaut\u202f: ",
         "fonts": "Polices d'écriture",
         "title": "Accessibilité",
         "zoom": "Zoom"
@@ -70,7 +70,7 @@
                 "title": "Erreur de mise-à-jour"
             },
             "wine-not-found": {
-                "invalid": "La version de Wine sélectionnée n'a pas été trouvée. Installez-le ou sélectionnez une version différente dans les paramètres du jeu{{newline}}Version : {{version}}{{newline}}Chemin : {{path}}",
+                "invalid": "La version de Wine sélectionnée n'a pas été trouvée. Installez-le ou sélectionnez une version différente dans les paramètres du jeu{{newline}}Version\u202f: {{version}}{{newline}}Chemin\u202f: {{path}}",
                 "message": "Aucune version de Wine n'est sélectionnée. Vérifiez les paramètres de jeu !",
                 "title": "Wine non trouvé"
             },
@@ -253,12 +253,12 @@
         "sync": {
             "part1": "Heroic essaie de déterminer quel est le bon dossier de sauvegarde et cela fonctionne dans la plus part des cas. Si le dossier choisi n'est pas le bon, utilisez le champ ci-dessus pour le changer.",
             "part2": "Dans le cas où vous changez le dossier de prefix de Wine ou Proton, vous aurez besoin de revérifier ce chemin car Proton utilise un prefix différent (/pfx) et un username (steamuser). Vous pouvez simplement effacer le chemin actuel quitter la page des options pour que Heroic essaie de deviner une fois de plus le dossier avec le bon prefix.",
-            "part3": "Synchronisation manuelle : Choisissez « Télécharger » pour télécharger les sauvegardes des jeux enregistrées dans le Cloud et « Téléverser » pour transférer les fichiers locaux vers le Cloud. « Forcer le téléchargement » et « Forcer le téléversement » ignoreront la version locale ou celle du Cloud.",
+            "part3": "Synchronisation manuelle\u202f: Choisissez « Télécharger » pour télécharger les sauvegardes des jeux enregistrées dans le Cloud et « Téléverser » pour transférer les fichiers locaux vers le Cloud. « Forcer le téléchargement » et « Forcer le téléversement » ignoreront la version locale ou celle du Cloud.",
             "part4": "« Synchroniser automatiquement » active la synchronisation de vos sauvegardes à chaque fois que vous lancez un jeu et que vous l'arrêtez."
         },
         "vkd3d": "VKD3D est une interface de compatibilité basée sur Vulkan pour les jeux nécessitant DirectX 12. L'activer pourrait grandement améliorer la compatibilité. N'a aucun effet sur les jeux utilisant des versions de DirectX plus anciennes.",
         "wine": {
-            "part1": "Heroic recherche des versions de Wine, Proton et CrossOver dans ces dossiers :",
+            "part1": "Heroic recherche des versions de Wine, Proton et CrossOver dans ces dossiers\u202f:",
             "part2": "Pour d'autres emplacements, utilisez un lien symbolique vers un de ces dossiers"
         }
     },
@@ -389,7 +389,7 @@
         "quote-args-with-spaces": "Attention : Assurez-vous de citer les args avec des espaces ! E.g. : \"chemin/avec espaces/\"",
         "wrapper": {
             "args": "Arguments",
-            "arguments_example": "Exemples d'arguments : --arg ; --extra-file=\"file-path/ with/spaces\"",
+            "arguments_example": "Exemples d'arguments\u202f: --arg\u202f; --extra-file=\"file-path/ with/spaces\"",
             "exe": "Wrapper",
             "placeHolderKey": "Nouveau Wrapper",
             "placeHolderValue": "Arguments du Wrapper",
@@ -408,7 +408,7 @@
         "custom_themes_path": "Sélectionner le chemin où rechercher des fichiers CSS personnalisés",
         "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix où EGS est installé",
-        "prefered_language": "2-char code (exemple : \"en\" ou \"fr\")"
+        "prefered_language": "2-char code (exemple\u202f: \"en\" ou \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
@@ -615,7 +615,7 @@
     "userselector": {
         "discord": "Discord",
         "logout": "Déconnexion",
-        "logout_confirmation": "Êtes-vous certain(e) de vouloir vous déconnecter ?",
+        "logout_confirmation": "Êtes-vous certain(e) de vouloir vous déconnecter\u202f?",
         "manageaccounts": "Comptes",
         "quit": "Quitter"
     },
