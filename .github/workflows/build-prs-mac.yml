@@ -35,6 +35,6 @@ jobs:
       - name: Upload ARM64.
         uses: actions/upload-artifact@v3
         with:
-        name: mac-arm64
+          name: mac-arm64
           path: dist/Heroic*arm64.dmg
           retention-days: 14
