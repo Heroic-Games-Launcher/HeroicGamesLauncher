@@ -19,7 +19,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: node_modules
-          key: linux-yarn-${{ hashFiles('package-lock.json') }}
+          key: linux-yarn-${{ hashFiles('yarn.lock') }}
       - name: Install modules.
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile
