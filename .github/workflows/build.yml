@@ -59,9 +59,13 @@ jobs:
         run: yarn
       - name: Build artifacts.
         run: yarn dist:mac --publish=never
-      - name: Upload DMG.
+      - name: Upload x64.
         uses: actions/upload-artifact@v3
         with:
-          name: mac-dmg
-          path: dist/Heroic*.dmg
+          path: dist/Heroic*x64.dmg
+          retention-days: 14
+      - name: Upload ARM64.
+        uses: actions/upload-artifact@v3
+        with:
+          path: dist/Heroic*arm64.dmg
           retention-days: 14
