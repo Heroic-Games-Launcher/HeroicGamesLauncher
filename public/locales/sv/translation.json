@@ -293,6 +293,9 @@
     "install": {
         "path": "Ange installationssökväg"
     },
+    "label": {
+        "loading": "Loading"
+    },
     "library": {
         "refresh": "Uppdatera",
         "sortAscending": "Sortera stigande",

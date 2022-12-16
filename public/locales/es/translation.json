@@ -293,6 +293,9 @@
     "install": {
         "path": "Seleccione la ruta de instalación"
     },
+    "label": {
+        "loading": "Loading"
+    },
     "library": {
         "refresh": "Actualizar",
         "sortAscending": "Orden Ascendente",

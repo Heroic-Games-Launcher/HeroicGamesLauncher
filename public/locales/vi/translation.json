@@ -293,6 +293,9 @@
     "install": {
         "path": "Chọn đường dẫn cài"
     },
+    "label": {
+        "loading": "Loading"
+    },
     "library": {
         "refresh": "Tải lại",
         "sortAscending": "Sắp xếp Tăng dần",

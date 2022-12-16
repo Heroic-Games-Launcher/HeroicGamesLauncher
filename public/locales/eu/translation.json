@@ -293,6 +293,9 @@
     "install": {
         "path": "Hautatu Instalatu bidea"
     },
+    "label": {
+        "loading": "Loading"
+    },
     "library": {
         "refresh": "Freskatu",
         "sortAscending": "Goranzko ordenatu",

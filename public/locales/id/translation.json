@@ -293,6 +293,9 @@
     "install": {
         "path": "Pilih Lokasi Pemasangan"
     },
+    "label": {
+        "loading": "Loading"
+    },
     "library": {
         "refresh": "Segarkan",
         "sortAscending": "Urutkan Naik",
