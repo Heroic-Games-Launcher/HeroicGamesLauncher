@@ -204,7 +204,7 @@ class GOGGame extends Game {
         { prefix: LogPrefix.Gog }
       )
 
-      sendFrontendMessage('setGameStatus', {
+      sendFrontendMessage(`progressUpdate-${this.appName}`, {
         appName: this.appName,
         runner: 'gog',
         status: action,
@@ -737,7 +737,7 @@ class GOGGame extends Game {
     )
 
     // This always has to be done, so we do it before checking for res.error
-    sendFrontendMessage('setGameStatus', {
+    sendFrontendMessage('gameStatusUpdate', {
       appName: this.appName,
       runner: 'gog',
       status: 'done'

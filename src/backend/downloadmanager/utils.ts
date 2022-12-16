@@ -44,7 +44,7 @@ async function installQueueElement(params: InstallParams): Promise<{
     }
   }
 
-  sendFrontendMessage('setGameStatus', {
+  sendFrontendMessage('gameStatusUpdate', {
     appName,
     runner,
     status: 'installing',
@@ -61,7 +61,7 @@ async function installQueueElement(params: InstallParams): Promise<{
       prefix: LogPrefix.DownloadManager
     })
 
-    sendFrontendMessage('setGameStatus', {
+    sendFrontendMessage('gameStatusUpdate', {
       appName,
       runner,
       status: 'done'
@@ -97,7 +97,7 @@ async function installQueueElement(params: InstallParams): Promise<{
       return { status: 'error' }
     }
 
-    sendFrontendMessage('setGameStatus', {
+    sendFrontendMessage('gameStatusUpdate', {
       appName,
       runner,
       status: 'done'
@@ -140,7 +140,7 @@ async function updateQueueElement(params: InstallParams): Promise<{
     }
   }
 
-  sendFrontendMessage('setGameStatus', {
+  sendFrontendMessage('gameStatusUpdate', {
     appName,
     runner,
     status: 'updating'
@@ -175,7 +175,7 @@ async function updateQueueElement(params: InstallParams): Promise<{
       prefix: LogPrefix.DownloadManager
     })
 
-    sendFrontendMessage('setGameStatus', {
+    sendFrontendMessage('gameStatusUpdate', {
       appName,
       runner,
       status: 'done'
