@@ -16,7 +16,7 @@ import {
 import * as axios from 'axios'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
 import { exec, ExecException, spawn, spawnSync } from 'child_process'
-import { existsSync, rmSync, stat } from 'graceful-fs'
+import { existsSync, rmSync } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
 import si from 'systeminformation'
@@ -31,7 +31,6 @@ import {
   isWindows,
   publicDir,
   GITHUB_API,
-  isSteamDeckGameMode,
   isMac
 } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -49,11 +48,10 @@ import {
 } from './gog/electronStores'
 import fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
-import { showDialogBoxModalAuto } from './dialog/dialog'
+import { notify, showDialogBoxModalAuto } from './dialog/dialog'
 import { getAppInfo } from './sideload/games'
 
 const execAsync = promisify(exec)
-const statAsync = promisify(stat)
 
 const { showMessageBox } = dialog
 
@@ -104,9 +102,9 @@ function semverGt(target: string, base: string) {
   return isGE
 }
 
-export const getFileSize = fileSize.partial({ base: 2 })
+const getFileSize = fileSize.partial({ base: 2 })
 
-export function getWineFromProton(
+function getWineFromProton(
   wineVersion: WineInstallation,
   winePrefix: string
 ): { winePrefix: string; wineBin: string } {
@@ -178,7 +176,7 @@ async function isEpicServiceOffline(
   }
 }
 
-export const getLegendaryVersion = async () => {
+const getLegendaryVersion = async () => {
   const abortID = 'legendary-version'
   const { stdout, error, abort } = await runLegendaryCommand(
     ['--version'],
@@ -198,7 +196,7 @@ export const getLegendaryVersion = async () => {
     .replaceAll('\n', '')
 }
 
-export const getGogdlVersion = async () => {
+const getGogdlVersion = async () => {
   const abortID = 'gogdl-version'
   const { stdout, error } = await runGogdlCommand(
     ['--version'],
@@ -214,7 +212,7 @@ export const getGogdlVersion = async () => {
   return stdout
 }
 
-export const getHeroicVersion = () => {
+const getHeroicVersion = () => {
   const VERSION_NUMBER = app.getVersion()
   const BETA_VERSION_NAME = 'Caesar Clown'
   const STABLE_VERSION_NAME = 'Yamato'
@@ -273,7 +271,7 @@ async function handleExit(window: BrowserWindow) {
 // This won't change while the app is running
 // Caching significantly increases performance when launching games
 let systemInfoCache = ''
-export const getSystemInfo = async () => {
+const getSystemInfo = async () => {
   if (systemInfoCache !== '') {
     return systemInfoCache
   }
@@ -701,19 +699,6 @@ function detectVCRedist(mainWindow: BrowserWindow) {
   })
 }
 
-export function notify({ body, title }: NotifyType) {
-  if (Notification.isSupported() && !isSteamDeckGameMode) {
-    const mainWindow = BrowserWindow.getAllWindows()[0]
-    const notify = new Notification({
-      body,
-      title
-    })
-
-    notify.on('click', () => mainWindow.show())
-    notify.show()
-  }
-}
-
 function getGame(appName: string, runner: Runner) {
   switch (runner) {
     case 'legendary':
@@ -723,7 +708,7 @@ function getGame(appName: string, runner: Runner) {
   }
 }
 
-export function getFirstExistingParentPath(directoryPath: string): string {
+function getFirstExistingParentPath(directoryPath: string): string {
   let parentDirectoryPath = directoryPath
   let parentDirectoryFound = existsSync(parentDirectoryPath)
 
@@ -735,7 +720,7 @@ export function getFirstExistingParentPath(directoryPath: string): string {
   return parentDirectoryPath !== '.' ? parentDirectoryPath : ''
 }
 
-export const getLatestReleases = async (): Promise<Release[]> => {
+const getLatestReleases = async (): Promise<Release[]> => {
   const newReleases: Release[] = []
   logInfo('Checking for new Heroic Updates', { prefix: LogPrefix.Backend })
 
@@ -779,7 +764,7 @@ export const getLatestReleases = async (): Promise<Release[]> => {
   }
 }
 
-export const getCurrentChangelog = async (): Promise<Release | null> => {
+const getCurrentChangelog = async (): Promise<Release | null> => {
   logInfo('Checking for current version changelog', {
     prefix: LogPrefix.Backend
   })
@@ -808,11 +793,6 @@ function getInfo(appName: string, runner: Runner): GameInfo {
   return game.getGameInfo()
 }
 
-type NotifyType = {
-  title: string
-  body: string
-}
-
 function getMainWindow(): BrowserWindow {
   return BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows()[0]
 }
@@ -839,20 +819,18 @@ const getShellPath = async (path: string): Promise<string> =>
 export {
   errorHandler,
   execAsync,
+  getCurrentChangelog,
   handleExit,
   isEpicServiceOffline,
   openUrlOrFile,
-  semverGt,
   showAboutWindow,
   showItemInFolder,
-  statAsync,
   removeSpecialcharacters,
   clearCache,
   resetHeroic,
   getLegendaryBin,
   getGOGdlBin,
   formatEpicStoreUrl,
-  getFormattedOsName,
   searchForExecutableOnPath,
   getSteamRuntime,
   constructAndUpdateRPC,
@@ -863,5 +841,12 @@ export {
   getMainWindow,
   killPattern,
   getInfo,
-  getShellPath
+  getShellPath,
+  getFirstExistingParentPath,
+  getLatestReleases,
+  getSystemInfo,
+  getWineFromProton,
+  getFileSize,
+  getLegendaryVersion,
+  getGogdlVersion
 }

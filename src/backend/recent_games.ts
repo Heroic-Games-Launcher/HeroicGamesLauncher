@@ -47,4 +47,4 @@ ipcMain.handle('removeRecent', async (_event, appName) =>
   removeRecentGame(appName)
 )
 
-export { getRecentGames, addRecentGame, removeRecentGame }
+export { getRecentGames, addRecentGame }

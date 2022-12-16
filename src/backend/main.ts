@@ -69,7 +69,6 @@ import {
   getGame,
   getFirstExistingParentPath,
   getLatestReleases,
-  notify,
   getShellPath,
   getCurrentChangelog
 } from './utils'
@@ -120,7 +119,7 @@ import {
   isOnline,
   runOnceWhenOnline
 } from './online_monitor'
-import { showDialogBoxModalAuto } from './dialog/dialog'
+import { notify, showDialogBoxModalAuto } from './dialog/dialog'
 import { addRecentGame, getRecentGames } from './recent_games'
 import {
   addNewApp,
