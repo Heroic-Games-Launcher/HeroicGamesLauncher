@@ -17,6 +17,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
+          cache: 'npm'
       - name: Install modules.
         run: npm i --legacy-peer-deps
       - name: Build artifacts.
@@ -36,6 +37,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
+          cache: 'yarn'
       - name: Install modules.
         run: yarn
       - name: Build artifacts.
@@ -55,6 +57,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
+          cache: 'yarn'
       - name: Install modules.
         run: yarn
       - name: Build artifacts.
