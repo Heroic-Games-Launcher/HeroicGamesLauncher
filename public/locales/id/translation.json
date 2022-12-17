@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Pintasan dibuat di Desktop dan Start Menu",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Pintasan telah dihapus dari Desktop dan Start Menu",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Pintasan"
         },
         "sync": {
@@ -360,6 +362,7 @@
     },
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
@@ -415,6 +418,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
+    "please-wait": "Please wait...",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -524,7 +528,9 @@
             "title": "Jalankan EXE di Prefiks"
         },
         "savefolder": {
-            "placeholder": "Pilih folder gim tersimpan yang tepat"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Pilih folder gim tersimpan yang tepat",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Pilih Tema",
         "showfps": "Tampilkan FPS (DX9, 10, dan 11)",
@@ -614,6 +620,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
+        "logging_out": "Logging out",
         "logout": "Keluar",
         "logout_confirmation": "Apakah Anda yakin ingin keluar?",
         "manageaccounts": "Kelola Akun",
@@ -630,8 +637,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Tidak dapat mengambil versi Wine/Proton saat ini.",
             "link": "Manajer Wine",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Manajer Wine",
             "unzipping": "Mengekstrak"
         },

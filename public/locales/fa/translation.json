@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "میانبرها در دسکتاپ و منوی استارت ایجاد شدند",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "میانبرها از میزکار و منوی استارت حذف شدند",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "میانبرها"
         },
         "sync": {
@@ -360,6 +362,7 @@
     },
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
@@ -415,6 +418,7 @@
         "mac": "مک",
         "win": "ویندوز"
     },
+    "please-wait": "Please wait...",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -524,7 +528,9 @@
             "title": "اجرای EXE در محل"
         },
         "savefolder": {
-            "placeholder": "انتخاب پوشه دقیق ذخیرههای بازیها"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "انتخاب پوشه دقیق ذخیرههای بازیها",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "انتخاب تم",
         "showfps": "نمایش تعداد فریم (11 و DX9, 10)",
@@ -614,6 +620,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
+        "logging_out": "Logging out",
         "logout": "خروج از حساب",
         "logout_confirmation": "آیا میخواهید از حساب خود خارج شوید؟",
         "manageaccounts": "مدیریت حسابها",
@@ -630,8 +637,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "نمیتوان در این زمان نسخههای Wine/Proton را به دست آورد.",
             "link": "مدیریت Wine",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "مدیریت کننده Wine",
             "unzipping": "در حال خارج کردن از حالت فشرده"
         },

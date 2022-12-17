@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Shortcuts were created on Desktop and Start Menu",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Shortcuts were removed from Desktop and Start Menu",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Shortcuts Removed"
         },
         "sync": {
@@ -360,6 +362,7 @@
     },
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
@@ -415,6 +418,7 @@
         "mac": "Mac",
         "win": "вокны"
     },
+    "please-wait": "Please wait...",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -524,7 +528,9 @@
             "title": "Select EXE to Run"
         },
         "savefolder": {
-            "placeholder": "Выберыце дакладную тэчку захавання гульняў"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Выберыце дакладную тэчку захавання гульняў",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Select Theme",
         "showfps": "Паказаць FPS (DX9, 10 і 11)",
@@ -614,6 +620,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
+        "logging_out": "Logging out",
         "logout": "Logout",
         "logout_confirmation": "Вы ўпэўнены, што хочаце выйсці?",
         "manageaccounts": "Manage Accounts",
@@ -630,8 +637,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Could not fetch Wine/Proton versions this time.",
             "link": "Wine Manager",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Wine Manager (Beta)",
             "unzipping": "Unzipping"
         },

@@ -96,6 +96,9 @@ export const onConnectivityChanged = async (
 export const getConnectivityStatus = async () =>
   ipcRenderer.invoke('get-connectivity-status')
 
+export const setConnectivityOnline = async () =>
+  ipcRenderer.send('set-connectivity-online')
+
 export const connectivityChanged = async (newStatus: ConnectivityStatus) =>
   ipcRenderer.send('connectivity-changed', newStatus)
 

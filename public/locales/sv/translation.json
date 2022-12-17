@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Genvägar skapades på Skrivbordet och Startmenyn",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Genvägar togs bort från skrivbordet och startmenyn",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Genvägar"
         },
         "sync": {
@@ -159,7 +161,7 @@
             "close_keyboard": "Close keyboard",
             "close_options": "Close Options",
             "game_details": "Game details",
-            "game_settings": "Game settings",
+            "game_settings": "Spelinställningar",
             "install_game": "Install game",
             "move_cursor": "Move cursor",
             "open_virtual_keyboard": "Open virtual keyboard",
@@ -181,14 +183,14 @@
             "disk": "Disk",
             "speed": "Download"
         },
-        "link": "Downloads",
+        "link": "Nedladdningar",
         "queue": {
             "end-time": "Finished at",
             "queue-time": "Added at",
             "start-time": "Started at",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Nedladdningar"
     },
     "epic": {
         "offline-notification-body": "Onlinetjänster kanske inte fungerar korrekt då Epics servrar är nere för tillfället!",
@@ -202,7 +204,7 @@
         "store": "Store",
         "title": "Game Title"
     },
-    "GameSettings": "Game Settings",
+    "GameSettings": "Spelinställningar",
     "generic": {
         "error": {
             "component": "No Games found - Try to logout and login again or one of the options bellow"
@@ -360,6 +362,7 @@
     },
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
@@ -415,6 +418,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
+    "please-wait": "Please wait...",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -424,7 +428,7 @@
             "empty": "Nothing to download",
             "finished": "Completed",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Ta bort från nedladdningar"
         }
     },
     "Recent": "Nyligen spelat",
@@ -524,7 +528,9 @@
             "title": "Kör EXE-fil i prefix"
         },
         "savefolder": {
-            "placeholder": "Ange specifik sparfilsmapp"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Ange specifik sparfilsmapp",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Välj tema",
         "showfps": "Visa FPS (DX9, 10 och 11)",
@@ -546,7 +552,7 @@
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
-                "title": "GameMode required"
+                "title": "GameMode krävs"
             },
             "installing": "Installing EAC Runtime...",
             "name": "EasyAntiCheat Runtime"
@@ -554,7 +560,7 @@
         "gameMode": {
             "eacRuntimeEnabled": {
                 "message": "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?",
-                "title": "EAC runtime enabled"
+                "title": "EAC runtime aktiverad"
             }
         },
         "log": {
@@ -562,7 +568,7 @@
         },
         "navbar": {
             "advanced": "Avancerat",
-            "games_settings": "Game Settings",
+            "games_settings": "Spelinställningar",
             "games_settings_defaults": "Game Defaults",
             "general": "Allmänt",
             "log": "Logg",
@@ -614,6 +620,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
+        "logging_out": "Logging out",
         "logout": "Logga ut",
         "logout_confirmation": "Är du säker att du vill logga ut?",
         "manageaccounts": "Hantera konton",
@@ -630,8 +637,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Kunde inte hämta Wine/Proton versioner.",
             "link": "Wine hanterare",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Wine hanterare",
             "unzipping": "Packar upp"
         },

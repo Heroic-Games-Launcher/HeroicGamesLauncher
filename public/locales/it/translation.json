@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Sono stati creati i collegamenti sul Desktop e nel menu Start",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Le scorciatoie sono state rimosse dal Desktop e dal menu Start",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Collegamenti"
         },
         "sync": {
@@ -360,6 +362,7 @@
     },
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
@@ -415,6 +418,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
+    "please-wait": "Please wait...",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -524,7 +528,9 @@
             "title": "Avvia l'EXE nel prefix"
         },
         "savefolder": {
-            "placeholder": "Seleziona l'esatta cartella dei salvataggi dei giochi"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Seleziona l'esatta cartella dei salvataggi dei giochi",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Seleziona Tema",
         "showfps": "Mostra FPS (DX9, 10 e 11)",
@@ -614,6 +620,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
+        "logging_out": "Logging out",
         "logout": "Disconnetti",
         "logout_confirmation": "Sei sicuro di voler uscire?",
         "manageaccounts": "Gestione Account",
@@ -630,8 +637,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Could not fetch Wine/Proton versions this time.",
             "link": "Wine Manager",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Wine Manager",
             "unzipping": "Unzipping"
         },

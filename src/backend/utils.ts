@@ -395,7 +395,7 @@ async function errorHandler(
 }
 
 function removeSpecialcharacters(text: string): string {
-  const regexp = new RegExp('[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+]', 'gi')
+  const regexp = new RegExp(/[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|'|"|®]/, 'gi')
   return text.replaceAll(regexp, '')
 }
 
@@ -815,6 +815,9 @@ function killPattern(pattern: string) {
 
 const getShellPath = async (path: string): Promise<string> =>
   normalize((await execAsync(`echo "${path}"`)).stdout.trim())
+
+export const wait = async (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms))
 
 export {
   errorHandler,

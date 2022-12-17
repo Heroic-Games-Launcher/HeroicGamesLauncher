@@ -9,6 +9,7 @@ import {
   appendFileSync,
   constants as FS_CONSTANTS,
   existsSync,
+  readdirSync,
   rmSync
 } from 'graceful-fs'
 import i18next from 'i18next'
@@ -64,6 +65,18 @@ export function addNewApp({
     canRunOffline: true
   }
 
+  if (isMac && executable.endsWith('.app')) {
+    const macAppExecutable = readdirSync(
+      join(executable, 'Contents', 'MacOS')
+    )[0]
+    game.install.executable = join(
+      executable,
+      'Contents',
+      'MacOS',
+      macAppExecutable
+    )
+  }
+
   const current = libraryStore.get('games', []) as SideloadGame[]
 
   const gameIndex = current.findIndex((value) => value.app_name === app_name)
@@ -75,7 +88,9 @@ export function addNewApp({
     current.push(game)
   }
 
-  return libraryStore.set('games', current)
+  libraryStore.set('games', current)
+  addAppShortcuts(app_name)
+  return
 }
 
 export async function addAppShortcuts(
@@ -90,13 +105,11 @@ export async function removeAppShortcuts(appName: string): Promise<void> {
 }
 
 export function isAppAvailable(appName: string): boolean {
-  const {
-    install: { executable }
-  } = getAppInfo(appName)
-  if (!executable) {
-    return false
+  const { install } = getAppInfo(appName)
+  if (install && install.executable) {
+    return existsSync(install.executable)
   }
-  return existsSync(executable)
+  return false
 }
 
 export async function launchApp(appName: string): Promise<boolean> {
@@ -153,7 +166,10 @@ export async function launchApp(appName: string): Promise<boolean> {
         logWarning('File not executable, changing permissions temporarilly', {
           prefix: LogPrefix.Backend
         })
-        await chmod(executable, 0o775)
+        // On Mac, it gives an error when changing the permissions of the file inside the app bundle. But we need it for other executables like scripts.
+        if (isLinux || (isMac && !executable.endsWith('.app'))) {
+          await chmod(executable, 0o775)
+        }
       }
 
       const commandParts = shlex.split(launcherArgs ?? '')
@@ -176,7 +192,9 @@ export async function launchApp(appName: string): Promise<boolean> {
 
       launchCleanup(rpcClient)
       // TODO: check and revert to previous permissions
-      await chmod(executable, 0o664)
+      if (isLinux || (isMac && !executable.endsWith('.app'))) {
+        await chmod(executable, 0o775)
+      }
       return true
     }
 
@@ -243,6 +261,9 @@ export async function removeApp({
     }
   }
   notify({ title, body: i18next.t('notify.uninstalled') })
+
+  removeAppShortcuts(appName)
+
   return logInfo('finished uninstalling', { prefix: LogPrefix.Backend })
 }
 

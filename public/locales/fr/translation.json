@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Les raccourcis ont été créés sur le Bureau et dans le menu Démarrer",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Les raccourcis ont été supprimés du Bureau et du menu Démarrer",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Raccourcis"
         },
         "sync": {
@@ -253,7 +255,7 @@
         "sync": {
             "part1": "Heroic essaie de déterminer quel est le bon dossier de sauvegarde et cela fonctionne dans la plus part des cas. Si le dossier choisi n'est pas le bon, utilisez le champ ci-dessus pour le changer.",
             "part2": "Dans le cas où vous changez le dossier de prefix de Wine ou Proton, vous aurez besoin de revérifier ce chemin car Proton utilise un prefix différent (/pfx) et un username (steamuser). Vous pouvez simplement effacer le chemin actuel quitter la page des options pour que Heroic essaie de deviner une fois de plus le dossier avec le bon prefix.",
-            "part3": "Synchronisation manuelle\u202f: Choisissez « Télécharger » pour télécharger les sauvegardes des jeux enregistrées dans le Cloud et « Téléverser » pour transférer les fichiers locaux vers le Cloud. « Forcer le téléchargement » et « Forcer le téléversement » ignoreront la version locale ou celle du Cloud.",
+            "part3": "Synchronisation manuelle: Choisissez « Télécharger » pour télécharger les sauvegardes des jeux enregistrées dans le Cloud et « Téléverser » pour transférer les fichiers locaux vers le Cloud. « Forcer le téléchargement » et « Forcer le téléversement » ignoreront la version locale ou celle du Cloud.",
             "part4": "« Synchroniser automatiquement » active la synchronisation de vos sauvegardes à chaque fois que vous lancez un jeu et que vous l'arrêtez."
         },
         "vkd3d": "VKD3D est une interface de compatibilité basée sur Vulkan pour les jeux nécessitant DirectX 12. L'activer pourrait grandement améliorer la compatibilité. N'a aucun effet sur les jeux utilisant des versions de DirectX plus anciennes.",
@@ -360,6 +362,7 @@
     },
     "offline-message": {
         "hint": "Nous vérifions la connexion avec :{{newline}}github.com,{{newline}}gog.com et{{newline}}store.epicgames.com",
+        "ignore": "Ignore",
         "offline": "Déconnecté",
         "offline-retry-in": "Déconnecté. Nouvel essai dans {{seconds}} secondes.",
         "retrying": "Réessayer"
@@ -389,7 +392,7 @@
         "quote-args-with-spaces": "Attention : Assurez-vous de citer les args avec des espaces ! E.g. : \"chemin/avec espaces/\"",
         "wrapper": {
             "args": "Arguments",
-            "arguments_example": "Exemples d'arguments\u202f: --arg\u202f; --extra-file=\"file-path/ with/spaces\"",
+            "arguments_example": "Exemples d'arguments: --arg; --extra-file=\"file-path/ with/spaces\"",
             "exe": "Wrapper",
             "placeHolderKey": "Nouveau Wrapper",
             "placeHolderValue": "Arguments du Wrapper",
@@ -408,13 +411,14 @@
         "custom_themes_path": "Sélectionner le chemin où rechercher des fichiers CSS personnalisés",
         "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix où EGS est installé",
-        "prefered_language": "2-char code (exemple\u202f: \"en\" ou \"fr\")"
+        "prefered_language": "2-char code (exemple: \"en\" ou \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
         "win": "Windows"
     },
+    "please-wait": "Please wait...",
     "progress": "Progression",
     "queue": {
         "label": {
@@ -524,7 +528,9 @@
             "title": "Utiliser un .exe sur le préfixe"
         },
         "savefolder": {
-            "placeholder": "Sélectionnez le dossier de sauvegarde exact des jeux"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Sélectionnez le dossier de sauvegarde exact des jeux",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Sélectionner le thème",
         "showfps": "Afficher les FPS (DX9, 10 et 11)",
@@ -614,6 +620,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
+        "logging_out": "Logging out",
         "logout": "Déconnexion",
         "logout_confirmation": "Êtes-vous certain(e) de vouloir vous déconnecter\u202f?",
         "manageaccounts": "Comptes",
@@ -630,8 +637,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Les versions de Wine/Proton n'ont pas pu être trouvées.",
             "link": "Gestion de Wine",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Gestion de Wine",
             "unzipping": "Décompression"
         },

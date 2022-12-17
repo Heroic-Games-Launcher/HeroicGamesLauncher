@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "桌面与开始菜单快捷方式已创建",
+            "message-mac": "快捷方式创建于应用程序文件夹上",
             "message-remove": "从桌面和启动菜单移除了快捷方式",
+            "message-remove-mac": "从应用程序文件夹删除了快捷方式",
             "title": "快捷方式"
         },
         "sync": {
@@ -360,6 +362,7 @@
     },
     "offline-message": {
         "hint": "我们正检查到下列域名的连接：{{newline}}github.com、{{newline}}gog.com 和{{newline}}store.epicgames.com",
+        "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "离线。在 {{seconds}} 秒内重试。",
         "retrying": "重试"
@@ -415,6 +418,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
+    "please-wait": "请等待…",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -524,7 +528,9 @@
             "title": "在前置上运行 EXE"
         },
         "savefolder": {
-            "placeholder": "选择存档的保存位置"
+            "not-found": "未找到保存文件夹，请手动选择",
+            "placeholder": "选择存档的保存位置",
+            "warning": "请确保路径正确无误"
         },
         "select_theme": "选择主题",
         "showfps": "显示帧率（DX 9、10 和 11）",
@@ -614,6 +620,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
+        "logging_out": "退出登录",
         "logout": "退出登录",
         "logout_confirmation": "你确定要退出登录吗？",
         "manageaccounts": "管理帐户",
@@ -630,8 +637,8 @@
     "wine": {
         "actions": "动作",
         "manager": {
-            "error": "此次无法获取 Wine/Proton 版本。",
             "link": "Wine 管理器",
+            "not-found": "未找到 Wine 版本。请单击刷新按钮重试。",
             "title": "Wine 管理器",
             "unzipping": "解压缩"
         },

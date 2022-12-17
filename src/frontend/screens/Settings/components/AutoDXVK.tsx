@@ -16,17 +16,25 @@ const AutoDXVK = () => {
   const home = configStore.get('userHome', '')
   const [winePrefix] = useSetting('winePrefix', `${home}/.wine`)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
+  const [installingDxvk, setInstallingDxvk] = React.useState(false)
 
-  const isProton = wineVersion.type === 'proton'
-
-  if (isProton) {
+  if (wineVersion.type !== 'wine') {
     return <></>
   }
 
-  const handleAutoInstallDxvk = () => {
+  const handleAutoInstallDxvk = async () => {
     const action = autoInstallDxvk ? 'restore' : 'backup'
-    window.api.toggleDXVK({ winePrefix, winePath: wineVersion.bin, action })
-    return setAutoInstallDxak(!autoInstallDxvk)
+    setInstallingDxvk(true)
+    const res = await window.api.toggleDXVK({
+      winePrefix,
+      winePath: wineVersion.bin,
+      action
+    })
+
+    setInstallingDxvk(false)
+    if (res) {
+      setAutoInstallDxak(!autoInstallDxvk)
+    }
   }
 
   return (
@@ -35,7 +43,13 @@ const AutoDXVK = () => {
         htmlId="autodxvk"
         value={autoInstallDxvk}
         handleChange={handleAutoInstallDxvk}
-        title={t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix')}
+        title={
+          installingDxvk
+            ? t('please-wait', 'Please wait...')
+            : t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix')
+        }
+        fading={installingDxvk}
+        disabled={installingDxvk}
       />
 
       <FontAwesomeIcon

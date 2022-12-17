@@ -2,8 +2,8 @@ import { ipcRenderer } from 'electron'
 import { RuntimeName, ToolArgs, WineVersionInfo } from 'common/types'
 import { ProgressInfo, State } from 'heroic-wine-downloader'
 
-export const toggleDXVK = (args: ToolArgs) =>
-  ipcRenderer.send('toggleDXVK', args)
+export const toggleDXVK = async (args: ToolArgs) =>
+  ipcRenderer.invoke('toggleDXVK', args)
 export const toggleVKD3D = (args: ToolArgs) =>
   ipcRenderer.send('toggleVKD3D', args)
 export const isFlatpak = async (): Promise<boolean> =>
@@ -24,9 +24,7 @@ export const installWineVersion = async (
 export const removeWineVersion = async (
   release: WineVersionInfo
 ): Promise<boolean> => ipcRenderer.invoke('removeWineVersion', release)
-export const refreshWineVersionInfo = async (
-  fetch?: boolean
-): Promise<WineVersionInfo[]> =>
+export const refreshWineVersionInfo = async (fetch?: boolean): Promise<void> =>
   ipcRenderer.invoke('refreshWineVersionInfo', fetch)
 
 export const handleProgressOfWinetricks = (
@@ -51,5 +49,14 @@ export const handleProgressOfWineManager = (
   ipcRenderer.on('progressOfWineManager' + version, callback)
   return () => {
     ipcRenderer.removeListener('progressOfWineManager' + version, callback)
+  }
+}
+
+export const handleWineVersionsUpdated = (
+  callback: () => void
+): (() => void) => {
+  ipcRenderer.on('wineVersionsUpdated', callback)
+  return () => {
+    ipcRenderer.removeListener('wineVersionsUpdated', callback)
   }
 }

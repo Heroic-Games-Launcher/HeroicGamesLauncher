@@ -20,7 +20,7 @@ import { existsSync, readFileSync } from 'graceful-fs'
 
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { getGOGdlBin, getFileSize } from '../utils'
-import { fallBackImage } from '../constants'
+import { fallBackImage, gogdlLogFile } from '../constants'
 import {
   apiInfoCache,
   libraryStore,
@@ -316,7 +316,8 @@ export class GOGLibrary {
    */
   public async getInstallInfo(
     appName: string,
-    installPlatform = 'windows'
+    installPlatform = 'windows',
+    lang = 'en-US'
   ): Promise<GogInstallInfo | undefined> {
     const credentials = await GOGUser.getCredentials()
     if (!credentials) {
@@ -345,7 +346,7 @@ export class GOGLibrary {
       appName,
       '--token',
       `"${credentials.access_token}"`,
-      '--lang=en-US',
+      `--lang=${lang}`,
       '--os',
       installPlatform
     ]
@@ -360,7 +361,7 @@ export class GOGLibrary {
 
     deleteAbortController(appName)
 
-    if (res.abort) {
+    if (!res.stdout || res.abort) {
       return
     }
 
@@ -383,6 +384,23 @@ export class GOGLibrary {
       })
       return
     }
+
+    // some games don't support `en-US`
+    if (!gogInfo.languages && gogInfo.languages.includes(lang)) {
+      // if the game supports `en-us`, use it, else use the first valid language
+      const newLang = gogInfo.languages.includes('en-us')
+        ? 'en-us'
+        : gogInfo.languages[0]
+
+      // call itself with the new language and return
+      const infoWithLang = await this.getInstallInfo(
+        appName,
+        installPlatform,
+        newLang
+      )
+      return infoWithLang
+    }
+
     let libraryArray = libraryStore.get('games', []) as GameInfo[]
     let gameObjectIndex = libraryArray.findIndex(
       (value) => value.app_name === appName
@@ -487,7 +505,7 @@ export class GOGLibrary {
       appName: data.appName,
       install_path: path,
       executable: '',
-      install_size: getFileSize(gameInfo.manifest.disk_size),
+      install_size: getFileSize(gameInfo.manifest?.disk_size),
       is_dlc: false,
       version: data.versionName,
       platform: data.platform,
@@ -930,6 +948,9 @@ export async function runGogdlCommand(
     commandParts,
     { name: 'gog', logPrefix: LogPrefix.Gog, bin, dir },
     abortController,
-    options
+    {
+      ...options,
+      verboseLogFile: gogdlLogFile
+    }
   )
 }

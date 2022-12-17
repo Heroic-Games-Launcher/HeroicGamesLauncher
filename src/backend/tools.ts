@@ -1,20 +1,35 @@
 import { WineInstallation } from 'common/types'
 import axios from 'axios'
-import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
+import {
+  existsSync,
+  readFileSync,
+  writeFile,
+  writeFileSync,
+  readdirSync,
+  copyFile,
+  rm
+} from 'graceful-fs'
 import { exec, spawn } from 'child_process'
 
 import { execAsync, getWineFromProton } from './utils'
-import { execOptions, heroicToolsPath, isLinux, userHome } from './constants'
+import {
+  execOptions,
+  heroicToolsPath,
+  isLinux,
+  isMac,
+  isWindows,
+  userHome
+} from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import i18next from 'i18next'
-import { dirname } from 'path'
+import { dirname, join } from 'path'
 import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
 import { validWine } from './launcher'
 
 export const DXVK = {
   getLatest: async () => {
-    if (!isLinux) {
+    if (isWindows) {
       return
     }
     if (!isOnline()) {
@@ -28,16 +43,28 @@ export const DXVK = {
       {
         name: 'vkd3d',
         url: 'https://api.github.com/repos/bottlesdevs/vkd3d-proton/releases/latest',
-        extractCommand: 'tar -xf'
+        extractCommand: 'tar -xf',
+        os: 'linux'
       },
       {
         name: 'dxvk',
         url: 'https://api.github.com/repos/doitsujin/dxvk/releases/latest',
-        extractCommand: 'tar -xf'
+        extractCommand: 'tar -xf',
+        os: 'linux'
+      },
+      {
+        name: 'dxvk-macOS',
+        url: 'https://api.github.com/repos/Gcenx/DXVK-macOS/releases/latest',
+        extractCommand: 'tar -xf',
+        os: 'darwin'
       }
     ]
 
     tools.forEach(async (tool) => {
+      if (tool.os !== process.platform) {
+        return
+      }
+
       const {
         data: { assets }
       } = await axios.get(tool.url)
@@ -59,10 +86,10 @@ export const DXVK = {
         return
       }
 
-      const downloadCommand = `curl -L ${downloadUrl} -o ${latestVersion} --create-dirs`
-      const extractCommand = `${tool.extractCommand} ${latestVersion} -C ${heroicToolsPath}/${tool.name}`
-      const echoCommand = `echo ${pkg} > ${heroicToolsPath}/${tool.name}/latest_${tool.name}`
-      const cleanCommand = `rm ${latestVersion}`
+      const downloadCommand = `curl -L ${downloadUrl} -o '${latestVersion}' --create-dirs`
+      const extractCommand = `${tool.extractCommand} '${latestVersion}' -C '${heroicToolsPath}/${tool.name}'`
+      const echoCommand = `echo ${pkg} > '${heroicToolsPath}/${tool.name}/latest_${tool.name}'`
+      const cleanCommand = `rm '${latestVersion}'`
 
       logInfo([`Updating ${tool.name} to:`, pkg], {
         prefix: LogPrefix.DXVKInstaller
@@ -110,9 +137,9 @@ export const DXVK = {
   installRemove: async (
     prefix: string,
     winePath: string,
-    tool: 'dxvk' | 'vkd3d',
+    tool: 'dxvk' | 'vkd3d' | 'dxvk-macOS',
     action: 'backup' | 'restore'
-  ) => {
+  ): Promise<boolean> => {
     const winePrefix = prefix.replace('~', userHome)
     const isValidPrefix = existsSync(`${winePrefix}/.update-timestamp`)
 
@@ -120,11 +147,14 @@ export const DXVK = {
       logWarning('DXVK cannot be installed on a Proton or a invalid prefix!', {
         prefix: LogPrefix.DXVKInstaller
       })
-      return
+      // will return true anyway because otherwise the toggle will be stuck and the prefix might just not be crated yet.
+      return true
     }
 
+    tool = isMac ? 'dxvk-macOS' : tool
+
     // remove the last part of the path since we need the folder only
-    const wineBin = dirname(winePath.replace("'", ''))
+    const wineBin = winePath.replace("'", '')
 
     if (!existsSync(`${heroicToolsPath}/${tool}/latest_${tool}`)) {
       logWarning('dxvk not found!', { prefix: LogPrefix.DXVKInstaller })
@@ -136,7 +166,12 @@ export const DXVK = {
     )
       .toString()
       .split('\n')[0]
-    const toolPath = `${heroicToolsPath}/${tool}/${globalVersion}`
+
+    const dlls = readdirSync(`${heroicToolsPath}/${tool}/${globalVersion}/x64`)
+    const toolPathx32 = `${heroicToolsPath}/${tool}/${globalVersion}/${
+      tool === 'vkd3d' ? 'x86' : 'x32'
+    }`
+    const toolPathx64 = `${heroicToolsPath}/${tool}/${globalVersion}/x64`
     const currentVersionCheck = `${winePrefix}/current_${tool}`
     let currentVersion = ''
 
@@ -146,51 +181,130 @@ export const DXVK = {
         .split('\n')[0]
     }
 
-    const installCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${toolPath}/setup*.sh install --symlink`
-
     if (action === 'restore') {
       logInfo(`Removing ${tool} version information`, {
         prefix: LogPrefix.DXVKInstaller
       })
-      const updatedVersionfile = `rm -rf ${currentVersionCheck}`
-      const removeCommand = `PATH=${wineBin}:$PATH WINEPREFIX='${winePrefix}' bash ${toolPath}/setup*.sh uninstall --symlink`
-      return execAsync(removeCommand, execOptions)
-        .then(() => {
-          logInfo(`${tool} removed from ${winePrefix}`, {
-            prefix: LogPrefix.DXVKInstaller
-          })
-          return exec(updatedVersionfile)
+      if (existsSync(currentVersionCheck)) {
+        rm(currentVersionCheck, { force: true }, (err) => {
+          if (err) {
+            logError([`Error removing ${tool} version information`, err], {
+              prefix: LogPrefix.DXVKInstaller
+            })
+          }
         })
-        .catch((error) => {
-          logError(['error when removing DXVK, please try again', error], {
-            prefix: LogPrefix.DXVKInstaller
-          })
-        })
-    }
+      }
 
-    if (currentVersion === globalVersion) {
-      return
+      logInfo(`Removing ${tool} files`, {
+        prefix: LogPrefix.DXVKInstaller
+      })
+
+      // remove the dlls from the prefix
+      await new Promise((resolve) => {
+        dlls.forEach((dll) => {
+          const dllPath = `${winePrefix}/drive_c/windows/system32/${dll}`
+          if (existsSync(`${dllPath}.bak`)) {
+            const removeDll = `rm ${dllPath}`
+            exec(removeDll)
+          }
+
+          const dllPath64 = `${winePrefix}/drive_c/windows/syswow64/${dll}`
+          if (existsSync(`${dllPath}.bak`)) {
+            const removeDll = `rm ${dllPath64}`
+            exec(removeDll)
+          }
+        })
+        resolve(true)
+      })
+
+      // run wineboot -u restore the old dlls
+      const restoreDlls = `WINEPREFIX='${winePrefix}' '${wineBin}' wineboot -u`
+      logInfo('Restoring old dlls', { prefix: LogPrefix.DXVKInstaller })
+      await execAsync(restoreDlls)
+
+      // unregister the dlls on the wine prefix
+      dlls.forEach(async (dll) => {
+        dll = dll.replace('.dll', '')
+        const unregisterDll = `WINEPREFIX='${winePrefix}' '${wineBin}' reg delete 'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides' /v ${dll} /f`
+        logInfo(`Unregistering ${dll}`, { prefix: LogPrefix.DXVKInstaller })
+        exec(unregisterDll, (error) => {
+          if (error) {
+            logError([`Error when unregistering ${dll}`, error], {
+              prefix: LogPrefix.DXVKInstaller
+            })
+          }
+        })
+      })
+      return true
     }
 
     logInfo([`installing ${tool} on...`, prefix], {
       prefix: LogPrefix.DXVKInstaller
     })
-    await execAsync(installCommand, { shell: '/bin/bash' })
-      .then(() => {
-        logInfo(`${tool} installed on ${winePrefix}`, {
+
+    if (currentVersion === globalVersion) {
+      logInfo(`${tool} already installed!`, {
+        prefix: LogPrefix.DXVKInstaller
+      })
+      return true
+    }
+
+    // copy the new dlls to the prefix
+    dlls.forEach((dll) => {
+      if (!isMac) {
+        copyFile(
+          `${toolPathx32}/${dll}`,
+          `${winePrefix}/drive_c/windows/syswow64/${dll}`,
+          (err) => {
+            if (err) {
+              logError([`Error when copying ${dll}`, err], {
+                prefix: LogPrefix.DXVKInstaller
+              })
+            }
+          }
+        )
+      }
+
+      copyFile(
+        `${toolPathx64}/${dll}`,
+        `${winePrefix}/drive_c/windows/system32/${dll}`,
+        (err) => {
+          if (err) {
+            logError([`Error when copying ${dll}`, err], {
+              prefix: LogPrefix.DXVKInstaller
+            })
+          }
+        }
+      )
+    })
+
+    // register dlls on the wine prefix
+    dlls.forEach(async (dll) => {
+      // remove the .dll extension otherwise will fail
+      dll = dll.replace('.dll', '')
+      exec(
+        `WINEPREFIX='${winePrefix}' '${wineBin}' reg add 'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides' /v ${dll} /d native,builtin /f `,
+        execOptions,
+        (err) => {
+          if (err) {
+            logError([`Error when registering ${dll}`, err], {
+              prefix: LogPrefix.DXVKInstaller
+            })
+          }
+        }
+      )
+    })
+
+    exec(`echo ${globalVersion} > ${currentVersionCheck}`)
+
+    writeFile(currentVersionCheck, globalVersion, (err) => {
+      if (err) {
+        logError([`Error when writing ${tool} version`, err], {
           prefix: LogPrefix.DXVKInstaller
         })
-        return writeFileSync(currentVersionCheck, globalVersion)
-      })
-      .catch((error) => {
-        logError(
-          [
-            'error when installing DXVK, please try launching the game again',
-            error
-          ],
-          { prefix: LogPrefix.DXVKInstaller }
-        )
-      })
+      }
+    })
+    return true
   }
 }
 
@@ -200,8 +314,11 @@ export const Winetricks = {
       return
     }
 
-    const url =
+    const linuxUrl =
       'https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks'
+    const macUrl =
+      'https://raw.githubusercontent.com/The-Wineskin-Project/winetricks/macOS/src/winetricks'
+    const url = isMac ? macUrl : linuxUrl
     const path = `${heroicToolsPath}/winetricks`
 
     if (!isOnline()) {
@@ -239,11 +356,24 @@ export const Winetricks = {
 
       const winepath = dirname(wineBin)
 
-      const envs = {
+      const linuxEnvs = {
         ...process.env,
         WINEPREFIX: winePrefix,
         PATH: `${winepath}:${process.env.PATH}`
       }
+
+      const wineServer = join(winepath, 'wineserver')
+
+      const macEnvs = {
+        ...process.env,
+        WINEPREFIX: winePrefix,
+        WINESERVER: wineServer,
+        WINE: wineBin,
+        WINE64: wineBin,
+        PATH: `/opt/homebrew/bin:${process.env.PATH}`
+      }
+
+      const envs = isMac ? macEnvs : linuxEnvs
 
       const executeMessages = [] as string[]
       let progressUpdated = false
@@ -263,12 +393,32 @@ export const Winetricks = {
         }
       }, 1000)
 
+      // check if winetricks dependencies are installed
+      const dependencies = ['7z', 'cabextract', 'zenity', 'unzip', 'curl']
+      dependencies.forEach(async (dependency) => {
+        try {
+          await execAsync(`which ${dependency}`, { ...execOptions, env: envs })
+        } catch (error) {
+          appendMessage(
+            `${dependency} not installed! Winetricks might fail to install some packages or even open`
+          )
+          logWarning(
+            [
+              `${dependency} not installed! Winetricks might fail to install some packages or even open`
+            ],
+            {
+              prefix: LogPrefix.WineTricks
+            }
+          )
+        }
+      })
+
       logInfo(
-        `Running WINEPREFIX='${winePrefix}' PATH='${winepath}':$PATH ${winetricks} -q`,
+        `Running WINEPREFIX='${winePrefix}' PATH='${winepath}':$PATH ${winetricks} --force -q`,
         { prefix: LogPrefix.WineTricks }
       )
 
-      const child = spawn(winetricks, ['-q'], { env: envs })
+      const child = spawn(winetricks, ['--force', '-q'], { env: envs })
 
       child.stdout.setEncoding('utf8')
       child.stdout.on('data', (data: string) => {

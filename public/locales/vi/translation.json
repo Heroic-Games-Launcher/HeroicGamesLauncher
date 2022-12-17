@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Shortcut đã được tạo ở màn hình chính và menu Start",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Shortcuts were removed from Desktop and Start Menu",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Shortcut"
         },
         "sync": {
@@ -360,6 +362,7 @@
     },
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
@@ -415,6 +418,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
+    "please-wait": "Please wait...",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -524,7 +528,9 @@
             "title": "Chạy EXE trên prefix"
         },
         "savefolder": {
-            "placeholder": "Chọn chính xác thư mục lưu game"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Chọn chính xác thư mục lưu game",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "chọn Theme",
         "showfps": "Hiển thị FPS (DX9, 10 và 11)",
@@ -614,6 +620,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
+        "logging_out": "Logging out",
         "logout": "Đăng xuất",
         "logout_confirmation": "Xác nhận đăng xuất?",
         "manageaccounts": "Quản lý tài khoản",
@@ -630,8 +637,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Không thể tìm nạp phiên bản Wine/Proton lần này.",
             "link": "Quản lý Wine",
+            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Quản lý Wine (thử nghiệm)",
             "unzipping": "Đang giải nén"
         },

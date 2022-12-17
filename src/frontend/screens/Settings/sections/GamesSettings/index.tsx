@@ -44,10 +44,8 @@ export default function GamesSettings() {
 
   const nativeGame =
     isWin ||
-    isMacNative ||
-    isLinuxNative ||
-    gameInfo?.install.platform === 'linux' ||
-    gameInfo?.install.platform === 'Mac'
+    (isMacNative && gameInfo?.install.platform === 'Mac') ||
+    (isLinuxNative && gameInfo?.install.platform === 'linux')
 
   return (
     <>
@@ -65,7 +63,7 @@ export default function GamesSettings() {
         <>
           <section>
             <h3 className="settingSubheader">
-              {isLinux ? 'Wine' : 'Crossover'}
+              {isLinux ? 'Wine' : 'Wine/Crossover'}
             </h3>
 
             <WinePrefix />
@@ -77,21 +75,21 @@ export default function GamesSettings() {
             <Tools />
           </section>
 
-          {isLinux && (
-            <section>
-              <h3 className="settingSubheader">
-                {t('settings.navbar.wineExt', 'Wine Extensions')}
-              </h3>
+          <section>
+            <h3 className="settingSubheader">
+              {t('settings.navbar.wineExt', 'Wine Extensions')}
+            </h3>
+            <AutoDXVK />
+            {isLinux && (
+              <>
+                <AutoVKD3D />
 
-              <AutoDXVK />
+                <EacRuntime />
 
-              <AutoVKD3D />
-
-              <EacRuntime />
-
-              <BattlEyeRuntime />
-            </section>
-          )}
+                <BattlEyeRuntime />
+              </>
+            )}
+          </section>
         </>
       )}
 
@@ -108,13 +106,17 @@ export default function GamesSettings() {
           <>
             <PreferSystemLibs />
 
-            <EnableFSR />
-
             <EnableEsync />
 
-            <EnableFsync />
+            {isLinux && (
+              <>
+                <EnableFsync />
 
-            <GameMode />
+                <EnableFSR />
+
+                <GameMode />
+              </>
+            )}
           </>
         )}
 

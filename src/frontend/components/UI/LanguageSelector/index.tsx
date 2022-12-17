@@ -18,6 +18,7 @@ interface Props {
 }
 
 const languageLabels: { [key: string]: string } = {
+  ar: 'العربية',
   az: 'آذربایجان دیلی',
   be: 'беларуская мова',
   bg: 'български',
@@ -59,6 +60,7 @@ const languageLabels: { [key: string]: string } = {
 }
 
 const languageFlags: { [key: string]: string } = {
+  ar: '🇸🇦',
   az: '🇦🇿',
   be: '🇧🇾',
   bg: '🇧🇬',

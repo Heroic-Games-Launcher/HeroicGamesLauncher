@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Verknüpfungen wurden auf dem Desktop und im Startmenü erstellt",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Verknüpfungen wurden von Desktop und Startmenü entfernt",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Verknüpfungen"
         },
         "sync": {
@@ -360,6 +362,7 @@
     },
     "offline-message": {
         "hint": "Wir testen die Verbindung mit:{{newline}}github.com,{{newline}}gog.com und{{newline}}store.epicgames.com",
+        "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Verbinde erneut in {{seconds}} Sekunden.",
         "retrying": "Versuche erneut"
@@ -415,6 +418,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
+    "please-wait": "Bitte warten...",
     "progress": "Fortschritt",
     "queue": {
         "label": {
@@ -524,7 +528,9 @@
             "title": "EXE in Prefix starten"
         },
         "savefolder": {
-            "placeholder": "Wähle den genauen Ordner der Spielstände"
+            "not-found": "Speicherungsordner nicht gefunden, bitte wählen sie es manuell aus",
+            "placeholder": "Wähle den genauen Ordner der Spielstände",
+            "warning": "Überprüfen sie zweimal ob der path richtig angegeben ist"
         },
         "select_theme": "Design",
         "showfps": "FPS anzeigen (DX9, 10 und 11)",
@@ -614,6 +620,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
+        "logging_out": "Logging out",
         "logout": "Abmelden",
         "logout_confirmation": "Möchtest du dich wirklich abmelden?",
         "manageaccounts": "Konten verwalten",
@@ -630,8 +637,8 @@
     "wine": {
         "actions": "Aktion",
         "manager": {
-            "error": "Wine/Proton-Versionen konnten diesmal nicht abgerufen werden.",
             "link": "Wine-Manager",
+            "not-found": "Keine Wine Versionen gefunden. Drücken sie die Aktualisierungstaste und versuchen sie es erneut.",
             "title": "Wine-Manager",
             "unzipping": "Entpacke"
         },

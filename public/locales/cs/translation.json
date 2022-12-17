@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Zástupci byli vytvořeni na ploše a v nabídce Start",
+            "message-mac": "Zástupci byli vytvořeni ve složce Aplikace",
             "message-remove": "Zástupci byli odebráni z plochy a nabídky Start",
+            "message-remove-mac": "Zástupci byli odstraněni ze složky Aplikace",
             "title": "Zástupci"
         },
         "sync": {
@@ -360,6 +362,7 @@
     },
     "offline-message": {
         "hint": "Kontrolujeme připojení s:{{newline}}github.com,{{newline}}gog.com a{{newline}}store.epicgames.com",
+        "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Opakování pokusu za {{seconds}} sekund.",
         "retrying": "Opakování pokusu"
@@ -415,6 +418,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
+    "please-wait": "Čekejte prosím...",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -524,7 +528,9 @@
             "title": "Spustit EXE na prefixu"
         },
         "savefolder": {
-            "placeholder": "Vyberte přesnou složku s uloženými soubory"
+            "not-found": "Složka pro uložení nebyla nalezena, vyberte ji prosím ručně",
+            "placeholder": "Vyberte přesnou složku s uloženými soubory",
+            "warning": "Zkontrolujte prosím dvakrát, zda je cesta správná"
         },
         "select_theme": "Vybrat motiv",
         "showfps": "Zobrazit FPS (DX9, 10 a 11)",
@@ -614,6 +620,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
+        "logging_out": "Odhlašování",
         "logout": "Odhlásit se",
         "logout_confirmation": "Opravdu se chcete odhlásit?",
         "manageaccounts": "Spravovat účty",
@@ -630,8 +637,8 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "error": "Nepodařilo se načíst verze Wine/Proton.",
             "link": "Správce Wine",
+            "not-found": "Nebyly nalezeny žádné verze Wine. Klikněte na ikonu obnovení a zkuste to znovu.",
             "title": "Správce Wine",
             "unzipping": "Rozbalování"
         },

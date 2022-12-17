@@ -1,5 +1,5 @@
 import { existsSync } from 'graceful-fs'
-import { ipcMain, dialog } from 'electron'
+import { ipcMain } from 'electron'
 import i18next from 'i18next'
 import {
   addNonSteamGame,
@@ -13,6 +13,8 @@ import {
   getAppInfo,
   removeAppShortcuts
 } from '../sideload/games'
+import { isMac } from 'backend/constants'
+import { notify } from 'backend/dialog/dialog'
 
 ipcMain.on('addShortcut', async (event, appName, runner, fromMenu) => {
   const isSideload = runner === 'sideload'
@@ -24,12 +26,18 @@ ipcMain.on('addShortcut', async (event, appName, runner, fromMenu) => {
     await game.addShortcuts(fromMenu)
   }
 
-  dialog.showMessageBox({
-    buttons: [i18next.t('box.ok', 'Ok')],
-    message: i18next.t(
-      'box.shortcuts.message',
-      'Shortcuts were created on Desktop and Start Menu'
-    ),
+  const body = i18next.t(
+    'box.shortcuts.message',
+    'Shortcuts were created on Desktop and Start Menu'
+  )
+
+  const bodyMac = i18next.t(
+    'box.shortcuts.message-mac',
+    'Shortcuts were created on the Applications folder'
+  )
+
+  notify({
+    body: isMac ? bodyMac : body,
     title: i18next.t('box.shortcuts.title', 'Shortcuts')
   })
 })
@@ -57,12 +65,18 @@ ipcMain.on('removeShortcut', async (event, appName, runner) => {
     const game = getGame(appName, runner)
     await game.removeShortcuts()
   }
-  dialog.showMessageBox({
-    buttons: [i18next.t('box.ok', 'Ok')],
-    message: i18next.t(
-      'box.shortcuts.message-remove',
-      'Shortcuts were removed from Desktop and Start Menu'
-    ),
+  const body = i18next.t(
+    'box.shortcuts.message-remove',
+    'Shortcuts were removed from Desktop and Start Menu'
+  )
+
+  const bodyMac = i18next.t(
+    'box.shortcuts.message-remove-mac',
+    'Shortcuts were removed from the Applications folder'
+  )
+
+  notify({
+    body: isMac ? bodyMac : body,
     title: i18next.t('box.shortcuts.title', 'Shortcuts Removed')
   })
 })
