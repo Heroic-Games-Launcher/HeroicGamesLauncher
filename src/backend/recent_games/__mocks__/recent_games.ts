@@ -14,8 +14,15 @@ const getRecentGames = () => {
   return list
 }
 
-const setRecentGames = (games: RecentGame[] = []) => {
-  list = games
+const testingExportsRecentGames = {
+  setRecentGames: (games: RecentGame[] = []) => {
+    list = games
+  }
 }
 
-export { getRecentGames, addRecentGame, removeRecentGame, setRecentGames }
+export {
+  getRecentGames,
+  addRecentGame,
+  removeRecentGame,
+  testingExportsRecentGames
+}

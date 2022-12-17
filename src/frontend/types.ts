@@ -1,4 +1,3 @@
-import { VersionInfo } from 'heroic-wine-downloader'
 import {
   AppSettings,
   GameInfo,
@@ -113,12 +112,6 @@ type RefreshOptions = {
 }
 
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
-
-interface WineVersionInfo extends VersionInfo {
-  isInstalled: boolean
-  hasUpdate: boolean
-  installDir: string
-}
 
 declare global {
   interface Window {

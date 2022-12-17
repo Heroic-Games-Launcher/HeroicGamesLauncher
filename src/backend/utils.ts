@@ -853,3 +853,9 @@ export {
   getLegendaryVersion,
   getGogdlVersion
 }
+
+// Exported only for testing purpose
+// ts-prune-ignore-next
+export const testingExportsUtils = {
+  semverGt
+}

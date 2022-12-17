@@ -36,10 +36,30 @@ describe('backend/utils.ts', () => {
     })
   })
 
-  describe('getLatestReleases', () => {
+  test('semverGt', () => {
     // target: vx.x.x or vx.x.x-beta.x
     // base: x.x.x or x.x.x-beta.x
 
+    const testCases = new Map<{ target: string; base: string }, boolean>([
+      [{ target: 'v2.3.10', base: '2.4.0-beta.1' }, false],
+      [{ target: 'v2.3.10', base: '2.4.0' }, false],
+      [{ target: 'v2.3.10', base: '2.3.9' }, true],
+      [{ target: 'v2.3.10', base: '2.3.9-beta.3' }, true],
+      [{ target: 'v2.4.0-beta.1', base: '2.3.10' }, true],
+      [{ target: 'v2.4.0-beta.1', base: '2.4.0' }, false],
+      [{ target: 'v2.4.0-beta.2', base: '2.4.0-beta.1' }, true],
+      [{ target: 'v2.4.0-beta.1', base: '2.4.0-beta.2' }, false],
+      [{ target: undefined as any, base: undefined as any }, false]
+    ])
+
+    testCases.forEach((expectValue, versions) => {
+      expect(
+        utils.testingExportsUtils.semverGt(versions.target, versions.base)
+      ).toBe(expectValue)
+    })
+  })
+
+  describe('getLatestReleases', () => {
     test('Simple version', async () => {
       jest.spyOn(axios, 'get').mockResolvedValue(test_data)
       jest.spyOn(app, 'getVersion').mockReturnValueOnce('2.4.0')
