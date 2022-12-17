@@ -69,11 +69,12 @@ export default React.memo(function WineManager(): JSX.Element | null {
         setWineManagerSettings(oldWineManagerSettings)
       }
     }
+  }, [])
 
+  useEffect(() => {
     const removeListener = window.api.handleWineVersionsUpdated(() => {
       setWineVersions(getWineVersions(repository))
     })
-
     return () => {
       removeListener()
     }
