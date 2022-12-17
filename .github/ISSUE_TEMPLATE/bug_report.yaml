@@ -57,6 +57,8 @@ body:
         - Latest Stable
         - Latest Beta
         - main branch from GitHub
+    validations:
+      required: true
   - type: textarea
     id: systeminfo
     attributes:
