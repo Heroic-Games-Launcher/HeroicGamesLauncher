@@ -293,6 +293,9 @@
     "install": {
         "path": "Kurulum Yolunu Seçin"
     },
+    "label": {
+        "loading": "Loading"
+    },
     "library": {
         "refresh": "Yenile",
         "sortAscending": "Artan Sıralama",

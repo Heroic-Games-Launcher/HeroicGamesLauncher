@@ -293,6 +293,9 @@
     "install": {
         "path": "Quraşdırma yolunu seçin"
     },
+    "label": {
+        "loading": "Loading"
+    },
     "library": {
         "refresh": "təzələmək",
         "sortAscending": "Artan sırala",

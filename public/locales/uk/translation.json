@@ -293,6 +293,9 @@
     "install": {
         "path": "Вкажіть шлях встановлення"
     },
+    "label": {
+        "loading": "Loading"
+    },
     "library": {
         "refresh": "Оновити",
         "sortAscending": "Сортувати за зростанням",

@@ -293,6 +293,9 @@
     "install": {
         "path": "Selectați Calea de instalare"
     },
+    "label": {
+        "loading": "Loading"
+    },
     "library": {
         "refresh": "Reîmprospăta",
         "sortAscending": "Sortare ascendentă",

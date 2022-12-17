@@ -293,6 +293,9 @@
     "install": {
         "path": "Izaberi put instalacije"
     },
+    "label": {
+        "loading": "Loading"
+    },
     "library": {
         "refresh": "Osvježi",
         "sortAscending": "Poredaj uzlazno",

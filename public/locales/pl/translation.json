@@ -293,6 +293,9 @@
     "install": {
         "path": "Wybierz ścieżkę instalacji"
     },
+    "label": {
+        "loading": "Loading"
+    },
     "library": {
         "refresh": "Odśwież",
         "sortAscending": "Sortuj rosnąco",
