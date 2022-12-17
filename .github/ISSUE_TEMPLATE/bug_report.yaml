@@ -51,10 +51,13 @@ body:
       label: System Information
       value: |-
         - OS [e. g. "Ubuntu"]: 
-        - Heroic Version [e. g. 2.1.1]:
-
+        - Heroic Version [e. g. 2.5.2]:
     validations:
       required: true
+  - type: markdown
+    attributes:
+      value: |-
+        ## Latest stable version of Heroic is 2.5.2. Please, update Heroic before reporting a bug if you have an older version.
   - type: textarea
     id: additional_info
     attributes:
