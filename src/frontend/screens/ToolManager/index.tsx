@@ -81,7 +81,9 @@ export default function ToolManager(): JSX.Element | null {
         setToolManagerSettings(oldToolManagerSettings)
       }
     }
+  }, [])
 
+  useEffect(() => {
     const removeListener = window.api.handleToolVersionsUpdated(() => {
       setToolVersions(getToolVersions(repository))
     })
@@ -89,7 +91,7 @@ export default function ToolManager(): JSX.Element | null {
     return () => {
       removeListener()
     }
-  }, [])
+  }, [repository])
 
   if (refreshing) {
     return <UpdateComponent />
@@ -151,15 +153,15 @@ export default function ToolManager(): JSX.Element | null {
               <span>{t('tool.actions', 'Action')}</span>
             </div>
             {!!toolVersions.length &&
-              toolVersions.map((release, key) => {
-                return <ToolItem key={key} {...release} />
+              toolVersions.map((release) => {
+                return <ToolItem key={release.version} {...release} />
               })}
           </div>
         ) : (
           <h5 className="toolList">
             {t(
               'tool.manager.no-found',
-              'No Wine versions found. Please click the refresh icon to try again.'
+              'No Tool versions found. Please click the refresh icon to try again.'
             )}
           </h5>
         )}
