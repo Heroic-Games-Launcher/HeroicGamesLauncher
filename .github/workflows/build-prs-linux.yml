@@ -20,8 +20,15 @@ jobs:
         with:
           node-version: '16'
           cache: 'yarn'
+      - name: Cache Node Modules
+        id: cache-node-modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: linux-yarn-${{ hashFiles('yarn.lock') }}
       - name: Install modules.
-        run: yarn
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: yarn install --frozen-lockfile
       - name: Build artifacts.
         run: yarn dist:linux appimage --publish=never
         env:
