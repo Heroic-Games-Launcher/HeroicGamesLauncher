@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt-get install --no-install-recommends -y libarchive-tools libopenjp2-tools rpm
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18'
       - run: npm install --legacy-peer-deps
       - run: npm run release:linux
         env:
