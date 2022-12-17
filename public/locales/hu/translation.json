@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Parancsikonok létre lettek hozva az asztalon és a Start menüben",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Shortcuts were removed from Desktop and Start Menu",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Parancsikonok"
         },
         "sync": {
@@ -217,32 +219,32 @@
     "header": {
         "ignore_hidden": "Ignore Hidden",
         "platform": "Platform",
-        "show_all_games": "Show all games",
-        "show_favourites_only": "Show Favourites only",
-        "show_hidden": "Show Hidden",
-        "store": "Filter Store"
+        "show_all_games": "Összes játék mutatása",
+        "show_favourites_only": "Csak kedvencek mutatása",
+        "show_hidden": "Elrejtettek mutatása",
+        "store": "Áruház szűrése"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
-        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
-        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
-        "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
+        "custom_themes_path": "Ne használj CSS fájlt nem megbízható forrásokból. Kétség esetén, kérj egy felülvizsgálatot a Discord csatornánkban.",
+        "custom_themes_wiki": "Nézze meg a Wikit az egyéni témák hozzáadásával kapcsolatos további részletekért. Kattints ide.",
+        "dxvk": "A DXVK egy Vulkanon alapuló fordítási szoftverréteg a DirectX 9, 10 és 11 játékoknak. A bekapcsolása növelheti a kompatibilitást. Okozhat problémákat főleg a régebbi DirectX játékokkal.",
         "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
-        "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
+        "esync": "Az Esync célja, hogy csökkentse a wineserver súlyát a CPU igényes játékokkal. A bekapcsolása növelheti a teljesítményt.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
             "fallback": "Leave blank to use Heroic's language.",
             "in_game_config": "Not all games support this configuration, some have in-game language setting.",
-            "valid_codes": "Valid language codes are game-dependant."
+            "valid_codes": "A működő Nyelvkódok függhetnek a játékoktól."
         },
-        "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
-        "general": "Abban az esetben szinkronizálj EGL-lel , ha van egy működő, Epic Games Launcher telepítésed máshol, és importálni szeretnéd a játékaid, hogy elkerüld az újbóli letöltésüket.",
+        "gamemode": "A Vad Játék-Mód automatikusan és ideiglenesen optimalizál a rendszerhez. Ennek az engedélyezése javíthatja a teljesítményt.",
+        "general": "Amennyiben van egy működő Epic Games Launcher telepítésed máshol, szinkronizálhatsz az EGL-el a játékaid importálásához, hogy elkerüld az újbóli letöltésüket.",
         "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
-            "part4": "A ",
+            "part4": "Használd a ",
             "part5": "Játékargumentumok",
-            "part6": " azt használd, amit meg akarsz hívni a játék indítási parancs után, példaképpen: ",
-            "part7": " hogy kihagyd a launchert néhány játékban, stb."
+            "part6": " az indítási parancs után hívható meg, például: ",
+            "part7": " Néhány játék esetén a Launcher kihágyásához, stb."
         },
         "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
         "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
@@ -359,6 +361,7 @@
     },
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
@@ -414,6 +417,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
+    "please-wait": "Please wait...",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -523,7 +527,9 @@
             "title": "EXE fájl futtatása a prefixen"
         },
         "savefolder": {
-            "placeholder": "Pontos játékmentési mappa kiválasztása"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Pontos játékmentési mappa kiválasztása",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Select Theme",
         "showfps": "FPS megjelenítése (DX9, 10 és 11)",
@@ -594,8 +600,8 @@
     "tool": {
         "actions": "Action",
         "manager": {
-            "error": "Could not fetch Tool versions this time.",
             "link": "Tool Manager",
+            "no-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Tool Manager",
             "unzipping": "Unzipping"
         },
@@ -625,6 +631,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
+        "logging_out": "Logging out",
         "logout": "Kijelentkezés",
         "logout_confirmation": "Biztos, hogy ki akarsz jelentkezni?",
         "manageaccounts": "Manage Accounts",

@@ -4,6 +4,7 @@
  *        Note that with console.log and console.warn everything will be saved too.
  *        error equals console.error
  */
+import { AppSettings, GameSettings } from 'common/types'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
 import { appendMessageToLogFile, getLongestPrefix } from './logfile'
 
@@ -206,4 +207,51 @@ export function logWarning(
   }
 ) {
   logBase(input, 'WARNING', options)
+}
+
+export function logChangedSetting(
+  config: Partial<AppSettings>,
+  oldConfig: GameSettings
+) {
+  const changedSettings = Object.keys(config).filter(
+    (key) => config[key] !== oldConfig[key]
+  )
+
+  changedSettings.forEach((changedSetting) => {
+    // check if both are empty arrays
+    if (
+      Array.isArray(config[changedSetting]) &&
+      Array.isArray(oldConfig[changedSetting]) &&
+      config[changedSetting].length === 0 &&
+      oldConfig[changedSetting].length === 0
+    ) {
+      return
+    }
+
+    // check if both are objects and have different values
+    if (
+      typeof config[changedSetting] === 'object' &&
+      typeof oldConfig[changedSetting] === 'object' &&
+      JSON.stringify(config[changedSetting]) ===
+        JSON.stringify(oldConfig[changedSetting])
+    ) {
+      return
+    }
+
+    const oldSetting =
+      typeof oldConfig[changedSetting] === 'object'
+        ? JSON.stringify(oldConfig[changedSetting])
+        : oldConfig[changedSetting]
+    const newSetting =
+      typeof config[changedSetting] === 'object'
+        ? JSON.stringify(config[changedSetting])
+        : config[changedSetting]
+
+    logInfo(
+      `Changed config: ${changedSetting} from ${oldSetting} to ${newSetting}`,
+      {
+        prefix: LogPrefix.Backend
+      }
+    )
+  })
 }

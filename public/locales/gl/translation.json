@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Creáronse atallos no escritorio e no menú principal",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Shortcuts were removed from Desktop and Start Menu",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Atallos"
         },
         "sync": {
@@ -359,6 +361,7 @@
     },
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
@@ -414,6 +417,7 @@
         "mac": "macOS",
         "win": "Windows"
     },
+    "please-wait": "Please wait...",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -523,7 +527,9 @@
             "title": "Executar EXE en Prefix"
         },
         "savefolder": {
-            "placeholder": "Seleccionar o cartafol exacto para gardar xogos"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Seleccionar o cartafol exacto para gardar xogos",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Select Theme",
         "showfps": "Mostrar FPS (DX9, 10 e 11)",
@@ -594,8 +600,8 @@
     "tool": {
         "actions": "Action",
         "manager": {
-            "error": "Could not fetch Tool versions this time.",
             "link": "Tool Manager",
+            "no-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Tool Manager",
             "unzipping": "Unzipping"
         },
@@ -625,6 +631,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
+        "logging_out": "Logging out",
         "logout": "Pechar sesión",
         "logout_confirmation": "Tes certeza que queres pechar a sesión?",
         "manageaccounts": "Manage Accounts",

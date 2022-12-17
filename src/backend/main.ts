@@ -11,15 +11,13 @@ import * as path from 'path'
 import {
   BrowserWindow,
   Menu,
-  Tray,
   app,
   dialog,
   ipcMain,
   powerSaveBlocker,
   protocol,
   screen,
-  clipboard,
-  nativeImage
+  clipboard
 } from 'electron'
 import 'backend/updater'
 import { autoUpdater } from 'electron-updater'
@@ -71,7 +69,8 @@ import {
   getLatestReleases,
   notify,
   getShellPath,
-  getCurrentChangelog
+  getCurrentChangelog,
+  wait
 } from './utils'
 import {
   configStore,
@@ -80,8 +79,6 @@ import {
   heroicGithubURL,
   userHome,
   icon,
-  iconDark,
-  iconLight,
   installed,
   kofiPage,
   epicLoginUrl,
@@ -104,6 +101,7 @@ import {
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
+  logChangedSetting,
   logDebug,
   logError,
   logInfo,
@@ -121,7 +119,7 @@ import {
   runOnceWhenOnline
 } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
-import { addRecentGame, getRecentGames } from './recent_games'
+import { addRecentGame } from './recent_games/recent_games'
 import {
   addNewApp,
   appLogFileLocation,
@@ -136,6 +134,7 @@ import {
 import { callAbortController } from './utils/aborthandler/aborthandler'
 import { getDefaultSavePath } from './save_sync'
 import si from 'systeminformation'
+import { initTrayIcon } from './tray_icon/tray_icon'
 
 const { showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -276,55 +275,6 @@ async function createWindow(): Promise<BrowserWindow> {
 const gotTheLock = app.requestSingleInstanceLock()
 let openUrlArgument = ''
 
-const contextMenu = async () => {
-  const recentsMenu = (await getRecentGames({ limited: true })).map((game) => {
-    return {
-      click: function () {
-        handleProtocol(mainWindow, [`heroic://launch/${game.appName}`])
-      },
-      label: game.title
-    }
-  })
-
-  return Menu.buildFromTemplate([
-    ...recentsMenu,
-    { type: 'separator' },
-    {
-      click: function () {
-        mainWindow.show()
-      },
-      label: i18next.t('tray.show')
-    },
-    {
-      click: function () {
-        showAboutWindow()
-      },
-      label: i18next.t('tray.about', 'About')
-    },
-    {
-      accelerator: process.platform === 'darwin' ? 'Cmd+R' : 'Ctrl+R',
-      click: function () {
-        mainWindow.reload()
-      },
-      label: i18next.t('tray.reload', 'Reload')
-    },
-    {
-      label: 'Debug',
-      accelerator: process.platform === 'darwin' ? 'Alt+Cmd+I' : 'Ctrl+Shift+I',
-      click: () => {
-        mainWindow.webContents.openDevTools()
-      }
-    },
-    {
-      click: function () {
-        handleExit(mainWindow)
-      },
-      label: i18next.t('tray.quit', 'Quit'),
-      accelerator: process.platform === 'darwin' ? 'Cmd+Q' : 'Ctrl+Q'
-    }
-  ])
-}
-
 const processZoomForScreen = (zoomFactor: number) => {
   const screenSize = screen.getPrimaryDisplay().workAreaSize.width
   if (screenSize < 1200) {
@@ -372,7 +322,7 @@ if (!gotTheLock) {
     // TODO: Remove this after a couple of stable releases
     // Affects only current users, not new installs
     const settings = await GlobalConfig.get().getSettings()
-    const { language, darkTrayIcon } = settings
+    const { language } = settings
     const currentConfigStore = configStore.get('settings', {}) as AppSettings
     if (!currentConfigStore.defaultInstallPath) {
       configStore.set('settings', settings)
@@ -404,6 +354,7 @@ if (!gotTheLock) {
       fallbackLng: 'en',
       lng: language,
       supportedLngs: [
+        'ar',
         'az',
         'be',
         'bg',
@@ -477,55 +428,17 @@ if (!gotTheLock) {
       mainWindow.webContents.setZoomFactor(processZoomForScreen(zoomFactor))
     }, 200)
 
-    const iconSizesByPlatform = {
-      darwin: {
-        width: 20,
-        height: 20
-      },
-      linux: {
-        width: 32,
-        height: 32
-      },
-      win32: {
-        width: 32,
-        height: 32
-      }
-    }
-
-    const trayIcon = nativeImage
-      .createFromPath(darkTrayIcon ? iconDark : iconLight)
-      .resize(iconSizesByPlatform[process.platform])
-
-    const appIcon = new Tray(trayIcon)
-
-    appIcon.on('double-click', () => {
-      mainWindow.show()
-    })
-
-    appIcon.setContextMenu(await contextMenu())
-    appIcon.setToolTip('Heroic')
     ipcMain.on('changeLanguage', async (event, language) => {
       logInfo(['Changing Language to:', language], {
         prefix: LogPrefix.Backend
       })
       await i18next.changeLanguage(language)
       gameInfoStore.clear()
-      appIcon.setContextMenu(await contextMenu())
-    })
-
-    ipcMain.addListener('changeTrayColor', () => {
-      logInfo('Changing Tray icon Color...', { prefix: LogPrefix.Backend })
-      setTimeout(async () => {
-        const { darkTrayIcon } = await GlobalConfig.get().getSettings()
-        const trayIcon = nativeImage
-          .createFromPath(darkTrayIcon ? iconDark : iconLight)
-          .resize(iconSizesByPlatform[process.platform])
-        appIcon.setImage(trayIcon)
-        appIcon.setContextMenu(await contextMenu())
-      }, 500)
     })
 
     downloadAntiCheatData()
+
+    initTrayIcon(mainWindow)
 
     return
   })
@@ -533,9 +446,13 @@ if (!gotTheLock) {
 
 ipcMain.on('notify', (event, args) => notify(args))
 
-ipcMain.on('frontendReady', () => {
+ipcMain.once('frontendReady', () => {
+  logInfo('Frontend Ready', { prefix: LogPrefix.Backend })
   handleProtocol(mainWindow, [openUrlArgument, ...process.argv])
-  initQueue()
+  setTimeout(() => {
+    logInfo('Starting the Download Queue', { prefix: LogPrefix.Backend })
+    initQueue()
+  }, 5000)
 })
 
 // Maybe this can help with white screens
@@ -764,19 +681,21 @@ ipcMain.handle('getCurrentChangelog', async () => {
   return getCurrentChangelog()
 })
 
-ipcMain.on('clearCache', (event) => {
+ipcMain.on('clearCache', (event, showDialog?: boolean) => {
   clearCache()
 
-  showDialogBoxModalAuto({
-    event,
-    title: i18next.t('box.cache-cleared.title', 'Cache Cleared'),
-    message: i18next.t(
-      'box.cache-cleared.message',
-      'Heroic Cache Was Cleared!'
-    ),
-    type: 'MESSAGE',
-    buttons: [{ text: i18next.t('box.ok', 'Ok') }]
-  })
+  if (showDialog) {
+    showDialogBoxModalAuto({
+      event,
+      title: i18next.t('box.cache-cleared.title', 'Cache Cleared'),
+      message: i18next.t(
+        'box.cache-cleared.message',
+        'Heroic Cache Was Cleared!'
+      ),
+      type: 'MESSAGE',
+      buttons: [{ text: i18next.t('box.ok', 'Ok') }]
+    })
+  }
 })
 
 ipcMain.on('resetHeroic', () => resetHeroic())
@@ -846,7 +765,6 @@ ipcMain.handle(
   async (event, appName, runner, installPlatform) => {
     try {
       const info = await getGame(appName, runner).getInstallInfo(
-        // @ts-expect-error This is actually fine as long as the frontend always passes the right InstallPlatform for the right runner
         installPlatform
       )
       return info
@@ -931,9 +849,9 @@ ipcMain.handle('requestSettings', async (event, appName) => {
   return mapOtherSettings(config)
 })
 
-ipcMain.on('toggleDXVK', (event, { winePrefix, winePath, action }) => {
+ipcMain.handle('toggleDXVK', async (event, { winePrefix, winePath, action }) =>
   DXVK.installRemove(winePrefix, winePath, 'dxvk', action)
-})
+)
 
 ipcMain.on('toggleVKD3D', (event, { winePrefix, winePath, action }) => {
   DXVK.installRemove(winePrefix, winePath, 'vkd3d', action)
@@ -943,8 +861,14 @@ ipcMain.handle('writeConfig', (event, { appName, config }) => {
   logInfo(`Writing config for ${appName === 'default' ? 'Heroic' : appName}`, {
     prefix: LogPrefix.Backend
   })
-  // use 2 spaces for pretty print
-  logInfo(JSON.stringify(config, null, 2), { prefix: LogPrefix.Backend })
+  const oldConfig =
+    appName === 'default'
+      ? GlobalConfig.get().config
+      : GameConfig.get(appName).config
+
+  // log only the changed setting
+  logChangedSetting(config, oldConfig)
+
   if (appName === 'default') {
     GlobalConfig.get().config = config as AppSettings
     GlobalConfig.get().flush()
@@ -1001,8 +925,6 @@ let powerDisplayId: number | null
 ipcMain.handle(
   'launch',
   async (event, { appName, launchArguments, runner }): StatusPromise => {
-    launchArguments = isCLINoGui ? '--skip-version-check' : launchArguments
-
     const window = BrowserWindow.getAllWindows()[0]
     const isSideloaded = runner === 'sideload'
     const extGame = getGame(appName, runner)
@@ -1400,8 +1322,14 @@ ipcMain.handle(
 
 ipcMain.handle(
   'getDefaultSavePath',
-  async (event, appName, runner, alreadyDefinedGogSaves) =>
-    getDefaultSavePath(appName, runner, alreadyDefinedGogSaves)
+  async (event, appName, runner, alreadyDefinedGogSaves) => {
+    return Promise.race([
+      getDefaultSavePath(appName, runner, alreadyDefinedGogSaves),
+      wait(15000).then(() => {
+        return runner === 'gog' ? [] : ''
+      })
+    ])
+  }
 )
 
 // Simulate keyboard and mouse actions as if the real input device is used
@@ -1596,6 +1524,7 @@ import './wine/runtimes/ipc_handler'
 import './downloadmanager/ipc_handler'
 import './utils/ipc_handler'
 import './howlongtobeat/ipc_handler'
+import './recent_games/ipc_handler'
 
 // import Store from 'electron-store'
 // interface StoreMap {

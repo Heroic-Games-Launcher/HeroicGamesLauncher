@@ -28,8 +28,8 @@ export default function HowLongToBeat({ title }: Props) {
     howLongToBeatInfo
 
   return (
-    <>
-      <h5>{t('howLongToBeat', 'How Long To Beat')}</h5>
+    <div>
+      <p>{t('howLongToBeat', 'How Long To Beat')}</p>
       <div className="howLongToBeat">
         <div className="howLongToBeat__square">
           <div className="howLongToBeat__square__title">
@@ -56,6 +56,6 @@ export default function HowLongToBeat({ title }: Props) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }

@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "바탕 화면 및 시작 메뉴에 바로 가기가 생성되었습니다",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "데스크톱 및 시작 메뉴에서 바로 가기가 제거되었습니다",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "바로가기"
         },
         "sync": {
@@ -359,6 +361,7 @@
     },
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
@@ -414,6 +417,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
+    "please-wait": "Please wait...",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -523,7 +527,9 @@
             "title": "접두사에서 EXE 실행"
         },
         "savefolder": {
-            "placeholder": "올바른 게임 저장 폴더 선택"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "올바른 게임 저장 폴더 선택",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Select Theme",
         "showfps": "FPS 표시 (DX9, 10 및 11)",
@@ -594,8 +600,8 @@
     "tool": {
         "actions": "Action",
         "manager": {
-            "error": "Could not fetch Tool versions this time.",
             "link": "Tool Manager",
+            "no-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Tool Manager",
             "unzipping": "Unzipping"
         },
@@ -625,6 +631,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
+        "logging_out": "Logging out",
         "logout": "로그아웃",
         "logout_confirmation": "정말로 로그아웃 하시겠습니까?",
         "manageaccounts": "계정 관리",

@@ -66,11 +66,10 @@ interface SyncIPCFunctions {
   openCustomThemesWiki: () => void
   showConfigFileInFolder: (appName: string) => void
   removeFolder: ([path, folderName]: [string, string]) => void
-  clearCache: () => void
+  clearCache: (showDialog?: boolean) => void
   resetHeroic: () => void
   createNewWindow: (url: string) => void
   logoutGOG: () => void
-  toggleDXVK: (args: ToolArgs) => void
   toggleVKD3D: (args: ToolArgs) => void
   logError: (message: unknown) => void
   logInfo: (message: unknown) => void
@@ -88,6 +87,7 @@ interface SyncIPCFunctions {
   clearDMFinished: () => void
   abort: (id: string) => void
   'connectivity-changed': (newStatus: ConnectivityStatus) => void
+  'set-connectivity-online': () => void
   changeTrayColor: () => void
 }
 
@@ -180,8 +180,8 @@ interface AsyncIPCFunctions {
   installToolVersion: (
     release: ToolVersionInfo
   ) => Promise<'error' | 'abort' | 'success'>
-  refreshToolVersionInfo: (fetch?: boolean) => Promise<ToolVersionInfo[]>
-  removeToolVersion: (release: ToolVersionInfo) => Promise<boolean>
+  refreshToolVersionInfo: (fetch?: boolean) => Promise<void>
+  removeToolVersion: (release: WineVersionInfo) => Promise<boolean>
   shortcutsExists: (appName: string, runner: Runner) => boolean
   addToSteam: (appName: string, runner: Runner) => Promise<boolean>
   removeFromSteam: (appName: string, runner: Runner) => Promise<void>
@@ -223,6 +223,7 @@ interface AsyncIPCFunctions {
     appName: string
     runner: Runner
   }) => Promise<boolean>
+  toggleDXVK: (args: ToolArgs) => Promise<boolean>
 }
 
 // This is quite ugly & throws a lot of errors in a regular .ts file

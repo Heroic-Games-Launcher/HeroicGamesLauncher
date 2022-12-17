@@ -1,12 +1,11 @@
 import './index.css'
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { ToolVersionInfo, ProgressInfo, State } from 'common/types/toolmanager'
 import { ReactComponent as DownIcon } from 'frontend/assets/down-icon.svg'
 import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
 import { SvgButton } from 'frontend/components/UI'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 
 import { notify, size } from 'frontend/helpers'
@@ -26,8 +25,6 @@ const ToolItem = ({
   type
 }: ToolVersionInfo) => {
   const { t } = useTranslation()
-  const { refreshToolVersionInfo: refreshToolVersionInfo } =
-    useContext(ContextProvider)
   const [progress, setProgress] = useState<{
     state: State
     progress: ProgressInfo
@@ -85,7 +82,6 @@ const ToolItem = ({
             notify({ title: `${version}`, body: t('notify.install.canceled') })
             break
           case 'success':
-            refreshToolVersionInfo(false)
             notify({ title: `${version}`, body: t('notify.install.finished') })
             break
           default:
@@ -110,7 +106,6 @@ const ToolItem = ({
       })
       .then((response) => {
         if (response) {
-          refreshToolVersionInfo(false)
           notify({ title: `${version}`, body: t('notify.uninstalled') })
         }
       })

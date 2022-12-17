@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Scurtăturile au fost create pe Desktop și pe meniul Start",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Comenzile rapide au fost eliminate din Desktop și din meniul Start",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Scurtături"
         },
         "sync": {
@@ -359,6 +361,7 @@
     },
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
@@ -414,6 +417,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
+    "please-wait": "Please wait...",
     "progress": "Progres",
     "queue": {
         "label": {
@@ -523,7 +527,9 @@
             "title": "Rulați EXE pe Prefix"
         },
         "savefolder": {
-            "placeholder": "Selectați folderul exact de salvare a jocurilor"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Selectați folderul exact de salvare a jocurilor",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Selectează tema",
         "showfps": "Afișați FPS (DX9, 10 și 11)",
@@ -594,8 +600,8 @@
     "tool": {
         "actions": "Action",
         "manager": {
-            "error": "Could not fetch Tool versions this time.",
             "link": "Tool Manager",
+            "no-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Tool Manager",
             "unzipping": "Unzipping"
         },
@@ -625,6 +631,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
+        "logging_out": "Logging out",
         "logout": "Deconectare",
         "logout_confirmation": "Sigur doriți să vă deconectați?",
         "manageaccounts": "Gestionați Conturile",

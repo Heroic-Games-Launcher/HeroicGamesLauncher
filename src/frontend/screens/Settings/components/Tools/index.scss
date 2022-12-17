@@ -3,6 +3,7 @@
   cursor: pointer;
   justify-content: space-between;
   width: 430px;
+  max-width: fit-content;
 
   .button {
     padding-block: var(--space-lg);

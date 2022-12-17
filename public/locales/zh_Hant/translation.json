@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "已建立捷徑在桌面和開始功能表內",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "將捷徑從桌面和開始功能表移除",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "捷徑"
         },
         "sync": {
@@ -359,6 +361,7 @@
     },
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
@@ -414,6 +417,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
+    "please-wait": "Please wait...",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -523,7 +527,9 @@
             "title": "在PREFIX上執行exe檔案"
         },
         "savefolder": {
-            "placeholder": "選擇存檔的保存位置"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "選擇存檔的保存位置",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "選擇主題",
         "showfps": "顯示幀數（Directx 9，10和11）",
@@ -594,8 +600,8 @@
     "tool": {
         "actions": "Action",
         "manager": {
-            "error": "Could not fetch Tool versions this time.",
             "link": "Tool Manager",
+            "no-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Tool Manager",
             "unzipping": "Unzipping"
         },
@@ -625,6 +631,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
+        "logging_out": "Logging out",
         "logout": "登出",
         "logout_confirmation": "您確定要登出嗎？",
         "manageaccounts": "管理帳號",

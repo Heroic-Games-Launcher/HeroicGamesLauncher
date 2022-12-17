@@ -1,5 +1,5 @@
 import { logError, logInfo, LogPrefix } from '../logger/logger'
-import { getInfo, getMainWindow } from '../utils'
+import { getFileSize, getGame, getMainWindow } from '../utils'
 import Store from 'electron-store'
 import { DMQueueElement } from 'common/types'
 import { installQueueElement, updateQueueElement } from './utils'
@@ -35,8 +35,7 @@ function addToFinished(element: DMQueueElement, status: DMStatus) {
   const elementIndex = elements.findIndex(
     (el) => el.params.appName === element.params.appName
   )
-  const gameInfo = getInfo(element.params.appName, element.params.runner)
-  element.params.gameInfo = gameInfo
+
   if (elementIndex >= 0) {
     elements[elementIndex] = { ...element, status: status ?? 'abort' }
   } else {
@@ -61,6 +60,13 @@ async function initQueue() {
   while (element) {
     const queuedElements = downloadManager.get('queue') as DMQueueElement[]
     window.webContents.send('changedDMQueueInformation', queuedElements)
+    const game = getGame(element.params.appName, element.params.runner)
+    const installInfo = await game.getInstallInfo(
+      element.params.platformToInstall
+    )
+    element.params.size = installInfo?.manifest?.download_size
+      ? getFileSize(installInfo?.manifest?.download_size)
+      : '?? MB'
     element.startTime = Date.now()
     queuedElements[0] = element
     downloadManager.set('queue', queuedElements)

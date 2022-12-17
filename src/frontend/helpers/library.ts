@@ -168,7 +168,7 @@ const autoSyncSaves = async (
 ): Promise<string> => {
   const { savesPath, gogSaves } = await window.api.requestGameSettings(appName)
 
-  if (gameInfo?.runner === 'legendary') {
+  if (gameInfo?.runner === 'legendary' && savesPath) {
     return syncSaves(savesPath, appName, gameInfo.runner)
   } else if (gameInfo?.runner === 'gog' && gogSaves !== undefined) {
     return window.api.syncGOGSaves(gogSaves, appName, '')
@@ -234,15 +234,24 @@ const launch = async ({
 
   if (syncCloud) {
     const gameInfo = await getGameInfo(appName, runner)
+    if (gameInfo?.cloud_save_enabled) {
+      const settings = await window.api.requestGameSettings(appName)
+      if (settings.autoSyncSaves) {
+        await autoSyncSaves(appName, gameInfo)
 
-    await autoSyncSaves(appName, gameInfo)
+        const status = await window.api.launch({
+          appName,
+          launchArguments,
+          runner
+        })
 
-    const status = await window.api.launch({ appName, launchArguments, runner })
+        await autoSyncSaves(appName, gameInfo)
 
-    await autoSyncSaves(appName, gameInfo)
-
-    return status
+        return status
+      }
+    }
   }
+
   return window.api.launch({ appName, launchArguments, runner })
 }
 

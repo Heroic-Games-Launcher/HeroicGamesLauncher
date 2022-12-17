@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Ярлыки созданы на рабочем столе и в меню «Пуск»",
+            "message-mac": "Ярлыки были созданы в папке «Программы»",
             "message-remove": "Ярлыки были удалены с рабочего стола и меню «Пуск»",
+            "message-remove-mac": "Ярлыки были удалены из папки «Программы»",
             "title": "Ярлыки"
         },
         "sync": {
@@ -174,8 +176,8 @@
     "docs": "Документация",
     "download-manager": {
         "install-type": {
-            "install": "Install",
-            "update": "Update"
+            "install": "Установка",
+            "update": "Обновление"
         },
         "label": {
             "disk": "Диск",
@@ -359,6 +361,7 @@
     },
     "offline-message": {
         "hint": "Мы проверяем подключение к: {{newline}}github.com, {{newline}}gog.com и {{newline}}store.epicgames.com",
+        "ignore": "Ignore",
         "offline": "Не в сети",
         "offline-retry-in": "Не в сети. Повторная попытка через {{seconds}} секунд.",
         "retrying": "Повтор"
@@ -414,6 +417,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
+    "please-wait": "Пожалуйста, подождите...",
     "progress": "Прогресс",
     "queue": {
         "label": {
@@ -523,7 +527,9 @@
             "title": "Запустить EXE в префиксе"
         },
         "savefolder": {
-            "placeholder": "Выберите точную папку для сохранений игр"
+            "not-found": "Папка для сохранений не найдена, выберите ее вручную",
+            "placeholder": "Выберите точную папку для сохранений игр",
+            "warning": "Пожалуйста, проверьте дважды, правильно ли указан путь"
         },
         "select_theme": "Выбор темы",
         "showfps": "Показывать FPS (DX9, 10 и 11)",
@@ -594,8 +600,8 @@
     "tool": {
         "actions": "Action",
         "manager": {
-            "error": "Could not fetch Tool versions this time.",
             "link": "Tool Manager",
+            "no-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Tool Manager",
             "unzipping": "Unzipping"
         },
@@ -625,6 +631,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Дискорд",
+        "logging_out": "Выход",
         "logout": "Выйти из аккаунта",
         "logout_confirmation": "Вы уверены, что хотите выйти?",
         "manageaccounts": "Аккаунты",

@@ -24,6 +24,7 @@ import {
 } from '../../backend/logger/logger'
 import { getAvailableVersions, installVersion } from './toolmanager'
 import { heroicToolsPath } from '../../backend/constants'
+import { BrowserWindow } from 'electron'
 
 const wineDownloaderInfoStore = new Store({
   cwd: 'store',
@@ -403,6 +404,7 @@ async function updateToolVersionInfos(
   }
 
   logInfo('tool versions updated', { prefix: LogPrefix.ToolManager })
+  BrowserWindow.getAllWindows()[0].webContents.send('toolVersionsUpdated')
   return releases
 }
 
@@ -504,6 +506,7 @@ async function installToolVersion(
   logInfo(`Finished installation of tool version ${release.version}`, {
     prefix: LogPrefix.ToolManager
   })
+  BrowserWindow.getAllWindows()[0].webContents.send('toolVersionsUpdated')
   return 'success'
 }
 
@@ -556,6 +559,8 @@ async function removeToolVersion(release: ToolVersionInfo): Promise<boolean> {
   logInfo(`Removed tool version ${release.version} succesfully.`, {
     prefix: LogPrefix.ToolManager
   })
+
+  BrowserWindow.getAllWindows()[0].webContents.send('toolVersionsUpdated')
   return true
 }
 

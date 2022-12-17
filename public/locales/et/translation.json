@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Töölauale ja Start Menüüsse on loodud otseteed",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Otseteed eemaldati töölaualt ja startmenüüst",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Otseteed"
         },
         "sync": {
@@ -359,6 +361,7 @@
     },
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
@@ -414,6 +417,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
+    "please-wait": "Please wait...",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -523,7 +527,9 @@
             "title": "Käivita EXE prefiksil"
         },
         "savefolder": {
-            "placeholder": "Valige täpne mängude salvestiste kaust"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Valige täpne mängude salvestiste kaust",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Valige teema",
         "showfps": "Näita FPS-i (DX9, 10 ja 11)",
@@ -594,8 +600,8 @@
     "tool": {
         "actions": "Action",
         "manager": {
-            "error": "Could not fetch Tool versions this time.",
             "link": "Tool Manager",
+            "no-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Tool Manager",
             "unzipping": "Unzipping"
         },
@@ -625,6 +631,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
+        "logging_out": "Logging out",
         "logout": "Logi välja",
         "logout_confirmation": "Kas olete kindel, et soovite välja logida?",
         "manageaccounts": "Kontode haldamine",

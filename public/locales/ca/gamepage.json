@@ -18,7 +18,7 @@
             "title": "Verifica i repara"
         },
         "runexe": {
-            "title": "Trieu un EXE per a executar"
+            "title": "Tria un EXE per executar"
         },
         "select": {
             "button": "Tria"
@@ -48,7 +48,7 @@
         "cancel": "Pausa/Cancel·la",
         "continue": "Continua la baixada",
         "finish": "Acaba",
-        "force_update": "Força l'actualització si n'hi ha alguna de disponible",
+        "force_update": "Força l'actualització si n'hi ha cap disponible",
         "force-innstall": "Força la instal·lació",
         "hide_game": "Amaga el joc",
         "import": "Importa el joc",
@@ -62,13 +62,13 @@
         "run-exe-first": "Primer executa l'instal·lador",
         "running-setup": "S'executa la configuració",
         "sideload": {
-            "edit": "Edita l'App/Joc"
+            "edit": "Edita el joc o aplicació"
         },
         "unhide_game": "Torna a mostrar el joc",
         "uninstall": "Desinstal·la",
         "update": "Actualitza"
     },
-    "cloud_save_unsupported": "No suportat",
+    "cloud_save_unsupported": "No compatible",
     "disabled": "Desactivat",
     "dlc": {
         "installDlcs": "Instal·la tots els DLCs"
@@ -77,14 +77,14 @@
     "game": {
         "downloadSize": "Mida de la baixada",
         "firstPlayed": "Primera partida",
-        "getting-download-size": "Es cerca la mida de la descàrrega",
-        "getting-install-size": "Es cerca la mida de la instal·lació",
+        "getting-download-size": "Se cerca la mida de la baixada",
+        "getting-install-size": "Se cerca la mida de la instal·lació",
         "installSize": "Mida d'instal·lació",
-        "language": "Idioma",
+        "language": "Llengua",
         "lastPlayed": "Última partida",
         "neverPlayed": "Mai",
         "platform": "Selecciona la versió de la plataforma per instal·lar",
-        "requirements": "Requeriments del sistema",
+        "requirements": "Requisits del sistema",
         "totalPlayed": "Temps jugat"
     },
     "gamecard": {
@@ -96,11 +96,11 @@
     },
     "hours": "Hores",
     "how-long-to-beat": {
-        "completionist": "Completista",
+        "completionist": "Perfeccionista",
         "main-plus-extras": "Principal + Extres",
         "main-story": "Història principal"
     },
-    "howLongToBeat": "Quant temps costa completar",
+    "howLongToBeat": "Quant de temps costa de completar",
     "info": {
         "canRunOffline": "Cal connexió a internet",
         "installedPlatform": "Plataforma instal·lada",
@@ -120,11 +120,11 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "No s'admeten jocs de tercers"
         },
         "playing": {
             "start": "Juga",
-            "stop": "Atura"
+            "stop": "En execució (Atura)"
         },
         "saves": {
             "syncing": "S'estan sincronitzant les partides"
@@ -134,17 +134,17 @@
         "options": "Opcions d'execució..."
     },
     "not_logged_in": {
-        "epic": "No heu iniciat sessió amb un compte d'Epic al Heroic. No feu servir la pàgina de la botiga per a iniciar-la. Feu-ho després de prémer el botó següent:",
-        "gog": "No heu iniciat sessió amb un compte de GOG al Heroic. No feu servir la pàgina de la botiga per a iniciar-la. Feu-ho després de prémer el botó següent:",
-        "login": "Log in",
-        "title": "No heu iniciat sessió."
+        "epic": "No has iniciat sessió amb un compte d'Epic a l'Heroic. No facis servir la pàgina de la botiga per a iniciar-la. Fes-ho després de prémer el botó següent:",
+        "gog": "No has iniciat sessió amb un compte de GOG a l'Heroic. No facis servir la pàgina de la botiga per a iniciar-la. Fes-ho després de prémer el botó següent:",
+        "login": "Inicia la sessió",
+        "title": "No has iniciat sessió"
     },
     "report_problem": "Informa d'un problema quan s'executa el joc",
     "sdl": {
         "title": "Selecciona els components a instal·lar"
     },
     "setting": {
-        "use-default-wine-settings": "Fes servir la configuració per defecte del Wine"
+        "use-default-wine-settings": "Fes servir la configuració predefinida del Wine"
     },
     "sideload": {
         "field": {
@@ -152,12 +152,12 @@
         },
         "info": {
             "exe": "Tria l'executable",
-            "image": "Imatge de l'App",
-            "title": "Títol de l'App/Joc"
+            "image": "Imatge de l'aplicació",
+            "title": "Títol del joc o aplicació"
         },
         "placeholder": {
-            "image": "Enganxeu-hi una imatge URL",
-            "title": "Afegiu un títol al vostre Joc/App"
+            "image": "Enganxa-hi l'URL d'una imatge",
+            "title": "Afegeix un títol al joc o aplicació"
         }
     },
     "specs": {
@@ -166,18 +166,18 @@
     },
     "status": {
         "clickToUpdate": "Fes clic per a actualitzar",
-        "gameNotAvailable": "Game not available",
+        "gameNotAvailable": "Joc no disponible",
         "hasUpdates": "Hi ha una versió nova disponible!",
         "installed": "Instal·lat",
-        "installing": "S'està instal·lant...",
-        "moving": "S'està movent la instal·lació. Espereu.",
+        "installing": "S'està instal·lant",
+        "moving": "S'està movent la instal·lació, espereu",
         "notinstalled": "Aquest joc no està instal·lat",
-        "notSupported": "Not supported",
-        "notSupportedGame": "Not Supported",
-        "processing": "S'està processant els fitxers. Espereu.",
+        "notSupported": "No compatible",
+        "notSupportedGame": "No compatible",
+        "processing": "S'estan processant els fitxers, espereu",
         "queued": "A la cua",
-        "reparing": "S'està reparant el joc. Espereu.",
-        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
+        "reparing": "S'està reparant el joc, espereu",
+        "this-game-uses-third-party": "Aquest joc fa servir un llançador de tercers que encara no és compatible",
         "totalDownloaded": "Total baixat",
         "uninstalling": "Es desinstal·la",
         "updating": "S'està actualitzant el joc"

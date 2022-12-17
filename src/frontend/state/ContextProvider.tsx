@@ -17,7 +17,6 @@ const initialContext: ContextType = {
     logout: async () => Promise.resolve()
   },
   sideloadedLibrary: [],
-  toolVersions: [],
   error: false,
   filterText: '',
   filterPlatform: 'all',

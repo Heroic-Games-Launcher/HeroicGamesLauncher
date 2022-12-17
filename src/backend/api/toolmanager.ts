@@ -27,3 +27,12 @@ export const handleProgressOfToolManager = (
     ipcRenderer.removeListener('progressOfToolManager' + version, callback)
   }
 }
+
+export const handleToolVersionsUpdated = (
+  callback: () => void
+): (() => void) => {
+  ipcRenderer.on('toolVersionsUpdated', callback)
+  return () => {
+    ipcRenderer.removeListener('toolVersionsUpdated', callback)
+  }
+}

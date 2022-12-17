@@ -10,7 +10,7 @@ import { defaultWineVersion } from '..'
 const PreferSystemLibs = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
-  const isLinux = platform === 'linux'
+  const isWin = platform === 'win32'
   const [preferSystemLibs, setPreferSystemLibs] = useSetting(
     'preferSystemLibs',
     false
@@ -18,9 +18,12 @@ const PreferSystemLibs = () => {
 
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
 
+  const isSystemWine = wineVersion.bin.startsWith('/usr')
   const isProton = wineVersion.type === 'proton'
+  const isCrossOver = wineVersion.type === 'crossover'
+  const shouldNotRender = isProton || isWin || isCrossOver || isSystemWine
 
-  if (!isLinux || isProton || wineVersion.bin.startsWith('/usr')) {
+  if (shouldNotRender) {
     return <></>
   }
 

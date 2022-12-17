@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Shortcuts were created on Desktop and Start Menu",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Shortcuts were removed from Desktop and Start Menu",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Shortcuts"
         },
         "sync": {
@@ -359,6 +361,7 @@
     },
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
@@ -414,6 +417,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
+    "please-wait": "Please wait...",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -523,7 +527,9 @@
             "title": "Run EXE on Prefix"
         },
         "savefolder": {
-            "placeholder": "Select the exact save games folder"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Select the exact save games folder",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Select Theme",
         "showfps": "Show FPS (DX9, 10 and 11)",
@@ -594,8 +600,8 @@
     "tool": {
         "actions": "Action",
         "manager": {
-            "error": "Could not fetch Tool versions this time.",
             "link": "Tool Manager",
+            "no-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Tool Manager",
             "unzipping": "Unzipping"
         },
@@ -625,6 +631,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
+        "logging_out": "Logging out",
         "logout": "Log out",
         "logout_confirmation": "Are you sure you want to log out?",
         "manageaccounts": "Manage Accounts",

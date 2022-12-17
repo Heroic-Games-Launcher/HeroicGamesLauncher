@@ -6,8 +6,11 @@ import { UpdateComponent } from 'frontend/components/UI'
 import React, { lazy, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Tab, Tabs } from '@mui/material'
-import { StoreIpc } from 'frontend/helpers/electronStores'
-import { Type } from 'common/types/toolmanager'
+import {
+  StoreIpc,
+  toolDownloaderInfoStore
+} from 'frontend/helpers/electronStores'
+import { ToolVersionInfo, Type } from 'common/types/toolmanager'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 
@@ -31,11 +34,7 @@ interface ToolManagerUISettings {
 
 export default function ToolManager(): JSX.Element | null {
   const { t } = useTranslation()
-  const {
-    toolVersions,
-    refreshToolVersionInfo: refreshToolVersionInfo,
-    refreshing
-  } = useContext(ContextProvider)
+  const { refreshToolVersionInfo, refreshing } = useContext(ContextProvider)
   const winege: Type = 'Wine-GE'
   const protonge: Type = 'Proton-GE'
   const sodabottles: Type = 'Soda-Bottles'
@@ -55,6 +54,23 @@ export default function ToolManager(): JSX.Element | null {
       showVKD3D: true
     })
 
+  const getToolVersions = (repo: Type) => {
+    const versions = toolDownloaderInfoStore.get(
+      'wine-releases',
+      []
+    ) as ToolVersionInfo[]
+    return versions.filter((version) => version.type === repo)
+  }
+
+  const [toolVersions, setToolVersions] = useState<ToolVersionInfo[]>(
+    getToolVersions(repository)
+  )
+
+  const handleChangeTab = (e: React.SyntheticEvent, repo: Type) => {
+    setRepository(repo)
+    setToolVersions(getToolVersions(repo))
+  }
+
   useEffect(() => {
     const hasSettings = configStore.has('wine-manager-settings')
     if (hasSettings) {
@@ -66,16 +82,17 @@ export default function ToolManager(): JSX.Element | null {
       }
     }
 
-    const shouldFetch = Boolean(toolVersions.length > 0)
-    refreshToolVersionInfo(shouldFetch)
+    const removeListener = window.api.handleToolVersionsUpdated(() => {
+      setToolVersions(getToolVersions(repository))
+    })
+
+    return () => {
+      removeListener()
+    }
   }, [])
 
   if (refreshing) {
     return <UpdateComponent />
-  }
-
-  const handleChangeTab = (e: React.SyntheticEvent, repo: Type) => {
-    setRepository(repo)
   }
 
   return (
@@ -90,7 +107,7 @@ export default function ToolManager(): JSX.Element | null {
             centered={true}
           >
             {toolManagerSettings.showWineGe && (
-              <Tab className="tab" value={winege} label={winege} />
+              <Tab value={winege} label={winege} />
             )}
             {toolManagerSettings.showProtonGe && (
               <Tab value={protonge} label={protonge} />
@@ -135,17 +152,14 @@ export default function ToolManager(): JSX.Element | null {
             </div>
             {!!toolVersions.length &&
               toolVersions.map((release, key) => {
-                if (release.type === repository) {
-                  return <ToolItem key={key} {...release} />
-                }
-                return
+                return <ToolItem key={key} {...release} />
               })}
           </div>
         ) : (
           <h5 className="toolList">
             {t(
-              'tool.manager.error',
-              'Could not fetch Tool versions this time.'
+              'tool.manager.no-found',
+              'No Wine versions found. Please click the refresh icon to try again.'
             )}
           </h5>
         )}

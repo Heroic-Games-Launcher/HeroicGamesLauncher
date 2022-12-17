@@ -28,13 +28,13 @@ ipcMain.handle('installToolVersion', async (e, release: ToolVersionInfo) => {
   return result
 })
 
-ipcMain.handle('refreshToolVersionInfo', async (e, fetch) => {
+ipcMain.handle('refreshToolVersionInfo', async (e, fetch?) => {
   try {
-    const releases = await updateToolVersionInfos(fetch)
-    return releases
+    await updateToolVersionInfos(fetch)
+    return
   } catch (error) {
     logError(error, { prefix: LogPrefix.ToolManager })
-    throw error
+    return
   }
 })
 

@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Бяха създадени преки пътища на работния плот и в менюто с приложения",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Shortcuts were removed from Desktop and Start Menu",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Преки пътища"
         },
         "sync": {
@@ -359,6 +361,7 @@
     },
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
@@ -414,6 +417,7 @@
         "mac": "Мак",
         "win": "Уиндоус"
     },
+    "please-wait": "Please wait...",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -523,7 +527,9 @@
             "title": "Изпълняване на EXE в префикс"
         },
         "savefolder": {
-            "placeholder": "Изберете точната папка за запазени файлове"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Изберете точната папка за запазени файлове",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Изберете тема",
         "showfps": "Показване на кадрите/сек (DX9, 10 и 11)",
@@ -594,8 +600,8 @@
     "tool": {
         "actions": "Action",
         "manager": {
-            "error": "Could not fetch Tool versions this time.",
             "link": "Tool Manager",
+            "no-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Tool Manager",
             "unzipping": "Unzipping"
         },
@@ -625,6 +631,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Дискорд",
+        "logging_out": "Logging out",
         "logout": "Излизане",
         "logout_confirmation": "Наистина ли искате да излезете?",
         "manageaccounts": "Управление на акаунтите",

@@ -9,13 +9,11 @@ import {
   LibraryTopSectionOptions,
   DMQueueElement
 } from 'common/types'
-import { ToolVersionInfo } from 'common/types/toolmanager'
 
 export type Category = 'all' | 'legendary' | 'gog' | 'sideload'
 
 export interface ContextType {
   category: Category
-  toolVersions: ToolVersionInfo[]
   error: boolean
   filterText: string
   filterPlatform: string

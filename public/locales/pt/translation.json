@@ -115,7 +115,9 @@
         },
         "shortcuts": {
             "message": "Atalhos foram criados no Ambiente trabalho e Inicio Menu",
+            "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Atalhos foram removidos no Ambiente trabalho e Inicio Menu",
+            "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Atalhos"
         },
         "sync": {
@@ -359,6 +361,7 @@
     },
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
@@ -414,6 +417,7 @@
         "mac": "Mac",
         "win": "janelas"
     },
+    "please-wait": "Please wait...",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -523,7 +527,9 @@
             "title": "Executar EXE no Prefixo"
         },
         "savefolder": {
-            "placeholder": "Selecione a pasta exata com os saves"
+            "not-found": "Save folder not found, please select it manually",
+            "placeholder": "Selecione a pasta exata com os saves",
+            "warning": "Please check twice if the path is correct"
         },
         "select_theme": "Select Theme",
         "showfps": "Mostrar FPS (DX9, 10 e 11)",
@@ -594,8 +600,8 @@
     "tool": {
         "actions": "Action",
         "manager": {
-            "error": "Could not fetch Tool versions this time.",
             "link": "Tool Manager",
+            "no-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Tool Manager",
             "unzipping": "Unzipping"
         },
@@ -625,6 +631,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
+        "logging_out": "Logging out",
         "logout": "Sair",
         "logout_confirmation": "Logout?",
         "manageaccounts": "Manage Accounts",

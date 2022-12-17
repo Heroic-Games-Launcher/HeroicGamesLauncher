@@ -85,6 +85,7 @@ export interface ExtraInfo {
 }
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
+
 export interface GameInfo {
   runner: Runner
   store_url: string
@@ -110,6 +111,7 @@ export interface GameInfo {
   is_mac_native: boolean
   is_linux_native: boolean
 }
+
 export interface GameSettings {
   autoInstallDxvk: boolean
   autoInstallVkd3d: boolean
@@ -219,6 +221,7 @@ export interface InstallParams extends InstallArgs {
   appName: string
   gameInfo: GameInfo
   runner: Runner
+  size?: string
 }
 
 export interface UpdateParams {
@@ -339,6 +342,7 @@ export interface RpcClient {
 export interface CallRunnerOptions {
   logMessagePrefix?: string
   logFile?: string
+  verboseLogFile?: string
   env?: Record<string, string> | NodeJS.ProcessEnv
   wrappers?: string[]
   onOutput?: (output: string, child: ChildProcess) => void

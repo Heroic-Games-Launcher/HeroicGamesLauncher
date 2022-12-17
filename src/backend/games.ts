@@ -24,7 +24,7 @@ abstract class Game {
   abstract getExtraInfo(): Promise<ExtraInfo>
   abstract getGameInfo(installPlatform?: string): GameInfo
   abstract getInstallInfo(
-    installPlatform?: string
+    installPlatform?: InstallPlatform
   ): Promise<LegendaryInstallInfo | GogInstallInfo>
   abstract getSettings(): Promise<GameSettings>
   abstract hasUpdate(): Promise<boolean>
