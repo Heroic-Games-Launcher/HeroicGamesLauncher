@@ -627,7 +627,7 @@ export class GlobalState extends PureComponent<Props> {
       }
     })
 
-    window.api.handleSetGameStatus(async (e: Event, args: GameStatus) => {
+    window.api.handleGameStatus(async (e: Event, args: GameStatus) => {
       const { libraryStatus } = this.state
       return this.handleGameStatus({ ...libraryStatus, ...args })
     })
