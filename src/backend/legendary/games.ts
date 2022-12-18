@@ -5,7 +5,6 @@ import {
 import { appendFileSync, existsSync, mkdirSync } from 'graceful-fs'
 import axios from 'axios'
 
-import { BrowserWindow } from 'electron'
 import {
   ExecResult,
   ExtraInfo,
@@ -50,10 +49,10 @@ import { t } from 'i18next'
 import { isOnline } from '../online_monitor'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
 import { gameAnticheatInfo } from '../anticheat/utils'
+import { sendFrontendMessage } from '../main_window'
 
 class LegendaryGame extends Game {
   public appName: string
-  public window = BrowserWindow.getAllWindows()[0]
   private static instances: Map<string, LegendaryGame> = new Map()
 
   private constructor(appName: string) {
@@ -323,7 +322,7 @@ class LegendaryGame extends Game {
       { prefix: LogPrefix.Legendary }
     )
 
-    this.window.webContents.send('setGameStatus', {
+    sendFrontendMessage('setGameStatus', {
       appName: this.appName,
       runner: 'legendary',
       status: action,
@@ -342,7 +341,7 @@ class LegendaryGame extends Game {
    * Does NOT check for online connectivity.
    */
   public async update(): Promise<{ status: 'done' | 'error' }> {
-    this.window.webContents.send('setGameStatus', {
+    sendFrontendMessage('setGameStatus', {
       appName: this.appName,
       runner: 'legendary',
       status: 'updating'
@@ -377,7 +376,7 @@ class LegendaryGame extends Game {
 
     deleteAbortController(this.appName)
 
-    this.window.webContents.send('setGameStatus', {
+    sendFrontendMessage('setGameStatus', {
       appName: this.appName,
       runner: 'legendary',
       status: 'done'
@@ -871,9 +870,7 @@ class LegendaryGame extends Game {
 
       deleteAbortController(this.appName)
 
-      const mainWindow =
-        BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows()[0]
-      mainWindow.webContents.send('refreshLibrary', 'legendary')
+      sendFrontendMessage('refreshLibrary', 'legendary')
     } catch (error) {
       logError(`Error reading ${installed}, could not complete operation`, {
         prefix: LogPrefix.Legendary
