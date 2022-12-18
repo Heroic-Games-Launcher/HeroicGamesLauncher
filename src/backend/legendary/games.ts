@@ -158,7 +158,7 @@ class LegendaryGame extends Game {
         reqs: []
       }
     }
-    let lang = GlobalConfig.get().config.language
+    let lang = configStore.get('language', '') as string
     if (lang === 'pt') {
       lang = 'pt-BR'
     }
@@ -174,9 +174,9 @@ class LegendaryGame extends Game {
         logError(error, { prefix: LogPrefix.Legendary })
       }
     }
-    const epicUrl = `https://store-content.ak.epicgames.com/api/${
-      lang || 'en'
-    }/content/products/${productSlug || this.slugFromTitle(title)}`
+    const epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${
+      productSlug || this.slugFromTitle(title)
+    }`
 
     try {
       const { data } = await axios({
