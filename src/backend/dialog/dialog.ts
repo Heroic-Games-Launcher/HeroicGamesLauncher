@@ -1,6 +1,7 @@
 import { LogPrefix, logWarning } from '../logger/logger'
-import { BrowserWindow, dialog } from 'electron'
+import { dialog } from 'electron'
 import { ButtonOptions, DialogType } from 'common/types'
+import { getMainWindow, sendFrontendMessage } from '../main_window'
 
 const { showErrorBox, showMessageBox } = dialog
 
@@ -20,13 +21,8 @@ function showDialogBoxModalAuto(props: {
       props.buttons
     )
   } else {
-    let window: BrowserWindow | null
     try {
-      window = BrowserWindow.getFocusedWindow()
-      if (!window) {
-        window = BrowserWindow.getAllWindows()[0]
-      }
-      window.webContents.send(
+      sendFrontendMessage(
         'showDialog',
         props.title,
         props.message,
@@ -37,12 +33,18 @@ function showDialogBoxModalAuto(props: {
       logWarning(['showDialogBoxModalAuto:', error], {
         prefix: LogPrefix.Backend
       })
+
+      const window = getMainWindow()
+
       switch (props.type) {
         case 'ERROR':
           showErrorBox(props.title, props.message)
           break
         default:
-          showMessageBox(BrowserWindow.getAllWindows()[0], {
+          if (!window) {
+            break
+          }
+          showMessageBox(window, {
             title: props.title,
             message: props.message
           })

@@ -135,64 +135,18 @@ import { callAbortController } from './utils/aborthandler/aborthandler'
 import { getDefaultSavePath } from './save_sync'
 import si from 'systeminformation'
 import { initTrayIcon } from './tray_icon/tray_icon'
+import {
+  createMainWindow,
+  getMainWindow,
+  sendFrontendMessage
+} from './main_window'
 
 const { showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
 
-let mainWindow: BrowserWindow
-
-async function createWindow(): Promise<BrowserWindow> {
+async function initializeWindow(): Promise<BrowserWindow> {
   configStore.set('userHome', userHome)
-
-  let windowProps: Electron.Rectangle = {
-    height: 690,
-    width: 1200,
-    x: 0,
-    y: 0
-  }
-
-  if (configStore.has('window-props')) {
-    const tmpWindowProps = configStore.get(
-      'window-props',
-      {}
-    ) as Electron.Rectangle
-    if (
-      tmpWindowProps &&
-      tmpWindowProps.width &&
-      tmpWindowProps.height &&
-      tmpWindowProps.y !== undefined &&
-      tmpWindowProps.x !== undefined
-    ) {
-      windowProps = tmpWindowProps
-    }
-  } else {
-    // make sure initial screen size is not bigger than the available screen space
-    const screenInfo = screen.getPrimaryDisplay()
-
-    if (screenInfo.workAreaSize.height > windowProps.height) {
-      windowProps.height = screenInfo.workAreaSize.height * 0.8
-    }
-
-    if (screenInfo.workAreaSize.width > windowProps.width) {
-      windowProps.width = screenInfo.workAreaSize.width * 0.8
-    }
-  }
-
-  // Create the browser window.
-  mainWindow = new BrowserWindow({
-    ...windowProps,
-    minHeight: 345,
-    minWidth: 600,
-    show: false,
-
-    webPreferences: {
-      webviewTag: true,
-      contextIsolation: true,
-      nodeIntegration: true,
-      // sandbox: false,
-      preload: path.join(__dirname, 'preload.js')
-    }
-  })
+  const mainWindow = createMainWindow()
 
   if ((isSteamDeckGameMode || isCLIFullscreen) && !isCLINoGui) {
     logInfo(
@@ -237,7 +191,7 @@ async function createWindow(): Promise<BrowserWindow> {
       return mainWindow.hide()
     }
 
-    handleExit(mainWindow)
+    handleExit()
   })
 
   if (isWindows) {
@@ -266,6 +220,13 @@ async function createWindow(): Promise<BrowserWindow> {
       autoUpdater.checkForUpdates()
     }
   }
+
+  ipcMain.on('setZoomFactor', async (event, zoomFactor) => {
+    mainWindow.webContents.setZoomFactor(
+      processZoomForScreen(parseFloat(zoomFactor))
+    )
+  })
+
   return mainWindow
 }
 
@@ -285,22 +246,16 @@ const processZoomForScreen = (zoomFactor: number) => {
   }
 }
 
-ipcMain.on('setZoomFactor', async (event, zoomFactor) => {
-  const window = BrowserWindow.getAllWindows()[0]
-  window.webContents.setZoomFactor(processZoomForScreen(parseFloat(zoomFactor)))
-})
-
 if (!gotTheLock) {
   logInfo('Heroic is already running, quitting this instance')
   app.quit()
 } else {
   app.on('second-instance', (event, argv) => {
     // Someone tried to run a second instance, we should focus our window.
-    if (mainWindow) {
-      mainWindow.show()
-    }
+    const mainWindow = getMainWindow()
+    mainWindow?.show()
 
-    handleProtocol(mainWindow, argv)
+    handleProtocol(argv)
   })
   app.whenReady().then(async () => {
     initOnlineMonitor()
@@ -396,10 +351,10 @@ if (!gotTheLock) {
       ]
     })
 
-    await createWindow()
+    const mainWindow = await initializeWindow()
 
     protocol.registerStringProtocol('heroic', (request, callback) => {
-      handleProtocol(mainWindow, [request.url])
+      handleProtocol([request.url])
       callback('Operation initiated.')
     })
     if (!app.isDefaultProtocolClient('heroic')) {
@@ -448,7 +403,7 @@ ipcMain.on('notify', (event, args) => notify(args))
 
 ipcMain.once('frontendReady', () => {
   logInfo('Frontend Ready', { prefix: LogPrefix.Backend })
-  handleProtocol(mainWindow, [openUrlArgument, ...process.argv])
+  handleProtocol([openUrlArgument, ...process.argv])
   setTimeout(() => {
     logInfo('Starting the Download Queue', { prefix: LogPrefix.Backend })
     initQueue()
@@ -535,7 +490,7 @@ ipcMain.handle('checkDiskSpace', async (event, folder) => {
   })
 })
 
-ipcMain.on('quit', async () => handleExit(mainWindow))
+ipcMain.on('quit', async () => handleExit())
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
@@ -548,8 +503,10 @@ app.on('window-all-closed', () => {
 
 app.on('open-url', (event, url) => {
   event.preventDefault()
+  const mainWindow = getMainWindow()
+
   if (mainWindow) {
-    handleProtocol(mainWindow, [url])
+    handleProtocol([url])
   } else {
     openUrlArgument = url
   }
@@ -925,7 +882,6 @@ let powerDisplayId: number | null
 ipcMain.handle(
   'launch',
   async (event, { appName, launchArguments, runner }): StatusPromise => {
-    const window = BrowserWindow.getAllWindows()[0]
     const isSideloaded = runner === 'sideload'
     const extGame = getGame(appName, runner)
     const game = isSideloaded ? getAppInfo(appName) : extGame.getGameInfo()
@@ -945,14 +901,15 @@ ipcMain.handle(
 
     addRecentGame(game)
 
-    window.webContents.send('setGameStatus', {
+    sendFrontendMessage('gameStatusUpdate', {
       appName,
       runner,
       status: 'playing'
     })
 
+    const mainWindow = getMainWindow()
     if (minimizeOnLaunch) {
-      mainWindow.hide()
+      mainWindow?.hide()
     }
 
     // Prevent display from sleep
@@ -1014,7 +971,7 @@ ipcMain.handle(
     }
     tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
 
-    window.webContents.send('setGameStatus', {
+    sendFrontendMessage('gameStatusUpdate', {
       appName,
       runner,
       status: 'done'
@@ -1024,7 +981,7 @@ ipcMain.handle(
     if (isCLINoGui) {
       app.exit()
     } else {
-      mainWindow.show()
+      mainWindow?.show()
     }
 
     return { status: launchResult ? 'done' : 'error' }
@@ -1032,6 +989,11 @@ ipcMain.handle(
 )
 
 ipcMain.handle('openDialog', async (e, args) => {
+  const mainWindow = getMainWindow()
+  if (!mainWindow) {
+    return false
+  }
+
   const { filePaths, canceled } = await showOpenDialog(mainWindow, args)
   if (!canceled) {
     return filePaths[0]
@@ -1140,7 +1102,7 @@ ipcMain.handle(
     }
     const game = getGame(appName, runner)
     const { title } = game.getGameInfo()
-    mainWindow.webContents.send('setGameStatus', {
+    sendFrontendMessage('gameStatusUpdate', {
       appName,
       runner,
       status: 'installing'
@@ -1148,7 +1110,7 @@ ipcMain.handle(
 
     const abortMessage = () => {
       notify({ title, body: i18next.t('notify.install.canceled') })
-      mainWindow.webContents.send('setGameStatus', {
+      sendFrontendMessage('gameStatusUpdate', {
         appName,
         runner,
         status: 'done'
@@ -1171,7 +1133,7 @@ ipcMain.handle(
       title,
       body: i18next.t('notify.install.imported', 'Game Imported')
     })
-    mainWindow.webContents.send('setGameStatus', {
+    sendFrontendMessage('gameStatusUpdate', {
       appName,
       runner,
       status: 'done'
@@ -1334,8 +1296,10 @@ ipcMain.handle(
 
 // Simulate keyboard and mouse actions as if the real input device is used
 ipcMain.handle('gamepadAction', async (event, args) => {
+  // we can only receive gamepad events if the main window exists
+  const mainWindow = getMainWindow()!
+
   const { action, metadata } = args
-  const window = BrowserWindow.getAllWindows()[0]
   const inputEvents: GamepadInputEvent[] = []
 
   /*
@@ -1351,16 +1315,16 @@ ipcMain.handle('gamepadAction', async (event, args) => {
       inputEvents.push({
         type: 'mouseWheel',
         deltaY: 50,
-        x: window.getBounds().width / 2,
-        y: window.getBounds().height / 2
+        x: mainWindow.getBounds().width / 2,
+        y: mainWindow.getBounds().height / 2
       })
       break
     case 'rightStickDown':
       inputEvents.push({
         type: 'mouseWheel',
         deltaY: -50,
-        x: window.getBounds().width / 2,
-        y: window.getBounds().height / 2
+        x: mainWindow.getBounds().width / 2,
+        y: mainWindow.getBounds().height / 2
       })
       break
     case 'leftStickUp':
@@ -1410,7 +1374,7 @@ ipcMain.handle('gamepadAction', async (event, args) => {
       })
       break
     case 'back':
-      window.webContents.goBack()
+      mainWindow.webContents.goBack()
       break
     case 'esc':
       inputEvents.push({
@@ -1425,7 +1389,7 @@ ipcMain.handle('gamepadAction', async (event, args) => {
   }
 
   if (inputEvents.length) {
-    inputEvents.forEach((event) => window.webContents.sendInputEvent(event))
+    inputEvents.forEach((event) => mainWindow.webContents.sendInputEvent(event))
   }
 })
 

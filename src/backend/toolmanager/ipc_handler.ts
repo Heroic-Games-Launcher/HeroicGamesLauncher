@@ -1,4 +1,4 @@
-import { ipcMain, BrowserWindow } from 'electron'
+import { ipcMain } from 'electron'
 import { ToolVersionInfo, ProgressInfo, State } from 'common/types/toolmanager'
 import {
   installToolVersion,
@@ -10,11 +10,11 @@ import {
   deleteAbortController
 } from '../utils/aborthandler/aborthandler'
 import { logError, LogPrefix } from 'backend/logger/logger'
+import { sendFrontendMessage } from 'backend/main_window'
 
 ipcMain.handle('installToolVersion', async (e, release: ToolVersionInfo) => {
-  const window = BrowserWindow.getAllWindows()[0]
   const onProgress = (state: State, progress?: ProgressInfo) => {
-    window.webContents.send('progressOfToolManager' + release.version, {
+    sendFrontendMessage('progressOfToolManager' + release.version, {
       state,
       progress
     })
