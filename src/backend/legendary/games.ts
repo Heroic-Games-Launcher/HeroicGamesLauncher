@@ -127,8 +127,15 @@ class LegendaryGame extends Game {
     if (slug) {
       return slug.productSlug.replace(/(\/.*)/, '')
     } else {
-      return this.appName
+      return null
     }
+  }
+
+  private slugFromTitle(title: string): string {
+    return title
+      .toLowerCase()
+      .replace(/[^a-z ]/g, '')
+      .replaceAll(' ', '-')
   }
 
   /**
@@ -138,7 +145,7 @@ class LegendaryGame extends Game {
    * @returns
    */
   public async getExtraInfo(): Promise<ExtraInfo> {
-    const { namespace } = this.getGameInfo()
+    const { namespace, title } = this.getGameInfo()
     if (gameInfoStore.has(namespace)) {
       return gameInfoStore.get(namespace) as ExtraInfo
     }
@@ -159,19 +166,18 @@ class LegendaryGame extends Game {
       lang = 'zh-CN'
     }
 
-    let epicUrl: string
+    let productSlug = null
     if (namespace) {
-      let productSlug: string
       try {
         productSlug = await this.getProductSlug(namespace)
       } catch (error) {
         logError(error, { prefix: LogPrefix.Legendary })
-        productSlug = this.appName
       }
-      epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${productSlug}`
-    } else {
-      epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${this.appName}`
     }
+    const epicUrl = `https://store-content.ak.epicgames.com/api/${
+      lang || 'en'
+    }/content/products/${productSlug || this.slugFromTitle(title)}`
+
     try {
       const { data } = await axios({
         method: 'GET',

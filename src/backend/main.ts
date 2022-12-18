@@ -740,8 +740,25 @@ ipcMain.handle('getGameInfo', async (event, appName, runner) => {
       return null
     }
 
-    info.extra = await game.getExtraInfo()
     return info
+  } catch (error) {
+    logError(error, { prefix: LogPrefix.Backend })
+    return null
+  }
+})
+
+ipcMain.handle('getExtraInfo', async (event, appName, runner) => {
+  if (runner === 'sideload') {
+    return null
+  }
+  // Fastpath since we sometimes have to request info for a GOG game as Legendary because we don't know it's a GOG game yet
+  if (runner === 'legendary' && !LegendaryLibrary.get().hasGame(appName)) {
+    return null
+  }
+  try {
+    const game = getGame(appName, runner)
+    const extra = await game.getExtraInfo()
+    return extra
   } catch (error) {
     logError(error, { prefix: LogPrefix.Backend })
     return null

@@ -64,6 +64,8 @@ export const getDefaultSavePath = async (
   )
 export const getGameInfo = async (appName: string, runner: Runner) =>
   ipcRenderer.invoke('getGameInfo', appName, runner)
+export const getExtraInfo = async (appName: string, runner: Runner) =>
+  ipcRenderer.invoke('getExtraInfo', appName, runner)
 
 export const getGameSettings = async (
   appName: string,
