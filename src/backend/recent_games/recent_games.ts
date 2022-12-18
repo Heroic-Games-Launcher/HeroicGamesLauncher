@@ -4,12 +4,15 @@ import { backendEvents } from '../backend_events'
 import { GlobalConfig } from '../config'
 import { configStore } from '../constants'
 
+const maxRecentGames = async () => {
+  const { maxRecentGames } = await GlobalConfig.get().getSettings()
+  return maxRecentGames || 5
+}
+
 const getRecentGames = async (options?: { limited: boolean }) => {
   const games = configStore.get('games.recent', []) as Array<RecentGame>
   if (options?.limited) {
-    const { maxRecentGames: MAX_RECENT_GAMES = 5 } =
-      await GlobalConfig.get().getSettings()
-    return games.slice(0, MAX_RECENT_GAMES)
+    return games.slice(0, await maxRecentGames())
   } else {
     return games
   }
@@ -45,4 +48,10 @@ const removeRecentGame = async (appName: string) => {
   }
 }
 
-export { getRecentGames, addRecentGame, removeRecentGame, setRecentGames }
+export {
+  getRecentGames,
+  addRecentGame,
+  removeRecentGame,
+  setRecentGames,
+  maxRecentGames
+}
