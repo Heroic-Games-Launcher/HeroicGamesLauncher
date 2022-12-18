@@ -68,6 +68,8 @@ const initialContext: ContextType = {
   dialogModalOptions: { showDialog: false },
   showDialogModal: () => null,
   showResetDialog: () => null,
+  externalLinkDialogOptions: { showDialog: false },
+  handleExternalLinkDialog: () => null,
   hideChangelogsOnStartup: false,
   setHideChangelogsOnStartup: () => null,
   lastChangelogShown: null,
