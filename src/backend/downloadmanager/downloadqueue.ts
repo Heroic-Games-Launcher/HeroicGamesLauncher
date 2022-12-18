@@ -91,7 +91,7 @@ function addToQueue(element: DMQueueElement) {
     return
   }
 
-  sendFrontendMessage('setGameStatus', {
+  sendFrontendMessage('gameStatusUpdate', {
     appName: element.params.appName,
     runner: element.params.runner,
     folder: element.params.path,
@@ -138,7 +138,7 @@ function removeFromQueue(appName: string) {
       downloadManager.set('queue', elements)
     }
 
-    sendFrontendMessage('setGameStatus', {
+    sendFrontendMessage('gameStatusUpdate', {
       appName,
       status: 'done'
     })

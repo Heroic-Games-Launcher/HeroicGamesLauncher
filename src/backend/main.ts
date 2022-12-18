@@ -901,7 +901,7 @@ ipcMain.handle(
 
     addRecentGame(game)
 
-    sendFrontendMessage('setGameStatus', {
+    sendFrontendMessage('gameStatusUpdate', {
       appName,
       runner,
       status: 'playing'
@@ -971,7 +971,7 @@ ipcMain.handle(
     }
     tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
 
-    sendFrontendMessage('setGameStatus', {
+    sendFrontendMessage('gameStatusUpdate', {
       appName,
       runner,
       status: 'done'
@@ -1102,7 +1102,7 @@ ipcMain.handle(
     }
     const game = getGame(appName, runner)
     const { title } = game.getGameInfo()
-    sendFrontendMessage('setGameStatus', {
+    sendFrontendMessage('gameStatusUpdate', {
       appName,
       runner,
       status: 'installing'
@@ -1110,7 +1110,7 @@ ipcMain.handle(
 
     const abortMessage = () => {
       notify({ title, body: i18next.t('notify.install.canceled') })
-      sendFrontendMessage('setGameStatus', {
+      sendFrontendMessage('gameStatusUpdate', {
         appName,
         runner,
         status: 'done'
@@ -1133,7 +1133,7 @@ ipcMain.handle(
       title,
       body: i18next.t('notify.install.imported', 'Game Imported')
     })
-    sendFrontendMessage('setGameStatus', {
+    sendFrontendMessage('gameStatusUpdate', {
       appName,
       runner,
       status: 'done'

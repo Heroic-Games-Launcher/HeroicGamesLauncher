@@ -322,7 +322,7 @@ class LegendaryGame extends Game {
       { prefix: LogPrefix.Legendary }
     )
 
-    sendFrontendMessage('setGameStatus', {
+    sendFrontendMessage(`progressUpdate-${this.appName}`, {
       appName: this.appName,
       runner: 'legendary',
       status: action,
@@ -341,7 +341,7 @@ class LegendaryGame extends Game {
    * Does NOT check for online connectivity.
    */
   public async update(): Promise<{ status: 'done' | 'error' }> {
-    sendFrontendMessage('setGameStatus', {
+    sendFrontendMessage('gameStatusUpdate', {
       appName: this.appName,
       runner: 'legendary',
       status: 'updating'
@@ -376,7 +376,7 @@ class LegendaryGame extends Game {
 
     deleteAbortController(this.appName)
 
-    sendFrontendMessage('setGameStatus', {
+    sendFrontendMessage('gameStatusUpdate', {
       appName: this.appName,
       runner: 'legendary',
       status: 'done'
