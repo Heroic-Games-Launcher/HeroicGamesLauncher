@@ -1,8 +1,9 @@
 import { logError, logInfo, LogPrefix } from '../logger/logger'
-import { getFileSize, getGame, getMainWindow } from '../utils'
+import { getFileSize, getGame } from '../utils'
 import Store from 'electron-store'
 import { DMQueueElement } from 'common/types'
 import { installQueueElement, updateQueueElement } from './utils'
+import { sendFrontendMessage } from '../main_window'
 
 const downloadManager = new Store({
   cwd: 'store',
@@ -53,13 +54,12 @@ function addToFinished(element: DMQueueElement, status: DMStatus) {
 */
 
 async function initQueue() {
-  const window = getMainWindow()
   let element = getFirstQueueElement()
   queueState = element ? 'running' : 'idle'
 
   while (element) {
     const queuedElements = downloadManager.get('queue') as DMQueueElement[]
-    window.webContents.send('changedDMQueueInformation', queuedElements)
+    sendFrontendMessage('changedDMQueueInformation', queuedElements)
     const game = getGame(element.params.appName, element.params.runner)
     const installInfo = await game.getInstallInfo(
       element.params.platformToInstall
@@ -73,8 +73,8 @@ async function initQueue() {
 
     const { status } =
       element.type === 'install'
-        ? await installQueueElement(window, element.params)
-        : await updateQueueElement(window, element.params)
+        ? await installQueueElement(element.params)
+        : await updateQueueElement(element.params)
     element.endTime = Date.now()
     addToFinished(element, status)
     removeFromQueue(element.params.appName)
@@ -91,8 +91,7 @@ function addToQueue(element: DMQueueElement) {
     return
   }
 
-  const mainWindow = getMainWindow()
-  mainWindow.webContents.send('setGameStatus', {
+  sendFrontendMessage('gameStatusUpdate', {
     appName: element.params.appName,
     runner: element.params.runner,
     folder: element.params.path,
@@ -119,7 +118,7 @@ function addToQueue(element: DMQueueElement) {
     prefix: LogPrefix.DownloadManager
   })
 
-  getMainWindow().webContents.send('changedDMQueueInformation', elements)
+  sendFrontendMessage('changedDMQueueInformation', elements)
 
   if (queueState === 'idle') {
     initQueue()
@@ -127,8 +126,6 @@ function addToQueue(element: DMQueueElement) {
 }
 
 function removeFromQueue(appName: string) {
-  const mainWindow = getMainWindow()
-
   if (appName && downloadManager.has('queue')) {
     let elements: DMQueueElement[] = []
     elements = downloadManager.get('queue') as DMQueueElement[]
@@ -141,7 +138,7 @@ function removeFromQueue(appName: string) {
       downloadManager.set('queue', elements)
     }
 
-    mainWindow.webContents.send('setGameStatus', {
+    sendFrontendMessage('gameStatusUpdate', {
       appName,
       status: 'done'
     })
@@ -150,7 +147,7 @@ function removeFromQueue(appName: string) {
       prefix: LogPrefix.DownloadManager
     })
 
-    getMainWindow().webContents.send('changedDMQueueInformation', elements)
+    sendFrontendMessage('changedDMQueueInformation', elements)
   }
 }
 

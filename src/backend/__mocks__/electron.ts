@@ -1,5 +1,9 @@
 import { EventEmitter } from 'node:events'
-import { MenuItemConstructorOptions } from 'electron'
+import {
+  BrowserWindowConstructorOptions,
+  Display,
+  MenuItemConstructorOptions
+} from 'electron'
 import { tmpdir } from 'os'
 import { join } from 'path'
 
@@ -29,8 +33,23 @@ class Notification {
 }
 
 class BrowserWindow {
-  public constructor() {
-    return {}
+  static windows: BrowserWindow[] = []
+  options: BrowserWindowConstructorOptions = {}
+
+  constructor(options: BrowserWindowConstructorOptions) {
+    this.options = options
+  }
+
+  static getAllWindows() {
+    return this.windows
+  }
+
+  static setAllWindows(windows: BrowserWindow[]) {
+    this.windows = windows
+  }
+
+  public getOptions() {
+    return this.options
   }
 }
 
@@ -45,6 +64,17 @@ const nativeImage = {
     resize: (size: { width: number; height: number }) =>
       `${path} width=${size.width} height=${size.height}`
   })
+}
+
+const screen = {
+  getPrimaryDisplay: () => {
+    return {
+      workAreaSize: {
+        height: 1280,
+        width: 1920
+      }
+    }
+  }
 }
 
 class Tray {
@@ -77,5 +107,6 @@ export {
   Menu,
   nativeImage,
   Tray,
-  ipcMain
+  ipcMain,
+  screen
 }

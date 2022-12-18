@@ -69,15 +69,16 @@ export default React.memo(function WineManager(): JSX.Element | null {
         setWineManagerSettings(oldWineManagerSettings)
       }
     }
+  }, [])
 
+  useEffect(() => {
     const removeListener = window.api.handleWineVersionsUpdated(() => {
       setWineVersions(getWineVersions(repository))
     })
-
     return () => {
       removeListener()
     }
-  }, [])
+  }, [repository])
 
   return (
     <>
@@ -126,8 +127,8 @@ export default React.memo(function WineManager(): JSX.Element | null {
             {refreshing && <UpdateComponent />}
             {!refreshing &&
               !!wineVersions.length &&
-              wineVersions.map((release, key) => {
-                return <WineItem key={key} {...release} />
+              wineVersions.map((release) => {
+                return <WineItem key={release.version} {...release} />
               })}
           </div>
         ) : (

@@ -50,6 +50,7 @@ import fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
 import { getAppInfo } from './sideload/games'
+import { getMainWindow } from './main_window'
 
 const execAsync = promisify(exec)
 
@@ -234,11 +235,12 @@ const showAboutWindow = () => {
   return app.showAboutPanel()
 }
 
-async function handleExit(window: BrowserWindow) {
+async function handleExit() {
   const isLocked = existsSync(join(heroicGamesConfigPath, 'lock'))
+  const mainWindow = getMainWindow()
 
-  if (isLocked) {
-    const { response } = await showMessageBox(window, {
+  if (isLocked && mainWindow) {
+    const { response } = await showMessageBox(mainWindow, {
       buttons: [i18next.t('box.no'), i18next.t('box.yes')],
       message: i18next.t(
         'box.quit.message',
@@ -325,18 +327,16 @@ type ErrorHandlerMessage = {
   runner: string
 }
 
-async function errorHandler(
-  { error, logPath, runner: r, appName }: ErrorHandlerMessage,
-  window?: BrowserWindow
-): Promise<void> {
+async function errorHandler({
+  error,
+  logPath,
+  runner: r,
+  appName
+}: ErrorHandlerMessage): Promise<void> {
   const noSpaceMsg = 'Not enough available disk space'
   const plat = r === 'legendary' ? 'Legendary (Epic Games)' : r
   const deletedFolderMsg = 'appears to be deleted'
   const otherErrorMessages = ['No saved credentials', 'No credentials']
-
-  if (!window) {
-    window = getMainWindow()
-  }
 
   if (logPath) {
     execAsync(`tail "${logPath}" | grep 'disk space'`)
@@ -793,10 +793,6 @@ function getInfo(appName: string, runner: Runner): GameInfo {
   return game.getGameInfo()
 }
 
-function getMainWindow(): BrowserWindow {
-  return BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows()[0]
-}
-
 // can be removed if legendary and gogdl handle SIGTERM and SIGKILL
 // for us
 function killPattern(pattern: string) {
@@ -841,7 +837,6 @@ export {
   removeQuoteIfNecessary,
   detectVCRedist,
   getGame,
-  getMainWindow,
   killPattern,
   getInfo,
   getShellPath,
