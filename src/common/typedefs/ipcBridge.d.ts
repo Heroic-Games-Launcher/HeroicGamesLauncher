@@ -149,7 +149,8 @@ interface AsyncIPCFunctions {
   uninstall: (
     appName: string,
     runner: Runner,
-    shouldRemovePrefix: boolean
+    shouldRemovePrefix: boolean,
+    shoudlRemoveSetting: boolean
   ) => Promise<void>
   repair: (appName: string, runner: Runner) => Promise<void>
   moveInstall: (args: MoveGameArgs) => StatusPromise

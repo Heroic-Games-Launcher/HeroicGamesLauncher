@@ -34,6 +34,7 @@
         "uninstall": {
             "checkbox": "Hapus prefiks: {{prefix}}{{newLine}}Catatan: Tindakan ini tidak dapat dibatalkan dan akan menghapus berkas yang belum dicadangkan.",
             "message": "Apakah Anda ingin mencopot pemasangan gim ini?",
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Copot Pemasangan"
         },
         "update": {

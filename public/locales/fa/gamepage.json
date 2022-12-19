@@ -34,6 +34,7 @@
         "uninstall": {
             "checkbox": "حذف prefix: {{prefix}}{{newLine}}نکته:این کار قابل بازگشت نیست و همچنین فایل های ذخیره پشتیبانی گرفته نشده را پاک می کند.",
             "message": "آیا میخواهید این بازی را حذف کنید؟",
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "حذف"
         },
         "update": {

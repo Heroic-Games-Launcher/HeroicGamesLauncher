@@ -1005,7 +1005,7 @@ ipcMain.on('showItemInFolder', async (e, item) => showItemInFolder(item))
 
 ipcMain.handle(
   'uninstall',
-  async (event, appName, runner, shouldRemovePrefix) => {
+  async (event, appName, runner, shouldRemovePrefix, shouldRemoveSetting) => {
     const game = getGame(appName, runner)
 
     const { title } = game.getGameInfo()
@@ -1028,6 +1028,32 @@ ipcMain.handle(
       // remove prefix if exists
       if (existsSync(winePrefix)) {
         rmSync(winePrefix, { recursive: true })
+      }
+    }
+    if (shouldRemoveSetting) {
+      logInfo(`Removing ${appName.concat('.json')}`, {
+        prefix: LogPrefix.Backend
+      })
+      // remove setting json if exists
+      const gameSettingsFile = join(
+        heroicGamesConfigPath,
+        appName.concat('.json')
+      )
+      if (existsSync(gameSettingsFile)) {
+        rmSync(join(heroicGamesConfigPath, appName.concat('.json')), {
+          recursive: true
+        })
+      }
+
+      logInfo(`Removing ${appName.concat('.log')}`, {
+        prefix: LogPrefix.Backend
+      })
+      // remove log if exists
+      const gameLogFile = join(heroicGamesConfigPath, appName.concat('.log'))
+      if (existsSync(gameLogFile)) {
+        rmSync(join(heroicGamesConfigPath, appName.concat('.log')), {
+          recursive: true
+        })
       }
     }
 
