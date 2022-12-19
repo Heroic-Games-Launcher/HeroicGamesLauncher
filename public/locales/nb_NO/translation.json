@@ -293,6 +293,9 @@
     "install": {
         "path": "Velg Installer bane"
     },
+    "label": {
+        "loading": "Loading"
+    },
     "library": {
         "refresh": "Forfriske",
         "sortAscending": "Sorter stigende",

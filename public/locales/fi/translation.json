@@ -293,6 +293,9 @@
     "install": {
         "path": "Valitse asennuspolku"
     },
+    "label": {
+        "loading": "Loading"
+    },
     "library": {
         "refresh": "virkistää",
         "sortAscending": "Sort Ascending",

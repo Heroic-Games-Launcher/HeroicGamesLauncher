@@ -293,6 +293,9 @@
     "install": {
         "path": "설치 경로 선택"
     },
+    "label": {
+        "loading": "Loading"
+    },
     "library": {
         "refresh": "새로고침",
         "sortAscending": "오름차순 정렬",

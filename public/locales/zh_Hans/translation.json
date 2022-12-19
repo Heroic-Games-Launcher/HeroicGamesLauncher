@@ -293,6 +293,9 @@
     "install": {
         "path": "选择安装路径"
     },
+    "label": {
+        "loading": "Loading"
+    },
     "library": {
         "refresh": "刷新",
         "sortAscending": "升序排列",

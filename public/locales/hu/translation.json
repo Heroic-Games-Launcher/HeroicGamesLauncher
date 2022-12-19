@@ -293,6 +293,9 @@
     "install": {
         "path": "Telepítési útvonal kiválasztása"
     },
+    "label": {
+        "loading": "Loading"
+    },
     "library": {
         "refresh": "Frissítés",
         "sortAscending": "Sort Ascending",

@@ -293,6 +293,9 @@
     "install": {
         "path": "Vyberte cestu instalace"
     },
+    "label": {
+        "loading": "Loading"
+    },
     "library": {
         "refresh": "Obnovit",
         "sortAscending": "Seřadit vzestupně",

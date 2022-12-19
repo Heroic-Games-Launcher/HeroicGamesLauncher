@@ -293,6 +293,9 @@
     "install": {
         "path": "انتخاب محل نصب"
     },
+    "label": {
+        "loading": "Loading"
+    },
     "library": {
         "refresh": "تازه کردن",
         "sortAscending": "چینش صعودی",

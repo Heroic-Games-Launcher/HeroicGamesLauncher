@@ -293,6 +293,9 @@
     "install": {
         "path": "Select Install Path"
     },
+    "label": {
+        "loading": "Loading"
+    },
     "library": {
         "refresh": "Atualizar",
         "sortAscending": "Sort Ascending",

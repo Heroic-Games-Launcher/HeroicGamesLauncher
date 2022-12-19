@@ -293,6 +293,9 @@
     "install": {
         "path": "Изберете местоположение за инсталиране"
     },
+    "label": {
+        "loading": "Loading"
+    },
     "library": {
         "refresh": "Опресняване",
         "sortAscending": "Подреждане във възходящ ред",

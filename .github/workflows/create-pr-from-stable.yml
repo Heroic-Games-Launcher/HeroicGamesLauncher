@@ -1,4 +1,4 @@
-name: Create Pr to sync Stable with main
+name: Create PR to sync Stable with main
 on:
   push:
     branches:
