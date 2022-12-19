@@ -10,7 +10,6 @@ import {
   InstallPlatform
 } from 'common/types'
 
-import { BrowserWindow } from 'electron'
 import { join } from 'path'
 import { heroicGamesConfigPath } from './constants'
 
@@ -20,7 +19,6 @@ abstract class Game {
   }
 
   abstract appName: string
-  abstract window: BrowserWindow
   abstract getExtraInfo(): Promise<ExtraInfo>
   abstract getGameInfo(installPlatform?: string): GameInfo
   abstract getInstallInfo(
