@@ -1,0 +1,3 @@
+[submodule "public/locales"]
+	path = public/locales
+	url = git@github.com:Heroic-Games-Launcher/locales.git
