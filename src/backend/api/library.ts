@@ -35,12 +35,22 @@ export const launch = async (args: LaunchParams) =>
 export const importGame = async (args: ImportGameArgs) =>
   ipcRenderer.invoke('importGame', args)
 
-export const handleSetGameStatus = (
-  callback: (event: Electron.IpcRendererEvent, status: GameStatus) => void
-): (() => void) => {
-  ipcRenderer.on('setGameStatus', callback)
+export const handleGameStatus = (
+  onChange: (e: Electron.IpcRendererEvent, status: GameStatus) => void
+) => {
+  ipcRenderer.on('gameStatusUpdate', onChange)
   return () => {
-    ipcRenderer.removeListener('setGameStatus', callback)
+    ipcRenderer.removeListener('gameStatusUpdate', onChange)
+  }
+}
+
+export const onProgressUpdate = (
+  appName: string,
+  onChange: (e: Electron.IpcRendererEvent, status: GameStatus) => void
+) => {
+  ipcRenderer.on(`progressUpdate-${appName}`, onChange)
+  return () => {
+    ipcRenderer.removeListener(`progressUpdate-${appName}`, onChange)
   }
 }
 
