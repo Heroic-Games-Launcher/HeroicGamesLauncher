@@ -34,6 +34,7 @@
         "uninstall": {
             "checkbox": "Entferne Prefix: {{prefix}}{{newLine}}Hinweis: Dies kann nicht rückgängig gemacht werden und löscht auch ungesicherte Speicherdaten.",
             "message": "Möchtest du dieses Spiel deinstallieren?",
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Deinstallieren"
         },
         "update": {

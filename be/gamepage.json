@@ -34,6 +34,7 @@
         "uninstall": {
             "checkbox": "Выдаліць прэфікс: {{prefix}}{{newLine}}Заўвага: гэта нельга адрабіць, а таксама прывядзе да выдалення файлаў захавання, у якіх няма рэзервовых копій.",
             "message": "Вы хочаце выдаліць гэтую гульню?",
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Выдаліць"
         },
         "update": {

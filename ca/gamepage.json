@@ -34,6 +34,7 @@
         "uninstall": {
             "checkbox": "Treu el prefix: {{prefix}}{{newLine}}Avís: No es pot desfer i també traurà les desades de les quals no s'hagin fet còpies de seguretat.",
             "message": "Vols desinstal·lar aquest joc?",
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Desinstal·la"
         },
         "update": {

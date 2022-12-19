@@ -35,6 +35,7 @@
             "checkbox": "إزالة السابقة: {{newLine}}{{prefix}} ملاحظة: سيحذف هذا القرار ملفات التخزينات التي ليس لها نسخ احتياطية ولا يمكن التراجع عن هذا.",
             "checkbox_prefix": "بادئة",
             "message": "هل تريد إلغاء تثبيت هذه اللعبة؟",
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "أزِل التثبيت"
         },
         "update": {

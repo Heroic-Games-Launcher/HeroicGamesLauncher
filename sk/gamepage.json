@@ -34,6 +34,7 @@
         "uninstall": {
             "checkbox": "Odstrániť predponu: {{prefix}}{{newLine}}Poznámka: Túto akciu nie je možné vrátiť späť a odstránia sa tým aj nezálohované uložené súbory.",
             "message": "Chcete túto hru odinštalovať?",
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Odinštalovať"
         },
         "update": {
