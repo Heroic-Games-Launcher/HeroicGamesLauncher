@@ -189,7 +189,7 @@ export interface InstalledInfo {
   buildId?: string // For verifing GOG games
 }
 
-interface Reqs {
+export interface Reqs {
   minimum: string
   recommended: string
   title: string
