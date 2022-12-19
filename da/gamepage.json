@@ -24,7 +24,8 @@
             "checkbox": "Vil du også fjerne prefixet? Dette kan ikke omgøres.",
             "checkbox_prefix": "Prefix",
             "message": "Vil du afinstallere spillet?",
-            "title": "Afinstaller"
+            "title": "Afinstaller",
+            "settingcheckbox": "Slet indstillinger og fjern log{{newLine}}Bemærk: Dette kan ikke fortrydes. Eventuelle ændrede indstillinger vil blive glemt, og log vil blive slettet."
         },
         "update": {
             "title": "Spillet skal opdateres",
