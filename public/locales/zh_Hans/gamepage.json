@@ -34,6 +34,7 @@
         "uninstall": {
             "checkbox": "移除前缀：{{prefix}}{{newLine}}注：此操作无法撤销，并且会删除没有备份的保存文件。",
             "message": "您想要卸载该游戏吗？",
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "卸载"
         },
         "update": {

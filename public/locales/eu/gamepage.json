@@ -35,6 +35,7 @@
             "checkbox": "Kendu aurrizkia: {{prefix}}{{newLine}}Oharra: Hau ezin da desegin eta babeskopiarik ez duten gordetze fitxategiak kenduko ditu ere.",
             "checkbox_prefix": "Aurrizkia",
             "message": "Joko hau desinstatu nahi duzu?",
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Desinslalatu"
         },
         "update": {

@@ -34,6 +34,7 @@
         "uninstall": {
             "checkbox": "Удалить префикс: {{prefix}}{{newLine}} Примечание: Это действие нельзя отменить, и оно также приведет к удалению файлов сохранений.",
             "message": "Удалить эту игру?",
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Удалить"
         },
         "update": {
