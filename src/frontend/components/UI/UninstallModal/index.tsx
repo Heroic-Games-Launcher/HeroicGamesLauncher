@@ -23,6 +23,7 @@ const UninstallModal: React.FC<UninstallModalProps> = function (props) {
   const [isWindowsOnLinux, setIsWindowsOnLinux] = useState(false)
   const [winePrefix, setWinePrefix] = useState('')
   const [checkboxChecked, setCheckboxChecked] = useState(false)
+  const [settingcheckboxChecked, setsettingCheckboxChecked] = useState(false)
   const { t } = useTranslation('gamepage')
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const navigate = useNavigate()
@@ -67,7 +68,12 @@ const UninstallModal: React.FC<UninstallModalProps> = function (props) {
       runner: props.runner,
       status: 'uninstalling'
     })
-    await window.api.uninstall(props.appName, props.runner, checkboxChecked)
+    await window.api.uninstall(
+      props.appName,
+      props.runner,
+      checkboxChecked,
+      settingcheckboxChecked
+    )
     if (props.runner === 'sideload') {
       navigate('/')
     }
@@ -105,6 +111,19 @@ const UninstallModal: React.FC<UninstallModalProps> = function (props) {
                 }}
               />
             )}
+            <br />
+            <ToggleSwitch
+              htmlId="uninstallsettingCheckbox"
+              value={settingcheckboxChecked}
+              title={t('gamepage:box.uninstall.settingcheckbox', {
+                defaultValue:
+                  "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+                newLine: '\n'
+              })}
+              handleChange={() => {
+                setsettingCheckboxChecked(!settingcheckboxChecked)
+              }}
+            />
           </DialogContent>
           <DialogFooter>
             <button
