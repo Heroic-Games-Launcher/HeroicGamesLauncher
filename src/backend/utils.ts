@@ -15,7 +15,13 @@ import {
 } from 'common/types'
 import * as axios from 'axios'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
-import { exec, ExecException, spawn, spawnSync } from 'child_process'
+import {
+  exec,
+  ExecException,
+  spawn,
+  SpawnOptions,
+  spawnSync
+} from 'child_process'
 import { existsSync, rmSync, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
@@ -838,6 +844,35 @@ const getShellPath = async (path: string): Promise<string> =>
 
 export const wait = async (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms))
+
+export const spawnAsync = async (
+  command: string,
+  args: string[],
+  options: SpawnOptions = {}
+): Promise<{ code: number | null; stdout: string; stderr: string } | Error> => {
+  const child = spawn(command, args, options)
+  const stdout: string[] = []
+  const stderr: string[] = []
+
+  if (child.stdout) {
+    child.stdout.on('data', (data) => stdout.push(data.toString()))
+  }
+
+  if (child.stderr) {
+    child.stderr.on('data', (data) => stderr.push(data.toString()))
+  }
+
+  return new Promise((resolve, reject) => {
+    child.on('error', (error) => reject(error))
+    child.on('close', (code) => {
+      resolve({
+        code,
+        stdout: stdout.join(''),
+        stderr: stderr.join('')
+      })
+    })
+  })
+}
 
 export {
   errorHandler,

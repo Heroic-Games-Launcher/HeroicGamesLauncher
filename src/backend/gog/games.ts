@@ -322,7 +322,18 @@ class GOGGame extends Game {
       logInfo('Windows os, running setup instructions on install', {
         prefix: LogPrefix.Gog
       })
-      await setup(this.appName, installedData)
+      try {
+        await setup(this.appName, installedData)
+      } catch (e) {
+        logWarning(
+          [
+            `Failed to run setup instructions on install for ${gameInfo.title}, some other step might be needed for the game to work. Check the 'goggame-${this.appName}.script' file in the game folder`,
+            'Error:',
+            e
+          ],
+          { prefix: LogPrefix.Gog }
+        )
+      }
     }
     this.addShortcuts()
     return { status: 'done' }
