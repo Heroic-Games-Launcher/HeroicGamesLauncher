@@ -543,7 +543,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   <div>{t('game.requirements', 'Requirements')}</div>
                 </DialogHeader>
                 <DialogContent>
-                  <GameRequirements gameInfo={gameInfo} />
+                  <GameRequirements extraInfo={extraInfo!} />
                 </DialogContent>
               </Dialog>
             )}
