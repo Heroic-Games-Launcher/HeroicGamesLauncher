@@ -1,0 +1,199 @@
+{
+    "box": {
+        "change": {
+            "message": "ഇത് കളിയുടെ നടീലിടം മാറ്റും, നിങ്ങള്ക്കുറപ്പല്ലേ?",
+            "path": "പുതിയ ഇടം",
+            "title": "ഇടം മാറ്റൂ"
+        },
+        "choose": "തിരഞ്ഞെടുക്കൂ",
+        "importpath": "ഇറക്കുമതി ചെയ്യുവാനുള്ള കളിയറ തിരഞ്ഞെടുക്കൂ",
+        "move": {
+            "message": "ഇതിനിത്തിരി നേരമെടുക്കും, കുഴപ്പമില്ലല്ലോ?",
+            "path": "എങ്ങോട്ടു മാറ്റണമെന്ന് പറയൂ",
+            "title": "കളിയുടെ നടീല് മാറ്റിക്കോളൂ"
+        },
+        "no": "വേണ്ട",
+        "repair": {
+            "message": "ഈ കളി നിങ്ങള് നന്നാക്കാന് നോക്കുകയാണോ? ഇതിനിത്തിരി നേരമെടുത്തേക്കാം.",
+            "title": "ഉറപ്പുവരുത്തി നന്നാക്കൂ"
+        },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
+        "stopInstall": {
+            "keepInstalling": "നടീല് തുടര്ന്നുകൊള്ളൂ",
+            "message": "ഇറക്കിയെടുത്ത രേഖകള് സുക്ഷിക്കണോ?",
+            "title": "നടീല് നിര്ത്തൂ"
+        },
+        "uninstall": {
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
+            "message": "ഇാ കളി എടുത്തുനീക്കട്ടെ?",
+            "title": "എടുത്തു നീക്കൂ"
+        },
+        "update": {
+            "message": "ഈ ഗെയിമിന് ഒരു അപ്ഡേറ്റ് ഉണ്ട്, ഇപ്പോൾ അപ്ഡേറ്റ് ചെയ്യട്ടെ?",
+            "title": "കളി പുതുക്കേണ്ടതുണ്ട്"
+        },
+        "wineprefix": "വൈൻ പ്രിഫിക്സ് ഫോൾഡർ തിരഞ്ഞെടുക്കൂ",
+        "yes": "ശരി"
+    },
+    "button": {
+        "add_to_favourites": "Add To Favourites",
+        "cancel": "നിര്ത്തൂ/റദ്ദാക്കൂ",
+        "continue": "ഇറക്കൽ തുടരൂ",
+        "finish": "Finish",
+        "force_update": "Force Update if Available",
+        "force-innstall": "Force Install",
+        "hide_game": "Hide Game",
+        "import": "കളി ഇറക്കുമതി ചെയ്യൂ",
+        "install": "നടൂ",
+        "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
+        "remove_from_favourites": "Remove From Favourites",
+        "remove_from_recent": "Remove From Recent",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
+        "unhide_game": "Unhide Game",
+        "uninstall": "എടുത്തുനീക്കൂ",
+        "update": "പുതുക്കൂ"
+    },
+    "cloud_save_unsupported": "Unsupported",
+    "disabled": "പ്രവര്ത്തനരഹിതം",
+    "dlc": {
+        "installDlcs": "എല്ലാ കൂട്ടുരേഖകളും നടൂ"
+    },
+    "enabled": "പ്രവര്ത്തനക്ഷമം",
+    "game": {
+        "downloadSize": "ഇറക്കിയെടുപ്പിന്റെ വലുപ്പം",
+        "firstPlayed": "ആദ്യം കളിച്ചത്",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
+        "installSize": "നടീലിന്റെ വലുപ്പം",
+        "language": "ഭാഷ",
+        "lastPlayed": "ഒടുക്കം കളിച്ചത്",
+        "neverPlayed": "കളിച്ചിട്ടേയില്ല",
+        "platform": "Select Platform Version to Install",
+        "requirements": "System Requirements",
+        "totalPlayed": "കളിച്ച നേരം"
+    },
+    "gamecard": {
+        "moving": "മാറ്റുന്നു",
+        "repairing": "നന്നാക്കുന്നു"
+    },
+    "generic": {
+        "error": "Unknown error"
+    },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
+    "info": {
+        "canRunOffline": "ഓൺലൈൻ ആകേണ്ടത് ആവശ്യമാണ്",
+        "installedPlatform": "Installed Platform",
+        "path": "നടീലിടം",
+        "size": "വലുപ്പം",
+        "syncsaves": "സൂക്ഷിക്കപ്പെട്ട ഒന്നിപ്പിക്കലുകള്",
+        "version": "പതിപ്പ്"
+    },
+    "install": {
+        "disk-space-left": "Space Available",
+        "not-enough-disk-space": "Not enough disk space",
+        "path": "നടീലിടം തിരഞ്ഞെടുക്കൂ",
+        "path-not-writtable": "Warning: path might not be writable.",
+        "space-after-install": "After Install",
+        "wineprefix": "വൈൻ പ്രിഫിക്സ്",
+        "wineversion": "Wine Version"
+    },
+    "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
+        "playing": {
+            "start": "കളിക്കാം",
+            "stop": "നടക്കുന്നു(നിര്ത്തൂ)"
+        },
+        "saves": {
+            "syncing": "സൂക്ഷിപ്പുകള് ഒന്നിപ്പിക്കുന്നു"
+        }
+    },
+    "launch": {
+        "options": "വിക്ഷേപണ ബദലുകൾ..."
+    },
+    "not_logged_in": {
+        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
+        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "login": "Log in",
+        "title": "You are NOT logged in"
+    },
+    "report_problem": "Report a problem running this game",
+    "sdl": {
+        "title": "നടുവാനുള്ള ഘടകങ്ങള് തിരഞ്ഞെടുക്കൂ"
+    },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
+    },
+    "specs": {
+        "minimum": "കുറഞ്ഞത്",
+        "recommended": "വേണ്ടുന്നത്"
+    },
+    "status": {
+        "clickToUpdate": "പുതുക്കാന് അമര്ത്തൂ",
+        "gameNotAvailable": "Game not available",
+        "hasUpdates": "പുതിയ പതിപ്പ് വന്നിട്ടുണ്ട്!",
+        "installed": "നട്ടു",
+        "installing": "നടുന്നു",
+        "moving": "നടീലിടം മാറ്റുന്നു, ഇത്തിരി കാക്കൂ",
+        "notinstalled": "ഈ കളി നട്ടിട്ടില്ല",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
+        "processing": "Processing files, please wait",
+        "queued": "Queued",
+        "reparing": "കളി നന്നാക്കുന്നു, ഒന്നു കാക്കൂ",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
+        "totalDownloaded": "ആകെ ഇറക്കിയെടുത്തത്",
+        "uninstalling": "Uninstalling",
+        "updating": "കളി പുതുക്കുന്നു"
+    },
+    "submenu": {
+        "addShortcut": "കുറുക്കുവഴി ചേര്ക്കൂ",
+        "addToSteam": "Add to Steam",
+        "change": "നടീലിടം മാറ്റുന്നു",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
+        "move": "കളി മാറ്റൂ",
+        "protondb": "പറ്റുമോന്നു നോക്കൂ",
+        "removeFromSteam": "Remove from Steam",
+        "removeShortcut": "Remove shortcuts",
+        "settings": "ക്രമീകരണങ്ങള്",
+        "store": "കടത്താള്",
+        "verify": "കണ്ടെത്തി നന്നാക്കൂ"
+    }
+}

@@ -1,0 +1,691 @@
+{
+    "box": {
+        "yes": "JA",
+        "choose": "Vælg",
+        "wineprefix": "Vælg Wine Prefix mappe",
+        "no": "NEJ",
+        "cache-cleared": {
+            "message": "Heroic cache ryddet.",
+            "title": "Cache ryddet"
+        },
+        "choose-egs-prefix": "Vælg Prefix hvor EGS er installeret",
+        "choose-gogdl-binary": "Vælg GOGDL Binary (kræver genstart)",
+        "choose-legendary-binary": "Vælg Legendary binary",
+        "customWine": "Vælg Wine eller Proton binary",
+        "default-install-path": "Vælg Standard Installationssti",
+        "error": {
+            "credentials": {
+                "message": "Din legitimation er udløbet, log venligst ud og ind igen."
+            },
+            "cx-bottle-not-found": {
+                "message": "CrossOver bottle \"{{bottle_name}}\" eksisterer ikke, kan ikke starte!",
+                "title": "CrossOver bottle ikke fundet"
+            },
+            "diskspace": {
+                "message": "Ikke nok ledig diskplads",
+                "title": "Ingen plads"
+            },
+            "dxvk": {
+                "message": "Fejl ved installation af DXVK/VKD3D! Kontroller din forbindelse, eller om du har zstd/libzstd1 installeret",
+                "title": "DXVK/VKD3D fejl"
+            },
+            "folder-not-found": {
+                "title": "Spilmappen ser ud til at være slettet, vil du fjerne spillet fra den installerede liste?"
+            },
+            "no-offline-mode": {
+                "message": "Opstart afbrudt! Spillet kræver en internetforbindelse for at køre.",
+                "title": "Offlinetilstand undstøttes ikke."
+            },
+            "title": "Fejl",
+            "update": {
+                "message": "Noget gik galt med opdateringen, tjek logfilerne eller prøv igen senere!",
+                "title": "Opdateringsfejl"
+            },
+            "wine-not-found": {
+                "message": "Ingen Wine Version valgt. Tjek spilindstillingerne!",
+                "title": "Wine Ikke Fundet",
+                "invalid": "Den valgte vinversion blev ikke fundet. Installer det eller vælg en anden version i spillets indstillinger{{newline}}Version: {{version}}{{newline}}Sti: {{path}}"
+            },
+            "zstd": {
+                "message": "ZSTD ikke fundet, venligst installer det og genstart Heroic"
+            },
+            "add": {
+                "steam": {
+                    "body": "Tilføjelse af {{game}} til Steam mislykkedes med:{{newLine}} {{error}}",
+                    "title": "Tilføjelsesfejl"
+                }
+            },
+            "remove": {
+                "steam": {
+                    "body": "Fjernelse af {{game}} fra Steam mislykkedes med:{{newLine}} {{error}}",
+                    "title": "Fjerner fejl"
+                }
+            },
+            "uncaught-exception": {
+                "message": "En ufanget undtagelse opstod:{{newLine}}{{error}}{{newLine}}{{newLine}}Heroic vil blive lukket! Rapporter undtagelsen på vores Github-lager.",
+                "title": "Ufanget undtagelse opstod!"
+            },
+            "winetricks": {
+                "title": "Winetricks fejl",
+                "message": "Winetricks returnerede følgende fejl under udførelsen:{{newLine}}{{error}}"
+            },
+            "launchAborted": "Start afbrudt",
+            "generic": {
+                "title": "Vælg EXE til at køre"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Åben changelog",
+                "detail": "Vil du hente opdateringen i baggrunden?",
+                "message": "Der er en ny version tilgængelig!",
+                "message-finished": "Vil du genstarte Heroic nu?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Opdatering Færdig"
+            }
+        },
+        "ok": "OK",
+        "protocol": {
+            "install": {
+                "not_installed": "I øjeblikket ikke installeret. Installer det?"
+            }
+        },
+        "quit": {
+            "title": "Afslut",
+            "message": "Der er uafgjorte handlinger, er du sikker?"
+        },
+        "reset-heroic": {
+            "question": {
+                "title": "Nulstil Heroic",
+                "message": "Er du sikker på, at du vil nulstille Heroic? Dette fjerner alle indstillinger og cache, men vil ikke fjerne dine installerede spil eller dine Epic legitimation"
+            }
+        },
+        "runexe": {
+            "title": "Vælg EXE til at køre"
+        },
+        "select": {
+            "button": "Vælg",
+            "exe": "Vælg EXE"
+        },
+        "shortcuts": {
+            "message": "Genveje var oprettet på Skrivebordet og i Start Menuen",
+            "title": "Genveje",
+            "message-remove": "Genveje blev fjernet fra skrivebordet og startmenuen",
+            "message-mac": "Genveje blev oprettet i mappen Programmer",
+            "message-remove-mac": "Genveje blev fjernet fra mappen Programmer"
+        },
+        "sync": {
+            "button": "Vælg",
+            "error": "Ugyldig sti",
+            "title": "Vælg gemmer mappen"
+        },
+        "downloadNow": "Hent nu",
+        "vcruntime": {
+            "install": {
+                "message": "Downloadlinkene til Visual C++ Runtimes er blevet åbnet. Installer venligst både x86- og x64-versionerne."
+            },
+            "notfound": {
+                "message": "Microsoft Visual C++ Runtimes er ikke installeret, hvilket kræves af nogle spil",
+                "title": "VCRuntime ikke installeret"
+            }
+        },
+        "warning": {
+            "epic": {
+                "update": "Epic Servers har et stort udfald lige nu, spillet kan ikke opdateres!",
+                "install": "Epic Servers har et stort udfald lige nu, spillet kan ikke installeres!",
+                "import": "Epic Servers har et stort udfald lige nu, spillet kan ikke importeres!"
+            },
+            "title": "Advarsel"
+        },
+        "default-steam-path": "Dampvej."
+    },
+    "All": "Alle",
+    "accessibility": {
+        "zoom": "Zoom",
+        "fonts": "Fonte",
+        "all_tiles_in_color": "Vis alle spil fliser i farver",
+        "title": "Tilgængelighed",
+        "actions_font_family": "Actions Font Family (Standard: \"Rubik\")",
+        "content_font_family": "Indholdsskrifttypefamilie (standard: \"Cabin\")",
+        "actions_font_family_no_default": "Actions Font Family (Standard: ",
+        "content_font_family_no_default": "Indholdsskrifttypefamilie (standard: "
+    },
+    "info": {
+        "version": "Wine Version",
+        "heroic": {
+            "version": "Heroisk version",
+            "beta": "Beta",
+            "newReleases": "Opdatering tilgængelig!",
+            "stable": "Stabil",
+            "click-to-see-changelog": "Klik for at se ændringslog"
+        },
+        "settings": "Indstillinger gemmes automatisk",
+        "save-sync": {
+            "searching": "Forsøger at finde den korrekte gemte mappe"
+        }
+    },
+    "install": {
+        "path": "Vælg Installations Sti"
+    },
+    "status": {
+        "installing": "Installerer",
+        "processing": "Behandler filerne, vent venligst",
+        "logging": "Logger ind..."
+    },
+    "Assets": "Aktiver",
+    "infobox": {
+        "help": "Hjælp",
+        "requirements": "System Krav",
+        "wine-path": "Vinstien",
+        "wine-prefix": {
+            "title": "Vin præfiks"
+        },
+        "wine-repfix": {
+            "message": "Wine bruger det, der kaldes en WINEPREFIX til at indkapsle Windows-applikationer. Dette præfiks indeholder Wine-konfigurationsfilerne og en gengivelse af filhierarkiet af C: (hoveddisken på et Windows OS). I denne gengivelse af C:-drevet gemmes dine spillagringsfiler og afhængigheder installeret via winetricks."
+        },
+        "warning": "Advarsel"
+    },
+    "button": {
+        "go_to_library": "Gå til biblioteket",
+        "sync": "Synkronisere",
+        "syncing": "Synkroniserer",
+        "unsync": "Fjern synkronisering",
+        "login": "Log ind",
+        "cancel": "Afbestille"
+    },
+    "help": {
+        "esync": "Esync sigter mod at reducere vinserveroverhead i CPU-intensive spil. Aktivering kan forbedre ydeevnen.",
+        "steamruntime": "Brugerdefinerede biblioteker leveret af Steam til at hjælpe med at køre Linux og Windows (Proton) spil. Aktivering kan forbedre kompatibiliteten.",
+        "fsync": "Fsync sigter mod at reducere vinserveroverhead i CPU-intensive spil. Aktivering kan forbedre ydeevnen på understøttede Linux-kerner.",
+        "gamemode": "Feral GameMode anvender automatiske og midlertidige tweaks til systemet, når du kører spil. Aktivering kan forbedre ydeevnen.",
+        "mangohud": "MangoHUD er en overlay, der viser og overvåger FPS, temperaturer, CPU/GPU-belastning og andre systemressourcer.",
+        "other": {
+            "part7": " at springe startprogrammet over i nogle spil osv.",
+            "part4": "Brug ",
+            "part5": "Spilargumenter",
+            "part6": " skal kaldes efter startkommandoen, for eksempel: "
+        },
+        "sync": {
+            "part2": "Hvis du ændrer præfiksmappen for Wine eller Proton, skal du tjekke stien igen, da Proton bruger et andet præfiks (/pfx) og brugernavn (steamuser). Så du kan simpelthen slette den aktuelle sti for at komme ud af siden med synkroniseringsindstillinger og komme tilbage igen, så Heroic kan gætte mappen en gang til med det rigtige præfiks.",
+            "part1": "Heroic forsøger at gætte den rigtige gemmemappe, og dette vil fungere i de fleste tilfælde. Hvis mappen er forkert, skal du bruge tilsidesættelsesboksen til at ændre den.",
+            "part3": "Manuel synkronisering: Vælg Download for at downloade spil, der er gemt i skyen. Upload for at uploade de lokale til skyen. Force Download og Force Upload ignorerer den version, der er lokalt eller i skyen.",
+            "part4": "Synkronisering gemmer Automatisk vil synkronisere gemmerne hver gang du starter et spil og efter at have spillet færdig."
+        },
+        "wine": {
+            "part2": "For andre steder skal du bruge et symbolsk link til en af disse mapper",
+            "part1": "Heroiske søgninger efter versioner af Wine, Proton og CrossOver i følgende mapper:"
+        },
+        "amdfsr": "AMD's FSR hjælper med at øge billedhastigheden ved at opskalere lavere opløsninger i fuldskærmstilstand. Billedkvaliteten øges fra 5 til 1 på bekostning af et lille præstationshit. Aktivering kan forbedre ydeevnen.",
+        "dxvk": "DXVK er et Vulkan-baseret translationslag til DirectX 9, 10 og 11 spil. Aktivering kan forbedre kompatibiliteten. Kan forårsage problemer især for ældre DirectX-spil.",
+        "preferSystemLibs": "Tilpassede vinversioner (Wine-GE, Wine-Lutris) leveres med deres biblioteksafhængigheder. Ved at aktivere denne mulighed ignoreres disse afsendte biblioteker, og Wine indlæser systembiblioteker i stedet. Advarsel! Problemer kan opstå, hvis afhængigheder ikke opfyldes.",
+        "resizablebar": "NVIDIAs Resizable Bar hjælper med at booste framerate ved at få CPU'en til at få adgang til hele grafikbufferen. Aktivering kan forbedre ydeevnen for Vulkan-baserede spil.",
+        "vkd3d": "VKD3D er et Vulkan-baseret translationslag til DirectX 12-spil. Aktivering kan forbedre kompatibiliteten betydeligt. Har ingen effekt på ældre DirectX-spil.",
+        "game_language": {
+            "fallback": "Lad stå tomt for at bruge Heroics sprog.",
+            "in_game_config": "Ikke alle spil understøtter denne konfiguration, nogle har sprogindstilling i spillet.",
+            "valid_codes": "Gyldige sprogkoder er spilafhængige."
+        },
+        "general": "Synkroniser med EGL, hvis du har en fungerende installation af Epic Games Launcher et andet sted og vil importere dine spil for at undgå at downloade dem igen.",
+        "primerun": "Brug dedikeret grafikkort til at gengive spil på multi-GPU-systemer. Kun nødvendig på bærbare gaming-computere eller stationære computere, der bruger en hovedløs GPU til gengivelse (NVIDIA Optimus, AMD CrossFire)",
+        "custom_themes_path": "Brug ikke CSS-filer fra upålidelige kilder. Når du er i tvivl, så bed om en anmeldelse i vores Discord-kanal.",
+        "custom_themes_wiki": "Tjek Wiki for flere detaljer om tilføjelse af brugerdefinerede temaer. Klik her.",
+        "steam_path": {
+            "info": "Denne sti lader Heroic bestemme, hvilken version af Proton Steam bruger, til at tilføje ikke-Steam-spil til Steam."
+        },
+        "dxvkfpslimit": "Indstiller et billedhastighedsloft for DXVK-spil"
+    },
+    "notify": {
+        "uninstalled": "Afinstalleret",
+        "error": {
+            "move": "Fejl under flytning af spillet",
+            "reparing": "Fejl ved reparation"
+        },
+        "finished": {
+            "add": {
+                "steam": {
+                    "corrupt": "{{game}} kunne ikke tilføjes til alle fundne Steam-brugere. Se logs for mere info. En genstart af Steam er påkrævet, ændringer skal træde i kraft.",
+                    "title": "Tilføjet til Steam",
+                    "success": "{{game}} blev føjet til Steam. En genstart af Steam er påkrævet, ændringer skal træde i kraft."
+                }
+            },
+            "remove": {
+                "steam": {
+                    "success": "{{game}} blev fjernet til Steam. En genstart af Steam er påkrævet, ændringer skal træde i kraft.",
+                    "title": "Fjernet fra Steam",
+                    "corrupt": "{{game}} kunne ikke fjernes fra alle fundne Steam-brugere. Se logs for mere info. En genstart af Steam er påkrævet, ændringer skal træde i kraft."
+                }
+            },
+            "reparing": "Færdig reparation"
+        },
+        "install": {
+            "canceled": "Installation annulleret",
+            "finished": "Installation afsluttet",
+            "imported": "Spil importeret",
+            "startInstall": "Installation påbegyndt",
+            "error": "Installation mislykkedes"
+        },
+        "moved": "Færdig med flytning",
+        "moving": "Flytende spil",
+        "refresh": {
+            "error": "Kunne ikke hente udgivelser fra upstream, måske på grund af Github API-begrænsninger! Prøv igen senere."
+        },
+        "update": {
+            "canceled": "Opdateret annulleret",
+            "finished": "Opdatering Færdig",
+            "started": "Opdatering startet"
+        },
+        "new-heroic-version": "En ny Heroic-version blev frigivet!"
+    },
+    "Plugins": "Plugins",
+    "Projects": "Projekter",
+    "Recent": "Spillede for nylig",
+    "setting": {
+        "autovkd3d": "Autoinstaller/opdater VKD3D på præfiks",
+        "change-target-exe": "Vælg en alternativ EXE at køre",
+        "customWineProton": "Brugerdefinerede vin-/protonstier",
+        "library_top_option": {
+            "recently_played_installed": "Senest spillede spil (kun installeret)",
+            "disabled": "Slå Fra",
+            "favourites": "Yndlingsspil",
+            "recently_played": "Nyligt spillede spil"
+        },
+        "log": {
+            "instructions_title": "Hvordan rapporterer man et problem?",
+            "show-in-folder": "Vis logfil i mappe",
+            "last-log": "Sidste log",
+            "no-file": "Ingen logfil fundet",
+            "copy-to-clipboard": "Kopier logindhold til udklipsholder",
+            "current-log": "Aktuel log",
+            "instructions": "Tilmeld dig vores Discord og se efter den kanal, der matcher dit operativsystem. Del indholdet af logfilerne, der vises her, og inkluder en klar beskrivelse af problemet med alle relevante oplysninger og detaljer."
+        },
+        "mangohud": "Aktiver Mangohud (Mangohud skal installeres)",
+        "manualsync": {
+            "download": "Hent",
+            "forcedownload": "Tving download",
+            "forceupload": "Tving upload",
+            "sync": "Synkronisere",
+            "syncing": "Synkroniserer",
+            "title": "Manuel synkronisering gemmer",
+            "upload": "Upload"
+        },
+        "runexe": {
+            "message": "Træk og slip filer her",
+            "title": "Kør EXE på præfiks"
+        },
+        "savefolder": {
+            "placeholder": "Vælg den nøjagtige gemte spilmappe",
+            "not-found": "Gem mappe blev ikke fundet, vælg den manuelt",
+            "warning": "Tjek venligst to gange, om stien er korrekt"
+        },
+        "select_theme": "Vælg tema",
+        "showfps": "Vis FPS (DX9, 10 og 11)",
+        "showUnrealMarket": "Vis Unreal Marketplace (skal genstartes)",
+        "start-in-tray": "Start minimeret",
+        "steamruntime": "Brug Steam Runtime",
+        "winecrossoverbottle": "CrossOver flaske",
+        "defaultWinePrefix": "Indstil mappe til nye vinpræfikser",
+        "disable_controller": "Deaktiver heroisk navigation ved hjælp af controller",
+        "discordRPC": "Aktiver Discord Rich Presence",
+        "download-no-https": "Download spil uden HTTPS (nyttigt til CDN'er, f.eks. LanCache)",
+        "egs-sync": "Synkroniser med installerede episke spil",
+        "enableFSRHack": "Aktiver FSR Hack (vinversion skal understøtte det)",
+        "eosOverlay": {
+            "cancelInstall": "Afbestille",
+            "checkForUpdates": "Søg efter opdateringer",
+            "checkingForUpdates": "Søger efter opdateringer...",
+            "currentVersion": "Nuværende version: {{version}}",
+            "disable": "Deaktiver",
+            "enable": "Aktiver",
+            "install": "Installer",
+            "installed": "EOS Overlay er installeret",
+            "installing": "EOS Overlay er ved at blive installeret...",
+            "latestVersion": "Seneste version: {{version}}",
+            "notInstalled": "EOS Overlay er ikke installeret",
+            "notInstalledTitle": "Overlay ikke installeret",
+            "notInstalledMsg": "EOS Overlay er ikke installeret. Vil du installere det nu?",
+            "remove": "Afinstaller",
+            "removeConfirm": "Er du sikker på, at du vil afinstallere EOS Overlay?",
+            "removeConfirmTitle": "Bekræft fjernelse af overlejring",
+            "updateNow": "Opdater",
+            "updating": "Opdaterer..."
+        },
+        "wineprefix": "WinePrefix mappe",
+        "crossover-version": "Crossover version",
+        "darktray": "Brug mørkt bakkeikon",
+        "default-install-path": "Standard installationssti",
+        "default-steam-path": "Standard Steam-sti",
+        "esync": "Aktiver Esync",
+        "exit-to-tray": "Afslut til systembakken",
+        "FsrSharpnessStrenght": "FSR Skarphed Styrke",
+        "preferSystemLibs": "Foretrækker systembiblioteker",
+        "primerun": {
+            "confirmation": {
+                "message": "Kun ét grafikkort blev fundet i dette system. Bemærk venligst, at denne mulighed er beregnet til multi-GPU-systemer med hovedløse GPU'er (som bærbare computere). På enkelt-GPU-systemer bruges GPU'en automatisk, og aktivering af denne mulighed kan forårsage problemer. Vil du virkelig aktivere denne mulighed?",
+                "title": "Kun 1 GPU fundet"
+            },
+            "description": "Brug dedikeret grafikkort"
+        },
+        "resizableBar": "Aktiver BAR, der kan ændres størrelse (kun NVIDIA RTX 30xx)",
+        "wineversion": "Wine Version",
+        "autosync": "Autosync gemmer",
+        "adddesktopshortcuts": "Tilføj skrivebordsgenveje automatisk",
+        "addgamestostartmenu": "Tilføj spil til startmenuen automatisk",
+        "alt-gogdl-bin": "Vælg en alternativ GOGDL-binær til brug",
+        "alt-legendary-bin": "Vælg en alternativ legendarisk binær",
+        "audiofix": "Lydfiks (Pulse Audio Latency)",
+        "autodxvk": "Autoinstaller/opdater DXVK på præfiks",
+        "fsync": "Aktiver Fsync",
+        "gamemode": "Brug GameMode (Feral Game Mode skal installeres)",
+        "language": "Vælg appsprog",
+        "library_top_section": "Bibliotekets øverste sektion",
+        "maxRecentGames": "Spillede for nylig for at vise",
+        "maxworkers": "Maksimalt antal arbejdere ved download",
+        "minimize-on-launch": "Minimer heroisk efter spilstart",
+        "offlinemode": "Kør spil offline",
+        "prefered_language": "Foretrukken sprog (sprogkode)",
+        "checkForUpdatesOnStartup": "Søg efter heroiske opdateringer ved opstart",
+        "addgamestosteam": "Tilføj spil til Steam automatisk",
+        "custom_themes_path": "Sti til brugerdefinerede temaer",
+        "hideChangelogsOnStartup": "Vis ikke ændringslogs ved opstart",
+        "dxvkfpslimit": "Begræns FPS (DX9, 10 og 11)"
+    },
+    "wine": {
+        "manager": {
+            "link": "Vinchef",
+            "error": "Kunne ikke hente Wine/Proton-versioner denne gang.",
+            "title": "Vinchef",
+            "unzipping": "Udpakker",
+            "not-found": "Ingen vinversioner fundet. Klik på opdateringsikonet for at prøve igen."
+        },
+        "release": "Udgivelses dato",
+        "size": "Størrelse",
+        "actions": "Handling"
+    },
+    "library": {
+        "refresh": "Opdater",
+        "sortAscending": "Sorter stigende",
+        "sortByStatus": "Sorter efter status",
+        "sortDescending": "Sorter faldende",
+        "toggleLayout": {
+            "grid": "Skift til et gitterlayout",
+            "list": "Skift til et listelayout"
+        }
+    },
+    "settings": {
+        "clear-cache": "Ryd heroisk cache",
+        "copiedToClipboard": "Kopieret til udklipsholder!",
+        "copyToClipboard": "Kopier alle indstillinger til udklipsholder",
+        "eacRuntime": {
+            "installing": "Installerer EAC Runtime...",
+            "name": "EasyAntiCheat Runtime",
+            "gameModeRequired": {
+                "title": "GameMode påkrævet",
+                "message": "GameMode er påkrævet for at EAC runtime kan fungere på Flatpak. Vil du aktivere det nu?"
+            }
+        },
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "message": "EAC runtime er aktiveret, som ikke fungerer korrekt uden GameMode. Vil du deaktivere EAC Runtime og GameMode?",
+                "title": "EAC runtime aktiveret"
+            }
+        },
+        "open-config-file": "Åbn Config File",
+        "reset-heroic": "Nulstil Heroic",
+        "saves": {
+            "warning": "Cloud Saves-funktionen er i beta, vær venlig at sikkerhedskopiere dine gemmer før synkronisering (i tilfælde af at noget går galt)",
+            "label": "Gem placering:"
+        },
+        "log": {
+            "long-log-hint": "Log afkortet, sidste 1000 linjer vises!"
+        },
+        "navbar": {
+            "wineExt": "Vinudvidelser",
+            "advanced": "Fremskreden",
+            "general": "Generel",
+            "log": "Log",
+            "other": "Andet",
+            "sync": "Gem-synkronisering",
+            "games_settings": "Spilindstillinger",
+            "games_settings_defaults": "Spilstandarder"
+        },
+        "battlEyeRuntime": {
+            "installing": "Installerer BattlEye Runtime...",
+            "name": "BattlEye AntiCheat Runtime"
+        },
+        "default_hint": "Ændringer i dette afsnit gælder kun som standardværdier ved installation af spil. Hvis du vil ændre indstillingerne for et allerede installeret spil, skal du bruge knappen Indstillinger på spilsiden."
+    },
+    "title": {
+        "allUnreal": "Uvirkeligt - Alt",
+        "unrealAssets": "Uvirkeligt - Aktiver",
+        "allGames": "Alle spil",
+        "unrealPlugins": "Unreal - Plugins",
+        "unrealProjects": "Uvirkeligt - Projekter"
+    },
+    "tooltip": {
+        "removepath": "Fjern sti",
+        "addpath": "Tilføj ny sti"
+    },
+    "controller": {
+        "hints": {
+            "back": "Tilbage",
+            "backspace": "Backspace",
+            "game_details": "Spildetaljer",
+            "game_settings": "Spilindstillinger",
+            "update_game": "Opdater spil",
+            "activate": "Aktiver",
+            "close_context_menu": "Luk kontekstmenuen",
+            "close_dialog": "Luk dialog",
+            "close_keyboard": "Luk tastaturet",
+            "context_menu": "Genvejsmenu",
+            "install_game": "Installer spillet",
+            "move_cursor": "Flyt markøren",
+            "none": "Ingen",
+            "open_virtual_keyboard": "Åbn virtuelt tastatur",
+            "play_game": "Spille spil",
+            "scroll": "Rul",
+            "space": "Plads",
+            "close_options": "Luk indstillinger",
+            "options": "Muligheder",
+            "select": "Vælg"
+        }
+    },
+    "Epic Games": "Episke spil",
+    "favourites": "Favoritter",
+    "game": {
+        "status": "Status",
+        "store": "butik",
+        "title": "Spiltitel"
+    },
+    "Library": "Bibliotek",
+    "loading": {
+        "default": "Indlæser",
+        "website": "Indlæser hjemmeside"
+    },
+    "message": {
+        "unsync": "Afsynkronisering fuldført",
+        "sync": "Synkronisering fuldført"
+    },
+    "options": {
+        "advanced": {
+            "placeHolderValue": "F.eks.: Sti/Til/Ekstrafiler",
+            "title": "Avancerede indstillinger (miljøvariabler):",
+            "value": "Værdi",
+            "key": "Variabel navn",
+            "placeHolderKey": "NAVN"
+        },
+        "gameargs": {
+            "placeholder": "Sæt Launcher-argumenterne her",
+            "title": "Spilargumenter (for at køre efter kommandoen):"
+        },
+        "quote-args-with-spaces": "Advarsel: Sørg for at citere args med mellemrum! F.eks.: \"sti/med mellemrum/\"",
+        "wrapper": {
+            "args": "Argumenter",
+            "arguments_example": "Argumenter eksempel: --arg; --extra-file=\"fil-sti/ med/mellemrum\"",
+            "exe": "Indpakning",
+            "placeHolderKey": "Ny indpakning",
+            "placeHolderValue": "Indpakningsargumenter",
+            "title": "Indpakningskommando:"
+        },
+        "env_variables": {
+            "error": {
+                "equal_sign_in_key": "Variablenavne må ikke indeholde tegnet \"=\"",
+                "empty_key": "Variabelnavne må ikke være tomme",
+                "space_in_key": "Variabelnavne må ikke indeholde mellemrum"
+            },
+            "example": "Inkluder IKKE tegnet \"=\", f.eks.: for en indstilling som \"MY_FLAG=123\", sæt MY_FLAG i NAVN og 123 i VÆRDI.",
+            "info": "Indstil miljøvariabler til at føje til kommandoen."
+        }
+    },
+    "other": {
+        "gogdl-version": "GOGDL-version: ",
+        "legendary-version": "Legendarisk version: ",
+        "weblate": "Hjælp med at oversætte Heroic."
+    },
+    "platforms": {
+        "win": "Windows",
+        "linux": "Linux",
+        "mac": "Mac"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Vælg standardpræfiksmappen for nye konfigurationer",
+            "wineprefix": "Vælg en mappe til nye vinpræfikser"
+        }
+    },
+    "GameSettings": "Spilindstillinger",
+    "gog-store": "GOG butik",
+    "header": {
+        "ignore_hidden": "Ignorer skjult",
+        "platform": "Platform",
+        "show_all_games": "Vis alle spil",
+        "show_favourites_only": "Vis kun favoritter",
+        "show_hidden": "Vis skjult",
+        "store": "Filterbutik"
+    },
+    "Settings": "Indstillinger",
+    "sidebar": {
+        "collapse": "Skjul sidebjælken",
+        "uncollapse": "Luk sidebjælken ud"
+    },
+    "userselector": {
+        "discord": "Uenighed",
+        "logout": "Log ud",
+        "logout_confirmation": "Er du sikker på, at du vil logge ud?",
+        "manageaccounts": "Administrer konti",
+        "quit": "Afslut",
+        "logging_out": "Logger ud"
+    },
+    "anticheat": {
+        "anticheats": "Anticheats",
+        "may_not_work": "Det virker muligvis ikke på grund af afvist eller brudt anticheat-support.",
+        "reference": "Reference",
+        "source": "Kilde",
+        "status": "Status",
+        "title": "Dette spil inkluderer anticheat-software"
+    },
+    "docs": "Dokumentation",
+    "epic": {
+        "offline-notification-body": "Onlinetjenester fungerer muligvis ikke fuldt ud, da Epic Games-servere er offline!",
+        "offline-notification-title": "offline"
+    },
+    "generic": {
+        "error": {
+            "component": "Ingen spil fundet - Prøv at logge ud og logge på igen eller en af mulighederne nedenfor"
+        },
+        "library": {
+            "refresh": "Opdater biblioteket"
+        }
+    },
+    "globalSettings": "Globale indstillinger",
+    "GOG": "GOG",
+    "login": {
+        "externalLogin": "Eksternt login",
+        "alternative_method": "Alternativ login-metode",
+        "epic": "Epic Games Login",
+        "gog": "GOG login",
+        "message": "Log ind med din platform. Du kan logge ind på mere end én platform på samme tid."
+    },
+    "placeholder": {
+        "prefered_language": "2-tegn kode (dvs.: \"en\" eller \"fr\")",
+        "alt-gogdl-bin": "Brug af indbygget GOGDL binær...",
+        "alt-legendary-bin": "Bruger indbygget Legendary binær...",
+        "egs-prefix": "Præfiks hvor EGS er installeret",
+        "custom_themes_path": "Vælg stien for at søge efter tilpassede CSS-filer",
+        "dxvkfpsvalue": "Positiv heltalsværdi (f.eks. 30, 60, ...)"
+    },
+    "search": "Søg efter spil",
+    "store": "Episk butik",
+    "stores": "Butikker",
+    "tray": {
+        "show": "At vise",
+        "about": "Om",
+        "quit": "Afslut",
+        "reload": "Genindlæs"
+    },
+    "webview": {
+        "controls": {
+            "back": "Gå tilbage",
+            "forward": "Gå fremad",
+            "openInBrowser": "Åbn i browser",
+            "reload": "Genindlæs siden"
+        }
+    },
+    "two_col_table": {
+        "save_hint": "Ændringer i denne tabel gemmes ikke automatisk. Klik på knappen +"
+    },
+    "progress": "Fremskridt",
+    "download": {
+        "manager": {
+            "empty": "Intet at downloade.",
+            "link": "Downloads",
+            "queue": {
+                "actions": "Handling",
+                "element": "Navn",
+                "platform": "Platform",
+                "store": "butik"
+            },
+            "title": "Downloads"
+        }
+    },
+    "error": "Fejl",
+    "offline-message": {
+        "hint": "Vi tjekker forbindelsen mod:{{newline}}github.com,{{newline}}gog.com og{{newline}}store.epicgames.com",
+        "offline": "Offline",
+        "retry-in": "Prøver igen om ... {{seconds}} sekunder",
+        "retrying": "Prøver igen",
+        "offline-retry-in": "Offline. Prøver igen om {{seconds}} sekunder.",
+        "ignore": "Ignorere"
+    },
+    "Other": "Andet",
+    "queue": {
+        "label": {
+            "clear": "Ryd liste",
+            "downloading": "Downloader",
+            "finished": "Afsluttet",
+            "queued": "I kø",
+            "canceled": "Annulleret",
+            "empty": "Intet at downloade",
+            "remove": "Fjern fra downloads"
+        }
+    },
+    "add_game": "Tilføj spil",
+    "download-manager": {
+        "install-type": {
+            "install": "Installer",
+            "update": "Opdater"
+        },
+        "label": {
+            "disk": "Disk",
+            "speed": "Hent"
+        },
+        "link": "Downloads",
+        "queue": {
+            "end-time": "Afsluttet kl",
+            "queue-time": "Tilføjet kl",
+            "start-time": "Startede kl",
+            "type": "Type"
+        },
+        "title": "Downloads"
+    },
+    "please-wait": "Vent venligst..."
+}

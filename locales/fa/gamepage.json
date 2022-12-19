@@ -1,0 +1,199 @@
+{
+    "box": {
+        "change": {
+            "message": "این کار محل نصب این بازی را عوض میکند، آیا مطمئن هستید؟",
+            "path": "مسیر جدید نصب را انتخاب کنید",
+            "title": "تغییر محل نصب بازیها"
+        },
+        "choose": "انتخاب",
+        "importpath": "پوشه بازی را برای وارد کردن انتخاب کنید",
+        "move": {
+            "message": "این کار میتواند زمان زیادی ببرد، آیا مطمئن هستید؟",
+            "path": "انتخاب کنید که به کجا میخواهید منتقل کنید",
+            "title": "انتقال نصب بازی"
+        },
+        "no": "خیر",
+        "repair": {
+            "message": "آیا میخواهید این بازی را تعمیر کنید؟ این کار میتواند زمان زیادی ببرد.",
+            "title": "بررسی و تعمیر"
+        },
+        "runexe": {
+            "title": "فایل EXE را برای اجرا انتخاب کنید"
+        },
+        "select": {
+            "button": "انتخاب"
+        },
+        "sideload": {
+            "exe": "انتخاب فایل احرایی"
+        },
+        "stopInstall": {
+            "keepInstalling": "ادامه به نصب",
+            "message": "آیا مایل هستید فایلهای دانلود شده را نگه دارید؟",
+            "title": "توقف نصب"
+        },
+        "uninstall": {
+            "checkbox": "حذف prefix: {{prefix}}{{newLine}}نکته:این کار قابل بازگشت نیست و همچنین فایل های ذخیره پشتیبانی گرفته نشده را پاک می کند.",
+            "message": "آیا میخواهید این بازی را حذف کنید؟",
+            "title": "حذف"
+        },
+        "update": {
+            "message": "این بازی به روزرسانی دارد، آیا مایل به روزرسانی هستید؟",
+            "title": "بازی نیاز به روزرسانی دارد"
+        },
+        "wineprefix": "انتخاب پوشه Wine Prefix",
+        "yes": "بله"
+    },
+    "button": {
+        "add_to_favourites": "افزودن به مورد علاقه ها",
+        "cancel": "توقف/انصراف",
+        "continue": "ادامه بارگیری",
+        "finish": "اتمام",
+        "force_update": "اعمال اجباری به روز رسانی در صورت موجود بودن",
+        "force-innstall": "نصب اجباری",
+        "hide_game": "مخفی کردن بازی",
+        "import": "وارد کردن بازی",
+        "install": "نصب",
+        "no-path-selected": "مسیری انتخاب نشده است",
+        "queue": {
+            "remove": "حذف از صف"
+        },
+        "remove_from_favourites": "حذف کردن از مورد علاقه ها",
+        "remove_from_recent": "حذف از اخیر",
+        "run-exe-first": "اجرای اول نصاب",
+        "running-setup": "در حال اجرای ستاپ",
+        "sideload": {
+            "edit": "ویرایش نرم افزار/بازی"
+        },
+        "unhide_game": "نشان دادن بازی",
+        "uninstall": "حذف",
+        "update": "بهروزرسانی"
+    },
+    "cloud_save_unsupported": "پشتیبانی نشده",
+    "disabled": "غیر فعال",
+    "dlc": {
+        "installDlcs": "نصب همه DLCها"
+    },
+    "enabled": "فعال",
+    "game": {
+        "downloadSize": "سایز دانلود",
+        "firstPlayed": "اولین اجرا",
+        "getting-download-size": "در حال دریافت سایز دانلود",
+        "getting-install-size": "در حال دریافت سایز نصب",
+        "installSize": "سایز نصب",
+        "language": "زبان",
+        "lastPlayed": "آخرین اجرا",
+        "neverPlayed": "هرگز",
+        "platform": "انتخاب نسخه پلتفرم برای نصب",
+        "requirements": "نیازهای سیستم",
+        "totalPlayed": "زمان بازی"
+    },
+    "gamecard": {
+        "moving": "در حال انتقال",
+        "repairing": "در حال تعمیر"
+    },
+    "generic": {
+        "error": "خطای نامشخص"
+    },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
+    "info": {
+        "canRunOffline": "نیازمندی به آنلاین بودن",
+        "installedPlatform": "پلتفرم های نصب شده",
+        "path": "مسیر نصب",
+        "size": "اندازه",
+        "syncsaves": "همگام سازی ذخیره ها",
+        "version": "نسخه"
+    },
+    "install": {
+        "disk-space-left": "فضای موجود",
+        "not-enough-disk-space": "عدم فضای کافی دیسک",
+        "path": "انتخاب محل نصب",
+        "path-not-writtable": "خطا: مسیر ممکن است قابل نوشتن نباشد.",
+        "space-after-install": "بعد از نصب",
+        "wineprefix": "Wine Prefix",
+        "wineversion": "نسخه Wine"
+    },
+    "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
+        "playing": {
+            "start": "اجرا",
+            "stop": "در حال اجرا (توقف)"
+        },
+        "saves": {
+            "syncing": "در حال همگام سازی ذخیره ها"
+        }
+    },
+    "launch": {
+        "options": "گزینه های اجرا..."
+    },
+    "not_logged_in": {
+        "epic": "شما با حساب Epic در Heroic وارد نشده اید. از صفحه استور برای ورود استفاده نکنید، به جای آن بر دکمه زیر کلیک کنید:",
+        "gog": "شما با حساب GOG در Heroic وارد نشده اید. از صفحه استور برای ورود استفاده نکنید، به جای آن بر دکمه زیر کلیک کنید:",
+        "login": "Log in",
+        "title": "شما دارد نشده اید"
+    },
+    "report_problem": "گزارش مشکل اجرای این بازی",
+    "sdl": {
+        "title": "انتخاب محتواها برای نصب"
+    },
+    "setting": {
+        "use-default-wine-settings": "استفاده از تنظیمات Wine پیش فرض"
+    },
+    "sideload": {
+        "field": {
+            "title": "عنوان"
+        },
+        "info": {
+            "exe": "انتخاب فایل اجرایی",
+            "image": "App Image",
+            "title": "عنوان بازی/نرم افزار"
+        },
+        "placeholder": {
+            "image": "آدرس ایمیج را اینجا درج کنید",
+            "title": "افزودن عنوان به بازی/نرم افزار شما"
+        }
+    },
+    "specs": {
+        "minimum": "حداقل",
+        "recommended": "پیشنهادی"
+    },
+    "status": {
+        "clickToUpdate": "برای به روزرسانی کلیک کنید",
+        "gameNotAvailable": "Game not available",
+        "hasUpdates": "نسخه جدید موجود است!",
+        "installed": "نصب شده",
+        "installing": "در حال نصب",
+        "moving": "در حال انتقال نصب، لطفا صبر کنید",
+        "notinstalled": "این بازی نصب نشده است",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
+        "processing": "در حال پردازش فایلها، لطفا منتظر بمانید",
+        "queued": "در صف",
+        "reparing": "در حال تعمیر بازی، لطفا صبر کنید",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
+        "totalDownloaded": "حجم کل دانلود شده",
+        "uninstalling": "در حال حذف",
+        "updating": "در حال به روزرسانی بازی"
+    },
+    "submenu": {
+        "addShortcut": "افزودن میانبر",
+        "addToSteam": "افزودن به استیم",
+        "change": "تغییر محل نصب",
+        "disableEosOverlay": "عیر فعال کردن EOS Overlay",
+        "enableEosOverlay": "فعال کردن EOS Overlay",
+        "move": "انتقال بازی",
+        "protondb": "بررسی سازگاری",
+        "removeFromSteam": "حذف کردن از استیم",
+        "removeShortcut": "حذف میانبرها",
+        "settings": "تنظیمات",
+        "store": "صفحه فروشگاه",
+        "verify": "بررسی و تعمیر"
+    }
+}

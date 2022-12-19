@@ -1,0 +1,199 @@
+{
+    "box": {
+        "change": {
+            "message": "Dit zal de installatielocatie van dit spel veranderen, weet u het zeker?",
+            "path": "Selecteer een nieuw installatiepad",
+            "title": "Verander het installatiepad van spellen"
+        },
+        "choose": "Selecteer",
+        "importpath": "Selecteer een spel-map om te importeren",
+        "move": {
+            "message": "Dit kan lang duren, weet u het zeker?",
+            "path": "Selecteer de locatie waarnaar u het wilt verplaatsen",
+            "title": "Spel installatie verplaatsen"
+        },
+        "no": "NEE",
+        "repair": {
+            "message": "Wil je dit spel proberen te repareren? Dit kan lang duren.",
+            "title": "Verifiëren en repareren"
+        },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
+        "stopInstall": {
+            "keepInstalling": "Doorgaan met installeren",
+            "message": "Wilt u de gedownloade bestanden bewaren?",
+            "title": "Installatie stoppen"
+        },
+        "uninstall": {
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
+            "message": "Wilt u dit spel verwijderen?",
+            "title": "Verwijderen"
+        },
+        "update": {
+            "message": "Dit spel heeft een update, update nu toepassen?",
+            "title": "Het spel heeft een update nodig"
+        },
+        "wineprefix": "Select WinePrefix Folder",
+        "yes": "JA"
+    },
+    "button": {
+        "add_to_favourites": "Add To Favourites",
+        "cancel": "Pauzeren/Annuleren",
+        "continue": "Doorgaan met Download",
+        "finish": "Finish",
+        "force_update": "Force Update if Available",
+        "force-innstall": "Force Install",
+        "hide_game": "Hide Game",
+        "import": "Spel importeren",
+        "install": "Installeren",
+        "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
+        "remove_from_favourites": "Remove From Favourites",
+        "remove_from_recent": "Remove From Recent",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
+        "unhide_game": "Unhide Game",
+        "uninstall": "Verwijderen",
+        "update": "Update"
+    },
+    "cloud_save_unsupported": "Unsupported",
+    "disabled": "Uitgeschakeld",
+    "dlc": {
+        "installDlcs": "Installeer alle DLC's"
+    },
+    "enabled": "Ingeschakeld",
+    "game": {
+        "downloadSize": "Downloadgrootte",
+        "firstPlayed": "Eerst gespeeld",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
+        "installSize": "Installatie grootte",
+        "language": "Language",
+        "lastPlayed": "Laatst gespeeld",
+        "neverPlayed": "Nooit",
+        "platform": "Select Platform Version to Install",
+        "requirements": "System Requirements",
+        "totalPlayed": "Tijd gespeeld"
+    },
+    "gamecard": {
+        "moving": "Aan het verplaatsen",
+        "repairing": "Aan het repareren"
+    },
+    "generic": {
+        "error": "Unknown error"
+    },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
+    "info": {
+        "canRunOffline": "Internetverbinding Verplicht",
+        "installedPlatform": "Installed Platform",
+        "path": "Installatie pad",
+        "size": "Grootte",
+        "syncsaves": "Synchroniseer saves",
+        "version": "Versie"
+    },
+    "install": {
+        "disk-space-left": "Space Available",
+        "not-enough-disk-space": "Not enough disk space",
+        "path": "Select Install Path",
+        "path-not-writtable": "Warning: path might not be writable.",
+        "space-after-install": "After Install",
+        "wineprefix": "WinePrefix",
+        "wineversion": "Wine Version"
+    },
+    "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
+        "playing": {
+            "start": "Nu spelen",
+            "stop": "Aan het spelen (Stoppen)"
+        },
+        "saves": {
+            "syncing": "Saves synchroniseren"
+        }
+    },
+    "launch": {
+        "options": "Opstartopties..."
+    },
+    "not_logged_in": {
+        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
+        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "login": "Log in",
+        "title": "You are NOT logged in"
+    },
+    "report_problem": "Report a problem running this game",
+    "sdl": {
+        "title": "Selecteer componenten om te installeren"
+    },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
+    },
+    "specs": {
+        "minimum": "Minimum",
+        "recommended": "Aanbevolen"
+    },
+    "status": {
+        "clickToUpdate": "Klik om te Updaten",
+        "gameNotAvailable": "Game not available",
+        "hasUpdates": "Nieuwe versie beschikbaar!",
+        "installed": "Geïnstalleerd",
+        "installing": "Installeren",
+        "moving": "Spel verplaatsen, geduld alstublieft",
+        "notinstalled": "Dit spel is niet geïnstalleerd",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
+        "processing": "Processing files, please wait",
+        "queued": "Queued",
+        "reparing": "Spel aan het repareren, even geduld",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
+        "totalDownloaded": "Totaal gedownload",
+        "uninstalling": "Uninstalling",
+        "updating": "Spel aan het updaten"
+    },
+    "submenu": {
+        "addShortcut": "Snelkoppeling toevoegen",
+        "addToSteam": "Add to Steam",
+        "change": "Wijzig installatiepad",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
+        "move": "Spel verplaatsen",
+        "protondb": "Compatibiliteit controleren",
+        "removeFromSteam": "Remove from Steam",
+        "removeShortcut": "Remove shortcuts",
+        "settings": "Instellingen",
+        "store": "Winkel",
+        "verify": "Verifiëren en repareren"
+    }
+}

@@ -1,0 +1,199 @@
+{
+    "box": {
+        "change": {
+            "message": "Dies wird den Installationsort dieses Spiels ändern, bist du sicher?",
+            "path": "Wähle einen neuen Installationspfad",
+            "title": "Spiele-Installationspfad ändern"
+        },
+        "choose": "Wähle",
+        "importpath": "Zu importierenden Spieleordner auswählen",
+        "move": {
+            "message": "Dies kann einige Zeit in Anspruch nehmen, möchtest du wirklich fortfahren?",
+            "path": "Wähle, wohin du verschieben möchtest",
+            "title": "Spielinstallation verschieben"
+        },
+        "no": "NEIN",
+        "repair": {
+            "message": "Möchtest du versuchen, dieses Spiel zu reparieren? Dies kann einige Zeit in Anspruch nehmen.",
+            "title": "Auf Fehler überprüfen und Reparieren"
+        },
+        "runexe": {
+            "title": "Wähle auszuführende EXE"
+        },
+        "select": {
+            "button": "Auswählen"
+        },
+        "sideload": {
+            "exe": "Wähle ausführbare Datei"
+        },
+        "stopInstall": {
+            "keepInstalling": "Installation fortsetzen",
+            "message": "Möchtest du die heruntergeladenen Dateien BEHALTEN?",
+            "title": "Installation abbrechen"
+        },
+        "uninstall": {
+            "checkbox": "Entferne Prefix: {{prefix}}{{newLine}}Hinweis: Dies kann nicht rückgängig gemacht werden und löscht auch ungesicherte Speicherdaten.",
+            "message": "Möchtest du dieses Spiel deinstallieren?",
+            "title": "Deinstallieren"
+        },
+        "update": {
+            "message": "Für dieses Spiel ist ein Update verfügbar. Jetzt installieren?",
+            "title": "Spiel benötigt eine neuere Version"
+        },
+        "wineprefix": "Wine-Prefix-Ordner auswählen",
+        "yes": "JA"
+    },
+    "button": {
+        "add_to_favourites": "Zu Favoriten hinzufügen",
+        "cancel": "Pausieren/Abbrechen",
+        "continue": "Download fortsetzen",
+        "finish": "Abschließen",
+        "force_update": "Update erzwingen, falls verfügbar",
+        "force-innstall": "Installation erzwingen",
+        "hide_game": "Spiel ausblenden",
+        "import": "Spiel importieren",
+        "install": "Installieren",
+        "no-path-selected": "Kein Pfad ausgewählt",
+        "queue": {
+            "remove": "Aus Warteschlange entfernen"
+        },
+        "remove_from_favourites": "Aus Favoriten entfernen",
+        "remove_from_recent": "Aus Zuletzt Gespielt entfernen",
+        "run-exe-first": "Zuerst Installationsprogramm ausführen",
+        "running-setup": "Setup ausführen",
+        "sideload": {
+            "edit": "App/Spiel bearbeiten"
+        },
+        "unhide_game": "Spiel einblenden",
+        "uninstall": "Deinstallieren",
+        "update": "Update"
+    },
+    "cloud_save_unsupported": "Nicht unterstützt",
+    "disabled": "Deaktiviert",
+    "dlc": {
+        "installDlcs": "Alle DLCs installieren"
+    },
+    "enabled": "Aktiviert",
+    "game": {
+        "downloadSize": "Downloadgröße",
+        "firstPlayed": "Erstmals gespielt",
+        "getting-download-size": "Ermittle Download-Größe",
+        "getting-install-size": "Ermittle installierte Größe",
+        "installSize": "Installierte Größe",
+        "language": "Sprache",
+        "lastPlayed": "Zuletzt gespielt",
+        "neverPlayed": "Nie",
+        "platform": "Zu installierende Version auswählen",
+        "requirements": "Systemanforderungen",
+        "totalPlayed": "Spielzeit"
+    },
+    "gamecard": {
+        "moving": "Verschiebe",
+        "repairing": "Repariere"
+    },
+    "generic": {
+        "error": "Unbekannter Fehler"
+    },
+    "hours": "Stunden",
+    "how-long-to-beat": {
+        "completionist": "Vollendungswillig",
+        "main-plus-extras": "Haupt + Extras",
+        "main-story": "Hauptgeschichte"
+    },
+    "howLongToBeat": "Wie lange dauert es",
+    "info": {
+        "canRunOffline": "Online erforderlich",
+        "installedPlatform": "Installierte Plattform",
+        "path": "Installationspfad",
+        "size": "Größe",
+        "syncsaves": "Spielstände synchronisieren",
+        "version": "Version"
+    },
+    "install": {
+        "disk-space-left": "Verfügbarer Speicherplatz auf dem Gerät",
+        "not-enough-disk-space": "Nicht genügend Speicherplatz",
+        "path": "Installationspfad auswählen",
+        "path-not-writtable": "Warnung: Der Pfad ist möglicherweise nicht beschreibbar.",
+        "space-after-install": "Nach der Installation",
+        "wineprefix": "Wine-Prefix",
+        "wineversion": "Wine-Version"
+    },
+    "label": {
+        "game": {
+            "third-party-game": "Drittanbieterspiel NICHT unterstützt"
+        },
+        "playing": {
+            "start": "Jetzt spielen",
+            "stop": "Anhalten"
+        },
+        "saves": {
+            "syncing": "Spielstände werden synchronisiert"
+        }
+    },
+    "launch": {
+        "options": "Startoptionen..."
+    },
+    "not_logged_in": {
+        "epic": "Du bist mit keinem Epic-Account in Heroic angemeldet. Verwende nicht die Store-Seite, um dich anzumelden, sondern klicke stattdessen auf die folgende Schaltfläche:",
+        "gog": "Du bist mit keinem GOG-Account in Heroic angemeldet. Verwende nicht die Store-Seite, um dich anzumelden, sondern klicke stattdessen auf die folgende Schaltfläche:",
+        "login": "Anmelden",
+        "title": "Du bist NICHT angemeldet"
+    },
+    "report_problem": "Ein Problem bei der Ausführung dieses Spiels melden",
+    "sdl": {
+        "title": "Zu installierende Komponenten auswählen"
+    },
+    "setting": {
+        "use-default-wine-settings": "Verwende Standardeinstellungen für Wine"
+    },
+    "sideload": {
+        "field": {
+            "title": "Titel"
+        },
+        "info": {
+            "exe": "Ausführbare Datei auswählen",
+            "image": "App-Bild",
+            "title": "Spiel/App-Titel"
+        },
+        "placeholder": {
+            "image": "Füge hier eine Bild-URL ein",
+            "title": "Gib deinem Spiel/deiner App einen Titel"
+        }
+    },
+    "specs": {
+        "minimum": "Minimal",
+        "recommended": "Empfohlen"
+    },
+    "status": {
+        "clickToUpdate": "Klicken zum Aktualisieren",
+        "gameNotAvailable": "Spiel nicht verfügbar",
+        "hasUpdates": "Neue Version verfügbar!",
+        "installed": "Installiert",
+        "installing": "Wird installiert",
+        "moving": "Installation wird verschoben, bitte warten",
+        "notinstalled": "Dieses Spiel ist nicht installiert",
+        "notSupported": "Nicht unterstützt",
+        "notSupportedGame": "Nicht unterstützt",
+        "processing": "Dateien werden verarbeitet, bitte warten",
+        "queued": "In Warteschlange",
+        "reparing": "Spiel wird repariert, bitte warten",
+        "this-game-uses-third-party": "Dieses Spiel verwendet einen Drittanbieter-Launcher und wird noch nicht unterstützt",
+        "totalDownloaded": "Insgesamt heruntergeladen",
+        "uninstalling": "Wird deinstalliert",
+        "updating": "Spiel wird aktualisiert"
+    },
+    "submenu": {
+        "addShortcut": "Verknüpfung hinzufügen",
+        "addToSteam": "Zu Steam hinzufügen",
+        "change": "Installationspfad ändern",
+        "disableEosOverlay": "EOS-Overlay deaktivieren",
+        "enableEosOverlay": "EOS-Overlay aktivieren",
+        "move": "Spiel verschieben",
+        "protondb": "Kompatibilität überprüfen",
+        "removeFromSteam": "Aus Steam entfernen",
+        "removeShortcut": "Verknüpfungen entfernen",
+        "settings": "Einstellungen",
+        "store": "Store-Seite",
+        "verify": "Prüfen und reparieren"
+    }
+}

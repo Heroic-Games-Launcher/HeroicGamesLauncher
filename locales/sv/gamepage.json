@@ -1,0 +1,199 @@
+{
+    "box": {
+        "change": {
+            "message": "Detta kommer ändra installationssökvägen, är du säker?",
+            "path": "Ange ny installationssökväg",
+            "title": "Ändra spelets installationssökväg"
+        },
+        "choose": "Välj",
+        "importpath": "Ange spelmapp att importera",
+        "move": {
+            "message": "Detta kan ta lång tid, är du säker?",
+            "path": "Ange var du vill flytta spelet",
+            "title": "Flytta spel"
+        },
+        "no": "Nej",
+        "repair": {
+            "message": "Vill du försöka reparera spelet? Detta kan ta lång tid.",
+            "title": "Verifiera och reparera"
+        },
+        "runexe": {
+            "title": "Välj körbart program"
+        },
+        "select": {
+            "button": "Ange val"
+        },
+        "sideload": {
+            "exe": "Ange spelets körbara fil"
+        },
+        "stopInstall": {
+            "keepInstalling": "Fortsätt installationen",
+            "message": "Vill du behålla nedladdade filer?",
+            "title": "Avbryt installationen"
+        },
+        "uninstall": {
+            "checkbox": "Radera prefix: {{prefix}}{{newLine}}OBS: Denna åtgärd kan ej ångras och kommer även radera sparfiler.",
+            "message": "Vill du avinstallera spelet?",
+            "title": "Avinstallera"
+        },
+        "update": {
+            "message": "Det finns en speluppdatering, uppdatera nu?",
+            "title": "Spelet behöver uppdateras"
+        },
+        "wineprefix": "Ange Wine-prefix mapp",
+        "yes": "Ja"
+    },
+    "button": {
+        "add_to_favourites": "Lägg till i Favoriter",
+        "cancel": "Paus/Avbryt",
+        "continue": "Fortsätt nedladdning",
+        "finish": "Avsluta",
+        "force_update": "Om tillgängligt, tvinga uppdatering",
+        "force-innstall": "Tvinga installation",
+        "hide_game": "Dölj spel",
+        "import": "Importera spel",
+        "install": "Installera",
+        "no-path-selected": "Ingen sökväg har angetts",
+        "queue": {
+            "remove": "Ta bort från kö"
+        },
+        "remove_from_favourites": "Ta bort från Favoriter",
+        "remove_from_recent": "Ta bort från Senast spelat",
+        "run-exe-first": "Kör installation först",
+        "running-setup": "Setup körs",
+        "sideload": {
+            "edit": "Editera Applikation/Spel"
+        },
+        "unhide_game": "Visa dolt spel igen",
+        "uninstall": "Avinstallera",
+        "update": "Uppdatera"
+    },
+    "cloud_save_unsupported": "Stöds ej",
+    "disabled": "Inaktiverad",
+    "dlc": {
+        "installDlcs": "Installera alla DLC"
+    },
+    "enabled": "Aktiverad",
+    "game": {
+        "downloadSize": "Nedladdningsstorlek",
+        "firstPlayed": "Först spelat",
+        "getting-download-size": "Beräknar storlek på nerladdning",
+        "getting-install-size": "Beräknar storlek på installation",
+        "installSize": "Installationsstorlek",
+        "language": "Språk",
+        "lastPlayed": "Senast spelat",
+        "neverPlayed": "Aldrig",
+        "platform": "Välj plattform för installation",
+        "requirements": "Systemkrav",
+        "totalPlayed": "Speltid"
+    },
+    "gamecard": {
+        "moving": "Flyttar",
+        "repairing": "Reparerar"
+    },
+    "generic": {
+        "error": "Okänt fel"
+    },
+    "hours": "Timmar",
+    "how-long-to-beat": {
+        "completionist": "Hundraprocentaren",
+        "main-plus-extras": "Primär story + extra",
+        "main-story": "Primär story"
+    },
+    "howLongToBeat": "Tidsåtgång för att klara spelet",
+    "info": {
+        "canRunOffline": "Kräver uppkoppling",
+        "installedPlatform": "Installerad plattform",
+        "path": "Installationssökväg",
+        "size": "Storlek",
+        "syncsaves": "Synkronisera sparfiler",
+        "version": "Version"
+    },
+    "install": {
+        "disk-space-left": "Utrymme tillgängligt",
+        "not-enough-disk-space": "Otillräckligt diskutrymme",
+        "path": "Ange installationssökväg",
+        "path-not-writtable": "Varning: sökvägen kan vara skrivskyddad",
+        "space-after-install": "Efter installation",
+        "wineprefix": "Wine-prefix",
+        "wineversion": "Wine-version"
+    },
+    "label": {
+        "game": {
+            "third-party-game": "Tredjeparts-spel stöds ej"
+        },
+        "playing": {
+            "start": "Starta spelet",
+            "stop": "Avsluta spel"
+        },
+        "saves": {
+            "syncing": "Synkroniserar sparfiler"
+        }
+    },
+    "launch": {
+        "options": "Startalternativ..."
+    },
+    "not_logged_in": {
+        "epic": "Du är ej inloggad med Epic-konto i Heroic. Använd inte Butiksidan för att logga in, klicka denna knapp istället:",
+        "gog": "Du är ej inloggad med GOG-konto i Heroic. Använd inte Butiksidan för att logga in, klicka denna knapp istället:",
+        "login": "Logga in",
+        "title": "Du är ej inloggad!"
+    },
+    "report_problem": "Rapportera problem med spelet",
+    "sdl": {
+        "title": "Ange komponenter att installera"
+    },
+    "setting": {
+        "use-default-wine-settings": "Använd standardinställningar för Wine"
+    },
+    "sideload": {
+        "field": {
+            "title": "Titel"
+        },
+        "info": {
+            "exe": "Välj EXE-fil",
+            "image": "Applikationens bild",
+            "title": "Spel/Applikation titel"
+        },
+        "placeholder": {
+            "image": "Klistra in bildens URL här",
+            "title": "Lägg till Spel/Applikation titel"
+        }
+    },
+    "specs": {
+        "minimum": "Minimum",
+        "recommended": "Rekommenderad"
+    },
+    "status": {
+        "clickToUpdate": "Klicka för att uppdatera",
+        "gameNotAvailable": "Spel ej tillgängligt",
+        "hasUpdates": "Ny version tillgänglig!",
+        "installed": "Installerad",
+        "installing": "Installerar",
+        "moving": "Flyttar installationen, vänligen vänta",
+        "notinstalled": "Detta spelet är inte installerat",
+        "notSupported": "Stöds ej",
+        "notSupportedGame": "Stöds ej",
+        "processing": "Hanterar filer, vänligen vänta",
+        "queued": "Väntar i kö",
+        "reparing": "Reparerar spelet, vänligen vänta",
+        "this-game-uses-third-party": "Spelet använder tredjeparts-launcher och stöds ej i nuläget",
+        "totalDownloaded": "Nedladdning",
+        "uninstalling": "Avinstallerar",
+        "updating": "Updaterar spelet"
+    },
+    "submenu": {
+        "addShortcut": "Skapa genväg",
+        "addToSteam": "Lägg till i Steam",
+        "change": "Ändra installationssökväg",
+        "disableEosOverlay": "Deaktivera EOS Overlay",
+        "enableEosOverlay": "Aktivera EOS Overlay",
+        "move": "Flytta spelet",
+        "protondb": "Kontrollera kompatibilitet",
+        "removeFromSteam": "Ta bort från Steam",
+        "removeShortcut": "Ta bort genvägar",
+        "settings": "Inställningar",
+        "store": "Butikssida",
+        "verify": "Verifiera och reparera"
+    }
+}
