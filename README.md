@@ -209,7 +209,7 @@ This part will walk you through setting up a development environment so you can 
 2. Clone the repo and enter the cloned folder, for example with these commands:
 
    ```bash
-   git clone https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher.git
+   git clone https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher.git --recurse-submodules
    cd HeroicGamesLauncher
    ```
 
