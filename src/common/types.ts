@@ -83,6 +83,7 @@ export type ExecResult = {
 export interface ExtraInfo {
   about: About
   reqs: Reqs[]
+  storeUrl: string
 }
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
@@ -95,8 +96,9 @@ export interface GameInfo {
   art_logo?: string
   art_square: string
   cloud_save_enabled: boolean
+  description?: string
+  longDescription?: string
   developer: string
-  extra: ExtraInfo
   folder_name: string
   install: Partial<InstalledInfo>
   is_installed: boolean

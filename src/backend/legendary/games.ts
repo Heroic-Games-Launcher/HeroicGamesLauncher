@@ -155,7 +155,8 @@ class LegendaryGame extends Game {
           description: '',
           longDescription: ''
         },
-        reqs: []
+        reqs: [],
+        storeUrl: ''
       }
     }
     let lang = configStore.get('language', '') as string
@@ -189,14 +190,14 @@ class LegendaryGame extends Game {
         (e: { type: string }) => e.type === 'productHome'
       )
 
-      gameInfoStore.set(namespace, {
+      const info: ExtraInfo = {
         about: about.data.about,
-        reqs: about.data.requirements.systems[0].details
-      })
-      return {
-        about: about.data.about,
-        reqs: about.data.requirements.systems[0].details
+        reqs: about.data.requirements.systems[0].details,
+        storeUrl: `https://www.epicgames.com/store/product/${data._slug}`
       }
+
+      gameInfoStore.set(namespace, info)
+      return info
     } catch (error) {
       logError('Error Getting Info from Epic API', {
         prefix: LogPrefix.Legendary
@@ -208,7 +209,8 @@ class LegendaryGame extends Game {
           description: '',
           longDescription: ''
         },
-        reqs: []
+        reqs: [],
+        storeUrl: ''
       }
     }
   }

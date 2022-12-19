@@ -305,7 +305,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     appName={appName}
                     isInstalled={is_installed}
                     title={title}
-                    storeUrl={gameInfo.store_url}
+                    storeUrl={extraInfo?.storeUrl || gameInfo.store_url}
                     runner={gameInfo.runner}
                     handleUpdate={handleUpdate}
                     disableUpdate={isInstalling || isUpdating}

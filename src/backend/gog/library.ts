@@ -649,10 +649,7 @@ export class GOGLibrary {
       art_cover: horizontalCover,
       art_square: verticalCover,
       cloud_save_enabled: cloudSavesEnabledGames.includes(String(info.id)),
-      extra: {
-        about: { description: description, longDescription: '' },
-        reqs: []
-      },
+      description,
       folder_name: '',
       install: {
         is_dlc: false
