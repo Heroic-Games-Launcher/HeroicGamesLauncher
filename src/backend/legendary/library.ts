@@ -472,6 +472,8 @@ export class LegendaryLibrary {
     }
 
     const {
+      description,
+      longDescription = '',
       keyImages = [],
       title,
       developer,
@@ -550,6 +552,14 @@ export class LegendaryLibrary {
       art_square: art_square || art_square_front || art_cover || fallBackImage,
       cloud_save_enabled: Boolean(saveFolder),
       developer,
+      extra: {
+        about: {
+          description,
+          longDescription
+        },
+        reqs: [],
+        storeUrl: formatEpicStoreUrl(title)
+      },
       folder_name: installFolder,
       install: {
         executable,

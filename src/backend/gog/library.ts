@@ -649,7 +649,11 @@ export class GOGLibrary {
       art_cover: horizontalCover,
       art_square: verticalCover,
       cloud_save_enabled: cloudSavesEnabledGames.includes(String(info.id)),
-      description,
+      extra: {
+        about: { description: description, longDescription: '' },
+        reqs: [],
+        storeUrl: `https://gog.com${info.url}`
+      },
       folder_name: '',
       install: {
         is_dlc: false
