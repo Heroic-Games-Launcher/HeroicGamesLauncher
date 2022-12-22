@@ -7,6 +7,7 @@ import Store from 'electron-store'
 import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import { WineVersionInfo } from 'common/types'
+import { BrowserWindow } from 'electron'
 
 import {
   getAvailableVersions,
@@ -88,6 +89,7 @@ async function updateWineVersionInfos(
   }
 
   logInfo('wine versions updated', { prefix: LogPrefix.WineDownloader })
+  BrowserWindow.getAllWindows()[0].webContents.send('wineVersionsUpdated')
   return releases
 }
 
@@ -170,6 +172,8 @@ async function installWineVersion(
   logInfo(`Finished installation of wine version ${release.version}`, {
     prefix: LogPrefix.WineDownloader
   })
+
+  BrowserWindow.getAllWindows()[0].webContents.send('wineVersionsUpdated')
   return 'success'
 }
 
@@ -222,6 +226,8 @@ async function removeWineVersion(release: WineVersionInfo): Promise<boolean> {
   logInfo(`Removed wine version ${release.version} succesfully.`, {
     prefix: LogPrefix.WineDownloader
   })
+
+  BrowserWindow.getAllWindows()[0].webContents.send('wineVersionsUpdated')
   return true
 }
 

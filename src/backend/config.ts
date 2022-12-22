@@ -159,30 +159,35 @@ abstract class GlobalConfig {
     if (!isMac) {
       return wineSet
     }
-    const apps = readdirSync(`${userHome}/Applications`)
-    for (const app of apps) {
-      if (app.includes('Wine') && app.includes('.app')) {
-        const wineBin = `${userHome}/Applications/${app}/Contents/Resources/wine/bin/wine64`
-        if (existsSync(wineBin)) {
-          try {
-            const { stdout: out } = await execAsync(`'${wineBin}' --version`)
-            const version = out.split('\n')[0]
-            wineSet.add({
-              ...this.getWineExecs(wineBin),
-              lib: `${userHome}/Applications/Wineskin/${app}/Contents/SharedSupport/wine/lib`,
-              lib32: `${userHome}/Applications/Wineskin/${app}/Contents/SharedSupport/wine/lib`,
-              name: `Wine - ${version}`,
-              type: 'wine',
-              bin: wineBin
-            })
-          } catch (error) {
-            logError(`Error getting wine version for ${wineBin}`, {
-              prefix: LogPrefix.GlobalConfig
-            })
+    await execAsync('mdfind kMDItemCFBundleIdentifier = "*.wine"').then(
+      async ({ stdout }) => {
+        stdout.split('\n').forEach((winePath) => {
+          const infoFilePath = join(winePath, 'Contents/Info.plist')
+          if (winePath && existsSync(infoFilePath)) {
+            const info = plistParse(
+              readFileSync(infoFilePath, 'utf-8')
+            ) as PlistObject
+            const version = info['CFBundleShortVersionString'] || ''
+            const name = info['CFBundleName'] || ''
+            const wineBin = join(
+              winePath,
+              '/Contents/Resources/wine/bin/wine64'
+            )
+            if (existsSync(wineBin)) {
+              wineSet.add({
+                ...this.getWineExecs(wineBin),
+                lib: `${winePath}/Contents/Resources/wine/lib`,
+                lib32: `${winePath}/Contents/Resources/wine/lib`,
+                bin: wineBin,
+                name: `${name} - ${version}`,
+                type: 'wine',
+                ...this.getWineExecs(wineBin)
+              })
+            }
           }
-        }
+        })
       }
-    }
+    )
     return wineSet
   }
 
@@ -191,25 +196,30 @@ abstract class GlobalConfig {
     if (!isMac) {
       return wineSet
     }
-    const apps = readdirSync(`${userHome}/Applications/Wineskin`)
-    for (const app of apps) {
-      if (app.includes('.app')) {
-        const wineBin = `${userHome}/Applications/Wineskin/${app}/Contents/SharedSupport/wine/bin/wine64`
-        try {
-          const { stdout: out } = await execAsync(`'${wineBin}' --version`)
-          const version = out.split('\n')[0]
-          wineSet.add({
-            ...this.getWineExecs(wineBin),
-            lib: `${userHome}/Applications/Wineskin/${app}/Contents/SharedSupport/wine/lib`,
-            lib32: `${userHome}/Applications/Wineskin/${app}/Contents/SharedSupport/wine/lib`,
-            name: `Wineskin - ${version}`,
-            type: 'wine',
-            bin: wineBin
-          })
-        } catch (error) {
-          logError(`Error getting wine version for ${wineBin}`, {
-            prefix: LogPrefix.GlobalConfig
-          })
+    const wineSkinPath = `${userHome}/Applications/Wineskin`
+    if (existsSync(wineSkinPath)) {
+      const apps = readdirSync(wineSkinPath)
+      for (const app of apps) {
+        if (app.includes('.app')) {
+          const wineBin = `${userHome}/Applications/Wineskin/${app}/Contents/SharedSupport/wine/bin/wine64`
+          if (existsSync(wineBin)) {
+            try {
+              const { stdout: out } = await execAsync(`'${wineBin}' --version`)
+              const version = out.split('\n')[0]
+              wineSet.add({
+                ...this.getWineExecs(wineBin),
+                lib: `${userHome}/Applications/Wineskin/${app}/Contents/SharedSupport/wine/lib`,
+                lib32: `${userHome}/Applications/Wineskin/${app}/Contents/SharedSupport/wine/lib`,
+                name: `Wineskin - ${version}`,
+                type: 'wine',
+                bin: wineBin
+              })
+            } catch (error) {
+              logError(`Error getting wine version for ${wineBin}`, {
+                prefix: LogPrefix.GlobalConfig
+              })
+            }
+          }
         }
       }
     }

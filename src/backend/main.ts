@@ -11,15 +11,13 @@ import * as path from 'path'
 import {
   BrowserWindow,
   Menu,
-  Tray,
   app,
   dialog,
   ipcMain,
   powerSaveBlocker,
   protocol,
   screen,
-  clipboard,
-  nativeImage
+  clipboard
 } from 'electron'
 import 'backend/updater'
 import { autoUpdater } from 'electron-updater'
@@ -81,8 +79,6 @@ import {
   heroicGithubURL,
   userHome,
   icon,
-  iconDark,
-  iconLight,
   installed,
   kofiPage,
   epicLoginUrl,
@@ -123,7 +119,7 @@ import {
   runOnceWhenOnline
 } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
-import { addRecentGame, getRecentGames } from './recent_games'
+import { addRecentGame } from './recent_games/recent_games'
 import {
   addNewApp,
   appLogFileLocation,
@@ -138,6 +134,7 @@ import {
 import { callAbortController } from './utils/aborthandler/aborthandler'
 import { getDefaultSavePath } from './save_sync'
 import si from 'systeminformation'
+import { initTrayIcon } from './tray_icon/tray_icon'
 
 const { showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -278,55 +275,6 @@ async function createWindow(): Promise<BrowserWindow> {
 const gotTheLock = app.requestSingleInstanceLock()
 let openUrlArgument = ''
 
-const contextMenu = async () => {
-  const recentsMenu = (await getRecentGames({ limited: true })).map((game) => {
-    return {
-      click: function () {
-        handleProtocol(mainWindow, [`heroic://launch/${game.appName}`])
-      },
-      label: game.title
-    }
-  })
-
-  return Menu.buildFromTemplate([
-    ...recentsMenu,
-    { type: 'separator' },
-    {
-      click: function () {
-        mainWindow.show()
-      },
-      label: i18next.t('tray.show')
-    },
-    {
-      click: function () {
-        showAboutWindow()
-      },
-      label: i18next.t('tray.about', 'About')
-    },
-    {
-      accelerator: process.platform === 'darwin' ? 'Cmd+R' : 'Ctrl+R',
-      click: function () {
-        mainWindow.reload()
-      },
-      label: i18next.t('tray.reload', 'Reload')
-    },
-    {
-      label: 'Debug',
-      accelerator: process.platform === 'darwin' ? 'Alt+Cmd+I' : 'Ctrl+Shift+I',
-      click: () => {
-        mainWindow.webContents.openDevTools()
-      }
-    },
-    {
-      click: function () {
-        handleExit(mainWindow)
-      },
-      label: i18next.t('tray.quit', 'Quit'),
-      accelerator: process.platform === 'darwin' ? 'Cmd+Q' : 'Ctrl+Q'
-    }
-  ])
-}
-
 const processZoomForScreen = (zoomFactor: number) => {
   const screenSize = screen.getPrimaryDisplay().workAreaSize.width
   if (screenSize < 1200) {
@@ -374,7 +322,7 @@ if (!gotTheLock) {
     // TODO: Remove this after a couple of stable releases
     // Affects only current users, not new installs
     const settings = await GlobalConfig.get().getSettings()
-    const { language, darkTrayIcon } = settings
+    const { language } = settings
     const currentConfigStore = configStore.get('settings', {}) as AppSettings
     if (!currentConfigStore.defaultInstallPath) {
       configStore.set('settings', settings)
@@ -469,7 +417,7 @@ if (!gotTheLock) {
     const { startInTray } = await GlobalConfig.get().getSettings()
     const headless = isCLINoGui || startInTray
     if (!headless) {
-      mainWindow.show()
+      ipcMain.once('loadingScreenReady', () => mainWindow.show())
     }
 
     // set initial zoom level after a moment, if set in sync the value stays as 1
@@ -480,61 +428,27 @@ if (!gotTheLock) {
       mainWindow.webContents.setZoomFactor(processZoomForScreen(zoomFactor))
     }, 200)
 
-    const iconSizesByPlatform = {
-      darwin: {
-        width: 20,
-        height: 20
-      },
-      linux: {
-        width: 32,
-        height: 32
-      },
-      win32: {
-        width: 32,
-        height: 32
-      }
-    }
-
-    const trayIcon = nativeImage
-      .createFromPath(darkTrayIcon ? iconDark : iconLight)
-      .resize(iconSizesByPlatform[process.platform])
-
-    const appIcon = new Tray(trayIcon)
-
-    appIcon.on('double-click', () => {
-      mainWindow.show()
-    })
-
-    appIcon.setContextMenu(await contextMenu())
-    appIcon.setToolTip('Heroic')
     ipcMain.on('changeLanguage', async (event, language) => {
       logInfo(['Changing Language to:', language], {
         prefix: LogPrefix.Backend
       })
       await i18next.changeLanguage(language)
       gameInfoStore.clear()
-      appIcon.setContextMenu(await contextMenu())
-    })
-
-    ipcMain.addListener('changeTrayColor', () => {
-      logInfo('Changing Tray icon Color...', { prefix: LogPrefix.Backend })
-      setTimeout(async () => {
-        const { darkTrayIcon } = await GlobalConfig.get().getSettings()
-        const trayIcon = nativeImage
-          .createFromPath(darkTrayIcon ? iconDark : iconLight)
-          .resize(iconSizesByPlatform[process.platform])
-        appIcon.setImage(trayIcon)
-        appIcon.setContextMenu(await contextMenu())
-      }, 500)
     })
 
     downloadAntiCheatData()
+
+    initTrayIcon(mainWindow)
 
     return
   })
 }
 
 ipcMain.on('notify', (event, args) => notify(args))
+
+ipcMain.once('loadingScreenReady', () => {
+  logInfo('Loading Screen Ready', { prefix: LogPrefix.Backend })
+})
 
 ipcMain.once('frontendReady', () => {
   logInfo('Frontend Ready', { prefix: LogPrefix.Backend })
@@ -826,8 +740,25 @@ ipcMain.handle('getGameInfo', async (event, appName, runner) => {
       return null
     }
 
-    info.extra = await game.getExtraInfo()
     return info
+  } catch (error) {
+    logError(error, { prefix: LogPrefix.Backend })
+    return null
+  }
+})
+
+ipcMain.handle('getExtraInfo', async (event, appName, runner) => {
+  if (runner === 'sideload') {
+    return null
+  }
+  // Fastpath since we sometimes have to request info for a GOG game as Legendary because we don't know it's a GOG game yet
+  if (runner === 'legendary' && !LegendaryLibrary.get().hasGame(appName)) {
+    return null
+  }
+  try {
+    const game = getGame(appName, runner)
+    const extra = await game.getExtraInfo()
+    return extra
   } catch (error) {
     logError(error, { prefix: LogPrefix.Backend })
     return null
@@ -1015,8 +946,6 @@ let powerDisplayId: number | null
 ipcMain.handle(
   'launch',
   async (event, { appName, launchArguments, runner }): StatusPromise => {
-    launchArguments = isCLINoGui ? '--skip-version-check' : launchArguments
-
     const window = BrowserWindow.getAllWindows()[0]
     const isSideloaded = runner === 'sideload'
     const extGame = getGame(appName, runner)
@@ -1135,7 +1064,7 @@ ipcMain.on('showItemInFolder', async (e, item) => showItemInFolder(item))
 
 ipcMain.handle(
   'uninstall',
-  async (event, appName, runner, shouldRemovePrefix) => {
+  async (event, appName, runner, shouldRemovePrefix, shouldRemoveSetting) => {
     const game = getGame(appName, runner)
 
     const { title } = game.getGameInfo()
@@ -1158,6 +1087,32 @@ ipcMain.handle(
       // remove prefix if exists
       if (existsSync(winePrefix)) {
         rmSync(winePrefix, { recursive: true })
+      }
+    }
+    if (shouldRemoveSetting) {
+      logInfo(`Removing ${appName.concat('.json')}`, {
+        prefix: LogPrefix.Backend
+      })
+      // remove setting json if exists
+      const gameSettingsFile = join(
+        heroicGamesConfigPath,
+        appName.concat('.json')
+      )
+      if (existsSync(gameSettingsFile)) {
+        rmSync(join(heroicGamesConfigPath, appName.concat('.json')), {
+          recursive: true
+        })
+      }
+
+      logInfo(`Removing ${appName.concat('.log')}`, {
+        prefix: LogPrefix.Backend
+      })
+      // remove log if exists
+      const gameLogFile = join(heroicGamesConfigPath, appName.concat('.log'))
+      if (existsSync(gameLogFile)) {
+        rmSync(join(heroicGamesConfigPath, appName.concat('.log')), {
+          recursive: true
+        })
       }
     }
 
@@ -1616,6 +1571,7 @@ import './wine/runtimes/ipc_handler'
 import './downloadmanager/ipc_handler'
 import './utils/ipc_handler'
 import './howlongtobeat/ipc_handler'
+import './recent_games/ipc_handler'
 
 // import Store from 'electron-store'
 // interface StoreMap {

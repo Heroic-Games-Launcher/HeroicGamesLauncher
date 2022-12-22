@@ -8,12 +8,14 @@ on:
 
 jobs:
   draft-releases:
-    runs-on: macos-11
+    runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
         with:
-          node-version: '16'
+          submodules: true
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
       - run: npm install --legacy-peer-deps
       - run: npm run release:mac
         env:

@@ -1,7 +1,6 @@
 import './index.css'
 
 import React, {
-  lazy,
   useContext,
   useEffect,
   useMemo,
@@ -33,10 +32,7 @@ import {
   sideloadedCategories
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
-
-const InstallModal = lazy(
-  async () => import('frontend/screens/Library/components/InstallModal')
-)
+import { InstallModal } from './components'
 
 const storage = window.localStorage
 
@@ -351,7 +347,7 @@ export default React.memo(function Library(): JSX.Element {
       </div>
 
       <button id="backToTopBtn" onClick={backToTop} ref={backToTopElement}>
-        <ArrowDropUp className="material-icons" />
+        <ArrowDropUp id="backToTopArrow" className="material-icons" />
       </button>
 
       {showModal.show && (

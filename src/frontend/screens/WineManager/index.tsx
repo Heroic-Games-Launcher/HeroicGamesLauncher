@@ -23,11 +23,6 @@ const configStore = new StoreIpc('wineManagerConfigStore', {
   cwd: 'store'
 })
 
-const wineVersions = wineDownloaderInfoStore.get(
-  'wine-releases',
-  []
-) as WineVersionInfo[]
-
 interface WineManagerUISettings {
   showWineGe: boolean
   showWineLutris: boolean
@@ -47,6 +42,23 @@ export default React.memo(function WineManager(): JSX.Element | null {
       showProtonGe: true
     })
 
+  const getWineVersions = (repo: Type) => {
+    const versions = wineDownloaderInfoStore.get(
+      'wine-releases',
+      []
+    ) as WineVersionInfo[]
+    return versions.filter((version) => version.type === repo)
+  }
+
+  const [wineVersions, setWineVersions] = useState<WineVersionInfo[]>(
+    getWineVersions(repository)
+  )
+
+  const handleChangeTab = (e: React.SyntheticEvent, repo: Type) => {
+    setRepository(repo)
+    setWineVersions(getWineVersions(repo))
+  }
+
   useEffect(() => {
     const hasSettings = configStore.has('wine-manager-settings')
     if (hasSettings) {
@@ -57,13 +69,16 @@ export default React.memo(function WineManager(): JSX.Element | null {
         setWineManagerSettings(oldWineManagerSettings)
       }
     }
-
-    refreshWineVersionInfo(false)
   }, [])
 
-  const handleChangeTab = (e: React.SyntheticEvent, repo: Type) => {
-    setRepository(repo)
-  }
+  useEffect(() => {
+    const removeListener = window.api.handleWineVersionsUpdated(() => {
+      setWineVersions(getWineVersions(repository))
+    })
+    return () => {
+      removeListener()
+    }
+  }, [repository])
 
   return (
     <>
@@ -79,7 +94,7 @@ export default React.memo(function WineManager(): JSX.Element | null {
             centered={true}
           >
             {wineManagerSettings.showWineGe && (
-              <Tab className="tab" value={winege} label={winege} />
+              <Tab value={winege} label={winege} />
             )}
             {wineManagerSettings.showProtonGe && (
               <Tab value={protonge} label={protonge} />
@@ -112,11 +127,8 @@ export default React.memo(function WineManager(): JSX.Element | null {
             {refreshing && <UpdateComponent />}
             {!refreshing &&
               !!wineVersions.length &&
-              wineVersions.map((release, key) => {
-                if (release.type === repository) {
-                  return <WineItem key={key} {...release} />
-                }
-                return
+              wineVersions.map((release) => {
+                return <WineItem key={release.version} {...release} />
               })}
           </div>
         ) : (

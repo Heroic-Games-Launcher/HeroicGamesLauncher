@@ -51,3 +51,12 @@ export const handleProgressOfWineManager = (
     ipcRenderer.removeListener('progressOfWineManager' + version, callback)
   }
 }
+
+export const handleWineVersionsUpdated = (
+  callback: () => void
+): (() => void) => {
+  ipcRenderer.on('wineVersionsUpdated', callback)
+  return () => {
+    ipcRenderer.removeListener('wineVersionsUpdated', callback)
+  }
+}

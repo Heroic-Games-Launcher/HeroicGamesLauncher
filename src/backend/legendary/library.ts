@@ -557,7 +557,8 @@ export class LegendaryLibrary {
           description,
           longDescription
         },
-        reqs: []
+        reqs: [],
+        storeUrl: formatEpicStoreUrl(title)
       },
       folder_name: installFolder,
       install: {
