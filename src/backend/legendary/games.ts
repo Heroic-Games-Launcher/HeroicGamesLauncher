@@ -50,6 +50,7 @@ import { t } from 'i18next'
 import { isOnline } from '../online_monitor'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
 import { gameAnticheatInfo } from '../anticheat/utils'
+import { Catalog, Product } from 'common/types/epic-graphql'
 
 class LegendaryGame extends Game {
   public appName: string
@@ -110,23 +111,142 @@ class LegendaryGame extends Game {
     return LegendaryLibrary.get().getInstallInfo(this.appName, installPlatform)
   }
 
-  private async getProductSlug(namespace: string) {
-    const graphql = JSON.stringify({
-      query: `{Catalog{catalogOffers( namespace:"${namespace}"){elements {productSlug}}}}`,
-      variables: {}
-    })
-    const result = await axios('https://www.epicgames.com/graphql', {
-      data: graphql,
-      headers: { 'Content-Type': 'application/json' },
-      method: 'POST'
-    })
-    const res = result.data.data.Catalog.catalogOffers
-    const slug = res.elements.find(
-      (e: { productSlug: string }) => e.productSlug
-    )
-    if (slug) {
-      return slug.productSlug.replace(/(\/.*)/, '')
-    } else {
+  private async getProductSlug(namespace: string, title: string) {
+    // If you want to change this graphql query, make sure it works for these games:
+    // Rocket League
+    // Alba - A Wildlife Adventure
+    const graphql = {
+      query: `{
+          Catalog {
+            catalogNs(namespace: "${namespace}") {
+              mappings (pageType: "productHome") {
+                pageSlug
+                pageType
+              }
+            }
+          }
+      }`
+    }
+
+    try {
+      const result = await axios('https://www.epicgames.com/graphql', {
+        data: graphql,
+        headers: { 'Content-Type': 'application/json' },
+        method: 'POST'
+      })
+
+      const res = result.data.data.Catalog as Catalog
+      const slugMapping = res.catalogNs.mappings.find(
+        (mapping) => mapping.pageType === 'productHome'
+      )
+
+      if (slugMapping) {
+        return slugMapping.pageSlug
+      } else {
+        return this.slugFromTitle(title)
+      }
+    } catch (error) {
+      logError(error, { prefix: LogPrefix.Legendary })
+      return this.slugFromTitle(title)
+    }
+  }
+
+  private async getExtraFromAPI(slug: string): Promise<ExtraInfo | null> {
+    let lang = configStore.get('language', '') as string
+    if (lang === 'pt') {
+      lang = 'pt-BR'
+    }
+    if (lang === 'zh_Hans') {
+      lang = 'zh-CN'
+    }
+
+    const epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${slug}`
+
+    try {
+      const { data } = await axios({ method: 'GET', url: epicUrl })
+      logInfo('Getting Info from Epic API', { prefix: LogPrefix.Legendary })
+
+      const about = data?.pages?.find(
+        (e: { type: string }) => e.type === 'productHome'
+      )
+
+      if (about) {
+        return {
+          about: about.data.about,
+          reqs: about.data.requirements.systems[0].details,
+          storeUrl: `https://www.epicgames.com/store/product/${slug}`
+        }
+      } else {
+        return null
+      }
+    } catch (error) {
+      return null
+    }
+  }
+
+  private async getExtraFromGraphql(
+    namespace: string,
+    slug: string
+  ): Promise<ExtraInfo | null> {
+    const graphql = {
+      query: `{
+        Product {
+          sandbox(sandboxId: "${namespace}") {
+            configuration {
+              ... on StoreConfiguration {
+                configs {
+                  shortDescription
+                  technicalRequirements {
+                    macos {
+                      minimum
+                      recommended
+                      title
+                    }
+                    windows {
+                      minimum
+                      recommended
+                      title
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }`
+    }
+
+    try {
+      const result = await axios('https://www.epicgames.com/graphql', {
+        data: graphql,
+        headers: { 'Content-Type': 'application/json' },
+        method: 'POST'
+      })
+
+      const res = result.data.data.Product as Product
+
+      const configuration = res.sandbox.configuration[0]
+
+      if (!configuration) {
+        return null
+      }
+
+      const requirements = configuration.configs.technicalRequirements.windows
+
+      if (requirements) {
+        return {
+          about: {
+            description: res.sandbox.configuration[0].configs.shortDescription,
+            longDescription: ''
+          },
+          reqs: requirements,
+          storeUrl: `https://www.epicgames.com/store/product/${slug}`
+        }
+      } else {
+        return null
+      }
+    } catch (error) {
+      logError(error, { prefix: LogPrefix.Legendary })
       return null
     }
   }
@@ -155,60 +275,36 @@ class LegendaryGame extends Game {
           description: '',
           longDescription: ''
         },
-        reqs: []
+        reqs: [],
+        storeUrl: ''
       }
     }
-    let lang = configStore.get('language', '') as string
-    if (lang === 'pt') {
-      lang = 'pt-BR'
+
+    const slug = await this.getProductSlug(namespace, title)
+
+    // try the API first, it works for most games
+    let extraData = await this.getExtraFromAPI(slug)
+
+    // if the API doesn't work, try graphql
+    if (!extraData) {
+      extraData = await this.getExtraFromGraphql(namespace, slug)
     }
-    if (lang === 'zh_Hans') {
-      lang = 'zh-CN'
-    }
 
-    let productSlug = null
-    if (namespace) {
-      try {
-        productSlug = await this.getProductSlug(namespace)
-      } catch (error) {
-        logError(error, { prefix: LogPrefix.Legendary })
-      }
-    }
-    const epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${
-      productSlug || this.slugFromTitle(title)
-    }`
-
-    try {
-      const { data } = await axios({
-        method: 'GET',
-        url: epicUrl
-      })
-      logInfo('Getting Info from Epic API', { prefix: LogPrefix.Legendary })
-
-      const about = data.pages.find(
-        (e: { type: string }) => e.type === 'productHome'
-      )
-
-      gameInfoStore.set(namespace, {
-        about: about.data.about,
-        reqs: about.data.requirements.systems[0].details
-      })
-      return {
-        about: about.data.about,
-        reqs: about.data.requirements.systems[0].details
-      }
-    } catch (error) {
+    // if we have data, store it and return
+    if (extraData) {
+      gameInfoStore.set(namespace, extraData)
+      return extraData
+    } else {
       logError('Error Getting Info from Epic API', {
         prefix: LogPrefix.Legendary
       })
-
-      gameInfoStore.set(namespace, { about: {}, reqs: [] })
       return {
         about: {
           description: '',
           longDescription: ''
         },
-        reqs: []
+        reqs: [],
+        storeUrl: ''
       }
     }
   }
