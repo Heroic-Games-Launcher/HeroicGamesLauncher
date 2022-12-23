@@ -19,6 +19,9 @@ const EnvVariablesTable = () => {
     []
   )
 
+  console.log('env table')
+  console.log({ environmentOptions })
+
   if (isWindow) {
     return <></>
   }

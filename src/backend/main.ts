@@ -821,11 +821,16 @@ ipcMain.handle('readConfig', async (event, config_class) => {
 })
 
 ipcMain.handle('requestSettings', async (event, appName) => {
+  logInfo(`requesting settings for ${appName}`)
   // To the changes how we handle env and wrappers
   // otherOptions is deprectaed and needs to be mapped
   // to new approach.
   // Can be removed if otherOptions is removed aswell
   const mapOtherSettings = (config: AppSettings | GameSettings) => {
+    if (appName === 'default') {
+      logInfo('mapOtherSettings received')
+      logInfo(config)
+    }
     if (config.otherOptions) {
       if (config.enviromentOptions.length <= 0) {
         config.otherOptions
@@ -858,6 +863,11 @@ ipcMain.handle('requestSettings', async (event, appName) => {
       }
 
       delete config.otherOptions
+    }
+
+    if (appName === 'default') {
+      logInfo('returned config')
+      logInfo(config)
     }
     return config
   }

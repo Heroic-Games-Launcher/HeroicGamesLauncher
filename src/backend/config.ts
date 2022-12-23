@@ -79,7 +79,9 @@ abstract class GlobalConfig {
     }
 
     if (!GlobalConfig.globalInstance) {
+      logInfo('no globalInstance')
       GlobalConfig.reload(version)
+      logInfo({ instance: GlobalConfig.globalInstance })
     }
 
     return GlobalConfig.globalInstance
@@ -92,6 +94,7 @@ abstract class GlobalConfig {
    * @returns void
    */
   private static reload(version: GlobalConfigVersion): void {
+    logInfo(`reloading version ${version}`)
     // Select loader to use.
     switch (version) {
       case 'v0':
@@ -471,12 +474,15 @@ abstract class GlobalConfig {
    * Load the config file, upgrade if needed.
    */
   protected async load() {
+    logInfo('loading config')
     // Config file doesn't exist, make one.
     if (!existsSync(heroicConfigPath)) {
+      logInfo(`no path: ${heroicConfigPath}`)
       this.resetToDefaults()
     }
     // Always upgrade before loading to avoid errors.
     // `getSettings` doesn't return an `AppSettings` otherwise.
+    logInfo(`this.version: ${this.version}`)
     if (this.version !== currentGlobalConfigVersion) {
       // Do not load the config.
       // Wait for `upgrade` to be called by `reload`.
@@ -484,6 +490,7 @@ abstract class GlobalConfig {
       // No upgrades necessary, load config.
       // `this.version` should be `currentGlobalConfigVersion` at this point.
       this.config = (await this.getSettings()) as AppSettings
+      logInfo({ 'this.config': this.config })
     }
   }
 }
@@ -504,14 +511,20 @@ class GlobalConfigV0 extends GlobalConfig {
 
   public async getSettings(): Promise<AppSettings> {
     if (!existsSync(heroicGamesConfigPath)) {
+      logInfo(`no path: ${heroicGamesConfigPath}`)
       mkdirSync(heroicGamesConfigPath, { recursive: true })
     }
 
     if (!existsSync(heroicConfigPath)) {
+      logInfo(`no path: ${heroicConfigPath}`)
       return this.getFactoryDefaults()
     }
 
+    logInfo(`reading file ${heroicConfigPath}`)
     let settings = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))
+    logInfo({ 'parsed-settings': settings })
+    logInfo({ 'env-variables': settings.defaultSettings.enviromentOptions })
+    logInfo({ 'other-options': settings.defaultSettings.otherOptions })
     const defaultSettings = settings.defaultSettings as AppSettings
 
     // fix relative paths
@@ -525,13 +538,27 @@ class GlobalConfigV0 extends GlobalConfig {
       winePrefix
     } as AppSettings
 
+    logInfo('fix wine prefix')
+    logInfo({ settings })
+    logInfo({ 'env-variables': settings.enviromentOptions })
+    logInfo({ 'other-options': settings.otherOptions })
+
     // TODO: Remove this after a couple of stable releases
     // Get settings only from config-store
+    logInfo(`reading store ${configStore.path}`)
     const currentConfigStore = configStore.get('settings', {}) as AppSettings
+    logInfo({ currentConfigStore })
+    logInfo({ 'env-variables': currentConfigStore.enviromentOptions })
+    logInfo({ 'other-options': currentConfigStore.otherOptions })
     if (!currentConfigStore.defaultInstallPath) {
+      logInfo('storing settings')
       configStore.set('settings', settings)
     }
 
+    logInfo('returned settings')
+    logInfo({ settings })
+    logInfo({ 'env-variables': settings.enviromentOptions })
+    logInfo({ 'other-options': settings.otherOptions })
     return settings
   }
 

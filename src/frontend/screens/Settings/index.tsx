@@ -56,6 +56,8 @@ function Settings() {
       const config = isDefault
         ? await window.api.requestAppSettings()
         : await window.api.requestGameSettings(appName)
+      console.log('config from api')
+      console.log({ config })
       setCurrentConfig(config)
 
       if (!isDefault) {
@@ -80,6 +82,9 @@ function Settings() {
       returnPath = '/library'
     }
   }
+
+  console.log('settings context config')
+  console.log({ currentConfig })
 
   // create setting context functions
   const contextValues: SettingsContextType = {
