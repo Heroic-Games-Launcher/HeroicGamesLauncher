@@ -70,6 +70,7 @@ const iconSizesByPlatform = {
 
 // get the icon path based on platform and settings
 export const getIcon = async (platform = process.platform) => {
+  logInfo('load for tray icon')
   const settings = await GlobalConfig.get().getSettings()
   const { darkTrayIcon } = settings
 

@@ -212,6 +212,7 @@ async function createWindow(): Promise<BrowserWindow> {
     Winetricks.download()
   }, 2500)
 
+  logInfo('load during createWindow')
   GlobalConfig.get()
   LegendaryLibrary.get()
   GOGLibrary.get()
@@ -228,6 +229,7 @@ async function createWindow(): Promise<BrowserWindow> {
       configStore.set('window-props', mainWindow.getBounds())
     }
 
+    logInfo('get for exitToTray')
     const { exitToTray } = GlobalConfig.get().config
 
     if (exitToTray) {
@@ -303,6 +305,8 @@ if (!gotTheLock) {
     handleProtocol(mainWindow, argv)
   })
   app.whenReady().then(async () => {
+    logInfo('get all settings')
+    const settings = GlobalConfig.get().getSettings()
     initOnlineMonitor()
 
     getSystemInfo().then((systemInfo) =>
@@ -321,7 +325,10 @@ if (!gotTheLock) {
     // We can't use .config since apparently its not loaded fast enough.
     // TODO: Remove this after a couple of stable releases
     // Affects only current users, not new installs
-    const settings = await GlobalConfig.get().getSettings()
+    logInfo('log config')
+    logInfo(GlobalConfig.get().config)
+    logInfo('log settings')
+    logInfo(settings)
     const { language } = settings
     const currentConfigStore = configStore.get('settings', {}) as AppSettings
     if (!currentConfigStore.defaultInstallPath) {
@@ -414,7 +421,8 @@ if (!gotTheLock) {
       logWarning('Protocol already registered.', { prefix: LogPrefix.Backend })
     }
 
-    const { startInTray } = await GlobalConfig.get().getSettings()
+    logInfo('get settings again')
+    const { startInTray } = GlobalConfig.get().getSettings()
     const headless = isCLINoGui || startInTray
     if (!headless) {
       ipcMain.once('loadingScreenReady', () => mainWindow.show())
@@ -585,7 +593,7 @@ ipcMain.on('showConfigFileInFolder', async (event, appName) => {
 
 ipcMain.on('removeFolder', async (e, [path, folderName]) => {
   if (path === 'default') {
-    const { defaultInstallPath } = await GlobalConfig.get().getSettings()
+    const { defaultInstallPath } = GlobalConfig.get().getSettings()
     const path = defaultInstallPath.replaceAll("'", '')
     const folderToDelete = `${path}/${folderName}`
     if (existsSync(folderToDelete)) {
@@ -901,11 +909,25 @@ ipcMain.handle('writeConfig', (event, { appName, config }) => {
   logChangedSetting(config, oldConfig)
 
   if (appName === 'default') {
+    logInfo(
+      `setting config for default ${JSON.stringify(
+        GlobalConfig.get(),
+        null,
+        2
+      )}`
+    )
     GlobalConfig.get().config = config as AppSettings
     GlobalConfig.get().flush()
     const currentConfigStore = configStore.get('settings', {}) as AppSettings
     configStore.set('settings', { ...currentConfigStore, ...config })
   } else {
+    logInfo(
+      `setging config for game ${JSON.stringify(
+        GameConfig.get(appName),
+        null,
+        2
+      )}`
+    )
     GameConfig.get(appName).config = config as GameSettings
     GameConfig.get(appName).flush()
   }
@@ -962,7 +984,7 @@ ipcMain.handle(
     const game = isSideloaded ? getAppInfo(appName) : extGame.getGameInfo()
     const { title } = game
 
-    const { minimizeOnLaunch } = await GlobalConfig.get().getSettings()
+    const { minimizeOnLaunch } = GlobalConfig.get().getSettings()
 
     const startPlayingDate = new Date()
 

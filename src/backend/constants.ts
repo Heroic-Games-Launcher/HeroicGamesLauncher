@@ -5,7 +5,7 @@ import Store from 'electron-store'
 import { parse } from '@node-steam/vdf'
 
 import { GameConfigVersion, GlobalConfigVersion } from 'common/types'
-import { logDebug, LogPrefix } from './logger/logger'
+import { logDebug, logInfo, LogPrefix } from './logger/logger'
 import { createNewLogFileAndClearOldOnes } from './logger/logfile'
 import { env } from 'process'
 import { app } from 'electron'
@@ -145,6 +145,7 @@ export function getSteamCompatFolder() {
 }
 
 export async function getSteamLibraries(): Promise<string[]> {
+  logInfo('load for constants getSteamLibraries')
   const { defaultSteamPath } = await GlobalConfig.get().getSettings()
   const path = defaultSteamPath.replaceAll("'", '')
   const vdfFile = join(path, 'steamapps', 'libraryfolders.vdf')

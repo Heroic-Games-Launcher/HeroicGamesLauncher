@@ -200,6 +200,7 @@ class GameConfigV0 extends GameConfig {
     // Take defaults, then overwrite if explicitly set values exist.
     // The settings defined work as overrides.
 
+    logInfo('load for game_config getSettings')
     const {
       autoInstallDxvk,
       autoInstallVkd3d,
@@ -307,6 +308,7 @@ class GameConfigV0 extends GameConfig {
     // If the defaults change, they will automatically change.
     // Explicit overrides CANNOT be the same as defaults.
     // TODO(adityaruplaha): fix this
+    logInfo('load for game_config flush')
     const globalConfig = new Map(Object.entries(GlobalConfig.get().config))
     const defaultedKeys = Object.entries(this.config)
       .filter(([key, value]) => globalConfig.get(key) === value)
