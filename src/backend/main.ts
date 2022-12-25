@@ -1090,30 +1090,17 @@ ipcMain.handle(
       }
     }
     if (shouldRemoveSetting) {
-      logInfo(`Removing ${appName.concat('.json')}`, {
-        prefix: LogPrefix.Backend
-      })
-      // remove setting json if exists
-      const gameSettingsFile = join(
-        heroicGamesConfigPath,
-        appName.concat('.json')
-      )
-      if (existsSync(gameSettingsFile)) {
-        rmSync(join(heroicGamesConfigPath, appName.concat('.json')), {
-          recursive: true
-        })
+      const removeIfExists = (filename: string) => {
+        logInfo(`Removing ${filename}`, { prefix: LogPrefix.Backend })
+        const gameSettingsFile = join(heroicGamesConfigPath, filename)
+        if (existsSync(gameSettingsFile)) {
+          rmSync(gameSettingsFile)
+        }
       }
 
-      logInfo(`Removing ${appName.concat('.log')}`, {
-        prefix: LogPrefix.Backend
-      })
-      // remove log if exists
-      const gameLogFile = join(heroicGamesConfigPath, appName.concat('.log'))
-      if (existsSync(gameLogFile)) {
-        rmSync(join(heroicGamesConfigPath, appName.concat('.log')), {
-          recursive: true
-        })
-      }
+      removeIfExists(appName.concat('.json'))
+      removeIfExists(appName.concat('.log'))
+      removeIfExists(appName.concat('-lastPlay.log'))
     }
 
     notify({ title, body: i18next.t('notify.uninstalled') })
