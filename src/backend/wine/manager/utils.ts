@@ -7,7 +7,6 @@ import Store from 'electron-store'
 import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import { WineVersionInfo } from 'common/types'
-import { BrowserWindow } from 'electron'
 
 import {
   getAvailableVersions,
@@ -18,6 +17,7 @@ import {
   VersionInfo
 } from 'heroic-wine-downloader'
 import { heroicToolsPath } from '../../constants'
+import { sendFrontendMessage } from '../../main_window'
 
 const wineDownloaderInfoStore = new Store({
   cwd: 'store',
@@ -89,7 +89,7 @@ async function updateWineVersionInfos(
   }
 
   logInfo('wine versions updated', { prefix: LogPrefix.WineDownloader })
-  BrowserWindow.getAllWindows()[0].webContents.send('wineVersionsUpdated')
+  sendFrontendMessage('wineVersionsUpdated')
   return releases
 }
 
@@ -173,7 +173,7 @@ async function installWineVersion(
     prefix: LogPrefix.WineDownloader
   })
 
-  BrowserWindow.getAllWindows()[0].webContents.send('wineVersionsUpdated')
+  sendFrontendMessage('wineVersionsUpdated')
   return 'success'
 }
 
@@ -227,7 +227,7 @@ async function removeWineVersion(release: WineVersionInfo): Promise<boolean> {
     prefix: LogPrefix.WineDownloader
   })
 
-  BrowserWindow.getAllWindows()[0].webContents.send('wineVersionsUpdated')
+  sendFrontendMessage('wineVersionsUpdated')
   return true
 }
 

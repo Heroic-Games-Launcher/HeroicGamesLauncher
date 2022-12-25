@@ -87,7 +87,7 @@ export const contextMenu = (
   const recentsMenu = recentGames.map((game) => {
     return {
       click: function () {
-        handleProtocol(mainWindow, [`heroic://launch/${game.appName}`])
+        handleProtocol([`heroic://launch/${game.appName}`])
       },
       label: game.title
     }
@@ -124,7 +124,7 @@ export const contextMenu = (
     },
     {
       click: function () {
-        handleExit(mainWindow)
+        handleExit()
       },
       label: i18next.t('tray.quit', 'Quit'),
       accelerator: platform === 'darwin' ? 'Cmd+Q' : 'Ctrl+Q'

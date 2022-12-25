@@ -18,12 +18,13 @@ import {
   generateShortAppId,
   removeImagesFromSteam
 } from './steamhelper'
-import { app, BrowserWindow } from 'electron'
+import { app } from 'electron'
 import { isFlatpak, isWindows, tsStore } from '../../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import i18next from 'i18next'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
-import { GlobalConfig } from '../../../backend/config'
+import { GlobalConfig } from '../../config'
+import { getMainWindow } from '../../main_window'
 
 const getSteamUserdataDir = async () => {
   const { defaultSteamPath } = await GlobalConfig.get().getSettings()
@@ -35,7 +36,7 @@ const generateImage = async (
   width: number,
   height: number
 ): Promise<string> => {
-  const window = BrowserWindow.getAllWindows()[0]
+  const window = getMainWindow()
 
   if (!window) {
     return Promise.resolve('')
