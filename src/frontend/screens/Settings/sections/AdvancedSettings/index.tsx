@@ -33,13 +33,8 @@ export default function AdvancedSettings() {
     useState(false)
   const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
 
-  const {
-    libraryStatus,
-    handleGameStatus,
-    platform,
-    refreshLibrary,
-    showResetDialog
-  } = useContext(ContextProvider)
+  const { libraryStatus, platform, refreshLibrary, showResetDialog } =
+    useContext(ContextProvider)
   const { t } = useTranslation()
   const isWindows = platform === 'win32'
 
@@ -113,18 +108,8 @@ export default function AdvancedSettings() {
   }
 
   async function installEosOverlay() {
-    await handleGameStatus({
-      appName: eosOverlayAppName,
-      runner: 'legendary',
-      status: 'installing'
-    })
     setEosOverlayInstallingOrUpdating(true)
     const installError = await window.api.installEosOverlay()
-    await handleGameStatus({
-      appName: eosOverlayAppName,
-      runner: 'legendary',
-      status: 'done'
-    })
     setEosOverlayInstallingOrUpdating(false)
     setEosOverlayInstalled(!installError)
     // `eos-overlay install` enables the overlay by default on Windows
@@ -139,18 +124,8 @@ export default function AdvancedSettings() {
   }
 
   async function updateEosOverlay() {
-    await handleGameStatus({
-      appName: eosOverlayAppName,
-      runner: 'legendary',
-      status: 'updating'
-    })
     setEosOverlayInstallingOrUpdating(true)
     await window.api.installEosOverlay()
-    await handleGameStatus({
-      appName: eosOverlayAppName,
-      runner: 'legendary',
-      status: 'done'
-    })
     setEosOverlayInstallingOrUpdating(false)
     const { version: newVersion } = await window.api.getEosOverlayStatus()
     setEosOverlayVersion(newVersion ?? '')
@@ -158,11 +133,6 @@ export default function AdvancedSettings() {
 
   async function cancelEosOverlayInstallOrUpdate() {
     await window.api.abort(eosOverlayAppName)
-    await handleGameStatus({
-      appName: eosOverlayAppName,
-      runner: 'legendary',
-      status: 'canceled'
-    })
     setEosOverlayInstallingOrUpdating(false)
   }
 
