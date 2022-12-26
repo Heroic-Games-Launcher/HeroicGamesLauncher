@@ -84,7 +84,11 @@ class GOGGame extends Game {
 
     const extra: ExtraInfo = {
       about: gameInfo.extra.about,
-      reqs: await GOGLibrary.get().createReqsArray(this.appName, targetPlatform)
+      reqs: await GOGLibrary.get().createReqsArray(
+        this.appName,
+        targetPlatform
+      ),
+      storeUrl: gameInfo.store_url
     }
     return extra
   }

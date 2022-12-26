@@ -1,7 +1,6 @@
 import './index.css'
 
 import React, {
-  lazy,
   useContext,
   useEffect,
   useMemo,
@@ -33,10 +32,7 @@ import {
   sideloadedCategories
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
-
-const InstallModal = lazy(
-  async () => import('frontend/screens/Library/components/InstallModal')
-)
+import { InstallModal } from './components'
 
 const storage = window.localStorage
 
