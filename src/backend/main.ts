@@ -371,7 +371,7 @@ if (!gotTheLock) {
     const { startInTray } = await GlobalConfig.get().getSettings()
     const headless = isCLINoGui || startInTray
     if (!headless) {
-      mainWindow.show()
+      ipcMain.once('loadingScreenReady', () => mainWindow.show())
     }
 
     // set initial zoom level after a moment, if set in sync the value stays as 1
@@ -399,6 +399,10 @@ if (!gotTheLock) {
 }
 
 ipcMain.on('notify', (event, args) => notify(args))
+
+ipcMain.once('loadingScreenReady', () => {
+  logInfo('Loading Screen Ready', { prefix: LogPrefix.Backend })
+})
 
 ipcMain.once('frontendReady', () => {
   logInfo('Frontend Ready', { prefix: LogPrefix.Backend })
@@ -692,8 +696,25 @@ ipcMain.handle('getGameInfo', async (event, appName, runner) => {
       return null
     }
 
-    info.extra = await game.getExtraInfo()
     return info
+  } catch (error) {
+    logError(error, { prefix: LogPrefix.Backend })
+    return null
+  }
+})
+
+ipcMain.handle('getExtraInfo', async (event, appName, runner) => {
+  if (runner === 'sideload') {
+    return null
+  }
+  // Fastpath since we sometimes have to request info for a GOG game as Legendary because we don't know it's a GOG game yet
+  if (runner === 'legendary' && !LegendaryLibrary.get().hasGame(appName)) {
+    return null
+  }
+  try {
+    const game = getGame(appName, runner)
+    const extra = await game.getExtraInfo()
+    return extra
   } catch (error) {
     logError(error, { prefix: LogPrefix.Backend })
     return null
@@ -1004,7 +1025,7 @@ ipcMain.on('showItemInFolder', async (e, item) => showItemInFolder(item))
 
 ipcMain.handle(
   'uninstall',
-  async (event, appName, runner, shouldRemovePrefix) => {
+  async (event, appName, runner, shouldRemovePrefix, shouldRemoveSetting) => {
     const game = getGame(appName, runner)
 
     const { title } = game.getGameInfo()
@@ -1028,6 +1049,19 @@ ipcMain.handle(
       if (existsSync(winePrefix)) {
         rmSync(winePrefix, { recursive: true })
       }
+    }
+    if (shouldRemoveSetting) {
+      const removeIfExists = (filename: string) => {
+        logInfo(`Removing ${filename}`, { prefix: LogPrefix.Backend })
+        const gameSettingsFile = join(heroicGamesConfigPath, filename)
+        if (existsSync(gameSettingsFile)) {
+          rmSync(gameSettingsFile)
+        }
+      }
+
+      removeIfExists(appName.concat('.json'))
+      removeIfExists(appName.concat('.log'))
+      removeIfExists(appName.concat('-lastPlay.log'))
     }
 
     notify({ title, body: i18next.t('notify.uninstalled') })

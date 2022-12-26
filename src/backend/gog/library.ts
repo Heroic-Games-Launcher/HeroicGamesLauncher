@@ -651,7 +651,8 @@ export class GOGLibrary {
       cloud_save_enabled: cloudSavesEnabledGames.includes(String(info.id)),
       extra: {
         about: { description: description, longDescription: '' },
-        reqs: []
+        reqs: [],
+        storeUrl: `https://gog.com${info.url}`
       },
       folder_name: '',
       install: {
@@ -677,9 +678,8 @@ export class GOGLibrary {
    * @returns plain API response
    */
   public async getGamesData(appName: string, lang?: string) {
-    const url = `https://api.gog.com/v2/games/${appName}${
-      lang ?? '?locale=' + lang
-    }`
+    const url = `https://api.gog.com/v2/games/${appName}?locale=${lang || 'en'}`
+
     const response: AxiosResponse | null = await axios.get(url).catch(() => {
       return null
     })

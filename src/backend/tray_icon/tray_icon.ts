@@ -3,7 +3,7 @@ import i18next from 'i18next'
 import { RecentGame } from 'common/types'
 import { logInfo, LogPrefix } from '../logger/logger'
 import { handleProtocol } from '../protocol'
-import { getRecentGames } from '../recent_games/recent_games'
+import { getRecentGames, maxRecentGames } from '../recent_games/recent_games'
 import { handleExit, showAboutWindow } from '../utils'
 import { GlobalConfig } from '../config'
 import { iconDark, iconLight } from '../constants'
@@ -21,7 +21,7 @@ export const initTrayIcon = async (mainWindow: BrowserWindow) => {
 
     appIcon.setContextMenu(contextMenu(mainWindow, recentGames))
   }
-  loadContextMenu()
+  await loadContextMenu()
 
   appIcon.setToolTip('Heroic')
 
@@ -31,19 +31,23 @@ export const initTrayIcon = async (mainWindow: BrowserWindow) => {
   })
 
   ipcMain.on('changeLanguage', async () => {
-    loadContextMenu()
+    await loadContextMenu()
   })
 
   ipcMain.on('changeTrayColor', () => {
     logInfo('Changing Tray icon Color...', { prefix: LogPrefix.Backend })
     setTimeout(async () => {
       appIcon.setImage(await getIcon(process.platform))
-      loadContextMenu()
+      await loadContextMenu()
     }, 500)
   })
 
   backendEvents.on('recentGamesChanged', async (recentGames: RecentGame[]) => {
-    loadContextMenu(recentGames)
+    const limit = await maxRecentGames()
+    if (recentGames.length > limit) {
+      recentGames = recentGames.slice(0, limit)
+    }
+    await loadContextMenu(recentGames)
   })
 
   return appIcon

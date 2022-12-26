@@ -71,6 +71,10 @@ body.nord-light {
   --action-icon-active: var(--text-default);
 }
 
+body.nord-light .alternative > svg {
+  fill: var(--accent) !important;
+}
+
 body.nord-dark {
   --accent: #88c0d0;
   --accent-overlay: #bdeaf7;
@@ -188,6 +192,10 @@ body.old-school {
   --action-icon: var(--text-default);
   --action-icon-hover: var(--text-hover);
   --action-icon-active: var(--accent);
+}
+body.classic .sid-input,
+body.old-school .sid-input {
+  background: var(--background);
 }
 
 body.classic,
