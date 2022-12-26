@@ -729,7 +729,6 @@ export class GlobalState extends PureComponent<Props> {
             logout: this.gogLogout
           },
           handleCategory: this.handleCategory,
-          handleGameStatus: this.handleGameStatus,
           handleLayout: this.handleLayout,
           handlePlatformFilter: this.handlePlatformFilter,
           handleSearch: this.handleSearch,

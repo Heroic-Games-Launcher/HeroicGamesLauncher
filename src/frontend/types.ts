@@ -24,7 +24,6 @@ export interface ContextType {
   setLanguage: (newLanguage: string) => void
   handleCategory: (value: Category) => void
   handlePlatformFilter: (value: string) => void
-  handleGameStatus: (game: GameStatus) => Promise<void>
   handleLayout: (value: string) => void
   handleSearch: (input: string) => void
   layout: string

@@ -22,7 +22,6 @@ const initialContext: ContextType = {
   filterPlatform: 'all',
   gameUpdates: [],
   handleCategory: () => null,
-  handleGameStatus: async () => Promise.resolve(),
   handleLayout: () => null,
   handlePlatformFilter: () => null,
   handleSearch: () => null,
