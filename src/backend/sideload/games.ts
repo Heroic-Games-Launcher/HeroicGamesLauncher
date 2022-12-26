@@ -37,7 +37,7 @@ import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts/shortcuts'
 import shlex from 'shlex'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
 import { createAbortController } from '../utils/aborthandler/aborthandler'
-import { sendFrontendMessage } from 'backend/main_window'
+import { sendFrontendMessage } from '../main_window'
 
 export function appLogFileLocation(appName: string) {
   return join(heroicGamesConfigPath, `${appName}-lastPlay.log`)

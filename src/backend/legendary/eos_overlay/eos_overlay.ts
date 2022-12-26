@@ -14,7 +14,7 @@ import { runLegendaryCommand } from '../library'
 import { LegendaryGame } from '../games'
 import { getGame } from '../../utils'
 import { verifyWinePrefix } from '../../launcher'
-import { sendFrontendMessage } from 'backend/main_window'
+import { sendFrontendMessage } from '../../main_window'
 
 const currentVersionPath = join(legendaryConfigPath, 'overlay_version.json')
 const installedVersionPath = join(legendaryConfigPath, 'overlay_install.json')
