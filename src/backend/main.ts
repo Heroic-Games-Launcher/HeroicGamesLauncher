@@ -276,7 +276,7 @@ if (!gotTheLock) {
     // We can't use .config since apparently its not loaded fast enough.
     // TODO: Remove this after a couple of stable releases
     // Affects only current users, not new installs
-    const settings = await GlobalConfig.get().getSettings()
+    const settings = GlobalConfig.get().getSettings()
     const { language } = settings
     const currentConfigStore = configStore.get('settings', {}) as AppSettings
     if (!currentConfigStore.defaultInstallPath) {
@@ -369,7 +369,7 @@ if (!gotTheLock) {
       logWarning('Protocol already registered.', { prefix: LogPrefix.Backend })
     }
 
-    const { startInTray } = await GlobalConfig.get().getSettings()
+    const { startInTray } = GlobalConfig.get().getSettings()
     const headless = isCLINoGui || startInTray
     if (!headless) {
       ipcMain.once('loadingScreenReady', () => mainWindow.show())
@@ -542,7 +542,7 @@ ipcMain.on('showConfigFileInFolder', async (event, appName) => {
 
 ipcMain.on('removeFolder', async (e, [path, folderName]) => {
   if (path === 'default') {
-    const { defaultInstallPath } = await GlobalConfig.get().getSettings()
+    const { defaultInstallPath } = GlobalConfig.get().getSettings()
     const path = defaultInstallPath.replaceAll("'", '')
     const folderToDelete = `${path}/${folderName}`
     if (existsSync(folderToDelete)) {
@@ -755,7 +755,9 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle('getUserInfo', LegendaryUser.getUserInfo)
+ipcMain.handle('getUserInfo', async () => {
+  return LegendaryUser.getUserInfo()
+})
 
 // Checks if the user have logged in with Legendary already
 ipcMain.handle('isLoggedIn', LegendaryUser.isLoggedIn)
@@ -908,7 +910,7 @@ ipcMain.handle(
     const game = isSideloaded ? getAppInfo(appName) : extGame.getGameInfo()
     const { title } = game
 
-    const { minimizeOnLaunch } = await GlobalConfig.get().getSettings()
+    const { minimizeOnLaunch } = GlobalConfig.get().getSettings()
 
     const startPlayingDate = new Date()
 
@@ -1467,7 +1469,7 @@ ipcMain.handle('clipboardReadText', () => clipboard.readText())
 ipcMain.on('clipboardWriteText', (e, text) => clipboard.writeText(text))
 
 ipcMain.handle('getCustomThemes', async () => {
-  const { customThemesPath } = await GlobalConfig.get().getSettings()
+  const { customThemesPath } = GlobalConfig.get().getSettings()
 
   if (!existsSync(customThemesPath)) {
     return []
@@ -1479,7 +1481,7 @@ ipcMain.handle('getCustomThemes', async () => {
 })
 
 ipcMain.handle('getThemeCSS', async (event, theme) => {
-  const { customThemesPath } = await GlobalConfig.get().getSettings()
+  const { customThemesPath } = GlobalConfig.get().getSettings()
 
   const cssPath = path.join(customThemesPath, theme)
 
