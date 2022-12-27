@@ -555,7 +555,8 @@ export class LegendaryLibrary {
       extra: {
         about: {
           description,
-          longDescription
+          longDescription,
+          shortDescription: description
         },
         reqs: [],
         storeUrl: formatEpicStoreUrl(title)

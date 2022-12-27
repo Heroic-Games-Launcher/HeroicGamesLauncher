@@ -233,6 +233,17 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
     hasRequirements = (extraInfo?.reqs?.length || 0) > 0
     hasUpdate = is_installed && gameUpdates?.includes(appName)
+    const description =
+      (extraInfo &&
+        extraInfo.about &&
+        (extraInfo.about.shortDescription ||
+          extraInfo.about.longDescription)) ||
+      ''
+    const releaseDate = extraInfo?.meta?.releaseDate
+      ? new Date(extraInfo?.meta?.releaseDate).toLocaleDateString()
+      : null
+
+    const categories = extraInfo?.meta?.tags || []
     const appLocation = install_path || folder_name
 
     const downloadSize =
@@ -295,7 +306,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
             </div>
             <div className="gameInfo">
               <div className="titleWrapper">
-                <h1 className="title">{title}</h1>
+                <span className="GameTitleContainer">
+                  <h1 className="title">{title}</h1>
+                </span>
                 <div className="game-actions">
                   <button className="toggle">
                     <FontAwesomeIcon icon={faEllipsisV} />
@@ -319,15 +332,19 @@ export default React.memo(function GamePage(): JSX.Element | null {
               </div>
               <div className="infoWrapper">
                 <div className="developer">{developer}</div>
-                <div className="summary">
-                  {extraInfo && extraInfo.about
-                    ? extraInfo.about.description
-                      ? extraInfo.about.description
-                      : extraInfo.about.longDescription
-                      ? extraInfo.about.longDescription
-                      : ''
-                    : ''}
-                </div>
+                <span className="releaseDate">{releaseDate}</span>
+                <span className="releaseAndTags">
+                  {categories.length > 0 && (
+                    <div className="categories">
+                      {categories.map((category, index) => (
+                        <span key={index} className={'gameCategories'}>
+                          {category.toLocaleLowerCase()}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </span>
+                <div className="summary">{description}</div>
                 {is_installed && showCloudSaveInfo && (
                   <div
                     style={{

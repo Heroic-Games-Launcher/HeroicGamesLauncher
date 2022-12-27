@@ -13,6 +13,32 @@
     padding-top: 2rem;
     margin-top: 2rem;
     background: var(--background-darker);
+    justify-content: space-between;
+
+    .releaseAndTags {
+      display: flex;
+      align-items: center;
+      font-size: var(--text-md);
+
+      .releaseDate {
+        &::after {
+          content: '|';
+          margin: 0 var(--space-3xs);
+        }
+      }
+
+      .gameCategories {
+        text-transform: capitalize;
+
+        &:not(:last-child) {
+          &::after {
+            content: ',';
+            margin: 0 var(--space-3xs);
+          }
+        }
+      }
+    }
+
     .title {
       font-weight: var(--medium);
       font-size: var(--text-xl);
