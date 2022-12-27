@@ -1,0 +1,200 @@
+{
+    "box": {
+        "change": {
+            "message": "This will change the install location of this game, are you sure?",
+            "path": "Choose a new install path",
+            "title": "Change Games Install Path"
+        },
+        "choose": "Choose",
+        "importpath": "Choose Game Folder to import",
+        "move": {
+            "message": "This can take a long time, are you sure?",
+            "path": "Choose where you want to move",
+            "title": "Move Game Installation"
+        },
+        "no": "NO",
+        "repair": {
+            "message": "Do you want to try to repair this game? This can take a long time.",
+            "title": "Verify and Repair"
+        },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
+        "stopInstall": {
+            "keepInstalling": "Keep Installing",
+            "message": "Do you wish to KEEP downloaded files?",
+            "title": "Stop Installation"
+        },
+        "uninstall": {
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
+            "message": "Do you want to uninstall this game?",
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+            "title": "Uninstall"
+        },
+        "update": {
+            "message": "This game has an update, apply update now?",
+            "title": "Game Needs Update"
+        },
+        "wineprefix": "Select WinePrefix Folder",
+        "yes": "YES"
+    },
+    "button": {
+        "add_to_favourites": "Add To Favourites",
+        "cancel": "Pause/Cancel",
+        "continue": "Continue Download",
+        "finish": "Finish",
+        "force_update": "Force Update if Available",
+        "force-innstall": "Force Install",
+        "hide_game": "Hide Game",
+        "import": "Import Game",
+        "install": "Install",
+        "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
+        "remove_from_favourites": "Remove From Favourites",
+        "remove_from_recent": "Remove From Recent",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
+        "unhide_game": "Unhide Game",
+        "uninstall": "Uninstall",
+        "update": "Update"
+    },
+    "cloud_save_unsupported": "Unsupported",
+    "disabled": "Disabled",
+    "dlc": {
+        "installDlcs": "Install all DLCs"
+    },
+    "enabled": "Enabled",
+    "game": {
+        "downloadSize": "Download Size",
+        "firstPlayed": "First Played",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
+        "installSize": "Install Size",
+        "language": "Language",
+        "lastPlayed": "Last Played",
+        "neverPlayed": "Never",
+        "platform": "Select Platform Version to Install",
+        "requirements": "System Requirements",
+        "totalPlayed": "Time Played"
+    },
+    "gamecard": {
+        "moving": "Moving",
+        "repairing": "Repairing"
+    },
+    "generic": {
+        "error": "Unknown error"
+    },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
+    "info": {
+        "canRunOffline": "Online Required",
+        "installedPlatform": "Installed Platform",
+        "path": "Install Path",
+        "size": "Size",
+        "syncsaves": "Sync Saves",
+        "version": "Version"
+    },
+    "install": {
+        "disk-space-left": "Space Available",
+        "not-enough-disk-space": "Not enough disk space",
+        "path": "Select Install Path",
+        "path-not-writtable": "Warning: path might not be writable.",
+        "space-after-install": "After Install",
+        "wineprefix": "WinePrefix",
+        "wineversion": "Wine version"
+    },
+    "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
+        "playing": {
+            "start": "Play Now",
+            "stop": "Playing (Stop)"
+        },
+        "saves": {
+            "syncing": "Syncing Saves"
+        }
+    },
+    "launch": {
+        "options": "Launch Options..."
+    },
+    "not_logged_in": {
+        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
+        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "login": "Log in",
+        "title": "You are NOT logged in"
+    },
+    "report_problem": "Report a problem running this game",
+    "sdl": {
+        "title": "Select components to Install"
+    },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
+    },
+    "specs": {
+        "minimum": "Minimum",
+        "recommended": "Recommended"
+    },
+    "status": {
+        "clickToUpdate": "Click to Update",
+        "gameNotAvailable": "Game not available",
+        "hasUpdates": "New Version Available!",
+        "installed": "Installed",
+        "installing": "Installing",
+        "moving": "Moving Installation, please wait",
+        "notinstalled": "This game is not installed",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
+        "processing": "Processing files, please wait",
+        "queued": "Queued",
+        "reparing": "Repairing Game, please wait",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
+        "totalDownloaded": "Total Downloaded",
+        "uninstalling": "Uninstalling",
+        "updating": "Updating Game"
+    },
+    "submenu": {
+        "addShortcut": "Add shortcut",
+        "addToSteam": "Add to Steam",
+        "change": "Change install path",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
+        "move": "Move Game",
+        "protondb": "Check Compatibility",
+        "removeFromSteam": "Remove from Steam",
+        "removeShortcut": "Remove shortcuts",
+        "settings": "Settings",
+        "store": "Store Page",
+        "verify": "Verify and Repair"
+    }
+}
