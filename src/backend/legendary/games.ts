@@ -174,6 +174,7 @@ class LegendaryGame extends Game {
         return {
           about: about.data.about,
           reqs: about.data.requirements.systems[0].details,
+          meta: about.data.meta,
           storeUrl: `https://www.epicgames.com/store/product/${slug}`
         }
       } else {
@@ -237,7 +238,9 @@ class LegendaryGame extends Game {
         return {
           about: {
             description: res.sandbox.configuration[0].configs.shortDescription,
-            longDescription: ''
+            longDescription: '',
+            shortDescription:
+              res.sandbox.configuration[0].configs.shortDescription
           },
           reqs: requirements,
           storeUrl: `https://www.epicgames.com/store/product/${slug}`
@@ -273,7 +276,8 @@ class LegendaryGame extends Game {
       return {
         about: {
           description: '',
-          longDescription: ''
+          longDescription: '',
+          shortDescription: ''
         },
         reqs: [],
         storeUrl: ''
@@ -301,7 +305,8 @@ class LegendaryGame extends Game {
       return {
         about: {
           description: '',
-          longDescription: ''
+          longDescription: '',
+          shortDescription: ''
         },
         reqs: [],
         storeUrl: ''

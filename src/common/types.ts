@@ -24,6 +24,12 @@ export type LaunchParams = {
 interface About {
   description: string
   longDescription: string
+  shortDescription: string
+}
+
+interface MetaInfo {
+  releaseDate: string
+  tags?: string[]
 }
 
 export type Release = {
@@ -84,6 +90,7 @@ export interface ExtraInfo {
   about: About
   reqs: Reqs[]
   storeUrl: string
+  meta?: MetaInfo
 }
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
