@@ -1,0 +1,200 @@
+{
+    "box": {
+        "change": {
+            "message": "",
+            "path": "",
+            "title": ""
+        },
+        "choose": "",
+        "importpath": "",
+        "move": {
+            "message": "",
+            "path": "",
+            "title": ""
+        },
+        "no": "",
+        "repair": {
+            "message": "",
+            "title": ""
+        },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
+        "stopInstall": {
+            "keepInstalling": "",
+            "message": "",
+            "title": ""
+        },
+        "uninstall": {
+            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
+            "message": "",
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+            "title": ""
+        },
+        "update": {
+            "message": "",
+            "title": ""
+        },
+        "wineprefix": "Select WinePrefix Folder",
+        "yes": ""
+    },
+    "button": {
+        "add_to_favourites": "Add To Favourites",
+        "cancel": "",
+        "continue": "Continue Download",
+        "finish": "Finish",
+        "force_update": "Force Update if Available",
+        "force-innstall": "Force Install",
+        "hide_game": "Hide Game",
+        "import": "",
+        "install": "",
+        "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
+        "remove_from_favourites": "Remove From Favourites",
+        "remove_from_recent": "Remove From Recent",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
+        "unhide_game": "Unhide Game",
+        "uninstall": "",
+        "update": "Update"
+    },
+    "cloud_save_unsupported": "Unsupported",
+    "disabled": "",
+    "dlc": {
+        "installDlcs": "Install all DLCs"
+    },
+    "enabled": "",
+    "game": {
+        "downloadSize": "Download Size",
+        "firstPlayed": "First Played",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
+        "installSize": "Install Size",
+        "language": "Language",
+        "lastPlayed": "Last Played",
+        "neverPlayed": "Never",
+        "platform": "Select Platform Version to Install",
+        "requirements": "Requirements",
+        "totalPlayed": "Time Played"
+    },
+    "gamecard": {
+        "moving": "Moving",
+        "repairing": "Repairing"
+    },
+    "generic": {
+        "error": "Unknown error"
+    },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
+    "info": {
+        "canRunOffline": "Online Required",
+        "installedPlatform": "Installed Platform",
+        "path": "",
+        "size": "",
+        "syncsaves": "",
+        "version": ""
+    },
+    "install": {
+        "disk-space-left": "Space Available",
+        "not-enough-disk-space": "Not enough disk space",
+        "path": "Select Install Path",
+        "path-not-writtable": "Warning: path might not be writable.",
+        "space-after-install": "After Install",
+        "wineprefix": "WinePrefix",
+        "wineversion": ""
+    },
+    "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
+        "playing": {
+            "start": "",
+            "stop": ""
+        },
+        "saves": {
+            "syncing": ""
+        }
+    },
+    "launch": {
+        "options": "Launch Options..."
+    },
+    "not_logged_in": {
+        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
+        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "login": "Log in",
+        "title": "You are NOT logged in"
+    },
+    "report_problem": "Report a problem running this game",
+    "sdl": {
+        "title": "Select components to Install"
+    },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
+    },
+    "specs": {
+        "minimum": "",
+        "recommended": ""
+    },
+    "status": {
+        "clickToUpdate": "Click to Update",
+        "gameNotAvailable": "Game not available",
+        "hasUpdates": "New Version Available!",
+        "installed": "",
+        "installing": "",
+        "moving": "",
+        "notinstalled": "",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
+        "processing": "Processing files, please wait",
+        "queued": "Queued",
+        "reparing": "",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
+        "totalDownloaded": "Total Downloaded",
+        "uninstalling": "Uninstalling",
+        "updating": ""
+    },
+    "submenu": {
+        "addShortcut": "Add shortcut",
+        "addToSteam": "Add to Steam",
+        "change": "",
+        "disableEosOverlay": "Disable EOS Overlay",
+        "enableEosOverlay": "Enable EOS Overlay",
+        "move": "",
+        "protondb": "",
+        "removeFromSteam": "Remove from Steam",
+        "removeShortcut": "Remove shortcuts",
+        "settings": "",
+        "store": "",
+        "verify": ""
+    }
+}

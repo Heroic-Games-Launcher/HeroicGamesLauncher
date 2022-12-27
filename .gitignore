@@ -23,7 +23,7 @@
 /.idea
 
 # locales
-/public/locales
+/public/locales/*
 !/public/locales/en
 
 npm-debug.log*
