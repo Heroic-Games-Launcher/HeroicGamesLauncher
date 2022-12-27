@@ -1,0 +1,200 @@
+{
+    "box": {
+        "change": {
+            "message": "Ez megfogja változtatni ennek a játéknak a telepítési helyét, biztos vagy benne?",
+            "path": "Válassz egy új telepítési útvonalat",
+            "title": "Játék telepítési útvonal megváltoztatása"
+        },
+        "choose": "Kiválasztás",
+        "importpath": "Importálandó játékmappa kiválasztása",
+        "move": {
+            "message": "Ez eltarthat egy ideig, biztos vagy benne?",
+            "path": "Válaszd ki, hogy hova szeretnéd áthelyezni",
+            "title": "Játék telepítés áthelyezése"
+        },
+        "no": "NEM",
+        "repair": {
+            "message": "Megszeretnéd próbálni megjavítani ezt a játékot? Ez eltarthat egy ideig.",
+            "title": "Ellenőrzés és javítás"
+        },
+        "runexe": {
+            "title": "Válaszd ki a futtatni kívánt EXE fájlt"
+        },
+        "select": {
+            "button": "Kiválasztás"
+        },
+        "sideload": {
+            "exe": "Indítófájl kiválasztása"
+        },
+        "stopInstall": {
+            "keepInstalling": "Telepítés folytatása",
+            "message": "Szeretnéd MEGTARTANI a letöltött fájlokat?",
+            "title": "Telepítés megállítása"
+        },
+        "uninstall": {
+            "checkbox": "Prefix eltávolítása: {{prefix}}{{newLine}}Megjegyzés: Ez nem vonható vissza, és külön nem tárolt mentéseket is törli.",
+            "message": "El akarod távolítani ezt a játékot?",
+            "settingcheckbox": "Beállítások és a log{{newLine}}törlése. Megjegyzés: Ez nem vonható vissza. Minden módosított beállítás visszaáll és a log fájl törlődik.",
+            "title": "Eltávolítás"
+        },
+        "update": {
+            "message": "Ennek a játéknak van egy frissítése, alkalmazzuk a frissítést most?",
+            "title": "A játékot frissíteni kell"
+        },
+        "wineprefix": "Wine prefix mappa kiválasztása",
+        "yes": "IGEN"
+    },
+    "button": {
+        "add_to_favourites": "Kedvencekhez adás",
+        "cancel": "Szüneteltetés/mégse",
+        "continue": "Letöltés folytatása",
+        "finish": "Befejezés",
+        "force_update": "Kényszerítse a frissítést, ha lehetséges",
+        "force-innstall": "Telepítés kényszerítése",
+        "hide_game": "Játék elrejtése",
+        "import": "Játék importálása",
+        "install": "Telepítés",
+        "no-path-selected": "Nincs megadva útvonal",
+        "queue": {
+            "remove": "Eltávolítás a sorból"
+        },
+        "remove_from_favourites": "Eltávolítás a kedvencekből",
+        "remove_from_recent": "Eltávolítás a legutóbbiak közül",
+        "run-exe-first": "Először a telepítő futtatása",
+        "running-setup": "Telepítés futtatása",
+        "sideload": {
+            "edit": "Alkalmazás/játék szerkesztése"
+        },
+        "unhide_game": "Játék felfedése",
+        "uninstall": "Eltávolítás",
+        "update": "Frissítés"
+    },
+    "cloud_save_unsupported": "Nem támogatott",
+    "disabled": "Letiltva",
+    "dlc": {
+        "installDlcs": "Összes DLC telepítése"
+    },
+    "enabled": "Engedélyezve",
+    "game": {
+        "downloadSize": "Letöltési méret",
+        "firstPlayed": "Először játszott",
+        "getting-download-size": "Letöltendő adatmennyiség számítása",
+        "getting-install-size": "Telepítendő adatmennyiség számítása",
+        "installSize": "Telepítési méret",
+        "language": "Nyelv",
+        "lastPlayed": "Legutóbb játszott",
+        "neverPlayed": "Soha",
+        "platform": "Telepítendő platform változat kiválasztása",
+        "requirements": "Rendszerkövetelmények",
+        "totalPlayed": "Játszott idő"
+    },
+    "gamecard": {
+        "moving": "Áthelyezés",
+        "repairing": "Javítás"
+    },
+    "generic": {
+        "error": "Ismeretlen hiba"
+    },
+    "hours": "Óra",
+    "how-long-to-beat": {
+        "completionist": "Maximalista",
+        "main-plus-extras": "Fő + Extrák",
+        "main-story": "Fősztori"
+    },
+    "howLongToBeat": "Ennyi idő végigjátszani",
+    "info": {
+        "canRunOffline": "Online szükséges",
+        "installedPlatform": "Telepített platform",
+        "path": "Telepítési útvonal",
+        "size": "Méret",
+        "syncsaves": "Mentések szinkronizálása",
+        "version": "Verzió"
+    },
+    "install": {
+        "disk-space-left": "Elérhető tárhely",
+        "not-enough-disk-space": "Nincs elég lemezterület",
+        "path": "Telepítési útvonal kiválasztása",
+        "path-not-writtable": "Figyelmeztetés: Lehet, hogy a célmappa nem írható.",
+        "space-after-install": "Telepítés után",
+        "wineprefix": "Wine prefix",
+        "wineversion": "Wine verzió"
+    },
+    "label": {
+        "game": {
+            "third-party-game": "Harmadik féltől származó játék nem támogatott"
+        },
+        "playing": {
+            "start": "Indítás most",
+            "stop": "Játékban (leállítás)"
+        },
+        "saves": {
+            "syncing": "Mentések szinkronizálása"
+        }
+    },
+    "launch": {
+        "options": "Indítási opciók..."
+    },
+    "not_logged_in": {
+        "epic": "Nem vagy bejelentkezve egy Epic fiókkal a Heroicba. Ne az áruházi oldalon jelentkezz be, kattints erre a gombra helyette:",
+        "gog": "Nem vagy bejelentkezve egy GOG fiókkal a Heroicba. Ne az áruházi oldalon jelentkezz be, kattints erre a gombra helyette:",
+        "login": "Log in",
+        "title": "NEM vagy bejelentkezve"
+    },
+    "report_problem": "Játék futtatásával kapcsolatos hiba jelentése",
+    "sdl": {
+        "title": "Válaszd ki a telepíteni kívánt elemeket"
+    },
+    "setting": {
+        "use-default-wine-settings": "Alapértelmezett Wine beállítások használata"
+    },
+    "sideload": {
+        "field": {
+            "title": "Cím"
+        },
+        "info": {
+            "exe": "Indítófájl kiválasztása",
+            "image": "Alkalmazás képfájl",
+            "title": "Játék/Alkalmazás címe"
+        },
+        "placeholder": {
+            "image": "Ide másold be a kép URL címét",
+            "title": "Adj egy címet a játékodnbak/alkalmazásodnak"
+        }
+    },
+    "specs": {
+        "minimum": "Minimum",
+        "recommended": "Ajánlott"
+    },
+    "status": {
+        "clickToUpdate": "Kattints a frissítéshez",
+        "gameNotAvailable": "A játék nem elérhető",
+        "hasUpdates": "Új verzió elérhető!",
+        "installed": "Telepítve",
+        "installing": "Telepítés",
+        "moving": "Telepítés áthelyezése, kérlek várj",
+        "notinstalled": "Ez a játék nincs telepítve",
+        "notSupported": "Nem támogatott",
+        "notSupportedGame": "Nem támogatott",
+        "processing": "Fájlok feldolgozása, kérlek várj",
+        "queued": "Sorbaállítva",
+        "reparing": "Játék javítása, kérlek várj",
+        "this-game-uses-third-party": "Ez a játék egy harmadik féltől származó klienst használ, ami jelenleg nem támogatott",
+        "totalDownloaded": "Teljesen letöltve",
+        "uninstalling": "Eltávolítás",
+        "updating": "Játék frissítése"
+    },
+    "submenu": {
+        "addShortcut": "Parancsikon hozzáadása",
+        "addToSteam": "Hozzáadás a Steamhez",
+        "change": "Telepítési útvonal megváltoztatása",
+        "disableEosOverlay": "EOS átfedés letiltása",
+        "enableEosOverlay": "EOS átfedés engedélyezése",
+        "move": "Játék áthelyezése",
+        "protondb": "Kompatibilitás ellenőrzése",
+        "removeFromSteam": "Eltávolítás Steamből",
+        "removeShortcut": "Parancsikonok eltávolítása",
+        "settings": "Beállítások",
+        "store": "Áruházi oldal",
+        "verify": "Ellenőrzés és javítás"
+    }
+}

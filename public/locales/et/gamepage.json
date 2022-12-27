@@ -1,0 +1,200 @@
+{
+    "box": {
+        "change": {
+            "message": "See muudab selle mängu paigaldusasukohta, kas olete kindel?",
+            "path": "Valige uus paigalduskoht",
+            "title": "Muuda mängude paigaldamiskohta"
+        },
+        "choose": "Valige",
+        "importpath": "Valige imporditav mängude kaust",
+        "move": {
+            "message": "See võib võtta kaua aega, kas olete kindel?",
+            "path": "Valige, kuhu soovite liigutada",
+            "title": "Liiguta mängu paigaldus"
+        },
+        "no": "EI",
+        "repair": {
+            "message": "Kas soovite proovida seda mängu parandada? See võib võtta kaua aega.",
+            "title": "Kontrolli ja paranda"
+        },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
+        "stopInstall": {
+            "keepInstalling": "Jätka installimist",
+            "message": "Kas soovite allalaaditud faile alles hoida?",
+            "title": "Peata paigaldamine"
+        },
+        "uninstall": {
+            "checkbox": "Eemalda prefiks: {{prefix}}{{newLine}}Märkus: seda ei saa tagasi võtta ja see eemaldab ka varundamata salvestusfailid.",
+            "message": "Kas soovite selle mängu eemaldada?",
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+            "title": "Eemalda"
+        },
+        "update": {
+            "message": "Sellele mängule on saadaval uuendus, rakenda uuendus kohe?",
+            "title": "Mäng vajab uuendust"
+        },
+        "wineprefix": "Valige Wine prefiksi kaust",
+        "yes": "JAH"
+    },
+    "button": {
+        "add_to_favourites": "Lisa lemmikute hulka",
+        "cancel": "Peata/Tühista",
+        "continue": "Jätka allalaadimist",
+        "finish": "Finish",
+        "force_update": "Sunni uuendus, kui see on saadaval",
+        "force-innstall": "Force Install",
+        "hide_game": "Peida mäng",
+        "import": "Impordi mäng",
+        "install": "Paigalda",
+        "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
+        "remove_from_favourites": "Eemalda lemmikutest",
+        "remove_from_recent": "Remove From Recent",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
+        "unhide_game": "Näita mäng",
+        "uninstall": "Eemalda",
+        "update": "Uuenda"
+    },
+    "cloud_save_unsupported": "Mitte toetatud",
+    "disabled": "Keelatud",
+    "dlc": {
+        "installDlcs": "Paigalda kõik DLC'd"
+    },
+    "enabled": "Lubatud",
+    "game": {
+        "downloadSize": "Allalaadimise suurus",
+        "firstPlayed": "Esimest korda mängitud",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
+        "installSize": "Paigaldamise suurus",
+        "language": "Keel",
+        "lastPlayed": "Viimati mängitud",
+        "neverPlayed": "Mitte kunagi",
+        "platform": "Valige paigaldatava platvormi versioon",
+        "requirements": "Süsteeminõuded",
+        "totalPlayed": "Mängitud aeg"
+    },
+    "gamecard": {
+        "moving": "Liigutamine",
+        "repairing": "Parandamine"
+    },
+    "generic": {
+        "error": "Teadmata viga"
+    },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
+    "info": {
+        "canRunOffline": "Võrguühendus nõutud",
+        "installedPlatform": "Paigaldatud platvorm",
+        "path": "Paigalduskoht",
+        "size": "Suurus",
+        "syncsaves": "Sünkrooni salvestised",
+        "version": "Versioon"
+    },
+    "install": {
+        "disk-space-left": "Vaba ruumi",
+        "not-enough-disk-space": "Ei ole piisavalt kettaruumi",
+        "path": "Valige paigaldustee",
+        "path-not-writtable": "Hoiatus: tee ei pruugi olla kirjutatav.",
+        "space-after-install": "Pärast paigaldamist",
+        "wineprefix": "WinePrefiks",
+        "wineversion": "Wine'i versioon"
+    },
+    "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
+        "playing": {
+            "start": "Mängi",
+            "stop": "Mängib (Peata)"
+        },
+        "saves": {
+            "syncing": "Salvestuste sünkroonimine"
+        }
+    },
+    "launch": {
+        "options": "Käivitusvalikud..."
+    },
+    "not_logged_in": {
+        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
+        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "login": "Log in",
+        "title": "You are NOT logged in"
+    },
+    "report_problem": "Teatage selle mängu käivitamise probleemist",
+    "sdl": {
+        "title": "Valige komponendid, mida installida"
+    },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
+    },
+    "specs": {
+        "minimum": "Miinimum",
+        "recommended": "Soovitatav"
+    },
+    "status": {
+        "clickToUpdate": "Uuendamiseks klõpsake",
+        "gameNotAvailable": "Game not available",
+        "hasUpdates": "Uus versioon saadaval!",
+        "installed": "Installitud",
+        "installing": "Paigaldamine",
+        "moving": "Paigalduse liiguatamine, palun oodake",
+        "notinstalled": "See mäng ei ole paigaldatud",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
+        "processing": "Failide töötlemine, palun oodake",
+        "queued": "Queued",
+        "reparing": "Mängu parandamine, palun oodake",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
+        "totalDownloaded": "Allalaaditud kokku",
+        "uninstalling": "Uninstalling",
+        "updating": "Mängu uuendamine"
+    },
+    "submenu": {
+        "addShortcut": "Lisa otsetee",
+        "addToSteam": "Lisa Steami",
+        "change": "Muuda paigalduskohta",
+        "disableEosOverlay": "Lülita välja EOS-i ülekate",
+        "enableEosOverlay": "Luba EOS-i ülekate",
+        "move": "Liiguta mängu",
+        "protondb": "Kontrolli ühilduvust",
+        "removeFromSteam": "Eemalda Steamist",
+        "removeShortcut": "Eemalda otseteed",
+        "settings": "Seaded",
+        "store": "Poe lehekülg",
+        "verify": "Kontrolli ja paranda"
+    }
+}

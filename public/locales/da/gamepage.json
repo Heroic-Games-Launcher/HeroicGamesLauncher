@@ -1,0 +1,211 @@
+{
+    "box": {
+        "change": {
+            "message": "Dette vil ændre installationens placering. Er du sikker?",
+            "path": "Vælg en ny installation sti",
+            "title": "Skift Spil Installation Sti"
+        },
+        "move": {
+            "path": "Vælg hvor du vil flytte til",
+            "title": "Flyt spil installation",
+            "message": "Dette kan tage lang tid. Er du sikker?"
+        },
+        "no": "NEJ",
+        "repair": {
+            "message": "Vil du forsøge at reparere dette spil? Det kan tage lang tid.",
+            "title": "Verificer og Reparer"
+        },
+        "stopInstall": {
+            "keepInstalling": "Fortsæt installationen",
+            "message": "Vil du fortsætte med at hente filerne?",
+            "title": "Stop installationen"
+        },
+        "uninstall": {
+            "checkbox": "Vil du også fjerne prefixet? Dette kan ikke omgøres.",
+            "checkbox_prefix": "Prefix",
+            "message": "Vil du afinstallere spillet?",
+            "title": "Afinstaller",
+            "settingcheckbox": "Slet indstillinger og fjern log{{newLine}}Bemærk: Dette kan ikke fortrydes. Eventuelle ændrede indstillinger vil blive glemt, og log vil blive slettet."
+        },
+        "update": {
+            "title": "Spillet skal opdateres",
+            "message": "Der findes en opdatering til spillet. Vil du updatere nu?"
+        },
+        "yes": "JA",
+        "choose": "Vælg",
+        "importpath": "Vælg spil mappe til import",
+        "wineprefix": "Vælg WinePrefix mappe",
+        "select": {
+            "button": "Vælg"
+        },
+        "runexe": {
+            "title": "Vælg EXE til at køre"
+        },
+        "sideload": {
+            "exe": "Vælg Eksekverbar"
+        }
+    },
+    "button": {
+        "cancel": "Pause/Afbryd",
+        "continue": "Fortsæt Download",
+        "import": "Importer Spil",
+        "install": "Installer",
+        "uninstall": "Afinstaller",
+        "update": "Opdater",
+        "hide_game": "Skjul Spil",
+        "unhide_game": "Vis spil",
+        "add_to_favourites": "Tilføj til favorit",
+        "remove_from_favourites": "Fjern fra favoritter",
+        "force_update": "Tving opdatering, hvis tilgængelig",
+        "queue": {
+            "remove": "Fjern fra kø"
+        },
+        "remove_from_recent": "Fjern fra Seneste",
+        "finish": "Afslut",
+        "force-innstall": "Tving installation",
+        "no-path-selected": "Ingen sti valgt",
+        "run-exe-first": "Kør Installer først",
+        "running-setup": "Kører opsætning",
+        "sideload": {
+            "edit": "Rediger app/spil"
+        }
+    },
+    "disabled": "Slå Fra",
+    "dlc": {
+        "installDlcs": "Installer alle DLC'er",
+        "title": "DLC'er"
+    },
+    "enabled": "Slået til",
+    "game": {
+        "downloadSize": "Download Størrelse",
+        "firstPlayed": "Spillede Første Gang",
+        "neverPlayed": "Aldrig",
+        "totalPlayed": "Spilletid",
+        "installSize": "Installations Størrelse",
+        "lastPlayed": "Sidst Spillet",
+        "language": "Sprog",
+        "info": "Info",
+        "platform": "Vælg platformsversion, der skal installeres",
+        "requirements": "System Krav",
+        "tools": "Værktøjer",
+        "getting-download-size": "Henter downloadstørrelse",
+        "getting-install-size": "Får installationsstørrelse"
+    },
+    "gamecard": {
+        "moving": "Flytter",
+        "repairing": "Reparerer"
+    },
+    "info": {
+        "canRunOffline": "Online Påkrævet",
+        "path": "Installationssti",
+        "size": "Størrelse",
+        "syncsaves": "Synkroniser Saves",
+        "version": "Version",
+        "installedPlatform": "Installeret platform"
+    },
+    "install": {
+        "path": "Vælg Installations Sti",
+        "wineprefix": "WinePrefix",
+        "not-enough-disk-space": "Ikke nok diskplads",
+        "wineversion": "Wine version",
+        "space-after-install": "Efter installation",
+        "disk-space-left": "Ledig diskplads",
+        "path-not-writtable": "Advarsel: Sti er muligvis ikke skrivebar."
+    },
+    "label": {
+        "playing": {
+            "start": "Spil Nu",
+            "stop": "Spiller (Stop)"
+        },
+        "saves": {
+            "syncing": "Synkroniserer Saves"
+        },
+        "game": {
+            "third-party-game": "Tredjepartsspil understøttes IKKE"
+        }
+    },
+    "launch": {
+        "options": "Opstartsinstillinger..."
+    },
+    "sdl": {
+        "title": "Vælg komponent der skal installeres"
+    },
+    "specs": {
+        "minimum": "Minimum",
+        "recommended": "Anbefalet"
+    },
+    "status": {
+        "clickToUpdate": "Klik for at opdatere",
+        "hasUpdates": "Ny Version Tilgængelig!",
+        "installed": "Installeret",
+        "installing": "Installerer",
+        "moving": "Flytter installation, vent venligst",
+        "notinstalled": "Spillet er ikke installeret",
+        "reparing": "Reparerer Spillet, vent venligst",
+        "totalDownloaded": "I alt downloaded",
+        "updating": "Opdaterer Spil",
+        "processing": "Behandler filerne, vent venligst",
+        "queued": "I kø",
+        "uninstalling": "Afinstallerer",
+        "gameNotAvailable": "Spil ikke tilgængeligt",
+        "notSupported": "Ikke understøttet",
+        "notSupportedGame": "Ikke understøttet",
+        "this-game-uses-third-party": "Dette spil bruger tredjeparts launcher, og det er ikke understøttet endnu"
+    },
+    "submenu": {
+        "addShortcut": "Opret genvej",
+        "change": "Ændre installationssti",
+        "log": "Seneste Log",
+        "move": "Flyt Spil",
+        "protondb": "Check Compatabilitet",
+        "settings": "Indstillinger",
+        "store": "Butik",
+        "verify": "Verificer og Reparer",
+        "removeShortcut": "Fjern genveje",
+        "removeFromSteam": "Fjern fra Steam",
+        "addToSteam": "Tilføj til Steam",
+        "disableEosOverlay": "Deaktiver EOS Overlay",
+        "enableEosOverlay": "Aktiver EOS Overlay"
+    },
+    "generic": {
+        "error": "Ukendt fejl"
+    },
+    "report_problem": "Rapportér et problem med at køre dette spil",
+    "cloud_save_unsupported": "Ikke understøttet",
+    "not_logged_in": {
+        "epic": "Du er ikke logget ind med en Epic-konto i Heroic. Brug ikke butikssiden til at logge ind, klik i stedet på følgende knap:",
+        "gog": "Du er ikke logget ind med en GOG-konto i Heroic. Brug ikke butikssiden til at logge ind, klik i stedet på følgende knap:",
+        "login": "Log ind",
+        "title": "Du er ikke logget ind"
+    },
+    "queue": {
+        "label": {
+            "canceled": "Download annulleret",
+            "remove": "Fjern fra Downloads"
+        }
+    },
+    "sideload": {
+        "field": {
+            "title": "Titel"
+        },
+        "info": {
+            "exe": "Vælg Eksekverbar",
+            "image": "App billede",
+            "title": "Spil/App titel"
+        },
+        "placeholder": {
+            "image": "Indsæt en billed-URL her",
+            "title": "Tilføj en titel til dit spil/app"
+        }
+    },
+    "setting": {
+        "use-default-wine-settings": "Brug standard vinindstillinger"
+    },
+    "hours": "Timer",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Hoved + Ekstra",
+        "main-story": "Hovedhistorie"
+    },
+    "howLongToBeat": "Hvor længe skal man slå"
+}

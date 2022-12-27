@@ -22,10 +22,6 @@
 # editors
 /.idea
 
-# locales
-/public/locales/*
-!/public/locales/en
-
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

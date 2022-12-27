@@ -1,0 +1,651 @@
+{
+    "accessibility": {
+        "actions_font_family_no_default": "Kelompok Font Tindakan (Default: ",
+        "all_tiles_in_color": "Tampilkan semua kolom gim dalam warna",
+        "content_font_family_no_default": "Keluarga Font Konten (Default: ",
+        "fonts": "Fon",
+        "title": "Aksesibilitas",
+        "zoom": "Perbesar"
+    },
+    "add_game": "Tambahkan Gim",
+    "All": "Semua",
+    "anticheat": {
+        "anticheats": "Anticheat",
+        "may_not_work": "Ini mungkin tidak berfungsi karena dukungan anticheat yang ditolak atau rusak.",
+        "reference": "Referensi",
+        "source": "Sumber",
+        "status": "Status",
+        "title": "Gim ini mengandung perangkat lunak anticheat"
+    },
+    "box": {
+        "cache-cleared": {
+            "message": "Tembolok Heroic telah dibersihkan.",
+            "title": "Tembolok telah dibersihkan"
+        },
+        "choose": "Pilih",
+        "choose-egs-prefix": "Pilih Prefiks di mana EGS dipasang",
+        "choose-gogdl-binary": "Pilih GOGDL Binary (perlu memulai ulang)",
+        "choose-legendary-binary": "Pilih Legendary binary",
+        "customWine": "Pilih Wine atau Proton Binary",
+        "default-install-path": "Pilih Lokasi Pemasangan Bawaan",
+        "default-steam-path": "Lokasi Steam.",
+        "downloadNow": "Unduh sekarang",
+        "error": {
+            "add": {
+                "steam": {
+                    "body": "Gagal menambahkan {{game}} ke Steam dengan:{{newLine}} {{error}}",
+                    "title": "Menambahkan Galat"
+                }
+            },
+            "credentials": {
+                "message": "Kredensial Anda telah kedaluwarsa, silakan keluar dan masuk lagi."
+            },
+            "cx-bottle-not-found": {
+                "message": "CrossOver bottle \"{{bottle_name}}\" tidak ada, tidak bisa dijalankan!",
+                "title": "CrossOver bottle tidak ditemukan"
+            },
+            "diskspace": {
+                "message": "Ruang penyimpanan tidak cukup",
+                "title": "Tidak Ada Ruang"
+            },
+            "dxvk": {
+                "message": "Galat saat memasang DXVK/VKD3D! Mohon periksa koneksi Anda!",
+                "title": "Terjadi Kesalahan DXVK/VKD3D"
+            },
+            "folder-not-found": {
+                "title": "Folder gim tampaknya sudah dihapus, apakah Anda ingin menghapus gim dari daftar?"
+            },
+            "generic": {
+                "message": "",
+                "title": "pilih file EXE untuk dijalankan"
+            },
+            "launchAborted": "Peluncuran dibatalkan",
+            "title": "Galat",
+            "uncaught-exception": {
+                "message": "Terjadi galat/kesalahan:{{newLine}}{{error}}{{newLine}}{{newLine}} Laporkan galat ke repositori kami di Github.",
+                "title": "Terjadi Galat / Kesalahan!"
+            },
+            "update": {
+                "message": "Terjadi kesalahan saat melakukan pembaruan, silakan cek log atau coba lagi nanti!",
+                "title": "Update Error"
+            },
+            "wine-not-found": {
+                "invalid": "Versi Wine yang dipilih tidak dapat ditemukan. Pasang sekarang atau pilih versi lain pada menu pengaturan gim{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
+                "message": "Tidak Ada Versi Wine yang Dipilih. Periksa Pengaturan Gim!",
+                "title": "Wine Tidak Ditemukan"
+            },
+            "winetricks": {
+                "message": "Winetricks menemukan kesalahan saat melakukan eksekusi:{{newLine}}{{error}}",
+                "title": "Galat Winetricks"
+            }
+        },
+        "info": {
+            "update": {
+                "changelog": "Buka log perubahan",
+                "detail": "Apakah Anda ingin mengunduh pembaruan di latar belakang?",
+                "message": "Ada Versi baru yang tersedia!",
+                "message-finished": "Apakah Anda ingin memulai ulang Heroic sekarang?",
+                "title": "Heroic Games Launcher",
+                "title-finished": "Pembaruan Selesai"
+            }
+        },
+        "no": "TIDAK",
+        "ok": "OKE",
+        "protocol": {
+            "install": {
+                "not_installed": "Saat ini tidak dipasang. Pasang sekarang?"
+            }
+        },
+        "quit": {
+            "message": "Ada operasi yang tertunda, apakah Anda yakin?",
+            "title": "Keluar"
+        },
+        "reset-heroic": {
+            "question": {
+                "message": "Anda yakin ingin menyetel ulang Heroic? Ini akan menghapus semua Pengaturan dan Tembolok tetapi tidak akan menghapus gim yang Terinstal atau kredensial Epic Anda. Versi portable (AppImage, WinPortable, ...) dari Heroic perlu dijalankan ulang secara manual setelah melakukan proses ini.",
+                "title": "Reset Heroic"
+            }
+        },
+        "runexe": {
+            "title": "Pilih EXE untuk Dijalankan"
+        },
+        "select": {
+            "button": "Pilih",
+            "exe": "Pilih EXE"
+        },
+        "shortcuts": {
+            "message": "Pintasan dibuat di Desktop dan Start Menu",
+            "message-mac": "Pintasan telah dibuat di dalam folder aplikasi",
+            "message-remove": "Pintasan telah dihapus dari Desktop dan Start Menu",
+            "message-remove-mac": "Pintasan telah dihapus dari folder aplikasi",
+            "title": "Pintasan"
+        },
+        "sync": {
+            "button": "Pilih",
+            "error": "Lokasi Tidak Valid",
+            "title": "Pilih direktori penyimpanan"
+        },
+        "vcruntime": {
+            "install": {
+                "message": "Tautan unduhan dari Visual C++ Runtimes sudah dibuka. Silahkan pasang kedua versi dari X86 dan X64."
+            },
+            "notfound": {
+                "message": "Microsoft Visual C++ Runtimes belum terpasang, yang dibutuhkan dari beberapa gim yang akan dimainkan",
+                "title": "VCRuntime belum terpasang"
+            }
+        },
+        "warning": {
+            "epic": {
+                "import": "Server Epic mengalami penghentian besar saat ini, gim tidak dapat diimpor!",
+                "install": "Server Epic mengalami penghentian besar saat ini, gim tidak dapat dipasang!",
+                "update": "Server Epic mengalami penghentian besar saat ini, gim tidak dapat diperbarui!"
+            },
+            "title": "Peringatan"
+        },
+        "wineprefix": "Pilih Folder Prefiks Wine",
+        "yes": "YA"
+    },
+    "button": {
+        "cancel": "Batalkan",
+        "go_to_library": "Pergi ke Pustaka",
+        "login": "Masuk",
+        "sync": "Sinkronkan",
+        "syncing": "Menyinkronkan",
+        "unsync": "Batalkan sinkronisasi"
+    },
+    "controller": {
+        "hints": {
+            "back": "Kembali",
+            "backspace": "Menghapus",
+            "close_dialog": "Tutup percakapan",
+            "close_keyboard": "Tutup papan ketik",
+            "close_options": "Tutup pilihan",
+            "game_details": "Detail gim",
+            "game_settings": "Pengaturan gim",
+            "install_game": "Pasang gim",
+            "move_cursor": "Pindahkan kursor",
+            "open_virtual_keyboard": "Buka papan ketik virtual",
+            "options": "Pilihan",
+            "play_game": "Bermain gim",
+            "scroll": "Menggulir",
+            "select": "Pilih",
+            "space": "Spasi",
+            "update_game": "Perbarui gim"
+        }
+    },
+    "docs": "Dokumentasi",
+    "download-manager": {
+        "install-type": {
+            "install": "Pasang",
+            "update": "Perbarui"
+        },
+        "label": {
+            "disk": "Penyimpanan",
+            "speed": "Unduh"
+        },
+        "link": "Unduhan",
+        "queue": {
+            "end-time": "Selesai pada",
+            "queue-time": "Ditambahkan pada",
+            "start-time": "Dimulai pada",
+            "type": "Tipe"
+        },
+        "title": "Unduhan"
+    },
+    "epic": {
+        "offline-notification-body": "Layanan daring mungkin tidak akan bekerja sepenuhnya karena server Epic Games sedang luring!",
+        "offline-notification-title": "luring"
+    },
+    "Epic Games": "Epic Games",
+    "error": "Kesalahan",
+    "favourites": "Favorit",
+    "game": {
+        "status": "Status",
+        "store": "Toko",
+        "title": "Judul Gim"
+    },
+    "GameSettings": "Pengaturan Gim",
+    "generic": {
+        "error": {
+            "component": "Tidak ada Gim yang ditemukan - Silakan coba log keluar lalu log masuk lagi atau salah satu opsi di bawah ini"
+        },
+        "library": {
+            "refresh": "Segarkan Pustaka"
+        }
+    },
+    "globalSettings": "Pengaturan Global",
+    "GOG": "GOG",
+    "gog-store": "GOG Store",
+    "header": {
+        "ignore_hidden": "Abaikan yang Disembunyikan",
+        "platform": "Platform",
+        "show_all_games": "Tampilkan semua gim",
+        "show_favourites_only": "Hanya Tampilkan Gim Favorit",
+        "show_hidden": "Tampilkan yang Disembunyikan",
+        "store": "Toko Filter"
+    },
+    "help": {
+        "amdfsr": "FSR AMD membantu untuk meningkatkan framerate dengan meningkatkan resolusi yang lebih rendah dalam Mode Layar Penuh. Kualitas gambar meningkat dari 5 menjadi 1 dengan mengorbankan sedikit kinerja. Mengaktifkannya dapat meningkatkan kinerja.",
+        "custom_themes_path": "Jangan gunakan file CSS dari sumber yang tidak tepercaya. Jika ragu, mintalah ulasan di saluran Discord kami.",
+        "custom_themes_wiki": "Cek Wiki untuk detail lebih lanjut tentang kustomisasi tema. Klik disini.",
+        "dxvk": "DXVK adalah lapisan translasi berbasis Vulkan untuk gim yang memakai DirectX 9, 10, dan 11. Mengaktifkannya dapat meningkatkan kompatibilitas. Mungkin dapat menyebabkan masalah terutama untuk gim dengan versi DirectX yang lebih lama.",
+        "dxvkfpslimit": "Atur batas maksimal frame untuk gim DXVK",
+        "esync": "Esync bertujuan untuk mengurangi overhead server Wine di gim dengan CPU yang intensif. Mengaktifkannya dapat meningkatkan kinerja.",
+        "fsync": "Fsync bertujuan untuk mengurangi overhead server Wine di gim dengan CPU intensif. Mengaktifkannya dapat meningkatkan kinerja pada kernel Linux yang didukung.",
+        "game_language": {
+            "fallback": "Biarkan kosong untuk menggunakan bahasa Heroic.",
+            "in_game_config": "Tidak semua gim mendukung konfigurasi ini, sebagian memiliki pengaturan bahasa dalam gim.",
+            "valid_codes": "Kode bahasa yang valid bergantung pada gim."
+        },
+        "gamemode": "Feral GameMode menerapkan penyesuaian otomatis dan penyesuaian sementara ke sistem saat menjalankan gim. Mengaktifkannya dapat meningkatkan kinerja.",
+        "general": "Sinkronkan dengan EGL jika Anda memiliki instalasi Epic Games Launcher yang berjalan di tempat lain dan ingin mengimpor gim Anda untuk menghindari pengunduhan ulang.",
+        "mangohud": "MangoHUD adalah hamparan yang menampilkan dan memantau FPS, suhu, beban CPU/GPU, dan sumber daya sistem lainnya.",
+        "other": {
+            "part4": "Gunakan ",
+            "part5": "Argumen Gim",
+            "part6": " dipanggil setelah perintah peluncuran, misalnya: ",
+            "part7": " untuk melewati peluncur di beberapa gim, dll."
+        },
+        "preferSystemLibs": "Versi Wine khusus (Wine-GE, Wine-Lutris) dikirimkan dengan dependensi pustakanya. Dengan mengaktifkan opsi ini, pustaka yang dikirimkan tersebut akan diabaikan dan Wine akan memuat pustaka sistem sebagai gantinya. Peringatan! Masalah dapat terjadi jika dependensi tidak terpenuhi.",
+        "primerun": "Gunakan kartu grafis khusus untuk merender game pada sistem multi-GPU. Hanya diperlukan pada laptop gaming atau desktop yang menggunakan GPU terpisah untuk rendering (NVIDIA Optimus, AMD CrossFire)",
+        "steam_path": {
+            "info": "Jalur ini memungkinkan Heroic menentukan versi apa yang digunakan oleh Proton Steam, untuk menambahkan game non-Steam ke Steam."
+        },
+        "steamruntime": "Pustaka khusus disediakan oleh Steam untuk membantu menjalankan gim Linux dan Windows (Proton). Mengaktifkannya dapat meningkatkan kompatibilitas.",
+        "sync": {
+            "part1": "Heroic mencoba untuk menebak folder penyimpanan yang tepat dan ini biasanya akan berhasil. Jika folder salah, gunakan kotak penimpaan untuk mengubahnya.",
+            "part2": "Jika Anda mengubah prefiks folder untuk Wine atau Proton, Anda perlu memeriksa lokasinya lagi karena Proton menggunakan prefiks (/pfx) dan nama pengguna (steamuser) yang berbeda. Jadi Anda dapat dengan mudah menghapus lokasi saat ini, keluar dari halaman pengaturan sinkronisasi, lalu kembali lagi dan biarkan Heroic menebak folder dengan prefiks yang tepat sekali lagi.",
+            "part3": "Sinkronisasi Manual: Pilih Unduh untuk mengunduh gim yang tersimpan di Awan. Unggah untuk mengunggah berkas lokal ke Awan. Unduh Paksa dan Unggah Paksa akan mengabaikan versi yang ada di penyimpanan lokal atau awan.",
+            "part4": "Sinkroninasi Penyimpanan Secara Otomatis akan menyinkronkan penyimpanan setiap kali Anda Memulai Gim dan setelah Anda selesai bermain."
+        },
+        "vkd3d": "VKD3D adalah lapisan translasi berbasis Vulkan untuk gim dengan DirectX 12. Mengaktifkannya dapat meningkatkan kompatibilitas secara signifikan. Tidak berpengaruh pada gim dengan DirectX versi lama.",
+        "wine": {
+            "part1": "Heroic mencari versi Wine, Proton, dan CrossOver di folder berikut ini:",
+            "part2": "Untuk tempat lain, gunakan tautan simbolis ke salah satu folder ini"
+        }
+    },
+    "info": {
+        "heroic": {
+            "beta": "Beta",
+            "click-to-see-changelog": "Klik untuk melihat catatan perubahan",
+            "newReleases": "Pembaruan Tersedia!",
+            "stable": "Stabil",
+            "version": "Versi Heroic"
+        },
+        "save-sync": {
+            "searching": "Mencoba untuk melacak folder penyimpanan yang benar"
+        },
+        "settings": "Pengaturan disimpan secara otomatis",
+        "version": "Versi Wine"
+    },
+    "infobox": {
+        "help": "Bantuan",
+        "requirements": "Persyaratan Sistem",
+        "warning": "Peringatan",
+        "wine-path": "Lokasi Wine",
+        "wine-prefix": {
+            "title": "Prefiks Wine"
+        },
+        "wine-repfix": {
+            "message": "Wine membutuhkan WINEPREFIX untuk menjalankan aplikasi Windows. Prefiks ini mengandung berkas konfigurasi Wine dan reproduksi dari struktur berkas yang ada dalam partisi C: (penyimpanan utama dalam OS Windows). Berkas yang disimpan dari hasil reproduksi ini adalah, penyimpanan save gim dan perangkat lunak lainnya yang terpasang melalui winetricks."
+        }
+    },
+    "install": {
+        "path": "Pilih Lokasi Pemasangan"
+    },
+    "label": {
+        "loading": "Memuat"
+    },
+    "library": {
+        "refresh": "Segarkan",
+        "sortAscending": "Urutkan Naik",
+        "sortByStatus": "Urutkan Berdasarkan Status",
+        "sortDescending": "Urutkan Turun",
+        "toggleLayout": {
+            "grid": "Rubah tata letak menjadi kisi",
+            "list": "Rubah tata letak menjadi daftar"
+        }
+    },
+    "Library": "Pustaka",
+    "loading": {
+        "default": "Memuat",
+        "website": "Memuat Situs Web"
+    },
+    "login": {
+        "alternative_method": "Metode Masuk Alternatif",
+        "epic": "Masuk Epic Games",
+        "gog": "Masuk GOG",
+        "message": "Masuk dengan platform anda. Anda dapat masuk ke lebih dari satu platform secara bersamaan."
+    },
+    "message": {
+        "sync": "Sinkronisasi Selesai",
+        "unsync": "Pembatalan Sinkronisasi Selesai"
+    },
+    "notify": {
+        "error": {
+            "move": "Galat dalam Memindahkan Gim",
+            "reparing": "Perbaikan Kesalahan"
+        },
+        "finished": {
+            "add": {
+                "steam": {
+                    "corrupt": "{{game}} tidak dapat ditambahkan dari pengguna Steam yang ditemukan. Lihat log untuk lebih banyak info. Steam perlu dijalankan ulang untuk melihat perubahan ini.",
+                    "success": "{{game}} berhasil ditambahkan ke Steam. Perlu memuat ulang Steam untuk menerapkan perubahan.",
+                    "title": "Ditambahkan ke Steam"
+                }
+            },
+            "remove": {
+                "steam": {
+                    "corrupt": "{{game}} tidak dapat dihapus dari pengguna Steam yang ditemukan. Lihat log untuk lebih banyak info. Steam perlu dijalankan ulang untuk melihat perubahan ini.",
+                    "success": "{{game}} berhasil dihapus dari Steam. Perlu memuat ulang Steam untuk menerapkan perubahan.",
+                    "title": "Dihapus dari Steam"
+                }
+            },
+            "reparing": "Perbaikan Selesai"
+        },
+        "install": {
+            "canceled": "Pemasangan Dibatalkan",
+            "error": "Pemasangan Gagal",
+            "finished": "Pemasangan Selesai",
+            "imported": "Gim Diimpor",
+            "startInstall": "Pemasangan Dimulai"
+        },
+        "moved": "Selesai Memindahkan",
+        "moving": "Memindahkan Gim",
+        "new-heroic-version": "Versi Heroic yang baru telah dirilis!",
+        "refresh": {
+            "error": "Tidak dapat mengambil rilis dari sumber, ini mungkin karena pembatasan API Github! Coba lagi nanti."
+        },
+        "uninstalled": "Dihapus",
+        "update": {
+            "canceled": "Pembaruan Dibatalkan",
+            "finished": "Pembaruan Selesai",
+            "started": "Pembaruan Dimulai"
+        }
+    },
+    "offline-message": {
+        "hint": "Kami sedang memeriksa konektivitas terhadap:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "ignore": "Ignore",
+        "offline": "Offline",
+        "offline-retry-in": "Luring. Mencoba dalam {{seconds}} detik.",
+        "retrying": "Mencoba kembali"
+    },
+    "Open": "",
+    "options": {
+        "advanced": {
+            "key": "Nama Variabel",
+            "placeHolderKey": "NAMA",
+            "placeHolderValue": "Misalnya: Lokasi/Ke/BerkasEkstra",
+            "title": "Variabel Lingkungan",
+            "value": "Nilai"
+        },
+        "env_variables": {
+            "error": {
+                "empty_key": "Nama variabel tidak bisa dikosongkan",
+                "equal_sign_in_key": "Nama variabel tidak dapat mengandung tanda \"=\"",
+                "space_in_key": "Nama variabel tidak dapat mengandung karakter spasi"
+            },
+            "example": "Mohon JANGAN menambahkan tanda \"=\" , contoh: untuk pengaturan seperti \"MY_FLAG=123\", tolong set MY_FLAG di NAME dan 123 di VALUE.",
+            "info": "Set lingkungan variabel untuk menambahkan ke dalam pertintah command."
+        },
+        "gameargs": {
+            "placeholder": "Letakkan Argumen Peluncur di sini",
+            "title": "Argumen Gim (Untuk dijalankan setelah perintah):"
+        },
+        "quote-args-with-spaces": "Peringatan: Pastikan untuk mengutip argumen dengan spasi! Misalnya: \"lokasi/dengan spasi/\"",
+        "wrapper": {
+            "args": "Argumen",
+            "arguments_example": "Contoh argumen: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "exe": "Wrapper",
+            "placeHolderKey": "Wrapper baru",
+            "placeHolderValue": "Argumen Wrapper",
+            "title": "Perintah Wrapper:"
+        }
+    },
+    "other": {
+        "gogdl-version": "Versi GOGDL: ",
+        "legendary-version": "Versi Legendary: ",
+        "weblate": "Bantu kami untuk menerjemahkan Heroic."
+    },
+    "Other": "Other",
+    "placeholder": {
+        "alt-gogdl-bin": "Menggunakan GOGDL binary bawaan…",
+        "alt-legendary-bin": "Menggunakan Legendary binary bawaan...",
+        "custom_themes_path": "Pilih jalur untuk mencari file CSS khusus",
+        "dxvkfpsvalue": "Nilai bilangan bulat positif (contohnya 30, 60, ...)",
+        "egs-prefix": "Prefiks di mana EGS dipasang",
+        "prefered_language": "Kode 2 karakter (contohnya: \"en\" atau \"fr\")"
+    },
+    "platforms": {
+        "linux": "Linux",
+        "mac": "Mac",
+        "win": "Windows"
+    },
+    "please-wait": "Mohon tunggu...",
+    "progress": "Progress",
+    "queue": {
+        "label": {
+            "canceled": "Dibatalkan",
+            "clear": "Hapus Daftar",
+            "downloading": "Mengunduh",
+            "empty": "Tidak ada yang diunduh",
+            "finished": "Selesai",
+            "queued": "Antrian",
+            "remove": "Hapus dari Unduhan"
+        }
+    },
+    "Recent": "Dimainkan Baru-Baru Ini",
+    "search": "Cari Gim",
+    "setting": {
+        "adddesktopshortcuts": "Tambahkan pintasan desktop secara otomatis",
+        "addgamestostartmenu": "Tambahkan gim untuk memulai menu secara otomatis",
+        "addgamestosteam": "Tambahkan game ke Steam secara otomatis",
+        "alt-gogdl-bin": "Pilih GOGDL Binary alternatif untuk digunakan",
+        "alt-legendary-bin": "Pilih Legendary Binary Alternatif",
+        "autodxvk": "Pasang/Perbarui Otomatis DXVK di Prefiks",
+        "autosync": "Sinkronisasi Penyimpanan Otomatis",
+        "autovkd3d": "Pemasangan/Pembaruan VKD3D Otomatis di Prefiks",
+        "change-target-exe": "Pilih EXE alternatif untuk dijalankan",
+        "checkForUpdatesOnStartup": "Periksa Pembaruan Heroik saat Memulai",
+        "crossover-version": "Versi silang",
+        "custom_themes_path": "Lokasi Tema Kustom",
+        "customWineProton": "Lokasi Wine/Proton Khusus",
+        "darktray": "Gunakan Ikon Baki Gelap",
+        "default-install-path": "Lokasi Pemasangan Bawaan",
+        "default-steam-path": "Lokasi Steam bawaan",
+        "defaultWinePrefix": "Atur Folder untuk Prefiks Wine baru",
+        "disable_controller": "Nonaktifkan navigasi Heroic menggunakan pengontrol",
+        "discordRPC": "Aktifkan Discord Rich Presence",
+        "download-no-https": "Unduh gim tanpa HTTPS (berguna untuk CDN misalnya LanCache)",
+        "dxvkfpslimit": "Batasi FPS (DX9, 10 dan 11)",
+        "egs-sync": "Sinkronkan dengan Epic Games yang Terpasang",
+        "enableFSRHack": "Aktifkan Peretasan FSR (perlu versi Wine yang mendukung)",
+        "eosOverlay": {
+            "cancelInstall": "Batal",
+            "checkForUpdates": "Periksa pembaruan",
+            "checkingForUpdates": "Memeriksa pembaruan...",
+            "currentVersion": "Versi Saat Ini: {{version}}",
+            "disable": "Nonaktif",
+            "enable": "Aktif",
+            "install": "Install",
+            "installed": "EOS Overlay terpasang",
+            "installing": "EOS Overlay sedang dipasang....",
+            "latestVersion": "Versi Terbaru: {{version}}",
+            "notInstalled": "EOS Overlay tidak dipasang",
+            "notInstalledMsg": "EOS Overlay tidak dipasang. Apakah Anda ingin memasangnya sekarang?",
+            "notInstalledTitle": "Overlay tidak dipasang",
+            "remove": "Copot",
+            "removeConfirm": "Apakah Anda yakin ingin mencopot EOS Overlay?",
+            "removeConfirmTitle": "Konfirmasi penghapusan Overlay",
+            "updateNow": "Update",
+            "updating": "Memperbarui..."
+        },
+        "esync": "Aktifkan Esync",
+        "exit-to-tray": "Keluar ke Baki Sistem",
+        "FsrSharpnessStrenght": "Kekuatan Ketajaman FSR",
+        "fsync": "Aktifkan Fsync",
+        "gamemode": "Gunakan GameMode (Feral Game Mode perlu dipasang)",
+        "hideChangelogsOnStartup": "Jangan tampilkan daftar ubahan saat memulai",
+        "language": "Pilih Bahasa",
+        "library_top_option": {
+            "disabled": "Matikan",
+            "favourites": "Gim Favorit",
+            "recently_played": "Gim yang Baru Dimainkan",
+            "recently_played_installed": "Gim yang Baru Dimainkan (Hanya yang terpasang)"
+        },
+        "library_top_section": "Bagian Atas Pustaka",
+        "log": {
+            "copy-to-clipboard": "Salin konten log ke papan klip",
+            "current-log": "Log Saat Ini",
+            "instructions": "Bergabunglah dengan Discord kami dan cari saluran yang cocok dengan sistem operasi Anda. Bagikan konten log yang ditampilkan di sini, dan sertakan deskripsi yang jelas tentang masalah yang dialami dengan informasi dan detail yang relevan.",
+            "instructions_title": "Bagaimana cara melaporkan masalah?",
+            "last-log": "Log Terakhir",
+            "no-file": "Tidak ditemukan berkas log",
+            "show-in-folder": "Tampilkan berkas log di dalam folder"
+        },
+        "mangohud": "Aktifkan Mangohud (Mangohud perlu dipasang)",
+        "manualsync": {
+            "download": "Unduh",
+            "forcedownload": "Unduh Paksa",
+            "forceupload": "Unggah Paksa",
+            "sync": "Sinkronisasi",
+            "syncing": "Menyinkronkan",
+            "title": "Sinkronisasi Penyimpanan Secara Manual",
+            "upload": "Unggah"
+        },
+        "maxRecentGames": "Gim yang Dimainkan Baru-Baru Ini",
+        "maxworkers": "Jumlah Maksimum Worker saat mengunduh",
+        "minimize-on-launch": "Minimalkan Jendela Heroic Setelah Gim Diluncurkan",
+        "offlinemode": "Jalankan Game Secara Luring",
+        "prefered_language": "Bahasa Pilihan (Kode Bahasa)",
+        "preferSystemLibs": "Lebih memilih pustaka sistem",
+        "primerun": {
+            "confirmation": {
+                "message": "Hanya satu kartu grafis yang terdeteksi di sistem ini. Harap perhatikan bahwa opsi ini ditujukan untuk sistem multi-GPU dengan GPU tanpa kepala (seperti laptop). Pada sistem GPU tunggal, GPU digunakan secara otomatis & mengaktifkan opsi ini dapat menyebabkan masalah. Apakah Anda benar-benar ingin mengaktifkan opsi ini?",
+                "title": "Hanya 1 GPU yang terdeteksi"
+            },
+            "description": "Gunakan Kartu Grafis untuk Rendering"
+        },
+        "runexe": {
+            "message": "Seret dan Jatuhkan Berkas di sini",
+            "title": "Jalankan EXE di Prefiks"
+        },
+        "savefolder": {
+            "not-found": "Folder penyimpanan tidak ditemukan, silakan pilih secara manual",
+            "placeholder": "Pilih folder gim tersimpan yang tepat",
+            "warning": "Silakan periksa dua kali apakah lokasinya sudah benar"
+        },
+        "select_theme": "Pilih Tema",
+        "showfps": "Tampilkan FPS (DX9, 10, dan 11)",
+        "start-in-tray": "Mulai Diminimalkan",
+        "steamruntime": "Gunakan Steam Runtime",
+        "winecrossoverbottle": "CrossOver Bottle",
+        "wineprefix": "Folder Prefiks Wine",
+        "wineversion": "Versi Wine"
+    },
+    "settings": {
+        "battlEyeRuntime": {
+            "installing": "Memasang BattlEye Runtime...",
+            "name": "BattlEye AntiCheat Runtime"
+        },
+        "clear-cache": "Hapus Tembolok Heroic",
+        "copiedToClipboard": "Disalin ke Papan Klip!",
+        "copyToClipboard": "Salin Semua Pengaturan ke Papan Klip",
+        "default_hint": "Perubahan di bagian ini hanya berlaku sebagai nilai bawaan saat menginstal gim. Jika Anda ingin mengubah pengaturan gim yang sudah terinstal, gunakan tombol Pengaturan di halaman gim.",
+        "eacRuntime": {
+            "gameModeRequired": {
+                "message": "GameMode dibutuhkan untuk menjalankan EAC runtime di Flatpak. Apakah anda ingin menghidupkannya sekarang?",
+                "title": "GameMode dibutuhkan"
+            },
+            "installing": "Memasang EAC Runtime...",
+            "name": "EasyAntiCheat Runtime"
+        },
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "message": "EAC runtime dihidupkan, yang akan menyebabkan tidak berjalan normal tanpa menggunakan GameMode. Apakah anda ingin mematikan EAC Runtime dan GameMode?",
+                "title": "EAC runtime dihidupkan"
+            }
+        },
+        "log": {
+            "long-log-hint": "Log terpotong, 1000 baris terakhir akan ditampilkan!"
+        },
+        "navbar": {
+            "advanced": "Tambahan",
+            "games_settings": "Pengaturan Gim",
+            "games_settings_defaults": "Bawaan dari Gim",
+            "general": "Umum",
+            "log": "Log",
+            "other": "Lainnya",
+            "sync": "Sinkronisasi Penyimpanan",
+            "wineExt": "Ekstensi Wine"
+        },
+        "open-config-file": "Buka Berkas Pengaturan",
+        "reset-heroic": "Reset Heroic",
+        "saves": {
+            "label": "Lokasi Penyimpanan:",
+            "warning": "Fitur Cloud Saves masih dalam versi Beta, harap buat rekam cadang penyimpanan Anda sebelum menyinkronkan (jaga-jaga bila terjadi kesalahan)"
+        }
+    },
+    "Settings": "Pengaturan",
+    "sidebar": {
+        "collapse": "Tutup bilah samping",
+        "uncollapse": "Tampilkan bilah samping"
+    },
+    "status": {
+        "installing": "Memasang",
+        "logging": "Log Masuk...",
+        "processing": "Memproses berkas, harap tunggu"
+    },
+    "store": "Epic Store",
+    "stores": "Toko",
+    "title": {
+        "allGames": "Semua Gim"
+    },
+    "toolbox": {
+        "settings": {
+            "default-wineprefix": "Pilih folder prefiks asali untuk konfigurasi yang baru",
+            "wineprefix": "Pilih Folder untuk Prefiks Wine yang Baru"
+        }
+    },
+    "tooltip": {
+        "addpath": "Tambahkan Lokasi Baru",
+        "removepath": "Hapus Lokasi"
+    },
+    "tray": {
+        "about": "Tentang",
+        "quit": "Keluar",
+        "reload": "Muat Ulang",
+        "show": "Tampilkan"
+    },
+    "two_col_table": {
+        "save_hint": "Perubahan di tabel ini tidak disimpan secara otomatis. Klik tombol +"
+    },
+    "Update Available!": "",
+    "userselector": {
+        "discord": "Discord",
+        "logging_out": "Keluar",
+        "logout": "Keluar",
+        "logout_confirmation": "Apakah Anda yakin ingin keluar?",
+        "manageaccounts": "Kelola Akun",
+        "quit": "Keluar"
+    },
+    "webview": {
+        "controls": {
+            "back": "Kembali",
+            "forward": "Maju",
+            "openInBrowser": "Buka di peramban",
+            "reload": "Muat ulang halaman"
+        }
+    },
+    "wine": {
+        "actions": "Action",
+        "manager": {
+            "link": "Manajer Wine",
+            "not-found": "Tidak ada versi Wine yang ditemukan. Klik ikon segarkan untuk mencoba lagi.",
+            "title": "Manajer Wine",
+            "unzipping": "Mengekstrak"
+        },
+        "release": "Release Date",
+        "size": "Ukuran"
+    }
+}

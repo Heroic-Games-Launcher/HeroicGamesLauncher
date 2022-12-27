@@ -1,21 +1,21 @@
 {
     "box": {
         "change": {
-            "message": "This will change the install location of this game, are you sure?",
-            "path": "Choose a new install path",
-            "title": "Change Games Install Path"
+            "message": "Isto cambiará a localización da instalción do xogo, ¿estás seguro?",
+            "path": "Escolle o cartafol de instalación",
+            "title": "Modificar a localización de instalación do xogo"
         },
-        "choose": "Choose",
-        "importpath": "Choose Game Folder to import",
+        "choose": "Seleccionar",
+        "importpath": "Seleccione o cartafol do xogo para importar",
         "move": {
-            "message": "This can take a long time, are you sure?",
-            "path": "Choose where you want to move",
-            "title": "Move Game Installation"
+            "message": "Isto pode levar moito tempo, ¿estás seguro?",
+            "path": "Selecciona a localización de destino",
+            "title": "Mover o cartafol do xogo"
         },
-        "no": "NO",
+        "no": "Non",
         "repair": {
-            "message": "Do you want to try to repair this game? This can take a long time.",
-            "title": "Verify and Repair"
+            "message": "Queres tentar reparar o xogo? Isto pode levar moito tempo.",
+            "title": "Verificar e reparar"
         },
         "runexe": {
             "title": "Select EXE to Run"
@@ -27,33 +27,33 @@
             "exe": "Select Executable"
         },
         "stopInstall": {
-            "keepInstalling": "Keep Installing",
-            "message": "Do you wish to KEEP downloaded files?",
-            "title": "Stop Installation"
+            "keepInstalling": "Seguir instalando",
+            "message": "Desexa MANTER os ficheiros descargados?",
+            "title": "Deter a instalación"
         },
         "uninstall": {
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
-            "message": "Do you want to uninstall this game?",
+            "message": "Desexas desinstalar o xogo?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
-            "title": "Uninstall"
+            "title": "Desinstalar"
         },
         "update": {
-            "message": "This game has an update, apply update now?",
-            "title": "Game Needs Update"
+            "message": "Este xogo ten unha actualización, ¿desexas actualizar agora?",
+            "title": "O xogo precisa unha actualización"
         },
-        "wineprefix": "Select WinePrefix Folder",
-        "yes": "YES"
+        "wineprefix": "Seleccione o cartafol co prefixo de Wine",
+        "yes": "Sí"
     },
     "button": {
         "add_to_favourites": "Add To Favourites",
-        "cancel": "Pause/Cancel",
-        "continue": "Continue Download",
+        "cancel": "Pausar/Cancelar",
+        "continue": "Continuar descarga",
         "finish": "Finish",
         "force_update": "Force Update if Available",
         "force-innstall": "Force Install",
         "hide_game": "Hide Game",
-        "import": "Import Game",
-        "install": "Install",
+        "import": "Importar xogo",
+        "install": "Instalar",
         "no-path-selected": "No path selected",
         "queue": {
             "remove": "Remove from Queue"
@@ -66,31 +66,31 @@
             "edit": "Edit App/Game"
         },
         "unhide_game": "Unhide Game",
-        "uninstall": "Uninstall",
-        "update": "Update"
+        "uninstall": "Desinstalar",
+        "update": "Actualizar"
     },
     "cloud_save_unsupported": "Unsupported",
-    "disabled": "Disabled",
+    "disabled": "Deshabilitar",
     "dlc": {
-        "installDlcs": "Install all DLCs"
+        "installDlcs": "Instalar todos os DLCs"
     },
-    "enabled": "Enabled",
+    "enabled": "Activar",
     "game": {
-        "downloadSize": "Download Size",
-        "firstPlayed": "First Played",
-        "getting-download-size": "Getting download size",
-        "getting-install-size": "Getting install size",
-        "installSize": "Install Size",
-        "language": "Language",
-        "lastPlayed": "Last Played",
-        "neverPlayed": "Never",
+        "downloadSize": "Tamaño da descarga",
+        "firstPlayed": "Xogado por primeira vez",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
+        "installSize": "Tamaño da instalación",
+        "language": "Idioma",
+        "lastPlayed": "Xogado por última vez",
+        "neverPlayed": "Nunca",
         "platform": "Select Platform Version to Install",
         "requirements": "System Requirements",
-        "totalPlayed": "Time Played"
+        "totalPlayed": "Tempo xogado"
     },
     "gamecard": {
-        "moving": "Moving",
-        "repairing": "Repairing"
+        "moving": "Movendo",
+        "repairing": "Reparando"
     },
     "generic": {
         "error": "Unknown error"
@@ -103,36 +103,36 @@
     },
     "howLongToBeat": "How Long To Beat",
     "info": {
-        "canRunOffline": "Online Required",
+        "canRunOffline": "Require Online",
         "installedPlatform": "Installed Platform",
-        "path": "Install Path",
-        "size": "Size",
-        "syncsaves": "Sync Saves",
-        "version": "Version"
+        "path": "Ruta de instalación",
+        "size": "Tamaño",
+        "syncsaves": "Sincronizar gardados",
+        "version": "Versión"
     },
     "install": {
         "disk-space-left": "Space Available",
         "not-enough-disk-space": "Not enough disk space",
-        "path": "Select Install Path",
+        "path": "Seleccionar a ruta de instalación",
         "path-not-writtable": "Warning: path might not be writable.",
         "space-after-install": "After Install",
-        "wineprefix": "WinePrefix",
-        "wineversion": "Wine version"
+        "wineprefix": "Prefixo de Wine",
+        "wineversion": "Versión de Wine"
     },
     "label": {
         "game": {
             "third-party-game": "Third-Party Game NOT Supported"
         },
         "playing": {
-            "start": "Play Now",
-            "stop": "Playing (Stop)"
+            "start": "Xogar",
+            "stop": "Deter"
         },
         "saves": {
-            "syncing": "Syncing Saves"
+            "syncing": "Sincronización de gardados"
         }
     },
     "launch": {
-        "options": "Launch Options..."
+        "options": "Opcións de arrinque..."
     },
     "not_logged_in": {
         "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
@@ -142,7 +142,7 @@
     },
     "report_problem": "Report a problem running this game",
     "sdl": {
-        "title": "Select components to Install"
+        "title": "Seleccione os compoñentes a instalar"
     },
     "setting": {
         "use-default-wine-settings": "Use Default Wine Settings"
@@ -162,39 +162,39 @@
         }
     },
     "specs": {
-        "minimum": "Minimum",
-        "recommended": "Recommended"
+        "minimum": "Mínimo",
+        "recommended": "Recomendado"
     },
     "status": {
-        "clickToUpdate": "Click to Update",
+        "clickToUpdate": "Premer para actualizar",
         "gameNotAvailable": "Game not available",
-        "hasUpdates": "New Version Available!",
-        "installed": "Installed",
-        "installing": "Installing",
-        "moving": "Moving Installation, please wait",
-        "notinstalled": "This game is not installed",
+        "hasUpdates": "Nova versión dispoñíbel!",
+        "installed": "Instalado",
+        "installing": "Instalando",
+        "moving": "Instalación en movemento, agarda",
+        "notinstalled": "Este xogo non está instalado",
         "notSupported": "Not supported",
         "notSupportedGame": "Not Supported",
         "processing": "Processing files, please wait",
         "queued": "Queued",
-        "reparing": "Repairing Game, please wait",
+        "reparing": "Reparando xogo, agarda",
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
-        "totalDownloaded": "Total Downloaded",
+        "totalDownloaded": "Total descargado",
         "uninstalling": "Uninstalling",
-        "updating": "Updating Game"
+        "updating": "Actualización do xogo"
     },
     "submenu": {
-        "addShortcut": "Add shortcut",
+        "addShortcut": "Engadir acceso directo",
         "addToSteam": "Add to Steam",
-        "change": "Change install path",
+        "change": "Modificar a localización de instalación",
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",
-        "move": "Move Game",
-        "protondb": "Check Compatibility",
+        "move": "Mover xogo",
+        "protondb": "Verificar compatibilidade",
         "removeFromSteam": "Remove from Steam",
         "removeShortcut": "Remove shortcuts",
-        "settings": "Settings",
-        "store": "Store Page",
-        "verify": "Verify and Repair"
+        "settings": "Axustes",
+        "store": "Páxina da tenda",
+        "verify": "Verificar e reparar"
     }
 }
