@@ -46,7 +46,7 @@ abstract class GlobalConfig {
 
   public abstract version: GlobalConfigVersion
 
-  public config: AppSettings | undefined
+  protected config: AppSettings | undefined
 
   /**
    * Get the global configuartion handler.
