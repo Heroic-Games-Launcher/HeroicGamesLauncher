@@ -273,7 +273,7 @@ if (!gotTheLock) {
     logInfo(['GOGDL location:', join(...Object.values(getGOGdlBin()))], {
       prefix: LogPrefix.Gog
     })
-    // We can't use .config since apparently its not loaded fast enough.
+
     // TODO: Remove this after a couple of stable releases
     // Affects only current users, not new installs
     const settings = GlobalConfig.get().getSettings()
@@ -824,7 +824,7 @@ ipcMain.handle('requestSettings', async (event, appName) => {
   if (appName === 'default') {
     return mapOtherSettings(GlobalConfig.get().getSettings())
   }
-  // We can't use .config since apparently its not loaded fast enough.
+
   const config = await GameConfig.get(appName).getSettings()
   return mapOtherSettings(config)
 })
