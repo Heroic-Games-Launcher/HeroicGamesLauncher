@@ -182,7 +182,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
       configStore.set('window-props', mainWindow.getBounds())
     }
 
-    const { exitToTray } = GlobalConfig.get().config
+    const { exitToTray } = GlobalConfig.get().getSettings()
 
     if (exitToTray) {
       logInfo('Exitting to tray instead of quitting', {
@@ -630,7 +630,7 @@ ipcMain.handle('getNumOfGpus', async (): Promise<number> => {
 })
 
 ipcMain.handle('getLatestReleases', async () => {
-  const { checkForUpdatesOnStartup } = GlobalConfig.get().config
+  const { checkForUpdatesOnStartup } = GlobalConfig.get().getSettings()
   if (checkForUpdatesOnStartup) {
     return getLatestReleases()
   } else {
@@ -822,7 +822,7 @@ ipcMain.handle('requestSettings', async (event, appName) => {
   }
 
   if (appName === 'default') {
-    return mapOtherSettings(GlobalConfig.get().config)
+    return mapOtherSettings(GlobalConfig.get().getSettings())
   }
   // We can't use .config since apparently its not loaded fast enough.
   const config = await GameConfig.get(appName).getSettings()
@@ -843,7 +843,7 @@ ipcMain.handle('writeConfig', (event, { appName, config }) => {
   })
   const oldConfig =
     appName === 'default'
-      ? GlobalConfig.get().config
+      ? GlobalConfig.get().getSettings()
       : GameConfig.get(appName).config
 
   // log only the changed setting
