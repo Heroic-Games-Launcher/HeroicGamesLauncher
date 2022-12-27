@@ -19,7 +19,7 @@ module.exports = {
   defaultNamespace: 'translation',
   // Default namespace used in your i18next config
 
-  defaultValue: '',
+  defaultValue: (locale, namespace, key) => key,
   // Default value to give to empty keys
 
   failOnWarnings: false,
@@ -54,45 +54,7 @@ module.exports = {
   // Control the line ending. See options at https://github.com/ryanve/eol
 
   locales: [
-    'ar',
-    'az',
-    'be',
-    'bg',
-    'bs',
-    'ca',
-    'cs',
-    'de',
-    'el',
-    'en',
-    'es',
-    'et',
-    'eu',
-    'fa',
-    'fi',
-    'fr',
-    'gl',
-    'hr',
-    'hu',
-    'ja',
-    'ko',
-    'id',
-    'it',
-    'ml',
-    'nb_NO',
-    'nl',
-    'pl',
-    'pt',
-    'pt_BR',
-    'ro',
-    'ru',
-    'sk',
-    'sv',
-    'ta',
-    'tr',
-    'uk',
-    'vi',
-    'zh_Hans',
-    'zh_Hant'
+    'en'
   ],
   // An array of the locales in your applications
 
@@ -115,6 +77,12 @@ module.exports = {
   // Whether to use the keys as the default value; ex. "Hello": "Hello", "World": "World"
   // This option takes precedence over the `defaultValue` and `skipDefaultValues` options
 
-  verbose: true
+  verbose: true,
   // Display info about the parsing including some stat
+
+  i18nextOptions: {
+    fallbackLng: 'en',
+    returnEmptyString: false,
+    returnNull: false
+  }
 }
