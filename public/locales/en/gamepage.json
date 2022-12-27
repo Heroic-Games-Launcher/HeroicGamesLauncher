@@ -1,21 +1,21 @@
 {
     "box": {
         "change": {
-            "message": "",
-            "path": "",
-            "title": ""
+            "message": "This will change the install location of this game, are you sure?",
+            "path": "Choose a new install path",
+            "title": "Change Games Install Path"
         },
-        "choose": "",
-        "importpath": "",
+        "choose": "Choose",
+        "importpath": "Choose Game Folder to import",
         "move": {
-            "message": "",
-            "path": "",
-            "title": ""
+            "message": "This can take a long time, are you sure?",
+            "path": "Choose where you want to move",
+            "title": "Move Game Installation"
         },
-        "no": "",
+        "no": "NO",
         "repair": {
-            "message": "",
-            "title": ""
+            "message": "Do you want to try to repair this game? This can take a long time.",
+            "title": "Verify and Repair"
         },
         "runexe": {
             "title": "Select EXE to Run"
@@ -27,33 +27,33 @@
             "exe": "Select Executable"
         },
         "stopInstall": {
-            "keepInstalling": "",
-            "message": "",
-            "title": ""
+            "keepInstalling": "Keep Installing",
+            "message": "Do you wish to KEEP downloaded files?",
+            "title": "Stop Installation"
         },
         "uninstall": {
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
-            "message": "",
+            "message": "Do you want to uninstall this game?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
-            "title": ""
+            "title": "Uninstall"
         },
         "update": {
-            "message": "",
-            "title": ""
+            "message": "This game has an update, apply update now?",
+            "title": "Game Needs Update"
         },
         "wineprefix": "Select WinePrefix Folder",
-        "yes": ""
+        "yes": "YES"
     },
     "button": {
         "add_to_favourites": "Add To Favourites",
-        "cancel": "",
+        "cancel": "Pause/Cancel",
         "continue": "Continue Download",
         "finish": "Finish",
         "force_update": "Force Update if Available",
         "force-innstall": "Force Install",
         "hide_game": "Hide Game",
-        "import": "",
-        "install": "",
+        "import": "Import Game",
+        "install": "Install",
         "no-path-selected": "No path selected",
         "queue": {
             "remove": "Remove from Queue"
@@ -66,15 +66,15 @@
             "edit": "Edit App/Game"
         },
         "unhide_game": "Unhide Game",
-        "uninstall": "",
+        "uninstall": "Uninstall",
         "update": "Update"
     },
     "cloud_save_unsupported": "Unsupported",
-    "disabled": "",
+    "disabled": "Disabled",
     "dlc": {
         "installDlcs": "Install all DLCs"
     },
-    "enabled": "",
+    "enabled": "Enabled",
     "game": {
         "downloadSize": "Download Size",
         "firstPlayed": "First Played",
@@ -85,7 +85,7 @@
         "lastPlayed": "Last Played",
         "neverPlayed": "Never",
         "platform": "Select Platform Version to Install",
-        "requirements": "Requirements",
+        "requirements": "System Requirements",
         "totalPlayed": "Time Played"
     },
     "gamecard": {
@@ -105,10 +105,10 @@
     "info": {
         "canRunOffline": "Online Required",
         "installedPlatform": "Installed Platform",
-        "path": "",
-        "size": "",
-        "syncsaves": "",
-        "version": ""
+        "path": "Install Path",
+        "size": "Size",
+        "syncsaves": "Sync Saves",
+        "version": "Version"
     },
     "install": {
         "disk-space-left": "Space Available",
@@ -117,18 +117,18 @@
         "path-not-writtable": "Warning: path might not be writable.",
         "space-after-install": "After Install",
         "wineprefix": "WinePrefix",
-        "wineversion": ""
+        "wineversion": "Wine version"
     },
     "label": {
         "game": {
             "third-party-game": "Third-Party Game NOT Supported"
         },
         "playing": {
-            "start": "",
-            "stop": ""
+            "start": "Play Now",
+            "stop": "Playing (Stop)"
         },
         "saves": {
-            "syncing": ""
+            "syncing": "Syncing Saves"
         }
     },
     "launch": {
@@ -162,39 +162,39 @@
         }
     },
     "specs": {
-        "minimum": "",
-        "recommended": ""
+        "minimum": "Minimum",
+        "recommended": "Recommended"
     },
     "status": {
         "clickToUpdate": "Click to Update",
         "gameNotAvailable": "Game not available",
         "hasUpdates": "New Version Available!",
-        "installed": "",
-        "installing": "",
-        "moving": "",
-        "notinstalled": "",
+        "installed": "Installed",
+        "installing": "Installing",
+        "moving": "Moving Installation, please wait",
+        "notinstalled": "This game is not installed",
         "notSupported": "Not supported",
         "notSupportedGame": "Not Supported",
         "processing": "Processing files, please wait",
         "queued": "Queued",
-        "reparing": "",
+        "reparing": "Repairing Game, please wait",
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Total Downloaded",
         "uninstalling": "Uninstalling",
-        "updating": ""
+        "updating": "Updating Game"
     },
     "submenu": {
         "addShortcut": "Add shortcut",
         "addToSteam": "Add to Steam",
-        "change": "",
+        "change": "Change install path",
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",
-        "move": "",
-        "protondb": "",
+        "move": "Move Game",
+        "protondb": "Check Compatibility",
         "removeFromSteam": "Remove from Steam",
         "removeShortcut": "Remove shortcuts",
-        "settings": "",
-        "store": "",
-        "verify": ""
+        "settings": "Settings",
+        "store": "Store Page",
+        "verify": "Verify and Repair"
     }
 }
