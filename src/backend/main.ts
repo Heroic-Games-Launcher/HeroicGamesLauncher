@@ -850,7 +850,7 @@ ipcMain.handle('writeConfig', (event, { appName, config }) => {
   logChangedSetting(config, oldConfig)
 
   if (appName === 'default') {
-    GlobalConfig.get().config = config as AppSettings
+    GlobalConfig.get().set(config as AppSettings)
     GlobalConfig.get().flush()
     const currentConfigStore = configStore.get('settings', {}) as AppSettings
     configStore.set('settings', { ...currentConfigStore, ...config })

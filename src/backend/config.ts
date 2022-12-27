@@ -48,6 +48,10 @@ abstract class GlobalConfig {
 
   protected config: AppSettings | undefined
 
+  public set(config: AppSettings) {
+    this.config = config
+  }
+
   /**
    * Get the global configuartion handler.
    * If one doesn't exist, create one.
