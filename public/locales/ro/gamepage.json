@@ -1,0 +1,201 @@
+{
+    "box": {
+        "change": {
+            "message": "Acest lucru va schimba locația de instalare a acestui joc, ești sigur?",
+            "path": "Alegeți o nouă cale de instalare",
+            "title": "Schimbați calea de instalare a jocurilor"
+        },
+        "choose": "Alege",
+        "importpath": "Alege dosarul de joc pentru a importa",
+        "move": {
+            "message": "Acest lucru poate dura mult timp, ești sigur?",
+            "path": "Alegeți unde doriți să mutați",
+            "title": "Mutați Instalarea Jocului"
+        },
+        "no": "NU",
+        "repair": {
+            "message": "Vrei să încerci să repari acest joc? Acest lucru poate dura mult timp.",
+            "title": "Verifică și Repară"
+        },
+        "runexe": {
+            "title": "Select EXE to Run"
+        },
+        "select": {
+            "button": "Select"
+        },
+        "sideload": {
+            "exe": "Select Executable"
+        },
+        "stopInstall": {
+            "keepInstalling": "Continuați să instalați",
+            "message": "Doriți să PĂSTRAȚI fișierele descărcate?",
+            "title": "Opriți instalarea"
+        },
+        "uninstall": {
+            "checkbox": "Doriți să eliminați și prefixul? Acest lucru nu poate fi anulat.",
+            "checkbox_prefix": "Prefix",
+            "message": "Doriți să dezinstalați acest joc?",
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+            "title": "Dezinstalează"
+        },
+        "update": {
+            "message": "Acest joc are o actualizare, vrei să actualizezi acum?",
+            "title": "Jocul necesită actualizare"
+        },
+        "wineprefix": "Selectați folderul WinePrefix",
+        "yes": "DA"
+    },
+    "button": {
+        "add_to_favourites": "Adaugă la favorite",
+        "cancel": "Pauză/Anulează",
+        "continue": "Continuați descărcarea",
+        "finish": "Finish",
+        "force_update": "Forțați actualizarea dacă este disponibilă",
+        "force-innstall": "Force Install",
+        "hide_game": "Ascunde jocul",
+        "import": "Importă Jocul",
+        "install": "Instalează",
+        "no-path-selected": "No path selected",
+        "queue": {
+            "remove": "Remove from Queue"
+        },
+        "remove_from_favourites": "Eliminați din Favorite",
+        "remove_from_recent": "Remove From Recent",
+        "run-exe-first": "Run Installer First",
+        "running-setup": "Running Setup",
+        "sideload": {
+            "edit": "Edit App/Game"
+        },
+        "unhide_game": "Afișează jocul",
+        "uninstall": "Dezinstalează",
+        "update": "Actualizează"
+    },
+    "cloud_save_unsupported": "Neacceptat",
+    "disabled": "Dezactivat",
+    "dlc": {
+        "installDlcs": "Instalați toate DLC-urile"
+    },
+    "enabled": "Activat",
+    "game": {
+        "downloadSize": "Dimensiune descărcare",
+        "firstPlayed": "Prima dată jucat",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
+        "installSize": "Mărime Instalare",
+        "language": "Limba",
+        "lastPlayed": "Ultima Dată Jucat",
+        "neverPlayed": "Niciodată",
+        "platform": "Selectați versiunea platformei de instalat",
+        "requirements": "Cerințe de sistem",
+        "totalPlayed": "Timp Jucat"
+    },
+    "gamecard": {
+        "moving": "Mutare",
+        "repairing": "Reparare"
+    },
+    "generic": {
+        "error": "Eroare Necunoscută"
+    },
+    "hours": "Hours",
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Main + Extras",
+        "main-story": "Main Story"
+    },
+    "howLongToBeat": "How Long To Beat",
+    "info": {
+        "canRunOffline": "Online Necesar",
+        "installedPlatform": "Platformă instalată",
+        "path": "Cale De Instalare",
+        "size": "Mărime",
+        "syncsaves": "Salvări sincronizate",
+        "version": "Versiune"
+    },
+    "install": {
+        "disk-space-left": "Spatiu disponibil",
+        "not-enough-disk-space": "Spatiu pe disc insuficient",
+        "path": "Selectați Calea de instalare",
+        "path-not-writtable": "Atenție: este posibil ca calea să nu poată fi scrisă.",
+        "space-after-install": "După instalare",
+        "wineprefix": "WinePrefix",
+        "wineversion": "Versiune Wine"
+    },
+    "label": {
+        "game": {
+            "third-party-game": "Third-Party Game NOT Supported"
+        },
+        "playing": {
+            "start": "Joacă Acum",
+            "stop": "în joc (Stop)"
+        },
+        "saves": {
+            "syncing": "Sincronizează Salvările"
+        }
+    },
+    "launch": {
+        "options": "Opțiuni de Lansare..."
+    },
+    "not_logged_in": {
+        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
+        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "login": "Log in",
+        "title": "You are NOT logged in"
+    },
+    "report_problem": "Raportați o problemă la rularea acestui joc",
+    "sdl": {
+        "title": "Selectați componentele de instalat"
+    },
+    "setting": {
+        "use-default-wine-settings": "Use Default Wine Settings"
+    },
+    "sideload": {
+        "field": {
+            "title": "Title"
+        },
+        "info": {
+            "exe": "Select Executable",
+            "image": "App Image",
+            "title": "Game/App Title"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here",
+            "title": "Add a title to your Game/App"
+        }
+    },
+    "specs": {
+        "minimum": "Minim",
+        "recommended": "Recomandat"
+    },
+    "status": {
+        "clickToUpdate": "Faceți clic pentru a actualiza",
+        "gameNotAvailable": "Game not available",
+        "hasUpdates": "Versiune nouă disponibilă!",
+        "installed": "Instalat",
+        "installing": "Se Instalează",
+        "moving": "Se mută instalarea, așteptați",
+        "notinstalled": "Acest joc nu este instalat",
+        "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
+        "processing": "Se procesează fișierele, așteptați",
+        "queued": "Queued",
+        "reparing": "Reparare joc, vă rugăm așteptați",
+        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
+        "totalDownloaded": "Descărcat total",
+        "uninstalling": "Uninstalling",
+        "updating": "Joc in curs de actualizare"
+    },
+    "submenu": {
+        "addShortcut": "Adaugă scurtătură",
+        "addToSteam": "Adăugați la Steam",
+        "change": "Schimbați calea de instalare",
+        "disableEosOverlay": "Dezactivați suprapunerea EOS",
+        "enableEosOverlay": "Activați EOS Overlay",
+        "move": "Mută Jocul",
+        "protondb": "Verificați compatibilitatea",
+        "removeFromSteam": "Scoateți din Steam",
+        "removeShortcut": "Eliminați comenzile rapide",
+        "settings": "Setări",
+        "store": "Pagina magazinului",
+        "verify": "Verificați și Reparați"
+    }
+}

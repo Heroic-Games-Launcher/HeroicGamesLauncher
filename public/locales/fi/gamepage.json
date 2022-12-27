@@ -1,21 +1,21 @@
 {
     "box": {
         "change": {
-            "message": "This will change the install location of this game, are you sure?",
-            "path": "Choose a new install path",
-            "title": "Change Games Install Path"
+            "message": "Tämä muuttaa pelin asennussijaintia, haluatko jatkaa?",
+            "path": "Valitse uusi asennussijainti",
+            "title": "Vaihda pelin asennussijaintia"
         },
-        "choose": "Choose",
-        "importpath": "Choose Game Folder to import",
+        "choose": "Valitse",
+        "importpath": "Valitse tuotava pelikansio",
         "move": {
-            "message": "This can take a long time, are you sure?",
-            "path": "Choose where you want to move",
-            "title": "Move Game Installation"
+            "message": "Tämä voi kestää kauan, oletko varma?",
+            "path": "Valitse mihin haluat siirtää",
+            "title": "Siirrä pelin asennus"
         },
-        "no": "NO",
+        "no": "EI",
         "repair": {
-            "message": "Do you want to try to repair this game? This can take a long time.",
-            "title": "Verify and Repair"
+            "message": "Haluatko yrittää korjata tämän pelin? Tämä voi kestää kauan.",
+            "title": "Tarkista ja korjaa"
         },
         "runexe": {
             "title": "Select EXE to Run"
@@ -27,33 +27,33 @@
             "exe": "Select Executable"
         },
         "stopInstall": {
-            "keepInstalling": "Keep Installing",
-            "message": "Do you wish to KEEP downloaded files?",
-            "title": "Stop Installation"
+            "keepInstalling": "Jatka asentamista",
+            "message": "Haluatko SÄILYTTÄÄ ladatut tiedostot?",
+            "title": "Pysäytä asennus"
         },
         "uninstall": {
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
-            "message": "Do you want to uninstall this game?",
+            "message": "Haluatko poistaa pelin asennuksen?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
-            "title": "Uninstall"
+            "title": "Poista"
         },
         "update": {
-            "message": "This game has an update, apply update now?",
-            "title": "Game Needs Update"
+            "message": "Tälle pelille on saatavilla päivitys, haluatko asentaa sen nyt?",
+            "title": "Peli tarvitsee päivityksen"
         },
-        "wineprefix": "Select WinePrefix Folder",
-        "yes": "YES"
+        "wineprefix": "Valitse WinePrefix-kansio",
+        "yes": "KYLLÄ"
     },
     "button": {
         "add_to_favourites": "Add To Favourites",
-        "cancel": "Pause/Cancel",
-        "continue": "Continue Download",
+        "cancel": "Pysäytä/Peruuta",
+        "continue": "Jatka lataamista",
         "finish": "Finish",
         "force_update": "Force Update if Available",
         "force-innstall": "Force Install",
         "hide_game": "Hide Game",
-        "import": "Import Game",
-        "install": "Install",
+        "import": "Tuo peli",
+        "install": "Asenna",
         "no-path-selected": "No path selected",
         "queue": {
             "remove": "Remove from Queue"
@@ -66,31 +66,31 @@
             "edit": "Edit App/Game"
         },
         "unhide_game": "Unhide Game",
-        "uninstall": "Uninstall",
-        "update": "Update"
+        "uninstall": "Poista",
+        "update": "Päivitä"
     },
     "cloud_save_unsupported": "Unsupported",
-    "disabled": "Disabled",
+    "disabled": "Pois käytöstä",
     "dlc": {
-        "installDlcs": "Install all DLCs"
+        "installDlcs": "Asenna kaikki ladattava sisältö"
     },
-    "enabled": "Enabled",
+    "enabled": "Käytössä",
     "game": {
-        "downloadSize": "Download Size",
-        "firstPlayed": "First Played",
-        "getting-download-size": "Getting download size",
-        "getting-install-size": "Getting install size",
-        "installSize": "Install Size",
-        "language": "Language",
-        "lastPlayed": "Last Played",
-        "neverPlayed": "Never",
+        "downloadSize": "Latauksen koko",
+        "firstPlayed": "Ensimmäisen kerran pelattu",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
+        "installSize": "Asennuskoko",
+        "language": "Kieli",
+        "lastPlayed": "Viimeksi pelattu",
+        "neverPlayed": "Ei koskaan",
         "platform": "Select Platform Version to Install",
         "requirements": "System Requirements",
-        "totalPlayed": "Time Played"
+        "totalPlayed": "Pelattu aika"
     },
     "gamecard": {
-        "moving": "Moving",
-        "repairing": "Repairing"
+        "moving": "Siirretään",
+        "repairing": "Korjataan"
     },
     "generic": {
         "error": "Unknown error"
@@ -103,36 +103,36 @@
     },
     "howLongToBeat": "How Long To Beat",
     "info": {
-        "canRunOffline": "Online Required",
+        "canRunOffline": "Online-tila vaaditaan",
         "installedPlatform": "Installed Platform",
-        "path": "Install Path",
-        "size": "Size",
-        "syncsaves": "Sync Saves",
-        "version": "Version"
+        "path": "Asennuksen sijainti",
+        "size": "Koko",
+        "syncsaves": "Synkronoi tallennukset",
+        "version": "Versio"
     },
     "install": {
         "disk-space-left": "Space Available",
         "not-enough-disk-space": "Not enough disk space",
-        "path": "Select Install Path",
+        "path": "Valitse asennuspolku",
         "path-not-writtable": "Warning: path might not be writable.",
         "space-after-install": "After Install",
         "wineprefix": "WinePrefix",
-        "wineversion": "Wine version"
+        "wineversion": "Wine Version"
     },
     "label": {
         "game": {
             "third-party-game": "Third-Party Game NOT Supported"
         },
         "playing": {
-            "start": "Play Now",
-            "stop": "Playing (Stop)"
+            "start": "Pelaa nyt",
+            "stop": "Pelataan (pysäytä)"
         },
         "saves": {
-            "syncing": "Syncing Saves"
+            "syncing": "Synkronoidaan tallennuksia"
         }
     },
     "launch": {
-        "options": "Launch Options..."
+        "options": "Käynnistysasetukset..."
     },
     "not_logged_in": {
         "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
@@ -142,7 +142,7 @@
     },
     "report_problem": "Report a problem running this game",
     "sdl": {
-        "title": "Select components to Install"
+        "title": "Valitse asennettavat komponentit"
     },
     "setting": {
         "use-default-wine-settings": "Use Default Wine Settings"
@@ -162,39 +162,39 @@
         }
     },
     "specs": {
-        "minimum": "Minimum",
-        "recommended": "Recommended"
+        "minimum": "Minimi",
+        "recommended": "Suositeltu"
     },
     "status": {
-        "clickToUpdate": "Click to Update",
+        "clickToUpdate": "Päivitä",
         "gameNotAvailable": "Game not available",
-        "hasUpdates": "New Version Available!",
-        "installed": "Installed",
-        "installing": "Installing",
-        "moving": "Moving Installation, please wait",
-        "notinstalled": "This game is not installed",
+        "hasUpdates": "Uusi versio saatavilla!",
+        "installed": "Asennettu",
+        "installing": "Asennetaan",
+        "moving": "Siirretään asennusta, odota",
+        "notinstalled": "Tätä peliä ei ole asennettu",
         "notSupported": "Not supported",
         "notSupportedGame": "Not Supported",
         "processing": "Processing files, please wait",
         "queued": "Queued",
-        "reparing": "Repairing Game, please wait",
+        "reparing": "Korjataan peliä, odota",
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
-        "totalDownloaded": "Total Downloaded",
+        "totalDownloaded": "Ladattu yhteensä",
         "uninstalling": "Uninstalling",
-        "updating": "Updating Game"
+        "updating": "Päivitetään peliä"
     },
     "submenu": {
-        "addShortcut": "Add shortcut",
+        "addShortcut": "Lisää pikakuvake",
         "addToSteam": "Add to Steam",
-        "change": "Change install path",
+        "change": "Vaihda asennussijaintia",
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",
-        "move": "Move Game",
-        "protondb": "Check Compatibility",
+        "move": "Siirrä peli",
+        "protondb": "Tarkista yhteensopivuus",
         "removeFromSteam": "Remove from Steam",
         "removeShortcut": "Remove shortcuts",
-        "settings": "Settings",
-        "store": "Store Page",
-        "verify": "Verify and Repair"
+        "settings": "Asetukset",
+        "store": "Kauppasivu",
+        "verify": "Vahvista ja korjaa"
     }
 }

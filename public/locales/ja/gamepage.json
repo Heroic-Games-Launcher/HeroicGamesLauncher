@@ -1,21 +1,21 @@
 {
     "box": {
         "change": {
-            "message": "This will change the install location of this game, are you sure?",
-            "path": "Choose a new install path",
-            "title": "Change Games Install Path"
+            "message": "これにより、このゲームのインストール場所が変更されます、よろしいですか？",
+            "path": "新しいインストールパスを選択します",
+            "title": "ゲームのインストールパスを変更します"
         },
-        "choose": "Choose",
-        "importpath": "Choose Game Folder to import",
+        "choose": "選ぶ",
+        "importpath": "インポートするゲームフォルダを選択します",
         "move": {
-            "message": "This can take a long time, are you sure?",
-            "path": "Choose where you want to move",
-            "title": "Move Game Installation"
+            "message": "これには長い時間がかかることがあります、よろしいですか ？",
+            "path": "移動したい場所を選択してください",
+            "title": "ゲームのインストールを移動します"
         },
-        "no": "NO",
+        "no": "いいえ",
         "repair": {
-            "message": "Do you want to try to repair this game? This can take a long time.",
-            "title": "Verify and Repair"
+            "message": "このゲームを修復したいですか？これには長い時間がかかることがあります。",
+            "title": "確認と修復"
         },
         "runexe": {
             "title": "Select EXE to Run"
@@ -27,33 +27,33 @@
             "exe": "Select Executable"
         },
         "stopInstall": {
-            "keepInstalling": "Keep Installing",
-            "message": "Do you wish to KEEP downloaded files?",
-            "title": "Stop Installation"
+            "keepInstalling": "インストールを続ける",
+            "message": "ダウンロードしたファイルを保持しますか？",
+            "title": "インストールを停止する"
         },
         "uninstall": {
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
-            "message": "Do you want to uninstall this game?",
+            "message": "このゲームをアンインストールしたいですか？",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
-            "title": "Uninstall"
+            "title": "アンインストール"
         },
         "update": {
-            "message": "This game has an update, apply update now?",
-            "title": "Game Needs Update"
+            "message": "このゲームにはアップデートがありますが、今すぐアップデートしたいですか？",
+            "title": "ゲームの更新が必要"
         },
         "wineprefix": "Select WinePrefix Folder",
-        "yes": "YES"
+        "yes": "はい"
     },
     "button": {
         "add_to_favourites": "Add To Favourites",
-        "cancel": "Pause/Cancel",
-        "continue": "Continue Download",
+        "cancel": "一時停止/キャンセル",
+        "continue": "ダウンロードを続ける",
         "finish": "Finish",
         "force_update": "Force Update if Available",
         "force-innstall": "Force Install",
         "hide_game": "Hide Game",
-        "import": "Import Game",
-        "install": "Install",
+        "import": "インポート",
+        "install": "インストール",
         "no-path-selected": "No path selected",
         "queue": {
             "remove": "Remove from Queue"
@@ -66,31 +66,31 @@
             "edit": "Edit App/Game"
         },
         "unhide_game": "Unhide Game",
-        "uninstall": "Uninstall",
-        "update": "Update"
+        "uninstall": "アンインストール",
+        "update": "アップデート"
     },
     "cloud_save_unsupported": "Unsupported",
-    "disabled": "Disabled",
+    "disabled": "無効になっています",
     "dlc": {
-        "installDlcs": "Install all DLCs"
+        "installDlcs": "すべてのDLCをインストールします"
     },
-    "enabled": "Enabled",
+    "enabled": "有効になっています",
     "game": {
-        "downloadSize": "Download Size",
-        "firstPlayed": "First Played",
-        "getting-download-size": "Getting download size",
-        "getting-install-size": "Getting install size",
-        "installSize": "Install Size",
+        "downloadSize": "ダウンロードサイズ",
+        "firstPlayed": "最初にプレイした",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
+        "installSize": "インストールサイズ",
         "language": "Language",
-        "lastPlayed": "Last Played",
-        "neverPlayed": "Never",
+        "lastPlayed": "最後にプレイした",
+        "neverPlayed": "一度もない",
         "platform": "Select Platform Version to Install",
         "requirements": "System Requirements",
-        "totalPlayed": "Time Played"
+        "totalPlayed": "プレイ時間"
     },
     "gamecard": {
-        "moving": "Moving",
-        "repairing": "Repairing"
+        "moving": "移動しています",
+        "repairing": "修復しています"
     },
     "generic": {
         "error": "Unknown error"
@@ -105,10 +105,10 @@
     "info": {
         "canRunOffline": "Online Required",
         "installedPlatform": "Installed Platform",
-        "path": "Install Path",
-        "size": "Size",
-        "syncsaves": "Sync Saves",
-        "version": "Version"
+        "path": "インストールパス",
+        "size": "サイズ",
+        "syncsaves": "保存を同期",
+        "version": "バージョン"
     },
     "install": {
         "disk-space-left": "Space Available",
@@ -117,18 +117,18 @@
         "path-not-writtable": "Warning: path might not be writable.",
         "space-after-install": "After Install",
         "wineprefix": "WinePrefix",
-        "wineversion": "Wine version"
+        "wineversion": "Wine Version"
     },
     "label": {
         "game": {
             "third-party-game": "Third-Party Game NOT Supported"
         },
         "playing": {
-            "start": "Play Now",
-            "stop": "Playing (Stop)"
+            "start": "プレイ",
+            "stop": "プレイしています（停止）"
         },
         "saves": {
-            "syncing": "Syncing Saves"
+            "syncing": "保存を同期しています"
         }
     },
     "launch": {
@@ -142,7 +142,7 @@
     },
     "report_problem": "Report a problem running this game",
     "sdl": {
-        "title": "Select components to Install"
+        "title": "インストールするコンポーネントを選択します"
     },
     "setting": {
         "use-default-wine-settings": "Use Default Wine Settings"
@@ -162,39 +162,39 @@
         }
     },
     "specs": {
-        "minimum": "Minimum",
-        "recommended": "Recommended"
+        "minimum": "最小",
+        "recommended": "推奨される"
     },
     "status": {
-        "clickToUpdate": "Click to Update",
+        "clickToUpdate": "クリックして更新",
         "gameNotAvailable": "Game not available",
-        "hasUpdates": "New Version Available!",
-        "installed": "Installed",
-        "installing": "Installing",
-        "moving": "Moving Installation, please wait",
-        "notinstalled": "This game is not installed",
+        "hasUpdates": "新しいバージョンが利用可能です！",
+        "installed": "インストールされています",
+        "installing": "インストールしています",
+        "moving": "インストールを移動しています、お待ちください",
+        "notinstalled": "このゲームはインストールされていません",
         "notSupported": "Not supported",
         "notSupportedGame": "Not Supported",
         "processing": "Processing files, please wait",
         "queued": "Queued",
-        "reparing": "Repairing Game, please wait",
+        "reparing": "ゲームを修復しています、お待ちください",
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
-        "totalDownloaded": "Total Downloaded",
+        "totalDownloaded": "ダウンロードの総数",
         "uninstalling": "Uninstalling",
-        "updating": "Updating Game"
+        "updating": "ゲームを更新しています"
     },
     "submenu": {
-        "addShortcut": "Add shortcut",
+        "addShortcut": "ショートカットを追加する",
         "addToSteam": "Add to Steam",
-        "change": "Change install path",
+        "change": "インストールパスを変更する",
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",
-        "move": "Move Game",
-        "protondb": "Check Compatibility",
+        "move": "ゲームを移動する",
+        "protondb": "互換性を確認する",
         "removeFromSteam": "Remove from Steam",
         "removeShortcut": "Remove shortcuts",
-        "settings": "Settings",
-        "store": "Store Page",
-        "verify": "Verify and Repair"
+        "settings": "設定",
+        "store": "ストアページ",
+        "verify": "確認と修復"
     }
 }

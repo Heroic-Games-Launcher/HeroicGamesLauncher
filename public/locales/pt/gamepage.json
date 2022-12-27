@@ -1,21 +1,21 @@
 {
     "box": {
         "change": {
-            "message": "This will change the install location of this game, are you sure?",
-            "path": "Choose a new install path",
-            "title": "Change Games Install Path"
+            "message": "Isso irá alterar o local the instalação do jogo, você tem certeza?",
+            "path": "Selecione a pasta",
+            "title": "Modificar local de instalação do Jogo"
         },
-        "choose": "Choose",
-        "importpath": "Choose Game Folder to import",
+        "choose": "Selecionar",
+        "importpath": "Escolha a pasta do jogo para importar",
         "move": {
-            "message": "This can take a long time, are you sure?",
-            "path": "Choose where you want to move",
-            "title": "Move Game Installation"
+            "message": "Isso pode levar bastante tempo, continuar?",
+            "path": "Escolha a pasta de destino",
+            "title": "Mover Games para outra pasta"
         },
-        "no": "NO",
+        "no": "NÃO",
         "repair": {
-            "message": "Do you want to try to repair this game? This can take a long time.",
-            "title": "Verify and Repair"
+            "message": "Tem certeza que deseja reparar esse jogo? Isso pode levar bastante tempo.",
+            "title": "Verificar e Reparar"
         },
         "runexe": {
             "title": "Select EXE to Run"
@@ -27,33 +27,33 @@
             "exe": "Select Executable"
         },
         "stopInstall": {
-            "keepInstalling": "Keep Installing",
-            "message": "Do you wish to KEEP downloaded files?",
-            "title": "Stop Installation"
+            "keepInstalling": "Continuar Instalação",
+            "message": "Deseja manter os arquivos baixados?",
+            "title": "Cancelar Instalação"
         },
         "uninstall": {
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
-            "message": "Do you want to uninstall this game?",
+            "message": "Você deseja desinstalar esse jogo?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
-            "title": "Uninstall"
+            "title": "Desinstalar"
         },
         "update": {
-            "message": "This game has an update, apply update now?",
-            "title": "Game Needs Update"
+            "message": "Esse jogo precisa ser atualizado, deseja atualizar agora?",
+            "title": "Atualização!"
         },
         "wineprefix": "Select WinePrefix Folder",
-        "yes": "YES"
+        "yes": "SIM"
     },
     "button": {
         "add_to_favourites": "Add To Favourites",
-        "cancel": "Pause/Cancel",
-        "continue": "Continue Download",
+        "cancel": "Pausar/Cancelar",
+        "continue": "Continuar Download",
         "finish": "Finish",
         "force_update": "Force Update if Available",
         "force-innstall": "Force Install",
         "hide_game": "Hide Game",
-        "import": "Import Game",
-        "install": "Install",
+        "import": "Importar Jogo",
+        "install": "Instalar",
         "no-path-selected": "No path selected",
         "queue": {
             "remove": "Remove from Queue"
@@ -66,31 +66,31 @@
             "edit": "Edit App/Game"
         },
         "unhide_game": "Unhide Game",
-        "uninstall": "Uninstall",
+        "uninstall": "Desinstalar",
         "update": "Update"
     },
     "cloud_save_unsupported": "Unsupported",
-    "disabled": "Disabled",
+    "disabled": "Desabilitado",
     "dlc": {
-        "installDlcs": "Install all DLCs"
+        "installDlcs": "Instalar todas as DLCs"
     },
-    "enabled": "Enabled",
+    "enabled": "Habilitado",
     "game": {
-        "downloadSize": "Download Size",
-        "firstPlayed": "First Played",
-        "getting-download-size": "Getting download size",
-        "getting-install-size": "Getting install size",
-        "installSize": "Install Size",
+        "downloadSize": "Tamanho do Download",
+        "firstPlayed": "Jogado pela primeira vez",
+        "getting-download-size": "Geting download size",
+        "getting-install-size": "Geting install size",
+        "installSize": "Tamanho Instalado",
         "language": "Language",
-        "lastPlayed": "Last Played",
-        "neverPlayed": "Never",
+        "lastPlayed": "Jogado pela última vez",
+        "neverPlayed": "Nunca",
         "platform": "Select Platform Version to Install",
-        "requirements": "System Requirements",
-        "totalPlayed": "Time Played"
+        "requirements": "Requisitos",
+        "totalPlayed": "Tempo de Jogo"
     },
     "gamecard": {
-        "moving": "Moving",
-        "repairing": "Repairing"
+        "moving": "Movendo",
+        "repairing": "Reparando"
     },
     "generic": {
         "error": "Unknown error"
@@ -105,10 +105,10 @@
     "info": {
         "canRunOffline": "Online Required",
         "installedPlatform": "Installed Platform",
-        "path": "Install Path",
-        "size": "Size",
-        "syncsaves": "Sync Saves",
-        "version": "Version"
+        "path": "Pasta de Instalação",
+        "size": "Tamanho",
+        "syncsaves": "Sincronização em Nuvem",
+        "version": "Versão"
     },
     "install": {
         "disk-space-left": "Space Available",
@@ -117,18 +117,18 @@
         "path-not-writtable": "Warning: path might not be writable.",
         "space-after-install": "After Install",
         "wineprefix": "WinePrefix",
-        "wineversion": "Wine version"
+        "wineversion": "Wine Version"
     },
     "label": {
         "game": {
             "third-party-game": "Third-Party Game NOT Supported"
         },
         "playing": {
-            "start": "Play Now",
-            "stop": "Playing (Stop)"
+            "start": "Jogar",
+            "stop": "Jogando (Parar)"
         },
         "saves": {
-            "syncing": "Syncing Saves"
+            "syncing": "Sincronizando"
         }
     },
     "launch": {
@@ -142,7 +142,7 @@
     },
     "report_problem": "Report a problem running this game",
     "sdl": {
-        "title": "Select components to Install"
+        "title": "Selecione os componentes para instalar"
     },
     "setting": {
         "use-default-wine-settings": "Use Default Wine Settings"
@@ -162,39 +162,39 @@
         }
     },
     "specs": {
-        "minimum": "Minimum",
-        "recommended": "Recommended"
+        "minimum": "Mínimo",
+        "recommended": "Recomendado"
     },
     "status": {
         "clickToUpdate": "Click to Update",
         "gameNotAvailable": "Game not available",
-        "hasUpdates": "New Version Available!",
-        "installed": "Installed",
-        "installing": "Installing",
-        "moving": "Moving Installation, please wait",
-        "notinstalled": "This game is not installed",
+        "hasUpdates": "Nova versão disponível!",
+        "installed": "Jogo Instalado",
+        "installing": "Instalando",
+        "moving": "Movendo Jogo, por favor espere",
+        "notinstalled": "Jogo não instalado",
         "notSupported": "Not supported",
         "notSupportedGame": "Not Supported",
         "processing": "Processing files, please wait",
         "queued": "Queued",
-        "reparing": "Repairing Game, please wait",
+        "reparing": "Reparando jogo, por favor espere",
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
-        "totalDownloaded": "Total Downloaded",
+        "totalDownloaded": "Total Baixado",
         "uninstalling": "Uninstalling",
-        "updating": "Updating Game"
+        "updating": "Atualizando jogo"
     },
     "submenu": {
-        "addShortcut": "Add shortcut",
+        "addShortcut": "Adicionar Atalhos",
         "addToSteam": "Add to Steam",
-        "change": "Change install path",
+        "change": "Modificar local de instalação",
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",
-        "move": "Move Game",
-        "protondb": "Check Compatibility",
+        "move": "Mover Jogo",
+        "protondb": "Compatibilidade",
         "removeFromSteam": "Remove from Steam",
         "removeShortcut": "Remove shortcuts",
-        "settings": "Settings",
-        "store": "Store Page",
-        "verify": "Verify and Repair"
+        "settings": "Configurações",
+        "store": "Página da Loja",
+        "verify": "Verificar e Reparar"
     }
 }

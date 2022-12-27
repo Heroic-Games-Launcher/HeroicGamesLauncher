@@ -1,0 +1,20 @@
+{
+    "button": {
+        "login": "Connexion"
+    },
+    "message": {
+        "part1": "Afin de vous connecter et d'installer vos jeux, vous devez d’abord suivre les étapes ci-dessous :",
+        "part2": "Ouvrez le",
+        "part3": "magasin Epic ici",
+        "part4": ", connectez-vous à votre compte et copiez votre",
+        "part5": "Numéro authorization code",
+        "part6": "Collez votre",
+        "part7": "numéro du code d'autorisation",
+        "part8": "dans la boîte de dialogue ci-contre et cliquez sur le bouton « Connexion »."
+    },
+    "status": {
+        "error": "Erreur",
+        "loading": "Chargement de la liste des jeux, veuillez patienter"
+    },
+    "welcome": "Bienvenue !"
+}
