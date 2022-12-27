@@ -60,7 +60,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
       }
     }
     getNewInfo()
-  }, [])
+  }, [element])
 
   const { art_cover, art_square } = gameInfo || {}
 
