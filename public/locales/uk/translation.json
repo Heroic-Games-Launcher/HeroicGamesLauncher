@@ -204,7 +204,6 @@
         "store": "Крамниця",
         "title": "Назва гри"
     },
-    "GameSettings": "Налаштування гри",
     "generic": {
         "error": {
             "component": "Жодної гри не знайдено - Спробуйте вийти та увійти заново або один із варіантів нижче"
@@ -571,7 +570,6 @@
         },
         "navbar": {
             "advanced": "Розширені",
-            "games_settings": "Game Settings",
             "games_settings_defaults": "Game Defaults",
             "general": "Загальні",
             "log": "Журнал",

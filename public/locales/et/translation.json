@@ -204,7 +204,6 @@
         "store": "Pood",
         "title": "Mängu pealkiri"
     },
-    "GameSettings": "Mängu seaded",
     "generic": {
         "error": {
             "component": "Mänge ei leitud - proovige uuesti sisse logida või ühte allolevatest võimalustest"
@@ -571,7 +570,6 @@
         },
         "navbar": {
             "advanced": "Täpsem",
-            "games_settings": "Game Settings",
             "games_settings_defaults": "Game Defaults",
             "general": "Üldine",
             "log": "Logi",

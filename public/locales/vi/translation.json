@@ -204,7 +204,6 @@
         "store": "Cửa hàng",
         "title": "Tựa game"
     },
-    "GameSettings": "Game Settings",
     "generic": {
         "error": {
             "component": "Không tìm thấy game - Hãy thử đăng xuất rồi đăng nhập lại hoặc một trong các cách sau"
@@ -571,7 +570,6 @@
         },
         "navbar": {
             "advanced": "Nâng cao",
-            "games_settings": "Game Settings",
             "games_settings_defaults": "Game Defaults",
             "general": "Tổng quan",
             "log": "Log",

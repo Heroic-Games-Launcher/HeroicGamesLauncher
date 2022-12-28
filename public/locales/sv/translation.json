@@ -204,7 +204,6 @@
         "store": "Butik",
         "title": "Speltitel"
     },
-    "GameSettings": "Spelinställningar",
     "generic": {
         "error": {
             "component": "Inga spel hittades - testa att logga ut och in igen eller ett av alternativen nedanför"
@@ -571,7 +570,6 @@
         },
         "navbar": {
             "advanced": "Avancerat",
-            "games_settings": "Spelinställningar",
             "games_settings_defaults": "Game Defaults",
             "general": "Allmänt",
             "log": "Logg",

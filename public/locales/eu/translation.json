@@ -204,7 +204,6 @@
         "store": "Denda",
         "title": "Jokoaren izenburua"
     },
-    "GameSettings": "Jokoaren ezarpenak",
     "generic": {
         "error": {
             "component": "Ez da jokorik aurkitu - Saiatu saioa amaitzen eta berriro hasten edo azpiko aukeraren bat"
@@ -571,7 +570,6 @@
         },
         "navbar": {
             "advanced": "Aurreratua",
-            "games_settings": "Game Settings",
             "games_settings_defaults": "Game Defaults",
             "general": "Orokorra",
             "log": "Erregistroa",

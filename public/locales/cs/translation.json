@@ -204,7 +204,6 @@
         "store": "Obchod",
         "title": "Název hry"
     },
-    "GameSettings": "Nastavení hry",
     "generic": {
         "error": {
             "component": "Nebyly nalezeny žádné hry - zkuste se odhlásit a znovu přihlásit nebo jednu z níže uvedených možností"
@@ -571,7 +570,6 @@
         },
         "navbar": {
             "advanced": "Pokročilé",
-            "games_settings": "Nastavení hry",
             "games_settings_defaults": "Výchozí nastavení her",
             "general": "Obecné",
             "log": "Protokol",

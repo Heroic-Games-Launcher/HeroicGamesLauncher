@@ -204,7 +204,6 @@
         "store": "Store",
         "title": "Spieltitel"
     },
-    "GameSettings": "Spiel-Einstellungen",
     "generic": {
         "error": {
             "component": "Keine Spiele gefunden - Versuche dich abzumelden und erneut anzumelden, oder wähle eine der folgenden Optionen"
@@ -571,7 +570,6 @@
         },
         "navbar": {
             "advanced": "Erweitert",
-            "games_settings": "Spieleinstellungen",
             "games_settings_defaults": "Standardeinstellungen für Spiele",
             "general": "Allgemein",
             "log": "Log",
