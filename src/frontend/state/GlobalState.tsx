@@ -15,7 +15,11 @@ import {
   LibraryTopSectionOptions,
   AppSettings
 } from 'common/types'
-import { Category, DialogModalOptions } from 'frontend/types'
+import {
+  Category,
+  DialogModalOptions,
+  ExternalLinkDialogOptions
+} from 'frontend/types'
 import { TFunction, withTranslation } from 'react-i18next'
 import {
   getGameInfo,
@@ -87,6 +91,7 @@ interface StateProps {
   activeController: string
   connectivity: { status: ConnectivityStatus; retryIn: number }
   dialogModalOptions: DialogModalOptions
+  externalLinkDialogOptions: ExternalLinkDialogOptions
   sideloadedLibrary: GameInfo[]
   hideChangelogsOnStartup: boolean
   lastChangelogShown: string | null
@@ -167,6 +172,7 @@ export class GlobalState extends PureComponent<Props> {
     connectivity: { status: 'offline', retryIn: 0 },
     sideloadedLibrary: sideloadLibrary.get('games', []) as GameInfo[],
     dialogModalOptions: { showDialog: false },
+    externalLinkDialogOptions: { showDialog: false },
     hideChangelogsOnStartup: globalSettings.hideChangelogsOnStartup,
     lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null')
   }
@@ -304,6 +310,10 @@ export class GlobalState extends PureComponent<Props> {
       ]
     })
   }).bind(this)
+
+  handleExternalLinkDialog = (value: ExternalLinkDialogOptions) => {
+    this.setState({ externalLinkDialogOptions: value })
+  }
 
   handleLibraryTopSection = (value: LibraryTopSectionOptions) => {
     this.setState({ libraryTopSection: value })
@@ -760,6 +770,7 @@ export class GlobalState extends PureComponent<Props> {
           setSecondaryFontFamily: this.setSecondaryFontFamily,
           showDialogModal: this.handleShowDialogModal,
           showResetDialog: this.showResetDialog,
+          handleExternalLinkDialog: this.handleExternalLinkDialog,
           hideChangelogsOnStartup: this.state.hideChangelogsOnStartup,
           setHideChangelogsOnStartup: this.setHideChangelogsOnStartup,
           lastChangelogShown: this.state.lastChangelogShown,

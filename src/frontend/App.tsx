@@ -15,6 +15,7 @@ import classNames from 'classnames'
 import { ControllerHints, OfflineMessage } from './components/UI'
 import DownloadManager from './screens/DownloadManager'
 import DialogHandler from './components/UI/DialogHandler'
+import ExternalLinkDialog from './components/UI/ExternalLinkDialog'
 
 function App() {
   const { sidebarCollapsed } = useContext(ContextProvider)
@@ -26,6 +27,7 @@ function App() {
         <Sidebar />
         <main className="content">
           <DialogHandler />
+          <ExternalLinkDialog />
           <Routes>
             <Route path="/" element={<Navigate replace to="/library" />} />
             <Route path="/library" element={<Library />} />
