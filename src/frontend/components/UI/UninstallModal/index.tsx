@@ -19,7 +19,8 @@ interface UninstallModalProps {
 }
 
 const UninstallModal: React.FC<UninstallModalProps> = function (props) {
-  const { handleGameStatus, platform } = useContext(ContextProvider)
+  const { handleGameStatus, platform, refreshLibrary } =
+    useContext(ContextProvider)
   const [isWindowsOnLinux, setIsWindowsOnLinux] = useState(false)
   const [winePrefix, setWinePrefix] = useState('')
   const [checkboxChecked, setCheckboxChecked] = useState(false)
@@ -83,6 +84,7 @@ const UninstallModal: React.FC<UninstallModalProps> = function (props) {
       runner: props.runner,
       status: 'done'
     })
+    refreshLibrary({ fullRefresh: true, checkForUpdates: false })
   }
 
   return (
