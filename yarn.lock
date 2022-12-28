@@ -2417,7 +2417,7 @@ cheerio-select@^2.1.0:
     domhandler "^5.0.3"
     domutils "^3.0.1"
 
-cheerio@^1.0.0-rc.12, cheerio@^1.0.0-rc.2:
+cheerio@^1.0.0-rc.12, cheerio@^1.0.0-rc.2, cheerio@^1.0.0-rc.5:
   version "1.0.0-rc.12"
   resolved "https://registry.yarnpkg.com/cheerio/-/cheerio-1.0.0-rc.12.tgz#788bf7466506b1c6bf5fae51d24a2c4d62e47683"
   integrity sha512-VqR8m68vM46BNnuZ5NtnGBKIE/DfN0cRIzg9n40EIq9NOv90ayxLBXA8fXC5gquFRGJSTRqBq25Jt2ECLR431Q==
@@ -3734,6 +3734,11 @@ fast-levenshtein@^2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
   integrity sha512-DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==
+
+fastest-levenshtein@^1.0.12:
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/fastest-levenshtein/-/fastest-levenshtein-1.0.16.tgz#210e61b6ff181de91ea9b3d1b84fdedd47e034e5"
+  integrity sha512-eRnCtTTtGZFpQCwhJiUOuxPQWRXVKYDn0b2PeHfXL6/Zi53SLAzAHfVhVWK2AryC/WH05kGfxhFIPvTF0SXQzg==
 
 fastq@^1.6.0:
   version "1.13.0"
@@ -5163,6 +5168,11 @@ jest@^28.1.3:
     import-local "^3.0.2"
     jest-cli "^28.1.3"
 
+js-lcs@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/js-lcs/-/js-lcs-1.0.1.tgz#15c82da1a2a5d1f03573b2a95b1245d04a93a957"
+  integrity sha512-sE5zXyAmqUqEuWypOrDTSeKqsWONjBbn5aQ6adsKrNVxH17/4bQy5INxHarzukQRG+b3JIU2CNFzNHorTJZjIw==
+
 js-sdsl@^4.1.4:
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/js-sdsl/-/js-sdsl-4.1.5.tgz#1ff1645e6b4d1b028cd3f862db88c9d887f26e2a"
@@ -5775,7 +5785,7 @@ minimatch@^5.0.1:
   dependencies:
     brace-expansion "^2.0.1"
 
-minimist@^1.2.0, minimist@^1.2.6:
+minimist@^1.2.0, minimist@^1.2.5, minimist@^1.2.6:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.7.tgz#daa1c4d91f507390437c6a8bc01078e7000c4d18"
   integrity sha512-bzfL1YUZsP41gmu/qjrEk0Q6i2ix/cVeAhbCbqH9u3zYutS1cLg00qhrD0M2MVdCcx4Sc0UpP2eBWo9rotpq6g==
@@ -7773,6 +7783,17 @@ webidl-conversions@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-3.0.1.tgz#24534275e2a7bc6be7bc86611cc16ae0a5654871"
   integrity sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==
+
+what-to-play@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/what-to-play/-/what-to-play-0.2.3.tgz#74ea2a463b9608795592d0b189d2ab2774a984d1"
+  integrity sha512-MgSg2UhCGFk8MasTwTozSM/4GyAmZ63uJpjzUAyDHJIUBVaOU9ewUWLfaDwTiA3JZp7B4Snn7c3cfI1PioRmOg==
+  dependencies:
+    cheerio "^1.0.0-rc.5"
+    fastest-levenshtein "^1.0.12"
+    js-lcs "^1.0.1"
+    minimist "^1.2.5"
+    node-fetch "^2.6.1"
 
 whatwg-url@^5.0.0:
   version "5.0.0"

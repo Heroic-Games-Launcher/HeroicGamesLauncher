@@ -1,6 +1,7 @@
 import { EventEmitter } from 'node:events'
 import { IpcMainEvent, OpenDialogOptions } from 'electron'
 import { HowLongToBeatEntry } from 'howlongtobeat'
+import { AllData } from 'what-to-play/build/api'
 
 import {
   Runner,
@@ -218,6 +219,7 @@ interface AsyncIPCFunctions {
   getNumOfGpus: () => Promise<number>
   removeRecent: (appName: string) => Promise<void>
   getHowLongToBeat: (title: string) => Promise<HowLongToBeatEntry | null>
+  getGameScore: (title: string) => Promise<AllData | null>
   getDefaultSavePath: (
     appName: string,
     runner: Runner,

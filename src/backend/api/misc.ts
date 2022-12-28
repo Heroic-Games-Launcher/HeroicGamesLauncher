@@ -146,3 +146,6 @@ export const storeGet = (
 
 export const getHowLongToBeat = async (title: string) =>
   ipcRenderer.invoke('getHowLongToBeat', title)
+
+export const getGameScore = async (title: string) =>
+  ipcRenderer.invoke('getGameScore', title)

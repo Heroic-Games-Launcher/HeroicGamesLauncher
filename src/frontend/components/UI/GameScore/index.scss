@@ -1,0 +1,28 @@
+.gamescore {
+  display: flex;
+  margin: var(--space-md) 0;
+
+  // 50px x 50px suare with text inside
+  .gamescore__square {
+    width: fit-content;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background-color: var(--background-secondary);
+    color: var(--text-secondary);
+    margin-right: 10px;
+    padding: 0 var(--space-xs);
+
+    .gamescore__square__title {
+      font-size: 0.8rem;
+    }
+
+    .gamescore__square__value {
+      font-size: 1.2rem;
+      font-weight: var(--bold);
+    }
+  }
+}
