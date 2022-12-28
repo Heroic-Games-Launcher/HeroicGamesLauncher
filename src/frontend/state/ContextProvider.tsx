@@ -71,7 +71,9 @@ const initialContext: ContextType = {
   hideChangelogsOnStartup: false,
   setHideChangelogsOnStartup: () => null,
   lastChangelogShown: null,
-  setLastChangelogShown: () => null
+  setLastChangelogShown: () => null,
+  isSettingsModalOpen: { value: false },
+  setIsSettingsModalOpen: () => null
 }
 
 export default React.createContext(initialContext)

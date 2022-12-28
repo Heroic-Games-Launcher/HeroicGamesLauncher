@@ -83,6 +83,8 @@ export interface ContextType {
   setHideChangelogsOnStartup: (value: boolean) => void
   lastChangelogShown: string | null
   setLastChangelogShown: (value: string) => void
+  isSettingsModalOpen: { value: boolean; gameInfo?: GameInfo | null }
+  setIsSettingsModalOpen: (value: boolean, gameInfo?: GameInfo) => void
 }
 
 export type DialogModalOptions = {
