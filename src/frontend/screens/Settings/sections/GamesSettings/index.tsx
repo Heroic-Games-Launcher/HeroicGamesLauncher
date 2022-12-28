@@ -33,14 +33,18 @@ import Tools from '../../components/Tools'
 import SettingsContext from '../../SettingsContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+import useSetting from 'frontend/hooks/useSetting'
+import { defaultWineVersion } from '../..'
 
 export default function GamesSettings() {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const { isDefault, gameInfo, isMacNative, isLinuxNative } =
     useContext(SettingsContext)
+  const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
   const isLinux = platform === 'linux'
   const isWin = platform === 'win32'
+  const isCrossover = wineVersion?.type === 'crossover'
 
   const nativeGame =
     isWin ||
@@ -61,10 +65,10 @@ export default function GamesSettings() {
 
       {!nativeGame && (
         <>
-          <section>
-            <h3 className="settingSubheader">
+          <details open>
+            <summary className="settingSubheader">
               {isLinux ? 'Wine' : 'Wine/Crossover'}
-            </h3>
+            </summary>
 
             <WinePrefix />
 
@@ -73,28 +77,32 @@ export default function GamesSettings() {
             <CrossoverBottle />
 
             <Tools />
-          </section>
+          </details>
 
-          <section>
-            <h3 className="settingSubheader">
-              {t('settings.navbar.wineExt', 'Wine Extensions')}
-            </h3>
-            <AutoDXVK />
-            {isLinux && (
-              <>
-                <AutoVKD3D />
+          {!isCrossover && (
+            <details>
+              <summary className="settingSubheader">
+                {t('settings.navbar.wineExt', 'Wine Extensions')}
+              </summary>
+              <AutoDXVK />
+              {isLinux && (
+                <>
+                  <AutoVKD3D />
 
-                <EacRuntime />
+                  <EacRuntime />
 
-                <BattlEyeRuntime />
-              </>
-            )}
-          </section>
+                  <BattlEyeRuntime />
+                </>
+              )}
+            </details>
+          )}
         </>
       )}
 
-      <section>
-        <h3 className="settingSubheader">{t('settings.navbar.other')}</h3>
+      <details>
+        <summary className="settingSubheader">
+          {t('settings.navbar.other')}
+        </summary>
 
         <AlternativeExe />
 
@@ -135,7 +143,7 @@ export default function GamesSettings() {
         <LauncherArgs />
 
         <PreferedLanguage />
-      </section>
+      </details>
     </>
   )
 }
