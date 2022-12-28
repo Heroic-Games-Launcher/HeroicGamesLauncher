@@ -19,7 +19,7 @@ import {
   HiddenGame,
   Runner
 } from 'common/types'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
 import { ReactComponent as SettingsIcon } from 'frontend/assets/settings-sharp.svg'
 import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
@@ -70,8 +70,6 @@ const GameCard = ({
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
 
-  const navigate = useNavigate()
-
   const {
     libraryStatus,
     layout,
@@ -79,7 +77,8 @@ const GameCard = ({
     hiddenGames,
     favouriteGames,
     allTilesInColor,
-    showDialogModal
+    showDialogModal,
+    setIsSettingsModalOpen
   } = useContext(ContextProvider)
 
   const {
@@ -107,8 +106,7 @@ const GameCard = ({
   }, [appName])
 
   const [progress, previousProgress] = hasProgress(appName)
-  const { install_size: size = '0', platform: installedPlatform } =
-    gameInstallInfo || {}
+  const { install_size: size = '0' } = gameInstallInfo || {}
 
   const { status, folder } =
     libraryStatus.find((game: GameStatus) => game.appName === appName) || {}
@@ -309,11 +307,6 @@ const GameCard = ({
     )
   }, [favouriteGames, appName])
 
-  const isMac = ['osx', 'Mac']
-  const isMacNative = isMac.includes(installedPlatform ?? '')
-  const isLinuxNative = installedPlatform === 'linux'
-  const pathname = `/settings/${runner}/${appName}/games_settings`
-
   const onUninstallClick = function () {
     setShowUninstallModal(true)
   }
@@ -385,16 +378,7 @@ const GameCard = ({
     {
       // settings
       label: t('submenu.settings'),
-      onclick: () =>
-        navigate(pathname, {
-          state: {
-            fromGameCard: true,
-            runner,
-            hasCloudSave,
-            isLinuxNative,
-            isMacNative
-          }
-        }),
+      onclick: () => setIsSettingsModalOpen(true, gameInfo),
       show: isInstalled && !isUninstalling
     },
     {
@@ -501,18 +485,7 @@ const GameCard = ({
                   <SvgButton
                     title={`${t('submenu.settings')} (${title})`}
                     className="settingsIcon"
-                    onClick={() =>
-                      navigate(pathname, {
-                        state: {
-                          fromGameCard: true,
-                          runner,
-                          hasCloudSave,
-                          isLinuxNative,
-                          isMacNative,
-                          gameInfo
-                        }
-                      })
-                    }
+                    onClick={() => setIsSettingsModalOpen(true, gameInfo)}
                   >
                     <SettingsIcon />
                   </SvgButton>
