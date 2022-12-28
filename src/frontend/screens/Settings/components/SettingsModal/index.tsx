@@ -7,7 +7,6 @@ import {
   DialogHeader
 } from 'frontend/components/UI/Dialog'
 import ContextProvider from 'frontend/state/ContextProvider'
-//import { useTranslation } from 'react-i18next'
 import { GamesSettings } from '../../sections'
 import { writeConfig } from 'frontend/helpers'
 import SettingsContext from '../../SettingsContext'
@@ -20,14 +19,11 @@ type Props = {
 function SettingsModal({ gameInfo }: Props) {
   const { setIsSettingsModalOpen, platform } = useContext(ContextProvider)
 
-  // const { t } = useTranslation()
-
   const [title, setTitle] = useState('')
 
   const [currentConfig, setCurrentConfig] = useState<Partial<AppSettings>>({})
 
   const { app_name: appName, runner } = gameInfo
-  const isDefault = appName === 'default'
   const isLinux = platform === 'linux'
   const isMac = platform === 'darwin'
   const isMacNative = isMac && (gameInfo?.is_mac_native || false)
@@ -36,9 +32,7 @@ function SettingsModal({ gameInfo }: Props) {
   // Load Heroic's or game's config, only if not loaded already
   useEffect(() => {
     const getSettings = async () => {
-      const config = isDefault
-        ? await window.api.requestAppSettings()
-        : await window.api.requestGameSettings(appName)
+      const config = await window.api.requestGameSettings(appName)
       setCurrentConfig(config)
 
       setTitle(gameInfo?.title ?? appName)
@@ -46,7 +40,6 @@ function SettingsModal({ gameInfo }: Props) {
     getSettings()
   }, [appName])
 
-  // render `loading` while we fetch the settings
   if (!title) {
     return <UpdateComponent />
   }
@@ -64,7 +57,7 @@ function SettingsModal({ gameInfo }: Props) {
       writeConfig({ appName, config: { ...currentConfig, [key]: value } })
     },
     config: currentConfig,
-    isDefault,
+    isDefault: false,
     appName,
     runner,
     gameInfo,
