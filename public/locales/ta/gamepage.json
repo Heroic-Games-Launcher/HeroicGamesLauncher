@@ -92,6 +92,11 @@
         "moving": "நகர்த்தப்படுகிறது",
         "repairing": "பழுதுபார்க்கப்படுகிறது"
     },
+    "gamescore": {
+        "metacritic-score": "Metacritic Score",
+        "metacritic-userscore": "Metacritic Userscore",
+        "steam-score": "Steam Score"
+    },
     "generic": {
         "error": "Unknown error"
     },

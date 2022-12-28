@@ -93,6 +93,11 @@
         "moving": "Hərəkət edir",
         "repairing": "Təmir"
     },
+    "gamescore": {
+        "metacritic-score": "Metacritic Score",
+        "metacritic-userscore": "Metacritic Userscore",
+        "steam-score": "Steam Score"
+    },
     "generic": {
         "error": "Naməlum xəta"
     },

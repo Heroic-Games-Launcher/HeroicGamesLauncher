@@ -92,6 +92,11 @@
         "moving": "옮기는 중",
         "repairing": "복구 중"
     },
+    "gamescore": {
+        "metacritic-score": "Metacritic Score",
+        "metacritic-userscore": "Metacritic Userscore",
+        "steam-score": "Steam Score"
+    },
     "generic": {
         "error": "알 수 없는 오류"
     },

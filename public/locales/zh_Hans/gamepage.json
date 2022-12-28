@@ -92,6 +92,11 @@
         "moving": "移动中",
         "repairing": "修复中"
     },
+    "gamescore": {
+        "metacritic-score": "Metacritic Score",
+        "metacritic-userscore": "Metacritic Userscore",
+        "steam-score": "Steam Score"
+    },
     "generic": {
         "error": "未知错误"
     },

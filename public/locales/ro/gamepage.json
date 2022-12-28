@@ -93,6 +93,11 @@
         "moving": "Mutare",
         "repairing": "Reparare"
     },
+    "gamescore": {
+        "metacritic-score": "Metacritic Score",
+        "metacritic-userscore": "Metacritic Userscore",
+        "steam-score": "Steam Score"
+    },
     "generic": {
         "error": "Eroare Necunoscută"
     },

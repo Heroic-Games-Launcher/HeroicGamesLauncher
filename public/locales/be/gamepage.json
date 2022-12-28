@@ -92,6 +92,11 @@
         "moving": "Пераезд",
         "repairing": "Рамонт"
     },
+    "gamescore": {
+        "metacritic-score": "Metacritic Score",
+        "metacritic-userscore": "Metacritic Userscore",
+        "steam-score": "Steam Score"
+    },
     "generic": {
         "error": "Невядомая памылка"
     },

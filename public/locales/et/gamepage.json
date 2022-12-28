@@ -92,6 +92,11 @@
         "moving": "Liigutamine",
         "repairing": "Parandamine"
     },
+    "gamescore": {
+        "metacritic-score": "Metacritic Score",
+        "metacritic-userscore": "Metacritic Userscore",
+        "steam-score": "Steam Score"
+    },
     "generic": {
         "error": "Teadmata viga"
     },

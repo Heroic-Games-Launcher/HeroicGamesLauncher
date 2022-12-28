@@ -92,6 +92,11 @@
         "moving": "Flyttar",
         "repairing": "Reparerar"
     },
+    "gamescore": {
+        "metacritic-score": "Metacritic Score",
+        "metacritic-userscore": "Metacritic Userscore",
+        "steam-score": "Steam Score"
+    },
     "generic": {
         "error": "Okänt fel"
     },
