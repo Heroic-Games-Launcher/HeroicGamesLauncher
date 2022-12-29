@@ -1,0 +1,10 @@
+.Dialog__content.settingsDialogContent {
+  width: 65vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .log-box {
+    width: 100%;
+  }
+}

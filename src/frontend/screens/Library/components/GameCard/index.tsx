@@ -378,7 +378,7 @@ const GameCard = ({
     {
       // settings
       label: t('submenu.settings'),
-      onclick: () => setIsSettingsModalOpen(true, gameInfo),
+      onclick: () => setIsSettingsModalOpen(true, 'settings', gameInfo),
       show: isInstalled && !isUninstalling
     },
     {
@@ -485,7 +485,9 @@ const GameCard = ({
                   <SvgButton
                     title={`${t('submenu.settings')} (${title})`}
                     className="settingsIcon"
-                    onClick={() => setIsSettingsModalOpen(true, gameInfo)}
+                    onClick={() =>
+                      setIsSettingsModalOpen(true, 'settings', gameInfo)
+                    }
                   >
                     <SettingsIcon />
                   </SvgButton>

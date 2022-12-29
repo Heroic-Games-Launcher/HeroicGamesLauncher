@@ -486,7 +486,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 )}
                 {is_installed && (
                   <button
-                    onClick={() => setIsSettingsModalOpen(true, gameInfo)}
+                    onClick={() =>
+                      setIsSettingsModalOpen(true, 'settings', gameInfo)
+                    }
                     className={`button is-primary`}
                   >
                     {t('submenu.settings')}
@@ -512,23 +514,16 @@ export default React.memo(function GamePage(): JSX.Element | null {
               </div>
               <HowLongToBeat title={title} />
               {is_installed && (
-                <NavLink
-                  to={`/settings/${runner}/${appName}/log`}
-                  state={{
-                    fromGameCard: false,
-                    runner,
-                    isLinuxNative: isNative,
-                    isMacNative: isNative,
-                    hasCloudSave: cloud_save_enabled,
-                    gameInfo
-                  }}
+                <span
+                  onClick={() => setIsSettingsModalOpen(true, 'log', gameInfo)}
                   className="clickable reportProblem"
+                  role={'button'}
                 >
                   <>
                     {<FontAwesomeIcon icon={faTriangleExclamation} />}
                     {t('report_problem', 'Report a problem running this game')}
                   </>
-                </NavLink>
+                </span>
               )}
             </div>
 

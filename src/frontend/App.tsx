@@ -28,7 +28,10 @@ function App() {
         <main className="content">
           <DialogHandler />
           {isSettingsModalOpen.gameInfo && (
-            <SettingsModal gameInfo={isSettingsModalOpen.gameInfo} />
+            <SettingsModal
+              gameInfo={isSettingsModalOpen.gameInfo}
+              type={isSettingsModalOpen.type}
+            />
           )}
           <Routes>
             <Route path="/" element={<Navigate replace to="/library" />} />

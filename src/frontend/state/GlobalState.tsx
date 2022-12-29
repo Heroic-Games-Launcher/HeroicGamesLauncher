@@ -90,7 +90,11 @@ interface StateProps {
   sideloadedLibrary: GameInfo[]
   hideChangelogsOnStartup: boolean
   lastChangelogShown: string | null
-  settingsModalOpen: { value: boolean; gameInfo?: GameInfo | null }
+  settingsModalOpen: {
+    value: boolean
+    type: 'settings' | 'log'
+    gameInfo?: GameInfo | null
+  }
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -170,7 +174,7 @@ export class GlobalState extends PureComponent<Props> {
     dialogModalOptions: { showDialog: false },
     hideChangelogsOnStartup: globalSettings.hideChangelogsOnStartup,
     lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null'),
-    settingsModalOpen: { value: false, gameInfo: undefined }
+    settingsModalOpen: { value: false, type: 'settings', gameInfo: undefined }
   }
 
   setLanguage = (newLanguage: string) => {
@@ -383,10 +387,14 @@ export class GlobalState extends PureComponent<Props> {
     window.location.reload()
   }
 
-  handleSettingsModalOpen = (value: boolean, gameInfo?: GameInfo) => {
+  handleSettingsModalOpen = (
+    value: boolean,
+    type?: 'settings' | 'log',
+    gameInfo?: GameInfo
+  ) => {
     if (gameInfo) {
       this.setState({
-        settingsModalOpen: { value, gameInfo }
+        settingsModalOpen: { value, type, gameInfo }
       })
     } else {
       this.setState({
