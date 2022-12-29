@@ -36,13 +36,17 @@ const AutoVKD3D = () => {
       appName,
       runner
     )
-    let res
-    if (isInstalled) {
-      res = await window.api.removeWorkaround('vkd3d', appName, runner)
+    let success
+    if (autoInstallVkd3d) {
+      success = await window.api.removeWorkaround('vkd3d', appName, runner)
     } else {
-      res = await window.api.installWorkaround('vkd3d', appName, runner)
+      if (isInstalled) {
+        success = await window.api.updateWorkaround('vkd3d', appName, runner)
+      } else {
+        success = await window.api.installWorkaround('vkd3d', appName, runner)
+      }
     }
-    if (res) {
+    if (success) {
       setAutoInstallVkd3d(!autoInstallVkd3d)
     }
     setModifyingVkd3d(false)

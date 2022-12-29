@@ -1,4 +1,3 @@
-import { Workaround } from './../wine/workarounds/types'
 import { ipcRenderer } from 'electron'
 import {
   Runner,
@@ -7,22 +6,66 @@ import {
   ProgressInfo,
   State
 } from 'common/types'
+import {
+  Workaround,
+  InstallParams,
+  RemoveParams,
+  IsInstalledParams,
+  UpdateParams
+} from './../wine/workarounds/types'
 
-export const installWorkaround = async (
-  workaround: Workaround,
+export const installWorkaround = async <T extends Workaround>(
+  workaround: T,
   appName: string,
-  runner: Runner
-) => ipcRenderer.invoke('installWorkaround', workaround, appName, runner)
-export const removeWorkaround = async (
-  workaround: Workaround,
+  runner: Runner,
+  ...args: InstallParams<T>
+) =>
+  ipcRenderer.invoke(
+    'installWorkaround',
+    workaround,
+    appName,
+    runner,
+    ...(args as [never])
+  )
+export const removeWorkaround = async <T extends Workaround>(
+  workaround: T,
   appName: string,
-  runner: Runner
-) => ipcRenderer.invoke('removeWorkaround', workaround, appName, runner)
-export const isWorkaroundInstalled = async (
-  workaround: Workaround,
+  runner: Runner,
+  ...args: RemoveParams<T>
+) =>
+  ipcRenderer.invoke(
+    'removeWorkaround',
+    workaround,
+    appName,
+    runner,
+    ...(args as [])
+  )
+export const updateWorkaround = async <T extends Workaround>(
+  workaround: T,
   appName: string,
-  runner: Runner
-) => ipcRenderer.invoke('isWorkaroundInstalled', workaround, appName, runner)
+  runner: Runner,
+  ...args: UpdateParams<T>
+) =>
+  ipcRenderer.invoke(
+    'updateWorkaround',
+    workaround,
+    appName,
+    runner,
+    ...(args as [never])
+  )
+export const isWorkaroundInstalled = async <T extends Workaround>(
+  workaround: T,
+  appName: string,
+  runner: Runner,
+  ...args: IsInstalledParams<T>
+) =>
+  ipcRenderer.invoke(
+    'isWorkaroundInstalled',
+    workaround,
+    appName,
+    runner,
+    ...(args as [])
+  )
 
 export const hasValidPrefix = async (appName: string, runner: Runner) =>
   ipcRenderer.invoke('hasValidPrefix', appName, runner)

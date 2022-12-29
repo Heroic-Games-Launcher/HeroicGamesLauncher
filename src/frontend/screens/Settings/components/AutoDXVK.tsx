@@ -36,13 +36,19 @@ const AutoDXVK = () => {
       appName,
       runner
     )
-    let res
-    if (isInstalled) {
-      res = await window.api.removeWorkaround('dxvk', appName, runner)
+    let success
+    // If the user has disabled auto-installation, remove it
+    if (autoInstallDxvk) {
+      success = await window.api.removeWorkaround('dxvk', appName, runner)
+      // If the user has enabled auto-installation, install or update DXVK
     } else {
-      res = await window.api.installWorkaround('dxvk', appName, runner)
+      if (isInstalled) {
+        success = await window.api.updateWorkaround('dxvk', appName, runner)
+      } else {
+        success = await window.api.installWorkaround('dxvk', appName, runner)
+      }
     }
-    if (res) {
+    if (success) {
       setAutoInstallDxvk(!autoInstallDxvk)
     }
     setModifyingDxvk(false)

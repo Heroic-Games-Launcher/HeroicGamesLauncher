@@ -4,7 +4,8 @@ import {
   Workaround,
   InstallParams as WorkaroundInstallParams,
   RemoveParams,
-  IsInstalledParams
+  IsInstalledParams,
+  UpdateParams
 } from 'backend/wine/workarounds/types'
 
 import {
@@ -33,7 +34,8 @@ import {
   DMQueueElement,
   ConnectivityStatus,
   GamepadActionArgs,
-  ExtraInfo
+  ExtraInfo,
+  ExecResult
 } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import { GOGCloudSavesLocation, GogInstallInfo } from 'common/types/gog'
@@ -239,23 +241,29 @@ interface AsyncIPCFunctions {
     appName: string
     runner: Runner
   }) => Promise<boolean>
-  installWorkaround: <T extends Workaround>(
-    workaround: T,
+  installWorkaround: (
+    workaround: Workaround,
     appName: string,
     runner: Runner,
-    ...args: WorkaroundInstallParams<T>
+    ...args: WorkaroundInstallParams<Workaround>
   ) => Promise<boolean>
-  removeWorkaround: <T extends Workaround>(
-    workaround: T,
+  removeWorkaround: (
+    workaround: Workaround,
     appName: string,
     runner: Runner,
-    ...args: RemoveParams<T>
+    ...args: RemoveParams<Workaround>
   ) => Promise<boolean>
-  isWorkaroundInstalled: <T extends Workaround>(
-    workaround: T,
+  updateWorkaround: (
+    workaround: Workaround,
     appName: string,
     runner: Runner,
-    ...args: IsInstalledParams<T>
+    ...args: UpdateParams<Workaround>
+  ) => Promise<boolean>
+  isWorkaroundInstalled: (
+    workaround: Workaround,
+    appName: string,
+    runner: Runner,
+    ...args: IsInstalledParams<Workaround>
   ) => Promise<boolean>
   hasValidPrefix: (appName: string, runner: Runner) => Promise<boolean>
   pathExists: (path: string) => Promise<boolean>

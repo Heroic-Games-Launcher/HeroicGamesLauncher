@@ -216,32 +216,42 @@ async function prepareWineLaunch(
   }
 
   // If DXVK/VKD3D installation is enabled, install it
-  if (gameSettings.wineVersion.type === 'wine') {
-    if (
-      gameSettings.autoInstallDxvk &&
-      // TODO: This will work differently once I implement Workaround updates
-      !(await WorkaroundsManager.isInstalled('dxvk', game.appName, runner))
-    ) {
-      const wasInstalled = await WorkaroundsManager.install(
+  if (gameSettings.wineVersion.type !== 'proton') {
+    const { appName } = game
+
+    if (gameSettings.autoInstallDxvk) {
+      const isInstalled = await WorkaroundsManager.isInstalled(
         'dxvk',
-        game.appName,
+        appName,
         runner
       )
-      if (!wasInstalled) {
-        logError(['Failed to install DXVK while launching', game.appName])
+
+      let success = false
+      if (isInstalled) {
+        success = await WorkaroundsManager.update('dxvk', appName, runner)
+      } else {
+        success = await WorkaroundsManager.install('dxvk', appName, runner)
+      }
+      if (!success) {
+        logError(['Failed to install/update DXVK when launching', appName])
       }
     }
-    if (
-      gameSettings.autoInstallVkd3d &&
-      !(await WorkaroundsManager.isInstalled('vkd3d', game.appName, runner))
-    ) {
-      const wasInstalled = await WorkaroundsManager.install(
+
+    if (gameSettings.autoInstallVkd3d) {
+      const isInstalled = await WorkaroundsManager.isInstalled(
         'vkd3d',
-        game.appName,
+        appName,
         runner
       )
-      if (!wasInstalled) {
-        logError(['Failed to install VKD3D while launching', game.appName])
+
+      let success = false
+      if (isInstalled) {
+        success = await WorkaroundsManager.update('vkd3d', appName, runner)
+      } else {
+        success = await WorkaroundsManager.install('vkd3d', appName, runner)
+      }
+      if (!success) {
+        logError(['Failed to install/update VKD3D while launching', appName])
       }
     }
   }

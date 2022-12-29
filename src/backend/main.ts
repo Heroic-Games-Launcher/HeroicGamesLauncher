@@ -885,29 +885,6 @@ ipcMain.handle('requestSettings', async (event, appName) => {
   return mapOtherSettings(config)
 })
 
-ipcMain.handle(
-  'installWorkaround',
-  async (e, workaround, appName, runner, ...args) =>
-    WorkaroundsManager.install(
-      workaround,
-      appName,
-      runner,
-      ...(args as [never])
-    )
-)
-
-ipcMain.handle(
-  'removeWorkaround',
-  async (e, workaround, appName, runner, ...args) =>
-    WorkaroundsManager.remove(workaround, appName, runner, ...args)
-)
-
-ipcMain.handle(
-  'isWorkaroundInstalled',
-  async (e, workaround, appName, runner, ...args) =>
-    WorkaroundsManager.isInstalled(workaround, appName, runner, ...args)
-)
-
 ipcMain.handle('hasValidPrefix', async (e, appName, runner) => {
   const gameSettings =
     runner === 'sideload'
@@ -1762,4 +1739,6 @@ import './wine/runtimes/ipc_handler'
 import './downloadmanager/ipc_handler'
 import './utils/ipc_handler'
 import './wiki_game_info/ipc_handler'
+import './wine/workarounds/ipc_handler'
+
 import './recent_games/ipc_handler'

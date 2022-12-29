@@ -4,7 +4,7 @@ import {
   readdirSync,
   readFileSync,
   renameSync,
-  rmSync,
+  unlinkSync,
   writeFileSync
 } from 'graceful-fs'
 import axios from 'axios'
@@ -193,7 +193,8 @@ export async function dllInstaller(
 
 export async function dllRemover(
   dllList: Set<string>,
-  gameSettings: GameSettings
+  gameSettings: GameSettings,
+  keepOverrides = false
 ) {
   const { wineVersion } = gameSettings
   const winePrefix = getFullPrefixPath(
@@ -244,6 +245,8 @@ export async function dllRemover(
   }
 
   // Remove DLL overrides
+  if (keepOverrides) return
+
   const overrides: Promise<void>[] = []
   for (const dllName of dllList) {
     overrides.push(removeDllOverride(dllName, gameSettings))
@@ -305,7 +308,7 @@ function removeDll(path: string, nobackup = false): boolean {
     renameSync(backupPath, path)
     return true
   } else {
-    if (existsSync(path)) rmSync(path)
+    if (existsSync(path)) unlinkSync(path)
     return false
   }
 }
@@ -365,8 +368,9 @@ async function removeDllOverride(dllName: string, gameSettings: GameSettings) {
   })
 }
 
-export function storeModifiedDllList(
+export function addWorkaroundEntry(
   dllList: Set<string>,
+  version: string,
   keyName: Workaround,
   prefix: string
 ) {
@@ -382,6 +386,7 @@ export function storeModifiedDllList(
   }
   // NOTE: JSON.stringify just stores an empty object for `Set`s, so we have to convert this to an array here
   modifiedData.dllList = Array.from(dllList)
+  modifiedData.version = version
   workaroundsList[keyName] = modifiedData
 
   writeFileSync(
@@ -390,10 +395,10 @@ export function storeModifiedDllList(
   )
 }
 
-export function getModifiedDllList(
+export function getWorkaroundEntry(
   keyName: Workaround,
   prefix: string
-): Set<string> | undefined {
+): Partial<{ dllList: Set<string>; version: string }> | undefined {
   const workaroundsListFilePath = join(prefix, 'heroic_workarounds.json')
   if (!existsSync(workaroundsListFilePath)) {
     return
@@ -412,10 +417,10 @@ export function getModifiedDllList(
   }
   const dllList = workaroundData.dllList
   if (!Array.isArray(dllList)) return
-  return new Set(dllList)
+  return { dllList: new Set(dllList), version: workaroundData.version }
 }
 
-export function removeModifiedDllList(keyName: Workaround, prefix: string) {
+export function removeWorkaroundEntry(keyName: Workaround, prefix: string) {
   const workaroundsListFilePath = join(prefix, 'heroic_workarounds.json')
   if (!existsSync(workaroundsListFilePath)) {
     return
