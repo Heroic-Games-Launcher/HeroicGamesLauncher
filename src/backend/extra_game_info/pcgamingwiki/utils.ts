@@ -19,6 +19,9 @@ export async function getInfoFromPCGamingWiki(
   try {
     title = removeSpecialcharacters(title)
 
+    // pcgamingwiki does not like "-" and mostly replaces it with ":"
+    title = title.replace(' -', ':')
+
     // check if we have a cached response
     const cachedResponse = pcGamingWikiInfoStore.get(title) as PCGamingWikiInfo
     if (cachedResponse) {
