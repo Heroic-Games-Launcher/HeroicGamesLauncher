@@ -93,12 +93,6 @@
         "moving": "Flytte",
         "repairing": "Reparerer"
     },
-    "gamescore": {
-        "header": "Game Scores",
-        "igdb": "IGDB",
-        "metacritic": "MetaCritic",
-        "opencritic": "OpenCritic"
-    },
     "generic": {
         "error": "Ukjent feil"
     },

@@ -92,12 +92,6 @@
         "moving": "മാറ്റുന്നു",
         "repairing": "നന്നാക്കുന്നു"
     },
-    "gamescore": {
-        "header": "Game Scores",
-        "igdb": "IGDB",
-        "metacritic": "MetaCritic",
-        "opencritic": "OpenCritic"
-    },
     "generic": {
         "error": "Unknown error"
     },

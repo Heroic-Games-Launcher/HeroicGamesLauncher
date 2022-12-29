@@ -92,12 +92,6 @@
         "moving": "Memindahkan",
         "repairing": "Memperbaiki"
     },
-    "gamescore": {
-        "header": "Game Scores",
-        "igdb": "IGDB",
-        "metacritic": "MetaCritic",
-        "opencritic": "OpenCritic"
-    },
     "generic": {
         "error": "Kesalahan tidak diketahui"
     },

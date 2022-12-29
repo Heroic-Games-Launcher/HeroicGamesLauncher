@@ -92,12 +92,6 @@
         "moving": "Spostamento in corso",
         "repairing": "Riparazione in corso"
     },
-    "gamescore": {
-        "header": "Game Scores",
-        "igdb": "IGDB",
-        "metacritic": "MetaCritic",
-        "opencritic": "OpenCritic"
-    },
     "generic": {
         "error": "Errore sconosciuto"
     },

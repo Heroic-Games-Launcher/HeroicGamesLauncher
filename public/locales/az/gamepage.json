@@ -93,12 +93,6 @@
         "moving": "Hərəkət edir",
         "repairing": "Təmir"
     },
-    "gamescore": {
-        "header": "Game Scores",
-        "igdb": "IGDB",
-        "metacritic": "MetaCritic",
-        "opencritic": "OpenCritic"
-    },
     "generic": {
         "error": "Naməlum xəta"
     },

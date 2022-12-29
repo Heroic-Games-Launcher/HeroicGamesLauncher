@@ -92,12 +92,6 @@
         "moving": "Преместване",
         "repairing": "Поправяне"
     },
-    "gamescore": {
-        "header": "Game Scores",
-        "igdb": "IGDB",
-        "metacritic": "MetaCritic",
-        "opencritic": "OpenCritic"
-    },
     "generic": {
         "error": "Неизвестна грешка"
     },

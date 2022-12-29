@@ -92,12 +92,6 @@
         "moving": "Đang chuyển",
         "repairing": "Đang sửa"
     },
-    "gamescore": {
-        "header": "Game Scores",
-        "igdb": "IGDB",
-        "metacritic": "MetaCritic",
-        "opencritic": "OpenCritic"
-    },
     "generic": {
         "error": "Lỗi chưa xác định"
     },

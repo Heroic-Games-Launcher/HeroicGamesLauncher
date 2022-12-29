@@ -92,12 +92,6 @@
         "moving": "நகர்த்தப்படுகிறது",
         "repairing": "பழுதுபார்க்கப்படுகிறது"
     },
-    "gamescore": {
-        "header": "Game Scores",
-        "igdb": "IGDB",
-        "metacritic": "MetaCritic",
-        "opencritic": "OpenCritic"
-    },
     "generic": {
         "error": "Unknown error"
     },

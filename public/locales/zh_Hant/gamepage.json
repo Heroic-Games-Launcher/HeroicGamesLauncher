@@ -92,12 +92,6 @@
         "moving": "移動中",
         "repairing": "修復中"
     },
-    "gamescore": {
-        "header": "Game Scores",
-        "igdb": "IGDB",
-        "metacritic": "MetaCritic",
-        "opencritic": "OpenCritic"
-    },
     "generic": {
         "error": "未知的錯誤"
     },

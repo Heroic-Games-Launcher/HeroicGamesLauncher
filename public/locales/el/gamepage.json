@@ -92,12 +92,6 @@
         "moving": "Μετακίνηση",
         "repairing": "Επιδιόρθωση"
     },
-    "gamescore": {
-        "header": "Game Scores",
-        "igdb": "IGDB",
-        "metacritic": "MetaCritic",
-        "opencritic": "OpenCritic"
-    },
     "generic": {
         "error": "Άγνωστο Σφάλμα"
     },

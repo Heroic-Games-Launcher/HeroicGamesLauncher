@@ -92,12 +92,6 @@
         "moving": "移動しています",
         "repairing": "修復しています"
     },
-    "gamescore": {
-        "header": "Game Scores",
-        "igdb": "IGDB",
-        "metacritic": "MetaCritic",
-        "opencritic": "OpenCritic"
-    },
     "generic": {
         "error": "Unknown error"
     },
