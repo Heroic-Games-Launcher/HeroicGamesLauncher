@@ -53,6 +53,8 @@ interface Card {
   gameInfo: GameInfo
 }
 
+const storage: Storage = window.localStorage
+
 const GameCard = ({
   hasUpdate,
   buttonClick,
@@ -121,6 +123,28 @@ const GameCard = ({
           runner
         })
         setGameAvailable(gameAvailable)
+        const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
+        const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
+        if (!gameAvailable) {
+          if (!nonAvailbleGamesArray.includes(appName)) {
+            nonAvailbleGamesArray.push(appName)
+            storage.setItem(
+              'nonAvailableGames',
+              JSON.stringify(nonAvailbleGamesArray)
+            )
+          }
+        } else {
+          if (nonAvailbleGamesArray.includes(appName)) {
+            nonAvailbleGamesArray.splice(
+              nonAvailbleGamesArray.indexOf(appName),
+              1
+            )
+            storage.setItem(
+              'nonAvailableGames',
+              JSON.stringify(nonAvailbleGamesArray)
+            )
+          }
+        }
       }
     }
     checkGameAvailable()
@@ -161,8 +185,6 @@ const GameCard = ({
   const installingGrayscale = isInstalling
     ? `${125 - getProgress(progress)}%`
     : '100%'
-
-  const storage: Storage = window.localStorage
 
   const imageSrc = getImageFormatting()
 
