@@ -35,8 +35,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import useSetting from 'frontend/hooks/useSetting'
 import { defaultWineVersion } from '../..'
+import Collapsible from 'frontend/components/UI/Collapsible/Collapsible'
 
-export default function GamesSettings() {
+type Props = {
+  useDetails?: boolean
+}
+
+export default function GamesSettings({ useDetails = true }: Props) {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const { isDefault, gameInfo, isMacNative, isLinuxNative } =
@@ -65,25 +70,23 @@ export default function GamesSettings() {
 
       {!nativeGame && (
         <>
-          <details open>
-            <summary className="settingSubheader">
-              {isLinux ? 'Wine' : 'Wine/Crossover'}
-            </summary>
-
+          <Collapsible
+            isOpen
+            isColapsible={useDetails}
+            summary={isLinux ? 'Wine' : 'Wine/Crossover'}
+          >
             <WinePrefix />
-
             <WineVersionSelector />
-
             <CrossoverBottle />
-
             <Tools />
-          </details>
+          </Collapsible>
 
           {!isCrossover && (
-            <details>
-              <summary className="settingSubheader">
-                {t('settings.navbar.wineExt', 'Wine Extensions')}
-              </summary>
+            <Collapsible
+              isOpen={false}
+              isColapsible={useDetails}
+              summary={t('settings.navbar.wineExt', 'Wine Extensions')}
+            >
               <AutoDXVK />
               {isLinux && (
                 <>
@@ -94,16 +97,16 @@ export default function GamesSettings() {
                   <BattlEyeRuntime />
                 </>
               )}
-            </details>
+            </Collapsible>
           )}
         </>
       )}
 
-      <details>
-        <summary className="settingSubheader">
-          {t('settings.navbar.other')}
-        </summary>
-
+      <Collapsible
+        isOpen={isWin}
+        isColapsible={useDetails}
+        summary={t('settings.navbar.other')}
+      >
         <AlternativeExe />
 
         {!nativeGame && <ShowFPS />}
@@ -143,7 +146,7 @@ export default function GamesSettings() {
         <LauncherArgs />
 
         <PreferedLanguage />
-      </details>
+      </Collapsible>
     </>
   )
 }
