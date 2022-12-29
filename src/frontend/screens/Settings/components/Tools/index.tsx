@@ -75,8 +75,7 @@ export default function Tools() {
       callTools('runExe', exe)
     }
   }
-
-  function dropHandler(ev: React.DragEvent<HTMLSpanElement>) {
+  async function dropHandler(ev: React.DragEvent<HTMLSpanElement>) {
     // Prevent default behavior (Prevent file from being opened)
     ev.preventDefault()
 
@@ -129,7 +128,7 @@ export default function Tools() {
             <span className="toolTitle">Winetricks</span>
           </button>
           <a
-            onDrop={(ev) => dropHandler(ev)}
+            onDrop={async (ev) => dropHandler(ev)}
             onDragOver={(ev) => dragOverHandler(ev)}
             className="button outline drag"
             onClick={handleRunExe}
