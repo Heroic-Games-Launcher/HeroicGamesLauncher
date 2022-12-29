@@ -19,7 +19,7 @@ module.exports = {
   defaultNamespace: 'translation',
   // Default namespace used in your i18next config
 
-  defaultValue: (locale, namespace, key) => key,
+  defaultValue: '',
   // Default value to give to empty keys
 
   failOnWarnings: false,
@@ -75,12 +75,6 @@ module.exports = {
   // Whether to use the keys as the default value; ex. "Hello": "Hello", "World": "World"
   // This option takes precedence over the `defaultValue` and `skipDefaultValues` options
 
-  verbose: true,
+  verbose: true
   // Display info about the parsing including some stat
-
-  i18nextOptions: {
-    fallbackLng: 'en',
-    returnEmptyString: false,
-    returnNull: false
-  }
 }
