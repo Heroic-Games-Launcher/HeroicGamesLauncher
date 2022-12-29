@@ -628,8 +628,7 @@ export class GlobalState extends PureComponent<Props> {
     })
 
     window.api.handleGameStatus(async (e: Event, args: GameStatus) => {
-      const { libraryStatus } = this.state
-      return this.handleGameStatus({ ...libraryStatus, ...args })
+      return this.handleGameStatus({ ...args })
     })
 
     window.api.handleRefreshLibrary(async (e: Event, runner: Runner) => {
@@ -740,7 +739,6 @@ export class GlobalState extends PureComponent<Props> {
             logout: this.gogLogout
           },
           handleCategory: this.handleCategory,
-          handleGameStatus: this.handleGameStatus,
           handleLayout: this.handleLayout,
           handlePlatformFilter: this.handlePlatformFilter,
           handleSearch: this.handleSearch,

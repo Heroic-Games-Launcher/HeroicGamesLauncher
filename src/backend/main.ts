@@ -1029,46 +1029,63 @@ ipcMain.on('showItemInFolder', async (e, item) => showItemInFolder(item))
 ipcMain.handle(
   'uninstall',
   async (event, appName, runner, shouldRemovePrefix, shouldRemoveSetting) => {
+    sendFrontendMessage('gameStatusUpdate', {
+      appName,
+      runner,
+      status: 'uninstalling'
+    })
+
     const game = getGame(appName, runner)
 
     const { title } = game.getGameInfo()
 
+    let uninstalled = false
+
     try {
       await game.uninstall()
+      uninstalled = true
     } catch (error) {
       notify({
         title,
         body: i18next.t('notify.uninstalled.error', 'Error uninstalling')
       })
       logError(error, { prefix: LogPrefix.Backend })
-      return
     }
-    if (shouldRemovePrefix) {
-      const { winePrefix } = await game.getSettings()
-      logInfo(`Removing prefix ${winePrefix}`, {
-        prefix: LogPrefix.Backend
-      })
-      // remove prefix if exists
-      if (existsSync(winePrefix)) {
-        rmSync(winePrefix, { recursive: true })
-      }
-    }
-    if (shouldRemoveSetting) {
-      const removeIfExists = (filename: string) => {
-        logInfo(`Removing ${filename}`, { prefix: LogPrefix.Backend })
-        const gameSettingsFile = join(heroicGamesConfigPath, filename)
-        if (existsSync(gameSettingsFile)) {
-          rmSync(gameSettingsFile)
+
+    if (uninstalled) {
+      if (shouldRemovePrefix) {
+        const { winePrefix } = await game.getSettings()
+        logInfo(`Removing prefix ${winePrefix}`, {
+          prefix: LogPrefix.Backend
+        })
+        // remove prefix if exists
+        if (existsSync(winePrefix)) {
+          rmSync(winePrefix, { recursive: true })
         }
       }
+      if (shouldRemoveSetting) {
+        const removeIfExists = (filename: string) => {
+          logInfo(`Removing ${filename}`, { prefix: LogPrefix.Backend })
+          const gameSettingsFile = join(heroicGamesConfigPath, filename)
+          if (existsSync(gameSettingsFile)) {
+            rmSync(gameSettingsFile)
+          }
+        }
 
-      removeIfExists(appName.concat('.json'))
-      removeIfExists(appName.concat('.log'))
-      removeIfExists(appName.concat('-lastPlay.log'))
+        removeIfExists(appName.concat('.json'))
+        removeIfExists(appName.concat('.log'))
+        removeIfExists(appName.concat('-lastPlay.log'))
+      }
+
+      notify({ title, body: i18next.t('notify.uninstalled') })
+      logInfo('Finished uninstalling', { prefix: LogPrefix.Backend })
     }
 
-    notify({ title, body: i18next.t('notify.uninstalled') })
-    logInfo('Finished uninstalling', { prefix: LogPrefix.Backend })
+    sendFrontendMessage('gameStatusUpdate', {
+      appName,
+      runner,
+      status: 'done'
+    })
   }
 )
 
@@ -1079,6 +1096,13 @@ ipcMain.handle('repair', async (event, appName, runner) => {
     })
     return
   }
+
+  sendFrontendMessage('gameStatusUpdate', {
+    appName,
+    runner,
+    status: 'repairing'
+  })
+
   const game = getGame(appName, runner)
   const { title } = game.getGameInfo()
 
@@ -1093,30 +1117,46 @@ ipcMain.handle('repair', async (event, appName, runner) => {
   }
   notify({ title, body: i18next.t('notify.finished.reparing') })
   logInfo('Finished repairing', { prefix: LogPrefix.Backend })
+
+  sendFrontendMessage('gameStatusUpdate', {
+    appName,
+    runner,
+    status: 'done'
+  })
 })
 
 ipcMain.handle(
   'moveInstall',
-  async (event, { appName, path, runner }): StatusPromise => {
+  async (event, { appName, path, runner }): Promise<void> => {
+    sendFrontendMessage('gameStatusUpdate', {
+      appName,
+      runner,
+      status: 'moving'
+    })
+
     const game = getGame(appName, runner)
     const { title } = game.getGameInfo()
     notify({ title, body: i18next.t('notify.moving', 'Moving Game') })
-    let newPath: string
+
     try {
-      newPath = await game.moveInstall(path)
+      const newPath = await game.moveInstall(path)
+      notify({ title, body: i18next.t('notify.moved') })
+      logInfo(`Finished moving ${appName} to ${newPath}.`, {
+        prefix: LogPrefix.Backend
+      })
     } catch (error) {
       notify({
         title,
         body: i18next.t('notify.error.move', 'Error Moving the Game')
       })
       logError(error, { prefix: LogPrefix.Backend })
-      return { status: 'error' }
     }
-    notify({ title, body: i18next.t('notify.moved') })
-    logInfo(`Finished moving ${appName} to ${newPath}.`, {
-      prefix: LogPrefix.Backend
+
+    sendFrontendMessage('gameStatusUpdate', {
+      appName,
+      runner,
+      status: 'done'
     })
-    return { status: 'done' }
   }
 )
 
