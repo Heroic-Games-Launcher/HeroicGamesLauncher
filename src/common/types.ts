@@ -614,6 +614,7 @@ export interface ToolArgs {
 export type StatusPromise = Promise<{ status: 'done' | 'error' }>
 
 export interface PCGamingWikiInfo {
+  timestampLastFetch: string
   steamID: string
   howLongToBeatID: string
   metacritic: string

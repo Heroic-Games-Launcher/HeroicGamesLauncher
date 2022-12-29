@@ -11,7 +11,6 @@
     justify-content: center;
     align-items: center;
     border-radius: 5px;
-    background-color: var(--background-secondary);
     color: var(--text-secondary);
     margin-right: 10px;
     padding: 0 var(--space-xs);
@@ -24,5 +23,17 @@
       font-size: 1.2rem;
       font-weight: var(--bold);
     }
+  }
+
+  .gamescore__square__green {
+    background-color: green;
+  }
+
+  .gamescore__square__red {
+    background-color: red;
+  }
+
+  .gamescore__square__yellow {
+    background-color: yellow;
   }
 }

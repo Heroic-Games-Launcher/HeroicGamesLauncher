@@ -66,6 +66,37 @@ describe('getPCGamingWikiInfo', () => {
     expect(mockAxios).not.toBeCalled()
   })
 
+  test('cached data outdated', async () => {
+    const oneMonthAgo = new Date()
+    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1)
+
+    jest
+      .spyOn(pcGamingWikiInfoStore, 'get')
+      .mockReturnValue({ ...testGameScore, timestampLastFetch: oneMonthAgo })
+
+    const mockAxios = jest.spyOn(axios, 'get').mockResolvedValueOnce({
+      data: { cargoquery: [{ title: { pageID: 1 } }] }
+    })
+    mockAxios.mockResolvedValueOnce({
+      data: {
+        parse: {
+          wikitext: {
+            '*':
+              '{{Infobox game/row/reception|Metacritic|the-witcher-3-wild-hunt|10}}\n' +
+              '{{Infobox game/row/reception|OpenCritic|463/the-witcher-3-wild-hunt|22}}\n' +
+              '{{Infobox game/row/reception|IGDB|the-witcher-3-wild-hunt|40}}\n' +
+              '|steam appid  = 100\n' +
+              '|direct3d versions      = 11, 12\n' +
+              '|hltb         = 10101\n'
+          }
+        }
+      }
+    })
+
+    const result = await getInfoFromPCGamingWiki('The Witcher 3')
+    expect(result).toStrictEqual(testGameScore)
+  })
+
   test('does not find page id', async () => {
     const mockAxios = jest.spyOn(axios, 'get').mockResolvedValueOnce({
       data: { cargoquery: [{ title: { pageID: undefined } }] }
@@ -123,6 +154,7 @@ describe('getPCGamingWikiInfo', () => {
 })
 
 const testGameScore = {
+  timestampLastFetch: Date(),
   steamID: '100',
   metacritic: '10',
   opencritic: '22',

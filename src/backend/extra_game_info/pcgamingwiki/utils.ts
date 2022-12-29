@@ -20,12 +20,23 @@ export async function getInfoFromPCGamingWiki(
     title = removeSpecialcharacters(title)
 
     // check if we have a cached response
-    const cachedResponse = pcGamingWikiInfoStore.get(title)
+    const cachedResponse = pcGamingWikiInfoStore.get(title) as PCGamingWikiInfo
     if (cachedResponse) {
-      logInfo([`Using cached pcgamingwiki data for ${title}`, ''], {
+      logInfo([`Using cached pcgamingwiki data for ${title}`], {
         prefix: LogPrefix.ExtraGameInfo
       })
-      return cachedResponse as PCGamingWikiInfo
+
+      const oneMonthAgo = new Date()
+      oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1)
+
+      const timestampLastFetch = new Date(cachedResponse.timestampLastFetch)
+      if (timestampLastFetch > oneMonthAgo) {
+        return cachedResponse
+      }
+
+      logInfo([`Cached pcgamingwiki data for ${title} outdated.`], {
+        prefix: LogPrefix.ExtraGameInfo
+      })
     }
 
     logInfo(`Getting pcgamingwiki data for ${title}`, {
@@ -44,14 +55,15 @@ export async function getInfoFromPCGamingWiki(
       return null
     }
 
-    const metacritic = wikitext.match(metacriticRegEx)?.[1] ?? '?'
-    const opencritic = wikitext.match(opencriticRegEx)?.[1] ?? '?'
-    const igdb = wikitext.match(idgbRegEx)?.[1] ?? '?'
-    const steamID = wikitext.match(steamIDRegEx)?.[1] ?? '?'
-    const howLongToBeatID = wikitext.match(howLongToBeatIDRegEx)?.[1] ?? '?'
-    const direct3DVersions = wikitext.match(direct3DVersionsRegEx)?.[1] ?? '?'
+    const metacritic = wikitext.match(metacriticRegEx)?.[1] ?? ''
+    const opencritic = wikitext.match(opencriticRegEx)?.[1] ?? ''
+    const igdb = wikitext.match(idgbRegEx)?.[1] ?? ''
+    const steamID = wikitext.match(steamIDRegEx)?.[1] ?? ''
+    const howLongToBeatID = wikitext.match(howLongToBeatIDRegEx)?.[1] ?? ''
+    const direct3DVersions = wikitext.match(direct3DVersionsRegEx)?.[1] ?? ''
 
     const pcGamingWikiInfo: PCGamingWikiInfo = {
+      timestampLastFetch: Date(),
       steamID,
       howLongToBeatID,
       metacritic,

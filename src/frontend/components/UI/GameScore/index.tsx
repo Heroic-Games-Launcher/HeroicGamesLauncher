@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import './index.scss'
 import { PCGamingWikiInfo } from 'common/types'
+import classNames from 'classnames'
 
 type Props = {
   title: string
@@ -11,7 +11,6 @@ type Props = {
 export default function GameScore({ title, id }: Props) {
   const [pcGamingWikiInfo, setPCGamingWikiInfo] =
     useState<PCGamingWikiInfo | null>(null)
-  const { t } = useTranslation('gamepage')
 
   useEffect(() => {
     window.api.getInfoFromPCGamingWiki(title, id).then((info) => {
@@ -21,38 +20,65 @@ export default function GameScore({ title, id }: Props) {
     })
   }, [title, id])
 
-  if (!pcGamingWikiInfo) {
+  if (
+    !pcGamingWikiInfo ||
+    (!pcGamingWikiInfo.metacritic &&
+      !pcGamingWikiInfo.opencritic &&
+      !pcGamingWikiInfo.igdb)
+  ) {
     return null
   }
 
+  const getColorClass = (value: string) => {
+    const number = Number(value)
+
+    if (number > 66) {
+      return 'gamescore__square__green'
+    } else if (number < 33) {
+      return 'gamescore__square__red'
+    }
+
+    return 'gamescore__square__yellow'
+  }
+
+  const { metacritic, opencritic, igdb } = pcGamingWikiInfo
+
   return (
     <div>
-      <p>{t('gamescore.header', 'Game Scores')}</p>
+      <p>Game Scores</p>
       <div className="gamescore">
-        <div className="gamescore__square">
-          <div className="gamescore__square__title">
-            {t('gamescore.metacritic', 'MetaCritic')}
+        {metacritic && (
+          <div
+            className={classNames(
+              'gamescore__square',
+              getColorClass(metacritic)
+            )}
+          >
+            <div className="gamescore__square__title">MetaCritic</div>
+            <div className="gamescore__square__value">
+              {`${metacritic}` || '?'}
+            </div>
           </div>
-          <div className="gamescore__square__value">
-            {`${pcGamingWikiInfo.metacritic}` || '?'}
+        )}
+        {opencritic && (
+          <div
+            className={classNames(
+              'gamescore__square',
+              getColorClass(opencritic)
+            )}
+          >
+            <div className="gamescore__square__title">OpenCritic</div>
+            <div className="gamescore__square__value">
+              {`${opencritic}` || '?'}
+            </div>
           </div>
-        </div>
-        <div className="gamescore__square">
-          <div className="gamescore__square__title">
-            {t('gamescore.opencritic', 'OpenCritic')}
+        )}
+        {igdb && (
+          <div className={classNames('gamescore__square', getColorClass(igdb))}>
+            <div className="gamescore__square__title">IGDB</div>
+            <div className="gamescore__square__value">{`${igdb}` || '?'}</div>
           </div>
-          <div className="gamescore__square__value">
-            {`${pcGamingWikiInfo.opencritic}` || '?'}
-          </div>
-        </div>
-        <div className="gamescore__square">
-          <div className="gamescore__square__title">
-            {t('gamescore.igdb', 'IGDB')}
-          </div>
-          <div className="gamescore__square__value">
-            {`${pcGamingWikiInfo.igdb}` || '?'}
-          </div>
-        </div>
+        )}
       </div>
     </div>
   )
