@@ -9,7 +9,8 @@ type Props = {
 }
 
 export default function GameScore({ title, id }: Props) {
-  const [pcGamingWikiInfo, setPCGamingWikiInfo] = useState<PCGamingWikiInfo | null>(null)
+  const [pcGamingWikiInfo, setPCGamingWikiInfo] =
+    useState<PCGamingWikiInfo | null>(null)
   const { t } = useTranslation('gamepage')
 
   useEffect(() => {

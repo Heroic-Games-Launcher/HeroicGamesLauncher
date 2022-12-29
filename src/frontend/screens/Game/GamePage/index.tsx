@@ -514,7 +514,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 )}
               </div>
               <HowLongToBeat title={title} />
-              <GameScore title={title} id={runner === 'gog' ? appName : undefined}/>
+              <GameScore
+                title={title}
+                id={runner === 'gog' ? appName : undefined}
+              />
               {is_installed && (
                 <NavLink
                   to={`/settings/${runner}/${appName}/log`}
