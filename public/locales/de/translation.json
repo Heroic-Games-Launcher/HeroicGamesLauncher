@@ -48,10 +48,6 @@
                 "message": "Nicht genügend freier Speicherplatz",
                 "title": "Kein Speicherplatz"
             },
-            "dxvk": {
-                "message": "Fehler beim Installieren von DXVK/VKD3D! Überprüfe deine Verbindung!",
-                "title": "DXVK/VKD3D-Fehler"
-            },
             "folder-not-found": {
                 "title": "Der Spieleordner scheint gelöscht zu sein, möchtest du das Spiel aus der Liste der installierten Spiele entfernen?"
             },
@@ -157,6 +153,7 @@
     },
     "button": {
         "cancel": "Abbrechen",
+        "continue": "Continue",
         "go_to_library": "Zur Bibliothek",
         "login": "Anmelden",
         "sync": "Synchronisieren",
@@ -209,6 +206,10 @@
     },
     "Epic Games": "Epic Games",
     "error": "Fehler",
+    "externalLink": {
+        "dontAskAgain": "Don't ask again",
+        "warning": "You are about to open an external link."
+    },
     "favourites": "Favoriten",
     "game": {
         "status": "Status",

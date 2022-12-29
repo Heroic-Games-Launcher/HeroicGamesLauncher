@@ -48,10 +48,6 @@
                 "message": "Δεν υπάρχει αρκετός διαθέσιμος χώρος στο δίσκο",
                 "title": "Ανεπαρκής χώρος"
             },
-            "dxvk": {
-                "message": "Σφάλμα κατά την εγκατάσταση του DXVK/VKD3D! Παρακαλώ ελέγξτε τη σύνδεσή σας!",
-                "title": "Σφάλμα DXVK/VKD3D"
-            },
             "folder-not-found": {
                 "title": "Ο φάκελος παιχνιδιού φαίνεται να έχει διαγραφεί, θέλετε να αφαιρέσετε το παιχνίδι από την λίστα εγκατεστημένων;"
             },
@@ -157,6 +153,7 @@
     },
     "button": {
         "cancel": "Cancel",
+        "continue": "Continue",
         "go_to_library": "Μεταβείτε στη Συλλογή",
         "login": "Σύνδεση",
         "sync": "Συγχρονισμός",
@@ -209,6 +206,10 @@
     },
     "Epic Games": "Epic Games",
     "error": "Error",
+    "externalLink": {
+        "dontAskAgain": "Don't ask again",
+        "warning": "You are about to open an external link."
+    },
     "favourites": "Αγαπημένα",
     "game": {
         "status": "Κατάσταση",

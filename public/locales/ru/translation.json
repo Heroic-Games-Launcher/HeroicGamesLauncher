@@ -48,10 +48,6 @@
                 "message": "Недостаточно свободного места на диске",
                 "title": "Нет места"
             },
-            "dxvk": {
-                "message": "Ошибка при установке DXVK/VKD3D! Проверьте своё соединение!",
-                "title": "Ошибка DXVK/VKD3D"
-            },
             "folder-not-found": {
                 "title": "Папка игры, похоже, удалена. Убрать игру из списка установленных?"
             },
@@ -157,6 +153,7 @@
     },
     "button": {
         "cancel": "Отмена",
+        "continue": "Continue",
         "go_to_library": "Перейти в библиотеку",
         "login": "Вход",
         "sync": "Синхронизировать",
@@ -209,6 +206,10 @@
     },
     "Epic Games": "Epic Games",
     "error": "Ошибка",
+    "externalLink": {
+        "dontAskAgain": "Don't ask again",
+        "warning": "You are about to open an external link."
+    },
     "favourites": "Избранное",
     "game": {
         "status": "Состояние",

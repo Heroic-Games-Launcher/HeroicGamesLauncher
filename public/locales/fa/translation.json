@@ -48,10 +48,6 @@
                 "message": "فضای ذخیره سازی کافی موجود نیست",
                 "title": "فضایی موجود نیست"
             },
-            "dxvk": {
-                "message": "خطا در نصب DXVK/VKD3D! اتصال به اینترنت خود را چک کنید!",
-                "title": "خطای DXVK/VKD3D"
-            },
             "folder-not-found": {
                 "title": "به نظر می رسد پوشه بازی حذف شده است،cآیا می خواهید بازی از لیست نصب شده ها حذف شود؟"
             },
@@ -157,6 +153,7 @@
     },
     "button": {
         "cancel": "Cancel",
+        "continue": "Continue",
         "go_to_library": "رفتن به کتابخانه",
         "login": "ورود",
         "sync": "همگام سازی",
@@ -209,6 +206,10 @@
     },
     "Epic Games": "اپیک گیمز",
     "error": "Error",
+    "externalLink": {
+        "dontAskAgain": "Don't ask again",
+        "warning": "You are about to open an external link."
+    },
     "favourites": "علاقه مندی ها",
     "game": {
         "status": "Status",

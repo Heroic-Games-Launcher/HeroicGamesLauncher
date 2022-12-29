@@ -157,6 +157,7 @@
     },
     "button": {
         "cancel": "Cancel",
+        "continue": "Continue",
         "go_to_library": "Go to Library",
         "login": "Iniciar sesión",
         "sync": "Sincronizar",
@@ -209,6 +210,10 @@
     },
     "Epic Games": "Epic Games",
     "error": "Error",
+    "externalLink": {
+        "dontAskAgain": "Don't ask again",
+        "warning": "You are about to open an external link."
+    },
     "favourites": "Favourites",
     "game": {
         "status": "Status",

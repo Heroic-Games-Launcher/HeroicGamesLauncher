@@ -48,10 +48,6 @@
                 "message": "Ei ole piisavalt vaba kettaruumi",
                 "title": "Ei ole ruumi"
             },
-            "dxvk": {
-                "message": "Viga DXVK/VKD3D installimisel! Palun kontrollige ühendust!",
-                "title": "DXVK/VKD3D viga"
-            },
             "folder-not-found": {
                 "title": "Mängukaust tundub olevat kustutatud, kas soovite mängu paigaldatute nimekirjast eemaldada?"
             },
@@ -157,6 +153,7 @@
     },
     "button": {
         "cancel": "Cancel",
+        "continue": "Continue",
         "go_to_library": "Mine teeki",
         "login": "Logi sisse",
         "sync": "Sünkrooni",
@@ -209,6 +206,10 @@
     },
     "Epic Games": "Epic Games",
     "error": "Error",
+    "externalLink": {
+        "dontAskAgain": "Don't ask again",
+        "warning": "You are about to open an external link."
+    },
     "favourites": "Lemmikud",
     "game": {
         "status": "Status",

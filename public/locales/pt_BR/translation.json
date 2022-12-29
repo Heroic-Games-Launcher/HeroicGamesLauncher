@@ -48,10 +48,6 @@
                 "message": "Sem espaço suficiente disponível no disco",
                 "title": "Sem Espaço"
             },
-            "dxvk": {
-                "message": "Erro ao instalar DXVK/VKD3D! Por favor, verifique sua conexão!",
-                "title": "DXVK/VKD3D Erro"
-            },
             "folder-not-found": {
                 "title": "A pasta do jogo parece ter sido excluída, você deseja remover o jogo da lista de instalados?"
             },
@@ -157,6 +153,7 @@
     },
     "button": {
         "cancel": "Cancelar",
+        "continue": "Continue",
         "go_to_library": "Ir para a biblioteca",
         "login": "Conecte-se",
         "sync": "Sincronizar",
@@ -209,6 +206,10 @@
     },
     "Epic Games": "Epic Games",
     "error": "Error",
+    "externalLink": {
+        "dontAskAgain": "Don't ask again",
+        "warning": "You are about to open an external link."
+    },
     "favourites": "Favoritos",
     "game": {
         "status": "Status",

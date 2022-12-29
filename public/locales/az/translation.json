@@ -48,10 +48,6 @@
                 "message": "Kifayət qədər mövcud disk sahəsi yoxdur",
                 "title": "Yer yoxdur"
             },
-            "dxvk": {
-                "message": "DXVK/VKD3D quraşdırarkən xəta baş verdi! Zəhmət olmasa əlaqənizi yoxlayın!",
-                "title": "DXVK/VKD3D xətası"
-            },
             "folder-not-found": {
                 "title": "Oyun qovluğu silinmiş kimi görünür, oyunu quraşdırılmış siyahıdan silmək istəyirsiniz?"
             },
@@ -157,6 +153,7 @@
     },
     "button": {
         "cancel": "Cancel",
+        "continue": "Continue",
         "go_to_library": "Kitabxanaya gedin",
         "login": "Daxil ol",
         "sync": "Sinxronizasiya",
@@ -209,6 +206,10 @@
     },
     "Epic Games": "Epik oyunlar",
     "error": "Error",
+    "externalLink": {
+        "dontAskAgain": "Don't ask again",
+        "warning": "You are about to open an external link."
+    },
     "favourites": "Sevimlilər",
     "game": {
         "status": "Vəziyyət",

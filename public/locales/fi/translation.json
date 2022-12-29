@@ -48,10 +48,6 @@
                 "message": "Ei tarpeeksi tilaa levyllä",
                 "title": "Ei ole tilaa levyllä"
             },
-            "dxvk": {
-                "message": "Virhe DXVK/VKD3D:n asennuksessa! Tarkista yhteys tai onko zstd/libzstd1 asennettu",
-                "title": "DXVK/VKD3D-virhe"
-            },
             "folder-not-found": {
                 "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
             },
@@ -157,6 +153,7 @@
     },
     "button": {
         "cancel": "Cancel",
+        "continue": "Continue",
         "go_to_library": "Go to Library",
         "login": "Kirjaudu sisään",
         "sync": "Synkronoi",
@@ -209,6 +206,10 @@
     },
     "Epic Games": "Epic Games",
     "error": "Error",
+    "externalLink": {
+        "dontAskAgain": "Don't ask again",
+        "warning": "You are about to open an external link."
+    },
     "favourites": "Favourites",
     "game": {
         "status": "Status",

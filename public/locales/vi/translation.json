@@ -48,10 +48,6 @@
                 "message": "Không đủ bộ nhớ trống",
                 "title": "Không đủ bộ nhớ"
             },
-            "dxvk": {
-                "message": "Lỗi cài đặt DXVK/VKD3D! Kiểm tra kết nối hoặc zstd/libzstd1",
-                "title": "DXVK/VKD3D lỗi"
-            },
             "folder-not-found": {
                 "title": "Thư mục game dường như đã bị xóa, bạn có muốn xóa trò chơi khỏi danh sách đã cài đặt không?"
             },
@@ -157,6 +153,7 @@
     },
     "button": {
         "cancel": "Cancel",
+        "continue": "Continue",
         "go_to_library": "Tới thư viện",
         "login": "Đăng nhập",
         "sync": "Đồng bộ",
@@ -209,6 +206,10 @@
     },
     "Epic Games": "Epic Game",
     "error": "Error",
+    "externalLink": {
+        "dontAskAgain": "Don't ask again",
+        "warning": "You are about to open an external link."
+    },
     "favourites": "Mục ưa thích",
     "game": {
         "status": "Status",

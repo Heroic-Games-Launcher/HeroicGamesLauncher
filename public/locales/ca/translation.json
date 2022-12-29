@@ -157,6 +157,7 @@
     },
     "button": {
         "cancel": "Cancel·la",
+        "continue": "Continue",
         "go_to_library": "Vés a la biblioteca",
         "login": "Inicia la sessió",
         "sync": "Sincronitza",
@@ -209,6 +210,10 @@
     },
     "Epic Games": "Epic Games",
     "error": "Error",
+    "externalLink": {
+        "dontAskAgain": "Don't ask again",
+        "warning": "You are about to open an external link."
+    },
     "favourites": "Preferits",
     "game": {
         "status": "Estat",

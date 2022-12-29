@@ -48,10 +48,6 @@
                 "message": "Nu este suficient spațiu disponibil pe disc",
                 "title": "Fără Spațiu"
             },
-            "dxvk": {
-                "message": "Eroare la instalarea DXVK/VKD3D! Vă rugăm să vă verificați conexiunea!",
-                "title": "Eroare DXVK/VKD3D"
-            },
             "folder-not-found": {
                 "title": "Dosarul jocului pare să fie șters, doriți să eliminați jocul din lista instalată?"
             },
@@ -157,6 +153,7 @@
     },
     "button": {
         "cancel": "Cancel",
+        "continue": "Continue",
         "go_to_library": "Accesați Bibliotecă",
         "login": "Autentificare",
         "sync": "Sincronizează",
@@ -209,6 +206,10 @@
     },
     "Epic Games": "Epic Games",
     "error": "Error",
+    "externalLink": {
+        "dontAskAgain": "Don't ask again",
+        "warning": "You are about to open an external link."
+    },
     "favourites": "Favorite",
     "game": {
         "status": "stare",

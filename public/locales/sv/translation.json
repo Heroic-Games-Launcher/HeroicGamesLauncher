@@ -48,10 +48,6 @@
                 "message": "Otillräckligt ledigt hårdiskutrymme",
                 "title": "Otillräckligt utrymme"
             },
-            "dxvk": {
-                "message": "Problem vid installation av DXVK/VKD3D! Kontrollera din internetanslutning!",
-                "title": "DXVK/VKD3D problem"
-            },
             "folder-not-found": {
                 "title": "Spelets installationsmapp saknas, vill du ta bort det från Installerade spel-listan?"
             },
@@ -157,6 +153,7 @@
     },
     "button": {
         "cancel": "Avbryt",
+        "continue": "Continue",
         "go_to_library": "Gå till Biblioteket",
         "login": "Logga in",
         "sync": "Synkronisering",
@@ -209,6 +206,10 @@
     },
     "Epic Games": "Epic Games",
     "error": "Error",
+    "externalLink": {
+        "dontAskAgain": "Don't ask again",
+        "warning": "You are about to open an external link."
+    },
     "favourites": "Favoriter",
     "game": {
         "status": "Status",

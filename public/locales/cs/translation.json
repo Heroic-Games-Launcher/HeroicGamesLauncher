@@ -48,10 +48,6 @@
                 "message": "Nedostatek místa na disku",
                 "title": "Nedostatek místa"
             },
-            "dxvk": {
-                "message": "Chyba při instalaci DXVK/VKD3D! Zkontrolujte své připojení!",
-                "title": "Chyba DXVK/VKD3D"
-            },
             "folder-not-found": {
                 "title": "Zdá se, že složka hry byla odstraněna, chcete odstranit hru i ze seznamu nainstalovaných her?"
             },
@@ -157,6 +153,7 @@
     },
     "button": {
         "cancel": "Zrušit",
+        "continue": "Continue",
         "go_to_library": "Přejít do knihovny",
         "login": "Přihlásit se",
         "sync": "Synchronizovat",
@@ -209,6 +206,10 @@
     },
     "Epic Games": "Epic Games",
     "error": "Error",
+    "externalLink": {
+        "dontAskAgain": "Don't ask again",
+        "warning": "You are about to open an external link."
+    },
     "favourites": "Oblíbené",
     "game": {
         "status": "Status",

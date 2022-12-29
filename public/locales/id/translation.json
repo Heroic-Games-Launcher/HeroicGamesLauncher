@@ -48,10 +48,6 @@
                 "message": "Ruang penyimpanan tidak cukup",
                 "title": "Tidak Ada Ruang"
             },
-            "dxvk": {
-                "message": "Galat saat memasang DXVK/VKD3D! Mohon periksa koneksi Anda!",
-                "title": "Terjadi Kesalahan DXVK/VKD3D"
-            },
             "folder-not-found": {
                 "title": "Folder gim tampaknya sudah dihapus, apakah Anda ingin menghapus gim dari daftar?"
             },
@@ -157,6 +153,7 @@
     },
     "button": {
         "cancel": "Batalkan",
+        "continue": "Continue",
         "go_to_library": "Pergi ke Pustaka",
         "login": "Masuk",
         "sync": "Sinkronkan",
@@ -209,6 +206,10 @@
     },
     "Epic Games": "Epic Games",
     "error": "Kesalahan",
+    "externalLink": {
+        "dontAskAgain": "Don't ask again",
+        "warning": "You are about to open an external link."
+    },
     "favourites": "Favorit",
     "game": {
         "status": "Status",

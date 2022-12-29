@@ -48,10 +48,6 @@
                 "message": "Yeterli kullanılabilir disk alanı yok",
                 "title": "Alan Yok"
             },
-            "dxvk": {
-                "message": "DXVK/VKD3D yüklenirken hata oluştu! Lütfen bağlantınızı kontrol edin!",
-                "title": "DXVK/VKD3D hatası"
-            },
             "folder-not-found": {
                 "title": "Oyun klasörü silinmiş görünüyor, oyunu kurulu listesinden kaldırmak istiyor musunuz?"
             },
@@ -157,6 +153,7 @@
     },
     "button": {
         "cancel": "Cancel",
+        "continue": "Continue",
         "go_to_library": "Kütüphaneye Git",
         "login": "Oturum Aç",
         "sync": "Eşzamanla",
@@ -209,6 +206,10 @@
     },
     "Epic Games": "Epic Games",
     "error": "Error",
+    "externalLink": {
+        "dontAskAgain": "Don't ask again",
+        "warning": "You are about to open an external link."
+    },
     "favourites": "Favoriler",
     "game": {
         "status": "Status",

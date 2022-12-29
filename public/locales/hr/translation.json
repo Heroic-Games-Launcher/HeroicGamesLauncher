@@ -48,10 +48,6 @@
                 "message": "Nema dovoljno slobodnog prostora na disku",
                 "title": "Nema Prostora"
             },
-            "dxvk": {
-                "message": "Greška prilikom instalinanja DXVK/VKD3D! Provjeri vezu!",
-                "title": "DXVK/VKD3D error"
-            },
             "folder-not-found": {
                 "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
             },
@@ -157,6 +153,7 @@
     },
     "button": {
         "cancel": "Cancel",
+        "continue": "Continue",
         "go_to_library": "Go to Library",
         "login": "Prijava",
         "sync": "Sinkroniziraj",
@@ -209,6 +206,10 @@
     },
     "Epic Games": "Epic Games",
     "error": "Error",
+    "externalLink": {
+        "dontAskAgain": "Don't ask again",
+        "warning": "You are about to open an external link."
+    },
     "favourites": "Favourites",
     "game": {
         "status": "Status",

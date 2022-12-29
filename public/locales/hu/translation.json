@@ -48,10 +48,6 @@
                 "message": "Nincs elég elérhető lemezterület",
                 "title": "Nincs hely"
             },
-            "dxvk": {
-                "message": "Hiba a DXVK/VKD3D telepítésekor! Ellenőrizd az internetkapcsolatod, illetve hogy a zstd/libzstd1 telepítve van-e!",
-                "title": "DXVK/VKD3D hiba"
-            },
             "folder-not-found": {
                 "title": "Úgy tűnik, a játék könyvtára törölve lett, szeretnéd eltávolítani a játékot a telepítettek listájáról?"
             },
@@ -157,6 +153,7 @@
     },
     "button": {
         "cancel": "Mégsem",
+        "continue": "Continue",
         "go_to_library": "Ugrás a könyvtárba",
         "login": "Bejelentkezés",
         "sync": "Szinkronizálás",
@@ -209,6 +206,10 @@
     },
     "Epic Games": "Epic Games",
     "error": "Error",
+    "externalLink": {
+        "dontAskAgain": "Don't ask again",
+        "warning": "You are about to open an external link."
+    },
     "favourites": "Kedvencek",
     "game": {
         "status": "Status",

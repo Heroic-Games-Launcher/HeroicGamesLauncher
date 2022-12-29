@@ -48,10 +48,6 @@
                 "message": "Ez dago espazio nahikorik diskoan",
                 "title": "Espaziorik ez"
             },
-            "dxvk": {
-                "message": "Errorea DXVK/VKD3D instalatzean! Egiaztatu zure konexioa mesedez!",
-                "title": "DXVK/VKD3D errorea"
-            },
             "folder-not-found": {
                 "title": "Joko karpeta ezabatu egin dela dirudi, jokoa instalatutako zerrendatik kendu nahi duzu?"
             },
@@ -157,6 +153,7 @@
     },
     "button": {
         "cancel": "Ezeztatu",
+        "continue": "Continue",
         "go_to_library": "Joan liburutegira",
         "login": "Hasi saioa",
         "sync": "Sinkronizatu",
@@ -209,6 +206,10 @@
     },
     "Epic Games": "Epic Games",
     "error": "Error",
+    "externalLink": {
+        "dontAskAgain": "Don't ask again",
+        "warning": "You are about to open an external link."
+    },
     "favourites": "Gogokoenak",
     "game": {
         "status": "Egoera",

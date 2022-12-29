@@ -48,10 +48,6 @@
                 "message": "사용 가능한 디스크 공간이 충분하지 않습니다",
                 "title": "공간 없음"
             },
-            "dxvk": {
-                "message": "DXVK/VKD3D를 설치하는 동안 오류가 발생했습니다! 연결을 확인하세요!",
-                "title": "DXVK/VKD3D 오류"
-            },
             "folder-not-found": {
                 "title": "게임 폴더가 삭제된 것 같습니다, 설치 목록에서 게임을 제거 하겠습니까?"
             },
@@ -157,6 +153,7 @@
     },
     "button": {
         "cancel": "Cancel",
+        "continue": "Continue",
         "go_to_library": "라이브러리로 이동",
         "login": "로그인",
         "sync": "싱크",
@@ -209,6 +206,10 @@
     },
     "Epic Games": "Epic Games",
     "error": "Error",
+    "externalLink": {
+        "dontAskAgain": "Don't ask again",
+        "warning": "You are about to open an external link."
+    },
     "favourites": "즐겨찾기",
     "game": {
         "status": "Status",

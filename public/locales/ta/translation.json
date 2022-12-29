@@ -48,10 +48,6 @@
                 "message": "போதுமான இடம் இல்லை",
                 "title": "இடம் இல்லை"
             },
-            "dxvk": {
-                "message": "DXVK/VKD3D நிறுவும் போது பிழையாகிவிட்டது! தயவுசெய்து உங்கள் இணைப்பை சரிபார்க்கவும்!",
-                "title": "DXVK/VKD3D error"
-            },
             "folder-not-found": {
                 "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
             },
@@ -157,6 +153,7 @@
     },
     "button": {
         "cancel": "Cancel",
+        "continue": "Continue",
         "go_to_library": "Go to Library",
         "login": "உள்நுழை",
         "sync": "ஒத்திசைவு செய்",
@@ -209,6 +206,10 @@
     },
     "Epic Games": "Epic Games",
     "error": "Error",
+    "externalLink": {
+        "dontAskAgain": "Don't ask again",
+        "warning": "You are about to open an external link."
+    },
     "favourites": "Favourites",
     "game": {
         "status": "Status",

@@ -48,10 +48,6 @@
                 "message": "Nema dovoljno slobodnog prostora na disku",
                 "title": "Nema prostora"
             },
-            "dxvk": {
-                "message": "Greška pri instalaciji DXVK/VKD3D! Provjerite svoju vezu ili imate li instaliran zstd/libzstd1",
-                "title": "DXVK/VKD3D greška"
-            },
             "folder-not-found": {
                 "title": "Čini se da je mapa za video igre izbrisana. Da li želite da uklonite igru sa liste instaliranih?"
             },
@@ -157,6 +153,7 @@
     },
     "button": {
         "cancel": "Cancel",
+        "continue": "Continue",
         "go_to_library": "Idi u biblioteku",
         "login": "Prijavite se",
         "sync": "Sinhronizirajte",
@@ -209,6 +206,10 @@
     },
     "Epic Games": "Epic Games",
     "error": "Error",
+    "externalLink": {
+        "dontAskAgain": "Don't ask again",
+        "warning": "You are about to open an external link."
+    },
     "favourites": "Favoriti",
     "game": {
         "status": "Status",

@@ -48,10 +48,6 @@
                 "message": "Ikke nok ledig plass",
                 "title": "Lagring oppbrukt"
             },
-            "dxvk": {
-                "message": "Feil ved installasjon av DXVK/VKD3D! Vennligst sjekk tilkoblingen din!",
-                "title": "DXVK/VKD3D feil"
-            },
             "folder-not-found": {
                 "title": "Spillmappen ser ut til å være slettet, vil du fjerne spillet fra installeringslisten?"
             },
@@ -157,6 +153,7 @@
     },
     "button": {
         "cancel": "Cancel",
+        "continue": "Continue",
         "go_to_library": "Gå til biblioteket",
         "login": "Logg inn",
         "sync": "Synkroniser",
@@ -209,6 +206,10 @@
     },
     "Epic Games": "Epic Games",
     "error": "Error",
+    "externalLink": {
+        "dontAskAgain": "Don't ask again",
+        "warning": "You are about to open an external link."
+    },
     "favourites": "Favoritter",
     "game": {
         "status": "Status",

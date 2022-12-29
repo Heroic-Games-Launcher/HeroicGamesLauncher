@@ -48,10 +48,6 @@
                 "message": "لا تتوفر مساحة كافية في القرص",
                 "title": "لا تتوفر المساحة"
             },
-            "dxvk": {
-                "message": "خطأ في تثبيت دي.إكس.في.كي/في.كي.دي.ثري.دي! تحقق من اتصالك!",
-                "title": "خطأ دي.إكس.في.كي/في.كي.دي.ثري.دي"
-            },
             "folder-not-found": {
                 "title": "يبدو أن مجلد اللعبة حُذف، هل تريد إزالة اللعبة من القائمة؟"
             },
@@ -157,6 +153,7 @@
     },
     "button": {
         "cancel": "ألغِ",
+        "continue": "Continue",
         "go_to_library": "اذهب إلى المكتبة",
         "login": "سجل الدخول",
         "sync": "زامن",
@@ -209,6 +206,10 @@
     },
     "Epic Games": "أَبِك جيمز",
     "error": "خطأ",
+    "externalLink": {
+        "dontAskAgain": "Don't ask again",
+        "warning": "You are about to open an external link."
+    },
     "favourites": "المفضلة",
     "game": {
         "status": "الحالة",

@@ -48,10 +48,6 @@
                 "message": "Недостатньо місця на диску",
                 "title": "Недостатньо місця"
             },
-            "dxvk": {
-                "message": "Помилка встановлення DXVK/VKD3D! Будь ласка перевірте ваше з'єднання з мережею Інтернет!",
-                "title": "Помилка DXVK/VKD3D"
-            },
             "folder-not-found": {
                 "title": "Здається, тека з грою видалена. Ви бажаєте видалити гру зі списку встановлених?"
             },
@@ -157,6 +153,7 @@
     },
     "button": {
         "cancel": "Скасувати",
+        "continue": "Continue",
         "go_to_library": "Перейти до бібліотеки",
         "login": "Увійти",
         "sync": "Синхронізувати",
@@ -209,6 +206,10 @@
     },
     "Epic Games": "Epic Games",
     "error": "Error",
+    "externalLink": {
+        "dontAskAgain": "Don't ask again",
+        "warning": "You are about to open an external link."
+    },
     "favourites": "Уподобання",
     "game": {
         "status": "Стан",

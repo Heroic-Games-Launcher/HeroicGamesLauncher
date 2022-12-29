@@ -49,10 +49,6 @@
                 "message": "Not enough available disk space",
                 "title": "No Space"
             },
-            "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Please check your connection!",
-                "title": "DXVK/VKD3D error"
-            },
             "folder-not-found": {
                 "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
             },

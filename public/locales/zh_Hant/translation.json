@@ -48,10 +48,6 @@
                 "message": "磁碟空間不足",
                 "title": "空間不足"
             },
-            "dxvk": {
-                "message": "安裝 DXVK/VKD3D 出錯！請檢查你的網路！",
-                "title": "DXVK/VKD3D 錯誤"
-            },
             "folder-not-found": {
                 "title": "遊戲資料夾似乎已被刪除，你是否要從安裝列表中刪除遊戲？"
             },
@@ -157,6 +153,7 @@
     },
     "button": {
         "cancel": "Cancel",
+        "continue": "Continue",
         "go_to_library": "前往遊戲庫",
         "login": "登入",
         "sync": "同步",
@@ -209,6 +206,10 @@
     },
     "Epic Games": "Epic Games",
     "error": "Error",
+    "externalLink": {
+        "dontAskAgain": "Don't ask again",
+        "warning": "You are about to open an external link."
+    },
     "favourites": "最愛",
     "game": {
         "status": "Status",

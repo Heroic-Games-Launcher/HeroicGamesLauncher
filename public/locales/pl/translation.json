@@ -48,10 +48,6 @@
                 "message": "Za mało miejsca na dysku",
                 "title": "Brak miejsca"
             },
-            "dxvk": {
-                "message": "Błąd podczas instalacji DXVK/VKD3D! Sprawdź swoje połączenie lub czy zstd/libzstd1 jest zainstalowany!",
-                "title": "Błąd DXVK/VKD3D"
-            },
             "folder-not-found": {
                 "title": "Wygląda na to, że folder z grą został usunięty, czy chcesz usunąć grę z listy zainstalowanych?"
             },
@@ -157,6 +153,7 @@
     },
     "button": {
         "cancel": "Cancel",
+        "continue": "Continue",
         "go_to_library": "Idź do Biblioteki",
         "login": "Zaloguj",
         "sync": "Synchronizuj",
@@ -209,6 +206,10 @@
     },
     "Epic Games": "Epic Games",
     "error": "Error",
+    "externalLink": {
+        "dontAskAgain": "Don't ask again",
+        "warning": "You are about to open an external link."
+    },
     "favourites": "Ulubione",
     "game": {
         "status": "Status",
