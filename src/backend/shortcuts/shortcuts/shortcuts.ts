@@ -33,7 +33,7 @@ async function addShortcuts(gameInfo: GameInfo, fromMenu?: boolean) {
     prefix: LogPrefix.Backend
   })
   const { addDesktopShortcuts, addStartMenuShortcuts, addSteamShortcuts } =
-    await GlobalConfig.get().getSettings()
+    GlobalConfig.get().getSettings()
 
   if (addSteamShortcuts) {
     addNonSteamGame({ gameInfo })

@@ -27,7 +27,7 @@ import { GlobalConfig } from '../../config'
 import { getMainWindow } from '../../main_window'
 
 const getSteamUserdataDir = async () => {
-  const { defaultSteamPath } = await GlobalConfig.get().getSettings()
+  const { defaultSteamPath } = GlobalConfig.get().getSettings()
   return join(defaultSteamPath.replaceAll("'", ''), 'userdata')
 }
 

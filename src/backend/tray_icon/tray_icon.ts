@@ -11,7 +11,7 @@ import { backendEvents } from '../backend_events'
 
 export const initTrayIcon = async (mainWindow: BrowserWindow) => {
   // create icon
-  const appIcon = new Tray(await getIcon(process.platform))
+  const appIcon = new Tray(getIcon(process.platform))
 
   // helper function to set/update the context menu
   const loadContextMenu = async (recentGames?: RecentGame[]) => {
@@ -37,7 +37,7 @@ export const initTrayIcon = async (mainWindow: BrowserWindow) => {
   ipcMain.on('changeTrayColor', () => {
     logInfo('Changing Tray icon Color...', { prefix: LogPrefix.Backend })
     setTimeout(async () => {
-      appIcon.setImage(await getIcon(process.platform))
+      appIcon.setImage(getIcon(process.platform))
       await loadContextMenu()
     }, 500)
   })
@@ -69,8 +69,8 @@ const iconSizesByPlatform = {
 }
 
 // get the icon path based on platform and settings
-export const getIcon = async (platform = process.platform) => {
-  const settings = await GlobalConfig.get().getSettings()
+export const getIcon = (platform = process.platform) => {
+  const settings = GlobalConfig.get().getSettings()
   const { darkTrayIcon } = settings
 
   return nativeImage

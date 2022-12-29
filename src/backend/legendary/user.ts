@@ -86,7 +86,7 @@ export class LegendaryUser {
     return existsSync(userInfo)
   }
 
-  public static async getUserInfo(): Promise<UserInfo | undefined> {
+  public static getUserInfo(): UserInfo | undefined {
     if (!LegendaryUser.isLoggedIn()) {
       configStore.delete('userInfo')
       return

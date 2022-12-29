@@ -223,7 +223,7 @@ class GameConfigV0 extends GameConfig {
       wineCrossoverBottle,
       wineVersion,
       useSteamRuntime
-    } = GlobalConfig.get().config
+    } = GlobalConfig.get().getSettings()
 
     // initialize generic defaults
     // TODO: I know more values can be moved that are not used in windows
@@ -307,7 +307,9 @@ class GameConfigV0 extends GameConfig {
     // If the defaults change, they will automatically change.
     // Explicit overrides CANNOT be the same as defaults.
     // TODO(adityaruplaha): fix this
-    const globalConfig = new Map(Object.entries(GlobalConfig.get().config))
+    const globalConfig = new Map(
+      Object.entries(GlobalConfig.get().getSettings())
+    )
     const defaultedKeys = Object.entries(this.config)
       .filter(([key, value]) => globalConfig.get(key) === value)
       .map(([k]) => k)

@@ -448,8 +448,7 @@ class LegendaryGame extends Game {
       runner: 'legendary',
       status: 'updating'
     })
-    const { maxWorkers, downloadNoHttps } =
-      await GlobalConfig.get().getSettings()
+    const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
     const installPlatform = this.getGameInfo().install.platform!
     const info = await this.getInstallInfo(installPlatform)
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
@@ -534,8 +533,7 @@ class LegendaryGame extends Game {
     status: 'done' | 'error' | 'abort'
     error?: string
   }> {
-    const { maxWorkers, downloadNoHttps } =
-      await GlobalConfig.get().getSettings()
+    const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
     const info = await this.getInstallInfo(platformToInstall)
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
     const noHttps = downloadNoHttps ? ['--no-https'] : []
@@ -654,8 +652,7 @@ class LegendaryGame extends Game {
    */
   public async repair(): Promise<ExecResult> {
     // this.state.status = 'repairing'
-    const { maxWorkers, downloadNoHttps } =
-      await GlobalConfig.get().getSettings()
+    const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
     const noHttps = downloadNoHttps ? ['--no-https'] : []
 

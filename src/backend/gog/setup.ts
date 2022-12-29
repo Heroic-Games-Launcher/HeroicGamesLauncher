@@ -55,7 +55,7 @@ async function setup(
     const crossoverEnv =
       isCrossover && crossoverBottle ? `CX_BOTTLE=${crossoverBottle}` : ''
     const isProton = gameSettings.wineVersion.type === 'proton'
-    const { defaultSteamPath } = await GlobalConfig.get().getSettings()
+    const { defaultSteamPath } = GlobalConfig.get().getSettings()
     const prefix = isProton
       ? `STEAM_COMPAT_CLIENT_INSTALL_PATH="${defaultSteamPath}" STEAM_COMPAT_DATA_PATH='${gameSettings.winePrefix
           .replaceAll("'", '')
