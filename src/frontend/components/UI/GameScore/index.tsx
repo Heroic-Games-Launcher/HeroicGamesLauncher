@@ -1,54 +1,55 @@
-import { AllData } from 'what-to-play/build/api'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import './index.scss'
+import { PCGamingWikiInfo } from 'common/types'
 
 type Props = {
   title: string
+  id?: string
 }
 
-export default function GameScore({ title }: Props) {
-  const [gameScore, setGameScore] = useState<AllData | null>(null)
+export default function GameScore({ title, id }: Props) {
+  const [pcGamingWikiInfo, setPCGamingWikiInfo] = useState<PCGamingWikiInfo | null>(null)
   const { t } = useTranslation('gamepage')
 
   useEffect(() => {
-    window.api.getGameScore(title).then((score) => {
-      if (score) {
-        setGameScore(score)
+    window.api.getInfoFromPCGamingWiki(title, id).then((info) => {
+      if (info) {
+        setPCGamingWikiInfo(info)
       }
     })
-  }, [title])
+  }, [title, id])
 
-  if (!gameScore) {
+  if (!pcGamingWikiInfo) {
     return null
   }
 
   return (
     <div>
-      <p>{t('gamescore', 'Game Score')}</p>
+      <p>{t('gamescore.header', 'Game Scores')}</p>
       <div className="gamescore">
         <div className="gamescore__square">
           <div className="gamescore__square__title">
-            {t('gamescore.metacritic-score', 'Metacritic Score')}
+            {t('gamescore.metacritic', 'MetaCritic')}
           </div>
           <div className="gamescore__square__value">
-            {`${gameScore.metacritic?.metascore}` || '?'}
+            {`${pcGamingWikiInfo.metacritic}` || '?'}
           </div>
         </div>
         <div className="gamescore__square">
           <div className="gamescore__square__title">
-            {t('gamescore.metacritic-userscore', 'Metacritic Userscore')}
+            {t('gamescore.opencritic', 'OpenCritic')}
           </div>
           <div className="gamescore__square__value">
-            {`${gameScore.metacritic?.userscore}` || '?'}
+            {`${pcGamingWikiInfo.opencritic}` || '?'}
           </div>
         </div>
         <div className="gamescore__square">
           <div className="gamescore__square__title">
-            {t('gamescore.steam-score', 'Steam Score')}
+            {t('gamescore.igdb', 'IGDB')}
           </div>
           <div className="gamescore__square__value">
-            {`${gameScore.steam?.allTimeScore}` || '?'}
+            {`${pcGamingWikiInfo.igdb}` || '?'}
           </div>
         </div>
       </div>

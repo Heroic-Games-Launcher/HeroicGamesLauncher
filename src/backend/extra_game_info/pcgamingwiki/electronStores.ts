@@ -1,7 +1,7 @@
 import Store from 'electron-store'
 
-export const gameScoreStore = new Store({
+export const pcGamingWikiInfoStore = new Store({
   cwd: 'store',
-  name: 'gamescore',
+  name: 'pcgamingwikiinfo',
   clearInvalidConfig: true
 })

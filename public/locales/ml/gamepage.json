@@ -93,9 +93,10 @@
         "repairing": "നന്നാക്കുന്നു"
     },
     "gamescore": {
-        "metacritic-score": "Metacritic Score",
-        "metacritic-userscore": "Metacritic Userscore",
-        "steam-score": "Steam Score"
+        "header": "Game Scores",
+        "igdb": "IGDB",
+        "metacritic": "MetaCritic",
+        "opencritic": "OpenCritic"
     },
     "generic": {
         "error": "Unknown error"

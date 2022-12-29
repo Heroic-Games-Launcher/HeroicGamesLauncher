@@ -612,3 +612,12 @@ export interface ToolArgs {
 }
 
 export type StatusPromise = Promise<{ status: 'done' | 'error' }>
+
+export interface PCGamingWikiInfo {
+  steamID: string
+  howLongToBeatID: string
+  metacritic: string
+  opencritic: string
+  igdb: string
+  direct3DVersions: string[]
+}
