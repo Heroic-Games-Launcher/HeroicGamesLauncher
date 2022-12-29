@@ -159,16 +159,18 @@ describeSkipOnWindows('extractTarFile', () => {
       extractTarFile(testTarFilePath, 'application/x-xz', {
         extractedPath: tmpDir.name
       })
-    ).resolves.toEqual(0)
+    ).resolves.toEqual(tmpDir.name)
 
     // Check if the extraction worked
     expect(existsSync(join(tmpDir.name, 'empty'))).toBe(true)
     // Just to be safe, check if the args passed to tar are correct
     expect(child_process.spawn).toBeCalledWith('tar', [
+      '-f',
+      testTarFilePath,
       '--directory',
       tmpDir.name,
-      '-Jxf',
-      testTarFilePath
+      '-x',
+      '-J'
     ])
   })
 
@@ -182,16 +184,18 @@ describeSkipOnWindows('extractTarFile', () => {
         extractedPath: tmpDir.name,
         strip: 1
       })
-    ).resolves.toEqual(0)
+    ).resolves.toEqual(tmpDir.name)
 
     expect(existsSync(join(tmpDir.name, 'empty'))).toBe(true)
     expect(child_process.spawn).toBeCalledWith('tar', [
+      '-f',
+      testTarFileWithSubfolder,
       '--directory',
       tmpDir.name,
       '--strip-components',
       '1',
-      '-Jxf',
-      testTarFileWithSubfolder
+      '-x',
+      '-J'
     ])
   })
 
@@ -206,11 +210,11 @@ describeSkipOnWindows('extractTarFile', () => {
 
     const promise = extractTarFile(testTarFilePath, 'application/x-xz')
     child!.emit('close', 0)
-    await expect(promise).resolves.toEqual(0)
-    expect(graceful_fs.mkdirSync).toBeCalledWith(
-      join(dirname(testTarFilePath), 'TestArchive'),
-      { recursive: true }
-    )
+    const extractedPath = join(dirname(testTarFilePath), 'TestArchive')
+    await expect(promise).resolves.toEqual(extractedPath)
+    expect(graceful_fs.mkdirSync).toBeCalledWith(extractedPath, {
+      recursive: true
+    })
   })
 
   it('File does not exist', async () => {
