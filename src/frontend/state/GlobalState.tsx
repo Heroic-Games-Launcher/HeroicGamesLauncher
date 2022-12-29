@@ -693,6 +693,7 @@ export class GlobalState extends PureComponent<Props> {
       category,
       showHidden,
       showFavourites,
+      showNonAvailable,
       sidebarCollapsed,
       hideChangelogsOnStartup,
       lastChangelogShown
@@ -703,6 +704,7 @@ export class GlobalState extends PureComponent<Props> {
     storage.setItem('updates', JSON.stringify(gameUpdates))
     storage.setItem('show_hidden', JSON.stringify(showHidden))
     storage.setItem('show_favorites', JSON.stringify(showFavourites))
+    storage.setItem('show_non_available', JSON.stringify(showNonAvailable))
     storage.setItem('sidebar_collapsed', JSON.stringify(sidebarCollapsed))
     storage.setItem('hide_changelogs', JSON.stringify(hideChangelogsOnStartup))
     storage.setItem('last_changelog', JSON.stringify(lastChangelogShown))
