@@ -48,9 +48,10 @@ import UninstallModal from 'frontend/components/UI/UninstallModal'
 interface Card {
   buttonClick: () => void
   hasUpdate: boolean
-  forceCard?: boolean
   isRecent: boolean
   gameInfo: GameInfo
+  isAvailable?: boolean
+  forceCard?: boolean
 }
 
 const storage: Storage = window.localStorage
@@ -60,13 +61,11 @@ const GameCard = ({
   buttonClick,
   forceCard,
   isRecent = false,
-  gameInfo: gameInfoFromProps
+  gameInfo: gameInfoFromProps,
+  isAvailable
 }: Card) => {
   const [gameInfo, setGameInfo] = useState(gameInfoFromProps)
   const [showUninstallModal, setShowUninstallModal] = useState(false)
-  const [gameAvailable, setGameAvailable] = useState(
-    gameInfoFromProps.is_installed
-  )
   const [isLaunching, setIsLaunching] = useState(false)
 
   const { t } = useTranslation('gamepage')
@@ -96,6 +95,8 @@ const GameCard = ({
     thirdPartyManagedApp
   } = gameInfoFromProps
 
+  const gameAvailable = isAvailable
+
   // if the game supports cloud saves, check the config
   const [autoSyncSaves, setAutoSyncSaves] = useState(hasCloudSave)
   useEffect(() => {
@@ -114,41 +115,6 @@ const GameCard = ({
 
   const { status, folder } =
     libraryStatus.find((game: GameStatus) => game.appName === appName) || {}
-
-  useEffect(() => {
-    const checkGameAvailable = async () => {
-      if (isInstalled) {
-        const gameAvailable = await window.api.isGameAvailable({
-          appName,
-          runner
-        })
-        setGameAvailable(gameAvailable)
-        const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
-        const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
-        if (!gameAvailable) {
-          if (!nonAvailbleGamesArray.includes(appName)) {
-            nonAvailbleGamesArray.push(appName)
-            storage.setItem(
-              'nonAvailableGames',
-              JSON.stringify(nonAvailbleGamesArray)
-            )
-          }
-        } else {
-          if (nonAvailbleGamesArray.includes(appName)) {
-            nonAvailbleGamesArray.splice(
-              nonAvailbleGamesArray.indexOf(appName),
-              1
-            )
-            storage.setItem(
-              'nonAvailableGames',
-              JSON.stringify(nonAvailbleGamesArray)
-            )
-          }
-        }
-      }
-    }
-    checkGameAvailable()
-  }, [appName, status, gameInfo])
 
   useEffect(() => {
     setIsLaunching(false)
