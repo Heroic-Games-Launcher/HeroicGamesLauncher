@@ -44,8 +44,8 @@ export default function GameScore({ title, id }: Props) {
   const { metacritic, opencritic, igdb } = pcGamingWikiInfo
 
   return (
-    <div>
-      <p>Game Scores</p>
+    <details className="gamescoreWrapper">
+      <summary>Game Scores</summary>
       <div className="gamescore">
         {metacritic && (
           <div
@@ -80,6 +80,6 @@ export default function GameScore({ title, id }: Props) {
           </div>
         )}
       </div>
-    </div>
+    </details>
   )
 }
