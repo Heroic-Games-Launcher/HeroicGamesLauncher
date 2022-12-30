@@ -55,7 +55,7 @@ async function prepareLaunch(
   gameInfo: GameInfo,
   isNative: boolean
 ): Promise<LaunchPreperationResult> {
-  const globalSettings = await GlobalConfig.get().getSettings()
+  const globalSettings = GlobalConfig.get().getSettings()
 
   const offlineMode =
     gameSettings.offlineMode || !isOnline() || (await isEpicServiceOffline())
@@ -500,7 +500,7 @@ async function runWineCommand({
 }: WineCommandArgs): Promise<{ stderr: string; stdout: string }> {
   const settings = gameSettings
     ? gameSettings
-    : await GlobalConfig.get().getSettings()
+    : GlobalConfig.get().getSettings()
   const { wineVersion, winePrefix } = settings
 
   if (!skipPrefixCheckIKnowWhatImDoing && wineVersion.type !== 'crossover') {

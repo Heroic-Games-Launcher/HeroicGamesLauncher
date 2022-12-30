@@ -34,13 +34,8 @@ export default function GamesSubmenu({
   disableUpdate,
   onShowRequirements
 }: Props) {
-  const {
-    handleGameStatus,
-    refresh,
-    platform,
-    libraryStatus,
-    showDialogModal
-  } = useContext(ContextProvider)
+  const { refresh, platform, libraryStatus, showDialogModal } =
+    useContext(ContextProvider)
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
 
@@ -66,9 +61,7 @@ export default function GamesSubmenu({
       defaultPath: defaultInstallPath
     })
     if (path) {
-      await handleGameStatus({ appName, runner, status: 'moving' })
       await window.api.moveInstall({ appName, path, runner })
-      await handleGameStatus({ appName, runner, status: 'done' })
     }
   }
 
@@ -111,9 +104,7 @@ export default function GamesSubmenu({
   }
 
   async function onRepairYesClick(appName: string) {
-    await handleGameStatus({ appName, runner, status: 'repairing' })
     await repair(appName, runner)
-    await handleGameStatus({ appName, runner, status: 'done' })
   }
 
   function handleRepair(appName: string) {
@@ -153,19 +144,7 @@ export default function GamesSubmenu({
       let { wasEnabled } = initialEnableResult
 
       if (installNow) {
-        await handleGameStatus({
-          appName: eosOverlayAppName,
-          runner: 'legendary',
-          status: 'installing'
-        })
-
         await window.api.installEosOverlay()
-        await handleGameStatus({
-          appName: eosOverlayAppName,
-          runner: 'legendary',
-          status: 'done'
-        })
-
         wasEnabled = (await window.api.enableEosOverlay(appName)).wasEnabled
       }
       setEosOverlayEnabled(wasEnabled)

@@ -3,7 +3,6 @@ import {
   deleteAbortController
 } from '../utils/aborthandler/aborthandler'
 import { GOGLibrary, runGogdlCommand } from './library'
-import { BrowserWindow } from 'electron'
 import { join } from 'path'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
@@ -56,10 +55,10 @@ import {
 } from 'common/types/gog'
 import { t } from 'i18next'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
+import { sendFrontendMessage } from '../main_window'
 
 class GOGGame extends Game {
   public appName: string
-  public window = BrowserWindow.getAllWindows()[0]
   private static instances = new Map<string, GOGGame>()
   private constructor(appName: string) {
     super()
@@ -209,7 +208,7 @@ class GOGGame extends Game {
         { prefix: LogPrefix.Gog }
       )
 
-      this.window.webContents.send('setGameStatus', {
+      sendFrontendMessage(`progressUpdate-${this.appName}`, {
         appName: this.appName,
         runner: 'gog',
         status: action,
@@ -233,7 +232,7 @@ class GOGGame extends Game {
     status: 'done' | 'error' | 'abort'
     error?: string
   }> {
-    const { maxWorkers } = await GlobalConfig.get().getSettings()
+    const { maxWorkers } = GlobalConfig.get().getSettings()
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
 
@@ -753,7 +752,7 @@ class GOGGame extends Game {
     )
 
     // This always has to be done, so we do it before checking for res.error
-    this.window.webContents.send('setGameStatus', {
+    sendFrontendMessage('gameStatusUpdate', {
       appName: this.appName,
       runner: 'gog',
       status: 'done'
@@ -803,7 +802,7 @@ class GOGGame extends Game {
    * Useful for Update and Repair
    */
   public async getCommandParameters() {
-    const { maxWorkers } = await GlobalConfig.get().getSettings()
+    const { maxWorkers } = GlobalConfig.get().getSettings()
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
     const gameData = this.getGameInfo()
     const logPath = join(heroicGamesConfigPath, this.appName + '.log')
@@ -858,9 +857,7 @@ class GOGGame extends Game {
     ) as Array<InstalledInfo>
     const newInstalled = installed.filter((g) => g.appName !== this.appName)
     installedGamesStore.set('installed', newInstalled)
-    const mainWindow =
-      BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows()[0]
-    mainWindow.webContents.send('refreshLibrary', 'gog')
+    sendFrontendMessage('refreshLibrary', 'gog')
   }
 
   // Could be removed if gogdl handles SIGKILL and SIGTERM for us

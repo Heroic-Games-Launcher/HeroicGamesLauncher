@@ -5,7 +5,6 @@ import {
 import { appendFileSync, existsSync, mkdirSync } from 'graceful-fs'
 import axios from 'axios'
 
-import { BrowserWindow } from 'electron'
 import {
   ExecResult,
   ExtraInfo,
@@ -51,10 +50,10 @@ import { isOnline } from '../online_monitor'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
 import { gameAnticheatInfo } from '../anticheat/utils'
 import { Catalog, Product } from 'common/types/epic-graphql'
+import { sendFrontendMessage } from '../main_window'
 
 class LegendaryGame extends Game {
   public appName: string
-  public window = BrowserWindow.getAllWindows()[0]
   private static instances: Map<string, LegendaryGame> = new Map()
 
   private constructor(appName: string) {
@@ -425,7 +424,7 @@ class LegendaryGame extends Game {
       { prefix: LogPrefix.Legendary }
     )
 
-    this.window.webContents.send('setGameStatus', {
+    sendFrontendMessage(`progressUpdate-${this.appName}`, {
       appName: this.appName,
       runner: 'legendary',
       status: action,
@@ -444,13 +443,12 @@ class LegendaryGame extends Game {
    * Does NOT check for online connectivity.
    */
   public async update(): Promise<{ status: 'done' | 'error' }> {
-    this.window.webContents.send('setGameStatus', {
+    sendFrontendMessage('gameStatusUpdate', {
       appName: this.appName,
       runner: 'legendary',
       status: 'updating'
     })
-    const { maxWorkers, downloadNoHttps } =
-      await GlobalConfig.get().getSettings()
+    const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
     const installPlatform = this.getGameInfo().install.platform!
     const info = await this.getInstallInfo(installPlatform)
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
@@ -479,7 +477,7 @@ class LegendaryGame extends Game {
 
     deleteAbortController(this.appName)
 
-    this.window.webContents.send('setGameStatus', {
+    sendFrontendMessage('gameStatusUpdate', {
       appName: this.appName,
       runner: 'legendary',
       status: 'done'
@@ -535,8 +533,7 @@ class LegendaryGame extends Game {
     status: 'done' | 'error' | 'abort'
     error?: string
   }> {
-    const { maxWorkers, downloadNoHttps } =
-      await GlobalConfig.get().getSettings()
+    const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
     const info = await this.getInstallInfo(platformToInstall)
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
     const noHttps = downloadNoHttps ? ['--no-https'] : []
@@ -655,8 +652,7 @@ class LegendaryGame extends Game {
    */
   public async repair(): Promise<ExecResult> {
     // this.state.status = 'repairing'
-    const { maxWorkers, downloadNoHttps } =
-      await GlobalConfig.get().getSettings()
+    const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
     const noHttps = downloadNoHttps ? ['--no-https'] : []
 
@@ -973,9 +969,7 @@ class LegendaryGame extends Game {
 
       deleteAbortController(this.appName)
 
-      const mainWindow =
-        BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows()[0]
-      mainWindow.webContents.send('refreshLibrary', 'legendary')
+      sendFrontendMessage('refreshLibrary', 'legendary')
     } catch (error) {
       logError(`Error reading ${installed}, could not complete operation`, {
         prefix: LogPrefix.Legendary

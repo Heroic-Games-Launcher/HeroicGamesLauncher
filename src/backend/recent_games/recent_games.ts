@@ -1,11 +1,11 @@
 import { GameInfo, RecentGame } from 'common/types'
-import { BrowserWindow } from 'electron'
 import { backendEvents } from '../backend_events'
+import { sendFrontendMessage } from '../main_window'
 import { GlobalConfig } from '../config'
 import { configStore } from '../constants'
 
 const maxRecentGames = async () => {
-  const { maxRecentGames } = await GlobalConfig.get().getSettings()
+  const { maxRecentGames } = GlobalConfig.get().getSettings()
   return maxRecentGames || 5
 }
 
@@ -23,8 +23,7 @@ const setRecentGames = (recentGames: RecentGame[]) => {
   configStore.set('games.recent', recentGames)
 
   // emit
-  const window = BrowserWindow.getAllWindows()[0]
-  window.webContents.send('recentGamesChanged', recentGames)
+  sendFrontendMessage('recentGamesChanged', recentGames)
   backendEvents.emit('recentGamesChanged', recentGames)
 }
 

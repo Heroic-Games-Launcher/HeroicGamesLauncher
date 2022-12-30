@@ -30,6 +30,7 @@ import {
   configStore
 } from './constants'
 import { execAsync } from './utils'
+import { execSync } from 'child_process'
 import { logError, logInfo, LogPrefix } from './logger/logger'
 import { dirname, join } from 'path'
 
@@ -45,8 +46,11 @@ abstract class GlobalConfig {
 
   public abstract version: GlobalConfigVersion
 
-  // @ts-expect-error TODO: Somehow figure out how to synchronously load the config
-  public config: AppSettings
+  protected config: AppSettings | undefined
+
+  public set(config: AppSettings) {
+    this.config = config
+  }
 
   /**
    * Get the global configuartion handler.
@@ -124,29 +128,29 @@ abstract class GlobalConfig {
    *
    * @returns Promise<WineInstallation>
    */
-  public async getDefaultWine(): Promise<WineInstallation> {
+  public getDefaultWine(): WineInstallation {
     const defaultWine: WineInstallation = {
       bin: '',
       name: 'Default Wine - Not Found',
       type: 'wine'
     }
-    return execAsync(`which wine`)
-      .then(async ({ stdout }) => {
-        const wineBin = stdout.split('\n')[0]
-        defaultWine.bin = wineBin
 
-        const { stdout: out } = await execAsync(`wine --version`)
-        const version = out.split('\n')[0]
-        defaultWine.name = `Wine Default - ${version}`
+    try {
+      let stdout = execSync(`which wine`).toString()
+      const wineBin = stdout.split('\n')[0]
+      defaultWine.bin = wineBin
 
-        return {
-          ...defaultWine,
-          ...this.getWineExecs(wineBin)
-        }
-      })
-      .catch(() => {
-        return defaultWine
-      })
+      stdout = execSync(`wine --version`).toString()
+      const version = stdout.split('\n')[0]
+      defaultWine.name = `Wine Default - ${version}`
+
+      return {
+        ...defaultWine,
+        ...this.getWineExecs(wineBin)
+      }
+    } catch {
+      return defaultWine
+    }
   }
 
   /**
@@ -361,7 +365,7 @@ abstract class GlobalConfig {
 
     let customWineSet = new Set<WineInstallation>()
     if (scanCustom) {
-      customWineSet = await this.getCustomWinePaths()
+      customWineSet = this.getCustomWinePaths()
     }
 
     return [
@@ -424,7 +428,7 @@ abstract class GlobalConfig {
    *
    * @returns Settings present in config file.
    */
-  public abstract getSettings(): Promise<AppSettings>
+  public abstract getSettings(): AppSettings
 
   /**
    * Updates this.config, this.version to upgrade the current config file.
@@ -441,7 +445,7 @@ abstract class GlobalConfig {
    *
    * @returns Set of Wine installations.
    */
-  public abstract getCustomWinePaths(): Promise<Set<WineInstallation>>
+  public abstract getCustomWinePaths(): Set<WineInstallation>
 
   /**
    * Get default settings as if the user's config file doesn't exist.
@@ -450,7 +454,7 @@ abstract class GlobalConfig {
    *
    * @returns AppSettings
    */
-  public abstract getFactoryDefaults(): Promise<AppSettings>
+  public abstract getFactoryDefaults(): AppSettings
 
   /**
    * Reset `this.config` to `getFactoryDefaults()` and flush.
@@ -470,7 +474,7 @@ abstract class GlobalConfig {
   /**
    * Load the config file, upgrade if needed.
    */
-  protected async load() {
+  protected load() {
     // Config file doesn't exist, make one.
     if (!existsSync(heroicConfigPath)) {
       this.resetToDefaults()
@@ -483,7 +487,7 @@ abstract class GlobalConfig {
     } else {
       // No upgrades necessary, load config.
       // `this.version` should be `currentGlobalConfigVersion` at this point.
-      this.config = (await this.getSettings()) as AppSettings
+      this.config = this.getSettings() as AppSettings
     }
   }
 }
@@ -502,7 +506,11 @@ class GlobalConfigV0 extends GlobalConfig {
     return false
   }
 
-  public async getSettings(): Promise<AppSettings> {
+  public getSettings(): AppSettings {
+    if (this.config) {
+      return this.config
+    }
+
     if (!existsSync(heroicGamesConfigPath)) {
       mkdirSync(heroicGamesConfigPath, { recursive: true })
     }
@@ -520,7 +528,7 @@ class GlobalConfigV0 extends GlobalConfig {
       : ''
 
     settings = {
-      ...(await this.getFactoryDefaults()),
+      ...this.getFactoryDefaults(),
       ...settings.defaultSettings,
       winePrefix
     } as AppSettings
@@ -535,11 +543,11 @@ class GlobalConfigV0 extends GlobalConfig {
     return settings
   }
 
-  public async getCustomWinePaths(): Promise<Set<WineInstallation>> {
+  public getCustomWinePaths(): Set<WineInstallation> {
     const customPaths = new Set<WineInstallation>()
     // skips this on new installations to avoid infinite loops
     if (existsSync(heroicConfigPath)) {
-      const { customWinePaths = [] } = await this.getSettings()
+      const { customWinePaths = [] } = this.getSettings()
       customWinePaths.forEach((path: string) => {
         if (path.endsWith('proton')) {
           return customPaths.add({
@@ -559,10 +567,10 @@ class GlobalConfigV0 extends GlobalConfig {
     return customPaths
   }
 
-  public async getFactoryDefaults(): Promise<AppSettings> {
-    const account_id = (await LegendaryUser.getUserInfo())?.account_id
+  public getFactoryDefaults(): AppSettings {
+    const account_id = LegendaryUser.getUserInfo()?.account_id
     const userName = user().username
-    const defaultWine = isWindows ? {} : await this.getDefaultWine()
+    const defaultWine = isWindows ? {} : this.getDefaultWine()
 
     // @ts-expect-error TODO: We need to settle on *one* place to define settings defaults
     return {
@@ -600,7 +608,7 @@ class GlobalConfigV0 extends GlobalConfig {
   }
 
   public async resetToDefaults() {
-    this.config = await this.getFactoryDefaults()
+    this.config = this.getFactoryDefaults()
     return this.flush()
   }
 
