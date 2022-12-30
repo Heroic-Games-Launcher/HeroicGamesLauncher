@@ -4,11 +4,11 @@ type Props = {
   isOpen: boolean
   summary: string
   children: React.ReactNode
-  isColapsible?: boolean
+  isCollapsible?: boolean
 }
 
-const Collapsible = ({ isOpen, isColapsible, children, summary }: Props) => {
-  return isColapsible ? (
+const Collapsible = ({ isOpen, isCollapsible, children, summary }: Props) => {
+  return isCollapsible ? (
     <details open={isOpen}>
       <summary className="settingSubheader">{summary}</summary>
       {children}

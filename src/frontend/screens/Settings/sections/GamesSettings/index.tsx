@@ -72,7 +72,7 @@ export default function GamesSettings({ useDetails = true }: Props) {
         <>
           <Collapsible
             isOpen
-            isColapsible={useDetails}
+            isCollapsible={useDetails}
             summary={isLinux ? 'Wine' : 'Wine/Crossover'}
           >
             <WinePrefix />
@@ -84,7 +84,7 @@ export default function GamesSettings({ useDetails = true }: Props) {
           {!isCrossover && (
             <Collapsible
               isOpen={false}
-              isColapsible={useDetails}
+              isCollapsible={useDetails}
               summary={t('settings.navbar.wineExt', 'Wine Extensions')}
             >
               <AutoDXVK />
@@ -104,7 +104,7 @@ export default function GamesSettings({ useDetails = true }: Props) {
 
       <Collapsible
         isOpen={isWin}
-        isColapsible={useDetails}
+        isCollapsible={useDetails}
         summary={t('settings.navbar.other')}
       >
         <AlternativeExe />
