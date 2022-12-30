@@ -72,7 +72,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
     gameUpdates,
     platform,
     showDialogModal,
-    setIsSettingsModalOpen
+    setIsSettingsModalOpen,
+    isSettingsModalOpen
   } = useContext(ContextProvider)
 
   const { status } =
@@ -207,7 +208,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       }
     }
     updateConfig()
-  }, [status, epic.library, gog.library, gameInfo])
+  }, [status, epic.library, gog.library, gameInfo, isSettingsModalOpen])
 
   function handleUpdate() {
     updateGame({ appName, runner, gameInfo })
