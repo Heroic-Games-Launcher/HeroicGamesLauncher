@@ -91,7 +91,7 @@ const GameCard = ({
     cloud_save_enabled: hasCloudSave,
     install: gameInstallInfo,
     thirdPartyManagedApp
-  } = gameInfo
+  } = gameInfoFromProps
 
   // if the game supports cloud saves, check the config
   const [autoSyncSaves, setAutoSyncSaves] = useState(hasCloudSave)

@@ -19,7 +19,7 @@ interface UninstallModalProps {
 }
 
 const UninstallModal: React.FC<UninstallModalProps> = function (props) {
-  const { platform } = useContext(ContextProvider)
+  const { platform, refreshLibrary } = useContext(ContextProvider)
   const [isWindowsOnLinux, setIsWindowsOnLinux] = useState(false)
   const [winePrefix, setWinePrefix] = useState('')
   const [checkboxChecked, setCheckboxChecked] = useState(false)
@@ -73,6 +73,7 @@ const UninstallModal: React.FC<UninstallModalProps> = function (props) {
       navigate('/')
     }
     storage.removeItem(props.appName)
+    refreshLibrary({ fullRefresh: true, checkForUpdates: false })
   }
 
   return (

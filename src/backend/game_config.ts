@@ -239,7 +239,7 @@ class GameConfigV0 extends GameConfig {
       launcherArgs,
       nvidiaPrime,
       offlineMode,
-      enviromentOptions: enviromentOptions,
+      enviromentOptions: [...enviromentOptions],
       wrapperOptions,
       savesPath,
       showFps,

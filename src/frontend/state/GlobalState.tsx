@@ -541,7 +541,7 @@ export class GlobalState extends PureComponent<Props> {
     }
 
     // if the app is done installing or errored
-    if (['error', 'done'].includes(status)) {
+    if (['error', 'done', 'playing'].includes(status)) {
       // if the app was updating, remove from the available game updates
       newLibraryStatus = libraryStatus.filter(
         (game) => game.appName !== appName

@@ -455,13 +455,13 @@ async function removeNonSteamGame(props: {
     })
   }
 
-  // game was not on any steam shortcut
-  // nothing to notify
-  if (!removed) {
-    return
-  }
-
   if (errors.length === 0) {
+    // game was not on any steam shortcut
+    // nothing to notify
+    if (!removed) {
+      return
+    }
+
     logInfo(`${props.gameInfo.title} was successfully removed from Steam.`, {
       prefix: LogPrefix.Shortcuts
     })
