@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useMemo, useState } from 'react'
 import { GameInfo, Runner } from 'common/types'
 import cx from 'classnames'
 import GameCard from '../GameCard'
@@ -60,7 +60,7 @@ const GamesList = ({
   const { t } = useTranslation()
   const [gameCards, setGameCards] = useState<JSX.Element[]>([])
 
-  useEffect(() => {
+  useMemo(() => {
     const createGameCards = async () => {
       if (!library.length) {
         return
