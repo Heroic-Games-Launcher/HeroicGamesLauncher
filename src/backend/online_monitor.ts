@@ -1,8 +1,9 @@
 import { ConnectivityStatus } from 'common/types'
-import { BrowserWindow, ipcMain, net } from 'electron'
+import { ipcMain, net } from 'electron'
 import { logInfo, LogPrefix } from './logger/logger'
 import axios from 'axios'
 import EventEmitter from 'node:events'
+import { sendFrontendMessage } from './main_window'
 
 let status: ConnectivityStatus
 let abortController: AbortController
@@ -35,23 +36,17 @@ const setStatus = (newStatus: ConnectivityStatus) => {
   }
 
   // events
-  const mainWindow = BrowserWindow.getAllWindows()[0]
-  if (mainWindow) {
-    mainWindow.webContents.send('connectivity-changed', { status, retryIn })
-  }
+  sendFrontendMessage('connectivity-changed', { status, retryIn })
   connectivityEmitter.emit(status)
 }
 
 const retry = (seconds: number) => {
   retryIn = seconds
   // dispatch event with retry countdown
-  const mainWindow = BrowserWindow.getAllWindows()[0]
-  if (mainWindow) {
-    mainWindow.webContents.send('connectivity-changed', {
-      status: 'check-online',
-      retryIn: seconds
-    })
-  }
+  sendFrontendMessage('connectivity-changed', {
+    status: 'check-online',
+    retryIn: seconds
+  })
 
   if (seconds) {
     // if still counting down, repeat

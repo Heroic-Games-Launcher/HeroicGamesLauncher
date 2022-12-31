@@ -71,6 +71,10 @@ body.nord-light {
   --action-icon-active: var(--text-default);
 }
 
+body.nord-light .alternative > svg {
+  fill: var(--accent) !important;
+}
+
 body.nord-dark {
   --accent: #88c0d0;
   --accent-overlay: #bdeaf7;
@@ -139,8 +143,8 @@ body.zombie-classic {
   --accent-overlay: #83da5b;
   --navbar-accent: var(--accent);
   --background: #1d1f1f;
-  --body-background: #1d1f1f;
-  --background-darker: #161717;
+  --body-background: var(--background);
+  --background-darker: var(--body-background);
   --current-background: var(--body-background);
   --navbar-background: #323232;
   --navbar-active-background: #1d1f1f;
@@ -188,6 +192,10 @@ body.old-school {
   --action-icon: var(--text-default);
   --action-icon-hover: var(--text-hover);
   --action-icon-active: var(--accent);
+}
+body.classic .sid-input,
+body.old-school .sid-input {
+  background: var(--background);
 }
 
 body.classic,

@@ -145,7 +145,7 @@ export function getSteamCompatFolder() {
 }
 
 export async function getSteamLibraries(): Promise<string[]> {
-  const { defaultSteamPath } = await GlobalConfig.get().getSettings()
+  const { defaultSteamPath } = GlobalConfig.get().getSettings()
   const path = defaultSteamPath.replaceAll("'", '')
   const vdfFile = join(path, 'steamapps', 'libraryfolders.vdf')
   const libraries = ['/usr/share/steam']

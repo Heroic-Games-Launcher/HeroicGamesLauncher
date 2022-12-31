@@ -36,7 +36,7 @@
   position: absolute;
   z-index: 5;
   bottom: 45px;
-  left: 5px;
+  right: 5px;
   color: var(--success);
   font-family: var(--secondary-font-family);
   font-style: italic;
@@ -44,7 +44,7 @@
   font-size: var(--text-xs);
   line-height: var(--space-sm);
   width: fit-content;
-  max-width: 96px;
+  max-width: 104px;
   word-wrap: break-word;
   padding: var(--space-3xs);
   background: var(--gradient-gamecard);
@@ -57,6 +57,7 @@
 
 .gameCard.notAvailable > .progress {
   color: var(--text-log);
+  text-align: right;
 }
 
 .gameCard > a {
@@ -92,7 +93,7 @@
   bottom: 0px;
   padding: 0.6rem 0.3rem;
   color: var(--text-secondary);
-  background: var(--gradient-gamecard);
+  background: var(--gamecard-title-color);
   transition: 200ms;
   font-family: var(--primary-font-family);
   font-size: var(--text-md);

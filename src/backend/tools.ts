@@ -1,14 +1,13 @@
 import { WineInstallation } from 'common/types'
 import axios from 'axios'
 import {
-  copyFileSync,
   existsSync,
   readFileSync,
-  renameSync,
   writeFile,
   writeFileSync,
-  rmSync,
-  readdirSync
+  readdirSync,
+  copyFile,
+  rm
 } from 'graceful-fs'
 import { exec, spawn } from 'child_process'
 
@@ -23,7 +22,7 @@ import {
 } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import i18next from 'i18next'
-import { dirname } from 'path'
+import { dirname, join } from 'path'
 import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
 import { validWine } from './launcher'
@@ -181,7 +180,14 @@ export const DXVK = {
     if (action === 'restore') {
       logInfo(`Removing ${tool} version information`, LogPrefix.DXVKInstaller)
       if (existsSync(currentVersionCheck)) {
-        rmSync(currentVersionCheck)
+        rm(currentVersionCheck, { force: true }, (err) => {
+          if (err) {
+            logError(
+              [`Error removing ${tool} version information`, err],
+              LogPrefix.DXVKInstaller
+            )
+          }
+        })
       }
 
       logInfo(`Removing ${tool} files`, LogPrefix.DXVKInstaller)
@@ -204,117 +210,93 @@ export const DXVK = {
         resolve(true)
       })
 
-      // restore the backup dlls
-      await new Promise((resolve) => {
-        dlls.forEach((dll) => {
-          const dllPath = `${winePrefix}/drive_c/windows/system32/${dll}.bak`
-          const dllPath64 = `${winePrefix}/drive_c/windows/syswow64/${dll}.bak`
-          logInfo(`Restoring ${dll}`, LogPrefix.DXVKInstaller)
-          if (existsSync(dllPath)) {
-            renameSync(dllPath, `${winePrefix}/drive_c/windows/system32/${dll}`)
-          }
-          if (!isMac) {
-            if (existsSync(dllPath64)) {
-              renameSync(
-                dllPath64,
-                `${winePrefix}/drive_c/windows/syswow64/${dll}`
-              )
-            }
-          }
-        })
-        resolve(true)
-      })
+      // run wineboot -u restore the old dlls
+      const restoreDlls = `WINEPREFIX='${winePrefix}' '${wineBin}' wineboot -u`
+      logInfo('Restoring old dlls', LogPrefix.DXVKInstaller)
+      await execAsync(restoreDlls)
 
       // unregister the dlls on the wine prefix
-      await new Promise((resolve) => {
-        dlls.forEach(async (dll) => {
-          const unregisterDll = `WINEPREFIX='${winePrefix}' '${wineBin}' reg delete 'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides' /v ${dll} /f`
-          logInfo(`Unregistering ${dll}`, LogPrefix.DXVKInstaller)
-          await execAsync(unregisterDll)
+      dlls.forEach(async (dll) => {
+        dll = dll.replace('.dll', '')
+        const unregisterDll = `WINEPREFIX='${winePrefix}' '${wineBin}' reg delete 'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides' /v ${dll} /f`
+        logInfo(`Unregistering ${dll}`, LogPrefix.DXVKInstaller)
+        exec(unregisterDll, (error) => {
+          if (error) {
+            logError(
+              [`Error when unregistering ${dll}`, error],
+              LogPrefix.DXVKInstaller
+            )
+          }
         })
-        resolve(true)
       })
       return true
     }
 
     logInfo([`installing ${tool} on...`, prefix], LogPrefix.DXVKInstaller)
-    // backup current dlls on the prefix
+
     if (currentVersion === globalVersion) {
       logInfo(`${tool} already installed!`, LogPrefix.DXVKInstaller)
       return true
     }
 
-    logInfo(`Backing up current ${tool} dlls`, LogPrefix.DXVKInstaller)
+    // copy the new dlls to the prefix
+    dlls.forEach((dll) => {
+      if (!isMac) {
+        copyFile(
+          `${toolPathx32}/${dll}`,
+          `${winePrefix}/drive_c/windows/syswow64/${dll}`,
+          (err) => {
+            if (err) {
+              logError(
+                [`Error when copying ${dll}`, err],
+                LogPrefix.DXVKInstaller
+              )
+            }
+          }
+        )
+      }
 
-    await new Promise((resolve) => {
-      dlls.forEach(async (dll) => {
-        const dllPath = `${winePrefix}/drive_c/windows/system32/${dll}`
-        if (existsSync(dllPath)) {
-          renameSync(
-            `${winePrefix}/drive_c/windows/system32/${dll}`,
-            `${winePrefix}/drive_c/windows/system32/${dll}.bak`
-          )
-        }
-
-        // macOs supports 64 bits only
-        if (!isMac) {
-          const dllPath64 = `${winePrefix}/drive_c/windows/syswow64/${dll}`
-          if (existsSync(dllPath64)) {
-            renameSync(
-              `${winePrefix}/drive_c/windows/syswow64/${dll}`,
-              `${winePrefix}/drive_c/windows/syswow64/${dll}.bak`
+      copyFile(
+        `${toolPathx64}/${dll}`,
+        `${winePrefix}/drive_c/windows/system32/${dll}`,
+        (err) => {
+          if (err) {
+            logError(
+              [`Error when copying ${dll}`, err],
+              LogPrefix.DXVKInstaller
             )
           }
         }
-      })
-      resolve(true)
-    })
-
-    // copy the new dlls to the prefix
-    await new Promise((resolve) => {
-      dlls.forEach((dll) => {
-        if (!isMac) {
-          copyFileSync(
-            `${toolPathx32}/${dll}`,
-            `${winePrefix}/drive_c/windows/syswow64/${dll}`
-          )
-        }
-
-        copyFileSync(
-          `${toolPathx64}/${dll}`,
-          `${winePrefix}/drive_c/windows/system32/${dll}`
-        )
-      })
-      resolve(true)
+      )
     })
 
     // register dlls on the wine prefix
-    await new Promise((resolve) => {
-      dlls.forEach(async (dll) => {
-        await execAsync(
-          `WINEPREFIX='${winePrefix}' '${wineBin}' reg add 'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides' /v ${dll} /d native /f `,
-          execOptions
-        )
-          .then(() => {
-            logInfo(`${dll} registered!`, LogPrefix.DXVKInstaller)
-          })
-          .catch((error) => {
+    dlls.forEach(async (dll) => {
+      // remove the .dll extension otherwise will fail
+      dll = dll.replace('.dll', '')
+      exec(
+        `WINEPREFIX='${winePrefix}' '${wineBin}' reg add 'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides' /v ${dll} /d native,builtin /f `,
+        execOptions,
+        (err) => {
+          if (err) {
             logError(
-              [`Error when registering ${dll}`, error],
+              [`Error when registering ${dll}`, err],
               LogPrefix.DXVKInstaller
             )
-          })
-      })
-      exec(`echo ${globalVersion} > ${currentVersionCheck}`)
-      writeFile(currentVersionCheck, globalVersion, (err) => {
-        if (err) {
-          logError(
-            [`Error when writing ${tool} version`, err],
-            LogPrefix.DXVKInstaller
-          )
+          }
         }
-      })
-      resolve(true)
+      )
+    })
+
+    exec(`echo ${globalVersion} > ${currentVersionCheck}`)
+
+    writeFile(currentVersionCheck, globalVersion, (err) => {
+      if (err) {
+        logError(
+          [`Error when writing ${tool} version`, err],
+          LogPrefix.DXVKInstaller
+        )
+      }
     })
     return true
   }
@@ -326,8 +308,11 @@ export const Winetricks = {
       return
     }
 
-    const url =
+    const linuxUrl =
       'https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks'
+    const macUrl =
+      'https://raw.githubusercontent.com/The-Wineskin-Project/winetricks/macOS/src/winetricks'
+    const url = isMac ? macUrl : linuxUrl
     const path = `${heroicToolsPath}/winetricks`
 
     if (!isOnline()) {
@@ -366,11 +351,24 @@ export const Winetricks = {
 
       const winepath = dirname(wineBin)
 
-      const envs = {
+      const linuxEnvs = {
         ...process.env,
         WINEPREFIX: winePrefix,
         PATH: `${winepath}:${process.env.PATH}`
       }
+
+      const wineServer = join(winepath, 'wineserver')
+
+      const macEnvs = {
+        ...process.env,
+        WINEPREFIX: winePrefix,
+        WINESERVER: wineServer,
+        WINE: wineBin,
+        WINE64: wineBin,
+        PATH: `/opt/homebrew/bin:${process.env.PATH}`
+      }
+
+      const envs = isMac ? macEnvs : linuxEnvs
 
       const executeMessages = [] as string[]
       let progressUpdated = false
@@ -391,17 +389,10 @@ export const Winetricks = {
       }, 1000)
 
       // check if winetricks dependencies are installed
-      const dependencies = [
-        '7z',
-        'cabextract',
-        'zenity',
-        'unzip',
-        'curl',
-        'wine'
-      ]
+      const dependencies = ['7z', 'cabextract', 'zenity', 'unzip', 'curl']
       dependencies.forEach(async (dependency) => {
         try {
-          await execAsync(`which ${dependency}`, execOptions)
+          await execAsync(`which ${dependency}`, { ...execOptions, env: envs })
         } catch (error) {
           appendMessage(
             `${dependency} not installed! Winetricks might fail to install some packages or even open`

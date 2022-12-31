@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [main, beta]
+    branches: [main, stable]
     tags:
       - '!v*'
   workflow_dispatch:
@@ -12,17 +12,17 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout repository.
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup NodeJS
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18'
       - name: Install modules.
         run: npm i --legacy-peer-deps
       - name: Build artifacts.
         run: npm run dist:win portable
       - name: Upload EXE.
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: win-portable
           path: dist/Heroic*.exe
@@ -31,37 +31,44 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository.
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup NodeJS
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18'
       - name: Install modules.
         run: yarn
       - name: Build artifacts.
         run: yarn dist:linux appimage --publish=never
       - name: Upload AppImage.
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: linux-appimage
           path: dist/Heroic-*.AppImage
           retention-days: 14
   build_mac:
-    runs-on: macos-11
+    runs-on: macos-latest
     steps:
       - name: Checkout repository.
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
       - name: Setup NodeJS
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18'
       - name: Install modules.
         run: yarn
       - name: Build artifacts.
         run: yarn dist:mac --publish=never
-      - name: Upload DMG.
-        uses: actions/upload-artifact@v2
+      - name: Upload x64.
+        uses: actions/upload-artifact@v3
         with:
-          name: mac-dmg
-          path: dist/Heroic*.dmg
+          name: mac-x64
+          path: dist/Heroic*x64.dmg
+          retention-days: 14
+      - name: Upload ARM64.
+        uses: actions/upload-artifact@v3
+        with:
+          name: mac-arm64
+          path: dist/Heroic*arm64.dmg
           retention-days: 14

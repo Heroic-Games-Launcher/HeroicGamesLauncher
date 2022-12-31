@@ -55,7 +55,7 @@ async function prepareLaunch(
   gameInfo: GameInfo,
   isNative: boolean
 ): Promise<LaunchPreperationResult> {
-  const globalSettings = await GlobalConfig.get().getSettings()
+  const globalSettings = GlobalConfig.get().getSettings()
 
   const offlineMode =
     gameSettings.offlineMode || !isOnline() || (await isEpicServiceOffline())
@@ -282,6 +282,9 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   if (gameSettings.showFps) {
     ret.DXVK_HUD = 'fps'
   }
+  if (gameSettings.enableDXVKFpsLimit) {
+    ret.DXVK_FRAME_RATE = gameSettings.DXVKFpsCap
+  }
   if (gameSettings.enableFSR) {
     ret.WINE_FULLSCREEN_FSR = '1'
     ret.WINE_FULLSCREEN_FSR_STRENGTH =
@@ -496,7 +499,7 @@ async function runWineCommand({
 }: WineCommandArgs): Promise<{ stderr: string; stdout: string }> {
   const settings = gameSettings
     ? gameSettings
-    : await GlobalConfig.get().getSettings()
+    : GlobalConfig.get().getSettings()
   const { wineVersion, winePrefix } = settings
 
   if (!skipPrefixCheckIKnowWhatImDoing && wineVersion.type !== 'crossover') {

@@ -115,9 +115,9 @@
         },
         "shortcuts": {
             "message": "桌面与开始菜单快捷方式已创建",
-            "message-mac": "Shortcuts were created on the Applications folder",
+            "message-mac": "快捷方式创建于应用程序文件夹上",
             "message-remove": "从桌面和启动菜单移除了快捷方式",
-            "message-remove-mac": "Shortcuts were removed from the Applications folder",
+            "message-remove-mac": "从应用程序文件夹删除了快捷方式",
             "title": "快捷方式"
         },
         "sync": {
@@ -147,7 +147,7 @@
     },
     "button": {
         "cancel": "取消",
-        "go_to_library": "前往仓库",
+        "go_to_library": "前往游戏库",
         "login": "登录",
         "sync": "同步",
         "syncing": "正在同步",
@@ -165,7 +165,7 @@
             "install_game": "安装游戏",
             "move_cursor": "移动光标",
             "open_virtual_keyboard": "打开虚拟键盘",
-            "options": "Options",
+            "options": "选项",
             "play_game": "玩游戏",
             "scroll": "滚动",
             "select": "选择",
@@ -181,7 +181,7 @@
         },
         "label": {
             "disk": "磁盘",
-            "speed": "Download"
+            "speed": "下载"
         },
         "link": "Downloads",
         "queue": {
@@ -197,7 +197,7 @@
         "offline-notification-title": "离线"
     },
     "Epic Games": "Epic 游戏",
-    "error": "Error",
+    "error": "错误",
     "favourites": "最爱",
     "game": {
         "status": "状态",
@@ -229,6 +229,7 @@
         "custom_themes_path": "不要使用来自不受信任来源的 CSS 文件。有疑问时，请在我们的 Discord 频道请求审核。",
         "custom_themes_wiki": "查看 Wiki 了解添加定制主题的更多详情。单击此处。",
         "dxvk": "DXVK 是一个基于 Vulkan 的转译层，用于 DirectX 9、10和11游戏。启用也许会提高兼容性。但可能会导致问题，特别是对老的 DirectX 游戏。",
+        "dxvkfpslimit": "设置 DXVK 游戏帧率上限",
         "esync": "Esync 的目标是在 CPU 消耗很大的游戏中减少 wineserver 的开销。启用可能会提高性能。",
         "fsync": "Fsync 的目标是在 CPU 开销很大的游戏中减少 wineserver 的开销。启用可能会提高受支持的 Linux 内核的性能。",
         "game_language": {
@@ -291,6 +292,9 @@
     },
     "install": {
         "path": "选择安装路径"
+    },
+    "label": {
+        "loading": "加载中"
     },
     "library": {
         "refresh": "刷新",
@@ -408,6 +412,7 @@
         "alt-gogdl-bin": "使用内置的 GOGDL 二进制文件...",
         "alt-legendary-bin": "使用内置的 Legendary 二进制文件...",
         "custom_themes_path": "选择查找自定义 CSS 文件的路径",
+        "dxvkfpsvalue": "正整数值 (如30, 60, ...)",
         "egs-prefix": "Epic 游戏商城安装位置",
         "prefered_language": "双字符代码 (如: \"en\" 或 \"fr\")"
     },
@@ -452,6 +457,7 @@
         "disable_controller": "使用控制器禁止 Heroic 导航",
         "discordRPC": "启用Discord的Rich Presence（活动状态）",
         "download-no-https": "不使用 HTTPS 下载游戏 (对 LanCache 等 CDN 有用)",
+        "dxvkfpslimit": "限制 FPS (DX9、10 和 11)",
         "egs-sync": "与已安装的 Epic 游戏同步",
         "enableFSRHack": "启用 FSR（需要支持的WINE版本）",
         "eosOverlay": {
@@ -617,7 +623,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
-        "logging_out": "Logging out",
+        "logging_out": "退出登录",
         "logout": "退出登录",
         "logout_confirmation": "你确定要退出登录吗？",
         "manageaccounts": "管理帐户",

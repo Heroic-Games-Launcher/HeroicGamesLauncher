@@ -21,10 +21,10 @@
             "title": "Válaszd ki a futtatni kívánt EXE fájlt"
         },
         "select": {
-            "button": "Select"
+            "button": "Kiválasztás"
         },
         "sideload": {
-            "exe": "Select Executable"
+            "exe": "Indítófájl kiválasztása"
         },
         "stopInstall": {
             "keepInstalling": "Telepítés folytatása",
@@ -32,8 +32,9 @@
             "title": "Telepítés megállítása"
         },
         "uninstall": {
-            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
+            "checkbox": "Prefix eltávolítása: {{prefix}}{{newLine}}Megjegyzés: Ez nem vonható vissza, és külön nem tárolt mentéseket is törli.",
             "message": "El akarod távolítani ezt a játékot?",
+            "settingcheckbox": "Beállítások és a log{{newLine}}törlése. Megjegyzés: Ez nem vonható vissza. Minden módosított beállítás visszaáll és a log fájl törlődik.",
             "title": "Eltávolítás"
         },
         "update": {
@@ -47,28 +48,28 @@
         "add_to_favourites": "Kedvencekhez adás",
         "cancel": "Szüneteltetés/mégse",
         "continue": "Letöltés folytatása",
-        "finish": "Finish",
-        "force_update": "Force Update if Available",
-        "force-innstall": "Force Install",
+        "finish": "Befejezés",
+        "force_update": "Kényszerítse a frissítést, ha lehetséges",
+        "force-innstall": "Telepítés kényszerítése",
         "hide_game": "Játék elrejtése",
         "import": "Játék importálása",
         "install": "Telepítés",
-        "no-path-selected": "No path selected",
+        "no-path-selected": "Nincs megadva útvonal",
         "queue": {
-            "remove": "Remove from Queue"
+            "remove": "Eltávolítás a sorból"
         },
         "remove_from_favourites": "Eltávolítás a kedvencekből",
-        "remove_from_recent": "Remove From Recent",
-        "run-exe-first": "Run Installer First",
-        "running-setup": "Running Setup",
+        "remove_from_recent": "Eltávolítás a legutóbbiak közül",
+        "run-exe-first": "Először a telepítő futtatása",
+        "running-setup": "Telepítés futtatása",
         "sideload": {
-            "edit": "Edit App/Game"
+            "edit": "Alkalmazás/játék szerkesztése"
         },
         "unhide_game": "Játék felfedése",
         "uninstall": "Eltávolítás",
         "update": "Frissítés"
     },
-    "cloud_save_unsupported": "Unsupported",
+    "cloud_save_unsupported": "Nem támogatott",
     "disabled": "Letiltva",
     "dlc": {
         "installDlcs": "Összes DLC telepítése"
@@ -77,8 +78,8 @@
     "game": {
         "downloadSize": "Letöltési méret",
         "firstPlayed": "Először játszott",
-        "getting-download-size": "Geting download size",
-        "getting-install-size": "Geting install size",
+        "getting-download-size": "Letöltendő adatmennyiség számítása",
+        "getting-install-size": "Telepítendő adatmennyiség számítása",
         "installSize": "Telepítési méret",
         "language": "Nyelv",
         "lastPlayed": "Legutóbb játszott",
@@ -94,13 +95,13 @@
     "generic": {
         "error": "Ismeretlen hiba"
     },
-    "hours": "Hours",
+    "hours": "Óra",
     "how-long-to-beat": {
-        "completionist": "Completionist",
-        "main-plus-extras": "Main + Extras",
-        "main-story": "Main Story"
+        "completionist": "Maximalista",
+        "main-plus-extras": "Fő + Extrák",
+        "main-story": "Fősztori"
     },
-    "howLongToBeat": "How Long To Beat",
+    "howLongToBeat": "Ennyi idő végigjátszani",
     "info": {
         "canRunOffline": "Online szükséges",
         "installedPlatform": "Telepített platform",
@@ -113,14 +114,14 @@
         "disk-space-left": "Elérhető tárhely",
         "not-enough-disk-space": "Nincs elég lemezterület",
         "path": "Telepítési útvonal kiválasztása",
-        "path-not-writtable": "Warning: path might not be writable.",
+        "path-not-writtable": "Figyelmeztetés: Lehet, hogy a célmappa nem írható.",
         "space-after-install": "Telepítés után",
         "wineprefix": "Wine prefix",
         "wineversion": "Wine verzió"
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Harmadik féltől származó játék nem támogatott"
         },
         "playing": {
             "start": "Indítás most",
@@ -134,30 +135,30 @@
         "options": "Indítási opciók..."
     },
     "not_logged_in": {
-        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
-        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "epic": "Nem vagy bejelentkezve egy Epic fiókkal a Heroicba. Ne az áruházi oldalon jelentkezz be, kattints erre a gombra helyette:",
+        "gog": "Nem vagy bejelentkezve egy GOG fiókkal a Heroicba. Ne az áruházi oldalon jelentkezz be, kattints erre a gombra helyette:",
         "login": "Log in",
-        "title": "You are NOT logged in"
+        "title": "NEM vagy bejelentkezve"
     },
     "report_problem": "Játék futtatásával kapcsolatos hiba jelentése",
     "sdl": {
         "title": "Válaszd ki a telepíteni kívánt elemeket"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Alapértelmezett Wine beállítások használata"
     },
     "sideload": {
         "field": {
-            "title": "Title"
+            "title": "Cím"
         },
         "info": {
-            "exe": "Select Executable",
-            "image": "App Image",
-            "title": "Game/App Title"
+            "exe": "Indítófájl kiválasztása",
+            "image": "Alkalmazás képfájl",
+            "title": "Játék/Alkalmazás címe"
         },
         "placeholder": {
-            "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "image": "Ide másold be a kép URL címét",
+            "title": "Adj egy címet a játékodnbak/alkalmazásodnak"
         }
     },
     "specs": {
@@ -166,31 +167,31 @@
     },
     "status": {
         "clickToUpdate": "Kattints a frissítéshez",
-        "gameNotAvailable": "Game not available",
+        "gameNotAvailable": "A játék nem elérhető",
         "hasUpdates": "Új verzió elérhető!",
         "installed": "Telepítve",
         "installing": "Telepítés",
         "moving": "Telepítés áthelyezése, kérlek várj",
         "notinstalled": "Ez a játék nincs telepítve",
-        "notSupported": "Not supported",
-        "notSupportedGame": "Not Supported",
+        "notSupported": "Nem támogatott",
+        "notSupportedGame": "Nem támogatott",
         "processing": "Fájlok feldolgozása, kérlek várj",
-        "queued": "Queued",
+        "queued": "Sorbaállítva",
         "reparing": "Játék javítása, kérlek várj",
-        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
+        "this-game-uses-third-party": "Ez a játék egy harmadik féltől származó klienst használ, ami jelenleg nem támogatott",
         "totalDownloaded": "Teljesen letöltve",
-        "uninstalling": "Uninstalling",
+        "uninstalling": "Eltávolítás",
         "updating": "Játék frissítése"
     },
     "submenu": {
         "addShortcut": "Parancsikon hozzáadása",
-        "addToSteam": "Add to Steam",
+        "addToSteam": "Hozzáadás a Steamhez",
         "change": "Telepítési útvonal megváltoztatása",
-        "disableEosOverlay": "Disable EOS Overlay",
-        "enableEosOverlay": "Enable EOS Overlay",
+        "disableEosOverlay": "EOS átfedés letiltása",
+        "enableEosOverlay": "EOS átfedés engedélyezése",
         "move": "Játék áthelyezése",
         "protondb": "Kompatibilitás ellenőrzése",
-        "removeFromSteam": "Remove from Steam",
+        "removeFromSteam": "Eltávolítás Steamből",
         "removeShortcut": "Parancsikonok eltávolítása",
         "settings": "Beállítások",
         "store": "Áruházi oldal",

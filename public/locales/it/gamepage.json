@@ -18,7 +18,7 @@
             "title": "Verifica e ripara"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "Seleziona EXE per eseguire"
         },
         "select": {
             "button": "Seleziona"
@@ -32,8 +32,9 @@
             "title": "Ferma l'installazione"
         },
         "uninstall": {
-            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
+            "checkbox": "Rimuovi prefisso: {{prefix}}{{newLine}}Nota: questa operazione non è reversibile e saranno rimossi anche i salvataggi di cui non è stato effettuato il back up",
             "message": "Vuoi disinstallare questo gioco?",
+            "settingcheckbox": "Elimina le impostazioni e rimuovi il log{{newLine}}Nota: questa operazione non è reversibile. Tutte le impostazioni modificate saranno dimenticate e il log verrà eliminato.",
             "title": "Disinstalla"
         },
         "update": {
@@ -59,10 +60,10 @@
         },
         "remove_from_favourites": "Rimuovi Dai Preferiti",
         "remove_from_recent": "Rimuovi da Recenti",
-        "run-exe-first": "Run Installer First",
-        "running-setup": "Running Setup",
+        "run-exe-first": "Esegui prima il file di installazione",
+        "running-setup": "Sto eseguendo il Setup",
         "sideload": {
-            "edit": "Edit App/Game"
+            "edit": "Modifica App/Gioco"
         },
         "unhide_game": "Mostra gioco",
         "uninstall": "Disinstalla",
@@ -77,8 +78,8 @@
     "game": {
         "downloadSize": "Dimensione del download",
         "firstPlayed": "Giocato per la prima volta",
-        "getting-download-size": "Geting download size",
-        "getting-install-size": "Geting install size",
+        "getting-download-size": "Sto verificando la dimensione del download",
+        "getting-install-size": "Sto verificando la dimensione dell'installazione",
         "installSize": "Dimensione dell'installazione",
         "language": "Lingua",
         "lastPlayed": "Giocato recentemente",
@@ -94,13 +95,13 @@
     "generic": {
         "error": "Errore sconosciuto"
     },
-    "hours": "Hours",
+    "hours": "Ore",
     "how-long-to-beat": {
-        "completionist": "Completionist",
-        "main-plus-extras": "Main + Extras",
-        "main-story": "Main Story"
+        "completionist": "Completamento",
+        "main-plus-extras": "Principale + Extra",
+        "main-story": "Storia Principale"
     },
-    "howLongToBeat": "How Long To Beat",
+    "howLongToBeat": "Tempo di completamento",
     "info": {
         "canRunOffline": "Online richiesto",
         "installedPlatform": "Piattaforma installata",
@@ -120,7 +121,7 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Gioco di terze parti NON supportato"
         },
         "playing": {
             "start": "Esegui ora",
@@ -134,30 +135,30 @@
         "options": "Opzioni di avvio..."
     },
     "not_logged_in": {
-        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
-        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
-        "login": "Log in",
-        "title": "You are NOT logged in"
+        "epic": "Non hai effettuato l'accesso con nessun account Epic in Heroic. Non usare la pagina dello store per accede ma clicca sul seguente pulsante:",
+        "gog": "Non hai effettuato l'accesso con nessun account GOG in Heroic. Non usare la pagina dello store per accede ma clicca sul seguente pulsante:",
+        "login": "Accedi",
+        "title": "NON hai effettuato l'accesso"
     },
     "report_problem": "Segnala un problema nell'esecuzione di questo gioco",
     "sdl": {
         "title": "Seleziona i componenti da installare"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Usa le impostazioni predefinite di Wine"
     },
     "sideload": {
         "field": {
             "title": "Titolo"
         },
         "info": {
-            "exe": "Select Executable",
-            "image": "App Image",
-            "title": "Game/App Title"
+            "exe": "Selezione l'Eseguibile",
+            "image": "Immagine dell'App",
+            "title": "Titolo Gioco/App"
         },
         "placeholder": {
-            "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "image": "Incolla qui l'URL di un'Immagine",
+            "title": "Aggiungi un Titolo per il tuo Gioco/App"
         }
     },
     "specs": {
@@ -166,20 +167,20 @@
     },
     "status": {
         "clickToUpdate": "Clicca per aggiornare",
-        "gameNotAvailable": "Game not available",
+        "gameNotAvailable": "Gioco non disponibile",
         "hasUpdates": "Nuova versione disponibile!",
         "installed": "Installata",
         "installing": "Installazione in corso",
         "moving": "Spostamento dell'installazione in corso, per favore attendi",
         "notinstalled": "Questo gioco non è installato",
-        "notSupported": "Not supported",
-        "notSupportedGame": "Not Supported",
+        "notSupported": "Non supportato",
+        "notSupportedGame": "Non supportato",
         "processing": "File in elaborazione, attendere",
         "queued": "Messo in coda",
         "reparing": "Riparazione del gioco in corso, per favore attendi",
-        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
+        "this-game-uses-third-party": "Questo gioco utilizza un Launcher di terze parti che non è supportato al momento",
         "totalDownloaded": "Totale scaricato",
-        "uninstalling": "Uninstalling",
+        "uninstalling": "Disinstallando",
         "updating": "Aggiornamento in corso"
     },
     "submenu": {

@@ -15,7 +15,13 @@ import {
 } from 'common/types'
 import * as axios from 'axios'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
-import { exec, ExecException, spawn, spawnSync } from 'child_process'
+import {
+  exec,
+  ExecException,
+  spawn,
+  SpawnOptions,
+  spawnSync
+} from 'child_process'
 import { existsSync, rmSync, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
@@ -51,6 +57,7 @@ import fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
 import { showDialogBoxModalAuto } from './dialog/dialog'
 import { getAppInfo } from './sideload/games'
+import { getMainWindow } from './main_window'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -237,11 +244,12 @@ const showAboutWindow = () => {
   return app.showAboutPanel()
 }
 
-async function handleExit(window: BrowserWindow) {
+async function handleExit() {
   const isLocked = existsSync(join(heroicGamesConfigPath, 'lock'))
+  const mainWindow = getMainWindow()
 
-  if (isLocked) {
-    const { response } = await showMessageBox(window, {
+  if (isLocked && mainWindow) {
+    const { response } = await showMessageBox(mainWindow, {
       buttons: [i18next.t('box.no'), i18next.t('box.yes')],
       message: i18next.t(
         'box.quit.message',
@@ -328,18 +336,16 @@ type ErrorHandlerMessage = {
   runner: string
 }
 
-async function errorHandler(
-  { error, logPath, runner: r, appName }: ErrorHandlerMessage,
-  window?: BrowserWindow
-): Promise<void> {
+async function errorHandler({
+  error,
+  logPath,
+  runner: r,
+  appName
+}: ErrorHandlerMessage): Promise<void> {
   const noSpaceMsg = 'Not enough available disk space'
   const plat = r === 'legendary' ? 'Legendary (Epic Games)' : r
   const deletedFolderMsg = 'appears to be deleted'
   const otherErrorMessages = ['No saved credentials', 'No credentials']
-
-  if (!window) {
-    window = getMainWindow()
-  }
 
   if (logPath) {
     execAsync(`tail "${logPath}" | grep 'disk space'`)
@@ -703,13 +709,12 @@ function detectVCRedist(mainWindow: BrowserWindow) {
 
 export function notify({ body, title }: NotifyType) {
   if (Notification.isSupported() && !isSteamDeckGameMode) {
-    const mainWindow = BrowserWindow.getAllWindows()[0]
     const notify = new Notification({
       body,
       title
     })
 
-    notify.on('click', () => mainWindow.show())
+    notify.on('click', () => getMainWindow()?.show())
     notify.show()
   }
 }
@@ -813,10 +818,6 @@ type NotifyType = {
   body: string
 }
 
-function getMainWindow(): BrowserWindow {
-  return BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows()[0]
-}
-
 // can be removed if legendary and gogdl handle SIGTERM and SIGKILL
 // for us
 function killPattern(pattern: string) {
@@ -838,6 +839,35 @@ const getShellPath = async (path: string): Promise<string> =>
 
 export const wait = async (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms))
+
+export const spawnAsync = async (
+  command: string,
+  args: string[],
+  options: SpawnOptions = {}
+): Promise<{ code: number | null; stdout: string; stderr: string } | Error> => {
+  const child = spawn(command, args, options)
+  const stdout: string[] = []
+  const stderr: string[] = []
+
+  if (child.stdout) {
+    child.stdout.on('data', (data) => stdout.push(data.toString()))
+  }
+
+  if (child.stderr) {
+    child.stderr.on('data', (data) => stderr.push(data.toString()))
+  }
+
+  return new Promise((resolve, reject) => {
+    child.on('error', (error) => reject(error))
+    child.on('close', (code) => {
+      resolve({
+        code,
+        stdout: stdout.join(''),
+        stderr: stderr.join('')
+      })
+    })
+  })
+}
 
 export {
   errorHandler,

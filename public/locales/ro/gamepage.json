@@ -35,6 +35,7 @@
             "checkbox": "Doriți să eliminați și prefixul? Acest lucru nu poate fi anulat.",
             "checkbox_prefix": "Prefix",
             "message": "Doriți să dezinstalați acest joc?",
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Dezinstalează"
         },
         "update": {

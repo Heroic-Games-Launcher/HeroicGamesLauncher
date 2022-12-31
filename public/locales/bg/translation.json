@@ -229,6 +229,7 @@
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK е базиран на Vulkan междинен слой за игри ползващи DirectX 9, 10 или 11. Включването му може да подобри съвместимостта. Може да предизвика проблеми при по-стари игри използващи DirectX.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Esync има за цел да намали натоварването причинено от wineserver за игри, които значително натоварват централния процесор. Включването му може да подобри производителността.",
         "fsync": "Fsync има за цел да намали натоварването причинено от wineserver за игри, които значително натоварват централния процесор. Включването му може да подобри производителността при условие, че се ползва някое от поддържаните ядра на Линукс.",
         "game_language": {
@@ -291,6 +292,9 @@
     },
     "install": {
         "path": "Изберете местоположение за инсталиране"
+    },
+    "label": {
+        "loading": "Loading"
     },
     "library": {
         "refresh": "Опресняване",
@@ -408,6 +412,7 @@
         "alt-gogdl-bin": "Използване на вградения изпълним файл на GOGDL…",
         "alt-legendary-bin": "Използване на вградения изпълним файл на Legendary…",
         "custom_themes_path": "Select the path to look for custom CSS files",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Префикс, където е инсталиран EGS",
         "prefered_language": "Код съставен от 2 знака (например: „en“ или „fr“)"
     },
@@ -452,6 +457,7 @@
         "disable_controller": "Изключване на навигирането в Heroic посредством контролер",
         "discordRPC": "Включване на актуализирането на присъствието в Дискорд",
         "download-no-https": "Сваляне на игри без HTTPS (полезно за мрежи за доставка на съдържание, като LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Синхронизиране с вече инсталиран Epic Games",
         "enableFSRHack": "Включване на хака FSR (версията на Wine трябва да го поддържа)",
         "eosOverlay": {

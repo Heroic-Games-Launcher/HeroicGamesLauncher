@@ -67,9 +67,7 @@ export default React.memo(function ActionIcons({
       <FormControl segmented small>
         {layout === 'grid' ? (
           <button
-            className={classNames('FormControl__button', {
-              active: layout === 'grid'
-            })}
+            className="FormControl__button"
             title={t('library.toggleLayout.list', 'Toggle to a list layout')}
             onClick={() => handleLayout('list')}
           >
@@ -80,7 +78,7 @@ export default React.memo(function ActionIcons({
           </button>
         ) : (
           <button
-            className={classNames('FormControl__button')}
+            className="FormControl__button"
             title={t('library.toggleLayout.grid', 'Toggle to a grid layout')}
             onClick={() => handleLayout('grid')}
           >
@@ -91,9 +89,7 @@ export default React.memo(function ActionIcons({
           </button>
         )}
         <button
-          className={classNames('FormControl__button', {
-            active: !sortDescending
-          })}
+          className="FormControl__button"
           title={
             sortDescending
               ? t('library.sortDescending', 'Sort Descending')
@@ -107,9 +103,7 @@ export default React.memo(function ActionIcons({
           />
         </button>
         <button
-          className={classNames('FormControl__button', {
-            active: sortInstalled
-          })}
+          className="FormControl__button"
           title={t('library.sortByStatus', 'Sort by Status')}
           onClick={() => toggleSortinstalled()}
         >
@@ -131,7 +125,7 @@ export default React.memo(function ActionIcons({
           />
         </button>
         <button
-          className={classNames('FormControl__button', { active: showHidden })}
+          className="FormControl__button"
           title={showHiddenTitle}
           onClick={toggleShowHidden}
         >

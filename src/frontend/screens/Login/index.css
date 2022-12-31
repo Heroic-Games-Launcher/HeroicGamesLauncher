@@ -38,7 +38,8 @@
   position: relative;
   user-select: none;
   flex-wrap: wrap;
-  background-color: var(--background);
+  background-color: var(--body-background);
+  opacity: 0.96;
   padding: var(--wrapper-padding);
   border-radius: 10px;
   margin-top: 25%;

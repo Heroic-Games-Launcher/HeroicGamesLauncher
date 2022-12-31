@@ -115,9 +115,9 @@
         },
         "shortcuts": {
             "message": "Ярлыки созданы на рабочем столе и в меню «Пуск»",
-            "message-mac": "Shortcuts were created on the Applications folder",
+            "message-mac": "Ярлыки были созданы в папке «Программы»",
             "message-remove": "Ярлыки были удалены с рабочего стола и меню «Пуск»",
-            "message-remove-mac": "Shortcuts were removed from the Applications folder",
+            "message-remove-mac": "Ярлыки были удалены из папки «Программы»",
             "title": "Ярлыки"
         },
         "sync": {
@@ -229,6 +229,7 @@
         "custom_themes_path": "Не используйте CSS-файлы из ненадежных источников. Если вы сомневаетесь, попросите проверить их на нашем канале Discord.",
         "custom_themes_wiki": "Более подробную информацию о добавлении пользовательских тем можно найти в Вики. Нажмите здесь.",
         "dxvk": "DXVK - это транслятор вызовов в Vulkan для игр DirectX 9, 10 и 11. Включение может улучшить совместимость. Может вызвать проблемы, особенно для старых игр DirectX.",
+        "dxvkfpslimit": "Устанавливает ограничение частоты кадров для игр DXVK",
         "esync": "Esync направлен на снижение лишней нагрузки wineserver в играх с интенсивным использованием процессора. Включение может улучшить производительность.",
         "fsync": "Fsync направлен на снижение лишней нагрузки wineserver в играх с интенсивным использованием процессора. Включение может улучшить производительность на совместимых ядрах Linux.",
         "game_language": {
@@ -291,6 +292,9 @@
     },
     "install": {
         "path": "Выберите путь установки"
+    },
+    "label": {
+        "loading": "Загрузка"
     },
     "library": {
         "refresh": "Обновить",
@@ -408,6 +412,7 @@
         "alt-gogdl-bin": "Используется встроенный GOGDL...",
         "alt-legendary-bin": "Используется встроенный Legendary...",
         "custom_themes_path": "Выберите путь для поиска пользовательских файлов CSS",
+        "dxvkfpsvalue": "Целое положительное число (напр. 30, 60, ...)",
         "egs-prefix": "Префикс куда установлен EGS",
         "prefered_language": "2-значный код (например: \"en\" или \"fr\")"
     },
@@ -416,7 +421,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "please-wait": "Please wait...",
+    "please-wait": "Пожалуйста, подождите...",
     "progress": "Прогресс",
     "queue": {
         "label": {
@@ -452,6 +457,7 @@
         "disable_controller": "Отключить навигацию в Heroic с помощью контроллера",
         "discordRPC": "Включить Discord Rich Presence",
         "download-no-https": "Скачивание игр без HTTPS (полезно для CDN, например, LanCache)",
+        "dxvkfpslimit": "Ограничение FPS (DX9, 10 и 11)",
         "egs-sync": "Синхронизировать с установленнными играми EGS",
         "enableFSRHack": "Включить FSR Hack (версия Wine должна поддерживать)",
         "eosOverlay": {
@@ -525,9 +531,9 @@
             "title": "Запустить EXE в префиксе"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Папка для сохранений не найдена, выберите ее вручную",
             "placeholder": "Выберите точную папку для сохранений игр",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Пожалуйста, проверьте дважды, правильно ли указан путь"
         },
         "select_theme": "Выбор темы",
         "showfps": "Показывать FPS (DX9, 10 и 11)",
@@ -617,7 +623,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Дискорд",
-        "logging_out": "Logging out",
+        "logging_out": "Выход",
         "logout": "Выйти из аккаунта",
         "logout_confirmation": "Вы уверены, что хотите выйти?",
         "manageaccounts": "Аккаунты",
@@ -635,7 +641,7 @@
         "actions": "Действие",
         "manager": {
             "link": "Менеджер Wine",
-            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
+            "not-found": "Версии Wine не найдены. Пожалуйста, нажмите на значок обновления, чтобы повторить попытку.",
             "title": "Менеджер Wine",
             "unzipping": "Распаковка"
         },

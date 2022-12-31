@@ -31,7 +31,7 @@ import { addNonSteamGame } from '../nonesteamgame/nonesteamgame'
 async function addShortcuts(gameInfo: GameInfo, fromMenu?: boolean) {
   logInfo(`Adding shortcuts for ${gameInfo.title}`, LogPrefix.Backend)
   const { addDesktopShortcuts, addStartMenuShortcuts, addSteamShortcuts } =
-    await GlobalConfig.get().getSettings()
+    GlobalConfig.get().getSettings()
 
   if (addSteamShortcuts) {
     addNonSteamGame({ gameInfo })

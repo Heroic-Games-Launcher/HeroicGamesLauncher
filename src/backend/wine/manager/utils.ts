@@ -17,6 +17,7 @@ import {
   VersionInfo
 } from 'heroic-wine-downloader'
 import { heroicToolsPath } from '../../constants'
+import { sendFrontendMessage } from '../../main_window'
 
 const wineDownloaderInfoStore = new Store({
   cwd: 'store',
@@ -86,6 +87,7 @@ async function updateWineVersionInfos(
   }
 
   logInfo('wine versions updated', LogPrefix.WineDownloader)
+  sendFrontendMessage('wineVersionsUpdated')
   return releases
 }
 
@@ -170,6 +172,8 @@ async function installWineVersion(
     `Finished installation of wine version ${release.version}`,
     LogPrefix.WineDownloader
   )
+
+  sendFrontendMessage('wineVersionsUpdated')
   return 'success'
 }
 
@@ -223,6 +227,8 @@ async function removeWineVersion(release: WineVersionInfo): Promise<boolean> {
     `Removed wine version ${release.version} succesfully.`,
     LogPrefix.WineDownloader
   )
+
+  sendFrontendMessage('wineVersionsUpdated')
   return true
 }
 

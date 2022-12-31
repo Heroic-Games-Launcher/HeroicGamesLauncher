@@ -1,6 +1,6 @@
 {
   "name": "heroic",
-  "version": "2.5.1",
+  "version": "2.5.3",
   "private": true,
   "main": "build/electron/main.js",
   "homepage": "./",
@@ -53,6 +53,7 @@
       "artifactName": "${productName}-${version}-Portable.${ext}"
     },
     "mac": {
+      "artifactName": "${productName}-${version}-macOS-${arch}.${ext}",
       "target": "dmg",
       "category": "public.app-category.games",
       "icon": "build/icon.icns",
@@ -169,14 +170,14 @@
   "scripts": {
     "start": "vite",
     "codecheck": "tsc --noEmit",
-    "test": "jest --noStackTrace",
+    "test": "jest",
     "test-watch": "jest --watch --maxWorkers=25%",
     "test:ci": "jest --runInBand --silent",
     "release:linux": "vite build && electron-builder -p always --linux deb AppImage rpm pacman tar.xz",
     "release:mac": "vite build && electron-builder -p always --mac",
     "release:win": "vite build && electron-builder -p always --win nsis portable",
     "dist:linux": "vite build && electron-builder --linux",
-    "dist:mac": "vite build && electron-builder --mac",
+    "dist:mac": "vite build && electron-builder --mac --x64 --arm64",
     "dist:win": "vite build && electron-builder --win",
     "lint": "eslint --cache -c .eslintrc --ext .tsx,ts ./src",
     "lint-fix": "eslint --fix -c .eslintrc --ext .tsx,ts ./src",
@@ -212,7 +213,7 @@
     "@typescript-eslint/parser": "^5.20.0",
     "@vitejs/plugin-react": "^2.2.0",
     "electron": "^21.2.1",
-    "electron-builder": "^23.1.0",
+    "electron-builder": "^23.6.0",
     "electron-devtools-installer": "^3.2.0",
     "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.5.0",

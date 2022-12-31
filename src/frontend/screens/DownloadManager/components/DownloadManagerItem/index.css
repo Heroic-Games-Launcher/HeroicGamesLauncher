@@ -130,3 +130,8 @@
 .downloadManagerListItem span:nth-child(3) {
   text-transform: capitalize;
 }
+
+.downloadManagerTitleList > img {
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}

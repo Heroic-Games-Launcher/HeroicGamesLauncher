@@ -229,6 +229,7 @@
         "custom_themes_path": "Verwende kein CSS aus unbekannten Quellen. Bei Zweifeln bitte in unserem Discord-Channel um eine Überprüfung.",
         "custom_themes_wiki": "Mehr Details zum Hinzufügen von benutzerdefinierten Designs findest du im Wiki. Klick hier.",
         "dxvk": "DXVK ist eine Vulkan-basierte Übersetzungsschicht für DirectX 9, 10 und 11 Spiele. Durch Aktivieren kann die Kompatibilität verbessert werden. Kann Probleme verursachen, insbesondere bei älteren DirectX-Spielen.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Esync zielt darauf ab, den Wineserver-Overhead in CPU-intensiven Spielen zu reduzieren. Durch Aktivieren kann die Leistung verbessert werden.",
         "fsync": "Fsync zielt darauf ab, den Wineserver-Overhead in CPU-intensiven Spielen zu reduzieren. Durch Aktivieren kann die Leistung auf unterstützten Linux-Kerneln verbessert werden.",
         "game_language": {
@@ -291,6 +292,9 @@
     },
     "install": {
         "path": "Installationspfad auswählen"
+    },
+    "label": {
+        "loading": "Loading"
     },
     "library": {
         "refresh": "Aktualisieren",
@@ -408,6 +412,7 @@
         "alt-gogdl-bin": "Nutze eingebaute GOGDL-Binärdatei...",
         "alt-legendary-bin": "Nutze eingebaute Legendary-Binärdatei...",
         "custom_themes_path": "Wähle den Pfad für benutzerdefinierte CSS-Dateien",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix, in dem EGS installiert ist",
         "prefered_language": "2-Zeichen-Code (z. B.: \"en\" oder \"fr\")"
     },
@@ -452,6 +457,7 @@
         "disable_controller": "Heroic-Navigation mit Gamepad deaktivieren",
         "discordRPC": "Discord Rich Presence aktivieren",
         "download-no-https": "Spiele ohne HTTPS herunterladen (nützlich für CDNs z. B. LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Mit installiertem Epic Games synchronisieren",
         "enableFSRHack": "FSR Hack aktivieren (Wine-Version muss es unterstützen)",
         "eosOverlay": {

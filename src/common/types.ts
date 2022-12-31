@@ -83,6 +83,7 @@ export type ExecResult = {
 export interface ExtraInfo {
   about: About
   reqs: Reqs[]
+  storeUrl: string
 }
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
@@ -133,6 +134,8 @@ export interface GameSettings {
   wrapperOptions: WrapperVariable[]
   savesPath: string
   showFps: boolean
+  enableDXVKFpsLimit: boolean
+  DXVKFpsCap: string //Entered as string but used as number
   showMangohud: boolean
   targetExe: string
   useGameMode: boolean
@@ -185,7 +188,7 @@ export interface InstalledInfo {
   buildId?: string // For verifing GOG games
 }
 
-interface Reqs {
+export interface Reqs {
   minimum: string
   recommended: string
   title: string

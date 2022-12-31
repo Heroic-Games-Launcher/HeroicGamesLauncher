@@ -34,6 +34,7 @@
         "uninstall": {
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Do you want to uninstall this game?",
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Uninstall"
         },
         "update": {
@@ -77,8 +78,8 @@
     "game": {
         "downloadSize": "Download Size",
         "firstPlayed": "First Played",
-        "getting-download-size": "Geting download size",
-        "getting-install-size": "Geting install size",
+        "getting-download-size": "Getting download size",
+        "getting-install-size": "Getting install size",
         "installSize": "Install Size",
         "language": "Language",
         "lastPlayed": "Last Played",

@@ -34,6 +34,7 @@
         "uninstall": {
             "checkbox": "Borrar prefijo: {{prefix}}{{newLine}}Nota: Esto no se puede deshacer y borrará archivos no resguardados.",
             "message": "¿Quieres desinstalar este juego?",
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Desinstalar"
         },
         "update": {

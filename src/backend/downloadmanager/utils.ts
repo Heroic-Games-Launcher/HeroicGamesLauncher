@@ -1,15 +1,12 @@
-import { BrowserWindow } from 'electron'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { getGame, isEpicServiceOffline, notify } from '../utils'
 import { InstallParams } from 'common/types'
 import i18next from 'i18next'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
 import { isOnline } from '../online_monitor'
+import { sendFrontendMessage } from '../main_window'
 
-async function installQueueElement(
-  mainWindow: BrowserWindow,
-  params: InstallParams
-): Promise<{
+async function installQueueElement(params: InstallParams): Promise<{
   status: 'done' | 'error' | 'abort'
   error?: string | undefined
 }> {
@@ -48,7 +45,7 @@ async function installQueueElement(
     }
   }
 
-  mainWindow.webContents.send('setGameStatus', {
+  sendFrontendMessage('gameStatusUpdate', {
     appName,
     runner,
     status: 'installing',
@@ -66,7 +63,7 @@ async function installQueueElement(
       LogPrefix.DownloadManager
     )
 
-    mainWindow.webContents.send('setGameStatus', {
+    sendFrontendMessage('gameStatusUpdate', {
       appName,
       runner,
       status: 'done'
@@ -104,7 +101,7 @@ async function installQueueElement(
       return { status: 'error' }
     }
 
-    mainWindow.webContents.send('setGameStatus', {
+    sendFrontendMessage('gameStatusUpdate', {
       appName,
       runner,
       status: 'done'
@@ -117,10 +114,7 @@ async function installQueueElement(
   }
 }
 
-async function updateQueueElement(
-  mainWindow: BrowserWindow,
-  params: InstallParams
-): Promise<{
+async function updateQueueElement(params: InstallParams): Promise<{
   status: 'done' | 'error'
   error?: string | undefined
 }> {
@@ -151,7 +145,7 @@ async function updateQueueElement(
     }
   }
 
-  mainWindow.webContents.send('setGameStatus', {
+  sendFrontendMessage('gameStatusUpdate', {
     appName,
     runner,
     status: 'updating'
@@ -189,7 +183,7 @@ async function updateQueueElement(
       LogPrefix.DownloadManager
     )
 
-    mainWindow.webContents.send('setGameStatus', {
+    sendFrontendMessage('gameStatusUpdate', {
       appName,
       runner,
       status: 'done'

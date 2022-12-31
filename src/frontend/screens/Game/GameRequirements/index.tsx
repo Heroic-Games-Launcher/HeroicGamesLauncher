@@ -1,18 +1,17 @@
 import React, { Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
-import { GameInfo } from 'common/types'
+import { ExtraInfo } from 'common/types'
 
 import './index.css'
 
 type Props = {
-  gameInfo: GameInfo
+  extraInfo: ExtraInfo
 }
 
-function GameRequirements({ gameInfo }: Props) {
+function GameRequirements({ extraInfo }: Props) {
   const { t } = useTranslation('gamepage')
 
-  const { extra }: GameInfo = gameInfo
-  const haveSystemRequirements = Boolean(extra?.reqs?.length)
+  const haveSystemRequirements = Boolean(extraInfo?.reqs?.length)
 
   return (
     <div
@@ -30,7 +29,7 @@ function GameRequirements({ gameInfo }: Props) {
                   {t('specs.recommended').toUpperCase()}
                 </td>
               </tr>
-              {extra.reqs.map(
+              {extraInfo.reqs.map(
                 (e) =>
                   e &&
                   e.title && (

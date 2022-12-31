@@ -8,13 +8,13 @@
         "choose": "Selecionar",
         "importpath": "Selecione a pasta do jogo a ser importado",
         "move": {
-            "message": "Isto pode levar um longo tempo, tem certeza disso?",
+            "message": "Isto pode demorar, tem certeza disso?",
             "path": "Selecione a pasta para onde deseja mover",
             "title": "Mover a pasta de instalação do jogo"
         },
         "no": "NÃO",
         "repair": {
-            "message": "Deseja tentar reparar este jogo? Isso pode levar muito tempo.",
+            "message": "Deseja tentar reparar este jogo? Isso pode demorar.",
             "title": "Verificar e Reparar"
         },
         "runexe": {
@@ -34,6 +34,7 @@
         "uninstall": {
             "checkbox": "{{newLine}}Remover prefixo: {{prefix}}{{newLine}}Obs.: Isso não pode ser desfeito e também vai remover jogos salvos sem backup.",
             "message": "Deseja desinstalar este jogo?",
+            "settingcheckbox": "Apagar configurações e remover logs{{newLine}}Obs: Isto não pode ser desfeito. Qualquer configuração modificada será esquecida e o log será deletado.",
             "title": "Desinstalar"
         },
         "update": {
