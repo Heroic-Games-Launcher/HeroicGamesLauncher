@@ -19,7 +19,7 @@ import {
   HiddenGame,
   Runner
 } from 'common/types'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
 import { ReactComponent as SettingsIcon } from 'frontend/assets/settings-sharp.svg'
 import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
@@ -69,6 +69,8 @@ const GameCard = ({
 
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
+
+  const navigate = useNavigate()
 
   const {
     libraryStatus,
