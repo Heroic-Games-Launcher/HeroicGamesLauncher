@@ -37,7 +37,7 @@ function getStatus(): {
   if (install_path !== defaultInstallPath) {
     logWarning(
       'EOS Overlay is not installed in default location, permission issues might arise',
-      { prefix: LogPrefix.Legendary }
+      LogPrefix.Legendary
     )
   }
 
@@ -54,7 +54,7 @@ async function getLatestVersion(): Promise<string> {
     if (!existsSync(currentVersionPath)) {
       logError(
         'EOS Overlay information not found after manual update. User is probably not logged in anymore',
-        { prefix: LogPrefix.Legendary }
+        LogPrefix.Legendary
       )
       return ''
     }

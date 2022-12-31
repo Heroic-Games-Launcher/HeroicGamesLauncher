@@ -37,12 +37,12 @@ async function setup(
   }
   const instructions = await obtainSetupInstructions(gameInfo)
   if (!instructions) {
-    logInfo('Setup: No instructions', { prefix: LogPrefix.Gog })
+    logInfo('Setup: No instructions', LogPrefix.Gog)
     return
   }
   logWarning(
     'Running setup instructions, if you notice issues with launching a game, please report it on our Discord server',
-    { prefix: LogPrefix.Gog }
+    LogPrefix.Gog
   )
 
   let commandPrefix = ''
@@ -133,7 +133,7 @@ async function setup(
               valueName,
               valueData
             ],
-            { prefix: LogPrefix.Gog }
+            LogPrefix.Gog
           )
           if (isWindows) {
             await spawnAsync('reg', [
@@ -196,7 +196,7 @@ async function setup(
                 command,
                 `${workingDir || gameInfo.install.install_path}`
               ],
-              { prefix: LogPrefix.Gog }
+              LogPrefix.Gog
             )
             await spawnAsync('powershell', [
               ...command.split(' '),
@@ -210,7 +210,7 @@ async function setup(
               command,
               `${workingDir || gameInfo.install.install_path}`
             ],
-            { prefix: LogPrefix.Gog }
+            LogPrefix.Gog
           )
           await execAsync(command, {
             ...execOptions,
@@ -236,14 +236,12 @@ async function setup(
           )
           if (type === 'folder') {
             if (!actionArguments?.source) {
-              logInfo(['Setup: Creating directory', targetPath], {
-                prefix: LogPrefix.Gog
-              })
+              logInfo(['Setup: Creating directory', targetPath], LogPrefix.Gog)
               mkdirSync(targetPath, { recursive: true })
             } else {
               logInfo(
                 ['Setup: Copying directory', sourcePath, 'to', targetPath],
-                { prefix: LogPrefix.Gog }
+                LogPrefix.Gog
               )
               copySync(sourcePath, targetPath, {
                 overwrite: actionArguments?.overwrite,
@@ -252,20 +250,22 @@ async function setup(
             }
           } else if (type === 'file') {
             if (sourcePath && existsSync(sourcePath)) {
-              logInfo(['Setup: Copying file', sourcePath, 'to', targetPath], {
-                prefix: LogPrefix.Gog
-              })
+              logInfo(
+                ['Setup: Copying file', sourcePath, 'to', targetPath],
+                LogPrefix.Gog
+              )
               copyFileSync(sourcePath, targetPath)
             } else {
               logWarning(
                 ['Setup: sourcePath:', sourcePath, 'does not exist.'],
-                { prefix: LogPrefix.Gog }
+                LogPrefix.Gog
               )
             }
           } else {
-            logError(['Setup: Unsupported supportData type:', type], {
-              prefix: LogPrefix.Gog
-            })
+            logError(
+              ['Setup: Unsupported supportData type:', type],
+              LogPrefix.Gog
+            )
           }
           break
         }
@@ -278,9 +278,7 @@ async function setup(
             pathsValues
           ).replaceAll('\\', '/')
           if (!filePath || !existsSync(filePath)) {
-            logError("Setup: setIni file doesn't exists", {
-              prefix: LogPrefix.Gog
-            })
+            logError("Setup: setIni file doesn't exists", LogPrefix.Gog)
             break
           }
           const encoding = actionArguments?.utf8 ? 'utf-8' : 'ascii'
@@ -311,7 +309,7 @@ async function setup(
               'Setup: Looks like you have found new setup instruction, please report it on our Discord or GitHub',
               `appName: ${appName}, action: ${action.install.action}`
             ],
-            { prefix: LogPrefix.Gog }
+            LogPrefix.Gog
           )
         }
       }
@@ -336,7 +334,7 @@ async function setup(
     */
     //TODO
   }
-  logInfo('Setup: Finished', { prefix: LogPrefix.Gog })
+  logInfo('Setup: Finished', LogPrefix.Gog)
 }
 
 async function obtainSetupInstructions(gameInfo: GameInfo) {
@@ -351,7 +349,7 @@ async function obtainSetupInstructions(gameInfo: GameInfo) {
   if (!isOnline()) {
     logWarning(
       "Setup: App is offline, couldn't check if there are any support_commands in manifest",
-      { prefix: LogPrefix.Gog }
+      LogPrefix.Gog
     )
     return null
   }

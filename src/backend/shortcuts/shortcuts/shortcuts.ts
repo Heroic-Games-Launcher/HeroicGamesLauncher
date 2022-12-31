@@ -29,9 +29,7 @@ import { addNonSteamGame } from '../nonesteamgame/nonesteamgame'
  * @public
  */
 async function addShortcuts(gameInfo: GameInfo, fromMenu?: boolean) {
-  logInfo(`Adding shortcuts for ${gameInfo.title}`, {
-    prefix: LogPrefix.Backend
-  })
+  logInfo(`Adding shortcuts for ${gameInfo.title}`, LogPrefix.Backend)
   const { addDesktopShortcuts, addStartMenuShortcuts, addSteamShortcuts } =
     GlobalConfig.get().getSettings()
 
@@ -60,16 +58,12 @@ Categories=Game;
       if (addDesktopShortcuts || fromMenu) {
         //777 = -rwxrwxrwx
         writeFile(desktopFile, shortcut, { mode: 0o777 }, () => {
-          logInfo(`Shortcut saved on ${desktopFile}`, {
-            prefix: LogPrefix.Backend
-          })
+          logInfo(`Shortcut saved on ${desktopFile}`, LogPrefix.Backend)
         })
       }
       if (addStartMenuShortcuts || fromMenu) {
         writeFile(menuFile, shortcut, () => {
-          logInfo(`Shortcut saved on ${menuFile}`, {
-            prefix: LogPrefix.Backend
-          })
+          logInfo(`Shortcut saved on ${menuFile}`, LogPrefix.Backend)
         })
       }
       break
@@ -113,18 +107,18 @@ async function removeShortcuts(gameInfo: GameInfo) {
 
   if (desktopFile) {
     unlink(desktopFile, () =>
-      logInfo('Desktop shortcut removed', { prefix: LogPrefix.Backend })
+      logInfo('Desktop shortcut removed', LogPrefix.Backend)
     )
   }
   if (menuFile) {
     if (isMac) {
       rm(menuFile, { recursive: true, force: true }, () =>
-        logInfo('Applications shortcut removed', { prefix: LogPrefix.Backend })
+        logInfo('Applications shortcut removed', LogPrefix.Backend)
       )
       return
     }
     unlink(menuFile, () =>
-      logInfo('Applications shortcut removed', { prefix: LogPrefix.Backend })
+      logInfo('Applications shortcut removed', LogPrefix.Backend)
     )
   }
 }
@@ -158,7 +152,7 @@ function shortcutFiles(gameTitle: string) {
 async function generateMacOsApp(gameInfo: GameInfo) {
   const { title, app_name } = gameInfo
 
-  logInfo('Generating macOS shortcut', { prefix: LogPrefix.Backend })
+  logInfo('Generating macOS shortcut', LogPrefix.Backend)
 
   const appShortcut = join(userHome, 'Applications', `${title}.app`)
   const macOSFolder = `${appShortcut}/Contents/MacOS`
@@ -218,10 +212,10 @@ async function generateMacOsApp(gameInfo: GameInfo) {
     // make the run.sh file executable
     chmodSync(`${macOSFolder}/run.sh`, '755')
   } else {
-    logError('Error generating MacOS App', { prefix: LogPrefix.Backend })
+    logError('Error generating MacOS App', LogPrefix.Backend)
     // remove the .app folder
     rm(appShortcut, { recursive: true }, () =>
-      logInfo('Temporary MacOS App removed', { prefix: LogPrefix.Backend })
+      logInfo('Temporary MacOS App removed', LogPrefix.Backend)
     )
   }
 }
@@ -251,7 +245,7 @@ async function convertPngToICNS(
 
     return true
   } catch (error) {
-    logError('Error converting icon to icns', { prefix: LogPrefix.Backend })
+    logError('Error converting icon to icns', LogPrefix.Backend)
     return false
   }
 }

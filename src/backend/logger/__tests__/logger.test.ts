@@ -103,9 +103,7 @@ describe('logger/logger.ts', () => {
     ])
 
     testCases.forEach((logFunction, level) => {
-      logFunction(testData, {
-        prefix: logger.LogPrefix.Backend
-      })
+      logFunction(testData, logger.LogPrefix.Backend)
 
       expect(appendMessageToLogFile).toBeCalledWith(
         expect.stringContaining(getStringPassedToLogFile(level))
@@ -143,9 +141,7 @@ describe('logger/logger.ts', () => {
   test('log undefined variable works', () => {
     const spyConsoleLog = jest.spyOn(global.console, 'log').mockImplementation()
 
-    logger.logInfo(undefined, {
-      prefix: logger.LogPrefix.Backend
-    })
+    logger.logInfo(undefined, logger.LogPrefix.Backend)
 
     expect(spyConsoleLog).toBeCalledWith(
       expect.stringContaining(`INFO:    [${logger.LogPrefix.Backend}]`),

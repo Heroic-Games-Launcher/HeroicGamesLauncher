@@ -35,7 +35,7 @@ export const initTrayIcon = async (mainWindow: BrowserWindow) => {
   })
 
   ipcMain.on('changeTrayColor', () => {
-    logInfo('Changing Tray icon Color...', { prefix: LogPrefix.Backend })
+    logInfo('Changing Tray icon Color...', LogPrefix.Backend)
     setTimeout(async () => {
       appIcon.setImage(getIcon(process.platform))
       await loadContextMenu()

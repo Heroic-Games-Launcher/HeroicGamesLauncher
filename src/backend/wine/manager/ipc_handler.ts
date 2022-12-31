@@ -33,7 +33,7 @@ ipcMain.handle('refreshWineVersionInfo', async (e, fetch?) => {
     await updateWineVersionInfos(fetch)
     return
   } catch (error) {
-    logError(error, { prefix: LogPrefix.WineDownloader })
+    logError(error, LogPrefix.WineDownloader)
     return
   }
 })

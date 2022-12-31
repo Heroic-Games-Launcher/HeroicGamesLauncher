@@ -138,7 +138,7 @@ export function getWineFromProton(
       wineVersion.name,
       'has an abnormal structure, unable to supply Wine binary!'
     ],
-    { prefix: LogPrefix.Backend }
+    LogPrefix.Backend
   )
 
   return { wineBin: '', winePrefix }
@@ -178,9 +178,10 @@ async function isEpicServiceOffline(
     notification.show()
     return false
   } catch (error) {
-    logError(['Failed to get epic service status with', error], {
-      prefix: LogPrefix.Backend
-    })
+    logError(
+      ['Failed to get epic service status with', error],
+      LogPrefix.Backend
+    )
     return false
   }
 }
@@ -350,7 +351,7 @@ async function errorHandler({
     execAsync(`tail "${logPath}" | grep 'disk space'`)
       .then(async ({ stdout }) => {
         if (stdout.includes(noSpaceMsg)) {
-          logError(noSpaceMsg, { prefix: LogPrefix.Backend })
+          logError(noSpaceMsg, LogPrefix.Backend)
           return showDialogBoxModalAuto({
             title: i18next.t('box.error.diskspace.title', 'No Space'),
             message: i18next.t(
@@ -363,8 +364,7 @@ async function errorHandler({
       })
       .catch((err: ExecException) => {
         // Grep returns 1 when it didn't find any text, which is fine in this case
-        if (err.code !== 1)
-          logInfo('operation interrupted', { prefix: LogPrefix.Backend })
+        if (err.code !== 1) logInfo('operation interrupted', LogPrefix.Backend)
       })
   }
   if (error) {
@@ -444,9 +444,10 @@ function showItemInFolder(item: string) {
     try {
       shell.showItemInFolder(item)
     } catch (error) {
-      logError(['Failed to show item in folder with:', error], {
-        prefix: LogPrefix.Backend
-      })
+      logError(
+        ['Failed to show item in folder with:', error],
+        LogPrefix.Backend
+      )
     }
   }
 }
@@ -519,7 +520,7 @@ async function searchForExecutableOnPath(executable: string): Promise<string> {
         return stdout.split('\n')[0]
       })
       .catch((error) => {
-        logError(error, { prefix: LogPrefix.Backend })
+        logError(error, LogPrefix.Backend)
         return ''
       })
   }
@@ -563,7 +564,7 @@ async function getSteamRuntime(
       requestedType,
       'could be found, returning first available one'
     ],
-    { prefix: LogPrefix.Backend }
+    LogPrefix.Backend
   )
   return allAvailableRuntimes.pop()!
 }
@@ -667,17 +668,16 @@ function detectVCRedist(mainWindow: BrowserWindow) {
   })
 
   child.on('error', (error: Error) => {
-    logError(['Check of VCRuntime crashed with:', error], {
-      prefix: LogPrefix.Backend
-    })
+    logError(['Check of VCRuntime crashed with:', error], LogPrefix.Backend)
     return
   })
 
   child.on('close', async (code: number) => {
     if (code) {
-      logError(`Failed to check for VCRuntime installations\n${stderr}`, {
-        prefix: LogPrefix.Backend
-      })
+      logError(
+        `Failed to check for VCRuntime installations\n${stderr}`,
+        LogPrefix.Backend
+      )
       return
     }
     // VCR installers install both the "Minimal" and "Additional" runtime, and we have 2 installers (x86 and x64) -> 4 installations in total
@@ -702,7 +702,7 @@ function detectVCRedist(mainWindow: BrowserWindow) {
         })
       }
     } else {
-      logInfo('VCRuntime is installed', { prefix: LogPrefix.Backend })
+      logInfo('VCRuntime is installed', LogPrefix.Backend)
     }
   })
 }
@@ -742,7 +742,7 @@ export function getFirstExistingParentPath(directoryPath: string): string {
 
 export const getLatestReleases = async (): Promise<Release[]> => {
   const newReleases: Release[] = []
-  logInfo('Checking for new Heroic Updates', { prefix: LogPrefix.Backend })
+  logInfo('Checking for new Heroic Updates', LogPrefix.Backend)
 
   try {
     const { data: releases } = await axios.default.get(GITHUB_API)
@@ -777,17 +777,16 @@ export const getLatestReleases = async (): Promise<Release[]> => {
 
     return newReleases
   } catch (error) {
-    logError(['Error when checking for Heroic updates', error], {
-      prefix: LogPrefix.Backend
-    })
+    logError(
+      ['Error when checking for Heroic updates', error],
+      LogPrefix.Backend
+    )
     return []
   }
 }
 
 export const getCurrentChangelog = async (): Promise<Release | null> => {
-  logInfo('Checking for current version changelog', {
-    prefix: LogPrefix.Backend
-  })
+  logInfo('Checking for current version changelog', LogPrefix.Backend)
 
   try {
     const current = app.getVersion()
@@ -798,9 +797,10 @@ export const getCurrentChangelog = async (): Promise<Release | null> => {
 
     return release as Release
   } catch (error) {
-    logError(['Error when checking for current Heroic changelog'], {
-      prefix: LogPrefix.Backend
-    })
+    logError(
+      ['Error when checking for current Heroic changelog'],
+      LogPrefix.Backend
+    )
     return null
   }
 }
@@ -821,7 +821,7 @@ type NotifyType = {
 // can be removed if legendary and gogdl handle SIGTERM and SIGKILL
 // for us
 function killPattern(pattern: string) {
-  logInfo(['Trying to kill', pattern], { prefix: LogPrefix.Backend })
+  logInfo(['Trying to kill', pattern], LogPrefix.Backend)
   let ret
   if (isWindows) {
     ret = spawnSync('Stop-Process', ['-name', pattern], {
@@ -830,7 +830,7 @@ function killPattern(pattern: string) {
   } else {
     ret = spawnSync('pkill', ['-f', pattern])
   }
-  logInfo(['Killed', pattern], { prefix: LogPrefix.Backend })
+  logInfo(['Killed', pattern], LogPrefix.Backend)
   return ret
 }
 

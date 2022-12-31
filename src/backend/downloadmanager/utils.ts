@@ -23,9 +23,10 @@ async function installQueueElement(params: InstallParams): Promise<{
   const { title } = game.getGameInfo()
 
   if (!isOnline()) {
-    logWarning(`App offline, skipping install for game '${title}'.`, {
-      prefix: LogPrefix.Backend
-    })
+    logWarning(
+      `App offline, skipping install for game '${title}'.`,
+      LogPrefix.Backend
+    )
     return { status: 'error' }
   }
 
@@ -57,9 +58,10 @@ async function installQueueElement(params: InstallParams): Promise<{
   })
 
   const errorMessage = (error: string) => {
-    logError(['Installing of', params.appName, 'failed with:', error], {
-      prefix: LogPrefix.DownloadManager
-    })
+    logError(
+      ['Installing of', params.appName, 'failed with:', error],
+      LogPrefix.DownloadManager
+    )
 
     sendFrontendMessage('gameStatusUpdate', {
       appName,
@@ -79,9 +81,10 @@ async function installQueueElement(params: InstallParams): Promise<{
     })
 
     if (status === 'abort') {
-      logWarning(['Installing of', params.appName, 'aborted!'], {
-        prefix: LogPrefix.DownloadManager
-      })
+      logWarning(
+        ['Installing of', params.appName, 'aborted!'],
+        LogPrefix.DownloadManager
+      )
       notify({ title, body: i18next.t('notify.install.canceled') })
     } else if (status === 'done') {
       notify({
@@ -89,9 +92,10 @@ async function installQueueElement(params: InstallParams): Promise<{
         body: i18next.t('notify.install.finished')
       })
 
-      logInfo(['Finished installing of', params.appName], {
-        prefix: LogPrefix.DownloadManager
-      })
+      logInfo(
+        ['Finished installing of', params.appName],
+        LogPrefix.DownloadManager
+      )
     } else if (status === 'error') {
       errorMessage(error ?? '')
       return { status: 'error' }
@@ -119,9 +123,10 @@ async function updateQueueElement(params: InstallParams): Promise<{
   const { title } = game.getGameInfo()
 
   if (!isOnline()) {
-    logWarning(`App offline, skipping update for game '${title}'.`, {
-      prefix: LogPrefix.Backend
-    })
+    logWarning(
+      `App offline, skipping update for game '${title}'.`,
+      LogPrefix.Backend
+    )
     return { status: 'error' }
   }
 
@@ -155,9 +160,10 @@ async function updateQueueElement(params: InstallParams): Promise<{
     const { status } = await game.update()
 
     if (status === 'error') {
-      logWarning(['Updating of', params.appName, 'aborted!'], {
-        prefix: LogPrefix.DownloadManager
-      })
+      logWarning(
+        ['Updating of', params.appName, 'aborted!'],
+        LogPrefix.DownloadManager
+      )
       notify({ title, body: i18next.t('notify.update.canceled') })
     } else if (status === 'done') {
       notify({
@@ -165,15 +171,17 @@ async function updateQueueElement(params: InstallParams): Promise<{
         body: i18next.t('notify.update.finished')
       })
 
-      logInfo(['Finished updating of', params.appName], {
-        prefix: LogPrefix.DownloadManager
-      })
+      logInfo(
+        ['Finished updating of', params.appName],
+        LogPrefix.DownloadManager
+      )
     }
     return { status: 'done' }
   } catch (error) {
-    logError(['Updating of', params.appName, 'failed with:', error], {
-      prefix: LogPrefix.DownloadManager
-    })
+    logError(
+      ['Updating of', params.appName, 'failed with:', error],
+      LogPrefix.DownloadManager
+    )
 
     sendFrontendMessage('gameStatusUpdate', {
       appName,
