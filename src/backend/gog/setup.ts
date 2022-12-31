@@ -10,7 +10,7 @@ import { copySync } from 'fs-extra'
 import path from 'node:path'
 import { GOGLibrary } from './library'
 import { GameInfo, InstalledInfo } from 'common/types'
-import { execAsync, quoteIfNecessary, spawnAsync } from '../utils'
+import { execAsync, getShellPath, quoteIfNecessary, spawnAsync } from '../utils'
 import { GameConfig } from '../game_config'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { userHome, isWindows, execOptions } from '../constants'
@@ -18,6 +18,7 @@ import ini from 'ini'
 import shlex from 'shlex'
 import { GlobalConfig } from '../config'
 import { isOnline } from '../online_monitor'
+import { getWinePath } from 'backend/launcher'
 
 /**
  * Handles setup instructions like create folders, move files, run exe, create registry entry etc...
@@ -49,9 +50,8 @@ async function setup(
 
   let commandPrefix = ''
 
+  const gameSettings = GameConfig.get(appName).config
   if (!isWindows) {
-    const gameSettings = GameConfig.get(appName).config
-
     const isCrossover = gameSettings.wineVersion.type === 'crossover'
     const crossoverBottle = gameSettings.wineCrossoverBottle
     const crossoverEnv =
@@ -87,12 +87,17 @@ async function setup(
       appName
     )
 
+    const localAppData = isWindows
+      ? await getShellPath('%APPDATA%')
+      : await getWinePath({ path: '%APPDATA%', gameSettings })
+
     // In the future we need to find more path cases
     const pathsValues = new Map<string, string>([
       ['productid', appName],
       ['app', `${!isWindows ? 'Z:' : ''}${gameInfo.install.install_path}`],
       ['support', supportDir],
-      ['supportdir', supportDir]
+      ['supportdir', supportDir],
+      ['localappdata', localAppData]
     ])
 
     for (const action of instructions) {
