@@ -349,6 +349,13 @@ const GameCard = ({
       show: isInstalling || isUpdating
     },
     {
+      // open the game page
+      label: t('button.details', 'Details'),
+      onclick: () =>
+        navigate(`/gamepage/${runner}/${appName}`, { state: { gameInfo } }),
+      show: true
+    },
+    {
       // hide
       label: t('button.hide_game', 'Hide Game'),
       onclick: () => hiddenGames.add(appName, title),

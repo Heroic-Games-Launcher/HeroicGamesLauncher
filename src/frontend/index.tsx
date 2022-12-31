@@ -46,6 +46,8 @@ i18next
   // learn more: https://github.com/i18next/i18next-browser-languageDetector
   .use(initReactI18next)
   .init({
+    returnEmptyString: false,
+    returnNull: false,
     fallbackLng: 'en',
     interpolation: {
       escapeValue: false
