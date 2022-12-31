@@ -18,7 +18,7 @@ import ini from 'ini'
 import shlex from 'shlex'
 import { GlobalConfig } from '../config'
 import { isOnline } from '../online_monitor'
-import { getWinePath } from 'backend/launcher'
+import { getWinePath } from '../launcher'
 
 /**
  * Handles setup instructions like create folders, move files, run exe, create registry entry etc...
