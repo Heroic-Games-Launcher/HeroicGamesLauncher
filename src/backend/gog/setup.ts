@@ -15,8 +15,10 @@ import { GameConfig } from '../game_config'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { userHome, isWindows, execOptions } from '../constants'
 import ini from 'ini'
+import shlex from 'shlex'
 import { GlobalConfig } from '../config'
 import { isOnline } from '../online_monitor'
+
 /**
  * Handles setup instructions like create folders, move files, run exe, create registry entry etc...
  * For Galaxy games only (Windows)
@@ -172,19 +174,36 @@ async function setup(
           }" /nodesktopshorctut /nodesktopshortcut`
 
           const workingDir = handlePathVars(
-            actionArguments.workingDir.replace(
+            actionArguments?.workingDir?.replace(
               '{app}',
               gameInfo.install.install_path
             ),
             pathsValues
           )
 
-          const executablePath = path.join(
+          let executablePath = path.join(
             handlePathVars(
               executableName.replace('{app}', gameInfo.install.install_path),
               pathsValues
             )
           )
+
+          // If exectuable doesn't exist in desired location search in supportDir
+          if (!existsSync(executablePath)) {
+            const alternateLocation = path.join(supportDir, executableName)
+            if (existsSync(alternateLocation)) {
+              executablePath = alternateLocation
+            } else {
+              logError(
+                [
+                  "Couldn't find executable, skipping this step, tried",
+                  executablePath,
+                  alternateLocation
+                ],
+                LogPrefix.Gog
+              )
+            }
+          }
 
           let command = `${commandPrefix} "${executablePath}" ${exeArguments}`
           // Requires testing
@@ -199,8 +218,8 @@ async function setup(
               LogPrefix.Gog
             )
             await spawnAsync('powershell', [
-              ...command.split(' '),
-              ...exeArguments.split(' ')
+              ...shlex.split(command),
+              ...shlex.split(exeArguments)
             ])
             break
           }
@@ -333,6 +352,54 @@ async function setup(
         ],
     */
     //TODO
+
+    if (instructions[0]?.gameID !== appName) {
+      logError('Setup: Unexpected instruction gameID missmatch', LogPrefix.Gog)
+      return
+    }
+
+    const supportDir = path.join(
+      gameInfo.install.install_path!,
+      'support',
+      appName
+    )
+    const infoPath = path.join(
+      gameInfo.install.install_path!,
+      `goggame-${appName}.info`
+    )
+    let Language = 'english'
+    // Load game language data
+    if (existsSync(infoPath)) {
+      const contents = readFileSync(infoPath, 'utf-8')
+      Language = JSON.parse(contents).language
+      Language = Language.toLowerCase()
+    }
+
+    const exeArguments = `/VERYSILENT /DIR="${!isWindows ? 'Z:' : ''}${
+      gameInfo.install.install_path
+    }" /Language=${Language} /LANG=${Language} /ProductId=${appName} /galaxyclient /buildId=${
+      gameInfo.install.buildId
+    } /versionName="${
+      gameInfo.install.version
+    }" /nodesktopshorctut /nodesktopshortcut`
+
+    const executablePath = path.join(supportDir, instructions[0].executable)
+
+    let command = `${commandPrefix} "${executablePath}" ${exeArguments}`
+    // Requires testing
+    if (isWindows) {
+      command = `Start-Process -FilePath "${executablePath}" -Verb RunAs -ArgumentList`
+      logInfo(['Setup: Executing', command, `${supportDir}`], LogPrefix.Gog)
+      await spawnAsync('powershell', [
+        ...shlex.split(command),
+        ...shlex.split(exeArguments)
+      ])
+    }
+    logInfo(['Setup: Executing', command, `${supportDir}`], LogPrefix.Gog)
+    await execAsync(command, {
+      ...execOptions,
+      cwd: supportDir
+    })
   }
   logInfo('Setup: Finished', LogPrefix.Gog)
 }
@@ -364,7 +431,7 @@ async function obtainSetupInstructions(gameInfo: GameInfo) {
   // Get data only if it's V1 depot game
   if (buildItem?.generation === 1) {
     const metaResponse = await axios.get(buildItem.link)
-    return metaResponse.data?.support_commands
+    return metaResponse.data.product?.support_commands
   }
 
   // TODO: find if there are V2 games with something like support_commands in manifest
