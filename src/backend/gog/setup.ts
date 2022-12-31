@@ -394,12 +394,13 @@ async function setup(
         ...shlex.split(command),
         ...shlex.split(exeArguments)
       ])
+    } else {
+      logInfo(['Setup: Executing', command, `${supportDir}`], LogPrefix.Gog)
+      await execAsync(command, {
+        ...execOptions,
+        cwd: supportDir
+      })
     }
-    logInfo(['Setup: Executing', command, `${supportDir}`], LogPrefix.Gog)
-    await execAsync(command, {
-      ...execOptions,
-      cwd: supportDir
-    })
   }
   logInfo('Setup: Finished', LogPrefix.Gog)
 }
