@@ -53,6 +53,10 @@ const useSettingsContext = ({ appName, gameInfo, runner }: Props) => {
     isMacNative
   }
 
+  if (Object.keys(contextValues.config).length === 0) {
+    return null
+  }
+
   return contextValues
 }
 

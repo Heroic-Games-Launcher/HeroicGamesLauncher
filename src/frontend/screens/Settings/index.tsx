@@ -71,14 +71,14 @@ function Settings() {
   }
 
   // create setting context functions
-  const contextValues: SettingsContextType = useSettingsContext({
+  const contextValues: SettingsContextType | null = useSettingsContext({
     appName,
     gameInfo,
     runner
   })
 
   // render `loading` while we fetch the settings
-  if (!title) {
+  if (!title || !contextValues) {
     return <UpdateComponent />
   }
 

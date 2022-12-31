@@ -103,9 +103,13 @@ export default function GamesSettings({ useDetails = true }: Props) {
       )}
 
       <Collapsible
-        isOpen={isWin}
+        isOpen={nativeGame}
         isCollapsible={useDetails}
-        summary={t('settings.navbar.other')}
+        summary={
+          nativeGame
+            ? t('settings.navbar.advanced', 'Advanced')
+            : t('settings.navbar.other', 'Other')
+        }
       >
         <AlternativeExe />
 
