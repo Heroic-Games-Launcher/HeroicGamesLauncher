@@ -115,7 +115,7 @@ describe('logger/logfile.ts', () => {
       // @ts-ignore replaceAll error
       `heroic-${date.toISOString().replaceAll(':', '_')}.log`
     )
-    date.setFullYear(2021)
+    date.setFullYear(2022)
     const yearOutdatedLogFile = join(
       tmpDir.name,
       // @ts-ignore replaceAll error
