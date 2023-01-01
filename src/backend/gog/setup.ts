@@ -432,7 +432,8 @@ async function obtainSetupInstructions(gameInfo: GameInfo) {
   const buildData = buildResponse.data
   const buildItem = buildData.items.find(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (value: any) => value.build_id === buildId
+    (value: any) =>
+      value.legacy_build_id === buildId || value.build_id === buildId
   )
   // Get data only if it's V1 depot game
   if (buildItem?.generation === 1) {
