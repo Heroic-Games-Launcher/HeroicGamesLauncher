@@ -268,9 +268,24 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   // Add WINEPREFIX / STEAM_COMPAT_DATA_PATH / CX_BOTTLE
   const steamInstallPath = join(flatPakHome, '.steam', 'steam')
   switch (wineVersion.type) {
-    case 'wine':
+    case 'wine': {
       ret.WINEPREFIX = winePrefix
+
+      // Disable Winemenubuilder to not mess with file associations
+      const wmbDisableString = 'winemenubuilder='
+      // If the user already set WINEDLLOVERRIDES, append to the end
+      const dllOverridesVar = gameSettings.enviromentOptions.find(
+        ({ key }) => key.toLowerCase() === 'winemenubuilder'
+      )
+      if (dllOverridesVar) {
+        ret[dllOverridesVar.key] =
+          dllOverridesVar.value + ',' + wmbDisableString
+      } else {
+        ret.WINEDLLOVERRIDES = wmbDisableString
+      }
+
       break
+    }
     case 'proton':
       ret.STEAM_COMPAT_CLIENT_INSTALL_PATH = steamInstallPath
       ret.STEAM_COMPAT_DATA_PATH = winePrefix
