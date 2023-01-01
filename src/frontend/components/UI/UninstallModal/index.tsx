@@ -1,4 +1,4 @@
-import './index.css'
+import './index.scss'
 import React, { useContext, useEffect, useState } from 'react'
 import {
   Dialog,
@@ -23,8 +23,9 @@ const UninstallModal: React.FC<UninstallModalProps> = function (props) {
     useContext(ContextProvider)
   const [isWindowsOnLinux, setIsWindowsOnLinux] = useState(false)
   const [winePrefix, setWinePrefix] = useState('')
-  const [checkboxChecked, setCheckboxChecked] = useState(false)
-  const [settingcheckboxChecked, setsettingCheckboxChecked] = useState(false)
+  const [deletePrefixChecked, setDeletePrefixChecked] = useState(false)
+  const [deleteSettingsChecked, setDeleteSettingsChecked] = useState(false)
+  const [disableDeleteWine, setDisableDeleteWine] = useState(false)
   const { t } = useTranslation('gamepage')
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const navigate = useNavigate()
@@ -32,33 +33,41 @@ const UninstallModal: React.FC<UninstallModalProps> = function (props) {
   const checkIfWindowsOnLinux = async () => {
     // This assumes native games are installed should be changed in the future
     // if we add option to install windows games even if native is available
-    if (platform === 'linux') {
-      const gameInfo = await window.api.getGameInfo(props.appName, props.runner)
-      if (!gameInfo) {
-        return
-      }
-      const {
-        install: { platform: installedplatform }
-      } = gameInfo
 
-      if (installedplatform?.toLowerCase() === 'windows') {
-        const gameSettings = await window.api.getGameSettings(
-          props.appName,
-          props.runner
-        )
-        if (!gameSettings) {
-          return
-        }
-        setWinePrefix(gameSettings.winePrefix)
-        setIsWindowsOnLinux(true)
-      }
-    }
     setShowUninstallModal(true)
+
+    if (platform !== 'linux') {
+      return
+    }
+
+    const gameInfo = await window.api.getGameInfo(props.appName, props.runner)
+    if (!gameInfo) {
+      return
+    }
+
+    const { install } = gameInfo
+    if (install.platform?.toLowerCase() !== 'windows') {
+      return
+    }
+
+    const gameSettings = await window.api.getGameSettings(
+      props.appName,
+      props.runner
+    )
+    if (!gameSettings) {
+      return
+    }
+
+    const defaultSettings = await window.api.requestGameSettings('default')
+
+    setIsWindowsOnLinux(true)
+    setWinePrefix(gameSettings.winePrefix)
+    setDisableDeleteWine(gameSettings.winePrefix === defaultSettings.winePrefix)
   }
 
   useEffect(() => {
     checkIfWindowsOnLinux()
-  })
+  }, [])
 
   const storage: Storage = window.localStorage
   const uninstallGame = async () => {
@@ -72,8 +81,8 @@ const UninstallModal: React.FC<UninstallModalProps> = function (props) {
     await window.api.uninstall(
       props.appName,
       props.runner,
-      checkboxChecked,
-      settingcheckboxChecked
+      deletePrefixChecked,
+      deleteSettingsChecked
     )
     if (props.runner === 'sideload') {
       navigate('/')
@@ -90,7 +99,11 @@ const UninstallModal: React.FC<UninstallModalProps> = function (props) {
   return (
     <>
       {showUninstallModal && (
-        <Dialog onClose={props.onClose} showCloseButton>
+        <Dialog
+          onClose={props.onClose}
+          showCloseButton
+          className="uninstall-modal"
+        >
           <DialogHeader onClose={props.onClose}>
             {t('gamepage:box.uninstall.title')}
           </DialogHeader>
@@ -101,29 +114,37 @@ const UninstallModal: React.FC<UninstallModalProps> = function (props) {
             {isWindowsOnLinux && (
               <ToggleSwitch
                 htmlId="uninstallCheckbox"
-                value={checkboxChecked}
+                value={deletePrefixChecked}
                 title={t('gamepage:box.uninstall.checkbox', {
                   defaultValue:
                     "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
                   prefix: winePrefix,
                   newLine: '\n'
                 })}
+                disabled={disableDeleteWine}
                 handleChange={() => {
-                  setCheckboxChecked(!checkboxChecked)
+                  setDeletePrefixChecked(!deletePrefixChecked)
                 }}
               />
             )}
-            <br />
+            {disableDeleteWine && (
+              <p className="default-wine-warning">
+                {t(
+                  'gamepage:box.uninstall.prefix_warning',
+                  'The Wine prefix for this game is the default prefix. If you really want to delete it, you have to do it manually.'
+                )}
+              </p>
+            )}
             <ToggleSwitch
               htmlId="uninstallsettingCheckbox"
-              value={settingcheckboxChecked}
+              value={deleteSettingsChecked}
               title={t('gamepage:box.uninstall.settingcheckbox', {
                 defaultValue:
                   "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
                 newLine: '\n'
               })}
               handleChange={() => {
-                setsettingCheckboxChecked(!settingcheckboxChecked)
+                setDeleteSettingsChecked(!deleteSettingsChecked)
               }}
             />
           </DialogContent>
