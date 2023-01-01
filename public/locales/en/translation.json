@@ -574,7 +574,7 @@
             "general": "General",
             "log": "Log",
             "other": "Other",
-            "sync": "Save-Sync",
+            "sync": "Cloud Saves Sync",
             "wineExt": "Wine Extensions"
         },
         "open-config-file": "Open Config File",

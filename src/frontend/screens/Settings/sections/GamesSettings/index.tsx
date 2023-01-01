@@ -36,6 +36,7 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import useSetting from 'frontend/hooks/useSetting'
 import { defaultWineVersion } from '../..'
 import Collapsible from 'frontend/components/UI/Collapsible/Collapsible'
+import SyncSaves from '../SyncSaves'
 
 type Props = {
   useDetails?: boolean
@@ -50,6 +51,7 @@ export default function GamesSettings({ useDetails = true }: Props) {
   const isLinux = platform === 'linux'
   const isWin = platform === 'win32'
   const isCrossover = wineVersion?.type === 'crossover'
+  const hasCloudSaves = gameInfo?.cloud_save_enabled
 
   const nativeGame =
     isWin ||
@@ -151,6 +153,16 @@ export default function GamesSettings({ useDetails = true }: Props) {
 
         <PreferedLanguage />
       </Collapsible>
+
+      {hasCloudSaves && (
+        <Collapsible
+          isOpen={false}
+          isCollapsible={useDetails}
+          summary={t('settings.navbar.sync', 'Cloud Saves Sync')}
+        >
+          <SyncSaves />
+        </Collapsible>
+      )}
     </>
   )
 }
