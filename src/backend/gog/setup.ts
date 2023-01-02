@@ -35,7 +35,7 @@ async function setup(
   if (installInfo && gameInfo) {
     gameInfo.install = installInfo
   }
-  if (!gameInfo || gameInfo.install.platform === 'linux') {
+  if (!gameInfo || gameInfo.install.platform !== 'windows') {
     return
   }
   const instructions = await obtainSetupInstructions(gameInfo)
@@ -91,13 +91,18 @@ async function setup(
       ? await getShellPath('%APPDATA%')
       : await getWinePath({ path: '%APPDATA%', gameSettings })
 
+    const documentsPath = isWindows
+      ? await getShellPath('%USERPROFILE%/Documents')
+      : await getWinePath({ path: '%USERPROFILE%/Documents', gameSettings })
+
     // In the future we need to find more path cases
     const pathsValues = new Map<string, string>([
       ['productid', appName],
       ['app', `${!isWindows ? 'Z:' : ''}${gameInfo.install.install_path}`],
       ['support', supportDir],
       ['supportdir', supportDir],
-      ['localappdata', localAppData]
+      ['localappdata', localAppData],
+      ['userdocs', documentsPath]
     ])
 
     for (const action of instructions) {
