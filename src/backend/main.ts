@@ -351,6 +351,8 @@ if (!gotTheLock) {
         loadPath: path.join(publicDir, 'locales', '{{lng}}', '{{ns}}.json')
       },
       debug: false,
+      returnEmptyString: false,
+      returnNull: false,
       fallbackLng: 'en',
       lng: language,
       supportedLngs: [
