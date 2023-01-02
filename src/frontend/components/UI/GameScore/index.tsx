@@ -104,9 +104,7 @@ export default function GameScore({ title, id }: Props) {
                   `https://www.igdb.com/games/${metacritic.urlid}`
                 )
               } else {
-                createNewWindow(
-                  `https://www.igdb.com/search?type=1&q=${title}`
-                )
+                createNewWindow(`https://www.igdb.com/search?type=1&q=${title}`)
               }
             }}
           >
