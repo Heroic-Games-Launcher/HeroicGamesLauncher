@@ -10,7 +10,7 @@ import { logError, logInfo, LogPrefix } from '../../logger/logger'
 import { removeSpecialcharacters } from '../../utils'
 import { pcGamingWikiInfoStore } from './electronStores'
 import axios from 'axios'
-import { PCGamingWikiInfo } from 'common/types'
+import { GameScoreInfo, PCGamingWikiInfo } from 'common/types'
 
 export async function getInfoFromPCGamingWiki(
   title: string,
@@ -57,10 +57,9 @@ export async function getInfoFromPCGamingWiki(
     if (!wikitext) {
       return null
     }
-
-    const metacritic = wikitext.match(metacriticRegEx)?.[1] ?? ''
-    const opencritic = wikitext.match(opencriticRegEx)?.[1] ?? ''
-    const igdb = wikitext.match(idgbRegEx)?.[1] ?? ''
+    const metacritic = getGameScore(wikitext, metacriticRegEx)
+    const opencritic = getGameScore(wikitext, opencriticRegEx)
+    const igdb = getGameScore(wikitext, idgbRegEx)
     const steamID = wikitext.match(steamIDRegEx)?.[1] ?? ''
     const howLongToBeatID = wikitext.match(howLongToBeatIDRegEx)?.[1] ?? ''
     const direct3DVersions = wikitext.match(direct3DVersionsRegEx)?.[1] ?? ''
@@ -119,4 +118,13 @@ async function getWikiText(id: string): Promise<string | null> {
   }
 
   return data.parse.wikitext['*']
+}
+
+function getGameScore(text: string, regex: RegExp): GameScoreInfo {
+  const regexMatch = text.match(regex)
+
+  return {
+    score: regexMatch?.[2] ?? '',
+    urlid: regexMatch?.[1] ?? ''
+  }
 }

@@ -613,12 +613,16 @@ export interface ToolArgs {
 
 export type StatusPromise = Promise<{ status: 'done' | 'error' }>
 
+export interface GameScoreInfo {
+  score: string
+  urlid: string
+}
 export interface PCGamingWikiInfo {
   timestampLastFetch: string
   steamID: string
   howLongToBeatID: string
-  metacritic: string
-  opencritic: string
-  igdb: string
+  metacritic: GameScoreInfo
+  opencritic: GameScoreInfo
+  igdb: GameScoreInfo
   direct3DVersions: string[]
 }

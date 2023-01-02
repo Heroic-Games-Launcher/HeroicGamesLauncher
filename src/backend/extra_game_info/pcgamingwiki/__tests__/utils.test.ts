@@ -156,9 +156,18 @@ describe('getPCGamingWikiInfo', () => {
 const testGameScore = {
   timestampLastFetch: Date(),
   steamID: '100',
-  metacritic: '10',
-  opencritic: '22',
-  igdb: '40',
+  metacritic: {
+    score: '10',
+    urlid: 'the-witcher-3-wild-hunt'
+  },
+  opencritic: {
+    score: '22',
+    urlid: '463/the-witcher-3-wild-hunt'
+  },
+  igdb: {
+    score: '40',
+    urlid: 'the-witcher-3-wild-hunt'
+  },
   howLongToBeatID: '10101',
   direct3DVersions: ['11', '12']
 } as PCGamingWikiInfo

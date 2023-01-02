@@ -51,12 +51,12 @@ export default function GameScore({ title, id }: Props) {
           <div
             className={classNames(
               'gamescore__square',
-              getColorClass(metacritic)
+              getColorClass(metacritic.score)
             )}
           >
             <div className="gamescore__square__title">MetaCritic</div>
             <div className="gamescore__square__value">
-              {`${metacritic}` || '?'}
+              {`${metacritic.score}`}
             </div>
           </div>
         )}
@@ -64,19 +64,19 @@ export default function GameScore({ title, id }: Props) {
           <div
             className={classNames(
               'gamescore__square',
-              getColorClass(opencritic)
+              getColorClass(opencritic.score)
             )}
           >
             <div className="gamescore__square__title">OpenCritic</div>
             <div className="gamescore__square__value">
-              {`${opencritic}` || '?'}
+              {`${opencritic.score}`}
             </div>
           </div>
         )}
         {igdb && (
-          <div className={classNames('gamescore__square', getColorClass(igdb))}>
+          <div className={classNames('gamescore__square', getColorClass(igdb.score))}>
             <div className="gamescore__square__title">IGDB</div>
-            <div className="gamescore__square__value">{`${igdb}` || '?'}</div>
+            <div className="gamescore__square__value">{`${igdb.score}`}</div>
           </div>
         )}
       </div>
