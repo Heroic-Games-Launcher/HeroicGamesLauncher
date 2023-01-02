@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './index.scss'
 import { PCGamingWikiInfo } from 'common/types'
 import classNames from 'classnames'
+import { createNewWindow } from 'frontend/helpers'
 
 type Props = {
   title: string
@@ -47,12 +48,23 @@ export default function GameScore({ title, id }: Props) {
     <details className="gamescoreWrapper">
       <summary>Game Scores</summary>
       <div className="gamescore">
-        {metacritic && (
+        {metacritic.score && (
           <div
             className={classNames(
               'gamescore__square',
               getColorClass(metacritic.score)
             )}
+            onClick={() => {
+              if (metacritic.urlid) {
+                createNewWindow(
+                  `https://www.metacritic.com/game/pc/${metacritic.urlid}`
+                )
+              } else {
+                createNewWindow(
+                  `https://www.metacritic.com/search/all/${title}/results`
+                )
+              }
+            }}
           >
             <div className="gamescore__square__title">MetaCritic</div>
             <div className="gamescore__square__value">
@@ -60,12 +72,19 @@ export default function GameScore({ title, id }: Props) {
             </div>
           </div>
         )}
-        {opencritic && (
+        {opencritic.score && (
           <div
             className={classNames(
               'gamescore__square',
               getColorClass(opencritic.score)
             )}
+            onClick={() => {
+              if (opencritic.urlid) {
+                createNewWindow(
+                  `https://opencritic.com/game/${opencritic.urlid}`
+                )
+              }
+            }}
           >
             <div className="gamescore__square__title">OpenCritic</div>
             <div className="gamescore__square__value">
@@ -73,8 +92,24 @@ export default function GameScore({ title, id }: Props) {
             </div>
           </div>
         )}
-        {igdb && (
-          <div className={classNames('gamescore__square', getColorClass(igdb.score))}>
+        {igdb.score && (
+          <div
+            className={classNames(
+              'gamescore__square',
+              getColorClass(igdb.score)
+            )}
+            onClick={() => {
+              if (metacritic.urlid) {
+                createNewWindow(
+                  `https://www.igdb.com/games/${metacritic.urlid}`
+                )
+              } else {
+                createNewWindow(
+                  `https://www.igdb.com/search?type=1&q=${title}`
+                )
+              }
+            }}
+          >
             <div className="gamescore__square__title">IGDB</div>
             <div className="gamescore__square__value">{`${igdb.score}`}</div>
           </div>
