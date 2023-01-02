@@ -67,12 +67,13 @@ describe('getPCGamingWikiInfo', () => {
   })
 
   test('cached data outdated', async () => {
-    const oneMonthAgo = new Date()
+    const oneMonthAgo = new Date(testGameScore.timestampLastFetch)
     oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1)
 
-    jest
-      .spyOn(pcGamingWikiInfoStore, 'get')
-      .mockReturnValue({ ...testGameScore, timestampLastFetch: oneMonthAgo })
+    jest.spyOn(pcGamingWikiInfoStore, 'get').mockReturnValue({
+      ...testGameScore,
+      timestampLastFetch: oneMonthAgo.toString()
+    })
 
     const mockAxios = jest.spyOn(axios, 'get').mockResolvedValueOnce({
       data: { cargoquery: [{ title: { pageID: 1 } }] }
