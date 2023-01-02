@@ -1,0 +1,20 @@
+{
+    "button": {
+        "login": "Oturum Aç"
+    },
+    "message": {
+        "part1": "Oturum açabilmeniz ve oyunlarınızı kurabilmeniz için öncelikle aşağıdaki adımları uygulamanız gerekiyor:",
+        "part2": "Epic Store'u",
+        "part3": "buradan",
+        "part4": "açın, hesabınıza giriş yapın ve",
+        "part5": "authorization code bilgi numarasını kopyalayın",
+        "part6": "Aşağıdaki kutucuğa",
+        "part7": "authorization code numaranızı",
+        "part8": "yapıştırın ve oturum aç düğmesine tıklayın."
+    },
+    "status": {
+        "error": "Hata",
+        "loading": "Oyun listesi yükleniyor, lütfen bekleyin"
+    },
+    "welcome": "Hoş Geldiniz!"
+}

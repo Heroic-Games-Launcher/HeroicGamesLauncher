@@ -5,7 +5,7 @@ import { GlobalConfig } from '../config'
 import { configStore } from '../constants'
 
 const maxRecentGames = async () => {
-  const { maxRecentGames } = await GlobalConfig.get().getSettings()
+  const { maxRecentGames } = GlobalConfig.get().getSettings()
   return maxRecentGames || 5
 }
 

@@ -44,9 +44,10 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
   const game = getGame(appName, 'legendary')
   const { save_path } = game.getGameInfo()
   if (save_path) {
-    logDebug(['Legendary has a save path stored, discarding it:', save_path], {
-      prefix: LogPrefix.Legendary
-    })
+    logDebug(
+      ['Legendary has a save path stored, discarding it:', save_path],
+      LogPrefix.Legendary
+    )
     // FIXME: This isn't really that safe
     try {
       const installedJsonLoc = join(legendaryConfigPath, 'installed.json')
@@ -59,9 +60,7 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
         JSON.stringify(installedJsonData, undefined, '  ')
       )
     } catch (e) {
-      logError(['Failed to discard save path:', e], {
-        prefix: LogPrefix.Legendary
-      })
+      logError(['Failed to discard save path:', e], LogPrefix.Legendary)
       return save_path
     }
   }
@@ -70,9 +69,7 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
     await verifyWinePrefix(await game.getSettings())
   }
 
-  logInfo(['Computing default save path for', appName], {
-    prefix: LogPrefix.Legendary
-  })
+  logInfo(['Computing default save path for', appName], LogPrefix.Legendary)
   const abortControllerName = appName + '-savePath'
   await runLegendaryCommand(
     [
@@ -95,14 +92,13 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
   const { save_path: new_save_path, save_folder } =
     LegendaryLibrary.get().getGameInfo(appName, true)!
   if (!new_save_path) {
-    logError(['Unable to compute default save path for', appName], {
-      prefix: LogPrefix.Legendary
-    })
+    logError(
+      ['Unable to compute default save path for', appName],
+      LogPrefix.Legendary
+    )
     return save_folder
   }
-  logInfo(['Computed save path:', new_save_path], {
-    prefix: LogPrefix.Legendary
-  })
+  logInfo(['Computed save path:', new_save_path], LogPrefix.Legendary)
   return new_save_path
 }
 
@@ -176,9 +172,7 @@ async function getDefaultGogSavePaths(
             'inserting variable itself into save path.',
             'User will have to manually correct the path'
           ],
-          {
-            prefix: LogPrefix.Gog
-          }
+          LogPrefix.Gog
         )
       }
       locationWithVariablesRemoved = locationWithVariablesRemoved.replace(
@@ -203,9 +197,10 @@ async function getDefaultGogSavePaths(
         try {
           absolutePath = realpathSync(absolutePath)
         } catch {
-          logWarning(['Failed to run `realpath` on', `"${absolutePath}"`], {
-            prefix: LogPrefix.Gog
-          })
+          logWarning(
+            ['Failed to run `realpath` on', `"${absolutePath}"`],
+            LogPrefix.Gog
+          )
         }
       }
     }

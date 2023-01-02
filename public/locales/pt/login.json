@@ -1,0 +1,20 @@
+{
+    "button": {
+        "login": "Entrar"
+    },
+    "message": {
+        "part1": "Para que você possa entrar e instalar os seus jogos, é necessário seguir os seguintes passos:",
+        "part2": "Abra a",
+        "part3": "Loja da Epic aqui",
+        "part4": ", entre na sua conta e copie o",
+        "part5": "\"authorization code\" exibido",
+        "part6": "Cole apenas o",
+        "part7": "código \"authorization code\"",
+        "part8": "na caixa abaixo e clique em Entrar."
+    },
+    "status": {
+        "error": "Erro",
+        "loading": "Carregando lista de jogos"
+    },
+    "welcome": "Bem Vindo!"
+}

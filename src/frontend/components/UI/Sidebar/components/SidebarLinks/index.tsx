@@ -23,6 +23,7 @@ import { Runner, GameInfo } from 'common/types'
 import './index.css'
 import QuitButton from '../QuitButton'
 import { LocationState } from 'frontend/types'
+import { SHOW_EXTERNAL_LINK_DIALOG_STORAGE_KEY } from 'frontend/components/UI/ExternalLinkDialog'
 
 type PathSplit = [
   a: undefined,
@@ -42,8 +43,14 @@ export default function SidebarLinks() {
   const location = useLocation() as { pathname: string }
   const [, , runner, appName, type] = location.pathname.split('/') as PathSplit
 
-  const { epic, gog, platform, activeController, refreshLibrary } =
-    useContext(ContextProvider)
+  const {
+    epic,
+    gog,
+    platform,
+    activeController,
+    refreshLibrary,
+    handleExternalLinkDialog
+  } = useContext(ContextProvider)
 
   const isStore = location.pathname.includes('store')
   const isSettings = location.pathname.includes('settings')
@@ -102,6 +109,17 @@ export default function SidebarLinks() {
       return refreshLibrary({ runInBackground: true, fullRefresh: true })
     }
     return
+  }
+
+  function handleExternalLink(linkCallback: () => void) {
+    const showExternalLinkDialog: boolean = JSON.parse(
+      localStorage.getItem(SHOW_EXTERNAL_LINK_DIALOG_STORAGE_KEY) ?? 'true'
+    )
+    if (showExternalLinkDialog) {
+      handleExternalLinkDialog({ showDialog: true, linkCallback })
+    } else {
+      linkCallback()
+    }
   }
 
   return (
@@ -366,7 +384,10 @@ export default function SidebarLinks() {
           <span>{t('docs', 'Documentation')}</span>
         </>
       </NavLink>
-      <button className="Sidebar__item" onClick={() => openDiscordLink()}>
+      <button
+        className="Sidebar__item"
+        onClick={() => handleExternalLink(openDiscordLink)}
+      >
         <div className="Sidebar__itemIcon">
           <FontAwesomeIcon
             icon={faDiscord}
@@ -375,13 +396,19 @@ export default function SidebarLinks() {
         </div>
         <span>{t('userselector.discord', 'Discord')}</span>
       </button>
-      <button className="Sidebar__item" onClick={window.api.openPatreonPage}>
+      <button
+        className="Sidebar__item"
+        onClick={() => handleExternalLink(window.api.openPatreonPage)}
+      >
         <div className="Sidebar__itemIcon">
           <FontAwesomeIcon icon={faPatreon} title="Patreon" />
         </div>
         <span>Patreon</span>
       </button>
-      <button className="Sidebar__item" onClick={window.api.openKofiPage}>
+      <button
+        className="Sidebar__item"
+        onClick={() => handleExternalLink(window.api.openKofiPage)}
+      >
         <div className="Sidebar__itemIcon">
           <FontAwesomeIcon icon={faCoffee} title="Ko-fi" />
         </div>

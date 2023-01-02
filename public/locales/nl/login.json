@@ -1,0 +1,20 @@
+{
+    "button": {
+        "login": "Inloggen"
+    },
+    "message": {
+        "part1": "Om in te loggen en je spellen te installeren, moet je de volgende stappen volgen:",
+        "part2": "Open de",
+        "part3": "Epic Store hier",
+        "part4": ", Log in met je account en kopieer je",
+        "part5": "authorization code informatie nummer",
+        "part6": "Plak uw",
+        "part7": "authorization code nummer",
+        "part8": "in het invoervak hier onder, en klik op de login knop."
+    },
+    "status": {
+        "error": "Error",
+        "loading": "Spellen lijst word geladen, geduld alstublieft"
+    },
+    "welcome": "Welkom!"
+}

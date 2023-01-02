@@ -143,7 +143,7 @@ export function getSteamCompatFolder() {
 }
 
 export async function getSteamLibraries(): Promise<string[]> {
-  const { defaultSteamPath } = await GlobalConfig.get().getSettings()
+  const { defaultSteamPath } = GlobalConfig.get().getSettings()
   const path = defaultSteamPath.replaceAll("'", '')
   const vdfFile = join(path, 'steamapps', 'libraryfolders.vdf')
   const libraries = ['/usr/share/steam']
@@ -160,9 +160,10 @@ export async function getSteamLibraries(): Promise<string[]> {
       (path) => existsSync(path)
     )
   }
-  logDebug('Unable to load Steam Libraries, libraryfolders.vdf not found', {
-    prefix: LogPrefix.Backend
-  })
+  logDebug(
+    'Unable to load Steam Libraries, libraryfolders.vdf not found',
+    LogPrefix.Backend
+  )
   return libraries
 }
 

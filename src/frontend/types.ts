@@ -23,7 +23,6 @@ export interface ContextType {
   setLanguage: (newLanguage: string) => void
   handleCategory: (value: Category) => void
   handlePlatformFilter: (value: string) => void
-  handleGameStatus: (game: GameStatus) => Promise<void>
   handleLayout: (value: string) => void
   handleSearch: (input: string) => void
   layout: string
@@ -77,6 +76,8 @@ export interface ContextType {
   dialogModalOptions: DialogModalOptions
   showDialogModal: (options: DialogModalOptions) => void
   showResetDialog: () => void
+  externalLinkDialogOptions: ExternalLinkDialogOptions
+  handleExternalLinkDialog: (options: ExternalLinkDialogOptions) => void
   sideloadedLibrary: GameInfo[]
   hideChangelogsOnStartup: boolean
   setHideChangelogsOnStartup: (value: boolean) => void
@@ -90,6 +91,11 @@ export type DialogModalOptions = {
   message?: string
   buttons?: Array<ButtonOptions>
   type?: DialogType
+}
+
+export interface ExternalLinkDialogOptions {
+  showDialog: boolean
+  linkCallback?: () => void
 }
 
 interface HiddenGame {
@@ -122,6 +128,7 @@ declare global {
     ) => Promise<string>
     setTheme: (themeClass: string) => void
   }
+
   interface WindowEventMap {
     'controller-changed': CustomEvent<{ controllerId: string }>
   }
