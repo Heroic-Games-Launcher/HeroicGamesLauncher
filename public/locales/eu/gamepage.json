@@ -36,7 +36,8 @@
             "checkbox_prefix": "Aurrizkia",
             "message": "Joko hau desinstatu nahi duzu?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
-            "title": "Desinslalatu"
+            "title": "Desinslalatu",
+            "prefix_warning": "Joko honen Wine aurrizkia lehenetsitako aurrizkia da. Benetan ezabatu nahi baduzu, eskuz egin behar duzu."
         },
         "update": {
             "message": "Joko honek eguneraketa bat du, orain eguneratu?",
@@ -68,7 +69,8 @@
         },
         "unhide_game": "Erakutsi jokoa",
         "uninstall": "Desinslalatu",
-        "update": "Eguneratu"
+        "update": "Eguneratu",
+        "details": "Xehetasunak"
     },
     "cloud_save_unsupported": "Onartu gabe",
     "disabled": "Desgaituta",
