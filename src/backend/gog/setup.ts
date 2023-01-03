@@ -212,6 +212,7 @@ async function setup(
                 ],
                 LogPrefix.Gog
               )
+              break
             }
           }
 
