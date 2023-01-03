@@ -13,6 +13,7 @@
   text-align: left;
   background: var(--navbar-background);
   overflow: auto;
+  overflow-x: hidden;
 }
 
 .Sidebar.collapsed {
@@ -62,12 +63,10 @@
   background-color: var(--navbar-active-background);
   transition: 0.2s;
   scale: 1.02;
-  width: 99%;
 }
 
 .Sidebar__item.SidebarLinks__subItem:hover {
   scale: 1;
-  width: 100%;
 }
 
 .Sidebar__item.active {
