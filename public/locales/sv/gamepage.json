@@ -35,7 +35,8 @@
             "checkbox": "Radera prefix: {{prefix}}{{newLine}}OBS: Denna åtgärd kan ej ångras och kommer även radera sparfiler.",
             "message": "Vill du avinstallera spelet?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
-            "title": "Avinstallera"
+            "title": "Avinstallera",
+            "prefix_warning": "Vinprefixet för det här spelet är standardprefixet. Om du verkligen vill ta bort det måste du göra det manuellt."
         },
         "update": {
             "message": "Det finns en speluppdatering, uppdatera nu?",
@@ -67,7 +68,8 @@
         },
         "unhide_game": "Visa dolt spel igen",
         "uninstall": "Avinstallera",
-        "update": "Uppdatera"
+        "update": "Uppdatera",
+        "details": "Detaljer"
     },
     "cloud_save_unsupported": "Stöds ej",
     "disabled": "Inaktiverad",
