@@ -36,7 +36,8 @@
             "checkbox_prefix": "Prefiks",
             "message": "Avinstaller dette spillet?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
-            "title": "Avinstaller"
+            "title": "Avinstaller",
+            "prefix_warning": "Vinprefikset for dette spillet er standardprefikset. Hvis du virkelig vil slette det, må du gjøre det manuelt."
         },
         "update": {
             "message": "Dette spillet har en oppdatering. Vil du bruke oppdatering nå?",
@@ -68,7 +69,8 @@
         },
         "unhide_game": "Vis spill",
         "uninstall": "Avinstaller",
-        "update": "Oppdater"
+        "update": "Oppdater",
+        "details": "Detaljer"
     },
     "cloud_save_unsupported": "Ustøttet",
     "disabled": "Funksjonshemmet",
