@@ -22,9 +22,7 @@ export class LegendaryUser {
     const errorMessage = (
       error: string
     ): { status: 'failed'; data: undefined } => {
-      logError(['Failed to login with Legendary:', error], {
-        prefix: LogPrefix.Legendary
-      })
+      logError(['Failed to login with Legendary:', error], LogPrefix.Legendary)
 
       return { status: 'failed', data: undefined }
     }
@@ -67,9 +65,10 @@ export class LegendaryUser {
     deleteAbortController(abortID)
 
     if (res.error || res.abort) {
-      logError(['Failed to logout:', res.error ?? 'abort by user'], {
-        prefix: LogPrefix.Legendary
-      })
+      logError(
+        ['Failed to logout:', res.error ?? 'abort by user'],
+        LogPrefix.Legendary
+      )
       return
     }
 
@@ -86,7 +85,7 @@ export class LegendaryUser {
     return existsSync(userInfo)
   }
 
-  public static async getUserInfo(): Promise<UserInfo | undefined> {
+  public static getUserInfo(): UserInfo | undefined {
     if (!LegendaryUser.isLoggedIn()) {
       configStore.delete('userInfo')
       return
@@ -102,9 +101,10 @@ export class LegendaryUser {
       configStore.set('userInfo', info)
       return info
     } catch (error) {
-      logError(`User info file corrupted, check ${userInfo}`, {
-        prefix: LogPrefix.Legendary
-      })
+      logError(
+        `User info file corrupted, check ${userInfo}`,
+        LogPrefix.Legendary
+      )
       return
     }
   }

@@ -76,7 +76,6 @@ const GameCard = ({
   const {
     libraryStatus,
     layout,
-    handleGameStatus,
     hiddenGames,
     favouriteGames,
     allTilesInColor,
@@ -204,7 +203,6 @@ const GameCard = ({
 
   const handleRemoveFromQueue = () => {
     window.api.removeFromDMQueue(appName)
-    handleGameStatus({ appName, status: 'done' })
   }
 
   const renderIcon = () => {
@@ -516,11 +514,6 @@ const GameCard = ({
     }
 
     if (isQueued) {
-      handleGameStatus({
-        appName,
-        runner,
-        status: 'done'
-      })
       storage.removeItem(appName)
       return window.api.removeFromDMQueue(appName)
     }

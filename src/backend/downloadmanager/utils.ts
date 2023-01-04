@@ -1,15 +1,12 @@
-import { BrowserWindow } from 'electron'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { getGame, isEpicServiceOffline, notify } from '../utils'
 import { InstallParams } from 'common/types'
 import i18next from 'i18next'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
 import { isOnline } from '../online_monitor'
+import { sendFrontendMessage } from '../main_window'
 
-async function installQueueElement(
-  mainWindow: BrowserWindow,
-  params: InstallParams
-): Promise<{
+async function installQueueElement(params: InstallParams): Promise<{
   status: 'done' | 'error' | 'abort'
   error?: string | undefined
 }> {
@@ -26,9 +23,10 @@ async function installQueueElement(
   const { title } = game.getGameInfo()
 
   if (!isOnline()) {
-    logWarning(`App offline, skipping install for game '${title}'.`, {
-      prefix: LogPrefix.Backend
-    })
+    logWarning(
+      `App offline, skipping install for game '${title}'.`,
+      LogPrefix.Backend
+    )
     return { status: 'error' }
   }
 
@@ -47,7 +45,7 @@ async function installQueueElement(
     }
   }
 
-  mainWindow.webContents.send('setGameStatus', {
+  sendFrontendMessage('gameStatusUpdate', {
     appName,
     runner,
     status: 'installing',
@@ -60,11 +58,12 @@ async function installQueueElement(
   })
 
   const errorMessage = (error: string) => {
-    logError(['Installing of', params.appName, 'failed with:', error], {
-      prefix: LogPrefix.DownloadManager
-    })
+    logError(
+      ['Installing of', params.appName, 'failed with:', error],
+      LogPrefix.DownloadManager
+    )
 
-    mainWindow.webContents.send('setGameStatus', {
+    sendFrontendMessage('gameStatusUpdate', {
       appName,
       runner,
       status: 'done'
@@ -82,9 +81,10 @@ async function installQueueElement(
     })
 
     if (status === 'abort') {
-      logWarning(['Installing of', params.appName, 'aborted!'], {
-        prefix: LogPrefix.DownloadManager
-      })
+      logWarning(
+        ['Installing of', params.appName, 'aborted!'],
+        LogPrefix.DownloadManager
+      )
       notify({ title, body: i18next.t('notify.install.canceled') })
     } else if (status === 'done') {
       notify({
@@ -92,15 +92,16 @@ async function installQueueElement(
         body: i18next.t('notify.install.finished')
       })
 
-      logInfo(['Finished installing of', params.appName], {
-        prefix: LogPrefix.DownloadManager
-      })
+      logInfo(
+        ['Finished installing of', params.appName],
+        LogPrefix.DownloadManager
+      )
     } else if (status === 'error') {
       errorMessage(error ?? '')
       return { status: 'error' }
     }
 
-    mainWindow.webContents.send('setGameStatus', {
+    sendFrontendMessage('gameStatusUpdate', {
       appName,
       runner,
       status: 'done'
@@ -113,10 +114,7 @@ async function installQueueElement(
   }
 }
 
-async function updateQueueElement(
-  mainWindow: BrowserWindow,
-  params: InstallParams
-): Promise<{
+async function updateQueueElement(params: InstallParams): Promise<{
   status: 'done' | 'error'
   error?: string | undefined
 }> {
@@ -125,9 +123,10 @@ async function updateQueueElement(
   const { title } = game.getGameInfo()
 
   if (!isOnline()) {
-    logWarning(`App offline, skipping update for game '${title}'.`, {
-      prefix: LogPrefix.Backend
-    })
+    logWarning(
+      `App offline, skipping update for game '${title}'.`,
+      LogPrefix.Backend
+    )
     return { status: 'error' }
   }
 
@@ -146,7 +145,7 @@ async function updateQueueElement(
     }
   }
 
-  mainWindow.webContents.send('setGameStatus', {
+  sendFrontendMessage('gameStatusUpdate', {
     appName,
     runner,
     status: 'updating'
@@ -161,9 +160,10 @@ async function updateQueueElement(
     const { status } = await game.update()
 
     if (status === 'error') {
-      logWarning(['Updating of', params.appName, 'aborted!'], {
-        prefix: LogPrefix.DownloadManager
-      })
+      logWarning(
+        ['Updating of', params.appName, 'aborted!'],
+        LogPrefix.DownloadManager
+      )
       notify({ title, body: i18next.t('notify.update.canceled') })
     } else if (status === 'done') {
       notify({
@@ -171,17 +171,19 @@ async function updateQueueElement(
         body: i18next.t('notify.update.finished')
       })
 
-      logInfo(['Finished updating of', params.appName], {
-        prefix: LogPrefix.DownloadManager
-      })
+      logInfo(
+        ['Finished updating of', params.appName],
+        LogPrefix.DownloadManager
+      )
     }
     return { status: 'done' }
   } catch (error) {
-    logError(['Updating of', params.appName, 'failed with:', error], {
-      prefix: LogPrefix.DownloadManager
-    })
+    logError(
+      ['Updating of', params.appName, 'failed with:', error],
+      LogPrefix.DownloadManager
+    )
 
-    mainWindow.webContents.send('setGameStatus', {
+    sendFrontendMessage('gameStatusUpdate', {
       appName,
       runner,
       status: 'done'

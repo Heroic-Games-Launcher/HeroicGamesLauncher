@@ -3,7 +3,6 @@ import {
   deleteAbortController
 } from '../utils/aborthandler/aborthandler'
 import { GOGLibrary, runGogdlCommand } from './library'
-import { BrowserWindow } from 'electron'
 import { join } from 'path'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
@@ -56,10 +55,10 @@ import {
 } from 'common/types/gog'
 import { t } from 'i18next'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
+import { sendFrontendMessage } from '../main_window'
 
 class GOGGame extends Game {
   public appName: string
-  public window = BrowserWindow.getAllWindows()[0]
   private static instances = new Map<string, GOGGame>()
   private constructor(appName: string) {
     super()
@@ -102,7 +101,7 @@ class GOGGame extends Game {
           `${this.appName},`,
           'returning empty object. Something is probably gonna go wrong soon'
         ],
-        { prefix: LogPrefix.Gog }
+        LogPrefix.Gog
       )
       // @ts-expect-error TODO: Handle this better
       return {}
@@ -124,7 +123,7 @@ class GOGGame extends Game {
           `using ${installPlatform} as platform,`,
           'returning empty object'
         ],
-        { prefix: LogPrefix.Gog }
+        LogPrefix.Gog
       )
       // @ts-expect-error TODO: Handle this better
       return {}
@@ -157,18 +156,17 @@ class GOGGame extends Game {
     }
 
     if (res.error) {
-      logError(['Failed to import', `${this.appName}:`, res.error], {
-        prefix: LogPrefix.Gog
-      })
+      logError(
+        ['Failed to import', `${this.appName}:`, res.error],
+        LogPrefix.Gog
+      )
       return res
     }
 
     try {
       await GOGLibrary.get().importGame(JSON.parse(res.stdout), path)
     } catch (error) {
-      logError(['Failed to import', `${this.appName}:`, error], {
-        prefix: LogPrefix.Gog
-      })
+      logError(['Failed to import', `${this.appName}:`, error], LogPrefix.Gog)
     }
 
     return res
@@ -206,10 +204,10 @@ class GOGGame extends Game {
           `${percent}%/${bytes}MB/${eta}`.trim(),
           `Down: ${downSpeed}MB/s / Disk: ${diskSpeed}MB/s`
         ],
-        { prefix: LogPrefix.Gog }
+        LogPrefix.Gog
       )
 
-      this.window.webContents.send('setGameStatus', {
+      sendFrontendMessage(`progressUpdate-${this.appName}`, {
         appName: this.appName,
         runner: 'gog',
         status: action,
@@ -233,16 +231,17 @@ class GOGGame extends Game {
     status: 'done' | 'error' | 'abort'
     error?: string
   }> {
-    const { maxWorkers } = await GlobalConfig.get().getSettings()
+    const { maxWorkers } = GlobalConfig.get().getSettings()
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
     const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
 
     const credentials = await GOGUser.getCredentials()
 
     if (!credentials) {
-      logError(['Failed to install', `${this.appName}:`, 'No credentials'], {
-        prefix: LogPrefix.Gog
-      })
+      logError(
+        ['Failed to install', `${this.appName}:`, 'No credentials'],
+        LogPrefix.Gog
+      )
       return { status: 'error' }
     }
 
@@ -287,9 +286,10 @@ class GOGGame extends Game {
     }
 
     if (res.error) {
-      logError(['Failed to install', `${this.appName}:`, res.error], {
-        prefix: LogPrefix.Gog
-      })
+      logError(
+        ['Failed to install', `${this.appName}:`, res.error],
+        LogPrefix.Gog
+      )
       return { status: 'error', error: res.error }
     }
 
@@ -323,9 +323,10 @@ class GOGGame extends Game {
     installedGamesStore.set('installed', array)
     GOGLibrary.get().refreshInstalled()
     if (isWindows) {
-      logInfo('Windows os, running setup instructions on install', {
-        prefix: LogPrefix.Gog
-      })
+      logInfo(
+        'Windows os, running setup instructions on install',
+        LogPrefix.Gog
+      )
       try {
         await setup(this.appName, installedData)
       } catch (e) {
@@ -335,7 +336,7 @@ class GOGGame extends Game {
             'Error:',
             e
           ],
-          { prefix: LogPrefix.Gog }
+          LogPrefix.Gog
         )
       }
     }
@@ -509,7 +510,7 @@ class GOGGame extends Game {
     }
 
     if (error) {
-      logError(['Error launching game:', error], { prefix: LogPrefix.Gog })
+      logError(['Error launching game:', error], LogPrefix.Gog)
     }
 
     launchCleanup(rpcClient)
@@ -533,13 +534,13 @@ class GOGGame extends Game {
       newInstallPath += '/' + install_path.split('/').at(-1)
     }
 
-    logInfo(`Moving ${title} to ${newInstallPath}`, { prefix: LogPrefix.Gog })
+    logInfo(`Moving ${title} to ${newInstallPath}`, LogPrefix.Gog)
     await execAsync(`mv -f '${install_path}' '${newInstallPath}'`, execOptions)
       .then(() => {
         GOGLibrary.get().changeGameInstallPath(this.appName, newInstallPath)
-        logInfo(`Finished Moving ${title}`, { prefix: LogPrefix.Gog })
+        logInfo(`Finished Moving ${title}`, LogPrefix.Gog)
       })
-      .catch((error) => logError(error, { prefix: LogPrefix.Gog }))
+      .catch((error) => logError(error, LogPrefix.Gog))
     return newInstallPath
   }
 
@@ -586,9 +587,10 @@ class GOGGame extends Game {
     deleteAbortController(this.appName)
 
     if (res.error) {
-      logError(['Failed to repair', `${this.appName}:`, res.error], {
-        prefix: LogPrefix.Gog
-      })
+      logError(
+        ['Failed to repair', `${this.appName}:`, res.error],
+        LogPrefix.Gog
+      )
     }
 
     return res
@@ -631,7 +633,7 @@ class GOGGame extends Game {
         arg
       ]
 
-      logInfo([`Syncing saves for ${this.appName}`], { prefix: LogPrefix.Gog })
+      logInfo([`Syncing saves for ${this.appName}`], LogPrefix.Gog)
 
       const res = await runGogdlCommand(
         commandParts,
@@ -647,7 +649,7 @@ class GOGGame extends Game {
       if (res.error) {
         logError(
           ['Failed to sync saves for', `${this.appName}`, `${res.error}`],
-          { prefix: LogPrefix.Gog }
+          LogPrefix.Gog
         )
       }
       if (res.stdout) {
@@ -669,7 +671,7 @@ class GOGGame extends Game {
     }
 
     const [object] = array.splice(index, 1)
-    logInfo(['Removing', object.install_path], { prefix: LogPrefix.Gog })
+    logInfo(['Removing', object.install_path], LogPrefix.Gog)
     // TODO: Run unins000.exe /verysilent /dir=Z:/path/to/game
     const uninstallerPath = join(object.install_path, 'unins000.exe')
 
@@ -689,9 +691,7 @@ class GOGGame extends Game {
       } "${uninstallerPath}" /verysilent /dir="${isWindows ? '' : 'Z:'}${
         object.install_path
       }"`
-      logInfo(['Executing uninstall command', command], {
-        prefix: LogPrefix.Gog
-      })
+      logInfo(['Executing uninstall command', command], LogPrefix.Gog)
       execAsync(command)
         .then(({ stdout, stderr }) => {
           res.stdout = stdout
@@ -753,7 +753,7 @@ class GOGGame extends Game {
     )
 
     // This always has to be done, so we do it before checking for res.error
-    this.window.webContents.send('setGameStatus', {
+    sendFrontendMessage('gameStatusUpdate', {
       appName: this.appName,
       runner: 'gog',
       status: 'done'
@@ -766,9 +766,10 @@ class GOGGame extends Game {
     }
 
     if (res.error) {
-      logError(['Failed to update', `${this.appName}:`, res.error], {
-        prefix: LogPrefix.Gog
-      })
+      logError(
+        ['Failed to update', `${this.appName}:`, res.error],
+        LogPrefix.Gog
+      )
       return { status: 'error' }
     }
 
@@ -803,7 +804,7 @@ class GOGGame extends Game {
    * Useful for Update and Repair
    */
   public async getCommandParameters() {
-    const { maxWorkers } = await GlobalConfig.get().getSettings()
+    const { maxWorkers } = GlobalConfig.get().getSettings()
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
     const gameData = this.getGameInfo()
     const logPath = join(heroicGamesConfigPath, this.appName + '.log')
@@ -834,9 +835,7 @@ class GOGGame extends Game {
     protonVerb?: ProtonVerb
   ): Promise<ExecResult> {
     if (this.isNative()) {
-      logError('runWineCommand called on native game!', {
-        prefix: LogPrefix.Gog
-      })
+      logError('runWineCommand called on native game!', LogPrefix.Gog)
       return { stdout: '', stderr: '' }
     }
     const { folder_name } = this.getGameInfo()
@@ -858,9 +857,7 @@ class GOGGame extends Game {
     ) as Array<InstalledInfo>
     const newInstalled = installed.filter((g) => g.appName !== this.appName)
     installedGamesStore.set('installed', newInstalled)
-    const mainWindow =
-      BrowserWindow.getFocusedWindow() ?? BrowserWindow.getAllWindows()[0]
-    mainWindow.webContents.send('refreshLibrary', 'gog')
+    sendFrontendMessage('refreshLibrary', 'gog')
   }
 
   // Could be removed if gogdl handles SIGKILL and SIGTERM for us

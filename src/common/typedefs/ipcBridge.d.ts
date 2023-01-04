@@ -157,7 +157,7 @@ interface AsyncIPCFunctions {
     shoudlRemoveSetting: boolean
   ) => Promise<void>
   repair: (appName: string, runner: Runner) => Promise<void>
-  moveInstall: (args: MoveGameArgs) => StatusPromise
+  moveInstall: (args: MoveGameArgs) => Promise<void>
   importGame: (args: ImportGameArgs) => StatusPromise
   updateGame: (appName: string, runner: Runner) => StatusPromise
   changeInstallPath: (args: MoveGameArgs) => Promise<void>

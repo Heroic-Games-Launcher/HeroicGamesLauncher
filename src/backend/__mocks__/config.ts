@@ -11,7 +11,7 @@ const GlobalConfig = (() => {
     setConfigValue,
     get: () => {
       return {
-        getSettings: async () => config
+        getSettings: () => config
       }
     }
   }

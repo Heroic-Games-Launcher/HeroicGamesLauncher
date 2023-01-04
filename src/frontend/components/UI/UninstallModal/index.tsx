@@ -19,8 +19,7 @@ interface UninstallModalProps {
 }
 
 const UninstallModal: React.FC<UninstallModalProps> = function (props) {
-  const { handleGameStatus, platform, refreshLibrary } =
-    useContext(ContextProvider)
+  const { platform, refreshLibrary } = useContext(ContextProvider)
   const [isWindowsOnLinux, setIsWindowsOnLinux] = useState(false)
   const [winePrefix, setWinePrefix] = useState('')
   const [deletePrefixChecked, setDeletePrefixChecked] = useState(false)
@@ -73,11 +72,6 @@ const UninstallModal: React.FC<UninstallModalProps> = function (props) {
   const uninstallGame = async () => {
     props.onClose()
 
-    await handleGameStatus({
-      appName: props.appName,
-      runner: props.runner,
-      status: 'uninstalling'
-    })
     await window.api.uninstall(
       props.appName,
       props.runner,
@@ -88,11 +82,6 @@ const UninstallModal: React.FC<UninstallModalProps> = function (props) {
       navigate('/')
     }
     storage.removeItem(props.appName)
-    handleGameStatus({
-      appName: props.appName,
-      runner: props.runner,
-      status: 'done'
-    })
     refreshLibrary({ fullRefresh: true, checkForUpdates: false })
   }
 

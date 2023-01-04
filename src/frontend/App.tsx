@@ -16,6 +16,7 @@ import { ControllerHints, OfflineMessage } from './components/UI'
 import DownloadManager from './screens/DownloadManager'
 import DialogHandler from './components/UI/DialogHandler'
 import SettingsModal from './screens/Settings/components/SettingsModal'
+import ExternalLinkDialog from './components/UI/ExternalLinkDialog'
 
 function App() {
   const { sidebarCollapsed, isSettingsModalOpen } = useContext(ContextProvider)
@@ -33,6 +34,7 @@ function App() {
               type={isSettingsModalOpen.type}
             />
           )}
+          <ExternalLinkDialog />
           <Routes>
             <Route path="/" element={<Navigate replace to="/library" />} />
             <Route path="/library" element={<Library />} />
