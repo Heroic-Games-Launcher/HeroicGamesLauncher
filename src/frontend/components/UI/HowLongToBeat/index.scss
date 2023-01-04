@@ -1,26 +1,46 @@
+.howLongToBeatWrapper {
+  margin-top: var(--space-xl);
+  padding-bottom: var(--space-md);
+
+  font-size: 0.8rem;
+  cursor: pointer;
+
+  summary {
+    outline: none;
+    font-size: 1.2rem;
+    font-weight: var(--bold);
+    transition: 300ms;
+
+    &:hover,
+    &:focus-within {
+      color: var(--accent);
+    }
+  }
+}
+
 .howLongToBeat {
   display: flex;
-  margin: var(--space-md) 0;
 
-  // 50px x 50px suare with text inside
-  .howLongToBeat__square {
+  .howLongToBeat__circle {
     width: fit-content;
-    height: 80px;
+    min-width: 100px;
+    height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: 5px;
-    background-color: var(--background-secondary);
+    border-radius: 50%;
+    background-color: transparent;
+    border: 3px solid green;
     color: var(--text-secondary);
-    margin-right: 10px;
-    padding: 0 var(--space-xs);
+    margin: 10px 10px 0 0;
+    padding: var(--space-md);
 
-    .howLongToBeat__square__title {
+    .howLongToBeat__circle__title {
       font-size: 0.8rem;
     }
 
-    .howLongToBeat__square__value {
+    .howLongToBeat__circle__value {
       font-size: 1.2rem;
       font-weight: var(--bold);
     }

@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { Backspace } from '@mui/icons-material'
 import useSetting from 'frontend/hooks/useSetting'
-import { configStore } from 'frontend/helpers/electronStores'
 import { TextInputWithIconField } from 'frontend/components/UI'
 
 const AltLegendaryBin = () => {
@@ -17,15 +16,6 @@ const AltLegendaryBin = () => {
 
   useEffect(() => {
     const getMoreInfo = async () => {
-      const settings = configStore.get('settings') as {
-        altLeg: string
-        altGogdl: string
-      }
-      configStore.set('settings', {
-        ...settings,
-        altLeg: altLegendaryBin
-      })
-
       const legendaryVer = await window.api.getLegendaryVersion()
       if (legendaryVer === 'invalid') {
         setLegendaryVersion('Invalid')
