@@ -216,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Ignorovat skryté",
         "platform": "Platforma",
         "show_all_games": "Zobrazit všechny hry",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Zobrazit pouze oblíbené",
         "show_hidden": "Zobrazit skryté",
         "store": "Filtrovat obchod"

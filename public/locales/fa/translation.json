@@ -216,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "فروشگاه GOG",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "نادیده گرفتن موارد پنهان",
         "platform": "پلتفرم",
         "show_all_games": "نمایش همه بازی ها",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "نمایش مورد علاقه ها",
         "show_hidden": "نمایش موارد پنهان",
         "store": "فیلتر فروشگاه"

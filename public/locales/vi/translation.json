@@ -216,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "Cửa hàng GOG",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Bỏ qua mục bị ẩn",
         "platform": "Nền tảng",
         "show_all_games": "Hiển thị toàn bộ game",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Chỉ hiển thị mục ưa thích",
         "show_hidden": "Hiển thị mục bị ẩn",
         "store": "Lọc cửa hàng"

@@ -35,7 +35,8 @@
             "checkbox": "Usuń prefiks: {{prefix}}{{newLine}} Notka: Operacja nie może zostać cofnięta, zostaną usunięte również zapisy gry.",
             "message": "Czy chcesz odinstalować tę grę?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
-            "title": "Odinstaluj"
+            "title": "Odinstaluj",
+            "prefix_warning": "Prefiks Wine dla tej gry jest prefiksem domyślnym. Jeśli naprawdę chcesz go usunąć, musisz to zrobić ręcznie."
         },
         "update": {
             "message": "Ta gra ma dostępną aktualizację, czy chcesz zainstalować ją teraz?",
@@ -67,7 +68,8 @@
         },
         "unhide_game": "Odkryj Grę",
         "uninstall": "Odinstaluj",
-        "update": "Aktualizuj"
+        "update": "Aktualizuj",
+        "details": "Detale"
     },
     "cloud_save_unsupported": "Niewspierana",
     "disabled": "Wyłączone",

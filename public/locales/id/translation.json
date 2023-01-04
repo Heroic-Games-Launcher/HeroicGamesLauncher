@@ -216,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Abaikan yang Disembunyikan",
         "platform": "Platform",
         "show_all_games": "Tampilkan semua gim",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Hanya Tampilkan Gim Favorit",
         "show_hidden": "Tampilkan yang Disembunyikan",
         "store": "Toko Filter"

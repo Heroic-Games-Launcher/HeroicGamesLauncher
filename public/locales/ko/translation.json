@@ -216,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "숨김 무시",
         "platform": "플랫폼",
         "show_all_games": "모든 게임 표시",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "즐겨찾기만 표시",
         "show_hidden": "숨김 표시",
         "store": "Filter Store"

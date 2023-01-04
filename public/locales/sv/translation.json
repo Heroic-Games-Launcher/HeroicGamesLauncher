@@ -216,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "GOG Butik",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Ignorera dolda",
         "platform": "Plattform",
         "show_all_games": "Visa alla spel",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Visa endast favoriter",
         "show_hidden": "Visa dolda",
         "store": "Filtrera efter butik"

@@ -216,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "GOG Mağazası",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Gizlileri Yoksay",
         "platform": "Platform",
         "show_all_games": "Tüm oyunları göster",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Yalnızca Favorileri göster",
         "show_hidden": "Gizlileri Göster",
         "store": "Mağazayı Filtrele"

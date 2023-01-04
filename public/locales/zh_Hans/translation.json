@@ -216,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "GOG 商店",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "忽略隐藏项",
         "platform": "平台",
         "show_all_games": "显示所有游戏",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "仅显示最爱",
         "show_hidden": "显示隐藏项",
         "store": "过滤商店"

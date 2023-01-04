@@ -216,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "GOG denda",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Ezikusi ezkutatutakoak",
         "platform": "Plataforma",
         "show_all_games": "Erakutsi joko guztiak",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Erakutsi gogokoenak soilik",
         "show_hidden": "Erakutsi ezkutatutakoak",
         "store": "Iragazi denda"

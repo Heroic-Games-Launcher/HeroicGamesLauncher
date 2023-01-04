@@ -216,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "Магазин на GOG",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Пренебрегване на скритите",
         "platform": "Платформа",
         "show_all_games": "Показване на всички игри",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Показване само на любимите",
         "show_hidden": "Показване на скритите",
         "store": "Филтриране на магазина"

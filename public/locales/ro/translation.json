@@ -216,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "Magazinul GOG",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Ignorați Ascuns",
         "platform": "Platformă",
         "show_all_games": "Arată toate jocurile",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Afișați numai Favoritele",
         "show_hidden": "Arata ascuns",
         "store": "Magazin de filtre"

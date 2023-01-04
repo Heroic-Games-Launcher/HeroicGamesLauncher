@@ -54,6 +54,15 @@
   color: var(--accent);
 }
 
+.hiddenCheckbox[disabled] + .toggleSwitchWrapper {
+  color: var(--icon-disabled);
+  cursor: not-allowed;
+}
+
+.hiddenCheckbox[disabled] + .toggleSwitchWrapper:before {
+  border-color: var(--icon-disabled);
+}
+
 /* fade in and out animation */
 .toggleSwitchWrapper.fading {
   animation: fading infinite 1.5s;

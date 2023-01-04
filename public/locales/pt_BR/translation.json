@@ -216,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "Loja GOG",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Ignorar escondidos",
         "platform": "Plataforma",
         "show_all_games": "Mostrar todos os jogos",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Mostrar apenas favoritos",
         "show_hidden": "Mostrar escondidos",
         "store": "Filtrar loja"

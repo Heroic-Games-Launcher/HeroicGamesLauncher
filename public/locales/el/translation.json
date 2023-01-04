@@ -216,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "Κατάστημα GOG",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Παράλειψη κρυφών στοιχείων",
         "platform": "Πλατφόρμα",
         "show_all_games": "Εμφάνιση όλων των παιχνιδιών",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Εμφάνιση μόνο αγαπημένων",
         "show_hidden": "Εμφάνιση κρυφών στοιχείων",
         "store": "Φιλτράρισμα καταστήματος"

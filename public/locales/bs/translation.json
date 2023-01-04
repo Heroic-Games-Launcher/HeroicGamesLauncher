@@ -216,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "GOG Trgovina",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Ignoriši skriveno",
         "platform": "Platforma",
         "show_all_games": "Pokaži sve igre",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Pokaži samo favorite",
         "show_hidden": "Pokaži skrivene",
         "store": "Filteriši trgovinu"
