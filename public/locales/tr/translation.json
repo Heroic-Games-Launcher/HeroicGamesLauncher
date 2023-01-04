@@ -204,7 +204,6 @@
         "store": "Mağaza",
         "title": "Oyun Adı"
     },
-    "GameSettings": "Game Settings",
     "generic": {
         "error": {
             "component": "Oyun bulunamadı - Oturumu kapatıp tekrar açmayı veya aşağıdaki seçeneklerden birini deneyin"
@@ -573,7 +572,6 @@
         },
         "navbar": {
             "advanced": "Gelişmiş",
-            "games_settings": "Game Settings",
             "games_settings_defaults": "Game Defaults",
             "general": "Genel",
             "log": "Log",

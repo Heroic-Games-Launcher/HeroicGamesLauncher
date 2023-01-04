@@ -204,7 +204,6 @@
         "store": "butikk",
         "title": "Spilltittel"
     },
-    "GameSettings": "Spillinnstillinger",
     "generic": {
         "error": {
             "component": "Ingen spill funnet - Prøv å logge ut og logge på igjen eller ett av alternativene nedenfor"
@@ -573,7 +572,6 @@
         },
         "navbar": {
             "advanced": "Avansert",
-            "games_settings": "Game Settings",
             "games_settings_defaults": "Game Defaults",
             "general": "Generell",
             "log": "Logg",

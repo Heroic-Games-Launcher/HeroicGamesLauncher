@@ -12,14 +12,14 @@ import useSetting from 'frontend/hooks/useSetting'
 const EnvVariablesTable = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
-  const isWindow = platform === 'win32'
+  const isWindows = platform === 'win32'
 
   const [environmentOptions, setEnvironmentOptions] = useSetting(
     'enviromentOptions',
     []
   )
 
-  if (isWindow) {
+  if (isWindows) {
     return <></>
   }
 

@@ -204,7 +204,6 @@
         "store": "Magazin",
         "title": "Titlul jocului"
     },
-    "GameSettings": "Setările jocului",
     "generic": {
         "error": {
             "component": "Nu s-au găsit jocuri - Încercați să vă deconectați și să vă conectați din nou sau una dintre opțiunile de mai jos"
@@ -573,7 +572,6 @@
         },
         "navbar": {
             "advanced": "Avansat",
-            "games_settings": "Game Settings",
             "games_settings_defaults": "Game Defaults",
             "general": "General",
             "log": "Buturuga",

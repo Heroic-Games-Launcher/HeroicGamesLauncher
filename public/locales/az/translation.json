@@ -204,7 +204,6 @@
         "store": "Mağaza",
         "title": "Oyunun adı"
     },
-    "GameSettings": "Oyun Parametrləri",
     "generic": {
         "error": {
             "component": "Oyun tapılmadı - Çıxıb yenidən daxil olmağa çalışın və ya aşağıdakı seçimlərdən birini edin"
@@ -573,7 +572,6 @@
         },
         "navbar": {
             "advanced": "Qabaqcıl",
-            "games_settings": "Game Settings",
             "games_settings_defaults": "Game Defaults",
             "general": "General",
             "log": "Giriş",

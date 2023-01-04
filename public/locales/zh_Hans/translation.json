@@ -204,7 +204,6 @@
         "store": "商店",
         "title": "游戏标题"
     },
-    "GameSettings": "游戏设置",
     "generic": {
         "error": {
             "component": "没有发现游戏 - 尝试注销并再次登录或以下选项之一"
@@ -573,7 +572,6 @@
         },
         "navbar": {
             "advanced": "高级",
-            "games_settings": "游戏设置",
             "games_settings_defaults": "游戏默认值",
             "general": "常规",
             "log": "日志",

@@ -204,7 +204,6 @@
         "store": "Κατάστημα",
         "title": "Τίτλος παιχνιδιού"
     },
-    "GameSettings": "Ρυθμίσεις παιχνιδιού",
     "generic": {
         "error": {
             "component": "Δεν βρέθηκαν παιχνίδια - Δοκιμάστε να αποσυνδεθείτε και να συνδεθείτε ξανά ή μια από τις παρακάτω επιλογές"
@@ -573,7 +572,6 @@
         },
         "navbar": {
             "advanced": "Προχωρημένες",
-            "games_settings": "Game Settings",
             "games_settings_defaults": "Game Defaults",
             "general": "Γενικά",
             "log": "Αρχεία καταγραφής",

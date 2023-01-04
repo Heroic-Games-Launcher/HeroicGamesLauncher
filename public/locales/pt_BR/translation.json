@@ -204,7 +204,6 @@
         "store": "Loja",
         "title": "Título do jogo"
     },
-    "GameSettings": "Configurações do jogo",
     "generic": {
         "error": {
             "component": "Nenhum jogo encontrado - Tente sair e fazer login novamente ou uma das opções abaixo"
@@ -573,7 +572,6 @@
         },
         "navbar": {
             "advanced": "Avançado",
-            "games_settings": "Configurações do Jogo",
             "games_settings_defaults": "Padrões do Jogo",
             "general": "Config. Gerais",
             "log": "Log",

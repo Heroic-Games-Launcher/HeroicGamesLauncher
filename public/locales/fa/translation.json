@@ -204,7 +204,6 @@
         "store": "فروشگاه",
         "title": "عنوان بازی"
     },
-    "GameSettings": "تنظیمات بازی",
     "generic": {
         "error": {
             "component": "بازی یافت نشد - خروج از حساب و ورود مجدد را امتحان کرده یا یکی از گزینه های زیر را امتحان کنید"
@@ -573,7 +572,6 @@
         },
         "navbar": {
             "advanced": "پیشرفته",
-            "games_settings": "Game Settings",
             "games_settings_defaults": "Game Defaults",
             "general": "عمومی",
             "log": "Log",

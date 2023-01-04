@@ -204,7 +204,6 @@
         "store": "Trgovina",
         "title": "Ime video igre"
     },
-    "GameSettings": "Postavke igre",
     "generic": {
         "error": {
             "component": "Nema pronađenih video igara - Pokušajte se odjaviti i ponovo prijaviti ili izaberite neku od opcija u nastavku"
@@ -573,7 +572,6 @@
         },
         "navbar": {
             "advanced": "Napredno",
-            "games_settings": "Game Settings",
             "games_settings_defaults": "Game Defaults",
             "general": "Generalno",
             "log": "Prijavite se",

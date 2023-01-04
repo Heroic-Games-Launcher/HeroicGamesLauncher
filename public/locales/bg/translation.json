@@ -204,7 +204,6 @@
         "store": "Магазин",
         "title": "Име на играта"
     },
-    "GameSettings": "Настройки на играта",
     "generic": {
         "error": {
             "component": "Няма намерени игри. Опитайте да излезете и влезете пак с регистрацията си, или пробвайте един от вариантите по-долу"
@@ -573,7 +572,6 @@
         },
         "navbar": {
             "advanced": "Разширени",
-            "games_settings": "Game Settings",
             "games_settings_defaults": "Game Defaults",
             "general": "Общи",
             "log": "Журнал",

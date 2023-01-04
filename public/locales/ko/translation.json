@@ -204,7 +204,6 @@
         "store": "스토어",
         "title": "게임 이름"
     },
-    "GameSettings": "게임 설정",
     "generic": {
         "error": {
             "component": "게임을 찾을 수 없습니다, 로그아웃했다가 다시 로그인하거나 아래 옵션 중 하나를 시도하세요"
@@ -573,7 +572,6 @@
         },
         "navbar": {
             "advanced": "Advanced",
-            "games_settings": "Game Settings",
             "games_settings_defaults": "Game Defaults",
             "general": "일반",
             "log": "Log",

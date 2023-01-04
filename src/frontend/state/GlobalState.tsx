@@ -91,6 +91,11 @@ interface StateProps {
   sideloadedLibrary: GameInfo[]
   hideChangelogsOnStartup: boolean
   lastChangelogShown: string | null
+  settingsModalOpen: {
+    value: boolean
+    type: 'settings' | 'log'
+    gameInfo?: GameInfo | null
+  }
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -170,7 +175,8 @@ export class GlobalState extends PureComponent<Props> {
     sideloadedLibrary: sideloadLibrary.get('games', []) as GameInfo[],
     dialogModalOptions: { showDialog: false },
     hideChangelogsOnStartup: globalSettings.hideChangelogsOnStartup,
-    lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null')
+    lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null'),
+    settingsModalOpen: { value: false, type: 'settings', gameInfo: undefined }
   }
 
   setLanguage = (newLanguage: string) => {
@@ -385,6 +391,22 @@ export class GlobalState extends PureComponent<Props> {
     })
     console.log('Logging out from gog')
     window.location.reload()
+  }
+
+  handleSettingsModalOpen = (
+    value: boolean,
+    type?: 'settings' | 'log',
+    gameInfo?: GameInfo
+  ) => {
+    if (gameInfo) {
+      this.setState({
+        settingsModalOpen: { value, type, gameInfo }
+      })
+    } else {
+      this.setState({
+        settingsModalOpen: { value, gameInfo: null }
+      })
+    }
   }
 
   refresh = async (
@@ -770,7 +792,9 @@ export class GlobalState extends PureComponent<Props> {
           hideChangelogsOnStartup: this.state.hideChangelogsOnStartup,
           setHideChangelogsOnStartup: this.setHideChangelogsOnStartup,
           lastChangelogShown: this.state.lastChangelogShown,
-          setLastChangelogShown: this.setLastChangelogShown
+          setLastChangelogShown: this.setLastChangelogShown,
+          isSettingsModalOpen: this.state.settingsModalOpen,
+          setIsSettingsModalOpen: this.handleSettingsModalOpen
         }}
       >
         {this.props.children}

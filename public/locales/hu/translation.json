@@ -204,7 +204,6 @@
         "store": "Áruház",
         "title": "Játék címe"
     },
-    "GameSettings": "Játék beállításai",
     "generic": {
         "error": {
             "component": "Nem található játék - Próbálj meg kijelentkezni, majd vissza, vagy az alábbi lehetőségek valamelyikét"
@@ -573,7 +572,6 @@
         },
         "navbar": {
             "advanced": "Advanced",
-            "games_settings": "Game Settings",
             "games_settings_defaults": "Game Defaults",
             "general": "Általános",
             "log": "Napló",
