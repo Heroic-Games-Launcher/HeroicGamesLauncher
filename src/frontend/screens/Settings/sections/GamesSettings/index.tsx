@@ -26,7 +26,8 @@ import {
   WinePrefix,
   WineVersionSelector,
   WrappersTable,
-  EnableDXVKFpsLimit
+  EnableDXVKFpsLimit,
+  IgnoreGameUpdates
 } from '../../components'
 import ContextProvider from 'frontend/state/ContextProvider'
 import Tools from '../../components/Tools'
@@ -125,6 +126,8 @@ export default function GamesSettings() {
         {isLinux && <Mangohud />}
 
         <SteamRuntime />
+
+        <IgnoreGameUpdates />
 
         <OfflineMode />
 

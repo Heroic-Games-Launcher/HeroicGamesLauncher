@@ -143,9 +143,13 @@ const GameCard = ({
 
   useEffect(() => {
     const handleAutpUpdate = async () => {
+      if (!hasUpdate) {
+        return
+      }
       const settings = await window.api.requestAppSettings()
+      const gameSettings = await window.api.requestGameSettings(appName)
       // if has update check for the AutoUpdateGames setting and if true, call handleUpdate
-      if (hasUpdate && settings.autoUpdateGames) {
+      if (settings.autoUpdateGames && !gameSettings.ignoreGameUpdates) {
         handleUpdate()
       }
     }

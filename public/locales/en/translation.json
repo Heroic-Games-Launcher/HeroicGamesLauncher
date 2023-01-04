@@ -487,6 +487,7 @@
         "fsync": "Enable Fsync",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
+        "ignoreGameUpdates": "Ignore game updates",
         "language": "Choose App Language",
         "library_top_option": {
             "disabled": "Disabled",

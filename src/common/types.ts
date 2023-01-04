@@ -118,25 +118,24 @@ export interface GameInfo {
 export interface GameSettings {
   autoInstallDxvk: boolean
   autoInstallVkd3d: boolean
-  preferSystemLibs: boolean
   autoSyncSaves: boolean
   battlEyeRuntime: boolean
+  DXVKFpsCap: string //Entered as string but used as number
   eacRuntime: boolean
+  enableDXVKFpsLimit: boolean
   enableEsync: boolean
   enableFSR: boolean
   enableFsync: boolean
-  maxSharpness?: number
+  enviromentOptions: EnviromentVariable[]
+  ignoreGameUpdates: boolean
   language: string
   launcherArgs: string
+  maxSharpness?: number
   nvidiaPrime: boolean
   offlineMode: boolean
   otherOptions?: string //deprecated
-  enviromentOptions: EnviromentVariable[]
-  wrapperOptions: WrapperVariable[]
-  savesPath: string
+  preferSystemLibs: boolean
   showFps: boolean
-  enableDXVKFpsLimit: boolean
-  DXVKFpsCap: string //Entered as string but used as number
   showMangohud: boolean
   targetExe: string
   useGameMode: boolean
@@ -144,6 +143,8 @@ export interface GameSettings {
   wineCrossoverBottle: string
   winePrefix: string
   wineVersion: WineInstallation
+  wrapperOptions: WrapperVariable[]
+  savesPath: string
   gogSaves?: GOGCloudSavesLocation[]
 }
 
