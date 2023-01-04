@@ -626,3 +626,9 @@ export interface PCGamingWikiInfo {
   igdb: GameScoreInfo
   direct3DVersions: string[]
 }
+
+export interface AppleGamingWikiInfo {
+  timestampLastFetch: string
+  crossoverRating: string
+  crossoverLink: string
+}
