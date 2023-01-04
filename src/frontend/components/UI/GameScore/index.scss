@@ -1,0 +1,64 @@
+.gamescoreWrapper {
+  font-size: 0.8rem;
+  cursor: pointer;
+
+  margin-top: var(--space-xl);
+  padding-top: var(--space-md) 0;
+
+  summary {
+    outline: none;
+    font-size: 1.2rem;
+    font-weight: var(--bold);
+
+    transition: 300ms;
+
+    &:hover,
+    &:focus-within {
+      color: var(--accent);
+    }
+  }
+
+  .gamescore {
+    display: flex;
+    margin: var(--space-md) 0;
+
+    // 50px x 50px suare with text inside
+    .gamescore__square {
+      width: 100px;
+      height: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%; /* change to a circle */
+      border: 2px solid; /* add a border */
+      color: var(--text-secondary);
+      margin-right: 10px;
+      padding: 0 var(--space-xs);
+
+      .gamescore__square__title {
+        font-size: 0.8rem;
+      }
+
+      .gamescore__square__value {
+        font-size: 1.2rem;
+        font-weight: var(--bold);
+      }
+    }
+
+    .gamescore__square__green {
+      border: 3px solid green;
+      background-color: transparent;
+    }
+
+    .gamescore__square__red {
+      border: 3px solid red;
+      background-color: transparent;
+    }
+
+    .gamescore__square__yellow {
+      border: 3px solid yellow;
+      background-color: transparent;
+    }
+  }
+}

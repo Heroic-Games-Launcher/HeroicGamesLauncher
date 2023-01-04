@@ -204,7 +204,6 @@
         "store": "Магазин",
         "title": "Име на играта"
     },
-    "GameSettings": "Настройки на играта",
     "generic": {
         "error": {
             "component": "Няма намерени игри. Опитайте да излезете и влезете пак с регистрацията си, или пробвайте един от вариантите по-долу"
@@ -217,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "Магазин на GOG",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Пренебрегване на скритите",
         "platform": "Платформа",
         "show_all_games": "Показване на всички игри",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Показване само на любимите",
         "show_hidden": "Показване на скритите",
         "store": "Филтриране на магазина"
@@ -571,7 +572,6 @@
         },
         "navbar": {
             "advanced": "Разширени",
-            "games_settings": "Game Settings",
             "games_settings_defaults": "Game Defaults",
             "general": "Общи",
             "log": "Журнал",

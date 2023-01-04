@@ -225,7 +225,7 @@ export const getGogdlVersion = async () => {
 export const getHeroicVersion = () => {
   const VERSION_NUMBER = app.getVersion()
   const BETA_VERSION_NAME = 'Caesar Clown'
-  const STABLE_VERSION_NAME = 'Yamato'
+  const STABLE_VERSION_NAME = 'Trafalgar Law'
   const isBetaorAlpha =
     VERSION_NUMBER.includes('alpha') || VERSION_NUMBER.includes('beta')
   const VERSION_NAME = isBetaorAlpha ? BETA_VERSION_NAME : STABLE_VERSION_NAME
@@ -466,9 +466,11 @@ function splitPathAndName(fullPath: string): { dir: string; bin: string } {
 }
 
 function getLegendaryBin(): { dir: string; bin: string } {
-  const settings = configStore.get('settings', {}) as { altLeg: string }
-  if (settings?.altLeg) {
-    return splitPathAndName(settings.altLeg)
+  const settings = configStore.get('settings', {}) as {
+    altLegendaryBin: string
+  }
+  if (settings?.altLegendaryBin) {
+    return splitPathAndName(settings.altLegendaryBin)
   }
   return splitPathAndName(
     fixAsarPath(join(publicDir, 'bin', process.platform, 'legendary'))
@@ -476,9 +478,9 @@ function getLegendaryBin(): { dir: string; bin: string } {
 }
 
 function getGOGdlBin(): { dir: string; bin: string } {
-  const settings = configStore.get('settings', {}) as { altGogdl: string }
-  if (settings?.altGogdl) {
-    return splitPathAndName(settings.altGogdl)
+  const settings = configStore.get('settings', {}) as { altGogdlBin: string }
+  if (settings?.altGogdlBin) {
+    return splitPathAndName(settings.altGogdlBin)
   }
   return splitPathAndName(
     fixAsarPath(join(publicDir, 'bin', process.platform, 'gogdl'))

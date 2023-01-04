@@ -81,6 +81,7 @@ interface StateProps {
   hiddenGames: HiddenGame[]
   showHidden: boolean
   showFavourites: boolean
+  showNonAvailable: boolean
   favouriteGames: FavouriteGame[]
   theme: string
   zoomPercent: number
@@ -95,6 +96,11 @@ interface StateProps {
   sideloadedLibrary: GameInfo[]
   hideChangelogsOnStartup: boolean
   lastChangelogShown: string | null
+  settingsModalOpen: {
+    value: boolean
+    type: 'settings' | 'log'
+    gameInfo?: GameInfo | null
+  }
 }
 
 export class GlobalState extends PureComponent<Props> {
@@ -148,6 +154,7 @@ export class GlobalState extends PureComponent<Props> {
       (configStore.get('games.hidden', []) as Array<HiddenGame>) || [],
     showHidden: JSON.parse(storage.getItem('show_hidden') || 'false'),
     showFavourites: JSON.parse(storage.getItem('show_favorites') || 'false'),
+    showNonAvailable: true,
     sidebarCollapsed: JSON.parse(
       storage.getItem('sidebar_collapsed') || 'false'
     ),
@@ -174,7 +181,8 @@ export class GlobalState extends PureComponent<Props> {
     dialogModalOptions: { showDialog: false },
     externalLinkDialogOptions: { showDialog: false },
     hideChangelogsOnStartup: globalSettings.hideChangelogsOnStartup,
-    lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null')
+    lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null'),
+    settingsModalOpen: { value: false, type: 'settings', gameInfo: undefined }
   }
 
   setLanguage = (newLanguage: string) => {
@@ -226,6 +234,10 @@ export class GlobalState extends PureComponent<Props> {
 
   setShowFavourites = (value: boolean) => {
     this.setState({ showFavourites: value })
+  }
+
+  setShowNonAvailable = (value: boolean) => {
+    this.setState({ showNonAvailable: value })
   }
 
   setSideBarCollapsed = (value: boolean) => {
@@ -389,6 +401,22 @@ export class GlobalState extends PureComponent<Props> {
     })
     console.log('Logging out from gog')
     window.location.reload()
+  }
+
+  handleSettingsModalOpen = (
+    value: boolean,
+    type?: 'settings' | 'log',
+    gameInfo?: GameInfo
+  ) => {
+    if (gameInfo) {
+      this.setState({
+        settingsModalOpen: { value, type, gameInfo }
+      })
+    } else {
+      this.setState({
+        settingsModalOpen: { value, gameInfo: null }
+      })
+    }
   }
 
   refresh = async (
@@ -754,6 +782,7 @@ export class GlobalState extends PureComponent<Props> {
           },
           setShowHidden: this.setShowHidden,
           setShowFavourites: this.setShowFavourites,
+          setShowNonAvailable: this.setShowNonAvailable,
           favouriteGames: {
             list: this.state.favouriteGames,
             add: this.addGameToFavourites,
@@ -772,7 +801,9 @@ export class GlobalState extends PureComponent<Props> {
           hideChangelogsOnStartup: this.state.hideChangelogsOnStartup,
           setHideChangelogsOnStartup: this.setHideChangelogsOnStartup,
           lastChangelogShown: this.state.lastChangelogShown,
-          setLastChangelogShown: this.setLastChangelogShown
+          setLastChangelogShown: this.setLastChangelogShown,
+          isSettingsModalOpen: this.state.settingsModalOpen,
+          setIsSettingsModalOpen: this.handleSettingsModalOpen
         }}
       >
         {this.props.children}

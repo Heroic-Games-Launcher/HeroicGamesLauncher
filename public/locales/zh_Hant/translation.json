@@ -204,7 +204,6 @@
         "store": "商店",
         "title": "遊戲名稱"
     },
-    "GameSettings": "遊戲設定",
     "generic": {
         "error": {
             "component": "沒有發現遊戲 - 嘗試登入並再次登入或以下選項之一"
@@ -217,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "GOG 商店",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "忽略隱藏項",
         "platform": "平台",
         "show_all_games": "顯示所有遊戲",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "僅顯示我的最愛",
         "show_hidden": "顯示隱藏項",
         "store": "過濾商店"
@@ -571,7 +572,6 @@
         },
         "navbar": {
             "advanced": "進階",
-            "games_settings": "Game Settings",
             "games_settings_defaults": "Game Defaults",
             "general": "一般",
             "log": "Log",

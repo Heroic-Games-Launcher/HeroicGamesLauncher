@@ -1,3 +1,4 @@
+import { PCGamingWikiInfo } from './../types'
 import { EventEmitter } from 'node:events'
 import { IpcMainEvent, OpenDialogOptions } from 'electron'
 import { HowLongToBeatEntry } from 'howlongtobeat'
@@ -218,6 +219,10 @@ interface AsyncIPCFunctions {
   getNumOfGpus: () => Promise<number>
   removeRecent: (appName: string) => Promise<void>
   getHowLongToBeat: (title: string) => Promise<HowLongToBeatEntry | null>
+  getInfoFromPCGamingWiki: (
+    title: string,
+    id?: string
+  ) => Promise<PCGamingWikiInfo | null>
   getDefaultSavePath: (
     appName: string,
     runner: Runner,

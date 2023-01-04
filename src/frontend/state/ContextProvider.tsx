@@ -46,6 +46,8 @@ const initialContext: ContextType = {
   showHidden: false,
   setShowHidden: () => null,
   showFavourites: false,
+  setShowNonAvailable: () => null,
+  showNonAvailable: false,
   setShowFavourites: () => null,
   favouriteGames: {
     list: [],
@@ -72,7 +74,9 @@ const initialContext: ContextType = {
   hideChangelogsOnStartup: false,
   setHideChangelogsOnStartup: () => null,
   lastChangelogShown: null,
-  setLastChangelogShown: () => null
+  setLastChangelogShown: () => null,
+  isSettingsModalOpen: { value: false, type: 'settings' },
+  setIsSettingsModalOpen: () => null
 }
 
 export default React.createContext(initialContext)

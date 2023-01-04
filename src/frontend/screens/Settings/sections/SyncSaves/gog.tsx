@@ -75,7 +75,6 @@ export default function GOGSyncSaves({
 
   return (
     <>
-      <h3 className="settingSubheader">{t('settings.navbar.sync')}</h3>
       {manuallyOutputShow && (
         <ProgressDialog
           title={'Sync-Saves'}

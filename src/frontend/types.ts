@@ -50,6 +50,8 @@ export interface ContextType {
   setShowHidden: (value: boolean) => void
   showFavourites: boolean
   setShowFavourites: (value: boolean) => void
+  showNonAvailable: boolean
+  setShowNonAvailable: (value: boolean) => void
   theme: string
   setTheme: (themeName: string) => void
   zoomPercent: number
@@ -84,6 +86,16 @@ export interface ContextType {
   setHideChangelogsOnStartup: (value: boolean) => void
   lastChangelogShown: string | null
   setLastChangelogShown: (value: string) => void
+  isSettingsModalOpen: {
+    value: boolean
+    gameInfo?: GameInfo | null
+    type: 'settings' | 'log'
+  }
+  setIsSettingsModalOpen: (
+    value: boolean,
+    type?: 'settings' | 'log',
+    gameInfo?: GameInfo
+  ) => void
 }
 
 export type DialogModalOptions = {
