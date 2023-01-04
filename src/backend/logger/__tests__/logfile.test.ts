@@ -109,13 +109,13 @@ describe('logger/logfile.ts', () => {
   test('createNewLogFileAndClearOldOnes removing old logs successful', () => {
     jest.spyOn(app, 'getPath').mockReturnValue(tmpDir.name)
     const date = new Date()
-    date.setMonth(date.getMonth() > 0 ? date.getMonth() - 1 : 11)
+    date.setMonth(date.getMonth() - 1)
     const monthOutdatedLogFile = join(
       tmpDir.name,
       // @ts-ignore replaceAll error
       `heroic-${date.toISOString().replaceAll(':', '_')}.log`
     )
-    date.setFullYear(2022)
+    date.setFullYear(2021)
     const yearOutdatedLogFile = join(
       tmpDir.name,
       // @ts-ignore replaceAll error

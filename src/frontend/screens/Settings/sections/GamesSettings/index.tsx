@@ -37,6 +37,7 @@ import useSetting from 'frontend/hooks/useSetting'
 import { defaultWineVersion } from '../..'
 import Collapsible from 'frontend/components/UI/Collapsible/Collapsible'
 import SyncSaves from '../SyncSaves'
+import FooterInfo from '../FooterInfo'
 
 type Props = {
   useDetails?: boolean
@@ -80,27 +81,23 @@ export default function GamesSettings({ useDetails = true }: Props) {
             <WinePrefix />
             <WineVersionSelector />
             <CrossoverBottle />
-            <Tools />
+
+            {!isCrossover && (
+              <>
+                <AutoDXVK />
+                {isLinux && (
+                  <>
+                    <AutoVKD3D />
+
+                    <EacRuntime />
+
+                    <BattlEyeRuntime />
+                  </>
+                )}
+                <Tools />
+              </>
+            )}
           </Collapsible>
-
-          {!isCrossover && (
-            <Collapsible
-              isOpen={false}
-              isCollapsible={useDetails}
-              summary={t('settings.navbar.wineExt', 'Wine Extensions')}
-            >
-              <AutoDXVK />
-              {isLinux && (
-                <>
-                  <AutoVKD3D />
-
-                  <EacRuntime />
-
-                  <BattlEyeRuntime />
-                </>
-              )}
-            </Collapsible>
-          )}
         </>
       )}
 
@@ -163,6 +160,8 @@ export default function GamesSettings({ useDetails = true }: Props) {
           <SyncSaves />
         </Collapsible>
       )}
+
+      <FooterInfo />
     </>
   )
 }
