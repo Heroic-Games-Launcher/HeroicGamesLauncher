@@ -2,6 +2,9 @@
   font-size: 0.8rem;
   cursor: pointer;
 
+  margin-top: var(--space-xl);
+  padding-top: var(--space-md) 0;
+
   summary {
     outline: none;
     font-size: 1.2rem;

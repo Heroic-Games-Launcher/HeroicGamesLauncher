@@ -44,6 +44,12 @@ export default function GameScore({ title, id }: Props) {
 
   const { metacritic, opencritic, igdb } = pcGamingWikiInfo
 
+  const shouldShow = metacritic.score || opencritic.score || igdb.score
+
+  if (!shouldShow) {
+    return null
+  }
+
   return (
     <details className="gamescoreWrapper">
       <summary>Game Scores</summary>
