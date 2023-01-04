@@ -83,7 +83,6 @@ const GamesList = ({
 
         if (is_installed) {
           isAvailable = await handleNonAvailableGames(app_name, runner)
-          console.log('isAvailable', isAvailable)
         }
 
         const hasUpdate = is_installed && gameUpdates?.includes(app_name)
