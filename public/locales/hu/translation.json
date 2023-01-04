@@ -204,7 +204,6 @@
         "store": "Áruház",
         "title": "Játék címe"
     },
-    "GameSettings": "Játék beállításai",
     "generic": {
         "error": {
             "component": "Nem található játék - Próbálj meg kijelentkezni, majd vissza, vagy az alábbi lehetőségek valamelyikét"
@@ -217,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Rejtettek figyelmen kívül hagyása",
         "platform": "Platform",
         "show_all_games": "Összes játék mutatása",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Csak kedvencek mutatása",
         "show_hidden": "Elrejtettek mutatása",
         "store": "Áruház szűrése"
@@ -571,7 +572,6 @@
         },
         "navbar": {
             "advanced": "Advanced",
-            "games_settings": "Game Settings",
             "games_settings_defaults": "Game Defaults",
             "general": "Általános",
             "log": "Napló",

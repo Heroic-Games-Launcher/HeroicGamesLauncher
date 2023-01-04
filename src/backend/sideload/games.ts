@@ -37,6 +37,7 @@ import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts/shortcuts'
 import shlex from 'shlex'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
 import { createAbortController } from '../utils/aborthandler/aborthandler'
+import { sendFrontendMessage } from '../main_window'
 
 export function appLogFileLocation(appName: string) {
   return join(heroicGamesConfigPath, `${appName}-lastPlay.log`)
@@ -168,15 +169,16 @@ export async function launchApp(appName: string): Promise<boolean> {
     if (isNativeApp(appName)) {
       logInfo(
         `launching native sideloaded: ${executable} ${launcherArgs ?? ''}`,
-        { prefix: LogPrefix.Backend }
+        LogPrefix.Backend
       )
 
       try {
         await access(executable, FS_CONSTANTS.X_OK)
       } catch (error) {
-        logWarning('File not executable, changing permissions temporarilly', {
-          prefix: LogPrefix.Backend
-        })
+        logWarning(
+          'File not executable, changing permissions temporarilly',
+          LogPrefix.Backend
+        )
         // On Mac, it gives an error when changing the permissions of the file inside the app bundle. But we need it for other executables like scripts.
         if (isLinux || (isMac && !executable.endsWith('.app'))) {
           await chmod(executable, 0o775)
@@ -209,9 +211,10 @@ export async function launchApp(appName: string): Promise<boolean> {
       return true
     }
 
-    logInfo(`launching non-native sideloaded: ${executable}}`, {
-      prefix: LogPrefix.Backend
-    })
+    logInfo(
+      `launching non-native sideloaded: ${executable}}`,
+      LogPrefix.Backend
+    )
 
     if (isMac) {
       const globalSettings = await GameConfig.get('global').getSettings()
@@ -256,9 +259,7 @@ export async function moveInstall(
     newInstallPath += '/' + install_path.split('/').at(-1)
   }
 
-  logInfo(`Moving ${title} to ${newInstallPath}`, {
-    prefix: LogPrefix.Backend
-  })
+  logInfo(`Moving ${title} to ${newInstallPath}`, LogPrefix.Backend)
   await execAsync(`mv -f '${install_path}' '${newInstallPath}'`, execOptions)
     .then(() => {
       const installedArray =
@@ -270,9 +271,9 @@ export async function moveInstall(
 
       installedArray[gameIndex].install_path = newInstallPath
       libraryStore.set('installed', installedArray)
-      logInfo(`Finished Moving ${title}`, { prefix: LogPrefix.Backend })
+      logInfo(`Finished Moving ${title}`, LogPrefix.Backend)
     })
-    .catch((error) => logError(`${error}`, { prefix: LogPrefix.Backend }))
+    .catch((error) => logError(`${error}`, LogPrefix.Backend))
   return newInstallPath
 }
 export async function stop(appName: string): Promise<void> {
@@ -295,6 +296,12 @@ export async function removeApp({
   appName,
   shouldRemovePrefix
 }: RemoveArgs): Promise<void> {
+  sendFrontendMessage('gameStatusUpdate', {
+    appName,
+    runner: 'sideload',
+    status: 'uninstalling'
+  })
+
   const old = libraryStore.get('games', []) as SideloadGame[]
   const current = old.filter((a: SideloadGame) => a.app_name !== appName)
   libraryStore.set('games', current)
@@ -303,7 +310,7 @@ export async function removeApp({
   const { winePrefix } = await getAppSettings(appName)
 
   if (shouldRemovePrefix) {
-    logInfo(`Removing prefix ${winePrefix}`, { prefix: LogPrefix.Backend })
+    logInfo(`Removing prefix ${winePrefix}`, LogPrefix.Backend)
     if (existsSync(winePrefix)) {
       // remove prefix if exists
       rmSync(winePrefix, { recursive: true })
@@ -313,7 +320,13 @@ export async function removeApp({
 
   removeAppShortcuts(appName)
 
-  return logInfo('finished uninstalling', { prefix: LogPrefix.Backend })
+  sendFrontendMessage('gameStatusUpdate', {
+    appName,
+    runner: 'sideload',
+    status: 'done'
+  })
+
+  logInfo('finished uninstalling', LogPrefix.Backend)
 }
 
 export function isNativeApp(appName: string): boolean {

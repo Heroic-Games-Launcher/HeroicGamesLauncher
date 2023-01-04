@@ -1,3 +1,4 @@
+import { PCGamingWikiInfo } from './../types'
 import { EventEmitter } from 'node:events'
 import { IpcMainEvent, OpenDialogOptions } from 'electron'
 import { HowLongToBeatEntry } from 'howlongtobeat'
@@ -156,7 +157,7 @@ interface AsyncIPCFunctions {
     shoudlRemoveSetting: boolean
   ) => Promise<void>
   repair: (appName: string, runner: Runner) => Promise<void>
-  moveInstall: (args: MoveGameArgs) => StatusPromise
+  moveInstall: (args: MoveGameArgs) => Promise<void>
   importGame: (args: ImportGameArgs) => StatusPromise
   updateGame: (appName: string, runner: Runner) => StatusPromise
   changeInstallPath: (args: MoveGameArgs) => Promise<void>
@@ -218,6 +219,10 @@ interface AsyncIPCFunctions {
   getNumOfGpus: () => Promise<number>
   removeRecent: (appName: string) => Promise<void>
   getHowLongToBeat: (title: string) => Promise<HowLongToBeatEntry | null>
+  getInfoFromPCGamingWiki: (
+    title: string,
+    id?: string
+  ) => Promise<PCGamingWikiInfo | null>
   getDefaultSavePath: (
     appName: string,
     runner: Runner,

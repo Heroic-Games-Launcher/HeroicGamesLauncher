@@ -10,7 +10,6 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: main
-          submodules: true
       - name: Reset stable branch
         run: |
           git fetch origin stable:stable

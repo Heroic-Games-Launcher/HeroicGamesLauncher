@@ -22,7 +22,6 @@ const initialContext: ContextType = {
   filterPlatform: 'all',
   gameUpdates: [],
   handleCategory: () => null,
-  handleGameStatus: async () => Promise.resolve(),
   handleLayout: () => null,
   handlePlatformFilter: () => null,
   handleSearch: () => null,
@@ -47,6 +46,8 @@ const initialContext: ContextType = {
   showHidden: false,
   setShowHidden: () => null,
   showFavourites: false,
+  setShowNonAvailable: () => null,
+  showNonAvailable: false,
   setShowFavourites: () => null,
   favouriteGames: {
     list: [],
@@ -68,10 +69,14 @@ const initialContext: ContextType = {
   dialogModalOptions: { showDialog: false },
   showDialogModal: () => null,
   showResetDialog: () => null,
+  externalLinkDialogOptions: { showDialog: false },
+  handleExternalLinkDialog: () => null,
   hideChangelogsOnStartup: false,
   setHideChangelogsOnStartup: () => null,
   lastChangelogShown: null,
-  setLastChangelogShown: () => null
+  setLastChangelogShown: () => null,
+  isSettingsModalOpen: { value: false, type: 'settings' },
+  setIsSettingsModalOpen: () => null
 }
 
 export default React.createContext(initialContext)

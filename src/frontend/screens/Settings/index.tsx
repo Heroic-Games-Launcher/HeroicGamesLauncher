@@ -1,6 +1,6 @@
 import './index.css'
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -17,10 +17,9 @@ import {
   AdvancedSettings
 } from './sections'
 import { AppSettings, WineInstallation } from 'common/types'
-import { writeConfig } from 'frontend/helpers'
 import { UpdateComponent } from 'frontend/components/UI'
 import { LocationState, SettingsContextType } from 'frontend/types'
-import ContextProvider from 'frontend/state/ContextProvider'
+import useSettingsContext from 'frontend/hooks/useSettingsContext'
 
 export const defaultWineVersion: WineInstallation = {
   bin: '/usr/bin/wine',
@@ -30,7 +29,6 @@ export const defaultWineVersion: WineInstallation = {
 
 function Settings() {
   const { t, i18n } = useTranslation()
-  const { platform } = useContext(ContextProvider)
   const {
     state: { fromGameCard, runner, gameInfo }
   } = useLocation() as { state: LocationState }
@@ -45,10 +43,6 @@ function Settings() {
   const isGamesSettings = type === 'games_settings'
   const isLogSettings = type === 'log'
   const isAdvancedSetting = type === 'advanced' && isDefault
-  const isLinux = platform === 'linux'
-  const isMac = platform === 'darwin'
-  const isMacNative = isMac && (gameInfo?.is_mac_native || false)
-  const isLinuxNative = isLinux && (gameInfo?.is_linux_native || false)
 
   // Load Heroic's or game's config, only if not loaded already
   useEffect(() => {
@@ -67,11 +61,6 @@ function Settings() {
     getSettings()
   }, [appName, isDefault, i18n.language])
 
-  // render `loading` while we fetch the settings
-  if (!title) {
-    return <UpdateComponent />
-  }
-
   // generate return path
   let returnPath = '/'
   if (!fromGameCard) {
@@ -82,30 +71,15 @@ function Settings() {
   }
 
   // create setting context functions
-  const contextValues: SettingsContextType = {
-    getSetting: (key, fallback) => currentConfig[key] ?? fallback,
-    setSetting: (key, value) => {
-      const currentValue = currentConfig[key]
-      if (currentValue !== undefined || currentValue !== null) {
-        // NOTE: This is the best way I've found to compare `unknown` values
-        //       If you ever modify this, know that `value` might be an array
-        //       of anything, so even something like looping over the array
-        //       and comparing every member might still give false negatives
-        //       This might *also* give false results, but only in cases where
-        //       you're already passing the wrong type for `value`
-        const noChange = JSON.stringify(value) === JSON.stringify(currentValue)
-        if (noChange) return
-      }
-      setCurrentConfig({ ...currentConfig, [key]: value })
-      writeConfig({ appName, config: { ...currentConfig, [key]: value } })
-    },
-    config: currentConfig,
-    isDefault,
+  const contextValues: SettingsContextType | null = useSettingsContext({
     appName,
-    runner,
     gameInfo,
-    isLinuxNative,
-    isMacNative
+    runner
+  })
+
+  // render `loading` while we fetch the settings
+  if (!title || !contextValues) {
+    return <UpdateComponent />
   }
 
   return (
@@ -145,7 +119,7 @@ function Settings() {
             </h1>
 
             {isGeneralSettings && <GeneralSettings />}
-            {isGamesSettings && <GamesSettings />}
+            {isGamesSettings && <GamesSettings useDetails={false} />}
             {isSyncSettings && <SyncSaves />}
             {isAdvancedSetting && <AdvancedSettings />}
             {isLogSettings && <LogSettings />}
