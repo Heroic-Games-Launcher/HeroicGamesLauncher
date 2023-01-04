@@ -137,6 +137,21 @@ const GameCard = ({
     updateGameInfo()
   }, [status])
 
+  async function handleUpdate() {
+    return updateGame({ appName, runner, gameInfo })
+  }
+
+  useEffect(() => {
+    const handleAutpUpdate = async () => {
+      const settings = await window.api.requestAppSettings()
+      // if has update check for the AutoUpdateGames setting and if true, call handleUpdate
+      if (hasUpdate && settings.autoUpdateGames) {
+        handleUpdate()
+      }
+    }
+    handleAutpUpdate()
+  }, [hasUpdate])
+
   const grid = forceCard || layout === 'grid'
   const isInstalling = status === 'installing' || status === 'updating'
   const isUpdating = status === 'updating'
@@ -165,10 +180,6 @@ const GameCard = ({
   const storage: Storage = window.localStorage
 
   const imageSrc = getImageFormatting()
-
-  async function handleUpdate() {
-    return updateGame({ appName, runner, gameInfo })
-  }
 
   function getImageFormatting() {
     const imageBase = cover

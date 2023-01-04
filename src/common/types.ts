@@ -38,32 +38,33 @@ export type Release = {
 }
 
 export interface AppSettings extends GameSettings {
-  checkUpdatesInterval: number
-  enableUpdates: boolean
   addDesktopShortcuts: boolean
   addStartMenuShortcuts: boolean
   addSteamShortcuts: boolean
-  altLegendaryBin: string
   altGogdlBin: string
+  altLegendaryBin: string
+  autoUpdateGames: boolean
   checkForUpdatesOnStartup: boolean
+  checkUpdatesInterval: number
+  customThemesPath: string
   customWinePaths: string[]
   darkTrayIcon: boolean
   defaultInstallPath: string
   defaultSteamPath: string
+  defaultWinePrefix: string
   disableController: boolean
   discordRPC: boolean
   downloadNoHttps: boolean
   egsLinkedPath: string
+  enableUpdates: boolean
   exitToTray: boolean
+  hideChangelogsOnStartup: boolean
   libraryTopSection: LibraryTopSectionOptions
   maxRecentGames: number
   maxWorkers: number
   minimizeOnLaunch: boolean
   startInTray: boolean
   userInfo: UserInfo
-  defaultWinePrefix: string
-  customThemesPath: string
-  hideChangelogsOnStartup: boolean
 }
 
 export type LibraryTopSectionOptions =
