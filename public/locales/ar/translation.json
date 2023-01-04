@@ -217,9 +217,11 @@
     "GOG": "جي.أو.جي",
     "gog-store": "متجر جي.أو.جي",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "تجاهل المخفي",
         "platform": "منصة",
         "show_all_games": "اعرض كل الألعاب",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "أظهر المفضلة فقط",
         "show_hidden": "أظهر المخفي",
         "store": "صفِّ المتجر"

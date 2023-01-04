@@ -35,7 +35,8 @@
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Θέλετε να απεγκαταστήσετε αυτό το παιχνίδι;",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
-            "title": "Απεγκατάσταση"
+            "title": "Απεγκατάσταση",
+            "prefix_warning": "Το πρόθεμα Wine για αυτό το παιχνίδι είναι το προεπιλεγμένο πρόθεμα. Εάν θέλετε πραγματικά να το διαγράψετε, πρέπει να το κάνετε χειροκίνητα."
         },
         "update": {
             "message": "Το παιχνίδι έχει μια ενημέρωση, εφαρμογή ενημερώσεως τώρα;",
@@ -67,7 +68,8 @@
         },
         "unhide_game": "Φανέρωση Παιχνιδιού",
         "uninstall": "Απεγκατάσταση",
-        "update": "Ενημέρωση"
+        "update": "Ενημέρωση",
+        "details": "Λεπτομέριες"
     },
     "cloud_save_unsupported": "Unsupported",
     "disabled": "Απενεργοποιημένο",

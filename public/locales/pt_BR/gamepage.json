@@ -8,13 +8,13 @@
         "choose": "Selecionar",
         "importpath": "Selecione a pasta do jogo a ser importado",
         "move": {
-            "message": "Isto pode levar um longo tempo, tem certeza disso?",
+            "message": "Isto pode demorar, tem certeza disso?",
             "path": "Selecione a pasta para onde deseja mover",
             "title": "Mover a pasta de instalação do jogo"
         },
         "no": "NÃO",
         "repair": {
-            "message": "Deseja tentar reparar este jogo? Isso pode levar muito tempo.",
+            "message": "Deseja tentar reparar este jogo? Isso pode demorar.",
             "title": "Verificar e Reparar"
         },
         "runexe": {
