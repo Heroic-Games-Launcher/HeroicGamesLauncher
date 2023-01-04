@@ -217,6 +217,16 @@ async function initializeWindow(): Promise<BrowserWindow> {
     }
   }
 
+  mainWindow.webContents.setWindowOpenHandler((details) => {
+    let pattern
+    if (!app.isPackaged) {
+      pattern = 'localhost:5173'
+    } else {
+      pattern = publicDir
+    }
+    return { action: !details.url.match(pattern) ? 'allow' : 'deny' }
+  })
+
   ipcMain.on('setZoomFactor', async (event, zoomFactor) => {
     mainWindow.webContents.setZoomFactor(
       processZoomForScreen(parseFloat(zoomFactor))
