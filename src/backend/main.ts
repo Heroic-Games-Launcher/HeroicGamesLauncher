@@ -218,12 +218,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
   }
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
-    let pattern
-    if (!app.isPackaged) {
-      pattern = 'localhost:5173'
-    } else {
-      pattern = publicDir
-    }
+    const pattern = app.isPackaged ? publicDir : 'localhost:5173'
     return { action: !details.url.match(pattern) ? 'allow' : 'deny' }
   })
 
