@@ -142,7 +142,7 @@ const GameCard = ({
   }
 
   useEffect(() => {
-    const handleAutpUpdate = async () => {
+    const handleAutoUpdate = async () => {
       if (!hasUpdate) {
         return
       }
@@ -153,7 +153,7 @@ const GameCard = ({
         handleUpdate()
       }
     }
-    handleAutpUpdate()
+    handleAutoUpdate()
   }, [hasUpdate])
 
   const grid = forceCard || layout === 'grid'
