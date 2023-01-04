@@ -195,9 +195,17 @@ const launch = async ({
   syncCloud,
   showDialogModal
 }: LaunchOptions): Promise<{ status: 'done' | 'error' }> => {
-  const { ignoreGameUpdates } = await window.api.requestGameSettings(appName)
+  if (hasUpdate) {
+    const { ignoreGameUpdates } = await window.api.requestGameSettings(appName)
 
-  if (hasUpdate && !ignoreGameUpdates) {
+    if (ignoreGameUpdates) {
+      return window.api.launch({
+        appName,
+        runner,
+        launchArguments: '--skip-version-check'
+      })
+    }
+
     // promisifies the showDialogModal button click callbacks
     const launchFinished = new Promise<{ status: 'done' | 'error' }>((res) => {
       showDialogModal({
