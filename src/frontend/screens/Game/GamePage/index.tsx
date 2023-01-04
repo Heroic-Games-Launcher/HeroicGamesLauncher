@@ -52,6 +52,7 @@ import {
 
 import StoreLogos from 'frontend/components/UI/StoreLogos'
 import HowLongToBeat from 'frontend/components/UI/HowLongToBeat'
+import GameScore from 'frontend/components/UI/GameScore'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -513,6 +514,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 )}
               </div>
               <HowLongToBeat title={title} />
+              <GameScore
+                title={title}
+                id={runner === 'gog' ? appName : undefined}
+              />
               {is_installed && (
                 <NavLink
                   to={`/settings/${runner}/${appName}/log`}
