@@ -574,8 +574,7 @@
             "general": "General",
             "log": "Log",
             "other": "Other",
-            "sync": "Cloud Saves Sync",
-            "wineExt": "Wine Extensions"
+            "sync": "Cloud Saves Sync"
         },
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",
