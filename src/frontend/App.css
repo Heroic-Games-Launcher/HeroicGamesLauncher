@@ -154,3 +154,19 @@ svg.disabled {
 .isRTL {
   direction: rtl;
 }
+
+.cet-titlebar,
+.cet-titlebar > * {
+  font-family: var(--secondary-font-family);
+  background-color: var(--navbar-background);
+  color: var(--action-icon);
+}
+
+.cet-menubar .cet-menubar-menu-button:not(.disabled):hover,
+.cet-titlebar.light .cet-controls-container .cet-icon:not(.inactive):hover {
+  background-color: var(--navbar-active-background);
+}
+
+.cet-titlebar.light .cet-controls-container .cet-icon svg {
+  fill: var(--action-icon);
+}
