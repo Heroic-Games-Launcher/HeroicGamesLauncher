@@ -9,9 +9,6 @@ window.addEventListener('DOMContentLoaded', () => {
   // Check https://github.com/AlexTorresDev/custom-electron-titlebar/wiki
   // for more options and customization
   new Titlebar({
-    maximizable: true,
-    minimizable: true,
-    closeable: true,
     backgroundColor: Color.fromHex('#151f3d')
   })
 })
