@@ -7,6 +7,7 @@ import { BrowserWindow, Display, screen } from 'electron'
 import { configStore } from '../constants'
 
 jest.mock('../logger/logfile')
+jest.mock('custom-electron-titlebar/main')
 
 describe('main_window', () => {
   describe('sendFrontendMessage', () => {
