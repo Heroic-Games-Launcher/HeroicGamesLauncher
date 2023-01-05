@@ -1,6 +1,10 @@
 import { BrowserWindow, screen } from 'electron'
 import path from 'path'
 import { configStore } from './constants'
+import {
+  setupTitlebar,
+  attachTitlebarToWindow
+} from 'custom-electron-titlebar/main'
 
 let mainWindow: BrowserWindow | null = null
 
@@ -66,12 +70,16 @@ export const createMainWindow = () => {
     }
   }
 
+  // setup the titlebar main process
+  setupTitlebar()
+
   // Create the browser window.
   mainWindow = new BrowserWindow({
     ...windowProps,
     minHeight: 345,
     minWidth: 600,
     show: false,
+    frame: false,
 
     webPreferences: {
       webviewTag: true,
@@ -81,6 +89,9 @@ export const createMainWindow = () => {
       preload: path.join(__dirname, 'preload.js')
     }
   })
+
+  // attach fullscreen(f11 and not 'maximized') && focus listeners
+  attachTitlebarToWindow(mainWindow)
 
   return mainWindow
 }

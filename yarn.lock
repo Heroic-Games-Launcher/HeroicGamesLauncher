@@ -2730,6 +2730,11 @@ csstype@^3.0.2, csstype@^3.1.1:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.1.1.tgz#841b532c45c758ee546a11d5bd7b7b473c8c30b9"
   integrity sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==
 
+custom-electron-titlebar@^4.1.5:
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/custom-electron-titlebar/-/custom-electron-titlebar-4.1.5.tgz#5032759ee5594fd618a62cff0de46150fd8e2b24"
+  integrity sha512-KpVmO+Fz34zNw/jYbOD6YwxPr6h2hgZmNbjy0AvhlXiH4dxeZJXDlMcBX08NqsESymMQvIWwsGaA//YGW1bXjA==
+
 d3-array@2, d3-array@^2.3.0:
   version "2.12.1"
   resolved "https://registry.yarnpkg.com/d3-array/-/d3-array-2.12.1.tgz#e20b41aafcdffdf5d50928004ececf815a465e81"
