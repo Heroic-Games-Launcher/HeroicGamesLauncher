@@ -17,7 +17,7 @@ jest.mock('../../../logger/logfile')
 
 const workDir = process.cwd()
 
-describe('Main - InstallVersion', () => {
+describe('ToolManager - InstallVersion', () => {
   test('install fails because installDir does not exist', async () => {
     const progress = jest.fn()
 

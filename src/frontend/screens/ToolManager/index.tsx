@@ -3,7 +3,7 @@ import './index.scss'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { UpdateComponent } from 'frontend/components/UI'
 
-import React, { lazy, useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Tab, Tabs } from '@mui/material'
 import {
@@ -13,10 +13,7 @@ import {
 import { ToolVersionInfo, Type } from 'common/types/toolmanager'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
-
-const ToolItem = lazy(
-  async () => import('frontend/screens/ToolManager/components/ToolItem')
-)
+import ToolItem from 'frontend/screens/ToolManager/components/ToolItem'
 
 const configStore = new StoreIpc('wineManagerConfigStore', {
   cwd: 'store'

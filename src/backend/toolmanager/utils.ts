@@ -13,7 +13,7 @@ import {
   VersionInfo,
   Type,
   ToolVersionInfo,
-  Repositorys
+  Repositories
 } from '../../common/types/toolmanager'
 import Store from 'electron-store'
 import {
@@ -347,14 +347,14 @@ async function updateToolVersionInfos(
       prefix: LogPrefix.ToolManager
     })
     await getAvailableVersions({
-      repositorys: [
-        Repositorys.WINEGE,
-        Repositorys.PROTONGE,
-        Repositorys.SODA_BOTTLES,
-        Repositorys.DXVK,
-        Repositorys.DXVK_ASYNC,
-        Repositorys.DXVK_NVAPI,
-        Repositorys.VKD3D
+      repositories: [
+        Repositories.WINEGE,
+        Repositories.PROTONGE,
+        Repositories.SODA_BOTTLES,
+        Repositories.DXVK,
+        Repositories.DXVK_ASYNC,
+        Repositories.DXVK_NVAPI,
+        Repositories.VKD3D
       ],
       count
     })

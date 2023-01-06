@@ -5,7 +5,7 @@ jest.mock('../../../logger/logfile')
 
 const workDir = process.cwd()
 
-describe('Utilities - Downlaod', () => {
+describe('Utilities - Download', () => {
   test('download file fails because of invalid installDir', async () => {
     const progress = jest.fn()
     await downloadFile({

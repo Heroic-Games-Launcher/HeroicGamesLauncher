@@ -1,5 +1,5 @@
 import { logWarning } from '../../../logger/logger'
-import { Repositorys, VersionInfo } from '../../../../common/types/toolmanager'
+import { Repositories, VersionInfo } from '../../../../common/types/toolmanager'
 import { getAvailableVersions } from '../../toolmanager'
 import { test_data_release_list } from '../test_data/github-api-test-data.json'
 import * as axios from 'axios'
@@ -7,7 +7,7 @@ import * as axios from 'axios'
 jest.mock('../../../logger/logger')
 jest.mock('../../../logger/logfile')
 
-describe('Main - GetAvailableVersions', () => {
+describe('ToolManager - GetAvailableVersions', () => {
   test('fetch releases succesfully', async () => {
     axios.default.get = jest.fn().mockResolvedValue(test_data_release_list)
 
@@ -29,9 +29,9 @@ describe('Main - GetAvailableVersions', () => {
   test('fetch releases succesfully independent', async () => {
     axios.default.get = jest.fn().mockResolvedValue(test_data_release_list)
 
-    for (let key = 0; key < Object.keys(Repositorys).length / 2; key++) {
+    for (let key = 0; key < Object.keys(Repositories).length / 2; key++) {
       await getAvailableVersions({
-        repositorys: [key]
+        repositories: [key]
       })
         .then((releases: VersionInfo[]) => {
           expect(releases).not.toBe([])
@@ -52,8 +52,8 @@ describe('Main - GetAvailableVersions', () => {
   test('fetch releases failed because of 404', async () => {
     axios.default.get = jest.fn().mockRejectedValue('Could not fetch tag 404')
 
-    for (let key = 0; key < Object.keys(Repositorys).length / 2; key++) {
-      await getAvailableVersions({ repositorys: [key] })
+    for (let key = 0; key < Object.keys(Repositories).length / 2; key++) {
+      await getAvailableVersions({ repositories: [key] })
         .then(() => {
           throw Error("Function shouldn't success!")
         })
@@ -70,7 +70,7 @@ describe('Main - GetAvailableVersions', () => {
   test('Invalid repository key returns nothing', async () => {
     axios.default.get = jest.fn()
 
-    await getAvailableVersions({ repositorys: [-1] })
+    await getAvailableVersions({ repositories: [-1] })
       .then((releases: VersionInfo[]) => {
         expect(releases).toStrictEqual([])
         expect(releases.length).toBe(0)

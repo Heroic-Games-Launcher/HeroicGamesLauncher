@@ -32,7 +32,7 @@ export interface VersionInfo {
 /**
  * Enum for the supported repositorys
  */
-export enum Repositorys {
+export enum Repositories {
   WINEGE,
   PROTONGE,
   SODA_BOTTLES,

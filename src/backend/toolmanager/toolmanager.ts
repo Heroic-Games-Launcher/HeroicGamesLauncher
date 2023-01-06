@@ -2,7 +2,7 @@ import { LogPrefix, logWarning } from './../logger/logger'
 import * as axios from 'axios'
 import {
   ProgressInfo,
-  Repositorys,
+  Repositories,
   State,
   VersionInfo
 } from '../../common/types/toolmanager'
@@ -34,36 +34,36 @@ import {
 } from './utils'
 
 interface getVersionsProps {
-  repositorys?: Repositorys[]
+  repositories?: Repositories[]
   count?: number
 }
 
 /**
- * Fetch all available releases for given {@link Repositorys}.
- * If no repository is given, all {@link Repositorys} are checked.
- * @param repositorys array of {@link Repositorys}.
- * @defaultValue all {@link Repositorys}
+ * Fetch all available releases for given {@link Repositories}.
+ * If no repository is given, all {@link Repositories} are checked.
+ * @param repositorys array of {@link Repositories}.
+ * @defaultValue all {@link Repositories}
  * @param count max versions to fetch for each {@link Repository}
  * @defaultValue 100
  * @returns * resolves with an array of {@link VersionInfo}
  *          * rejects with an {@link Error}
  */
 async function getAvailableVersions({
-  repositorys = [
-    Repositorys.WINEGE,
-    Repositorys.PROTONGE,
-    Repositorys.SODA_BOTTLES,
-    Repositorys.DXVK,
-    Repositorys.DXVK_ASYNC,
-    Repositorys.DXVK_NVAPI,
-    Repositorys.VKD3D
+  repositories = [
+    Repositories.WINEGE,
+    Repositories.PROTONGE,
+    Repositories.SODA_BOTTLES,
+    Repositories.DXVK,
+    Repositories.DXVK_ASYNC,
+    Repositories.DXVK_NVAPI,
+    Repositories.VKD3D
   ],
   count = 100
 }: getVersionsProps): Promise<VersionInfo[]> {
   const releases: Array<VersionInfo> = []
-  for await (const repo of repositorys) {
+  for await (const repo of repositories) {
     switch (repo) {
-      case Repositorys.WINEGE: {
+      case Repositories.WINEGE: {
         await fetchReleases({
           url: WINEGE_URL,
           type: 'Wine-GE',
@@ -77,7 +77,7 @@ async function getAvailableVersions({
           })
         break
       }
-      case Repositorys.PROTONGE: {
+      case Repositories.PROTONGE: {
         await fetchReleases({
           url: PROTONGE_URL,
           type: 'Proton-GE',
@@ -91,7 +91,7 @@ async function getAvailableVersions({
           })
         break
       }
-      case Repositorys.SODA_BOTTLES: {
+      case Repositories.SODA_BOTTLES: {
         await fetchReleases({
           url: SODA_BOTTLES_URL,
           type: 'Soda-Bottles',
@@ -109,7 +109,7 @@ async function getAvailableVersions({
           })
         break
       }
-      case Repositorys.DXVK: {
+      case Repositories.DXVK: {
         await fetchReleases({
           url: DXVK_URL,
           type: 'DXVK',
@@ -123,7 +123,7 @@ async function getAvailableVersions({
           })
         break
       }
-      case Repositorys.DXVK_ASYNC: {
+      case Repositories.DXVK_ASYNC: {
         await fetchReleases({
           url: DXVK_ASYNC_URL,
           type: 'DXVK-Async',
@@ -137,7 +137,7 @@ async function getAvailableVersions({
           })
         break
       }
-      case Repositorys.DXVK_NVAPI: {
+      case Repositories.DXVK_NVAPI: {
         await fetchReleases({
           url: DXVK_NVAPI_URL,
           type: 'DXVK-NVAPI',
@@ -151,7 +151,7 @@ async function getAvailableVersions({
           })
         break
       }
-      case Repositorys.VKD3D: {
+      case Repositories.VKD3D: {
         await fetchReleases({
           url: VKD3D_URL,
           type: 'VKD3D',
