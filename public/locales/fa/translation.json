@@ -204,7 +204,6 @@
         "store": "فروشگاه",
         "title": "عنوان بازی"
     },
-    "GameSettings": "تنظیمات بازی",
     "generic": {
         "error": {
             "component": "بازی یافت نشد - خروج از حساب و ورود مجدد را امتحان کرده یا یکی از گزینه های زیر را امتحان کنید"
@@ -217,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "فروشگاه GOG",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "نادیده گرفتن موارد پنهان",
         "platform": "پلتفرم",
         "show_all_games": "نمایش همه بازی ها",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "نمایش مورد علاقه ها",
         "show_hidden": "نمایش موارد پنهان",
         "store": "فیلتر فروشگاه"
@@ -571,7 +572,6 @@
         },
         "navbar": {
             "advanced": "پیشرفته",
-            "games_settings": "Game Settings",
             "games_settings_defaults": "Game Defaults",
             "general": "عمومی",
             "log": "Log",

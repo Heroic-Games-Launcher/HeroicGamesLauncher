@@ -81,6 +81,7 @@ interface StateProps {
   hiddenGames: HiddenGame[]
   showHidden: boolean
   showFavourites: boolean
+  showNonAvailable: boolean
   favouriteGames: FavouriteGame[]
   theme: string
   zoomPercent: number
@@ -95,6 +96,11 @@ interface StateProps {
   sideloadedLibrary: GameInfo[]
   hideChangelogsOnStartup: boolean
   lastChangelogShown: string | null
+  settingsModalOpen: {
+    value: boolean
+    type: 'settings' | 'log'
+    gameInfo?: GameInfo | null
+  }
 }
 
 class GlobalState extends PureComponent<Props> {
@@ -148,6 +154,7 @@ class GlobalState extends PureComponent<Props> {
       (configStore.get('games.hidden', []) as Array<HiddenGame>) || [],
     showHidden: JSON.parse(storage.getItem('show_hidden') || 'false'),
     showFavourites: JSON.parse(storage.getItem('show_favorites') || 'false'),
+    showNonAvailable: true,
     sidebarCollapsed: JSON.parse(
       storage.getItem('sidebar_collapsed') || 'false'
     ),
@@ -174,7 +181,8 @@ class GlobalState extends PureComponent<Props> {
     dialogModalOptions: { showDialog: false },
     externalLinkDialogOptions: { showDialog: false },
     hideChangelogsOnStartup: globalSettings.hideChangelogsOnStartup,
-    lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null')
+    lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null'),
+    settingsModalOpen: { value: false, type: 'settings', gameInfo: undefined }
   }
 
   setLanguage = (newLanguage: string) => {
@@ -226,6 +234,10 @@ class GlobalState extends PureComponent<Props> {
 
   setShowFavourites = (value: boolean) => {
     this.setState({ showFavourites: value })
+  }
+
+  setShowNonAvailable = (value: boolean) => {
+    this.setState({ showNonAvailable: value })
   }
 
   setSideBarCollapsed = (value: boolean) => {
@@ -391,6 +403,22 @@ class GlobalState extends PureComponent<Props> {
     window.location.reload()
   }
 
+  handleSettingsModalOpen = (
+    value: boolean,
+    type?: 'settings' | 'log',
+    gameInfo?: GameInfo
+  ) => {
+    if (gameInfo) {
+      this.setState({
+        settingsModalOpen: { value, type, gameInfo }
+      })
+    } else {
+      this.setState({
+        settingsModalOpen: { value, gameInfo: null }
+      })
+    }
+  }
+
   refresh = async (
     library?: Runner | 'all',
     checkUpdates = false
@@ -505,6 +533,7 @@ class GlobalState extends PureComponent<Props> {
   }: GameStatus) => {
     const { libraryStatus, gameUpdates } = this.state
     const currentApp = libraryStatus.find((game) => game.appName === appName)
+
     // add app to libraryStatus if it was not present
     if (!currentApp) {
       return this.setState({
@@ -520,32 +549,21 @@ class GlobalState extends PureComponent<Props> {
       return
     }
 
-    let newLibraryStatus = libraryStatus
+    // if the app's status did change, remove it from the current list and then handle the new status
+    const newLibraryStatus = libraryStatus.filter(
+      (game) => game.appName !== appName
+    )
 
-    if (status === 'installing') {
-      currentApp.status = 'installing'
-      // remove the item from the library to avoid duplicates then add the new status
-      newLibraryStatus = libraryStatus.filter(
-        (game) => game.appName !== appName
-      )
+    // in these cases we just add the new status
+    if (['installing', 'updating', 'playing'].includes(status)) {
+      currentApp.status = status
       newLibraryStatus.push(currentApp)
+      this.setState({ libraryStatus: newLibraryStatus })
     }
 
-    if (status === 'updating') {
-      currentApp.status = 'updating'
-      // remove the item from the library to avoid duplicates then add the new status
-      newLibraryStatus = libraryStatus.filter(
-        (game) => game.appName !== appName
-      )
-      newLibraryStatus.push(currentApp)
-    }
-
-    // if the app is done installing or errored
-    if (['error', 'done', 'playing'].includes(status)) {
-      // if the app was updating, remove from the available game updates
-      newLibraryStatus = libraryStatus.filter(
-        (game) => game.appName !== appName
-      )
+    // when error or done we remove it from the status info
+    if (['error', 'done'].includes(status)) {
+      // also remove from updates if it was updating
       if (currentApp.status === 'updating') {
         const updatedGamesUpdates = gameUpdates.filter(
           (game) => game !== appName
@@ -754,6 +772,7 @@ class GlobalState extends PureComponent<Props> {
           },
           setShowHidden: this.setShowHidden,
           setShowFavourites: this.setShowFavourites,
+          setShowNonAvailable: this.setShowNonAvailable,
           favouriteGames: {
             list: this.state.favouriteGames,
             add: this.addGameToFavourites,
@@ -772,7 +791,9 @@ class GlobalState extends PureComponent<Props> {
           hideChangelogsOnStartup: this.state.hideChangelogsOnStartup,
           setHideChangelogsOnStartup: this.setHideChangelogsOnStartup,
           lastChangelogShown: this.state.lastChangelogShown,
-          setLastChangelogShown: this.setLastChangelogShown
+          setLastChangelogShown: this.setLastChangelogShown,
+          isSettingsModalOpen: this.state.settingsModalOpen,
+          setIsSettingsModalOpen: this.handleSettingsModalOpen
         }}
       >
         {this.props.children}

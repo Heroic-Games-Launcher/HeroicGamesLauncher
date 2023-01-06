@@ -204,7 +204,6 @@
         "store": "商店",
         "title": "游戏标题"
     },
-    "GameSettings": "游戏设置",
     "generic": {
         "error": {
             "component": "没有发现游戏 - 尝试注销并再次登录或以下选项之一"
@@ -217,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "GOG 商店",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "忽略隐藏项",
         "platform": "平台",
         "show_all_games": "显示所有游戏",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "仅显示最爱",
         "show_hidden": "显示隐藏项",
         "store": "过滤商店"
@@ -571,7 +572,6 @@
         },
         "navbar": {
             "advanced": "高级",
-            "games_settings": "游戏设置",
             "games_settings_defaults": "游戏默认值",
             "general": "常规",
             "log": "日志",

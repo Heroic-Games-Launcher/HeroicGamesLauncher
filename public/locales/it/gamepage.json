@@ -35,7 +35,8 @@
             "checkbox": "Rimuovi prefisso: {{prefix}}{{newLine}}Nota: questa operazione non è reversibile e saranno rimossi anche i salvataggi di cui non è stato effettuato il back up",
             "message": "Vuoi disinstallare questo gioco?",
             "settingcheckbox": "Elimina le impostazioni e rimuovi il log{{newLine}}Nota: questa operazione non è reversibile. Tutte le impostazioni modificate saranno dimenticate e il log verrà eliminato.",
-            "title": "Disinstalla"
+            "title": "Disinstalla",
+            "prefix_warning": "Il prefisso Wine per questo gioco è il prefisso predefinito. Se vuoi davvero eliminarlo, devi farlo manualmente."
         },
         "update": {
             "message": "Questo gioco ha un aggiornamento, desideri aggiornarlo ora?",
@@ -67,7 +68,8 @@
         },
         "unhide_game": "Mostra gioco",
         "uninstall": "Disinstalla",
-        "update": "Aggiorna"
+        "update": "Aggiorna",
+        "details": "Dettagli"
     },
     "cloud_save_unsupported": "Non supportato",
     "disabled": "Disattivato",

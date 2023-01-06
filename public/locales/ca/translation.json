@@ -204,7 +204,6 @@
         "store": "Botiga",
         "title": "Títol del joc"
     },
-    "GameSettings": "Configuració del joc",
     "generic": {
         "error": {
             "component": "No s'han trobat jocs. Prova de reiniciar la sessió o alguna de les opcions de sota"
@@ -217,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "Botiga del GOG",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Ignora els amagats",
         "platform": "Plataforma",
         "show_all_games": "Mostra tots els jocs",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Mostra'n només els preferits",
         "show_hidden": "Mostra'n els amagats",
         "store": "Filtre de botigues"
@@ -571,7 +572,6 @@
         },
         "navbar": {
             "advanced": "Avançat",
-            "games_settings": "Configuració del joc",
             "games_settings_defaults": "Valors per defecte",
             "general": "General",
             "log": "Registre",

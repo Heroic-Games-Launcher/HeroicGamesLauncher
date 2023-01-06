@@ -189,7 +189,7 @@ Since these two distribution formats don't have a form of dependency management,
 
 #### WinGet
 
-If you use WinGet (installed by default on Windows 11 and modern versions of 10), you can run `winget install HeroicGamesLauncher.HeroicGamesLauncher` in a terminal to install Heroic.
+If you use WinGet (installed by default on Windows 11 and modern versions of 10), you can run `winget install Heroic` in a terminal to install Heroic.
 
 #### Manual installl
 

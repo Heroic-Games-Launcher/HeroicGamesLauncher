@@ -204,7 +204,6 @@
         "store": "Pood",
         "title": "Mängu pealkiri"
     },
-    "GameSettings": "Mängu seaded",
     "generic": {
         "error": {
             "component": "Mänge ei leitud - proovige uuesti sisse logida või ühte allolevatest võimalustest"
@@ -217,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "GOG Pood",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Ignoreeri peidetud",
         "platform": "Platvorm",
         "show_all_games": "Näita kõiki mänge",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Näita ainult lemmikuid",
         "show_hidden": "Näita peidetud",
         "store": "Filtreeri poodi"
@@ -571,7 +572,6 @@
         },
         "navbar": {
             "advanced": "Täpsem",
-            "games_settings": "Game Settings",
             "games_settings_defaults": "Game Defaults",
             "general": "Üldine",
             "log": "Logi",

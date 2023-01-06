@@ -35,7 +35,8 @@
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "이 게임을 제거하시겠습니까?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
-            "title": "설치 제거"
+            "title": "설치 제거",
+            "prefix_warning": "이 게임의 Wine 접두사는 기본 접두사입니다. 정말로 삭제하고 싶다면 수동으로 삭제해야 합니다."
         },
         "update": {
             "message": "이 게임에 업데이트가 있습니다, 지금 업데이트하시겠습니까?",
@@ -67,7 +68,8 @@
         },
         "unhide_game": "게임 숨기기 해제",
         "uninstall": "설치 제거",
-        "update": "업데이트"
+        "update": "업데이트",
+        "details": "세부"
     },
     "cloud_save_unsupported": "Unsupported",
     "disabled": "비활성화",

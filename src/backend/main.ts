@@ -216,6 +216,11 @@ async function initializeWindow(): Promise<BrowserWindow> {
     }
   }
 
+  mainWindow.webContents.setWindowOpenHandler((details) => {
+    const pattern = app.isPackaged ? publicDir : 'localhost:5173'
+    return { action: !details.url.match(pattern) ? 'allow' : 'deny' }
+  })
+
   ipcMain.on('setZoomFactor', async (event, zoomFactor) => {
     mainWindow.webContents.setZoomFactor(
       processZoomForScreen(parseFloat(zoomFactor))
@@ -1546,7 +1551,8 @@ import './legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
 import './downloadmanager/ipc_handler'
 import './utils/ipc_handler'
-import './howlongtobeat/ipc_handler'
+import './extra_game_info/howlongtobeat/ipc_handler'
+import './extra_game_info/pcgamingwiki/ipc_handler'
 import './recent_games/ipc_handler'
 
 // import Store from 'electron-store'

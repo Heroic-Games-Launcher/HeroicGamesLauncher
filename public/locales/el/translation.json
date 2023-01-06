@@ -204,7 +204,6 @@
         "store": "Κατάστημα",
         "title": "Τίτλος παιχνιδιού"
     },
-    "GameSettings": "Ρυθμίσεις παιχνιδιού",
     "generic": {
         "error": {
             "component": "Δεν βρέθηκαν παιχνίδια - Δοκιμάστε να αποσυνδεθείτε και να συνδεθείτε ξανά ή μια από τις παρακάτω επιλογές"
@@ -217,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "Κατάστημα GOG",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Παράλειψη κρυφών στοιχείων",
         "platform": "Πλατφόρμα",
         "show_all_games": "Εμφάνιση όλων των παιχνιδιών",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Εμφάνιση μόνο αγαπημένων",
         "show_hidden": "Εμφάνιση κρυφών στοιχείων",
         "store": "Φιλτράρισμα καταστήματος"
@@ -571,7 +572,6 @@
         },
         "navbar": {
             "advanced": "Προχωρημένες",
-            "games_settings": "Game Settings",
             "games_settings_defaults": "Game Defaults",
             "general": "Γενικά",
             "log": "Αρχεία καταγραφής",
