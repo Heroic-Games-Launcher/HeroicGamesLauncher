@@ -15,7 +15,7 @@ export const connectivityEmitter = new EventEmitter()
 
 // handle setting the status, dispatch events for backend and frontend, and trigger pings
 const setStatus = (newStatus: ConnectivityStatus) => {
-  logInfo(`Connectivity: ${newStatus}`, { prefix: LogPrefix.Connection })
+  logInfo(`Connectivity: ${newStatus}`, LogPrefix.Connection)
 
   status = newStatus
 
@@ -42,7 +42,6 @@ const setStatus = (newStatus: ConnectivityStatus) => {
 
 const retry = (seconds: number) => {
   retryIn = seconds
-  // logInfo(`Retrying in: ${retryIn} seconds`, { prefix: LogPrefix.Connection })
   // dispatch event with retry countdown
   sendFrontendMessage('connectivity-changed', {
     status: 'check-online',
@@ -70,7 +69,7 @@ const ping = async (url: string, signal: AbortSignal) => {
 }
 
 const pingSites = () => {
-  logInfo(`Pinging external endpoints`, { prefix: LogPrefix.Connection })
+  logInfo(`Pinging external endpoints`, LogPrefix.Connection)
   abortController = new AbortController()
 
   const ping1 = ping('https://github.com', abortController.signal)
@@ -84,8 +83,8 @@ const pingSites = () => {
       timeBetweenRetries = defaultTimeBetweenRetries
     })
     .catch((error) => {
-      logInfo('All ping requests failed:', { prefix: LogPrefix.Connection })
-      logInfo(error, { prefix: LogPrefix.Connection })
+      logInfo('All ping requests failed:', LogPrefix.Connection)
+      logInfo(error, LogPrefix.Connection)
       retry(timeBetweenRetries)
       timeBetweenRetries = timeBetweenRetries + defaultTimeBetweenRetries
     })

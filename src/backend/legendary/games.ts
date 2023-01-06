@@ -49,6 +49,7 @@ import { t } from 'i18next'
 import { isOnline } from '../online_monitor'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
 import { gameAnticheatInfo } from '../anticheat/utils'
+import { Catalog, Product } from 'common/types/epic-graphql'
 import { sendFrontendMessage } from '../main_window'
 
 class LegendaryGame extends Game {
@@ -92,7 +93,7 @@ class LegendaryGame extends Game {
           `${this.appName},`,
           'returning empty object. Something is probably gonna go wrong soon'
         ],
-        { prefix: LogPrefix.Legendary }
+        LogPrefix.Legendary
       )
       // @ts-expect-error TODO: Handle this better
       return {}
@@ -109,25 +110,151 @@ class LegendaryGame extends Game {
     return LegendaryLibrary.get().getInstallInfo(this.appName, installPlatform)
   }
 
-  private async getProductSlug(namespace: string) {
-    const graphql = JSON.stringify({
-      query: `{Catalog{catalogOffers( namespace:"${namespace}"){elements {productSlug}}}}`,
-      variables: {}
-    })
-    const result = await axios('https://www.epicgames.com/graphql', {
-      data: graphql,
-      headers: { 'Content-Type': 'application/json' },
-      method: 'POST'
-    })
-    const res = result.data.data.Catalog.catalogOffers
-    const slug = res.elements.find(
-      (e: { productSlug: string }) => e.productSlug
-    )
-    if (slug) {
-      return slug.productSlug.replace(/(\/.*)/, '')
-    } else {
-      return this.appName
+  private async getProductSlug(namespace: string, title: string) {
+    // If you want to change this graphql query, make sure it works for these games:
+    // Rocket League
+    // Alba - A Wildlife Adventure
+    const graphql = {
+      query: `{
+          Catalog {
+            catalogNs(namespace: "${namespace}") {
+              mappings (pageType: "productHome") {
+                pageSlug
+                pageType
+              }
+            }
+          }
+      }`
     }
+
+    try {
+      const result = await axios('https://www.epicgames.com/graphql', {
+        data: graphql,
+        headers: { 'Content-Type': 'application/json' },
+        method: 'POST'
+      })
+
+      const res = result.data.data.Catalog as Catalog
+      const slugMapping = res.catalogNs.mappings.find(
+        (mapping) => mapping.pageType === 'productHome'
+      )
+
+      if (slugMapping) {
+        return slugMapping.pageSlug
+      } else {
+        return this.slugFromTitle(title)
+      }
+    } catch (error) {
+      logError(error, LogPrefix.Legendary)
+      return this.slugFromTitle(title)
+    }
+  }
+
+  private async getExtraFromAPI(slug: string): Promise<ExtraInfo | null> {
+    let lang = configStore.get('language', '') as string
+    if (lang === 'pt') {
+      lang = 'pt-BR'
+    }
+    if (lang === 'zh_Hans') {
+      lang = 'zh-CN'
+    }
+
+    const epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${slug}`
+
+    try {
+      const { data } = await axios({ method: 'GET', url: epicUrl })
+      logInfo('Getting Info from Epic API', LogPrefix.Legendary)
+
+      const about = data?.pages?.find(
+        (e: { type: string }) => e.type === 'productHome'
+      )
+
+      if (about) {
+        return {
+          about: about.data.about,
+          reqs: about.data.requirements.systems[0].details,
+          storeUrl: `https://www.epicgames.com/store/product/${slug}`
+        }
+      } else {
+        return null
+      }
+    } catch (error) {
+      return null
+    }
+  }
+
+  private async getExtraFromGraphql(
+    namespace: string,
+    slug: string
+  ): Promise<ExtraInfo | null> {
+    const graphql = {
+      query: `{
+        Product {
+          sandbox(sandboxId: "${namespace}") {
+            configuration {
+              ... on StoreConfiguration {
+                configs {
+                  shortDescription
+                  technicalRequirements {
+                    macos {
+                      minimum
+                      recommended
+                      title
+                    }
+                    windows {
+                      minimum
+                      recommended
+                      title
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }`
+    }
+
+    try {
+      const result = await axios('https://www.epicgames.com/graphql', {
+        data: graphql,
+        headers: { 'Content-Type': 'application/json' },
+        method: 'POST'
+      })
+
+      const res = result.data.data.Product as Product
+
+      const configuration = res.sandbox.configuration[0]
+
+      if (!configuration) {
+        return null
+      }
+
+      const requirements = configuration.configs.technicalRequirements.windows
+
+      if (requirements) {
+        return {
+          about: {
+            description: res.sandbox.configuration[0].configs.shortDescription,
+            longDescription: ''
+          },
+          reqs: requirements,
+          storeUrl: `https://www.epicgames.com/store/product/${slug}`
+        }
+      } else {
+        return null
+      }
+    } catch (error) {
+      logError(error, LogPrefix.Legendary)
+      return null
+    }
+  }
+
+  private slugFromTitle(title: string): string {
+    return title
+      .toLowerCase()
+      .replace(/[^a-z ]/g, '')
+      .replaceAll(' ', '-')
   }
 
   /**
@@ -137,7 +264,7 @@ class LegendaryGame extends Game {
    * @returns
    */
   public async getExtraInfo(): Promise<ExtraInfo> {
-    const { namespace } = this.getGameInfo()
+    const { namespace, title } = this.getGameInfo()
     if (gameInfoStore.has(namespace)) {
       return gameInfoStore.get(namespace) as ExtraInfo
     }
@@ -147,61 +274,34 @@ class LegendaryGame extends Game {
           description: '',
           longDescription: ''
         },
-        reqs: []
+        reqs: [],
+        storeUrl: ''
       }
-    }
-    let lang = GlobalConfig.get().config.language
-    if (lang === 'pt') {
-      lang = 'pt-BR'
-    }
-    if (lang === 'zh_Hans') {
-      lang = 'zh-CN'
     }
 
-    let epicUrl: string
-    if (namespace) {
-      let productSlug: string
-      try {
-        productSlug = await this.getProductSlug(namespace)
-      } catch (error) {
-        logError(error, { prefix: LogPrefix.Legendary })
-        productSlug = this.appName
-      }
-      epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${productSlug}`
+    const slug = await this.getProductSlug(namespace, title)
+
+    // try the API first, it works for most games
+    let extraData = await this.getExtraFromAPI(slug)
+
+    // if the API doesn't work, try graphql
+    if (!extraData) {
+      extraData = await this.getExtraFromGraphql(namespace, slug)
+    }
+
+    // if we have data, store it and return
+    if (extraData) {
+      gameInfoStore.set(namespace, extraData)
+      return extraData
     } else {
-      epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${this.appName}`
-    }
-    try {
-      const { data } = await axios({
-        method: 'GET',
-        url: epicUrl
-      })
-      logInfo('Getting Info from Epic API', { prefix: LogPrefix.Legendary })
-
-      const about = data.pages.find(
-        (e: { type: string }) => e.type === 'productHome'
-      )
-
-      gameInfoStore.set(namespace, {
-        about: about.data.about,
-        reqs: about.data.requirements.systems[0].details
-      })
-      return {
-        about: about.data.about,
-        reqs: about.data.requirements.systems[0].details
-      }
-    } catch (error) {
-      logError('Error Getting Info from Epic API', {
-        prefix: LogPrefix.Legendary
-      })
-
-      gameInfoStore.set(namespace, { about: {}, reqs: [] })
+      logError('Error Getting Info from Epic API', LogPrefix.Legendary)
       return {
         about: {
           description: '',
           longDescription: ''
         },
-        reqs: []
+        reqs: [],
+        storeUrl: ''
       }
     }
   }
@@ -244,9 +344,10 @@ class LegendaryGame extends Game {
 
     const command = `mv -f '${oldInstallPath}' '${newInstallPath}'`
 
-    logInfo([`Moving ${this.appName} to ${newInstallPath} with`, command], {
-      prefix: LogPrefix.Legendary
-    })
+    logInfo(
+      [`Moving ${this.appName} to ${newInstallPath} with`, command],
+      LogPrefix.Legendary
+    )
 
     await execAsync(command)
       .then(async () => {
@@ -256,9 +357,10 @@ class LegendaryGame extends Game {
         )
       })
       .catch((error) => {
-        logError([`Failed to move ${this.appName}:`, error], {
-          prefix: LogPrefix.Legendary
-        })
+        logError(
+          [`Failed to move ${this.appName}:`, error],
+          LogPrefix.Legendary
+        )
       })
     return newInstallPath
   }
@@ -319,7 +421,7 @@ class LegendaryGame extends Game {
         `${percent}%/${bytes}MiB/${eta}`.trim(),
         `Down: ${downSpeed}MiB/s / Disk: ${diskSpeed}MiB/s`
       ],
-      { prefix: LogPrefix.Legendary }
+      LogPrefix.Legendary
     )
 
     sendFrontendMessage(`progressUpdate-${this.appName}`, {
@@ -346,8 +448,7 @@ class LegendaryGame extends Game {
       runner: 'legendary',
       status: 'updating'
     })
-    const { maxWorkers, downloadNoHttps } =
-      await GlobalConfig.get().getSettings()
+    const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
     const installPlatform = this.getGameInfo().install.platform!
     const info = await this.getInstallInfo(installPlatform)
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
@@ -383,9 +484,10 @@ class LegendaryGame extends Game {
     })
 
     if (res.error) {
-      logError(['Failed to update', `${this.appName}:`, res.error], {
-        prefix: LogPrefix.Legendary
-      })
+      logError(
+        ['Failed to update', `${this.appName}:`, res.error],
+        LogPrefix.Legendary
+      )
       return { status: 'error' }
     }
     return { status: 'done' }
@@ -432,8 +534,7 @@ class LegendaryGame extends Game {
     status: 'done' | 'error' | 'abort'
     error?: string
   }> {
-    const { maxWorkers, downloadNoHttps } =
-      await GlobalConfig.get().getSettings()
+    const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
     const info = await this.getInstallInfo(platformToInstall)
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
     const noHttps = downloadNoHttps ? ['--no-https'] : []
@@ -498,9 +599,10 @@ class LegendaryGame extends Game {
 
     if (res.error) {
       if (!res.error.includes('signal')) {
-        logError(['Failed to install', `${this.appName}:`, res.error], {
-          prefix: LogPrefix.Legendary
-        })
+        logError(
+          ['Failed to install', `${this.appName}:`, res.error],
+          LogPrefix.Legendary
+        )
       }
       return { status: 'error', error: res.error }
     }
@@ -535,9 +637,10 @@ class LegendaryGame extends Game {
     deleteAbortController(this.appName)
 
     if (res.error) {
-      logError(['Failed to uninstall', `${this.appName}:`, res.error], {
-        prefix: LogPrefix.Legendary
-      })
+      logError(
+        ['Failed to uninstall', `${this.appName}:`, res.error],
+        LogPrefix.Legendary
+      )
     } else if (!res.abort) {
       LegendaryLibrary.get().installState(this.appName, false)
       await removeShortcuts(this.getGameInfo())
@@ -552,8 +655,7 @@ class LegendaryGame extends Game {
    */
   public async repair(): Promise<ExecResult> {
     // this.state.status = 'repairing'
-    const { maxWorkers, downloadNoHttps } =
-      await GlobalConfig.get().getSettings()
+    const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
     const noHttps = downloadNoHttps ? ['--no-https'] : []
 
@@ -573,9 +675,10 @@ class LegendaryGame extends Game {
     deleteAbortController(this.appName)
 
     if (res.error) {
-      logError(['Failed to repair', `${this.appName}:`, res.error], {
-        prefix: LogPrefix.Legendary
-      })
+      logError(
+        ['Failed to repair', `${this.appName}:`, res.error],
+        LogPrefix.Legendary
+      )
     }
     return res
   }
@@ -593,7 +696,7 @@ class LegendaryGame extends Game {
       path
     ]
 
-    logInfo(`Importing ${this.appName}.`, { prefix: LogPrefix.Legendary })
+    logInfo(`Importing ${this.appName}.`, LogPrefix.Legendary)
 
     const res = await runLegendaryCommand(
       commandParts,
@@ -603,9 +706,10 @@ class LegendaryGame extends Game {
     deleteAbortController(this.appName)
 
     if (res.error) {
-      logError(['Failed to import', `${this.appName}:`, res.error], {
-        prefix: LogPrefix.Legendary
-      })
+      logError(
+        ['Failed to import', `${this.appName}:`, res.error],
+        LogPrefix.Legendary
+      )
     }
     return res
   }
@@ -616,9 +720,10 @@ class LegendaryGame extends Game {
    */
   public async syncSaves(arg: string, path: string): Promise<string> {
     if (!path) {
-      logError('No path provided for SavesSync, check your settings!', {
-        prefix: LogPrefix.Legendary
-      })
+      logError(
+        'No path provided for SavesSync, check your settings!',
+        LogPrefix.Legendary
+      )
       return 'No path provided.'
     }
     path = path.replaceAll("'", '').replaceAll('"', '')
@@ -652,9 +757,10 @@ class LegendaryGame extends Game {
     deleteAbortController(this.appName)
 
     if (res.error) {
-      logError(['Failed to sync saves for', `${this.appName}:`, res.error], {
-        prefix: LogPrefix.Legendary
-      })
+      logError(
+        ['Failed to sync saves for', `${this.appName}:`, res.error],
+        LogPrefix.Legendary
+      )
     }
     return fullOutput
   }
@@ -820,9 +926,7 @@ class LegendaryGame extends Game {
     protonVerb?: ProtonVerb
   ): Promise<ExecResult> {
     if (this.isNative()) {
-      logError('runWineCommand called on native game!', {
-        prefix: LogPrefix.Legendary
-      })
+      logError('runWineCommand called on native game!', LogPrefix.Legendary)
       return { stdout: '', stderr: '' }
     }
 
@@ -864,9 +968,10 @@ class LegendaryGame extends Game {
 
       sendFrontendMessage('refreshLibrary', 'legendary')
     } catch (error) {
-      logError(`Error reading ${installed}, could not complete operation`, {
-        prefix: LogPrefix.Legendary
-      })
+      logError(
+        `Error reading ${installed}, could not complete operation`,
+        LogPrefix.Legendary
+      )
     }
   }
 

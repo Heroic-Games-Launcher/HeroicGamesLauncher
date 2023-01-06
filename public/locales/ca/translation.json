@@ -115,9 +115,9 @@
         },
         "shortcuts": {
             "message": "S'han creat dreceres a l'escriptori i al menú d'inici",
-            "message-mac": "Shortcuts were created on the Applications folder",
+            "message-mac": "S'han creat dreceres d'escriptori a la carpeta d'aplicacions",
             "message-remove": "S'han eliminat les dreceres de l'escriptori i del menú d'inici.",
-            "message-remove-mac": "Shortcuts were removed from the Applications folder",
+            "message-remove-mac": "S'han tret les dreceres d'escriptori a la carpeta d'aplicacions",
             "title": "Dreceres"
         },
         "sync": {
@@ -204,7 +204,6 @@
         "store": "Botiga",
         "title": "Títol del joc"
     },
-    "GameSettings": "Configuració del joc",
     "generic": {
         "error": {
             "component": "No s'han trobat jocs. Prova de reiniciar la sessió o alguna de les opcions de sota"
@@ -217,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "Botiga del GOG",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Ignora els amagats",
         "platform": "Plataforma",
         "show_all_games": "Mostra tots els jocs",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Mostra'n només els preferits",
         "show_hidden": "Mostra'n els amagats",
         "store": "Filtre de botigues"
@@ -229,7 +230,7 @@
         "custom_themes_path": "No facis servir fitxers CSS de fonts poc fiables. Si tens cap dubte, demana en el nostre canal de Discord que el revisin.",
         "custom_themes_wiki": "Llegeix la Wiki per a més detalls sobre com afegir temes personalitzats. Fes clic aquí.",
         "dxvk": "DXVK és una capa de traducció basada en Vulkan per a jocs que emprin DirectX 9, 10 i 11. Si s'activa, podria millorar la compatibilitat. Pot causar problemes, especialment per als jocs que facin servir versions del DirectX més antigues.",
-        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
+        "dxvkfpslimit": "Estableix un límit als FPS per als jocs DXVK",
         "esync": "Esync té com a objectiu reduir sobrecàrregues del Wineserver en jocs intensius en CPU. Si s'activa, podria millorar el rendiment.",
         "fsync": "Fsync té com a objectiu reduir sobrecàrregues del Wineserver en jocs intensius en CPU. Si s'activa, podria millorar el rendiment en versions de Linux compatibles.",
         "game_language": {
@@ -291,6 +292,9 @@
     },
     "install": {
         "path": "Selecciona la ruta d'instal·lació"
+    },
+    "label": {
+        "loading": "Es carrega"
     },
     "library": {
         "refresh": "Actualitza",
@@ -408,7 +412,7 @@
         "alt-gogdl-bin": "S'està utilitzant el binari integrat del GOGDL...",
         "alt-legendary-bin": "S'està utilitzant el binari integrat del Legendary...",
         "custom_themes_path": "Trieu el camí per a buscar fitxers CSS personalitzats",
-        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
+        "dxvkfpsvalue": "Valor enter positiu (com ara 30, 60, ...)",
         "egs-prefix": "Prefix on l'EGS està instal·lat",
         "prefered_language": "Codi de dos caràcters, com ara «en», «fr» o «ca»"
     },
@@ -453,7 +457,7 @@
         "disable_controller": "Desactiva la navegació de l'Heroic amb el controlador",
         "discordRPC": "Activa la Discord Rich Presence",
         "download-no-https": "Descarrega jocs sense HTTPS (útil per CDNs com ara LanCache)",
-        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
+        "dxvkfpslimit": "Límit de FPS (DX9, 10 i 11)",
         "egs-sync": "Sincronitza amb l'Epic Games instal·lat",
         "enableFSRHack": "Activa el FSR Hack (cal que la versió del Wine en sigui compatible)",
         "eosOverlay": {
@@ -567,7 +571,6 @@
         },
         "navbar": {
             "advanced": "Avançat",
-            "games_settings": "Configuració del joc",
             "games_settings_defaults": "Valors per defecte",
             "general": "General",
             "log": "Registre",
@@ -631,7 +634,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
-        "logging_out": "Logging out",
+        "logging_out": "Es tanca la connexió",
         "logout": "Tanca la sessió",
         "logout_confirmation": "Segur que vols tancar la sessió?",
         "manageaccounts": "Gestiona els comptes",

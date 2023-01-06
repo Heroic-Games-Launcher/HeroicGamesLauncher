@@ -1,18 +1,18 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Actions Font Family (Default: ",
+        "actions_font_family_no_default": "Menü betűtípusa (Alapértelmezett: ",
         "all_tiles_in_color": "Játékok csempéi mindig színesek",
-        "content_font_family_no_default": "Content Font Family (Default: ",
+        "content_font_family_no_default": "Tartalom betűtípusa (Alapértelmezett: ",
         "fonts": "Betűtípusok",
         "title": "Hozzáférhetőség",
         "zoom": "Nagyítás"
     },
-    "add_game": "Add Game",
+    "add_game": "Játék hozzáadása",
     "All": "Összes",
     "anticheat": {
-        "anticheats": "Anticheats",
-        "may_not_work": "It may not work due to denied or broken anticheat support.",
-        "reference": "Reference",
+        "anticheats": "Anticheat",
+        "may_not_work": "Lehet, hogy nem működik a tiltott vagy hibás anticheat támogatás miatt.",
+        "reference": "Referencia",
         "source": "Forrás",
         "status": "Állapot",
         "title": "Ez a játék csalásellenes szoftvert tartalmaz"
@@ -24,25 +24,25 @@
         },
         "choose": "Kiválasztás",
         "choose-egs-prefix": "Válaszd ki a prefixet ahol telepítve van az EGS",
-        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
+        "choose-gogdl-binary": "GOGDL Binary kiválasztása (újraindítást igényel)",
         "choose-legendary-binary": "Legendary bináris kiválasztása",
         "customWine": "Válaszd ki a Wine vagy Proton binárist",
         "default-install-path": "Válassz alapértelmezett telepítési útvonalat",
-        "default-steam-path": "Steam path.",
-        "downloadNow": "Download now",
+        "default-steam-path": "Steam könyvtár.",
+        "downloadNow": "Letöltés most",
         "error": {
             "add": {
                 "steam": {
-                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
-                    "title": "Adding Error"
+                    "body": "Nem sikerült a(z) {{game}} hozzáadása Steamhez:{{newLine}} {{error}}",
+                    "title": "Hozzáadási hiba"
                 }
             },
             "credentials": {
                 "message": "Lejártak a hitelesítő adataid, jelentkezz ki, majd jelentkezz be újra."
             },
             "cx-bottle-not-found": {
-                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
-                "title": "CrossOver bottle not found"
+                "message": "A \"{{bottle_name}}\" nevű CrossOver palack nem létezik, nem lehet elindítani!",
+                "title": "CrossOver palack nem található"
             },
             "diskspace": {
                 "message": "Nincs elég elérhető lemezterület",
@@ -53,40 +53,40 @@
                 "title": "DXVK/VKD3D hiba"
             },
             "folder-not-found": {
-                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+                "title": "Úgy tűnik, a játék könyvtára törölve lett, szeretnéd eltávolítani a játékot a telepítettek listájáról?"
             },
             "generic": {
                 "message": "",
-                "title": "Select EXE to Run"
+                "title": "Válaszd ki az EXE fájlt a futtatáshoz"
             },
-            "launchAborted": "Launch aborted",
+            "launchAborted": "Indítás leállítva",
             "title": "Hiba",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
-                "title": "Uncaught Exception occured!"
+                "message": "Váratlan hiba történt:{{newLine}}{{error}}{{newLine}}{{newLine}} Jelentsd a hibát a Github reponkban (angolul).",
+                "title": "Váratlan hiba történt!"
             },
             "update": {
-                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "message": "Valami hiba történt frissítés közben, nézd mega log fájlt, vagy próbáld meg újra később!",
                 "title": "Update Error"
             },
             "wine-not-found": {
-                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
+                "invalid": "A kiválasztott Wine verzió nem található. Telepítsd, vagy válassz egy másikat a játék beállításaiban{{newline}}Verzió: {{version}}{{newline}}Útvonal: {{path}}",
                 "message": "Nincs kiválasztott Wine verzió. Ellenőrizd a játék beállításait!",
                 "title": "Wine nem található"
             },
             "winetricks": {
-                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
-                "title": "Winetricks error"
+                "message": "A Winetricks a következő hibával tért vissza:{{newLine}}{{error}}",
+                "title": "Winetricks hiba"
             }
         },
         "info": {
             "update": {
-                "changelog": "Open changelog",
-                "detail": "Do you want to download the update in the background?",
-                "message": "There is a new Version available!",
-                "message-finished": "Do you want to restart Heroic now?",
+                "changelog": "Changelog megnyitása",
+                "detail": "Szeretnéd a háttérben letölteni a frissítést?",
+                "message": "Új verzió érhető el!",
+                "message-finished": "Szeretnéd most újraindítani a Heroic Launchert??",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Update Finished"
+                "title-finished": "Frissítés befejezve"
             }
         },
         "no": "NEM",
@@ -102,7 +102,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
+                "message": "Biztos, hogy vissza akarod állítani a Heroic Launchert? Ez törölni fogja a gyorsítótárat és minden beállítást, de a telepített játékaid vagy az Epic fiókodat nem. A hordozható verziókat (AppImage, WinPortable, ...) ezután manuálisan újra kell indítani.",
                 "title": "Heroic visszaállítása"
             }
         },
@@ -115,9 +115,9 @@
         },
         "shortcuts": {
             "message": "Parancsikonok létre lettek hozva az asztalon és a Start menüben",
-            "message-mac": "Shortcuts were created on the Applications folder",
-            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
-            "message-remove-mac": "Shortcuts were removed from the Applications folder",
+            "message-mac": "Parancsikonok lettek létrehozva az Alkalmazások mappában",
+            "message-remove": "A parancsikonok el lettek távolítva az Asztalról és a Start menüből",
+            "message-remove-mac": "A parancsikonok el lettek távolítva az Alkalmazások mappából",
             "title": "Parancsikonok"
         },
         "sync": {
@@ -127,11 +127,11 @@
         },
         "vcruntime": {
             "install": {
-                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+                "message": "A Visual C++ Runtime letötlőlinkjei meg lettek nyitva. Kérjük, telepítse az x86 és az x64 verziót is."
             },
             "notfound": {
-                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
-                "title": "VCRuntime not installed"
+                "message": "A Microsoft Visual C++ Runtime nincs telepítve, ez szükséges néhány játék elindításához",
+                "title": "VCRuntime nincs telepítve"
             }
         },
         "warning": {
@@ -146,8 +146,8 @@
         "yes": "IGEN"
     },
     "button": {
-        "cancel": "Cancel",
-        "go_to_library": "Go to Library",
+        "cancel": "Mégsem",
+        "go_to_library": "Ugrás a könyvtárba",
         "login": "Bejelentkezés",
         "sync": "Szinkronizálás",
         "syncing": "Szinkronizálás folyamatban",
@@ -155,22 +155,22 @@
     },
     "controller": {
         "hints": {
-            "back": "Back",
+            "back": "Vissza",
             "backspace": "Backspace",
-            "close_dialog": "Close dialog",
-            "close_keyboard": "Close keyboard",
-            "close_options": "Close Options",
-            "game_details": "Game details",
-            "game_settings": "Game settings",
-            "install_game": "Install game",
-            "move_cursor": "Move cursor",
-            "open_virtual_keyboard": "Open virtual keyboard",
+            "close_dialog": "Dialógusablak bezárása",
+            "close_keyboard": "Billentyűzet bezárása",
+            "close_options": "Beállítások bezárása",
+            "game_details": "Játék adatai",
+            "game_settings": "Játék beállításai",
+            "install_game": "Játék telepítése",
+            "move_cursor": "Kurzor mozgatása",
+            "open_virtual_keyboard": "Virtuális billentyűzet megnyitása",
             "options": "Options",
-            "play_game": "Play game",
+            "play_game": "Játék indítása",
             "scroll": "Scroll",
-            "select": "Select",
-            "space": "Space",
-            "update_game": "Update game"
+            "select": "Kiválasztás",
+            "space": "Szóköz",
+            "update_game": "Játék frissítése"
         }
     },
     "docs": "Documentation",
@@ -180,14 +180,14 @@
             "update": "Update"
         },
         "label": {
-            "disk": "Disk",
+            "disk": "Lemez",
             "speed": "Download"
         },
         "link": "Downloads",
         "queue": {
-            "end-time": "Finished at",
-            "queue-time": "Added at",
-            "start-time": "Started at",
+            "end-time": "Befejezve",
+            "queue-time": "Hozzáadva",
+            "start-time": "Elkezdve",
             "type": "Type"
         },
         "title": "Downloads"
@@ -198,28 +198,29 @@
     },
     "Epic Games": "Epic Games",
     "error": "Error",
-    "favourites": "Favourites",
+    "favourites": "Kedvencek",
     "game": {
         "status": "Status",
-        "store": "Store",
-        "title": "Game Title"
+        "store": "Áruház",
+        "title": "Játék címe"
     },
-    "GameSettings": "Game Settings",
     "generic": {
         "error": {
-            "component": "No Games found - Try to logout and login again or one of the options bellow"
+            "component": "Nem található játék - Próbálj meg kijelentkezni, majd vissza, vagy az alábbi lehetőségek valamelyikét"
         },
         "library": {
-            "refresh": "Refresh Library"
+            "refresh": "Könyvtár frissítése"
         }
     },
     "globalSettings": "Globális beállítások",
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "ignore_hidden": "Ignore Hidden",
+        "hide_non_available_games": "Hide non-available games",
+        "ignore_hidden": "Rejtettek figyelmen kívül hagyása",
         "platform": "Platform",
         "show_all_games": "Összes játék mutatása",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Csak kedvencek mutatása",
         "show_hidden": "Elrejtettek mutatása",
         "store": "Áruház szűrése"
@@ -291,6 +292,9 @@
     },
     "install": {
         "path": "Telepítési útvonal kiválasztása"
+    },
+    "label": {
+        "loading": "Loading"
     },
     "library": {
         "refresh": "Frissítés",
@@ -567,7 +571,6 @@
         },
         "navbar": {
             "advanced": "Advanced",
-            "games_settings": "Game Settings",
             "games_settings_defaults": "Game Defaults",
             "general": "Általános",
             "log": "Napló",

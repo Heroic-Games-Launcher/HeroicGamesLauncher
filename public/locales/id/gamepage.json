@@ -34,6 +34,7 @@
         "uninstall": {
             "checkbox": "Hapus prefiks: {{prefix}}{{newLine}}Catatan: Tindakan ini tidak dapat dibatalkan dan akan menghapus berkas yang belum dicadangkan.",
             "message": "Apakah Anda ingin mencopot pemasangan gim ini?",
+            "settingcheckbox": "Hapus pengaturan dan log{{newLine}}Catatan: Tindakan ini tidak dapat diurungkan. Semua pengaturan lama dan log akan dihapus.",
             "title": "Copot Pemasangan"
         },
         "update": {
@@ -94,13 +95,13 @@
     "generic": {
         "error": "Kesalahan tidak diketahui"
     },
-    "hours": "Hours",
+    "hours": "Jam",
     "how-long-to-beat": {
-        "completionist": "Completionist",
-        "main-plus-extras": "Main + Extras",
-        "main-story": "Main Story"
+        "completionist": "Komplisionis",
+        "main-plus-extras": "Cerita Utama + Tambahan",
+        "main-story": "Cerita Utama"
     },
-    "howLongToBeat": "How Long To Beat",
+    "howLongToBeat": "Berapa Lama Untuk Menyelesaikan",
     "info": {
         "canRunOffline": "Internet Dibutuhkan",
         "installedPlatform": "Platform yang Terpasang",
@@ -120,7 +121,7 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Gim pihak ketiga TIDAK didukung"
         },
         "playing": {
             "start": "Mainkan sekarang",
@@ -144,7 +145,7 @@
         "title": "Pilih komponen untuk dipasang"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Gunakan Pengaturan Wine Bawaan"
     },
     "sideload": {
         "field": {
@@ -166,18 +167,18 @@
     },
     "status": {
         "clickToUpdate": "Klik untuk Memperbarui",
-        "gameNotAvailable": "Game not available",
+        "gameNotAvailable": "Gim tidak tersedia",
         "hasUpdates": "Versi Baru Tersedia!",
         "installed": "Terpasang",
         "installing": "Memasang",
         "moving": "Memindahkan Pemasangan, harap tunggu",
         "notinstalled": "Gim ini tidak dipasang",
-        "notSupported": "Not supported",
-        "notSupportedGame": "Not Supported",
+        "notSupported": "Tidak didukung",
+        "notSupportedGame": "Tidak didukung",
         "processing": "Memproses berkas, harap tunggu",
         "queued": "Dalam Antrian",
         "reparing": "Memperbaiki Gim, harap tunggu",
-        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
+        "this-game-uses-third-party": "Gim ini menggunakan peluncur pihak ketiga dan belum didukung oleh Heroic",
         "totalDownloaded": "Jumlah yang Diunduh",
         "uninstalling": "Mencopot",
         "updating": "Memperbarui Gim"

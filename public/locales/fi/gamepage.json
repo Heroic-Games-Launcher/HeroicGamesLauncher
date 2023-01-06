@@ -34,6 +34,7 @@
         "uninstall": {
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Haluatko poistaa pelin asennuksen?",
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Poista"
         },
         "update": {

@@ -34,7 +34,9 @@
         "uninstall": {
             "checkbox": "Entferne Prefix: {{prefix}}{{newLine}}Hinweis: Dies kann nicht rückgängig gemacht werden und löscht auch ungesicherte Speicherdaten.",
             "message": "Möchtest du dieses Spiel deinstallieren?",
-            "title": "Deinstallieren"
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+            "title": "Deinstallieren",
+            "prefix_warning": "Das Wine-Präfix für dieses Spiel ist das Standardpräfix. Wenn Sie es wirklich löschen möchten, müssen Sie es manuell tun."
         },
         "update": {
             "message": "Für dieses Spiel ist ein Update verfügbar. Jetzt installieren?",
@@ -66,7 +68,8 @@
         },
         "unhide_game": "Spiel einblenden",
         "uninstall": "Deinstallieren",
-        "update": "Update"
+        "update": "Update",
+        "details": "Einzelheiten"
     },
     "cloud_save_unsupported": "Nicht unterstützt",
     "disabled": "Deaktiviert",

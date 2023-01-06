@@ -35,7 +35,9 @@
             "checkbox": "Doriți să eliminați și prefixul? Acest lucru nu poate fi anulat.",
             "checkbox_prefix": "Prefix",
             "message": "Doriți să dezinstalați acest joc?",
-            "title": "Dezinstalează"
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+            "title": "Dezinstalează",
+            "prefix_warning": "Prefixul Wine pentru acest joc este prefixul implicit. Dacă vrei cu adevărat să-l ștergi, trebuie să o faci manual."
         },
         "update": {
             "message": "Acest joc are o actualizare, vrei să actualizezi acum?",
@@ -67,7 +69,8 @@
         },
         "unhide_game": "Afișează jocul",
         "uninstall": "Dezinstalează",
-        "update": "Actualizează"
+        "update": "Actualizează",
+        "details": "Detalii"
     },
     "cloud_save_unsupported": "Neacceptat",
     "disabled": "Dezactivat",

@@ -34,13 +34,8 @@ export default function GamesSubmenu({
   disableUpdate,
   onShowRequirements
 }: Props) {
-  const {
-    handleGameStatus,
-    refresh,
-    platform,
-    libraryStatus,
-    showDialogModal
-  } = useContext(ContextProvider)
+  const { refresh, platform, libraryStatus, showDialogModal } =
+    useContext(ContextProvider)
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
 
@@ -52,10 +47,11 @@ export default function GamesSubmenu({
   const [showModal, setShowModal] = useState(false)
   const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
   const [showUninstallModal, setShowUninstallModal] = useState(false)
+  const [protonDBurl, setProtonDBurl] = useState(
+    `https://www.protondb.com/search?q=${title}`
+  )
   const { t } = useTranslation('gamepage')
   const isSideloaded = runner === 'sideload'
-
-  const protonDBurl = `https://www.protondb.com/search?q=${title}`
 
   async function onMoveInstallYesClick() {
     const { defaultInstallPath } = await window.api.requestAppSettings()
@@ -66,9 +62,7 @@ export default function GamesSubmenu({
       defaultPath: defaultInstallPath
     })
     if (path) {
-      await handleGameStatus({ appName, runner, status: 'moving' })
       await window.api.moveInstall({ appName, path, runner })
-      await handleGameStatus({ appName, runner, status: 'done' })
     }
   }
 
@@ -111,9 +105,7 @@ export default function GamesSubmenu({
   }
 
   async function onRepairYesClick(appName: string) {
-    await handleGameStatus({ appName, runner, status: 'repairing' })
     await repair(appName, runner)
-    await handleGameStatus({ appName, runner, status: 'done' })
   }
 
   function handleRepair(appName: string) {
@@ -153,19 +145,7 @@ export default function GamesSubmenu({
       let { wasEnabled } = initialEnableResult
 
       if (installNow) {
-        await handleGameStatus({
-          appName: eosOverlayAppName,
-          runner: 'legendary',
-          status: 'installing'
-        })
-
         await window.api.installEosOverlay()
-        await handleGameStatus({
-          appName: eosOverlayAppName,
-          runner: 'legendary',
-          status: 'done'
-        })
-
         wasEnabled = (await window.api.enableEosOverlay(appName)).wasEnabled
       }
       setEosOverlayEnabled(wasEnabled)
@@ -216,6 +196,17 @@ export default function GamesSubmenu({
         .then((enabled) => setEosOverlayEnabled(enabled))
     }
   }, [isInstalled])
+
+  useEffect(() => {
+    // Get steam id and set direct proton db link
+    window.api
+      .getInfoFromPCGamingWiki(title, runner === 'gog' ? appName : undefined)
+      .then((info) => {
+        if (info?.steamID) {
+          setProtonDBurl(`https://www.protondb.com/app/${info.steamID}`)
+        }
+      })
+  }, [title, appName])
 
   const refreshCircle = () => {
     return <CircularProgress className="link button is-text is-link" />

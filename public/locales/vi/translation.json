@@ -204,7 +204,6 @@
         "store": "Cửa hàng",
         "title": "Tựa game"
     },
-    "GameSettings": "Game Settings",
     "generic": {
         "error": {
             "component": "Không tìm thấy game - Hãy thử đăng xuất rồi đăng nhập lại hoặc một trong các cách sau"
@@ -217,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "Cửa hàng GOG",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Bỏ qua mục bị ẩn",
         "platform": "Nền tảng",
         "show_all_games": "Hiển thị toàn bộ game",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Chỉ hiển thị mục ưa thích",
         "show_hidden": "Hiển thị mục bị ẩn",
         "store": "Lọc cửa hàng"
@@ -291,6 +292,9 @@
     },
     "install": {
         "path": "Chọn đường dẫn cài"
+    },
+    "label": {
+        "loading": "Loading"
     },
     "library": {
         "refresh": "Tải lại",
@@ -567,7 +571,6 @@
         },
         "navbar": {
             "advanced": "Nâng cao",
-            "games_settings": "Game Settings",
             "games_settings_defaults": "Game Defaults",
             "general": "Tổng quan",
             "log": "Log",

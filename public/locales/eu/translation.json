@@ -204,7 +204,6 @@
         "store": "Denda",
         "title": "Jokoaren izenburua"
     },
-    "GameSettings": "Jokoaren ezarpenak",
     "generic": {
         "error": {
             "component": "Ez da jokorik aurkitu - Saiatu saioa amaitzen eta berriro hasten edo azpiko aukeraren bat"
@@ -217,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "GOG denda",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Ezikusi ezkutatutakoak",
         "platform": "Plataforma",
         "show_all_games": "Erakutsi joko guztiak",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Erakutsi gogokoenak soilik",
         "show_hidden": "Erakutsi ezkutatutakoak",
         "store": "Iragazi denda"
@@ -291,6 +292,9 @@
     },
     "install": {
         "path": "Hautatu Instalatu bidea"
+    },
+    "label": {
+        "loading": "Loading"
     },
     "library": {
         "refresh": "Freskatu",
@@ -567,7 +571,6 @@
         },
         "navbar": {
             "advanced": "Aurreratua",
-            "games_settings": "Game Settings",
             "games_settings_defaults": "Game Defaults",
             "general": "Orokorra",
             "log": "Erregistroa",

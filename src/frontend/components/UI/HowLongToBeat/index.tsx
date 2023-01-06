@@ -28,34 +28,34 @@ export default function HowLongToBeat({ title }: Props) {
     howLongToBeatInfo
 
   return (
-    <div>
-      <p>{t('howLongToBeat', 'How Long To Beat')}</p>
+    <details className="howLongToBeatWrapper">
+      <summary>{t('howLongToBeat', 'How Long To Beat')}</summary>
       <div className="howLongToBeat">
-        <div className="howLongToBeat__square">
-          <div className="howLongToBeat__square__title">
+        <div className="howLongToBeat__circle">
+          <div className="howLongToBeat__circle__title">
             {t('how-long-to-beat.main-story', 'Main Story')}
           </div>
-          <div className="howLongToBeat__square__value">
+          <div className="howLongToBeat__circle__value">
             {gameplayMain || '?'} {t('hours', 'Hours')}
           </div>
         </div>
-        <div className="howLongToBeat__square">
-          <div className="howLongToBeat__square__title">
+        <div className="howLongToBeat__circle">
+          <div className="howLongToBeat__circle__title">
             {t('how-long-to-beat.main-plus-extras', 'Main + Extras')}
           </div>
-          <div className="howLongToBeat__square__value">
+          <div className="howLongToBeat__circle__value">
             {gameplayMainExtra || '?'} {t('hours', 'Hours')}
           </div>
         </div>
-        <div className="howLongToBeat__square">
-          <div className="howLongToBeat__square__title">
+        <div className="howLongToBeat__circle">
+          <div className="howLongToBeat__circle__title">
             {t('how-long-to-beat.completionist', 'Completionist')}
           </div>
-          <div className="howLongToBeat__square__value">
+          <div className="howLongToBeat__circle__value">
             {gameplayCompletionist || '?'} {t('hours', 'Hours')}
           </div>
         </div>
       </div>
-    </div>
+    </details>
   )
 }

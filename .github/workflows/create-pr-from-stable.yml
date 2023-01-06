@@ -1,0 +1,23 @@
+name: Create PR to sync Stable with main
+on:
+  push:
+    branches:
+      - stable
+jobs:
+  stableToMain:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: main
+      - name: Reset stable branch
+        run: |
+          git fetch origin stable:stable
+          git reset --hard stable
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          branch: stable_to_main
+          commit-message: Sync latest stable changes with main
+          title: '[Other]: Sync latest stable changes with main'
+          labels: automated-pr

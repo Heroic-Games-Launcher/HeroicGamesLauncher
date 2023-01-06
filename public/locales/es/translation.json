@@ -204,7 +204,6 @@
         "store": "Tienda",
         "title": "Título del juego"
     },
-    "GameSettings": "Configuración del juego",
     "generic": {
         "error": {
             "component": "No se encontraron juegos - Intenta salir e iniciar sesión nuevamente, o una de las siguientes opciones"
@@ -217,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "Tienda de GOG",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Ignorar Ocultos",
         "platform": "Plataforma",
         "show_all_games": "Mostrar todos los juegos",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Mostrar sólo favoritos",
         "show_hidden": "Mostrar Ocultos",
         "store": "Filtrar tienda"
@@ -291,6 +292,9 @@
     },
     "install": {
         "path": "Seleccione la ruta de instalación"
+    },
+    "label": {
+        "loading": "Loading"
     },
     "library": {
         "refresh": "Actualizar",
@@ -567,7 +571,6 @@
         },
         "navbar": {
             "advanced": "Avanzado",
-            "games_settings": "Configuración del juego",
             "games_settings_defaults": "Valores predeterminados del juego",
             "general": "General",
             "log": "Registro",

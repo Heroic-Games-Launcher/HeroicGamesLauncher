@@ -33,9 +33,10 @@ export const DXVK = {
       return
     }
     if (!isOnline()) {
-      logWarning('App offline, skipping possible DXVK update.', {
-        prefix: LogPrefix.DXVKInstaller
-      })
+      logWarning(
+        'App offline, skipping possible DXVK update.',
+        LogPrefix.DXVKInstaller
+      )
       return
     }
 
@@ -91,37 +92,31 @@ export const DXVK = {
       const echoCommand = `echo ${pkg} > '${heroicToolsPath}/${tool.name}/latest_${tool.name}'`
       const cleanCommand = `rm '${latestVersion}'`
 
-      logInfo([`Updating ${tool.name} to:`, pkg], {
-        prefix: LogPrefix.DXVKInstaller
-      })
+      logInfo([`Updating ${tool.name} to:`, pkg], LogPrefix.DXVKInstaller)
 
       return execAsync(downloadCommand)
         .then(async () => {
-          logInfo(`downloaded ${tool.name}`, {
-            prefix: LogPrefix.DXVKInstaller
-          })
-          logInfo(`extracting ${tool.name}`, {
-            prefix: LogPrefix.DXVKInstaller
-          })
+          logInfo(`downloaded ${tool.name}`, LogPrefix.DXVKInstaller)
+          logInfo(`extracting ${tool.name}`, LogPrefix.DXVKInstaller)
           exec(echoCommand)
           await execAsync(extractCommand)
             .then(() =>
-              logInfo(`${tool.name} updated!`, {
-                prefix: LogPrefix.DXVKInstaller
-              })
+              logInfo(`${tool.name} updated!`, LogPrefix.DXVKInstaller)
             )
             .catch((error) => {
-              logError([`Extraction of ${tool.name} failed with:`, error], {
-                prefix: LogPrefix.DXVKInstaller
-              })
+              logError(
+                [`Extraction of ${tool.name} failed with:`, error],
+                LogPrefix.DXVKInstaller
+              )
             })
 
           exec(cleanCommand)
         })
         .catch((error) => {
-          logWarning([`Error when downloading ${tool.name}`, error], {
-            prefix: LogPrefix.DXVKInstaller
-          })
+          logWarning(
+            [`Error when downloading ${tool.name}`, error],
+            LogPrefix.DXVKInstaller
+          )
           showDialogBoxModalAuto({
             title: i18next.t('box.error.dxvk.title', 'DXVK/VKD3D error'),
             message: i18next.t(
@@ -144,9 +139,10 @@ export const DXVK = {
     const isValidPrefix = existsSync(`${winePrefix}/.update-timestamp`)
 
     if (!isValidPrefix) {
-      logWarning('DXVK cannot be installed on a Proton or a invalid prefix!', {
-        prefix: LogPrefix.DXVKInstaller
-      })
+      logWarning(
+        'DXVK cannot be installed on a Proton or a invalid prefix!',
+        LogPrefix.DXVKInstaller
+      )
       // will return true anyway because otherwise the toggle will be stuck and the prefix might just not be crated yet.
       return true
     }
@@ -157,7 +153,7 @@ export const DXVK = {
     const wineBin = winePath.replace("'", '')
 
     if (!existsSync(`${heroicToolsPath}/${tool}/latest_${tool}`)) {
-      logWarning('dxvk not found!', { prefix: LogPrefix.DXVKInstaller })
+      logWarning('dxvk not found!', LogPrefix.DXVKInstaller)
       await DXVK.getLatest()
     }
 
@@ -182,22 +178,19 @@ export const DXVK = {
     }
 
     if (action === 'restore') {
-      logInfo(`Removing ${tool} version information`, {
-        prefix: LogPrefix.DXVKInstaller
-      })
+      logInfo(`Removing ${tool} version information`, LogPrefix.DXVKInstaller)
       if (existsSync(currentVersionCheck)) {
         rm(currentVersionCheck, { force: true }, (err) => {
           if (err) {
-            logError([`Error removing ${tool} version information`, err], {
-              prefix: LogPrefix.DXVKInstaller
-            })
+            logError(
+              [`Error removing ${tool} version information`, err],
+              LogPrefix.DXVKInstaller
+            )
           }
         })
       }
 
-      logInfo(`Removing ${tool} files`, {
-        prefix: LogPrefix.DXVKInstaller
-      })
+      logInfo(`Removing ${tool} files`, LogPrefix.DXVKInstaller)
 
       // remove the dlls from the prefix
       await new Promise((resolve) => {
@@ -219,33 +212,30 @@ export const DXVK = {
 
       // run wineboot -u restore the old dlls
       const restoreDlls = `WINEPREFIX='${winePrefix}' '${wineBin}' wineboot -u`
-      logInfo('Restoring old dlls', { prefix: LogPrefix.DXVKInstaller })
+      logInfo('Restoring old dlls', LogPrefix.DXVKInstaller)
       await execAsync(restoreDlls)
 
       // unregister the dlls on the wine prefix
       dlls.forEach(async (dll) => {
         dll = dll.replace('.dll', '')
         const unregisterDll = `WINEPREFIX='${winePrefix}' '${wineBin}' reg delete 'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides' /v ${dll} /f`
-        logInfo(`Unregistering ${dll}`, { prefix: LogPrefix.DXVKInstaller })
+        logInfo(`Unregistering ${dll}`, LogPrefix.DXVKInstaller)
         exec(unregisterDll, (error) => {
           if (error) {
-            logError([`Error when unregistering ${dll}`, error], {
-              prefix: LogPrefix.DXVKInstaller
-            })
+            logError(
+              [`Error when unregistering ${dll}`, error],
+              LogPrefix.DXVKInstaller
+            )
           }
         })
       })
       return true
     }
 
-    logInfo([`installing ${tool} on...`, prefix], {
-      prefix: LogPrefix.DXVKInstaller
-    })
+    logInfo([`installing ${tool} on...`, prefix], LogPrefix.DXVKInstaller)
 
     if (currentVersion === globalVersion) {
-      logInfo(`${tool} already installed!`, {
-        prefix: LogPrefix.DXVKInstaller
-      })
+      logInfo(`${tool} already installed!`, LogPrefix.DXVKInstaller)
       return true
     }
 
@@ -257,9 +247,10 @@ export const DXVK = {
           `${winePrefix}/drive_c/windows/syswow64/${dll}`,
           (err) => {
             if (err) {
-              logError([`Error when copying ${dll}`, err], {
-                prefix: LogPrefix.DXVKInstaller
-              })
+              logError(
+                [`Error when copying ${dll}`, err],
+                LogPrefix.DXVKInstaller
+              )
             }
           }
         )
@@ -270,9 +261,10 @@ export const DXVK = {
         `${winePrefix}/drive_c/windows/system32/${dll}`,
         (err) => {
           if (err) {
-            logError([`Error when copying ${dll}`, err], {
-              prefix: LogPrefix.DXVKInstaller
-            })
+            logError(
+              [`Error when copying ${dll}`, err],
+              LogPrefix.DXVKInstaller
+            )
           }
         }
       )
@@ -287,9 +279,10 @@ export const DXVK = {
         execOptions,
         (err) => {
           if (err) {
-            logError([`Error when registering ${dll}`, err], {
-              prefix: LogPrefix.DXVKInstaller
-            })
+            logError(
+              [`Error when registering ${dll}`, err],
+              LogPrefix.DXVKInstaller
+            )
           }
         }
       )
@@ -299,9 +292,10 @@ export const DXVK = {
 
     writeFile(currentVersionCheck, globalVersion, (err) => {
       if (err) {
-        logError([`Error when writing ${tool} version`, err], {
-          prefix: LogPrefix.DXVKInstaller
-        })
+        logError(
+          [`Error when writing ${tool} version`, err],
+          LogPrefix.DXVKInstaller
+        )
       }
     })
     return true
@@ -326,15 +320,16 @@ export const Winetricks = {
     }
 
     try {
-      logInfo('Downloading Winetricks', { prefix: LogPrefix.WineTricks })
+      logInfo('Downloading Winetricks', LogPrefix.WineTricks)
       const res = await axios.get(url, { timeout: 1000 })
       const file = res.data
       writeFileSync(path, file)
       return exec(`chmod +x ${path}`)
     } catch (error) {
-      return logWarning(['Error Downloading Winetricks', error], {
-        prefix: LogPrefix.WineTricks
-      })
+      return logWarning(
+        ['Error Downloading Winetricks', error],
+        LogPrefix.WineTricks
+      )
     }
   },
   run: async (
@@ -406,36 +401,32 @@ export const Winetricks = {
             [
               `${dependency} not installed! Winetricks might fail to install some packages or even open`
             ],
-            {
-              prefix: LogPrefix.WineTricks
-            }
+            LogPrefix.WineTricks
           )
         }
       })
 
       logInfo(
         `Running WINEPREFIX='${winePrefix}' PATH='${winepath}':$PATH ${winetricks} --force -q`,
-        { prefix: LogPrefix.WineTricks }
+        LogPrefix.WineTricks
       )
 
       const child = spawn(winetricks, ['--force', '-q'], { env: envs })
 
       child.stdout.setEncoding('utf8')
       child.stdout.on('data', (data: string) => {
-        logInfo(data, { prefix: LogPrefix.WineTricks })
+        logInfo(data, LogPrefix.WineTricks)
         appendMessage(data)
       })
 
       child.stderr.setEncoding('utf8')
       child.stderr.on('data', (data: string) => {
-        logError(data, { prefix: LogPrefix.WineTricks })
+        logError(data, LogPrefix.WineTricks)
         appendMessage(data)
       })
 
       child.on('error', (error) => {
-        logError(['Winetricks threw Error:', error], {
-          prefix: LogPrefix.WineTricks
-        })
+        logError(['Winetricks threw Error:', error], LogPrefix.WineTricks)
         showDialogBoxModalAuto({
           event,
           title: i18next.t('box.error.winetricks.title', 'Winetricks error'),

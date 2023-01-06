@@ -1,3 +1,4 @@
+import { PCGamingWikiInfo } from './../types'
 import { EventEmitter } from 'node:events'
 import { IpcMainEvent, OpenDialogOptions } from 'electron'
 import { HowLongToBeatEntry } from 'howlongtobeat'
@@ -27,7 +28,8 @@ import {
   RuntimeName,
   DMQueueElement,
   ConnectivityStatus,
-  GamepadActionArgs
+  GamepadActionArgs,
+  ExtraInfo
 } from 'common/types'
 import { ToolVersionInfo } from 'common/types/toolmanager'
 import { LegendaryInstallInfo } from 'common/types/legendary'
@@ -46,6 +48,7 @@ interface SyncIPCFunctions {
   changeLanguage: (language: string) => void
   notify: (args: { title: string; body: string }) => void
   frontendReady: () => void
+  loadingScreenReady: () => void
   lock: () => void
   unlock: () => void
   quit: () => void
@@ -112,6 +115,7 @@ interface AsyncIPCFunctions {
   getLatestReleases: () => Promise<Release[]>
   getCurrentChangelog: () => Promise<Release | null>
   getGameInfo: (appName: string, runner: Runner) => Promise<GameInfo | null>
+  getExtraInfo: (appName: string, runner: Runner) => Promise<ExtraInfo | null>
   getGameSettings: (
     appName: string,
     runner: Runner
@@ -149,10 +153,11 @@ interface AsyncIPCFunctions {
   uninstall: (
     appName: string,
     runner: Runner,
-    shouldRemovePrefix: boolean
+    shouldRemovePrefix: boolean,
+    shoudlRemoveSetting: boolean
   ) => Promise<void>
   repair: (appName: string, runner: Runner) => Promise<void>
-  moveInstall: (args: MoveGameArgs) => StatusPromise
+  moveInstall: (args: MoveGameArgs) => Promise<void>
   importGame: (args: ImportGameArgs) => StatusPromise
   updateGame: (appName: string, runner: Runner) => StatusPromise
   changeInstallPath: (args: MoveGameArgs) => Promise<void>
@@ -214,6 +219,10 @@ interface AsyncIPCFunctions {
   getNumOfGpus: () => Promise<number>
   removeRecent: (appName: string) => Promise<void>
   getHowLongToBeat: (title: string) => Promise<HowLongToBeatEntry | null>
+  getInfoFromPCGamingWiki: (
+    title: string,
+    id?: string
+  ) => Promise<PCGamingWikiInfo | null>
   getDefaultSavePath: (
     appName: string,
     runner: Runner,

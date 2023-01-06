@@ -204,7 +204,6 @@
         "store": "Крамниця",
         "title": "Назва гри"
     },
-    "GameSettings": "Налаштування гри",
     "generic": {
         "error": {
             "component": "Жодної гри не знайдено - Спробуйте вийти та увійти заново або один із варіантів нижче"
@@ -217,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "Крамниця GOG",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Ігнорувати приховані",
         "platform": "Платформа",
         "show_all_games": "Показати всі ігри",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Показати лише вподобання",
         "show_hidden": "Показати приховані",
         "store": "Фільтрувати крамницю"
@@ -291,6 +292,9 @@
     },
     "install": {
         "path": "Вкажіть шлях встановлення"
+    },
+    "label": {
+        "loading": "Loading"
     },
     "library": {
         "refresh": "Оновити",
@@ -567,7 +571,6 @@
         },
         "navbar": {
             "advanced": "Розширені",
-            "games_settings": "Game Settings",
             "games_settings_defaults": "Game Defaults",
             "general": "Загальні",
             "log": "Журнал",

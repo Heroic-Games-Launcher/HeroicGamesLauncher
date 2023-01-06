@@ -34,6 +34,7 @@
         "uninstall": {
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Oyunu kaldırmak istiyor musunuz?",
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Kaldır"
         },
         "update": {
@@ -77,8 +78,8 @@
     "game": {
         "downloadSize": "İndirme Boyutu",
         "firstPlayed": "İlk Oynanan",
-        "getting-download-size": "Geting download size",
-        "getting-install-size": "Geting install size",
+        "getting-download-size": "İndirme boyutu alınıyor",
+        "getting-install-size": "Kurulum boyutu alınıyor",
         "installSize": "Kurulum Boyutu",
         "language": "Dil",
         "lastPlayed": "Son Oynanan",

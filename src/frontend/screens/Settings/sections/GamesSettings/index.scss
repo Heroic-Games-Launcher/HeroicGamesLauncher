@@ -24,3 +24,23 @@
     min-width: 500px;
   }
 }
+
+// details, should have an hover effect and a pointer cursor and also the summary should be bold and have a background color
+details {
+  cursor: pointer;
+  width: 100%;
+
+  button,
+  .button {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+  }
+
+  summary {
+    font-weight: bold;
+    padding: var(--space-xs) 0;
+    font-size: var(--text-xl);
+  }
+}

@@ -45,14 +45,26 @@ body:
     attributes:
       label: Screenshots
       description: If applicable, add screenshots to help explain your problem.
+  - type: markdown
+    attributes:
+      value: |-
+        ## Latest stable version of Heroic is 2.5.2. Please, update Heroic before reporting a bug if you have an older version.
+  - type: dropdown
+    id: heroic_version
+    attributes:
+      label: Heroic Version
+      options:
+        - Latest Stable
+        - Latest Beta
+        - main branch from GitHub
+    validations:
+      required: true
   - type: textarea
     id: systeminfo
     attributes:
       label: System Information
       value: |-
-        - OS [e. g. "Ubuntu"]: 
-        - Heroic Version [e. g. 2.1.1]:
-
+        - OS [e. g. "Ubuntu"]:
     validations:
       required: true
   - type: textarea

@@ -22,7 +22,7 @@ function callAbortController(id: string) {
       'Aborting not possible. Could not find a matching abort controller for',
       id
     ],
-    { prefix: LogPrefix.Backend }
+    LogPrefix.Backend
   )
 }
 

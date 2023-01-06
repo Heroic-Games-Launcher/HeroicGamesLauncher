@@ -48,23 +48,24 @@ import UninstallModal from 'frontend/components/UI/UninstallModal'
 interface Card {
   buttonClick: () => void
   hasUpdate: boolean
-  forceCard?: boolean
   isRecent: boolean
   gameInfo: GameInfo
+  isAvailable?: boolean
+  forceCard?: boolean
 }
+
+const storage: Storage = window.localStorage
 
 const GameCard = ({
   hasUpdate,
   buttonClick,
   forceCard,
   isRecent = false,
-  gameInfo: gameInfoFromProps
+  gameInfo: gameInfoFromProps,
+  isAvailable
 }: Card) => {
   const [gameInfo, setGameInfo] = useState(gameInfoFromProps)
   const [showUninstallModal, setShowUninstallModal] = useState(false)
-  const [gameAvailable, setGameAvailable] = useState(
-    gameInfoFromProps.is_installed
-  )
   const [isLaunching, setIsLaunching] = useState(false)
 
   const { t } = useTranslation('gamepage')
@@ -75,11 +76,11 @@ const GameCard = ({
   const {
     libraryStatus,
     layout,
-    handleGameStatus,
     hiddenGames,
     favouriteGames,
     allTilesInColor,
-    showDialogModal
+    showDialogModal,
+    setIsSettingsModalOpen
   } = useContext(ContextProvider)
 
   const {
@@ -92,7 +93,9 @@ const GameCard = ({
     cloud_save_enabled: hasCloudSave,
     install: gameInstallInfo,
     thirdPartyManagedApp
-  } = gameInfo
+  } = gameInfoFromProps
+
+  const gameAvailable = isAvailable
 
   // if the game supports cloud saves, check the config
   const [autoSyncSaves, setAutoSyncSaves] = useState(hasCloudSave)
@@ -107,24 +110,10 @@ const GameCard = ({
   }, [appName])
 
   const [progress, previousProgress] = hasProgress(appName)
-  const { install_size: size = '0', platform: installedPlatform } =
-    gameInstallInfo || {}
+  const { install_size: size = '0' } = gameInstallInfo || {}
 
   const { status, folder } =
     libraryStatus.find((game: GameStatus) => game.appName === appName) || {}
-
-  useEffect(() => {
-    const checkGameAvailable = async () => {
-      if (isInstalled) {
-        const gameAvailable = await window.api.isGameAvailable({
-          appName,
-          runner
-        })
-        setGameAvailable(gameAvailable)
-      }
-    }
-    checkGameAvailable()
-  }, [appName, status, gameInfo])
 
   useEffect(() => {
     setIsLaunching(false)
@@ -161,8 +150,6 @@ const GameCard = ({
   const installingGrayscale = isInstalling
     ? `${125 - getProgress(progress)}%`
     : '100%'
-
-  const storage: Storage = window.localStorage
 
   const imageSrc = getImageFormatting()
 
@@ -216,7 +203,6 @@ const GameCard = ({
 
   const handleRemoveFromQueue = () => {
     window.api.removeFromDMQueue(appName)
-    handleGameStatus({ appName, status: 'done' })
   }
 
   const renderIcon = () => {
@@ -309,11 +295,6 @@ const GameCard = ({
     )
   }, [favouriteGames, appName])
 
-  const isMac = ['osx', 'Mac']
-  const isMacNative = isMac.includes(installedPlatform ?? '')
-  const isLinuxNative = installedPlatform === 'linux'
-  const pathname = `/settings/${runner}/${appName}/games_settings`
-
   const onUninstallClick = function () {
     setShowUninstallModal(true)
   }
@@ -356,6 +337,13 @@ const GameCard = ({
       show: isInstalling || isUpdating
     },
     {
+      // open the game page
+      label: t('button.details', 'Details'),
+      onclick: () =>
+        navigate(`/gamepage/${runner}/${appName}`, { state: { gameInfo } }),
+      show: true
+    },
+    {
       // hide
       label: t('button.hide_game', 'Hide Game'),
       onclick: () => hiddenGames.add(appName, title),
@@ -385,16 +373,7 @@ const GameCard = ({
     {
       // settings
       label: t('submenu.settings'),
-      onclick: () =>
-        navigate(pathname, {
-          state: {
-            fromGameCard: true,
-            runner,
-            hasCloudSave,
-            isLinuxNative,
-            isMacNative
-          }
-        }),
+      onclick: () => setIsSettingsModalOpen(true, 'settings', gameInfo),
       show: isInstalled && !isUninstalling
     },
     {
@@ -502,16 +481,7 @@ const GameCard = ({
                     title={`${t('submenu.settings')} (${title})`}
                     className="settingsIcon"
                     onClick={() =>
-                      navigate(pathname, {
-                        state: {
-                          fromGameCard: true,
-                          runner,
-                          hasCloudSave,
-                          isLinuxNative,
-                          isMacNative,
-                          gameInfo
-                        }
-                      })
+                      setIsSettingsModalOpen(true, 'settings', gameInfo)
                     }
                   >
                     <SettingsIcon />
@@ -544,11 +514,6 @@ const GameCard = ({
     }
 
     if (isQueued) {
-      handleGameStatus({
-        appName,
-        runner,
-        status: 'done'
-      })
       storage.removeItem(appName)
       return window.api.removeFromDMQueue(appName)
     }

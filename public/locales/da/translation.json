@@ -687,5 +687,8 @@
         },
         "title": "Downloads"
     },
-    "please-wait": "Vent venligst..."
+    "please-wait": "Vent venligst...",
+    "label": {
+        "loading": "Indlæser"
+    }
 }

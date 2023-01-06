@@ -3,7 +3,7 @@ import i18next from 'i18next'
 import { RecentGame } from 'common/types'
 import { logInfo, LogPrefix } from '../logger/logger'
 import { handleProtocol } from '../protocol'
-import { getRecentGames } from '../recent_games/recent_games'
+import { getRecentGames, maxRecentGames } from '../recent_games/recent_games'
 import { handleExit, showAboutWindow } from '../utils'
 import { GlobalConfig } from '../config'
 import { iconDark, iconLight } from '../constants'
@@ -11,7 +11,7 @@ import { backendEvents } from '../backend_events'
 
 export const initTrayIcon = async (mainWindow: BrowserWindow) => {
   // create icon
-  const appIcon = new Tray(await getIcon(process.platform))
+  const appIcon = new Tray(getIcon(process.platform))
 
   // helper function to set/update the context menu
   const loadContextMenu = async (recentGames?: RecentGame[]) => {
@@ -21,7 +21,7 @@ export const initTrayIcon = async (mainWindow: BrowserWindow) => {
 
     appIcon.setContextMenu(contextMenu(mainWindow, recentGames))
   }
-  loadContextMenu()
+  await loadContextMenu()
 
   appIcon.setToolTip('Heroic')
 
@@ -31,19 +31,23 @@ export const initTrayIcon = async (mainWindow: BrowserWindow) => {
   })
 
   ipcMain.on('changeLanguage', async () => {
-    loadContextMenu()
+    await loadContextMenu()
   })
 
   ipcMain.on('changeTrayColor', () => {
-    logInfo('Changing Tray icon Color...', { prefix: LogPrefix.Backend })
+    logInfo('Changing Tray icon Color...', LogPrefix.Backend)
     setTimeout(async () => {
-      appIcon.setImage(await getIcon(process.platform))
-      loadContextMenu()
+      appIcon.setImage(getIcon(process.platform))
+      await loadContextMenu()
     }, 500)
   })
 
   backendEvents.on('recentGamesChanged', async (recentGames: RecentGame[]) => {
-    loadContextMenu(recentGames)
+    const limit = await maxRecentGames()
+    if (recentGames.length > limit) {
+      recentGames = recentGames.slice(0, limit)
+    }
+    await loadContextMenu(recentGames)
   })
 
   return appIcon
@@ -65,8 +69,8 @@ const iconSizesByPlatform = {
 }
 
 // get the icon path based on platform and settings
-export const getIcon = async (platform = process.platform) => {
-  const settings = await GlobalConfig.get().getSettings()
+export const getIcon = (platform = process.platform) => {
+  const settings = GlobalConfig.get().getSettings()
   const { darkTrayIcon } = settings
 
   return nativeImage

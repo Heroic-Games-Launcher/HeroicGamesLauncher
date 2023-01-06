@@ -1,7 +1,6 @@
 import './index.css'
 
 import React, {
-  lazy,
   useContext,
   useEffect,
   useMemo,
@@ -33,10 +32,7 @@ import {
   sideloadedCategories
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
-
-const InstallModal = lazy(
-  async () => import('frontend/screens/Library/components/InstallModal')
-)
+import { InstallModal } from './components'
 
 const storage = window.localStorage
 
@@ -65,7 +61,8 @@ export default React.memo(function Library(): JSX.Element {
     hiddenGames,
     showHidden,
     handleCategory,
-    showFavourites: showFavouritesLibrary
+    showFavourites: showFavouritesLibrary,
+    showNonAvailable
   } = useContext(ContextProvider)
 
   const [showModal, setShowModal] = useState<ModalState>({
@@ -218,6 +215,7 @@ export default React.memo(function Library(): JSX.Element {
   // select library
   const libraryToShow = useMemo(() => {
     let library: Array<GameInfo> = []
+
     if (showFavouritesLibrary) {
       library = [...favourites].filter((game) =>
         category === 'all' ? game : game?.runner === category
@@ -230,7 +228,16 @@ export default React.memo(function Library(): JSX.Element {
       const sideloadedApps = sideloadedCategories.includes(category)
         ? sideloadedLibrary
         : []
+
       library = [...sideloadedApps, ...epicLibrary, ...gogLibrary]
+
+      if (!showNonAvailable) {
+        const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
+        const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
+        library = library.filter(
+          (game) => !nonAvailbleGamesArray.includes(game.app_name)
+        )
+      }
     }
 
     // filter
@@ -293,7 +300,8 @@ export default React.memo(function Library(): JSX.Element {
     sortInstalled,
     showHidden,
     hiddenGames,
-    showFavouritesLibrary
+    showFavouritesLibrary,
+    showNonAvailable
   ])
 
   if (!epic && !gog) {

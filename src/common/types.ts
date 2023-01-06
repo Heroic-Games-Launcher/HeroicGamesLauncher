@@ -82,6 +82,7 @@ export type ExecResult = {
 export interface ExtraInfo {
   about: About
   reqs: Reqs[]
+  storeUrl: string
 }
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
@@ -186,7 +187,7 @@ export interface InstalledInfo {
   buildId?: string // For verifing GOG games
 }
 
-interface Reqs {
+export interface Reqs {
   minimum: string
   recommended: string
   title: string
@@ -603,3 +604,17 @@ export interface ToolArgs {
 }
 
 export type StatusPromise = Promise<{ status: 'done' | 'error' }>
+
+export interface GameScoreInfo {
+  score: string
+  urlid: string
+}
+export interface PCGamingWikiInfo {
+  timestampLastFetch: string
+  steamID: string
+  howLongToBeatID: string
+  metacritic: GameScoreInfo
+  opencritic: GameScoreInfo
+  igdb: GameScoreInfo
+  direct3DVersions: string[]
+}

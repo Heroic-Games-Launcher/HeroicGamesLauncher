@@ -23,10 +23,17 @@ export enum LogPrefix {
   Shortcuts = 'Shortcuts',
   WineTricks = 'Winetricks',
   Connection = 'Connection',
-  DownloadManager = 'DownloadManager'
+  DownloadManager = 'DownloadManager',
+  ExtraGameInfo = 'ExtraGameInfo'
 }
 
 type LogInputType = unknown[] | unknown
+
+interface LogOptions {
+  prefix?: LogPrefix
+  showDialog?: boolean
+  skipLogToFile?: boolean
+}
 
 // helper to convert LogInputType to string
 function convertInputToString(param: LogInputType): string {
@@ -95,12 +102,15 @@ const getPrefixString = (prefix: LogPrefix) => {
 function logBase(
   input: LogInputType,
   level: 'DEBUG' | 'INFO' | 'WARNING' | 'ERROR',
-  options?: {
-    prefix?: LogPrefix
-    showDialog?: boolean
-    skipLogToFile?: boolean
-  }
+  options_or_prefix?: LogOptions | LogPrefix
 ) {
+  let options
+  if (typeof options_or_prefix === 'string') {
+    options = { prefix: options_or_prefix }
+  } else {
+    options = options_or_prefix
+  }
+
   const text = convertInputToString(input)
   const messagePrefix = `${getTimeStamp()} ${getLogLevelString(
     level
@@ -141,15 +151,13 @@ function logBase(
  * @param showDialog set true to show in frontend
  * @defaultvalue {@link LogPrefix.General}
  */
+export function logDebug(input: LogInputType, options?: LogOptions): void
+export function logDebug(input: LogInputType, prefix?: LogPrefix): void
 export function logDebug(
   input: LogInputType,
-  options?: {
-    prefix?: LogPrefix
-    showDialog?: boolean
-    skipLogToFile?: boolean
-  }
+  options_or_prefix?: LogOptions | LogPrefix
 ) {
-  logBase(input, 'DEBUG', options)
+  logBase(input, 'DEBUG', options_or_prefix)
 }
 
 /**
@@ -160,15 +168,13 @@ export function logDebug(
  * @param showDialog set true to show in frontend
  * @defaultvalue {@link LogPrefix.General}
  */
+export function logError(input: LogInputType, options?: LogOptions): void
+export function logError(input: LogInputType, prefix?: LogPrefix): void
 export function logError(
   input: LogInputType,
-  options?: {
-    prefix?: LogPrefix
-    showDialog?: boolean
-    skipLogToFile?: boolean
-  }
+  options_or_prefix?: LogOptions | LogPrefix
 ) {
-  logBase(input, 'ERROR', options)
+  logBase(input, 'ERROR', options_or_prefix)
 }
 
 /**
@@ -179,15 +185,13 @@ export function logError(
  * @param showDialog set true to show in frontend
  * @defaultvalue {@link LogPrefix.General}
  */
+export function logInfo(input: LogInputType, options?: LogOptions): void
+export function logInfo(input: LogInputType, prefix?: LogPrefix): void
 export function logInfo(
   input: LogInputType,
-  options?: {
-    prefix?: LogPrefix
-    showDialog?: boolean
-    skipLogToFile?: boolean
-  }
+  options_or_prefix?: LogOptions | LogPrefix
 ) {
-  logBase(input, 'INFO', options)
+  logBase(input, 'INFO', options_or_prefix)
 }
 
 /**
@@ -198,15 +202,13 @@ export function logInfo(
  * @param showDialog set true to show in frontend
  * @defaultvalue {@link LogPrefix.General}
  */
+export function logWarning(input: LogInputType, options?: LogOptions): void
+export function logWarning(input: LogInputType, prefix?: LogPrefix): void
 export function logWarning(
   input: LogInputType,
-  options?: {
-    prefix?: LogPrefix
-    showDialog?: boolean
-    skipLogToFile?: boolean
-  }
+  options_or_prefix?: LogOptions | LogPrefix
 ) {
-  logBase(input, 'WARNING', options)
+  logBase(input, 'WARNING', options_or_prefix)
 }
 
 export function logChangedSetting(
@@ -249,9 +251,7 @@ export function logChangedSetting(
 
     logInfo(
       `Changed config: ${changedSetting} from ${oldSetting} to ${newSetting}`,
-      {
-        prefix: LogPrefix.Backend
-      }
+      LogPrefix.Backend
     )
   })
 }
