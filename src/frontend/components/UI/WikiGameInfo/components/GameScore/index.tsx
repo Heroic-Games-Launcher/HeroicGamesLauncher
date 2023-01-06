@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import './index.scss'
 import { PCGamingWikiInfo } from 'common/types'
 import classNames from 'classnames'
@@ -6,26 +6,15 @@ import { createNewWindow } from 'frontend/helpers'
 
 type Props = {
   title: string
-  id?: string
+  info: PCGamingWikiInfo
 }
 
-export default function GameScore({ title, id }: Props) {
-  const [pcGamingWikiInfo, setPCGamingWikiInfo] =
-    useState<PCGamingWikiInfo | null>(null)
-
-  useEffect(() => {
-    window.api.getInfoFromPCGamingWiki(title, id).then((info) => {
-      if (info) {
-        setPCGamingWikiInfo(info)
-      }
-    })
-  }, [title, id])
-
+export default function GameScore({ title, info }: Props) {
   if (
-    !pcGamingWikiInfo ||
-    (!pcGamingWikiInfo.metacritic &&
-      !pcGamingWikiInfo.opencritic &&
-      !pcGamingWikiInfo.igdb)
+    !info ||
+    (!info.metacritic &&
+      !info.opencritic &&
+      !info.igdb)
   ) {
     return null
   }
@@ -42,7 +31,7 @@ export default function GameScore({ title, id }: Props) {
     return 'gamescore__square__yellow'
   }
 
-  const { metacritic, opencritic, igdb } = pcGamingWikiInfo
+  const { metacritic, opencritic, igdb } = info
 
   const shouldShow = metacritic.score || opencritic.score || igdb.score
 

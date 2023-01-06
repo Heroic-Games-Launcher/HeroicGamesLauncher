@@ -1,31 +1,21 @@
 import { HowLongToBeatEntry } from 'howlongtobeat'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import './index.scss'
 
 type Props = {
-  title: string
+  info: HowLongToBeatEntry
 }
 
-export default function HowLongToBeat({ title }: Props) {
-  const [howLongToBeatInfo, setHowLongToBeatInfo] =
-    useState<HowLongToBeatEntry | null>(null)
+export default function HowLongToBeat({ info }: Props) {
   const { t } = useTranslation('gamepage')
 
-  useEffect(() => {
-    window.api.getHowLongToBeat(title).then((howLongToBeatInfo) => {
-      if (howLongToBeatInfo) {
-        setHowLongToBeatInfo(howLongToBeatInfo)
-      }
-    })
-  }, [title])
-
-  if (!howLongToBeatInfo) {
+  if (!info) {
     return null
   }
 
   const { gameplayMain, gameplayMainExtra, gameplayCompletionist } =
-    howLongToBeatInfo
+    info
 
   return (
     <details className="howLongToBeatWrapper">

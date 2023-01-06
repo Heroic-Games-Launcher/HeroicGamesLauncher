@@ -1,6 +1,5 @@
 import { logError } from '../../../logger/logger'
 import { getInfoFromAppleGamingWiki } from '../utils'
-import { appleGamingWikiInfoStore } from '../electronStores'
 import axios from 'axios'
 import { AppleGamingWikiInfo } from '../../../../common/types'
 
@@ -26,44 +25,7 @@ describe('getAppleGamingWikiInfo', () => {
     })
 
     const result = await getInfoFromAppleGamingWiki('The Witcher 3')
-    expect(result).toStrictEqual(testGameScore)
-  })
-
-  test('use cached data', async () => {
-    jest.spyOn(appleGamingWikiInfoStore, 'get').mockReturnValue(testGameScore)
-    const mockAxios = jest.spyOn(axios, 'get').mockImplementation()
-
-    const result = await getInfoFromAppleGamingWiki('The Witcher 3')
-    expect(result).toStrictEqual(testGameScore)
-    expect(mockAxios).not.toBeCalled()
-  })
-
-  test('cached data outdated', async () => {
-    const oneMonthAgo = new Date(testGameScore.timestampLastFetch)
-    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1)
-
-    jest.spyOn(appleGamingWikiInfoStore, 'get').mockReturnValue({
-      ...testGameScore,
-      timestampLastFetch: oneMonthAgo.toString()
-    })
-
-    const mockAxios = jest.spyOn(axios, 'get').mockResolvedValueOnce({
-      data: { cargoquery: [{ title: { pageID: 1, crossover: 'perfect' } }] }
-    })
-    mockAxios.mockResolvedValueOnce({
-      data: {
-        parse: {
-          wikitext: {
-            '*':
-              '|pcgamingwiki = The_Witcher_3:_Wild_Hunt\n' +
-              '|codeweavers  = the-witcher-3-wild-hunt\n'
-          }
-        }
-      }
-    })
-
-    const result = await getInfoFromAppleGamingWiki('The Witcher 3')
-    expect(result).toStrictEqual(testGameScore)
+    expect(result).toStrictEqual(testAppleGamingWikiInfo)
   })
 
   test('does not find page id', async () => {
@@ -89,7 +51,7 @@ describe('getAppleGamingWikiInfo', () => {
 
     const result = await getInfoFromAppleGamingWiki('The Witcher 3')
     expect(result).toStrictEqual({
-      ...testGameScore,
+      ...testAppleGamingWikiInfo,
       crossoverLink: '',
       crossoverRating: undefined
     })
@@ -108,7 +70,10 @@ describe('getAppleGamingWikiInfo', () => {
     })
 
     const result = await getInfoFromAppleGamingWiki('The Witcher 3')
-    expect(result).toStrictEqual({ ...testGameScore, crossoverLink: '' })
+    expect(result).toStrictEqual({
+      ...testAppleGamingWikiInfo,
+      crossoverLink: ''
+    })
   })
 
   test('catches axios throws', async () => {
@@ -118,16 +83,15 @@ describe('getAppleGamingWikiInfo', () => {
     expect(result).toBeNull()
     expect(logError).toBeCalledWith(
       [
-        'Was not able to get applegamingwiki data for The Witcher 3',
+        'Was not able to get AppleGamingWiki data for The Witcher 3',
         Error('Failed')
       ],
-      { prefix: 'ExtraGameInfo' }
+      'ExtraGameInfo'
     )
   })
 })
 
-const testGameScore = {
-  timestampLastFetch: Date(),
+const testAppleGamingWikiInfo = {
   crossoverRating: 'perfect',
   crossoverLink: 'the-witcher-3-wild-hunt'
 } as AppleGamingWikiInfo

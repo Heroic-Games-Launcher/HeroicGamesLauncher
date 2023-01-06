@@ -1,7 +1,7 @@
 import Store from 'electron-store'
 
-export const howLongToBeatStore = new Store({
+export const wikiGameInfoStore = new Store({
   cwd: 'store',
-  name: 'howlongtobeat',
+  name: 'wikigameinfo',
   clearInvalidConfig: true
 })

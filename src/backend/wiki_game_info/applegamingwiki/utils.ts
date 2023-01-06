@@ -1,7 +1,5 @@
 import { crossoverLinkIDRegEx } from './constants'
 import { logError, logInfo, LogPrefix } from '../../logger/logger'
-import { removeSpecialcharacters } from '../../utils'
-import { appleGamingWikiInfoStore } from './electronStores'
 import axios from 'axios'
 import { AppleGamingWikiInfo } from 'common/types'
 
@@ -9,36 +7,13 @@ export async function getInfoFromAppleGamingWiki(
   title: string
 ): Promise<AppleGamingWikiInfo | null> {
   try {
-    title = removeSpecialcharacters(title)
-
-    // pcgamingwiki does not like "-" and mostly replaces it with ":"
+    // applegamingwiki does not like "-" and mostly replaces it with ":"
     title = title.replace(' -', ':')
 
-    // check if we have a cached response
-    const cachedResponse = appleGamingWikiInfoStore.get(
-      title
-    ) as AppleGamingWikiInfo
-    if (cachedResponse) {
-      logInfo([`Using cached applegamingwiki data for ${title}`], {
-        prefix: LogPrefix.ExtraGameInfo
-      })
-
-      const oneMonthAgo = new Date()
-      oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1)
-
-      const timestampLastFetch = new Date(cachedResponse.timestampLastFetch)
-      if (timestampLastFetch > oneMonthAgo) {
-        return cachedResponse
-      }
-
-      logInfo([`Cached applegamingwiki data for ${title} outdated.`], {
-        prefix: LogPrefix.ExtraGameInfo
-      })
-    }
-
-    logInfo(`Getting applegamingwiki data for ${title}`, {
-      prefix: LogPrefix.ExtraGameInfo
-    })
+    logInfo(
+      `Getting AppleGamingWiki data for ${title}`,
+      LogPrefix.ExtraGameInfo
+    )
 
     const response = await getPageID(title)
 
@@ -48,19 +23,15 @@ export async function getInfoFromAppleGamingWiki(
 
     const wikitext = await getWikiText(response.id)
 
-    const appleGamingWikiInfo: AppleGamingWikiInfo = {
-      timestampLastFetch: Date(),
+    return {
       crossoverRating: response.rating,
       crossoverLink: wikitext?.match(crossoverLinkIDRegEx)?.[1] ?? ''
     }
-
-    appleGamingWikiInfoStore.set(title, appleGamingWikiInfo)
-
-    return appleGamingWikiInfo
   } catch (error) {
-    logError([`Was not able to get applegamingwiki data for ${title}`, error], {
-      prefix: LogPrefix.ExtraGameInfo
-    })
+    logError(
+      [`Was not able to get AppleGamingWiki data for ${title}`, error],
+      LogPrefix.ExtraGameInfo
+    )
     return null
   }
 }
