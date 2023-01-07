@@ -2,7 +2,7 @@ import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
 
-import { GameStatus, Runner } from 'common/types'
+import { GameStatus, Runner, WikiInfo } from 'common/types'
 
 import { createNewWindow, repair } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
@@ -201,9 +201,11 @@ export default function GamesSubmenu({
     // Get steam id and set direct proton db link
     window.api
       .getWikiGameInfo(title, runner === 'gog' ? appName : undefined)
-      .then((info) => {
-        if (info?.steamID) {
-          setProtonDBurl(`https://www.protondb.com/app/${info.steamID}`)
+      .then((info: WikiInfo) => {
+        if (info?.pcgamingwiki?.steamID) {
+          setProtonDBurl(
+            `https://www.protondb.com/app/${info?.pcgamingwiki?.steamID}`
+          )
         }
       })
   }, [title, appName])

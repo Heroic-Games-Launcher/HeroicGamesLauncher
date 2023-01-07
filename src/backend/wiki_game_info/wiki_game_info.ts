@@ -5,6 +5,7 @@ import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { getInfoFromAppleGamingWiki } from './applegamingwiki/utils'
 import { getHowLongToBeat } from './howlongtobeat/utils'
 import { getInfoFromPCGamingWiki } from './pcgamingwiki/utils'
+import { isMac } from '../constants'
 
 export async function getWikiGameInfo(
   title: string,
@@ -38,18 +39,24 @@ export async function getWikiGameInfo(
     logInfo(`Getting ExtraGameInfo data for ${title}`, LogPrefix.ExtraGameInfo)
 
     const pcgamingwiki = await getInfoFromPCGamingWiki(title, gogID)
-    const applegamingwiki = await getInfoFromAppleGamingWiki(title)
+    const applegamingwiki = isMac
+      ? await getInfoFromAppleGamingWiki(title)
+      : null
     const howlongtobeat = await getHowLongToBeat(
       title,
       pcgamingwiki?.howLongToBeatID ?? ''
     )
 
-    return {
+    const wikiGameInfo = {
       timestampLastFetch: Date(),
       pcgamingwiki,
       applegamingwiki,
       howlongtobeat
     }
+
+    wikiGameInfoStore.set(title, wikiGameInfo)
+
+    return wikiGameInfo
   } catch (error) {
     logError(
       [`Was not able to get ExtraGameInfo data for ${title}`, error],

@@ -11,9 +11,14 @@ import * as AppleGamingWiki from '../applegamingwiki/utils'
 import * as HowLongToBeat from '../howlongtobeat/utils'
 import { logError } from '../../logger/logger'
 
+jest.mock('electron-store')
 jest.mock('../../logger/logfile')
 jest.mock('../../logger/logger')
-jest.mock('electron-store')
+jest.mock('../../constants', () => {
+  return {
+    isMac: true
+  }
+})
 
 describe('getWikiGameInfo', () => {
   test('use cached data', async () => {

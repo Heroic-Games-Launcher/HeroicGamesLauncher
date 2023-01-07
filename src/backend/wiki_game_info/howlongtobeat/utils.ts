@@ -11,11 +11,12 @@ export async function getHowLongToBeat(
     const hltb = new HowLongToBeatService()
 
     if (id) {
-      const result = await hltb.detail(id)
-
-      if (result) {
-        return result
-      }
+      // howlongtobeat package is broken for this function
+      // he is scrapping the website and some layout changed
+      // const result = await hltb.detail(id)
+      // if (result) {
+      //   return result
+      // }
     }
 
     return (await hltb.search(title))[0]

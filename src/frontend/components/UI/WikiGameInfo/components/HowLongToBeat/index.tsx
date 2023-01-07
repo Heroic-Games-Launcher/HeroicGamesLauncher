@@ -14,8 +14,7 @@ export default function HowLongToBeat({ info }: Props) {
     return null
   }
 
-  const { gameplayMain, gameplayMainExtra, gameplayCompletionist } =
-    info
+  const { gameplayMain, gameplayMainExtra, gameplayCompletionist } = info
 
   return (
     <details className="howLongToBeatWrapper">

@@ -10,12 +10,7 @@ type Props = {
 }
 
 export default function GameScore({ title, info }: Props) {
-  if (
-    !info ||
-    (!info.metacritic &&
-      !info.opencritic &&
-      !info.igdb)
-  ) {
+  if (!info || (!info.metacritic && !info.opencritic && !info.igdb)) {
     return null
   }
 

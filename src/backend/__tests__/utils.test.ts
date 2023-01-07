@@ -1,13 +1,6 @@
 import { quoteIfNecessary, removeQuoteIfNecessary, semverGt } from '../utils'
 
-jest.mock('../logger/logger', () => {
-  const original = jest.requireActual('../logger/logger')
-  return {
-    ...original,
-    createNewLogFileAndClearOldOnes: jest.fn().mockReturnValue('')
-  }
-})
-
+jest.mock('../logger/logger')
 jest.mock('../logger/logfile')
 
 describe('electron/utils.ts', () => {

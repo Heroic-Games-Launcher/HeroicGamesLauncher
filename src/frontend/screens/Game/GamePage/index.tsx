@@ -513,7 +513,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   </button>
                 )}
               </div>
-              <WikiGameInfo title={title} id={runner === 'gog' ? appName : undefined} />
+              <WikiGameInfo
+                title={title}
+                id={runner === 'gog' ? appName : undefined}
+              />
               {is_installed && (
                 <span
                   onClick={() => setIsSettingsModalOpen(true, 'log', gameInfo)}
