@@ -349,12 +349,12 @@ async function updateToolVersionInfos(
     await getAvailableVersions({
       repositories: [
         Repositories.WINEGE,
-        Repositories.PROTONGE,
-        Repositories.SODA_BOTTLES,
-        Repositories.DXVK,
-        Repositories.DXVK_ASYNC,
-        Repositories.DXVK_NVAPI,
-        Repositories.VKD3D
+        Repositories.PROTONGE
+        // Repositories.SODA_BOTTLES,
+        // Repositories.DXVK,
+        // Repositories.DXVK_ASYNC,
+        // Repositories.DXVK_NVAPI,
+        // Repositories.VKD3D
       ],
       count
     })

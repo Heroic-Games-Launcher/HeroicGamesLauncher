@@ -22,11 +22,11 @@ const configStore = new StoreIpc('wineManagerConfigStore', {
 interface ToolManagerUISettings {
   showWineGe: boolean
   showProtonGe: boolean
-  showSodaBottles: boolean
-  showDXVK: boolean
-  showDXVKAsync: boolean
-  showDXVKNVAPI: boolean
-  showVKD3D: boolean
+  // showSodaBottles: boolean
+  // showDXVK: boolean
+  // showDXVKAsync: boolean
+  // showDXVKNVAPI: boolean
+  // showVKD3D: boolean
 }
 
 export default function ToolManager(): JSX.Element | null {
@@ -34,21 +34,21 @@ export default function ToolManager(): JSX.Element | null {
   const { refreshToolVersionInfo, refreshing } = useContext(ContextProvider)
   const winege: Type = 'Wine-GE'
   const protonge: Type = 'Proton-GE'
-  const sodabottles: Type = 'Soda-Bottles'
-  const dxvk: Type = 'DXVK'
-  const dxvkasync: Type = 'DXVK-Async'
-  const dxvknvapi: Type = 'DXVK-NVAPI'
-  const vkd3d: Type = 'VKD3D'
+  // const sodabottles: Type = 'Soda-Bottles'
+  // const dxvk: Type = 'DXVK'
+  // const dxvkasync: Type = 'DXVK-Async'
+  // const dxvknvapi: Type = 'DXVK-NVAPI'
+  // const vkd3d: Type = 'VKD3D'
   const [repository, setRepository] = useState<Type>(winege)
   const [toolManagerSettings, setToolManagerSettings] =
     useState<ToolManagerUISettings>({
       showWineGe: true,
-      showProtonGe: true,
-      showSodaBottles: true,
-      showDXVK: true,
-      showDXVKAsync: true,
-      showDXVKNVAPI: true,
-      showVKD3D: true
+      showProtonGe: true
+      // showSodaBottles: true,
+      // showDXVK: true,
+      // showDXVKAsync: true,
+      // showDXVKNVAPI: true,
+      // showVKD3D: true
     })
 
   const getToolVersions = (repo: Type) => {
@@ -111,7 +111,7 @@ export default function ToolManager(): JSX.Element | null {
             {toolManagerSettings.showProtonGe && (
               <Tab value={protonge} label={protonge} />
             )}
-            {toolManagerSettings.showSodaBottles && (
+            {/* {toolManagerSettings.showSodaBottles && (
               <Tab value={sodabottles} label={sodabottles} />
             )}
             {toolManagerSettings.showDXVK && <Tab value={dxvk} label={dxvk} />}
@@ -123,7 +123,7 @@ export default function ToolManager(): JSX.Element | null {
             )}
             {toolManagerSettings.showVKD3D && (
               <Tab value={vkd3d} label={vkd3d} />
-            )}
+            )} */}
           </Tabs>
           <button
             className={'FormControl__button'}
