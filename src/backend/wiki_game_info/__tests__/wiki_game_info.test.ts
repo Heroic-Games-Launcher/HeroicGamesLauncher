@@ -3,7 +3,7 @@ import {
   AppleGamingWikiInfo,
   WikiInfo,
   PCGamingWikiInfo
-} from './../../../common/types'
+} from '../../../common/types'
 import { wikiGameInfoStore } from '../electronStore'
 import { getWikiGameInfo } from '../wiki_game_info'
 import * as PCGamingWiki from '../pcgamingwiki/utils'
