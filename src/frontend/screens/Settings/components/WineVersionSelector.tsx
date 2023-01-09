@@ -29,12 +29,25 @@ export default function WineVersionSelector() {
     getAltWine()
   }, [])
 
+  useEffect(() => {
+    // Fix setting in case wine path does not exists anymore
+    const updateWine = async () => {
+      const winePathExists = await window.api.pathExists(wineVersion.bin)
+      if (!winePathExists) {
+        const { wineVersion: defaultWine } =
+          await window.api.requestAppSettings()
+        setWineVersion(defaultWine)
+      }
+    }
+    updateWine()
+  }, [wineVersion, altWine])
+
   return (
     <SelectField
       label={
         isLinux
           ? t('setting.wineversion')
-          : t('setting.crossover-version', 'Crossover Version')
+          : t('setting.crossover-version', 'Crossover/Wine Version')
       }
       htmlId="setWineVersion"
       onChange={(event) =>
@@ -62,7 +75,6 @@ export default function WineVersionSelector() {
                   <li>~/.local/share/lutris/runners/wine</li>
                   <li>~/.var/app/com.valvesoftware.Steam (Steam Flatpak)</li>
                   <li>/usr/share/steam</li>
-                  <li>Everywhere on the system (CrossOver Mac)</li>
                 </i>
               </ul>
               <span>{t('help.wine.part2')}</span>
@@ -71,8 +83,8 @@ export default function WineVersionSelector() {
         </>
       }
     >
-      {altWine.map(({ name }) => (
-        <option key={name}>{name}</option>
+      {altWine.map(({ name }, i) => (
+        <option key={i}>{name}</option>
       ))}
     </SelectField>
   )
