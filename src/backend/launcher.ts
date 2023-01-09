@@ -152,7 +152,16 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
     (await GameConfig.get(game.appName).getSettings())
 
   if (!(await validWine(gameSettings.wineVersion))) {
-    return { success: false }
+    const defaultWine = GlobalConfig.get().getSettings().wineVersion
+    // now check if the default wine is valid as well
+    if (!(await validWine(defaultWine))) {
+      return { success: false }
+    }
+
+    // If the wine version is invalid, update the game settings using the default wine
+    gameSettings.wineVersion = defaultWine
+
+    GameConfig.get(game.appName).setSetting('wineVersion', defaultWine)
   }
 
   // Log warning about Proton
@@ -412,28 +421,34 @@ function setupWrappers(
 export async function validWine(
   wineVersion: WineInstallation
 ): Promise<boolean> {
-  const wineBin = wineVersion.bin
+  logInfo(
+    `Checking if wine version exists: ${wineVersion.name}`,
+    LogPrefix.Backend
+  )
 
-  if (!wineBin) {
-    showDialogBoxModalAuto({
-      title: i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
-      message: i18next.t(
-        'box.error.wine-not-found.message',
-        'No Wine Version Selected. Check Game Settings!'
-      ),
-      type: 'ERROR'
-    })
-    return false
+  // if wine version does not exist, use the default one and update the game settings
+  if (!existsSync(wineVersion.bin)) {
+    const { wineVersion: defaultWineVersion } = GlobalConfig.get().getSettings()
+    logWarning(
+      `Wine version not found: ${wineVersion.name}, using the default one ${defaultWineVersion.name} `,
+      LogPrefix.Backend
+    )
+    wineVersion = defaultWineVersion
   }
 
-  if (!existsSync(wineBin)) {
+  // verify if necessary binaries exist
+  const { bin, wineboot, wineserver, type } = wineVersion
+  const necessary = type === 'proton' ? [bin] : [bin, wineboot, wineserver]
+  const haveAll = necessary.every((binary) => existsSync(binary as string))
+
+  if (!haveAll) {
     showDialogBoxModalAuto({
       title: i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
       message: i18next.t('box.error.wine-not-found.invalid', {
         defaultValue:
           "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
         version: wineVersion.name,
-        path: wineBin,
+        path: bin,
         newline: '\n',
         interpolation: { escapeValue: false }
       }),
@@ -455,7 +470,9 @@ export async function verifyWinePrefix(
 ): Promise<{ res: ExecResult; updated: boolean }> {
   const { winePrefix, wineVersion } = settings
 
-  if (!(await validWine(wineVersion))) {
+  const isValidWine = await validWine(wineVersion)
+
+  if (!isValidWine) {
     return { res: { stdout: '', stderr: '' }, updated: false }
   }
 
