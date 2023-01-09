@@ -448,7 +448,7 @@
         "autovkd3d": "Автоматично инсталиране/обновяване на VKD3D в префикса",
         "change-target-exe": "Изберете алтернативен файл EXE за изпълнение",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
-        "crossover-version": "Crossover Version",
+        "crossover-version": "Crossover/Wine Version",
         "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Персонализирани пътища за Wine/Proton",
         "darktray": "Използване на тъмна иконка за системната област за уведомления",
