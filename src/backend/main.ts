@@ -864,6 +864,14 @@ ipcMain.handle('writeConfig', (event, { appName, config }) => {
   }
 })
 
+ipcMain.on('setSetting', (event, { appName, key, value }) => {
+  if (appName === 'default') {
+    GlobalConfig.get().setSetting(key, value)
+  } else {
+    GameConfig.get(appName).setSetting(key, value)
+  }
+})
+
 // Watch the installed games file and trigger a refresh on the installed games if something changes
 if (existsSync(installed)) {
   let watchTimeout: NodeJS.Timeout | undefined

@@ -1,5 +1,4 @@
 import { AppSettings, GameInfo, Runner } from 'common/types'
-import { writeConfig } from 'frontend/helpers'
 import { SettingsContextType } from 'frontend/types'
 import { useTranslation } from 'react-i18next'
 import { useState, useEffect, useContext } from 'react'
@@ -42,7 +41,7 @@ const useSettingsContext = ({ appName, gameInfo, runner }: Props) => {
         if (noChange) return
       }
       setCurrentConfig({ ...currentConfig, [key]: value })
-      writeConfig({ appName, config: { ...currentConfig, [key]: value } })
+      window.api.setSetting({ appName, key, value })
     },
     config: currentConfig,
     isDefault,

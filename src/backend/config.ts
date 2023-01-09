@@ -472,6 +472,9 @@ abstract class GlobalConfig {
    */
   public abstract flush(): void
 
+  /** change a specific setting */
+  public abstract setSetting(key: string, value: unknown): void
+
   /**
    * Load the config file, upgrade if needed.
    */
@@ -608,12 +611,19 @@ class GlobalConfigV0 extends GlobalConfig {
     } as AppSettings
   }
 
-  public async resetToDefaults() {
+  public setSetting(key: string, value: unknown) {
+    const config = this.getSettings()
+    config[key] = value
+    this.config = config
+    return this.flush()
+  }
+
+  public resetToDefaults() {
     this.config = this.getFactoryDefaults()
     return this.flush()
   }
 
-  public async flush() {
+  public flush() {
     return this.writeToFile({
       defaultSettings: this.config,
       version: 'v0'
