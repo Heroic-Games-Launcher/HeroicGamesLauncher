@@ -103,10 +103,13 @@ async function setup(
             actionArguments?.valueData,
             pathsValues
           )
-          const valueName = actionArguments?.valueName
+          let valueName = actionArguments?.valueName || ''
           const valueType = actionArguments?.valueType
 
           let keyCommand: string[] = []
+          if (valueName) {
+            valueName = handlePathVars(valueName, pathsValues)
+          }
           if (valueData) {
             const regType = getRegDataType(valueType)
             if (!regType) {
