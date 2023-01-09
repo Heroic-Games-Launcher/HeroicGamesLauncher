@@ -426,34 +426,18 @@ export async function validWine(
     LogPrefix.Backend
   )
 
-  // if wine version does not exist, use the default one and update the game settings
-  if (!existsSync(wineVersion.bin)) {
-    const { wineVersion: defaultWineVersion } = GlobalConfig.get().getSettings()
-    logWarning(
-      `Wine version not found: ${wineVersion.name}, using the default one ${defaultWineVersion.name} `,
-      LogPrefix.Backend
-    )
-    wineVersion = defaultWineVersion
-  }
-
   // verify if necessary binaries exist
   const { bin, wineboot, wineserver, type } = wineVersion
   const necessary = type === 'proton' ? [bin] : [bin, wineboot, wineserver]
   const haveAll = necessary.every((binary) => existsSync(binary as string))
 
+  // if wine version does not exist, use the default one
   if (!haveAll) {
-    showDialogBoxModalAuto({
-      title: i18next.t('box.error.wine-not-found.title', 'Wine Not Found'),
-      message: i18next.t('box.error.wine-not-found.invalid', {
-        defaultValue:
-          "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
-        version: wineVersion.name,
-        path: bin,
-        newline: '\n',
-        interpolation: { escapeValue: false }
-      }),
-      type: 'ERROR'
-    })
+    const { wineVersion: defaultWineVersion } = GlobalConfig.get().getSettings()
+    logWarning(
+      `Wine version not found: ${wineVersion.name}, using the default one ${defaultWineVersion.name} `,
+      LogPrefix.Backend
+    )
     return false
   }
 

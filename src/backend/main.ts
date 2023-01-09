@@ -110,7 +110,7 @@ import {
 } from './logger/logger'
 import { gameInfoStore } from './legendary/electronStores'
 import { getFonts } from 'font-list'
-import { runWineCommand, verifyWinePrefix } from './launcher'
+import { runWineCommand, validWine, verifyWinePrefix } from './launcher'
 import shlex from 'shlex'
 import { initQueue } from './downloadmanager/downloadqueue'
 import {
@@ -908,6 +908,40 @@ ipcMain.on('logInfo', (e, info) => logInfo(info, LogPrefix.Frontend))
 
 let powerDisplayId: number | null
 
+async function checkWineBeforeLaunch(
+  appName: string,
+  gameSettings: GameSettings,
+  logFileLocation: string
+) {
+  const wineIsValid = await validWine(gameSettings.wineVersion)
+
+  logError(
+    `Wine version ${gameSettings.wineVersion} is not valid, trying another one.`,
+    LogPrefix.Backend
+  )
+  appendFileSync(
+    logFileLocation,
+    `Wine version ${gameSettings.wineVersion} is not valid, trying another one.`
+  )
+
+  if (!wineIsValid) {
+    // check if the default wine is valid now
+    const { wineVersion: defaultwine } = GlobalConfig.get().getSettings()
+    const defaultWineIsValid = await validWine(defaultwine)
+    if (!defaultWineIsValid) {
+      gameSettings.wineVersion = defaultwine
+      GameConfig.get(appName).setSetting('wineVersion', defaultwine)
+    } else {
+      const firstFoundWine = GlobalConfig.get().getAlternativeWine()[0]
+      const isValidWine = await validWine(firstFoundWine)
+      if (firstFoundWine && isValidWine) {
+        gameSettings.wineVersion = firstFoundWine
+        GameConfig.get(appName).setSetting('wineVersion', firstFoundWine)
+      }
+    }
+  }
+}
+
 ipcMain.handle(
   'launch',
   async (event, { appName, launchArguments, runner }): StatusPromise => {
@@ -947,7 +981,7 @@ ipcMain.handle(
 
     const systemInfo = await getSystemInfo()
     const gameSettings = isSideloaded
-      ? getAppSettings(appName)
+      ? await getAppSettings(appName)
       : await extGame.getSettings()
     const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
     const logFileLocation = isSideloaded
@@ -964,6 +998,11 @@ ipcMain.handle(
         `Game launched at: ${startPlayingDate}\n` +
         '\n'
     )
+
+    // check if isNative, if not, check if wine is valid
+    if (!extGame.isNative() || (isSideloaded && !isNativeApp(appName))) {
+      await checkWineBeforeLaunch(appName, gameSettings, logFileLocation)
+    }
 
     const command = isSideloaded
       ? launchApp(appName)

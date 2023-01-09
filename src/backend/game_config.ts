@@ -291,6 +291,7 @@ class GameConfigV0 extends GameConfig {
 
   public setSetting(key: string, value: unknown) {
     this.config[key] = value
+    logInfo(`${this.appName}: Setting ${key} to ${JSON.stringify(value)}`)
     return this.flush()
   }
 
