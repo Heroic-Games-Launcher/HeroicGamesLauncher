@@ -291,7 +291,10 @@ abstract class GlobalConfig {
   public async getAlternativeWine(
     scanCustom = true
   ): Promise<WineInstallation[]> {
-    const macOsWineSet = await this.getMacOsWineSet()
+    if (isMac) {
+      const macOsWineSet = await this.getMacOsWineSet()
+      return [...macOsWineSet]
+    }
 
     if (!existsSync(`${heroicToolsPath}/wine`)) {
       mkdirSync(`${heroicToolsPath}/wine`, { recursive: true })
@@ -372,13 +375,7 @@ abstract class GlobalConfig {
       customWineSet = this.getCustomWinePaths()
     }
 
-    return [
-      ...defaultWineSet,
-      ...altWine,
-      ...proton,
-      ...customWineSet,
-      ...macOsWineSet
-    ]
+    return [...defaultWineSet, ...altWine, ...proton, ...customWineSet]
   }
 
   /**

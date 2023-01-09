@@ -1535,6 +1535,10 @@ ipcMain.handle('isNative', (e, { appName, runner }) => {
   return game.isNative()
 })
 
+ipcMain.handle('pathExists', async (e, path: string) => {
+  return existsSync(path)
+})
+
 /*
   Other Keys that should go into translation files:
   t('box.error.generic.title')
@@ -1542,7 +1546,7 @@ ipcMain.handle('isNative', (e, { appName, runner }) => {
  */
 
 /*
- * INSERT OTHER IPC HANLDER HERE
+ * INSERT OTHER IPC HANDLERS HERE
  */
 import './logger/ipc_handler'
 import './wine/manager/ipc_handler'

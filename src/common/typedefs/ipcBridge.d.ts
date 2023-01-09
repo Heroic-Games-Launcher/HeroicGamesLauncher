@@ -233,6 +233,7 @@ interface AsyncIPCFunctions {
     runner: Runner
   }) => Promise<boolean>
   toggleDXVK: (args: ToolArgs) => Promise<boolean>
+  pathExists: (path: string) => Promise<boolean>
 }
 
 // This is quite ugly & throws a lot of errors in a regular .ts file
