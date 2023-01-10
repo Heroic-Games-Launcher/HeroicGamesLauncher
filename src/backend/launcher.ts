@@ -275,7 +275,7 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
       const wmbDisableString = 'winemenubuilder='
       // If the user already set WINEDLLOVERRIDES, append to the end
       const dllOverridesVar = gameSettings.enviromentOptions.find(
-        ({ key }) => key.toLowerCase() === 'winemenubuilder'
+        ({ key }) => key.toLowerCase() === 'winedlloverrides'
       )
       if (dllOverridesVar) {
         ret[dllOverridesVar.key] =
