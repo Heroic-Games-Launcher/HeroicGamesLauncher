@@ -97,18 +97,25 @@ async function setup(
           const registryPath =
             actionArguments.root +
             '\\' +
-            handlePathVars(actionArguments.subkey, pathsValues)
+            handlePathVars(actionArguments.subkey, pathsValues).replaceAll(
+              path.sep,
+              '\\'
+            )
 
           let valueData = handlePathVars(
             actionArguments?.valueData,
             pathsValues
-          )
+          )?.replaceAll(path.sep, '\\')
+
           let valueName = actionArguments?.valueName || ''
           const valueType = actionArguments?.valueType
 
           let keyCommand: string[] = []
           if (valueName) {
-            valueName = handlePathVars(valueName, pathsValues)
+            valueName = handlePathVars(valueName, pathsValues).replaceAll(
+              path.sep,
+              '\\'
+            )
           }
           if (valueData) {
             const regType = getRegDataType(valueType)
