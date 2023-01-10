@@ -76,7 +76,8 @@ async function setup(
         ? gameInfo.install.install_path || ''
         : getWinePath({
             path: gameInfo.install.install_path || '',
-            gameSettings
+            gameSettings,
+            variant: 'win'
           })
     ])
 
