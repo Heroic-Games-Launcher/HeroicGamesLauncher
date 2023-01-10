@@ -157,11 +157,6 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
     if (!(await validWine(defaultWine))) {
       return { success: false }
     }
-
-    // If the wine version is invalid, update the game settings using the default wine
-    gameSettings.wineVersion = defaultWine
-
-    GameConfig.get(game.appName).setSetting('wineVersion', defaultWine)
   }
 
   // Log warning about Proton
@@ -421,6 +416,10 @@ function setupWrappers(
 export async function validWine(
   wineVersion: WineInstallation
 ): Promise<boolean> {
+  if (!wineVersion) {
+    return false
+  }
+
   logInfo(
     `Checking if wine version exists: ${wineVersion.name}`,
     LogPrefix.Backend
@@ -428,16 +427,11 @@ export async function validWine(
 
   // verify if necessary binaries exist
   const { bin, wineboot, wineserver, type } = wineVersion
-  const necessary = type === 'proton' ? [bin] : [bin, wineboot, wineserver]
+  const necessary = type === 'wine' ? [bin, wineboot, wineserver] : [bin]
   const haveAll = necessary.every((binary) => existsSync(binary as string))
 
   // if wine version does not exist, use the default one
   if (!haveAll) {
-    const { wineVersion: defaultWineVersion } = GlobalConfig.get().getSettings()
-    logWarning(
-      `Wine version not found: ${wineVersion.name}, using the default one ${defaultWineVersion.name} `,
-      LogPrefix.Backend
-    )
     return false
   }
 

@@ -70,7 +70,8 @@ import {
   notify,
   getShellPath,
   getCurrentChangelog,
-  wait
+  wait,
+  checkWineBeforeLaunch
 } from './utils'
 import {
   configStore,
@@ -110,7 +111,7 @@ import {
 } from './logger/logger'
 import { gameInfoStore } from './legendary/electronStores'
 import { getFonts } from 'font-list'
-import { runWineCommand, validWine, verifyWinePrefix } from './launcher'
+import { runWineCommand, verifyWinePrefix } from './launcher'
 import shlex from 'shlex'
 import { initQueue } from './downloadmanager/downloadqueue'
 import {
@@ -908,40 +909,6 @@ ipcMain.on('logInfo', (e, info) => logInfo(info, LogPrefix.Frontend))
 
 let powerDisplayId: number | null
 
-async function checkWineBeforeLaunch(
-  appName: string,
-  gameSettings: GameSettings,
-  logFileLocation: string
-) {
-  const wineIsValid = await validWine(gameSettings.wineVersion)
-
-  logError(
-    `Wine version ${gameSettings.wineVersion} is not valid, trying another one.`,
-    LogPrefix.Backend
-  )
-  appendFileSync(
-    logFileLocation,
-    `Wine version ${gameSettings.wineVersion} is not valid, trying another one.`
-  )
-
-  if (!wineIsValid) {
-    // check if the default wine is valid now
-    const { wineVersion: defaultwine } = GlobalConfig.get().getSettings()
-    const defaultWineIsValid = await validWine(defaultwine)
-    if (!defaultWineIsValid) {
-      gameSettings.wineVersion = defaultwine
-      GameConfig.get(appName).setSetting('wineVersion', defaultwine)
-    } else {
-      const firstFoundWine = GlobalConfig.get().getAlternativeWine()[0]
-      const isValidWine = await validWine(firstFoundWine)
-      if (firstFoundWine && isValidWine) {
-        gameSettings.wineVersion = firstFoundWine
-        GameConfig.get(appName).setSetting('wineVersion', firstFoundWine)
-      }
-    }
-  }
-}
-
 ipcMain.handle(
   'launch',
   async (event, { appName, launchArguments, runner }): StatusPromise => {
@@ -959,8 +926,6 @@ ipcMain.handle(
     }
 
     logInfo(`Launching ${title} (${game.app_name})`, LogPrefix.Backend)
-
-    addRecentGame(game)
 
     sendFrontendMessage('gameStatusUpdate', {
       appName,
@@ -1001,7 +966,26 @@ ipcMain.handle(
 
     // check if isNative, if not, check if wine is valid
     if (!extGame.isNative() || (isSideloaded && !isNativeApp(appName))) {
-      await checkWineBeforeLaunch(appName, gameSettings, logFileLocation)
+      const isWineOkToLaunch = await checkWineBeforeLaunch(
+        appName,
+        gameSettings,
+        logFileLocation
+      )
+
+      if (!isWineOkToLaunch) {
+        logError(
+          `Was not possible to launch using ${gameSettings.wineVersion.name}`,
+          LogPrefix.Backend
+        )
+
+        sendFrontendMessage('gameStatusUpdate', {
+          appName,
+          runner,
+          status: 'done'
+        })
+
+        return { status: 'error' }
+      }
     }
 
     const command = isSideloaded
@@ -1034,6 +1018,8 @@ ipcMain.handle(
       totalPlaytime += tsStore.get(`${appName}.totalPlayed`) as number
     }
     tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
+
+    await addRecentGame(game)
 
     sendFrontendMessage('gameStatusUpdate', {
       appName,
