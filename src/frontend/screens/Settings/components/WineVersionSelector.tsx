@@ -42,8 +42,6 @@ export default function WineVersionSelector() {
     updateWine()
   }, [])
 
-  console.log('validWine', validWine)
-
   return (
     <SelectField
       label={
