@@ -40,7 +40,7 @@ export default function WineVersionSelector() {
       return setValidWine(true)
     }
     updateWine()
-  }, [])
+  }, [wineVersion])
 
   return (
     <SelectField
