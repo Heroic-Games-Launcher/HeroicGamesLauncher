@@ -135,7 +135,11 @@
                 "install": "Epic Servers are having major outage right now, the game cannot be installed!",
                 "update": "Epic Servers are having major outage right now, the game cannot be updated!"
             },
-            "title": "Warning"
+            "title": "Warning",
+            "wine-change": {
+                "message": "We could not find the selected wine version to launch this title ({{selectedWine}}). {{newline}} We found another one, do you want to continue launching using {{foundWine}} ?",
+                "title": "Wine not found!"
+            }
         },
         "wineprefix": "Choose Wine Prefix Folder",
         "yes": "YES"
