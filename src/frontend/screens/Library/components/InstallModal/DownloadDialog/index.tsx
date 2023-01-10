@@ -472,7 +472,7 @@ export default function DownloadDialog({
           }
           afterInput={
             gameInstallInfo?.manifest?.download_size ? (
-              <span className="diskSpaceInfo">
+              <span className="smallInputInfo">
                 {validPath && (
                   <>
                     <span>

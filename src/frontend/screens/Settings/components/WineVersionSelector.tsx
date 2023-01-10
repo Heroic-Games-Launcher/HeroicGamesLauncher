@@ -16,6 +16,7 @@ export default function WineVersionSelector() {
     defaultWineVersion
   )
   const [altWine, setAltWine] = useState<WineInstallation[]>([])
+  const [validWine, setValidWine] = useState(true)
 
   useEffect(() => {
     const getAltWine = async () => {
@@ -30,17 +31,18 @@ export default function WineVersionSelector() {
   }, [])
 
   useEffect(() => {
-    // Fix setting in case wine path does not exists anymore
     const updateWine = async () => {
       const winePathExists = await window.api.pathExists(wineVersion.bin)
+      console.log('winePathExists', winePathExists, wineVersion.bin)
       if (!winePathExists) {
-        const { wineVersion: defaultWine } =
-          await window.api.requestAppSettings()
-        setWineVersion(defaultWine)
+        return setValidWine(false)
       }
+      return setValidWine(true)
     }
     updateWine()
-  }, [wineVersion, altWine])
+  }, [])
+
+  console.log('validWine', validWine)
 
   return (
     <SelectField
@@ -58,6 +60,14 @@ export default function WineVersionSelector() {
       value={wineVersion.name}
       afterSelect={
         <>
+          {!validWine && (
+            <span className="smallInputInfo danger">
+              {t(
+                'infobox.wine-path-invalid',
+                'Wine Path is invalid, please select another one.'
+              )}
+            </span>
+          )}
           {isLinux && (
             <InfoBox text={t('infobox.wine-path', 'Wine Path')}>
               {wineVersion.bin}

@@ -74,13 +74,6 @@
   color: var(--text-default);
 }
 
-.diskSpaceInfo {
-  font-size: var(--text-sm);
-  align-self: flex-start;
-  padding: var(--space-3xs) 0 var(--space-3xs) var(--space-xs);
-  color: var(--text-secondary);
-}
-
 .sideloadForm {
   padding-left: var(--space-xs);
 }
