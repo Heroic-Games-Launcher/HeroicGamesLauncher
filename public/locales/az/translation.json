@@ -548,7 +548,9 @@
         "steamruntime": "Steam Runtime istifadə edin",
         "winecrossoverbottle": "Krossover şüşə",
         "wineprefix": "WinePrefix qovluğu",
-        "wineversion": "Şərab versiyası"
+        "wineversion": "Şərab versiyası",
+        "autoUpdateGames": "Oyunları avtomatik yeniləyin",
+        "ignoreGameUpdates": "Oyun yeniləmələrinə məhəl qoymayın"
     },
     "settings": {
         "battlEyeRuntime": {
