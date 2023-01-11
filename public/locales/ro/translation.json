@@ -548,7 +548,9 @@
         "steamruntime": "Utilizați Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "dosar WinePrefix",
-        "wineversion": "Versiune Wine"
+        "wineversion": "Versiune Wine",
+        "autoUpdateGames": "Actualizați automat jocurile",
+        "ignoreGameUpdates": "Ignora actualizările jocului"
     },
     "settings": {
         "battlEyeRuntime": {
