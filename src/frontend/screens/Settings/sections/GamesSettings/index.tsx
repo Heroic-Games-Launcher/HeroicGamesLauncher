@@ -79,8 +79,8 @@ export default function GamesSettings({ useDetails = true }: Props) {
             isCollapsible={useDetails}
             summary={isLinux ? 'Wine' : 'Wine/Crossover'}
           >
-            <WinePrefix />
             <WineVersionSelector />
+            <WinePrefix />
             <CrossoverBottle />
 
             {!isCrossover && (

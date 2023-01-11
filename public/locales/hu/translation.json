@@ -448,7 +448,7 @@
         "autovkd3d": "A VKD3D automatikus telepítése/frissítése a prefixen",
         "change-target-exe": "Válassz egy alternatív EXE fájlt a futtatáshoz",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
-        "crossover-version": "Crossover Version",
+        "crossover-version": "Crossover/Wine Version",
         "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Egyéni Wine/Proton útvonalak",
         "darktray": "Sötét tálcaikon használata",

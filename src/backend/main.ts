@@ -72,7 +72,8 @@ import {
   notify,
   getShellPath,
   getCurrentChangelog,
-  wait
+  wait,
+  checkWineBeforeLaunch
 } from './utils'
 import {
   configStore,
@@ -901,6 +902,14 @@ ipcMain.handle('writeConfig', (event, { appName, config }) => {
   }
 })
 
+ipcMain.on('setSetting', (event, { appName, key, value }) => {
+  if (appName === 'default') {
+    GlobalConfig.get().setSetting(key, value)
+  } else {
+    GameConfig.get(appName).setSetting(key, value)
+  }
+})
+
 // Watch the installed games file and trigger a refresh on the installed games if something changes
 if (existsSync(installed)) {
   let watchTimeout: NodeJS.Timeout | undefined
@@ -955,8 +964,6 @@ ipcMain.handle(
 
     logInfo(`Launching ${title} (${game.app_name})`, LogPrefix.Backend)
 
-    addRecentGame(game)
-
     sendFrontendMessage('gameStatusUpdate', {
       appName,
       runner,
@@ -976,7 +983,7 @@ ipcMain.handle(
 
     const systemInfo = await getSystemInfo()
     const gameSettings = isSideloaded
-      ? getAppSettings(appName)
+      ? await getAppSettings(appName)
       : await extGame.getSettings()
     const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
     const logFileLocation = isSideloaded
@@ -993,6 +1000,30 @@ ipcMain.handle(
         `Game launched at: ${startPlayingDate}\n` +
         '\n'
     )
+
+    // check if isNative, if not, check if wine is valid
+    if (!extGame.isNative() || (isSideloaded && !isNativeApp(appName))) {
+      const isWineOkToLaunch = await checkWineBeforeLaunch(
+        appName,
+        gameSettings,
+        logFileLocation
+      )
+
+      if (!isWineOkToLaunch) {
+        logError(
+          `Was not possible to launch using ${gameSettings.wineVersion.name}`,
+          LogPrefix.Backend
+        )
+
+        sendFrontendMessage('gameStatusUpdate', {
+          appName,
+          runner,
+          status: 'done'
+        })
+
+        return { status: 'error' }
+      }
+    }
 
     const command = isSideloaded
       ? launchApp(appName)
@@ -1024,6 +1055,8 @@ ipcMain.handle(
       totalPlaytime += tsStore.get(`${appName}.totalPlayed`) as number
     }
     tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
+
+    await addRecentGame(game)
 
     sendFrontendMessage('gameStatusUpdate', {
       appName,
@@ -1593,6 +1626,10 @@ function getDMElement(gameInfo: GameInfo, appName: string) {
   return dmQueueElement
 }
 
+ipcMain.handle('pathExists', async (e, path: string) => {
+  return existsSync(path)
+})
+
 /*
   Other Keys that should go into translation files:
   t('box.error.generic.title')
@@ -1600,7 +1637,7 @@ function getDMElement(gameInfo: GameInfo, appName: string) {
  */
 
 /*
- * INSERT OTHER IPC HANLDER HERE
+ * INSERT OTHER IPC HANDLERS HERE
  */
 import './logger/ipc_handler'
 import './wine/manager/ipc_handler'

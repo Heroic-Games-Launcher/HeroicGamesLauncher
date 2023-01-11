@@ -448,7 +448,7 @@
         "autovkd3d": "Installera/uppdatera VKD3D i prefix automatiskt",
         "change-target-exe": "Ange alternativ EXE-fil att köra",
         "checkForUpdatesOnStartup": "Sök efter Heroic-uppdateringar vid uppstart",
-        "crossover-version": "Crossover version",
+        "crossover-version": "Crossover/Wine Version",
         "custom_themes_path": "Sökväg till anpassade teman",
         "customWineProton": "Anpassad Wine/Proton sökväg",
         "darktray": "Använd mörk ikon i systemfältet",

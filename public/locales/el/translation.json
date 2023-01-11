@@ -448,7 +448,7 @@
         "autovkd3d": "Αυτόματη Εγκατάσταση/Ενημέρωση VKD3D με Πρόθημα",
         "change-target-exe": "Επιλέξτε ένα εναλλακτικό αρχείο EXE προς εκτέλεση",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
-        "crossover-version": "Crossover Version",
+        "crossover-version": "Crossover/Wine Version",
         "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Ειδικές διαδρομές Wine/Proton",
         "darktray": "Χρήση σκοτεινού εικονιδίου",
