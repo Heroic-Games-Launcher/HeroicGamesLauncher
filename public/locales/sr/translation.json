@@ -488,7 +488,9 @@
         },
         "showfps": "Прикажи ФПС (ДКС9, 10 и 11)",
         "start-in-tray": "Покрени минимизирано",
-        "steamruntime": "Користите Стеам Рунтиме"
+        "steamruntime": "Користите Стеам Рунтиме",
+        "autoUpdateGames": "Аутоматски ажурирајте игре",
+        "ignoreGameUpdates": "Игноришите ажурирања игре"
     },
     "settings": {
         "battlEyeRuntime": {
