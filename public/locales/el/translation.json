@@ -140,7 +140,11 @@
                 "install": "Οι Epic Servers έχουν σημαντικές διακοπές λειτουργίας, το παιχνίδι δεν μπορεί να εγκατασταθεί!",
                 "update": "Οι Epic Servers έχουν σημαντικές διακοπές λειτουργίας, το παιχνίδι δεν μπορεί να ενημερωθεί!"
             },
-            "title": "Προειδοποίηση"
+            "title": "Προειδοποίηση",
+            "wine-change": {
+                "title": "Το κρασί δεν βρέθηκε!",
+                "message": "Δεν μπορέσαμε να βρούμε την επιλεγμένη έκδοση κρασιού για την κυκλοφορία αυτού του τίτλου ({{selectedWine}}). {{newline}} Βρήκαμε άλλο ένα, θέλετε να συνεχίσετε την εκκίνηση χρησιμοποιώντας το {{foundWine}};"
+            }
         },
         "wineprefix": "Διαλέξτε τον φάκελο Προθέματος Wine",
         "yes": "ΝΑΙ"
@@ -151,7 +155,8 @@
         "login": "Σύνδεση",
         "sync": "Συγχρονισμός",
         "syncing": "Συγχρονισμός",
-        "unsync": "Αποσυγχρονισμός"
+        "unsync": "Αποσυγχρονισμός",
+        "continue": "Συνέχεια"
     },
     "controller": {
         "hints": {
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
-        }
+        },
+        "wine-path-invalid": "Το Wine Path δεν είναι έγκυρο, επιλέξτε άλλο."
     },
     "install": {
         "path": "Επιλέξτε διαδρομή εγκατάστασης"
@@ -647,5 +653,9 @@
         },
         "release": "Ημερομηνία κυκλοφορίας",
         "size": "Μέγεθος"
+    },
+    "externalLink": {
+        "dontAskAgain": "Μην ξαναρωτήσεις",
+        "warning": "Πρόκειται να ανοίξετε έναν εξωτερικό σύνδεσμο."
     }
 }
