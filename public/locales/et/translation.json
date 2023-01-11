@@ -548,7 +548,9 @@
         "steamruntime": "Kasuta Steam Runtime'i",
         "winecrossoverbottle": "CrossOveri pudel",
         "wineprefix": "WinePrefiksi kaust",
-        "wineversion": "Wine'i versioon"
+        "wineversion": "Wine'i versioon",
+        "autoUpdateGames": "Mängude automaatne värskendamine",
+        "ignoreGameUpdates": "Ignoreeri mängu värskendusi"
     },
     "settings": {
         "battlEyeRuntime": {
