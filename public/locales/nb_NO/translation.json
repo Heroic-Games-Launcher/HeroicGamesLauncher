@@ -548,7 +548,9 @@
         "steamruntime": "Bruk Steam Runtime",
         "winecrossoverbottle": "CrossOver flaske",
         "wineprefix": "WinePrefix-mappen",
-        "wineversion": "Vinversjon"
+        "wineversion": "Vinversjon",
+        "autoUpdateGames": "Oppdater spill automatisk",
+        "ignoreGameUpdates": "Ignorer spilloppdateringer"
     },
     "settings": {
         "battlEyeRuntime": {
