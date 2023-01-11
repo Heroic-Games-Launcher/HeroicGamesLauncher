@@ -34,7 +34,9 @@
         "uninstall": {
             "checkbox": "Odebrat prefix: {{prefix}}{{newLine}}Upozornění: tato akce je nevratná a také odstraní nezálohované soubory uložení.",
             "message": "Chcete odinstalovat tuto hru?",
-            "title": "Odinstalovat"
+            "settingcheckbox": "Vymazat nastavení a odstranit protokol{{newLine}}Poznámka: Tento krok nelze vrátit zpět. Veškerá změněná nastavení budou zapomenuta a protokol bude odstraněn.",
+            "title": "Odinstalovat",
+            "prefix_warning": "Předpona Wine pro tuto hru je výchozí předpona. Pokud to opravdu chcete smazat, musíte to udělat ručně."
         },
         "update": {
             "message": "Tato hra má aktualizaci, přejete si ji aktualizovat nyní?",
@@ -66,7 +68,8 @@
         },
         "unhide_game": "Odkrýt hru",
         "uninstall": "Odinstalovat",
-        "update": "Update"
+        "update": "Update",
+        "details": "Podrobnosti"
     },
     "cloud_save_unsupported": "Nepodporováno",
     "disabled": "Zakázáno",

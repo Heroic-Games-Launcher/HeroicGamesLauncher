@@ -14,10 +14,12 @@ import {
   ExtraInfo,
   SideloadGame,
   WineManagerUISettings,
-  AppSettings
+  AppSettings,
+  PCGamingWikiInfo
 } from 'common/types'
 import { GamesDBData, UserData } from 'common/types/gog'
 import { LegendaryInstallInfo } from 'common/types/legendary'
+import { HowLongToBeatEntry } from 'howlongtobeat'
 
 export interface StoreStructure {
   configStore: {
@@ -41,10 +43,7 @@ export interface StoreStructure {
       gogdlLogFile: string
     }
     'window-props': Electron.Rectangle
-    settings: AppSettings & {
-      altLeg?: string
-      altGogdl?: string
-    }
+    settings: AppSettings
   }
   libraryStore: {
     library: GameInfo[]
@@ -108,6 +107,12 @@ export interface StoreStructure {
   wineManagerConfigStore: {
     'wine-manager-settings': WineManagerUISettings
     'wine-releases': WineVersionInfo[]
+  }
+  howLongToBeat: {
+    [title: string]: HowLongToBeatEntry
+  }
+  pcGamingWikiInfo: {
+    [title: string]: PCGamingWikiInfo
   }
 }
 

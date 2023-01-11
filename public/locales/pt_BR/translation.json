@@ -115,9 +115,9 @@
         },
         "shortcuts": {
             "message": "Os atalhos foram criados na área de trabalho e no menu Iniciar",
-            "message-mac": "Shortcuts were created on the Applications folder",
+            "message-mac": "Atalhos foram criados na pasta Aplicativos",
             "message-remove": "Os atalhos foram removidos da área de trabalho e do menu Iniciar",
-            "message-remove-mac": "Shortcuts were removed from the Applications folder",
+            "message-remove-mac": "Atalhos foram removidos da pasta Aplicativos",
             "title": "Atalhos"
         },
         "sync": {
@@ -204,7 +204,6 @@
         "store": "Loja",
         "title": "Título do jogo"
     },
-    "GameSettings": "Configurações do jogo",
     "generic": {
         "error": {
             "component": "Nenhum jogo encontrado - Tente sair e fazer login novamente ou uma das opções abaixo"
@@ -217,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "Loja GOG",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Ignorar escondidos",
         "platform": "Plataforma",
         "show_all_games": "Mostrar todos os jogos",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Mostrar apenas favoritos",
         "show_hidden": "Mostrar escondidos",
         "store": "Filtrar loja"
@@ -229,6 +230,7 @@
         "custom_themes_path": "Não use arquivos CSS de fontes não confiáveis. Na dúvida, peça uma revisão no nosso canal do DIscord.",
         "custom_themes_wiki": "Cheque a Wiki para mais detalhes sobre adicionar temas personalizados. Clique aqui.",
         "dxvk": "DXVK é uma camada de tradução baseada em Vulkan para jogos DirectX 9, 10 e 11. A ativação pode melhorar a compatibilidade. Pode causar problemas especialmente para jogos DirectX mais antigos.",
+        "dxvkfpslimit": "Aplicar um limite de Quadros por Segundo para jogos em DXVK",
         "esync": "O Esync visa reduzir a sobrecarga do wineserver em jogos com uso intensivo de CPU. A ativação pode melhorar o desempenho.",
         "fsync": "O Fsync visa reduzir a sobrecarga do wineserver em jogos com uso intensivo de CPU. A ativação pode melhorar o desempenho em kernels Linux suportados.",
         "game_language": {
@@ -291,6 +293,9 @@
     },
     "install": {
         "path": "Selecione o local de instalação"
+    },
+    "label": {
+        "loading": "Carregando"
     },
     "library": {
         "refresh": "Atualizar",
@@ -408,6 +413,7 @@
         "alt-gogdl-bin": "Usando binário do GOGDL embutido...",
         "alt-legendary-bin": "Usando o binário embutido do Legendary...",
         "custom_themes_path": "Selecione o caminho para buscar por arquivos CSS customizados",
+        "dxvkfpsvalue": "Valor inteiro positivo (ex. 30, 60, ...)",
         "egs-prefix": "Prefixo onde a EGS está instalada",
         "prefered_language": "Código de 2 caracteres (ou seja: \"en\" ou \"fr\")"
     },
@@ -416,7 +422,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "please-wait": "Please wait...",
+    "please-wait": "Por favor aguarde...",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -452,6 +458,7 @@
         "disable_controller": "Desabilitar navegação por controle no Heroic",
         "discordRPC": "Habilitar o Discord Rich Presence",
         "download-no-https": "Baixar jogos sem HTTPS (útil para CDNs, por exemplo, LanCache)",
+        "dxvkfpslimit": "Limitar FPS (DX9, 10 e 11)",
         "egs-sync": "Sincronizar com a Epic Games Store",
         "enableFSRHack": "Habilitar Hack FSR (a versão do Wine precisa suportar o recurso)",
         "eosOverlay": {
@@ -479,7 +486,7 @@
         "FsrSharpnessStrenght": "FSR Força de nitidez",
         "fsync": "Habilitar Fsync",
         "gamemode": "Usar o GameMode (precisa do gamemode instalado)",
-        "hideChangelogsOnStartup": "Não mostrar  listas de mudanças ao Inicializar",
+        "hideChangelogsOnStartup": "Não mostrar listas de mudanças ao Inicializar",
         "language": "Selecione o idioma do app",
         "library_top_option": {
             "disabled": "Desabilitada",
@@ -525,9 +532,9 @@
             "title": "Executar EXE no prefixo"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Pasta de saves não encontrada, por favor selecione a manualmente",
             "placeholder": "Selecione a pasta exata com os saves",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Por favor verifique duas vezes se o caminho está correto"
         },
         "select_theme": "Selecione um tema",
         "showfps": "Exibir contador de FPS (DX9, 10 e 11)",
@@ -565,7 +572,6 @@
         },
         "navbar": {
             "advanced": "Avançado",
-            "games_settings": "Configurações do Jogo",
             "games_settings_defaults": "Padrões do Jogo",
             "general": "Config. Gerais",
             "log": "Log",
@@ -635,7 +641,7 @@
         "actions": "Ações",
         "manager": {
             "link": "Versões do Wine",
-            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
+            "not-found": "Nenhuma versão do Wine encontrada. Por favor clique no ícone de recarregar para tentar novamente.",
             "title": "Versões do Wine",
             "unzipping": "Descompactando"
         },

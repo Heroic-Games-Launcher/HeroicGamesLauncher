@@ -10,7 +10,7 @@ jest.mock('../../../dialog/dialog')
 jest.mock('../../../utils')
 
 let tmpDir = {} as DirResult
-let tmpSteamUserConfigDir = '' as string
+let tmpSteamUserConfigDir = ''
 
 function copyTestFile(file: string, alternativeUserPath: string = '') {
   const testFileDir = join(__dirname, 'test_data')

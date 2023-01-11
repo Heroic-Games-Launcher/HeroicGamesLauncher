@@ -95,12 +95,13 @@ export class LegendaryLibrary {
    * Refresh games in the user's library.
    */
   public async refresh(): Promise<ExecResult> {
-    logInfo('Refreshing Epic Games...', { prefix: LogPrefix.Legendary })
+    logInfo('Refreshing Epic Games...', LogPrefix.Legendary)
     const epicOffline = await isEpicServiceOffline()
     if (epicOffline) {
-      logWarning('Epic is Offline right now, cannot update game list!', {
-        prefix: LogPrefix.Backend
-      })
+      logWarning(
+        'Epic is Offline right now, cannot update game list!',
+        LogPrefix.Backend
+      )
       return { stderr: 'Epic offline, unable to update game list', stdout: '' }
     }
 
@@ -113,9 +114,7 @@ export class LegendaryLibrary {
     deleteAbortController(abortID)
 
     if (res.error) {
-      logError(['Failed to refresh library:', res.error], {
-        prefix: LogPrefix.Legendary
-      })
+      logError(['Failed to refresh library:', res.error], LogPrefix.Legendary)
     }
     this.refreshInstalled()
     return res
@@ -135,7 +134,7 @@ export class LegendaryLibrary {
         // disabling log here because its giving false positives on import command
         logError(
           ['Corrupted installed.json file, cannot load installed games', error],
-          { prefix: LogPrefix.Legendary }
+          LogPrefix.Legendary
         )
         this.installedGames = new Map()
       }
@@ -151,7 +150,7 @@ export class LegendaryLibrary {
    * @returns Array of objects.
    */
   public async getGames(fullRefresh = false): Promise<GameInfo[]> {
-    logInfo('Refreshing library...', { prefix: LogPrefix.Legendary })
+    logInfo('Refreshing library...', LogPrefix.Legendary)
     const isLoggedIn = LegendaryUser.isLoggedIn()
     if (!isLoggedIn) {
       return []
@@ -166,13 +165,14 @@ export class LegendaryLibrary {
     try {
       await this.loadAll()
     } catch (error) {
-      logError(error, { prefix: LogPrefix.Legendary })
+      logError(error, LogPrefix.Legendary)
     }
     const arr = Array.from(this.library.values())
     libraryStore.set('library', arr)
-    logInfo(['Game list updated, got', `${arr.length}`, 'games & DLCs'], {
-      prefix: LogPrefix.Legendary
-    })
+    logInfo(
+      ['Game list updated, got', `${arr.length}`, 'games & DLCs'],
+      LogPrefix.Legendary
+    )
     return arr
   }
 
@@ -188,9 +188,10 @@ export class LegendaryLibrary {
     forceReload = false
   ): GameInfo | undefined {
     if (!this.hasGame(appName)) {
-      logWarning(['Requested game', appName, 'was not found in library'], {
-        prefix: LogPrefix.Legendary
-      })
+      logWarning(
+        ['Requested game', appName, 'was not found in library'],
+        LogPrefix.Legendary
+      )
       return
     }
     // We have the game, but info wasn't loaded yet
@@ -209,13 +210,11 @@ export class LegendaryLibrary {
   ): Promise<LegendaryInstallInfo> {
     const cache = installStore.get_nodefault(appName)
     if (cache) {
-      logDebug('Using cached install info', { prefix: LogPrefix.Legendary })
+      logDebug('Using cached install info', LogPrefix.Legendary)
       return cache
     }
 
-    logInfo(`Getting more details with 'legendary info'`, {
-      prefix: LogPrefix.Legendary
-    })
+    logInfo(`Getting more details with 'legendary info'`, LogPrefix.Legendary)
     const res = await runLegendaryCommand(
       [
         'info',
@@ -230,9 +229,7 @@ export class LegendaryLibrary {
     deleteAbortController(appName)
 
     if (res.error) {
-      logError(['Failed to get more details:', res.error], {
-        prefix: LogPrefix.Legendary
-      })
+      logError(['Failed to get more details:', res.error], LogPrefix.Legendary)
     }
     try {
       const info: LegendaryInstallInfo = JSON.parse(res.stdout)
@@ -256,9 +253,10 @@ export class LegendaryLibrary {
     }
     const epicOffline = await isEpicServiceOffline()
     if (epicOffline) {
-      logWarning('Epic servers are offline, cannot check for game updates', {
-        prefix: LogPrefix.Backend
-      })
+      logWarning(
+        'Epic servers are offline, cannot check for game updates',
+        LogPrefix.Backend
+      )
       return []
     }
 
@@ -278,9 +276,10 @@ export class LegendaryLibrary {
     }
 
     if (res.error) {
-      logError(['Failed to check for game updates:', res.error], {
-        prefix: LogPrefix.Legendary
-      })
+      logError(
+        ['Failed to check for game updates:', res.error],
+        LogPrefix.Legendary
+      )
       return []
     }
 
@@ -295,7 +294,7 @@ export class LegendaryLibrary {
     } catch (error) {
       logWarning(
         ['Failed to parse games from', installedJsonFile, 'with:', error],
-        { prefix: LogPrefix.Legendary }
+        LogPrefix.Legendary
       )
     }
 
@@ -319,7 +318,7 @@ export class LegendaryLibrary {
     } catch (error) {
       logWarning(
         ['Failed to parse games from', assetsJsonFile, 'with:', error],
-        { prefix: LogPrefix.Legendary }
+        LogPrefix.Legendary
       )
     }
 
@@ -338,7 +337,7 @@ export class LegendaryLibrary {
                   appName,
                   'is installed but was not found on account'
                 ],
-                { prefix: LogPrefix.Legendary }
+                LogPrefix.Legendary
               )
               return
             }
@@ -352,7 +351,7 @@ export class LegendaryLibrary {
                   '!=',
                   latestVersion
                 ],
-                { prefix: LogPrefix.Legendary }
+                LogPrefix.Legendary
               )
               updateableGames.push(appName)
             }
@@ -367,7 +366,7 @@ export class LegendaryLibrary {
         'game' + (updateableGames.length !== 1 ? 's' : ''),
         'to update'
       ],
-      { prefix: LogPrefix.Legendary }
+      LogPrefix.Legendary
     )
     return updateableGames
   }
@@ -416,9 +415,10 @@ export class LegendaryLibrary {
     deleteAbortController(appName)
 
     if (error) {
-      logError(['Failed to set install path for', `${appName}:`, error], {
-        prefix: LogPrefix.Legendary
-      })
+      logError(
+        ['Failed to set install path for', `${appName}:`, error],
+        LogPrefix.Legendary
+      )
     }
   }
 
@@ -458,7 +458,7 @@ export class LegendaryLibrary {
       app_name = data.app_name
       metadata = data.metadata
     } catch (error) {
-      logError(['Failed to parse', fileName], { prefix: LogPrefix.Legendary })
+      logError(['Failed to parse', fileName], LogPrefix.Legendary)
       return false
     }
     const { namespace } = metadata
@@ -475,8 +475,21 @@ export class LegendaryLibrary {
       developer,
       dlcItemList,
       releaseInfo,
-      customAttributes
+      customAttributes,
+      categories
     } = metadata
+
+    // skip mods from the library
+    if (categories.some(({ path }) => path === 'mods')) {
+      return false
+    }
+
+    if (!customAttributes) {
+      logWarning(
+        ['Incomplete metadata for', fileName, app_name],
+        LogPrefix.Legendary
+      )
+    }
 
     const dlcs: string[] = []
     const FolderName = customAttributes?.FolderName
@@ -504,8 +517,8 @@ export class LegendaryLibrary {
 
     const saveFolder =
       (platform === 'Mac'
-        ? customAttributes.CloudSaveFolder_MAC?.value
-        : customAttributes.CloudSaveFolder?.value) ?? ''
+        ? customAttributes?.CloudSaveFolder_MAC?.value
+        : customAttributes?.CloudSaveFolder?.value) ?? ''
     const installFolder = FolderName ? FolderName.value : app_name
 
     const gameBox = keyImages.find(({ type }) => type === 'DieselGameBox')
@@ -541,7 +554,8 @@ export class LegendaryLibrary {
           description,
           longDescription
         },
-        reqs: []
+        reqs: [],
+        storeUrl: formatEpicStoreUrl(title)
       },
       folder_name: installFolder,
       install: {

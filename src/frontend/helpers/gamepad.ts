@@ -102,7 +102,7 @@ export const initGamepad = () => {
     }
 
     if (!wasActive || shouldRepeat) {
-      console.log(`Action: ${action}`)
+      // console.log(`Action: ${action}`)
 
       // set last triggeredAt timestamp, used for repeater
       data.triggeredAt[controllerIndex] = now
@@ -307,7 +307,7 @@ export const initGamepad = () => {
       const controller = gamepads[index]
       if (!controller) return
 
-      logState(index)
+      // logState(index)
 
       const buttons = controller.buttons
       const axes = controller.axes
@@ -334,24 +334,24 @@ export const initGamepad = () => {
     requestAnimationFrame(updateStatus)
   }
 
-  function logState(index: number) {
-    const controller = navigator.getGamepads()[index]
-    if (!controller) return
+  // function logState(index: number) {
+  //   const controller = navigator.getGamepads()[index]
+  //   if (!controller) return
 
-    const buttons = controller.buttons
-    const axes = controller.axes
+  //   const buttons = controller.buttons
+  //   const axes = controller.axes
 
-    for (const button in buttons) {
-      if (buttons[button].pressed)
-        console.log(`button ${button} pressed ${buttons[button].value}`)
-    }
-    for (const axis in axes) {
-      if (axes[axis] < -0.2 && axes[axis] >= -1)
-        console.log(`axis ${axis} activated negative`)
-      if (axes[axis] > 0.2 && axes[axis] <= 1)
-        console.log(`axis ${axis} activated positive`)
-    }
-  }
+  //   for (const button in buttons) {
+  //     if (buttons[button].pressed)
+  //       console.log(`button ${button} pressed ${buttons[button].value}`)
+  //   }
+  //   for (const axis in axes) {
+  //     if (axes[axis] < -0.2 && axes[axis] >= -1)
+  //       console.log(`axis ${axis} activated negative`)
+  //     if (axes[axis] > 0.2 && axes[axis] <= 1)
+  //       console.log(`axis ${axis} activated positive`)
+  //   }
+  // }
 
   function connecthandler(e: GamepadEvent) {
     addgamepad(e.gamepad)

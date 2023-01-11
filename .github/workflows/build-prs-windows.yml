@@ -2,7 +2,7 @@ name: Build Windows
 
 on:
   pull_request:
-    branches: [main, beta]
+    branches: [main, stable]
   workflow_dispatch:
     inputs:
       version:
@@ -14,11 +14,11 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout repository.
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup NodeJS
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18'
       - name: Install modules.
         run: npm i --legacy-peer-deps
       - name: Build artifacts.
@@ -27,7 +27,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       - name: Upload EXE.
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: win-portable
           path: dist/Heroic*.exe

@@ -204,7 +204,6 @@
         "store": "Cửa hàng",
         "title": "Tựa game"
     },
-    "GameSettings": "Game Settings",
     "generic": {
         "error": {
             "component": "Không tìm thấy game - Hãy thử đăng xuất rồi đăng nhập lại hoặc một trong các cách sau"
@@ -217,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "Cửa hàng GOG",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Bỏ qua mục bị ẩn",
         "platform": "Nền tảng",
         "show_all_games": "Hiển thị toàn bộ game",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Chỉ hiển thị mục ưa thích",
         "show_hidden": "Hiển thị mục bị ẩn",
         "store": "Lọc cửa hàng"
@@ -229,6 +230,7 @@
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
@@ -291,6 +293,9 @@
     },
     "install": {
         "path": "Chọn đường dẫn cài"
+    },
+    "label": {
+        "loading": "Loading"
     },
     "library": {
         "refresh": "Tải lại",
@@ -408,6 +413,7 @@
         "alt-gogdl-bin": "Sử dụng GOGDL binary tích hợp sẵn...",
         "alt-legendary-bin": "Sử dụng Legendary binary tích hợp sẵn...",
         "custom_themes_path": "Select the path to look for custom CSS files",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix nơi EGS được cài đặt",
         "prefered_language": "mã ngôn ngữ (2 ký tự ví dụ: \"en\" or \"fr\")"
     },
@@ -452,6 +458,7 @@
         "disable_controller": "Tắt điều hướng Heroic bằng cần điều khiển",
         "discordRPC": "Bật tính năng Discord Rich Presence",
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Đồng bộ với Game Epic đã cài",
         "enableFSRHack": "Bật tính năng FSR hack (Phiên bản Wine cần hỗ trợ tính năng này)",
         "eosOverlay": {
@@ -565,7 +572,6 @@
         },
         "navbar": {
             "advanced": "Nâng cao",
-            "games_settings": "Game Settings",
             "games_settings_defaults": "Game Defaults",
             "general": "Tổng quan",
             "log": "Log",

@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Actions Font Family (Default: ",
+        "actions_font_family_no_default": "Kelompok Font Tindakan (Default: ",
         "all_tiles_in_color": "Tampilkan semua kolom gim dalam warna",
-        "content_font_family_no_default": "Content Font Family (Default: ",
+        "content_font_family_no_default": "Keluarga Font Konten (Default: ",
         "fonts": "Fon",
         "title": "Aksesibilitas",
         "zoom": "Perbesar"
@@ -34,7 +34,7 @@
             "add": {
                 "steam": {
                     "body": "Gagal menambahkan {{game}} ke Steam dengan:{{newLine}} {{error}}",
-                    "title": "Galat Menambahkan Gim"
+                    "title": "Menambahkan Galat"
                 }
             },
             "credentials": {
@@ -70,7 +70,7 @@
                 "title": "Update Error"
             },
             "wine-not-found": {
-                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
+                "invalid": "Versi Wine yang dipilih tidak dapat ditemukan. Pasang sekarang atau pilih versi lain pada menu pengaturan gim{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
                 "message": "Tidak Ada Versi Wine yang Dipilih. Periksa Pengaturan Gim!",
                 "title": "Wine Tidak Ditemukan"
             },
@@ -93,7 +93,7 @@
         "ok": "OKE",
         "protocol": {
             "install": {
-                "not_installed": "Saat ini tidak dipasang. Pasang?"
+                "not_installed": "Saat ini tidak dipasang. Pasang sekarang?"
             }
         },
         "quit": {
@@ -115,9 +115,9 @@
         },
         "shortcuts": {
             "message": "Pintasan dibuat di Desktop dan Start Menu",
-            "message-mac": "Shortcuts were created on the Applications folder",
+            "message-mac": "Pintasan telah dibuat di dalam folder aplikasi",
             "message-remove": "Pintasan telah dihapus dari Desktop dan Start Menu",
-            "message-remove-mac": "Shortcuts were removed from the Applications folder",
+            "message-remove-mac": "Pintasan telah dihapus dari folder aplikasi",
             "title": "Pintasan"
         },
         "sync": {
@@ -146,65 +146,64 @@
         "yes": "YA"
     },
     "button": {
-        "cancel": "Cancel",
+        "cancel": "Batalkan",
         "go_to_library": "Pergi ke Pustaka",
-        "login": "Log Masuk",
+        "login": "Masuk",
         "sync": "Sinkronkan",
         "syncing": "Menyinkronkan",
         "unsync": "Batalkan sinkronisasi"
     },
     "controller": {
         "hints": {
-            "back": "Back",
-            "backspace": "Backspace",
-            "close_dialog": "Close dialog",
-            "close_keyboard": "Close keyboard",
-            "close_options": "Close Options",
-            "game_details": "Game details",
-            "game_settings": "Game settings",
-            "install_game": "Install game",
-            "move_cursor": "Move cursor",
-            "open_virtual_keyboard": "Open virtual keyboard",
-            "options": "Options",
-            "play_game": "Play game",
-            "scroll": "Scroll",
-            "select": "Select",
-            "space": "Space",
-            "update_game": "Update game"
+            "back": "Kembali",
+            "backspace": "Menghapus",
+            "close_dialog": "Tutup percakapan",
+            "close_keyboard": "Tutup papan ketik",
+            "close_options": "Tutup pilihan",
+            "game_details": "Detail gim",
+            "game_settings": "Pengaturan gim",
+            "install_game": "Pasang gim",
+            "move_cursor": "Pindahkan kursor",
+            "open_virtual_keyboard": "Buka papan ketik virtual",
+            "options": "Pilihan",
+            "play_game": "Bermain gim",
+            "scroll": "Menggulir",
+            "select": "Pilih",
+            "space": "Spasi",
+            "update_game": "Perbarui gim"
         }
     },
-    "docs": "Documentation",
+    "docs": "Dokumentasi",
     "download-manager": {
         "install-type": {
-            "install": "Install",
-            "update": "Update"
+            "install": "Pasang",
+            "update": "Perbarui"
         },
         "label": {
-            "disk": "Disk",
-            "speed": "Download"
+            "disk": "Penyimpanan",
+            "speed": "Unduh"
         },
-        "link": "Downloads",
+        "link": "Unduhan",
         "queue": {
-            "end-time": "Finished at",
-            "queue-time": "Added at",
-            "start-time": "Started at",
-            "type": "Type"
+            "end-time": "Selesai pada",
+            "queue-time": "Ditambahkan pada",
+            "start-time": "Dimulai pada",
+            "type": "Tipe"
         },
-        "title": "Downloads"
+        "title": "Unduhan"
     },
     "epic": {
         "offline-notification-body": "Layanan daring mungkin tidak akan bekerja sepenuhnya karena server Epic Games sedang luring!",
         "offline-notification-title": "luring"
     },
     "Epic Games": "Epic Games",
-    "error": "Error",
+    "error": "Kesalahan",
     "favourites": "Favorit",
     "game": {
         "status": "Status",
         "store": "Toko",
         "title": "Judul Gim"
     },
-    "GameSettings": "Pengaturan Gim",
     "generic": {
         "error": {
             "component": "Tidak ada Gim yang ditemukan - Silakan coba log keluar lalu log masuk lagi atau salah satu opsi di bawah ini"
@@ -217,18 +216,21 @@
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Abaikan yang Disembunyikan",
         "platform": "Platform",
         "show_all_games": "Tampilkan semua gim",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Hanya Tampilkan Gim Favorit",
         "show_hidden": "Tampilkan yang Disembunyikan",
         "store": "Toko Filter"
     },
     "help": {
         "amdfsr": "FSR AMD membantu untuk meningkatkan framerate dengan meningkatkan resolusi yang lebih rendah dalam Mode Layar Penuh. Kualitas gambar meningkat dari 5 menjadi 1 dengan mengorbankan sedikit kinerja. Mengaktifkannya dapat meningkatkan kinerja.",
-        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
-        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
+        "custom_themes_path": "Jangan gunakan file CSS dari sumber yang tidak tepercaya. Jika ragu, mintalah ulasan di saluran Discord kami.",
+        "custom_themes_wiki": "Cek Wiki untuk detail lebih lanjut tentang kustomisasi tema. Klik disini.",
         "dxvk": "DXVK adalah lapisan translasi berbasis Vulkan untuk gim yang memakai DirectX 9, 10, dan 11. Mengaktifkannya dapat meningkatkan kompatibilitas. Mungkin dapat menyebabkan masalah terutama untuk gim dengan versi DirectX yang lebih lama.",
+        "dxvkfpslimit": "Atur batas maksimal frame untuk gim DXVK",
         "esync": "Esync bertujuan untuk mengurangi overhead server Wine di gim dengan CPU yang intensif. Mengaktifkannya dapat meningkatkan kinerja.",
         "fsync": "Fsync bertujuan untuk mengurangi overhead server Wine di gim dengan CPU intensif. Mengaktifkannya dapat meningkatkan kinerja pada kernel Linux yang didukung.",
         "game_language": {
@@ -241,14 +243,14 @@
         "mangohud": "MangoHUD adalah hamparan yang menampilkan dan memantau FPS, suhu, beban CPU/GPU, dan sumber daya sistem lainnya.",
         "other": {
             "part4": "Gunakan ",
-            "part5": "Argumen Permainan",
+            "part5": "Argumen Gim",
             "part6": " dipanggil setelah perintah peluncuran, misalnya: ",
             "part7": " untuk melewati peluncur di beberapa gim, dll."
         },
         "preferSystemLibs": "Versi Wine khusus (Wine-GE, Wine-Lutris) dikirimkan dengan dependensi pustakanya. Dengan mengaktifkan opsi ini, pustaka yang dikirimkan tersebut akan diabaikan dan Wine akan memuat pustaka sistem sebagai gantinya. Peringatan! Masalah dapat terjadi jika dependensi tidak terpenuhi.",
-        "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
+        "primerun": "Gunakan kartu grafis khusus untuk merender game pada sistem multi-GPU. Hanya diperlukan pada laptop gaming atau desktop yang menggunakan GPU terpisah untuk rendering (NVIDIA Optimus, AMD CrossFire)",
         "steam_path": {
-            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+            "info": "Jalur ini memungkinkan Heroic menentukan versi apa yang digunakan oleh Proton Steam, untuk menambahkan game non-Steam ke Steam."
         },
         "steamruntime": "Pustaka khusus disediakan oleh Steam untuk membantu menjalankan gim Linux dan Windows (Proton). Mengaktifkannya dapat meningkatkan kompatibilitas.",
         "sync": {
@@ -266,13 +268,13 @@
     "info": {
         "heroic": {
             "beta": "Beta",
-            "click-to-see-changelog": "Click to see changelog",
+            "click-to-see-changelog": "Klik untuk melihat catatan perubahan",
             "newReleases": "Pembaruan Tersedia!",
             "stable": "Stabil",
             "version": "Versi Heroic"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Mencoba untuk melacak folder penyimpanan yang benar"
         },
         "settings": "Pengaturan disimpan secara otomatis",
         "version": "Versi Wine"
@@ -280,7 +282,7 @@
     "infobox": {
         "help": "Bantuan",
         "requirements": "Persyaratan Sistem",
-        "warning": "Warning",
+        "warning": "Peringatan",
         "wine-path": "Lokasi Wine",
         "wine-prefix": {
             "title": "Prefiks Wine"
@@ -291,6 +293,9 @@
     },
     "install": {
         "path": "Pilih Lokasi Pemasangan"
+    },
+    "label": {
+        "loading": "Memuat"
     },
     "library": {
         "refresh": "Segarkan",
@@ -308,10 +313,10 @@
         "website": "Memuat Situs Web"
     },
     "login": {
-        "alternative_method": "Alternative Login Method",
-        "epic": "Epic Games Login",
-        "gog": "GOG Login",
-        "message": "Login with your platform. You can login to more than one platform at the same time."
+        "alternative_method": "Metode Masuk Alternatif",
+        "epic": "Masuk Epic Games",
+        "gog": "Masuk GOG",
+        "message": "Masuk dengan platform anda. Anda dapat masuk ke lebih dari satu platform secara bersamaan."
     },
     "message": {
         "sync": "Sinkronisasi Selesai",
@@ -360,11 +365,11 @@
         }
     },
     "offline-message": {
-        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "hint": "Kami sedang memeriksa konektivitas terhadap:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
         "ignore": "Ignore",
         "offline": "Offline",
-        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
-        "retrying": "Retrying"
+        "offline-retry-in": "Luring. Mencoba dalam {{seconds}} detik.",
+        "retrying": "Mencoba kembali"
     },
     "Open": "",
     "options": {
@@ -407,7 +412,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Menggunakan GOGDL binary bawaan…",
         "alt-legendary-bin": "Menggunakan Legendary binary bawaan...",
-        "custom_themes_path": "Select the path to look for custom CSS files",
+        "custom_themes_path": "Pilih jalur untuk mencari file CSS khusus",
+        "dxvkfpsvalue": "Nilai bilangan bulat positif (contohnya 30, 60, ...)",
         "egs-prefix": "Prefiks di mana EGS dipasang",
         "prefered_language": "Kode 2 karakter (contohnya: \"en\" atau \"fr\")"
     },
@@ -416,17 +422,17 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "please-wait": "Please wait...",
+    "please-wait": "Mohon tunggu...",
     "progress": "Progress",
     "queue": {
         "label": {
-            "canceled": "Canceled",
-            "clear": "Clear List",
-            "downloading": "Downloading",
-            "empty": "Nothing to download",
-            "finished": "Completed",
-            "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "canceled": "Dibatalkan",
+            "clear": "Hapus Daftar",
+            "downloading": "Mengunduh",
+            "empty": "Tidak ada yang diunduh",
+            "finished": "Selesai",
+            "queued": "Antrian",
+            "remove": "Hapus dari Unduhan"
         }
     },
     "Recent": "Dimainkan Baru-Baru Ini",
@@ -434,16 +440,16 @@
     "setting": {
         "adddesktopshortcuts": "Tambahkan pintasan desktop secara otomatis",
         "addgamestostartmenu": "Tambahkan gim untuk memulai menu secara otomatis",
-        "addgamestosteam": "Add games to Steam automatically",
+        "addgamestosteam": "Tambahkan game ke Steam secara otomatis",
         "alt-gogdl-bin": "Pilih GOGDL Binary alternatif untuk digunakan",
         "alt-legendary-bin": "Pilih Legendary Binary Alternatif",
         "autodxvk": "Pasang/Perbarui Otomatis DXVK di Prefiks",
         "autosync": "Sinkronisasi Penyimpanan Otomatis",
         "autovkd3d": "Pemasangan/Pembaruan VKD3D Otomatis di Prefiks",
         "change-target-exe": "Pilih EXE alternatif untuk dijalankan",
-        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
-        "crossover-version": "Crossover Version",
-        "custom_themes_path": "Custom Themes Path",
+        "checkForUpdatesOnStartup": "Periksa Pembaruan Heroik saat Memulai",
+        "crossover-version": "Versi silang",
+        "custom_themes_path": "Lokasi Tema Kustom",
         "customWineProton": "Lokasi Wine/Proton Khusus",
         "darktray": "Gunakan Ikon Baki Gelap",
         "default-install-path": "Lokasi Pemasangan Bawaan",
@@ -452,6 +458,7 @@
         "disable_controller": "Nonaktifkan navigasi Heroic menggunakan pengontrol",
         "discordRPC": "Aktifkan Discord Rich Presence",
         "download-no-https": "Unduh gim tanpa HTTPS (berguna untuk CDN misalnya LanCache)",
+        "dxvkfpslimit": "Batasi FPS (DX9, 10 dan 11)",
         "egs-sync": "Sinkronkan dengan Epic Games yang Terpasang",
         "enableFSRHack": "Aktifkan Peretasan FSR (perlu versi Wine yang mendukung)",
         "eosOverlay": {
@@ -479,7 +486,7 @@
         "FsrSharpnessStrenght": "Kekuatan Ketajaman FSR",
         "fsync": "Aktifkan Fsync",
         "gamemode": "Gunakan GameMode (Feral Game Mode perlu dipasang)",
-        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
+        "hideChangelogsOnStartup": "Jangan tampilkan daftar ubahan saat memulai",
         "language": "Pilih Bahasa",
         "library_top_option": {
             "disabled": "Matikan",
@@ -515,8 +522,8 @@
         "preferSystemLibs": "Lebih memilih pustaka sistem",
         "primerun": {
             "confirmation": {
-                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
-                "title": "Only 1 GPU detected"
+                "message": "Hanya satu kartu grafis yang terdeteksi di sistem ini. Harap perhatikan bahwa opsi ini ditujukan untuk sistem multi-GPU dengan GPU tanpa kepala (seperti laptop). Pada sistem GPU tunggal, GPU digunakan secara otomatis & mengaktifkan opsi ini dapat menyebabkan masalah. Apakah Anda benar-benar ingin mengaktifkan opsi ini?",
+                "title": "Hanya 1 GPU yang terdeteksi"
             },
             "description": "Gunakan Kartu Grafis untuk Rendering"
         },
@@ -525,9 +532,9 @@
             "title": "Jalankan EXE di Prefiks"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Folder penyimpanan tidak ditemukan, silakan pilih secara manual",
             "placeholder": "Pilih folder gim tersimpan yang tepat",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Silakan periksa dua kali apakah lokasinya sudah benar"
         },
         "select_theme": "Pilih Tema",
         "showfps": "Tampilkan FPS (DX9, 10, dan 11)",
@@ -545,7 +552,7 @@
         "clear-cache": "Hapus Tembolok Heroic",
         "copiedToClipboard": "Disalin ke Papan Klip!",
         "copyToClipboard": "Salin Semua Pengaturan ke Papan Klip",
-        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
+        "default_hint": "Perubahan di bagian ini hanya berlaku sebagai nilai bawaan saat menginstal gim. Jika Anda ingin mengubah pengaturan gim yang sudah terinstal, gunakan tombol Pengaturan di halaman gim.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode dibutuhkan untuk menjalankan EAC runtime di Flatpak. Apakah anda ingin menghidupkannya sekarang?",
@@ -565,8 +572,7 @@
         },
         "navbar": {
             "advanced": "Tambahan",
-            "games_settings": "Game Settings",
-            "games_settings_defaults": "Game Defaults",
+            "games_settings_defaults": "Bawaan dari Gim",
             "general": "Umum",
             "log": "Log",
             "other": "Lainnya",
@@ -617,7 +623,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
-        "logging_out": "Logging out",
+        "logging_out": "Keluar",
         "logout": "Keluar",
         "logout_confirmation": "Apakah Anda yakin ingin keluar?",
         "manageaccounts": "Kelola Akun",
@@ -635,7 +641,7 @@
         "actions": "Action",
         "manager": {
             "link": "Manajer Wine",
-            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
+            "not-found": "Tidak ada versi Wine yang ditemukan. Klik ikon segarkan untuk mencoba lagi.",
             "title": "Manajer Wine",
             "unzipping": "Mengekstrak"
         },

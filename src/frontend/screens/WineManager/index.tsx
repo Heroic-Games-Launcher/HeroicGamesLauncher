@@ -7,10 +7,13 @@ import React, { lazy, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Tab, Tabs } from '@mui/material'
 import { Type } from 'heroic-wine-downloader'
-import { TypeCheckedStoreFrontend } from 'frontend/helpers/electronStores'
+import {
+  TypeCheckedStoreFrontend,
+  wineDownloaderInfoStore
+} from 'frontend/helpers/electronStores'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
-import { WineManagerUISettings } from 'common/types'
+import { WineVersionInfo, WineManagerUISettings } from 'common/types'
 
 const WineItem = lazy(
   async () => import('frontend/screens/WineManager/components/WineItem')
@@ -19,8 +22,6 @@ const WineItem = lazy(
 const configStore = new TypeCheckedStoreFrontend('wineManagerConfigStore', {
   cwd: 'store'
 })
-
-const wineVersions = configStore.get('wine-releases', [])
 
 export default React.memo(function WineManager(): JSX.Element | null {
   const { t } = useTranslation()
@@ -35,6 +36,20 @@ export default React.memo(function WineManager(): JSX.Element | null {
       showProtonGe: true
     })
 
+  const getWineVersions = (repo: Type) => {
+    const versions = wineDownloaderInfoStore.get('wine-releases', [])
+    return versions.filter((version) => version.type === repo)
+  }
+
+  const [wineVersions, setWineVersions] = useState<WineVersionInfo[]>(
+    getWineVersions(repository)
+  )
+
+  const handleChangeTab = (e: React.SyntheticEvent, repo: Type) => {
+    setRepository(repo)
+    setWineVersions(getWineVersions(repo))
+  }
+
   useEffect(() => {
     const oldWineManagerSettings = configStore.get_nodefault(
       'wine-manager-settings'
@@ -42,13 +57,16 @@ export default React.memo(function WineManager(): JSX.Element | null {
     if (oldWineManagerSettings) {
       setWineManagerSettings(oldWineManagerSettings)
     }
-
-    refreshWineVersionInfo(false)
   }, [])
 
-  const handleChangeTab = (e: React.SyntheticEvent, repo: Type) => {
-    setRepository(repo)
-  }
+  useEffect(() => {
+    const removeListener = window.api.handleWineVersionsUpdated(() => {
+      setWineVersions(getWineVersions(repository))
+    })
+    return () => {
+      removeListener()
+    }
+  }, [repository])
 
   return (
     <>
@@ -64,7 +82,7 @@ export default React.memo(function WineManager(): JSX.Element | null {
             centered={true}
           >
             {wineManagerSettings.showWineGe && (
-              <Tab className="tab" value={winege} label={winege} />
+              <Tab value={winege} label={winege} />
             )}
             {wineManagerSettings.showProtonGe && (
               <Tab value={protonge} label={protonge} />
@@ -97,11 +115,8 @@ export default React.memo(function WineManager(): JSX.Element | null {
             {refreshing && <UpdateComponent />}
             {!refreshing &&
               !!wineVersions.length &&
-              wineVersions.map((release, key) => {
-                if (release.type === repository) {
-                  return <WineItem key={key} {...release} />
-                }
-                return
+              wineVersions.map((release) => {
+                return <WineItem key={release.version} {...release} />
               })}
           </div>
         ) : (

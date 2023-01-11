@@ -14,13 +14,12 @@ async function downloadAntiCheatData() {
         'https://raw.githubusercontent.com/Starz0r/AreWeAntiCheatYet/HEAD/games.json'
       )
       writeFileSync(heroicAnticheatDataPath, JSON.stringify(data, null, 2))
-      logInfo(`AreWeAntiCheatYet data downloaded`, {
-        prefix: LogPrefix.Backend
-      })
+      logInfo(`AreWeAntiCheatYet data downloaded`, LogPrefix.Backend)
     } catch (error) {
-      logWarning(`Failed download of AreWeAntiCheatYet data: ${error}`, {
-        prefix: LogPrefix.Backend
-      })
+      logWarning(
+        `Failed download of AreWeAntiCheatYet data: ${error}`,
+        LogPrefix.Backend
+      )
     }
   })
 }

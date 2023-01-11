@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { Backspace } from '@mui/icons-material'
 import useSetting from 'frontend/hooks/useSetting'
-import { configStore } from 'frontend/helpers/electronStores'
 import { TextInputWithIconField } from 'frontend/components/UI'
 
 const AltGOGdlBin = () => {
@@ -14,7 +13,6 @@ const AltGOGdlBin = () => {
 
   useEffect(() => {
     const getGogdlVersion = async () => {
-      configStore.set('settings.altGogdl', altGogdlBin)
       const gogdlVersion = await window.api.getGogdlVersion()
       if (gogdlVersion === 'invalid') {
         setGogdlVersion('Invalid')

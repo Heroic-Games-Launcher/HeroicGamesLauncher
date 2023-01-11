@@ -34,7 +34,9 @@
         "uninstall": {
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Xác nhận gỡ cài đặt game?",
-            "title": "Gỡ cài đặt"
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+            "title": "Gỡ cài đặt",
+            "prefix_warning": "Tiền tố Wine cho trò chơi này là tiền tố mặc định. Nếu bạn thực sự muốn xóa nó, bạn phải thực hiện thủ công."
         },
         "update": {
             "message": "Game có bản cập nhật, xác nhận cập nhật?",
@@ -66,7 +68,8 @@
         },
         "unhide_game": "Bỏ ẩn Game",
         "uninstall": "Gỡ cài đặt",
-        "update": "Cập nhật"
+        "update": "Cập nhật",
+        "details": "Chi tiết"
     },
     "cloud_save_unsupported": "Unsupported",
     "disabled": "Tắt",

@@ -34,7 +34,9 @@
         "uninstall": {
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "このゲームをアンインストールしたいですか？",
-            "title": "アンインストール"
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+            "title": "アンインストール",
+            "prefix_warning": "このゲームの Wine プレフィックスはデフォルトのプレフィックスです。本当に削除したい場合は、手動で行う必要があります。"
         },
         "update": {
             "message": "このゲームにはアップデートがありますが、今すぐアップデートしたいですか？",
@@ -66,7 +68,8 @@
         },
         "unhide_game": "Unhide Game",
         "uninstall": "アンインストール",
-        "update": "アップデート"
+        "update": "アップデート",
+        "details": "詳細"
     },
     "cloud_save_unsupported": "Unsupported",
     "disabled": "無効になっています",

@@ -34,6 +34,7 @@
         "uninstall": {
             "checkbox": "Eemalda prefiks: {{prefix}}{{newLine}}Märkus: seda ei saa tagasi võtta ja see eemaldab ka varundamata salvestusfailid.",
             "message": "Kas soovite selle mängu eemaldada?",
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Eemalda"
         },
         "update": {

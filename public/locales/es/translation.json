@@ -204,7 +204,6 @@
         "store": "Tienda",
         "title": "Título del juego"
     },
-    "GameSettings": "Configuración del juego",
     "generic": {
         "error": {
             "component": "No se encontraron juegos - Intenta salir e iniciar sesión nuevamente, o una de las siguientes opciones"
@@ -217,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "Tienda de GOG",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Ignorar Ocultos",
         "platform": "Plataforma",
         "show_all_games": "Mostrar todos los juegos",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Mostrar sólo favoritos",
         "show_hidden": "Mostrar Ocultos",
         "store": "Filtrar tienda"
@@ -229,6 +230,7 @@
         "custom_themes_path": "No use archivos CSS de fuentes no confiables. Ante la duda, pida una revisión en nuestro servidor de Discord.",
         "custom_themes_wiki": "Revise la Wiki para más detalles sobre agregar temas personalizados. Clic aquí.",
         "dxvk": "DXVK es una capa de traducción basada en Vulkan para juegos que usan DirectX 9, 10 y 11. Activarlo puede mejorar la compatibilidad. Puede causar errores especialmente en juegos antiguos que usen DirectX.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Esync intenta reducir la sobrecarga de wineserver en juegos con intenso uso de CPU. Activarlo puede mejorar el rendimiento.",
         "fsync": "Fsync intenta reducir la sobrecarga de wineserver en juegos con uso intensivo de CPU. Activarlo puede mejorar el rendimiento en kernels de Linux que lo soporten.",
         "game_language": {
@@ -291,6 +293,9 @@
     },
     "install": {
         "path": "Seleccione la ruta de instalación"
+    },
+    "label": {
+        "loading": "Loading"
     },
     "library": {
         "refresh": "Actualizar",
@@ -408,6 +413,7 @@
         "alt-gogdl-bin": "Utilizando el binario incorporado de GOGDL...",
         "alt-legendary-bin": "Usando el binario incorporado de Legendary…",
         "custom_themes_path": "Seleccione la ubicación de donde buscar los archivos CSS",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefijo donde está instalado EGS",
         "prefered_language": "Código de 2 caracteres (ej: \"en\" o \"fr\")"
     },
@@ -452,6 +458,7 @@
         "disable_controller": "Desactivar la navegación de Heroic mediante un gamepad",
         "discordRPC": "Activar Discord Rich Presence",
         "download-no-https": "Descargar juegos sin HTTPS (útil para CDNs, ej: LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Sincronizar con juegos EGS",
         "enableFSRHack": "Habilitar el hack FSR (La versión de Wine debe soportarlo)",
         "eosOverlay": {
@@ -565,7 +572,6 @@
         },
         "navbar": {
             "advanced": "Avanzado",
-            "games_settings": "Configuración del juego",
             "games_settings_defaults": "Valores predeterminados del juego",
             "general": "General",
             "log": "Registro",

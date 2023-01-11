@@ -1,7 +1,6 @@
 import './index.css'
 
 import React, {
-  lazy,
   useContext,
   useEffect,
   useMemo,
@@ -34,10 +33,7 @@ import {
   sideloadedCategories
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
-
-const InstallModal = lazy(
-  async () => import('frontend/screens/Library/components/InstallModal')
-)
+import { InstallModal } from './components'
 
 const storage = window.localStorage
 
@@ -66,7 +62,8 @@ export default React.memo(function Library(): JSX.Element {
     hiddenGames,
     showHidden,
     handleCategory,
-    showFavourites: showFavouritesLibrary
+    showFavourites: showFavouritesLibrary,
+    showNonAvailable
   } = useContext(ContextProvider)
 
   const [showModal, setShowModal] = useState<ModalState>({
@@ -234,7 +231,16 @@ export default React.memo(function Library(): JSX.Element {
       const sideloadedApps = sideloadedCategories.includes(category)
         ? sideloadedLibrary
         : []
+
       library = [...sideloadedApps, ...epicLibrary, ...gogLibrary]
+
+      if (!showNonAvailable) {
+        const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
+        const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
+        library = library.filter(
+          (game) => !nonAvailbleGamesArray.includes(game.app_name)
+        )
+      }
     }
 
     // filter
@@ -297,7 +303,8 @@ export default React.memo(function Library(): JSX.Element {
     sortInstalled,
     showHidden,
     hiddenGames,
-    showFavouritesLibrary
+    showFavouritesLibrary,
+    showNonAvailable
   ])
 
   if (!epic && !gog) {
@@ -355,7 +362,7 @@ export default React.memo(function Library(): JSX.Element {
       </div>
 
       <button id="backToTopBtn" onClick={backToTop} ref={backToTopElement}>
-        <ArrowDropUp className="material-icons" />
+        <ArrowDropUp id="backToTopArrow" className="material-icons" />
       </button>
 
       {showModal.show && (

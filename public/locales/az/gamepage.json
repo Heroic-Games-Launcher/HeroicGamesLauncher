@@ -35,7 +35,9 @@
             "checkbox": "Siz də prefiksi silmək istərdinizmi? Bu geri qaytarıla bilməz.",
             "checkbox_prefix": "Prefiks",
             "message": "Bu oyunu silmək istəyirsiniz?",
-            "title": "Silin"
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+            "title": "Silin",
+            "prefix_warning": "Bu oyun üçün Şərab prefiksi standart prefiksdir. Əgər həqiqətən silmək istəyirsinizsə, bunu əl ilə etməlisiniz."
         },
         "update": {
             "message": "Bu oyunun yeniləməsi var, yeniləmə indi tətbiq edilsin?",
@@ -67,7 +69,8 @@
         },
         "unhide_game": "Oyunu Gizlət",
         "uninstall": "Silin",
-        "update": "Yeniləyin"
+        "update": "Yeniləyin",
+        "details": "Təfərrüatlar"
     },
     "cloud_save_unsupported": "Dəstəklənmir",
     "disabled": "Əlil",

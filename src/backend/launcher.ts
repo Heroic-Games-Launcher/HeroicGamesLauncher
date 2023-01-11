@@ -56,7 +56,7 @@ async function prepareLaunch(
   gameInfo: GameInfo | SideloadGame,
   isNative: boolean
 ): Promise<LaunchPreperationResult> {
-  const globalSettings = await GlobalConfig.get().getSettings()
+  const globalSettings = GlobalConfig.get().getSettings()
 
   const offlineMode =
     gameSettings.offlineMode || !isOnline() || (await isEpicServiceOffline())
@@ -162,7 +162,7 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
   if (gameSettings.wineVersion.type === 'proton') {
     logWarning(
       'You are using Proton, this can lead to some bugs. Please do not open issues with bugs related to games',
-      { prefix: LogPrefix.Backend }
+      LogPrefix.Backend
     )
   }
 
@@ -195,9 +195,10 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
 
   const { updated: winePrefixUpdated } = await verifyWinePrefix(gameSettings)
   if (winePrefixUpdated) {
-    logInfo(['Created/Updated Wineprefix at', gameSettings.winePrefix], {
-      prefix: LogPrefix.Backend
-    })
+    logInfo(
+      ['Created/Updated Wineprefix at', gameSettings.winePrefix],
+      LogPrefix.Backend
+    )
     await setup(game.appName)
   }
 
@@ -270,9 +271,24 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   // Add WINEPREFIX / STEAM_COMPAT_DATA_PATH / CX_BOTTLE
   const steamInstallPath = join(flatPakHome, '.steam', 'steam')
   switch (wineVersion.type) {
-    case 'wine':
+    case 'wine': {
       ret.WINEPREFIX = winePrefix
+
+      // Disable Winemenubuilder to not mess with file associations
+      const wmbDisableString = 'winemenubuilder='
+      // If the user already set WINEDLLOVERRIDES, append to the end
+      const dllOverridesVar = gameSettings.enviromentOptions.find(
+        ({ key }) => key.toLowerCase() === 'winemenubuilder'
+      )
+      if (dllOverridesVar) {
+        ret[dllOverridesVar.key] =
+          dllOverridesVar.value + ',' + wmbDisableString
+      } else {
+        ret.WINEDLLOVERRIDES = wmbDisableString
+      }
+
       break
+    }
     case 'proton':
       ret.STEAM_COMPAT_CLIENT_INSTALL_PATH = steamInstallPath
       ret.STEAM_COMPAT_DATA_PATH = winePrefix
@@ -283,6 +299,9 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
 
   if (gameSettings.showFps) {
     ret.DXVK_HUD = 'fps'
+  }
+  if (gameSettings.enableDXVKFpsLimit) {
+    ret.DXVK_FRAME_RATE = gameSettings.DXVKFpsCap
   }
   if (gameSettings.enableFSR) {
     ret.WINE_FULLSCREEN_FSR = '1'
@@ -475,9 +494,7 @@ export async function verifyWinePrefix(
       return { res: result, updated: wasUpdated }
     })
     .catch((error) => {
-      logError(['Unable to create Wineprefix: ', error], {
-        prefix: LogPrefix.Backend
-      })
+      logError(['Unable to create Wineprefix: ', error], LogPrefix.Backend)
       throw error
     })
 }
@@ -485,7 +502,7 @@ export async function verifyWinePrefix(
 function launchCleanup(rpcClient?: RpcClient) {
   if (rpcClient) {
     rpcClient.disconnect()
-    logInfo('Stopped Discord Rich Presence', { prefix: LogPrefix.Backend })
+    logInfo('Stopped Discord Rich Presence', LogPrefix.Backend)
   }
 }
 async function runWineCommand({
@@ -500,7 +517,7 @@ async function runWineCommand({
 }: WineCommandArgs): Promise<{ stderr: string; stdout: string }> {
   const settings = gameSettings
     ? gameSettings
-    : await GlobalConfig.get().getSettings()
+    : GlobalConfig.get().getSettings()
   const { wineVersion, winePrefix } = settings
 
   if (!skipPrefixCheckIKnowWhatImDoing && wineVersion.type !== 'crossover') {
@@ -528,7 +545,7 @@ async function runWineCommand({
     if (!requiredPrefixFiles.every((path) => existsSync(path))) {
       logWarning(
         'Required prefix files are missing, running `verifyWinePrefix` to create prefix',
-        { prefix: LogPrefix.Backend }
+        LogPrefix.Backend
       )
       mkdirSync(winePrefix, { recursive: true })
       await verifyWinePrefix(settings)
@@ -552,9 +569,7 @@ async function runWineCommand({
 
   const wineBin = wineVersion.bin.replaceAll("'", '')
 
-  logDebug(['Running Wine command:', commandParts.join(' ')], {
-    prefix: LogPrefix.Backend
-  })
+  logDebug(['Running Wine command:', commandParts.join(' ')], LogPrefix.Backend)
 
   return new Promise<{ stderr: string; stdout: string }>((res) => {
     const wrappers = options?.wrappers || []
@@ -574,9 +589,7 @@ async function runWineCommand({
     child.stderr.setEncoding('utf-8')
 
     if (options?.logFile) {
-      logDebug(`Logging to file "${options?.logFile}"`, {
-        prefix: LogPrefix.Backend
-      })
+      logDebug(`Logging to file "${options?.logFile}"`, LogPrefix.Backend)
     }
 
     if (options?.logFile && existsSync(options.logFile)) {
@@ -668,13 +681,11 @@ async function callRunner(
 
   logInfo(
     [(options?.logMessagePrefix ?? `Running command`) + ':', safeCommand],
-    { prefix: runner.logPrefix }
+    runner.logPrefix
   )
 
   if (options?.logFile) {
-    logDebug(`Logging to file "${options?.logFile}"`, {
-      prefix: runner.logPrefix
-    })
+    logDebug(`Logging to file "${options?.logFile}"`, runner.logPrefix)
   }
 
   if (options?.verboseLogFile) {
@@ -770,9 +781,7 @@ async function callRunner(
     })
     .catch((error) => {
       if (abortController.signal.aborted) {
-        logInfo(['Abort command', `"${safeCommand}"`], {
-          prefix: runner.logPrefix
-        })
+        logInfo(['Abort command', `"${safeCommand}"`], runner.logPrefix)
 
         return {
           stdout: '',

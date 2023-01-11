@@ -75,7 +75,6 @@ export default function GOGSyncSaves({
 
   return (
     <>
-      <h3 className="settingSubheader">{t('settings.navbar.sync')}</h3>
       {manuallyOutputShow && (
         <ProgressDialog
           title={'Sync-Saves'}
@@ -115,8 +114,11 @@ export default function GOGSyncSaves({
                 disabled={isSyncing}
                 onChange={(event: { target: { value: string } }) => {
                   const saves = [...gogSaves]
-                  saves[index].location = event.target.value
-                  setGogSaves(saves)
+                  saves[index] = {
+                    name: value.name,
+                    location: event.target.value
+                  }
+                  return setGogSaves(saves)
                 }}
                 icon={
                   !value.location.length ? (
@@ -142,18 +144,21 @@ export default function GOGSyncSaves({
                           })
                           .then((path) => {
                             const saves = [...gogSaves]
-                            saves[index].location = path || ''
+                            saves[index] = {
+                              name: value.name,
+                              location: path || ''
+                            }
                             setGogSaves(saves)
                           })
                     : () => {
                         const saves = [...gogSaves]
-                        saves[index].location = ''
+                        saves[index] = { name: value.name, location: '' }
                         setGogSaves(saves)
                       }
                 }
                 afterInput={
                   <span className="smallMessage">
-                    {gogSaves.length > 1
+                    {gogSaves.length >= 1
                       ? t(
                           'setting.savefolder.warning',
                           'Please check twice if the path is correct'

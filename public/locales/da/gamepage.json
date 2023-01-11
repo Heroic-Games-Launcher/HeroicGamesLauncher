@@ -24,7 +24,9 @@
             "checkbox": "Vil du også fjerne prefixet? Dette kan ikke omgøres.",
             "checkbox_prefix": "Prefix",
             "message": "Vil du afinstallere spillet?",
-            "title": "Afinstaller"
+            "title": "Afinstaller",
+            "settingcheckbox": "Slet indstillinger og fjern log{{newLine}}Bemærk: Dette kan ikke fortrydes. Eventuelle ændrede indstillinger vil blive glemt, og log vil blive slettet.",
+            "prefix_warning": "Vinpræfikset for dette spil er standardpræfikset. Hvis du virkelig vil slette det, skal du gøre det manuelt."
         },
         "update": {
             "title": "Spillet skal opdateres",
@@ -67,7 +69,8 @@
         "running-setup": "Kører opsætning",
         "sideload": {
             "edit": "Rediger app/spil"
-        }
+        },
+        "details": "detaljer"
     },
     "disabled": "Slå Fra",
     "dlc": {

@@ -77,7 +77,7 @@ export class GOGLibrary {
     } catch (error) {
       logError(
         ['Failed to get remote config information for', appName, ':', error],
-        { prefix: LogPrefix.Gog }
+        LogPrefix.Gog
       )
     }
     if (!response) {
@@ -117,7 +117,7 @@ export class GOGLibrary {
             `${features}`,
             `${e.message}`
           ],
-          { prefix: LogPrefix.Gog }
+          LogPrefix.Gog
         )
       })
 
@@ -128,9 +128,7 @@ export class GOGLibrary {
     gameArray.push(...games.data.products)
     const numberOfPages = games?.data.totalPages
     for (let page = 2; page <= numberOfPages; page++) {
-      logInfo(['Getting data for page', String(page)], {
-        prefix: LogPrefix.Gog
-      })
+      logInfo(['Getting data for page', String(page)], LogPrefix.Gog)
       const pageData = await axios.get(
         `https://embed.gog.com/account/getFilteredProducts?mediaType=1&sortBy=title&page=${page}&features=${features.join()}`,
         { headers }
@@ -171,7 +169,7 @@ export class GOGLibrary {
       Authorization: 'Bearer ' + credentials.access_token,
       'User-Agent': 'GOGGalaxyClient/2.0.45.61 (GOG Galaxy)'
     }
-    logInfo('Getting GOG library', { prefix: LogPrefix.Gog })
+    logInfo('Getting GOG library', LogPrefix.Gog)
     const gameApiArray: GOGGameInfo[] = []
     const games: Library | null = await axios
       .get(
@@ -180,29 +178,24 @@ export class GOGLibrary {
       )
       .then(({ data }) => data)
       .catch((e: AxiosError) => {
-        logError(['There was an error getting games library data', e.message], {
-          prefix: LogPrefix.Gog
-        })
+        logError(
+          ['There was an error getting games library data', e.message],
+          LogPrefix.Gog
+        )
         return null
       })
 
     if (!games) {
-      logError('There was an error Loading games library', {
-        prefix: LogPrefix.Gog
-      })
+      logError('There was an error Loading games library', LogPrefix.Gog)
       return
     }
 
     if (games.products.length) {
       const numberOfPages = games.totalPages
-      logInfo(['Number of library pages:', numberOfPages], {
-        prefix: LogPrefix.Gog
-      })
+      logInfo(['Number of library pages:', numberOfPages], LogPrefix.Gog)
       gameApiArray.push(...games.products)
       for (let page = 2; page <= numberOfPages; page++) {
-        logInfo(['Getting data for page', String(page)], {
-          prefix: LogPrefix.Gog
-        })
+        logInfo(['Getting data for page', String(page)], LogPrefix.Gog)
         const pageData: Library | null = await axios
           .get(
             `https://embed.gog.com/account/getFilteredProducts?mediaType=1&sortBy=title&page=${page}`,
@@ -288,7 +281,7 @@ export class GOGLibrary {
     libraryStore.set('totalGames', games.totalProducts)
     libraryStore.set('totalMovies', games.moviesCount)
     libraryStore.set('cloud_saves_enabled', true)
-    logInfo('Saved games data', { prefix: LogPrefix.Gog })
+    logInfo('Saved games data', LogPrefix.Gog)
   }
 
   public static get() {
@@ -377,9 +370,10 @@ export class GOGLibrary {
     }
 
     const errorMessage = (error: string) => {
-      logError(['Failed to get game metadata for', `${appName}:`, error], {
-        prefix: LogPrefix.Gog
-      })
+      logError(
+        ['Failed to get game metadata for', `${appName}:`, error],
+        LogPrefix.Gog
+      )
     }
 
     if (res.error) {
@@ -390,9 +384,10 @@ export class GOGLibrary {
     try {
       gogInfo = JSON.parse(res.stdout)
     } catch (error) {
-      logError(['Error when parsing JSON file on getInstallInfo', error], {
-        prefix: LogPrefix.Gog
-      })
+      logError(
+        ['Error when parsing JSON file on getInstallInfo', error],
+        LogPrefix.Gog
+      )
       return
     }
 
@@ -424,9 +419,10 @@ export class GOGLibrary {
         (value) => value.app_name === appName
       )
       if (gameObjectIndex === -1) {
-        logWarning(['getInstallInfo:', appName, 'not found in libraryStore'], {
-          prefix: LogPrefix.Gog
-        })
+        logWarning(
+          ['getInstallInfo:', appName, 'not found in libraryStore'],
+          LogPrefix.Gog
+        )
         return
       }
     }
@@ -488,7 +484,7 @@ export class GOGLibrary {
     if (!cachedGameData) {
       logError(
         "Changing game install path failed: Game data couldn't be found",
-        { prefix: LogPrefix.Gog }
+        LogPrefix.Gog
       )
       return
     }
@@ -561,9 +557,7 @@ export class GOGLibrary {
         updateable.push(game.appName)
       }
     }
-    logInfo(`Found ${updateable.length} game(s) to update`, {
-      prefix: LogPrefix.Gog
-    })
+    logInfo(`Found ${updateable.length} game(s) to update`, LogPrefix.Gog)
     return updateable
   }
 
@@ -634,7 +628,7 @@ export class GOGLibrary {
     } else {
       logWarning(
         `Unable to get covers from gamesdb for ${info.title}. Trying to get it from api.gog.com`,
-        { prefix: LogPrefix.Gog }
+        LogPrefix.Gog
       )
       const apiData = await this.getGamesData(String(info.id))
       if (apiData?._links?.boxArtImage) {
@@ -642,7 +636,7 @@ export class GOGLibrary {
       } else {
         logWarning(
           "Couldn't get info from api.gog.com, Using fallback vertical image",
-          { prefix: LogPrefix.Gog }
+          LogPrefix.Gog
         )
         verticalCover = fallBackImage
       }
@@ -659,7 +653,8 @@ export class GOGLibrary {
       cloud_save_enabled: cloudSavesEnabledGames.includes(String(info.id)),
       extra: {
         about: { description: description, longDescription: '' },
-        reqs: []
+        reqs: [],
+        storeUrl: `https://gog.com${info.url}`
       },
       folder_name: '',
       install: {
@@ -685,9 +680,8 @@ export class GOGLibrary {
    * @returns plain API response
    */
   public async getGamesData(appName: string, lang?: string) {
-    const url = `https://api.gog.com/v2/games/${appName}${
-      lang ?? '?locale=' + lang
-    }`
+    const url = `https://api.gog.com/v2/games/${appName}?locale=${lang || 'en'}`
+
     const response: AxiosResponse | null = await axios.get(url).catch(() => {
       return null
     })
@@ -781,9 +775,10 @@ export class GOGLibrary {
     try {
       infoFileData = JSON.parse(readFileSync(infoFilePath, 'utf-8'))
     } catch (error) {
-      logError(`Error reading ${infoFilePath}, could not complete operation`, {
-        prefix: LogPrefix.Gog
-      })
+      logError(
+        `Error reading ${infoFilePath}, could not complete operation`,
+        LogPrefix.Gog
+      )
     }
     if (!infoFileData) {
       return

@@ -30,7 +30,7 @@ export const hasProgress = (appName: string) => {
   }
 
   useEffect(() => {
-    const onGameStatusUpdate = async (
+    const handleProgressUpdate = async (
       _e: Electron.IpcRendererEvent,
       { appName: appWithProgress, progress: currentProgress }: GameStatus
     ) => {
@@ -41,8 +41,10 @@ export const hasProgress = (appName: string) => {
         })
       }
     }
-    const setGameStatusRemoveListener =
-      window.api.handleSetGameStatus(onGameStatusUpdate)
+    const setGameStatusRemoveListener = window.api.onProgressUpdate(
+      appName,
+      handleProgressUpdate
+    )
 
     return () => {
       setGameStatusRemoveListener()

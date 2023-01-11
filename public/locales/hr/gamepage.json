@@ -18,13 +18,13 @@
             "title": "Provjeri i Popravi"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "Odaberi EXE datoteku za pokretanje"
         },
         "select": {
-            "button": "Select"
+            "button": "Odaberi"
         },
         "sideload": {
-            "exe": "Select Executable"
+            "exe": "Odaberi izvršnu datoteku"
         },
         "stopInstall": {
             "keepInstalling": "Nastavite instalaciju",
@@ -34,6 +34,7 @@
         "uninstall": {
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Želite li deinstalirati igricu?",
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Deinstaliraj"
         },
         "update": {

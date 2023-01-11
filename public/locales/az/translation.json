@@ -204,7 +204,6 @@
         "store": "Mağaza",
         "title": "Oyunun adı"
     },
-    "GameSettings": "Oyun Parametrləri",
     "generic": {
         "error": {
             "component": "Oyun tapılmadı - Çıxıb yenidən daxil olmağa çalışın və ya aşağıdakı seçimlərdən birini edin"
@@ -217,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "GOG Mağazası",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Gizləməyə məhəl qoyma",
         "platform": "Platforma",
         "show_all_games": "Bütün oyunları göstərin",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Yalnız Sevimliləri göstərin",
         "show_hidden": "Gizli göstər",
         "store": "Filtr Mağazası"
@@ -229,6 +230,7 @@
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK DirectX 9, 10 və 11 oyunları üçün Vulkan əsaslı tərcümə qatıdır. Aktivləşdirmə uyğunluğu yaxşılaşdıra bilər. Xüsusilə köhnə DirectX oyunları üçün problemlər yarada bilər.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Esync, intensiv CPU tələb edən oyunlarda şərab serverinin yükünü azaltmağı hədəfləyir. Aktivləşdirmək performansı yaxşılaşdıra bilər.",
         "fsync": "Fsync, intensiv CPU tələb edən oyunlarda şərab serverinin yükünü azaltmağı hədəfləyir. Aktivləşdirilməsi dəstəklənən Linux nüvələrində performansı yaxşılaşdıra bilər.",
         "game_language": {
@@ -291,6 +293,9 @@
     },
     "install": {
         "path": "Quraşdırma yolunu seçin"
+    },
+    "label": {
+        "loading": "Loading"
     },
     "library": {
         "refresh": "təzələmək",
@@ -408,6 +413,7 @@
         "alt-gogdl-bin": "Daxili GOGDL ikili proqramından istifadə...",
         "alt-legendary-bin": "Daxili əfsanəvi ikili proqramdan istifadə...",
         "custom_themes_path": "Select the path to look for custom CSS files",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "EGS-nin quraşdırıldığı prefiks",
         "prefered_language": "2 simvollu kod (yəni: \"en\" və ya \"fr\")"
     },
@@ -452,6 +458,7 @@
         "disable_controller": "Nəzarətçidən istifadə edərək Qəhrəman naviqasiyasını söndürün",
         "discordRPC": "Discord Rich Presence-i aktivləşdirin",
         "download-no-https": "HTTPS olmadan oyunları endirin (CDN-lər üçün faydalıdır, məsələn, LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Quraşdırılmış Epic Games ilə sinxronizasiya edin",
         "enableFSRHack": "FSR Hack'i aktivləşdirin (Şərab versiyası onu dəstəkləməlidir)",
         "eosOverlay": {
@@ -565,7 +572,6 @@
         },
         "navbar": {
             "advanced": "Qabaqcıl",
-            "games_settings": "Game Settings",
             "games_settings_defaults": "Game Defaults",
             "general": "General",
             "log": "Giriş",

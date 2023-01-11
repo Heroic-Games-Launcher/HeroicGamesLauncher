@@ -18,7 +18,7 @@
             "title": "சரிபார்த்து சரிசெய்"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "இயக்க EXE ஐத் தேர்ந்தெடுக்கவும்"
         },
         "select": {
             "button": "Select"
@@ -34,13 +34,14 @@
         "uninstall": {
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "இந்த விளையாட்டை நிறுவல்-நீக்க விரும்புகிறீர்களா?",
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "நிறுவல் நீக்கு"
         },
         "update": {
             "message": "இந்த விளையாட்டுக்கு ஒரு புதுப்பிப்பு உள்ளது,இப்போது புதுப்பிப்பைப் பயன்படுத்தவா?",
             "title": "விளையாட்டு புதுப்பிப்பு தேவை"
         },
-        "wineprefix": "ஒயின் ப்ரிஃபிக்ஸ் கோப்புறையைத் தேர்ந்தெடுக்கவும்",
+        "wineprefix": "ஒயின் முன்னொட்டு கோப்புறையைத் தேர்ந்தெடுக்கவும்",
         "yes": "ஆம்"
     },
     "button": {

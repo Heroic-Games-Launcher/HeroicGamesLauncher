@@ -204,7 +204,6 @@
         "store": "Крамниця",
         "title": "Назва гри"
     },
-    "GameSettings": "Налаштування гри",
     "generic": {
         "error": {
             "component": "Жодної гри не знайдено - Спробуйте вийти та увійти заново або один із варіантів нижче"
@@ -217,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "Крамниця GOG",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Ігнорувати приховані",
         "platform": "Платформа",
         "show_all_games": "Показати всі ігри",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Показати лише вподобання",
         "show_hidden": "Показати приховані",
         "store": "Фільтрувати крамницю"
@@ -229,6 +230,7 @@
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK це перекладний шар основний на Vulkan, для ігор написаних з DirectX 9, 10 та 11. Увімкнення може покращити сумісність. Може викликати проблеми, особливо у старіших DirectX іграх.",
+        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Esync має на меті зменшити споживання ресурсів wineserver -а, у іграх з інтенсивним використанням процесора. Увімкнення може покращити продуктивність.",
         "fsync": "Fsync має на меті зменшити споживання ресурсів wineserver -а, у іграх з інтенсивним використанням процесора. Увімкнення може покращити продуктивність на підтриманих Linux ядрах.",
         "game_language": {
@@ -291,6 +293,9 @@
     },
     "install": {
         "path": "Вкажіть шлях встановлення"
+    },
+    "label": {
+        "loading": "Loading"
     },
     "library": {
         "refresh": "Оновити",
@@ -408,6 +413,7 @@
         "alt-gogdl-bin": "Використання вбудованого двійкового до GOGDL...",
         "alt-legendary-bin": "Використання вбудованого двійкового до Legendary...",
         "custom_themes_path": "Select the path to look for custom CSS files",
+        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Префікс де встановлено EGS",
         "prefered_language": "2-значний код (приклад: \"en\" або \"uk\")"
     },
@@ -452,6 +458,7 @@
         "disable_controller": "Вимкнути навігацію Heroic за допомогою контролера",
         "discordRPC": "Ввімкнути Discord Rich Presence",
         "download-no-https": "Завантажувати ігри без HTTPS (корисно для власних CDN як наприклад LanCache)",
+        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Синхронізуватися із встановленим Epic Games Launcher",
         "enableFSRHack": "Ввімкнути FSR Hack (версія Wine має це підтримувати)",
         "eosOverlay": {
@@ -565,7 +572,6 @@
         },
         "navbar": {
             "advanced": "Розширені",
-            "games_settings": "Game Settings",
             "games_settings_defaults": "Game Defaults",
             "general": "Загальні",
             "log": "Журнал",

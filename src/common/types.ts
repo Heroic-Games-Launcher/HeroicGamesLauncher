@@ -83,6 +83,7 @@ export type ExecResult = {
 export interface ExtraInfo {
   about: About
   reqs: Reqs[]
+  storeUrl: string
 }
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
@@ -133,6 +134,8 @@ export interface GameSettings {
   wrapperOptions: WrapperVariable[]
   savesPath: string
   showFps: boolean
+  enableDXVKFpsLimit: boolean
+  DXVKFpsCap: string //Entered as string but used as number
   showMangohud: boolean
   targetExe: string
   useGameMode: boolean
@@ -602,6 +605,20 @@ export interface ToolArgs {
 }
 
 export type StatusPromise = Promise<{ status: 'done' | 'error' }>
+
+export interface GameScoreInfo {
+  score: string
+  urlid: string
+}
+export interface PCGamingWikiInfo {
+  timestampLastFetch: string
+  steamID: string
+  howLongToBeatID: string
+  metacritic: GameScoreInfo
+  opencritic: GameScoreInfo
+  igdb: GameScoreInfo
+  direct3DVersions: string[]
+}
 
 export interface WineManagerUISettings {
   showWineGe: boolean

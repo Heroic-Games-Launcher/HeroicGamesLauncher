@@ -34,7 +34,9 @@
         "uninstall": {
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "你希望將這個遊戲解除安裝嗎？",
-            "title": "解除安裝"
+            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+            "title": "解除安裝",
+            "prefix_warning": "此遊戲的 Wine 前綴是默認前綴。如果你真的想刪除它，你必須手動進行。"
         },
         "update": {
             "message": "此遊戲有更新，你希望現在更新嗎？",
@@ -66,7 +68,8 @@
         },
         "unhide_game": "取消隱藏遊戲",
         "uninstall": "解除安裝",
-        "update": "更新"
+        "update": "更新",
+        "details": "細節"
     },
     "cloud_save_unsupported": "Unsupported",
     "disabled": "已禁用",

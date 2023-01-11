@@ -2,7 +2,7 @@
     "accessibility": {
         "actions_font_family_no_default": "Police d'écriture pour les actions (Par défaut : ",
         "all_tiles_in_color": "Afficher les vignettes de tous les jeux en couleur",
-        "content_font_family_no_default": "Police d'écriture pour les contenus (Par défaut: ",
+        "content_font_family_no_default": "Police d'écriture pour les contenus (Par défaut : ",
         "fonts": "Polices d'écriture",
         "title": "Accessibilité",
         "zoom": "Zoom"
@@ -70,7 +70,7 @@
                 "title": "Erreur de mise-à-jour"
             },
             "wine-not-found": {
-                "invalid": "La version de Wine sélectionnée n'a pas été trouvée. Installez-le ou sélectionnez une version différente dans les paramètres du jeu{{newline}}Version: {{version}}{{newline}}Chemin: {{path}}",
+                "invalid": "La version de Wine sélectionnée n'a pas été trouvée. Installez-la ou sélectionnez une version différente dans les paramètres du jeu{{newline}}Version: {{version}}{{newline}}Chemin: {{path}}",
                 "message": "Aucune version de Wine n'est sélectionnée. Vérifiez les paramètres de jeu !",
                 "title": "Wine non trouvé"
             },
@@ -115,9 +115,9 @@
         },
         "shortcuts": {
             "message": "Les raccourcis ont été créés sur le Bureau et dans le menu Démarrer",
-            "message-mac": "Shortcuts were created on the Applications folder",
+            "message-mac": "Des raccourcis ont été créés dans le dossier Applications",
             "message-remove": "Les raccourcis ont été supprimés du Bureau et du menu Démarrer",
-            "message-remove-mac": "Shortcuts were removed from the Applications folder",
+            "message-remove-mac": "Des raccourcis ont été supprimés du dossier Applications",
             "title": "Raccourcis"
         },
         "sync": {
@@ -204,7 +204,6 @@
         "store": "Boutique",
         "title": "Titre du jeu"
     },
-    "GameSettings": "Options du jeu",
     "generic": {
         "error": {
             "component": "Aucun jeu trouvé - Essayez de vous déconnecter et de vous reconnecter ou l'une des options ci-dessous"
@@ -217,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "Boutique GOG",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Ignorer les jeux cachés",
         "platform": "Système",
         "show_all_games": "Afficher tous les jeux",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "N'afficher que les favoris",
         "show_hidden": "Afficher les jeux cachés",
         "store": "Filtrer le magasin"
@@ -229,6 +230,7 @@
         "custom_themes_path": "N'utilisez pas de fichiers CSS venant de sources inconnues. En cas de doute, demandez un avis sur notre canal Discord.",
         "custom_themes_wiki": "Visitez le Wiki pour plus d'informations concernant les thèmes personnalisés. Cliquez ici.",
         "dxvk": "DXVK est une interface de compatibilité basée sur Vulkan pour les jeux nécessitant DirectX 9, 10 et 11. L'activer pourrait améliorer la compatibilité. Peut causer des problèmes, en particulier pour des jeux utilisant des versions de DirectX plus anciennes.",
+        "dxvkfpslimit": "Définir un plafond de fréquences d'images pour les jeux DXVK",
         "esync": "« Esync » a pour but de diminuer l'utilisation des ressources par « wineserver » dans les jeux sollicitant fortement le CPU. L'activer pourrait améliorer les performances.",
         "fsync": "Esync a pour but de diminuer l'utilisation des ressources par wineserver dans les jeux sollicitant fortement le CPU. L'activer pourrait améliorer les performances avec les noyaux Linux supportés.",
         "game_language": {
@@ -259,14 +261,14 @@
         },
         "vkd3d": "VKD3D est une interface de compatibilité basée sur Vulkan pour les jeux nécessitant DirectX 12. L'activer pourrait grandement améliorer la compatibilité. N'a aucun effet sur les jeux utilisant des versions de DirectX plus anciennes.",
         "wine": {
-            "part1": "Heroic recherche des versions de Wine, Proton et CrossOver dans ces dossiers:",
+            "part1": "Heroic recherche des versions de Wine, Proton et CrossOver dans ces dossiers :",
             "part2": "Pour d'autres emplacements, utilisez un lien symbolique vers un de ces dossiers"
         }
     },
     "info": {
         "heroic": {
             "beta": "Beta",
-            "click-to-see-changelog": "Click to see changelog",
+            "click-to-see-changelog": "Cliquez pour voir le journal des modifications",
             "newReleases": "Mise à jour disponible !",
             "stable": "Stable",
             "version": "Version d'Heroic"
@@ -291,6 +293,9 @@
     },
     "install": {
         "path": "Sélectionner le chemin d'installation"
+    },
+    "label": {
+        "loading": "Chargement"
     },
     "library": {
         "refresh": "Actualiser",
@@ -333,7 +338,7 @@
             "remove": {
                 "steam": {
                     "corrupt": "{{game}} n'a pas pu être retiré de tous les utilisateurs de Steam trouvés. Voir les logs pour plus d'informations. Steam doit être redémarré pour que les changements soient pris en compte.",
-                    "success": "{{game}} a bien été retiré de Steam. Steam doit être redémarré pour prendre en compte ces changements.",
+                    "success": "{{game}} a bien été retiré de Steam. Un redémarrage de Steam est nécessaire pour prendre en compte ces changements.",
                     "title": "Retiré de Steam"
                 }
             },
@@ -382,7 +387,7 @@
                 "space_in_key": "Les noms de variables ne peuvent pas contenir d'espaces"
             },
             "example": "Ne PAS insérer le symbole \"=\" : par exemple, pour le paramètre \"MY_FLAG=123\", indiquer MY_FLAG dans NAME et 123 dans VALUE.",
-            "info": "Set environment variables to append to the command."
+            "info": "Définir des variables d'environnement à ajouter à la commande."
         },
         "gameargs": {
             "placeholder": "Insérez ici les arguments de lancement",
@@ -391,7 +396,7 @@
         "quote-args-with-spaces": "Attention : Assurez-vous de citer les args avec des espaces ! E.g. : \"chemin/avec espaces/\"",
         "wrapper": {
             "args": "Arguments",
-            "arguments_example": "Exemples d'arguments: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "arguments_example": "Exemples d'arguments : --arg --extra-file=\"file-path/ with/spaces\"",
             "exe": "Wrapper",
             "placeHolderKey": "Nouveau Wrapper",
             "placeHolderValue": "Arguments du Wrapper",
@@ -408,15 +413,16 @@
         "alt-gogdl-bin": "Utilisation du binaire GOGDL intégré...",
         "alt-legendary-bin": "Utilisation du binaire Legendary intégré...",
         "custom_themes_path": "Sélectionner le chemin où rechercher des fichiers CSS personnalisés",
+        "dxvkfpsvalue": "Entier positif (p. ex. 30, 60, ...)",
         "egs-prefix": "Prefix où EGS est installé",
-        "prefered_language": "2-char code (exemple: \"en\" ou \"fr\")"
+        "prefered_language": "2-char code (exemple : \"en\" ou \"fr\")"
     },
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
         "win": "Windows"
     },
-    "please-wait": "Please wait...",
+    "please-wait": "Veuillez patienter...",
     "progress": "Progression",
     "queue": {
         "label": {
@@ -452,6 +458,7 @@
         "disable_controller": "Désactiver la navigation à la manette dans Heroic",
         "discordRPC": "Activer Rich Presence dans Discord",
         "download-no-https": "Télécharger les jeux sans utiliser HTTPS (utile pour CDNs e.g. LanCache)",
+        "dxvkfpslimit": "Limiter le nombre d'images par secondes (DX9, 10 et 11)",
         "egs-sync": "Synchroniser avec l'installation d'Epic Games",
         "enableFSRHack": "Activer FSR Hack (la version de wine doit le prendre en charge)",
         "eosOverlay": {
@@ -479,7 +486,7 @@
         "FsrSharpnessStrenght": "Niveau de netteté pour FSR (FSR Sharpness Strength)",
         "fsync": "Activer Fsync",
         "gamemode": "Utiliser GameMode (Feral Game Mode doit être installé)",
-        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
+        "hideChangelogsOnStartup": "Ne pas afficher le journal de modifications au démarrage",
         "language": "Choix de la langue",
         "library_top_option": {
             "disabled": "Désactivé",
@@ -525,9 +532,9 @@
             "title": "Utiliser un .exe sur le préfixe"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Dossier de sauvegarde introuvable, veuillez le sélectionner manuellement",
             "placeholder": "Sélectionnez le dossier de sauvegarde exact des jeux",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Veuillez vérifier deux fois si le chemin est correct"
         },
         "select_theme": "Sélectionner le thème",
         "showfps": "Afficher les FPS (DX9, 10 et 11)",
@@ -565,7 +572,6 @@
         },
         "navbar": {
             "advanced": "Avancé",
-            "games_settings": "Paramètres de jeu",
             "games_settings_defaults": "Paramètres de jeu par défaut",
             "general": "Général",
             "log": "Log",
@@ -617,9 +623,9 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
-        "logging_out": "Logging out",
+        "logging_out": "Déconnexion",
         "logout": "Déconnexion",
-        "logout_confirmation": "Êtes-vous certain(e) de vouloir vous déconnecter?",
+        "logout_confirmation": "Êtes-vous certain(e) de vouloir vous déconnecter ?",
         "manageaccounts": "Comptes",
         "quit": "Quitter"
     },
@@ -635,7 +641,7 @@
         "actions": "Action",
         "manager": {
             "link": "Gestion de Wine",
-            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
+            "not-found": "Aucune version de Wine trouvée. Cliquez sur l'icône de rafraîchissement pour réessayer.",
             "title": "Gestion de Wine",
             "unzipping": "Décompression"
         },

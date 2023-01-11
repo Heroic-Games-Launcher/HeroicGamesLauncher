@@ -5,9 +5,13 @@ import {
   faArrowDownAZ,
   faArrowDownZA,
   faHeart,
-  faHardDrive as hardDriveSolid
+  faHardDrive as hardDriveSolid,
+  faCircleXmark as circleXmarkSolid
 } from '@fortawesome/free-solid-svg-icons'
-import { faHardDrive as hardDriveLight } from '@fortawesome/free-regular-svg-icons'
+import {
+  faHardDrive as hardDriveLight,
+  faCircleXmark as circleXmarkLight
+} from '@fortawesome/free-regular-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useCallback, useContext } from 'react'
@@ -43,8 +47,14 @@ export default React.memo(function ActionIcons({
     setShowHidden,
     showFavourites,
     refreshing,
-    setShowFavourites
+    setShowFavourites,
+    showNonAvailable,
+    setShowNonAvailable
   } = useContext(ContextProvider)
+
+  const toggleNonAvailable = useCallback(() => {
+    setShowNonAvailable(!showNonAvailable)
+  }, [showNonAvailable])
 
   const toggleShowHidden = useCallback(() => {
     setShowHidden(!showHidden)
@@ -62,14 +72,16 @@ export default React.memo(function ActionIcons({
     ? t('header.show_all_games', 'Show all games')
     : t('header.show_favourites_only', 'Show Favourites only')
 
+  const showNonAvailableTitle = showNonAvailable
+    ? t('header.hide_non_available_games', 'Hide non-available games')
+    : t('header.show_available_games', 'Show non-Available games')
+
   return (
     <div className="ActionIcons">
       <FormControl segmented small>
         {layout === 'grid' ? (
           <button
-            className={classNames('FormControl__button', {
-              active: layout === 'grid'
-            })}
+            className="FormControl__button"
             title={t('library.toggleLayout.list', 'Toggle to a list layout')}
             onClick={() => handleLayout('list')}
           >
@@ -80,7 +92,7 @@ export default React.memo(function ActionIcons({
           </button>
         ) : (
           <button
-            className={classNames('FormControl__button')}
+            className="FormControl__button"
             title={t('library.toggleLayout.grid', 'Toggle to a grid layout')}
             onClick={() => handleLayout('grid')}
           >
@@ -91,9 +103,7 @@ export default React.memo(function ActionIcons({
           </button>
         )}
         <button
-          className={classNames('FormControl__button', {
-            active: !sortDescending
-          })}
+          className="FormControl__button"
           title={
             sortDescending
               ? t('library.sortDescending', 'Sort Descending')
@@ -107,9 +117,7 @@ export default React.memo(function ActionIcons({
           />
         </button>
         <button
-          className={classNames('FormControl__button', {
-            active: sortInstalled
-          })}
+          className="FormControl__button"
           title={t('library.sortByStatus', 'Sort by Status')}
           onClick={() => toggleSortinstalled()}
         >
@@ -131,7 +139,17 @@ export default React.memo(function ActionIcons({
           />
         </button>
         <button
-          className={classNames('FormControl__button', { active: showHidden })}
+          className="FormControl__button"
+          title={showNonAvailableTitle}
+          onClick={toggleNonAvailable}
+        >
+          <FontAwesomeIcon
+            className="FormControl__segmentedFaIcon"
+            icon={showNonAvailable ? circleXmarkSolid : circleXmarkLight}
+          />
+        </button>
+        <button
+          className="FormControl__button"
           title={showHiddenTitle}
           onClick={toggleShowHidden}
         >

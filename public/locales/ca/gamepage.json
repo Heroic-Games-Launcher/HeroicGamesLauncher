@@ -34,6 +34,7 @@
         "uninstall": {
             "checkbox": "Treu el prefix: {{prefix}}{{newLine}}Avís: No es pot desfer i també traurà les desades de les quals no s'hagin fet còpies de seguretat.",
             "message": "Vols desinstal·lar aquest joc?",
+            "settingcheckbox": "Esborra la configuració i elimina el registre{{newLine}}Avís: Aquesta acció no es pot desfer. S'oblidarà qualsevol opció modificada i el registre s'esborrarà.",
             "title": "Desinstal·la"
         },
         "update": {

@@ -2,7 +2,7 @@ name: Build macOS
 
 on:
   pull_request:
-    branches: [main, beta]
+    branches: [main, stable]
   workflow_dispatch:
     inputs:
       version:
@@ -11,14 +11,14 @@ on:
 
 jobs:
   build:
-    runs-on: macos-11
+    runs-on: macos-latest
     steps:
       - name: Checkout repository.
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup NodeJS
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18'
       - name: Install modules.
         run: yarn
       - name: Build artifacts.
@@ -26,9 +26,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-      - name: Upload DMG.
-        uses: actions/upload-artifact@v2
+      - name: Upload x64.
+        uses: actions/upload-artifact@v3
         with:
-          name: mac-dmg
-          path: dist/Heroic*.dmg
+          name: mac-x64
+          path: dist/Heroic*x64.dmg
+          retention-days: 14
+      - name: Upload ARM64.
+        uses: actions/upload-artifact@v3
+        with:
+          name: mac-arm64
+          path: dist/Heroic*arm64.dmg
           retention-days: 14

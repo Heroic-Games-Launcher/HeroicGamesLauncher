@@ -115,9 +115,9 @@
         },
         "shortcuts": {
             "message": "Zástupci byli vytvořeni na ploše a v nabídce Start",
-            "message-mac": "Shortcuts were created on the Applications folder",
+            "message-mac": "Zástupci byli vytvořeni ve složce Aplikace",
             "message-remove": "Zástupci byli odebráni z plochy a nabídky Start",
-            "message-remove-mac": "Shortcuts were removed from the Applications folder",
+            "message-remove-mac": "Zástupci byli odstraněni ze složky Aplikace",
             "title": "Zástupci"
         },
         "sync": {
@@ -204,7 +204,6 @@
         "store": "Obchod",
         "title": "Název hry"
     },
-    "GameSettings": "Nastavení hry",
     "generic": {
         "error": {
             "component": "Nebyly nalezeny žádné hry - zkuste se odhlásit a znovu přihlásit nebo jednu z níže uvedených možností"
@@ -217,9 +216,11 @@
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
+        "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Ignorovat skryté",
         "platform": "Platforma",
         "show_all_games": "Zobrazit všechny hry",
+        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Zobrazit pouze oblíbené",
         "show_hidden": "Zobrazit skryté",
         "store": "Filtrovat obchod"
@@ -229,6 +230,7 @@
         "custom_themes_path": "Nepoužívejte soubory CSS z nedůvěryhodných zdrojů. V případě pochybností požádejte o kontrolu v našem Discord kanálu.",
         "custom_themes_wiki": "Zkontrolujte Wiki pro více podrobností o přidávání vlastních motivů. Klikněte sem.",
         "dxvk": "DXVK je překladová vrstva založená na Vulkanu pro hry DirectX 9, 10 a 11. Povolení může zlepšit kompatibilitu. Může ale způsobit problémy zejména u starších her s rozhraním DirectX.",
+        "dxvkfpslimit": "Nastavení limitu snímkové frekvence pro DXVK hry",
         "esync": "Cílem Esync je snížit režii wineserveru ve hrách náročných na výkon procesoru. Povolení může zlepšit výkon.",
         "fsync": "Cílem Fsync je snížit režii wineserveru ve hrách náročných na výkon procesoru. Povolení může zlepšit výkon na podporovaných jádrech Linuxu.",
         "game_language": {
@@ -291,6 +293,9 @@
     },
     "install": {
         "path": "Vyberte cestu instalace"
+    },
+    "label": {
+        "loading": "Načítání"
     },
     "library": {
         "refresh": "Obnovit",
@@ -408,6 +413,7 @@
         "alt-gogdl-bin": "Pomocí vestavěného GOGDL...",
         "alt-legendary-bin": "Pomocí vestavěného Legendary...",
         "custom_themes_path": "Vyberte cestu k vyhledávání vlastních souborů CSS",
+        "dxvkfpsvalue": "Kladná celočíselná hodnota (např. 30, 60, ...)",
         "egs-prefix": "Prefix kde je nainstalován EGS",
         "prefered_language": "2znakový kód (tj.: \"en\" nebo \"fr\")"
     },
@@ -452,6 +458,7 @@
         "disable_controller": "Zakázat navigaci v Heroic pomocí ovladače",
         "discordRPC": "Povolit Discord Rich Presence",
         "download-no-https": "Stahovat hry bez HTTPS (užitečné pro CDN, např. LanCache)",
+        "dxvkfpslimit": "Omezit FPS (DX9, 10 and 11)",
         "egs-sync": "Synchronizovat s nainstalovanými Epic Games",
         "enableFSRHack": "Povolte FSR Hack (verze Wine jej musí podporovat)",
         "eosOverlay": {
@@ -565,7 +572,6 @@
         },
         "navbar": {
             "advanced": "Pokročilé",
-            "games_settings": "Nastavení hry",
             "games_settings_defaults": "Výchozí nastavení her",
             "general": "Obecné",
             "log": "Protokol",
@@ -617,7 +623,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
-        "logging_out": "Logging out",
+        "logging_out": "Odhlašování",
         "logout": "Odhlásit se",
         "logout_confirmation": "Opravdu se chcete odhlásit?",
         "manageaccounts": "Spravovat účty",

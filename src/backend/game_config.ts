@@ -57,9 +57,10 @@ abstract class GameConfig {
       try {
         version = JSON.parse(readFileSync(path, 'utf-8'))['version']
       } catch (error) {
-        logError(`Config file is corrupted, please check ${path}`, {
-          prefix: LogPrefix.Backend
-        })
+        logError(
+          `Config file is corrupted, please check ${path}`,
+          LogPrefix.Backend
+        )
         version = 'v0'
       }
       // Legacy config file without a version field, it's a v0 config.
@@ -94,7 +95,7 @@ abstract class GameConfig {
       default:
         logError(
           `[${appName}]: Invalid config version '${version}' requested.`,
-          { prefix: LogPrefix.GameConfig }
+          LogPrefix.GameConfig
         )
         break
     }
@@ -103,14 +104,15 @@ abstract class GameConfig {
       // Upgrade done, we need to fully reload config.
       logInfo(
         `[${appName}]: Upgraded outdated ${version} config to ${currentGameConfigVersion}.`,
-        { prefix: LogPrefix.GameConfig }
+        LogPrefix.GameConfig
       )
       return GameConfig.reload(appName, currentGameConfigVersion)
     } else if (version !== currentGameConfigVersion) {
       // Upgrade failed.
-      logError(`[${appName}]: Failed to upgrade outdated ${version} config.`, {
-        prefix: LogPrefix.GameConfig
-      })
+      logError(
+        `[${appName}]: Failed to upgrade outdated ${version} config.`,
+        LogPrefix.GameConfig
+      )
     }
   }
 
@@ -223,7 +225,7 @@ class GameConfigV0 extends GameConfig {
       wineCrossoverBottle,
       wineVersion,
       useSteamRuntime
-    } = GlobalConfig.get().config
+    } = GlobalConfig.get().getSettings()
 
     // initialize generic defaults
     // TODO: I know more values can be moved that are not used in windows
@@ -239,7 +241,7 @@ class GameConfigV0 extends GameConfig {
       launcherArgs,
       nvidiaPrime,
       offlineMode,
-      enviromentOptions: enviromentOptions,
+      enviromentOptions: [...enviromentOptions],
       wrapperOptions,
       savesPath,
       showFps,
@@ -307,7 +309,9 @@ class GameConfigV0 extends GameConfig {
     // If the defaults change, they will automatically change.
     // Explicit overrides CANNOT be the same as defaults.
     // TODO(adityaruplaha): fix this
-    const globalConfig = new Map(Object.entries(GlobalConfig.get().config))
+    const globalConfig = new Map(
+      Object.entries(GlobalConfig.get().getSettings())
+    )
     const defaultedKeys = Object.entries(this.config)
       .filter(([key, value]) => globalConfig.get(key) === value)
       .map(([k]) => k)

@@ -119,8 +119,12 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
           <div className="dmItemList">
             <DownloadManagerHeader time="queued" />
             {plannendElements.length > 0 ? (
-              plannendElements.map((el, key) => (
-                <DownloadManagerItem key={key} element={el} current={false} />
+              plannendElements.map((el) => (
+                <DownloadManagerItem
+                  key={el.params.appName}
+                  element={el}
+                  current={false}
+                />
               ))
             ) : (
               <DownloadManagerItem current={false} />
@@ -138,7 +142,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
                   className="button is-text"
                   onClick={() => handleClearList()}
                 >
-                  ({t('queue.label.clear', 'Clear List')})
+                  {t('queue.label.clear', 'Clear List')}
                 </button>
               </h5>
             </span>
