@@ -548,7 +548,9 @@
         "steamruntime": "Steam 런타임 사용",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Wine 접두사 폴더",
-        "wineversion": "Wine 버전"
+        "wineversion": "Wine 버전",
+        "autoUpdateGames": "게임 자동 업데이트",
+        "ignoreGameUpdates": "게임 업데이트 무시"
     },
     "settings": {
         "battlEyeRuntime": {
