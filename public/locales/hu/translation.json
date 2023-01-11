@@ -548,7 +548,9 @@
         "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver palack",
         "wineprefix": "Wine prefix mappa",
-        "wineversion": "Wine verzió"
+        "wineversion": "Wine verzió",
+        "ignoreGameUpdates": "Figyelmen kívül hagyja a játékfrissítéseket",
+        "autoUpdateGames": "Játékok automatikus frissítése"
     },
     "settings": {
         "battlEyeRuntime": {
