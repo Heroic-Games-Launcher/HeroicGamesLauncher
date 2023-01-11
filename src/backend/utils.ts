@@ -901,16 +901,19 @@ export async function checkWineBeforeLaunch(
 ): Promise<boolean> {
   const wineIsValid = await validWine(gameSettings.wineVersion)
 
-  logError(
-    `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`,
-    LogPrefix.Backend
-  )
-  appendFileSync(
-    logFileLocation,
-    `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`
-  )
+  if (wineIsValid) {
+    return true
+  } else {
+    logError(
+      `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`,
+      LogPrefix.Backend
+    )
 
-  if (!wineIsValid) {
+    appendFileSync(
+      logFileLocation,
+      `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`
+    )
+
     // check if the default wine is valid now
     const { wineVersion: defaultwine } = GlobalConfig.get().getSettings()
     const defaultWineIsValid = await validWine(defaultwine)
@@ -952,7 +955,7 @@ export async function checkWineBeforeLaunch(
       }
     }
   }
-  return true
+  return false
 }
 
 export {

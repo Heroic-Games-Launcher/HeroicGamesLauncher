@@ -33,7 +33,6 @@ export default function WineVersionSelector() {
   useEffect(() => {
     const updateWine = async () => {
       const winePathExists = await window.api.pathExists(wineVersion.bin)
-      console.log('winePathExists', winePathExists, wineVersion.bin)
       if (!winePathExists) {
         return setValidWine(false)
       }
