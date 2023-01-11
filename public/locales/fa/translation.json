@@ -140,7 +140,11 @@
                 "install": "سرورهای اپیک در حال حاضر قطعی عمده دارند، بازی نمیتواند نصب شود!",
                 "update": "سرورهای اپیک در حال حاضر قطعی عمده دارند، بازی نمیتواند بهروزرسانی شود!"
             },
-            "title": "هشدار"
+            "title": "هشدار",
+            "wine-change": {
+                "message": "ما نتوانستیم نسخه شراب انتخابی را برای راه اندازی این عنوان ({{selectedWine}}) پیدا کنیم. {{newline}} ما یکی دیگر را پیدا کردیم، آیا می‌خواهید با استفاده از {{foundWine}} راه‌اندازی را ادامه دهید؟",
+                "title": "شراب پیدا نشد!"
+            }
         },
         "wineprefix": "انتخاب پوشه Wine Prefix",
         "yes": "بله"
@@ -151,7 +155,8 @@
         "login": "ورود",
         "sync": "همگام سازی",
         "syncing": "در حال همگام سازی",
-        "unsync": "عدم همگام سازی"
+        "unsync": "عدم همگام سازی",
+        "continue": "ادامه"
     },
     "controller": {
         "hints": {
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
-        }
+        },
+        "wine-path-invalid": "مسیر شراب نامعتبر است، لطفاً مسیر دیگری را انتخاب کنید."
     },
     "install": {
         "path": "انتخاب محل نصب"
@@ -647,5 +653,9 @@
         },
         "release": "Release Date",
         "size": "اندازه"
+    },
+    "externalLink": {
+        "warning": "شما در حال باز کردن یک پیوند خارجی هستید.",
+        "dontAskAgain": "دیگه نپرس"
     }
 }
