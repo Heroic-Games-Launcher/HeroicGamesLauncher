@@ -64,3 +64,10 @@ body {
   right: 0px;
   background: var(--osk-background);
 }
+
+.smallInputInfo {
+  font-size: var(--text-sm);
+  align-self: flex-start;
+  margin: var(--space-xs) 0 var(--space-3xs) var(--space-xs);
+  color: var(--text-secondary);
+}

@@ -448,7 +448,7 @@
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Seleziona un eseguibile alternativo da avviare",
         "checkForUpdatesOnStartup": "Controlla aggiornamenti di Heroic all'avvio",
-        "crossover-version": "Crossover Version",
+        "crossover-version": "Crossover/Wine Version",
         "custom_themes_path": "Percorso Temi Personalizzati",
         "customWineProton": "Percorsi di Wine/Proton personalizzati",
         "darktray": "Usa l'icona scura della barra delle applicazioni",

@@ -448,7 +448,7 @@
         "autovkd3d": "접두사에서 VKD3D 자동 설치/업데이트",
         "change-target-exe": "대체하여 실행할 EXE 선택",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
-        "crossover-version": "Crossover Version",
+        "crossover-version": "Crossover/Wine Version",
         "custom_themes_path": "Custom Themes Path",
         "customWineProton": "커스텀 Wine/Proton 경로",
         "darktray": "다크 트레이 아이콘 사용",

@@ -448,7 +448,7 @@
         "autovkd3d": "Tự động cài đặt/cập nhật DXVK trên prefix",
         "change-target-exe": "Chọn một EXE thay thế để chạy",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
-        "crossover-version": "Crossover Version",
+        "crossover-version": "Crossover/Wine Version",
         "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Đường dẫn Wine/Proton tùy chọn",
         "darktray": "Sử dụng icon tối",

@@ -448,7 +448,7 @@
         "autovkd3d": "Автоматично встановлювати/оновлювати VKD3D на префіксі",
         "change-target-exe": "Обрати для запуску альтернативний EXE файл",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
-        "crossover-version": "Crossover Version",
+        "crossover-version": "Crossover/Wine Version",
         "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Інші шляхи до Wine/Proton",
         "darktray": "Використовувати темну піктограму на панелі",

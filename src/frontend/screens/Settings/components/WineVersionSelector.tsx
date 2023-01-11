@@ -16,6 +16,7 @@ export default function WineVersionSelector() {
     defaultWineVersion
   )
   const [altWine, setAltWine] = useState<WineInstallation[]>([])
+  const [validWine, setValidWine] = useState(true)
 
   useEffect(() => {
     const getAltWine = async () => {
@@ -29,12 +30,23 @@ export default function WineVersionSelector() {
     getAltWine()
   }, [])
 
+  useEffect(() => {
+    const updateWine = async () => {
+      const winePathExists = await window.api.pathExists(wineVersion.bin)
+      if (!winePathExists) {
+        return setValidWine(false)
+      }
+      return setValidWine(true)
+    }
+    updateWine()
+  }, [wineVersion])
+
   return (
     <SelectField
       label={
         isLinux
           ? t('setting.wineversion')
-          : t('setting.crossover-version', 'Crossover Version')
+          : t('setting.crossover-version', 'Crossover/Wine Version')
       }
       htmlId="setWineVersion"
       onChange={(event) =>
@@ -45,6 +57,14 @@ export default function WineVersionSelector() {
       value={wineVersion.name}
       afterSelect={
         <>
+          {!validWine && (
+            <span className="smallInputInfo danger">
+              {t(
+                'infobox.wine-path-invalid',
+                'Wine Path is invalid, please select another one.'
+              )}
+            </span>
+          )}
           {isLinux && (
             <InfoBox text={t('infobox.wine-path', 'Wine Path')}>
               {wineVersion.bin}
@@ -62,7 +82,6 @@ export default function WineVersionSelector() {
                   <li>~/.local/share/lutris/runners/wine</li>
                   <li>~/.var/app/com.valvesoftware.Steam (Steam Flatpak)</li>
                   <li>/usr/share/steam</li>
-                  <li>Everywhere on the system (CrossOver Mac)</li>
                 </i>
               </ul>
               <span>{t('help.wine.part2')}</span>
@@ -71,8 +90,8 @@ export default function WineVersionSelector() {
         </>
       }
     >
-      {altWine.map(({ name }) => (
-        <option key={name}>{name}</option>
+      {altWine.map(({ name }, i) => (
+        <option key={i}>{name}</option>
       ))}
     </SelectField>
   )

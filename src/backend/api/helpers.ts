@@ -85,12 +85,6 @@ export const runWineCommand = async (args: WineCommandArgs) =>
 export const runWineCommandForGame = async (args: RunWineCommandArgs) =>
   ipcRenderer.invoke('runWineCommandForGame', args)
 
-export const requestAppSettings = async () =>
-  ipcRenderer.invoke('requestSettings', 'default') as Promise<AppSettings>
-
-export const requestGameSettings = async (appName: string) =>
-  ipcRenderer.invoke('requestSettings', appName) as Promise<GameSettings>
-
 export const onConnectivityChanged = async (
   callback: ConnectivityChangedCallback
 ) => ipcRenderer.on('connectivity-changed', callback)

@@ -448,7 +448,7 @@
         "autovkd3d": "VKD3D:n automaattinen asennus/päivitys prefixille",
         "change-target-exe": "Valitse vaihtoehtoinen EXE suoritettavaksi",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
-        "crossover-version": "Crossover Version",
+        "crossover-version": "Crossover/Wine Version",
         "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Mukautetut Wine/Proton sijainnit",
         "darktray": "Käytä tummaa ilmaisinalueen kuvaketta",
