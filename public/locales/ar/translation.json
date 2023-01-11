@@ -548,7 +548,9 @@
         "steamruntime": "استخدم بيئة تشغيل ستيم",
         "winecrossoverbottle": "قارورة كروس.أوفر",
         "wineprefix": "مجلد سابقة واين",
-        "wineversion": "إصدار واين"
+        "wineversion": "إصدار واين",
+        "autoUpdateGames": "تحديث الألعاب تلقائيًا",
+        "ignoreGameUpdates": "تجاهل تحديثات اللعبة"
     },
     "settings": {
         "battlEyeRuntime": {
