@@ -548,7 +548,9 @@
         "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Cartafol WinePrefix",
-        "wineversion": "Versión de Wine"
+        "wineversion": "Versión de Wine",
+        "ignoreGameUpdates": "Ignorar as actualizacións do xogo",
+        "autoUpdateGames": "Actualiza os xogos automaticamente"
     },
     "settings": {
         "battlEyeRuntime": {
