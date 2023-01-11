@@ -135,7 +135,11 @@
                 "install": "Epic Servers har et stort udfald lige nu, spillet kan ikke installeres!",
                 "import": "Epic Servers har et stort udfald lige nu, spillet kan ikke importeres!"
             },
-            "title": "Advarsel"
+            "title": "Advarsel",
+            "wine-change": {
+                "message": "Vi kunne ikke finde den valgte vinversion til at lancere denne titel ({{selectedWine}}). {{newline}} Vi fandt endnu en, vil du fortsætte med at lancere ved hjælp af {{foundWine}}?",
+                "title": "Vin ikke fundet!"
+            }
         },
         "default-steam-path": "Dampvej."
     },
@@ -183,7 +187,8 @@
         "wine-repfix": {
             "message": "Wine bruger det, der kaldes en WINEPREFIX til at indkapsle Windows-applikationer. Dette præfiks indeholder Wine-konfigurationsfilerne og en gengivelse af filhierarkiet af C: (hoveddisken på et Windows OS). I denne gengivelse af C:-drevet gemmes dine spillagringsfiler og afhængigheder installeret via winetricks."
         },
-        "warning": "Advarsel"
+        "warning": "Advarsel",
+        "wine-path-invalid": "Vinstien er ugyldig, vælg venligst en anden."
     },
     "button": {
         "go_to_library": "Gå til biblioteket",
@@ -191,7 +196,8 @@
         "syncing": "Synkroniserer",
         "unsync": "Fjern synkronisering",
         "login": "Log ind",
-        "cancel": "Afbestille"
+        "cancel": "Afbestille",
+        "continue": "Blive ved"
     },
     "help": {
         "esync": "Esync sigter mod at reducere vinserveroverhead i CPU-intensive spil. Aktivering kan forbedre ydeevnen.",
@@ -560,7 +566,9 @@
         "show_all_games": "Vis alle spil",
         "show_favourites_only": "Vis kun favoritter",
         "show_hidden": "Vis skjult",
-        "store": "Filterbutik"
+        "store": "Filterbutik",
+        "hide_non_available_games": "Skjul ikke-tilgængelige spil",
+        "show_available_games": "Vis ikke-tilgængelige spil"
     },
     "Settings": "Indstillinger",
     "sidebar": {
@@ -690,5 +698,9 @@
     "please-wait": "Vent venligst...",
     "label": {
         "loading": "Indlæser"
+    },
+    "externalLink": {
+        "warning": "Du er ved at åbne et eksternt link.",
+        "dontAskAgain": "Spørg ikke igen"
     }
 }
