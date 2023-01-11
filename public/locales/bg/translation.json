@@ -140,7 +140,11 @@
                 "install": "Сървърите на Epic в момента имат сериозни проблеми с връзката. Играта не може да бъде инсталирана!",
                 "update": "Сървърите на Epic в момента имат сериозни проблеми с връзката. Играта не може да бъде обновена!"
             },
-            "title": "Внимание"
+            "title": "Внимание",
+            "wine-change": {
+                "message": "Не можахме да намерим избраната винена версия, за да стартираме това заглавие ({{selectedWine}}). {{newline}} Намерихме още един, искате ли да продължите да стартирате с {{foundWine}}?",
+                "title": "Виното не е намерено!"
+            }
         },
         "wineprefix": "Изберете папка за префикс на Wine",
         "yes": "ДА"
@@ -151,7 +155,8 @@
         "login": "Влизане",
         "sync": "Синхронизиране",
         "syncing": "Синхронизиране",
-        "unsync": "Десинхронизиране"
+        "unsync": "Десинхронизиране",
+        "continue": "Продължаване"
     },
     "controller": {
         "hints": {
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
-        }
+        },
+        "wine-path-invalid": "Wine Path е невалиден, моля, изберете друг."
     },
     "install": {
         "path": "Изберете местоположение за инсталиране"
@@ -647,5 +653,9 @@
         },
         "release": "Дата на изданието",
         "size": "Размер"
+    },
+    "externalLink": {
+        "dontAskAgain": "Не питай отново",
+        "warning": "На път сте да отворите външна връзка."
     }
 }
