@@ -605,27 +605,40 @@ ipcMain.handle('runWineCommand', async (e, args) => runWineCommand(args))
 /// IPC handlers begin here.
 
 ipcMain.handle('checkGameUpdates', async (): Promise<string[]> => {
-  const epicUpdates = await LegendaryLibrary.get().listUpdateableGames()
-  const gogUpdates = await GOGLibrary.get().listUpdateableGames()
+  let epicUpdates = await LegendaryLibrary.get().listUpdateableGames()
+  let gogUpdates = await GOGLibrary.get().listUpdateableGames()
 
   const { autoUpdateGames } = GlobalConfig.get().getSettings()
   if (autoUpdateGames) {
     epicUpdates.forEach(async (appName) => {
       const game = getGame(appName, 'legendary')
       const { ignoreGameUpdates } = await game.getSettings()
+      const gameInfo = game.getGameInfo()
       if (!ignoreGameUpdates) {
-        const gameInfo = game.getGameInfo()
+        logInfo(`Auto-Updating ${gameInfo.title}`, LogPrefix.Legendary)
         const dmQueueElement: DMQueueElement = getDMElement(gameInfo, appName)
         addToQueue(dmQueueElement)
+        // remove from the array to avoid downloading the same game twice
+        epicUpdates = epicUpdates.filter((game) => game !== appName)
+      } else {
+        logInfo(
+          `Skipping auto-update for ${gameInfo.title}`,
+          LogPrefix.Legendary
+        )
       }
     })
     gogUpdates.forEach(async (appName) => {
       const game = getGame(appName, 'gog')
       const { ignoreGameUpdates } = await game.getSettings()
+      const gameInfo = game.getGameInfo()
       if (!ignoreGameUpdates) {
-        const gameInfo = game.getGameInfo()
+        logInfo(`Auto-Updating ${gameInfo.title}`, LogPrefix.Gog)
         const dmQueueElement: DMQueueElement = getDMElement(gameInfo, appName)
         addToQueue(dmQueueElement)
+        // remove from the array to avoid downloading the same game twice
+        gogUpdates = gogUpdates.filter((game) => game !== appName)
+      } else {
+        logInfo(`Skipping auto-update for ${gameInfo.title}`, LogPrefix.Gog)
       }
     })
   }
