@@ -139,7 +139,7 @@ async function getDefaultGogSavePaths(
     SAVED_GAMES: '%USERPROFILE%/Saved Games',
     APPLICATION_DATA_LOCAL: '%LOCALAPPDATA%',
     APPLICATION_DATA_LOCAL_LOW: '%APPDATA%\\..\\LocalLow',
-    APPLICATION_DATA_ROAMING: '%APPDATA',
+    APPLICATION_DATA_ROAMING: '%APPDATA%',
     APPLICATION_SUPPORT: '$HOME/Library/Application Support',
     DOCUMENTS: game.isNative()
       ? app.getPath('documents')
