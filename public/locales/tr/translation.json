@@ -548,7 +548,9 @@
         "steamruntime": "Steam Çalışma Zamanını Kullan",
         "winecrossoverbottle": "CrossOver Şişesi",
         "wineprefix": "WinePrefix klasörü",
-        "wineversion": "Wine Sürümü"
+        "wineversion": "Wine Sürümü",
+        "autoUpdateGames": "Oyunları otomatik olarak güncelle",
+        "ignoreGameUpdates": "Oyun güncellemelerini yoksay"
     },
     "settings": {
         "battlEyeRuntime": {
