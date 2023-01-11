@@ -393,7 +393,9 @@
         "addgamestosteam": "Tilføj spil til Steam automatisk",
         "custom_themes_path": "Sti til brugerdefinerede temaer",
         "hideChangelogsOnStartup": "Vis ikke ændringslogs ved opstart",
-        "dxvkfpslimit": "Begræns FPS (DX9, 10 og 11)"
+        "dxvkfpslimit": "Begræns FPS (DX9, 10 og 11)",
+        "autoUpdateGames": "Opdater spil automatisk",
+        "ignoreGameUpdates": "Ignorer spilopdateringer"
     },
     "wine": {
         "manager": {
