@@ -548,7 +548,9 @@
         "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix கோப்புறை",
-        "wineversion": "Wine பதிப்பு"
+        "wineversion": "Wine பதிப்பு",
+        "autoUpdateGames": "கேம்களை தானாகவே புதுப்பிக்கவும்",
+        "ignoreGameUpdates": "கேம் புதுப்பிப்புகளைப் புறக்கணிக்கவும்"
     },
     "settings": {
         "battlEyeRuntime": {
