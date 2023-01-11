@@ -548,7 +548,9 @@
         "steamruntime": "使用 Steam 執行環境",
         "winecrossoverbottle": "CrossOver 容器",
         "wineprefix": "WINEPREFIX文件夾",
-        "wineversion": "Wine 版本"
+        "wineversion": "Wine 版本",
+        "autoUpdateGames": "自動更新遊戲",
+        "ignoreGameUpdates": "忽略遊戲更新"
     },
     "settings": {
         "battlEyeRuntime": {
