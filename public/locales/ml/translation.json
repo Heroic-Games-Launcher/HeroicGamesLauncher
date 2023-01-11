@@ -140,7 +140,11 @@
                 "install": "Epic Servers are having major outage right now, the game cannot be installed!",
                 "update": "Epic Servers are having major outage right now, the game cannot be updated!"
             },
-            "title": "Warning"
+            "title": "Warning",
+            "wine-change": {
+                "message": "ഈ ശീർഷകം ({{selectedWine}}) സമാരംഭിക്കുന്നതിന് തിരഞ്ഞെടുത്ത വൈൻ പതിപ്പ് കണ്ടെത്താൻ ഞങ്ങൾക്ക് കഴിഞ്ഞില്ല. {{newline}} ഞങ്ങൾ മറ്റൊന്ന് കണ്ടെത്തി, നിങ്ങൾക്ക് {{foundWine}} ഉപയോഗിച്ച് സമാരംഭിക്കുന്നത് തുടരണോ?",
+                "title": "വീഞ്ഞ് കണ്ടെത്തിയില്ല!"
+            }
         },
         "wineprefix": "വൈനിരിക്കുന്ന അറ തിരഞ്ഞെടുക്കൂ",
         "yes": "ശരി"
@@ -151,7 +155,8 @@
         "login": "അകത്ത് കയറുക",
         "sync": "ഒന്നിപ്പിക്കൂ",
         "syncing": "ഒന്നിപ്പിക്കുന്നു",
-        "unsync": "പിരിക്കൂ"
+        "unsync": "പിരിക്കൂ",
+        "continue": "തുടരുക"
     },
     "controller": {
         "hints": {
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
-        }
+        },
+        "wine-path-invalid": "വൈൻ പാത്ത് അസാധുവാണ്, ദയവായി മറ്റൊന്ന് തിരഞ്ഞെടുക്കുക."
     },
     "install": {
         "path": "നടീലിടം തിരഞ്ഞെടുക്കൂ"
@@ -647,5 +653,9 @@
         },
         "release": "Release Date",
         "size": "Size"
+    },
+    "externalLink": {
+        "dontAskAgain": "വീണ്ടും ചോദിക്കരുത്",
+        "warning": "നിങ്ങൾ ഒരു ബാഹ്യ ലിങ്ക് തുറക്കാൻ പോകുകയാണ്."
     }
 }
