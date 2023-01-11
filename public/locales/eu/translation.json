@@ -548,7 +548,9 @@
         "steamruntime": "Erabili Steam Runtime",
         "winecrossoverbottle": "CrossOver botila",
         "wineprefix": "WinePrefix karpeta",
-        "wineversion": "Ardoaren Bertsioa"
+        "wineversion": "Ardoaren Bertsioa",
+        "autoUpdateGames": "Eguneratu jokoak automatikoki",
+        "ignoreGameUpdates": "Ez ikusi jokoaren eguneraketak"
     },
     "settings": {
         "battlEyeRuntime": {
