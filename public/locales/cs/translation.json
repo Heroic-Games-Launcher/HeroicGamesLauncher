@@ -548,7 +548,9 @@
         "steamruntime": "Použít služby Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Složka WinePrefix",
-        "wineversion": "Verze Wine"
+        "wineversion": "Verze Wine",
+        "autoUpdateGames": "Automaticky aktualizovat hry",
+        "ignoreGameUpdates": "Ignorovat aktualizace hry"
     },
     "settings": {
         "battlEyeRuntime": {
