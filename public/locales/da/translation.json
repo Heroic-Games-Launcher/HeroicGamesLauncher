@@ -350,7 +350,7 @@
             "updating": "Opdaterer..."
         },
         "wineprefix": "WinePrefix mappe",
-        "crossover-version": "Crossover version",
+        "crossover-version": "Crossover/Wine Version",
         "darktray": "Brug mørkt bakkeikon",
         "default-install-path": "Standard installationssti",
         "default-steam-path": "Standard Steam-sti",

@@ -291,7 +291,10 @@ abstract class GlobalConfig {
   public async getAlternativeWine(
     scanCustom = true
   ): Promise<WineInstallation[]> {
-    const macOsWineSet = await this.getMacOsWineSet()
+    if (isMac) {
+      const macOsWineSet = await this.getMacOsWineSet()
+      return [...macOsWineSet]
+    }
 
     if (!existsSync(`${heroicToolsPath}/wine`)) {
       mkdirSync(`${heroicToolsPath}/wine`, { recursive: true })
@@ -372,13 +375,7 @@ abstract class GlobalConfig {
       customWineSet = this.getCustomWinePaths()
     }
 
-    return [
-      ...defaultWineSet,
-      ...altWine,
-      ...proton,
-      ...customWineSet,
-      ...macOsWineSet
-    ]
+    return [...defaultWineSet, ...altWine, ...proton, ...customWineSet]
   }
 
   /**
@@ -474,6 +471,9 @@ abstract class GlobalConfig {
    * Uses the config version defined in `this.version`.
    */
   public abstract flush(): void
+
+  /** change a specific setting */
+  public abstract setSetting(key: string, value: unknown): void
 
   /**
    * Load the config file, upgrade if needed.
@@ -611,12 +611,20 @@ class GlobalConfigV0 extends GlobalConfig {
     } as AppSettings
   }
 
-  public async resetToDefaults() {
+  public setSetting(key: string, value: unknown) {
+    const config = this.getSettings()
+    config[key] = value
+    this.config = config
+    logInfo(`Heroic: Setting ${key} to ${JSON.stringify(value)}`)
+    return this.flush()
+  }
+
+  public resetToDefaults() {
     this.config = this.getFactoryDefaults()
     return this.flush()
   }
 
-  public async flush() {
+  public flush() {
     return this.writeToFile({
       defaultSettings: this.config,
       version: 'v0'

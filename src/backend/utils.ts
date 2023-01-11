@@ -11,7 +11,8 @@ import {
   RpcClient,
   SteamRuntime,
   Release,
-  GameInfo
+  GameInfo,
+  GameSettings
 } from 'common/types'
 import * as axios from 'axios'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
@@ -22,7 +23,7 @@ import {
   SpawnOptions,
   spawnSync
 } from 'child_process'
-import { existsSync, rmSync, stat } from 'graceful-fs'
+import { appendFileSync, existsSync, rmSync, stat } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
 import si from 'systeminformation'
@@ -58,6 +59,9 @@ import makeClient from 'discord-rich-presence-typescript'
 import { showDialogBoxModalAuto } from './dialog/dialog'
 import { getAppInfo } from './sideload/games'
 import { getMainWindow } from './main_window'
+import { GlobalConfig } from './config'
+import { GameConfig } from './game_config'
+import { validWine } from './launcher'
 
 const execAsync = promisify(exec)
 const statAsync = promisify(stat)
@@ -869,6 +873,89 @@ export const spawnAsync = async (
       })
     })
   })
+}
+
+async function ContinueWithFoundWine(
+  selectedWine: string,
+  foundWine: string
+): Promise<{ response: number }> {
+  const { response } = await dialog.showMessageBox({
+    title: i18next.t('box.warning.wine-change.title', 'Wine not found!'),
+    message: i18next.t('box.warning.wine-change.message', {
+      defaultValue:
+        'We could not find the selected wine version to launch this title ({{selectedWine}}). {{newline}} We found another one, do you want to continue launching using {{foundWine}} ?',
+      newline: '\n',
+      selectedWine: selectedWine,
+      foundWine: foundWine
+    }),
+    buttons: [i18next.t('box.yes'), i18next.t('box.no')]
+  })
+
+  return { response }
+}
+
+export async function checkWineBeforeLaunch(
+  appName: string,
+  gameSettings: GameSettings,
+  logFileLocation: string
+): Promise<boolean> {
+  const wineIsValid = await validWine(gameSettings.wineVersion)
+
+  if (wineIsValid) {
+    return true
+  } else {
+    logError(
+      `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`,
+      LogPrefix.Backend
+    )
+
+    appendFileSync(
+      logFileLocation,
+      `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`
+    )
+
+    // check if the default wine is valid now
+    const { wineVersion: defaultwine } = GlobalConfig.get().getSettings()
+    const defaultWineIsValid = await validWine(defaultwine)
+    if (defaultWineIsValid) {
+      const { response } = await ContinueWithFoundWine(
+        gameSettings.wineVersion.name,
+        defaultwine.name
+      )
+
+      if (response === 0) {
+        logInfo(`Changing wine version to ${defaultwine.name}`)
+        gameSettings.wineVersion = defaultwine
+        GameConfig.get(appName).setSetting('wineVersion', defaultwine)
+        return true
+      } else {
+        logInfo('User canceled the launch', LogPrefix.Backend)
+        return false
+      }
+    } else {
+      const wineList = await GlobalConfig.get().getAlternativeWine()
+      const firstFoundWine = wineList[0]
+
+      const isValidWine = await validWine(firstFoundWine)
+      if (firstFoundWine && isValidWine) {
+        const { response } = await ContinueWithFoundWine(
+          gameSettings.wineVersion.name,
+          firstFoundWine.name
+        )
+
+        if (response === 0) {
+          logInfo(`Changing wine version to ${firstFoundWine.name}`)
+          gameSettings.wineVersion = firstFoundWine
+          GameConfig.get(appName).setSetting('wineVersion', firstFoundWine)
+          return true
+        } else {
+          logInfo('User canceled the launch', LogPrefix.Backend)
+          return false
+        }
+      }
+    }
+  }
+  return false
 }
 
 export {
