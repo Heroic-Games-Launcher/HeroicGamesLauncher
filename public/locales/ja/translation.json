@@ -548,7 +548,9 @@
         "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver ボトル",
         "wineprefix": "Wineプレフィックスフォルダー",
-        "wineversion": "Wineバージョン"
+        "wineversion": "Wineバージョン",
+        "autoUpdateGames": "ゲームの自動更新",
+        "ignoreGameUpdates": "ゲームの更新を無視する"
     },
     "settings": {
         "battlEyeRuntime": {
