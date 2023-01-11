@@ -140,7 +140,11 @@
                 "install": "현재 Epic 서버에 큰 장애가 발생하여 게임을 설치할 수 없습니다!",
                 "update": "현재 Epic 서버에 큰 장애가 발생하여 게임을 업데이트할 수 없습니다!"
             },
-            "title": "경고"
+            "title": "경고",
+            "wine-change": {
+                "message": "이 타이틀({{selectedWine}})을 시작하기 위해 선택한 와인 버전을 찾을 수 없습니다. {{newline}} 다른 것을 찾았습니다. {{foundWine}}를 사용하여 계속 실행하시겠습니까?",
+                "title": "와인을 찾을 수 없습니다!"
+            }
         },
         "wineprefix": "WinePrefix 폴더 선택",
         "yes": "예"
@@ -151,7 +155,8 @@
         "login": "로그인",
         "sync": "싱크",
         "syncing": "싱크중",
-        "unsync": "싱크 해제"
+        "unsync": "싱크 해제",
+        "continue": "계속"
     },
     "controller": {
         "hints": {
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
-        }
+        },
+        "wine-path-invalid": "와인 경로가 잘못되었습니다. 다른 경로를 선택하십시오."
     },
     "install": {
         "path": "설치 경로 선택"
@@ -647,5 +653,9 @@
         },
         "release": "Release Date",
         "size": "Size"
+    },
+    "externalLink": {
+        "dontAskAgain": "다시 묻지 않음",
+        "warning": "외부 링크를 열려고 합니다."
     }
 }
