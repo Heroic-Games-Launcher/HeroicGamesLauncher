@@ -140,7 +140,11 @@
                 "install": "Epic Servers are having major outage right now, the game cannot be installed!",
                 "update": "Epic Servers are having major outage right now, the game cannot be updated!"
             },
-            "title": "Warning"
+            "title": "Warning",
+            "wine-change": {
+                "message": "このタイトル ({{selectedWine}}) を起動するために選択されたワイン バージョンが見つかりませんでした。 {{newline}} 別のものを見つけました。{{foundWine}} を使用して起動を続行しますか?",
+                "title": "ワインが見つかりません！"
+            }
         },
         "wineprefix": "Wineプレフィックスフォルダを選択します",
         "yes": "はい"
@@ -151,7 +155,8 @@
         "login": "Login",
         "sync": "同期",
         "syncing": "同期しています",
-        "unsync": "非同期"
+        "unsync": "非同期",
+        "continue": "Continue"
     },
     "controller": {
         "hints": {
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
-        }
+        },
+        "wine-path-invalid": "ワイン パスが無効です。別のものを選択してください。"
     },
     "install": {
         "path": "Select Install Path"
@@ -647,5 +653,9 @@
         },
         "release": "Release Date",
         "size": "Size"
+    },
+    "externalLink": {
+        "dontAskAgain": "二度と聞かない",
+        "warning": "外部リンクを開こうとしています。"
     }
 }
