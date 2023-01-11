@@ -140,7 +140,11 @@
                 "install": "Server Epic mengalami penghentian besar saat ini, gim tidak dapat dipasang!",
                 "update": "Server Epic mengalami penghentian besar saat ini, gim tidak dapat diperbarui!"
             },
-            "title": "Peringatan"
+            "title": "Peringatan",
+            "wine-change": {
+                "message": "Kami tidak dapat menemukan versi wine yang dipilih untuk meluncurkan judul ini ({{selectedWine}}). {{newline}} Kami menemukan yang lain, apakah Anda ingin melanjutkan peluncuran menggunakan {{foundWine}}?",
+                "title": "Anggur tidak ditemukan!"
+            }
         },
         "wineprefix": "Pilih Folder Prefiks Wine",
         "yes": "YA"
@@ -151,7 +155,8 @@
         "login": "Masuk",
         "sync": "Sinkronkan",
         "syncing": "Menyinkronkan",
-        "unsync": "Batalkan sinkronisasi"
+        "unsync": "Batalkan sinkronisasi",
+        "continue": "Lanjut"
     },
     "controller": {
         "hints": {
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine membutuhkan WINEPREFIX untuk menjalankan aplikasi Windows. Prefiks ini mengandung berkas konfigurasi Wine dan reproduksi dari struktur berkas yang ada dalam partisi C: (penyimpanan utama dalam OS Windows). Berkas yang disimpan dari hasil reproduksi ini adalah, penyimpanan save gim dan perangkat lunak lainnya yang terpasang melalui winetricks."
-        }
+        },
+        "wine-path-invalid": "Wine Path tidak valid, pilih yang lain."
     },
     "install": {
         "path": "Pilih Lokasi Pemasangan"
@@ -647,5 +653,9 @@
         },
         "release": "Release Date",
         "size": "Ukuran"
+    },
+    "externalLink": {
+        "dontAskAgain": "Jangan tanya lagi",
+        "warning": "Anda akan membuka tautan eksternal."
     }
 }
