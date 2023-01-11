@@ -140,7 +140,11 @@
                 "install": "Epicin palvelimilla on suuri katkos juuri nyt, peliä ei voi asentaa!",
                 "update": "Epic-palvelimilla on suuri katkos juuri nyt, peliä ei voi päivittää!"
             },
-            "title": "Varoitus"
+            "title": "Varoitus",
+            "wine-change": {
+                "title": "Viiniä ei löydy!",
+                "message": "Emme löytäneet valittua viiniversiota tämän kappaleen julkaisemiseksi ({{selectedWine}}). {{newline}} Löysimme toisen. Haluatko jatkaa käynnistämistä käyttämällä {{foundWine}}?"
+            }
         },
         "wineprefix": "Valitse Wine Prefix kansio",
         "yes": "KYLLÄ"
@@ -151,7 +155,8 @@
         "login": "Kirjaudu sisään",
         "sync": "Synkronoi",
         "syncing": "Synkronoidaan",
-        "unsync": "Älä synkronoi"
+        "unsync": "Älä synkronoi",
+        "continue": "Jatka"
     },
     "controller": {
         "hints": {
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
-        }
+        },
+        "wine-path-invalid": "Viinipolku on virheellinen, valitse toinen."
     },
     "install": {
         "path": "Valitse asennuspolku"
@@ -647,5 +653,9 @@
         },
         "release": "Release Date",
         "size": "Size"
+    },
+    "externalLink": {
+        "dontAskAgain": "Älä kysy uudelleen",
+        "warning": "Olet avaamassa ulkoista linkkiä."
     }
 }
