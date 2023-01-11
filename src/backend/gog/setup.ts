@@ -410,7 +410,8 @@ async function setup(
       ? gameInfo.install.install_path || ''
       : await getWinePath({
           path: gameInfo.install.install_path || '',
-          gameSettings
+          gameSettings,
+          variant: 'win'
         })
     let Language = 'english'
     // Load game language data
