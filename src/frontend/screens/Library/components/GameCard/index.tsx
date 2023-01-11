@@ -127,6 +127,11 @@ const GameCard = ({
     updateGameInfo()
   }, [status])
 
+  async function handleUpdate() {
+    if (gameInfo.runner !== 'sideload')
+      await updateGame({ appName, runner, gameInfo })
+  }
+
   const grid = forceCard || layout === 'grid'
   const isInstalling = status === 'installing' || status === 'updating'
   const isUpdating = status === 'updating'
@@ -153,11 +158,6 @@ const GameCard = ({
     : '100%'
 
   const imageSrc = getImageFormatting()
-
-  async function handleUpdate() {
-    if (gameInfo.runner !== 'sideload')
-      return updateGame({ appName, runner, gameInfo })
-  }
 
   function getImageFormatting() {
     const imageBase = cover

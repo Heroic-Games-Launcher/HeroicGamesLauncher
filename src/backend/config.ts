@@ -587,6 +587,7 @@ class GlobalConfigV0 extends GlobalConfig {
       addSteamShortcuts: false,
       preferSystemLibs: false,
       checkForUpdatesOnStartup: !isFlatpak,
+      autoUpdateGames: false,
       customWinePaths: isWindows ? null : [],
       defaultInstallPath: heroicInstallPath,
       libraryTopSection: 'disabled',
