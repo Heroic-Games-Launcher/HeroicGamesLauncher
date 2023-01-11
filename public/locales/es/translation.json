@@ -548,7 +548,9 @@
         "steamruntime": "Usar Steam Runtime",
         "winecrossoverbottle": "Botella de CrossOver",
         "wineprefix": "Carpeta de Prefijo de Wine",
-        "wineversion": "Versión de Wine"
+        "wineversion": "Versión de Wine",
+        "autoUpdateGames": "Actualizar juegos automáticamente",
+        "ignoreGameUpdates": "Ignorar las actualizaciones del juego"
     },
     "settings": {
         "battlEyeRuntime": {
