@@ -548,7 +548,9 @@
         "steamruntime": "Gunakan Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Folder Prefiks Wine",
-        "wineversion": "Versi Wine"
+        "wineversion": "Versi Wine",
+        "autoUpdateGames": "Perbarui game secara otomatis",
+        "ignoreGameUpdates": "Abaikan pembaruan game"
     },
     "settings": {
         "battlEyeRuntime": {
