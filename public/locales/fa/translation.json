@@ -548,7 +548,9 @@
         "steamruntime": "استفاده از Steam Runtime",
         "winecrossoverbottle": "CrossOver باتل",
         "wineprefix": "پوشه محل Wine",
-        "wineversion": "نسخه Wine"
+        "wineversion": "نسخه Wine",
+        "ignoreGameUpdates": "به‌روزرسانی‌های بازی را نادیده بگیرید",
+        "autoUpdateGames": "به روز رسانی خودکار بازی ها"
     },
     "settings": {
         "battlEyeRuntime": {
