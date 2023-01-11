@@ -548,7 +548,9 @@
         "steamruntime": "Використовувати Steam Runtime",
         "winecrossoverbottle": "Пляшка CrossOver",
         "wineprefix": "Тека префікса Wine",
-        "wineversion": "Версія Wine"
+        "wineversion": "Версія Wine",
+        "autoUpdateGames": "Автоматичне оновлення ігор",
+        "ignoreGameUpdates": "Ігнорувати оновлення гри"
     },
     "settings": {
         "battlEyeRuntime": {
