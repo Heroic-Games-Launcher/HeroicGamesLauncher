@@ -548,7 +548,9 @@
         "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix mapa",
-        "wineversion": "Wine Verzija"
+        "wineversion": "Wine Verzija",
+        "ignoreGameUpdates": "Ignorirajte ažuriranja igre",
+        "autoUpdateGames": "Automatski ažuriraj igre"
     },
     "settings": {
         "battlEyeRuntime": {
