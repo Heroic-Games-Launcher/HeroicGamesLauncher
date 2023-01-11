@@ -140,7 +140,11 @@
                 "install": "Epic Servers har stor driftsstans akkurat nå, spillet kan ikke installeres!",
                 "update": "Epic Servers har stor driftsstans akkurat nå, spillet kan ikke oppdateres!"
             },
-            "title": "Advarsel"
+            "title": "Advarsel",
+            "wine-change": {
+                "message": "Vi kunne ikke finne den valgte vinversjonen for å lansere denne tittelen ({{selectedWine}}). {{newline}} Vi fant en annen, vil du fortsette å lansere med {{foundWine}}?",
+                "title": "Finner ikke vin!"
+            }
         },
         "wineprefix": "Velg mappe for Wine-prefiks",
         "yes": "Ja"
@@ -151,7 +155,8 @@
         "login": "Logg inn",
         "sync": "Synkroniser",
         "syncing": "Synkroniserer …",
-        "unsync": "Omgjør synkronisering"
+        "unsync": "Omgjør synkronisering",
+        "continue": "Fortsette"
     },
     "controller": {
         "hints": {
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine bruker det som kalles WINEPREFIX for å kapsle inn Windows-applikasjoner. Dette prefikset inneholder Wine-konfigurasjonsfilene og en reproduksjon av filhierarkiet til C: (hoveddisken på et Windows-operativsystem). I denne reproduksjonen av C:-stasjonen, lagres spilllagringsfiler og avhengigheter installert via vintriks."
-        }
+        },
+        "wine-path-invalid": "Vinstien er ugyldig. Velg en annen."
     },
     "install": {
         "path": "Velg Installer bane"
@@ -647,5 +653,9 @@
         },
         "release": "Utgivelsesdato",
         "size": "Størrelse"
+    },
+    "externalLink": {
+        "dontAskAgain": "Ikke spør igjen",
+        "warning": "Du er i ferd med å åpne en ekstern lenke."
     }
 }
