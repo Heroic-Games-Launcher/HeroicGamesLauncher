@@ -5,7 +5,9 @@ import {
   GameSettings,
   DiskSpaceData,
   StatusPromise,
-  GamepadInputEvent
+  GamepadInputEvent,
+  DMQueueElement,
+  GameInfo
 } from 'common/types'
 import * as path from 'path'
 import {
@@ -113,7 +115,7 @@ import { gameInfoStore } from './legendary/electronStores'
 import { getFonts } from 'font-list'
 import { runWineCommand, verifyWinePrefix } from './launcher'
 import shlex from 'shlex'
-import { initQueue } from './downloadmanager/downloadqueue'
+import { addToQueue, initQueue } from './downloadmanager/downloadqueue'
 import {
   initOnlineMonitor,
   isOnline,
@@ -604,10 +606,45 @@ ipcMain.handle('runWineCommand', async (e, args) => runWineCommand(args))
 /// IPC handlers begin here.
 
 ipcMain.handle('checkGameUpdates', async (): Promise<string[]> => {
-  return [
-    ...(await LegendaryLibrary.get().listUpdateableGames()),
-    ...(await GOGLibrary.get().listUpdateableGames())
-  ]
+  let epicUpdates = await LegendaryLibrary.get().listUpdateableGames()
+  let gogUpdates = await GOGLibrary.get().listUpdateableGames()
+
+  const { autoUpdateGames } = GlobalConfig.get().getSettings()
+  if (autoUpdateGames) {
+    epicUpdates.forEach(async (appName) => {
+      const game = getGame(appName, 'legendary')
+      const { ignoreGameUpdates } = await game.getSettings()
+      const gameInfo = game.getGameInfo()
+      if (!ignoreGameUpdates) {
+        logInfo(`Auto-Updating ${gameInfo.title}`, LogPrefix.Legendary)
+        const dmQueueElement: DMQueueElement = getDMElement(gameInfo, appName)
+        addToQueue(dmQueueElement)
+        // remove from the array to avoid downloading the same game twice
+        epicUpdates = epicUpdates.filter((game) => game !== appName)
+      } else {
+        logInfo(
+          `Skipping auto-update for ${gameInfo.title}`,
+          LogPrefix.Legendary
+        )
+      }
+    })
+    gogUpdates.forEach(async (appName) => {
+      const game = getGame(appName, 'gog')
+      const { ignoreGameUpdates } = await game.getSettings()
+      const gameInfo = game.getGameInfo()
+      if (!ignoreGameUpdates) {
+        logInfo(`Auto-Updating ${gameInfo.title}`, LogPrefix.Gog)
+        const dmQueueElement: DMQueueElement = getDMElement(gameInfo, appName)
+        addToQueue(dmQueueElement)
+        // remove from the array to avoid downloading the same game twice
+        gogUpdates = gogUpdates.filter((game) => game !== appName)
+      } else {
+        logInfo(`Skipping auto-update for ${gameInfo.title}`, LogPrefix.Gog)
+      }
+    })
+  }
+
+  return [...epicUpdates, ...gogUpdates]
 })
 
 ipcMain.handle('getEpicGamesStatus', async () => isEpicServiceOffline())
@@ -1567,6 +1604,27 @@ ipcMain.handle('isNative', (e, { appName, runner }) => {
   const game = getGame(appName, runner)
   return game.isNative()
 })
+
+function getDMElement(gameInfo: GameInfo, appName: string) {
+  const {
+    install: { install_path, platform },
+    runner
+  } = gameInfo
+  const dmQueueElement: DMQueueElement = {
+    params: {
+      appName,
+      gameInfo,
+      runner,
+      path: install_path!,
+      platformToInstall: platform!
+    },
+    type: 'update',
+    addToQueueTime: Date.now(),
+    endTime: 0,
+    startTime: 0
+  }
+  return dmQueueElement
+}
 
 ipcMain.handle('pathExists', async (e, path: string) => {
   return existsSync(path)

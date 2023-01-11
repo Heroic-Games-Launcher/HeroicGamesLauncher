@@ -117,7 +117,7 @@ function addToQueue(element: DMQueueElement) {
 
   downloadManager.set('queue', elements)
   logInfo(
-    [element.params.appName, 'added to download manager queue.'],
+    [element.params.gameInfo.title, ' was added to the download queue.'],
     LogPrefix.DownloadManager
   )
 

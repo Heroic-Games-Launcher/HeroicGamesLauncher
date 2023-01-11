@@ -417,7 +417,7 @@ class LegendaryGame extends Game {
 
     logInfo(
       [
-        `Progress for ${this.appName}:`,
+        `Progress for ${this.getGameInfo().title}:`,
         `${percent}%/${bytes}MiB/${eta}`.trim(),
         `Down: ${downSpeed}MiB/s / Disk: ${diskSpeed}MiB/s`
       ],

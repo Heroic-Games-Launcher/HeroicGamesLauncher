@@ -14,7 +14,7 @@
 .Settings .Field,
 .Accessibility .Field,
 .InstallModal__dialog .Field {
-  margin: var(--space-md) 0px;
+  padding: var(--space-md) 0px;
   width: 100%;
 }
 
