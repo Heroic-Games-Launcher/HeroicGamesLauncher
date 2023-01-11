@@ -140,7 +140,11 @@
                 "install": "Os Servidores Epic estão tendo grandes interrupções no momento, o jogo não pode ser instalado!",
                 "update": "Os Servidores Epic estão tendo grandes interrupções no momento, o jogo não pode ser atualizado!"
             },
-            "title": "Aviso"
+            "title": "Aviso",
+            "wine-change": {
+                "message": "Não foi possível encontrar a versão do vinho selecionada para lançar este título ({{selectedWine}}). {{newline}} Encontramos outro, deseja continuar iniciando usando {{foundWine}}?",
+                "title": "Vinho não encontrado!"
+            }
         },
         "wineprefix": "Selecione a pasta do prefixo Wine",
         "yes": "SIM"
@@ -151,7 +155,8 @@
         "login": "Conecte-se",
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
-        "unsync": "Dessincronizar"
+        "unsync": "Dessincronizar",
+        "continue": "Prosseguir"
     },
     "controller": {
         "hints": {
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "O Wine usa o que é chamado de prefixo Wine para encapsular aplicativos do Windows. Este prefixo contém os arquivos de configuração do Wine e uma reprodução da hierarquia de arquivos de C: (o disco principal em um sistema operacional Windows). Nesta reprodução da unidade C:, são armazenados os arquivos salvos do jogo e as dependências instaladas via winetricks."
-        }
+        },
+        "wine-path-invalid": "Wine Path é inválido, selecione outro."
     },
     "install": {
         "path": "Selecione o local de instalação"
@@ -647,5 +653,9 @@
         },
         "release": "Data de lançamento",
         "size": "Tamanho"
+    },
+    "externalLink": {
+        "dontAskAgain": "Não pergunte novamente",
+        "warning": "Você está prestes a abrir um link externo."
     }
 }
