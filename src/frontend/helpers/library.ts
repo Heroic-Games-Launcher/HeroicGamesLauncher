@@ -202,7 +202,7 @@ const launch = async ({
       return window.api.launch({
         appName,
         runner,
-        launchArguments: '--skip-version-check'
+        launchArguments: runner === 'legendary' ? '--skip-version-check' : ''
       })
     }
 

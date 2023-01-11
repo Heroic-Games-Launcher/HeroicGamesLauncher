@@ -130,21 +130,6 @@ const GameCard = ({
     return updateGame({ appName, runner, gameInfo })
   }
 
-  useEffect(() => {
-    const handleAutoUpdate = async () => {
-      if (!hasUpdate) {
-        return
-      }
-      const settings = await window.api.requestAppSettings()
-      const gameSettings = await window.api.requestGameSettings(appName)
-      // if has update check for the AutoUpdateGames setting and if true, call handleUpdate
-      if (settings.autoUpdateGames && !gameSettings.ignoreGameUpdates) {
-        handleUpdate()
-      }
-    }
-    handleAutoUpdate()
-  }, [hasUpdate])
-
   const grid = forceCard || layout === 'grid'
   const isInstalling = status === 'installing' || status === 'updating'
   const isUpdating = status === 'updating'
