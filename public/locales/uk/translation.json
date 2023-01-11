@@ -140,7 +140,11 @@
                 "install": "На серверах Epic сталася значна аварія, неможливо імпортувати гру!",
                 "update": "На серверах Epic сталася значна аварія, неможливо імпортувати гру!"
             },
-            "title": "Увага"
+            "title": "Увага",
+            "wine-change": {
+                "message": "Нам не вдалося знайти вибрану версію вина, щоб запустити цю назву ({{selectedWine}}). {{newline}} Ми знайшли ще один, чи бажаєте ви продовжити запуск за допомогою {{foundWine}}?",
+                "title": "Вино не знайдено!"
+            }
         },
         "wineprefix": "Оберіть теку префікса Wine",
         "yes": "ТАК"
@@ -151,7 +155,8 @@
         "login": "Увійти",
         "sync": "Синхронізувати",
         "syncing": "Синхронізація",
-        "unsync": "Десинхронізувати"
+        "unsync": "Десинхронізувати",
+        "continue": "Continue"
     },
     "controller": {
         "hints": {
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
-        }
+        },
+        "wine-path-invalid": "Wine Path недійсний, виберіть інший."
     },
     "install": {
         "path": "Вкажіть шлях встановлення"
@@ -647,5 +653,9 @@
         },
         "release": "Дата випуску",
         "size": "Розмір"
+    },
+    "externalLink": {
+        "dontAskAgain": "Більше не питай",
+        "warning": "Ви збираєтеся відкрити зовнішнє посилання."
     }
 }
