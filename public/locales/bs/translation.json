@@ -140,7 +140,11 @@
                 "install": "Epic serveri trenutno imaju veliki prekid rada, video igra se ne može instalirati!",
                 "update": "Epic serveri trenutno imaju veliki prekid rada, video igra se ne može ažurirati!"
             },
-            "title": "Upozorenje"
+            "title": "Upozorenje",
+            "wine-change": {
+                "title": "Vino nije pronađeno!",
+                "message": "Nismo mogli pronaći odabranu verziju vina za lansiranje ovog naslova ({{selectedWine}}). {{newline}} Pronašli smo još jedan, da li želite da nastavite sa pokretanjem koristeći {{foundWine}} ?"
+            }
         },
         "wineprefix": "Odaberite Wine Prefix mapu",
         "yes": "DA"
@@ -151,7 +155,8 @@
         "login": "Prijavite se",
         "sync": "Sinhronizirajte",
         "syncing": "Sinhronizanje",
-        "unsync": "Desinhronizirajte"
+        "unsync": "Desinhronizirajte",
+        "continue": "Nastavi"
     },
     "controller": {
         "hints": {
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine koristi ono što se zove WINEPREFIX da inkapsulira Windows aplikacije. Ovaj prefiks sadrži Wine konfiguracijske datoteke i reprodukciju hijerarhije datoteka C: (glavni disk na Windows OS-u). U ovoj reprodukciji C: diska, pohranjuju se datoteke za spremanje vaše igre i ovisnosti instalirane putem winetricks-a."
-        }
+        },
+        "wine-path-invalid": "Wine Path je nevažeći, molimo odaberite drugi."
     },
     "install": {
         "path": "Izaberi put instalacije"
@@ -647,5 +653,9 @@
         },
         "release": "Datum izlaska",
         "size": "Veličina"
+    },
+    "externalLink": {
+        "dontAskAgain": "Ne pitaj ponovo",
+        "warning": "Upravo ćete otvoriti vanjski link."
     }
 }
