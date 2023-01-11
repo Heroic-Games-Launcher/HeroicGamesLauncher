@@ -35,7 +35,8 @@
             "checkbox": "Выдаліць прэфікс: {{prefix}}{{newLine}}Заўвага: гэта нельга адрабіць, а таксама прывядзе да выдалення файлаў захавання, у якіх няма рэзервовых копій.",
             "message": "Вы хочаце выдаліць гэтую гульню?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
-            "title": "Выдаліць"
+            "title": "Выдаліць",
+            "prefix_warning": "Прэфікс Wine для гэтай гульні з'яўляецца прэфіксам па змаўчанні. Калі вы сапраўды хочаце выдаліць яго, вы павінны зрабіць гэта ўручную."
         },
         "update": {
             "message": "Да гэтай гульні ёсць абнаўленне. Усталяваць абнаўленне?",
@@ -67,7 +68,8 @@
         },
         "unhide_game": "Гульня Unhide",
         "uninstall": "Выдаліць",
-        "update": "Абнаўленне"
+        "update": "Абнаўленне",
+        "details": "Дэталі"
     },
     "cloud_save_unsupported": "Не падтрымліваецца",
     "disabled": "Інваліды",
