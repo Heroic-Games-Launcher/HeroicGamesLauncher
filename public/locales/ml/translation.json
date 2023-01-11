@@ -548,7 +548,9 @@
         "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "ക്രോസ്സോവര് കുപ്പി",
         "wineprefix": "വൈനിരിക്കുന്ന അറ",
-        "wineversion": "വൈനിന്റെ പതിപ്പ്"
+        "wineversion": "വൈനിന്റെ പതിപ്പ്",
+        "autoUpdateGames": "ഗെയിമുകൾ യാന്ത്രികമായി അപ്ഡേറ്റ് ചെയ്യുക",
+        "ignoreGameUpdates": "ഗെയിം അപ്‌ഡേറ്റുകൾ അവഗണിക്കുക"
     },
     "settings": {
         "battlEyeRuntime": {
