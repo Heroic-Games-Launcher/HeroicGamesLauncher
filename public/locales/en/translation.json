@@ -593,10 +593,6 @@
         }
     },
     "Settings": "Settings",
-    "sidebar": {
-        "collapse": "Collapse sidebar",
-        "uncollapse": "Uncollapse sidebar"
-    },
     "status": {
         "installing": "Installing",
         "logging": "Logging In...",

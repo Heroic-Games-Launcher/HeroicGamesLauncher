@@ -49,11 +49,6 @@ html,
 .App .content .UpdateComponent--topLevel {
   height: 100vh;
   position: initial;
-  width: var(--content-width);
-}
-
-.App .content .UpdateComponent--topLevel.collapsed {
-  width: var(--content-width);
 }
 
 .App .controller {
