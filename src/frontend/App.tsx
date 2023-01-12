@@ -11,7 +11,6 @@ import Sidebar from './components/UI/Sidebar'
 import Settings from './screens/Settings'
 import Accessibility from './screens/Accessibility'
 import ContextProvider from './state/ContextProvider'
-import classNames from 'classnames'
 import { ControllerHints, OfflineMessage } from './components/UI'
 import DownloadManager from './screens/DownloadManager'
 import DialogHandler from './components/UI/DialogHandler'
@@ -19,13 +18,10 @@ import SettingsModal from './screens/Settings/components/SettingsModal'
 import ExternalLinkDialog from './components/UI/ExternalLinkDialog'
 
 function App() {
-  const { sidebarCollapsed, isSettingsModalOpen } = useContext(ContextProvider)
+  const { isSettingsModalOpen } = useContext(ContextProvider)
 
   return (
-    <div
-      id="app"
-      className={classNames('App', { collapsed: sidebarCollapsed })}
-    >
+    <div id="app" className="App">
       <HashRouter>
         <OfflineMessage />
         <Sidebar />

@@ -14,6 +14,8 @@
   background: var(--navbar-background);
   overflow: auto;
   overflow-x: hidden;
+  --sidebar-width: 350px;
+  width: var(--sidebar-width);
 }
 
 .Sidebar.collapsed {
@@ -46,14 +48,13 @@
   border-radius: 0;
 }
 
-.App.collapsed .Sidebar__item {
+.collapsed .Sidebar__item {
   padding: var(--space-xs) 0;
 }
 
-.App.collapsed .Sidebar__itemIcon {
+.collapsed .Sidebar__itemIcon {
   margin: 0 auto;
 }
-
 .Sidebar__item:focus-visible {
   outline: 2px solid var(--text-hover);
   outline-offset: -2px;
@@ -132,9 +133,32 @@
   color: var(--accent-overlay);
 }
 
-.Sidebar.collapsed .heroicVersion {
-  margin: var(--space-sm);
-  font-size: var(--text-xs);
+.currentDownloads .statusIcon {
+  display: none;
+}
+
+.Sidebar.collapsed {
+  .heroicVersion {
+    margin: var(--space-sm);
+    font-size: var(--text-xs);
+    text-align: center;
+    &__title {
+      display: none;
+    }
+  }
+
+  .heroicNewReleases {
+    display: none;
+  }
+
+  .currentDownloads {
+    .statusIcon {
+      display: block;
+    }
+    .full-size {
+      display: none;
+    }
+  }
 }
 
 .Sidebar.collapsed .divider {

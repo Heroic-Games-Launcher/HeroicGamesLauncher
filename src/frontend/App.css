@@ -27,16 +27,9 @@ html,
 .App {
   text-align: center;
   display: grid;
-  grid-template-columns: var(--sidebar-width) 1fr;
+  grid-template-columns: min-content 1fr;
   grid-template-areas: 'offline offline' 'sidebar content' 'controller controller';
   grid-template-rows: min-content 1fr min-content;
-  --content-width: calc(100vw - var(--sidebar-width));
-}
-
-.App.collapsed {
-  --sidebar-width: 68px;
-  --content-width: calc(100vw - var(--sidebar-width));
-  grid-template-columns: var(--sidebar-width) 1fr;
 }
 
 .App .Sidebar {

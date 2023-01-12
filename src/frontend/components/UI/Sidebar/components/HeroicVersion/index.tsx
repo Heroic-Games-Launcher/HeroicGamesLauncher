@@ -24,12 +24,8 @@ export default React.memo(function HeroicVersion() {
   const [showChangelogModalOnClick, setShowChangelogModalOnClick] =
     useState(false)
 
-  const {
-    sidebarCollapsed,
-    hideChangelogsOnStartup,
-    lastChangelogShown,
-    setLastChangelogShown
-  } = useContext(ContextProvider)
+  const { hideChangelogsOnStartup, lastChangelogShown, setLastChangelogShown } =
+    useContext(ContextProvider)
 
   useEffect(() => {
     window.api.getHeroicVersion().then((version) => {
@@ -52,11 +48,9 @@ export default React.memo(function HeroicVersion() {
   const newBeta: Release | undefined = newReleases?.filter(
     (r) => r.type === 'beta'
   )[0]
-  const shouldShowUpdates = !sidebarCollapsed && (newBeta || newStable)
+  const shouldShowUpdates = true // newBeta || newStable
 
-  const version = sidebarCollapsed
-    ? heroicVersion.replace('-beta', 'b')
-    : heroicVersion
+  const version = heroicVersion
 
   return (
     <>
@@ -81,11 +75,9 @@ export default React.memo(function HeroicVersion() {
         )}
         onClick={() => setShowChangelogModalOnClick((current) => !current)}
       >
-        {!sidebarCollapsed && (
-          <span>
-            <span>{t('info.heroic.version', 'Heroic Version')}: </span>
-          </span>
-        )}
+        <span className="heroicVersion__title">
+          <span>{t('info.heroic.version', 'Heroic Version')}: </span>
+        </span>
         <strong>{version}</strong>
       </div>
       {shouldShowUpdates && (
