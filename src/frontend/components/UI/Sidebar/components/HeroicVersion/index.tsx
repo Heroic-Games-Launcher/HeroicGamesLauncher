@@ -48,7 +48,7 @@ export default React.memo(function HeroicVersion() {
   const newBeta: Release | undefined = newReleases?.filter(
     (r) => r.type === 'beta'
   )[0]
-  const shouldShowUpdates = true // newBeta || newStable
+  const shouldShowUpdates = newBeta || newStable
 
   const version = heroicVersion
 
