@@ -271,6 +271,9 @@
         }
     },
     "info": {
+        "gamepage": {
+            "extra": "Extra"
+        },
         "heroic": {
             "beta": "Beta",
             "click-to-see-changelog": "Click to see changelog",
