@@ -261,7 +261,7 @@ export default function GamesSubmenu({
                 onClick={async () => setShowUninstallModal(true)}
                 className="link button is-text is-link"
               >
-                {t('button.uninstall')}
+                {t('button.uninstall', 'Uninstall')}
               </button>{' '}
               {!isSideloaded && (
                 <button
@@ -277,7 +277,7 @@ export default function GamesSubmenu({
                   onClick={async () => handleMoveInstall()}
                   className="link button is-text is-link"
                 >
-                  {t('submenu.move')}
+                  {t('submenu.move', 'Move Game')}
                 </button>
               )}{' '}
               {!isSideloaded && (
@@ -285,7 +285,7 @@ export default function GamesSubmenu({
                   onClick={async () => handleChangeInstall()}
                   className="link button is-text is-link"
                 >
-                  {t('submenu.change')}
+                  {t('submenu.change', 'Change Install Location')}
                 </button>
               )}{' '}
               {!isSideloaded && (
@@ -293,7 +293,7 @@ export default function GamesSubmenu({
                   onClick={async () => handleRepair(appName)}
                   className="link button is-text is-link"
                 >
-                  {t('submenu.verify')}
+                  {t('submenu.verify', 'Verify and Repair')}
                 </button>
               )}{' '}
               {isLinux &&
@@ -320,12 +320,12 @@ export default function GamesSubmenu({
               {t('submenu.store')}
             </NavLink>
           )}
-          {!isSideloaded && !isWin && (
+          {!isSideloaded && isLinux && (
             <button
               onClick={() => createNewWindow(protonDBurl)}
               className="link button is-text is-link"
             >
-              {t('submenu.protondb')}
+              {t('submenu.protondb', 'Check Compatibility')}
             </button>
           )}
           {!isSideloaded && (
