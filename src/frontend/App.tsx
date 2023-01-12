@@ -22,7 +22,10 @@ function App() {
   const { sidebarCollapsed, isSettingsModalOpen } = useContext(ContextProvider)
 
   return (
-    <div className={classNames('App', { collapsed: sidebarCollapsed })}>
+    <div
+      id="app"
+      className={classNames('App', { collapsed: sidebarCollapsed })}
+    >
       <HashRouter>
         <OfflineMessage />
         <Sidebar />

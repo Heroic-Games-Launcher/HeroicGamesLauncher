@@ -16,12 +16,6 @@
   /* Measurements */
 }
 
-@media screen and (max-width: 730px) {
-  * {
-    --sidebar-width: calc(var(--sidebar-width) - 1em);
-  }
-}
-
 body,
 html,
 #root,
@@ -36,7 +30,6 @@ html,
   grid-template-columns: var(--sidebar-width) 1fr;
   grid-template-areas: 'offline offline' 'sidebar content' 'controller controller';
   grid-template-rows: min-content 1fr min-content;
-  --sidebar-width: 240px;
   --content-width: calc(100vw - var(--sidebar-width));
 }
 

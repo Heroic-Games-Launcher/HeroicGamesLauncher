@@ -207,3 +207,14 @@
   transform: scale(1.2);
   padding: var(--space-2xs) 0;
 }
+
+.resizer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 100%;
+  z-index: 1;
+  cursor: col-resize;
+  transition: 300ms;
+}
