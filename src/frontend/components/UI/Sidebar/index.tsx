@@ -1,11 +1,6 @@
 import classNames from 'classnames'
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faSquareCaretLeft,
-  faSquareCaretRight
-} from '@fortawesome/free-solid-svg-icons'
+
 import ContextProvider from 'frontend/state/ContextProvider'
 import CurrentDownload from './components/CurrentDownload'
 import SidebarLinks from './components/SidebarLinks'
@@ -16,7 +11,6 @@ import { DMQueueElement } from 'common/types'
 const SIDEBAR_WIDTH = localStorage.getItem('sidebar-width') || 240
 
 export default React.memo(function Sidebar() {
-  const { t } = useTranslation()
   const sidebarEl = useRef(null)
   const { sidebarCollapsed, setSideBarCollapsed } = useContext(ContextProvider)
   const [currentDMElement, setCurrentDMElement] = useState<DMQueueElement>()
@@ -125,20 +119,7 @@ export default React.memo(function Sidebar() {
         draggable
         onDrag={handleDrag}
         onDragEnd={handleDragEnd}
-      ></div>
-      <button
-        className="collapseIcon"
-        onClick={() => setSideBarCollapsed(!sidebarCollapsed)}
-      >
-        <FontAwesomeIcon
-          icon={sidebarCollapsed ? faSquareCaretRight : faSquareCaretLeft}
-          title={
-            sidebarCollapsed
-              ? t('sidebar.uncollapse', 'Uncollapse sidebar')
-              : t('sidebar.collapse', 'Collapse sidebar')
-          }
-        />
-      </button>
+      />
     </aside>
   )
 })
