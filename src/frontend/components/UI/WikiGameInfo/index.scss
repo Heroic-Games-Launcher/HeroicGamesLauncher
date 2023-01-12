@@ -1,3 +1,22 @@
 .wikigameinfoWrapper {
   margin-top: var(--space-xl);
 }
+
+.gameExtraDialog {
+  width: 50vw;
+  min-width: 300px;
+  max-width: 450px;
+
+  summary {
+    margin: var(--space-xs) 0;
+    outline: none;
+    font-size: var(--text-md);
+    font-weight: var(--bold);
+    transition: 300ms;
+
+    &:hover,
+    &:focus-within {
+      color: var(--accent);
+    }
+  }
+}

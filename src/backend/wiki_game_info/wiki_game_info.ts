@@ -38,10 +38,10 @@ export async function getWikiGameInfo(
 
     logInfo(`Getting ExtraGameInfo data for ${title}`, LogPrefix.ExtraGameInfo)
 
-    const pcgamingwiki = await getInfoFromPCGamingWiki(title, gogID)
-    const applegamingwiki = isMac
-      ? await getInfoFromAppleGamingWiki(title)
-      : null
+    const [pcgamingwiki, applegamingwiki] = await Promise.all([
+      getInfoFromPCGamingWiki(title, gogID),
+      isMac ? getInfoFromAppleGamingWiki(title) : null
+    ])
     const howlongtobeat = await getHowLongToBeat(
       title,
       pcgamingwiki?.howLongToBeatID ?? ''

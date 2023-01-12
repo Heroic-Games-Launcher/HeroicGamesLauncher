@@ -99,6 +99,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [winePrefix, setWinePrefix] = useState('')
   const [wineVersion, setWineVersion] = useState<WineInstallation>()
   const [showRequirements, setShowRequirements] = useState(false)
+  const [showExtraInfo, setShowExtraInfo] = useState(false)
   const [gameAvailable, setGameAvailable] = useState(false)
 
   const isWin = platform === 'win32'
@@ -316,6 +317,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     runner={gameInfo.runner}
                     handleUpdate={handleUpdate}
                     disableUpdate={isInstalling || isUpdating}
+                    setShowExtraInfo={setShowExtraInfo}
                     onShowRequirements={
                       hasRequirements
                         ? () => setShowRequirements(true)
@@ -513,10 +515,13 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   </button>
                 )}
               </div>
-              <WikiGameInfo
-                title={title}
-                id={runner === 'gog' ? appName : undefined}
-              />
+              {showExtraInfo && (
+                <WikiGameInfo
+                  setShouldShow={setShowExtraInfo}
+                  title={title}
+                  id={runner === 'gog' ? appName : undefined}
+                />
+              )}
               {is_installed && (
                 <span
                   onClick={() => setIsSettingsModalOpen(true, 'log', gameInfo)}
