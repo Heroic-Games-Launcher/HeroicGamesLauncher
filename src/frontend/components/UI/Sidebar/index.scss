@@ -219,3 +219,7 @@
   cursor: col-resize;
   transition: 300ms;
 }
+
+.resizer:hover {
+  border-right: 2px solid white;
+}

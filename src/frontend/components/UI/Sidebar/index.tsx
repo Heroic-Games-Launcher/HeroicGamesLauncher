@@ -9,6 +9,9 @@ import { DMQueueElement } from 'common/types'
 let mouseDragX = 0
 let dragging = false
 let sidebarSize = localStorage.getItem('sidebar-width') || 240
+const minWidth = 60
+const maxWidth = 400
+const collapsedWidth = 120
 
 export default React.memo(function Sidebar() {
   const sidebarEl = useRef<HTMLDivElement | null>(null)
@@ -33,7 +36,7 @@ export default React.memo(function Sidebar() {
   useEffect(() => {
     if (!sidebarEl.current) return
 
-    if (sidebarSize < 120) {
+    if (sidebarSize < collapsedWidth) {
       sidebarEl.current.classList.add('collapsed')
     } else {
       sidebarEl.current.classList.remove('collapsed')
@@ -56,16 +59,16 @@ export default React.memo(function Sidebar() {
       if (!sidebarEl.current) return
 
       let newWidth = mouseDragX
-      if (newWidth < 60) {
-        newWidth = 60
-      } else if (newWidth > 350) {
-        newWidth = 350
+      if (newWidth < minWidth) {
+        newWidth = minWidth
+      } else if (newWidth > maxWidth) {
+        newWidth = maxWidth
       }
 
       if (sidebarSize !== newWidth) {
         sidebarSize = newWidth
 
-        if (sidebarSize < 120) {
+        if (sidebarSize < collapsedWidth) {
           sidebarEl.current.classList.add('collapsed')
         } else {
           sidebarEl.current.classList.remove('collapsed')
