@@ -133,6 +133,8 @@ export default function DownloadDialog({
   const [selectedSdls, setSelectedSdls] = useState<{ [key: string]: boolean }>(
     {}
   )
+  const [gettingInstallInfo, setGettingInstallInfo] = useState(false)
+
   const installFolder = gameStatus?.folder || installPath
 
   const [spaceLeft, setSpaceLeft] = useState<DiskSpaceInfo>({
@@ -209,12 +211,14 @@ export default function DownloadDialog({
   useEffect(() => {
     const getIinstallInfo = async () => {
       try {
+        setGettingInstallInfo(true)
         const gameInstallInfo = await getInstallInfo(
           appName,
           runner,
           platformToInstall
         )
         setGameInstallInfo(gameInstallInfo)
+        setGettingInstallInfo(false)
 
         if (
           gameInstallInfo &&
@@ -231,12 +235,14 @@ export default function DownloadDialog({
         }
 
         if (platformToInstall === 'linux' && runner === 'gog') {
+          setGettingInstallInfo(true)
           const installer_languages =
             (await window.api.getGOGLinuxInstallersLangs(appName)) as string[]
           setInstallLanguages(installer_languages)
           setInstallLanguage(
             getInstallLanguage(installer_languages, i18n.languages)
           )
+          setGettingInstallInfo(false)
         }
       } catch (error) {
         showDialogModal({
@@ -369,7 +375,10 @@ export default function DownloadDialog({
     return t('button.no-path-selected', 'No path selected')
   }
 
-  const readyToInstall = installPath && gameInstallInfo?.manifest?.download_size
+  const readyToInstall =
+    installPath &&
+    gameInstallInfo?.manifest?.download_size &&
+    !gettingInstallInfo
 
   return (
     <>
