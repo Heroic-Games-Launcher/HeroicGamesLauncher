@@ -1,3 +1,4 @@
+import { WineCommandArgs } from './../../common/types'
 import {
   createAbortController,
   deleteAbortController
@@ -10,8 +11,7 @@ import {
   ExtraInfo,
   GameInfo,
   InstallArgs,
-  InstallPlatform,
-  ProtonVerb
+  InstallPlatform
 } from 'common/types'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
@@ -928,11 +928,12 @@ class LegendaryGame extends Game {
     return !error
   }
 
-  public async runWineCommand(
-    commandParts: string[],
+  public async runWineCommand({
+    commandParts,
     wait = false,
-    protonVerb?: ProtonVerb
-  ): Promise<ExecResult> {
+    protonVerb,
+    startFolder
+  }: WineCommandArgs): Promise<ExecResult> {
     if (this.isNative()) {
       logError('runWineCommand called on native game!', LogPrefix.Legendary)
       return { stdout: '', stderr: '' }
@@ -946,7 +947,8 @@ class LegendaryGame extends Game {
       installFolderName: folder_name,
       commandParts,
       wait,
-      protonVerb
+      protonVerb,
+      startFolder
     })
   }
 
