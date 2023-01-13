@@ -1,6 +1,5 @@
 // needs to be here, because jest.mock places itself before import.
 const mockSearch = jest.fn()
-const mockDetail = jest.fn()
 
 import { logError } from '../../../logger/logger'
 import { getHowLongToBeat } from '../utils'
@@ -14,46 +13,33 @@ jest.mock('howlongtobeat', () => ({
   ...jest.requireActual('howlongtobeat'),
   HowLongToBeatService: class {
     public search = mockSearch
-    public detail = mockDetail
   }
 }))
 
 describe('getHowLongToBeat', () => {
   beforeEach(() => {
-    mockDetail.mockClear()
     mockSearch.mockClear()
   })
 
   test('fetches successfully via title', async () => {
     mockSearch.mockResolvedValueOnce([testHowLongToBeat])
 
-    const result = await getHowLongToBeat('The Witcher 3', '')
-    expect(mockDetail).not.toBeCalled()
+    const result = await getHowLongToBeat('The Witcher 3')
     expect(result).toStrictEqual(testHowLongToBeat)
   })
 
-  // test('fetches successfully via id', async () => {
-  //   mockDetail.mockResolvedValueOnce(testHowLongToBeat)
-
-  //   const result = await getHowLongToBeat('The Witcher 3', '1234')
-  //   expect(mockSearch).not.toBeCalled()
-  //   expect(result).toStrictEqual(testHowLongToBeat)
-  // })
-
   test('fallbacks to title if id is invalid', async () => {
-    //mockDetail.mockResolvedValueOnce(null)
     mockSearch.mockResolvedValueOnce([testHowLongToBeat])
 
-    const result = await getHowLongToBeat('The Witcher 3', '1234')
+    const result = await getHowLongToBeat('The Witcher 3')
     expect(mockSearch).toBeCalledTimes(1)
-    //expect(mockDetail).toBeCalledTimes(1)
     expect(result).toStrictEqual(testHowLongToBeat)
   })
 
   test('catches hltb throws', async () => {
     mockSearch.mockRejectedValueOnce(new Error('Failed'))
 
-    const result = await getHowLongToBeat('The Witcher 3', '')
+    const result = await getHowLongToBeat('The Witcher 3')
     expect(result).toBeNull()
     expect(logError).toBeCalledWith(
       [

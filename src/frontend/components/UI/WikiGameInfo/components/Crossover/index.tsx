@@ -17,7 +17,7 @@ export default function Crossover({ title, info }: Props) {
   const getColorClass = (value: string) => {
     if (value === 'perfect') {
       return 'crossover__square__green'
-    } else if (value === 'playable') {
+    } else if (value === 'playable' || value === 'runs') {
       return 'crossover__square__yellow'
     }
 
