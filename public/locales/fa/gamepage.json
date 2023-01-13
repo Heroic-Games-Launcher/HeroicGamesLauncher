@@ -35,7 +35,8 @@
             "checkbox": "حذف prefix: {{prefix}}{{newLine}}نکته:این کار قابل بازگشت نیست و همچنین فایل های ذخیره پشتیبانی گرفته نشده را پاک می کند.",
             "message": "آیا میخواهید این بازی را حذف کنید؟",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
-            "title": "حذف"
+            "title": "حذف",
+            "prefix_warning": "پیشوند Wine برای این بازی پیشوند پیش فرض است. اگر واقعاً می خواهید آن را حذف کنید، باید آن را به صورت دستی انجام دهید."
         },
         "update": {
             "message": "این بازی به روزرسانی دارد، آیا مایل به روزرسانی هستید؟",
@@ -67,7 +68,8 @@
         },
         "unhide_game": "نشان دادن بازی",
         "uninstall": "حذف",
-        "update": "بهروزرسانی"
+        "update": "بهروزرسانی",
+        "details": "جزئیات"
     },
     "cloud_save_unsupported": "پشتیبانی نشده",
     "disabled": "غیر فعال",

@@ -140,7 +140,11 @@
                 "install": "Els servidors de l'Epic estan patint una caiguda massiva ara mateix. El joc no s'ha pogut instal·lar.",
                 "update": "Els servidors de l'Epic estan patint una caiguda massiva ara mateix. El joc no s'ha pogut actualitzar."
             },
-            "title": "Avís"
+            "title": "Avís",
+            "wine-change": {
+                "message": "No hem pogut trobar la versió de vi seleccionada per llançar aquest títol ({{selectedWine}}). {{newline}} Hem trobat un altre, voleu continuar llançant-se amb {{foundWine}}?",
+                "title": "No s'ha trobat vi!"
+            }
         },
         "wineprefix": "Tria la carpeta del WinePrefix",
         "yes": "SÍ"
@@ -151,7 +155,8 @@
         "login": "Inicia la sessió",
         "sync": "Sincronitza",
         "syncing": "S'està sincronitzant",
-        "unsync": "Dessincronitza"
+        "unsync": "Dessincronitza",
+        "continue": "Continue"
     },
     "controller": {
         "hints": {
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "El Wine fa servir el que s'anomena WINEPREFIX per encapsular les aplicacions de Windows. El prefix conté els fitxers de la configuració del Wine i una reproducció de la jerarquia de fitxers a la unitat C: (el disc principal del SO Windows). En aquesta reproducció del disc és on es desen les partides i s'instal·len les dependències a través del winetricks."
-        }
+        },
+        "wine-path-invalid": "El camí del vi no és vàlid, seleccioneu-ne un altre."
     },
     "install": {
         "path": "Selecciona la ruta d'instal·lació"
@@ -542,7 +548,9 @@
         "steamruntime": "Usa el Runtime de l'Steam",
         "winecrossoverbottle": "Ampolla CrossOver",
         "wineprefix": "Directori WinePrefix",
-        "wineversion": "Versió del Wine"
+        "wineversion": "Versió del Wine",
+        "autoUpdateGames": "Actualitzar jocs automàticament",
+        "ignoreGameUpdates": "Ignora les actualitzacions del joc"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -647,5 +655,9 @@
         },
         "release": "Release Date",
         "size": "Mida"
+    },
+    "externalLink": {
+        "dontAskAgain": "No ho tornis a preguntar",
+        "warning": "Esteu a punt d'obrir un enllaç extern."
     }
 }

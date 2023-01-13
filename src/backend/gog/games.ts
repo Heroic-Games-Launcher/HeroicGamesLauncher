@@ -200,7 +200,7 @@ class GOGGame extends Game {
 
       logInfo(
         [
-          `Progress for ${this.appName}:`,
+          `Progress for ${this.getGameInfo().title}:`,
           `${percent}%/${bytes}MB/${eta}`.trim(),
           `Down: ${downSpeed}MB/s / Disk: ${diskSpeed}MB/s`
         ],

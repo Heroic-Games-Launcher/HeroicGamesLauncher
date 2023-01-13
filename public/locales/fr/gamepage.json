@@ -35,7 +35,8 @@
             "checkbox": "Supprimer le préfixe : {{prefix}}{{newLine}}Note : cela ne peut pas être annulé et supprimera également les fichiers de sauvegarde non sauvegardés.",
             "message": "Voulez-vous désinstaller ce jeu ?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
-            "title": "Désinstaller"
+            "title": "Désinstaller",
+            "prefix_warning": "Le préfixe Wine pour ce jeu est le préfixe par défaut. Si vous voulez vraiment le supprimer, vous devez le faire manuellement."
         },
         "update": {
             "message": "Une mise à jour est disponible pour ce jeu. Souhaitez-vous le mettre à jour maintenant ?",
@@ -67,7 +68,8 @@
         },
         "unhide_game": "Afficher le jeu",
         "uninstall": "Désinstaller",
-        "update": "Mise à jour"
+        "update": "Mise à jour",
+        "details": "Détails"
     },
     "cloud_save_unsupported": "Non-supporté",
     "disabled": "Désactivé",

@@ -140,7 +140,11 @@
                 "install": "Epic Serverlərdə hazırda böyük fasilə var, oyunu quraşdırmaq mümkün deyil!",
                 "update": "Epic Serverlərdə hazırda böyük fasilə var, oyunu yeniləmək mümkün deyil!"
             },
-            "title": "Xəbərdarlıq"
+            "title": "Xəbərdarlıq",
+            "wine-change": {
+                "message": "Bu başlığı işə salmaq üçün seçilmiş şərab versiyasını tapa bilmədik ({{selectedWine}}). {{newline}} Başqasını tapdıq, {{foundWine}} istifadə edərək işə davam etmək istəyirsiniz?",
+                "title": "Şərab tapılmadı!"
+            }
         },
         "wineprefix": "Şərab Prefiks Qovluğu seçin",
         "yes": "HƏ"
@@ -151,7 +155,8 @@
         "login": "Daxil ol",
         "sync": "Sinxronizasiya",
         "syncing": "Sinxronizasiya",
-        "unsync": "Sinxronizasiyadan çıxarın"
+        "unsync": "Sinxronizasiyadan çıxarın",
+        "continue": "Davam et"
     },
     "controller": {
         "hints": {
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine, Windows proqramlarını əhatə etmək üçün WINEPREFIX adlanandan istifadə edir. Bu prefiks Şərab konfiqurasiya fayllarını və C: fayl iyerarxiyasının reproduksiyasını ehtiva edir (Windows OS-də əsas disk). C: sürücüsünün bu reproduksiyasında oyun saxlama faylları və winetricks vasitəsilə quraşdırılmış asılılıqlar saxlanılır."
-        }
+        },
+        "wine-path-invalid": "Şərab Yolu yanlışdır, lütfən, başqa birini seçin."
     },
     "install": {
         "path": "Quraşdırma yolunu seçin"
@@ -542,7 +548,9 @@
         "steamruntime": "Steam Runtime istifadə edin",
         "winecrossoverbottle": "Krossover şüşə",
         "wineprefix": "WinePrefix qovluğu",
-        "wineversion": "Şərab versiyası"
+        "wineversion": "Şərab versiyası",
+        "autoUpdateGames": "Oyunları avtomatik yeniləyin",
+        "ignoreGameUpdates": "Oyun yeniləmələrinə məhəl qoymayın"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -647,5 +655,9 @@
         },
         "release": "Buraxılış tarixi",
         "size": "Ölçü"
+    },
+    "externalLink": {
+        "dontAskAgain": "Bir daha soruşma",
+        "warning": "Siz xarici keçid açmaq üzrəsiniz."
     }
 }

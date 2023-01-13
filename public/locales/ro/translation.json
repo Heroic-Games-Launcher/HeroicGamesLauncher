@@ -140,7 +140,11 @@
                 "install": "Serverele Epic au o întrerupere majoră în acest moment, jocul nu poate fi instalat!",
                 "update": "Serverele Epic au o întrerupere majoră în acest moment, jocul nu poate fi actualizat!"
             },
-            "title": "Avertizare"
+            "title": "Avertizare",
+            "wine-change": {
+                "message": "Nu am putut găsi versiunea de vin selectată pentru a lansa acest titlu ({{selectedWine}}). {{newline}} Am găsit altul, doriți să continuați lansarea folosind {{foundWine}}?",
+                "title": "Vinul nu a fost găsit!"
+            }
         },
         "wineprefix": "Alegeți dosarul Wine Prefix",
         "yes": "DA"
@@ -151,7 +155,8 @@
         "login": "Autentificare",
         "sync": "Sincronizează",
         "syncing": "Sincronizare",
-        "unsync": "Desincronizare"
+        "unsync": "Desincronizare",
+        "continue": "Continua"
     },
     "controller": {
         "hints": {
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine folosește ceea ce se numește WINEPREFIX pentru a încapsula aplicațiile Windows. Acest prefix conține fișierele de configurare Wine și o reproducere a ierarhiei fișierelor C: (discul principal pe un sistem de operare Windows). În această reproducere a unității C:, sunt stocate fișierele de salvare a jocului și dependențele instalate prin winetricks."
-        }
+        },
+        "wine-path-invalid": "Calea vinului este nevalidă, vă rugăm să selectați alta."
     },
     "install": {
         "path": "Selectați Calea de instalare"
@@ -542,7 +548,9 @@
         "steamruntime": "Utilizați Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "dosar WinePrefix",
-        "wineversion": "Versiune Wine"
+        "wineversion": "Versiune Wine",
+        "autoUpdateGames": "Actualizați automat jocurile",
+        "ignoreGameUpdates": "Ignora actualizările jocului"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -647,5 +655,9 @@
         },
         "release": "Data de lansare",
         "size": "Mărime"
+    },
+    "externalLink": {
+        "dontAskAgain": "Nu mai întreba",
+        "warning": "Sunteți pe cale să deschideți un link extern."
     }
 }

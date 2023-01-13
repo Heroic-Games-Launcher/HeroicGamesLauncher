@@ -140,7 +140,11 @@
                 "install": "Epic 服务器出现了大故障，不能安装游戏！",
                 "update": "Epic 服务器出现了大故障，不能升级游戏！"
             },
-            "title": "警告"
+            "title": "警告",
+            "wine-change": {
+                "message": "我们找不到启动此标题的选定 wine 版本 ({{selectedWine}})。 {{newline}} 我们找到了另一个，你想继续使用 {{foundWine}} 启动吗？",
+                "title": "找不到酒！"
+            }
         },
         "wineprefix": "选择 Wine Prefix 文件夹",
         "yes": "是"
@@ -151,7 +155,8 @@
         "login": "登录",
         "sync": "同步",
         "syncing": "正在同步",
-        "unsync": "取消同步"
+        "unsync": "取消同步",
+        "continue": "继续"
     },
     "controller": {
         "hints": {
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine 使用所谓的 WINEPREFIX 来封装 Windows 应用程序。这个前缀包含 Wine 配置文件和 C:(Windows操作系统上的主磁盘) 文件层次结构的副本。你的游戏保存文件和通过 winetricks 安装的依赖项存储在这个复制的 C:驱动器中。"
-        }
+        },
+        "wine-path-invalid": "Wine Path 无效，请选择另一个。"
     },
     "install": {
         "path": "选择安装路径"
@@ -542,7 +548,9 @@
         "steamruntime": "使用 Steam 运行时",
         "winecrossoverbottle": "CrossOver 容器",
         "wineprefix": "WinePrefix文件夹",
-        "wineversion": "Wine 版本"
+        "wineversion": "Wine 版本",
+        "autoUpdateGames": "自动更新游戏",
+        "ignoreGameUpdates": "忽略游戏更新"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -647,5 +655,9 @@
         },
         "release": "发布日期",
         "size": "大小"
+    },
+    "externalLink": {
+        "warning": "您即将打开一个外部链接。",
+        "dontAskAgain": "不再询问"
     }
 }
