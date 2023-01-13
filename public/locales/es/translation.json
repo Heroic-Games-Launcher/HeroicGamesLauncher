@@ -140,7 +140,11 @@
                 "install": "Los servidores de Epic están teniendo una gran interrupción en este momento. ¡El juego no se puede instalar!",
                 "update": "Los servidores de Epic están teniendo una gran interrupción en este momento. ¡El juego no se puede actualizar!"
             },
-            "title": "Advertencia"
+            "title": "Advertencia",
+            "wine-change": {
+                "message": "No pudimos encontrar la versión de vino seleccionada para lanzar este título ({{selectedWine}}). {{newline}} Encontramos otro, ¿quieres continuar iniciando usando {{foundWine}}?",
+                "title": "¡Vino no encontrado!"
+            }
         },
         "wineprefix": "Elige la ruta del prefijo de Wine",
         "yes": "SÍ"
@@ -151,7 +155,8 @@
         "login": "Iniciar sesión",
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
-        "unsync": "Desincronizar"
+        "unsync": "Desincronizar",
+        "continue": "Continuar"
     },
     "controller": {
         "hints": {
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine utiliza lo que se conoce como WINEPREFIX (prefijo de wine) para encapsular aplicaciones de Windows. Este prefijo contiene los archivos de configuración de Wine y una réplica de los directorios del disco C: (el disco principal en sistemas Windows). En esta réplica del disco C: se localizan los guardados del juego y las dependencias instaladas con Winetricks."
-        }
+        },
+        "wine-path-invalid": "Wine Path no es válido, seleccione otro."
     },
     "install": {
         "path": "Seleccione la ruta de instalación"
@@ -542,7 +548,9 @@
         "steamruntime": "Usar Steam Runtime",
         "winecrossoverbottle": "Botella de CrossOver",
         "wineprefix": "Carpeta de Prefijo de Wine",
-        "wineversion": "Versión de Wine"
+        "wineversion": "Versión de Wine",
+        "autoUpdateGames": "Actualizar juegos automáticamente",
+        "ignoreGameUpdates": "Ignorar las actualizaciones del juego"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -647,5 +655,9 @@
         },
         "release": "Fecha de lanzamiento",
         "size": "Tamaño"
+    },
+    "externalLink": {
+        "dontAskAgain": "no vuelvas a preguntar",
+        "warning": "Está a punto de abrir un enlace externo."
     }
 }

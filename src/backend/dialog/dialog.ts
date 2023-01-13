@@ -44,7 +44,8 @@ function showDialogBoxModalAuto(props: {
           }
           showMessageBox(window, {
             title: props.title,
-            message: props.message
+            message: props.message,
+            buttons: props.buttons?.map((button) => button.text) || []
           })
           break
       }

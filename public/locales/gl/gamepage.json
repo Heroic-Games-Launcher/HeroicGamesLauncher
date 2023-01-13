@@ -35,7 +35,8 @@
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Desexas desinstalar o xogo?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
-            "title": "Desinstalar"
+            "title": "Desinstalar",
+            "prefix_warning": "O prefixo Wine para este xogo é o prefixo predeterminado. Se realmente queres borralo, tes que facelo manualmente."
         },
         "update": {
             "message": "Este xogo ten unha actualización, ¿desexas actualizar agora?",
@@ -67,7 +68,8 @@
         },
         "unhide_game": "Unhide Game",
         "uninstall": "Desinstalar",
-        "update": "Actualizar"
+        "update": "Actualizar",
+        "details": "Detalles"
     },
     "cloud_save_unsupported": "Unsupported",
     "disabled": "Deshabilitar",

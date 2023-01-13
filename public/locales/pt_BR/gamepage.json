@@ -35,7 +35,8 @@
             "checkbox": "{{newLine}}Remover prefixo: {{prefix}}{{newLine}}Obs.: Isso não pode ser desfeito e também vai remover jogos salvos sem backup.",
             "message": "Deseja desinstalar este jogo?",
             "settingcheckbox": "Apagar configurações e remover logs{{newLine}}Obs: Isto não pode ser desfeito. Qualquer configuração modificada será esquecida e o log será deletado.",
-            "title": "Desinstalar"
+            "title": "Desinstalar",
+            "prefix_warning": "O prefixo Wine para este jogo é o prefixo padrão. Se você realmente deseja excluí-lo, deve fazê-lo manualmente."
         },
         "update": {
             "message": "Este jogo tem uma atualização, aplicar atualização agora?",
@@ -67,7 +68,8 @@
         },
         "unhide_game": "Mostrar jogo",
         "uninstall": "Desinstalar",
-        "update": "Update"
+        "update": "Update",
+        "details": "Detalhes"
     },
     "cloud_save_unsupported": "Sem suporte",
     "disabled": "Desabilitado",

@@ -140,7 +140,11 @@
                 "install": "Epic-u serveritel on praegu suur katkestus, mängu ei saa installida!",
                 "update": "Epic-u serveritel on praegu suur katkestus, mängu ei saa uuendada!"
             },
-            "title": "Hoiatus"
+            "title": "Hoiatus",
+            "wine-change": {
+                "message": "Me ei leidnud selle pealkirja ({{selectedWine}}) käivitamiseks valitud veiniversiooni. {{newline}} Leidsime veel ühe. Kas soovite jätkata käivitamist, kasutades {{foundWine}}?",
+                "title": "Veini ei leitud!"
+            }
         },
         "wineprefix": "Valige Wine prefiksi kaust",
         "yes": "JAH"
@@ -151,7 +155,8 @@
         "login": "Logi sisse",
         "sync": "Sünkrooni",
         "syncing": "Sünkroonimine",
-        "unsync": "Mittesünkroniseerimine"
+        "unsync": "Mittesünkroniseerimine",
+        "continue": "Jätka"
     },
     "controller": {
         "hints": {
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine kasutab Windowsi rakenduste kapseldamiseks nn WINEPREFIXi. See eesliide sisaldab Wine'i konfiguratsioonifaile ja C: (Windows OSi põhiketta) failihierarhia reproduktsiooni. Sellesse C: ketta reproduktsiooni salvestatakse teie mängu salvestusfailid ja winetricks'i kaudu paigaldatud sõltuvused."
-        }
+        },
+        "wine-path-invalid": "Veinitee on kehtetu, valige mõni muu."
     },
     "install": {
         "path": "Valige paigaldustee"
@@ -542,7 +548,9 @@
         "steamruntime": "Kasuta Steam Runtime'i",
         "winecrossoverbottle": "CrossOveri pudel",
         "wineprefix": "WinePrefiksi kaust",
-        "wineversion": "Wine'i versioon"
+        "wineversion": "Wine'i versioon",
+        "autoUpdateGames": "Mängude automaatne värskendamine",
+        "ignoreGameUpdates": "Ignoreeri mängu värskendusi"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -647,5 +655,9 @@
         },
         "release": "Release Date",
         "size": "Suurus"
+    },
+    "externalLink": {
+        "dontAskAgain": "Ära enam küsi",
+        "warning": "Olete avamas välist linki."
     }
 }

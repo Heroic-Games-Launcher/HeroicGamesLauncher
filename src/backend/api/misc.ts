@@ -85,6 +85,9 @@ export const clipboardReadText = async () =>
 export const clipboardWriteText = async (text: string) =>
   ipcRenderer.send('clipboardWriteText', text)
 
+export const pathExists = async (path: string) =>
+  ipcRenderer.invoke('pathExists', path)
+
 export const handleShowDialog = (
   onMessage: (
     e: Electron.IpcRendererEvent,

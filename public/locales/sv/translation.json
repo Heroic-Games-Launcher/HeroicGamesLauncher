@@ -140,7 +140,11 @@
                 "install": "Epics servrar är nere för tillfället, spelet kan inte installeras!",
                 "update": "Epics servrar är nere för tillfället, spelet kan inte uppdateras!"
             },
-            "title": "Varning"
+            "title": "Varning",
+            "wine-change": {
+                "message": "Vi kunde inte hitta den valda vinversionen för att lansera den här titeln ({{selectedWine}}). {{newline}} Vi hittade en till, vill du fortsätta lanseringen med {{foundWine}}?",
+                "title": "Vinet hittades inte!"
+            }
         },
         "wineprefix": "Ange Wine-prefix mapp",
         "yes": "Ja"
@@ -151,7 +155,8 @@
         "login": "Logga in",
         "sync": "Synkronisering",
         "syncing": "Synkroniserar",
-        "unsync": "Avbryt synkronisering"
+        "unsync": "Avbryt synkronisering",
+        "continue": "Fortsätt"
     },
     "controller": {
         "hints": {
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine använder WINEPREFIX för att kapsla in Windows-applikationer. Detta prefix innehåller Wines konfigurationsfiler och en skapad filhierarki för C: (huvuddisken på ett Windows-operativsystem). I den skapade C:-enheten lagras spelets sparfiler och beroenden som installerats via winetricks."
-        }
+        },
+        "wine-path-invalid": "Vinvägen är ogiltig, välj en annan."
     },
     "install": {
         "path": "Ange installationssökväg"
@@ -448,7 +454,7 @@
         "autovkd3d": "Installera/uppdatera VKD3D i prefix automatiskt",
         "change-target-exe": "Ange alternativ EXE-fil att köra",
         "checkForUpdatesOnStartup": "Sök efter Heroic-uppdateringar vid uppstart",
-        "crossover-version": "Crossover version",
+        "crossover-version": "Crossover/Wine Version",
         "custom_themes_path": "Sökväg till anpassade teman",
         "customWineProton": "Anpassad Wine/Proton sökväg",
         "darktray": "Använd mörk ikon i systemfältet",
@@ -542,7 +548,9 @@
         "steamruntime": "Använd Steam Runtime",
         "winecrossoverbottle": "CrossOver prefix",
         "wineprefix": "Wine-prefix mapp",
-        "wineversion": "Wine version"
+        "wineversion": "Wine version",
+        "ignoreGameUpdates": "Ignorera speluppdateringar",
+        "autoUpdateGames": "Uppdatera spel automatiskt"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -647,5 +655,9 @@
         },
         "release": "Release Date",
         "size": "Storlek"
+    },
+    "externalLink": {
+        "warning": "Du är på väg att öppna en extern länk.",
+        "dontAskAgain": "Fråga inte igen"
     }
 }

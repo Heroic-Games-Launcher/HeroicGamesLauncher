@@ -90,6 +90,7 @@ interface SyncIPCFunctions {
   'connectivity-changed': (newStatus: ConnectivityStatus) => void
   'set-connectivity-online': () => void
   changeTrayColor: () => void
+  setSetting: (args: { appName: string; key: string; value: unknown }) => void
 }
 
 interface AsyncIPCFunctions {
@@ -227,6 +228,7 @@ interface AsyncIPCFunctions {
     runner: Runner
   }) => Promise<boolean>
   toggleDXVK: (args: ToolArgs) => Promise<boolean>
+  pathExists: (path: string) => Promise<boolean>
 }
 
 // This is quite ugly & throws a lot of errors in a regular .ts file

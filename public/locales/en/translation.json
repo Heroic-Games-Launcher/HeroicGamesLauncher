@@ -69,11 +69,6 @@
                 "message": "Something went wrong with the update, please check the logs or try again later!",
                 "title": "Update Error"
             },
-            "wine-not-found": {
-                "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
-                "message": "No Wine Version Selected. Check Game Settings!",
-                "title": "Wine Not Found"
-            },
             "winetricks": {
                 "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
@@ -140,7 +135,11 @@
                 "install": "Epic Servers are having major outage right now, the game cannot be installed!",
                 "update": "Epic Servers are having major outage right now, the game cannot be updated!"
             },
-            "title": "Warning"
+            "title": "Warning",
+            "wine-change": {
+                "message": "We could not find the selected wine version to launch this title ({{selectedWine}}). {{newline}} We found another one, do you want to continue launching using {{foundWine}} ?",
+                "title": "Wine not found!"
+            }
         },
         "wineprefix": "Choose Wine Prefix Folder",
         "yes": "YES"
@@ -292,6 +291,7 @@
         "requirements": "System Requirements",
         "warning": "Warning",
         "wine-path": "Wine Path",
+        "wine-path-invalid": "Wine Path is invalid, please select another one.",
         "wine-prefix": {
             "title": "Wine Prefix"
         },
@@ -453,10 +453,11 @@
         "alt-legendary-bin": "Choose an Alternative Legendary Binary",
         "autodxvk": "Auto Install/Update DXVK on Prefix",
         "autosync": "Autosync Saves",
+        "autoUpdateGames": "Automatically update games",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
-        "crossover-version": "Crossover Version",
+        "crossover-version": "Crossover/Wine Version",
         "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Custom Wine/Proton Paths",
         "darktray": "Use Dark Tray Icon",
@@ -495,6 +496,7 @@
         "fsync": "Enable Fsync",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
+        "ignoreGameUpdates": "Ignore game updates",
         "language": "Choose App Language",
         "library_top_option": {
             "disabled": "Disabled",

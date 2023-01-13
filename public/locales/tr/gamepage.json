@@ -35,7 +35,8 @@
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Oyunu kaldırmak istiyor musunuz?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
-            "title": "Kaldır"
+            "title": "Kaldır",
+            "prefix_warning": "Bu oyun için Wine öneki varsayılan önektir. Gerçekten silmek istiyorsanız, manuel olarak yapmanız gerekir."
         },
         "update": {
             "message": "Bu oyunun bir güncellemesi var, güncelleme şimdi uygulansın mı?",
@@ -67,7 +68,8 @@
         },
         "unhide_game": "Oyunu Göster",
         "uninstall": "Kaldır",
-        "update": "Güncelle"
+        "update": "Güncelle",
+        "details": "Detaylar"
     },
     "cloud_save_unsupported": "Unsupported",
     "disabled": "Devre dışı",

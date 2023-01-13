@@ -35,7 +35,8 @@
             "checkbox": "Borrar prefijo: {{prefix}}{{newLine}}Nota: Esto no se puede deshacer y borrará archivos no resguardados.",
             "message": "¿Quieres desinstalar este juego?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
-            "title": "Desinstalar"
+            "title": "Desinstalar",
+            "prefix_warning": "El prefijo Wine para este juego es el prefijo predeterminado. Si realmente desea eliminarlo, debe hacerlo manualmente."
         },
         "update": {
             "message": "Este juego tiene una actualización. ¿Quieres aplicarla ahora?",
@@ -67,7 +68,8 @@
         },
         "unhide_game": "Desocultar Juego",
         "uninstall": "Desinstalar",
-        "update": "Actualizar"
+        "update": "Actualizar",
+        "details": "Detalles"
     },
     "cloud_save_unsupported": "No soportado",
     "disabled": "Deshabilitado",
