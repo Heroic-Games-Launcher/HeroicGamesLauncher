@@ -5,7 +5,9 @@ import {
   GameSettings,
   DiskSpaceData,
   StatusPromise,
-  GamepadInputEvent
+  GamepadInputEvent,
+  DMQueueElement,
+  GameInfo
 } from 'common/types'
 import * as path from 'path'
 import {
@@ -69,7 +71,8 @@ import {
   getLatestReleases,
   getShellPath,
   getCurrentChangelog,
-  wait
+  wait,
+  checkWineBeforeLaunch
 } from './utils'
 import {
   configStore,
@@ -111,7 +114,7 @@ import { gameInfoStore } from './legendary/electronStores'
 import { getFonts } from 'font-list'
 import { runWineCommand, verifyWinePrefix } from './launcher'
 import shlex from 'shlex'
-import { initQueue } from './downloadmanager/downloadqueue'
+import { addToQueue, initQueue } from './downloadmanager/downloadqueue'
 import {
   initOnlineMonitor,
   isOnline,
@@ -602,10 +605,45 @@ ipcMain.handle('runWineCommand', async (e, args) => runWineCommand(args))
 /// IPC handlers begin here.
 
 ipcMain.handle('checkGameUpdates', async (): Promise<string[]> => {
-  return [
-    ...(await LegendaryLibrary.get().listUpdateableGames()),
-    ...(await GOGLibrary.get().listUpdateableGames())
-  ]
+  let epicUpdates = await LegendaryLibrary.get().listUpdateableGames()
+  let gogUpdates = await GOGLibrary.get().listUpdateableGames()
+
+  const { autoUpdateGames } = GlobalConfig.get().getSettings()
+  if (autoUpdateGames) {
+    epicUpdates.forEach(async (appName) => {
+      const game = getGame(appName, 'legendary')
+      const { ignoreGameUpdates } = await game.getSettings()
+      const gameInfo = game.getGameInfo()
+      if (!ignoreGameUpdates) {
+        logInfo(`Auto-Updating ${gameInfo.title}`, LogPrefix.Legendary)
+        const dmQueueElement: DMQueueElement = getDMElement(gameInfo, appName)
+        addToQueue(dmQueueElement)
+        // remove from the array to avoid downloading the same game twice
+        epicUpdates = epicUpdates.filter((game) => game !== appName)
+      } else {
+        logInfo(
+          `Skipping auto-update for ${gameInfo.title}`,
+          LogPrefix.Legendary
+        )
+      }
+    })
+    gogUpdates.forEach(async (appName) => {
+      const game = getGame(appName, 'gog')
+      const { ignoreGameUpdates } = await game.getSettings()
+      const gameInfo = game.getGameInfo()
+      if (!ignoreGameUpdates) {
+        logInfo(`Auto-Updating ${gameInfo.title}`, LogPrefix.Gog)
+        const dmQueueElement: DMQueueElement = getDMElement(gameInfo, appName)
+        addToQueue(dmQueueElement)
+        // remove from the array to avoid downloading the same game twice
+        gogUpdates = gogUpdates.filter((game) => game !== appName)
+      } else {
+        logInfo(`Skipping auto-update for ${gameInfo.title}`, LogPrefix.Gog)
+      }
+    })
+  }
+
+  return [...epicUpdates, ...gogUpdates]
 })
 
 ipcMain.handle('getEpicGamesStatus', async () => isEpicServiceOffline())
@@ -863,6 +901,14 @@ ipcMain.handle('writeConfig', (event, { appName, config }) => {
   }
 })
 
+ipcMain.on('setSetting', (event, { appName, key, value }) => {
+  if (appName === 'default') {
+    GlobalConfig.get().setSetting(key, value)
+  } else {
+    GameConfig.get(appName).setSetting(key, value)
+  }
+})
+
 // Watch the installed games file and trigger a refresh on the installed games if something changes
 if (existsSync(installed)) {
   let watchTimeout: NodeJS.Timeout | undefined
@@ -917,8 +963,6 @@ ipcMain.handle(
 
     logInfo(`Launching ${title} (${game.app_name})`, LogPrefix.Backend)
 
-    addRecentGame(game)
-
     sendFrontendMessage('gameStatusUpdate', {
       appName,
       runner,
@@ -938,7 +982,7 @@ ipcMain.handle(
 
     const systemInfo = await getSystemInfo()
     const gameSettings = isSideloaded
-      ? getAppSettings(appName)
+      ? await getAppSettings(appName)
       : await extGame.getSettings()
     const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
     const logFileLocation = isSideloaded
@@ -955,6 +999,30 @@ ipcMain.handle(
         `Game launched at: ${startPlayingDate}\n` +
         '\n'
     )
+
+    // check if isNative, if not, check if wine is valid
+    if (!extGame.isNative() || (isSideloaded && !isNativeApp(appName))) {
+      const isWineOkToLaunch = await checkWineBeforeLaunch(
+        appName,
+        gameSettings,
+        logFileLocation
+      )
+
+      if (!isWineOkToLaunch) {
+        logError(
+          `Was not possible to launch using ${gameSettings.wineVersion.name}`,
+          LogPrefix.Backend
+        )
+
+        sendFrontendMessage('gameStatusUpdate', {
+          appName,
+          runner,
+          status: 'done'
+        })
+
+        return { status: 'error' }
+      }
+    }
 
     const command = isSideloaded
       ? launchApp(appName)
@@ -986,6 +1054,8 @@ ipcMain.handle(
       totalPlaytime += tsStore.get(`${appName}.totalPlayed`) as number
     }
     tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
+
+    await addRecentGame(game)
 
     sendFrontendMessage('gameStatusUpdate', {
       appName,
@@ -1534,6 +1604,31 @@ ipcMain.handle('isNative', (e, { appName, runner }) => {
   return game.isNative()
 })
 
+function getDMElement(gameInfo: GameInfo, appName: string) {
+  const {
+    install: { install_path, platform },
+    runner
+  } = gameInfo
+  const dmQueueElement: DMQueueElement = {
+    params: {
+      appName,
+      gameInfo,
+      runner,
+      path: install_path!,
+      platformToInstall: platform!
+    },
+    type: 'update',
+    addToQueueTime: Date.now(),
+    endTime: 0,
+    startTime: 0
+  }
+  return dmQueueElement
+}
+
+ipcMain.handle('pathExists', async (e, path: string) => {
+  return existsSync(path)
+})
+
 /*
   Other Keys that should go into translation files:
   t('box.error.generic.title')
@@ -1541,7 +1636,7 @@ ipcMain.handle('isNative', (e, { appName, runner }) => {
  */
 
 /*
- * INSERT OTHER IPC HANLDER HERE
+ * INSERT OTHER IPC HANDLERS HERE
  */
 import './logger/ipc_handler'
 import './wine/manager/ipc_handler'

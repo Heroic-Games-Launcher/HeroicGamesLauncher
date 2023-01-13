@@ -35,7 +35,8 @@
             "checkbox": "Treu el prefix: {{prefix}}{{newLine}}Avís: No es pot desfer i també traurà les desades de les quals no s'hagin fet còpies de seguretat.",
             "message": "Vols desinstal·lar aquest joc?",
             "settingcheckbox": "Esborra la configuració i elimina el registre{{newLine}}Avís: Aquesta acció no es pot desfer. S'oblidarà qualsevol opció modificada i el registre s'esborrarà.",
-            "title": "Desinstal·la"
+            "title": "Desinstal·la",
+            "prefix_warning": "El prefix Wine d'aquest joc és el prefix per defecte. Si realment voleu eliminar-lo, heu de fer-ho manualment."
         },
         "update": {
             "message": "Hi ha una actualització per a aquest joc, el vols actualitzar ara?",
@@ -67,7 +68,8 @@
         },
         "unhide_game": "Torna a mostrar el joc",
         "uninstall": "Desinstal·la",
-        "update": "Actualitza"
+        "update": "Actualitza",
+        "details": "Detalls"
     },
     "cloud_save_unsupported": "No compatible",
     "disabled": "Desactivat",

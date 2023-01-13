@@ -140,7 +140,11 @@
                 "install": "Epic zerbitzariak ebaki garrantzitsu bat izaten ari dira une honetan, jokoa ezin da instalatu!",
                 "update": "Epic zerbitzariak etenaldi handia izaten ari dira une honetan, jokoa ezin da eguneratu!"
             },
-            "title": "Oharra"
+            "title": "Oharra",
+            "wine-change": {
+                "message": "Ezin izan dugu hautatutako ardoaren bertsioa aurkitu izenburu hau abiarazteko ({{selectedWine}}). {{newline}} Beste bat aurkitu dugu, {{foundWine}} erabiliz abiarazten jarraitu nahi duzu?",
+                "title": "Ez da ardorik aurkitu!"
+            }
         },
         "wineprefix": "Aukeratu Wine-Prefix karpeta",
         "yes": "BAI"
@@ -151,7 +155,8 @@
         "login": "Hasi saioa",
         "sync": "Sinkronizatu",
         "syncing": "Sinkronizatzen",
-        "unsync": "Desinkronizatu"
+        "unsync": "Desinkronizatu",
+        "continue": "Jarraitu"
     },
     "controller": {
         "hints": {
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine-k WINEPREFIX deritzona erabiltzen du Windows aplikazioak kapsulatzeko. Aurrizki honek Wine konfigurazio-fitxategiak eta C:-ren fitxategi-hierarkiaren erreprodukzioa ditu (Windows OS bateko disko nagusia). C: diskoaren erreprodukzio honetan, zure jokoa gordetzeko fitxategiak eta winetricks bidez instalatutako mendekotasunak gordetzen dira."
-        }
+        },
+        "wine-path-invalid": "Ardoaren bidea baliogabea da, hautatu beste bat."
     },
     "install": {
         "path": "Hautatu Instalatu bidea"
@@ -542,7 +548,9 @@
         "steamruntime": "Erabili Steam Runtime",
         "winecrossoverbottle": "CrossOver botila",
         "wineprefix": "WinePrefix karpeta",
-        "wineversion": "Ardoaren Bertsioa"
+        "wineversion": "Ardoaren Bertsioa",
+        "autoUpdateGames": "Eguneratu jokoak automatikoki",
+        "ignoreGameUpdates": "Ez ikusi jokoaren eguneraketak"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -647,5 +655,9 @@
         },
         "release": "Argitaratze data",
         "size": "Tamaina"
+    },
+    "externalLink": {
+        "warning": "Kanpoko esteka bat irekitzera zoaz.",
+        "dontAskAgain": "Ez galdetu berriro"
     }
 }

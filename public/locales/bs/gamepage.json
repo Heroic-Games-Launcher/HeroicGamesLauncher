@@ -36,7 +36,8 @@
             "checkbox_prefix": "Prefiks",
             "message": "Želite li izbrisati video igru?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
-            "title": "Izbriši"
+            "title": "Izbriši",
+            "prefix_warning": "Wine prefiks za ovu igru je podrazumevani prefiks. Ako ga zaista želite izbrisati, morate to učiniti ručno."
         },
         "update": {
             "message": "Ova video igra ima ažuriranje. Želite li ažurirati sada?",
@@ -68,7 +69,8 @@
         },
         "unhide_game": "Prikaži igru",
         "uninstall": "Deinstaliraj",
-        "update": "Ažuriraj"
+        "update": "Ažuriraj",
+        "details": "Detalji"
     },
     "cloud_save_unsupported": "Nepodržano",
     "disabled": "Onemogućeno",

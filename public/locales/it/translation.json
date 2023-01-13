@@ -140,7 +140,11 @@
                 "install": "I server Epic stanno subendo un'interruzione importante in questo momento, il gioco non può essere installato!",
                 "update": "I server Epic stanno subendo un'interruzione importante in questo momento, il gioco non può essere aggiornato!"
             },
-            "title": "Attenzione"
+            "title": "Attenzione",
+            "wine-change": {
+                "message": "Non siamo riusciti a trovare la versione wine selezionata per lanciare questo titolo ({{selectedWine}}). {{newline}} Ne abbiamo trovato un altro, vuoi continuare l'avvio utilizzando {{foundWine}} ?",
+                "title": "Vino non trovato!"
+            }
         },
         "wineprefix": "Seleziona la cartella del prefisso di Wine",
         "yes": "SI"
@@ -151,7 +155,8 @@
         "login": "Accedi",
         "sync": "Sincronizza",
         "syncing": "Sincronizzazione in corso",
-        "unsync": "Annulla sincronizzazione"
+        "unsync": "Annulla sincronizzazione",
+        "continue": "Continue"
     },
     "controller": {
         "hints": {
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine utilizza quello che viene chiamato WINEPREFIX per incapsulare le applicazioni di Windows. Questo prefisso contiene i file di configurazione di Wine e una riproduzione della gerarchia di C: (il disco principale di un sistema operativo Windows). I tuoi salvataggi e le dependencies installate attraverso Winetricks sono contenute in questa riproduzione del disco C:."
-        }
+        },
+        "wine-path-invalid": "Wine Path non è valido, selezionane un altro."
     },
     "install": {
         "path": "Seleziona percorso di installazione"
@@ -448,7 +454,7 @@
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "change-target-exe": "Seleziona un eseguibile alternativo da avviare",
         "checkForUpdatesOnStartup": "Controlla aggiornamenti di Heroic all'avvio",
-        "crossover-version": "Crossover Version",
+        "crossover-version": "Crossover/Wine Version",
         "custom_themes_path": "Percorso Temi Personalizzati",
         "customWineProton": "Percorsi di Wine/Proton personalizzati",
         "darktray": "Usa l'icona scura della barra delle applicazioni",
@@ -542,7 +548,9 @@
         "steamruntime": "Usa Steam Runtime",
         "winecrossoverbottle": "Bottiglia CrossOver",
         "wineprefix": "Cartella del prefix di Wine",
-        "wineversion": "Versione di Wine"
+        "wineversion": "Versione di Wine",
+        "autoUpdateGames": "Aggiorna automaticamente i giochi",
+        "ignoreGameUpdates": "Ignora gli aggiornamenti del gioco"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -647,5 +655,9 @@
         },
         "release": "Release Date",
         "size": "Dimensione"
+    },
+    "externalLink": {
+        "warning": "Stai per aprire un collegamento esterno.",
+        "dontAskAgain": "Non chiedere di nuovo"
     }
 }

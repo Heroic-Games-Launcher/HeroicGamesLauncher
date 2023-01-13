@@ -140,7 +140,11 @@
                 "install": "Les serveurs d'Epic sont actuellement indisponibles, le jeu ne peut pas être installé !",
                 "update": "Les serveurs d'Epic sont actuellement indisponibles, le jeu ne peut pas être mis à jour !"
             },
-            "title": "Avertissement"
+            "title": "Avertissement",
+            "wine-change": {
+                "message": "Nous n'avons pas pu trouver la version wine sélectionnée pour lancer ce titre ({{selectedWine}}). {{newline}} Nous en avons trouvé un autre, voulez-vous continuer le lancement avec {{foundWine}} ?",
+                "title": "Vin introuvable !"
+            }
         },
         "wineprefix": "Choisir le dossier de préfixe Wine",
         "yes": "OUI"
@@ -151,7 +155,8 @@
         "login": "Connexion",
         "sync": "Synchroniser",
         "syncing": "Synchronisation en cours",
-        "unsync": "Désynchroniser"
+        "unsync": "Désynchroniser",
+        "continue": "Continue"
     },
     "controller": {
         "hints": {
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine utilise un préfixe (aussi appelé \"bouteille\" et dont le chemin est défini dans la variable WINEPREFIX) pour encapsuler les programmes Windows. Ce préfixe comporte les fichiers de configuration de Wine ainsi qu'une reproduction du système de fichiers de la partition C: (la partition principale d'un système Windows). On y trouve aussi les dépendances et les fichiers de sauvegardes des jeux installés via Winetricks."
-        }
+        },
+        "wine-path-invalid": "Wine Path n'est pas valide, veuillez en sélectionner un autre."
     },
     "install": {
         "path": "Sélectionner le chemin d'installation"
@@ -542,7 +548,9 @@
         "steamruntime": "Utiliser le runtime Steam",
         "winecrossoverbottle": "Préfixe CrossOver",
         "wineprefix": "Dossier WinePrefix",
-        "wineversion": "Version de Wine"
+        "wineversion": "Version de Wine",
+        "autoUpdateGames": "Mettre à jour automatiquement les jeux",
+        "ignoreGameUpdates": "Ignorer les mises à jour du jeu"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -647,5 +655,9 @@
         },
         "release": "Date de sortie",
         "size": "Taille"
+    },
+    "externalLink": {
+        "dontAskAgain": "Ne demande plus",
+        "warning": "Vous êtes sur le point d'ouvrir un lien externe."
     }
 }

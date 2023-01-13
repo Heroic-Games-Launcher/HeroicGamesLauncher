@@ -1,4 +1,17 @@
+import { AppSettings, GameSettings } from 'common/types'
 import { ipcRenderer } from 'electron'
+
+export const requestAppSettings = async () =>
+  ipcRenderer.invoke('requestSettings', 'default') as Promise<AppSettings>
+
+export const requestGameSettings = async (appName: string) =>
+  ipcRenderer.invoke('requestSettings', appName) as Promise<GameSettings>
+
+export const setSetting = (args: {
+  appName: string
+  key: string
+  value: unknown
+}) => ipcRenderer.send('setSetting', args)
 
 export const getLegendaryVersion = async () =>
   ipcRenderer.invoke('getLegendaryVersion')
