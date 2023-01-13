@@ -589,13 +589,22 @@ ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
             commandParts: ['winecfg'],
             wait: false
           })
-        : game.runWineCommand(['winecfg'])
+        : game.runWineCommand({ commandParts: ['winecfg'] })
       break
     case 'runExe':
       if (exe) {
+        const workingDir = path.parse(exe).dir
         isSideloaded
-          ? runWineCommand({ gameSettings, commandParts: [exe], wait: false })
-          : game.runWineCommand([exe])
+          ? runWineCommand({
+              gameSettings,
+              commandParts: [exe],
+              wait: false,
+              startFolder: workingDir
+            })
+          : game.runWineCommand({
+              commandParts: [exe],
+              startFolder: workingDir
+            })
       }
       break
   }
@@ -1557,7 +1566,11 @@ ipcMain.handle(
     }
 
     // FIXME: Why are we using `runinprefix` here?
-    return game.runWineCommand(commandParts, false, 'runinprefix')
+    return game.runWineCommand({
+      commandParts,
+      wait: false,
+      protonVerb: 'runinprefix'
+    })
   }
 )
 

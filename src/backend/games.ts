@@ -1,3 +1,4 @@
+import { WineCommandArgs } from './../common/types'
 import { GOGCloudSavesLocation, GogInstallInfo } from 'common/types/gog'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import {
@@ -6,7 +7,6 @@ import {
   GameInfo,
   GameSettings,
   InstallArgs,
-  ProtonVerb,
   InstallPlatform
 } from 'common/types'
 
@@ -43,11 +43,7 @@ abstract class Game {
   abstract uninstall(): Promise<ExecResult>
   abstract update(): Promise<{ status: 'done' | 'error' | 'abort' }>
   abstract isNative(): boolean
-  abstract runWineCommand(
-    commandParts: string[],
-    wait?: boolean,
-    protonVerb?: ProtonVerb
-  ): Promise<ExecResult>
+  abstract runWineCommand(args: WineCommandArgs): Promise<ExecResult>
 }
 
 export { Game }
