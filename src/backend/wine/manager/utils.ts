@@ -6,16 +6,15 @@
 import Store from 'electron-store'
 import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
-import { WineVersionInfo } from 'common/types'
-
 import {
-  getAvailableVersions,
-  installVersion,
+  WineVersionInfo,
   ProgressInfo,
   Repositorys,
   State,
   VersionInfo
-} from 'heroic-wine-downloader'
+} from 'common/types'
+
+import { getAvailableVersions, installVersion } from './downloader/main'
 import { heroicToolsPath } from '../../constants'
 import { sendFrontendMessage } from '../../main_window'
 

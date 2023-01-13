@@ -146,7 +146,6 @@
     "fs-extra": "^10.1.0",
     "fuse.js": "^6.6.2",
     "graceful-fs": "^4.2.10",
-    "heroic-wine-downloader": "^1.2.3",
     "howlongtobeat": "^1.7.0",
     "i18next": "^21.6.16",
     "i18next-fs-backend": "^1.1.4",
