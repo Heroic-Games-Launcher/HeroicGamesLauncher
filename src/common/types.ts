@@ -543,7 +543,7 @@ export type ProtonVerb =
 
 export type WineCommandArgs = {
   commandParts: string[]
-  wait: boolean
+  wait?: boolean
   protonVerb?: ProtonVerb
   gameSettings?: GameSettings
   installFolderName?: string
