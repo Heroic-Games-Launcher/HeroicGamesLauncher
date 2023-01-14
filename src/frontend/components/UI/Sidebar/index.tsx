@@ -6,8 +6,6 @@ import './index.scss'
 import HeroicVersion from './components/HeroicVersion'
 import { DMQueueElement } from 'common/types'
 
-let mouseDragX = 0
-let dragging = false
 let sidebarSize = localStorage.getItem('sidebar-width') || 240
 const minWidth = 60
 const maxWidth = 400
@@ -45,15 +43,29 @@ export default React.memo(function Sidebar() {
     sidebarEl.current.style.setProperty('--sidebar-width', `${sidebarSize}px`)
   }, [sidebarEl])
 
-  const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
-    if (e.clientX !== 0) {
-      mouseDragX = e.clientX
-    }
-  }
+  const handleDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
+    let mouseDragX = e.clientX
+    let dragging = true
+    sidebarEl.current!.classList.add('resizing')
 
-  const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
-    mouseDragX = e.clientX
-    dragging = true
+    const onMouseMove = (e: MouseEvent) => {
+      if (e.clientX !== 0) {
+        mouseDragX = e.clientX
+      }
+    }
+
+    const finishDrag = () => {
+      document.body.removeEventListener('mousemove', onMouseMove)
+      document.body.removeEventListener('mouseup', finishDrag)
+      document.body.removeEventListener('mouseleave', finishDrag)
+      sidebarEl.current!.classList.remove('resizing')
+      dragging = false
+      localStorage.setItem('sidebar-width', sidebarSize.toString())
+    }
+
+    document.body.addEventListener('mouseup', finishDrag)
+    document.body.addEventListener('mouseleave', finishDrag)
+    document.body.addEventListener('mousemove', onMouseMove)
 
     const dragFrame = () => {
       if (!sidebarEl.current) return
@@ -85,11 +97,6 @@ export default React.memo(function Sidebar() {
     requestAnimationFrame(dragFrame)
   }
 
-  const handleDragEnd = () => {
-    dragging = false
-    localStorage.setItem('sidebar-width', sidebarSize.toString())
-  }
-
   return (
     <aside ref={sidebarEl} className="Sidebar">
       <SidebarLinks />
@@ -103,13 +110,7 @@ export default React.memo(function Sidebar() {
         )}
       </div>
       <HeroicVersion />
-      <div
-        className="resizer"
-        draggable
-        onDragStart={handleDragStart}
-        onDrag={handleDrag}
-        onDragEnd={handleDragEnd}
-      />
+      <div className="resizer" onMouseDown={handleDragStart} />
     </aside>
   )
 })

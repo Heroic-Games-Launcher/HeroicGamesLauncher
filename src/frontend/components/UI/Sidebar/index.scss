@@ -217,9 +217,11 @@
   height: 100%;
   z-index: 1;
   cursor: col-resize;
-  transition: 300ms;
+  transition: 100ms;
+  border-right: 0px solid white;
 }
 
-.resizer:hover {
+.resizer:hover,
+.resizing .resizer {
   border-right: 2px solid white;
 }
