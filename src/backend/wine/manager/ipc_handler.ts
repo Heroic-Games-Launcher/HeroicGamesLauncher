@@ -9,7 +9,7 @@ import { logError, LogPrefix } from '../../logger/logger'
 import {
   createAbortController,
   deleteAbortController
-} from '../../utils/aborthandler/aborthandler'
+} from '../../utils/abort/abort'
 import { sendFrontendMessage } from '../../main_window'
 
 ipcMain.handle('installWineVersion', async (e, release) => {

@@ -14,12 +14,12 @@ import { IconIcns } from '@shockpkg/icon-encoder'
 import { join } from 'path'
 import { logError, logInfo, LogPrefix } from '../../logger/logger'
 import { GlobalConfig } from '../../config'
-import { removeSpecialcharacters } from '../../utils'
 import { GameInfo } from 'common/types'
 import { isMac, userHome } from '../../constants'
 import { GOGLibrary } from '../../gog/library'
 import { getIcon } from '../utils'
 import { addNonSteamGame } from '../nonesteamgame/nonesteamgame'
+import { removeSpecialcharacters } from '../../utils/format/format'
 
 /**
  * Adds a desktop shortcut to $HOME/Desktop and to /usr/share/applications

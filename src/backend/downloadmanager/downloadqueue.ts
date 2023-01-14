@@ -1,9 +1,10 @@
 import { logError, logInfo, LogPrefix } from '../logger/logger'
-import { getFileSize, getGame } from '../utils'
 import Store from 'electron-store'
 import { DMQueueElement } from 'common/types'
 import { installQueueElement, updateQueueElement } from './utils'
 import { sendFrontendMessage } from '../main_window'
+import { getGame } from 'backend/utils/game/game'
+import { getFileSize } from 'backend/utils/filesystem/filesystem'
 
 const downloadManager = new Store({
   cwd: 'store',

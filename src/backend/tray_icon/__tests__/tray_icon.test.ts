@@ -2,10 +2,9 @@ import { BrowserWindow } from 'electron'
 import { initTrayIcon, testingExportsTrayIcon } from '../tray_icon'
 import { backendEvents } from '../../backend_events'
 import { GlobalConfig } from '../../config'
-import { testingExportsRecentGames } from '../../recent_games/recent_games'
 import { RecentGame } from '../../../common/types'
 import { configStore } from '../../constants'
-import { wait } from '../../utils'
+import { wait } from '../../utils/process/process'
 
 jest.mock('../../logger/logfile')
 jest.mock('../../config')

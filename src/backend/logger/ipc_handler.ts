@@ -1,6 +1,6 @@
+import { showItemInFolder } from 'backend/utils/filesystem/filesystem'
 import { ipcMain } from 'electron'
 import { existsSync, readFileSync } from 'graceful-fs'
-import { showItemInFolder } from '../utils'
 import { getLogFile } from './logfile'
 
 ipcMain.handle('getLogContent', (event, args) => {

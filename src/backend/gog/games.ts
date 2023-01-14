@@ -2,19 +2,12 @@ import { WineCommandArgs } from './../../common/types'
 import {
   createAbortController,
   deleteAbortController
-} from '../utils/aborthandler/aborthandler'
+} from '../utils/abort/abort'
 import { GOGLibrary, runGogdlCommand } from './library'
 import { join } from 'path'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
-import {
-  errorHandler,
-  execAsync,
-  getFileSize,
-  getGOGdlBin,
-  killPattern
-} from '../utils'
 import {
   ExtraInfo,
   GameInfo,
@@ -56,6 +49,11 @@ import {
 import { t } from 'i18next'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
 import { sendFrontendMessage } from '../main_window'
+import { getFileSize } from '../utils/filesystem/filesystem'
+import { errorHandler } from '../utils/error/error'
+import { getGOGdlBin } from './utils'
+import { execAsync } from '../utils/process/process'
+import { killPattern } from '../utils/app/app'
 
 class GOGGame extends Game {
   public appName: string

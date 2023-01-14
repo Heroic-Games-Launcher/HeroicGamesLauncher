@@ -1,7 +1,7 @@
 import {
   createAbortController,
   deleteAbortController
-} from '../utils/aborthandler/aborthandler'
+} from '../utils/abort/abort'
 import { existsSync, readFileSync, readdirSync } from 'graceful-fs'
 
 import {
@@ -19,12 +19,6 @@ import {
 import { LegendaryGame } from './games'
 import { LegendaryUser } from './user'
 import {
-  formatEpicStoreUrl,
-  getLegendaryBin,
-  isEpicServiceOffline,
-  getFileSize
-} from '../utils'
-import {
   fallBackImage,
   legendaryConfigPath,
   legendaryLogFile,
@@ -41,6 +35,10 @@ import { installStore, libraryStore } from './electronStores'
 import { callRunner } from '../launcher'
 import { join } from 'path'
 import { isOnline } from '../online_monitor'
+import { isEpicServiceOffline } from '../utils/connection/connection'
+import { getFileSize } from '../utils/filesystem/filesystem'
+import { formatEpicStoreUrl } from '../utils/format/format'
+import { getLegendaryBin } from './utils'
 
 /**
  * Legendary LegendaryLibrary.

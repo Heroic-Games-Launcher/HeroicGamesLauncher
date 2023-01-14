@@ -1,9 +1,9 @@
 import { dialog } from 'electron'
 import { logError, logInfo, LogPrefix } from './logger/logger'
 import i18next from 'i18next'
-import { getInfo } from './utils'
 import { Runner } from 'common/types'
 import { getMainWindow, sendFrontendMessage } from './main_window'
+import { getInfo } from './utils/game/game'
 
 export async function handleProtocol(args: string[]) {
   const mainWindow = getMainWindow()

@@ -1,5 +1,5 @@
 import { logError, logInfo, LogPrefix } from 'backend/logger/logger'
-import { removeSpecialcharacters } from 'backend/utils'
+import { removeSpecialcharacters } from 'backend/utils/format/format'
 import { HowLongToBeatEntry, HowLongToBeatService } from 'howlongtobeat'
 import { howLongToBeatStore } from './electronStores'
 

@@ -2,7 +2,7 @@ import { WineCommandArgs } from './../../common/types'
 import {
   createAbortController,
   deleteAbortController
-} from '../utils/aborthandler/aborthandler'
+} from '../utils/abort/abort'
 import { appendFileSync, existsSync, mkdirSync } from 'graceful-fs'
 import axios from 'axios'
 
@@ -18,7 +18,6 @@ import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
 import { LegendaryLibrary, runLegendaryCommand } from './library'
 import { LegendaryUser } from './user'
-import { execAsync, getLegendaryBin, killPattern } from '../utils'
 import {
   heroicGamesConfigPath,
   userHome,
@@ -51,6 +50,9 @@ import { showDialogBoxModalAuto } from '../dialog/dialog'
 import { gameAnticheatInfo } from '../anticheat/utils'
 import { Catalog, Product } from 'common/types/epic-graphql'
 import { sendFrontendMessage } from '../main_window'
+import { execAsync } from '../utils/process/process'
+import { getLegendaryBin } from './utils'
+import { killPattern } from '../utils/app/app'
 
 class LegendaryGame extends Game {
   public appName: string

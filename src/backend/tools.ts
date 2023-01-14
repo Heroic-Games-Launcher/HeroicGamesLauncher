@@ -11,7 +11,6 @@ import {
 } from 'graceful-fs'
 import { exec, spawn } from 'child_process'
 
-import { execAsync, getWineFromProton } from './utils'
 import {
   execOptions,
   heroicToolsPath,
@@ -26,6 +25,8 @@ import { dirname, join } from 'path'
 import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
 import { validWine } from './launcher'
+import { execAsync } from './utils/process/process'
+import { getWineFromProton } from './wine/utils'
 
 export const DXVK = {
   getLatest: async () => {

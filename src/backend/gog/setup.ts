@@ -10,7 +10,6 @@ import { copySync } from 'fs-extra'
 import path from 'node:path'
 import { GOGLibrary } from './library'
 import { GameInfo, InstalledInfo } from 'common/types'
-import { execAsync, getShellPath, quoteIfNecessary, spawnAsync } from '../utils'
 import { GameConfig } from '../game_config'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { userHome, isWindows, execOptions } from '../constants'
@@ -19,6 +18,9 @@ import shlex from 'shlex'
 import { GlobalConfig } from '../config'
 import { isOnline } from '../online_monitor'
 import { getWinePath } from '../launcher'
+import { quoteIfNecessary } from '../utils/format/format'
+import { execAsync, spawnAsync } from '../utils/process/process'
+import { getShellPath } from '../utils/filesystem/filesystem'
 
 /**
  * Handles setup instructions like create folders, move files, run exe, create registry entry etc...

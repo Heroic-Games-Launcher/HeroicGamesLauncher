@@ -11,15 +11,6 @@ import { join } from 'path'
 
 import { flatPakHome, isLinux, isMac, runtimePath, userHome } from './constants'
 import {
-  constructAndUpdateRPC,
-  getSteamRuntime,
-  isEpicServiceOffline,
-  searchForExecutableOnPath,
-  quoteIfNecessary,
-  errorHandler,
-  removeQuoteIfNecessary
-} from './utils'
-import {
   logDebug,
   logError,
   logInfo,
@@ -49,6 +40,14 @@ import { spawn } from 'child_process'
 import shlex from 'shlex'
 import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
+import {
+  constructAndUpdateRPC,
+  isEpicServiceOffline
+} from './utils/connection/connection'
+import { searchForExecutableOnPath } from './utils/filesystem/filesystem'
+import { getSteamRuntime } from './utils/runtime/runtime'
+import { quoteIfNecessary, removeQuoteIfNecessary } from './utils/format/format'
+import { errorHandler } from './utils/error/error'
 
 async function prepareLaunch(
   gameSettings: GameSettings,

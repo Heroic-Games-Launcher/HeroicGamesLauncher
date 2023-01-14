@@ -1,10 +1,11 @@
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import { getGame, isEpicServiceOffline } from '../utils'
 import { InstallParams } from 'common/types'
 import i18next from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
 import { isOnline } from '../online_monitor'
 import { sendFrontendMessage } from '../main_window'
+import { getGame } from 'backend/utils/game/game'
+import { isEpicServiceOffline } from 'backend/utils/connection/connection'
 
 async function installQueueElement(params: InstallParams): Promise<{
   status: 'done' | 'error' | 'abort'

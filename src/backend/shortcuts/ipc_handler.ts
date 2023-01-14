@@ -6,7 +6,6 @@ import {
   isAddedToSteam,
   removeNonSteamGame
 } from './nonesteamgame/nonesteamgame'
-import { getGame, getInfo } from '../utils'
 import { shortcutFiles } from './shortcuts/shortcuts'
 import {
   addAppShortcuts,
@@ -15,6 +14,7 @@ import {
 } from '../sideload/games'
 import { isMac } from 'backend/constants'
 import { notify } from 'backend/dialog/dialog'
+import { getGame, getInfo } from 'backend/utils/game/game'
 
 ipcMain.on('addShortcut', async (event, appName, runner, fromMenu) => {
   const isSideload = runner === 'sideload'

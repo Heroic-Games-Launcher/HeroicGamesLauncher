@@ -4,10 +4,10 @@ import { RecentGame } from 'common/types'
 import { logInfo, LogPrefix } from '../logger/logger'
 import { handleProtocol } from '../protocol'
 import { getRecentGames, maxRecentGames } from '../recent_games/recent_games'
-import { handleExit, showAboutWindow } from '../utils'
 import { GlobalConfig } from '../config'
 import { iconDark, iconLight } from '../constants'
 import { backendEvents } from '../backend_events'
+import { handleExit, showAboutWindow } from '../utils/app/app'
 
 export const initTrayIcon = async (mainWindow: BrowserWindow) => {
   // create icon

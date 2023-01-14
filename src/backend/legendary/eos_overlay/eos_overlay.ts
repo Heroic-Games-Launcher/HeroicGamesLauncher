@@ -2,7 +2,7 @@ import {
   callAbortController,
   createAbortController,
   deleteAbortController
-} from '../../utils/aborthandler/aborthandler'
+} from '../../utils/abort/abort'
 import { dialog } from 'electron'
 import { existsSync, readFileSync } from 'graceful-fs'
 import { t } from 'i18next'
@@ -12,9 +12,9 @@ import { heroicToolsPath, isLinux, legendaryConfigPath } from '../../constants'
 import { logError, LogPrefix, logWarning } from '../../logger/logger'
 import { runLegendaryCommand } from '../library'
 import { LegendaryGame } from '../games'
-import { getGame } from '../../utils'
 import { verifyWinePrefix } from '../../launcher'
 import { sendFrontendMessage } from '../../main_window'
+import { getGame } from 'backend/utils/game/game'
 
 const currentVersionPath = join(legendaryConfigPath, 'overlay_version.json')
 const installedVersionPath = join(legendaryConfigPath, 'overlay_install.json')

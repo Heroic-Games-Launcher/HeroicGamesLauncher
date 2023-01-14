@@ -7,7 +7,6 @@ import { showDialogBoxModalAuto } from '../../../dialog/dialog'
 
 jest.mock('../../../logger/logfile')
 jest.mock('../../../dialog/dialog')
-jest.mock('../../../utils')
 
 let tmpDir = {} as DirResult
 let tmpSteamUserConfigDir = '' as string

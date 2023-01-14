@@ -533,7 +533,7 @@ export interface DMQueueElement {
   status?: 'done' | 'error' | 'abort'
 }
 
-export type ProtonVerb =
+type ProtonVerb =
   | 'run'
   | 'waitforexitandrun'
   | 'runinprefix'

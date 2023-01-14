@@ -51,30 +51,6 @@ import { GOGUser } from './gog/user'
 import { GOGLibrary } from './gog/library'
 import setup from './gog/setup'
 import {
-  clearCache,
-  execAsync,
-  isEpicServiceOffline,
-  getLegendaryVersion,
-  getGogdlVersion,
-  getSystemInfo,
-  handleExit,
-  openUrlOrFile,
-  resetHeroic,
-  showAboutWindow,
-  showItemInFolder,
-  getLegendaryBin,
-  getGOGdlBin,
-  getFileSize,
-  detectVCRedist,
-  getGame,
-  getFirstExistingParentPath,
-  getLatestReleases,
-  getShellPath,
-  getCurrentChangelog,
-  wait,
-  checkWineBeforeLaunch
-} from './utils'
-import {
   configStore,
   discordLink,
   heroicGamesConfigPath,
@@ -133,7 +109,7 @@ import {
   removeApp,
   stop
 } from './sideload/games'
-import { callAbortController } from './utils/aborthandler/aborthandler'
+import { callAbortController } from './utils/abort/abort'
 import { getDefaultSavePath } from './save_sync'
 import si from 'systeminformation'
 import { initTrayIcon } from './tray_icon/tray_icon'
@@ -142,6 +118,30 @@ import {
   getMainWindow,
   sendFrontendMessage
 } from './main_window'
+import {
+  clearCache,
+  getCurrentChangelog,
+  getLatestReleases,
+  handleExit,
+  resetHeroic,
+  showAboutWindow
+} from './utils/app/app'
+import { detectVCRedist, getSystemInfo } from './utils/system/system'
+import { getLegendaryBin, getLegendaryVersion } from './legendary/utils'
+import { getGOGdlBin, getGogdlVersion } from './gog/utils'
+import {
+  getFileSize,
+  getFirstExistingParentPath,
+  getShellPath,
+  showItemInFolder
+} from './utils/filesystem/filesystem'
+import {
+  isEpicServiceOffline,
+  openUrlOrFile
+} from './utils/connection/connection'
+import { getGame } from './utils/game/game'
+import { checkWineBeforeLaunch } from './wine/utils'
+import { execAsync, wait } from './utils/process/process'
 
 const { showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -195,7 +195,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
   })
 
   if (isWindows) {
-    detectVCRedist(mainWindow)
+    detectVCRedist()
   }
 
   if (!app.isPackaged) {

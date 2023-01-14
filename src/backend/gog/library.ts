@@ -19,7 +19,6 @@ import { basename, join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
 
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import { getGOGdlBin, getFileSize } from '../utils'
 import { fallBackImage, gogdlLogFile } from '../constants'
 import {
   apiInfoCache,
@@ -30,8 +29,10 @@ import { callRunner } from '../launcher'
 import {
   createAbortController,
   deleteAbortController
-} from '../utils/aborthandler/aborthandler'
+} from '../utils/abort/abort'
 import { isOnline } from '../online_monitor'
+import { getFileSize } from '../utils/filesystem/filesystem'
+import { getGOGdlBin } from './utils'
 
 export class GOGLibrary {
   private static globalInstance: GOGLibrary

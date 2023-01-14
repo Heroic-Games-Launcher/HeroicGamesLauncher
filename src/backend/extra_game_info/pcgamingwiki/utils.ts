@@ -7,10 +7,10 @@ import {
   steamIDRegEx
 } from './constants'
 import { logError, logInfo, LogPrefix } from '../../logger/logger'
-import { removeSpecialcharacters } from '../../utils'
 import { pcGamingWikiInfoStore } from './electronStores'
 import axios from 'axios'
 import { GameScoreInfo, PCGamingWikiInfo } from 'common/types'
+import { removeSpecialcharacters } from '../../utils/format/format'
 
 export async function getInfoFromPCGamingWiki(
   title: string,

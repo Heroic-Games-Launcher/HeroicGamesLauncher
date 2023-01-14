@@ -2,7 +2,6 @@ import { GameSettings, GameInfo, SideloadGame } from '../../common/types'
 import { libraryStore } from './electronStores'
 import { GameConfig } from '../game_config'
 import { isWindows, isMac, isLinux, heroicGamesConfigPath } from '../constants'
-import { killPattern } from '../utils'
 import { logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { dirname, join } from 'path'
 import {
@@ -25,8 +24,9 @@ import { access, chmod } from 'fs/promises'
 import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts/shortcuts'
 import shlex from 'shlex'
 import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
-import { createAbortController } from '../utils/aborthandler/aborthandler'
+import { createAbortController } from '../utils/abort/abort'
 import { sendFrontendMessage } from '../main_window'
+import { killPattern } from '../utils/app/app'
 
 export function appLogFileLocation(appName: string) {
   return join(heroicGamesConfigPath, `${appName}-lastPlay.log`)

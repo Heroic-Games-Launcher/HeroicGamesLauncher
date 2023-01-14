@@ -10,7 +10,6 @@ import {
   logError,
   logWarning
 } from './logger/logger'
-import { getGame, getShellPath } from './utils'
 import {
   existsSync,
   readFileSync,
@@ -21,9 +20,11 @@ import { app } from 'electron'
 import {
   createAbortController,
   deleteAbortController
-} from './utils/aborthandler/aborthandler'
+} from './utils/abort/abort'
 import { legendaryConfigPath } from './constants'
 import { join } from 'path'
+import { getGame } from './utils/game/game'
+import { getShellPath } from './utils/filesystem/filesystem'
 
 async function getDefaultSavePath(
   appName: string,
