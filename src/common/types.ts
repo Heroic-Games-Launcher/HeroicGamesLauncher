@@ -533,6 +533,14 @@ export interface DMQueueElement {
   status?: 'done' | 'error' | 'abort'
 }
 
+export type ProtonVerb =
+  | 'run'
+  | 'waitforexitandrun'
+  | 'runinprefix'
+  | 'destroyprefix'
+  | 'getcompatpath'
+  | 'getnativepath'
+
 export type WineCommandArgs = {
   commandParts: string[]
   wait: boolean
@@ -558,14 +566,6 @@ export interface SideloadGame {
   folder_name?: string
   canRunOffline: boolean
 }
-
-export type ProtonVerb =
-  | 'run'
-  | 'waitforexitandrun'
-  | 'runinprefix'
-  | 'destroyprefix'
-  | 'getcompatpath'
-  | 'getnativepath'
 
 export interface SaveSyncArgs {
   arg: string | undefined
