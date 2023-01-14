@@ -218,10 +218,10 @@
   z-index: 1;
   cursor: col-resize;
   transition: 100ms;
-  border-right: 0px solid white;
+  border-right: 0px solid var(--background-lighter);
 }
 
 .resizer:hover,
 .resizing .resizer {
-  border-right: 2px solid white;
+  border-right: 3px solid var(--background-lighter);
 }
