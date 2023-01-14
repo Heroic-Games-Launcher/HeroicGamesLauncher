@@ -171,7 +171,7 @@
   "scripts": {
     "start": "vite",
     "codecheck": "tsc --noEmit",
-    "find-deadcode": "ls && ts-prune --error",
+    "find-deadcode": "ts-prune --error",
     "test": "jest",
     "test-watch": "jest --watch --maxWorkers=25%",
     "test:ci": "jest --runInBand --silent",
