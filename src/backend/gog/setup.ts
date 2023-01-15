@@ -15,7 +15,6 @@ import { GameConfig } from '../game_config'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { isWindows } from '../constants'
 import ini from 'ini'
-import shlex from 'shlex'
 import { isOnline } from '../online_monitor'
 import { getWinePath, runWineCommand, verifyWinePrefix } from '../launcher'
 
@@ -186,13 +185,13 @@ async function setup(
           // Please don't fix any typos here, everything is intended
           const exeArguments = [
             '/VERYSILENT',
-            `/DIR=${shlex.quote(installPath)}`,
+            `/DIR=${installPath}`,
             `/Language=${Language}`,
             `/LANG=${Language}`,
             `/ProductId=${appName}`,
             `/galaxyclient`,
             `/buildId=${gameInfo.install.buildId}`,
-            `/versionName="${gameInfo.install.version}"`,
+            `/versionName=${gameInfo.install.version}`,
             `/nodesktopshorctut`, // Disable desktop shortcuts but misspelled :/
             `/nodesktopshortcut`, // Disable desktop shortcuts
             '/NOICONS' // Disable start menu icons
@@ -423,13 +422,13 @@ async function setup(
 
     const exeArguments = [
       '/VERYSILENT',
-      `/DIR=${shlex.quote(installPath)}`,
+      `/DIR=${installPath}`,
       `/Language=${Language}`,
       `/LANG=${Language}`,
       `/ProductId=${appName}`,
       `/galaxyclient`,
       `/buildId=${gameInfo.install.buildId}`,
-      `/versionName="${gameInfo.install.version}"`,
+      `/versionName=${gameInfo.install.version}`,
       `/nodesktopshorctut`, // Disable desktop shortcuts but misspelled :/
       `/nodesktopshortcut`, // Disable desktop shortcuts
       '/NOICONS' // Disable start menu icons
@@ -454,14 +453,7 @@ async function setup(
         cwd: supportDir
       })
     } else {
-      logInfo(
-        [
-          'Setup: Executing',
-          [...command, exeArguments.join(' ')],
-          `${supportDir}`
-        ],
-        LogPrefix.Gog
-      )
+      logInfo(['Setup: Executing', command, `${supportDir}`], LogPrefix.Gog)
       await runWineCommand({
         gameSettings,
         commandParts: command,
