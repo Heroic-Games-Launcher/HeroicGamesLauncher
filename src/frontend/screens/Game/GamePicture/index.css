@@ -18,7 +18,7 @@
       rgba(0, 0, 0, 0),
       var(--background-darker) 100%
     ),
-    linear-gradient(375deg, rgba(0, 0, 0, 0), var(--background-darker) 172%);
+    linear-gradient(0deg, rgba(0, 0, 0, 0) 89%, var(--background-darker) 100%);
 }
 
 .gamePicture > .gameImg {
