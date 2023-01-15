@@ -46,7 +46,6 @@ export default React.memo(function Sidebar() {
   const handleDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
     let mouseDragX = e.clientX
     let dragging = true
-    sidebarEl.current!.classList.add('resizing')
 
     const onMouseMove = (e: MouseEvent) => {
       if (e.clientX !== 0) {
@@ -58,7 +57,6 @@ export default React.memo(function Sidebar() {
       document.body.removeEventListener('mousemove', onMouseMove)
       document.body.removeEventListener('mouseup', finishDrag)
       document.body.removeEventListener('mouseleave', finishDrag)
-      sidebarEl.current!.classList.remove('resizing')
       dragging = false
       localStorage.setItem('sidebar-width', sidebarSize.toString())
     }

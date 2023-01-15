@@ -217,11 +217,4 @@
   height: 100%;
   z-index: 1;
   cursor: col-resize;
-  transition: 100ms;
-  border-right: 0px solid var(--background-lighter);
-}
-
-.resizer:hover,
-.resizing .resizer {
-  border-right: 3px solid var(--background-lighter);
 }
