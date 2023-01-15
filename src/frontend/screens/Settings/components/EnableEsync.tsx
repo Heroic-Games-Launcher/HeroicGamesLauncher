@@ -4,11 +4,16 @@ import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import { isWindows } from 'backend/constants'
 
 const EnableEsync = () => {
   const { t } = useTranslation()
 
   const [enableEsync, setEnableEsync] = useSetting('enableEsync', false)
+
+  if (isWindows) {
+    return <></>
+  }
 
   return (
     <div className="toggleRow">
