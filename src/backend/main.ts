@@ -1091,8 +1091,15 @@ ipcMain.handle(
       sendFrontendMessage('gameStatusUpdate', {
         appName,
         runner,
+        status: 'done'
+      })
+
+      sendFrontendMessage('gameStatusUpdate', {
+        appName,
+        runner,
         status: 'syncing-saves'
       })
+
       logInfo(`Uploading saves for ${title}`, LogPrefix.Backend)
       try {
         await extGame.syncSaves('--skip-download', savesPath, gogSaves)
