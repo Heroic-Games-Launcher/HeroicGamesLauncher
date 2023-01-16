@@ -707,7 +707,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
         launchArguments,
         runner: gameInfo.runner,
         hasUpdate,
-        syncCloud: false, //manually sync before and after so we can update the buttons
         showDialogModal
       })
 

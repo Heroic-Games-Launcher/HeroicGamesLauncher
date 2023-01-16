@@ -90,24 +90,11 @@ const GameCard = ({
     app_name: appName,
     runner,
     is_installed: isInstalled,
-    cloud_save_enabled: hasCloudSave,
     install: gameInstallInfo,
     thirdPartyManagedApp
   } = gameInfoFromProps
 
   const gameAvailable = isAvailable
-
-  // if the game supports cloud saves, check the config
-  const [autoSyncSaves, setAutoSyncSaves] = useState(hasCloudSave)
-  useEffect(() => {
-    const checkGameConfig = async () => {
-      const settings = await window.api.requestGameSettings(appName)
-      setAutoSyncSaves(settings.autoSyncSaves)
-    }
-    if (hasCloudSave) {
-      checkGameConfig()
-    }
-  }, [appName])
 
   const [progress, previousProgress] = hasProgress(appName)
   const { install_size: size = '0' } = gameInstallInfo || {}
@@ -525,7 +512,6 @@ const GameCard = ({
         t,
         runner,
         hasUpdate,
-        syncCloud: autoSyncSaves,
         showDialogModal
       })
     }
