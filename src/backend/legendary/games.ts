@@ -749,7 +749,7 @@ class LegendaryGame extends Game {
       commandParts,
       createAbortController(this.appName),
       {
-        logMessagePrefix: `Syncing saves for ${this.appName}`,
+        logMessagePrefix: `Syncing saves for ${this.getGameInfo().title}`,
         onOutput: (output) => (fullOutput += output)
       }
     )
