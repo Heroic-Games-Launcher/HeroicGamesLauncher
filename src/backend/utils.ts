@@ -29,7 +29,6 @@ import i18next, { t } from 'i18next'
 import si from 'systeminformation'
 
 import {
-  configStore,
   fixAsarPath,
   getSteamLibraries,
   heroicConfigPath,
