@@ -961,6 +961,11 @@ ipcMain.handle(
     const isSideloaded = runner === 'sideload'
     const extGame = getGame(appName, runner)
     const game = isSideloaded ? getAppInfo(appName) : extGame.getGameInfo()
+    const gameSettings = isSideloaded
+      ? await getAppSettings(appName)
+      : await extGame.getSettings()
+    const { autoSyncSaves, savesPath, gogSaves = [] } = gameSettings
+
     const { title } = game
 
     const { minimizeOnLaunch } = GlobalConfig.get().getSettings()
@@ -972,6 +977,24 @@ ipcMain.handle(
     }
 
     logInfo(`Launching ${title} (${game.app_name})`, LogPrefix.Backend)
+
+    if (autoSyncSaves && isOnline()) {
+      sendFrontendMessage('gameStatusUpdate', {
+        appName,
+        runner,
+        status: 'syncing-saves'
+      })
+      logInfo(`Downloading saves for ${title}`, LogPrefix.Backend)
+      try {
+        await extGame.syncSaves('--skip-upload', savesPath, gogSaves)
+        logInfo(`Saves for ${title} downloaded`, LogPrefix.Backend)
+      } catch (error) {
+        logError(
+          `Error while downloading saves for ${title}. ${error}`,
+          LogPrefix.Backend
+        )
+      }
+    }
 
     sendFrontendMessage('gameStatusUpdate', {
       appName,
@@ -991,9 +1014,6 @@ ipcMain.handle(
     }
 
     const systemInfo = await getSystemInfo()
-    const gameSettings = isSideloaded
-      ? await getAppSettings(appName)
-      : await extGame.getSettings()
     const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
     const logFileLocation = isSideloaded
       ? appLogFileLocation(appName)
@@ -1066,6 +1086,24 @@ ipcMain.handle(
     tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
 
     await addRecentGame(game)
+
+    if (autoSyncSaves && isOnline()) {
+      sendFrontendMessage('gameStatusUpdate', {
+        appName,
+        runner,
+        status: 'syncing-saves'
+      })
+      logInfo(`Uploading saves for ${title}`, LogPrefix.Backend)
+      try {
+        await extGame.syncSaves('--skip-download', savesPath, gogSaves)
+        logInfo(`Saves uploaded for ${title}`, LogPrefix.Backend)
+      } catch (error) {
+        logError(
+          `Error uploading saves for ${title}. Error: ${error}`,
+          LogPrefix.Backend
+        )
+      }
+    }
 
     sendFrontendMessage('gameStatusUpdate', {
       appName,
