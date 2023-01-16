@@ -470,9 +470,7 @@ function splitPathAndName(fullPath: string): { dir: string; bin: string } {
 }
 
 function getLegendaryBin(): { dir: string; bin: string } {
-  const settings = configStore.get('settings', {}) as {
-    altLegendaryBin: string
-  }
+  const settings = GlobalConfig.get().getSettings()
   if (settings?.altLegendaryBin) {
     return splitPathAndName(settings.altLegendaryBin)
   }
@@ -482,7 +480,7 @@ function getLegendaryBin(): { dir: string; bin: string } {
 }
 
 function getGOGdlBin(): { dir: string; bin: string } {
-  const settings = configStore.get('settings', {}) as { altGogdlBin: string }
+  const settings = GlobalConfig.get().getSettings()
   if (settings?.altGogdlBin) {
     return splitPathAndName(settings.altGogdlBin)
   }
