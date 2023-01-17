@@ -635,7 +635,9 @@
         "logout": "Kijelentkezés",
         "logout_confirmation": "Biztos, hogy ki akarsz jelentkezni?",
         "manageaccounts": "Manage Accounts",
-        "quit": "Kilépés"
+        "quit": "Kilépés",
+        "cancel": "Mégsem",
+        "quitMessage": "Biztosan ki szeretne lépni?"
     },
     "webview": {
         "controls": {
