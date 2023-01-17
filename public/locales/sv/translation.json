@@ -635,7 +635,9 @@
         "logout": "Logga ut",
         "logout_confirmation": "Är du säker att du vill logga ut?",
         "manageaccounts": "Hantera konton",
-        "quit": "Avsluta"
+        "quit": "Avsluta",
+        "cancel": "Avbryt",
+        "quitMessage": "Är du säker på att du vill sluta?"
     },
     "webview": {
         "controls": {
