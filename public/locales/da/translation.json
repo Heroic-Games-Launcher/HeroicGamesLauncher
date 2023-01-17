@@ -583,7 +583,9 @@
         "logout_confirmation": "Er du sikker på, at du vil logge ud?",
         "manageaccounts": "Administrer konti",
         "quit": "Afslut",
-        "logging_out": "Logger ud"
+        "logging_out": "Logger ud",
+        "cancel": "Afbestille",
+        "quitMessage": "Er du sikker på, at du vil stoppe?"
     },
     "anticheat": {
         "anticheats": "Anticheats",

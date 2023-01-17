@@ -635,7 +635,9 @@
         "logout": "வெளியேறு",
         "logout_confirmation": "நீங்கள் நிச்சயமாக வெளியேற விரும்புகிறீர்களா?",
         "manageaccounts": "Manage Accounts",
-        "quit": "வெளியேறு"
+        "quit": "வெளியேறு",
+        "cancel": "Cancel",
+        "quitMessage": "நீங்கள் நிச்சயம் வெளியேற வேண்டுமா?"
     },
     "webview": {
         "controls": {

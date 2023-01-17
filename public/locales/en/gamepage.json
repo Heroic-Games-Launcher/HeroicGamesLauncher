@@ -193,6 +193,7 @@
         "change": "Change install path",
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",
+        "extraInfo": "Extra Info",
         "move": "Move Game",
         "protondb": "Check Compatibility",
         "removeFromSteam": "Remove from Steam",

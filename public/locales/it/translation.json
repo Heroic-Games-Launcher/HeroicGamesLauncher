@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Actions Font Family (Default: ",
+        "actions_font_family_no_default": "Famiglia Font Azioni (Predefinito: ",
         "all_tiles_in_color": "Mostra tutte le tessere dei giochi a colori",
-        "content_font_family_no_default": "Content Font Family (Default: ",
+        "content_font_family_no_default": "Famiglia Font Contenuto(Predefinito: ",
         "fonts": "Caratteri",
         "title": "Accessibilità",
         "zoom": "Zoom"
@@ -143,7 +143,7 @@
             "title": "Attenzione",
             "wine-change": {
                 "message": "Non siamo riusciti a trovare la versione wine selezionata per lanciare questo titolo ({{selectedWine}}). {{newline}} Ne abbiamo trovato un altro, vuoi continuare l'avvio utilizzando {{foundWine}} ?",
-                "title": "Vino non trovato!"
+                "title": "Wine non trovato!"
             }
         },
         "wineprefix": "Seleziona la cartella del prefisso di Wine",
@@ -156,7 +156,7 @@
         "sync": "Sincronizza",
         "syncing": "Sincronizzazione in corso",
         "unsync": "Annulla sincronizzazione",
-        "continue": "Continue"
+        "continue": "Continua"
     },
     "controller": {
         "hints": {
@@ -173,7 +173,7 @@
             "options": "Options",
             "play_game": "Gioca",
             "scroll": "Scroll",
-            "select": "Select",
+            "select": "Seleziona",
             "space": "Barra Spaziatrice",
             "update_game": "Aggiorna il gioco"
         }
@@ -221,11 +221,11 @@
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "hide_non_available_games": "Hide non-available games",
+        "hide_non_available_games": "Nascondi giochi non disponibili",
         "ignore_hidden": "Ignora nascosti",
         "platform": "Piattaforma",
         "show_all_games": "Mostra tutti i giochi",
-        "show_available_games": "Show non-Available games",
+        "show_available_games": "Mostra giochi non disponibili",
         "show_favourites_only": "Mostra solo i preferiti",
         "show_hidden": "Mostra nascosti",
         "store": "Filtra per negozio"
@@ -290,7 +290,7 @@
         "warning": "Attenzione",
         "wine-path": "Percorso per Wine",
         "wine-prefix": {
-            "title": "Wine Prefix"
+            "title": "Prefisso di Wine"
         },
         "wine-repfix": {
             "message": "Wine utilizza quello che viene chiamato WINEPREFIX per incapsulare le applicazioni di Windows. Questo prefisso contiene i file di configurazione di Wine e una riproduzione della gerarchia di C: (il disco principale di un sistema operativo Windows). I tuoi salvataggi e le dependencies installate attraverso Winetricks sono contenute in questa riproduzione del disco C:."
@@ -301,7 +301,7 @@
         "path": "Seleziona percorso di installazione"
     },
     "label": {
-        "loading": "Loading"
+        "loading": "Caricamento"
     },
     "library": {
         "refresh": "Aggiorna",
@@ -580,11 +580,11 @@
         },
         "navbar": {
             "advanced": "Avanzate",
-            "games_settings_defaults": "Game Defaults",
+            "games_settings_defaults": "Ripristina valori predefiniti",
             "general": "Generale",
             "log": "Log",
             "other": "Altro",
-            "sync": "Sincronizzazione salvataggi",
+            "sync": "Sincronizzazione salvataggi in cloud",
             "wineExt": "Estensioni di Wine"
         },
         "open-config-file": "Apri File di Configurazione",
@@ -611,8 +611,8 @@
     },
     "toolbox": {
         "settings": {
-            "default-wineprefix": "Select the default prefix folder for new configs",
-            "wineprefix": "Select a Folder for new Wine Prefixes"
+            "default-wineprefix": "Seleziona il prefisso cartella predefinito per nuove configurazioni",
+            "wineprefix": "Seleziona una cartella per i nuovi prefissi di Wine"
         }
     },
     "tooltip": {
@@ -635,7 +635,9 @@
         "logout": "Disconnetti",
         "logout_confirmation": "Sei sicuro di voler uscire?",
         "manageaccounts": "Gestione Account",
-        "quit": "Esci"
+        "quit": "Esci",
+        "cancel": "Annulla",
+        "quitMessage": "Sei sicuro di voler uscire?"
     },
     "webview": {
         "controls": {
