@@ -635,7 +635,9 @@
         "logout": "Выйти из аккаунта",
         "logout_confirmation": "Вы уверены, что хотите выйти?",
         "manageaccounts": "Аккаунты",
-        "quit": "Закрыть Heroic"
+        "quit": "Закрыть Heroic",
+        "cancel": "Отмена",
+        "quitMessage": "Вы уверены, что хотите выйти?"
     },
     "webview": {
         "controls": {

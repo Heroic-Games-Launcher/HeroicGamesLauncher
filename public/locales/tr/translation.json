@@ -635,7 +635,9 @@
         "logout": "Oturumu kapat",
         "logout_confirmation": "Oturumu kapatmak istediğinizden emin misiniz?",
         "manageaccounts": "Hesapları Yönet",
-        "quit": "Çık"
+        "quit": "Çık",
+        "cancel": "Cancel",
+        "quitMessage": "Çıkmak istediğinden emin misin?"
     },
     "webview": {
         "controls": {

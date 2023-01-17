@@ -635,7 +635,9 @@
         "logout": "Odjavite se",
         "logout_confirmation": "Jeste li sigurni da se želite odjaviti?",
         "manageaccounts": "Upravljajte računima",
-        "quit": "Odustani"
+        "quit": "Odustani",
+        "cancel": "Cancel",
+        "quitMessage": "Jeste li sigurni da želite odustati?"
     },
     "webview": {
         "controls": {

@@ -635,7 +635,9 @@
         "logout": "Deconectare",
         "logout_confirmation": "Sigur doriți să vă deconectați?",
         "manageaccounts": "Gestionați Conturile",
-        "quit": "Părăsește"
+        "quit": "Părăsește",
+        "cancel": "Cancel",
+        "quitMessage": "Esti sigur ca vrei sa renunti?"
     },
     "webview": {
         "controls": {

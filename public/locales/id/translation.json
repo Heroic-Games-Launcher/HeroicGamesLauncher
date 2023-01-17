@@ -635,7 +635,9 @@
         "logout": "Keluar",
         "logout_confirmation": "Apakah Anda yakin ingin keluar?",
         "manageaccounts": "Kelola Akun",
-        "quit": "Keluar"
+        "quit": "Keluar",
+        "cancel": "Batalkan",
+        "quitMessage": "Apakah Anda yakin ingin berhenti?"
     },
     "webview": {
         "controls": {

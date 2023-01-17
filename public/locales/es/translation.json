@@ -454,7 +454,7 @@
         "autovkd3d": "Instalación/actualización automática de VKD3D en el prefijo",
         "change-target-exe": "Seleccione un EXE alternativo para ejecutar",
         "checkForUpdatesOnStartup": "Comprobar actualizaciones de Heroic al iniciar",
-        "crossover-version": "Versión de Crossover",
+        "crossover-version": "Versión crossover/vino",
         "custom_themes_path": "Ubicación de temas personalizados",
         "customWineProton": "Rutas personalizadas de Wine o Proton",
         "darktray": "Utilizar el icono oscuro en la bandeja",
@@ -635,7 +635,9 @@
         "logout": "Cerrar sesión",
         "logout_confirmation": "¿Estás seguro de que quieres cerrar la sesión?",
         "manageaccounts": "Gestionar cuentas",
-        "quit": "Salir"
+        "quit": "Salir",
+        "cancel": "Cancelar",
+        "quitMessage": "¿Seguro que quieres salir?"
     },
     "webview": {
         "controls": {

@@ -635,7 +635,9 @@
         "logout": "Kirjaudu ulos",
         "logout_confirmation": "Haluatko varmasti kirjautua ulos?",
         "manageaccounts": "Hallitse tilejä",
-        "quit": "Poistu"
+        "quit": "Poistu",
+        "quitMessage": "Oletko varma, että haluat lopettaa?",
+        "cancel": "Cancel"
     },
     "webview": {
         "controls": {

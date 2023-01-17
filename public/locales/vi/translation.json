@@ -635,7 +635,9 @@
         "logout": "Đăng xuất",
         "logout_confirmation": "Xác nhận đăng xuất?",
         "manageaccounts": "Quản lý tài khoản",
-        "quit": "Thoát"
+        "quit": "Thoát",
+        "cancel": "Cancel",
+        "quitMessage": "Bạn có chắc bạn muốn thoát khỏi?"
     },
     "webview": {
         "controls": {

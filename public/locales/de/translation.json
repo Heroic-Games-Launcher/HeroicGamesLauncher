@@ -635,7 +635,9 @@
         "logout": "Abmelden",
         "logout_confirmation": "Möchtest du dich wirklich abmelden?",
         "manageaccounts": "Konten verwalten",
-        "quit": "Beenden"
+        "quit": "Beenden",
+        "cancel": "Absagen",
+        "quitMessage": "Sind Sie sicher, dass Sie aufhören wollen?"
     },
     "webview": {
         "controls": {
