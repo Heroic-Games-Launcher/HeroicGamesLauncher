@@ -221,11 +221,11 @@
     "GOG": "GOG",
     "gog-store": "GOG 商店",
     "header": {
-        "hide_non_available_games": "Hide non-available games",
+        "hide_non_available_games": "隐藏不可用的游戏",
         "ignore_hidden": "忽略隐藏项",
         "platform": "平台",
         "show_all_games": "显示所有游戏",
-        "show_available_games": "Show non-Available games",
+        "show_available_games": "显示不可用的游戏",
         "show_favourites_only": "仅显示最爱",
         "show_hidden": "显示隐藏项",
         "store": "过滤商店"
@@ -454,7 +454,7 @@
         "autovkd3d": "自动在前置中安装/更新 VKD3D",
         "change-target-exe": "选择要运行的替代 EXE",
         "checkForUpdatesOnStartup": "启动时检查 Heroic 更新",
-        "crossover-version": "Crossover 版本",
+        "crossover-version": "Crossover/Wine 版本",
         "custom_themes_path": "自定义主题路径",
         "customWineProton": "自定义 Wine/Proton 路径",
         "darktray": "使用暗色托盘图标",
@@ -635,7 +635,9 @@
         "logout": "退出登录",
         "logout_confirmation": "你确定要退出登录吗？",
         "manageaccounts": "管理帐户",
-        "quit": "退出"
+        "quit": "退出",
+        "cancel": "取消",
+        "quitMessage": "你确定你要退出吗？"
     },
     "webview": {
         "controls": {

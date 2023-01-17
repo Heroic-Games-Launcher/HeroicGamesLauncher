@@ -635,7 +635,9 @@
         "logout": "Pechar sesión",
         "logout_confirmation": "Tes certeza que queres pechar a sesión?",
         "manageaccounts": "Manage Accounts",
-        "quit": "Saír"
+        "quit": "Saír",
+        "cancel": "Cancel",
+        "quitMessage": "Estás seguro de que queres saír?"
     },
     "webview": {
         "controls": {

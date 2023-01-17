@@ -635,7 +635,9 @@
         "logout": "Çıxış",
         "logout_confirmation": "Çıxmaq istədiyinizə əminsiniz?",
         "manageaccounts": "Hesabları idarə et",
-        "quit": "Çıxın"
+        "quit": "Çıxın",
+        "cancel": "Cancel",
+        "quitMessage": "Çıxmaq istədiyinizə əminsiniz?"
     },
     "webview": {
         "controls": {

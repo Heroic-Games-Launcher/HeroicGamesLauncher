@@ -635,7 +635,9 @@
         "logout": "Desconectar",
         "logout_confirmation": "Tem certeza que deseja desconectar da sua conta?",
         "manageaccounts": "Gerenciar Contas",
-        "quit": "Sair"
+        "quit": "Sair",
+        "cancel": "Cancelar",
+        "quitMessage": "Você tem certeza que quer sair?"
     },
     "webview": {
         "controls": {

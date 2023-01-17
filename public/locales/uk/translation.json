@@ -635,7 +635,9 @@
         "logout": "Вийти",
         "logout_confirmation": "Точно бажаєте вийти?",
         "manageaccounts": "Облікові записи",
-        "quit": "Закрити"
+        "quit": "Закрити",
+        "cancel": "Відмінити",
+        "quitMessage": "Ти впевнений що хочеш піти?"
     },
     "webview": {
         "controls": {

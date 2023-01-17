@@ -635,7 +635,9 @@
         "logout": "Saioa amaitu",
         "logout_confirmation": "Ziur saioa amaitu nahi duzula?",
         "manageaccounts": "Kudeatu Kontuak",
-        "quit": "Irten"
+        "quit": "Irten",
+        "cancel": "Ezeztatu",
+        "quitMessage": "Ziur utzi nahi duzula?"
     },
     "webview": {
         "controls": {

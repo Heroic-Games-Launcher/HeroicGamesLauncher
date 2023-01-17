@@ -635,7 +635,9 @@
         "logout": "Logout",
         "logout_confirmation": "Вы ўпэўнены, што хочаце выйсці?",
         "manageaccounts": "Manage Accounts",
-        "quit": "Quit"
+        "quit": "Quit",
+        "cancel": "Cancel",
+        "quitMessage": "Вы ўпэўнены, што хочаце кінуць?"
     },
     "webview": {
         "controls": {

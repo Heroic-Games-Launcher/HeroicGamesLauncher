@@ -635,7 +635,9 @@
         "logout": "ログアウト",
         "logout_confirmation": "ログアウトしてもよろしいですか？",
         "manageaccounts": "Manage Accounts",
-        "quit": "終了"
+        "quit": "終了",
+        "cancel": "Cancel",
+        "quitMessage": "本当にやめる気？"
     },
     "webview": {
         "controls": {
