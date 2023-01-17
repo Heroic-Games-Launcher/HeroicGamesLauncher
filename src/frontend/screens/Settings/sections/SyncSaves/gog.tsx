@@ -119,9 +119,6 @@ export default function GOGSyncSaves({
                 htmlId="inputSavePath"
                 placeholder={t('setting.savefolder.placeholder')}
                 value={value.location}
-                label={
-                  t('settings.saves.label', 'Save Location:') + ' ' + value.name
-                }
                 disabled={isSyncing}
                 onChange={(event: { target: { value: string } }) => {
                   const saves = [...gogSaves]
