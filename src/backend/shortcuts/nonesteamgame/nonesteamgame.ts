@@ -152,6 +152,16 @@ function writeShortcutFile(
   }
 }
 
+/** Check if key exist case insensitive
+ * @param {Object} object
+ * @param {string} key
+ * @return bool value
+ */
+function hasParameterCaseInsensitive(object: ShortcutEntry, key: string) {
+  const keyAsLowercase = key.toLowerCase()
+  return Object.keys(object).some((k) => k.toLowerCase() === keyAsLowercase)
+}
+
 /**
  * Check if the parsed object of a shortcuts.vdf is valid.
  * @param object @see Partial<ShortcutObject>
@@ -170,7 +180,7 @@ function checkIfShortcutObjectIsValid(
     object.shortcuts.forEach((entry) => {
       const keysToCheck = ['AppName', 'Exe', 'LaunchOptions']
       keysToCheck.forEach((key: string) => {
-        if (!(key in entry) && !(key.toLowerCase() in entry)) {
+        if (!hasParameterCaseInsensitive(entry, key)) {
           checkResult.errors.push(
             `One of the game entries is missing the ${key} parameter!`
           )
