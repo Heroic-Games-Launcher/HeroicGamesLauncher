@@ -3,6 +3,7 @@ import { LegendaryInstallPlatform } from './types/legendary'
 import { VersionInfo } from 'heroic-wine-downloader'
 import { IpcRendererEvent } from 'electron'
 import { ChildProcess } from 'child_process'
+import { HowLongToBeatEntry } from 'howlongtobeat'
 
 export type Runner = 'legendary' | 'gog' | 'sideload'
 
@@ -620,11 +621,22 @@ export interface GameScoreInfo {
   urlid: string
 }
 export interface PCGamingWikiInfo {
-  timestampLastFetch: string
   steamID: string
   howLongToBeatID: string
   metacritic: GameScoreInfo
   opencritic: GameScoreInfo
   igdb: GameScoreInfo
   direct3DVersions: string[]
+}
+
+export interface AppleGamingWikiInfo {
+  crossoverRating: string
+  crossoverLink: string
+}
+
+export interface WikiInfo {
+  timestampLastFetch: string
+  pcgamingwiki: PCGamingWikiInfo | null
+  applegamingwiki: AppleGamingWikiInfo | null
+  howlongtobeat: HowLongToBeatEntry | null
 }

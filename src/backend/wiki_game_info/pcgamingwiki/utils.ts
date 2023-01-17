@@ -7,8 +7,6 @@ import {
   steamIDRegEx
 } from './constants'
 import { logError, logInfo, LogPrefix } from '../../logger/logger'
-import { removeSpecialcharacters } from '../../utils'
-import { pcGamingWikiInfoStore } from './electronStores'
 import axios from 'axios'
 import { GameScoreInfo, PCGamingWikiInfo } from 'common/types'
 
@@ -17,34 +15,10 @@ export async function getInfoFromPCGamingWiki(
   gogID?: string
 ): Promise<PCGamingWikiInfo | null> {
   try {
-    title = removeSpecialcharacters(title)
-
     // pcgamingwiki does not like "-" and mostly replaces it with ":"
     title = title.replace(' -', ':')
 
-    // check if we have a cached response
-    const cachedResponse = pcGamingWikiInfoStore.get(title) as PCGamingWikiInfo
-    if (cachedResponse) {
-      logInfo([`Using cached pcgamingwiki data for ${title}`], {
-        prefix: LogPrefix.ExtraGameInfo
-      })
-
-      const oneMonthAgo = new Date()
-      oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1)
-
-      const timestampLastFetch = new Date(cachedResponse.timestampLastFetch)
-      if (timestampLastFetch > oneMonthAgo) {
-        return cachedResponse
-      }
-
-      logInfo([`Cached pcgamingwiki data for ${title} outdated.`], {
-        prefix: LogPrefix.ExtraGameInfo
-      })
-    }
-
-    logInfo(`Getting pcgamingwiki data for ${title}`, {
-      prefix: LogPrefix.ExtraGameInfo
-    })
+    logInfo(`Getting PCGamingWiki data for ${title}`, LogPrefix.ExtraGameInfo)
 
     const id = await getPageID(title, gogID)
 
@@ -64,8 +38,7 @@ export async function getInfoFromPCGamingWiki(
     const howLongToBeatID = wikitext.match(howLongToBeatIDRegEx)?.[1] ?? ''
     const direct3DVersions = wikitext.match(direct3DVersionsRegEx)?.[1] ?? ''
 
-    const pcGamingWikiInfo: PCGamingWikiInfo = {
-      timestampLastFetch: Date(),
+    return {
       steamID,
       howLongToBeatID,
       metacritic,
@@ -73,14 +46,11 @@ export async function getInfoFromPCGamingWiki(
       igdb,
       direct3DVersions: direct3DVersions.replaceAll(' ', '').split(',')
     }
-
-    pcGamingWikiInfoStore.set(title, pcGamingWikiInfo)
-
-    return pcGamingWikiInfo
   } catch (error) {
-    logError([`Was not able to get pcgamingwiki data for ${title}`, error], {
-      prefix: LogPrefix.ExtraGameInfo
-    })
+    logError(
+      [`Was not able to get PCGamingWiki data for ${title}`, error],
+      LogPrefix.ExtraGameInfo
+    )
     return null
   }
 }

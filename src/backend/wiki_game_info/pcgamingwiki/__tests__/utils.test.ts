@@ -1,6 +1,5 @@
 import { logError } from '../../../logger/logger'
 import { getInfoFromPCGamingWiki } from '../utils'
-import { pcGamingWikiInfoStore } from '../electronStores'
 import axios from 'axios'
 import { PCGamingWikiInfo } from '../../../../common/types'
 
@@ -30,7 +29,7 @@ describe('getPCGamingWikiInfo', () => {
     })
 
     const result = await getInfoFromPCGamingWiki('The Witcher 3')
-    expect(result).toStrictEqual(testGameScore)
+    expect(result).toStrictEqual(testPCGamingWikiInfo)
   })
 
   test('fetches successfully via id', async () => {
@@ -54,48 +53,7 @@ describe('getPCGamingWikiInfo', () => {
     })
 
     const result = await getInfoFromPCGamingWiki('The Witcher 3', '1234')
-    expect(result).toStrictEqual(testGameScore)
-  })
-
-  test('use cached data', async () => {
-    jest.spyOn(pcGamingWikiInfoStore, 'get').mockReturnValue(testGameScore)
-    const mockAxios = jest.spyOn(axios, 'get').mockImplementation()
-
-    const result = await getInfoFromPCGamingWiki('The Witcher 3')
-    expect(result).toStrictEqual(testGameScore)
-    expect(mockAxios).not.toBeCalled()
-  })
-
-  test('cached data outdated', async () => {
-    const oneMonthAgo = new Date(testGameScore.timestampLastFetch)
-    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1)
-
-    jest.spyOn(pcGamingWikiInfoStore, 'get').mockReturnValue({
-      ...testGameScore,
-      timestampLastFetch: oneMonthAgo.toString()
-    })
-
-    const mockAxios = jest.spyOn(axios, 'get').mockResolvedValueOnce({
-      data: { cargoquery: [{ title: { pageID: 1 } }] }
-    })
-    mockAxios.mockResolvedValueOnce({
-      data: {
-        parse: {
-          wikitext: {
-            '*':
-              '{{Infobox game/row/reception|Metacritic|the-witcher-3-wild-hunt|10}}\n' +
-              '{{Infobox game/row/reception|OpenCritic|463/the-witcher-3-wild-hunt|22}}\n' +
-              '{{Infobox game/row/reception|IGDB|the-witcher-3-wild-hunt|40}}\n' +
-              '|steam appid  = 100\n' +
-              '|direct3d versions      = 11, 12\n' +
-              '|hltb         = 10101\n'
-          }
-        }
-      }
-    })
-
-    const result = await getInfoFromPCGamingWiki('The Witcher 3')
-    expect(result).toStrictEqual(testGameScore)
+    expect(result).toStrictEqual(testPCGamingWikiInfo)
   })
 
   test('does not find page id', async () => {
@@ -146,16 +104,15 @@ describe('getPCGamingWikiInfo', () => {
     expect(result).toBeNull()
     expect(logError).toBeCalledWith(
       [
-        'Was not able to get pcgamingwiki data for The Witcher 3',
+        'Was not able to get PCGamingWiki data for The Witcher 3',
         Error('Failed')
       ],
-      { prefix: 'ExtraGameInfo' }
+      'ExtraGameInfo'
     )
   })
 })
 
-const testGameScore = {
-  timestampLastFetch: Date(),
+const testPCGamingWikiInfo = {
   steamID: '100',
   metacritic: {
     score: '10',

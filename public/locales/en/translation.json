@@ -641,6 +641,9 @@
             "reload": "Reload page"
         }
     },
+    "wiki_info": {
+        "not_found": "We couldn't find extra information."
+    },
     "wine": {
         "actions": "Action",
         "manager": {

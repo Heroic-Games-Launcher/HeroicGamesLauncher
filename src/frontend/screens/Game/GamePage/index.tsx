@@ -51,8 +51,7 @@ import {
 } from 'frontend/components/UI/Dialog'
 
 import StoreLogos from 'frontend/components/UI/StoreLogos'
-import HowLongToBeat from 'frontend/components/UI/HowLongToBeat'
-import GameScore from 'frontend/components/UI/GameScore'
+import { WikiGameInfo } from 'frontend/components/UI/WikiGameInfo'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -100,6 +99,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [winePrefix, setWinePrefix] = useState('')
   const [wineVersion, setWineVersion] = useState<WineInstallation>()
   const [showRequirements, setShowRequirements] = useState(false)
+  const [showExtraInfo, setShowExtraInfo] = useState(false)
   const [gameAvailable, setGameAvailable] = useState(false)
 
   const isWin = platform === 'win32'
@@ -317,6 +317,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     runner={gameInfo.runner}
                     handleUpdate={handleUpdate}
                     disableUpdate={isInstalling || isUpdating}
+                    setShowExtraInfo={setShowExtraInfo}
                     onShowRequirements={
                       hasRequirements
                         ? () => setShowRequirements(true)
@@ -514,11 +515,13 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   </button>
                 )}
               </div>
-              <HowLongToBeat title={title} />
-              <GameScore
-                title={title}
-                id={runner === 'gog' ? appName : undefined}
-              />
+              {showExtraInfo && (
+                <WikiGameInfo
+                  setShouldShow={setShowExtraInfo}
+                  title={title}
+                  id={runner === 'gog' ? appName : undefined}
+                />
+              )}
               {is_installed && (
                 <span
                   onClick={() => setIsSettingsModalOpen(true, 'log', gameInfo)}
