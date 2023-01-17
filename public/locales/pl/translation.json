@@ -635,7 +635,9 @@
         "logout": "Wyloguj",
         "logout_confirmation": "Czy na pewno chcesz się wylogować?",
         "manageaccounts": "Zarządzaj kontami",
-        "quit": "Wyjdź"
+        "quit": "Wyjdź",
+        "cancel": "Anuluj",
+        "quitMessage": "Czy na pewno chcesz zrezygnować?"
     },
     "webview": {
         "controls": {
