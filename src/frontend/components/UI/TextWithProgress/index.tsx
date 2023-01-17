@@ -4,12 +4,16 @@ import './index.scss'
 
 interface Props {
   text: string
-  onClick: () => void
+  onClick?: () => void
 }
 
 export default function TextWithProgress({ text, onClick }: Props) {
   return (
-    <div className="textWithProgress" onClick={onClick}>
+    <div
+      className="textWithProgress"
+      role={onClick ? 'button' : 'status'}
+      onClick={onClick}
+    >
       <CircularProgress className="progress" size={24} />
       <span className="feedback-text">{text}</span>
     </div>
