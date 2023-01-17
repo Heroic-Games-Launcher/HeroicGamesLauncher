@@ -538,9 +538,9 @@
             "title": "ഉപസഗ്ഗ഻ത്തില് EXE ഓടിക്കുക"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "കളി സൂക്ഷിക്കാനുള്ള കൃത്യമായ സ്ഥലം നല്കൂ",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Select Theme",
         "showfps": "ചിത്രനിരക്ക് കാണിക്കൂ (DX9ലും 10ലും 11ലും)",

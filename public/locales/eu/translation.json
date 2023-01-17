@@ -538,9 +538,9 @@
             "title": "Exekutatu EXE aurrizkian"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Hautatu partidak gordetzeko karpeta zehatza",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Hautatu Gaia",
         "showfps": "Erakutsi FPS (DX9, 10 eta 11)",

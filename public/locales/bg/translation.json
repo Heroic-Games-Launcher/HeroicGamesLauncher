@@ -538,9 +538,9 @@
             "title": "Изпълняване на EXE в префикс"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Изберете точната папка за запазени файлове",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Изберете тема",
         "showfps": "Показване на кадрите/сек (DX9, 10 и 11)",

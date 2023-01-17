@@ -107,7 +107,7 @@ export default function GOGSyncSaves({
         <TextWithProgress
           text={t(
             'info.save-sync.searching',
-            'Trying to detect the correct save folder (click to cancel) (click to cancel)'
+            'Trying to detect the correct save folder (click to cancel)'
           )}
           onClick={() => setIsLoading(false)}
         />

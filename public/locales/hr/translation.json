@@ -538,9 +538,9 @@
             "title": "Pokreni EXE na putu"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Odaberi točnu mapu podataka za igricu",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Select Theme",
         "showfps": "Pokaži FPS (DX9, 10 i 11)",

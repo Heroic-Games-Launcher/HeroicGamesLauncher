@@ -101,7 +101,7 @@ export default function LegendarySyncSaves({
         <TextWithProgress
           text={t(
             'info.save-sync.searching',
-            'Trying to detect the correct save folder (click to cancel) (click to cancel)'
+            'Trying to detect the correct save folder (click to cancel)'
           )}
           onClick={() => setLoading(false)}
         />
@@ -147,11 +147,11 @@ export default function LegendarySyncSaves({
                 {savesPath
                   ? t(
                       'setting.savefolder.warning',
-                      'Please check twice if the path is correct'
+                      'Please check twice if the path is correct (click to retry)'
                     )
                   : t(
                       'setting.savefolder.not-found',
-                      'Save folder not found, please select it manually'
+                      'Save folder not found, please select it manually (click to retry)'
                     )}
               </span>
             }
