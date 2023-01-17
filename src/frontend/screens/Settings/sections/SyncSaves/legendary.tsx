@@ -40,6 +40,7 @@ export default function LegendarySyncSaves({
   const [syncType, setSyncType] = useState('--skip-upload')
   const [manuallyOutput, setManuallyOutput] = useState<string[]>([])
   const [manuallyOutputShow, setManuallyOutputShow] = useState<boolean>(false)
+  const [retry, setRetry] = useState<boolean>(false)
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
@@ -47,8 +48,7 @@ export default function LegendarySyncSaves({
 
   useEffect(() => {
     const setDefaultSaveFolder = async () => {
-      // Only do this work if there's not already a save folder set
-      if (savesPath.length) {
+      if (savesPath.length && !retry) {
         return
       }
       setLoading(true)
@@ -56,11 +56,13 @@ export default function LegendarySyncSaves({
         appName,
         'legendary'
       )) as string
+
       setSavesPath(newSavePath)
       setLoading(false)
+      setRetry(false)
     }
     setDefaultSaveFolder()
-  }, [winePrefix, isProton])
+  }, [winePrefix, isProton, retry])
 
   const isLinked = Boolean(savesPath.length)
 
@@ -137,7 +139,11 @@ export default function LegendarySyncSaves({
                 : () => setSavesPath('')
             }
             afterInput={
-              <span className="smallMessage">
+              <span
+                role={'button'}
+                onClick={() => setRetry(true)}
+                className="smallMessage"
+              >
                 {savesPath
                   ? t(
                       'setting.savefolder.warning',
