@@ -36,6 +36,7 @@ export default function GOGSyncSaves({
   const [syncType, setSyncType] = useState('--skip-upload')
   const [manuallyOutput, setManuallyOutput] = useState<string[]>([])
   const [manuallyOutputShow, setManuallyOutputShow] = useState<boolean>(false)
+  const [retry, setRetry] = useState<boolean>(false)
 
   const { t } = useTranslation()
 
@@ -47,18 +48,28 @@ export default function GOGSyncSaves({
   useEffect(() => {
     const getLocations = async () => {
       setIsLoading(true)
-      const locations = (await window.api.getDefaultSavePath(
+      let locations = (await window.api.getDefaultSavePath(
         appName,
         'gog',
         gogSaves
       )) as GOGCloudSavesLocation[]
+
+      // For some reason, some games returns an empty array and this makes the input to not be shown.
+      if (locations.length === 0) {
+        locations = [
+          {
+            name: '',
+            location: ''
+          }
+        ]
+      }
 
       setGogSaves(locations)
       setIsLoading(false)
       setIsSyncing(false)
     }
     getLocations()
-  }, [])
+  }, [retry])
 
   const handleSync = async () => {
     setIsSyncing(true)
@@ -157,15 +168,19 @@ export default function GOGSyncSaves({
                       }
                 }
                 afterInput={
-                  <span className="smallMessage">
-                    {gogSaves.length >= 1
+                  <span
+                    role={'button'}
+                    className="smallMessage"
+                    onClick={() => setRetry(!retry)}
+                  >
+                    {gogSaves.length >= 1 && value.location.length
                       ? t(
                           'setting.savefolder.warning',
-                          'Please check twice if the path is correct'
+                          'Please check twice if the path is correct (click to retry)'
                         )
                       : t(
                           'setting.savefolder.not-found',
-                          'Save folder not found, please select it manually'
+                          'Save folder not found, please select it manually (click to retry)'
                         )}
                   </span>
                 }
