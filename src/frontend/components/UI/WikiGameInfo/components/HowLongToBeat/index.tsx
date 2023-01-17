@@ -17,34 +17,37 @@ export default function HowLongToBeat({ info }: Props) {
   const { gameplayMain, gameplayMainExtra, gameplayCompletionist } = info
 
   return (
-    <details className="howLongToBeatWrapper">
-      <summary>{t('howLongToBeat', 'How Long To Beat')}</summary>
-      <div className="howLongToBeat">
-        <div className="howLongToBeat__circle">
-          <div className="howLongToBeat__circle__title">
-            {t('how-long-to-beat.main-story', 'Main Story')}
+    <>
+      <h1>{t('howLongToBeat', 'How Long To Beat')}</h1>
+      <details className="howLongToBeatWrapper">
+        <summary>Show/hide</summary>
+        <div className="howLongToBeat">
+          <div className="circle green">
+            <div className="circle__title">
+              {t('how-long-to-beat.main-story', 'Main Story')}
+            </div>
+            <div className="circle__value">
+              {gameplayMain || '?'} {t('hours', 'Hours')}
+            </div>
           </div>
-          <div className="howLongToBeat__circle__value">
-            {gameplayMain || '?'} {t('hours', 'Hours')}
+          <div className="circle green">
+            <div className="circle__title">
+              {t('how-long-to-beat.main-plus-extras', 'Main + Extras')}
+            </div>
+            <div className="circle__value">
+              {gameplayMainExtra || '?'} {t('hours', 'Hours')}
+            </div>
+          </div>
+          <div className="circle green">
+            <div className="circle__title">
+              {t('how-long-to-beat.completionist', 'Completionist')}
+            </div>
+            <div className="circle__value">
+              {gameplayCompletionist || '?'} {t('hours', 'Hours')}
+            </div>
           </div>
         </div>
-        <div className="howLongToBeat__circle">
-          <div className="howLongToBeat__circle__title">
-            {t('how-long-to-beat.main-plus-extras', 'Main + Extras')}
-          </div>
-          <div className="howLongToBeat__circle__value">
-            {gameplayMainExtra || '?'} {t('hours', 'Hours')}
-          </div>
-        </div>
-        <div className="howLongToBeat__circle">
-          <div className="howLongToBeat__circle__title">
-            {t('how-long-to-beat.completionist', 'Completionist')}
-          </div>
-          <div className="howLongToBeat__circle__value">
-            {gameplayCompletionist || '?'} {t('hours', 'Hours')}
-          </div>
-        </div>
-      </div>
-    </details>
+      </details>
+    </>
   )
 }

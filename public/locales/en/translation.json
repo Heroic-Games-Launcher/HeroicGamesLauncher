@@ -270,9 +270,6 @@
         }
     },
     "info": {
-        "gamepage": {
-            "extra": "Extra"
-        },
         "heroic": {
             "beta": "Beta",
             "click-to-see-changelog": "Click to see changelog",
@@ -645,6 +642,9 @@
             "openInBrowser": "Open in browser",
             "reload": "Reload page"
         }
+    },
+    "wiki_info": {
+        "not_found": "We couldn't find extra information."
     },
     "wine": {
         "actions": "Action",

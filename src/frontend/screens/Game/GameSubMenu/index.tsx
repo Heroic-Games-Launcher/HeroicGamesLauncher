@@ -333,7 +333,7 @@ export default function GamesSubmenu({
               onClick={() => setShowExtraInfo(true)}
               className="link button is-text is-link"
             >
-              {t('submenu.extraInfo', 'Show Extra Info')}
+              {t('submenu.extraInfo', 'Extra Info')}
             </button>
           )}
 

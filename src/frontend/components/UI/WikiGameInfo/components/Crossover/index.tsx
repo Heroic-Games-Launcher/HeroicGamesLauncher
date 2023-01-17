@@ -16,26 +16,23 @@ export default function Crossover({ title, info }: Props) {
 
   const getColorClass = (value: string) => {
     if (value === 'perfect') {
-      return 'crossover__square__green'
+      return 'green'
     } else if (value === 'playable' || value === 'runs') {
-      return 'crossover__square__yellow'
+      return 'yellow'
     }
 
-    return 'crossover__square__red'
+    return 'red'
   }
 
   const { crossoverLink, crossoverRating } = info
 
   return (
-    <details className="crossoverWrapper">
-      <summary>Crossover</summary>
+    <>
+      <h1>Crossover</h1>
       <div className="crossover">
         {crossoverRating && (
-          <div
-            className={classNames(
-              'crossover__square',
-              getColorClass(crossoverRating)
-            )}
+          <button
+            className={classNames('circle', getColorClass(crossoverRating))}
             onClick={() => {
               if (crossoverLink) {
                 createNewWindow(
@@ -48,13 +45,11 @@ export default function Crossover({ title, info }: Props) {
               }
             }}
           >
-            <div className="crossover__square__title">Rating</div>
-            <div className="crossover__square__value">
-              {`${crossoverRating}`}
-            </div>
-          </div>
+            <div className="circle__title">Rating</div>
+            <div className="circle__value">{`${crossoverRating}`}</div>
+          </button>
         )}
       </div>
-    </details>
+    </>
   )
 }

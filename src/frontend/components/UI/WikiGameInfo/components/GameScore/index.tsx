@@ -18,12 +18,12 @@ export default function GameScore({ title, info }: Props) {
     const number = Number(value)
 
     if (number > 66) {
-      return 'gamescore__square__green'
+      return 'green'
     } else if (number < 33) {
-      return 'gamescore__square__red'
+      return 'red'
     }
 
-    return 'gamescore__square__yellow'
+    return 'yellow'
   }
 
   const { metacritic, opencritic, igdb } = info
@@ -35,15 +35,12 @@ export default function GameScore({ title, info }: Props) {
   }
 
   return (
-    <details className="gamescoreWrapper">
-      <summary>Game Scores</summary>
+    <>
+      <h1>Game Scores</h1>
       <div className="gamescore">
         {metacritic.score && (
-          <div
-            className={classNames(
-              'gamescore__square',
-              getColorClass(metacritic.score)
-            )}
+          <button
+            className={classNames('circle', getColorClass(metacritic.score))}
             onClick={() => {
               if (metacritic.urlid) {
                 createNewWindow(
@@ -56,18 +53,13 @@ export default function GameScore({ title, info }: Props) {
               }
             }}
           >
-            <div className="gamescore__square__title">MetaCritic</div>
-            <div className="gamescore__square__value">
-              {`${metacritic.score}`}
-            </div>
-          </div>
+            <div className="circle__title">MetaCritic</div>
+            <div className="circle__value">{`${metacritic.score}`}</div>
+          </button>
         )}
         {opencritic.score && (
-          <div
-            className={classNames(
-              'gamescore__square',
-              getColorClass(opencritic.score)
-            )}
+          <button
+            className={classNames('circle', getColorClass(opencritic.score))}
             onClick={() => {
               if (opencritic.urlid) {
                 createNewWindow(
@@ -76,18 +68,13 @@ export default function GameScore({ title, info }: Props) {
               }
             }}
           >
-            <div className="gamescore__square__title">OpenCritic</div>
-            <div className="gamescore__square__value">
-              {`${opencritic.score}`}
-            </div>
-          </div>
+            <div className="circle__title">OpenCritic</div>
+            <div className="circle__value">{`${opencritic.score}`}</div>
+          </button>
         )}
         {igdb.score && (
-          <div
-            className={classNames(
-              'gamescore__square',
-              getColorClass(igdb.score)
-            )}
+          <button
+            className={classNames('circle', getColorClass(igdb.score))}
             onClick={() => {
               if (metacritic.urlid) {
                 createNewWindow(
@@ -98,11 +85,11 @@ export default function GameScore({ title, info }: Props) {
               }
             }}
           >
-            <div className="gamescore__square__title">IGDB</div>
-            <div className="gamescore__square__value">{`${igdb.score}`}</div>
-          </div>
+            <div className="circle__title">IGDB</div>
+            <div className="circle__value">{`${igdb.score}`}</div>
+          </button>
         )}
       </div>
-    </details>
+    </>
   )
 }

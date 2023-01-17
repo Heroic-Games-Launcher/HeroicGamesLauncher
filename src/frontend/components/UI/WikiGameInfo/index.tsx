@@ -5,9 +5,9 @@ import HowLongToBeat from './components/HowLongToBeat'
 import Crossover from './components/Crossover'
 import './index.scss'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { useTranslation } from 'react-i18next'
 import { Dialog, DialogHeader } from '../Dialog'
 import { DialogContent } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   title: string
@@ -23,7 +23,11 @@ export function WikiGameInfo({ title, id, setShouldShow }: Props) {
 
   useEffect(() => {
     window.api.getWikiGameInfo(title, id).then((info: WikiInfo) => {
-      if (info) {
+      console.log(info)
+      if (
+        info &&
+        (info.applegamingwiki || info.howlongtobeat || info.pcgamingwiki)
+      ) {
         setWikiGameInfo(info)
       }
     })
@@ -33,17 +37,22 @@ export function WikiGameInfo({ title, id, setShouldShow }: Props) {
     <div className="wikigameinfoWrapper">
       <Dialog showCloseButton onClose={() => setShouldShow(false)}>
         <DialogHeader onClose={() => setShouldShow(false)}>
-          {t('info.gamepage.extra', 'Extra')}
+          <></>
         </DialogHeader>
         <DialogContent className="gameExtraDialog">
-          {wikiGameInfo?.howlongtobeat && (
-            <HowLongToBeat info={wikiGameInfo.howlongtobeat} />
+          {!wikiGameInfo && (
+            <p>
+              {t('wiki_info.not_found', "We couldn't find extra information.")}
+            </p>
           )}
           {wikiGameInfo?.pcgamingwiki && (
             <GameScore info={wikiGameInfo.pcgamingwiki} title={title} />
           )}
           {isMac && wikiGameInfo?.applegamingwiki && (
             <Crossover info={wikiGameInfo.applegamingwiki} title={title} />
+          )}
+          {wikiGameInfo?.howlongtobeat && (
+            <HowLongToBeat info={wikiGameInfo.howlongtobeat} />
           )}
         </DialogContent>
       </Dialog>
