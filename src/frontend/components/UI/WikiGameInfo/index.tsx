@@ -23,7 +23,6 @@ export function WikiGameInfo({ title, id, setShouldShow }: Props) {
 
   useEffect(() => {
     window.api.getWikiGameInfo(title, id).then((info: WikiInfo) => {
-      console.log(info)
       if (
         info &&
         (info.applegamingwiki || info.howlongtobeat || info.pcgamingwiki)
