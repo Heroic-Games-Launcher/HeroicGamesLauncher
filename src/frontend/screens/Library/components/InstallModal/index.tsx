@@ -46,6 +46,7 @@ export default React.memo(function InstallModal({
   const [winePrefix, setWinePrefix] = useState('...')
   const [wineVersion, setWineVersion] = useState<WineInstallation>()
   const [wineVersionList, setWineVersionList] = useState<WineInstallation[]>([])
+  const [crossoverBottle, setCrossoverBottle] = useState('')
 
   const [isLinuxNative, setIsLinuxNative] = useState(false)
   const [isMacNative, setIsMacNative] = useState(false)
@@ -100,7 +101,7 @@ export default React.memo(function InstallModal({
 
   useEffect(() => {
     if (hasWine) {
-      ;(async () => {
+      const getWine = async () => {
         const newWineList: WineInstallation[] =
           await window.api.getAlternativeWine()
         setWineVersionList(newWineList)
@@ -113,7 +114,8 @@ export default React.memo(function InstallModal({
             setWineVersion(undefined)
           }
         }
-      })()
+      }
+      getWine()
     }
   }, [hasWine])
 
@@ -164,6 +166,7 @@ export default React.memo(function InstallModal({
             backdropClick={backdropClick}
             platformToInstall={platformToInstall}
             gameInfo={gameInfo}
+            crossoverBottle={crossoverBottle}
           >
             {platformSelection()}
             {hasWine ? (
@@ -174,6 +177,8 @@ export default React.memo(function InstallModal({
                 title={gameInfo?.title}
                 setWinePrefix={setWinePrefix}
                 setWineVersion={setWineVersion}
+                crossoverBottle={crossoverBottle}
+                setCrossoverBottle={setCrossoverBottle}
               />
             ) : null}
           </DownloadDialog>
@@ -186,6 +191,7 @@ export default React.memo(function InstallModal({
             backdropClick={backdropClick}
             platformToInstall={platformToInstall}
             appName={appName}
+            crossoverBottle={crossoverBottle}
           >
             {platformSelection()}
             {hasWine ? (
@@ -195,6 +201,8 @@ export default React.memo(function InstallModal({
                 wineVersionList={wineVersionList}
                 setWinePrefix={setWinePrefix}
                 setWineVersion={setWineVersion}
+                crossoverBottle={crossoverBottle}
+                setCrossoverBottle={setCrossoverBottle}
               />
             ) : null}
           </SideloadDialog>
