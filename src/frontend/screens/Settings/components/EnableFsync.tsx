@@ -6,7 +6,6 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import SettingsContext from '../SettingsContext'
-import { isWindows } from 'backend/constants'
 
 const EnableFsync = () => {
   const { t } = useTranslation()
@@ -15,7 +14,7 @@ const EnableFsync = () => {
   const isLinux = platform === 'linux'
   const [enableFsync, setEnableFsync] = useSetting('enableFsync', false)
 
-  if (!isLinux || isLinuxNative || isWindows) {
+  if (!isLinux || isLinuxNative) {
     return <></>
   }
 
