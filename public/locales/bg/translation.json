@@ -279,7 +279,7 @@
             "version": "Версия на Heroic"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "Настройките се запазват автоматично",
         "version": "Версия на Wine"

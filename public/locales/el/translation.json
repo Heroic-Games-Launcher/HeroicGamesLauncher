@@ -279,7 +279,7 @@
             "version": "Έκδοση Heroic"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "Οι ρυθμίσεις αποθηκεύονται αυτομάτως",
         "version": "Έκδοση Wine"

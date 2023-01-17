@@ -279,7 +279,7 @@
             "version": "Versiune eroică"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "Setările sunt salvate automat",
         "version": "Versiune Wine"
