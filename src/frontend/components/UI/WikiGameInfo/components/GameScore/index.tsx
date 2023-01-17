@@ -36,7 +36,7 @@ export default function GameScore({ title, info }: Props) {
 
   return (
     <>
-      <h1>Game Scores</h1>
+      <h2>Game Scores</h2>
       <div className="gamescore">
         {metacritic.score && (
           <button

@@ -18,7 +18,7 @@ export default function HowLongToBeat({ info }: Props) {
 
   return (
     <>
-      <h1>{t('howLongToBeat', 'How Long To Beat')}</h1>
+      <h2>{t('howLongToBeat', 'How Long To Beat')}</h2>
       <details className="howLongToBeatWrapper">
         <summary>Show/hide</summary>
         <div className="howLongToBeat">
