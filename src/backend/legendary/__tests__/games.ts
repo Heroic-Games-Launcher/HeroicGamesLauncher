@@ -1,5 +1,5 @@
-import { LegendaryGame } from '../../legendary/games'
-import * as library from '../../legendary/library'
+import { LegendaryGame } from '../games'
+import * as library from '../library'
 
 jest.mock('../../logger/logger')
 jest.mock('../../logger/logfile')
