@@ -61,6 +61,8 @@ const GamesList = ({
   const [gameCards, setGameCards] = useState<JSX.Element[]>([])
 
   useEffect(() => {
+    let mounted = true
+
     const createGameCards = async () => {
       if (!library.length) {
         return
@@ -102,10 +104,16 @@ const GamesList = ({
         resolvedLibrary
       )) as JSX.Element[]
 
-      setGameCards(gameCardElements)
+      if (mounted) {
+        setGameCards(gameCardElements)
+      }
     }
 
     createGameCards()
+
+    return () => {
+      mounted = false
+    }
   }, [
     library,
     onlyInstalled,
