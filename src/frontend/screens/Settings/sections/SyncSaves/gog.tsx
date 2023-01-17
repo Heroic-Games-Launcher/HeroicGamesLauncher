@@ -65,11 +65,16 @@ export default function GOGSyncSaves({
       }
 
       setGogSaves(locations)
-      setIsLoading(false)
       setIsSyncing(false)
+      setIsLoading(false)
     }
     getLocations()
   }, [retry])
+
+  const handleRetry = () => {
+    setGogSaves([])
+    setRetry(!retry)
+  }
 
   const handleSync = async () => {
     setIsSyncing(true)
@@ -168,7 +173,7 @@ export default function GOGSyncSaves({
                   <span
                     role={'button'}
                     className="smallMessage"
-                    onClick={() => setRetry(!retry)}
+                    onClick={() => handleRetry()}
                   >
                     {gogSaves.length >= 1 && value.location.length
                       ? t(
