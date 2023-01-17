@@ -18,13 +18,13 @@
             "title": "Проверка и поправяне"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "Изберете EXE за изпълнение"
         },
         "select": {
-            "button": "Select"
+            "button": "Избиране"
         },
         "sideload": {
-            "exe": "Select Executable"
+            "exe": "Избиране на изпълним файл"
         },
         "stopInstall": {
             "keepInstalling": "Продължаване с инсталацията",
@@ -32,9 +32,9 @@
             "title": "Спиране на инсталацията"
         },
         "uninstall": {
-            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
+            "checkbox": "Премахване на префикса: {{prefix}}{{newLine}}Забележка: Това действие е необратимо. Всички файлове със запазени игри също ще бъдат премахнати.",
             "message": "Искате ли да деинсталирате тази игра?",
-            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+            "settingcheckbox": "Изтриване на настройките и премахване на журнала{{newLine}}Забележка: Това действие е необратимо. Всички промени по настройките ще бъдат забравени, а журналът ще бъде изтрит.",
             "title": "Деинсталиране",
             "prefix_warning": "Префиксът Wine за тази игра е префиксът по подразбиране. Ако наистина искате да го изтриете, трябва да го направите ръчно."
         },
@@ -49,29 +49,29 @@
         "add_to_favourites": "Добавяне към любимите",
         "cancel": "Пауза/Отказ",
         "continue": "Продължаване на свалянето",
-        "finish": "Finish",
-        "force_update": "Force Update if Available",
-        "force-innstall": "Force Install",
-        "hide_game": "Hide Game",
+        "finish": "Завършване",
+        "force_update": "Принудително обновяване, ако има налично обновление",
+        "force-innstall": "Принудително инсталиране",
+        "hide_game": "Скриване на играта",
         "import": "Внасяне на игра",
         "install": "Инсталиране",
-        "no-path-selected": "No path selected",
+        "no-path-selected": "Няма избран път",
         "queue": {
-            "remove": "Remove from Queue"
+            "remove": "Премахване от опашката"
         },
         "remove_from_favourites": "Премахване от любимите",
-        "remove_from_recent": "Remove From Recent",
-        "run-exe-first": "Run Installer First",
-        "running-setup": "Running Setup",
+        "remove_from_recent": "Премахване от скорошните",
+        "run-exe-first": "Пускане на първоначалния инсталатор",
+        "running-setup": "Инсталацията протича в момента",
         "sideload": {
-            "edit": "Edit App/Game"
+            "edit": "Редактиране на приложението/играта"
         },
         "unhide_game": "Показване на играта",
         "uninstall": "Деинсталиране",
         "update": "Обновяване",
         "details": "Подробности"
     },
-    "cloud_save_unsupported": "Unsupported",
+    "cloud_save_unsupported": "Не се поддържа",
     "disabled": "Изключено",
     "dlc": {
         "installDlcs": "Инсталиране на всички сваляеми съдържания"
@@ -97,13 +97,13 @@
     "generic": {
         "error": "Неизвестна грешка"
     },
-    "hours": "Hours",
+    "hours": "часа",
     "how-long-to-beat": {
-        "completionist": "Completionist",
-        "main-plus-extras": "Main + Extras",
-        "main-story": "Main Story"
+        "completionist": "Пълно завършване",
+        "main-plus-extras": "Основа + екстри",
+        "main-story": "Основна история"
     },
-    "howLongToBeat": "How Long To Beat",
+    "howLongToBeat": "Колко време отнема изиграването",
     "info": {
         "canRunOffline": "Изисква се достъп до Интернет",
         "installedPlatform": "Инсталирана система",
@@ -123,7 +123,7 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Външна игра, която НЕ се поддържа"
         },
         "playing": {
             "start": "Пускане сега",
@@ -137,30 +137,30 @@
         "options": "Параметри за стартиране…"
     },
     "not_logged_in": {
-        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
-        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "epic": "Не сте се вписали с регистрация от Epic в Heroic. Не използвайте страницата на магазина за вписване, вместо това натиснете следния бутон:",
+        "gog": "Не сте се вписали с регистрация от GOG в Heroic. Не използвайте страницата на магазина за вписване, вместо това натиснете следния бутон:",
         "login": "Log in",
-        "title": "You are NOT logged in"
+        "title": "НЕ сте се вписали"
     },
     "report_problem": "Докладване за проблем с пускането на тази игра",
     "sdl": {
         "title": "Изберете компоненти за инсталиране"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Използване на стандартните настройки на Wine"
     },
     "sideload": {
         "field": {
-            "title": "Title"
+            "title": "Заглавие"
         },
         "info": {
-            "exe": "Select Executable",
-            "image": "App Image",
-            "title": "Game/App Title"
+            "exe": "Избиране на изпълним файл",
+            "image": "Изображение на приложението",
+            "title": "Заглавие на играта/приложението"
         },
         "placeholder": {
-            "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "image": "Поставете адрес към изображение тук",
+            "title": "Добавете заглавие към играта/приложението си"
         }
     },
     "specs": {
@@ -169,32 +169,32 @@
     },
     "status": {
         "clickToUpdate": "Натиснете за обновяване",
-        "gameNotAvailable": "Game not available",
+        "gameNotAvailable": "Играта не е налична",
         "hasUpdates": "Има нова версия!",
         "installed": "Инсталирана",
         "installing": "Инсталиране",
         "moving": "Преместване на играта; моля, изчакайте",
         "notinstalled": "Играта не е инсталирана",
-        "notSupported": "Not supported",
-        "notSupportedGame": "Not Supported",
+        "notSupported": "Не се поддържа",
+        "notSupportedGame": "Не се поддържа",
         "processing": "Файловете се обработват, изчакайте",
-        "queued": "Queued",
+        "queued": "В опашката",
         "reparing": "Поправяне на играта; моля, изчакайте",
-        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
+        "this-game-uses-third-party": "Тази игра използва външна пускова програма и все още не се поддържа",
         "totalDownloaded": "Общо свалено",
-        "uninstalling": "Uninstalling",
+        "uninstalling": "Деинсталиране",
         "updating": "Обновяване на играта"
     },
     "submenu": {
         "addShortcut": "Добавяне на пряк път",
-        "addToSteam": "Add to Steam",
+        "addToSteam": "Добавяне в Steam",
         "change": "Промяна на инсталационната папка",
-        "disableEosOverlay": "Disable EOS Overlay",
-        "enableEosOverlay": "Enable EOS Overlay",
+        "disableEosOverlay": "Изключване на слоя на EOS",
+        "enableEosOverlay": "Включване на слоя на EOS",
         "move": "Преместване на играта",
         "protondb": "Проверка на съвместимостта",
-        "removeFromSteam": "Remove from Steam",
-        "removeShortcut": "Remove shortcuts",
+        "removeFromSteam": "Премахване от Steam",
+        "removeShortcut": "Премахване на преките пътища",
         "settings": "Настройки",
         "store": "Страница в магазина",
         "verify": "Проверка и поправяне"
