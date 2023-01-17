@@ -16,11 +16,12 @@
   outline: -webkit-focus-ring-color auto 1px;
 }
 
-.gameCard > .status {
+.gameCard > .gameCardStatus {
   position: absolute;
   z-index: 5;
-  top: 15px;
-  left: 13px;
+  top: 5px;
+  left: 5px;
+  max-width: 110px;
   font-weight: var(--semibold);
   background: linear-gradient(
     180deg,
@@ -31,31 +32,12 @@
   border-radius: 4px;
   color: var(--success);
 }
-
-.gameCard > .progress {
-  position: absolute;
-  z-index: 5;
-  bottom: 45px;
-  right: 5px;
-  color: var(--success);
-  font-family: var(--secondary-font-family);
-  font-style: italic;
-  font-weight: normal;
-  font-size: var(--text-xs);
-  line-height: var(--space-sm);
-  width: fit-content;
-  max-width: 104px;
-  word-wrap: break-word;
-  padding: var(--space-3xs);
-  background: var(--gradient-gamecard);
-  border-radius: 4px;
-}
-.gameCard > .progress svg {
+.gameCard > .gameCardStatus svg {
   color: var(--success);
   height: 20px;
 }
 
-.gameCard.notAvailable > .progress {
+.gameCard.notAvailable > .gameCardStatus {
   color: var(--text-log);
   text-align: right;
 }
@@ -242,17 +224,17 @@
   grid-template-areas: 'update settings play';
 }
 
-.gameListItem > .progress {
+.gameListItem > .gameCardStatus {
   display: none;
 }
 
-.gameListItem > .progress > svg {
+.gameListItem > .gameCardStatus > svg {
   position: relative;
   bottom: 0;
   top: 0;
 }
 
-.progress > svg {
+.gameCardStatus > svg {
   cursor: pointer;
   z-index: 7;
 }
