@@ -1,7 +1,6 @@
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Backspace, CreateNewFolder } from '@mui/icons-material'
-import { CircularProgress } from '@mui/material'
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
@@ -15,6 +14,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { SyncType } from 'frontend/types'
 import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
 import SettingsContext from '../../SettingsContext'
+import TextWithProgress from 'frontend/components/UI/TextWithProgress'
 
 interface Props {
   autoSyncSaves: boolean
@@ -96,13 +96,13 @@ export default function LegendarySyncSaves({
         )}
       </div>
       {isLoading ? (
-        <div className="link button is-text is-link" style={{ width: '100%' }}>
-          {`${t(
+        <TextWithProgress
+          text={t(
             'info.save-sync.searching',
-            'Trying to detect the correct save folder'
-          )}... `}
-          <CircularProgress className="link button is-text is-link" />
-        </div>
+            'Trying to detect the correct save folder (click to cancel) (click to cancel)'
+          )}
+          onClick={() => setLoading(false)}
+        />
       ) : (
         <>
           <TextInputWithIconField

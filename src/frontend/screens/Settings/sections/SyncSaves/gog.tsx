@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { CircularProgress } from '@mui/material'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { SyncType } from 'common/types'
 import { GOGCloudSavesLocation } from 'common/types/gog'
@@ -15,6 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
 import SettingsContext from '../../SettingsContext'
+import TextWithProgress from 'frontend/components/UI/TextWithProgress'
 
 interface Props {
   gogSaves: GOGCloudSavesLocation[]
@@ -93,13 +93,13 @@ export default function GOGSyncSaves({
         )}
       </div>
       {isLoading ? (
-        <div className="link button is-text is-link" style={{ width: '100%' }}>
-          {`${t(
+        <TextWithProgress
+          text={t(
             'info.save-sync.searching',
-            'Trying to detect the correct save folder'
-          )}... `}
-          <CircularProgress className="link button is-text is-link" />
-        </div>
+            'Trying to detect the correct save folder (click to cancel) (click to cancel)'
+          )}
+          onClick={() => setIsLoading(false)}
+        />
       ) : (
         <>
           {gogSaves.map((value, index) => (
