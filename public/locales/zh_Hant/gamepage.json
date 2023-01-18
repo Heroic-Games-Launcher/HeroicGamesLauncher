@@ -197,6 +197,7 @@
         "removeShortcut": "移除捷徑",
         "settings": "設定",
         "store": "商店頁面",
-        "verify": "驗證並修復遊戲文件"
+        "verify": "驗證並修復遊戲文件",
+        "extraInfo": "額外信息"
     }
 }

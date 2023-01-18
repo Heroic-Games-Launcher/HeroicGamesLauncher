@@ -197,6 +197,7 @@
         "removeShortcut": "Odebrat zástupce",
         "settings": "Nastavení",
         "store": "Stránka obchodu",
-        "verify": "Zkontrolovat a opravit"
+        "verify": "Zkontrolovat a opravit",
+        "extraInfo": "Další informace"
     }
 }

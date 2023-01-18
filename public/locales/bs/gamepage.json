@@ -198,6 +198,7 @@
         "removeShortcut": "Uklonite prečice",
         "settings": "Postavke",
         "store": "Webstranica Trgovine",
-        "verify": "Provjeri i popravi"
+        "verify": "Provjeri i popravi",
+        "extraInfo": "Extra Info"
     }
 }

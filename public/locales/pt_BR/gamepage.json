@@ -197,6 +197,7 @@
         "removeShortcut": "Remover atalhos",
         "settings": "Configurações",
         "store": "Página na Loja",
-        "verify": "Verificar e Reparar"
+        "verify": "Verificar e Reparar",
+        "extraInfo": "Informação extra"
     }
 }

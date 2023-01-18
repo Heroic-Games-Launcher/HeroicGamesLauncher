@@ -197,6 +197,7 @@
         "removeShortcut": "Suprimeix les dreceres",
         "settings": "Configuració",
         "store": "Botiga",
-        "verify": "Verifica i repara"
+        "verify": "Verifica i repara",
+        "extraInfo": "Informació extra"
     }
 }

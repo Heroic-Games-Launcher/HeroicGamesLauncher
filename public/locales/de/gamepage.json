@@ -197,6 +197,7 @@
         "removeShortcut": "Verknüpfungen entfernen",
         "settings": "Einstellungen",
         "store": "Store-Seite",
-        "verify": "Prüfen und reparieren"
+        "verify": "Prüfen und reparieren",
+        "extraInfo": "Zusatzinformation"
     }
 }

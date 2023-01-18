@@ -167,7 +167,8 @@
         "removeFromSteam": "Fjern fra Steam",
         "addToSteam": "Tilføj til Steam",
         "disableEosOverlay": "Deaktiver EOS Overlay",
-        "enableEosOverlay": "Aktiver EOS Overlay"
+        "enableEosOverlay": "Aktiver EOS Overlay",
+        "extraInfo": "Ekstra info"
     },
     "generic": {
         "error": "Ukendt fejl"

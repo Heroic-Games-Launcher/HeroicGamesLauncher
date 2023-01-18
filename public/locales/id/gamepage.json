@@ -197,6 +197,7 @@
         "removeShortcut": "Hapus pintasan",
         "settings": "Pengaturan",
         "store": "Halaman Toko",
-        "verify": "Verifikasi dan Perbaiki"
+        "verify": "Verifikasi dan Perbaiki",
+        "extraInfo": "Informasi tambahan"
     }
 }

@@ -197,6 +197,7 @@
         "removeShortcut": "删除快捷方式",
         "settings": "设置",
         "store": "商店页面",
-        "verify": "验证和修复"
+        "verify": "验证和修复",
+        "extraInfo": "额外信息"
     }
 }
