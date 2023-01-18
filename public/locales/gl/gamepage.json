@@ -197,6 +197,7 @@
         "removeShortcut": "Remove shortcuts",
         "settings": "Axustes",
         "store": "Páxina da tenda",
-        "verify": "Verificar e reparar"
+        "verify": "Verificar e reparar",
+        "extraInfo": "Información extra"
     }
 }

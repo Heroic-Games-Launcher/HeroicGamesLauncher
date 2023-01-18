@@ -197,6 +197,7 @@
         "removeShortcut": "Usuń skróty",
         "settings": "Ustawienia",
         "store": "Strona sklepu",
-        "verify": "Sprawdź i napraw"
+        "verify": "Sprawdź i napraw",
+        "extraInfo": "Informacje dodatkowe"
     }
 }

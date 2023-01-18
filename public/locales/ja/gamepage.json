@@ -197,6 +197,7 @@
         "removeShortcut": "Remove shortcuts",
         "settings": "設定",
         "store": "ストアページ",
-        "verify": "確認と修復"
+        "verify": "確認と修復",
+        "extraInfo": "追加情報"
     }
 }

@@ -197,6 +197,7 @@
         "removeShortcut": "Rimuovi le scorciatoie",
         "settings": "Impostazioni",
         "store": "Pagina dello store",
-        "verify": "Verifica e ripara"
+        "verify": "Verifica e ripara",
+        "extraInfo": "Ulteriori informazioni"
     }
 }

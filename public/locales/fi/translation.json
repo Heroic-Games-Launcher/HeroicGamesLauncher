@@ -661,5 +661,8 @@
     "externalLink": {
         "dontAskAgain": "Älä kysy uudelleen",
         "warning": "Olet avaamassa ulkoista linkkiä."
+    },
+    "wiki_info": {
+        "not_found": "Emme löytäneet lisätietoja."
     }
 }

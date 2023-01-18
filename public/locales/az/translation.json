@@ -661,5 +661,8 @@
     "externalLink": {
         "dontAskAgain": "Bir daha soruşma",
         "warning": "Siz xarici keçid açmaq üzrəsiniz."
+    },
+    "wiki_info": {
+        "not_found": "Əlavə məlumat tapa bilmədik."
     }
 }

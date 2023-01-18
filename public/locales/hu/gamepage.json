@@ -197,6 +197,7 @@
         "removeShortcut": "Parancsikonok eltávolítása",
         "settings": "Beállítások",
         "store": "Áruházi oldal",
-        "verify": "Ellenőrzés és javítás"
+        "verify": "Ellenőrzés és javítás",
+        "extraInfo": "Extra Info"
     }
 }

@@ -706,5 +706,8 @@
     "externalLink": {
         "warning": "Du er ved at åbne et eksternt link.",
         "dontAskAgain": "Spørg ikke igen"
+    },
+    "wiki_info": {
+        "not_found": "Vi kunne ikke finde yderligere information."
     }
 }

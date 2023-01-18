@@ -661,5 +661,8 @@
     "externalLink": {
         "dontAskAgain": "Ikke spør igjen",
         "warning": "Du er i ferd med å åpne en ekstern lenke."
+    },
+    "wiki_info": {
+        "not_found": "Vi kunne ikke finne ekstra informasjon."
     }
 }

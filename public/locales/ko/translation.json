@@ -661,5 +661,8 @@
     "externalLink": {
         "dontAskAgain": "다시 묻지 않음",
         "warning": "외부 링크를 열려고 합니다."
+    },
+    "wiki_info": {
+        "not_found": "추가 정보를 찾을 수 없습니다."
     }
 }
