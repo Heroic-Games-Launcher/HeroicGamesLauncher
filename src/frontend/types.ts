@@ -1,5 +1,5 @@
-import { VersionInfo } from 'heroic-wine-downloader'
 import {
+  VersionInfo,
   AppSettings,
   GameInfo,
   GameStatus,
