@@ -167,13 +167,13 @@ abstract class GlobalConfig {
       return wineSet
     }
 
-    const winePaths: string[] = []
+    const winePaths = new Set<string>()
 
     // search for wine installed on $HOME/Library/Application Support/heroic/tools/wine
     const wineToolsPath = `${heroicToolsPath}/wine/`
     if (existsSync(wineToolsPath)) {
       readdirSync(wineToolsPath).forEach((path) => {
-        winePaths.push(join(wineToolsPath, path))
+        winePaths.add(join(wineToolsPath, path))
       })
     }
 
@@ -181,7 +181,7 @@ abstract class GlobalConfig {
     await execAsync('mdfind kMDItemCFBundleIdentifier = "*.wine"').then(
       async ({ stdout }) => {
         stdout.split('\n').forEach((winePath) => {
-          winePaths.push(winePath)
+          winePaths.add(winePath)
         })
       }
     )
