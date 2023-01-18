@@ -198,6 +198,7 @@
         "removeShortcut": "Fjern snarveier",
         "settings": "Innstillinger",
         "store": "Butikkside",
-        "verify": "Bekreft og reparer"
+        "verify": "Bekreft og reparer",
+        "extraInfo": "Ekstra info"
     }
 }

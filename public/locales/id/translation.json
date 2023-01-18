@@ -661,5 +661,8 @@
     "externalLink": {
         "dontAskAgain": "Jangan tanya lagi",
         "warning": "Anda akan membuka tautan eksternal."
+    },
+    "wiki_info": {
+        "not_found": "Kami tidak dapat menemukan informasi tambahan."
     }
 }

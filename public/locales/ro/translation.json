@@ -661,5 +661,8 @@
     "externalLink": {
         "dontAskAgain": "Nu mai întreba",
         "warning": "Sunteți pe cale să deschideți un link extern."
+    },
+    "wiki_info": {
+        "not_found": "Nu am putut găsi informații suplimentare."
     }
 }

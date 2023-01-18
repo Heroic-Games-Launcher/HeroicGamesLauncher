@@ -661,5 +661,8 @@
     "externalLink": {
         "dontAskAgain": "Už se neptat",
         "warning": "Chystáte se otevřít externí odkaz."
+    },
+    "wiki_info": {
+        "not_found": "Další informace jsme nenašli."
     }
 }

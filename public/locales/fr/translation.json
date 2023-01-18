@@ -661,5 +661,8 @@
     "externalLink": {
         "dontAskAgain": "Ne demande plus",
         "warning": "Vous êtes sur le point d'ouvrir un lien externe."
+    },
+    "wiki_info": {
+        "not_found": "Nous n'avons pas trouvé d'informations supplémentaires."
     }
 }

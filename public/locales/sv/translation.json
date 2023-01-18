@@ -661,5 +661,8 @@
     "externalLink": {
         "warning": "Du är på väg att öppna en extern länk.",
         "dontAskAgain": "Fråga inte igen"
+    },
+    "wiki_info": {
+        "not_found": "Vi kunde inte hitta extra information."
     }
 }

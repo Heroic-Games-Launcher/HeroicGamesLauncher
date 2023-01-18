@@ -661,5 +661,8 @@
     "externalLink": {
         "warning": "您即将打开一个外部链接。",
         "dontAskAgain": "不再询问"
+    },
+    "wiki_info": {
+        "not_found": "我们找不到额外的信息。"
     }
 }

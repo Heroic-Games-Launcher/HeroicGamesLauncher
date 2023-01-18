@@ -661,5 +661,8 @@
     "externalLink": {
         "warning": "Kanpoko esteka bat irekitzera zoaz.",
         "dontAskAgain": "Ez galdetu berriro"
+    },
+    "wiki_info": {
+        "not_found": "Ezin izan dugu informazio gehigarririk aurkitu."
     }
 }

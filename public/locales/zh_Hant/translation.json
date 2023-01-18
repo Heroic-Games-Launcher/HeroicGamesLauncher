@@ -661,5 +661,8 @@
     "externalLink": {
         "dontAskAgain": "不再詢問",
         "warning": "您即將打開一個外部鏈接。"
+    },
+    "wiki_info": {
+        "not_found": "我們找不到額外的信息。"
     }
 }

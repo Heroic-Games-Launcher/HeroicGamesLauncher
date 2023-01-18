@@ -197,6 +197,7 @@
         "removeShortcut": "Remove shortcuts",
         "settings": "Instellingen",
         "store": "Winkel",
-        "verify": "Verifiëren en repareren"
+        "verify": "Verifiëren en repareren",
+        "extraInfo": "Extra info"
     }
 }
