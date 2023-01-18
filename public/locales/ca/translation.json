@@ -19,7 +19,7 @@
     },
     "box": {
         "cache-cleared": {
-            "message": "S'ha buidat la memòria cau de l'Heroic.",
+            "message": "S'ha buidat la memòria cau del Heroic.",
             "title": "S'ha buidat la memòria cau"
         },
         "choose": "Tria",
@@ -28,7 +28,7 @@
         "choose-legendary-binary": "Selecciona el binari del Legendary",
         "customWine": "Selecciona el binari del Wine o del Proton",
         "default-install-path": "Tria la ruta d'instal·lació predefinida",
-        "default-steam-path": "Camí de l'Steam.",
+        "default-steam-path": "Ruta de l'Steam.",
         "downloadNow": "Baixa ara",
         "error": {
             "add": {
@@ -49,11 +49,11 @@
                 "title": "No hi ha espai"
             },
             "dxvk": {
-                "message": "Hi ha hagut un error en instal·lar el DXVK/VKD3D. Comproveu la connexió.",
+                "message": "Hi ha hagut un error en instal·lar el DXVK/VKD3D. Comprova la connexió.",
                 "title": "Error del DXVK/VKD3D"
             },
             "folder-not-found": {
-                "title": "La carpeta del joc sembla que s'ha esborrat. Vols treure el joc de la llista de jocs instal·lats?"
+                "title": "Sembla que s'ha suprimit carpeta del joc. Vols suprimir el joc de la llista de jocs instal·lats?"
             },
             "generic": {
                 "message": "",
@@ -62,7 +62,7 @@
             "launchAborted": "L'execució ha fallat",
             "title": "Error",
             "uncaught-exception": {
-                "message": "S'ha produït un error imprevist:{{newLine}}{{error}}{{newLine}}{{newLine}} Informeu-ne al nostre repositori de GitHub.",
+                "message": "S'ha produït un error imprevist: {{newLine}}{{error}}{{newLine}}{{newLine}} Informa'n al nostre repositori de GitHub.",
                 "title": "S'ha produït un error imprevist."
             },
             "update": {
@@ -102,7 +102,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Segur que vols restablir l'Heroic? Se suprimirà tota la configuració i la memòria cau, però no eliminarà els jocs instal·lats ni les credencials de l'Epic. Les versions portables (AppImage, WinPortable, ...) de l'Heroic s'hauran de reiniciar manualment després.",
+                "message": "Segur que vols restablir l'Heroic? Se suprimirà tota la configuració i la memòria cau, però no suprimirà els jocs instal·lats ni les credencials de l'Epic. Les versions portables (AppImage, WinPortable, ...) de l'Heroic s'hauran de reiniciar manualment després.",
                 "title": "Restableix l'Heroic"
             }
         },
@@ -116,8 +116,8 @@
         "shortcuts": {
             "message": "S'han creat dreceres a l'escriptori i al menú d'inici",
             "message-mac": "S'han creat dreceres d'escriptori a la carpeta d'aplicacions",
-            "message-remove": "S'han eliminat les dreceres de l'escriptori i del menú d'inici.",
-            "message-remove-mac": "S'han tret les dreceres d'escriptori a la carpeta d'aplicacions",
+            "message-remove": "S'han suprimit les dreceres de l'escriptori i del menú d'inici",
+            "message-remove-mac": "S'han suprimit les dreceres de la carpeta d'aplicacions",
             "title": "Dreceres"
         },
         "sync": {
@@ -142,7 +142,7 @@
             },
             "title": "Avís",
             "wine-change": {
-                "message": "No hem pogut trobar la versió de vi seleccionada per llançar aquest títol ({{selectedWine}}). {{newline}} Hem trobat un altre, voleu continuar llançant-se amb {{foundWine}}?",
+                "message": "No s'ha pogut trobar la versió del Wine seleccionada per a iniciar aquest títol ({{selectedWine}}). {{newline}} S'ha trobat una altra, vols continuar l'execució utilitzant {{foundWine}}?",
                 "title": "No s'ha trobat vi!"
             }
         },
@@ -156,7 +156,7 @@
         "sync": "Sincronitza",
         "syncing": "S'està sincronitzant",
         "unsync": "Dessincronitza",
-        "continue": "Continue"
+        "continue": "Continua"
     },
     "controller": {
         "hints": {
@@ -221,11 +221,11 @@
     "GOG": "GOG",
     "gog-store": "Botiga del GOG",
     "header": {
-        "hide_non_available_games": "Hide non-available games",
+        "hide_non_available_games": "Amaga els jocs no disponibles",
         "ignore_hidden": "Ignora els amagats",
         "platform": "Plataforma",
         "show_all_games": "Mostra tots els jocs",
-        "show_available_games": "Show non-Available games",
+        "show_available_games": "Mostra els jocs no disponibles",
         "show_favourites_only": "Mostra'n només els preferits",
         "show_hidden": "Mostra'n els amagats",
         "store": "Filtre de botigues"
@@ -239,7 +239,7 @@
         "esync": "Esync té com a objectiu reduir sobrecàrregues del Wineserver en jocs intensius en CPU. Si s'activa, podria millorar el rendiment.",
         "fsync": "Fsync té com a objectiu reduir sobrecàrregues del Wineserver en jocs intensius en CPU. Si s'activa, podria millorar el rendiment en versions de Linux compatibles.",
         "game_language": {
-            "fallback": "Deixa-ho en blanc per a usar la llengua de l'Heroic.",
+            "fallback": "Deixa-ho en blanc per a utilitzar la llengua de l'Heroic.",
             "in_game_config": "No tots els jocs són compatibles amb aquesta configuració. En alguns s'ha de configurar la llengua quan s'executa el programa.",
             "valid_codes": "Els codis de llengua vàlids depenen del joc."
         },
@@ -253,9 +253,9 @@
             "part7": " per a ometre el llançador a alguns jocs, etc."
         },
         "preferSystemLibs": "Les versions personalitzades del Wine (Wine-GE, Wine-Lutris) s'envien amb les seves dependències de biblioteques. Quan s'activa aquesta opció, s'ignoraran les biblioteques enviades i Wine carregarà les biblioteques del sistema. Avís! Es poden produir problemes si no es compleixen les dependències.",
-        "primerun": "Fes servir la targeta gràfica dedicada per a renderitzar el joc en sistemes de diverses GPU. Només cal en portàtils o ordinadors de sobretaula que tenen una GPU «headless» per a renderitzar, com ara NVIDIA Optimus o AMD Crossfire.",
+        "primerun": "Fa servir la targeta gràfica dedicada per a renderitzar el joc en sistemes de diverses GPU. Només cal en portàtils o ordinadors de sobretaula que tenen una GPU «headless» per a renderitzar, com ara NVIDIA Optimus o AMD Crossfire.",
         "steam_path": {
-            "info": "El camí permet que l'Heroic determini quina versió de Proton fa servir l'Steam, per a afegir jocs que no són d'Steam a l'Steam."
+            "info": "La ruta permet que l'Heroic determini quina versió de Proton fa servir l'Steam, per a afegir jocs que no són d'Steam a l'Steam."
         },
         "steamruntime": "Biblioteques personalitzades que proporciona l'Steam per executar jocs en Linux i en Windows (Proton). Si s'activa, podria millorar la compatibilitat.",
         "sync": {
@@ -279,7 +279,7 @@
             "version": "Versió de l'Heroic"
         },
         "save-sync": {
-            "searching": "Es busca la carpeta de partides desades correcta"
+            "searching": "S'està provant de detectar la carpeta correcta de partides desades"
         },
         "settings": "La configuració es desa automàticament",
         "version": "Versió del Wine"
@@ -288,14 +288,14 @@
         "help": "Ajuda",
         "requirements": "Requisits del sistema",
         "warning": "Avís",
-        "wine-path": "Camí del Wine",
+        "wine-path": "Ruta del Wine",
         "wine-prefix": {
             "title": "Prefix del Wine"
         },
         "wine-repfix": {
             "message": "El Wine fa servir el que s'anomena WINEPREFIX per encapsular les aplicacions de Windows. El prefix conté els fitxers de la configuració del Wine i una reproducció de la jerarquia de fitxers a la unitat C: (el disc principal del SO Windows). En aquesta reproducció del disc és on es desen les partides i s'instal·len les dependències a través del winetricks."
         },
-        "wine-path-invalid": "El camí del vi no és vàlid, seleccioneu-ne un altre."
+        "wine-path-invalid": "La ruta del Wine no és vàlida, selecciona'n una altra."
     },
     "install": {
         "path": "Selecciona la ruta d'instal·lació"
@@ -309,7 +309,7 @@
         "sortByStatus": "Ordena per estat",
         "sortDescending": "Ordre descendent",
         "toggleLayout": {
-            "grid": "Commuta a una vista de graella",
+            "grid": "Commuta a una vista en graella",
             "list": "Commuta a una vista en llista"
         }
     },
@@ -343,9 +343,9 @@
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} no s'ha pogut eliminar de tots els usuaris de l'Steam. Consulta els registres per a més informació. Cal reiniciar l'Steam perquè els canvis tinguin efecte.",
-                    "success": "{{game}} s'ha eliminat correctament de l'Steam. Cal reiniciar l'Steam perquè els canvis tinguin efecte.",
-                    "title": "S'ha tret de l'Steam"
+                    "corrupt": "{{game}} no s'ha pogut suprimir de tots els usuaris de l'Steam. Consulta els registres per a més informació. Cal reiniciar l'Steam perquè els canvis tinguin efecte.",
+                    "success": "{{game}} s'ha suprimit correctament de l'Steam. Cal reiniciar l'Steam perquè els canvis tinguin efecte.",
+                    "title": "S'ha suprimit de l'Steam"
                 }
             },
             "reparing": "Ha finalitzat la reparació del joc"
@@ -382,7 +382,7 @@
         "advanced": {
             "key": "Nom de la variable",
             "placeHolderKey": "NOM",
-            "placeHolderValue": "p.ex.: Camí/A/FitxersAddicionals",
+            "placeHolderValue": "p.ex.: Ruta/A/FitxersAddicionals",
             "title": "Variables d'entorn",
             "value": "Valor"
         },
@@ -392,17 +392,17 @@
                 "equal_sign_in_key": "Els noms de les variables no poden fer servir el signe «=»",
                 "space_in_key": "Els noms de les variables no poden contenir espais"
             },
-            "example": "No afegiu el signe «=». Per exemple, per una opció com ara \"MY_FLAG=123\", poseu MY_FLAG a NOM i 123 a VALOR.",
+            "example": "No afegeixis el signe «=». Per exemple, per a una opció com ara \"MY_FLAG=123\", posa MY_FLAG a NOM i 123 a VALOR.",
             "info": "Estableix les variables d'entorn que cal afegir a l'ordre."
         },
         "gameargs": {
             "placeholder": "Introdueix aquí els arguments del llançador",
             "title": "Arguments del joc (s'executaran després de l'ordre):"
         },
-        "quote-args-with-spaces": "Avís: posa els paràmetres que continguin espais entre cometes! Per exemple: \"camí/amb espais/\"",
+        "quote-args-with-spaces": "Avís: posa els paràmetres que continguin espais entre cometes! Per exemple: \"ruta/amb espais/\"",
         "wrapper": {
             "args": "Paràmetres",
-            "arguments_example": "Exemple de paràmetres: --arg; --extra-file=\"camí-del-fitxer/amb espais\"",
+            "arguments_example": "Exemple de paràmetres: --arg; --extra-file=\"ruta-del-fitxer/amb espais\"",
             "exe": "Embolcall",
             "placeHolderKey": "Embolcall nou",
             "placeHolderValue": "Paràmetres de l'embolcall",
@@ -418,7 +418,7 @@
     "placeholder": {
         "alt-gogdl-bin": "S'està utilitzant el binari integrat del GOGDL...",
         "alt-legendary-bin": "S'està utilitzant el binari integrat del Legendary...",
-        "custom_themes_path": "Trieu el camí per a buscar fitxers CSS personalitzats",
+        "custom_themes_path": "Selecciona la ruta per a cercar fitxers CSS personalitzats",
         "dxvkfpsvalue": "Valor enter positiu (com ara 30, 60, ...)",
         "egs-prefix": "Prefix on l'EGS està instal·lat",
         "prefered_language": "Codi de dos caràcters, com ara «en», «fr» o «ca»"
@@ -428,17 +428,17 @@
         "mac": "Mac",
         "win": "Windows"
     },
-    "please-wait": "Espereu...",
+    "please-wait": "Espera...",
     "progress": "Progress",
     "queue": {
         "label": {
             "canceled": "Cancel·lat",
             "clear": "Esborra la llista",
-            "downloading": "Es baixa",
+            "downloading": "S'està baixant",
             "empty": "No hi ha res per baixar",
             "finished": "Completat",
             "queued": "A la cua",
-            "remove": "Treu de les baixades"
+            "remove": "Suprimeix de les baixades"
         }
     },
     "Recent": "Jugats fa poc",
@@ -454,16 +454,16 @@
         "autovkd3d": "Instal·la/Actualitza el VKD3D al prefix automàticament",
         "change-target-exe": "Selecciona un EXE alternatiu a executar",
         "checkForUpdatesOnStartup": "Comprova si hi ha actualitzacions de l'Heroic a l'inici",
-        "crossover-version": "Versió híbrida (crossover)",
-        "custom_themes_path": "Camí dels temes personalitzats",
+        "crossover-version": "Versió híbrida/Wine",
+        "custom_themes_path": "Ruta dels temes personalitzats",
         "customWineProton": "Rutes del Wine o Proton personalitzades",
         "darktray": "Utilitza la icona fosca a la safata",
         "default-install-path": "Ruta d'instal·lació predefinida",
-        "default-steam-path": "Camí de l'Steam per defecte",
+        "default-steam-path": "Ruta predefinida de l'Steam",
         "defaultWinePrefix": "Directori de prefixos Wine nous",
         "disable_controller": "Desactiva la navegació de l'Heroic amb el controlador",
         "discordRPC": "Activa la Discord Rich Presence",
-        "download-no-https": "Descarrega jocs sense HTTPS (útil per CDNs com ara LanCache)",
+        "download-no-https": "Baixa jocs sense HTTPS (útil per a CDNs com ara LanCache)",
         "dxvkfpslimit": "Límit de FPS (DX9, 10 i 11)",
         "egs-sync": "Sincronitza amb l'Epic Games instal·lat",
         "enableFSRHack": "Activa el FSR Hack (cal que la versió del Wine en sigui compatible)",
@@ -479,11 +479,11 @@
             "installing": "S'està instal·lant la capa de superposició EOS…",
             "latestVersion": "Última versió: {{version}}",
             "notInstalled": "La capa de superposició EOS no està instal·lada.",
-            "notInstalledMsg": "La capa de superposició EOS no està instal·lada. Voleu instal·lar-la?",
+            "notInstalledMsg": "La superposició EOS no està instal·lada. Vols instal·lar-la?",
             "notInstalledTitle": "La capa de superposició no està instal·lada.",
             "remove": "Desinstal·la",
-            "removeConfirm": "Esteu segur que voleu desinstal·lar la capa de superposició EOS?",
-            "removeConfirmTitle": "Confirmació d'eliminació de la capa de superposició",
+            "removeConfirm": "Segur que vols desinstal·lar la superposició EOS?",
+            "removeConfirmTitle": "Confirmació de supressió de la capa de superposició",
             "updateNow": "Actualitza",
             "updating": "S'està actualitzant…"
         },
@@ -504,7 +504,7 @@
         "log": {
             "copy-to-clipboard": "Copia el registre al porta-retalls",
             "current-log": "Registre actual",
-            "instructions": "Uniu-vos al nostra canal de Discord i busqueu el canal que s'adigui amb el vostre sistema operatiu. Compartiu-hi el contingut del registre i incloeu-hi una explicació clara del problema amb tota la informació i detalls rellevants.",
+            "instructions": "Uneix-te al nostre canal de Discord i cerca el canal que s'adigui amb el teu sistema operatiu. Comparteix-hi el contingut del registre i inclou-hi una explicació clara del problema amb tota la informació i detalls rellevants.",
             "instructions_title": "Com informar d'un problema",
             "last-log": "Últim registre",
             "no-file": "No s'ha trobat cap registre",
@@ -528,24 +528,24 @@
         "preferSystemLibs": "Dóna preferència a les biblioteques del sistema",
         "primerun": {
             "confirmation": {
-                "message": "Només s'ha detectat una targeta gràfica al sistema. Tingueu en compte que aquesta opció està pensada per a sistemes de diverses GPU amb GPU headless (com ara els portàtils). En sistemes d'una sola GPU, ja es fa servir aquesta de manera automàtica i si s'activa aquesta opció es poden produir problemes. Esteu segur que voleu activar l'opció?",
+                "message": "Només s'ha detectat una targeta gràfica al sistema. Tingues en compte que aquesta opció està pensada per a sistemes de diverses GPU amb GPU headless (com ara els portàtils). En sistemes d'una sola GPU, ja es fa servir aquesta de manera automàtica i si s'activa aquesta opció es poden produir problemes. Segur que vols activar l'opció?",
                 "title": "Només s'ha detectat 1 GPU"
             },
-            "description": "Usa la targeta gràfica dedicada"
+            "description": "Utilitza la targeta gràfica dedicada"
         },
         "runexe": {
             "message": "Arrossega i solta els fitxers aquí",
             "title": "Executa l'EXE al prefix"
         },
         "savefolder": {
-            "not-found": "No s'ha trobat la carpeta de desada. Si us plau, trieu-la manualment.",
+            "not-found": "No s'ha trobat la carpeta de partides desades. Selecciona-la manualment",
             "placeholder": "Selecciona el directori exacte on es desen els jocs",
-            "warning": "Comproveu si el camí és correcte"
+            "warning": "Comprova si la ruta és correcta"
         },
         "select_theme": "Selecciona un tema",
         "showfps": "Mostra els FPS (DX9, 10 i 11)",
         "start-in-tray": "Inicia minimitzat",
-        "steamruntime": "Usa el Runtime de l'Steam",
+        "steamruntime": "Utilitza el Runtime de l'Steam",
         "winecrossoverbottle": "Ampolla CrossOver",
         "wineprefix": "Directori WinePrefix",
         "wineversion": "Versió del Wine",
@@ -560,10 +560,10 @@
         "clear-cache": "Esborra la memòria cau de l'Heroic",
         "copiedToClipboard": "S'ha copiat al porta-retalls.",
         "copyToClipboard": "Copia tota la configuració al porta-retalls",
-        "default_hint": "Els canvis en aquesta secció només s'apliquen als valors per defecte quan s'instal·li un joc. Si voleu canviar la configuració d'un joc que ja s'hagi instal·lat, feu servir el botó de configuració de la pàgina del joc.",
+        "default_hint": "Els canvis en aquesta secció només s'apliquen als valors predefinits quan s'instal·li un joc. Si vols canviar la configuració d'un joc que ja s'hagi instal·lat, fes servir el botó de configuració de la pàgina del joc.",
         "eacRuntime": {
             "gameModeRequired": {
-                "message": "Es necessita el GameMode per tal que el EAC funcioni en Flatpak. Voleu activar-lo?",
+                "message": "Es necessita el GameMode per tal que l'EAC funcioni en Flatpak. Vols activar-lo?",
                 "title": "Necessita el GameMode."
             },
             "installing": "S'està instal·lant el EAC Runtime...",
@@ -571,7 +571,7 @@
         },
         "gameMode": {
             "eacRuntimeEnabled": {
-                "message": "El EAC runtime està activat, però no funcionarà correctament sense el GameMode. Voleu desactivar el EAC Runtime i el GameMode?",
+                "message": "L'EAC està activat, però no funcionarà correctament sense el GameMode. Vols desactivar l'EAC Runtime i el GameMode?",
                 "title": "S'ha activat el EAC runtime."
             }
         },
@@ -584,14 +584,14 @@
             "general": "General",
             "log": "Registre",
             "other": "Altres",
-            "sync": "Desa-sincronitza",
+            "sync": "Sincronització de desades al núvol",
             "wineExt": "Extensions del Wine"
         },
         "open-config-file": "Obre el fitxer de configuració",
         "reset-heroic": "Restableix l'Heroic",
         "saves": {
             "label": "Ubicació de les desades:",
-            "warning": "La funció de desar al núvol està en versió beta. Si us plau, feu una còpia de seguretat de les vostres partides desades abans de sincronitzar-les, per si quelcom sortís malament."
+            "warning": "La funció de desar al núvol està en versió beta. Fes una còpia de seguretat de les partides desades abans de sincronitzar-les, per si res sortís malament."
         }
     },
     "Settings": "Configuració",
@@ -602,7 +602,7 @@
     "status": {
         "installing": "S'està instal·lant",
         "logging": "S'està iniciant la sessió...",
-        "processing": "S'estan processant els fitxers, espereu"
+        "processing": "S'estan processant els fitxers, espera"
     },
     "store": "Botiga de l'Epic",
     "stores": "Botigues",
@@ -626,7 +626,7 @@
         "show": "Mostra"
     },
     "two_col_table": {
-        "save_hint": "Els canvis en aquesta taula no es desen automàticament. Feu clic al botó +."
+        "save_hint": "Els canvis en aquesta taula no es desen automàticament. Fes clic al botó +"
     },
     "Update Available!": "",
     "userselector": {
@@ -635,7 +635,9 @@
         "logout": "Tanca la sessió",
         "logout_confirmation": "Segur que vols tancar la sessió?",
         "manageaccounts": "Gestiona els comptes",
-        "quit": "Surt"
+        "quit": "Surt",
+        "cancel": "Cancel·la",
+        "quitMessage": "Estàs segur que vols deixar-ho?"
     },
     "webview": {
         "controls": {
@@ -649,7 +651,7 @@
         "actions": "Acció",
         "manager": {
             "link": "Gestor del Wine",
-            "not-found": "No s'han trobat versions del Wine. Feu clic a la icona d'actualització per a provar-ho de nou.",
+            "not-found": "No s'han trobat versions del Wine. Fes clic a la icona d'actualització per a provar-ho de nou.",
             "title": "Gestor del Wine",
             "unzipping": "S'està descomprimint"
         },
@@ -658,6 +660,9 @@
     },
     "externalLink": {
         "dontAskAgain": "No ho tornis a preguntar",
-        "warning": "Esteu a punt d'obrir un enllaç extern."
+        "warning": "Estàs a punt d'obrir un enllaç extern."
+    },
+    "wiki_info": {
+        "not_found": "No hem pogut trobar informació addicional."
     }
 }

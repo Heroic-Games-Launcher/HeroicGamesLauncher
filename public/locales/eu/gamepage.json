@@ -198,6 +198,7 @@
         "removeShortcut": "Sarbide zuzenak kendu",
         "settings": "Konfigurazioa",
         "store": "Dendaren orrialdea",
-        "verify": "Egiaztatzea eta konpontzea"
+        "verify": "Egiaztatzea eta konpontzea",
+        "extraInfo": "Informazio gehigarria"
     }
 }

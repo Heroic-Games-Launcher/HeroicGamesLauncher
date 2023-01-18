@@ -589,13 +589,22 @@ ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
             commandParts: ['winecfg'],
             wait: false
           })
-        : game.runWineCommand(['winecfg'])
+        : game.runWineCommand({ commandParts: ['winecfg'] })
       break
     case 'runExe':
       if (exe) {
+        const workingDir = path.parse(exe).dir
         isSideloaded
-          ? runWineCommand({ gameSettings, commandParts: [exe], wait: false })
-          : game.runWineCommand([exe])
+          ? runWineCommand({
+              gameSettings,
+              commandParts: [exe],
+              wait: false,
+              startFolder: workingDir
+            })
+          : game.runWineCommand({
+              commandParts: [exe],
+              startFolder: workingDir
+            })
       }
       break
   }
@@ -1557,7 +1566,11 @@ ipcMain.handle(
     }
 
     // FIXME: Why are we using `runinprefix` here?
-    return game.runWineCommand(commandParts, false, 'runinprefix')
+    return game.runWineCommand({
+      commandParts,
+      wait: false,
+      protonVerb: 'runinprefix'
+    })
   }
 )
 
@@ -1647,8 +1660,7 @@ import './legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
 import './downloadmanager/ipc_handler'
 import './utils/ipc_handler'
-import './extra_game_info/howlongtobeat/ipc_handler'
-import './extra_game_info/pcgamingwiki/ipc_handler'
+import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
 
 // import Store from 'electron-store'

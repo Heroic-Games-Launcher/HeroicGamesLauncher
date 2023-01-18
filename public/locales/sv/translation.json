@@ -635,7 +635,9 @@
         "logout": "Logga ut",
         "logout_confirmation": "Är du säker att du vill logga ut?",
         "manageaccounts": "Hantera konton",
-        "quit": "Avsluta"
+        "quit": "Avsluta",
+        "cancel": "Avbryt",
+        "quitMessage": "Är du säker på att du vill sluta?"
     },
     "webview": {
         "controls": {
@@ -659,5 +661,8 @@
     "externalLink": {
         "warning": "Du är på väg att öppna en extern länk.",
         "dontAskAgain": "Fråga inte igen"
+    },
+    "wiki_info": {
+        "not_found": "Vi kunde inte hitta extra information."
     }
 }

@@ -1,3 +1,4 @@
+import { WineCommandArgs } from './../../common/types'
 import {
   createAbortController,
   deleteAbortController
@@ -21,7 +22,6 @@ import {
   ExecResult,
   InstallArgs,
   InstalledInfo,
-  ProtonVerb,
   InstallPlatform
 } from 'common/types'
 import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
@@ -829,11 +829,12 @@ class GOGGame extends Game {
     }
   }
 
-  public async runWineCommand(
-    commandParts: string[],
+  public async runWineCommand({
+    commandParts,
     wait = false,
-    protonVerb?: ProtonVerb
-  ): Promise<ExecResult> {
+    protonVerb,
+    startFolder
+  }: WineCommandArgs): Promise<ExecResult> {
     if (this.isNative()) {
       logError('runWineCommand called on native game!', LogPrefix.Gog)
       return { stdout: '', stderr: '' }
@@ -846,7 +847,8 @@ class GOGGame extends Game {
       installFolderName: folder_name,
       commandParts,
       wait,
-      protonVerb
+      protonVerb,
+      startFolder
     })
   }
 

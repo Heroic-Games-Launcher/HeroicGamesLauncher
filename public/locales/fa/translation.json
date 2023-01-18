@@ -635,7 +635,9 @@
         "logout": "خروج از حساب",
         "logout_confirmation": "آیا میخواهید از حساب خود خارج شوید؟",
         "manageaccounts": "مدیریت حسابها",
-        "quit": "خروج"
+        "quit": "خروج",
+        "cancel": "لغو",
+        "quitMessage": "آیا مطمئن هستید که می خواهید ترک کنید؟"
     },
     "webview": {
         "controls": {
@@ -659,5 +661,8 @@
     "externalLink": {
         "warning": "شما در حال باز کردن یک پیوند خارجی هستید.",
         "dontAskAgain": "دیگه نپرس"
+    },
+    "wiki_info": {
+        "not_found": "ما نتوانستیم اطلاعات اضافی پیدا کنیم."
     }
 }

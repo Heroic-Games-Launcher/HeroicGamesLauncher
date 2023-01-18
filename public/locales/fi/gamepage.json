@@ -197,6 +197,7 @@
         "removeShortcut": "Remove shortcuts",
         "settings": "Asetukset",
         "store": "Kauppasivu",
-        "verify": "Vahvista ja korjaa"
+        "verify": "Vahvista ja korjaa",
+        "extraInfo": "Lisätiedot"
     }
 }

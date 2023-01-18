@@ -635,7 +635,9 @@
         "logout": "Desconectar",
         "logout_confirmation": "Tem certeza que deseja desconectar da sua conta?",
         "manageaccounts": "Gerenciar Contas",
-        "quit": "Sair"
+        "quit": "Sair",
+        "cancel": "Cancelar",
+        "quitMessage": "Você tem certeza que quer sair?"
     },
     "webview": {
         "controls": {
@@ -659,5 +661,8 @@
     "externalLink": {
         "dontAskAgain": "Não pergunte novamente",
         "warning": "Você está prestes a abrir um link externo."
+    },
+    "wiki_info": {
+        "not_found": "Não encontramos informações extras."
     }
 }

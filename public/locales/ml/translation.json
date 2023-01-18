@@ -635,7 +635,9 @@
         "logout": "ഇറങ്ങൂ(ലോഗൌട്ട്)",
         "logout_confirmation": "Logout?",
         "manageaccounts": "Manage Accounts",
-        "quit": "പുറത്തുകടക്കൂ"
+        "quit": "പുറത്തുകടക്കൂ",
+        "cancel": "Cancel",
+        "quitMessage": "നിങ്ങള് വിട്ടു പോകുകയാണ് എന്ന് ഉറപ്പാണോ?"
     },
     "webview": {
         "controls": {
@@ -659,5 +661,8 @@
     "externalLink": {
         "dontAskAgain": "വീണ്ടും ചോദിക്കരുത്",
         "warning": "നിങ്ങൾ ഒരു ബാഹ്യ ലിങ്ക് തുറക്കാൻ പോകുകയാണ്."
+    },
+    "wiki_info": {
+        "not_found": "ഞങ്ങൾക്ക് അധിക വിവരങ്ങൾ കണ്ടെത്താൻ കഴിഞ്ഞില്ല."
     }
 }

@@ -2,6 +2,7 @@ import { GOGCloudSavesLocation, GogInstallPlatform } from './types/gog'
 import { LegendaryInstallPlatform } from './types/legendary'
 import { IpcRendererEvent } from 'electron'
 import { ChildProcess } from 'child_process'
+import { HowLongToBeatEntry } from 'howlongtobeat'
 
 export type Runner = 'legendary' | 'gog' | 'sideload'
 
@@ -541,7 +542,7 @@ export interface DMQueueElement {
 
 export type WineCommandArgs = {
   commandParts: string[]
-  wait: boolean
+  wait?: boolean
   protonVerb?: ProtonVerb
   gameSettings?: GameSettings
   installFolderName?: string
@@ -619,13 +620,24 @@ export interface GameScoreInfo {
   urlid: string
 }
 export interface PCGamingWikiInfo {
-  timestampLastFetch: string
   steamID: string
   howLongToBeatID: string
   metacritic: GameScoreInfo
   opencritic: GameScoreInfo
   igdb: GameScoreInfo
   direct3DVersions: string[]
+}
+
+export interface AppleGamingWikiInfo {
+  crossoverRating: string
+  crossoverLink: string
+}
+
+export interface WikiInfo {
+  timestampLastFetch: string
+  pcgamingwiki: PCGamingWikiInfo | null
+  applegamingwiki: AppleGamingWikiInfo | null
+  howlongtobeat: HowLongToBeatEntry | null
 }
 
 /**

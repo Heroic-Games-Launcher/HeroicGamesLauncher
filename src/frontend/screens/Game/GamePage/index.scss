@@ -2,7 +2,8 @@
   background: var(--background-darker);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   display: flex;
-  height: 100vh;
+  height: 100%;
+  overflow: hidden;
   justify-content: stretch;
   position: relative;
 

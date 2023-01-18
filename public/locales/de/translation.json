@@ -635,7 +635,9 @@
         "logout": "Abmelden",
         "logout_confirmation": "Möchtest du dich wirklich abmelden?",
         "manageaccounts": "Konten verwalten",
-        "quit": "Beenden"
+        "quit": "Beenden",
+        "cancel": "Absagen",
+        "quitMessage": "Sind Sie sicher, dass Sie aufhören wollen?"
     },
     "webview": {
         "controls": {
@@ -659,5 +661,8 @@
     "externalLink": {
         "warning": "Sie sind dabei, einen externen Link zu öffnen.",
         "dontAskAgain": "Frag nicht nochmal"
+    },
+    "wiki_info": {
+        "not_found": "Wir konnten keine zusätzlichen Informationen finden."
     }
 }

@@ -635,7 +635,9 @@
         "logout": "Logout",
         "logout_confirmation": "Naozaj sa chcete odhlásiť?",
         "manageaccounts": "Manage Accounts",
-        "quit": "Quit"
+        "quit": "Quit",
+        "cancel": "Cancel",
+        "quitMessage": "Si si isty ze chces skoncit?"
     },
     "webview": {
         "controls": {
@@ -659,5 +661,8 @@
     "externalLink": {
         "dontAskAgain": "Už sa nepýtaj",
         "warning": "Chystáte sa otvoriť externý odkaz."
+    },
+    "wiki_info": {
+        "not_found": "Nepodarilo sa nám nájsť ďalšie informácie."
     }
 }

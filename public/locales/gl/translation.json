@@ -635,7 +635,9 @@
         "logout": "Pechar sesión",
         "logout_confirmation": "Tes certeza que queres pechar a sesión?",
         "manageaccounts": "Manage Accounts",
-        "quit": "Saír"
+        "quit": "Saír",
+        "cancel": "Cancel",
+        "quitMessage": "Estás seguro de que queres saír?"
     },
     "webview": {
         "controls": {
@@ -659,5 +661,8 @@
     "externalLink": {
         "dontAskAgain": "Non volvas preguntar",
         "warning": "Estás a piques de abrir unha ligazón externa."
+    },
+    "wiki_info": {
+        "not_found": "Non puidemos atopar información adicional."
     }
 }

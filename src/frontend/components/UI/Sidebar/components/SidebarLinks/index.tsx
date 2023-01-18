@@ -13,7 +13,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { NavLink, useLocation } from 'react-router-dom'
 import classNames from 'classnames'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons'
 import { openDiscordLink } from 'frontend/helpers'
@@ -39,14 +39,8 @@ export default function SidebarLinks() {
   const location = useLocation() as { pathname: string }
   const [, , runner, appName, type] = location.pathname.split('/') as PathSplit
 
-  const {
-    epic,
-    gog,
-    platform,
-    activeController,
-    refreshLibrary,
-    handleExternalLinkDialog
-  } = useContext(ContextProvider)
+  const { epic, gog, platform, refreshLibrary, handleExternalLinkDialog } =
+    useContext(ContextProvider)
 
   const isStore = location.pathname.includes('store')
   const isSettings = location.pathname.includes('settings')
@@ -54,13 +48,7 @@ export default function SidebarLinks() {
 
   const settingsPath = '/settings/app/default/general'
 
-  const [isFullscreen, setIsFullscreen] = useState(false)
-
   const loggedIn = epic.username || gog.username
-
-  useEffect(() => {
-    window.api.isFullscreen().then((res) => setIsFullscreen(res))
-  }, [])
 
   async function handleRefresh() {
     localStorage.setItem('scrollPosition', '0')
@@ -336,7 +324,7 @@ export default function SidebarLinks() {
         </div>
         <span>Ko-fi</span>
       </button>
-      {(isFullscreen || activeController) && <QuitButton />}
+      <QuitButton />
     </div>
   )
 }

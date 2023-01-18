@@ -197,6 +197,7 @@
         "removeShortcut": "Remove shortcuts",
         "settings": "Configurações",
         "store": "Página da Loja",
-        "verify": "Verificar e Reparar"
+        "verify": "Verificar e Reparar",
+        "extraInfo": "Informação extra"
     }
 }

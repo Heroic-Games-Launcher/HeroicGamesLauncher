@@ -197,6 +197,7 @@
         "removeShortcut": "Eliminar accesos directos",
         "settings": "Ajustes",
         "store": "Página de la tienda",
-        "verify": "Verificar y reparar"
+        "verify": "Verificar y reparar",
+        "extraInfo": "Información extra"
     }
 }

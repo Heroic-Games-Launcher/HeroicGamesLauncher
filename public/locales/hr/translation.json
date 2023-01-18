@@ -635,7 +635,9 @@
         "logout": "Logout",
         "logout_confirmation": "Jeste li sigurni da se želite odjaviti?",
         "manageaccounts": "Manage Accounts",
-        "quit": "Quit"
+        "quit": "Quit",
+        "cancel": "Odustani",
+        "quitMessage": "Jesi li siguran da želiš odustati?"
     },
     "webview": {
         "controls": {
@@ -659,5 +661,8 @@
     "externalLink": {
         "dontAskAgain": "Ne pitaj više",
         "warning": "Upravo ćete otvoriti vanjsku poveznicu."
+    },
+    "wiki_info": {
+        "not_found": "Nismo mogli pronaći dodatne informacije."
     }
 }

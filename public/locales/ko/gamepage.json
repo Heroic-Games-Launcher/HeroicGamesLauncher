@@ -197,6 +197,7 @@
         "removeShortcut": "바로가기 제거",
         "settings": "설정",
         "store": "스토어 페이지",
-        "verify": "확인 및 복구"
+        "verify": "확인 및 복구",
+        "extraInfo": "추가 정보"
     }
 }

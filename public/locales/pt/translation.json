@@ -584,7 +584,7 @@
             "general": "Geral",
             "log": "Log",
             "other": "Outros",
-            "sync": "Sincronização",
+            "sync": "Sincronização de Jogos Salvos em Nuvem",
             "wineExt": "Wine Extensions"
         },
         "open-config-file": "Open Config File",
@@ -635,7 +635,9 @@
         "logout": "Sair",
         "logout_confirmation": "Logout?",
         "manageaccounts": "Manage Accounts",
-        "quit": "Fechar"
+        "quit": "Fechar",
+        "cancel": "Cancel",
+        "quitMessage": "Você tem certeza que quer sair?"
     },
     "webview": {
         "controls": {
@@ -659,5 +661,8 @@
     "externalLink": {
         "dontAskAgain": "Não pergunte novamente",
         "warning": "Você está prestes a abrir um link externo."
+    },
+    "wiki_info": {
+        "not_found": "Não encontramos informações extras."
     }
 }

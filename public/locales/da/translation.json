@@ -583,7 +583,9 @@
         "logout_confirmation": "Er du sikker på, at du vil logge ud?",
         "manageaccounts": "Administrer konti",
         "quit": "Afslut",
-        "logging_out": "Logger ud"
+        "logging_out": "Logger ud",
+        "cancel": "Afbestille",
+        "quitMessage": "Er du sikker på, at du vil stoppe?"
     },
     "anticheat": {
         "anticheats": "Anticheats",
@@ -704,5 +706,8 @@
     "externalLink": {
         "warning": "Du er ved at åbne et eksternt link.",
         "dontAskAgain": "Spørg ikke igen"
+    },
+    "wiki_info": {
+        "not_found": "Vi kunne ikke finde yderligere information."
     }
 }
