@@ -1,7 +1,7 @@
 // needs to be here, because jest.mock places itself before import.
 const mockSearch = jest.fn()
 
-import { logError } from '../../../logger/logger'
+import { logError } from 'backend/logger/logger'
 import { getHowLongToBeat } from '../utils'
 import { HowLongToBeatEntry } from 'howlongtobeat'
 

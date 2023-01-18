@@ -1,4 +1,3 @@
-import { WineCommandArgs } from './../../common/types'
 import {
   createAbortController,
   deleteAbortController
@@ -11,7 +10,8 @@ import {
   ExtraInfo,
   GameInfo,
   InstallArgs,
-  InstallPlatform
+  InstallPlatform,
+  WineCommandArgs
 } from 'common/types'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'

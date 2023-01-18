@@ -3,7 +3,7 @@ import {
   GameInfo,
   SideloadGame,
   InstalledInfo
-} from '../../common/types'
+} from 'common/types'
 import { libraryStore } from './electronStores'
 import { GameConfig } from '../game_config'
 import {
