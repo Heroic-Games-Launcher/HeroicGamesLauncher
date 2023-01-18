@@ -53,7 +53,8 @@ export default React.memo(function WineManager(): JSX.Element | null {
   >([
     { type: 'Wine-GE', value: 'winege', enabled: isLinux },
     { type: 'Proton-GE', value: 'protonge', enabled: isLinux },
-    { type: 'Wine-Crossover', value: 'winecrossover', enabled: !isLinux }
+    { type: 'Wine-Crossover', value: 'winecrossover', enabled: !isLinux },
+    { type: 'Wine-Staging-macOS', value: 'winestagingmacos', enabled: !isLinux }
   ])
 
   const getWineVersions = (repo: Type) => {
@@ -107,7 +108,14 @@ export default React.memo(function WineManager(): JSX.Element | null {
           <Tabs
             className="tabs"
             value={repository.value}
-            onChange={handleChangeTab}
+            onChange={(e, value) => {
+              const repo = wineManagerSettings.find(
+                (setting) => setting.value === value
+              )
+              if (repo) {
+                handleChangeTab(e, repo)
+              }
+            }}
             centered={true}
           >
             {wineManagerSettings.map(({ type, value, enabled }) => {

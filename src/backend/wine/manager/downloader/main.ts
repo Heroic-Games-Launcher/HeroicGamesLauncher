@@ -13,7 +13,8 @@ import {
   PROTONGE_URL,
   PROTON_URL,
   WINELUTRIS_URL,
-  WINECROSSOVER_URL
+  WINECROSSOVER_URL,
+  WINESTAGINGMACOS_URL
 } from './constants'
 import {
   VersionInfo,
@@ -111,6 +112,20 @@ async function getAvailableVersions({
         await fetchReleases({
           url: WINECROSSOVER_URL,
           type: 'Wine-Crossover',
+          count: count
+        })
+          .then((fetchedReleases: VersionInfo[]) => {
+            releases.push(...fetchedReleases)
+          })
+          .catch((error: Error) => {
+            throw error
+          })
+        break
+      }
+      case Repositorys.WINESTAGINGMACOS: {
+        await fetchReleases({
+          url: WINESTAGINGMACOS_URL,
+          type: 'Wine-Staging-macOS',
           count: count
         })
           .then((fetchedReleases: VersionInfo[]) => {

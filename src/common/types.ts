@@ -650,6 +650,7 @@ export type Type =
   | 'Wine-Lutris'
   | 'Wine-Kron4ek'
   | 'Wine-Crossover'
+  | 'Wine-Staging-macOS'
 
 /**
  * Interface contains information about a version
@@ -678,7 +679,8 @@ export enum Repositorys {
   PROTONGE,
   PROTON,
   WINELUTRIS,
-  WINECROSSOVER
+  WINECROSSOVER,
+  WINESTAGINGMACOS
 }
 
 /**
