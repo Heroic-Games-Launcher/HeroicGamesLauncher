@@ -12,7 +12,8 @@ import {
   WINEGE_URL,
   PROTONGE_URL,
   PROTON_URL,
-  WINELUTRIS_URL
+  WINELUTRIS_URL,
+  WINECROSSOVER_URL
 } from './constants'
 import {
   VersionInfo,
@@ -44,12 +45,7 @@ interface getVersionsProps {
  *          * rejects with an {@link Error}
  */
 async function getAvailableVersions({
-  repositorys = [
-    Repositorys.WINEGE,
-    Repositorys.PROTONGE,
-    Repositorys.PROTON,
-    Repositorys.WINELUTRIS
-  ],
+  repositorys = [Repositorys.WINEGE, Repositorys.PROTONGE],
   count = 100
 }: getVersionsProps): Promise<VersionInfo[]> {
   const releases: Array<VersionInfo> = []
@@ -101,6 +97,20 @@ async function getAvailableVersions({
         await fetchReleases({
           url: WINELUTRIS_URL,
           type: 'Wine-Lutris',
+          count: count
+        })
+          .then((fetchedReleases: VersionInfo[]) => {
+            releases.push(...fetchedReleases)
+          })
+          .catch((error: Error) => {
+            throw error
+          })
+        break
+      }
+      case Repositorys.WINECROSSOVER: {
+        await fetchReleases({
+          url: WINECROSSOVER_URL,
+          type: 'Wine-Crossover',
           count: count
         })
           .then((fetchedReleases: VersionInfo[]) => {

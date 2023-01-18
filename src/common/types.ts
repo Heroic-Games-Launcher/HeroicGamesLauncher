@@ -649,6 +649,7 @@ export type Type =
   | 'Proton'
   | 'Wine-Lutris'
   | 'Wine-Kron4ek'
+  | 'Wine-Crossover'
 
 /**
  * Interface contains information about a version
@@ -676,7 +677,8 @@ export enum Repositorys {
   WINEGE,
   PROTONGE,
   PROTON,
-  WINELUTRIS
+  WINELUTRIS,
+  WINECROSSOVER
 }
 
 /**
