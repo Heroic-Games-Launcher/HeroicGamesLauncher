@@ -231,9 +231,9 @@ async function unzipFile({
 
     let extension_options = ''
     if (filePath.endsWith('tar.gz')) {
-      extension_options = '-vzxf'
+      extension_options = '-zxf'
     } else if (filePath.endsWith('tar.xz')) {
-      extension_options = '-vJxf'
+      extension_options = '-Jxf'
     } else {
       reject(`Archive type ${filePath.split('.').pop()} not supported!`)
     }
