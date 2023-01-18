@@ -354,7 +354,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     }}
                   >
                     <b>{t('info.syncsaves')}:</b>{' '}
-                    {t('cloud_save_unsupported', 'Unsupported')}
+                    {t('cloud_save_unsupported', 'This game does not support cloud saves')}
                   </div>
                 )}
                 {!is_installed && !isSideloaded && !notSupportedGame && (

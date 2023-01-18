@@ -71,7 +71,7 @@
         "update": "Update",
         "details": "Detalhes"
     },
-    "cloud_save_unsupported": "Sem suporte",
+    "cloud_save_unsupported": "Esse jogo não suporta salvar na nuvem",
     "disabled": "Desabilitado",
     "dlc": {
         "installDlcs": "Instalar DLCs"
