@@ -229,45 +229,6 @@ export async function launchApp(appName: string): Promise<boolean> {
   return false
 }
 
-// This is currently not used! (Bug)
-
-// export async function moveInstall(
-//   appName: string,
-//   newInstallPath: string
-// ): Promise<string> {
-//   const {
-//     install: { install_path },
-//     title
-//   } = getAppInfo(appName)
-
-//   if (!install_path) {
-//     return ''
-//   }
-
-//   if (isWindows) {
-//     newInstallPath += '\\' + install_path.split('\\').at(-1)
-//   } else {
-//     newInstallPath += '/' + install_path.split('/').at(-1)
-//   }
-
-//   logInfo(`Moving ${title} to ${newInstallPath}`, LogPrefix.Backend)
-//   await execAsync(`mv -f '${install_path}' '${newInstallPath}'`, execOptions)
-//     .then(() => {
-//       const installedArray =
-//         (libraryStore.get('installed', []) as Array<InstalledInfo>) || []
-
-//       const gameIndex = installedArray.findIndex(
-//         (value) => value.appName === appName
-//       )
-
-//       installedArray[gameIndex].install_path = newInstallPath
-//       libraryStore.set('installed', installedArray)
-//       logInfo(`Finished Moving ${title}`, LogPrefix.Backend)
-//     })
-//     .catch((error) => logError(`${error}`, LogPrefix.Backend))
-//   return newInstallPath
-// }
-
 export async function stop(appName: string): Promise<void> {
   const {
     install: { executable }
