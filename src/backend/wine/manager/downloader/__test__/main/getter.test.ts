@@ -1,4 +1,4 @@
-import { Repositorys, VersionInfo } from '../../../../../../common/types'
+import { Repositorys, VersionInfo } from 'common/types'
 import { getAvailableVersions } from '../../main'
 import { test_data_release_list } from '../test_data/github-api-test-data.json'
 import * as axios from 'axios'

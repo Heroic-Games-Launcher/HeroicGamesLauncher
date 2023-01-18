@@ -1,13 +1,13 @@
 import { readFileSync, copyFileSync, mkdirSync } from 'graceful-fs'
-import { GameInfo } from '../../../../common/types'
+import { GameInfo } from 'common/types'
 import { join } from 'path'
 import { DirResult, dirSync } from 'tmp'
 import { addNonSteamGame, removeNonSteamGame } from '../nonesteamgame'
-import { showDialogBoxModalAuto } from '../../../dialog/dialog'
+import { showDialogBoxModalAuto } from 'backend/dialog/dialog'
 
-jest.mock('../../../logger/logfile')
-jest.mock('../../../dialog/dialog')
-jest.mock('../../../utils')
+jest.mock('backend/logger/logfile')
+jest.mock('backend/dialog/dialog')
+jest.mock('backend/utils')
 
 let tmpDir = {} as DirResult
 let tmpSteamUserConfigDir = '' as string

@@ -1,10 +1,10 @@
-import { logError } from '../../../logger/logger'
+import { logError } from 'backend/logger/logger'
 import { getInfoFromAppleGamingWiki } from '../utils'
 import axios from 'axios'
-import { AppleGamingWikiInfo } from '../../../../common/types'
+import { AppleGamingWikiInfo } from 'common/types'
 
-jest.mock('../../../logger/logfile')
-jest.mock('../../../logger/logger')
+jest.mock('backend/logger/logfile')
+jest.mock('backend/logger/logger')
 jest.mock('electron-store')
 
 describe('getAppleGamingWikiInfo', () => {

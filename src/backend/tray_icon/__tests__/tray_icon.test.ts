@@ -2,7 +2,7 @@ import { BrowserWindow } from 'electron'
 import { contextMenu, getIcon, initTrayIcon } from '../tray_icon'
 import { backendEvents } from '../../backend_events'
 import { GlobalConfig } from '../../config'
-import { RecentGame } from '../../../common/types'
+import { RecentGame } from 'common/types'
 import { configStore } from '../../constants'
 import { wait } from '../../utils'
 
