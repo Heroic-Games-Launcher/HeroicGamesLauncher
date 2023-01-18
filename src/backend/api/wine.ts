@@ -1,6 +1,11 @@
 import { ipcRenderer } from 'electron'
-import { RuntimeName, ToolArgs, WineVersionInfo } from 'common/types'
-import { ProgressInfo, State } from 'heroic-wine-downloader'
+import {
+  RuntimeName,
+  ToolArgs,
+  WineVersionInfo,
+  ProgressInfo,
+  State
+} from 'common/types'
 
 export const toggleDXVK = async (args: ToolArgs) =>
   ipcRenderer.invoke('toggleDXVK', args)

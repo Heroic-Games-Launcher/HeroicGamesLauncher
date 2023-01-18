@@ -635,7 +635,9 @@
         "logout": "Logout",
         "logout_confirmation": "Вы ўпэўнены, што хочаце выйсці?",
         "manageaccounts": "Manage Accounts",
-        "quit": "Quit"
+        "quit": "Quit",
+        "cancel": "Cancel",
+        "quitMessage": "Вы ўпэўнены, што хочаце кінуць?"
     },
     "webview": {
         "controls": {
@@ -659,5 +661,8 @@
     "externalLink": {
         "dontAskAgain": "Больш не пытайся",
         "warning": "Вы збіраецеся адкрыць знешнюю спасылку."
+    },
+    "wiki_info": {
+        "not_found": "Мы не змаглі знайсці дадатковую інфармацыю."
     }
 }

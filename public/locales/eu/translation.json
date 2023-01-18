@@ -635,7 +635,9 @@
         "logout": "Saioa amaitu",
         "logout_confirmation": "Ziur saioa amaitu nahi duzula?",
         "manageaccounts": "Kudeatu Kontuak",
-        "quit": "Irten"
+        "quit": "Irten",
+        "cancel": "Ezeztatu",
+        "quitMessage": "Ziur utzi nahi duzula?"
     },
     "webview": {
         "controls": {
@@ -659,5 +661,8 @@
     "externalLink": {
         "warning": "Kanpoko esteka bat irekitzera zoaz.",
         "dontAskAgain": "Ez galdetu berriro"
+    },
+    "wiki_info": {
+        "not_found": "Ezin izan dugu informazio gehigarririk aurkitu."
     }
 }

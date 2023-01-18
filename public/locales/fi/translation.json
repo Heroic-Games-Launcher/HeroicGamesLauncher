@@ -635,7 +635,9 @@
         "logout": "Kirjaudu ulos",
         "logout_confirmation": "Haluatko varmasti kirjautua ulos?",
         "manageaccounts": "Hallitse tilejä",
-        "quit": "Poistu"
+        "quit": "Poistu",
+        "quitMessage": "Oletko varma, että haluat lopettaa?",
+        "cancel": "Cancel"
     },
     "webview": {
         "controls": {
@@ -659,5 +661,8 @@
     "externalLink": {
         "dontAskAgain": "Älä kysy uudelleen",
         "warning": "Olet avaamassa ulkoista linkkiä."
+    },
+    "wiki_info": {
+        "not_found": "Emme löytäneet lisätietoja."
     }
 }

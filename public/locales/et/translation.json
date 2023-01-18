@@ -635,7 +635,9 @@
         "logout": "Logi välja",
         "logout_confirmation": "Kas olete kindel, et soovite välja logida?",
         "manageaccounts": "Kontode haldamine",
-        "quit": "Sulge"
+        "quit": "Sulge",
+        "cancel": "Tühista",
+        "quitMessage": "Kas olete kindel, et soovite lõpetada?"
     },
     "webview": {
         "controls": {
@@ -659,5 +661,8 @@
     "externalLink": {
         "dontAskAgain": "Ära enam küsi",
         "warning": "Olete avamas välist linki."
+    },
+    "wiki_info": {
+        "not_found": "Me ei leidnud lisateavet."
     }
 }

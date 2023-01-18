@@ -635,7 +635,9 @@
         "logout": "Keluar",
         "logout_confirmation": "Apakah Anda yakin ingin keluar?",
         "manageaccounts": "Kelola Akun",
-        "quit": "Keluar"
+        "quit": "Keluar",
+        "cancel": "Batalkan",
+        "quitMessage": "Apakah Anda yakin ingin berhenti?"
     },
     "webview": {
         "controls": {
@@ -659,5 +661,8 @@
     "externalLink": {
         "dontAskAgain": "Jangan tanya lagi",
         "warning": "Anda akan membuka tautan eksternal."
+    },
+    "wiki_info": {
+        "not_found": "Kami tidak dapat menemukan informasi tambahan."
     }
 }

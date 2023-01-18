@@ -197,6 +197,7 @@
         "removeShortcut": "Ta bort genvägar",
         "settings": "Inställningar",
         "store": "Butikssida",
-        "verify": "Verifiera och reparera"
+        "verify": "Verifiera och reparera",
+        "extraInfo": "Extra info"
     }
 }

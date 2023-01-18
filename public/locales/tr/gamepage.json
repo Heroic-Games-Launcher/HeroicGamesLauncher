@@ -197,6 +197,7 @@
         "removeShortcut": "Kısayolları kaldır",
         "settings": "Ayarlar",
         "store": "Mağaza Sayfası",
-        "verify": "Doğrula ve Onar"
+        "verify": "Doğrula ve Onar",
+        "extraInfo": "Fazladan bilgi"
     }
 }

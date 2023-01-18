@@ -197,6 +197,7 @@
         "removeShortcut": "Remove shortcuts",
         "settings": "Cài đặt",
         "store": "Cửa hàng",
-        "verify": "Kiểm tra và sửa chữa"
+        "verify": "Kiểm tra và sửa chữa",
+        "extraInfo": "Thông tin thêm"
     }
 }

@@ -593,10 +593,6 @@
         }
     },
     "Settings": "Settings",
-    "sidebar": {
-        "collapse": "Collapse sidebar",
-        "uncollapse": "Uncollapse sidebar"
-    },
     "status": {
         "installing": "Installing",
         "logging": "Logging In...",
@@ -628,12 +624,14 @@
     },
     "Update Available!": "",
     "userselector": {
+        "cancel": "Cancel",
         "discord": "Discord",
         "logging_out": "Logging out",
         "logout": "Log out",
         "logout_confirmation": "Are you sure you want to log out?",
         "manageaccounts": "Manage Accounts",
-        "quit": "Quit"
+        "quit": "Quit",
+        "quitMessage": "Are you sure you want to quit?"
     },
     "webview": {
         "controls": {
@@ -642,6 +640,9 @@
             "openInBrowser": "Open in browser",
             "reload": "Reload page"
         }
+    },
+    "wiki_info": {
+        "not_found": "We couldn't find extra information."
     },
     "wine": {
         "actions": "Action",

@@ -635,7 +635,9 @@
         "logout": "வெளியேறு",
         "logout_confirmation": "நீங்கள் நிச்சயமாக வெளியேற விரும்புகிறீர்களா?",
         "manageaccounts": "Manage Accounts",
-        "quit": "வெளியேறு"
+        "quit": "வெளியேறு",
+        "cancel": "Cancel",
+        "quitMessage": "நீங்கள் நிச்சயம் வெளியேற வேண்டுமா?"
     },
     "webview": {
         "controls": {
@@ -659,5 +661,8 @@
     "externalLink": {
         "dontAskAgain": "மீண்டும் கேட்காதே",
         "warning": "வெளிப்புற இணைப்பைத் திறக்க உள்ளீர்கள்."
+    },
+    "wiki_info": {
+        "not_found": "கூடுதல் தகவல்களை எங்களால் கண்டுபிடிக்க முடியவில்லை."
     }
 }

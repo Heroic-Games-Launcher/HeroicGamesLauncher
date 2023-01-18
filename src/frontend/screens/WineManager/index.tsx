@@ -6,14 +6,13 @@ import { UpdateComponent } from 'frontend/components/UI'
 import React, { lazy, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Tab, Tabs } from '@mui/material'
-import { Type } from 'heroic-wine-downloader'
 import {
   StoreIpc,
   wineDownloaderInfoStore
 } from 'frontend/helpers/electronStores'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
-import { WineVersionInfo } from 'common/types'
+import { WineVersionInfo, Type } from 'common/types'
 
 const WineItem = lazy(
   async () => import('frontend/screens/WineManager/components/WineItem')

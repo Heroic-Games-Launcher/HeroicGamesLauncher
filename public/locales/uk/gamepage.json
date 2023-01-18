@@ -197,6 +197,7 @@
         "removeShortcut": "Remove shortcuts",
         "settings": "Налаштування",
         "store": "Сторінка в крамниці",
-        "verify": "Перевірити і відновити"
+        "verify": "Перевірити і відновити",
+        "extraInfo": "Додаткова інформація"
     }
 }
