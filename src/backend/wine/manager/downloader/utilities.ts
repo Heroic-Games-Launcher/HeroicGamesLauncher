@@ -1,4 +1,4 @@
-import { isMac } from 'backend/constants'
+import { isMac } from '../../../constants'
 import * as axios from 'axios'
 import { existsSync, statSync, unlinkSync } from 'graceful-fs'
 import { spawnSync, spawn } from 'child_process'
@@ -251,7 +251,7 @@ async function unzipFile({
       filePath
     ]
 
-    if (overwrite) {
+    if (overwrite && !isMac) {
       args.push('--overwrite')
     }
 
