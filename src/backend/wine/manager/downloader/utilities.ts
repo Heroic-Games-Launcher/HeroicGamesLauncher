@@ -1,3 +1,4 @@
+import { isMac } from 'backend/constants'
 import * as axios from 'axios'
 import { existsSync, statSync, unlinkSync } from 'graceful-fs'
 import { spawnSync, spawn } from 'child_process'
@@ -86,8 +87,12 @@ function unlinkFile(filePath: string) {
  * @returns size of folder in bytes
  */
 function getFolderSize(folder: string): number {
-  const { stdout } = spawnSync('du', ['-sb', folder])
-  return parseInt(stdout.toString())
+  const param = isMac ? '-sk' : '-sb'
+  const { stdout } = spawnSync('du', [param, folder])
+  const value = parseInt(stdout.toString())
+
+  // on mac we get the size in kilobytes so we need to convert it to bytes
+  return isMac ? value * 1024 : value
 }
 
 interface downloadProps {
