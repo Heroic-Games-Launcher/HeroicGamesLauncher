@@ -13,14 +13,13 @@ input[type='range']::-webkit-slider-runnable-track {
 }
 
 input[type='range']::-webkit-slider-thumb {
-  height: 20px;
-  width: 20px;
+  height: 30px;
+  width: 8px;
   border-radius: 10px;
-  border-width: 3px;
-  background: var(--accent-overlay);
+  background: var(--text-default);
   cursor: pointer;
   appearance: none;
-  margin-top: -5px;
+  margin-top: -10px;
 }
 
 .zoomHint {
