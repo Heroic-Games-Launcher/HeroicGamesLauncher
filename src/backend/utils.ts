@@ -846,22 +846,39 @@ export const wait = async (ms: number) =>
 export const spawnAsync = async (
   command: string,
   args: string[],
-  options: SpawnOptions = {}
-): Promise<{ code: number | null; stdout: string; stderr: string } | Error> => {
+  options: SpawnOptions = {},
+  onOutput?: (data: string) => void
+): Promise<{ code: number | null; stdout: string; stderr: string }> => {
   const child = spawn(command, args, options)
   const stdout: string[] = []
   const stderr: string[] = []
 
   if (child.stdout) {
-    child.stdout.on('data', (data) => stdout.push(data.toString()))
+    child.stdout.on('data', (data) => {
+      if (onOutput) {
+        onOutput(data.toString())
+      }
+      stdout.push(data.toString())
+    })
   }
 
   if (child.stderr) {
-    child.stderr.on('data', (data) => stderr.push(data.toString()))
+    child.stderr.on('data', (data) => {
+      if (onOutput) {
+        onOutput(data.toString())
+      }
+      stderr.push(data.toString())
+    })
   }
 
   return new Promise((resolve, reject) => {
-    child.on('error', (error) => reject(error))
+    child.on('error', (error) =>
+      reject({
+        code: 1,
+        stdout: stdout.join(''),
+        stderr: stderr.join('').concat(error.message)
+      })
+    )
     child.on('close', (code) => {
       resolve({
         code,
@@ -953,6 +970,107 @@ export async function checkWineBeforeLaunch(
     }
   }
   return false
+}
+
+export async function moveOnWindows(
+  newInstallPath: string,
+  gameInfo: GameInfo
+): Promise<{ status: 'done' | 'error'; installPath?: string; error?: string }> {
+  const {
+    install: { install_path },
+    title
+  } = gameInfo
+
+  if (!install_path) {
+    return { status: 'error', error: 'No install path found' }
+  }
+
+  newInstallPath = join(newInstallPath, basename(install_path))
+
+  let currentFile = ''
+  let currentPercent = ''
+
+  // move using robocopy and show progress of the current file being copied
+  const { code, stderr } = await spawnAsync(
+    'robocopy',
+    [install_path, newInstallPath, '/MOVE', '/MIR'],
+    { stdio: 'pipe' },
+    (data) => {
+      data = data.replaceAll(/\s/g, ' ')
+
+      const match = data.split(' ').filter(Boolean)
+      // current percentage
+      const percent = match.filter((m) => m.includes('%'))[0]
+      // current file
+      const file = match[match.length - 1]
+      if (percent) {
+        currentPercent = percent
+      }
+
+      if (file && file.includes('.') && !file.includes('%')) {
+        currentPercent = '0%'
+        currentFile = file
+      }
+
+      if (match) {
+        logInfo(
+          `Moving file: ${currentFile} ${currentPercent}`,
+          LogPrefix.Backend
+        )
+      }
+    }
+  )
+  if (code !== 0) {
+    logInfo(`Finished Moving ${title}`, LogPrefix.Backend)
+  } else {
+    logError(`Error: ${stderr}`, LogPrefix.Backend)
+  }
+  return { status: 'done', installPath: newInstallPath }
+}
+
+export async function moveOnUnix(
+  newInstallPath: string,
+  gameInfo: GameInfo
+): Promise<{ status: 'done' | 'error'; installPath?: string; error?: string }> {
+  const {
+    install: { install_path },
+    title
+  } = gameInfo
+  if (!install_path) {
+    return { status: 'error', error: 'No install path found' }
+  }
+
+  newInstallPath = join(newInstallPath, basename(install_path))
+
+  console.log('Moving', install_path, newInstallPath)
+
+  let rsyncExists = false
+  try {
+    await execAsync('which rsync')
+    rsyncExists = true
+  } catch (error) {
+    logError(error, LogPrefix.Gog)
+  }
+  if (rsyncExists) {
+    const { code, stderr } = await spawnAsync('rsync', [
+      '-az',
+      '--progress',
+      install_path,
+      newInstallPath
+    ])
+    if (code === 0) {
+      logInfo(`Finished Moving ${title}`, LogPrefix.Backend)
+    } else {
+      logError(`Error: ${stderr}`, LogPrefix.Backend)
+    }
+  } else {
+    await spawnAsync('mv', ['-f', install_path, newInstallPath])
+      .then(() => {
+        logInfo(`Finished Moving ${title}`, LogPrefix.Backend)
+      })
+      .catch((error) => logError(error, LogPrefix.Backend))
+  }
+  return { status: 'done', installPath: newInstallPath }
 }
 
 export {
