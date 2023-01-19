@@ -1057,7 +1057,13 @@ export async function moveOnUnix(
   if (rsyncExists) {
     const { code, stderr } = await spawnAsync(
       'rsync',
-      ['-az', '--progress', install_path, newInstallPath],
+      [
+        '-az',
+        '--progress',
+        '--remove-source-files',
+        install_path,
+        newInstallPath
+      ],
       { stdio: 'pipe' },
       (data) => {
         const match = data.match(/(\d+)%/)
@@ -1075,8 +1081,11 @@ export async function moveOnUnix(
         }
       }
     )
-    if (code !== 0) {
+    console.log('code', code)
+    if (code !== 1) {
       logInfo(`Finished Moving ${title}`, LogPrefix.Backend)
+      // remove the old install path
+      await spawnAsync('rm', ['-rf', install_path])
     } else {
       logError(`Error: ${stderr}`, LogPrefix.Backend)
       return { status: 'error', error: stderr }
@@ -1087,7 +1096,7 @@ export async function moveOnUnix(
       install_path,
       newInstallPath
     ])
-    if (code !== 0) {
+    if (code !== 1) {
       return { status: 'done', installPath: newInstallPath }
     } else {
       logError(`Error: ${stderr}`, LogPrefix.Backend)
