@@ -13,7 +13,9 @@ import {
   execAsync,
   getFileSize,
   getGOGdlBin,
-  killPattern
+  killPattern,
+  moveOnUnix,
+  moveOnWindows
 } from '../utils'
 import {
   ExtraInfo,
@@ -25,13 +27,7 @@ import {
   InstallPlatform
 } from 'common/types'
 import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
-import {
-  heroicGamesConfigPath,
-  isWindows,
-  execOptions,
-  isMac,
-  isLinux
-} from '../constants'
+import { heroicGamesConfigPath, isWindows, isMac, isLinux } from '../constants'
 import { installedGamesStore, syncStore } from '../gog/electronStores'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { GOGUser } from './user'
@@ -518,30 +514,49 @@ class GOGGame extends Game {
     return !error
   }
 
-  public async moveInstall(newInstallPath: string): Promise<string> {
-    const {
-      install: { install_path },
-      title
-    } = this.getGameInfo()
+  public async moveInstall(
+    newInstallPath: string
+  ): Promise<{ status: 'done' | 'error'; error?: string }> {
+    let finalPath: string
+    let finalStatus: 'done' | 'error' = 'error'
 
-    if (!install_path) {
-      return ''
-    }
-
+    const gameInfo = this.getGameInfo()
+    logInfo(`Moving ${gameInfo.title} to ${newInstallPath}`, LogPrefix.Gog)
     if (isWindows) {
-      newInstallPath += '\\' + install_path.split('\\').at(-1)
+      const { status, installPath, error } = await moveOnWindows(
+        newInstallPath,
+        gameInfo
+      )
+      if (status === 'done') {
+        finalPath = installPath!
+        finalStatus = status
+      } else {
+        finalStatus = 'error'
+        logError(
+          [`Error moving ${gameInfo.title} to ${newInstallPath}`, error],
+          LogPrefix.Gog
+        )
+        return { status: 'error', error }
+      }
     } else {
-      newInstallPath += '/' + install_path.split('/').at(-1)
+      const { status, installPath, error } = await moveOnUnix(
+        newInstallPath,
+        gameInfo
+      )
+      if (status === 'done') {
+        finalPath = installPath!
+        finalStatus = status
+      } else {
+        finalStatus = 'error'
+        logError(
+          [`Error moving ${gameInfo.title} to ${newInstallPath}`, error],
+          LogPrefix.Gog
+        )
+        return { status: 'error', error }
+      }
     }
-
-    logInfo(`Moving ${title} to ${newInstallPath}`, LogPrefix.Gog)
-    await execAsync(`mv -f '${install_path}' '${newInstallPath}'`, execOptions)
-      .then(() => {
-        GOGLibrary.get().changeGameInstallPath(this.appName, newInstallPath)
-        logInfo(`Finished Moving ${title}`, LogPrefix.Gog)
-      })
-      .catch((error) => logError(error, LogPrefix.Gog))
-    return newInstallPath
+    GOGLibrary.get().changeGameInstallPath(this.appName, finalPath)
+    return { status: finalStatus }
   }
 
   /**

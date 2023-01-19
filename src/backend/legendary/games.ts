@@ -18,7 +18,12 @@ import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
 import { LegendaryLibrary, runLegendaryCommand } from './library'
 import { LegendaryUser } from './user'
-import { execAsync, getLegendaryBin, killPattern } from '../utils'
+import {
+  getLegendaryBin,
+  killPattern,
+  moveOnUnix,
+  moveOnWindows
+} from '../utils'
 import {
   heroicGamesConfigPath,
   isMac,
@@ -40,7 +45,7 @@ import {
   getRunnerCallWithoutCredentials
 } from '../launcher'
 import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts/shortcuts'
-import { basename, join } from 'path'
+import { join } from 'path'
 import { gameInfoStore } from './electronStores'
 import { removeNonSteamGame } from '../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
@@ -336,7 +341,52 @@ class LegendaryGame extends Game {
    * @param newInstallPath
    * @returns The amended install path.
    */
-  public async moveInstall(newInstallPath: string) {
+  public async moveInstall(
+    newInstallPath: string
+  ): Promise<{ status: 'done' | 'error'; error?: string }> {
+    let finalPath: string
+    let finalStatus: 'done' | 'error' = 'error'
+
+    const gameInfo = this.getGameInfo()
+    logInfo(`Moving ${gameInfo.title} to ${newInstallPath}`, LogPrefix.Gog)
+    if (isWindows) {
+      const { status, installPath, error } = await moveOnWindows(
+        newInstallPath,
+        gameInfo
+      )
+      if (status === 'done') {
+        finalPath = installPath!
+        finalStatus = status
+      } else {
+        finalStatus = 'error'
+        logError(
+          [`Error moving ${gameInfo.title} to ${newInstallPath}`, error],
+          LogPrefix.Gog
+        )
+        return { status: 'error', error }
+      }
+    } else {
+      const { status, installPath, error } = await moveOnUnix(
+        newInstallPath,
+        gameInfo
+      )
+      if (status === 'done') {
+        finalPath = installPath!
+        finalStatus = status
+      } else {
+        finalStatus = 'error'
+        logError(
+          [`Error moving ${gameInfo.title} to ${newInstallPath}`, error],
+          LogPrefix.Gog
+        )
+        return { status: 'error', error }
+      }
+    }
+    LegendaryLibrary.get().changeGameInstallPath(this.appName, finalPath)
+    return { status: finalStatus }
+  }
+
+  /*   public async moveInstall(newInstallPath: string) {
     const oldInstallPath = this.getGameInfo().install.install_path!
 
     newInstallPath = join(newInstallPath, basename(oldInstallPath))
@@ -362,7 +412,7 @@ class LegendaryGame extends Game {
         )
       })
     return newInstallPath
-  }
+  } */
 
   // used when downloading games, store the download size read from Legendary's output
   currentDownloadSize = 0
