@@ -100,7 +100,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [wineVersion, setWineVersion] = useState<WineInstallation>()
   const [showRequirements, setShowRequirements] = useState(false)
   const [showExtraInfo, setShowExtraInfo] = useState(false)
-  const [gameAvailable, setGameAvailable] = useState(false)
+  const [gameAvailable, setGameAvailable] = useState(true)
 
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
@@ -123,7 +123,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   useEffect(() => {
     const checkGameAvailable = async () => {
-      if (gameInfo.is_installed) {
+      if (gameInfo.is_installed && !isMoving) {
         const gameAvailable = await window.api.isGameAvailable({
           appName,
           runner
@@ -131,8 +131,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
         setGameAvailable(gameAvailable)
       }
     }
-    checkGameAvailable()
-  }, [appName, status, gameInfo.is_installed])
+    setTimeout(() => {
+      checkGameAvailable()
+    }, 2000)
+  }, [appName, status, gameInfo.is_installed, gameInfo.install.install_path, isMoving])
 
   useEffect(() => {
     const updateGameInfo = async () => {
@@ -143,7 +145,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       setExtraInfo(await window.api.getExtraInfo(appName, runner))
     }
     updateGameInfo()
-  }, [status, gog.library, epic.library])
+  }, [status, gog.library, epic.library, isMoving])
 
   useEffect(() => {
     const updateConfig = async () => {
