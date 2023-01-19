@@ -71,7 +71,7 @@
         "uninstall": "Uninstall",
         "update": "Update"
     },
-    "cloud_save_unsupported": "This game does not support cloud saves",
+    "cloud_save_unsupported": "Unsupported",
     "disabled": "Disabled",
     "dlc": {
         "installDlcs": "Install all DLCs"

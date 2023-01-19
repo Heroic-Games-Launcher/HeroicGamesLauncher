@@ -39,7 +39,8 @@ import { install } from 'frontend/helpers/library'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faTriangleExclamation,
-  faEllipsisV
+  faEllipsisV,
+  faCircleInfo
 } from '@fortawesome/free-solid-svg-icons'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
@@ -354,10 +355,14 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     }}
                   >
                     <b>{t('info.syncsaves')}:</b>{' '}
-                    {t(
-                      'cloud_save_unsupported',
-                      'This game does not support cloud saves'
-                    )}
+                    <FontAwesomeIcon
+                      className="helpIcon"
+                      icon={faCircleInfo}
+                      title={t(
+                        'cloud_save_unsupported',
+                        'This game does not support cloud saves. This information is provided by the game developers. Some games do implement their own cloud save system'
+                      )}
+                    />
                   </div>
                 )}
                 {!is_installed && !isSideloaded && !notSupportedGame && (
