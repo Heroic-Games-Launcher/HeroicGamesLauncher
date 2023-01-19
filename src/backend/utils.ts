@@ -57,7 +57,7 @@ import fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
 import { showDialogBoxModalAuto } from './dialog/dialog'
 import { getAppInfo } from './sideload/games'
-import { getMainWindow } from './main_window'
+import { getMainWindow, sendFrontendMessage } from './main_window'
 import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
 import { validWine } from './launcher'
@@ -1013,10 +1013,15 @@ export async function moveOnWindows(
       }
 
       if (match) {
-        logInfo(
-          `Moving file: ${currentFile} ${currentPercent}`,
-          LogPrefix.Backend
-        )
+        sendFrontendMessage(`progressUpdate-${gameInfo.app_name}`, {
+          appName: gameInfo.app_name,
+          runner: gameInfo.runner,
+          status: 'moving',
+          progress: {
+            percent: currentPercent,
+            file: currentFile
+          }
+        })
       }
     }
   )
@@ -1042,8 +1047,6 @@ export async function moveOnUnix(
 
   newInstallPath = join(newInstallPath, basename(install_path))
 
-  console.log('Moving', install_path, newInstallPath)
-
   let rsyncExists = false
   try {
     await execAsync('which rsync')
@@ -1052,23 +1055,44 @@ export async function moveOnUnix(
     logError(error, LogPrefix.Gog)
   }
   if (rsyncExists) {
-    const { code, stderr } = await spawnAsync('rsync', [
-      '-az',
-      '--progress',
-      install_path,
-      newInstallPath
-    ])
-    if (code === 0) {
+    const { code, stderr } = await spawnAsync(
+      'rsync',
+      ['-az', '--progress', install_path, newInstallPath],
+      { stdio: 'pipe' },
+      (data) => {
+        const match = data.match(/(\d+)%/)
+        if (match) {
+          const percent = match[0]
+
+          sendFrontendMessage(`progressUpdate-${gameInfo.app_name}`, {
+            appName: gameInfo.app_name,
+            runner: gameInfo.runner,
+            status: 'moving',
+            progress: {
+              percent: percent
+            }
+          })
+        }
+      }
+    )
+    if (code !== 0) {
       logInfo(`Finished Moving ${title}`, LogPrefix.Backend)
     } else {
       logError(`Error: ${stderr}`, LogPrefix.Backend)
+      return { status: 'error', error: stderr }
     }
   } else {
-    await spawnAsync('mv', ['-f', install_path, newInstallPath])
-      .then(() => {
-        logInfo(`Finished Moving ${title}`, LogPrefix.Backend)
-      })
-      .catch((error) => logError(error, LogPrefix.Backend))
+    const { code, stderr } = await spawnAsync('mv', [
+      '-f',
+      install_path,
+      newInstallPath
+    ])
+    if (code !== 0) {
+      return { status: 'done', installPath: newInstallPath }
+    } else {
+      logError(`Error: ${stderr}`, LogPrefix.Backend)
+      return { status: 'error', error: stderr }
+    }
   }
   return { status: 'done', installPath: newInstallPath }
 }

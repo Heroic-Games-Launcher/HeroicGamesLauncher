@@ -175,6 +175,7 @@ export interface InstallProgress {
   percent: number
   downSpeed?: number
   diskSpeed?: number
+  file?: string
 }
 export interface InstalledInfo {
   executable: string

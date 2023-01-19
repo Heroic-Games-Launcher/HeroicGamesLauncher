@@ -589,7 +589,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
     is_installed: boolean,
     notAvailable?: boolean
   ): React.ReactNode {
-    const { eta, bytes, percent } = progress
+    const { eta, bytes, percent, file } = progress
 
     if (notSupportedGame) {
       return t(
@@ -607,7 +607,20 @@ export default React.memo(function GamePage(): JSX.Element | null {
     }
 
     if (isMoving) {
-      return `${t('status.moving')}`
+      if (file) {
+        return `${t('status.moving-files', 'Moving file')}  '${file}':  ${
+          percent ? `${percent}` : '...'
+        }`
+      }
+
+      if (percent) {
+        return `${t(
+          'status.moving',
+          'Moving Installation, please wait'
+        )}:  ${percent}`
+      }
+
+      return `${t('status.moving', 'Moving Installation, please wait')} ...`
     }
 
     const currentProgress =
