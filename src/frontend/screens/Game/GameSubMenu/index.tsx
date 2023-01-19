@@ -65,6 +65,8 @@ export default function GamesSubmenu({
     })
     if (path) {
       await window.api.moveInstall({ appName, path, runner })
+      await window.api.changeInstallPath({ appName, path, runner })
+      await refresh(runner)
     }
   }
 
