@@ -154,7 +154,7 @@ export default function GamesSettings({ useDetails = true }: Props) {
         <PreferedLanguage />
       </Collapsible>
 
-      {hasCloudSaves && (
+      {hasCloudSaves && !isLinuxNative && (
         <Collapsible
           isOpen={false}
           isCollapsible={useDetails}
