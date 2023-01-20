@@ -33,7 +33,7 @@ abstract class Game {
   abstract stop(): Promise<void>
   abstract moveInstall(
     newInstallPath: string
-  ): Promise<{ status: 'done' | 'error'; error?: string }>
+  ): Promise<{ status: 'done' } | { status: 'error'; error: string }>
   abstract repair(): Promise<ExecResult>
   abstract forceUninstall(): Promise<void>
   abstract syncSaves(arg: string, path: string): Promise<string>

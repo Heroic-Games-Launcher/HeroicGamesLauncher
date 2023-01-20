@@ -975,7 +975,9 @@ export async function checkWineBeforeLaunch(
 export async function moveOnWindows(
   newInstallPath: string,
   gameInfo: GameInfo
-): Promise<{ status: 'done' | 'error'; installPath?: string; error?: string }> {
+): Promise<
+  { status: 'done'; installPath: string } | { status: 'error'; error: string }
+> {
   const {
     install: { install_path },
     title
@@ -1036,7 +1038,9 @@ export async function moveOnWindows(
 export async function moveOnUnix(
   newInstallPath: string,
   gameInfo: GameInfo
-): Promise<{ status: 'done' | 'error'; installPath?: string; error?: string }> {
+): Promise<
+  { status: 'done'; installPath: string } | { status: 'error'; error: string }
+> {
   const {
     install: { install_path },
     title
