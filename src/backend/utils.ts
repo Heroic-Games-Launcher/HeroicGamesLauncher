@@ -1047,6 +1047,9 @@ export async function moveOnUnix(
 
   newInstallPath = join(newInstallPath, basename(install_path))
 
+  let currentFile = ''
+  let currentPercent = ''
+
   let rsyncExists = false
   try {
     await execAsync('which rsync')
@@ -1066,16 +1069,26 @@ export async function moveOnUnix(
       ],
       { stdio: 'pipe' },
       (data) => {
-        const match = data.match(/(\d+)%/)
-        if (match) {
-          const percent = match[0]
+        const split =
+          data
+            .split('\n')
+            .find((d) => d.includes(basename(install_path)))
+            ?.split('/') || []
+        const file = split.at(-1) || ''
+        if (file) {
+          currentFile = file
+        }
 
+        const percent = data.match(/(\d+)%/)
+        if (percent) {
+          currentPercent = percent[0]
           sendFrontendMessage(`progressUpdate-${gameInfo.app_name}`, {
             appName: gameInfo.app_name,
             runner: gameInfo.runner,
             status: 'moving',
             progress: {
-              percent: percent
+              percent: currentPercent,
+              file: currentFile
             }
           })
         }
