@@ -517,13 +517,18 @@ class GOGGame extends Game {
   public async moveInstall(
     newInstallPath: string
   ): Promise<{ status: 'done' | 'error'; error?: string }> {
+    let finalPath: string
     let finalStatus: 'done' | 'error' = 'error'
 
     const gameInfo = this.getGameInfo()
     logInfo(`Moving ${gameInfo.title} to ${newInstallPath}`, LogPrefix.Gog)
     if (isWindows) {
-      const { status, error } = await moveOnWindows(newInstallPath, gameInfo)
+      const { status, installPath, error } = await moveOnWindows(
+        newInstallPath,
+        gameInfo
+      )
       if (status === 'done') {
+        finalPath = installPath!
         finalStatus = status
       } else {
         finalStatus = 'error'
@@ -534,8 +539,12 @@ class GOGGame extends Game {
         return { status: 'error', error }
       }
     } else {
-      const { status, error } = await moveOnUnix(newInstallPath, gameInfo)
+      const { status, installPath, error } = await moveOnUnix(
+        newInstallPath,
+        gameInfo
+      )
       if (status === 'done') {
+        finalPath = installPath!
         finalStatus = status
       } else {
         finalStatus = 'error'
@@ -546,6 +555,7 @@ class GOGGame extends Game {
         return { status: 'error', error }
       }
     }
+    GOGLibrary.get().changeGameInstallPath(this.appName, finalPath)
     return { status: finalStatus }
   }
 
