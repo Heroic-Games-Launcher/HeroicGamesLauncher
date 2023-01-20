@@ -1081,7 +1081,6 @@ export async function moveOnUnix(
         }
       }
     )
-    console.log('code', code)
     if (code !== 1) {
       logInfo(`Finished Moving ${title}`, LogPrefix.Backend)
       // remove the old install path

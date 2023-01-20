@@ -382,7 +382,7 @@ class LegendaryGame extends Game {
         return { status: 'error', error }
       }
     }
-    LegendaryLibrary.get().changeGameInstallPath(this.appName, finalPath)
+    await LegendaryLibrary.get().changeGameInstallPath(this.appName, finalPath)
     return { status: finalStatus }
   }
 
