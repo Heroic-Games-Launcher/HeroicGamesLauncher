@@ -355,7 +355,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     }}
                   >
                     <b>{t('info.syncsaves')}:</b>{' '}
-                  </div>
                     {t('cloud_save_unsupported', 'Unsupported')}
                     <FontAwesomeIcon
                       className="helpIcon"
@@ -365,6 +364,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         'This game does not support cloud saves. This information is provided by the game developers. Some games do implement their own cloud save system'
                       )}
                     />
+                  </div>
                 )}
                 {!is_installed && !isSideloaded && !notSupportedGame && (
                   <>
