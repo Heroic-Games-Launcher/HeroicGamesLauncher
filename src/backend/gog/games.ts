@@ -529,6 +529,7 @@ class GOGGame extends Game {
         ['Error moving', gameInfo.title, 'to', newInstallPath, error],
         LogPrefix.Gog
       )
+
       return { status: 'error', error }
     }
 
