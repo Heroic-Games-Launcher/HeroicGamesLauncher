@@ -264,8 +264,6 @@ class LegendaryGame extends Game {
   /**
    * Get extra info from Epic's API.
    *
-   * @param namespace
-   * @returns
    */
   public async getExtraInfo(): Promise<ExtraInfo> {
     const { namespace, title } = this.getGameInfo()
@@ -353,6 +351,7 @@ class LegendaryGame extends Game {
         ['Error moving', gameInfo.title, 'to', newInstallPath, error],
         LogPrefix.Legendary
       )
+
       return { status: 'error', error }
     }
 
