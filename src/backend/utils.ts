@@ -38,7 +38,8 @@ import {
   publicDir,
   GITHUB_API,
   isSteamDeckGameMode,
-  isMac
+  isMac,
+  isLinux
 } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { basename, dirname, join, normalize } from 'path'
@@ -1049,7 +1050,7 @@ export async function moveOnUnix(
     return { status: 'error', error: 'No install path found' }
   }
 
-  newInstallPath = join(newInstallPath, basename(install_path))
+  const destination = join(newInstallPath, basename(install_path))
 
   let currentFile = ''
   let currentPercent = ''
@@ -1062,15 +1063,14 @@ export async function moveOnUnix(
     logError(error, LogPrefix.Gog)
   }
   if (rsyncExists) {
+    const origin = isLinux ? install_path + '/' : install_path
+    logInfo(
+      `moving command: rsync -az --progress ${origin} ${destination} `,
+      LogPrefix.Backend
+    )
     const { code, stderr } = await spawnAsync(
       'rsync',
-      [
-        '-az',
-        '--progress',
-        '--remove-source-files',
-        install_path,
-        newInstallPath
-      ],
+      ['-az', '--progress', origin, destination],
       { stdio: 'pipe' },
       (data) => {
         const split =
@@ -1110,16 +1110,16 @@ export async function moveOnUnix(
     const { code, stderr } = await spawnAsync('mv', [
       '-f',
       install_path,
-      newInstallPath
+      destination
     ])
     if (code !== 1) {
-      return { status: 'done', installPath: newInstallPath }
+      return { status: 'done', installPath: destination }
     } else {
       logError(`Error: ${stderr}`, LogPrefix.Backend)
       return { status: 'error', error: stderr }
     }
   }
-  return { status: 'done', installPath: newInstallPath }
+  return { status: 'done', installPath: destination }
 }
 
 export {
