@@ -1216,12 +1216,17 @@ ipcMain.handle(
         title,
         body: i18next.t('notify.error.move', 'Error Moving Game')
       })
-      logError(`Error while moving ${appName} to ${path}: ${moveRes.error} `, LogPrefix.Backend)
+      logError(
+        `Error while moving ${appName} to ${path}: ${moveRes.error} `,
+        LogPrefix.Backend
+      )
 
       showDialogBoxModalAuto({
         event,
         title: i18next.t('box.error.title', 'Error'),
-        message: i18next.t('box.error.moving', 'Error Moving Game {{error}}', { error: moveRes.error }),
+        message: i18next.t('box.error.moving', 'Error Moving Game {{error}}', {
+          error: moveRes.error
+        }),
         type: 'ERROR'
       })
     }
