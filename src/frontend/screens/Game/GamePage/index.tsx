@@ -131,9 +131,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
         setGameAvailable(gameAvailable)
       }
     }
-    setTimeout(() => {
-      checkGameAvailable()
-    }, 2000)
+    checkGameAvailable()
   }, [appName, status, gameInfo.is_installed, gameInfo.install.install_path, isMoving])
 
   useEffect(() => {
