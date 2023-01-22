@@ -47,7 +47,7 @@ type Props = {
 export default function GamesSettings({ useDetails = true }: Props) {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
-  const { isDefault, gameInfo } = useContext(SettingsContext)
+  const { isDefault, gameInfo, isLinuxNative } = useContext(SettingsContext)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
   const isLinux = platform === 'linux'
   const isCrossover = wineVersion?.type === 'crossover'
