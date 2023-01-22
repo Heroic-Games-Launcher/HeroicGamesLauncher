@@ -166,35 +166,49 @@ abstract class GlobalConfig {
     if (!isMac) {
       return wineSet
     }
+
+    const winePaths = new Set<string>()
+
+    // search for wine installed on $HOME/Library/Application Support/heroic/tools/wine
+    const wineToolsPath = `${heroicToolsPath}/wine/`
+    if (existsSync(wineToolsPath)) {
+      readdirSync(wineToolsPath).forEach((path) => {
+        winePaths.add(join(wineToolsPath, path))
+      })
+    }
+
+    // search for wine installed around the system
     await execAsync('mdfind kMDItemCFBundleIdentifier = "*.wine"').then(
       async ({ stdout }) => {
         stdout.split('\n').forEach((winePath) => {
-          const infoFilePath = join(winePath, 'Contents/Info.plist')
-          if (winePath && existsSync(infoFilePath)) {
-            const info = plistParse(
-              readFileSync(infoFilePath, 'utf-8')
-            ) as PlistObject
-            const version = info['CFBundleShortVersionString'] || ''
-            const name = info['CFBundleName'] || ''
-            const wineBin = join(
-              winePath,
-              '/Contents/Resources/wine/bin/wine64'
-            )
-            if (existsSync(wineBin)) {
-              wineSet.add({
-                ...this.getWineExecs(wineBin),
-                lib: `${winePath}/Contents/Resources/wine/lib`,
-                lib32: `${winePath}/Contents/Resources/wine/lib`,
-                bin: wineBin,
-                name: `${name} - ${version}`,
-                type: 'wine',
-                ...this.getWineExecs(wineBin)
-              })
-            }
-          }
+          winePaths.add(winePath)
         })
       }
     )
+
+    winePaths.forEach((winePath) => {
+      const infoFilePath = join(winePath, 'Contents/Info.plist')
+      if (winePath && existsSync(infoFilePath)) {
+        const info = plistParse(
+          readFileSync(infoFilePath, 'utf-8')
+        ) as PlistObject
+        const version = info['CFBundleShortVersionString'] || ''
+        const name = info['CFBundleName'] || ''
+        const wineBin = join(winePath, '/Contents/Resources/wine/bin/wine64')
+        if (existsSync(wineBin)) {
+          wineSet.add({
+            ...this.getWineExecs(wineBin),
+            lib: `${winePath}/Contents/Resources/wine/lib`,
+            lib32: `${winePath}/Contents/Resources/wine/lib`,
+            bin: wineBin,
+            name: `${name} - ${version}`,
+            type: 'wine',
+            ...this.getWineExecs(wineBin)
+          })
+        }
+      }
+    })
+
     return wineSet
   }
 

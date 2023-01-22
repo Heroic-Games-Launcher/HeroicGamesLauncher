@@ -44,7 +44,7 @@ export default function SidebarLinks() {
 
   const isStore = location.pathname.includes('store')
   const isSettings = location.pathname.includes('settings')
-  const isLinux = platform === 'linux'
+  const isWin = platform === 'win32'
 
   const settingsPath = '/settings/app/default/general'
 
@@ -230,7 +230,7 @@ export default function SidebarLinks() {
           <span>{t('download-manager.link', 'Downloads')}</span>
         </>
       </NavLink>
-      {isLinux && (
+      {!isWin && (
         <NavLink
           className={({ isActive }) =>
             classNames('Sidebar__item', { active: isActive })

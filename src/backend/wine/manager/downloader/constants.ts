@@ -13,3 +13,11 @@ export const PROTON_URL =
 /// Url to Wine Lutris github release page
 export const WINELUTRIS_URL =
   'https://api.github.com/repos/lutris/wine/releases'
+
+/// Url to Wine Crossover github release page
+export const WINECROSSOVER_URL =
+  'https://api.github.com/repos/Gcenx/winecx/releases'
+
+/// Url to Wine Staging for macOS github release page
+export const WINESTAGINGMACOS_URL =
+  'https://api.github.com/repos/Gcenx/macOS_Wine_builds/releases'

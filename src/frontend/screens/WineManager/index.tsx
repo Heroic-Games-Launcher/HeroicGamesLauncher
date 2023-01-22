@@ -23,23 +23,39 @@ const configStore = new StoreIpc('wineManagerConfigStore', {
 })
 
 interface WineManagerUISettings {
-  showWineGe: boolean
-  showWineLutris: boolean
-  showProtonGe: boolean
+  value: string
+  type: Type
+  enabled: boolean
 }
 
 export default React.memo(function WineManager(): JSX.Element | null {
   const { t } = useTranslation()
-  const { refreshWineVersionInfo, refreshing } = useContext(ContextProvider)
-  const winege: Type = 'Wine-GE'
-  const protonge: Type = 'Proton-GE'
-  const [repository, setRepository] = useState<Type>(winege)
-  const [wineManagerSettings, setWineManagerSettings] =
-    useState<WineManagerUISettings>({
-      showWineGe: true,
-      showWineLutris: true,
-      showProtonGe: true
-    })
+  const { refreshWineVersionInfo, refreshing, platform } =
+    useContext(ContextProvider)
+  const isLinux = platform === 'linux'
+
+  const winege: WineManagerUISettings = {
+    type: 'Wine-GE',
+    value: 'winege',
+    enabled: isLinux
+  }
+  const winecrossover: WineManagerUISettings = {
+    type: 'Wine-Crossover',
+    value: 'winecrossover',
+    enabled: !isLinux
+  }
+
+  const [repository, setRepository] = useState<WineManagerUISettings>(
+    isLinux ? winege : winecrossover
+  )
+  const [wineManagerSettings, setWineManagerSettings] = useState<
+    WineManagerUISettings[]
+  >([
+    { type: 'Wine-GE', value: 'winege', enabled: isLinux },
+    { type: 'Proton-GE', value: 'protonge', enabled: isLinux },
+    { type: 'Wine-Crossover', value: 'winecrossover', enabled: !isLinux },
+    { type: 'Wine-Staging-macOS', value: 'winestagingmacos', enabled: !isLinux }
+  ])
 
   const getWineVersions = (repo: Type) => {
     const versions = wineDownloaderInfoStore.get(
@@ -50,12 +66,15 @@ export default React.memo(function WineManager(): JSX.Element | null {
   }
 
   const [wineVersions, setWineVersions] = useState<WineVersionInfo[]>(
-    getWineVersions(repository)
+    getWineVersions(repository.type)
   )
 
-  const handleChangeTab = (e: React.SyntheticEvent, repo: Type) => {
+  const handleChangeTab = (
+    e: React.SyntheticEvent,
+    repo: WineManagerUISettings
+  ) => {
     setRepository(repo)
-    setWineVersions(getWineVersions(repo))
+    setWineVersions(getWineVersions(repo.type))
   }
 
   useEffect(() => {
@@ -63,7 +82,7 @@ export default React.memo(function WineManager(): JSX.Element | null {
     if (hasSettings) {
       const oldWineManagerSettings = configStore.get(
         'wine-manager-settings'
-      ) as WineManagerUISettings
+      ) as WineManagerUISettings[]
       if (wineManagerSettings) {
         setWineManagerSettings(oldWineManagerSettings)
       }
@@ -72,7 +91,7 @@ export default React.memo(function WineManager(): JSX.Element | null {
 
   useEffect(() => {
     const removeListener = window.api.handleWineVersionsUpdated(() => {
-      setWineVersions(getWineVersions(repository))
+      setWineVersions(getWineVersions(repository.type))
     })
     return () => {
       removeListener()
@@ -88,16 +107,23 @@ export default React.memo(function WineManager(): JSX.Element | null {
         <span className="tabsWrapper">
           <Tabs
             className="tabs"
-            value={repository}
-            onChange={handleChangeTab}
+            value={repository.value}
+            onChange={(e, value) => {
+              const repo = wineManagerSettings.find(
+                (setting) => setting.value === value
+              )
+              if (repo) {
+                handleChangeTab(e, repo)
+              }
+            }}
             centered={true}
           >
-            {wineManagerSettings.showWineGe && (
-              <Tab value={winege} label={winege} />
-            )}
-            {wineManagerSettings.showProtonGe && (
-              <Tab value={protonge} label={protonge} />
-            )}
+            {wineManagerSettings.map(({ type, value, enabled }) => {
+              if (enabled) {
+                return <Tab value={value} label={type} key={value} />
+              }
+              return null
+            })}
           </Tabs>
           <button
             className={'FormControl__button'}
