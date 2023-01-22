@@ -264,8 +264,6 @@ class LegendaryGame extends Game {
   /**
    * Get extra info from Epic's API.
    *
-   * @param namespace
-   * @returns
    */
   public async getExtraInfo(): Promise<ExtraInfo> {
     const { namespace, title } = this.getGameInfo()
@@ -337,53 +335,31 @@ class LegendaryGame extends Game {
   /**
    * Parent folder to move app to.
    * Amends install path by adding the appropriate folder name.
-   *
-   * @param newInstallPath
-   * @returns The amended install path.
    */
   public async moveInstall(
     newInstallPath: string
-  ): Promise<{ status: 'done' | 'error'; error?: string }> {
-    let finalPath: string
-    let finalStatus: 'done' | 'error' = 'error'
-
+  ): Promise<{ status: 'done' } | { status: 'error'; error: string }> {
     const gameInfo = this.getGameInfo()
     logInfo(`Moving ${gameInfo.title} to ${newInstallPath}`, LogPrefix.Gog)
-    if (isWindows) {
-      const { status, installPath, error } = await moveOnWindows(
-        newInstallPath,
-        gameInfo
+
+    const moveImpl = isWindows ? moveOnWindows : moveOnUnix
+    const moveResult = await moveImpl(newInstallPath, gameInfo)
+
+    if (moveResult.status === 'error') {
+      const { error } = moveResult
+      logError(
+        ['Error moving', gameInfo.title, 'to', newInstallPath, error],
+        LogPrefix.Legendary
       )
-      if (status === 'done') {
-        finalPath = installPath!
-        finalStatus = status
-      } else {
-        finalStatus = 'error'
-        logError(
-          [`Error moving ${gameInfo.title} to ${newInstallPath}`, error],
-          LogPrefix.Gog
-        )
-        return { status: 'error', error }
-      }
-    } else {
-      const { status, installPath, error } = await moveOnUnix(
-        newInstallPath,
-        gameInfo
-      )
-      if (status === 'done') {
-        finalPath = installPath!
-        finalStatus = status
-      } else {
-        finalStatus = 'error'
-        logError(
-          [`Error moving ${gameInfo.title} to ${newInstallPath}`, error],
-          LogPrefix.Gog
-        )
-        return { status: 'error', error }
-      }
+
+      return { status: 'error', error }
     }
-    LegendaryLibrary.get().changeGameInstallPath(this.appName, finalPath)
-    return { status: finalStatus }
+
+    await LegendaryLibrary.get().changeGameInstallPath(
+      this.appName,
+      moveResult.installPath
+    )
+    return { status: 'done' }
   }
 
   /*   public async moveInstall(newInstallPath: string) {

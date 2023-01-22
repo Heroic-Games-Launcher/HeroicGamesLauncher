@@ -38,7 +38,8 @@ import {
   publicDir,
   GITHUB_API,
   isSteamDeckGameMode,
-  isMac
+  isMac,
+  isLinux
 } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { basename, dirname, join, normalize } from 'path'
@@ -975,7 +976,9 @@ export async function checkWineBeforeLaunch(
 export async function moveOnWindows(
   newInstallPath: string,
   gameInfo: GameInfo
-): Promise<{ status: 'done' | 'error'; installPath?: string; error?: string }> {
+): Promise<
+  { status: 'done'; installPath: string } | { status: 'error'; error: string }
+> {
   const {
     install: { install_path },
     title
@@ -1036,7 +1039,9 @@ export async function moveOnWindows(
 export async function moveOnUnix(
   newInstallPath: string,
   gameInfo: GameInfo
-): Promise<{ status: 'done' | 'error'; installPath?: string; error?: string }> {
+): Promise<
+  { status: 'done'; installPath: string } | { status: 'error'; error: string }
+> {
   const {
     install: { install_path },
     title
@@ -1045,7 +1050,10 @@ export async function moveOnUnix(
     return { status: 'error', error: 'No install path found' }
   }
 
-  newInstallPath = join(newInstallPath, basename(install_path))
+  const destination = join(newInstallPath, basename(install_path))
+
+  let currentFile = ''
+  let currentPercent = ''
 
   let rsyncExists = false
   try {
@@ -1055,28 +1063,45 @@ export async function moveOnUnix(
     logError(error, LogPrefix.Gog)
   }
   if (rsyncExists) {
+    const origin = isLinux ? install_path + '/' : install_path
+    logInfo(
+      `moving command: rsync -az --progress ${origin} ${destination} `,
+      LogPrefix.Backend
+    )
     const { code, stderr } = await spawnAsync(
       'rsync',
-      ['-az', '--progress', install_path, newInstallPath],
+      ['-az', '--progress', origin, destination],
       { stdio: 'pipe' },
       (data) => {
-        const match = data.match(/(\d+)%/)
-        if (match) {
-          const percent = match[0]
+        const split =
+          data
+            .split('\n')
+            .find((d) => d.includes(basename(install_path)))
+            ?.split('/') || []
+        const file = split.at(-1) || ''
+        if (file) {
+          currentFile = file
+        }
 
+        const percent = data.match(/(\d+)%/)
+        if (percent) {
+          currentPercent = percent[0]
           sendFrontendMessage(`progressUpdate-${gameInfo.app_name}`, {
             appName: gameInfo.app_name,
             runner: gameInfo.runner,
             status: 'moving',
             progress: {
-              percent: percent
+              percent: currentPercent,
+              file: currentFile
             }
           })
         }
       }
     )
-    if (code !== 0) {
+    if (code !== 1) {
       logInfo(`Finished Moving ${title}`, LogPrefix.Backend)
+      // remove the old install path
+      await spawnAsync('rm', ['-rf', install_path])
     } else {
       logError(`Error: ${stderr}`, LogPrefix.Backend)
       return { status: 'error', error: stderr }
@@ -1085,16 +1110,16 @@ export async function moveOnUnix(
     const { code, stderr } = await spawnAsync('mv', [
       '-f',
       install_path,
-      newInstallPath
+      destination
     ])
-    if (code !== 0) {
-      return { status: 'done', installPath: newInstallPath }
+    if (code !== 1) {
+      return { status: 'done', installPath: destination }
     } else {
       logError(`Error: ${stderr}`, LogPrefix.Backend)
       return { status: 'error', error: stderr }
     }
   }
-  return { status: 'done', installPath: newInstallPath }
+  return { status: 'done', installPath: destination }
 }
 
 export {

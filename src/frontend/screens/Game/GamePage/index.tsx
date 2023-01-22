@@ -131,9 +131,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
         setGameAvailable(gameAvailable)
       }
     }
-    setTimeout(() => {
-      checkGameAvailable()
-    }, 2000)
+    checkGameAvailable()
   }, [appName, status, gameInfo.is_installed, gameInfo.install.install_path, isMoving])
 
   useEffect(() => {
@@ -607,17 +605,13 @@ export default React.memo(function GamePage(): JSX.Element | null {
     }
 
     if (isMoving) {
-      if (file) {
-        return `${t('status.moving-files', 'Moving file')}  '${file}':  ${
-          percent ? `${percent}` : '...'
-        }`
-      }
-
-      if (percent) {
+      if (file && percent) {
         return `${t(
-          'status.moving',
-          'Moving Installation, please wait'
-        )}:  ${percent}`
+          'status.moving-files',
+          `Moving file '{{file}}': {{percent}} `,
+          { file, percent }
+        )}  
+        }`
       }
 
       return `${t('status.moving', 'Moving Installation, please wait')} ...`
