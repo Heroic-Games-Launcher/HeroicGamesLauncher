@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { compilerOptions } = require('../../tsconfig')
+
 module.exports = {
   displayName: 'Backend',
 
@@ -13,12 +16,12 @@ module.exports = {
   // `<rootDir>` is a token Jest substitutes
   roots: ['<rootDir>/src/backend'],
 
-  // Test spec file resolution pattern
-  // should contain `test` or `spec`.
-  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
+  testMatch: ['**/__tests__/**/*.test.ts'],
   // Jest transformations -- this adds support for TypeScript
   // using ts-jest
   transform: {
     '^.+\\.tsx?$': 'ts-jest'
-  }
+  },
+
+  modulePaths: [compilerOptions.baseUrl]
 }

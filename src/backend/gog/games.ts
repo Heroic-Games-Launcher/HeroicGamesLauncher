@@ -1,4 +1,3 @@
-import { WineCommandArgs } from './../../common/types'
 import {
   createAbortController,
   deleteAbortController
@@ -22,7 +21,8 @@ import {
   ExecResult,
   InstallArgs,
   InstalledInfo,
-  InstallPlatform
+  InstallPlatform,
+  WineCommandArgs
 } from 'common/types'
 import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
 import {

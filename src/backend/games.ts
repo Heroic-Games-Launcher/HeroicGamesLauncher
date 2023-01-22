@@ -1,4 +1,3 @@
-import { WineCommandArgs } from './../common/types'
 import { GOGCloudSavesLocation, GogInstallInfo } from 'common/types/gog'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import {
@@ -7,7 +6,8 @@ import {
   GameInfo,
   GameSettings,
   InstallArgs,
-  InstallPlatform
+  InstallPlatform,
+  WineCommandArgs
 } from 'common/types'
 
 import { join } from 'path'

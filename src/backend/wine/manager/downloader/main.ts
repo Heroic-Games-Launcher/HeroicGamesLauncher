@@ -14,12 +14,7 @@ import {
   PROTON_URL,
   WINELUTRIS_URL
 } from './constants'
-import {
-  VersionInfo,
-  Repositorys,
-  State,
-  ProgressInfo
-} from '../../../../common/types'
+import { VersionInfo, Repositorys, State, ProgressInfo } from 'common/types'
 import {
   downloadFile,
   fetchReleases,

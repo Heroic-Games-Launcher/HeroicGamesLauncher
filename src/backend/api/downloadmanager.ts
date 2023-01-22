@@ -1,9 +1,5 @@
 import { ipcRenderer } from 'electron'
-import {
-  DMQueueElement,
-  InstallParams,
-  UpdateParams
-} from './../../common/types'
+import { DMQueueElement, InstallParams, UpdateParams } from 'common/types'
 
 export const install = async (args: InstallParams) => {
   const dmQueueElement: DMQueueElement = {

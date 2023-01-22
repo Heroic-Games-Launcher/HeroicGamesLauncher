@@ -1,4 +1,4 @@
-import { GameSettings, GameInfo, SideloadGame } from '../../common/types'
+import { GameSettings, GameInfo, SideloadGame } from 'common/types'
 import { libraryStore } from './electronStores'
 import { GameConfig } from '../game_config'
 import { isWindows, isMac, isLinux, heroicGamesConfigPath } from '../constants'

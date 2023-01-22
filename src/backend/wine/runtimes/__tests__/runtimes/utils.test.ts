@@ -8,7 +8,6 @@ import {
   downloadFile,
   extractTarFile
 } from '../../util'
-// @ts-ignore: Don't know why ts complains about it.
 import { test_data } from './test_data/github-api-heroic-test-data.json'
 import { dirSync } from 'tmp'
 import { platform } from 'os'
@@ -25,12 +24,12 @@ afterEach(jest.restoreAllMocks)
 
 const shouldSkip = platform() !== 'linux'
 const skipMessage = 'not on linux so skipping test'
-const emptyTest = it('should do nothing', () => {})
+const emptyTest = () => it('should do nothing', () => {})
 
 describe('getAssetDataFromDownload', () => {
   if (shouldSkip) {
     console.log(skipMessage)
-    emptyTest
+    emptyTest()
     return
   }
   it('Success', async () => {
@@ -88,7 +87,7 @@ describe('getAssetDataFromDownload', () => {
 describe('downloadFile', () => {
   if (shouldSkip) {
     console.log(skipMessage)
-    emptyTest
+    emptyTest()
     return
   }
   it('Success', async () => {
@@ -168,7 +167,7 @@ describe('downloadFile', () => {
 describe('extractTarFile', () => {
   if (shouldSkip) {
     console.log(skipMessage)
-    emptyTest
+    emptyTest()
     return
   }
   it('Success without strip', async () => {
