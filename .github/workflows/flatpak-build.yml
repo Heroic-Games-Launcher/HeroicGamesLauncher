@@ -1,0 +1,25 @@
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main, stable]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Build Flatpak Files'
+        required: false
+name: Flatpak-CI
+jobs:
+  flatpak:
+    name: 'Flatpak Build'
+    runs-on: ubuntu-latest
+    container:
+      image: bilelmoussaoui/flatpak-github-actions:gnome-40
+      options: --privileged
+    steps:
+      - uses: actions/checkout@v2
+      - uses: flatpak/flatpak-github-actions/flatpak-builder@v4
+        with:
+          bundle: heroicgameslauncher.flatpak
+          manifest-path: com.heroicgameslauncher.hgl.yml
+          cache-key: flatpak-builder-${{ github.sha }}
