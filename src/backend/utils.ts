@@ -1063,7 +1063,7 @@ export async function moveOnUnix(
     logError(error, LogPrefix.Gog)
   }
   if (rsyncExists) {
-    const origin = isLinux ? install_path + '/' : install_path
+    const origin = install_path + '/'
     logInfo(
       `moving command: rsync -az --progress ${origin} ${destination} `,
       LogPrefix.Backend
@@ -1076,9 +1076,10 @@ export async function moveOnUnix(
         const split =
           data
             .split('\n')
-            .find((d) => d.includes(basename(install_path)))
+            .find((d) => d.includes('/') && !d.includes('%'))
             ?.split('/') || []
         const file = split.at(-1) || ''
+
         if (file) {
           currentFile = file
         }
