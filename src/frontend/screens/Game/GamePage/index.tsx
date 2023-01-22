@@ -611,7 +611,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
           `Moving file '{{file}}': {{percent}} `,
           { file, percent }
         )}  
-        }`
+        `
       }
 
       return `${t('status.moving', 'Moving Installation, please wait')} ...`
