@@ -14,12 +14,12 @@ jobs:
     name: 'Flatpak Build'
     runs-on: ubuntu-latest
     container:
-      image: bilelmoussaoui/flatpak-github-actions:gnome-40
+      image: bilelmoussaoui/flatpak-github-actions:gnome-43
       options: --privileged
     steps:
       - uses: actions/checkout@v2
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v4
         with:
           bundle: heroicgameslauncher.flatpak
-          manifest-path: com.heroicgameslauncher.hgl.yml
+          manifest-path: ./com.heroicgameslauncher.hgl.yml
           cache-key: flatpak-builder-${{ github.sha }}
