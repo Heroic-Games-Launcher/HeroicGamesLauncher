@@ -131,6 +131,24 @@ modules:
       - install -Dm755 data/gamemoderun -t /app/bin
     sources: *gamemode_sources
 
+  - name: rsync
+    config-opts:
+      - --prefix=${FLATPAK_DEST}
+      - --with-included-popt
+      - --with-included-zlib
+      - --host=x86
+      - --disable-xxhash
+      - --disable-md2man
+    sources:
+      - type: archive
+        url: https://download.samba.org/pub/rsync/src/rsync-3.2.7.tar.gz
+        sha256: 4e7d9d3f6ed10878c58c5fb724a67dacf4b6aac7340b13e488fb2dc41346f2bb
+        x-checker-data:
+          type: anitya
+          project-id: 4217
+          stable-only: true
+          url-template: https://download.samba.org/pub/rsync/src/rsync-$version.tar.gz
+
 # --- Heroic ---
   - name: heroic
     buildsystem: simple
@@ -139,7 +157,7 @@ modules:
       - ./Heroic-*.AppImage --appimage-extract
       - mv squashfs-root /app/bin/heroic
       - install -D heroic-run -t /app/bin
-      - rm Heroic-2.5.0-beta.1.AppImage
+      - rm Heroic-*.AppImage
     sources:
       - type: script
         dest-filename: heroic-run
@@ -147,9 +165,9 @@ modules:
           - zypak-wrapper /app/bin/heroic/heroic "$@"
 
       - type: file
-        filename: Heroic-2.5.0-beta.1.AppImage
+        filename: Heroic-*.AppImage
         # put right path here
-        path: ../dist/Heroic-2.5.0-beta.1.AppImage
+        path: ../dist/Heroic-*.AppImage
 
   - name: platform-bootstrap
     buildsystem: simple
