@@ -608,10 +608,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
       if (file && percent) {
         return `${t(
           'status.moving-files',
-          `Moving file '{{file}}': {{percent}} `,
-          { file, percent }
-        )}  
-        }`
+          'Moving file {{file}}: {{percent}}',
+          { file: file, percent: percent }
+        )}
+        `
       }
 
       return `${t('status.moving', 'Moving Installation, please wait')} ...`
