@@ -17,7 +17,7 @@ jobs:
       image: bilelmoussaoui/flatpak-github-actions:freedesktop-22.08
       options: --privileged
     steps:
-      - name: Build AppImage First
+      - name: Checkout Repo
         uses: actions/checkout@v3
       - name: Setup NodeJS
         uses: actions/setup-node@v3
@@ -25,11 +25,13 @@ jobs:
           node-version: '18'
       - name: Install modules.
         run: npm install
-      - name: Build artifacts.
+      - name: Build AppImage
         run: npm run dist:linux appimage --publish=never
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      - name: Move appImage to flatpak folder
+        run: mv dist/Heroic-*.AppImage flatpak
       - name: Build Flatpak
         uses: flatpak/flatpak-github-actions/flatpak-builder@v4
         with:
