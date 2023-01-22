@@ -36,3 +36,6 @@ flatpak/build
 
 vite-plugin-electron.log
 .tool-versions
+
+# flatpak
+flatpak/Heroic*.AppImage

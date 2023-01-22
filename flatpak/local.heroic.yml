@@ -135,15 +135,11 @@ modules:
   - name: heroic
     buildsystem: simple
     build-commands:
-      - chmod +x Heroic-*.AppImage
-      - echo "complete chmod"
-      - ./Heroic-*.AppImage --appimage-extract
-      - echo "complete appimage-extract"
+      - chmod +x Heroic.AppImage
+      - ./Heroic.AppImage --appimage-extract
       - mv squashfs-root /app/bin/heroic
-      - echo "complete mv"
       - install -D heroic-run -t /app/bin
-      - echo "complete install"
-      - rm Heroic-*.AppImage
+      - rm Heroic.AppImage
     sources:
       - type: script
         dest-filename: heroic-run
@@ -151,9 +147,8 @@ modules:
           - zypak-wrapper /app/bin/heroic/heroic "$@"
 
       - type: file
-        filename: Heroic-*.AppImage
         # put right path here
-        path: .
+        path: ./Heroic.AppImage
 
   - name: platform-bootstrap
     buildsystem: simple
