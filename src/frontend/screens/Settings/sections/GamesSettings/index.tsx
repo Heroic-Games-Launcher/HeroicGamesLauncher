@@ -47,8 +47,7 @@ type Props = {
 export default function GamesSettings({ useDetails = true }: Props) {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
-  const { isDefault, gameInfo, isMacNative, isLinuxNative } =
-    useContext(SettingsContext)
+  const { isDefault, gameInfo } = useContext(SettingsContext)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
   const isLinux = platform === 'linux'
   const isCrossover = wineVersion?.type === 'crossover'
@@ -57,11 +56,13 @@ export default function GamesSettings({ useDetails = true }: Props) {
   const [nativeGame, checkNativeGame] = useState(false)
 
   useEffect(() => {
-    window.api
-      .isNative({ appName: gameInfo?.app_name!, runner: gameInfo?.runner! })
-      .then((nativeGame) => {
-        checkNativeGame(nativeGame)
-      })
+    if (gameInfo) {
+      window.api
+        .isNative({ appName: gameInfo?.app_name, runner: gameInfo?.runner })
+        .then((nativeGame) => {
+          checkNativeGame(nativeGame)
+        })
+    }
   }, [])
 
   return (
