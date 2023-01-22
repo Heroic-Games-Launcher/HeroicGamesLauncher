@@ -22,7 +22,8 @@ import {
   InstallArgs,
   InstalledInfo,
   InstallPlatform,
-  WineCommandArgs
+  WineCommandArgs,
+  InstallProgress
 } from 'common/types'
 import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
 import {
@@ -176,50 +177,48 @@ class GOGGame extends Game {
     action: 'installing' | 'updating',
     data: string
   ) {
+    const finalProgress: Partial<InstallProgress> = {}
+
     const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
-    const bytesMatch = data.match(/Downloaded: (\S+) MiB/m)
-    const progressMatch = data.match(/Progress: (\d+\.\d+) /m)
-
-    // parse log for download speed
-    const downSpeedMBytes = data.match(/Download\t- (\S+.) MiB/m)
-    const downSpeed = !Number.isNaN(Number(downSpeedMBytes?.at(1)))
-      ? Number(downSpeedMBytes?.at(1))
-      : 0
-
-    // parse disk write speed
-    const diskSpeedMBytes = data.match(/Disk\t- (\S+.) MiB/m)
-    const diskSpeed = !Number.isNaN(Number(diskSpeedMBytes?.at(1)))
-      ? Number(diskSpeedMBytes?.at(1))
-      : 0
-
-    if (bytesMatch && progressMatch) {
-      const eta = etaMatch ? etaMatch[1] : null
-      const bytes = bytesMatch[1]
-      let percent = parseFloat(progressMatch[1])
-      if (percent < 0) percent = 0
-
-      logInfo(
-        [
-          `Progress for ${this.getGameInfo().title}:`,
-          `${percent}%/${bytes}MB/${eta}`.trim(),
-          `Down: ${downSpeed}MB/s / Disk: ${diskSpeed}MB/s`
-        ],
-        LogPrefix.Gog
-      )
-
-      sendFrontendMessage(`progressUpdate-${this.appName}`, {
-        appName: this.appName,
-        runner: 'gog',
-        status: action,
-        progress: {
-          eta,
-          percent,
-          bytes: `${bytes}MB`,
-          downSpeed,
-          diskSpeed
-        }
-      })
+    if (etaMatch) {
+      finalProgress.eta = etaMatch[1]
     }
+
+    const bytesMatch = data.match(/Downloaded: (\S+) MiB/m)
+    if (bytesMatch) {
+      finalProgress.bytes = bytesMatch[1] + 'MB'
+    }
+
+    const progressMatch = data.match(/Progress: (\d+\.\d+) /m)
+    if (progressMatch) {
+      finalProgress.percent = Number(progressMatch[1])
+    }
+
+    const downSpeedMatch = data.match(/Download\t- (\S+.) MiB/m)
+    if (downSpeedMatch) {
+      finalProgress.downSpeed = Number(downSpeedMatch[1])
+    }
+
+    const diskSpeedMatch = data.match(/Disk\t- (\S+.) MiB/m)
+    if (diskSpeedMatch) {
+      finalProgress.diskSpeed = Number(diskSpeedMatch[1])
+    }
+
+    logInfo(
+      [
+        `Progress for ${this.getGameInfo().title}:`,
+        `${finalProgress.percent}%/${finalProgress.bytes}/${finalProgress.eta}`,
+        `Down: ${finalProgress.downSpeed}MB/s / Disk: ${finalProgress.diskSpeed}MB/s`
+      ],
+      LogPrefix.Gog
+    )
+
+    sendFrontendMessage(`progressUpdate-${this.appName}`, {
+      appName: this.appName,
+      runner: 'gog',
+      status: action,
+      progress: finalProgress
+    })
   }
 
   public async install({

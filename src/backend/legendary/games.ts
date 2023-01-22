@@ -11,6 +11,7 @@ import {
   GameInfo,
   InstallArgs,
   InstallPlatform,
+  InstallProgress,
   WineCommandArgs
 } from 'common/types'
 import { Game } from '../games'
@@ -366,59 +367,61 @@ class LegendaryGame extends Game {
 
   // used when downloading games, store the download size read from Legendary's output
   currentDownloadSize = 0
+  currentResumeSize = 0
 
   public onInstallOrUpdateOutput(
     action: 'installing' | 'updating',
     totalDownloadSize: number,
     data: string
   ) {
-    const downloadSizeMatch = data.match(/Download size: ([\d.]+) MiB/)
-
     // store the download size, needed for correct calculation
     // when cancel/resume downloads
+    const downloadSizeMatch = data.match(/Download size: ([\d.]+) MiB/)
     if (downloadSizeMatch) {
-      this.currentDownloadSize = parseFloat(downloadSizeMatch[1])
+      this.currentDownloadSize = Number(downloadSizeMatch[1]) * 1024 * 1024
+    }
+    const resumeSizeMatch = data.match(/([\d.]+) MiB \(unchanged/)
+    if (resumeSizeMatch) {
+      this.currentResumeSize = Number(resumeSizeMatch[1]) * 1024 * 1024
     }
 
     // parse log for game download progress
-    const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
-    const bytesMatch = data.match(/Downloaded: (\S+.) MiB/m)
-    if (!etaMatch || !bytesMatch) {
-      return
+    const finalProgress: Partial<InstallProgress> = {}
+
+    const etaMatch = data.match(/ETA: (\d+:\d+:\d+)/)
+    if (etaMatch) {
+      finalProgress.eta = etaMatch[1]
     }
 
-    // parse log for download speed
-    const downSpeedMBytes = data.match(/Download\t- (\S+.) MiB/m)
-    const downSpeed = !Number.isNaN(Number(downSpeedMBytes?.at(1)))
-      ? Number(downSpeedMBytes?.at(1))
-      : 0
+    const bytesMatch = data.match(/Downloaded: (\S+) MiB/)
+    if (bytesMatch) {
+      finalProgress.bytes = bytesMatch[1] + 'MB'
+    }
 
-    // parse disk write speed
-    const diskSpeedMBytes = data.match(/Disk\t- (\S+.) MiB/m)
-    const diskSpeed = !Number.isNaN(Number(diskSpeedMBytes?.at(1)))
-      ? Number(diskSpeedMBytes?.at(1))
-      : 0
+    const downSpeedMatch = data.match(/Download\t- (\S+) MiB/)
+    if (downSpeedMatch) {
+      finalProgress.downSpeed = Number(downSpeedMatch[1])
+    }
 
-    const eta = etaMatch[1]
-    const bytes = bytesMatch[1]
+    const diskSpeedMatch = data.match(/Disk\t- (\S+) MiB/)
+    if (diskSpeedMatch) {
+      finalProgress.diskSpeed = Number(diskSpeedMatch[1])
+    }
 
-    // original is in bytes, convert to MiB with 2 decimals
-    totalDownloadSize =
-      Math.round((totalDownloadSize / 1024 / 1024) * 100) / 100
-
-    // calculate percentage
-    const downloaded = parseFloat(bytes)
-    const downloadCache = totalDownloadSize - this.currentDownloadSize
-    const totalDownloaded = downloaded + downloadCache
-    let percent =
-      Math.round((totalDownloaded / totalDownloadSize) * 10000) / 100
-    if (percent < 0) percent = 0
+    if (bytesMatch && this.currentDownloadSize) {
+      const currentDownloadInBytes = Number(bytesMatch[1]) * 1024 * 1024
+      const percentAbsolute =
+        ((currentDownloadInBytes + this.currentResumeSize) /
+          (this.currentDownloadSize + this.currentResumeSize)) *
+        100
+      finalProgress.percent = Math.round(percentAbsolute * 100) / 100
+    }
 
     logInfo(
       [
         `Progress for ${this.getGameInfo().title}:`,
-        `${percent}%/${bytes}MiB/${eta}`.trim(),
-        `Down: ${downSpeed}MiB/s / Disk: ${diskSpeed}MiB/s`
+        `${finalProgress.percent}%/${finalProgress.bytes}/${finalProgress.eta}`,
+        `Down: ${finalProgress.downSpeed}MiB/s / Disk: ${finalProgress.diskSpeed}MiB/s`
       ],
       LogPrefix.Legendary
     )
@@ -426,14 +429,7 @@ class LegendaryGame extends Game {
     sendFrontendMessage(`progressUpdate-${this.appName}`, {
       appName: this.appName,
       runner: 'legendary',
-      status: action,
-      progress: {
-        eta: eta,
-        percent,
-        bytes: `${bytes}MiB`,
-        downSpeed,
-        diskSpeed
-      }
+      progress: finalProgress
     })
   }
 
