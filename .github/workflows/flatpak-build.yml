@@ -25,8 +25,16 @@ jobs:
           node-version: '18'
       - name: Install modules.
         run: npm install
-      - name: Build AppImage
-        run: npm run dist:flatpak
+      - name: Build artifacts.
+        run: npm dist:linux appimage --publish=never
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      - name: Prepare Flatpak
+        run: npm flatpak:prepare
+      - name: Build Flatpak
+        uses: flatpak/flatpak-github-actions/flatpak-builder@v4
+        with:
+          bundle: heroicgameslauncher.flatpak
+          manifest-path: flatpak/local.heroic.yml
+          cache-key: flatpak-builder-${{ github.sha }}
