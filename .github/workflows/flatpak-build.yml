@@ -26,12 +26,12 @@ jobs:
       - name: Install modules.
         run: npm install
       - name: Build artifacts.
-        run: npm dist:linux appimage --publish=never
+        run: npm run dist:linux appimage --publish=never
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       - name: Prepare Flatpak
-        run: npm flatpak:prepare
+        run: npm run flatpak:prepare
       - name: Build Flatpak
         uses: flatpak/flatpak-github-actions/flatpak-builder@v4
         with:
