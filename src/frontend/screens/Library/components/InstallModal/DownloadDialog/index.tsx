@@ -56,6 +56,7 @@ interface Props {
   setIsLinuxNative: React.Dispatch<React.SetStateAction<boolean>>
   setIsMacNative: React.Dispatch<React.SetStateAction<boolean>>
   winePrefix: string
+  crossoverBottle: string
   wineVersion: WineInstallation | undefined
   children: React.ReactNode
   gameInfo: GameInfo
@@ -105,7 +106,8 @@ export default function DownloadDialog({
   winePrefix,
   wineVersion,
   children,
-  gameInfo
+  gameInfo,
+  crossoverBottle
 }: Props) {
   const previousProgress = JSON.parse(
     storage.getItem(appName) || '{}'
@@ -188,7 +190,12 @@ export default function DownloadDialog({
       if (wineVersion) {
         writeConfig({
           appName,
-          config: { ...gameSettings, winePrefix, wineVersion }
+          config: {
+            ...gameSettings,
+            winePrefix,
+            wineVersion,
+            wineCrossoverBottle: crossoverBottle
+          }
         })
       }
     }

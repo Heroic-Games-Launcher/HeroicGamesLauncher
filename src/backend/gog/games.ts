@@ -165,6 +165,7 @@ class GOGGame extends Game {
 
     try {
       await GOGLibrary.get().importGame(JSON.parse(res.stdout), path)
+      this.addShortcuts()
     } catch (error) {
       logError(['Failed to import', `${this.appName}:`, error], LogPrefix.Gog)
     }
