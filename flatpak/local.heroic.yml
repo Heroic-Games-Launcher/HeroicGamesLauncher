@@ -167,7 +167,7 @@ modules:
       - type: file
         filename: Heroic-*.AppImage
         # put right path here
-        path: ../dist/Heroic-*.AppImage
+        path: dist/Heroic-*.AppImage
 
   - name: platform-bootstrap
     buildsystem: simple
