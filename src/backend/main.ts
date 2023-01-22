@@ -1593,7 +1593,7 @@ ipcMain.handle('getCustomThemes', async () => {
 })
 
 ipcMain.handle('getThemeCSS', async (event, theme) => {
-  const { customThemesPath } = GlobalConfig.get().getSettings()
+  const { customThemesPath = '' } = GlobalConfig.get().getSettings()
 
   const cssPath = path.join(customThemesPath, theme)
 

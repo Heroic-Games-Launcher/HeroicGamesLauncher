@@ -701,6 +701,7 @@ class LegendaryGame extends Game {
       commandParts,
       createAbortController(this.appName)
     )
+    this.addShortcuts()
 
     deleteAbortController(this.appName)
 

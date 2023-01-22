@@ -15,7 +15,7 @@ import {
 } from 'common/types'
 
 import { getAvailableVersions, installVersion } from './downloader/main'
-import { heroicToolsPath } from '../../constants'
+import { heroicToolsPath, isMac } from '../../constants'
 import { sendFrontendMessage } from '../../main_window'
 
 const wineDownloaderInfoStore = new Store({
@@ -32,12 +32,11 @@ async function updateWineVersionInfos(
   logInfo('Updating wine versions info', LogPrefix.WineDownloader)
   if (fetch) {
     logInfo('Fetching upstream information...', LogPrefix.WineDownloader)
+    const repositorys = isMac
+      ? [Repositorys.WINECROSSOVER, Repositorys.WINESTAGINGMACOS]
+      : [Repositorys.WINEGE, Repositorys.PROTONGE]
     await getAvailableVersions({
-      repositorys: [
-        Repositorys.WINEGE,
-        Repositorys.PROTONGE,
-        Repositorys.WINELUTRIS
-      ],
+      repositorys,
       count
     })
       .then((response) => (releases = response as WineVersionInfo[]))

@@ -12,7 +12,9 @@ import {
   WINEGE_URL,
   PROTONGE_URL,
   PROTON_URL,
-  WINELUTRIS_URL
+  WINELUTRIS_URL,
+  WINECROSSOVER_URL,
+  WINESTAGINGMACOS_URL
 } from './constants'
 import { VersionInfo, Repositorys, State, ProgressInfo } from 'common/types'
 import {
@@ -39,12 +41,7 @@ interface getVersionsProps {
  *          * rejects with an {@link Error}
  */
 async function getAvailableVersions({
-  repositorys = [
-    Repositorys.WINEGE,
-    Repositorys.PROTONGE,
-    Repositorys.PROTON,
-    Repositorys.WINELUTRIS
-  ],
+  repositorys = [Repositorys.WINEGE, Repositorys.PROTONGE],
   count = 100
 }: getVersionsProps): Promise<VersionInfo[]> {
   const releases: Array<VersionInfo> = []
@@ -96,6 +93,34 @@ async function getAvailableVersions({
         await fetchReleases({
           url: WINELUTRIS_URL,
           type: 'Wine-Lutris',
+          count: count
+        })
+          .then((fetchedReleases: VersionInfo[]) => {
+            releases.push(...fetchedReleases)
+          })
+          .catch((error: Error) => {
+            throw error
+          })
+        break
+      }
+      case Repositorys.WINECROSSOVER: {
+        await fetchReleases({
+          url: WINECROSSOVER_URL,
+          type: 'Wine-Crossover',
+          count: count
+        })
+          .then((fetchedReleases: VersionInfo[]) => {
+            releases.push(...fetchedReleases)
+          })
+          .catch((error: Error) => {
+            throw error
+          })
+        break
+      }
+      case Repositorys.WINESTAGINGMACOS: {
+        await fetchReleases({
+          url: WINESTAGINGMACOS_URL,
+          type: 'Wine-Staging-macOS',
           count: count
         })
           .then((fetchedReleases: VersionInfo[]) => {

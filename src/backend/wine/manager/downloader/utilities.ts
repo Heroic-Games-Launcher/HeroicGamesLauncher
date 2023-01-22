@@ -1,3 +1,4 @@
+import { isMac } from '../../../constants'
 import * as axios from 'axios'
 import { existsSync, statSync, unlinkSync } from 'graceful-fs'
 import { spawnSync, spawn } from 'child_process'
@@ -86,8 +87,12 @@ function unlinkFile(filePath: string) {
  * @returns size of folder in bytes
  */
 function getFolderSize(folder: string): number {
-  const { stdout } = spawnSync('du', ['-sb', folder])
-  return parseInt(stdout.toString())
+  const param = isMac ? '-sk' : '-sb'
+  const { stdout } = spawnSync('du', [param, folder])
+  const value = parseInt(stdout.toString())
+
+  // on mac we get the size in kilobytes so we need to convert it to bytes
+  return isMac ? value * 1024 : value
 }
 
 interface downloadProps {
@@ -231,9 +236,9 @@ async function unzipFile({
 
     let extension_options = ''
     if (filePath.endsWith('tar.gz')) {
-      extension_options = '-vzxf'
+      extension_options = '-zxf'
     } else if (filePath.endsWith('tar.xz')) {
-      extension_options = '-vJxf'
+      extension_options = '-Jxf'
     } else {
       reject(`Archive type ${filePath.split('.').pop()} not supported!`)
     }
@@ -246,7 +251,7 @@ async function unzipFile({
       filePath
     ]
 
-    if (overwrite) {
+    if (overwrite && !isMac) {
       args.push('--overwrite')
     }
 
