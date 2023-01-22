@@ -87,10 +87,10 @@ export function addNewApp({
     current[gameIndex] = { ...current[gameIndex], ...game }
   } else {
     current.push(game)
+    addAppShortcuts(app_name)
   }
 
   libraryStore.set('games', current)
-  addAppShortcuts(app_name)
   return
 }
 

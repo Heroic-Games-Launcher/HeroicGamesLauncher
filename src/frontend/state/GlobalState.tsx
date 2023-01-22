@@ -490,7 +490,7 @@ class GlobalState extends PureComponent<Props> {
   }
 
   refreshWineVersionInfo = async (fetch: boolean): Promise<void> => {
-    if (this.state.platform !== 'linux') {
+    if (this.state.platform === 'win32') {
       return
     }
     window.api.logInfo('Refreshing wine downloader releases')
