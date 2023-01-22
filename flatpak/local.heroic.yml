@@ -136,9 +136,13 @@ modules:
     buildsystem: simple
     build-commands:
       - chmod +x Heroic-*.AppImage
+      - echo "complete chmod"
       - ./Heroic-*.AppImage --appimage-extract
+      - echo "complete appimage-extract"
       - mv squashfs-root /app/bin/heroic
+      - echo "complete mv"
       - install -D heroic-run -t /app/bin
+      - echo "complete install"
       - rm Heroic-*.AppImage
     sources:
       - type: script
