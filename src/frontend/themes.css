@@ -1,3 +1,198 @@
+body.newDark {
+  --background: var(--neutral-02);
+  --background-darker: var(--neutral-01);
+  --background-darker-80: var(--eighty-percent);
+  --background-lighter: var(--neutral-03);
+  --background-hover: rgb(20 20 20 / 47%);
+  --background-gradient: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.418) 2.4%,
+    #0d0f1cd2 64%
+  );
+
+  --button-stroke: var(--stroke-accent);
+  --primary-button: var(--gradient-01);
+  --secondary-button: var(--brand-primary);
+  --secondary-button-overlay: var(--brand-secondary);
+  --success-button: var(--gradient-01);
+  --disabled-button: var(--neutral-02);
+
+  --play-button: var(--primary-button);
+  --install-button: var(--secondary-button);
+
+  --text-default: var(--brand-text-01);
+
+  /* Colours */
+  --accent: var(--brand-secondary);
+  --accent-overlay: var(--brand-primary);
+  --body-background: var(--background-darker);
+  --controller-hints-background: transparent;
+  --current-background: var(--body-background);
+  --danger: #bd0a0a;
+  --danger-hover: #e43f3f;
+  --divider: gray;
+
+  --danger: var(--status-danger);
+
+  --icon-disabled: #625e69;
+  --icons-background: #17131c;
+  --input-background: var(--background-lighter);
+  --link-highlight: #07c5ef;
+
+  --modal-background: var(--background-darker);
+  --modal-backdrop: #00000074;
+  --modal-border: #1f253f;
+
+  --navbar-active: var(--text-default);
+  --navbar-inactive: var(--neutral-04);
+  --navbar-active-background: var(--background-lighter);
+  --navbar-accent: var(--text-default);
+  --navbar-background: var(--background);
+
+  --osk-background: var(--body-background);
+  --osk-button-background: var(--input-background);
+  --osk-button-border: var(--navbar-background);
+
+  --primary: var(--brand-primary);
+
+  --primary-hover: #4cdafa;
+  --scrollbar-thumb: #ffffff33;
+  --stop-button: #252121;
+  --secondary: #18d5ff;
+  --success: #0cd28d;
+  --success-hover: #30eca8;
+  --text-hover: #59d0ea;
+
+  --anticheat-denied: var(--status-danger);
+  --anticheat-broken: var(--status-warning);
+  --anticheat-running: var(--status-default);
+  --anticheat-supported: var(--status-success);
+  --anticheat-planned: var(--status-info);
+
+  /* Gradients */
+  --gradient-welcome: linear-gradient(#13172a 100%, #13172a 89%, #13172a 0%);
+  --gradient-big-game-menu: linear-gradient(
+    #13172a 100%,
+    #1d1f1f 31.77%,
+    #1d1f1f 0%
+  );
+  --gamecard-title-color: #17131cd2;
+  --gradient-gamecard: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.418) 1.8%,
+    var(--gamecard-title-color) 45%
+  );
+  --gradient-game-hover: linear-gradient(#000000 30.8%, #141515 77%);
+  --gradient-body-background: linear-gradient(
+    90deg,
+    var(--background-darker) -32px,
+    var(--body-background) 64px,
+    var(--body-background) 100%
+  );
+  --gradient-primary-button: linear-gradient(
+    180deg,
+    #0cd58c 7.29%,
+    #00a98b 93.23%
+  );
+  --gradient-secondary-button: linear-gradient(
+    180deg,
+    #18d5ff 5.73%,
+    rgba(38, 142, 226, 0.930182) 94.79%
+  );
+}
+
+body.cyberpunk {
+  --background: #151f3d;
+  --background-darker: #0d0f1c;
+  --background-darker-80: #0d0f1ce0;
+  --background-secondary: #323035;
+  --background-lighter: #152f6d;
+  --background-hover: rgb(20 20 20 / 47%);
+  --background-gradient: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.418) 2.4%,
+    #0d0f1cd2 64%
+  );
+
+  /* Colours */
+  --navbar-background: var(--background);
+  --input-background: var(--background-darker);
+  --body-background: #13172a;
+  --current-background: var(--body-background);
+  --modal-background: #13172a;
+  --modal-border: #1f253f;
+  --modal-backdrop: #00000074;
+  --text-hover: #59d0ea;
+  --primary: #07c5ef;
+  --primary-hover: #4cdafa;
+  --link-highlight: #07c5ef;
+  --accent: #eaa114;
+  --accent-overlay: #ffbb33;
+  --navbar-accent: var(--accent);
+  --navbar-active-background: var(--background-lighter);
+  --play-button: #59d0ea;
+  --download-button: #3082d9;
+  --download-button-overlay: #1372d7;
+  --stop-button: #252121;
+  --scrollbar-thumb: #ffffff33;
+  --favourite-active: #97f4e9;
+  --favourite-inactive: #eae8e5;
+  --danger: #bd0a0a; /* These success, danger and disabled colours need to be documented */
+  --success: #0bd58c;
+  --success-hover: #30eca8;
+  --danger-hover: #e43f3f;
+  --icon-disabled: #625e69;
+  --icons-background: #17131c;
+  --divider: gray;
+  --osk-background: var(--body-background);
+  --osk-button-background: var(--input-background);
+  --osk-button-border: var(--navbar-background);
+  --controller-hints-background: transparent;
+
+  --anticheat-denied: var(--danger);
+  --anticheat-broken: #e8590c;
+  --anticheat-running: #0e8598;
+  --anticheat-supported: #2f9e44;
+  --anticheat-planned: #6841d9;
+
+  /* Gradients */
+  --gradient-welcome: linear-gradient(#13172a 100%, #13172a 89%, #13172a 0%);
+  --gradient-big-game-menu: linear-gradient(
+    #13172a 100%,
+    #1d1f1f 31.77%,
+    #1d1f1f 0%
+  );
+  --gamecard-title-color: #17131cd2;
+  --gradient-gamecard: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.418) 1.8%,
+    var(--gamecard-title-color) 45%
+  );
+  --gradient-game-hover: linear-gradient(#000000 30.8%, #141515 77%);
+  --gradient-body-background: linear-gradient(
+    90deg,
+    var(--background-darker) -32px,
+    var(--body-background) 64px,
+    var(--body-background) 100%
+  );
+  /* Text colours */
+  --text-default: #eae8e5;
+  --text-secondary: #b1b1b1;
+  --text-pause-cancel: #97f4e9;
+  --text-title: #ffffff;
+  --text-tertiary: #101111; /* This is not defined in figma */
+  --text-quartenary: #5a5e5f; /* this is meant to be a background colour */
+  --text-danger: #d22121;
+  --text-gametitle: var(--text-default);
+  --text-log: #f5cf69;
+  --text-warning: #eaa114;
+
+  /*Action Icons*/
+  --action-icon: var(--text-default);
+  --action-icon-hover: var(--text-hover);
+  --action-icon-active: var(--accent);
+}
+
 body.dracula,
 body.dracula-classic {
   --accent: #bd93f9;
