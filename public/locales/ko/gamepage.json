@@ -147,7 +147,8 @@
         "title": "설치할 구성 요소를 선택합니다"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Use Default Wine Settings",
+        "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {
         "field": {
@@ -183,7 +184,8 @@
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "총 다운로드",
         "uninstalling": "Uninstalling",
-        "updating": "게임 업데이트 중"
+        "updating": "게임 업데이트 중",
+        "playing": "놀이"
     },
     "submenu": {
         "addShortcut": "바로가기 생성",
