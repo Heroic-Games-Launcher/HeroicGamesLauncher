@@ -1,20 +1,9 @@
-import {
-  GameSettings,
-  GameInfo,
-  SideloadGame,
-  InstalledInfo
-} from 'common/types'
+import { GameSettings, GameInfo, SideloadGame } from 'common/types'
 import { libraryStore } from './electronStores'
 import { GameConfig } from '../game_config'
-import {
-  isWindows,
-  isMac,
-  isLinux,
-  execOptions,
-  heroicGamesConfigPath
-} from '../constants'
-import { execAsync, killPattern, notify } from '../utils'
-import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
+import { isWindows, isMac, isLinux, heroicGamesConfigPath } from '../constants'
+import { killPattern } from '../utils'
+import { logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { dirname, join } from 'path'
 import {
   appendFileSync,
@@ -35,7 +24,7 @@ import {
 import { access, chmod } from 'fs/promises'
 import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts/shortcuts'
 import shlex from 'shlex'
-import { showDialogBoxModalAuto } from '../dialog/dialog'
+import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
 import { createAbortController } from '../utils/aborthandler/aborthandler'
 import { sendFrontendMessage } from '../main_window'
 
@@ -240,42 +229,6 @@ export async function launchApp(appName: string): Promise<boolean> {
   return false
 }
 
-export async function moveInstall(
-  appName: string,
-  newInstallPath: string
-): Promise<string> {
-  const {
-    install: { install_path },
-    title
-  } = getAppInfo(appName)
-
-  if (!install_path) {
-    return ''
-  }
-
-  if (isWindows) {
-    newInstallPath += '\\' + install_path.split('\\').at(-1)
-  } else {
-    newInstallPath += '/' + install_path.split('/').at(-1)
-  }
-
-  logInfo(`Moving ${title} to ${newInstallPath}`, LogPrefix.Backend)
-  await execAsync(`mv -f '${install_path}' '${newInstallPath}'`, execOptions)
-    .then(() => {
-      const installedArray =
-        (libraryStore.get('installed', []) as Array<InstalledInfo>) || []
-
-      const gameIndex = installedArray.findIndex(
-        (value) => value.appName === appName
-      )
-
-      installedArray[gameIndex].install_path = newInstallPath
-      libraryStore.set('installed', installedArray)
-      logInfo(`Finished Moving ${title}`, LogPrefix.Backend)
-    })
-    .catch((error) => logError(`${error}`, LogPrefix.Backend))
-  return newInstallPath
-}
 export async function stop(appName: string): Promise<void> {
   const {
     install: { executable }

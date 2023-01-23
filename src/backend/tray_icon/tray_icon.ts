@@ -69,7 +69,7 @@ const iconSizesByPlatform = {
 }
 
 // get the icon path based on platform and settings
-export const getIcon = (platform = process.platform) => {
+const getIcon = (platform = process.platform) => {
   const settings = GlobalConfig.get().getSettings()
   const { darkTrayIcon } = settings
 
@@ -79,7 +79,7 @@ export const getIcon = (platform = process.platform) => {
 }
 
 // generate the context menu
-export const contextMenu = (
+const contextMenu = (
   mainWindow: BrowserWindow,
   recentGames: RecentGame[],
   platform = process.platform
@@ -130,4 +130,11 @@ export const contextMenu = (
       accelerator: platform === 'darwin' ? 'Cmd+Q' : 'Ctrl+Q'
     }
   ])
+}
+
+// Exported only for testing purpose
+// ts-prune-ignore-next
+export const testingExportsTrayIcon = {
+  contextMenu,
+  getIcon
 }

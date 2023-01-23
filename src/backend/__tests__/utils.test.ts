@@ -1,9 +1,15 @@
-import { quoteIfNecessary, removeQuoteIfNecessary, semverGt } from '../utils'
+import axios from 'axios'
+import { app } from 'electron'
+import { logError } from '../logger/logger'
+import * as utils from '../utils'
+import { test_data } from './test_data/github-api-heroic-test-data.json'
 
+jest.mock('electron')
 jest.mock('../logger/logger')
 jest.mock('../logger/logfile')
+jest.mock('../dialog/dialog')
 
-describe('electron/utils.ts', () => {
+describe('backend/utils.ts', () => {
   test('quoteIfNeccessary', () => {
     const testCases = new Map<string, string>([
       ['path/without/spaces', 'path/without/spaces'],
@@ -13,7 +19,7 @@ describe('electron/utils.ts', () => {
     ])
 
     testCases.forEach((expectString, inputString) => {
-      expect(quoteIfNecessary(inputString)).toStrictEqual(expectString)
+      expect(utils.quoteIfNecessary(inputString)).toStrictEqual(expectString)
     })
   })
 
@@ -24,7 +30,9 @@ describe('electron/utils.ts', () => {
     ])
 
     testCases.forEach((expectString, inputString) => {
-      expect(removeQuoteIfNecessary(inputString)).toStrictEqual(expectString)
+      expect(utils.removeQuoteIfNecessary(inputString)).toStrictEqual(
+        expectString
+      )
     })
   })
 
@@ -45,7 +53,82 @@ describe('electron/utils.ts', () => {
     ])
 
     testCases.forEach((expectValue, versions) => {
-      expect(semverGt(versions.target, versions.base)).toBe(expectValue)
+      expect(
+        utils.testingExportsUtils.semverGt(versions.target, versions.base)
+      ).toBe(expectValue)
+    })
+  })
+
+  describe('getLatestReleases', () => {
+    test('Simple version', async () => {
+      jest.spyOn(axios, 'get').mockResolvedValue(test_data)
+      jest.spyOn(app, 'getVersion').mockReturnValueOnce('2.4.0')
+
+      const releases = await utils.getLatestReleases()
+      expect(releases).toMatchInlineSnapshot(`
+        Array [
+          Object {
+            "body": "2.5.2 HOTFIX #2 Release",
+            "html_url": "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/tag/v2.5.2",
+            "id": 200,
+            "name": "2.5.2 HOTFIX #2",
+            "prerelease": false,
+            "published_at": "2022-12-14T10:53:29Z",
+            "tag_name": "v2.5.2",
+            "type": "stable",
+          },
+          Object {
+            "body": "2.6.0 Beta Release",
+            "html_url": "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/tag/v2.6.0-beta.1",
+            "id": 100,
+            "name": "2.6.0 Beta",
+            "prerelease": true,
+            "published_at": "2022-13-14T10:53:29Z",
+            "tag_name": "v2.6.0-beta.1",
+            "type": "beta",
+          },
+        ]
+      `)
+    })
+
+    test('Complex version', async () => {
+      jest.spyOn(axios, 'get').mockResolvedValue(test_data)
+      jest.spyOn(app, 'getVersion').mockReturnValueOnce('2.5.5-beta.3')
+
+      const releases = await utils.getLatestReleases()
+      expect(releases).toMatchInlineSnapshot(`
+        Array [
+          Object {
+            "body": "2.6.0 Beta Release",
+            "html_url": "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/tag/v2.6.0-beta.1",
+            "id": 100,
+            "name": "2.6.0 Beta",
+            "prerelease": true,
+            "published_at": "2022-13-14T10:53:29Z",
+            "tag_name": "v2.6.0-beta.1",
+            "type": "beta",
+          },
+        ]
+      `)
+    })
+
+    test('Empty version', async () => {
+      jest.spyOn(axios, 'get').mockResolvedValue(test_data)
+      jest.spyOn(app, 'getVersion').mockReturnValueOnce('')
+
+      const releases = await utils.getLatestReleases()
+      expect(releases).toMatchInlineSnapshot(`Array []`)
+    })
+
+    test('Fetching available releases fails', async () => {
+      jest.spyOn(axios, 'get').mockRejectedValue('Failed to fetch!')
+
+      const releases = await utils.getLatestReleases()
+      expect(logError).toBeCalledWith(
+        ['Error when checking for Heroic updates', 'Failed to fetch!'],
+        'Backend'
+      )
+      expect(releases).toMatchInlineSnapshot(`Array []`)
     })
   })
 })

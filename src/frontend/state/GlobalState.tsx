@@ -103,7 +103,7 @@ interface StateProps {
   }
 }
 
-export class GlobalState extends PureComponent<Props> {
+class GlobalState extends PureComponent<Props> {
   loadGOGLibrary = (): Array<GameInfo> => {
     const games = gogLibraryStore.has('games')
       ? (gogLibraryStore.get('games', []) as GameInfo[])

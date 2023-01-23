@@ -1,6 +1,7 @@
 import { LogPrefix, logWarning } from '../logger/logger'
-import { dialog } from 'electron'
+import { dialog, Notification } from 'electron'
 import { ButtonOptions, DialogType } from 'common/types'
+import { isSteamDeckGameMode } from '../constants'
 import { getMainWindow, sendFrontendMessage } from '../main_window'
 
 const { showErrorBox, showMessageBox } = dialog
@@ -53,4 +54,22 @@ function showDialogBoxModalAuto(props: {
   }
 }
 
-export { showDialogBoxModalAuto }
+type NotifyType = {
+  title: string
+  body: string
+}
+
+function notify({ body, title }: NotifyType) {
+  if (Notification.isSupported() && !isSteamDeckGameMode) {
+    const mainWindow = getMainWindow()
+    const notify = new Notification({
+      body,
+      title
+    })
+
+    notify.on('click', () => mainWindow?.show())
+    notify.show()
+  }
+}
+
+export { showDialogBoxModalAuto, notify }

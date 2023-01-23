@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
 
-export interface DialogHeaderProps {
+interface DialogHeaderProps {
   onClose: () => void
   children: ReactNode
 }

@@ -10,7 +10,6 @@ import { join } from 'path'
 import { GameInfo } from 'common/types'
 import { ShortcutsResult } from '../types'
 import { getIcon } from '../utils'
-import { notify } from '../../utils'
 import {
   prepareImagesForSteam,
   generateShortcutId,
@@ -22,7 +21,7 @@ import { app } from 'electron'
 import { isFlatpak, isWindows, tsStore } from '../../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import i18next from 'i18next'
-import { showDialogBoxModalAuto } from '../../dialog/dialog'
+import { notify, showDialogBoxModalAuto } from '../../dialog/dialog'
 import { GlobalConfig } from '../../config'
 import { getMainWindow } from '../../main_window'
 

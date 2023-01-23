@@ -36,8 +36,6 @@ export const getDMQueueInformation = async () =>
 export const removeFromDMQueue = (appName: string) =>
   ipcRenderer.send('removeFromDMQueue', appName)
 
-export const clearDMFinished = () => ipcRenderer.send('clearDMFinished')
-
 export const handleDMQueueInformation = (
   onChange: (e: Electron.IpcRendererEvent, elements: DMQueueElement[]) => void
 ) => {
