@@ -23,7 +23,7 @@ import {
   SpawnOptions,
   spawnSync
 } from 'child_process'
-import { appendFileSync, existsSync, rmSync, stat } from 'graceful-fs'
+import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
 import si from 'systeminformation'
@@ -38,8 +38,7 @@ import {
   publicDir,
   GITHUB_API,
   isSteamDeckGameMode,
-  isMac,
-  isLinux
+  isMac
 } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { basename, dirname, join, normalize } from 'path'
@@ -64,7 +63,6 @@ import { GameConfig } from './game_config'
 import { validWine } from './launcher'
 
 const execAsync = promisify(exec)
-const statAsync = promisify(stat)
 
 const { showMessageBox } = dialog
 
@@ -1132,7 +1130,6 @@ export {
   semverGt,
   showAboutWindow,
   showItemInFolder,
-  statAsync,
   removeSpecialcharacters,
   clearCache,
   resetHeroic,
