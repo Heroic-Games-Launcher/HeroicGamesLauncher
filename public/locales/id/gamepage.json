@@ -147,7 +147,8 @@
         "title": "Pilih komponen untuk dipasang"
     },
     "setting": {
-        "use-default-wine-settings": "Gunakan Pengaturan Wine Bawaan"
+        "use-default-wine-settings": "Gunakan Pengaturan Wine Bawaan",
+        "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {
         "field": {
@@ -183,7 +184,8 @@
         "this-game-uses-third-party": "Gim ini menggunakan peluncur pihak ketiga dan belum didukung oleh Heroic",
         "totalDownloaded": "Jumlah yang Diunduh",
         "uninstalling": "Mencopot",
-        "updating": "Memperbarui Gim"
+        "updating": "Memperbarui Gim",
+        "playing": "Bermain"
     },
     "submenu": {
         "addShortcut": "Tambahkan pintasan",
