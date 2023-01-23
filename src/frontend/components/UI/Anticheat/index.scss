@@ -1,0 +1,39 @@
+.anticheatInfo {
+  display: flex;
+  max-width: 560px;
+  padding: var(--space-md);
+  gap: 0.4rem;
+  margin: var(--space-md) 0;
+  border-radius: 20px;
+  background-color: var(--current-background);
+
+  .statusInfo {
+    flex-direction: column;
+    display: flex;
+    padding-left: var(--space-md);
+  }
+}
+
+.anticheatInfo h4 {
+  margin: 0 0 var(--space-md);
+}
+
+.anticheatInfo p {
+  margin: 0 0 var(--space-md);
+}
+
+.anticheatInfo.Denied {
+  border: 2px solid var(--anticheat-denied);
+}
+.anticheatInfo.Broken {
+  border: 2px solid var(--anticheat-broken);
+}
+.anticheatInfo.Running {
+  border: 2px solid var(----anticheat-running);
+}
+.anticheatInfo.Supported {
+  border: 2px solid var(--anticheat-supported);
+}
+.anticheatInfo.Planned {
+  border: 2px solid var(--anticheat-planned);
+}
