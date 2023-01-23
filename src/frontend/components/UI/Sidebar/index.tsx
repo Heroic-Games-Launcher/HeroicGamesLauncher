@@ -6,6 +6,8 @@ import './index.scss'
 import HeroicVersion from './components/HeroicVersion'
 import { DMQueueElement } from 'common/types'
 
+import { ReactComponent as HeroicIcon } from 'frontend/assets/heroic-icon.svg'
+
 let sidebarSize = localStorage.getItem('sidebar-width') || 240
 const minWidth = 60
 const maxWidth = 400
@@ -97,6 +99,7 @@ export default React.memo(function Sidebar() {
 
   return (
     <aside ref={sidebarEl} className="Sidebar">
+      <HeroicIcon className="heroicIcon" />
       <SidebarLinks />
       <div className="currentDownloads">
         {currentDMElement && (
