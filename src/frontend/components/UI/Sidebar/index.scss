@@ -51,6 +51,7 @@
   cursor: pointer;
   font-size: var(--text-md);
   color: var(--navbar-accent);
+  color: var(--navbar-inactive);
   transition: color 250ms;
   text-align: start;
   font-family: var(--primary-font-family);
@@ -81,6 +82,12 @@
 
 .Sidebar__item.active {
   color: var(--accent);
+  color: var(--navbar-active);
+
+  .Sidebar__itemIcon {
+    color: var(--accent);
+    color: var(--navbar-active);
+  }
 }
 
 .Sidebar__item.active.SidebarLinks__subItem {
@@ -95,6 +102,7 @@
   display: inline-flex;
   justify-content: center;
   color: var(--accent);
+  color: var(--navbar-inactive);
 }
 
 .currentDownloads {

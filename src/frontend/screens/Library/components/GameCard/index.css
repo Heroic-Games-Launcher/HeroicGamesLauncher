@@ -288,7 +288,7 @@
 }
 
 .playIcon:hover circle {
-  fill: var(--success-hover);
+  fill: var(--secondary-overlay);
   transition: 300ms;
 }
 

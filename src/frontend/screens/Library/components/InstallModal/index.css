@@ -5,6 +5,10 @@
   max-height: 95vh;
 }
 
+.InstallModal__dialog > .anticheatInfo {
+  margin-left: var(--dialog-margin-horizontal);
+}
+
 .InstallModal__dialog--loading {
   width: 200px;
   height: 200px;
@@ -55,6 +59,7 @@
   align-items: center;
   margin: var(--space-md) 0;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .InstallModal__toggle .switch {

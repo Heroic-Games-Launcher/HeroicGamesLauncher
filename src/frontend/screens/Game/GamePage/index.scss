@@ -24,6 +24,21 @@
       align-self: center;
     }
 
+    .settings-icon {
+      width: 32px;
+
+      svg {
+        fill: var(--text-default);
+        transition: fill 0.2s;
+      }
+
+      &:hover {
+        svg {
+          fill: var(--text-secondary);
+        }
+      }
+    }
+
     .game-actions {
       position: relative;
       display: flex;
@@ -174,6 +189,10 @@
     color: var(--text-default);
   }
 
+  button {
+    max-width: 560px;
+  }
+
   .summary {
     font-family: var(--primary-font-family);
     font-style: normal;
@@ -241,13 +260,6 @@
     color: var(--success);
     animation: animate-stripes 5s linear infinite;
   }
-}
-
-.buttonsWrapper {
-  display: grid;
-  grid-template-columns: min-content min-content;
-  place-items: baseline;
-  grid-column-gap: 1em;
 }
 
 .selectFieldWrapper.Field ~ .buttonsWrapper {
