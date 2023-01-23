@@ -5,7 +5,6 @@ import {
   faFolderOpen
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { DialogContent } from '@mui/material'
 
 import classNames from 'classnames'
 import {
@@ -24,7 +23,11 @@ import {
   ToggleSwitch
 } from 'frontend/components/UI'
 import Anticheat from 'frontend/components/UI/Anticheat'
-import { DialogHeader, DialogFooter } from 'frontend/components/UI/Dialog'
+import {
+  DialogHeader,
+  DialogFooter,
+  DialogContent
+} from 'frontend/components/UI/Dialog'
 import {
   getProgress,
   size,

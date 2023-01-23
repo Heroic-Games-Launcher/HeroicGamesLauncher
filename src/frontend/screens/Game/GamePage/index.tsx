@@ -16,7 +16,8 @@ import {
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { UpdateComponent, SelectField } from 'frontend/components/UI'
+import { UpdateComponent, SelectField, SvgButton } from 'frontend/components/UI'
+import { ReactComponent as SettingsIcon } from 'frontend/assets/settings-sharp.svg'
 
 import {
   ExtraInfo,
@@ -298,6 +299,16 @@ export default React.memo(function GamePage(): JSX.Element | null {
             <div className="gameInfo">
               <div className="titleWrapper">
                 <h1 className="title">{title}</h1>
+                {is_installed && (
+                  <SvgButton
+                    onClick={() =>
+                      setIsSettingsModalOpen(true, 'settings', gameInfo)
+                    }
+                    className={`settings-icon`}
+                  >
+                    <SettingsIcon />
+                  </SvgButton>
+                )}
                 <div className="game-actions">
                   <button className="toggle">
                     <FontAwesomeIcon icon={faEllipsisV} />
@@ -468,47 +479,35 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 </SelectField>
               )}
               <Anticheat gameInfo={gameInfo} />
-              <div className="buttonsWrapper">
-                {is_installed && !isQueued && (
-                  <button
-                    disabled={
-                      isReparing || isMoving || isUpdating || isUninstalling
-                    }
-                    autoFocus={true}
-                    onClick={handlePlay()}
-                    className={`button ${getPlayBtnClass()}`}
-                  >
-                    {getPlayLabel()}
-                  </button>
-                )}
-                {is_installed && (
-                  <button
-                    onClick={() =>
-                      setIsSettingsModalOpen(true, 'settings', gameInfo)
-                    }
-                    className={`button is-primary`}
-                  >
-                    {t('submenu.settings')}
-                  </button>
-                )}
-                {(!is_installed || isQueued) && (
-                  <button
-                    onClick={async () => handleInstall(is_installed)}
-                    disabled={
-                      isPlaying ||
-                      isUpdating ||
-                      isReparing ||
-                      isMoving ||
-                      isUninstalling ||
-                      notSupportedGame
-                    }
-                    autoFocus={true}
-                    className={`button ${getButtonClass(is_installed)}`}
-                  >
-                    {`${getButtonLabel(is_installed)}`}
-                  </button>
-                )}
-              </div>
+              {is_installed && !isQueued && (
+                <button
+                  disabled={
+                    isReparing || isMoving || isUpdating || isUninstalling
+                  }
+                  autoFocus={true}
+                  onClick={handlePlay()}
+                  className={`button ${getPlayBtnClass()}`}
+                >
+                  {getPlayLabel()}
+                </button>
+              )}
+              {(!is_installed || isQueued) && (
+                <button
+                  onClick={async () => handleInstall(is_installed)}
+                  disabled={
+                    isPlaying ||
+                    isUpdating ||
+                    isReparing ||
+                    isMoving ||
+                    isUninstalling ||
+                    notSupportedGame
+                  }
+                  autoFocus={true}
+                  className={`button ${getButtonClass(is_installed)}`}
+                >
+                  {`${getButtonLabel(is_installed)}`}
+                </button>
+              )}
               {showExtraInfo && (
                 <WikiGameInfo
                   setShouldShow={setShowExtraInfo}
