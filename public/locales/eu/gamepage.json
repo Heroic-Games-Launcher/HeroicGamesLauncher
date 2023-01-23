@@ -148,7 +148,8 @@
         "title": "Instalatzeko osagaiak hautatzea"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Use Default Wine Settings",
+        "winecrossoverbottle": "CrossOver botila"
     },
     "sideload": {
         "field": {
@@ -184,7 +185,8 @@
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Deskargatutakoa, guztira",
         "uninstalling": "Uninstalling",
-        "updating": "Jokoa eguneratzea"
+        "updating": "Jokoa eguneratzea",
+        "playing": "Jolasean"
     },
     "submenu": {
         "addShortcut": "Sarbide zuzena gehitu",
