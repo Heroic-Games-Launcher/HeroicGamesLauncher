@@ -2,7 +2,9 @@ import React, { MouseEvent, useEffect, useState } from 'react'
 import { AntiCheatInfo, GameInfo } from 'common/types'
 import { createNewWindow } from 'frontend/helpers'
 
-import './index.css'
+import { ReactComponent as InfoIcon } from 'frontend/assets/info_icon.svg'
+
+import './index.scss'
 import { useTranslation } from 'react-i18next'
 
 type Props = {
@@ -48,36 +50,39 @@ export default function Anticheat({ gameInfo }: Props) {
 
   return (
     <div className={`anticheatInfo ${anticheatInfo.status}`}>
-      <h4>{t('anticheat.title', 'This game includes anticheat software')}</h4>
-      {mayNotWork && (
-        <p>
-          {t(
-            'anticheat.may_not_work',
-            'It may not work due to denied or broken anticheat support.'
-          )}
-        </p>
-      )}
-      <span>
-        <b>{t('anticheat.anticheats', 'Anticheats')}:</b>&nbsp;
-        {anticheatInfo.anticheats.length
-          ? anticheatInfo.anticheats.join(', ')
-          : 'Anticheat removed'}
-      </span>
-      <span>
-        <b>{t('anticheat.status', 'Status')}:</b> {anticheatInfo.status}&nbsp;
-        {latestUpdate && (
-          <a href="#" onClick={onLastReferenceClick}>
-            ({t('anticheat.reference', 'Reference')})
-          </a>
+      <InfoIcon />
+      <div className="statusInfo">
+        <h4>{t('anticheat.title', 'This game includes anticheat software')}</h4>
+        {mayNotWork && (
+          <p>
+            {t(
+              'anticheat.may_not_work',
+              'It may not work due to denied or broken anticheat support.'
+            )}
+          </p>
         )}
-      </span>
+        <span>
+          <b>{t('anticheat.anticheats', 'Anticheats')}:</b>&nbsp;
+          {anticheatInfo.anticheats.length
+            ? anticheatInfo.anticheats.join(', ')
+            : 'Anticheat removed'}
+        </span>
+        <span>
+          <b>{t('anticheat.status', 'Status')}:</b> {anticheatInfo.status}&nbsp;
+          {latestUpdate && (
+            <a href="#" onClick={onLastReferenceClick}>
+              ({t('anticheat.reference', 'Reference')})
+            </a>
+          )}
+        </span>
 
-      <span>
-        <b>{t('anticheat.source', 'Source')}:</b>&nbsp;
-        <a href="#" onClick={onAWACYClick}>
-          AreWeAntiCheatYet
-        </a>
-      </span>
+        <span>
+          <b>{t('anticheat.source', 'Source')}:</b>&nbsp;
+          <a href="#" onClick={onAWACYClick}>
+            AreWeAntiCheatYet
+          </a>
+        </span>
+      </div>
     </div>
   )
 }
