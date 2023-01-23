@@ -147,7 +147,8 @@
         "title": "Kurulacak bileşenleri seç"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Use Default Wine Settings",
+        "winecrossoverbottle": "CrossOver Şişesi"
     },
     "sideload": {
         "field": {
@@ -183,7 +184,8 @@
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Toplam İndirilen",
         "uninstalling": "Uninstalling",
-        "updating": "Oyun Güncelleniyor"
+        "updating": "Oyun Güncelleniyor",
+        "playing": "oynamak"
     },
     "submenu": {
         "addShortcut": "Kısayol ekle",

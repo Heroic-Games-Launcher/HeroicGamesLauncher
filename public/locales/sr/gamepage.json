@@ -162,7 +162,8 @@
         "title": "Изаберите компоненте за инсталирање"
     },
     "setting": {
-        "use-default-wine-settings": "Користите подразумевана подешавања Wine-а"
+        "use-default-wine-settings": "Користите подразумевана подешавања Wine-а",
+        "winecrossoverbottle": "ЦроссОвер Боттле"
     },
     "sideload": {
         "field": {
@@ -198,6 +199,7 @@
         "this-game-uses-third-party": "Ова игра користи покретач треће стране и још увек није подржана",
         "totalDownloaded": "Укупно преузето",
         "uninstalling": "Деинсталирање",
-        "updating": "Ажурирање игре"
+        "updating": "Ажурирање игре",
+        "playing": "Играње"
     }
 }

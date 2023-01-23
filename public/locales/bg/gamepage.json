@@ -147,7 +147,8 @@
         "title": "Изберете компоненти за инсталиране"
     },
     "setting": {
-        "use-default-wine-settings": "Използване на стандартните настройки на Wine"
+        "use-default-wine-settings": "Използване на стандартните настройки на Wine",
+        "winecrossoverbottle": "Бутилка CrossOver"
     },
     "sideload": {
         "field": {
@@ -183,7 +184,8 @@
         "this-game-uses-third-party": "Тази игра използва външна пускова програма и все още не се поддържа",
         "totalDownloaded": "Общо свалено",
         "uninstalling": "Деинсталиране",
-        "updating": "Обновяване на играта"
+        "updating": "Обновяване на играта",
+        "playing": "Играя"
     },
     "submenu": {
         "addShortcut": "Добавяне на пряк път",

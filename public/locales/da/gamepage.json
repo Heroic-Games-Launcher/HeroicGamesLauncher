@@ -152,7 +152,8 @@
         "gameNotAvailable": "Spil ikke tilgængeligt",
         "notSupported": "Ikke understøttet",
         "notSupportedGame": "Ikke understøttet",
-        "this-game-uses-third-party": "Dette spil bruger tredjeparts launcher, og det er ikke understøttet endnu"
+        "this-game-uses-third-party": "Dette spil bruger tredjeparts launcher, og det er ikke understøttet endnu",
+        "playing": "Spiller"
     },
     "submenu": {
         "addShortcut": "Opret genvej",
@@ -202,7 +203,8 @@
         }
     },
     "setting": {
-        "use-default-wine-settings": "Brug standard vinindstillinger"
+        "use-default-wine-settings": "Brug standard vinindstillinger",
+        "winecrossoverbottle": "CrossOver flaske"
     },
     "hours": "Timer",
     "how-long-to-beat": {
