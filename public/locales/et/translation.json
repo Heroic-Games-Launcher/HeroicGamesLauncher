@@ -279,7 +279,7 @@
             "version": "Heroic Version"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "Seaded salvestatakse automaatselt",
         "version": "Wine'i versioon"
@@ -538,9 +538,9 @@
             "title": "Käivita EXE prefiksil"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Valige täpne mängude salvestiste kaust",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Valige teema",
         "showfps": "Näita FPS-i (DX9, 10 ja 11)",

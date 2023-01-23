@@ -279,7 +279,7 @@
             "version": "Heroic Version"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "تنظیمات به صورت خودکار ذخیره شدند",
         "version": "نسخه Wine"
@@ -538,9 +538,9 @@
             "title": "اجرای EXE در محل"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "انتخاب پوشه دقیق ذخیرههای بازیها",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "انتخاب تم",
         "showfps": "نمایش تعداد فریم (11 و DX9, 10)",

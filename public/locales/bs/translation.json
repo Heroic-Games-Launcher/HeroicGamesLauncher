@@ -279,7 +279,7 @@
             "version": "Heroic verzija"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "Postavke se automatski spremaju",
         "version": "Verzija Wine-a"
@@ -538,9 +538,9 @@
             "title": "Pokrenite EXE na prefiksu"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Odaberite tačnu mapu za spremanje video igara",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Izaberite temu",
         "showfps": "Pokaži FPS (DX9, 10 i 11)",

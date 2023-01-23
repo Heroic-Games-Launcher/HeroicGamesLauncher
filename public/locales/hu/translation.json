@@ -279,7 +279,7 @@
             "version": "Heroic Version"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "A beállítások automatikusan mentődnek",
         "version": "Wine verzió"
@@ -538,9 +538,9 @@
             "title": "EXE fájl futtatása a prefixen"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Pontos játékmentési mappa kiválasztása",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Select Theme",
         "showfps": "FPS megjelenítése (DX9, 10 és 11)",

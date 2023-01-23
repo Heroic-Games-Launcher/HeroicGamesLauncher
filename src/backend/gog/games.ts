@@ -634,13 +634,13 @@ class GOGGame extends Game {
         arg
       ]
 
-      logInfo([`Syncing saves for ${this.appName}`], LogPrefix.Gog)
+      logInfo([`Syncing saves for ${gameInfo.title}`], LogPrefix.Gog)
 
       const res = await runGogdlCommand(
         commandParts,
         createAbortController(this.appName),
         {
-          logMessagePrefix: `Syncing saves for ${this.appName}`,
+          logMessagePrefix: `Syncing saves for ${gameInfo.title}`,
           onOutput: (output) => (fullOutput += output)
         }
       )

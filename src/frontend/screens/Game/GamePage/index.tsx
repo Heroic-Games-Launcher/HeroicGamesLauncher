@@ -11,7 +11,6 @@ import {
   launch,
   sendKill,
   size,
-  syncSaves,
   updateGame
 } from 'frontend/helpers'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
@@ -27,7 +26,7 @@ import {
   WineInstallation
 } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'
-import { GogInstallInfo, GOGCloudSavesLocation } from 'common/types/gog'
+import { GogInstallInfo } from 'common/types/gog'
 
 import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
@@ -84,9 +83,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [gameInfo, setGameInfo] = useState(locationGameInfo)
   const [extraInfo, setExtraInfo] = useState<ExtraInfo | null>(null)
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
-  const [savesPath, setSavesPath] = useState('')
-  const [gogSaves, setGOGSaves] = useState<GOGCloudSavesLocation[]>([])
-  const [isSyncing, setIsSyncing] = useState(false)
   const [gameInstallInfo, setGameInstallInfo] = useState<
     LegendaryInstallInfo | GogInstallInfo
     // @ts-expect-error Same as above
@@ -114,6 +110,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const isReparing = status === 'repairing'
   const isMoving = status === 'moving'
   const isUninstalling = status === 'uninstalling'
+  const isSyncing = status === 'syncing-saves'
   const notAvailable = !gameAvailable && gameInfo.is_installed
   const notSupportedGame = gameInfo.thirdPartyManagedApp === 'Origin'
 
@@ -175,8 +172,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
         try {
           const {
             autoSyncSaves,
-            savesPath,
-            gogSaves,
             wineVersion,
             winePrefix,
             wineCrossoverBottle
@@ -199,8 +194,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
           if (gameInfo.cloud_save_enabled) {
             setAutoSyncSaves(autoSyncSaves)
-            setGOGSaves(gogSaves ?? [])
-            return setSavesPath(savesPath)
+            return
           }
         } catch (error) {
           setHasError({ error: true, message: error })
@@ -684,24 +678,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
     return t('button.install')
   }
 
-  async function doAutoSyncSaves() {
-    setIsSyncing(true)
-    if (gameInfo.runner === 'legendary') {
-      await syncSaves(savesPath, appName, gameInfo.runner)
-    } else if (gameInfo.runner === 'gog') {
-      await window.api.syncGOGSaves(gogSaves, appName, '')
-    }
-    setIsSyncing(false)
-  }
-
   function handlePlay() {
     return async () => {
       if (isPlaying || isUpdating) {
         return sendKill(appName, gameInfo.runner)
-      }
-
-      if (autoSyncSaves) {
-        await doAutoSyncSaves()
       }
 
       await launch({
@@ -710,13 +690,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
         launchArguments,
         runner: gameInfo.runner,
         hasUpdate,
-        syncCloud: false, //manually sync before and after so we can update the buttons
         showDialogModal
       })
-
-      if (autoSyncSaves) {
-        await doAutoSyncSaves()
-      }
     }
   }
 
