@@ -454,7 +454,7 @@
         "autovkd3d": "VKD3D automatisch im Präfix installieren/aktualisieren",
         "change-target-exe": "Wähle eine alternative EXE zum Ausführen",
         "checkForUpdatesOnStartup": "Beim Start nach Updates für Heroic suchen",
-        "crossover-version": "Crossover-Version",
+        "crossover-version": "Crossover-/Wine-Version",
         "custom_themes_path": "Pfad für benutzerdefinierte Designs",
         "customWineProton": "Wähle die Wine- oder Proton-Binärdatei",
         "darktray": "Dunkles Taskleisten-Icon benutzen",

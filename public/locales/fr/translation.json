@@ -114,7 +114,7 @@
             "exe": "Choisir le fichier .exe"
         },
         "shortcuts": {
-            "message": "Les raccourcis ont été créés sur le Bureau et dans le menu Démarrer",
+            "message": "Des raccourcis ont été créés sur le Bureau et dans le menu Démarrer",
             "message-mac": "Des raccourcis ont été créés dans le dossier Applications",
             "message-remove": "Les raccourcis ont été supprimés du Bureau et du menu Démarrer",
             "message-remove-mac": "Des raccourcis ont été supprimés du dossier Applications",
@@ -142,8 +142,8 @@
             },
             "title": "Avertissement",
             "wine-change": {
-                "message": "Nous n'avons pas pu trouver la version wine sélectionnée pour lancer ce titre ({{selectedWine}}). {{newline}} Nous en avons trouvé un autre, voulez-vous continuer le lancement avec {{foundWine}} ?",
-                "title": "Vin introuvable !"
+                "message": "Nous n'avons pas pu trouver la version de Wine sélectionnée pour lancer ce titre ({{selectedWine}}). {{newline}} Nous en avons trouvé une autre, voulez-vous continuer le lancement avec {{foundWine}} ?",
+                "title": "Wine introuvable !"
             }
         },
         "wineprefix": "Choisir le dossier de préfixe Wine",
@@ -295,7 +295,7 @@
         "wine-repfix": {
             "message": "Wine utilise un préfixe (aussi appelé \"bouteille\" et dont le chemin est défini dans la variable WINEPREFIX) pour encapsuler les programmes Windows. Ce préfixe comporte les fichiers de configuration de Wine ainsi qu'une reproduction du système de fichiers de la partition C : (la partition principale d'un système Windows). On y trouve aussi les dépendances et les fichiers de sauvegardes des jeux installés via Winetricks."
         },
-        "wine-path-invalid": "Wine Path n'est pas valide, veuillez en sélectionner un autre."
+        "wine-path-invalid": "Le chemin vers Wine n'est pas valide, veuillez en sélectionner un autre."
     },
     "install": {
         "path": "Sélectionner le chemin d'installation"
@@ -549,7 +549,7 @@
         "winecrossoverbottle": "Préfixe CrossOver",
         "wineprefix": "Dossier WinePrefix",
         "wineversion": "Version de Wine",
-        "autoUpdateGames": "Mettre à jour automatiquement les jeux",
+        "autoUpdateGames": "Mettre les jeux à jour automatiquement",
         "ignoreGameUpdates": "Ignorer les mises à jour du jeu"
     },
     "settings": {
@@ -637,7 +637,7 @@
         "manageaccounts": "Comptes",
         "quit": "Quitter",
         "cancel": "Annuler",
-        "quitMessage": "Êtes-vous sûr de vouloir quitter?"
+        "quitMessage": "Êtes-vous sûr de vouloir quitter ?"
     },
     "webview": {
         "controls": {
@@ -659,7 +659,7 @@
         "size": "Taille"
     },
     "externalLink": {
-        "dontAskAgain": "Ne demande plus",
+        "dontAskAgain": "Ne plus me le demander",
         "warning": "Vous êtes sur le point d'ouvrir un lien externe."
     },
     "wiki_info": {
