@@ -23,24 +23,13 @@ const getPlatform = window.api.getPlatform
 
 const sidInfoPage = window.api.openSidInfoPage
 
-const handleKofi = window.api.openSupportPage
-
 const handleQuit = window.api.quit
-
-const openAboutWindow = window.api.showAboutWindow
 
 const openDiscordLink = window.api.openDiscordLink
 
-const openCustomThemesWiki = window.api.openCustomThemesWiki
-
 export const size = fileSize.partial({ base: 2 })
 
-let progress: string
-
-const sendAbort = window.api.abort
 const sendKill = window.api.kill
-
-const isLoggedIn = window.api.isLoggedIn
 
 const syncSaves = async (
   savesPath: string,
@@ -132,24 +121,18 @@ export {
   getLegendaryConfig,
   getPlatform,
   getProgress,
-  handleKofi,
   handleQuit,
   install,
-  isLoggedIn,
   launch,
   loginPage,
   notify,
-  openAboutWindow,
   openDiscordLink,
-  openCustomThemesWiki,
-  progress,
   repair,
   sendKill,
   sidInfoPage,
   syncSaves,
   updateGame,
   writeConfig,
-  sendAbort,
   removeSpecialcharacters,
   getStoreName
 }

@@ -1,0 +1,42 @@
+{
+  "test_data": {
+    "data": [
+      {
+        "html_url": "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/tag/v2.6.0-beta.1",
+        "id": 100,
+        "tag_name": "v2.6.0-beta.1",
+        "name": "2.6.0 Beta",
+        "prerelease": true,
+        "published_at": "2022-13-14T10:53:29Z",
+        "body": "2.6.0 Beta Release"
+      },
+      {
+        "html_url": "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/tag/v2.5.2",
+        "id": 200,
+        "tag_name": "v2.5.2",
+        "name": "2.5.2 HOTFIX #2",
+        "prerelease": false,
+        "published_at": "2022-12-14T10:53:29Z",
+        "body": "2.5.2 HOTFIX #2 Release"
+      },
+      {
+        "html_url": "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/tag/v2.5.0-beta.3",
+        "id": 300,
+        "tag_name": "v2.5.0-beta.3",
+        "name": "2.5.0 Beta",
+        "prerelease": true,
+        "published_at": "2022-11-14T10:53:29Z",
+        "body": "2.5.0 Beta Release"
+      },
+      {
+        "html_url": "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/tag/v2.5.0",
+        "id": 400,
+        "tag_name": "v2.5.0",
+        "name": "2.5.0",
+        "prerelease": false,
+        "published_at": "2022-10-14T10:53:29Z",
+        "body": "2.5.0 Release"
+      }
+    ]
+  }
+}

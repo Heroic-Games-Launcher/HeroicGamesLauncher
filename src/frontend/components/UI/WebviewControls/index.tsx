@@ -11,7 +11,7 @@ import { WebviewType } from 'common/types'
 import SvgButton from '../SvgButton'
 import './index.css'
 
-export interface WebviewControlsProps {
+interface WebviewControlsProps {
   webview: WebviewType | null
   initURL: string
   openInBrowser: boolean

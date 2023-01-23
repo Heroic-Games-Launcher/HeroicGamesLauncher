@@ -4,7 +4,7 @@ import cx from 'classnames'
 import React, { ReactNode } from 'react'
 import './index.css'
 
-export interface FormControlProps {
+interface FormControlProps {
   children: ReactNode
   className?: string
   select?: boolean

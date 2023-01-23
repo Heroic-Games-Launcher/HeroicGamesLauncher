@@ -18,7 +18,8 @@ const app = {
   // app override
   getPath: jest.fn().mockImplementation((path: string) => {
     return join(appBasePath, path)
-  })
+  }),
+  getVersion: jest.fn()
 }
 
 class Notification {

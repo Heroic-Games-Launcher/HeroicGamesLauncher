@@ -47,10 +47,10 @@ const removeRecentGame = async (appName: string) => {
   }
 }
 
-export {
-  getRecentGames,
-  addRecentGame,
-  removeRecentGame,
-  setRecentGames,
-  maxRecentGames
+export { getRecentGames, addRecentGame, removeRecentGame, maxRecentGames }
+
+// Exported only for testing purpose
+// ts-prune-ignore-next
+export const testingExportsRecentGames = {
+  setRecentGames
 }

@@ -155,12 +155,6 @@ function removeFromQueue(appName: string) {
   }
 }
 
-function clearFinished() {
-  if (downloadManager.has('finished')) {
-    downloadManager.delete('finished')
-  }
-}
-
 function getQueueInformation() {
   let elements: DMQueueElement[] = []
   let finished: DMQueueElement[] = []
@@ -172,10 +166,4 @@ function getQueueInformation() {
   return { elements, finished }
 }
 
-export {
-  initQueue,
-  addToQueue,
-  removeFromQueue,
-  clearFinished,
-  getQueueInformation
-}
+export { initQueue, addToQueue, removeFromQueue, getQueueInformation }
