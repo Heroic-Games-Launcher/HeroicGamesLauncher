@@ -10,7 +10,6 @@ import { join } from 'path'
 import { GameInfo, SideloadGame } from 'common/types'
 import { ShortcutsResult } from '../types'
 import { getIcon } from '../utils'
-import { notify } from '../../utils'
 import {
   prepareImagesForSteam,
   generateShortcutId,
@@ -22,7 +21,7 @@ import { app } from 'electron'
 import { isFlatpak, isWindows, tsStore } from '../../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import i18next from 'i18next'
-import { showDialogBoxModalAuto } from '../../dialog/dialog'
+import { notify, showDialogBoxModalAuto } from '../../dialog/dialog'
 import { GlobalConfig } from '../../config'
 import { getMainWindow } from '../../main_window'
 
@@ -152,6 +151,16 @@ function writeShortcutFile(
   }
 }
 
+/** Check if key exist case insensitive
+ * @param {Object} object
+ * @param {string} key
+ * @return bool value
+ */
+function hasParameterCaseInsensitive(object: ShortcutEntry, key: string) {
+  const keyAsLowercase = key.toLowerCase()
+  return Object.keys(object).some((k) => k.toLowerCase() === keyAsLowercase)
+}
+
 /**
  * Check if the parsed object of a shortcuts.vdf is valid.
  * @param object @see Partial<ShortcutObject>
@@ -170,7 +179,7 @@ function checkIfShortcutObjectIsValid(
     object.shortcuts.forEach((entry) => {
       const keysToCheck = ['AppName', 'Exe', 'LaunchOptions']
       keysToCheck.forEach((key: string) => {
-        if (!(key in entry) && !(key.toLowerCase() in entry)) {
+        if (!hasParameterCaseInsensitive(entry, key)) {
           checkResult.errors.push(
             `One of the game entries is missing the ${key} parameter!`
           )

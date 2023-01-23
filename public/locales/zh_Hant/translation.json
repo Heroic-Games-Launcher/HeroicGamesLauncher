@@ -140,7 +140,11 @@
                 "install": "Epic 伺服器出現大故障，無法安裝遊戲！",
                 "update": "Epic 伺服器出現大故障，無法更新遊戲！"
             },
-            "title": "警告"
+            "title": "警告",
+            "wine-change": {
+                "message": "我們找不到啟動此標題的選定 wine 版本 ({{selectedWine}})。 {{newline}} 我們找到了另一個，你想繼續使用 {{foundWine}} 啟動嗎？",
+                "title": "找不到酒！"
+            }
         },
         "wineprefix": "選擇 WinePrefix 資料夾",
         "yes": "是"
@@ -151,7 +155,8 @@
         "login": "登入",
         "sync": "同步",
         "syncing": "正在同步",
-        "unsync": "不同步"
+        "unsync": "不同步",
+        "continue": "Continue"
     },
     "controller": {
         "hints": {
@@ -274,7 +279,7 @@
             "version": "Heroic Version"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "設定會自動保存",
         "version": "Wine 版本"
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
-        }
+        },
+        "wine-path-invalid": "Wine Path 無效，請選擇另一個。"
     },
     "install": {
         "path": "選擇安裝路徑"
@@ -532,9 +538,9 @@
             "title": "在PREFIX上執行exe檔案"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "選擇存檔的保存位置",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "選擇主題",
         "showfps": "顯示幀數（Directx 9，10和11）",
@@ -542,7 +548,9 @@
         "steamruntime": "使用 Steam 執行環境",
         "winecrossoverbottle": "CrossOver 容器",
         "wineprefix": "WINEPREFIX文件夾",
-        "wineversion": "Wine 版本"
+        "wineversion": "Wine 版本",
+        "autoUpdateGames": "自動更新遊戲",
+        "ignoreGameUpdates": "忽略遊戲更新"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -627,7 +635,9 @@
         "logout": "登出",
         "logout_confirmation": "您確定要登出嗎？",
         "manageaccounts": "管理帳號",
-        "quit": "退出"
+        "quit": "退出",
+        "cancel": "取消",
+        "quitMessage": "你確定你要退出嗎？"
     },
     "webview": {
         "controls": {
@@ -647,5 +657,12 @@
         },
         "release": "Release Date",
         "size": "大小"
+    },
+    "externalLink": {
+        "dontAskAgain": "不再詢問",
+        "warning": "您即將打開一個外部鏈接。"
+    },
+    "wiki_info": {
+        "not_found": "我們找不到額外的信息。"
     }
 }

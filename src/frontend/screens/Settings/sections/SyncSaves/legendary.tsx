@@ -1,7 +1,6 @@
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Backspace, CreateNewFolder } from '@mui/icons-material'
-import { CircularProgress } from '@mui/material'
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
@@ -15,6 +14,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { SyncType } from 'frontend/types'
 import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
 import SettingsContext from '../../SettingsContext'
+import TextWithProgress from 'frontend/components/UI/TextWithProgress'
 
 interface Props {
   autoSyncSaves: boolean
@@ -40,6 +40,7 @@ export default function LegendarySyncSaves({
   const [syncType, setSyncType] = useState('--skip-upload')
   const [manuallyOutput, setManuallyOutput] = useState<string[]>([])
   const [manuallyOutputShow, setManuallyOutputShow] = useState<boolean>(false)
+  const [retry, setRetry] = useState<boolean>(false)
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
@@ -47,8 +48,7 @@ export default function LegendarySyncSaves({
 
   useEffect(() => {
     const setDefaultSaveFolder = async () => {
-      // Only do this work if there's not already a save folder set
-      if (savesPath.length) {
+      if (savesPath.length && !retry) {
         return
       }
       setLoading(true)
@@ -56,11 +56,13 @@ export default function LegendarySyncSaves({
         appName,
         'legendary'
       )) as string
+
       setSavesPath(newSavePath)
       setLoading(false)
+      setRetry(false)
     }
     setDefaultSaveFolder()
-  }, [winePrefix, isProton])
+  }, [winePrefix, isProton, retry])
 
   const isLinked = Boolean(savesPath.length)
 
@@ -96,13 +98,13 @@ export default function LegendarySyncSaves({
         )}
       </div>
       {isLoading ? (
-        <div className="link button is-text is-link" style={{ width: '100%' }}>
-          {`${t(
+        <TextWithProgress
+          text={t(
             'info.save-sync.searching',
-            'Trying to detect the correct save folder'
-          )}... `}
-          <CircularProgress className="link button is-text is-link" />
-        </div>
+            'Trying to detect the correct save folder (click to cancel)'
+          )}
+          onClick={() => setLoading(false)}
+        />
       ) : (
         <>
           <TextInputWithIconField
@@ -137,15 +139,19 @@ export default function LegendarySyncSaves({
                 : () => setSavesPath('')
             }
             afterInput={
-              <span className="smallMessage">
+              <span
+                role={'button'}
+                onClick={() => setRetry(true)}
+                className="smallMessage"
+              >
                 {savesPath
                   ? t(
                       'setting.savefolder.warning',
-                      'Please check twice if the path is correct'
+                      'Please check twice if the path is correct (click to retry)'
                     )
                   : t(
                       'setting.savefolder.not-found',
-                      'Save folder not found, please select it manually'
+                      'Save folder not found, please select it manually (click to retry)'
                     )}
               </span>
             }

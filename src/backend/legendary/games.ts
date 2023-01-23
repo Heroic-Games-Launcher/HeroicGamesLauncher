@@ -2,7 +2,7 @@ import {
   createAbortController,
   deleteAbortController
 } from '../utils/aborthandler/aborthandler'
-import { appendFileSync, existsSync, mkdirSync } from 'graceful-fs'
+import { appendFileSync } from 'graceful-fs'
 import axios from 'axios'
 
 import {
@@ -11,7 +11,7 @@ import {
   GameInfo,
   InstallArgs,
   InstallPlatform,
-  ProtonVerb
+  WineCommandArgs
 } from 'common/types'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
@@ -21,7 +21,6 @@ import { LegendaryUser } from './user'
 import { execAsync, getLegendaryBin, killPattern } from '../utils'
 import {
   heroicGamesConfigPath,
-  userHome,
   isMac,
   isWindows,
   installed,
@@ -704,6 +703,7 @@ class LegendaryGame extends Game {
       commandParts,
       createAbortController(this.appName)
     )
+    this.addShortcuts()
 
     deleteAbortController(this.appName)
 
@@ -728,20 +728,12 @@ class LegendaryGame extends Game {
       )
       return 'No path provided.'
     }
-    path = path.replaceAll("'", '').replaceAll('"', '')
-    const fixedPath = isWindows ? path.slice(0, -1) : path
-
-    // workaround error when no .saves folder exists
-    const legendarySavesPath = join(userHome, 'legendary', '.saves')
-    if (!existsSync(legendarySavesPath)) {
-      mkdirSync(legendarySavesPath, { recursive: true })
-    }
 
     const commandParts = [
       'sync-saves',
       arg,
       '--save-path',
-      fixedPath,
+      path,
       this.appName,
       '-y'
     ]
@@ -751,7 +743,7 @@ class LegendaryGame extends Game {
       commandParts,
       createAbortController(this.appName),
       {
-        logMessagePrefix: `Syncing saves for ${this.appName}`,
+        logMessagePrefix: `Syncing saves for ${this.getGameInfo().title}`,
         onOutput: (output) => (fullOutput += output)
       }
     )
@@ -930,11 +922,12 @@ class LegendaryGame extends Game {
     return !error
   }
 
-  public async runWineCommand(
-    commandParts: string[],
+  public async runWineCommand({
+    commandParts,
     wait = false,
-    protonVerb?: ProtonVerb
-  ): Promise<ExecResult> {
+    protonVerb,
+    startFolder
+  }: WineCommandArgs): Promise<ExecResult> {
     if (this.isNative()) {
       logError('runWineCommand called on native game!', LogPrefix.Legendary)
       return { stdout: '', stderr: '' }
@@ -948,7 +941,8 @@ class LegendaryGame extends Game {
       installFolderName: folder_name,
       commandParts,
       wait,
-      protonVerb
+      protonVerb,
+      startFolder
     })
   }
 

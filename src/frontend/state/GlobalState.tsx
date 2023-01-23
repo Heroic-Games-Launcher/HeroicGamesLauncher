@@ -101,7 +101,7 @@ interface StateProps {
   }
 }
 
-export class GlobalState extends PureComponent<Props> {
+class GlobalState extends PureComponent<Props> {
   loadGOGLibrary = (): Array<GameInfo> => {
     const games = gogLibraryStore.get('games', [])
 
@@ -474,7 +474,7 @@ export class GlobalState extends PureComponent<Props> {
   }
 
   refreshWineVersionInfo = async (fetch: boolean): Promise<void> => {
-    if (this.state.platform !== 'linux') {
+    if (this.state.platform === 'win32') {
       return
     }
     window.api.logInfo('Refreshing wine downloader releases')
@@ -593,7 +593,6 @@ export class GlobalState extends PureComponent<Props> {
             t,
             runner,
             hasUpdate: false,
-            syncCloud: true,
             showDialogModal: this.handleShowDialogModal
           })
         }

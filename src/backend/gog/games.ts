@@ -21,8 +21,8 @@ import {
   ExecResult,
   InstallArgs,
   InstalledInfo,
-  ProtonVerb,
-  InstallPlatform
+  InstallPlatform,
+  WineCommandArgs
 } from 'common/types'
 import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
 import {
@@ -172,6 +172,7 @@ class GOGGame extends Game {
 
     try {
       await GOGLibrary.get().importGame(JSON.parse(res.stdout), path)
+      this.addShortcuts()
     } catch (error) {
       logError(['Failed to import', `${this.appName}:`, error], LogPrefix.Gog)
     }
@@ -639,13 +640,13 @@ class GOGGame extends Game {
         arg
       ]
 
-      logInfo([`Syncing saves for ${this.appName}`], LogPrefix.Gog)
+      logInfo([`Syncing saves for ${gameInfo.title}`], LogPrefix.Gog)
 
       const res = await runGogdlCommand(
         commandParts,
         createAbortController(this.appName),
         {
-          logMessagePrefix: `Syncing saves for ${this.appName}`,
+          logMessagePrefix: `Syncing saves for ${gameInfo.title}`,
           onOutput: (output) => (fullOutput += output)
         }
       )
@@ -830,11 +831,12 @@ class GOGGame extends Game {
     }
   }
 
-  public async runWineCommand(
-    commandParts: string[],
+  public async runWineCommand({
+    commandParts,
     wait = false,
-    protonVerb?: ProtonVerb
-  ): Promise<ExecResult> {
+    protonVerb,
+    startFolder
+  }: WineCommandArgs): Promise<ExecResult> {
     if (this.isNative()) {
       logError('runWineCommand called on native game!', LogPrefix.Gog)
       return { stdout: '', stderr: '' }
@@ -847,7 +849,8 @@ class GOGGame extends Game {
       installFolderName: folder_name,
       commandParts,
       wait,
-      protonVerb
+      protonVerb,
+      startFolder
     })
   }
 

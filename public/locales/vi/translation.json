@@ -140,7 +140,11 @@
                 "install": "Máy chủ Epic đang gặp sự cố nghiêm trọng, không thể cài đặt game!",
                 "update": "Máy chủ Epic đang gặp sự cố nghiêm trọng, không thể cập nhật game!"
             },
-            "title": "Cảnh báo"
+            "title": "Cảnh báo",
+            "wine-change": {
+                "message": "Chúng tôi không thể tìm thấy phiên bản rượu đã chọn để khởi chạy tựa game này ({{selectedWine}}). {{newline}} Chúng tôi đã tìm thấy một cái khác, bạn có muốn tiếp tục khởi chạy bằng {{foundWine}} không?",
+                "title": "Rượu không tìm thấy!"
+            }
         },
         "wineprefix": "Chọn thư mục Wine Prefix",
         "yes": "Có"
@@ -151,7 +155,8 @@
         "login": "Đăng nhập",
         "sync": "Đồng bộ",
         "syncing": "Đang đồng bộ",
-        "unsync": "Hủy đồng bộ"
+        "unsync": "Hủy đồng bộ",
+        "continue": "Tiếp tục"
     },
     "controller": {
         "hints": {
@@ -274,7 +279,7 @@
             "version": "Heroic Version"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "Cài đặt được tự đông lưu",
         "version": "Phiên bản Wine"
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
-        }
+        },
+        "wine-path-invalid": "Đường dẫn Rượu không hợp lệ, vui lòng chọn một đường dẫn khác."
     },
     "install": {
         "path": "Chọn đường dẫn cài"
@@ -532,9 +538,9 @@
             "title": "Chạy EXE trên prefix"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Chọn chính xác thư mục lưu game",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "chọn Theme",
         "showfps": "Hiển thị FPS (DX9, 10 và 11)",
@@ -542,7 +548,9 @@
         "steamruntime": "Sử dụng Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Thư mục WinePrefix",
-        "wineversion": "Phiên bản Wine"
+        "wineversion": "Phiên bản Wine",
+        "autoUpdateGames": "Tự động cập nhật trò chơi",
+        "ignoreGameUpdates": "Bỏ qua cập nhật trò chơi"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -627,7 +635,9 @@
         "logout": "Đăng xuất",
         "logout_confirmation": "Xác nhận đăng xuất?",
         "manageaccounts": "Quản lý tài khoản",
-        "quit": "Thoát"
+        "quit": "Thoát",
+        "cancel": "Cancel",
+        "quitMessage": "Bạn có chắc bạn muốn thoát khỏi?"
     },
     "webview": {
         "controls": {
@@ -647,5 +657,12 @@
         },
         "release": "Release Date",
         "size": "Kích thước"
+    },
+    "externalLink": {
+        "dontAskAgain": "Đừng hỏi lại",
+        "warning": "Bạn sắp mở một liên kết bên ngoài."
+    },
+    "wiki_info": {
+        "not_found": "Chúng tôi không thể tìm thấy thêm thông tin."
     }
 }

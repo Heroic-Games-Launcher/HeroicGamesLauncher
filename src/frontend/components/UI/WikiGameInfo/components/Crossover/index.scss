@@ -1,0 +1,11 @@
+.crossoverWrapper {
+  font-size: 0.8rem;
+  cursor: pointer;
+
+  padding-top: var(--space-md) 0;
+
+  .crossover {
+    display: flex;
+    margin: var(--space-md) 0;
+  }
+}

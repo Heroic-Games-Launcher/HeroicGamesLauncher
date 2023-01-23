@@ -147,7 +147,8 @@
         "title": "Select components to Install"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Use Default Wine Settings",
+        "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {
         "field": {
@@ -177,6 +178,7 @@
         "notinstalled": "This game is not installed",
         "notSupported": "Not supported",
         "notSupportedGame": "Not Supported",
+        "playing": "Playing",
         "processing": "Processing files, please wait",
         "queued": "Queued",
         "reparing": "Repairing Game, please wait",
@@ -191,6 +193,7 @@
         "change": "Change install path",
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",
+        "extraInfo": "Extra Info",
         "move": "Move Game",
         "protondb": "Check Compatibility",
         "removeFromSteam": "Remove from Steam",

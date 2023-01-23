@@ -2,7 +2,7 @@ import { GameSettings, SideloadGame } from 'common/types'
 import { libraryStore } from './electronStores'
 import { GameConfig } from '../game_config'
 import { isWindows, isMac, isLinux, heroicGamesConfigPath } from '../constants'
-import { killPattern, notify } from '../utils'
+import { killPattern } from '../utils'
 import { logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { dirname, join } from 'path'
 import {
@@ -24,7 +24,7 @@ import {
 import { access, chmod } from 'fs/promises'
 import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts/shortcuts'
 import shlex from 'shlex'
-import { showDialogBoxModalAuto } from '../dialog/dialog'
+import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
 import { createAbortController } from '../utils/aborthandler/aborthandler'
 import { sendFrontendMessage } from '../main_window'
 
@@ -92,10 +92,10 @@ export function addNewApp({
     current[gameIndex] = { ...current[gameIndex], ...game }
   } else {
     current.push(game)
+    addAppShortcuts(app_name)
   }
 
   libraryStore.set('games', current)
-  addAppShortcuts(app_name)
   return
 }
 

@@ -1,15 +1,11 @@
 .SIDLoginModal {
   display: grid;
   place-items: center;
-  width: var(--content-width);
+  width: 100%;
   height: 100%;
   position: fixed;
   top: 0px;
   z-index: 8;
-}
-
-.SIDLoginModal {
-  width: var(--content-width);
 }
 
 .backdrop {

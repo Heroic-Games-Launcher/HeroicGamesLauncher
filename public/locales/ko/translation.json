@@ -140,7 +140,11 @@
                 "install": "현재 Epic 서버에 큰 장애가 발생하여 게임을 설치할 수 없습니다!",
                 "update": "현재 Epic 서버에 큰 장애가 발생하여 게임을 업데이트할 수 없습니다!"
             },
-            "title": "경고"
+            "title": "경고",
+            "wine-change": {
+                "message": "이 타이틀({{selectedWine}})을 시작하기 위해 선택한 와인 버전을 찾을 수 없습니다. {{newline}} 다른 것을 찾았습니다. {{foundWine}}를 사용하여 계속 실행하시겠습니까?",
+                "title": "와인을 찾을 수 없습니다!"
+            }
         },
         "wineprefix": "WinePrefix 폴더 선택",
         "yes": "예"
@@ -151,7 +155,8 @@
         "login": "로그인",
         "sync": "싱크",
         "syncing": "싱크중",
-        "unsync": "싱크 해제"
+        "unsync": "싱크 해제",
+        "continue": "계속"
     },
     "controller": {
         "hints": {
@@ -274,7 +279,7 @@
             "version": "Heroic Version"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "설정은 자동으로 저장됩니다",
         "version": "Wine Version"
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
-        }
+        },
+        "wine-path-invalid": "와인 경로가 잘못되었습니다. 다른 경로를 선택하십시오."
     },
     "install": {
         "path": "설치 경로 선택"
@@ -532,9 +538,9 @@
             "title": "접두사에서 EXE 실행"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "올바른 게임 저장 폴더 선택",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Select Theme",
         "showfps": "FPS 표시 (DX9, 10 및 11)",
@@ -542,7 +548,9 @@
         "steamruntime": "Steam 런타임 사용",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Wine 접두사 폴더",
-        "wineversion": "Wine 버전"
+        "wineversion": "Wine 버전",
+        "autoUpdateGames": "게임 자동 업데이트",
+        "ignoreGameUpdates": "게임 업데이트 무시"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -627,7 +635,9 @@
         "logout": "로그아웃",
         "logout_confirmation": "정말로 로그아웃 하시겠습니까?",
         "manageaccounts": "계정 관리",
-        "quit": "종료"
+        "quit": "종료",
+        "cancel": "Cancel",
+        "quitMessage": "종료하시겠습니까?"
     },
     "webview": {
         "controls": {
@@ -647,5 +657,12 @@
         },
         "release": "Release Date",
         "size": "Size"
+    },
+    "externalLink": {
+        "dontAskAgain": "다시 묻지 않음",
+        "warning": "외부 링크를 열려고 합니다."
+    },
+    "wiki_info": {
+        "not_found": "추가 정보를 찾을 수 없습니다."
     }
 }

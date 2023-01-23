@@ -140,7 +140,11 @@
                 "install": "Az Epic szerverek nagyobb üzemszünetben vannak jelenleg, a játékot nem lehet telepíteni!",
                 "update": "Az Epic szerverek nagyobb üzemszünetben vannak jelenleg, a játékot nem lehet frissíteni!"
             },
-            "title": "Figyelmeztetés"
+            "title": "Figyelmeztetés",
+            "wine-change": {
+                "message": "Nem találtuk a kiválasztott borverziót a cím elindításához ({{selectedWine}}). {{newline}} Találtunk egy másikat. Folytatja az indítást az {{foundWine}} használatával?",
+                "title": "Bor nem található!"
+            }
         },
         "wineprefix": "Wine prefix mappa kiválasztása",
         "yes": "IGEN"
@@ -151,7 +155,8 @@
         "login": "Bejelentkezés",
         "sync": "Szinkronizálás",
         "syncing": "Szinkronizálás folyamatban",
-        "unsync": "Deszinkronizálás"
+        "unsync": "Deszinkronizálás",
+        "continue": "Letöltés folytatása"
     },
     "controller": {
         "hints": {
@@ -274,7 +279,7 @@
             "version": "Heroic Version"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "A beállítások automatikusan mentődnek",
         "version": "Wine verzió"
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
-        }
+        },
+        "wine-path-invalid": "A borút érvénytelen, válasszon másikat."
     },
     "install": {
         "path": "Telepítési útvonal kiválasztása"
@@ -532,9 +538,9 @@
             "title": "EXE fájl futtatása a prefixen"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Pontos játékmentési mappa kiválasztása",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Select Theme",
         "showfps": "FPS megjelenítése (DX9, 10 és 11)",
@@ -542,7 +548,9 @@
         "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver palack",
         "wineprefix": "Wine prefix mappa",
-        "wineversion": "Wine verzió"
+        "wineversion": "Wine verzió",
+        "ignoreGameUpdates": "Figyelmen kívül hagyja a játékfrissítéseket",
+        "autoUpdateGames": "Játékok automatikus frissítése"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -627,7 +635,9 @@
         "logout": "Kijelentkezés",
         "logout_confirmation": "Biztos, hogy ki akarsz jelentkezni?",
         "manageaccounts": "Manage Accounts",
-        "quit": "Kilépés"
+        "quit": "Kilépés",
+        "cancel": "Mégsem",
+        "quitMessage": "Biztosan ki szeretne lépni?"
     },
     "webview": {
         "controls": {
@@ -647,5 +657,12 @@
         },
         "release": "Release Date",
         "size": "Méret"
+    },
+    "externalLink": {
+        "dontAskAgain": "Ne kérdezz többet",
+        "warning": "Egy külső hivatkozás megnyitására készül."
+    },
+    "wiki_info": {
+        "not_found": "Nem találtunk további információt."
     }
 }

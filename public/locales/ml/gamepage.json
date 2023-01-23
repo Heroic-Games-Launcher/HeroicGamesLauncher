@@ -35,7 +35,8 @@
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "ഇാ കളി എടുത്തുനീക്കട്ടെ?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
-            "title": "എടുത്തു നീക്കൂ"
+            "title": "എടുത്തു നീക്കൂ",
+            "prefix_warning": "ഈ ഗെയിമിന്റെ വൈൻ പ്രിഫിക്‌സ് ഡിഫോൾട്ട് പ്രിഫിക്‌സാണ്. നിങ്ങൾക്ക് ഇത് ശരിക്കും ഇല്ലാതാക്കണമെങ്കിൽ, നിങ്ങൾ അത് സ്വമേധയാ ചെയ്യേണ്ടതുണ്ട്."
         },
         "update": {
             "message": "ഈ ഗെയിമിന് ഒരു അപ്ഡേറ്റ് ഉണ്ട്, ഇപ്പോൾ അപ്ഡേറ്റ് ചെയ്യട്ടെ?",
@@ -67,7 +68,8 @@
         },
         "unhide_game": "Unhide Game",
         "uninstall": "എടുത്തുനീക്കൂ",
-        "update": "പുതുക്കൂ"
+        "update": "പുതുക്കൂ",
+        "details": "വിശദാംശങ്ങൾ"
     },
     "cloud_save_unsupported": "Unsupported",
     "disabled": "പ്രവര്ത്തനരഹിതം",
@@ -145,7 +147,8 @@
         "title": "നടുവാനുള്ള ഘടകങ്ങള് തിരഞ്ഞെടുക്കൂ"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Use Default Wine Settings",
+        "winecrossoverbottle": "ക്രോസ്സോവര് കുപ്പി"
     },
     "sideload": {
         "field": {
@@ -181,7 +184,8 @@
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "ആകെ ഇറക്കിയെടുത്തത്",
         "uninstalling": "Uninstalling",
-        "updating": "കളി പുതുക്കുന്നു"
+        "updating": "കളി പുതുക്കുന്നു",
+        "playing": "കളിക്കുന്നു"
     },
     "submenu": {
         "addShortcut": "കുറുക്കുവഴി ചേര്ക്കൂ",
@@ -195,6 +199,7 @@
         "removeShortcut": "Remove shortcuts",
         "settings": "ക്രമീകരണങ്ങള്",
         "store": "കടത്താള്",
-        "verify": "കണ്ടെത്തി നന്നാക്കൂ"
+        "verify": "കണ്ടെത്തി നന്നാക്കൂ",
+        "extraInfo": "അധിക വിവരങ്ങൾ"
     }
 }

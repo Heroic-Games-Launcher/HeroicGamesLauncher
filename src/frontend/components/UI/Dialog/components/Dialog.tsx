@@ -8,7 +8,7 @@ import React, {
   useRef
 } from 'react'
 
-export interface DialogProps {
+interface DialogProps {
   className?: string
   children: ReactNode
   showCloseButton: boolean

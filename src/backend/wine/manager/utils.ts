@@ -5,17 +5,16 @@
 
 import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
-import { WineVersionInfo } from 'common/types'
-
 import {
-  getAvailableVersions,
-  installVersion,
+  WineVersionInfo,
   ProgressInfo,
   Repositorys,
   State,
   VersionInfo
-} from 'heroic-wine-downloader'
-import { heroicToolsPath } from '../../constants'
+} from 'common/types'
+
+import { getAvailableVersions, installVersion } from './downloader/main'
+import { heroicToolsPath, isMac } from '../../constants'
 import { sendFrontendMessage } from '../../main_window'
 import { TypeCheckedStoreBackend } from 'backend/electron_store'
 
@@ -36,12 +35,11 @@ async function updateWineVersionInfos(
   logInfo('Updating wine versions info', LogPrefix.WineDownloader)
   if (fetch) {
     logInfo('Fetching upstream information...', LogPrefix.WineDownloader)
+    const repositorys = isMac
+      ? [Repositorys.WINECROSSOVER, Repositorys.WINESTAGINGMACOS]
+      : [Repositorys.WINEGE, Repositorys.PROTONGE]
     await getAvailableVersions({
-      repositorys: [
-        Repositorys.WINEGE,
-        Repositorys.PROTONGE,
-        Repositorys.WINELUTRIS
-      ],
+      repositorys,
       count
     }).then((response) => (releases = response as WineVersionInfo[]))
 

@@ -1,4 +1,3 @@
-import { VersionInfo } from 'heroic-wine-downloader'
 import {
   AppSettings,
   GameInfo,
@@ -112,12 +111,10 @@ export interface ExternalLinkDialogOptions {
   linkCallback?: () => void
 }
 
-export interface HiddenGame {
+interface HiddenGame {
   appName: string
   title: string
 }
-
-export type FavouriteGame = HiddenGame
 
 export interface InstallProgress {
   bytes: string
@@ -126,7 +123,7 @@ export interface InstallProgress {
   percent: number
 }
 
-export type RefreshOptions = {
+type RefreshOptions = {
   checkForUpdates?: boolean
   fullRefresh?: boolean
   library?: Runner | 'all'
@@ -134,67 +131,6 @@ export type RefreshOptions = {
 }
 
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
-
-export interface WineVersionInfo extends VersionInfo {
-  isInstalled: boolean
-  hasUpdate: boolean
-  installDir: string
-}
-
-export type ElWebview = {
-  canGoBack: () => boolean
-  canGoForward: () => boolean
-  goBack: () => void
-  goForward: () => void
-  reload: () => void
-  isLoading: () => boolean
-  getURL: () => string
-  copy: () => string
-  selectAll: () => void
-  findInPage: (text: string | RegExp) => void
-}
-
-export type WebviewType = HTMLWebViewElement & ElWebview
-
-export interface GamepadActionStatus {
-  [key: string]: {
-    triggeredAt: { [key: number]: number }
-    repeatDelay: false | number
-  }
-}
-
-export type AntiCheatStatus =
-  | 'Planned'
-  | 'Denied'
-  | 'Broken'
-  | 'Supported'
-  | 'Running'
-
-export type AntiCheat =
-  | 'Arbiter'
-  | 'BattlEye'
-  | 'Denuvo Anti-Cheat'
-  | 'Easy Anti-Cheat'
-  | 'EQU8'
-  | 'FACEIT'
-  | 'FairFight'
-  | 'Mail.ru Anti-Cheat'
-  | 'miHoYo Protect'
-  | 'miHoYo Protect 2'
-  | 'NEAC Protect'
-  | 'Nexon Game Security'
-  | 'nProtect GameGuard'
-  | 'PunkBuster'
-  | 'RICOCHET'
-  | 'Sabreclaw'
-  | 'Treyarch Anti-Cheat'
-  | 'UNCHEATER'
-  | 'Unknown (Custom)'
-  | 'VAC'
-  | 'Vanguard'
-  | 'Warden'
-  | 'XIGNCODE3'
-  | 'Zakynthos'
 
 declare global {
   interface Window {

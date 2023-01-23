@@ -35,7 +35,8 @@
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Desexas desinstalar o xogo?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
-            "title": "Desinstalar"
+            "title": "Desinstalar",
+            "prefix_warning": "O prefixo Wine para este xogo é o prefixo predeterminado. Se realmente queres borralo, tes que facelo manualmente."
         },
         "update": {
             "message": "Este xogo ten unha actualización, ¿desexas actualizar agora?",
@@ -67,7 +68,8 @@
         },
         "unhide_game": "Unhide Game",
         "uninstall": "Desinstalar",
-        "update": "Actualizar"
+        "update": "Actualizar",
+        "details": "Detalles"
     },
     "cloud_save_unsupported": "Unsupported",
     "disabled": "Deshabilitar",
@@ -145,7 +147,8 @@
         "title": "Seleccione os compoñentes a instalar"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Use Default Wine Settings",
+        "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {
         "field": {
@@ -181,7 +184,8 @@
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Total descargado",
         "uninstalling": "Uninstalling",
-        "updating": "Actualización do xogo"
+        "updating": "Actualización do xogo",
+        "playing": "Xogando"
     },
     "submenu": {
         "addShortcut": "Engadir acceso directo",
@@ -195,6 +199,7 @@
         "removeShortcut": "Remove shortcuts",
         "settings": "Axustes",
         "store": "Páxina da tenda",
-        "verify": "Verificar e reparar"
+        "verify": "Verificar e reparar",
+        "extraInfo": "Información extra"
     }
 }

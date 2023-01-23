@@ -35,7 +35,8 @@
             "checkbox": "Borrar prefijo: {{prefix}}{{newLine}}Nota: Esto no se puede deshacer y borrará archivos no resguardados.",
             "message": "¿Quieres desinstalar este juego?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
-            "title": "Desinstalar"
+            "title": "Desinstalar",
+            "prefix_warning": "El prefijo Wine para este juego es el prefijo predeterminado. Si realmente desea eliminarlo, debe hacerlo manualmente."
         },
         "update": {
             "message": "Este juego tiene una actualización. ¿Quieres aplicarla ahora?",
@@ -67,7 +68,8 @@
         },
         "unhide_game": "Desocultar Juego",
         "uninstall": "Desinstalar",
-        "update": "Actualizar"
+        "update": "Actualizar",
+        "details": "Detalles"
     },
     "cloud_save_unsupported": "No soportado",
     "disabled": "Deshabilitado",
@@ -145,7 +147,8 @@
         "title": "Elija componentes a instalar"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Use Default Wine Settings",
+        "winecrossoverbottle": "Botella de CrossOver"
     },
     "sideload": {
         "field": {
@@ -181,7 +184,8 @@
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Total descargado",
         "uninstalling": "Uninstalling",
-        "updating": "Actualización de juego"
+        "updating": "Actualización de juego",
+        "playing": "Jugando"
     },
     "submenu": {
         "addShortcut": "Añadir acceso directo",
@@ -195,6 +199,7 @@
         "removeShortcut": "Eliminar accesos directos",
         "settings": "Ajustes",
         "store": "Página de la tienda",
-        "verify": "Verificar y reparar"
+        "verify": "Verificar y reparar",
+        "extraInfo": "Información extra"
     }
 }

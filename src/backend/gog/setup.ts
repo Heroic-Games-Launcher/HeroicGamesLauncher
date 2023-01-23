@@ -122,7 +122,7 @@ async function setup(
           const valueType = actionArguments?.valueType
 
           let keyCommand = ''
-          if (valueData) {
+          if (valueData && valueType) {
             const regType = getRegDataType(valueType)
             if (!regType) {
               logError(

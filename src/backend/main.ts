@@ -69,7 +69,6 @@ import {
   getGame,
   getFirstExistingParentPath,
   getLatestReleases,
-  notify,
   getShellPath,
   getCurrentChangelog,
   wait,
@@ -121,7 +120,7 @@ import {
   isOnline,
   runOnceWhenOnline
 } from './online_monitor'
-import { showDialogBoxModalAuto } from './dialog/dialog'
+import { notify, showDialogBoxModalAuto } from './dialog/dialog'
 import { addRecentGame } from './recent_games/recent_games'
 import {
   addNewApp,
@@ -588,13 +587,22 @@ ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
             commandParts: ['winecfg'],
             wait: false
           })
-        : game.runWineCommand(['winecfg'])
+        : game.runWineCommand({ commandParts: ['winecfg'] })
       break
     case 'runExe':
       if (exe) {
+        const workingDir = path.parse(exe).dir
         isSideloaded
-          ? runWineCommand({ gameSettings, commandParts: [exe], wait: false })
-          : game.runWineCommand([exe])
+          ? runWineCommand({
+              gameSettings,
+              commandParts: [exe],
+              wait: false,
+              startFolder: workingDir
+            })
+          : game.runWineCommand({
+              commandParts: [exe],
+              startFolder: workingDir
+            })
       }
       break
   }
@@ -953,6 +961,11 @@ ipcMain.handle(
     const isSideloaded = runner === 'sideload'
     const extGame = getGame(appName, runner)
     const game = isSideloaded ? getAppInfo(appName) : extGame.getGameInfo()
+    const gameSettings = isSideloaded
+      ? await getAppSettings(appName)
+      : await extGame.getSettings()
+    const { autoSyncSaves, savesPath, gogSaves = [] } = gameSettings
+
     const { title } = game
 
     const { minimizeOnLaunch } = GlobalConfig.get().getSettings()
@@ -967,6 +980,24 @@ ipcMain.handle(
     }
 
     logInfo(`Launching ${title} (${game.app_name})`, LogPrefix.Backend)
+
+    if (autoSyncSaves && isOnline()) {
+      sendFrontendMessage('gameStatusUpdate', {
+        appName,
+        runner,
+        status: 'syncing-saves'
+      })
+      logInfo(`Downloading saves for ${title}`, LogPrefix.Backend)
+      try {
+        await extGame.syncSaves('--skip-upload', savesPath, gogSaves)
+        logInfo(`Saves for ${title} downloaded`, LogPrefix.Backend)
+      } catch (error) {
+        logError(
+          `Error while downloading saves for ${title}. ${error}`,
+          LogPrefix.Backend
+        )
+      }
+    }
 
     sendFrontendMessage('gameStatusUpdate', {
       appName,
@@ -986,9 +1017,6 @@ ipcMain.handle(
     }
 
     const systemInfo = await getSystemInfo()
-    const gameSettings = isSideloaded
-      ? await getAppSettings(appName)
-      : await extGame.getSettings()
     const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
     const logFileLocation = isSideloaded
       ? appLogFileLocation(appName)
@@ -1006,7 +1034,7 @@ ipcMain.handle(
     )
 
     // check if isNative, if not, check if wine is valid
-    if (!extGame.isNative() || (isSideloaded && !isNativeApp(appName))) {
+    if ((isSideloaded && !isNativeApp(appName)) || !extGame.isNative()) {
       const isWineOkToLaunch = await checkWineBeforeLaunch(
         appName,
         gameSettings,
@@ -1059,6 +1087,31 @@ ipcMain.handle(
     tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
 
     await addRecentGame(game)
+
+    if (autoSyncSaves && isOnline()) {
+      sendFrontendMessage('gameStatusUpdate', {
+        appName,
+        runner,
+        status: 'done'
+      })
+
+      sendFrontendMessage('gameStatusUpdate', {
+        appName,
+        runner,
+        status: 'syncing-saves'
+      })
+
+      logInfo(`Uploading saves for ${title}`, LogPrefix.Backend)
+      try {
+        await extGame.syncSaves('--skip-download', savesPath, gogSaves)
+        logInfo(`Saves uploaded for ${title}`, LogPrefix.Backend)
+      } catch (error) {
+        logError(
+          `Error uploading saves for ${title}. Error: ${error}`,
+          LogPrefix.Backend
+        )
+      }
+    }
 
     sendFrontendMessage('gameStatusUpdate', {
       appName,
@@ -1559,7 +1612,11 @@ ipcMain.handle(
     }
 
     // FIXME: Why are we using `runinprefix` here?
-    return game.runWineCommand(commandParts, false, 'runinprefix')
+    return game.runWineCommand({
+      commandParts,
+      wait: false,
+      protonVerb: 'runinprefix'
+    })
   }
 )
 
@@ -1582,7 +1639,7 @@ ipcMain.handle('getCustomThemes', async () => {
 })
 
 ipcMain.handle('getThemeCSS', async (event, theme) => {
-  const { customThemesPath } = GlobalConfig.get().getSettings()
+  const { customThemesPath = '' } = GlobalConfig.get().getSettings()
 
   const cssPath = path.join(customThemesPath, theme)
 
@@ -1649,6 +1706,5 @@ import './legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
 import './downloadmanager/ipc_handler'
 import './utils/ipc_handler'
-import './extra_game_info/howlongtobeat/ipc_handler'
-import './extra_game_info/pcgamingwiki/ipc_handler'
+import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'

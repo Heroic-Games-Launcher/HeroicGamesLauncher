@@ -2,7 +2,7 @@ import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
 
-import { GameStatus, Runner } from 'common/types'
+import { GameStatus, Runner, WikiInfo } from 'common/types'
 
 import { createNewWindow, repair } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
@@ -21,6 +21,7 @@ interface Props {
   runner: Runner
   handleUpdate: () => void
   disableUpdate: boolean
+  setShowExtraInfo: (show: boolean) => void
   onShowRequirements?: () => void
 }
 
@@ -32,7 +33,8 @@ export default function GamesSubmenu({
   runner,
   handleUpdate,
   disableUpdate,
-  onShowRequirements
+  onShowRequirements,
+  setShowExtraInfo
 }: Props) {
   const { refresh, platform, libraryStatus, showDialogModal } =
     useContext(ContextProvider)
@@ -200,10 +202,12 @@ export default function GamesSubmenu({
   useEffect(() => {
     // Get steam id and set direct proton db link
     window.api
-      .getInfoFromPCGamingWiki(title, runner === 'gog' ? appName : undefined)
-      .then((info) => {
-        if (info?.steamID) {
-          setProtonDBurl(`https://www.protondb.com/app/${info.steamID}`)
+      .getWikiGameInfo(title, runner === 'gog' ? appName : undefined)
+      .then((info: WikiInfo) => {
+        if (info?.pcgamingwiki?.steamID) {
+          setProtonDBurl(
+            `https://www.protondb.com/app/${info?.pcgamingwiki?.steamID}`
+          )
         }
       })
   }, [title, appName])
@@ -257,7 +261,7 @@ export default function GamesSubmenu({
                 onClick={async () => setShowUninstallModal(true)}
                 className="link button is-text is-link"
               >
-                {t('button.uninstall')}
+                {t('button.uninstall', 'Uninstall')}
               </button>{' '}
               {!isSideloaded && (
                 <button
@@ -273,7 +277,7 @@ export default function GamesSubmenu({
                   onClick={async () => handleMoveInstall()}
                   className="link button is-text is-link"
                 >
-                  {t('submenu.move')}
+                  {t('submenu.move', 'Move Game')}
                 </button>
               )}{' '}
               {!isSideloaded && (
@@ -281,7 +285,7 @@ export default function GamesSubmenu({
                   onClick={async () => handleChangeInstall()}
                   className="link button is-text is-link"
                 >
-                  {t('submenu.change')}
+                  {t('submenu.change', 'Change Install Location')}
                 </button>
               )}{' '}
               {!isSideloaded && (
@@ -289,7 +293,7 @@ export default function GamesSubmenu({
                   onClick={async () => handleRepair(appName)}
                   className="link button is-text is-link"
                 >
-                  {t('submenu.verify')}
+                  {t('submenu.verify', 'Verify and Repair')}
                 </button>
               )}{' '}
               {isLinux &&
@@ -316,14 +320,23 @@ export default function GamesSubmenu({
               {t('submenu.store')}
             </NavLink>
           )}
-          {!isSideloaded && !isWin && (
+          {!isSideloaded && isLinux && (
             <button
               onClick={() => createNewWindow(protonDBurl)}
               className="link button is-text is-link"
             >
-              {t('submenu.protondb')}
+              {t('submenu.protondb', 'Check Compatibility')}
             </button>
           )}
+          {!isSideloaded && (
+            <button
+              onClick={() => setShowExtraInfo(true)}
+              className="link button is-text is-link"
+            >
+              {t('submenu.extraInfo', 'Extra Info')}
+            </button>
+          )}
+
           {onShowRequirements && (
             <button
               onClick={async () => onShowRequirements()}

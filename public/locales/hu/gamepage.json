@@ -35,7 +35,8 @@
             "checkbox": "Prefix eltávolítása: {{prefix}}{{newLine}}Megjegyzés: Ez nem vonható vissza, és külön nem tárolt mentéseket is törli.",
             "message": "El akarod távolítani ezt a játékot?",
             "settingcheckbox": "Beállítások és a log{{newLine}}törlése. Megjegyzés: Ez nem vonható vissza. Minden módosított beállítás visszaáll és a log fájl törlődik.",
-            "title": "Eltávolítás"
+            "title": "Eltávolítás",
+            "prefix_warning": "A játék Wine előtagja az alapértelmezett előtag. Ha valóban törölni szeretné, manuálisan kell megtennie."
         },
         "update": {
             "message": "Ennek a játéknak van egy frissítése, alkalmazzuk a frissítést most?",
@@ -67,7 +68,8 @@
         },
         "unhide_game": "Játék felfedése",
         "uninstall": "Eltávolítás",
-        "update": "Frissítés"
+        "update": "Frissítés",
+        "details": "Részletek"
     },
     "cloud_save_unsupported": "Nem támogatott",
     "disabled": "Letiltva",
@@ -145,7 +147,8 @@
         "title": "Válaszd ki a telepíteni kívánt elemeket"
     },
     "setting": {
-        "use-default-wine-settings": "Alapértelmezett Wine beállítások használata"
+        "use-default-wine-settings": "Alapértelmezett Wine beállítások használata",
+        "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {
         "field": {
@@ -181,7 +184,8 @@
         "this-game-uses-third-party": "Ez a játék egy harmadik féltől származó klienst használ, ami jelenleg nem támogatott",
         "totalDownloaded": "Teljesen letöltve",
         "uninstalling": "Eltávolítás",
-        "updating": "Játék frissítése"
+        "updating": "Játék frissítése",
+        "playing": "Játék"
     },
     "submenu": {
         "addShortcut": "Parancsikon hozzáadása",
@@ -195,6 +199,7 @@
         "removeShortcut": "Parancsikonok eltávolítása",
         "settings": "Beállítások",
         "store": "Áruházi oldal",
-        "verify": "Ellenőrzés és javítás"
+        "verify": "Ellenőrzés és javítás",
+        "extraInfo": "Extra Info"
     }
 }

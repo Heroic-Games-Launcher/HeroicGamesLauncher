@@ -1,8 +1,8 @@
 import { GOGCloudSavesLocation, GogInstallPlatform } from './types/gog'
 import { LegendaryInstallPlatform } from './types/legendary'
-import { VersionInfo } from 'heroic-wine-downloader'
 import { IpcRendererEvent } from 'electron'
 import { ChildProcess } from 'child_process'
+import { HowLongToBeatEntry } from 'howlongtobeat'
 
 export type Runner = 'legendary' | 'gog' | 'sideload'
 
@@ -165,6 +165,7 @@ export interface GameStatus {
     | 'moving'
     | 'queued'
     | 'error'
+    | 'syncing-saves'
 }
 
 export type GlobalConfigVersion = 'auto' | 'v0'
@@ -362,14 +363,7 @@ export interface WrapperVariable {
   args: string
 }
 
-export type AntiCheatStatus =
-  | 'Planned'
-  | 'Denied'
-  | 'Broken'
-  | 'Supported'
-  | 'Running'
-
-export type AntiCheat =
+type AntiCheat =
   | 'Arbiter'
   | 'BattlEye'
   | 'Denuvo Anti-Cheat'
@@ -493,7 +487,7 @@ interface GamepadActionArgsWithoutMetadata {
   metadata?: undefined
 }
 
-export type ElWebview = {
+type ElWebview = {
   canGoBack: () => boolean
   canGoForward: () => boolean
   goBack: () => void
@@ -533,9 +527,17 @@ export interface DMQueueElement {
   status?: 'done' | 'error' | 'abort'
 }
 
+type ProtonVerb =
+  | 'run'
+  | 'waitforexitandrun'
+  | 'runinprefix'
+  | 'destroyprefix'
+  | 'getcompatpath'
+  | 'getnativepath'
+
 export type WineCommandArgs = {
   commandParts: string[]
-  wait: boolean
+  wait?: boolean
   protonVerb?: ProtonVerb
   gameSettings?: GameSettings
   installFolderName?: string
@@ -558,14 +560,6 @@ export interface SideloadGame {
   folder_name?: string
   canRunOffline: boolean
 }
-
-export type ProtonVerb =
-  | 'run'
-  | 'waitforexitandrun'
-  | 'runinprefix'
-  | 'destroyprefix'
-  | 'getcompatpath'
-  | 'getnativepath'
 
 export interface SaveSyncArgs {
   arg: string | undefined
@@ -613,7 +607,6 @@ export interface GameScoreInfo {
   urlid: string
 }
 export interface PCGamingWikiInfo {
-  timestampLastFetch: string
   steamID: string
   howLongToBeatID: string
   metacritic: GameScoreInfo
@@ -622,8 +615,77 @@ export interface PCGamingWikiInfo {
   direct3DVersions: string[]
 }
 
+export interface AppleGamingWikiInfo {
+  crossoverRating: string
+  crossoverLink: string
+}
+
+export interface WikiInfo {
+  timestampLastFetch: string
+  pcgamingwiki: PCGamingWikiInfo | null
+  applegamingwiki: AppleGamingWikiInfo | null
+  howlongtobeat: HowLongToBeatEntry | null
+}
+
+/**
+ * Defines from where the version comes
+ */
+export type Type =
+  | 'Wine-GE'
+  | 'Proton-GE'
+  | 'Proton'
+  | 'Wine-Lutris'
+  | 'Wine-Kron4ek'
+  | 'Wine-Crossover'
+  | 'Wine-Staging-macOS'
+
+/**
+ * Interface contains information about a version
+ * - version
+ * - type (wine, proton, lutris, ge ...)
+ * - date
+ * - download link
+ * - checksum link
+ * - size (download and disk)
+ */
+export interface VersionInfo {
+  version: string
+  type: Type
+  date: string
+  download: string
+  downsize: number
+  disksize: number
+  checksum: string
+}
+
+/**
+ * Enum for the supported repositorys
+ */
+export enum Repositorys {
+  WINEGE,
+  PROTONGE,
+  PROTON,
+  WINELUTRIS,
+  WINECROSSOVER,
+  WINESTAGINGMACOS
+}
+
+/**
+ * Type for the progress callback state
+ */
+export type State = 'downloading' | 'unzipping' | 'idle'
+
+/**
+ * Interface for the information that progress callback returns
+ */
+export interface ProgressInfo {
+  percentage: number
+  avgSpeed: number
+  eta: number
+}
+
 export interface WineManagerUISettings {
-  showWineGe: boolean
-  showWineLutris: boolean
-  showProtonGe: boolean
+  value: string
+  type: Type
+  enabled: boolean
 }

@@ -1,8 +1,4 @@
-import {
-  createMainWindow,
-  setMainWindow,
-  sendFrontendMessage
-} from '../main_window'
+import { createMainWindow, sendFrontendMessage } from '../main_window'
 import { BrowserWindow, Display, screen } from 'electron'
 import { configStore } from '../constants'
 
@@ -13,7 +9,6 @@ describe('main_window', () => {
     describe('if no main window', () => {
       beforeAll(() => {
         BrowserWindow['setAllWindows']([])
-        setMainWindow(null)
       })
 
       it('returns false', () => {
@@ -30,7 +25,6 @@ describe('main_window', () => {
 
       // stub windows
       beforeAll(() => {
-        setMainWindow(null)
         BrowserWindow['setAllWindows']([window])
       })
 
@@ -41,7 +35,6 @@ describe('main_window', () => {
 
       // cleanup stubs
       afterAll(() => {
-        setMainWindow(null)
         BrowserWindow['setAllWindows']([])
       })
 

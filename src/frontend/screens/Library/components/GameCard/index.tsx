@@ -91,22 +91,9 @@ const GameCard = ({
     app_name: appName,
     runner,
     is_installed: isInstalled,
-    cloud_save_enabled: hasCloudSave = false,
     install: gameInstallInfo,
     thirdPartyManagedApp = undefined
   } = { ...gameInfoFromProps }
-
-  // if the game supports cloud saves, check the config
-  const [autoSyncSaves, setAutoSyncSaves] = useState(hasCloudSave)
-  useEffect(() => {
-    const checkGameConfig = async () => {
-      const settings = await window.api.requestGameSettings(appName)
-      setAutoSyncSaves(settings.autoSyncSaves)
-    }
-    if (hasCloudSave) {
-      checkGameConfig()
-    }
-  }, [appName])
 
   const [progress, previousProgress] = hasProgress(appName)
   const { install_size: size = '0' } = {
@@ -150,7 +137,8 @@ const GameCard = ({
     isQueued ||
     isUninstalling ||
     notAvailable ||
-    notSupportedGame
+    notSupportedGame ||
+    isPlaying
 
   const { percent = '' } = progress
   const installingGrayscale = isInstalling
@@ -175,6 +163,9 @@ const GameCard = ({
     if (notSupportedGame) {
       return t('status.notSupportedGame', 'Not Supported')
     }
+    if (isPlaying) {
+      return t('status.playing', 'Playing')
+    }
     if (isQueued) {
       return `${t('status.queued', 'Queued')}`
     }
@@ -182,10 +173,10 @@ const GameCard = ({
       return t('status.uninstalling', 'Uninstalling')
     }
     if (isUpdating) {
-      return t('status.updating') + ` ${percent}%`
+      return t('status.updating') + ` ${Math.ceil(percent || 0)}%`
     }
     if (isInstalling) {
-      return t('status.installing') + ` ${percent || 0}%`
+      return t('status.installing') + ` ${Math.ceil(percent || 0)}%`
     }
     if (isMoving) {
       return t('gamecard.moving', 'Moving')
@@ -415,7 +406,7 @@ const GameCard = ({
       )}
       <ContextMenu items={items}>
         <div className={wrapperClasses}>
-          {haveStatus && <span className="progress">{getStatus()}</span>}
+          {haveStatus && <span className="gameCardStatus">{getStatus()}</span>}
           <Link
             to={`/gamepage/${runner}/${appName}`}
             state={{ gameInfo }}
@@ -526,7 +517,6 @@ const GameCard = ({
         t,
         runner,
         hasUpdate,
-        syncCloud: autoSyncSaves,
         showDialogModal
       })
     }

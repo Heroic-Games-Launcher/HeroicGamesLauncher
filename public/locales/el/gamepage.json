@@ -147,7 +147,8 @@
         "title": "Διαλέξτε στοιχεία για εγκατάσταση"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Use Default Wine Settings",
+        "winecrossoverbottle": "CrossOver Περιβάλλον"
     },
     "sideload": {
         "field": {
@@ -183,7 +184,8 @@
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Σύνολο ληφθέντων",
         "uninstalling": "Uninstalling",
-        "updating": "Ενημέρωση παιχνιδιού"
+        "updating": "Ενημέρωση παιχνιδιού",
+        "playing": "Παιχνίδι"
     },
     "submenu": {
         "addShortcut": "Προσθήκη συντόμευσης",
@@ -197,6 +199,7 @@
         "removeShortcut": "Κατάργηση συντεμεύσεων",
         "settings": "Ρυθμίσεις",
         "store": "Κατάστημα",
-        "verify": "Επαλήθευση και Επιδιόρθωση"
+        "verify": "Επαλήθευση και Επιδιόρθωση",
+        "extraInfo": "Extra Πληροφορίες"
     }
 }

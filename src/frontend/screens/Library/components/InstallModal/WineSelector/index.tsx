@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   TextInputWithIconField,
   SelectField,
-  ToggleSwitch
+  ToggleSwitch,
+  TextInputField
 } from 'frontend/components/UI'
 import React from 'react'
 import { WineInstallation } from 'common/types'
@@ -16,7 +17,9 @@ type Props = {
     React.SetStateAction<WineInstallation | undefined>
   >
   setWinePrefix: React.Dispatch<React.SetStateAction<string>>
+  setCrossoverBottle: React.Dispatch<React.SetStateAction<string>>
   winePrefix: string
+  crossoverBottle: string
   wineVersionList: WineInstallation[]
   wineVersion: WineInstallation | undefined
   title?: string
@@ -28,7 +31,9 @@ export default function WineSelector({
   winePrefix,
   wineVersionList,
   wineVersion,
-  title = 'sideload'
+  title = 'sideload',
+  crossoverBottle,
+  setCrossoverBottle
 }: Props) {
   const { t } = useTranslation('gamepage')
 
@@ -39,18 +44,23 @@ export default function WineSelector({
     const {
       defaultWinePrefix: prefixFolder,
       wineVersion,
-      winePrefix: defaultPrefix
+      winePrefix: defaultPrefix,
+      wineCrossoverBottle: defaultBottle
     } = { ...configStore.get_nodefault('settings') }
 
-    if (!wineVersion || !defaultPrefix) return
-
+    if (!wineVersion || !defaultPrefix || !defaultBottle) return
     setDescription(
       `${defaultPrefix} / ${wineVersion.name.replace('Proton - ', '')}`
     )
 
+    if (!useDefaultSettings && wineVersion.type === 'crossover') {
+      return setCrossoverBottle(defaultBottle)
+    }
+
     if (useDefaultSettings) {
       setWinePrefix(defaultPrefix)
       setWineVersion(wineVersion)
+      setCrossoverBottle(defaultBottle)
     } else {
       const sugestedWinePrefix = `${prefixFolder}/${removeSpecialcharacters(
         title
@@ -61,6 +71,7 @@ export default function WineSelector({
   }, [useDefaultSettings])
 
   const showPrefix = wineVersion?.type !== 'crossover'
+  const showBottle = wineVersion?.type === 'crossover'
 
   return (
     <>
@@ -95,23 +106,31 @@ export default function WineSelector({
               }
             />
           )}
+          {showBottle && (
+            <TextInputField
+              label={t('setting.winecrossoverbottle', 'CrossOver Bottle')}
+              htmlId="crossoverBottle"
+              value={crossoverBottle}
+              onChange={(event) => setCrossoverBottle(event.target.value)}
+            />
+          )}
 
           <SelectField
             label={`${t('install.wineversion')}:`}
             htmlId="wineVersion"
-            value={wineVersion?.bin || ''}
+            value={wineVersion?.name || ''}
             onChange={(e) =>
               setWineVersion(
                 wineVersionList.find(
-                  (version) => version.bin === e.target.value
+                  (version) => version.name === e.target.value
                 )
               )
             }
           >
             {wineVersionList &&
-              wineVersionList.map((version) => (
-                <option value={version.bin} key={version.bin}>
-                  {version.name}
+              wineVersionList.map(({ name }, i) => (
+                <option value={name} key={i}>
+                  {name}
                 </option>
               ))}
           </SelectField>

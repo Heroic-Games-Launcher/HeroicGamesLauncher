@@ -21,7 +21,7 @@ type Props = {
 export default React.memo(function CurrentDownload({ appName, runner }: Props) {
   const [progress] = hasProgress(appName)
   const [gameTitle, setGameTitle] = useState('')
-  const { sidebarCollapsed, libraryStatus } = useContext(ContextProvider)
+  const { libraryStatus } = useContext(ContextProvider)
   const { t } = useTranslation()
 
   useEffect(() => {
@@ -54,37 +54,34 @@ export default React.memo(function CurrentDownload({ appName, runner }: Props) {
   return (
     <>
       <Link to={`/download-manager`} className="currentDownload">
-        {sidebarCollapsed && (
-          <span className="statusIcon" title={`${getStatus()} - ${gameTitle}`}>
-            <Badge
-              badgeContent={`${Math.round(progress.percent ?? 0)}%`}
-              color="primary"
-            >
-              <FontAwesomeIcon icon={faDownload} />
-            </Badge>
-          </span>
-        )}
-        {!sidebarCollapsed && (
-          <>
-            <span className="gameTitle">{gameTitle ?? 'GameName'}</span>
-            <br />
-            <span className="downloadStatus">{getStatus()}</span>
-            <br />
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Box sx={{ width: '100%', mr: 1 }}>
-                <LinearProgress
-                  variant="determinate"
-                  value={progress.percent || 0}
-                />
-              </Box>
-              <Box sx={{ minWidth: 35 }}>
-                <Typography variant="body2">{`${Math.round(
-                  progress.percent || 0
-                )}%`}</Typography>
-              </Box>
+        <span className="statusIcon" title={`${getStatus()} - ${gameTitle}`}>
+          <Badge
+            badgeContent={`${Math.round(progress.percent ?? 0)}%`}
+            color="primary"
+          >
+            <FontAwesomeIcon icon={faDownload} />
+          </Badge>
+        </span>
+
+        <div className="full-size">
+          <span className="gameTitle">{gameTitle ?? 'GameName'}</span>
+          <br />
+          <span className="downloadStatus">{getStatus()}</span>
+          <br />
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box sx={{ width: '100%', mr: 1 }}>
+              <LinearProgress
+                variant="determinate"
+                value={progress.percent || 0}
+              />
             </Box>
-          </>
-        )}
+            <Box sx={{ minWidth: 35 }}>
+              <Typography variant="body2">{`${Math.round(
+                progress.percent || 0
+              )}%`}</Typography>
+            </Box>
+          </Box>
+        </div>
       </Link>
     </>
   )

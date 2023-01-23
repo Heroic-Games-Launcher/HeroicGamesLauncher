@@ -140,7 +140,11 @@
                 "install": "На серверах Epic сталася значна аварія, неможливо імпортувати гру!",
                 "update": "На серверах Epic сталася значна аварія, неможливо імпортувати гру!"
             },
-            "title": "Увага"
+            "title": "Увага",
+            "wine-change": {
+                "message": "Нам не вдалося знайти вибрану версію вина, щоб запустити цю назву ({{selectedWine}}). {{newline}} Ми знайшли ще один, чи бажаєте ви продовжити запуск за допомогою {{foundWine}}?",
+                "title": "Вино не знайдено!"
+            }
         },
         "wineprefix": "Оберіть теку префікса Wine",
         "yes": "ТАК"
@@ -151,7 +155,8 @@
         "login": "Увійти",
         "sync": "Синхронізувати",
         "syncing": "Синхронізація",
-        "unsync": "Десинхронізувати"
+        "unsync": "Десинхронізувати",
+        "continue": "Continue"
     },
     "controller": {
         "hints": {
@@ -274,7 +279,7 @@
             "version": "Версія Heroic"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "Налаштування збережено автоматично",
         "version": "Версія Wine"
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
-        }
+        },
+        "wine-path-invalid": "Wine Path недійсний, виберіть інший."
     },
     "install": {
         "path": "Вкажіть шлях встановлення"
@@ -532,9 +538,9 @@
             "title": "Запустити EXE на префіксі"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Вкажіть точну теку збережень для гри",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Оберіть тему",
         "showfps": "Показувати кількість кадрів (DX9, 10 та 11)",
@@ -542,7 +548,9 @@
         "steamruntime": "Використовувати Steam Runtime",
         "winecrossoverbottle": "Пляшка CrossOver",
         "wineprefix": "Тека префікса Wine",
-        "wineversion": "Версія Wine"
+        "wineversion": "Версія Wine",
+        "autoUpdateGames": "Автоматичне оновлення ігор",
+        "ignoreGameUpdates": "Ігнорувати оновлення гри"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -627,7 +635,9 @@
         "logout": "Вийти",
         "logout_confirmation": "Точно бажаєте вийти?",
         "manageaccounts": "Облікові записи",
-        "quit": "Закрити"
+        "quit": "Закрити",
+        "cancel": "Відмінити",
+        "quitMessage": "Ти впевнений що хочеш піти?"
     },
     "webview": {
         "controls": {
@@ -647,5 +657,12 @@
         },
         "release": "Дата випуску",
         "size": "Розмір"
+    },
+    "externalLink": {
+        "dontAskAgain": "Більше не питай",
+        "warning": "Ви збираєтеся відкрити зовнішнє посилання."
+    },
+    "wiki_info": {
+        "not_found": "Нам не вдалося знайти додаткову інформацію."
     }
 }

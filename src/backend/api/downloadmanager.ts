@@ -1,9 +1,5 @@
 import { ipcRenderer } from 'electron'
-import {
-  DMQueueElement,
-  InstallParams,
-  UpdateParams
-} from './../../common/types'
+import { DMQueueElement, InstallParams, UpdateParams } from 'common/types'
 
 export const install = async (args: InstallParams) => {
   const dmQueueElement: DMQueueElement = {
@@ -39,8 +35,6 @@ export const getDMQueueInformation = async () =>
 
 export const removeFromDMQueue = (appName: string) =>
   ipcRenderer.send('removeFromDMQueue', appName)
-
-export const clearDMFinished = () => ipcRenderer.send('clearDMFinished')
 
 export const handleDMQueueInformation = (
   onChange: (e: Electron.IpcRendererEvent, elements: DMQueueElement[]) => void

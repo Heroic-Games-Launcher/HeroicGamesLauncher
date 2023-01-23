@@ -288,8 +288,6 @@ export const DXVK = {
       )
     })
 
-    exec(`echo ${globalVersion} > ${currentVersionCheck}`)
-
     writeFile(currentVersionCheck, globalVersion, (err) => {
       if (err) {
         logError(

@@ -6,8 +6,8 @@ import {
   GameInfo,
   GameSettings,
   InstallArgs,
-  ProtonVerb,
-  InstallPlatform
+  InstallPlatform,
+  WineCommandArgs
 } from 'common/types'
 
 import { join } from 'path'
@@ -43,11 +43,7 @@ abstract class Game {
   abstract uninstall(): Promise<ExecResult>
   abstract update(): Promise<{ status: 'done' | 'error' | 'abort' }>
   abstract isNative(): boolean
-  abstract runWineCommand(
-    commandParts: string[],
-    wait?: boolean,
-    protonVerb?: ProtonVerb
-  ): Promise<ExecResult>
+  abstract runWineCommand(args: WineCommandArgs): Promise<ExecResult>
 }
 
 export { Game }

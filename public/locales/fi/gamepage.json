@@ -35,7 +35,8 @@
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Haluatko poistaa pelin asennuksen?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
-            "title": "Poista"
+            "title": "Poista",
+            "prefix_warning": "Tämän pelin Wine-etuliite on oletusetuliite. Jos todella haluat poistaa sen, sinun on tehtävä se manuaalisesti."
         },
         "update": {
             "message": "Tälle pelille on saatavilla päivitys, haluatko asentaa sen nyt?",
@@ -67,7 +68,8 @@
         },
         "unhide_game": "Unhide Game",
         "uninstall": "Poista",
-        "update": "Päivitä"
+        "update": "Päivitä",
+        "details": "Yksityiskohdat"
     },
     "cloud_save_unsupported": "Unsupported",
     "disabled": "Pois käytöstä",
@@ -145,7 +147,8 @@
         "title": "Valitse asennettavat komponentit"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Use Default Wine Settings",
+        "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {
         "field": {
@@ -181,7 +184,8 @@
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Ladattu yhteensä",
         "uninstalling": "Uninstalling",
-        "updating": "Päivitetään peliä"
+        "updating": "Päivitetään peliä",
+        "playing": "Pelaaminen"
     },
     "submenu": {
         "addShortcut": "Lisää pikakuvake",
@@ -195,6 +199,7 @@
         "removeShortcut": "Remove shortcuts",
         "settings": "Asetukset",
         "store": "Kauppasivu",
-        "verify": "Vahvista ja korjaa"
+        "verify": "Vahvista ja korjaa",
+        "extraInfo": "Lisätiedot"
     }
 }

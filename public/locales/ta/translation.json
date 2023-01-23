@@ -140,7 +140,11 @@
                 "install": "Epic Servers are having major outage right now, the game cannot be installed!",
                 "update": "Epic Servers are having major outage right now, the game cannot be updated!"
             },
-            "title": "Warning"
+            "title": "Warning",
+            "wine-change": {
+                "title": "மது கிடைக்கவில்லை!",
+                "message": "இந்த தலைப்பை ({{selectedWine}}) தொடங்குவதற்கு தேர்ந்தெடுக்கப்பட்ட ஒயின் பதிப்பை எங்களால் கண்டுபிடிக்க முடியவில்லை. {{newline}} இன்னொன்றைக் கண்டறிந்துள்ளோம், {{foundWine}} ஐப் பயன்படுத்தி தொடர்ந்து தொடங்க விரும்புகிறீர்களா?"
+            }
         },
         "wineprefix": "Wine முன்னொட்டு கோப்புறையை தேர்வுசெய்",
         "yes": "ஆம்"
@@ -151,7 +155,8 @@
         "login": "உள்நுழை",
         "sync": "ஒத்திசைவு செய்",
         "syncing": "ஒத்திசைவு செய்யப்படுகிறது",
-        "unsync": "ஒத்திசைவை செயல்தவிர்"
+        "unsync": "ஒத்திசைவை செயல்தவிர்",
+        "continue": "Continue"
     },
     "controller": {
         "hints": {
@@ -274,7 +279,7 @@
             "version": "Heroic Version"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "அமைப்புகள் தானாகவே சேமிக்கப்படும்",
         "version": "Wine Version"
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
-        }
+        },
+        "wine-path-invalid": "ஒயின் பாதை தவறானது, வேறொன்றைத் தேர்ந்தெடுக்கவும்."
     },
     "install": {
         "path": "Select Install Path"
@@ -532,9 +538,9 @@
             "title": "முன்னொட்டில் EXE ஐ இயக்கு"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "சரியான விளையாட்டுகளை சேமிக்கும் கோப்புறையை தேர்ந்தெடு",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Select Theme",
         "showfps": "FPS ஐக் காட்டு (DX9, 10 and 11)",
@@ -542,7 +548,9 @@
         "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix கோப்புறை",
-        "wineversion": "Wine பதிப்பு"
+        "wineversion": "Wine பதிப்பு",
+        "autoUpdateGames": "கேம்களை தானாகவே புதுப்பிக்கவும்",
+        "ignoreGameUpdates": "கேம் புதுப்பிப்புகளைப் புறக்கணிக்கவும்"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -627,7 +635,9 @@
         "logout": "வெளியேறு",
         "logout_confirmation": "நீங்கள் நிச்சயமாக வெளியேற விரும்புகிறீர்களா?",
         "manageaccounts": "Manage Accounts",
-        "quit": "வெளியேறு"
+        "quit": "வெளியேறு",
+        "cancel": "Cancel",
+        "quitMessage": "நீங்கள் நிச்சயம் வெளியேற வேண்டுமா?"
     },
     "webview": {
         "controls": {
@@ -647,5 +657,12 @@
         },
         "release": "Release Date",
         "size": "Size"
+    },
+    "externalLink": {
+        "dontAskAgain": "மீண்டும் கேட்காதே",
+        "warning": "வெளிப்புற இணைப்பைத் திறக்க உள்ளீர்கள்."
+    },
+    "wiki_info": {
+        "not_found": "கூடுதல் தகவல்களை எங்களால் கண்டுபிடிக்க முடியவில்லை."
     }
 }

@@ -15,11 +15,10 @@ import {
   SideloadGame,
   WineManagerUISettings,
   AppSettings,
-  PCGamingWikiInfo
+  WikiInfo
 } from 'common/types'
 import { GamesDBData, UserData } from 'common/types/gog'
 import { LegendaryInstallInfo } from 'common/types/legendary'
-import { HowLongToBeatEntry } from 'howlongtobeat'
 
 export interface StoreStructure {
   configStore: {
@@ -105,14 +104,11 @@ export interface StoreStructure {
     [namespace: string]: ExtraInfo
   }
   wineManagerConfigStore: {
-    'wine-manager-settings': WineManagerUISettings
+    'wine-manager-settings': WineManagerUISettings[]
     'wine-releases': WineVersionInfo[]
   }
-  howLongToBeat: {
-    [title: string]: HowLongToBeatEntry
-  }
-  pcGamingWikiInfo: {
-    [title: string]: PCGamingWikiInfo
+  wikigameinfo: {
+    [title: string]: WikiInfo
   }
 }
 
