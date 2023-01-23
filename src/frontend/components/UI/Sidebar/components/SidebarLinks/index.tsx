@@ -95,7 +95,9 @@ export default function SidebarLinks() {
       )}
       <NavLink
         className={({ isActive }) =>
-          classNames('Sidebar__item', { active: isActive })
+          classNames('Sidebar__item', {
+            active: isActive || location.pathname.includes('gamepage')
+          })
         }
         to={'/library'}
         onClick={async () => handleRefresh()}
