@@ -174,7 +174,7 @@
         "installed": "Installed",
         "installing": "Installing",
         "moving": "Moving Installation, please wait",
-        "moving-files": "Moving file {{file}}: {{percent}}",
+        "moving-files": "Moving file '{{file}}': {{percent}} ",
         "notinstalled": "This game is not installed",
         "notSupported": "Not supported",
         "notSupportedGame": "Not Supported",

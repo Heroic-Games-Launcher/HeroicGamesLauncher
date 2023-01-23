@@ -608,9 +608,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
       if (file && percent) {
         return `${t(
           'status.moving-files',
-          'Moving file {{file}}: {{percent}}',
-          { file: file, percent: percent }
-        )}
+          `Moving file '{{file}}': {{percent}} `,
+          { file, percent }
+        )}  
         `
       }
 
