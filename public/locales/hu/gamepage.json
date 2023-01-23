@@ -147,7 +147,8 @@
         "title": "Válaszd ki a telepíteni kívánt elemeket"
     },
     "setting": {
-        "use-default-wine-settings": "Alapértelmezett Wine beállítások használata"
+        "use-default-wine-settings": "Alapértelmezett Wine beállítások használata",
+        "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {
         "field": {
@@ -183,7 +184,8 @@
         "this-game-uses-third-party": "Ez a játék egy harmadik féltől származó klienst használ, ami jelenleg nem támogatott",
         "totalDownloaded": "Teljesen letöltve",
         "uninstalling": "Eltávolítás",
-        "updating": "Játék frissítése"
+        "updating": "Játék frissítése",
+        "playing": "Játék"
     },
     "submenu": {
         "addShortcut": "Parancsikon hozzáadása",
