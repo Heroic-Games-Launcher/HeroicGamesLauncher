@@ -53,17 +53,20 @@ export default function GamesSettings({ useDetails = true }: Props) {
   const isCrossover = wineVersion?.type === 'crossover'
   const hasCloudSaves = gameInfo?.cloud_save_enabled
 
-  const [nativeGame, checkNativeGame] = useState(false)
+  const [nativeGame, setNativeGame] = useState(false)
 
   useEffect(() => {
     if (gameInfo) {
-      window.api
-        .isNative({ appName: gameInfo?.app_name, runner: gameInfo?.runner })
-        .then((nativeGame) => {
-          checkNativeGame(nativeGame)
+      const getIsNative = async () => {
+        const isNative = await window.api.isNative({
+          appName: gameInfo?.app_name,
+          runner: gameInfo?.runner
         })
+        setNativeGame(isNative)
+      }
+      getIsNative()
     }
-  }, [])
+  })
 
   return (
     <>
