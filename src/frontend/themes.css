@@ -16,6 +16,8 @@ body.newDark {
   --secondary-button-overlay: var(--brand-secondary);
   --success-button: var(--gradient-01);
   --disabled-button: var(--neutral-02);
+  --cancel-button: var(--status-danger);
+  --cancel-button-overlay: var(--status-danger-hover);
 
   --play-button: var(--primary-button);
   --install-button: var(--secondary-button);

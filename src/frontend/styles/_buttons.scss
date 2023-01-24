@@ -60,7 +60,7 @@ button {
 }
 
 .button.is-secondary:hover {
-  background: var(--secondary-button, var(--accent-overlay));
+  background: var(--secondary-button-overlay, var(--accent-overlay));
 }
 
 .button:disabled.is-secondary,
@@ -90,14 +90,14 @@ button {
 }
 
 .button.is-danger {
-  background: var(--input-background);
-  color: var(--danger-hover);
+  background: var(--cancel-button, var(--danger));
+  color: var(--text-secondary);
 }
 
 .button.is-danger:hover,
 .button.is-danger:focus-visible {
-  background: var(--danger);
-  color: var(--text-secondary);
+  color: var(--danger);
+  background: var(--cancel-button-overlay, var(--input-background));
 }
 
 .button.is-success {

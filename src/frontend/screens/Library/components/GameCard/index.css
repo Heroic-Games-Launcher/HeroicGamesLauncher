@@ -302,8 +302,13 @@
   transition: 300ms;
 }
 
-.cancelIcon svg {
-  fill: var(--danger);
+.cancelIcon svg circle {
+  fill: var(--cancel-button, var(--danger));
+  transition: 300ms;
+}
+
+.cancelIcon:hover svg circle {
+  fill: var(--cancel-button-overlay, var(--danger-hover));
   transition: 300ms;
 }
 
