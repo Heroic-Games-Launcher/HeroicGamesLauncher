@@ -66,7 +66,7 @@ export default function GamesSettings({ useDetails = true }: Props) {
       }
       getIsNative()
     }
-  })
+  }, [])
 
   return (
     <>
