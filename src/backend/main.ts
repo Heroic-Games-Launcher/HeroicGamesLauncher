@@ -1011,7 +1011,10 @@ ipcMain.handle(
     )
 
     // check if isNative, if not, check if wine is valid
-    if ((isSideloaded && !isNativeApp(appName)) || !extGame.isNative()) {
+    if (
+      (isSideloaded && !isNativeApp(appName)) ||
+      (!isSideloaded && !extGame.isNative())
+    ) {
       const isWineOkToLaunch = await checkWineBeforeLaunch(
         appName,
         gameSettings,
