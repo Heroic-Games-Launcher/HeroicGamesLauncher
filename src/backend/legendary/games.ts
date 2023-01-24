@@ -235,7 +235,7 @@ class LegendaryGame extends Game {
         return {
           about: {
             description: res.sandbox.configuration[0].configs.shortDescription,
-            longDescription: ''
+            shortDescription: ''
           },
           reqs: requirements,
           storeUrl: `https://www.epicgames.com/store/product/${slug}`
@@ -271,7 +271,7 @@ class LegendaryGame extends Game {
       return {
         about: {
           description: '',
-          longDescription: ''
+          shortDescription: ''
         },
         reqs: [],
         storeUrl: ''
@@ -297,7 +297,7 @@ class LegendaryGame extends Game {
       return {
         about: {
           description: '',
-          longDescription: ''
+          shortDescription: ''
         },
         reqs: [],
         storeUrl: ''

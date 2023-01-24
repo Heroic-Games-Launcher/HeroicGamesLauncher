@@ -23,7 +23,7 @@ export type LaunchParams = {
 
 interface About {
   description: string
-  longDescription: string
+  shortDescription: string
 }
 
 export type Release = {

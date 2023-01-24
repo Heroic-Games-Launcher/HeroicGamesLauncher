@@ -67,7 +67,7 @@ interface GameMetadataInner {
   keyImages: KeyImage[]
   lastModifiedDate: string
   mainGameItem?: GameMetadataInner
-  longDescription?: string
+  shortDescription?: string
   namespace: string
   releaseInfo: ReleaseInfo[]
   requiresSecureAccount?: boolean

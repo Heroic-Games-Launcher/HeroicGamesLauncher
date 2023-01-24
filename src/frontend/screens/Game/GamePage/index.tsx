@@ -273,6 +273,11 @@ export default React.memo(function GamePage(): JSX.Element | null {
       return <ErrorComponent message={message} />
     }
 
+    const description =
+      extraInfo?.about.shortDescription ||
+      extraInfo?.about.description ||
+      t('generic.noDescription', 'No description available')
+
     return (
       <div className="gameConfigContainer">
         {showModal.show && (
@@ -333,15 +338,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
               </div>
               <div className="infoWrapper">
                 <div className="developer">{developer}</div>
-                <div className="summary">
-                  {extraInfo && extraInfo.about
-                    ? extraInfo.about.description
-                      ? extraInfo.about.description
-                      : extraInfo.about.longDescription
-                      ? extraInfo.about.longDescription
-                      : ''
-                    : ''}
-                </div>
+                <div className="summary">{description}</div>
                 {is_installed && showCloudSaveInfo && (
                   <div
                     style={{
@@ -457,7 +454,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     color:
                       is_installed || isInstalling
                         ? 'var(--success)'
-                        : 'var(--danger)',
+                        : 'var(--status-warning,  var(--warning))',
                     fontStyle: 'italic'
                   }}
                 >
