@@ -7,26 +7,20 @@ import React, { lazy, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Tab, Tabs } from '@mui/material'
 import {
-  StoreIpc,
+  TypeCheckedStoreFrontend,
   wineDownloaderInfoStore
 } from 'frontend/helpers/electronStores'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
-import { WineVersionInfo, Type } from 'common/types'
+import { WineVersionInfo, Type, WineManagerUISettings } from 'common/types'
 
 const WineItem = lazy(
   async () => import('frontend/screens/WineManager/components/WineItem')
 )
 
-const configStore = new StoreIpc('wineManagerConfigStore', {
+const configStore = new TypeCheckedStoreFrontend('wineManagerConfigStore', {
   cwd: 'store'
 })
-
-interface WineManagerUISettings {
-  value: string
-  type: Type
-  enabled: boolean
-}
 
 export default React.memo(function WineManager(): JSX.Element | null {
   const { t } = useTranslation()
@@ -58,10 +52,7 @@ export default React.memo(function WineManager(): JSX.Element | null {
   ])
 
   const getWineVersions = (repo: Type) => {
-    const versions = wineDownloaderInfoStore.get(
-      'wine-releases',
-      []
-    ) as WineVersionInfo[]
+    const versions = wineDownloaderInfoStore.get('wine-releases', [])
     return versions.filter((version) => version.type === repo)
   }
 
@@ -78,14 +69,11 @@ export default React.memo(function WineManager(): JSX.Element | null {
   }
 
   useEffect(() => {
-    const hasSettings = configStore.has('wine-manager-settings')
-    if (hasSettings) {
-      const oldWineManagerSettings = configStore.get(
-        'wine-manager-settings'
-      ) as WineManagerUISettings[]
-      if (wineManagerSettings) {
-        setWineManagerSettings(oldWineManagerSettings)
-      }
+    const oldWineManagerSettings = configStore.get_nodefault(
+      'wine-manager-settings'
+    )
+    if (oldWineManagerSettings) {
+      setWineManagerSettings(oldWineManagerSettings)
     }
   }, [])
 

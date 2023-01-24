@@ -505,7 +505,7 @@ abstract class GlobalConfig {
     } else {
       // No upgrades necessary, load config.
       // `this.version` should be `currentGlobalConfigVersion` at this point.
-      this.config = this.getSettings() as AppSettings
+      this.config = this.getSettings()
     }
   }
 }
@@ -553,8 +553,8 @@ class GlobalConfigV0 extends GlobalConfig {
 
     // TODO: Remove this after a couple of stable releases
     // Get settings only from config-store
-    const currentConfigStore = configStore.get('settings', {}) as AppSettings
-    if (!currentConfigStore.defaultInstallPath) {
+    const currentConfigStore = configStore.get_nodefault('settings')
+    if (!currentConfigStore?.defaultInstallPath) {
       configStore.set('settings', settings)
     }
 

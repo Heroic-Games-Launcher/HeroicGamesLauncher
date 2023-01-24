@@ -368,7 +368,7 @@ export const Winetricks = {
 
       const envs = isMac ? macEnvs : linuxEnvs
 
-      const executeMessages = [] as string[]
+      const executeMessages: string[] = []
       let progressUpdated = false
       const appendMessage = (message: string) => {
         // Don't store more than 100 messages, to not

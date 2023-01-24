@@ -1,7 +1,7 @@
 import { crc32 } from 'crc'
 import { existsSync, mkdirSync } from 'graceful-fs'
 import { join } from 'path'
-import { GameInfo } from 'common/types'
+import { GameInfo, SideloadGame } from 'common/types'
 import { logError, logInfo, LogPrefix } from '../../logger/logger'
 import {
   checkImageExistsAlready,
@@ -24,7 +24,7 @@ async function prepareImagesForSteam(props: {
     bigPictureAppID: string
     otherGridAppID: string
   }
-  gameInfo: GameInfo
+  gameInfo: GameInfo | SideloadGame
   bkgDataUrl: string
   bigPicDataUrl: string
 }) {
@@ -60,7 +60,7 @@ async function prepareImagesForSteam(props: {
 
   // if no logo art is provided we add a 1x1 transparent png
   // to get rid of game title in steam
-  if (props.gameInfo.art_logo) {
+  if ('art_logo' in props.gameInfo && props.gameInfo.art_logo) {
     images.set(logoArt, props.gameInfo.art_logo)
   } else {
     const error = createImage(
@@ -108,7 +108,7 @@ function removeImagesFromSteam(props: {
     bigPictureAppID: string
     otherGridAppID: string
   }
-  gameInfo: GameInfo
+  gameInfo: GameInfo | SideloadGame
 }) {
   const gridFolder = join(props.steamUserConfigDir, 'grid')
   const coverArt = join(gridFolder, props.appID.otherGridAppID + coverArtSufix)

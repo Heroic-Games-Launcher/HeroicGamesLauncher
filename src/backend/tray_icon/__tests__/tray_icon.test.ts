@@ -13,7 +13,7 @@ describe('TrayIcon', () => {
   const mainWindow = new BrowserWindow()
 
   const setRecentGames = (games: RecentGame[]) => {
-    configStore.get = () => games
+    jest.spyOn(configStore, 'get').mockReturnValue(games)
   }
 
   afterEach(() => {

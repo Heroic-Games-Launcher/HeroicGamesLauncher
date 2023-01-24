@@ -286,8 +286,8 @@ if (!gotTheLock) {
     // Affects only current users, not new installs
     const settings = GlobalConfig.get().getSettings()
     const { language } = settings
-    const currentConfigStore = configStore.get('settings', {}) as AppSettings
-    if (!currentConfigStore.defaultInstallPath) {
+    const currentConfigStore = configStore.get_nodefault('settings')
+    if (!currentConfigStore?.defaultInstallPath) {
       configStore.set('settings', settings)
     }
 
@@ -296,7 +296,7 @@ if (!gotTheLock) {
 
       if (!isLoggedIn) {
         logInfo('User Not Found, removing it from Store', LogPrefix.Backend)
-        configStore.delete('userinfo')
+        configStore.delete('userInfo')
       }
 
       // Update user details
@@ -383,8 +383,7 @@ if (!gotTheLock) {
 
     // set initial zoom level after a moment, if set in sync the value stays as 1
     setTimeout(() => {
-      const zoomFactor =
-        parseFloat(configStore.get('zoomPercent', '100') as string) / 100
+      const zoomFactor = configStore.get('zoomPercent', 100) / 100
 
       mainWindow.webContents.setZoomFactor(processZoomForScreen(zoomFactor))
     }, 200)
@@ -902,8 +901,10 @@ ipcMain.handle('writeConfig', (event, { appName, config }) => {
   if (appName === 'default') {
     GlobalConfig.get().set(config as AppSettings)
     GlobalConfig.get().flush()
-    const currentConfigStore = configStore.get('settings', {}) as AppSettings
-    configStore.set('settings', { ...currentConfigStore, ...config })
+    const currentConfigStore = configStore.get_nodefault('settings')
+    if (currentConfigStore) {
+      configStore.set('settings', { ...currentConfigStore, ...config })
+    }
   } else {
     GameConfig.get(appName).config = config as GameSettings
     GameConfig.get(appName).flush()
@@ -972,7 +973,10 @@ ipcMain.handle(
     const startPlayingDate = new Date()
 
     if (!tsStore.has(game.app_name)) {
-      tsStore.set(`${game.app_name}.firstPlayed`, startPlayingDate)
+      tsStore.set(
+        `${game.app_name}.firstPlayed`,
+        startPlayingDate.toISOString()
+      )
     }
 
     logInfo(`Launching ${title} (${game.app_name})`, LogPrefix.Backend)
@@ -1074,14 +1078,12 @@ ipcMain.handle(
 
     // Update playtime and last played date
     const finishedPlayingDate = new Date()
-    tsStore.set(`${appName}.lastPlayed`, finishedPlayingDate)
+    tsStore.set(`${appName}.lastPlayed`, finishedPlayingDate.toISOString())
     // Playtime of this session in minutes
     const sessionPlaytime =
       (finishedPlayingDate.getTime() - startPlayingDate.getTime()) / 1000 / 60
-    let totalPlaytime = sessionPlaytime
-    if (tsStore.has(`${appName}.totalPlayed`)) {
-      totalPlaytime += tsStore.get(`${appName}.totalPlayed`) as number
-    }
+    const totalPlaytime =
+      sessionPlaytime + tsStore.get(`${appName}.totalPlayed`, 0)
     tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
 
     await addRecentGame(game)
@@ -1582,7 +1584,7 @@ ipcMain.handle('gamepadAction', async (event, args) => {
 })
 
 ipcMain.handle('getFonts', async (event, reload) => {
-  let cachedFonts = (fontsStore.get('fonts', []) as string[]) || []
+  let cachedFonts = fontsStore.get('fonts', [])
   if (cachedFonts.length === 0 || reload) {
     cachedFonts = await getFonts()
     cachedFonts = cachedFonts.sort((a, b) => a.localeCompare(b))
@@ -1706,25 +1708,3 @@ import './downloadmanager/ipc_handler'
 import './utils/ipc_handler'
 import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
-
-// import Store from 'electron-store'
-// interface StoreMap {
-//   [key: string]: Store
-// }
-// const stores: StoreMap = {}
-
-// ipcMain.on('storeNew', (event, storeName, options) => {
-//   stores[storeName] = new Store(options)
-// })
-
-// ipcMain.handle('storeHas', (event, storeName, key) => {
-//   return stores[storeName].has(key)
-// })
-
-// ipcMain.handle('storeGet', (event, storeName, key) => {
-//   return stores[storeName].get(key)
-// })
-
-// ipcMain.on('storeSet', (event, storeName, key, value) => {
-//   stores[storeName].set(key, value)
-// })

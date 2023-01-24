@@ -8,13 +8,12 @@ export const hasProgress = (appName: string) => {
     storage.getItem(appName) || '{}'
   ) as InstallProgress
 
-  const [progress, setProgress] = useState(
-    previousProgress ??
-      ({
-        bytes: '0.00MB',
-        eta: '00:00:00',
-        percent: 0
-      } as InstallProgress)
+  const [progress, setProgress] = useState<InstallProgress>(
+    previousProgress ?? {
+      bytes: '0.00MB',
+      eta: '00:00:00',
+      percent: 0
+    }
   )
 
   const calculatePercent = (currentProgress: InstallProgress) => {

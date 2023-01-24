@@ -12,7 +12,8 @@ import {
   SteamRuntime,
   Release,
   GameInfo,
-  GameSettings
+  GameSettings,
+  SideloadGame
 } from 'common/types'
 import * as axios from 'axios'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
@@ -794,7 +795,7 @@ const getCurrentChangelog = async (): Promise<Release | null> => {
   }
 }
 
-function getInfo(appName: string, runner: Runner): GameInfo {
+function getInfo(appName: string, runner: Runner): GameInfo | SideloadGame {
   if (runner === 'sideload') {
     return getAppInfo(appName)
   }

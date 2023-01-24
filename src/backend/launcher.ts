@@ -43,7 +43,8 @@ import {
   LaunchPreperationResult,
   RpcClient,
   WineInstallation,
-  WineCommandArgs
+  WineCommandArgs,
+  SideloadGame
 } from 'common/types'
 import { spawn } from 'child_process'
 import shlex from 'shlex'
@@ -52,7 +53,7 @@ import { showDialogBoxModalAuto } from './dialog/dialog'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
-  gameInfo: GameInfo,
+  gameInfo: GameInfo | SideloadGame,
   isNative: boolean
 ): Promise<LaunchPreperationResult> {
   const globalSettings = GlobalConfig.get().getSettings()
@@ -127,7 +128,9 @@ async function prepareLaunch(
 
     steamRuntime = [
       path,
-      isNative ? '' : `--filesystem=${gameInfo.install.install_path}`,
+      isNative || !('install_path' in gameInfo.install)
+        ? ''
+        : `--filesystem=${gameInfo.install.install_path}`,
       ...args
     ]
   }

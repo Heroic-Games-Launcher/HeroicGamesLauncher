@@ -13,7 +13,9 @@ import {
   GOGGameDotInfoFile,
   GogInstallInfo,
   GOGGameDotIdFile,
-  GOGClientsResponse
+  GOGClientsResponse,
+  GamesDBData,
+  Library
 } from 'common/types/gog'
 import { basename, join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
@@ -144,7 +146,7 @@ export class GOGLibrary {
       return
     }
     this.refreshInstalled()
-    for (const game of libraryStore.get('games', []) as GameInfo[]) {
+    for (const game of libraryStore.get('games', [])) {
       const copyObject = { ...game }
       if (this.installedGames.has(game.app_name)) {
         copyObject.install = this.installedGames.get(game.app_name)!
@@ -168,12 +170,13 @@ export class GOGLibrary {
       'User-Agent': 'GOGGalaxyClient/2.0.45.61 (GOG Galaxy)'
     }
     logInfo('Getting GOG library', LogPrefix.Gog)
-    let gameApiArray: Array<GOGGameInfo> = []
-    const games = await axios
+    const gameApiArray: GOGGameInfo[] = []
+    const games: Library | null = await axios
       .get(
         'https://embed.gog.com/account/getFilteredProducts?mediaType=1&sortBy=title',
         { headers }
       )
+      .then(({ data }) => data)
       .catch((e: AxiosError) => {
         logError(
           ['There was an error getting games library data', e.message],
@@ -187,50 +190,63 @@ export class GOGLibrary {
       return
     }
 
-    if (games?.data?.products) {
-      const numberOfPages = games?.data.totalPages
+    if (games.products.length) {
+      const numberOfPages = games.totalPages
       logInfo(['Number of library pages:', numberOfPages], LogPrefix.Gog)
-      gameApiArray = [...games.data.products]
+      gameApiArray.push(...games.products)
       for (let page = 2; page <= numberOfPages; page++) {
         logInfo(['Getting data for page', String(page)], LogPrefix.Gog)
-        const pageData = await axios.get(
-          `https://embed.gog.com/account/getFilteredProducts?mediaType=1&sortBy=title&page=${page}`,
-          { headers }
-        )
-        if (pageData.data?.products) {
-          gameApiArray = [...gameApiArray, ...pageData.data.products]
+        const pageData: Library | null = await axios
+          .get(
+            `https://embed.gog.com/account/getFilteredProducts?mediaType=1&sortBy=title&page=${page}`,
+            { headers }
+          )
+          .then(({ data }) => data)
+          .catch((e) => {
+            logError(
+              [
+                'There was an error getting games library data for page',
+                page,
+                e.message
+              ],
+              {
+                prefix: LogPrefix.Gog
+              }
+            )
+            return null
+          })
+        if (pageData && pageData.products.length) {
+          gameApiArray.push(...pageData.products)
         }
       }
     }
 
     const gamesObjects: GameInfo[] = []
-    const gamesArray = libraryStore.get('games', []) as GameInfo[]
+    const gamesArray = libraryStore.get('games', [])
     const isConfigCloudSavesReady = libraryStore.get(
       'cloud_saves_enabled',
       false
     )
     const cloudSavesEnabledGames = await this.getGamesWithFeatures(['512'])
-    for (const game of gameApiArray as GOGGameInfo[]) {
+    for (const game of gameApiArray) {
       let unifiedObject = gamesArray
         ? gamesArray.find((value) => value.app_name === String(game.id))
         : null
       if (!unifiedObject || !isConfigCloudSavesReady) {
-        let apiData = apiInfoCache.get(String(game.id)) as {
-          isUpdated: boolean
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          data: any
-        }
+        let apiData = apiInfoCache.get_nodefault(String(game.id))
         if (!apiData) {
-          const { data } = await GOGLibrary.getGamesdbData(
+          const { isUpdated, data } = await GOGLibrary.getGamesdbData(
             'gog',
             String(game.id)
           )
-          apiData = data
-          apiInfoCache.set(String(game.id), apiData)
+          if (data) {
+            apiData = { isUpdated, data }
+            apiInfoCache.set(String(game.id), { isUpdated, data })
+          }
         }
         unifiedObject = await this.gogToUnifiedInfo(
           game,
-          apiData,
+          apiData?.data,
           cloudSavesEnabledGames
         )
       }
@@ -262,8 +278,8 @@ export class GOGLibrary {
       this.library.set(String(game.id), copyObject)
     }
     libraryStore.set('games', gamesObjects)
-    libraryStore.set('totalGames', games.data.totalProducts)
-    libraryStore.set('totalMovies', games.data.moviesCount)
+    libraryStore.set('totalGames', games.totalProducts)
+    libraryStore.set('totalMovies', games.moviesCount)
     libraryStore.set('cloud_saves_enabled', true)
     logInfo('Saved games data', LogPrefix.Gog)
   }
@@ -280,13 +296,8 @@ export class GOGLibrary {
   }
 
   public getInstallAndGameInfo(slug: string): GameInfo | undefined {
-    const lib = libraryStore.get('games')
-
-    if (!Array.isArray(lib)) {
-      return
-    }
-
-    const game: GameInfo = lib.find((value) => value.app_name === slug)
+    const lib = libraryStore.get('games', [])
+    const game = lib.find((value) => value.app_name === slug)
 
     if (!game) {
       return
@@ -396,14 +407,14 @@ export class GOGLibrary {
       return infoWithLang
     }
 
-    let libraryArray = libraryStore.get('games', []) as GameInfo[]
+    let libraryArray = libraryStore.get('games', [])
     let gameObjectIndex = libraryArray.findIndex(
       (value) => value.app_name === appName
     )
 
     if (gameObjectIndex === -1) {
       await this.sync()
-      libraryArray = libraryStore.get('games', []) as GameInfo[]
+      libraryArray = libraryStore.get('games', [])
       gameObjectIndex = libraryArray.findIndex(
         (value) => value.app_name === appName
       )
@@ -457,8 +468,7 @@ export class GOGLibrary {
    * Loads installed data and adds it into a Map
    */
   public refreshInstalled() {
-    const installedArray =
-      (installedGamesStore.get('installed', []) as Array<InstalledInfo>) || []
+    const installedArray = installedGamesStore.get('installed', [])
     this.installedGames.clear()
     installedArray.forEach((value) => {
       if (!value.appName) {
@@ -479,8 +489,7 @@ export class GOGLibrary {
       return
     }
 
-    const installedArray =
-      (installedGamesStore.get('installed', []) as Array<InstalledInfo>) || []
+    const installedArray = installedGamesStore.get('installed', [])
 
     const gameIndex = installedArray.findIndex(
       (value) => value.appName === appName
@@ -596,8 +605,7 @@ export class GOGLibrary {
    */
   public async gogToUnifiedInfo(
     info: GOGGameInfo,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    gamesdbData: any,
+    gamesdbData: GamesDBData | undefined,
     cloudSavesEnabledGames: string[]
   ): Promise<GameInfo> {
     let developer = ''
@@ -837,7 +845,7 @@ export class GOGLibrary {
     store: string,
     game_id: string,
     etag?: string
-  ) {
+  ): Promise<{ isUpdated: boolean; data?: GamesDBData | undefined }> {
     const url = `https://gamesdb.gog.com/platforms/${store}/external_releases/${game_id}`
     const headers = etag
       ? {
@@ -849,7 +857,7 @@ export class GOGLibrary {
       return null
     })
     if (!response) {
-      return { isUpdated: false, data: {} }
+      return { isUpdated: false }
     }
     const resEtag = response.headers.etag
     const isUpdated = etag === resEtag

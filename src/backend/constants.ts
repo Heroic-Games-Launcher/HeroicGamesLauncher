@@ -1,7 +1,6 @@
 import { spawnSync } from 'child_process'
 import { homedir, platform } from 'os'
 import { join, resolve } from 'path'
-import Store from 'electron-store'
 import { parse } from '@node-steam/vdf'
 
 import { GameConfigVersion, GlobalConfigVersion } from 'common/types'
@@ -11,17 +10,18 @@ import { env } from 'process'
 import { app } from 'electron'
 import { existsSync, readFileSync } from 'graceful-fs'
 import { GlobalConfig } from './config'
+import { TypeCheckedStoreBackend } from './electron_store'
 
-const configStore = new Store({
+const configStore = new TypeCheckedStoreBackend('configStore', {
   cwd: 'store'
 })
 
-const tsStore = new Store({
+const tsStore = new TypeCheckedStoreBackend('timestampStore', {
   cwd: 'store',
   name: 'timestamp'
 })
 
-const fontsStore = new Store({
+const fontsStore = new TypeCheckedStoreBackend('fontsStore', {
   cwd: 'store',
   name: 'fonts'
 })

@@ -3,7 +3,6 @@
  *        tool releases.
  */
 
-import Store from 'electron-store'
 import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import {
@@ -17,11 +16,15 @@ import {
 import { getAvailableVersions, installVersion } from './downloader/main'
 import { heroicToolsPath, isMac } from '../../constants'
 import { sendFrontendMessage } from '../../main_window'
+import { TypeCheckedStoreBackend } from 'backend/electron_store'
 
-const wineDownloaderInfoStore = new Store({
-  cwd: 'store',
-  name: 'wine-downloader-info'
-})
+const wineDownloaderInfoStore = new TypeCheckedStoreBackend(
+  'wineDownloaderInfoStore',
+  {
+    cwd: 'store',
+    name: 'wine-downloader-info'
+  }
+)
 
 async function updateWineVersionInfos(
   fetch = false,
@@ -38,16 +41,10 @@ async function updateWineVersionInfos(
     await getAvailableVersions({
       repositorys,
       count
-    })
-      .then((response) => (releases = response as WineVersionInfo[]))
-      .catch((error) => {
-        throw error
-      })
+    }).then((response) => (releases = response as WineVersionInfo[]))
 
     if (wineDownloaderInfoStore.has('wine-releases')) {
-      const old_releases = wineDownloaderInfoStore.get(
-        'wine-releases'
-      ) as WineVersionInfo[]
+      const old_releases = wineDownloaderInfoStore.get('wine-releases', [])
 
       old_releases.forEach((old) => {
         const index = releases.findIndex((release) => {
@@ -75,12 +72,7 @@ async function updateWineVersionInfos(
   } else {
     logInfo('Read local information ...', LogPrefix.WineDownloader)
     if (wineDownloaderInfoStore.has('wine-releases')) {
-      releases.push(
-        ...(wineDownloaderInfoStore.get(
-          'wine-releases',
-          []
-        ) as WineVersionInfo[])
-      )
+      releases.push(...wineDownloaderInfoStore.get('wine-releases', []))
     }
   }
 
@@ -139,9 +131,7 @@ async function installWineVersion(
 
   // Update stored information
   if (wineDownloaderInfoStore.has('wine-releases')) {
-    const releases = wineDownloaderInfoStore.get(
-      'wine-releases'
-    ) as WineVersionInfo[]
+    const releases = wineDownloaderInfoStore.get('wine-releases', [])
 
     const index = releases.findIndex((storedRelease) => {
       return release?.version === storedRelease?.version
@@ -191,9 +181,7 @@ async function removeWineVersion(release: WineVersionInfo): Promise<boolean> {
 
   // update tool information
   if (wineDownloaderInfoStore.has('wine-releases')) {
-    const releases = wineDownloaderInfoStore.get(
-      'wine-releases'
-    ) as WineVersionInfo[]
+    const releases = wineDownloaderInfoStore.get('wine-releases', [])
 
     const index = releases.findIndex((storedRelease) => {
       return release.version === storedRelease.version

@@ -150,7 +150,7 @@ class LegendaryGame extends Game {
   }
 
   private async getExtraFromAPI(slug: string): Promise<ExtraInfo | null> {
-    let lang = configStore.get('language', '') as string
+    let lang = configStore.get('language', '')
     if (lang === 'pt') {
       lang = 'pt-BR'
     }
@@ -264,8 +264,9 @@ class LegendaryGame extends Game {
    */
   public async getExtraInfo(): Promise<ExtraInfo> {
     const { namespace, title } = this.getGameInfo()
-    if (gameInfoStore.has(namespace)) {
-      return gameInfoStore.get(namespace) as ExtraInfo
+    const cachedExtraInfo = gameInfoStore.get_nodefault(namespace)
+    if (cachedExtraInfo) {
+      return cachedExtraInfo
     }
     if (!isOnline()) {
       return {
@@ -648,6 +649,7 @@ class LegendaryGame extends Game {
     }
     return res
   }
+
   /**
    * Repair game.
    * Does NOT check for online connectivity.
@@ -789,7 +791,7 @@ class LegendaryGame extends Game {
       : []
 
     const languageCode =
-      gameSettings.language || (configStore.get('language', '') as string)
+      gameSettings.language || configStore.get('language', '')
     const languageFlag = languageCode ? ['--language', languageCode] : []
 
     let commandEnv = isWindows

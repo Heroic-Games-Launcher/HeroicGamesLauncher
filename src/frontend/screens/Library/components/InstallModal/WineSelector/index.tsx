@@ -7,7 +7,7 @@ import {
   TextInputField
 } from 'frontend/components/UI'
 import React from 'react'
-import { AppSettings, WineInstallation } from 'common/types'
+import { WineInstallation } from 'common/types'
 import { useTranslation } from 'react-i18next'
 import { configStore } from 'frontend/helpers/electronStores'
 import { removeSpecialcharacters } from 'frontend/helpers'
@@ -46,7 +46,9 @@ export default function WineSelector({
       wineVersion,
       winePrefix: defaultPrefix,
       wineCrossoverBottle: defaultBottle
-    } = configStore.get('settings') as AppSettings
+    } = { ...configStore.get_nodefault('settings') }
+
+    if (!wineVersion || !defaultPrefix || !defaultBottle) return
     setDescription(
       `${defaultPrefix} / ${wineVersion.name.replace('Proton - ', '')}`
     )
