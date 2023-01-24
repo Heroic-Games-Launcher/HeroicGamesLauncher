@@ -12,7 +12,9 @@ import {
   execAsync,
   getFileSize,
   getGOGdlBin,
-  killPattern
+  killPattern,
+  moveOnUnix,
+  moveOnWindows
 } from '../utils'
 import {
   ExtraInfo,
@@ -25,13 +27,7 @@ import {
   WineCommandArgs
 } from 'common/types'
 import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
-import {
-  heroicGamesConfigPath,
-  isWindows,
-  execOptions,
-  isMac,
-  isLinux
-} from '../constants'
+import { heroicGamesConfigPath, isWindows, isMac, isLinux } from '../constants'
 import { installedGamesStore, syncStore } from '../gog/electronStores'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { GOGUser } from './user'
@@ -525,30 +521,27 @@ class GOGGame extends Game {
     return !error
   }
 
-  public async moveInstall(newInstallPath: string): Promise<string> {
-    const {
-      install: { install_path },
-      title
-    } = this.getGameInfo()
+  public async moveInstall(
+    newInstallPath: string
+  ): Promise<{ status: 'done' } | { status: 'error'; error: string }> {
+    const gameInfo = this.getGameInfo()
+    logInfo(`Moving ${gameInfo.title} to ${newInstallPath}`, LogPrefix.Gog)
 
-    if (!install_path) {
-      return ''
+    const moveImpl = isWindows ? moveOnWindows : moveOnUnix
+    const moveResult = await moveImpl(newInstallPath, gameInfo)
+
+    if (moveResult.status === 'error') {
+      const { error } = moveResult
+      logError(
+        ['Error moving', gameInfo.title, 'to', newInstallPath, error],
+        LogPrefix.Gog
+      )
+
+      return { status: 'error', error }
     }
 
-    if (isWindows) {
-      newInstallPath += '\\' + install_path.split('\\').at(-1)
-    } else {
-      newInstallPath += '/' + install_path.split('/').at(-1)
-    }
-
-    logInfo(`Moving ${title} to ${newInstallPath}`, LogPrefix.Gog)
-    await execAsync(`mv -f '${install_path}' '${newInstallPath}'`, execOptions)
-      .then(() => {
-        GOGLibrary.get().changeGameInstallPath(this.appName, newInstallPath)
-        logInfo(`Finished Moving ${title}`, LogPrefix.Gog)
-      })
-      .catch((error) => logError(error, LogPrefix.Gog))
-    return newInstallPath
+    GOGLibrary.get().changeGameInstallPath(this.appName, moveResult.installPath)
+    return { status: 'done' }
   }
 
   /**

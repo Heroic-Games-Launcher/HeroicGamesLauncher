@@ -57,7 +57,7 @@ import fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
 import { getAppInfo } from './sideload/games'
-import { getMainWindow } from './main_window'
+import { getMainWindow, sendFrontendMessage } from './main_window'
 import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
 import { validWine } from './launcher'
@@ -828,22 +828,39 @@ export const wait = async (ms: number) =>
 export const spawnAsync = async (
   command: string,
   args: string[],
-  options: SpawnOptions = {}
-): Promise<{ code: number | null; stdout: string; stderr: string } | Error> => {
+  options: SpawnOptions = {},
+  onOutput?: (data: string) => void
+): Promise<{ code: number | null; stdout: string; stderr: string }> => {
   const child = spawn(command, args, options)
   const stdout: string[] = []
   const stderr: string[] = []
 
   if (child.stdout) {
-    child.stdout.on('data', (data) => stdout.push(data.toString()))
+    child.stdout.on('data', (data) => {
+      if (onOutput) {
+        onOutput(data.toString())
+      }
+      stdout.push(data.toString())
+    })
   }
 
   if (child.stderr) {
-    child.stderr.on('data', (data) => stderr.push(data.toString()))
+    child.stderr.on('data', (data) => {
+      if (onOutput) {
+        onOutput(data.toString())
+      }
+      stderr.push(data.toString())
+    })
   }
 
   return new Promise((resolve, reject) => {
-    child.on('error', (error) => reject(error))
+    child.on('error', (error) =>
+      reject({
+        code: 1,
+        stdout: stdout.join(''),
+        stderr: stderr.join('').concat(error.message)
+      })
+    )
     child.on('close', (code) => {
       resolve({
         code,
@@ -935,6 +952,156 @@ export async function checkWineBeforeLaunch(
     }
   }
   return false
+}
+
+export async function moveOnWindows(
+  newInstallPath: string,
+  gameInfo: GameInfo
+): Promise<
+  { status: 'done'; installPath: string } | { status: 'error'; error: string }
+> {
+  const {
+    install: { install_path },
+    title
+  } = gameInfo
+
+  if (!install_path) {
+    return { status: 'error', error: 'No install path found' }
+  }
+
+  newInstallPath = join(newInstallPath, basename(install_path))
+
+  let currentFile = ''
+  let currentPercent = ''
+
+  // move using robocopy and show progress of the current file being copied
+  const { code, stderr } = await spawnAsync(
+    'robocopy',
+    [install_path, newInstallPath, '/MOVE', '/MIR'],
+    { stdio: 'pipe' },
+    (data) => {
+      data = data.replaceAll(/\s/g, ' ')
+
+      const match = data.split(' ').filter(Boolean)
+      // current percentage
+      const percent = match.filter((m) => m.includes('%'))[0]
+      // current file
+      const file = match[match.length - 1]
+      if (percent) {
+        currentPercent = percent
+      }
+
+      if (file && file.includes('.') && !file.includes('%')) {
+        currentPercent = '0%'
+        currentFile = file
+      }
+
+      if (match) {
+        sendFrontendMessage(`progressUpdate-${gameInfo.app_name}`, {
+          appName: gameInfo.app_name,
+          runner: gameInfo.runner,
+          status: 'moving',
+          progress: {
+            percent: currentPercent,
+            file: currentFile
+          }
+        })
+      }
+    }
+  )
+  if (code !== 0) {
+    logInfo(`Finished Moving ${title}`, LogPrefix.Backend)
+  } else {
+    logError(`Error: ${stderr}`, LogPrefix.Backend)
+  }
+  return { status: 'done', installPath: newInstallPath }
+}
+
+export async function moveOnUnix(
+  newInstallPath: string,
+  gameInfo: GameInfo
+): Promise<
+  { status: 'done'; installPath: string } | { status: 'error'; error: string }
+> {
+  const {
+    install: { install_path },
+    title
+  } = gameInfo
+  if (!install_path) {
+    return { status: 'error', error: 'No install path found' }
+  }
+
+  const destination = join(newInstallPath, basename(install_path))
+
+  let currentFile = ''
+  let currentPercent = ''
+
+  let rsyncExists = false
+  try {
+    await execAsync('which rsync')
+    rsyncExists = true
+  } catch (error) {
+    logError(error, LogPrefix.Gog)
+  }
+  if (rsyncExists) {
+    const origin = install_path + '/'
+    logInfo(
+      `moving command: rsync -az --progress ${origin} ${destination} `,
+      LogPrefix.Backend
+    )
+    const { code, stderr } = await spawnAsync(
+      'rsync',
+      ['-az', '--progress', origin, destination],
+      { stdio: 'pipe' },
+      (data) => {
+        const split =
+          data
+            .split('\n')
+            .find((d) => d.includes('/') && !d.includes('%'))
+            ?.split('/') || []
+        const file = split.at(-1) || ''
+
+        if (file) {
+          currentFile = file
+        }
+
+        const percent = data.match(/(\d+)%/)
+        if (percent) {
+          currentPercent = percent[0]
+          sendFrontendMessage(`progressUpdate-${gameInfo.app_name}`, {
+            appName: gameInfo.app_name,
+            runner: gameInfo.runner,
+            status: 'moving',
+            progress: {
+              percent: currentPercent,
+              file: currentFile
+            }
+          })
+        }
+      }
+    )
+    if (code !== 1) {
+      logInfo(`Finished Moving ${title}`, LogPrefix.Backend)
+      // remove the old install path
+      await spawnAsync('rm', ['-rf', install_path])
+    } else {
+      logError(`Error: ${stderr}`, LogPrefix.Backend)
+      return { status: 'error', error: stderr }
+    }
+  } else {
+    const { code, stderr } = await spawnAsync('mv', [
+      '-f',
+      install_path,
+      destination
+    ])
+    if (code !== 1) {
+      return { status: 'done', installPath: destination }
+    } else {
+      logError(`Error: ${stderr}`, LogPrefix.Backend)
+      return { status: 'error', error: stderr }
+    }
+  }
+  return { status: 'done', installPath: destination }
 }
 
 export {

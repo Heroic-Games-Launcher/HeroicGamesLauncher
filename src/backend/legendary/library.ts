@@ -39,7 +39,7 @@ import {
 } from '../logger/logger'
 import { installStore, libraryStore } from './electronStores'
 import { callRunner } from '../launcher'
-import { join } from 'path'
+import { dirname, join } from 'path'
 import { isOnline } from '../online_monitor'
 
 /**
@@ -408,7 +408,7 @@ export class LegendaryLibrary {
     this.installedGames.get(appName).install_path = newPath
 
     const { error } = await runLegendaryCommand(
-      ['move', appName, newPath, '--skip-move'],
+      ['move', appName, dirname(newPath), '--skip-move'],
       createAbortController(appName)
     )
 

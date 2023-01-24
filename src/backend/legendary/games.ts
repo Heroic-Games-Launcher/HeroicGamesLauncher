@@ -18,7 +18,12 @@ import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
 import { LegendaryLibrary, runLegendaryCommand } from './library'
 import { LegendaryUser } from './user'
-import { execAsync, getLegendaryBin, killPattern } from '../utils'
+import {
+  getLegendaryBin,
+  killPattern,
+  moveOnUnix,
+  moveOnWindows
+} from '../utils'
 import {
   heroicGamesConfigPath,
   isMac,
@@ -40,7 +45,7 @@ import {
   getRunnerCallWithoutCredentials
 } from '../launcher'
 import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts/shortcuts'
-import { basename, join } from 'path'
+import { join } from 'path'
 import { gameInfoStore } from './electronStores'
 import { removeNonSteamGame } from '../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
@@ -259,8 +264,6 @@ class LegendaryGame extends Game {
   /**
    * Get extra info from Epic's API.
    *
-   * @param namespace
-   * @returns
    */
   public async getExtraInfo(): Promise<ExtraInfo> {
     const { namespace, title } = this.getGameInfo()
@@ -333,11 +336,34 @@ class LegendaryGame extends Game {
   /**
    * Parent folder to move app to.
    * Amends install path by adding the appropriate folder name.
-   *
-   * @param newInstallPath
-   * @returns The amended install path.
    */
-  public async moveInstall(newInstallPath: string) {
+  public async moveInstall(
+    newInstallPath: string
+  ): Promise<{ status: 'done' } | { status: 'error'; error: string }> {
+    const gameInfo = this.getGameInfo()
+    logInfo(`Moving ${gameInfo.title} to ${newInstallPath}`, LogPrefix.Gog)
+
+    const moveImpl = isWindows ? moveOnWindows : moveOnUnix
+    const moveResult = await moveImpl(newInstallPath, gameInfo)
+
+    if (moveResult.status === 'error') {
+      const { error } = moveResult
+      logError(
+        ['Error moving', gameInfo.title, 'to', newInstallPath, error],
+        LogPrefix.Legendary
+      )
+
+      return { status: 'error', error }
+    }
+
+    await LegendaryLibrary.get().changeGameInstallPath(
+      this.appName,
+      moveResult.installPath
+    )
+    return { status: 'done' }
+  }
+
+  /*   public async moveInstall(newInstallPath: string) {
     const oldInstallPath = this.getGameInfo().install.install_path!
 
     newInstallPath = join(newInstallPath, basename(oldInstallPath))
@@ -363,7 +389,7 @@ class LegendaryGame extends Game {
         )
       })
     return newInstallPath
-  }
+  } */
 
   // used when downloading games, store the download size read from Legendary's output
   currentDownloadSize = 0

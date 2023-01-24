@@ -1034,7 +1034,10 @@ ipcMain.handle(
     )
 
     // check if isNative, if not, check if wine is valid
-    if ((isSideloaded && !isNativeApp(appName)) || !extGame.isNative()) {
+    if (
+      (isSideloaded && !isNativeApp(appName)) ||
+      (!isSideloaded && !extGame.isNative())
+    ) {
       const isWineOkToLaunch = await checkWineBeforeLaunch(
         appName,
         gameSettings,
@@ -1256,16 +1259,30 @@ ipcMain.handle(
     const { title } = game.getGameInfo()
     notify({ title, body: i18next.t('notify.moving', 'Moving Game') })
 
-    try {
-      const newPath = await game.moveInstall(path)
-      notify({ title, body: i18next.t('notify.moved') })
-      logInfo(`Finished moving ${appName} to ${newPath}.`, LogPrefix.Backend)
-    } catch (error) {
+    const moveRes = await game.moveInstall(path)
+    if (moveRes.status === 'error') {
       notify({
         title,
-        body: i18next.t('notify.error.move', 'Error Moving the Game')
+        body: i18next.t('notify.error.move', 'Error Moving Game')
       })
-      logError(error, LogPrefix.Backend)
+      logError(
+        `Error while moving ${appName} to ${path}: ${moveRes.error} `,
+        LogPrefix.Backend
+      )
+
+      showDialogBoxModalAuto({
+        event,
+        title: i18next.t('box.error.title', 'Error'),
+        message: i18next.t('box.error.moving', 'Error Moving Game {{error}}', {
+          error: moveRes.error
+        }),
+        type: 'ERROR'
+      })
+    }
+
+    if (moveRes.status === 'done') {
+      notify({ title, body: i18next.t('notify.moved') })
+      logInfo(`Finished moving ${appName} to ${path}.`, LogPrefix.Backend)
     }
 
     sendFrontendMessage('gameStatusUpdate', {
