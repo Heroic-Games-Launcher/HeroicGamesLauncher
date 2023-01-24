@@ -51,7 +51,7 @@
   cursor: pointer;
   font-size: var(--text-md);
   color: var(--navbar-accent);
-  color: var(--navbar-inactive);
+  color: var(--navbar-inactive, var(--navbar-accent));
   transition: color 250ms;
   text-align: start;
   font-family: var(--primary-font-family);
@@ -82,11 +82,11 @@
 
 .Sidebar__item.active {
   color: var(--accent);
-  color: var(--navbar-active);
+  color: var(--navbar-active, var(--accent-overlay));
 
   .Sidebar__itemIcon {
     color: var(--accent);
-    color: var(--navbar-active);
+    color: var(--navbar-active, var(--accent-overlay));
   }
 }
 
@@ -102,7 +102,7 @@
   display: inline-flex;
   justify-content: center;
   color: var(--accent);
-  color: var(--navbar-inactive);
+  color: var(--navbar-inactive, var(--accent));
 }
 
 .currentDownloads {

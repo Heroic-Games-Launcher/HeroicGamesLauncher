@@ -40,38 +40,32 @@ button {
 }
 
 .button.is-primary {
-  background: var(--primary);
-  background: var(--primary-button);
+  background: var(--primary-button, var(--primary));
 }
 
 .button.is-primary:hover {
-  background: var(--primary-hover);
-  background: var(--primary-button);
+  background: var(--primary-button, var(--primary-hover));
 }
 
 .button.is-primary:disabled {
   color: var(--text-secondary);
-  background: var(--background-secondary);
-  background: var(--disabled-button);
+  background: var(--disabled-button, var(--background-secondary));
   pointer-events: none;
 }
 
 .button.is-secondary {
-  background: var(--accent);
-  background: var(--secondary-button);
+  background: var(--secondary-button, var(--accent));
   color: var(--text-tertiary);
   transition: 500ms;
 }
 
 .button.is-secondary:hover {
-  background: var(--accent-overlay);
-  background: var(--secondary-button-overlay);
+  background: var(--secondary-button, var(--accent-overlay));
 }
 
 .button:disabled.is-secondary,
 .button:disabled:hover.is-secondary {
-  background-color: var(--background-secondary);
-  background: var(--disabled-button);
+  background-color: var(--disabled-button, var(--background-secondary));
   color: var(--text-secondary);
 }
 
@@ -107,14 +101,11 @@ button {
 }
 
 .button.is-success {
-  background: var(--success);
-  background: var(--success-button);
+  background: var(--success-button, var(--success));
 }
 
 .button.is-success:hover {
-  background: var(--success-hover);
-  background: var(--success-button);
-  box-shadow: 0px 0px 0px 3px var(--button-stroke);
+  box-shadow: 0px 0px 0px 3px var(--button-stroke, var(--text-default));
 }
 
 .button.is-success:hover:disabled,
