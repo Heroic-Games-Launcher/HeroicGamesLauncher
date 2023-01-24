@@ -17,7 +17,7 @@ import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { UpdateComponent, SelectField, SvgButton } from 'frontend/components/UI'
-import { ReactComponent as SettingsIcon } from 'frontend/assets/settings-sharp.svg'
+import { ReactComponent as SettingsIcoAlt } from 'frontend/assets/settings_icon_alt.svg'
 
 import {
   ExtraInfo,
@@ -306,7 +306,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     }
                     className={`settings-icon`}
                   >
-                    <SettingsIcon />
+                    <SettingsIcoAlt />
                   </SvgButton>
                 )}
                 <div className="game-actions">

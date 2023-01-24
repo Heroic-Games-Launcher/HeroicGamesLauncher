@@ -340,7 +340,7 @@
   transition: 300ms;
 }
 
-.settingsIcon {
+.settingsIcon path {
   fill: var(--accent-overlay);
   transition: 300ms;
   grid-area: settings;

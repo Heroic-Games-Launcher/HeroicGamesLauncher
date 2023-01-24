@@ -30,7 +30,7 @@
   font-weight: var(--medium);
   font-size: var(--text-md);
   line-height: 19px;
-  color: var(--text-hover);
+  color: var(--text-default);
 }
 
 .otherInfo {

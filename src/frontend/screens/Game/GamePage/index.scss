@@ -25,17 +25,22 @@
     }
 
     .settings-icon {
-      width: 30px;
+      width: 44px;
       position: relative;
-      top: 2px;
+      padding: 6px;
+      right: 6px;
+      background: var(--background);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
 
-      svg {
+      svg path {
         fill: var(--text-default);
         transition: fill 0.2s;
       }
 
       &:hover {
-        svg {
+        svg path {
           fill: var(--text-secondary);
         }
       }
@@ -48,21 +53,25 @@
 
       .toggle {
         align-self: flex-end;
-        background-color: transparent;
         border: none;
-        color: var(--accent);
+        color: var(--text-default);
         font-size: var(--text-2xl);
         padding: var(--space-xs-fixed);
         cursor: pointer;
         position: relative;
         transition: background-color 0.2s;
         display: flex;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        background: var(--background);
+        border-radius: 10px;
       }
 
       &:focus-within .toggle,
       &:hover .toggle,
       .toggle:hover {
-        color: var(--text-title);
+        color: var(--text-secondary);
       }
 
       .gameTools {
@@ -77,7 +86,7 @@
         max-height: 0px;
         overflow: hidden;
         right: 0;
-        top: 100%;
+        top: 112%;
       }
 
       .gameTools .link {

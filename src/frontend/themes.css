@@ -13,7 +13,7 @@ body.newDark {
   --button-stroke: var(--stroke-accent);
   --primary-button: var(--gradient-01);
   --secondary-button: var(--brand-primary);
-  --secondary-button-overlay: var(--brand-secondary);
+  --secondary-button-overlay: var(--primary-hover);
   --success-button: var(--gradient-01);
   --disabled-button: var(--neutral-02);
   --cancel-button: var(--status-danger);
@@ -45,7 +45,7 @@ body.newDark {
   --link-highlight: #07c5ef;
 
   --modal-background: var(--background-darker);
-  --modal-backdrop: #00000074;
+  --modal-backdrop: var(--background-darker-80);
   --modal-border: #1f253f;
 
   --navbar-active: var(--text-default);
@@ -62,11 +62,11 @@ body.newDark {
 
   --primary-hover: #4cdafa;
   --scrollbar-thumb: #ffffff33;
-  --stop-button: #252121;
-  --secondary: #18d5ff;
-  --success: #0cd28d;
-  --success-hover: #30eca8;
-  --text-hover: #59d0ea;
+  --stop-button: var(--cancel-button);
+  --secondary: var(--brand-secondary);
+  --success: var(--status-success);
+  --success-hover: var(--status-success-hover);
+  --text-hover: var(--brand-text-02);
 
   --anticheat-denied: var(--status-danger);
   --anticheat-broken: var(--status-warning);

@@ -91,13 +91,13 @@ button {
 
 .button.is-danger {
   background: var(--cancel-button, var(--danger));
-  color: var(--text-secondary);
+  color: var(--text-default);
 }
 
 .button.is-danger:hover,
 .button.is-danger:focus-visible {
-  color: var(--danger);
   background: var(--cancel-button-overlay, var(--input-background));
+  box-shadow: 0px 0px 0px 3px var(--danger, var(--text-default));
 }
 
 .button.is-success {
@@ -174,14 +174,14 @@ button {
   font-weight: normal;
   font-size: var(--text-md);
   line-height: 17px;
-  color: var(--accent);
+  color: var(--text-default);
   margin: var(--space-3xs) 0em;
   cursor: pointer;
   padding: var(--space-3xs);
 }
 
 .button.is-link:hover {
-  color: var(--text-hover);
+  color: var(--accent);
 }
 
 .button.is-link[disabled] {

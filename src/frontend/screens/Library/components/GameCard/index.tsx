@@ -21,7 +21,7 @@ import {
 } from 'common/types'
 import { Link, useNavigate } from 'react-router-dom'
 import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
-import { ReactComponent as SettingsIcon } from 'frontend/assets/settings-sharp.svg'
+import { ReactComponent as SettingsIcon } from 'frontend/assets/settings_icon_alt.svg'
 import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
 import { ReactComponent as StopIconAlt } from 'frontend/assets/stop-icon-alt.svg'
 import {
