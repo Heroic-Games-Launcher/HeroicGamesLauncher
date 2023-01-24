@@ -3,6 +3,8 @@ import { AntiCheatInfo, GameInfo } from 'common/types'
 import { createNewWindow } from 'frontend/helpers'
 
 import { ReactComponent as InfoIcon } from 'frontend/assets/info_icon.svg'
+import { ReactComponent as DeniedIcon } from 'frontend/assets/denied_icon.svg'
+import { ReactComponent as AllowedIcon } from 'frontend/assets/rounded_checkmark_icon.svg'
 
 import './index.scss'
 import { useTranslation } from 'react-i18next'
@@ -48,9 +50,24 @@ export default function Anticheat({ gameInfo }: Props) {
     createNewWindow(awacyUrl)
   }
 
+  const getIcon = () => {
+    switch (anticheatInfo.status) {
+      case 'Denied':
+        return <DeniedIcon />
+      case 'Broken':
+        return <DeniedIcon />
+      case 'Running':
+        return <AllowedIcon />
+      case 'Supported':
+        return <AllowedIcon />
+      default:
+        return <InfoIcon />
+    }
+  }
+
   return (
     <div className={`anticheatInfo ${anticheatInfo.status}`}>
-      <InfoIcon />
+      <div className="statusIcon">{getIcon()}</div>
       <div className="statusInfo">
         <h4>{t('anticheat.title', 'This game includes anticheat software')}</h4>
         {mayNotWork && (

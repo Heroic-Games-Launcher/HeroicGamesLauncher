@@ -24,16 +24,31 @@
 
 .anticheatInfo.Denied {
   border: 2px solid var(--anticheat-denied);
+  .statusIcon path {
+    fill: var(--anticheat-denied);
+  }
 }
 .anticheatInfo.Broken {
   border: 2px solid var(--anticheat-broken);
+  .statusIcon path {
+    fill: var(--anticheat-broken);
+  }
 }
 .anticheatInfo.Running {
-  border: 2px solid var(----anticheat-running);
+  border: 2px solid var(--anticheat-running);
+  .statusIcon path {
+    fill: var(--anticheat-running);
+  }
 }
 .anticheatInfo.Supported {
   border: 2px solid var(--anticheat-supported);
+  .statusIcon path {
+    fill: var(--anticheat-supported);
+  }
 }
 .anticheatInfo.Planned {
   border: 2px solid var(--anticheat-planned);
+  .statusIcon path {
+    fill: var(--anticheat-planned);
+  }
 }
