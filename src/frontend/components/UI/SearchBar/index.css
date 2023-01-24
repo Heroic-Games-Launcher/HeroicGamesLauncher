@@ -3,9 +3,8 @@
   width: 100%;
   position: relative;
   display: inline-flex;
-  background: var(--search-bar-background);
-  border-radius: var(--space-md);
-  border: 2px solid var(--search-bar-border);
+  background: var(--input-background);
+  border-radius: var(--space-3xs);
   padding: var(--space-3xs);
 }
 
