@@ -25,7 +25,9 @@
     }
 
     .settings-icon {
-      width: 32px;
+      width: 30px;
+      position: relative;
+      top: 2px;
 
       svg {
         fill: var(--text-default);
