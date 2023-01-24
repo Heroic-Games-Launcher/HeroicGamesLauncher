@@ -22,20 +22,23 @@ body.newDark {
 
   --text-default: var(--brand-text-01);
 
+  --search-bar-background: var(--neutral-01);
+  --search-bar-border: var(--neutral-02);
+
   /* Colours */
   --accent: var(--brand-secondary);
   --accent-overlay: var(--brand-primary);
   --body-background: var(--background-darker);
   --controller-hints-background: transparent;
   --current-background: var(--body-background);
-  --danger: #bd0a0a;
-  --danger-hover: #e43f3f;
+  --danger: var(--status-danger);
+  --danger-hover: var(--status-danger-hover);
   --divider: gray;
 
   --danger: var(--status-danger);
 
-  --icon-disabled: #625e69;
-  --icons-background: #17131c;
+  --icon-disabled: var(--disabled-button);
+  --icons-background: var(--neutral-02);
   --input-background: var(--background-lighter);
   --link-highlight: #07c5ef;
 
@@ -308,6 +311,8 @@ body.nord-dark {
 
 body.marine,
 body.marine-classic {
+  --accent: #00b0ff;
+  --accent-overlay: #5dc6f7;
   --background: #042028;
   --body-background: #042028;
   --background-darker: #042028;
@@ -324,6 +329,7 @@ body.marine-classic {
   --modal-background: var(--body-background);
   --modal-border: var(--body-background);
   --success: #98f2ff;
+  --success-hover: #5dc6f7;
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
   --osk-button-border: var(--navbar-background);
@@ -353,6 +359,7 @@ body.zombie-classic {
   --modal-background: var(--body-background);
   --modal-border: var(--body-background);
   --success: #1bd01a;
+  --success-hover: #5af15a;
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
   --osk-button-border: #434343;
@@ -381,6 +388,7 @@ body.old-school {
   --modal-background: var(--body-background);
   --modal-border: var(--body-background);
   --success: #0bd48c;
+  --success-hover: #28f028;
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
   --osk-button-border: #434343;

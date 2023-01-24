@@ -283,12 +283,12 @@
 }
 
 .playIcon circle {
-  fill: var(--success);
+  fill: var(--brand-secondary, var(--success));
   transition: 300ms;
 }
 
 .playIcon:hover circle {
-  fill: var(--secondary-overlay);
+  fill: var(--brand-primary, var(--success-hover));
   transition: 300ms;
 }
 
