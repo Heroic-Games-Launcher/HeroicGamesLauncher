@@ -37,6 +37,8 @@ body.newDark {
   --icon-disabled: #625e69;
   --icons-background: #17131c;
   --input-background: var(--background-lighter);
+  --search-bar-background: var(--background-darker);
+  --search-bar-border: var(--background-lighter);
   --link-highlight: #07c5ef;
 
   --modal-background: var(--background-darker);
@@ -191,10 +193,56 @@ body.cyberpunk {
   --action-icon: var(--text-default);
   --action-icon-hover: var(--text-hover);
   --action-icon-active: var(--accent);
+
+  --button-stroke: var(--stroke-accent);
+  --primary-button: var(--gradient-01);
+  --secondary-button: var(--brand-primary);
+  --secondary-button-overlay: var(--brand-secondary);
+  --success-button: var(--gradient-01);
+  --disabled-button: var(--neutral-02);
+
+  --navbar-active: var(--text-default);
+  --navbar-inactive: var(--neutral-04);
+
+  --search-bar-background: var(--background-darker);
+  --search-bar-border: var(--neutral-03);
+
+  --play-button: var(--primary-button);
+  --install-button: var(--secondary-button);
 }
 
 body.dracula,
 body.dracula-classic {
+  --brand-primary: #f8f8f2;
+  --brand-secondary: #6272a4;
+  --brand-text-01: #f8f8f2;
+  --brand-text-02: #f1fa8c;
+
+  /* Neutral */
+  --neutral-01: #282a36;
+  --neutral-02: #44475a;
+  --neutral-03: #6272a4;
+  --neutral-04: #8be9fd;
+
+  /* Status */
+  --status-default: #f8f8f2;
+  --status-success: #50fa7b;
+  --status-warning: #ffb86c;
+  --status-danger: #ff5555;
+  --status-info: #8be9fd;
+  --primary-hover: #f1fa8c;
+  --primary-active: #f8f8f2;
+  --secondary-hover: #6272a4;
+  --secondary-active: #44475a;
+
+  /* Other */
+  --stroke-accent: #8bffff;
+  --eighty-percent-black: #000000cc;
+  --sixty-percent-black: #00000099;
+
+  /* Gradient */
+  --gradient-01: linear-gradient(270.36deg, #6272a4 1.57%, #8be9fd 96.46%);
+
   --accent: #bd93f9;
   --accent-overlay: #d5b8ff;
   --navbar-accent: #eae8e5;
@@ -228,6 +276,22 @@ body.dracula-classic {
   --action-icon: var(--text-default);
   --action-icon-hover: var(--text-hover);
   --action-icon-active: var(--accent);
+
+  --button-stroke: var(--stroke-accent);
+  --primary-button: var(--gradient-01);
+  --secondary-button: var(--brand-primary);
+  --secondary-button-overlay: var(--brand-secondary);
+  --success-button: var(--gradient-01);
+  --disabled-button: var(--neutral-02);
+
+  --navbar-active: var(--text-default);
+  --navbar-inactive: var(--neutral-04);
+
+  --search-bar-background: var(--background-darker);
+  --search-bar-border: var(--neutral-03);
+
+  --play-button: var(--primary-button);
+  --install-button: var(--secondary-button);
 }
 
 body.nord-light {
@@ -264,6 +328,22 @@ body.nord-light {
   --action-icon: #748aa0;
   --action-icon-hover: var(--accent);
   --action-icon-active: var(--text-default);
+
+  --button-stroke: var(--stroke-accent);
+  --primary-button: var(--gradient-01);
+  --secondary-button: var(--brand-primary);
+  --secondary-button-overlay: var(--brand-secondary);
+  --success-button: var(--gradient-01);
+  --disabled-button: var(--neutral-02);
+
+  --navbar-active: var(--accent);
+  --navbar-inactive: var(--text-default);
+
+  --search-bar-background: var(--background-darker);
+  --search-bar-border: var(--neutral-03);
+
+  --play-button: var(--primary-button);
+  --install-button: var(--secondary-button);
 }
 
 body.nord-light .alternative > svg {
@@ -304,6 +384,22 @@ body.nord-dark {
   --action-icon: #748aa0;
   --action-icon-hover: var(--accent-overlay);
   --action-icon-active: var(--text-default);
+
+  --button-stroke: var(--stroke-accent);
+  --primary-button: var(--gradient-01);
+  --secondary-button: var(--brand-primary);
+  --secondary-button-overlay: var(--brand-secondary);
+  --success-button: var(--gradient-01);
+  --disabled-button: var(--neutral-02);
+
+  --navbar-active: var(--accent);
+  --navbar-inactive: var(--text-default);
+
+  --search-bar-background: var(--background-darker);
+  --search-bar-border: var(--neutral-03);
+
+  --play-button: var(--primary-button);
+  --install-button: var(--secondary-button);
 }
 
 body.marine,
@@ -330,6 +426,22 @@ body.marine-classic {
   --action-icon: var(--text-default);
   --action-icon-hover: var(--text-hover);
   --action-icon-active: var(--accent);
+
+  --button-stroke: var(--stroke-accent);
+  --primary-button: var(--gradient-01);
+  --secondary-button: var(--brand-primary);
+  --secondary-button-overlay: var(--brand-secondary);
+  --success-button: var(--gradient-01);
+  --disabled-button: var(--neutral-02);
+
+  --navbar-active: var(--accent);
+  --navbar-inactive: var(--text-default);
+
+  --search-bar-background: var(--background-darker);
+  --search-bar-border: var(--neutral-03);
+
+  --play-button: var(--primary-button);
+  --install-button: var(--secondary-button);
 }
 
 body.zombie,
@@ -359,6 +471,22 @@ body.zombie-classic {
   --action-icon: var(--text-default);
   --action-icon-hover: var(--text-hover);
   --action-icon-active: var(--accent);
+
+  --button-stroke: var(--stroke-accent);
+  --primary-button: var(--gradient-01);
+  --secondary-button: var(--brand-primary);
+  --secondary-button-overlay: var(--brand-secondary);
+  --success-button: var(--gradient-01);
+  --disabled-button: var(--neutral-02);
+
+  --navbar-active: var(--accent);
+  --navbar-inactive: var(--text-default);
+
+  --search-bar-background: var(--background-darker);
+  --search-bar-border: var(--neutral-03);
+
+  --play-button: var(--primary-button);
+  --install-button: var(--secondary-button);
 }
 
 body.old-school {
@@ -387,6 +515,22 @@ body.old-school {
   --action-icon: var(--text-default);
   --action-icon-hover: var(--text-hover);
   --action-icon-active: var(--accent);
+
+  --button-stroke: var(--stroke-accent);
+  --primary-button: var(--gradient-01);
+  --secondary-button: var(--brand-primary);
+  --secondary-button-overlay: var(--brand-secondary);
+  --success-button: var(--gradient-01);
+  --disabled-button: var(--neutral-02);
+
+  --navbar-active: var(--accent);
+  --navbar-inactive: var(--text-default);
+
+  --search-bar-background: var(--background-darker);
+  --search-bar-border: var(--neutral-03);
+
+  --play-button: var(--primary-button);
+  --install-button: var(--secondary-button);
 }
 body.classic .sid-input,
 body.old-school .sid-input {
