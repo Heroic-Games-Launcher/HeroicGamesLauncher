@@ -3,9 +3,9 @@
   max-width: 560px;
   padding: var(--space-md);
   gap: 0.4rem;
-  margin: var(--space-md) 0;
   border-radius: 20px;
   background-color: var(--current-background);
+  margin-bottom: var(--space-lg);
 
   .statusInfo {
     flex-direction: column;

@@ -6,7 +6,15 @@
 }
 
 .InstallModal__dialog > .anticheatInfo {
-  margin-left: var(--dialog-margin-horizontal);
+  display: flex;
+  padding: var(--space-xs) var(--space-md);
+  gap: 0.4rem;
+  margin: var(--space-md) var(--dialog-margin-horizontal) 0
+    var(--dialog-margin-horizontal);
+  border-radius: 20px;
+  background-color: var(--current-background);
+  min-width: min-content;
+  max-width: 560px;
 }
 
 .InstallModal__dialog--loading {
