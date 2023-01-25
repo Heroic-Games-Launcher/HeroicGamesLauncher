@@ -276,45 +276,54 @@
 
 .playIcon,
 .downIcon,
+.notAvailableIcon,
 .iconDisabled,
 .queueIcon,
 .cancelIcon {
   grid-area: play;
+  transition: all 300ms;
+}
+
+.icons path,
+.icons circle {
+  transition: 300ms;
 }
 
 .playIcon circle {
-  fill: var(--brand-primary, var(--success));
-  transition: 300ms;
+  fill: var(--brand-secondary, var(--success));
 }
 
 .playIcon:hover circle {
-  fill: var(--brand-secondary, var(--success-hover));
-  transition: 300ms;
+  fill: var(--brand-primary, var(--success-hover));
 }
 
 .downIcon circle {
   fill: var(--accent);
-  transition: 300ms;
 }
 
 .downIcon:hover circle {
   fill: var(--accent-overlay);
-  transition: 300ms;
 }
 
 .cancelIcon svg circle {
   fill: var(--cancel-button, var(--danger));
-  transition: 300ms;
 }
 
 .cancelIcon:hover svg circle {
   fill: var(--cancel-button-overlay, var(--danger-hover));
-  transition: 300ms;
 }
 
 .queueIcon svg {
   fill: var(--background-lighter);
   font-size: 40px;
+}
+
+.notAvailableIcon circle {
+  fill: var(--icon-disabled);
+}
+
+.notAvailableIcon:hover circle {
+  fill: var(--icon-disabled-overlay);
 }
 
 .iconDisabled circle,
@@ -332,12 +341,10 @@
 
 .updateIcon svg {
   color: var(--accent);
-  transition: 300ms;
 }
 
 .updateIcon:hover svg {
   color: var(--accent-overlay);
-  transition: 300ms;
 }
 
 .settingsIcon {
@@ -346,13 +353,11 @@
 
 .settingsIcon path {
   fill: var(--brand-primary, var(--accent-overlay));
-  transition: 300ms;
 }
 
 .settingsIcon:focus-within,
 .settingsIcon:hover path {
   fill: var(--brand-secondary, var(--accent));
-  transition: 300ms;
 }
 
 @keyframes fade-in {

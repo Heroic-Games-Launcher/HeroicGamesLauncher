@@ -14,8 +14,11 @@ body.newDark {
   --primary-button: var(--gradient-01);
   --secondary-button: var(--brand-primary);
   --secondary-button-overlay: var(--primary-hover);
+  --tertiary-button: var(--status-warning);
+  --tertiary-button-overlay: var(--status-warning-hover);
   --success-button: var(--gradient-01);
-  --disabled-button: var(--neutral-02);
+  --disabled-button: var(--neutral-04);
+  --disabled-button-overlay: var(--neutral-05);
   --cancel-button: var(--status-danger);
   --cancel-button-overlay: var(--status-danger-hover);
 
@@ -23,6 +26,7 @@ body.newDark {
   --install-button: var(--secondary-button);
 
   --text-default: var(--brand-text-01);
+  --text-tertiary: var(--neutral-01);
 
   --search-bar-background: var(--neutral-01);
   --search-bar-border: var(--neutral-02);
@@ -40,6 +44,7 @@ body.newDark {
   --danger: var(--status-danger);
 
   --icon-disabled: var(--disabled-button);
+  --icon-disabled-overlay: var(--disabled-button-overlay);
   --icons-background: var(--neutral-02);
   --input-background: var(--background-lighter);
   --link-highlight: #07c5ef;
@@ -48,9 +53,9 @@ body.newDark {
   --modal-backdrop: var(--background-darker-80);
   --modal-border: #1f253f;
 
-  --navbar-active: var(--text-default);
-  --navbar-inactive: var(--neutral-04);
-  --navbar-active-background: var(--background-lighter);
+  --navbar-active: var(--brand-primary);
+  --navbar-inactive: var(--neutral-05);
+  --navbar-active-background: var(--background-darker);
   --navbar-accent: var(--text-default);
   --navbar-background: var(--background);
 

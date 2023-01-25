@@ -70,8 +70,13 @@ button {
 }
 
 .button.is-tertiary {
-  background: var(--body-background);
-  color: var(--text-default);
+  background: var(--tertiary-button, var(--body-background));
+  color: (var(--text-tertiary));
+}
+
+.button.is-tertiary:hover {
+  background: var(--tertiary-button-overlay, var(--body-background));
+  color: var(--text-tertiary);
 }
 
 .button.is-tools:hover,

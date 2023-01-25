@@ -90,9 +90,12 @@
   }
 }
 
+.Sidebar__item.active:not(.SidebarLinks__subItem) {
+  background-color: var(--navbar-active-background);
+}
+
 .Sidebar__item.active.SidebarLinks__subItem {
   font-weight: var(--bold);
-  background-color: var(--navbar-active-background);
 }
 
 .Sidebar__itemIcon {

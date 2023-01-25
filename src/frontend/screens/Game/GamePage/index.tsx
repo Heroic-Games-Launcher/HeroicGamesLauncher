@@ -52,6 +52,7 @@ import {
 
 import StoreLogos from 'frontend/components/UI/StoreLogos'
 import { WikiGameInfo } from 'frontend/components/UI/WikiGameInfo'
+import classNames from 'classnames'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -482,7 +483,20 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   }
                   autoFocus={true}
                   onClick={handlePlay()}
-                  className={`button ${getPlayBtnClass()}`}
+                  className={classNames('button', {
+                    'is-secondary': !is_installed && !isQueued,
+                    'is-success':
+                      isSyncing ||
+                      (!isUpdating &&
+                        !isPlaying &&
+                        is_installed &&
+                        !notAvailable),
+                    'is-tertiary':
+                      isPlaying ||
+                      (!is_installed && isQueued) ||
+                      (is_installed && notAvailable),
+                    'is-danger': isUpdating
+                  })}
                 >
                   {getPlayLabel()}
                 </button>
@@ -499,7 +513,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     notSupportedGame
                   }
                   autoFocus={true}
-                  className={`button ${getButtonClass(is_installed)}`}
+                  className={classNames('button', {
+                    'is-primary': is_installed,
+                    'is-danger': !is_installed && isQueued,
+                    'is-warning': notAvailable,
+                    'is-secondary': !is_installed && !isQueued
+                  })}
                 >
                   {`${getButtonLabel(is_installed)}`}
                 </button>
@@ -548,25 +567,17 @@ export default React.memo(function GamePage(): JSX.Element | null {
   }
   return <UpdateComponent />
 
-  function getPlayBtnClass() {
-    if (notAvailable) {
-      return 'is-danger'
-    }
-    if (isQueued) {
-      return 'is-secondary'
-    }
-    if (isUpdating) {
-      return 'is-danger'
-    }
-    if (isSyncing) {
-      return 'is-primary'
-    }
-    return isPlaying ? 'is-tertiary' : 'is-success'
-  }
-
   function getPlayLabel(): React.ReactNode {
+    if (isUpdating) {
+      return t('status.updating', 'Updating')
+    }
+
     if (isSyncing) {
       return t('label.saves.syncing')
+    }
+
+    if (notAvailable) {
+      return t('status.gameNotAvailable', 'Game not available')
     }
 
     return isPlaying ? t('label.playing.stop') : t('label.playing.start')
@@ -643,18 +654,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
     }
 
     return t('status.notinstalled')
-  }
-
-  function getButtonClass(is_installed: boolean) {
-    if (isInstalling || isQueued) {
-      return 'is-danger'
-    }
-
-    if (is_installed) {
-      return 'is-primary'
-    }
-
-    return 'is-secondary'
   }
 
   function getButtonLabel(is_installed: boolean) {

@@ -252,7 +252,7 @@ const GameCard = ({
     if (isInstalled) {
       return (
         <SvgButton
-          className={gameAvailable ? 'playIcon' : 'cancelIcon'}
+          className={gameAvailable ? 'playIcon' : 'notAvailableIcon'}
           onClick={async () => handlePlay(runner)}
           title={`${t('label.playing.start')} (${title})`}
           disabled={isLaunching}
