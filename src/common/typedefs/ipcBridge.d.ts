@@ -83,7 +83,6 @@ interface SyncIPCFunctions {
   }) => void
   addShortcut: (appName: string, runner: Runner, fromMenu: boolean) => void
   removeShortcut: (appName: string, runner: Runner) => void
-  addToDMQueue: (element: DMQueueElement) => void
   removeFromDMQueue: (appName: string) => void
   clearDMFinished: () => void
   abort: (id: string) => void
@@ -94,6 +93,7 @@ interface SyncIPCFunctions {
 }
 
 interface AsyncIPCFunctions {
+  addToDMQueue: (element: DMQueueElement) => Promise<void>
   kill: (appName: string, runner: Runner) => Promise<void>
   checkDiskSpace: (folder: string) => Promise<DiskSpaceData>
   callTool: (args: Tools) => Promise<void>
