@@ -96,7 +96,7 @@ button {
 
 .button.is-danger:hover,
 .button.is-danger:focus-visible {
-  background: var(--cancel-button-overlay, var(--input-background));
+  background: transparent;
   box-shadow: 0px 0px 0px 3px var(--danger, var(--text-default));
 }
 

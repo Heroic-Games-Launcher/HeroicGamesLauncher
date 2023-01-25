@@ -35,7 +35,7 @@
       place-items: center;
 
       svg path {
-        fill: var(--text-default);
+        fill: var(--neutral-06);
         transition: fill 0.2s;
       }
 
@@ -54,7 +54,7 @@
       .toggle {
         align-self: flex-end;
         border: none;
-        color: var(--text-default);
+        color: var(--neutral-06);
         font-size: var(--text-2xl);
         padding: var(--space-xs-fixed);
         cursor: pointer;

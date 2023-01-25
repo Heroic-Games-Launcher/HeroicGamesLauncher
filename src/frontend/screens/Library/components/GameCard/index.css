@@ -283,12 +283,12 @@
 }
 
 .playIcon circle {
-  fill: var(--brand-secondary, var(--success));
+  fill: var(--brand-primary, var(--success));
   transition: 300ms;
 }
 
 .playIcon:hover circle {
-  fill: var(--brand-primary, var(--success-hover));
+  fill: var(--brand-secondary, var(--success-hover));
   transition: 300ms;
 }
 
@@ -340,15 +340,18 @@
   transition: 300ms;
 }
 
-.settingsIcon path {
-  fill: var(--accent-overlay);
-  transition: 300ms;
+.settingsIcon {
   grid-area: settings;
 }
 
+.settingsIcon path {
+  fill: var(--brand-primary, var(--accent-overlay));
+  transition: 300ms;
+}
+
 .settingsIcon:focus-within,
-.settingsIcon:hover {
-  fill: var(--accent);
+.settingsIcon:hover path {
+  fill: var(--brand-secondary, var(--accent));
   transition: 300ms;
 }
 

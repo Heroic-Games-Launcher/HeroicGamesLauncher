@@ -451,10 +451,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   ))}
                 <p
                   style={{
-                    color:
-                      is_installed || isInstalling
-                        ? 'var(--success)'
-                        : 'var(--status-warning,  var(--warning))',
+                    color: isInstalling
+                      ? 'var(--success)'
+                      : 'var(--status-warning,  var(--warning))',
                     fontStyle: 'italic'
                   }}
                 >
@@ -551,7 +550,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   function getPlayBtnClass() {
     if (notAvailable) {
-      return 'is-tertiary'
+      return 'is-danger'
     }
     if (isQueued) {
       return 'is-secondary'
