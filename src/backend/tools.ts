@@ -43,7 +43,7 @@ export const DXVK = {
     const tools = [
       {
         name: 'vkd3d',
-        url: 'https://api.github.com/repos/bottlesdevs/vkd3d-proton/releases/latest',
+        url: 'https://api.github.com/repos/Heroic-Games-Launcher/vkd3d-proton/releases/latest',
         extractCommand: 'tar -xf',
         os: 'linux'
       },
