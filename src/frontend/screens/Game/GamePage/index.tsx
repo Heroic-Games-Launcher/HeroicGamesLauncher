@@ -576,10 +576,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
       return t('label.saves.syncing')
     }
 
-    if (notAvailable) {
-      return t('status.gameNotAvailable', 'Game not available')
-    }
-
     return isPlaying ? t('label.playing.stop') : t('label.playing.start')
   }
 
