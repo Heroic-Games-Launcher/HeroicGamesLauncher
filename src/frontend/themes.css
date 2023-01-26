@@ -1,91 +1,3 @@
-body.midnightMirage {
-  --background: var(--neutral-02);
-  --background-darker: var(--neutral-01);
-  --background-darker-80: var(--eighty-percent-black);
-  --background-lighter: var(--neutral-03);
-
-  --button-stroke: var(--stroke-accent);
-  --primary-button: var(--gradient-01);
-  --secondary-button: var(--brand-primary);
-  --secondary-button-overlay: var(--primary-hover);
-  --tertiary-button: var(--status-warning);
-  --tertiary-button-overlay: var(--status-warning-hover);
-  --success-button: var(--gradient-01);
-  --disabled-button: var(--neutral-04);
-  --disabled-button-overlay: var(--neutral-05);
-  --cancel-button: var(--status-danger);
-  --cancel-button-overlay: var(--status-danger-hover);
-
-  --play-button: var(--primary-button);
-  --install-button: var(--secondary-button);
-
-  --text-default: var(--brand-text-01);
-  --text-tertiary: var(--neutral-01);
-
-  --search-bar-background: var(--neutral-01);
-  --search-bar-border: var(--neutral-02);
-
-  --action-icon: var(--neutral-05);
-  --action-icon-hover: var(--brand-primary-hover);
-  --action-icon-active: var(--brand-text-01);
-
-  /* Colours */
-  --body-background: var(--background-darker);
-  --controller-hints-background: transparent;
-  --current-background: var(--body-background);
-  --danger: var(--status-danger);
-  --danger-hover: var(--status-danger-hover);
-  --divider: gray;
-
-  --icon-disabled: var(--disabled-button);
-  --icon-disabled-overlay: var(--disabled-button-overlay);
-  --icons-background: var(--neutral-02);
-  --input-background: var(--background-lighter);
-  --link-highlight: var(--accent);
-
-  --modal-background: var(--background-darker);
-  --modal-backdrop: var(--background-darker-80);
-  --modal-border: var(--background);
-
-  --navbar-active: var(--brand-primary);
-  --navbar-inactive: var(--neutral-05);
-  --navbar-active-background: var(--background-darker);
-  --navbar-accent: var(--text-default);
-  --navbar-background: var(--background);
-
-  --osk-background: var(--body-background);
-  --osk-button-background: var(--input-background);
-  --osk-button-border: var(--navbar-background);
-
-  --primary: var(--brand-primary);
-
-  --stop-button: var(--cancel-button);
-  --secondary: var(--brand-secondary);
-  --success: var(--status-success);
-  --success-hover: var(--status-success-hover);
-  --text-hover: var(--brand-text-02);
-
-  --anticheat-denied: var(--status-danger);
-  --anticheat-broken: var(--status-warning);
-  --anticheat-running: var(--status-default);
-  --anticheat-supported: var(--status-success);
-  --anticheat-planned: var(--status-info);
-
-  /* Gradients */
-  --gamecard-title-color: #17131cd2;
-  --gradient-gamecard: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.418) 1.8%,
-    var(--gamecard-title-color) 45%
-  );
-  --gradient-body-background: linear-gradient(
-    90deg,
-    var(--background-darker) -32px,
-    var(--body-background) 64px,
-    var(--body-background) 100%
-  );
-}
-
 body.classic,
 body.cyberSpaceOasis,
 body.cyberSpaceOasisAlt {
@@ -161,6 +73,72 @@ body.cyberSpaceOasisAlt {
   --action-icon: var(--text-default);
   --action-icon-hover: var(--text-hover);
   --action-icon-active: var(--accent);
+}
+
+body.gruvbox_dark {
+  --accent: #b57614;
+  --accent-overlay: #d79921;
+  --navbar-accent: #f9f5d7;
+  --background: #1d2021;
+  --body-background: #282828;
+  --background-darker: var(--body-background);
+  --current-background: var(--body-background);
+  --navbar-background: #32302f;
+  --navbar-active-background: #282828;
+  --gradient-body-background: linear-gradient(
+    90deg,
+    var(--background-darker) -32px,
+    var(--body-background) 64px,
+    var(--body-background) 100%
+  );
+  --input-background: #32302f;
+  --modal-background: var(--body-background);
+  --modal-border: var(--body-background);
+  --success: #98971a;
+  --success-hover: #b8bb26;
+  --primary: #458588;
+  --primary-hover: #83a598;
+  --danger: #cc241d;
+  --danger-hover: #fb4934;
+  --anticheat-denied: #9d0006;
+  --anticheat-broken: #af3a03;
+  --anticheat-running: #076678;
+  --anticheat-supported: #79740e;
+  --anticheat-planned: #8f3f71;
+  --text-title: #f9f5d7;
+  --icons-background: #3c3836;
+  --action-icon: #f9f5d7;
+  --action-icon-hover: #b16286;
+  --action-icon-active: #8ec07c;
+  --icon-disabled: #928374;
+}
+
+body.high-contrast {
+  --accent: #00ddff;
+  --accent-overlay: #36ddff;
+  --navbar-accent: #ffffffff;
+  --background: #121212ff;
+  --body-background: #202020ff;
+  --background-darker: var(--background);
+  --current-background: var(--body-background);
+  --navbar-background: #121212ff;
+  --navbar-active-background: #202020ff;
+  --gradient-body-background: var(--background);
+  --input-background: #262937ff;
+  --modal-background: var(--background);
+  --modal-border: #ffffffff;
+  --download-button: #44475a;
+  --download-button-overlay: #007bff;
+  --success: #00ff40;
+  --success-hover: #2dff61;
+  --primary: #ff0090;
+  --primary-hover: #ff36a8;
+  --danger: #ff0000;
+  --text-title: #00ddff;
+  --icons-background: var(--background);
+  --osk-background: var(--body-background);
+  --osk-button-background: var(--input-background);
+  --osk-button-border: #ffffffff;
 }
 
 body.dracula,
@@ -264,8 +242,6 @@ body.nord-dark {
   --primary: #b48ead;
   --primary-hover: #a17399;
   --danger: #bf616a;
-  --text-log: #f7b32a;
-  --text-title: #e5e9f0;
   --text-default: var(--text-title);
   --text-secondary: #e5e9f0;
   --osk-background: var(--body-background);
@@ -375,4 +351,41 @@ body.dracula-classic,
 body.marine-classic,
 body.zombie-classic {
   --navbar-accent: var(--text-default);
+}
+
+body.sweet,
+body.sweet-dark {
+  --accent: #c50ed2;
+  --accent-overlay: #7f148e;
+  --navbar-accent: #98abb2;
+  --background: #1a1d2b;
+  --body-background: var(--background);
+  --background-darker: var(--body-background);
+  --current-background: var(--body-background);
+  --navbar-background: #161925;
+  --navbar-active-background: #1a1d2b;
+  --gradient-body-background: linear-gradient(
+    90deg,
+    var(--background-darker) -32px,
+    var(--body-background) 64px,
+    var(--body-background) 100%
+  );
+  --input-background: #161925;
+  --modal-background: var(--body-background);
+  --modal-border: var(--body-background);
+  --success: #c50ed2;
+  --success-hover: #7f148e;
+  --primary: #b48ead;
+  --primary-hover: #a17399;
+  --danger: #bf61a2;
+  --text-log: #8c909b;
+  --text-title: #e9eaeb;
+  --text-default: var(--text-title);
+  --text-secondary: #92a4ab;
+  --osk-background: var(--body-background);
+  --osk-button-background: var(--input-background);
+  --osk-button-border: var(--navbar-background);
+  --action-icon: #92a4ab;
+  --action-icon-hover: var(--accent-overlay);
+  --action-icon-active: var(--text-default);
 }
