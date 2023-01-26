@@ -21,11 +21,14 @@ export const defaultThemes = {
   'old-school': 'Old School Heroic',
   dracula: 'Dracula',
   marine: 'Marine',
+  'high-contrast': 'High Contrast',
   'marine-classic': 'Marine Classic',
   zombie: 'Zombie',
   'zombie-classic': 'Zombie Classic',
   'nord-light': 'Nord Light',
-  'nord-dark': 'Nord Dark'
+  'nord-dark': 'Nord Dark',
+  gruvbox_dark: 'Gruvbox Dark',
+  sweet: 'Sweet'
 }
 
 export const ThemeSelector = () => {

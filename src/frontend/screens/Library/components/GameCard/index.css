@@ -81,7 +81,7 @@
   font-size: var(--text-md);
   font-weight: var(--bold);
   line-height: 17px;
-  color: var(--text-gametitle);
+  color: var(--text-default);
   cursor: pointer;
   z-index: 3;
   pointer-events: none;

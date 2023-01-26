@@ -1,66 +1,140 @@
 @mixin colorSystem {
   /* General Colors as on Figma. Do not add new colors here */
   /* Brand */
-  --brand-primary: #1de8f5;
-  --brand-secondary: #819cff;
-  --brand-text-01: #e0f9ff;
-  --brand-text-02: #97e5f7;
+  /* Brand */
+  --brand-primary: #f92672;
+  --brand-secondary: #a6e22e;
+  --brand-text-01: #f8f8f2;
+  --brand-text-02: #f8f8f2;
 
   /* Neutral */
-  --neutral-01: #070a0b;
-  --neutral-02: #161c1e;
-  --neutral-03: #272f31;
-  --neutral-04: #495456;
-  --neutral-05: #6e7f83;
-  --neutral-06: #d1e4e9;
+  --neutral-01: #272822;
+  --neutral-02: #383830;
+  --neutral-03: #49483e;
+  --neutral-04: #75715e;
+  --neutral-05: #a59f85;
+  --neutral-06: #f8f8f2;
 
   /* Status */
-  --status-default: #d2d2d2;
-  --status-success: #0ce396;
-  --status-warning: #daad0e;
-  --status-danger: #b80953;
-  --status-info: #0fefc7;
-  --primary-hover: #88ebf1;
-  --primary-active: #0db4be;
-  --secondary-hover: #a7baff;
-  --secondary-active: #2253ff;
-
-  --status-default-hover: rgb(197, 197, 197);
-  --status-success-hover: #14f7a7;
-  --status-warning-hover: #ffd426;
-  --status-danger-hover: #f4297e;
-  --status-info-hover: #0fefc7;
+  --status-default: #f9f8f5;
+  --status-success: #a6e22e;
+  --status-warning: #f92672;
+  --status-danger: #f92672;
+  --status-info: #66d9ef;
+  --primary-hover: #f92672;
+  --primary-active: #f92672;
+  --secondary-hover: #a6e22e;
+  --secondary-active: #a6e22e;
 
   /* Status Hover */
+  --status-default-hover: #f9f8f5;
+  --status-success-hover: #a6e22e;
+  --status-warning-hover: #f92672;
+  --status-danger-hover: #f92672;
+  --status-info-hover: #66d9ef;
 
   /* Other */
-  --accent: #8bffff; // accent-01 on figma
-  --accent-overlay: #b098e2; // accent-02 on figma
+  --accent: #66d9ef;
+  --accent-overlay: #ae81ff;
   --eighty-percent-black: #000000cc;
   --sixty-percent-black: #00000099;
 
   /* Gradient */
   --gradient-01: linear-gradient(270.36deg, #4b93ff 1.57%, #18dfec 96.46%);
   --gradient-02: linear-gradient(270.36deg, #1de8f5 1.57%, #4b93ff 96.46%);
+  --gamecard-title-color: var(--eighty-percent-black);
+  --gradient-gamecard: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.418) 1.8%,
+    var(--gamecard-title-color) 45%
+  );
+  --gradient-body-background: linear-gradient(
+    90deg,
+    var(--background-darker) -32px,
+    var(--body-background) 64px,
+    var(--body-background) 100%
+  );
+
+  /* Default Theme */
 
   /* Text colours */
-  --text-default: #e0f9ff;
-  --text-secondary: #b1b1b1;
-  --text-pause-cancel: #97f4e9;
-  --text-title: #ffffff;
-  --text-tertiary: #101111; /* This is not defined in figma */
-  --text-quartenary: #5a5e5f; /* this is meant to be a background colour */
-  --text-danger: #d22121;
-  --text-gametitle: var(--text-default);
-  --text-log: #f5cf69;
-  --text-warning: #eaa114;
+  --text-default: var(--brand-text-01);
+  --text-secondary: var(--brand-text-02);
+  --text-tertiary: var(--neutral-01); /* This is not defined in figma */
+  --text-quartenary: var(--neutral-04);
 
-  /*Action Icons*/
+  /* Background colors, inputs, OnScreenKeyboard and Modal */
+
+  --background: var(--neutral-02);
+  --background-darker: var(--neutral-01);
+  --background-darker-80: var(--eighty-percent-black);
+  --background-lighter: var(--neutral-03);
+  --body-background: var(--background-darker);
+  --input-background: var(--background-lighter);
+  --controller-hints-background: transparent;
+  --current-background: var(--body-background);
+  --modal-background: var(--background-darker);
+  --modal-backdrop: var(--background-darker-80);
+  --modal-border: var(--background);
+  --osk-background: var(--body-background);
+  --osk-button-background: var(--input-background);
+  --osk-button-border: var(--navbar-background);
+  --search-bar-background: var(--neutral-01);
+  --search-bar-border: var(--neutral-02);
+
+  /* Action Icons */
   --action-icon: var(--text-default);
   --action-icon-hover: var(--text-hover);
   --action-icon-active: var(--accent);
-
   --modal-backdrop: var(--eighty-percent-black);
+  --icon-disabled: var(--disabled-button);
+  --icon-disabled-overlay: var(--disabled-button-overlay);
+  --icons-background: var(--neutral-02);
+
+  /* Buttons */
+  --button-stroke: var(--stroke-accent);
+  --primary-button: var(--gradient-01);
+  --secondary-button: var(--brand-primary);
+  --secondary-button-overlay: var(--primary-hover);
+  --tertiary-button: var(--status-warning);
+  --tertiary-button-overlay: var(--status-warning-hover);
+  --success-button: var(--gradient-01);
+  --disabled-button: var(--neutral-04);
+  --disabled-button-overlay: var(--neutral-05);
+  --play-button: var(--primary-button);
+  --install-button: var(--secondary-button);
+  --stop-button: var(--cancel-button);
+  --cancel-button: var(--status-danger);
+  --cancel-button-overlay: var(--status-danger-hover);
+  --link-highlight: var(--accent);
+
+  /* Text */
+  --text-default: var(--brand-text-01);
+  --text-tertiary: var(--neutral-01);
+  --text-hover: var(--brand-text-02);
+
+  /* Sidebar */
+  --navbar-active: var(--brand-primary);
+  --navbar-inactive: var(--neutral-05);
+  --navbar-active-background: var(--background-darker);
+  --navbar-accent: var(--text-default);
+  --navbar-background: var(--background);
+  --divider: gray;
+
+  /* Status */
+  --success: var(--status-success);
+  --success-hover: var(--status-success-hover);
+  --anticheat-denied: var(--status-danger);
+  --anticheat-broken: var(--status-warning);
+  --anticheat-running: var(--status-default);
+  --anticheat-supported: var(--status-success);
+  --anticheat-planned: var(--status-info);
+  --danger: var(--status-danger);
+  --danger-hover: var(--status-danger-hover);
+
+  /* Others for compatibility, probably can be refactored */
+  --primary: var(--brand-primary);
+  --secondary: var(--brand-secondary);
 }
 
 body {
@@ -96,7 +170,7 @@ a {
 h1,
 h2,
 h3 {
-  color: var(--text-title);
+  color: var(--text-default);
 }
 
 .gogIcon {
