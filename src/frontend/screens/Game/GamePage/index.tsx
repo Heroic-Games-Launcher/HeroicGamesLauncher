@@ -128,7 +128,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       }
     }
     checkGameAvailable()
-  }, [appName, status, gameInfo.is_installed, gameInfo.install.install_path, isMoving])
+  }, [appName, status, gameInfo.is_installed, isMoving])
 
   useEffect(() => {
     const updateGameInfo = async () => {
