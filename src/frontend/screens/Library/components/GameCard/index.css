@@ -319,11 +319,11 @@
 }
 
 .notAvailableIcon circle {
-  fill: var(--icon-disabled);
+  fill: var(--status-warning, var(--warning));
 }
 
 .notAvailableIcon:hover circle {
-  fill: var(--icon-disabled-overlay);
+  fill: var(--status-warning-hover, var(--warning));
 }
 
 .iconDisabled circle,
@@ -352,12 +352,12 @@
 }
 
 .settingsIcon path {
-  fill: var(--brand-primary, var(--accent-overlay));
+  fill: var(--neutral-06, var(--accent-overlay));
 }
 
 .settingsIcon:focus-within,
 .settingsIcon:hover path {
-  fill: var(--brand-secondary, var(--accent));
+  fill: var(--text-secondary, var(--accent));
 }
 
 @keyframes fade-in {

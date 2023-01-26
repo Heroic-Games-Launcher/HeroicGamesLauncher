@@ -15,9 +15,9 @@ import { Backspace } from '@mui/icons-material'
 import { writeConfig } from 'frontend/helpers'
 
 export const defaultThemes = {
-  newDark: 'New Dark',
-  cyberpunk: 'Cyberpunk',
-  classic: 'Classic',
+  midnightMirage: 'Midnight Mirage',
+  cyberSpaceOasis: 'Cyberspace Oasis',
+  cyberSpaceOasisAlt: 'Cyberspace Oasis Classic',
   'old-school': 'Old School Heroic',
   dracula: 'Dracula',
   marine: 'Marine',

@@ -20,6 +20,8 @@ window.addEventListener('error', (ev: ErrorEvent) => {
   window.api.logError(ev.error)
 })
 
+const DEFAULT_THEME = 'midnightMirage'
+
 const Backend = new HttpApi(null, {
   addPath: 'build/locales/{{lng}}/{{ns}}',
   allowMultiLoading: false,
@@ -121,7 +123,7 @@ window.setTheme = async (themeClass: string) => {
   document.querySelector('style.customTheme')?.remove()
 
   if (
-    themeClass !== 'default' &&
+    themeClass !== DEFAULT_THEME &&
     !Object.keys(defaultThemes).includes(themeClass)
   ) {
     const cssContent = await window.api.getThemeCSS(themeClass)
@@ -137,7 +139,7 @@ window.setTheme = async (themeClass: string) => {
   document.body.className = themeClass
 }
 
-const themeClass = (configStore.get('theme') as string) || 'default'
+const themeClass = (configStore.get('theme') as string) || DEFAULT_THEME
 window.setTheme(themeClass)
 
 // helper function to generate images for steam

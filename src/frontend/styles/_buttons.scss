@@ -109,7 +109,7 @@ button {
   background: var(--success-button, var(--success));
 }
 
-.button.is-success:hover {
+.button.is-success:hover:not(:disabled) {
   box-shadow: 0px 0px 0px 3px var(--button-stroke, var(--text-default));
 }
 
