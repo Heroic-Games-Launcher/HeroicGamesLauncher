@@ -234,6 +234,26 @@
   top: 0;
 }
 
+.gameListItem span {
+  transition: 300ms;
+}
+
+.gameListItem.installed.notAvailable span {
+  color: var(--status-warning, var(--text-secondary));
+}
+
+.gameListItem.installed.notAvailable:hover span {
+  color: var(--status-warning-hover, var(--text-default));
+}
+
+.gameListItem.installed:not(.notAvailable) span {
+  color: var(--status-sucess, var(--success));
+}
+
+.gameListItem.installed:not(.notAvailable):hover span {
+  color: var(--status-success-hover, var(--accent));
+}
+
 .gameCardStatus > svg {
   cursor: pointer;
   z-index: 7;
