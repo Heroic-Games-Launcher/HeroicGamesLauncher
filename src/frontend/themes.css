@@ -31,9 +31,11 @@ body.midnightMirage {
   --search-bar-background: var(--neutral-01);
   --search-bar-border: var(--neutral-02);
 
+  --action-icon: var(--neutral-05);
+  --action-icon-hover: var(--brand-primary-hover);
+  --action-icon-active: var(--brand-text-01);
+
   /* Colours */
-  --accent: var(--brand-secondary);
-  --accent-overlay: var(--brand-primary);
   --body-background: var(--background-darker);
   --controller-hints-background: transparent;
   --current-background: var(--body-background);
