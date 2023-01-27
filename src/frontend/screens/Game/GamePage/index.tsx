@@ -495,7 +495,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       isPlaying ||
                       (!is_installed && isQueued) ||
                       (is_installed && notAvailable),
-                    'is-danger': isUpdating
+                    'is-disabled': isUpdating
                   })}
                 >
                   {getPlayLabel()}
@@ -515,8 +515,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   autoFocus={true}
                   className={classNames('button', {
                     'is-primary': is_installed,
-                    'is-danger': !is_installed && isQueued,
-                    'is-warning': notAvailable,
+                    'is-tertiary': notAvailable || isInstalling || isQueued,
                     'is-secondary': !is_installed && !isQueued
                   })}
                 >
@@ -568,10 +567,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
   return <UpdateComponent />
 
   function getPlayLabel(): React.ReactNode {
-    if (isUpdating) {
-      return t('status.updating', 'Updating')
-    }
-
     if (isSyncing) {
       return t('label.saves.syncing')
     }

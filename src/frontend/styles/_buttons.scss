@@ -193,3 +193,9 @@ button {
   color: var(--icon-disabled);
   cursor: wait;
 }
+
+.button:disabled {
+  background: var(--disabled-button);
+  color: var(--text-secondary);
+  cursor: not-allowed;
+}

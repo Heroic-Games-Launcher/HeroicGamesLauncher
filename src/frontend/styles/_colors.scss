@@ -1,41 +1,40 @@
 @mixin colorSystem {
   /* General Colors as on Figma. Do not add new colors here */
   /* Brand */
-  /* Brand */
-  --brand-primary: #f92672;
-  --brand-secondary: #a6e22e;
-  --brand-text-01: #f8f8f2;
-  --brand-text-02: #f8f8f2;
+  --brand-primary: #1de8f5;
+  --brand-secondary: #819cff;
+  --brand-text-01: #e0f9ff;
+  --brand-text-02: #97e5f7;
 
   /* Neutral */
-  --neutral-01: #272822;
-  --neutral-02: #383830;
-  --neutral-03: #49483e;
-  --neutral-04: #75715e;
-  --neutral-05: #a59f85;
-  --neutral-06: #f8f8f2;
+  --neutral-01: #070a0b;
+  --neutral-02: #161c1e;
+  --neutral-03: #272f31;
+  --neutral-04: #495456;
+  --neutral-05: #6e7f83;
+  --neutral-06: #d1e4e9;
 
   /* Status */
-  --status-default: #f9f8f5;
-  --status-success: #a6e22e;
-  --status-warning: #f92672;
-  --status-danger: #f92672;
-  --status-info: #66d9ef;
-  --primary-hover: #f92672;
-  --primary-active: #f92672;
-  --secondary-hover: #a6e22e;
-  --secondary-active: #a6e22e;
+  --status-default: #d2d2d2;
+  --status-success: #0ce396;
+  --status-warning: #daad0e;
+  --status-danger: #b80953;
+  --status-info: #0fefc7;
+  --primary-hover: #88ebf1;
+  --primary-active: #0db4be;
+  --secondary-hover: #a7baff;
+  --secondary-active: #2253ff;
 
   /* Status Hover */
-  --status-default-hover: #f9f8f5;
-  --status-success-hover: #a6e22e;
-  --status-warning-hover: #f92672;
-  --status-danger-hover: #f92672;
-  --status-info-hover: #66d9ef;
+  --status-default-hover: rgb(197, 197, 197);
+  --status-success-hover: #14f7a7;
+  --status-warning-hover: #ffd426;
+  --status-danger-hover: #f4297e;
+  --status-info-hover: #0fefc7;
 
   /* Other */
-  --accent: #66d9ef;
-  --accent-overlay: #ae81ff;
+  --accent: #8bffff; // accent-01 on figma
+  --accent-overlay: #b098e2; // accent-02 on figma
   --eighty-percent-black: #000000cc;
   --sixty-percent-black: #00000099;
 
@@ -92,9 +91,9 @@
   --icons-background: var(--neutral-02);
 
   /* Buttons */
-  --button-stroke: var(--stroke-accent);
   --primary-button: var(--gradient-01);
   --secondary-button: var(--brand-primary);
+  --button-stroke: var(--accent);
   --secondary-button-overlay: var(--primary-hover);
   --tertiary-button: var(--status-warning);
   --tertiary-button-overlay: var(--status-warning-hover);
@@ -103,9 +102,8 @@
   --disabled-button-overlay: var(--neutral-05);
   --play-button: var(--primary-button);
   --install-button: var(--secondary-button);
-  --stop-button: var(--cancel-button);
-  --cancel-button: var(--status-danger);
-  --cancel-button-overlay: var(--status-danger-hover);
+  --cancel-button: var(--status-warning);
+  --cancel-button-overlay: var(--status-warning-hover);
   --link-highlight: var(--accent);
 
   /* Text */

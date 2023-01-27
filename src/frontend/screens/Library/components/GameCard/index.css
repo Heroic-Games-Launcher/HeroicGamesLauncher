@@ -334,8 +334,12 @@
 }
 
 .queueIcon svg {
-  fill: var(--background-lighter);
+  fill: var(--cancel-button, var(--danger));
   font-size: 40px;
+}
+
+.queueIcon:hover svg {
+  fill: var(--cancel-button-overlay, var(--danger-hover));
 }
 
 .notAvailableIcon circle {
