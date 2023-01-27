@@ -148,24 +148,30 @@ export interface GameSettings {
   gogSaves?: GOGCloudSavesLocation[]
 }
 
+export type Status =
+  | 'installing'
+  | 'updating'
+  | 'launching'
+  | 'playing'
+  | 'uninstalling'
+  | 'repairing'
+  | 'done'
+  | 'canceled'
+  | 'moving'
+  | 'queued'
+  | 'error'
+  | 'syncing-saves'
+  | 'notAvailable'
+  | 'notSupportedGame'
+  | 'notInstalled'
+  | 'installed'
+
 export interface GameStatus {
   appName: string
   progress?: InstallProgress
   folder?: string
   runner?: Runner
-  status:
-    | 'installing'
-    | 'updating'
-    | 'launching'
-    | 'playing'
-    | 'uninstalling'
-    | 'repairing'
-    | 'done'
-    | 'canceled'
-    | 'moving'
-    | 'queued'
-    | 'error'
-    | 'syncing-saves'
+  status: Status
 }
 
 export type GlobalConfigVersion = 'auto' | 'v0'
