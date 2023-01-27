@@ -84,7 +84,7 @@ const getInstallInfo = async (
   )
 }
 
-export function handleRunnersPlatforms(
+function handleRunnersPlatforms(
   platform: InstallPlatform,
   runner: Runner
 ): InstallPlatform {
