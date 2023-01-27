@@ -23,7 +23,6 @@ import {
   ExecResult,
   InstallArgs,
   InstalledInfo,
-  InstallPlatform,
   WineCommandArgs
 } from 'common/types'
 import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
@@ -110,7 +109,7 @@ class GOGGame extends Game {
   }
 
   async getInstallInfo(
-    installPlatform: InstallPlatform = 'windows'
+    installPlatform: GogInstallPlatform
   ): Promise<GogInstallInfo> {
     const info = await GOGLibrary.get().getInstallInfo(
       this.appName,
@@ -777,7 +776,9 @@ class GOGGame extends Game {
     const gameObject = installedArray[gameIndex]
 
     if (gameData.install.platform !== 'linux') {
-      const installInfo = await this.getInstallInfo()
+      const installInfo = await this.getInstallInfo(
+        gameData.install.platform as GogInstallPlatform
+      )
       gameObject.buildId = installInfo.game.buildId
       gameObject.version = installInfo.game.version
       gameObject.versionEtag = installInfo.manifest.versionEtag
