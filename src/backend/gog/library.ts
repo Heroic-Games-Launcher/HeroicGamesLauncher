@@ -330,17 +330,17 @@ export class GOGLibrary {
       const cache = gogInstallInfoStore.get_nodefault(
         `${appName}_${installPlatform}`
       )
-      logInfo(
-        [
-          'Got install info from cache for',
-          appName,
-          'on',
-          installPlatform,
-          'platform'
-        ],
-        LogPrefix.Gog
-      )
       if (cache) {
+        logInfo(
+          [
+            'Got install info from cache for',
+            appName,
+            'on',
+            installPlatform,
+            'platform'
+          ],
+          LogPrefix.Gog
+        )
         return cache
       }
     }
