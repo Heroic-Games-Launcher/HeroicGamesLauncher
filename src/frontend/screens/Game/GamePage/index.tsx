@@ -153,11 +153,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
         } = { ...gameInfo }
 
         const installPlatform =
-          install.platform || (is_linux_native && isLinux)
+          install.platform ||
+          (is_linux_native && isLinux
             ? 'linux'
             : is_mac_native && isMac
             ? 'Mac'
-            : 'Windows'
+            : 'Windows')
 
         if (runner !== 'sideload' && !notSupportedGame) {
           getInstallInfo(appName, runner, installPlatform)
