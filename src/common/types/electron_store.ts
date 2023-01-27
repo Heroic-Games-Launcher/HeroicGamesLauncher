@@ -1,4 +1,3 @@
-import { GogInstallPlatform } from './gog'
 import Store from 'electron-store'
 import { Get } from 'type-fest'
 
@@ -96,7 +95,7 @@ export interface StoreStructure {
     }
   }
   gogInstallInfo: {
-    [appName: string]: Record<GogInstallPlatform, GogInstallInfo>
+    [appName_platform: string]: GogInstallInfo
   }
   legendaryInstallInfo: {
     [appName: string]: LegendaryInstallInfo

@@ -15,7 +15,8 @@ import {
   GOGGameDotIdFile,
   GOGClientsResponse,
   GamesDBData,
-  Library
+  Library,
+  GogInstallPlatform
 } from 'common/types/gog'
 import { basename, join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
@@ -26,7 +27,8 @@ import { fallBackImage, gogdlLogFile } from '../constants'
 import {
   apiInfoCache,
   libraryStore,
-  installedGamesStore
+  installedGamesStore,
+  gogInstallInfoStore
 } from './electronStores'
 import { callRunner } from '../launcher'
 import {
@@ -316,13 +318,35 @@ export class GOGLibrary {
    * when os is Linux: gets Windows build data.
    * Contains data like download size
    * @param appName
+   * @param installPlatform
+   * @param lang
    * @returns InstallInfo object
    */
   public async getInstallInfo(
     appName: string,
-    installPlatform = 'windows',
+    installPlatform: GogInstallPlatform = 'windows',
     lang = 'en-US'
   ): Promise<GogInstallInfo | undefined> {
+    if (gogInstallInfoStore.has(`${appName}_${installPlatform}`)) {
+      const cache = gogInstallInfoStore.get_nodefault(
+        `${appName}_${installPlatform}`
+      )
+      logInfo(
+        [
+          'Got install info from cache for',
+          appName,
+          'on',
+          installPlatform,
+          'platform'
+        ],
+        LogPrefix.Gog
+      )
+      console.log({ cache, installPlatform })
+      if (cache) {
+        return cache
+      }
+    }
+
     const credentials = await GOGUser.getCredentials()
     if (!credentials) {
       logError('No credentials, cannot get install info')
@@ -332,17 +356,6 @@ export class GOGLibrary {
 
     if (!gameData) {
       return
-    }
-
-    installPlatform = installPlatform.toLowerCase()
-
-    switch (installPlatform) {
-      case 'linux':
-        installPlatform = 'windows'
-        break
-      case 'mac':
-        installPlatform = 'osx'
-        break
     }
 
     const commandParts = [
@@ -461,6 +474,7 @@ export class GOGLibrary {
         versionEtag: gogInfo.versionEtag
       }
     }
+    gogInstallInfoStore.set(`${appName}_${installPlatform}`, info)
     return info
   }
 
