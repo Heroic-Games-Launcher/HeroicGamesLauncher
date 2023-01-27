@@ -140,7 +140,11 @@
                 "install": "Epic serveri trenutno imaju veliki prekid rada, video igra se ne može instalirati!",
                 "update": "Epic serveri trenutno imaju veliki prekid rada, video igra se ne može ažurirati!"
             },
-            "title": "Upozorenje"
+            "title": "Upozorenje",
+            "wine-change": {
+                "title": "Vino nije pronađeno!",
+                "message": "Nismo mogli pronaći odabranu verziju vina za lansiranje ovog naslova ({{selectedWine}}). {{newline}} Pronašli smo još jedan, da li želite da nastavite sa pokretanjem koristeći {{foundWine}} ?"
+            }
         },
         "wineprefix": "Odaberite Wine Prefix mapu",
         "yes": "DA"
@@ -151,7 +155,8 @@
         "login": "Prijavite se",
         "sync": "Sinhronizirajte",
         "syncing": "Sinhronizanje",
-        "unsync": "Desinhronizirajte"
+        "unsync": "Desinhronizirajte",
+        "continue": "Nastavi"
     },
     "controller": {
         "hints": {
@@ -274,7 +279,7 @@
             "version": "Heroic verzija"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "Postavke se automatski spremaju",
         "version": "Verzija Wine-a"
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine koristi ono što se zove WINEPREFIX da inkapsulira Windows aplikacije. Ovaj prefiks sadrži Wine konfiguracijske datoteke i reprodukciju hijerarhije datoteka C: (glavni disk na Windows OS-u). U ovoj reprodukciji C: diska, pohranjuju se datoteke za spremanje vaše igre i ovisnosti instalirane putem winetricks-a."
-        }
+        },
+        "wine-path-invalid": "Wine Path je nevažeći, molimo odaberite drugi."
     },
     "install": {
         "path": "Izaberi put instalacije"
@@ -532,9 +538,9 @@
             "title": "Pokrenite EXE na prefiksu"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Odaberite tačnu mapu za spremanje video igara",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Izaberite temu",
         "showfps": "Pokaži FPS (DX9, 10 i 11)",
@@ -542,7 +548,9 @@
         "steamruntime": "Koristi Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix mapa",
-        "wineversion": "Wine verzija"
+        "wineversion": "Wine verzija",
+        "ignoreGameUpdates": "Zanemari ažuriranja igre",
+        "autoUpdateGames": "Automatski ažuriraj igre"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -627,7 +635,9 @@
         "logout": "Odjavite se",
         "logout_confirmation": "Jeste li sigurni da se želite odjaviti?",
         "manageaccounts": "Upravljajte računima",
-        "quit": "Odustani"
+        "quit": "Odustani",
+        "cancel": "Cancel",
+        "quitMessage": "Jeste li sigurni da želite odustati?"
     },
     "webview": {
         "controls": {
@@ -647,5 +657,12 @@
         },
         "release": "Datum izlaska",
         "size": "Veličina"
+    },
+    "externalLink": {
+        "dontAskAgain": "Ne pitaj ponovo",
+        "warning": "Upravo ćete otvoriti vanjski link."
+    },
+    "wiki_info": {
+        "not_found": "Nismo mogli pronaći dodatne informacije."
     }
 }

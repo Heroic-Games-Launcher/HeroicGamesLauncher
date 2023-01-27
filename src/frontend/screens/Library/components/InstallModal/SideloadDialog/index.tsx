@@ -2,7 +2,7 @@ import './index.scss'
 import short from 'short-uuid'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { GameInfo, InstallPlatform, WineInstallation } from 'common/types'
+import { InstallPlatform, SideloadGame, WineInstallation } from 'common/types'
 import {
   CachedImage,
   TextInputField,
@@ -25,6 +25,7 @@ import classNames from 'classnames'
 type Props = {
   availablePlatforms: AvailablePlatforms
   winePrefix: string
+  crossoverBottle: string
   wineVersion: WineInstallation | undefined
   setWinePrefix: React.Dispatch<React.SetStateAction<string>>
   children: React.ReactNode
@@ -37,6 +38,7 @@ export default function SideloadDialog({
   availablePlatforms,
   backdropClick,
   winePrefix,
+  crossoverBottle,
   wineVersion,
   platformToInstall,
   setWinePrefix,
@@ -52,7 +54,7 @@ export default function SideloadDialog({
   const [searching, setSearching] = useState(false)
   const [app_name, setApp_name] = useState(appName ?? '')
   const [runningSetup, setRunningSetup] = useState(false)
-  const [gameInfo, setGameInfo] = useState<Partial<GameInfo>>({})
+  const [gameInfo, setGameInfo] = useState<Partial<SideloadGame>>({})
   const editMode = Boolean(appName)
 
   const { refreshLibrary, platform } = useContext(ContextProvider)
@@ -65,7 +67,7 @@ export default function SideloadDialog({
   useEffect(() => {
     if (appName) {
       getGameInfo(appName, 'sideload').then((info) => {
-        if (!info) {
+        if (!info || info.runner !== 'sideload') {
           return
         }
         setGameInfo(info)
@@ -152,7 +154,8 @@ export default function SideloadDialog({
       config: {
         ...gameSettings,
         winePrefix,
-        wineVersion
+        wineVersion,
+        wineCrossoverBottle: crossoverBottle
       }
     })
 

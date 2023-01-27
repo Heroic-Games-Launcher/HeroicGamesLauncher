@@ -1,8 +1,4 @@
-import {
-  createMainWindow,
-  setMainWindow,
-  sendFrontendMessage
-} from '../main_window'
+import { createMainWindow, sendFrontendMessage } from '../main_window'
 import { BrowserWindow, Display, screen } from 'electron'
 import { configStore } from '../constants'
 
@@ -13,7 +9,6 @@ describe('main_window', () => {
     describe('if no main window', () => {
       beforeAll(() => {
         BrowserWindow['setAllWindows']([])
-        setMainWindow(null)
       })
 
       it('returns false', () => {
@@ -30,7 +25,6 @@ describe('main_window', () => {
 
       // stub windows
       beforeAll(() => {
-        setMainWindow(null)
         BrowserWindow['setAllWindows']([window])
       })
 
@@ -41,7 +35,6 @@ describe('main_window', () => {
 
       // cleanup stubs
       afterAll(() => {
-        setMainWindow(null)
         BrowserWindow['setAllWindows']([])
       })
 
@@ -60,27 +53,19 @@ describe('main_window', () => {
   describe('createMainWindow', () => {
     describe('with stored window geometry', () => {
       beforeEach(() => {
-        configStore.has = jest.fn(() => true)
-        configStore.get = jest.fn(() => {
-          return {
-            width: 800,
-            height: 600,
-            x: 0,
-            y: 0
-          }
+        jest.spyOn(configStore, 'has').mockReturnValue(true)
+        jest.spyOn(configStore, 'get').mockReturnValue({
+          width: 800,
+          height: 600,
+          x: 0,
+          y: 0
         })
-      })
-
-      afterAll(() => {
-        configStore.has = jest.fn()
-        configStore.get = jest.fn()
       })
 
       it('creates the new window with the given geometry', () => {
         const window = createMainWindow()
         const options = window['options']
 
-        expect(configStore.has).toBeCalledWith('window-props')
         expect(options.height).toBe(600)
         expect(options.width).toBe(800)
         expect(options.x).toBe(0)
@@ -90,7 +75,7 @@ describe('main_window', () => {
 
     describe('without stored window geometry', () => {
       beforeAll(() => {
-        configStore.has = () => false
+        jest.spyOn(configStore, 'has').mockReturnValue(false)
       })
 
       it('creates the new window with the default geometry', () => {
@@ -105,15 +90,12 @@ describe('main_window', () => {
 
       it('ensures windows is not bigger than the screen', () => {
         // mock a smaller screen info
-        const originalScreenSize = screen.getPrimaryDisplay
-        screen.getPrimaryDisplay = () => {
-          return {
-            workAreaSize: {
-              height: 768,
-              width: 1024
-            }
-          } as Display
-        }
+        jest.spyOn(screen, 'getPrimaryDisplay').mockReturnValue({
+          workAreaSize: {
+            height: 768,
+            width: 1024
+          }
+        } as Display)
 
         const window = createMainWindow()
         const options = window['options']
@@ -122,9 +104,6 @@ describe('main_window', () => {
         expect(options.width).toBe(1024 * 0.8) // 80% of the workAreaSize.width
         expect(options.x).toBe(0)
         expect(options.y).toBe(0)
-
-        // revert mock
-        screen.getPrimaryDisplay = originalScreenSize
       })
     })
   })

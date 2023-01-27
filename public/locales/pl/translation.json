@@ -140,7 +140,11 @@
                 "install": "Serwery Epic mają teraz poważną awarię, gra nie może zostać zainstalowana!",
                 "update": "Serwery Epic mają teraz poważną awarię, gra nie może zostać zaktualizowana!"
             },
-            "title": "Ostrzeżenie"
+            "title": "Ostrzeżenie",
+            "wine-change": {
+                "title": "Nie znaleziono wina!",
+                "message": "Nie mogliśmy znaleźć wybranej wersji wina, aby uruchomić ten tytuł ({{selectedWine}}). {{newline}} Znaleźliśmy inny, czy chcesz kontynuować uruchamianie za pomocą {{foundWine}}?"
+            }
         },
         "wineprefix": "Wybierz folder z prefiksem Wine",
         "yes": "TAK"
@@ -151,7 +155,8 @@
         "login": "Zaloguj",
         "sync": "Synchronizuj",
         "syncing": "Synchronizowanie",
-        "unsync": "Desynchronizuj"
+        "unsync": "Desynchronizuj",
+        "continue": "Kontynuuj"
     },
     "controller": {
         "hints": {
@@ -274,7 +279,7 @@
             "version": "Wersja Heroic"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "Ustawienia są zapisywane automatycznie",
         "version": "Wersja Wine"
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine wykorzystuje tzw. Prefiks w celu przechowywania aplikacji Windowsowych. Prefiks ten zawiera pliki konfiguracyjne Wine oraz dokładne odwzorowanie hierarchii dysku C:// (głównego dysku w systemie Windows). Tam przechowywane są zapisy gier oraz pliki potrzebne do uruchomienia gry zainstalowane przez winetricks."
-        }
+        },
+        "wine-path-invalid": "Ścieżka wina jest nieprawidłowa, wybierz inną."
     },
     "install": {
         "path": "Wybierz ścieżkę instalacji"
@@ -532,9 +538,9 @@
             "title": "Uruchom EXE w prefiksie"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Wybierz folder zapisu gier",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Wybierz Motyw",
         "showfps": "Pokaż FPS (DX9, DX10, DX11)",
@@ -542,7 +548,9 @@
         "steamruntime": "Używaj Steam Runtime",
         "winecrossoverbottle": "Butelka CrossOver",
         "wineprefix": "Folder prefiksu Wine",
-        "wineversion": "Wersja Wine"
+        "wineversion": "Wersja Wine",
+        "autoUpdateGames": "Automatycznie aktualizuj gry",
+        "ignoreGameUpdates": "Ignoruj aktualizacje gier"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -627,7 +635,9 @@
         "logout": "Wyloguj",
         "logout_confirmation": "Czy na pewno chcesz się wylogować?",
         "manageaccounts": "Zarządzaj kontami",
-        "quit": "Wyjdź"
+        "quit": "Wyjdź",
+        "cancel": "Anuluj",
+        "quitMessage": "Czy na pewno chcesz zrezygnować?"
     },
     "webview": {
         "controls": {
@@ -647,5 +657,12 @@
         },
         "release": "Data wydania",
         "size": "Rozmiar"
+    },
+    "externalLink": {
+        "dontAskAgain": "Nie pytaj ponownie",
+        "warning": "Zamierzasz otworzyć link zewnętrzny."
+    },
+    "wiki_info": {
+        "not_found": "Nie mogliśmy znaleźć dodatkowych informacji."
     }
 }

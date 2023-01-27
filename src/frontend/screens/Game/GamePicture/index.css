@@ -14,10 +14,11 @@
   height: 100%;
   width: 100%;
   background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0),
-    var(--background-darker) 100%
-  );
+      90deg,
+      rgba(0, 0, 0, 0),
+      var(--background-darker) 100%
+    ),
+    linear-gradient(0deg, rgba(0, 0, 0, 0) 89%, var(--background-darker) 100%);
 }
 
 .gamePicture > .gameImg {

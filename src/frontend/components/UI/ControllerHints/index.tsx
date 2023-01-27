@@ -116,7 +116,7 @@ export default function ControllerHints() {
     }
 
     // check focused element after a page change
-    setHints(document.querySelector(':focus') as HTMLElement)
+    setHints(document.querySelector<HTMLElement>(':focus'))
   }, [location])
 
   useEffect(() => {

@@ -35,7 +35,8 @@
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "message": "Wilt u dit spel verwijderen?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
-            "title": "Verwijderen"
+            "title": "Verwijderen",
+            "prefix_warning": "Het Wine-voorvoegsel voor dit spel is het standaardvoorvoegsel. Als u het echt wilt verwijderen, moet u dit handmatig doen."
         },
         "update": {
             "message": "Dit spel heeft een update, update nu toepassen?",
@@ -67,7 +68,8 @@
         },
         "unhide_game": "Unhide Game",
         "uninstall": "Verwijderen",
-        "update": "Update"
+        "update": "Update",
+        "details": "Details"
     },
     "cloud_save_unsupported": "Unsupported",
     "disabled": "Uitgeschakeld",
@@ -145,7 +147,8 @@
         "title": "Selecteer componenten om te installeren"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Use Default Wine Settings",
+        "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {
         "field": {
@@ -181,7 +184,8 @@
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Totaal gedownload",
         "uninstalling": "Uninstalling",
-        "updating": "Spel aan het updaten"
+        "updating": "Spel aan het updaten",
+        "playing": "Spelen"
     },
     "submenu": {
         "addShortcut": "Snelkoppeling toevoegen",
@@ -195,6 +199,7 @@
         "removeShortcut": "Remove shortcuts",
         "settings": "Instellingen",
         "store": "Winkel",
-        "verify": "Verifiëren en repareren"
+        "verify": "Verifiëren en repareren",
+        "extraInfo": "Extra info"
     }
 }

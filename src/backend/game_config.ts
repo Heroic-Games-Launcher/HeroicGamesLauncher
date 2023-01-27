@@ -125,6 +125,9 @@ abstract class GameConfig {
    */
   public abstract getSettings(): Promise<GameSettings>
 
+  /** Change a specific setting */
+  public abstract setSetting(key: string, value: unknown): void
+
   /**
    * Updates this.config, this.version to upgrade the current config file.
    *
@@ -286,12 +289,18 @@ class GameConfigV0 extends GameConfig {
     }
   }
 
-  public async resetToDefaults() {
+  public setSetting(key: string, value: unknown) {
+    this.config[key] = value
+    logInfo(`${this.appName}: Setting ${key} to ${JSON.stringify(value)}`)
+    return this.flush()
+  }
+
+  public resetToDefaults() {
     this.config = {} as GameSettings
     return this.flush()
   }
 
-  public async flush() {
+  public flush() {
     const config = new Map(Object.entries({ ...this.config }))
     if (this.isExplicit) {
       // Explicit mode on. Config is taken as is, missing values are not substituted for defaults.

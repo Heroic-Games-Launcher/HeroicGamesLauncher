@@ -8,7 +8,7 @@ import {
 } from 'common/types'
 
 import { TFunction } from 'react-i18next'
-import { getGameInfo, sendKill, syncSaves } from './index'
+import { getGameInfo, sendKill } from './index'
 import { DialogModalOptions } from 'frontend/types'
 
 const storage: Storage = window.localStorage
@@ -46,13 +46,11 @@ async function install({
     return
   }
 
-  const {
-    folder_name,
-    is_installed,
-    app_name: appName,
-    runner
-  }: GameInfo = gameInfo
+  const { folder_name, is_installed, app_name: appName, runner } = gameInfo
   if (isInstalling) {
+    // NOTE: This can't really happen, since `folder_name` can only be undefined if we got a
+    //       SideloadGame from getGameInfo, but we can't "install" sideloaded games
+    if (!folder_name) return
     return handleStopInstallation(
       appName,
       [installPath, folder_name],
@@ -70,19 +68,9 @@ async function install({
   if (installPath === 'import') {
     const { defaultInstallPath }: AppSettings =
       await window.api.requestAppSettings()
-    const args = {
+    const args: Electron.OpenDialogOptions = {
       buttonLabel: t('gamepage:box.choose'),
-      properties: ['openDirectory'] as Array<
-        | 'openFile'
-        | 'openDirectory'
-        | 'multiSelections'
-        | 'showHiddenFiles'
-        | 'createDirectory'
-        | 'promptToCreate'
-        | 'noResolveAliases'
-        | 'treatPackageAsDirectory'
-        | 'dontAddToRecent'
-      >,
+      properties: ['openDirectory'],
       title: t('gamepage:box.importpath'),
       defaultPath: defaultInstallPath
     }
@@ -162,27 +150,12 @@ async function handleStopInstallation(
 const repair = async (appName: string, runner: Runner): Promise<void> =>
   window.api.repair(appName, runner)
 
-const autoSyncSaves = async (
-  appName: string,
-  gameInfo: GameInfo | null
-): Promise<string> => {
-  const { savesPath, gogSaves } = await window.api.requestGameSettings(appName)
-
-  if (gameInfo?.runner === 'legendary' && savesPath) {
-    return syncSaves(savesPath, appName, gameInfo.runner)
-  } else if (gameInfo?.runner === 'gog' && gogSaves !== undefined) {
-    return window.api.syncGOGSaves(gogSaves, appName, '')
-  }
-  return 'Unable to sync saves.'
-}
-
 type LaunchOptions = {
   appName: string
   t: TFunction<'gamepage'>
   launchArguments?: string
   runner: Runner
   hasUpdate: boolean
-  syncCloud: boolean
   showDialogModal: (options: DialogModalOptions) => void
 }
 
@@ -192,10 +165,19 @@ const launch = async ({
   launchArguments = '',
   runner,
   hasUpdate,
-  syncCloud,
   showDialogModal
 }: LaunchOptions): Promise<{ status: 'done' | 'error' }> => {
   if (hasUpdate) {
+    const { ignoreGameUpdates } = await window.api.requestGameSettings(appName)
+
+    if (ignoreGameUpdates) {
+      return window.api.launch({
+        appName,
+        runner,
+        launchArguments: runner === 'legendary' ? '--skip-version-check' : ''
+      })
+    }
+
     // promisifies the showDialogModal button click callbacks
     const launchFinished = new Promise<{ status: 'done' | 'error' }>((res) => {
       showDialogModal({
@@ -206,7 +188,7 @@ const launch = async ({
             text: t('gamepage:box.yes'),
             onClick: async () => {
               const gameInfo = await getGameInfo(appName, runner)
-              if (gameInfo) {
+              if (gameInfo && gameInfo.runner !== 'sideload') {
                 updateGame({ appName, runner, gameInfo })
                 res({ status: 'done' })
               }
@@ -230,26 +212,6 @@ const launch = async ({
     })
 
     return launchFinished
-  }
-
-  if (syncCloud) {
-    const gameInfo = await getGameInfo(appName, runner)
-    if (gameInfo?.cloud_save_enabled) {
-      const settings = await window.api.requestGameSettings(appName)
-      if (settings.autoSyncSaves) {
-        await autoSyncSaves(appName, gameInfo)
-
-        const status = await window.api.launch({
-          appName,
-          launchArguments,
-          runner
-        })
-
-        await autoSyncSaves(appName, gameInfo)
-
-        return status
-      }
-    }
   }
 
   return window.api.launch({ appName, launchArguments, runner })

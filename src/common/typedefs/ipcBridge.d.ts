@@ -1,7 +1,5 @@
-import { PCGamingWikiInfo } from './../types'
 import { EventEmitter } from 'node:events'
 import { IpcMainEvent, OpenDialogOptions } from 'electron'
-import { HowLongToBeatEntry } from 'howlongtobeat'
 
 import {
   Runner,
@@ -92,6 +90,7 @@ interface SyncIPCFunctions {
   'connectivity-changed': (newStatus: ConnectivityStatus) => void
   'set-connectivity-online': () => void
   changeTrayColor: () => void
+  setSetting: (args: { appName: string; key: string; value: unknown }) => void
 }
 
 interface AsyncIPCFunctions {
@@ -114,7 +113,10 @@ interface AsyncIPCFunctions {
   showUpdateSetting: () => boolean
   getLatestReleases: () => Promise<Release[]>
   getCurrentChangelog: () => Promise<Release | null>
-  getGameInfo: (appName: string, runner: Runner) => Promise<GameInfo | null>
+  getGameInfo: (
+    appName: string,
+    runner: Runner
+  ) => Promise<GameInfo | SideloadGame | null>
   getExtraInfo: (appName: string, runner: Runner) => Promise<ExtraInfo | null>
   getGameSettings: (
     appName: string,
@@ -134,7 +136,7 @@ interface AsyncIPCFunctions {
   }>
   authGOG: (code: string) => Promise<{
     status: 'done' | 'error'
-    data?: { displayName: string; username: string }
+    data?: UserData
   }>
   logoutLegendary: () => Promise<void>
   getAlternativeWine: () => Promise<WineInstallation[]>
@@ -218,11 +220,7 @@ interface AsyncIPCFunctions {
   }
   getNumOfGpus: () => Promise<number>
   removeRecent: (appName: string) => Promise<void>
-  getHowLongToBeat: (title: string) => Promise<HowLongToBeatEntry | null>
-  getInfoFromPCGamingWiki: (
-    title: string,
-    id?: string
-  ) => Promise<PCGamingWikiInfo | null>
+  getWikiGameInfo: (title: string, id?: string) => Promise<WikiInfo | null>
   getDefaultSavePath: (
     appName: string,
     runner: Runner,
@@ -233,6 +231,7 @@ interface AsyncIPCFunctions {
     runner: Runner
   }) => Promise<boolean>
   toggleDXVK: (args: ToolArgs) => Promise<boolean>
+  pathExists: (path: string) => Promise<boolean>
 }
 
 // This is quite ugly & throws a lot of errors in a regular .ts file

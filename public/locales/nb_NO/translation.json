@@ -140,7 +140,11 @@
                 "install": "Epic Servers har stor driftsstans akkurat nå, spillet kan ikke installeres!",
                 "update": "Epic Servers har stor driftsstans akkurat nå, spillet kan ikke oppdateres!"
             },
-            "title": "Advarsel"
+            "title": "Advarsel",
+            "wine-change": {
+                "message": "Vi kunne ikke finne den valgte vinversjonen for å lansere denne tittelen ({{selectedWine}}). {{newline}} Vi fant en annen, vil du fortsette å lansere med {{foundWine}}?",
+                "title": "Finner ikke vin!"
+            }
         },
         "wineprefix": "Velg mappe for Wine-prefiks",
         "yes": "Ja"
@@ -151,7 +155,8 @@
         "login": "Logg inn",
         "sync": "Synkroniser",
         "syncing": "Synkroniserer …",
-        "unsync": "Omgjør synkronisering"
+        "unsync": "Omgjør synkronisering",
+        "continue": "Fortsette"
     },
     "controller": {
         "hints": {
@@ -274,7 +279,7 @@
             "version": "Heroisk versjon"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "Innstillinger lagres automatisk",
         "version": "Vinversjon"
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine bruker det som kalles WINEPREFIX for å kapsle inn Windows-applikasjoner. Dette prefikset inneholder Wine-konfigurasjonsfilene og en reproduksjon av filhierarkiet til C: (hoveddisken på et Windows-operativsystem). I denne reproduksjonen av C:-stasjonen, lagres spilllagringsfiler og avhengigheter installert via vintriks."
-        }
+        },
+        "wine-path-invalid": "Vinstien er ugyldig. Velg en annen."
     },
     "install": {
         "path": "Velg Installer bane"
@@ -532,9 +538,9 @@
             "title": "Kjør EXE på prefiks"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Velg den nøyaktige mappen for lagring av spill",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Velg Tema",
         "showfps": "Vis FPS (DX9, 10 og 11)",
@@ -542,7 +548,9 @@
         "steamruntime": "Bruk Steam Runtime",
         "winecrossoverbottle": "CrossOver flaske",
         "wineprefix": "WinePrefix-mappen",
-        "wineversion": "Vinversjon"
+        "wineversion": "Vinversjon",
+        "autoUpdateGames": "Oppdater spill automatisk",
+        "ignoreGameUpdates": "Ignorer spilloppdateringer"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -627,7 +635,9 @@
         "logout": "Logg ut",
         "logout_confirmation": "Er du sikker på at du vil logge ut?",
         "manageaccounts": "Administrer kontoer",
-        "quit": "Avslutt"
+        "quit": "Avslutt",
+        "cancel": "Cancel",
+        "quitMessage": "Er du sikker på at du vil slutte?"
     },
     "webview": {
         "controls": {
@@ -647,5 +657,12 @@
         },
         "release": "Utgivelsesdato",
         "size": "Størrelse"
+    },
+    "externalLink": {
+        "dontAskAgain": "Ikke spør igjen",
+        "warning": "Du er i ferd med å åpne en ekstern lenke."
+    },
+    "wiki_info": {
+        "not_found": "Vi kunne ikke finne ekstra informasjon."
     }
 }

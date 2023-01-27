@@ -147,7 +147,8 @@
         "title": "Выбрать компоненты для установки"
     },
     "setting": {
-        "use-default-wine-settings": "Использовать настройки Wine по умолчанию"
+        "use-default-wine-settings": "Использовать настройки Wine по умолчанию",
+        "winecrossoverbottle": "Бутылка CrossOver"
     },
     "sideload": {
         "field": {
@@ -183,7 +184,8 @@
         "this-game-uses-third-party": "Эта игра использует сторонний лаунчер и пока не поддерживается",
         "totalDownloaded": "Всего загружено",
         "uninstalling": "Удаление",
-        "updating": "Обновление игры"
+        "updating": "Обновление игры",
+        "playing": "Игра"
     },
     "submenu": {
         "addShortcut": "Создать ярлык",
@@ -197,6 +199,7 @@
         "removeShortcut": "Удалить ярлыки",
         "settings": "Настройки",
         "store": "Страница в магазине",
-        "verify": "Проверить и восстановить"
+        "verify": "Проверить и восстановить",
+        "extraInfo": "Дополнительная информация"
     }
 }

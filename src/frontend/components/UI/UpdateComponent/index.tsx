@@ -5,7 +5,7 @@ import React, { useEffect, useMemo, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import './index.css'
 
-export interface UpdateComponentProps {
+interface UpdateComponentProps {
   message?: string
   inline?: boolean
 }

@@ -166,35 +166,49 @@ abstract class GlobalConfig {
     if (!isMac) {
       return wineSet
     }
+
+    const winePaths = new Set<string>()
+
+    // search for wine installed on $HOME/Library/Application Support/heroic/tools/wine
+    const wineToolsPath = `${heroicToolsPath}/wine/`
+    if (existsSync(wineToolsPath)) {
+      readdirSync(wineToolsPath).forEach((path) => {
+        winePaths.add(join(wineToolsPath, path))
+      })
+    }
+
+    // search for wine installed around the system
     await execAsync('mdfind kMDItemCFBundleIdentifier = "*.wine"').then(
       async ({ stdout }) => {
         stdout.split('\n').forEach((winePath) => {
-          const infoFilePath = join(winePath, 'Contents/Info.plist')
-          if (winePath && existsSync(infoFilePath)) {
-            const info = plistParse(
-              readFileSync(infoFilePath, 'utf-8')
-            ) as PlistObject
-            const version = info['CFBundleShortVersionString'] || ''
-            const name = info['CFBundleName'] || ''
-            const wineBin = join(
-              winePath,
-              '/Contents/Resources/wine/bin/wine64'
-            )
-            if (existsSync(wineBin)) {
-              wineSet.add({
-                ...this.getWineExecs(wineBin),
-                lib: `${winePath}/Contents/Resources/wine/lib`,
-                lib32: `${winePath}/Contents/Resources/wine/lib`,
-                bin: wineBin,
-                name: `${name} - ${version}`,
-                type: 'wine',
-                ...this.getWineExecs(wineBin)
-              })
-            }
-          }
+          winePaths.add(winePath)
         })
       }
     )
+
+    winePaths.forEach((winePath) => {
+      const infoFilePath = join(winePath, 'Contents/Info.plist')
+      if (winePath && existsSync(infoFilePath)) {
+        const info = plistParse(
+          readFileSync(infoFilePath, 'utf-8')
+        ) as PlistObject
+        const version = info['CFBundleShortVersionString'] || ''
+        const name = info['CFBundleName'] || ''
+        const wineBin = join(winePath, '/Contents/Resources/wine/bin/wine64')
+        if (existsSync(wineBin)) {
+          wineSet.add({
+            ...this.getWineExecs(wineBin),
+            lib: `${winePath}/Contents/Resources/wine/lib`,
+            lib32: `${winePath}/Contents/Resources/wine/lib`,
+            bin: wineBin,
+            name: `${name} - ${version}`,
+            type: 'wine',
+            ...this.getWineExecs(wineBin)
+          })
+        }
+      }
+    })
+
     return wineSet
   }
 
@@ -291,7 +305,10 @@ abstract class GlobalConfig {
   public async getAlternativeWine(
     scanCustom = true
   ): Promise<WineInstallation[]> {
-    const macOsWineSet = await this.getMacOsWineSet()
+    if (isMac) {
+      const macOsWineSet = await this.getMacOsWineSet()
+      return [...macOsWineSet]
+    }
 
     if (!existsSync(`${heroicToolsPath}/wine`)) {
       mkdirSync(`${heroicToolsPath}/wine`, { recursive: true })
@@ -372,13 +389,7 @@ abstract class GlobalConfig {
       customWineSet = this.getCustomWinePaths()
     }
 
-    return [
-      ...defaultWineSet,
-      ...altWine,
-      ...proton,
-      ...customWineSet,
-      ...macOsWineSet
-    ]
+    return [...defaultWineSet, ...altWine, ...proton, ...customWineSet]
   }
 
   /**
@@ -475,6 +486,9 @@ abstract class GlobalConfig {
    */
   public abstract flush(): void
 
+  /** change a specific setting */
+  public abstract setSetting(key: string, value: unknown): void
+
   /**
    * Load the config file, upgrade if needed.
    */
@@ -491,7 +505,7 @@ abstract class GlobalConfig {
     } else {
       // No upgrades necessary, load config.
       // `this.version` should be `currentGlobalConfigVersion` at this point.
-      this.config = this.getSettings() as AppSettings
+      this.config = this.getSettings()
     }
   }
 }
@@ -539,8 +553,8 @@ class GlobalConfigV0 extends GlobalConfig {
 
     // TODO: Remove this after a couple of stable releases
     // Get settings only from config-store
-    const currentConfigStore = configStore.get('settings', {}) as AppSettings
-    if (!currentConfigStore.defaultInstallPath) {
+    const currentConfigStore = configStore.get_nodefault('settings')
+    if (!currentConfigStore?.defaultInstallPath) {
       configStore.set('settings', settings)
     }
 
@@ -587,6 +601,7 @@ class GlobalConfigV0 extends GlobalConfig {
       addSteamShortcuts: false,
       preferSystemLibs: false,
       checkForUpdatesOnStartup: !isFlatpak,
+      autoUpdateGames: false,
       customWinePaths: isWindows ? null : [],
       defaultInstallPath: heroicInstallPath,
       libraryTopSection: 'disabled',
@@ -611,12 +626,20 @@ class GlobalConfigV0 extends GlobalConfig {
     } as AppSettings
   }
 
-  public async resetToDefaults() {
+  public setSetting(key: string, value: unknown) {
+    const config = this.getSettings()
+    config[key] = value
+    this.config = config
+    logInfo(`Heroic: Setting ${key} to ${JSON.stringify(value)}`)
+    return this.flush()
+  }
+
+  public resetToDefaults() {
     this.config = this.getFactoryDefaults()
     return this.flush()
   }
 
-  public async flush() {
+  public flush() {
     return this.writeToFile({
       defaultSettings: this.config,
       version: 'v0'

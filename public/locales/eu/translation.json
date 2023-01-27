@@ -140,7 +140,11 @@
                 "install": "Epic zerbitzariak ebaki garrantzitsu bat izaten ari dira une honetan, jokoa ezin da instalatu!",
                 "update": "Epic zerbitzariak etenaldi handia izaten ari dira une honetan, jokoa ezin da eguneratu!"
             },
-            "title": "Oharra"
+            "title": "Oharra",
+            "wine-change": {
+                "message": "Ezin izan dugu hautatutako ardoaren bertsioa aurkitu izenburu hau abiarazteko ({{selectedWine}}). {{newline}} Beste bat aurkitu dugu, {{foundWine}} erabiliz abiarazten jarraitu nahi duzu?",
+                "title": "Ez da ardorik aurkitu!"
+            }
         },
         "wineprefix": "Aukeratu Wine-Prefix karpeta",
         "yes": "BAI"
@@ -151,7 +155,8 @@
         "login": "Hasi saioa",
         "sync": "Sinkronizatu",
         "syncing": "Sinkronizatzen",
-        "unsync": "Desinkronizatu"
+        "unsync": "Desinkronizatu",
+        "continue": "Jarraitu"
     },
     "controller": {
         "hints": {
@@ -274,7 +279,7 @@
             "version": "Heroic bertsioa"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "Ezarpenak automatikoki gordetzen dira",
         "version": "Ardoaren Bertsioa"
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine-k WINEPREFIX deritzona erabiltzen du Windows aplikazioak kapsulatzeko. Aurrizki honek Wine konfigurazio-fitxategiak eta C:-ren fitxategi-hierarkiaren erreprodukzioa ditu (Windows OS bateko disko nagusia). C: diskoaren erreprodukzio honetan, zure jokoa gordetzeko fitxategiak eta winetricks bidez instalatutako mendekotasunak gordetzen dira."
-        }
+        },
+        "wine-path-invalid": "Ardoaren bidea baliogabea da, hautatu beste bat."
     },
     "install": {
         "path": "Hautatu Instalatu bidea"
@@ -532,9 +538,9 @@
             "title": "Exekutatu EXE aurrizkian"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Hautatu partidak gordetzeko karpeta zehatza",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Hautatu Gaia",
         "showfps": "Erakutsi FPS (DX9, 10 eta 11)",
@@ -542,7 +548,9 @@
         "steamruntime": "Erabili Steam Runtime",
         "winecrossoverbottle": "CrossOver botila",
         "wineprefix": "WinePrefix karpeta",
-        "wineversion": "Ardoaren Bertsioa"
+        "wineversion": "Ardoaren Bertsioa",
+        "autoUpdateGames": "Eguneratu jokoak automatikoki",
+        "ignoreGameUpdates": "Ez ikusi jokoaren eguneraketak"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -627,7 +635,9 @@
         "logout": "Saioa amaitu",
         "logout_confirmation": "Ziur saioa amaitu nahi duzula?",
         "manageaccounts": "Kudeatu Kontuak",
-        "quit": "Irten"
+        "quit": "Irten",
+        "cancel": "Ezeztatu",
+        "quitMessage": "Ziur utzi nahi duzula?"
     },
     "webview": {
         "controls": {
@@ -647,5 +657,12 @@
         },
         "release": "Argitaratze data",
         "size": "Tamaina"
+    },
+    "externalLink": {
+        "warning": "Kanpoko esteka bat irekitzera zoaz.",
+        "dontAskAgain": "Ez galdetu berriro"
+    },
+    "wiki_info": {
+        "not_found": "Ezin izan dugu informazio gehigarririk aurkitu."
     }
 }

@@ -147,7 +147,8 @@
         "title": "Wybierz komponenty do instalacji"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Use Default Wine Settings",
+        "winecrossoverbottle": "Butelka CrossOver"
     },
     "sideload": {
         "field": {
@@ -183,7 +184,8 @@
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Łącznie pobrane",
         "uninstalling": "Uninstalling",
-        "updating": "Aktualizowanie gry"
+        "updating": "Aktualizowanie gry",
+        "playing": "Gra"
     },
     "submenu": {
         "addShortcut": "Dodaj skrót",
@@ -197,6 +199,7 @@
         "removeShortcut": "Usuń skróty",
         "settings": "Ustawienia",
         "store": "Strona sklepu",
-        "verify": "Sprawdź i napraw"
+        "verify": "Sprawdź i napraw",
+        "extraInfo": "Informacje dodatkowe"
     }
 }

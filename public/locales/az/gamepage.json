@@ -148,7 +148,8 @@
         "title": "Quraşdırılacaq komponentləri seçin"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Use Default Wine Settings",
+        "winecrossoverbottle": "Krossover şüşə"
     },
     "sideload": {
         "field": {
@@ -184,7 +185,8 @@
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Toplam Endirilib",
         "uninstalling": "Uninstalling",
-        "updating": "Oyun Yenilənir"
+        "updating": "Oyun Yenilənir",
+        "playing": "Oynayan"
     },
     "submenu": {
         "addShortcut": "Qısayol əlavə edin",
@@ -198,6 +200,7 @@
         "removeShortcut": "Qısayolları silin",
         "settings": "Parametrlər",
         "store": "Mağaza Səhifəsi",
-        "verify": "Doğrulayın və Təmir edin"
+        "verify": "Doğrulayın və Təmir edin",
+        "extraInfo": "Əlavə məlumat"
     }
 }

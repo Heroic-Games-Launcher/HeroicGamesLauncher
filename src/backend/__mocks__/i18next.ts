@@ -2,4 +2,8 @@ const t = (key: string) => {
   return key
 }
 
-export default { t }
+const i18next = {
+  t: t
+}
+
+export { i18next as default, t }

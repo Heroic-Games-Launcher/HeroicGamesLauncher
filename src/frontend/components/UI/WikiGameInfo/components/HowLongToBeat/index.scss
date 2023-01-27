@@ -1,0 +1,27 @@
+.wikigameinfoWrapper .howLongToBeatWrapper {
+  font-size: 0.8rem;
+  cursor: pointer;
+
+  .howLongToBeat {
+    display: flex;
+    summary {
+      outline: none;
+      font-size: 1.2rem;
+      font-weight: var(--bold);
+      transition: 300ms;
+
+      &:hover,
+      &:focus-within {
+        color: var(--accent);
+      }
+    }
+
+    .circle {
+      width: fit-content;
+      min-width: 100px;
+      justify-content: center;
+      display: flex;
+      cursor: default;
+    }
+  }
+}

@@ -36,7 +36,8 @@
             "checkbox_prefix": "Prefiks",
             "message": "Želite li izbrisati video igru?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
-            "title": "Izbriši"
+            "title": "Izbriši",
+            "prefix_warning": "Wine prefiks za ovu igru je podrazumevani prefiks. Ako ga zaista želite izbrisati, morate to učiniti ručno."
         },
         "update": {
             "message": "Ova video igra ima ažuriranje. Želite li ažurirati sada?",
@@ -68,7 +69,8 @@
         },
         "unhide_game": "Prikaži igru",
         "uninstall": "Deinstaliraj",
-        "update": "Ažuriraj"
+        "update": "Ažuriraj",
+        "details": "Detalji"
     },
     "cloud_save_unsupported": "Nepodržano",
     "disabled": "Onemogućeno",
@@ -146,7 +148,8 @@
         "title": "Odaberite komponente za instalaciju"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Use Default Wine Settings",
+        "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {
         "field": {
@@ -182,7 +185,8 @@
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Ukupno preuzeto",
         "uninstalling": "Uninstalling",
-        "updating": "Ažuriranje video igre"
+        "updating": "Ažuriranje video igre",
+        "playing": "Igranje"
     },
     "submenu": {
         "addShortcut": "Dodaj prečicu",
@@ -196,6 +200,7 @@
         "removeShortcut": "Uklonite prečice",
         "settings": "Postavke",
         "store": "Webstranica Trgovine",
-        "verify": "Provjeri i popravi"
+        "verify": "Provjeri i popravi",
+        "extraInfo": "Extra Info"
     }
 }

@@ -117,7 +117,7 @@ async function setup(
               '\\'
             )
           }
-          if (valueData) {
+          if (valueData && valueType) {
             const regType = getRegDataType(valueType)
             if (!regType) {
               logError(

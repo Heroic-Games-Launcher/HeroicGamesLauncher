@@ -5,7 +5,9 @@ import {
   GameSettings,
   DiskSpaceData,
   StatusPromise,
-  GamepadInputEvent
+  GamepadInputEvent,
+  DMQueueElement,
+  GameInfo
 } from 'common/types'
 import * as path from 'path'
 import {
@@ -67,10 +69,10 @@ import {
   getGame,
   getFirstExistingParentPath,
   getLatestReleases,
-  notify,
   getShellPath,
   getCurrentChangelog,
-  wait
+  wait,
+  checkWineBeforeLaunch
 } from './utils'
 import {
   configStore,
@@ -112,13 +114,13 @@ import { gameInfoStore } from './legendary/electronStores'
 import { getFonts } from 'font-list'
 import { runWineCommand, verifyWinePrefix } from './launcher'
 import shlex from 'shlex'
-import { initQueue } from './downloadmanager/downloadqueue'
+import { addToQueue, initQueue } from './downloadmanager/downloadqueue'
 import {
   initOnlineMonitor,
   isOnline,
   runOnceWhenOnline
 } from './online_monitor'
-import { showDialogBoxModalAuto } from './dialog/dialog'
+import { notify, showDialogBoxModalAuto } from './dialog/dialog'
 import { addRecentGame } from './recent_games/recent_games'
 import {
   addNewApp,
@@ -284,8 +286,8 @@ if (!gotTheLock) {
     // Affects only current users, not new installs
     const settings = GlobalConfig.get().getSettings()
     const { language } = settings
-    const currentConfigStore = configStore.get('settings', {}) as AppSettings
-    if (!currentConfigStore.defaultInstallPath) {
+    const currentConfigStore = configStore.get_nodefault('settings')
+    if (!currentConfigStore?.defaultInstallPath) {
       configStore.set('settings', settings)
     }
 
@@ -294,7 +296,7 @@ if (!gotTheLock) {
 
       if (!isLoggedIn) {
         logInfo('User Not Found, removing it from Store', LogPrefix.Backend)
-        configStore.delete('userinfo')
+        configStore.delete('userInfo')
       }
 
       // Update user details
@@ -381,8 +383,7 @@ if (!gotTheLock) {
 
     // set initial zoom level after a moment, if set in sync the value stays as 1
     setTimeout(() => {
-      const zoomFactor =
-        parseFloat(configStore.get('zoomPercent', '100') as string) / 100
+      const zoomFactor = configStore.get('zoomPercent', 100) / 100
 
       mainWindow.webContents.setZoomFactor(processZoomForScreen(zoomFactor))
     }, 200)
@@ -586,13 +587,22 @@ ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
             commandParts: ['winecfg'],
             wait: false
           })
-        : game.runWineCommand(['winecfg'])
+        : game.runWineCommand({ commandParts: ['winecfg'] })
       break
     case 'runExe':
       if (exe) {
+        const workingDir = path.parse(exe).dir
         isSideloaded
-          ? runWineCommand({ gameSettings, commandParts: [exe], wait: false })
-          : game.runWineCommand([exe])
+          ? runWineCommand({
+              gameSettings,
+              commandParts: [exe],
+              wait: false,
+              startFolder: workingDir
+            })
+          : game.runWineCommand({
+              commandParts: [exe],
+              startFolder: workingDir
+            })
       }
       break
   }
@@ -603,10 +613,45 @@ ipcMain.handle('runWineCommand', async (e, args) => runWineCommand(args))
 /// IPC handlers begin here.
 
 ipcMain.handle('checkGameUpdates', async (): Promise<string[]> => {
-  return [
-    ...(await LegendaryLibrary.get().listUpdateableGames()),
-    ...(await GOGLibrary.get().listUpdateableGames())
-  ]
+  let epicUpdates = await LegendaryLibrary.get().listUpdateableGames()
+  let gogUpdates = await GOGLibrary.get().listUpdateableGames()
+
+  const { autoUpdateGames } = GlobalConfig.get().getSettings()
+  if (autoUpdateGames) {
+    epicUpdates.forEach(async (appName) => {
+      const game = getGame(appName, 'legendary')
+      const { ignoreGameUpdates } = await game.getSettings()
+      const gameInfo = game.getGameInfo()
+      if (!ignoreGameUpdates) {
+        logInfo(`Auto-Updating ${gameInfo.title}`, LogPrefix.Legendary)
+        const dmQueueElement: DMQueueElement = getDMElement(gameInfo, appName)
+        addToQueue(dmQueueElement)
+        // remove from the array to avoid downloading the same game twice
+        epicUpdates = epicUpdates.filter((game) => game !== appName)
+      } else {
+        logInfo(
+          `Skipping auto-update for ${gameInfo.title}`,
+          LogPrefix.Legendary
+        )
+      }
+    })
+    gogUpdates.forEach(async (appName) => {
+      const game = getGame(appName, 'gog')
+      const { ignoreGameUpdates } = await game.getSettings()
+      const gameInfo = game.getGameInfo()
+      if (!ignoreGameUpdates) {
+        logInfo(`Auto-Updating ${gameInfo.title}`, LogPrefix.Gog)
+        const dmQueueElement: DMQueueElement = getDMElement(gameInfo, appName)
+        addToQueue(dmQueueElement)
+        // remove from the array to avoid downloading the same game twice
+        gogUpdates = gogUpdates.filter((game) => game !== appName)
+      } else {
+        logInfo(`Skipping auto-update for ${gameInfo.title}`, LogPrefix.Gog)
+      }
+    })
+  }
+
+  return [...epicUpdates, ...gogUpdates]
 })
 
 ipcMain.handle('getEpicGamesStatus', async () => isEpicServiceOffline())
@@ -856,11 +901,21 @@ ipcMain.handle('writeConfig', (event, { appName, config }) => {
   if (appName === 'default') {
     GlobalConfig.get().set(config as AppSettings)
     GlobalConfig.get().flush()
-    const currentConfigStore = configStore.get('settings', {}) as AppSettings
-    configStore.set('settings', { ...currentConfigStore, ...config })
+    const currentConfigStore = configStore.get_nodefault('settings')
+    if (currentConfigStore) {
+      configStore.set('settings', { ...currentConfigStore, ...config })
+    }
   } else {
     GameConfig.get(appName).config = config as GameSettings
     GameConfig.get(appName).flush()
+  }
+})
+
+ipcMain.on('setSetting', (event, { appName, key, value }) => {
+  if (appName === 'default') {
+    GlobalConfig.get().setSetting(key, value)
+  } else {
+    GameConfig.get(appName).setSetting(key, value)
   }
 })
 
@@ -906,6 +961,11 @@ ipcMain.handle(
     const isSideloaded = runner === 'sideload'
     const extGame = getGame(appName, runner)
     const game = isSideloaded ? getAppInfo(appName) : extGame.getGameInfo()
+    const gameSettings = isSideloaded
+      ? await getAppSettings(appName)
+      : await extGame.getSettings()
+    const { autoSyncSaves, savesPath, gogSaves = [] } = gameSettings
+
     const { title } = game
 
     const { minimizeOnLaunch } = GlobalConfig.get().getSettings()
@@ -913,12 +973,31 @@ ipcMain.handle(
     const startPlayingDate = new Date()
 
     if (!tsStore.has(game.app_name)) {
-      tsStore.set(`${game.app_name}.firstPlayed`, startPlayingDate)
+      tsStore.set(
+        `${game.app_name}.firstPlayed`,
+        startPlayingDate.toISOString()
+      )
     }
 
     logInfo(`Launching ${title} (${game.app_name})`, LogPrefix.Backend)
 
-    addRecentGame(game)
+    if (autoSyncSaves && isOnline()) {
+      sendFrontendMessage('gameStatusUpdate', {
+        appName,
+        runner,
+        status: 'syncing-saves'
+      })
+      logInfo(`Downloading saves for ${title}`, LogPrefix.Backend)
+      try {
+        await extGame.syncSaves('--skip-upload', savesPath, gogSaves)
+        logInfo(`Saves for ${title} downloaded`, LogPrefix.Backend)
+      } catch (error) {
+        logError(
+          `Error while downloading saves for ${title}. ${error}`,
+          LogPrefix.Backend
+        )
+      }
+    }
 
     sendFrontendMessage('gameStatusUpdate', {
       appName,
@@ -938,9 +1017,6 @@ ipcMain.handle(
     }
 
     const systemInfo = await getSystemInfo()
-    const gameSettings = isSideloaded
-      ? getAppSettings(appName)
-      : await extGame.getSettings()
     const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
     const logFileLocation = isSideloaded
       ? appLogFileLocation(appName)
@@ -956,6 +1032,33 @@ ipcMain.handle(
         `Game launched at: ${startPlayingDate}\n` +
         '\n'
     )
+
+    // check if isNative, if not, check if wine is valid
+    if (
+      (isSideloaded && !isNativeApp(appName)) ||
+      (!isSideloaded && !extGame.isNative())
+    ) {
+      const isWineOkToLaunch = await checkWineBeforeLaunch(
+        appName,
+        gameSettings,
+        logFileLocation
+      )
+
+      if (!isWineOkToLaunch) {
+        logError(
+          `Was not possible to launch using ${gameSettings.wineVersion.name}`,
+          LogPrefix.Backend
+        )
+
+        sendFrontendMessage('gameStatusUpdate', {
+          appName,
+          runner,
+          status: 'done'
+        })
+
+        return { status: 'error' }
+      }
+    }
 
     const command = isSideloaded
       ? launchApp(appName)
@@ -978,15 +1081,40 @@ ipcMain.handle(
 
     // Update playtime and last played date
     const finishedPlayingDate = new Date()
-    tsStore.set(`${appName}.lastPlayed`, finishedPlayingDate)
+    tsStore.set(`${appName}.lastPlayed`, finishedPlayingDate.toISOString())
     // Playtime of this session in minutes
     const sessionPlaytime =
       (finishedPlayingDate.getTime() - startPlayingDate.getTime()) / 1000 / 60
-    let totalPlaytime = sessionPlaytime
-    if (tsStore.has(`${appName}.totalPlayed`)) {
-      totalPlaytime += tsStore.get(`${appName}.totalPlayed`) as number
-    }
+    const totalPlaytime =
+      sessionPlaytime + tsStore.get(`${appName}.totalPlayed`, 0)
     tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
+
+    await addRecentGame(game)
+
+    if (autoSyncSaves && isOnline()) {
+      sendFrontendMessage('gameStatusUpdate', {
+        appName,
+        runner,
+        status: 'done'
+      })
+
+      sendFrontendMessage('gameStatusUpdate', {
+        appName,
+        runner,
+        status: 'syncing-saves'
+      })
+
+      logInfo(`Uploading saves for ${title}`, LogPrefix.Backend)
+      try {
+        await extGame.syncSaves('--skip-download', savesPath, gogSaves)
+        logInfo(`Saves uploaded for ${title}`, LogPrefix.Backend)
+      } catch (error) {
+        logError(
+          `Error uploading saves for ${title}. Error: ${error}`,
+          LogPrefix.Backend
+        )
+      }
+    }
 
     sendFrontendMessage('gameStatusUpdate', {
       appName,
@@ -1131,16 +1259,30 @@ ipcMain.handle(
     const { title } = game.getGameInfo()
     notify({ title, body: i18next.t('notify.moving', 'Moving Game') })
 
-    try {
-      const newPath = await game.moveInstall(path)
-      notify({ title, body: i18next.t('notify.moved') })
-      logInfo(`Finished moving ${appName} to ${newPath}.`, LogPrefix.Backend)
-    } catch (error) {
+    const moveRes = await game.moveInstall(path)
+    if (moveRes.status === 'error') {
       notify({
         title,
-        body: i18next.t('notify.error.move', 'Error Moving the Game')
+        body: i18next.t('notify.error.move', 'Error Moving Game')
       })
-      logError(error, LogPrefix.Backend)
+      logError(
+        `Error while moving ${appName} to ${path}: ${moveRes.error} `,
+        LogPrefix.Backend
+      )
+
+      showDialogBoxModalAuto({
+        event,
+        title: i18next.t('box.error.title', 'Error'),
+        message: i18next.t('box.error.moving', 'Error Moving Game {{error}}', {
+          error: moveRes.error
+        }),
+        type: 'ERROR'
+      })
+    }
+
+    if (moveRes.status === 'done') {
+      notify({ title, body: i18next.t('notify.moved') })
+      logInfo(`Finished moving ${appName} to ${path}.`, LogPrefix.Backend)
     }
 
     sendFrontendMessage('gameStatusUpdate', {
@@ -1459,7 +1601,7 @@ ipcMain.handle('gamepadAction', async (event, args) => {
 })
 
 ipcMain.handle('getFonts', async (event, reload) => {
-  let cachedFonts = (fontsStore.get('fonts', []) as string[]) || []
+  let cachedFonts = fontsStore.get('fonts', [])
   if (cachedFonts.length === 0 || reload) {
     cachedFonts = await getFonts()
     cachedFonts = cachedFonts.sort((a, b) => a.localeCompare(b))
@@ -1487,7 +1629,11 @@ ipcMain.handle(
     }
 
     // FIXME: Why are we using `runinprefix` here?
-    return game.runWineCommand(commandParts, false, 'runinprefix')
+    return game.runWineCommand({
+      commandParts,
+      wait: false,
+      protonVerb: 'runinprefix'
+    })
   }
 )
 
@@ -1510,7 +1656,7 @@ ipcMain.handle('getCustomThemes', async () => {
 })
 
 ipcMain.handle('getThemeCSS', async (event, theme) => {
-  const { customThemesPath } = GlobalConfig.get().getSettings()
+  const { customThemesPath = '' } = GlobalConfig.get().getSettings()
 
   const cssPath = path.join(customThemesPath, theme)
 
@@ -1535,6 +1681,31 @@ ipcMain.handle('isNative', (e, { appName, runner }) => {
   return game.isNative()
 })
 
+function getDMElement(gameInfo: GameInfo, appName: string) {
+  const {
+    install: { install_path, platform },
+    runner
+  } = gameInfo
+  const dmQueueElement: DMQueueElement = {
+    params: {
+      appName,
+      gameInfo,
+      runner,
+      path: install_path!,
+      platformToInstall: platform!
+    },
+    type: 'update',
+    addToQueueTime: Date.now(),
+    endTime: 0,
+    startTime: 0
+  }
+  return dmQueueElement
+}
+
+ipcMain.handle('pathExists', async (e, path: string) => {
+  return existsSync(path)
+})
+
 /*
   Other Keys that should go into translation files:
   t('box.error.generic.title')
@@ -1542,7 +1713,7 @@ ipcMain.handle('isNative', (e, { appName, runner }) => {
  */
 
 /*
- * INSERT OTHER IPC HANLDER HERE
+ * INSERT OTHER IPC HANDLERS HERE
  */
 import './logger/ipc_handler'
 import './wine/manager/ipc_handler'
@@ -1552,28 +1723,5 @@ import './legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
 import './downloadmanager/ipc_handler'
 import './utils/ipc_handler'
-import './extra_game_info/howlongtobeat/ipc_handler'
-import './extra_game_info/pcgamingwiki/ipc_handler'
+import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
-
-// import Store from 'electron-store'
-// interface StoreMap {
-//   [key: string]: Store
-// }
-// const stores: StoreMap = {}
-
-// ipcMain.on('storeNew', (event, storeName, options) => {
-//   stores[storeName] = new Store(options)
-// })
-
-// ipcMain.handle('storeHas', (event, storeName, key) => {
-//   return stores[storeName].has(key)
-// })
-
-// ipcMain.handle('storeGet', (event, storeName, key) => {
-//   return stores[storeName].get(key)
-// })
-
-// ipcMain.on('storeSet', (event, storeName, key, value) => {
-//   stores[storeName].set(key, value)
-// })

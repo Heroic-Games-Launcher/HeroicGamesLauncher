@@ -43,7 +43,7 @@ export const DXVK = {
     const tools = [
       {
         name: 'vkd3d',
-        url: 'https://api.github.com/repos/bottlesdevs/vkd3d-proton/releases/latest',
+        url: 'https://api.github.com/repos/Heroic-Games-Launcher/vkd3d-proton/releases/latest',
         extractCommand: 'tar -xf',
         os: 'linux'
       },
@@ -288,8 +288,6 @@ export const DXVK = {
       )
     })
 
-    exec(`echo ${globalVersion} > ${currentVersionCheck}`)
-
     writeFile(currentVersionCheck, globalVersion, (err) => {
       if (err) {
         logError(
@@ -370,7 +368,7 @@ export const Winetricks = {
 
       const envs = isMac ? macEnvs : linuxEnvs
 
-      const executeMessages = [] as string[]
+      const executeMessages: string[] = []
       let progressUpdated = false
       const appendMessage = (message: string) => {
         // Don't store more than 100 messages, to not

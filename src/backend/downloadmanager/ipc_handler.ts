@@ -1,7 +1,6 @@
 import { ipcMain } from 'electron'
 import {
   addToQueue,
-  clearFinished,
   getQueueInformation,
   removeFromQueue
 } from './downloadqueue'
@@ -15,5 +14,3 @@ ipcMain.on('removeFromDMQueue', (e, appName) => {
 })
 
 ipcMain.handle('getDMQueueInformation', getQueueInformation)
-
-ipcMain.on('clearDMFinished', clearFinished)

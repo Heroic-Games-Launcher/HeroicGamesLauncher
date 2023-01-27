@@ -148,7 +148,8 @@
         "title": "Selectați componentele de instalat"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Use Default Wine Settings",
+        "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {
         "field": {
@@ -184,7 +185,8 @@
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Descărcat total",
         "uninstalling": "Uninstalling",
-        "updating": "Joc in curs de actualizare"
+        "updating": "Joc in curs de actualizare",
+        "playing": "Joc"
     },
     "submenu": {
         "addShortcut": "Adaugă scurtătură",
@@ -198,6 +200,7 @@
         "removeShortcut": "Eliminați comenzile rapide",
         "settings": "Setări",
         "store": "Pagina magazinului",
-        "verify": "Verificați și Reparați"
+        "verify": "Verificați și Reparați",
+        "extraInfo": "Informații suplimentare"
     }
 }

@@ -147,7 +147,8 @@
         "title": "Vyberte součásti k instalaci"
     },
     "setting": {
-        "use-default-wine-settings": "Použít výchozí nastavení Wine"
+        "use-default-wine-settings": "Použít výchozí nastavení Wine",
+        "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {
         "field": {
@@ -183,7 +184,8 @@
         "this-game-uses-third-party": "Tato hra používá launcher třetí strany a zatím není podporována",
         "totalDownloaded": "Celkově staženo",
         "uninstalling": "Odinstalace",
-        "updating": "Aktualizuji hru"
+        "updating": "Aktualizuji hru",
+        "playing": "Hraní"
     },
     "submenu": {
         "addShortcut": "Přidat zástupce",
@@ -197,6 +199,7 @@
         "removeShortcut": "Odebrat zástupce",
         "settings": "Nastavení",
         "store": "Stránka obchodu",
-        "verify": "Zkontrolovat a opravit"
+        "verify": "Zkontrolovat a opravit",
+        "extraInfo": "Další informace"
     }
 }

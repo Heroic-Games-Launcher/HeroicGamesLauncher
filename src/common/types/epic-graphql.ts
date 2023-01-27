@@ -1,6 +1,6 @@
 import { Reqs } from 'common/types'
 
-export interface CatalogMapping {
+interface CatalogMapping {
   pageSlug: string
   pageType: string
 }
@@ -17,7 +17,7 @@ export interface Product {
   }
 }
 
-export interface ProductConfig {
+interface ProductConfig {
   configs: {
     shortDescription: string
     technicalRequirements: {

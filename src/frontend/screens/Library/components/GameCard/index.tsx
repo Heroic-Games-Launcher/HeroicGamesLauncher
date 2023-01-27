@@ -17,7 +17,8 @@ import {
   GameInfo,
   GameStatus,
   HiddenGame,
-  Runner
+  Runner,
+  SideloadGame
 } from 'common/types'
 import { Link, useNavigate } from 'react-router-dom'
 import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
@@ -49,7 +50,7 @@ interface Card {
   buttonClick: () => void
   hasUpdate: boolean
   isRecent: boolean
-  gameInfo: GameInfo
+  gameInfo: GameInfo | SideloadGame
   isAvailable?: boolean
   forceCard?: boolean
 }
@@ -86,31 +87,18 @@ const GameCard = ({
   const {
     title,
     art_square: cover,
-    art_logo: logo,
+    art_logo: logo = undefined,
     app_name: appName,
     runner,
     is_installed: isInstalled,
-    cloud_save_enabled: hasCloudSave,
     install: gameInstallInfo,
-    thirdPartyManagedApp
-  } = gameInfoFromProps
-
-  const gameAvailable = isAvailable
-
-  // if the game supports cloud saves, check the config
-  const [autoSyncSaves, setAutoSyncSaves] = useState(hasCloudSave)
-  useEffect(() => {
-    const checkGameConfig = async () => {
-      const settings = await window.api.requestGameSettings(appName)
-      setAutoSyncSaves(settings.autoSyncSaves)
-    }
-    if (hasCloudSave) {
-      checkGameConfig()
-    }
-  }, [appName])
+    thirdPartyManagedApp = undefined
+  } = { ...gameInfoFromProps }
 
   const [progress, previousProgress] = hasProgress(appName)
-  const { install_size: size = '0' } = gameInstallInfo || {}
+  const { install_size: size = '0' } = {
+    ...gameInstallInfo
+  }
 
   const { status, folder } =
     libraryStatus.find((game: GameStatus) => game.appName === appName) || {}
@@ -126,6 +114,11 @@ const GameCard = ({
     updateGameInfo()
   }, [status])
 
+  async function handleUpdate() {
+    if (gameInfo.runner !== 'sideload')
+      await updateGame({ appName, runner, gameInfo })
+  }
+
   const grid = forceCard || layout === 'grid'
   const isInstalling = status === 'installing' || status === 'updating'
   const isUpdating = status === 'updating'
@@ -134,7 +127,7 @@ const GameCard = ({
   const isPlaying = status === 'playing'
   const isQueued = status === 'queued'
   const isUninstalling = status === 'uninstalling'
-  const notAvailable = !gameAvailable && isInstalled
+  const notAvailable = !isAvailable && isInstalled
   const notSupportedGame = thirdPartyManagedApp === 'Origin'
   const haveStatus =
     isMoving ||
@@ -144,7 +137,8 @@ const GameCard = ({
     isQueued ||
     isUninstalling ||
     notAvailable ||
-    notSupportedGame
+    notSupportedGame ||
+    isPlaying
 
   const { percent = '' } = progress
   const installingGrayscale = isInstalling
@@ -152,10 +146,6 @@ const GameCard = ({
     : '100%'
 
   const imageSrc = getImageFormatting()
-
-  async function handleUpdate() {
-    return updateGame({ appName, runner, gameInfo })
-  }
 
   function getImageFormatting() {
     const imageBase = cover
@@ -173,6 +163,9 @@ const GameCard = ({
     if (notSupportedGame) {
       return t('status.notSupportedGame', 'Not Supported')
     }
+    if (isPlaying) {
+      return t('status.playing', 'Playing')
+    }
     if (isQueued) {
       return `${t('status.queued', 'Queued')}`
     }
@@ -180,10 +173,10 @@ const GameCard = ({
       return t('status.uninstalling', 'Uninstalling')
     }
     if (isUpdating) {
-      return t('status.updating') + ` ${percent}%`
+      return t('status.updating') + ` ${Math.ceil(percent || 0)}%`
     }
     if (isInstalling) {
-      return t('status.installing') + ` ${percent || 0}%`
+      return t('status.installing') + ` ${Math.ceil(percent || 0)}%`
     }
     if (isMoving) {
       return t('gamecard.moving', 'Moving')
@@ -191,7 +184,7 @@ const GameCard = ({
     if (isReparing) {
       return t('gamecard.repairing', 'Repairing')
     }
-    if (isInstalled && !gameAvailable) {
+    if (isInstalled && !isAvailable) {
       return t('status.gameNotAvailable', 'Game not available')
     }
     if (isInstalled) {
@@ -261,7 +254,7 @@ const GameCard = ({
     if (isInstalled) {
       return (
         <SvgButton
-          className={gameAvailable ? 'playIcon' : 'cancelIcon'}
+          className={isAvailable ? 'playIcon' : 'cancelIcon'}
           onClick={async () => handlePlay(runner)}
           title={`${t('label.playing.start')} (${title})`}
           disabled={isLaunching}
@@ -328,7 +321,7 @@ const GameCard = ({
       // install
       label: t('button.install'),
       onclick: () => buttonClick(),
-      show: !isInstalled && (!isQueued || runner === 'sideload')
+      show: !isInstalled && !isQueued
     },
     {
       // cancel installation/update
@@ -386,7 +379,7 @@ const GameCard = ({
 
   const instClass = isInstalled ? 'installed' : ''
   const hiddenClass = isHiddenGame ? 'hidden' : ''
-  const notAvailableClass = !gameAvailable ? 'notAvailable' : ''
+  const notAvailableClass = !isAvailable ? 'notAvailable' : ''
   const imgClasses = `gameImg ${isInstalled ? 'installed' : ''} ${
     allTilesInColor ? 'allTilesInColor' : ''
   }`
@@ -400,8 +393,7 @@ const GameCard = ({
 
   const { activeController } = useContext(ContextProvider)
 
-  const showUpdateButton =
-    hasUpdate && !isUpdating && !isQueued && gameAvailable
+  const showUpdateButton = hasUpdate && !isUpdating && !isQueued && isAvailable
 
   return (
     <div>
@@ -414,7 +406,7 @@ const GameCard = ({
       )}
       <ContextMenu items={items}>
         <div className={wrapperClasses}>
-          {haveStatus && <span className="progress">{getStatus()}</span>}
+          {haveStatus && <span className="gameCardStatus">{getStatus()}</span>}
           <Link
             to={`/gamepage/${runner}/${appName}`}
             state={{ gameInfo }}
@@ -497,7 +489,7 @@ const GameCard = ({
   )
 
   async function handlePlay(runner: Runner) {
-    if (!isInstalled && !isQueued) {
+    if (!isInstalled && !isQueued && gameInfo.runner !== 'sideload') {
       return install({
         gameInfo,
         installPath: folder || 'default',
@@ -525,7 +517,6 @@ const GameCard = ({
         t,
         runner,
         hasUpdate,
-        syncCloud: autoSyncSaves,
         showDialogModal
       })
     }

@@ -85,6 +85,9 @@ export const clipboardReadText = async () =>
 export const clipboardWriteText = async (text: string) =>
   ipcRenderer.send('clipboardWriteText', text)
 
+export const pathExists = async (path: string) =>
+  ipcRenderer.invoke('pathExists', path)
+
 export const handleShowDialog = (
   onMessage: (
     e: Electron.IpcRendererEvent,
@@ -144,8 +147,5 @@ export const storeGet = (
   defaultValue?: unknown
 ) => stores[storeName].get(key, defaultValue)
 
-export const getHowLongToBeat = async (title: string) =>
-  ipcRenderer.invoke('getHowLongToBeat', title)
-
-export const getInfoFromPCGamingWiki = async (title: string, id?: string) =>
-  ipcRenderer.invoke('getInfoFromPCGamingWiki', title, id)
+export const getWikiGameInfo = async (title: string, id?: string) =>
+  ipcRenderer.invoke('getWikiGameInfo', title, id)

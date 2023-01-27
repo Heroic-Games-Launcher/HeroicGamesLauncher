@@ -1,17 +1,17 @@
-import Store from 'electron-store'
+import { TypeCheckedStoreBackend } from '../electron_store'
 
-const installStore = new Store({
+const installStore = new TypeCheckedStoreBackend('legendaryInstallInfo', {
   cwd: 'lib-cache',
   name: 'installInfo',
   clearInvalidConfig: true
 })
-const libraryStore = new Store({
+const libraryStore = new TypeCheckedStoreBackend('legendaryLibrary', {
   cwd: 'lib-cache',
   name: 'library',
   clearInvalidConfig: true
 })
 
-const gameInfoStore = new Store({
+const gameInfoStore = new TypeCheckedStoreBackend('legendaryGameInfo', {
   cwd: 'lib-cache',
   name: 'gameinfo',
   clearInvalidConfig: true

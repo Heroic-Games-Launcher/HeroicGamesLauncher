@@ -1,6 +1,6 @@
 import { existsSync, mkdirSync, unlinkSync, writeFileSync } from 'graceful-fs'
 import { heroicIconFolder } from '../constants'
-import { GameInfo } from 'common/types'
+import { GameInfo, SideloadGame } from 'common/types'
 import { spawnSync } from 'child_process'
 import { basename, dirname, extname, join } from 'path'
 
@@ -52,7 +52,7 @@ function checkImageExistsAlready(image: string): boolean {
   return found !== undefined ? true : false
 }
 
-async function getIcon(appName: string, gameInfo: GameInfo) {
+async function getIcon(appName: string, gameInfo: GameInfo | SideloadGame) {
   if (!existsSync(heroicIconFolder)) {
     mkdirSync(heroicIconFolder)
   }

@@ -140,7 +140,11 @@
                 "install": "Epic 服务器出现了大故障，不能安装游戏！",
                 "update": "Epic 服务器出现了大故障，不能升级游戏！"
             },
-            "title": "警告"
+            "title": "警告",
+            "wine-change": {
+                "message": "我们找不到启动此标题的选定 wine 版本 ({{selectedWine}})。 {{newline}} 我们找到了另一个，你想继续使用 {{foundWine}} 启动吗？",
+                "title": "找不到酒！"
+            }
         },
         "wineprefix": "选择 Wine Prefix 文件夹",
         "yes": "是"
@@ -151,7 +155,8 @@
         "login": "登录",
         "sync": "同步",
         "syncing": "正在同步",
-        "unsync": "取消同步"
+        "unsync": "取消同步",
+        "continue": "继续"
     },
     "controller": {
         "hints": {
@@ -216,11 +221,11 @@
     "GOG": "GOG",
     "gog-store": "GOG 商店",
     "header": {
-        "hide_non_available_games": "Hide non-available games",
+        "hide_non_available_games": "隐藏不可用的游戏",
         "ignore_hidden": "忽略隐藏项",
         "platform": "平台",
         "show_all_games": "显示所有游戏",
-        "show_available_games": "Show non-Available games",
+        "show_available_games": "显示不可用的游戏",
         "show_favourites_only": "仅显示最爱",
         "show_hidden": "显示隐藏项",
         "store": "过滤商店"
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine 使用所谓的 WINEPREFIX 来封装 Windows 应用程序。这个前缀包含 Wine 配置文件和 C:(Windows操作系统上的主磁盘) 文件层次结构的副本。你的游戏保存文件和通过 winetricks 安装的依赖项存储在这个复制的 C:驱动器中。"
-        }
+        },
+        "wine-path-invalid": "Wine Path 无效，请选择另一个。"
     },
     "install": {
         "path": "选择安装路径"
@@ -448,7 +454,7 @@
         "autovkd3d": "自动在前置中安装/更新 VKD3D",
         "change-target-exe": "选择要运行的替代 EXE",
         "checkForUpdatesOnStartup": "启动时检查 Heroic 更新",
-        "crossover-version": "Crossover 版本",
+        "crossover-version": "Crossover/Wine 版本",
         "custom_themes_path": "自定义主题路径",
         "customWineProton": "自定义 Wine/Proton 路径",
         "darktray": "使用暗色托盘图标",
@@ -542,7 +548,9 @@
         "steamruntime": "使用 Steam 运行时",
         "winecrossoverbottle": "CrossOver 容器",
         "wineprefix": "WinePrefix文件夹",
-        "wineversion": "Wine 版本"
+        "wineversion": "Wine 版本",
+        "autoUpdateGames": "自动更新游戏",
+        "ignoreGameUpdates": "忽略游戏更新"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -627,7 +635,9 @@
         "logout": "退出登录",
         "logout_confirmation": "你确定要退出登录吗？",
         "manageaccounts": "管理帐户",
-        "quit": "退出"
+        "quit": "退出",
+        "cancel": "取消",
+        "quitMessage": "你确定你要退出吗？"
     },
     "webview": {
         "controls": {
@@ -647,5 +657,12 @@
         },
         "release": "发布日期",
         "size": "大小"
+    },
+    "externalLink": {
+        "warning": "您即将打开一个外部链接。",
+        "dontAskAgain": "不再询问"
+    },
+    "wiki_info": {
+        "not_found": "我们找不到额外的信息。"
     }
 }

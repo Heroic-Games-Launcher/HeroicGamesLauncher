@@ -140,7 +140,11 @@
                 "install": "Servery Epic mají velký výpadek, hru nelze instalovat!",
                 "update": "Servery Epic mají velký výpadek, hru nelze aktualizovat!"
             },
-            "title": "Varování"
+            "title": "Varování",
+            "wine-change": {
+                "title": "Víno nenalezeno!",
+                "message": "Nemohli jsme najít vybranou verzi vína pro spuštění tohoto titulu ({{selectedWine}}). {{newline}} Našli jsme další, chcete pokračovat ve spouštění pomocí {{foundWine}}?"
+            }
         },
         "wineprefix": "Vyberte složku WinePrefix",
         "yes": "ANO"
@@ -151,7 +155,8 @@
         "login": "Přihlásit se",
         "sync": "Synchronizovat",
         "syncing": "Synchronizuji",
-        "unsync": "Desynchroniozovat"
+        "unsync": "Desynchroniozovat",
+        "continue": "Pokračovat"
     },
     "controller": {
         "hints": {
@@ -216,11 +221,11 @@
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "hide_non_available_games": "Hide non-available games",
+        "hide_non_available_games": "Skrýt nedostupné hry",
         "ignore_hidden": "Ignorovat skryté",
         "platform": "Platforma",
         "show_all_games": "Zobrazit všechny hry",
-        "show_available_games": "Show non-Available games",
+        "show_available_games": "Zobrazit nedostupné hry",
         "show_favourites_only": "Zobrazit pouze oblíbené",
         "show_hidden": "Zobrazit skryté",
         "store": "Filtrovat obchod"
@@ -289,7 +294,8 @@
         },
         "wine-repfix": {
             "message": "Wine používá funkci zvanou WINEPREFIX pro zapouzdření Windows aplikací. Tento prefix obsahuje konfigurační soubory Wine a reprodukci hierarchie souborů C: (hlavní disk na OS Windows). V této reprodukci disku C: jsou ukládány vaše soubory s uloženými hrami a se závislostmi nainstalovanými pomocí Winetricks."
-        }
+        },
+        "wine-path-invalid": "Vinná cesta je neplatná, vyberte prosím jinou."
     },
     "install": {
         "path": "Vyberte cestu instalace"
@@ -448,7 +454,7 @@
         "autovkd3d": "Automaticky Installovat/aktualizovat VKD3D na Prefixu",
         "change-target-exe": "Vyberte alternativní EXE ke spuštění",
         "checkForUpdatesOnStartup": "Kontrolovat aktualizace Heroic při spuštění",
-        "crossover-version": "Verze Crossover",
+        "crossover-version": "Verze Crossover/Wine",
         "custom_themes_path": "Vlastní cesta k motivům",
         "customWineProton": "Vlastní cesty pro Wine/Proton",
         "darktray": "Použít tmavou ikonu v systémové oblasti",
@@ -542,7 +548,9 @@
         "steamruntime": "Použít služby Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Složka WinePrefix",
-        "wineversion": "Verze Wine"
+        "wineversion": "Verze Wine",
+        "autoUpdateGames": "Automaticky aktualizovat hry",
+        "ignoreGameUpdates": "Ignorovat aktualizace hry"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -627,7 +635,9 @@
         "logout": "Odhlásit se",
         "logout_confirmation": "Opravdu se chcete odhlásit?",
         "manageaccounts": "Spravovat účty",
-        "quit": "Ukončit"
+        "quit": "Ukončit",
+        "cancel": "Zrušit",
+        "quitMessage": "Jste si jisti, že chcete skončit?"
     },
     "webview": {
         "controls": {
@@ -647,5 +657,12 @@
         },
         "release": "Release Date",
         "size": "Velikost"
+    },
+    "externalLink": {
+        "dontAskAgain": "Už se neptat",
+        "warning": "Chystáte se otevřít externí odkaz."
+    },
+    "wiki_info": {
+        "not_found": "Další informace jsme nenašli."
     }
 }

@@ -1,0 +1,14 @@
+.textWithProgress {
+  display: flex;
+  align-items: center;
+  margin: var(--space-md) 0;
+
+  .progress {
+    margin-right: 8px;
+  }
+
+  .feedback-text {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+}

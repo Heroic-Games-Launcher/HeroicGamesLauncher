@@ -11,7 +11,7 @@ let retryTimer: NodeJS.Timeout
 let retryIn = 0
 const defaultTimeBetweenRetries = 5
 let timeBetweenRetries = defaultTimeBetweenRetries
-export const connectivityEmitter = new EventEmitter()
+const connectivityEmitter = new EventEmitter()
 
 // handle setting the status, dispatch events for backend and frontend, and trigger pings
 const setStatus = (newStatus: ConnectivityStatus) => {
@@ -119,12 +119,6 @@ export const initOnlineMonitor = () => {
   })
 }
 
-export const makeNetworkRequest = (callback: () => unknown) => {
-  if (isOnline()) {
-    callback()
-  }
-}
-
 export const runOnceWhenOnline = (callback: () => unknown) => {
   if (isOnline()) {
     callback()
@@ -134,8 +128,3 @@ export const runOnceWhenOnline = (callback: () => unknown) => {
 }
 
 export const isOnline = () => status === 'online'
-
-// use this function to trigger the connectivity check when detecting an external request failing
-export const checkConnectivity = () => {
-  setStatus('check-online')
-}

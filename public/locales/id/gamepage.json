@@ -35,7 +35,8 @@
             "checkbox": "Hapus prefiks: {{prefix}}{{newLine}}Catatan: Tindakan ini tidak dapat dibatalkan dan akan menghapus berkas yang belum dicadangkan.",
             "message": "Apakah Anda ingin mencopot pemasangan gim ini?",
             "settingcheckbox": "Hapus pengaturan dan log{{newLine}}Catatan: Tindakan ini tidak dapat diurungkan. Semua pengaturan lama dan log akan dihapus.",
-            "title": "Copot Pemasangan"
+            "title": "Copot Pemasangan",
+            "prefix_warning": "Awalan Wine untuk game ini adalah awalan default. Jika Anda benar-benar ingin menghapusnya, Anda harus melakukannya secara manual."
         },
         "update": {
             "message": "Gim ini memiliki pembaruan, terapkan pembaruan sekarang?",
@@ -67,7 +68,8 @@
         },
         "unhide_game": "Tampilkan Gim yang Disembunyikan",
         "uninstall": "Copot",
-        "update": "Perbarui"
+        "update": "Perbarui",
+        "details": "Detail"
     },
     "cloud_save_unsupported": "Tak Didukung",
     "disabled": "Dinonaktifkan",
@@ -145,7 +147,8 @@
         "title": "Pilih komponen untuk dipasang"
     },
     "setting": {
-        "use-default-wine-settings": "Gunakan Pengaturan Wine Bawaan"
+        "use-default-wine-settings": "Gunakan Pengaturan Wine Bawaan",
+        "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {
         "field": {
@@ -181,7 +184,8 @@
         "this-game-uses-third-party": "Gim ini menggunakan peluncur pihak ketiga dan belum didukung oleh Heroic",
         "totalDownloaded": "Jumlah yang Diunduh",
         "uninstalling": "Mencopot",
-        "updating": "Memperbarui Gim"
+        "updating": "Memperbarui Gim",
+        "playing": "Bermain"
     },
     "submenu": {
         "addShortcut": "Tambahkan pintasan",
@@ -195,6 +199,7 @@
         "removeShortcut": "Hapus pintasan",
         "settings": "Pengaturan",
         "store": "Halaman Toko",
-        "verify": "Verifikasi dan Perbaiki"
+        "verify": "Verifikasi dan Perbaiki",
+        "extraInfo": "Informasi tambahan"
     }
 }

@@ -11,7 +11,9 @@ import {
   RpcClient,
   SteamRuntime,
   Release,
-  GameInfo
+  GameInfo,
+  GameSettings,
+  SideloadGame
 } from 'common/types'
 import * as axios from 'axios'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
@@ -22,13 +24,12 @@ import {
   SpawnOptions,
   spawnSync
 } from 'child_process'
-import { existsSync, rmSync, stat } from 'graceful-fs'
+import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
 import si from 'systeminformation'
 
 import {
-  configStore,
   fixAsarPath,
   getSteamLibraries,
   heroicConfigPath,
@@ -37,7 +38,6 @@ import {
   isWindows,
   publicDir,
   GITHUB_API,
-  isSteamDeckGameMode,
   isMac
 } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
@@ -55,12 +55,14 @@ import {
 } from './gog/electronStores'
 import fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
-import { showDialogBoxModalAuto } from './dialog/dialog'
+import { notify, showDialogBoxModalAuto } from './dialog/dialog'
 import { getAppInfo } from './sideload/games'
-import { getMainWindow } from './main_window'
+import { getMainWindow, sendFrontendMessage } from './main_window'
+import { GlobalConfig } from './config'
+import { GameConfig } from './game_config'
+import { validWine } from './launcher'
 
 const execAsync = promisify(exec)
-const statAsync = promisify(stat)
 
 const { showMessageBox } = dialog
 
@@ -111,9 +113,9 @@ function semverGt(target: string, base: string) {
   return isGE
 }
 
-export const getFileSize = fileSize.partial({ base: 2 })
+const getFileSize = fileSize.partial({ base: 2 })
 
-export function getWineFromProton(
+function getWineFromProton(
   wineVersion: WineInstallation,
   winePrefix: string
 ): { winePrefix: string; wineBin: string } {
@@ -186,7 +188,7 @@ async function isEpicServiceOffline(
   }
 }
 
-export const getLegendaryVersion = async () => {
+const getLegendaryVersion = async () => {
   const abortID = 'legendary-version'
   const { stdout, error, abort } = await runLegendaryCommand(
     ['--version'],
@@ -206,7 +208,7 @@ export const getLegendaryVersion = async () => {
     .replaceAll('\n', '')
 }
 
-export const getGogdlVersion = async () => {
+const getGogdlVersion = async () => {
   const abortID = 'gogdl-version'
   const { stdout, error } = await runGogdlCommand(
     ['--version'],
@@ -222,7 +224,7 @@ export const getGogdlVersion = async () => {
   return stdout
 }
 
-export const getHeroicVersion = () => {
+const getHeroicVersion = () => {
   const VERSION_NUMBER = app.getVersion()
   const BETA_VERSION_NAME = 'Caesar Clown'
   const STABLE_VERSION_NAME = 'Trafalgar Law'
@@ -282,7 +284,7 @@ async function handleExit() {
 // This won't change while the app is running
 // Caching significantly increases performance when launching games
 let systemInfoCache = ''
-export const getSystemInfo = async () => {
+const getSystemInfo = async () => {
   if (systemInfoCache !== '') {
     return systemInfoCache
   }
@@ -466,9 +468,7 @@ function splitPathAndName(fullPath: string): { dir: string; bin: string } {
 }
 
 function getLegendaryBin(): { dir: string; bin: string } {
-  const settings = configStore.get('settings', {}) as {
-    altLegendaryBin: string
-  }
+  const settings = GlobalConfig.get().getSettings()
   if (settings?.altLegendaryBin) {
     return splitPathAndName(settings.altLegendaryBin)
   }
@@ -478,7 +478,7 @@ function getLegendaryBin(): { dir: string; bin: string } {
 }
 
 function getGOGdlBin(): { dir: string; bin: string } {
-  const settings = configStore.get('settings', {}) as { altGogdlBin: string }
+  const settings = GlobalConfig.get().getSettings()
   if (settings?.altGogdlBin) {
     return splitPathAndName(settings.altGogdlBin)
   }
@@ -709,18 +709,6 @@ function detectVCRedist(mainWindow: BrowserWindow) {
   })
 }
 
-export function notify({ body, title }: NotifyType) {
-  if (Notification.isSupported() && !isSteamDeckGameMode) {
-    const notify = new Notification({
-      body,
-      title
-    })
-
-    notify.on('click', () => getMainWindow()?.show())
-    notify.show()
-  }
-}
-
 function getGame(appName: string, runner: Runner) {
   switch (runner) {
     case 'legendary':
@@ -730,7 +718,7 @@ function getGame(appName: string, runner: Runner) {
   }
 }
 
-export function getFirstExistingParentPath(directoryPath: string): string {
+function getFirstExistingParentPath(directoryPath: string): string {
   let parentDirectoryPath = directoryPath
   let parentDirectoryFound = existsSync(parentDirectoryPath)
 
@@ -742,7 +730,7 @@ export function getFirstExistingParentPath(directoryPath: string): string {
   return parentDirectoryPath !== '.' ? parentDirectoryPath : ''
 }
 
-export const getLatestReleases = async (): Promise<Release[]> => {
+const getLatestReleases = async (): Promise<Release[]> => {
   const newReleases: Release[] = []
   logInfo('Checking for new Heroic Updates', LogPrefix.Backend)
 
@@ -787,7 +775,7 @@ export const getLatestReleases = async (): Promise<Release[]> => {
   }
 }
 
-export const getCurrentChangelog = async (): Promise<Release | null> => {
+const getCurrentChangelog = async (): Promise<Release | null> => {
   logInfo('Checking for current version changelog', LogPrefix.Backend)
 
   try {
@@ -807,17 +795,12 @@ export const getCurrentChangelog = async (): Promise<Release | null> => {
   }
 }
 
-function getInfo(appName: string, runner: Runner): GameInfo {
+function getInfo(appName: string, runner: Runner): GameInfo | SideloadGame {
   if (runner === 'sideload') {
     return getAppInfo(appName)
   }
   const game = getGame(appName, runner)
   return game.getGameInfo()
-}
-
-type NotifyType = {
-  title: string
-  body: string
 }
 
 // can be removed if legendary and gogdl handle SIGTERM and SIGKILL
@@ -845,22 +828,39 @@ export const wait = async (ms: number) =>
 export const spawnAsync = async (
   command: string,
   args: string[],
-  options: SpawnOptions = {}
-): Promise<{ code: number | null; stdout: string; stderr: string } | Error> => {
+  options: SpawnOptions = {},
+  onOutput?: (data: string) => void
+): Promise<{ code: number | null; stdout: string; stderr: string }> => {
   const child = spawn(command, args, options)
   const stdout: string[] = []
   const stderr: string[] = []
 
   if (child.stdout) {
-    child.stdout.on('data', (data) => stdout.push(data.toString()))
+    child.stdout.on('data', (data) => {
+      if (onOutput) {
+        onOutput(data.toString())
+      }
+      stdout.push(data.toString())
+    })
   }
 
   if (child.stderr) {
-    child.stderr.on('data', (data) => stderr.push(data.toString()))
+    child.stderr.on('data', (data) => {
+      if (onOutput) {
+        onOutput(data.toString())
+      }
+      stderr.push(data.toString())
+    })
   }
 
   return new Promise((resolve, reject) => {
-    child.on('error', (error) => reject(error))
+    child.on('error', (error) =>
+      reject({
+        code: 1,
+        stdout: stdout.join(''),
+        stderr: stderr.join('').concat(error.message)
+      })
+    )
     child.on('close', (code) => {
       resolve({
         code,
@@ -871,23 +871,254 @@ export const spawnAsync = async (
   })
 }
 
+async function ContinueWithFoundWine(
+  selectedWine: string,
+  foundWine: string
+): Promise<{ response: number }> {
+  const { response } = await dialog.showMessageBox({
+    title: i18next.t('box.warning.wine-change.title', 'Wine not found!'),
+    message: i18next.t('box.warning.wine-change.message', {
+      defaultValue:
+        'We could not find the selected wine version to launch this title ({{selectedWine}}). {{newline}} We found another one, do you want to continue launching using {{foundWine}} ?',
+      newline: '\n',
+      selectedWine: selectedWine,
+      foundWine: foundWine
+    }),
+    buttons: [i18next.t('box.yes'), i18next.t('box.no')]
+  })
+
+  return { response }
+}
+
+export async function checkWineBeforeLaunch(
+  appName: string,
+  gameSettings: GameSettings,
+  logFileLocation: string
+): Promise<boolean> {
+  const wineIsValid = await validWine(gameSettings.wineVersion)
+
+  if (wineIsValid) {
+    return true
+  } else {
+    logError(
+      `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`,
+      LogPrefix.Backend
+    )
+
+    appendFileSync(
+      logFileLocation,
+      `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`
+    )
+
+    // check if the default wine is valid now
+    const { wineVersion: defaultwine } = GlobalConfig.get().getSettings()
+    const defaultWineIsValid = await validWine(defaultwine)
+    if (defaultWineIsValid) {
+      const { response } = await ContinueWithFoundWine(
+        gameSettings.wineVersion.name,
+        defaultwine.name
+      )
+
+      if (response === 0) {
+        logInfo(`Changing wine version to ${defaultwine.name}`)
+        gameSettings.wineVersion = defaultwine
+        GameConfig.get(appName).setSetting('wineVersion', defaultwine)
+        return true
+      } else {
+        logInfo('User canceled the launch', LogPrefix.Backend)
+        return false
+      }
+    } else {
+      const wineList = await GlobalConfig.get().getAlternativeWine()
+      const firstFoundWine = wineList[0]
+
+      const isValidWine = await validWine(firstFoundWine)
+      if (firstFoundWine && isValidWine) {
+        const { response } = await ContinueWithFoundWine(
+          gameSettings.wineVersion.name,
+          firstFoundWine.name
+        )
+
+        if (response === 0) {
+          logInfo(`Changing wine version to ${firstFoundWine.name}`)
+          gameSettings.wineVersion = firstFoundWine
+          GameConfig.get(appName).setSetting('wineVersion', firstFoundWine)
+          return true
+        } else {
+          logInfo('User canceled the launch', LogPrefix.Backend)
+          return false
+        }
+      }
+    }
+  }
+  return false
+}
+
+export async function moveOnWindows(
+  newInstallPath: string,
+  gameInfo: GameInfo
+): Promise<
+  { status: 'done'; installPath: string } | { status: 'error'; error: string }
+> {
+  const {
+    install: { install_path },
+    title
+  } = gameInfo
+
+  if (!install_path) {
+    return { status: 'error', error: 'No install path found' }
+  }
+
+  newInstallPath = join(newInstallPath, basename(install_path))
+
+  let currentFile = ''
+  let currentPercent = ''
+
+  // move using robocopy and show progress of the current file being copied
+  const { code, stderr } = await spawnAsync(
+    'robocopy',
+    [install_path, newInstallPath, '/MOVE', '/MIR'],
+    { stdio: 'pipe' },
+    (data) => {
+      data = data.replaceAll(/\s/g, ' ')
+
+      const match = data.split(' ').filter(Boolean)
+      // current percentage
+      const percent = match.filter((m) => m.includes('%'))[0]
+      // current file
+      const file = match[match.length - 1]
+      if (percent) {
+        currentPercent = percent
+      }
+
+      if (file && file.includes('.') && !file.includes('%')) {
+        currentPercent = '0%'
+        currentFile = file
+      }
+
+      if (match) {
+        sendFrontendMessage(`progressUpdate-${gameInfo.app_name}`, {
+          appName: gameInfo.app_name,
+          runner: gameInfo.runner,
+          status: 'moving',
+          progress: {
+            percent: currentPercent,
+            file: currentFile
+          }
+        })
+      }
+    }
+  )
+  if (code !== 0) {
+    logInfo(`Finished Moving ${title}`, LogPrefix.Backend)
+  } else {
+    logError(`Error: ${stderr}`, LogPrefix.Backend)
+  }
+  return { status: 'done', installPath: newInstallPath }
+}
+
+export async function moveOnUnix(
+  newInstallPath: string,
+  gameInfo: GameInfo
+): Promise<
+  { status: 'done'; installPath: string } | { status: 'error'; error: string }
+> {
+  const {
+    install: { install_path },
+    title
+  } = gameInfo
+  if (!install_path) {
+    return { status: 'error', error: 'No install path found' }
+  }
+
+  const destination = join(newInstallPath, basename(install_path))
+
+  let currentFile = ''
+  let currentPercent = ''
+
+  let rsyncExists = false
+  try {
+    await execAsync('which rsync')
+    rsyncExists = true
+  } catch (error) {
+    logError(error, LogPrefix.Gog)
+  }
+  if (rsyncExists) {
+    const origin = install_path + '/'
+    logInfo(
+      `moving command: rsync -az --progress ${origin} ${destination} `,
+      LogPrefix.Backend
+    )
+    const { code, stderr } = await spawnAsync(
+      'rsync',
+      ['-az', '--progress', origin, destination],
+      { stdio: 'pipe' },
+      (data) => {
+        const split =
+          data
+            .split('\n')
+            .find((d) => d.includes('/') && !d.includes('%'))
+            ?.split('/') || []
+        const file = split.at(-1) || ''
+
+        if (file) {
+          currentFile = file
+        }
+
+        const percent = data.match(/(\d+)%/)
+        if (percent) {
+          currentPercent = percent[0]
+          sendFrontendMessage(`progressUpdate-${gameInfo.app_name}`, {
+            appName: gameInfo.app_name,
+            runner: gameInfo.runner,
+            status: 'moving',
+            progress: {
+              percent: currentPercent,
+              file: currentFile
+            }
+          })
+        }
+      }
+    )
+    if (code !== 1) {
+      logInfo(`Finished Moving ${title}`, LogPrefix.Backend)
+      // remove the old install path
+      await spawnAsync('rm', ['-rf', install_path])
+    } else {
+      logError(`Error: ${stderr}`, LogPrefix.Backend)
+      return { status: 'error', error: stderr }
+    }
+  } else {
+    const { code, stderr } = await spawnAsync('mv', [
+      '-f',
+      install_path,
+      destination
+    ])
+    if (code !== 1) {
+      return { status: 'done', installPath: destination }
+    } else {
+      logError(`Error: ${stderr}`, LogPrefix.Backend)
+      return { status: 'error', error: stderr }
+    }
+  }
+  return { status: 'done', installPath: destination }
+}
+
 export {
   errorHandler,
   execAsync,
+  getCurrentChangelog,
   handleExit,
   isEpicServiceOffline,
   openUrlOrFile,
-  semverGt,
   showAboutWindow,
   showItemInFolder,
-  statAsync,
   removeSpecialcharacters,
   clearCache,
   resetHeroic,
   getLegendaryBin,
   getGOGdlBin,
   formatEpicStoreUrl,
-  getFormattedOsName,
   searchForExecutableOnPath,
   getSteamRuntime,
   constructAndUpdateRPC,
@@ -895,8 +1126,20 @@ export {
   removeQuoteIfNecessary,
   detectVCRedist,
   getGame,
-  getMainWindow,
   killPattern,
   getInfo,
-  getShellPath
+  getShellPath,
+  getFirstExistingParentPath,
+  getLatestReleases,
+  getSystemInfo,
+  getWineFromProton,
+  getFileSize,
+  getLegendaryVersion,
+  getGogdlVersion
+}
+
+// Exported only for testing purpose
+// ts-prune-ignore-next
+export const testingExportsUtils = {
+  semverGt
 }

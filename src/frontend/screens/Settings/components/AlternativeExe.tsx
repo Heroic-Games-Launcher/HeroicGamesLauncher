@@ -20,6 +20,7 @@ const AlternativeExe = () => {
   const handleTargetExe = useCallback(async () => {
     if (!targetExe.length) {
       const gameInfo = await getGameInfo(appName, runner)
+      if (!gameInfo || gameInfo.runner === 'sideload') return
 
       window.api
         .openDialog({

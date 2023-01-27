@@ -147,7 +147,8 @@
         "title": "選擇要安裝的元件"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Use Default Wine Settings",
+        "winecrossoverbottle": "CrossOver 容器"
     },
     "sideload": {
         "field": {
@@ -183,7 +184,8 @@
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "總共已下載",
         "uninstalling": "Uninstalling",
-        "updating": "遊戲更新中"
+        "updating": "遊戲更新中",
+        "playing": "播放"
     },
     "submenu": {
         "addShortcut": "添加捷徑",
@@ -197,6 +199,7 @@
         "removeShortcut": "移除捷徑",
         "settings": "設定",
         "store": "商店頁面",
-        "verify": "驗證並修復遊戲文件"
+        "verify": "驗證並修復遊戲文件",
+        "extraInfo": "額外信息"
     }
 }

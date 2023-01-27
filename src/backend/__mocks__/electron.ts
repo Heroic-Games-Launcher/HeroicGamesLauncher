@@ -18,7 +18,11 @@ const app = {
   // app override
   getPath: jest.fn().mockImplementation((path: string) => {
     return join(appBasePath, path)
-  })
+  }),
+  getVersion(): string {
+    // TODO: What should we return here?
+    return '1.0.0'
+  }
 }
 
 class Notification {

@@ -147,7 +147,8 @@
         "title": "Selecione os componentes para instalar"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Use Default Wine Settings",
+        "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {
         "field": {
@@ -183,7 +184,8 @@
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Total Baixado",
         "uninstalling": "Uninstalling",
-        "updating": "Atualizando jogo"
+        "updating": "Atualizando jogo",
+        "playing": "Jogando"
     },
     "submenu": {
         "addShortcut": "Adicionar Atalhos",
@@ -197,6 +199,7 @@
         "removeShortcut": "Remove shortcuts",
         "settings": "Configurações",
         "store": "Página da Loja",
-        "verify": "Verificar e Reparar"
+        "verify": "Verificar e Reparar",
+        "extraInfo": "Informação extra"
     }
 }

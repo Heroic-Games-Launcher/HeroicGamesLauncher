@@ -16,12 +16,6 @@
   /* Measurements */
 }
 
-@media screen and (max-width: 730px) {
-  * {
-    --sidebar-width: calc(var(--sidebar-width) - 1em);
-  }
-}
-
 body,
 html,
 #root,
@@ -33,17 +27,9 @@ html,
 .App {
   text-align: center;
   display: grid;
-  grid-template-columns: var(--sidebar-width) 1fr;
+  grid-template-columns: min-content 1fr;
   grid-template-areas: 'offline offline' 'sidebar content' 'controller controller';
   grid-template-rows: min-content 1fr min-content;
-  --sidebar-width: 240px;
-  --content-width: calc(100vw - var(--sidebar-width));
-}
-
-.App.collapsed {
-  --sidebar-width: 68px;
-  --content-width: calc(100vw - var(--sidebar-width));
-  grid-template-columns: var(--sidebar-width) 1fr;
 }
 
 .App .Sidebar {
@@ -63,11 +49,6 @@ html,
 .App .content .UpdateComponent--topLevel {
   height: 100vh;
   position: initial;
-  width: var(--content-width);
-}
-
-.App .content .UpdateComponent--topLevel.collapsed {
-  width: var(--content-width);
 }
 
 .App .controller {
