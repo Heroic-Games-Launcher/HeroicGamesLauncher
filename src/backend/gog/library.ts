@@ -341,7 +341,6 @@ export class GOGLibrary {
         ],
         LogPrefix.Gog
       )
-      console.log({ cache, installPlatform })
       if (cache) {
         return cache
       }
