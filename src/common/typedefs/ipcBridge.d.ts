@@ -1,4 +1,3 @@
-import { LegendaryInstallPlatform } from './../types/legendary'
 import { EventEmitter } from 'node:events'
 import { IpcMainEvent, OpenDialogOptions } from 'electron'
 
@@ -10,6 +9,7 @@ import {
   Release,
   GameInfo,
   GameSettings,
+  InstallPlatform,
   UserInfo,
   WineInstallation,
   AppSettings,
@@ -126,7 +126,7 @@ interface AsyncIPCFunctions {
   getInstallInfo: (
     appName: string,
     runner: Runner,
-    installPlatform: LegendaryInstallPlatform | GOGInstallPlatform
+    installPlatform: InstallPlatform
   ) => Promise<LegendaryInstallInfo | GogInstallInfo | null>
   getUserInfo: () => Promise<UserInfo | undefined>
   isLoggedIn: () => boolean

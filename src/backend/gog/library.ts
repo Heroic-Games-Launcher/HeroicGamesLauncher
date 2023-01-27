@@ -15,8 +15,7 @@ import {
   GOGGameDotIdFile,
   GOGClientsResponse,
   GamesDBData,
-  Library,
-  GogInstallPlatform
+  Library
 } from 'common/types/gog'
 import { basename, join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
@@ -324,7 +323,7 @@ export class GOGLibrary {
    */
   public async getInstallInfo(
     appName: string,
-    installPlatform: GogInstallPlatform = 'windows',
+    installPlatform = 'windows',
     lang = 'en-US'
   ): Promise<GogInstallInfo | undefined> {
     if (gogInstallInfoStore.has(`${appName}_${installPlatform}`)) {
