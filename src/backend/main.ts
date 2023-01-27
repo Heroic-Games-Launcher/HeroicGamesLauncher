@@ -625,7 +625,7 @@ ipcMain.handle('checkGameUpdates', async (): Promise<string[]> => {
       if (!ignoreGameUpdates) {
         logInfo(`Auto-Updating ${gameInfo.title}`, LogPrefix.Legendary)
         const dmQueueElement: DMQueueElement = getDMElement(gameInfo, appName)
-        addToQueue(dmQueueElement)
+        await addToQueue(dmQueueElement)
         // remove from the array to avoid downloading the same game twice
         epicUpdates = epicUpdates.filter((game) => game !== appName)
       } else {
@@ -642,7 +642,7 @@ ipcMain.handle('checkGameUpdates', async (): Promise<string[]> => {
       if (!ignoreGameUpdates) {
         logInfo(`Auto-Updating ${gameInfo.title}`, LogPrefix.Gog)
         const dmQueueElement: DMQueueElement = getDMElement(gameInfo, appName)
-        addToQueue(dmQueueElement)
+        await addToQueue(dmQueueElement)
         // remove from the array to avoid downloading the same game twice
         gogUpdates = gogUpdates.filter((game) => game !== appName)
       } else {
