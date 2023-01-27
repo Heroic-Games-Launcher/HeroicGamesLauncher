@@ -1,3 +1,4 @@
+import { GogInstallPlatform } from './gog'
 import Store from 'electron-store'
 import { Get } from 'type-fest'
 
@@ -17,7 +18,7 @@ import {
   AppSettings,
   WikiInfo
 } from 'common/types'
-import { GamesDBData, UserData } from 'common/types/gog'
+import { GamesDBData, GogInstallInfo, UserData } from 'common/types/gog'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 
 export interface StoreStructure {
@@ -93,6 +94,9 @@ export interface StoreStructure {
     [appName: string]: {
       [saveName: string]: string
     }
+  }
+  gogInstallInfo: {
+    [appName: string]: Record<GogInstallPlatform, GogInstallInfo>
   }
   legendaryInstallInfo: {
     [appName: string]: LegendaryInstallInfo
