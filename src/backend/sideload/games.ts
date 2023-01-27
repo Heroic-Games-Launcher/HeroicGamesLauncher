@@ -1,4 +1,4 @@
-import { GameSettings, GameInfo, SideloadGame } from 'common/types'
+import { GameSettings, SideloadGame } from 'common/types'
 import { libraryStore } from './electronStores'
 import { GameConfig } from '../game_config'
 import { isWindows, isMac, isLinux, heroicGamesConfigPath } from '../constants'
@@ -32,9 +32,14 @@ export function appLogFileLocation(appName: string) {
   return join(heroicGamesConfigPath, `${appName}-lastPlay.log`)
 }
 
-export function getAppInfo(appName: string): GameInfo {
-  const store = libraryStore.get('games', []) as GameInfo[]
-  return store.filter((app) => app.app_name === appName)[0] || {}
+export function getAppInfo(appName: string): SideloadGame {
+  const store = libraryStore.get('games', [])
+  const info = store.find((app) => app.app_name === appName)
+  if (!info) {
+    // @ts-expect-error TODO: As with LegendaryGame and GOGGame, handle this properly
+    return {}
+  }
+  return info
 }
 
 export async function getAppSettings(appName: string): Promise<GameSettings> {
@@ -78,7 +83,7 @@ export function addNewApp({
     )
   }
 
-  const current = libraryStore.get('games', []) as SideloadGame[]
+  const current = libraryStore.get('games', [])
 
   const gameIndex = current.findIndex((value) => value.app_name === app_name)
 
@@ -255,9 +260,8 @@ export async function removeApp({
     status: 'uninstalling'
   })
 
-  const old = libraryStore.get('games', []) as SideloadGame[]
+  const old = libraryStore.get('games', [])
   const current = old.filter((a: SideloadGame) => a.app_name !== appName)
-  libraryStore.set('games', current)
 
   const { title } = getAppInfo(appName)
   const { winePrefix } = await getAppSettings(appName)
@@ -269,6 +273,7 @@ export async function removeApp({
       rmSync(winePrefix, { recursive: true })
     }
   }
+  libraryStore.set('games', current)
   notify({ title, body: i18next.t('notify.uninstalled') })
 
   removeAppShortcuts(appName)

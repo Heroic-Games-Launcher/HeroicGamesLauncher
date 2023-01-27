@@ -19,7 +19,10 @@ const app = {
   getPath: jest.fn().mockImplementation((path: string) => {
     return join(appBasePath, path)
   }),
-  getVersion: jest.fn()
+  getVersion(): string {
+    // TODO: What should we return here?
+    return '1.0.0'
+  }
 }
 
 class Notification {

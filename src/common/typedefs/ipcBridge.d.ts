@@ -113,7 +113,10 @@ interface AsyncIPCFunctions {
   showUpdateSetting: () => boolean
   getLatestReleases: () => Promise<Release[]>
   getCurrentChangelog: () => Promise<Release | null>
-  getGameInfo: (appName: string, runner: Runner) => Promise<GameInfo | null>
+  getGameInfo: (
+    appName: string,
+    runner: Runner
+  ) => Promise<GameInfo | SideloadGame | null>
   getExtraInfo: (appName: string, runner: Runner) => Promise<ExtraInfo | null>
   getGameSettings: (
     appName: string,
@@ -133,7 +136,7 @@ interface AsyncIPCFunctions {
   }>
   authGOG: (code: string) => Promise<{
     status: 'done' | 'error'
-    data?: { displayName: string; username: string }
+    data?: UserData
   }>
   logoutLegendary: () => Promise<void>
   getAlternativeWine: () => Promise<WineInstallation[]>

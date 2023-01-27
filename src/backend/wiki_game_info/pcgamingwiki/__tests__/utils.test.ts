@@ -1,11 +1,9 @@
 import { logError } from 'backend/logger/logger'
 import { getInfoFromPCGamingWiki } from '../utils'
 import axios from 'axios'
-import { PCGamingWikiInfo } from 'common/types'
 
 jest.mock('backend/logger/logfile')
 jest.mock('backend/logger/logger')
-jest.mock('electron-store')
 
 describe('getPCGamingWikiInfo', () => {
   test('fetches successfully via title', async () => {
@@ -128,4 +126,4 @@ const testPCGamingWikiInfo = {
   },
   howLongToBeatID: '10101',
   direct3DVersions: ['11', '12']
-} as PCGamingWikiInfo
+}

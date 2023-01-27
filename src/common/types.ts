@@ -90,7 +90,7 @@ export interface ExtraInfo {
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
 
 export interface GameInfo {
-  runner: Runner
+  runner: 'legendary' | 'gog'
   store_url: string
   app_name: string
   art_cover: string
@@ -176,6 +176,7 @@ export interface InstallProgress {
   percent: number
   downSpeed?: number
   diskSpeed?: number
+  file?: string
 }
 export interface InstalledInfo {
   executable: string
@@ -244,25 +245,26 @@ export interface GOGLoginData {
 }
 
 export interface GOGGameInfo {
+  isGalaxyCompatible: true
   tags: string[]
   id: number
-  image: string
   availability: {
     isAvailable: boolean
-    isAvailableInAccount: boolean
+    isAvailableInAccount: true
   }
   title: string
+  image: string
   url: string
   worksOn: {
-    Windows: boolean
-    Mac: boolean
-    Linux: boolean
+    [key in 'Windows' | 'Mac' | 'Linux']: boolean
   }
   category: string
   rating: number
-  isComingSoom: boolean
-  isGame: boolean
+  isComingSoon: boolean
+  isMovie: false
+  isGame: true
   slug: string
+  updates: number
   isNew: boolean
   dlcCount: number
   releaseDate: {
@@ -273,8 +275,7 @@ export interface GOGGameInfo {
   isBaseProductMissing: boolean
   isHidingDisabled: boolean
   isInDevelopment: boolean
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  extraInfo: any[]
+  extraInfo: unknown[]
   isHidden: boolean
 }
 
@@ -421,10 +422,12 @@ export interface Runtime {
 
 export type RuntimeName = 'eac_runtime' | 'battleye_runtime'
 
-export interface HiddenGame {
+export type RecentGame = {
   appName: string
   title: string
 }
+
+export type HiddenGame = RecentGame
 
 export type FavouriteGame = HiddenGame
 
@@ -516,15 +519,6 @@ export interface Tools {
   runner: Runner
 }
 
-export type RecentGame = {
-  appName: string
-  title: string
-}
-
-export interface UpdateParams {
-  gameInfo: GameInfo
-}
-
 export interface DMQueueElement {
   type: 'update' | 'install'
   params: InstallParams
@@ -554,11 +548,11 @@ export type WineCommandArgs = {
 }
 
 export interface SideloadGame {
-  runner: Runner
+  runner: 'sideload'
   app_name: string
   art_cover: string
   art_square: string
-  is_installed: boolean
+  is_installed: true
   title: string
   install: {
     executable: string
@@ -689,4 +683,10 @@ export interface ProgressInfo {
   percentage: number
   avgSpeed: number
   eta: number
+}
+
+export interface WineManagerUISettings {
+  value: string
+  type: Type
+  enabled: boolean
 }

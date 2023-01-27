@@ -55,7 +55,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   useEffect(() => {
     const getNewInfo = async () => {
       const newInfo = await getGameInfo(appName, runner)
-      if (newInfo) {
+      if (newInfo && newInfo.runner !== 'sideload') {
         setGameInfo(newInfo)
       }
     }
@@ -74,6 +74,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
       return
     }
     const folder_name = gameInfo.folder_name
+    if (!folder_name) return
 
     return handleStopInstallation(
       appName,

@@ -60,6 +60,7 @@
                 "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
+            "moving": "Error Moving Game {{error}}",
             "title": "Error",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",

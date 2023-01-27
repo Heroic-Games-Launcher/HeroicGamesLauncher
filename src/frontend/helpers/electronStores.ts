@@ -1,60 +1,106 @@
-export class StoreIpc {
-  storeName: string
+import { Get } from 'type-fest'
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  constructor(name: string, options: any) {
-    // Store.Options<Record<string, unknown>>) {
+import {
+  ValidStoreName,
+  StoreOptions,
+  StoreStructure,
+  TypeCheckedStore,
+  UnknownGuard
+} from 'common/types/electron_store'
+
+export class TypeCheckedStoreFrontend<
+  Name extends ValidStoreName,
+  Structure extends StoreStructure[Name]
+> implements TypeCheckedStore<Name, Structure>
+{
+  private storeName: ValidStoreName
+
+  constructor(name: Name, options: StoreOptions<Structure>) {
     this.storeName = name
+    // @ts-expect-error This looks like a bug in electron-store's type definitions
     window.api.storeNew(name, options)
   }
 
-  public has(key: string): boolean {
+  public has(key: string) {
     return window.api.storeHas(this.storeName, key)
   }
 
-  public get(key: string, defaultValue?: unknown) {
-    return window.api.storeGet(this.storeName, key, defaultValue)
+  public get<KeyType extends string>(
+    key: KeyType,
+    defaultValue: NonNullable<UnknownGuard<Get<Structure, KeyType>>>
+  ) {
+    return window.api.storeGet(
+      this.storeName,
+      key,
+      defaultValue
+    ) as NonNullable<UnknownGuard<Get<Structure, KeyType>>>
   }
 
-  public set(key: string, value?: unknown) {
+  public get_nodefault<KeyType extends string>(key: KeyType) {
+    return window.api.storeGet(this.storeName, key) as UnknownGuard<
+      Get<Structure, KeyType> | undefined
+    >
+  }
+
+  public set<KeyType extends string>(
+    key: KeyType,
+    value: UnknownGuard<Get<Structure, KeyType>>
+  ) {
     window.api.storeSet(this.storeName, key, value)
   }
+
+  public delete() {
+    throw new Error('Not implemented for TypeCheckedStoreFrontend')
+  }
+
+  public clear() {
+    throw new Error('Not implemented for TypeCheckedStoreFrontend')
+  }
 }
-const configStore = new StoreIpc('configStore', {
+
+const configStore = new TypeCheckedStoreFrontend('configStore', {
   cwd: 'store'
 })
-const libraryStore = new StoreIpc('libraryStore', {
+
+const libraryStore = new TypeCheckedStoreFrontend('libraryStore', {
   cwd: 'lib-cache',
   name: 'library'
 })
-const wineDownloaderInfoStore = new StoreIpc('wineDownloaderInfoStore', {
-  cwd: 'store',
-  name: 'wine-downloader-info'
-})
 
-const gogLibraryStore = new StoreIpc('gogLibraryStore', {
+const wineDownloaderInfoStore = new TypeCheckedStoreFrontend(
+  'wineDownloaderInfoStore',
+  {
+    cwd: 'store',
+    name: 'wine-downloader-info'
+  }
+)
+
+const gogLibraryStore = new TypeCheckedStoreFrontend('gogLibraryStore', {
   cwd: 'gog_store',
   name: 'library'
 })
-const gogInstalledGamesStore = new StoreIpc('gogInstalledGamesStore', {
-  cwd: 'gog_store',
-  name: 'installed'
-})
-const gogConfigStore = new StoreIpc('gogConfigStore', {
+const gogInstalledGamesStore = new TypeCheckedStoreFrontend(
+  'gogInstalledGamesStore',
+  {
+    cwd: 'gog_store',
+    name: 'installed'
+  }
+)
+const gogConfigStore = new TypeCheckedStoreFrontend('gogConfigStore', {
   cwd: 'gog_store'
 })
 
-const timestampStore = new StoreIpc('timestampStore', {
+const timestampStore = new TypeCheckedStoreFrontend('timestampStore', {
   cwd: 'store',
   name: 'timestamp'
 })
 
-const sideloadLibrary = new StoreIpc('sideloadedStore', {
+const sideloadLibrary = new TypeCheckedStoreFrontend('sideloadedStore', {
   cwd: 'sideload_apps',
   name: 'library'
 })
 
-const downloadManagerStore = new StoreIpc('download-manager', {
+const downloadManagerStore = new TypeCheckedStoreFrontend('downloadManager', {
   cwd: 'store',
   name: 'download-manager'
 })

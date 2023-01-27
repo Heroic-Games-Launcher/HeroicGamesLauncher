@@ -34,12 +34,9 @@ initShortcuts()
 const storage: Storage = window.localStorage
 storage.removeItem('nonAvailableGames')
 
-let languageCode: string | undefined = configStore.get('language') as string
-
-if (!languageCode) {
-  languageCode = storage.getItem('language') || 'en'
-  configStore.set('language', languageCode)
-}
+const languageCode: string =
+  configStore.get_nodefault('language') ?? storage.getItem('language') ?? 'en'
+configStore.set('language', languageCode)
 
 i18next
   // load translation using http -> see /public/locales
@@ -139,7 +136,7 @@ window.setTheme = async (themeClass: string) => {
   document.body.className = themeClass
 }
 
-const themeClass = (configStore.get('theme') as string) || DEFAULT_THEME
+const themeClass = configStore.get('theme', DEFAULT_THEME)
 window.setTheme(themeClass)
 
 // helper function to generate images for steam

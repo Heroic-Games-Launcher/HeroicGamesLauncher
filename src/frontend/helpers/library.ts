@@ -46,13 +46,11 @@ async function install({
     return
   }
 
-  const {
-    folder_name,
-    is_installed,
-    app_name: appName,
-    runner
-  }: GameInfo = gameInfo
+  const { folder_name, is_installed, app_name: appName, runner } = gameInfo
   if (isInstalling) {
+    // NOTE: This can't really happen, since `folder_name` can only be undefined if we got a
+    //       SideloadGame from getGameInfo, but we can't "install" sideloaded games
+    if (!folder_name) return
     return handleStopInstallation(
       appName,
       [installPath, folder_name],
@@ -70,19 +68,9 @@ async function install({
   if (installPath === 'import') {
     const { defaultInstallPath }: AppSettings =
       await window.api.requestAppSettings()
-    const args = {
+    const args: Electron.OpenDialogOptions = {
       buttonLabel: t('gamepage:box.choose'),
-      properties: ['openDirectory'] as Array<
-        | 'openFile'
-        | 'openDirectory'
-        | 'multiSelections'
-        | 'showHiddenFiles'
-        | 'createDirectory'
-        | 'promptToCreate'
-        | 'noResolveAliases'
-        | 'treatPackageAsDirectory'
-        | 'dontAddToRecent'
-      >,
+      properties: ['openDirectory'],
       title: t('gamepage:box.importpath'),
       defaultPath: defaultInstallPath
     }
@@ -200,7 +188,7 @@ const launch = async ({
             text: t('gamepage:box.yes'),
             onClick: async () => {
               const gameInfo = await getGameInfo(appName, runner)
-              if (gameInfo) {
+              if (gameInfo && gameInfo.runner !== 'sideload') {
                 updateGame({ appName, runner, gameInfo })
                 res({ status: 'done' })
               }

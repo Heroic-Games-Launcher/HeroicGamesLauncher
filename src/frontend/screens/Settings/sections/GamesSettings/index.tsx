@@ -55,16 +55,16 @@ export default function GamesSettings({ useDetails = true }: Props) {
   const hasCloudSaves = gameInfo?.cloud_save_enabled
 
   useEffect(() => {
-    const getIsNative = async () => {
-      if (gameInfo) {
+    if (gameInfo) {
+      const getIsNative = async () => {
         const isNative = await window.api.isNative({
           appName: gameInfo?.app_name,
           runner: gameInfo?.runner
         })
         setNativeGame(isNative)
       }
+      getIsNative()
     }
-    getIsNative()
   }, [])
 
   return (

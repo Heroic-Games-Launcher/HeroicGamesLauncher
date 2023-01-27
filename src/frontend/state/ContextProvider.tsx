@@ -6,13 +6,11 @@ const initialContext: ContextType = {
   category: 'all',
   epic: {
     library: [],
-    username: null,
     login: async () => Promise.resolve(''),
     logout: async () => Promise.resolve()
   },
   gog: {
     library: [],
-    username: null,
     login: async () => Promise.resolve(''),
     logout: async () => Promise.resolve()
   },
