@@ -209,6 +209,10 @@
         "store": "Store",
         "title": "Game Title"
     },
+    "gamecard": {
+        "moving": "Moving",
+        "repairing": "Repairing"
+    },
     "generic": {
         "error": {
             "component": "No Games found - Try to logout and login again or one of the options bellow"
@@ -594,9 +598,17 @@
     },
     "Settings": "Settings",
     "status": {
+        "gameNotAvailable": "Game not available",
+        "installed": "",
         "installing": "Installing",
         "logging": "Logging In...",
-        "processing": "Processing files, please wait"
+        "notinstalled": "",
+        "notSupportedGame": "Not Supported",
+        "playing": "Playing",
+        "processing": "Processing files, please wait",
+        "queued": "Queued",
+        "uninstalling": "Uninstalling",
+        "updating": ""
     },
     "store": "Epic Store",
     "stores": "Stores",
