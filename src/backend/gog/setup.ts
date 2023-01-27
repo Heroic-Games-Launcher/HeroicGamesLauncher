@@ -10,7 +10,12 @@ import { copySync } from 'fs-extra'
 import path from 'node:path'
 import { GOGLibrary } from './library'
 import { GameInfo, InstalledInfo } from 'common/types'
-import { getShellPath, spawnAsync } from '../utils'
+import {
+  checkWineBeforeLaunch,
+  getGame,
+  getShellPath,
+  spawnAsync
+} from '../utils'
 import { GameConfig } from '../game_config'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { isWindows } from '../constants'
@@ -30,6 +35,7 @@ async function setup(
   installInfo?: InstalledInfo
 ): Promise<void> {
   const gameInfo = GOGLibrary.get().getGameInfo(appName)
+  const game = getGame(appName, 'gog')
   if (installInfo && gameInfo) {
     gameInfo.install = installInfo
   }
@@ -48,6 +54,19 @@ async function setup(
 
   const gameSettings = GameConfig.get(appName).config
   if (!isWindows) {
+    const isWineOkToLaunch = await checkWineBeforeLaunch(
+      appName,
+      gameSettings,
+      game.logFileLocation
+    )
+
+    if (!isWineOkToLaunch) {
+      logError(
+        `Was not possible to run setup using ${gameSettings.wineVersion.name}`,
+        LogPrefix.Backend
+      )
+      return
+    }
     // Make sure prefix is initalized correctly
     await verifyWinePrefix(gameSettings)
   }

@@ -9,7 +9,6 @@ import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
 import {
   errorHandler,
-  execAsync,
   getFileSize,
   getGOGdlBin,
   killPattern,
