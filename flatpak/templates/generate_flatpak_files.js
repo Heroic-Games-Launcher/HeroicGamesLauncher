@@ -38,12 +38,12 @@ async function main() {
     }
 
     // generate manifest
-    let templateManifest = fs.readFileSync(`${__dirname}/com.heroicgameslauncher.hgl.yml.template`, { encoding: 'utf-8' })
+    let templateManifest = fs.readFileSync(`./flatpak/templates/com.heroicgameslauncher.hgl.yml.template`, { encoding: 'utf-8' })
     templateManifest = templateManifest.replace("${heroic-app-image}", placeholder)
-    fs.writeFileSync(`${__dirname}/../com.heroicgameslauncher.hgl.yml`, templateManifest)
+    fs.writeFileSync(`./flatpak/com.heroicgameslauncher.hgl.yml`, templateManifest)
 
     // generate metainfo
-    let templateMetaInfo = fs.readFileSync(`${__dirname}/com.heroicgameslauncher.hgl.metainfo.xml.template`, { encoding: 'utf-8' })
+    let templateMetaInfo = fs.readFileSync(`./flatpak/templates/com.heroicgameslauncher.hgl.metainfo.xml.template`, { encoding: 'utf-8' })
     templateMetaInfo = templateMetaInfo.replace("${heroic-version}", `v${package.version}`).replace("${heroic-release-date}", releaseTime)
-    fs.writeFileSync(`${__dirname}/../com.heroicgameslauncher.hgl.metainfo.xml`, templateMetaInfo)
+    fs.writeFileSync(`./flatpak/com.heroicgameslauncher.hgl.metainfo.xml`, templateMetaInfo)
 }
