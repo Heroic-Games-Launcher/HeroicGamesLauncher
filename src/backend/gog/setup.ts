@@ -320,6 +320,15 @@ async function setup(
                 ['Setup: Copying directory', sourcePath, 'to', targetPath],
                 LogPrefix.Gog
               )
+
+              if (!existsSync(sourcePath)) {
+                logWarning(
+                  ['Source path', sourcePath, "doesn't exist, skipping..."],
+                  LogPrefix.Gog
+                )
+
+                break
+              }
               copySync(sourcePath, targetPath, {
                 overwrite: actionArguments?.overwrite,
                 recursive: true
