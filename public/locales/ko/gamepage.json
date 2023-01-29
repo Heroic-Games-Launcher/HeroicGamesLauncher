@@ -185,7 +185,8 @@
         "totalDownloaded": "총 다운로드",
         "uninstalling": "Uninstalling",
         "updating": "게임 업데이트 중",
-        "playing": "놀이"
+        "playing": "놀이",
+        "moving-files": "파일 '{{file}}' 이동: {{percent}} "
     },
     "submenu": {
         "addShortcut": "바로가기 생성",
