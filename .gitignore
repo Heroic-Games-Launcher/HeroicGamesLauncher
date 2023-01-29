@@ -39,4 +39,4 @@ vite-plugin-electron.log
 
 # flatpak
 flatpak/com.heroicgameslauncher.hgl.yml
-flatpak/com.heroicgameslauncher.hgl.metainfo
+flatpak/com.heroicgameslauncher.hgl.metainfo.xml
