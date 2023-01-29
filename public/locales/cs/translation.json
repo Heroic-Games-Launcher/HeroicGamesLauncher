@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetrick navrátily během provádění následující chybu:{{newLine}}{{error}}",
                 "title": "Chyba Winetricks"
-            }
+            },
+            "moving": "Chyba při přesunu hry {{error}}"
         },
         "info": {
             "update": {
@@ -279,7 +280,7 @@
             "version": "Verze Heroic"
         },
         "save-sync": {
-            "searching": "Pokus o zjištění správné složky uložení"
+            "searching": "Pokus o zjištění správné složky uložení (klikněte pro zrušení)"
         },
         "settings": "Nastavení se ukládají automaticky",
         "version": "Verze Wine"
@@ -538,9 +539,9 @@
             "title": "Spustit EXE na prefixu"
         },
         "savefolder": {
-            "not-found": "Složka pro uložení nebyla nalezena, vyberte ji prosím ručně",
+            "not-found": "Složka pro uložení nebyla nalezena, vyberte ji prosím ručně (klikněte pro opakování)",
             "placeholder": "Vyberte přesnou složku s uloženými soubory",
-            "warning": "Zkontrolujte prosím dvakrát, zda je cesta správná"
+            "warning": "Zkontrolujte prosím dvakrát, zda je cesta správná (klikněte pro opakování)"
         },
         "select_theme": "Vybrat motiv",
         "showfps": "Zobrazit FPS (DX9, 10 a 11)",

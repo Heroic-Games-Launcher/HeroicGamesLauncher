@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "El Winetricks ha retornat l'error següent durant l'execució:{{newLine}}{{error}}",
                 "title": "Error del Winetricks"
-            }
+            },
+            "moving": "Error en moure el joc {{error}}"
         },
         "info": {
             "update": {
@@ -279,7 +280,7 @@
             "version": "Versió de l'Heroic"
         },
         "save-sync": {
-            "searching": "S'està provant de detectar la carpeta correcta de partides desades"
+            "searching": "S'està provant de detectar la carpeta correcta de partides desades (feu clic per a cancel·lar)"
         },
         "settings": "La configuració es desa automàticament",
         "version": "Versió del Wine"
@@ -538,9 +539,9 @@
             "title": "Executa l'EXE al prefix"
         },
         "savefolder": {
-            "not-found": "No s'ha trobat la carpeta de partides desades. Selecciona-la manualment",
+            "not-found": "No s'ha trobat la carpeta de partides desades. Seleccioneu-la manualment (feu clic per a intentar-ho de nou)",
             "placeholder": "Selecciona el directori exacte on es desen els jocs",
-            "warning": "Comprova si la ruta és correcta"
+            "warning": "Comproveu si la ruta és correcta (feu clic per a provar-ho de nou)"
         },
         "select_theme": "Selecciona un tema",
         "showfps": "Mostra els FPS (DX9, 10 i 11)",
