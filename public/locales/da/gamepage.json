@@ -153,7 +153,8 @@
         "notSupported": "Ikke understøttet",
         "notSupportedGame": "Ikke understøttet",
         "this-game-uses-third-party": "Dette spil bruger tredjeparts launcher, og det er ikke understøttet endnu",
-        "playing": "Spiller"
+        "playing": "Spiller",
+        "moving-files": "Flytter fil '{{file}}': {{percent}} "
     },
     "submenu": {
         "addShortcut": "Opret genvej",
