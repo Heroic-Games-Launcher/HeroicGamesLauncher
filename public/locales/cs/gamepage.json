@@ -185,7 +185,8 @@
         "totalDownloaded": "Celkově staženo",
         "uninstalling": "Odinstalace",
         "updating": "Aktualizuji hru",
-        "playing": "Hraní"
+        "playing": "Hraní",
+        "moving-files": "Přesouvání souboru '{{file}}': {{percent}} "
     },
     "submenu": {
         "addShortcut": "Přidat zástupce",
