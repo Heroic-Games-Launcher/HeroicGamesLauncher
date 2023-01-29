@@ -186,7 +186,8 @@
         "totalDownloaded": "Totalt nedlastede",
         "uninstalling": "Uninstalling",
         "updating": "Oppdaterer spillet",
-        "playing": "Spiller"
+        "playing": "Spiller",
+        "moving-files": "Flytter filen «{{file}}»: {{percent}} "
     },
     "submenu": {
         "addShortcut": "Legg til snarvei",
