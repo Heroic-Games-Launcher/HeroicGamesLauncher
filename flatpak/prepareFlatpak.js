@@ -1,6 +1,6 @@
 const { default: axios } = require('axios')
 const fs = require('fs')
-const package = require('../../package.json')
+const package = require('../package.json')
 const child_process = require('child_process')
 const os = require('os')
 const crypto = require('crypto')
@@ -32,18 +32,29 @@ async function main() {
     } else {
         placeholder = [
             "type: file",
-            `path: "../dist/Heroic-${package.version}.AppImage"`
+            `path: "../../dist/Heroic-${package.version}.AppImage"`
         ].join("\n        ")
         releaseTime = new Date().toISOString().split('T')[0]
+    }
+
+    // generate flatpak-build
+    if (!fs.existsSync("./build/flatpak")) {
+        fs.mkdirSync('./build/flatpak', { recursive: true })
     }
 
     // generate manifest
     let templateManifest = fs.readFileSync(`./flatpak/templates/com.heroicgameslauncher.hgl.yml.template`, { encoding: 'utf-8' })
     templateManifest = templateManifest.replace("${heroic-app-image}", placeholder)
-    fs.writeFileSync("./flatpak/com.heroicgameslauncher.hgl.yml", templateManifest)
+    fs.writeFileSync("./build/flatpak/com.heroicgameslauncher.hgl.yml", templateManifest)
 
     // generate metainfo
     let templateMetaInfo = fs.readFileSync(`./flatpak/templates/com.heroicgameslauncher.hgl.metainfo.xml.template`, { encoding: 'utf-8' })
     templateMetaInfo = templateMetaInfo.replace("${heroic-version}", `v${package.version}`).replace("${heroic-release-date}", releaseTime)
-    fs.writeFileSync("./flatpak/com.heroicgameslauncher.hgl.metainfo.xml", templateMetaInfo)
+    fs.writeFileSync("./build/flatpak/com.heroicgameslauncher.hgl.metainfo.xml", templateMetaInfo)
+
+    // copy extra files
+    fs.copyFileSync("./flatpak/com.heroicgameslauncher.hgl.desktop", "./build/flatpak/com.heroicgameslauncher.hgl.desktop")
+    fs.copyFileSync("./flatpak/com.heroicgameslauncher.hgl.png", "./build/flatpak/com.heroicgameslauncher.hgl.png")
+    fs.copyFileSync("./flatpak/flathub.json", "./build/flatpak/flathub.json")
+    fs.cpSync("./flatpak/patches", "./build/flatpak/patches", { recursive: true })
 }
