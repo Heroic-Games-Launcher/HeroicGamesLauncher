@@ -185,7 +185,8 @@
         "totalDownloaded": "Celkom stiahnutých",
         "uninstalling": "Uninstalling",
         "updating": "Aktualizácia hry",
-        "playing": "Prehrávanie"
+        "playing": "Prehrávanie",
+        "moving-files": "Presúvam súbor '{{file}}': {{percent}} "
     },
     "submenu": {
         "addShortcut": "Pridať skratku",
