@@ -22,6 +22,7 @@ import { isWindows } from '../constants'
 import ini from 'ini'
 import { isOnline } from '../online_monitor'
 import { getWinePath, runWineCommand, verifyWinePrefix } from '../launcher'
+const nonNativePathSeparator = path.sep === '/' ? '\\' : '/'
 
 /**
  * Handles setup instructions like create folders, move files, run exe, create registry entry etc...
@@ -301,7 +302,7 @@ async function setup(
               gameInfo.install.install_path
             ),
             pathsValues
-          )
+          ).replaceAll(nonNativePathSeparator, path.sep)
           const type = actionArguments.type
           const sourcePath = handlePathVars(
             actionArguments?.source?.replace(
@@ -309,7 +310,7 @@ async function setup(
               gameInfo.install.install_path
             ),
             pathsValues
-          )
+          ).replaceAll(nonNativePathSeparator, path.sep)
           if (type === 'folder') {
             if (!actionArguments?.source) {
               logInfo(['Setup: Creating directory', targetPath], LogPrefix.Gog)
@@ -352,7 +353,7 @@ async function setup(
               gameInfo.install.install_path
             ),
             pathsValues
-          ).replaceAll('\\', '/')
+          ).replaceAll(nonNativePathSeparator, path.sep)
           if (!filePath || !existsSync(filePath)) {
             logError("Setup: setIni file doesn't exists", LogPrefix.Gog)
             break
