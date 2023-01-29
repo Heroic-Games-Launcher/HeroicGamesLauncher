@@ -4,10 +4,6 @@ import { configStore } from './constants'
 
 let mainWindow: BrowserWindow | null = null
 
-export const setMainWindow = (window: BrowserWindow | null = null) => {
-  mainWindow = window
-}
-
 export const getMainWindow = () => {
   return mainWindow
 }
@@ -40,19 +36,7 @@ export const createMainWindow = () => {
   }
 
   if (configStore.has('window-props')) {
-    const tmpWindowProps = configStore.get(
-      'window-props',
-      {}
-    ) as Electron.Rectangle
-    if (
-      tmpWindowProps &&
-      tmpWindowProps.width &&
-      tmpWindowProps.height &&
-      tmpWindowProps.y !== undefined &&
-      tmpWindowProps.x !== undefined
-    ) {
-      windowProps = tmpWindowProps
-    }
+    windowProps = configStore.get('window-props', windowProps)
   } else {
     // make sure initial screen size is not bigger than the available screen space
     const screenInfo = screen.getPrimaryDisplay()

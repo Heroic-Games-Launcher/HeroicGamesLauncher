@@ -147,7 +147,8 @@
         "title": "Ange komponenter att installera"
     },
     "setting": {
-        "use-default-wine-settings": "Använd standardinställningar för Wine"
+        "use-default-wine-settings": "Använd standardinställningar för Wine",
+        "winecrossoverbottle": "CrossOver prefix"
     },
     "sideload": {
         "field": {
@@ -183,7 +184,8 @@
         "this-game-uses-third-party": "Spelet använder tredjeparts-launcher och stöds ej i nuläget",
         "totalDownloaded": "Nedladdning",
         "uninstalling": "Avinstallerar",
-        "updating": "Updaterar spelet"
+        "updating": "Updaterar spelet",
+        "playing": "Spelar"
     },
     "submenu": {
         "addShortcut": "Skapa genväg",

@@ -1,8 +1,8 @@
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import { getGame, isEpicServiceOffline, notify } from '../utils'
+import { getGame, isEpicServiceOffline } from '../utils'
 import { InstallParams } from 'common/types'
 import i18next from 'i18next'
-import { showDialogBoxModalAuto } from '../dialog/dialog'
+import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
 import { isOnline } from '../online_monitor'
 import { sendFrontendMessage } from '../main_window'
 

@@ -59,3 +59,7 @@
 .textInputFieldWrapper.withRightButton .rightButton {
   grid-area: button;
 }
+
+.textInputFieldWrapper .smallMessage {
+  margin: var(--space-md) 0;
+}

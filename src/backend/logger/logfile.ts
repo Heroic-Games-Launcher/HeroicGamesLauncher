@@ -86,15 +86,12 @@ export function createNewLogFileAndClearOldOnes(): createLogFileReturn {
     }
   }
 
-  let logs: createLogFileReturn = {
+  const logs = configStore.get('general-logs', {
     currentLogFile: '',
     lastLogFile: '',
     legendaryLogFile: '',
     gogdlLogFile: ''
-  }
-  if (configStore.has('general-logs')) {
-    logs = configStore.get('general-logs') as createLogFileReturn
-  }
+  })
 
   logs.lastLogFile = logs.currentLogFile
   logs.currentLogFile = newLogFile

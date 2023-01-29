@@ -60,11 +60,15 @@ export default function Tools() {
   const handleRunExe = async () => {
     let exe = ''
     const gameinfo = await getGameInfo(appName, runner)
+    if (!gameinfo) return
+    const defaultPath =
+      gameinfo.runner === 'sideload' ? undefined : gameinfo.install.install_path
+
     const path = await window.api.openDialog({
       buttonLabel: t('box.select.button', 'Select'),
       properties: ['openFile'],
       title: t('box.runexe.title', 'Select EXE to Run'),
-      defaultPath: gameinfo?.install.install_path
+      defaultPath
     })
     if (path) {
       exe = path

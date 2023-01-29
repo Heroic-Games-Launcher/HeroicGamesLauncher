@@ -31,7 +31,9 @@ abstract class Game {
   abstract addShortcuts(): Promise<void>
   abstract launch(launchArguments?: string): Promise<boolean>
   abstract stop(): Promise<void>
-  abstract moveInstall(newInstallPath: string): Promise<string>
+  abstract moveInstall(
+    newInstallPath: string
+  ): Promise<{ status: 'done' } | { status: 'error'; error: string }>
   abstract repair(): Promise<ExecResult>
   abstract forceUninstall(): Promise<void>
   abstract syncSaves(arg: string, path: string): Promise<string>

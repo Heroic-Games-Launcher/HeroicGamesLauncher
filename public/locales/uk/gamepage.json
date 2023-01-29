@@ -147,7 +147,8 @@
         "title": "Оберіть компоненти для встановлення"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Use Default Wine Settings",
+        "winecrossoverbottle": "Пляшка CrossOver"
     },
     "sideload": {
         "field": {
@@ -183,7 +184,8 @@
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Всього завантажено",
         "uninstalling": "Uninstalling",
-        "updating": "Оновлюю гру"
+        "updating": "Оновлюю гру",
+        "playing": "Граючи"
     },
     "submenu": {
         "addShortcut": "Додати ярлик",

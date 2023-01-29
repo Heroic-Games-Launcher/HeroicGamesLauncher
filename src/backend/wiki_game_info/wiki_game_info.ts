@@ -15,7 +15,7 @@ export async function getWikiGameInfo(
     title = removeSpecialcharacters(title)
 
     // check if we have a cached response
-    const cachedResponse = wikiGameInfoStore.get(title) as WikiInfo
+    const cachedResponse = wikiGameInfoStore.get_nodefault(title)
     if (cachedResponse) {
       logInfo(
         [`Using cached ExtraGameInfo data for ${title}`],

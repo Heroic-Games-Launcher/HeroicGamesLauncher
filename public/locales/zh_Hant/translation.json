@@ -279,7 +279,7 @@
             "version": "Heroic Version"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "設定會自動保存",
         "version": "Wine 版本"
@@ -538,9 +538,9 @@
             "title": "在PREFIX上執行exe檔案"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "選擇存檔的保存位置",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "選擇主題",
         "showfps": "顯示幀數（Directx 9，10和11）",

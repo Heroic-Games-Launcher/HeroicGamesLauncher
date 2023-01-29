@@ -27,7 +27,11 @@ const options: Intl.DateTimeFormatOptions = {
 function convertToTime(time: number) {
   const date = time ? new Date(time) : new Date()
   const hour = new Intl.DateTimeFormat(undefined, options).format(date)
-  return { hour, fullDate: date.toLocaleString() }
+  return {
+    hour,
+    date: date.toLocaleDateString(),
+    fullDate: date.toLocaleString()
+  }
 }
 
 const DownloadManagerItem = ({ element, current }: Props) => {
@@ -48,14 +52,21 @@ const DownloadManagerItem = ({ element, current }: Props) => {
   const library = [...epic.library, ...gog.library]
 
   const { params, addToQueueTime, endTime, type, startTime } = element
-  const { appName, runner, path, gameInfo: DmGameInfo, size } = params
+  const {
+    appName,
+    runner,
+    path,
+    gameInfo: DmGameInfo,
+    size,
+    platformToInstall
+  } = params
 
   const [gameInfo, setGameInfo] = useState(DmGameInfo)
 
   useEffect(() => {
     const getNewInfo = async () => {
       const newInfo = await getGameInfo(appName, runner)
-      if (newInfo) {
+      if (newInfo && newInfo.runner !== 'sideload') {
         setGameInfo(newInfo)
       }
     }
@@ -74,6 +85,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
       return
     }
     const folder_name = gameInfo.folder_name
+    if (!folder_name) return
 
     return handleStopInstallation(
       appName,
@@ -160,7 +172,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
     update: t2('download-manager.install-type.update', 'Update')
   }
 
-  const { hour, fullDate } = getTime()
+  const { fullDate, hour, date } = getTime()
 
   return (
     <div className="downloadManagerListItem">
@@ -174,12 +186,15 @@ const DownloadManagerItem = ({ element, current }: Props) => {
         <span className="titleSize">
           {title}
           <span title={path}>
-            {size ?? ''}
+            {size ?? ''} |{' '}
+            {platformToInstall === 'osx' ? 'Mac' : platformToInstall}
             {canceled ? ` (${t('queue.label.canceled', 'Canceled')})` : ''}
           </span>
         </span>
       </span>
-      <span title={fullDate}>{hour}</span>
+      <span title={fullDate}>
+        {date} {hour}
+      </span>
       <span>{translatedTypes[type]}</span>
       <span>{getStoreName(runner, t2('Other'))}</span>
       <span className="icons">

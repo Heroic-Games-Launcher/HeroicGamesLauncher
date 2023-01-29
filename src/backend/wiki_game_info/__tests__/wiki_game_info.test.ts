@@ -18,7 +18,6 @@ jest.mock('../../constants', () => {
 
 describe('getWikiGameInfo', () => {
   test('use cached data', async () => {
-    jest.spyOn(wikiGameInfoStore, 'get').mockReturnValue(testExtraGameInfo)
     const mockPCGamingWiki = jest
       .spyOn(PCGamingWiki, 'getInfoFromPCGamingWiki')
       .mockResolvedValue(testPCGamingWikiInfo)
@@ -28,6 +27,8 @@ describe('getWikiGameInfo', () => {
     const mockHowLongToBeat = jest
       .spyOn(HowLongToBeat, 'getHowLongToBeat')
       .mockResolvedValue(testHowLongToBeat)
+
+    wikiGameInfoStore.set('The Witcher 3', testExtraGameInfo)
 
     const result = await getWikiGameInfo('The Witcher 3')
     expect(result).toStrictEqual(testExtraGameInfo)
@@ -40,10 +41,6 @@ describe('getWikiGameInfo', () => {
     const oneMonthAgo = new Date(testExtraGameInfo.timestampLastFetch)
     oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1)
 
-    jest.spyOn(wikiGameInfoStore, 'get').mockReturnValue({
-      ...testExtraGameInfo,
-      timestampLastFetch: oneMonthAgo.toString()
-    })
     const mockPCGamingWiki = jest
       .spyOn(PCGamingWiki, 'getInfoFromPCGamingWiki')
       .mockResolvedValue(testPCGamingWikiInfo)
@@ -53,6 +50,11 @@ describe('getWikiGameInfo', () => {
     const mockHowLongToBeat = jest
       .spyOn(HowLongToBeat, 'getHowLongToBeat')
       .mockResolvedValue(testHowLongToBeat)
+
+    wikiGameInfoStore.set('The Witcher 3', {
+      ...testExtraGameInfo,
+      timestampLastFetch: oneMonthAgo.toString()
+    })
 
     const result = await getWikiGameInfo('The Witcher 3', '1234')
     expect(result).toStrictEqual(testExtraGameInfo)
@@ -65,6 +67,8 @@ describe('getWikiGameInfo', () => {
     jest
       .spyOn(PCGamingWiki, 'getInfoFromPCGamingWiki')
       .mockRejectedValueOnce(new Error('Failed'))
+
+    wikiGameInfoStore.clear()
 
     const result = await getWikiGameInfo('The Witcher 3')
     expect(result).toBeNull()

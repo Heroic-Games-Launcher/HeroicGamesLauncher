@@ -279,7 +279,7 @@
             "version": "Heroic Version"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "Asetukset tallennetaan automaattisesti",
         "version": "Wine Version"
@@ -538,9 +538,9 @@
             "title": "Käynnistä EXE prefixissä"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Valitse täsmällinen pelitallennuksien kansio",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Select Theme",
         "showfps": "Näytä kuvataajuus (DX9, 10 ja 11)",

@@ -12,7 +12,9 @@ import {
   execAsync,
   getFileSize,
   getGOGdlBin,
-  killPattern
+  killPattern,
+  moveOnUnix,
+  moveOnWindows
 } from '../utils'
 import {
   ExtraInfo,
@@ -25,13 +27,7 @@ import {
   WineCommandArgs
 } from 'common/types'
 import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
-import {
-  heroicGamesConfigPath,
-  isWindows,
-  execOptions,
-  isMac,
-  isLinux
-} from '../constants'
+import { heroicGamesConfigPath, isWindows, isMac, isLinux } from '../constants'
 import { installedGamesStore, syncStore } from '../gog/electronStores'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { GOGUser } from './user'
@@ -60,16 +56,19 @@ import { sendFrontendMessage } from '../main_window'
 class GOGGame extends Game {
   public appName: string
   private static instances = new Map<string, GOGGame>()
+
   private constructor(appName: string) {
     super()
     this.appName = appName
   }
+
   public static get(appName: string) {
     if (!this.instances.get(appName)) {
       this.instances.set(appName, new GOGGame(appName))
     }
     return this.instances.get(appName) as GOGGame
   }
+
   public async getExtraInfo(): Promise<ExtraInfo> {
     const gameInfo = this.getGameInfo()
     let targetPlatform: GogInstallPlatform = 'windows'
@@ -92,6 +91,7 @@ class GOGGame extends Game {
     }
     return extra
   }
+
   public getGameInfo(): GameInfo {
     const info = GOGLibrary.get().getGameInfo(this.appName)
     if (!info) {
@@ -108,6 +108,7 @@ class GOGGame extends Game {
     }
     return info
   }
+
   async getInstallInfo(
     installPlatform: InstallPlatform = 'windows'
   ): Promise<GogInstallInfo> {
@@ -130,12 +131,14 @@ class GOGGame extends Game {
     }
     return info
   }
+
   async getSettings(): Promise<GameSettings> {
     return (
       GameConfig.get(this.appName).config ||
       (await GameConfig.get(this.appName).getSettings())
     )
   }
+
   async hasUpdate(): Promise<boolean> {
     throw new Error('Method not implemented.')
   }
@@ -318,8 +321,7 @@ class GOGGame extends Game {
       versionEtag: isLinuxNative ? '' : installInfo.manifest.versionEtag,
       buildId: isLinuxNative ? '' : installInfo.game.buildId
     }
-    const array: Array<InstalledInfo> =
-      (installedGamesStore.get('installed', []) as Array<InstalledInfo>) || []
+    const array = installedGamesStore.get('installed', [])
     array.push(installedData)
     installedGamesStore.set('installed', array)
     GOGLibrary.get().refreshInstalled()
@@ -519,30 +521,27 @@ class GOGGame extends Game {
     return !error
   }
 
-  public async moveInstall(newInstallPath: string): Promise<string> {
-    const {
-      install: { install_path },
-      title
-    } = this.getGameInfo()
+  public async moveInstall(
+    newInstallPath: string
+  ): Promise<{ status: 'done' } | { status: 'error'; error: string }> {
+    const gameInfo = this.getGameInfo()
+    logInfo(`Moving ${gameInfo.title} to ${newInstallPath}`, LogPrefix.Gog)
 
-    if (!install_path) {
-      return ''
+    const moveImpl = isWindows ? moveOnWindows : moveOnUnix
+    const moveResult = await moveImpl(newInstallPath, gameInfo)
+
+    if (moveResult.status === 'error') {
+      const { error } = moveResult
+      logError(
+        ['Error moving', gameInfo.title, 'to', newInstallPath, error],
+        LogPrefix.Gog
+      )
+
+      return { status: 'error', error }
     }
 
-    if (isWindows) {
-      newInstallPath += '\\' + install_path.split('\\').at(-1)
-    } else {
-      newInstallPath += '/' + install_path.split('/').at(-1)
-    }
-
-    logInfo(`Moving ${title} to ${newInstallPath}`, LogPrefix.Gog)
-    await execAsync(`mv -f '${install_path}' '${newInstallPath}'`, execOptions)
-      .then(() => {
-        GOGLibrary.get().changeGameInstallPath(this.appName, newInstallPath)
-        logInfo(`Finished Moving ${title}`, LogPrefix.Gog)
-      })
-      .catch((error) => logError(error, LogPrefix.Gog))
-    return newInstallPath
+    GOGLibrary.get().changeGameInstallPath(this.appName, moveResult.installPath)
+    return { status: 'done' }
   }
 
   /**
@@ -628,19 +627,19 @@ class GOGGame extends Game {
         '--os',
         gameInfo.install.platform,
         '--ts',
-        syncStore.get([this.appName, location.name].join('.'), '0') as string,
+        syncStore.get(`${this.appName}.${location.name}`, '0'),
         '--name',
         location.name,
         arg
       ]
 
-      logInfo([`Syncing saves for ${this.appName}`], LogPrefix.Gog)
+      logInfo([`Syncing saves for ${gameInfo.title}`], LogPrefix.Gog)
 
       const res = await runGogdlCommand(
         commandParts,
         createAbortController(this.appName),
         {
-          logMessagePrefix: `Syncing saves for ${this.appName}`,
+          logMessagePrefix: `Syncing saves for ${gameInfo.title}`,
           onOutput: (output) => (fullOutput += output)
         }
       )
@@ -654,18 +653,15 @@ class GOGGame extends Game {
         )
       }
       if (res.stdout) {
-        syncStore.set(
-          [this.appName, location.name].join('.'),
-          res.stdout.trim()
-        )
+        syncStore.set(`${this.appName}.${location.name}`, res.stdout.trim())
       }
     }
 
     return fullOutput
   }
+
   public async uninstall(): Promise<ExecResult> {
-    const array: Array<InstalledInfo> =
-      (installedGamesStore.get('installed') as Array<InstalledInfo>) || []
+    const array = installedGamesStore.get('installed', [])
     const index = array.findIndex((game) => game.appName === this.appName)
     if (index === -1) {
       throw Error("Game isn't installed")
@@ -774,9 +770,7 @@ class GOGGame extends Game {
       return { status: 'error' }
     }
 
-    const installedArray = installedGamesStore.get(
-      'installed'
-    ) as InstalledInfo[]
+    const installedArray = installedGamesStore.get('installed', [])
     const gameIndex = installedArray.findIndex(
       (value) => this.appName === value.appName
     )
@@ -854,10 +848,7 @@ class GOGGame extends Game {
   }
 
   async forceUninstall(): Promise<void> {
-    const installed = installedGamesStore.get(
-      'installed',
-      []
-    ) as Array<InstalledInfo>
+    const installed = installedGamesStore.get('installed', [])
     const newInstalled = installed.filter((g) => g.appName !== this.appName)
     installedGamesStore.set('installed', newInstalled)
     sendFrontendMessage('refreshLibrary', 'gog')

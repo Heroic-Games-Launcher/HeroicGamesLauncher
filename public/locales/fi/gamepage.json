@@ -147,7 +147,8 @@
         "title": "Valitse asennettavat komponentit"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Use Default Wine Settings",
+        "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {
         "field": {
@@ -183,7 +184,8 @@
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Ladattu yhteensä",
         "uninstalling": "Uninstalling",
-        "updating": "Päivitetään peliä"
+        "updating": "Päivitetään peliä",
+        "playing": "Pelaaminen"
     },
     "submenu": {
         "addShortcut": "Lisää pikakuvake",

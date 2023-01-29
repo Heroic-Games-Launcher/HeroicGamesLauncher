@@ -18,7 +18,7 @@
             "title": "بررسی و تعمیر"
         },
         "runexe": {
-            "title": "فایل EXE را برای اجرا انتخاب کنید"
+            "title": "انتخاب EXE برای اجرا"
         },
         "select": {
             "button": "انتخاب"
@@ -147,7 +147,8 @@
         "title": "انتخاب محتواها برای نصب"
     },
     "setting": {
-        "use-default-wine-settings": "استفاده از تنظیمات Wine پیش فرض"
+        "use-default-wine-settings": "استفاده از تنظیمات Wine پیش فرض",
+        "winecrossoverbottle": "CrossOver باتل"
     },
     "sideload": {
         "field": {
@@ -183,7 +184,8 @@
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "حجم کل دانلود شده",
         "uninstalling": "در حال حذف",
-        "updating": "در حال به روزرسانی بازی"
+        "updating": "در حال به روزرسانی بازی",
+        "playing": "بازی کردن"
     },
     "submenu": {
         "addShortcut": "افزودن میانبر",

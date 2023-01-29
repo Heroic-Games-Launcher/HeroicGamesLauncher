@@ -1,4 +1,4 @@
-import { GameInfo, RecentGame } from 'common/types'
+import { GameInfo, SideloadGame, RecentGame } from 'common/types'
 import { backendEvents } from '../backend_events'
 import { sendFrontendMessage } from '../main_window'
 import { GlobalConfig } from '../config'
@@ -10,7 +10,7 @@ const maxRecentGames = async () => {
 }
 
 const getRecentGames = async (options?: { limited: boolean }) => {
-  const games = configStore.get('games.recent', []) as Array<RecentGame>
+  const games = configStore.get('games.recent', [])
   if (options?.limited) {
     return games.slice(0, await maxRecentGames())
   } else {
@@ -27,7 +27,7 @@ const setRecentGames = (recentGames: RecentGame[]) => {
   backendEvents.emit('recentGamesChanged', recentGames)
 }
 
-const addRecentGame = async (game: GameInfo) => {
+const addRecentGame = async (game: GameInfo | SideloadGame) => {
   const games = await getRecentGames()
 
   // update list
@@ -47,10 +47,10 @@ const removeRecentGame = async (appName: string) => {
   }
 }
 
-export {
-  getRecentGames,
-  addRecentGame,
-  removeRecentGame,
-  setRecentGames,
-  maxRecentGames
+export { getRecentGames, addRecentGame, removeRecentGame, maxRecentGames }
+
+// Exported only for testing purpose
+// ts-prune-ignore-next
+export const testingExportsRecentGames = {
+  setRecentGames
 }

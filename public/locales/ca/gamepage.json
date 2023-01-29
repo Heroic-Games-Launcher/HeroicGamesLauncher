@@ -147,7 +147,8 @@
         "title": "Selecciona els components a instal·lar"
     },
     "setting": {
-        "use-default-wine-settings": "Fes servir la configuració predefinida del Wine"
+        "use-default-wine-settings": "Fes servir la configuració predefinida del Wine",
+        "winecrossoverbottle": "Ampolla CrossOver"
     },
     "sideload": {
         "field": {
@@ -183,7 +184,8 @@
         "this-game-uses-third-party": "Aquest joc fa servir un llançador de tercers que encara no és compatible",
         "totalDownloaded": "Total baixat",
         "uninstalling": "Es desinstal·la",
-        "updating": "S'està actualitzant el joc"
+        "updating": "S'està actualitzant el joc",
+        "playing": "Jugant"
     },
     "submenu": {
         "addShortcut": "Afegeix una drecera",

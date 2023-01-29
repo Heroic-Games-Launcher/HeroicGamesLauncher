@@ -142,8 +142,8 @@
             },
             "title": "هشدار",
             "wine-change": {
-                "message": "ما نتوانستیم نسخه شراب انتخابی را برای راه اندازی این عنوان ({{selectedWine}}) پیدا کنیم. {{newline}} ما یکی دیگر را پیدا کردیم، آیا می‌خواهید با استفاده از {{foundWine}} راه‌اندازی را ادامه دهید؟",
-                "title": "شراب پیدا نشد!"
+                "message": "ما نتوانستیم نسخه Wine انتخابی را برای راه اندازی این عنوان ({{selectedWine}}) پیدا کنیم. {{newline}} ما یکی دیگر را پیدا کردیم، آیا می‌خواهید با استفاده از {{foundWine}} راه‌اندازی را ادامه دهید؟",
+                "title": "Wine پیدا نشد!"
             }
         },
         "wineprefix": "انتخاب پوشه Wine Prefix",
@@ -279,7 +279,7 @@
             "version": "Heroic Version"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "تنظیمات به صورت خودکار ذخیره شدند",
         "version": "نسخه Wine"
@@ -295,7 +295,7 @@
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
         },
-        "wine-path-invalid": "مسیر شراب نامعتبر است، لطفاً مسیر دیگری را انتخاب کنید."
+        "wine-path-invalid": "مسیر Wine نامعتبر است، لطفاً مسیر دیگری را انتخاب کنید."
     },
     "install": {
         "path": "انتخاب محل نصب"
@@ -383,7 +383,7 @@
             "key": "Variable Name",
             "placeHolderKey": "NAME",
             "placeHolderValue": "مثال: Path/To/ExtraFiles",
-            "title": "گزینه های پیشرفته (متغیرهای محیطی):",
+            "title": "متغیرهای محیطی",
             "value": "مقدار"
         },
         "env_variables": {
@@ -454,7 +454,7 @@
         "autovkd3d": "نصب/بهروزرسانی خودکار VKD3D در مسیر",
         "change-target-exe": "انتخاب EXE جایگزین برای اجرا",
         "checkForUpdatesOnStartup": "بررسی برای به روزرسانی های Heroic در آغاز به کار",
-        "crossover-version": "نسخه Crossover",
+        "crossover-version": "نسخه Crossover/Wine",
         "custom_themes_path": "Custom Themes Path",
         "customWineProton": "مسیرهای سفارشی Wine/Proton",
         "darktray": "استفاده از آیکون میزکار تاریک",
@@ -538,9 +538,9 @@
             "title": "اجرای EXE در محل"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "انتخاب پوشه دقیق ذخیرههای بازیها",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "انتخاب تم",
         "showfps": "نمایش تعداد فریم (11 و DX9, 10)",
@@ -549,7 +549,7 @@
         "winecrossoverbottle": "CrossOver باتل",
         "wineprefix": "پوشه محل Wine",
         "wineversion": "نسخه Wine",
-        "ignoreGameUpdates": "به‌روزرسانی‌های بازی را نادیده بگیرید",
+        "ignoreGameUpdates": "نادیده گرفتن به‌روزرسانی‌های بازی",
         "autoUpdateGames": "به روز رسانی خودکار بازی ها"
     },
     "settings": {
@@ -584,7 +584,7 @@
             "general": "عمومی",
             "log": "Log",
             "other": "بقیه",
-            "sync": "همگامسازی ذخیرهها",
+            "sync": "همگام سازی ذخیره های ابری",
             "wineExt": "افزونه های Wine"
         },
         "open-config-file": "باز کردن فایل پیکربندی",
@@ -637,7 +637,7 @@
         "manageaccounts": "مدیریت حسابها",
         "quit": "خروج",
         "cancel": "لغو",
-        "quitMessage": "آیا مطمئن هستید که می خواهید ترک کنید؟"
+        "quitMessage": "آیا مطمئن هستید که می خواهید خارج شوید؟"
     },
     "webview": {
         "controls": {
@@ -659,7 +659,7 @@
         "size": "اندازه"
     },
     "externalLink": {
-        "warning": "شما در حال باز کردن یک پیوند خارجی هستید.",
+        "warning": "شما در حال باز کردن یک لینک خارجی هستید.",
         "dontAskAgain": "دیگه نپرس"
     },
     "wiki_info": {

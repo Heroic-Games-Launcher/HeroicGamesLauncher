@@ -9,7 +9,6 @@ import { DialogContent } from '@mui/material'
 
 import classNames from 'classnames'
 import {
-  AppSettings,
   GameInfo,
   GameStatus,
   InstallPlatform,
@@ -93,7 +92,10 @@ function getUniqueKey(sdl: SelectiveDownload) {
   return sdl.tags.join(',')
 }
 
-const { defaultInstallPath } = configStore.get('settings') as AppSettings
+const userHome = configStore.get('userHome', '')
+const { defaultInstallPath = `${userHome}/Games/Heroic` } = {
+  ...configStore.get_nodefault('settings')
+}
 
 export default function DownloadDialog({
   backdropClick,
@@ -244,7 +246,7 @@ export default function DownloadDialog({
         if (platformToInstall === 'linux' && runner === 'gog') {
           setGettingInstallInfo(true)
           const installer_languages =
-            (await window.api.getGOGLinuxInstallersLangs(appName)) as string[]
+            await window.api.getGOGLinuxInstallersLangs(appName)
           setInstallLanguages(installer_languages)
           setInstallLanguage(
             getInstallLanguage(installer_languages, i18n.languages)
@@ -272,6 +274,7 @@ export default function DownloadDialog({
         setIsMacNative(gameInfo.is_mac_native && isMac)
       } else {
         const gameData = await getGameInfo(appName, runner)
+        if (gameData?.runner === 'sideload') return
         setIsLinuxNative((gameData?.is_linux_native && isLinux) ?? false)
         setIsMacNative((gameData?.is_mac_native && isMac) ?? false)
       }
@@ -317,7 +320,7 @@ export default function DownloadDialog({
         setIsMacNative(gameInfo.is_mac_native && isMac)
       } else {
         const gameData = await getGameInfo(appName, runner)
-        if (!gameData) {
+        if (!gameData || gameData.runner === 'sideload') {
           return
         }
         setIsLinuxNative(gameData.is_linux_native && isLinux)

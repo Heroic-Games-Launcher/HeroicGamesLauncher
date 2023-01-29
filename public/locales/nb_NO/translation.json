@@ -279,7 +279,7 @@
             "version": "Heroisk versjon"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "Innstillinger lagres automatisk",
         "version": "Vinversjon"
@@ -538,9 +538,9 @@
             "title": "Kjør EXE på prefiks"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Velg den nøyaktige mappen for lagring av spill",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Velg Tema",
         "showfps": "Vis FPS (DX9, 10 og 11)",

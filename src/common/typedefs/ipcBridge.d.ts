@@ -83,7 +83,6 @@ interface SyncIPCFunctions {
   }) => void
   addShortcut: (appName: string, runner: Runner, fromMenu: boolean) => void
   removeShortcut: (appName: string, runner: Runner) => void
-  addToDMQueue: (element: DMQueueElement) => void
   removeFromDMQueue: (appName: string) => void
   clearDMFinished: () => void
   abort: (id: string) => void
@@ -94,6 +93,7 @@ interface SyncIPCFunctions {
 }
 
 interface AsyncIPCFunctions {
+  addToDMQueue: (element: DMQueueElement) => Promise<void>
   kill: (appName: string, runner: Runner) => Promise<void>
   checkDiskSpace: (folder: string) => Promise<DiskSpaceData>
   callTool: (args: Tools) => Promise<void>
@@ -113,7 +113,10 @@ interface AsyncIPCFunctions {
   showUpdateSetting: () => boolean
   getLatestReleases: () => Promise<Release[]>
   getCurrentChangelog: () => Promise<Release | null>
-  getGameInfo: (appName: string, runner: Runner) => Promise<GameInfo | null>
+  getGameInfo: (
+    appName: string,
+    runner: Runner
+  ) => Promise<GameInfo | SideloadGame | null>
   getExtraInfo: (appName: string, runner: Runner) => Promise<ExtraInfo | null>
   getGameSettings: (
     appName: string,
@@ -133,7 +136,7 @@ interface AsyncIPCFunctions {
   }>
   authGOG: (code: string) => Promise<{
     status: 'done' | 'error'
-    data?: { displayName: string; username: string }
+    data?: UserData
   }>
   logoutLegendary: () => Promise<void>
   getAlternativeWine: () => Promise<WineInstallation[]>

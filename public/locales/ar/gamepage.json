@@ -148,7 +148,8 @@
         "title": "اختر المكونات المراد تثبيتها"
     },
     "setting": {
-        "use-default-wine-settings": "استخدم إعدادات واين الافتراضية"
+        "use-default-wine-settings": "استخدم إعدادات واين الافتراضية",
+        "winecrossoverbottle": "قارورة كروس.أوفر"
     },
     "sideload": {
         "field": {
@@ -184,7 +185,8 @@
         "this-game-uses-third-party": "تستخدم هذه اللعبة مُشغل طرف ثالث وهي غير مدعومة بعد",
         "totalDownloaded": "إجمالي التنزيلات",
         "uninstalling": "قيد إلغاء التثبيت",
-        "updating": "قيد تحديث اللعبة"
+        "updating": "قيد تحديث اللعبة",
+        "playing": "تلعب"
     },
     "submenu": {
         "addShortcut": "أضف اختصارًا",

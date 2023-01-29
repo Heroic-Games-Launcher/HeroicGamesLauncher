@@ -9,7 +9,7 @@ export const install = async (args: InstallParams) => {
     endTime: 0,
     startTime: 0
   }
-  ipcRenderer.send('addToDMQueue', dmQueueElement)
+  ipcRenderer.invoke('addToDMQueue', dmQueueElement)
 }
 
 export const updateGame = (args: UpdateParams) => {
@@ -27,7 +27,7 @@ export const updateGame = (args: UpdateParams) => {
     startTime: 0
   }
 
-  ipcRenderer.send('addToDMQueue', dmQueueElement)
+  ipcRenderer.invoke('addToDMQueue', dmQueueElement)
 }
 
 export const getDMQueueInformation = async () =>
@@ -35,8 +35,6 @@ export const getDMQueueInformation = async () =>
 
 export const removeFromDMQueue = (appName: string) =>
   ipcRenderer.send('removeFromDMQueue', appName)
-
-export const clearDMFinished = () => ipcRenderer.send('clearDMFinished')
 
 export const handleDMQueueInformation = (
   onChange: (e: Electron.IpcRendererEvent, elements: DMQueueElement[]) => void

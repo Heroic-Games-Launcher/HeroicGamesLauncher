@@ -147,7 +147,8 @@
         "title": "Zu installierende Komponenten auswählen"
     },
     "setting": {
-        "use-default-wine-settings": "Verwende Standardeinstellungen für Wine"
+        "use-default-wine-settings": "Verwende Standardeinstellungen für Wine",
+        "winecrossoverbottle": "CrossOver Flasche"
     },
     "sideload": {
         "field": {
@@ -183,7 +184,8 @@
         "this-game-uses-third-party": "Dieses Spiel verwendet einen Drittanbieter-Launcher und wird noch nicht unterstützt",
         "totalDownloaded": "Insgesamt heruntergeladen",
         "uninstalling": "Wird deinstalliert",
-        "updating": "Spiel wird aktualisiert"
+        "updating": "Spiel wird aktualisiert",
+        "playing": "Spielen"
     },
     "submenu": {
         "addShortcut": "Verknüpfung hinzufügen",

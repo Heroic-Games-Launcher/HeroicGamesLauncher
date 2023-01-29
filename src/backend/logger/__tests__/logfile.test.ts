@@ -58,10 +58,11 @@ describe('logger/logfile.ts', () => {
 
   test('createNewLogFileAndClearOldOnes success', () => {
     jest.spyOn(app, 'getPath').mockReturnValue(tmpDir.name)
-    jest.spyOn(configStore, 'has').mockReturnValue(true)
-    jest.spyOn(configStore, 'get').mockReturnValue({
+    configStore.set('general-logs', {
       currentLogFile: 'old/log/path/file.log',
-      lastLogFile: undefined
+      lastLogFile: '',
+      legendaryLogFile: '',
+      gogdlLogFile: ''
     })
 
     const data = logfile.createNewLogFileAndClearOldOnes()
