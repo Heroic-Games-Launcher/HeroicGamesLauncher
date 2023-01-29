@@ -185,7 +185,8 @@
         "totalDownloaded": "Teljesen letöltve",
         "uninstalling": "Eltávolítás",
         "updating": "Játék frissítése",
-        "playing": "Játék"
+        "playing": "Játék",
+        "moving-files": "„{{file}}” fájl áthelyezése: {{percent}} "
     },
     "submenu": {
         "addShortcut": "Parancsikon hozzáadása",
