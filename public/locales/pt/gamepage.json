@@ -185,7 +185,8 @@
         "totalDownloaded": "Total Baixado",
         "uninstalling": "Uninstalling",
         "updating": "Atualizando jogo",
-        "playing": "Jogando"
+        "playing": "Jogando",
+        "moving-files": "Movendo arquivo '{{file}}': {{percent}} "
     },
     "submenu": {
         "addShortcut": "Adicionar Atalhos",
