@@ -3,7 +3,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { GameInfo, GameStatus, SideloadGame, Status } from 'common/types'
 import { hasProgress } from './hasProgress'
 import { useTranslation } from 'react-i18next'
-import { getStatus, handleNonAvailableGames } from './constants'
+import { getStatusLabel, handleNonAvailableGames } from './constants'
 
 export function hasStatus(
   appName: string,
@@ -32,7 +32,7 @@ export function hasStatus(
         libraryStatus.find((game: GameStatus) => game.appName === appName) || {}
 
       if (status) {
-        const label = getStatus({
+        const label = getStatusLabel({
           status,
           t,
           runner,
@@ -43,7 +43,7 @@ export function hasStatus(
       }
 
       if (thirdPartyManagedApp === 'Origin') {
-        const label = getStatus({
+        const label = getStatusLabel({
           status: 'notSupportedGame',
           t,
           runner
@@ -54,14 +54,14 @@ export function hasStatus(
       if (is_installed) {
         const gameAvailable = await handleNonAvailableGames(appName, runner)
         if (!gameAvailable) {
-          const label = getStatus({
+          const label = getStatusLabel({
             status: 'notAvailable',
             t,
             runner
           })
           return setGameStatus({ status: 'notAvailable', label })
         }
-        const label = getStatus({
+        const label = getStatusLabel({
           status: 'installed',
           t,
           runner,
@@ -70,7 +70,7 @@ export function hasStatus(
         return setGameStatus({ status: 'installed', label })
       }
 
-      const label = getStatus({
+      const label = getStatusLabel({
         status: 'notInstalled',
         t,
         runner

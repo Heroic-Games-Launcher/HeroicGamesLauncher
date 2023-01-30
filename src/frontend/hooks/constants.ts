@@ -9,7 +9,7 @@ type StatusArgs = {
   size?: string
 }
 
-export function getStatus({
+export function getStatusLabel({
   status,
   t,
   runner,
