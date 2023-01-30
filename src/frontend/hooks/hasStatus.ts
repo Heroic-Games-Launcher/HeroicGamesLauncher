@@ -1,49 +1,24 @@
 import React from 'react'
 import ContextProvider from 'frontend/state/ContextProvider'
-import {
-  GameInfo,
-  GameStatus,
-  Runner,
-  SideloadGame,
-  Status
-} from 'common/types'
+import { GameInfo, GameStatus, SideloadGame, Status } from 'common/types'
+import { hasProgress } from './hasProgress'
+import { useTranslation } from 'react-i18next'
+import { getStatus, handleNonAvailableGames } from './constants'
 
-const storage = window.localStorage
-const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
-const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
-
-async function handleNonAvailableGames(appName: string, runner: Runner) {
-  const gameAvailable = await window.api.isGameAvailable({
-    appName,
-    runner
-  })
-
-  if (!gameAvailable) {
-    if (!nonAvailbleGamesArray.includes(appName)) {
-      nonAvailbleGamesArray.push(appName)
-      storage.setItem(
-        'nonAvailableGames',
-        JSON.stringify(nonAvailbleGamesArray)
-      )
-    }
-  } else {
-    if (nonAvailbleGamesArray.includes(appName)) {
-      nonAvailbleGamesArray.splice(nonAvailbleGamesArray.indexOf(appName), 1)
-      storage.setItem(
-        'nonAvailableGames',
-        JSON.stringify(nonAvailbleGamesArray)
-      )
-    }
-  }
-  return gameAvailable
-}
-
-export function hasStatus(appName: string, gameInfo: GameInfo | SideloadGame) {
+export function hasStatus(
+  appName: string,
+  gameInfo: GameInfo | SideloadGame,
+  gameSize?: string
+) {
   const { libraryStatus, epic, gog } = React.useContext(ContextProvider)
+  const [progress] = hasProgress(appName)
+  const { t } = useTranslation('gamepage')
+
   const [gameStatus, setGameStatus] = React.useState<{
     status?: Status
     folder?: string
-  }>({})
+    label: string
+  }>({ label: '' })
 
   const {
     thirdPartyManagedApp = undefined,
@@ -55,26 +30,62 @@ export function hasStatus(appName: string, gameInfo: GameInfo | SideloadGame) {
     const checkGameStatus = async () => {
       const { status, folder } =
         libraryStatus.find((game: GameStatus) => game.appName === appName) || {}
+
       if (status) {
-        return setGameStatus({ status, folder })
+        const label = getStatus({
+          status,
+          t,
+          runner,
+          size: gameSize,
+          percent: progress.percent
+        })
+        return setGameStatus({ status, folder, label })
       }
 
       if (thirdPartyManagedApp === 'Origin') {
-        return setGameStatus({ status: 'notSupportedGame' })
+        const label = getStatus({
+          status: 'notSupportedGame',
+          t,
+          runner
+        })
+        return setGameStatus({ status: 'notSupportedGame', label })
       }
 
       if (is_installed) {
         const gameAvailable = await handleNonAvailableGames(appName, runner)
         if (!gameAvailable) {
-          return setGameStatus({ status: 'notAvailable' })
+          const label = getStatus({
+            status: 'notAvailable',
+            t,
+            runner
+          })
+          return setGameStatus({ status: 'notAvailable', label })
         }
-        return setGameStatus({ status: 'installed' })
+        const label = getStatus({
+          status: 'installed',
+          t,
+          runner,
+          size: gameSize
+        })
+        return setGameStatus({ status: 'installed', label })
       }
 
-      return setGameStatus({ status: 'notInstalled' })
+      const label = getStatus({
+        status: 'notInstalled',
+        t,
+        runner
+      })
+      return setGameStatus({ status: 'notInstalled', label })
     }
     checkGameStatus()
-  }, [libraryStatus, appName, epic.library, gog.library, is_installed])
+  }, [
+    libraryStatus,
+    appName,
+    epic.library,
+    gog.library,
+    is_installed,
+    progress.percent
+  ])
 
   return gameStatus
 }

@@ -43,7 +43,7 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import classNames from 'classnames'
 import StoreLogos from 'frontend/components/UI/StoreLogos'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
-import { getImageFormatting, getStatus } from './constants'
+import { getCardStatus, getImageFormatting } from './constants'
 import { hasStatus } from 'frontend/hooks/hasStatus'
 
 interface Card {
@@ -98,7 +98,7 @@ const GameCard = ({
     ...gameInstallInfo
   }
 
-  const { status, folder } = hasStatus(appName, gameInfo)
+  const { status, folder, label } = hasStatus(appName, gameInfo, size)
 
   useEffect(() => {
     setIsLaunching(false)
@@ -113,32 +113,22 @@ const GameCard = ({
 
   async function handleUpdate() {
     if (gameInfo.runner !== 'sideload')
-      await updateGame({ appName, runner, gameInfo })
+      updateGame({ appName, runner, gameInfo })
   }
 
   const grid = forceCard || layout === 'grid'
-  const isInstalling = status === 'installing' || status === 'updating'
-  const isUpdating = status === 'updating'
-  const isReparing = status === 'repairing'
-  const isMoving = status === 'moving'
-  const isPlaying = status === 'playing'
-  const isQueued = status === 'queued'
-  const isUninstalling = status === 'uninstalling'
-  const notAvailable = status === 'notAvailable'
-  const notSupportedGame = status === 'notSupportedGame'
 
-  const haveStatus =
-    isMoving ||
-    isReparing ||
-    isInstalling ||
-    isUpdating ||
-    isQueued ||
-    isUninstalling ||
-    notAvailable ||
-    notSupportedGame ||
-    isPlaying
+  const {
+    isInstalling,
+    notSupportedGame,
+    isUninstalling,
+    isQueued,
+    isPlaying,
+    notAvailable,
+    isUpdating,
+    haveStatus
+  } = getCardStatus(status, isInstalled, layout)
 
-  const { percent = '' } = progress
   const installingGrayscale = isInstalling
     ? `${125 - getProgress(progress)}%`
     : '100%'
@@ -355,17 +345,7 @@ const GameCard = ({
       )}
       <ContextMenu items={items}>
         <div className={wrapperClasses}>
-          {status && (
-            <span className="gameCardStatus">
-              {getStatus({
-                status,
-                t,
-                runner,
-                size,
-                percent: Number(percent)
-              })}
-            </span>
-          )}
+          {haveStatus && <span className="gameCardStatus">{label}</span>}
           <Link
             to={`/gamepage/${runner}/${appName}`}
             state={{ gameInfo }}
@@ -386,20 +366,14 @@ const GameCard = ({
                 className={logoClasses}
               />
             )}
-            {status && (
+            {haveStatus && (
               <span
                 className={classNames('gameListInfo', {
                   active: haveStatus,
                   installed: isInstalled
                 })}
               >
-                {getStatus({
-                  status,
-                  t,
-                  runner,
-                  size,
-                  percent: Number(percent)
-                })}
+                {label}
               </span>
             )}
             <span
