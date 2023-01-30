@@ -9,10 +9,10 @@ import { GameConfig } from '../game_config'
 import { GlobalConfig } from '../config'
 import {
   errorHandler,
-  execAsync,
   getFileSize,
   getGOGdlBin,
   killPattern,
+  spawnAsync,
   moveOnUnix,
   moveOnWindows
 } from '../utils'
@@ -33,6 +33,7 @@ import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { GOGUser } from './user'
 import {
   getRunnerCallWithoutCredentials,
+  getWinePath,
   launchCleanup,
   prepareLaunch,
   prepareWineLaunch,
@@ -669,42 +670,58 @@ class GOGGame extends Game {
 
     const [object] = array.splice(index, 1)
     logInfo(['Removing', object.install_path], LogPrefix.Gog)
-    // TODO: Run unins000.exe /verysilent /dir=Z:/path/to/game
+    // Run unins000.exe /verysilent /dir=Z:/path/to/game
     const uninstallerPath = join(object.install_path, 'unins000.exe')
 
     const res: ExecResult = { stdout: '', stderr: '' }
     if (existsSync(uninstallerPath)) {
-      const {
-        winePrefix,
-        wineVersion: { bin, name },
-        wineCrossoverBottle
-      } = GameConfig.get(this.appName).config
-      let commandPrefix = `WINEPREFIX="${winePrefix}" ${bin}`
-      if (name.includes('CrossOver')) {
-        commandPrefix = `CX_BOTTLE=${wineCrossoverBottle} ${bin}`
+      const gameSettings = GameConfig.get(this.appName).config
+
+      const installDirectory = isWindows
+        ? object.install_path
+        : await getWinePath({
+            path: object.install_path,
+            gameSettings
+          })
+
+      const command = [
+        uninstallerPath,
+        '/verysilent',
+        `/dir=${shlex.quote(installDirectory)}`
+      ]
+
+      logInfo(['Executing uninstall command', command.join(' ')], LogPrefix.Gog)
+
+      if (!isWindows) {
+        runWineCommand({
+          gameSettings,
+          commandParts: command,
+          wait: true,
+          protonVerb: 'waitforexitandrun'
+        })
+      } else {
+        const adminCommand = [
+          'Start-Process',
+          '-FilePath',
+          uninstallerPath,
+          '-Verb',
+          'RunAs',
+          '-ArgumentList'
+        ]
+
+        await spawnAsync('powershell', [
+          ...adminCommand,
+          `/verysilent /dir=${shlex.quote(installDirectory)}`
+        ])
       }
-      const command = `${
-        isWindows ? '' : commandPrefix
-      } "${uninstallerPath}" /verysilent /dir="${isWindows ? '' : 'Z:'}${
-        object.install_path
-      }"`
-      logInfo(['Executing uninstall command', command], LogPrefix.Gog)
-      execAsync(command)
-        .then(({ stdout, stderr }) => {
-          res.stdout = stdout
-          res.stderr = stderr
-        })
-        .catch((error) => {
-          res.error = `${error}`
-        })
     } else {
       rmSync(object.install_path, { recursive: true })
     }
     installedGamesStore.set('installed', array)
     GOGLibrary.get().refreshInstalled()
-    await removeShortcuts(this.getGameInfo())
+    const gameInfo = this.getGameInfo()
+    await removeShortcuts(gameInfo)
     syncStore.delete(this.appName)
-    const gameInfo = await this.getGameInfo()
     await removeNonSteamGame({ gameInfo })
     return res
   }

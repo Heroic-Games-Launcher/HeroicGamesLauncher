@@ -481,11 +481,12 @@ export async function verifyWinePrefix(
 
   return command
     .then((result) => {
-      if (wineVersion.type === 'proton') {
-        return { res: result, updated: true }
-      }
       // This is kinda hacky
-      const wasUpdated = result.stderr.includes('has been updated')
+      const wasUpdated = result.stderr.includes(
+        wineVersion.type === 'proton'
+          ? 'Proton: Upgrading prefix from'
+          : 'has been updated'
+      )
       return { res: result, updated: wasUpdated }
     })
     .catch((error) => {
