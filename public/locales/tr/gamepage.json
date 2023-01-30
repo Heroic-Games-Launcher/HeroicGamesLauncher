@@ -185,7 +185,8 @@
         "totalDownloaded": "Toplam İndirilen",
         "uninstalling": "Uninstalling",
         "updating": "Oyun Güncelleniyor",
-        "playing": "oynamak"
+        "playing": "oynamak",
+        "moving-files": "'{{file}}' dosyası taşınıyor: {{percent}} "
     },
     "submenu": {
         "addShortcut": "Kısayol ekle",

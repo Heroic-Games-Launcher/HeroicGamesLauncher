@@ -57,15 +57,8 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
   const doneElements =
     (finishedElem?.length &&
       finishedElem.sort((a, b) => {
-        // put failed at the end of the list
-        const status = a.status || b.status
-        if (!status) {
-          return -1
-        }
-        if (status === 'error' || status === 'abort') {
-          return 1
-        }
-        return -1
+        // Sort by endTime
+        return b.endTime - a.endTime
       })) ||
     []
 

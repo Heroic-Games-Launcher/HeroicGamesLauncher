@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks returnerte følgende feil under kjøring:{{newLine}}{{error}}",
                 "title": "Winetricks feil"
-            }
+            },
+            "moving": "Feil ved flytting av spill {{error}}"
         },
         "info": {
             "update": {

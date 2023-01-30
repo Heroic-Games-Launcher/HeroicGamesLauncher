@@ -185,7 +185,8 @@
         "totalDownloaded": "حجم کل دانلود شده",
         "uninstalling": "در حال حذف",
         "updating": "در حال به روزرسانی بازی",
-        "playing": "بازی کردن"
+        "playing": "بازی کردن",
+        "moving-files": "انتقال فایل '{{file}}': {{percent}} "
     },
     "submenu": {
         "addShortcut": "افزودن میانبر",

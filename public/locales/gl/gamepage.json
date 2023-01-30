@@ -1,7 +1,7 @@
 {
     "box": {
         "change": {
-            "message": "Isto cambiará a localización da instalción do xogo, ¿estás seguro?",
+            "message": "Isto cambiará a localización da instalación do xogo, está seguro?",
             "path": "Escolle o cartafol de instalación",
             "title": "Modificar a localización de instalación do xogo"
         },
@@ -185,7 +185,8 @@
         "totalDownloaded": "Total descargado",
         "uninstalling": "Uninstalling",
         "updating": "Actualización do xogo",
-        "playing": "Xogando"
+        "playing": "Xogando",
+        "moving-files": "Movendo o ficheiro '{{file}}': {{percent}} "
     },
     "submenu": {
         "addShortcut": "Engadir acceso directo",

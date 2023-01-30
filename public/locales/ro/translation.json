@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks a returnat următoarea eroare în timpul execuției:{{newLine}}{{error}}",
                 "title": "Eroare Winetricks"
-            }
+            },
+            "moving": "Eroare la mutarea jocului {{error}}"
         },
         "info": {
             "update": {

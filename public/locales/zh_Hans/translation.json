@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks 在执行期间返回了以下错误：{{newLine}}{{error}}",
                 "title": "Winetricks 错误"
-            }
+            },
+            "moving": "移动游戏出错 {{error}}"
         },
         "info": {
             "update": {
@@ -279,7 +280,7 @@
             "version": "Heroic 版本"
         },
         "save-sync": {
-            "searching": "尝试检查正确的保存文件夹"
+            "searching": "尝试检测正确的保存文件夹（单击取消）"
         },
         "settings": "设置会自动保存",
         "version": "Wine 版本"
@@ -538,9 +539,9 @@
             "title": "在前置上运行 EXE"
         },
         "savefolder": {
-            "not-found": "未找到保存文件夹，请手动选择",
+            "not-found": "未找到保存文件夹，请手动选择（单击重试）",
             "placeholder": "选择存档的保存位置",
-            "warning": "请确保路径正确无误"
+            "warning": "请确保路径正确无误（单击重试）"
         },
         "select_theme": "选择主题",
         "showfps": "显示帧率（DX 9、10 和 11）",

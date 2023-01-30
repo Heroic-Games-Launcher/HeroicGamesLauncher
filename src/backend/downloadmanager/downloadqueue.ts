@@ -54,13 +54,6 @@ async function initQueue() {
   while (element) {
     const queuedElements = downloadManager.get('queue', [])
     sendFrontendMessage('changedDMQueueInformation', queuedElements)
-    const game = getGame(element.params.appName, element.params.runner)
-    const installInfo = await game.getInstallInfo(
-      element.params.platformToInstall
-    )
-    element.params.size = installInfo?.manifest?.download_size
-      ? getFileSize(installInfo?.manifest?.download_size)
-      : '?? MB'
     element.startTime = Date.now()
     queuedElements[0] = element
     downloadManager.set('queue', queuedElements)
@@ -77,7 +70,7 @@ async function initQueue() {
   queueState = 'idle'
 }
 
-function addToQueue(element: DMQueueElement) {
+async function addToQueue(element: DMQueueElement) {
   if (!element) {
     logError(
       'Can not add undefined element to queue!',
@@ -102,6 +95,14 @@ function addToQueue(element: DMQueueElement) {
   if (elementIndex >= 0) {
     elements[elementIndex] = element
   } else {
+    const game = getGame(element.params.appName, element.params.runner)
+    const installInfo = await game.getInstallInfo(
+      element.params.platformToInstall
+    )
+
+    element.params.size = installInfo?.manifest?.download_size
+      ? getFileSize(installInfo?.manifest?.download_size)
+      : '?? MB'
     elements.push(element)
   }
 

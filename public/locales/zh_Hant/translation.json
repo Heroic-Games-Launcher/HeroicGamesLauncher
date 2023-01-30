@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
-            }
+            },
+            "moving": "錯誤移動遊戲 {{error}}"
         },
         "info": {
             "update": {

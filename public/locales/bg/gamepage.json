@@ -185,7 +185,8 @@
         "totalDownloaded": "Общо свалено",
         "uninstalling": "Деинсталиране",
         "updating": "Обновяване на играта",
-        "playing": "Играя"
+        "playing": "Пуснато",
+        "moving-files": "Преместване на файла „{{file}}“: {{percent}} "
     },
     "submenu": {
         "addShortcut": "Добавяне на пряк път",

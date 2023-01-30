@@ -128,9 +128,9 @@ async function prepareLaunch(
 
     steamRuntime = [
       path,
-      isNative || !('install_path' in gameInfo.install)
+      isNative || !gameInfo.install['install_path']
         ? ''
-        : `--filesystem=${gameInfo.install.install_path}`,
+        : `--filesystem=${gameInfo.install['install_path']}`,
       ...args
     ]
   }
@@ -481,11 +481,12 @@ export async function verifyWinePrefix(
 
   return command
     .then((result) => {
-      if (wineVersion.type === 'proton') {
-        return { res: result, updated: true }
-      }
       // This is kinda hacky
-      const wasUpdated = result.stderr.includes('has been updated')
+      const wasUpdated = result.stderr.includes(
+        wineVersion.type === 'proton'
+          ? 'Proton: Upgrading prefix from'
+          : 'has been updated'
+      )
       return { res: result, updated: wasUpdated }
     })
     .catch((error) => {
