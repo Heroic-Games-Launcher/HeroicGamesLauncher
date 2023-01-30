@@ -90,6 +90,10 @@
         "requirements": "System Requirements",
         "totalPlayed": "Time Played"
     },
+    "gamecard": {
+        "moving": "Moving",
+        "repairing": "Repairing"
+    },
     "generic": {
         "error": "Unknown error"
     },
@@ -174,6 +178,8 @@
         "moving-files": "Moving file '{{file}}': {{percent}} ",
         "notinstalled": "This game is not installed",
         "notSupported": "Not supported",
+        "notSupportedGame": "Not Supported",
+        "playing": "Playing",
         "processing": "Processing files, please wait",
         "queued": "Queued",
         "reparing": "Repairing Game, please wait",

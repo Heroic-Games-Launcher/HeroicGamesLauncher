@@ -17,17 +17,21 @@ export function getStatus({
   percent
 }: StatusArgs): string {
   const statusMap: Partial<Record<Status, string>> = {
-    notSupportedGame: t('status.notSupportedGame', 'Not Supported'),
-    notAvailable: t('status.gameNotAvailable', 'Game not available'),
-    playing: t('status.playing', 'Playing'),
-    queued: `${t('status.queued', 'Queued')}`,
-    uninstalling: t('status.uninstalling', 'Uninstalling'),
-    updating: `${t('status.updating')} ${Math.ceil(percent || 0)}%`,
-    installing: `${t('status.installing')} ${Math.ceil(percent || 0)}%`,
-    moving: t('gamecard.moving', 'Moving'),
-    repairing: t('gamecard.repairing', 'Repairing'),
-    installed: `${t('status.installed')} ${runner === 'sideload' ? '' : size}`,
-    notInstalled: t('status.notinstalled')
+    notSupportedGame: t('gamepage:status.notSupportedGame', 'Not Supported'),
+    notAvailable: t('gamepage:status.gameNotAvailable', 'Game not available'),
+    playing: t('gamepage:status.playing', 'Playing'),
+    queued: `${t('gamepage:status.queued', 'Queued')}`,
+    uninstalling: t('gamepage:status.uninstalling', 'Uninstalling'),
+    updating: `${t('gamepage:status.updating')} ${Math.ceil(percent || 0)}%`,
+    installing: `${t('gamepage:status.installing')} ${Math.ceil(
+      percent || 0
+    )}%`,
+    moving: t('gamepage:gamecard.moving', 'Moving'),
+    repairing: t('gamepage:gamecard.repairing', 'Repairing'),
+    installed: `${t('gamepage:status.installed')} ${
+      runner === 'sideload' ? '' : size
+    }`,
+    notInstalled: t('gamepage:status.notinstalled')
   }
 
   return statusMap[status] || t('status.notinstalled')
