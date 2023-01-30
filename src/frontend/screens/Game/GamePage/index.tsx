@@ -21,7 +21,6 @@ import { UpdateComponent, SelectField } from 'frontend/components/UI'
 import {
   ExtraInfo,
   GameInfo,
-  GameStatus,
   Runner,
   SideloadGame,
   WineInstallation
@@ -52,6 +51,7 @@ import {
 
 import StoreLogos from 'frontend/components/UI/StoreLogos'
 import { WikiGameInfo } from 'frontend/components/UI/WikiGameInfo'
+import { hasStatus } from 'frontend/hooks/hasStatus'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -66,7 +66,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [showModal, setShowModal] = useState({ game: '', show: false })
 
   const {
-    libraryStatus,
     epic,
     gog,
     gameUpdates,
@@ -76,12 +75,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
     isSettingsModalOpen
   } = useContext(ContextProvider)
 
-  const { status } =
-    libraryStatus.find((game) => game.appName === appName) || {}
+  const [gameInfo, setGameInfo] = useState(locationGameInfo)
+
+  const { status, folder } = hasStatus(appName, gameInfo)
 
   const [progress, previousProgress] = hasProgress(appName)
 
-  const [gameInfo, setGameInfo] = useState(locationGameInfo)
   const [extraInfo, setExtraInfo] = useState<ExtraInfo | null>(null)
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [gameInstallInfo, setGameInstallInfo] = useState<
@@ -720,10 +719,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
       return handleModal()
     }
 
-    const gameStatus: GameStatus = libraryStatus.filter(
-      (game: GameStatus) => game.appName === appName
-    )[0]
-    const { folder } = gameStatus
     if (!folder) {
       return
     }
