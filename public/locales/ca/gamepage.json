@@ -185,7 +185,8 @@
         "totalDownloaded": "Total baixat",
         "uninstalling": "Es desinstal·la",
         "updating": "S'està actualitzant el joc",
-        "playing": "Jugant"
+        "playing": "Jugant",
+        "moving-files": "S'està movent el fitxer '{{file}}': {{percent}} "
     },
     "submenu": {
         "addShortcut": "Afegeix una drecera",

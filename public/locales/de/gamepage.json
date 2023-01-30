@@ -185,7 +185,8 @@
         "totalDownloaded": "Insgesamt heruntergeladen",
         "uninstalling": "Wird deinstalliert",
         "updating": "Spiel wird aktualisiert",
-        "playing": "Spielen"
+        "playing": "Spielen",
+        "moving-files": "Datei verschieben '{{file}}': {{percent}} "
     },
     "submenu": {
         "addShortcut": "Verknüpfung hinzufügen",

@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
-            }
+            },
+            "moving": "ഗെയിം നീക്കുന്നതിൽ പിശക് {{error}}"
         },
         "info": {
             "update": {

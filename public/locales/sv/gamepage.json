@@ -34,7 +34,7 @@
         "uninstall": {
             "checkbox": "Radera prefix: {{prefix}}{{newLine}}OBS: Denna åtgärd kan ej ångras och kommer även radera sparfiler.",
             "message": "Vill du avinstallera spelet?",
-            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+            "settingcheckbox": "Radera inställningar och ta bort logg{{newLine}}Notera: Detta kan inte ångras. Alla ändrade inställningar kommer att glömmas bort och loggen kommer att raderas.",
             "title": "Avinstallera",
             "prefix_warning": "Vinprefixet för det här spelet är standardprefixet. Om du verkligen vill ta bort det måste du göra det manuellt."
         },
@@ -185,7 +185,8 @@
         "totalDownloaded": "Nedladdning",
         "uninstalling": "Avinstallerar",
         "updating": "Updaterar spelet",
-        "playing": "Spelar"
+        "playing": "Spelar",
+        "moving-files": "Flyttar filen '{{file}}': {{percent}} "
     },
     "submenu": {
         "addShortcut": "Skapa genväg",

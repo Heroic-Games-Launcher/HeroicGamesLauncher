@@ -186,7 +186,8 @@
         "totalDownloaded": "Ukupno preuzeto",
         "uninstalling": "Uninstalling",
         "updating": "Ažuriranje video igre",
-        "playing": "Igranje"
+        "playing": "Igranje",
+        "moving-files": "Premještanje fajla '{{file}}': {{percent}} "
     },
     "submenu": {
         "addShortcut": "Dodaj prečicu",

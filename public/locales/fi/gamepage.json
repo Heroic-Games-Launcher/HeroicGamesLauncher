@@ -185,7 +185,8 @@
         "totalDownloaded": "Ladattu yhteensä",
         "uninstalling": "Uninstalling",
         "updating": "Päivitetään peliä",
-        "playing": "Pelaaminen"
+        "playing": "Pelaaminen",
+        "moving-files": "Siirretään tiedostoa {{file}}: {{percent}} "
     },
     "submenu": {
         "addShortcut": "Lisää pikakuvake",

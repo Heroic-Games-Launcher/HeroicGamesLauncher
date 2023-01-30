@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks tagastas jooksmise ajal järgmise vea:{{newLine}}{{error}}",
                 "title": "Winetricksi viga"
-            }
+            },
+            "moving": "Viga mängu teisaldamisel {{error}}"
         },
         "info": {
             "update": {

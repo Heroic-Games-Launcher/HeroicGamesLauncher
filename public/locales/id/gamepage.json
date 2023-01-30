@@ -185,7 +185,8 @@
         "totalDownloaded": "Jumlah yang Diunduh",
         "uninstalling": "Mencopot",
         "updating": "Memperbarui Gim",
-        "playing": "Bermain"
+        "playing": "Bermain",
+        "moving-files": "Memindahkan file '{{file}}': {{percent}} "
     },
     "submenu": {
         "addShortcut": "Tambahkan pintasan",

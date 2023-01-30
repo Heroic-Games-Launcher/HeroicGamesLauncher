@@ -185,7 +185,8 @@
         "totalDownloaded": "Łącznie pobrane",
         "uninstalling": "Uninstalling",
         "updating": "Aktualizowanie gry",
-        "playing": "Gra"
+        "playing": "Gra",
+        "moving-files": "Przenoszenie pliku „{{file}}”: {{percent}} "
     },
     "submenu": {
         "addShortcut": "Dodaj skrót",

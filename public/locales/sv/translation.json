@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks misslyckades, felmeddelande:{{newLine}}{{error}}",
                 "title": "Winetricks problem"
-            }
+            },
+            "moving": "Fel när spelet flyttades {{error}}"
         },
         "info": {
             "update": {

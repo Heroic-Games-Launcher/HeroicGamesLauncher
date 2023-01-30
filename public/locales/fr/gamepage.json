@@ -185,7 +185,8 @@
         "totalDownloaded": "Total Téléchargé",
         "uninstalling": "Désinstallation",
         "updating": "Mise à jour du jeu",
-        "playing": "En train de jouer"
+        "playing": "En train de jouer",
+        "moving-files": "Déplacement du fichier '{{file}}' : {{percent}} "
     },
     "submenu": {
         "addShortcut": "Ajouter un raccourci",

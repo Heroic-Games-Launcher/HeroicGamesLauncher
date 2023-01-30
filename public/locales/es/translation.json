@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks respondió con el siguiente error durante la ejecución:{{newLine}}{{error}}",
                 "title": "Error de Winetricks"
-            }
+            },
+            "moving": "Error al mover el juego {{error}}"
         },
         "info": {
             "update": {
@@ -115,9 +116,9 @@
         },
         "shortcuts": {
             "message": "Se han creado accesos directos en el Escritorio y en el Menú Inicio",
-            "message-mac": "Shortcuts were created on the Applications folder",
+            "message-mac": "Se han creado accesos directos en la carpeta Aplicaciones",
             "message-remove": "Se removieron las accesos del Escritorio y del Menú",
-            "message-remove-mac": "Shortcuts were removed from the Applications folder",
+            "message-remove-mac": "Se borraron los accesos de la carpeta Aplicaciones",
             "title": "Accesos directos"
         },
         "sync": {
@@ -279,7 +280,7 @@
             "version": "Versión de Heroic"
         },
         "save-sync": {
-            "searching": "Tratando de detectar la ubicación para los guardados"
+            "searching": "Intentando detectar la carpeta de guardado correcta (haga clic para cancelar)"
         },
         "settings": "Los ajustes se guardan automáticamente",
         "version": "Versión de Wine"

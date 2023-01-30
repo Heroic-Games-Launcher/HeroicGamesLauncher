@@ -185,7 +185,8 @@
         "totalDownloaded": "ダウンロードの総数",
         "uninstalling": "Uninstalling",
         "updating": "ゲームを更新しています",
-        "playing": "遊んでいる"
+        "playing": "遊んでいる",
+        "moving-files": "移動ファイル '{{file}}': {{percent}} "
     },
     "submenu": {
         "addShortcut": "ショートカットを追加する",
