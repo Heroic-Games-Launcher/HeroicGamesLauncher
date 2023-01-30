@@ -13,7 +13,7 @@ import {
   size,
   updateGame
 } from 'frontend/helpers'
-import { NavLink, useLocation, useParams } from 'react-router-dom'
+import { Link, NavLink, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { UpdateComponent, SelectField } from 'frontend/components/UI'
@@ -456,7 +456,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     fontStyle: 'italic'
                   }}
                 >
-                  {getInstallLabel(is_installed, notAvailable)}
+                  {isInstalling && (
+                    <Link to={'/download-manager'}>
+                      {getInstallLabel(is_installed, notAvailable)}
+                    </Link>
+                  )}
+                  {!isInstalling && getInstallLabel(is_installed, notAvailable)}
                 </p>
               </div>
               {is_installed && Boolean(launchOptions.length) && (
