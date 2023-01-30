@@ -596,7 +596,6 @@
     "status": {
         "installing": "Installing",
         "logging": "Logging In...",
-        "notinstalled": "",
         "processing": "Processing files, please wait"
     },
     "store": "Epic Store",

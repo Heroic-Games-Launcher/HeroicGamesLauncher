@@ -34,7 +34,7 @@ export function getStatusLabel({
     notInstalled: t('gamepage:status.notinstalled')
   }
 
-  return statusMap[status] || t('status.notinstalled')
+  return statusMap[status] || t('gamepage:status.notinstalled')
 }
 
 const storage = window.localStorage
