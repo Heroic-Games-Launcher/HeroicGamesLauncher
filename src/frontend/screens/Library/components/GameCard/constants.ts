@@ -1,38 +1,5 @@
-import { Runner, Status } from 'common/types'
-import { TFunction } from 'react-i18next'
+import { Runner } from 'common/types'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
-
-type StatusArgs = {
-  status: Status
-  t: TFunction<'gamepage', undefined>
-  runner: Runner
-  size: string
-  percent: number
-}
-
-export function getStatus({
-  status,
-  t,
-  runner,
-  size,
-  percent
-}: StatusArgs): string {
-  const statusMap: Partial<Record<Status, string>> = {
-    notSupportedGame: t('status.notSupportedGame', 'Not Supported'),
-    notAvailable: t('status.gameNotAvailable', 'Game not available'),
-    playing: t('status.playing', 'Playing'),
-    queued: `${t('status.queued', 'Queued')}`,
-    uninstalling: t('status.uninstalling', 'Uninstalling'),
-    updating: `${t('status.updating')} ${Math.ceil(percent || 0)}%`,
-    installing: `${t('status.installing')} ${Math.ceil(percent || 0)}%`,
-    moving: t('gamecard.moving', 'Moving'),
-    repairing: t('gamecard.repairing', 'Repairing'),
-    installed: `${t('status.installed')} ${runner === 'sideload' ? '' : size}`,
-    notInstalled: t('status.notinstalled')
-  }
-
-  return statusMap[status] || t('status.notinstalled')
-}
 
 export function getImageFormatting(cover: string, runner: Runner) {
   const imageBase = cover
@@ -51,4 +18,42 @@ export const installingGrayscale = (
   progress: number
 ) => {
   return isInstalling ? `${125 - progress}%` : '100%'
+}
+
+export function getCardStatus(
+  status: string | undefined,
+  isInstalled: boolean,
+  layout: string
+) {
+  const isInstalling = status === 'installing' || status === 'updating'
+  const isUpdating = status === 'updating'
+  const isReparing = status === 'repairing'
+  const isMoving = status === 'moving'
+  const isPlaying = status === 'playing'
+  const isQueued = status === 'queued'
+  const isUninstalling = status === 'uninstalling'
+  const notAvailable = status === 'notAvailable'
+  const notSupportedGame = status === 'notSupportedGame'
+
+  const haveStatus =
+    isMoving ||
+    isReparing ||
+    isInstalling ||
+    isUpdating ||
+    isQueued ||
+    isUninstalling ||
+    notAvailable ||
+    notSupportedGame ||
+    isPlaying ||
+    (isInstalled && layout !== 'grid')
+  return {
+    isInstalling,
+    notSupportedGame,
+    isUninstalling,
+    isQueued,
+    isPlaying,
+    notAvailable,
+    isUpdating,
+    haveStatus
+  }
 }
