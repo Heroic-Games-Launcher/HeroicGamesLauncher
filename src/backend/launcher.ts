@@ -128,9 +128,9 @@ async function prepareLaunch(
 
     steamRuntime = [
       path,
-      isNative || !('install_path' in gameInfo.install)
+      isNative || !gameInfo.install['install_path']
         ? ''
-        : `--filesystem=${gameInfo.install.install_path}`,
+        : `--filesystem=${gameInfo.install['install_path']}`,
       ...args
     ]
   }
