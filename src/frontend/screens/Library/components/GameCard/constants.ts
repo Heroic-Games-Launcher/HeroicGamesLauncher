@@ -13,13 +13,6 @@ export function getImageFormatting(cover: string, runner: Runner) {
   }
 }
 
-export const installingGrayscale = (
-  isInstalling: boolean,
-  progress: number
-) => {
-  return isInstalling ? `${125 - progress}%` : '100%'
-}
-
 export function getCardStatus(
   status: string | undefined,
   isInstalled: boolean,
