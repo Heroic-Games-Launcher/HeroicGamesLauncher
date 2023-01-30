@@ -78,6 +78,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [gameInfo, setGameInfo] = useState(locationGameInfo)
 
   const { status, folder } = hasStatus(appName, gameInfo)
+  const gameAvailable = gameInfo.is_installed && status !== 'notAvailable'
 
   const [progress, previousProgress] = hasProgress(appName)
 
@@ -95,7 +96,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [wineVersion, setWineVersion] = useState<WineInstallation>()
   const [showRequirements, setShowRequirements] = useState(false)
   const [showExtraInfo, setShowExtraInfo] = useState(false)
-  const [gameAvailable, setGameAvailable] = useState(true)
 
   const isWin = platform === 'win32'
   const isSideloaded = runner === 'sideload'
@@ -115,19 +115,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const backRoute = location.state?.fromDM ? '/download-manager' : '/library'
 
   const storage: Storage = window.localStorage
-
-  useEffect(() => {
-    const checkGameAvailable = async () => {
-      if (gameInfo.is_installed && !isMoving) {
-        const gameAvailable = await window.api.isGameAvailable({
-          appName,
-          runner
-        })
-        setGameAvailable(gameAvailable)
-      }
-    }
-    checkGameAvailable()
-  }, [appName, status, gameInfo.is_installed, isMoving])
 
   useEffect(() => {
     const updateGameInfo = async () => {
