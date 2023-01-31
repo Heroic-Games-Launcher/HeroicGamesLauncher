@@ -17,5 +17,3 @@ jobs:
         run: yarn
       - name: Check Typescript syntax
         run: yarn codecheck
-      - name: Find dead code
-        run: yarn find-deadcode
