@@ -39,20 +39,24 @@ async function main() {
 
     // generate flatpak-build
     if (!fs.existsSync("./flatpak-build")) {
+        console.log("Creating flatpak-build folder")
         fs.mkdirSync('./flatpak-build', { recursive: true })
     }
 
     // generate manifest
+    console.log("Generating flatpak manifest")
     let templateManifest = fs.readFileSync(`./flatpak/templates/com.heroicgameslauncher.hgl.yml.template`, { encoding: 'utf-8' })
     templateManifest = templateManifest.replace("${heroic-app-image}", placeholder)
     fs.writeFileSync("./flatpak-build/com.heroicgameslauncher.hgl.yml", templateManifest)
 
     // generate metainfo
+    console.log("Generating flatpak metainfo")
     let templateMetaInfo = fs.readFileSync(`./flatpak/templates/com.heroicgameslauncher.hgl.metainfo.xml.template`, { encoding: 'utf-8' })
     templateMetaInfo = templateMetaInfo.replace("${heroic-version}", `v${package.version}`).replace("${heroic-release-date}", releaseTime)
-    fs.writeFileSync("./flatpak-build/com.heroicgameslauncher.hgl.metainfo.xml", templateMetaInfo)
+    fs.writeFileSync("./flatpak/com.heroicgameslauncher.hgl.metainfo.xml", templateMetaInfo)
 
     // copy extra files
+    console.log("Copying extra files")
     fs.copyFileSync("./flatpak/com.heroicgameslauncher.hgl.desktop", "./flatpak-build/com.heroicgameslauncher.hgl.desktop")
     fs.copyFileSync("./flatpak/com.heroicgameslauncher.hgl.png", "./flatpak-build/com.heroicgameslauncher.hgl.png")
     fs.copyFileSync("./flatpak/flathub.json", "./flatpak-build/flathub.json")
