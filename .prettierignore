@@ -4,3 +4,4 @@ build
 coverage
 public/locales/
 flatpak
+flatpak-build
