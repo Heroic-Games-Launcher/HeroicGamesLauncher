@@ -38,7 +38,8 @@ import {
   isWindows,
   publicDir,
   GITHUB_API,
-  isMac
+  isMac,
+  configStore
 } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { basename, dirname, join, normalize } from 'path'
@@ -635,6 +636,12 @@ function detectVCRedist(mainWindow: BrowserWindow) {
     return
   }
 
+  const skip = configStore.get('skipVcRuntime', false)
+
+  if (skip) {
+    return
+  }
+
   // According to this article avoid using wmic and Win32_Product
   // https://xkln.net/blog/please-stop-using-win32product-to-find-installed-software-alternatives-inside/
   // wmic is also deprecated
@@ -690,8 +697,16 @@ function detectVCRedist(mainWindow: BrowserWindow) {
           'box.vcruntime.notfound.message',
           'The Microsoft Visual C++ Runtimes are not installed, which are required by some games'
         ),
-        buttons: [t('box.downloadNow', 'Download now'), t('box.ok', 'Ok')]
+        buttons: [
+          t('box.downloadNow', 'Download now'),
+          t('box.ok', 'Ok'),
+          t('box.dontShowAgain', "Don't show again")
+        ]
       })
+
+      if (response === 2) {
+        return configStore.set('skipVcRuntime', true)
+      }
 
       if (response === 0) {
         openUrlOrFile('https://aka.ms/vs/17/release/vc_redist.x86.exe')

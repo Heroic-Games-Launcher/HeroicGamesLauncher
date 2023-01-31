@@ -185,7 +185,8 @@
         "totalDownloaded": "Всего загружено",
         "uninstalling": "Удаление",
         "updating": "Обновление игры",
-        "playing": "Игра"
+        "playing": "Игра",
+        "moving-files": "Перемещение файла '{{file}}': {{percent}} "
     },
     "submenu": {
         "addShortcut": "Создать ярлык",

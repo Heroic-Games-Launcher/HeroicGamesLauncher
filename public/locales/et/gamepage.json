@@ -185,7 +185,8 @@
         "totalDownloaded": "Allalaaditud kokku",
         "uninstalling": "Uninstalling",
         "updating": "Mängu uuendamine",
-        "playing": "Mängib"
+        "playing": "Mängib",
+        "moving-files": "Faili „{{file}}” teisaldamine: {{percent}} "
     },
     "submenu": {
         "addShortcut": "Lisa otsetee",

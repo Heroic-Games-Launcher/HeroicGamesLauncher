@@ -186,7 +186,8 @@
         "totalDownloaded": "Deskargatutakoa, guztira",
         "uninstalling": "Uninstalling",
         "updating": "Jokoa eguneratzea",
-        "playing": "Jolasean"
+        "playing": "Jolasean",
+        "moving-files": "'{{file}}' fitxategia mugitzen: {{percent}} "
     },
     "submenu": {
         "addShortcut": "Sarbide zuzena gehitu",

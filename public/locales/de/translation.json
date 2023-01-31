@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks hat während der Ausführung diesen Fehler ausgegeben:{{newLine}}{{error}}",
                 "title": "Winetricks-Fehler"
-            }
+            },
+            "moving": "Fehler beim Verschieben des Spiels {{error}}"
         },
         "info": {
             "update": {

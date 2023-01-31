@@ -10,15 +10,19 @@ import { copySync } from 'fs-extra'
 import path from 'node:path'
 import { GOGLibrary } from './library'
 import { GameInfo, InstalledInfo } from 'common/types'
-import { execAsync, getShellPath, quoteIfNecessary, spawnAsync } from '../utils'
+import {
+  checkWineBeforeLaunch,
+  getGame,
+  getShellPath,
+  spawnAsync
+} from '../utils'
 import { GameConfig } from '../game_config'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import { userHome, isWindows, execOptions } from '../constants'
+import { isWindows } from '../constants'
 import ini from 'ini'
-import shlex from 'shlex'
-import { GlobalConfig } from '../config'
 import { isOnline } from '../online_monitor'
-import { getWinePath } from '../launcher'
+import { getWinePath, runWineCommand, verifyWinePrefix } from '../launcher'
+const nonNativePathSeparator = path.sep === '/' ? '\\' : '/'
 
 /**
  * Handles setup instructions like create folders, move files, run exe, create registry entry etc...
@@ -32,6 +36,7 @@ async function setup(
   installInfo?: InstalledInfo
 ): Promise<void> {
   const gameInfo = GOGLibrary.get().getGameInfo(appName)
+  const game = getGame(appName, 'gog')
   if (installInfo && gameInfo) {
     gameInfo.install = installInfo
   }
@@ -48,33 +53,23 @@ async function setup(
     LogPrefix.Gog
   )
 
-  let commandPrefix = ''
-
   const gameSettings = GameConfig.get(appName).config
   if (!isWindows) {
-    const isCrossover = gameSettings.wineVersion.type === 'crossover'
-    const crossoverBottle = gameSettings.wineCrossoverBottle
-    const crossoverEnv =
-      isCrossover && crossoverBottle ? `CX_BOTTLE=${crossoverBottle}` : ''
-    const isProton = gameSettings.wineVersion.type === 'proton'
-    const { defaultSteamPath } = GlobalConfig.get().getSettings()
-    const prefix = isProton
-      ? `STEAM_COMPAT_CLIENT_INSTALL_PATH="${defaultSteamPath}" STEAM_COMPAT_DATA_PATH='${gameSettings.winePrefix
-          .replaceAll("'", '')
-          .replace('~', userHome)}'`
-      : `WINEPREFIX="${gameSettings.winePrefix
-          .replaceAll("'", '')
-          .replace('~', userHome)}"`
+    const isWineOkToLaunch = await checkWineBeforeLaunch(
+      appName,
+      gameSettings,
+      game.logFileLocation
+    )
 
-    commandPrefix = `${isCrossover ? crossoverEnv : prefix} ${quoteIfNecessary(
-      gameSettings.wineVersion.bin
-    )} ${isProton ? 'runinprefix' : ''}`
-    // Make sure Proton initialized prefix correctly
-    if (isProton) {
-      await execAsync(
-        `${prefix} ${quoteIfNecessary(gameSettings.wineVersion.bin)} run reg /?` // This is a help command for reg, it's enough to initialize a prefix
-      ).catch()
+    if (!isWineOkToLaunch) {
+      logError(
+        `Was not possible to run setup using ${gameSettings.wineVersion.name}`,
+        LogPrefix.Backend
+      )
+      return
     }
+    // Make sure prefix is initalized correctly
+    await verifyWinePrefix(gameSettings)
   }
   // Funny part begins here
   // Deterimine if it's basically from .script file or from manifest
@@ -87,18 +82,28 @@ async function setup(
       appName
     )
 
-    const localAppData = isWindows
-      ? await getShellPath('%APPDATA%')
-      : await getWinePath({ path: '%APPDATA%', gameSettings })
+    const [localAppData, documentsPath, installPath] = await Promise.all([
+      isWindows
+        ? getShellPath('%APPDATA%')
+        : getWinePath({ path: '%APPDATA%', gameSettings }),
 
-    const documentsPath = isWindows
-      ? await getShellPath('%USERPROFILE%/Documents')
-      : await getWinePath({ path: '%USERPROFILE%/Documents', gameSettings })
+      isWindows
+        ? getShellPath('%USERPROFILE%/Documents')
+        : getWinePath({ path: '%USERPROFILE%/Documents', gameSettings }),
+
+      isWindows
+        ? gameInfo.install.install_path || ''
+        : getWinePath({
+            path: gameInfo.install.install_path || '',
+            gameSettings,
+            variant: 'win'
+          })
+    ])
 
     // In the future we need to find more path cases
     const pathsValues = new Map<string, string>([
       ['productid', appName],
-      ['app', `${!isWindows ? 'Z:' : ''}${gameInfo.install.install_path}`],
+      ['app', installPath],
       ['support', supportDir],
       ['supportdir', supportDir],
       ['localappdata', localAppData],
@@ -112,16 +117,26 @@ async function setup(
           const registryPath =
             actionArguments.root +
             '\\' +
-            handlePathVars(actionArguments.subkey, pathsValues)
+            handlePathVars(actionArguments.subkey, pathsValues).replaceAll(
+              path.sep,
+              '\\'
+            )
 
           let valueData = handlePathVars(
             actionArguments?.valueData,
             pathsValues
-          )
-          const valueName = actionArguments?.valueName
+          )?.replaceAll(path.sep, '\\')
+
+          let valueName = actionArguments?.valueName || ''
           const valueType = actionArguments?.valueType
 
-          let keyCommand = ''
+          let keyCommand: string[] = []
+          if (valueName) {
+            valueName = handlePathVars(valueName, pathsValues).replaceAll(
+              path.sep,
+              '\\'
+            )
+          }
           if (valueData && valueType) {
             const regType = getRegDataType(valueType)
             if (!regType) {
@@ -134,10 +149,18 @@ async function setup(
               valueData = Buffer.from(valueData, 'base64').toString('hex')
             }
             valueData = valueData.replaceAll('\\', '/')
-            keyCommand = `/d "${valueData}" /v "${valueName}" /t ${regType}`
+            keyCommand = ['/d', valueData, '/v', valueName, '/t', regType]
           }
           // Now create a key
-          const command = `${commandPrefix} reg add "${registryPath}" ${keyCommand} /f /reg:32`
+          const command = [
+            'reg',
+            'add',
+            registryPath,
+            ...keyCommand,
+            '/f',
+            '/reg:32'
+          ]
+
           logInfo(
             [
               'Setup: Adding a registry key',
@@ -151,13 +174,18 @@ async function setup(
             await spawnAsync('reg', [
               'add',
               registryPath,
-              ...keyCommand.split(' '),
+              ...keyCommand,
               '/f',
               '/reg:32'
             ])
             break
           }
-          await execAsync(command)
+          await runWineCommand({
+            gameSettings,
+            commandParts: command,
+            wait: true,
+            protonVerb: 'runinprefix'
+          })
           break
         }
         case 'Execute': {
@@ -175,13 +203,19 @@ async function setup(
           }
 
           // Please don't fix any typos here, everything is intended
-          const exeArguments = `/VERYSILENT /DIR="${!isWindows ? 'Z:' : ''}${
-            gameInfo.install.install_path
-          }" /Language=${Language} /LANG=${Language} /ProductId=${appName} /galaxyclient /buildId=${
-            gameInfo.install.buildId
-          } /versionName="${
-            gameInfo.install.version
-          }" /nodesktopshorctut /nodesktopshortcut`
+          const exeArguments = [
+            '/VERYSILENT',
+            `/DIR=${installPath}`,
+            `/Language=${Language}`,
+            `/LANG=${Language}`,
+            `/ProductId=${appName}`,
+            `/galaxyclient`,
+            `/buildId=${gameInfo.install.buildId}`,
+            `/versionName=${gameInfo.install.version}`,
+            `/nodesktopshorctut`, // Disable desktop shortcuts but misspelled :/
+            `/nodesktopshortcut`, // Disable desktop shortcuts
+            '/NOICONS' // Disable start menu icons
+          ]
 
           const workingDir = handlePathVars(
             actionArguments?.workingDir?.replace(
@@ -206,8 +240,9 @@ async function setup(
             } else {
               logError(
                 [
-                  "Couldn't find executable, skipping this step, tried",
+                  "Couldn't find executable, skipping this step, tried: ",
                   executablePath,
+                  'and',
                   alternateLocation
                 ],
                 LogPrefix.Gog
@@ -216,10 +251,16 @@ async function setup(
             }
           }
 
-          let command = `${commandPrefix} "${executablePath}" ${exeArguments}`
           // Requires testing
           if (isWindows) {
-            command = `Start-Process -FilePath "${executablePath}" -Verb RunAs -ArgumentList`
+            const command = [
+              'Start-Process',
+              '-FilePath',
+              executablePath,
+              '-Verb',
+              'RunAs',
+              '-ArgumentList'
+            ]
             logInfo(
               [
                 'Setup: Executing',
@@ -228,24 +269,30 @@ async function setup(
               ],
               LogPrefix.Gog
             )
-            await spawnAsync('powershell', [
-              ...shlex.split(command),
-              ...shlex.split(exeArguments)
-            ])
+            await spawnAsync(
+              'powershell',
+              [...command, exeArguments.join(' ')],
+              { cwd: workingDir || gameInfo.install.install_path }
+            )
             break
           }
           logInfo(
             [
               'Setup: Executing',
-              command,
+              [executablePath, ...exeArguments].join(' '),
               `${workingDir || gameInfo.install.install_path}`
             ],
             LogPrefix.Gog
           )
-          await execAsync(command, {
-            ...execOptions,
-            cwd: workingDir || gameInfo.install.install_path
+
+          await runWineCommand({
+            gameSettings,
+            commandParts: [executablePath, ...exeArguments],
+            wait: true,
+            protonVerb: 'waitforexitandrun',
+            startFolder: workingDir || gameInfo.install.install_path
           })
+
           break
         }
         case 'supportData': {
@@ -255,7 +302,7 @@ async function setup(
               gameInfo.install.install_path
             ),
             pathsValues
-          )
+          ).replaceAll(nonNativePathSeparator, path.sep)
           const type = actionArguments.type
           const sourcePath = handlePathVars(
             actionArguments?.source?.replace(
@@ -263,7 +310,7 @@ async function setup(
               gameInfo.install.install_path
             ),
             pathsValues
-          )
+          ).replaceAll(nonNativePathSeparator, path.sep)
           if (type === 'folder') {
             if (!actionArguments?.source) {
               logInfo(['Setup: Creating directory', targetPath], LogPrefix.Gog)
@@ -273,6 +320,15 @@ async function setup(
                 ['Setup: Copying directory', sourcePath, 'to', targetPath],
                 LogPrefix.Gog
               )
+
+              if (!existsSync(sourcePath)) {
+                logWarning(
+                  ['Source path', sourcePath, "doesn't exist, skipping..."],
+                  LogPrefix.Gog
+                )
+
+                break
+              }
               copySync(sourcePath, targetPath, {
                 overwrite: actionArguments?.overwrite,
                 recursive: true
@@ -306,7 +362,7 @@ async function setup(
               gameInfo.install.install_path
             ),
             pathsValues
-          ).replaceAll('\\', '/')
+          ).replaceAll(nonNativePathSeparator, path.sep)
           if (!filePath || !existsSync(filePath)) {
             logError("Setup: setIni file doesn't exists", LogPrefix.Gog)
             break
@@ -316,12 +372,12 @@ async function setup(
             encoding
           })
           const config = ini.parse(fileData)
-          // TODO: Do something
           const section = actionArguments?.section
           const keyName = actionArguments?.keyName
           if (!section || !keyName) {
             logError(
-              "Missing section and key values, this message shouldn't appear for you. Please report it on our Discord or GitHub"
+              "Setup: Missing section and key values, this message shouldn't appear for you. Please report it on our Discord or GitHub",
+              LogPrefix.Gog
             )
             break
           }
@@ -362,7 +418,6 @@ async function setup(
             }
         ],
     */
-    //TODO
 
     if (instructions[0]?.gameID !== appName) {
       logError('Setup: Unexpected instruction gameID missmatch', LogPrefix.Gog)
@@ -378,6 +433,14 @@ async function setup(
       gameInfo.install.install_path!,
       `goggame-${appName}.info`
     )
+
+    const installPath = isWindows
+      ? gameInfo.install.install_path || ''
+      : await getWinePath({
+          path: gameInfo.install.install_path || '',
+          gameSettings,
+          variant: 'win'
+        })
     let Language = 'english'
     // Load game language data
     if (existsSync(infoPath)) {
@@ -386,30 +449,46 @@ async function setup(
       Language = Language.toLowerCase()
     }
 
-    const exeArguments = `/VERYSILENT /DIR="${!isWindows ? 'Z:' : ''}${
-      gameInfo.install.install_path
-    }" /Language=${Language} /LANG=${Language} /ProductId=${appName} /galaxyclient /buildId=${
-      gameInfo.install.buildId
-    } /versionName="${
-      gameInfo.install.version
-    }" /nodesktopshorctut /nodesktopshortcut`
+    const exeArguments = [
+      '/VERYSILENT',
+      `/DIR=${installPath}`,
+      `/Language=${Language}`,
+      `/LANG=${Language}`,
+      `/ProductId=${appName}`,
+      `/galaxyclient`,
+      `/buildId=${gameInfo.install.buildId}`,
+      `/versionName=${gameInfo.install.version}`,
+      `/nodesktopshorctut`, // Disable desktop shortcuts but misspelled :/
+      `/nodesktopshortcut`, // Disable desktop shortcuts
+      '/NOICONS' // Disable start menu icons
+    ]
 
     const executablePath = path.join(supportDir, instructions[0].executable)
 
-    let command = `${commandPrefix} "${executablePath}" ${exeArguments}`
+    let command = [executablePath, ...exeArguments]
+
     // Requires testing
     if (isWindows) {
-      command = `Start-Process -FilePath "${executablePath}" -Verb RunAs -ArgumentList`
-      logInfo(['Setup: Executing', command, `${supportDir}`], LogPrefix.Gog)
-      await spawnAsync('powershell', [
-        ...shlex.split(command),
-        ...shlex.split(exeArguments)
-      ])
+      command = [
+        'Start-Process',
+        '-FilePath',
+        executablePath,
+        '-Verb',
+        'RunAs',
+        '-ArgumentList'
+      ]
+      logInfo(['Setup: Executing', command, supportDir], LogPrefix.Gog)
+      await spawnAsync('powershell', [...command, exeArguments.join(' ')], {
+        cwd: supportDir
+      })
     } else {
       logInfo(['Setup: Executing', command, `${supportDir}`], LogPrefix.Gog)
-      await execAsync(command, {
-        ...execOptions,
-        cwd: supportDir
+      await runWineCommand({
+        gameSettings,
+        commandParts: command,
+        wait: true,
+        protonVerb: 'waitforexitandrun',
+        startFolder: supportDir
       })
     }
   }

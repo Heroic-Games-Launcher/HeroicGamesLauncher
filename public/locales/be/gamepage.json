@@ -185,7 +185,8 @@
         "totalDownloaded": "Усяго спампавана",
         "uninstalling": "Uninstalling",
         "updating": "Абнаўленне гульні",
-        "playing": "Гуляючы"
+        "playing": "Гуляючы",
+        "moving-files": "Перамяшчэнне файла \"{{file}}\": {{percent}} "
     },
     "submenu": {
         "addShortcut": "Дадаць ярлык",
