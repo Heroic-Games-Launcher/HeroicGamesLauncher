@@ -43,6 +43,7 @@ export interface StoreStructure {
     }
     'window-props': Electron.Rectangle
     settings: AppSettings
+    skipVcRuntime: boolean
   }
   libraryStore: {
     library: GameInfo[]
