@@ -147,7 +147,8 @@
         "title": "インストールするコンポーネントを選択します"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Use Default Wine Settings",
+        "winecrossoverbottle": "CrossOver ボトル"
     },
     "sideload": {
         "field": {
@@ -183,7 +184,9 @@
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "ダウンロードの総数",
         "uninstalling": "Uninstalling",
-        "updating": "ゲームを更新しています"
+        "updating": "ゲームを更新しています",
+        "playing": "遊んでいる",
+        "moving-files": "移動ファイル '{{file}}': {{percent}} "
     },
     "submenu": {
         "addShortcut": "ショートカットを追加する",
@@ -197,6 +200,7 @@
         "removeShortcut": "Remove shortcuts",
         "settings": "設定",
         "store": "ストアページ",
-        "verify": "確認と修復"
+        "verify": "確認と修復",
+        "extraInfo": "追加情報"
     }
 }

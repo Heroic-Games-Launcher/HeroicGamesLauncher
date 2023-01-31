@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks menemukan kesalahan saat melakukan eksekusi:{{newLine}}{{error}}",
                 "title": "Galat Winetricks"
-            }
+            },
+            "moving": "Terjadi Kesalahan saat Memindahkan Game {{error}}"
         },
         "info": {
             "update": {
@@ -142,8 +143,8 @@
             },
             "title": "Peringatan",
             "wine-change": {
-                "message": "Kami tidak dapat menemukan versi wine yang dipilih untuk meluncurkan judul ini ({{selectedWine}}). {{newline}} Kami menemukan yang lain, apakah Anda ingin melanjutkan peluncuran menggunakan {{foundWine}}?",
-                "title": "Anggur tidak ditemukan!"
+                "message": "Kami tidak dapat menemukan versi wine yang dipilih untuk meluncurkan judul ini ({{selectedWine}}). {{newline}} Tapi kami menemukan yang lain, apakah Anda ingin melanjutkan peluncuran menggunakan {{foundWine}}?",
+                "title": "Wine tidak ditemukan!"
             }
         },
         "wineprefix": "Pilih Folder Prefiks Wine",
@@ -156,7 +157,7 @@
         "sync": "Sinkronkan",
         "syncing": "Menyinkronkan",
         "unsync": "Batalkan sinkronisasi",
-        "continue": "Lanjut"
+        "continue": "Lanjutkan"
     },
     "controller": {
         "hints": {
@@ -221,11 +222,11 @@
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "hide_non_available_games": "Hide non-available games",
+        "hide_non_available_games": "Sembunyikan gim yang tidak tersedia",
         "ignore_hidden": "Abaikan yang Disembunyikan",
         "platform": "Platform",
         "show_all_games": "Tampilkan semua gim",
-        "show_available_games": "Show non-Available games",
+        "show_available_games": "Tampilkan gim yang tidak tersedia",
         "show_favourites_only": "Hanya Tampilkan Gim Favorit",
         "show_hidden": "Tampilkan yang Disembunyikan",
         "store": "Toko Filter"
@@ -279,7 +280,7 @@
             "version": "Versi Heroic"
         },
         "save-sync": {
-            "searching": "Mencoba untuk melacak folder penyimpanan yang benar"
+            "searching": "Mencoba untuk melacak folder penyimpanan yang sesuai (klik untuk membatalkan)"
         },
         "settings": "Pengaturan disimpan secara otomatis",
         "version": "Versi Wine"
@@ -295,7 +296,7 @@
         "wine-repfix": {
             "message": "Wine membutuhkan WINEPREFIX untuk menjalankan aplikasi Windows. Prefiks ini mengandung berkas konfigurasi Wine dan reproduksi dari struktur berkas yang ada dalam partisi C: (penyimpanan utama dalam OS Windows). Berkas yang disimpan dari hasil reproduksi ini adalah, penyimpanan save gim dan perangkat lunak lainnya yang terpasang melalui winetricks."
         },
-        "wine-path-invalid": "Wine Path tidak valid, pilih yang lain."
+        "wine-path-invalid": "Lokasi Wine tidak valid, silakan pilih lokasi yang lain."
     },
     "install": {
         "path": "Pilih Lokasi Pemasangan"
@@ -454,7 +455,7 @@
         "autovkd3d": "Pemasangan/Pembaruan VKD3D Otomatis di Prefiks",
         "change-target-exe": "Pilih EXE alternatif untuk dijalankan",
         "checkForUpdatesOnStartup": "Periksa Pembaruan Heroik saat Memulai",
-        "crossover-version": "Versi silang",
+        "crossover-version": "Versi Crossover/Wine",
         "custom_themes_path": "Lokasi Tema Kustom",
         "customWineProton": "Lokasi Wine/Proton Khusus",
         "darktray": "Gunakan Ikon Baki Gelap",
@@ -538,9 +539,9 @@
             "title": "Jalankan EXE di Prefiks"
         },
         "savefolder": {
-            "not-found": "Folder penyimpanan tidak ditemukan, silakan pilih secara manual",
+            "not-found": "Folder penyimpanan tidak ditemukan, silakan pilih secara manual (klik untuk coba kembali)",
             "placeholder": "Pilih folder gim tersimpan yang tepat",
-            "warning": "Silakan periksa dua kali apakah lokasinya sudah benar"
+            "warning": "Silakan periksa dua kali apakah lokasinya sudah benar (klik untuk coba kembali)"
         },
         "select_theme": "Pilih Tema",
         "showfps": "Tampilkan FPS (DX9, 10, dan 11)",
@@ -549,8 +550,8 @@
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Folder Prefiks Wine",
         "wineversion": "Versi Wine",
-        "autoUpdateGames": "Perbarui game secara otomatis",
-        "ignoreGameUpdates": "Abaikan pembaruan game"
+        "autoUpdateGames": "Perbarui gim secara otomatis",
+        "ignoreGameUpdates": "Abaikan pembaruan gim"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -635,7 +636,9 @@
         "logout": "Keluar",
         "logout_confirmation": "Apakah Anda yakin ingin keluar?",
         "manageaccounts": "Kelola Akun",
-        "quit": "Keluar"
+        "quit": "Keluar",
+        "cancel": "Batalkan",
+        "quitMessage": "Apakah Anda yakin ingin keluar?"
     },
     "webview": {
         "controls": {
@@ -657,7 +660,10 @@
         "size": "Ukuran"
     },
     "externalLink": {
-        "dontAskAgain": "Jangan tanya lagi",
+        "dontAskAgain": "Jangan tanyakan lagi",
         "warning": "Anda akan membuka tautan eksternal."
+    },
+    "wiki_info": {
+        "not_found": "Kami tidak dapat menemukan informasi tambahan."
     }
 }

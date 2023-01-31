@@ -42,7 +42,7 @@ export default React.memo(function Accessibility() {
   ).getPropertyValue('--default-secondary-font-family')
 
   const getFonts = async (reload = false) => {
-    const systemFonts = (await window.api.getFonts(reload)) as string[]
+    const systemFonts = await window.api.getFonts(reload)
     setFonts([
       defaultSecondaryFont.trim(),
       defaultPrimaryFont.trim(),
@@ -88,7 +88,7 @@ export default React.memo(function Accessibility() {
 
   const options = useMemo(() => {
     return fonts.map((font) => {
-      const style = { fontFamily: font } as CSSProperties
+      const style: CSSProperties = { fontFamily: font }
       return (
         <option key={font} value={font} style={style}>
           {font}

@@ -104,7 +104,7 @@ function Settings() {
       ]}
     >
       <SettingsContext.Provider value={contextValues}>
-        <div className="Settings">
+        <div className={`Settings ${type}`}>
           <div role="list" className="settingsWrapper">
             <NavLink
               to={returnPath}

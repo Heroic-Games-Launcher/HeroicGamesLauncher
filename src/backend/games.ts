@@ -1,4 +1,3 @@
-import { WineCommandArgs } from './../common/types'
 import { GOGCloudSavesLocation, GogInstallInfo } from 'common/types/gog'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import {
@@ -7,7 +6,8 @@ import {
   GameInfo,
   GameSettings,
   InstallArgs,
-  InstallPlatform
+  InstallPlatform,
+  WineCommandArgs
 } from 'common/types'
 
 import { join } from 'path'
@@ -31,7 +31,9 @@ abstract class Game {
   abstract addShortcuts(): Promise<void>
   abstract launch(launchArguments?: string): Promise<boolean>
   abstract stop(): Promise<void>
-  abstract moveInstall(newInstallPath: string): Promise<string>
+  abstract moveInstall(
+    newInstallPath: string
+  ): Promise<{ status: 'done' } | { status: 'error'; error: string }>
   abstract repair(): Promise<ExecResult>
   abstract forceUninstall(): Promise<void>
   abstract syncSaves(arg: string, path: string): Promise<string>

@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { CircularProgress } from '@mui/material'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { SyncType } from 'common/types'
 import { GOGCloudSavesLocation } from 'common/types/gog'
@@ -15,6 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
 import SettingsContext from '../../SettingsContext'
+import TextWithProgress from 'frontend/components/UI/TextWithProgress'
 
 interface Props {
   gogSaves: GOGCloudSavesLocation[]
@@ -36,6 +36,7 @@ export default function GOGSyncSaves({
   const [syncType, setSyncType] = useState('--skip-upload')
   const [manuallyOutput, setManuallyOutput] = useState<string[]>([])
   const [manuallyOutputShow, setManuallyOutputShow] = useState<boolean>(false)
+  const [retry, setRetry] = useState<boolean>(false)
 
   const { t } = useTranslation()
 
@@ -47,18 +48,33 @@ export default function GOGSyncSaves({
   useEffect(() => {
     const getLocations = async () => {
       setIsLoading(true)
-      const locations = (await window.api.getDefaultSavePath(
+      let locations = (await window.api.getDefaultSavePath(
         appName,
         'gog',
         gogSaves
       )) as GOGCloudSavesLocation[]
 
+      // For some reason, some games returns an empty array and this makes the input to not be shown.
+      if (locations.length === 0) {
+        locations = [
+          {
+            name: '',
+            location: ''
+          }
+        ]
+      }
+
       setGogSaves(locations)
-      setIsLoading(false)
       setIsSyncing(false)
+      setIsLoading(false)
     }
     getLocations()
-  }, [])
+  }, [retry])
+
+  const handleRetry = () => {
+    setGogSaves([])
+    setRetry(!retry)
+  }
 
   const handleSync = async () => {
     setIsSyncing(true)
@@ -93,13 +109,13 @@ export default function GOGSyncSaves({
         )}
       </div>
       {isLoading ? (
-        <div className="link button is-text is-link" style={{ width: '100%' }}>
-          {`${t(
+        <TextWithProgress
+          text={t(
             'info.save-sync.searching',
-            'Trying to detect the correct save folder'
-          )}... `}
-          <CircularProgress className="link button is-text is-link" />
-        </div>
+            'Trying to detect the correct save folder (click to cancel)'
+          )}
+          onClick={() => setIsLoading(false)}
+        />
       ) : (
         <>
           {gogSaves.map((value, index) => (
@@ -108,9 +124,6 @@ export default function GOGSyncSaves({
                 htmlId="inputSavePath"
                 placeholder={t('setting.savefolder.placeholder')}
                 value={value.location}
-                label={
-                  t('settings.saves.label', 'Save Location:') + ' ' + value.name
-                }
                 disabled={isSyncing}
                 onChange={(event: { target: { value: string } }) => {
                   const saves = [...gogSaves]
@@ -157,15 +170,19 @@ export default function GOGSyncSaves({
                       }
                 }
                 afterInput={
-                  <span className="smallMessage">
-                    {gogSaves.length >= 1
+                  <span
+                    role={'button'}
+                    className="smallMessage"
+                    onClick={() => handleRetry()}
+                  >
+                    {gogSaves.length >= 1 && value.location.length
                       ? t(
                           'setting.savefolder.warning',
-                          'Please check twice if the path is correct'
+                          'Please check twice if the path is correct (click to retry)'
                         )
                       : t(
                           'setting.savefolder.not-found',
-                          'Save folder not found, please select it manually'
+                          'Save folder not found, please select it manually (click to retry)'
                         )}
                   </span>
                 }

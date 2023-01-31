@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
-            }
+            },
+            "moving": "오류 이동 게임 {{error}}"
         },
         "info": {
             "update": {
@@ -279,7 +280,7 @@
             "version": "Heroic Version"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "설정은 자동으로 저장됩니다",
         "version": "Wine Version"
@@ -538,9 +539,9 @@
             "title": "접두사에서 EXE 실행"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "올바른 게임 저장 폴더 선택",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Select Theme",
         "showfps": "FPS 표시 (DX9, 10 및 11)",
@@ -635,7 +636,9 @@
         "logout": "로그아웃",
         "logout_confirmation": "정말로 로그아웃 하시겠습니까?",
         "manageaccounts": "계정 관리",
-        "quit": "종료"
+        "quit": "종료",
+        "cancel": "Cancel",
+        "quitMessage": "종료하시겠습니까?"
     },
     "webview": {
         "controls": {
@@ -659,5 +662,8 @@
     "externalLink": {
         "dontAskAgain": "다시 묻지 않음",
         "warning": "외부 링크를 열려고 합니다."
+    },
+    "wiki_info": {
+        "not_found": "추가 정보를 찾을 수 없습니다."
     }
 }

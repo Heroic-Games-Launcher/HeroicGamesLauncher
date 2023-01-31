@@ -1,0 +1,53 @@
+.wikigameinfoWrapper {
+  margin-top: var(--space-xl);
+  .Dialog__header {
+    display: none;
+  }
+
+  h2 {
+    margin-top: var(--space-sm);
+  }
+
+  .circle {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%; /* change to a circle */
+    border: 2px solid; /* add a border */
+    color: var(--text-secondary);
+    margin-right: 10px;
+    padding: 0 var(--space-xs);
+    background-color: transparent;
+    cursor: pointer;
+
+    &.green {
+      border: 3px solid green;
+    }
+
+    &.red {
+      border: 3px solid red;
+    }
+
+    &.yellow {
+      border: 3px solid yellow;
+    }
+
+    .circle__title {
+      font-size: 0.8rem;
+    }
+
+    .circle__value {
+      font-size: 1.2rem;
+      font-weight: var(--bold);
+    }
+  }
+
+  .gameExtraDialog {
+    width: 50vw;
+    min-width: 300px;
+    max-width: 450px;
+  }
+}

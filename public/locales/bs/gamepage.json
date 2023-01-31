@@ -148,7 +148,8 @@
         "title": "Odaberite komponente za instalaciju"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Use Default Wine Settings",
+        "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {
         "field": {
@@ -184,7 +185,9 @@
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Ukupno preuzeto",
         "uninstalling": "Uninstalling",
-        "updating": "Ažuriranje video igre"
+        "updating": "Ažuriranje video igre",
+        "playing": "Igranje",
+        "moving-files": "Premještanje fajla '{{file}}': {{percent}} "
     },
     "submenu": {
         "addShortcut": "Dodaj prečicu",
@@ -198,6 +201,7 @@
         "removeShortcut": "Uklonite prečice",
         "settings": "Postavke",
         "store": "Webstranica Trgovine",
-        "verify": "Provjeri i popravi"
+        "verify": "Provjeri i popravi",
+        "extraInfo": "Extra Info"
     }
 }

@@ -152,7 +152,9 @@
         "gameNotAvailable": "Spil ikke tilgængeligt",
         "notSupported": "Ikke understøttet",
         "notSupportedGame": "Ikke understøttet",
-        "this-game-uses-third-party": "Dette spil bruger tredjeparts launcher, og det er ikke understøttet endnu"
+        "this-game-uses-third-party": "Dette spil bruger tredjeparts launcher, og det er ikke understøttet endnu",
+        "playing": "Spiller",
+        "moving-files": "Flytter fil '{{file}}': {{percent}} "
     },
     "submenu": {
         "addShortcut": "Opret genvej",
@@ -167,7 +169,8 @@
         "removeFromSteam": "Fjern fra Steam",
         "addToSteam": "Tilføj til Steam",
         "disableEosOverlay": "Deaktiver EOS Overlay",
-        "enableEosOverlay": "Aktiver EOS Overlay"
+        "enableEosOverlay": "Aktiver EOS Overlay",
+        "extraInfo": "Ekstra info"
     },
     "generic": {
         "error": "Ukendt fejl"
@@ -201,7 +204,8 @@
         }
     },
     "setting": {
-        "use-default-wine-settings": "Brug standard vinindstillinger"
+        "use-default-wine-settings": "Brug standard vinindstillinger",
+        "winecrossoverbottle": "CrossOver flaske"
     },
     "hours": "Timer",
     "how-long-to-beat": {

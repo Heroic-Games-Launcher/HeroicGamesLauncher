@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
-            }
+            },
+            "moving": "Памылка пры перамяшчэнні гульні {{error}}"
         },
         "info": {
             "update": {
@@ -279,7 +280,7 @@
             "version": "Heroic Version"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "Налады захоўваюцца аўтаматычна",
         "version": "Wine Version"
@@ -538,9 +539,9 @@
             "title": "Select EXE to Run"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Выберыце дакладную тэчку захавання гульняў",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Select Theme",
         "showfps": "Паказаць FPS (DX9, 10 і 11)",
@@ -635,7 +636,9 @@
         "logout": "Logout",
         "logout_confirmation": "Вы ўпэўнены, што хочаце выйсці?",
         "manageaccounts": "Manage Accounts",
-        "quit": "Quit"
+        "quit": "Quit",
+        "cancel": "Cancel",
+        "quitMessage": "Вы ўпэўнены, што хочаце кінуць?"
     },
     "webview": {
         "controls": {
@@ -659,5 +662,8 @@
     "externalLink": {
         "dontAskAgain": "Больш не пытайся",
         "warning": "Вы збіраецеся адкрыць знешнюю спасылку."
+    },
+    "wiki_info": {
+        "not_found": "Мы не змаглі знайсці дадатковую інфармацыю."
     }
 }

@@ -1,9 +1,5 @@
 import { ipcRenderer } from 'electron'
-import {
-  DMQueueElement,
-  InstallParams,
-  UpdateParams
-} from './../../common/types'
+import { DMQueueElement, InstallParams, UpdateParams } from 'common/types'
 
 export const install = async (args: InstallParams) => {
   const dmQueueElement: DMQueueElement = {
@@ -13,7 +9,7 @@ export const install = async (args: InstallParams) => {
     endTime: 0,
     startTime: 0
   }
-  ipcRenderer.send('addToDMQueue', dmQueueElement)
+  ipcRenderer.invoke('addToDMQueue', dmQueueElement)
 }
 
 export const updateGame = (args: UpdateParams) => {
@@ -31,7 +27,7 @@ export const updateGame = (args: UpdateParams) => {
     startTime: 0
   }
 
-  ipcRenderer.send('addToDMQueue', dmQueueElement)
+  ipcRenderer.invoke('addToDMQueue', dmQueueElement)
 }
 
 export const getDMQueueInformation = async () =>

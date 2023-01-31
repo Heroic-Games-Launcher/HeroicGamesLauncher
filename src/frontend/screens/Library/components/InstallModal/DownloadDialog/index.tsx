@@ -9,7 +9,6 @@ import { DialogContent } from '@mui/material'
 
 import classNames from 'classnames'
 import {
-  AppSettings,
   GameInfo,
   GameStatus,
   InstallPlatform,
@@ -56,6 +55,7 @@ interface Props {
   setIsLinuxNative: React.Dispatch<React.SetStateAction<boolean>>
   setIsMacNative: React.Dispatch<React.SetStateAction<boolean>>
   winePrefix: string
+  crossoverBottle: string
   wineVersion: WineInstallation | undefined
   children: React.ReactNode
   gameInfo: GameInfo
@@ -92,7 +92,10 @@ function getUniqueKey(sdl: SelectiveDownload) {
   return sdl.tags.join(',')
 }
 
-const { defaultInstallPath } = configStore.get('settings') as AppSettings
+const userHome = configStore.get('userHome', '')
+const { defaultInstallPath = `${userHome}/Games/Heroic` } = {
+  ...configStore.get_nodefault('settings')
+}
 
 export default function DownloadDialog({
   backdropClick,
@@ -105,7 +108,8 @@ export default function DownloadDialog({
   winePrefix,
   wineVersion,
   children,
-  gameInfo
+  gameInfo,
+  crossoverBottle
 }: Props) {
   const previousProgress = JSON.parse(
     storage.getItem(appName) || '{}'
@@ -188,7 +192,12 @@ export default function DownloadDialog({
       if (wineVersion) {
         writeConfig({
           appName,
-          config: { ...gameSettings, winePrefix, wineVersion }
+          config: {
+            ...gameSettings,
+            winePrefix,
+            wineVersion,
+            wineCrossoverBottle: crossoverBottle
+          }
         })
       }
     }
@@ -237,7 +246,7 @@ export default function DownloadDialog({
         if (platformToInstall === 'linux' && runner === 'gog') {
           setGettingInstallInfo(true)
           const installer_languages =
-            (await window.api.getGOGLinuxInstallersLangs(appName)) as string[]
+            await window.api.getGOGLinuxInstallersLangs(appName)
           setInstallLanguages(installer_languages)
           setInstallLanguage(
             getInstallLanguage(installer_languages, i18n.languages)
@@ -265,6 +274,7 @@ export default function DownloadDialog({
         setIsMacNative(gameInfo.is_mac_native && isMac)
       } else {
         const gameData = await getGameInfo(appName, runner)
+        if (gameData?.runner === 'sideload') return
         setIsLinuxNative((gameData?.is_linux_native && isLinux) ?? false)
         setIsMacNative((gameData?.is_mac_native && isMac) ?? false)
       }
@@ -310,7 +320,7 @@ export default function DownloadDialog({
         setIsMacNative(gameInfo.is_mac_native && isMac)
       } else {
         const gameData = await getGameInfo(appName, runner)
-        if (!gameData) {
+        if (!gameData || gameData.runner === 'sideload') {
           return
         }
         setIsLinuxNative(gameData.is_linux_native && isLinux)

@@ -4,10 +4,10 @@
         "all_tiles_in_color": "Hiển thị tất cả các ô trò chơi bằng màu sắc",
         "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Phông chữ",
-        "title": "Accessibility",
+        "title": "Khả năng tiếp cận",
         "zoom": "Zoom"
     },
-    "add_game": "Add Game",
+    "add_game": "Thêm trò chơi",
     "All": "Tất cả",
     "anticheat": {
         "anticheats": "Anticheats",
@@ -15,7 +15,7 @@
         "reference": "Reference",
         "source": "Source",
         "status": "Status",
-        "title": "This game includes anticheat software"
+        "title": "Trò chơi này có chứa phần mềm chống gian lận"
     },
     "box": {
         "cache-cleared": {
@@ -33,7 +33,7 @@
         "error": {
             "add": {
                 "steam": {
-                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
+                    "body": "Không thể thêm {{game}} tới Steam do:{{newLine}} {{error}}",
                     "title": "Adding Error"
                 }
             },
@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
-            }
+            },
+            "moving": "Lỗi Di chuyển Trò chơi {{error}}"
         },
         "info": {
             "update": {
@@ -279,7 +280,7 @@
             "version": "Heroic Version"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "Cài đặt được tự đông lưu",
         "version": "Phiên bản Wine"
@@ -538,9 +539,9 @@
             "title": "Chạy EXE trên prefix"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Chọn chính xác thư mục lưu game",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "chọn Theme",
         "showfps": "Hiển thị FPS (DX9, 10 và 11)",
@@ -635,7 +636,9 @@
         "logout": "Đăng xuất",
         "logout_confirmation": "Xác nhận đăng xuất?",
         "manageaccounts": "Quản lý tài khoản",
-        "quit": "Thoát"
+        "quit": "Thoát",
+        "cancel": "Cancel",
+        "quitMessage": "Bạn có chắc bạn muốn thoát khỏi?"
     },
     "webview": {
         "controls": {
@@ -659,5 +662,8 @@
     "externalLink": {
         "dontAskAgain": "Đừng hỏi lại",
         "warning": "Bạn sắp mở một liên kết bên ngoài."
+    },
+    "wiki_info": {
+        "not_found": "Chúng tôi không thể tìm thấy thêm thông tin."
     }
 }

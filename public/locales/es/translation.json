@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks respondió con el siguiente error durante la ejecución:{{newLine}}{{error}}",
                 "title": "Error de Winetricks"
-            }
+            },
+            "moving": "Error al mover el juego {{error}}"
         },
         "info": {
             "update": {
@@ -115,9 +116,9 @@
         },
         "shortcuts": {
             "message": "Se han creado accesos directos en el Escritorio y en el Menú Inicio",
-            "message-mac": "Shortcuts were created on the Applications folder",
+            "message-mac": "Se han creado accesos directos en la carpeta Aplicaciones",
             "message-remove": "Se removieron las accesos del Escritorio y del Menú",
-            "message-remove-mac": "Shortcuts were removed from the Applications folder",
+            "message-remove-mac": "Se borraron los accesos de la carpeta Aplicaciones",
             "title": "Accesos directos"
         },
         "sync": {
@@ -279,7 +280,7 @@
             "version": "Versión de Heroic"
         },
         "save-sync": {
-            "searching": "Tratando de detectar la ubicación para los guardados"
+            "searching": "Intentando detectar la carpeta de guardado correcta (haga clic para cancelar)"
         },
         "settings": "Los ajustes se guardan automáticamente",
         "version": "Versión de Wine"
@@ -454,7 +455,7 @@
         "autovkd3d": "Instalación/actualización automática de VKD3D en el prefijo",
         "change-target-exe": "Seleccione un EXE alternativo para ejecutar",
         "checkForUpdatesOnStartup": "Comprobar actualizaciones de Heroic al iniciar",
-        "crossover-version": "Versión de Crossover",
+        "crossover-version": "Versión crossover/vino",
         "custom_themes_path": "Ubicación de temas personalizados",
         "customWineProton": "Rutas personalizadas de Wine o Proton",
         "darktray": "Utilizar el icono oscuro en la bandeja",
@@ -538,9 +539,9 @@
             "title": "Ejecutar EXE en Prefijo"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Seleccione la carpeta exacta para guardar juegos",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Seleccionar Tema",
         "showfps": "Mostrar FPS (Cuadros Por Segundo) (DX9, 10 y 11)",
@@ -635,7 +636,9 @@
         "logout": "Cerrar sesión",
         "logout_confirmation": "¿Estás seguro de que quieres cerrar la sesión?",
         "manageaccounts": "Gestionar cuentas",
-        "quit": "Salir"
+        "quit": "Salir",
+        "cancel": "Cancelar",
+        "quitMessage": "¿Seguro que quieres salir?"
     },
     "webview": {
         "controls": {
@@ -659,5 +662,8 @@
     "externalLink": {
         "dontAskAgain": "no vuelvas a preguntar",
         "warning": "Está a punto de abrir un enlace externo."
+    },
+    "wiki_info": {
+        "not_found": "No pudimos encontrar información adicional."
     }
 }

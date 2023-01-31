@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
-            }
+            },
+            "moving": "Chyba pri presúvaní hry {{error}}"
         },
         "info": {
             "update": {
@@ -279,7 +280,7 @@
             "version": "Heroic Version"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "Nastavenia sa uložia automaticky",
         "version": "Wine Version"
@@ -538,9 +539,9 @@
             "title": "Select EXE to Run"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Vyberte presný priečinok na uloženie hier",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Select Theme",
         "showfps": "Zobraziť FPS (DX9, 10 a 11)",
@@ -635,7 +636,9 @@
         "logout": "Logout",
         "logout_confirmation": "Naozaj sa chcete odhlásiť?",
         "manageaccounts": "Manage Accounts",
-        "quit": "Quit"
+        "quit": "Quit",
+        "cancel": "Cancel",
+        "quitMessage": "Si si isty ze chces skoncit?"
     },
     "webview": {
         "controls": {
@@ -659,5 +662,8 @@
     "externalLink": {
         "dontAskAgain": "Už sa nepýtaj",
         "warning": "Chystáte sa otvoriť externý odkaz."
+    },
+    "wiki_info": {
+        "not_found": "Nepodarilo sa nám nájsť ďalšie informácie."
     }
 }

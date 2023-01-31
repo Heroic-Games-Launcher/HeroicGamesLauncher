@@ -34,7 +34,8 @@ import {
   LaunchPreperationResult,
   RpcClient,
   WineInstallation,
-  WineCommandArgs
+  WineCommandArgs,
+  SideloadGame
 } from 'common/types'
 import { spawn } from 'child_process'
 import shlex from 'shlex'
@@ -51,7 +52,7 @@ import { errorHandler } from './utils/error/error'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
-  gameInfo: GameInfo,
+  gameInfo: GameInfo | SideloadGame,
   isNative: boolean
 ): Promise<LaunchPreperationResult> {
   const globalSettings = GlobalConfig.get().getSettings()
@@ -126,7 +127,9 @@ async function prepareLaunch(
 
     steamRuntime = [
       path,
-      isNative ? '' : `--filesystem=${gameInfo.install.install_path}`,
+      isNative || !gameInfo.install['install_path']
+        ? ''
+        : `--filesystem=${gameInfo.install['install_path']}`,
       ...args
     ]
   }
@@ -477,11 +480,12 @@ export async function verifyWinePrefix(
 
   return command
     .then((result) => {
-      if (wineVersion.type === 'proton') {
-        return { res: result, updated: true }
-      }
       // This is kinda hacky
-      const wasUpdated = result.stderr.includes('has been updated')
+      const wasUpdated = result.stderr.includes(
+        wineVersion.type === 'proton'
+          ? 'Proton: Upgrading prefix from'
+          : 'has been updated'
+      )
       return { res: result, updated: wasUpdated }
     })
     .catch((error) => {

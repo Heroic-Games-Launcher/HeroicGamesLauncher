@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetrick navrátily během provádění následující chybu:{{newLine}}{{error}}",
                 "title": "Chyba Winetricks"
-            }
+            },
+            "moving": "Chyba při přesunu hry {{error}}"
         },
         "info": {
             "update": {
@@ -221,11 +222,11 @@
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "hide_non_available_games": "Hide non-available games",
+        "hide_non_available_games": "Skrýt nedostupné hry",
         "ignore_hidden": "Ignorovat skryté",
         "platform": "Platforma",
         "show_all_games": "Zobrazit všechny hry",
-        "show_available_games": "Show non-Available games",
+        "show_available_games": "Zobrazit nedostupné hry",
         "show_favourites_only": "Zobrazit pouze oblíbené",
         "show_hidden": "Zobrazit skryté",
         "store": "Filtrovat obchod"
@@ -279,7 +280,7 @@
             "version": "Verze Heroic"
         },
         "save-sync": {
-            "searching": "Pokus o zjištění správné složky uložení"
+            "searching": "Pokus o zjištění správné složky uložení (klikněte pro zrušení)"
         },
         "settings": "Nastavení se ukládají automaticky",
         "version": "Verze Wine"
@@ -454,7 +455,7 @@
         "autovkd3d": "Automaticky Installovat/aktualizovat VKD3D na Prefixu",
         "change-target-exe": "Vyberte alternativní EXE ke spuštění",
         "checkForUpdatesOnStartup": "Kontrolovat aktualizace Heroic při spuštění",
-        "crossover-version": "Verze Crossover",
+        "crossover-version": "Verze Crossover/Wine",
         "custom_themes_path": "Vlastní cesta k motivům",
         "customWineProton": "Vlastní cesty pro Wine/Proton",
         "darktray": "Použít tmavou ikonu v systémové oblasti",
@@ -538,9 +539,9 @@
             "title": "Spustit EXE na prefixu"
         },
         "savefolder": {
-            "not-found": "Složka pro uložení nebyla nalezena, vyberte ji prosím ručně",
+            "not-found": "Složka pro uložení nebyla nalezena, vyberte ji prosím ručně (klikněte pro opakování)",
             "placeholder": "Vyberte přesnou složku s uloženými soubory",
-            "warning": "Zkontrolujte prosím dvakrát, zda je cesta správná"
+            "warning": "Zkontrolujte prosím dvakrát, zda je cesta správná (klikněte pro opakování)"
         },
         "select_theme": "Vybrat motiv",
         "showfps": "Zobrazit FPS (DX9, 10 a 11)",
@@ -635,7 +636,9 @@
         "logout": "Odhlásit se",
         "logout_confirmation": "Opravdu se chcete odhlásit?",
         "manageaccounts": "Spravovat účty",
-        "quit": "Ukončit"
+        "quit": "Ukončit",
+        "cancel": "Zrušit",
+        "quitMessage": "Jste si jisti, že chcete skončit?"
     },
     "webview": {
         "controls": {
@@ -659,5 +662,8 @@
     "externalLink": {
         "dontAskAgain": "Už se neptat",
         "warning": "Chystáte se otevřít externí odkaz."
+    },
+    "wiki_info": {
+        "not_found": "Další informace jsme nenašli."
     }
 }

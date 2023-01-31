@@ -147,7 +147,8 @@
         "title": "Chọn các thành phần cần cài"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Use Default Wine Settings",
+        "winecrossoverbottle": "Chai chéo"
     },
     "sideload": {
         "field": {
@@ -183,7 +184,9 @@
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Tổng số đã tải",
         "uninstalling": "Uninstalling",
-        "updating": "Đang cập nhật Game"
+        "updating": "Đang cập nhật Game",
+        "playing": "Đang chơi",
+        "moving-files": "Đang di chuyển tệp '{{file}}': {{percent}} "
     },
     "submenu": {
         "addShortcut": "Thêm shortcut",
@@ -197,6 +200,7 @@
         "removeShortcut": "Remove shortcuts",
         "settings": "Cài đặt",
         "store": "Cửa hàng",
-        "verify": "Kiểm tra và sửa chữa"
+        "verify": "Kiểm tra và sửa chữa",
+        "extraInfo": "Thông tin thêm"
     }
 }

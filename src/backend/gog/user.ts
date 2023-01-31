@@ -4,6 +4,7 @@ import { GOGLoginData } from 'common/types'
 import { configStore, libraryStore } from '../gog/electronStores'
 import { isOnline } from '../online_monitor'
 import { errorHandler } from '../utils/error/error'
+import { UserData } from 'common/types/gog'
 
 const gogAuthenticateUrl =
   'https://auth.gog.com/token?client_id=46899977096215655&client_secret=9d85c43b1482497dbbce61f6e4aa173a433796eeae2ca8c5f6129f2dc4de46d9&grant_type=authorization_code&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&code='
@@ -16,7 +17,7 @@ export class GOGUser {
     // TODO: Write types for this
   ): Promise<{
     status: 'done' | 'error'
-    data?: { displayName: string; username: string }
+    data?: UserData
   }> {
     logInfo('Logging using GOG credentials', LogPrefix.Gog)
 
@@ -44,7 +45,7 @@ export class GOGUser {
   public static async getUserDetails() {
     if (!isOnline()) {
       logError('Unable to get user data, Heroic offline', LogPrefix.Gog)
-      return null
+      return
     }
     logInfo('Getting data about the user', LogPrefix.Gog)
     if (!this.isLoggedIn()) {
@@ -71,7 +72,7 @@ export class GOGUser {
       return
     }
 
-    const data = response.data
+    const data: UserData = response.data
 
     //Exclude email, it won't be needed
     delete data.email
@@ -91,17 +92,14 @@ export class GOGUser {
       return this.refreshToken()
     }
 
-    return configStore.get('credentials', {}) as GOGLoginData
+    return configStore.get_nodefault('credentials')
   }
 
   /**
    * Refreshes token and returns new credentials
    */
   public static async refreshToken(): Promise<GOGLoginData | undefined> {
-    const user: GOGLoginData = configStore.get(
-      'credentials',
-      {}
-    ) as GOGLoginData
+    const user = configStore.get_nodefault('credentials')
     logInfo('Refreshing access_token', LogPrefix.Gog)
     if (user) {
       const response = await axios
@@ -133,10 +131,7 @@ export class GOGUser {
   }
 
   public static isTokenExpired() {
-    const user: GOGLoginData = configStore.get(
-      'credentials',
-      null
-    ) as GOGLoginData
+    const user = configStore.get_nodefault('credentials')
     if (!user) {
       return true
     }

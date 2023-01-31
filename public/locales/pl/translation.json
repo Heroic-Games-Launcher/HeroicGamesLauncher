@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Podczas uruchamiania, Winetricks zwrócił błąd:{{newLine}}{{error}}",
                 "title": "Błąd Winetricks"
-            }
+            },
+            "moving": "Błąd przenoszenia gry {{error}}"
         },
         "info": {
             "update": {
@@ -279,7 +280,7 @@
             "version": "Wersja Heroic"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "Ustawienia są zapisywane automatycznie",
         "version": "Wersja Wine"
@@ -538,9 +539,9 @@
             "title": "Uruchom EXE w prefiksie"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Wybierz folder zapisu gier",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Wybierz Motyw",
         "showfps": "Pokaż FPS (DX9, DX10, DX11)",
@@ -635,7 +636,9 @@
         "logout": "Wyloguj",
         "logout_confirmation": "Czy na pewno chcesz się wylogować?",
         "manageaccounts": "Zarządzaj kontami",
-        "quit": "Wyjdź"
+        "quit": "Wyjdź",
+        "cancel": "Anuluj",
+        "quitMessage": "Czy na pewno chcesz zrezygnować?"
     },
     "webview": {
         "controls": {
@@ -659,5 +662,8 @@
     "externalLink": {
         "dontAskAgain": "Nie pytaj ponownie",
         "warning": "Zamierzasz otworzyć link zewnętrzny."
+    },
+    "wiki_info": {
+        "not_found": "Nie mogliśmy znaleźć dodatkowych informacji."
     }
 }

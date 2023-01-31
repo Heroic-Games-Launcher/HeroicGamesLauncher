@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks вернул следующую ошибку во время выполнения: {{newLine}}{{error}}",
                 "title": "Ошибка Winetricks"
-            }
+            },
+            "moving": "Ошибка перемещения игры {{error}}"
         },
         "info": {
             "update": {
@@ -635,7 +636,9 @@
         "logout": "Выйти из аккаунта",
         "logout_confirmation": "Вы уверены, что хотите выйти?",
         "manageaccounts": "Аккаунты",
-        "quit": "Закрыть Heroic"
+        "quit": "Закрыть Heroic",
+        "cancel": "Отмена",
+        "quitMessage": "Вы уверены, что хотите выйти?"
     },
     "webview": {
         "controls": {
@@ -659,5 +662,8 @@
     "externalLink": {
         "dontAskAgain": "Больше не спрашивай",
         "warning": "Вы собираетесь открыть внешнюю ссылку."
+    },
+    "wiki_info": {
+        "not_found": "Мы не смогли найти дополнительную информацию."
     }
 }

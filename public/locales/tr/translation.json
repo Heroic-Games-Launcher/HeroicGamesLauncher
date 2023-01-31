@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
-            }
+            },
+            "moving": "Oyunu Taşıma Hatası {{error}}"
         },
         "info": {
             "update": {
@@ -279,7 +280,7 @@
             "version": "Heroic Sürümü"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "Ayarlar otomatik kaydedilir",
         "version": "Wine Sürümü"
@@ -538,9 +539,9 @@
             "title": "Exe Çalıştır"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Tam oyun kaydetme klasörünü seçin",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Tema Seç",
         "showfps": "FPS'i Göster (DX9, 10 and 11)",
@@ -635,7 +636,9 @@
         "logout": "Oturumu kapat",
         "logout_confirmation": "Oturumu kapatmak istediğinizden emin misiniz?",
         "manageaccounts": "Hesapları Yönet",
-        "quit": "Çık"
+        "quit": "Çık",
+        "cancel": "Cancel",
+        "quitMessage": "Çıkmak istediğinden emin misin?"
     },
     "webview": {
         "controls": {
@@ -659,5 +662,8 @@
     "externalLink": {
         "warning": "Harici bir bağlantı açmak üzeresiniz.",
         "dontAskAgain": "bir daha sorma"
+    },
+    "wiki_info": {
+        "not_found": "Ek bilgi bulamadık."
     }
 }

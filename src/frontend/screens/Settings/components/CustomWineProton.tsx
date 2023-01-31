@@ -61,7 +61,7 @@ export default function CustomWineProton() {
         <div className="iconsWrapper rightButtons addRemoveSvgButtons">
           <SvgButton onClick={() => removeCustomPath()}>
             <Tooltip
-              title={t('tooltip.removepath', 'Remove Path') as string}
+              title={t('tooltip.removepath', 'Remove Path')}
               placement="bottom"
               arrow
             >
@@ -82,7 +82,7 @@ export default function CustomWineProton() {
             className={`is-primary`}
           >
             <Tooltip
-              title={t('tooltip.addpath', 'Add New Path') as string}
+              title={t('tooltip.addpath', 'Add New Path')}
               placement="bottom"
               arrow
             >

@@ -1,3 +1,18 @@
+.Settings.log .settingsWrapper {
+  max-width: none;
+}
+
+.setting.log-box {
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  padding-block: 4px;
+  padding-inline: 6px;
+  height: 25em;
+  overflow: auto;
+  user-select: text;
+  width: 100%;
+}
+
 .log-buttongroup {
   display: flex;
   flex-direction: row;
@@ -17,21 +32,6 @@
 
 .log-buttons:hover {
   color: var(--text-hover);
-}
-
-.setting.log-box {
-  background-color: #1e1e1e;
-  border-radius: 10px;
-  padding-block: 4px;
-  padding-inline: 6px;
-  height: 25em;
-  width: calc(90vw - var(--sidebar-width));
-  overflow: auto;
-  user-select: text;
-}
-
-.setting.log-box.collapsed {
-  width: calc(90vw - var(--sidebar-width));
 }
 
 .log-error,
@@ -69,4 +69,5 @@
 
 .report-problem-instructions {
   text-align: left;
+  max-width: 513px;
 }

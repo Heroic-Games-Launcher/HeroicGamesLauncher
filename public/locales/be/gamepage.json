@@ -147,7 +147,8 @@
         "title": "Выберыце кампаненты для ўстаноўкі"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Use Default Wine Settings",
+        "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {
         "field": {
@@ -183,7 +184,9 @@
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Усяго спампавана",
         "uninstalling": "Uninstalling",
-        "updating": "Абнаўленне гульні"
+        "updating": "Абнаўленне гульні",
+        "playing": "Гуляючы",
+        "moving-files": "Перамяшчэнне файла \"{{file}}\": {{percent}} "
     },
     "submenu": {
         "addShortcut": "Дадаць ярлык",
@@ -197,6 +200,7 @@
         "removeShortcut": "Выдаліць ярлыкі",
         "settings": "Налады",
         "store": "Старонка крамы",
-        "verify": "Праверка і рамонт"
+        "verify": "Праверка і рамонт",
+        "extraInfo": "Дадатковая інфармацыя"
     }
 }

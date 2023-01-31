@@ -1,7 +1,5 @@
-import { PCGamingWikiInfo } from './../types'
 import { EventEmitter } from 'node:events'
 import { IpcMainEvent, OpenDialogOptions } from 'electron'
-import { HowLongToBeatEntry } from 'howlongtobeat'
 
 import {
   Runner,
@@ -85,7 +83,6 @@ interface SyncIPCFunctions {
   }) => void
   addShortcut: (appName: string, runner: Runner, fromMenu: boolean) => void
   removeShortcut: (appName: string, runner: Runner) => void
-  addToDMQueue: (element: DMQueueElement) => void
   removeFromDMQueue: (appName: string) => void
   clearDMFinished: () => void
   abort: (id: string) => void
@@ -96,6 +93,7 @@ interface SyncIPCFunctions {
 }
 
 interface AsyncIPCFunctions {
+  addToDMQueue: (element: DMQueueElement) => Promise<void>
   kill: (appName: string, runner: Runner) => Promise<void>
   checkDiskSpace: (folder: string) => Promise<DiskSpaceData>
   callTool: (args: Tools) => Promise<void>
@@ -115,7 +113,10 @@ interface AsyncIPCFunctions {
   showUpdateSetting: () => boolean
   getLatestReleases: () => Promise<Release[]>
   getCurrentChangelog: () => Promise<Release | null>
-  getGameInfo: (appName: string, runner: Runner) => Promise<GameInfo | null>
+  getGameInfo: (
+    appName: string,
+    runner: Runner
+  ) => Promise<GameInfo | SideloadGame | null>
   getExtraInfo: (appName: string, runner: Runner) => Promise<ExtraInfo | null>
   getGameSettings: (
     appName: string,
@@ -135,7 +136,7 @@ interface AsyncIPCFunctions {
   }>
   authGOG: (code: string) => Promise<{
     status: 'done' | 'error'
-    data?: { displayName: string; username: string }
+    data?: UserData
   }>
   logoutLegendary: () => Promise<void>
   getAlternativeWine: () => Promise<WineInstallation[]>
@@ -219,11 +220,7 @@ interface AsyncIPCFunctions {
   }
   getNumOfGpus: () => Promise<number>
   removeRecent: (appName: string) => Promise<void>
-  getHowLongToBeat: (title: string) => Promise<HowLongToBeatEntry | null>
-  getInfoFromPCGamingWiki: (
-    title: string,
-    id?: string
-  ) => Promise<PCGamingWikiInfo | null>
+  getWikiGameInfo: (title: string, id?: string) => Promise<WikiInfo | null>
   getDefaultSavePath: (
     appName: string,
     runner: Runner,

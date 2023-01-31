@@ -1,4 +1,4 @@
-import { configStore, fixAsarPath, publicDir } from '../constants'
+import { fixAsarPath, publicDir } from '../constants'
 import {
   createAbortController,
   deleteAbortController
@@ -6,9 +6,10 @@ import {
 import { splitPathAndName } from '../utils/format/format'
 import { join } from 'path'
 import { runGogdlCommand } from './library'
+import { GlobalConfig } from 'backend/config'
 
 function getGOGdlBin(): { dir: string; bin: string } {
-  const settings = configStore.get('settings', {}) as { altGogdlBin: string }
+  const settings = GlobalConfig.get().getSettings()
   if (settings?.altGogdlBin) {
     return splitPathAndName(settings.altGogdlBin)
   }

@@ -1,7 +1,7 @@
 import { GOGGame } from '../../gog/games'
 import { LegendaryGame } from '../../legendary/games'
 import { getAppInfo } from '../../sideload/games'
-import { GameInfo, Runner } from 'common/types'
+import { GameInfo, Runner, SideloadGame } from 'common/types'
 
 function getGame(appName: string, runner: Runner) {
   switch (runner) {
@@ -12,7 +12,7 @@ function getGame(appName: string, runner: Runner) {
   }
 }
 
-function getInfo(appName: string, runner: Runner): GameInfo {
+function getInfo(appName: string, runner: Runner): GameInfo | SideloadGame {
   if (runner === 'sideload') {
     return getAppInfo(appName)
   }

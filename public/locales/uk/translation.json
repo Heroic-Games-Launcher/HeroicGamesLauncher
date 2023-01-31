@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
-            }
+            },
+            "moving": "Помилка переміщення гри {{error}}"
         },
         "info": {
             "update": {
@@ -110,7 +111,7 @@
             "title": "Оберіть EXE щоб запустити"
         },
         "select": {
-            "button": "Обрати",
+            "button": "Вибрати",
             "exe": "Оберіть EXE"
         },
         "shortcuts": {
@@ -279,7 +280,7 @@
             "version": "Версія Heroic"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "Налаштування збережено автоматично",
         "version": "Версія Wine"
@@ -538,9 +539,9 @@
             "title": "Запустити EXE на префіксі"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Вкажіть точну теку збережень для гри",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Оберіть тему",
         "showfps": "Показувати кількість кадрів (DX9, 10 та 11)",
@@ -635,7 +636,9 @@
         "logout": "Вийти",
         "logout_confirmation": "Точно бажаєте вийти?",
         "manageaccounts": "Облікові записи",
-        "quit": "Закрити"
+        "quit": "Закрити",
+        "cancel": "Відмінити",
+        "quitMessage": "Ти впевнений що хочеш піти?"
     },
     "webview": {
         "controls": {
@@ -659,5 +662,8 @@
     "externalLink": {
         "dontAskAgain": "Більше не питай",
         "warning": "Ви збираєтеся відкрити зовнішнє посилання."
+    },
+    "wiki_info": {
+        "not_found": "Нам не вдалося знайти додаткову інформацію."
     }
 }

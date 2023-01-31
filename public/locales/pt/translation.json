@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks retornou o seguinte erro durante a execução :{{newLine}}{{error}}",
                 "title": "Winetricks error"
-            }
+            },
+            "moving": "Erro ao mover o jogo {{error}}"
         },
         "info": {
             "update": {
@@ -279,7 +280,7 @@
             "version": "Heroic Version"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "As configurações são salvas automaticamente",
         "version": "Wine Version"
@@ -538,9 +539,9 @@
             "title": "Executar EXE no Prefixo"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Selecione a pasta exata com os saves",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Select Theme",
         "showfps": "Mostrar FPS (DX9, 10 e 11)",
@@ -584,7 +585,7 @@
             "general": "Geral",
             "log": "Log",
             "other": "Outros",
-            "sync": "Sincronização",
+            "sync": "Sincronização de Jogos Salvos em Nuvem",
             "wineExt": "Wine Extensions"
         },
         "open-config-file": "Open Config File",
@@ -635,7 +636,9 @@
         "logout": "Sair",
         "logout_confirmation": "Logout?",
         "manageaccounts": "Manage Accounts",
-        "quit": "Fechar"
+        "quit": "Fechar",
+        "cancel": "Cancel",
+        "quitMessage": "Você tem certeza que quer sair?"
     },
     "webview": {
         "controls": {
@@ -659,5 +662,8 @@
     "externalLink": {
         "dontAskAgain": "Não pergunte novamente",
         "warning": "Você está prestes a abrir um link externo."
+    },
+    "wiki_info": {
+        "not_found": "Não encontramos informações extras."
     }
 }

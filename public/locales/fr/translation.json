@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks a renvoyé l'erreur suivante lors de son exécution :{{newLine}}{{error}}",
                 "title": "Erreur Winetricks"
-            }
+            },
+            "moving": "Erreur lors du déplacement du jeu {{error}}"
         },
         "info": {
             "update": {
@@ -114,7 +115,7 @@
             "exe": "Choisir le fichier .exe"
         },
         "shortcuts": {
-            "message": "Les raccourcis ont été créés sur le Bureau et dans le menu Démarrer",
+            "message": "Des raccourcis ont été créés sur le Bureau et dans le menu Démarrer",
             "message-mac": "Des raccourcis ont été créés dans le dossier Applications",
             "message-remove": "Les raccourcis ont été supprimés du Bureau et du menu Démarrer",
             "message-remove-mac": "Des raccourcis ont été supprimés du dossier Applications",
@@ -142,8 +143,8 @@
             },
             "title": "Avertissement",
             "wine-change": {
-                "message": "Nous n'avons pas pu trouver la version wine sélectionnée pour lancer ce titre ({{selectedWine}}). {{newline}} Nous en avons trouvé un autre, voulez-vous continuer le lancement avec {{foundWine}} ?",
-                "title": "Vin introuvable !"
+                "message": "Nous n'avons pas pu trouver la version de Wine sélectionnée pour lancer ce titre ({{selectedWine}}). {{newline}} Nous en avons trouvé une autre, voulez-vous continuer le lancement avec {{foundWine}} ?",
+                "title": "Wine introuvable !"
             }
         },
         "wineprefix": "Choisir le dossier de préfixe Wine",
@@ -156,7 +157,7 @@
         "sync": "Synchroniser",
         "syncing": "Synchronisation en cours",
         "unsync": "Désynchroniser",
-        "continue": "Continue"
+        "continue": "Continuer"
     },
     "controller": {
         "hints": {
@@ -221,11 +222,11 @@
     "GOG": "GOG",
     "gog-store": "Boutique GOG",
     "header": {
-        "hide_non_available_games": "Hide non-available games",
+        "hide_non_available_games": "Cacher les jeux indisponibles",
         "ignore_hidden": "Ignorer les jeux cachés",
         "platform": "Système",
         "show_all_games": "Afficher tous les jeux",
-        "show_available_games": "Show non-Available games",
+        "show_available_games": "Afficher les jeux indisponibles",
         "show_favourites_only": "N'afficher que les favoris",
         "show_hidden": "Afficher les jeux cachés",
         "store": "Filtrer le magasin"
@@ -261,7 +262,7 @@
         "sync": {
             "part1": "Heroic essaie de déterminer quel est le bon dossier de sauvegarde et cela fonctionne dans la plus part des cas. Si le dossier choisi n'est pas le bon, utilisez le champ ci-dessus pour le changer.",
             "part2": "Dans le cas où vous changez le dossier de prefix de Wine ou Proton, vous aurez besoin de revérifier ce chemin car Proton utilise un prefix différent (/pfx) et un username (steamuser). Vous pouvez simplement effacer le chemin actuel quitter la page des options pour que Heroic essaie de deviner une fois de plus le dossier avec le bon prefix.",
-            "part3": "Synchronisation manuelle: Choisissez « Télécharger » pour télécharger les sauvegardes des jeux enregistrées dans le Cloud et « Téléverser » pour transférer les fichiers locaux vers le Cloud. « Forcer le téléchargement » et « Forcer le téléversement » ignoreront la version locale ou celle du Cloud.",
+            "part3": "Synchronisation manuelle : Choisissez « Télécharger » pour télécharger les sauvegardes des jeux enregistrées dans le Cloud et « Téléverser » pour transférer les fichiers locaux vers le Cloud. « Forcer le téléchargement » et « Forcer le téléversement » ignoreront la version locale ou celle du Cloud.",
             "part4": "« Synchroniser automatiquement » active la synchronisation de vos sauvegardes à chaque fois que vous lancez un jeu et que vous l'arrêtez."
         },
         "vkd3d": "VKD3D est une interface de compatibilité basée sur Vulkan pour les jeux nécessitant DirectX 12. L'activer pourrait grandement améliorer la compatibilité. N'a aucun effet sur les jeux utilisant des versions de DirectX plus anciennes.",
@@ -293,9 +294,9 @@
             "title": "Dossier de préfixe Wine"
         },
         "wine-repfix": {
-            "message": "Wine utilise un préfixe (aussi appelé \"bouteille\" et dont le chemin est défini dans la variable WINEPREFIX) pour encapsuler les programmes Windows. Ce préfixe comporte les fichiers de configuration de Wine ainsi qu'une reproduction du système de fichiers de la partition C: (la partition principale d'un système Windows). On y trouve aussi les dépendances et les fichiers de sauvegardes des jeux installés via Winetricks."
+            "message": "Wine utilise un préfixe (aussi appelé \"bouteille\" et dont le chemin est défini dans la variable WINEPREFIX) pour encapsuler les programmes Windows. Ce préfixe comporte les fichiers de configuration de Wine ainsi qu'une reproduction du système de fichiers de la partition C : (la partition principale d'un système Windows). On y trouve aussi les dépendances et les fichiers de sauvegardes des jeux installés via Winetricks."
         },
-        "wine-path-invalid": "Wine Path n'est pas valide, veuillez en sélectionner un autre."
+        "wine-path-invalid": "Le chemin vers Wine n'est pas valide, veuillez en sélectionner un autre."
     },
     "install": {
         "path": "Sélectionner le chemin d'installation"
@@ -401,7 +402,7 @@
         },
         "quote-args-with-spaces": "Attention : Assurez-vous de citer les args avec des espaces ! E.g. : \"chemin/avec espaces/\"",
         "wrapper": {
-            "args": "Arguments",
+            "args": "Paramètres",
             "arguments_example": "Exemples d'arguments : --arg --extra-file=\"file-path/ with/spaces\"",
             "exe": "Wrapper",
             "placeHolderKey": "Nouveau Wrapper",
@@ -454,7 +455,7 @@
         "autovkd3d": "Installer et mettre à jour automatiquement VKD3D dans le préfixe",
         "change-target-exe": "Choisir un fichier .exe alternatif à lancer",
         "checkForUpdatesOnStartup": "Vérifier au démarrage si des mises à jour de Heroic sont disponibles",
-        "crossover-version": "Version de CrossOver",
+        "crossover-version": "Version de Crossover/Wine",
         "custom_themes_path": "Chemin vers les thèmes personnalisés",
         "customWineProton": "Chemins pour les Wine/Proton Custom",
         "darktray": "Utiliser une icône sombre dans la barre des tâches",
@@ -549,7 +550,7 @@
         "winecrossoverbottle": "Préfixe CrossOver",
         "wineprefix": "Dossier WinePrefix",
         "wineversion": "Version de Wine",
-        "autoUpdateGames": "Mettre à jour automatiquement les jeux",
+        "autoUpdateGames": "Mettre les jeux à jour automatiquement",
         "ignoreGameUpdates": "Ignorer les mises à jour du jeu"
     },
     "settings": {
@@ -567,7 +568,7 @@
                 "title": "GameMode requis"
             },
             "installing": "Installation de EAC Runtime...",
-            "name": "EasyAntiCheat Runtime"
+            "name": "Processus EasyAntiCheat"
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -584,7 +585,7 @@
             "general": "Général",
             "log": "Log",
             "other": "Autre",
-            "sync": "Synchronisation des sauvegardes",
+            "sync": "Synchronisation des sauvegardes dans le Cloud",
             "wineExt": "Extensions de Wine"
         },
         "open-config-file": "Ouvrir le fichier de configuration",
@@ -635,7 +636,9 @@
         "logout": "Déconnexion",
         "logout_confirmation": "Êtes-vous certain(e) de vouloir vous déconnecter ?",
         "manageaccounts": "Comptes",
-        "quit": "Quitter"
+        "quit": "Quitter",
+        "cancel": "Annuler",
+        "quitMessage": "Êtes-vous sûr de vouloir quitter ?"
     },
     "webview": {
         "controls": {
@@ -657,7 +660,10 @@
         "size": "Taille"
     },
     "externalLink": {
-        "dontAskAgain": "Ne demande plus",
+        "dontAskAgain": "Ne plus me le demander",
         "warning": "Vous êtes sur le point d'ouvrir un lien externe."
+    },
+    "wiki_info": {
+        "not_found": "Nous n'avons pas trouvé d'informations supplémentaires."
     }
 }

@@ -18,7 +18,7 @@ const SyncSaves = () => {
   const [savesPath, setSavesPath] = useSetting('savesPath', '')
   const [gogSavesLocations, setGogSavesLocations] = useSetting('gogSaves', [])
 
-  const home = configStore.get('userHome')
+  const home = configStore.get_nodefault('userHome')
   const [winePrefix] = useSetting('winePrefix', `${home}/.wine`)
 
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)

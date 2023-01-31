@@ -21,7 +21,7 @@
             "title": "Select EXE to Run"
         },
         "select": {
-            "button": "Select"
+            "button": "Вибрати"
         },
         "sideload": {
             "exe": "Select Executable"
@@ -32,7 +32,7 @@
             "title": "Зупинити встановлення"
         },
         "uninstall": {
-            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
+            "checkbox": "Видалити префікс: {{prefix}}{{newLine}}Примітка: дію неможливо скасувати, та вона призведе до видалення файлів збережень.",
             "message": "Бажаєте видалити цю гру?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Видалити",
@@ -49,9 +49,9 @@
         "add_to_favourites": "Додати до вподобань",
         "cancel": "Призупинити/Скасувати",
         "continue": "Продовжити завантаження",
-        "finish": "Finish",
-        "force_update": "Force Update if Available",
-        "force-innstall": "Force Install",
+        "finish": "Завершити",
+        "force_update": "Примусове оновлення, якщо доступне",
+        "force-innstall": "Примусове встановлення",
         "hide_game": "Приховати гру",
         "import": "Імпортувати гру",
         "install": "Встановити",
@@ -147,7 +147,8 @@
         "title": "Оберіть компоненти для встановлення"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Use Default Wine Settings",
+        "winecrossoverbottle": "Пляшка CrossOver"
     },
     "sideload": {
         "field": {
@@ -183,7 +184,9 @@
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Всього завантажено",
         "uninstalling": "Uninstalling",
-        "updating": "Оновлюю гру"
+        "updating": "Оновлюю гру",
+        "playing": "Граючи",
+        "moving-files": "Переміщення файлу \"{{file}}\": {{percent}} "
     },
     "submenu": {
         "addShortcut": "Додати ярлик",
@@ -197,6 +200,7 @@
         "removeShortcut": "Remove shortcuts",
         "settings": "Налаштування",
         "store": "Сторінка в крамниці",
-        "verify": "Перевірити і відновити"
+        "verify": "Перевірити і відновити",
+        "extraInfo": "Додаткова інформація"
     }
 }

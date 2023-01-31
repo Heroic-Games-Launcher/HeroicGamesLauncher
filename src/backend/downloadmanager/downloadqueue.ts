@@ -1,17 +1,17 @@
+import { TypeCheckedStoreBackend } from './../electron_store'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
-import Store from 'electron-store'
 import { DMQueueElement } from 'common/types'
 import { installQueueElement, updateQueueElement } from './utils'
 import { sendFrontendMessage } from '../main_window'
 import { getGame } from 'backend/utils/game/game'
 import { getFileSize } from 'backend/utils/filesystem/filesystem'
 
-const downloadManager = new Store({
+const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
   cwd: 'store',
   name: 'download-manager'
 })
 
-/* 
+/*
 #### Private ####
 */
 
@@ -20,19 +20,12 @@ type DMStatus = 'done' | 'error' | 'abort'
 let queueState: DownloadManagerState = 'idle'
 
 function getFirstQueueElement() {
-  if (downloadManager.has('queue')) {
-    const elements = downloadManager.get('queue') as DMQueueElement[]
-    return elements.at(0)
-  }
-
-  return null
+  const elements = downloadManager.get('queue', [])
+  return elements.at(0) ?? null
 }
 
 function addToFinished(element: DMQueueElement, status: DMStatus) {
-  let elements: DMQueueElement[] = []
-  if (downloadManager.has('finished')) {
-    elements = downloadManager.get('finished') as DMQueueElement[]
-  }
+  const elements = downloadManager.get('finished', [])
 
   const elementIndex = elements.findIndex(
     (el) => el.params.appName === element.params.appName
@@ -51,7 +44,7 @@ function addToFinished(element: DMQueueElement, status: DMStatus) {
   )
 }
 
-/* 
+/*
 #### Public ####
 */
 
@@ -60,15 +53,8 @@ async function initQueue() {
   queueState = element ? 'running' : 'idle'
 
   while (element) {
-    const queuedElements = downloadManager.get('queue') as DMQueueElement[]
+    const queuedElements = downloadManager.get('queue', [])
     sendFrontendMessage('changedDMQueueInformation', queuedElements)
-    const game = getGame(element.params.appName, element.params.runner)
-    const installInfo = await game.getInstallInfo(
-      element.params.platformToInstall
-    )
-    element.params.size = installInfo?.manifest?.download_size
-      ? getFileSize(installInfo?.manifest?.download_size)
-      : '?? MB'
     element.startTime = Date.now()
     queuedElements[0] = element
     downloadManager.set('queue', queuedElements)
@@ -85,7 +71,7 @@ async function initQueue() {
   queueState = 'idle'
 }
 
-function addToQueue(element: DMQueueElement) {
+async function addToQueue(element: DMQueueElement) {
   if (!element) {
     logError(
       'Can not add undefined element to queue!',
@@ -101,10 +87,7 @@ function addToQueue(element: DMQueueElement) {
     status: 'queued'
   })
 
-  let elements: DMQueueElement[] = []
-  if (downloadManager.has('queue')) {
-    elements = downloadManager.get('queue') as DMQueueElement[]
-  }
+  const elements = downloadManager.get('queue', [])
 
   const elementIndex = elements.findIndex(
     (el) => el.params.appName === element.params.appName
@@ -113,6 +96,14 @@ function addToQueue(element: DMQueueElement) {
   if (elementIndex >= 0) {
     elements[elementIndex] = element
   } else {
+    const game = getGame(element.params.appName, element.params.runner)
+    const installInfo = await game.getInstallInfo(
+      element.params.platformToInstall
+    )
+
+    element.params.size = installInfo?.manifest?.download_size
+      ? getFileSize(installInfo?.manifest?.download_size)
+      : '?? MB'
     elements.push(element)
   }
 
@@ -131,8 +122,7 @@ function addToQueue(element: DMQueueElement) {
 
 function removeFromQueue(appName: string) {
   if (appName && downloadManager.has('queue')) {
-    let elements: DMQueueElement[] = []
-    elements = downloadManager.get('queue') as DMQueueElement[]
+    const elements = downloadManager.get('queue', [])
     const index = elements.findIndex(
       (queueElement) => queueElement?.params.appName === appName
     )
@@ -157,12 +147,8 @@ function removeFromQueue(appName: string) {
 }
 
 function getQueueInformation() {
-  let elements: DMQueueElement[] = []
-  let finished: DMQueueElement[] = []
-  if (downloadManager.has('queue')) {
-    elements = downloadManager.get('queue') as DMQueueElement[]
-    finished = downloadManager.get('finished') as DMQueueElement[]
-  }
+  const elements = downloadManager.get('queue', [])
+  const finished = downloadManager.get('finished', [])
 
   return { elements, finished }
 }

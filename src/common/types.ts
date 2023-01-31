@@ -1,8 +1,8 @@
 import { GOGCloudSavesLocation, GogInstallPlatform } from './types/gog'
 import { LegendaryInstallPlatform } from './types/legendary'
-import { VersionInfo } from 'heroic-wine-downloader'
 import { IpcRendererEvent } from 'electron'
 import { ChildProcess } from 'child_process'
+import { HowLongToBeatEntry } from 'howlongtobeat'
 
 export type Runner = 'legendary' | 'gog' | 'sideload'
 
@@ -90,7 +90,7 @@ export interface ExtraInfo {
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
 
 export interface GameInfo {
-  runner: Runner
+  runner: 'legendary' | 'gog'
   store_url: string
   app_name: string
   art_cover: string
@@ -165,6 +165,7 @@ export interface GameStatus {
     | 'moving'
     | 'queued'
     | 'error'
+    | 'syncing-saves'
 }
 
 export type GlobalConfigVersion = 'auto' | 'v0'
@@ -175,6 +176,7 @@ export interface InstallProgress {
   percent: number
   downSpeed?: number
   diskSpeed?: number
+  file?: string
 }
 export interface InstalledInfo {
   executable: string
@@ -243,25 +245,26 @@ export interface GOGLoginData {
 }
 
 export interface GOGGameInfo {
+  isGalaxyCompatible: true
   tags: string[]
   id: number
-  image: string
   availability: {
     isAvailable: boolean
-    isAvailableInAccount: boolean
+    isAvailableInAccount: true
   }
   title: string
+  image: string
   url: string
   worksOn: {
-    Windows: boolean
-    Mac: boolean
-    Linux: boolean
+    [key in 'Windows' | 'Mac' | 'Linux']: boolean
   }
   category: string
   rating: number
-  isComingSoom: boolean
-  isGame: boolean
+  isComingSoon: boolean
+  isMovie: false
+  isGame: true
   slug: string
+  updates: number
   isNew: boolean
   dlcCount: number
   releaseDate: {
@@ -272,8 +275,7 @@ export interface GOGGameInfo {
   isBaseProductMissing: boolean
   isHidingDisabled: boolean
   isInDevelopment: boolean
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  extraInfo: any[]
+  extraInfo: unknown[]
   isHidden: boolean
 }
 
@@ -420,10 +422,12 @@ export interface Runtime {
 
 export type RuntimeName = 'eac_runtime' | 'battleye_runtime'
 
-export interface HiddenGame {
+export type RecentGame = {
   appName: string
   title: string
 }
+
+export type HiddenGame = RecentGame
 
 export type FavouriteGame = HiddenGame
 
@@ -515,15 +519,6 @@ export interface Tools {
   runner: Runner
 }
 
-export type RecentGame = {
-  appName: string
-  title: string
-}
-
-export interface UpdateParams {
-  gameInfo: GameInfo
-}
-
 export interface DMQueueElement {
   type: 'update' | 'install'
   params: InstallParams
@@ -553,11 +548,11 @@ export type WineCommandArgs = {
 }
 
 export interface SideloadGame {
-  runner: Runner
+  runner: 'sideload'
   app_name: string
   art_cover: string
   art_square: string
-  is_installed: boolean
+  is_installed: true
   title: string
   install: {
     executable: string
@@ -613,11 +608,85 @@ export interface GameScoreInfo {
   urlid: string
 }
 export interface PCGamingWikiInfo {
-  timestampLastFetch: string
   steamID: string
   howLongToBeatID: string
   metacritic: GameScoreInfo
   opencritic: GameScoreInfo
   igdb: GameScoreInfo
   direct3DVersions: string[]
+}
+
+export interface AppleGamingWikiInfo {
+  crossoverRating: string
+  crossoverLink: string
+}
+
+export interface WikiInfo {
+  timestampLastFetch: string
+  pcgamingwiki: PCGamingWikiInfo | null
+  applegamingwiki: AppleGamingWikiInfo | null
+  howlongtobeat: HowLongToBeatEntry | null
+}
+
+/**
+ * Defines from where the version comes
+ */
+export type Type =
+  | 'Wine-GE'
+  | 'Proton-GE'
+  | 'Proton'
+  | 'Wine-Lutris'
+  | 'Wine-Kron4ek'
+  | 'Wine-Crossover'
+  | 'Wine-Staging-macOS'
+
+/**
+ * Interface contains information about a version
+ * - version
+ * - type (wine, proton, lutris, ge ...)
+ * - date
+ * - download link
+ * - checksum link
+ * - size (download and disk)
+ */
+export interface VersionInfo {
+  version: string
+  type: Type
+  date: string
+  download: string
+  downsize: number
+  disksize: number
+  checksum: string
+}
+
+/**
+ * Enum for the supported repositorys
+ */
+export enum Repositorys {
+  WINEGE,
+  PROTONGE,
+  PROTON,
+  WINELUTRIS,
+  WINECROSSOVER,
+  WINESTAGINGMACOS
+}
+
+/**
+ * Type for the progress callback state
+ */
+export type State = 'downloading' | 'unzipping' | 'idle'
+
+/**
+ * Interface for the information that progress callback returns
+ */
+export interface ProgressInfo {
+  percentage: number
+  avgSpeed: number
+  eta: number
+}
+
+export interface WineManagerUISettings {
+  value: string
+  type: Type
+  enabled: boolean
 }

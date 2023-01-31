@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks icra zamanı aşağıdakı xətanı qaytardı:{{newLine}}{{error}}",
                 "title": "Winetricks xətası"
-            }
+            },
+            "moving": "Oyunun köçürülməsi xətası {{error}}"
         },
         "info": {
             "update": {
@@ -279,7 +280,7 @@
             "version": "Qəhrəmanlıq versiyası"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "Parametrlər avtomatik olaraq saxlanılır",
         "version": "Şərab versiyası"
@@ -538,9 +539,9 @@
             "title": "Prefiksdə EXE-ni işə salın"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Oyunların dəqiq saxlanması qovluğunu seçin",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Mövzu seçin",
         "showfps": "FPS göstərin (DX9, 10 və 11)",
@@ -635,7 +636,9 @@
         "logout": "Çıxış",
         "logout_confirmation": "Çıxmaq istədiyinizə əminsiniz?",
         "manageaccounts": "Hesabları idarə et",
-        "quit": "Çıxın"
+        "quit": "Çıxın",
+        "cancel": "Cancel",
+        "quitMessage": "Çıxmaq istədiyinizə əminsiniz?"
     },
     "webview": {
         "controls": {
@@ -659,5 +662,8 @@
     "externalLink": {
         "dontAskAgain": "Bir daha soruşma",
         "warning": "Siz xarici keçid açmaq üzrəsiniz."
+    },
+    "wiki_info": {
+        "not_found": "Əlavə məlumat tapa bilmədik."
     }
 }

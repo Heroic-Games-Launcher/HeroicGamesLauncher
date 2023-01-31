@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
-            }
+            },
+            "moving": "Pogreška pri premještanju igre {{error}}"
         },
         "info": {
             "update": {
@@ -279,7 +280,7 @@
             "version": "Heroic verzija"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "Postavke se automatski spremaju",
         "version": "Wine verzija"
@@ -538,9 +539,9 @@
             "title": "Pokreni EXE na putu"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Odaberi točnu mapu podataka za igricu",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Select Theme",
         "showfps": "Pokaži FPS (DX9, 10 i 11)",
@@ -635,7 +636,9 @@
         "logout": "Logout",
         "logout_confirmation": "Jeste li sigurni da se želite odjaviti?",
         "manageaccounts": "Manage Accounts",
-        "quit": "Quit"
+        "quit": "Quit",
+        "cancel": "Odustani",
+        "quitMessage": "Jesi li siguran da želiš odustati?"
     },
     "webview": {
         "controls": {
@@ -659,5 +662,8 @@
     "externalLink": {
         "dontAskAgain": "Ne pitaj više",
         "warning": "Upravo ćete otvoriti vanjsku poveznicu."
+    },
+    "wiki_info": {
+        "not_found": "Nismo mogli pronaći dodatne informacije."
     }
 }

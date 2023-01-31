@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks tagastas jooksmise ajal järgmise vea:{{newLine}}{{error}}",
                 "title": "Winetricksi viga"
-            }
+            },
+            "moving": "Viga mängu teisaldamisel {{error}}"
         },
         "info": {
             "update": {
@@ -279,7 +280,7 @@
             "version": "Heroic Version"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "Seaded salvestatakse automaatselt",
         "version": "Wine'i versioon"
@@ -538,9 +539,9 @@
             "title": "Käivita EXE prefiksil"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Valige täpne mängude salvestiste kaust",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Valige teema",
         "showfps": "Näita FPS-i (DX9, 10 ja 11)",
@@ -635,7 +636,9 @@
         "logout": "Logi välja",
         "logout_confirmation": "Kas olete kindel, et soovite välja logida?",
         "manageaccounts": "Kontode haldamine",
-        "quit": "Sulge"
+        "quit": "Sulge",
+        "cancel": "Tühista",
+        "quitMessage": "Kas olete kindel, et soovite lõpetada?"
     },
     "webview": {
         "controls": {
@@ -659,5 +662,8 @@
     "externalLink": {
         "dontAskAgain": "Ära enam küsi",
         "warning": "Olete avamas välist linki."
+    },
+    "wiki_info": {
+        "not_found": "Me ei leidnud lisateavet."
     }
 }

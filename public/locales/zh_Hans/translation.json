@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks 在执行期间返回了以下错误：{{newLine}}{{error}}",
                 "title": "Winetricks 错误"
-            }
+            },
+            "moving": "移动游戏出错 {{error}}"
         },
         "info": {
             "update": {
@@ -221,11 +222,11 @@
     "GOG": "GOG",
     "gog-store": "GOG 商店",
     "header": {
-        "hide_non_available_games": "Hide non-available games",
+        "hide_non_available_games": "隐藏不可用的游戏",
         "ignore_hidden": "忽略隐藏项",
         "platform": "平台",
         "show_all_games": "显示所有游戏",
-        "show_available_games": "Show non-Available games",
+        "show_available_games": "显示不可用的游戏",
         "show_favourites_only": "仅显示最爱",
         "show_hidden": "显示隐藏项",
         "store": "过滤商店"
@@ -279,7 +280,7 @@
             "version": "Heroic 版本"
         },
         "save-sync": {
-            "searching": "尝试检查正确的保存文件夹"
+            "searching": "尝试检测正确的保存文件夹（单击取消）"
         },
         "settings": "设置会自动保存",
         "version": "Wine 版本"
@@ -454,7 +455,7 @@
         "autovkd3d": "自动在前置中安装/更新 VKD3D",
         "change-target-exe": "选择要运行的替代 EXE",
         "checkForUpdatesOnStartup": "启动时检查 Heroic 更新",
-        "crossover-version": "Crossover 版本",
+        "crossover-version": "Crossover/Wine 版本",
         "custom_themes_path": "自定义主题路径",
         "customWineProton": "自定义 Wine/Proton 路径",
         "darktray": "使用暗色托盘图标",
@@ -538,9 +539,9 @@
             "title": "在前置上运行 EXE"
         },
         "savefolder": {
-            "not-found": "未找到保存文件夹，请手动选择",
+            "not-found": "未找到保存文件夹，请手动选择（单击重试）",
             "placeholder": "选择存档的保存位置",
-            "warning": "请确保路径正确无误"
+            "warning": "请确保路径正确无误（单击重试）"
         },
         "select_theme": "选择主题",
         "showfps": "显示帧率（DX 9、10 和 11）",
@@ -635,7 +636,9 @@
         "logout": "退出登录",
         "logout_confirmation": "你确定要退出登录吗？",
         "manageaccounts": "管理帐户",
-        "quit": "退出"
+        "quit": "退出",
+        "cancel": "取消",
+        "quitMessage": "你确定你要退出吗？"
     },
     "webview": {
         "controls": {
@@ -659,5 +662,8 @@
     "externalLink": {
         "warning": "您即将打开一个外部链接。",
         "dontAskAgain": "不再询问"
+    },
+    "wiki_info": {
+        "not_found": "我们找不到额外的信息。"
     }
 }

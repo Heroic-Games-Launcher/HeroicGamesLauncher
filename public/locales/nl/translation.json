@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
-            }
+            },
+            "moving": "Fout bij verplaatsen van spel {{error}}"
         },
         "info": {
             "update": {
@@ -279,7 +280,7 @@
             "version": "Heroic Version"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "Instellingen worden automatisch opgeslagen",
         "version": "Wine Version"
@@ -538,9 +539,9 @@
             "title": "Voer EXE uit op Prefix"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Selecteer de exacte opslagmap",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Select Theme",
         "showfps": "Toon FPS (DX9, DX10 en DX11)",
@@ -635,7 +636,9 @@
         "logout": "Uitloggen",
         "logout_confirmation": "Weet u zeker dat u wilt uitloggen?",
         "manageaccounts": "Manage Accounts",
-        "quit": "Sluiten"
+        "quit": "Sluiten",
+        "cancel": "Cancel",
+        "quitMessage": "Weet je zeker dat je wilt stoppen?"
     },
     "webview": {
         "controls": {
@@ -659,5 +662,8 @@
     "externalLink": {
         "dontAskAgain": "Vraag het niet nog een keer",
         "warning": "U staat op het punt een externe link te openen."
+    },
+    "wiki_info": {
+        "not_found": "We konden geen extra informatie vinden."
     }
 }

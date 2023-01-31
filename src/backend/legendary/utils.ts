@@ -4,8 +4,9 @@ import {
 } from '../utils/abort/abort'
 import { runLegendaryCommand } from '../legendary/library'
 import { join } from 'path'
-import { configStore, fixAsarPath, publicDir } from '../constants'
+import { fixAsarPath, publicDir } from '../constants'
 import { splitPathAndName } from '../utils/format/format'
+import { GlobalConfig } from 'backend/config'
 
 async function getLegendaryVersion() {
   const abortID = 'legendary-version'
@@ -28,9 +29,7 @@ async function getLegendaryVersion() {
 }
 
 function getLegendaryBin(): { dir: string; bin: string } {
-  const settings = configStore.get('settings', {}) as {
-    altLegendaryBin: string
-  }
+  const settings = GlobalConfig.get().getSettings()
   if (settings?.altLegendaryBin) {
     return splitPathAndName(settings.altLegendaryBin)
   }

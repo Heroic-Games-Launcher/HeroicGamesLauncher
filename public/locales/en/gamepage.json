@@ -97,6 +97,9 @@
     "generic": {
         "error": "Unknown error"
     },
+    "help": {
+        "cloud_save_unsupported": "This game does not support cloud saves. This information is provided by the game developers. Some games do implement their own cloud save system"
+    },
     "hours": "Hours",
     "how-long-to-beat": {
         "completionist": "Completionist",
@@ -147,7 +150,8 @@
         "title": "Select components to Install"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Use Default Wine Settings",
+        "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {
         "field": {
@@ -174,9 +178,11 @@
         "installed": "Installed",
         "installing": "Installing",
         "moving": "Moving Installation, please wait",
+        "moving-files": "Moving file '{{file}}': {{percent}} ",
         "notinstalled": "This game is not installed",
         "notSupported": "Not supported",
         "notSupportedGame": "Not Supported",
+        "playing": "Playing",
         "processing": "Processing files, please wait",
         "queued": "Queued",
         "reparing": "Repairing Game, please wait",
@@ -191,6 +197,7 @@
         "change": "Change install path",
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",
+        "extraInfo": "Extra Info",
         "move": "Move Game",
         "protondb": "Check Compatibility",
         "removeFromSteam": "Remove from Steam",

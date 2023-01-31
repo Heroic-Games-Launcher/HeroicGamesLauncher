@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
-            }
+            },
+            "moving": "錯誤移動遊戲 {{error}}"
         },
         "info": {
             "update": {
@@ -279,7 +280,7 @@
             "version": "Heroic Version"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "設定會自動保存",
         "version": "Wine 版本"
@@ -538,9 +539,9 @@
             "title": "在PREFIX上執行exe檔案"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "選擇存檔的保存位置",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "選擇主題",
         "showfps": "顯示幀數（Directx 9，10和11）",
@@ -635,7 +636,9 @@
         "logout": "登出",
         "logout_confirmation": "您確定要登出嗎？",
         "manageaccounts": "管理帳號",
-        "quit": "退出"
+        "quit": "退出",
+        "cancel": "取消",
+        "quitMessage": "你確定你要退出嗎？"
     },
     "webview": {
         "controls": {
@@ -659,5 +662,8 @@
     "externalLink": {
         "dontAskAgain": "不再詢問",
         "warning": "您即將打開一個外部鏈接。"
+    },
+    "wiki_info": {
+        "not_found": "我們找不到額外的信息。"
     }
 }

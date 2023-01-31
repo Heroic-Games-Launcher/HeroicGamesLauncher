@@ -1,9 +1,8 @@
-import { WineCommandArgs } from './../../common/types'
 import {
   createAbortController,
   deleteAbortController
 } from '../utils/abort/abort'
-import { appendFileSync, existsSync, mkdirSync } from 'graceful-fs'
+import { appendFileSync } from 'graceful-fs'
 import axios from 'axios'
 
 import {
@@ -11,7 +10,8 @@ import {
   ExtraInfo,
   GameInfo,
   InstallArgs,
-  InstallPlatform
+  InstallPlatform,
+  WineCommandArgs
 } from 'common/types'
 import { Game } from '../games'
 import { GameConfig } from '../game_config'
@@ -20,7 +20,6 @@ import { LegendaryLibrary, runLegendaryCommand } from './library'
 import { LegendaryUser } from './user'
 import {
   heroicGamesConfigPath,
-  userHome,
   isMac,
   isWindows,
   installed,
@@ -40,7 +39,7 @@ import {
   getRunnerCallWithoutCredentials
 } from '../launcher'
 import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts/shortcuts'
-import { basename, join } from 'path'
+import { join } from 'path'
 import { gameInfoStore } from './electronStores'
 import { removeNonSteamGame } from '../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
@@ -50,9 +49,9 @@ import { showDialogBoxModalAuto } from '../dialog/dialog'
 import { gameAnticheatInfo } from '../anticheat/utils'
 import { Catalog, Product } from 'common/types/epic-graphql'
 import { sendFrontendMessage } from '../main_window'
-import { execAsync } from '../utils/process/process'
 import { getLegendaryBin } from './utils'
 import { killPattern } from '../utils/app/app'
+import { moveOnUnix, moveOnWindows } from 'backend/utils/filesystem/filesystem'
 
 class LegendaryGame extends Game {
   public appName: string
@@ -153,7 +152,7 @@ class LegendaryGame extends Game {
   }
 
   private async getExtraFromAPI(slug: string): Promise<ExtraInfo | null> {
-    let lang = configStore.get('language', '') as string
+    let lang = configStore.get('language', '')
     if (lang === 'pt') {
       lang = 'pt-BR'
     }
@@ -262,13 +261,12 @@ class LegendaryGame extends Game {
   /**
    * Get extra info from Epic's API.
    *
-   * @param namespace
-   * @returns
    */
   public async getExtraInfo(): Promise<ExtraInfo> {
     const { namespace, title } = this.getGameInfo()
-    if (gameInfoStore.has(namespace)) {
-      return gameInfoStore.get(namespace) as ExtraInfo
+    const cachedExtraInfo = gameInfoStore.get_nodefault(namespace)
+    if (cachedExtraInfo) {
+      return cachedExtraInfo
     }
     if (!isOnline()) {
       return {
@@ -335,11 +333,34 @@ class LegendaryGame extends Game {
   /**
    * Parent folder to move app to.
    * Amends install path by adding the appropriate folder name.
-   *
-   * @param newInstallPath
-   * @returns The amended install path.
    */
-  public async moveInstall(newInstallPath: string) {
+  public async moveInstall(
+    newInstallPath: string
+  ): Promise<{ status: 'done' } | { status: 'error'; error: string }> {
+    const gameInfo = this.getGameInfo()
+    logInfo(`Moving ${gameInfo.title} to ${newInstallPath}`, LogPrefix.Gog)
+
+    const moveImpl = isWindows ? moveOnWindows : moveOnUnix
+    const moveResult = await moveImpl(newInstallPath, gameInfo)
+
+    if (moveResult.status === 'error') {
+      const { error } = moveResult
+      logError(
+        ['Error moving', gameInfo.title, 'to', newInstallPath, error],
+        LogPrefix.Legendary
+      )
+
+      return { status: 'error', error }
+    }
+
+    await LegendaryLibrary.get().changeGameInstallPath(
+      this.appName,
+      moveResult.installPath
+    )
+    return { status: 'done' }
+  }
+
+  /*   public async moveInstall(newInstallPath: string) {
     const oldInstallPath = this.getGameInfo().install.install_path!
 
     newInstallPath = join(newInstallPath, basename(oldInstallPath))
@@ -365,7 +386,7 @@ class LegendaryGame extends Game {
         )
       })
     return newInstallPath
-  }
+  } */
 
   // used when downloading games, store the download size read from Legendary's output
   currentDownloadSize = 0
@@ -651,6 +672,7 @@ class LegendaryGame extends Game {
     }
     return res
   }
+
   /**
    * Repair game.
    * Does NOT check for online connectivity.
@@ -704,6 +726,7 @@ class LegendaryGame extends Game {
       commandParts,
       createAbortController(this.appName)
     )
+    this.addShortcuts()
 
     deleteAbortController(this.appName)
 
@@ -728,20 +751,12 @@ class LegendaryGame extends Game {
       )
       return 'No path provided.'
     }
-    path = path.replaceAll("'", '').replaceAll('"', '')
-    const fixedPath = isWindows ? path.slice(0, -1) : path
-
-    // workaround error when no .saves folder exists
-    const legendarySavesPath = join(userHome, 'legendary', '.saves')
-    if (!existsSync(legendarySavesPath)) {
-      mkdirSync(legendarySavesPath, { recursive: true })
-    }
 
     const commandParts = [
       'sync-saves',
       arg,
       '--save-path',
-      fixedPath,
+      path,
       this.appName,
       '-y'
     ]
@@ -751,7 +766,7 @@ class LegendaryGame extends Game {
       commandParts,
       createAbortController(this.appName),
       {
-        logMessagePrefix: `Syncing saves for ${this.appName}`,
+        logMessagePrefix: `Syncing saves for ${this.getGameInfo().title}`,
         onOutput: (output) => (fullOutput += output)
       }
     )
@@ -799,7 +814,7 @@ class LegendaryGame extends Game {
       : []
 
     const languageCode =
-      gameSettings.language || (configStore.get('language', '') as string)
+      gameSettings.language || configStore.get('language', '')
     const languageFlag = languageCode ? ['--language', languageCode] : []
 
     let commandEnv = isWindows

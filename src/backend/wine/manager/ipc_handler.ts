@@ -1,5 +1,5 @@
 import { ipcMain } from 'electron'
-import { ProgressInfo, State } from 'heroic-wine-downloader'
+import { ProgressInfo, State } from 'common/types'
 import {
   installWineVersion,
   removeWineVersion,

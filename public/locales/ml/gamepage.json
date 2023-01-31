@@ -147,7 +147,8 @@
         "title": "നടുവാനുള്ള ഘടകങ്ങള് തിരഞ്ഞെടുക്കൂ"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Use Default Wine Settings",
+        "winecrossoverbottle": "ക്രോസ്സോവര് കുപ്പി"
     },
     "sideload": {
         "field": {
@@ -183,7 +184,9 @@
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "ആകെ ഇറക്കിയെടുത്തത്",
         "uninstalling": "Uninstalling",
-        "updating": "കളി പുതുക്കുന്നു"
+        "updating": "കളി പുതുക്കുന്നു",
+        "playing": "കളിക്കുന്നു",
+        "moving-files": "'{{file}}' ഫയൽ നീക്കുന്നു: {{percent}} "
     },
     "submenu": {
         "addShortcut": "കുറുക്കുവഴി ചേര്ക്കൂ",
@@ -197,6 +200,7 @@
         "removeShortcut": "Remove shortcuts",
         "settings": "ക്രമീകരണങ്ങള്",
         "store": "കടത്താള്",
-        "verify": "കണ്ടെത്തി നന്നാക്കൂ"
+        "verify": "കണ്ടെത്തി നന്നാക്കൂ",
+        "extraInfo": "അധിക വിവരങ്ങൾ"
     }
 }

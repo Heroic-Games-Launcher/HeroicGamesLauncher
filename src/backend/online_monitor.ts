@@ -119,12 +119,6 @@ export const initOnlineMonitor = () => {
   })
 }
 
-// export const makeNetworkRequest = (callback: () => unknown) => {
-//   if (isOnline()) {
-//     callback()
-//   }
-// }
-
 export const runOnceWhenOnline = (callback: () => unknown) => {
   if (isOnline()) {
     callback()
@@ -134,8 +128,3 @@ export const runOnceWhenOnline = (callback: () => unknown) => {
 }
 
 export const isOnline = () => status === 'online'
-
-// use this function to trigger the connectivity check when detecting an external request failing
-// export const checkConnectivity = () => {
-//   setStatus('check-online')
-// }

@@ -2,7 +2,7 @@ import { BrowserWindow } from 'electron'
 import { initTrayIcon, testingExportsTrayIcon } from '../tray_icon'
 import { backendEvents } from '../../backend_events'
 import { GlobalConfig } from '../../config'
-import { RecentGame } from '../../../common/types'
+import { RecentGame } from 'common/types'
 import { configStore } from '../../constants'
 import { wait } from '../../utils/process/process'
 
@@ -13,7 +13,7 @@ describe('TrayIcon', () => {
   const mainWindow = new BrowserWindow()
 
   const setRecentGames = (games: RecentGame[]) => {
-    configStore.get = () => games
+    jest.spyOn(configStore, 'get').mockReturnValue(games)
   }
 
   afterEach(() => {

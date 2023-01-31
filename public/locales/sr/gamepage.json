@@ -38,7 +38,8 @@
         "move": "Премести игру",
         "protondb": "Проверите компатибилност",
         "removeFromSteam": "Уклони из Steam-а",
-        "verify": "Провери и поправи"
+        "verify": "Провери и поправи",
+        "extraInfo": "Ектра Инфо"
     },
     "box": {
         "change": {
@@ -161,7 +162,8 @@
         "title": "Изаберите компоненте за инсталирање"
     },
     "setting": {
-        "use-default-wine-settings": "Користите подразумевана подешавања Wine-а"
+        "use-default-wine-settings": "Користите подразумевана подешавања Wine-а",
+        "winecrossoverbottle": "ЦроссОвер Боттле"
     },
     "sideload": {
         "field": {
@@ -197,6 +199,8 @@
         "this-game-uses-third-party": "Ова игра користи покретач треће стране и још увек није подржана",
         "totalDownloaded": "Укупно преузето",
         "uninstalling": "Деинсталирање",
-        "updating": "Ажурирање игре"
+        "updating": "Ажурирање игре",
+        "playing": "Играње",
+        "moving-files": "Премештање датотеке „[Кс13Кс]“: [Кс24Кс] "
     }
 }

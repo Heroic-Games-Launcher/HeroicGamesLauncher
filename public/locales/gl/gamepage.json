@@ -1,7 +1,7 @@
 {
     "box": {
         "change": {
-            "message": "Isto cambiará a localización da instalción do xogo, ¿estás seguro?",
+            "message": "Isto cambiará a localización da instalación do xogo, está seguro?",
             "path": "Escolle o cartafol de instalación",
             "title": "Modificar a localización de instalación do xogo"
         },
@@ -147,7 +147,8 @@
         "title": "Seleccione os compoñentes a instalar"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Use Default Wine Settings",
+        "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {
         "field": {
@@ -183,7 +184,9 @@
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Total descargado",
         "uninstalling": "Uninstalling",
-        "updating": "Actualización do xogo"
+        "updating": "Actualización do xogo",
+        "playing": "Xogando",
+        "moving-files": "Movendo o ficheiro '{{file}}': {{percent}} "
     },
     "submenu": {
         "addShortcut": "Engadir acceso directo",
@@ -197,6 +200,7 @@
         "removeShortcut": "Remove shortcuts",
         "settings": "Axustes",
         "store": "Páxina da tenda",
-        "verify": "Verificar e reparar"
+        "verify": "Verificar e reparar",
+        "extraInfo": "Información extra"
     }
 }

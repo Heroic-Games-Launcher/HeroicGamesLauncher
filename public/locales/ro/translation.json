@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks a returnat următoarea eroare în timpul execuției:{{newLine}}{{error}}",
                 "title": "Eroare Winetricks"
-            }
+            },
+            "moving": "Eroare la mutarea jocului {{error}}"
         },
         "info": {
             "update": {
@@ -279,7 +280,7 @@
             "version": "Versiune eroică"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder"
+            "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "Setările sunt salvate automat",
         "version": "Versiune Wine"
@@ -538,9 +539,9 @@
             "title": "Rulați EXE pe Prefix"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually",
+            "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Selectați folderul exact de salvare a jocurilor",
-            "warning": "Please check twice if the path is correct"
+            "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Selectează tema",
         "showfps": "Afișați FPS (DX9, 10 și 11)",
@@ -635,7 +636,9 @@
         "logout": "Deconectare",
         "logout_confirmation": "Sigur doriți să vă deconectați?",
         "manageaccounts": "Gestionați Conturile",
-        "quit": "Părăsește"
+        "quit": "Părăsește",
+        "cancel": "Cancel",
+        "quitMessage": "Esti sigur ca vrei sa renunti?"
     },
     "webview": {
         "controls": {
@@ -659,5 +662,8 @@
     "externalLink": {
         "dontAskAgain": "Nu mai întreba",
         "warning": "Sunteți pe cale să deschideți un link extern."
+    },
+    "wiki_info": {
+        "not_found": "Nu am putut găsi informații suplimentare."
     }
 }

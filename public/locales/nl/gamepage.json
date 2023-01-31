@@ -147,7 +147,8 @@
         "title": "Selecteer componenten om te installeren"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings"
+        "use-default-wine-settings": "Use Default Wine Settings",
+        "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {
         "field": {
@@ -183,7 +184,9 @@
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Totaal gedownload",
         "uninstalling": "Uninstalling",
-        "updating": "Spel aan het updaten"
+        "updating": "Spel aan het updaten",
+        "playing": "Spelen",
+        "moving-files": "Bestand verplaatsen '{{file}}': {{percent}} "
     },
     "submenu": {
         "addShortcut": "Snelkoppeling toevoegen",
@@ -197,6 +200,7 @@
         "removeShortcut": "Remove shortcuts",
         "settings": "Instellingen",
         "store": "Winkel",
-        "verify": "Verifiëren en repareren"
+        "verify": "Verifiëren en repareren",
+        "extraInfo": "Extra info"
     }
 }
