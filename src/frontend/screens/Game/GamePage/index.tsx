@@ -21,7 +21,6 @@ import { UpdateComponent, SelectField } from 'frontend/components/UI'
 import {
   ExtraInfo,
   GameInfo,
-  GameStatus,
   Runner,
   SideloadGame,
   WineInstallation
@@ -53,6 +52,7 @@ import {
 
 import StoreLogos from 'frontend/components/UI/StoreLogos'
 import { WikiGameInfo } from 'frontend/components/UI/WikiGameInfo'
+import { hasStatus } from 'frontend/hooks/hasStatus'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -67,7 +67,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [showModal, setShowModal] = useState({ game: '', show: false })
 
   const {
-    libraryStatus,
     epic,
     gog,
     gameUpdates,
@@ -77,12 +76,13 @@ export default React.memo(function GamePage(): JSX.Element | null {
     isSettingsModalOpen
   } = useContext(ContextProvider)
 
-  const { status } =
-    libraryStatus.find((game) => game.appName === appName) || {}
+  const [gameInfo, setGameInfo] = useState(locationGameInfo)
+
+  const { status, folder } = hasStatus(appName, gameInfo)
+  const gameAvailable = gameInfo.is_installed && status !== 'notAvailable'
 
   const [progress, previousProgress] = hasProgress(appName)
 
-  const [gameInfo, setGameInfo] = useState(locationGameInfo)
   const [extraInfo, setExtraInfo] = useState<ExtraInfo | null>(null)
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [gameInstallInfo, setGameInstallInfo] = useState<
@@ -97,7 +97,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [wineVersion, setWineVersion] = useState<WineInstallation>()
   const [showRequirements, setShowRequirements] = useState(false)
   const [showExtraInfo, setShowExtraInfo] = useState(false)
-  const [gameAvailable, setGameAvailable] = useState(true)
 
   const isWin = platform === 'win32'
   const isSideloaded = runner === 'sideload'
@@ -117,19 +116,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const backRoute = location.state?.fromDM ? '/download-manager' : '/library'
 
   const storage: Storage = window.localStorage
-
-  useEffect(() => {
-    const checkGameAvailable = async () => {
-      if (gameInfo.is_installed && !isMoving) {
-        const gameAvailable = await window.api.isGameAvailable({
-          appName,
-          runner
-        })
-        setGameAvailable(gameAvailable)
-      }
-    }
-    checkGameAvailable()
-  }, [appName, status, gameInfo.is_installed, isMoving])
 
   useEffect(() => {
     const updateGameInfo = async () => {
@@ -734,10 +720,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
       return handleModal()
     }
 
-    const gameStatus: GameStatus = libraryStatus.filter(
-      (game: GameStatus) => game.appName === appName
-    )[0]
-    const { folder } = gameStatus
     if (!folder) {
       return
     }
