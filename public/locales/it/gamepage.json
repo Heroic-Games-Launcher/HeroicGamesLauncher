@@ -202,5 +202,8 @@
         "store": "Pagina dello store",
         "verify": "Verifica e ripara",
         "extraInfo": "Ulteriori informazioni"
+    },
+    "help": {
+        "cloud_save_unsupported": "Questo gioco non supporta i salvataggi nel cloud. Queste informazioni sono fornite dagli sviluppatori del gioco. Alcuni giochi implementano il proprio sistema di salvataggio nel cloud"
     }
 }

@@ -2,7 +2,7 @@
     "box": {
         "change": {
             "message": "Esto cambiará la ubicación de la instalación del juego, ¿estás seguro?",
-            "path": "Seleccione una nueva ruta de instalación",
+            "path": "Seleccione una nueva carpeta para la instalación",
             "title": "Modificar la ubicación de instalación para los juegos"
         },
         "choose": "Elegir",
@@ -32,7 +32,7 @@
             "title": "Detener la instalación"
         },
         "uninstall": {
-            "checkbox": "Borrar prefijo: {{prefix}}{{newLine}}Nota: Esto no se puede deshacer y borrará archivos no resguardados.",
+            "checkbox": "Eliminar prefijo: {{prefix}}{{newLine}}Nota: Esta acción no se puede revertir y eliminará también los archivos de guardado sin copia de seguridad.",
             "message": "¿Quieres desinstalar este juego?",
             "settingcheckbox": "Borrar ajustes y eliminar registros{{newLine}}Nota: Este cambio no se puede deshacer. Todos los ajustes serán olvidados y el registro serán borrado.",
             "title": "Desinstalar",
@@ -59,7 +59,7 @@
         "queue": {
             "remove": "Quitar de la cola"
         },
-        "remove_from_favourites": "Remover de Favoritos",
+        "remove_from_favourites": "Eliminar de Favoritos",
         "remove_from_recent": "Remover de Recientes",
         "run-exe-first": "Ejecutar instalador primero",
         "running-setup": "Ejecutando setup",
@@ -86,7 +86,7 @@
         "language": "Lenguaje",
         "lastPlayed": "Jugado por Última Vez",
         "neverPlayed": "Nunca",
-        "platform": "Seleccionar la Version de la Plataforma para Instalar",
+        "platform": "Seleccionar la Versión de la Plataforma a Instalar",
         "requirements": "Requerimientos del Sistema",
         "totalPlayed": "Tiempo Jugado"
     },
@@ -100,7 +100,7 @@
     "hours": "Horas",
     "how-long-to-beat": {
         "completionist": "Completionist",
-        "main-plus-extras": "Main + Extras",
+        "main-plus-extras": "Principal + Extras",
         "main-story": "Historia principal"
     },
     "howLongToBeat": "How Long To Beat",
@@ -116,14 +116,14 @@
         "disk-space-left": "Espacio disponible",
         "not-enough-disk-space": "Almacenamiento insuficiente",
         "path": "Seleccione la ruta de instalación",
-        "path-not-writtable": "Aviso: Puedes no tener acceso a la ruta .",
+        "path-not-writtable": "Advertencia: La ruta puede estar protegida contra escritura.",
         "space-after-install": "Después de la instalación",
         "wineprefix": "Prefijo de Wine",
         "wineversion": "Version de Wine"
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Juego NO soportado"
         },
         "playing": {
             "start": "Jugar",
@@ -147,7 +147,7 @@
         "title": "Elija componentes a instalar"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings",
+        "use-default-wine-settings": "User configuración por defecto de Wine",
         "winecrossoverbottle": "Botella de CrossOver"
     },
     "sideload": {
@@ -170,23 +170,23 @@
     },
     "status": {
         "clickToUpdate": "Clic para actualizar",
-        "gameNotAvailable": "Game not available",
+        "gameNotAvailable": "Juego no disponible",
         "hasUpdates": "¡Nueva versión disponible!",
         "installed": "Instalado",
         "installing": "Instalando",
         "moving": "Moviendo la instalación, por favor espere",
         "notinstalled": "Este juego no está instalado",
-        "notSupported": "Not supported",
-        "notSupportedGame": "Not Supported",
+        "notSupported": "No soportado",
+        "notSupportedGame": "No Soportado",
         "processing": "Procesando los archivos, por favor espere",
         "queued": "Encolado",
         "reparing": "Reparando el juego, por favor espere",
-        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
+        "this-game-uses-third-party": "Este juego usa un launcher de terceros y aún no está soportado",
         "totalDownloaded": "Total descargado",
-        "uninstalling": "Uninstalling",
+        "uninstalling": "Desinstalando",
         "updating": "Actualización de juego",
         "playing": "Jugando",
-        "moving-files": "Mover archivo '{{file}}': {{percent}} "
+        "moving-files": "Moviendo archivo '{{file}}': {{percent}} "
     },
     "submenu": {
         "addShortcut": "Añadir acceso directo",
@@ -202,5 +202,8 @@
         "store": "Página de la tienda",
         "verify": "Verificar y reparar",
         "extraInfo": "Información extra"
+    },
+    "help": {
+        "cloud_save_unsupported": "Este juego no admite guardados en la nube. Esta información es proporcionada por los desarrolladores del juego. Algunos juegos implementan su propio sistema de guardado en la nube"
     }
 }

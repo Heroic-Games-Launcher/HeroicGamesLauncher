@@ -75,8 +75,9 @@ const pingSites = () => {
   const ping1 = ping('https://github.com', abortController.signal)
   const ping2 = ping('https://store.epicgames.com', abortController.signal)
   const ping3 = ping('https://gog.com', abortController.signal)
+  const ping4 = ping('https://cloudflare-dns.com/', abortController.signal)
 
-  Promise.any([ping1, ping2, ping3])
+  Promise.any([ping1, ping2, ping3, ping4])
     .then(() => {
       setStatus('online')
       abortController.abort() // abort the rest

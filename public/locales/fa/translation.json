@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "انتخاب پوشه Wine Prefix",
-        "yes": "بله"
+        "yes": "بله",
+        "dontShowAgain": "دیگر نشان نده"
     },
     "button": {
         "cancel": "Cancel",

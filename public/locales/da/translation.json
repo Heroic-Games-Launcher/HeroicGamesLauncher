@@ -142,7 +142,8 @@
                 "title": "Vin ikke fundet!"
             }
         },
-        "default-steam-path": "Dampvej."
+        "default-steam-path": "Dampvej.",
+        "dontShowAgain": "Vis ikke igen"
     },
     "All": "Alle",
     "accessibility": {

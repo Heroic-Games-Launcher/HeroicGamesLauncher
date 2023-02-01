@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "Wineプレフィックスフォルダを選択します",
-        "yes": "はい"
+        "yes": "はい",
+        "dontShowAgain": "今後表示しない"
     },
     "button": {
         "cancel": "Cancel",

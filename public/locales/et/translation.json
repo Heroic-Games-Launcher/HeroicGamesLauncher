@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "Valige Wine prefiksi kaust",
-        "yes": "JAH"
+        "yes": "JAH",
+        "dontShowAgain": "Ära näita enam"
     },
     "button": {
         "cancel": "Cancel",

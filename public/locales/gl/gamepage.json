@@ -202,5 +202,8 @@
         "store": "Páxina da tenda",
         "verify": "Verificar e reparar",
         "extraInfo": "Información extra"
+    },
+    "help": {
+        "cloud_save_unsupported": "Este xogo non admite gardados na nube. Esta información é proporcionada polos desenvolvedores do xogo. Algúns xogos implementan o seu propio sistema de gardar na nube"
     }
 }

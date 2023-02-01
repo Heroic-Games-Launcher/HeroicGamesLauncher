@@ -202,5 +202,8 @@
         "store": "Poe lehekülg",
         "verify": "Kontrolli ja paranda",
         "extraInfo": "Lisainfo"
+    },
+    "help": {
+        "cloud_save_unsupported": "See mäng ei toeta pilvesalvestust. Seda teavet pakuvad mängu arendajad. Mõned mängud rakendavad oma pilvesalvestussüsteemi"
     }
 }

@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "選擇 WinePrefix 資料夾",
-        "yes": "是"
+        "yes": "是",
+        "dontShowAgain": "不再顯示"
     },
     "button": {
         "cancel": "Cancel",

@@ -28,7 +28,7 @@ const OfflineMessage = () => {
 
   const hintHtml = t('offline-message.hint', {
     defaultValue:
-      'We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com',
+      'We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com and{{newline}}cloudflare-dns.com',
     newline: '<br />'
   })
 

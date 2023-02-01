@@ -31,7 +31,6 @@ import {
   getProgress,
   size,
   getInstallInfo,
-  getGameInfo,
   writeConfig,
   install
 } from 'frontend/helpers'
@@ -55,8 +54,6 @@ interface Props {
   runner: Runner
   platformToInstall: InstallPlatform
   availablePlatforms: AvailablePlatforms
-  setIsLinuxNative: React.Dispatch<React.SetStateAction<boolean>>
-  setIsMacNative: React.Dispatch<React.SetStateAction<boolean>>
   winePrefix: string
   crossoverBottle: string
   wineVersion: WineInstallation | undefined
@@ -106,8 +103,6 @@ export default function DownloadDialog({
   runner,
   platformToInstall,
   availablePlatforms,
-  setIsLinuxNative,
-  setIsMacNative,
   winePrefix,
   wineVersion,
   children,
@@ -120,8 +115,6 @@ export default function DownloadDialog({
   const { libraryStatus, platform, showDialogModal } =
     useContext(ContextProvider)
 
-  const isMac = platform === 'darwin'
-  const isLinux = platform === 'linux'
   const isWin = platform === 'win32'
 
   const [gameInstallInfo, setGameInstallInfo] = useState<
@@ -221,7 +214,7 @@ export default function DownloadDialog({
   }
 
   useEffect(() => {
-    const getIinstallInfo = async () => {
+    const getIinstInfo = async () => {
       try {
         setGettingInstallInfo(true)
         const gameInstallInfo = await getInstallInfo(
@@ -267,23 +260,8 @@ export default function DownloadDialog({
         return
       }
     }
-    getIinstallInfo()
+    getIinstInfo()
   }, [appName, i18n.languages, platformToInstall])
-
-  useEffect(() => {
-    const getCacheInfo = async () => {
-      if (gameInfo) {
-        setIsLinuxNative(gameInfo.is_linux_native && isLinux)
-        setIsMacNative(gameInfo.is_mac_native && isMac)
-      } else {
-        const gameData = await getGameInfo(appName, runner)
-        if (gameData?.runner === 'sideload') return
-        setIsLinuxNative((gameData?.is_linux_native && isLinux) ?? false)
-        setIsMacNative((gameData?.is_mac_native && isMac) ?? false)
-      }
-    }
-    getCacheInfo()
-  }, [appName])
 
   useEffect(() => {
     const getSpace = async () => {
@@ -315,23 +293,6 @@ export default function DownloadDialog({
     }
     getSpace()
   }, [installPath, gameInstallInfo?.manifest?.disk_size])
-
-  useEffect(() => {
-    const getCacheInfo = async () => {
-      if (gameInfo) {
-        setIsLinuxNative(gameInfo.is_linux_native && isLinux)
-        setIsMacNative(gameInfo.is_mac_native && isMac)
-      } else {
-        const gameData = await getGameInfo(appName, runner)
-        if (!gameData || gameData.runner === 'sideload') {
-          return
-        }
-        setIsLinuxNative(gameData.is_linux_native && isLinux)
-        setIsMacNative(gameData.is_mac_native && isMac)
-      }
-    }
-    getCacheInfo()
-  }, [appName])
 
   const haveDLCs =
     gameInstallInfo && gameInstallInfo?.game?.owned_dlc?.length > 0

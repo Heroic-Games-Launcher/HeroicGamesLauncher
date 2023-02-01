@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "Selecione a pasta do prefixo Wine",
-        "yes": "SIM"
+        "yes": "SIM",
+        "dontShowAgain": "Não mostrar novamente"
     },
     "button": {
         "cancel": "Cancelar",

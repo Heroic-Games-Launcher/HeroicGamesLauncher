@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "Vyberte složku WinePrefix",
-        "yes": "ANO"
+        "yes": "ANO",
+        "dontShowAgain": "Nezobrazovat znovu"
     },
     "button": {
         "cancel": "Zrušit",

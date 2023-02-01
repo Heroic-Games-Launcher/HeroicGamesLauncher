@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "选择 Wine Prefix 文件夹",
-        "yes": "是"
+        "yes": "是",
+        "dontShowAgain": "不再显示"
     },
     "button": {
         "cancel": "取消",

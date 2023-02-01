@@ -52,6 +52,7 @@ import {
 } from './legendary/electronStores'
 import {
   apiInfoCache as GOGapiInfoCache,
+  gogInstallInfoStore as GOGinstallInfoStore,
   libraryStore as GOGlibraryStore
 } from './gog/electronStores'
 import fileSize from 'filesize'
@@ -293,6 +294,10 @@ const getSystemInfo = async () => {
   const legendaryVersion = await getLegendaryVersion()
   const gogdlVersion = await getGogdlVersion()
 
+  const electronVersion = process.versions.electron || 'unknown'
+  const chromeVersion = process.versions.chrome || 'unknown'
+  const nodeVersion = process.versions.node || 'unknown'
+
   // get CPU and RAM info
   const { manufacturer, brand, speed, governor } = await si.cpu()
   const { total, available } = await si.mem()
@@ -322,6 +327,11 @@ const getSystemInfo = async () => {
   systemInfoCache = `Heroic Version: ${heroicVersion}
 Legendary Version: ${legendaryVersion}
 GOGdl Version: ${gogdlVersion}
+
+Electron Version: ${electronVersion}
+Chrome Version: ${chromeVersion}
+NodeJS Version: ${nodeVersion}
+
 OS: ${isMac ? `${codename} ${release}` : distro} KERNEL: ${kernel} ARCH: ${arch}
 CPU: ${manufacturer} ${brand} @${speed} ${
     governor ? `GOVERNOR: ${governor}` : ''
@@ -420,6 +430,7 @@ async function openUrlOrFile(url: string): Promise<string | void> {
 async function clearCache() {
   GOGapiInfoCache.clear()
   GOGlibraryStore.clear()
+  GOGinstallInfoStore.clear()
   installStore.clear()
   libraryStore.clear()
   gameInfoStore.clear()

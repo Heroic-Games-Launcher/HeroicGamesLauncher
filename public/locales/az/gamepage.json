@@ -203,5 +203,8 @@
         "store": "Mağaza Səhifəsi",
         "verify": "Doğrulayın və Təmir edin",
         "extraInfo": "Əlavə məlumat"
+    },
+    "help": {
+        "cloud_save_unsupported": "Bu oyun bulud qənaətlərini dəstəkləmir. Bu məlumat oyun tərtibatçıları tərəfindən verilir. Bəzi oyunlar öz bulud qənaət sistemini tətbiq edir"
     }
 }

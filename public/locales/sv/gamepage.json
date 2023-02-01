@@ -202,5 +202,8 @@
         "store": "Butikssida",
         "verify": "Verifiera och reparera",
         "extraInfo": "Extra info"
+    },
+    "help": {
+        "cloud_save_unsupported": "Det här spelet stöder inte molnlagring. Denna information tillhandahålls av spelutvecklarna. Vissa spel implementerar sitt eget molnsparsystem"
     }
 }

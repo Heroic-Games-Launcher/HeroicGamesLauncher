@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "Pilih Folder Prefiks Wine",
-        "yes": "YA"
+        "yes": "YA",
+        "dontShowAgain": "Jangan tampilkan lagi"
     },
     "button": {
         "cancel": "Batalkan",
