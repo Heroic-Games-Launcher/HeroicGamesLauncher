@@ -76,13 +76,13 @@
 
       .gameTools {
         position: absolute;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.2s, max-height 0.2s;
+        opacity: 1;
+        pointer-events: all;
+        transition: all 0.2s;
         background: var(--navbar-background);
         border-radius: 5px;
         z-index: 2;
-        padding: 1rem;
+        padding: 0;
         max-height: 0px;
         overflow: hidden;
         right: 0;
@@ -97,6 +97,10 @@
         font-size: 1rem;
         background: var(--navbar-background);
 
+        &:hover {
+          color: var(--accent-overlay);
+        }
+
         &:last-child {
           padding-bottom: 0;
         }
@@ -106,6 +110,7 @@
       &:hover .gameTools {
         opacity: 1;
         pointer-events: all;
+        padding: var(--space-md);
         max-height: 100vh;
         box-shadow: 4px 5px 5px -2px rgba(0, 0, 0, 0.2);
       }
