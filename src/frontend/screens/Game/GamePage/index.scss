@@ -29,7 +29,7 @@
       position: relative;
       padding: 6px;
       right: 6px;
-      background: var(--background);
+      background: var(--neutral-03);
       border-radius: 10px;
       display: grid;
       place-items: center;
@@ -41,7 +41,7 @@
 
       &:hover {
         svg path {
-          fill: var(--text-secondary);
+          fill: var(--neutral-05);
         }
       }
     }
@@ -59,19 +59,19 @@
         padding: var(--space-xs-fixed);
         cursor: pointer;
         position: relative;
-        transition: background-color 0.2s;
+        transition: color 0.2s;
         display: flex;
         justify-content: center;
         width: 44px;
         height: 44px;
-        background: var(--background);
+        background: var(--neutral-03);
         border-radius: 10px;
       }
 
       &:focus-within .toggle,
       &:hover .toggle,
       .toggle:hover {
-        color: var(--text-secondary);
+        color: var(--neutral-05);
       }
 
       .gameTools {
@@ -237,6 +237,10 @@
     align-self: flex-start;
     margin-top: 1.2em;
     color: var(--accent);
+
+    &:hover {
+      color: var(--accent-overlay);
+    }
 
     & svg {
       margin-right: 0.4em;

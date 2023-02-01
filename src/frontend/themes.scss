@@ -270,6 +270,7 @@ body.dracula-classic {
 
 body.nord-light {
   --neutral-06: #2e3440;
+  --neutral-03: #429ec5;
   --accent: #88c0d0;
   --accent-overlay: #81a1c1;
   --navbar-accent: #81a1c1;
@@ -297,12 +298,17 @@ body.nord-light {
   --text-title: #2e3440;
   --text-default: var(--text-title);
   --text-secondary: #868b95;
+  --text-tertiary: var(--brand-text-01);
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
   --osk-button-border: var(--navbar-background);
   --action-icon: #748aa0;
   --action-icon-hover: var(--accent);
   --action-icon-active: var(--text-default);
+
+  .button.is-link {
+    color: var(--brand-text-01);
+  }
 }
 
 body.nord-light .alternative > svg {

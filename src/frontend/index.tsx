@@ -6,7 +6,7 @@ import i18next from 'i18next'
 import { initGamepad } from './helpers/gamepad'
 
 import './index.scss'
-import './themes.css'
+import './themes.scss'
 import GlobalState from './state/GlobalState'
 import { initShortcuts } from './helpers/shortcuts'
 import { configStore } from './helpers/electronStores'

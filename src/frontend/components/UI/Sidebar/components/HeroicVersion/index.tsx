@@ -67,8 +67,9 @@ export default React.memo(function HeroicVersion() {
           }}
         />
       )}
-      <div
+      <span
         className="heroicVersion"
+        role="link"
         title={t(
           'info.heroic.click-to-see-changelog',
           'Click to see changelog'
@@ -79,7 +80,7 @@ export default React.memo(function HeroicVersion() {
           <span>{t('info.heroic.version', 'Heroic Version')}: </span>
         </span>
         <strong>{version}</strong>
-      </div>
+      </span>
       {shouldShowUpdates && (
         <div className="heroicNewReleases">
           <span>{t('info.heroic.newReleases', 'Update Available!')}</span>
