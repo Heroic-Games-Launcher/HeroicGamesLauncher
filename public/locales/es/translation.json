@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "Elige la ruta del prefijo de Wine",
-        "yes": "SÍ"
+        "yes": "SÍ",
+        "dontShowAgain": "no volver a mostrar"
     },
     "button": {
         "cancel": "Cancelar",
@@ -222,11 +223,11 @@
     "GOG": "GOG",
     "gog-store": "Tienda de GOG",
     "header": {
-        "hide_non_available_games": "Hide non-available games",
+        "hide_non_available_games": "Ocultar juegos no disponibles",
         "ignore_hidden": "Ignorar Ocultos",
         "platform": "Plataforma",
         "show_all_games": "Mostrar todos los juegos",
-        "show_available_games": "Show non-Available games",
+        "show_available_games": "Mostrar juegos no disponibles",
         "show_favourites_only": "Mostrar sólo favoritos",
         "show_hidden": "Mostrar Ocultos",
         "store": "Filtrar tienda"
@@ -236,7 +237,7 @@
         "custom_themes_path": "No use archivos CSS de fuentes no confiables. Ante la duda, pida una revisión en nuestro servidor de Discord.",
         "custom_themes_wiki": "Revise la Wiki para más detalles sobre agregar temas personalizados. Clic aquí.",
         "dxvk": "DXVK es una capa de traducción basada en Vulkan para juegos que usan DirectX 9, 10 y 11. Activarlo puede mejorar la compatibilidad. Puede causar errores especialmente en juegos antiguos que usen DirectX.",
-        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
+        "dxvkfpslimit": "Configura un límite de cuadros por segundo para juegos con DXVK",
         "esync": "Esync intenta reducir la sobrecarga de wineserver en juegos con intenso uso de CPU. Activarlo puede mejorar el rendimiento.",
         "fsync": "Fsync intenta reducir la sobrecarga de wineserver en juegos con uso intensivo de CPU. Activarlo puede mejorar el rendimiento en kernels de Linux que lo soporten.",
         "game_language": {
@@ -254,7 +255,7 @@
             "part7": " para omitir el lanzador en algunos juegos, etc."
         },
         "preferSystemLibs": "Versiones custom de Wine (Wine-GE, Wine-Lutris) incluyen sus propias librerías para sus dependencias. Al activar esta opción, esa librarías son ignoradas y Wine cargará las librarías del sistema en su lugar. Advertencia! Pueden ocurrir errores si las dependencias no se cumplen.",
-        "primerun": "Utiliza una tarjeta gráfica dedicada para renderizar el juego en sistemas multi-GPU. Sólo es necesario en los portátiles para juegos o en los ordenadores de sobremesa que utilizan una GPU sin cabeza para el renderizado (NVIDIA Optimus, AMD CrossFire).",
+        "primerun": "Utiliza una tarjeta gráfica dedicada para renderizar el juego en sistemas multi-GPU. Sólo es necesario en los portátiles para juegos o en los ordenadores de sobremesa que utilizan una GPU sin cabeza para el renderizado (NVIDIA Optimus, AMD CrossFire)",
         "steam_path": {
             "info": "Esto ayuda a Heroic a encontrar versiones de Proton instaladas en Steam y a identificar a los usuarios para agregar juegos a Steam."
         },
@@ -302,7 +303,7 @@
         "path": "Seleccione la ruta de instalación"
     },
     "label": {
-        "loading": "Loading"
+        "loading": "Cargando"
     },
     "library": {
         "refresh": "Actualizar",
@@ -375,7 +376,7 @@
         "hint": "Estamos comprobando la conexión con:{{newline}}github.com,{{newline}}gog.com y{{newline}}store.epicgames.com",
         "ignore": "Ignore",
         "offline": "Sin conexión",
-        "offline-retry-in": "Sin conexión. Reintento en {{segundos}} segundos.",
+        "offline-retry-in": "Sin conexión. Reintento en {{seconds}} segundos.",
         "retrying": "Reintentando"
     },
     "Open": "",
@@ -420,7 +421,7 @@
         "alt-gogdl-bin": "Utilizando el binario incorporado de GOGDL...",
         "alt-legendary-bin": "Usando el binario incorporado de Legendary…",
         "custom_themes_path": "Seleccione la ubicación de donde buscar los archivos CSS",
-        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
+        "dxvkfpsvalue": "Valor entero positivo (ej: 30, 60, ...)",
         "egs-prefix": "Prefijo donde está instalado EGS",
         "prefered_language": "Código de 2 caracteres (ej: \"en\" o \"fr\")"
     },
@@ -429,7 +430,7 @@
         "mac": "macOS",
         "win": "Windows"
     },
-    "please-wait": "Please wait...",
+    "please-wait": "Por favor, espere...",
     "progress": "Progreso",
     "queue": {
         "label": {
@@ -465,7 +466,7 @@
         "disable_controller": "Desactivar la navegación de Heroic mediante un gamepad",
         "discordRPC": "Activar Discord Rich Presence",
         "download-no-https": "Descargar juegos sin HTTPS (útil para CDNs, ej: LanCache)",
-        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
+        "dxvkfpslimit": "Límite de CPS/FPS (DX9, 10 y 11)",
         "egs-sync": "Sincronizar con juegos EGS",
         "enableFSRHack": "Habilitar el hack FSR (La versión de Wine debe soportarlo)",
         "eosOverlay": {
@@ -539,9 +540,9 @@
             "title": "Ejecutar EXE en Prefijo"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually (click to retry)",
+            "not-found": "Carpeta de guardados no encontrada, seleccionar manualmente (click para reintentar)",
             "placeholder": "Seleccione la carpeta exacta para guardar juegos",
-            "warning": "Please check twice if the path is correct (click to retry)"
+            "warning": "Por favor, verifique que la ubicación sea correcta (click para reintentar)"
         },
         "select_theme": "Seleccionar Tema",
         "showfps": "Mostrar FPS (Cuadros Por Segundo) (DX9, 10 y 11)",
@@ -632,7 +633,7 @@
     "Update Available!": "",
     "userselector": {
         "discord": "Discord",
-        "logging_out": "Logging out",
+        "logging_out": "Cerrando sesión",
         "logout": "Cerrar sesión",
         "logout_confirmation": "¿Estás seguro de que quieres cerrar la sesión?",
         "manageaccounts": "Gestionar cuentas",
@@ -652,7 +653,7 @@
         "actions": "Acción",
         "manager": {
             "link": "Gestor de Wine",
-            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
+            "not-found": "No se encontraron version de Wine. Por favor, presiona el botón de refrescar para volver a intentar.",
             "title": "Gestor de Wine",
             "unzipping": "Descomprimiendo"
         },
