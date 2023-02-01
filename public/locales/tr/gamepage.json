@@ -202,5 +202,8 @@
         "store": "Mağaza Sayfası",
         "verify": "Doğrula ve Onar",
         "extraInfo": "Fazladan bilgi"
+    },
+    "help": {
+        "cloud_save_unsupported": "Bu oyun bulutta kaydetmeyi desteklemiyor. Bu bilgiler oyun geliştiricileri tarafından sağlanmaktadır. Bazı oyunlar kendi bulut kaydetme sistemlerini uygular"
     }
 }

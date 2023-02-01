@@ -203,5 +203,8 @@
         "store": "Pagina magazinului",
         "verify": "Verificați și Reparați",
         "extraInfo": "Informații suplimentare"
+    },
+    "help": {
+        "cloud_save_unsupported": "Acest joc nu acceptă salvări în cloud. Aceste informații sunt furnizate de dezvoltatorii jocului. Unele jocuri implementează propriul sistem de salvare în cloud"
     }
 }

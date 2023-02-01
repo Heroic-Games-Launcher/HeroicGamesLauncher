@@ -202,5 +202,8 @@
         "store": "Botiga",
         "verify": "Verifica i repara",
         "extraInfo": "Informació extra"
+    },
+    "help": {
+        "cloud_save_unsupported": "Aquest joc no admet desacions al núvol. Aquesta informació la proporcionen els desenvolupadors del joc. Alguns jocs implementen el seu propi sistema de desat al núvol"
     }
 }

@@ -202,5 +202,8 @@
         "store": "Stranica Trgovine",
         "verify": "Provjeri i popravi",
         "extraInfo": "Dodatne informacije"
+    },
+    "help": {
+        "cloud_save_unsupported": "Ova igra ne podržava spremanje u oblak. Ove informacije pružaju programeri igre. Neke igre implementiraju vlastiti sustav spremanja u oblak"
     }
 }

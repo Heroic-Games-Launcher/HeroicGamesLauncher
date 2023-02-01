@@ -202,5 +202,8 @@
         "store": "Store-Seite",
         "verify": "Prüfen und reparieren",
         "extraInfo": "Zusatzinformation"
+    },
+    "help": {
+        "cloud_save_unsupported": "Dieses Spiel unterstützt keine Cloud-Speicher. Diese Informationen werden von den Spieleentwicklern bereitgestellt. Einige Spiele implementieren ihr eigenes Cloud-Speichersystem"
     }
 }
