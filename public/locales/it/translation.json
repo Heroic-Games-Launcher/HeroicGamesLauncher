@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "Seleziona la cartella del prefisso di Wine",
-        "yes": "SI"
+        "yes": "SI",
+        "dontShowAgain": "Non mostrare più"
     },
     "button": {
         "cancel": "Annulla",
