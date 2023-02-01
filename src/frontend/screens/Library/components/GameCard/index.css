@@ -81,7 +81,6 @@
   font-size: var(--text-md);
   font-weight: var(--bold);
   line-height: 17px;
-  color: var(--text-default);
   cursor: pointer;
   z-index: 3;
   pointer-events: none;
@@ -310,11 +309,11 @@
 }
 
 .playIcon circle {
-  fill: var(--brand-secondary, var(--success));
+  fill: var(--success);
 }
 
 .playIcon:hover circle {
-  fill: var(--brand-primary, var(--success-hover));
+  fill: var(--success-hover);
 }
 
 .downIcon circle {
