@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "Selecteer een Wine Prefix Folder",
-        "yes": "JA"
+        "yes": "JA",
+        "dontShowAgain": "Niet meer laten zien"
     },
     "button": {
         "cancel": "Cancel",
