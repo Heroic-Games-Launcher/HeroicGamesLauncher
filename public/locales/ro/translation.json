@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "Alegeți dosarul Wine Prefix",
-        "yes": "DA"
+        "yes": "DA",
+        "dontShowAgain": "Nu mai arăta"
     },
     "button": {
         "cancel": "Cancel",
