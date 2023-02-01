@@ -51,7 +51,7 @@ import {
 } from './legendary/electronStores'
 import {
   apiInfoCache as GOGapiInfoCache,
-  gogInstallInfoStore,
+  gogInstallInfoStore as GOGinstallInfoStore,
   libraryStore as GOGlibraryStore
 } from './gog/electronStores'
 import fileSize from 'filesize'
@@ -420,7 +420,7 @@ async function openUrlOrFile(url: string): Promise<string | void> {
 async function clearCache() {
   GOGapiInfoCache.clear()
   GOGlibraryStore.clear()
-  gogInstallInfoStore.clear()
+  GOGinstallInfoStore.clear()
   installStore.clear()
   libraryStore.clear()
   gameInfoStore.clear()
