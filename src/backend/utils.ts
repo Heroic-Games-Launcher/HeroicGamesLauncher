@@ -292,7 +292,7 @@ export const getSystemInfo = async () => {
   const heroicVersion = getHeroicVersion()
   const legendaryVersion = await getLegendaryVersion()
   const gogdlVersion = await getGogdlVersion()
-  
+
   const electronVersion = process.versions.electron || 'unknown'
   const chromeVersion = process.versions.chrome || 'unknown'
   const nodeVersion = process.versions.node || 'unknown'
