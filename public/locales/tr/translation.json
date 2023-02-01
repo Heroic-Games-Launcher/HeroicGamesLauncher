@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "Wine Prefix Klasörünü Seçin",
-        "yes": "EVET"
+        "yes": "EVET",
+        "dontShowAgain": "tekrar gösterme"
     },
     "button": {
         "cancel": "Cancel",
