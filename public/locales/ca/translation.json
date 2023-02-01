@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "Tria la carpeta del WinePrefix",
-        "yes": "SÍ"
+        "yes": "SÍ",
+        "dontShowAgain": "No tornis a mostrar"
     },
     "button": {
         "cancel": "Cancel·la",
