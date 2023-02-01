@@ -26,7 +26,8 @@ import { fallBackImage, gogdlLogFile } from '../constants'
 import {
   apiInfoCache,
   libraryStore,
-  installedGamesStore
+  installedGamesStore,
+  gogInstallInfoStore
 } from './electronStores'
 import { callRunner } from '../launcher'
 import {
@@ -316,6 +317,8 @@ export class GOGLibrary {
    * when os is Linux: gets Windows build data.
    * Contains data like download size
    * @param appName
+   * @param installPlatform
+   * @param lang
    * @returns InstallInfo object
    */
   public async getInstallInfo(
@@ -323,6 +326,25 @@ export class GOGLibrary {
     installPlatform = 'windows',
     lang = 'en-US'
   ): Promise<GogInstallInfo | undefined> {
+    if (gogInstallInfoStore.has(`${appName}_${installPlatform}`)) {
+      const cache = gogInstallInfoStore.get_nodefault(
+        `${appName}_${installPlatform}`
+      )
+      if (cache) {
+        logInfo(
+          [
+            'Got install info from cache for',
+            appName,
+            'on',
+            installPlatform,
+            'platform'
+          ],
+          LogPrefix.Gog
+        )
+        return cache
+      }
+    }
+
     const credentials = await GOGUser.getCredentials()
     if (!credentials) {
       logError('No credentials, cannot get install info')
@@ -332,17 +354,6 @@ export class GOGLibrary {
 
     if (!gameData) {
       return
-    }
-
-    installPlatform = installPlatform.toLowerCase()
-
-    switch (installPlatform) {
-      case 'linux':
-        installPlatform = 'windows'
-        break
-      case 'mac':
-        installPlatform = 'osx'
-        break
     }
 
     const commandParts = [
@@ -461,6 +472,7 @@ export class GOGLibrary {
         versionEtag: gogInfo.versionEtag
       }
     }
+    gogInstallInfoStore.set(`${appName}_${installPlatform}`, info)
     return info
   }
 

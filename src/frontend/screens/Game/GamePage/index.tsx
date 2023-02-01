@@ -99,6 +99,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [showExtraInfo, setShowExtraInfo] = useState(false)
 
   const isWin = platform === 'win32'
+  const isLinux = platform === 'linux'
+  const isMac = platform === 'darwin'
   const isSideloaded = runner === 'sideload'
 
   const isInstalling = status === 'installing'
@@ -131,10 +133,22 @@ export default React.memo(function GamePage(): JSX.Element | null {
   useEffect(() => {
     const updateConfig = async () => {
       if (gameInfo) {
-        const { install } = gameInfo
+        const {
+          install,
+          is_linux_native = undefined,
+          is_mac_native = undefined
+        } = { ...gameInfo }
 
-        if (runner !== 'sideload' && !notSupportedGame && install.platform) {
-          getInstallInfo(appName, runner, install.platform)
+        const installPlatform =
+          install.platform ||
+          (is_linux_native && isLinux
+            ? 'linux'
+            : is_mac_native && isMac
+            ? 'Mac'
+            : 'Windows')
+
+        if (runner !== 'sideload' && !notSupportedGame) {
+          getInstallInfo(appName, runner, installPlatform)
             .then((info) => {
               if (!info) {
                 throw 'Cannot get game info'

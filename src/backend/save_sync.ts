@@ -1,4 +1,4 @@
-import { Runner } from 'common/types'
+import { InstalledInfo, Runner } from 'common/types'
 import { GOGCloudSavesLocation, SaveFolderVariable } from 'common/types/gog'
 import { getWinePath, setupWineEnvVars, verifyWinePrefix } from './launcher'
 import { runLegendaryCommand, LegendaryLibrary } from './legendary/library'
@@ -108,10 +108,13 @@ async function getDefaultGogSavePaths(
 ): Promise<GOGCloudSavesLocation[]> {
   const game = getGame(appName, 'gog')
   const gameSettings = await game.getSettings()
-  const {
-    gog_save_location,
-    install: { platform: installed_platform, install_path }
-  } = game.getGameInfo()
+  const installInfo = game.getGameInfo().install as InstalledInfo
+  const gog_save_location = await GOGLibrary.get().getSaveSyncLocation(
+    appName,
+    installInfo
+  )
+
+  const { platform: installed_platform, install_path } = installInfo
   if (!gog_save_location || !install_path) {
     logError([
       'gog_save_location/install_path undefined. gog_save_location = ',
