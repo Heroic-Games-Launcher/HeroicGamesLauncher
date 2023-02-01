@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "Odaberi Wine Prefix mapu",
-        "yes": "DA"
+        "yes": "DA",
+        "dontShowAgain": "Ne prikazuj više"
     },
     "button": {
         "cancel": "Cancel",
