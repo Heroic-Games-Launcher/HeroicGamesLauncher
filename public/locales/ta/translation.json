@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "Wine முன்னொட்டு கோப்புறையை தேர்வுசெய்",
-        "yes": "ஆம்"
+        "yes": "ஆம்",
+        "dontShowAgain": "மீண்டும் காட்டாதே"
     },
     "button": {
         "cancel": "Cancel",
@@ -585,7 +586,7 @@
             "general": "பொதுவானவை",
             "log": "Log",
             "other": "மற்றவை",
-            "sync": "சேமிப்பு-ஒத்திசைவு",
+            "sync": "கிளவுட் சேமிப்பு ஒத்திசைவு",
             "wineExt": "Wine Extensions"
         },
         "open-config-file": "Open Config File",
