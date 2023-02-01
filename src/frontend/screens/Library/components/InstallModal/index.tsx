@@ -120,7 +120,7 @@ export default React.memo(function InstallModal({
   }, [hasWine])
 
   function platformSelection() {
-    const showPlatformSelection = availablePlatforms.length > 1
+    const showPlatformSelection = !isWin && availablePlatforms.length > 1
 
     if (!showPlatformSelection) {
       return null

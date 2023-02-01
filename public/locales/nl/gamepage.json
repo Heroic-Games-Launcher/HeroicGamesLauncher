@@ -185,7 +185,8 @@
         "totalDownloaded": "Totaal gedownload",
         "uninstalling": "Uninstalling",
         "updating": "Spel aan het updaten",
-        "playing": "Spelen"
+        "playing": "Spelen",
+        "moving-files": "Bestand verplaatsen '{{file}}': {{percent}} "
     },
     "submenu": {
         "addShortcut": "Snelkoppeling toevoegen",

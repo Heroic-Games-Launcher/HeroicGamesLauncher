@@ -180,14 +180,16 @@
     "dist:linux": "vite build && electron-builder --linux",
     "dist:mac": "vite build && electron-builder --mac --x64 --arm64",
     "dist:win": "vite build && electron-builder --win",
+    "dist:flatpak": "yarn dist:linux appimage && yarn flatpak:prepare && yarn flatpak:build",
     "lint": "eslint --cache -c .eslintrc --ext .tsx,ts ./src",
     "lint-fix": "eslint --fix -c .eslintrc --ext .tsx,ts ./src",
-    "dist-flatpak": "cd flatpak && flatpak-builder build local.heroic.yml --install --force-clean --user",
-    "flatpak-test": "yarn dist:linux appimage && cd flatpak && flatpak-builder build local.heroic.yml --install --force-clean --user",
+    "flatpak:build": "cd flatpak-build && flatpak-builder build com.heroicgameslauncher.hgl.yml --install --force-clean --user",
+    "flatpak:prepare": "node ./flatpak/prepareFlatpak.js",
+    "flatpak:prepare-release": "node ./flatpak/prepareFlatpak.js release",
     "i18n": "i18next",
     "prepare": "husky install",
-    "prettier": "prettier --check .",
-    "prettier-fix": "prettier --write ."
+    "prettier": "prettier --check . '!flatpak-build'",
+    "prettier-fix": "prettier --write . '!flatpak-build'"
   },
   "eslintConfig": {
     "extends": [

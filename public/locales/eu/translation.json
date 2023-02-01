@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks-ek errore hau itzuli du exekuzioan:{{newLine}}{{error}}",
                 "title": "Winetricks errorea"
-            }
+            },
+            "moving": "Errorea jokoa mugitzean {{error}}"
         },
         "info": {
             "update": {

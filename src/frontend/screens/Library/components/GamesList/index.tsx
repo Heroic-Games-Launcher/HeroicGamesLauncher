@@ -18,36 +18,6 @@ interface Props {
   isRecent?: boolean
 }
 
-const storage = window.localStorage
-const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
-const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
-
-async function handleNonAvailableGames(appName: string, runner: Runner) {
-  const gameAvailable = await window.api.isGameAvailable({
-    appName,
-    runner
-  })
-
-  if (!gameAvailable) {
-    if (!nonAvailbleGamesArray.includes(appName)) {
-      nonAvailbleGamesArray.push(appName)
-      storage.setItem(
-        'nonAvailableGames',
-        JSON.stringify(nonAvailbleGamesArray)
-      )
-    }
-  } else {
-    if (nonAvailbleGamesArray.includes(appName)) {
-      nonAvailbleGamesArray.splice(nonAvailbleGamesArray.indexOf(appName), 1)
-      storage.setItem(
-        'nonAvailableGames',
-        JSON.stringify(nonAvailbleGamesArray)
-      )
-    }
-  }
-  return gameAvailable
-}
-
 const GamesList = ({
   library = [],
   layout = 'grid',
@@ -82,11 +52,6 @@ const GamesList = ({
           return null
         }
 
-        let isAvailable = is_installed
-
-        if (is_installed) {
-          isAvailable = await handleNonAvailableGames(app_name, runner)
-        }
         const hasUpdate = is_installed && gameUpdates?.includes(app_name)
         return (
           <GameCard
@@ -96,7 +61,6 @@ const GamesList = ({
               if (gameInfo.runner !== 'sideload')
                 handleGameCardClick(app_name, runner, gameInfo)
             }}
-            isAvailable={isAvailable}
             forceCard={layout === 'grid'}
             isRecent={isRecent}
             gameInfo={gameInfo}
@@ -117,15 +81,7 @@ const GamesList = ({
     return () => {
       mounted = false
     }
-  }, [
-    library,
-    onlyInstalled,
-    layout,
-    gameUpdates,
-    isRecent,
-    nonAvailbleGamesArray,
-    showNonAvailable
-  ])
+  }, [library, onlyInstalled, layout, gameUpdates, isRecent, showNonAvailable])
 
   return (
     <div

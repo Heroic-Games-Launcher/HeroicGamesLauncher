@@ -186,7 +186,8 @@
         "totalDownloaded": "إجمالي التنزيلات",
         "uninstalling": "قيد إلغاء التثبيت",
         "updating": "قيد تحديث اللعبة",
-        "playing": "تلعب"
+        "playing": "تلعب",
+        "moving-files": "نقل ملف '{{file}}': {{percent}} "
     },
     "submenu": {
         "addShortcut": "أضف اختصارًا",

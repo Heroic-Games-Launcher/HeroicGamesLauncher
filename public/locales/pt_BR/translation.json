@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks retornou o seguinte erro durante a execução:{{newLine}}{{error}}",
                 "title": "Erro do Winetricks"
-            }
+            },
+            "moving": "Erro ao mover o jogo {{error}}"
         },
         "info": {
             "update": {
@@ -279,7 +280,7 @@
             "version": "Heroic Version"
         },
         "save-sync": {
-            "searching": "Tentando detectar a pasta de salvamento correta"
+            "searching": "Tentando detectar a pasta de salvamento correta (Clique para cancelar)"
         },
         "settings": "As configurações são salvas automaticamente",
         "version": "Versão do Wine"
@@ -454,7 +455,7 @@
         "autovkd3d": "Instalar/Atualizar VKD3D automaticamente no prefixo",
         "change-target-exe": "Selecione um EXE alternativo para executar",
         "checkForUpdatesOnStartup": "Verificar se há atualizações do Heroic ao iniciar",
-        "crossover-version": "Versão do Crossover",
+        "crossover-version": "Versão do Crossover/Wine",
         "custom_themes_path": "Caminho para Temas Personalizados",
         "customWineProton": "Locais com Wine/Proton customizados",
         "darktray": "Usar o ícone escuro na barra de tarefas",
@@ -538,9 +539,9 @@
             "title": "Executar EXE no prefixo"
         },
         "savefolder": {
-            "not-found": "Pasta de saves não encontrada, por favor selecione a manualmente",
+            "not-found": "Pasta de saves não encontrada, por favor selecione a manualmente (Clique para tentar novamente )",
             "placeholder": "Selecione a pasta exata com os saves",
-            "warning": "Por favor verifique duas vezes se o caminho está correto"
+            "warning": "Por favor, verifique duas vezes se o caminho está correto (Clique para tentar novamente)"
         },
         "select_theme": "Selecione um tema",
         "showfps": "Exibir contador de FPS (DX9, 10 e 11)",

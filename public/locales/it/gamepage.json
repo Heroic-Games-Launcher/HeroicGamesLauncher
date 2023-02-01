@@ -185,7 +185,8 @@
         "totalDownloaded": "Totale scaricato",
         "uninstalling": "Disinstallando",
         "updating": "Aggiornamento in corso",
-        "playing": "Giocando"
+        "playing": "Giocando",
+        "moving-files": "Spostamento del file '{{file}}': {{percent}} "
     },
     "submenu": {
         "addShortcut": "Aggiungi scorciatoia",

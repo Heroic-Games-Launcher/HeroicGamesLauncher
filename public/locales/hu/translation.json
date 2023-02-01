@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "A Winetricks a következő hibával tért vissza:{{newLine}}{{error}}",
                 "title": "Winetricks hiba"
-            }
+            },
+            "moving": "Hiba történt a játék áthelyezésekor {{error}}"
         },
         "info": {
             "update": {

@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
-            }
+            },
+            "moving": "Помилка переміщення гри {{error}}"
         },
         "info": {
             "update": {
@@ -110,7 +111,7 @@
             "title": "Оберіть EXE щоб запустити"
         },
         "select": {
-            "button": "Обрати",
+            "button": "Вибрати",
             "exe": "Оберіть EXE"
         },
         "shortcuts": {

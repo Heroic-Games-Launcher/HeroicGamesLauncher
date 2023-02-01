@@ -29,6 +29,7 @@
         "customWine": "Select the Wine or Proton binary",
         "default-install-path": "Choose Default Install Path",
         "default-steam-path": "Steam path.",
+        "dontShowAgain": "Don't show again",
         "downloadNow": "Download now",
         "error": {
             "add": {

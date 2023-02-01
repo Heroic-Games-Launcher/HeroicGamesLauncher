@@ -1,6 +1,25 @@
 input[type='range'] {
   width: 100%;
   max-width: 513px;
+  appearance: none;
+  background: transparent;
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+  height: 10px;
+  cursor: pointer;
+  background: var(--accent);
+  border-radius: 5px;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  height: 30px;
+  width: 8px;
+  border-radius: 10px;
+  background: var(--text-default);
+  cursor: pointer;
+  appearance: none;
+  margin-top: -10px;
 }
 
 .zoomHint {

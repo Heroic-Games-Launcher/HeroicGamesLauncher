@@ -186,7 +186,8 @@
         "totalDownloaded": "Toplam Endirilib",
         "uninstalling": "Uninstalling",
         "updating": "Oyun Yenilənir",
-        "playing": "Oynayan"
+        "playing": "Oynayan",
+        "moving-files": "'{{file}}' faylı köçürülür: {{percent}} "
     },
     "submenu": {
         "addShortcut": "Qısayol əlavə edin",

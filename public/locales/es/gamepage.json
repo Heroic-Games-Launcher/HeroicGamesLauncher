@@ -34,7 +34,7 @@
         "uninstall": {
             "checkbox": "Borrar prefijo: {{prefix}}{{newLine}}Nota: Esto no se puede deshacer y borrará archivos no resguardados.",
             "message": "¿Quieres desinstalar este juego?",
-            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+            "settingcheckbox": "Borrar ajustes y eliminar registros{{newLine}}Nota: Este cambio no se puede deshacer. Todos los ajustes serán olvidados y el registro serán borrado.",
             "title": "Desinstalar",
             "prefix_warning": "El prefijo Wine para este juego es el prefijo predeterminado. Si realmente desea eliminarlo, debe hacerlo manualmente."
         },
@@ -97,11 +97,11 @@
     "generic": {
         "error": "Error desconocido"
     },
-    "hours": "Hours",
+    "hours": "Horas",
     "how-long-to-beat": {
         "completionist": "Completionist",
         "main-plus-extras": "Main + Extras",
-        "main-story": "Main Story"
+        "main-story": "Historia principal"
     },
     "howLongToBeat": "How Long To Beat",
     "info": {
@@ -185,7 +185,8 @@
         "totalDownloaded": "Total descargado",
         "uninstalling": "Uninstalling",
         "updating": "Actualización de juego",
-        "playing": "Jugando"
+        "playing": "Jugando",
+        "moving-files": "Mover archivo '{{file}}': {{percent}} "
     },
     "submenu": {
         "addShortcut": "Añadir acceso directo",

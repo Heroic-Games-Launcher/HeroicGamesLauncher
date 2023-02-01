@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks icra zamanı aşağıdakı xətanı qaytardı:{{newLine}}{{error}}",
                 "title": "Winetricks xətası"
-            }
+            },
+            "moving": "Oyunun köçürülməsi xətası {{error}}"
         },
         "info": {
             "update": {

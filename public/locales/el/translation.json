@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
-            }
+            },
+            "moving": "Σφάλμα κατά τη μετακίνηση του παιχνιδιού {{error}}"
         },
         "info": {
             "update": {

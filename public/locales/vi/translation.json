@@ -4,10 +4,10 @@
         "all_tiles_in_color": "Hiển thị tất cả các ô trò chơi bằng màu sắc",
         "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Phông chữ",
-        "title": "Accessibility",
+        "title": "Khả năng tiếp cận",
         "zoom": "Zoom"
     },
-    "add_game": "Add Game",
+    "add_game": "Thêm trò chơi",
     "All": "Tất cả",
     "anticheat": {
         "anticheats": "Anticheats",
@@ -15,7 +15,7 @@
         "reference": "Reference",
         "source": "Source",
         "status": "Status",
-        "title": "This game includes anticheat software"
+        "title": "Trò chơi này có chứa phần mềm chống gian lận"
     },
     "box": {
         "cache-cleared": {
@@ -33,7 +33,7 @@
         "error": {
             "add": {
                 "steam": {
-                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
+                    "body": "Không thể thêm {{game}} tới Steam do:{{newLine}} {{error}}",
                     "title": "Adding Error"
                 }
             },
@@ -77,7 +77,8 @@
             "winetricks": {
                 "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
-            }
+            },
+            "moving": "Lỗi Di chuyển Trò chơi {{error}}"
         },
         "info": {
             "update": {

@@ -15,7 +15,6 @@ import { ReactComponent as DownIcon } from 'frontend/assets/down-icon.svg'
 import {
   FavouriteGame,
   GameInfo,
-  GameStatus,
   HiddenGame,
   Runner,
   SideloadGame
@@ -35,7 +34,6 @@ import {
 } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import fallbackImage from 'frontend/assets/heroic_card.jpg'
 import { updateGame } from 'frontend/helpers/library'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
 import ContextMenu, { Item } from '../ContextMenu'
@@ -45,13 +43,14 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import classNames from 'classnames'
 import StoreLogos from 'frontend/components/UI/StoreLogos'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
+import { getCardStatus, getImageFormatting } from './constants'
+import { hasStatus } from 'frontend/hooks/hasStatus'
 
 interface Card {
   buttonClick: () => void
   hasUpdate: boolean
   isRecent: boolean
   gameInfo: GameInfo | SideloadGame
-  isAvailable?: boolean
   forceCard?: boolean
 }
 
@@ -62,10 +61,11 @@ const GameCard = ({
   buttonClick,
   forceCard,
   isRecent = false,
-  gameInfo: gameInfoFromProps,
-  isAvailable
+  gameInfo: gameInfoFromProps
 }: Card) => {
-  const [gameInfo, setGameInfo] = useState(gameInfoFromProps)
+  const [gameInfo, setGameInfo] = useState<GameInfo | SideloadGame>(
+    gameInfoFromProps
+  )
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [isLaunching, setIsLaunching] = useState(false)
 
@@ -75,7 +75,6 @@ const GameCard = ({
   const navigate = useNavigate()
 
   const {
-    libraryStatus,
     layout,
     hiddenGames,
     favouriteGames,
@@ -91,8 +90,7 @@ const GameCard = ({
     app_name: appName,
     runner,
     is_installed: isInstalled,
-    install: gameInstallInfo,
-    thirdPartyManagedApp = undefined
+    install: gameInstallInfo
   } = { ...gameInfoFromProps }
 
   const [progress, previousProgress] = hasProgress(appName)
@@ -100,8 +98,7 @@ const GameCard = ({
     ...gameInstallInfo
   }
 
-  const { status, folder } =
-    libraryStatus.find((game: GameStatus) => game.appName === appName) || {}
+  const { status, folder, label } = hasStatus(appName, gameInfo, size)
 
   useEffect(() => {
     setIsLaunching(false)
@@ -116,83 +113,25 @@ const GameCard = ({
 
   async function handleUpdate() {
     if (gameInfo.runner !== 'sideload')
-      await updateGame({ appName, runner, gameInfo })
+      updateGame({ appName, runner, gameInfo })
   }
 
   const grid = forceCard || layout === 'grid'
-  const isInstalling = status === 'installing' || status === 'updating'
-  const isUpdating = status === 'updating'
-  const isReparing = status === 'repairing'
-  const isMoving = status === 'moving'
-  const isPlaying = status === 'playing'
-  const isQueued = status === 'queued'
-  const isUninstalling = status === 'uninstalling'
-  const notAvailable = !isAvailable && isInstalled
-  const notSupportedGame = thirdPartyManagedApp === 'Origin'
-  const haveStatus =
-    isMoving ||
-    isReparing ||
-    isInstalling ||
-    isUpdating ||
-    isQueued ||
-    isUninstalling ||
-    notAvailable ||
-    notSupportedGame ||
-    isPlaying
 
-  const { percent = '' } = progress
+  const {
+    isInstalling,
+    notSupportedGame,
+    isUninstalling,
+    isQueued,
+    isPlaying,
+    notAvailable,
+    isUpdating,
+    haveStatus
+  } = getCardStatus(status, isInstalled, layout)
+
   const installingGrayscale = isInstalling
     ? `${125 - getProgress(progress)}%`
     : '100%'
-
-  const imageSrc = getImageFormatting()
-
-  function getImageFormatting() {
-    const imageBase = cover
-    if (imageBase === 'fallback') {
-      return fallbackImage
-    }
-    if (runner === 'legendary') {
-      return `${imageBase}?h=400&resize=1&w=300`
-    } else {
-      return imageBase
-    }
-  }
-
-  function getStatus() {
-    if (notSupportedGame) {
-      return t('status.notSupportedGame', 'Not Supported')
-    }
-    if (isPlaying) {
-      return t('status.playing', 'Playing')
-    }
-    if (isQueued) {
-      return `${t('status.queued', 'Queued')}`
-    }
-    if (isUninstalling) {
-      return t('status.uninstalling', 'Uninstalling')
-    }
-    if (isUpdating) {
-      return t('status.updating') + ` ${Math.ceil(percent || 0)}%`
-    }
-    if (isInstalling) {
-      return t('status.installing') + ` ${Math.ceil(percent || 0)}%`
-    }
-    if (isMoving) {
-      return t('gamecard.moving', 'Moving')
-    }
-    if (isReparing) {
-      return t('gamecard.repairing', 'Repairing')
-    }
-    if (isInstalled && !isAvailable) {
-      return t('status.gameNotAvailable', 'Game not available')
-    }
-    if (isInstalled) {
-      return `${t('status.installed')} ${runner === 'sideload' ? '' : size}`
-    }
-
-    return t('status.notinstalled')
-  }
 
   const handleRemoveFromQueue = () => {
     window.api.removeFromDMQueue(appName)
@@ -254,7 +193,7 @@ const GameCard = ({
     if (isInstalled) {
       return (
         <SvgButton
-          className={isAvailable ? 'playIcon' : 'notAvailableIcon'}
+          className={!notAvailable ? 'playIcon' : 'notAvailableIcon'}
           onClick={async () => handlePlay(runner)}
           title={`${t('label.playing.start')} (${title})`}
           disabled={isLaunching}
@@ -273,7 +212,6 @@ const GameCard = ({
         </SvgButton>
       )
     }
-    return null
   }
 
   const isHiddenGame = useMemo(() => {
@@ -379,7 +317,7 @@ const GameCard = ({
 
   const instClass = isInstalled ? 'installed' : ''
   const hiddenClass = isHiddenGame ? 'hidden' : ''
-  const notAvailableClass = !isAvailable ? 'notAvailable' : ''
+  const notAvailableClass = notAvailable ? 'notAvailable' : ''
   const imgClasses = `gameImg ${isInstalled ? 'installed' : ''} ${
     allTilesInColor ? 'allTilesInColor' : ''
   }`
@@ -393,7 +331,8 @@ const GameCard = ({
 
   const { activeController } = useContext(ContextProvider)
 
-  const showUpdateButton = hasUpdate && !isUpdating && !isQueued && isAvailable
+  const showUpdateButton =
+    hasUpdate && !isUpdating && !isQueued && !notAvailable
 
   return (
     <div>
@@ -406,7 +345,7 @@ const GameCard = ({
       )}
       <ContextMenu items={items}>
         <div className={wrapperClasses}>
-          {haveStatus && <span className="gameCardStatus">{getStatus()}</span>}
+          {haveStatus && <span className="gameCardStatus">{label}</span>}
           <Link
             to={`/gamepage/${runner}/${appName}`}
             state={{ gameInfo }}
@@ -416,7 +355,7 @@ const GameCard = ({
           >
             <StoreLogos runner={runner} />
             <CachedImage
-              src={imageSrc ? imageSrc : fallbackImage}
+              src={getImageFormatting(cover, runner)}
               className={imgClasses}
               alt="cover"
             />
@@ -427,14 +366,16 @@ const GameCard = ({
                 className={logoClasses}
               />
             )}
-            <span
-              className={classNames('gameListInfo', {
-                active: haveStatus,
-                installed: isInstalled
-              })}
-            >
-              {getStatus()}
-            </span>
+            {haveStatus && (
+              <span
+                className={classNames('gameListInfo', {
+                  active: haveStatus,
+                  installed: isInstalled
+                })}
+              >
+                {label}
+              </span>
+            )}
             <span
               className={classNames('gameTitle', {
                 active: haveStatus,
