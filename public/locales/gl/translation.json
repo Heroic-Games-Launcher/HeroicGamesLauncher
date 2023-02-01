@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "Seleccionar o cartafol de prefixo de Wine",
-        "yes": "Sí"
+        "yes": "Sí",
+        "dontShowAgain": "Non volvas mostrar"
     },
     "button": {
         "cancel": "Cancel",

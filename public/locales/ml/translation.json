@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "വൈനിരിക്കുന്ന അറ തിരഞ്ഞെടുക്കൂ",
-        "yes": "ശരി"
+        "yes": "ശരി",
+        "dontShowAgain": "വീണ്ടും കാണിക്കരുത്"
     },
     "button": {
         "cancel": "Cancel",

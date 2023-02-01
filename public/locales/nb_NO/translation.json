@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "Velg mappe for Wine-prefiks",
-        "yes": "Ja"
+        "yes": "Ja",
+        "dontShowAgain": "Ikke vis igjen"
     },
     "button": {
         "cancel": "Cancel",

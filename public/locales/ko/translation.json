@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "WinePrefix 폴더 선택",
-        "yes": "예"
+        "yes": "예",
+        "dontShowAgain": "다시 표시하지 않음"
     },
     "button": {
         "cancel": "Cancel",

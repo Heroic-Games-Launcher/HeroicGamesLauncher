@@ -213,5 +213,8 @@
         "main-plus-extras": "Hoved + Ekstra",
         "main-story": "Hovedhistorie"
     },
-    "howLongToBeat": "Hvor længe skal man slå"
+    "howLongToBeat": "Hvor længe skal man slå",
+    "help": {
+        "cloud_save_unsupported": "Dette spil understøtter ikke skylagring. Disse oplysninger leveres af spiludviklerne. Nogle spil implementerer deres eget skylagringssystem"
+    }
 }

@@ -203,5 +203,8 @@
         "store": "Butikkside",
         "verify": "Bekreft og reparer",
         "extraInfo": "Ekstra info"
+    },
+    "help": {
+        "cloud_save_unsupported": "Dette spillet støtter ikke skylagring. Denne informasjonen er gitt av spillutviklerne. Noen spill implementerer sitt eget skylagringssystem"
     }
 }

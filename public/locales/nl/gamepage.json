@@ -202,5 +202,8 @@
         "store": "Winkel",
         "verify": "Verifiëren en repareren",
         "extraInfo": "Extra info"
+    },
+    "help": {
+        "cloud_save_unsupported": "Deze game ondersteunt geen opslag in de cloud. Deze informatie wordt verstrekt door de game-ontwikkelaars. Sommige games implementeren hun eigen cloudopslagsysteem"
     }
 }

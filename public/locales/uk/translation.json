@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "Оберіть теку префікса Wine",
-        "yes": "ТАК"
+        "yes": "ТАК",
+        "dontShowAgain": "Більше не показувати"
     },
     "button": {
         "cancel": "Cancel",

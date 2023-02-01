@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "Valitse Wine Prefix kansio",
-        "yes": "KYLLÄ"
+        "yes": "KYLLÄ",
+        "dontShowAgain": "Älä näytä uudelleen"
     },
     "button": {
         "cancel": "Cancel",

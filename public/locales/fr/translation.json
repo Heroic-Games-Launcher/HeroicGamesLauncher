@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "Choisir le dossier de préfixe Wine",
-        "yes": "OUI"
+        "yes": "OUI",
+        "dontShowAgain": "Ne plus afficher"
     },
     "button": {
         "cancel": "Annuler",

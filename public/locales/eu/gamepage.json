@@ -203,5 +203,8 @@
         "store": "Dendaren orrialdea",
         "verify": "Egiaztatzea eta konpontzea",
         "extraInfo": "Informazio gehigarria"
+    },
+    "help": {
+        "cloud_save_unsupported": "Joko honek ez du onartzen hodeian gordetzea. Informazio hau jokoen garatzaileek ematen dute. Zenbait jokok hodeian gordetzeko sistema propioa ezartzen dute"
     }
 }

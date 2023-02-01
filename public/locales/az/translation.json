@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "Şərab Prefiks Qovluğu seçin",
-        "yes": "HƏ"
+        "yes": "HƏ",
+        "dontShowAgain": "Bir daha göstərmə"
     },
     "button": {
         "cancel": "Cancel",

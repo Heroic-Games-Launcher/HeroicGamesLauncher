@@ -202,5 +202,8 @@
         "store": "Halaman Toko",
         "verify": "Verifikasi dan Perbaiki",
         "extraInfo": "Informasi tambahan"
+    },
+    "help": {
+        "cloud_save_unsupported": "Game ini tidak mendukung cloud save. Informasi ini disediakan oleh pengembang game. Beberapa game menerapkan sistem penyimpanan cloud mereka sendiri"
     }
 }

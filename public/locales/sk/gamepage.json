@@ -202,5 +202,8 @@
         "store": "Stránka obchodu",
         "verify": "Overiť a opraviť",
         "extraInfo": "Ďalšie informácie"
+    },
+    "help": {
+        "cloud_save_unsupported": "Táto hra nepodporuje ukladanie do cloudu. Tieto informácie poskytujú vývojári hry. Niektoré hry implementujú svoj vlastný systém ukladania do cloudu"
     }
 }

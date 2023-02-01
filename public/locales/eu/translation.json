@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "Aukeratu Wine-Prefix karpeta",
-        "yes": "BAI"
+        "yes": "BAI",
+        "dontShowAgain": "Ez erakutsi berriro"
     },
     "button": {
         "cancel": "Ezeztatu",

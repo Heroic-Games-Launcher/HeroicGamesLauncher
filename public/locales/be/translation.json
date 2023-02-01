@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "Абярыце папку Wine Prefix",
-        "yes": "ТАК"
+        "yes": "ТАК",
+        "dontShowAgain": "Больш не паказваць"
     },
     "button": {
         "cancel": "Cancel",
