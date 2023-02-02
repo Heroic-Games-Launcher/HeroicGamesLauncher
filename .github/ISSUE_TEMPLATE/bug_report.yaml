@@ -48,14 +48,13 @@ body:
   - type: markdown
     attributes:
       value: |-
-        ## Latest stable version of Heroic is 2.5.2. Please, update Heroic before reporting a bug if you have an older version.
+        ## Latest stable version of Heroic is 2.6.1. Please, update Heroic before reporting a bug if you have an older version.
   - type: dropdown
     id: heroic_version
     attributes:
       label: Heroic Version
       options:
-        - Latest Stable
-        - Latest Beta
+        - Latest Stable (2.6.1)
         - main branch from GitHub
     validations:
       required: true
