@@ -99,7 +99,8 @@ import {
   isFlatpak,
   publicDir,
   wineprefixFAQ,
-  customThemesWikiLink
+  customThemesWikiLink,
+  createNecessaryFolders
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
@@ -147,6 +148,7 @@ const { showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
 
 async function initializeWindow(): Promise<BrowserWindow> {
+  createNecessaryFolders()
   configStore.set('userHome', userHome)
   const mainWindow = createMainWindow()
 
