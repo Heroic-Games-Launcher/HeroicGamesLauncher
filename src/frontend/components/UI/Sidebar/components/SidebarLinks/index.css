@@ -1,6 +1,5 @@
 .SidebarLinks {
   grid-area: links;
-  padding-top: var(--sidebar-vertical-padding);
   font-size: var(--text-lg);
 }
 

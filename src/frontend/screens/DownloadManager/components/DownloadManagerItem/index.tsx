@@ -115,14 +115,14 @@ const DownloadManagerItem = ({ element, current }: Props) => {
 
   const mainActionIcon = () => {
     if (finished) {
-      return <PlayIcon />
+      return <PlayIcon className="playIcon" />
     }
 
     if (canceled) {
-      return <DownIcon />
+      return <DownIcon className="installIcon" />
     }
 
-    return <StopIcon />
+    return <StopIcon className="cancelIcon" />
   }
 
   const getTime = () => {
@@ -152,7 +152,7 @@ const DownloadManagerItem = ({ element, current }: Props) => {
     }
 
     if (canceled) {
-      return 'var(--danger)'
+      return 'var(--cancel-button, var(--danger))'
     }
 
     return current ? 'var(--text-default)' : 'var(--accent)'

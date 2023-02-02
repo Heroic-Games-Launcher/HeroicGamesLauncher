@@ -24,6 +24,28 @@
       align-self: center;
     }
 
+    .settings-icon {
+      width: 44px;
+      position: relative;
+      padding: 6px;
+      right: 6px;
+      background: var(--neutral-03);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+
+      svg path {
+        fill: var(--neutral-06);
+        transition: fill 0.2s;
+      }
+
+      &:hover {
+        svg path {
+          fill: var(--neutral-05);
+        }
+      }
+    }
+
     .game-actions {
       position: relative;
       display: flex;
@@ -31,36 +53,40 @@
 
       .toggle {
         align-self: flex-end;
-        background-color: transparent;
         border: none;
-        color: var(--accent);
+        color: var(--neutral-06);
         font-size: var(--text-2xl);
         padding: var(--space-xs-fixed);
         cursor: pointer;
         position: relative;
-        transition: background-color 0.2s;
+        transition: color 0.2s;
         display: flex;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        background: var(--neutral-03);
+        border-radius: 10px;
       }
 
       &:focus-within .toggle,
       &:hover .toggle,
       .toggle:hover {
-        color: var(--text-title);
+        color: var(--neutral-05);
       }
 
       .gameTools {
         position: absolute;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.2s, max-height 0.2s;
+        opacity: 1;
+        pointer-events: all;
+        transition: all 0.2s;
         background: var(--navbar-background);
         border-radius: 5px;
         z-index: 2;
-        padding: 1rem;
+        padding: 0;
         max-height: 0px;
         overflow: hidden;
         right: 0;
-        top: 100%;
+        top: 112%;
       }
 
       .gameTools .link {
@@ -71,6 +97,10 @@
         font-size: 1rem;
         background: var(--navbar-background);
 
+        &:hover {
+          color: var(--accent-overlay);
+        }
+
         &:last-child {
           padding-bottom: 0;
         }
@@ -80,6 +110,7 @@
       &:hover .gameTools {
         opacity: 1;
         pointer-events: all;
+        padding: var(--space-md);
         max-height: 100vh;
         box-shadow: 4px 5px 5px -2px rgba(0, 0, 0, 0.2);
       }
@@ -174,6 +205,10 @@
     color: var(--text-default);
   }
 
+  button {
+    max-width: 560px;
+  }
+
   .summary {
     font-family: var(--primary-font-family);
     font-style: normal;
@@ -188,7 +223,7 @@
     -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
     overflow: auto;
-    max-height: 150px;
+    height: 150px;
     line-height: 1.5;
     b {
       font-weight: 700;
@@ -202,6 +237,10 @@
     align-self: flex-start;
     margin-top: 1.2em;
     color: var(--accent);
+
+    &:hover {
+      color: var(--accent-overlay);
+    }
 
     & svg {
       margin-right: 0.4em;
@@ -241,13 +280,6 @@
     color: var(--success);
     animation: animate-stripes 5s linear infinite;
   }
-}
-
-.buttonsWrapper {
-  display: grid;
-  grid-template-columns: min-content min-content;
-  place-items: baseline;
-  grid-column-gap: 1em;
 }
 
 .selectFieldWrapper.Field ~ .buttonsWrapper {

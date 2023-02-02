@@ -1,94 +1,58 @@
 @mixin colorSystem {
-  /* Generic colors */
-  --background: #151f3d;
-  --background-darker: #0d0f1c;
-  --background-darker-80: #0d0f1ce0;
-  --background-secondary: #323035;
-  --background-lighter: #152f6d;
-  --background-hover: rgb(20 20 20 / 47%);
-  --background-gradient: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.418) 2.4%,
-    #0d0f1cd2 64%
-  );
+  /* General Colors as on Figma. Do not add new colors here */
+  /* Brand */
+  --brand-primary: #1de8f5;
+  --brand-secondary: #819cff;
+  --brand-text-01: #e0f9ff;
+  --brand-text-02: #97e5f7;
 
-  /* Colours */
-  --navbar-background: var(--background);
-  --input-background: var(--background-darker);
-  --body-background: #13172a;
-  --current-background: var(--body-background);
-  --modal-background: #13172a;
-  --modal-border: #1f253f;
-  --modal-backdrop: #00000074;
-  --text-hover: #59d0ea;
-  --primary: #07c5ef;
-  --primary-hover: #4cdafa;
-  --link-highlight: #07c5ef;
-  --accent: #eaa114;
-  --accent-overlay: #ffbb33;
-  --navbar-accent: var(--accent);
-  --navbar-active-background: var(--background-lighter);
-  --play-button: #59d0ea;
-  --download-button: #3082d9;
-  --download-button-overlay: #1372d7;
-  --stop-button: #252121;
-  --scrollbar-thumb: #ffffff33;
-  --favourite-active: #97f4e9;
-  --favourite-inactive: #eae8e5;
-  --danger: #bd0a0a; /* These success, danger and disabled colours need to be documented */
-  --success: #0bd58c;
-  --success-hover: #30eca8;
-  --danger-hover: #e43f3f;
-  --icon-disabled: #625e69;
-  --icons-background: #17131c;
-  --divider: gray;
-  --osk-background: var(--body-background);
-  --osk-button-background: var(--input-background);
-  --osk-button-border: var(--navbar-background);
-  --controller-hints-background: transparent;
+  /* Neutral */
+  --neutral-01: #070a0b;
+  --neutral-02: #161c1e;
+  --neutral-03: #272f31;
+  --neutral-04: #495456;
+  --neutral-05: #6e7f83;
+  --neutral-06: #d1e4e9;
 
-  --anticheat-denied: var(--danger);
-  --anticheat-broken: #e8590c;
-  --anticheat-running: #0e8598;
-  --anticheat-supported: #2f9e44;
-  --anticheat-planned: #6841d9;
+  /* Status */
+  --status-default: #d2d2d2;
+  --status-success: #0ce396;
+  --status-warning: #daad0e;
+  --status-danger: #b80953;
+  --status-info: #0fefc7;
+  --primary-hover: #88ebf1;
+  --primary-active: #0db4be;
+  --secondary-hover: #a7baff;
+  --secondary-active: #2253ff;
 
-  /* Gradients */
-  --gradient-welcome: linear-gradient(#13172a 100%, #13172a 89%, #13172a 0%);
-  --gradient-big-game-menu: linear-gradient(
-    #13172a 100%,
-    #1d1f1f 31.77%,
-    #1d1f1f 0%
-  );
-  --gamecard-title-color: #17131cd2;
+  /* Status Hover */
+  --status-default-hover: rgb(197, 197, 197);
+  --status-success-hover: #14f7a7;
+  --status-warning-hover: #ffd426;
+  --status-danger-hover: #f4297e;
+  --status-info-hover: #0fefc7;
+
+  /* Other */
+  --accent: #8bffff; // accent-01 on figma
+  --accent-overlay: #b098e2; // accent-02 on figma
+  --eighty-percent-black: #000000cc;
+  --sixty-percent-black: #00000099;
+
+  /* Gradient */
+  --gradient-01: linear-gradient(270.36deg, #4b93ff 1.57%, #18dfec 96.46%);
+  --gradient-02: linear-gradient(270.36deg, #1de8f5 1.57%, #4b93ff 96.46%);
+  --gamecard-title-color: var(--eighty-percent-black);
   --gradient-gamecard: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0.418) 1.8%,
     var(--gamecard-title-color) 45%
   );
-  --gradient-game-hover: linear-gradient(#000000 30.8%, #141515 77%);
   --gradient-body-background: linear-gradient(
     90deg,
     var(--background-darker) -32px,
     var(--body-background) 64px,
     var(--body-background) 100%
   );
-  /* Text colours */
-  --text-default: #eae8e5;
-  --text-secondary: #b1b1b1;
-  --text-pause-cancel: #97f4e9;
-  --text-title: #ffffff;
-  --text-tertiary: #101111; /* This is not defined in figma */
-  --text-quartenary: #5a5e5f; /* this is meant to be a background colour */
-  --text-danger: #d22121;
-  --text-gametitle: var(--text-default);
-  --text-log: #f5cf69;
-  --text-warning: #eaa114;
-
-  /*Action Icons*/
-  --action-icon: var(--text-default);
-  --action-icon-hover: var(--text-hover);
-  --action-icon-active: var(--accent);
 }
 
 body {
@@ -124,7 +88,7 @@ a {
 h1,
 h2,
 h3 {
-  color: var(--text-title);
+  color: var(--text-default);
 }
 
 .gogIcon {

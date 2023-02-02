@@ -21,6 +21,30 @@
   margin-left: 12px;
 }
 
+.downloadManagerListItem .cancelIcon circle {
+  fill: var(--cancel-button, var(--danger));
+}
+
+.downloadManagerListItem .cancelIcon:hover circle {
+  fill: var(--cancel-button-hover, var(--danger-hover));
+}
+
+.downloadManagerListItem .playIcon circle {
+  fill: var(--brand-secondary, var(--success));
+}
+
+.downloadManagerListItem .playIcon:hover circle {
+  fill: var(--brand-primary, var(--success-hover));
+}
+
+.downloadManagerListItem .installIcon circle {
+  fill: var(--install-button, var(--accent));
+}
+
+.downloadManagerListItem .installIcon:hover circle {
+  fill: var(--install-button-hover, var(--accent-overlay));
+}
+
 .downloadManagerListItem {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr 10%;

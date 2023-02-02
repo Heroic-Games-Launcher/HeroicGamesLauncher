@@ -41,7 +41,7 @@
 
 .toggleSwitchWrapper:hover span {
   transition: 350ms;
-  color: var(--accent);
+  color: var(--background);
 }
 
 .hiddenCheckbox:checked + .toggleSwitchWrapper:before {

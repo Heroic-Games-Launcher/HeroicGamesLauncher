@@ -664,7 +664,7 @@ export class GOGLibrary {
       art_square: verticalCover,
       cloud_save_enabled: cloudSavesEnabledGames.includes(String(info.id)),
       extra: {
-        about: { description: description, longDescription: '' },
+        about: { description: description, shortDescription: '' },
         reqs: [],
         storeUrl: `https://gog.com${info.url}`
       },

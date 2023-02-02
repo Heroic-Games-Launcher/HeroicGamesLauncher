@@ -1,6 +1,6 @@
 import './index.scss'
 
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { useTranslation } from 'react-i18next'
 import {
@@ -49,11 +49,10 @@ export default function GamesSettings({ useDetails = true }: Props) {
   const { platform } = useContext(ContextProvider)
   const { isDefault, gameInfo, isLinuxNative } = useContext(SettingsContext)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
+  const [nativeGame, setNativeGame] = useState(false)
   const isLinux = platform === 'linux'
   const isCrossover = wineVersion?.type === 'crossover'
   const hasCloudSaves = gameInfo?.cloud_save_enabled
-
-  const [nativeGame, setNativeGame] = useState(false)
 
   useEffect(() => {
     if (gameInfo) {

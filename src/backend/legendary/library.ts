@@ -469,7 +469,7 @@ export class LegendaryLibrary {
 
     const {
       description,
-      longDescription = '',
+      shortDescription = '',
       keyImages = [],
       title,
       developer,
@@ -552,7 +552,7 @@ export class LegendaryLibrary {
       extra: {
         about: {
           description,
-          longDescription
+          shortDescription
         },
         reqs: [],
         storeUrl: formatEpicStoreUrl(title)

@@ -23,7 +23,7 @@ export type LaunchParams = {
 
 interface About {
   description: string
-  longDescription: string
+  shortDescription: string
 }
 
 export type Release = {
@@ -397,7 +397,7 @@ type AntiCheat =
   | 'Zakynthos'
 
 export interface AntiCheatInfo {
-  status: ''
+  status: 'Broken' | 'Denied' | 'Working' | 'Running' | 'Supported'
   anticheats: AntiCheat[]
   notes: string[]
   native: boolean

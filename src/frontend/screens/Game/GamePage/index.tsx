@@ -16,7 +16,8 @@ import {
 import { Link, NavLink, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { UpdateComponent, SelectField } from 'frontend/components/UI'
+import { UpdateComponent, SelectField, SvgButton } from 'frontend/components/UI'
+import { ReactComponent as SettingsIcoAlt } from 'frontend/assets/settings_icon_alt.svg'
 
 import {
   ExtraInfo,
@@ -52,6 +53,7 @@ import {
 
 import StoreLogos from 'frontend/components/UI/StoreLogos'
 import { WikiGameInfo } from 'frontend/components/UI/WikiGameInfo'
+import classNames from 'classnames'
 import { hasStatus } from 'frontend/hooks/hasStatus'
 
 export default React.memo(function GamePage(): JSX.Element | null {
@@ -276,6 +278,11 @@ export default React.memo(function GamePage(): JSX.Element | null {
       return <ErrorComponent message={message} />
     }
 
+    const description =
+      extraInfo?.about.shortDescription ||
+      extraInfo?.about.description ||
+      t('generic.noDescription', 'No description available')
+
     return (
       <div className="gameConfigContainer">
         {gameInfo.runner !== 'sideload' && showModal.show && (
@@ -302,6 +309,16 @@ export default React.memo(function GamePage(): JSX.Element | null {
             <div className="gameInfo">
               <div className="titleWrapper">
                 <h1 className="title">{title}</h1>
+                {is_installed && (
+                  <SvgButton
+                    onClick={() =>
+                      setIsSettingsModalOpen(true, 'settings', gameInfo)
+                    }
+                    className={`settings-icon`}
+                  >
+                    <SettingsIcoAlt />
+                  </SvgButton>
+                )}
                 <div className="game-actions">
                   <button className="toggle">
                     <FontAwesomeIcon icon={faEllipsisV} />
@@ -329,15 +346,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
               </div>
               <div className="infoWrapper">
                 <div className="developer">{developer}</div>
-                <div className="summary">
-                  {extraInfo && extraInfo.about
-                    ? extraInfo.about.description
-                      ? extraInfo.about.description
-                      : extraInfo.about.longDescription
-                      ? extraInfo.about.longDescription
-                      : ''
-                    : ''}
-                </div>
+                <div className="summary">{description}</div>
                 {is_installed && showCloudSaveInfo && (
                   <div
                     style={{
@@ -458,10 +467,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   ))}
                 <p
                   style={{
-                    color:
-                      is_installed || isInstalling
-                        ? 'var(--success)'
-                        : 'var(--danger)',
+                    color: isInstalling
+                      ? 'var(--success)'
+                      : 'var(--status-warning,  var(--warning))',
                     fontStyle: 'italic'
                   }}
                 >
@@ -488,47 +496,52 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 </SelectField>
               )}
               <Anticheat gameInfo={gameInfo} />
-              <div className="buttonsWrapper">
-                {is_installed && !isQueued && (
-                  <button
-                    disabled={
-                      isReparing || isMoving || isUpdating || isUninstalling
-                    }
-                    autoFocus={true}
-                    onClick={handlePlay()}
-                    className={`button ${getPlayBtnClass()}`}
-                  >
-                    {getPlayLabel()}
-                  </button>
-                )}
-                {is_installed && (
-                  <button
-                    onClick={() =>
-                      setIsSettingsModalOpen(true, 'settings', gameInfo)
-                    }
-                    className={`button is-primary`}
-                  >
-                    {t('submenu.settings')}
-                  </button>
-                )}
-                {(!is_installed || isQueued) && (
-                  <button
-                    onClick={async () => handleInstall(is_installed)}
-                    disabled={
+              {is_installed && !isQueued && (
+                <button
+                  disabled={
+                    isReparing || isMoving || isUpdating || isUninstalling
+                  }
+                  autoFocus={true}
+                  onClick={handlePlay()}
+                  className={classNames('button', {
+                    'is-secondary': !is_installed && !isQueued,
+                    'is-success':
+                      isSyncing ||
+                      (!isUpdating &&
+                        !isPlaying &&
+                        is_installed &&
+                        !notAvailable),
+                    'is-tertiary':
                       isPlaying ||
-                      isUpdating ||
-                      isReparing ||
-                      isMoving ||
-                      isUninstalling ||
-                      notSupportedGame
-                    }
-                    autoFocus={true}
-                    className={`button ${getButtonClass(is_installed)}`}
-                  >
-                    {`${getButtonLabel(is_installed)}`}
-                  </button>
-                )}
-              </div>
+                      (!is_installed && isQueued) ||
+                      (is_installed && notAvailable),
+                    'is-disabled': isUpdating
+                  })}
+                >
+                  {getPlayLabel()}
+                </button>
+              )}
+              {(!is_installed || isQueued) && (
+                <button
+                  onClick={async () => handleInstall(is_installed)}
+                  disabled={
+                    isPlaying ||
+                    isUpdating ||
+                    isReparing ||
+                    isMoving ||
+                    isUninstalling ||
+                    notSupportedGame
+                  }
+                  autoFocus={true}
+                  className={classNames('button', {
+                    'is-primary': is_installed,
+                    'is-tertiary': notAvailable || isInstalling || isQueued,
+                    'is-secondary': !is_installed && !isQueued
+                  })}
+                >
+                  {`${getButtonLabel(is_installed)}`}
+                </button>
+              )}
               {showExtraInfo && (
                 <WikiGameInfo
                   setShouldShow={setShowExtraInfo}
@@ -572,22 +585,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
     )
   }
   return <UpdateComponent />
-
-  function getPlayBtnClass() {
-    if (notAvailable) {
-      return 'is-tertiary'
-    }
-    if (isQueued) {
-      return 'is-secondary'
-    }
-    if (isUpdating) {
-      return 'is-danger'
-    }
-    if (isSyncing) {
-      return 'is-primary'
-    }
-    return isPlaying ? 'is-tertiary' : 'is-success'
-  }
 
   function getPlayLabel(): React.ReactNode {
     if (isSyncing) {
@@ -677,18 +674,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
     }
 
     return t('status.notinstalled')
-  }
-
-  function getButtonClass(is_installed: boolean) {
-    if (isInstalling || isQueued) {
-      return 'is-danger'
-    }
-
-    if (is_installed) {
-      return 'is-primary'
-    }
-
-    return 'is-secondary'
   }
 
   function getButtonLabel(is_installed: boolean) {

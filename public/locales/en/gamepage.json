@@ -95,7 +95,8 @@
         "repairing": "Repairing"
     },
     "generic": {
-        "error": "Unknown error"
+        "error": "Unknown error",
+        "noDescription": "No description available"
     },
     "help": {
         "cloud_save_unsupported": "This game does not support cloud saves. This information is provided by the game developers. Some games do implement their own cloud save system"

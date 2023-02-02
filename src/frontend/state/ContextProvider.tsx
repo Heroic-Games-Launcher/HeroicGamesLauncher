@@ -52,7 +52,7 @@ const initialContext: ContextType = {
     add: () => null,
     remove: () => null
   },
-  theme: 'default',
+  theme: 'midnightMirage',
   setTheme: () => null,
   zoomPercent: 100,
   setZoomPercent: () => null,

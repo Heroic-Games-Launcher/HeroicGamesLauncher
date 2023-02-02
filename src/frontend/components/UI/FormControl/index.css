@@ -147,7 +147,7 @@
   cursor: pointer;
   border: none;
   background: none;
-  color: var(--text);
+  color: var(--text-default);
 }
 
 .FormControl__clear:hover {

@@ -81,7 +81,6 @@
   font-size: var(--text-md);
   font-weight: var(--bold);
   line-height: 17px;
-  color: var(--text-gametitle);
   cursor: pointer;
   z-index: 3;
   pointer-events: none;
@@ -234,6 +233,26 @@
   top: 0;
 }
 
+.gameListItem span {
+  transition: 300ms;
+}
+
+.gameListItem.installed.notAvailable span {
+  color: var(--status-warning, var(--text-secondary));
+}
+
+.gameListItem.installed.notAvailable:hover span {
+  color: var(--status-warning-hover, var(--text-default));
+}
+
+.gameListItem.installed:not(.notAvailable) span {
+  color: var(--status-sucess, var(--success));
+}
+
+.gameListItem.installed:not(.notAvailable):hover span {
+  color: var(--status-success-hover, var(--accent));
+}
+
 .gameCardStatus > svg {
   cursor: pointer;
   z-index: 7;
@@ -276,40 +295,58 @@
 
 .playIcon,
 .downIcon,
+.notAvailableIcon,
 .iconDisabled,
 .queueIcon,
 .cancelIcon {
   grid-area: play;
+  transition: all 300ms;
+}
+
+.icons path,
+.icons circle {
+  transition: 300ms;
 }
 
 .playIcon circle {
   fill: var(--success);
-  transition: 300ms;
 }
 
 .playIcon:hover circle {
   fill: var(--success-hover);
-  transition: 300ms;
 }
 
 .downIcon circle {
   fill: var(--accent);
-  transition: 300ms;
 }
 
 .downIcon:hover circle {
   fill: var(--accent-overlay);
-  transition: 300ms;
 }
 
-.cancelIcon svg {
-  fill: var(--danger);
-  transition: 300ms;
+.cancelIcon svg circle {
+  fill: var(--cancel-button, var(--danger));
+}
+
+.cancelIcon:hover svg circle {
+  fill: var(--cancel-button-overlay, var(--danger-hover));
 }
 
 .queueIcon svg {
-  fill: var(--background-lighter);
+  fill: var(--cancel-button, var(--danger));
   font-size: 40px;
+}
+
+.queueIcon:hover svg {
+  fill: var(--cancel-button-overlay, var(--danger-hover));
+}
+
+.notAvailableIcon circle {
+  fill: var(--status-warning, var(--warning));
+}
+
+.notAvailableIcon:hover circle {
+  fill: var(--status-warning-hover, var(--warning));
 }
 
 .iconDisabled circle,
@@ -327,24 +364,23 @@
 
 .updateIcon svg {
   color: var(--accent);
-  transition: 300ms;
 }
 
 .updateIcon:hover svg {
   color: var(--accent-overlay);
-  transition: 300ms;
 }
 
 .settingsIcon {
-  fill: var(--accent-overlay);
-  transition: 300ms;
   grid-area: settings;
 }
 
+.settingsIcon path {
+  fill: var(--neutral-06, var(--accent-overlay));
+}
+
 .settingsIcon:focus-within,
-.settingsIcon:hover {
-  fill: var(--accent);
-  transition: 300ms;
+.settingsIcon:hover path {
+  fill: var(--text-secondary, var(--accent));
 }
 
 @keyframes fade-in {

@@ -2,7 +2,7 @@ import React from 'react'
 import { Runner } from 'common/types'
 import { ReactComponent as EpicLogo } from 'frontend/assets/epic-logo.svg'
 import { ReactComponent as GOGLogo } from 'frontend/assets/gog-logo.svg'
-import { ReactComponent as SideLoad } from 'frontend/assets/sideload.svg'
+import { ReactComponent as SideLoad } from 'frontend/assets/heroic-icon.svg'
 
 type Props = { runner: Runner; className?: string }
 

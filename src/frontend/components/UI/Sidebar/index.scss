@@ -4,8 +4,8 @@
   position: relative;
   z-index: 10;
   display: grid;
-  grid-template-rows: 2fr min-content min-content;
-  grid-template-areas: 'links' 'utils' 'updates' 'version';
+  grid-template-rows: min-content 2fr min-content min-content;
+  grid-template-areas: 'icon' 'links' 'utils' 'updates' 'version';
   grid-area: sidebar;
   height: 100%;
   padding: 0;
@@ -16,6 +16,15 @@
   overflow-x: hidden;
   --sidebar-width: 350px;
   width: var(--sidebar-width);
+
+  .heroicIcon {
+    grid-area: icon;
+    width: 50px;
+    height: 68px;
+    display: flex;
+    margin-top: var(--space-xs);
+    justify-self: center;
+  }
 }
 
 .Sidebar.collapsed {
@@ -42,6 +51,7 @@
   cursor: pointer;
   font-size: var(--text-md);
   color: var(--navbar-accent);
+  color: var(--navbar-inactive, var(--navbar-accent));
   transition: color 250ms;
   text-align: start;
   font-family: var(--primary-font-family);
@@ -72,11 +82,20 @@
 
 .Sidebar__item.active {
   color: var(--accent);
+  color: var(--navbar-active, var(--accent-overlay));
+
+  .Sidebar__itemIcon {
+    color: var(--accent);
+    color: var(--navbar-active, var(--accent-overlay));
+  }
+}
+
+.Sidebar__item.active:not(.SidebarLinks__subItem) {
+  background-color: var(--navbar-active-background);
 }
 
 .Sidebar__item.active.SidebarLinks__subItem {
   font-weight: var(--bold);
-  background-color: var(--navbar-active-background);
 }
 
 .Sidebar__itemIcon {
@@ -86,6 +105,7 @@
   display: inline-flex;
   justify-content: center;
   color: var(--accent);
+  color: var(--navbar-inactive, var(--accent));
 }
 
 .currentDownloads {
@@ -109,6 +129,7 @@
   font-size: var(--text-sm);
   cursor: pointer;
   transition: 300ms;
+  color: var(--brand-text-01);
 }
 
 .heroicVersion:hover {
