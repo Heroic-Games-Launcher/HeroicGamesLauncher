@@ -20,11 +20,12 @@ environment:
 
 build_script:
   - yarn release:win
+  - zip -1 dist\HeroicWin.zip dist\*.exe dist\*.blockmap
 
 test: off
 
 artifacts:
-  - path: dist\*Setup.exe
+  - path: dist\HeroicWin.zip
     name: Heroic_setup
 
 deploy:
