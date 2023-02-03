@@ -31,8 +31,8 @@ body.midnightMirage {
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
   --osk-button-border: var(--navbar-background);
-  --search-bar-background: var(--neutral-01);
-  --search-bar-border: var(--neutral-02);
+  --search-bar-background: var(--neutral-02);
+  --search-bar-border: var(--neutral-03);
 
   /* Action Icons */
   --action-icon: var(--neutral-05);
@@ -51,7 +51,7 @@ body.midnightMirage {
   --tertiary-button: var(--status-warning);
   --tertiary-button-overlay: var(--status-warning-hover);
   --success-button: var(--gradient-01);
-  --disabled-button: var(--neutral-04);
+  --disabled-button: var(--neutral-03);
   --disabled-button-overlay: var(--neutral-05);
   --play-button: var(--primary-button);
   --install-button: var(--secondary-button);
@@ -65,7 +65,7 @@ body.midnightMirage {
   --text-hover: var(--brand-text-02);
 
   /* Sidebar */
-  --navbar-active: var(--brand-primary);
+  --navbar-active: var(--text-secondary);
   --navbar-inactive: var(--neutral-05);
   --navbar-active-background: var(--background-darker);
   --navbar-accent: var(--text-default);

@@ -77,7 +77,7 @@
   font-size: var(--text-sm);
   line-height: var(--space-md);
   /* identical to box height */
-  color: #5a5e5f;
+  color: var(--text-secondary);
 }
 
 .appName {
