@@ -1,6 +1,6 @@
 body {
-  --text-default: var(--brand-text-01);
-  --text-secondary: var(--brand-text-02);
+  --text-default: #eae8e5;
+  --text-secondary: #b1b1b1;
   --text-tertiary: var(--neutral-01);
   --tertiary-button: var(--status-warning);
   --tertiary-button-overlay: var(--status-warning-hover);
@@ -273,7 +273,7 @@ body.dracula-classic {
 body.nord-light {
   --neutral-06: #2e3440;
   --neutral-03: #429ec5;
-  --accent: #88c0d0;
+  --accent: #30444a;
   --accent-overlay: #81a1c1;
   --navbar-accent: #81a1c1;
   --background: #eceff4;
@@ -291,15 +291,15 @@ body.nord-light {
   --input-background: #d8dee9;
   --modal-background: var(--body-background);
   --modal-border: var(--body-background);
-  --success: #a3be8c;
-  --success-hover: #8faf74;
+  --success: #3e532d;
+  --success-hover: #617550;
   --primary: #b48ead;
   --primary-hover: #a17399;
   --danger: #bf616a;
   --text-log: #f7b32a;
-  --text-title: #2e3440;
+  --text-title: #20242c;
   --text-default: var(--text-title);
-  --text-secondary: #868b95;
+  --text-secondary: #393b41;
   --text-tertiary: var(--brand-text-01);
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
@@ -307,9 +307,27 @@ body.nord-light {
   --action-icon: #748aa0;
   --action-icon-hover: var(--accent);
   --action-icon-active: var(--text-default);
+  --navbar-inactive: #ffffff;
+  --navbar-active: #d0ddff;
+  --status-warning: #b86901;
+  --gamecard-title-color: #ccdaf8cc;
+  --install-button: var(--primary);
+
+  .playIcon circle {
+    fill: var(--status-success);
+  }
+
+  .downIcon circle {
+    fill: var(--primary);
+  }
 
   .button.is-link {
-    color: var(--brand-text-01);
+    color: var(--navbar-active);
+  }
+
+  .currentDownload {
+    color: var(--navbar-active);
+    --success: #0bd48c;
   }
 }
 
@@ -320,7 +338,7 @@ body.nord-light .alternative > svg {
 body.nord-dark {
   --accent: #88c0d0;
   --accent-overlay: #bdeaf7;
-  --navbar-accent: #5d6a82;
+  --navbar-accent: #8192b1;
   --background: #191c22;
   --body-background: var(--background);
   --background-darker: var(--body-background);
@@ -343,7 +361,7 @@ body.nord-dark {
   --danger: #bf616a;
   --text-title: var(--brand-text-01);
   --text-default: var(--text-title);
-  --text-secondary: #e5e9f0;
+  --text-secondary: #ffffff;
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
   --osk-button-border: var(--navbar-background);
@@ -371,7 +389,7 @@ body.marine-classic {
   --input-background: #063442;
   --modal-background: var(--body-background);
   --modal-border: var(--body-background);
-  --success: #98f2ff;
+  --success: #66e9fd;
   --success-hover: #5dc6f7;
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
@@ -380,6 +398,7 @@ body.marine-classic {
   --action-icon-hover: var(--text-hover);
   --action-icon-active: var(--accent);
   --navbar-accent: var(--accent);
+  --primary: #34aaf8;
 }
 
 body.zombie,
@@ -410,6 +429,7 @@ body.zombie-classic {
   --action-icon: var(--text-default);
   --action-icon-hover: var(--text-hover);
   --action-icon-active: var(--accent);
+  --primary-button: #14e8c8;
 }
 
 body.old-school {
@@ -455,9 +475,9 @@ body.zombie-classic {
 
 body.sweet,
 body.sweet-dark {
-  --accent: #c50ed2;
-  --accent-overlay: #7f148e;
-  --navbar-accent: #98abb2;
+  --accent: #f45dff;
+  --accent-overlay: #dd18f7;
+  --navbar-accent: #b9d0d8;
   --background: #1a1d2b;
   --body-background: var(--background);
   --background-darker: var(--body-background);
@@ -475,14 +495,14 @@ body.sweet-dark {
   --modal-border: var(--body-background);
   --success: #c50ed2;
   --success-hover: #7f148e;
-  --primary: #b48ead;
+  --primary: #c28cb8;
   --primary-hover: #a17399;
   --danger: #bf61a2;
   --text-log: #8c909b;
   --text-title: #e9eaeb;
   --text-default: var(--text-title);
   --text-secondary: #92a4ab;
-  --text-tertiary: var(--brand-text-01);
+  --text-tertiary: var(--neutral-01);
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
   --osk-button-border: var(--navbar-background);
