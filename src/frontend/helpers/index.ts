@@ -96,6 +96,9 @@ function handleRunnersPlatforms(
       return 'osx'
     case 'Windows':
       return 'windows'
+    // GOG doesn't have a linux platform, so we need to get the information as windows
+    case 'linux':
+      return 'windows'
     default:
       return platform
   }
