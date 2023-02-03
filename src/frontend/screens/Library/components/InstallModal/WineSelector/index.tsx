@@ -43,7 +43,7 @@ export default function WineSelector({
     const getAppSettings = async () => {
       const {
         defaultWinePrefix: prefixFolder,
-        wineVersion: defaultWineVersion,
+        wineVersion,
         winePrefix: defaultPrefix,
         wineCrossoverBottle: defaultBottle
       } = await window.api.requestAppSettings()
@@ -61,14 +61,14 @@ export default function WineSelector({
 
       if (useDefaultSettings) {
         setWinePrefix(defaultPrefix)
-        setWineVersion(defaultWineVersion)
+        setWineVersion(wineVersion)
         setCrossoverBottle(defaultBottle)
       } else {
         const sugestedWinePrefix = `${prefixFolder}/${removeSpecialcharacters(
           title
         )}`
         setWinePrefix(sugestedWinePrefix)
-        setWineVersion(defaultWineVersion || undefined)
+        setWineVersion(wineVersion || undefined)
       }
     }
     getAppSettings()
