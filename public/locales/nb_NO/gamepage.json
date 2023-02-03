@@ -96,7 +96,8 @@
         "repairing": "Reparerer"
     },
     "generic": {
-        "error": "Ukjent feil"
+        "error": "Ukjent feil",
+        "noDescription": "Ingen beskrivelse tilgjengelig"
     },
     "hours": "Hours",
     "how-long-to-beat": {

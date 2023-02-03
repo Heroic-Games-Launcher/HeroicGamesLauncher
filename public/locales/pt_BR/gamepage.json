@@ -32,7 +32,7 @@
             "title": "Parar a Instalação"
         },
         "uninstall": {
-            "checkbox": "{{newLine}}Remover prefixo: {{prefix}}{{newLine}}Obs.: Isso não pode ser desfeito e também vai remover jogos salvos sem backup.",
+            "checkbox": "Remover prefixo: {{prefix}}{{newLine}}Obs.: Isso não pode ser desfeito e também vai remover jogos salvos sem backup.",
             "message": "Deseja desinstalar este jogo?",
             "settingcheckbox": "Apagar configurações e remover logs{{newLine}}Obs: Isto não pode ser desfeito. Qualquer configuração modificada será esquecida e o log será deletado.",
             "title": "Desinstalar",
@@ -48,7 +48,7 @@
     "button": {
         "add_to_favourites": "Adicionar aos favoritos",
         "cancel": "Pausar/Cancelar",
-        "continue": "Continuar baixando",
+        "continue": "Continuar Download",
         "finish": "Terminar",
         "force_update": "Forçar atualização se disponível",
         "force-innstall": "Forçar instalação",
@@ -95,7 +95,8 @@
         "repairing": "Reparando"
     },
     "generic": {
-        "error": "Erro desconhecido"
+        "error": "Erro desconhecido",
+        "noDescription": "Descrição não disponível"
     },
     "hours": "Horas",
     "how-long-to-beat": {

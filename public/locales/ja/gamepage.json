@@ -95,7 +95,8 @@
         "repairing": "修復しています"
     },
     "generic": {
-        "error": "Unknown error"
+        "error": "Unknown error",
+        "noDescription": "説明がありません"
     },
     "hours": "Hours",
     "how-long-to-beat": {

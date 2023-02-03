@@ -95,7 +95,8 @@
         "repairing": "در حال تعمیر"
     },
     "generic": {
-        "error": "خطای نامشخص"
+        "error": "خطای نامشخص",
+        "noDescription": "هیچ توضیحی در دسترس نیست"
     },
     "hours": "Hours",
     "how-long-to-beat": {

@@ -95,7 +95,8 @@
         "repairing": "Korjataan"
     },
     "generic": {
-        "error": "Unknown error"
+        "error": "Unknown error",
+        "noDescription": "ei kuvausta saatavilla"
     },
     "hours": "Hours",
     "how-long-to-beat": {

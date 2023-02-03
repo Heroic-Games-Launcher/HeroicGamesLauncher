@@ -96,7 +96,8 @@
         "repairing": "Konpontzen"
     },
     "generic": {
-        "error": "Errore ezezaguna"
+        "error": "Errore ezezaguna",
+        "noDescription": "Ez dago deskribapenik eskuragarri"
     },
     "hours": "Hours",
     "how-long-to-beat": {

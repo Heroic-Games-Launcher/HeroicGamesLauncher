@@ -95,7 +95,8 @@
         "repairing": "Oprava"
     },
     "generic": {
-        "error": "Neznáma chyba"
+        "error": "Neznáma chyba",
+        "noDescription": "Popis nie je k dispozícii"
     },
     "hours": "Hours",
     "how-long-to-beat": {

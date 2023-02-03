@@ -95,7 +95,8 @@
         "repairing": "修復中"
     },
     "generic": {
-        "error": "未知的錯誤"
+        "error": "未知的錯誤",
+        "noDescription": "沒有可用的描述"
     },
     "hours": "Hours",
     "how-long-to-beat": {

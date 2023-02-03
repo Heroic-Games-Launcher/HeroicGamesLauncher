@@ -96,7 +96,8 @@
         "repairing": "Təmir"
     },
     "generic": {
-        "error": "Naməlum xəta"
+        "error": "Naməlum xəta",
+        "noDescription": "Təsvir mövcud deyil"
     },
     "hours": "Hours",
     "how-long-to-beat": {

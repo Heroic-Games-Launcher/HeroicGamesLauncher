@@ -95,7 +95,8 @@
         "repairing": "നന്നാക്കുന്നു"
     },
     "generic": {
-        "error": "Unknown error"
+        "error": "Unknown error",
+        "noDescription": "വിവരണം ലഭ്യമല്ല"
     },
     "hours": "Hours",
     "how-long-to-beat": {

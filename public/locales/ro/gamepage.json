@@ -96,7 +96,8 @@
         "repairing": "Reparare"
     },
     "generic": {
-        "error": "Eroare Necunoscută"
+        "error": "Eroare Necunoscută",
+        "noDescription": "fara descriere"
     },
     "hours": "Hours",
     "how-long-to-beat": {

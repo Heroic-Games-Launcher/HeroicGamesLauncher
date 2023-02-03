@@ -95,7 +95,8 @@
         "repairing": "பழுதுபார்க்கப்படுகிறது"
     },
     "generic": {
-        "error": "Unknown error"
+        "error": "Unknown error",
+        "noDescription": "விவரம் இல்லை"
     },
     "hours": "Hours",
     "how-long-to-beat": {

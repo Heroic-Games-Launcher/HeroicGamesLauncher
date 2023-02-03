@@ -95,7 +95,8 @@
         "repairing": "Popravljanje"
     },
     "generic": {
-        "error": "Nepoznata greška"
+        "error": "Nepoznata greška",
+        "noDescription": "Opis nije dostupan"
     },
     "hours": "Hours",
     "how-long-to-beat": {
