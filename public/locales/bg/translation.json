@@ -373,7 +373,7 @@
         }
     },
     "offline-message": {
-        "hint": "Извършва се проверка на връзката с:{{newline}}github.com,{{newline}}gog.com и{{newline}}store.epicgames.com",
+        "hint": "Извършва се проверка на връзката с:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com и{{newline}}cloudflare-dns.com",
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Извън линия. Повторен опит след {{seconds}} секунди.",
