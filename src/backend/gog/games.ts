@@ -113,6 +113,7 @@ class GOGGame extends Game {
   async getInstallInfo(
     installPlatform: InstallPlatform = 'windows'
   ): Promise<GogInstallInfo> {
+    installPlatform = installPlatform === 'linux' ? 'windows' : installPlatform
     const info = await GOGLibrary.get().getInstallInfo(
       this.appName,
       installPlatform
