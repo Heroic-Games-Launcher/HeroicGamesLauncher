@@ -4,6 +4,8 @@ body {
   --text-tertiary: var(--neutral-01);
   --tertiary-button: var(--status-warning);
   --tertiary-button-overlay: var(--status-warning-hover);
+  --cancel-button: var(--status-warning);
+  --cancel-button-overlay: var(--status-warning-hover);
 }
 
 body.midnightMirage {

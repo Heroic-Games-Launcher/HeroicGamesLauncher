@@ -325,20 +325,20 @@
 }
 
 .cancelIcon svg circle {
-  fill: var(--cancel-button, var(--danger));
+  fill: var(--cancel-button, var(--warning));
 }
 
 .cancelIcon:hover svg circle {
-  fill: var(--cancel-button-overlay, var(--danger-hover));
+  fill: var(--cancel-button-overlay, var(--warning-hover));
 }
 
 .queueIcon svg {
-  fill: var(--cancel-button, var(--danger));
+  fill: var(--cancel-button, var(--warning));
   font-size: 40px;
 }
 
 .queueIcon:hover svg {
-  fill: var(--cancel-button-overlay, var(--danger-hover));
+  fill: var(--cancel-button-overlay, var(--warning-hover));
 }
 
 .notAvailableIcon circle {
