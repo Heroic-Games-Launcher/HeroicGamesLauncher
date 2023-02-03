@@ -48,8 +48,6 @@ export default function WineSelector({
         wineCrossoverBottle: defaultBottle
       } = await window.api.requestAppSettings()
 
-      console.log('defaultPrefix', defaultPrefix, { wine: wineVersion?.name })
-
       if (!wineVersion || !defaultPrefix || !defaultBottle) return
       setDescription(
         `${defaultPrefix} / ${wineVersion.name.replace('Proton - ', '')}`
