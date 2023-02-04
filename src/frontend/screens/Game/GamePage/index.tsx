@@ -489,7 +489,11 @@ export default React.memo(function GamePage(): JSX.Element | null {
               {is_installed && !isQueued && (
                 <button
                   disabled={
-                    isReparing || isMoving || isUpdating || isUninstalling
+                    isReparing ||
+                    isMoving ||
+                    isUpdating ||
+                    isUninstalling ||
+                    isSyncing
                   }
                   autoFocus={true}
                   onClick={handlePlay()}
