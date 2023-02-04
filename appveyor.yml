@@ -20,7 +20,7 @@ environment:
 
 build_script:
   - yarn release:win
-  - zip -1 dist\HeroicWin.zip dist\*.exe dist\*.blockmap
+  - Compress-Archive -Path dist\*x64.exe, dist\*arm64.exe, dist\*x64.exe.blockmap, dist\*arm64.exe.blockmap -DestinationPath dist\HeroicWin.zip
 
 test: off
 
