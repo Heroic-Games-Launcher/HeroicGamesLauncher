@@ -17,6 +17,7 @@
     padding: var(--space-md);
     display: flex;
     gap: var(--space-md);
+    border-radius: var(--space-3xs);
   }
 
   section:not(:nth-of-type(0)) {
