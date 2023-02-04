@@ -360,8 +360,6 @@ export class GOGLibrary {
     const commandParts = [
       'info',
       appName,
-      '--token',
-      `"${credentials.access_token}"`,
       `--lang=${lang}`,
       '--os',
       installPlatform
