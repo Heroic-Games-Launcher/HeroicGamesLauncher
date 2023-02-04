@@ -6,10 +6,6 @@ platform:
 init:
   - git config --global core.autocrlf input
 
-cache:
-  - node_modules
-  - '%USERPROFILE%\.electron'
-
 install:
   - npm i --legacy-peer-deps
 
