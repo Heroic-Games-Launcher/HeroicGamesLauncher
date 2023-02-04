@@ -176,7 +176,7 @@
     "test:ci": "jest --runInBand --silent",
     "release:linux": "vite build && electron-builder -p always --linux deb AppImage rpm pacman tar.xz",
     "release:mac": "vite build && electron-builder -p always --mac --x64 --arm64",
-    "release:win": "vite build && electron-builder --win --x64 --arm64",
+    "release:win": "vite build && electron-builder -p never --win --x64 --arm64",
     "dist:linux": "vite build && electron-builder --linux",
     "dist:mac": "vite build && electron-builder --mac",
     "dist:win": "vite build && electron-builder --win",
