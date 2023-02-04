@@ -95,7 +95,8 @@
         "repairing": "S'està reparant"
     },
     "generic": {
-        "error": "Error desconegut"
+        "error": "Error desconegut",
+        "noDescription": "No hi ha descripció disponible"
     },
     "hours": "Hores",
     "how-long-to-beat": {

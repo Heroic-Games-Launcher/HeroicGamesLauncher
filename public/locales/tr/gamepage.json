@@ -95,7 +95,8 @@
         "repairing": "Onarılıyor"
     },
     "generic": {
-        "error": "Bilinmeyen hata"
+        "error": "Bilinmeyen hata",
+        "noDescription": "Açıklama yok"
     },
     "hours": "Hours",
     "how-long-to-beat": {

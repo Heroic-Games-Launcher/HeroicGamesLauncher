@@ -95,7 +95,8 @@
         "repairing": "Riparazione in corso"
     },
     "generic": {
-        "error": "Errore sconosciuto"
+        "error": "Errore sconosciuto",
+        "noDescription": "Nessuna descrizione disponibile"
     },
     "hours": "Ore",
     "how-long-to-beat": {

@@ -373,7 +373,7 @@
         }
     },
     "offline-message": {
-        "hint": "Kami sedang memeriksa konektivitas terhadap:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "hint": "Kami sedang memeriksa konektivitas ke:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com dan{{newline}}cloudflare-dns.com",
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Luring. Mencoba dalam {{seconds}} detik.",
@@ -416,7 +416,7 @@
         "legendary-version": "Versi Legendary: ",
         "weblate": "Bantu kami untuk menerjemahkan Heroic."
     },
-    "Other": "Other",
+    "Other": "Lainnya",
     "placeholder": {
         "alt-gogdl-bin": "Menggunakan GOGDL binary bawaan…",
         "alt-legendary-bin": "Menggunakan Legendary binary bawaan...",
@@ -650,7 +650,7 @@
         }
     },
     "wine": {
-        "actions": "Action",
+        "actions": "Aksi",
         "manager": {
             "link": "Manajer Wine",
             "not-found": "Tidak ada versi Wine yang ditemukan. Klik ikon segarkan untuk mencoba lagi.",

@@ -373,7 +373,7 @@
         }
     },
     "offline-message": {
-        "hint": "Estamos comprobando la conexión con:{{newline}}github.com,{{newline}}gog.com y{{newline}}store.epicgames.com",
+        "hint": "Estamos comprobando la conectividad con:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com y{{newline}}cloudflare-dns.com",
         "ignore": "Ignore",
         "offline": "Sin conexión",
         "offline-retry-in": "Sin conexión. Reintento en {{seconds}} segundos.",

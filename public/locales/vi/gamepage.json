@@ -95,7 +95,8 @@
         "repairing": "Đang sửa"
     },
     "generic": {
-        "error": "Lỗi chưa xác định"
+        "error": "Lỗi chưa xác định",
+        "noDescription": "Không có mô tả nào"
     },
     "hours": "Hours",
     "how-long-to-beat": {

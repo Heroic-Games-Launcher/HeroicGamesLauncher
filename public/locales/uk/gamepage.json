@@ -95,7 +95,8 @@
         "repairing": "Відновлюю"
     },
     "generic": {
-        "error": "Невідома помилка"
+        "error": "Невідома помилка",
+        "noDescription": "Немає опису"
     },
     "hours": "Hours",
     "how-long-to-beat": {

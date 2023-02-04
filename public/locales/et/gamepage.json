@@ -95,7 +95,8 @@
         "repairing": "Parandamine"
     },
     "generic": {
-        "error": "Teadmata viga"
+        "error": "Teadmata viga",
+        "noDescription": "Kirjeldus puudub"
     },
     "hours": "Hours",
     "how-long-to-beat": {

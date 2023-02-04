@@ -95,7 +95,8 @@
         "repairing": "Επιδιόρθωση"
     },
     "generic": {
-        "error": "Άγνωστο Σφάλμα"
+        "error": "Άγνωστο Σφάλμα",
+        "noDescription": "Δεν υπάρχει διαθέσιμη περιγραφή"
     },
     "hours": "Hours",
     "how-long-to-beat": {

@@ -95,7 +95,8 @@
         "repairing": "Réparation"
     },
     "generic": {
-        "error": "Erreur inconnue"
+        "error": "Erreur inconnue",
+        "noDescription": "Pas de description disponible"
     },
     "hours": "Heures",
     "how-long-to-beat": {

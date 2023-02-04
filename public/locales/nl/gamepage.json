@@ -95,7 +95,8 @@
         "repairing": "Aan het repareren"
     },
     "generic": {
-        "error": "Unknown error"
+        "error": "Unknown error",
+        "noDescription": "geen beschrijving beschikbaar"
     },
     "hours": "Hours",
     "how-long-to-beat": {
