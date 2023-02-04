@@ -11,7 +11,6 @@ cache:
   - '%USERPROFILE%\.electron'
 
 install:
-  - ps: Install-Product node 16 x64
   - npm i --legacy-peer-deps
 
 environment:
@@ -20,7 +19,7 @@ environment:
 
 build_script:
   - yarn release:win
-  - Compress-Archive -Path dist\*x64.exe, dist\*arm64.exe, dist\*x64.exe.blockmap, dist\*arm64.exe.blockmap -DestinationPath dist\HeroicWin.zip
+  - ps: Compress-Archive -Path dist\*x64.exe, dist\*arm64.exe, dist\*x64.exe.blockmap, dist\*arm64.exe.blockmap -DestinationPath dist\HeroicWin.zip
 
 test: off
 
