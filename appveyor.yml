@@ -15,7 +15,7 @@ environment:
 
 build_script:
   - yarn release:win
-  - 7z.exe a -tzip HeroicWin.zip dist\*x64.exe dist\*arm64.exe dist\*x64.exe.blockmap dist\*arm64.exe.blockmap
+  - 7z.exe a -tzip dist\HeroicWin.zip dist\*x64.exe dist\*arm64.exe dist\*x64.exe.blockmap dist\*arm64.exe.blockmap
 
 test: off
 
