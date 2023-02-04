@@ -421,7 +421,7 @@ class GlobalState extends PureComponent<Props> {
     }
 
     let updates = this.state.gameUpdates
-    if (checkUpdates && library) {
+    if (checkUpdates) {
       try {
         updates = await window.api.checkGameUpdates()
       } catch (error) {
