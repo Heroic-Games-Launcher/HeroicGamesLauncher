@@ -110,12 +110,26 @@ class GOGGame extends Game {
     return info
   }
 
+  handleRunnersPlatforms(platform: InstallPlatform): InstallPlatform {
+    switch (platform) {
+      case 'Mac':
+        return 'osx'
+      case 'Windows':
+        return 'windows'
+      // GOG doesn't have a linux platform, so we need to get the information as windows
+      case 'linux':
+        return 'windows'
+      default:
+        return platform
+    }
+  }
+
   async getInstallInfo(
     installPlatform: InstallPlatform = 'windows'
   ): Promise<GogInstallInfo> {
     const info = await GOGLibrary.get().getInstallInfo(
       this.appName,
-      installPlatform
+      this.handleRunnersPlatforms(installPlatform)
     )
     if (!info) {
       logWarning(

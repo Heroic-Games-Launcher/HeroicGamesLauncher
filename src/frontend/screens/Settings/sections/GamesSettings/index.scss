@@ -11,8 +11,8 @@
 
 .settingsWrapper {
   .defaults-hint {
-    background: var(--anticheat-denied);
-    color: white;
+    background: var(--anticheat-denied, var(--status-danger));
+    color: var(--brand-text-01);
     text-align: left;
     padding: var(--space-md);
     display: flex;

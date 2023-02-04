@@ -447,16 +447,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
               </div>
               <TimeContainer game={appName} />
               <div className="gameStatus">
-                {isUninstalling && (
-                  <p
-                    style={{
-                      color: 'var(--danger)',
-                      fontStyle: 'italic'
-                    }}
-                  >
-                    {t('status.uninstalling', 'Uninstalling')}
-                  </p>
-                )}
                 {isInstalling ||
                   (isUpdating && (
                     <progress
@@ -499,7 +489,11 @@ export default React.memo(function GamePage(): JSX.Element | null {
               {is_installed && !isQueued && (
                 <button
                   disabled={
-                    isReparing || isMoving || isUpdating || isUninstalling
+                    isReparing ||
+                    isMoving ||
+                    isUpdating ||
+                    isUninstalling ||
+                    isSyncing
                   }
                   autoFocus={true}
                   onClick={handlePlay()}
@@ -609,6 +603,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
     if (notAvailable) {
       return t('status.gameNotAvailable', 'Game not available')
+    }
+
+    if (isUninstalling) {
+      return t('status.uninstalling', 'Uninstalling')
     }
 
     if (isReparing) {

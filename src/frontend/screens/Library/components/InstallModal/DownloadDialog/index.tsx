@@ -488,7 +488,7 @@ export default function DownloadDialog({
                   </span>
                 )}
                 {validPath && notEnoughDiskSpace && (
-                  <span className="danger">
+                  <span className="warning">
                     {` (${t(
                       'install.not-enough-disk-space',
                       'Not enough disk space'

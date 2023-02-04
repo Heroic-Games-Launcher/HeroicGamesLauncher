@@ -77,7 +77,7 @@
   font-size: var(--text-sm);
   line-height: var(--space-md);
   /* identical to box height */
-  color: #5a5e5f;
+  color: var(--text-secondary);
 }
 
 .appName {
@@ -142,17 +142,18 @@ a {
 .button.is-footer:focus-visible {
   background-color: var(--stop-button);
   color: var(--text-hover);
+  box-shadow: 0px 0px 0px 3px var(--danger, var(--text-default));
 }
 
 .button.is-danger.is-footer {
-  background: transparent;
-  color: var(--danger-hover);
+  background: var(--status-warning);
+  color: var(--text-tertiary);
+  font-weight: 700;
 }
 
 .button.is-danger.is-footer:hover,
 .button.is-danger.is-footer:focus-visible {
-  background: var(--danger);
-  color: var(--text-secondary);
+  background: var(--status-warning-hover);
 }
 
 .button.is-danger:disabled,
