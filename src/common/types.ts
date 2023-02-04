@@ -248,6 +248,7 @@ export interface GOGLoginData {
   refresh_token: string
   user_id: string
   loginTime: number
+  error?: boolean
 }
 
 export interface GOGGameInfo {

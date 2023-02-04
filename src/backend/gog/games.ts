@@ -825,9 +825,6 @@ class GOGGame extends Game {
     const withDlcs = gameData.install.installedWithDLCs
       ? '--with-dlcs'
       : '--skip-dlcs'
-    if (GOGUser.isTokenExpired()) {
-      await GOGUser.refreshToken()
-    }
 
     const installPlatform = gameData.install.platform
 
