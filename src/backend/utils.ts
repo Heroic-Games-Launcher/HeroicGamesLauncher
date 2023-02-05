@@ -588,7 +588,7 @@ function constructAndUpdateRPC(gameName: string): RpcClient {
   client.updatePresence({
     details: gameName,
     instance: true,
-    largeImageKey: 'icon',
+    largeImageKey: 'icon_new',
     large_text: gameName,
     startTimestamp: Date.now(),
     state: 'via Heroic on ' + getFormattedOsName()
