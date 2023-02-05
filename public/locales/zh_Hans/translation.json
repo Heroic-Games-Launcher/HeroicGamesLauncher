@@ -373,7 +373,7 @@
         }
     },
     "offline-message": {
-        "hint": "我们正检查到下列域名的连接：{{newline}}github.com、{{newline}}gog.com 和{{newline}}store.epicgames.com",
+        "hint": "我们正检查到下列域名的连接：{{newline}}github.com、{{newline}}gog.com、{{newline}}store.epicgames.com 和 {{newline}}cloudflare-dns.com",
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "离线。在 {{seconds}} 秒内重试。",

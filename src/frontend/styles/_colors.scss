@@ -11,7 +11,7 @@
   --neutral-02: #161c1e;
   --neutral-03: #272f31;
   --neutral-04: #495456;
-  --neutral-05: #6e7f83;
+  --neutral-05: #9eb7bc;
   --neutral-06: #d1e4e9;
 
   /* Status */
@@ -39,7 +39,7 @@
   --sixty-percent-black: #00000099;
 
   /* Gradient */
-  --gradient-01: linear-gradient(270.36deg, #4b93ff 1.57%, #18dfec 96.46%);
+  --gradient-01: linear-gradient(270.36deg, #86b6ff 1.57%, #18dfec 96.46%);
   --gradient-02: linear-gradient(270.36deg, #1de8f5 1.57%, #4b93ff 96.46%);
   --gamecard-title-color: var(--eighty-percent-black);
   --gradient-gamecard: linear-gradient(
@@ -75,14 +75,6 @@ a {
   background: var(--osk-button-border);
   border-color: var(--osk-button-border);
   color: var(--text-default);
-}
-
-.danger {
-  color: var(--text-danger) !important;
-}
-
-.warning {
-  color: var(--text-warning) !important;
 }
 
 h1,

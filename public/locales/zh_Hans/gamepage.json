@@ -95,7 +95,8 @@
         "repairing": "修复中"
     },
     "generic": {
-        "error": "未知错误"
+        "error": "未知错误",
+        "noDescription": "没有可用的描述"
     },
     "hours": "小时",
     "how-long-to-beat": {

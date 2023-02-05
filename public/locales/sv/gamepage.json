@@ -95,7 +95,8 @@
         "repairing": "Reparerar"
     },
     "generic": {
-        "error": "Okänt fel"
+        "error": "Okänt fel",
+        "noDescription": "Ingen beskrivning finns tillgänglig"
     },
     "hours": "Timmar",
     "how-long-to-beat": {

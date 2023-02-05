@@ -22,7 +22,7 @@ const languageLabels: { [key: string]: string } = {
   az: 'آذربایجان دیلی',
   be: 'беларуская мова',
   bg: 'български',
-  bs: 'босански',
+  bs: 'bosanski',
   ca: 'Català',
   cs: 'Čeština',
   de: 'Deutsch',

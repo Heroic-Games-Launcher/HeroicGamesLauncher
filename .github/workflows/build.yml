@@ -59,7 +59,7 @@ jobs:
       - name: Install modules.
         run: yarn
       - name: Build artifacts.
-        run: yarn dist:mac --publish=never
+        run: yarn dist:mac --x64 --arm64 --publish=never
       - name: Upload x64.
         uses: actions/upload-artifact@v3
         with:

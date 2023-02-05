@@ -95,7 +95,8 @@
         "repairing": "Поправяне"
     },
     "generic": {
-        "error": "Неизвестна грешка"
+        "error": "Неизвестна грешка",
+        "noDescription": "Няма описание"
     },
     "hours": "часа",
     "how-long-to-beat": {

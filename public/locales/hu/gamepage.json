@@ -95,7 +95,8 @@
         "repairing": "Javítás"
     },
     "generic": {
-        "error": "Ismeretlen hiba"
+        "error": "Ismeretlen hiba",
+        "noDescription": "Nem érhető el leírás"
     },
     "hours": "Óra",
     "how-long-to-beat": {

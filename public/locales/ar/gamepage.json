@@ -96,7 +96,8 @@
         "repairing": "قيد الإصلاح"
     },
     "generic": {
-        "error": "خطأ مجهول"
+        "error": "خطأ مجهول",
+        "noDescription": "لا يوجد وصف متاح"
     },
     "hours": "ساعات",
     "how-long-to-beat": {

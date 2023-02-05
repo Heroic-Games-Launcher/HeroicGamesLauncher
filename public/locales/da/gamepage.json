@@ -173,7 +173,8 @@
         "extraInfo": "Ekstra info"
     },
     "generic": {
-        "error": "Ukendt fejl"
+        "error": "Ukendt fejl",
+        "noDescription": "Ingen beskrivelse tilgængelig"
     },
     "report_problem": "Rapportér et problem med at køre dette spil",
     "cloud_save_unsupported": "Ikke understøttet",

@@ -196,7 +196,7 @@ const GameCard = ({
           className={!notAvailable ? 'playIcon' : 'notAvailableIcon'}
           onClick={async () => handlePlay(runner)}
           title={`${t('label.playing.start')} (${title})`}
-          disabled={isLaunching}
+          disabled={isLaunching || status === 'syncing-saves'}
         >
           <PlayIcon />
         </SvgButton>

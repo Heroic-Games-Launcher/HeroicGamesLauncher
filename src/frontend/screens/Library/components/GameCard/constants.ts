@@ -27,6 +27,7 @@ export function getCardStatus(
   const isUninstalling = status === 'uninstalling'
   const notAvailable = status === 'notAvailable'
   const notSupportedGame = status === 'notSupportedGame'
+  const syncingSaves = status === 'syncing-saves'
 
   const haveStatus =
     isMoving ||
@@ -38,6 +39,7 @@ export function getCardStatus(
     notAvailable ||
     notSupportedGame ||
     isPlaying ||
+    syncingSaves ||
     (isInstalled && layout !== 'grid')
   return {
     isInstalling,

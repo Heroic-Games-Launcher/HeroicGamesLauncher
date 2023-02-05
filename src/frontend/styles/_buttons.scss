@@ -35,8 +35,8 @@ button {
   min-width: 130px;
 }
 
-.button:hover {
-  background: #58545d;
+.button:hover:not(:disabled):not(.is-link) {
+  box-shadow: 0px 0px 0px 3px var(--danger, var(--text-default));
 }
 
 .button.is-primary {
@@ -44,7 +44,7 @@ button {
 }
 
 .button.is-primary:hover {
-  background: var(--primary-button, var(--primary-hover));
+  background: var(--primary-hover);
 }
 
 .button.is-primary:disabled {
@@ -96,12 +96,11 @@ button {
 
 .button.is-danger {
   background: var(--cancel-button, var(--danger));
-  color: var(--text-default);
 }
 
 .button.is-danger:hover,
 .button.is-danger:focus-visible {
-  background: transparent;
+  background: var(--cancel-button-overlay, var(--danger));
   box-shadow: 0px 0px 0px 3px var(--danger, var(--text-default));
 }
 
@@ -146,14 +145,12 @@ button {
 }
 
 .button.settings:hover {
-  background: #7c7c7c;
+  background: var(--secondary-hover);
 }
 
 .button.settings:disabled:hover,
 .button.settings:disabled {
   background: var(--disabled-button);
-
-  background: #7c7c7c;
 }
 
 .button.is-text {

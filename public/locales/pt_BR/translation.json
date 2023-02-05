@@ -158,7 +158,7 @@
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
         "unsync": "Dessincronizar",
-        "continue": "Prosseguir"
+        "continue": "Continuar"
     },
     "controller": {
         "hints": {
@@ -172,7 +172,7 @@
             "install_game": "Instalar jogo",
             "move_cursor": "Mover cursor",
             "open_virtual_keyboard": "Abrir teclado virtual",
-            "options": "Options",
+            "options": "Opções",
             "play_game": "Jogar um jogo",
             "scroll": "Scroll",
             "select": "Selecionar",
@@ -180,7 +180,7 @@
             "update_game": "Atualizar jogo"
         }
     },
-    "docs": "Documentation",
+    "docs": "Documentação",
     "download-manager": {
         "install-type": {
             "install": "Instalação",
@@ -223,11 +223,11 @@
     "GOG": "GOG",
     "gog-store": "Loja GOG",
     "header": {
-        "hide_non_available_games": "Hide non-available games",
+        "hide_non_available_games": "Esconder jogos indisponíveis",
         "ignore_hidden": "Ignorar escondidos",
         "platform": "Plataforma",
         "show_all_games": "Mostrar todos os jogos",
-        "show_available_games": "Show non-Available games",
+        "show_available_games": "Mostrar jogos indisponíveis",
         "show_favourites_only": "Mostrar apenas favoritos",
         "show_hidden": "Mostrar escondidos",
         "store": "Filtrar loja"
@@ -373,7 +373,7 @@
         }
     },
     "offline-message": {
-        "hint": "Nós estamos checando a conectividade em:{{newline}}github.com,{{newline}}gog.com e{{newline}}store.epicgames.com",
+        "hint": "Nós estamos checando a conectividade em:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com e {{newline}}cloudflare-dns.com",
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Tentando novamente em {{seconds}} segundos.",
@@ -416,7 +416,7 @@
         "legendary-version": "Versão do Legendary: ",
         "weblate": "Ajude a traduzir o Heroic."
     },
-    "Other": "Other",
+    "Other": "Outros",
     "placeholder": {
         "alt-gogdl-bin": "Usando binário do GOGDL embutido...",
         "alt-legendary-bin": "Usando o binário embutido do Legendary...",

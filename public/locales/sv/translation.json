@@ -281,7 +281,7 @@
             "version": "Heroic version"
         },
         "save-sync": {
-            "searching": "Försöker hitta rätt mapp för sparfiler"
+            "searching": "Söker efter mapp för sparfiler (klicka för att avbryta)"
         },
         "settings": "Inställningar sparas automatiskt",
         "version": "Wine version"
@@ -347,7 +347,7 @@
                 "steam": {
                     "corrupt": "{{game}} kunde inte tas bort från alla hittade Steam-användare. Se loggar för mer information. En omstart av Steam krävs för att ändringarna ska träda i kraft.",
                     "success": "{{game}} togs bort från Steam. En omstart av Steam krävs för att ändringar ska träda i kraft.",
-                    "title": "Removed from Steam"
+                    "title": "Borttaget från Steam"
                 }
             },
             "reparing": "Reparation slutförd"
@@ -373,7 +373,7 @@
         }
     },
     "offline-message": {
-        "hint": "Vi kontrollerar anslutningen mot:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "hint": "Kontrollerar anslutning mot:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com och {{newline}}cloudflare-dns.com",
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Försöker igen om {{seconds}} sekunder.",
@@ -540,9 +540,9 @@
             "title": "Kör EXE-fil i prefix"
         },
         "savefolder": {
-            "not-found": "Sparfils-mapp hittades inte, välj den manuellt",
+            "not-found": "Sparfils-mapp hittades inte, ange sökväg istället (eller klicka för att försöka igen)",
             "placeholder": "Ange specifik sparfilsmapp",
-            "warning": "Kontrollera två gånger att sökvägen är korrekt"
+            "warning": "Dubbelkolla att sökvägen är korrekt (klicka för att försöka igen)"
         },
         "select_theme": "Välj tema",
         "showfps": "Visa FPS (DX9, 10 och 11)",

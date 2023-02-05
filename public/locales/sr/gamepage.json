@@ -110,7 +110,8 @@
         "repairing": "Поправљање"
     },
     "generic": {
-        "error": "Непозната грешка"
+        "error": "Непозната грешка",
+        "noDescription": "Опис није доступан"
     },
     "hours": "Сати",
     "how-long-to-beat": {

@@ -62,7 +62,12 @@ html,
 
 .danger {
   font-weight: var(--bold);
-  color: var(--danger);
+  color: var(--text-danger, var(--danger));
+}
+
+.warning {
+  font-weight: var(--bold);
+  color: var(--text-warning, var(--warning));
 }
 
 .material-icons.is-primary {

@@ -47,12 +47,13 @@ type Props = {
 export default function GamesSettings({ useDetails = true }: Props) {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
-  const { isDefault, gameInfo, isLinuxNative } = useContext(SettingsContext)
+  const { isDefault, gameInfo } = useContext(SettingsContext)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
   const [nativeGame, setNativeGame] = useState(false)
   const isLinux = platform === 'linux'
   const isCrossover = wineVersion?.type === 'crossover'
-  const hasCloudSaves = gameInfo?.cloud_save_enabled
+  const hasCloudSaves =
+    gameInfo?.cloud_save_enabled && gameInfo.install.platform !== 'linux'
 
   useEffect(() => {
     if (gameInfo) {
@@ -161,7 +162,7 @@ export default function GamesSettings({ useDetails = true }: Props) {
         <PreferedLanguage />
       </Collapsible>
 
-      {hasCloudSaves && !isLinuxNative && (
+      {hasCloudSaves && (
         <Collapsible
           isOpen={false}
           isCollapsible={useDetails}

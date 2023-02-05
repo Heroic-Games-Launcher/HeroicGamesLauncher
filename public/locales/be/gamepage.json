@@ -95,7 +95,8 @@
         "repairing": "Рамонт"
     },
     "generic": {
-        "error": "Невядомая памылка"
+        "error": "Невядомая памылка",
+        "noDescription": "Апісанне адсутнічае"
     },
     "hours": "Hours",
     "how-long-to-beat": {
