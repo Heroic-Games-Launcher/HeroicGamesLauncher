@@ -411,6 +411,15 @@ export const initGamepad = () => {
 
     currentController = controllerIndex
     dispatchControllerEvent(gamepad.id)
+
+    window.addEventListener(
+      'mousemove',
+      () => {
+        currentController = -1
+        dispatchControllerEvent('')
+      },
+      { once: true }
+    )
   }
 
   window.addEventListener('gamepadconnected', connecthandler)
