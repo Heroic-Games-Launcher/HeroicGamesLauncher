@@ -421,7 +421,7 @@
         "alt-gogdl-bin": "Usando i binari built-in di GOGDL...",
         "alt-legendary-bin": "In uso i binari Legendary integrati...",
         "custom_themes_path": "Seleziona il percorso per cercare i file CSS personalizzati",
-        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
+        "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix dove è installato EGS",
         "prefered_language": "Codice di 2 caratteri (es.: \\\"en\\\" o \\\"fr\\\")"
     },

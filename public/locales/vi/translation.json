@@ -421,7 +421,7 @@
         "alt-gogdl-bin": "Sử dụng GOGDL binary tích hợp sẵn...",
         "alt-legendary-bin": "Sử dụng Legendary binary tích hợp sẵn...",
         "custom_themes_path": "Select the path to look for custom CSS files",
-        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
+        "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix nơi EGS được cài đặt",
         "prefered_language": "mã ngôn ngữ (2 ký tự ví dụ: \"en\" or \"fr\")"
     },
