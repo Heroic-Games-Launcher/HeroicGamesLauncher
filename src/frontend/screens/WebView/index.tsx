@@ -112,15 +112,26 @@ export default function WebView() {
   useLayoutEffect(() => {
     const webview = webviewRef.current
     if (webview && ((preloadPath && isEpicLogin) || !isEpicLogin)) {
-      webview.addEventListener('ipc-message', (event) => {
-        console.log(event)
-      })
+      const onIpcMessage = async (event: unknown) => {
+        const e = event as { channel: string; args: string[] }
+        if (e.channel === 'processEpicLoginCode') {
+          try {
+            setLoading({
+              refresh: true,
+              message: t('status.logging', 'Logging In...')
+            })
+            await epic.login(e.args[0])
+            handleSuccessfulLogin()
+          } catch (error) {
+            console.error(error)
+            window.api.logError(String(error))
+          }
+        }
+      }
 
-      const tim = setTimeout(() => {
-        webview['send']('ping')
-      }, 100)
+      webview.addEventListener('ipc-message', onIpcMessage)
 
-      const loadstop = () => {
+      const loadstop = async () => {
         setLoading({ ...loading, refresh: false })
         // Ignore the login handling if not on login page
         if (!runner) {
@@ -155,7 +166,7 @@ export default function WebView() {
       webview.addEventListener('page-title-updated', updateConnectivity)
 
       return () => {
-        clearTimeout(tim)
+        webview.removeEventListener('ipc-message', onIpcMessage)
         webview.removeEventListener('dom-ready', loadstop)
         webview.removeEventListener('page-title-updated', updateConnectivity)
       }
