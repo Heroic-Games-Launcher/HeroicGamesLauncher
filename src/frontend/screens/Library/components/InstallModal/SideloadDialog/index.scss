@@ -19,6 +19,8 @@
     display: block;
     width: 210px;
     transition: 200ms;
+    border: 3px solid var(--neutral-02);
+    border-radius: 10px;
 
     &.blackWhiteImage {
       filter: grayscale(100%);
