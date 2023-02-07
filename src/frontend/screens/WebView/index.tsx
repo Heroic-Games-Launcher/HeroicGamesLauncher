@@ -88,23 +88,6 @@ export default function WebView() {
     }
   }, [])
 
-  // useEffect(() => {
-  //   if (isEpicLogin) {
-  //     ipcRenderer.addListener('epicLoginResponse', async (event, response) => {
-  //       const status = await epic.login(response)
-  //       if (status === 'done') {
-  //         handleSuccessfulLogin()
-  //       }
-  //     })
-
-  //     return () => {
-  //       ipcRenderer.removeListener('epicLoginResponse', epic.login)
-  //     }
-  //   } else {
-  //     return
-  //   }
-  // }, [epic.login])
-
   const handleSuccessfulLogin = () => {
     navigate('/login')
   }
@@ -197,8 +180,6 @@ export default function WebView() {
   if (!preloadPath && isEpicLogin) {
     return <></>
   }
-
-  console.log({ preloadPath })
 
   return (
     <div className="WebView">
