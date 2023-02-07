@@ -285,12 +285,7 @@ export default React.memo(function Library(): JSX.Element {
     const notInstalled = library.filter(
       (game) => !game?.is_installed && !installing.includes(game?.app_name)
     )
-    const installingGames = library.filter(
-      (g) => !g.is_installed && installing.includes(g.app_name)
-    )
-    library = sortInstalled
-      ? [...installed, ...installingGames, ...notInstalled]
-      : library
+    library = sortInstalled ? installed : [...installed, ...notInstalled]
 
     return [...library]
   }, [
