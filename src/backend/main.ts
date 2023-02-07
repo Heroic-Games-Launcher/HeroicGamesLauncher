@@ -100,7 +100,8 @@ import {
   publicDir,
   wineprefixFAQ,
   customThemesWikiLink,
-  createNecessaryFolders
+  createNecessaryFolders,
+  fixAsarPath
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
@@ -816,6 +817,11 @@ ipcMain.handle('login', async (event, sid) => LegendaryUser.login(sid))
 ipcMain.handle('authGOG', async (event, code) => GOGUser.login(code))
 ipcMain.handle('logoutLegendary', LegendaryUser.logout)
 ipcMain.on('logoutGOG', GOGUser.logout)
+ipcMain.handle('getLocalPeloadPath', async () => {
+  return `file://${fixAsarPath(
+    join(__dirname, '..', 'public', 'webviewPreload.js')
+  )}`
+})
 
 ipcMain.handle('getAlternativeWine', async () =>
   GlobalConfig.get().getAlternativeWine()
