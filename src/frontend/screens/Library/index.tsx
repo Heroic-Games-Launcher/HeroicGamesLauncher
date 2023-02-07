@@ -86,15 +86,24 @@ export default React.memo(function Library(): JSX.Element {
   useLayoutEffect(() => {
     const scrollPosition = parseInt(storage?.getItem('scrollPosition') || '0')
 
-    if (listing.current !== null && scrollPosition > 0) {
-      listing.current.scrollTo(0, scrollPosition)
-    }
+    listing.current?.addEventListener('scroll', () => {
+      storage?.setItem(
+        'scrollPosition',
+        listing.current?.scrollTop.toString() || '0'
+      )
+    })
+
+    listing.current?.scrollTo(0, scrollPosition || 0)
+
     return () => {
-      if (listing.current !== null) {
-        storage?.setItem('scrollPosition', listing.current.scrollTop.toString())
-      }
+      listing.current?.removeEventListener('scroll', () => {
+        storage?.setItem(
+          'scrollPosition',
+          listing.current?.scrollTop.toString() || '0'
+        )
+      })
     }
-  }, [listing])
+  }, [listing.current])
 
   // bind back to top button
   useEffect(() => {
@@ -316,6 +325,7 @@ export default React.memo(function Library(): JSX.Element {
   return (
     <>
       <Header />
+
       <div className="listing" ref={listing}>
         <span id="top" />
         {showRecentGames && (
