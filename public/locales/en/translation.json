@@ -61,6 +61,9 @@
                 "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
+            "legendary": {
+                "generic": "An error has occurred! Try to Logout and Login on your Epic account. {{newline}}  {{error}}"
+            },
             "moving": "Error Moving Game {{error}}",
             "title": "Error",
             "uncaught-exception": {
@@ -642,9 +645,6 @@
             "openInBrowser": "Open in browser",
             "reload": "Reload page"
         }
-    },
-    "wiki_info": {
-        "not_found": "We couldn't find extra information."
     },
     "wine": {
         "actions": "Action",
