@@ -54,7 +54,6 @@ import {
 } from 'frontend/components/UI/Dialog'
 
 import StoreLogos from 'frontend/components/UI/StoreLogos'
-import { WikiGameInfo } from 'frontend/components/UI/WikiGameInfo'
 import classNames from 'classnames'
 import { hasStatus } from 'frontend/hooks/hasStatus'
 import PopoverComponent from 'frontend/components/UI/PopoverComponent'
@@ -104,7 +103,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [winePrefix, setWinePrefix] = useState('')
   const [wineVersion, setWineVersion] = useState<WineInstallation>()
   const [showRequirements, setShowRequirements] = useState(false)
-  const [showExtraInfo, setShowExtraInfo] = useState(false)
 
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
@@ -262,7 +260,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
     hasUpdate = is_installed && gameUpdates?.includes(appName)
 
     const { howlongtobeat, pcgamingwiki, applegamingwiki } = wikiGameInfo || {}
-    console.log(wikiGameInfo)
     const hasHLTB = Boolean(howlongtobeat?.gameplayMain)
     const hasScores =
       pcgamingwiki?.metacritic.score ||
@@ -362,7 +359,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     runner={gameInfo.runner}
                     handleUpdate={handleUpdate}
                     disableUpdate={isInstalling || isUpdating}
-                    setShowExtraInfo={setShowExtraInfo}
                     onShowRequirements={
                       hasRequirements
                         ? () => setShowRequirements(true)
@@ -537,7 +533,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     }
                   >
                     <div className="poppedElement">
-                      <HowLongToBeat info={howlongtobeat} />
+                      <HowLongToBeat info={howlongtobeat!} />
                     </div>
                   </PopoverComponent>
                 )}
@@ -671,13 +667,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 >
                   {`${getButtonLabel(is_installed)}`}
                 </button>
-              )}
-              {showExtraInfo && (
-                <WikiGameInfo
-                  setShouldShow={setShowExtraInfo}
-                  title={title}
-                  id={runner === 'gog' ? appName : undefined}
-                />
               )}
               {is_installed && (
                 <span
