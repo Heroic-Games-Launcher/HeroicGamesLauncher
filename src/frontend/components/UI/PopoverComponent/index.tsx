@@ -35,7 +35,7 @@ const PopoverComponent: React.FC<PopoverComponentProps> = ({
         onClose={handleClose}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'center'
+          horizontal: 'left'
         }}
       >
         {children}
