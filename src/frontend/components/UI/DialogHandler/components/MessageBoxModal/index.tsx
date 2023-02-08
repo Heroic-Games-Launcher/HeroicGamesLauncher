@@ -17,8 +17,24 @@ interface MessageBoxModalProps {
   type: DialogType
 }
 
+function decodeHTML(html: string) {
+  const txt = document.createElement('textarea')
+  txt.innerHTML = html
+  return txt.value.split('\n').map((item, key) => {
+    return (
+      <span key={key}>
+        {item}
+        <p />
+      </span>
+    )
+  })
+}
+
 const MessageBoxModal: React.FC<MessageBoxModalProps> = function (props) {
   const { t } = useTranslation()
+
+  const message = decodeHTML(props.message)
+
   const getButtons = function () {
     const allButtons = []
     for (let i = 0; i < props.buttons.length; ++i) {
@@ -46,11 +62,7 @@ const MessageBoxModal: React.FC<MessageBoxModalProps> = function (props) {
             <div className="errorDialog contentHeader">
               {t('error', 'Error')}:
             </div>
-            <div className="errorDialog error-box">
-              {props.message.split('\n').map((line, key) => {
-                return <p key={key}>{line}</p>
-              })}
-            </div>
+            <div className="errorDialog error-box">{message}</div>
           </>
         )
         break
