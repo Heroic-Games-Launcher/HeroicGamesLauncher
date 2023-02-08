@@ -5,6 +5,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 
 import {
+  createNewWindow,
   getGameInfo,
   getInstallInfo,
   getProgress,
@@ -24,6 +25,7 @@ import {
   GameInfo,
   Runner,
   SideloadGame,
+  WikiInfo,
   WineInstallation
 } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'
@@ -55,6 +57,9 @@ import StoreLogos from 'frontend/components/UI/StoreLogos'
 import { WikiGameInfo } from 'frontend/components/UI/WikiGameInfo'
 import classNames from 'classnames'
 import { hasStatus } from 'frontend/hooks/hasStatus'
+import PopoverComponent from 'frontend/components/UI/PopoverComponent'
+import HowLongToBeat from 'frontend/components/UI/WikiGameInfo/components/HowLongToBeat'
+import GameScore from 'frontend/components/UI/WikiGameInfo/components/GameScore'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -67,6 +72,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const { gameInfo: locationGameInfo } = location.state
 
   const [showModal, setShowModal] = useState({ game: '', show: false })
+  const [wikiGameInfo, setWikiGameInfo] = useState<WikiInfo | null>(null)
 
   const {
     epic,
@@ -200,6 +206,18 @@ export default React.memo(function GamePage(): JSX.Element | null {
     updateConfig()
   }, [status, epic.library, gog.library, gameInfo, isSettingsModalOpen])
 
+  useEffect(() => {
+    const id = runner === 'gog' ? appName : undefined
+    window.api.getWikiGameInfo(gameInfo.title, id).then((info: WikiInfo) => {
+      if (
+        info &&
+        (info.applegamingwiki || info.howlongtobeat || info.pcgamingwiki)
+      ) {
+        setWikiGameInfo(info)
+      }
+    })
+  }, [appName])
+
   function handleUpdate() {
     if (gameInfo.runner !== 'sideload')
       updateGame({ appName, runner, gameInfo })
@@ -242,6 +260,15 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
     hasRequirements = extra?.reqs ? extra.reqs.length > 0 : false
     hasUpdate = is_installed && gameUpdates?.includes(appName)
+
+    const { howlongtobeat, pcgamingwiki, applegamingwiki } = wikiGameInfo || {}
+    console.log(wikiGameInfo)
+    const hasHLTB = Boolean(howlongtobeat?.gameplayMain)
+    const hasScores =
+      pcgamingwiki?.metacritic.score ||
+      pcgamingwiki?.igdb.score ||
+      pcgamingwiki?.opencritic.score
+    const hasAppleInfo = applegamingwiki?.crossoverRating
     const appLocation = install_path || folder_name
 
     const downloadSize =
@@ -348,17 +375,17 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 <div className="developer">{developer}</div>
                 <div className="summary">{description}</div>
                 {is_installed && showCloudSaveInfo && (
-                  <div
+                  <p
                     style={{
                       color: autoSyncSaves ? '#07C5EF' : ''
                     }}
                   >
                     <b>{t('info.syncsaves')}:</b>{' '}
                     {autoSyncSaves ? t('enabled') : t('disabled')}
-                  </div>
+                  </p>
                 )}
                 {is_installed && !showCloudSaveInfo && (
-                  <div
+                  <p
                     style={{
                       color: '#F45460'
                     }}
@@ -373,76 +400,185 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         'This game does not support cloud saves. This information is provided by the game developers. Some games do implement their own cloud save system'
                       )}
                     />
-                  </div>
+                  </p>
                 )}
                 {!is_installed && !isSideloaded && !notSupportedGame && (
                   <>
                     <div>
                       <b>{t('game.downloadSize', 'Download Size')}:</b>{' '}
-                      {downloadSize ?? '...'}
+                      {downloadSize ??
+                        `${t(
+                          'game.getting-download-size',
+                          'Geting download size'
+                        )}...`}
                     </div>
                     <div>
                       <b>{t('game.installSize', 'Install Size')}:</b>{' '}
-                      {installSize ?? '...'}
+                      {installSize ??
+                        `${t(
+                          'game.getting-install-size',
+                          'Geting install size'
+                        )}...`}
                     </div>
                     <br />
                   </>
                 )}
                 {is_installed && (
-                  <>
-                    {!isSideloaded && (
-                      <div>
-                        <b>{t('info.size')}:</b> {install_size}
-                      </div>
-                    )}
-                    <div style={{ textTransform: 'capitalize' }}>
-                      <b>
-                        {t('info.installedPlatform', 'Installed Platform')}:
-                      </b>{' '}
-                      {installPlatform === 'osx' ? 'MacOS' : installPlatform}
-                    </div>
-                    {!isSideloaded && (
-                      <div>
-                        <b>{t('info.version')}:</b> {version}
-                      </div>
-                    )}
-                    <div>
-                      <b>{t('info.canRunOffline', 'Online Required')}:</b>{' '}
-                      {t(canRunOffline ? 'box.no' : 'box.yes')}
-                    </div>
-                    <div
-                      className="clickable"
-                      onClick={() =>
-                        appLocation !== undefined
-                          ? window.api.openFolder(appLocation)
-                          : {}
-                      }
-                    >
-                      <b>{t('info.path')}:</b> {appLocation}
-                    </div>
-                    {!isWin && !isNative && (
-                      <>
-                        <b>Wine:</b> {wineVersion?.name}
-                        {wineVersion && wineVersion.type === 'crossover' ? (
-                          <div>
+                  <PopoverComponent
+                    item={
+                      <span
+                        title={t('info.clickToOpen', 'Click to open')}
+                        className="popoverItem"
+                      >
+                        {t('info.installedInfo', 'Installed Information')}
+                      </span>
+                    }
+                  >
+                    <div className="poppedElement">
+                      {is_installed && (
+                        <>
+                          {!isSideloaded && (
+                            <div>
+                              <b>{t('info.size')}:</b> {install_size}
+                            </div>
+                          )}
+                          <div style={{ textTransform: 'capitalize' }}>
                             <b>
-                              {t2('setting.winecrossoverbottle', 'Bottle')}:
+                              {t(
+                                'info.installedPlatform',
+                                'Installed Platform'
+                              )}
+                              :
                             </b>{' '}
-                            {winePrefix}
+                            {installPlatform === 'osx'
+                              ? 'MacOS'
+                              : installPlatform}
                           </div>
-                        ) : (
+                          {!isSideloaded && (
+                            <div>
+                              <b>{t('info.version')}:</b> {version}
+                            </div>
+                          )}
+                          <div>
+                            <b>{t('info.canRunOffline', 'Online Required')}:</b>{' '}
+                            {t(canRunOffline ? 'box.no' : 'box.yes')}
+                          </div>
                           <div
                             className="clickable"
-                            onClick={() => window.api.openFolder(winePrefix)}
+                            onClick={() =>
+                              appLocation !== undefined
+                                ? window.api.openFolder(appLocation)
+                                : {}
+                            }
                           >
-                            <b>{t2('setting.wineprefix', 'WinePrefix')}:</b>{' '}
-                            {winePrefix}
+                            <b>{t('info.path')}:</b> {appLocation}
                           </div>
-                        )}
-                      </>
-                    )}
-                    <br />
-                  </>
+                          {!isWin && !isNative && (
+                            <>
+                              <b>Wine:</b> {wineVersion?.name}
+                              {wineVersion &&
+                              wineVersion.type === 'crossover' ? (
+                                <div>
+                                  <b>
+                                    {t2(
+                                      'setting.winecrossoverbottle',
+                                      'Bottle'
+                                    )}
+                                    :
+                                  </b>{' '}
+                                  {winePrefix}
+                                </div>
+                              ) : (
+                                <div
+                                  className="clickable"
+                                  onClick={() =>
+                                    window.api.openFolder(winePrefix)
+                                  }
+                                >
+                                  <b>
+                                    {t2('setting.wineprefix', 'WinePrefix')}:
+                                  </b>{' '}
+                                  {winePrefix}
+                                </div>
+                              )}
+                            </>
+                          )}
+                          <br />
+                        </>
+                      )}
+                    </div>
+                  </PopoverComponent>
+                )}
+                {hasScores && (
+                  <PopoverComponent
+                    item={
+                      <div
+                        className="popoverItem"
+                        title={t('info.clickToOpen', 'Click to open')}
+                      >
+                        {t('info.game-scores', 'Game Scores')}
+                      </div>
+                    }
+                  >
+                    <div className="poppedElement">
+                      <GameScore info={pcgamingwiki} title={title} />
+                    </div>
+                  </PopoverComponent>
+                )}
+                {hasHLTB && (
+                  <PopoverComponent
+                    item={
+                      <div
+                        className="popoverItem"
+                        title={t('info.clickToOpen', 'Click to open')}
+                      >
+                        {t('howLongToBeat', 'How Long To Beat')}
+                      </div>
+                    }
+                  >
+                    <div className="poppedElement">
+                      <HowLongToBeat info={howlongtobeat} />
+                    </div>
+                  </PopoverComponent>
+                )}
+                {hasAppleInfo && (
+                  <a
+                    role="button"
+                    className="popoverItem"
+                    title={t('info.clickToOpen', 'Click to open')}
+                    onClick={() => {
+                      if (applegamingwiki.crossoverLink) {
+                        createNewWindow(
+                          `https://www.codeweavers.com/compatibility/crossover/${applegamingwiki.crossoverLink}`
+                        )
+                      } else {
+                        createNewWindow(
+                          `https://www.codeweavers.com/compatibility?browse=&app_desc=&company=&rating=&platform=&date_start=&date_end=&name=${title}&search=app#results`
+                        )
+                      }
+                    }}
+                  >
+                    {t('info.apple-gaming-wiki', 'AppleGamingWiki Rating')}:{' '}
+                    {applegamingwiki.crossoverRating.charAt(0).toUpperCase() +
+                      applegamingwiki.crossoverRating.slice(1)}
+                  </a>
+                )}
+
+                {hasRequirements && (
+                  <PopoverComponent
+                    item={
+                      <div
+                        className="popoverItem"
+                        title={t('info.clickToOpen', 'Click to open')}
+                      >
+                        {t('game.requirements', 'Requirements')}
+                      </div>
+                    }
+                  >
+                    <div className="poppedElement">
+                      <GameRequirements reqs={extraInfo?.reqs} />
+                    </div>
+                  </PopoverComponent>
                 )}
               </div>
               <TimeContainer game={appName} />

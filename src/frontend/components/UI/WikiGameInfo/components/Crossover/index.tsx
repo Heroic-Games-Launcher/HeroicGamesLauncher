@@ -28,7 +28,6 @@ export default function Crossover({ title, info }: Props) {
 
   return (
     <>
-      <h2>Crossover</h2>
       <div className="crossover">
         {crossoverRating && (
           <button

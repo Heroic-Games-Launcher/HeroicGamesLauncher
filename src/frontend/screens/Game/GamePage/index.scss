@@ -33,6 +33,7 @@
       border-radius: 10px;
       display: grid;
       place-items: center;
+      height: 44px;
 
       svg path {
         fill: var(--neutral-06);
@@ -198,6 +199,13 @@
     color: var(--text-default);
     flex-grow: 1;
     line-height: 22px;
+
+    .popoverItem {
+      transition: color 300ms;
+      &:hover {
+        color: var(--accent-overlay);
+      }
+    }
   }
 
   .developer {
@@ -229,6 +237,7 @@
       font-weight: 700;
     }
   }
+
   .info .smallTitle {
     font-weight: bold;
   }
