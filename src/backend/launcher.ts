@@ -213,7 +213,8 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
         gameSettings.winePrefix,
         gameSettings.wineVersion.bin,
         'dxvk',
-        'backup'
+        'backup',
+        gameSettings
       )
     }
     if (gameSettings.autoInstallVkd3d) {
@@ -221,7 +222,8 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
         gameSettings.winePrefix,
         gameSettings.wineVersion.bin,
         'vkd3d',
-        'backup'
+        'backup',
+        gameSettings
       )
     }
   }

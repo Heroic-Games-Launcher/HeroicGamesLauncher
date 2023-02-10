@@ -1,4 +1,4 @@
-import { WineInstallation } from 'common/types'
+import { GameSettings, WineInstallation } from 'common/types'
 import axios from 'axios'
 import {
   existsSync,
@@ -133,7 +133,8 @@ export const DXVK = {
     prefix: string,
     winePath: string,
     tool: 'dxvk' | 'vkd3d' | 'dxvk-macOS',
-    action: 'backup' | 'restore'
+    action: 'backup' | 'restore',
+    gameSettings: GameSettings
   ): Promise<boolean> => {
     const winePrefix = prefix.replace('~', userHome)
     const isValidPrefix = existsSync(`${winePrefix}/.update-timestamp`)
@@ -170,6 +171,10 @@ export const DXVK = {
     const toolPathx64 = `${heroicToolsPath}/${tool}/${globalVersion}/x64`
     const currentVersionCheck = `${winePrefix}/current_${tool}`
     let currentVersion = ''
+    let envs = `WINEPREFIX='${winePrefix}' `
+
+    if (gameSettings.enableEsync) envs += `WINEESYNC='1' `
+    if (gameSettings.enableFsync) envs += `WINEFSYNC='1' `
 
     if (existsSync(currentVersionCheck)) {
       currentVersion = readFileSync(currentVersionCheck)
@@ -209,16 +214,18 @@ export const DXVK = {
         })
         resolve(true)
       })
-
       // run wineboot -u restore the old dlls
-      const restoreDlls = `WINEPREFIX='${winePrefix}' '${wineBin}' wineboot -u`
+      const restoreDlls =
+        envs + `'${wineBin}' wineboot -u`
       logInfo('Restoring old dlls', LogPrefix.DXVKInstaller)
       await execAsync(restoreDlls)
 
       // unregister the dlls on the wine prefix
       dlls.forEach(async (dll) => {
         dll = dll.replace('.dll', '')
-        const unregisterDll = `WINEPREFIX='${winePrefix}' '${wineBin}' reg delete 'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides' /v ${dll} /f`
+        const unregisterDll =
+          envs +
+          `'${wineBin}' reg delete 'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides' /v ${dll} /f`
         logInfo(`Unregistering ${dll}`, LogPrefix.DXVKInstaller)
         exec(unregisterDll, (error) => {
           if (error) {
@@ -275,7 +282,8 @@ export const DXVK = {
       // remove the .dll extension otherwise will fail
       dll = dll.replace('.dll', '')
       exec(
-        `WINEPREFIX='${winePrefix}' '${wineBin}' reg add 'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides' /v ${dll} /d native,builtin /f `,
+        envs +
+          `'${wineBin}' reg add 'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides' /v ${dll} /d native,builtin /f `,
         execOptions,
         (err) => {
           if (err) {
