@@ -215,8 +215,7 @@ export const DXVK = {
         resolve(true)
       })
       // run wineboot -u restore the old dlls
-      const restoreDlls =
-        envs + `'${wineBin}' wineboot -u`
+      const restoreDlls = envs + `'${wineBin}' wineboot -u`
       logInfo('Restoring old dlls', LogPrefix.DXVKInstaller)
       await execAsync(restoreDlls)
 
