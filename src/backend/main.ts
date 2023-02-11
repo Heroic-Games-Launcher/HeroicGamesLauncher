@@ -584,7 +584,7 @@ ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
     case 'winecfg':
       isSideloaded
         ? runWineCommand({
-            gameSettings: gameSettings,
+            gameSettings,
             commandParts: ['winecfg'],
             wait: false
           })
@@ -598,13 +598,13 @@ ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
         const workingDir = path.parse(exe).dir
         isSideloaded
           ? runWineCommand({
-              gameSettings: gameSettings,
+              gameSettings,
               commandParts: [exe],
               startFolder: workingDir,
               wait: false
             })
           : game.runWineCommand({
-              gameSettings: gameSettings,
+              gameSettings,
               commandParts: [exe],
               startFolder: workingDir
             })

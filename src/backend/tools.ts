@@ -24,7 +24,7 @@ import i18next from 'i18next'
 import { dirname, join } from 'path'
 import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
-import { validWine } from './launcher'
+import { runWineCommand, validWine } from './launcher'
 import { chmod } from 'fs/promises'
 
 export const DXVK = {
@@ -150,9 +150,6 @@ export const DXVK = {
 
     tool = isMac ? 'dxvk-macOS' : tool
 
-    // remove the last part of the path since we need the folder only
-    const wineBin = winePath.replace("'", '')
-
     if (!existsSync(`${heroicToolsPath}/${tool}/latest_${tool}`)) {
       logWarning('dxvk not found!', LogPrefix.DXVKInstaller)
       await DXVK.getLatest()
@@ -171,10 +168,6 @@ export const DXVK = {
     const toolPathx64 = `${heroicToolsPath}/${tool}/${globalVersion}/x64`
     const currentVersionCheck = `${winePrefix}/current_${tool}`
     let currentVersion = ''
-    let envs = `WINEPREFIX='${winePrefix}' `
-
-    if (gameSettings.enableEsync) envs += `WINEESYNC='1' `
-    if (gameSettings.enableFsync) envs += `WINEFSYNC='1' `
 
     if (existsSync(currentVersionCheck)) {
       currentVersion = readFileSync(currentVersionCheck)
@@ -215,24 +208,25 @@ export const DXVK = {
         resolve(true)
       })
       // run wineboot -u restore the old dlls
-      const restoreDlls = envs + `'${wineBin}' wineboot -u`
+      const restoreDlls = ['wineboot', '-u']
       logInfo('Restoring old dlls', LogPrefix.DXVKInstaller)
-      await execAsync(restoreDlls)
+      runWineCommand({ gameSettings, commandParts: restoreDlls, wait: true })
 
       // unregister the dlls on the wine prefix
       dlls.forEach(async (dll) => {
         dll = dll.replace('.dll', '')
-        const unregisterDll =
-          envs +
-          `'${wineBin}' reg delete 'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides' /v ${dll} /f`
-        logInfo(`Unregistering ${dll}`, LogPrefix.DXVKInstaller)
-        exec(unregisterDll, (error) => {
-          if (error) {
-            logError(
-              [`Error when unregistering ${dll}`, error],
-              LogPrefix.DXVKInstaller
-            )
-          }
+        const unregisterDll = [
+          'reg',
+          'delete',
+          'HKEY_CURRENT_USER\\\\Software\\\\Wine\\\\DllOverrides',
+          '/v',
+          `${dll}`,
+          '/f'
+        ]
+        runWineCommand({
+          gameSettings,
+          commandParts: unregisterDll,
+          wait: true
         })
       })
       return true
@@ -280,19 +274,16 @@ export const DXVK = {
     dlls.forEach(async (dll) => {
       // remove the .dll extension otherwise will fail
       dll = dll.replace('.dll', '')
-      exec(
-        envs +
-          `'${wineBin}' reg add 'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides' /v ${dll} /d native,builtin /f `,
-        execOptions,
-        (err) => {
-          if (err) {
-            logError(
-              [`Error when registering ${dll}`, err],
-              LogPrefix.DXVKInstaller
-            )
-          }
-        }
-      )
+      const registerDll = [
+        'reg',
+        'add',
+        'HKEY_CURRENT_USER\\\\Software\\\\Wine\\\\DllOverrides',
+        '/v',
+        `${dll}`,
+        '/d native,builtin',
+        '/f'
+      ]
+      runWineCommand({ gameSettings, commandParts: registerDll, wait: true })
     })
 
     writeFile(currentVersionCheck, globalVersion, (err) => {
