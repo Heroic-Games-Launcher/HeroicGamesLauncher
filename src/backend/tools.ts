@@ -210,7 +210,12 @@ export const DXVK = {
       // run wineboot -u restore the old dlls
       const restoreDlls = ['wineboot', '-u']
       logInfo('Restoring old dlls', LogPrefix.DXVKInstaller)
-      runWineCommand({ gameSettings, commandParts: restoreDlls, wait: true })
+      await runWineCommand({
+        gameSettings,
+        commandParts: restoreDlls,
+        wait: true,
+        protonVerb: 'waitforexitandrun'
+      })
 
       // unregister the dlls on the wine prefix
       dlls.forEach(async (dll) => {
@@ -218,15 +223,16 @@ export const DXVK = {
         const unregisterDll = [
           'reg',
           'delete',
-          'HKEY_CURRENT_USER\\\\Software\\\\Wine\\\\DllOverrides',
+          'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides',
           '/v',
-          `${dll}`,
+          dll,
           '/f'
         ]
-        runWineCommand({
+        await runWineCommand({
           gameSettings,
           commandParts: unregisterDll,
-          wait: true
+          wait: true,
+          protonVerb: 'waitforexitandrun'
         })
       })
       return true
@@ -277,13 +283,19 @@ export const DXVK = {
       const registerDll = [
         'reg',
         'add',
-        'HKEY_CURRENT_USER\\\\Software\\\\Wine\\\\DllOverrides',
+        'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides',
         '/v',
-        `${dll}`,
-        '/d native,builtin',
+        dll,
+        '/d',
+        'native,builtin',
         '/f'
       ]
-      runWineCommand({ gameSettings, commandParts: registerDll, wait: true })
+      await runWineCommand({
+        gameSettings,
+        commandParts: registerDll,
+        wait: true,
+        protonVerb: 'waitforexitandrun'
+      })
     })
 
     writeFile(currentVersionCheck, globalVersion, (err) => {
