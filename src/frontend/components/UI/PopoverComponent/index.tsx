@@ -4,7 +4,7 @@ import './index.scss'
 
 interface PopoverComponentProps {
   item: React.ReactElement
-  children: React.ReactElement
+  children: React.ReactElement | React.ReactNode | React.ReactNode[]
 }
 
 const PopoverComponent: React.FC<PopoverComponentProps> = ({

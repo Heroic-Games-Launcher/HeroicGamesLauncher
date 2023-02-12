@@ -6,6 +6,7 @@
   box-shadow: 0 0 0 1px var(--border-color);
   padding: 16px;
   width: fit-content;
+  max-width: 500px;
   overflow-y: auto;
   overflow-x: hidden;
 }
