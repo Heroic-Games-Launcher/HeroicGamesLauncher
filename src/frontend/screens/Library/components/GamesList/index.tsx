@@ -1,9 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { GameInfo, Runner, SideloadGame } from 'common/types'
 import cx from 'classnames'
 import GameCard from '../GameCard'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
+import usePaginatedList from 'frontend/hooks/usePagination'
 
 interface Props {
   library: (GameInfo | SideloadGame)[]
@@ -26,66 +27,58 @@ const GamesList = ({
   onlyInstalled = false,
   isRecent = false
 }: Props): JSX.Element => {
-  const { gameUpdates, showNonAvailable } = useContext(ContextProvider)
+  const { gameUpdates } = useContext(ContextProvider)
   const { t } = useTranslation()
-  const [gameCards, setGameCards] = useState<JSX.Element[]>([])
 
-  useEffect(() => {
-    let mounted = true
+  const { infiniteScrollSentryRef, paginatedList, hasMore } = usePaginatedList(
+    library,
+    {
+      rpp: 10,
+      infinite: true
+    }
+  )
 
-    const createGameCards = async () => {
-      if (!library.length) {
-        return
-      }
-      const resolvedLibrary = library.map(async (gameInfo) => {
-        const { app_name, is_installed, runner } = gameInfo
+  const renderGameInfo = (gameInfo: GameInfo | SideloadGame) => {
+    const { app_name, is_installed, runner } = gameInfo
 
-        let is_dlc = false
-        if (gameInfo.runner !== 'sideload') {
-          is_dlc = gameInfo.install.is_dlc ?? false
-        }
-
-        if (is_dlc) {
-          return null
-        }
-        if (!is_installed && onlyInstalled) {
-          return null
-        }
-
-        const hasUpdate = is_installed && gameUpdates?.includes(app_name)
-        return (
-          <GameCard
-            key={app_name}
-            hasUpdate={hasUpdate}
-            buttonClick={() => {
-              if (gameInfo.runner !== 'sideload')
-                handleGameCardClick(app_name, runner, gameInfo)
-            }}
-            forceCard={layout === 'grid'}
-            isRecent={isRecent}
-            gameInfo={gameInfo}
-          />
-        )
-      })
-      const gameCardElements = (await Promise.all(
-        resolvedLibrary
-      )) as JSX.Element[]
-
-      if (mounted) {
-        setGameCards(gameCardElements)
-      }
+    let is_dlc = false
+    if (gameInfo.runner !== 'sideload') {
+      is_dlc = gameInfo.install.is_dlc ?? false
     }
 
-    createGameCards()
-
-    return () => {
-      mounted = false
+    if (is_dlc) {
+      return null
     }
-  }, [library, onlyInstalled, layout, gameUpdates, isRecent, showNonAvailable])
+
+    if (!is_installed && onlyInstalled) {
+      return null
+    }
+
+    const hasUpdate = is_installed && gameUpdates?.includes(app_name)
+    return (
+      <GameCard
+        key={app_name}
+        hasUpdate={hasUpdate}
+        buttonClick={() => {
+          if (gameInfo.runner !== 'sideload')
+            handleGameCardClick(app_name, runner, gameInfo)
+        }}
+        forceCard={layout === 'grid'}
+        isRecent={isRecent}
+        gameInfo={gameInfo}
+      />
+    )
+  }
 
   return (
     <div
-      style={!library.length ? { backgroundColor: 'transparent' } : {}}
+      style={
+        !library.length
+          ? {
+              backgroundColor: 'transparent'
+            }
+          : {}
+      }
       className={cx({
         gameList: layout === 'grid',
         gameListLayout: layout === 'list',
@@ -100,7 +93,15 @@ const GamesList = ({
           <span>{t('wine.actions', 'Action')}</span>
         </div>
       )}
-      {!!library.length && gameCards}
+      {paginatedList.map((item) => {
+        return renderGameInfo(item)
+      })}
+      {hasMore && (
+        <div
+          ref={infiniteScrollSentryRef}
+          style={{ width: 100, height: 40, backgroundColor: 'transparent' }}
+        />
+      )}
     </div>
   )
 }
