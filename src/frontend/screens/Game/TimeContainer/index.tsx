@@ -40,7 +40,7 @@ function TimeContainer({ game }: Props) {
   const lastPlayed = tsInfo.lastPlayed ? new Date(tsInfo.lastPlayed) : null
   const totalPlayed = tsInfo.totalPlayed
     ? convertMinsToHrsMins(tsInfo.totalPlayed)
-    : null
+    : `${t('game.neverPlayed', 'Never')}`
   const lastDate = new Intl.DateTimeFormat(undefined, options).format(
     lastPlayed || new Date()
   )
