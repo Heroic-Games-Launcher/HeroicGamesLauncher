@@ -8,7 +8,11 @@ import {
   DownloadDone,
   Star,
   Speed,
-  WineBar
+  WineBar,
+  CloudDownload,
+  Storage,
+  CloudOff,
+  PlayArrow
 } from '@mui/icons-material'
 import {
   createNewWindow,
@@ -381,10 +385,11 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     style={{
                       color: autoSyncSaves ? '#07C5EF' : ''
                     }}
-                    className="popoverItem"
+                    className="iconWithText"
                   >
                     <CloudQueue />
-                    <b>{t('info.syncsaves')}:</b>{' '}
+                    <b>{t('info.syncsaves')}</b>
+                    {': '}
                     {autoSyncSaves ? t('enabled') : t('disabled')}
                   </p>
                 )}
@@ -393,8 +398,11 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     style={{
                       color: '#F45460'
                     }}
+                    className="iconWithText"
                   >
-                    <b>{t('info.syncsaves')}:</b>{' '}
+                    <CloudOff />
+                    <b>{t('info.syncsaves')}</b>
+                    {': '}
                     {t('cloud_save_unsupported', 'Unsupported')}
                     <FontAwesomeIcon
                       className="helpIcon"
@@ -408,16 +416,20 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 )}
                 {!is_installed && !isSideloaded && !notSupportedGame && (
                   <>
-                    <div>
-                      <b>{t('game.downloadSize', 'Download Size')}:</b>{' '}
+                    <div className="iconWithText">
+                      <CloudDownload />
+                      <b>{t('game.downloadSize', 'Download Size')}</b>
+                      {': '}
                       {downloadSize ??
                         `${t(
                           'game.getting-download-size',
                           'Geting download size'
                         )}...`}
                     </div>
-                    <div>
-                      <b>{t('game.installSize', 'Install Size')}:</b>{' '}
+                    <div className="iconWithText">
+                      <Storage />
+                      <b>{t('game.installSize', 'Install Size')}</b>
+                      {': '}
                       {installSize ??
                         `${t(
                           'game.getting-install-size',
@@ -432,7 +444,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     item={
                       <span
                         title={t('info.clickToOpen', 'Click to open')}
-                        className="popoverItem"
+                        className="iconWithText"
                       >
                         <DownloadDone />
                         {t('info.installedInfo', 'Installed Information')}
@@ -518,7 +530,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   <PopoverComponent
                     item={
                       <div
-                        className="popoverItem"
+                        className="iconWithText"
                         title={t('info.clickToOpen', 'Click to open')}
                       >
                         <Star />
@@ -535,7 +547,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   <PopoverComponent
                     item={
                       <div
-                        className="popoverItem"
+                        className="iconWithText"
                         title={t('info.clickToOpen', 'Click to open')}
                       >
                         <Speed />
@@ -551,7 +563,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 {hasAppleInfo && (
                   <a
                     role="button"
-                    className="popoverItem"
+                    className="iconWithText"
                     title={t('info.clickToOpen', 'Click to open')}
                     onClick={() => {
                       if (applegamingwiki.crossoverLink) {
@@ -579,7 +591,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   <PopoverComponent
                     item={
                       <div
-                        className="popoverItem"
+                        className="iconWithText"
                         title={t('info.clickToOpen', 'Click to open')}
                       >
                         {t('game.requirements', 'Requirements')}
@@ -725,7 +737,16 @@ export default React.memo(function GamePage(): JSX.Element | null {
       return t('label.saves.syncing')
     }
 
-    return isPlaying ? t('label.playing.stop') : t('label.playing.start')
+    if (isPlaying) {
+      return t('label.playing.stop')
+    }
+
+    return (
+      <span className="buttonWithIcon">
+        {t('label.playing.start')}
+        <PlayArrow />
+      </span>
+    )
   }
 
   function getInstallLabel(

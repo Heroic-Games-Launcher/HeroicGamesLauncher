@@ -8,6 +8,7 @@
   transition: color 300ms;
   display: flex;
   align-items: center;
+  cursor: default;
 }
 
 .timeContainerLabel:hover {

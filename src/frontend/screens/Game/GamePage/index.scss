@@ -200,10 +200,11 @@
     flex-grow: 1;
     line-height: 22px;
 
-    .popoverItem {
+    .iconWithText {
       transition: color 300ms;
       display: flex;
       align-items: center;
+      cursor: default;
 
       svg {
         margin-right: var(--space-3xs);
@@ -365,6 +366,16 @@
 
 .buttonsWrapper .button {
   min-width: max-content;
+}
+
+.buttonWithIcon {
+  display: flex;
+  place-items: center;
+  justify-content: center;
+
+  & > svg {
+    height: 20px;
+  }
 }
 
 @keyframes animate-stripes {

@@ -19,7 +19,8 @@ function TimeContainer({ game }: Props) {
 
   if (!tsInfo) {
     return (
-      <p>
+      <p className="timeContainerLabel">
+        <AvTimer />
         {`${t('game.lastPlayed', 'Last Played')}:`} {` `}
         {`${t('game.neverPlayed', 'Never')}`}
       </p>
