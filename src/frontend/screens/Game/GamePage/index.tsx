@@ -3,7 +3,13 @@ import './index.scss'
 import React, { useContext, useEffect, useState } from 'react'
 
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
-
+import {
+  CloudQueue,
+  DownloadDone,
+  Star,
+  Speed,
+  WineBar
+} from '@mui/icons-material'
 import {
   createNewWindow,
   getGameInfo,
@@ -375,7 +381,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     style={{
                       color: autoSyncSaves ? '#07C5EF' : ''
                     }}
+                    className="popoverItem"
                   >
+                    <CloudQueue />
                     <b>{t('info.syncsaves')}:</b>{' '}
                     {autoSyncSaves ? t('enabled') : t('disabled')}
                   </p>
@@ -426,6 +434,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         title={t('info.clickToOpen', 'Click to open')}
                         className="popoverItem"
                       >
+                        <DownloadDone />
                         {t('info.installedInfo', 'Installed Information')}
                       </span>
                     }
@@ -512,6 +521,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         className="popoverItem"
                         title={t('info.clickToOpen', 'Click to open')}
                       >
+                        <Star />
                         {t('info.game-scores', 'Game Scores')}
                       </div>
                     }
@@ -528,6 +538,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         className="popoverItem"
                         title={t('info.clickToOpen', 'Click to open')}
                       >
+                        <Speed />
                         {t('howLongToBeat', 'How Long To Beat')}
                       </div>
                     }
@@ -554,7 +565,11 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       }
                     }}
                   >
-                    {t('info.apple-gaming-wiki', 'AppleGamingWiki Rating')}:{' '}
+                    <WineBar />
+                    {t(
+                      'info.apple-gaming-wiki',
+                      'AppleGamingWiki Rating'
+                    )}:{' '}
                     {applegamingwiki.crossoverRating.charAt(0).toUpperCase() +
                       applegamingwiki.crossoverRating.slice(1)}
                   </a>

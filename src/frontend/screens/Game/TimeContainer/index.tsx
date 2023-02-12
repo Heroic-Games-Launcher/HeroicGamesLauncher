@@ -7,6 +7,7 @@ import { timestampStore } from 'frontend/helpers/electronStores'
 
 import './index.css'
 import PopoverComponent from 'frontend/components/UI/PopoverComponent'
+import { AvTimer } from '@mui/icons-material'
 
 type Props = {
   game: string
@@ -48,7 +49,8 @@ function TimeContainer({ game }: Props) {
   return (
     <PopoverComponent
       item={
-        <p>
+        <p className="timeContainerLabel">
+          <AvTimer />
           {`${t('game.totalPlayed', 'Time Played')}:`} {` `}
           {`${totalPlayed}`}
         </p>
