@@ -20,6 +20,7 @@ import { isMac, userHome } from '../../constants'
 import { GOGLibrary } from '../../gog/library'
 import { getIcon } from '../utils'
 import { addNonSteamGame } from '../nonesteamgame/nonesteamgame'
+import sanitize from 'sanitize-filename'
 
 /**
  * Adds a desktop shortcut to $HOME/Desktop and to /usr/share/applications
@@ -139,6 +140,8 @@ function shortcutFiles(gameTitle: string) {
   let desktopFile
   let menuFile
 
+  gameTitle = sanitize(gameTitle)
+
   switch (process.platform) {
     case 'linux': {
       desktopFile = `${app.getPath('desktop')}/${gameTitle}.desktop`
@@ -162,11 +165,11 @@ function shortcutFiles(gameTitle: string) {
 }
 
 async function generateMacOsApp(gameInfo: GameInfo | SideloadGame) {
-  const { title, app_name } = gameInfo
+  const { app_name } = gameInfo
 
   logInfo('Generating macOS shortcut', LogPrefix.Backend)
 
-  const appShortcut = join(userHome, 'Applications', `${title}.app`)
+  const appShortcut = shortcutFiles(gameInfo.title)[0]!
   const macOSFolder = `${appShortcut}/Contents/MacOS`
   const resourcesFolder = `${appShortcut}/Contents/Resources`
   const plistFile = `${appShortcut}/Contents/Info.plist`
