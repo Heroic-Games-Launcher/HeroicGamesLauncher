@@ -637,13 +637,24 @@ class LegendaryGame extends Game {
     const anticheatInfo = gameAnticheatInfo(this.getGameInfo().namespace)
 
     if (anticheatInfo && isLinux) {
+      const gameConfig = GameConfig.get(this.appName)
+
+      gameConfig.setSetting(
+        'eacRuntime',
+        anticheatInfo.anticheats.includes('Easy Anti-Cheat')
+      )
+
+      gameConfig.setSetting(
+        'battlEyeRuntime',
+        anticheatInfo.anticheats.includes('BattlEye')
+      )
+
       const gameSettings = await this.getSettings()
 
-      gameSettings.eacRuntime =
-        anticheatInfo.anticheats.includes('Easy Anti-Cheat')
-      if (gameSettings.eacRuntime && isFlatpak) gameSettings.useGameMode = true
-      gameSettings.battlEyeRuntime =
-        anticheatInfo.anticheats.includes('BattlEye')
+      gameConfig.setSetting(
+        'useGameMode',
+        gameSettings.useGameMode || (gameSettings.eacRuntime && isFlatpak)
+      )
     }
 
     return { status: 'done' }
