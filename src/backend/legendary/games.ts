@@ -639,22 +639,13 @@ class LegendaryGame extends Game {
     if (anticheatInfo && isLinux) {
       const gameConfig = GameConfig.get(this.appName)
 
-      gameConfig.setSetting(
-        'eacRuntime',
-        anticheatInfo.anticheats.includes('Easy Anti-Cheat')
-      )
+      if (anticheatInfo.anticheats.includes('Easy Anti-Cheat')) {
+        gameConfig.setSetting('eacRuntime', true)
+        if (isFlatpak) gameConfig.setSetting('useGameMode', true)
+      }
 
-      gameConfig.setSetting(
-        'battlEyeRuntime',
-        anticheatInfo.anticheats.includes('BattlEye')
-      )
-
-      const gameSettings = await this.getSettings()
-
-      gameConfig.setSetting(
-        'useGameMode',
-        gameSettings.useGameMode || (gameSettings.eacRuntime && isFlatpak)
-      )
+      if (anticheatInfo.anticheats.includes('BattlEye'))
+        gameConfig.setSetting('battlEyeRuntime', true)
     }
 
     return { status: 'done' }
