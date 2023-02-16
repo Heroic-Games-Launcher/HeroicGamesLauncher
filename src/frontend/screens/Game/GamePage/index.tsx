@@ -12,7 +12,8 @@ import {
   CloudDownload,
   Storage,
   CloudOff,
-  PlayArrow
+  PlayArrow,
+  Stop
 } from '@mui/icons-material'
 import {
   createNewWindow,
@@ -734,11 +735,25 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   function getPlayLabel(): React.ReactNode {
     if (isSyncing) {
-      return t('label.saves.syncing')
+      return (
+        <span className="buttonWithIcon">
+          {t('label.saves.syncing')}
+          <CloudQueue
+            style={{
+              marginLeft: '5px'
+            }}
+          />
+        </span>
+      )
     }
 
     if (isPlaying) {
-      return t('label.playing.stop')
+      return (
+        <span className="buttonWithIcon">
+          {t('label.playing.stop')}
+          <Stop />
+        </span>
+      )
     }
 
     return (
