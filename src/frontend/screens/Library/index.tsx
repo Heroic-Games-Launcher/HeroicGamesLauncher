@@ -86,22 +86,18 @@ export default React.memo(function Library(): JSX.Element {
   useLayoutEffect(() => {
     const scrollPosition = parseInt(storage?.getItem('scrollPosition') || '0')
 
-    listing.current?.addEventListener('scroll', () => {
+    const storeScrollPosition = () => {
       storage?.setItem(
         'scrollPosition',
         listing.current?.scrollTop.toString() || '0'
       )
-    })
+    }
 
+    listing.current?.addEventListener('scroll', storeScrollPosition)
     listing.current?.scrollTo(0, scrollPosition || 0)
 
     return () => {
-      listing.current?.removeEventListener('scroll', () => {
-        storage?.setItem(
-          'scrollPosition',
-          listing.current?.scrollTop.toString() || '0'
-        )
-      })
+      listing.current?.removeEventListener('scroll', storeScrollPosition)
     }
   }, [listing.current])
 
