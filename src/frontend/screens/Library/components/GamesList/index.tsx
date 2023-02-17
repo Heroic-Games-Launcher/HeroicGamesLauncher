@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { GameInfo, Runner, SideloadGame } from 'common/types'
 import cx from 'classnames'
 import GameCard from '../GameCard'
@@ -16,6 +16,7 @@ interface Props {
   ) => void
   onlyInstalled?: boolean
   isRecent?: boolean
+  showNonAvailable?: boolean
 }
 
 const GamesList = ({
@@ -24,7 +25,8 @@ const GamesList = ({
   handleGameCardClick,
   isFirstLane = false,
   onlyInstalled = false,
-  isRecent = false
+  isRecent = false,
+  showNonAvailable = true
 }: Props): JSX.Element => {
   const { gameUpdates } = useContext(ContextProvider)
   const { t } = useTranslation()
