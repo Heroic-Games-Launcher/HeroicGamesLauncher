@@ -593,6 +593,7 @@ function constructAndUpdateRPC(gameName: string): RpcClient {
     startTimestamp: Date.now(),
     state: 'via Heroic on ' + getFormattedOsName()
   })
+  logInfo('Started Discord Rich Presence', LogPrefix.Backend)
   return client
 }
 

@@ -32,6 +32,8 @@ finish-args:
   - --filesystem=/run/media
   # should fix steamdeck controler navigation
   - --filesystem=/run/udev:ro
+  # should fix discord rich presence
+  - --filesystem=xdg-run/app/com.discordapp.Discord:create
   - --share=ipc
   - --share=network
   - --socket=x11
@@ -161,6 +163,9 @@ modules:
       - type: script
         dest-filename: heroic-run
         commands:
+          - for i in {0..9}; do
+          -   test -S $XDG_RUNTIME_DIR/discord-ipc-$i || ln -sf {app/com.discordapp.Discord,$XDG_RUNTIME_DIR}/discord-ipc-$i;
+          - done
           - zypak-wrapper /app/bin/heroic/heroic "$@"
 
       - ${heroic-app-image}
