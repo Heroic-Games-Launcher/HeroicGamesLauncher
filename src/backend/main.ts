@@ -589,7 +589,6 @@ ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
             wait: false
           })
         : game.runWineCommand({
-            gameSettings,
             commandParts: ['winecfg']
           })
       break
@@ -604,7 +603,6 @@ ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
               wait: false
             })
           : game.runWineCommand({
-              gameSettings,
               commandParts: [exe],
               startFolder: workingDir
             })
