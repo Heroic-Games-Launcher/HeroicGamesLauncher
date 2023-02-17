@@ -13,6 +13,10 @@
   aspect-ratio: 173/275;
 }
 
+.gameCard.gamepad {
+  aspect-ratio: 3/4;
+}
+
 .gameCard:focus-within {
   outline: -webkit-focus-ring-color auto 1px;
 }
@@ -102,7 +106,7 @@
   padding: var(--space-xs-fixed);
 }
 
-.gameCard > .icons.gamepad {
+.gameCard.gamepad > .icons {
   display: none;
 }
 

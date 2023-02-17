@@ -98,7 +98,8 @@ const GameCard = ({
     favouriteGames,
     allTilesInColor,
     showDialogModal,
-    setIsSettingsModalOpen
+    setIsSettingsModalOpen,
+    activeController
   } = useContext(ContextProvider)
 
   const {
@@ -336,6 +337,7 @@ const GameCard = ({
   const instClass = isInstalled ? 'installed' : ''
   const hiddenClass = isHiddenGame ? 'hidden' : ''
   const notAvailableClass = notAvailable ? 'notAvailable' : ''
+  const gamepadClass = activeController ? 'gamepad' : ''
   const imgClasses = `gameImg ${isInstalled ? 'installed' : ''} ${
     allTilesInColor ? 'allTilesInColor' : ''
   }`
@@ -345,9 +347,7 @@ const GameCard = ({
 
   const wrapperClasses = `${
     grid ? 'gameCard' : 'gameListItem'
-  }  ${instClass} ${hiddenClass} ${notAvailableClass}`
-
-  const { activeController } = useContext(ContextProvider)
+  }  ${instClass} ${hiddenClass} ${notAvailableClass} ${gamepadClass}`
 
   const showUpdateButton =
     hasUpdate && !isUpdating && !isQueued && !notAvailable
@@ -422,11 +422,7 @@ const GameCard = ({
             </span>
           </Link>
           <>
-            <span
-              className={classNames('icons', {
-                gamepad: activeController
-              })}
-            >
+            <span className="icons">
               {showUpdateButton && (
                 <SvgButton
                   className="updateIcon"
