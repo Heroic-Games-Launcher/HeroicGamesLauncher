@@ -235,6 +235,7 @@ export async function launchApp(appName: string): Promise<boolean> {
 }
 
 export async function stop(appName: string): Promise<void> {
+  const gameSettings = await getAppSettings(appName)
   const {
     install: { executable }
   } = getAppInfo(appName)
@@ -243,6 +244,13 @@ export async function stop(appName: string): Promise<void> {
     const split = executable.split('/')
     const exe = split[split.length - 1]
     killPattern(exe)
+    if (!isNativeApp(appName))
+      await runWineCommand({
+        gameSettings,
+        commandParts: ['wineboot', '-k'],
+        wait: true,
+        protonVerb: 'waitforexitandrun'
+      })
   }
 }
 
