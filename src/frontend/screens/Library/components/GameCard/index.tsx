@@ -275,6 +275,17 @@ const GameCard = ({
       show: true
     },
     {
+      // settings
+      label: t('submenu.settings', 'Settings'),
+      onclick: () => setIsSettingsModalOpen(true, 'settings', gameInfo),
+      show: isInstalled && !isUninstalling
+    },
+    {
+      label: t('submenu.logs', 'Logs'),
+      onclick: () => setIsSettingsModalOpen(true, 'log', gameInfo),
+      show: isInstalled && !isUninstalling
+    },
+    {
       // hide
       label: t('button.hide_game', 'Hide Game'),
       onclick: () => hiddenGames.add(appName, title),
@@ -300,12 +311,6 @@ const GameCard = ({
       label: t('button.remove_from_recent', 'Remove From Recent'),
       onclick: async () => window.api.removeRecentGame(appName),
       show: isRecent
-    },
-    {
-      // settings
-      label: t('submenu.settings'),
-      onclick: () => setIsSettingsModalOpen(true, 'settings', gameInfo),
-      show: isInstalled && !isUninstalling
     },
     {
       // uninstall
