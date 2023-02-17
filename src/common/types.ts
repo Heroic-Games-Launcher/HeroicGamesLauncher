@@ -602,10 +602,8 @@ export interface DiskSpaceData {
 }
 
 export interface ToolArgs {
-  winePrefix: string
-  winePath: string
-  action: 'backup' | 'restore'
   appName: string
+  action: 'backup' | 'restore'
 }
 
 export type StatusPromise = Promise<{ status: 'done' | 'error' }>

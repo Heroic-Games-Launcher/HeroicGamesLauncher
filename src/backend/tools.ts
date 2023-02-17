@@ -130,12 +130,11 @@ export const DXVK = {
   },
 
   installRemove: async (
-    prefix: string,
-    winePath: string,
+    gameSettings: GameSettings,
     tool: 'dxvk' | 'vkd3d' | 'dxvk-macOS',
-    action: 'backup' | 'restore',
-    gameSettings: GameSettings
+    action: 'backup' | 'restore'
   ): Promise<boolean> => {
+    const prefix = gameSettings.winePrefix
     const winePrefix = prefix.replace('~', userHome)
     const isValidPrefix = existsSync(`${winePrefix}/.update-timestamp`)
 

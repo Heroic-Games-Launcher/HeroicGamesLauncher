@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { defaultWineVersion } from '..'
 import useSetting from 'frontend/hooks/useSetting'
-import { configStore } from 'frontend/helpers/electronStores'
 import { ToggleSwitch } from 'frontend/components/UI'
 import SettingsContext from '../SettingsContext'
 
@@ -14,8 +13,6 @@ const AutoDXVK = () => {
     'autoInstallDxvk',
     false
   )
-  const home = configStore.get('userHome', '')
-  const [winePrefix] = useSetting('winePrefix', `${home}/.wine`)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
   const { appName } = useContext(SettingsContext)
   const [installingDxvk, setInstallingDxvk] = React.useState(false)
@@ -28,10 +25,8 @@ const AutoDXVK = () => {
     const action = autoInstallDxvk ? 'restore' : 'backup'
     setInstallingDxvk(true)
     const res = await window.api.toggleDXVK({
-      winePrefix,
-      winePath: wineVersion.bin,
-      action,
-      appName
+      appName,
+      action
     })
 
     setInstallingDxvk(false)

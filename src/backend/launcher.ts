@@ -209,22 +209,10 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
   // If DXVK/VKD3D installation is enabled, install it
   if (gameSettings.wineVersion.type === 'wine') {
     if (gameSettings.autoInstallDxvk) {
-      await DXVK.installRemove(
-        gameSettings.winePrefix,
-        gameSettings.wineVersion.bin,
-        'dxvk',
-        'backup',
-        gameSettings
-      )
+      await DXVK.installRemove(gameSettings, 'dxvk', 'backup')
     }
     if (gameSettings.autoInstallVkd3d) {
-      await DXVK.installRemove(
-        gameSettings.winePrefix,
-        gameSettings.wineVersion.bin,
-        'vkd3d',
-        'backup',
-        gameSettings
-      )
+      await DXVK.installRemove(gameSettings, 'vkd3d', 'backup')
     }
   }
 

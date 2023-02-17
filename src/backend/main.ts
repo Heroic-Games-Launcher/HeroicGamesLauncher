@@ -589,7 +589,7 @@ ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
             wait: false
           })
         : game.runWineCommand({
-            gameSettings: gameSettings,
+            gameSettings,
             commandParts: ['winecfg']
           })
       break
@@ -882,28 +882,21 @@ ipcMain.handle('requestSettings', async (event, appName) => {
   return mapOtherSettings(config)
 })
 
-ipcMain.handle(
-  'toggleDXVK',
-  async (event, { winePrefix, winePath, action, appName }) =>
-    DXVK.installRemove(
-      winePrefix,
-      winePath,
-      'dxvk',
-      action,
-      await GameConfig.get(appName).getSettings()
-    )
+ipcMain.handle('toggleDXVK', async (event, { appName, action }) =>
+  DXVK.installRemove(
+    await GameConfig.get(appName).getSettings(),
+    'dxvk',
+    action
+  )
 )
 
-ipcMain.on(
-  'toggleVKD3D',
-  (event, { winePrefix, winePath, action, appName }) => {
-    GameConfig.get(appName)
-      .getSettings()
-      .then((gameSettings) => {
-        DXVK.installRemove(winePrefix, winePath, 'vkd3d', action, gameSettings)
-      })
-  }
-)
+ipcMain.on('toggleVKD3D', (event, { appName, action }) => {
+  GameConfig.get(appName)
+    .getSettings()
+    .then((gameSettings) => {
+      DXVK.installRemove(gameSettings, 'vkd3d', action)
+    })
+})
 
 ipcMain.handle('writeConfig', (event, { appName, config }) => {
   logInfo(
