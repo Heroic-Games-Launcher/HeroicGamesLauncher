@@ -13,7 +13,11 @@ import {
   Storage,
   CloudOff,
   PlayArrow,
-  Stop
+  Stop,
+  Download,
+  Cancel,
+  Pause,
+  Warning
 } from '@mui/icons-material'
 import {
   createNewWindow,
@@ -693,7 +697,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     'is-secondary': !is_installed && !isQueued
                   })}
                 >
-                  {`${getButtonLabel(is_installed)}`}
+                  {getButtonLabel()}
                 </button>
               )}
               {is_installed && (
@@ -850,20 +854,56 @@ export default React.memo(function GamePage(): JSX.Element | null {
     return t('status.notinstalled')
   }
 
-  function getButtonLabel(is_installed: boolean) {
+  function getButtonLabel() {
     if (notSupportedGame) {
-      return t('status.notSupported', 'Not supported')
+      return (
+        <span className="buttonWithIcon">
+          {t('status.notSupported', 'Not supported')}
+          <Warning
+            style={{
+              marginLeft: '5px',
+              cursor: 'not-allowed'
+            }}
+          />
+        </span>
+      )
     }
+
     if (isQueued) {
-      return t('button.queue.remove', 'Remove from Queue')
+      return (
+        <span className="buttonWithIcon">
+          {t('button.queue.remove', 'Remove from Queue')}
+          <Cancel
+            style={{
+              marginLeft: '5px'
+            }}
+          />
+        </span>
+      )
     }
-    if (is_installed) {
-      return t('submenu.settings')
-    }
+
     if (isInstalling) {
-      return t('button.cancel')
+      return (
+        <span className="buttonWithIcon">
+          {t('button.cancel')}
+          <Pause
+            style={{
+              marginLeft: '5px'
+            }}
+          />
+        </span>
+      )
     }
-    return t('button.install')
+    return (
+      <span className="buttonWithIcon">
+        {t('button.install')}
+        <Download
+          style={{
+            marginLeft: '5px'
+          }}
+        />
+      </span>
+    )
   }
 
   function handlePlay() {
