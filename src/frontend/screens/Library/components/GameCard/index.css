@@ -10,6 +10,7 @@
   flex-direction: column;
   border-radius: var(--space-3xs);
   animation: fade-in 0.2s ease-in;
+  aspect-ratio: 173/275;
 }
 
 .gameCard:focus-within {
