@@ -372,7 +372,7 @@ async function setup(
             encoding
           })
           const config = ini.parse(fileData)
-          const section = actionArguments?.section
+          const section: string | undefined = actionArguments?.section
           const keyName = actionArguments?.keyName
           if (!section || !keyName) {
             logError(
@@ -382,10 +382,15 @@ async function setup(
             break
           }
 
-          config[section][keyName] = handlePathVars(
-            actionArguments.keyValue,
-            pathsValues
-          )
+          let leaf = config
+          // section can be in the format `Key.SubKey1.SubKey2.etc`
+          // Alien Breed: Impact is one example of such game
+          section.split('.').forEach((key) => {
+            leaf = leaf[key]
+          })
+
+          leaf[keyName] = handlePathVars(actionArguments.keyValue, pathsValues)
+
           writeFileSync(filePath, ini.stringify(config), { encoding })
           break
         }

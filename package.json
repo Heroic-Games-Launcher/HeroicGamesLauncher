@@ -158,6 +158,7 @@
     "react-markdown": "^8.0.3",
     "react-router-dom": "^6.3.0",
     "recharts": "^2.1.14",
+    "sanitize-filename": "^1.6.3",
     "shlex": "^2.1.2",
     "short-uuid": "^4.2.0",
     "simple-keyboard": "^3.4.136",

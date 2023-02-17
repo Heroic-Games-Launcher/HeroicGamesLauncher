@@ -198,7 +198,7 @@ The Setup will create shortcuts to Heroic on your Desktop and in your Start Menu
 
 ### macOS
 
-If you use Homebrew, you can run `brew install --cask heroic` to install Heroic.  
+If you use Homebrew, you can run `brew install --cask --no-quarantine heroic` to install Heroic.  
 Otherwise, download the file ending in .dmg from the [latest release](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest), double-click it to mount it, and drag the "Heroic" application into the "Applications" folder.
 
 Afterwards open terminal and run this command : `xattr -d com.apple.quarantine /Applications/Heroic.app` this will fix the app is damaged error.

@@ -15,7 +15,6 @@ import { execAsync, getWineFromProton } from './utils'
 import {
   execOptions,
   heroicToolsPath,
-  isLinux,
   isMac,
   isWindows,
   userHome
@@ -26,6 +25,7 @@ import { dirname, join } from 'path'
 import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
 import { validWine } from './launcher'
+import { chmod } from 'fs/promises'
 
 export const DXVK = {
   getLatest: async () => {
@@ -302,7 +302,7 @@ export const DXVK = {
 
 export const Winetricks = {
   download: async () => {
-    if (!isLinux) {
+    if (isWindows) {
       return
     }
 
@@ -322,7 +322,8 @@ export const Winetricks = {
       const res = await axios.get(url, { timeout: 1000 })
       const file = res.data
       writeFileSync(path, file)
-      return exec(`chmod +x ${path}`)
+      await chmod(path, 0o755)
+      return
     } catch (error) {
       return logWarning(
         ['Error Downloading Winetricks', error],
@@ -338,10 +339,13 @@ export const Winetricks = {
     if (!(await validWine(wineVersion))) {
       return
     }
+    const winetricks = `${heroicToolsPath}/winetricks`
+
+    if (!existsSync(winetricks)) {
+      await Winetricks.download()
+    }
 
     return new Promise<void>((resolve) => {
-      const winetricks = `${heroicToolsPath}/winetricks`
-
       const { winePrefix, wineBin } = getWineFromProton(
         wineVersion,
         baseWinePrefix

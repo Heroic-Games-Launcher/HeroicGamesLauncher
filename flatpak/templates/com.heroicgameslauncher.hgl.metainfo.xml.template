@@ -173,15 +173,15 @@
 				Library Grid
 			</caption>
 			<image>
-				https://user-images.githubusercontent.com/26871415/184140182-0b0b92b0-e388-401f-910b-ff95b22db059.png
+				https://user-images.githubusercontent.com/26871415/216277678-3e90f432-548c-43b8-8c25-79ecc86ba9d3.png
 			</image>
 		</screenshot>
 		<screenshot>
 			<caption>
-				Library List
+				Settings
 			</caption>
 			<image>
-				https://user-images.githubusercontent.com/26871415/184139791-8666bc1d-a54f-467c-8c30-ea1eb6d24458.png
+				https://user-images.githubusercontent.com/26871415/216277779-16b20fa1-77fe-4560-aabe-d2d6e5cf8554.png
 			</image>
 		</screenshot>
 		<screenshot>
@@ -189,15 +189,15 @@
 				Game Screen
 			</caption>
 			<image>
-				https://user-images.githubusercontent.com/26871415/184139827-ff8ae4ef-f5c3-42f4-b789-1b30595ec0b0.png
+				https://user-images.githubusercontent.com/26871415/216277885-7365d5ee-5a56-4c14-9ff2-12f8243cf5dc.png
 			</image>
 		</screenshot>
 		<screenshot>
 			<caption>
-				Install Screen
+				Downloads Screen
 			</caption>
 			<image>
-				https://user-images.githubusercontent.com/26871415/184140036-28ee0d8b-a263-4ed8-a30a-1cd19436f90a.png
+				https://user-images.githubusercontent.com/26871415/216278264-2cf4b170-f315-443d-98ac-1a34873113fe.png
 			</image>
 		</screenshot>
 		<screenshot>
@@ -210,10 +210,18 @@
 		</screenshot>
 		<screenshot>
 			<caption>
-				Wine Manager
+				Library List
 			</caption>
 			<image>
-				https://user-images.githubusercontent.com/26871415/184144417-b3eb0ea5-5433-4273-ad35-15317f22588b.png
+				https://user-images.githubusercontent.com/26871415/184139791-8666bc1d-a54f-467c-8c30-ea1eb6d24458.png
+			</image>
+		</screenshot>
+		<screenshot>
+			<caption>
+				Game Page Not Installed
+			</caption>
+			<image>
+				https://user-images.githubusercontent.com/26871415/216278656-05f6e654-7a9b-403c-9aa6-9e020c4c6d90.png
 			</image>
 		</screenshot>
 	</screenshots>
@@ -225,28 +233,28 @@
 				</p>
 				<ul>
 					<li>
-						Heroic now has a Downloads Manager so you can enqueue and download multiple games at once.
+						New Default Theme called Midnight Mirage
 					</li>
 					<li>
-						It is now possible to sideload any games that are not on the stores, native or not.
+						Game Settings will open on a dialog now instead of a new page
 					</li>
 					<li>
-						It is now possible to add custom themes to Heroic.
+						New item on game submenu will show extra information like HowLongToBeat and Game Score
 					</li>
 					<li>
-						Better GamePad navigation similar to SteamOS
+						Heroic will show progress for individual files when moving a game
 					</li>
 					<li>
-						Added HowLongtoBeat Data on the GamePage
+						Better caching for GOG games information
 					</li>
 					<li>
-						Added new Themes and redesigned the Login Screen and the Settings Page
+						When selected wine version was not found Heroic will search and suggest for another one.
 					</li>
 					<li>
-						Added setting to add games to Steam automatically.
+						Added setting to auto-update games and also to skip updates for a specific game
 					</li>
 					<li>
-						Many other new features and improvements
+						Sidebar now will resize on drag event
 					</li>
 				</ul>
 				<p>
@@ -254,16 +262,16 @@
 				</p>
 				<ul>
 					<li>
-						Fix some sideloaded and GOG games not launching from SteamDeck because of a `--skip-version-check` flag being passed.
+						Fix not being able to download native GOG games
 					</li>
 					<li>
-						Fixed DXVK Installation
+						Cloud Sync saves settings not being shown for Windows GOG games that have Linux counterpart
 					</li>
 					<li>
-						Fix Wine status not updating on Wine Manager after install/uninstall
+						Install dialog was not pre-selecting the default Wine and WinePrefix
 					</li>
 					<li>
-						Fix some sideloaded and GOG games not launching from SteamDeck because of a `--skip-version-check` flag being passed.
+						Improved accessibility of the default theme and others Style fixes
 					</li>
 					<li>
 						Several other fixes and improvements

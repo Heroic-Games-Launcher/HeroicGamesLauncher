@@ -93,9 +93,6 @@ function getUniqueKey(sdl: SelectiveDownload) {
 }
 
 const userHome = configStore.get('userHome', '')
-const { defaultInstallPath = `${userHome}/Games/Heroic` } = {
-  ...configStore.get_nodefault('settings')
-}
 
 export default function DownloadDialog({
   backdropClick,
@@ -122,8 +119,13 @@ export default function DownloadDialog({
   >(null)
   const [installLanguages, setInstallLanguages] = useState(Array<string>())
   const [installLanguage, setInstallLanguage] = useState('')
+
+  const { defaultInstallPath = '' } = {
+    ...configStore.get_nodefault('settings')
+  }
+
   const [installPath, setInstallPath] = useState(
-    previousProgress.folder || defaultInstallPath
+    previousProgress.folder || defaultInstallPath || `${userHome}/Games/Heroic`
   )
   const gameStatus: GameStatus = libraryStatus.filter(
     (game: GameStatus) => game.appName === appName
