@@ -337,7 +337,6 @@ export default React.memo(function Library(): JSX.Element {
               library={favourites}
               handleGameCardClick={handleModal}
               isFirstLane
-              showNonAvailable={showNonAvailable}
             />
           </>
         )}
@@ -358,7 +357,6 @@ export default React.memo(function Library(): JSX.Element {
             library={libraryToShow}
             layout={layout}
             handleGameCardClick={handleModal}
-            showNonAvailable={showNonAvailable}
           />
         )}
       </div>
