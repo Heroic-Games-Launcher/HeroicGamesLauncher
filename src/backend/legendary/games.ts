@@ -11,6 +11,7 @@ import {
   GameInfo,
   InstallArgs,
   InstallPlatform,
+  Runner,
   WineCommandArgs
 } from 'common/types'
 import { Game } from '../games'
@@ -58,11 +59,13 @@ import { sendFrontendMessage } from '../main_window'
 
 class LegendaryGame extends Game {
   public appName: string
+  public runner: Runner
   private static instances: Map<string, LegendaryGame> = new Map()
 
   private constructor(appName: string) {
     super()
     this.appName = appName
+    this.runner = 'legendary'
   }
 
   public static get(appName: string) {
@@ -867,6 +870,12 @@ class LegendaryGame extends Game {
           : ['--wine', wineBin])
       )
     }
+
+    sendFrontendMessage('gameStatusUpdate', {
+      appName: this.appName,
+      runner: this.runner,
+      status: 'playing'
+    })
 
     // Log any launch information configured in Legendary's config.ini
     const { stdout } = await runLegendaryCommand(

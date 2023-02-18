@@ -50,6 +50,7 @@ import { LegendaryUser } from './legendary/user'
 import { GOGUser } from './gog/user'
 import { GOGLibrary } from './gog/library'
 import setup from './gog/setup'
+import { setupUbisoftConnect } from './legendary/setup'
 import {
   clearCache,
   execAsync,
@@ -1004,7 +1005,7 @@ ipcMain.handle(
     sendFrontendMessage('gameStatusUpdate', {
       appName,
       runner,
-      status: 'playing'
+      status: 'launching'
     })
 
     const mainWindow = getMainWindow()
@@ -1628,6 +1629,9 @@ ipcMain.handle(
 
     if (runner === 'gog' && updated) {
       await setup(game.appName)
+    }
+    if (runner === 'legendary' && updated) {
+      await setupUbisoftConnect(game.appName)
     }
 
     // FIXME: Why are we using `runinprefix` here?
