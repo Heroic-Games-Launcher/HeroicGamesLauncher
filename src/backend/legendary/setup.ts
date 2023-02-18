@@ -4,7 +4,6 @@ import axios from 'axios'
 import { cachedUbisoftInstallerPath } from 'backend/constants'
 import { logWarning } from 'backend/logger/logger'
 import { existsSync, createWriteStream } from 'graceful-fs'
-// import { GameSettings } from 'common/types';
 import { LegendaryGame } from './games'
 import { Winetricks } from 'backend/tools'
 
@@ -41,7 +40,7 @@ export const setupUbisoftConnect = async (appName: string) => {
 
 const installUbisoftConnect = async (game: LegendaryGame) => {
   try {
-    downloadIfNotCached(cachedUbisoftInstallerPath, UBISOFT_INSTALLER_URL)
+    await downloadIfNotCached(cachedUbisoftInstallerPath, UBISOFT_INSTALLER_URL)
 
     await game.runWineCommand({
       commandParts: [cachedUbisoftInstallerPath, '/S']
@@ -70,17 +69,36 @@ const downloadIfNotCached = async (cachePath: string, url: string) => {
   }
 
   try {
-    const writer = createWriteStream(cachePath)
-
-    const response = await axios.get(url, {
-      responseType: 'stream'
-    })
-
-    await response.data.pipe(writer)
-
+    await download(cachePath, url)
     return true
   } catch {
     logWarning(`Failed to download ${url}`, LogPrefix.Backend)
     return false
   }
+}
+
+// snippet took from https://stackoverflow.com/a/61269447/1430810, maybe can be improved
+const download = async (cachePath: string, url: string) => {
+  const writer = createWriteStream(cachePath)
+
+  return axios
+    .get(url, {
+      responseType: 'stream'
+    })
+    .then(async (response) => {
+      return new Promise((resolve, reject) => {
+        response.data.pipe(writer)
+        let error: unknown = null
+        writer.on('error', (err) => {
+          error = err
+          writer.close()
+          reject(err)
+        })
+        writer.on('close', () => {
+          if (!error) {
+            resolve(true)
+          }
+        })
+      })
+    })
 }
