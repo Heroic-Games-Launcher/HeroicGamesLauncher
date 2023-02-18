@@ -227,7 +227,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
     let install_path: string | undefined
     let install_size: string | undefined
     let version: string | undefined
-    let extra: ExtraInfo | undefined
     let developer: string | undefined
     let cloud_save_enabled = false
 
@@ -235,12 +234,11 @@ export default React.memo(function GamePage(): JSX.Element | null {
       install_path = gameInfo.install.install_path
       install_size = gameInfo.install.install_size
       version = gameInfo.install.version
-      extra = gameInfo.extra
       developer = gameInfo.developer
       cloud_save_enabled = gameInfo.cloud_save_enabled
     }
 
-    hasRequirements = extra?.reqs ? extra.reqs.length > 0 : false
+    hasRequirements = extraInfo?.reqs ? extraInfo.reqs.length > 0 : false
     hasUpdate = is_installed && gameUpdates?.includes(appName)
     const appLocation = install_path || folder_name
 
