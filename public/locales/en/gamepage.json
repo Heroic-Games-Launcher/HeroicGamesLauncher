@@ -129,13 +129,15 @@
         "game": {
             "third-party-game": "Third-Party Game NOT Supported"
         },
+        "launching": "Launching",
         "playing": {
             "start": "Play Now",
             "stop": "Playing (Stop)"
         },
         "saves": {
             "syncing": "Syncing Saves"
-        }
+        },
+        "ubisoft": "Installing Ubisoft Connect"
     },
     "launch": {
         "options": "Launch Options..."
