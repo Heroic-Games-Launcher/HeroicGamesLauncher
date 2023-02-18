@@ -729,7 +729,7 @@ class GOGGame extends Game {
         ])
       }
     } else {
-      rmSync(object.install_path, { recursive: true })
+      rmSync(object.install_path, { recursive: true, force: true })
     }
     installedGamesStore.set('installed', array)
     GOGLibrary.get().refreshInstalled()
