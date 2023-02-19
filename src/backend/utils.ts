@@ -62,7 +62,7 @@ import { getAppInfo } from './sideload/games'
 import { getMainWindow, sendFrontendMessage } from './main_window'
 import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
-import { validWine } from './launcher'
+import { runWineCommand, validWine } from './launcher'
 
 const execAsync = promisify(exec)
 
@@ -845,6 +845,15 @@ function killPattern(pattern: string) {
   return ret
 }
 
+async function shutdownWine(gameSettings: GameSettings) {
+  await runWineCommand({
+    gameSettings,
+    commandParts: ['wineboot', '-k'],
+    wait: true,
+    protonVerb: 'waitforexitandrun'
+  })
+}
+
 const getShellPath = async (path: string): Promise<string> =>
   normalize((await execAsync(`echo "${path}"`)).stdout.trim())
 
@@ -1153,6 +1162,7 @@ export {
   detectVCRedist,
   getGame,
   killPattern,
+  shutdownWine,
   getInfo,
   getShellPath,
   getFirstExistingParentPath,

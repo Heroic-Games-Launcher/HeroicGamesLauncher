@@ -12,6 +12,7 @@ import {
   getFileSize,
   getGOGdlBin,
   killPattern,
+  shutdownWine,
   spawnAsync,
   moveOnUnix,
   moveOnWindows
@@ -888,16 +889,12 @@ class GOGGame extends Game {
   // Could be removed if gogdl handles SIGKILL and SIGTERM for us
   // which is send via AbortController
   public async stop(): Promise<void> {
-    const gameSettings = await this.getSettings()
     const pattern = isLinux ? this.appName : 'gogdl'
     killPattern(pattern)
-    if (!this.isNative())
-      await runWineCommand({
-        gameSettings,
-        commandParts: ['wineboot', '-k'],
-        wait: true,
-        protonVerb: 'waitforexitandrun'
-      })
+    if (!this.isNative()) {
+      const gameSettings = await this.getSettings()
+      await shutdownWine(gameSettings)
+    }
   }
 }
 
