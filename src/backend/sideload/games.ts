@@ -247,8 +247,6 @@ export async function stop(appName: string): Promise<void> {
       const gameSettings = await getAppSettings(appName)
       await shutdownWine(gameSettings)
     }
-    
-    
   }
 }
 
