@@ -10,6 +10,11 @@
   flex-direction: column;
   border-radius: var(--space-3xs);
   animation: fade-in 0.2s ease-in;
+  aspect-ratio: 173/275;
+}
+
+.gameCard.gamepad {
+  aspect-ratio: 3/4;
 }
 
 .gameCard:focus-within {
@@ -101,7 +106,7 @@
   padding: var(--space-xs-fixed);
 }
 
-.gameCard > .icons.gamepad {
+.gameCard.gamepad > .icons {
   display: none;
 }
 

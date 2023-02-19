@@ -63,6 +63,24 @@ const GameCard = ({
   isRecent = false,
   gameInfo: gameInfoFromProps
 }: Card) => {
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    // render an empty div until the card enters the viewport
+    // check GameList for the other side of this detection
+    const callback = (e: CustomEvent<{ appNames: string[] }>) => {
+      if (e.detail.appNames.includes(gameInfoFromProps.app_name)) {
+        setVisible(true)
+      }
+    }
+
+    window.addEventListener('visible-cards', callback)
+
+    return () => {
+      window.removeEventListener('visible-cards', callback)
+    }
+  }, [])
+
   const [gameInfo, setGameInfo] = useState<GameInfo | SideloadGame>(
     gameInfoFromProps
   )
@@ -80,7 +98,8 @@ const GameCard = ({
     favouriteGames,
     allTilesInColor,
     showDialogModal,
-    setIsSettingsModalOpen
+    setIsSettingsModalOpen,
+    activeController
   } = useContext(ContextProvider)
 
   const {
@@ -323,6 +342,7 @@ const GameCard = ({
   const instClass = isInstalled ? 'installed' : ''
   const hiddenClass = isHiddenGame ? 'hidden' : ''
   const notAvailableClass = notAvailable ? 'notAvailable' : ''
+  const gamepadClass = activeController ? 'gamepad' : ''
   const imgClasses = `gameImg ${isInstalled ? 'installed' : ''} ${
     allTilesInColor ? 'allTilesInColor' : ''
   }`
@@ -332,12 +352,20 @@ const GameCard = ({
 
   const wrapperClasses = `${
     grid ? 'gameCard' : 'gameListItem'
-  }  ${instClass} ${hiddenClass} ${notAvailableClass}`
-
-  const { activeController } = useContext(ContextProvider)
+  }  ${instClass} ${hiddenClass} ${notAvailableClass} ${gamepadClass}`
 
   const showUpdateButton =
     hasUpdate && !isUpdating && !isQueued && !notAvailable
+
+  if (!visible) {
+    return (
+      <div
+        className={wrapperClasses}
+        data-app-name={appName}
+        data-invisible={true}
+      ></div>
+    )
+  }
 
   return (
     <div>
@@ -349,7 +377,7 @@ const GameCard = ({
         />
       )}
       <ContextMenu items={items}>
-        <div className={wrapperClasses}>
+        <div className={wrapperClasses} data-app-name={appName}>
           {haveStatus && <span className="gameCardStatus">{label}</span>}
           <Link
             to={`/gamepage/${runner}/${appName}`}
@@ -399,11 +427,7 @@ const GameCard = ({
             </span>
           </Link>
           <>
-            <span
-              className={classNames('icons', {
-                gamepad: activeController
-              })}
-            >
+            <span className="icons">
               {showUpdateButton && (
                 <SvgButton
                   className="updateIcon"

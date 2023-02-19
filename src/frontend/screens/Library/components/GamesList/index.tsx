@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { GameInfo, Runner, SideloadGame } from 'common/types'
 import cx from 'classnames'
 import GameCard from '../GameCard'
@@ -26,62 +26,51 @@ const GamesList = ({
   onlyInstalled = false,
   isRecent = false
 }: Props): JSX.Element => {
-  const { gameUpdates, showNonAvailable } = useContext(ContextProvider)
+  const { gameUpdates } = useContext(ContextProvider)
   const { t } = useTranslation()
-  const [gameCards, setGameCards] = useState<JSX.Element[]>([])
 
   useEffect(() => {
-    let mounted = true
-
-    const createGameCards = async () => {
-      if (!library.length) {
-        return
+    if (library.length) {
+      const options = {
+        root: document.querySelector('.listing'),
+        rootMargin: '500px',
+        threshold: 0
       }
-      const resolvedLibrary = library.map(async (gameInfo) => {
-        const { app_name, is_installed, runner } = gameInfo
 
-        let is_dlc = false
-        if (gameInfo.runner !== 'sideload') {
-          is_dlc = gameInfo.install.is_dlc ?? false
-        }
+      const callback: IntersectionObserverCallback = (entries, observer) => {
+        const entered: string[] = []
+        entries.forEach((entry) => {
+          if (entry.intersectionRatio > 0) {
+            // when a card is intersecting the viewport
+            const appName = (entry.target as HTMLDivElement).dataset
+              .appName as string
 
-        if (is_dlc) {
-          return null
-        }
-        if (!is_installed && onlyInstalled) {
-          return null
-        }
+            // store this appName for later
+            entered.push(appName)
+            // stop observing this element
+            observer.unobserve(entry.target)
+          }
+        })
 
-        const hasUpdate = is_installed && gameUpdates?.includes(app_name)
-        return (
-          <GameCard
-            key={app_name}
-            hasUpdate={hasUpdate}
-            buttonClick={() => {
-              if (gameInfo.runner !== 'sideload')
-                handleGameCardClick(app_name, runner, gameInfo)
-            }}
-            forceCard={layout === 'grid'}
-            isRecent={isRecent}
-            gameInfo={gameInfo}
-          />
+        // dispatch an event with the newley visible cards
+        // check GameCard for the other side of this detection
+        window.dispatchEvent(
+          new CustomEvent('visible-cards', { detail: { appNames: entered } })
         )
-      })
-      const gameCardElements = (await Promise.all(
-        resolvedLibrary
-      )) as JSX.Element[]
+      }
 
-      if (mounted) {
-        setGameCards(gameCardElements)
+      const observer = new IntersectionObserver(callback, options)
+
+      document.querySelectorAll('[data-invisible]').forEach((card) => {
+        observer.observe(card)
+      })
+
+      return () => {
+        observer.disconnect()
       }
     }
-
-    createGameCards()
-
-    return () => {
-      mounted = false
-    }
-  }, [library, onlyInstalled, layout, gameUpdates, isRecent, showNonAvailable])
+    return () => ({})
+  }, [library])
 
   return (
     <div
@@ -100,7 +89,37 @@ const GamesList = ({
           <span>{t('wine.actions', 'Action')}</span>
         </div>
       )}
-      {!!library.length && gameCards}
+      {!!library.length &&
+        library.map((gameInfo) => {
+          const { app_name, is_installed, runner } = gameInfo
+
+          let is_dlc = false
+          if (gameInfo.runner !== 'sideload') {
+            is_dlc = gameInfo.install.is_dlc ?? false
+          }
+
+          if (is_dlc) {
+            return null
+          }
+          if (!is_installed && onlyInstalled) {
+            return null
+          }
+
+          const hasUpdate = is_installed && gameUpdates?.includes(app_name)
+          return (
+            <GameCard
+              key={app_name}
+              hasUpdate={hasUpdate}
+              buttonClick={() => {
+                if (gameInfo.runner !== 'sideload')
+                  handleGameCardClick(app_name, runner, gameInfo)
+              }}
+              forceCard={layout === 'grid'}
+              isRecent={isRecent}
+              gameInfo={gameInfo}
+            />
+          )
+        })}
     </div>
   )
 }

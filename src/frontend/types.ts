@@ -143,6 +143,7 @@ declare global {
   }
 
   interface WindowEventMap {
+    'visible-cards': CustomEvent<{ appNames: string[] }>
     'controller-changed': CustomEvent<{ controllerId: string }>
   }
 }
