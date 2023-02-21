@@ -187,7 +187,8 @@
         "uninstalling": "Uninstalling",
         "updating": "遊戲更新中",
         "playing": "播放",
-        "moving-files": "移動文件“{{file}}”：{{percent}} "
+        "moving-files": "移動文件“{{file}}”：{{percent}} ",
+        "syncingSaves": "同步保存"
     },
     "submenu": {
         "addShortcut": "添加捷徑",
@@ -202,7 +203,8 @@
         "settings": "設定",
         "store": "商店頁面",
         "verify": "驗證並修復遊戲文件",
-        "extraInfo": "額外信息"
+        "extraInfo": "額外信息",
+        "logs": "日誌"
     },
     "help": {
         "cloud_save_unsupported": "本遊戲不支持雲存檔。此信息由遊戲開發商提供。有些遊戲確實實現了自己的雲保存系統"
