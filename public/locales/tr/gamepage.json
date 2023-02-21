@@ -187,7 +187,8 @@
         "uninstalling": "Uninstalling",
         "updating": "Oyun Güncelleniyor",
         "playing": "oynamak",
-        "moving-files": "'{{file}}' dosyası taşınıyor: {{percent}} "
+        "moving-files": "'{{file}}' dosyası taşınıyor: {{percent}} ",
+        "syncingSaves": "Kayıtlar Senkronize Ediliyor"
     },
     "submenu": {
         "addShortcut": "Kısayol ekle",
@@ -202,7 +203,8 @@
         "settings": "Ayarlar",
         "store": "Mağaza Sayfası",
         "verify": "Doğrula ve Onar",
-        "extraInfo": "Fazladan bilgi"
+        "extraInfo": "Fazladan bilgi",
+        "logs": "Kütükler"
     },
     "help": {
         "cloud_save_unsupported": "Bu oyun bulutta kaydetmeyi desteklemiyor. Bu bilgiler oyun geliştiricileri tarafından sağlanmaktadır. Bazı oyunlar kendi bulut kaydetme sistemlerini uygular"
