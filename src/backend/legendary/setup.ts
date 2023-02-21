@@ -6,6 +6,9 @@ import { logWarning } from 'backend/logger/logger'
 import { existsSync, createWriteStream } from 'graceful-fs'
 import { LegendaryGame } from './games'
 import { Winetricks } from 'backend/tools'
+import { showDialogBoxModalAuto } from 'backend/dialog/dialog'
+import i18next from 'i18next'
+import { getWinePath } from 'backend/launcher'
 
 const UBISOFT_INSTALLER_URL =
   'https://ubistatic3-a.akamaihd.net/orbit/launcher_installer/UbisoftConnectInstaller.exe'
@@ -23,6 +26,11 @@ export const setupUbisoftConnect = async (appName: string) => {
 
   // if not a ubisoft game, do nothing
   if (gameInfo.install.executable !== 'UplayLaunch.exe') {
+    return
+  }
+
+  if (await isUbisoftInstalled(game)) {
+    // it's already installed, do nothing
     return
   }
 
@@ -45,13 +53,22 @@ const installUbisoftConnect = async (game: LegendaryGame) => {
     await game.runWineCommand({
       commandParts: [cachedUbisoftInstallerPath, '/S']
     })
+  } catch (error) {
+    logWarning(`Error installing Ubisoft Connect: ${error}`, LogPrefix.Backend)
+  }
 
+  if (await isUbisoftInstalled(game)) {
     return true
-  } catch {
-    logWarning(
-      'Failed to download UbisoftConnectInstaller.exe',
-      LogPrefix.Backend
-    )
+  } else {
+    // it was not installed correctly, show an error
+    showDialogBoxModalAuto({
+      title: i18next.t('box.error.ubisoft-connect.title', 'Ubisoft Connect'),
+      message: i18next.t(
+        'box.error.ubisoft-connect.message',
+        'Installation of Ubisoft Connect in the game prefix failed. Check our wiki page at https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac to install it maunally.'
+      ),
+      type: 'ERROR'
+    })
     return false
   }
 }
@@ -101,4 +118,15 @@ const download = async (cachePath: string, url: string) => {
         })
       })
     })
+}
+
+const isUbisoftInstalled = async (game: LegendaryGame) => {
+  const gameSettings = await game.getSettings()
+
+  const ubisoftExecPath = await getWinePath({
+    path: 'C:/Program FIles (x86)/Ubisoft/Ubisoft Game Launcher/UbisoftConnect.exe',
+    gameSettings
+  })
+
+  return existsSync(ubisoftExecPath)
 }
