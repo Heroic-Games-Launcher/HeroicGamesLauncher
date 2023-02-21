@@ -71,7 +71,8 @@
             },
             "launchAborted": "Start afbrudt",
             "generic": {
-                "title": "Vælg EXE til at køre"
+                "title": "Vælg EXE til at køre",
+                "message": "generisk fejlmeddelelse"
             },
             "moving": "Fejl ved flytning af spil {{error}}"
         },

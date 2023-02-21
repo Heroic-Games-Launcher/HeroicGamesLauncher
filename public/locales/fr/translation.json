@@ -56,7 +56,7 @@
                 "title": "Le dossier du jeu semble avoir été supprimé. Voulez-vous supprimer ce jeu de la liste des jeux installés ?"
             },
             "generic": {
-                "message": "",
+                "message": "message d'erreur générique",
                 "title": "Selectionnez EXE pour lancer"
             },
             "launchAborted": "Lancement interrompu",
@@ -174,7 +174,7 @@
             "open_virtual_keyboard": "Afficher le clavier virtuel",
             "options": "Options",
             "play_game": "Lancer le jeu",
-            "scroll": "Scroll",
+            "scroll": "Faire défiler",
             "select": "Sélectionner",
             "space": "Espace",
             "update_game": "Mettre à jour le jeu"
@@ -183,31 +183,31 @@
     "docs": "Documentation",
     "download-manager": {
         "install-type": {
-            "install": "Install",
-            "update": "Update"
+            "install": "Installation",
+            "update": "Mise-à-jour"
         },
         "label": {
             "disk": "Disque",
-            "speed": "Download"
+            "speed": "Téléchargement"
         },
-        "link": "Downloads",
+        "link": "Téléchargements",
         "queue": {
-            "end-time": "Fini à",
-            "queue-time": "Ajouté à",
-            "start-time": "Commencé à",
+            "end-time": "Fini le",
+            "queue-time": "Ajouté le",
+            "start-time": "Commencé le",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Téléchargements"
     },
     "epic": {
         "offline-notification-body": "Les services en ligne peuvent ne pas entièrement fonctionner car les serveurs d'Epic Games sont hors ligne !",
-        "offline-notification-title": "offline"
+        "offline-notification-title": "hors ligne"
     },
     "Epic Games": "Epic Games",
-    "error": "Error",
+    "error": "Erreur",
     "favourites": "Favoris",
     "game": {
-        "status": "Status",
+        "status": "État",
         "store": "Boutique",
         "title": "Titre du jeu"
     },
@@ -373,8 +373,8 @@
         }
     },
     "offline-message": {
-        "hint": "Nous vérifions la connexion avec :{{newline}}github.com,{{newline}}gog.com et{{newline}}store.epicgames.com",
-        "ignore": "Ignore",
+        "hint": "Nous vérifions la connexion avec :{{newline}}github.com,{{newline}}gog.com, {{newline}}store.epicgames.com et {{newline}}cloudflare-dns.com",
+        "ignore": "Ignorer",
         "offline": "Déconnecté",
         "offline-retry-in": "Déconnecté. Nouvel essai dans {{seconds}} secondes.",
         "retrying": "Réessayer"
@@ -382,7 +382,7 @@
     "Open": "",
     "options": {
         "advanced": {
-            "key": "Variable Name",
+            "key": "Nom de Variable",
             "placeHolderKey": "NOM",
             "placeHolderValue": "Exemple : Chemin/Vers/FichiersSupplémentaires",
             "title": "Variables d'environnement",
