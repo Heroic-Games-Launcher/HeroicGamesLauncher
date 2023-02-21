@@ -73,7 +73,8 @@ export interface StoreStructure {
   }
   gogConfigStore: {
     userData: UserData
-    credentials: GOGLoginData
+    credentials?: GOGLoginData
+    isLoggedIn: boolean
   }
   sideloadedStore: {
     games: SideloadGame[]

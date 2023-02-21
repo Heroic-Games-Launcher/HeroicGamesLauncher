@@ -63,6 +63,7 @@ const { currentLogFile, lastLogFile, legendaryLogFile, gogdlLogFile } =
   createNewLogFileAndClearOldOnes()
 
 const publicDir = resolve(__dirname, '..', app.isPackaged ? '' : '../public')
+const gogdlAuthConfig = join(app.getPath('userData'), 'gog_store', 'auth.json')
 const icon = fixAsarPath(join(publicDir, 'icon.png'))
 const iconDark = fixAsarPath(join(publicDir, 'icon-dark.png'))
 const iconLight = fixAsarPath(join(publicDir, 'icon-light.png'))
@@ -250,5 +251,6 @@ export {
   GITHUB_API,
   wineprefixFAQ,
   customThemesWikiLink,
-  cachedUbisoftInstallerPath
+  cachedUbisoftInstallerPath,
+  gogdlAuthConfig
 }
