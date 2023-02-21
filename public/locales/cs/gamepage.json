@@ -187,7 +187,8 @@
         "uninstalling": "Odinstalace",
         "updating": "Aktualizuji hru",
         "playing": "Hraní",
-        "moving-files": "Přesouvání souboru '{{file}}': {{percent}} "
+        "moving-files": "Přesouvání souboru '{{file}}': {{percent}} ",
+        "syncingSaves": "Synchronizuji uložené soubory"
     },
     "submenu": {
         "addShortcut": "Přidat zástupce",
@@ -202,7 +203,8 @@
         "settings": "Nastavení",
         "store": "Stránka obchodu",
         "verify": "Zkontrolovat a opravit",
-        "extraInfo": "Další informace"
+        "extraInfo": "Další informace",
+        "logs": "Protokoly"
     },
     "help": {
         "cloud_save_unsupported": "Tato hra nepodporuje ukládání do cloudu. Tyto informace poskytují vývojáři hry. Některé hry implementují svůj vlastní cloudový systém ukládání"
