@@ -188,7 +188,8 @@
         "uninstalling": "Uninstalling",
         "updating": "Oppdaterer spillet",
         "playing": "Spiller",
-        "moving-files": "Flytter filen «{{file}}»: {{percent}} "
+        "moving-files": "Flytter filen «{{file}}»: {{percent}} ",
+        "syncingSaves": "Synkroniserer lagrer"
     },
     "submenu": {
         "addShortcut": "Legg til snarvei",
@@ -203,7 +204,8 @@
         "settings": "Innstillinger",
         "store": "Butikkside",
         "verify": "Bekreft og reparer",
-        "extraInfo": "Ekstra info"
+        "extraInfo": "Ekstra info",
+        "logs": "Tømmerstokker"
     },
     "help": {
         "cloud_save_unsupported": "Dette spillet støtter ikke skylagring. Denne informasjonen er gitt av spillutviklerne. Noen spill implementerer sitt eget skylagringssystem"
