@@ -187,7 +187,8 @@
         "uninstalling": "Uninstalling",
         "updating": "Päivitetään peliä",
         "playing": "Pelaaminen",
-        "moving-files": "Siirretään tiedostoa {{file}}: {{percent}} "
+        "moving-files": "Siirretään tiedostoa {{file}}: {{percent}} ",
+        "syncingSaves": "Synkronoidaan tallennuksia"
     },
     "submenu": {
         "addShortcut": "Lisää pikakuvake",
@@ -202,7 +203,8 @@
         "settings": "Asetukset",
         "store": "Kauppasivu",
         "verify": "Vahvista ja korjaa",
-        "extraInfo": "Lisätiedot"
+        "extraInfo": "Lisätiedot",
+        "logs": "Lokit"
     },
     "help": {
         "cloud_save_unsupported": "Tämä peli ei tue pilvitallennusta. Nämä tiedot ovat pelin kehittäjien toimittamia. Jotkut pelit toteuttavat oman pilvitallennusjärjestelmän"
