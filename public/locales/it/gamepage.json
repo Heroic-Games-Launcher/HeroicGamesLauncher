@@ -187,7 +187,8 @@
         "uninstalling": "Disinstallando",
         "updating": "Aggiornamento in corso",
         "playing": "Giocando",
-        "moving-files": "Spostamento del file '{{file}}': {{percent}} "
+        "moving-files": "Spostamento del file '{{file}}': {{percent}} ",
+        "syncingSaves": "Sincronizzando i salvataggi"
     },
     "submenu": {
         "addShortcut": "Aggiungi scorciatoia",
@@ -202,7 +203,8 @@
         "settings": "Impostazioni",
         "store": "Pagina dello store",
         "verify": "Verifica e ripara",
-        "extraInfo": "Ulteriori informazioni"
+        "extraInfo": "Ulteriori informazioni",
+        "logs": "Registri"
     },
     "help": {
         "cloud_save_unsupported": "Questo gioco non supporta i salvataggi nel cloud. Queste informazioni sono fornite dagli sviluppatori del gioco. Alcuni giochi implementano il proprio sistema di salvataggio nel cloud"
