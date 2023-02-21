@@ -187,7 +187,8 @@
         "uninstalling": "Es desinstal·la",
         "updating": "S'està actualitzant el joc",
         "playing": "Jugant",
-        "moving-files": "S'està movent el fitxer '{{file}}': {{percent}} "
+        "moving-files": "S'està movent el fitxer '{{file}}': {{percent}} ",
+        "syncingSaves": "S'estan sincronitzant les partides"
     },
     "submenu": {
         "addShortcut": "Afegeix una drecera",
@@ -202,7 +203,8 @@
         "settings": "Configuració",
         "store": "Botiga",
         "verify": "Verifica i repara",
-        "extraInfo": "Informació extra"
+        "extraInfo": "Informació extra",
+        "logs": "Registres"
     },
     "help": {
         "cloud_save_unsupported": "Aquest joc no admet desacions al núvol. Aquesta informació la proporcionen els desenvolupadors del joc. Alguns jocs implementen el seu propi sistema de desat al núvol"
