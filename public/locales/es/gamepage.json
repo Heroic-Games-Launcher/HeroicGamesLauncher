@@ -100,7 +100,7 @@
     },
     "hours": "Horas",
     "how-long-to-beat": {
-        "completionist": "Completionist",
+        "completionist": "complotista",
         "main-plus-extras": "Principal + Extras",
         "main-story": "Historia principal"
     },
@@ -187,7 +187,8 @@
         "uninstalling": "Desinstalando",
         "updating": "Actualización de juego",
         "playing": "Jugando",
-        "moving-files": "Moviendo archivo '{{file}}': {{percent}} "
+        "moving-files": "Moviendo archivo '{{file}}': {{percent}} ",
+        "syncingSaves": "Sincronizando guardados"
     },
     "submenu": {
         "addShortcut": "Añadir acceso directo",
@@ -202,7 +203,8 @@
         "settings": "Ajustes",
         "store": "Página de la tienda",
         "verify": "Verificar y reparar",
-        "extraInfo": "Información extra"
+        "extraInfo": "Información extra",
+        "logs": "Registros"
     },
     "help": {
         "cloud_save_unsupported": "Este juego no admite guardados en la nube. Esta información es proporcionada por los desarrolladores del juego. Algunos juegos implementan su propio sistema de guardado en la nube"

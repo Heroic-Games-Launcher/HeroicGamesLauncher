@@ -56,7 +56,7 @@
                 "title": "游戏文件夹似乎已被删除，你是否要从安装列表中删除游戏？"
             },
             "generic": {
-                "message": "",
+                "message": "一般错误信息",
                 "title": "选择要运行的 EXE"
             },
             "launchAborted": "启动已中断",

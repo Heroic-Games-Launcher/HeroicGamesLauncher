@@ -187,7 +187,8 @@
         "uninstalling": "Uninstalling",
         "updating": "Aktualizácia hry",
         "playing": "Prehrávanie",
-        "moving-files": "Presúvam súbor '{{file}}': {{percent}} "
+        "moving-files": "Presúvam súbor '{{file}}': {{percent}} ",
+        "syncingSaves": "Synchronizácia uloženia"
     },
     "submenu": {
         "addShortcut": "Pridať skratku",
@@ -202,7 +203,8 @@
         "settings": "nastavenie",
         "store": "Stránka obchodu",
         "verify": "Overiť a opraviť",
-        "extraInfo": "Ďalšie informácie"
+        "extraInfo": "Ďalšie informácie",
+        "logs": "Denníky"
     },
     "help": {
         "cloud_save_unsupported": "Táto hra nepodporuje ukladanie do cloudu. Tieto informácie poskytujú vývojári hry. Niektoré hry implementujú svoj vlastný systém ukladania do cloudu"

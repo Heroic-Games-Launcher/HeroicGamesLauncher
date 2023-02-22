@@ -56,7 +56,7 @@
                 "title": "Spelets installationsmapp saknas, vill du ta bort det från Installerade spel-listan?"
             },
             "generic": {
-                "message": "",
+                "message": "allmänt felmeddelande",
                 "title": "Ange programfil"
             },
             "launchAborted": "Start avbröts",
@@ -176,7 +176,7 @@
             "play_game": "Spela spelet",
             "scroll": "Skrolla",
             "select": "Välj",
-            "space": "Space",
+            "space": "Mellanslag",
             "update_game": "Uppdatera spel"
         }
     },
@@ -223,11 +223,11 @@
     "GOG": "GOG",
     "gog-store": "GOG Butik",
     "header": {
-        "hide_non_available_games": "Hide non-available games",
+        "hide_non_available_games": "Dölj icke-tillgängliga spel",
         "ignore_hidden": "Ignorera dolda",
         "platform": "Plattform",
         "show_all_games": "Visa alla spel",
-        "show_available_games": "Show non-Available games",
+        "show_available_games": "Visa icke-tillgängliga spel",
         "show_favourites_only": "Visa endast favoriter",
         "show_hidden": "Visa dolda",
         "store": "Filtrera efter butik"
@@ -238,8 +238,8 @@
         "custom_themes_wiki": "Kontrollera Wiki för mer information om att lägga till anpassade teman. Klicka här.",
         "dxvk": "DXVK är ett Vulkan-baserat översättningslager för DirectX 9, 10 och 11 spel. Aktivering kan förbättra kompatibiliteten. Kan orsaka problem särskilt för äldre DirectX-spel.",
         "dxvkfpslimit": "Ställer in ett bildhastighetstak för DXVK spel",
-        "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
-        "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
+        "esync": "Esync syftar till att minska wineserver overhead i CPU-intensiva spel. Aktivering kan förbättra prestandan.",
+        "fsync": "Fsync syftar till att minska wineserver overhead i CPU-intensiva spel. Aktivering kan förbättra prestandan om stöd finns i Linux kärnan.",
         "game_language": {
             "fallback": "Lämna tom för att använda samma språk som Heroic.",
             "in_game_config": "Inte alla spel stödjer denna konfigurationen en del har språkinställningar i spelet.",
@@ -259,7 +259,7 @@
         "steam_path": {
             "info": "Den här sökvägen låter Heroic bestämma vilken version av Proton, Steam använder för att lägga till icke-Steam-spel till Steam."
         },
-        "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
+        "steamruntime": "Anpassade bibliotek från Steam för att hjälpa till att köra Linux och Windows (Proton) spel. Aktivering kan förbättra kompatibiliteten.",
         "sync": {
             "part1": "Heroic försöker gissa mapp för sparfiler vilket oftast fungerar. Om det blir fel, använd fältet för att ange korrekt sökväg.",
             "part2": "Om du ändrar sökväg för Wine eller Proton prefix kommer du behöva kontrollera sökvägen igen. Proton använder annorlunda prefix (/pfx) och användarnamn (steamuser) jämfört med Wine. Du kan radera aktuell sökväg och lämna synkroniseringsinställningarna, öppna dem på nytt så försöker Heroic automatiskt hitta rätt prefix igen.",
@@ -292,7 +292,7 @@
         "warning": "Varning",
         "wine-path": "Wine sökväg",
         "wine-prefix": {
-            "title": "Wine Prefix"
+            "title": "Wine prefix"
         },
         "wine-repfix": {
             "message": "Wine använder WINEPREFIX för att kapsla in Windows-applikationer. Detta prefix innehåller Wines konfigurationsfiler och en skapad filhierarki för C: (huvuddisken på ett Windows-operativsystem). I den skapade C:-enheten lagras spelets sparfiler och beroenden som installerats via winetricks."
@@ -303,7 +303,7 @@
         "path": "Ange installationssökväg"
     },
     "label": {
-        "loading": "Loading"
+        "loading": "Läser in"
     },
     "library": {
         "refresh": "Uppdatera",
@@ -456,7 +456,7 @@
         "autovkd3d": "Installera/uppdatera VKD3D i prefix automatiskt",
         "change-target-exe": "Ange alternativ EXE-fil att köra",
         "checkForUpdatesOnStartup": "Sök efter Heroic-uppdateringar vid uppstart",
-        "crossover-version": "Crossover/Wine Version",
+        "crossover-version": "Crossover/Wine version",
         "custom_themes_path": "Sökväg till anpassade teman",
         "customWineProton": "Anpassad Wine/Proton sökväg",
         "darktray": "Använd mörk ikon i systemfältet",
@@ -582,7 +582,7 @@
         },
         "navbar": {
             "advanced": "Avancerat",
-            "games_settings_defaults": "Game Defaults",
+            "games_settings_defaults": "Standardinställningar",
             "general": "Allmänt",
             "log": "Logg",
             "other": "Övrigt",
@@ -650,14 +650,14 @@
         }
     },
     "wine": {
-        "actions": "Action",
+        "actions": "Åtgärd",
         "manager": {
             "link": "Wine hanterare",
             "not-found": "Inga Wine versioner hittades. Klicka på uppdateringsikonen för att försöka igen.",
             "title": "Wine hanterare",
             "unzipping": "Packar upp"
         },
-        "release": "Release Date",
+        "release": "Utgivningsdatum",
         "size": "Storlek"
     },
     "externalLink": {
@@ -665,6 +665,6 @@
         "dontAskAgain": "Fråga inte igen"
     },
     "wiki_info": {
-        "not_found": "Vi kunde inte hitta extra information."
+        "not_found": "Hittade ej någon extra information."
     }
 }

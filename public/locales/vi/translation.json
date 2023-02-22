@@ -56,7 +56,7 @@
                 "title": "Thư mục game dường như đã bị xóa, bạn có muốn xóa trò chơi khỏi danh sách đã cài đặt không?"
             },
             "generic": {
-                "message": "",
+                "message": "thông báo lỗi chung",
                 "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",

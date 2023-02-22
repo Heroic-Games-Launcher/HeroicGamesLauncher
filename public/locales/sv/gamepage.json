@@ -96,7 +96,7 @@
     },
     "generic": {
         "error": "Okänt fel",
-        "noDescription": "Ingen beskrivning finns tillgänglig"
+        "noDescription": "Beskrivning saknas"
     },
     "hours": "Timmar",
     "how-long-to-beat": {
@@ -187,7 +187,8 @@
         "uninstalling": "Avinstallerar",
         "updating": "Updaterar spelet",
         "playing": "Spelar",
-        "moving-files": "Flyttar filen '{{file}}': {{percent}} "
+        "moving-files": "Flyttar filen '{{file}}': {{percent}} ",
+        "syncingSaves": "Synkroniserar sparfiler"
     },
     "submenu": {
         "addShortcut": "Skapa genväg",
@@ -202,9 +203,10 @@
         "settings": "Inställningar",
         "store": "Butikssida",
         "verify": "Verifiera och reparera",
-        "extraInfo": "Extra info"
+        "extraInfo": "Ytterligare information",
+        "logs": "Loggar"
     },
     "help": {
-        "cloud_save_unsupported": "Det här spelet stöder inte molnlagring. Denna information tillhandahålls av spelutvecklarna. Vissa spel implementerar sitt eget molnsparsystem"
+        "cloud_save_unsupported": "Spelet stöder inte sparfiler i molnlagring. Denna information tillhandahålls av spelutvecklarna. Vissa spel implementerar sitt eget molnsparsystem"
     }
 }

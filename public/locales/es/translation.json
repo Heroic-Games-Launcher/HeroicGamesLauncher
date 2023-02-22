@@ -19,7 +19,7 @@
     },
     "box": {
         "cache-cleared": {
-            "message": "El caché de Heroic ha sido limpiado.",
+            "message": "Se limpió la caché de Heroic.",
             "title": "Caché borrado"
         },
         "choose": "Elegir",
@@ -56,7 +56,7 @@
                 "title": "La carpeta del juego parece haber sido borrada. ¿Quieres remover el juego de la lista de instalados?"
             },
             "generic": {
-                "message": "",
+                "message": "Mensaje de error genérico",
                 "title": "Seleccionar EXE a ejecutar"
             },
             "launchAborted": "Ejecución abortada",
@@ -122,7 +122,7 @@
             "title": "Accesos directos"
         },
         "sync": {
-            "button": "Elegir",
+            "button": "Seleccione",
             "error": "Ruta no válida",
             "title": "Elija el directorio de guardado"
         },
@@ -147,7 +147,7 @@
                 "title": "¡Vino no encontrado!"
             }
         },
-        "wineprefix": "Elige la ruta del prefijo de Wine",
+        "wineprefix": "Seleccione la carpeta WinePrefix",
         "yes": "SÍ",
         "dontShowAgain": "no volver a mostrar"
     },
@@ -635,7 +635,7 @@
         "discord": "Discord",
         "logging_out": "Cerrando sesión",
         "logout": "Cerrar sesión",
-        "logout_confirmation": "¿Estás seguro de que quieres cerrar la sesión?",
+        "logout_confirmation": "¿Estás seguro de que quieres cerrar sesión?",
         "manageaccounts": "Gestionar cuentas",
         "quit": "Salir",
         "cancel": "Cancelar",

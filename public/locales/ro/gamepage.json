@@ -188,7 +188,8 @@
         "uninstalling": "Uninstalling",
         "updating": "Joc in curs de actualizare",
         "playing": "Joc",
-        "moving-files": "Mutarea fișierului „{{file}}”: {{percent}} "
+        "moving-files": "Mutarea fișierului „{{file}}”: {{percent}} ",
+        "syncingSaves": "Sincronizează Salvările"
     },
     "submenu": {
         "addShortcut": "Adaugă scurtătură",
@@ -203,7 +204,8 @@
         "settings": "Setări",
         "store": "Pagina magazinului",
         "verify": "Verificați și Reparați",
-        "extraInfo": "Informații suplimentare"
+        "extraInfo": "Informații suplimentare",
+        "logs": "Bușteni"
     },
     "help": {
         "cloud_save_unsupported": "Acest joc nu acceptă salvări în cloud. Aceste informații sunt furnizate de dezvoltatorii jocului. Unele jocuri implementează propriul sistem de salvare în cloud"

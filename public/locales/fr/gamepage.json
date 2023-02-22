@@ -34,7 +34,7 @@
         "uninstall": {
             "checkbox": "Supprimer le préfixe : {{prefix}}{{newLine}}Note : cela ne peut pas être annulé et supprimera également les fichiers de sauvegarde non sauvegardés.",
             "message": "Voulez-vous désinstaller ce jeu ?",
-            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+            "settingcheckbox": "Effacer les paramètres et supprimer les journaux{{newLine}}Attention : ceci ne peut pas être annulé. Tout paramètre modifié sera réinitialisé et tous les journaux seront supprimés définitivement.",
             "title": "Désinstaller",
             "prefix_warning": "Le préfixe Wine pour ce jeu est le préfixe par défaut. Si vous voulez vraiment le supprimer, vous devez le faire manuellement."
         },
@@ -96,7 +96,7 @@
     },
     "generic": {
         "error": "Erreur inconnue",
-        "noDescription": "Pas de description disponible"
+        "noDescription": "Aucune description n'est disponible"
     },
     "hours": "Heures",
     "how-long-to-beat": {
@@ -104,7 +104,7 @@
         "main-plus-extras": "Trame principale + Extras",
         "main-story": "Histoire principale"
     },
-    "howLongToBeat": "How Long To Beat",
+    "howLongToBeat": "Durée pour finir le jeu",
     "info": {
         "canRunOffline": "Connexion à internet requise",
         "installedPlatform": "Système",
@@ -124,10 +124,10 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Les jeux nécessitant un lanceur tiers ne sont PAS supportés"
         },
         "playing": {
-            "start": "Jouer maintenant",
+            "start": "Y jouer maintenant",
             "stop": "Jeu en cours (Arrêter)"
         },
         "saves": {
@@ -171,23 +171,24 @@
     },
     "status": {
         "clickToUpdate": "Cliquez pour mettre à jour",
-        "gameNotAvailable": "Game not available",
+        "gameNotAvailable": "Jeu indisponible",
         "hasUpdates": "Nouvelle version disponible !",
         "installed": "Installé",
         "installing": "Installation en cours",
         "moving": "Déplacement de l'installation, veuillez patienter",
         "notinstalled": "Ce jeu n'est pas installé",
-        "notSupported": "Not supported",
-        "notSupportedGame": "Not Supported",
+        "notSupported": "Non supporté",
+        "notSupportedGame": "Non supporté",
         "processing": "Traitement des fichiers, veuillez patienter",
         "queued": "En file d'attente",
         "reparing": "Réparation du jeu en cours, veuillez patienter",
-        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
+        "this-game-uses-third-party": "Ce jeu nécessite un lanceur tiers et n'est donc pas supporté pour le moment",
         "totalDownloaded": "Total Téléchargé",
         "uninstalling": "Désinstallation",
         "updating": "Mise à jour du jeu",
-        "playing": "En train de jouer",
-        "moving-files": "Déplacement du fichier '{{file}}' : {{percent}} "
+        "playing": "Jeu en cours d'exécution",
+        "moving-files": "Déplacement du fichier \"{{file}}\" : {{percent}} ",
+        "syncingSaves": "Synchronisation des sauvegardes"
     },
     "submenu": {
         "addShortcut": "Ajouter un raccourci",
@@ -202,9 +203,10 @@
         "settings": "Options",
         "store": "Page du magasin",
         "verify": "Vérifier et Réparer",
-        "extraInfo": "Informaitons supplémentaires"
+        "extraInfo": "Informations supplémentaires",
+        "logs": "Journaux"
     },
     "help": {
-        "cloud_save_unsupported": "Ce jeu ne prend pas en charge les sauvegardes dans le cloud. Ces informations sont fournies par les développeurs du jeu. Certains jeux implémentent leur propre système de sauvegarde dans le cloud"
+        "cloud_save_unsupported": "Ce jeu ne prend pas en charge les sauvegardes dans le Cloud. Cette information est fournie par les développeurs du jeu. Certains jeux implémentent leur propre système de sauvegarde dans le Cloud"
     }
 }

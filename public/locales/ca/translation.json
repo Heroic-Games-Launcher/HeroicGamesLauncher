@@ -56,7 +56,7 @@
                 "title": "Sembla que s'ha suprimit carpeta del joc. Vols suprimir el joc de la llista de jocs instal·lats?"
             },
             "generic": {
-                "message": "",
+                "message": "missatge genèric d'error",
                 "title": "Tria un EXE per executar"
             },
             "launchAborted": "L'execució ha fallat",
@@ -144,7 +144,7 @@
             "title": "Avís",
             "wine-change": {
                 "message": "No s'ha pogut trobar la versió del Wine seleccionada per a iniciar aquest títol ({{selectedWine}}). {{newline}} S'ha trobat una altra, vols continuar l'execució utilitzant {{foundWine}}?",
-                "title": "No s'ha trobat vi!"
+                "title": "No s'ha trobat el Wine!"
             }
         },
         "wineprefix": "Tria la carpeta del WinePrefix",
@@ -551,7 +551,7 @@
         "winecrossoverbottle": "Ampolla CrossOver",
         "wineprefix": "Directori WinePrefix",
         "wineversion": "Versió del Wine",
-        "autoUpdateGames": "Actualitzar jocs automàticament",
+        "autoUpdateGames": "Actualitza els jocs automàticament",
         "ignoreGameUpdates": "Ignora les actualitzacions del joc"
     },
     "settings": {
@@ -639,7 +639,7 @@
         "manageaccounts": "Gestiona els comptes",
         "quit": "Surt",
         "cancel": "Cancel·la",
-        "quitMessage": "Estàs segur que vols deixar-ho?"
+        "quitMessage": "Esteu segur que voleu deixar-ho?"
     },
     "webview": {
         "controls": {
