@@ -11,7 +11,6 @@ import {
   CrossoverBottle,
   EacRuntime,
   EnableEsync,
-  EnableFSR,
   EnableFsync,
   EnvVariablesTable,
   GameMode,
@@ -134,8 +133,6 @@ export default function GamesSettings({ useDetails = true }: Props) {
             {isLinux && (
               <>
                 <EnableFsync />
-
-                <EnableFSR />
 
                 <GameMode />
               </>

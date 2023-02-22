@@ -124,7 +124,6 @@ export interface GameSettings {
   eacRuntime: boolean
   enableDXVKFpsLimit: boolean
   enableEsync: boolean
-  enableFSR: boolean
   enableFsync: boolean
   enviromentOptions: EnviromentVariable[]
   ignoreGameUpdates: boolean

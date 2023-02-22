@@ -232,7 +232,6 @@
         "store": "Filter Store"
     },
     "help": {
-        "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
@@ -468,7 +467,6 @@
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Sync with Installed Epic Games",
-        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "eosOverlay": {
             "cancelInstall": "Cancel",
             "checkForUpdates": "Check for updates",
@@ -491,7 +489,6 @@
         },
         "esync": "Enable Esync",
         "exit-to-tray": "Exit to System Tray",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
