@@ -12,6 +12,7 @@ import {
   getFileSize,
   getGOGdlBin,
   killPattern,
+  shutdownWine,
   spawnAsync,
   moveOnUnix,
   moveOnWindows
@@ -879,6 +880,10 @@ class GOGGame extends Game {
   public async stop(): Promise<void> {
     const pattern = isLinux ? this.appName : 'gogdl'
     killPattern(pattern)
+    if (!this.isNative() && isLinux) {
+      const gameSettings = await this.getSettings()
+      await shutdownWine(gameSettings)
+    }
   }
 }
 
