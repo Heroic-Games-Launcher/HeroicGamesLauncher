@@ -79,7 +79,7 @@ async function prepareImagesForSteam(props: {
   if (props.steamID) {
     images.set(
       logoArt,
-      `https://cdn.cloudflare.steamstatic.com/steam/apps/${props.steamID}/logo.png?t=1567740774`
+      `https://cdn.cloudflare.steamstatic.com/steam/apps/${props.steamID}/logo.png`
     )
   } else if ('art_logo' in props.gameInfo && props.gameInfo.art_logo) {
     images.set(logoArt, props.gameInfo.art_logo)
