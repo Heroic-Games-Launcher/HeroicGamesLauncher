@@ -24,6 +24,7 @@ async function prepareImagesForSteam(props: {
     bigPictureAppID: string
     otherGridAppID: string
   }
+  steamID: string | undefined
   gameInfo: GameInfo | SideloadGame
   bkgDataUrl: string
   bigPicDataUrl: string
@@ -52,15 +53,35 @@ async function prepareImagesForSteam(props: {
 
   const errors: string[] = []
   const images = new Map<string, string>([
-    [coverArt, props.gameInfo.art_square],
-    [headerArt, props.gameInfo.art_cover],
-    [backGroundArt, props.bkgDataUrl],
+    [
+      coverArt,
+      props.steamID
+        ? `https://cdn.cloudflare.steamstatic.com/steam/apps/${props.steamID}/library_600x900_2x.jpg`
+        : props.gameInfo.art_square
+    ],
+    [
+      headerArt,
+      props.steamID
+        ? `https://cdn.cloudflare.steamstatic.com/steam/apps/${props.steamID}/library_hero.jpg`
+        : props.gameInfo.art_cover
+    ],
+    [
+      backGroundArt,
+      props.steamID
+        ? `https://cdn.cloudflare.steamstatic.com/steam/apps/${props.steamID}/library_hero.jpg`
+        : props.bkgDataUrl
+    ],
     [bigPictureArt, props.bigPicDataUrl]
   ])
 
-  // if no logo art is provided we add a 1x1 transparent png
+  // if no steam logo or logo art is provided we add a 1x1 transparent png
   // to get rid of game title in steam
-  if ('art_logo' in props.gameInfo && props.gameInfo.art_logo) {
+  if (props.steamID) {
+    images.set(
+      logoArt,
+      `https://cdn.cloudflare.steamstatic.com/steam/apps/${props.steamID}/logo.png?t=1567740774`
+    )
+  } else if ('art_logo' in props.gameInfo && props.gameInfo.art_logo) {
     images.set(logoArt, props.gameInfo.art_logo)
   } else {
     const error = createImage(

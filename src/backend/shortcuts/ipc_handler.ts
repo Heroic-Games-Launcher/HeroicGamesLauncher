@@ -15,6 +15,7 @@ import {
 } from '../sideload/games'
 import { isMac } from 'backend/constants'
 import { notify } from 'backend/dialog/dialog'
+import { getWikiGameInfo } from 'backend/wiki_game_info/wiki_game_info'
 
 ipcMain.on('addShortcut', async (event, appName, runner, fromMenu) => {
   const isSideload = runner === 'sideload'
@@ -83,7 +84,15 @@ ipcMain.on('removeShortcut', async (event, appName, runner) => {
 
 ipcMain.handle('addToSteam', async (event, appName, runner) => {
   const gameInfo = getInfo(appName, runner)
-  return addNonSteamGame({ gameInfo })
+  const wikiInfo = await getWikiGameInfo(
+    gameInfo.title,
+    runner === 'gog' ? appName : ''
+  )
+
+  return addNonSteamGame({
+    gameInfo,
+    steamID: wikiInfo?.pcgamingwiki?.steamID
+  })
 })
 
 ipcMain.handle('removeFromSteam', async (event, appName, runner) => {

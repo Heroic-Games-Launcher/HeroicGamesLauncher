@@ -216,6 +216,7 @@ async function addNonSteamGame(props: {
   steamUserdataDir?: string
   bkgDataUrl?: string
   bigPicDataUrl?: string
+  steamID?: string
 }): Promise<boolean> {
   const steamUserdataDir =
     props.steamUserdataDir || (await getSteamUserdataDir())
@@ -304,6 +305,7 @@ async function addNonSteamGame(props: {
         otherGridAppID: generateShortAppId(newEntry.Exe, newEntry.AppName)
       },
       gameInfo: props.gameInfo,
+      steamID: props.steamID,
       bkgDataUrl: bkgDataUrl,
       bigPicDataUrl: bigPicDataUrl
     })
