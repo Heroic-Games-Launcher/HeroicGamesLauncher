@@ -9,7 +9,7 @@ type Props = {
   info: AppleGamingWikiInfo
 }
 
-export default function Crossover({ title, info }: Props) {
+export default function MacOSCompatibility({ title, info }: Props) {
   if (!info || !info.crossoverRating) {
     return null
   }
@@ -24,7 +24,7 @@ export default function Crossover({ title, info }: Props) {
     return 'red'
   }
 
-  const { crossoverLink, crossoverRating } = info
+  const { crossoverLink, crossoverRating, wineRating } = info
 
   return (
     <>
@@ -45,9 +45,15 @@ export default function Crossover({ title, info }: Props) {
               }
             }}
           >
-            <div className="circle__title">Rating</div>
+            <div className="circle__title">Crossover</div>
             <div className="circle__value">{`${crossoverRating}`}</div>
           </button>
+        )}
+        {wineRating && (
+          <div className={classNames('circle', getColorClass(wineRating))}>
+            <div className="circle__title">Wine</div>
+            <div className="circle__value">{`${wineRating}`}</div>
+          </div>
         )}
       </div>
     </>

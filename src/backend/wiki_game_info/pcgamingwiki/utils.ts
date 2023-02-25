@@ -69,13 +69,13 @@ async function getPageID(title: string, id?: string): Promise<string | null> {
   }
 
   const { data } = await axios.get(
-    `https://www.pcgamingwiki.com/w/api.php?action=cargoquery&tables=_pageData&fields=_pageData._pageID%3DpageID%2C&where=_pageData._pageName%3D"${title.replaceAll(
+    `https://www.pcgamingwiki.com/w/api.php?action=query&list=search&srsearch=${title.replaceAll(
       ' ',
       '%20'
-    )}"&format=json`
+    )}&format=json`
   )
 
-  return data.cargoquery[0]?.title?.pageID
+  return data.query.search[0]?.pageid
 }
 
 async function getWikiText(id: string): Promise<string | null> {
