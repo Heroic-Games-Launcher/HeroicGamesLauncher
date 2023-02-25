@@ -393,23 +393,16 @@ abstract class GlobalConfig {
   }
 
   /**
-   * Checks if a Wine version has Wineboot/Wineserver executables and returns the path to those if they're present
+   * Checks if a Wine version has the Wineserver executable and returns the path to those if they're present
    * @param wineBin The unquoted path to the Wine binary ('wine')
-   * @returns The quoted paths to wineboot and wineserver, if present
+   * @returns The quoted paths to wineserver, if present
    */
-  public getWineExecs(wineBin: string): {
-    wineboot: string
-    wineserver: string
-  } {
+  public getWineExecs(wineBin: string): { wineserver: string } {
     const wineDir = dirname(wineBin)
-    const ret = { wineserver: '', wineboot: '' }
+    const ret = { wineserver: '' }
     const potWineserverPath = join(wineDir, 'wineserver')
     if (existsSync(potWineserverPath)) {
       ret.wineserver = potWineserverPath
-    }
-    const potWinebootPath = join(wineDir, 'wineboot')
-    if (existsSync(potWinebootPath)) {
-      ret.wineboot = potWinebootPath
     }
     return ret
   }
