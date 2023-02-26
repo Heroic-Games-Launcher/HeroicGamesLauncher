@@ -132,14 +132,14 @@ export const initGamepad = () => {
             // closes the keyboard if present
             VirtualKeyboardController.destroy()
             return
+          } else if (insideInstallDialog()) {
+            closeInstallDialog()
           } else if (isSelect()) {
             // closes the select dropdown and re-focus element
             const el = currentElement()
             el?.blur()
             el?.focus()
             return
-          } else if (insideInstallDialog()) {
-            closeInstallDialog()
           } else if (isContextMenu()) {
             action = 'rightClick'
           }

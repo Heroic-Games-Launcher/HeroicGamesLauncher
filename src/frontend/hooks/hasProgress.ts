@@ -18,7 +18,7 @@ export const hasProgress = (appName: string) => {
 
   const calculatePercent = (currentProgress: InstallProgress) => {
     // current/100 * (100-heroic_stored) + heroic_stored
-    if (previousProgress.percent) {
+    if (currentProgress.percent && previousProgress.percent) {
       const currentPercent = currentProgress.percent
       const storedPercent = previousProgress.percent
       const newPercent: number = Math.round(
