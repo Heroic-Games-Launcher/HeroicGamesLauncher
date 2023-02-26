@@ -396,7 +396,7 @@ class LegendaryGame extends Game {
     const bytesMatch = data.match(/Downloaded: (\S+.) MiB/m)
     const bytes =
       bytesMatch && bytesMatch?.length >= 2
-        ? bytesMatch[1]
+        ? `${bytesMatch[1]}MiB`
         : this.lastProgress.bytes
 
     // parse log for download speed
@@ -435,7 +435,7 @@ class LegendaryGame extends Game {
     const newProgress = {
       eta: eta,
       percent,
-      bytes: `${bytes}MiB`,
+      bytes: bytes,
       downSpeed,
       diskSpeed
     }
