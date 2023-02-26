@@ -17,7 +17,7 @@ export class TypeCheckedStoreBackend<
 
   constructor(name: Name, options: Store.Options<Structure>) {
     // @ts-expect-error This looks like a bug in electron-store's type definitions
-    this.store = new Store({ name, ...options })
+    this.store = new Store(options)
   }
 
   public has(key: string) {

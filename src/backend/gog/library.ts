@@ -36,7 +36,6 @@ import {
   deleteAbortController
 } from '../utils/aborthandler/aborthandler'
 import { isOnline } from '../online_monitor'
-import { getGamesdbData } from 'backend/wiki_game_info/gamesdb/utils'
 
 export class GOGLibrary {
   private static globalInstance: GOGLibrary
@@ -238,7 +237,7 @@ export class GOGLibrary {
       if (!unifiedObject || !isConfigCloudSavesReady) {
         let apiData = apiInfoCache.get_nodefault(String(game.id))
         if (!apiData) {
-          const { isUpdated, data } = await getGamesdbData(
+          const { isUpdated, data } = await GOGLibrary.getGamesdbData(
             'gog',
             String(game.id)
           )
@@ -843,6 +842,43 @@ export class GOGLibrary {
       return join(workingDir, primary.path)
     }
     return primary.path
+  }
+
+  /**
+   * This function can be also used with outher stores
+   * This endpoint doesn't require user to be authenticated.
+   * @param store Indicates a store we have game_id from, like: epic, itch, humble, gog, uplay
+   * @param game_id ID of a game
+   * @param etag (optional) value returned in response, works as checksum so we can check if we have up to date data
+   * @returns object {isUpdated, data}, where isUpdated is true when Etags match
+   */
+  public static async getGamesdbData(
+    store: string,
+    game_id: string,
+    etag?: string
+  ): Promise<{ isUpdated: boolean; data?: GamesDBData | undefined }> {
+    const url = `https://gamesdb.gog.com/platforms/${store}/external_releases/${game_id}`
+    const headers = etag
+      ? {
+          'If-None-Match': etag
+        }
+      : undefined
+
+    const response = await axios.get(url, { headers: headers }).catch(() => {
+      return null
+    })
+    if (!response) {
+      return { isUpdated: false }
+    }
+    const resEtag = response.headers.etag
+    const isUpdated = etag === resEtag
+    const data = response.data
+
+    data.etag = resEtag
+    return {
+      isUpdated,
+      data
+    }
   }
 
   /**

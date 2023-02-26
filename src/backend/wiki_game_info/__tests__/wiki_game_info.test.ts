@@ -1,4 +1,3 @@
-import { GamesDBInfo } from './../../../common/types'
 import { HowLongToBeatEntry } from 'howlongtobeat'
 import { AppleGamingWikiInfo, WikiInfo, PCGamingWikiInfo } from 'common/types'
 import { wikiGameInfoStore } from '../electronStore'
@@ -6,7 +5,6 @@ import { getWikiGameInfo } from '../wiki_game_info'
 import * as PCGamingWiki from '../pcgamingwiki/utils'
 import * as AppleGamingWiki from '../applegamingwiki/utils'
 import * as HowLongToBeat from '../howlongtobeat/utils'
-import * as GamesDB from '../gamesdb/utils'
 import { logError } from '../../logger/logger'
 
 jest.mock('electron-store')
@@ -31,18 +29,14 @@ describe('getWikiGameInfo', () => {
     const mockHowLongToBeat = jest
       .spyOn(HowLongToBeat, 'getHowLongToBeat')
       .mockResolvedValue(testHowLongToBeat)
-    const mockGamesDB = jest
-      .spyOn(GamesDB, 'getInfoFromGamesDB')
-      .mockResolvedValue(testGamesDBInfo)
 
     wikiGameInfoStore.set('The Witcher 3', testExtraGameInfo)
 
-    const result = await getWikiGameInfo('The Witcher 3', '1234', 'gog')
+    const result = await getWikiGameInfo('The Witcher 3')
     expect(result).toStrictEqual(testExtraGameInfo)
     expect(mockPCGamingWiki).not.toBeCalled()
     expect(mockAppleGamingWiki).not.toBeCalled()
     expect(mockHowLongToBeat).not.toBeCalled()
-    expect(mockGamesDB).not.toBeCalled()
   })
 
   test('cached data outdated', async () => {
@@ -58,21 +52,17 @@ describe('getWikiGameInfo', () => {
     const mockHowLongToBeat = jest
       .spyOn(HowLongToBeat, 'getHowLongToBeat')
       .mockResolvedValue(testHowLongToBeat)
-    const mockGamesDB = jest
-      .spyOn(GamesDB, 'getInfoFromGamesDB')
-      .mockResolvedValue(testGamesDBInfo)
 
     wikiGameInfoStore.set('The Witcher 3', {
       ...testExtraGameInfo,
       timestampLastFetch: oneMonthAgo.toString()
     })
 
-    const result = await await getWikiGameInfo('The Witcher 3', '1234', 'gog')
+    const result = await getWikiGameInfo('The Witcher 3', '1234')
     expect(result).toStrictEqual(testExtraGameInfo)
     expect(mockPCGamingWiki).toBeCalled()
     expect(mockAppleGamingWiki).toBeCalled()
     expect(mockHowLongToBeat).toBeCalled()
-    expect(mockGamesDB).toBeCalled()
   })
 
   test('catches throws', async () => {
@@ -82,7 +72,7 @@ describe('getWikiGameInfo', () => {
 
     wikiGameInfoStore.clear()
 
-    const result = await await getWikiGameInfo('The Witcher 3', '1234', 'gog')
+    const result = await getWikiGameInfo('The Witcher 3')
     expect(result).toBeNull()
     expect(logError).toBeCalledWith(
       [
@@ -132,14 +122,9 @@ const testPCGamingWikiInfo = {
   direct3DVersions: ['11', '12']
 } as PCGamingWikiInfo
 
-const testGamesDBInfo = {
-  steamID: '123'
-} as GamesDBInfo
-
 const testExtraGameInfo = {
   timestampLastFetch: currentTime.toString(),
   pcgamingwiki: testPCGamingWikiInfo,
   applegamingwiki: testAppleGamingWikiInfo,
-  howlongtobeat: testHowLongToBeat,
-  gamesdb: testGamesDBInfo
+  howlongtobeat: testHowLongToBeat
 } as WikiInfo

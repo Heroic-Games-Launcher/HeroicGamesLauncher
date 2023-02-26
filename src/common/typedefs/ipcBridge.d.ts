@@ -220,11 +220,7 @@ interface AsyncIPCFunctions {
   }
   getNumOfGpus: () => Promise<number>
   removeRecent: (appName: string) => Promise<void>
-  getWikiGameInfo: (
-    title: string,
-    appName: string,
-    runner: Runner
-  ) => Promise<WikiInfo | null>
+  getWikiGameInfo: (title: string, id?: string) => Promise<WikiInfo | null>
   getDefaultSavePath: (
     appName: string,
     runner: Runner,
