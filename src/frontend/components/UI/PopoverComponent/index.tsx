@@ -37,6 +37,9 @@ const PopoverComponent: React.FC<PopoverComponentProps> = ({
           vertical: 'bottom',
           horizontal: 'left'
         }}
+        classes={{
+          paper: 'popover-paper'
+        }}
       >
         {children}
       </Popover>
