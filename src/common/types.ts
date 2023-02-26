@@ -179,7 +179,7 @@ export interface InstallProgress {
   bytes: string
   eta: string
   folder?: string
-  percent: number
+  percent?: number
   downSpeed?: number
   diskSpeed?: number
   file?: string

@@ -42,7 +42,7 @@ export default React.memo(function CurrentDownload({ appName, runner }: Props) {
   }, [appName])
 
   function getStatus() {
-    return progress.percent > 98
+    return progress.percent && progress.percent > 98
       ? t('status.processing', 'Processing files, please wait')
       : t('status.installing', 'Installing')
   }
