@@ -433,7 +433,11 @@ class LegendaryGame extends Game {
     }
 
     // only send to frontend if all values are updated
-    if (Object.values(this.tmpProgress).every(Boolean)) {
+    if (
+      Object.values(this.tmpProgress).every(
+        (value) => !(value === undefined || value === '')
+      )
+    ) {
       logInfo(
         [
           `Progress for ${this.getGameInfo().title}:`,
