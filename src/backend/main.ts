@@ -818,9 +818,7 @@ ipcMain.handle('authGOG', async (event, code) => GOGUser.login(code))
 ipcMain.handle('logoutLegendary', LegendaryUser.logout)
 ipcMain.on('logoutGOG', GOGUser.logout)
 ipcMain.handle('getLocalPeloadPath', async () => {
-  return `file://${fixAsarPath(
-    join(__dirname, '..', '..', 'public', 'webviewPreload.js')
-  )}`
+  return fixAsarPath(join(publicDir, 'webviewPreload.js'))
 })
 
 ipcMain.handle('getAlternativeWine', async () =>
