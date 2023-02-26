@@ -399,7 +399,7 @@ class LegendaryGame extends Game {
     if (this.tmpProgress.bytes === '') {
       const bytesMatch = data.match(/Downloaded: (\S+.) MiB/m)
       this.tmpProgress.bytes =
-        bytesMatch && bytesMatch?.length >= 2 ? `${bytesMatch[1]}MiB` : ''
+        bytesMatch && bytesMatch?.length >= 2 ? `${bytesMatch[1]}MB` : ''
     }
 
     // parse log for download speed
@@ -442,7 +442,7 @@ class LegendaryGame extends Game {
         [
           `Progress for ${this.getGameInfo().title}:`,
           `${this.tmpProgress.percent}%/${this.tmpProgress.bytes}/${this.tmpProgress.eta}`.trim(),
-          `Down: ${this.tmpProgress.downSpeed}MiB/s / Disk: ${this.tmpProgress.diskSpeed}MiB/s`
+          `Down: ${this.tmpProgress.downSpeed}MB/s / Disk: ${this.tmpProgress.diskSpeed}MB/s`
         ],
         LogPrefix.Legendary
       )

@@ -225,7 +225,7 @@ class GOGGame extends Game {
     if (this.tmpProgress.bytes === '') {
       const bytesMatch = data.match(/Downloaded: (\S+) MiB/m)
       this.tmpProgress.bytes =
-        bytesMatch && bytesMatch?.length >= 2 ? `${bytesMatch[1]}MiB` : ''
+        bytesMatch && bytesMatch?.length >= 2 ? `${bytesMatch[1]}MB` : ''
     }
 
     // parse log for download speed
