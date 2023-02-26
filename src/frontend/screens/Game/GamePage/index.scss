@@ -190,6 +190,10 @@
     margin-bottom: 0;
   }
 
+  svg {
+    cursor: text;
+  }
+
   & > .settingSelect {
     margin-bottom: 12px;
     max-width: 420px;
@@ -204,14 +208,9 @@
       transition: color 300ms;
       display: flex;
       align-items: center;
-      cursor: default;
 
       svg {
         margin-right: var(--space-3xs);
-      }
-
-      &:hover {
-        color: var(--accent-overlay);
       }
     }
   }

@@ -17,7 +17,8 @@ import {
   Download,
   Cancel,
   Pause,
-  Warning
+  Warning,
+  Hardware
 } from '@mui/icons-material'
 import {
   createNewWindow,
@@ -597,6 +598,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         className="iconWithText"
                         title={t('info.clickToOpen', 'Click to open')}
                       >
+                        <Hardware />
                         {t('game.requirements', 'Requirements')}
                       </div>
                     }
