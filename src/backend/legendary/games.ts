@@ -11,6 +11,7 @@ import {
   GameInfo,
   InstallArgs,
   InstallPlatform,
+  InstallProgress,
   WineCommandArgs
 } from 'common/types'
 import { Game } from '../games'
@@ -364,36 +365,15 @@ class LegendaryGame extends Game {
     return { status: 'done' }
   }
 
-  /*   public async moveInstall(newInstallPath: string) {
-    const oldInstallPath = this.getGameInfo().install.install_path!
-
-    newInstallPath = join(newInstallPath, basename(oldInstallPath))
-
-    const command = `mv -f '${oldInstallPath}' '${newInstallPath}'`
-
-    logInfo(
-      [`Moving ${this.appName} to ${newInstallPath} with`, command],
-      LogPrefix.Legendary
-    )
-
-    await execAsync(command)
-      .then(async () => {
-        await LegendaryLibrary.get().changeGameInstallPath(
-          this.appName,
-          newInstallPath
-        )
-      })
-      .catch((error) => {
-        logError(
-          [`Failed to move ${this.appName}:`, error],
-          LogPrefix.Legendary
-        )
-      })
-    return newInstallPath
-  } */
-
   // used when downloading games, store the download size read from Legendary's output
   currentDownloadSize = 0
+  tmpProgress: InstallProgress = {
+    bytes: '',
+    eta: '',
+    percent: undefined,
+    diskSpeed: undefined,
+    downSpeed: undefined
+  }
 
   public onInstallOrUpdateOutput(
     action: 'installing' | 'updating',
@@ -408,61 +388,81 @@ class LegendaryGame extends Game {
       this.currentDownloadSize = parseFloat(downloadSizeMatch[1])
     }
 
+    // parse log for eta
+    if (this.tmpProgress.eta === '') {
+      const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
+      this.tmpProgress.eta =
+        etaMatch && etaMatch?.length >= 2 ? etaMatch[1] : ''
+    }
+
     // parse log for game download progress
-    const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
-    const bytesMatch = data.match(/Downloaded: (\S+.) MiB/m)
-    if (!etaMatch || !bytesMatch) {
-      return
+    if (this.tmpProgress.bytes === '') {
+      const bytesMatch = data.match(/Downloaded: (\S+.) MiB/m)
+      this.tmpProgress.bytes =
+        bytesMatch && bytesMatch?.length >= 2 ? `${bytesMatch[1]}MB` : ''
     }
 
     // parse log for download speed
-    const downSpeedMBytes = data.match(/Download\t- (\S+.) MiB/m)
-    const downSpeed = !Number.isNaN(Number(downSpeedMBytes?.at(1)))
-      ? Number(downSpeedMBytes?.at(1))
-      : 0
+    if (!this.tmpProgress.downSpeed) {
+      const downSpeedMBytes = data.match(/Download\t- (\S+.) MiB/m)
+      this.tmpProgress.downSpeed = !Number.isNaN(Number(downSpeedMBytes?.at(1)))
+        ? Number(downSpeedMBytes?.at(1))
+        : undefined
+    }
 
     // parse disk write speed
-    const diskSpeedMBytes = data.match(/Disk\t- (\S+.) MiB/m)
-    const diskSpeed = !Number.isNaN(Number(diskSpeedMBytes?.at(1)))
-      ? Number(diskSpeedMBytes?.at(1))
-      : 0
-
-    const eta = etaMatch[1]
-    const bytes = bytesMatch[1]
+    if (!this.tmpProgress.diskSpeed) {
+      const diskSpeedMBytes = data.match(/Disk\t- (\S+.) MiB/m)
+      this.tmpProgress.diskSpeed = !Number.isNaN(Number(diskSpeedMBytes?.at(1)))
+        ? Number(diskSpeedMBytes?.at(1))
+        : undefined
+    }
 
     // original is in bytes, convert to MiB with 2 decimals
     totalDownloadSize =
       Math.round((totalDownloadSize / 1024 / 1024) * 100) / 100
 
     // calculate percentage
-    const downloaded = parseFloat(bytes)
-    const downloadCache = totalDownloadSize - this.currentDownloadSize
-    const totalDownloaded = downloaded + downloadCache
-    let percent =
-      Math.round((totalDownloaded / totalDownloadSize) * 10000) / 100
-    if (percent < 0) percent = 0
+    if (this.tmpProgress.bytes !== '') {
+      const downloaded = parseFloat(this.tmpProgress.bytes)
+      const downloadCache = totalDownloadSize - this.currentDownloadSize
+      const totalDownloaded = downloaded + downloadCache
+      const newPercent =
+        Math.round((totalDownloaded / totalDownloadSize) * 10000) / 100
+      this.tmpProgress.percent = newPercent >= 0 ? newPercent : undefined
+    }
 
-    logInfo(
-      [
-        `Progress for ${this.getGameInfo().title}:`,
-        `${percent}%/${bytes}MiB/${eta}`.trim(),
-        `Down: ${downSpeed}MiB/s / Disk: ${diskSpeed}MiB/s`
-      ],
-      LogPrefix.Legendary
-    )
+    // only send to frontend if all values are updated
+    if (
+      Object.values(this.tmpProgress).every(
+        (value) => !(value === undefined || value === '')
+      )
+    ) {
+      logInfo(
+        [
+          `Progress for ${this.getGameInfo().title}:`,
+          `${this.tmpProgress.percent}%/${this.tmpProgress.bytes}/${this.tmpProgress.eta}`.trim(),
+          `Down: ${this.tmpProgress.downSpeed}MB/s / Disk: ${this.tmpProgress.diskSpeed}MB/s`
+        ],
+        LogPrefix.Legendary
+      )
 
-    sendFrontendMessage(`progressUpdate-${this.appName}`, {
-      appName: this.appName,
-      runner: 'legendary',
-      status: action,
-      progress: {
-        eta: eta,
-        percent,
-        bytes: `${bytes}MiB`,
-        downSpeed,
-        diskSpeed
+      sendFrontendMessage(`progressUpdate-${this.appName}`, {
+        appName: this.appName,
+        runner: 'legendary',
+        status: action,
+        progress: this.tmpProgress
+      })
+
+      // reset
+      this.tmpProgress = {
+        bytes: '',
+        eta: '',
+        percent: undefined,
+        diskSpeed: undefined,
+        downSpeed: undefined
       }
-    })
+    }
   }
 
   /**
