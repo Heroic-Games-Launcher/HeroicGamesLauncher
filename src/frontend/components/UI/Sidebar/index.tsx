@@ -61,11 +61,25 @@ export default React.memo(function Sidebar() {
       document.body.removeEventListener('mouseleave', finishDrag)
       dragging = false
       localStorage.setItem('sidebar-width', sidebarSize.toString())
+
+      // Re-enable pointer events on webview element
+      const webviewEl = document.querySelector(
+        'webview'
+      ) as HTMLDivElement | null
+      if (webviewEl) {
+        webviewEl.style.pointerEvents = 'auto'
+      }
     }
 
     document.body.addEventListener('mouseup', finishDrag)
     document.body.addEventListener('mouseleave', finishDrag)
     document.body.addEventListener('mousemove', onMouseMove)
+
+    // Disable pointer events on webview element
+    const webviewEl = document.querySelector('webview') as HTMLDivElement | null
+    if (webviewEl) {
+      webviewEl.style.pointerEvents = 'none'
+    }
 
     const dragFrame = () => {
       if (!sidebarEl.current) return
