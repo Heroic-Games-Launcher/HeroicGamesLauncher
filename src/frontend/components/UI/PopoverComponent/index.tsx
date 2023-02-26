@@ -15,6 +15,12 @@ const PopoverComponent: React.FC<PopoverComponentProps> = ({
   const open = Boolean(anchorEl)
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    // if already open, close it
+    if (open) {
+      setAnchorEl(null)
+      return
+    }
+
     setAnchorEl(event.currentTarget)
   }
 
@@ -32,6 +38,7 @@ const PopoverComponent: React.FC<PopoverComponentProps> = ({
         id={item.props.id}
         open={open}
         anchorEl={anchorEl}
+        onClick={handleClick}
         onClose={handleClose}
         anchorOrigin={{
           vertical: 'bottom',
