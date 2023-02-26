@@ -202,11 +202,12 @@ export default function GamesSubmenu({
   useEffect(() => {
     // Get steam id and set direct proton db link
     window.api
-      .getWikiGameInfo(title, appName, runner)
+      .getWikiGameInfo(title, runner === 'gog' ? appName : undefined)
       .then((info: WikiInfo) => {
-        const steamID = info?.pcgamingwiki?.steamID ?? info?.gamesdb?.steamID
-        if (steamID) {
-          setProtonDBurl(`https://www.protondb.com/app/${steamID}`)
+        if (info?.pcgamingwiki?.steamID) {
+          setProtonDBurl(
+            `https://www.protondb.com/app/${info?.pcgamingwiki?.steamID}`
+          )
         }
       })
   }, [title, appName])
