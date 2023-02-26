@@ -56,7 +56,7 @@
                 "title": "Oyun klasörü silinmiş görünüyor, oyunu kurulu listesinden kaldırmak istiyor musunuz?"
             },
             "generic": {
-                "message": "",
+                "message": "genel hata mesajı",
                 "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",

@@ -154,7 +154,8 @@
         "notSupportedGame": "Ikke understøttet",
         "this-game-uses-third-party": "Dette spil bruger tredjeparts launcher, og det er ikke understøttet endnu",
         "playing": "Spiller",
-        "moving-files": "Flytter fil '{{file}}': {{percent}} "
+        "moving-files": "Flytter fil '{{file}}': {{percent}} ",
+        "syncingSaves": "Synkroniserer Saves"
     },
     "submenu": {
         "addShortcut": "Opret genvej",
@@ -170,7 +171,8 @@
         "addToSteam": "Tilføj til Steam",
         "disableEosOverlay": "Deaktiver EOS Overlay",
         "enableEosOverlay": "Aktiver EOS Overlay",
-        "extraInfo": "Ekstra info"
+        "extraInfo": "Ekstra info",
+        "logs": "Logs"
     },
     "generic": {
         "error": "Ukendt fejl",

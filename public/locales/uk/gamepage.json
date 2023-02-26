@@ -18,13 +18,13 @@
             "title": "Перевірити і відновити"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "Оберіть EXE для запуску"
         },
         "select": {
             "button": "Вибрати"
         },
         "sideload": {
-            "exe": "Select Executable"
+            "exe": "Oберіть Виконуваний файл"
         },
         "stopInstall": {
             "keepInstalling": "Продовжити встановлення",
@@ -34,7 +34,7 @@
         "uninstall": {
             "checkbox": "Видалити префікс: {{prefix}}{{newLine}}Примітка: дію неможливо скасувати, та вона призведе до видалення файлів збережень.",
             "message": "Бажаєте видалити цю гру?",
-            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+            "settingcheckbox": "Стерти налаштування та видалити журнал{{newLine}}Примітка: Цю дію не можна скасувати. Будь-які змінені налаштування буде забуто, а журнал видалено.",
             "title": "Видалити",
             "prefix_warning": "Префікс Wine для цієї гри є префіксом за умовчанням. Якщо ви справді хочете його видалити, вам доведеться зробити це вручну."
         },
@@ -55,23 +55,23 @@
         "hide_game": "Приховати гру",
         "import": "Імпортувати гру",
         "install": "Встановити",
-        "no-path-selected": "No path selected",
+        "no-path-selected": "Шлях не вибрано",
         "queue": {
-            "remove": "Remove from Queue"
+            "remove": "Прибрати з черги"
         },
         "remove_from_favourites": "Видалити зі вподобань",
-        "remove_from_recent": "Remove From Recent",
-        "run-exe-first": "Run Installer First",
-        "running-setup": "Running Setup",
+        "remove_from_recent": "Прибрати з недавніх",
+        "run-exe-first": "Запускати спочатку встановлювач",
+        "running-setup": "Запущено встановлювач",
         "sideload": {
-            "edit": "Edit App/Game"
+            "edit": "Змінити Додаток/Гру"
         },
         "unhide_game": "Показати гру",
         "uninstall": "Видалити",
         "update": "Оновити",
         "details": "Подробиці"
     },
-    "cloud_save_unsupported": "Unsupported",
+    "cloud_save_unsupported": "Не підтримується",
     "disabled": "Вимкнено",
     "dlc": {
         "installDlcs": "Встановити всі DLC"
@@ -98,13 +98,13 @@
         "error": "Невідома помилка",
         "noDescription": "Немає опису"
     },
-    "hours": "Hours",
+    "hours": "Години",
     "how-long-to-beat": {
-        "completionist": "Completionist",
-        "main-plus-extras": "Main + Extras",
-        "main-story": "Main Story"
+        "completionist": "Викінченість",
+        "main-plus-extras": "Основне + Додаткове",
+        "main-story": "Основна історія"
     },
-    "howLongToBeat": "How Long To Beat",
+    "howLongToBeat": "Щоб закінчити",
     "info": {
         "canRunOffline": "Чи потрібно бути в мережі",
         "installedPlatform": "Встановлена версія для ОС",
@@ -124,7 +124,7 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Гра від сторонніх розробників НЕ підтримується"
         },
         "playing": {
             "start": "Грати",
@@ -138,31 +138,31 @@
         "options": "Параметри запуску..."
     },
     "not_logged_in": {
-        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
-        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "epic": "Ви не увійшли в обліковий запис Epic у додатку Heroic. Не використовуйте сторінку магазину для входу, натомість натисніть цю кнопку:",
+        "gog": "Ви не увійшли в обліковий запис GOG у додатку Heroic. Не використовуйте сторінку магазину для входу, натомість натисніть цю кнопку:",
         "login": "Log in",
-        "title": "You are NOT logged in"
+        "title": "Ви не увійшли в обліковий запис"
     },
     "report_problem": "Повідомити про проблему запуску цієї гри",
     "sdl": {
         "title": "Оберіть компоненти для встановлення"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings",
+        "use-default-wine-settings": "Використовувати налаштування Wine за замовчуванням",
         "winecrossoverbottle": "Пляшка CrossOver"
     },
     "sideload": {
         "field": {
-            "title": "Title"
+            "title": "Назва"
         },
         "info": {
-            "exe": "Select Executable",
-            "image": "App Image",
-            "title": "Game/App Title"
+            "exe": "Оберіть Виконуваний файл",
+            "image": "Образ додатка",
+            "title": "Назва Гри/Додатка"
         },
         "placeholder": {
-            "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "image": "Вставте URL посилання на образ сюди",
+            "title": "Додайте назву вашій Грі/Додатку"
         }
     },
     "specs": {
@@ -171,38 +171,40 @@
     },
     "status": {
         "clickToUpdate": "Клацніть для оновлення",
-        "gameNotAvailable": "Game not available",
+        "gameNotAvailable": "Гра не доступна",
         "hasUpdates": "Доступна нова версія!",
         "installed": "Встановлено",
         "installing": "Встановлення",
         "moving": "Переміщую встановлення, будь ласка зачекайте",
         "notinstalled": "Гра не встановлена",
-        "notSupported": "Not supported",
-        "notSupportedGame": "Not Supported",
+        "notSupported": "Не підтримується",
+        "notSupportedGame": "Не підтримується",
         "processing": "Обробка файлів, будь ласка, зачекайте",
-        "queued": "Queued",
+        "queued": "У черзі",
         "reparing": "Відновлюю гру, будь ласка зачекайте",
-        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
+        "this-game-uses-third-party": "У цій грі використовується сторонній додаток запуску, який поки що не підтримується",
         "totalDownloaded": "Всього завантажено",
-        "uninstalling": "Uninstalling",
+        "uninstalling": "Видалення",
         "updating": "Оновлюю гру",
         "playing": "Граючи",
-        "moving-files": "Переміщення файлу \"{{file}}\": {{percent}} "
+        "moving-files": "Переміщення файлу \"{{file}}\": {{percent}} ",
+        "syncingSaves": "Синхронізую збереження"
     },
     "submenu": {
         "addShortcut": "Додати ярлик",
-        "addToSteam": "Add to Steam",
+        "addToSteam": "Додати в Steam",
         "change": "Змінити шлях встановлення",
-        "disableEosOverlay": "Disable EOS Overlay",
-        "enableEosOverlay": "Enable EOS Overlay",
+        "disableEosOverlay": "Вимкнути EOS оверлей",
+        "enableEosOverlay": "Увімкнути EOS оверлей",
         "move": "Перенести гру",
         "protondb": "Перевірити сумісність",
-        "removeFromSteam": "Remove from Steam",
-        "removeShortcut": "Remove shortcuts",
+        "removeFromSteam": "Видалити з Steam",
+        "removeShortcut": "Видалити ярлики",
         "settings": "Налаштування",
         "store": "Сторінка в крамниці",
         "verify": "Перевірити і відновити",
-        "extraInfo": "Додаткова інформація"
+        "extraInfo": "Додаткова інформація",
+        "logs": "Журнали"
     },
     "help": {
         "cloud_save_unsupported": "Ця гра не підтримує хмарні збереження. Цю інформацію надають розробники гри. У деяких іграх реалізована власна система збереження в хмарі"

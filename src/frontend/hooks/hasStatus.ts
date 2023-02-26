@@ -31,7 +31,7 @@ export function hasStatus(
       const { status, folder } =
         libraryStatus.find((game: GameStatus) => game.appName === appName) || {}
 
-      if (status) {
+      if (status && status !== 'done') {
         const label = getStatusLabel({
           status,
           t,

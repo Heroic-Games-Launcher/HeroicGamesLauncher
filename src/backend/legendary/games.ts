@@ -22,7 +22,8 @@ import {
   getLegendaryBin,
   killPattern,
   moveOnUnix,
-  moveOnWindows
+  moveOnWindows,
+  shutdownWine
 } from '../utils'
 import {
   heroicGamesConfigPath,
@@ -1016,6 +1017,10 @@ class LegendaryGame extends Game {
     // @adityaruplaha: this is kinda arbitary and I don't understand it.
     const pattern = process.platform === 'linux' ? this.appName : 'legendary'
     killPattern(pattern)
+    if (!this.isNative()) {
+      const gameSettings = await this.getSettings()
+      await shutdownWine(gameSettings)
+    }
   }
 }
 

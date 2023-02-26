@@ -187,7 +187,8 @@
         "uninstalling": "Uninstalling",
         "updating": "Spel aan het updaten",
         "playing": "Spelen",
-        "moving-files": "Bestand verplaatsen '{{file}}': {{percent}} "
+        "moving-files": "Bestand verplaatsen '{{file}}': {{percent}} ",
+        "syncingSaves": "Saves synchroniseren"
     },
     "submenu": {
         "addShortcut": "Snelkoppeling toevoegen",
@@ -202,7 +203,8 @@
         "settings": "Instellingen",
         "store": "Winkel",
         "verify": "Verifiëren en repareren",
-        "extraInfo": "Extra info"
+        "extraInfo": "Extra info",
+        "logs": "Logboeken"
     },
     "help": {
         "cloud_save_unsupported": "Deze game ondersteunt geen opslag in de cloud. Deze informatie wordt verstrekt door de game-ontwikkelaars. Sommige games implementeren hun eigen cloudopslagsysteem"

@@ -49,14 +49,14 @@
                 "title": "Sen espacio"
             },
             "dxvk": {
-                "message": "Erro ao instalar DXVK/VKD3D! Comproba a túa conexión ou se tes instalado zstd/libzstd1",
+                "message": "Produciuse un erro ao instalar DXVK/VKD3D! Comproba a túa conexión!",
                 "title": "Erro de DXVK/VKD3D"
             },
             "folder-not-found": {
                 "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
             },
             "generic": {
-                "message": "",
+                "message": "mensaxe de erro xenérico",
                 "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
@@ -373,7 +373,7 @@
         }
     },
     "offline-message": {
-        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "hint": "Estamos comprobando a conectividade en:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com e{{newline}}cloudflare-dns.com",
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
@@ -444,7 +444,7 @@
         }
     },
     "Recent": "Xogado recentemente",
-    "search": "Escribe o nome do xogo aquí...",
+    "search": "Buscalos xogos",
     "setting": {
         "adddesktopshortcuts": "Engadir atallos de escritorio automaticamente",
         "addgamestostartmenu": "Engadir xogos ao menú de inicio automaticamente",

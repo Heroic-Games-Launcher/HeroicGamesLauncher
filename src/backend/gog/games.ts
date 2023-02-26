@@ -12,6 +12,7 @@ import {
   getFileSize,
   getGOGdlBin,
   killPattern,
+  shutdownWine,
   spawnAsync,
   moveOnUnix,
   moveOnWindows
@@ -277,8 +278,6 @@ class GOGGame extends Game {
       '--platform',
       installPlatform,
       `--path=${path}`,
-      '--token',
-      `"${credentials.access_token}"`,
       withDlcs,
       `--lang=${installLanguage}`,
       ...workers
@@ -582,8 +581,6 @@ class GOGGame extends Game {
       '--platform',
       installPlatform!,
       `--path=${gameData.install.install_path}`,
-      '--token',
-      `"${credentials.access_token}"`,
       withDlcs,
       `--lang=${gameData.install.language || 'en-US'}`,
       '-b=' + gameData.install.buildId,
@@ -637,8 +634,6 @@ class GOGGame extends Game {
         'save-sync',
         location.location,
         this.appName,
-        '--token',
-        `"${credentials.refresh_token}"`,
         '--os',
         gameInfo.install.platform,
         '--ts',
@@ -759,8 +754,6 @@ class GOGGame extends Game {
       '--platform',
       installPlatform,
       `--path=${gameData.install.install_path}`,
-      '--token',
-      `"${credentials.access_token}"`,
       withDlcs,
       `--lang=${gameData.install.language || 'en-US'}`,
       ...workers
@@ -839,9 +832,6 @@ class GOGGame extends Game {
     const withDlcs = gameData.install.installedWithDLCs
       ? '--with-dlcs'
       : '--skip-dlcs'
-    if (GOGUser.isTokenExpired()) {
-      await GOGUser.refreshToken()
-    }
 
     const installPlatform = gameData.install.platform
 
@@ -890,6 +880,10 @@ class GOGGame extends Game {
   public async stop(): Promise<void> {
     const pattern = isLinux ? this.appName : 'gogdl'
     killPattern(pattern)
+    if (!this.isNative() && isLinux) {
+      const gameSettings = await this.getSettings()
+      await shutdownWine(gameSettings)
+    }
   }
 }
 

@@ -187,7 +187,8 @@
         "uninstalling": "Uninstalling",
         "updating": "Đang cập nhật Game",
         "playing": "Đang chơi",
-        "moving-files": "Đang di chuyển tệp '{{file}}': {{percent}} "
+        "moving-files": "Đang di chuyển tệp '{{file}}': {{percent}} ",
+        "syncingSaves": "Đang đồng bộ bản lưu"
     },
     "submenu": {
         "addShortcut": "Thêm shortcut",
@@ -202,7 +203,8 @@
         "settings": "Cài đặt",
         "store": "Cửa hàng",
         "verify": "Kiểm tra và sửa chữa",
-        "extraInfo": "Thông tin thêm"
+        "extraInfo": "Thông tin thêm",
+        "logs": "Nhật ký"
     },
     "help": {
         "cloud_save_unsupported": "Trò chơi này không hỗ trợ tiết kiệm điện toán đám mây. Thông tin này được cung cấp bởi các nhà phát triển trò chơi. Một số trò chơi triển khai hệ thống lưu trên đám mây của riêng họ"

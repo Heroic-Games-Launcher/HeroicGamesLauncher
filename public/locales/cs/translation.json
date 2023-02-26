@@ -56,7 +56,7 @@
                 "title": "Zdá se, že složka hry byla odstraněna, chcete odstranit hru i ze seznamu nainstalovaných her?"
             },
             "generic": {
-                "message": "",
+                "message": "obecná chybová zpráva",
                 "title": "Vyberte EXE ke spuštění"
             },
             "launchAborted": "Spouštění přerušeno",

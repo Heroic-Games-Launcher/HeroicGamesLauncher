@@ -361,6 +361,7 @@ if (!gotTheLock) {
       ]
     })
 
+    GOGUser.migrateCredentialsConfig()
     const mainWindow = await initializeWindow()
 
     protocol.registerStringProtocol('heroic', (request, callback) => {

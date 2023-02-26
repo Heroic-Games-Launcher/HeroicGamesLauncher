@@ -19,6 +19,7 @@ import {
 } from 'common/types/gog'
 import { basename, join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
+import { app } from 'electron'
 
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { getGOGdlBin, getFileSize } from '../utils'
@@ -359,8 +360,6 @@ export class GOGLibrary {
     const commandParts = [
       'info',
       appName,
-      '--token',
-      `"${credentials.access_token}"`,
       `--lang=${lang}`,
       '--os',
       installPlatform
@@ -959,8 +958,9 @@ export async function runGogdlCommand(
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
   const { dir, bin } = getGOGdlBin()
+  const authConfig = join(app.getPath('userData'), 'gog_store', 'auth.json')
   return callRunner(
-    commandParts,
+    ['--auth-config-path', authConfig, ...commandParts],
     { name: 'gog', logPrefix: LogPrefix.Gog, bin, dir },
     abortController,
     {

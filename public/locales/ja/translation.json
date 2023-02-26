@@ -56,7 +56,7 @@
                 "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
             },
             "generic": {
-                "message": "",
+                "message": "一般的なエラー メッセージ",
                 "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",

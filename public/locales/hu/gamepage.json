@@ -187,7 +187,8 @@
         "uninstalling": "Eltávolítás",
         "updating": "Játék frissítése",
         "playing": "Játék",
-        "moving-files": "„{{file}}” fájl áthelyezése: {{percent}} "
+        "moving-files": "„{{file}}” fájl áthelyezése: {{percent}} ",
+        "syncingSaves": "Mentések szinkronizálása"
     },
     "submenu": {
         "addShortcut": "Parancsikon hozzáadása",
@@ -202,7 +203,8 @@
         "settings": "Beállítások",
         "store": "Áruházi oldal",
         "verify": "Ellenőrzés és javítás",
-        "extraInfo": "Extra Info"
+        "extraInfo": "Extra Info",
+        "logs": "Naplók"
     },
     "help": {
         "cloud_save_unsupported": "Ez a játék nem támogatja a felhőalapú mentést. Ezt az információt a játékfejlesztők biztosítják. Egyes játékok saját felhőalapú mentési rendszert alkalmaznak"

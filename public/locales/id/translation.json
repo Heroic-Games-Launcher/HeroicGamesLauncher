@@ -56,7 +56,7 @@
                 "title": "Folder gim tampaknya sudah dihapus, apakah Anda ingin menghapus gim dari daftar?"
             },
             "generic": {
-                "message": "",
+                "message": "pesan kesalahan umum",
                 "title": "pilih file EXE untuk dijalankan"
             },
             "launchAborted": "Peluncuran dibatalkan",

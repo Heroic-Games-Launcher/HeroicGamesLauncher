@@ -56,7 +56,7 @@
                 "title": "Wygląda na to, że folder z grą został usunięty, czy chcesz usunąć grę z listy zainstalowanych?"
             },
             "generic": {
-                "message": "",
+                "message": "ogólny komunikat o błędzie",
                 "title": "Wybierz EXE do uruchomienia"
             },
             "launchAborted": "Uruchamianie przerwane",

@@ -46,7 +46,7 @@
   min-width: 300px;
 }
 
-.languageSelector {
+.loginPage .languageSelector {
   position: absolute;
   bottom: calc(100% + var(--login-padding));
   left: 0;

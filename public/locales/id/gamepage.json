@@ -187,7 +187,8 @@
         "uninstalling": "Mencopot",
         "updating": "Memperbarui Gim",
         "playing": "Bermain",
-        "moving-files": "Memindahkan berkas '{{file}}': {{percent}} "
+        "moving-files": "Memindahkan berkas '{{file}}': {{percent}} ",
+        "syncingSaves": "Menyinkronkan Penyimpanan Gim"
     },
     "submenu": {
         "addShortcut": "Tambahkan pintasan",
@@ -202,7 +203,8 @@
         "settings": "Pengaturan",
         "store": "Halaman Toko",
         "verify": "Verifikasi dan Perbaiki",
-        "extraInfo": "Informasi tambahan"
+        "extraInfo": "Informasi tambahan",
+        "logs": "Log"
     },
     "help": {
         "cloud_save_unsupported": "Gim ini tidak mendukung penyimpanan cloud. Informasi ini disediakan oleh pengembang gim. Beberapa gim menerapkan sistem penyimpanan cloud mereka sendiri"

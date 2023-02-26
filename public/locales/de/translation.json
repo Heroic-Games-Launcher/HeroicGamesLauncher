@@ -56,7 +56,7 @@
                 "title": "Der Spieleordner scheint gelöscht zu sein, möchtest du das Spiel aus der Liste der installierten Spiele entfernen?"
             },
             "generic": {
-                "message": "",
+                "message": "allgemeine Fehlermeldung",
                 "title": "Wähle auszuführende EXE"
             },
             "launchAborted": "Starten abgebrochen",
