@@ -1,5 +1,5 @@
 import './index.css'
-import React from 'react'
+import React, { useMemo } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -17,7 +17,8 @@ interface MessageBoxModalProps {
   type: DialogType
 }
 
-function decodeHTML(html: string) {
+// This function proper parses the message from the backend and returns HTML code with an array of spans and paragraphs
+function decodeHTML(html: string): Array<JSX.Element> {
   const txt = document.createElement('textarea')
   txt.innerHTML = html
   return txt.value.split('\n').map((item, key) => {
@@ -33,7 +34,7 @@ function decodeHTML(html: string) {
 const MessageBoxModal: React.FC<MessageBoxModalProps> = function (props) {
   const { t } = useTranslation()
 
-  const message = decodeHTML(props.message)
+  const message = useMemo(() => decodeHTML(props.message), [props.message])
 
   const getButtons = function () {
     const allButtons = []
