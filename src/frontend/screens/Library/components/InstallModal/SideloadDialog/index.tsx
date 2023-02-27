@@ -1,13 +1,13 @@
 import './index.scss'
 import short from 'short-uuid'
-import { faFolderOpen, faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { InstallPlatform, SideloadGame, WineInstallation } from 'common/types'
 
 import {
   CachedImage,
   TextInputField,
-  TextInputWithIconField
+  PathSelectionBox
 } from 'frontend/components/UI'
 import { DialogContent, DialogFooter } from 'frontend/components/UI/Dialog'
 import {
@@ -278,24 +278,17 @@ export default function SideloadDialog({
               value={imageUrl}
             />
             {!editMode && children}
-            <TextInputWithIconField
+            <PathSelectionBox
+              type="file"
+              onPathChange={setSelectedExe}
+              path={selectedExe}
+              placeholder={t('sideload.info.exe', 'Select Executable')}
+              pathDialogTitle={t('box.sideload.exe', 'Select Executable')}
+              pathDialogDefaultPath={winePrefix}
+              pathDialogFilters={fileFilters[platformToInstall]}
               htmlId="sideload-exe"
               label={t('sideload.info.exe', 'Select Executable')}
-              onChange={(e) => setSelectedExe(e.target.value)}
-              icon={<FontAwesomeIcon icon={faFolderOpen} />}
-              value={selectedExe}
-              placeholder={t('sideload.info.exe', 'Select Executable')}
-              onIconClick={async () =>
-                window.api
-                  .openDialog({
-                    buttonLabel: t('box.select.button', 'Select'),
-                    properties: ['openFile'],
-                    title: t('box.sideload.exe', 'Select Executable'),
-                    filters: fileFilters[platformToInstall],
-                    defaultPath: winePrefix
-                  })
-                  .then((path) => setSelectedExe(path || ''))
-              }
+              noDeleteButton
             />
           </div>
         </div>

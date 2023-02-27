@@ -4,11 +4,10 @@ import { SyncType } from 'common/types'
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import {
   InfoBox,
+  PathSelectionBox,
   SelectField,
-  TextInputWithIconField,
   ToggleSwitch
 } from 'frontend/components/UI'
-import { Backspace, CreateNewFolder } from '@mui/icons-material'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
@@ -120,55 +119,21 @@ export default function GOGSyncSaves({
         <>
           {gogSaves.map((value, index) => (
             <div key={`saves-${value.name}`} style={{ width: '100%' }}>
-              <TextInputWithIconField
+              <PathSelectionBox
+                type="directory"
                 htmlId="inputSavePath"
                 placeholder={t('setting.savefolder.placeholder')}
-                value={value.location}
-                disabled={isSyncing}
-                onChange={(event: { target: { value: string } }) => {
+                path={value.location}
+                canEditPath={isSyncing}
+                onPathChange={(path) => {
                   const saves = [...gogSaves]
                   saves[index] = {
                     name: value.name,
-                    location: event.target.value
+                    location: path
                   }
-                  return setGogSaves(saves)
+                  setGogSaves(saves)
                 }}
-                icon={
-                  !value.location.length ? (
-                    <CreateNewFolder
-                      data-testid="selectSavePath"
-                      style={{ color: '#B0ABB6' }}
-                    />
-                  ) : (
-                    <Backspace
-                      data-testid="removeSavePath"
-                      style={{ color: '#B0ABB6' }}
-                    />
-                  )
-                }
-                onIconClick={
-                  !value.location.length
-                    ? async () =>
-                        window.api
-                          .openDialog({
-                            buttonLabel: t('box.sync.button'),
-                            properties: ['openDirectory'],
-                            title: t('box.sync.title')
-                          })
-                          .then((path) => {
-                            const saves = [...gogSaves]
-                            saves[index] = {
-                              name: value.name,
-                              location: path || ''
-                            }
-                            setGogSaves(saves)
-                          })
-                    : () => {
-                        const saves = [...gogSaves]
-                        saves[index] = { name: value.name, location: '' }
-                        setGogSaves(saves)
-                      }
-                }
+                pathDialogTitle={t('box.sync.title')}
                 afterInput={
                   <span
                     role={'button'}

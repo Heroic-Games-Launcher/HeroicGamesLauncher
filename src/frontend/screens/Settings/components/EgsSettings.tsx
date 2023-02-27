@@ -73,8 +73,7 @@ const EgsSettings = () => {
         path={egsPath}
         placeholder={t('placeholder.egs-prefix')}
         pathDialogTitle={t('box.choose-egs-prefix')}
-        canEditPath={false}
-        disabled={isSyncing}
+        canEditPath={isSyncing}
         label={t('setting.egs-sync')}
         htmlId="set_epic_sync_path"
       />
