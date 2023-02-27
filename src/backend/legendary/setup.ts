@@ -1,9 +1,9 @@
 import { sendFrontendMessage } from './../main_window'
-import { LogPrefix } from './../logger/logger'
+import { logInfo, LogPrefix } from './../logger/logger'
 import axios from 'axios'
 import { cachedUbisoftInstallerPath } from 'backend/constants'
 import { logWarning } from 'backend/logger/logger'
-import { existsSync, createWriteStream } from 'graceful-fs'
+import { existsSync, createWriteStream, statSync } from 'graceful-fs'
 import { LegendaryGame } from './games'
 import { Winetricks } from 'backend/tools'
 import { showDialogBoxModalAuto } from 'backend/dialog/dialog'
@@ -82,7 +82,14 @@ const installArialFontInPrefix = async (game: LegendaryGame) => {
 
 const downloadIfNotCached = async (cachePath: string, url: string) => {
   if (existsSync(cachePath)) {
-    return true
+    // if the cached file exist but it was cached more than a week ago, download a new one
+    // an outdated installer can make the installation fail according to some report
+    const cachedAt = statSync(cachePath).mtime
+    const oneWeekAgo = new Date()
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7)
+    if (cachedAt > oneWeekAgo) {
+      return true
+    }
   }
 
   try {
@@ -96,6 +103,7 @@ const downloadIfNotCached = async (cachePath: string, url: string) => {
 
 // snippet took from https://stackoverflow.com/a/61269447/1430810, maybe can be improved
 const download = async (cachePath: string, url: string) => {
+  logInfo('Downloading UbisoftConnectInstaller.exe', LogPrefix.Backend)
   const writer = createWriteStream(cachePath)
 
   return axios
