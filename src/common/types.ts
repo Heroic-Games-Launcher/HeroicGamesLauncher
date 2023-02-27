@@ -165,6 +165,7 @@ export type Status =
   | 'notSupportedGame'
   | 'notInstalled'
   | 'installed'
+  | 'ubisoft'
 
 export interface GameStatus {
   appName: string
@@ -284,6 +285,7 @@ export interface GOGGameInfo {
   isInDevelopment: boolean
   extraInfo: unknown[]
   isHidden: boolean
+  runner: 'gogdl'
 }
 
 export interface GOGImportData {
