@@ -56,7 +56,7 @@
                 "title": "Úgy tűnik, a játék könyvtára törölve lett, szeretnéd eltávolítani a játékot a telepítettek listájáról?"
             },
             "generic": {
-                "message": "",
+                "message": "általános hibaüzenet",
                 "title": "Válaszd ki az EXE fájlt a futtatáshoz"
             },
             "launchAborted": "Indítás leállítva",

@@ -187,7 +187,8 @@
         "uninstalling": "Uninstalling",
         "updating": "ゲームを更新しています",
         "playing": "遊んでいる",
-        "moving-files": "移動ファイル '{{file}}': {{percent}} "
+        "moving-files": "移動ファイル '{{file}}': {{percent}} ",
+        "syncingSaves": "保存を同期しています"
     },
     "submenu": {
         "addShortcut": "ショートカットを追加する",
@@ -202,7 +203,8 @@
         "settings": "設定",
         "store": "ストアページ",
         "verify": "確認と修復",
-        "extraInfo": "追加情報"
+        "extraInfo": "追加情報",
+        "logs": "ログ"
     },
     "help": {
         "cloud_save_unsupported": "このゲームはクラウドセーブをサポートしていません。この情報は、ゲーム開発者によって提供されます。一部のゲームは独自のクラウド保存システムを実装しています"

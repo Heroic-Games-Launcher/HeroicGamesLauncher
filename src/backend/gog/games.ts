@@ -12,6 +12,7 @@ import {
   getFileSize,
   getGOGdlBin,
   killPattern,
+  shutdownWine,
   spawnAsync,
   moveOnUnix,
   moveOnWindows
@@ -25,7 +26,8 @@ import {
   InstalledInfo,
   WineCommandArgs,
   InstallPlatform,
-  Runner
+  Runner,
+  InstallProgress
 } from 'common/types'
 import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
 import { heroicGamesConfigPath, isWindows, isMac, isLinux } from '../constants'
@@ -194,37 +196,68 @@ class GOGGame extends Game {
     return res
   }
 
+  tmpProgress: InstallProgress = {
+    bytes: '',
+    eta: '',
+    percent: undefined,
+    diskSpeed: undefined,
+    downSpeed: undefined
+  }
+
   public onInstallOrUpdateOutput(
     action: 'installing' | 'updating',
     data: string
   ) {
-    const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
-    const bytesMatch = data.match(/Downloaded: (\S+) MiB/m)
-    const progressMatch = data.match(/Progress: (\d+\.\d+) /m)
+    // parse log for percent
+    if (!this.tmpProgress.percent) {
+      const percentMatch = data.match(/Progress: (\d+\.\d+) /m)
+
+      this.tmpProgress.percent = !Number.isNaN(Number(percentMatch?.at(1)))
+        ? Number(percentMatch?.at(1))
+        : undefined
+    }
+
+    // parse log for eta
+    if (this.tmpProgress.eta === '') {
+      const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
+      this.tmpProgress.eta =
+        etaMatch && etaMatch?.length >= 2 ? etaMatch[1] : ''
+    }
+
+    // parse log for game download progress
+    if (this.tmpProgress.bytes === '') {
+      const bytesMatch = data.match(/Downloaded: (\S+) MiB/m)
+      this.tmpProgress.bytes =
+        bytesMatch && bytesMatch?.length >= 2 ? `${bytesMatch[1]}MB` : ''
+    }
 
     // parse log for download speed
-    const downSpeedMBytes = data.match(/Download\t- (\S+.) MiB/m)
-    const downSpeed = !Number.isNaN(Number(downSpeedMBytes?.at(1)))
-      ? Number(downSpeedMBytes?.at(1))
-      : 0
+    if (!this.tmpProgress.downSpeed) {
+      const downSpeedMBytes = data.match(/Download\t- (\S+.) MiB/m)
+      this.tmpProgress.downSpeed = !Number.isNaN(Number(downSpeedMBytes?.at(1)))
+        ? Number(downSpeedMBytes?.at(1))
+        : undefined
+    }
 
     // parse disk write speed
-    const diskSpeedMBytes = data.match(/Disk\t- (\S+.) MiB/m)
-    const diskSpeed = !Number.isNaN(Number(diskSpeedMBytes?.at(1)))
-      ? Number(diskSpeedMBytes?.at(1))
-      : 0
+    if (!this.tmpProgress.diskSpeed) {
+      const diskSpeedMBytes = data.match(/Disk\t- (\S+.) MiB/m)
+      this.tmpProgress.diskSpeed = !Number.isNaN(Number(diskSpeedMBytes?.at(1)))
+        ? Number(diskSpeedMBytes?.at(1))
+        : undefined
+    }
 
-    if (bytesMatch && progressMatch) {
-      const eta = etaMatch ? etaMatch[1] : null
-      const bytes = bytesMatch[1]
-      let percent = parseFloat(progressMatch[1])
-      if (percent < 0) percent = 0
-
+    // only send to frontend if all values are updated
+    if (
+      Object.values(this.tmpProgress).every(
+        (value) => !(value === undefined || value === '')
+      )
+    ) {
       logInfo(
         [
           `Progress for ${this.getGameInfo().title}:`,
-          `${percent}%/${bytes}MB/${eta}`.trim(),
-          `Down: ${downSpeed}MB/s / Disk: ${diskSpeed}MB/s`
+          `${this.tmpProgress.percent}%/${this.tmpProgress.bytes}/${this.tmpProgress.eta}`.trim(),
+          `Down: ${this.tmpProgress.downSpeed}MB/s / Disk: ${this.tmpProgress.diskSpeed}MB/s`
         ],
         LogPrefix.Gog
       )
@@ -233,14 +266,17 @@ class GOGGame extends Game {
         appName: this.appName,
         runner: 'gog',
         status: action,
-        progress: {
-          eta,
-          percent,
-          bytes: `${bytes}MB`,
-          downSpeed,
-          diskSpeed
-        }
+        progress: this.tmpProgress
       })
+
+      // reset
+      this.tmpProgress = {
+        bytes: '',
+        eta: '',
+        percent: undefined,
+        diskSpeed: undefined,
+        downSpeed: undefined
+      }
     }
   }
 
@@ -732,7 +768,7 @@ class GOGGame extends Game {
         ])
       }
     } else {
-      rmSync(object.install_path, { recursive: true })
+      rmSync(object.install_path, { recursive: true, force: true })
     }
     installedGamesStore.set('installed', array)
     GOGLibrary.get().refreshInstalled()
@@ -888,6 +924,10 @@ class GOGGame extends Game {
   public async stop(): Promise<void> {
     const pattern = isLinux ? this.appName : 'gogdl'
     killPattern(pattern)
+    if (!this.isNative() && isLinux) {
+      const gameSettings = await this.getSettings()
+      await shutdownWine(gameSettings)
+    }
   }
 }
 

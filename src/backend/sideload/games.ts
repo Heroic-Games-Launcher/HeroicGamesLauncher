@@ -2,7 +2,7 @@ import { GameSettings, SideloadGame } from 'common/types'
 import { libraryStore } from './electronStores'
 import { GameConfig } from '../game_config'
 import { isWindows, isMac, isLinux, heroicGamesConfigPath } from '../constants'
-import { killPattern } from '../utils'
+import { killPattern, shutdownWine } from '../utils'
 import { logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { dirname, join } from 'path'
 import {
@@ -243,6 +243,10 @@ export async function stop(appName: string): Promise<void> {
     const split = executable.split('/')
     const exe = split[split.length - 1]
     killPattern(exe)
+    if (!isNativeApp(appName)) {
+      const gameSettings = await getAppSettings(appName)
+      await shutdownWine(gameSettings)
+    }
   }
 }
 

@@ -187,7 +187,8 @@
         "uninstalling": "Uninstalling",
         "updating": "Actualización do xogo",
         "playing": "Xogando",
-        "moving-files": "Movendo o ficheiro '{{file}}': {{percent}} "
+        "moving-files": "Movendo o ficheiro '{{file}}': {{percent}} ",
+        "syncingSaves": "Sincronización de gardados"
     },
     "submenu": {
         "addShortcut": "Engadir acceso directo",
@@ -202,7 +203,8 @@
         "settings": "Axustes",
         "store": "Páxina da tenda",
         "verify": "Verificar e reparar",
-        "extraInfo": "Información extra"
+        "extraInfo": "Información extra",
+        "logs": "Rexistros"
     },
     "help": {
         "cloud_save_unsupported": "Este xogo non admite gardados na nube. Esta información é proporcionada polos desenvolvedores do xogo. Algúns xogos implementan o seu propio sistema de gardar na nube"

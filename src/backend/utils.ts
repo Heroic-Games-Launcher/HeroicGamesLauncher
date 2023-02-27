@@ -62,7 +62,7 @@ import { getAppInfo } from './sideload/games'
 import { getMainWindow, sendFrontendMessage } from './main_window'
 import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
-import { validWine } from './launcher'
+import { runWineCommand, validWine } from './launcher'
 
 const execAsync = promisify(exec)
 
@@ -588,7 +588,7 @@ function constructAndUpdateRPC(gameName: string): RpcClient {
   client.updatePresence({
     details: gameName,
     instance: true,
-    largeImageKey: 'icon',
+    largeImageKey: 'icon_new',
     large_text: gameName,
     startTimestamp: Date.now(),
     state: 'via Heroic on ' + getFormattedOsName()
@@ -844,6 +844,15 @@ function killPattern(pattern: string) {
   }
   logInfo(['Killed', pattern], LogPrefix.Backend)
   return ret
+}
+
+async function shutdownWine(gameSettings: GameSettings) {
+  await runWineCommand({
+    gameSettings,
+    commandParts: ['wineboot', '-k'],
+    wait: true,
+    protonVerb: 'waitforexitandrun'
+  })
 }
 
 const getShellPath = async (path: string): Promise<string> =>
@@ -1154,6 +1163,7 @@ export {
   detectVCRedist,
   getGame,
   killPattern,
+  shutdownWine,
   getInfo,
   getShellPath,
   getFirstExistingParentPath,

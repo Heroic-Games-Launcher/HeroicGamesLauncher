@@ -187,7 +187,8 @@
         "uninstalling": "Wird deinstalliert",
         "updating": "Spiel wird aktualisiert",
         "playing": "Spielen",
-        "moving-files": "Datei verschieben '{{file}}': {{percent}} "
+        "moving-files": "Datei verschieben '{{file}}': {{percent}} ",
+        "syncingSaves": "Spielstände werden synchronisiert"
     },
     "submenu": {
         "addShortcut": "Verknüpfung hinzufügen",
@@ -202,7 +203,8 @@
         "settings": "Einstellungen",
         "store": "Store-Seite",
         "verify": "Prüfen und reparieren",
-        "extraInfo": "Zusatzinformation"
+        "extraInfo": "Zusatzinformation",
+        "logs": "Protokolle"
     },
     "help": {
         "cloud_save_unsupported": "Dieses Spiel unterstützt keine Cloud-Speicher. Diese Informationen werden von den Spieleentwicklern bereitgestellt. Einige Spiele implementieren ihr eigenes Cloud-Speichersystem"

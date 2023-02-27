@@ -187,7 +187,8 @@
         "uninstalling": "Uninstalling",
         "updating": "게임 업데이트 중",
         "playing": "놀이",
-        "moving-files": "파일 '{{file}}' 이동: {{percent}} "
+        "moving-files": "파일 '{{file}}' 이동: {{percent}} ",
+        "syncingSaves": "세이브 동기화 중"
     },
     "submenu": {
         "addShortcut": "바로가기 생성",
@@ -202,7 +203,8 @@
         "settings": "설정",
         "store": "스토어 페이지",
         "verify": "확인 및 복구",
-        "extraInfo": "추가 정보"
+        "extraInfo": "추가 정보",
+        "logs": "로그"
     },
     "help": {
         "cloud_save_unsupported": "이 게임은 클라우드 저장을 지원하지 않습니다. 이 정보는 게임 개발자가 제공합니다. 일부 게임은 자체 클라우드 저장 시스템을 구현합니다."
