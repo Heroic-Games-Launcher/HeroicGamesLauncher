@@ -1,8 +1,4 @@
-import {
-  crossoverLinkIDRegEx,
-  crossoverRatingRegEx,
-  wineRatingRegEx
-} from './constants'
+import { crossoverLinkIDRegEx } from './constants'
 import { logError, logInfo, LogPrefix } from '../../logger/logger'
 import axios from 'axios'
 import { AppleGamingWikiInfo } from 'common/types'
@@ -19,17 +15,16 @@ export async function getInfoFromAppleGamingWiki(
       LogPrefix.ExtraGameInfo
     )
 
-    const id = await getPageID(title)
+    const response = await getPageID(title)
 
-    if (!id) {
+    if (!response || !response.id) {
       return null
     }
 
-    const wikitext = await getWikiText(id)
+    const wikitext = await getWikiText(response.id)
 
     return {
-      crossoverRating: wikitext?.match(crossoverRatingRegEx)?.[1] ?? '',
-      wineRating: wikitext?.match(wineRatingRegEx)?.[1] ?? '',
+      crossoverRating: response.rating,
       crossoverLink: wikitext?.match(crossoverLinkIDRegEx)?.[1] ?? ''
     }
   } catch (error) {
@@ -41,15 +36,23 @@ export async function getInfoFromAppleGamingWiki(
   }
 }
 
-async function getPageID(title: string): Promise<string> {
+interface PageReturn {
+  id: string
+  rating: string
+}
+
+async function getPageID(title: string): Promise<PageReturn> {
   const { data } = await axios.get(
-    `https://www.applegamingwiki.com/w/api.php?action=query&list=search&srsearch=${title.replaceAll(
+    `https://www.applegamingwiki.com/w/api.php?action=cargoquery&tables=Compatibility_macOS&fields=Compatibility_macOS._pageID%3DpageID%2C+Compatibility_macOS.crossover%3Dcrossover%2C&where=Compatibility_macOS._pageName%3D"${title.replaceAll(
       ' ',
       '%20'
-    )}&format=json`
+    )}"&format=json`
   )
 
-  return data.query.search[0]?.pageid
+  return {
+    id: data.cargoquery[0]?.title?.pageID,
+    rating: data.cargoquery[0]?.title?.crossover
+  }
 }
 
 async function getWikiText(id: string): Promise<string | null> {

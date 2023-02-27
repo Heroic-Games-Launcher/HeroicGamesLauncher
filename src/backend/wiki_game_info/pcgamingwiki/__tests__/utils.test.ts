@@ -1,4 +1,3 @@
-import { Search } from '@mui/icons-material'
 import { logError } from 'backend/logger/logger'
 import { getInfoFromPCGamingWiki } from '../utils'
 import axios from 'axios'
@@ -6,10 +5,10 @@ import axios from 'axios'
 jest.mock('backend/logger/logfile')
 jest.mock('backend/logger/logger')
 
-describe('getInfoFromPCGamingWiki', () => {
+describe('getPCGamingWikiInfo', () => {
   test('fetches successfully via title', async () => {
     const mockAxios = jest.spyOn(axios, 'get').mockResolvedValueOnce({
-      data: { query: { search: [{ pageid: 1 }] } }
+      data: { cargoquery: [{ title: { pageID: 1 } }] }
     })
     mockAxios.mockResolvedValueOnce({
       data: {
@@ -57,7 +56,7 @@ describe('getInfoFromPCGamingWiki', () => {
 
   test('does not find page id', async () => {
     const mockAxios = jest.spyOn(axios, 'get').mockResolvedValueOnce({
-      data: { query: { search: [{ pageid: undefined }] } }
+      data: { cargoquery: [{ title: { pageID: undefined } }] }
     })
 
     const result = await getInfoFromPCGamingWiki('The Witcher 3')
@@ -66,7 +65,7 @@ describe('getInfoFromPCGamingWiki', () => {
 
   test('does not find wikitext', async () => {
     const mockAxios = jest.spyOn(axios, 'get').mockResolvedValueOnce({
-      data: { query: { search: [{ pageid: 1 }] } }
+      data: { cargoquery: [{ title: { pageID: 1 } }] }
     })
     mockAxios.mockResolvedValueOnce({
       data: {
@@ -82,7 +81,7 @@ describe('getInfoFromPCGamingWiki', () => {
 
   test('wikitext empty', async () => {
     const mockAxios = jest.spyOn(axios, 'get').mockResolvedValueOnce({
-      data: { query: { search: [{ pageid: 1 }] } }
+      data: { cargoquery: [{ title: { pageID: 1 } }] }
     })
     mockAxios.mockResolvedValueOnce({
       data: {

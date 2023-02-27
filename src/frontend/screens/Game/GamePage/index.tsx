@@ -133,6 +133,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const isMoving = status === 'moving'
   const isUninstalling = status === 'uninstalling'
   const isSyncing = status === 'syncing-saves'
+  const isLaunching = status === 'launching'
+  const isInstallingUbisoft = status === 'ubisoft'
   const notAvailable = !gameAvailable && gameInfo.is_installed
   const notSupportedGame =
     gameInfo.runner !== 'sideload' && gameInfo.thirdPartyManagedApp === 'Origin'
@@ -221,16 +223,15 @@ export default React.memo(function GamePage(): JSX.Element | null {
   }, [status, epic.library, gog.library, gameInfo, isSettingsModalOpen])
 
   useEffect(() => {
-    window.api
-      .getWikiGameInfo(gameInfo.title, appName, runner)
-      .then((info: WikiInfo) => {
-        if (
-          info &&
-          (info.applegamingwiki || info.howlongtobeat || info.pcgamingwiki)
-        ) {
-          setWikiGameInfo(info)
-        }
-      })
+    const id = runner === 'gog' ? gameInfo.app_name : undefined
+    window.api.getWikiGameInfo(gameInfo.title, id).then((info: WikiInfo) => {
+      if (
+        info &&
+        (info.applegamingwiki || info.howlongtobeat || info.pcgamingwiki)
+      ) {
+        setWikiGameInfo(info)
+      }
+    })
   }, [appName])
 
   function handleUpdate() {
@@ -658,7 +659,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     isMoving ||
                     isUpdating ||
                     isUninstalling ||
-                    isSyncing
+                    isSyncing ||
+                    isLaunching ||
+                    isInstallingUbisoft
                   }
                   autoFocus={true}
                   onClick={handlePlay()}
@@ -750,6 +753,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
           />
         </span>
       )
+    }
+    if (isInstallingUbisoft) {
+      return t('label.ubisoft', 'Installing Ubisoft Connect')
+    }
+    if (isLaunching) {
+      return t('label.launching', 'Launching')
     }
 
     if (isPlaying) {

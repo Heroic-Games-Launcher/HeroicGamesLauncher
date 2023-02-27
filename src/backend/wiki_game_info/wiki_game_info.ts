@@ -1,7 +1,6 @@
-import { getInfoFromGamesDB } from 'backend/wiki_game_info/gamesdb/utils'
 import { wikiGameInfoStore } from './electronStore'
 import { removeSpecialcharacters } from '../utils'
-import { Runner, WikiInfo } from 'common/types'
+import { WikiInfo } from 'common/types'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { getInfoFromAppleGamingWiki } from './applegamingwiki/utils'
 import { getHowLongToBeat } from './howlongtobeat/utils'
@@ -10,8 +9,7 @@ import { isMac } from '../constants'
 
 export async function getWikiGameInfo(
   title: string,
-  appName: string,
-  runner: Runner
+  gogID?: string
 ): Promise<WikiInfo | null> {
   try {
     title = removeSpecialcharacters(title)
@@ -40,20 +38,17 @@ export async function getWikiGameInfo(
 
     logInfo(`Getting ExtraGameInfo data for ${title}`, LogPrefix.ExtraGameInfo)
 
-    const [pcgamingwiki, howlongtobeat, gamesdb, applegamingwiki] =
-      await Promise.all([
-        getInfoFromPCGamingWiki(title, runner === 'gog' ? appName : undefined),
-        getHowLongToBeat(title),
-        getInfoFromGamesDB(title, appName, runner),
-        isMac ? getInfoFromAppleGamingWiki(title) : null
-      ])
+    const [pcgamingwiki, howlongtobeat, applegamingwiki] = await Promise.all([
+      getInfoFromPCGamingWiki(title, gogID),
+      getHowLongToBeat(title),
+      isMac ? getInfoFromAppleGamingWiki(title) : null
+    ])
 
     const wikiGameInfo = {
       timestampLastFetch: Date(),
       pcgamingwiki,
       applegamingwiki,
-      howlongtobeat,
-      gamesdb
+      howlongtobeat
     }
 
     wikiGameInfoStore.set(title, wikiGameInfo)

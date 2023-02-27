@@ -26,6 +26,7 @@ import {
   InstalledInfo,
   WineCommandArgs,
   InstallPlatform,
+  Runner,
   InstallProgress
 } from 'common/types'
 import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
@@ -57,12 +58,14 @@ import { showDialogBoxModalAuto } from '../dialog/dialog'
 import { sendFrontendMessage } from '../main_window'
 
 class GOGGame extends Game {
+  public runner: Runner
   public appName: string
   private static instances = new Map<string, GOGGame>()
 
   private constructor(appName: string) {
     super()
     this.appName = appName
+    this.runner = 'gog'
   }
 
   public static get(appName: string) {
@@ -541,6 +544,12 @@ class GOGGame extends Game {
       this.logFileLocation,
       `Launch Command: ${fullCommand}\n\nGame Log:\n`
     )
+
+    sendFrontendMessage('gameStatusUpdate', {
+      appName: this.appName,
+      runner: this.runner,
+      status: 'playing'
+    })
 
     const { error, abort } = await runGogdlCommand(
       commandParts,
