@@ -54,6 +54,18 @@
   color: var(--link-highlight);
 }
 
+.loginInstructions .login-link {
+  display: flex;
+  background-color: var(--background-darker);
+  border-color: var(--input-background);
+  color: var(--text-secondary);
+  padding: var(--space-2xs);
+  margin: var(--space-lg);
+  width: inherit;
+  justify-content: space-between;
+  user-select: text;
+}
+
 .loginInstructions li {
   text-align: left;
 }
