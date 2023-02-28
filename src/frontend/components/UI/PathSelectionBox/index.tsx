@@ -1,7 +1,7 @@
 import TextInputWithIconField from '../TextInputWithIconField'
 import Backspace from '@mui/icons-material/Backspace'
 import Folder from '@mui/icons-material/Folder'
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { FileFilter } from 'electron'
 
@@ -44,10 +44,17 @@ const PathSelectionBox = ({
   afterInput
 }: Props) => {
   const { t } = useTranslation()
+  // We only send `onPathChange` updates when the user is done editing, so we
+  // have to store the partially-edited path *somewhere*
+  const [tmpPath, setTmpPath] = useState(path)
+
+  useEffect(() => setTmpPath(path), [path])
+
   function handleIconClick() {
     if (!noDeleteButton && path) {
       // "Backspace" icon was pressed
       onPathChange('')
+      setTmpPath(path)
       return
     }
 
@@ -60,15 +67,19 @@ const PathSelectionBox = ({
         filters: pathDialogFilters,
         defaultPath: pathDialogDefaultPath
       })
-      .then((path) => {
-        if (path) onPathChange(path)
+      .then((selectedPath) => {
+        if (selectedPath) {
+          onPathChange(selectedPath)
+          setTmpPath(path)
+        }
       })
   }
 
   return (
     <TextInputWithIconField
-      value={path}
-      onChange={(e) => onPathChange(e.target.value)}
+      value={tmpPath}
+      onChange={(e) => setTmpPath(e.target.value)}
+      onBlur={(e) => onPathChange(e.target.value)}
       onIconClick={handleIconClick}
       placeholder={placeholder}
       icon={!noDeleteButton && path ? <Backspace /> : <Folder />}
