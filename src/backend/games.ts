@@ -7,6 +7,7 @@ import {
   GameSettings,
   InstallArgs,
   InstallPlatform,
+  Runner,
   WineCommandArgs
 } from 'common/types'
 
@@ -46,6 +47,7 @@ abstract class Game {
   abstract update(): Promise<{ status: 'done' | 'error' | 'abort' }>
   abstract isNative(): boolean
   abstract runWineCommand(args: WineCommandArgs): Promise<ExecResult>
+  abstract runner: Runner
 }
 
 export { Game }

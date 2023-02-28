@@ -50,6 +50,7 @@ import { LegendaryUser } from './legendary/user'
 import { GOGUser } from './gog/user'
 import { GOGLibrary } from './gog/library'
 import setup from './gog/setup'
+import { setupUbisoftConnect } from './legendary/setup'
 import {
   clearCache,
   execAsync,
@@ -100,7 +101,8 @@ import {
   publicDir,
   wineprefixFAQ,
   customThemesWikiLink,
-  createNecessaryFolders
+  createNecessaryFolders,
+  fixAsarPath
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
@@ -817,6 +819,9 @@ ipcMain.handle('login', async (event, sid) => LegendaryUser.login(sid))
 ipcMain.handle('authGOG', async (event, code) => GOGUser.login(code))
 ipcMain.handle('logoutLegendary', LegendaryUser.logout)
 ipcMain.on('logoutGOG', GOGUser.logout)
+ipcMain.handle('getLocalPeloadPath', async () => {
+  return fixAsarPath(join(publicDir, 'webviewPreload.js'))
+})
 
 ipcMain.handle('getAlternativeWine', async () =>
   GlobalConfig.get().getAlternativeWine()
@@ -1005,7 +1010,7 @@ ipcMain.handle(
     sendFrontendMessage('gameStatusUpdate', {
       appName,
       runner,
-      status: 'playing'
+      status: 'launching'
     })
 
     const mainWindow = getMainWindow()
@@ -1629,6 +1634,9 @@ ipcMain.handle(
 
     if (runner === 'gog' && updated) {
       await setup(game.appName)
+    }
+    if (runner === 'legendary' && updated) {
+      await setupUbisoftConnect(game.appName)
     }
 
     // FIXME: Why are we using `runinprefix` here?

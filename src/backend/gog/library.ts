@@ -1,3 +1,4 @@
+import { sendFrontendMessage } from './../main_window'
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import { GOGUser } from './user'
 import {
@@ -235,20 +236,8 @@ export class GOGLibrary {
         ? gamesArray.find((value) => value.app_name === String(game.id))
         : null
       if (!unifiedObject || !isConfigCloudSavesReady) {
-        let apiData = apiInfoCache.get_nodefault(String(game.id))
-        if (!apiData) {
-          const { isUpdated, data } = await GOGLibrary.getGamesdbData(
-            'gog',
-            String(game.id)
-          )
-          if (data) {
-            apiData = { isUpdated, data }
-            apiInfoCache.set(String(game.id), { isUpdated, data })
-          }
-        }
         unifiedObject = await this.gogToUnifiedInfo(
           game,
-          apiData?.data,
           cloudSavesEnabledGames
         )
       }
@@ -284,6 +273,82 @@ export class GOGLibrary {
     libraryStore.set('totalMovies', games.moviesCount)
     libraryStore.set('cloud_saves_enabled', true)
     logInfo('Saved games data', LogPrefix.Gog)
+
+    // fetch images async
+    this.fetchImages()
+  }
+
+  public async fetchImages() {
+    if (!GOGUser.isLoggedIn()) {
+      return
+    }
+
+    const lib = libraryStore.get('games', [])
+
+    // only process games with no image
+    const gamesWithNoImage = lib.filter(
+      (game) => game.art_square === fallBackImage
+    )
+    let changed = false // flag to only save and notify the frontend if something changed
+
+    // split games in chunks of 20 to fetch info in parallel
+    const chunks: GameInfo[][] = []
+    while (gamesWithNoImage.length) {
+      chunks.push(gamesWithNoImage.splice(0, 20))
+    }
+
+    for (const chunk of chunks) {
+      const promises = chunk.map(async (game) => {
+        // try gamesdb.gog.com
+        const { isUpdated, data } = await GOGLibrary.getGamesdbData(
+          'gog',
+          String(game.app_name)
+        )
+
+        if (data) {
+          // if data available, update the game in memory
+          let newImageUrl = data?.game?.vertical_cover?.url_format
+          if (newImageUrl && newImageUrl !== game.art_square) {
+            newImageUrl = newImageUrl
+              .replace('{formatter}', '')
+              .replace('{ext}', 'jpg')
+            apiInfoCache.set(String(game.app_name), { isUpdated, data })
+            game.art_square = newImageUrl
+            game.developer = data.game.developers
+              .map((dev) => dev.name)
+              .join(', ')
+            game.extra.about.description = data.game.summary['*']
+            changed = true
+          }
+        } else {
+          // if no data, try api api.gog.com
+          const apiData = await this.getGamesData(String(game.app_name))
+          if (apiData?._links?.boxArtImage) {
+            game.art_square = apiData._links.boxArtImage.href
+            changed = true
+          }
+        }
+
+        return game
+      })
+
+      // update lib array with the upated games from the current chunk
+      const results = await Promise.all(promises)
+      results.forEach((game) => {
+        const index = lib.findIndex((g) => g.app_name === game.app_name)
+        if (index !== -1) {
+          lib[index] = game
+        }
+      })
+    }
+
+    // if any game changed, store the new updated array and notify the frontend
+    // without this it may end up in an infinite loop since the frontend triggers
+    // another refresh
+    if (changed) {
+      libraryStore.set('games', lib)
+      sendFrontendMessage('refreshLibrary')
+    }
   }
 
   public static get() {
@@ -616,54 +681,18 @@ export class GOGLibrary {
    */
   public async gogToUnifiedInfo(
     info: GOGGameInfo,
-    gamesdbData: GamesDBData | undefined,
     cloudSavesEnabledGames: string[]
   ): Promise<GameInfo> {
-    let developer = ''
-    let verticalCover = fallBackImage
-    let horizontalCover: string
-    let description = ''
-    if (gamesdbData?.game) {
-      const developers: Array<string> = []
-      for (const developer of gamesdbData.game.developers) {
-        developers.push(developer.name)
-      }
-      developer = developers.join(', ')
-      if (gamesdbData.game.vertical_cover?.url_format) {
-        verticalCover = gamesdbData.game.vertical_cover.url_format
-          .replace('{formatter}', '')
-          .replace('{ext}', 'jpg')
-      }
-      horizontalCover = `https:${info.image}.jpg`
-      description = gamesdbData.game.summary['*']
-    } else {
-      logWarning(
-        `Unable to get covers from gamesdb for ${info.title}. Trying to get it from api.gog.com`,
-        LogPrefix.Gog
-      )
-      const apiData = await this.getGamesData(String(info.id))
-      if (apiData?._links?.boxArtImage) {
-        verticalCover = apiData._links.boxArtImage.href
-      } else {
-        logWarning(
-          "Couldn't get info from api.gog.com, Using fallback vertical image",
-          LogPrefix.Gog
-        )
-        verticalCover = fallBackImage
-      }
-      horizontalCover = `https:${info.image}.jpg`
-    }
-
     const object: GameInfo = {
       runner: 'gog',
       store_url: `https://gog.com${info.url}`,
-      developer: developer,
+      developer: '',
       app_name: String(info.id),
-      art_cover: horizontalCover,
-      art_square: verticalCover,
+      art_cover: info.image,
+      art_square: fallBackImage,
       cloud_save_enabled: cloudSavesEnabledGames.includes(String(info.id)),
       extra: {
-        about: { description: description, shortDescription: '' },
+        about: { description: '', shortDescription: '' },
         reqs: [],
         storeUrl: `https://gog.com${info.url}`
       },

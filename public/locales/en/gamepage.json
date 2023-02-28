@@ -129,13 +129,15 @@
         "game": {
             "third-party-game": "Third-Party Game NOT Supported"
         },
+        "launching": "Launching",
         "playing": {
             "start": "Play Now",
             "stop": "Playing (Stop)"
         },
         "saves": {
             "syncing": "Syncing Saves"
-        }
+        },
+        "ubisoft": "Installing Ubisoft Connect"
     },
     "launch": {
         "options": "Launch Options..."
@@ -178,6 +180,7 @@
         "hasUpdates": "New Version Available!",
         "installed": "Installed",
         "installing": "Installing",
+        "launching": "Launching",
         "moving": "Moving Installation, please wait",
         "moving-files": "Moving file '{{file}}': {{percent}} ",
         "notinstalled": "This game is not installed",
@@ -190,6 +193,7 @@
         "syncingSaves": "Syncing Saves",
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Total Downloaded",
+        "ubisoft": "Installing Ubisoft",
         "uninstalling": "Uninstalling",
         "updating": "Updating Game"
     },

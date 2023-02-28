@@ -53,6 +53,11 @@ const heroicInstallPath = join(homedir(), 'Games', 'Heroic')
 const heroicDefaultWinePrefix = join(homedir(), 'Games', 'Heroic', 'Prefixes')
 const heroicAnticheatDataPath = join(heroicFolder, 'areweanticheatyet.json')
 const imagesCachePath = join(heroicFolder, 'images-cache')
+const cachedUbisoftInstallerPath = join(
+  heroicFolder,
+  'tools',
+  'UbisoftConnectInstaller.exe'
+)
 
 const { currentLogFile, lastLogFile, legendaryLogFile, gogdlLogFile } =
   createNewLogFileAndClearOldOnes()
@@ -246,5 +251,6 @@ export {
   GITHUB_API,
   wineprefixFAQ,
   customThemesWikiLink,
+  cachedUbisoftInstallerPath,
   gogdlAuthConfig
 }
