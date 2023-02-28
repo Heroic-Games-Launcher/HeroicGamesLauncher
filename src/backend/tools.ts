@@ -331,10 +331,11 @@ export const Winetricks = {
       )
     }
   },
-  run: async (
+  runWithArgs: async (
     wineVersion: WineInstallation,
     baseWinePrefix: string,
-    event: Electron.IpcMainInvokeEvent
+    args: string[],
+    event?: Electron.IpcMainInvokeEvent
   ) => {
     if (!(await validWine(wineVersion))) {
       return
@@ -383,12 +384,14 @@ export const Winetricks = {
         executeMessages.push(message)
         progressUpdated = true
       }
-      const sendProgress = setInterval(() => {
-        if (progressUpdated) {
-          event.sender.send('progressOfWinetricks', executeMessages)
-          progressUpdated = false
-        }
-      }, 1000)
+      const sendProgress =
+        event &&
+        setInterval(() => {
+          if (progressUpdated) {
+            event.sender.send('progressOfWinetricks', executeMessages)
+            progressUpdated = false
+          }
+        }, 1000)
 
       // check if winetricks dependencies are installed
       const dependencies = ['7z', 'cabextract', 'zenity', 'unzip', 'curl']
@@ -413,7 +416,7 @@ export const Winetricks = {
         LogPrefix.WineTricks
       )
 
-      const child = spawn(winetricks, ['--force', '-q'], { env: envs })
+      const child = spawn(winetricks, args, { env: envs })
 
       child.stdout.setEncoding('utf8')
       child.stdout.on('data', (data: string) => {
@@ -454,5 +457,17 @@ export const Winetricks = {
         resolve()
       })
     })
+  },
+  run: async (
+    wineVersion: WineInstallation,
+    baseWinePrefix: string,
+    event: Electron.IpcMainInvokeEvent
+  ) => {
+    await Winetricks.runWithArgs(
+      wineVersion,
+      baseWinePrefix,
+      ['--force', '-q'],
+      event
+    )
   }
 }

@@ -210,12 +210,15 @@ const GameCard = ({
       )
     }
     if (isInstalled) {
+      const disabled =
+        isLaunching ||
+        ['syncing-saves', 'launching', 'ubisoft'].includes(status!)
       return (
         <SvgButton
           className={!notAvailable ? 'playIcon' : 'notAvailableIcon'}
           onClick={async () => handlePlay(runner)}
           title={`${t('label.playing.start')} (${title})`}
-          disabled={isLaunching || status === 'syncing-saves'}
+          disabled={disabled}
         >
           <PlayIcon />
         </SvgButton>

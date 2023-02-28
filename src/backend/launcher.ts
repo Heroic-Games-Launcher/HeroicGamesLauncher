@@ -50,6 +50,7 @@ import { spawn } from 'child_process'
 import shlex from 'shlex'
 import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
+import { setupUbisoftConnect } from './legendary/setup'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
@@ -203,7 +204,12 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
       ['Created/Updated Wineprefix at', gameSettings.winePrefix],
       LogPrefix.Backend
     )
-    await setup(game.appName)
+    if (game.runner === 'gog') {
+      await setup(game.appName)
+    }
+    if (game.runner === 'legendary') {
+      await setupUbisoftConnect(game.appName)
+    }
   }
 
   // If DXVK/VKD3D installation is enabled, install it
