@@ -44,7 +44,6 @@ async function prepareImagesForSteam(props: {
   }
   steamID: string | undefined
   gameInfo: GameInfo | SideloadGame
-  bkgDataUrl?: string
 }) {
   const gridFolder = join(props.steamUserConfigDir, 'grid')
   const coverArt = join(gridFolder, props.appID.otherGridAppID + coverArtSufix)
@@ -64,9 +63,8 @@ async function prepareImagesForSteam(props: {
     LogPrefix.Shortcuts
   )
 
-  let bkgDataUrl = props.bkgDataUrl ?? ''
-
-  if (!props.steamID && bkgDataUrl) {
+  let bkgDataUrl = ''
+  if (!props.steamID) {
     await generateImage(props.gameInfo.art_cover, 1920, 620)
       .then((img) => (bkgDataUrl = img))
       .catch((error) =>
