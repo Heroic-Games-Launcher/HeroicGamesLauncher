@@ -327,14 +327,12 @@ export default function GamesSubmenu({
               {t('submenu.protondb', 'Check Compatibility')}
             </button>
           )}
-          {!isSideloaded && (
-            <button
-              onClick={() => setShowExtraInfo(true)}
-              className="link button is-text is-link"
-            >
-              {t('submenu.extraInfo', 'Extra Info')}
-            </button>
-          )}
+          <button
+            onClick={() => setShowExtraInfo(true)}
+            className="link button is-text is-link"
+          >
+            {t('submenu.extraInfo', 'Extra Info')}
+          </button>
 
           {onShowRequirements && (
             <button
