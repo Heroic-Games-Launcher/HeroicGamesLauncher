@@ -145,6 +145,7 @@ import {
   getMainWindow,
   sendFrontendMessage
 } from './main_window'
+import { isGameAvailable } from './api/helpers'
 
 const { showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -1742,4 +1743,3 @@ import './downloadmanager/ipc_handler'
 import './utils/ipc_handler'
 import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
-import { isGameAvailable } from './api/helpers'
