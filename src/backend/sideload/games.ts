@@ -24,9 +24,8 @@ import { access, chmod } from 'fs/promises'
 import { addShortcuts, removeShortcuts } from '../shortcuts/shortcuts/shortcuts'
 import shlex from 'shlex'
 import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
-import { createAbortController } from '../utils/abort/abort'
+import { createAbortController, killPattern } from '../utils'
 import { sendFrontendMessage } from '../main_window'
-import { killPattern } from '../utils/app/app'
 import { shutdownWine } from 'backend/wine/utils'
 
 export function appLogFileLocation(appName: string) {

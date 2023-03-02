@@ -1,7 +1,13 @@
 import {
   createAbortController,
-  deleteAbortController
-} from '../utils/abort/abort'
+  deleteAbortController,
+  errorHandler,
+  killPattern,
+  getFileSize,
+  moveOnUnix,
+  moveOnWindows,
+  spawnAsync
+} from '../utils'
 import { GOGLibrary, runGogdlCommand } from './library'
 import { join } from 'path'
 import { Game } from '../games'
@@ -46,15 +52,7 @@ import {
 import { t } from 'i18next'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
 import { sendFrontendMessage } from '../main_window'
-import {
-  getFileSize,
-  moveOnUnix,
-  moveOnWindows
-} from '../utils/filesystem/filesystem'
-import { errorHandler } from '../utils/error/error'
 import { getGOGdlBin } from './utils'
-import { spawnAsync } from '../utils/process/process'
-import { killPattern } from '../utils/app/app'
 import { shutdownWine } from 'backend/wine/utils'
 
 class GOGGame extends Game {

@@ -4,7 +4,7 @@ import { logError, logInfo, LogPrefix } from '../../logger/logger'
 import { t } from 'i18next'
 import { RpcClient } from 'common/types'
 import makeClient from 'discord-rich-presence-typescript'
-import { getFormattedOsName } from '../format/format'
+import { getFormattedOsName } from '..'
 
 async function isEpicServiceOffline(
   type: 'Epic Games Store' | 'Fortnite' | 'Rocket League' = 'Epic Games Store'

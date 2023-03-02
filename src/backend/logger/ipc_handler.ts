@@ -1,4 +1,4 @@
-import { showItemInFolder } from 'backend/utils/filesystem/filesystem'
+import { showItemInFolder } from 'backend/utils'
 import { ipcMain } from 'electron'
 import { existsSync, readFileSync } from 'graceful-fs'
 import { getLogFile } from './logfile'

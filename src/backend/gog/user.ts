@@ -6,10 +6,7 @@ import { configStore, libraryStore } from '../gog/electronStores'
 import { isOnline } from '../online_monitor'
 import { UserData } from 'common/types/gog'
 import { runGogdlCommand } from './library'
-import {
-  createAbortController,
-  deleteAbortController
-} from 'backend/utils/abort/abort'
+import { createAbortController, deleteAbortController } from 'backend/utils'
 import { gogdlAuthConfig } from 'backend/constants'
 
 export class GOGUser {

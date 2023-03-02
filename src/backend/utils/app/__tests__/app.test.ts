@@ -9,7 +9,7 @@ jest.mock('../../../logger/logger')
 jest.mock('../../../logger/logfile')
 jest.mock('../../../dialog/dialog')
 
-describe('utils/app/app.ts', () => {
+describe('utils.ts', () => {
   test('semverGt', () => {
     // target: vx.x.x or vx.x.x-beta.x
     // base: x.x.x or x.x.x-beta.x

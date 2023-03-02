@@ -1,7 +1,8 @@
 import {
   createAbortController,
-  deleteAbortController
-} from '../utils/abort/abort'
+  deleteAbortController,
+  killPattern
+} from '../utils'
 import { appendFileSync } from 'graceful-fs'
 import axios from 'axios'
 
@@ -52,8 +53,7 @@ import { gameAnticheatInfo } from '../anticheat/utils'
 import { Catalog, Product } from 'common/types/epic-graphql'
 import { sendFrontendMessage } from '../main_window'
 import { getLegendaryBin } from './utils'
-import { killPattern } from '../utils/app/app'
-import { moveOnUnix, moveOnWindows } from 'backend/utils/filesystem/filesystem'
+import { moveOnUnix, moveOnWindows } from 'backend/utils'
 import { shutdownWine } from 'backend/wine/utils'
 
 class LegendaryGame extends Game {

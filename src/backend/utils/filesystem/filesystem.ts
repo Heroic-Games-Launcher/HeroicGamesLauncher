@@ -4,7 +4,7 @@ import { shell } from 'electron'
 import fileSize from 'filesize'
 import { existsSync } from 'graceful-fs'
 import { basename, join, normalize } from 'path'
-import { execAsync, spawnAsync } from '../process/process'
+import { execAsync, spawnAsync } from '..'
 import { GameInfo } from 'common/types'
 import { sendFrontendMessage } from 'backend/main_window'
 

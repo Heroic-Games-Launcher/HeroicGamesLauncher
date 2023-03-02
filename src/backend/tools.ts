@@ -24,7 +24,7 @@ import { dirname, join } from 'path'
 import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
 import { validWine } from './launcher'
-import { execAsync } from './utils/process/process'
+import { execAsync } from './utils'
 import { getWineFromProton } from './wine/utils'
 import { chmod } from 'fs/promises'
 

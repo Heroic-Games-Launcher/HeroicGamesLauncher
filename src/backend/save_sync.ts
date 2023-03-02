@@ -19,12 +19,12 @@ import {
 import { app } from 'electron'
 import {
   createAbortController,
-  deleteAbortController
-} from './utils/abort/abort'
+  deleteAbortController,
+  getGame,
+  getShellPath
+} from './utils'
 import { legendaryConfigPath } from './constants'
 import { join } from 'path'
-import { getGame } from './utils/game/game'
-import { getShellPath } from './utils/filesystem/filesystem'
 
 async function getDefaultSavePath(
   appName: string,

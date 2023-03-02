@@ -18,7 +18,7 @@ import {
   callAllAbortControllers,
   createAbortController,
   deleteAbortController
-} from '../abort/abort'
+} from '..'
 import {
   gameInfoStore,
   installStore,

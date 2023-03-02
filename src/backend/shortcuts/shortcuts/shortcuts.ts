@@ -19,7 +19,7 @@ import { isMac, userHome } from '../../constants'
 import { GOGLibrary } from '../../gog/library'
 import { getIcon } from '../utils'
 import { addNonSteamGame } from '../nonesteamgame/nonesteamgame'
-import { removeSpecialcharacters } from '../../utils/format/format'
+import { removeSpecialcharacters } from '../../utils'
 import sanitize from 'sanitize-filename'
 
 /**

@@ -7,7 +7,7 @@ import { getRecentGames, maxRecentGames } from '../recent_games/recent_games'
 import { GlobalConfig } from '../config'
 import { iconDark, iconLight } from '../constants'
 import { backendEvents } from '../backend_events'
-import { handleExit, showAboutWindow } from '../utils/app/app'
+import { handleExit, showAboutWindow } from '../utils'
 
 export const initTrayIcon = async (mainWindow: BrowserWindow) => {
   // create icon

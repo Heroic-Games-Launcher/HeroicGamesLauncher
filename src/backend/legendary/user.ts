@@ -1,7 +1,8 @@
 import {
   createAbortController,
-  deleteAbortController
-} from '../utils/abort/abort'
+  deleteAbortController,
+  clearCache
+} from '../utils'
 import { existsSync, readFileSync } from 'graceful-fs'
 
 import { UserInfo } from 'common/types'
@@ -10,7 +11,6 @@ import { logError, LogPrefix } from '../logger/logger'
 import { userInfo as user } from 'os'
 import { session } from 'electron'
 import { runLegendaryCommand } from './library'
-import { clearCache } from '../utils/app/app'
 
 export class LegendaryUser {
   public static async login(

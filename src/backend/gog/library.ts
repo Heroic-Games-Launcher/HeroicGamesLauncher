@@ -33,10 +33,10 @@ import {
 import { callRunner } from '../launcher'
 import {
   createAbortController,
-  deleteAbortController
-} from '../utils/abort/abort'
+  deleteAbortController,
+  getFileSize
+} from '../utils'
 import { isOnline } from '../online_monitor'
-import { getFileSize } from '../utils/filesystem/filesystem'
 import { getGOGdlBin } from './utils'
 
 export class GOGLibrary {

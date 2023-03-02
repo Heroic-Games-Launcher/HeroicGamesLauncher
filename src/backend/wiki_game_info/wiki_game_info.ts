@@ -5,7 +5,7 @@ import { getInfoFromAppleGamingWiki } from './applegamingwiki/utils'
 import { getHowLongToBeat } from './howlongtobeat/utils'
 import { getInfoFromPCGamingWiki } from './pcgamingwiki/utils'
 import { isMac } from '../constants'
-import { removeSpecialcharacters } from 'backend/utils/format/format'
+import { removeSpecialcharacters } from 'backend/utils'
 
 export async function getWikiGameInfo(
   title: string,

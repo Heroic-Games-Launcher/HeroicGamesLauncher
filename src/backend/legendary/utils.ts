@@ -1,11 +1,11 @@
 import {
   createAbortController,
-  deleteAbortController
-} from '../utils/abort/abort'
+  deleteAbortController,
+  splitPathAndName
+} from '../utils'
 import { runLegendaryCommand } from '../legendary/library'
 import { join } from 'path'
 import { fixAsarPath, publicDir } from '../constants'
-import { splitPathAndName } from '../utils/format/format'
 import { GlobalConfig } from 'backend/config'
 
 async function getLegendaryVersion() {

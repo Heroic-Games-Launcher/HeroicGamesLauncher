@@ -32,7 +32,7 @@ import {
 import { execSync } from 'child_process'
 import { logError, logInfo, LogPrefix } from './logger/logger'
 import { dirname, join } from 'path'
-import { execAsync } from './utils/process/process'
+import { execAsync } from './utils'
 
 /**
  * This class does config handling.

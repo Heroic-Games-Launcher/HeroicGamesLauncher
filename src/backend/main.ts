@@ -112,7 +112,26 @@ import {
   removeApp,
   stop
 } from './sideload/games'
-import { callAbortController } from './utils/abort/abort'
+import {
+  callAbortController,
+  clearCache,
+  getCurrentChangelog,
+  getLatestReleases,
+  handleExit,
+  resetHeroic,
+  showAboutWindow,
+  detectVCRedist,
+  getSystemInfo,
+  getFileSize,
+  getFirstExistingParentPath,
+  getShellPath,
+  showItemInFolder,
+  isEpicServiceOffline,
+  openUrlOrFile,
+  getGame,
+  execAsync,
+  wait
+} from './utils'
 import { getDefaultSavePath } from './save_sync'
 import si from 'systeminformation'
 import { initTrayIcon } from './tray_icon/tray_icon'
@@ -121,30 +140,9 @@ import {
   getMainWindow,
   sendFrontendMessage
 } from './main_window'
-import {
-  clearCache,
-  getCurrentChangelog,
-  getLatestReleases,
-  handleExit,
-  resetHeroic,
-  showAboutWindow
-} from './utils/app/app'
-import { detectVCRedist, getSystemInfo } from './utils/system/system'
 import { getLegendaryBin, getLegendaryVersion } from './legendary/utils'
 import { getGOGdlBin, getGogdlVersion } from './gog/utils'
-import {
-  getFileSize,
-  getFirstExistingParentPath,
-  getShellPath,
-  showItemInFolder
-} from './utils/filesystem/filesystem'
-import {
-  isEpicServiceOffline,
-  openUrlOrFile
-} from './utils/connection/connection'
-import { getGame } from './utils/game/game'
 import { checkWineBeforeLaunch } from './wine/utils'
-import { execAsync, wait } from './utils/process/process'
 
 const { showOpenDialog } = dialog
 const isWindows = platform() === 'win32'

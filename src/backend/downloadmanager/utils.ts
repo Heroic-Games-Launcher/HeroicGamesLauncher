@@ -4,8 +4,7 @@ import i18next from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
 import { isOnline } from '../online_monitor'
 import { sendFrontendMessage } from '../main_window'
-import { getGame } from 'backend/utils/game/game'
-import { isEpicServiceOffline } from 'backend/utils/connection/connection'
+import { getGame, isEpicServiceOffline } from 'backend/utils'
 
 async function installQueueElement(params: InstallParams): Promise<{
   status: 'done' | 'error' | 'abort'

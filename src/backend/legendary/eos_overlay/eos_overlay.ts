@@ -2,7 +2,7 @@ import {
   callAbortController,
   createAbortController,
   deleteAbortController
-} from '../../utils/abort/abort'
+} from '../../utils'
 import { dialog } from 'electron'
 import { existsSync, readFileSync } from 'graceful-fs'
 import { t } from 'i18next'
@@ -14,7 +14,7 @@ import { runLegendaryCommand } from '../library'
 import { LegendaryGame } from '../games'
 import { verifyWinePrefix } from '../../launcher'
 import { sendFrontendMessage } from '../../main_window'
-import { getGame } from 'backend/utils/game/game'
+import { getGame } from 'backend/utils'
 
 const currentVersionPath = join(legendaryConfigPath, 'overlay_version.json')
 const installedVersionPath = join(legendaryConfigPath, 'overlay_install.json')

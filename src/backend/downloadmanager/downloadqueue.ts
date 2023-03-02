@@ -3,8 +3,7 @@ import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { DMQueueElement } from 'common/types'
 import { installQueueElement, updateQueueElement } from './utils'
 import { sendFrontendMessage } from '../main_window'
-import { getGame } from 'backend/utils/game/game'
-import { getFileSize } from 'backend/utils/filesystem/filesystem'
+import { getGame, getFileSize } from 'backend/utils'
 
 const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
   cwd: 'store',

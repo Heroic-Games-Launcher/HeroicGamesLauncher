@@ -6,10 +6,7 @@ import {
   updateWineVersionInfos
 } from './utils'
 import { logError, LogPrefix } from '../../logger/logger'
-import {
-  createAbortController,
-  deleteAbortController
-} from '../../utils/abort/abort'
+import { createAbortController, deleteAbortController } from '../../utils'
 import { sendFrontendMessage } from '../../main_window'
 
 ipcMain.handle('installWineVersion', async (e, release) => {

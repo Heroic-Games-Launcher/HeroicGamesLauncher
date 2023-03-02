@@ -1,7 +1,10 @@
 import {
   createAbortController,
-  deleteAbortController
-} from '../utils/abort/abort'
+  deleteAbortController,
+  isEpicServiceOffline,
+  getFileSize,
+  formatEpicStoreUrl
+} from '../utils'
 import { existsSync, readFileSync, readdirSync } from 'graceful-fs'
 
 import {
@@ -35,9 +38,6 @@ import { installStore, libraryStore } from './electronStores'
 import { callRunner } from '../launcher'
 import { dirname, join } from 'path'
 import { isOnline } from '../online_monitor'
-import { isEpicServiceOffline } from '../utils/connection/connection'
-import { getFileSize } from '../utils/filesystem/filesystem'
-import { formatEpicStoreUrl } from '../utils/format/format'
 import { getLegendaryBin } from './utils'
 
 /**

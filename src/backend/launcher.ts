@@ -43,12 +43,13 @@ import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
 import {
   constructAndUpdateRPC,
-  isEpicServiceOffline
-} from './utils/connection/connection'
-import { searchForExecutableOnPath } from './utils/filesystem/filesystem'
-import { getSteamRuntime } from './utils/runtime/runtime'
-import { quoteIfNecessary, removeQuoteIfNecessary } from './utils/format/format'
-import { errorHandler } from './utils/error/error'
+  isEpicServiceOffline,
+  searchForExecutableOnPath,
+  getSteamRuntime,
+  quoteIfNecessary,
+  removeQuoteIfNecessary,
+  errorHandler
+} from './utils'
 import { setupUbisoftConnect } from './legendary/setup'
 
 async function prepareLaunch(

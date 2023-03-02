@@ -2,15 +2,12 @@ import { getMainWindow } from './../../main_window'
 import { isMac, isWindows } from 'backend/constants'
 import { getGogdlVersion } from 'backend/gog/utils'
 import { getLegendaryVersion } from 'backend/legendary/utils'
-import { getHeroicVersion } from '../app/app'
-import { getFileSize } from '../filesystem/filesystem'
+import { getHeroicVersion, getFileSize, openUrlOrFile, execAsync } from '..'
 import { dialog } from 'electron'
 import { t } from 'i18next'
 import { spawn } from 'child_process'
 import { logError, logInfo, LogPrefix } from 'backend/logger/logger'
-import { openUrlOrFile } from '../connection/connection'
 import si from 'systeminformation'
-import { execAsync } from '../process/process'
 
 // This won't change while the app is running
 // Caching significantly increases performance when launching games

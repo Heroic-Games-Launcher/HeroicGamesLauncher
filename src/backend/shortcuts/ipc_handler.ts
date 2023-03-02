@@ -14,7 +14,7 @@ import {
 } from '../sideload/games'
 import { isMac } from 'backend/constants'
 import { notify } from 'backend/dialog/dialog'
-import { getGame, getInfo } from 'backend/utils/game/game'
+import { getGame, getInfo } from 'backend/utils'
 
 ipcMain.on('addShortcut', async (event, appName, runner, fromMenu) => {
   const isSideload = runner === 'sideload'

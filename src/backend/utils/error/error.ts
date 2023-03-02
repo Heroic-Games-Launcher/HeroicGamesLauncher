@@ -3,8 +3,7 @@ import { logError, logInfo, LogPrefix } from '../../logger/logger'
 import { ExecException } from 'child_process'
 import { Runner } from 'common/types'
 import i18next from 'i18next'
-import { getGame } from '../game/game'
-import { execAsync } from '../process/process'
+import { getGame, execAsync } from '..'
 import { dialog } from 'electron'
 
 type ErrorHandlerMessage = {

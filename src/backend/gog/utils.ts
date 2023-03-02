@@ -1,9 +1,9 @@
 import { fixAsarPath, publicDir } from '../constants'
 import {
   createAbortController,
-  deleteAbortController
-} from '../utils/abort/abort'
-import { splitPathAndName } from '../utils/format/format'
+  deleteAbortController,
+  splitPathAndName
+} from '../utils'
 import { join } from 'path'
 import { runGogdlCommand } from './library'
 import { GlobalConfig } from 'backend/config'

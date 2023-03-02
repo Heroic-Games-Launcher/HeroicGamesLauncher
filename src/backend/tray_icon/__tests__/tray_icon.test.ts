@@ -4,7 +4,7 @@ import { backendEvents } from '../../backend_events'
 import { GlobalConfig } from '../../config'
 import { RecentGame } from 'common/types'
 import { configStore } from '../../constants'
-import { wait } from '../../utils/process/process'
+import { wait } from '../../utils'
 
 jest.mock('../../logger/logfile')
 jest.mock('../../config')
