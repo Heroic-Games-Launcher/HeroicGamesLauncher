@@ -46,7 +46,7 @@
   min-width: 300px;
 }
 
-.languageSelector {
+.loginPage .languageSelector {
   position: absolute;
   bottom: calc(100% + var(--login-padding));
   left: 0;
@@ -63,7 +63,7 @@
   font-family: var(--font-primary-bold);
   font-weight: 700;
   color: var(--background);
-  background-color: var(--accent);
+  background: var(--primary-button, var(--accent));
   border: none;
   padding: 10px 40px;
   border-radius: 10px;
@@ -78,7 +78,7 @@
 }
 
 .goToLibrary:hover {
-  color: var(--text-default);
+  box-shadow: 0px 0px 0px 3px var(--button-stroke, var(--text-default));
 }
 
 .goToLibrary.disabled {

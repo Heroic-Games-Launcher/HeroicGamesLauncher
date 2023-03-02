@@ -48,10 +48,8 @@ export default React.memo(function InstallModal({
   const [wineVersionList, setWineVersionList] = useState<WineInstallation[]>([])
   const [crossoverBottle, setCrossoverBottle] = useState('')
 
-  const [isLinuxNative, setIsLinuxNative] = useState(false)
-  const [isMacNative, setIsMacNative] = useState(false)
-  const [defaultPlatform, setDefaultPlatform] =
-    useState<InstallPlatform>('Windows')
+  const isLinuxNative = Boolean(gameInfo?.is_linux_native)
+  const isMacNative = Boolean(gameInfo?.is_mac_native)
 
   const isMac = platform === 'darwin'
   const isWin = platform === 'win32'
@@ -61,13 +59,13 @@ export default React.memo(function InstallModal({
   const platforms: AvailablePlatforms = [
     {
       name: 'Linux',
-      available: (isLinux && isSideload) || (isLinuxNative && !isMac),
+      available: isLinux && (isSideload || isLinuxNative),
       value: 'linux',
       icon: faLinux
     },
     {
       name: 'macOS',
-      available: (isMac && isSideload) || (isMacNative && !isLinux),
+      available: isMac && (isSideload || isMacNative),
       value: 'Mac',
       icon: faApple
     },
@@ -83,19 +81,21 @@ export default React.memo(function InstallModal({
     (p) => p.available
   )
 
-  useEffect(() => {
-    const selectedPlatform = isLinuxNative
-      ? 'linux'
-      : isMacNative
-      ? 'Mac'
-      : 'Windows'
+  const getDefaultplatform = () => {
+    if (isLinux && gameInfo?.is_linux_native) {
+      return 'linux'
+    }
 
-    setPlatformToInstall(selectedPlatform)
-    setDefaultPlatform(selectedPlatform)
-  }, [isLinuxNative, isMacNative])
+    if (isMac && gameInfo?.is_mac_native) {
+      return 'Mac'
+    }
 
-  const [platformToInstall, setPlatformToInstall] =
-    useState<InstallPlatform>(defaultPlatform)
+    return 'Windows'
+  }
+
+  const [platformToInstall, setPlatformToInstall] = useState<InstallPlatform>(
+    getDefaultplatform()
+  )
 
   const hasWine = platformToInstall === 'Windows' && !isWin
 
@@ -136,8 +136,8 @@ export default React.memo(function InstallModal({
           setPlatformToInstall(e.target.value as InstallPlatform)
         }
       >
-        {availablePlatforms.map((p) => (
-          <option value={p.value} key={p.value}>
+        {availablePlatforms.map((p, i) => (
+          <option value={p.value} key={i}>
             {p.name}
           </option>
         ))}
@@ -156,8 +156,6 @@ export default React.memo(function InstallModal({
       >
         {showDownloadDialog ? (
           <DownloadDialog
-            setIsLinuxNative={setIsLinuxNative}
-            setIsMacNative={setIsMacNative}
             appName={appName}
             runner={runner}
             winePrefix={winePrefix}

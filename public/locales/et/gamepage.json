@@ -95,7 +95,8 @@
         "repairing": "Parandamine"
     },
     "generic": {
-        "error": "Teadmata viga"
+        "error": "Teadmata viga",
+        "noDescription": "Kirjeldus puudub"
     },
     "hours": "Hours",
     "how-long-to-beat": {
@@ -186,7 +187,8 @@
         "uninstalling": "Uninstalling",
         "updating": "Mängu uuendamine",
         "playing": "Mängib",
-        "moving-files": "Faili „{{file}}” teisaldamine: {{percent}} "
+        "moving-files": "Faili „{{file}}” teisaldamine: {{percent}} ",
+        "syncingSaves": "Salvestuste sünkroonimine"
     },
     "submenu": {
         "addShortcut": "Lisa otsetee",
@@ -201,6 +203,10 @@
         "settings": "Seaded",
         "store": "Poe lehekülg",
         "verify": "Kontrolli ja paranda",
-        "extraInfo": "Lisainfo"
+        "extraInfo": "Lisainfo",
+        "logs": "Palgid"
+    },
+    "help": {
+        "cloud_save_unsupported": "See mäng ei toeta pilvesalvestust. Seda teavet pakuvad mängu arendajad. Mõned mängud rakendavad oma pilvesalvestussüsteemi"
     }
 }

@@ -56,7 +56,7 @@
                 "title": "Pasta de Jogos parece tar removido, Queres remover o jogo da lista de instalados?"
             },
             "generic": {
-                "message": "",
+                "message": "mensagem de erro genérica",
                 "title": "Select EXE to Run"
             },
             "launchAborted": "Iniciamento Abortado",
@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "Escolha a pasta com o Prefixo Wine",
-        "yes": "SIM"
+        "yes": "SIM",
+        "dontShowAgain": "Não mostrar novamente"
     },
     "button": {
         "cancel": "Cancel",

@@ -1,6 +1,8 @@
 import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
 import { unzipFile } from '../../utilities'
 
+jest.mock('backend/logger/logger')
+
 const workDir = process.cwd()
 
 describe('Utilities - Unzip', () => {
@@ -31,7 +33,7 @@ describe('Utilities - Unzip', () => {
       })
       .catch((error) => {
         expect(error).toBe(
-          `Archive path ${workDir}/src/backend/wine/manager/downloader/__test__/utilities is not a file!`
+          `Archive path ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities is not a file!`
         )
       })
   })
@@ -104,7 +106,7 @@ describe('Utilities - Unzip', () => {
     })
       .then((response) => {
         expect(response).toBe(
-          `Succesfully unzip ${workDir}/src/backend/wine/manager/downloader/__test__/utilities/../test_data/test.tar.xz to ${workDir}/src/backend/wine/manager/downloader/__test__/utilities/test_unzip.`
+          `Succesfully unzip ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.xz to ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip.`
         )
       })
       .catch(() => {
@@ -136,7 +138,7 @@ describe('Utilities - Unzip', () => {
     })
       .then((response) => {
         expect(response).toBe(
-          `Succesfully unzip ${workDir}/src/backend/wine/manager/downloader/__test__/utilities/../test_data/test.tar.gz to ${workDir}/src/backend/wine/manager/downloader/__test__/utilities/test_unzip.`
+          `Succesfully unzip ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.gz to ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip.`
         )
       })
       .catch(() => {
@@ -167,7 +169,7 @@ describe('Utilities - Unzip', () => {
     })
       .then((response) => {
         expect(response).toBe(
-          `Succesfully unzip ${workDir}/src/backend/wine/manager/downloader/__test__/utilities/../test_data/test.tar.gz to ${workDir}/src/backend/wine/manager/downloader/__test__/utilities/test_unzip.`
+          `Succesfully unzip ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.gz to ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip.`
         )
       })
       .catch(() => {
@@ -182,7 +184,7 @@ describe('Utilities - Unzip', () => {
     })
       .then((response) => {
         expect(response).toBe(
-          `Succesfully unzip ${workDir}/src/backend/wine/manager/downloader/__test__/utilities/../test_data/test.tar.gz to ${workDir}/src/backend/wine/manager/downloader/__test__/utilities/test_unzip.`
+          `Succesfully unzip ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.gz to ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip.`
         )
       })
       .catch(() => {

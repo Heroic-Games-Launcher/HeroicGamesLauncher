@@ -56,7 +56,7 @@
                 "title": "يبدو أن مجلد اللعبة حُذف، هل تريد إزالة اللعبة من القائمة؟"
             },
             "generic": {
-                "message": "حدث خطأ مجهول",
+                "message": "رسالة خطأ عامٍّ",
                 "title": "اختر ملفًا تنفيذيًا لتشغيله"
             },
             "launchAborted": "أُجهض التحميل",
@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "اختر مجلَّد سابقة واين",
-        "yes": "نعم"
+        "yes": "نعم",
+        "dontShowAgain": "لا تظهر مرَّةً أخرى"
     },
     "button": {
         "cancel": "ألغِ",
@@ -372,7 +373,7 @@
         }
     },
     "offline-message": {
-        "hint": "نحن نتحقق من الاتصال مقابل: {{newline}} github.com و {{newline}} gog.com و {{newline}} store.epicgames.com",
+        "hint": "نتحقَّق من الاتِّصال مقابل: {{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com and{{newline}}cloudflare-dns.com",
         "ignore": "تجاهل",
         "offline": "غير متصل",
         "offline-retry-in": "غير متصل. قيد إعادة المحاولة خلال {{seconds}} ثانية.",
@@ -636,7 +637,7 @@
         "logout": "سجل الخروج",
         "logout_confirmation": "هل أنت متأكد أنك تريد تسجيل الخروج ؟",
         "manageaccounts": "أدر الحسابات",
-        "quit": "أخرج",
+        "quit": "اخرج",
         "cancel": "ألغِ",
         "quitMessage": "هل أنت متأكد من إرادتك للخروج؟"
     },

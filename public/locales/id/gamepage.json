@@ -36,7 +36,7 @@
             "message": "Apakah Anda ingin mencopot pemasangan gim ini?",
             "settingcheckbox": "Hapus pengaturan dan log{{newLine}}Catatan: Tindakan ini tidak dapat diurungkan. Semua pengaturan lama dan log akan dihapus.",
             "title": "Copot Pemasangan",
-            "prefix_warning": "Awalan Wine untuk game ini adalah awalan default. Jika Anda benar-benar ingin menghapusnya, Anda harus melakukannya secara manual."
+            "prefix_warning": "Prefiks Wine bawaan digunakan untuk game ini. Jika Anda benar-benar ingin menghapusnya, Anda harus melakukannya secara manual."
         },
         "update": {
             "message": "Gim ini memiliki pembaruan, terapkan pembaruan sekarang?",
@@ -95,7 +95,8 @@
         "repairing": "Memperbaiki"
     },
     "generic": {
-        "error": "Kesalahan tidak diketahui"
+        "error": "Kesalahan tidak diketahui",
+        "noDescription": "Deskripsi tidak tersedia"
     },
     "hours": "Jam",
     "how-long-to-beat": {
@@ -186,7 +187,8 @@
         "uninstalling": "Mencopot",
         "updating": "Memperbarui Gim",
         "playing": "Bermain",
-        "moving-files": "Memindahkan file '{{file}}': {{percent}} "
+        "moving-files": "Memindahkan berkas '{{file}}': {{percent}} ",
+        "syncingSaves": "Menyinkronkan Penyimpanan Gim"
     },
     "submenu": {
         "addShortcut": "Tambahkan pintasan",
@@ -201,6 +203,10 @@
         "settings": "Pengaturan",
         "store": "Halaman Toko",
         "verify": "Verifikasi dan Perbaiki",
-        "extraInfo": "Informasi tambahan"
+        "extraInfo": "Informasi tambahan",
+        "logs": "Log"
+    },
+    "help": {
+        "cloud_save_unsupported": "Gim ini tidak mendukung penyimpanan cloud. Informasi ini disediakan oleh pengembang gim. Beberapa gim menerapkan sistem penyimpanan cloud mereka sendiri"
     }
 }

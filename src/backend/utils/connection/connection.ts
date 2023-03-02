@@ -1,6 +1,6 @@
 import * as axios from 'axios'
 import { Notification, shell } from 'electron'
-import { logError, LogPrefix } from '../../logger/logger'
+import { logError, logInfo, LogPrefix } from '../../logger/logger'
 import { t } from 'i18next'
 import { RpcClient } from 'common/types'
 import makeClient from 'discord-rich-presence-typescript'
@@ -53,11 +53,12 @@ function constructAndUpdateRPC(gameName: string): RpcClient {
   client.updatePresence({
     details: gameName,
     instance: true,
-    largeImageKey: 'icon',
+    largeImageKey: 'icon_new',
     large_text: gameName,
     startTimestamp: Date.now(),
     state: 'via Heroic on ' + getFormattedOsName()
   })
+  logInfo('Started Discord Rich Presence', LogPrefix.Backend)
   return client
 }
 

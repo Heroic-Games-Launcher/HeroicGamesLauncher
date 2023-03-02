@@ -297,16 +297,17 @@ export class LegendaryLibrary {
     }
 
     // First go through all our installed games and store their versions...
-    const installedGames: Map<string, { version: string; platform: string }> =
-      new Map()
-    for (const [appName, data] of Object.entries(installedJson)) {
-      installedGames.set(appName, {
-        version: data.version,
-        platform: data.platform
-      })
+    const installedGames: {
+      appName: string
+      version: string
+      platform: string
+    }[] = []
+    for (const [appName, { version, platform }] of Object.entries(
+      installedJson
+    )) {
+      installedGames.push({ appName, version, platform })
     }
     // ...and now go through all games in `assets.json` to get the newest version
-    // HACK: Same as above,                         ↓ this isn't always `string`, but it works for now
     const assetsJsonFile = join(legendaryConfigPath, 'assets.json')
     let assetsJson: Record<string, Record<string, string>[]> = {}
     try {
@@ -321,42 +322,43 @@ export class LegendaryLibrary {
     }
 
     const updateableGames: string[] = []
-    for (const [platform, assets] of Object.entries(assetsJson)) {
-      installedGames.forEach(
-        ({ version: currentVersion, platform: installedPlatform }, appName) => {
-          if (installedPlatform === platform) {
-            const currentAsset = assets.find((asset) => {
-              return asset.app_name === appName
-            })
-            if (!currentAsset) {
-              logWarning(
-                [
-                  'Game with AppName',
-                  appName,
-                  'is installed but was not found on account'
-                ],
-                LogPrefix.Legendary
-              )
-              return
-            }
-            const latestVersion = currentAsset.build_version
-            if (currentVersion !== latestVersion) {
-              logDebug(
-                [
-                  'Update is available for',
-                  `${appName}:`,
-                  currentVersion,
-                  '!=',
-                  latestVersion
-                ],
-                LogPrefix.Legendary
-              )
-              updateableGames.push(appName)
-            }
-          }
-        }
+    installedGames.forEach(({ appName, version: currentVersion, platform }) => {
+      if (!(platform in assetsJson)) {
+        logError(
+          ['Platform', platform, 'was not found in assets.json?'],
+          LogPrefix.Legendary
+        )
+        return
+      }
+      const asset = assetsJson[platform].find(
+        (asset) => asset.app_name === appName
       )
-    }
+      if (!asset) {
+        logWarning(
+          [
+            'Game with AppName',
+            appName,
+            'is installed but was not found on account'
+          ],
+          LogPrefix.Legendary
+        )
+        return
+      }
+      if (currentVersion !== asset.build_version) {
+        logDebug(
+          [
+            'Update is available for',
+            `${appName}:`,
+            currentVersion,
+            '!=',
+            asset.build_version
+          ],
+          LogPrefix.Legendary
+        )
+        updateableGames.push(appName)
+      }
+    })
+
     logInfo(
       [
         'Found',
@@ -467,7 +469,7 @@ export class LegendaryLibrary {
 
     const {
       description,
-      longDescription = '',
+      shortDescription = '',
       keyImages = [],
       title,
       developer,
@@ -550,7 +552,7 @@ export class LegendaryLibrary {
       extra: {
         about: {
           description,
-          longDescription
+          shortDescription
         },
         reqs: [],
         storeUrl: formatEpicStoreUrl(title)

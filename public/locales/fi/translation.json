@@ -56,7 +56,7 @@
                 "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
             },
             "generic": {
-                "message": "",
+                "message": "yleinen virheilmoitus",
                 "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "Valitse Wine Prefix kansio",
-        "yes": "KYLLÄ"
+        "yes": "KYLLÄ",
+        "dontShowAgain": "Älä näytä uudelleen"
     },
     "button": {
         "cancel": "Cancel",

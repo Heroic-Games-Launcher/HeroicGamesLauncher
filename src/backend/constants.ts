@@ -8,7 +8,7 @@ import { logDebug, LogPrefix } from './logger/logger'
 import { createNewLogFileAndClearOldOnes } from './logger/logfile'
 import { env } from 'process'
 import { app } from 'electron'
-import { existsSync, readFileSync } from 'graceful-fs'
+import { existsSync, mkdirSync, readFileSync } from 'graceful-fs'
 import { GlobalConfig } from './config'
 import { TypeCheckedStoreBackend } from './electron_store'
 
@@ -53,11 +53,17 @@ const heroicInstallPath = join(homedir(), 'Games', 'Heroic')
 const heroicDefaultWinePrefix = join(homedir(), 'Games', 'Heroic', 'Prefixes')
 const heroicAnticheatDataPath = join(heroicFolder, 'areweanticheatyet.json')
 const imagesCachePath = join(heroicFolder, 'images-cache')
+const cachedUbisoftInstallerPath = join(
+  heroicFolder,
+  'tools',
+  'UbisoftConnectInstaller.exe'
+)
 
 const { currentLogFile, lastLogFile, legendaryLogFile, gogdlLogFile } =
   createNewLogFileAndClearOldOnes()
 
 const publicDir = resolve(__dirname, '..', app.isPackaged ? '' : '../public')
+const gogdlAuthConfig = join(app.getPath('userData'), 'gog_store', 'auth.json')
 const icon = fixAsarPath(join(publicDir, 'icon.png'))
 const iconDark = fixAsarPath(join(publicDir, 'icon-dark.png'))
 const iconLight = fixAsarPath(join(publicDir, 'icon-light.png'))
@@ -174,6 +180,26 @@ const execOptions = {
   shell: getShell()
 }
 
+const defaultFolders = [
+  heroicGamesConfigPath,
+  heroicIconFolder,
+  imagesCachePath
+]
+
+const necessaryFoldersByPlatform = {
+  win32: [...defaultFolders],
+  linux: [...defaultFolders, heroicToolsPath],
+  darwin: [...defaultFolders, heroicToolsPath]
+}
+
+export function createNecessaryFolders() {
+  necessaryFoldersByPlatform[platform()].forEach((folder: string) => {
+    if (!existsSync(folder)) {
+      mkdirSync(folder)
+    }
+  })
+}
+
 export {
   currentGameConfigVersion,
   currentGlobalConfigVersion,
@@ -224,5 +250,7 @@ export {
   publicDir,
   GITHUB_API,
   wineprefixFAQ,
-  customThemesWikiLink
+  customThemesWikiLink,
+  cachedUbisoftInstallerPath,
+  gogdlAuthConfig
 }

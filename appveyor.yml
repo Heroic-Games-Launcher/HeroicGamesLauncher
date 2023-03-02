@@ -6,12 +6,7 @@ platform:
 init:
   - git config --global core.autocrlf input
 
-cache:
-  - node_modules
-  - '%USERPROFILE%\.electron'
-
 install:
-  - ps: Install-Product node 16 x64
   - npm i --legacy-peer-deps
 
 environment:
@@ -19,12 +14,13 @@ environment:
     secure: kZMGyhBmfPsJKEryrd+I7gTEudm8tW0jSrKKhtT/3fbqKQzndTWp47C1Eetx5kFs
 
 build_script:
-  - yarn release:win
+  - yarn sign:win
+  - 7z.exe a -tzip dist\HeroicWin.zip dist\*x64.exe dist\*arm64.exe dist\*.blockmap dist\*.yml
 
 test: off
 
 artifacts:
-  - path: dist\*Setup.exe
+  - path: dist\HeroicWin.zip
     name: Heroic_setup
 
 deploy:

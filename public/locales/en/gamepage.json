@@ -95,7 +95,8 @@
         "repairing": "Repairing"
     },
     "generic": {
-        "error": "Unknown error"
+        "error": "Unknown error",
+        "noDescription": "No description available"
     },
     "help": {
         "cloud_save_unsupported": "This game does not support cloud saves. This information is provided by the game developers. Some games do implement their own cloud save system"
@@ -128,13 +129,15 @@
         "game": {
             "third-party-game": "Third-Party Game NOT Supported"
         },
+        "launching": "Launching",
         "playing": {
             "start": "Play Now",
             "stop": "Playing (Stop)"
         },
         "saves": {
             "syncing": "Syncing Saves"
-        }
+        },
+        "ubisoft": "Installing Ubisoft Connect"
     },
     "launch": {
         "options": "Launch Options..."
@@ -177,6 +180,7 @@
         "hasUpdates": "New Version Available!",
         "installed": "Installed",
         "installing": "Installing",
+        "launching": "Launching",
         "moving": "Moving Installation, please wait",
         "moving-files": "Moving file '{{file}}': {{percent}} ",
         "notinstalled": "This game is not installed",
@@ -186,8 +190,10 @@
         "processing": "Processing files, please wait",
         "queued": "Queued",
         "reparing": "Repairing Game, please wait",
+        "syncingSaves": "Syncing Saves",
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Total Downloaded",
+        "ubisoft": "Installing Ubisoft",
         "uninstalling": "Uninstalling",
         "updating": "Updating Game"
     },
@@ -198,6 +204,7 @@
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",
         "extraInfo": "Extra Info",
+        "logs": "Logs",
         "move": "Move Game",
         "protondb": "Check Compatibility",
         "removeFromSteam": "Remove from Steam",

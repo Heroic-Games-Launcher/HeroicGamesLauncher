@@ -27,6 +27,7 @@ import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
 import { createAbortController } from '../utils/abort/abort'
 import { sendFrontendMessage } from '../main_window'
 import { killPattern } from '../utils/app/app'
+import { shutdownWine } from 'backend/wine/utils'
 
 export function appLogFileLocation(appName: string) {
   return join(heroicGamesConfigPath, `${appName}-lastPlay.log`)
@@ -243,6 +244,10 @@ export async function stop(appName: string): Promise<void> {
     const split = executable.split('/')
     const exe = split[split.length - 1]
     killPattern(exe)
+    if (!isNativeApp(appName)) {
+      const gameSettings = await getAppSettings(appName)
+      await shutdownWine(gameSettings)
+    }
   }
 }
 

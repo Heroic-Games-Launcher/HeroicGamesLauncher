@@ -56,7 +56,7 @@
                 "title": "Zdá se, že složka hry byla odstraněna, chcete odstranit hru i ze seznamu nainstalovaných her?"
             },
             "generic": {
-                "message": "",
+                "message": "obecná chybová zpráva",
                 "title": "Vyberte EXE ke spuštění"
             },
             "launchAborted": "Spouštění přerušeno",
@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "Vyberte složku WinePrefix",
-        "yes": "ANO"
+        "yes": "ANO",
+        "dontShowAgain": "Nezobrazovat znovu"
     },
     "button": {
         "cancel": "Zrušit",
@@ -372,7 +373,7 @@
         }
     },
     "offline-message": {
-        "hint": "Kontrolujeme připojení s:{{newline}}github.com,{{newline}}gog.com a{{newline}}store.epicgames.com",
+        "hint": "Kontrolujeme připojení s:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com a{{newline}}cloudflare-dns.com",
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Opakování pokusu za {{seconds}} sekund.",

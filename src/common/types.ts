@@ -23,7 +23,7 @@ export type LaunchParams = {
 
 interface About {
   description: string
-  longDescription: string
+  shortDescription: string
 }
 
 export type Release = {
@@ -148,24 +148,31 @@ export interface GameSettings {
   gogSaves?: GOGCloudSavesLocation[]
 }
 
+export type Status =
+  | 'installing'
+  | 'updating'
+  | 'launching'
+  | 'playing'
+  | 'uninstalling'
+  | 'repairing'
+  | 'done'
+  | 'canceled'
+  | 'moving'
+  | 'queued'
+  | 'error'
+  | 'syncing-saves'
+  | 'notAvailable'
+  | 'notSupportedGame'
+  | 'notInstalled'
+  | 'installed'
+  | 'ubisoft'
+
 export interface GameStatus {
   appName: string
   progress?: InstallProgress
   folder?: string
   runner?: Runner
-  status:
-    | 'installing'
-    | 'updating'
-    | 'launching'
-    | 'playing'
-    | 'uninstalling'
-    | 'repairing'
-    | 'done'
-    | 'canceled'
-    | 'moving'
-    | 'queued'
-    | 'error'
-    | 'syncing-saves'
+  status: Status
 }
 
 export type GlobalConfigVersion = 'auto' | 'v0'
@@ -173,7 +180,7 @@ export interface InstallProgress {
   bytes: string
   eta: string
   folder?: string
-  percent: number
+  percent?: number
   downSpeed?: number
   diskSpeed?: number
   file?: string
@@ -242,6 +249,7 @@ export interface GOGLoginData {
   refresh_token: string
   user_id: string
   loginTime: number
+  error?: boolean
 }
 
 export interface GOGGameInfo {
@@ -277,6 +285,7 @@ export interface GOGGameInfo {
   isInDevelopment: boolean
   extraInfo: unknown[]
   isHidden: boolean
+  runner: 'gogdl'
 }
 
 export interface GOGImportData {
@@ -391,7 +400,7 @@ type AntiCheat =
   | 'Zakynthos'
 
 export interface AntiCheatInfo {
-  status: ''
+  status: 'Broken' | 'Denied' | 'Working' | 'Running' | 'Supported'
   anticheats: AntiCheat[]
   notes: string[]
   native: boolean

@@ -1,6 +1,6 @@
 import { GlobalConfig } from '../config'
 import { GameConfig } from '../game_config'
-import { validWine } from '../launcher'
+import { runWineCommand, validWine } from '../launcher'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { GameSettings, WineInstallation } from 'common/types'
 import { dialog } from 'electron'
@@ -35,7 +35,7 @@ async function ContinueWithFoundWine(
 // # public #
 // ###########
 
-function getWineFromProton(
+export function getWineFromProton(
   wineVersion: WineInstallation,
   winePrefix: string
 ): { winePrefix: string; wineBin: string } {
@@ -66,7 +66,7 @@ function getWineFromProton(
   return { wineBin: '', winePrefix }
 }
 
-async function checkWineBeforeLaunch(
+export async function checkWineBeforeLaunch(
   appName: string,
   gameSettings: GameSettings,
   logFileLocation: string
@@ -130,4 +130,11 @@ async function checkWineBeforeLaunch(
   return false
 }
 
-export { getWineFromProton, checkWineBeforeLaunch }
+export async function shutdownWine(gameSettings: GameSettings) {
+  await runWineCommand({
+    gameSettings,
+    commandParts: ['wineboot', '-k'],
+    wait: true,
+    protonVerb: 'waitforexitandrun'
+  })
+}

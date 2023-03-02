@@ -56,7 +56,7 @@
                 "title": "游戏文件夹似乎已被删除，你是否要从安装列表中删除游戏？"
             },
             "generic": {
-                "message": "",
+                "message": "一般错误信息",
                 "title": "选择要运行的 EXE"
             },
             "launchAborted": "启动已中断",
@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "选择 Wine Prefix 文件夹",
-        "yes": "是"
+        "yes": "是",
+        "dontShowAgain": "不再显示"
     },
     "button": {
         "cancel": "取消",
@@ -372,7 +373,7 @@
         }
     },
     "offline-message": {
-        "hint": "我们正检查到下列域名的连接：{{newline}}github.com、{{newline}}gog.com 和{{newline}}store.epicgames.com",
+        "hint": "我们正检查到下列域名的连接：{{newline}}github.com、{{newline}}gog.com、{{newline}}store.epicgames.com 和 {{newline}}cloudflare-dns.com",
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "离线。在 {{seconds}} 秒内重试。",

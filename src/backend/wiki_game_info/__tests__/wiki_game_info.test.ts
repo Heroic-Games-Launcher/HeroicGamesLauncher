@@ -15,6 +15,8 @@ jest.mock('../../constants', () => {
     isMac: true
   }
 })
+const currentTime = new Date()
+jest.useFakeTimers().setSystemTime(currentTime)
 
 describe('getWikiGameInfo', () => {
   test('use cached data', async () => {
@@ -121,7 +123,7 @@ const testPCGamingWikiInfo = {
 } as PCGamingWikiInfo
 
 const testExtraGameInfo = {
-  timestampLastFetch: Date(),
+  timestampLastFetch: currentTime.toString(),
   pcgamingwiki: testPCGamingWikiInfo,
   applegamingwiki: testAppleGamingWikiInfo,
   howlongtobeat: testHowLongToBeat

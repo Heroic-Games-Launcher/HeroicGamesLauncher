@@ -22,7 +22,7 @@ const languageLabels: { [key: string]: string } = {
   az: 'آذربایجان دیلی',
   be: 'беларуская мова',
   bg: 'български',
-  bs: 'босански',
+  bs: 'bosanski',
   ca: 'Català',
   cs: 'Čeština',
   de: 'Deutsch',
@@ -56,7 +56,7 @@ const languageLabels: { [key: string]: string } = {
   uk: 'украї́нська мо́ва',
   vi: 'tiếng Việt',
   zh_Hans: '简化字',
-  zh_Hant: '漢語'
+  zh_Hant: '正體字'
 }
 
 const languageFlags: { [key: string]: string } = {
@@ -98,7 +98,7 @@ const languageFlags: { [key: string]: string } = {
   uk: '🇺🇦',
   vi: '🇻🇳',
   zh_Hans: '🇨🇳',
-  zh_Hant: '🇨🇳'
+  zh_Hant: '🇹🇼'
 }
 
 export default function LanguageSelector({

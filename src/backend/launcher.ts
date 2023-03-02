@@ -49,6 +49,7 @@ import { searchForExecutableOnPath } from './utils/filesystem/filesystem'
 import { getSteamRuntime } from './utils/runtime/runtime'
 import { quoteIfNecessary, removeQuoteIfNecessary } from './utils/format/format'
 import { errorHandler } from './utils/error/error'
+import { setupUbisoftConnect } from './legendary/setup'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
@@ -202,7 +203,12 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
       ['Created/Updated Wineprefix at', gameSettings.winePrefix],
       LogPrefix.Backend
     )
-    await setup(game.appName)
+    if (game.runner === 'gog') {
+      await setup(game.appName)
+    }
+    if (game.runner === 'legendary') {
+      await setupUbisoftConnect(game.appName)
+    }
   }
 
   // If DXVK/VKD3D installation is enabled, install it

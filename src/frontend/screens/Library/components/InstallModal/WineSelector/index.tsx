@@ -9,7 +9,6 @@ import {
 import React from 'react'
 import { WineInstallation } from 'common/types'
 import { useTranslation } from 'react-i18next'
-import { configStore } from 'frontend/helpers/electronStores'
 import { removeSpecialcharacters } from 'frontend/helpers'
 
 type Props = {
@@ -41,33 +40,36 @@ export default function WineSelector({
   const [description, setDescription] = React.useState('')
 
   React.useEffect(() => {
-    const {
-      defaultWinePrefix: prefixFolder,
-      wineVersion,
-      winePrefix: defaultPrefix,
-      wineCrossoverBottle: defaultBottle
-    } = { ...configStore.get_nodefault('settings') }
+    const getAppSettings = async () => {
+      const {
+        defaultWinePrefix: prefixFolder,
+        wineVersion,
+        winePrefix: defaultPrefix,
+        wineCrossoverBottle: defaultBottle
+      } = await window.api.requestAppSettings()
 
-    if (!wineVersion || !defaultPrefix || !defaultBottle) return
-    setDescription(
-      `${defaultPrefix} / ${wineVersion.name.replace('Proton - ', '')}`
-    )
+      if (!wineVersion || !defaultPrefix || !defaultBottle) return
+      setDescription(
+        `${defaultPrefix} / ${wineVersion.name.replace('Proton - ', '')}`
+      )
 
-    if (!useDefaultSettings && wineVersion.type === 'crossover') {
-      return setCrossoverBottle(defaultBottle)
+      if (!useDefaultSettings && wineVersion.type === 'crossover') {
+        return setCrossoverBottle(defaultBottle)
+      }
+
+      if (useDefaultSettings) {
+        setWinePrefix(defaultPrefix)
+        setWineVersion(wineVersion)
+        setCrossoverBottle(defaultBottle)
+      } else {
+        const sugestedWinePrefix = `${prefixFolder}/${removeSpecialcharacters(
+          title
+        )}`
+        setWinePrefix(sugestedWinePrefix)
+        setWineVersion(wineVersion || undefined)
+      }
     }
-
-    if (useDefaultSettings) {
-      setWinePrefix(defaultPrefix)
-      setWineVersion(wineVersion)
-      setCrossoverBottle(defaultBottle)
-    } else {
-      const sugestedWinePrefix = `${prefixFolder}/${removeSpecialcharacters(
-        title
-      )}`
-      setWinePrefix(sugestedWinePrefix)
-      setWineVersion(wineVersion || undefined)
-    }
+    getAppSettings()
   }, [useDefaultSettings])
 
   const showPrefix = wineVersion?.type !== 'crossover'

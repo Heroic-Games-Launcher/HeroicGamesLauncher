@@ -56,7 +56,7 @@
                 "title": "Der Spieleordner scheint gelöscht zu sein, möchtest du das Spiel aus der Liste der installierten Spiele entfernen?"
             },
             "generic": {
-                "message": "",
+                "message": "allgemeine Fehlermeldung",
                 "title": "Wähle auszuführende EXE"
             },
             "launchAborted": "Starten abgebrochen",
@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "Wine-Prefix-Ordner auswählen",
-        "yes": "JA"
+        "yes": "JA",
+        "dontShowAgain": "Nicht mehr anzeigen"
     },
     "button": {
         "cancel": "Abbrechen",
@@ -280,7 +281,7 @@
             "version": "Heroic-Version"
         },
         "save-sync": {
-            "searching": "Ermittle den Ordner für Speicherdaten"
+            "searching": "Ermittle den Ordner für Speicherdaten (zum Abbrechen klicken)"
         },
         "settings": "Einstellungen werden automatisch gespeichert",
         "version": "Wine-Version"
@@ -372,7 +373,7 @@
         }
     },
     "offline-message": {
-        "hint": "Wir testen die Verbindung mit:{{newline}}github.com,{{newline}}gog.com und{{newline}}store.epicgames.com",
+        "hint": "Wir testen die Verbindung mit:{{newline}}github.com,{{newline}}gog.com, {{newline}}store.epicgames.com und{{newline}}cloudflare-dns.com",
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Verbinde erneut in {{seconds}} Sekunden.",
@@ -539,9 +540,9 @@
             "title": "EXE in Prefix starten"
         },
         "savefolder": {
-            "not-found": "Speicherungsordner nicht gefunden, bitte wählen sie es manuell aus",
+            "not-found": "Ordner für Speicherdaten nicht gefunden, bitte wähle ihn manuell aus (klicken, um es erneut zu versuchen)",
             "placeholder": "Wähle den genauen Ordner der Spielstände",
-            "warning": "Überprüfen sie zweimal ob der path richtig angegeben ist"
+            "warning": "Überprüfe zweimal, ob der Pfad richtig angegeben ist (klicken, um es erneut zu versuchen)"
         },
         "select_theme": "Design",
         "showfps": "FPS anzeigen (DX9, 10 und 11)",
@@ -585,7 +586,7 @@
             "general": "Allgemein",
             "log": "Log",
             "other": "Andere",
-            "sync": "Spielstände-Synchronisation",
+            "sync": "Cloud-Speichersynchronisierung",
             "wineExt": "Wine-Erweiterungen"
         },
         "open-config-file": "Konfigurationsdatei öffnen",

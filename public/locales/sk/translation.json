@@ -56,7 +56,7 @@
                 "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
             },
             "generic": {
-                "message": "",
+                "message": "všeobecná chybová správa",
                 "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "Vyberte Priečinok predpony vína",
-        "yes": "ÁNO"
+        "yes": "ÁNO",
+        "dontShowAgain": "Už nezobrazovať"
     },
     "button": {
         "cancel": "Cancel",

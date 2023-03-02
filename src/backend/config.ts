@@ -628,6 +628,8 @@ class GlobalConfigV0 extends GlobalConfig {
 
   public setSetting(key: string, value: unknown) {
     const config = this.getSettings()
+    const configStoreSettings = configStore.get_nodefault('settings') || config
+    configStore.set('settings', { ...configStoreSettings, [key]: value })
     config[key] = value
     this.config = config
     logInfo(`Heroic: Setting ${key} to ${JSON.stringify(value)}`)

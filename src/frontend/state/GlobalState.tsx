@@ -421,7 +421,7 @@ class GlobalState extends PureComponent<Props> {
     }
 
     let updates = this.state.gameUpdates
-    if (checkUpdates && library) {
+    if (checkUpdates) {
       try {
         updates = await window.api.checkGameUpdates()
       } catch (error) {
@@ -539,7 +539,11 @@ class GlobalState extends PureComponent<Props> {
     )
 
     // in these cases we just add the new status
-    if (['installing', 'updating', 'playing'].includes(status)) {
+    if (
+      ['installing', 'updating', 'playing', 'launching', 'ubisoft'].includes(
+        status
+      )
+    ) {
       currentApp.status = status
       newLibraryStatus.push(currentApp)
       this.setState({ libraryStatus: newLibraryStatus })

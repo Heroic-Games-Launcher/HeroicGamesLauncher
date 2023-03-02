@@ -1,6 +1,8 @@
 import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
 import { downloadFile } from '../../utilities'
 
+jest.mock('backend/logger/logger')
+
 const workDir = process.cwd()
 
 describe('Utilities - Download', () => {
@@ -33,7 +35,7 @@ describe('Utilities - Download', () => {
       })
       .catch((error) => {
         expect(error).toBe(
-          `Download path ${workDir}/src/backend/wine/manager/downloader/__test__/utilities/download.test.ts is not a directory!`
+          `Download path ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/download.test.ts is not a directory!`
         )
       })
   })
@@ -93,7 +95,7 @@ describe('Utilities - Download', () => {
     })
       .then((response) => {
         expect(response).toBe(
-          `Succesfully downloaded file:///${workDir}/src/backend/wine/manager/downloader/__test__/utilities/../test_data/test.tar.xz to ${workDir}/src/backend/wine/manager/downloader/__test__/utilities/test_download/test.tar.xz.`
+          `Succesfully downloaded file:///${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.xz to ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/test_download/test.tar.xz.`
         )
       })
       .catch(() => {

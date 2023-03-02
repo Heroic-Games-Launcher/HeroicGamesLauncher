@@ -14,7 +14,6 @@ import { exec, spawn } from 'child_process'
 import {
   execOptions,
   heroicToolsPath,
-  isLinux,
   isMac,
   isWindows,
   userHome
@@ -27,6 +26,7 @@ import { showDialogBoxModalAuto } from './dialog/dialog'
 import { validWine } from './launcher'
 import { execAsync } from './utils/process/process'
 import { getWineFromProton } from './wine/utils'
+import { chmod } from 'fs/promises'
 
 export const DXVK = {
   getLatest: async () => {
@@ -303,7 +303,7 @@ export const DXVK = {
 
 export const Winetricks = {
   download: async () => {
-    if (!isLinux) {
+    if (isWindows) {
       return
     }
 
@@ -323,7 +323,8 @@ export const Winetricks = {
       const res = await axios.get(url, { timeout: 1000 })
       const file = res.data
       writeFileSync(path, file)
-      return exec(`chmod +x ${path}`)
+      await chmod(path, 0o755)
+      return
     } catch (error) {
       return logWarning(
         ['Error Downloading Winetricks', error],
@@ -331,18 +332,22 @@ export const Winetricks = {
       )
     }
   },
-  run: async (
+  runWithArgs: async (
     wineVersion: WineInstallation,
     baseWinePrefix: string,
-    event: Electron.IpcMainInvokeEvent
+    args: string[],
+    event?: Electron.IpcMainInvokeEvent
   ) => {
     if (!(await validWine(wineVersion))) {
       return
     }
+    const winetricks = `${heroicToolsPath}/winetricks`
+
+    if (!existsSync(winetricks)) {
+      await Winetricks.download()
+    }
 
     return new Promise<void>((resolve) => {
-      const winetricks = `${heroicToolsPath}/winetricks`
-
       const { winePrefix, wineBin } = getWineFromProton(
         wineVersion,
         baseWinePrefix
@@ -380,12 +385,14 @@ export const Winetricks = {
         executeMessages.push(message)
         progressUpdated = true
       }
-      const sendProgress = setInterval(() => {
-        if (progressUpdated) {
-          event.sender.send('progressOfWinetricks', executeMessages)
-          progressUpdated = false
-        }
-      }, 1000)
+      const sendProgress =
+        event &&
+        setInterval(() => {
+          if (progressUpdated) {
+            event.sender.send('progressOfWinetricks', executeMessages)
+            progressUpdated = false
+          }
+        }, 1000)
 
       // check if winetricks dependencies are installed
       const dependencies = ['7z', 'cabextract', 'zenity', 'unzip', 'curl']
@@ -410,7 +417,7 @@ export const Winetricks = {
         LogPrefix.WineTricks
       )
 
-      const child = spawn(winetricks, ['--force', '-q'], { env: envs })
+      const child = spawn(winetricks, args, { env: envs })
 
       child.stdout.setEncoding('utf8')
       child.stdout.on('data', (data: string) => {
@@ -451,5 +458,17 @@ export const Winetricks = {
         resolve()
       })
     })
+  },
+  run: async (
+    wineVersion: WineInstallation,
+    baseWinePrefix: string,
+    event: Electron.IpcMainInvokeEvent
+  ) => {
+    await Winetricks.runWithArgs(
+      wineVersion,
+      baseWinePrefix,
+      ['--force', '-q'],
+      event
+    )
   }
 }

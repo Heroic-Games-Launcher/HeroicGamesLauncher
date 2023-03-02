@@ -26,6 +26,7 @@ import {
 } from '../../legendary/electronStores'
 import {
   apiInfoCache as GOGapiInfoCache,
+  gogInstallInfoStore as GOGinstallInfoStore,
   libraryStore as GOGlibraryStore
 } from '../../gog/electronStores'
 import { runLegendaryCommand } from '../../legendary/library'
@@ -184,6 +185,7 @@ async function handleExit() {
 async function clearCache() {
   GOGapiInfoCache.clear()
   GOGlibraryStore.clear()
+  GOGinstallInfoStore.clear()
   installStore.clear()
   libraryStore.clear()
   gameInfoStore.clear()

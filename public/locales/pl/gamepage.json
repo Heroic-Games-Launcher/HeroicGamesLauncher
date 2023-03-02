@@ -95,7 +95,8 @@
         "repairing": "Naprawianie"
     },
     "generic": {
-        "error": "Nieznany błąd"
+        "error": "Nieznany błąd",
+        "noDescription": "Brak dostępnego opisu"
     },
     "hours": "Hours",
     "how-long-to-beat": {
@@ -186,7 +187,8 @@
         "uninstalling": "Uninstalling",
         "updating": "Aktualizowanie gry",
         "playing": "Gra",
-        "moving-files": "Przenoszenie pliku „{{file}}”: {{percent}} "
+        "moving-files": "Przenoszenie pliku „{{file}}”: {{percent}} ",
+        "syncingSaves": "Synchronizowanie zapisów"
     },
     "submenu": {
         "addShortcut": "Dodaj skrót",
@@ -201,6 +203,10 @@
         "settings": "Ustawienia",
         "store": "Strona sklepu",
         "verify": "Sprawdź i napraw",
-        "extraInfo": "Informacje dodatkowe"
+        "extraInfo": "Informacje dodatkowe",
+        "logs": "Logi"
+    },
+    "help": {
+        "cloud_save_unsupported": "Ta gra nie obsługuje zapisów w chmurze. Informacje te są dostarczane przez twórców gry. Niektóre gry mają własny system zapisywania w chmurze"
     }
 }

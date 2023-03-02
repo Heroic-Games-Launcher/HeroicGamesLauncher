@@ -16,12 +16,12 @@ import {
 import { Link, NavLink, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { UpdateComponent, SelectField } from 'frontend/components/UI'
+import { UpdateComponent, SelectField, SvgButton } from 'frontend/components/UI'
+import { ReactComponent as SettingsIcoAlt } from 'frontend/assets/settings_icon_alt.svg'
 
 import {
   ExtraInfo,
   GameInfo,
-  GameStatus,
   Runner,
   SideloadGame,
   WineInstallation
@@ -53,6 +53,8 @@ import {
 
 import StoreLogos from 'frontend/components/UI/StoreLogos'
 import { WikiGameInfo } from 'frontend/components/UI/WikiGameInfo'
+import classNames from 'classnames'
+import { hasStatus } from 'frontend/hooks/hasStatus'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -67,7 +69,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [showModal, setShowModal] = useState({ game: '', show: false })
 
   const {
-    libraryStatus,
     epic,
     gog,
     gameUpdates,
@@ -77,12 +78,13 @@ export default React.memo(function GamePage(): JSX.Element | null {
     isSettingsModalOpen
   } = useContext(ContextProvider)
 
-  const { status } =
-    libraryStatus.find((game) => game.appName === appName) || {}
+  const [gameInfo, setGameInfo] = useState(locationGameInfo)
+
+  const { status, folder } = hasStatus(appName, gameInfo)
+  const gameAvailable = gameInfo.is_installed && status !== 'notAvailable'
 
   const [progress, previousProgress] = hasProgress(appName)
 
-  const [gameInfo, setGameInfo] = useState(locationGameInfo)
   const [extraInfo, setExtraInfo] = useState<ExtraInfo | null>(null)
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [gameInstallInfo, setGameInstallInfo] = useState<
@@ -97,9 +99,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [wineVersion, setWineVersion] = useState<WineInstallation>()
   const [showRequirements, setShowRequirements] = useState(false)
   const [showExtraInfo, setShowExtraInfo] = useState(false)
-  const [gameAvailable, setGameAvailable] = useState(true)
 
   const isWin = platform === 'win32'
+  const isLinux = platform === 'linux'
+  const isMac = platform === 'darwin'
   const isSideloaded = runner === 'sideload'
 
   const isInstalling = status === 'installing'
@@ -110,6 +113,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const isMoving = status === 'moving'
   const isUninstalling = status === 'uninstalling'
   const isSyncing = status === 'syncing-saves'
+  const isLaunching = status === 'launching'
+  const isInstallingUbisoft = status === 'ubisoft'
   const notAvailable = !gameAvailable && gameInfo.is_installed
   const notSupportedGame =
     gameInfo.runner !== 'sideload' && gameInfo.thirdPartyManagedApp === 'Origin'
@@ -117,19 +122,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const backRoute = location.state?.fromDM ? '/download-manager' : '/library'
 
   const storage: Storage = window.localStorage
-
-  useEffect(() => {
-    const checkGameAvailable = async () => {
-      if (gameInfo.is_installed && !isMoving) {
-        const gameAvailable = await window.api.isGameAvailable({
-          appName,
-          runner
-        })
-        setGameAvailable(gameAvailable)
-      }
-    }
-    checkGameAvailable()
-  }, [appName, status, gameInfo.is_installed, isMoving])
 
   useEffect(() => {
     const updateGameInfo = async () => {
@@ -145,10 +137,22 @@ export default React.memo(function GamePage(): JSX.Element | null {
   useEffect(() => {
     const updateConfig = async () => {
       if (gameInfo) {
-        const { install } = gameInfo
+        const {
+          install,
+          is_linux_native = undefined,
+          is_mac_native = undefined
+        } = { ...gameInfo }
 
-        if (runner !== 'sideload' && !notSupportedGame && install.platform) {
-          getInstallInfo(appName, runner, install.platform)
+        const installPlatform =
+          install.platform ||
+          (is_linux_native && isLinux
+            ? 'linux'
+            : is_mac_native && isMac
+            ? 'Mac'
+            : 'Windows')
+
+        if (runner !== 'sideload' && !notSupportedGame) {
+          getInstallInfo(appName, runner, installPlatform)
             .then((info) => {
               if (!info) {
                 throw 'Cannot get game info'
@@ -225,7 +229,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
     let install_path: string | undefined
     let install_size: string | undefined
     let version: string | undefined
-    let extra: ExtraInfo | undefined
     let developer: string | undefined
     let cloud_save_enabled = false
 
@@ -233,12 +236,11 @@ export default React.memo(function GamePage(): JSX.Element | null {
       install_path = gameInfo.install.install_path
       install_size = gameInfo.install.install_size
       version = gameInfo.install.version
-      extra = gameInfo.extra
       developer = gameInfo.developer
       cloud_save_enabled = gameInfo.cloud_save_enabled
     }
 
-    hasRequirements = extra?.reqs ? extra.reqs.length > 0 : false
+    hasRequirements = extraInfo?.reqs ? extraInfo.reqs.length > 0 : false
     hasUpdate = is_installed && gameUpdates?.includes(appName)
     const appLocation = install_path || folder_name
 
@@ -276,6 +278,11 @@ export default React.memo(function GamePage(): JSX.Element | null {
       return <ErrorComponent message={message} />
     }
 
+    const description =
+      extraInfo?.about.shortDescription ||
+      extraInfo?.about.description ||
+      t('generic.noDescription', 'No description available')
+
     return (
       <div className="gameConfigContainer">
         {gameInfo.runner !== 'sideload' && showModal.show && (
@@ -302,6 +309,16 @@ export default React.memo(function GamePage(): JSX.Element | null {
             <div className="gameInfo">
               <div className="titleWrapper">
                 <h1 className="title">{title}</h1>
+                {is_installed && (
+                  <SvgButton
+                    onClick={() =>
+                      setIsSettingsModalOpen(true, 'settings', gameInfo)
+                    }
+                    className={`settings-icon`}
+                  >
+                    <SettingsIcoAlt />
+                  </SvgButton>
+                )}
                 <div className="game-actions">
                   <button className="toggle">
                     <FontAwesomeIcon icon={faEllipsisV} />
@@ -329,15 +346,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
               </div>
               <div className="infoWrapper">
                 <div className="developer">{developer}</div>
-                <div className="summary">
-                  {extraInfo && extraInfo.about
-                    ? extraInfo.about.description
-                      ? extraInfo.about.description
-                      : extraInfo.about.longDescription
-                      ? extraInfo.about.longDescription
-                      : ''
-                    : ''}
-                </div>
+                <div className="summary">{description}</div>
                 {is_installed && showCloudSaveInfo && (
                   <div
                     style={{
@@ -438,16 +447,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
               </div>
               <TimeContainer game={appName} />
               <div className="gameStatus">
-                {isUninstalling && (
-                  <p
-                    style={{
-                      color: 'var(--danger)',
-                      fontStyle: 'italic'
-                    }}
-                  >
-                    {t('status.uninstalling', 'Uninstalling')}
-                  </p>
-                )}
                 {isInstalling ||
                   (isUpdating && (
                     <progress
@@ -458,10 +457,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   ))}
                 <p
                   style={{
-                    color:
-                      is_installed || isInstalling
-                        ? 'var(--success)'
-                        : 'var(--danger)',
+                    color: isInstalling
+                      ? 'var(--success)'
+                      : 'var(--status-warning,  var(--warning))',
                     fontStyle: 'italic'
                   }}
                 >
@@ -488,47 +486,58 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 </SelectField>
               )}
               <Anticheat gameInfo={gameInfo} />
-              <div className="buttonsWrapper">
-                {is_installed && !isQueued && (
-                  <button
-                    disabled={
-                      isReparing || isMoving || isUpdating || isUninstalling
-                    }
-                    autoFocus={true}
-                    onClick={handlePlay()}
-                    className={`button ${getPlayBtnClass()}`}
-                  >
-                    {getPlayLabel()}
-                  </button>
-                )}
-                {is_installed && (
-                  <button
-                    onClick={() =>
-                      setIsSettingsModalOpen(true, 'settings', gameInfo)
-                    }
-                    className={`button is-primary`}
-                  >
-                    {t('submenu.settings')}
-                  </button>
-                )}
-                {(!is_installed || isQueued) && (
-                  <button
-                    onClick={async () => handleInstall(is_installed)}
-                    disabled={
+              {is_installed && !isQueued && (
+                <button
+                  disabled={
+                    isReparing ||
+                    isMoving ||
+                    isUpdating ||
+                    isUninstalling ||
+                    isSyncing ||
+                    isLaunching ||
+                    isInstallingUbisoft
+                  }
+                  autoFocus={true}
+                  onClick={handlePlay()}
+                  className={classNames('button', {
+                    'is-secondary': !is_installed && !isQueued,
+                    'is-success':
+                      isSyncing ||
+                      (!isUpdating &&
+                        !isPlaying &&
+                        is_installed &&
+                        !notAvailable),
+                    'is-tertiary':
                       isPlaying ||
-                      isUpdating ||
-                      isReparing ||
-                      isMoving ||
-                      isUninstalling ||
-                      notSupportedGame
-                    }
-                    autoFocus={true}
-                    className={`button ${getButtonClass(is_installed)}`}
-                  >
-                    {`${getButtonLabel(is_installed)}`}
-                  </button>
-                )}
-              </div>
+                      (!is_installed && isQueued) ||
+                      (is_installed && notAvailable),
+                    'is-disabled': isUpdating
+                  })}
+                >
+                  {getPlayLabel()}
+                </button>
+              )}
+              {(!is_installed || isQueued) && (
+                <button
+                  onClick={async () => handleInstall(is_installed)}
+                  disabled={
+                    isPlaying ||
+                    isUpdating ||
+                    isReparing ||
+                    isMoving ||
+                    isUninstalling ||
+                    notSupportedGame
+                  }
+                  autoFocus={true}
+                  className={classNames('button', {
+                    'is-primary': is_installed,
+                    'is-tertiary': notAvailable || isInstalling || isQueued,
+                    'is-secondary': !is_installed && !isQueued
+                  })}
+                >
+                  {`${getButtonLabel(is_installed)}`}
+                </button>
+              )}
               {showExtraInfo && (
                 <WikiGameInfo
                   setShouldShow={setShowExtraInfo}
@@ -573,25 +582,15 @@ export default React.memo(function GamePage(): JSX.Element | null {
   }
   return <UpdateComponent />
 
-  function getPlayBtnClass() {
-    if (notAvailable) {
-      return 'is-tertiary'
-    }
-    if (isQueued) {
-      return 'is-secondary'
-    }
-    if (isUpdating) {
-      return 'is-danger'
-    }
-    if (isSyncing) {
-      return 'is-primary'
-    }
-    return isPlaying ? 'is-tertiary' : 'is-success'
-  }
-
   function getPlayLabel(): React.ReactNode {
     if (isSyncing) {
       return t('label.saves.syncing')
+    }
+    if (isInstallingUbisoft) {
+      return t('label.ubisoft', 'Installing Ubisoft Connect')
+    }
+    if (isLaunching) {
+      return t('label.launching', 'Launching')
     }
 
     return isPlaying ? t('label.playing.stop') : t('label.playing.start')
@@ -612,6 +611,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
     if (notAvailable) {
       return t('status.gameNotAvailable', 'Game not available')
+    }
+
+    if (isUninstalling) {
+      return t('status.uninstalling', 'Uninstalling')
     }
 
     if (isReparing) {
@@ -679,18 +682,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
     return t('status.notinstalled')
   }
 
-  function getButtonClass(is_installed: boolean) {
-    if (isInstalling || isQueued) {
-      return 'is-danger'
-    }
-
-    if (is_installed) {
-      return 'is-primary'
-    }
-
-    return 'is-secondary'
-  }
-
   function getButtonLabel(is_installed: boolean) {
     if (notSupportedGame) {
       return t('status.notSupported', 'Not supported')
@@ -734,10 +725,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
       return handleModal()
     }
 
-    const gameStatus: GameStatus = libraryStatus.filter(
-      (game: GameStatus) => game.appName === appName
-    )[0]
-    const { folder } = gameStatus
     if (!folder) {
       return
     }

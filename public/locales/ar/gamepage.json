@@ -96,7 +96,8 @@
         "repairing": "قيد الإصلاح"
     },
     "generic": {
-        "error": "خطأ مجهول"
+        "error": "خطأ مجهول",
+        "noDescription": "لا يوجد وصف متاح"
     },
     "hours": "ساعات",
     "how-long-to-beat": {
@@ -187,7 +188,8 @@
         "uninstalling": "قيد إلغاء التثبيت",
         "updating": "قيد تحديث اللعبة",
         "playing": "تلعب",
-        "moving-files": "نقل ملف '{{file}}': {{percent}} "
+        "moving-files": "نقل ملف '{{file}}': {{percent}} ",
+        "syncingSaves": "قيد مزامنة ملفات التخزين"
     },
     "submenu": {
         "addShortcut": "أضف اختصارًا",
@@ -202,6 +204,10 @@
         "settings": "الإعدادات",
         "store": "صفحة المتجر",
         "verify": "تحقق وأصلح",
-        "extraInfo": "معلومات اضافية"
+        "extraInfo": "معلومات اضافية",
+        "logs": "السجلات"
+    },
+    "help": {
+        "cloud_save_unsupported": "هذه اللعبة لا تدعم الحفظ السحابي. يتم توفير هذه المعلومات من قبل مطوري اللعبة. تقوم بعض الألعاب بتطبيق نظام الحفظ السحابي الخاص بها"
     }
 }

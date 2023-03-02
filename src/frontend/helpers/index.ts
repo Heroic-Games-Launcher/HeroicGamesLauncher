@@ -77,7 +77,31 @@ const getInstallInfo = async (
   runner: Runner,
   installPlatform: InstallPlatform
 ): Promise<LegendaryInstallInfo | GogInstallInfo | null> => {
-  return window.api.getInstallInfo(appName, runner, installPlatform)
+  return window.api.getInstallInfo(
+    appName,
+    runner,
+    handleRunnersPlatforms(installPlatform, runner)
+  )
+}
+
+function handleRunnersPlatforms(
+  platform: InstallPlatform,
+  runner: Runner
+): InstallPlatform {
+  if (runner === 'legendary') {
+    return platform
+  }
+  switch (platform) {
+    case 'Mac':
+      return 'osx'
+    case 'Windows':
+      return 'windows'
+    // GOG doesn't have a linux platform, so we need to get the information as windows
+    case 'linux':
+      return 'windows'
+    default:
+      return platform
+  }
 }
 
 const createNewWindow = (url: string) => window.api.createNewWindow(url)

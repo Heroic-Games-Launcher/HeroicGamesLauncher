@@ -96,7 +96,8 @@
         "repairing": "Popravljanje"
     },
     "generic": {
-        "error": "Nepoznata greška"
+        "error": "Nepoznata greška",
+        "noDescription": "Nema dostupnog opisa"
     },
     "hours": "Hours",
     "how-long-to-beat": {
@@ -187,7 +188,8 @@
         "uninstalling": "Uninstalling",
         "updating": "Ažuriranje video igre",
         "playing": "Igranje",
-        "moving-files": "Premještanje fajla '{{file}}': {{percent}} "
+        "moving-files": "Premještanje fajla '{{file}}': {{percent}} ",
+        "syncingSaves": "Sinhoniziranje podataka"
     },
     "submenu": {
         "addShortcut": "Dodaj prečicu",
@@ -202,6 +204,10 @@
         "settings": "Postavke",
         "store": "Webstranica Trgovine",
         "verify": "Provjeri i popravi",
-        "extraInfo": "Extra Info"
+        "extraInfo": "Extra Info",
+        "logs": "Dnevnici"
+    },
+    "help": {
+        "cloud_save_unsupported": "Ova igra ne podržava spremanje u oblaku. Ove informacije daju programeri igre. Neke igre implementiraju sopstveni sistem čuvanja u oblaku"
     }
 }

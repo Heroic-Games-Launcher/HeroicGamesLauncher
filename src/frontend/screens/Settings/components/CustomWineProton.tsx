@@ -70,7 +70,7 @@ export default function CustomWineProton() {
                 style={{
                   color: selectedPath
                     ? 'var(--danger)'
-                    : 'var(--text-tertiary)',
+                    : 'var(--status-warning)',
                   cursor: selectedPath ? 'pointer' : ''
                 }}
                 fontSize="large"

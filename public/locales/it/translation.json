@@ -56,7 +56,7 @@
                 "title": "La cartella del gioco sembra essere stata eliminata, rimuovere il gioco dall'elenco delle installazioni?"
             },
             "generic": {
-                "message": "",
+                "message": "messaggio di errore generico",
                 "title": "Seleziona EXE per eseguire"
             },
             "launchAborted": "Lancio annullato",
@@ -148,7 +148,8 @@
             }
         },
         "wineprefix": "Seleziona la cartella del prefisso di Wine",
-        "yes": "SI"
+        "yes": "SI",
+        "dontShowAgain": "Non mostrare più"
     },
     "button": {
         "cancel": "Annulla",

@@ -1,4 +1,4 @@
-import { heroicAnticheatDataPath, isLinux } from '../constants'
+import { heroicAnticheatDataPath, isWindows } from '../constants'
 import * as axios from 'axios'
 import { logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { readFileSync, writeFileSync } from 'graceful-fs'
@@ -6,7 +6,7 @@ import { AntiCheatInfo } from 'common/types'
 import { runOnceWhenOnline } from '../online_monitor'
 
 async function downloadAntiCheatData() {
-  if (!isLinux) return
+  if (isWindows) return
 
   runOnceWhenOnline(async () => {
     try {
@@ -25,7 +25,7 @@ async function downloadAntiCheatData() {
 }
 
 function gameAnticheatInfo(appNamespace: string): AntiCheatInfo | null {
-  if (!isLinux) return null
+  if (isWindows) return null
 
   const data = readFileSync(heroicAnticheatDataPath)
   const jsonData = JSON.parse(data.toString())

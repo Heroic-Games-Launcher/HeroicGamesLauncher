@@ -154,7 +154,8 @@
         "notSupportedGame": "Ikke understøttet",
         "this-game-uses-third-party": "Dette spil bruger tredjeparts launcher, og det er ikke understøttet endnu",
         "playing": "Spiller",
-        "moving-files": "Flytter fil '{{file}}': {{percent}} "
+        "moving-files": "Flytter fil '{{file}}': {{percent}} ",
+        "syncingSaves": "Synkroniserer Saves"
     },
     "submenu": {
         "addShortcut": "Opret genvej",
@@ -170,10 +171,12 @@
         "addToSteam": "Tilføj til Steam",
         "disableEosOverlay": "Deaktiver EOS Overlay",
         "enableEosOverlay": "Aktiver EOS Overlay",
-        "extraInfo": "Ekstra info"
+        "extraInfo": "Ekstra info",
+        "logs": "Logs"
     },
     "generic": {
-        "error": "Ukendt fejl"
+        "error": "Ukendt fejl",
+        "noDescription": "Ingen beskrivelse tilgængelig"
     },
     "report_problem": "Rapportér et problem med at køre dette spil",
     "cloud_save_unsupported": "Ikke understøttet",
@@ -213,5 +216,8 @@
         "main-plus-extras": "Hoved + Ekstra",
         "main-story": "Hovedhistorie"
     },
-    "howLongToBeat": "Hvor længe skal man slå"
+    "howLongToBeat": "Hvor længe skal man slå",
+    "help": {
+        "cloud_save_unsupported": "Dette spil understøtter ikke skylagring. Disse oplysninger leveres af spiludviklerne. Nogle spil implementerer deres eget skylagringssystem"
+    }
 }

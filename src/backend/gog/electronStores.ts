@@ -28,6 +28,15 @@ const syncStore = new TypeCheckedStoreBackend('gogSyncStore', {
   clearInvalidConfig: true
 })
 
+export const gogInstallInfoStore = new TypeCheckedStoreBackend(
+  'gogInstallInfo',
+  {
+    cwd: 'gog_store',
+    name: 'installInfo',
+    clearInvalidConfig: true
+  }
+)
+
 export {
   configStore,
   installedGamesStore,

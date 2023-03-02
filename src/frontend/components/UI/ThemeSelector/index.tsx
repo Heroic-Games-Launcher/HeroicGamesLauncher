@@ -15,7 +15,10 @@ import { Backspace } from '@mui/icons-material'
 import { writeConfig } from 'frontend/helpers'
 
 export const defaultThemes = {
-  classic: 'Classic',
+  midnightMirage: 'Midnight Mirage',
+  cyberSpaceOasis: 'Cyberspace Oasis',
+  cyberSpaceOasisAlt: 'Cyberspace Oasis Classic',
+  'high-contrast': 'High Contrast',
   'old-school': 'Old School Heroic',
   dracula: 'Dracula',
   marine: 'Marine',
@@ -23,7 +26,9 @@ export const defaultThemes = {
   zombie: 'Zombie',
   'zombie-classic': 'Zombie Classic',
   'nord-light': 'Nord Light',
-  'nord-dark': 'Nord Dark'
+  'nord-dark': 'Nord Dark',
+  gruvbox_dark: 'Gruvbox Dark',
+  sweet: 'Sweet'
 }
 
 export const ThemeSelector = () => {

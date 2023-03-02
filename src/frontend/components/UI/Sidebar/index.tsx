@@ -6,6 +6,8 @@ import './index.scss'
 import HeroicVersion from './components/HeroicVersion'
 import { DMQueueElement } from 'common/types'
 
+import { ReactComponent as HeroicIcon } from 'frontend/assets/heroic-icon.svg'
+
 let sidebarSize = localStorage.getItem('sidebar-width') || 240
 const minWidth = 60
 const maxWidth = 400
@@ -59,11 +61,25 @@ export default React.memo(function Sidebar() {
       document.body.removeEventListener('mouseleave', finishDrag)
       dragging = false
       localStorage.setItem('sidebar-width', sidebarSize.toString())
+
+      // Re-enable pointer events on webview element
+      const webviewEl = document.querySelector(
+        'webview'
+      ) as HTMLDivElement | null
+      if (webviewEl) {
+        webviewEl.style.pointerEvents = 'auto'
+      }
     }
 
     document.body.addEventListener('mouseup', finishDrag)
     document.body.addEventListener('mouseleave', finishDrag)
     document.body.addEventListener('mousemove', onMouseMove)
+
+    // Disable pointer events on webview element
+    const webviewEl = document.querySelector('webview') as HTMLDivElement | null
+    if (webviewEl) {
+      webviewEl.style.pointerEvents = 'none'
+    }
 
     const dragFrame = () => {
       if (!sidebarEl.current) return
@@ -97,6 +113,7 @@ export default React.memo(function Sidebar() {
 
   return (
     <aside ref={sidebarEl} className="Sidebar">
+      <HeroicIcon className="heroicIcon" />
       <SidebarLinks />
       <div className="currentDownloads">
         {currentDMElement && (

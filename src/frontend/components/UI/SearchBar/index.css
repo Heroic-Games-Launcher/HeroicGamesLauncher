@@ -3,9 +3,13 @@
   width: 100%;
   position: relative;
   display: inline-flex;
-  background: var(--input-background);
-  border-radius: var(--space-3xs);
+  background: var(--search-bar-background, var(--input-background));
+  border-radius: var(--space-md);
   padding: var(--space-3xs);
+}
+
+.SearchBar:focus-within {
+  box-shadow: 0px 0px 0px 3px var(--search-bar-border, var(--input-backgroundd));
 }
 
 .autoComplete {

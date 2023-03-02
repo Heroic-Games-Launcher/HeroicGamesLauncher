@@ -1,6 +1,6 @@
 {
   "name": "heroic",
-  "version": "2.6.0",
+  "version": "2.6.3",
   "private": true,
   "main": "build/electron/main.js",
   "homepage": "./",
@@ -28,7 +28,8 @@
       "build/icon.icns",
       "build/win_icon.ico",
       "build/icon-dark.png",
-      "build/icon-light.png"
+      "build/icon-light.png",
+      "build/webviewPreload.js"
     ],
     "protocols": [
       {
@@ -39,7 +40,7 @@
       }
     ],
     "win": {
-      "artifactName": "${productName}-${version}-Setup.${ext}",
+      "artifactName": "${productName}-${version}-Setup-${arch}.${ext}",
       "icon": "build/win_icon.ico",
       "asarUnpack": [
         "build/bin/win32/legendary.exe",
@@ -50,7 +51,7 @@
       ]
     },
     "portable": {
-      "artifactName": "${productName}-${version}-Portable.${ext}"
+      "artifactName": "${productName}-${version}-Portable-${arch}.${ext}"
     },
     "mac": {
       "artifactName": "${productName}-${version}-macOS-${arch}.${ext}",
@@ -158,6 +159,7 @@
     "react-markdown": "^8.0.3",
     "react-router-dom": "^6.3.0",
     "recharts": "^2.1.14",
+    "sanitize-filename": "^1.6.3",
     "shlex": "^2.1.2",
     "short-uuid": "^4.2.0",
     "simple-keyboard": "^3.4.136",
@@ -175,10 +177,11 @@
     "test-watch": "jest --watch --maxWorkers=25%",
     "test:ci": "jest --runInBand --silent",
     "release:linux": "vite build && electron-builder -p always --linux deb AppImage rpm pacman tar.xz",
-    "release:mac": "vite build && electron-builder -p always --mac",
-    "release:win": "vite build && electron-builder -p always --win nsis portable",
+    "release:mac": "vite build && electron-builder -p always --mac --x64 --arm64",
+    "release:win": "vite build && electron-builder -p always --win portable --x64 --arm64",
+    "sign:win": "vite build && electron-builder -p never --win nsis --x64 --arm64",
     "dist:linux": "vite build && electron-builder --linux",
-    "dist:mac": "vite build && electron-builder --mac --x64 --arm64",
+    "dist:mac": "vite build && electron-builder --mac",
     "dist:win": "vite build && electron-builder --win",
     "dist:flatpak": "yarn dist:linux appimage && yarn flatpak:prepare && yarn flatpak:build",
     "lint": "eslint --cache -c .eslintrc --ext .tsx,ts ./src",
@@ -215,7 +218,7 @@
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
     "@vitejs/plugin-react": "^2.2.0",
-    "electron": "^22.0.2",
+    "electron": "^22.2.0",
     "electron-builder": "^23.6.0",
     "electron-devtools-installer": "^3.2.0",
     "eslint": "^8.13.0",
