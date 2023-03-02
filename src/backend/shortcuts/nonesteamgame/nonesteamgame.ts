@@ -369,11 +369,8 @@ async function addNonSteamGame(props: {
  */
 async function removeNonSteamGame(props: {
   gameInfo: GameInfo | SideloadGame
-  steamUserdataDir?: string
 }): Promise<void> {
-  const steamUserdataDir =
-    props.steamUserdataDir || (await getSteamUserdataDir())
-
+  const steamUserdataDir = await getSteamUserdataDir()
   const { folders, error } = checkSteamUserDataDir(steamUserdataDir)
 
   // we don't show a error here.
