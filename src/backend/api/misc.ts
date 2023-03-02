@@ -149,5 +149,8 @@ export const storeGet = (
   defaultValue?: unknown
 ) => stores[storeName].get(key, defaultValue)
 
-export const getWikiGameInfo = async (title: string, id?: string) =>
-  ipcRenderer.invoke('getWikiGameInfo', title, id)
+export const getWikiGameInfo = async (
+  title: string,
+  appName: string,
+  runner: Runner
+) => ipcRenderer.invoke('getWikiGameInfo', title, appName, runner)

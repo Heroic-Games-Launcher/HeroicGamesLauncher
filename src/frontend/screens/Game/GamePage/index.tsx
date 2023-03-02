@@ -542,7 +542,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 <WikiGameInfo
                   setShouldShow={setShowExtraInfo}
                   title={title}
-                  id={runner === 'gog' ? appName : undefined}
+                  appName={appName}
+                  runner={runner}
                 />
               )}
               {is_installed && (
