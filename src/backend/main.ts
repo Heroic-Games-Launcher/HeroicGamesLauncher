@@ -627,7 +627,10 @@ ipcMain.handle('checkGameUpdates', async (): Promise<string[]> => {
       const game = getGame(appName, 'legendary')
       const { ignoreGameUpdates } = await game.getSettings()
       const gameInfo = game.getGameInfo()
-      if (!ignoreGameUpdates) {
+      if (
+        !ignoreGameUpdates &&
+        (await isGameAvailable({ appName, runner: gameInfo.runner }))
+      ) {
         logInfo(`Auto-Updating ${gameInfo.title}`, LogPrefix.Legendary)
         const dmQueueElement: DMQueueElement = getDMElement(gameInfo, appName)
         await addToQueue(dmQueueElement)
@@ -644,7 +647,10 @@ ipcMain.handle('checkGameUpdates', async (): Promise<string[]> => {
       const game = getGame(appName, 'gog')
       const { ignoreGameUpdates } = await game.getSettings()
       const gameInfo = game.getGameInfo()
-      if (!ignoreGameUpdates) {
+      if (
+        !ignoreGameUpdates &&
+        (await isGameAvailable({ appName, runner: gameInfo.runner }))
+      ) {
         logInfo(`Auto-Updating ${gameInfo.title}`, LogPrefix.Gog)
         const dmQueueElement: DMQueueElement = getDMElement(gameInfo, appName)
         await addToQueue(dmQueueElement)
@@ -1736,3 +1742,4 @@ import './downloadmanager/ipc_handler'
 import './utils/ipc_handler'
 import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
+import { isGameAvailable } from './api/helpers'
