@@ -295,8 +295,8 @@ export default React.memo(function Library(): JSX.Element {
     )
 
     library = sortInstalled
-      ? [...installed, ...installingGames]
-      : [...installed, ...installingGames, ...notInstalled]
+      ? [...installed, ...installingGames, ...notInstalled]
+      : library
 
     return [...library]
   }, [

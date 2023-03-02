@@ -118,11 +118,7 @@ export default React.memo(function ActionIcons({
         </button>
         <button
           className="FormControl__button"
-          title={
-            sortInstalled
-              ? t('library.showInstalled', 'Show Installed only')
-              : t('library.showAll', 'Show All')
-          }
+          title={t('library.sortByStatus', 'Sort by Status')}
           onClick={() => toggleSortinstalled()}
         >
           <FontAwesomeIcon

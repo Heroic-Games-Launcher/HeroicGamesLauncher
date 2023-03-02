@@ -313,9 +313,8 @@
     },
     "library": {
         "refresh": "Refresh",
-        "showAll": "Show All",
-        "showInstalled": "Show Installed only",
         "sortAscending": "Sort Ascending",
+        "sortByStatus": "Sort by Status",
         "sortDescending": "Sort Descending",
         "toggleLayout": {
             "grid": "Toggle to a grid layout",
