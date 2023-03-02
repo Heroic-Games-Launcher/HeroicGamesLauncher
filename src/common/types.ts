@@ -165,6 +165,7 @@ export type Status =
   | 'notSupportedGame'
   | 'notInstalled'
   | 'installed'
+  | 'ubisoft'
 
 export interface GameStatus {
   appName: string
@@ -179,7 +180,7 @@ export interface InstallProgress {
   bytes: string
   eta: string
   folder?: string
-  percent: number
+  percent?: number
   downSpeed?: number
   diskSpeed?: number
   file?: string
@@ -284,6 +285,7 @@ export interface GOGGameInfo {
   isInDevelopment: boolean
   extraInfo: unknown[]
   isHidden: boolean
+  runner: 'gogdl'
 }
 
 export interface GOGImportData {
@@ -625,7 +627,12 @@ export interface PCGamingWikiInfo {
 
 export interface AppleGamingWikiInfo {
   crossoverRating: string
+  wineRating: string
   crossoverLink: string
+}
+
+export interface GamesDBInfo {
+  steamID: string
 }
 
 export interface WikiInfo {
@@ -633,6 +640,7 @@ export interface WikiInfo {
   pcgamingwiki: PCGamingWikiInfo | null
   applegamingwiki: AppleGamingWikiInfo | null
   howlongtobeat: HowLongToBeatEntry | null
+  gamesdb: GamesDBInfo | null
 }
 
 /**

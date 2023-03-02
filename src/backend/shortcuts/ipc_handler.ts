@@ -84,10 +84,7 @@ ipcMain.on('removeShortcut', async (event, appName, runner) => {
 
 ipcMain.handle('addToSteam', async (event, appName, runner) => {
   const gameInfo = getInfo(appName, runner)
-  const wikiInfo = await getWikiGameInfo(
-    gameInfo.title,
-    runner === 'gog' ? appName : ''
-  )
+  const wikiInfo = await getWikiGameInfo(gameInfo.title, appName, runner)
 
   return addNonSteamGame({
     gameInfo,

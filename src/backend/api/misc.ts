@@ -72,6 +72,8 @@ export const getGOGLinuxInstallersLangs = async (appName: string) =>
   ipcRenderer.invoke('getGOGLinuxInstallersLangs', appName)
 export const getAlternativeWine = async () =>
   ipcRenderer.invoke('getAlternativeWine')
+export const getLocalPeloadPath = async () =>
+  ipcRenderer.invoke('getLocalPeloadPath')
 export const getShellPath = async (saveLocation: string) =>
   ipcRenderer.invoke('getShellPath', saveLocation)
 export const callTool = async (toolArgs: Tools) =>
@@ -147,5 +149,8 @@ export const storeGet = (
   defaultValue?: unknown
 ) => stores[storeName].get(key, defaultValue)
 
-export const getWikiGameInfo = async (title: string, id?: string) =>
-  ipcRenderer.invoke('getWikiGameInfo', title, id)
+export const getWikiGameInfo = async (
+  title: string,
+  appName: string,
+  runner: Runner
+) => ipcRenderer.invoke('getWikiGameInfo', title, appName, runner)
