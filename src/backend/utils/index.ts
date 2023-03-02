@@ -1,5 +1,14 @@
 export * from './abort/abort'
-export * from './app/app'
+export {
+  getCurrentChangelog,
+  handleExit,
+  killPattern,
+  showAboutWindow,
+  clearCache,
+  resetHeroic,
+  getLatestReleases,
+  getHeroicVersion
+} from './app/app'
 export * from './connection/connection'
 export * from './error/error'
 export * from './filesystem/filesystem'
