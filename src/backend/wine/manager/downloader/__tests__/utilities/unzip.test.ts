@@ -2,61 +2,49 @@ import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
 import { unzipFile } from '../../utilities'
 
 jest.mock('backend/logger/logger')
+jest.mock('backend/logger/logfile')
 
 const workDir = process.cwd()
 
 describe('Utilities - Unzip', () => {
   test('unzip file fails because of invalid archive path', async () => {
     const progress = jest.fn()
-    await unzipFile({
-      filePath: 'invalid.tar.xz',
-      unzipDir: __dirname,
-      onProgress: progress
-    })
-      .then(() => {
-        throw Error('No error should be thrown!')
+    await expect(
+      unzipFile({
+        filePath: 'invalid.tar.xz',
+        unzipDir: __dirname,
+        onProgress: progress
       })
-      .catch((error) => {
-        expect(error).toBe('Zip file invalid.tar.xz does not exist!')
-      })
+    ).rejects.toStrictEqual('Zip file invalid.tar.xz does not exist!')
   })
 
   test('unzip file fails because of archive is not a file', async () => {
     const progress = jest.fn()
-    await unzipFile({
-      filePath: __dirname,
-      unzipDir: __dirname,
-      onProgress: progress
-    })
-      .then(() => {
-        throw Error('No error should be thrown!')
+    await expect(
+      unzipFile({
+        filePath: __dirname,
+        unzipDir: __dirname,
+        onProgress: progress
       })
-      .catch((error) => {
-        expect(error).toBe(
-          `Archive path ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities is not a file!`
-        )
-      })
+    ).rejects.toStrictEqual(
+      `Archive path ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities is not a file!`
+    )
   })
 
   test('unzip file fails because of invalid install path', async () => {
     const progress = jest.fn()
-    await unzipFile({
-      filePath: `${__dirname}/../test_data/test.tar.xz`,
-      unzipDir: 'invalid',
-      onProgress: progress
-    })
-      .then(() => {
-        throw Error('No error should be thrown!')
+    await expect(
+      unzipFile({
+        filePath: `${__dirname}/../test_data/test.tar.xz`,
+        unzipDir: 'invalid',
+        onProgress: progress
       })
-      .catch((error) => {
-        expect(error).toBe('Install path invalid does not exist!')
-      })
+    ).rejects.toStrictEqual('Install path invalid does not exist!')
   })
 
   test('unzip file can be aborted', async () => {
     const progress = jest.fn()
     const installDir = __dirname + '/test_unzip'
-    let failed = false
 
     if (!existsSync(installDir)) {
       mkdirSync(installDir)
@@ -68,135 +56,97 @@ describe('Utilities - Unzip', () => {
       abortController.abort()
     }, 10)
 
-    await unzipFile({
-      filePath: `${__dirname}/../test_data/test.tar.xz`,
-      unzipDir: installDir,
-      onProgress: progress,
-      abortSignal: abortController.signal
-    })
-      .then(() => {
-        failed = true
+    await expect(
+      unzipFile({
+        filePath: `${__dirname}/../test_data/test.tar.xz`,
+        unzipDir: installDir,
+        onProgress: progress,
+        abortSignal: abortController.signal
       })
-      .catch((error) => {
-        expect(error).toBe('AbortError')
-      })
+    ).rejects.toStrictEqual('AbortError')
 
     if (existsSync(installDir)) {
       rmSync(installDir, { recursive: true })
-    }
-
-    if (failed) {
-      throw Error('No error should be thrown!')
     }
   })
 
   test('unzip tar.xz file succeesfully', async () => {
     const progress = jest.fn()
     const installDir = __dirname + '/test_unzip'
-    let failed = false
 
     if (!existsSync(installDir)) {
       mkdirSync(installDir)
     }
 
-    await unzipFile({
-      filePath: `${__dirname}/../test_data/test.tar.xz`,
-      unzipDir: installDir,
-      onProgress: progress
-    })
-      .then((response) => {
-        expect(response).toBe(
-          `Succesfully unzip ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.xz to ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip.`
-        )
+    await expect(
+      unzipFile({
+        filePath: `${__dirname}/../test_data/test.tar.xz`,
+        unzipDir: installDir,
+        onProgress: progress
       })
-      .catch(() => {
-        failed = true
-      })
+    ).resolves.toMatchInlineSnapshot(
+      `"Succesfully unzip /home/niklas/Repository/HeroicGamesLauncher/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.xz to /home/niklas/Repository/HeroicGamesLauncher/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip."`
+    )
 
     if (existsSync(installDir)) {
       rmSync(installDir, { recursive: true })
-    }
-
-    if (failed) {
-      throw Error('No error should be thrown!')
     }
   })
 
   test('unzip tar.gz file succeesfully', async () => {
     const progress = jest.fn()
     const installDir = __dirname + '/test_unzip'
-    let failed = false
 
     if (!existsSync(installDir)) {
       mkdirSync(installDir)
     }
 
-    await unzipFile({
-      filePath: `${__dirname}/../test_data/test.tar.gz`,
-      unzipDir: installDir,
-      onProgress: progress
-    })
-      .then((response) => {
-        expect(response).toBe(
-          `Succesfully unzip ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.gz to ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip.`
-        )
+    await expect(
+      unzipFile({
+        filePath: `${__dirname}/../test_data/test.tar.gz`,
+        unzipDir: installDir,
+        onProgress: progress
       })
-      .catch(() => {
-        failed = true
-      })
+    ).resolves.toMatchInlineSnapshot(
+      `"Succesfully unzip /home/niklas/Repository/HeroicGamesLauncher/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.gz to /home/niklas/Repository/HeroicGamesLauncher/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip."`
+    )
+
     if (existsSync(installDir)) {
       rmSync(installDir, { recursive: true })
-    }
-
-    if (failed) {
-      throw Error('No error should be thrown!')
     }
   })
 
   test('unzip tar.gz file twice to the same direction succeesfully', async () => {
     const progress = jest.fn()
     const installDir = __dirname + '/test_unzip'
-    let failed = false
 
     if (!existsSync(installDir)) {
       mkdirSync(installDir)
     }
 
-    await unzipFile({
-      filePath: `${__dirname}/../test_data/test.tar.gz`,
-      unzipDir: installDir,
-      onProgress: progress
-    })
-      .then((response) => {
-        expect(response).toBe(
-          `Succesfully unzip ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.gz to ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip.`
-        )
+    await expect(
+      unzipFile({
+        filePath: `${__dirname}/../test_data/test.tar.gz`,
+        unzipDir: installDir,
+        onProgress: progress
       })
-      .catch(() => {
-        failed = true
-      })
+    ).resolves.toMatchInlineSnapshot(
+      `"Succesfully unzip /home/niklas/Repository/HeroicGamesLauncher/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.gz to /home/niklas/Repository/HeroicGamesLauncher/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip."`
+    )
 
-    await unzipFile({
-      filePath: `${__dirname}/../test_data/test.tar.gz`,
-      unzipDir: installDir,
-      overwrite: true,
-      onProgress: progress
-    })
-      .then((response) => {
-        expect(response).toBe(
-          `Succesfully unzip ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.gz to ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip.`
-        )
+    await expect(
+      unzipFile({
+        filePath: `${__dirname}/../test_data/test.tar.gz`,
+        unzipDir: installDir,
+        overwrite: true,
+        onProgress: progress
       })
-      .catch(() => {
-        failed = true
-      })
+    ).resolves.toMatchInlineSnapshot(
+      `"Succesfully unzip /home/niklas/Repository/HeroicGamesLauncher/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.gz to /home/niklas/Repository/HeroicGamesLauncher/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip."`
+    )
 
     if (existsSync(installDir)) {
       rmSync(installDir, { recursive: true })
-    }
-
-    if (failed) {
-      throw Error('No error should be thrown!')
     }
 
     expect(progress).toBeCalledWith('unzipping')

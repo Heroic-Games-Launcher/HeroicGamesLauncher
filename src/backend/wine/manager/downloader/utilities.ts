@@ -52,6 +52,21 @@ async function fetchReleases({
 
           releases.push(release_data)
         }
+
+        // add latest to list
+        releases.unshift({
+          version: releases[0].version.replace(
+            /[0-9]+[-|.]+[0-9]+/m,
+            '-latest'
+          ),
+          type: releases[0].type,
+          date: releases[0].date,
+          download: releases[0].download,
+          downsize: releases[0].downsize,
+          disksize: releases[0].disksize,
+          checksum: releases[0].checksum
+        })
+
         resolve(releases)
       })
       .catch((error) => {

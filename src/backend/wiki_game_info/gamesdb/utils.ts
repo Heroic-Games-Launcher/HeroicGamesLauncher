@@ -49,7 +49,10 @@ export async function getGamesdbData(
       .get(url, { headers: headers })
       .catch((error) => {
         logError(
-          [`Was not able to get GamesDB data for ${game_id}`, error],
+          [
+            `Was not able to get GamesDB data for ${game_id}`,
+            error.response.data.error_description
+          ],
           LogPrefix.ExtraGameInfo
         )
         return null
