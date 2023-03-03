@@ -28,8 +28,8 @@ describe('Utilities - Download', () => {
         downsize: 100000,
         onProgress: progress
       })
-    ).rejects.toMatchInlineSnapshot(
-      `"Download path /home/niklas/Repository/HeroicGamesLauncher/src/backend/wine/manager/downloader/__tests__/utilities/download.test.ts is not a directory!"`
+    ).rejects.toStrictEqual(
+      `Download path ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/download.test.ts is not a directory!`
     )
   })
 
@@ -78,8 +78,8 @@ describe('Utilities - Download', () => {
         downsize: 100000,
         onProgress: progress
       })
-    ).resolves.toMatchInlineSnapshot(
-      `"Succesfully downloaded file:////home/niklas/Repository/HeroicGamesLauncher/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.xz to /home/niklas/Repository/HeroicGamesLauncher/src/backend/wine/manager/downloader/__tests__/utilities/test_download/test.tar.xz."`
+    ).resolves.toStrictEqual(
+      `Succesfully downloaded file:///${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.xz to ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/test_download/test.tar.xz.`
     )
 
     if (existsSync(installDir)) {

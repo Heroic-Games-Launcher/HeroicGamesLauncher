@@ -84,8 +84,8 @@ describe('Utilities - Unzip', () => {
         unzipDir: installDir,
         onProgress: progress
       })
-    ).resolves.toMatchInlineSnapshot(
-      `"Succesfully unzip /home/niklas/Repository/HeroicGamesLauncher/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.xz to /home/niklas/Repository/HeroicGamesLauncher/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip."`
+    ).resolves.toStrictEqual(
+      `Succesfully unzip ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.xz to ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip.`
     )
 
     if (existsSync(installDir)) {
@@ -107,8 +107,8 @@ describe('Utilities - Unzip', () => {
         unzipDir: installDir,
         onProgress: progress
       })
-    ).resolves.toMatchInlineSnapshot(
-      `"Succesfully unzip /home/niklas/Repository/HeroicGamesLauncher/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.gz to /home/niklas/Repository/HeroicGamesLauncher/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip."`
+    ).resolves.toStrictEqual(
+      `Succesfully unzip ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.gz to ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip.`
     )
 
     if (existsSync(installDir)) {
@@ -130,8 +130,8 @@ describe('Utilities - Unzip', () => {
         unzipDir: installDir,
         onProgress: progress
       })
-    ).resolves.toMatchInlineSnapshot(
-      `"Succesfully unzip /home/niklas/Repository/HeroicGamesLauncher/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.gz to /home/niklas/Repository/HeroicGamesLauncher/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip."`
+    ).resolves.toStrictEqual(
+      `Succesfully unzip ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.gz to ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip.`
     )
 
     await expect(
@@ -141,8 +141,8 @@ describe('Utilities - Unzip', () => {
         overwrite: true,
         onProgress: progress
       })
-    ).resolves.toMatchInlineSnapshot(
-      `"Succesfully unzip /home/niklas/Repository/HeroicGamesLauncher/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.gz to /home/niklas/Repository/HeroicGamesLauncher/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip."`
+    ).resolves.toStrictEqual(
+      `Succesfully unzip ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.gz to ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip.`
     )
 
     if (existsSync(installDir)) {
