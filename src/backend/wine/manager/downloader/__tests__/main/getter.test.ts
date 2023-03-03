@@ -3,6 +3,8 @@ import { getAvailableVersions } from '../../main'
 import { test_data_release_list } from '../test_data/github-api-test-data.json'
 import * as axios from 'axios'
 
+jest.mock('backend/logger/logger')
+
 describe('Main - GetAvailableVersions', () => {
   test('fetch releases succesfully', async () => {
     axios.default.get = jest.fn().mockResolvedValue(test_data_release_list)

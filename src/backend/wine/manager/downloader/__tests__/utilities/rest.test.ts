@@ -1,6 +1,8 @@
 import { existsSync, writeFileSync } from 'graceful-fs'
 import { getFolderSize, unlinkFile } from '../../utilities'
 
+jest.mock('backend/logger/logger')
+
 const workDir = process.cwd()
 
 // run test
@@ -25,7 +27,7 @@ describe('Utilities - Rest', () => {
       throw Error('No error should be thrown!')
     } catch (error) {
       expect(String(error)).toBe(
-        `Error: Couldn't remove ${workDir}/src/backend/wine/manager/downloader/__test__/utilities!`
+        `Error: Couldn't remove ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities!`
       )
     }
   })

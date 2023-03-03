@@ -11,6 +11,8 @@ import * as axios from 'axios'
 import * as crypto from 'crypto'
 import { clearInterval } from 'timers'
 
+jest.mock('backend/logger/logger')
+
 const workDir = process.cwd()
 
 describe('Main - InstallVersion', () => {
@@ -63,7 +65,7 @@ describe('Main - InstallVersion', () => {
       })
       .catch((error) => {
         expect(error.message).toBe(
-          `Installation directory ${workDir}/src/backend/wine/manager/downloader/__test__/main/install.test.ts is not a directory!`
+          `Installation directory ${workDir}/src/backend/wine/manager/downloader/__tests__/main/install.test.ts is not a directory!`
         )
       })
   })
