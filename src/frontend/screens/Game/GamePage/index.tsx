@@ -9,6 +9,7 @@ import {
   getInstallInfo,
   getProgress,
   launch,
+  readGOGGameInfoFile,
   sendKill,
   size,
   updateGame
@@ -22,6 +23,7 @@ import { ReactComponent as SettingsIcoAlt } from 'frontend/assets/settings_icon_
 import {
   ExtraInfo,
   GameInfo,
+  LaunchOption,
   Runner,
   SideloadGame,
   WineInstallation
@@ -90,6 +92,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [gameInstallInfo, setGameInstallInfo] = useState<
     LegendaryInstallInfo | GogInstallInfo | null
   >(null)
+  const [launchOptions, setLaunchOptions] = useState<LaunchOption[]>([])
   const [launchArguments, setLaunchArguments] = useState('')
   const [hasError, setHasError] = useState<{
     error: boolean
@@ -158,6 +161,37 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 throw 'Cannot get game info'
               }
               setGameInstallInfo(info)
+              if (
+                runner === 'gog' &&
+                (info?.game?.launch_options || []).length === 0
+              ) {
+                readGOGGameInfoFile(appName)
+                  .then((infoFile) => {
+                    const newLaunchOptions: LaunchOption[] = []
+                    infoFile?.playTasks.forEach((task, index) => {
+                      if (
+                        task.type === 'FileTask' &&
+                        !task?.isHidden &&
+                        task.category !== 'document'
+                      ) {
+                        newLaunchOptions.push({
+                          name: task?.name || infoFile.name,
+                          parameters: `--force-task ${index}` // gogdl parameter to launch specific task
+                        })
+                      }
+                    })
+                    if (newLaunchOptions.length < 2) {
+                      return
+                    }
+                    setLaunchOptions(newLaunchOptions)
+                  })
+                  .catch((error) => {
+                    console.error(error)
+                    window.api.logError(`${error}`)
+                  })
+              } else {
+                setLaunchOptions(info?.game?.launch_options)
+              }
             })
             .catch((error) => {
               console.error(error)
@@ -250,7 +284,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
     const installSize =
       gameInstallInfo?.manifest?.disk_size &&
       size(Number(gameInstallInfo?.manifest?.disk_size))
-    const launchOptions = gameInstallInfo?.game?.launch_options || []
 
     const isMac = ['osx', 'Mac']
     const isMacNative = isMac.includes(installPlatform ?? '')

@@ -31,7 +31,11 @@ import {
   ExtraInfo
 } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'
-import { GOGCloudSavesLocation, GogInstallInfo } from 'common/types/gog'
+import {
+  GOGCloudSavesLocation,
+  GOGGameDotInfoFile,
+  GogInstallInfo
+} from 'common/types/gog'
 
 /**
  * Some notes here:
@@ -237,6 +241,9 @@ interface AsyncIPCFunctions {
   }) => Promise<boolean>
   toggleDXVK: (args: ToolArgs) => Promise<boolean>
   pathExists: (path: string) => Promise<boolean>
+  readGOGGameInfoFile: (
+    appName: string
+  ) => Promise<GOGGameDotInfoFile | undefined>
 }
 
 // This is quite ugly & throws a lot of errors in a regular .ts file

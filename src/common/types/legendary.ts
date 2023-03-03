@@ -1,5 +1,7 @@
 // Types specifically for Legendary/Epic
 
+import { LaunchOption } from 'common/types'
+
 // Possible platforms for `legendary list --platform`
 export type LegendaryInstallPlatform = 'Windows' | 'Win32' | 'Mac'
 
@@ -138,11 +140,6 @@ interface GameInstallInfo {
   platform_versions: Record<LegendaryInstallPlatform, string>
   title: string
   version: string
-}
-
-interface LaunchOption {
-  name: string
-  parameters: string
 }
 
 interface DLCInfo {

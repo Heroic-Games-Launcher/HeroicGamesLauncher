@@ -174,7 +174,10 @@ const launch = async ({
       return window.api.launch({
         appName,
         runner,
-        launchArguments: runner === 'legendary' ? '--skip-version-check' : ''
+        launchArguments:
+          launchArguments +
+          ' ' +
+          (runner === 'legendary' ? '--skip-version-check' : '')
       })
     }
 
@@ -202,7 +205,10 @@ const launch = async ({
                 window.api.launch({
                   appName,
                   runner,
-                  launchArguments: '--skip-version-check'
+                  launchArguments:
+                    launchArguments +
+                    ' ' +
+                    (runner === 'legendary' ? '--skip-version-check' : '')
                 })
               )
             }

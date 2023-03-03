@@ -1474,6 +1474,10 @@ ipcMain.handle('syncGOGSaves', async (event, gogSaves, appName, arg) =>
   getGame(appName, 'gog').syncSaves(arg, '', gogSaves)
 )
 
+ipcMain.handle('readGOGGameInfoFile', async (event, appName: string) =>
+  GOGLibrary.get().readInfoFile(appName)
+)
+
 ipcMain.handle(
   'syncSaves',
   async (event, { arg = '', path, appName, runner }) => {
