@@ -41,7 +41,7 @@
   background: var(--background-darker);
   position: sticky;
   top: 0px;
-  z-index: 5;
+  z-index: 9;
   height: 46px;
 }
 
