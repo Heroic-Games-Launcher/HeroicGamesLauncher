@@ -24,8 +24,8 @@ describe('Utilities - Rest', () => {
   test('unlink of folder fails', async () => {
     expect(() => {
       unlinkFile(__dirname)
-    }).toThrowErrorMatchingInlineSnapshot(
-      `"Couldn't remove /home/niklas/Repository/HeroicGamesLauncher/src/backend/wine/manager/downloader/__tests__/utilities!"`
+    }).toThrowError(
+      `Couldn't remove ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities!`
     )
   })
 
