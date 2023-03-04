@@ -881,11 +881,11 @@ ipcMain.handle('requestSettings', async (event, appName) => {
 })
 
 ipcMain.handle('toggleDXVK', async (event, { appName, action }) =>
-  DXVK.installRemove(
-    await GameConfig.get(appName).getSettings(),
-    'dxvk',
-    action
-  )
+  GameConfig.get(appName)
+    .getSettings()
+    .then(async (gameSettings) =>
+      DXVK.installRemove(gameSettings, 'dxvk', action)
+    )
 )
 
 ipcMain.on('toggleVKD3D', (event, { appName, action }) => {
