@@ -7,7 +7,8 @@ import {
   StatusPromise,
   GamepadInputEvent,
   DMQueueElement,
-  GameInfo
+  GameInfo,
+  Runner
 } from 'common/types'
 import * as path from 'path'
 import {
@@ -145,7 +146,6 @@ import {
   getMainWindow,
   sendFrontendMessage
 } from './main_window'
-import { isGameAvailable } from './api/helpers'
 
 const { showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -236,6 +236,22 @@ async function initializeWindow(): Promise<BrowserWindow> {
   })
 
   return mainWindow
+}
+
+function isGameAvailable(args: { appName: string; runner: Runner }) {
+  const { appName, runner } = args
+  if (runner === 'sideload') {
+    return isAppAvailable(appName)
+  }
+  const info = getGame(appName, runner).getGameInfo()
+  if (info && info.is_installed) {
+    if (info.install.install_path && existsSync(info.install.install_path!)) {
+      return true
+    } else {
+      return false
+    }
+  }
+  return false
 }
 
 // This method will be called when Electron has finished
@@ -630,7 +646,7 @@ ipcMain.handle('checkGameUpdates', async (): Promise<string[]> => {
       const gameInfo = game.getGameInfo()
       if (
         !ignoreGameUpdates &&
-        (await isGameAvailable({ appName, runner: gameInfo.runner }))
+        isGameAvailable({ appName, runner: gameInfo.runner })
       ) {
         logInfo(`Auto-Updating ${gameInfo.title}`, LogPrefix.Legendary)
         const dmQueueElement: DMQueueElement = getDMElement(gameInfo, appName)
@@ -650,7 +666,7 @@ ipcMain.handle('checkGameUpdates', async (): Promise<string[]> => {
       const gameInfo = game.getGameInfo()
       if (
         !ignoreGameUpdates &&
-        (await isGameAvailable({ appName, runner: gameInfo.runner }))
+        isGameAvailable({ appName, runner: gameInfo.runner })
       ) {
         logInfo(`Auto-Updating ${gameInfo.title}`, LogPrefix.Gog)
         const dmQueueElement: DMQueueElement = getDMElement(gameInfo, appName)
@@ -725,19 +741,7 @@ ipcMain.on('createNewWindow', (e, url) => {
 })
 
 ipcMain.handle('isGameAvailable', async (e, args) => {
-  const { appName, runner } = args
-  if (runner === 'sideload') {
-    return isAppAvailable(appName)
-  }
-  const info = getGame(appName, runner).getGameInfo()
-  if (info && info.is_installed) {
-    if (info.install.install_path && existsSync(info.install.install_path!)) {
-      return true
-    } else {
-      return false
-    }
-  }
-  return false
+  return isGameAvailable(args)
 })
 
 ipcMain.handle('getGameInfo', async (event, appName, runner) => {
