@@ -181,6 +181,7 @@
     },
     "docs": "Documentation",
     "download-manager": {
+        "ETA": "Estimated time",
         "install-type": {
             "install": "Install",
             "update": "Update"
@@ -196,8 +197,7 @@
             "start-time": "Started at",
             "type": "Type"
         },
-        "title": "Downloads",
-        "ETA": "Estimated time"
+        "title": "Downloads"
     },
     "epic": {
         "offline-notification-body": "Online services may not work fully as Epic Games servers are offline!",
