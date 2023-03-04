@@ -196,7 +196,8 @@
             "start-time": "Started at",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "ETA": "Estimated time"
     },
     "epic": {
         "offline-notification-body": "Online services may not work fully as Epic Games servers are offline!",
