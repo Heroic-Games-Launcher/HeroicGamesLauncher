@@ -176,7 +176,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       ) {
                         newLaunchOptions.push({
                           name: task?.name || infoFile.name,
-                          parameters: `--force-task ${index}` // gogdl parameter to launch specific task
+                          parameters: `--prefer-task ${index}` // gogdl parameter to launch specific task
                         })
                       }
                     })
