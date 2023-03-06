@@ -78,7 +78,11 @@
                 "message": "Winetricks a renvoyé l'erreur suivante lors de son exécution :{{newLine}}{{error}}",
                 "title": "Erreur Winetricks"
             },
-            "moving": "Erreur lors du déplacement du jeu {{error}}"
+            "moving": "Erreur lors du déplacement du jeu {{error}}",
+            "ubisoft-connect": {
+                "message": "L'installation d'Ubisoft Connect dans le préfixe du jeu a échoué. Consultez notre page wiki sur https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac pour l'installer manuellement.",
+                "title": "Connexion Ubisoft"
+            }
         },
         "info": {
             "update": {
@@ -548,7 +552,7 @@
         "showfps": "Afficher les FPS (DX9, 10 et 11)",
         "start-in-tray": "Réduire au démarrage",
         "steamruntime": "Utiliser le runtime Steam",
-        "winecrossoverbottle": "Préfixe CrossOver",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Dossier WinePrefix",
         "wineversion": "Version de Wine",
         "autoUpdateGames": "Mettre les jeux à jour automatiquement",
