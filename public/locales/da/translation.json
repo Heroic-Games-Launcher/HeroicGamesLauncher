@@ -74,7 +74,11 @@
                 "title": "Vælg EXE til at køre",
                 "message": "generisk fejlmeddelelse"
             },
-            "moving": "Fejl ved flytning af spil {{error}}"
+            "moving": "Fejl ved flytning af spil {{error}}",
+            "ubisoft-connect": {
+                "message": "Installation af Ubisoft Connect i spillets præfiks mislykkedes. Tjek vores wiki-side på https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac for at installere det manuelt.",
+                "title": "Ubisoft Connect"
+            }
         },
         "info": {
             "update": {
