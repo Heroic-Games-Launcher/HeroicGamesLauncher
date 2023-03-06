@@ -78,7 +78,11 @@
                 "message": "أرجع واين.تركس الخطأ التالي أثناء التنفيذ: {{newLine}} {{error}}",
                 "title": "خطأ واين.تركس"
             },
-            "moving": "خطأ في نقل اللعبة {{error}}"
+            "moving": "خطأ في نقل اللعبة {{error}}",
+            "ubisoft-connect": {
+                "title": "يوبيسوفت كنكت",
+                "message": "فشل تثبيت يوبيسوفت كنكت في سابقة اللعبة. طالع صفحة الوِيكي https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac لتثبِّته يدويًّا."
+            }
         },
         "info": {
             "update": {
@@ -548,7 +552,7 @@
         "showfps": "عرض معدل الإطارات (دايركت.إكس 9 و 10 و 11)",
         "start-in-tray": "ابدأ مصغرًا",
         "steamruntime": "استخدم بيئة تشغيل ستيم",
-        "winecrossoverbottle": "قارورة كروس.أوفر",
+        "winecrossoverbottle": "قارورة كروس‌أوفر",
         "wineprefix": "مجلد سابقة واين",
         "wineversion": "إصدار واين",
         "autoUpdateGames": "حدِّث الألعاب تلقائيًّا",
