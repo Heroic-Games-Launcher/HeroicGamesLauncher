@@ -22,15 +22,15 @@ export default function ProgressHeader(props: {
   const { t } = useTranslation()
   const [progress] = hasProgress(props.appName)
   const [avgSpeed, setAvgDownloadSpeed] = useState<Point[]>(
-    Array<Point>(10).fill({ download: 0, disk: 0 })
+    Array<Point>(20).fill({ download: 0, disk: 0 })
   )
 
   useEffect(() => {
     if (!props.downloading) {
-      setAvgDownloadSpeed(Array<Point>(10).fill({ download: 0, disk: 0 }))
+      setAvgDownloadSpeed(Array<Point>(20).fill({ download: 0, disk: 0 }))
       return
     }
-    if (avgSpeed.length > 9) {
+    if (avgSpeed.length > 19) {
       avgSpeed.shift()
     }
 

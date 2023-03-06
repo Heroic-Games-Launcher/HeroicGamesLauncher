@@ -32,7 +32,9 @@ export function getStatusLabel({
     installed: `${t('gamepage:status.installed')} ${
       runner === 'sideload' ? '' : size
     }`,
-    notInstalled: t('gamepage:status.notinstalled')
+    notInstalled: t('gamepage:status.notinstalled'),
+    launching: t('gamepage:status.launching', 'Launching'),
+    ubisoft: t('gamepage:status.ubisoft', 'Installing Ubisoft')
   }
 
   return statusMap[status] || t('gamepage:status.notinstalled')
