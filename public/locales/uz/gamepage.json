@@ -1,0 +1,216 @@
+{
+    "sideload": {
+        "placeholder": {
+            "title": "O'yin/ilovangizga sarlavha qo'shing",
+            "image": "Tasvir URL manzilini bu yerga joylashtiring"
+        },
+        "field": {
+            "title": "Sarlavha"
+        },
+        "info": {
+            "exe": "Bajariladigan ni tanlang",
+            "image": "Ilova tasviri",
+            "title": "O'yin/ilova nomi"
+        }
+    },
+    "specs": {
+        "minimum": "Eng kam",
+        "recommended": "Tavsiya etilgan"
+    },
+    "status": {
+        "clickToUpdate": "Yangilash uchun bosing",
+        "gameNotAvailable": "Oʻyin mavjud emas",
+        "hasUpdates": "Yangi versiya mavjud!",
+        "installed": "Oʻrnatilgan",
+        "installing": "Oʻrnatilmoqda",
+        "launching": "Ishga tushirilmoqda",
+        "moving": "Oʻrnatish koʻchirilmoqda, kuting",
+        "notSupported": "Qo'llab-quvvatlanmaydi",
+        "moving-files": "\"{{file}}\" fayli ko'chirilmoqda: {{percent}} ",
+        "notinstalled": "Bu oʻyin oʻrnatilmagan",
+        "notSupportedGame": "Qo'llab-quvvatlanmaydi",
+        "playing": "Oʻynamoqda",
+        "processing": "Fayllarga ishlov berilmoqda, kuting",
+        "queued": "Navbatda",
+        "reparing": "Oʻyin taʼmirlanmoqda, kuting",
+        "syncingSaves": "Saqlashlarni sinxronlash",
+        "this-game-uses-third-party": "Bu oʻyin uchinchi tomon ishga tushirgichidan foydalanadi va u hali qoʻllab-quvvatlanmaydi",
+        "totalDownloaded": "Jami yuklab olingan",
+        "ubisoft": "Ubisoft o'rnatilmoqda",
+        "uninstalling": "Oʻchirish",
+        "updating": "O'yin yangilanmoqda"
+    },
+    "box": {
+        "change": {
+            "message": "Bu oʻyinni oʻrnatish joyini oʻzgartiradi, ishonchingiz komilmi?",
+            "path": "Yangi o'rnatish yo'lini tanlang",
+            "title": "O'yinlarni o'rnatish yo'lini o'zgartiring"
+        },
+        "choose": "Tanlang",
+        "importpath": "Import qilish uchun o'yin papkasini tanlang",
+        "move": {
+            "message": "Bu uzoq vaqt talab qilishi mumkin, ishonchingiz komilmi?",
+            "path": "Qayerga ko'chmoqchi bo'lganingizni tanlang",
+            "title": "O'yinni ko'chirish"
+        },
+        "no": "YO'Q",
+        "repair": {
+            "message": "Ushbu o'yinni tuzatishga harakat qilmoqchimisiz? Bu uzoq vaqt talab qilishi mumkin.",
+            "title": "Tasdiqlash va ta'mirlash"
+        },
+        "runexe": {
+            "title": "Ishga tushirish uchun EXE ni tanlang"
+        },
+        "select": {
+            "button": "Tanlang"
+        },
+        "sideload": {
+            "exe": "Bajariladigan ni tanlang"
+        },
+        "stopInstall": {
+            "keepInstalling": "Oʻrnatishda davom eting",
+            "message": "Yuklab olingan fayllarni SAQLASHNI hohlaysizmi?",
+            "title": "O'rnatishni to'xtatish"
+        },
+        "uninstall": {
+            "checkbox": "Prefiksni olib tashlash: {{prefix}}{{newLine}}Izoh: Buni ortga qaytarib boʻlmaydi va zaxiralanmagan saqlangan fayllar ham olib tashlanadi.",
+            "message": "Bu oʻyinni oʻchirib tashlamoqchimisiz?",
+            "prefix_warning": "Ushbu o'yin uchun Wine prefiksi standart prefiksdir. Agar siz haqiqatan ham uni o'chirmoqchi bo'lsangiz, uni qo'lda qilishingiz kerak.",
+            "settingcheckbox": "Sozlamalarni oʻchirish va jurnalni oʻchirish{{newLine}}Izoh: Buni ortga qaytarib boʻlmaydi. Har qanday o'zgartirilgan sozlamalar unutiladi va jurnal o'chiriladi.",
+            "title": "Oʻchirish"
+        },
+        "update": {
+            "message": "Bu oʻyinda yangilanish bor, yangilanish hozir qoʻllanilsinmi?",
+            "title": "O'yin yangilanishi kerak"
+        },
+        "wineprefix": "WinePrefix papkasini tanlang",
+        "yes": "HA"
+    },
+    "button": {
+        "add_to_favourites": "Sevimlilarga qo'shish",
+        "cancel": "Pauza/Bekor qilish",
+        "continue": "Yuklab olishda davom eting",
+        "details": "Tafsilotlar",
+        "finish": "Tugatish",
+        "force_update": "Mavjud bo'lsa, yangilashni majburlash",
+        "force-innstall": "Majburiy o'rnatish",
+        "hide_game": "O'yinni yashirish",
+        "import": "Import o'yin",
+        "install": "O'rnatish",
+        "no-path-selected": "Hech qanday yoʻl tanlanmagan",
+        "queue": {
+            "remove": "Navbatdan olib tashlash"
+        },
+        "remove_from_favourites": "Sevimlilardan olib tashlash",
+        "remove_from_recent": "Oxirgidan olib tashlash",
+        "run-exe-first": "Avval o'rnatuvchini ishga tushiring",
+        "running-setup": "O'rnatishni ishga tushirish",
+        "sideload": {
+            "edit": "Ilova/o‘yinni tahrirlash"
+        },
+        "unhide_game": "O'yinni ko'rsatish",
+        "uninstall": "Oʻchirish",
+        "update": "Yangilash"
+    },
+    "cloud_save_unsupported": "Qo'llab-quvvatlanmaydi",
+    "disabled": "O'chirilgan",
+    "dlc": {
+        "installDlcs": "Barcha DLC-larni o'rnating"
+    },
+    "enabled": "Yoqilgan",
+    "game": {
+        "downloadSize": "Yuklab olish hajmi",
+        "firstPlayed": "Birinchi o'ynagan",
+        "getting-download-size": "Yuklab olish hajmi",
+        "getting-install-size": "O'rnatish hajmini olish",
+        "installSize": "O'rnatish hajmi",
+        "language": "Til",
+        "lastPlayed": "Oxirgi oʻyin",
+        "neverPlayed": "Hech qachon",
+        "platform": "O'rnatish uchun platforma versiyasini tanlang",
+        "requirements": "Tizim talablari",
+        "totalPlayed": "O'yin vaqti"
+    },
+    "gamecard": {
+        "moving": "Harakatlanuvchi",
+        "repairing": "Ta'mirlash"
+    },
+    "generic": {
+        "error": "Noma'lum xato",
+        "noDescription": "Tavsif mavjud emas"
+    },
+    "help": {
+        "cloud_save_unsupported": "Bu o'yin bulutli saqlashni qo'llab-quvvatlamaydi. Ushbu ma'lumot o'yin ishlab chiquvchilari tomonidan taqdim etilgan. Ba'zi o'yinlar bulutli saqlash tizimini qo'llaydi"
+    },
+    "hours": "Soat",
+    "how-long-to-beat": {
+        "completionist": "Komplektsionist",
+        "main-plus-extras": "Asosiy + Qo'shimchalar",
+        "main-story": "Asosiy hikoya"
+    },
+    "howLongToBeat": "Qancha vaqt urish kerak",
+    "info": {
+        "canRunOffline": "Onlayn talab qilinadi",
+        "installedPlatform": "O'rnatilgan platforma",
+        "path": "Yo'lni o'rnatish",
+        "size": "Hajmi",
+        "syncsaves": "Saqlashlarni sinxronlash",
+        "version": "Versiya"
+    },
+    "install": {
+        "disk-space-left": "Bo'sh joy mavjud",
+        "not-enough-disk-space": "Diskda joy yetarli emas",
+        "path": "O'rnatish yo'lini tanlang",
+        "path-not-writtable": "Ogohlantirish: yo'l yozilmasligi mumkin.",
+        "space-after-install": "O'rnatishdan keyin",
+        "wineprefix": "WinePrefix",
+        "wineversion": "Vino versiyasi"
+    },
+    "label": {
+        "game": {
+            "third-party-game": "Uchinchi tomon oʻyinlari qoʻllab-quvvatlanmaydi"
+        },
+        "launching": "Ishga tushirilmoqda",
+        "playing": {
+            "start": "Hozir O'yna",
+            "stop": "Oʻynamoqda (Toʻxtatish)"
+        },
+        "saves": {
+            "syncing": "Saqlashlarni sinxronlash"
+        },
+        "ubisoft": "Ubisoft Connect o'rnatilmoqda"
+    },
+    "launch": {
+        "options": "Ishga tushirish parametrlari..."
+    },
+    "not_logged_in": {
+        "epic": "Siz Heroic-da Epic hisob qaydnomasi bilan tizimga kirmagansiz. Kirish uchun doʻkon sahifasidan foydalanmang, uning oʻrniga quyidagi tugmani bosing:",
+        "gog": "Siz Heroic-da GOG hisobi bilan tizimga kirmagansiz. Kirish uchun doʻkon sahifasidan foydalanmang, uning oʻrniga quyidagi tugmani bosing:",
+        "login": "Tizimga kirish",
+        "title": "Siz tizimga kirmadingiz"
+    },
+    "report_problem": "Ushbu o'yinni ishga tushirishda muammo haqida xabar bering",
+    "sdl": {
+        "title": "O'rnatish uchun komponentlarni tanlang"
+    },
+    "setting": {
+        "use-default-wine-settings": "Standart sharob sozlamalaridan foydalaning",
+        "winecrossoverbottle": "Krossover shishasi"
+    },
+    "submenu": {
+        "addShortcut": "Yorliq qo'shing",
+        "addToSteam": "Steam-ga qo'shing",
+        "change": "O'rnatish yo'lini o'zgartiring",
+        "disableEosOverlay": "EOS Overlay-ni o'chirib qo'ying",
+        "enableEosOverlay": "EOS Overlay-ni yoqing",
+        "extraInfo": "Qo'shimcha ma'lumot",
+        "logs": "Jurnallar",
+        "move": "Ko'chirish o'yin",
+        "protondb": "Muvofiqlikni tekshiring",
+        "removeFromSteam": "Steam-dan olib tashlang",
+        "removeShortcut": "Yorliqlarni olib tashlang",
+        "settings": "Sozlamalar",
+        "store": "Do'kon sahifasi",
+        "verify": "Tasdiqlash va ta'mirlash"
+    }
+}

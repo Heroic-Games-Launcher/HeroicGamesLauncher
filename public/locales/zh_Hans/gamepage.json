@@ -132,7 +132,9 @@
         },
         "saves": {
             "syncing": "存档同步中"
-        }
+        },
+        "launching": "发射",
+        "ubisoft": "安装育碧连接"
     },
     "launch": {
         "options": "启动选项..."
@@ -188,7 +190,9 @@
         "updating": "游戏更新中",
         "playing": "播放",
         "moving-files": "移动文件“{{file}}”：{{percent}} ",
-        "syncingSaves": "存档同步中"
+        "syncingSaves": "存档同步中",
+        "launching": "发射",
+        "ubisoft": "安装育碧"
     },
     "submenu": {
         "addShortcut": "添加快捷方式",

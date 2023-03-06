@@ -132,7 +132,9 @@
         },
         "saves": {
             "syncing": "Synkroniserar sparfiler"
-        }
+        },
+        "launching": "Sjösättning",
+        "ubisoft": "Installera Ubisoft Connect"
     },
     "launch": {
         "options": "Startalternativ..."
@@ -188,7 +190,9 @@
         "updating": "Updaterar spelet",
         "playing": "Spelar",
         "moving-files": "Flyttar filen '{{file}}': {{percent}} ",
-        "syncingSaves": "Synkroniserar sparfiler"
+        "syncingSaves": "Synkroniserar sparfiler",
+        "launching": "Sjösättning",
+        "ubisoft": "Installerar Ubisoft"
     },
     "submenu": {
         "addShortcut": "Skapa genväg",

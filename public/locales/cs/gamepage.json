@@ -132,7 +132,9 @@
         },
         "saves": {
             "syncing": "Synchronizuji uložené soubory"
-        }
+        },
+        "launching": "Spouštění",
+        "ubisoft": "Instalace Ubisoft Connect"
     },
     "launch": {
         "options": "Možnosti spuštění..."
@@ -188,7 +190,9 @@
         "updating": "Aktualizuji hru",
         "playing": "Hraní",
         "moving-files": "Přesouvání souboru '{{file}}': {{percent}} ",
-        "syncingSaves": "Synchronizuji uložené soubory"
+        "syncingSaves": "Synchronizuji uložené soubory",
+        "launching": "Spouštění",
+        "ubisoft": "Instalace Ubisoftu"
     },
     "submenu": {
         "addShortcut": "Přidat zástupce",

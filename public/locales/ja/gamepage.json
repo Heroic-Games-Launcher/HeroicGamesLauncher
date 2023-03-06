@@ -132,7 +132,9 @@
         },
         "saves": {
             "syncing": "保存を同期しています"
-        }
+        },
+        "launching": "起動中",
+        "ubisoft": "Ubisoft Connect のインストール"
     },
     "launch": {
         "options": "Launch Options..."
@@ -188,7 +190,9 @@
         "updating": "ゲームを更新しています",
         "playing": "遊んでいる",
         "moving-files": "移動ファイル '{{file}}': {{percent}} ",
-        "syncingSaves": "保存を同期しています"
+        "syncingSaves": "保存を同期しています",
+        "launching": "起動中",
+        "ubisoft": "Ubisoft のインストール"
     },
     "submenu": {
         "addShortcut": "ショートカットを追加する",
