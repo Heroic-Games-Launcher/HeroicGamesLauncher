@@ -84,7 +84,9 @@ export default function SIDLogin({ backdropClick }: Props) {
                 </Typography>
                 <Stack direction="row" spacing={1}>
                   <Button
-                    color={linkCopied ? 'success' : 'info'}
+                    className={
+                      linkCopied ? 'icon-button-success' : 'icon-button'
+                    }
                     onClick={handleCopyLink}
                     endIcon={<LinkIcon fontSize="small" />}
                     variant="outlined"
@@ -93,6 +95,7 @@ export default function SIDLogin({ backdropClick }: Props) {
                     {linkCopied ? t('button.copied') : t('button.copy')}
                   </Button>
                   <Button
+                    className="icon-button"
                     endIcon={<PublicIcon fontSize="small" />}
                     onClick={() => loginPage()}
                     size="small"
