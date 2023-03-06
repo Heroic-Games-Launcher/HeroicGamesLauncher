@@ -1,11 +1,11 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Сім'я шрифтів для дій (Типовий: ",
-        "all_tiles_in_color": "Показувати кольорові образці ігор",
-        "content_font_family_no_default": "Сім'я шрифтів для змісту (Типовий: ",
+        "actions_font_family_no_default": "Сімейство Шрифтів Для Дій (За Замовчуванням: ",
+        "all_tiles_in_color": "Відображати плитки ігор в кольорах",
+        "content_font_family_no_default": "Сімейство Шрифтів Для Вмісту (За Замовчуванням: ",
         "fonts": "Шрифти",
-        "title": "Спец. можливості",
-        "zoom": "Маштабування"
+        "title": "Доступність",
+        "zoom": "Збільшення"
     },
     "add_game": "Додати Гру",
     "All": "Всі",
@@ -78,7 +78,11 @@
                 "message": "Winetricks видала наступну помилку під час зупуску:{{newLine}}{{error}}",
                 "title": "Помилка Winetricks"
             },
-            "moving": "Помилка переміщення гри {{error}}"
+            "moving": "Помилка при переміщенні гри {{error}}",
+            "ubisoft-connect": {
+                "title": "Ubisoft Connect",
+                "message": "Не вдалося встановити Ubisoft Connect в ігровий префікс. Відвідайте нашу wiki-сторінку за адресою https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac та встановіть його вручну."
+            }
         },
         "info": {
             "update": {
@@ -91,15 +95,15 @@
             }
         },
         "no": "НІ",
-        "ok": "Гаразд",
+        "ok": "ОК",
         "protocol": {
             "install": {
                 "not_installed": "Наразі не встановлена, встановити?"
             }
         },
         "quit": {
-            "message": "Є очікувані операції, ви впевнені?",
-            "title": "Вийти"
+            "message": "Є незавершені операції, ви впевнені?",
+            "title": "Вихід"
         },
         "reset-heroic": {
             "question": {
@@ -108,7 +112,7 @@
             }
         },
         "runexe": {
-            "title": "Оберіть EXE для запуску"
+            "title": "Оберіть EXE Для Запуску"
         },
         "select": {
             "button": "Вибрати",
@@ -143,16 +147,16 @@
             },
             "title": "Увага",
             "wine-change": {
-                "message": "Нам не вдалося знайти вибрану версію вина, щоб запустити цю назву ({{selectedWine}}). {{newline}} Ми знайшли ще один, чи бажаєте ви продовжити запуск за допомогою {{foundWine}}?",
-                "title": "Вино не знайдено!"
+                "message": "Нам не вдалося знайти вибрану версію Wine ({{selectedWine}}) для запуску цієї гри. {{newline}} Ми знайшли іншу версію, чи бажаєте ви продовжити запуск із використанням {{foundWine}}?",
+                "title": "Wine не знайдено!"
             }
         },
         "wineprefix": "Оберіть теку префікса Wine",
         "yes": "ТАК",
-        "dontShowAgain": "Більше не показувати"
+        "dontShowAgain": "Не показувати більше"
     },
     "button": {
-        "cancel": "Відмінити",
+        "cancel": "Скасувати",
         "go_to_library": "Перейти до бібліотеки",
         "login": "Увійти",
         "sync": "Синхронізувати",
@@ -183,21 +187,21 @@
     "docs": "Документація",
     "download-manager": {
         "install-type": {
-            "install": "Install",
-            "update": "Update"
+            "install": "Установка",
+            "update": "Оновлення"
         },
         "label": {
             "disk": "Накопичувач",
-            "speed": "Download"
+            "speed": "Завантаження"
         },
-        "link": "Downloads",
+        "link": "Завантажені",
         "queue": {
             "end-time": "Закінчено о",
             "queue-time": "Додано в",
             "start-time": "Почато о",
-            "type": "Type"
+            "type": "Тип"
         },
-        "title": "Downloads"
+        "title": "Завантажені"
     },
     "epic": {
         "offline-notification-body": "Мережеві сервіси можуть не повністю працювати, тому що сервери Epic Games наразі недоступні!",
@@ -297,10 +301,10 @@
         "wine-repfix": {
             "message": "Wine використовує WINEPREFIX для інкапсуляції програм Windows. Цей префікс містить конфігураційні файли Wine та відтворення ієрархії файлів C: (основний диск в ОС Windows). У цьому відтворенні диска C: зберігаються ваші файли збереження гри та залежності для неї, встановлені за допомогою winetricks."
         },
-        "wine-path-invalid": "Wine Path недійсний, виберіть інший."
+        "wine-path-invalid": "Wine Path недійсний, будь ласка виберіть інший."
     },
     "install": {
-        "path": "Вкажіть шлях встановлення"
+        "path": "Вкажіть Шлях Встановлення"
     },
     "label": {
         "loading": "Завантаження"
@@ -374,8 +378,8 @@
     },
     "offline-message": {
         "hint": "Перевіряємо підключення до інтернету за допомогою сайтів:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com та{{newline}}cloudflare-dns.com",
-        "ignore": "Ignore",
-        "offline": "Offline",
+        "ignore": "Ігнорувати",
+        "offline": "Офлайн",
         "offline-retry-in": "Поза мережею. Повторна спроба через {{seconds}} секунд.",
         "retrying": "Пробуємо знову"
     },
@@ -383,9 +387,9 @@
     "options": {
         "advanced": {
             "key": "Ім'я змінного",
-            "placeHolderKey": "NAME",
+            "placeHolderKey": "ІМʼЯ",
             "placeHolderValue": "Приклад: шлях/до/додатковихфайлів",
-            "title": "Змінні середовища",
+            "title": "Змінні Середовища",
             "value": "Значення"
         },
         "env_variables": {
@@ -395,7 +399,7 @@
                 "space_in_key": "Змінні не можуть містити пробіли"
             },
             "example": "НЕ використовуйте знак \"=\". Наприклад для налаштування \"MY_FLAG=123\", установіть MY_FLAG у ІМ'Я (NAME) і 123 у ЗМІННЕ (VALUE).",
-            "info": "Встановіть змінні середовища. Вони додадуться у кінець команди запуску."
+            "info": "Встановіть змінні середовища, які будуть доступні в запущеному додатку."
         },
         "gameargs": {
             "placeholder": "Вкажіть тут команди запуску",
@@ -403,10 +407,10 @@
         },
         "quote-args-with-spaces": "Увага: Обов’язково вводьте команди в лапки якщо у них є пробіли! Приклад: \"шлях/з пробілами/\"",
         "wrapper": {
-            "args": "Команди",
-            "arguments_example": "Приклад команди: --arg; --extra-file=\"file-path/ with/spaces\"",
-            "exe": "Wrapper",
-            "placeHolderKey": "New Wrapper",
+            "args": "Аргументи",
+            "arguments_example": "Приклад аргументів: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "exe": "Обгортка",
+            "placeHolderKey": "Нова обгортка",
             "placeHolderValue": "Команди до Wrapper",
             "title": "Команда до Wrapper:"
         }
@@ -416,10 +420,10 @@
         "legendary-version": "Версія Legendary: ",
         "weblate": "Допоможіть перекласти Heroic."
     },
-    "Other": "Other",
+    "Other": "Інше",
     "placeholder": {
-        "alt-gogdl-bin": "Використання вбудованого двійкового до GOGDL...",
-        "alt-legendary-bin": "Використання вбудованого двійкового до Legendary...",
+        "alt-gogdl-bin": "Використовується вбудований двійковий GOGDL-файл...",
+        "alt-legendary-bin": "Використовується вбудований двійковий Legendary-файл...",
         "custom_themes_path": "Оберіть шлях до власних файлів CSS",
         "dxvkfpsvalue": "Ціле позитивне значення (наприклад: 30, 60, тощо)",
         "egs-prefix": "Префікс де встановлено EGS",
@@ -431,20 +435,20 @@
         "win": "Windows"
     },
     "please-wait": "Будь ласка, зачекайте...",
-    "progress": "Progress",
+    "progress": "Прогрес",
     "queue": {
         "label": {
             "canceled": "Скасовано",
-            "clear": "Очистити список",
+            "clear": "Очистити Список",
             "downloading": "Завантаження",
-            "empty": "Нічого завантажити",
-            "finished": "Завершено",
+            "empty": "Нічого завантажувати",
+            "finished": "Виконано",
             "queued": "У черзі",
-            "remove": "Прибрати з завантажень"
+            "remove": "Прибрати з Завантажених"
         }
     },
-    "Recent": "Нещодавно зіграні",
-    "search": "Пошук ігор",
+    "Recent": "Грали Нещодавно",
+    "search": "Пошук Ігор",
     "setting": {
         "adddesktopshortcuts": "Створювати ярлики на робочому столі автоматично",
         "addgamestostartmenu": "Додавати ігри до головного меню автоматично",
@@ -452,12 +456,12 @@
         "alt-gogdl-bin": "Обрати інший двійковий файл GOGDL",
         "alt-legendary-bin": "Обрати інший двійковий файл Legendary",
         "autodxvk": "Автоматично встановлювати/оновлювати DXVK на префіксі",
-        "autosync": "Автосинхронізувати збереження",
+        "autosync": "Автоматична Синхронізація Збережень",
         "autovkd3d": "Автоматично встановлювати/оновлювати VKD3D на префіксі",
         "change-target-exe": "Обрати для запуску альтернативний EXE файл",
         "checkForUpdatesOnStartup": "Перевіряти наявність оновлень Heroic під час запуску",
         "crossover-version": "Версія Crossover/Wine",
-        "custom_themes_path": "Шлях до власних тем",
+        "custom_themes_path": "Шлях до Користувацьких Тем",
         "customWineProton": "Інші шляхи до Wine/Proton",
         "darktray": "Використовувати темну піктограму на панелі",
         "default-install-path": "Стандартний шлях встановлення",
@@ -470,7 +474,7 @@
         "egs-sync": "Синхронізуватися із встановленим Epic Games Launcher",
         "enableFSRHack": "Ввімкнути FSR Hack (версія Wine має це підтримувати)",
         "eosOverlay": {
-            "cancelInstall": "Відмінити",
+            "cancelInstall": "Скасувати",
             "checkForUpdates": "Перевірити на оновлення",
             "checkingForUpdates": "Перевірка оновлень...",
             "currentVersion": "Поточна версія: {{version}}",
@@ -544,14 +548,14 @@
             "placeholder": "Вкажіть точну теку збережень для гри",
             "warning": "Будь ласка, перевірте двічі чи вказаний шлях правильний (клацніть, щоб повторити)"
         },
-        "select_theme": "Оберіть тему",
+        "select_theme": "Тема Оформлення",
         "showfps": "Показувати кількість кадрів (DX9, 10 та 11)",
         "start-in-tray": "Запускати згорнутим",
         "steamruntime": "Використовувати Steam Runtime",
-        "winecrossoverbottle": "Пляшка CrossOver",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Тека префікса Wine",
         "wineversion": "Версія Wine",
-        "autoUpdateGames": "Автоматичне оновлення ігор",
+        "autoUpdateGames": "Оновлювати ігри автоматично",
         "ignoreGameUpdates": "Ігнорувати оновлення гри"
     },
     "settings": {
@@ -568,13 +572,13 @@
                 "message": "GameMode потрібен для роботи EAC у Flatpak. Увімкнути це зараз?",
                 "title": "Потрібен GameMode"
             },
-            "installing": "Встановлення запускника EAC...",
-            "name": "Запускник EasyAntiCheat"
+            "installing": "Встановлення Середовища Виконання EAC...",
+            "name": "Середовище Виконання EasyAntiCheat"
         },
         "gameMode": {
             "eacRuntimeEnabled": {
-                "message": "Запускник EAC увімкнено, але він не працюватиме належним чином без GameMode. Бажаєте вимкнути запускник EAC та GameMode?",
-                "title": "Запускник EAC увімкнено"
+                "message": "Середовище виконання EAC увімкнено, але воно не працюватиме належним чином без GameMode. Бажаєте вимкнути середовище EAC та GameMode?",
+                "title": "Середовище виконання EAC увімкнено"
             }
         },
         "log": {
@@ -623,7 +627,7 @@
     },
     "tray": {
         "about": "Про застосунок",
-        "quit": "Закрити",
+        "quit": "Вийти",
         "reload": "Перезавантажити",
         "show": "Показати"
     },
@@ -636,10 +640,10 @@
         "logging_out": "Виходимо",
         "logout": "Вийти",
         "logout_confirmation": "Точно бажаєте вийти?",
-        "manageaccounts": "Облікові записи",
-        "quit": "Закрити",
-        "cancel": "Відмінити",
-        "quitMessage": "Ти впевнений що хочеш піти?"
+        "manageaccounts": "Облікові Записи",
+        "quit": "Вийти",
+        "cancel": "Скасувати",
+        "quitMessage": "Ви впевнені, що хочете вийти?"
     },
     "webview": {
         "controls": {
@@ -652,16 +656,16 @@
     "wine": {
         "actions": "Дія",
         "manager": {
-            "link": "Керування Wine",
-            "not-found": "Версій Wine не знайдено. Клацніть піктограму оновлення, щоб повторити спробу.",
-            "title": "Керування Wine",
+            "link": "Менеджер Wine",
+            "not-found": "Версій Wine не знайдено. Натисніть на іконку оновлення, щоб спробувати ще раз.",
+            "title": "Менеджер Wine",
             "unzipping": "Розпакування"
         },
         "release": "Дата випуску",
         "size": "Розмір"
     },
     "externalLink": {
-        "dontAskAgain": "Більше не питай",
+        "dontAskAgain": "Не запитувати більше",
         "warning": "Ви збираєтеся відкрити зовнішнє посилання."
     },
     "wiki_info": {
