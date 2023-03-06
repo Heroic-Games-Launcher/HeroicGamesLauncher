@@ -184,7 +184,7 @@
     "dist:mac": "vite build && electron-builder --mac",
     "dist:win": "vite build && electron-builder --win",
     "dist:flatpak": "yarn dist:linux appimage && yarn flatpak:prepare && yarn flatpak:build",
-    "lint": "eslint --cache -c .eslintrc --ext .tsx,ts ./src",
+    "lint": "eslint --cache -c .eslintrc --ext .tsx,ts .",
     "lint-fix": "eslint --fix -c .eslintrc --ext .tsx,ts ./src",
     "flatpak:build": "cd flatpak-build && flatpak-builder build com.heroicgameslauncher.hgl.yml --install --force-clean --user",
     "flatpak:prepare": "node ./flatpak/prepareFlatpak.js",

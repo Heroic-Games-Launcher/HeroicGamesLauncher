@@ -1,7 +1,6 @@
 import { EventEmitter } from 'node:events'
 import {
   BrowserWindowConstructorOptions,
-  Display,
   MenuItemConstructorOptions
 } from 'electron'
 import { tmpdir } from 'os'
@@ -81,15 +80,15 @@ const screen = {
 }
 
 class Tray {
-  icon: string = ''
+  icon = ''
   menu: MenuItemConstructorOptions[] = []
-  tooltip: string = ''
+  tooltip = ''
 
   constructor(icon: string) {
     this.icon = icon
   }
 
-  on(event: string) {}
+  on() {}
 
   setContextMenu(menu: MenuItemConstructorOptions[]) {
     this.menu = menu

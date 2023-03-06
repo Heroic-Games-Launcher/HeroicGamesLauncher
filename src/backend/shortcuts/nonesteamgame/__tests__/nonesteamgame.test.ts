@@ -12,7 +12,7 @@ jest.mock('backend/utils')
 let tmpDir = {} as DirResult
 let tmpSteamUserConfigDir = ''
 
-function copyTestFile(file: string, alternativeUserPath: string = '') {
+function copyTestFile(file: string, alternativeUserPath = '') {
   const testFileDir = join(__dirname, 'test_data')
   const userDir = alternativeUserPath
     ? join(alternativeUserPath, 'shortcuts.vdf')
@@ -183,7 +183,7 @@ describe('NonSteamGame', () => {
     expect(console.error).toBeCalledWith(
       expect.stringContaining('ERROR:   [Shortcuts]:'),
       expect.stringContaining(
-        `Can't add \"${game.title}\" to Steam user \"steam_user\". \"${shortcutFilePath}\" is corrupted!`
+        `Can't add "${game.title}" to Steam user "steam_user". "${shortcutFilePath}" is corrupted!`
       )
     )
     expect(console.error).toBeCalledWith(
@@ -218,7 +218,7 @@ describe('NonSteamGame', () => {
     expect(console.error).toBeCalledWith(
       expect.stringContaining('ERROR:   [Shortcuts]:'),
       expect.stringContaining(
-        `Can't add \"${game.title}\" to Steam user \"steam_user\". \"${shortcutFilePath}\" is corrupted!`
+        `Can't add "${game.title}" to Steam user "steam_user". "${shortcutFilePath}" is corrupted!`
       )
     )
     expect(console.error).toBeCalledWith(
@@ -253,7 +253,7 @@ describe('NonSteamGame', () => {
     expect(console.error).toBeCalledWith(
       expect.stringContaining('ERROR:   [Shortcuts]:'),
       expect.stringContaining(
-        `Can't add \"${game.title}\" to Steam user \"steam_user\". \"${shortcutFilePath}\" is corrupted!`
+        `Can't add "${game.title}" to Steam user "steam_user". "${shortcutFilePath}" is corrupted!`
       )
     )
     expect(console.error).toBeCalledWith(
@@ -343,13 +343,13 @@ describe('NonSteamGame', () => {
       expect(console.error).toBeCalledWith(
         expect.stringContaining('ERROR:   [Shortcuts]:'),
         expect.stringContaining(
-          `Can't add \"${game.title}\" to Steam user \"steam_user2\". \"${shortcutFilePath2}\" is corrupted!`
+          `Can't add "${game.title}" to Steam user "steam_user2". "${shortcutFilePath2}" is corrupted!`
         )
       )
       expect(console.error).toBeCalledWith(
         expect.stringContaining('ERROR:   [Shortcuts]:'),
         expect.stringContaining(
-          `Can't remove \"${game.title}\" from Steam user \"steam_user2\". \"${shortcutFilePath2}\" is corrupted!`
+          `Can't remove "${game.title}" from Steam user "steam_user2". "${shortcutFilePath2}" is corrupted!`
         )
       )
       expect(console.error).toBeCalledWith(
