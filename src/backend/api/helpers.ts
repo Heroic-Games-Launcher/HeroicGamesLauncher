@@ -67,8 +67,8 @@ export const getGameInfo = async (appName: string, runner: Runner) =>
 export const getExtraInfo = async (appName: string, runner: Runner) =>
   ipcRenderer.invoke('getExtraInfo', appName, runner)
 
-export const readGOGGameInfoFile = async (appName: string) =>
-  ipcRenderer.invoke('readGOGGameInfoFile', appName)
+export const getGOGLaunchOptions = async (appName: string) =>
+  ipcRenderer.invoke('getGOGLaunchOptions', appName)
 
 export const getGameSettings = async (
   appName: string,

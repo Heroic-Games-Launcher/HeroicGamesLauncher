@@ -6,10 +6,10 @@ import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 
 import {
   getGameInfo,
+  getGOGLaunchOptions,
   getInstallInfo,
   getProgress,
   launch,
-  readGOGGameInfoFile,
   sendKill,
   size,
   updateGame
@@ -165,25 +165,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 runner === 'gog' &&
                 (info?.game?.launch_options || []).length === 0
               ) {
-                readGOGGameInfoFile(appName)
-                  .then((infoFile) => {
-                    const newLaunchOptions: LaunchOption[] = []
-                    infoFile?.playTasks.forEach((task, index) => {
-                      if (
-                        task.type === 'FileTask' &&
-                        !task?.isHidden &&
-                        task.category !== 'document'
-                      ) {
-                        newLaunchOptions.push({
-                          name: task?.name || infoFile.name,
-                          parameters: `--prefer-task ${index}` // gogdl parameter to launch specific task
-                        })
-                      }
-                    })
-                    if (newLaunchOptions.length < 2) {
-                      return
-                    }
-                    setLaunchOptions(newLaunchOptions)
+                getGOGLaunchOptions(appName)
+                  .then((launchOptions) => {
+                    setLaunchOptions(launchOptions)
                   })
                   .catch((error) => {
                     console.error(error)

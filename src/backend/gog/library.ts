@@ -7,7 +7,8 @@ import {
   InstalledInfo,
   GOGImportData,
   ExecResult,
-  CallRunnerOptions
+  CallRunnerOptions,
+  LaunchOption
 } from 'common/types'
 import {
   GOGCloudSavesLocation,
@@ -841,6 +842,28 @@ export class GOGLibrary {
     }
 
     return infoFileData
+  }
+
+  public getLaunchOptions(appName: string): LaunchOption[] {
+    const newLaunchOptions: LaunchOption[] = []
+    const infoFile = this.readInfoFile(appName)
+    infoFile?.playTasks.forEach((task, index) => {
+      if (
+        task.type === 'FileTask' &&
+        !task?.isHidden &&
+        task.category !== 'document'
+      ) {
+        newLaunchOptions.push({
+          name: task?.name || infoFile.name,
+          parameters: `--prefer-task ${index}` // gogdl parameter to launch specific task
+        })
+      }
+    })
+    if (newLaunchOptions.length < 2) {
+      return []
+    }
+
+    return newLaunchOptions
   }
 
   public getExecutable(appName: string): string {

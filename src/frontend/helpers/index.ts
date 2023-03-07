@@ -118,7 +118,7 @@ function getProgress(progress: InstallProgress): number {
   return 0
 }
 
-const readGOGGameInfoFile = window.api.readGOGGameInfoFile
+const getGOGLaunchOptions = window.api.getGOGLaunchOptions
 
 function removeSpecialcharacters(text: string): string {
   const regexp = new RegExp(/[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|'|"|®]/, 'gi')
@@ -158,5 +158,5 @@ export {
   writeConfig,
   removeSpecialcharacters,
   getStoreName,
-  readGOGGameInfoFile
+  getGOGLaunchOptions
 }
