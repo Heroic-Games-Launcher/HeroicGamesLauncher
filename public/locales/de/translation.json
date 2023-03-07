@@ -78,7 +78,11 @@
                 "message": "Winetricks hat während der Ausführung diesen Fehler ausgegeben:{{newLine}}{{error}}",
                 "title": "Winetricks-Fehler"
             },
-            "moving": "Fehler beim Verschieben des Spiels {{error}}"
+            "moving": "Fehler beim Verschieben des Spiels {{error}}",
+            "ubisoft-connect": {
+                "title": "Ubisoft Connect",
+                "message": "Die Installation von Ubisoft Connect im Spielpräfix ist fehlgeschlagen. Besuchen Sie unsere Wiki-Seite unter https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac, um es manuell zu installieren."
+            }
         },
         "info": {
             "update": {

@@ -22,7 +22,7 @@
             "message": "Se limpió la caché de Heroic.",
             "title": "Caché borrado"
         },
-        "choose": "Elegir",
+        "choose": "Seleccionar",
         "choose-egs-prefix": "Elija el prefijo de Wine donde está instalado EGS",
         "choose-gogdl-binary": "Seleccionar binario de GOGDL (requiere reiniciar)",
         "choose-legendary-binary": "Seleccione el binario de Legendary",
@@ -78,7 +78,11 @@
                 "message": "Winetricks respondió con el siguiente error durante la ejecución:{{newLine}}{{error}}",
                 "title": "Error de Winetricks"
             },
-            "moving": "Error al mover el juego {{error}}"
+            "moving": "Error al mover el juego {{error}}",
+            "ubisoft-connect": {
+                "title": "Conectar Ubisoft",
+                "message": "La instalación de Ubisoft Connect en el prefijo del juego falló. Consulte nuestra página wiki en https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac para instalarlo manualmente."
+            }
         },
         "info": {
             "update": {

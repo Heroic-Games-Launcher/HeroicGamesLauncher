@@ -1,7 +1,7 @@
 import * as logger from '../logger'
 import { appendMessageToLogFile } from '../logfile'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
-import { platform } from 'os'
+import { describeSkipOnWindows } from 'backend/__tests__/skip'
 
 jest.mock('../logfile')
 jest.mock('../../dialog/dialog')
@@ -40,16 +40,7 @@ function getStringPassedToLogFile(type: logLevel, skipMessagePrefix = false) {
   ].join('\n')
 }
 
-const shouldSkip = platform() === 'win32'
-const skipMessage = 'on windows so skipping test'
-const emptyTest = it('should do nothing', () => {})
-
-describe('logger/logger.ts', () => {
-  if (shouldSkip) {
-    console.log(skipMessage)
-    emptyTest
-    return
-  }
+describeSkipOnWindows('logger/logger.ts', () => {
   afterEach(jest.restoreAllMocks)
 
   test('log invokes console', () => {
@@ -62,7 +53,7 @@ describe('logger/logger.ts', () => {
       .mockImplementation()
 
     interface TestCaseProps {
-      function: Function
+      function: typeof logger.logError
       spyConsole: jest.SpyInstance
     }
 
@@ -95,7 +86,7 @@ describe('logger/logger.ts', () => {
     jest.spyOn(global.console, 'log').mockImplementation()
     jest.spyOn(global.console, 'warn').mockImplementation()
 
-    const testCases = new Map<logLevel, Function>([
+    const testCases = new Map<logLevel, typeof logger.logError>([
       ['ERROR', logger.logError],
       ['INFO', logger.logInfo],
       ['WARNING', logger.logWarning],
@@ -116,7 +107,7 @@ describe('logger/logger.ts', () => {
     jest.spyOn(global.console, 'log').mockImplementation()
     jest.spyOn(global.console, 'warn').mockImplementation()
 
-    const testCases = new Map<logLevel, Function>([
+    const testCases = new Map<logLevel, typeof logger.logError>([
       ['ERROR', logger.logError],
       ['INFO', logger.logInfo],
       ['WARNING', logger.logWarning],

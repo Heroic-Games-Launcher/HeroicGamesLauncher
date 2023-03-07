@@ -78,7 +78,11 @@
                 "message": "Winetrick navrátily během provádění následující chybu:{{newLine}}{{error}}",
                 "title": "Chyba Winetricks"
             },
-            "moving": "Chyba při přesunu hry {{error}}"
+            "moving": "Chyba při přesunu hry {{error}}",
+            "ubisoft-connect": {
+                "message": "Instalace Ubisoft Connect do předpony hry se nezdařila. Podívejte se na naši wiki stránku na https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac a nainstalujte ji ručně.",
+                "title": "Ubisoft Connect"
+            }
         },
         "info": {
             "update": {

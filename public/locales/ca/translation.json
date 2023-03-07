@@ -78,7 +78,11 @@
                 "message": "El Winetricks ha retornat l'error següent durant l'execució:{{newLine}}{{error}}",
                 "title": "Error del Winetricks"
             },
-            "moving": "Error en moure el joc {{error}}"
+            "moving": "Error en moure el joc {{error}}",
+            "ubisoft-connect": {
+                "message": "La instal·lació d'Ubisoft Connect al prefix del joc ha fallat. Consulteu la nostra pàgina wiki a https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac per instal·lar-lo manualment.",
+                "title": "Ubisoft Connect"
+            }
         },
         "info": {
             "update": {

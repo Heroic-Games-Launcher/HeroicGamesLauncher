@@ -5,7 +5,7 @@ import { app } from 'electron'
 import { configStore } from '../../constants'
 import * as logfile from '../logfile'
 import { logError } from '../logger'
-import { platform } from 'os'
+import { describeSkipOnWindows } from 'backend/__tests__/skip'
 
 jest.mock('electron')
 jest.mock('electron-store')
@@ -15,16 +15,7 @@ jest.unmock('../logfile')
 
 let tmpDir = {} as DirResult
 
-const shouldSkip = platform() === 'win32'
-const skipMessage = 'on windows so skipping test'
-const emptyTest = it('should do nothing', () => {})
-
-describe('logger/logfile.ts', () => {
-  if (shouldSkip) {
-    console.log(skipMessage)
-    emptyTest
-    return
-  }
+describeSkipOnWindows('logger/logfile.ts', () => {
   beforeEach(() => {
     tmpDir = dirSync({ unsafeCleanup: true })
   })
@@ -78,16 +69,13 @@ describe('logger/logfile.ts', () => {
 
   test('createNewLogFileAndClearOldOnes removing old logs fails', () => {
     jest.spyOn(app, 'getPath').mockReturnValue(tmpDir.name)
-    const spyUnlinkSync = jest
-      .spyOn(graceful_fs, 'unlinkSync')
-      .mockImplementation(() => {
-        throw Error('unlink failed')
-      })
+    jest.spyOn(graceful_fs, 'unlinkSync').mockImplementation(() => {
+      throw Error('unlink failed')
+    })
     const date = new Date()
     date.setMonth(date.getMonth() - 1)
     const monthOutdatedLogFile = join(
       tmpDir.name,
-      // @ts-ignore replaceAll error
       `heroic-${date.toISOString().replaceAll(':', '_')}.log`
     )
 
@@ -95,7 +83,7 @@ describe('logger/logfile.ts', () => {
 
     expect(graceful_fs.existsSync(monthOutdatedLogFile)).toBeTruthy()
 
-    const data = logfile.createNewLogFileAndClearOldOnes()
+    logfile.createNewLogFileAndClearOldOnes()
 
     expect(logError).toBeCalledWith(
       [
@@ -113,13 +101,11 @@ describe('logger/logfile.ts', () => {
     date.setMonth(date.getMonth() - 1)
     const monthOutdatedLogFile = join(
       tmpDir.name,
-      // @ts-ignore replaceAll error
       `heroic-${date.toISOString().replaceAll(':', '_')}.log`
     )
     date.setFullYear(2021)
     const yearOutdatedLogFile = join(
       tmpDir.name,
-      // @ts-ignore replaceAll error
       `heroic-${date.toISOString().replaceAll(':', '_')}.log`
     )
 
@@ -129,7 +115,7 @@ describe('logger/logfile.ts', () => {
     expect(graceful_fs.existsSync(monthOutdatedLogFile)).toBeTruthy()
     expect(graceful_fs.existsSync(yearOutdatedLogFile)).toBeTruthy()
 
-    const data = logfile.createNewLogFileAndClearOldOnes()
+    logfile.createNewLogFileAndClearOldOnes()
 
     expect(logError).not.toBeCalled()
     expect(graceful_fs.existsSync(monthOutdatedLogFile)).toBeFalsy()
@@ -178,11 +164,9 @@ describe('logger/logfile.ts', () => {
   })
 
   test('appendMessageToLogFile fails', () => {
-    const appendFileSyncSpy = jest
-      .spyOn(graceful_fs, 'appendFileSync')
-      .mockImplementation(() => {
-        throw Error('append failed')
-      })
+    jest.spyOn(graceful_fs, 'appendFileSync').mockImplementation(() => {
+      throw Error('append failed')
+    })
 
     logfile.appendMessageToLogFile('Hello World')
     expect(logError).toBeCalledWith(

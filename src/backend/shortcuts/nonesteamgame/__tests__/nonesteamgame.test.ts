@@ -1,4 +1,4 @@
-import { readFileSync, copyFileSync, mkdirSync, existsSync } from 'graceful-fs'
+import { readFileSync, copyFileSync, mkdirSync } from 'graceful-fs'
 import { GameInfo } from 'common/types'
 import { join } from 'path'
 import { DirResult, dirSync } from 'tmp'
@@ -17,7 +17,7 @@ jest.mock('backend/wiki_game_info/wiki_game_info')
 let tmpDir = {} as DirResult
 let tmpSteamUserConfigDir = ''
 
-function copyTestFile(file: string, alternativeUserPath: string = '') {
+function copyTestFile(file: string, alternativeUserPath = '') {
   const testFileDir = join(__dirname, 'test_data')
   const userDir = alternativeUserPath
     ? join(alternativeUserPath, 'shortcuts.vdf')
@@ -151,7 +151,7 @@ describe('NonSteamGame', () => {
     })
     expect(logInfo).not.toBeCalled()
     expect(logError).toBeCalledWith(
-      `Can't add \"${game.title}\" to Steam user \"steam_user\". \"${shortcutFilePath}\" is corrupted!\n` +
+      `Can't add "${game.title}" to Steam user "steam_user". "${shortcutFilePath}" is corrupted!\n` +
         'One of the game entries is missing the AppName parameter!',
       'Shortcuts'
     )
@@ -171,7 +171,7 @@ describe('NonSteamGame', () => {
 
     expect(logInfo).not.toBeCalled()
     expect(logError).toBeCalledWith(
-      `Can't add \"${game.title}\" to Steam user \"steam_user\". \"${shortcutFilePath}\" is corrupted!\n` +
+      `Can't add "${game.title}" to Steam user "steam_user". "${shortcutFilePath}" is corrupted!\n` +
         'One of the game entries is missing the Exe parameter!',
       'Shortcuts'
     )
@@ -191,7 +191,7 @@ describe('NonSteamGame', () => {
 
     expect(logInfo).not.toBeCalled()
     expect(logError).toBeCalledWith(
-      `Can't add \"${game.title}\" to Steam user \"steam_user\". \"${shortcutFilePath}\" is corrupted!\n` +
+      `Can't add "${game.title}" to Steam user "steam_user". "${shortcutFilePath}" is corrupted!\n` +
         'One of the game entries is missing the LaunchOptions parameter!',
       'Shortcuts'
     )
@@ -261,12 +261,12 @@ describe('NonSteamGame', () => {
         'Shortcuts'
       )
       expect(logError).toBeCalledWith(
-        `Can't add \"${game.title}\" to Steam user \"steam_user2\". \"${shortcutFilePath2}\" is corrupted!\n` +
+        `Can't add "${game.title}" to Steam user "steam_user2". "${shortcutFilePath2}" is corrupted!\n` +
           'One of the game entries is missing the AppName parameter!',
         'Shortcuts'
       )
       expect(logError).toBeCalledWith(
-        `Can't remove \"${game.title}\" from Steam user \"steam_user2\". \"${shortcutFilePath2}\" is corrupted!\n` +
+        `Can't remove "${game.title}" from Steam user "steam_user2". "${shortcutFilePath2}" is corrupted!\n` +
           'One of the game entries is missing the AppName parameter!',
         'Shortcuts'
       )
