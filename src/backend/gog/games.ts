@@ -850,13 +850,7 @@ class GOGGame extends Game {
 
     if (gameData.install.platform !== 'linux') {
       // Force getting new cache
-      if (
-        gogInstallInfoStore.has(`${this.appName}_${gameData.install.platform}`)
-      ) {
-        gogInstallInfoStore.delete(
-          `${this.appName}_${gameData.install.platform}`
-        )
-      }
+      gogInstallInfoStore.delete(`${this.appName}_${gameData.install.platform}`)
       const installInfo = await this.getInstallInfo()
       gameObject.buildId = installInfo.game.buildId
       gameObject.version = installInfo.game.version
