@@ -83,7 +83,10 @@ ipcMain.on('removeShortcut', async (event, appName, runner) => {
 
 ipcMain.handle('addToSteam', async (event, appName, runner) => {
   const gameInfo = getInfo(appName, runner)
-  return addNonSteamGame({ gameInfo })
+
+  return addNonSteamGame({
+    gameInfo
+  })
 })
 
 ipcMain.handle('removeFromSteam', async (event, appName, runner) => {
