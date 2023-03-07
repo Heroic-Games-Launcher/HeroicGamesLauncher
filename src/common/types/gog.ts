@@ -54,7 +54,7 @@ export interface GOGGameDotInfoFile {
 }
 
 interface TaskBase {
-  name: string
+  name?: string
   isPrimary?: true
   isHidden?: true
   languages?: string[]
