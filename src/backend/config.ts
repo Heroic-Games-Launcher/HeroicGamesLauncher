@@ -395,7 +395,7 @@ abstract class GlobalConfig {
   /**
    * Checks if a Wine version has the Wineserver executable and returns the path to those if they're present
    * @param wineBin The unquoted path to the Wine binary ('wine')
-   * @returns The quoted paths to wineserver, if present
+   * @returns The quoted path to wineserver, if present
    */
   public getWineExecs(wineBin: string): { wineserver: string } {
     const wineDir = dirname(wineBin)
