@@ -6,6 +6,8 @@ import { SmallInfo } from 'frontend/components/UI'
 import { timestampStore } from 'frontend/helpers/electronStores'
 
 import './index.css'
+import PopoverComponent from 'frontend/components/UI/PopoverComponent'
+import { AvTimer } from '@mui/icons-material'
 
 type Props = {
   game: string
@@ -17,10 +19,11 @@ function TimeContainer({ game }: Props) {
 
   if (!tsInfo) {
     return (
-      <SmallInfo
-        title={`${t('game.lastPlayed', 'Last Played')}:`}
-        subtitle={`${t('game.neverPlayed', 'Never')}`}
-      />
+      <p className="timeContainerLabel">
+        <AvTimer />
+        {`${t('game.lastPlayed', 'Last Played')}:`} {` `}
+        {`${t('game.neverPlayed', 'Never')}`}
+      </p>
     )
   }
 
@@ -39,30 +42,34 @@ function TimeContainer({ game }: Props) {
   const lastPlayed = tsInfo.lastPlayed ? new Date(tsInfo.lastPlayed) : null
   const totalPlayed = tsInfo.totalPlayed
     ? convertMinsToHrsMins(tsInfo.totalPlayed)
-    : null
+    : `${t('game.neverPlayed', 'Never')}`
   const lastDate = new Intl.DateTimeFormat(undefined, options).format(
     lastPlayed || new Date()
   )
 
   return (
-    <div className="info">
-      <SmallInfo
-        title={`${t('game.firstPlayed', 'First Played')}:`}
-        subtitle={firstDate}
-      />
-      {lastPlayed && (
+    <PopoverComponent
+      item={
+        <p className="timeContainerLabel">
+          <AvTimer />
+          {`${t('game.totalPlayed', 'Time Played')}:`} {` `}
+          {`${totalPlayed}`}
+        </p>
+      }
+    >
+      <div className="info">
         <SmallInfo
-          title={`${t('game.lastPlayed', 'Last Played')}:`}
-          subtitle={lastDate}
+          title={`${t('game.firstPlayed', 'First Played')}:`}
+          subtitle={firstDate}
         />
-      )}
-      {totalPlayed && (
-        <SmallInfo
-          title={`${t('game.totalPlayed', 'Time Played')}:`}
-          subtitle={`${totalPlayed}`}
-        />
-      )}
-    </div>
+        {lastPlayed && (
+          <SmallInfo
+            title={`${t('game.lastPlayed', 'Last Played')}:`}
+            subtitle={lastDate}
+          />
+        )}
+      </div>
+    </PopoverComponent>
   )
 }
 

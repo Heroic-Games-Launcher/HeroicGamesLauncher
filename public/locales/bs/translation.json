@@ -425,7 +425,7 @@
         "alt-gogdl-bin": "Korištenje ugrađenog GOGDL binarne datoteke",
         "alt-legendary-bin": "Korištenje ugrađene Legendary binarne datoteke...",
         "custom_themes_path": "Select the path to look for custom CSS files",
-        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
+        "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefiks gdje je EGS instaliran",
         "prefered_language": "kod od 2 znaka (tj.: \"en\" ili \"fr\")"
     },

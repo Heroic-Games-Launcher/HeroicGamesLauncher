@@ -3,3 +3,18 @@
   justify-content: space-between;
   flex-direction: column;
 }
+
+.timeContainerLabel {
+  transition: color 300ms;
+  display: flex;
+  align-items: center;
+  cursor: default;
+}
+
+.timeContainerLabel:hover {
+  color: var(--accent-overlay);
+}
+
+.timeContainerLabel svg {
+  margin-right: var(--space-3xs);
+}

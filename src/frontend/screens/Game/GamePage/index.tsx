@@ -3,8 +3,25 @@ import './index.scss'
 import React, { useContext, useEffect, useState } from 'react'
 
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
-
 import {
+  CloudQueue,
+  DownloadDone,
+  Star,
+  Speed,
+  WineBar,
+  CloudDownload,
+  Storage,
+  CloudOff,
+  PlayArrow,
+  Stop,
+  Download,
+  Cancel,
+  Pause,
+  Warning,
+  Hardware
+} from '@mui/icons-material'
+import {
+  createNewWindow,
   getGameInfo,
   getInstallInfo,
   getProgress,
@@ -24,6 +41,7 @@ import {
   GameInfo,
   Runner,
   SideloadGame,
+  WikiInfo,
   WineInstallation
 } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'
@@ -52,9 +70,11 @@ import {
 } from 'frontend/components/UI/Dialog'
 
 import StoreLogos from 'frontend/components/UI/StoreLogos'
-import { WikiGameInfo } from 'frontend/components/UI/WikiGameInfo'
 import classNames from 'classnames'
 import { hasStatus } from 'frontend/hooks/hasStatus'
+import PopoverComponent from 'frontend/components/UI/PopoverComponent'
+import HowLongToBeat from 'frontend/components/UI/WikiGameInfo/components/HowLongToBeat'
+import GameScore from 'frontend/components/UI/WikiGameInfo/components/GameScore'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -67,6 +87,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const { gameInfo: locationGameInfo } = location.state
 
   const [showModal, setShowModal] = useState({ game: '', show: false })
+  const [wikiGameInfo, setWikiGameInfo] = useState<WikiInfo | null>(null)
 
   const {
     epic,
@@ -98,7 +119,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [winePrefix, setWinePrefix] = useState('')
   const [wineVersion, setWineVersion] = useState<WineInstallation>()
   const [showRequirements, setShowRequirements] = useState(false)
-  const [showExtraInfo, setShowExtraInfo] = useState(false)
 
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
@@ -202,6 +222,19 @@ export default React.memo(function GamePage(): JSX.Element | null {
     updateConfig()
   }, [status, epic.library, gog.library, gameInfo, isSettingsModalOpen])
 
+  useEffect(() => {
+    window.api
+      .getWikiGameInfo(gameInfo.title, appName, runner)
+      .then((info: WikiInfo) => {
+        if (
+          info &&
+          (info.applegamingwiki || info.howlongtobeat || info.pcgamingwiki)
+        ) {
+          setWikiGameInfo(info)
+        }
+      })
+  }, [appName])
+
   function handleUpdate() {
     if (gameInfo.runner !== 'sideload')
       updateGame({ appName, runner, gameInfo })
@@ -242,6 +275,14 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
     hasRequirements = extraInfo?.reqs ? extraInfo.reqs.length > 0 : false
     hasUpdate = is_installed && gameUpdates?.includes(appName)
+
+    const { howlongtobeat, pcgamingwiki, applegamingwiki } = wikiGameInfo || {}
+    const hasHLTB = Boolean(howlongtobeat?.gameplayMain)
+    const hasScores =
+      pcgamingwiki?.metacritic.score ||
+      pcgamingwiki?.igdb.score ||
+      pcgamingwiki?.opencritic.score
+    const hasAppleInfo = applegamingwiki?.crossoverRating
     const appLocation = install_path || folder_name
 
     const downloadSize =
@@ -335,7 +376,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     runner={gameInfo.runner}
                     handleUpdate={handleUpdate}
                     disableUpdate={isInstalling || isUpdating}
-                    setShowExtraInfo={setShowExtraInfo}
                     onShowRequirements={
                       hasRequirements
                         ? () => setShowRequirements(true)
@@ -348,22 +388,28 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 <div className="developer">{developer}</div>
                 <div className="summary">{description}</div>
                 {is_installed && showCloudSaveInfo && (
-                  <div
+                  <p
                     style={{
                       color: autoSyncSaves ? '#07C5EF' : ''
                     }}
+                    className="iconWithText"
                   >
-                    <b>{t('info.syncsaves')}:</b>{' '}
+                    <CloudQueue />
+                    <b>{t('info.syncsaves')}</b>
+                    {': '}
                     {autoSyncSaves ? t('enabled') : t('disabled')}
-                  </div>
+                  </p>
                 )}
                 {is_installed && !showCloudSaveInfo && (
-                  <div
+                  <p
                     style={{
                       color: '#F45460'
                     }}
+                    className="iconWithText"
                   >
-                    <b>{t('info.syncsaves')}:</b>{' '}
+                    <CloudOff />
+                    <b>{t('info.syncsaves')}</b>
+                    {': '}
                     {t('cloud_save_unsupported', 'Unsupported')}
                     <FontAwesomeIcon
                       className="helpIcon"
@@ -373,76 +419,197 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         'This game does not support cloud saves. This information is provided by the game developers. Some games do implement their own cloud save system'
                       )}
                     />
-                  </div>
+                  </p>
                 )}
                 {!is_installed && !isSideloaded && !notSupportedGame && (
                   <>
-                    <div>
-                      <b>{t('game.downloadSize', 'Download Size')}:</b>{' '}
-                      {downloadSize ?? '...'}
+                    <div className="iconWithText">
+                      <CloudDownload />
+                      <b>{t('game.downloadSize', 'Download Size')}</b>
+                      {': '}
+                      {downloadSize ??
+                        `${t(
+                          'game.getting-download-size',
+                          'Geting download size'
+                        )}...`}
                     </div>
-                    <div>
-                      <b>{t('game.installSize', 'Install Size')}:</b>{' '}
-                      {installSize ?? '...'}
+                    <div className="iconWithText">
+                      <Storage />
+                      <b>{t('game.installSize', 'Install Size')}</b>
+                      {': '}
+                      {installSize ??
+                        `${t(
+                          'game.getting-install-size',
+                          'Geting install size'
+                        )}...`}
                     </div>
                     <br />
                   </>
                 )}
                 {is_installed && (
-                  <>
-                    {!isSideloaded && (
-                      <div>
-                        <b>{t('info.size')}:</b> {install_size}
-                      </div>
-                    )}
-                    <div style={{ textTransform: 'capitalize' }}>
-                      <b>
-                        {t('info.installedPlatform', 'Installed Platform')}:
-                      </b>{' '}
-                      {installPlatform === 'osx' ? 'MacOS' : installPlatform}
-                    </div>
-                    {!isSideloaded && (
-                      <div>
-                        <b>{t('info.version')}:</b> {version}
-                      </div>
-                    )}
-                    <div>
-                      <b>{t('info.canRunOffline', 'Online Required')}:</b>{' '}
-                      {t(canRunOffline ? 'box.no' : 'box.yes')}
-                    </div>
-                    <div
-                      className="clickable"
-                      onClick={() =>
-                        appLocation !== undefined
-                          ? window.api.openFolder(appLocation)
-                          : {}
-                      }
-                    >
-                      <b>{t('info.path')}:</b> {appLocation}
-                    </div>
-                    {!isWin && !isNative && (
-                      <>
-                        <b>Wine:</b> {wineVersion?.name}
-                        {wineVersion && wineVersion.type === 'crossover' ? (
-                          <div>
+                  <PopoverComponent
+                    item={
+                      <span
+                        title={t('info.clickToOpen', 'Click to open')}
+                        className="iconWithText"
+                      >
+                        <DownloadDone />
+                        {t('info.installedInfo', 'Installed Information')}
+                      </span>
+                    }
+                  >
+                    <div className="poppedElement">
+                      {is_installed && (
+                        <>
+                          {!isSideloaded && (
+                            <div>
+                              <b>{t('info.size')}:</b> {install_size}
+                            </div>
+                          )}
+                          <div style={{ textTransform: 'capitalize' }}>
                             <b>
-                              {t2('setting.winecrossoverbottle', 'Bottle')}:
+                              {t(
+                                'info.installedPlatform',
+                                'Installed Platform'
+                              )}
+                              :
                             </b>{' '}
-                            {winePrefix}
+                            {installPlatform === 'osx'
+                              ? 'MacOS'
+                              : installPlatform}
                           </div>
-                        ) : (
+                          {!isSideloaded && (
+                            <div>
+                              <b>{t('info.version')}:</b> {version}
+                            </div>
+                          )}
+                          <div>
+                            <b>{t('info.canRunOffline', 'Online Required')}:</b>{' '}
+                            {t(canRunOffline ? 'box.no' : 'box.yes')}
+                          </div>
                           <div
                             className="clickable"
-                            onClick={() => window.api.openFolder(winePrefix)}
+                            onClick={() =>
+                              appLocation !== undefined
+                                ? window.api.openFolder(appLocation)
+                                : {}
+                            }
                           >
-                            <b>{t2('setting.wineprefix', 'WinePrefix')}:</b>{' '}
-                            {winePrefix}
+                            <b>{t('info.path')}:</b> {appLocation}
                           </div>
-                        )}
-                      </>
-                    )}
-                    <br />
-                  </>
+                          {!isWin && !isNative && (
+                            <>
+                              <b>Wine:</b> {wineVersion?.name}
+                              {wineVersion &&
+                              wineVersion.type === 'crossover' ? (
+                                <div>
+                                  <b>
+                                    {t2(
+                                      'setting.winecrossoverbottle',
+                                      'Bottle'
+                                    )}
+                                    :
+                                  </b>{' '}
+                                  {winePrefix}
+                                </div>
+                              ) : (
+                                <div
+                                  className="clickable"
+                                  onClick={() =>
+                                    window.api.openFolder(winePrefix)
+                                  }
+                                >
+                                  <b>
+                                    {t2('setting.wineprefix', 'WinePrefix')}:
+                                  </b>{' '}
+                                  {winePrefix}
+                                </div>
+                              )}
+                            </>
+                          )}
+                          <br />
+                        </>
+                      )}
+                    </div>
+                  </PopoverComponent>
+                )}
+                {hasScores && (
+                  <PopoverComponent
+                    item={
+                      <div
+                        className="iconWithText"
+                        title={t('info.clickToOpen', 'Click to open')}
+                      >
+                        <Star />
+                        {t('info.game-scores', 'Game Scores')}
+                      </div>
+                    }
+                  >
+                    <div className="poppedElement">
+                      <GameScore info={pcgamingwiki} title={title} />
+                    </div>
+                  </PopoverComponent>
+                )}
+                {hasHLTB && (
+                  <PopoverComponent
+                    item={
+                      <div
+                        className="iconWithText"
+                        title={t('info.clickToOpen', 'Click to open')}
+                      >
+                        <Speed />
+                        {t('howLongToBeat', 'How Long To Beat')}
+                      </div>
+                    }
+                  >
+                    <div className="poppedElement">
+                      <HowLongToBeat info={howlongtobeat!} />
+                    </div>
+                  </PopoverComponent>
+                )}
+                {hasAppleInfo && (
+                  <a
+                    role="button"
+                    className="iconWithText"
+                    title={t('info.clickToOpen', 'Click to open')}
+                    onClick={() => {
+                      if (applegamingwiki.crossoverLink) {
+                        createNewWindow(
+                          `https://www.codeweavers.com/compatibility/crossover/${applegamingwiki.crossoverLink}`
+                        )
+                      } else {
+                        createNewWindow(
+                          `https://www.codeweavers.com/compatibility?browse=&app_desc=&company=&rating=&platform=&date_start=&date_end=&name=${title}&search=app#results`
+                        )
+                      }
+                    }}
+                  >
+                    <WineBar />
+                    {t(
+                      'info.apple-gaming-wiki',
+                      'AppleGamingWiki Rating'
+                    )}:{' '}
+                    {applegamingwiki.crossoverRating.charAt(0).toUpperCase() +
+                      applegamingwiki.crossoverRating.slice(1)}
+                  </a>
+                )}
+
+                {hasRequirements && (
+                  <PopoverComponent
+                    item={
+                      <div
+                        className="iconWithText"
+                        title={t('info.clickToOpen', 'Click to open')}
+                      >
+                        <Hardware />
+                        {t('game.requirements', 'Requirements')}
+                      </div>
+                    }
+                  >
+                    <div className="poppedElement">
+                      <GameRequirements reqs={extraInfo?.reqs} />
+                    </div>
+                  </PopoverComponent>
                 )}
               </div>
               <TimeContainer game={appName} />
@@ -534,16 +701,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     'is-secondary': !is_installed && !isQueued
                   })}
                 >
-                  {`${getButtonLabel(is_installed)}`}
+                  {getButtonLabel()}
                 </button>
-              )}
-              {showExtraInfo && (
-                <WikiGameInfo
-                  setShouldShow={setShowExtraInfo}
-                  title={title}
-                  appName={appName}
-                  runner={runner}
-                />
               )}
               {is_installed && (
                 <span
@@ -584,7 +743,16 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   function getPlayLabel(): React.ReactNode {
     if (isSyncing) {
-      return t('label.saves.syncing')
+      return (
+        <span className="buttonWithIcon">
+          {t('label.saves.syncing')}
+          <CloudQueue
+            style={{
+              marginLeft: '5px'
+            }}
+          />
+        </span>
+      )
     }
     if (isInstallingUbisoft) {
       return t('label.ubisoft', 'Installing Ubisoft Connect')
@@ -593,7 +761,21 @@ export default React.memo(function GamePage(): JSX.Element | null {
       return t('label.launching', 'Launching')
     }
 
-    return isPlaying ? t('label.playing.stop') : t('label.playing.start')
+    if (isPlaying) {
+      return (
+        <span className="buttonWithIcon">
+          {t('label.playing.stop')}
+          <Stop />
+        </span>
+      )
+    }
+
+    return (
+      <span className="buttonWithIcon">
+        {t('label.playing.start')}
+        <PlayArrow />
+      </span>
+    )
   }
 
   function getInstallLabel(
@@ -682,20 +864,56 @@ export default React.memo(function GamePage(): JSX.Element | null {
     return t('status.notinstalled')
   }
 
-  function getButtonLabel(is_installed: boolean) {
+  function getButtonLabel() {
     if (notSupportedGame) {
-      return t('status.notSupported', 'Not supported')
+      return (
+        <span className="buttonWithIcon">
+          {t('status.notSupported', 'Not supported')}
+          <Warning
+            style={{
+              marginLeft: '5px',
+              cursor: 'not-allowed'
+            }}
+          />
+        </span>
+      )
     }
+
     if (isQueued) {
-      return t('button.queue.remove', 'Remove from Queue')
+      return (
+        <span className="buttonWithIcon">
+          {t('button.queue.remove', 'Remove from Queue')}
+          <Cancel
+            style={{
+              marginLeft: '5px'
+            }}
+          />
+        </span>
+      )
     }
-    if (is_installed) {
-      return t('submenu.settings')
-    }
+
     if (isInstalling) {
-      return t('button.cancel')
+      return (
+        <span className="buttonWithIcon">
+          {t('button.cancel')}
+          <Pause
+            style={{
+              marginLeft: '5px'
+            }}
+          />
+        </span>
+      )
     }
-    return t('button.install')
+    return (
+      <span className="buttonWithIcon">
+        {t('button.install')}
+        <Download
+          style={{
+            marginLeft: '5px'
+          }}
+        />
+      </span>
+    )
   }
 
   function handlePlay() {

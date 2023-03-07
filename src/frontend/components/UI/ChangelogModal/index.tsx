@@ -3,6 +3,7 @@ import { Dialog, DialogContent, DialogHeader } from '../Dialog'
 import ReactMarkdown from 'react-markdown'
 import classNames from 'classnames'
 import { Release } from 'common/types'
+import './index.scss'
 
 type Props = {
   onClose: () => void
@@ -40,7 +41,12 @@ export function ChangelogModal({ onClose, dimissVersionCheck }: Props) {
         <DialogContent>
           <div className={classNames('changelogModalContent')}>
             {currentChangelog.body && (
-              <ReactMarkdown>{currentChangelog.body}</ReactMarkdown>
+              <ReactMarkdown
+                className="changelogModalContent"
+                linkTarget={'_blank'}
+              >
+                {currentChangelog.body}
+              </ReactMarkdown>
             )}
           </div>
         </DialogContent>
