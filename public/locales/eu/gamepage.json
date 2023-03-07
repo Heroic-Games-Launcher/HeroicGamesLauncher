@@ -133,7 +133,9 @@
         },
         "saves": {
             "syncing": "Zaintza-zaindegien sinkronizazioa"
-        }
+        },
+        "launching": "Abian jartzea",
+        "ubisoft": "Ubisoft Connect instalatzen"
     },
     "launch": {
         "options": "Jaurtiketa-aukerak..."
@@ -189,7 +191,9 @@
         "updating": "Jokoa eguneratzea",
         "playing": "Jolasean",
         "moving-files": "'{{file}}' fitxategia mugitzen: {{percent}} ",
-        "syncingSaves": "Gordeak sinkronizatzea"
+        "syncingSaves": "Gordeak sinkronizatzea",
+        "launching": "Abian jartzea",
+        "ubisoft": "Ubisoft instalatzen"
     },
     "submenu": {
         "addShortcut": "Sarbide zuzena gehitu",

@@ -132,7 +132,9 @@
         },
         "saves": {
             "syncing": "S'estan sincronitzant les partides"
-        }
+        },
+        "launching": "Llançament",
+        "ubisoft": "Instal·lació d'Ubisoft Connect"
     },
     "launch": {
         "options": "Opcions d'execució..."
@@ -188,7 +190,9 @@
         "updating": "S'està actualitzant el joc",
         "playing": "Jugant",
         "moving-files": "S'està movent el fitxer '{{file}}': {{percent}} ",
-        "syncingSaves": "S'estan sincronitzant les partides"
+        "syncingSaves": "S'estan sincronitzant les partides",
+        "launching": "Llançament",
+        "ubisoft": "Instal·lació d'Ubisoft"
     },
     "submenu": {
         "addShortcut": "Afegeix una drecera",

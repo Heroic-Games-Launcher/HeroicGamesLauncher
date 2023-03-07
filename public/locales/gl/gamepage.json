@@ -132,7 +132,9 @@
         },
         "saves": {
             "syncing": "Sincronización de gardados"
-        }
+        },
+        "launching": "Lanzamento",
+        "ubisoft": "Instalación de Ubisoft Connect"
     },
     "launch": {
         "options": "Opcións de arrinque..."
@@ -188,7 +190,9 @@
         "updating": "Actualización do xogo",
         "playing": "Xogando",
         "moving-files": "Movendo o ficheiro '{{file}}': {{percent}} ",
-        "syncingSaves": "Sincronización de gardados"
+        "syncingSaves": "Sincronización de gardados",
+        "launching": "Lanzamento",
+        "ubisoft": "Instalación de Ubisoft"
     },
     "submenu": {
         "addShortcut": "Engadir acceso directo",

@@ -78,7 +78,11 @@
                 "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
             },
-            "moving": "Lỗi Di chuyển Trò chơi {{error}}"
+            "moving": "Lỗi Di chuyển Trò chơi {{error}}",
+            "ubisoft-connect": {
+                "message": "Cài đặt Ubisoft Connect trong tiền tố trò chơi không thành công. Kiểm tra trang wiki của chúng tôi tại https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac để cài đặt nó một cách nhanh chóng.",
+                "title": "Kết nối Ubisoft"
+            }
         },
         "info": {
             "update": {

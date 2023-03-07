@@ -1,4 +1,3 @@
-import { Search } from '@mui/icons-material'
 import { logError } from 'backend/logger/logger'
 import { getInfoFromPCGamingWiki } from '../utils'
 import axios from 'axios'
@@ -56,7 +55,7 @@ describe('getInfoFromPCGamingWiki', () => {
   })
 
   test('does not find page id', async () => {
-    const mockAxios = jest.spyOn(axios, 'get').mockResolvedValueOnce({
+    jest.spyOn(axios, 'get').mockResolvedValueOnce({
       data: { query: { search: [{ pageid: undefined }] } }
     })
 

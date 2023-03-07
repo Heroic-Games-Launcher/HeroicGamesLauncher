@@ -17,7 +17,7 @@ describe('main_window', () => {
     })
 
     describe('if there is a main window', () => {
-      let window = {
+      const window = {
         webContents: {
           send: jest.fn()
         }

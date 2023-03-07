@@ -614,14 +614,13 @@ export default React.memo(function GamePage(): JSX.Element | null {
               </div>
               <TimeContainer game={appName} />
               <div className="gameStatus">
-                {isInstalling ||
-                  (isUpdating && (
-                    <progress
-                      className="installProgress"
-                      max={100}
-                      value={getProgress(progress)}
-                    />
-                  ))}
+                {(isInstalling || isUpdating) && (
+                  <progress
+                    className="installProgress"
+                    max={100}
+                    value={getProgress(progress)}
+                  />
+                )}
                 <p
                   style={{
                     color: isInstalling

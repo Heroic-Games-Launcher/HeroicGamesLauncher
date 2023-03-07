@@ -18,7 +18,7 @@
     },
     "ecmaVersion": 12,
     "sourceType": "module",
-    "project": ["./tsconfig.json"]
+    "project": ["./tsconfig.eslint.json"]
   },
   "plugins": ["react", "@typescript-eslint", "import"],
   "settings": {
@@ -55,5 +55,15 @@
       { "avoidEscape": true, "allowTemplateLiterals": true }
     ],
     "import/no-duplicates": ["error"]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/__tests__/**", "**/__mocks__/**"],
+      "rules": {
+        "import/no-duplicates": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-empty-function": "off"
+      }
+    }
+  ]
 }

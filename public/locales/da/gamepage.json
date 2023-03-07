@@ -124,7 +124,9 @@
         },
         "game": {
             "third-party-game": "Tredjepartsspil understøttes IKKE"
-        }
+        },
+        "launching": "Lancering",
+        "ubisoft": "Installation af Ubisoft Connect"
     },
     "launch": {
         "options": "Opstartsinstillinger..."
@@ -155,7 +157,9 @@
         "this-game-uses-third-party": "Dette spil bruger tredjeparts launcher, og det er ikke understøttet endnu",
         "playing": "Spiller",
         "moving-files": "Flytter fil '{{file}}': {{percent}} ",
-        "syncingSaves": "Synkroniserer Saves"
+        "syncingSaves": "Synkroniserer Saves",
+        "launching": "Lancering",
+        "ubisoft": "Installation af Ubisoft"
     },
     "submenu": {
         "addShortcut": "Opret genvej",

@@ -96,15 +96,15 @@
     },
     "generic": {
         "error": "Неизвестная ошибка",
-        "noDescription": "Нет описания"
+        "noDescription": "Описание отсутствует"
     },
-    "hours": "Hours",
+    "hours": "Часы",
     "how-long-to-beat": {
-        "completionist": "Completionist",
-        "main-plus-extras": "Main + Extras",
-        "main-story": "Main Story"
+        "completionist": "Завершенность",
+        "main-plus-extras": "Основное + Дополнительное",
+        "main-story": "Основная история"
     },
-    "howLongToBeat": "How Long To Beat",
+    "howLongToBeat": "Игровое время",
     "info": {
         "canRunOffline": "Требуется онлайн",
         "installedPlatform": "Платформа",
@@ -132,7 +132,9 @@
         },
         "saves": {
             "syncing": "Синхронизация сохранений"
-        }
+        },
+        "launching": "Запуск",
+        "ubisoft": "Установка Ubisoft Connect"
     },
     "launch": {
         "options": "Параметры запуска..."
@@ -188,7 +190,9 @@
         "updating": "Обновление игры",
         "playing": "Игра",
         "moving-files": "Перемещение файла '{{file}}': {{percent}} ",
-        "syncingSaves": "Синхронизация сохранений"
+        "syncingSaves": "Синхронизация сохранений",
+        "launching": "Запуск",
+        "ubisoft": "Установка Ubisoft"
     },
     "submenu": {
         "addShortcut": "Создать ярлык",
@@ -207,6 +211,6 @@
         "logs": "Журналы"
     },
     "help": {
-        "cloud_save_unsupported": "Эта игра не поддерживает облачные сохранения. Эту информацию предоставили разработчики игры. В некоторых играх реализована собственная облачная система сохранения."
+        "cloud_save_unsupported": "Эта игра не поддерживает облачные сохранения. Эта информация предоставлена разработчиками игры. В некоторых играх реализована собственная система облачных сохранений"
     }
 }

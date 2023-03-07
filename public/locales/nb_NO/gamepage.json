@@ -133,7 +133,9 @@
         },
         "saves": {
             "syncing": "Synkroniserer lagrer"
-        }
+        },
+        "launching": "Lansering",
+        "ubisoft": "Installerer Ubisoft Connect"
     },
     "launch": {
         "options": "Startalternativer..."
@@ -189,7 +191,9 @@
         "updating": "Oppdaterer spillet",
         "playing": "Spiller",
         "moving-files": "Flytter filen «{{file}}»: {{percent}} ",
-        "syncingSaves": "Synkroniserer lagrer"
+        "syncingSaves": "Synkroniserer lagrer",
+        "launching": "Lansering",
+        "ubisoft": "Installerer Ubisoft"
     },
     "submenu": {
         "addShortcut": "Legg til snarvei",

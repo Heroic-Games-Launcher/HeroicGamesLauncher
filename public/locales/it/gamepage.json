@@ -132,7 +132,9 @@
         },
         "saves": {
             "syncing": "Sincronizzando i salvataggi"
-        }
+        },
+        "launching": "Lancio",
+        "ubisoft": "Installazione di Ubisoft Connect"
     },
     "launch": {
         "options": "Opzioni di avvio..."
@@ -188,7 +190,9 @@
         "updating": "Aggiornamento in corso",
         "playing": "Giocando",
         "moving-files": "Spostamento del file '{{file}}': {{percent}} ",
-        "syncingSaves": "Sincronizzando i salvataggi"
+        "syncingSaves": "Sincronizzando i salvataggi",
+        "launching": "Lancio",
+        "ubisoft": "Installazione di Ubisoft"
     },
     "submenu": {
         "addShortcut": "Aggiungi scorciatoia",

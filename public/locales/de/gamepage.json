@@ -132,7 +132,9 @@
         },
         "saves": {
             "syncing": "Spielstände werden synchronisiert"
-        }
+        },
+        "launching": "Starten",
+        "ubisoft": "Installation von Ubisoft Connect"
     },
     "launch": {
         "options": "Startoptionen..."
@@ -188,7 +190,9 @@
         "updating": "Spiel wird aktualisiert",
         "playing": "Spielen",
         "moving-files": "Datei verschieben '{{file}}': {{percent}} ",
-        "syncingSaves": "Spielstände werden synchronisiert"
+        "syncingSaves": "Spielstände werden synchronisiert",
+        "launching": "Starten",
+        "ubisoft": "Ubisoft installieren"
     },
     "submenu": {
         "addShortcut": "Verknüpfung hinzufügen",

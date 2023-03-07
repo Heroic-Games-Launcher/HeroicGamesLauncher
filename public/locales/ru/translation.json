@@ -78,7 +78,11 @@
                 "message": "Winetricks вернул следующую ошибку во время выполнения: {{newLine}}{{error}}",
                 "title": "Ошибка Winetricks"
             },
-            "moving": "Ошибка перемещения игры {{error}}"
+            "moving": "Ошибка при перемещении игры {{error}}",
+            "ubisoft-connect": {
+                "title": "Ubisoft Connect",
+                "message": "Не удалось установить Ubisoft Connect в игровой префикс. Посетите нашу wiki-страницу по адресу https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac и установите его вручную."
+            }
         },
         "info": {
             "update": {
@@ -143,8 +147,8 @@
             },
             "title": "Предупреждение",
             "wine-change": {
-                "message": "Нам не удалось найти выбранную версию Wine для запуска этой игры ({{selectedWine}}). {{newline}} Мы нашли еще один, вы хотите продолжить запуск с помощью {{foundWine}}?",
-                "title": "Вино не найдено!"
+                "message": "Нам не удалось найти выбранную версию Wine ({{selectedWine}}) для запуска этой игры. {{newline}} Мы нашли другую версию, вы хотите продолжить запуск с помощью {{foundWine}}?",
+                "title": "Wine не найден!"
             }
         },
         "wineprefix": "Выбрать папку префикса Wine",
@@ -223,11 +227,11 @@
     "GOG": "GOG",
     "gog-store": "Магазин GOG",
     "header": {
-        "hide_non_available_games": "Hide non-available games",
+        "hide_non_available_games": "Скрыть недоступные игры",
         "ignore_hidden": "Игнорировать скрытые",
         "platform": "Платформа",
         "show_all_games": "Показать все игры",
-        "show_available_games": "Show non-Available games",
+        "show_available_games": "Показать недоступные игры",
         "show_favourites_only": "Показать только избранное",
         "show_hidden": "Показать скрытые",
         "store": "Магазин"
@@ -281,7 +285,7 @@
             "version": "Версия Heroic"
         },
         "save-sync": {
-            "searching": "Попытка определить правильную папку сохранения"
+            "searching": "Попытка определить правильную папку сохранения (нажмите для отмены)"
         },
         "settings": "Настройки сохраняются автоматически",
         "version": "Версия Wine"
@@ -297,7 +301,7 @@
         "wine-repfix": {
             "message": "Wine использует так называемый WINEPREFIX для инкапсуляции приложений Windows. Этот префикс содержит файлы конфигурации Wine и воспроизведение файловой иерархии диска C: (основной диск в ОС Windows). В этом воспроизведении диска C: хранятся файлы сохранения игр и зависимости, установленные с помощью winetricks."
         },
-        "wine-path-invalid": "Wine Path недействителен, выберите другой."
+        "wine-path-invalid": "Wine Path недействителен, пожалуйста выберите другой."
     },
     "install": {
         "path": "Выберите путь установки"
@@ -373,7 +377,7 @@
         }
     },
     "offline-message": {
-        "hint": "Мы проверяем подключение к: {{newline}}github.com, {{newline}}gog.com и {{newline}}store.epicgames.com",
+        "hint": "Проверяем подключение к:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com и{{newline}}cloudflare-dns.com",
         "ignore": "Ignore",
         "offline": "Не в сети",
         "offline-retry-in": "Не в сети. Повторная попытка через {{seconds}} секунд.",
@@ -456,7 +460,7 @@
         "autovkd3d": "Автоматически устанавливать/обновлять VKD3D в префиксе",
         "change-target-exe": "Выбрать другой EXE для запуска",
         "checkForUpdatesOnStartup": "Проверять обновления Heroic при запуске",
-        "crossover-version": "Версия Crossover",
+        "crossover-version": "Версия Crossover/Wine",
         "custom_themes_path": "Путь к пользовательским темам",
         "customWineProton": "Пользовательские пути Wine/Proton",
         "darktray": "Использовать темную иконку в трее",
@@ -540,9 +544,9 @@
             "title": "Запустить EXE в префиксе"
         },
         "savefolder": {
-            "not-found": "Папка для сохранений не найдена, выберите ее вручную",
+            "not-found": "Папка для сохранений не найдена, пожалуйста выберите ее вручную (нажмите, чтобы повторить)",
             "placeholder": "Выберите точную папку для сохранений игр",
-            "warning": "Пожалуйста, проверьте дважды, правильно ли указан путь"
+            "warning": "Пожалуйста, проверьте дважды, правильно ли указан путь (нажмите, чтобы повторить попытку)"
         },
         "select_theme": "Выбор темы",
         "showfps": "Показывать FPS (DX9, 10 и 11)",
@@ -551,7 +555,7 @@
         "winecrossoverbottle": "Бутылка CrossOver",
         "wineprefix": "Папка префикса Wine",
         "wineversion": "Версия Wine",
-        "autoUpdateGames": "Автоматически обновлять игры",
+        "autoUpdateGames": "Автоматическое обновление игр",
         "ignoreGameUpdates": "Игнорировать обновления игры"
     },
     "settings": {
@@ -586,7 +590,7 @@
             "general": "Основные",
             "log": "Журнал",
             "other": "Другие",
-            "sync": "Сохранение-Синхронизация",
+            "sync": "Синхронизация облачных сохранений",
             "wineExt": "Расширения Wine"
         },
         "open-config-file": "Открыть файл конфигурации",
@@ -661,7 +665,7 @@
         "size": "Размер"
     },
     "externalLink": {
-        "dontAskAgain": "Больше не спрашивай",
+        "dontAskAgain": "Больше не спрашивать",
         "warning": "Вы собираетесь открыть внешнюю ссылку."
     },
     "wiki_info": {

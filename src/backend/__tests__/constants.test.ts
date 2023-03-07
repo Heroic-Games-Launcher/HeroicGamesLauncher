@@ -28,7 +28,7 @@ describe('Constants - getShell', () => {
 
   async function getShell(): Promise<string> {
     jest.resetModules()
-    return await import('../constants').then((module) => {
+    return import('../constants').then((module) => {
       return module.execOptions.shell
     })
   }

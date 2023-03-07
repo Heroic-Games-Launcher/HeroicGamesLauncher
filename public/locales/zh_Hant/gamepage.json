@@ -132,7 +132,9 @@
         },
         "saves": {
             "syncing": "存檔同步中"
-        }
+        },
+        "launching": "發射",
+        "ubisoft": "安裝育碧連接"
     },
     "launch": {
         "options": "啟動選項..."
@@ -188,7 +190,9 @@
         "updating": "遊戲更新中",
         "playing": "播放",
         "moving-files": "移動文件“{{file}}”：{{percent}} ",
-        "syncingSaves": "同步保存"
+        "syncingSaves": "同步保存",
+        "ubisoft": "安裝育碧",
+        "launching": "發射"
     },
     "submenu": {
         "addShortcut": "添加捷徑",
