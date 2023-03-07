@@ -5,10 +5,10 @@
             "path": "Seleccione una nueva carpeta para la instalación",
             "title": "Modificar la ubicación de instalación para los juegos"
         },
-        "choose": "Elegir",
-        "importpath": "Elija la carpeta del juego a importar",
+        "choose": "Seleccionar",
+        "importpath": "Seleccione la carpeta del juego a importar",
         "move": {
-            "message": "Esto puede tardar mucho tiempo. ¿Estás seguro?",
+            "message": "Esto puede tardar mucho tiempo, ¿estás seguro?",
             "path": "Elige la ubicación del destino",
             "title": "Mover carpeta del juego"
         },
@@ -42,7 +42,7 @@
             "message": "Este juego tiene una actualización. ¿Quieres aplicarla ahora?",
             "title": "El juego necesita una actualización"
         },
-        "wineprefix": "Elija la carpeta con el Prefijo de Wine",
+        "wineprefix": "Seleccione la carpeta WinePrefix",
         "yes": "SÍ"
     },
     "button": {
@@ -66,12 +66,12 @@
         "sideload": {
             "edit": "Editar Aplicación/Juego"
         },
-        "unhide_game": "Desocultar Juego",
+        "unhide_game": "Mostrar Juego",
         "uninstall": "Desinstalar",
         "update": "Actualizar",
         "details": "Detalles"
     },
-    "cloud_save_unsupported": "No soportado",
+    "cloud_save_unsupported": "No compatible",
     "disabled": "Deshabilitado",
     "dlc": {
         "installDlcs": "Instalar todos los DLCs"
@@ -104,7 +104,7 @@
         "main-plus-extras": "Principal + Extras",
         "main-story": "Historia principal"
     },
-    "howLongToBeat": "How Long To Beat",
+    "howLongToBeat": "Tiempo de juego",
     "info": {
         "canRunOffline": "Requiere Online",
         "installedPlatform": "Plataforma de Instalación",
@@ -132,7 +132,9 @@
         },
         "saves": {
             "syncing": "Sincronizando guardados"
-        }
+        },
+        "launching": "Ejecutando",
+        "ubisoft": "Insalando Ubisoft Connect"
     },
     "launch": {
         "options": "Opciones de Arranque..."
@@ -181,24 +183,26 @@
         "notSupportedGame": "No Soportado",
         "processing": "Procesando los archivos, por favor espere",
         "queued": "Encolado",
-        "reparing": "Reparando el juego, por favor espere",
+        "reparing": "Reparando juego, espere por favor",
         "this-game-uses-third-party": "Este juego usa un launcher de terceros y aún no está soportado",
         "totalDownloaded": "Total descargado",
         "uninstalling": "Desinstalando",
         "updating": "Actualización de juego",
         "playing": "Jugando",
         "moving-files": "Moviendo archivo '{{file}}': {{percent}} ",
-        "syncingSaves": "Sincronizando guardados"
+        "syncingSaves": "Sincronizando guardados",
+        "launching": "Ejecutando",
+        "ubisoft": "Instalando Ubisoft"
     },
     "submenu": {
         "addShortcut": "Añadir acceso directo",
         "addToSteam": "Agregar a Steam",
-        "change": "Modificar la ubicación",
+        "change": "Modificar la ubicación de instalación",
         "disableEosOverlay": "Desactivar EOS Overlay",
         "enableEosOverlay": "Activar EOS Overlay",
         "move": "Mover juego",
         "protondb": "Verificar compatibilidad",
-        "removeFromSteam": "Remover de Steam",
+        "removeFromSteam": "Eliminar de Steam",
         "removeShortcut": "Eliminar accesos directos",
         "settings": "Ajustes",
         "store": "Página de la tienda",

@@ -132,7 +132,9 @@
         },
         "saves": {
             "syncing": "Đang đồng bộ bản lưu"
-        }
+        },
+        "launching": "ra mắt",
+        "ubisoft": "Cài đặt Ubisoft Connect"
     },
     "launch": {
         "options": "Tuỳ chọn khởi chạy..."
@@ -188,7 +190,9 @@
         "updating": "Đang cập nhật Game",
         "playing": "Đang chơi",
         "moving-files": "Đang di chuyển tệp '{{file}}': {{percent}} ",
-        "syncingSaves": "Đang đồng bộ bản lưu"
+        "syncingSaves": "Đang đồng bộ bản lưu",
+        "launching": "ra mắt",
+        "ubisoft": "Cài đặt Ubisoft"
     },
     "submenu": {
         "addShortcut": "Thêm shortcut",

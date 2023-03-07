@@ -78,7 +78,11 @@
                 "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
             },
-            "moving": "Virhe siirrettäessä peliä {{error}}"
+            "moving": "Virhe siirrettäessä peliä {{error}}",
+            "ubisoft-connect": {
+                "message": "Ubisoft Connectin asennus pelin etuliitteeseen epäonnistui. Tarkista wikisivumme osoitteessa https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac asentaaksesi sen manuaalisesti.",
+                "title": "Ubisoft Connect"
+            }
         },
         "info": {
             "update": {

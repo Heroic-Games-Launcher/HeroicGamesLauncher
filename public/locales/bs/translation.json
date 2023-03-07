@@ -78,7 +78,11 @@
                 "message": "Winetricks je vratio sljedeću grešku tokom izvršavanja: {{newLine}}{{error}}",
                 "title": "Winetricks greška"
             },
-            "moving": "Greška pri premještanju igre {{error}}"
+            "moving": "Greška pri premještanju igre {{error}}",
+            "ubisoft-connect": {
+                "message": "Instalacija Ubisoft Connecta u prefiksu igre nije uspjela. Provjerite našu wiki stranicu na https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac da je instalirate ručno.",
+                "title": "Ubisoft Connect"
+            }
         },
         "info": {
             "update": {

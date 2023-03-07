@@ -132,7 +132,9 @@
         },
         "saves": {
             "syncing": "Menyinkronkan Penyimpanan"
-        }
+        },
+        "launching": "Meluncurkan",
+        "ubisoft": "Menginstal Ubisoft Connect"
     },
     "launch": {
         "options": "Opsi Peluncuran…"
@@ -188,7 +190,9 @@
         "updating": "Memperbarui Gim",
         "playing": "Bermain",
         "moving-files": "Memindahkan berkas '{{file}}': {{percent}} ",
-        "syncingSaves": "Menyinkronkan Penyimpanan Gim"
+        "syncingSaves": "Menyinkronkan Penyimpanan Gim",
+        "launching": "Meluncurkan",
+        "ubisoft": "Menginstal Ubisoft"
     },
     "submenu": {
         "addShortcut": "Tambahkan pintasan",

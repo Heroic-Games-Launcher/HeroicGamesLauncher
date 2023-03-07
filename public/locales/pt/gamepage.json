@@ -132,7 +132,9 @@
         },
         "saves": {
             "syncing": "Sincronizando"
-        }
+        },
+        "launching": "Lançamento",
+        "ubisoft": "Instalando o Ubisoft Connect"
     },
     "launch": {
         "options": "Launch Options..."
@@ -188,7 +190,9 @@
         "updating": "Atualizando jogo",
         "playing": "Jogando",
         "moving-files": "Movendo arquivo '{{file}}': {{percent}} ",
-        "syncingSaves": "Sincronizando"
+        "syncingSaves": "Sincronizando",
+        "launching": "Lançamento",
+        "ubisoft": "Instalando Ubisoft"
     },
     "submenu": {
         "addShortcut": "Adicionar Atalhos",

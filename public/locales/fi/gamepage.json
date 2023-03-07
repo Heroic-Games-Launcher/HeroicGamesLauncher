@@ -132,7 +132,9 @@
         },
         "saves": {
             "syncing": "Synkronoidaan tallennuksia"
-        }
+        },
+        "launching": "Käynnistetään",
+        "ubisoft": "Ubisoft Connectin asentaminen"
     },
     "launch": {
         "options": "Käynnistysasetukset..."
@@ -188,7 +190,9 @@
         "updating": "Päivitetään peliä",
         "playing": "Pelaaminen",
         "moving-files": "Siirretään tiedostoa {{file}}: {{percent}} ",
-        "syncingSaves": "Synkronoidaan tallennuksia"
+        "syncingSaves": "Synkronoidaan tallennuksia",
+        "launching": "Käynnistetään",
+        "ubisoft": "Ubisoftin asennus"
     },
     "submenu": {
         "addShortcut": "Lisää pikakuvake",

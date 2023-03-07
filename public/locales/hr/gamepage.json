@@ -132,7 +132,9 @@
         },
         "saves": {
             "syncing": "Sinkoniziranje podataka"
-        }
+        },
+        "launching": "Pokretanje",
+        "ubisoft": "Instaliranje Ubisoft Connecta"
     },
     "launch": {
         "options": "Opcije za pokretanje..."
@@ -188,7 +190,9 @@
         "updating": "Ažuriranje igrice",
         "playing": "Igranje",
         "moving-files": "Premještanje datoteke '{{file}}': {{percent}} ",
-        "syncingSaves": "Sinkoniziranje podataka"
+        "syncingSaves": "Sinkoniziranje podataka",
+        "ubisoft": "Instaliranje Ubisofta",
+        "launching": "Pokretanje"
     },
     "submenu": {
         "addShortcut": "Dodaj prečace",

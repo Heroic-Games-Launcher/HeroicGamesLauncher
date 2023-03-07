@@ -132,7 +132,9 @@
         },
         "saves": {
             "syncing": "Синхронизиране на запазените файлове"
-        }
+        },
+        "launching": "Пускане",
+        "ubisoft": "Инсталиране на Ubisoft Connect"
     },
     "launch": {
         "options": "Параметри за стартиране…"
@@ -188,7 +190,9 @@
         "updating": "Обновяване на играта",
         "playing": "Пуснато",
         "moving-files": "Преместване на файла „{{file}}“: {{percent}} ",
-        "syncingSaves": "Синхронизиране на запазените файлове"
+        "syncingSaves": "Синхронизиране на запазените файлове",
+        "launching": "Пускане",
+        "ubisoft": "Инсталиране на Ubisoft"
     },
     "submenu": {
         "addShortcut": "Добавяне на пряк път",

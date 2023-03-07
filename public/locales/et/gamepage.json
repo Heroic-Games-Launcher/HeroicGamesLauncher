@@ -132,7 +132,9 @@
         },
         "saves": {
             "syncing": "Salvestuste sünkroonimine"
-        }
+        },
+        "launching": "Käivitamine",
+        "ubisoft": "Ubisoft Connecti installimine"
     },
     "launch": {
         "options": "Käivitusvalikud..."
@@ -188,7 +190,9 @@
         "updating": "Mängu uuendamine",
         "playing": "Mängib",
         "moving-files": "Faili „{{file}}” teisaldamine: {{percent}} ",
-        "syncingSaves": "Salvestuste sünkroonimine"
+        "syncingSaves": "Salvestuste sünkroonimine",
+        "launching": "Käivitamine",
+        "ubisoft": "Ubisofti installimine"
     },
     "submenu": {
         "addShortcut": "Lisa otsetee",
