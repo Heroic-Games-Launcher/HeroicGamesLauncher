@@ -20,4 +20,4 @@ jobs:
       - name: Prettier code.
         run: yarn prettier
       - name: Find dead code
-        run: yarn find-deadcode
+        run: test "$(yarn find-deadcode | tee "$(tty)" | wc -l)" -lt 4
