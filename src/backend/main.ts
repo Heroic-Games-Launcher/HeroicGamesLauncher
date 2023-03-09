@@ -1485,6 +1485,10 @@ ipcMain.handle('syncGOGSaves', async (event, gogSaves, appName, arg) =>
   getGame(appName, 'gog').syncSaves(arg, '', gogSaves)
 )
 
+ipcMain.handle('getGOGLaunchOptions', async (event, appName: string) =>
+  GOGLibrary.get().getLaunchOptions(appName)
+)
+
 ipcMain.handle(
   'syncSaves',
   async (event, { arg = '', path, appName, runner }) => {

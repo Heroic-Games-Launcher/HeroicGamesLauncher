@@ -21,6 +21,11 @@ export type LaunchParams = {
   runner: Runner
 }
 
+export interface LaunchOption {
+  name: string
+  parameters: string
+}
+
 interface About {
   description: string
   shortDescription: string

@@ -118,6 +118,8 @@ function getProgress(progress: InstallProgress): number {
   return 0
 }
 
+const getGOGLaunchOptions = window.api.getGOGLaunchOptions
+
 function removeSpecialcharacters(text: string): string {
   const regexp = new RegExp(/[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|'|"|®]/, 'gi')
   return text.replaceAll(regexp, '')
@@ -155,5 +157,6 @@ export {
   updateGame,
   writeConfig,
   removeSpecialcharacters,
-  getStoreName
+  getStoreName,
+  getGOGLaunchOptions
 }

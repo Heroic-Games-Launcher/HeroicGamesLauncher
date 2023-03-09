@@ -23,6 +23,7 @@ import {
 import {
   createNewWindow,
   getGameInfo,
+  getGOGLaunchOptions,
   getInstallInfo,
   getProgress,
   launch,
@@ -39,6 +40,7 @@ import { ReactComponent as SettingsIcoAlt } from 'frontend/assets/settings_icon_
 import {
   ExtraInfo,
   GameInfo,
+  LaunchOption,
   Runner,
   SideloadGame,
   WikiInfo,
@@ -111,6 +113,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [gameInstallInfo, setGameInstallInfo] = useState<
     LegendaryInstallInfo | GogInstallInfo | null
   >(null)
+  const [launchOptions, setLaunchOptions] = useState<LaunchOption[]>([])
   const [launchArguments, setLaunchArguments] = useState('')
   const [hasError, setHasError] = useState<{
     error: boolean
@@ -178,6 +181,21 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 throw 'Cannot get game info'
               }
               setGameInstallInfo(info)
+              if (
+                runner === 'gog' &&
+                (info?.game?.launch_options || []).length === 0
+              ) {
+                getGOGLaunchOptions(appName)
+                  .then((launchOptions) => {
+                    setLaunchOptions(launchOptions)
+                  })
+                  .catch((error) => {
+                    console.error(error)
+                    window.api.logError(`${error}`)
+                  })
+              } else {
+                setLaunchOptions(info?.game?.launch_options)
+              }
             })
             .catch((error) => {
               console.error(error)
@@ -291,7 +309,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
     const installSize =
       gameInstallInfo?.manifest?.disk_size &&
       size(Number(gameInstallInfo?.manifest?.disk_size))
-    const launchOptions = gameInstallInfo?.game?.launch_options || []
 
     const isMac = ['osx', 'Mac']
     const isMacNative = isMac.includes(installPlatform ?? '')
