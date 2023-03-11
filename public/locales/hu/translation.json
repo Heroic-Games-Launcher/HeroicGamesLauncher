@@ -78,7 +78,11 @@
                 "message": "A Winetricks a következő hibával tért vissza:{{newLine}}{{error}}",
                 "title": "Winetricks hiba"
             },
-            "moving": "Hiba történt a játék áthelyezésekor {{error}}"
+            "moving": "Hiba történt a játék áthelyezésekor {{error}}",
+            "ubisoft-connect": {
+                "message": "A Ubisoft Connect telepítése a játék előtagjában nem sikerült. A kézi telepítéshez tekintse meg wikioldalunkat a https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac címen.",
+                "title": "Ubisoft Connect"
+            }
         },
         "info": {
             "update": {
@@ -421,7 +425,7 @@
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Beépített Legendary bináris használata...",
         "custom_themes_path": "Select the path to look for custom CSS files",
-        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
+        "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix ahol telepítve van az EGS",
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },

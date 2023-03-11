@@ -78,7 +78,11 @@
                 "message": "Winetricks icra zamanı aşağıdakı xətanı qaytardı:{{newLine}}{{error}}",
                 "title": "Winetricks xətası"
             },
-            "moving": "Oyunun köçürülməsi xətası {{error}}"
+            "moving": "Oyunun köçürülməsi xətası {{error}}",
+            "ubisoft-connect": {
+                "message": "Ubisoft Connect-in oyun prefiksində quraşdırılması uğursuz oldu. Onu əl ilə quraşdırmaq üçün https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac ünvanında wiki səhifəmizi yoxlayın.",
+                "title": "Ubisoft Connect"
+            }
         },
         "info": {
             "update": {
@@ -421,7 +425,7 @@
         "alt-gogdl-bin": "Daxili GOGDL ikili proqramından istifadə...",
         "alt-legendary-bin": "Daxili əfsanəvi ikili proqramdan istifadə...",
         "custom_themes_path": "Select the path to look for custom CSS files",
-        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
+        "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "EGS-nin quraşdırıldığı prefiks",
         "prefered_language": "2 simvollu kod (yəni: \"en\" və ya \"fr\")"
     },

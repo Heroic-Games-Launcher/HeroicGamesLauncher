@@ -124,15 +124,17 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Les jeux nécessitant un lanceur tiers ne sont PAS supportés"
+            "third-party-game": "Les jeux nécessitant un lanceur tiers ne sont PAS compatibles"
         },
         "playing": {
             "start": "Y jouer maintenant",
-            "stop": "Jeu en cours (Arrêter)"
+            "stop": "Jeu en cours d’exécution (Arrêter)"
         },
         "saves": {
             "syncing": "Synchronisation des sauvegardes"
-        }
+        },
+        "launching": "Lancement",
+        "ubisoft": "Installation d'Ubisoft Connect"
     },
     "launch": {
         "options": "Paramètres de lancement..."
@@ -177,18 +179,20 @@
         "installing": "Installation en cours",
         "moving": "Déplacement de l'installation, veuillez patienter",
         "notinstalled": "Ce jeu n'est pas installé",
-        "notSupported": "Non supporté",
-        "notSupportedGame": "Non supporté",
+        "notSupported": "Non compatible",
+        "notSupportedGame": "Non compatible",
         "processing": "Traitement des fichiers, veuillez patienter",
         "queued": "En file d'attente",
         "reparing": "Réparation du jeu en cours, veuillez patienter",
         "this-game-uses-third-party": "Ce jeu nécessite un lanceur tiers et n'est donc pas supporté pour le moment",
-        "totalDownloaded": "Total Téléchargé",
+        "totalDownloaded": "Téléchargé au total",
         "uninstalling": "Désinstallation",
         "updating": "Mise à jour du jeu",
         "playing": "Jeu en cours d'exécution",
         "moving-files": "Déplacement du fichier \"{{file}}\" : {{percent}} ",
-        "syncingSaves": "Synchronisation des sauvegardes"
+        "syncingSaves": "Synchronisation des sauvegardes",
+        "launching": "Lancement",
+        "ubisoft": "Installer Ubisoft"
     },
     "submenu": {
         "addShortcut": "Ajouter un raccourci",

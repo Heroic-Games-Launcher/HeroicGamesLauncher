@@ -65,7 +65,6 @@ describe('Utilities - Download', () => {
   test('download file succeed', async () => {
     const progress = jest.fn()
     const installDir = __dirname + '/test_download'
-    let failed = false
 
     if (!existsSync(installDir)) {
       mkdirSync(installDir)

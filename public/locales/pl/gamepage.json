@@ -132,7 +132,9 @@
         },
         "saves": {
             "syncing": "Synchronizowanie zapisów"
-        }
+        },
+        "launching": "Wodowanie",
+        "ubisoft": "Instalowanie Ubisoft Connect"
     },
     "launch": {
         "options": "Opcje Uruchamiania..."
@@ -188,7 +190,9 @@
         "updating": "Aktualizowanie gry",
         "playing": "Gra",
         "moving-files": "Przenoszenie pliku „{{file}}”: {{percent}} ",
-        "syncingSaves": "Synchronizowanie zapisów"
+        "syncingSaves": "Synchronizowanie zapisów",
+        "launching": "Wodowanie",
+        "ubisoft": "Instalowanie Ubisoftu"
     },
     "submenu": {
         "addShortcut": "Dodaj skrót",

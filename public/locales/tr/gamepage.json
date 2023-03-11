@@ -132,7 +132,9 @@
         },
         "saves": {
             "syncing": "Kayıtlar Eşzamanlanıyor"
-        }
+        },
+        "launching": "Fırlatma",
+        "ubisoft": "Ubisoft Connect'i Yükleme"
     },
     "launch": {
         "options": "Başlatma Seçenekleri..."
@@ -188,7 +190,9 @@
         "updating": "Oyun Güncelleniyor",
         "playing": "oynamak",
         "moving-files": "'{{file}}' dosyası taşınıyor: {{percent}} ",
-        "syncingSaves": "Kayıtlar Senkronize Ediliyor"
+        "syncingSaves": "Kayıtlar Senkronize Ediliyor",
+        "launching": "Fırlatma",
+        "ubisoft": "Ubisoft'u Kurmak"
     },
     "submenu": {
         "addShortcut": "Kısayol ekle",

@@ -132,7 +132,9 @@
         },
         "saves": {
             "syncing": "Mentések szinkronizálása"
-        }
+        },
+        "launching": "Indítás",
+        "ubisoft": "A Ubisoft Connect telepítése"
     },
     "launch": {
         "options": "Indítási opciók..."
@@ -188,7 +190,9 @@
         "updating": "Játék frissítése",
         "playing": "Játék",
         "moving-files": "„{{file}}” fájl áthelyezése: {{percent}} ",
-        "syncingSaves": "Mentések szinkronizálása"
+        "syncingSaves": "Mentések szinkronizálása",
+        "launching": "Indítás",
+        "ubisoft": "Ubisoft telepítése"
     },
     "submenu": {
         "addShortcut": "Parancsikon hozzáadása",

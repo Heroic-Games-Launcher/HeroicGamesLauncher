@@ -78,7 +78,11 @@
                 "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
             },
-            "moving": "Pogreška pri premještanju igre {{error}}"
+            "moving": "Pogreška pri premještanju igre {{error}}",
+            "ubisoft-connect": {
+                "message": "Instalacija Ubisoft Connecta u prefiks igre nije uspjela. Provjerite našu wiki stranicu na https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac kako biste ga instalirali ručno.",
+                "title": "Ubisoft Connect"
+            }
         },
         "info": {
             "update": {
@@ -373,7 +377,7 @@
         }
     },
     "offline-message": {
-        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "hint": "Provjeravamo vezu između:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com i{{newline}}cloudflare-dns.com",
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
@@ -421,7 +425,7 @@
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
         "custom_themes_path": "Select the path to look for custom CSS files",
-        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
+        "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Put gdje je EGS instaliran",
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
@@ -586,7 +590,7 @@
             "general": "Općenito",
             "log": "Log",
             "other": "Ostalo",
-            "sync": "Spremi-Podatke",
+            "sync": "Sinkronizacija spremljenih podataka u oblaku",
             "wineExt": "Wine Extensions"
         },
         "open-config-file": "Open Config File",

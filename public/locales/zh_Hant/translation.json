@@ -78,7 +78,11 @@
                 "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
             },
-            "moving": "錯誤移動遊戲 {{error}}"
+            "moving": "錯誤移動遊戲 {{error}}",
+            "ubisoft-connect": {
+                "message": "在遊戲前綴中安裝 Ubisoft Connect 失敗。查看我們的 wiki 頁面 https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac 來手動安裝它。",
+                "title": "育碧連接"
+            }
         },
         "info": {
             "update": {
@@ -421,7 +425,7 @@
         "alt-gogdl-bin": "使用內置的 GOGDL 二進制文件...",
         "alt-legendary-bin": "使用內置的 Legendary 二進制文件...",
         "custom_themes_path": "Select the path to look for custom CSS files",
-        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
+        "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Epic Games商城安裝位置",
         "prefered_language": "雙字元代碼 (如: \"en\" 或 \"fr\")"
     },

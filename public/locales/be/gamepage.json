@@ -132,7 +132,9 @@
         },
         "saves": {
             "syncing": "Сінхранізацыя захаванняў"
-        }
+        },
+        "launching": "Запуск",
+        "ubisoft": "Ўстаноўка Ubisoft Connect"
     },
     "launch": {
         "options": "Параметры запуску..."
@@ -188,7 +190,9 @@
         "updating": "Абнаўленне гульні",
         "playing": "Гуляючы",
         "moving-files": "Перамяшчэнне файла \"{{file}}\": {{percent}} ",
-        "syncingSaves": "Сінхранізацыя захаванняў"
+        "syncingSaves": "Сінхранізацыя захаванняў",
+        "launching": "Запуск",
+        "ubisoft": "Ўстаноўка Ubisoft"
     },
     "submenu": {
         "addShortcut": "Дадаць ярлык",

@@ -78,7 +78,11 @@
                 "message": "Winetricks returnerte følgende feil under kjøring:{{newLine}}{{error}}",
                 "title": "Winetricks feil"
             },
-            "moving": "Feil ved flytting av spill {{error}}"
+            "moving": "Feil ved flytting av spill {{error}}",
+            "ubisoft-connect": {
+                "title": "Ubisoft Connect",
+                "message": "Installasjon av Ubisoft Connect i spillprefikset mislyktes. Sjekk wikisiden vår på https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac for å installere den manuelt."
+            }
         },
         "info": {
             "update": {
@@ -421,7 +425,7 @@
         "alt-gogdl-bin": "Bruker innebygd GOGDL binær...",
         "alt-legendary-bin": "Bruker innebygd Legendary binær...",
         "custom_themes_path": "Select the path to look for custom CSS files",
-        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
+        "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefiks der EGS er installert",
         "prefered_language": "2-tegnskode (dvs.: \"en\" eller \"fr\")"
     },

@@ -78,7 +78,11 @@
                 "message": "Winetricks je vratio sljedeću grešku tokom izvršavanja: {{newLine}}{{error}}",
                 "title": "Winetricks greška"
             },
-            "moving": "Greška pri premještanju igre {{error}}"
+            "moving": "Greška pri premještanju igre {{error}}",
+            "ubisoft-connect": {
+                "message": "Instalacija Ubisoft Connecta u prefiksu igre nije uspjela. Provjerite našu wiki stranicu na https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac da je instalirate ručno.",
+                "title": "Ubisoft Connect"
+            }
         },
         "info": {
             "update": {
@@ -421,7 +425,7 @@
         "alt-gogdl-bin": "Korištenje ugrađenog GOGDL binarne datoteke",
         "alt-legendary-bin": "Korištenje ugrađene Legendary binarne datoteke...",
         "custom_themes_path": "Select the path to look for custom CSS files",
-        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
+        "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefiks gdje je EGS instaliran",
         "prefered_language": "kod od 2 znaka (tj.: \"en\" ili \"fr\")"
     },

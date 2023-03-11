@@ -132,7 +132,9 @@
         },
         "saves": {
             "syncing": "Synchronizácia uloženia"
-        }
+        },
+        "launching": "Spustenie",
+        "ubisoft": "Inštalácia Ubisoft Connect"
     },
     "launch": {
         "options": "Možnosti spustenia..."
@@ -188,7 +190,9 @@
         "updating": "Aktualizácia hry",
         "playing": "Prehrávanie",
         "moving-files": "Presúvam súbor '{{file}}': {{percent}} ",
-        "syncingSaves": "Synchronizácia uloženia"
+        "syncingSaves": "Synchronizácia uloženia",
+        "launching": "Spustenie",
+        "ubisoft": "Inštalácia Ubisoftu"
     },
     "submenu": {
         "addShortcut": "Pridať skratku",

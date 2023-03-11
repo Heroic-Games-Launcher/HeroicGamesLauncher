@@ -78,7 +78,11 @@
                 "message": "Winetricks-ek errore hau itzuli du exekuzioan:{{newLine}}{{error}}",
                 "title": "Winetricks errorea"
             },
-            "moving": "Errorea jokoa mugitzean {{error}}"
+            "moving": "Errorea jokoa mugitzean {{error}}",
+            "ubisoft-connect": {
+                "title": "Ubisoft Connect",
+                "message": "Ezin izan da instalatu Ubisoft Connect jokoaren aurrizkian. Begiratu gure wiki orria https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac helbidean modu egokian instalatzeko."
+            }
         },
         "info": {
             "update": {
@@ -421,7 +425,7 @@
         "alt-gogdl-bin": "GOGDL bitarra integratua erabiltzen...",
         "alt-legendary-bin": "Kondairazko bitar integratua erabiltzen...",
         "custom_themes_path": "Select the path to look for custom CSS files",
-        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
+        "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "EGS instalatuta dagoen aurrizkia",
         "prefered_language": "2 karaktere kodea (hau da: \"en\" edo \"fr\")"
     },

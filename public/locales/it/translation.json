@@ -78,7 +78,11 @@
                 "message": "Winetricks ha restituito il seguente errore durante l'esecuzione:{{newLine}}{{error}}",
                 "title": "Errore di Winetricks"
             },
-            "moving": "Errore durante lo spostamento del gioco {{error}}"
+            "moving": "Errore durante lo spostamento del gioco {{error}}",
+            "ubisoft-connect": {
+                "message": "Installazione di Ubisoft Connect nel prefisso del gioco non riuscita. Controlla la nostra pagina wiki su https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac per installarlo manualmente.",
+                "title": "Ubisoft Connect"
+            }
         },
         "info": {
             "update": {
@@ -421,7 +425,7 @@
         "alt-gogdl-bin": "Usando i binari built-in di GOGDL...",
         "alt-legendary-bin": "In uso i binari Legendary integrati...",
         "custom_themes_path": "Seleziona il percorso per cercare i file CSS personalizzati",
-        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
+        "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix dove è installato EGS",
         "prefered_language": "Codice di 2 caratteri (es.: \\\"en\\\" o \\\"fr\\\")"
     },

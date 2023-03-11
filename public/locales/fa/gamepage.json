@@ -132,7 +132,9 @@
         },
         "saves": {
             "syncing": "در حال همگام سازی ذخیره ها"
-        }
+        },
+        "launching": "راه اندازی",
+        "ubisoft": "نصب Ubisoft Connect"
     },
     "launch": {
         "options": "گزینه های اجرا..."
@@ -188,7 +190,9 @@
         "updating": "در حال به روزرسانی بازی",
         "playing": "بازی کردن",
         "moving-files": "انتقال فایل '{{file}}': {{percent}} ",
-        "syncingSaves": "در حال همگام سازی ذخیره ها"
+        "syncingSaves": "در حال همگام سازی ذخیره ها",
+        "launching": "راه اندازی",
+        "ubisoft": "نصب یوبی سافت"
     },
     "submenu": {
         "addShortcut": "افزودن میانبر",

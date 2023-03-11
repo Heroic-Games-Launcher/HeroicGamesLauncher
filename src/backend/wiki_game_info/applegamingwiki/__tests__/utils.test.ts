@@ -31,7 +31,7 @@ describe('getInfoFromAppleGamingWiki', () => {
   })
 
   test('does not find page id', async () => {
-    const mockAxios = jest.spyOn(axios, 'get').mockResolvedValueOnce({
+    jest.spyOn(axios, 'get').mockResolvedValueOnce({
       data: { query: { search: [{ pageid: undefined }] } }
     })
 

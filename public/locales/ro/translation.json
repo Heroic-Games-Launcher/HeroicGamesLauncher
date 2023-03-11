@@ -78,7 +78,11 @@
                 "message": "Winetricks a returnat următoarea eroare în timpul execuției:{{newLine}}{{error}}",
                 "title": "Eroare Winetricks"
             },
-            "moving": "Eroare la mutarea jocului {{error}}"
+            "moving": "Eroare la mutarea jocului {{error}}",
+            "ubisoft-connect": {
+                "title": "Ubisoft Connect",
+                "message": "Instalarea Ubisoft Connect în prefixul jocului a eșuat. Verificați pagina noastră wiki la https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac pentru a o instala manual."
+            }
         },
         "info": {
             "update": {
@@ -421,7 +425,7 @@
         "alt-gogdl-bin": "Se utilizează binarul GOGDL încorporat...",
         "alt-legendary-bin": "Folosind binarul Legendary încorporat...",
         "custom_themes_path": "Select the path to look for custom CSS files",
-        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
+        "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefixul unde este instalat EGS",
         "prefered_language": "Cod de 2 caractere (adică: „en” sau „fr”)"
     },

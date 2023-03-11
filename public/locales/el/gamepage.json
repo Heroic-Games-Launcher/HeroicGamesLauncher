@@ -132,7 +132,9 @@
         },
         "saves": {
             "syncing": "Συγχρονισμός save"
-        }
+        },
+        "launching": "Εκκίνηση",
+        "ubisoft": "Εγκατάσταση του Ubisoft Connect"
     },
     "launch": {
         "options": "Ρυθμίσεις εκκίνησης..."
@@ -188,7 +190,9 @@
         "updating": "Ενημέρωση παιχνιδιού",
         "playing": "Παιχνίδι",
         "moving-files": "Μετακίνηση αρχείου '{{file}}': {{percent}} ",
-        "syncingSaves": "Συγχρονισμός Αποθηκεύσεων"
+        "syncingSaves": "Συγχρονισμός Αποθηκεύσεων",
+        "launching": "Εκκίνηση",
+        "ubisoft": "Εγκατάσταση της Ubisoft"
     },
     "submenu": {
         "addShortcut": "Προσθήκη συντόμευσης",

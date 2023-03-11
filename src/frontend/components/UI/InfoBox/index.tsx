@@ -1,17 +1,16 @@
 import './index.css'
 
-import { useToggle } from 'frontend/hooks'
 import { useTranslation } from 'react-i18next'
 import Info from '@mui/icons-material/Info'
 import React from 'react'
+import PopoverComponent from '../PopoverComponent'
 
 interface Props {
-  children: React.ReactNode
+  children: React.ReactElement | React.ReactNode | React.ReactNode[]
   text: string
 }
 
 export default function InfoBox({ children, text }: Props) {
-  const { on: isHidden, toggle: toggleIsHidden } = useToggle(true)
   const { t } = useTranslation()
 
   /*
@@ -22,27 +21,15 @@ export default function InfoBox({ children, text }: Props) {
     */
 
   return (
-    <>
-      <a
-        role={'tooltip'}
-        href="#"
-        className="helpLink"
-        onClick={(e) => {
-          e.preventDefault()
-          toggleIsHidden()
-        }}
-        data-testid="infoboxSpan"
-      >
-        <Info className="material-icons" />
-        <p>{t(text)}</p>
-      </a>
-      <div
-        style={{ display: isHidden ? 'none' : 'block' }}
-        className="infoBox"
-        data-testid="infoboxDiv"
-      >
-        {children}
-      </div>
-    </>
+    <PopoverComponent
+      item={
+        <span className="helpLink">
+          <Info />
+          <span>{t(text)}</span>
+        </span>
+      }
+    >
+      <div className="poppedElement">{children}</div>
+    </PopoverComponent>
   )
 }

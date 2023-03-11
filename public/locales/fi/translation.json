@@ -78,7 +78,11 @@
                 "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
             },
-            "moving": "Virhe siirrettäessä peliä {{error}}"
+            "moving": "Virhe siirrettäessä peliä {{error}}",
+            "ubisoft-connect": {
+                "message": "Ubisoft Connectin asennus pelin etuliitteeseen epäonnistui. Tarkista wikisivumme osoitteessa https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac asentaaksesi sen manuaalisesti.",
+                "title": "Ubisoft Connect"
+            }
         },
         "info": {
             "update": {
@@ -421,7 +425,7 @@
         "alt-gogdl-bin": "Käytetään sisäänrakennettua GOGDL-binääriä...",
         "alt-legendary-bin": "Käytetään sisäänrakennettua legendaarista binääriä...",
         "custom_themes_path": "Select the path to look for custom CSS files",
-        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
+        "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefiksi johon EGS on asennettu",
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },

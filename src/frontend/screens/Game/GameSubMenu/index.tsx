@@ -21,7 +21,6 @@ interface Props {
   runner: Runner
   handleUpdate: () => void
   disableUpdate: boolean
-  setShowExtraInfo: (show: boolean) => void
   onShowRequirements?: () => void
 }
 
@@ -33,8 +32,7 @@ export default function GamesSubmenu({
   runner,
   handleUpdate,
   disableUpdate,
-  onShowRequirements,
-  setShowExtraInfo
+  onShowRequirements
 }: Props) {
   const { refresh, platform, libraryStatus, showDialogModal } =
     useContext(ContextProvider)
@@ -327,15 +325,6 @@ export default function GamesSubmenu({
               {t('submenu.protondb', 'Check Compatibility')}
             </button>
           )}
-          {!isSideloaded && (
-            <button
-              onClick={() => setShowExtraInfo(true)}
-              className="link button is-text is-link"
-            >
-              {t('submenu.extraInfo', 'Extra Info')}
-            </button>
-          )}
-
           {onShowRequirements && (
             <button
               onClick={async () => onShowRequirements()}

@@ -78,7 +78,11 @@
                 "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"
             },
-            "moving": "오류 이동 게임 {{error}}"
+            "moving": "오류 이동 게임 {{error}}",
+            "ubisoft-connect": {
+                "title": "유비소프트 커넥트",
+                "message": "게임 접두사에 Ubisoft Connect를 설치하지 못했습니다. 수동으로 설치하려면 https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac의 위키 페이지를 확인하세요."
+            }
         },
         "info": {
             "update": {
@@ -421,7 +425,7 @@
         "alt-gogdl-bin": "내장된 GOGDL 바이너리 파일 사용...",
         "alt-legendary-bin": "내장된 Legendary 바이너리 파일 사용...",
         "custom_themes_path": "Select the path to look for custom CSS files",
-        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
+        "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Epic Games Store가 설치된 위치의 접두사",
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
