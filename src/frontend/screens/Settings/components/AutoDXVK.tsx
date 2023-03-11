@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { defaultWineVersion } from '..'
 import useSetting from 'frontend/hooks/useSetting'
-import { configStore } from 'frontend/helpers/electronStores'
 import { ToggleSwitch } from 'frontend/components/UI'
 
 const AutoDXVK = () => {
@@ -13,8 +12,8 @@ const AutoDXVK = () => {
     'autoInstallDxvk',
     false
   )
-  const home = configStore.get('userHome', '')
-  const [winePrefix] = useSetting('winePrefix', `${home}/.wine`)
+  const [defaultWinePrefix] = useSetting('defaultWinePrefix', '')
+  const [winePrefix] = useSetting('winePrefix', defaultWinePrefix)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
   const [installingDxvk, setInstallingDxvk] = React.useState(false)
 

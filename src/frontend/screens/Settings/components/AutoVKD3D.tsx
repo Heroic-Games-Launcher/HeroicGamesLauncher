@@ -4,7 +4,6 @@ import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
-import { configStore } from 'frontend/helpers/electronStores'
 import { defaultWineVersion } from '..'
 
 const AutoVKD3D = () => {
@@ -13,8 +12,8 @@ const AutoVKD3D = () => {
     'autoInstallVkd3d',
     false
   )
-  const home = configStore.get('userHome', '')
-  const [winePrefix] = useSetting('winePrefix', `${home}/.wine`)
+  const [defaultWinePrefix] = useSetting('defaultWinePrefix', '')
+  const [winePrefix] = useSetting('winePrefix', defaultWinePrefix)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
 
   const isProton = wineVersion.type === 'proton'
