@@ -278,7 +278,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
     // TODO: Do this in a *somewhat* prettier way
     let install_path: string | undefined
-    let install_size: string | undefined
     let version: string | undefined
     let developer: string | undefined
     let cloud_save_enabled = false
@@ -480,7 +479,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         <>
                           {!isSideloaded && (
                             <div>
-                              <b>{t('info.size')}:</b> {install_size}
+                              <b>{t('info.size')}:</b> {installSize ?? '...'}
                             </div>
                           )}
                           <div style={{ textTransform: 'capitalize' }}>
