@@ -58,18 +58,17 @@ async function getIcon(appName: string, gameInfo: GameInfo | SideloadGame) {
     mkdirSync(heroicIconFolder)
   }
 
-  let image = gameInfo.art_square.replaceAll(' ', '%20').replace('{ext}', 'png')
+  // By default use vertical image - art_square in jpg format
+  let image = gameInfo.art_square.replaceAll(' ', '%20').replace('{ext}', 'jpg')
+  let icon = `${heroicIconFolder}/${appName}.jpg`
 
   if (gameInfo.runner === 'gog') {
     const productApiData = await GOGLibrary.getProductApi(appName)
-    if (productApiData) {
-      if (productApiData.data.images?.icon) {
-        image = 'https:' + productApiData.data.images?.icon
-      }
+    if (productApiData && productApiData.data.images?.icon) {
+      image = 'https:' + productApiData.data.images?.icon
+      icon = `${heroicIconFolder}/${appName}.png` // Allow transparency
     }
   }
-
-  const icon = `${heroicIconFolder}/${appName}.png` // Use png's since we need support for transparency
 
   if (!checkImageExistsAlready(icon)) {
     downloadImage(image, icon)
