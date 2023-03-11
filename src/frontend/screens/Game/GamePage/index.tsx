@@ -284,7 +284,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
     if (gameInfo.runner !== 'sideload') {
       install_path = gameInfo.install.install_path
-      install_size = gameInfo.install.install_size
       version = gameInfo.install.version
       developer = gameInfo.developer
       cloud_save_enabled = gameInfo.cloud_save_enabled
