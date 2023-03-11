@@ -572,7 +572,7 @@ export class LegendaryLibrary {
       namespace,
       is_mac_native: info
         ? platform === 'Mac'
-        : releaseInfo[0].platform.includes('Mac'),
+        : (releaseInfo[0].platform || []).includes('Mac'),
       save_folder: saveFolder,
       save_path,
       title,
