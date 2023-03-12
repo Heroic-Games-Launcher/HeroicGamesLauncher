@@ -20,4 +20,4 @@ jobs:
       - name: Prettier code.
         run: yarn prettier
       - name: Find dead code
-        run: yarn find-deadcode --no-cache
+        run: yarn find-deadcode

@@ -170,7 +170,7 @@
   "scripts": {
     "start": "vite",
     "codecheck": "tsc --noEmit",
-    "find-deadcode": "npx unimported",
+    "find-deadcode": "ts-prune --error",
     "test": "jest",
     "test-watch": "jest --watch --maxWorkers=25%",
     "test:ci": "jest --runInBand --silent",
