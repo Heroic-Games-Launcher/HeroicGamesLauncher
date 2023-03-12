@@ -1,0 +1,15 @@
+{
+  "rootDir": "./src",
+  "preset": "node",
+  "entry": ["src/**/*"],
+  "aliases": {
+    "backend/*": ["./backend", "./backend/*"],
+    "common/*": ["./common", "./common/*"],
+    "frontend/*": ["./frontend", "./frontend/*"]
+  },
+  "extensions": [".js", ".jsx", ".ts", ".tsx", ".d.ts"],
+  "ignorePatterns": ["**/node_modules/**"],
+  "ignoreUnimported": [],
+  "ignoreUnused": ["@fontsource/cabin", "@fontsource/rubik", "tslib"],
+  "ignoreUnresolved": ["../../tsconfig", "./writable.js"]
+}

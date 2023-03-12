@@ -163,16 +163,14 @@
     "shlex": "^2.1.2",
     "short-uuid": "^4.2.2",
     "simple-keyboard": "^3.5.31",
-    "source-map-support": "^0.5.21",
     "steam-shortcut-editor": "^3.1.1",
     "systeminformation": "^5.17.12",
-    "ts-prune": "^0.10.3",
     "tslib": "^2.5.0"
   },
   "scripts": {
     "start": "vite",
     "codecheck": "tsc --noEmit",
-    "find-deadcode": "ts-prune | sed -e '/satisfies/,+1d'",
+    "find-deadcode": "npx unimported",
     "test": "jest",
     "test-watch": "jest --watch --maxWorkers=25%",
     "test:ci": "jest --runInBand --silent",
@@ -235,6 +233,7 @@
     "ts-jest": "^29.0.5",
     "type-fest": "^3.6.1",
     "typescript": "^4.9.4",
+    "unimported": "^1.26.0",
     "vite": "^4.0.3",
     "vite-plugin-electron": "^0.10.2",
     "vite-plugin-svgr": "^2.4.0"
