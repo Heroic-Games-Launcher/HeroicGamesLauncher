@@ -237,5 +237,8 @@
     "vite": "^4.0.3",
     "vite-plugin-electron": "^0.10.2",
     "vite-plugin-svgr": "^2.4.0"
+  },
+  "resolutions": {
+    "ts-morph": "^17.0.1"
   }
 }
