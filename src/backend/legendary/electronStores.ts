@@ -1,20 +1,12 @@
-import { TypeCheckedStoreBackend } from '../electron_store'
+import CacheStore from '../cache'
+import { ExtraInfo, GameInfo } from 'common/types'
+import { LegendaryInstallInfo } from 'common/types/legendary'
 
-const installStore = new TypeCheckedStoreBackend('legendaryInstallInfo', {
-  cwd: 'lib-cache',
-  name: 'installInfo',
-  clearInvalidConfig: true
-})
-const libraryStore = new TypeCheckedStoreBackend('legendaryLibrary', {
-  cwd: 'lib-cache',
-  name: 'library',
-  clearInvalidConfig: true
-})
+const installStore = new CacheStore<LegendaryInstallInfo>(
+  'legendary_install_info'
+)
+const libraryStore = new CacheStore<GameInfo[], 'library'>('legendary_library')
 
-const gameInfoStore = new TypeCheckedStoreBackend('legendaryGameInfo', {
-  cwd: 'lib-cache',
-  name: 'gameinfo',
-  clearInvalidConfig: true
-})
+const gameInfoStore = new CacheStore<ExtraInfo>('legendary_gameinfo')
 
 export { gameInfoStore, installStore, libraryStore }
