@@ -621,7 +621,7 @@ class GlobalConfigV0 extends GlobalConfig {
         name: userName
       },
       wineCrossoverBottle: 'Heroic',
-      winePrefix: isWindows ? {} : join(heroicDefaultWinePrefix, 'default'),
+      winePrefix: isWindows ? '' : join(heroicDefaultWinePrefix, 'default'),
       wineVersion: defaultWine
     } as AppSettings
   }
