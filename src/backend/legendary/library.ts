@@ -544,6 +544,13 @@ export class LegendaryLibrary {
 
     const convertedSize = install_size ? getFileSize(Number(install_size)) : '0'
 
+    if (releaseInfo && !releaseInfo[0].platform) {
+      logWarning(
+        ['No platforms info for', fileName, app_name],
+        LogPrefix.Legendary
+      )
+    }
+
     this.library.set(app_name, {
       app_name,
       art_cover: art_cover || art_square || fallBackImage,
