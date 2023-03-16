@@ -59,6 +59,9 @@
             "winetricks": {
                 "message": "Winetricks bajarish paytida quyidagi xatoni qaytardi:{{newLine}}{{error}}",
                 "title": "Winetricks xatosi"
+            },
+            "legendary": {
+                "generic": "Xatolik yuz berdi! Epic hisob qaydnomangizdan chiqish va tizimga kirishga harakat qiling. {{newline}} {{error}}"
             }
         },
         "choose": "Tanlang",
@@ -246,7 +249,8 @@
             "start-time": "Boshlangan",
             "type": "Turi"
         },
-        "title": "Yuklashlar"
+        "title": "Yuklashlar",
+        "ETA": "Taxminiy vaqt"
     },
     "epic": {
         "offline-notification-body": "Onlayn xizmatlar to'liq ishlamasligi mumkin, chunki Epic Games serverlari oflayn!",
@@ -657,5 +661,6 @@
     "tooltip": {
         "addpath": "Yangi yo'l qo'shing",
         "removepath": "Yo'lni olib tashlash"
-    }
+    },
+    "Open": "Ochiq"
 }
