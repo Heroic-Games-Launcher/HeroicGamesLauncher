@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "message": "Installatie van Ubisoft Connect in het spelvoorvoegsel is mislukt. Bekijk onze wikipagina op https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac om het handmatig te installeren.",
                 "title": "Ubisoft Connect"
+            },
+            "legendary": {
+                "generic": "Er is een fout opgetreden! Probeer uit te loggen en in te loggen op uw Epic-account. {{newline}} {{error}}"
             }
         },
         "info": {
@@ -201,7 +204,8 @@
             "start-time": "Started at",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "ETA": "Geschatte tijd"
     },
     "epic": {
         "offline-notification-body": "Online services werken mogelijk niet, sinds Epic Games servers offline zijn!",
@@ -383,7 +387,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
-    "Open": "",
+    "Open": "Open de",
     "options": {
         "advanced": {
             "key": "Variable Name",

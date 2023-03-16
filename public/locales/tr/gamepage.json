@@ -111,7 +111,11 @@
         "path": "Kurulum Yeri",
         "size": "Boyut",
         "syncsaves": "Kayıtları Eşzamanla",
-        "version": "Sürüm"
+        "version": "Sürüm",
+        "apple-gaming-wiki": "AppleGamingWiki Derecelendirmesi",
+        "clickToOpen": "açmak için tıklayın",
+        "game-scores": "Oyun Skorları",
+        "installedInfo": "Yüklü Bilgiler"
     },
     "install": {
         "disk-space-left": "Kullanılabilir Alan",

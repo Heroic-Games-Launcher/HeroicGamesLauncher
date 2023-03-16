@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "message": "ゲームプレフィックスでの Ubisoft Connect のインストールに失敗しました。 https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac の wiki ページをチェックして手動でインストールしてください。",
                 "title": "ユービーアイソフトコネクト"
+            },
+            "legendary": {
+                "generic": "エラーが発生しました！ Epic アカウントでログアウトしてログインしてみてください。 【X69X】【X82X】"
             }
         },
         "info": {
@@ -201,7 +204,8 @@
             "start-time": "Started at",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "ETA": "予定時刻"
     },
     "epic": {
         "offline-notification-body": "Heroic will not work probably!",
@@ -383,7 +387,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
-    "Open": "",
+    "Open": "開ける",
     "options": {
         "advanced": {
             "key": "Variable Name",

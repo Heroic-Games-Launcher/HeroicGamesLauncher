@@ -112,7 +112,11 @@
         "path": "Quraşdırma Yolu",
         "size": "Ölçü",
         "syncsaves": "Sync Saves",
-        "version": "Versiya"
+        "version": "Versiya",
+        "apple-gaming-wiki": "AppleGamingWiki reytinqi",
+        "clickToOpen": "Açmaq üçün klikləyin",
+        "game-scores": "Oyun Xalları",
+        "installedInfo": "Quraşdırılmış Məlumat"
     },
     "install": {
         "disk-space-left": "Yer Mövcuddur",

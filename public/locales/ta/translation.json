@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "title": "யுபிசாஃப்ட் இணைப்பு",
                 "message": "கேம் முன்னொட்டில் Ubisoft Connect இன் நிறுவல் தோல்வியடைந்தது. எங்களின் விக்கிப் பக்கத்தை https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac இல் நிறுவ, அதைத் தானாக நிறுவவும்."
+            },
+            "legendary": {
+                "generic": "தவறு நிகழ்ந்துவிட்டது! உங்கள் எபிக் கணக்கில் வெளியேறி உள்நுழைய முயற்சிக்கவும். {{newline}} {{error}}"
             }
         },
         "info": {
@@ -201,7 +204,8 @@
             "start-time": "Started at",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "ETA": "கணிக்கப்பட்ட நேரம்"
     },
     "epic": {
         "offline-notification-body": "Epic games இன் சர்வர்கள் ஆஃப்லைனில் உள்ளதால் ஆன்லைன் சேவைகள் முழுமையாக இயங்காமல் போகலாம்!",
@@ -383,7 +387,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
-    "Open": "",
+    "Open": " ",
     "options": {
         "advanced": {
             "key": "Variable Name",

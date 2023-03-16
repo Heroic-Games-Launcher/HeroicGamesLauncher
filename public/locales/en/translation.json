@@ -386,7 +386,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
-    "Open": "",
+    "Open": "Open",
     "options": {
         "advanced": {
             "key": "Variable Name",

@@ -111,7 +111,11 @@
         "path": "നടീലിടം",
         "size": "വലുപ്പം",
         "syncsaves": "സൂക്ഷിക്കപ്പെട്ട ഒന്നിപ്പിക്കലുകള്",
-        "version": "പതിപ്പ്"
+        "version": "പതിപ്പ്",
+        "apple-gaming-wiki": "AppleGamingWiki റേറ്റിംഗ്",
+        "clickToOpen": "തുറക്കാൻ ക്ലിക്ക് ചെയ്യുക",
+        "game-scores": "ഗെയിം സ്കോറുകൾ",
+        "installedInfo": "ഇൻസ്റ്റാൾ ചെയ്ത വിവരങ്ങൾ"
     },
     "install": {
         "disk-space-left": "Space Available",

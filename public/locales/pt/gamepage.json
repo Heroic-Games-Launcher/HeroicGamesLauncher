@@ -111,7 +111,11 @@
         "path": "Pasta de Instalação",
         "size": "Tamanho",
         "syncsaves": "Sincronização em Nuvem",
-        "version": "Versão"
+        "version": "Versão",
+        "apple-gaming-wiki": "Classificação AppleGamingWiki",
+        "clickToOpen": "Clique para abrir",
+        "game-scores": "Pontuações do jogo",
+        "installedInfo": "Informação Instalada"
     },
     "install": {
         "disk-space-left": "Space Available",
