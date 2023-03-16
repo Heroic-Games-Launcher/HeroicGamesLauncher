@@ -7,7 +7,7 @@ init:
   - git config --global core.autocrlf input
 
 install:
-  - npm i --legacy-peer-deps
+  - yarn
 
 environment:
   GH_TOKEN:
