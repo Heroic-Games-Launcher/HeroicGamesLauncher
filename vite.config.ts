@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig, UserConfigExport } from 'vite'
 import electron from 'vite-plugin-electron'
 import react from '@vitejs/plugin-react-swc'
 import svgr from 'vite-plugin-svgr'
@@ -11,8 +11,8 @@ const srcAliases = ['backend', 'frontend', 'common'].map((srcFolder) => {
   }
 })
 
-const electronViteConfig = {
-  build: { outDir: 'build/electron' },
+const electronViteConfig: UserConfigExport = {
+  build: { outDir: 'build/electron', target: 'esnext' },
   resolve: {
     alias: [
       {
@@ -26,6 +26,7 @@ const electronViteConfig = {
 
 export default defineConfig({
   build: {
+    target: 'esnext',
     outDir: 'build'
   },
   resolve: {
