@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "message": "Η εγκατάσταση του Ubisoft Connect στο πρόθεμα του παιχνιδιού απέτυχε. Ελέγξτε τη σελίδα wiki μας στη διεύθυνση https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac για να την εγκαταστήσετε μη αυτόματα.",
                 "title": "Ubisoft Connect"
+            },
+            "legendary": {
+                "generic": "Παρουσιάστηκε σφάλμα! Δοκιμάστε να αποσυνδεθείτε και να συνδεθείτε στον λογαριασμό σας Epic. {{newline}} {{error}}"
             }
         },
         "info": {
@@ -201,7 +204,8 @@
             "start-time": "Started at",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "ETA": "Αναμενόμενη ώρα"
     },
     "epic": {
         "offline-notification-body": "Οι διαδικτυακές υπηρεσίες πιθανό να μη λειτουργούν πλήρως καθώς οι διακομιστές Epic Games ειναι εκτός σύνδεσης!",
@@ -383,7 +387,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
-    "Open": "",
+    "Open": "Ανοιξε",
     "options": {
         "advanced": {
             "key": "Variable Name",
