@@ -887,7 +887,7 @@ export const spawnAsync = async (
       if (onOutput) {
         onOutput(data.toString())
       }
-      stdout.add(data.toString())
+      stdout.push(data.toString())
     })
   }
 
@@ -896,7 +896,7 @@ export const spawnAsync = async (
       if (onOutput) {
         onOutput(data.toString())
       }
-      stderr.add(data.toString())
+      stderr.push(data.toString())
     })
   }
 
@@ -904,15 +904,15 @@ export const spawnAsync = async (
     child.on('error', (error) =>
       reject({
         code: 1,
-        stdout: stdout.toString(),
-        stderr: stderr.toString().concat(error.message)
+        stdout: stdout.join(),
+        stderr: stderr.join().concat(error.message)
       })
     )
     child.on('close', (code) => {
       resolve({
         code,
-        stdout: stdout.toString(),
-        stderr: stderr.toString()
+        stdout: stdout.join(),
+        stderr: stderr.join()
       })
     })
   })
@@ -1159,13 +1159,13 @@ const memoryLog = (limit = 50) => {
   const lines: string[] = []
 
   return {
-    add: (newLine: string) => {
+    push: (newLine: string) => {
       lines.unshift(newLine)
       if (lines.length > limit) {
         lines.length = limit
       }
     },
-    toString: (separator = '') => {
+    join: (separator = '') => {
       return lines.reverse().join(separator)
     }
   }

@@ -615,7 +615,7 @@ async function runWineCommand({
         options.onOutput(data, child)
       }
 
-      stdout.add(data.trim())
+      stdout.push(data.trim())
     })
 
     child.stderr.on('data', (data: string) => {
@@ -627,13 +627,13 @@ async function runWineCommand({
         options.onOutput(data, child)
       }
 
-      stderr.add(data.trim())
+      stderr.push(data.trim())
     })
 
     child.on('close', async () => {
       const response = {
-        stderr: stderr.toString(),
-        stdout: stdout.toString()
+        stderr: stderr.join(),
+        stdout: stdout.join()
       }
 
       if (wait && wineVersion.wineserver) {
@@ -740,7 +740,7 @@ async function callRunner(
         options.onOutput(data, child)
       }
 
-      stdout.add(data.trim())
+      stdout.push(data.trim())
     })
 
     child.stderr.setEncoding('utf-8')
@@ -757,12 +757,12 @@ async function callRunner(
         options.onOutput(data, child)
       }
 
-      stderr.add(data.trim())
+      stderr.push(data.trim())
     })
 
     child.on('close', (code, signal) => {
       errorHandler({
-        error: `${stdout.toString().concat(stderr.toString())}`,
+        error: `${stdout.join().concat(stderr.join())}`,
         logPath: options?.logFile,
         runner: runner.name,
         appName
@@ -773,8 +773,8 @@ async function callRunner(
       }
 
       res({
-        stdout: stdout.toString('\n'),
-        stderr: stderr.toString('\n')
+        stdout: stdout.join('\n'),
+        stderr: stderr.join('\n')
       })
     })
 
