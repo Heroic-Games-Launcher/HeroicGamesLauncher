@@ -879,15 +879,15 @@ export const spawnAsync = async (
   onOutput?: (data: string) => void
 ): Promise<{ code: number | null; stdout: string; stderr: string }> => {
   const child = spawn(command, args, options)
-  const stdout: string[] = []
-  const stderr: string[] = []
+  const stdout = memoryLog()
+  const stderr = memoryLog()
 
   if (child.stdout) {
     child.stdout.on('data', (data) => {
       if (onOutput) {
         onOutput(data.toString())
       }
-      stdout.push(data.toString())
+      stdout.add(data.toString())
     })
   }
 
@@ -896,7 +896,7 @@ export const spawnAsync = async (
       if (onOutput) {
         onOutput(data.toString())
       }
-      stderr.push(data.toString())
+      stderr.add(data.toString())
     })
   }
 
@@ -904,15 +904,15 @@ export const spawnAsync = async (
     child.on('error', (error) =>
       reject({
         code: 1,
-        stdout: stdout.join(''),
-        stderr: stderr.join('').concat(error.message)
+        stdout: stdout.toString(),
+        stderr: stderr.toString().concat(error.message)
       })
     )
     child.on('close', (code) => {
       resolve({
         code,
-        stdout: stdout.join(''),
-        stderr: stderr.join('')
+        stdout: stdout.toString(),
+        stderr: stderr.toString()
       })
     })
   })
@@ -1151,6 +1151,24 @@ export async function moveOnUnix(
   return { status: 'done', installPath: destination }
 }
 
+// helper object for an array with a length limit
+// this is used when calling system processes to not store the complete output in memory
+const memoryLog = (limit = 50) => {
+  const lines: string[] = []
+
+  return {
+    add: (newLine: string) => {
+      lines.unshift(newLine)
+      if (lines.length > limit) {
+        lines.length = limit
+      }
+    },
+    toString: (separator = '') => {
+      return lines.reverse().join(separator)
+    }
+  }
+}
+
 export {
   errorHandler,
   execAsync,
@@ -1183,7 +1201,8 @@ export {
   getWineFromProton,
   getFileSize,
   getLegendaryVersion,
-  getGogdlVersion
+  getGogdlVersion,
+  memoryLog
 }
 
 // Exported only for testing purpose

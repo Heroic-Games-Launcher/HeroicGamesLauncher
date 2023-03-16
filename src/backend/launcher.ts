@@ -17,7 +17,8 @@ import {
   searchForExecutableOnPath,
   quoteIfNecessary,
   errorHandler,
-  removeQuoteIfNecessary
+  removeQuoteIfNecessary,
+  memoryLog
 } from './utils'
 import {
   logDebug,
@@ -602,8 +603,8 @@ async function runWineCommand({
       )
     }
 
-    const stdout: string[] = []
-    const stderr: string[] = []
+    const stdout = memoryLog()
+    const stderr = memoryLog()
 
     child.stdout.on('data', (data: string) => {
       if (options?.logFile) {
@@ -614,7 +615,7 @@ async function runWineCommand({
         options.onOutput(data, child)
       }
 
-      stdout.push(data.trim())
+      stdout.add(data.trim())
     })
 
     child.stderr.on('data', (data: string) => {
@@ -626,11 +627,14 @@ async function runWineCommand({
         options.onOutput(data, child)
       }
 
-      stderr.push(data.trim())
+      stderr.add(data.trim())
     })
 
     child.on('close', async () => {
-      const response = { stderr: stderr.join(''), stdout: stdout.join('') }
+      const response = {
+        stderr: stderr.toString(),
+        stdout: stdout.toString()
+      }
 
       if (wait && wineVersion.wineserver) {
         await new Promise<void>((res_wait) => {
@@ -719,8 +723,8 @@ async function callRunner(
       signal: abortController.signal
     })
 
-    const stdout: string[] = []
-    const stderr: string[] = []
+    const stdout = memoryLog()
+    const stderr = memoryLog()
 
     child.stdout.setEncoding('utf-8')
     child.stdout.on('data', (data: string) => {
@@ -736,7 +740,7 @@ async function callRunner(
         options.onOutput(data, child)
       }
 
-      stdout.push(data.trim())
+      stdout.add(data.trim())
     })
 
     child.stderr.setEncoding('utf-8')
@@ -753,12 +757,12 @@ async function callRunner(
         options.onOutput(data, child)
       }
 
-      stderr.push(data.trim())
+      stderr.add(data.trim())
     })
 
     child.on('close', (code, signal) => {
       errorHandler({
-        error: `${stdout.join().concat(stderr.join())}`,
+        error: `${stdout.toString().concat(stderr.toString())}`,
         logPath: options?.logFile,
         runner: runner.name,
         appName
@@ -769,8 +773,8 @@ async function callRunner(
       }
 
       res({
-        stdout: stdout.join('\n'),
-        stderr: stderr.join('\n')
+        stdout: stdout.toString('\n'),
+        stderr: stderr.toString('\n')
       })
     })
 
