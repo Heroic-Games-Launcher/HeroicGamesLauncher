@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 import electron from 'vite-plugin-electron'
-import react from '@vitejs/plugin-react'
+import react from '@vitejs/plugin-react-swc'
 import svgr from 'vite-plugin-svgr'
 import path from 'path'
 
