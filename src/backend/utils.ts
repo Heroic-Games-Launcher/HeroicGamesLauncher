@@ -1153,6 +1153,8 @@ export async function moveOnUnix(
 
 // helper object for an array with a length limit
 // this is used when calling system processes to not store the complete output in memory
+//
+// the `limit` is the number of messages, it doesn't mean it will be exactly `limit` lines since a message can be multi-line
 const memoryLog = (limit = 50) => {
   const lines: string[] = []
 
