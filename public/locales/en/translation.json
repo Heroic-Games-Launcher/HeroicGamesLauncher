@@ -184,6 +184,7 @@
     },
     "docs": "Documentation",
     "download-manager": {
+        "ETA": "Estimated time",
         "install-type": {
             "install": "Install",
             "update": "Update"
