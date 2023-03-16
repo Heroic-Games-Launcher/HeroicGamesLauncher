@@ -904,15 +904,15 @@ export const spawnAsync = async (
     child.on('error', (error) =>
       reject({
         code: 1,
-        stdout: stdout.join(),
-        stderr: stderr.join().concat(error.message)
+        stdout: stdout.join(''),
+        stderr: stderr.join('').concat(error.message)
       })
     )
     child.on('close', (code) => {
       resolve({
         code,
-        stdout: stdout.join(),
-        stderr: stderr.join()
+        stdout: stdout.join(''),
+        stderr: stderr.join('')
       })
     })
   })

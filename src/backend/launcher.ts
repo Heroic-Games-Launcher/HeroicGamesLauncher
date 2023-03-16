@@ -631,10 +631,7 @@ async function runWineCommand({
     })
 
     child.on('close', async () => {
-      const response = {
-        stderr: stderr.join(),
-        stdout: stdout.join()
-      }
+      const response = { stderr: stderr.join(), stdout: stdout.join() }
 
       if (wait && wineVersion.wineserver) {
         await new Promise<void>((res_wait) => {
