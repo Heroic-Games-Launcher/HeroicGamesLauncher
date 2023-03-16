@@ -103,7 +103,11 @@
         "size": "Størrelse",
         "syncsaves": "Synkroniser Saves",
         "version": "Version",
-        "installedPlatform": "Installeret platform"
+        "installedPlatform": "Installeret platform",
+        "apple-gaming-wiki": "AppleGamingWiki-vurdering",
+        "clickToOpen": "Klik for at åbne",
+        "game-scores": "Spilscore",
+        "installedInfo": "Installeret information"
     },
     "install": {
         "path": "Vælg Installations Sti",

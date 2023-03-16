@@ -111,7 +111,11 @@
         "path": "Ruta d'instal·lació",
         "size": "Mida",
         "syncsaves": "Sincronitza les partides desades",
-        "version": "Versió"
+        "version": "Versió",
+        "apple-gaming-wiki": "Classificació AppleGamingWiki",
+        "clickToOpen": "Feu clic per obrir",
+        "game-scores": "Resultats del joc",
+        "installedInfo": "Informació instal·lada"
     },
     "install": {
         "disk-space-left": "Espai disponible",
