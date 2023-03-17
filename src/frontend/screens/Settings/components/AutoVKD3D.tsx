@@ -5,7 +5,6 @@ import useSetting from 'frontend/hooks/useSetting'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { defaultWineVersion } from '..'
-import { join } from 'path'
 
 const AutoVKD3D = () => {
   const { t } = useTranslation()
@@ -14,10 +13,7 @@ const AutoVKD3D = () => {
     false
   )
   const [defaultWinePrefix] = useSetting('defaultWinePrefix', '')
-  const [winePrefix] = useSetting(
-    'winePrefix',
-    join(defaultWinePrefix, 'default')
-  )
+  const [winePrefix] = useSetting('winePrefix', defaultWinePrefix + '/default')
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
 
   const isProton = wineVersion.type === 'proton'

@@ -5,7 +5,6 @@ import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { defaultWineVersion } from '..'
 import useSetting from 'frontend/hooks/useSetting'
 import { ToggleSwitch } from 'frontend/components/UI'
-import { join } from 'path'
 
 const AutoDXVK = () => {
   const { t } = useTranslation()
@@ -15,10 +14,7 @@ const AutoDXVK = () => {
   )
 
   const [defaultWinePrefix] = useSetting('defaultWinePrefix', '')
-  const [winePrefix] = useSetting(
-    'winePrefix',
-    join(defaultWinePrefix, 'default')
-  )
+  const [winePrefix] = useSetting('winePrefix', defaultWinePrefix + '/default')
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
   const [installingDxvk, setInstallingDxvk] = React.useState(false)
 
