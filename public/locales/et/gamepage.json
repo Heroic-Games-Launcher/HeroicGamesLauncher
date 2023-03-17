@@ -111,7 +111,11 @@
         "path": "Paigalduskoht",
         "size": "Suurus",
         "syncsaves": "Sünkrooni salvestised",
-        "version": "Versioon"
+        "version": "Versioon",
+        "apple-gaming-wiki": "AppleGamingWiki hinnang",
+        "clickToOpen": "Avamiseks klõpsake",
+        "game-scores": "Mängutulemused",
+        "installedInfo": "Installitud teave"
     },
     "install": {
         "disk-space-left": "Vaba ruumi",

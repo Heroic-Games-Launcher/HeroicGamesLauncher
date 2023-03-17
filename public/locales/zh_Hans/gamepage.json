@@ -111,7 +111,11 @@
         "path": "安装路径",
         "size": "大小",
         "syncsaves": "同步存档",
-        "version": "版本"
+        "version": "版本",
+        "apple-gaming-wiki": "AppleGamingWiki 评级",
+        "clickToOpen": "点击打开",
+        "game-scores": "比赛成绩",
+        "installedInfo": "安装信息"
     },
     "install": {
         "disk-space-left": "可用空间",

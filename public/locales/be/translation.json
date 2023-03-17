@@ -1,72 +1,72 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Actions Font Family (Default: ",
-        "all_tiles_in_color": "Show all game tiles in color",
-        "content_font_family_no_default": "Content Font Family (Default: ",
-        "fonts": "Fonts",
-        "title": "Accessibility",
+        "actions_font_family_no_default": "Шрыфт для дзеянняў (Па змаўчанні: ",
+        "all_tiles_in_color": "Паказаць усе пліткі гульняў у колеры",
+        "content_font_family_no_default": "Шрыфт для змесціва (Па змаўчанні: ",
+        "fonts": "Шрыфты",
+        "title": "Даступнасць",
         "zoom": "Zoom"
     },
-    "add_game": "Add Game",
+    "add_game": "Дадаць гульню",
     "All": "Усе",
     "anticheat": {
-        "anticheats": "Anticheats",
-        "may_not_work": "It may not work due to denied or broken anticheat support.",
-        "reference": "Reference",
+        "anticheats": "Антычыты",
+        "may_not_work": "Ён можа не працаваць з-за адмоўленай або парушанай падтрымкі антычытаў.",
+        "reference": "Спасылка",
         "source": "Source",
         "status": "Status",
-        "title": "This game includes anticheat software"
+        "title": "Гэтая гульня ўключае ў сябе антычыць"
     },
     "box": {
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
+            "message": "Кэш Heroic ачышчаны.",
             "title": "Cache Cleared"
         },
         "choose": "Выбіраць",
         "choose-egs-prefix": "Выберыце прэфікс, дзе ўсталяваны EGS",
-        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
+        "choose-gogdl-binary": "Выбраць выкананы файл GOGDL (патрабуецца перазапуск)",
         "choose-legendary-binary": "Select Legendary Binary (needs restart)",
         "customWine": "Select the Wine or Proton Binary",
         "default-install-path": "Выберыце шлях усталявання па змаўчанні",
-        "default-steam-path": "Steam path.",
-        "downloadNow": "Download now",
+        "default-steam-path": "Шлях да Steam.",
+        "downloadNow": "Спампаваць зараз",
         "error": {
             "add": {
                 "steam": {
-                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
+                    "body": "Даданне {{game}} у Steam не атрымалася:{{newLine}} {{error}}",
                     "title": "Error Adding Game to Steam"
                 }
             },
             "credentials": {
-                "message": "Your Crendentials have expired, Logout and Login Again!"
+                "message": "Тэрмін дзеяння вашых уліковых дадзеных скончыўся. Калі ласка, выйдзіце з сыстэмы і ўвайдзіце зноў."
             },
             "cx-bottle-not-found": {
-                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
-                "title": "CrossOver bottle not found"
+                "message": "Бутэлька CrossOver \"{{bottle_name}}\" не існуе, не можа запусціцца!",
+                "title": "Бутэлька CrossOver не знойдзена"
             },
             "diskspace": {
-                "message": "Not enough available disk space",
-                "title": "No Space"
+                "message": "Недастаткова вольнага месца на дыску",
+                "title": "Няма месца"
             },
             "dxvk": {
                 "message": "Error installing DXVK/VKD3D! Check your connection!",
-                "title": "DXVK/VKD3D error"
+                "title": "Памылка DXVK/VKD3D"
             },
             "folder-not-found": {
-                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+                "title": "Тэчка гульні, падобна, выдаленая. Прыбраць гульню з спісу устаноўленых?"
             },
             "generic": {
                 "message": "агульнае паведамленне пра памылку",
-                "title": "Select EXE to Run"
+                "title": "Выбраць EXE для запуску"
             },
-            "launchAborted": "Launch aborted",
+            "launchAborted": "Запуск перарваны",
             "title": "Error",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
-                "title": "Uncaught Exception occured!"
+                "message": "Адбылося непадхопленае выключэнне:{{newLine}}{{error}}{{newLine}}{{newLine}} Паведаміце аб выключэнні ў нашым рэпазітары Github.",
+                "title": "Адбылося неўлоўленае выключэнне!"
             },
             "update": {
-                "message": "Something went wrong with the update, please check the logs or try again later!",
+                "message": "Нешта пайшло не так з абнаўленнем, праверце журналы або паўтарыце спробу пазней!",
                 "title": "Update Error"
             },
             "wine-not-found": {
@@ -75,23 +75,26 @@
                 "title": "Wine Not Found"
             },
             "winetricks": {
-                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
-                "title": "Winetricks error"
+                "message": "Winetricks вярнуў наступную памылку падчас выканання:{{newLine}}{{error}}",
+                "title": "Памылка Winetricks"
             },
             "moving": "Памылка пры перамяшчэнні гульні {{error}}",
             "ubisoft-connect": {
                 "message": "Збой усталявання Ubisoft Connect у прэфікс гульні. Праверце нашу вікі-старонку па адрасе https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac, каб усталяваць яго ўручную.",
                 "title": "Ubisoft Connect"
+            },
+            "legendary": {
+                "generic": "Адбылася памылка! Паспрабуйце выйсці і ўвайсці ў свой уліковы запіс Epic. {{newline}} {{error}}"
             }
         },
         "info": {
             "update": {
-                "changelog": "Open changelog",
-                "detail": "Do you want to download the update in the background?",
-                "message": "There is a new Version available!",
-                "message-finished": "Do you want to restart Heroic now?",
+                "changelog": "Адкрыць журнал змяненняў",
+                "detail": "Хочаце загрузіць абнаўленне ў фонавым рэжыме?",
+                "message": "Даступная новая версія!",
+                "message-finished": "Вы хочаце перазапусціць Heroic зараз?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Update Finished"
+                "title-finished": "Абнаўленне скончана"
             }
         },
         "no": "НЕ",
@@ -102,27 +105,27 @@
             }
         },
         "quit": {
-            "message": "There are pending operations, are you sure?",
-            "title": "Exit"
+            "message": "Ёсць незавершаныя аперацыі, вы ўпэўнены?",
+            "title": "Выхад"
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
+                "message": "Вы ўпэўнены, што хочаце скінуць Heroic? Гэта выдаліць усе налады і кэшаванне, але не выдаліць усталяваныя гульні або ўліковыя даныя Epic. Пасля гэтага партатыўныя версіі (AppImage, WinPortable, ...) heroic трэба перазапусціць уручную.",
                 "title": "Reset Heroic"
             }
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "Выберыце EXE для запуску"
         },
         "select": {
-            "button": "Select",
-            "exe": "Select EXE..."
+            "button": "Выберыце",
+            "exe": "Выберыце EXE"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "message-mac": "Shortcuts were created on the Applications folder",
-            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
-            "message-remove-mac": "Shortcuts were removed from the Applications folder",
+            "message": "Цэтлікі былі створаны на працоўным стале і ў меню \"Пуск\".",
+            "message-mac": "Ярлыкі былі створаны ў тэчцы Applications",
+            "message-remove": "Цэтлікі былі выдалены з працоўнага стала і меню \"Пуск\".",
+            "message-remove-mac": "Цэтлікі былі выдалены з тэчкі Applications",
             "title": "Shortcuts Removed"
         },
         "sync": {
@@ -132,20 +135,20 @@
         },
         "vcruntime": {
             "install": {
-                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+                "message": "Спасылкі для загрузкі Visual C++ Runtimes былі адкрыты. Калі ласка, усталюйце версіі x86 і x64."
             },
             "notfound": {
-                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
-                "title": "VCRuntime not installed"
+                "message": "Microsoft Visual C++ Runtimes не ўстаноўлены, што патрабуецца для некаторых гульняў",
+                "title": "VCRuntime не ўсталяваны"
             }
         },
         "warning": {
             "epic": {
-                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
-                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
-                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+                "import": "На серверах Epic зараз сур'ёзны збой, гульню нельга імпартаваць!",
+                "install": "На серверах Epic зараз сур'ёзны збой, гульню нельга ўсталяваць!",
+                "update": "На серверах Epic зараз сур'ёзны збой, гульню нельга абнавіць!"
             },
-            "title": "Warning",
+            "title": "Папярэджанне",
             "wine-change": {
                 "message": "Мы не змаглі знайсці выбраную версію віна для запуску гэтай назвы ({{selectedWine}}). {{newline}} Мы знайшлі яшчэ адзін, вы хочаце працягнуць запуск з дапамогай {{foundWine}}?",
                 "title": "Віна не знойдзена!"
@@ -156,8 +159,8 @@
         "dontShowAgain": "Больш не паказваць"
     },
     "button": {
-        "cancel": "Cancel",
-        "go_to_library": "Go to Library",
+        "cancel": "Адмяніць",
+        "go_to_library": "Перайдзіце ў бібліятэку",
         "login": "Login",
         "sync": "Сінхранізацыя",
         "syncing": "Сінхранізацыя",
@@ -166,22 +169,22 @@
     },
     "controller": {
         "hints": {
-            "back": "Back",
+            "back": "Назад",
             "backspace": "Backspace",
-            "close_dialog": "Close dialog",
-            "close_keyboard": "Close keyboard",
-            "close_options": "Close Options",
-            "game_details": "Game details",
-            "game_settings": "Game settings",
-            "install_game": "Install game",
-            "move_cursor": "Move cursor",
-            "open_virtual_keyboard": "Open virtual keyboard",
+            "close_dialog": "Закрыць дыялог",
+            "close_keyboard": "Закрыць клавіятуру",
+            "close_options": "Закрыць налады",
+            "game_details": "Дэталі гульні",
+            "game_settings": "Налады гульні",
+            "install_game": "Усталяваць гульню",
+            "move_cursor": "Перамясціць курсор",
+            "open_virtual_keyboard": "Адкрыць віртуальную клавіятуру",
             "options": "Options",
-            "play_game": "Play game",
+            "play_game": "Гуляць у гульню",
             "scroll": "Scroll",
-            "select": "Select",
-            "space": "Space",
-            "update_game": "Update game"
+            "select": "Выберыце",
+            "space": "Прабел",
+            "update_game": "Абнавіць гульню"
         }
     },
     "docs": "Documentation",
@@ -191,17 +194,18 @@
             "update": "Update"
         },
         "label": {
-            "disk": "Disk",
+            "disk": "Дыск",
             "speed": "Download"
         },
         "link": "Downloads",
         "queue": {
-            "end-time": "Finished at",
-            "queue-time": "Added at",
-            "start-time": "Started at",
+            "end-time": "Скончыў у",
+            "queue-time": "Дададзена ў",
+            "start-time": "Пачатак у",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "ETA": "Разліковы час"
     },
     "epic": {
         "offline-notification-body": "Heroic will maybe not work probably!",
@@ -209,68 +213,68 @@
     },
     "Epic Games": "Epic Games",
     "error": "Error",
-    "favourites": "Favourites",
+    "favourites": "Выбранае",
     "game": {
         "status": "Status",
-        "store": "Store",
-        "title": "Game Title"
+        "store": "Крама",
+        "title": "Назва гульні"
     },
     "generic": {
         "error": {
-            "component": "No Games found - Try to logout and login again or one of the options bellow"
+            "component": "Гульні не знойдзены - паспрабуйце выйсці і ўвайсці яшчэ раз або скарыстайцеся адным з варыянтаў ніжэй"
         },
         "library": {
-            "refresh": "Refresh Library"
+            "refresh": "Абнавіць бібліятэку"
         }
     },
-    "globalSettings": "Global Settings",
+    "globalSettings": "Глабальныя налады",
     "GOG": "GOG",
-    "gog-store": "GOG Store",
+    "gog-store": "Крама GOG",
     "header": {
-        "hide_non_available_games": "Hide non-available games",
-        "ignore_hidden": "Ignore Hidden",
+        "hide_non_available_games": "Схаваць недаступныя гульні",
+        "ignore_hidden": "Ігнараваць схаванае",
         "platform": "Platform",
-        "show_all_games": "Show all games",
-        "show_available_games": "Show non-Available games",
-        "show_favourites_only": "Show Favourites only",
-        "show_hidden": "Show Hidden",
+        "show_all_games": "Паказаць усе гульні",
+        "show_available_games": "Паказаць недаступныя гульні",
+        "show_favourites_only": "Паказаць толькі абранае",
+        "show_hidden": "Паказаць схаванае",
         "store": "Filter Store"
     },
     "help": {
-        "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
-        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
-        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
-        "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
-        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
-        "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
-        "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
+        "amdfsr": "FSR ад AMD дапамагае павысіць частату кадраў за кошт павелічэння больш нізкага дазволу ў поўнаэкранным рэжыме. Якасць выявы павялічваецца з 5 да 1 за кошт невялікага зніжэння прадукцыйнасці. Уключэнне можа палепшыць прадукцыйнасць.",
+        "custom_themes_path": "Не выкарыстоўвайце файлы CSS з ненадзейных крыніц. Калі вы сумняваецеся, папрасіце агляд на нашым канале Discord.",
+        "custom_themes_wiki": "Праверце Wiki для атрымання больш падрабязнай інфармацыі аб даданні карыстальніцкіх тэм. Клікніце тут.",
+        "dxvk": "DXVK - гэта ўзровень трансляцыі на аснове Vulkan для гульняў, якія працуюць на DirectX 9, 10 і 11. Уключэнне можа палепшыць сумяшчальнасць. Можа выклікаць праблемы, асабліва для старых гульняў DirectX.",
+        "dxvkfpslimit": "Усталёўвае абмежаванне частаты кадраў для гульняў DXVK",
+        "esync": "Esync імкнецца паменшыць накладныя выдаткі на wineserver у гульнях з інтэнсіўнай загрузкай працэсара. Уключэнне можа палепшыць прадукцыйнасць.",
+        "fsync": "Fsync накіраваны на памяншэнне накладных выдаткаў на wineserver у гульнях з інтэнсіўнай загрузкай працэсара. Уключэнне можа палепшыць прадукцыйнасць падтрымоўваных ядраў Linux.",
         "game_language": {
-            "fallback": "Leave blank to use Heroic's language.",
-            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
-            "valid_codes": "Valid language codes are game-dependant."
+            "fallback": "Пакіньце поле пустым, каб выкарыстоўваць мову Heroic.",
+            "in_game_config": "Не ўсе гульні падтрымліваюць гэту канфігурацыю, некаторыя маюць унутрыгульнёвую наладу мовы.",
+            "valid_codes": "Сапраўдныя моўныя коды залежаць ад гульні."
         },
-        "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
+        "gamemode": "Feral GameMode прымяняе аўтаматычныя і часовыя налады сістэмы падчас запуску гульняў. Уключэнне можа палепшыць прадукцыйнасць.",
         "general": "Сінхранізуйце з EGL, калі ў вас ёсць працоўная ўстаноўка Epic Games Launcher у іншым месцы і вы хочаце імпартаваць свае гульні, каб пазбегнуць іх паўторнай загрузкі.",
-        "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
+        "mangohud": "MangoHUD - гэта накладанне, якое адлюстроўвае і кантралюе FPS, тэмпературу, нагрузку CPU/GPU і іншыя рэсурсы сістэмы.",
         "other": {
             "part4": "Выкарыстоўваць ",
             "part5": "Гульня Аргументы",
             "part6": " выклікаецца пасля каманды запуску, напрыклад: ",
             "part7": " каб прапусціць праграму запуску ў некаторых гульнях і г.д."
         },
-        "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
-        "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
+        "preferSystemLibs": "Карыстальніцкія версіі Wine (Wine-GE, Wine-Lutris) пастаўляюцца разам з залежнасцямі бібліятэкі. Пры ўключэнні гэтай опцыі гэтыя дастаўленыя бібліятэкі будуць ігнаравацца, і замест іх Wine загрузіць сістэмныя бібліятэкі. Папярэджанне! Калі залежнасці не выконваюцца, могуць узнікнуць праблемы.",
+        "primerun": "Выкарыстоўвайце спецыяльную відэакарту для візуалізацыі гульні ў сістэмах з некалькімі графічнымі працэсарамі. Патрэбны толькі на гульнявых наўтбуках або настольных кампутарах, якія выкарыстоўваюць абезгалоўлены графічны працэсар для візуалізацыі (NVIDIA Optimus, AMD CrossFire)",
         "steam_path": {
-            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+            "info": "Гэты шлях дазваляе Heroic вызначаць, якую версію Proton Steam выкарыстоўвае для дадання ў Steam гульняў, не звязаных з Steam."
         },
-        "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
+        "steamruntime": "Карыстальніцкія бібліятэкі, прадастаўленыя Steam, каб дапамагчы запускаць гульні для Linux і Windows (Proton). Уключэнне можа палепшыць сумяшчальнасць.",
         "sync": {
             "part1": "Heroic спрабуе адгадаць правільную тэчку для захавання, і гэта працуе ў большасці выпадкаў. Калі папка няправільная, выкарыстоўвайце поле перавызначэння, каб змяніць яе.",
             "part2": "У выпадку, калі вы зменіце папку прэфікса для Wine або Proton, вам трэба будзе яшчэ раз праверыць шлях, бо Proton выкарыстоўвае іншы прэфікс (/pfx) і імя карыстальніка (steamuser). Такім чынам, вы можаце проста сцерці бягучы шлях, выйсці са старонкі налад сінхранізацыі і вярнуцца зноў, каб Heroic яшчэ раз адгадаў тэчку з правільным прэфіксам.",
             "part3": "Ручная сінхранізацыя: абярыце \"Спампаваць\", каб загрузіць захаваныя гульні, захаваныя ў воблаку. Загрузіць, каб загрузіць лакальныя ў воблака. Прымусовая загрузка і прымусовая загрузка будуць ігнараваць лакальную або воблачную версію.",
             "part4": "Аўтаматычная сінхранізацыя захаванняў будзе сінхранізаваць захаванні кожны раз, калі вы пачынаеце гульню і пасля заканчэння гульні."
         },
-        "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.",
+        "vkd3d": "VKD3D - гэта ўзровень трансляцыі на аснове Vulkan для гульняў, які працуе на DirectX 12. Уключэнне можа значна палепшыць сумяшчальнасць. Не ўплывае на гульні з больш старымі версіямі DirectX.",
         "wine": {
             "part1": "Heroic шукае версіі Wine, Proton і CrossOver у наступных папках:",
             "part2": "Для іншых месцаў выкарыстоўвайце сімвалічную спасылку на адну з гэтых тэчак"
@@ -279,24 +283,24 @@
     "info": {
         "heroic": {
             "beta": "Beta",
-            "click-to-see-changelog": "Click to see changelog",
-            "newReleases": "Update Available!",
-            "stable": "Stable",
+            "click-to-see-changelog": "Націсніце, каб убачыць журнал змяненняў",
+            "newReleases": "Абнаўленне даступна!",
+            "stable": "Стабільны",
             "version": "Heroic Version"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder (click to cancel)"
+            "searching": "Спроба вызначыць правільную тэчку захавання (націсніце, каб адмяніць)"
         },
         "settings": "Налады захоўваюцца аўтаматычна",
-        "version": "Wine Version"
+        "version": "Версія Wine"
     },
     "infobox": {
         "help": "Даведка",
         "requirements": "Сістэмныя патрабаванні",
-        "warning": "Warning",
-        "wine-path": "Wine Path",
+        "warning": "Папярэджанне",
+        "wine-path": "Шлях Wine",
         "wine-prefix": {
-            "title": "Wine Prefix"
+            "title": "Прэфікс Wine"
         },
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
@@ -304,31 +308,31 @@
         "wine-path-invalid": "Wine Path несапраўдны, абярыце іншы."
     },
     "install": {
-        "path": "Select Install Path"
+        "path": "Выберыце шлях усталявання"
     },
     "label": {
-        "loading": "Loading"
+        "loading": "Загрузка"
     },
     "library": {
         "refresh": "Refresh Library",
-        "sortAscending": "Sort Ascending",
-        "sortByStatus": "Sort by Status",
-        "sortDescending": "Sort Descending",
+        "sortAscending": "Сартаваць па ўзрастанні",
+        "sortByStatus": "Сартаваць па статусе",
+        "sortDescending": "Сартаваць па змяншэнні",
         "toggleLayout": {
-            "grid": "Toggle to a grid layout",
-            "list": "Toggle to a list layout"
+            "grid": "Пераключыцца на макет сеткі",
+            "list": "Пераключыцца на макет спісу"
         }
     },
     "Library": "Бібліятэка",
     "loading": {
         "default": "Загрузка",
-        "website": "Loading Website"
+        "website": "Загрузка вэб-сайта"
     },
     "login": {
-        "alternative_method": "Alternative Login Method",
-        "epic": "Epic Games Login",
-        "gog": "GOG Login",
-        "message": "Login with your platform. You can login to more than one platform at the same time."
+        "alternative_method": "Альтэрнатыўны метад уваходу",
+        "epic": "Уваход у Epic Games",
+        "gog": "Уваход у GOG",
+        "message": "Увайдзіце са сваёй платформы. Вы можаце ўвайсці на больш чым адну платформу адначасова."
     },
     "message": {
         "sync": "Сінхранізацыя завершана",
@@ -336,22 +340,22 @@
     },
     "notify": {
         "error": {
-            "move": "Error Moving the Game",
+            "move": "Памылка пры пераносе гульні",
             "reparing": "Error Repairing"
         },
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
-                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
-                    "title": "Added to Steam"
+                    "corrupt": "{{game}} не можа быць дададзена да ўсіх знойдзеных карыстальнікаў Steam. Для атрымання дадатковай інфармацыі глядзіце журналы. Каб змены ўступілі ў сілу, неабходна перазапусціць Steam.",
+                    "success": "{{game}} была паспяхова дададзена ў Steam. Каб змены ўступілі ў сілу, неабходна перазапусціць Steam.",
+                    "title": "Дададзена ў Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
-                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
-                    "title": "Removed from Steam"
+                    "corrupt": "{{game}} не можа быць выдалена з усіх знойдзеных карыстальнікаў Steam. Для атрымання дадатковай інфармацыі глядзіце журналы. Каб змены ўступілі ў сілу, неабходна перазапусціць Steam.",
+                    "success": "{{game}} была паспяхова выдалена з Steam. Каб змены ўступілі ў сілу, неабходна перазапусціць Steam.",
+                    "title": "Выдалена з Steam"
                 }
             },
             "reparing": "Скончаны рамонт"
@@ -360,30 +364,30 @@
             "canceled": "Усталяванне адменена",
             "error": "Збой усталявання",
             "finished": "Усталяванне скончана",
-            "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "imported": "Гульня імпартавана",
+            "startInstall": "Ўстаноўка пачалася"
         },
         "moved": "Скончаны пераезд",
         "moving": "Moving Game",
-        "new-heroic-version": "A new Heroic version was released!",
+        "new-heroic-version": "Выйшла новая версія Heroic!",
         "refresh": {
-            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+            "error": "Немагчыма атрымаць выпускі з апстрыму, магчыма, з-за абмежаванняў Github API! Паўтарыце спробу пазней."
         },
         "uninstalled": "Выдалілі",
         "update": {
             "canceled": "Абноўлена адменена",
-            "finished": "Update Finished",
-            "started": "Update Started"
+            "finished": "Абнаўленне скончана",
+            "started": "Абнаўленне пачата"
         }
     },
     "offline-message": {
-        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "hint": "Мы правяраем падключэнне да:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com і{{newline}}cloudflare-dns.com",
         "ignore": "Ignore",
         "offline": "Offline",
-        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
-        "retrying": "Retrying"
+        "offline-retry-in": "У аўтаномным рэжыме. Паўторная спроба праз {{seconds}} секунд.",
+        "retrying": "Паўторная спроба"
     },
-    "Open": "",
+    "Open": "Адкрыты",
     "options": {
         "advanced": {
             "key": "Variable Name",
@@ -552,7 +556,7 @@
         "showfps": "Паказаць FPS (DX9, 10 і 11)",
         "start-in-tray": "Start Minimized",
         "steamruntime": "Use Steam Runtime",
-        "winecrossoverbottle": "CrossOver Bottle",
+        "winecrossoverbottle": "Бутэлька CrossOver",
         "wineprefix": "Тэчка WinePrefix",
         "wineversion": "Wine Version",
         "autoUpdateGames": "Аўтаматычнае абнаўленне гульняў",
@@ -590,7 +594,7 @@
             "general": "Генерал",
             "log": "Log",
             "other": "Other",
-            "sync": "Захаванне-Сінхранізацыя",
+            "sync": "Сінхранізацыя захаванняў з воблакам",
             "wineExt": "Wine Extensions"
         },
         "open-config-file": "Open Config File",

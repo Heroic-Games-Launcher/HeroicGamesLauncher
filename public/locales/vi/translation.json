@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "message": "Cài đặt Ubisoft Connect trong tiền tố trò chơi không thành công. Kiểm tra trang wiki của chúng tôi tại https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac để cài đặt nó một cách nhanh chóng.",
                 "title": "Kết nối Ubisoft"
+            },
+            "legendary": {
+                "generic": "Một lỗi đã xảy ra! Hãy thử Đăng xuất và Đăng nhập vào tài khoản Epic của bạn. {{newline}} {{error}}"
             }
         },
         "info": {
@@ -201,7 +204,8 @@
             "start-time": "Started at",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "ETA": "Thơi gian dự định"
     },
     "epic": {
         "offline-notification-body": "Các dịch vụ trực tuyến có thể không hoạt động đầy đủ vì máy chủ của Epic Games đang ngoại tuyến!",
@@ -383,7 +387,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
-    "Open": "",
+    "Open": "Mở",
     "options": {
         "advanced": {
             "key": "Variable Name",

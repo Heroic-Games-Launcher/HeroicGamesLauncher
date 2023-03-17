@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "title": "Ubisoft Connect",
                 "message": "Не вдалося встановити Ubisoft Connect в ігровий префікс. Відвідайте нашу wiki-сторінку за адресою https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac та встановіть його вручну."
+            },
+            "legendary": {
+                "generic": "Сталася помилка! Спробуйте вийти та увійти у свій обліковий запис Epic. {{newline}} {{error}}"
             }
         },
         "info": {
@@ -201,7 +204,8 @@
             "start-time": "Почато о",
             "type": "Тип"
         },
-        "title": "Завантажені"
+        "title": "Завантажені",
+        "ETA": "Розрахунковий час"
     },
     "epic": {
         "offline-notification-body": "Мережеві сервіси можуть не повністю працювати, тому що сервери Epic Games наразі недоступні!",
@@ -383,7 +387,7 @@
         "offline-retry-in": "Поза мережею. Повторна спроба через {{seconds}} секунд.",
         "retrying": "Пробуємо знову"
     },
-    "Open": "",
+    "Open": "Відкрийте",
     "options": {
         "advanced": {
             "key": "Ім'я змінного",
@@ -425,7 +429,7 @@
         "alt-gogdl-bin": "Використовується вбудований двійковий GOGDL-файл...",
         "alt-legendary-bin": "Використовується вбудований двійковий Legendary-файл...",
         "custom_themes_path": "Оберіть шлях до власних файлів CSS",
-        "dxvkfpsvalue": "Ціле позитивне значення (наприклад: 30, 60, тощо)",
+        "dxvkfpsvalue": "Ціле позитивне значення (наприклад: 30, 60, ...)",
         "egs-prefix": "Префікс де встановлено EGS",
         "prefered_language": "2-значний код (приклад: \"en\" або \"uk\")"
     },
