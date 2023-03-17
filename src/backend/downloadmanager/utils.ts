@@ -1,10 +1,13 @@
+import { gameManagerMap } from 'backend/storeManagers'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import { getGame, isEpicServiceOffline } from '../utils'
-import { InstallParams } from 'common/types'
+import { isEpicServiceOffline } from '../utils'
+import { InstallParams, InstallPlatform } from 'common/types'
 import i18next from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
 import { isOnline } from '../online_monitor'
 import { sendFrontendMessage } from '../main_window'
+import { installHyperPlayGame } from 'backend/hyperplay/library'
+import { trackEvent } from 'backend/api/metrics'
 
 async function installQueueElement(params: InstallParams): Promise<{
   status: 'done' | 'error' | 'abort'
@@ -19,8 +22,7 @@ async function installQueueElement(params: InstallParams): Promise<{
     installLanguage,
     platformToInstall
   } = params
-  const game = getGame(appName, runner)
-  const { title } = game.getGameInfo()
+  const { title } = gameManagerMap[runner].getGameInfo(appName)
 
   if (!isOnline()) {
     logWarning(
@@ -72,13 +74,17 @@ async function installQueueElement(params: InstallParams): Promise<{
   }
 
   try {
-    const { status, error } = await game.install({
-      path: path.replaceAll("'", ''),
-      installDlcs,
-      sdlList,
-      platformToInstall,
-      installLanguage
-    })
+    const installPlatform = platformToInstall as InstallPlatform
+    const installInstance = async () =>
+      gameManagerMap[runner].install(appName, {
+        path: path.replaceAll("'", ''),
+        installDlcs,
+        sdlList,
+        platformToInstall: installPlatform,
+        installLanguage
+      })
+
+    const { status, error } = await installInstance()
 
     if (status === 'abort') {
       logWarning(
@@ -119,8 +125,7 @@ async function updateQueueElement(params: InstallParams): Promise<{
   error?: string | undefined
 }> {
   const { appName, runner } = params
-  const game = getGame(appName, runner)
-  const { title } = game.getGameInfo()
+  const { title } = gameManagerMap[runner].getGameInfo(appName)
 
   if (!isOnline()) {
     logWarning(
@@ -157,7 +162,7 @@ async function updateQueueElement(params: InstallParams): Promise<{
   })
 
   try {
-    const { status } = await game.update()
+    const { status } = await gameManagerMap[runner].update(appName)
 
     if (status === 'error') {
       logWarning(

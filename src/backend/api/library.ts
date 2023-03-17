@@ -3,9 +3,9 @@ import {
   Runner,
   InstallParams,
   LaunchParams,
-  SideloadGame,
   ImportGameArgs,
-  GameStatus
+  GameStatus,
+  GameInfo
 } from 'common/types'
 
 export const removeFolder = (args: [path: string, folderName: string]) =>
@@ -66,7 +66,7 @@ export const handleLaunchGame = (
     event: Electron.IpcRendererEvent,
     appName: string,
     runner: Runner
-  ) => Promise<{ status: 'done' | 'error' }>
+  ) => Promise<{ status: 'done' | 'error' | 'abort' }>
 ) => ipcRenderer.on('launchGame', callback)
 
 export const handleInstallGame = (
@@ -87,8 +87,9 @@ export const handleRecentGamesChanged = (callback: any) => {
   }
 }
 
-export const addNewApp = (args: SideloadGame) =>
-  ipcRenderer.send('addNewApp', args)
+export const addNewApp = (args: GameInfo) => ipcRenderer.send('addNewApp', args)
 
-export const launchApp = async (appName: string): Promise<boolean> =>
-  ipcRenderer.invoke('launchApp', appName)
+export const launchApp = async (
+  appName: string,
+  runner: 'hyperplay' | 'sideload'
+): Promise<boolean> => ipcRenderer.invoke('launchApp', appName, runner)

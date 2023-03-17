@@ -4,6 +4,7 @@ import { faFolderOpen, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { InstallPlatform, SideloadGame, WineInstallation } from 'common/types'
 
+import { InstallPlatform, WineInstallation, GameInfo } from 'common/types'
 import {
   CachedImage,
   TextInputField,
@@ -55,7 +56,7 @@ export default function SideloadDialog({
   const [searching, setSearching] = useState(false)
   const [app_name, setApp_name] = useState(appName ?? '')
   const [runningSetup, setRunningSetup] = useState(false)
-  const [gameInfo, setGameInfo] = useState<Partial<SideloadGame>>({})
+  const [gameInfo, setGameInfo] = useState<Partial<GameInfo>>({})
   const [addingApp, setAddingApp] = useState(false)
   const editMode = Boolean(appName)
 
@@ -164,8 +165,7 @@ export default function SideloadDialog({
 
     await refreshLibrary({
       runInBackground: true,
-      checkForUpdates: true,
-      fullRefresh: true
+      checkForUpdates: true
     })
     setAddingApp(false)
     return backdropClick()

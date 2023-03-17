@@ -13,7 +13,7 @@ import {
   GlobalConfigVersion,
   WineInstallation
 } from 'common/types'
-import { LegendaryUser } from './legendary/user'
+import { LegendaryUser } from 'backend/storeManagers/legendary/user'
 import {
   currentGlobalConfigVersion,
   heroicConfigPath,

@@ -1,13 +1,13 @@
 import React from 'react'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { GameInfo, GameStatus, SideloadGame, Status } from 'common/types'
+import { GameInfo, GameStatus, Status } from 'common/types'
 import { hasProgress } from './hasProgress'
 import { useTranslation } from 'react-i18next'
 import { getStatusLabel, handleNonAvailableGames } from './constants'
 
 export function hasStatus(
   appName: string,
-  gameInfo: GameInfo | SideloadGame,
+  gameInfo: GameInfo,
   gameSize?: string
 ) {
   const { libraryStatus, epic, gog } = React.useContext(ContextProvider)

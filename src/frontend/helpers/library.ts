@@ -70,9 +70,10 @@ async function install({
       await window.api.requestAppSettings()
     const args: Electron.OpenDialogOptions = {
       buttonLabel: t('gamepage:box.choose'),
-      properties: ['openDirectory'],
+      properties: ['openFile'],
       title: t('gamepage:box.importpath'),
       defaultPath: defaultInstallPath
+      //TODO: add file filters
     }
     const path = await window.api.openDialog(args)
 
@@ -80,7 +81,12 @@ async function install({
       return
     }
 
-    return importGame({ appName, path, runner, platform: platformToInstall })
+    return window.api.importGame({
+      appName,
+      path,
+      runner,
+      platform: platformToInstall
+    })
   }
 
   if (installPath !== 'default') {
@@ -109,8 +115,6 @@ async function install({
     gameInfo
   })
 }
-
-const importGame = window.api.importGame
 
 async function handleStopInstallation(
   appName: string,
@@ -166,7 +170,7 @@ const launch = async ({
   runner,
   hasUpdate,
   showDialogModal
-}: LaunchOptions): Promise<{ status: 'done' | 'error' }> => {
+}: LaunchOptions): Promise<{ status: 'done' | 'error' | 'abort' }> => {
   if (hasUpdate) {
     const { ignoreGameUpdates } = await window.api.requestGameSettings(appName)
 
@@ -182,40 +186,42 @@ const launch = async ({
     }
 
     // promisifies the showDialogModal button click callbacks
-    const launchFinished = new Promise<{ status: 'done' | 'error' }>((res) => {
-      showDialogModal({
-        message: t('gamepage:box.update.message'),
-        title: t('gamepage:box.update.title'),
-        buttons: [
-          {
-            text: t('gamepage:box.yes'),
-            onClick: async () => {
-              const gameInfo = await getGameInfo(appName, runner)
-              if (gameInfo && gameInfo.runner !== 'sideload') {
-                updateGame({ appName, runner, gameInfo })
-                res({ status: 'done' })
+    const launchFinished = new Promise<{ status: 'done' | 'error' | 'abort' }>(
+      (res) => {
+        showDialogModal({
+          message: t('gamepage:box.update.message'),
+          title: t('gamepage:box.update.title'),
+          buttons: [
+            {
+              text: t('gamepage:box.yes'),
+              onClick: async () => {
+                const gameInfo = await getGameInfo(appName, runner)
+                if (gameInfo && gameInfo.runner !== 'sideload') {
+                  updateGame({ appName, runner, gameInfo })
+                  res({ status: 'done' })
+                }
+                res({ status: 'error' })
               }
-              res({ status: 'error' })
+            },
+            {
+              text: t('box.no'),
+              onClick: async () => {
+                res(
+                  window.api.launch({
+                    appName,
+                    runner,
+                    launchArguments:
+                      launchArguments +
+                      ' ' +
+                      (runner === 'legendary' ? '--skip-version-check' : '')
+                  })
+                )
+              }
             }
-          },
-          {
-            text: t('box.no'),
-            onClick: async () => {
-              res(
-                window.api.launch({
-                  appName,
-                  runner,
-                  launchArguments:
-                    launchArguments +
-                    ' ' +
-                    (runner === 'legendary' ? '--skip-version-check' : '')
-                })
-              )
-            }
-          }
-        ]
-      })
-    })
+          ]
+        })
+      }
+    )
 
     return launchFinished
   }
@@ -231,11 +237,4 @@ export const epicCategories = ['all', 'legendary', 'epic']
 export const gogCategories = ['all', 'gog']
 export const sideloadedCategories = ['all', 'sideload']
 
-export {
-  handleStopInstallation,
-  install,
-  launch,
-  repair,
-  //updateAllGames,
-  updateGame
-}
+export { handleStopInstallation, install, launch, repair, updateGame }

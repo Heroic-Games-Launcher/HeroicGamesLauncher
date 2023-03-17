@@ -4,6 +4,7 @@ import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useSetting from 'frontend/hooks/useSetting'
 import { TextInputWithIconField } from 'frontend/components/UI'
+import { configStore } from 'frontend/helpers/electronStores'
 
 const DefaultInstallPath = () => {
   const { t } = useTranslation()
@@ -11,6 +12,11 @@ const DefaultInstallPath = () => {
     'defaultInstallPath',
     ''
   )
+
+  function setInstallPath(path: string) {
+    setDefaultInstallPath(path)
+    configStore.set('settings.defaultInstallPath', path)
+  }
 
   const onFolderIconClick = async () => {
     window.api
@@ -20,7 +26,7 @@ const DefaultInstallPath = () => {
         title: t('box.default-install-path'),
         defaultPath: defaultInstallPath
       })
-      .then((path) => setDefaultInstallPath(path || defaultInstallPath))
+      .then((path) => setInstallPath(path || defaultInstallPath))
   }
 
   return (
@@ -29,7 +35,7 @@ const DefaultInstallPath = () => {
       htmlId="default_install_path"
       value={defaultInstallPath?.replaceAll("'", '')}
       placeholder={defaultInstallPath}
-      onChange={(event) => setDefaultInstallPath(event.target.value)}
+      onChange={(event) => setInstallPath(event.target.value)}
       icon={
         <FontAwesomeIcon
           icon={faFolderOpen}

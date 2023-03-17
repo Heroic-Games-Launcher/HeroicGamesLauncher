@@ -3,14 +3,14 @@ import { useTranslation } from 'react-i18next'
 import ActionIcons from 'frontend/components/UI/ActionIcons'
 import { epicCategories } from 'frontend/helpers/library'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { GameInfo, SideloadGame } from 'common/types'
+import { GameInfo } from 'common/types'
 import { getLibraryTitle } from '../../constants'
 import './index.css'
 
 const storage = window.localStorage
 
 type Props = {
-  list: (GameInfo | SideloadGame)[]
+  list: GameInfo[]
   sortDescending: boolean
   sortInstalled: boolean
   setSortInstalled: (value: boolean) => void

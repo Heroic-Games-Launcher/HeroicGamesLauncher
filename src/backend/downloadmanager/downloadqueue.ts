@@ -1,6 +1,7 @@
+import { libraryManagerMap } from 'backend/storeManagers'
 import { TypeCheckedStoreBackend } from './../electron_store'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
-import { getFileSize, getGame } from '../utils'
+import { getFileSize } from '../utils'
 import { DMQueueElement } from 'common/types'
 import { installQueueElement, updateQueueElement } from './utils'
 import { sendFrontendMessage } from '../main_window'
@@ -54,6 +55,15 @@ async function initQueue() {
   while (element) {
     const queuedElements = downloadManager.get('queue', [])
     sendFrontendMessage('changedDMQueueInformation', queuedElements)
+    const { appName, runner, platformToInstall } = element.params
+    const installInfo = await libraryManagerMap[runner].getInstallInfo(
+      appName,
+      platformToInstall
+    )
+
+    element.params.size = installInfo?.manifest?.download_size
+      ? getFileSize(installInfo?.manifest?.download_size)
+      : '?? MB'
     element.startTime = Date.now()
     queuedElements[0] = element
     downloadManager.set('queue', queuedElements)

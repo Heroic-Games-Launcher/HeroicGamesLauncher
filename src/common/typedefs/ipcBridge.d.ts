@@ -103,7 +103,6 @@ interface AsyncIPCFunctions {
   ) => Promise<{ stdout: string; stderr: string }>
   checkGameUpdates: () => Promise<string[]>
   getEpicGamesStatus: () => Promise<boolean>
-  updateAll: () => Promise<({ status: 'done' | 'error' } | null)[]>
   getMaxCpus: () => number
   getHeroicVersion: () => string
   getLegendaryVersion: () => Promise<string>
@@ -128,7 +127,9 @@ interface AsyncIPCFunctions {
     appName: string,
     runner: Runner,
     installPlatform: InstallPlatform
-  ) => Promise<LegendaryInstallInfo | GogInstallInfo | null>
+  ) => Promise<
+    LegendaryInstallInfo | GogInstallInfo | HyperPlayInstallInfo | null
+  >
   getUserInfo: () => Promise<UserInfo | undefined>
   isLoggedIn: () => boolean
   login: (sid: string) => Promise<{
@@ -145,10 +146,7 @@ interface AsyncIPCFunctions {
   readConfig: (config_class: 'library' | 'user') => Promise<GameInfo[] | string>
   requestSettings: (appName: string) => Promise<AppSettings | GameSettings>
   writeConfig: (args: { appName: string; config: Partial<AppSettings> }) => void
-  refreshLibrary: (
-    fullRefresh?: boolean,
-    library?: Runner | 'all'
-  ) => Promise<void>
+  refreshLibrary: (library?: Runner | 'all') => Promise<void>
   launch: (args: LaunchParams) => StatusPromise
   openDialog: (args: OpenDialogOptions) => Promise<string | false>
   install: (

@@ -33,7 +33,7 @@ const EgsSettings = () => {
         })
         setEgsPath('')
         setIsSyncing(false)
-        refreshLibrary({ fullRefresh: true, runInBackground: false })
+        refreshLibrary({ runInBackground: false })
       })
     }
 
@@ -57,7 +57,7 @@ const EgsSettings = () => {
 
       setIsSyncing(false)
       setEgsPath(isWindows ? 'windows' : egsPath)
-      refreshLibrary({ fullRefresh: true, runInBackground: false })
+      refreshLibrary({ runInBackground: false })
     })
   }
 

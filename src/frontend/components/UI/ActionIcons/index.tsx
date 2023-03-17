@@ -163,7 +163,6 @@ export default React.memo(function ActionIcons({
           onClick={async () =>
             refreshLibrary({
               checkForUpdates: true,
-              fullRefresh: true,
               runInBackground: false,
               library
             })

@@ -30,9 +30,7 @@ import {
 import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
 import { DXVK } from './tools'
-import setup from './gog/setup'
-import { GOGGame } from './gog/games'
-import { LegendaryGame } from './legendary/games'
+import setup from './storeManagers/gog/setup'
 import {
   CallRunnerOptions,
   GameInfo,
@@ -44,18 +42,18 @@ import {
   LaunchPreperationResult,
   RpcClient,
   WineInstallation,
-  WineCommandArgs,
-  SideloadGame
+  WineCommandArgs
 } from 'common/types'
 import { spawn } from 'child_process'
 import shlex from 'shlex'
 import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
 import { setupUbisoftConnect } from './legendary/setup'
+import { gameManagerMap } from 'backend/storeManagers'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
-  gameInfo: GameInfo | SideloadGame,
+  gameInfo: GameInfo,
   isNative: boolean
 ): Promise<LaunchPreperationResult> {
   const globalSettings = GlobalConfig.get().getSettings()
@@ -147,14 +145,17 @@ async function prepareLaunch(
   }
 }
 
-async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
+async function prepareWineLaunch(
+  runner: Runner,
+  appName: string
+): Promise<{
   success: boolean
   failureReason?: string
   envVars?: Record<string, string>
 }> {
   const gameSettings =
-    GameConfig.get(game.appName).config ||
-    (await GameConfig.get(game.appName).getSettings())
+    GameConfig.get(appName).config ||
+    (await GameConfig.get(appName).getSettings())
 
   if (!(await validWine(gameSettings.wineVersion))) {
     const defaultWine = GlobalConfig.get().getSettings().wineVersion
@@ -205,12 +206,7 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
       ['Created/Updated Wineprefix at', gameSettings.winePrefix],
       LogPrefix.Backend
     )
-    if (game.runner === 'gog') {
-      await setup(game.appName)
-    }
-    if (game.runner === 'legendary') {
-      await setupUbisoftConnect(game.appName)
-    }
+    await setup(appName)
   }
 
   // If DXVK/VKD3D installation is enabled, install it
@@ -223,7 +219,8 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
     }
   }
 
-  const { folder_name: installFolderName } = game.getGameInfo()
+  const { folder_name: installFolderName } =
+    gameManagerMap[runner].getGameInfo(appName)
   const envVars = setupWineEnvVars(gameSettings, installFolderName)
 
   return { success: true, envVars: envVars }
@@ -656,7 +653,8 @@ async function callRunner(
   commandParts: string[],
   runner: RunnerProps,
   abortController: AbortController,
-  options?: CallRunnerOptions
+  options?: CallRunnerOptions,
+  injectChildWithHyperPlayOverlay = false
 ): Promise<ExecResult> {
   const fullRunnerPath = join(runner.dir, runner.bin)
   const appName = commandParts[commandParts.findIndex(() => 'launch') + 1]

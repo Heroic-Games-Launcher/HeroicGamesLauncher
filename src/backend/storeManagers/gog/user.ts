@@ -1,9 +1,10 @@
 import axios from 'axios'
 import { writeFileSync, existsSync, unlinkSync } from 'graceful-fs'
-import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
+import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import { GOGLoginData } from 'common/types'
-import { configStore, libraryStore } from '../gog/electronStores'
-import { isOnline } from '../online_monitor'
+import { configStore, libraryStore } from './electronStores'
+import { errorHandler } from '../../utils'
+import { isOnline } from '../../online_monitor'
 import { UserData } from 'common/types/gog'
 import { runGogdlCommand } from './library'
 import {

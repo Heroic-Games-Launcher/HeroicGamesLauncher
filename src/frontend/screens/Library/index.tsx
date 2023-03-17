@@ -22,8 +22,7 @@ import {
   GameInfo,
   GameStatus,
   HiddenGame,
-  Runner,
-  SideloadGame
+  Runner
 } from 'common/types'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import LibraryHeader from './components/LibraryHeader'
@@ -154,10 +153,7 @@ export default React.memo(function Library(): JSX.Element {
     }
   }, [epic.username, gog.username])
 
-  const filterByPlatform = (
-    library: (GameInfo | SideloadGame)[],
-    filter: string
-  ) => {
+  const filterByPlatform = (library: GameInfo[], filter: string) => {
     if (!library) {
       return []
     }
@@ -203,7 +199,7 @@ export default React.memo(function Library(): JSX.Element {
     libraryTopSection === 'favourites' && !!favouriteGames.list.length
 
   const favourites = useMemo(() => {
-    const tempArray: (GameInfo | SideloadGame)[] = []
+    const tempArray: GameInfo[] = []
     if (showFavourites || showFavouritesLibrary) {
       const favouriteAppNames = favouriteGames.list.map(
         (favourite: FavouriteGame) => favourite.appName
@@ -223,7 +219,7 @@ export default React.memo(function Library(): JSX.Element {
 
   // select library
   const libraryToShow = useMemo(() => {
-    let library: Array<GameInfo | SideloadGame> = []
+    let library: Array<GameInfo> = []
     if (showFavouritesLibrary) {
       library = [...favourites].filter((game) =>
         category === 'all' ? game : game?.runner === category

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { GameInfo, Runner, SideloadGame } from 'common/types'
+import { GameInfo, Runner } from 'common/types'
 import GamesList from '../GamesList'
 import { configStore } from 'frontend/helpers/electronStores'
 
@@ -10,13 +10,10 @@ interface Props {
   onlyInstalled: boolean
 }
 
-function getRecentGames(
-  libraries: (GameInfo | SideloadGame)[],
-  limit: number
-): (GameInfo | SideloadGame)[] {
+function getRecentGames(libraries: GameInfo[], limit: number): GameInfo[] {
   const recentGames = configStore.get('games.recent', [])
 
-  const games: (GameInfo | SideloadGame)[] = []
+  const games: GameInfo[] = []
 
   for (const recent of recentGames) {
     const found = libraries.find((game) => game.app_name === recent.appName)
@@ -35,9 +32,7 @@ export default React.memo(function RecentlyPlayed({
 }: Props) {
   const { t } = useTranslation()
   const { epic, gog, sideloadedLibrary } = useContext(ContextProvider)
-  const [recentGames, setRecentGames] = useState<(GameInfo | SideloadGame)[]>(
-    []
-  )
+  const [recentGames, setRecentGames] = useState<GameInfo[]>([])
 
   const loadRecentGames = async () => {
     const { maxRecentGames } = await window.api.requestAppSettings()

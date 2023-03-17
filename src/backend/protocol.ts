@@ -2,8 +2,15 @@ import { dialog } from 'electron'
 import { logError, logInfo, LogPrefix } from './logger/logger'
 import i18next from 'i18next'
 import { getInfo } from './utils'
-import { Runner } from 'common/types'
+import { GameInfo, Runner } from 'common/types'
 import { getMainWindow, sendFrontendMessage } from './main_window'
+import { icon } from './constants'
+import { getGameInfo } from 'backend/storeManagers/hyperplay/games'
+import { addGameToLibrary } from 'backend/storeManagers/hyperplay/library'
+
+type Command = 'ping' | 'launch'
+
+const RUNNERS = ['hyperplay', 'legendary', 'gog', 'sideload']
 
 export async function handleProtocol(args: string[]) {
   const mainWindow = getMainWindow()
@@ -86,7 +93,38 @@ export async function handleProtocol(args: string[]) {
       }
     }
 
-    mainWindow?.hide()
-    sendFrontendMessage('launchGame', arg, runner)
+  mainWindow?.hide()
+  sendFrontendMessage('launchGame', arg, gameRunner)
+}
+
+async function findGame(
+  runner: Runner | undefined,
+  arg: string | undefined = ''
+): Promise<GameInfo | null> {
+  // If the runner is specified, only search for that runner
+  const runnersToSearch = runner ? [runner, 'hyperplay'] : RUNNERS
+
+  // Search for the game in the runners specified in runnersToSearch and return the first one found (if any)
+  for (const currentRunner of runnersToSearch) {
+    const run = (currentRunner as Runner) || 'hyperplay'
+    // handle hp games that are not on the library
+
+    if (run === 'hyperplay') {
+      try {
+        getGameInfo(arg)
+      } catch (error) {
+        logInfo(
+          `Game ${arg} not found in library. Adding it...`,
+          LogPrefix.HyperPlay
+        )
+        await addGameToLibrary(arg)
+        return getGameInfo(arg)
+      }
+    }
+
+    const gameInfoOrSideload = getInfo(arg, run)
+    if (gameInfoOrSideload.app_name) {
+      return gameInfoOrSideload
+    }
   }
 }

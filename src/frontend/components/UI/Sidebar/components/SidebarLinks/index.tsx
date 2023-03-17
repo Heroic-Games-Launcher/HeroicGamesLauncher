@@ -57,7 +57,7 @@ export default function SidebarLinks() {
       (epic.username && !epic.library.length) ||
       (gog.username && !gog.library.length)
     if (shouldRefresh) {
-      return refreshLibrary({ runInBackground: true, fullRefresh: true })
+      return refreshLibrary({ runInBackground: true })
     }
     return
   }

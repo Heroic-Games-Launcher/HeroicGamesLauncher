@@ -45,10 +45,8 @@ export const authGOG = async (token: string) =>
 export const logoutGOG = () => ipcRenderer.send('logoutGOG')
 export const checkGameUpdates = async () =>
   ipcRenderer.invoke('checkGameUpdates')
-export const refreshLibrary = async (
-  fullRefresh?: boolean,
-  library?: Runner | 'all'
-) => ipcRenderer.invoke('refreshLibrary', fullRefresh, library)
+export const refreshLibrary = async (library?: Runner | 'all') =>
+  ipcRenderer.invoke('refreshLibrary', library)
 
 export const gamepadAction = async (args: GamepadActionArgs) =>
   ipcRenderer.invoke('gamepadAction', args)
