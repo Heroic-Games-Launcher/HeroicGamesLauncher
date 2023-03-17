@@ -271,8 +271,7 @@ class GameConfigV0 extends GameConfig {
       if (isMac) {
         defaultSettings.wineCrossoverBottle = wineCrossoverBottle
       } else if (isLinux) {
-        defaultSettings.winePrefix =
-          winePrefix || join(heroicDefaultWinePrefix, 'default')
+        defaultSettings.winePrefix = winePrefix || heroicDefaultWinePrefix
 
         // fix winePrefix if needed
         if (gameSettings.winePrefix?.includes('~')) {

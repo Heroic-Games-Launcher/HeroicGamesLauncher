@@ -6,6 +6,7 @@ import SettingsContext from '../../SettingsContext'
 import { defaultWineVersion } from '../..'
 import GOGSyncSaves from './gog'
 import LegendarySyncSaves from './legendary'
+import { join } from 'path'
 
 const SyncSaves = () => {
   const { t } = useTranslation()
@@ -18,7 +19,10 @@ const SyncSaves = () => {
   const [gogSavesLocations, setGogSavesLocations] = useSetting('gogSaves', [])
 
   const [defaultWinePrefix] = useSetting('defaultWinePrefix', '')
-  const [winePrefix] = useSetting('winePrefix', defaultWinePrefix)
+  const [winePrefix] = useSetting(
+    'winePrefix',
+    join(defaultWinePrefix, 'default')
+  )
 
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
 
