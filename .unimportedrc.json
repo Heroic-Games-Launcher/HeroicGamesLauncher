@@ -1,0 +1,27 @@
+{
+  "rootDir": "./src",
+  "preset": "node",
+  "entry": [
+    "src/frontend/index.tsx",
+    "src/backend/main.ts",
+    "src/backend/preload.ts"
+  ],
+  "aliases": {
+    "backend/*": ["./backend", "./backend/*"],
+    "common/*": ["./common", "./common/*"],
+    "frontend/*": ["./frontend", "./frontend/*"]
+  },
+  "extensions": [".js", ".jsx", ".ts", ".tsx"],
+  "ignorePatterns": [
+    "**/node_modules/**",
+    "**/__tests__/**",
+    "**/__mocks__/**",
+    "common/typedefs/*.d.ts"
+  ],
+  "ignoreUnimported": [
+    "src/backend/jest.config.js",
+    "src/common/types/proxy-types.ts"
+  ],
+  "ignoreUnused": ["@fontsource/cabin", "@fontsource/rubik", "tslib"],
+  "ignoreUnresolved": ["../../tsconfig", "./writable.js", "type-fest"]
+}

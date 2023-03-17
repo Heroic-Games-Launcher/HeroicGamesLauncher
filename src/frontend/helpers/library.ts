@@ -7,7 +7,7 @@ import {
   UpdateParams
 } from 'common/types'
 
-import { TFunction } from 'react-i18next'
+import { TFunction } from 'i18next'
 import { getGameInfo, sendKill } from './index'
 import { DialogModalOptions } from 'frontend/types'
 
