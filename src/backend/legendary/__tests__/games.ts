@@ -16,7 +16,7 @@ describe('LegendaryGame', () => {
     const paths = ['C:\\my\\path', '/home/someone/saves/path']
     for (const path of paths) {
       await game.syncSaves('', path)
-      expect(spy.mock.lastCall[0]).toEqual([
+      expect(spy.mock.lastCall?.[0]).toEqual([
         'sync-saves',
         '',
         '--save-path',

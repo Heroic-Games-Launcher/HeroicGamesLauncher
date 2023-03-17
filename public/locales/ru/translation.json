@@ -38,7 +38,7 @@
                 }
             },
             "credentials": {
-                "message": "Срок действия ваших учетных данных истек. Пожалуйста, выйдите из системы и войдите снова."
+                "message": "Срок действия ваших учётных данных истёк. Пожалуйста, выйдите из системы и войдите снова."
             },
             "cx-bottle-not-found": {
                 "message": "Бутылка CrossOver \"{{bottle_name}}\" не существует, не может запуститься!",
@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "title": "Ubisoft Connect",
                 "message": "Не удалось установить Ubisoft Connect в игровой префикс. Посетите нашу wiki-страницу по адресу https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac и установите его вручную."
+            },
+            "legendary": {
+                "generic": "Произошла ошибка! Попробуйте выйти и войти в свою учётную запись Epic. {{newline}}\n{{error}}"
             }
         },
         "info": {
@@ -201,7 +204,8 @@
             "start-time": "Начало в",
             "type": "Тип"
         },
-        "title": "Загрузки"
+        "title": "Загрузки",
+        "ETA": "Расчетное время"
     },
     "epic": {
         "offline-notification-body": "Онлайн-сервисы могут работать не полностью, так как серверы Epic Games отключены!",
@@ -383,7 +387,7 @@
         "offline-retry-in": "Не в сети. Повторная попытка через {{seconds}} секунд.",
         "retrying": "Повтор"
     },
-    "Open": "",
+    "Open": "Открыть",
     "options": {
         "advanced": {
             "key": "Имя переменной",

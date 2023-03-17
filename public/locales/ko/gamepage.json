@@ -111,7 +111,11 @@
         "path": "설치 경로",
         "size": "크기",
         "syncsaves": "세이브 동기화",
-        "version": "버전"
+        "version": "버전",
+        "apple-gaming-wiki": "AppleGamingWiki 등급",
+        "clickToOpen": "열려면 클릭",
+        "game-scores": "게임 점수",
+        "installedInfo": "설치된 정보"
     },
     "install": {
         "disk-space-left": "사용 가능한 공간",

@@ -111,7 +111,11 @@
         "path": "Installatie pad",
         "size": "Grootte",
         "syncsaves": "Synchroniseer saves",
-        "version": "Versie"
+        "version": "Versie",
+        "apple-gaming-wiki": "AppleGamingWiki-beoordeling",
+        "clickToOpen": "Klik om te openen",
+        "game-scores": "Spelscores",
+        "installedInfo": "Geïnstalleerde informatie"
     },
     "install": {
         "disk-space-left": "Space Available",

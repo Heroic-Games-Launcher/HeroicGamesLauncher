@@ -100,7 +100,7 @@
     },
     "hours": "Часы",
     "how-long-to-beat": {
-        "completionist": "Завершенность",
+        "completionist": "Завершённость",
         "main-plus-extras": "Основное + Дополнительное",
         "main-story": "Основная история"
     },
@@ -111,7 +111,11 @@
         "path": "Путь установки",
         "size": "Размер",
         "syncsaves": "Синхронизация сохранений",
-        "version": "Версия"
+        "version": "Версия",
+        "apple-gaming-wiki": "Рейтинг AppleGamingWiki",
+        "clickToOpen": "Нажмите, чтобы открыть",
+        "game-scores": "Результаты игр",
+        "installedInfo": "Установленная информация"
     },
     "install": {
         "disk-space-left": "Свободное место",

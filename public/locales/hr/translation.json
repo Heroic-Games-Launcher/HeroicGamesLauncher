@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "message": "Instalacija Ubisoft Connecta u prefiks igre nije uspjela. Provjerite našu wiki stranicu na https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac kako biste ga instalirali ručno.",
                 "title": "Ubisoft Connect"
+            },
+            "legendary": {
+                "generic": "Došlo je do pogreške! Pokušajte se odjaviti i prijaviti na svoj Epic račun. {{newline}} {{error}}"
             }
         },
         "info": {
@@ -151,7 +154,7 @@
                 "message": "Nismo mogli pronaći odabranu verziju vina za pokretanje ovog naslova ({{selectedWine}}). {{newline}} Pronašli smo još jedan, želite li nastaviti s pokretanjem pomoću {{foundWine}}?"
             }
         },
-        "wineprefix": "Odaberi Wine Prefix mapu",
+        "wineprefix": "Odaberite Wine Prefix mapu",
         "yes": "DA",
         "dontShowAgain": "Ne prikazuj više"
     },
@@ -201,7 +204,8 @@
             "start-time": "Started at",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "ETA": "Procijenjeno vrijeme"
     },
     "epic": {
         "offline-notification-body": "Heroic vjerojatno neče raditi zato što EpicGames serveri su ugašeni!",
@@ -383,7 +387,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
-    "Open": "",
+    "Open": "Otvori",
     "options": {
         "advanced": {
             "key": "Variable Name",
@@ -508,12 +512,12 @@
         },
         "library_top_section": "Library Top Section",
         "log": {
-            "copy-to-clipboard": "Copy log content to clipboard.",
+            "copy-to-clipboard": "Kopiraj sadržaj dnevnika u međuspremnik",
             "current-log": "Current log",
             "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
             "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
-            "no-file": "No log file found.",
+            "no-file": "Nije pronađena nijedna datoteka dnevnika",
             "show-in-folder": "Show log file in folder"
         },
         "mangohud": "Omogući Mangohud (Mangohud mora biti instaliran)",

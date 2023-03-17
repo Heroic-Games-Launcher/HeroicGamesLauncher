@@ -61,7 +61,7 @@ const EgsSettings = () => {
     })
   }
 
-  function handleEgsFolder() {
+  async function handleEgsFolder() {
     if (isLinked) {
       return ''
     }
@@ -107,7 +107,7 @@ const EgsSettings = () => {
           }
           onIconClick={
             !egsPath.length
-              ? () => handleEgsFolder()
+              ? async () => handleEgsFolder()
               : () => (isLinked ? '' : setEgsPath(''))
           }
           afterInput={

@@ -111,7 +111,11 @@
         "path": "Инсталационна папка",
         "size": "Размер",
         "syncsaves": "Синхронизиране на запазените файлове",
-        "version": "Версия"
+        "version": "Версия",
+        "apple-gaming-wiki": "Рейтинг на AppleGamingWiki",
+        "clickToOpen": "Щракнете, за да отворите",
+        "game-scores": "Резултати на играта",
+        "installedInfo": "Информация за инсталацията"
     },
     "install": {
         "disk-space-left": "Свободно място",

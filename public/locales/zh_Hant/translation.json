@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "message": "在遊戲前綴中安裝 Ubisoft Connect 失敗。查看我們的 wiki 頁面 https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac 來手動安裝它。",
                 "title": "育碧連接"
+            },
+            "legendary": {
+                "generic": "發生了錯誤！嘗試註銷並登錄您的 Epic 帳戶。 {{newline}} {{error}}"
             }
         },
         "info": {
@@ -201,7 +204,8 @@
             "start-time": "Started at",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "ETA": "預計時間"
     },
     "epic": {
         "offline-notification-body": "因為Epic Games伺服器離線，可能無法提供完整線上服務！",
@@ -383,7 +387,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
-    "Open": "",
+    "Open": "打開",
     "options": {
         "advanced": {
             "key": "Variable Name",

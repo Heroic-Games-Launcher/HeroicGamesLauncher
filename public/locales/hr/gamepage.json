@@ -111,7 +111,11 @@
         "path": "Put instalacije",
         "size": "Veličina",
         "syncsaves": "Sinkroniziraj podatke",
-        "version": "Verzija"
+        "version": "Verzija",
+        "apple-gaming-wiki": "Ocjena AppleGamingWiki",
+        "clickToOpen": "Kliknite za otvaranje",
+        "game-scores": "Rezultati igre",
+        "installedInfo": "Instalirane informacije"
     },
     "install": {
         "disk-space-left": "Prostora dostupno",

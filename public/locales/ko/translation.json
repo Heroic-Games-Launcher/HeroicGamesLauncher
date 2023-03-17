@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "title": "유비소프트 커넥트",
                 "message": "게임 접두사에 Ubisoft Connect를 설치하지 못했습니다. 수동으로 설치하려면 https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac의 위키 페이지를 확인하세요."
+            },
+            "legendary": {
+                "generic": "오류가 발생했습니다! 에픽 계정에서 로그아웃하고 로그인해 보세요. {{newline}} {{error}}"
             }
         },
         "info": {
@@ -201,7 +204,8 @@
             "start-time": "Started at",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "ETA": "예상 시간"
     },
     "epic": {
         "offline-notification-body": "Epic Games 서버가 오프라인 상태이므로 온라인 서비스가 완전히 작동하지 않을 수 있습니다!",
@@ -383,7 +387,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
-    "Open": "",
+    "Open": "열기",
     "options": {
         "advanced": {
             "key": "Variable Name",

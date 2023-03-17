@@ -112,7 +112,11 @@
         "path": "مسار التثبيت",
         "size": "الحجم",
         "syncsaves": "مزامنة ملفات التخزين",
-        "version": "الإصدار"
+        "version": "الإصدار",
+        "apple-gaming-wiki": "تقييم AppleGamingWiki",
+        "clickToOpen": "انقر لتفتح",
+        "game-scores": "نتائج اللعبة",
+        "installedInfo": "معلومات المثبَّت"
     },
     "install": {
         "disk-space-left": "المساحة المتوفرة",

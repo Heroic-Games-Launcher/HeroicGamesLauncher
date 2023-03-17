@@ -34,7 +34,7 @@
         "uninstall": {
             "checkbox": "Entferne Prefix: {{prefix}}{{newLine}}Hinweis: Dies kann nicht rückgängig gemacht werden und löscht auch ungesicherte Speicherdaten.",
             "message": "Möchtest du dieses Spiel deinstallieren?",
-            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+            "settingcheckbox": "Einstellungen löschen und Log entfernen{{newLine}}Beachte: Dies kann nicht rückgängig gemacht werden! Alle geänderten Einstellungen werden verworfen und das Log wird gelöscht.",
             "title": "Deinstallieren",
             "prefix_warning": "Das Wine-Präfix für dieses Spiel ist das Standardpräfix. Wenn Sie es wirklich löschen möchten, müssen Sie es manuell tun."
         },
@@ -111,7 +111,11 @@
         "path": "Installationspfad",
         "size": "Größe",
         "syncsaves": "Spielstände synchronisieren",
-        "version": "Version"
+        "version": "Version",
+        "apple-gaming-wiki": "AppleGamingWiki-Bewertung",
+        "clickToOpen": "Zum Öffnen klicken",
+        "game-scores": "Spielergebnisse",
+        "installedInfo": "Installierte Informationen"
     },
     "install": {
         "disk-space-left": "Verfügbarer Speicherplatz auf dem Gerät",

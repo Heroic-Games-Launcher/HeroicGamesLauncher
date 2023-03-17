@@ -155,7 +155,11 @@
         "path": "Yo'lni o'rnatish",
         "size": "Hajmi",
         "syncsaves": "Saqlashlarni sinxronlash",
-        "version": "Versiya"
+        "version": "Versiya",
+        "apple-gaming-wiki": "AppleGamingWiki reytingi",
+        "clickToOpen": "Ochish uchun bosing",
+        "game-scores": "O'yin natijalari",
+        "installedInfo": "O'rnatilgan ma'lumotlar"
     },
     "install": {
         "disk-space-left": "Bo'sh joy mavjud",

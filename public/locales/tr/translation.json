@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "message": "Oyun ön ekinde Ubisoft Connect kurulumu başarısız oldu. Manuel olarak kurmak için https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac adresindeki wiki sayfamızı kontrol edin.",
                 "title": "Ubisoft Bağlantısı"
+            },
+            "legendary": {
+                "generic": "Bir hata oluştu! Epic hesabınızda Oturumu Kapatmayı ve Oturum Açmayı deneyin. {{newline}} {{error}}"
             }
         },
         "info": {
@@ -201,7 +204,8 @@
             "start-time": "Started at",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "ETA": "Tahmini süresi"
     },
     "epic": {
         "offline-notification-body": "Epic Games sunucuları çevrim dışı olduğundan çevrim içi hizmetler tam olarak çalışmayabilir!",
@@ -383,7 +387,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
-    "Open": "",
+    "Open": "Epic Store'u",
     "options": {
         "advanced": {
             "key": "Variable Name",
