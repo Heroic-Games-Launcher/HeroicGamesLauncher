@@ -33,7 +33,9 @@ async function addShortcuts(
   gameInfo: GameInfo | SideloadGame,
   fromMenu?: boolean
 ) {
-  logInfo(`Adding shortcuts for ${gameInfo.title}`, LogPrefix.Backend)
+  const { app_name, runner, title } = gameInfo
+
+  logInfo(`Adding shortcuts for ${title}`, LogPrefix.Backend)
   const { addDesktopShortcuts, addStartMenuShortcuts, addSteamShortcuts } =
     GlobalConfig.get().getSettings()
 
@@ -41,7 +43,7 @@ async function addShortcuts(
     addNonSteamGame({ gameInfo })
   }
 
-  const launchWithProtocol = `heroic://launch/${gameInfo.app_name}`
+  const launchWithProtocol = `heroic://launch/${runner}/${app_name}`
   const [desktopFile, menuFile] = shortcutFiles(gameInfo.title)
   if (!desktopFile || !menuFile) {
     return
