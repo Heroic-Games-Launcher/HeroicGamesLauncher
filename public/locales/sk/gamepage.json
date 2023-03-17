@@ -111,7 +111,11 @@
         "path": "Inštalovať cestu",
         "size": "Veľkosť",
         "syncsaves": "Synchronizovať uloženia",
-        "version": "Verzia"
+        "version": "Verzia",
+        "apple-gaming-wiki": "Hodnotenie AppleGamingWiki",
+        "clickToOpen": "Kliknutím otvoríte",
+        "game-scores": "Skóre hry",
+        "installedInfo": "Inštalované informácie"
     },
     "install": {
         "disk-space-left": "Priestor k dispozícii",
@@ -132,7 +136,9 @@
         },
         "saves": {
             "syncing": "Synchronizácia uloženia"
-        }
+        },
+        "launching": "Spustenie",
+        "ubisoft": "Inštalácia Ubisoft Connect"
     },
     "launch": {
         "options": "Možnosti spustenia..."
@@ -188,7 +194,9 @@
         "updating": "Aktualizácia hry",
         "playing": "Prehrávanie",
         "moving-files": "Presúvam súbor '{{file}}': {{percent}} ",
-        "syncingSaves": "Synchronizácia uloženia"
+        "syncingSaves": "Synchronizácia uloženia",
+        "launching": "Spustenie",
+        "ubisoft": "Inštalácia Ubisoftu"
     },
     "submenu": {
         "addShortcut": "Pridať skratku",

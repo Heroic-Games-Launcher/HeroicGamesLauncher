@@ -1,8 +1,9 @@
 import './index.scss'
 import short from 'short-uuid'
-import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
+import { faFolderOpen, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { InstallPlatform, SideloadGame, WineInstallation } from 'common/types'
+
 import {
   CachedImage,
   TextInputField,
@@ -55,6 +56,7 @@ export default function SideloadDialog({
   const [app_name, setApp_name] = useState(appName ?? '')
   const [runningSetup, setRunningSetup] = useState(false)
   const [gameInfo, setGameInfo] = useState<Partial<SideloadGame>>({})
+  const [addingApp, setAddingApp] = useState(false)
   const editMode = Boolean(appName)
 
   const { refreshLibrary, platform } = useContext(ContextProvider)
@@ -132,6 +134,7 @@ export default function SideloadDialog({
   }
 
   async function handleInstall(): Promise<void> {
+    setAddingApp(true)
     window.api.addNewApp({
       runner: 'sideload',
       app_name,
@@ -164,6 +167,7 @@ export default function SideloadDialog({
       checkForUpdates: true,
       fullRefresh: true
     })
+    setAddingApp(false)
     return backdropClick()
   }
 
@@ -310,10 +314,11 @@ export default function SideloadDialog({
         )}
         <button
           onClick={async () => handleInstall()}
-          className={`button is-primary`}
-          disabled={!selectedExe.length}
+          className={`button is-success`}
+          disabled={!selectedExe.length || addingApp || searching}
         >
-          {t('button.finish', 'Finish')}
+          {addingApp && <FontAwesomeIcon icon={faSpinner} spin />}
+          {!addingApp && t('button.finish', 'Finish')}
         </button>
       </DialogFooter>
     </>

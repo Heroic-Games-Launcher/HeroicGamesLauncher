@@ -23,27 +23,11 @@ import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import i18next from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../../dialog/dialog'
 import { GlobalConfig } from '../../config'
-import { getMainWindow } from '../../main_window'
+import { getWikiGameInfo } from 'backend/wiki_game_info/wiki_game_info'
 
 const getSteamUserdataDir = async () => {
   const { defaultSteamPath } = GlobalConfig.get().getSettings()
   return join(defaultSteamPath.replaceAll("'", ''), 'userdata')
-}
-
-const generateImage = async (
-  src: string,
-  width: number,
-  height: number
-): Promise<string> => {
-  const window = getMainWindow()
-
-  if (!window) {
-    return Promise.resolve('')
-  }
-
-  return window.webContents.executeJavaScript(
-    `window.imageData("${src}", ${width}, ${height})`
-  )
 }
 
 /**
@@ -206,27 +190,18 @@ function checkIfAlreadyAdded(object: Partial<ShortcutObject>, title: string) {
 /**
  * Adds a non-steam game to steam via editing shortcuts.vdf
  * @param gameInfo @see GameInfo of the game to add
- * @param steamUserdataDir Path to steam userdata directory, optional
- * @param bkgDataUrl data url string for the background image, optional
- * @param bigPicDataUrl data url of the Big Picture image, optional
  * @returns boolean
  */
 async function addNonSteamGame(props: {
   gameInfo: GameInfo | SideloadGame
-  steamUserdataDir?: string
-  bkgDataUrl?: string
-  bigPicDataUrl?: string
 }): Promise<boolean> {
-  const steamUserdataDir =
-    props.steamUserdataDir || (await getSteamUserdataDir())
-
-  let bkgDataUrl = props.bkgDataUrl
-  let bigPicDataUrl = props.bigPicDataUrl
-
-  if (bkgDataUrl === undefined || bigPicDataUrl === undefined) {
-    bkgDataUrl = await generateImage(props.gameInfo.art_cover, 1920, 620)
-    bigPicDataUrl = await generateImage(props.gameInfo.art_cover, 920, 430)
-  }
+  const steamUserdataDir = await getSteamUserdataDir()
+  const wikiInfo = await getWikiGameInfo(
+    props.gameInfo.title,
+    props.gameInfo.app_name,
+    props.gameInfo.runner
+  )
+  const steamID = wikiInfo?.pcgamingwiki?.steamID ?? wikiInfo?.gamesdb?.steamID
 
   const { folders, error } = checkSteamUserDataDir(steamUserdataDir)
 
@@ -304,8 +279,7 @@ async function addNonSteamGame(props: {
         otherGridAppID: generateShortAppId(newEntry.Exe, newEntry.AppName)
       },
       gameInfo: props.gameInfo,
-      bkgDataUrl: bkgDataUrl,
-      bigPicDataUrl: bigPicDataUrl
+      steamID: steamID
     })
 
     const args = []
@@ -395,11 +369,8 @@ async function addNonSteamGame(props: {
  */
 async function removeNonSteamGame(props: {
   gameInfo: GameInfo | SideloadGame
-  steamUserdataDir?: string
 }): Promise<void> {
-  const steamUserdataDir =
-    props.steamUserdataDir || (await getSteamUserdataDir())
-
+  const steamUserdataDir = await getSteamUserdataDir()
   const { folders, error } = checkSteamUserDataDir(steamUserdataDir)
 
   // we don't show a error here.

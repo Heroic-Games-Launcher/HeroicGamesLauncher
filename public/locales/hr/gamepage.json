@@ -111,7 +111,11 @@
         "path": "Put instalacije",
         "size": "Veličina",
         "syncsaves": "Sinkroniziraj podatke",
-        "version": "Verzija"
+        "version": "Verzija",
+        "apple-gaming-wiki": "Ocjena AppleGamingWiki",
+        "clickToOpen": "Kliknite za otvaranje",
+        "game-scores": "Rezultati igre",
+        "installedInfo": "Instalirane informacije"
     },
     "install": {
         "disk-space-left": "Prostora dostupno",
@@ -132,7 +136,9 @@
         },
         "saves": {
             "syncing": "Sinkoniziranje podataka"
-        }
+        },
+        "launching": "Pokretanje",
+        "ubisoft": "Instaliranje Ubisoft Connecta"
     },
     "launch": {
         "options": "Opcije za pokretanje..."
@@ -188,7 +194,9 @@
         "updating": "Ažuriranje igrice",
         "playing": "Igranje",
         "moving-files": "Premještanje datoteke '{{file}}': {{percent}} ",
-        "syncingSaves": "Sinkoniziranje podataka"
+        "syncingSaves": "Sinkoniziranje podataka",
+        "ubisoft": "Instaliranje Ubisofta",
+        "launching": "Pokretanje"
     },
     "submenu": {
         "addShortcut": "Dodaj prečace",

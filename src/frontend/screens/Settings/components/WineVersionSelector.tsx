@@ -67,7 +67,7 @@ export default function WineVersionSelector() {
           )}
           {isLinux && (
             <InfoBox text={t('infobox.wine-path', 'Wine Path')}>
-              {wineVersion.bin}
+              <span>{wineVersion.bin}</span>
             </InfoBox>
           )}
           {isLinux && (

@@ -45,15 +45,13 @@ export async function getGamesdbData(
         }
       : undefined
 
-    const response = await axios
-      .get(url, { headers: headers })
-      .catch((error) => {
-        logError(
-          [`Was not able to get GamesDB data for ${game_id}`, error],
-          LogPrefix.ExtraGameInfo
-        )
-        return null
-      })
+    const response = await axios.get(url, { headers: headers }).catch(() => {
+      logError(
+        [`Was not able to get GamesDB data for ${game_id}`],
+        LogPrefix.ExtraGameInfo
+      )
+      return null
+    })
     if (!response) {
       return { isUpdated: false }
     }

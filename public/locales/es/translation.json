@@ -22,7 +22,7 @@
             "message": "Se limpió la caché de Heroic.",
             "title": "Caché borrado"
         },
-        "choose": "Elegir",
+        "choose": "Seleccionar",
         "choose-egs-prefix": "Elija el prefijo de Wine donde está instalado EGS",
         "choose-gogdl-binary": "Seleccionar binario de GOGDL (requiere reiniciar)",
         "choose-legendary-binary": "Seleccione el binario de Legendary",
@@ -78,7 +78,14 @@
                 "message": "Winetricks respondió con el siguiente error durante la ejecución:{{newLine}}{{error}}",
                 "title": "Error de Winetricks"
             },
-            "moving": "Error al mover el juego {{error}}"
+            "moving": "Error al mover el juego {{error}}",
+            "ubisoft-connect": {
+                "title": "Conectar Ubisoft",
+                "message": "La instalación de Ubisoft Connect en el prefijo del juego falló. Consulte nuestra página wiki en https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac para instalarlo manualmente."
+            },
+            "legendary": {
+                "generic": "¡Se ha producido un error! Intente cerrar sesión e iniciar sesión en su cuenta de Epic. {{newline}} {{error}}"
+            }
         },
         "info": {
             "update": {
@@ -197,7 +204,8 @@
             "start-time": "Iniciado en",
             "type": "Type"
         },
-        "title": "Descargas"
+        "title": "Descargas",
+        "ETA": "Hora prevista"
     },
     "epic": {
         "offline-notification-body": "¡Puede que algunos servicios no funcionen correctamente si no estás conectado a los servidores de Epic Games!",
@@ -379,7 +387,7 @@
         "offline-retry-in": "Sin conexión. Reintento en {{seconds}} segundos.",
         "retrying": "Reintentando"
     },
-    "Open": "",
+    "Open": "Abrir",
     "options": {
         "advanced": {
             "key": "Nombre de la variable",
@@ -421,7 +429,7 @@
         "alt-gogdl-bin": "Utilizando el binario incorporado de GOGDL...",
         "alt-legendary-bin": "Usando el binario incorporado de Legendary…",
         "custom_themes_path": "Seleccione la ubicación de donde buscar los archivos CSS",
-        "dxvkfpsvalue": "Valor entero positivo (ej: 30, 60, ...)",
+        "dxvkfpsvalue": "Valor entero positivo (por ejemplo, 30, 60, ...)",
         "egs-prefix": "Prefijo donde está instalado EGS",
         "prefered_language": "Código de 2 caracteres (ej: \"en\" o \"fr\")"
     },

@@ -18,7 +18,7 @@
             "title": "Egiaztatu eta konpondu"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "Hautatu exekutatzeko EXEa"
         },
         "select": {
             "button": "Select"
@@ -112,7 +112,11 @@
         "path": "Instalazio-ibilbidea",
         "size": "Tamaina",
         "syncsaves": "Sinkronizatu gordetakoak",
-        "version": "Bertsioa"
+        "version": "Bertsioa",
+        "apple-gaming-wiki": "AppleGamingWiki balorazioa",
+        "clickToOpen": "Egin klik irekitzeko",
+        "game-scores": "Joko puntuazioak",
+        "installedInfo": "Instalatutako informazioa"
     },
     "install": {
         "disk-space-left": "Espazio erabilgarria",
@@ -133,7 +137,9 @@
         },
         "saves": {
             "syncing": "Zaintza-zaindegien sinkronizazioa"
-        }
+        },
+        "launching": "Abian jartzea",
+        "ubisoft": "Ubisoft Connect instalatzen"
     },
     "launch": {
         "options": "Jaurtiketa-aukerak..."
@@ -189,7 +195,9 @@
         "updating": "Jokoa eguneratzea",
         "playing": "Jolasean",
         "moving-files": "'{{file}}' fitxategia mugitzen: {{percent}} ",
-        "syncingSaves": "Gordeak sinkronizatzea"
+        "syncingSaves": "Gordeak sinkronizatzea",
+        "launching": "Abian jartzea",
+        "ubisoft": "Ubisoft instalatzen"
     },
     "submenu": {
         "addShortcut": "Sarbide zuzena gehitu",

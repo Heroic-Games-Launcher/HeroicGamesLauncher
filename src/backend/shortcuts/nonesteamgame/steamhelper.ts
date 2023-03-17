@@ -14,9 +14,27 @@ import {
   logoArtSufix,
   backGroundArtSufix,
   coverArtSufix,
-  pictureExt
+  pictureExt,
+  steamDBBaseURL
 } from './constants'
 import { nativeImage } from 'electron'
+import { getMainWindow } from 'backend/main_window'
+
+const generateImage = async (
+  src: string,
+  width: number,
+  height: number
+): Promise<string> => {
+  const window = getMainWindow()
+
+  if (!window) {
+    return Promise.resolve('')
+  }
+
+  return window.webContents.executeJavaScript(
+    `window.imageData("${src}", ${width}, ${height})`
+  )
+}
 
 async function prepareImagesForSteam(props: {
   steamUserConfigDir: string
@@ -24,9 +42,8 @@ async function prepareImagesForSteam(props: {
     bigPictureAppID: string
     otherGridAppID: string
   }
+  steamID: string | undefined
   gameInfo: GameInfo | SideloadGame
-  bkgDataUrl: string
-  bigPicDataUrl: string
 }) {
   const gridFolder = join(props.steamUserConfigDir, 'grid')
   const coverArt = join(gridFolder, props.appID.otherGridAppID + coverArtSufix)
@@ -34,10 +51,6 @@ async function prepareImagesForSteam(props: {
   const backGroundArt = join(
     gridFolder,
     props.appID.otherGridAppID + backGroundArtSufix
-  )
-  const bigPictureArt = join(
-    gridFolder,
-    props.appID.bigPictureAppID + pictureExt
   )
   const logoArt = join(gridFolder, props.appID.otherGridAppID + logoArtSufix)
 
@@ -50,17 +63,42 @@ async function prepareImagesForSteam(props: {
     LogPrefix.Shortcuts
   )
 
+  let bkgDataUrl = ''
+  if (!props.steamID) {
+    await generateImage(props.gameInfo.art_cover, 1920, 620)
+      .then((img) => (bkgDataUrl = img))
+      .catch((error) =>
+        errors.push(`Failed to generate background image with ${error}`)
+      )
+  }
+
   const errors: string[] = []
   const images = new Map<string, string>([
-    [coverArt, props.gameInfo.art_square],
-    [headerArt, props.gameInfo.art_cover],
-    [backGroundArt, props.bkgDataUrl],
-    [bigPictureArt, props.bigPicDataUrl]
+    [
+      coverArt,
+      props.steamID
+        ? `${steamDBBaseURL}/${props.steamID}/library_600x900_2x.jpg`
+        : props.gameInfo.art_square
+    ],
+    [
+      headerArt,
+      props.steamID
+        ? `${steamDBBaseURL}/${props.steamID}/library_hero.jpg`
+        : props.gameInfo.art_cover
+    ],
+    [
+      backGroundArt,
+      props.steamID
+        ? `${steamDBBaseURL}/${props.steamID}/library_hero.jpg`
+        : bkgDataUrl
+    ]
   ])
 
-  // if no logo art is provided we add a 1x1 transparent png
+  // if no steam logo or logo art is provided we add a 1x1 transparent png
   // to get rid of game title in steam
-  if ('art_logo' in props.gameInfo && props.gameInfo.art_logo) {
+  if (props.steamID) {
+    images.set(logoArt, `${steamDBBaseURL}/${props.steamID}/logo.png`)
+  } else if ('art_logo' in props.gameInfo && props.gameInfo.art_logo) {
     images.set(logoArt, props.gameInfo.art_logo)
   } else {
     const error = createImage(

@@ -111,7 +111,11 @@
         "path": "安装路径",
         "size": "大小",
         "syncsaves": "同步存档",
-        "version": "版本"
+        "version": "版本",
+        "apple-gaming-wiki": "AppleGamingWiki 评级",
+        "clickToOpen": "点击打开",
+        "game-scores": "比赛成绩",
+        "installedInfo": "安装信息"
     },
     "install": {
         "disk-space-left": "可用空间",
@@ -132,7 +136,9 @@
         },
         "saves": {
             "syncing": "存档同步中"
-        }
+        },
+        "launching": "发射",
+        "ubisoft": "安装育碧连接"
     },
     "launch": {
         "options": "启动选项..."
@@ -188,7 +194,9 @@
         "updating": "游戏更新中",
         "playing": "播放",
         "moving-files": "移动文件“{{file}}”：{{percent}} ",
-        "syncingSaves": "存档同步中"
+        "syncingSaves": "存档同步中",
+        "launching": "发射",
+        "ubisoft": "安装育碧"
     },
     "submenu": {
         "addShortcut": "添加快捷方式",

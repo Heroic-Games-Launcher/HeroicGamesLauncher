@@ -61,6 +61,9 @@
                 "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
+            "legendary": {
+                "generic": "An error has occurred! Try to Logout and Login on your Epic account. {{newline}}  {{error}}"
+            },
             "moving": "Error Moving Game {{error}}",
             "title": "Error",
             "ubisoft-connect": {
@@ -181,6 +184,7 @@
     },
     "docs": "Documentation",
     "download-manager": {
+        "ETA": "Estimated time",
         "install-type": {
             "install": "Install",
             "update": "Update"
@@ -382,7 +386,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
-    "Open": "",
+    "Open": "Open",
     "options": {
         "advanced": {
             "key": "Variable Name",
@@ -424,7 +428,7 @@
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
         "custom_themes_path": "Select the path to look for custom CSS files",
-        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
+        "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix where EGS is installed",
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
@@ -645,9 +649,6 @@
             "openInBrowser": "Open in browser",
             "reload": "Reload page"
         }
-    },
-    "wiki_info": {
-        "not_found": "We couldn't find extra information."
     },
     "wine": {
         "actions": "Action",

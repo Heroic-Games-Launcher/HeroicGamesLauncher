@@ -78,7 +78,14 @@
                 "message": "Winetricks هنگام اجرا این خطا را برگرداند:{{newLine}}{{error}}",
                 "title": "خطای Winetricks"
             },
-            "moving": "خطا در حرکت بازی {{error}}"
+            "moving": "خطا در حرکت بازی {{error}}",
+            "ubisoft-connect": {
+                "message": "نصب Ubisoft Connect در پیشوند بازی انجام نشد. صفحه ویکی ما را در https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac بررسی کنید تا آن را به صورت دستی نصب کنید.",
+                "title": "Ubisoft Connect"
+            },
+            "legendary": {
+                "generic": "خطایی رخ داده است! سعی کنید از حساب Epic خود خارج شوید و وارد شوید. {{newline}} {{error}}"
+            }
         },
         "info": {
             "update": {
@@ -197,7 +204,8 @@
             "start-time": "Started at",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "ETA": "زمان تخمین زده شده"
     },
     "epic": {
         "offline-notification-body": "به علت آفلاین بودن سرورهای اپیک گیمز سرویسهای آنلاین ممکن است کار نکنند!",
@@ -379,7 +387,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
-    "Open": "",
+    "Open": "باز کن",
     "options": {
         "advanced": {
             "key": "Variable Name",
@@ -421,7 +429,7 @@
         "alt-gogdl-bin": "استفاده از باینری GOGDL داخلی...",
         "alt-legendary-bin": "استفاده از باینری Legendary داخلی...",
         "custom_themes_path": "Select the path to look for custom CSS files",
-        "dxvkfpsvalue": "Postive integer value (e.g. 30, 60, ...)",
+        "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "محل نصب شده EGS",
         "prefered_language": "کد دو حرفی (مانند \"en\" یا \"fr\")"
     },

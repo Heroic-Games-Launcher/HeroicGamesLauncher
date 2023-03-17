@@ -111,7 +111,11 @@
         "path": "Installatie pad",
         "size": "Grootte",
         "syncsaves": "Synchroniseer saves",
-        "version": "Versie"
+        "version": "Versie",
+        "apple-gaming-wiki": "AppleGamingWiki-beoordeling",
+        "clickToOpen": "Klik om te openen",
+        "game-scores": "Spelscores",
+        "installedInfo": "Geïnstalleerde informatie"
     },
     "install": {
         "disk-space-left": "Space Available",
@@ -132,7 +136,9 @@
         },
         "saves": {
             "syncing": "Saves synchroniseren"
-        }
+        },
+        "launching": "Lancering",
+        "ubisoft": "Ubisoft Connect installeren"
     },
     "launch": {
         "options": "Opstartopties..."
@@ -188,7 +194,9 @@
         "updating": "Spel aan het updaten",
         "playing": "Spelen",
         "moving-files": "Bestand verplaatsen '{{file}}': {{percent}} ",
-        "syncingSaves": "Saves synchroniseren"
+        "syncingSaves": "Saves synchroniseren",
+        "launching": "Lancering",
+        "ubisoft": "Ubisoft installeren"
     },
     "submenu": {
         "addShortcut": "Snelkoppeling toevoegen",

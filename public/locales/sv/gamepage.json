@@ -111,7 +111,11 @@
         "path": "Installationssökväg",
         "size": "Storlek",
         "syncsaves": "Synkronisera sparfiler",
-        "version": "Version"
+        "version": "Version",
+        "apple-gaming-wiki": "AppleGamingWiki-betyg",
+        "clickToOpen": "Klicka för att öppna",
+        "game-scores": "Spelresultat",
+        "installedInfo": "Installerad information"
     },
     "install": {
         "disk-space-left": "Utrymme tillgängligt",
@@ -132,7 +136,9 @@
         },
         "saves": {
             "syncing": "Synkroniserar sparfiler"
-        }
+        },
+        "launching": "Sjösättning",
+        "ubisoft": "Installera Ubisoft Connect"
     },
     "launch": {
         "options": "Startalternativ..."
@@ -188,7 +194,9 @@
         "updating": "Updaterar spelet",
         "playing": "Spelar",
         "moving-files": "Flyttar filen '{{file}}': {{percent}} ",
-        "syncingSaves": "Synkroniserar sparfiler"
+        "syncingSaves": "Synkroniserar sparfiler",
+        "launching": "Sjösättning",
+        "ubisoft": "Installerar Ubisoft"
     },
     "submenu": {
         "addShortcut": "Skapa genväg",

@@ -55,7 +55,7 @@ import {
   gogInstallInfoStore as GOGinstallInfoStore,
   libraryStore as GOGlibraryStore
 } from './gog/electronStores'
-import fileSize from 'filesize'
+import * as fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
 import { getAppInfo } from './sideload/games'
@@ -115,7 +115,7 @@ function semverGt(target: string, base: string) {
   return isGE
 }
 
-const getFileSize = fileSize.partial({ base: 2 })
+const getFileSize = fileSize.partial({ base: 2 }) as (arg: unknown) => string
 
 function getWineFromProton(
   wineVersion: WineInstallation,
@@ -358,7 +358,8 @@ async function errorHandler({
   const noSpaceMsg = 'Not enough available disk space'
   const plat = r === 'legendary' ? 'Legendary (Epic Games)' : r
   const deletedFolderMsg = 'appears to be deleted'
-  const otherErrorMessages = ['No saved credentials', 'No credentials']
+  const expiredCredentials = 'No saved credentials'
+  const legendaryRegex = /legendary.*\.py/
 
   if (logPath) {
     execAsync(`tail "${logPath}" | grep 'disk space'`)
@@ -400,18 +401,28 @@ async function errorHandler({
       }
     }
 
-    otherErrorMessages.forEach(async (message) => {
-      if (error.includes(message)) {
-        return showDialogBoxModalAuto({
-          title: plat,
-          message: i18next.t(
-            'box.error.credentials.message',
-            'Your Crendentials have expired, Logout and Login Again!'
-          ),
-          type: 'ERROR'
-        })
-      }
-    })
+    if (legendaryRegex.test(error)) {
+      return showDialogBoxModalAuto({
+        title: plat,
+        message: i18next.t(
+          'box.error.legendary.generic',
+          'An error has occurred! Try to Logout and Login on your Epic account. {{newline}}  {{error}}',
+          { error, newline: '\n' }
+        ),
+        type: 'ERROR'
+      })
+    }
+
+    if (error.includes(expiredCredentials)) {
+      return showDialogBoxModalAuto({
+        title: plat,
+        message: i18next.t(
+          'box.error.credentials.message',
+          'Your Crendentials have expired, Logout and Login Again!'
+        ),
+        type: 'ERROR'
+      })
+    }
   }
 }
 

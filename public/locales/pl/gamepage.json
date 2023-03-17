@@ -111,7 +111,11 @@
         "path": "Ścieżka instalacji",
         "size": "Rozmiar",
         "syncsaves": "Synchronizuj zapisy gier",
-        "version": "Wersja"
+        "version": "Wersja",
+        "apple-gaming-wiki": "Ocena AppleGamingWiki",
+        "clickToOpen": "Kliknij, aby otworzyć",
+        "game-scores": "Wyniki gier",
+        "installedInfo": "Zainstalowane informacje"
     },
     "install": {
         "disk-space-left": "Dostępne miejsce",
@@ -132,7 +136,9 @@
         },
         "saves": {
             "syncing": "Synchronizowanie zapisów"
-        }
+        },
+        "launching": "Wodowanie",
+        "ubisoft": "Instalowanie Ubisoft Connect"
     },
     "launch": {
         "options": "Opcje Uruchamiania..."
@@ -188,7 +194,9 @@
         "updating": "Aktualizowanie gry",
         "playing": "Gra",
         "moving-files": "Przenoszenie pliku „{{file}}”: {{percent}} ",
-        "syncingSaves": "Synchronizowanie zapisów"
+        "syncingSaves": "Synchronizowanie zapisów",
+        "launching": "Wodowanie",
+        "ubisoft": "Instalowanie Ubisoftu"
     },
     "submenu": {
         "addShortcut": "Dodaj skrót",

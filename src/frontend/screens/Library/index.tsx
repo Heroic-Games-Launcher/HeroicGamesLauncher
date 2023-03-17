@@ -86,15 +86,20 @@ export default React.memo(function Library(): JSX.Element {
   useLayoutEffect(() => {
     const scrollPosition = parseInt(storage?.getItem('scrollPosition') || '0')
 
-    if (listing.current !== null && scrollPosition > 0) {
-      listing.current.scrollTo(0, scrollPosition)
+    const storeScrollPosition = () => {
+      storage?.setItem(
+        'scrollPosition',
+        listing.current?.scrollTop.toString() || '0'
+      )
     }
+
+    listing.current?.addEventListener('scroll', storeScrollPosition)
+    listing.current?.scrollTo(0, scrollPosition || 0)
+
     return () => {
-      if (listing.current !== null) {
-        storage?.setItem('scrollPosition', listing.current.scrollTop.toString())
-      }
+      listing.current?.removeEventListener('scroll', storeScrollPosition)
     }
-  }, [listing])
+  }, [listing.current])
 
   // bind back to top button
   useEffect(() => {
@@ -288,6 +293,7 @@ export default React.memo(function Library(): JSX.Element {
     const installingGames = library.filter(
       (g) => !g.is_installed && installing.includes(g.app_name)
     )
+
     library = sortInstalled
       ? [...installed, ...installingGames, ...notInstalled]
       : library
@@ -321,6 +327,7 @@ export default React.memo(function Library(): JSX.Element {
   return (
     <>
       <Header />
+
       <div className="listing" ref={listing}>
         <span id="top" />
         {showRecentGames && (

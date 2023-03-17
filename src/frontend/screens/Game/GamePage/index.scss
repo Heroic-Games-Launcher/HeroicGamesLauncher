@@ -33,6 +33,7 @@
       border-radius: 10px;
       display: grid;
       place-items: center;
+      height: 44px;
 
       svg path {
         fill: var(--neutral-06);
@@ -189,6 +190,10 @@
     margin-bottom: 0;
   }
 
+  svg {
+    cursor: text;
+  }
+
   & > .settingSelect {
     margin-bottom: 12px;
     max-width: 420px;
@@ -198,6 +203,16 @@
     color: var(--text-default);
     flex-grow: 1;
     line-height: 22px;
+
+    .iconWithText {
+      transition: color 300ms;
+      display: flex;
+      align-items: center;
+
+      svg {
+        margin-right: var(--space-3xs);
+      }
+    }
   }
 
   .developer {
@@ -229,6 +244,7 @@
       font-weight: 700;
     }
   }
+
   .info .smallTitle {
     font-weight: bold;
   }
@@ -250,11 +266,7 @@
 
 .gameRequirements {
   align-self: flex-start;
-  padding: var(--space-sm);
-  min-width: 60vw;
   overflow: auto;
-  min-height: 0px;
-  max-height: 100%;
 }
 
 .gamePageStoreIcon {
@@ -349,6 +361,16 @@
 
 .buttonsWrapper .button {
   min-width: max-content;
+}
+
+.buttonWithIcon {
+  display: flex;
+  place-items: center;
+  justify-content: center;
+
+  & > svg {
+    height: 20px;
+  }
 }
 
 @keyframes animate-stripes {

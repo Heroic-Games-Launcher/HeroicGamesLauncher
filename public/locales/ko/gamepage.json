@@ -111,7 +111,11 @@
         "path": "설치 경로",
         "size": "크기",
         "syncsaves": "세이브 동기화",
-        "version": "버전"
+        "version": "버전",
+        "apple-gaming-wiki": "AppleGamingWiki 등급",
+        "clickToOpen": "열려면 클릭",
+        "game-scores": "게임 점수",
+        "installedInfo": "설치된 정보"
     },
     "install": {
         "disk-space-left": "사용 가능한 공간",
@@ -132,7 +136,9 @@
         },
         "saves": {
             "syncing": "세이브 동기화 중"
-        }
+        },
+        "launching": "진수",
+        "ubisoft": "Ubisoft 연결 설치"
     },
     "launch": {
         "options": "시작 옵션..."
@@ -188,7 +194,9 @@
         "updating": "게임 업데이트 중",
         "playing": "놀이",
         "moving-files": "파일 '{{file}}' 이동: {{percent}} ",
-        "syncingSaves": "세이브 동기화 중"
+        "syncingSaves": "세이브 동기화 중",
+        "launching": "진수",
+        "ubisoft": "유비소프트 설치"
     },
     "submenu": {
         "addShortcut": "바로가기 생성",

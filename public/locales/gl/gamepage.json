@@ -111,7 +111,11 @@
         "path": "Ruta de instalación",
         "size": "Tamaño",
         "syncsaves": "Sincronizar gardados",
-        "version": "Versión"
+        "version": "Versión",
+        "apple-gaming-wiki": "Clasificación de AppleGamingWiki",
+        "clickToOpen": "Fai clic para abrir",
+        "game-scores": "Puntuacións do xogo",
+        "installedInfo": "Información instalada"
     },
     "install": {
         "disk-space-left": "Space Available",
@@ -132,7 +136,9 @@
         },
         "saves": {
             "syncing": "Sincronización de gardados"
-        }
+        },
+        "launching": "Lanzamento",
+        "ubisoft": "Instalación de Ubisoft Connect"
     },
     "launch": {
         "options": "Opcións de arrinque..."
@@ -188,7 +194,9 @@
         "updating": "Actualización do xogo",
         "playing": "Xogando",
         "moving-files": "Movendo o ficheiro '{{file}}': {{percent}} ",
-        "syncingSaves": "Sincronización de gardados"
+        "syncingSaves": "Sincronización de gardados",
+        "launching": "Lanzamento",
+        "ubisoft": "Instalación de Ubisoft"
     },
     "submenu": {
         "addShortcut": "Engadir acceso directo",

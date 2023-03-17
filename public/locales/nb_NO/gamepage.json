@@ -112,7 +112,11 @@
         "path": "Installer bane",
         "size": "Størrelse",
         "syncsaves": "Synkroniser lagrer",
-        "version": "Versjon"
+        "version": "Versjon",
+        "apple-gaming-wiki": "AppleGamingWiki-vurdering",
+        "clickToOpen": "Klikk for å åpne",
+        "game-scores": "Spillresultater",
+        "installedInfo": "Installert informasjon"
     },
     "install": {
         "disk-space-left": "Plass tilgjengelig",
@@ -133,7 +137,9 @@
         },
         "saves": {
             "syncing": "Synkroniserer lagrer"
-        }
+        },
+        "launching": "Lansering",
+        "ubisoft": "Installerer Ubisoft Connect"
     },
     "launch": {
         "options": "Startalternativer..."
@@ -189,7 +195,9 @@
         "updating": "Oppdaterer spillet",
         "playing": "Spiller",
         "moving-files": "Flytter filen «{{file}}»: {{percent}} ",
-        "syncingSaves": "Synkroniserer lagrer"
+        "syncingSaves": "Synkroniserer lagrer",
+        "launching": "Lansering",
+        "ubisoft": "Installerer Ubisoft"
     },
     "submenu": {
         "addShortcut": "Legg til snarvei",

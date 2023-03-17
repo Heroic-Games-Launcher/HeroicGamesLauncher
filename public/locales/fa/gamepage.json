@@ -111,7 +111,11 @@
         "path": "مسیر نصب",
         "size": "اندازه",
         "syncsaves": "همگام سازی ذخیره ها",
-        "version": "نسخه"
+        "version": "نسخه",
+        "apple-gaming-wiki": "رتبه بندی AppleGamingWiki",
+        "clickToOpen": "برای باز کردن کلیک کنید",
+        "game-scores": "امتیازات بازی",
+        "installedInfo": "اطلاعات نصب شده"
     },
     "install": {
         "disk-space-left": "فضای موجود",
@@ -132,7 +136,9 @@
         },
         "saves": {
             "syncing": "در حال همگام سازی ذخیره ها"
-        }
+        },
+        "launching": "راه اندازی",
+        "ubisoft": "نصب Ubisoft Connect"
     },
     "launch": {
         "options": "گزینه های اجرا..."
@@ -188,7 +194,9 @@
         "updating": "در حال به روزرسانی بازی",
         "playing": "بازی کردن",
         "moving-files": "انتقال فایل '{{file}}': {{percent}} ",
-        "syncingSaves": "در حال همگام سازی ذخیره ها"
+        "syncingSaves": "در حال همگام سازی ذخیره ها",
+        "launching": "راه اندازی",
+        "ubisoft": "نصب یوبی سافت"
     },
     "submenu": {
         "addShortcut": "افزودن میانبر",

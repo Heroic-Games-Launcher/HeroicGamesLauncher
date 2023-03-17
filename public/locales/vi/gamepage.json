@@ -111,7 +111,11 @@
         "path": "Đường dẫn cài đặt",
         "size": "Kích thước",
         "syncsaves": "Đồng bộ bản lưu",
-        "version": "Phiên bản"
+        "version": "Phiên bản",
+        "apple-gaming-wiki": "Xếp hạng Wiki của AppleGaming",
+        "clickToOpen": "Bấm để mở",
+        "game-scores": "Tỷ số trận đấu",
+        "installedInfo": "Thông tin đã cài đặt"
     },
     "install": {
         "disk-space-left": "Dung lượng trống",
@@ -132,7 +136,9 @@
         },
         "saves": {
             "syncing": "Đang đồng bộ bản lưu"
-        }
+        },
+        "launching": "ra mắt",
+        "ubisoft": "Cài đặt Ubisoft Connect"
     },
     "launch": {
         "options": "Tuỳ chọn khởi chạy..."
@@ -188,7 +194,9 @@
         "updating": "Đang cập nhật Game",
         "playing": "Đang chơi",
         "moving-files": "Đang di chuyển tệp '{{file}}': {{percent}} ",
-        "syncingSaves": "Đang đồng bộ bản lưu"
+        "syncingSaves": "Đang đồng bộ bản lưu",
+        "launching": "ra mắt",
+        "ubisoft": "Cài đặt Ubisoft"
     },
     "submenu": {
         "addShortcut": "Thêm shortcut",

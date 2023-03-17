@@ -111,7 +111,11 @@
         "path": "Paigalduskoht",
         "size": "Suurus",
         "syncsaves": "Sünkrooni salvestised",
-        "version": "Versioon"
+        "version": "Versioon",
+        "apple-gaming-wiki": "AppleGamingWiki hinnang",
+        "clickToOpen": "Avamiseks klõpsake",
+        "game-scores": "Mängutulemused",
+        "installedInfo": "Installitud teave"
     },
     "install": {
         "disk-space-left": "Vaba ruumi",
@@ -132,7 +136,9 @@
         },
         "saves": {
             "syncing": "Salvestuste sünkroonimine"
-        }
+        },
+        "launching": "Käivitamine",
+        "ubisoft": "Ubisoft Connecti installimine"
     },
     "launch": {
         "options": "Käivitusvalikud..."
@@ -188,7 +194,9 @@
         "updating": "Mängu uuendamine",
         "playing": "Mängib",
         "moving-files": "Faili „{{file}}” teisaldamine: {{percent}} ",
-        "syncingSaves": "Salvestuste sünkroonimine"
+        "syncingSaves": "Salvestuste sünkroonimine",
+        "launching": "Käivitamine",
+        "ubisoft": "Ubisofti installimine"
     },
     "submenu": {
         "addShortcut": "Lisa otsetee",

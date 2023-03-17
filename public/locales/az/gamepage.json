@@ -112,7 +112,11 @@
         "path": "Quraşdırma Yolu",
         "size": "Ölçü",
         "syncsaves": "Sync Saves",
-        "version": "Versiya"
+        "version": "Versiya",
+        "apple-gaming-wiki": "AppleGamingWiki reytinqi",
+        "clickToOpen": "Açmaq üçün klikləyin",
+        "game-scores": "Oyun Xalları",
+        "installedInfo": "Quraşdırılmış Məlumat"
     },
     "install": {
         "disk-space-left": "Yer Mövcuddur",
@@ -133,7 +137,9 @@
         },
         "saves": {
             "syncing": "Sinxronizasiya Saxlamalar"
-        }
+        },
+        "launching": "Başlanır",
+        "ubisoft": "Ubisoft Connect quraşdırılır"
     },
     "launch": {
         "options": "Başlama Seçimləri..."
@@ -189,7 +195,9 @@
         "updating": "Oyun Yenilənir",
         "playing": "Oynayan",
         "moving-files": "'{{file}}' faylı köçürülür: {{percent}} ",
-        "syncingSaves": "Sinxronizasiya Saxlamalar"
+        "syncingSaves": "Sinxronizasiya Saxlamalar",
+        "launching": "Başlanır",
+        "ubisoft": "Ubisoft quraşdırılması"
     },
     "submenu": {
         "addShortcut": "Qısayol əlavə edin",

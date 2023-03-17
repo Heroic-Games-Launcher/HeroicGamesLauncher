@@ -111,7 +111,11 @@
         "path": "Инсталационна папка",
         "size": "Размер",
         "syncsaves": "Синхронизиране на запазените файлове",
-        "version": "Версия"
+        "version": "Версия",
+        "apple-gaming-wiki": "Рейтинг на AppleGamingWiki",
+        "clickToOpen": "Щракнете, за да отворите",
+        "game-scores": "Резултати на играта",
+        "installedInfo": "Информация за инсталацията"
     },
     "install": {
         "disk-space-left": "Свободно място",
@@ -132,7 +136,9 @@
         },
         "saves": {
             "syncing": "Синхронизиране на запазените файлове"
-        }
+        },
+        "launching": "Пускане",
+        "ubisoft": "Инсталиране на Ubisoft Connect"
     },
     "launch": {
         "options": "Параметри за стартиране…"
@@ -188,7 +194,9 @@
         "updating": "Обновяване на играта",
         "playing": "Пуснато",
         "moving-files": "Преместване на файла „{{file}}“: {{percent}} ",
-        "syncingSaves": "Синхронизиране на запазените файлове"
+        "syncingSaves": "Синхронизиране на запазените файлове",
+        "launching": "Пускане",
+        "ubisoft": "Инсталиране на Ubisoft"
     },
     "submenu": {
         "addShortcut": "Добавяне на пряк път",
