@@ -446,8 +446,10 @@
             "downloading": "Downloading",
             "empty": "Nothing to download",
             "finished": "Completed",
+            "pause": "Pause download",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "resume": "Resume download"
         }
     },
     "Recent": "Played Recently",
