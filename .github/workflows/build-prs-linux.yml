@@ -24,6 +24,7 @@ jobs:
       - name: Upload Snap to Edge Channel.
         run: yarn dist:linux snap --publish=always
         env:
+          PUBLISH_FOR_PULL_REQUEST: true
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_ID_EDGE }}
       - name: Build artifacts.
         run: yarn dist:linux appimage --publish=never
