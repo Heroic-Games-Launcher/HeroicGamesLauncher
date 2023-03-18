@@ -132,15 +132,14 @@ async function handleStopInstallation(
             appName,
             JSON.stringify({ ...progress, folder: path })
           )
-          sendKill(appName, runner)
+          window.api.cancelDownload(false)
         }
       },
       {
         text: t('box.no'),
         onClick: async () => {
-          await sendKill(appName, runner)
+          window.api.cancelDownload(true)
           storage.removeItem(appName)
-          window.api.removeFolder([path, folderName])
         }
       }
     ]

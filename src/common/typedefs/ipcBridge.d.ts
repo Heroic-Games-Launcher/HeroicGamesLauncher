@@ -91,6 +91,9 @@ interface SyncIPCFunctions {
   'set-connectivity-online': () => void
   changeTrayColor: () => void
   setSetting: (args: { appName: string; key: string; value: unknown }) => void
+  startDownloading: () => void
+  pauseCurrentDownload: () => void
+  cancelDownload: (removeDownloaded: boolean) => void
 }
 
 interface AsyncIPCFunctions {

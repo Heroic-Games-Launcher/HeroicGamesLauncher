@@ -44,3 +44,11 @@ export const handleDMQueueInformation = (
     ipcRenderer.removeListener('changedDMQueueInformation', onChange)
   }
 }
+
+export const cancelDownload = (removeDownloaded: boolean) =>
+  ipcRenderer.send('cancelDownload', removeDownloaded)
+
+export const startDownloading = () => ipcRenderer.send('startDownloading')
+
+export const pauseCurrentDownload = () =>
+  ipcRenderer.send('pauseCurrentDownload')

@@ -1,9 +1,10 @@
 import { TypeCheckedStoreBackend } from './../electron_store'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { getFileSize, getGame } from '../utils'
-import { DMQueueElement } from 'common/types'
+import { DMQueueElement, DownloadManagerState } from 'common/types'
 import { installQueueElement, updateQueueElement } from './utils'
 import { sendFrontendMessage } from '../main_window'
+import { callAbortController } from 'backend/utils/aborthandler/aborthandler'
 
 const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
   cwd: 'store',
@@ -14,9 +15,9 @@ const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
 #### Private ####
 */
 
-type DownloadManagerState = 'idle' | 'running'
 type DMStatus = 'done' | 'error' | 'abort'
 let queueState: DownloadManagerState = 'idle'
+let currentElement: DMQueueElement | null = null
 
 function getFirstQueueElement() {
   const elements = downloadManager.get('queue', [])
@@ -58,16 +59,21 @@ async function initQueue() {
     queuedElements[0] = element
     downloadManager.set('queue', queuedElements)
 
+    currentElement = element
+
     const { status } =
       element.type === 'install'
         ? await installQueueElement(element.params)
         : await updateQueueElement(element.params)
     element.endTime = Date.now()
-    addToFinished(element, status)
-    removeFromQueue(element.params.appName)
-    element = getFirstQueueElement()
+    if (queueState === 'running') {
+      addToFinished(element, status)
+      removeFromQueue(element.params.appName)
+      element = getFirstQueueElement()
+    } else {
+      element = null
+    }
   }
-  queueState = 'idle'
 }
 
 async function addToQueue(element: DMQueueElement) {
@@ -149,7 +155,36 @@ function getQueueInformation() {
   const elements = downloadManager.get('queue', [])
   const finished = downloadManager.get('finished', [])
 
-  return { elements, finished }
+  return { elements, finished, state: queueState }
 }
 
-export { initQueue, addToQueue, removeFromQueue, getQueueInformation }
+function cancelCurrentDownload({ removeDownloaded = false }) {
+  if (currentElement) {
+    callAbortController(currentElement.params.appName)
+    if (removeDownloaded) {
+      console.log('should remove downloaded data')
+      // window.api.removeFolder([currentElement.params.path, currentElement.params.folderName])
+    }
+  }
+}
+
+function pauseCurrentDownload() {
+  if (currentElement) {
+    callAbortController(currentElement.params.appName)
+  }
+  queueState = 'paused'
+}
+
+function startDownloading() {
+  initQueue()
+}
+
+export {
+  initQueue,
+  addToQueue,
+  removeFromQueue,
+  getQueueInformation,
+  cancelCurrentDownload,
+  pauseCurrentDownload,
+  startDownloading
+}
