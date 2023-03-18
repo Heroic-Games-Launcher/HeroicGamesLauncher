@@ -1,13 +1,13 @@
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { getGame, isEpicServiceOffline } from '../utils'
-import { InstallParams } from 'common/types'
+import { DMStatus, InstallParams } from 'common/types'
 import i18next from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
 import { isOnline } from '../online_monitor'
 import { sendFrontendMessage } from '../main_window'
 
 async function installQueueElement(params: InstallParams): Promise<{
-  status: 'done' | 'error' | 'abort'
+  status: DMStatus
   error?: string | undefined
 }> {
   const {
@@ -59,7 +59,7 @@ async function installQueueElement(params: InstallParams): Promise<{
 
   const errorMessage = (error: string) => {
     logError(
-      ['Installing of', params.appName, 'failed with:', error],
+      ['installation of', params.appName, 'failed with:', error],
       LogPrefix.DownloadManager
     )
 
@@ -82,7 +82,7 @@ async function installQueueElement(params: InstallParams): Promise<{
 
     if (status === 'abort') {
       logWarning(
-        ['Installing of', params.appName, 'aborted!'],
+        ['installation of', params.appName, 'aborted!'],
         LogPrefix.DownloadManager
       )
       notify({ title, body: i18next.t('notify.install.canceled') })
@@ -93,7 +93,7 @@ async function installQueueElement(params: InstallParams): Promise<{
       })
 
       logInfo(
-        ['Finished installing of', params.appName],
+        ['Finished installation of', params.appName],
         LogPrefix.DownloadManager
       )
     } else if (status === 'error') {
@@ -115,7 +115,7 @@ async function installQueueElement(params: InstallParams): Promise<{
 }
 
 async function updateQueueElement(params: InstallParams): Promise<{
-  status: 'done' | 'error'
+  status: DMStatus
   error?: string | undefined
 }> {
   const { appName, runner } = params
@@ -159,9 +159,15 @@ async function updateQueueElement(params: InstallParams): Promise<{
   try {
     const { status } = await game.update()
 
-    if (status === 'error') {
+    if (status === 'abort') {
       logWarning(
-        ['Updating of', params.appName, 'aborted!'],
+        ['Update of', params.appName, 'aborted!'],
+        LogPrefix.DownloadManager
+      )
+      notify({ title, body: i18next.t('notify.install.canceled') })
+    } else if (status === 'error') {
+      logWarning(
+        ['Update of', params.appName, 'aborted!'],
         LogPrefix.DownloadManager
       )
       notify({ title, body: i18next.t('notify.update.canceled') })
@@ -171,10 +177,7 @@ async function updateQueueElement(params: InstallParams): Promise<{
         body: i18next.t('notify.update.finished')
       })
 
-      logInfo(
-        ['Finished updating of', params.appName],
-        LogPrefix.DownloadManager
-      )
+      logInfo(['Finished update of', params.appName], LogPrefix.DownloadManager)
     }
     return { status: 'done' }
   } catch (error) {

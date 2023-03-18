@@ -5,7 +5,7 @@ import {
   getQueueInformation,
   pauseCurrentDownload,
   removeFromQueue,
-  startDownloading
+  resumeCurrentDownload
 } from './downloadqueue'
 
 ipcMain.handle('addToDMQueue', async (e, element) => {
@@ -16,8 +16,8 @@ ipcMain.on('removeFromDMQueue', (e, appName) => {
   removeFromQueue(appName)
 })
 
-ipcMain.on('startDownloading', () => {
-  startDownloading()
+ipcMain.on('resumeCurrentDownload', () => {
+  resumeCurrentDownload()
 })
 
 ipcMain.on('pauseCurrentDownload', () => {

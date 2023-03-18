@@ -2,7 +2,7 @@ import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
 
-import { DMQueueElement } from 'common/types'
+import { DMQueueElement, DownloadManagerState } from 'common/types'
 import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
 import { handleStopInstallation } from 'frontend/helpers/library'
@@ -13,10 +13,12 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { useNavigate } from 'react-router-dom'
 import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
 import { ReactComponent as DownIcon } from 'frontend/assets/down-icon.svg'
+import { ReactComponent as PauseIcon } from 'frontend/assets/pause-icon.svg'
 
 type Props = {
   element?: DMQueueElement
   current: boolean
+  state?: DownloadManagerState
 }
 
 const options: Intl.DateTimeFormatOptions = {
@@ -34,7 +36,7 @@ function convertToTime(time: number) {
   }
 }
 
-const DownloadManagerItem = ({ element, current }: Props) => {
+const DownloadManagerItem = ({ element, current, state }: Props) => {
   const { epic, gog, showDialogModal } = useContext(ContextProvider)
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation('translation')
@@ -203,6 +205,22 @@ const DownloadManagerItem = ({ element, current }: Props) => {
             {mainActionIcon()}
           </SvgButton>
         }
+        {state === 'paused' && (
+          <SvgButton
+            onClick={() => window.api.resumeCurrentDownload()}
+            title={t('queue.label.resume', 'Resume download')}
+          >
+            <PlayIcon className="playIcon" />
+          </SvgButton>
+        )}
+        {state === 'running' && (
+          <SvgButton
+            onClick={() => window.api.pauseCurrentDownload()}
+            title={t('queue.label.pause', 'Pause download')}
+          >
+            <PauseIcon className="pauseIcon" />
+          </SvgButton>
+        )}
       </span>
     </div>
   )

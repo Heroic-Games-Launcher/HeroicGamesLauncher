@@ -1,10 +1,11 @@
 import { TypeCheckedStoreBackend } from './../electron_store'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { getFileSize, getGame } from '../utils'
-import { DMQueueElement, DownloadManagerState } from 'common/types'
+import { DMQueueElement, DMStatus, DownloadManagerState } from 'common/types'
 import { installQueueElement, updateQueueElement } from './utils'
 import { sendFrontendMessage } from '../main_window'
 import { callAbortController } from 'backend/utils/aborthandler/aborthandler'
+import { removeFolder } from 'backend/main'
 
 const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
   cwd: 'store',
@@ -15,13 +16,24 @@ const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
 #### Private ####
 */
 
-type DMStatus = 'done' | 'error' | 'abort'
 let queueState: DownloadManagerState = 'idle'
 let currentElement: DMQueueElement | null = null
 
 function getFirstQueueElement() {
   const elements = downloadManager.get('queue', [])
   return elements.at(0) ?? null
+}
+
+function isPaused(): boolean {
+  return queueState === 'paused'
+}
+
+function isIdle(): boolean {
+  return queueState === 'idle'
+}
+
+function isRunning(): boolean {
+  return queueState === 'running'
 }
 
 function addToFinished(element: DMQueueElement, status: DMStatus) {
@@ -50,23 +62,25 @@ function addToFinished(element: DMQueueElement, status: DMStatus) {
 
 async function initQueue() {
   let element = getFirstQueueElement()
-  queueState = element ? 'running' : 'idle'
 
   while (element) {
     const queuedElements = downloadManager.get('queue', [])
-    sendFrontendMessage('changedDMQueueInformation', queuedElements)
     element.startTime = Date.now()
     queuedElements[0] = element
     downloadManager.set('queue', queuedElements)
 
     currentElement = element
 
+    queueState = 'running'
+    sendFrontendMessage('changedDMQueueInformation', queuedElements, queueState)
+
     const { status } =
       element.type === 'install'
         ? await installQueueElement(element.params)
         : await updateQueueElement(element.params)
     element.endTime = Date.now()
-    if (queueState === 'running') {
+
+    if (!isPaused()) {
       addToFinished(element, status)
       removeFromQueue(element.params.appName)
       element = getFirstQueueElement()
@@ -118,9 +132,9 @@ async function addToQueue(element: DMQueueElement) {
     LogPrefix.DownloadManager
   )
 
-  sendFrontendMessage('changedDMQueueInformation', elements)
+  sendFrontendMessage('changedDMQueueInformation', elements, queueState)
 
-  if (queueState === 'idle') {
+  if (isIdle()) {
     initQueue()
   }
 }
@@ -147,7 +161,7 @@ function removeFromQueue(appName: string) {
       LogPrefix.DownloadManager
     )
 
-    sendFrontendMessage('changedDMQueueInformation', elements)
+    sendFrontendMessage('changedDMQueueInformation', elements, queueState)
   }
 }
 
@@ -160,23 +174,39 @@ function getQueueInformation() {
 
 function cancelCurrentDownload({ removeDownloaded = false }) {
   if (currentElement) {
-    callAbortController(currentElement.params.appName)
+    if (isRunning()) {
+      stopCurrentDownload()
+    }
+    removeFromQueue(currentElement.params.appName)
+
     if (removeDownloaded) {
-      console.log('should remove downloaded data')
-      // window.api.removeFolder([currentElement.params.path, currentElement.params.folderName])
+      const { appName, runner } = currentElement!.params
+      const { folder_name } = getGame(appName, runner).getGameInfo()
+      removeFolder(currentElement.params.path, folder_name)
     }
   }
 }
 
 function pauseCurrentDownload() {
   if (currentElement) {
-    callAbortController(currentElement.params.appName)
+    stopCurrentDownload()
   }
   queueState = 'paused'
+  sendFrontendMessage(
+    'changedDMQueueInformation',
+    downloadManager.get('queue', []),
+    queueState
+  )
 }
 
-function startDownloading() {
+function resumeCurrentDownload() {
   initQueue()
+}
+
+function stopCurrentDownload() {
+  const { appName, runner } = currentElement!.params
+  callAbortController(appName)
+  getGame(appName, runner).stop(true)
 }
 
 export {
@@ -186,5 +216,5 @@ export {
   getQueueInformation,
   cancelCurrentDownload,
   pauseCurrentDownload,
-  startDownloading
+  resumeCurrentDownload
 }

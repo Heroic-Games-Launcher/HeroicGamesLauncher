@@ -28,10 +28,15 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
     })
 
     const removeHandleDMQueueInformation = window.api.handleDMQueueInformation(
-      (e: Electron.IpcRendererEvent, elements: DMQueueElement[]) => {
+      (
+        e: Electron.IpcRendererEvent,
+        elements: DMQueueElement[],
+        state: DownloadManagerState
+      ) => {
         if (elements) {
           setCurrentElement(elements[0])
           setPlannendElements([...elements.slice(1)])
+          setState(state)
         }
       }
     )
@@ -80,25 +85,11 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
         }}
       >
         {t('download-manager.title', 'Downloads')}
-        {currentElement && (
-          <>
-            {state !== 'running' && (
-              <button onClick={() => window.api.startDownloading()}>
-                Start
-              </button>
-            )}
-            {state === 'running' && (
-              <button onClick={() => window.api.pauseCurrentDownload()}>
-                Pause
-              </button>
-            )}
-          </>
-        )}
       </h4>
       {
         <>
           <ProgressHeader
-            downloading={Boolean(currentElement)}
+            state={state}
             appName={currentElement?.params?.appName ?? ''}
           />
           {currentElement && (
@@ -117,6 +108,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
                   <DownloadManagerItem
                     element={currentElement}
                     current={true}
+                    state={state}
                   />
                 </div>
               </div>
