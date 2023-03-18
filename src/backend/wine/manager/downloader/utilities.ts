@@ -53,18 +53,19 @@ async function fetchReleases({
           releases.push(release_data)
         }
 
+        // sort out specific versions like LoL or diablo wine
+        const latest =
+          releases.find((release) => /\d+-\d+$/.test(release.version)) ??
+          releases[0]
         // add latest to list
         releases.unshift({
-          version: releases[0].version.replace(
-            /[0-9]+[-|.]+[0-9]+/m,
-            '-latest'
-          ),
-          type: releases[0].type,
-          date: releases[0].date,
-          download: releases[0].download,
-          downsize: releases[0].downsize,
-          disksize: releases[0].disksize,
-          checksum: releases[0].checksum
+          version: `${latest.type}-latest`,
+          type: latest.type,
+          date: latest.date,
+          download: latest.download,
+          downsize: latest.downsize,
+          disksize: latest.disksize,
+          checksum: latest.checksum
         })
 
         resolve(releases)
