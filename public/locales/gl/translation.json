@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "message": "Produciuse un erro na instalación de Ubisoft Connect no prefixo do xogo. Consulte a nosa páxina wiki en https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac para instalalo manualmente.",
                 "title": "Ubisoft Connect"
+            },
+            "legendary": {
+                "generic": "Produciuse un erro! Tenta pechar sesión e iniciar sesión na túa conta de Epic. {{newline}} {{error}}"
             }
         },
         "info": {
@@ -201,7 +204,8 @@
             "start-time": "Started at",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "ETA": "Tempo estimado"
     },
     "epic": {
         "offline-notification-body": "Os servizos en liña podería non funcionar correctamente xa que os servidores de Epic Games están sen conexión!",
@@ -383,7 +387,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
-    "Open": "",
+    "Open": "Aberto",
     "options": {
         "advanced": {
             "key": "Variable Name",

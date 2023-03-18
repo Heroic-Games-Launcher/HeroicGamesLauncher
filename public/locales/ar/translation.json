@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "title": "يوبيسوفت كنكت",
                 "message": "فشل تثبيت يوبيسوفت كنكت في سابقة اللعبة. طالع صفحة الوِيكي https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac لتثبِّته يدويًّا."
+            },
+            "legendary": {
+                "generic": "حدث خطأ! حاول تسجيل الخروج وتسجيل الدخول في حسابك لدى أبِك. {{newline}}  {{error}}"
             }
         },
         "info": {
@@ -201,7 +204,8 @@
             "start-time": "بُدئت في",
             "type": "النوع"
         },
-        "title": "التنزيلات"
+        "title": "التنزيلات",
+        "ETA": "الوقت المقدر"
     },
     "epic": {
         "offline-notification-body": "قد لا تعمل الخدمات عبر الإنترنت بشكل كامل لأن خوادم أَبِك جيمز غير متصلة بالإنترنت!",
@@ -383,7 +387,7 @@
         "offline-retry-in": "غير متصل. قيد إعادة المحاولة خلال {{seconds}} ثانية.",
         "retrying": "قيد إعادة المحاولة"
     },
-    "Open": "",
+    "Open": "افتح",
     "options": {
         "advanced": {
             "key": "اسم المتغير",

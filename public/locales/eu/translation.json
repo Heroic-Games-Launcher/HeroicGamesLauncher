@@ -56,7 +56,7 @@
                 "title": "Joko karpeta ezabatu egin dela dirudi, jokoa instalatutako zerrendatik kendu nahi duzu?"
             },
             "generic": {
-                "message": "Errore ezezagun bat gertatu da",
+                "message": "Errore mezu generikoa",
                 "title": "Errore ezezaguna"
             },
             "launchAborted": "Exekuzioa abortatu egin da",
@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "title": "Ubisoft Connect",
                 "message": "Ezin izan da instalatu Ubisoft Connect jokoaren aurrizkian. Begiratu gure wiki orria https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac helbidean modu egokian instalatzeko."
+            },
+            "legendary": {
+                "generic": "Akats bat gertatu da! Saiatu saioa amaitzen eta saioa hasten zure Epic kontuan. {{newline}} {{error}}"
             }
         },
         "info": {
@@ -112,7 +115,7 @@
             }
         },
         "runexe": {
-            "title": "Hautatu EXE exekutatzeko"
+            "title": "Hautatu exekutatzeko EXEa"
         },
         "select": {
             "button": "Hautatu",
@@ -120,9 +123,9 @@
         },
         "shortcuts": {
             "message": "Lasterbideak sortu dira Mahaigainean eta Hasierako Menuan",
-            "message-mac": "Shortcuts were created on the Applications folder",
+            "message-mac": "Lasterbideak sortu dira Aplikazioak karpetan",
             "message-remove": "Lasterbideak mahaigainetik eta Hasi menutik kendu dira",
-            "message-remove-mac": "Shortcuts were removed from the Applications folder",
+            "message-remove-mac": "Aplikazioak karpetatik lasterbideak kendu dira.",
             "title": "Lasterbideak"
         },
         "sync": {
@@ -151,7 +154,7 @@
                 "title": "Ez da ardorik aurkitu!"
             }
         },
-        "wineprefix": "Aukeratu Wine-Prefix karpeta",
+        "wineprefix": "Aukeratu Wine Prefix karpeta",
         "yes": "BAI",
         "dontShowAgain": "Ez erakutsi berriro"
     },
@@ -201,7 +204,8 @@
             "start-time": "Started at",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "ETA": "Aurreikusitako denbora"
     },
     "epic": {
         "offline-notification-body": "Baliteke lineako zerbitzuak guztiz ez funtzionatzea Epic Games zerbitzariak lineaz kanpo daudelako!",
@@ -377,13 +381,13 @@
         }
     },
     "offline-message": {
-        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "hint": "Konektibitatea begiratzen ari gara zerbitzu hauentzat:{{newline}}github.com,{{newline}}gog.com {{newline}}store.epicgames.com eta{{newline}}cloudflare-dns.com",
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
-    "Open": "",
+    "Open": "Ireki",
     "options": {
         "advanced": {
             "key": "Aldagaiaren izena",
@@ -460,7 +464,7 @@
         "autovkd3d": "Instalatu/Eguneratu automatikoki VKD3D aurrizkian",
         "change-target-exe": "Hautatu exekutatzeko EXE alternatibo bat",
         "checkForUpdatesOnStartup": "Hasieran eguneraketak bilatu",
-        "crossover-version": "Crossover bertsioa",
+        "crossover-version": "Crossover/Wine bertsioa",
         "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Ardo/Protoien bideak pertsonalizatuak",
         "darktray": "Erabili erretilu iluna ikonoa",
@@ -590,7 +594,7 @@
             "general": "Orokorra",
             "log": "Erregistroa",
             "other": "Bestela",
-            "sync": "Gorde-Sinkronizazioa",
+            "sync": "Hodeiko gordetzeen sinkronizazioa",
             "wineExt": "Ardoaren luzapenak"
         },
         "open-config-file": "Ireki Konfigurazio fitxategia",

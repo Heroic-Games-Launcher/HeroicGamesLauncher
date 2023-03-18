@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "message": "Ubisoft Connectin asennus pelin etuliitteeseen epäonnistui. Tarkista wikisivumme osoitteessa https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac asentaaksesi sen manuaalisesti.",
                 "title": "Ubisoft Connect"
+            },
+            "legendary": {
+                "generic": "Tapahtui virhe! Yritä kirjautua ulos ja kirjautua sisään Epic-tililläsi. {{newline}} {{error}}"
             }
         },
         "info": {
@@ -201,7 +204,8 @@
             "start-time": "Started at",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "ETA": "Arvioitu aika"
     },
     "epic": {
         "offline-notification-body": "Verkkopalvelut eivät välttämättä toimi kokonaisuudessaan Epic Games:in palvelinten ollessa vailla verkkoyhteyttä!",
@@ -383,7 +387,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
-    "Open": "",
+    "Open": "Avaa",
     "options": {
         "advanced": {
             "key": "Variable Name",

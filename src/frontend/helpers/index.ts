@@ -9,7 +9,7 @@ import { LegendaryInstallInfo } from 'common/types/legendary'
 import { GogInstallInfo } from 'common/types/gog'
 
 import { install, launch, repair, updateGame } from './library'
-import fileSize from 'filesize'
+import * as fileSize from 'filesize'
 const readFile = window.api.readConfig
 
 const writeConfig = window.api.writeConfig
@@ -27,7 +27,7 @@ const handleQuit = window.api.quit
 
 const openDiscordLink = window.api.openDiscordLink
 
-export const size = fileSize.partial({ base: 2 })
+export const size = fileSize.partial({ base: 2 }) as (arg: unknown) => string
 
 const sendKill = window.api.kill
 

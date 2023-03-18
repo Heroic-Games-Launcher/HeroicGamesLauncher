@@ -66,8 +66,8 @@ describe('backend/utils.ts', () => {
 
       const releases = await utils.getLatestReleases()
       expect(releases).toMatchInlineSnapshot(`
-        Array [
-          Object {
+        [
+          {
             "body": "2.5.2 HOTFIX #2 Release",
             "html_url": "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/tag/v2.5.2",
             "id": 200,
@@ -77,7 +77,7 @@ describe('backend/utils.ts', () => {
             "tag_name": "v2.5.2",
             "type": "stable",
           },
-          Object {
+          {
             "body": "2.6.0 Beta Release",
             "html_url": "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/tag/v2.6.0-beta.1",
             "id": 100,
@@ -97,8 +97,8 @@ describe('backend/utils.ts', () => {
 
       const releases = await utils.getLatestReleases()
       expect(releases).toMatchInlineSnapshot(`
-        Array [
-          Object {
+        [
+          {
             "body": "2.6.0 Beta Release",
             "html_url": "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/tag/v2.6.0-beta.1",
             "id": 100,
@@ -117,7 +117,7 @@ describe('backend/utils.ts', () => {
       jest.spyOn(app, 'getVersion').mockReturnValueOnce('')
 
       const releases = await utils.getLatestReleases()
-      expect(releases).toMatchInlineSnapshot(`Array []`)
+      expect(releases).toMatchInlineSnapshot(`[]`)
     })
 
     test('Fetching available releases fails', async () => {
@@ -128,7 +128,7 @@ describe('backend/utils.ts', () => {
         ['Error when checking for Heroic updates', 'Failed to fetch!'],
         'Backend'
       )
-      expect(releases).toMatchInlineSnapshot(`Array []`)
+      expect(releases).toMatchInlineSnapshot(`[]`)
     })
   })
 })

@@ -111,7 +111,11 @@
         "path": "Cesta pro instalaci",
         "size": "Velikost",
         "syncsaves": "Synchronizace uložených souborů",
-        "version": "Verze"
+        "version": "Verze",
+        "apple-gaming-wiki": "Hodnocení AppleGamingWiki",
+        "clickToOpen": "Kliknutím otevřete",
+        "game-scores": "Skóre hry",
+        "installedInfo": "Instalované informace"
     },
     "install": {
         "disk-space-left": "Volné místo",
