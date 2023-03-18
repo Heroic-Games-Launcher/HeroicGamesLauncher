@@ -66,7 +66,7 @@ export const handleLaunchGame = (
     event: Electron.IpcRendererEvent,
     appName: string,
     runner: Runner
-  ) => Promise<{ status: 'done' | 'error' }>
+  ) => Promise<{ status: 'done' | 'error' | 'abort' }>
 ) => ipcRenderer.on('launchGame', callback)
 
 export const handleInstallGame = (
