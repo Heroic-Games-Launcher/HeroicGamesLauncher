@@ -12,8 +12,8 @@ env:
   CSC_IDENTITY_AUTO_DISCOVERY: true
   CSC_LINK: ${{ secrets.CSC_LINK }}
   CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
-  APPLE_ID: ${{ secrets.APPLEID }}
-  APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLEIDPASS }}
+  APPLE_ID: ${{ secrets.APPLE_ID }}
+  APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
   TEAMID: ${{ secrets.TEAMID }}
   NOTARIZE: true
 
