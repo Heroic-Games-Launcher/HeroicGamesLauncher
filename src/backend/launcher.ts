@@ -17,7 +17,8 @@ import {
   searchForExecutableOnPath,
   quoteIfNecessary,
   errorHandler,
-  removeQuoteIfNecessary
+  removeQuoteIfNecessary,
+  memoryLog
 } from './utils'
 import {
   logDebug,
@@ -602,8 +603,8 @@ async function runWineCommand({
       )
     }
 
-    const stdout: string[] = []
-    const stderr: string[] = []
+    const stdout = memoryLog()
+    const stderr = memoryLog()
 
     child.stdout.on('data', (data: string) => {
       if (options?.logFile) {
@@ -719,8 +720,8 @@ async function callRunner(
       signal: abortController.signal
     })
 
-    const stdout: string[] = []
-    const stderr: string[] = []
+    const stdout = memoryLog()
+    const stderr = memoryLog()
 
     child.stdout.setEncoding('utf-8')
     child.stdout.on('data', (data: string) => {

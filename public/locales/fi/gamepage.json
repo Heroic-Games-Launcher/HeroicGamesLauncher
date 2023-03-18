@@ -111,7 +111,11 @@
         "path": "Asennuksen sijainti",
         "size": "Koko",
         "syncsaves": "Synkronoi tallennukset",
-        "version": "Versio"
+        "version": "Versio",
+        "apple-gaming-wiki": "AppleGamingWiki-luokitus",
+        "clickToOpen": "Avaa napsauttamalla",
+        "game-scores": "Pelin Pisteet",
+        "installedInfo": "Asennettu tiedot"
     },
     "install": {
         "disk-space-left": "Space Available",

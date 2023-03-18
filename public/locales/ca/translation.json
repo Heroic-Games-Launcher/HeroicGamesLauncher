@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "message": "La instal·lació d'Ubisoft Connect al prefix del joc ha fallat. Consulteu la nostra pàgina wiki a https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac per instal·lar-lo manualment.",
                 "title": "Ubisoft Connect"
+            },
+            "legendary": {
+                "generic": "S'ha produït un error! Proveu de tancar la sessió i iniciar sessió al vostre compte d'Epic. {{newline}} {{error}}"
             }
         },
         "info": {
@@ -201,7 +204,8 @@
             "start-time": "Iniciat a les",
             "type": "Tipus"
         },
-        "title": "Baixades"
+        "title": "Baixades",
+        "ETA": "Temps estimat"
     },
     "epic": {
         "offline-notification-body": "Els serveis en línia podrien no funcionar, ja que els servidors d'Epic Games estan desconnectats.",
@@ -383,7 +387,7 @@
         "offline-retry-in": "Sense connexió. Es tornarà a intentar d'aquí {{seconds}} segons.",
         "retrying": "Es torna a provar"
     },
-    "Open": "",
+    "Open": "Obre",
     "options": {
         "advanced": {
             "key": "Nom de la variable",

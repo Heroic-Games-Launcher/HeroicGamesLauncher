@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "message": "Неуспешно инсталиране на Ubisoft Connect в префикса на играта. Проверете страницата в уикито на https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac, за да го инсталирате ръчно.",
                 "title": "Ubisoft Connect"
+            },
+            "legendary": {
+                "generic": "Възникна грешка! Опитайте да излезете и влезете отново в акаунта си в Epic. {{newline}}  {{error}}"
             }
         },
         "info": {
@@ -201,7 +204,8 @@
             "start-time": "Започнато в",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "ETA": "Очаквано време"
     },
     "epic": {
         "offline-notification-body": "Услугите, зависещи от Интернет, може да не работят изцяло, тъй като сървърите на Epic Games не са достъпни!",
@@ -383,7 +387,7 @@
         "offline-retry-in": "Извън линия. Повторен опит след {{seconds}} секунди.",
         "retrying": "Извършва се повторен опит"
     },
-    "Open": "",
+    "Open": "Отворете",
     "options": {
         "advanced": {
             "key": "Variable Name",

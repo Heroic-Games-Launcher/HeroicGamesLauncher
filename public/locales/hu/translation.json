@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "message": "A Ubisoft Connect telepítése a játék előtagjában nem sikerült. A kézi telepítéshez tekintse meg wikioldalunkat a https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac címen.",
                 "title": "Ubisoft Connect"
+            },
+            "legendary": {
+                "generic": "Hiba történt! Próbáljon kijelentkezni és bejelentkezni az Epic fiókjába. {{newline}} {{error}}"
             }
         },
         "info": {
@@ -201,7 +204,8 @@
             "start-time": "Elkezdve",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "ETA": "Becsült idő"
     },
     "epic": {
         "offline-notification-body": "Az online szolgáltatások lehet, hogy nem működnek teljesen, mert az Epic Games szerverek offline vannak!",
@@ -227,11 +231,11 @@
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "hide_non_available_games": "Hide non-available games",
+        "hide_non_available_games": "Nem elérhető játékok elrejtése",
         "ignore_hidden": "Rejtettek figyelmen kívül hagyása",
         "platform": "Platform",
         "show_all_games": "Összes játék mutatása",
-        "show_available_games": "Show non-Available games",
+        "show_available_games": "Nem elérhető játékok mutatása",
         "show_favourites_only": "Csak kedvencek mutatása",
         "show_hidden": "Elrejtettek mutatása",
         "store": "Áruház szűrése"
@@ -241,17 +245,17 @@
         "custom_themes_path": "Ne használj CSS fájlt nem megbízható forrásokból. Kétség esetén, kérj egy felülvizsgálatot a Discord csatornánkban.",
         "custom_themes_wiki": "Nézze meg a Wikit az egyéni témák hozzáadásával kapcsolatos további részletekért. Kattints ide.",
         "dxvk": "A DXVK egy Vulkanon alapuló fordítási szoftverréteg a DirectX 9, 10 és 11 játékoknak. A bekapcsolása növelheti a kompatibilitást. Okozhat problémákat főleg a régebbi DirectX játékokkal.",
-        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
+        "dxvkfpslimit": "DXVK játékok FPS határa",
         "esync": "Az Esync célja, hogy csökkentse a wineserver súlyát a CPU igényes játékokkal. A bekapcsolása növelheti a teljesítményt.",
-        "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
+        "fsync": "Az Fsync célja a wineserver terhelését CPU-igényes játékokban. Engedélyezése javíthatja a teljesítményt támogatott Linux kerneleknél.",
         "game_language": {
             "fallback": "Leave blank to use Heroic's language.",
-            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
+            "in_game_config": "Nem minden játék támogatja ezt a beállítást, játékon belüli nyelv beállításai vannak.",
             "valid_codes": "A működő Nyelvkódok függhetnek a játékoktól."
         },
         "gamemode": "A Vad Játék-Mód automatikusan és ideiglenesen optimalizál a rendszerhez. Ennek az engedélyezése javíthatja a teljesítményt.",
         "general": "Amennyiben van egy működő Epic Games Launcher telepítésed máshol, szinkronizálhatsz az EGL-el a játékaid importálásához, hogy elkerüld az újbóli letöltésüket.",
-        "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
+        "mangohud": "A MangoHUD egy overlay ami mutatja és monitorozza az FPS-t, hőmérsékleteket, CPU/GPU terhelést és egyéb rendszer erőforrásokat.",
         "other": {
             "part4": "Használd a ",
             "part5": "Játékargumentumok",
@@ -377,13 +381,13 @@
         }
     },
     "offline-message": {
-        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "hint": "Ellenőrizzük a kapcsolatot a következő szolgáltatókkal:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
-    "Open": "",
+    "Open": "Nyisd meg az",
     "options": {
         "advanced": {
             "key": "Variable Name",
@@ -590,7 +594,7 @@
             "general": "Általános",
             "log": "Napló",
             "other": "Egyéb",
-            "sync": "Mentés szinkronizálás",
+            "sync": "Felhő mentések szinkronizálása",
             "wineExt": "Wine Extensions"
         },
         "open-config-file": "Open Config File",

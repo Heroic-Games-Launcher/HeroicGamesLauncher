@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "message": "نصب Ubisoft Connect در پیشوند بازی انجام نشد. صفحه ویکی ما را در https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac بررسی کنید تا آن را به صورت دستی نصب کنید.",
                 "title": "Ubisoft Connect"
+            },
+            "legendary": {
+                "generic": "خطایی رخ داده است! سعی کنید از حساب Epic خود خارج شوید و وارد شوید. {{newline}} {{error}}"
             }
         },
         "info": {
@@ -201,7 +204,8 @@
             "start-time": "Started at",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "ETA": "زمان تخمین زده شده"
     },
     "epic": {
         "offline-notification-body": "به علت آفلاین بودن سرورهای اپیک گیمز سرویسهای آنلاین ممکن است کار نکنند!",
@@ -383,7 +387,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
-    "Open": "",
+    "Open": "باز کن",
     "options": {
         "advanced": {
             "key": "Variable Name",

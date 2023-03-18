@@ -111,7 +111,11 @@
         "path": "நிறுவல் பாதை",
         "size": "அளவு",
         "syncsaves": "சேமிப்புகளை ஒத்திசைவு செய்",
-        "version": "பதிப்பு"
+        "version": "பதிப்பு",
+        "apple-gaming-wiki": "AppleGamingWiki மதிப்பீடு",
+        "clickToOpen": "திறக்க கிளிக் செய்யவும்",
+        "game-scores": "விளையாட்டு மதிப்பெண்கள்",
+        "installedInfo": "நிறுவப்பட்ட தகவல்"
     },
     "install": {
         "disk-space-left": "Space Available",

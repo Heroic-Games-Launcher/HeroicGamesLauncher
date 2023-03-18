@@ -78,6 +78,9 @@
             "ubisoft-connect": {
                 "message": "Installation af Ubisoft Connect i spillets præfiks mislykkedes. Tjek vores wiki-side på https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac for at installere det manuelt.",
                 "title": "Ubisoft Connect"
+            },
+            "legendary": {
+                "generic": "Der opstod en fejl! Prøv at logge ud og logge på din Epic-konto. {{newline}} {{error}}"
             }
         },
         "info": {
@@ -704,7 +707,8 @@
             "start-time": "Startede kl",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "ETA": "Estimeret tid"
     },
     "please-wait": "Vent venligst...",
     "label": {
@@ -716,5 +720,6 @@
     },
     "wiki_info": {
         "not_found": "Vi kunne ikke finde yderligere information."
-    }
+    },
+    "Open": "Åben"
 }

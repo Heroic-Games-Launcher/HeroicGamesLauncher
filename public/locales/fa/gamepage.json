@@ -111,7 +111,11 @@
         "path": "مسیر نصب",
         "size": "اندازه",
         "syncsaves": "همگام سازی ذخیره ها",
-        "version": "نسخه"
+        "version": "نسخه",
+        "apple-gaming-wiki": "رتبه بندی AppleGamingWiki",
+        "clickToOpen": "برای باز کردن کلیک کنید",
+        "game-scores": "امتیازات بازی",
+        "installedInfo": "اطلاعات نصب شده"
     },
     "install": {
         "disk-space-left": "فضای موجود",
