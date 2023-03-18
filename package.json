@@ -15,8 +15,9 @@
     "email": "heroicgameslauncher@protonmail.com"
   },
   "build": {
-    "appId": "com.electron.heroic",
+    "appId": "com.heroicgameslauncher.hgl",
     "productName": "Heroic",
+    "afterSign": "sign/notarize.js",
     "files": [
       "build/**/*",
       "node_modules/**/*",
@@ -55,9 +56,13 @@
     },
     "mac": {
       "artifactName": "${productName}-${version}-macOS-${arch}.${ext}",
-      "target": "dmg",
       "category": "public.app-category.games",
       "icon": "build/icon.icns",
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist",
+      "extendInfo": {
+        "com.apple.security.cs.allow-jit": true
+      },
       "asarUnpack": [
         "build/bin/darwin/legendary",
         "build/bin/darwin/gogdl"
@@ -199,6 +204,7 @@
     ]
   },
   "devDependencies": {
+    "@electron/notarize": "^1.2.3",
     "@testing-library/dom": "^9.0.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^14.0.0",
