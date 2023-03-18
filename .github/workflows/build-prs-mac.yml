@@ -9,17 +9,6 @@ on:
         description: 'Build Test Files'
         required: false
 
- env:
-  GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-  GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-  CSC_IDENTITY_AUTO_DISCOVERY: true
-  CSC_LINK: ${{ secrets.CSC_LINK }}
-  CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
-  APPLE_ID: ${{ secrets.APPLE_ID }}
-  APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
-  TEAMID: ${{ secrets.TEAMID }}
-  NOTARIZE: true  
-
 jobs:
   build:
     runs-on: macos-latest
