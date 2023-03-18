@@ -879,8 +879,8 @@ export const spawnAsync = async (
   onOutput?: (data: string) => void
 ): Promise<{ code: number | null; stdout: string; stderr: string }> => {
   const child = spawn(command, args, options)
-  const stdout: string[] = []
-  const stderr: string[] = []
+  const stdout = memoryLog()
+  const stderr = memoryLog()
 
   if (child.stdout) {
     child.stdout.on('data', (data) => {
@@ -1151,6 +1151,26 @@ export async function moveOnUnix(
   return { status: 'done', installPath: destination }
 }
 
+// helper object for an array with a length limit
+// this is used when calling system processes to not store the complete output in memory
+//
+// the `limit` is the number of messages, it doesn't mean it will be exactly `limit` lines since a message can be multi-line
+const memoryLog = (limit = 50) => {
+  const lines: string[] = []
+
+  return {
+    push: (newLine: string) => {
+      lines.unshift(newLine)
+      if (lines.length > limit) {
+        lines.length = limit
+      }
+    },
+    join: (separator = '') => {
+      return lines.reverse().join(separator)
+    }
+  }
+}
+
 export {
   errorHandler,
   execAsync,
@@ -1183,7 +1203,8 @@ export {
   getWineFromProton,
   getFileSize,
   getLegendaryVersion,
-  getGogdlVersion
+  getGogdlVersion,
+  memoryLog
 }
 
 // Exported only for testing purpose
