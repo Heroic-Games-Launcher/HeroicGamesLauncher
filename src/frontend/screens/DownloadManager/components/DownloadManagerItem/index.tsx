@@ -115,6 +115,16 @@ const DownloadManagerItem = ({ element, current, state }: Props) => {
     current ? stopInstallation() : window.api.removeFromDMQueue(appName)
   }
 
+  // using one element for the different states so it doesn't
+  // lose focus from the button when using a game controller
+  const handleSecondaryActionClick = () => {
+    if (state === 'paused') {
+      window.api.resumeCurrentDownload()
+    } else if (state === 'running') {
+      window.api.pauseCurrentDownload()
+    }
+  }
+
   const mainActionIcon = () => {
     if (finished) {
       return <PlayIcon className="playIcon" />
@@ -125,6 +135,16 @@ const DownloadManagerItem = ({ element, current, state }: Props) => {
     }
 
     return <StopIcon className="cancelIcon" />
+  }
+
+  const secondaryActionIcon = () => {
+    if (state === 'paused') {
+      return <PlayIcon className="playIcon" />
+    } else if (state === 'running') {
+      return <PauseIcon className="pauseIcon" />
+    } else {
+      return <></>
+    }
   }
 
   const getTime = () => {
@@ -146,6 +166,16 @@ const DownloadManagerItem = ({ element, current, state }: Props) => {
     return current
       ? t('button.cancel', 'Cancel')
       : t('queue.label.remove', 'Remove from Downloads')
+  }
+
+  const secondaryIconTitle = () => {
+    if (state === 'paused') {
+      return t('queue.label.resume', 'Resume download')
+    } else if (state === 'running') {
+      return t('queue.label.pause', 'Pause download')
+    } else {
+      return ''
+    }
   }
 
   const getStatusColor = () => {
@@ -200,25 +230,15 @@ const DownloadManagerItem = ({ element, current, state }: Props) => {
       <span>{translatedTypes[type]}</span>
       <span>{getStoreName(runner, t2('Other'))}</span>
       <span className="icons">
-        {
-          <SvgButton onClick={handleMainActionClick} title={mainIconTitle()}>
-            {mainActionIcon()}
-          </SvgButton>
-        }
-        {state === 'paused' && (
+        <SvgButton onClick={handleMainActionClick} title={mainIconTitle()}>
+          {mainActionIcon()}
+        </SvgButton>
+        {current && (
           <SvgButton
-            onClick={() => window.api.resumeCurrentDownload()}
-            title={t('queue.label.resume', 'Resume download')}
+            onClick={handleSecondaryActionClick}
+            title={secondaryIconTitle()}
           >
-            <PlayIcon className="playIcon" />
-          </SvgButton>
-        )}
-        {state === 'running' && (
-          <SvgButton
-            onClick={() => window.api.pauseCurrentDownload()}
-            title={t('queue.label.pause', 'Pause download')}
-          >
-            <PauseIcon className="pauseIcon" />
+            {secondaryActionIcon()}
           </SvgButton>
         )}
       </span>
