@@ -42,7 +42,11 @@ async function getDefaultSavePath(
 
 async function getDefaultLegendarySavePath(appName: string): Promise<string> {
   const game = getGame(appName, 'legendary')
-  const { save_path } = game.getGameInfo()
+  const { save_folder, save_path } = game.getGameInfo()
+  logInfo(
+    ['Computing save path for save folder', save_folder],
+    LogPrefix.Legendary
+  )
   if (save_path) {
     logDebug(
       ['Legendary has a save path stored, discarding it:', save_path],
