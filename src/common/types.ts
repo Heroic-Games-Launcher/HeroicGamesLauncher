@@ -610,8 +610,7 @@ export interface DiskSpaceData {
 }
 
 export interface ToolArgs {
-  winePrefix: string
-  winePath: string
+  appName: string
   action: 'backup' | 'restore'
 }
 

@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
-import { configStore } from 'frontend/helpers/electronStores'
 import { defaultWineVersion } from '..'
+import SettingsContext from '../SettingsContext'
 
 const AutoVKD3D = () => {
   const { t } = useTranslation()
@@ -13,8 +13,7 @@ const AutoVKD3D = () => {
     'autoInstallVkd3d',
     false
   )
-  const home = configStore.get('userHome', '')
-  const [winePrefix] = useSetting('winePrefix', `${home}/.wine`)
+  const { appName } = useContext(SettingsContext)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
 
   const isProton = wineVersion.type === 'proton'
@@ -25,7 +24,10 @@ const AutoVKD3D = () => {
 
   const handleAutoInstallVkd3d = () => {
     const action = autoInstallVkd3d ? 'restore' : 'backup'
-    window.api.toggleVKD3D({ winePrefix, winePath: wineVersion.bin, action })
+    window.api.toggleVKD3D({
+      appName,
+      action
+    })
     return setAutoInstallVkd3d(!autoInstallVkd3d)
   }
 
