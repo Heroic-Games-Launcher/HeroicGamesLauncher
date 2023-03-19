@@ -47,7 +47,8 @@ export default defineConfig({
       },
       {
         entry: 'src/backend/preload.ts',
-        vite: electronViteConfig
+        vite: electronViteConfig,
+        onstart: ({ reload }) => reload()
       }
     ]),
     svgr()
