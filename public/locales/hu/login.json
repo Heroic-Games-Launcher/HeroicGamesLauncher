@@ -1,6 +1,9 @@
 {
     "button": {
-        "login": "Bejelentkezés"
+        "login": "Bejelentkezés",
+        "open": "Link megnyitása",
+        "copy": "Másolat",
+        "copied": "Másolva!"
     },
     "message": {
         "part1": "Annak érdekében, hogy be tudj jelentkezni és le tudd tölteni a játékaid, először követned kell az itt lent felsoroltakat:",
