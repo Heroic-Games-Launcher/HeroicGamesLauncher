@@ -1,6 +1,9 @@
 {
     "button": {
-        "login": "Autentificare"
+        "login": "Autentificare",
+        "open": "Deschide link-ul",
+        "copy": "Copie",
+        "copied": "Copiat!"
     },
     "message": {
         "part1": "In order to log in and install your games, you first need to follow the steps below:",
