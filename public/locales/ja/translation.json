@@ -381,7 +381,7 @@
         }
     },
     "offline-message": {
-        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "hint": "{{newline}}github.com、{{newline}}gog.com、{{newline}}store.epicgames.com との接続を確認しています。",
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
@@ -594,7 +594,7 @@
             "general": "一般",
             "log": "Log",
             "other": "他",
-            "sync": "同期を保存",
+            "sync": "クラウド保存同期",
             "wineExt": "Wine Extensions"
         },
         "open-config-file": "Open Config File",
