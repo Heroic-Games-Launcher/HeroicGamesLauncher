@@ -283,6 +283,32 @@ async function handleExit() {
   app.exit()
 }
 
+const getGraphicsInfo = async (): Promise<string> => {
+  try {
+    const { controllers }: si.Systeminformation.GraphicsData =
+      await Promise.race([
+        si.graphics(),
+        new Promise((resolve) => setTimeout(resolve, 5000))
+      ])[0]
+    const graphicsCards = String(
+      controllers
+        .map(
+          ({ name, model, vram, driverVersion }, i: number) =>
+            `GPU${i}: ${name ? name : model} ${vram ? `VRAM: ${vram}MB` : ''} ${
+              driverVersion ? `DRIVER: ${driverVersion}` : ''
+            }\n`
+        )
+        .join('')
+    )
+      .replaceAll(',', '')
+      .replaceAll('\n', '')
+    return graphicsCards
+  } catch (err) {
+    logError('Could not determine Graphics Info', LogPrefix.Backend)
+    return ''
+  }
+}
+
 // This won't change while the app is running
 // Caching significantly increases performance when launching games
 let systemInfoCache = ''
@@ -306,18 +332,7 @@ const getSystemInfo = async () => {
   const { distro, kernel, arch, platform, release, codename } =
     await si.osInfo()
 
-  // get GPU information
-  const { controllers } = await si.graphics()
-  const graphicsCards = String(
-    controllers.map(
-      ({ name, model, vram, driverVersion }, i) =>
-        `GPU${i}: ${name ? name : model} ${vram ? `VRAM: ${vram}MB` : ''} ${
-          driverVersion ? `DRIVER: ${driverVersion}` : ''
-        } \n`
-    )
-  )
-    .replaceAll(',', '')
-    .replaceAll('\n', '')
+  const graphicsCards = await getGraphicsInfo()
 
   const isLinux = platform === 'linux'
   const xEnv = isLinux
