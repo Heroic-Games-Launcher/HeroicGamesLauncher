@@ -1,7 +1,7 @@
 .Header {
   position: sticky;
   top: 0;
-  z-index: 7;
+  z-index: 10;
   display: grid;
   grid-template-columns: 1fr minmax(min-content, 350px);
   grid-template-areas: 'search filters';
