@@ -1,6 +1,9 @@
 {
     "button": {
-        "login": "Log ind"
+        "login": "Log ind",
+        "open": "Åben link",
+        "copy": "Kopi",
+        "copied": "Kopieret!"
     },
     "message": {
         "part1": "For at logge ind og installere dine spil, skal du først følge nedenstående trin:",

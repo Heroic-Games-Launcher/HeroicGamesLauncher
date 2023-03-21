@@ -1,6 +1,9 @@
 {
     "button": {
-        "login": "Inloggen"
+        "login": "Inloggen",
+        "open": "Open link",
+        "copy": "Kopiëren",
+        "copied": "Gekopieerd!"
     },
     "message": {
         "part1": "Om in te loggen en je spellen te installeren, moet je de volgende stappen volgen:",

@@ -1,6 +1,9 @@
 {
     "button": {
-        "login": "Accedi"
+        "login": "Accedi",
+        "open": "Link aperto",
+        "copy": "copia",
+        "copied": "Copiato!"
     },
     "message": {
         "part1": "Per poter effettuare il login ed installare i tuoi giochi, dovrai prima seguire i passaggi indicati qui sotto:",

@@ -1,6 +1,9 @@
 {
     "button": {
-        "login": "Daxil ol"
+        "login": "Daxil ol",
+        "open": "Linki açın",
+        "copy": "Kopyalayın",
+        "copied": "Kopyalandı!"
     },
     "message": {
         "part1": "Oyunlarınızı daxil etmək və quraşdırmaq üçün əvvəlcə aşağıdakı addımları yerinə yetirməlisiniz:",

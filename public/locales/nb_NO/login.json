@@ -1,6 +1,9 @@
 {
     "button": {
-        "login": "Logg inn"
+        "login": "Logg inn",
+        "open": "Åpen lenke",
+        "copy": "Kopiere",
+        "copied": "Kopiert!"
     },
     "message": {
         "part1": "Følg instruksen for å logge inn og installere spill:",
