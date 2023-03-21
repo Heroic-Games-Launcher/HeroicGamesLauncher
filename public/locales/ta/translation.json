@@ -19,7 +19,7 @@
     },
     "box": {
         "cache-cleared": {
-            "message": "ஹீராய்க் இன் cache அழிக்கப்பட்டது",
+            "message": "ஹீராய்க் இன் தற்காலிக சேமிப்பு அழிக்கப்பட்டது",
             "title": "கேஷ் அழிக்கப்பட்டது"
         },
         "choose": "தேர்வு செய்",
@@ -381,7 +381,7 @@
         }
     },
     "offline-message": {
-        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "hint": "நாங்கள் இணைப்பைச் சரிபார்க்கிறோம்:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com மற்றும்{{newline}}cloudflare-dns.com உடன்",
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",

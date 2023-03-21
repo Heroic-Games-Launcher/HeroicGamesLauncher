@@ -84,7 +84,7 @@
                 "title": "Connexion Ubisoft"
             },
             "legendary": {
-                "generic": "Une erreur est survenue! Essayez de vous déconnecter et de vous connecter à votre compte Epic. {{newline}} {{error}}"
+                "generic": "Une erreur est survenue ! Essayez de vous déconnecter et de vous reconnecter à votre compte Epic. {{newline}} {{error}}"
             }
         },
         "info": {

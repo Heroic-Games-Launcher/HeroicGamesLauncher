@@ -1,6 +1,9 @@
 {
     "button": {
-        "login": "Anmelden"
+        "login": "Anmelden",
+        "open": "Verbindung öffnen",
+        "copy": "Kopieren",
+        "copied": "Kopiert!"
     },
     "message": {
         "part1": "Um dich anzumelden und deine Spiele zu installieren, musst du zunächst die folgenden Schritte ausführen:",
