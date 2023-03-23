@@ -284,9 +284,10 @@ if (!gotTheLock) {
   app.whenReady().then(async () => {
     initOnlineMonitor()
 
-    getSystemInfo().then((systemInfo) =>
+    getSystemInfo().then((systemInfo) => {
+      if (systemInfo === '') return
       logInfo(`\n\n${systemInfo}\n`, LogPrefix.Backend)
-    )
+    })
 
     initImagesCache()
 
@@ -1052,6 +1053,7 @@ ipcMain.handle(
       : extGame.logFileLocation
 
     systemInfo.then((systemInfo) => {
+      if (systemInfo === '') return
       writeFileSync(
         logFileLocation,
         'System Info:\n' + `${systemInfo}\n` + '\n'
