@@ -286,7 +286,7 @@ async function handleExit() {
 // This won't change while the app is running
 // Caching significantly increases performance when launching games
 let systemInfoCache = ''
-const getSystemInfoInternal = async () => {
+const getSystemInfoInternal = async (): Promise<string> => {
   if (systemInfoCache !== '') {
     return systemInfoCache
   }
