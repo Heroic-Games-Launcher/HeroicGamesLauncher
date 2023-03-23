@@ -1045,18 +1045,22 @@ ipcMain.handle(
       powerDisplayId = powerSaveBlocker.start('prevent-display-sleep')
     }
 
-    const systemInfo = await getSystemInfo()
+    const systemInfo = getSystemInfo()
     const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
     const logFileLocation = isSideloaded
       ? appLogFileLocation(appName)
       : extGame.logFileLocation
 
+    systemInfo.then((systemInfo) => {
+      writeFileSync(
+        logFileLocation,
+        'System Info:\n' + `${systemInfo}\n` + '\n'
+      )
+    })
+
     writeFileSync(
       logFileLocation,
-      'System Info:\n' +
-        `${systemInfo}\n` +
-        '\n' +
-        `Game Settings: ${gameSettingsString}\n` +
+      `Game Settings: ${gameSettingsString}\n` +
         '\n' +
         `Game launched at: ${startPlayingDate}\n` +
         '\n'
