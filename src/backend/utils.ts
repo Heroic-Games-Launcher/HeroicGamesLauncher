@@ -352,7 +352,7 @@ const getSystemInfo = async (): Promise<string> => {
     // On some systems this race might fail in time because of the sub-processes
     // in systeminformation hanging indefinitely.
     // To make sure that the app doesn't become a zombie process we exit this promise after 5 seconds.
-    logError('Could not determine System Info', LogPrefix.Backend)
+    logWarning('Could not determine System Info', LogPrefix.Backend)
     return ''
   }
 }
