@@ -346,8 +346,14 @@ ${isLinux ? `PROTOCOL: ${xEnv}` : ''}`
 
 const getSystemInfo = async (): Promise<string> => {
   try {
-    const timeoutPromise = new Promise((resolve) => setTimeout(resolve, 5000))
-    return Promise.race([getSystemInfoInternal(), timeoutPromise])[0]
+    const timeoutPromise = new Promise((resolve, reject) =>
+      setTimeout(reject, 5000)
+    )
+    const systemInfo = await Promise.race([
+      getSystemInfoInternal(),
+      timeoutPromise
+    ])
+    return systemInfo as string
   } catch (err) {
     // On some systems this race might fail in time because of the sub-processes
     // in systeminformation hanging indefinitely.
