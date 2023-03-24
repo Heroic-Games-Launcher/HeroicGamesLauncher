@@ -59,7 +59,7 @@ async function installQueueElement(params: InstallParams): Promise<{
 
   const errorMessage = (error: string) => {
     logError(
-      ['installation of', params.appName, 'failed with:', error],
+      ['Installation of', params.appName, 'failed with:', error],
       LogPrefix.DownloadManager
     )
 
@@ -82,7 +82,7 @@ async function installQueueElement(params: InstallParams): Promise<{
 
     if (status === 'abort') {
       logWarning(
-        ['installation of', params.appName, 'aborted!'],
+        ['Installation of', params.appName, 'aborted!'],
         LogPrefix.DownloadManager
       )
       notify({ title, body: i18next.t('notify.install.canceled') })
