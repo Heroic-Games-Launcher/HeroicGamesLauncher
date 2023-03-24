@@ -1019,14 +1019,14 @@ class LegendaryGame extends Game {
 
   // Could be removed if legendary handles SIGKILL and SIGTERM for us
   // which is send via AbortController
-  public async stop(ignoreShutdownWine = false) {
+  public async stop(stopWine = false) {
     // until the legendary bug gets fixed, kill legendary on mac
     // not a perfect solution but it's the only choice for now
 
     // @adityaruplaha: this is kinda arbitary and I don't understand it.
     const pattern = process.platform === 'linux' ? this.appName : 'legendary'
     killPattern(pattern)
-    if (!ignoreShutdownWine && !this.isNative()) {
+    if (stopWine && !this.isNative()) {
       const gameSettings = await this.getSettings()
       await shutdownWine(gameSettings)
     }

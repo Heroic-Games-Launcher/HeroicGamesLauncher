@@ -207,7 +207,7 @@ function resumeCurrentDownload() {
 function stopCurrentDownload() {
   const { appName, runner } = currentElement!.params
   callAbortController(appName)
-  getGame(appName, runner).stop(true)
+  getGame(appName, runner).stop(false)
 }
 
 export {

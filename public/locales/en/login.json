@@ -1,9 +1,9 @@
 {
     "button": {
+        "copied": "Copied!",
+        "copy": "Copy",
         "login": "Log in",
-        "open":"Open Link",
-        "copy":"Copy",
-        "copied":"Copied!"
+        "open": "Open Link"
     },
     "message": {
         "part1": "In order to log in and install your games, you first need to follow the steps below:",

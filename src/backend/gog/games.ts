@@ -927,10 +927,10 @@ class GOGGame extends Game {
 
   // Could be removed if gogdl handles SIGKILL and SIGTERM for us
   // which is send via AbortController
-  public async stop(ignoreShutdownWine = false): Promise<void> {
+  public async stop(stopWine = true): Promise<void> {
     const pattern = isLinux ? this.appName : 'gogdl'
     killPattern(pattern)
-    if (!ignoreShutdownWine && !this.isNative() && isLinux) {
+    if (stopWine && !this.isNative() && isLinux) {
       const gameSettings = await this.getSettings()
       await shutdownWine(gameSettings)
     }
