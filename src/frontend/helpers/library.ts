@@ -53,7 +53,7 @@ async function install({
     if (!folder_name) return
     return handleStopInstallation(
       appName,
-      [installPath, folder_name],
+      installPath,
       t,
       progress,
       runner,
@@ -114,7 +114,7 @@ const importGame = window.api.importGame
 
 async function handleStopInstallation(
   appName: string,
-  [path]: string[],
+  path: string,
   t: TFunction<'gamepage'>,
   progress: InstallProgress,
   runner: Runner,

@@ -91,7 +91,7 @@ const DownloadManagerItem = ({ element, current, state }: Props) => {
 
     return handleStopInstallation(
       appName,
-      [path, folder_name],
+      path,
       t,
       progress,
       runner,
