@@ -29,7 +29,7 @@ function isPaused(): boolean {
 }
 
 function isIdle(): boolean {
-  return queueState === 'idle'
+  return queueState === 'idle' || !currentElement
 }
 
 function isRunning(): boolean {
@@ -184,6 +184,7 @@ function cancelCurrentDownload({ removeDownloaded = false }) {
       const { folder_name } = getGame(appName, runner).getGameInfo()
       removeFolder(currentElement.params.path, folder_name)
     }
+    currentElement = null
   }
 }
 

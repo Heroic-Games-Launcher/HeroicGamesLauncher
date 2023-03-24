@@ -101,7 +101,7 @@ export default function ProgressHeader(props: {
           </div>
         </div>
       </div>
-      {props.state !== 'idle' && progress.eta && (
+      {props.state !== 'idle' && props.appName && progress.eta && (
         <div className="downloadBar">
           <div className="downloadProgressStats">
             <p className="downloadStat" color="var(--text-default)">{`${
@@ -122,7 +122,9 @@ export default function ProgressHeader(props: {
                 variant="subtitle1"
                 title={t('download-manager.ETA', 'Estimated Time')}
               >
-                {props.state === 'running' ? '00.00.00' : 'Paused'}
+                {props.state === 'running'
+                  ? progress.eta ?? '00.00.00'
+                  : 'Paused'}
               </Typography>
             </Box>
           </Box>
