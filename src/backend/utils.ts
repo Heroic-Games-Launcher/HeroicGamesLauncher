@@ -283,13 +283,7 @@ async function handleExit() {
   app.exit()
 }
 
-// This won't change while the app is running
-// Caching significantly increases performance when launching games
-let systemInfoCache = ''
 const getSystemInfoInternal = async (): Promise<string> => {
-  if (systemInfoCache !== '') {
-    return systemInfoCache
-  }
   const heroicVersion = getHeroicVersion()
   const legendaryVersion = await getLegendaryVersion()
   const gogdlVersion = await getGogdlVersion()
@@ -326,7 +320,7 @@ const getSystemInfoInternal = async (): Promise<string> => {
     ? (await execAsync('echo $XDG_SESSION_TYPE')).stdout.replaceAll('\n', '')
     : ''
 
-  systemInfoCache = `Heroic Version: ${heroicVersion}
+  const systemInfo = `Heroic Version: ${heroicVersion}
 Legendary Version: ${legendaryVersion}
 GOGdl Version: ${gogdlVersion}
 
@@ -341,10 +335,16 @@ CPU: ${manufacturer} ${brand} @${speed} ${
 RAM: Total: ${getFileSize(total)} Available: ${getFileSize(available)}
 GRAPHICS: ${graphicsCards}
 ${isLinux ? `PROTOCOL: ${xEnv}` : ''}`
-  return systemInfoCache
+  return systemInfo
 }
 
+// This won't change while the app is running
+// Caching significantly increases performance when launching games
+let systemInfoCache = ''
 const getSystemInfo = async (): Promise<string> => {
+  if (systemInfoCache !== '') {
+    return systemInfoCache
+  }
   try {
     const timeoutPromise = new Promise((resolve, reject) =>
       setTimeout(reject, 5000)
@@ -353,7 +353,8 @@ const getSystemInfo = async (): Promise<string> => {
       getSystemInfoInternal(),
       timeoutPromise
     ])
-    return systemInfo as string
+    systemInfoCache = systemInfo as string
+    return systemInfoCache
   } catch (err) {
     // On some systems this race might fail in time because of the sub-processes
     // in systeminformation hanging indefinitely.
