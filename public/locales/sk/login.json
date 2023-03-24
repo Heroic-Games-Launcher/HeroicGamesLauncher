@@ -1,6 +1,9 @@
 {
     "button": {
-        "login": "Login"
+        "login": "Login",
+        "open": "Otvoriť odkaz",
+        "copy": "Kopírovať",
+        "copied": "Skopírované!"
     },
     "message": {
         "part1": "In order for you to be able to log in and install your games, we first need you to follow the steps below:",

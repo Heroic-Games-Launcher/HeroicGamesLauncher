@@ -205,7 +205,7 @@
             "type": "Type"
         },
         "title": "Downloads",
-        "ETA": "Очаквано време"
+        "ETA": "Предполагаемо време"
     },
     "epic": {
         "offline-notification-body": "Услугите, зависещи от Интернет, може да не работят изцяло, тъй като сървърите на Epic Games не са достъпни!",
@@ -387,7 +387,7 @@
         "offline-retry-in": "Извън линия. Повторен опит след {{seconds}} секунди.",
         "retrying": "Извършва се повторен опит"
     },
-    "Open": "Отворете",
+    "Open": "Отваряне",
     "options": {
         "advanced": {
             "key": "Variable Name",

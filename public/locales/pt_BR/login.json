@@ -1,6 +1,9 @@
 {
     "button": {
-        "login": "Conecte-se"
+        "login": "Conecte-se",
+        "open": "Link aberto",
+        "copy": "cópia de",
+        "copied": "Copiado!"
     },
     "message": {
         "part1": "Para fazer login e instalar seus jogos, primeiro você precisa seguir as etapas abaixo:",

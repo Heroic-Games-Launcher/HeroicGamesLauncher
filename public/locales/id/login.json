@@ -1,6 +1,9 @@
 {
     "button": {
-        "login": "Masuk"
+        "login": "Masuk",
+        "open": "Buka tautan",
+        "copy": "Menyalin",
+        "copied": "Disalin!"
     },
     "message": {
         "part1": "Untuk masuk dan memasang permainanmu, kamu harus mengikuti langkah-langkah di bawah:",

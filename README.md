@@ -81,7 +81,7 @@ Heroic is built with Web Technologies:
     Chances are though that someone on our [Discord](https://discord.gg/rHJ2uqdquK) can help you
 - SteamOS (downloading using Discover only)
 - Windows 10 & 11
-- macOS 10.15 or higher
+- macOS 12 or newer
 
 ## Language Support
 

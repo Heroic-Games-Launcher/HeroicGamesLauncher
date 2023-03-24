@@ -1,21 +1,20 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { defaultWineVersion } from '..'
 import useSetting from 'frontend/hooks/useSetting'
-import { configStore } from 'frontend/helpers/electronStores'
 import { ToggleSwitch } from 'frontend/components/UI'
+import SettingsContext from '../SettingsContext'
 
 const AutoDXVK = () => {
   const { t } = useTranslation()
-  const [autoInstallDxvk, setAutoInstallDxak] = useSetting(
+  const [autoInstallDxvk, setAutoInstallDxvk] = useSetting(
     'autoInstallDxvk',
     false
   )
-  const home = configStore.get('userHome', '')
-  const [winePrefix] = useSetting('winePrefix', `${home}/.wine`)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
+  const { appName } = useContext(SettingsContext)
   const [installingDxvk, setInstallingDxvk] = React.useState(false)
 
   if (wineVersion.type !== 'wine') {
@@ -26,14 +25,13 @@ const AutoDXVK = () => {
     const action = autoInstallDxvk ? 'restore' : 'backup'
     setInstallingDxvk(true)
     const res = await window.api.toggleDXVK({
-      winePrefix,
-      winePath: wineVersion.bin,
+      appName,
       action
     })
 
     setInstallingDxvk(false)
     if (res) {
-      setAutoInstallDxak(!autoInstallDxvk)
+      setAutoInstallDxvk(!autoInstallDxvk)
     }
   }
 
