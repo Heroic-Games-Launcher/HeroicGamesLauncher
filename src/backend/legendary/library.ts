@@ -14,7 +14,8 @@ import {
 import {
   InstalledJsonMetadata,
   GameMetadata,
-  LegendaryInstallInfo
+  LegendaryInstallInfo,
+  LegendaryInstallPlatform
 } from 'common/types/legendary'
 import { LegendaryGame } from './games'
 import { LegendaryUser } from './user'
@@ -478,7 +479,8 @@ export class LegendaryLibrary {
       dlcItemList,
       releaseInfo,
       customAttributes,
-      categories
+      categories,
+      mainGameItem
     } = metadata
 
     // skip mods from the library
@@ -544,6 +546,22 @@ export class LegendaryLibrary {
 
     const convertedSize = install_size ? getFileSize(Number(install_size)) : '0'
 
+    if (releaseInfo && !releaseInfo[0].platform) {
+      logWarning(
+        ['No platforms info for', fileName, app_name],
+        LogPrefix.Legendary
+      )
+    }
+
+    let metadataPlatform: LegendaryInstallPlatform[] = []
+    // some DLCs don't have a platform value
+    if (releaseInfo[0].platform) {
+      metadataPlatform = releaseInfo[0].platform
+    } else if (mainGameItem && mainGameItem.releaseInfo[0].platform) {
+      // when there's no platform, the DLC might reference the base game with the info
+      metadataPlatform = mainGameItem.releaseInfo[0].platform
+    }
+
     this.library.set(app_name, {
       app_name,
       art_cover: art_cover || art_square || fallBackImage,
@@ -572,7 +590,7 @@ export class LegendaryLibrary {
       namespace,
       is_mac_native: info
         ? platform === 'Mac'
-        : releaseInfo[0].platform.includes('Mac'),
+        : metadataPlatform.includes('Mac'),
       save_folder: saveFolder,
       save_path,
       title,
