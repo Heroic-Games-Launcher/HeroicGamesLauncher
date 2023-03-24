@@ -1,4 +1,3 @@
-import { LegendaryInstallPlatform } from './../../common/types/legendary'
 import {
   createAbortController,
   deleteAbortController
@@ -15,7 +14,8 @@ import {
 import {
   InstalledJsonMetadata,
   GameMetadata,
-  LegendaryInstallInfo
+  LegendaryInstallInfo,
+  LegendaryInstallPlatform
 } from 'common/types/legendary'
 import { LegendaryGame } from './games'
 import { LegendaryUser } from './user'
