@@ -284,9 +284,10 @@ if (!gotTheLock) {
   app.whenReady().then(async () => {
     initOnlineMonitor()
 
-    getSystemInfo().then((systemInfo) =>
+    getSystemInfo().then((systemInfo) => {
+      if (systemInfo === '') return
       logInfo(`\n\n${systemInfo}\n`, LogPrefix.Backend)
-    )
+    })
 
     initImagesCache()
 
@@ -1045,18 +1046,23 @@ ipcMain.handle(
       powerDisplayId = powerSaveBlocker.start('prevent-display-sleep')
     }
 
-    const systemInfo = await getSystemInfo()
+    const systemInfo = getSystemInfo()
     const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
     const logFileLocation = isSideloaded
       ? appLogFileLocation(appName)
       : extGame.logFileLocation
 
+    systemInfo.then((systemInfo) => {
+      if (systemInfo === '') return
+      writeFileSync(
+        logFileLocation,
+        'System Info:\n' + `${systemInfo}\n` + '\n'
+      )
+    })
+
     writeFileSync(
       logFileLocation,
-      'System Info:\n' +
-        `${systemInfo}\n` +
-        '\n' +
-        `Game Settings: ${gameSettingsString}\n` +
+      `Game Settings: ${gameSettingsString}\n` +
         '\n' +
         `Game launched at: ${startPlayingDate}\n` +
         '\n'
