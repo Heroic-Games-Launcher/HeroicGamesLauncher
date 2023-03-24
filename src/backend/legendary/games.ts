@@ -1019,7 +1019,7 @@ class LegendaryGame extends Game {
 
   // Could be removed if legendary handles SIGKILL and SIGTERM for us
   // which is send via AbortController
-  public async stop(stopWine = false) {
+  public async stop(stopWine = true) {
     // until the legendary bug gets fixed, kill legendary on mac
     // not a perfect solution but it's the only choice for now
 
