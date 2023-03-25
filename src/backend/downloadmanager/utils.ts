@@ -1,4 +1,4 @@
-import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
+import { logError, LogPrefix, logWarning } from '../logger/logger'
 import { getGame, isEpicServiceOffline } from '../utils'
 import { DMStatus, InstallParams } from 'common/types'
 import i18next from 'i18next'
@@ -80,23 +80,7 @@ async function installQueueElement(params: InstallParams): Promise<{
       installLanguage
     })
 
-    if (status === 'abort') {
-      logWarning(
-        ['Installation of', params.appName, 'aborted!'],
-        LogPrefix.DownloadManager
-      )
-      notify({ title, body: i18next.t('notify.install.canceled') })
-    } else if (status === 'done') {
-      notify({
-        title,
-        body: i18next.t('notify.install.finished')
-      })
-
-      logInfo(
-        ['Finished installation of', params.appName],
-        LogPrefix.DownloadManager
-      )
-    } else if (status === 'error') {
+    if (status === 'error') {
       errorMessage(error ?? '')
       return { status: 'error' }
     }
@@ -158,28 +142,7 @@ async function updateQueueElement(params: InstallParams): Promise<{
 
   try {
     const { status } = await game.update()
-
-    if (status === 'abort') {
-      logWarning(
-        ['Update of', params.appName, 'aborted!'],
-        LogPrefix.DownloadManager
-      )
-      notify({ title, body: i18next.t('notify.install.canceled') })
-    } else if (status === 'error') {
-      logWarning(
-        ['Update of', params.appName, 'aborted!'],
-        LogPrefix.DownloadManager
-      )
-      notify({ title, body: i18next.t('notify.update.canceled') })
-    } else if (status === 'done') {
-      notify({
-        title,
-        body: i18next.t('notify.update.finished')
-      })
-
-      logInfo(['Finished update of', params.appName], LogPrefix.DownloadManager)
-    }
-    return { status: 'done' }
+    return { status }
   } catch (error) {
     logError(
       ['Updating of', params.appName, 'failed with:', error],

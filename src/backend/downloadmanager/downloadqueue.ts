@@ -1,11 +1,13 @@
 import { TypeCheckedStoreBackend } from './../electron_store'
-import { logError, logInfo, LogPrefix } from '../logger/logger'
+import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { getFileSize, getGame } from '../utils'
 import { DMQueueElement, DMStatus, DownloadManagerState } from 'common/types'
 import { installQueueElement, updateQueueElement } from './utils'
 import { sendFrontendMessage } from '../main_window'
 import { callAbortController } from 'backend/utils/aborthandler/aborthandler'
 import { removeFolder } from 'backend/main'
+import { notify } from '../dialog/dialog'
+import i18next from 'i18next'
 
 const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
   cwd: 'store',
@@ -79,6 +81,8 @@ async function initQueue() {
         ? await installQueueElement(element.params)
         : await updateQueueElement(element.params)
     element.endTime = Date.now()
+
+    processNotification(element, status)
 
     if (!isPaused()) {
       addToFinished(element, status)
@@ -208,6 +212,45 @@ function stopCurrentDownload() {
   const { appName, runner } = currentElement!.params
   callAbortController(appName)
   getGame(appName, runner).stop(false)
+}
+
+// notify the user based on the status of the element and the status of the queue
+function processNotification(element: DMQueueElement, status: DMStatus) {
+  const action = element.type === 'install' ? 'Installation' : 'Update'
+  const game = getGame(element.params.appName, element.params.runner)
+  const { title } = game.getGameInfo()
+
+  if (status === 'abort') {
+    if (isPaused()) {
+      logWarning(
+        [action, 'of', element.params.appName, 'paused!'],
+        LogPrefix.DownloadManager
+      )
+      // i18next.t('notify.update.paused', 'Update paused')
+      // i18next.t('notify.install.paused', 'Installation paused')
+      notify({ title, body: i18next.t(`notify.${element.type}.paused`) })
+    } else {
+      logWarning(
+        [action, 'of', element.params.appName, 'aborted!'],
+        LogPrefix.DownloadManager
+      )
+      // i18next.t('notify.update.canceled', 'Update canceled')
+      // i18next.t('notify.install.canceled', 'Installation canceled')
+      notify({ title, body: i18next.t(`notify.${element.type}.canceled`) })
+    }
+  } else if (status === 'done') {
+    // i18next.t('notify.update.finished', 'Update finished')
+    // i18next.t('notify.install.finished', 'Installation finished')
+    notify({
+      title,
+      body: i18next.t(`notify.${element.type}.finished`)
+    })
+
+    logInfo(
+      ['Finished', action, 'of', element.params.appName],
+      LogPrefix.DownloadManager
+    )
+  }
 }
 
 export {

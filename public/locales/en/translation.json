@@ -360,10 +360,11 @@
             "reparing": "Finished Repairing"
         },
         "install": {
-            "canceled": "Install Canceled",
+            "canceled": "Installation Canceled",
             "error": "Installation Failed",
-            "finished": "Install Finished",
+            "finished": "Installation Finished",
             "imported": "Game Imported",
+            "paused": "Installation Paused",
             "startInstall": "Installation Started"
         },
         "moved": "Finished Moving",
@@ -374,8 +375,9 @@
         },
         "uninstalled": "Uninstalled",
         "update": {
-            "canceled": "Updated Canceled",
+            "canceled": "Update Canceled",
             "finished": "Update Finished",
+            "paused": "Update paused",
             "started": "Update Started"
         }
     },
