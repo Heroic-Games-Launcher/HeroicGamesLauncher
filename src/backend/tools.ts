@@ -54,6 +54,12 @@ export const DXVK = {
         os: 'linux'
       },
       {
+        name: 'dxvk-nvapi',
+        url: 'https://api.github.com/repos/jp7677/dxvk-nvapi/releases/latest',
+        extractCommand: 'tar -xf',
+        os: 'linux'
+      },
+      {
         name: 'dxvk-macOS',
         url: 'https://api.github.com/repos/Gcenx/DXVK-macOS/releases/latest',
         extractCommand: 'tar -xf',
@@ -131,7 +137,7 @@ export const DXVK = {
 
   installRemove: async (
     gameSettings: GameSettings,
-    tool: 'dxvk' | 'vkd3d' | 'dxvk-macOS',
+    tool: 'dxvk' | 'dxvk-nvapi' | 'vkd3d' | 'dxvk-macOS',
     action: 'backup' | 'restore'
   ): Promise<boolean> => {
     const prefix = gameSettings.winePrefix
@@ -160,7 +166,12 @@ export const DXVK = {
       .toString()
       .split('\n')[0]
 
-    const dlls = readdirSync(`${heroicToolsPath}/${tool}/${globalVersion}/x64`)
+    const dlls64 = readdirSync(
+      `${heroicToolsPath}/${tool}/${globalVersion}/x64`
+    )
+    const dlls32 = readdirSync(
+      `${heroicToolsPath}/${tool}/${globalVersion}/x32`
+    )
     const toolPathx32 = `${heroicToolsPath}/${tool}/${globalVersion}/${
       tool === 'vkd3d' ? 'x86' : 'x32'
     }`
@@ -191,16 +202,17 @@ export const DXVK = {
 
       // remove the dlls from the prefix
       await new Promise((resolve) => {
-        dlls.forEach((dll) => {
+        dlls64.forEach((dll) => {
           const dllPath = `${winePrefix}/drive_c/windows/system32/${dll}`
           if (existsSync(`${dllPath}.bak`)) {
             const removeDll = `rm ${dllPath}`
             exec(removeDll)
           }
-
-          const dllPath64 = `${winePrefix}/drive_c/windows/syswow64/${dll}`
+        })
+        dlls32.forEach((dll) => {
+          const dllPath = `${winePrefix}/drive_c/windows/syswow64/${dll}`
           if (existsSync(`${dllPath}.bak`)) {
-            const removeDll = `rm ${dllPath64}`
+            const removeDll = `rm ${dllPath}`
             exec(removeDll)
           }
         })
@@ -217,7 +229,24 @@ export const DXVK = {
       })
 
       // unregister the dlls on the wine prefix
-      dlls.forEach(async (dll) => {
+      dlls64.forEach(async (dll) => {
+        dll = dll.replace('.dll', '')
+        const unregisterDll = [
+          'reg',
+          'delete',
+          'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides',
+          '/v',
+          dll,
+          '/f'
+        ]
+        await runWineCommand({
+          gameSettings,
+          commandParts: unregisterDll,
+          wait: true,
+          protonVerb: 'waitforexitandrun'
+        })
+      })
+      dlls32.forEach(async (dll) => {
         dll = dll.replace('.dll', '')
         const unregisterDll = [
           'reg',
@@ -245,7 +274,7 @@ export const DXVK = {
     }
 
     // copy the new dlls to the prefix
-    dlls.forEach((dll) => {
+    dlls32.forEach((dll) => {
       if (!isMac) {
         copyFile(
           `${toolPathx32}/${dll}`,
@@ -260,7 +289,8 @@ export const DXVK = {
           }
         )
       }
-
+    })
+    dlls64.forEach((dll) => {
       copyFile(
         `${toolPathx64}/${dll}`,
         `${winePrefix}/drive_c/windows/system32/${dll}`,
@@ -276,7 +306,27 @@ export const DXVK = {
     })
 
     // register dlls on the wine prefix
-    dlls.forEach(async (dll) => {
+    dlls64.forEach(async (dll) => {
+      // remove the .dll extension otherwise will fail
+      dll = dll.replace('.dll', '')
+      const registerDll = [
+        'reg',
+        'add',
+        'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides',
+        '/v',
+        dll,
+        '/d',
+        'native,builtin',
+        '/f'
+      ]
+      await runWineCommand({
+        gameSettings,
+        commandParts: registerDll,
+        wait: true,
+        protonVerb: 'waitforexitandrun'
+      })
+    })
+    dlls32.forEach(async (dll) => {
       // remove the .dll extension otherwise will fail
       dll = dll.replace('.dll', '')
       const registerDll = [
