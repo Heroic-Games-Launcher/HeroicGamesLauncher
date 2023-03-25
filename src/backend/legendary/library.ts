@@ -209,7 +209,7 @@ export class LegendaryLibrary {
     appName: string,
     installPlatform: InstallPlatform
   ): Promise<LegendaryInstallInfo> {
-    const cache = installStore.get_nodefault(appName)
+    const cache = installStore.get(appName)
     if (cache) {
       logDebug('Using cached install info', LogPrefix.Legendary)
       return cache

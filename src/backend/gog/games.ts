@@ -32,7 +32,7 @@ import {
 import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
 import { heroicGamesConfigPath, isWindows, isMac, isLinux } from '../constants'
 import {
-  gogInstallInfoStore,
+  installInfoStore,
   installedGamesStore,
   syncStore
 } from '../gog/electronStores'
@@ -850,7 +850,7 @@ class GOGGame extends Game {
 
     if (gameData.install.platform !== 'linux') {
       // Force getting new cache
-      gogInstallInfoStore.delete(`${this.appName}_${gameData.install.platform}`)
+      installInfoStore.delete(`${this.appName}_${gameData.install.platform}`)
       const installInfo = await this.getInstallInfo()
       gameObject.buildId = installInfo.game.buildId
       gameObject.version = installInfo.game.version
