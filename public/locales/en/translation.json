@@ -245,6 +245,7 @@
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
         "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
+        "dxvknvapi": "DXVK-NVAPI is an implementation of NVAPI built on top of DXVK and the linux native NVAPI, it is allows for the usage of DLSS on Nvidia GPUs.",
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
@@ -459,6 +460,7 @@
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary",
         "autodxvk": "Auto Install/Update DXVK on Prefix",
+        "autodxvknvapi": "Auto Install/Update DXVK-NVAPI on Prefix",
         "autosync": "Autosync Saves",
         "autoUpdateGames": "Automatically update games",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
