@@ -67,8 +67,8 @@ function getUrl(args: string[]): string | undefined {
  * // => ['ping', undefined, undefined]
  * parseUrl('heroic://launch/gog/123')
  * // => ['launch', 'gog', '123']
- * parseUrl('heroic://launch/legendary/123')
- * // => ['launch', 'legendary', '123']
+ * parseUrl('heroic://launch/123')
+ * // => ['launch', '123']
  **/
 function parseUrl(url: string): [Command, Runner?, string?] {
   const [, fullCommand] = url.split('://')
@@ -160,14 +160,23 @@ async function handleLaunch(
  **/
 async function findGame(
   runner: Runner | undefined,
-  arg: string | undefined = ''
+  arg = ''
 ): Promise<GameInfo | SideloadGame | null> {
-  // If the runner is specified, only search for that runner
-  const runnersToSearch = runner ? [runner, 'sideload'] : RUNNERS
+  if (!arg) {
+    return null
+  }
 
-  // Search for the game in the runners specified in runnersToSearch and return the first one found (if any)
-  for (const currentRunner of runnersToSearch) {
-    const run = (currentRunner as Runner) || 'sideload'
+  // If a runner is specified, search for the game in that runner and return it (if found)
+  if (runner) {
+    const gameInfo = getInfo(arg, runner)
+    if (gameInfo.app_name) {
+      return gameInfo
+    }
+  }
+
+  // If no runner is specified, search for the game in all runners and return the first one found
+  for (const currentRunner of RUNNERS) {
+    const run = (currentRunner as Runner) || 'legendary'
 
     const gameInfoOrSideload = getInfo(arg, run)
     if (gameInfoOrSideload.app_name) {
