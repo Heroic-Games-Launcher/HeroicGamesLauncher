@@ -226,21 +226,29 @@ function processNotification(element: DMQueueElement, status: DMStatus) {
         [action, 'of', element.params.appName, 'paused!'],
         LogPrefix.DownloadManager
       )
-      // i18next.t('notify.update.paused', 'Update paused')
-      // i18next.t('notify.install.paused', 'Installation paused')
+      // i18next.t('notify.update.paused', 'Update Paused')
+      // i18next.t('notify.install.paused', 'Installation Paused')
       notify({ title, body: i18next.t(`notify.${element.type}.paused`) })
     } else {
       logWarning(
         [action, 'of', element.params.appName, 'aborted!'],
         LogPrefix.DownloadManager
       )
-      // i18next.t('notify.update.canceled', 'Update canceled')
-      // i18next.t('notify.install.canceled', 'Installation canceled')
+      // i18next.t('notify.update.canceled', 'Update Canceled')
+      // i18next.t('notify.install.canceled', 'Installation Canceled')
       notify({ title, body: i18next.t(`notify.${element.type}.canceled`) })
     }
+  } else if (status === 'error') {
+    logWarning(
+      [action, 'of', element.params.appName, 'failed!'],
+      LogPrefix.DownloadManager
+    )
+    // i18next.t('notify.update.failed', 'Update Failed')
+    // i18next.t('notify.install.failed', 'Installation Failed')
+    notify({ title, body: i18next.t(`notify.${element.type}.failed`) })
   } else if (status === 'done') {
-    // i18next.t('notify.update.finished', 'Update finished')
-    // i18next.t('notify.install.finished', 'Installation finished')
+    // i18next.t('notify.update.finished', 'Update Finished')
+    // i18next.t('notify.install.finished', 'Installation Finished')
     notify({
       title,
       body: i18next.t(`notify.${element.type}.finished`)

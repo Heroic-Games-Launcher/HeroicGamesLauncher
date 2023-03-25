@@ -362,6 +362,7 @@
         "install": {
             "canceled": "Installation Canceled",
             "error": "Installation Failed",
+            "failed": "Installation Failed",
             "finished": "Installation Finished",
             "imported": "Game Imported",
             "paused": "Installation Paused",
@@ -376,8 +377,9 @@
         "uninstalled": "Uninstalled",
         "update": {
             "canceled": "Update Canceled",
+            "failed": "Update Failed",
             "finished": "Update Finished",
-            "paused": "Update paused",
+            "paused": "Update Paused",
             "started": "Update Started"
         }
     },

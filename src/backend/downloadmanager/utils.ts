@@ -62,13 +62,6 @@ async function installQueueElement(params: InstallParams): Promise<{
       ['Installation of', params.appName, 'failed with:', error],
       LogPrefix.DownloadManager
     )
-
-    sendFrontendMessage('gameStatusUpdate', {
-      appName,
-      runner,
-      status: 'done'
-    })
-    return error
   }
 
   try {
@@ -82,19 +75,18 @@ async function installQueueElement(params: InstallParams): Promise<{
 
     if (status === 'error') {
       errorMessage(error ?? '')
-      return { status: 'error' }
     }
-
-    sendFrontendMessage('gameStatusUpdate', {
-      appName,
-      runner,
-      status: 'done'
-    })
 
     return { status }
   } catch (error) {
     errorMessage(`${error}`)
     return { status: 'error' }
+  } finally {
+    sendFrontendMessage('gameStatusUpdate', {
+      appName,
+      runner,
+      status: 'done'
+    })
   }
 }
 
@@ -140,22 +132,30 @@ async function updateQueueElement(params: InstallParams): Promise<{
     body: i18next.t('notify.update.started', 'Update Started')
   })
 
-  try {
-    const { status } = await game.update()
-    return { status }
-  } catch (error) {
+  const errorMessage = (error: string) => {
     logError(
-      ['Updating of', params.appName, 'failed with:', error],
+      ['Update of', params.appName, 'failed with:', error],
       LogPrefix.DownloadManager
     )
+  }
 
+  try {
+    const { status } = await game.update()
+
+    if (status === 'error') {
+      errorMessage('')
+    }
+
+    return { status }
+  } catch (error) {
+    errorMessage(`${error}`)
+    return { status: 'error' }
+  } finally {
     sendFrontendMessage('gameStatusUpdate', {
       appName,
       runner,
       status: 'done'
     })
-
-    return { status: 'error' }
   }
 }
 
