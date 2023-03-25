@@ -170,7 +170,9 @@ export const DXVK = {
       `${heroicToolsPath}/${tool}/${globalVersion}/x64`
     )
     const dlls32 = readdirSync(
-      `${heroicToolsPath}/${tool}/${globalVersion}/x32`
+      `${heroicToolsPath}/${tool}/${globalVersion}/${
+        tool === 'vkd3d' ? 'x86' : 'x32'
+      }`
     )
     const toolPathx32 = `${heroicToolsPath}/${tool}/${globalVersion}/${
       tool === 'vkd3d' ? 'x86' : 'x32'
