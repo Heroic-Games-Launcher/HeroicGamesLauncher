@@ -27,5 +27,5 @@
     "typeRoots": ["./node-modules/@types", "src/common/typedefs"]
   },
   "include": ["src"],
-  "exclude": ["vite.config.ts", "**/__tests__/**", "**/__mocks__/**"]
+  "exclude": ["vite.config.ts", "**/__tests__/**", "**/__mocks__/**", "sign"]
 }

@@ -29,7 +29,7 @@ import {
   apiInfoCache,
   libraryStore,
   installedGamesStore,
-  gogInstallInfoStore
+  installInfoStore
 } from './electronStores'
 import { callRunner } from '../launcher'
 import {
@@ -227,16 +227,13 @@ export class GOGLibrary {
 
     const gamesObjects: GameInfo[] = []
     const gamesArray = libraryStore.get('games', [])
-    const isConfigCloudSavesReady = libraryStore.get(
-      'cloud_saves_enabled',
-      false
-    )
     const cloudSavesEnabledGames = await this.getGamesWithFeatures(['512'])
     for (const game of gameApiArray) {
-      let unifiedObject = gamesArray
-        ? gamesArray.find((value) => value.app_name === String(game.id))
-        : null
-      if (!unifiedObject || !isConfigCloudSavesReady) {
+      let unifiedObject = gamesArray.find(
+        (value) => value.app_name === String(game.id)
+      )
+
+      if (!unifiedObject) {
         unifiedObject = await this.gogToUnifiedInfo(
           game,
           cloudSavesEnabledGames
@@ -246,10 +243,9 @@ export class GOGLibrary {
       const installedInfo = this.installedGames.get(String(game.id))
       // If game is installed, verify if installed game supports cloud saves
       if (
-        !isConfigCloudSavesReady &&
         !cloudSavesEnabledGames.includes(String(game.id)) &&
         installedInfo &&
-        installedInfo?.platform !== 'linux'
+        installedInfo.platform !== 'linux'
       ) {
         const saveLocations = await this.getSaveSyncLocation(
           unifiedObject.app_name,
@@ -270,9 +266,6 @@ export class GOGLibrary {
       this.library.set(String(game.id), copyObject)
     }
     libraryStore.set('games', gamesObjects)
-    libraryStore.set('totalGames', games.totalProducts)
-    libraryStore.set('totalMovies', games.moviesCount)
-    libraryStore.set('cloud_saves_enabled', true)
     logInfo('Saved games data', LogPrefix.Gog)
 
     // fetch images async
@@ -393,23 +386,19 @@ export class GOGLibrary {
     installPlatform = 'windows',
     lang = 'en-US'
   ): Promise<GogInstallInfo | undefined> {
-    if (gogInstallInfoStore.has(`${appName}_${installPlatform}`)) {
-      const cache = gogInstallInfoStore.get_nodefault(
-        `${appName}_${installPlatform}`
+    const cache = installInfoStore.get(`${appName}_${installPlatform}`)
+    if (cache) {
+      logInfo(
+        [
+          'Got install info from cache for',
+          appName,
+          'on',
+          installPlatform,
+          'platform'
+        ],
+        LogPrefix.Gog
       )
-      if (cache) {
-        logInfo(
-          [
-            'Got install info from cache for',
-            appName,
-            'on',
-            installPlatform,
-            'platform'
-          ],
-          LogPrefix.Gog
-        )
-        return cache
-      }
+      return cache
     }
 
     const credentials = await GOGUser.getCredentials()
@@ -537,7 +526,7 @@ export class GOGLibrary {
         versionEtag: gogInfo.versionEtag
       }
     }
-    gogInstallInfoStore.set(`${appName}_${installPlatform}`, info)
+    installInfoStore.set(`${appName}_${installPlatform}`, info)
     return info
   }
 

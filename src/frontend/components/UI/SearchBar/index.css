@@ -25,6 +25,7 @@
   padding: var(--space-xs) var(--space-md);
   text-align: left;
   overflow-x: hidden;
+  z-index: 1;
 }
 
 .SearchBar:focus-within ul.autoComplete {

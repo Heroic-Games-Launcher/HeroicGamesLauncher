@@ -272,7 +272,7 @@ class LegendaryGame extends Game {
    */
   public async getExtraInfo(): Promise<ExtraInfo> {
     const { namespace, title } = this.getGameInfo()
-    const cachedExtraInfo = gameInfoStore.get_nodefault(namespace)
+    const cachedExtraInfo = gameInfoStore.get(namespace)
     if (cachedExtraInfo) {
       return cachedExtraInfo
     }
