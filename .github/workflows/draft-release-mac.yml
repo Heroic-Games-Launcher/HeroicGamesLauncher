@@ -6,6 +6,17 @@ on:
       - 'v*'
   workflow_dispatch:
 
+env:
+  GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+  GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+  CSC_IDENTITY_AUTO_DISCOVERY: true
+  CSC_LINK: ${{ secrets.CSC_LINK }}
+  CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+  APPLE_ID: ${{ secrets.APPLE_ID }}
+  APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
+  TEAMID: ${{ secrets.TEAMID }}
+  NOTARIZE: true
+
 jobs:
   draft-releases:
     runs-on: macos-latest
@@ -14,8 +25,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
-      - run: npm install --legacy-peer-deps
-      - run: npm run release:mac
-        env:
-          GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      - run: npm install -g yarn
+      - run: yarn
+      - run: yarn release:mac
