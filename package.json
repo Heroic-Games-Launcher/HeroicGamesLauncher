@@ -130,48 +130,38 @@
       "category": "Games",
       "synopsis": "An Open Source Launcher for GOG and Epic Games",
       "description": "Heroic is an Open Source Games Launcher. Right now it supports launching games from the Epic Games Store using Legendary and GOG Games using our custom implementation with gogdl.",
-      "plugs": {
-        "home": {
-          "interface": "personal-files",
-          "read": [
-            "/home/user/Heroic",
-            "/home/user/.config/legendary",
-            "/home/user/.steam"
-          ],
-          "write": [
-            "/home/user/Heroic",
-            "/home/user/.config/legendary"
-          ]
-        },
-        "desktop-legacy": {
-          "interface": "legacy"
-        },
-        "desktop": {
-          "interface": "dbus"
-        },
-        "x11": {
-          "interface": "x11"
-        },
-        "wayland": {
-          "interface": "wayland"
-        },
-        "opengl": {
-          "interface": "content",
-          "target": "$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/dri",
-          "default-provider": "mesa"
+      "plugs": [
+        "desktop-legacy",
+        "desktop",
+        "x11",
+        "wayland",
+        "opengl",
+        {
+          "home": {
+            "interface": "personal-files",
+            "read": [
+              "/home/user/Heroic",
+              "/home/user/.config/legendary",
+              "/home/user/.steam"
+            ],
+            "write": [
+              "/home/user/Heroic",
+              "/home/user/.config/legendary"
+            ]
+          }
         }
-      },
-      "stagePackages": [
-        "default",
-        "curl"
+      ]
+    },
+    "stagePackages": [
+      "default",
+      "curl"
+    ],
+    "publish": {
+      "provider": "snapStore",
+      "channels": [
+        "edge"
       ],
-      "publish": {
-        "provider": "snapStore",
-        "channels": [
-          "edge"
-        ],
-        "repo": "heroic"
-      }
+      "repo": "heroic"
     }
   },
   "dependencies": {
