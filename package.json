@@ -130,40 +130,37 @@
       "category": "Games",
       "synopsis": "An Open Source Launcher for GOG and Epic Games",
       "description": "Heroic is an Open Source Games Launcher. Right now it supports launching games from the Epic Games Store using Legendary and GOG Games using our custom implementation with gogdl.",
-      "plugs": [
-        "default",
-        {
-          "home": {
-            "interface": "personal-files",
-            "read": [
-              "/home/user/Heroic",
-              "/home/user/.config/legendary",
-              "/home/user/.steam"
-            ],
-            "write": [
-              "/home/user/Heroic",
-              "/home/user/.config/legendary"
-            ]
-          },
-          "desktop-legacy": {
-            "interface": "legacy"
-          },
-          "desktop": {
-            "interface": "dbus"
-          },
-          "x11": {
-            "interface": "x11"
-          },
-          "wayland": {
-            "interface": "wayland"
-          },
-          "opengl": {
-            "interface": "content",
-            "target": "$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/dri",
-            "default-provider": "mesa"
-          }
+      "plugs": {
+        "home": {
+          "interface": "personal-files",
+          "read": [
+            "/home/user/Heroic",
+            "/home/user/.config/legendary",
+            "/home/user/.steam"
+          ],
+          "write": [
+            "/home/user/Heroic",
+            "/home/user/.config/legendary"
+          ]
+        },
+        "desktop-legacy": {
+          "interface": "legacy"
+        },
+        "desktop": {
+          "interface": "dbus"
+        },
+        "x11": {
+          "interface": "x11"
+        },
+        "wayland": {
+          "interface": "wayland"
+        },
+        "opengl": {
+          "interface": "content",
+          "target": "$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/dri",
+          "default-provider": "mesa"
         }
-      ],
+      },
       "stagePackages": [
         "default",
         "curl"
