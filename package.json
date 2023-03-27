@@ -150,18 +150,18 @@
             ]
           }
         }
-      ]
-    },
-    "stagePackages": [
-      "default",
-      "curl"
-    ],
-    "publish": {
-      "provider": "snapStore",
-      "channels": [
-        "edge"
       ],
-      "repo": "heroic"
+      "stagePackages": [
+        "default",
+        "curl"
+      ],
+      "publish": {
+        "provider": "snapStore",
+        "channels": [
+          "edge"
+        ],
+        "repo": "heroic"
+      }
     }
   },
   "dependencies": {
