@@ -365,7 +365,9 @@
             "error": "Instalace selhala",
             "finished": "Instalace dokončena",
             "imported": "Hra importována",
-            "startInstall": "Instalace zahájena"
+            "startInstall": "Instalace zahájena",
+            "failed": "Instalace selhala",
+            "paused": "Instalace pozastavena"
         },
         "moved": "Přesun dokončen",
         "moving": "Přesouvám hru",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "Aktualizace zrušena",
             "finished": "Aktualizace dokončena",
-            "started": "Aktualizace zahájena"
+            "started": "Aktualizace zahájena",
+            "failed": "Aktualizace selhala",
+            "paused": "Aktualizace pozastavena"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Nic ke stažení",
             "finished": "Dokončeno",
             "queued": "Ve frontě",
-            "remove": "Odebrat ze stažených"
+            "remove": "Odebrat ze stažených",
+            "pause": "Pozastavit stahování",
+            "resume": "Obnovit stahování"
         }
     },
     "Recent": "Recently Played",
