@@ -70,7 +70,7 @@ async function install({
       await window.api.requestAppSettings()
     const args: Electron.OpenDialogOptions = {
       buttonLabel: t('gamepage:box.choose'),
-      properties: ['openFile'],
+      properties: ['openDirectory'],
       title: t('gamepage:box.importpath'),
       defaultPath: defaultInstallPath
       //TODO: add file filters
