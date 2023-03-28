@@ -8,7 +8,7 @@ import {
 } from 'common/types'
 
 import { TFunction } from 'i18next'
-import { getGameInfo, sendKill } from './index'
+import { getGameInfo } from './index'
 import { DialogModalOptions } from 'frontend/types'
 
 const storage: Storage = window.localStorage
@@ -53,7 +53,7 @@ async function install({
     if (!folder_name) return
     return handleStopInstallation(
       appName,
-      [installPath, folder_name],
+      installPath,
       t,
       progress,
       runner,
@@ -118,7 +118,7 @@ async function install({
 
 async function handleStopInstallation(
   appName: string,
-  [path, folderName]: string[],
+  path: string,
   t: TFunction<'gamepage'>,
   progress: InstallProgress,
   runner: Runner,
@@ -136,15 +136,14 @@ async function handleStopInstallation(
             appName,
             JSON.stringify({ ...progress, folder: path })
           )
-          sendKill(appName, runner)
+          window.api.cancelDownload(false)
         }
       },
       {
         text: t('box.no'),
         onClick: async () => {
-          await sendKill(appName, runner)
+          window.api.cancelDownload(true)
           storage.removeItem(appName)
-          window.api.removeFolder([path, folderName])
         }
       }
     ]

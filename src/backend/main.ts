@@ -545,7 +545,7 @@ ipcMain.on('showConfigFileInFolder', async (event, appName) => {
   return openUrlOrFile(path.join(gamesConfigPath, `${appName}.json`))
 })
 
-ipcMain.on('removeFolder', async (e, [path, folderName]) => {
+export function removeFolder(path: string, folderName: string) {
   if (path === 'default') {
     const { defaultInstallPath } = GlobalConfig.get().getSettings()
     const path = defaultInstallPath.replaceAll("'", '')
@@ -565,6 +565,10 @@ ipcMain.on('removeFolder', async (e, [path, folderName]) => {
     }, 2000)
   }
   return
+}
+
+ipcMain.on('removeFolder', async (e, [path, folderName]) => {
+  removeFolder(path, folderName)
 })
 
 async function runWineCommandOnGame(
