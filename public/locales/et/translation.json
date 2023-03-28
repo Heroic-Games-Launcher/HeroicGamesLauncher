@@ -365,7 +365,9 @@
             "error": "Paigaldamine ebaõnnestus",
             "finished": "Paigaldamine lõpetatud",
             "imported": "Mäng imporditud",
-            "startInstall": "Paigaldamine algas"
+            "startInstall": "Paigaldamine algas",
+            "failed": "Paigaldamine ebaõnnestus",
+            "paused": "Installimine peatatud"
         },
         "moved": "Teisaldamine on lõpule viidud",
         "moving": "Mängu liigutamine",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "Uuendatud tühistatud",
             "finished": "Uuendus lõpetatud",
-            "started": "Uuendamine algas"
+            "started": "Uuendamine algas",
+            "failed": "Uuendus ebaõnnestus",
+            "paused": "Värskendus peatatud"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Nothing to download",
             "finished": "Completed",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "pause": "Peatage allalaadimine",
+            "resume": "Jätkake allalaadimist"
         }
     },
     "Recent": "Hiljuti mängitud",
