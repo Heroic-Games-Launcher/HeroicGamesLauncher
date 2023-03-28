@@ -19,7 +19,7 @@ import {
   GamesDBData,
   Library
 } from 'common/types/gog'
-import { basename, dirname, join } from 'node:path'
+import { basename, join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
 import { app } from 'electron'
 
@@ -585,7 +585,7 @@ export async function importGame(data: GOGImportData, executablePath: string) {
 
   const installInfo: InstalledInfo = {
     appName: data.appName,
-    install_path: dirname(executablePath),
+    install_path: executablePath,
     executable: executablePath,
     install_size: getFileSize(gameInfo.manifest?.disk_size),
     is_dlc: false,
