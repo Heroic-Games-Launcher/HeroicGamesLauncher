@@ -8,7 +8,6 @@ import {
   ButtonOptions,
   LibraryTopSectionOptions,
   DMQueueElement,
-  SideloadGame,
   DownloadManagerState
 } from 'common/types'
 

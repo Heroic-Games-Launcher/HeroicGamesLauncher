@@ -1,7 +1,7 @@
 import { gameManagerMap } from 'backend/storeManagers'
 import { logError, LogPrefix, logWarning } from '../logger/logger'
 import { isEpicServiceOffline } from '../utils'
-import { DMStatus, InstallParams, InstallPlatform } from 'common/types'
+import { DMStatus, InstallParams } from 'common/types'
 import i18next from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
 import { isOnline } from '../online_monitor'
@@ -65,15 +65,13 @@ async function installQueueElement(params: InstallParams): Promise<{
   }
 
   try {
-    const installPlatform = platformToInstall as InstallPlatform
-    const installInstance = async () =>
-      gameManagerMap[runner].install(appName, {
-        path: path.replaceAll("'", ''),
-        installDlcs,
-        sdlList,
-        platformToInstall: installPlatform,
-        installLanguage
-      })
+    const { status, error } = await gameManagerMap[runner].install(appName, {
+      path: path.replaceAll("'", ''),
+      installDlcs,
+      sdlList,
+      platformToInstall,
+      installLanguage
+    })
 
     if (status === 'error') {
       errorMessage(error ?? '')

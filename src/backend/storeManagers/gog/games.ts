@@ -22,7 +22,8 @@ import {
   killPattern,
   spawnAsync,
   moveOnUnix,
-  moveOnWindows
+  moveOnWindows,
+  shutdownWine
 } from '../../utils'
 import {
   ExtraInfo,
@@ -834,9 +835,14 @@ export async function forceUninstall(appName: string): Promise<void> {
 
 // Could be removed if gogdl handles SIGKILL and SIGTERM for us
 // which is send via AbortController
-export async function stop(appName: string): Promise<void> {
+export async function stop(appName: string, stopWine = true): Promise<void> {
   const pattern = isLinux ? appName : 'gogdl'
   killPattern(pattern)
+
+  if (stopWine && !isNative(appName) && isLinux) {
+    const gameSettings = await getSettings(appName)
+    await shutdownWine(gameSettings)
+  }
 }
 
 export function isGameAvailable(appName: string) {

@@ -29,7 +29,8 @@ import {
   getLegendaryBin,
   killPattern,
   moveOnUnix,
-  moveOnWindows
+  moveOnWindows,
+  shutdownWine
 } from '../../utils'
 import {
   isMac,
@@ -964,13 +965,18 @@ export async function forceUninstall(appName: string) {
 
 // Could be removed if legendary handles SIGKILL and SIGTERM for us
 // which is send via AbortController
-export async function stop(appName: string) {
+export async function stop(appName: string, stopWine = true) {
   // until the legendary bug gets fixed, kill legendary on mac
   // not a perfect solution but it's the only choice for now
 
   // @adityaruplaha: this is kinda arbitary and I don't understand it.
   const pattern = process.platform === 'linux' ? appName : 'legendary'
   killPattern(pattern)
+
+  if (stopWine && isNative(appName)) {
+    const gameSettings = await getSettings(appName)
+    await shutdownWine(gameSettings)
+  }
 }
 
 export function isGameAvailable(appName: string) {
