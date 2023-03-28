@@ -365,7 +365,9 @@
             "error": "설치 실패",
             "finished": "설치 완료됨",
             "imported": "게임을 가져왔습니다",
-            "startInstall": "설치 시작됨"
+            "startInstall": "설치 시작됨",
+            "failed": "설치 실패",
+            "paused": "설치가 일시 중지됨"
         },
         "moved": "이동 완료됨",
         "moving": "Moving Game",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "업데이트 취소됨",
             "finished": "업데이트 완료",
-            "started": "업데이트 시작됨"
+            "started": "업데이트 시작됨",
+            "failed": "업데이트가 실패",
+            "paused": "업데이트 일시중지됨"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Nothing to download",
             "finished": "Completed",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "resume": "다운로드 재개",
+            "pause": "다운로드 일시중지"
         }
     },
     "Recent": "최근 플레이한 게임",
