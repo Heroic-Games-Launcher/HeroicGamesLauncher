@@ -42,6 +42,7 @@ import { installStore, libraryStore } from './electronStores'
 import { callRunner } from '../launcher'
 import { dirname, join } from 'path'
 import { isOnline } from '../online_monitor'
+import { Mutex } from 'async-mutex'
 
 /**
  * Legendary LegendaryLibrary.
@@ -631,19 +632,23 @@ export class LegendaryLibrary {
   public hasGame = (appName: string) => this.allGames.has(appName)
 }
 
+const legendaryMutex = new Mutex()
+
 export async function runLegendaryCommand(
   commandParts: string[],
   abortController: AbortController,
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
   const { dir, bin } = getLegendaryBin()
-  return callRunner(
-    commandParts,
-    { name: 'legendary', logPrefix: LogPrefix.Legendary, bin, dir },
-    abortController,
-    {
-      ...options,
-      verboseLogFile: legendaryLogFile
-    }
+  return legendaryMutex.runExclusive(async () =>
+    callRunner(
+      commandParts,
+      { name: 'legendary', logPrefix: LogPrefix.Legendary, bin, dir },
+      abortController,
+      {
+        ...options,
+        verboseLogFile: legendaryLogFile
+      }
+    )
   )
 }
