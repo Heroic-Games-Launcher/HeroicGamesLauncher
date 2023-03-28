@@ -179,6 +179,12 @@ export async function launchApp(appName: string): Promise<boolean> {
         }
       }
 
+      sendFrontendMessage('gameStatusUpdate', {
+        appName: appName,
+        runner: 'sideload',
+        status: 'playing'
+      })
+
       const commandParts = shlex.split(launcherArgs ?? '')
       await callRunner(
         commandParts,
@@ -196,12 +202,6 @@ export async function launchApp(appName: string): Promise<boolean> {
           logMessagePrefix: LogPrefix.Backend
         }
       )
-
-      sendFrontendMessage('gameStatusUpdate', {
-        appName: appName,
-        runner: 'sideload',
-        status: 'playing'
-      })
 
       launchCleanup(rpcClient)
       // TODO: check and revert to previous permissions
@@ -221,6 +221,12 @@ export async function launchApp(appName: string): Promise<boolean> {
       gameSettings.wineVersion = globalSettings.wineVersion
     }
 
+    sendFrontendMessage('gameStatusUpdate', {
+      appName: appName,
+      runner: 'sideload',
+      status: 'playing'
+    })
+
     await runWineCommand({
       commandParts: [executable, launcherArgs ?? ''],
       gameSettings,
@@ -231,12 +237,6 @@ export async function launchApp(appName: string): Promise<boolean> {
         logFile: appLogFileLocation(appName),
         logMessagePrefix: LogPrefix.Backend
       }
-    })
-
-    sendFrontendMessage('gameStatusUpdate', {
-      appName: appName,
-      runner: 'sideload',
-      status: 'playing'
     })
 
     launchCleanup(rpcClient)
