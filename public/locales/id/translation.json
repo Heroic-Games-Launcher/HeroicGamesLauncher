@@ -365,7 +365,9 @@
             "error": "Pemasangan Gagal",
             "finished": "Pemasangan Selesai",
             "imported": "Gim Diimpor",
-            "startInstall": "Pemasangan Dimulai"
+            "startInstall": "Pemasangan Dimulai",
+            "failed": "Pemasangan Gagal",
+            "paused": "Instalasi Dijeda"
         },
         "moved": "Selesai Memindahkan",
         "moving": "Memindahkan Gim",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "Pembaruan Dibatalkan",
             "finished": "Pembaruan Selesai",
-            "started": "Pembaruan Dimulai"
+            "started": "Pembaruan Dimulai",
+            "failed": "Pembaharuan gagal",
+            "paused": "Pembaruan Dijeda"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Tidak ada yang diunduh",
             "finished": "Selesai",
             "queued": "Antrian",
-            "remove": "Hapus dari Unduhan"
+            "remove": "Hapus dari Unduhan",
+            "pause": "Jeda unduhan",
+            "resume": "Lanjutkan unduhan"
         }
     },
     "Recent": "Dimainkan Baru-Baru Ini",
