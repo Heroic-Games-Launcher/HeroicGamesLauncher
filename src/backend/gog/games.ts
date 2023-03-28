@@ -783,7 +783,7 @@ class GOGGame extends Game {
     return res
   }
 
-  public async update(): Promise<{ status: 'done' | 'error' }> {
+  public async update(): Promise<{ status: 'done' | 'error' | 'abort' }> {
     const {
       installPlatform,
       gameData,
@@ -831,7 +831,7 @@ class GOGGame extends Game {
     deleteAbortController(this.appName)
 
     if (res.abort) {
-      return { status: 'done' }
+      return { status: 'abort' }
     }
 
     if (res.error) {
@@ -927,10 +927,10 @@ class GOGGame extends Game {
 
   // Could be removed if gogdl handles SIGKILL and SIGTERM for us
   // which is send via AbortController
-  public async stop(): Promise<void> {
+  public async stop(stopWine = true): Promise<void> {
     const pattern = isLinux ? this.appName : 'gogdl'
     killPattern(pattern)
-    if (!this.isNative() && isLinux) {
+    if (stopWine && !this.isNative() && isLinux) {
       const gameSettings = await this.getSettings()
       await shutdownWine(gameSettings)
     }

@@ -2,7 +2,7 @@ import './index.css'
 
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { DMQueueElement } from 'common/types'
+import { DMQueueElement, DownloadManagerState } from 'common/types'
 import { UpdateComponent } from 'frontend/components/UI'
 import ProgressHeader from './components/ProgressHeader'
 import DownloadManagerHeader from './DownloadManagerHeader'
@@ -13,23 +13,30 @@ import DownloadManagerItem from './components/DownloadManagerItem'
 export default React.memo(function DownloadManager(): JSX.Element | null {
   const { t } = useTranslation()
   const [refreshing, setRefreshing] = useState(false)
+  const [state, setState] = useState<DownloadManagerState>('idle')
   const [plannendElements, setPlannendElements] = useState<DMQueueElement[]>([])
   const [currentElement, setCurrentElement] = useState<DMQueueElement>()
   const [finishedElem, setFinishedElem] = useState<DMQueueElement[]>()
 
   useEffect(() => {
     setRefreshing(true)
-    window.api.getDMQueueInformation().then(({ elements }: DMQueue) => {
+    window.api.getDMQueueInformation().then(({ elements, state }: DMQueue) => {
       setCurrentElement(elements[0])
       setPlannendElements([...elements.slice(1)])
       setRefreshing(false)
+      setState(state)
     })
 
     const removeHandleDMQueueInformation = window.api.handleDMQueueInformation(
-      (e: Electron.IpcRendererEvent, elements: DMQueueElement[]) => {
+      (
+        e: Electron.IpcRendererEvent,
+        elements: DMQueueElement[],
+        state: DownloadManagerState
+      ) => {
         if (elements) {
           setCurrentElement(elements[0])
           setPlannendElements([...elements.slice(1)])
+          setState(state)
         }
       }
     )
@@ -82,7 +89,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
       {
         <>
           <ProgressHeader
-            downloading={Boolean(currentElement)}
+            state={state}
             appName={currentElement?.params?.appName ?? ''}
           />
           {currentElement && (
@@ -101,6 +108,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
                   <DownloadManagerItem
                     element={currentElement}
                     current={true}
+                    state={state}
                   />
                 </div>
               </div>

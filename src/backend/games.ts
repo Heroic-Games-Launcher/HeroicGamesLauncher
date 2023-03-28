@@ -31,7 +31,7 @@ abstract class Game {
   abstract install(args: InstallArgs): Promise<{ status: string }>
   abstract addShortcuts(): Promise<void>
   abstract launch(launchArguments?: string): Promise<boolean>
-  abstract stop(): Promise<void>
+  abstract stop(stopWine: boolean): Promise<void>
   abstract moveInstall(
     newInstallPath: string
   ): Promise<{ status: 'done' } | { status: 'error'; error: string }>

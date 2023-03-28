@@ -1,13 +1,13 @@
-import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
+import { logError, LogPrefix, logWarning } from '../logger/logger'
 import { getGame, isEpicServiceOffline } from '../utils'
-import { InstallParams } from 'common/types'
+import { DMStatus, InstallParams } from 'common/types'
 import i18next from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
 import { isOnline } from '../online_monitor'
 import { sendFrontendMessage } from '../main_window'
 
 async function installQueueElement(params: InstallParams): Promise<{
-  status: 'done' | 'error' | 'abort'
+  status: DMStatus
   error?: string | undefined
 }> {
   const {
@@ -59,16 +59,9 @@ async function installQueueElement(params: InstallParams): Promise<{
 
   const errorMessage = (error: string) => {
     logError(
-      ['Installing of', params.appName, 'failed with:', error],
+      ['Installation of', params.appName, 'failed with:', error],
       LogPrefix.DownloadManager
     )
-
-    sendFrontendMessage('gameStatusUpdate', {
-      appName,
-      runner,
-      status: 'done'
-    })
-    return error
   }
 
   try {
@@ -80,42 +73,25 @@ async function installQueueElement(params: InstallParams): Promise<{
       installLanguage
     })
 
-    if (status === 'abort') {
-      logWarning(
-        ['Installing of', params.appName, 'aborted!'],
-        LogPrefix.DownloadManager
-      )
-      notify({ title, body: i18next.t('notify.install.canceled') })
-    } else if (status === 'done') {
-      notify({
-        title,
-        body: i18next.t('notify.install.finished')
-      })
-
-      logInfo(
-        ['Finished installing of', params.appName],
-        LogPrefix.DownloadManager
-      )
-    } else if (status === 'error') {
+    if (status === 'error') {
       errorMessage(error ?? '')
-      return { status: 'error' }
     }
-
-    sendFrontendMessage('gameStatusUpdate', {
-      appName,
-      runner,
-      status: 'done'
-    })
 
     return { status }
   } catch (error) {
     errorMessage(`${error}`)
     return { status: 'error' }
+  } finally {
+    sendFrontendMessage('gameStatusUpdate', {
+      appName,
+      runner,
+      status: 'done'
+    })
   }
 }
 
 async function updateQueueElement(params: InstallParams): Promise<{
-  status: 'done' | 'error'
+  status: DMStatus
   error?: string | undefined
 }> {
   const { appName, runner } = params
@@ -156,40 +132,30 @@ async function updateQueueElement(params: InstallParams): Promise<{
     body: i18next.t('notify.update.started', 'Update Started')
   })
 
+  const errorMessage = (error: string) => {
+    logError(
+      ['Update of', params.appName, 'failed with:', error],
+      LogPrefix.DownloadManager
+    )
+  }
+
   try {
     const { status } = await game.update()
 
     if (status === 'error') {
-      logWarning(
-        ['Updating of', params.appName, 'aborted!'],
-        LogPrefix.DownloadManager
-      )
-      notify({ title, body: i18next.t('notify.update.canceled') })
-    } else if (status === 'done') {
-      notify({
-        title,
-        body: i18next.t('notify.update.finished')
-      })
-
-      logInfo(
-        ['Finished updating of', params.appName],
-        LogPrefix.DownloadManager
-      )
+      errorMessage('')
     }
-    return { status: 'done' }
-  } catch (error) {
-    logError(
-      ['Updating of', params.appName, 'failed with:', error],
-      LogPrefix.DownloadManager
-    )
 
+    return { status }
+  } catch (error) {
+    errorMessage(`${error}`)
+    return { status: 'error' }
+  } finally {
     sendFrontendMessage('gameStatusUpdate', {
       appName,
       runner,
       status: 'done'
     })
-
-    return { status: 'error' }
   }
 }
 
