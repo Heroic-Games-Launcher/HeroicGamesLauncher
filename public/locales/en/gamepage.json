@@ -6,7 +6,7 @@
             "title": "Change Games Install Path"
         },
         "choose": "Choose",
-        "importpath": "Choose game executable to import",
+        "importpath": "Choose Game Folder to import",
         "move": {
             "message": "This can take a long time, are you sure?",
             "path": "Choose where you want to move",
