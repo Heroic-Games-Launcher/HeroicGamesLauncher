@@ -28,8 +28,16 @@ export class GOGUser {
       createAbortController('gogdl-auth')
     )
 
-    const data: GOGLoginData = JSON.parse(stdout.trim())
-    if (data?.error) {
+    try {
+      const data: GOGLoginData = JSON.parse(stdout.trim())
+      if (data?.error) {
+        return { status: 'error' }
+      }
+    } catch (err) {
+      logError(
+        `GOG login failed to parse std output from gogdl. stdout: ${stdout.trim()}`,
+        LogPrefix.Gog
+      )
       return { status: 'error' }
     }
     deleteAbortController('gogdl-auth')
