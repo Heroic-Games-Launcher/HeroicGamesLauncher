@@ -410,7 +410,9 @@
             "error": "O‘rnatish amalga oshmadi",
             "finished": "O'rnatish tugallandi",
             "imported": "O'yin import qilingan",
-            "startInstall": "O'rnatish boshlandi"
+            "startInstall": "O'rnatish boshlandi",
+            "failed": "O‘rnatish amalga oshmadi",
+            "paused": "Oʻrnatish toʻxtatildi"
         },
         "moved": "Ko‘chirish tugallandi",
         "moving": "Harakatlanuvchi o'yin",
@@ -422,7 +424,9 @@
         "update": {
             "canceled": "Yangilangan Bekor qilingan",
             "finished": "Yangilash tugallandi",
-            "started": "Yangilash boshlandi"
+            "started": "Yangilash boshlandi",
+            "failed": "Yangilash amalga oshmadi",
+            "paused": "Yangilash toʻxtatildi"
         }
     },
     "offline-message": {
@@ -487,7 +491,9 @@
             "empty": "Yuklab olish uchun hech narsa",
             "finished": "Bajarildi",
             "queued": "Navbatda",
-            "remove": "Yuklab olishlardan olib tashlash"
+            "remove": "Yuklab olishlardan olib tashlash",
+            "pause": "Yuklashni to'xtatib turish",
+            "resume": "Yuklashni davom ettirish"
         }
     },
     "Recent": "Yaqinda o'ynadi",
