@@ -997,7 +997,7 @@ ipcMain.handle(
     const isNative = gameManagerMap[runner].isNative(appName)
 
     // check if isNative, if not, check if wine is valid
-    if (isNative) {
+    if (!isNative) {
       const isWineOkToLaunch = await checkWineBeforeLaunch(
         appName,
         gameSettings,
