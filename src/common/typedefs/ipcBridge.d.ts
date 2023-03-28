@@ -127,9 +127,7 @@ interface AsyncIPCFunctions {
     appName: string,
     runner: Runner,
     installPlatform: InstallPlatform
-  ) => Promise<
-    LegendaryInstallInfo | GogInstallInfo | HyperPlayInstallInfo | null
-  >
+  ) => Promise<LegendaryInstallInfo | GogInstallInfo | null>
   getUserInfo: () => Promise<UserInfo | undefined>
   isLoggedIn: () => boolean
   login: (sid: string) => Promise<{

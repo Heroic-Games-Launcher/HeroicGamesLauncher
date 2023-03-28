@@ -128,9 +128,7 @@ export async function launchGame(
     // Native
     if (isNative) {
       logInfo(
-        `launching native sideloaded or hyperplay store game: ${executable} ${
-          launcherArgs ?? ''
-        }`,
+        `launching native sideloaded game: ${executable} ${launcherArgs ?? ''}`,
         LogPrefix.Backend
       )
 

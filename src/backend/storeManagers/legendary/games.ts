@@ -855,7 +855,7 @@ export async function launch(
 
   appendFileSync(
     logFileLocation(appName),
-    "Legendary's config from config.ini (before HyperPlay's settings):\n"
+    "Legendary's config from config.ini (before App's settings):\n"
   )
 
   try {
