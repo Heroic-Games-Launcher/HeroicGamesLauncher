@@ -43,6 +43,7 @@ import { GOGCloudSavesLocation, GogInstallInfo } from 'common/types/gog'
  *    I've decided against that to keep it in line with the `AsyncIPCFunctions`
  *    interface
  */
+// ts-prune-ignore-next
 interface SyncIPCFunctions {
   setZoomFactor: (zoomFactor: string) => void
   changeLanguage: (language: string) => void
@@ -97,6 +98,7 @@ interface SyncIPCFunctions {
   cancelDownload: (removeDownloaded: boolean) => void
 }
 
+// ts-prune-ignore-next
 interface AsyncIPCFunctions {
   addToDMQueue: (element: DMQueueElement) => Promise<void>
   kill: (appName: string, runner: Runner) => Promise<void>
@@ -245,6 +247,7 @@ interface AsyncIPCFunctions {
 
 // This is quite ugly & throws a lot of errors in a regular .ts file
 // TODO: Find a TS magician who can improve this further
+// ts-prune-ignore-next
 declare namespace Electron {
   class IpcMain extends EventEmitter {
     public on: <

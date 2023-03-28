@@ -21,7 +21,7 @@ import { app, BrowserWindow } from 'electron'
 import { gameManagerMap } from '../index'
 const buildDir = resolve(__dirname, '../../build')
 
-export async function getAppSettings(appName: string): Promise<GameSettings> {
+async function getAppSettings(appName: string): Promise<GameSettings> {
   return (
     GameConfig.get(appName).config ||
     (await GameConfig.get(appName).getSettings())

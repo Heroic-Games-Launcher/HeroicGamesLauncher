@@ -29,7 +29,7 @@ export async function getInfoFromGamesDB(
  * @param etag (optional) value returned in response, works as checksum so we can check if we have up to date data
  * @returns object {isUpdated, data}, where isUpdated is true when Etags match
  */
-export async function getGamesdbData(
+async function getGamesdbData(
   runner: Runner,
   game_id: string,
   etag?: string
