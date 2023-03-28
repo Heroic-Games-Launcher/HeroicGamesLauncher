@@ -1,4 +1,4 @@
-import { heroicAnticheatDataPath, isWindows, isLinux } from '../constants'
+import { heroicAnticheatDataPath, isWindows } from '../constants'
 import * as axios from 'axios'
 import { logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { readFileSync, writeFileSync } from 'graceful-fs'
@@ -28,7 +28,7 @@ function gameAnticheatInfo(
   appNamespace: string | undefined
 ): AntiCheatInfo | null {
   if (appNamespace === undefined) return null
-  if (!isLinux) return null
+  if (isWindows) return null
 
   const data = readFileSync(heroicAnticheatDataPath)
   const jsonData = JSON.parse(data.toString())
