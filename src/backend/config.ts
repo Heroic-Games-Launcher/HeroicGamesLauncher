@@ -18,9 +18,9 @@ import {
   currentGlobalConfigVersion,
   heroicConfigPath,
   heroicDefaultWinePrefix,
-  heroicGamesConfigPath,
+  gamesConfigPath,
   heroicInstallPath,
-  heroicToolsPath,
+  toolsPath,
   userHome,
   isFlatpak,
   isMac,
@@ -170,7 +170,7 @@ abstract class GlobalConfig {
     const winePaths = new Set<string>()
 
     // search for wine installed on $HOME/Library/Application Support/heroic/tools/wine
-    const wineToolsPath = `${heroicToolsPath}/wine/`
+    const wineToolsPath = `${toolsPath}/wine/`
     if (existsSync(wineToolsPath)) {
       readdirSync(wineToolsPath).forEach((path) => {
         winePaths.add(join(wineToolsPath, path))
@@ -310,18 +310,18 @@ abstract class GlobalConfig {
       return [...macOsWineSet]
     }
 
-    if (!existsSync(`${heroicToolsPath}/wine`)) {
-      mkdirSync(`${heroicToolsPath}/wine`, { recursive: true })
+    if (!existsSync(`${toolsPath}/wine`)) {
+      mkdirSync(`${toolsPath}/wine`, { recursive: true })
     }
 
-    if (!existsSync(`${heroicToolsPath}/proton`)) {
-      mkdirSync(`${heroicToolsPath}/proton`, { recursive: true })
+    if (!existsSync(`${toolsPath}/proton`)) {
+      mkdirSync(`${toolsPath}/proton`, { recursive: true })
     }
 
     const altWine = new Set<WineInstallation>()
 
-    readdirSync(`${heroicToolsPath}/wine/`).forEach((version) => {
-      const wineBin = join(heroicToolsPath, 'wine', version, 'bin', 'wine')
+    readdirSync(`${toolsPath}/wine/`).forEach((version) => {
+      const wineBin = join(toolsPath, 'wine', version, 'bin', 'wine')
       altWine.add({
         bin: wineBin,
         name: `Wine - ${version}`,
@@ -347,7 +347,7 @@ abstract class GlobalConfig {
       })
     }
 
-    const protonPaths = [`${heroicToolsPath}/proton/`]
+    const protonPaths = [`${toolsPath}/proton/`]
 
     await getSteamLibraries().then((libs) => {
       libs.forEach((path) => {
@@ -529,8 +529,8 @@ class GlobalConfigV0 extends GlobalConfig {
       return this.config
     }
 
-    if (!existsSync(heroicGamesConfigPath)) {
-      mkdirSync(heroicGamesConfigPath, { recursive: true })
+    if (!existsSync(gamesConfigPath)) {
+      mkdirSync(gamesConfigPath, { recursive: true })
     }
 
     if (!existsSync(heroicConfigPath)) {

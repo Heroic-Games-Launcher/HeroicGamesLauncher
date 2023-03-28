@@ -5,7 +5,7 @@ import { GlobalConfig } from './config'
 import {
   currentGameConfigVersion,
   heroicConfigPath,
-  heroicGamesConfigPath,
+  gamesConfigPath,
   isLinux,
   isMac,
   isWindows,
@@ -34,7 +34,7 @@ abstract class GameConfig {
 
   protected constructor(appName: string) {
     this.appName = appName
-    this.path = join(heroicGamesConfigPath, appName + '.json')
+    this.path = join(gamesConfigPath, appName + '.json')
   }
 
   /**
@@ -46,7 +46,7 @@ abstract class GameConfig {
    */
   public static get(appName: string): GameConfig {
     let version: GameConfigVersion
-    const path = join(heroicGamesConfigPath, appName + '.json')
+    const path = join(gamesConfigPath, appName + '.json')
     // Config file doesn't already exist, make one with the current version.
     if (!existsSync(path)) {
       version = currentGameConfigVersion

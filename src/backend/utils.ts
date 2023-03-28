@@ -30,7 +30,7 @@ import {
   fixAsarPath,
   getSteamLibraries,
   heroicConfigPath,
-  heroicGamesConfigPath,
+  gamesConfigPath,
   icon,
   isWindows,
   publicDir,
@@ -58,7 +58,7 @@ import { notify, showDialogBoxModalAuto } from './dialog/dialog'
 import { getMainWindow, sendFrontendMessage } from './main_window'
 import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
-import { validWine } from './launcher'
+import { validWine, runWineCommand } from './launcher'
 import { gameManagerMap } from 'backend/storeManagers'
 
 const execAsync = promisify(exec)
@@ -246,7 +246,7 @@ const showAboutWindow = () => {
 }
 
 async function handleExit() {
-  const isLocked = existsSync(join(heroicGamesConfigPath, 'lock'))
+  const isLocked = existsSync(join(gamesConfigPath, 'lock'))
   const mainWindow = getMainWindow()
 
   if (isLocked && mainWindow) {
@@ -471,7 +471,7 @@ async function clearCache() {
 }
 
 function resetHeroic() {
-  const heroicFolders = [heroicGamesConfigPath, heroicConfigPath]
+  const heroicFolders = [gamesConfigPath, heroicConfigPath]
   heroicFolders.forEach((folder) => {
     rmSync(folder, { recursive: true, force: true })
   })

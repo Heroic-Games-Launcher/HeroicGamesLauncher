@@ -21,7 +21,11 @@ export const uninstall = async (
   shouldRemoveSetting: boolean
 ) => {
   if (runner === 'sideload') {
-    return ipcRenderer.invoke('removeApp', { appName, shouldRemovePrefix })
+    return ipcRenderer.invoke('removeApp', {
+      appName,
+      shouldRemovePrefix,
+      runner
+    })
   } else {
     return ipcRenderer.invoke(
       'uninstall',
@@ -88,8 +92,3 @@ export const handleRecentGamesChanged = (callback: any) => {
 }
 
 export const addNewApp = (args: GameInfo) => ipcRenderer.send('addNewApp', args)
-
-export const launchApp = async (
-  appName: string,
-  runner: 'hyperplay' | 'sideload'
-): Promise<boolean> => ipcRenderer.invoke('launchApp', appName, runner)

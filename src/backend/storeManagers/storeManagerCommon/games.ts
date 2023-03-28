@@ -19,8 +19,6 @@ import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { createAbortController } from '../../utils/aborthandler/aborthandler'
 import { app, BrowserWindow } from 'electron'
 import { gameManagerMap } from '../index'
-import find from 'find-process'
-import { OverlayApp } from 'backend/overlay/overlay'
 const buildDir = resolve(__dirname, '../../build')
 
 export async function getAppSettings(appName: string): Promise<GameSettings> {
@@ -62,26 +60,6 @@ const openNewBrowserGameWindow = async (
     browserGame.on('close', () => {
       res(true)
     })
-  })
-}
-
-export function getGameProcessName(gameInfo: GameInfo): string | undefined {
-  const installedPlatform = gameInfo.install.platform
-  if (installedPlatform === undefined) return
-  return gameInfo.releaseMeta?.platforms[installedPlatform]?.processName
-}
-
-async function injectProcess(gameInfo: GameInfo) {
-  const processNameToInject = getGameProcessName(gameInfo)
-  if (processNameToInject === undefined) return
-
-  find('name', processNameToInject, true).then((val) => {
-    console.log('found this with process name = ', JSON.stringify(val, null, 4))
-    for (const process_i of val) {
-      const pidToInject = process_i.pid
-      logInfo(`Injecting pid = ${pidToInject}`, LogPrefix.HyperPlay)
-      OverlayApp.inject({ pid: pidToInject.toString() })
-    }
   })
 }
 
@@ -171,11 +149,6 @@ export async function launchGame(
 
       const commandParts = shlex.split(launcherArgs ?? '')
 
-      if (runner === 'hyperplay') {
-        //some games take a while to launch. 8 seconds seems to work well
-        setTimeout(async () => injectProcess(gameInfo), 8000)
-      }
-
       await callRunner(
         commandParts,
         {
@@ -190,8 +163,7 @@ export async function launchGame(
           wrappers,
           logFile: logFileLocation(appName),
           logMessagePrefix: LogPrefix.Backend
-        },
-        runner === 'sideload' ? true : false
+        }
       )
 
       launchCleanup(rpcClient)

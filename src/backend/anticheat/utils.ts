@@ -1,4 +1,4 @@
-import { heroicAnticheatDataPath, isWindows } from '../constants'
+import { heroicAnticheatDataPath, isWindows, isLinux } from '../constants'
 import * as axios from 'axios'
 import { logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { readFileSync, writeFileSync } from 'graceful-fs'

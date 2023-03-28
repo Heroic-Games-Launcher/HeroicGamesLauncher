@@ -9,12 +9,7 @@ import { existsSync, readFileSync } from 'graceful-fs'
 import { t } from 'i18next'
 import { join } from 'path'
 
-import {
-  toolsPath,
-  isLinux,
-  legendaryConfigPath,
-  icon
-} from '../../../constants'
+import { toolsPath, isLinux, legendaryConfigPath } from '../../../constants'
 import { logError, LogPrefix, logWarning } from '../../../logger/logger'
 import { runRunnerCommand as runLegendaryCommand } from '../library'
 import { verifyWinePrefix } from '../../../launcher'
@@ -23,7 +18,7 @@ import { setCurrentDownloadSize } from '../games'
 
 const currentVersionPath = join(legendaryConfigPath, 'overlay_version.json')
 const installedVersionPath = join(legendaryConfigPath, 'overlay_install.json')
-const defaultInstallPath = join(heroicToolsPath, 'eos_overlay')
+const defaultInstallPath = join(toolsPath, 'eos_overlay')
 const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
 
 function getStatus(): {

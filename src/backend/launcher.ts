@@ -48,7 +48,7 @@ import { spawn } from 'child_process'
 import shlex from 'shlex'
 import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
-import { setupUbisoftConnect } from './legendary/setup'
+import { setupUbisoftConnect } from './storeManagers/legendary/setup'
 import { gameManagerMap } from 'backend/storeManagers'
 
 async function prepareLaunch(
@@ -206,7 +206,12 @@ async function prepareWineLaunch(
       ['Created/Updated Wineprefix at', gameSettings.winePrefix],
       LogPrefix.Backend
     )
-    await setup(appName)
+    if (runner === 'gog') {
+      await setup(appName)
+    }
+    if (runner === 'legendary') {
+      await setupUbisoftConnect(appName)
+    }
   }
 
   // If DXVK/VKD3D installation is enabled, install it
@@ -653,8 +658,7 @@ async function callRunner(
   commandParts: string[],
   runner: RunnerProps,
   abortController: AbortController,
-  options?: CallRunnerOptions,
-  injectChildWithHyperPlayOverlay = false
+  options?: CallRunnerOptions
 ): Promise<ExecResult> {
   const fullRunnerPath = join(runner.dir, runner.bin)
   const appName = commandParts[commandParts.findIndex(() => 'launch') + 1]

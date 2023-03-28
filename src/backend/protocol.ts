@@ -5,93 +5,137 @@ import { getInfo } from './utils'
 import { GameInfo, Runner } from 'common/types'
 import { getMainWindow, sendFrontendMessage } from './main_window'
 import { icon } from './constants'
-import { getGameInfo } from 'backend/storeManagers/hyperplay/games'
-import { addGameToLibrary } from 'backend/storeManagers/hyperplay/library'
 
 type Command = 'ping' | 'launch'
 
-const RUNNERS = ['hyperplay', 'legendary', 'gog', 'sideload']
+const RUNNERS = ['legendary', 'gog', 'sideload']
 
+/**
+ * Handles a protocol request
+ * @param args The args to search
+ * @example
+ * handleProtocol(['heroic://ping'])
+ * // => 'Received ping! Arg: undefined'
+ * handleProtocol(['heroic://launch/legendary/123'])
+ * // => 'Received launch! Runner: legendary, Arg: 123'
+ **/
 export async function handleProtocol(args: string[]) {
   const mainWindow = getMainWindow()
 
-  // Figure out which argv element is our protocol
-  let url = ''
-  args.forEach((val) => {
-    if (val.startsWith('heroic://')) {
-      url = val
-    }
-  })
-
-  const [scheme, path] = url.split('://')
-  if (!url || scheme !== 'heroic' || !path) {
+  const url = getUrl(args)
+  if (!url) {
     return
   }
-  let [command, arg] = path.split('/')
-  if (!command || !arg) {
-    command = path
-    arg = ''
-  }
+
+  const [command, runner, arg = ''] = parseUrl(url)
 
   logInfo(`received '${url}'`, LogPrefix.ProtocolHandler)
 
-  if (command === 'ping') {
-    return logInfo(['Received ping! Arg:', arg], LogPrefix.ProtocolHandler)
+  switch (command) {
+    case 'ping':
+      return handlePing(arg)
+    case 'launch':
+      await handleLaunch(runner, arg, mainWindow)
+      break
+    default:
+      return
+  }
+}
+
+/**
+ * Gets the url from the args
+ * @param args The args to search
+ * @returns The url if found, undefined otherwise
+ * @example
+ * getUrl(['heroic://ping'])
+ * // => 'heroic://ping'
+ * getUrl(['heroic://launch/legendary/123'])
+ * // => 'heroic://launch/legendary/123'
+ **/
+function getUrl(args: string[]): string | undefined {
+  return args.find((arg) => arg.startsWith('heroic://'))
+}
+
+/**
+ * Parses a url into a tuple of [Command, Runner?, string?]
+ * @param url The url to parse
+ * @returns A tuple of [Command, Runner?, string?]
+ * @example
+ * parseUrl('heroic://ping')
+ * // => ['ping', undefined, undefined]
+ * parseUrl('heroic://launch/legendary/123')
+ * // => ['launch', 'legendary', '123']
+ **/
+function parseUrl(url: string): [Command, Runner?, string?] {
+  const [, fullCommand] = url.split('://')
+
+  //check if the second param is a runner or not and adjust parts accordingly
+  const hasRunner = RUNNERS.includes(fullCommand.split('/')[1] as Runner)
+  if (hasRunner) {
+    const [command, runner, arg] = fullCommand.split('/')
+    return [command as Command, runner as Runner, arg]
+  } else {
+    const [command, arg] = fullCommand.split('/')
+    return [command as Command, undefined, arg]
+  }
+}
+
+async function handlePing(arg: string) {
+  return logInfo(['Received ping! Arg:', arg], LogPrefix.ProtocolHandler)
+}
+
+/**
+ * Handles a launch command
+ * @param runner The runner to launch the game with
+ * @param arg The game to launch
+ * @param mainWindow The main window
+ * @example
+ * handleLaunch('legendary', '123')
+ * // => 'Received launch! Runner: legendary, Arg: 123'
+ **/
+async function handleLaunch(
+  runner: Runner | undefined,
+  arg: string | undefined,
+  mainWindow?: Electron.BrowserWindow | null
+) {
+  const game = await findGame(runner, arg)
+
+  if (!game) {
+    return logError(
+      `Could not receive game data for ${arg}!`,
+      LogPrefix.ProtocolHandler
+    )
   }
 
-  if (command === 'launch') {
-    const runners: Runner[] = ['legendary', 'gog', 'sideload']
+  const { is_installed, title, app_name, runner: gameRunner } = game
 
-    const game = runners
-      .map((runner) => getInfo(arg, runner))
-      .filter(({ app_name }) => app_name)
-      .shift()
+  if (!is_installed) {
+    logInfo(`"${title}" not installed.`, LogPrefix.ProtocolHandler)
 
-    if (!game) {
-      return logError(
-        `Could not receive game data for ${arg}!`,
-        LogPrefix.ProtocolHandler
-      )
+    if (!mainWindow) {
+      return
     }
 
-    const { is_installed, title, app_name, runner } = game
-    if (!is_installed) {
-      logInfo(`"${arg}" not installed.`, LogPrefix.ProtocolHandler)
-
-      if (!mainWindow) {
-        return
-      }
-
-      const { response } = await dialog.showMessageBox(mainWindow, {
-        buttons: [i18next.t('box.yes'), i18next.t('box.no')],
-        cancelId: 1,
-        message: `${title} ${i18next.t(
-          'box.protocol.install.not_installed',
-          'Is Not Installed, do you wish to Install it?'
-        )}`,
-        title: title
+    const { response } = await dialog.showMessageBox(mainWindow, {
+      buttons: [i18next.t('box.yes'), i18next.t('box.no')],
+      cancelId: 1,
+      message: `${title} ${i18next.t(
+        'box.protocol.install.not_installed',
+        'Is Not Installed, do you wish to Install it?'
+      )}`,
+      title: title,
+      icon: icon
+    })
+    if (response === 0) {
+      return sendFrontendMessage('installGame', {
+        appName: app_name,
+        runner: gameRunner
       })
-      if (response === 0) {
-        const { filePaths, canceled } = await dialog.showOpenDialog({
-          buttonLabel: i18next.t('box.choose'),
-          properties: ['openDirectory'],
-          title: i18next.t('install.path', 'Select Install Path')
-        })
-        if (canceled) {
-          return
-        }
-        if (filePaths[0]) {
-          return sendFrontendMessage('installGame', {
-            appName: app_name,
-            runner,
-            path: filePaths[0]
-          })
-        }
-      }
-      if (response === 1) {
-        return logInfo('Not installing game', LogPrefix.ProtocolHandler)
-      }
     }
+    if (response === 1) {
+      return logInfo('Not installing game', LogPrefix.ProtocolHandler)
+    }
+  }
 
   mainWindow?.hide()
   sendFrontendMessage('launchGame', arg, gameRunner)
@@ -102,29 +146,17 @@ async function findGame(
   arg: string | undefined = ''
 ): Promise<GameInfo | null> {
   // If the runner is specified, only search for that runner
-  const runnersToSearch = runner ? [runner, 'hyperplay'] : RUNNERS
+  const runnersToSearch = runner ? [runner] : RUNNERS
 
   // Search for the game in the runners specified in runnersToSearch and return the first one found (if any)
   for (const currentRunner of runnersToSearch) {
-    const run = (currentRunner as Runner) || 'hyperplay'
+    const run = currentRunner as Runner
     // handle hp games that are not on the library
-
-    if (run === 'hyperplay') {
-      try {
-        getGameInfo(arg)
-      } catch (error) {
-        logInfo(
-          `Game ${arg} not found in library. Adding it...`,
-          LogPrefix.HyperPlay
-        )
-        await addGameToLibrary(arg)
-        return getGameInfo(arg)
-      }
-    }
 
     const gameInfoOrSideload = getInfo(arg, run)
     if (gameInfoOrSideload.app_name) {
       return gameInfoOrSideload
     }
   }
+  return null
 }

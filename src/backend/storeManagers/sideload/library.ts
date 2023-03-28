@@ -17,12 +17,9 @@ export function addNewApp({
   install: { executable, platform },
   art_cover,
   art_square,
-  web3,
   browserUrl,
   is_installed = true,
-  description,
-  wineSupport,
-  systemRequirements
+  description
 }: GameInfo): void {
   const game: GameInfo = {
     runner: 'sideload',
@@ -38,10 +35,7 @@ export function addNewApp({
     art_square,
     canRunOffline: !browserUrl,
     browserUrl,
-    web3,
-    description,
-    wineSupport,
-    systemRequirements
+    description
   }
 
   if (isMac && executable?.endsWith('.app')) {

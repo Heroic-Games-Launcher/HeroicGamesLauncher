@@ -44,10 +44,10 @@ const legendaryConfigPath = isLinux
   : join(userHome, '.config', 'legendary')
 const heroicFolder = join(configFolder, 'heroic')
 const heroicConfigPath = join(heroicFolder, 'config.json')
-const heroicGamesConfigPath = join(heroicFolder, 'GamesConfig')
-const heroicToolsPath = join(heroicFolder, 'tools')
+const gamesConfigPath = join(heroicFolder, 'GamesConfig')
+const toolsPath = join(heroicFolder, 'tools')
 const heroicIconFolder = join(heroicFolder, 'icons')
-const runtimePath = join(heroicToolsPath, 'runtimes')
+const runtimePath = join(toolsPath, 'runtimes')
 const userInfo = join(legendaryConfigPath, 'user.json')
 const heroicInstallPath = join(homedir(), 'Games', 'Heroic')
 const heroicDefaultWinePrefix = join(homedir(), 'Games', 'Heroic', 'Prefixes')
@@ -180,16 +180,12 @@ const execOptions = {
   shell: getShell()
 }
 
-const defaultFolders = [
-  heroicGamesConfigPath,
-  heroicIconFolder,
-  imagesCachePath
-]
+const defaultFolders = [gamesConfigPath, heroicIconFolder, imagesCachePath]
 
 const necessaryFoldersByPlatform = {
   win32: [...defaultFolders],
-  linux: [...defaultFolders, heroicToolsPath],
-  darwin: [...defaultFolders, heroicToolsPath]
+  linux: [...defaultFolders, toolsPath],
+  darwin: [...defaultFolders, toolsPath]
 }
 
 export function createNecessaryFolders() {
@@ -212,11 +208,11 @@ export {
   fixAsarPath,
   configStore,
   heroicConfigPath,
-  heroicGamesConfigPath,
+  gamesConfigPath,
   heroicGithubURL,
   heroicIconFolder,
   heroicInstallPath,
-  heroicToolsPath,
+  toolsPath,
   heroicDefaultWinePrefix,
   heroicAnticheatDataPath,
   imagesCachePath,

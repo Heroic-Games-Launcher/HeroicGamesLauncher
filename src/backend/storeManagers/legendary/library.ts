@@ -14,7 +14,8 @@ import {
 import {
   InstalledJsonMetadata,
   GameMetadata,
-  LegendaryInstallInfo
+  LegendaryInstallInfo,
+  LegendaryInstallPlatform
 } from 'common/types/legendary'
 import { LegendaryUser } from './user'
 import {
@@ -193,7 +194,7 @@ export async function getInstallInfo(
   appName: string,
   installPlatform: InstallPlatform
 ): Promise<LegendaryInstallInfo> {
-  const cache = installStore.get_nodefault(appName)
+  const cache = installStore.get(appName)
   if (cache) {
     logDebug('Using cached install info', LogPrefix.Legendary)
     return cache
@@ -470,7 +471,8 @@ function loadFile(fileName: string): boolean {
     dlcItemList,
     releaseInfo,
     customAttributes,
-    categories
+    categories,
+    mainGameItem
   } = metadata
 
   // skip mods from the library
@@ -534,6 +536,22 @@ function loadFile(fileName: string): boolean {
 
   const convertedSize = install_size ? getFileSize(Number(install_size)) : '0'
 
+  if (releaseInfo && !releaseInfo[0].platform) {
+    logWarning(
+      ['No platforms info for', fileName, app_name],
+      LogPrefix.Legendary
+    )
+  }
+
+  let metadataPlatform: LegendaryInstallPlatform[] = []
+  // some DLCs don't have a platform value
+  if (releaseInfo[0].platform) {
+    metadataPlatform = releaseInfo[0].platform
+  } else if (mainGameItem && mainGameItem.releaseInfo[0].platform) {
+    // when there's no platform, the DLC might reference the base game with the info
+    metadataPlatform = mainGameItem.releaseInfo[0].platform
+  }
+
   library.set(app_name, {
     app_name,
     art_cover: art_cover || art_square || fallBackImage,
@@ -560,9 +578,7 @@ function loadFile(fileName: string): boolean {
     },
     is_installed: info !== undefined,
     namespace,
-    is_mac_native: info
-      ? platform === 'Mac'
-      : releaseInfo[0].platform.includes('Mac'),
+    is_mac_native: info ? platform === 'Mac' : metadataPlatform.includes('Mac'),
     save_folder: saveFolder,
     save_path,
     title,

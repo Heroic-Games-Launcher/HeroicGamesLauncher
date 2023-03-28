@@ -3,10 +3,9 @@ import { writeFileSync, existsSync, unlinkSync } from 'graceful-fs'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import { GOGLoginData } from 'common/types'
 import { configStore, libraryStore } from './electronStores'
-import { errorHandler } from '../../utils'
 import { isOnline } from '../../online_monitor'
 import { UserData } from 'common/types/gog'
-import { runGogdlCommand } from './library'
+import { runRunnerCommand } from './library'
 import {
   createAbortController,
   deleteAbortController
@@ -24,7 +23,7 @@ export class GOGUser {
     logInfo('Logging using GOG credentials', LogPrefix.Gog)
 
     // Gets token from GOG basaed on authorization code
-    const { stdout } = await runGogdlCommand(
+    const { stdout } = await runRunnerCommand(
       ['auth', '--code', code],
       createAbortController('gogdl-auth')
     )
@@ -86,7 +85,7 @@ export class GOGUser {
    * @returns user credentials
    */
   public static async getCredentials() {
-    const { stdout } = await runGogdlCommand(
+    const { stdout } = await runRunnerCommand(
       ['auth'],
       createAbortController('gogdl-get-credentials')
     )

@@ -10,10 +10,10 @@ import {
   FavouriteGame,
   DMQueueElement,
   GOGLoginData,
-  ExtraInfo,
   WineManagerUISettings,
   AppSettings,
-  WikiInfo
+  WikiInfo,
+  GameInfo
 } from 'common/types'
 import { UserData } from 'common/types/gog'
 

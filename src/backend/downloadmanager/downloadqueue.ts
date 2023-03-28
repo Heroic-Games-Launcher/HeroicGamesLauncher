@@ -105,10 +105,9 @@ async function addToQueue(element: DMQueueElement) {
   if (elementIndex >= 0) {
     elements[elementIndex] = element
   } else {
-    const game = getGame(element.params.appName, element.params.runner)
-    const installInfo = await game.getInstallInfo(
-      element.params.platformToInstall
-    )
+    const installInfo = await libraryManagerMap[
+      element.params.runner
+    ].getInstallInfo(element.params.appName, element.params.platformToInstall)
 
     element.params.size = installInfo?.manifest?.download_size
       ? getFileSize(installInfo?.manifest?.download_size)

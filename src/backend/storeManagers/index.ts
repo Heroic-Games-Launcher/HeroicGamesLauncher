@@ -1,9 +1,7 @@
-import * as HyperPlayGameManager from 'backend/storeManagers/hyperplay/games'
 import * as SideloadGameManager from 'backend/storeManagers/sideload/games'
 import * as GOGGameManager from 'backend/storeManagers/gog/games'
 import * as LegendaryGameManager from 'backend/storeManagers/legendary/games'
 
-import * as HyperPlayLibraryManager from 'backend/storeManagers/hyperplay/library'
 import * as SideloadLibraryManager from 'backend/storeManagers/sideload/library'
 import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
 import * as LegendaryLibraryManager from 'backend/storeManagers/legendary/library'
@@ -18,7 +16,6 @@ interface GameManagerMap {
 }
 
 export const gameManagerMap: GameManagerMap = {
-  hyperplay: HyperPlayGameManager,
   sideload: SideloadGameManager,
   gog: GOGGameManager,
   legendary: LegendaryGameManager
@@ -29,7 +26,6 @@ interface LibraryManagerMap {
 }
 
 export const libraryManagerMap: LibraryManagerMap = {
-  hyperplay: HyperPlayLibraryManager,
   sideload: SideloadLibraryManager,
   gog: GOGLibraryManager,
   legendary: LegendaryLibraryManager

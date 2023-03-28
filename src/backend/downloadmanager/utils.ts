@@ -6,8 +6,6 @@ import i18next from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
 import { isOnline } from '../online_monitor'
 import { sendFrontendMessage } from '../main_window'
-import { installHyperPlayGame } from 'backend/hyperplay/library'
-import { trackEvent } from 'backend/api/metrics'
 
 async function installQueueElement(params: InstallParams): Promise<{
   status: 'done' | 'error' | 'abort'

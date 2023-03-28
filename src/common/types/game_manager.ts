@@ -5,8 +5,7 @@ import {
   GameSettings,
   ExecResult,
   InstallArgs,
-  CallRunnerOptions,
-  HyperPlayInstallInfo
+  CallRunnerOptions
 } from 'common/types'
 import { GOGCloudSavesLocation, GogInstallInfo } from './gog'
 import { LegendaryInstallInfo } from './legendary'
@@ -67,9 +66,7 @@ export interface LibraryManager {
     appName: string,
     installPlatform: InstallPlatform,
     lang?: string
-  ) => Promise<
-    LegendaryInstallInfo | GogInstallInfo | HyperPlayInstallInfo | undefined
-  >
+  ) => Promise<LegendaryInstallInfo | GogInstallInfo | undefined>
   listUpdateableGames: () => Promise<string[]>
   changeGameInstallPath: (appName: string, newPath: string) => Promise<void>
   installState: (appName: string, state: boolean) => void

@@ -161,7 +161,6 @@
     "electron-store": "^8.0.1",
     "electron-updater": "^5.0.1",
     "filesize": "^10.0.6",
-    "find-process": "^1.4.7",
     "font-list": "^1.4.5",
     "fs-extra": "^11.1.0",
     "fuse.js": "^6.6.2",

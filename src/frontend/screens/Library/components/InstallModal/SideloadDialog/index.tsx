@@ -2,8 +2,6 @@ import './index.scss'
 import short from 'short-uuid'
 import { faFolderOpen, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { InstallPlatform, SideloadGame, WineInstallation } from 'common/types'
-
 import { InstallPlatform, WineInstallation, GameInfo } from 'common/types'
 import {
   CachedImage,

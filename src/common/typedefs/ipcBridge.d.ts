@@ -180,8 +180,8 @@ interface AsyncIPCFunctions {
   removeApp: (args: {
     appName: string
     shouldRemovePrefix: boolean
+    runner: Runner
   }) => Promise<void>
-  launchApp: (appName: string) => Promise<boolean>
   isNative: (args: { appName: string; runner: Runner }) => boolean
   getLogContent: (args: { appName: string; defaultLast?: boolean }) => string
   installWineVersion: (

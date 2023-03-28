@@ -31,7 +31,6 @@ export enum LogPrefix {
 export const RunnerToLogPrefixMap = {
   legendary: LogPrefix.Legendary,
   gog: LogPrefix.Gog,
-  hyperplay: LogPrefix.HyperPlay,
   sideload: LogPrefix.Sideload
 }
 

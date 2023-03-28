@@ -64,7 +64,6 @@ import {
   getGOGdlBin,
   getFileSize,
   detectVCRedist,
-  getGame,
   getFirstExistingParentPath,
   getLatestReleases,
   getShellPath,
@@ -75,7 +74,7 @@ import {
 import {
   configStore,
   discordLink,
-  heroicGamesConfigPath,
+  gamesConfigPath,
   heroicGithubURL,
   userHome,
   icon,
@@ -114,10 +113,7 @@ import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
 import { getFonts } from 'font-list'
 import { runWineCommand, verifyWinePrefix } from './launcher'
 import shlex from 'shlex'
-import { initQueue, addToQueue } from './downloadmanager/downloadqueue'
-import * as ProviderHelper from './hyperplay-proxy-server/providerHelper'
-import * as ExtensionHelper from './hyperplay-extension-helper/extensionProvider'
-import * as ProxyServer from './hyperplay-proxy-server/proxy'
+import { initQueue } from './downloadmanager/downloadqueue'
 import {
   initOnlineMonitor,
   isOnline,
@@ -134,9 +130,7 @@ import {
   getMainWindow,
   sendFrontendMessage
 } from './main_window'
-import { addGameToLibrary } from './storeManagers/hyperplay/library'
 
-import * as HyperPlayLibraryManager from 'backend/storeManagers/hyperplay/library'
 import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
 import * as LegendaryLibraryManager from 'backend/storeManagers/legendary/library'
 import {
@@ -145,6 +139,7 @@ import {
   initStoreManagers,
   libraryManagerMap
 } from './storeManagers'
+import { setupUbisoftConnect } from 'backend/storeManagers/legendary/setup'
 
 app.commandLine?.appendSwitch('remote-debugging-port', '9222')
 
@@ -237,22 +232,6 @@ async function initializeWindow(): Promise<BrowserWindow> {
   return mainWindow
 }
 
-function isGameAvailable(args: { appName: string; runner: Runner }) {
-  const { appName, runner } = args
-  if (runner === 'sideload') {
-    return isAppAvailable(appName)
-  }
-  const info = getGame(appName, runner).getGameInfo()
-  if (info && info.is_installed) {
-    if (info.install.install_path && existsSync(info.install.install_path!)) {
-      return true
-    } else {
-      return false
-    }
-  }
-  return false
-}
-
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -325,9 +304,6 @@ if (!gotTheLock) {
       if (GOGUser.isLoggedIn()) {
         GOGUser.getUserDetails()
       }
-
-      //update metadata for all hp store games in library on launch
-      HyperPlayLibraryManager.updateAllLibraryReleaseData()
     })
 
     await i18next.use(Backend).init({
@@ -464,8 +440,8 @@ process.on('uncaughtException', async (err) => {
 let powerId: number | null
 
 ipcMain.on('lock', () => {
-  if (!existsSync(join(heroicGamesConfigPath, 'lock'))) {
-    writeFileSync(join(heroicGamesConfigPath, 'lock'), '')
+  if (!existsSync(join(gamesConfigPath, 'lock'))) {
+    writeFileSync(join(gamesConfigPath, 'lock'), '')
     if (!powerId) {
       logInfo('Preventing machine to sleep', LogPrefix.Backend)
       powerId = powerSaveBlocker.start('prevent-app-suspension')
@@ -474,8 +450,8 @@ ipcMain.on('lock', () => {
 })
 
 ipcMain.on('unlock', () => {
-  if (existsSync(join(heroicGamesConfigPath, 'lock'))) {
-    unlinkSync(join(heroicGamesConfigPath, 'lock'))
+  if (existsSync(join(gamesConfigPath, 'lock'))) {
+    unlinkSync(join(gamesConfigPath, 'lock'))
     if (powerId) {
       logInfo('Stopping Power Saver Blocker', LogPrefix.Backend)
       return powerSaveBlocker.stop(powerId)
@@ -566,7 +542,7 @@ ipcMain.on('showConfigFileInFolder', async (event, appName) => {
   if (appName === 'default') {
     return openUrlOrFile(heroicConfigPath)
   }
-  return openUrlOrFile(path.join(heroicGamesConfigPath, `${appName}.json`))
+  return openUrlOrFile(path.join(gamesConfigPath, `${appName}.json`))
 })
 
 ipcMain.on('removeFolder', async (e, [path, folderName]) => {
@@ -930,21 +906,6 @@ ipcMain.on('logInfo', (e, info) => logInfo(info, LogPrefix.Frontend))
 
 let powerDisplayId: number | null
 
-export const isGameNative = (appName: string, runner: Runner) => {
-  const isHyperPlayGame = runner === 'hyperplay'
-  const isSideloaded = runner === 'sideload'
-  let isNative = true
-  if (isSideloaded) {
-    isNative = isNativeApp(appName)
-  } else if (isHyperPlayGame) {
-    isNative = isHpGameNative(appName)
-  } else {
-    const extGame = getGame(appName, runner)
-    isNative = extGame.isNative()
-  }
-  return isNative
-}
-
 // get pid/tid on launch and inject
 ipcMain.handle(
   'launch',
@@ -1032,10 +993,7 @@ ipcMain.handle(
     const isNative = gameManagerMap[runner].isNative(appName)
 
     // check if isNative, if not, check if wine is valid
-    if (
-      (isSideloaded && !isNativeApp(appName)) ||
-      (!isSideloaded && !extGame.isNative())
-    ) {
+    if (isNative) {
       const isWineOkToLaunch = await checkWineBeforeLaunch(
         appName,
         gameSettings,
@@ -1160,8 +1118,6 @@ ipcMain.handle(
 
     const { title } = gameManagerMap[runner].getGameInfo(appName)
 
-    const game = getGame(appName, runner)
-
     let uninstalled = false
 
     try {
@@ -1187,7 +1143,7 @@ ipcMain.handle(
       if (shouldRemoveSetting) {
         const removeIfExists = (filename: string) => {
           logInfo(`Removing ${filename}`, LogPrefix.Backend)
-          const gameSettingsFile = join(heroicGamesConfigPath, filename)
+          const gameSettingsFile = join(gamesConfigPath, filename)
           if (existsSync(gameSettingsFile)) {
             rmSync(gameSettingsFile)
           }
@@ -1459,11 +1415,7 @@ ipcMain.handle('syncGOGSaves', async (event, gogSaves, appName, arg) =>
 )
 
 ipcMain.handle('getGOGLaunchOptions', async (event, appName: string) =>
-  GOGLibrary.get().getLaunchOptions(appName)
-)
-
-ipcMain.handle('getGOGLaunchOptions', async (event, appName: string) =>
-  GOGLibrary.get().getLaunchOptions(appName)
+  GOGLibraryManager.getLaunchOptions(appName)
 )
 
 ipcMain.handle(
@@ -1625,10 +1577,10 @@ ipcMain.handle(
       await setup(appName)
     }
     if (runner === 'legendary' && updated) {
-      await setupUbisoftConnect(game.appName)
+      await setupUbisoftConnect(appName)
     }
     if (runner === 'legendary' && updated) {
-      await setupUbisoftConnect(game.appName)
+      await setupUbisoftConnect(appName)
     }
 
     // FIXME: Why are we using `runinprefix` here?
@@ -1676,10 +1628,6 @@ ipcMain.handle('removeApp', async (e, args) => {
   gameManagerMap[args.runner].uninstall(args)
 })
 
-ipcMain.handle('launchApp', async (e, appName, runner) =>
-  gameManagerMap[runner].launch(appName)
-)
-
 ipcMain.handle('isNative', (e, { appName, runner }) => {
   return gameManagerMap[runner].isNative(appName)
 })
@@ -1708,6 +1656,5 @@ import './utils/ipc_handler'
 import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
 import './metrics/ipc_handler'
-import { trackEvent } from './metrics/metrics'
 import { logFileLocation as getLogFileLocation } from './storeManagers/storeManagerCommon/games'
 import { addNewApp } from './storeManagers/sideload/library'

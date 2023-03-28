@@ -7,7 +7,8 @@ import {
   InstalledInfo,
   GOGImportData,
   ExecResult,
-  CallRunnerOptions
+  CallRunnerOptions,
+  LaunchOption
 } from 'common/types'
 import {
   GOGCloudSavesLocation,
@@ -28,7 +29,7 @@ import {
   apiInfoCache,
   libraryStore,
   installedGamesStore,
-  gogInstallInfoStore
+  installInfoStore
 } from './electronStores'
 import { callRunner } from '../../launcher'
 import {
@@ -224,20 +225,18 @@ export async function refresh(): Promise<ExecResult> {
 
   const gamesObjects: GameInfo[] = []
   const gamesArray = libraryStore.get('games', [])
-  const isConfigCloudSavesReady = libraryStore.get('cloud_saves_enabled', false)
   const cloudSavesEnabledGames = await getGamesWithFeatures(['512'])
   for (const game of gameApiArray) {
     let unifiedObject = gamesArray
       ? gamesArray.find((value) => value.app_name === String(game.id))
       : null
-    if (!unifiedObject || !isConfigCloudSavesReady) {
+    if (!unifiedObject) {
       unifiedObject = await gogToUnifiedInfo(game, cloudSavesEnabledGames)
     }
     gamesObjects.push(unifiedObject)
     const installedInfo = installedGames.get(String(game.id))
     // If game is installed, verify if installed game supports cloud saves
     if (
-      !isConfigCloudSavesReady &&
       !cloudSavesEnabledGames.includes(String(game.id)) &&
       installedInfo &&
       installedInfo?.platform !== 'linux'
@@ -261,9 +260,6 @@ export async function refresh(): Promise<ExecResult> {
     library.set(String(game.id), copyObject)
   }
   libraryStore.set('games', gamesObjects)
-  libraryStore.set('totalGames', games.totalProducts)
-  libraryStore.set('totalMovies', games.moviesCount)
-  libraryStore.set('cloud_saves_enabled', true)
   logInfo('Saved games data', LogPrefix.Gog)
 
   // fetch images async
@@ -379,10 +375,8 @@ export async function getInstallInfo(
   installPlatform = 'windows',
   lang = 'en-US'
 ): Promise<GogInstallInfo | undefined> {
-  if (gogInstallInfoStore.has(`${appName}_${installPlatform}`)) {
-    const cache = gogInstallInfoStore.get_nodefault(
-      `${appName}_${installPlatform}`
-    )
+  if (installInfoStore.has(`${appName}_${installPlatform}`)) {
+    const cache = installInfoStore.get(`${appName}_${installPlatform}`)
     if (cache) {
       logInfo(
         [
@@ -525,7 +519,7 @@ export async function getInstallInfo(
       versionEtag: gogInfo.versionEtag
     }
   }
-  gogInstallInfoStore.set(`${appName}_${installPlatform}`, info)
+  installInfoStore.set(`${appName}_${installPlatform}`, info)
   if (!info) {
     logWarning(
       [
@@ -1002,4 +996,26 @@ export async function runRunnerCommand(
 
 export function installState(appName: string, state: boolean) {
   logWarning(`installState not implemented on GOG Library Manager`)
+}
+
+export function getLaunchOptions(appName: string): LaunchOption[] {
+  const newLaunchOptions: LaunchOption[] = []
+  const infoFile = readInfoFile(appName)
+  infoFile?.playTasks.forEach((task, index) => {
+    if (
+      task.type === 'FileTask' &&
+      !task?.isHidden &&
+      task.category !== 'document'
+    ) {
+      newLaunchOptions.push({
+        name: task?.name || infoFile.name,
+        parameters: `--prefer-task ${index}` // gogdl parameter to launch specific task
+      })
+    }
+  })
+  if (newLaunchOptions.length < 2) {
+    return []
+  }
+
+  return newLaunchOptions
 }

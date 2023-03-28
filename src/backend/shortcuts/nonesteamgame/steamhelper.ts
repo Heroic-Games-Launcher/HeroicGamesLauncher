@@ -43,8 +43,7 @@ async function prepareImagesForSteam(props: {
     otherGridAppID: string
   }
   gameInfo: GameInfo
-  bkgDataUrl: string
-  bigPicDataUrl: string
+  steamID: string | undefined
 }) {
   const gridFolder = join(props.steamUserConfigDir, 'grid')
   const coverArt = join(gridFolder, props.appID.otherGridAppID + coverArtSufix)

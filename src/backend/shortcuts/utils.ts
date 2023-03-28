@@ -1,9 +1,9 @@
 import { existsSync, mkdirSync, unlinkSync, writeFileSync } from 'graceful-fs'
-import { iconsFolder } from '../constants'
+import { heroicIconFolder as iconsFolder } from '../constants'
 import { GameInfo } from 'common/types'
 import { spawnSync } from 'child_process'
 import { basename, dirname, extname, join } from 'path'
-import { GOGLibrary } from 'backend/gog/library'
+import { getProductApi } from 'backend/storeManagers/gog/library'
 
 function createImage(
   buffer: Buffer,
@@ -60,13 +60,13 @@ async function getIcon(appName: string, gameInfo: GameInfo) {
 
   // By default use vertical image - art_square in jpg format
   let image = gameInfo.art_square.replaceAll(' ', '%20').replace('{ext}', 'jpg')
-  let icon = `${heroicIconFolder}/${appName}.jpg`
+  let icon = `${iconsFolder}/${appName}.jpg`
 
   if (gameInfo.runner === 'gog') {
-    const productApiData = await GOGLibrary.getProductApi(appName)
+    const productApiData = await getProductApi(appName)
     if (productApiData && productApiData.data.images?.icon) {
       image = 'https:' + productApiData.data.images?.icon
-      icon = `${heroicIconFolder}/${appName}.png` // Allow transparency
+      icon = `${iconsFolder}/${appName}.png` // Allow transparency
     }
   }
 

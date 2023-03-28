@@ -119,11 +119,7 @@ export interface GameInfo {
   is_mac_native?: boolean
   is_linux_native?: boolean
   browserUrl?: string
-  web3?: Web3Features
-  releaseMeta?: HyperPlayReleaseMeta
   description?: string
-  wineSupport?: WineSupport
-  systemRequirements?: SystemRequirements
   //used for store release versions. if remote !== local, then update
   version?: string
 }
@@ -526,7 +522,10 @@ type ElWebview = {
 
 export type WebviewType = HTMLWebViewElement & ElWebview
 
-export type InstallPlatform = LegendaryInstallPlatform | GogInstallPlatform
+export type InstallPlatform =
+  | LegendaryInstallPlatform
+  | GogInstallPlatform
+  | 'Browser'
 
 export type ConnectivityChangedCallback = (
   event: IpcRendererEvent,
