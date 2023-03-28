@@ -93,6 +93,8 @@ async function initQueue() {
       element = null
     }
   }
+
+  queueState = 'idle'
 }
 
 async function addToQueue(element: DMQueueElement) {
