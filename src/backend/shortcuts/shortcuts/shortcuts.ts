@@ -162,7 +162,7 @@ function shortcutFiles(gameTitle: string) {
 }
 
 async function generateMacOsApp(gameInfo: GameInfo) {
-  const { title, app_name, runner } = gameInfo
+  const { app_name } = gameInfo
 
   logInfo('Generating macOS shortcut', LogPrefix.Backend)
 
