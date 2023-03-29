@@ -365,7 +365,9 @@
             "error": "Instalacja nie powiodła się",
             "finished": "Instalacja zakończona",
             "imported": "Gra zaimportowana",
-            "startInstall": "Instalacja rozpoczęła się"
+            "startInstall": "Instalacja rozpoczęła się",
+            "failed": "Instalacja nie powiodła się",
+            "paused": "Instalacja wstrzymana"
         },
         "moved": "Przenoszenie zakończone",
         "moving": "Przenoszenie gry",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "Aktualizacja przerwana",
             "finished": "Aktualizacja zakończona",
-            "started": "Aktualizacja rozpoczęta"
+            "started": "Aktualizacja rozpoczęta",
+            "failed": "Aktualizacja nie powiodła się",
+            "paused": "Aktualizacja wstrzymana"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Nothing to download",
             "finished": "Completed",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "pause": "Wstrzymaj pobieranie",
+            "resume": "Wznów pobieranie"
         }
     },
     "Recent": "Ostatnio uruchamiane",

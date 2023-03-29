@@ -365,7 +365,9 @@
             "error": "Instalarea a eșuat",
             "finished": "Instalare Finalizată",
             "imported": "Joc importat",
-            "startInstall": "Instalarea a început"
+            "startInstall": "Instalarea a început",
+            "failed": "Instalarea a eșuat",
+            "paused": "Instalare întreruptă"
         },
         "moved": "Mutare Finalizată",
         "moving": "Joc de Mișcare",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "Actualizare Anulată",
             "finished": "Actualizare Finalizată",
-            "started": "Actualizarea a început"
+            "started": "Actualizarea a început",
+            "failed": "Actualizare esuata",
+            "paused": "Actualizare întreruptă"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Nothing to download",
             "finished": "Completed",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "pause": "Întrerupeți descărcarea",
+            "resume": "Reia descărcarea"
         }
     },
     "Recent": "Jocuri Recente",

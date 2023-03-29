@@ -365,7 +365,9 @@
             "error": "Erro na instalación",
             "finished": "Instalación rematada",
             "imported": "Xogo importado",
-            "startInstall": "Instalación iniciada"
+            "startInstall": "Instalación iniciada",
+            "failed": "Erro na instalación",
+            "paused": "Instalación en pausa"
         },
         "moved": "Movemento rematado",
         "moving": "Moving Game",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "Actualización cancelada",
             "finished": "Actualización rematada",
-            "started": "Actualización iniciada"
+            "started": "Actualización iniciada",
+            "failed": "Fallou a actualización",
+            "paused": "Actualización en pausa"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Nothing to download",
             "finished": "Completed",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "resume": "Reanudar a descarga",
+            "pause": "Pausa a descarga"
         }
     },
     "Recent": "Xogado recentemente",

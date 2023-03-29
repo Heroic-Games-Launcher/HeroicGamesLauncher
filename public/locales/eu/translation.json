@@ -365,7 +365,9 @@
             "error": "Instalazioak huts egin du",
             "finished": "Amaitu da instalatzea",
             "imported": "Jokoa inportatua",
-            "startInstall": "Instalazioa hasi da"
+            "startInstall": "Instalazioa hasi da",
+            "failed": "Instalazioak huts egin du",
+            "paused": "Instalazioa pausatu da"
         },
         "moved": "Mugitzen amaitu",
         "moving": "Mugimendu Jokoa",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "Eguneratua Ezeztatuta",
             "finished": "Eguneraketa bukatu da",
-            "started": "Eguneratzea hasi da"
+            "started": "Eguneratzea hasi da",
+            "failed": "Eguneratzea huts egin du",
+            "paused": "Eguneratzea pausatu da"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Nothing to download",
             "finished": "Completed",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "pause": "Pausatu deskarga",
+            "resume": "Jarraitu deskargatzea"
         }
     },
     "Recent": "Duela gutxi jokatuta",

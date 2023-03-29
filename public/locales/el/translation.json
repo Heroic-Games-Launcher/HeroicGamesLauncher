@@ -365,7 +365,9 @@
             "error": "Αποτυχημένη Εγκατάσταση",
             "finished": "Η εγκατάσταση ολοκληρώθηκε",
             "imported": "Το παιχνίδι εισάχθηκε",
-            "startInstall": "Η Εγκατάσταση έχει ξεκινήσει"
+            "startInstall": "Η Εγκατάσταση έχει ξεκινήσει",
+            "failed": "Αποτυχημένη Εγκατάσταση",
+            "paused": "Εγκατάσταση σε παύση"
         },
         "moved": "Η μετακίνηση ολοκληρώθηκε",
         "moving": "Μετακίνηση παιχνιδιού",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "Η ενημέρωση ακυρώθηκε",
             "finished": "Η ενημέρωση ολοκληρώθηκε",
-            "started": "Έναρξη Ενημέρωσης"
+            "started": "Έναρξη Ενημέρωσης",
+            "failed": "Ενημέρωση απέτυχε",
+            "paused": "Η ενημέρωση τέθηκε σε παύση"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Nothing to download",
             "finished": "Completed",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "pause": "Παύση λήψης",
+            "resume": "Συνέχιση λήψης"
         }
     },
     "Recent": "Παίχτηκε Πρόσφατα",

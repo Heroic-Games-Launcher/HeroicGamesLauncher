@@ -365,7 +365,9 @@
             "error": "Instalacija neuspješna",
             "finished": "Instalacija završena",
             "imported": "Video igra uvezena",
-            "startInstall": "Instalacija započeta"
+            "startInstall": "Instalacija započeta",
+            "failed": "Instalacija neuspješna",
+            "paused": "Instalacija je pauzirana"
         },
         "moved": "Premještanje završeno",
         "moving": "Igra se premješta",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "Ažuriranje otkazano",
             "finished": "Ažuriranje završeno",
-            "started": "Ažuriranje započeto"
+            "started": "Ažuriranje započeto",
+            "failed": "Ažuriranje nije uspjelo",
+            "paused": "Ažuriranje je pauzirano"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Nothing to download",
             "finished": "Completed",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "pause": "Pauzirajte preuzimanje",
+            "resume": "Nastavi preuzimanje"
         }
     },
     "Recent": "Igrano nedavno",
