@@ -179,6 +179,12 @@ export async function launchApp(appName: string): Promise<boolean> {
         }
       }
 
+      sendFrontendMessage('gameStatusUpdate', {
+        appName: appName,
+        runner: 'sideload',
+        status: 'playing'
+      })
+
       const commandParts = shlex.split(launcherArgs ?? '')
       await callRunner(
         commandParts,
@@ -214,6 +220,12 @@ export async function launchApp(appName: string): Promise<boolean> {
       const globalSettings = await GameConfig.get('global').getSettings()
       gameSettings.wineVersion = globalSettings.wineVersion
     }
+
+    sendFrontendMessage('gameStatusUpdate', {
+      appName: appName,
+      runner: 'sideload',
+      status: 'playing'
+    })
 
     await runWineCommand({
       commandParts: [executable, launcherArgs ?? ''],
