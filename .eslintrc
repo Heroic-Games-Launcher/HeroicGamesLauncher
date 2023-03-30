@@ -58,7 +58,7 @@
   },
   "overrides": [
     {
-      "files": ["**/__tests__/**", "**/__mocks__/**", "vite.config.ts"],
+      "files": ["**/__tests__/**", "**/__mocks__/**"],
       "rules": {
         "import/no-duplicates": "off",
         "@typescript-eslint/no-explicit-any": "off",
