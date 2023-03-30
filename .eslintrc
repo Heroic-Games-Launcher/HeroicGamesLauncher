@@ -18,7 +18,7 @@
     },
     "ecmaVersion": 12,
     "sourceType": "module",
-    "project": ["./tsconfig.json"]
+    "project": ["./tsconfig.eslint.json"]
   },
   "plugins": ["react", "@typescript-eslint", "import"],
   "settings": {
@@ -58,7 +58,7 @@
   },
   "overrides": [
     {
-      "files": ["**/__tests__/**", "**/__mocks__/**"],
+      "files": ["**/__tests__/**", "**/__mocks__/**", "vite.config.ts"],
       "rules": {
         "import/no-duplicates": "off",
         "@typescript-eslint/no-explicit-any": "off",
