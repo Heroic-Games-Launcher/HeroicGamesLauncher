@@ -365,7 +365,9 @@
             "error": "நிறுவல் தோல்வி",
             "finished": "நிறுவல் முடிவடைந்தது",
             "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "startInstall": "Installation Started",
+            "failed": "நிறுவல் தோல்வி",
+            "paused": "நிறுவல் இடைநிறுத்தப்பட்டது"
         },
         "moved": "நகர்தல் முடிவடைந்தது",
         "moving": "Moving Game",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "புதுப்பிப்பு ரத்து செய்யப்பட்டது",
             "finished": "புதுப்பிப்பு நிறைவடைந்தது",
-            "started": "Update Started"
+            "started": "Update Started",
+            "failed": "புதுப்பித்தல் தோல்வியடைந்தது",
+            "paused": "புதுப்பிப்பு இடைநிறுத்தப்பட்டது"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Nothing to download",
             "finished": "Completed",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "pause": "பதிவிறக்கத்தை இடைநிறுத்து",
+            "resume": "பதிவிறக்கத்தை மீண்டும் தொடங்கவும்"
         }
     },
     "Recent": "சமீபத்தில் விளையாடியவை",

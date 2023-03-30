@@ -365,7 +365,9 @@
             "error": "Erro na instalação",
             "finished": "Instalação concluída",
             "imported": "Jogo importado",
-            "startInstall": "Instalação iniciada"
+            "startInstall": "Instalação iniciada",
+            "failed": "Erro na instalação",
+            "paused": "Instalação pausada"
         },
         "moved": "Movido com sucesso",
         "moving": "Movendo jogo",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "Atualização cancelada",
             "finished": "Atualização concluída",
-            "started": "Atualização iniciada"
+            "started": "Atualização iniciada",
+            "failed": "Atualização falhou",
+            "paused": "Atualização pausada"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Nada na fila",
             "finished": "Concluído",
             "queued": "Na fila",
-            "remove": "Remover da fila"
+            "remove": "Remover da fila",
+            "pause": "Pausar download",
+            "resume": "Retomar o download"
         }
     },
     "Recent": "Jogados Recentemente",

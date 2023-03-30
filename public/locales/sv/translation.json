@@ -365,7 +365,9 @@
             "error": "Installation misslyckades",
             "finished": "Installation slutförd",
             "imported": "Spelimport slutförd",
-            "startInstall": "Installation påbörjad"
+            "startInstall": "Installation påbörjad",
+            "failed": "Installation misslyckades",
+            "paused": "Installation pausad"
         },
         "moved": "Spelflytt slutförd",
         "moving": "Flyttar spel",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "Uppdatering avbröts",
             "finished": "Uppdatering slutförd",
-            "started": "Uppdatering påbörjad"
+            "started": "Uppdatering påbörjad",
+            "failed": "Uppdateringen misslyckades",
+            "paused": "Uppdatering pausad"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Inget att ladda ner",
             "finished": "Nedladdade",
             "queued": "Köad",
-            "remove": "Ta bort från nedladdningar"
+            "remove": "Ta bort från nedladdningar",
+            "pause": "Pausa nedladdningen",
+            "resume": "Fortsätt nedladdning"
         }
     },
     "Recent": "Nyligen spelat",

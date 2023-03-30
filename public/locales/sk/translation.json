@@ -365,7 +365,9 @@
             "error": "Inštalácia zlyhala",
             "finished": "Inštalácia je dokončená",
             "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "startInstall": "Installation Started",
+            "failed": "Inštalácia zlyhala",
+            "paused": "Inštalácia pozastavená"
         },
         "moved": "Dokončené sťahovanie",
         "moving": "Moving Game",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "Aktualizované Zrušené",
             "finished": "Update Finished",
-            "started": "Update Started"
+            "started": "Update Started",
+            "failed": "Aktualizacia neuspešná",
+            "paused": "Aktualizácia pozastavená"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Nothing to download",
             "finished": "Completed",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "pause": "Pozastaviť sťahovanie",
+            "resume": "Obnoviť sťahovanie"
         }
     },
     "Recent": "Played Recently",

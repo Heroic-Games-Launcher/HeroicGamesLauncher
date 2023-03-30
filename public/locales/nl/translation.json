@@ -365,7 +365,9 @@
             "error": "Installatie mislukt",
             "finished": "Installatie is voltooid",
             "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "startInstall": "Installation Started",
+            "failed": "Installatie mislukt",
+            "paused": "Installatie onderbroken"
         },
         "moved": "Klaar met verplaatsing",
         "moving": "Moving Game",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "Update geannuleerd",
             "finished": "Update is voltooid",
-            "started": "Update Started"
+            "started": "Update Started",
+            "paused": "Bijwerken onderbroken",
+            "failed": "Update mislukt"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Nothing to download",
             "finished": "Completed",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "pause": "Pauzeer het downloaden",
+            "resume": "Download hervatten"
         }
     },
     "Recent": "Recent Gespeeld",
