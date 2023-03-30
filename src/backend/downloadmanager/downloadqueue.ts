@@ -1,14 +1,13 @@
 import { gameManagerMap, libraryManagerMap } from 'backend/storeManagers'
 import { TypeCheckedStoreBackend } from './../electron_store'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import { getFileSize } from '../utils'
+import { getFileSize, removeFolder } from '../utils'
 import { DMQueueElement, DMStatus, DownloadManagerState } from 'common/types'
 import { installQueueElement, updateQueueElement } from './utils'
 import { sendFrontendMessage } from '../main_window'
 import { callAbortController } from 'backend/utils/aborthandler/aborthandler'
 import { notify } from '../dialog/dialog'
 import i18next from 'i18next'
-import { ipcRenderer } from 'electron'
 
 const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
   cwd: 'store',
@@ -189,10 +188,7 @@ function cancelCurrentDownload({ removeDownloaded = false }) {
       const { appName, runner } = currentElement!.params
       const { folder_name } = gameManagerMap[runner].getGameInfo(appName)
       if (folder_name) {
-        ipcRenderer.send('removeFolder', [
-          currentElement.params.path,
-          folder_name
-        ])
+        removeFolder(currentElement.params.path, folder_name)
       }
     }
     currentElement = null
