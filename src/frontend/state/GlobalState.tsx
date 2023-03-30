@@ -410,6 +410,15 @@ class GlobalState extends PureComponent<Props> {
   ): Promise<void> => {
     console.log('refreshing')
 
+    let updates = this.state.gameUpdates
+    if (checkUpdates) {
+      try {
+        updates = await window.api.checkGameUpdates()
+      } catch (error) {
+        window.api.logError(`${error}`)
+      }
+    }
+
     const currentLibraryLength = this.state.epic.library?.length
     let epicLibrary = libraryStore.get('library', [])
 
@@ -418,15 +427,6 @@ class GlobalState extends PureComponent<Props> {
       window.api.logInfo('No cache found, getting data from legendary...')
       const { library: legendaryLibrary } = await getLegendaryConfig()
       epicLibrary = legendaryLibrary
-    }
-
-    let updates = this.state.gameUpdates
-    if (checkUpdates) {
-      try {
-        updates = await window.api.checkGameUpdates()
-      } catch (error) {
-        window.api.logError(`${error}`)
-      }
     }
 
     const updatedSideload = sideloadLibrary.get('games', [])
@@ -466,7 +466,10 @@ class GlobalState extends PureComponent<Props> {
     })
     window.api.logInfo('Refreshing Library')
     try {
-      await window.api.refreshLibrary(fullRefresh, library)
+      if (!checkForUpdates) {
+        await window.api.refreshLibrary(fullRefresh, library)
+      }
+
       return await this.refresh(library, checkForUpdates)
     } catch (error) {
       window.api.logError(`${error}`)

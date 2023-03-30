@@ -41,7 +41,7 @@ import {
 import { installStore, libraryStore } from './electronStores'
 import { callRunner } from '../launcher'
 import { dirname, join } from 'path'
-import { isOnline } from '../online_monitor'
+import { isOnline } from 'backend/online_monitor'
 
 /**
  * Legendary LegendaryLibrary.
@@ -153,7 +153,7 @@ export class LegendaryLibrary {
   public async getGames(fullRefresh = false): Promise<GameInfo[]> {
     logInfo('Refreshing library...', LogPrefix.Legendary)
     const isLoggedIn = LegendaryUser.isLoggedIn()
-    if (!isLoggedIn) {
+    if (!isLoggedIn || !isOnline()) {
       return []
     }
 
@@ -247,42 +247,7 @@ export class LegendaryLibrary {
    * @returns App names of updateable games.
    */
   public async listUpdateableGames(): Promise<string[]> {
-    const isLoggedIn = LegendaryUser.isLoggedIn()
-
-    if (!isLoggedIn || !isOnline()) {
-      return []
-    }
-    const epicOffline = await isEpicServiceOffline()
-    if (epicOffline) {
-      logWarning(
-        'Epic servers are offline, cannot check for game updates',
-        LogPrefix.Backend
-      )
-      return []
-    }
-
-    const abortID = 'legendary-check-updates'
-    const res = await runLegendaryCommand(
-      ['list', '--third-party'],
-      createAbortController(abortID),
-      {
-        logMessagePrefix: 'Checking for game updates'
-      }
-    )
-
-    deleteAbortController(abortID)
-
-    if (res.abort) {
-      return []
-    }
-
-    if (res.error) {
-      logError(
-        ['Failed to check for game updates:', res.error],
-        LogPrefix.Legendary
-      )
-      return []
-    }
+    this.getGames(true)
 
     // Once we ran `legendary list`, `assets.json` will be updated with the newest
     // game versions, and `installed.json` has our currently installed ones

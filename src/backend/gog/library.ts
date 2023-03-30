@@ -600,6 +600,7 @@ export class GOGLibrary {
     if (!isOnline()) {
       return []
     }
+    this.sync()
     const installed = Array.from(this.installedGames.values())
     const updateable: Array<string> = []
     for (const game of installed) {
