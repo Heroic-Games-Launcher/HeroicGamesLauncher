@@ -1176,6 +1176,28 @@ const memoryLog = (limit = 50) => {
   }
 }
 
+function removeFolder(path: string, folderName: string) {
+  if (path === 'default') {
+    const { defaultInstallPath } = GlobalConfig.get().getSettings()
+    const path = defaultInstallPath.replaceAll("'", '')
+    const folderToDelete = `${path}/${folderName}`
+    if (existsSync(folderToDelete)) {
+      return setTimeout(() => {
+        rmSync(folderToDelete, { recursive: true })
+      }, 5000)
+    }
+    return
+  }
+
+  const folderToDelete = `${path}/${folderName}`.replaceAll("'", '')
+  if (existsSync(folderToDelete)) {
+    return setTimeout(() => {
+      rmSync(folderToDelete, { recursive: true })
+    }, 2000)
+  }
+  return
+}
+
 export {
   errorHandler,
   execAsync,
@@ -1208,7 +1230,8 @@ export {
   getFileSize,
   getLegendaryVersion,
   getGogdlVersion,
-  memoryLog
+  memoryLog,
+  removeFolder
 }
 
 // Exported only for testing purpose
