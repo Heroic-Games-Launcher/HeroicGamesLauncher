@@ -6,9 +6,9 @@ import { DMQueueElement, DMStatus, DownloadManagerState } from 'common/types'
 import { installQueueElement, updateQueueElement } from './utils'
 import { sendFrontendMessage } from '../main_window'
 import { callAbortController } from 'backend/utils/aborthandler/aborthandler'
-import { removeFolder } from 'backend/main'
 import { notify } from '../dialog/dialog'
 import i18next from 'i18next'
+import { ipcRenderer } from 'electron'
 
 const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
   cwd: 'store',
@@ -188,7 +188,12 @@ function cancelCurrentDownload({ removeDownloaded = false }) {
     if (removeDownloaded) {
       const { appName, runner } = currentElement!.params
       const { folder_name } = gameManagerMap[runner].getGameInfo(appName)
-      if (folder_name) removeFolder(currentElement.params.path, folder_name)
+      if (folder_name) {
+        ipcRenderer.send('removeFolder', [
+          currentElement.params.path,
+          folder_name
+        ])
+      }
     }
     currentElement = null
   }
