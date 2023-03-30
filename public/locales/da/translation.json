@@ -278,7 +278,9 @@
             "finished": "Installation afsluttet",
             "imported": "Spil importeret",
             "startInstall": "Installation påbegyndt",
-            "error": "Installation mislykkedes"
+            "error": "Installation mislykkedes",
+            "failed": "Installation mislykkedes",
+            "paused": "Installation sat på pause"
         },
         "moved": "Færdig med flytning",
         "moving": "Flytende spil",
@@ -288,7 +290,9 @@
         "update": {
             "canceled": "Opdateret annulleret",
             "finished": "Opdatering Færdig",
-            "started": "Opdatering startet"
+            "started": "Opdatering startet",
+            "failed": "Opdatering fejlede",
+            "paused": "Opdatering sat på pause"
         },
         "new-heroic-version": "En ny Heroic-version blev frigivet!"
     },
@@ -687,7 +691,9 @@
             "queued": "I kø",
             "canceled": "Annulleret",
             "empty": "Intet at downloade",
-            "remove": "Fjern fra downloads"
+            "remove": "Fjern fra downloads",
+            "pause": "Pause download",
+            "resume": "Genoptag download"
         }
     },
     "add_game": "Tilføj spil",

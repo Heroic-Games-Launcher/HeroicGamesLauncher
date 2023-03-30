@@ -365,7 +365,9 @@
             "error": "インストールに失敗しました",
             "finished": "インストールが完了しました",
             "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "startInstall": "Installation Started",
+            "failed": "インストールに失敗しました",
+            "paused": "インストールの一時停止"
         },
         "moved": "移動が完了しました",
         "moving": "Moving Game",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "更新がキャンセルされました",
             "finished": "Update Finished",
-            "started": "Update Started"
+            "started": "Update Started",
+            "failed": "アップデートに失敗しました",
+            "paused": "更新を一時停止しました"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Nothing to download",
             "finished": "Completed",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "pause": "ダウンロードを一時停止",
+            "resume": "ダウンロードを再開"
         }
     },
     "Recent": "最近のゲーム",

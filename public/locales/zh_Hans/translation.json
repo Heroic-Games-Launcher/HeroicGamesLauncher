@@ -365,7 +365,9 @@
             "error": "安装失败",
             "finished": "安装完成",
             "imported": "游戏已导入",
-            "startInstall": "安装已开始"
+            "startInstall": "安装已开始",
+            "paused": "安装暂停",
+            "failed": "安装失败"
         },
         "moved": "移动完成",
         "moving": "移动游戏中",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "已取消更新",
             "finished": "更新已完成",
-            "started": "更新已开始"
+            "started": "更新已开始",
+            "failed": "更新失败",
+            "paused": "更新暂停"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "没有可下载的",
             "finished": "已完成",
             "queued": "已加入队列",
-            "remove": "从下载中删除"
+            "remove": "从下载中删除",
+            "pause": "暂停下载",
+            "resume": "恢复下载"
         }
     },
     "Recent": "最近玩过",

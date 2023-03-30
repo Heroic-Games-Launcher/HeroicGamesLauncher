@@ -566,7 +566,7 @@ ipcMain.on('showConfigFileInFolder', async (event, appName) => {
   return openUrlOrFile(path.join(heroicGamesConfigPath, `${appName}.json`))
 })
 
-ipcMain.on('removeFolder', async (e, [path, folderName]) => {
+export function removeFolder(path: string, folderName: string) {
   if (path === 'default') {
     const { defaultInstallPath } = GlobalConfig.get().getSettings()
     const path = defaultInstallPath.replaceAll("'", '')
@@ -586,6 +586,10 @@ ipcMain.on('removeFolder', async (e, [path, folderName]) => {
     }, 2000)
   }
   return
+}
+
+ipcMain.on('removeFolder', async (e, [path, folderName]) => {
+  removeFolder(path, folderName)
 })
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
@@ -1422,7 +1426,7 @@ ipcMain.handle('updateGame', async (event, appName, runner): StatusPromise => {
     body: i18next.t('notify.update.started', 'Update Started')
   })
 
-  let status: 'done' | 'error' = 'error'
+  let status: 'done' | 'error' | 'abort' = 'error'
   try {
     status = (await game.update()).status
   } catch (error) {

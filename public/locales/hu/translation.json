@@ -365,7 +365,9 @@
             "error": "A telepítés meghiúsult",
             "finished": "Telepítés befejezve",
             "imported": "Játék importálva",
-            "startInstall": "Telepítés elindult"
+            "startInstall": "Telepítés elindult",
+            "failed": "A telepítés meghiúsult",
+            "paused": "Telepítés szünetel"
         },
         "moved": "Áthelyezés befejezve",
         "moving": "Moving Game",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "Frissítés visszavonva",
             "finished": "Frissítés befejezve",
-            "started": "Frissítés elindult"
+            "started": "Frissítés elindult",
+            "failed": "Frissítés sikertelen",
+            "paused": "Frissítés szünetel"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Nothing to download",
             "finished": "Completed",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "pause": "Letöltés szüneteltetése",
+            "resume": "Letöltés folytatása"
         }
     },
     "Recent": "Nemrég játszott",

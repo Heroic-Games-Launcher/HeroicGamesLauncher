@@ -365,7 +365,9 @@
             "error": "Kurulum Başarısız Oldu",
             "finished": "Kurulum Tamamlandı",
             "imported": "Oyun İçe Aktarıldı",
-            "startInstall": "Kurulum Başladı"
+            "startInstall": "Kurulum Başladı",
+            "failed": "Kurulum Başarısız Oldu",
+            "paused": "Kurulum Duraklatıldı"
         },
         "moved": "Taşıma Tamamlandı",
         "moving": "Oyun Taşınıyor",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "Güncelleme İptal Edildi",
             "finished": "Güncelleme Tamamlandı",
-            "started": "Güncelleme Başladı"
+            "started": "Güncelleme Başladı",
+            "failed": "Güncelleme başarısız oldu",
+            "paused": "Güncelleme Duraklatıldı"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Nothing to download",
             "finished": "Completed",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "pause": "İndirmeyi duraklat",
+            "resume": "İndirmeye devam et"
         }
     },
     "Recent": "Son Oynanan",

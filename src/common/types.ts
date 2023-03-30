@@ -533,13 +533,14 @@ export interface Tools {
   runner: Runner
 }
 
+export type DMStatus = 'done' | 'error' | 'abort' | 'paused'
 export interface DMQueueElement {
   type: 'update' | 'install'
   params: InstallParams
   addToQueueTime: number
   startTime: number
   endTime: number
-  status?: 'done' | 'error' | 'abort'
+  status?: DMStatus
 }
 
 type ProtonVerb =
@@ -614,7 +615,7 @@ export interface ToolArgs {
   action: 'backup' | 'restore'
 }
 
-export type StatusPromise = Promise<{ status: 'done' | 'error' }>
+export type StatusPromise = Promise<{ status: 'done' | 'error' | 'abort' }>
 
 export interface GameScoreInfo {
   score: string
@@ -709,3 +710,5 @@ export interface WineManagerUISettings {
   type: Type
   enabled: boolean
 }
+
+export type DownloadManagerState = 'idle' | 'running' | 'paused' | 'stopped'

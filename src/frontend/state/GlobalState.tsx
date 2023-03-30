@@ -591,7 +591,7 @@ class GlobalState extends PureComponent<Props> {
         e: Event,
         appName: string,
         runner: Runner
-      ): Promise<{ status: 'done' | 'error' }> => {
+      ): Promise<{ status: 'done' | 'error' | 'abort' }> => {
         const currentApp = libraryStatus.filter(
           (game) => game.appName === appName
         )[0]
