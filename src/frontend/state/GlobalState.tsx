@@ -467,7 +467,9 @@ class GlobalState extends PureComponent<Props> {
     window.api.logInfo('Refreshing Library')
     try {
       await window.api.refreshLibrary(fullRefresh, library)
-      return await this.refresh(library, checkForUpdates)
+      setTimeout(() => {
+        this.refresh(library, checkForUpdates)
+      }, 10000)
     } catch (error) {
       window.api.logError(`${error}`)
     }
