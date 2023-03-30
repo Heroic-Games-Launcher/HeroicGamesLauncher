@@ -19,7 +19,7 @@ const WinePrefix = () => {
   const [defaultWinePrefix] = useSetting('defaultWinePrefix', '')
   const [winePrefix, setWinePrefix] = useSetting(
     'winePrefix',
-    defaultWinePrefix
+    defaultWinePrefix + '/default'
   )
 
   if (isWin || wineVersion.type === 'crossover') {
