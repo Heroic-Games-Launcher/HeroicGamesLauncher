@@ -1,3 +1,4 @@
+import { DownloadManagerState } from './../types'
 import { EventEmitter } from 'node:events'
 import { IpcMainEvent, OpenDialogOptions } from 'electron'
 
@@ -91,6 +92,9 @@ interface SyncIPCFunctions {
   'set-connectivity-online': () => void
   changeTrayColor: () => void
   setSetting: (args: { appName: string; key: string; value: unknown }) => void
+  resumeCurrentDownload: () => void
+  pauseCurrentDownload: () => void
+  cancelDownload: (removeDownloaded: boolean) => void
 }
 
 interface AsyncIPCFunctions {
@@ -103,7 +107,7 @@ interface AsyncIPCFunctions {
   ) => Promise<{ stdout: string; stderr: string }>
   checkGameUpdates: () => Promise<string[]>
   getEpicGamesStatus: () => Promise<boolean>
-  updateAll: () => Promise<({ status: 'done' | 'error' } | null)[]>
+  updateAll: () => Promise<({ status: 'done' | 'error' | 'abort' } | null)[]>
   getMaxCpus: () => number
   getHeroicVersion: () => string
   getLegendaryVersion: () => Promise<string>
@@ -215,6 +219,7 @@ interface AsyncIPCFunctions {
   getDMQueueInformation: () => {
     elements: DMQueueElement[]
     finished: DMQueueElement[]
+    state: DownloadManagerState
   }
   'get-connectivity-status': () => {
     status: ConnectivityStatus

@@ -365,7 +365,9 @@
             "error": "Installasjon feilet",
             "finished": "Installasjon fullført",
             "imported": "Spill importert",
-            "startInstall": "Installasjon startet"
+            "startInstall": "Installasjon startet",
+            "failed": "Installasjon feilet",
+            "paused": "Installasjon satt på pause"
         },
         "moved": "Flytting fullført",
         "moving": "Moving Game",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "Oppgradering avbrutt",
             "finished": "Oppgradering fullført",
-            "started": "Oppgradering startet"
+            "started": "Oppgradering startet",
+            "failed": "Oppdatering mislyktes",
+            "paused": "Oppdatering satt på pause"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Nothing to download",
             "finished": "Completed",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "pause": "Pause nedlasting",
+            "resume": "Fortsett nedlastingen"
         }
     },
     "Recent": "Spillt nylig",

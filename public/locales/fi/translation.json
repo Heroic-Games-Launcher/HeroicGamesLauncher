@@ -365,7 +365,9 @@
             "error": "Asennus epäonnistui",
             "finished": "Asennus valmis",
             "imported": "Peli tuotu",
-            "startInstall": "Asennus aloitettu"
+            "startInstall": "Asennus aloitettu",
+            "failed": "Asennus epäonnistui",
+            "paused": "Asennus keskeytetty"
         },
         "moved": "Siirto valmis",
         "moving": "Moving Game",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "Päivitys peruutettu",
             "finished": "Päivitys valmis",
-            "started": "Päivitys aloitettu"
+            "started": "Päivitys aloitettu",
+            "failed": "Päivitys epäonnistui",
+            "paused": "Päivitys keskeytetty"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Nothing to download",
             "finished": "Completed",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "pause": "Keskeytä lataus",
+            "resume": "Jatka latausta"
         }
     },
     "Recent": "Viimeksi pelatut",

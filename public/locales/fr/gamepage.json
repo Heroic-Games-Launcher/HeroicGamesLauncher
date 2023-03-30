@@ -34,7 +34,7 @@
         "uninstall": {
             "checkbox": "Supprimer le préfixe : {{prefix}}{{newLine}}Note : cela ne peut pas être annulé et supprimera également les fichiers de sauvegarde non sauvegardés.",
             "message": "Voulez-vous désinstaller ce jeu ?",
-            "settingcheckbox": "Effacer les paramètres et supprimer les journaux{{newLine}}Attention : ceci ne peut pas être annulé. Tout paramètre modifié sera réinitialisé et tous les journaux seront supprimés définitivement.",
+            "settingcheckbox": "Effacer les paramètres et supprimer le rapport d'événements{{newLine}}Attention : ceci ne peut pas être annulé. Tout paramètre modifié sera réinitialisé et le rapport d'événements sera définitivement supprimé .",
             "title": "Désinstaller",
             "prefix_warning": "Le préfixe Wine pour ce jeu est le préfixe par défaut. Si vous voulez vraiment le supprimer, vous devez le faire manuellement."
         },
@@ -212,7 +212,7 @@
         "store": "Page du magasin",
         "verify": "Vérifier et Réparer",
         "extraInfo": "Informations supplémentaires",
-        "logs": "Journaux"
+        "logs": "Journaux d'événements"
     },
     "help": {
         "cloud_save_unsupported": "Ce jeu ne prend pas en charge les sauvegardes dans le Cloud. Cette information est fournie par les développeurs du jeu. Certains jeux implémentent leur propre système de sauvegarde dans le Cloud"

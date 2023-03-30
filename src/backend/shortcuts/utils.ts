@@ -3,6 +3,7 @@ import { heroicIconFolder } from '../constants'
 import { GameInfo, SideloadGame } from 'common/types'
 import { spawnSync } from 'child_process'
 import { basename, dirname, extname, join } from 'path'
+import { GOGLibrary } from 'backend/gog/library'
 
 function createImage(
   buffer: Buffer,
@@ -57,11 +58,17 @@ async function getIcon(appName: string, gameInfo: GameInfo | SideloadGame) {
     mkdirSync(heroicIconFolder)
   }
 
-  const image = gameInfo.art_square
-    .replaceAll(' ', '%20')
-    .replace('{ext}', 'jpg')
+  // By default use vertical image - art_square in jpg format
+  let image = gameInfo.art_square.replaceAll(' ', '%20').replace('{ext}', 'jpg')
+  let icon = `${heroicIconFolder}/${appName}.jpg`
 
-  const icon = `${heroicIconFolder}/${appName}.jpg`
+  if (gameInfo.runner === 'gog') {
+    const productApiData = await GOGLibrary.getProductApi(appName)
+    if (productApiData && productApiData.data.images?.icon) {
+      image = 'https:' + productApiData.data.images?.icon
+      icon = `${heroicIconFolder}/${appName}.png` // Allow transparency
+    }
+  }
 
   if (!checkImageExistsAlready(icon)) {
     downloadImage(image, icon)

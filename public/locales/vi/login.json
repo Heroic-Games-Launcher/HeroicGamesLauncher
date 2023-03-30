@@ -1,6 +1,9 @@
 {
     "button": {
-        "login": "Đăng nhập"
+        "login": "Đăng nhập",
+        "open": "Mở liên kết",
+        "copy": "Sao chép",
+        "copied": "Đã sao chép!"
     },
     "message": {
         "part1": "Để đăng nhập và cài đặt game, làm theo hướng dẫn sau:",

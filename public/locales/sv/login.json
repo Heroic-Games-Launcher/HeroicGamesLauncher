@@ -1,6 +1,9 @@
 {
     "button": {
-        "login": "Logga in"
+        "login": "Logga in",
+        "open": "Öppen länk",
+        "copy": "Kopiera",
+        "copied": "Kopierade!"
     },
     "message": {
         "part1": "För att logga in och installera spel, följ dessa instruktioner:",

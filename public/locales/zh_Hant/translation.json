@@ -365,7 +365,9 @@
             "error": "安裝失敗",
             "finished": "安裝完成",
             "imported": "遊戲已導入",
-            "startInstall": "安裝開始"
+            "startInstall": "安裝開始",
+            "failed": "安裝失敗",
+            "paused": "安裝暫停"
         },
         "moved": "移動完成",
         "moving": "移動遊戲中",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "已取消更新",
             "finished": "更新完成",
-            "started": "更新開始"
+            "started": "更新開始",
+            "failed": "更新失敗",
+            "paused": "更新暫停"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Nothing to download",
             "finished": "Completed",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "resume": "恢復下載",
+            "pause": "暫停下載"
         }
     },
     "Recent": "最近遊玩的遊戲",

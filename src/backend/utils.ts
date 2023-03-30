@@ -52,7 +52,7 @@ import {
 } from './legendary/electronStores'
 import {
   apiInfoCache as GOGapiInfoCache,
-  gogInstallInfoStore as GOGinstallInfoStore,
+  installInfoStore as GOGinstallInfoStore,
   libraryStore as GOGlibraryStore
 } from './gog/electronStores'
 import * as fileSize from 'filesize'
@@ -283,13 +283,7 @@ async function handleExit() {
   app.exit()
 }
 
-// This won't change while the app is running
-// Caching significantly increases performance when launching games
-let systemInfoCache = ''
-const getSystemInfo = async () => {
-  if (systemInfoCache !== '') {
-    return systemInfoCache
-  }
+const getSystemInfoInternal = async (): Promise<string> => {
   const heroicVersion = getHeroicVersion()
   const legendaryVersion = await getLegendaryVersion()
   const gogdlVersion = await getGogdlVersion()
@@ -309,12 +303,14 @@ const getSystemInfo = async () => {
   // get GPU information
   const { controllers } = await si.graphics()
   const graphicsCards = String(
-    controllers.map(
-      ({ name, model, vram, driverVersion }, i) =>
-        `GPU${i}: ${name ? name : model} ${vram ? `VRAM: ${vram}MB` : ''} ${
-          driverVersion ? `DRIVER: ${driverVersion}` : ''
-        } \n`
-    )
+    controllers
+      .map(
+        ({ name, model, vram, driverVersion }, i: number) =>
+          `GPU${i}: ${name ? name : model} ${vram ? `VRAM: ${vram}MB` : ''} ${
+            driverVersion ? `DRIVER: ${driverVersion}` : ''
+          }\n`
+      )
+      .join('')
   )
     .replaceAll(',', '')
     .replaceAll('\n', '')
@@ -324,7 +320,7 @@ const getSystemInfo = async () => {
     ? (await execAsync('echo $XDG_SESSION_TYPE')).stdout.replaceAll('\n', '')
     : ''
 
-  systemInfoCache = `Heroic Version: ${heroicVersion}
+  const systemInfo = `Heroic Version: ${heroicVersion}
 Legendary Version: ${legendaryVersion}
 GOGdl Version: ${gogdlVersion}
 
@@ -339,7 +335,33 @@ CPU: ${manufacturer} ${brand} @${speed} ${
 RAM: Total: ${getFileSize(total)} Available: ${getFileSize(available)}
 GRAPHICS: ${graphicsCards}
 ${isLinux ? `PROTOCOL: ${xEnv}` : ''}`
-  return systemInfoCache
+  return systemInfo
+}
+
+// This won't change while the app is running
+// Caching significantly increases performance when launching games
+let systemInfoCache = ''
+const getSystemInfo = async (): Promise<string> => {
+  if (systemInfoCache !== '') {
+    return systemInfoCache
+  }
+  try {
+    const timeoutPromise = new Promise((resolve, reject) =>
+      setTimeout(reject, 5000)
+    )
+    const systemInfo = await Promise.race([
+      getSystemInfoInternal(),
+      timeoutPromise
+    ])
+    systemInfoCache = systemInfo as string
+    return systemInfoCache
+  } catch (err) {
+    // On some systems this race might fail in time because of the sub-processes
+    // in systeminformation hanging indefinitely.
+    // To make sure that the app doesn't become a zombie process we exit this promise after 5 seconds.
+    logWarning('Could not determine System Info', LogPrefix.Backend)
+    return ''
+  }
 }
 
 type ErrorHandlerMessage = {
@@ -879,8 +901,8 @@ export const spawnAsync = async (
   onOutput?: (data: string) => void
 ): Promise<{ code: number | null; stdout: string; stderr: string }> => {
   const child = spawn(command, args, options)
-  const stdout: string[] = []
-  const stderr: string[] = []
+  const stdout = memoryLog()
+  const stderr = memoryLog()
 
   if (child.stdout) {
     child.stdout.on('data', (data) => {
@@ -1151,6 +1173,26 @@ export async function moveOnUnix(
   return { status: 'done', installPath: destination }
 }
 
+// helper object for an array with a length limit
+// this is used when calling system processes to not store the complete output in memory
+//
+// the `limit` is the number of messages, it doesn't mean it will be exactly `limit` lines since a message can be multi-line
+const memoryLog = (limit = 50) => {
+  const lines: string[] = []
+
+  return {
+    push: (newLine: string) => {
+      lines.unshift(newLine)
+      if (lines.length > limit) {
+        lines.length = limit
+      }
+    },
+    join: (separator = '') => {
+      return lines.reverse().join(separator)
+    }
+  }
+}
+
 export {
   errorHandler,
   execAsync,
@@ -1183,7 +1225,8 @@ export {
   getWineFromProton,
   getFileSize,
   getLegendaryVersion,
-  getGogdlVersion
+  getGogdlVersion,
+  memoryLog
 }
 
 // Exported only for testing purpose

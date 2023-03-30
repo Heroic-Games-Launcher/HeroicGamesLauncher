@@ -365,7 +365,9 @@
             "error": "Cài đặt thất bại",
             "finished": "Cài đặt hoàn tất",
             "imported": "Game đã được import",
-            "startInstall": "Quá trình cài đặt đã bắt đầu"
+            "startInstall": "Quá trình cài đặt đã bắt đầu",
+            "failed": "Cài đặt thất bại",
+            "paused": "Cài đặt bị tạm dừng"
         },
         "moved": "Di chuyển hoàn tất",
         "moving": "Đang di chuyển Game",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "Quá trình cập nhật đã hủy",
             "finished": "Cập nhật hoàn tất",
-            "started": "Quá trình cập nhật đã bắt đầu"
+            "started": "Quá trình cập nhật đã bắt đầu",
+            "failed": "Cập nhật không thành công",
+            "paused": "Cập nhật bị tạm dừng"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Nothing to download",
             "finished": "Completed",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "pause": "Tạm dừng tải xuống",
+            "resume": "tiếp tục tải xuống"
         }
     },
     "Recent": "Chơi gần đây",

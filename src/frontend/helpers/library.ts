@@ -8,7 +8,7 @@ import {
 } from 'common/types'
 
 import { TFunction } from 'i18next'
-import { getGameInfo, sendKill } from './index'
+import { getGameInfo } from './index'
 import { DialogModalOptions } from 'frontend/types'
 
 const storage: Storage = window.localStorage
@@ -53,7 +53,7 @@ async function install({
     if (!folder_name) return
     return handleStopInstallation(
       appName,
-      [installPath, folder_name],
+      installPath,
       t,
       progress,
       runner,
@@ -114,7 +114,7 @@ const importGame = window.api.importGame
 
 async function handleStopInstallation(
   appName: string,
-  [path, folderName]: string[],
+  path: string,
   t: TFunction<'gamepage'>,
   progress: InstallProgress,
   runner: Runner,
@@ -132,15 +132,14 @@ async function handleStopInstallation(
             appName,
             JSON.stringify({ ...progress, folder: path })
           )
-          sendKill(appName, runner)
+          window.api.cancelDownload(false)
         }
       },
       {
         text: t('box.no'),
         onClick: async () => {
-          await sendKill(appName, runner)
+          window.api.cancelDownload(true)
           storage.removeItem(appName)
-          window.api.removeFolder([path, folderName])
         }
       }
     ]
@@ -166,7 +165,7 @@ const launch = async ({
   runner,
   hasUpdate,
   showDialogModal
-}: LaunchOptions): Promise<{ status: 'done' | 'error' }> => {
+}: LaunchOptions): Promise<{ status: 'done' | 'error' | 'abort' }> => {
   if (hasUpdate) {
     const { ignoreGameUpdates } = await window.api.requestGameSettings(appName)
 
@@ -182,40 +181,42 @@ const launch = async ({
     }
 
     // promisifies the showDialogModal button click callbacks
-    const launchFinished = new Promise<{ status: 'done' | 'error' }>((res) => {
-      showDialogModal({
-        message: t('gamepage:box.update.message'),
-        title: t('gamepage:box.update.title'),
-        buttons: [
-          {
-            text: t('gamepage:box.yes'),
-            onClick: async () => {
-              const gameInfo = await getGameInfo(appName, runner)
-              if (gameInfo && gameInfo.runner !== 'sideload') {
-                updateGame({ appName, runner, gameInfo })
-                res({ status: 'done' })
+    const launchFinished = new Promise<{ status: 'done' | 'error' | 'abort' }>(
+      (res) => {
+        showDialogModal({
+          message: t('gamepage:box.update.message'),
+          title: t('gamepage:box.update.title'),
+          buttons: [
+            {
+              text: t('gamepage:box.yes'),
+              onClick: async () => {
+                const gameInfo = await getGameInfo(appName, runner)
+                if (gameInfo && gameInfo.runner !== 'sideload') {
+                  updateGame({ appName, runner, gameInfo })
+                  res({ status: 'done' })
+                }
+                res({ status: 'error' })
               }
-              res({ status: 'error' })
+            },
+            {
+              text: t('box.no'),
+              onClick: async () => {
+                res(
+                  window.api.launch({
+                    appName,
+                    runner,
+                    launchArguments:
+                      launchArguments +
+                      ' ' +
+                      (runner === 'legendary' ? '--skip-version-check' : '')
+                  })
+                )
+              }
             }
-          },
-          {
-            text: t('box.no'),
-            onClick: async () => {
-              res(
-                window.api.launch({
-                  appName,
-                  runner,
-                  launchArguments:
-                    launchArguments +
-                    ' ' +
-                    (runner === 'legendary' ? '--skip-version-check' : '')
-                })
-              )
-            }
-          }
-        ]
-      })
-    })
+          ]
+        })
+      }
+    )
 
     return launchFinished
   }

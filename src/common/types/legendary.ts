@@ -119,7 +119,7 @@ interface KeyImage {
 interface ReleaseInfo {
   appId: string
   id: string
-  platform: LegendaryInstallPlatform[]
+  platform?: LegendaryInstallPlatform[]
 }
 
 // Output of `legendary info AppName --json`

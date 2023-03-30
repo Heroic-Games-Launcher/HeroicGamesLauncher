@@ -272,7 +272,7 @@ class LegendaryGame extends Game {
    */
   public async getExtraInfo(): Promise<ExtraInfo> {
     const { namespace, title } = this.getGameInfo()
-    const cachedExtraInfo = gameInfoStore.get_nodefault(namespace)
+    const cachedExtraInfo = gameInfoStore.get(namespace)
     if (cachedExtraInfo) {
       return cachedExtraInfo
     }
@@ -472,7 +472,7 @@ class LegendaryGame extends Game {
    * Update game.
    * Does NOT check for online connectivity.
    */
-  public async update(): Promise<{ status: 'done' | 'error' }> {
+  public async update(): Promise<{ status: 'done' | 'error' | 'abort' }> {
     sendFrontendMessage('gameStatusUpdate', {
       appName: this.appName,
       runner: 'legendary',
@@ -1019,14 +1019,14 @@ class LegendaryGame extends Game {
 
   // Could be removed if legendary handles SIGKILL and SIGTERM for us
   // which is send via AbortController
-  public async stop() {
+  public async stop(stopWine = true) {
     // until the legendary bug gets fixed, kill legendary on mac
     // not a perfect solution but it's the only choice for now
 
     // @adityaruplaha: this is kinda arbitary and I don't understand it.
     const pattern = process.platform === 'linux' ? this.appName : 'legendary'
     killPattern(pattern)
-    if (!this.isNative()) {
+    if (stopWine && !this.isNative()) {
       const gameSettings = await this.getSettings()
       await shutdownWine(gameSettings)
     }

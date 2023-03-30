@@ -365,7 +365,9 @@
             "error": "നടീല് പരാജയപ്പെട്ടു",
             "finished": "സ്ഥാപിച്ചുകഴിഞ്ഞു",
             "imported": "കളി കൊണ്ടുവന്നു",
-            "startInstall": "നടീല് തുടങ്ങി"
+            "startInstall": "നടീല് തുടങ്ങി",
+            "failed": "നടീല് പരാജയപ്പെട്ടു",
+            "paused": "ഇൻസ്റ്റലേഷൻ താൽക്കാലികമായി നിർത്തി"
         },
         "moved": "മാറ്റിക്കഴിഞ്ഞു",
         "moving": "Moving Game",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "പുതുക്കല് റദ്ദാക്കി",
             "finished": "പുതുക്കി",
-            "started": "Update Started"
+            "started": "Update Started",
+            "failed": "അപ്ഡേറ്റ് പരാജയപ്പെട്ടു",
+            "paused": "അപ്‌ഡേറ്റ് താൽക്കാലികമായി നിർത്തി"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Nothing to download",
             "finished": "Completed",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "pause": "ഡൗൺലോഡ് താൽക്കാലികമായി നിർത്തുക",
+            "resume": "ഡൗൺലോഡ് പുനരാരംഭിക്കുക"
         }
     },
     "Recent": "പതിവ് കളികള്",

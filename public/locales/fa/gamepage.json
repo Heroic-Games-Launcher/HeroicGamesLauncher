@@ -34,9 +34,9 @@
         "uninstall": {
             "checkbox": "حذف prefix: {{prefix}}{{newLine}}نکته:این کار قابل بازگشت نیست و همچنین فایل های ذخیره پشتیبانی گرفته نشده را پاک می کند.",
             "message": "آیا میخواهید این بازی را حذف کنید؟",
-            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+            "settingcheckbox": "پاک کردن تنظیمات و لاگ ها{{newLine}}نکته: این عمل قابل بازگشت نیست. تنظیمات دستکاری شده فراموش و لاگ ها پاک می شوند.",
             "title": "حذف",
-            "prefix_warning": "پیشوند Wine برای این بازی پیشوند پیش فرض است. اگر واقعاً می خواهید آن را حذف کنید، باید آن را به صورت دستی انجام دهید."
+            "prefix_warning": "مسیر Wine برای این بازی مسیر پیش فرض است. اگر واقعاً می خواهید آن را حذف کنید، باید آن را به صورت دستی انجام دهید."
         },
         "update": {
             "message": "این بازی به روزرسانی دارد، آیا مایل به روزرسانی هستید؟",
@@ -96,15 +96,15 @@
     },
     "generic": {
         "error": "خطای نامشخص",
-        "noDescription": "هیچ توضیحی در دسترس نیست"
+        "noDescription": "هیچ توضیحی موجود نیست"
     },
-    "hours": "Hours",
+    "hours": "ساعت",
     "how-long-to-beat": {
-        "completionist": "Completionist",
-        "main-plus-extras": "Main + Extras",
-        "main-story": "Main Story"
+        "completionist": "مدت زمان تکمیل بازی",
+        "main-plus-extras": "اصلی + محتوای اضافه",
+        "main-story": "داستان اصلی"
     },
-    "howLongToBeat": "How Long To Beat",
+    "howLongToBeat": "مدت زمان اتمام",
     "info": {
         "canRunOffline": "نیازمندی به آنلاین بودن",
         "installedPlatform": "پلتفرم های نصب شده",
@@ -128,7 +128,7 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "بازی های شخص ثالث پشتیبانی نمی شوند"
         },
         "playing": {
             "start": "اجرا",
@@ -137,8 +137,8 @@
         "saves": {
             "syncing": "در حال همگام سازی ذخیره ها"
         },
-        "launching": "راه اندازی",
-        "ubisoft": "نصب Ubisoft Connect"
+        "launching": "در حال راه اندازی",
+        "ubisoft": "در حال نصب Ubisoft Connect"
     },
     "launch": {
         "options": "گزینه های اجرا..."
@@ -146,8 +146,8 @@
     "not_logged_in": {
         "epic": "شما با حساب Epic در Heroic وارد نشده اید. از صفحه استور برای ورود استفاده نکنید، به جای آن بر دکمه زیر کلیک کنید:",
         "gog": "شما با حساب GOG در Heroic وارد نشده اید. از صفحه استور برای ورود استفاده نکنید، به جای آن بر دکمه زیر کلیک کنید:",
-        "login": "Log in",
-        "title": "شما دارد نشده اید"
+        "login": "ورود",
+        "title": "شما وارد نشده اید"
     },
     "report_problem": "گزارش مشکل اجرای این بازی",
     "sdl": {
@@ -155,7 +155,7 @@
     },
     "setting": {
         "use-default-wine-settings": "استفاده از تنظیمات Wine پیش فرض",
-        "winecrossoverbottle": "CrossOver باتل"
+        "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {
         "field": {
@@ -177,26 +177,26 @@
     },
     "status": {
         "clickToUpdate": "برای به روزرسانی کلیک کنید",
-        "gameNotAvailable": "Game not available",
+        "gameNotAvailable": "بازی در دسترس نیست",
         "hasUpdates": "نسخه جدید موجود است!",
         "installed": "نصب شده",
         "installing": "در حال نصب",
         "moving": "در حال انتقال نصب، لطفا صبر کنید",
         "notinstalled": "این بازی نصب نشده است",
-        "notSupported": "Not supported",
-        "notSupportedGame": "Not Supported",
+        "notSupported": "پشتیبانی نشده",
+        "notSupportedGame": "پشتیبانی نشده",
         "processing": "در حال پردازش فایلها، لطفا منتظر بمانید",
         "queued": "در صف",
         "reparing": "در حال تعمیر بازی، لطفا صبر کنید",
-        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
+        "this-game-uses-third-party": "این بازی از راه انداز شخص ثالث استفاده کرده و هنوز پشتیبانی نمی شود",
         "totalDownloaded": "حجم کل دانلود شده",
         "uninstalling": "در حال حذف",
         "updating": "در حال به روزرسانی بازی",
-        "playing": "بازی کردن",
-        "moving-files": "انتقال فایل '{{file}}': {{percent}} ",
+        "playing": "در حال بازی کردن",
+        "moving-files": "در حال انتقال فایل '{{file}}': {{percent}} ",
         "syncingSaves": "در حال همگام سازی ذخیره ها",
-        "launching": "راه اندازی",
-        "ubisoft": "نصب یوبی سافت"
+        "launching": "در حال راه اندازی",
+        "ubisoft": "نصب Ubisoft"
     },
     "submenu": {
         "addShortcut": "افزودن میانبر",
@@ -212,7 +212,7 @@
         "store": "صفحه فروشگاه",
         "verify": "بررسی و تعمیر",
         "extraInfo": "اطلاعات اضافی",
-        "logs": "سیاههها"
+        "logs": "لاگ ها"
     },
     "help": {
         "cloud_save_unsupported": "این بازی از ذخیره ابری پشتیبانی نمی کند. این اطلاعات توسط سازندگان بازی ارائه شده است. برخی از بازی ها سیستم ذخیره ابری خود را پیاده سازی می کنند"

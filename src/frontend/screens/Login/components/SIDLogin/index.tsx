@@ -1,5 +1,8 @@
 import React, { useContext, useState } from 'react'
 import Info from '@mui/icons-material/Info'
+import LinkIcon from '@mui/icons-material/Link'
+import PublicIcon from '@mui/icons-material/Public'
+import { Button, Paper, Stack, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { loginPage, sidInfoPage } from 'frontend/helpers'
 import './index.css'
@@ -11,6 +14,8 @@ interface Props {
 }
 
 export default function SIDLogin({ backdropClick }: Props) {
+  const epicLoginUrl = 'https://legendary.gl/epiclogin'
+
   const { epic } = useContext(ContextProvider)
   const { t } = useTranslation('login')
   const [input, setInput] = useState('')
@@ -18,8 +23,14 @@ export default function SIDLogin({ backdropClick }: Props) {
     loading: false,
     message: ''
   })
+  const [linkCopied, setLinkCopied] = useState(false)
 
   const { loading, message } = status
+
+  const handleCopyLink = () => {
+    window.api.clipboardWriteText(epicLoginUrl)
+    setLinkCopied(true)
+  }
 
   const handleLogin = async (sid: string) => {
     await epic.login(sid).then(async (res) => {
@@ -67,6 +78,33 @@ export default function SIDLogin({ backdropClick }: Props) {
                   className="material-icons"
                 />
               </span>
+              <Paper variant="outlined" className="login-link">
+                <Typography variant="subtitle1" paddingLeft={2}>
+                  {epicLoginUrl}
+                </Typography>
+                <Stack direction="row" spacing={1}>
+                  <Button
+                    className={
+                      linkCopied ? 'icon-button-success' : 'icon-button'
+                    }
+                    onClick={handleCopyLink}
+                    endIcon={<LinkIcon fontSize="small" />}
+                    variant="outlined"
+                    size="small"
+                  >
+                    {linkCopied ? t('button.copied') : t('button.copy')}
+                  </Button>
+                  <Button
+                    className="icon-button"
+                    endIcon={<PublicIcon fontSize="small" />}
+                    onClick={() => loginPage()}
+                    size="small"
+                    variant="outlined"
+                  >
+                    {t('button.open')}
+                  </Button>
+                </Stack>
+              </Paper>
             </li>
             <li>
               {`${t('message.part6')} `}

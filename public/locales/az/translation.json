@@ -365,7 +365,9 @@
             "error": "Quraşdırma uğursuz oldu",
             "finished": "Quraşdırma tamamlandı",
             "imported": "Oyun İdxal",
-            "startInstall": "Quraşdırma Başladı"
+            "startInstall": "Quraşdırma Başladı",
+            "paused": "Quraşdırma dayandırıldı",
+            "failed": "Quraşdırma uğursuz oldu"
         },
         "moved": "Hərəkət tamamlandı",
         "moving": "Hərəkətli Oyun",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "Yeniləndi Ləğv edildi",
             "finished": "Yeniləmə Tamamlandı",
-            "started": "Yeniləmə Başladı"
+            "started": "Yeniləmə Başladı",
+            "failed": "Yeniləmə alınmadı",
+            "paused": "Yeniləmə dayandırıldı"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Nothing to download",
             "finished": "Completed",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "resume": "Yükləməni davam etdirin",
+            "pause": "Yükləməni dayandırın"
         }
     },
     "Recent": "Bu yaxınlarda oynanılıb",
