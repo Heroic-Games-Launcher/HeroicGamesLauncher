@@ -284,9 +284,10 @@ if (!gotTheLock) {
   app.whenReady().then(async () => {
     initOnlineMonitor()
 
-    getSystemInfo().then((systemInfo) =>
+    getSystemInfo().then((systemInfo) => {
+      if (systemInfo === '') return
       logInfo(`\n\n${systemInfo}\n`, LogPrefix.Backend)
-    )
+    })
 
     initImagesCache()
 
@@ -565,7 +566,7 @@ ipcMain.on('showConfigFileInFolder', async (event, appName) => {
   return openUrlOrFile(path.join(heroicGamesConfigPath, `${appName}.json`))
 })
 
-ipcMain.on('removeFolder', async (e, [path, folderName]) => {
+export function removeFolder(path: string, folderName: string) {
   if (path === 'default') {
     const { defaultInstallPath } = GlobalConfig.get().getSettings()
     const path = defaultInstallPath.replaceAll("'", '')
@@ -585,6 +586,10 @@ ipcMain.on('removeFolder', async (e, [path, folderName]) => {
     }, 2000)
   }
   return
+}
+
+ipcMain.on('removeFolder', async (e, [path, folderName]) => {
+  removeFolder(path, folderName)
 })
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
@@ -599,7 +604,6 @@ ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
 
   switch (tool) {
     case 'winetricks':
-      await verifyWinePrefix(gameSettings)
       await Winetricks.run(wineVersion, winePrefix, event)
       break
     case 'winecfg':
@@ -609,7 +613,9 @@ ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
             commandParts: ['winecfg'],
             wait: false
           })
-        : game.runWineCommand({ commandParts: ['winecfg'] })
+        : game.runWineCommand({
+            commandParts: ['winecfg']
+          })
       break
     case 'runExe':
       if (exe) {
@@ -618,8 +624,8 @@ ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
           ? runWineCommand({
               gameSettings,
               commandParts: [exe],
-              wait: false,
-              startFolder: workingDir
+              startFolder: workingDir,
+              wait: false
             })
           : game.runWineCommand({
               commandParts: [exe],
@@ -831,7 +837,7 @@ ipcMain.handle('authGOG', async (event, code) => GOGUser.login(code))
 ipcMain.handle('logoutLegendary', LegendaryUser.logout)
 ipcMain.on('logoutGOG', GOGUser.logout)
 ipcMain.handle('getLocalPeloadPath', async () => {
-  return fixAsarPath(join(publicDir, 'webviewPreload.js'))
+  return fixAsarPath(join('file://', publicDir, 'webviewPreload.js'))
 })
 
 ipcMain.handle('getAlternativeWine', async () =>
@@ -896,12 +902,20 @@ ipcMain.handle('requestSettings', async (event, appName) => {
   return mapOtherSettings(config)
 })
 
-ipcMain.handle('toggleDXVK', async (event, { winePrefix, winePath, action }) =>
-  DXVK.installRemove(winePrefix, winePath, 'dxvk', action)
+ipcMain.handle('toggleDXVK', async (event, { appName, action }) =>
+  GameConfig.get(appName)
+    .getSettings()
+    .then(async (gameSettings) =>
+      DXVK.installRemove(gameSettings, 'dxvk', action)
+    )
 )
 
-ipcMain.on('toggleVKD3D', (event, { winePrefix, winePath, action }) => {
-  DXVK.installRemove(winePrefix, winePath, 'vkd3d', action)
+ipcMain.on('toggleVKD3D', (event, { appName, action }) => {
+  GameConfig.get(appName)
+    .getSettings()
+    .then((gameSettings) => {
+      DXVK.installRemove(gameSettings, 'vkd3d', action)
+    })
 })
 
 ipcMain.handle('writeConfig', (event, { appName, config }) => {
@@ -1036,18 +1050,23 @@ ipcMain.handle(
       powerDisplayId = powerSaveBlocker.start('prevent-display-sleep')
     }
 
-    const systemInfo = await getSystemInfo()
+    const systemInfo = getSystemInfo()
     const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
     const logFileLocation = isSideloaded
       ? appLogFileLocation(appName)
       : extGame.logFileLocation
 
+    systemInfo.then((systemInfo) => {
+      if (systemInfo === '') return
+      writeFileSync(
+        logFileLocation,
+        'System Info:\n' + `${systemInfo}\n` + '\n'
+      )
+    })
+
     writeFileSync(
       logFileLocation,
-      'System Info:\n' +
-        `${systemInfo}\n` +
-        '\n' +
-        `Game Settings: ${gameSettingsString}\n` +
+      `Game Settings: ${gameSettingsString}\n` +
         '\n' +
         `Game launched at: ${startPlayingDate}\n` +
         '\n'
@@ -1407,7 +1426,7 @@ ipcMain.handle('updateGame', async (event, appName, runner): StatusPromise => {
     body: i18next.t('notify.update.started', 'Update Started')
   })
 
-  let status: 'done' | 'error' = 'error'
+  let status: 'done' | 'error' | 'abort' = 'error'
   try {
     status = (await game.update()).status
   } catch (error) {

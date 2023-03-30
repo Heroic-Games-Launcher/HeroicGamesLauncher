@@ -1,6 +1,9 @@
 {
     "button": {
-        "login": "Prijava"
+        "login": "Prijava",
+        "open": "Otvori link",
+        "copy": "Kopirati",
+        "copied": "Kopirano!"
     },
     "message": {
         "part1": "Ukoliko se želite prijaviti i instalirati svoje igre, morate slijediti sljedeće korake:",

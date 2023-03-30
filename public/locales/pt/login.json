@@ -1,6 +1,9 @@
 {
     "button": {
-        "login": "Entrar"
+        "login": "Entrar",
+        "open": "Link aberto",
+        "copy": "cópia de",
+        "copied": "Copiado!"
     },
     "message": {
         "part1": "Para que você possa entrar e instalar os seus jogos, é necessário seguir os seguintes passos:",

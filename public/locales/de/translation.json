@@ -365,7 +365,9 @@
             "error": "Installation fehlgeschlagen",
             "finished": "Installation abgeschlossen",
             "imported": "Spiel importiert",
-            "startInstall": "Installation gestartet"
+            "startInstall": "Installation gestartet",
+            "failed": "Installation fehlgeschlagen",
+            "paused": "Installation angehalten"
         },
         "moved": "Verschieben abgeschlossen",
         "moving": "Spiel wird verschoben",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "Update abgebrochen",
             "finished": "Update abgeschlossen",
-            "started": "Update gestartet"
+            "started": "Update gestartet",
+            "failed": "Update fehlgeschlagen",
+            "paused": "Aktualisierung angehalten"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Nichts zum Herunterladen",
             "finished": "Abgeschlossen",
             "queued": "In Warteschlange",
-            "remove": "Aus Downloads entfernen"
+            "remove": "Aus Downloads entfernen",
+            "pause": "Download pausieren",
+            "resume": "Download fortsetzen"
         }
     },
     "Recent": "Zuletzt gespielte Spiele",

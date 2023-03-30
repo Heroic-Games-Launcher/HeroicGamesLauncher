@@ -365,7 +365,9 @@
             "error": "Instalacija Neuspjela",
             "finished": "Instalacija gotova",
             "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "startInstall": "Installation Started",
+            "failed": "Instalacija Neuspjela",
+            "paused": "Instalacija pauzirana"
         },
         "moved": "Premještanje gotovo",
         "moving": "Moving Game",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "Ažuriranje prekinuto",
             "finished": "Ažuriranje gotovo",
-            "started": "Update Started"
+            "started": "Update Started",
+            "failed": "Ažuriranje nije uspjelo",
+            "paused": "Ažuriranje pauzirano"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Nothing to download",
             "finished": "Completed",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "resume": "Nastavi preuzimanje",
+            "pause": "Pauziraj preuzimanje"
         }
     },
     "Recent": "Played Recently",

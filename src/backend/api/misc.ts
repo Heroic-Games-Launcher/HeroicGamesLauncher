@@ -149,6 +149,9 @@ export const storeGet = (
   defaultValue?: unknown
 ) => stores[storeName].get(key, defaultValue)
 
+export const storeDelete = (storeName: string, key: string) =>
+  stores[storeName].delete(key)
+
 export const getWikiGameInfo = async (
   title: string,
   appName: string,

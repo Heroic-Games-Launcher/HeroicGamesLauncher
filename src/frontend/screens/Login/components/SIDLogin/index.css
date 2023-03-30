@@ -54,6 +54,38 @@
   color: var(--link-highlight);
 }
 
+.loginInstructions .login-link {
+  display: flex;
+  background-color: var(--background-darker);
+  border-color: var(--accent);
+  color: var(--text-default);
+  padding: var(--space-2xs);
+  margin: var(--space-lg);
+  width: inherit;
+  justify-content: space-between;
+  user-select: text;
+}
+
+.loginInstructions .icon-button {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.loginInstructions .icon-button:hover {
+  color: var(--accent-overlay);
+  border-color: var(--accent-overlay);
+}
+
+.loginInstructions .icon-button-success {
+  color: var(--success);
+  border-color: var(--success);
+}
+
+.loginInstructions .icon-button-success:hover {
+  color: var(--success-hover);
+  border-color: var(--success-hover);
+}
+
 .loginInstructions li {
   text-align: left;
 }

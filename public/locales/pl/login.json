@@ -1,6 +1,9 @@
 {
     "button": {
-        "login": "Zaloguj"
+        "login": "Zaloguj",
+        "open": "Otwórz łącze",
+        "copy": "Kopiuj",
+        "copied": "Skopiowane!"
     },
     "message": {
         "part1": "Żeby się zalogować i móc instalować gry, najpierw wykonaj następujące kroki :",

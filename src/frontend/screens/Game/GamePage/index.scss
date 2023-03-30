@@ -199,10 +199,16 @@
     max-width: 420px;
   }
 
+  & > *:not(:first-child) {
+    max-width: 560px;
+  }
+
   .infoWrapper {
     color: var(--text-default);
     flex-grow: 1;
     line-height: 22px;
+    display: flex;
+    flex-direction: column;
 
     .iconWithText {
       transition: color 300ms;
@@ -213,6 +219,11 @@
         margin-right: var(--space-3xs);
       }
     }
+  }
+
+  .timeContainerLabel,
+  .iconWithText {
+    align-self: flex-start;
   }
 
   .developer {

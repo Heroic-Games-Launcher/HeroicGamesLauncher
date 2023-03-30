@@ -30,6 +30,7 @@ jobs:
   build_linux:
     runs-on: ubuntu-latest
     steps:
+      - run: sudo apt-get install --no-install-recommends -y snapcraft
       - name: Checkout repository.
         uses: actions/checkout@v3
       - name: Setup NodeJS
@@ -38,6 +39,10 @@ jobs:
           node-version: '18'
       - name: Install modules.
         run: yarn
+      - name: Upload Snap to Edge Channel.
+        run: yarn dist:linux snap --publish=always
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_ID_EDGE }}
       - name: Build artifacts.
         run: yarn dist:linux appimage --publish=never
       - name: Upload AppImage.
