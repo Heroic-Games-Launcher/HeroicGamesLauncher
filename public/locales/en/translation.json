@@ -184,6 +184,7 @@
     },
     "docs": "Documentation",
     "download-manager": {
+        "ETA": "Estimated time",
         "install-type": {
             "install": "Install",
             "update": "Update"
@@ -359,10 +360,12 @@
             "reparing": "Finished Repairing"
         },
         "install": {
-            "canceled": "Install Canceled",
+            "canceled": "Installation Canceled",
             "error": "Installation Failed",
-            "finished": "Install Finished",
+            "failed": "Installation Failed",
+            "finished": "Installation Finished",
             "imported": "Game Imported",
+            "paused": "Installation Paused",
             "startInstall": "Installation Started"
         },
         "moved": "Finished Moving",
@@ -373,8 +376,10 @@
         },
         "uninstalled": "Uninstalled",
         "update": {
-            "canceled": "Updated Canceled",
+            "canceled": "Update Canceled",
+            "failed": "Update Failed",
             "finished": "Update Finished",
+            "paused": "Update Paused",
             "started": "Update Started"
         }
     },
@@ -385,7 +390,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
-    "Open": "",
+    "Open": "Open",
     "options": {
         "advanced": {
             "key": "Variable Name",
@@ -445,8 +450,10 @@
             "downloading": "Downloading",
             "empty": "Nothing to download",
             "finished": "Completed",
+            "pause": "Pause download",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "resume": "Resume download"
         }
     },
     "Recent": "Played Recently",

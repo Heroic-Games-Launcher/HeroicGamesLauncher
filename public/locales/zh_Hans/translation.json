@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "message": "在游戏前缀中安装 Ubisoft Connect 失败。查看我们的 wiki 页面 https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac 来手动安装它。",
                 "title": "育碧连接"
+            },
+            "legendary": {
+                "generic": "发生了错误！尝试注销并登录您的 Epic 帐户。 {{newline}} {{error}}"
             }
         },
         "info": {
@@ -201,7 +204,8 @@
             "start-time": "启动于",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "ETA": "预计时间"
     },
     "epic": {
         "offline-notification-body": "在线服务可能无法完全工作，因为 Epic Games 服务器离线！",
@@ -361,7 +365,9 @@
             "error": "安装失败",
             "finished": "安装完成",
             "imported": "游戏已导入",
-            "startInstall": "安装已开始"
+            "startInstall": "安装已开始",
+            "paused": "安装暂停",
+            "failed": "安装失败"
         },
         "moved": "移动完成",
         "moving": "移动游戏中",
@@ -373,7 +379,9 @@
         "update": {
             "canceled": "已取消更新",
             "finished": "更新已完成",
-            "started": "更新已开始"
+            "started": "更新已开始",
+            "failed": "更新失败",
+            "paused": "更新暂停"
         }
     },
     "offline-message": {
@@ -383,7 +391,7 @@
         "offline-retry-in": "离线。在 {{seconds}} 秒内重试。",
         "retrying": "重试"
     },
-    "Open": "",
+    "Open": "打开",
     "options": {
         "advanced": {
             "key": "变量名称",
@@ -444,7 +452,9 @@
             "empty": "没有可下载的",
             "finished": "已完成",
             "queued": "已加入队列",
-            "remove": "从下载中删除"
+            "remove": "从下载中删除",
+            "pause": "暂停下载",
+            "resume": "恢复下载"
         }
     },
     "Recent": "最近玩过",

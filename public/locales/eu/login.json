@@ -1,6 +1,9 @@
 {
     "button": {
-        "login": "Hasi saioa"
+        "login": "Hasi saioa",
+        "open": "Ireki Esteka",
+        "copy": "Kopiatu",
+        "copied": "Kopiatu!"
     },
     "message": {
         "part1": "Saioa hasteko eta jolasak instalatzeko, lehenik eta behin, jarraitu beharreko pausoak:",

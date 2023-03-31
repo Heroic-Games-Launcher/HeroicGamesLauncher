@@ -111,7 +111,11 @@
         "path": "Telepítési útvonal",
         "size": "Méret",
         "syncsaves": "Mentések szinkronizálása",
-        "version": "Verzió"
+        "version": "Verzió",
+        "apple-gaming-wiki": "AppleGamingWiki értékelés",
+        "clickToOpen": "Kattintson a megnyitáshoz",
+        "game-scores": "Játékpontszámok",
+        "installedInfo": "Telepített információk"
     },
     "install": {
         "disk-space-left": "Elérhető tárhely",

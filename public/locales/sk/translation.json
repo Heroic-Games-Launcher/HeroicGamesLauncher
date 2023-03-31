@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "title": "Ubisoft Connect",
                 "message": "Inštalácia Ubisoft Connect do predpony hry zlyhala. Skontrolujte našu wiki stránku na https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac a nainštalujte si ju ručne."
+            },
+            "legendary": {
+                "generic": "Došlo k chybe! Skúste sa odhlásiť a prihlásiť na svojom účte Epic. {{newline}} {{error}}"
             }
         },
         "info": {
@@ -201,7 +204,8 @@
             "start-time": "Started at",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "ETA": "Predpokladaný čas"
     },
     "epic": {
         "offline-notification-body": "Heroic will maybe not work probably!",
@@ -361,7 +365,9 @@
             "error": "Inštalácia zlyhala",
             "finished": "Inštalácia je dokončená",
             "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "startInstall": "Installation Started",
+            "failed": "Inštalácia zlyhala",
+            "paused": "Inštalácia pozastavená"
         },
         "moved": "Dokončené sťahovanie",
         "moving": "Moving Game",
@@ -373,7 +379,9 @@
         "update": {
             "canceled": "Aktualizované Zrušené",
             "finished": "Update Finished",
-            "started": "Update Started"
+            "started": "Update Started",
+            "failed": "Aktualizacia neuspešná",
+            "paused": "Aktualizácia pozastavená"
         }
     },
     "offline-message": {
@@ -383,7 +391,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
-    "Open": "",
+    "Open": "OTVORENÉ",
     "options": {
         "advanced": {
             "key": "Variable Name",
@@ -444,7 +452,9 @@
             "empty": "Nothing to download",
             "finished": "Completed",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "pause": "Pozastaviť sťahovanie",
+            "resume": "Obnoviť sťahovanie"
         }
     },
     "Recent": "Played Recently",

@@ -111,7 +111,11 @@
         "path": "インストールパス",
         "size": "サイズ",
         "syncsaves": "保存を同期",
-        "version": "バージョン"
+        "version": "バージョン",
+        "apple-gaming-wiki": "AppleGamingWiki 評価",
+        "clickToOpen": "クリックして開きます",
+        "game-scores": "ゲームのスコア",
+        "installedInfo": "インストール情報"
     },
     "install": {
         "disk-space-left": "Space Available",

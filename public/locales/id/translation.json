@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "message": "Pemasangan Ubisoft Connect di awalan game gagal. Periksa halaman wiki kami di https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac untuk menginstalnya secara maunal.",
                 "title": "Ubisoft Connect"
+            },
+            "legendary": {
+                "generic": "Sebuah kesalahan telah terjadi! Cobalah Logout dan Login di akun Epic Anda. {{newline}} {{error}}"
             }
         },
         "info": {
@@ -201,7 +204,8 @@
             "start-time": "Dimulai pada",
             "type": "Tipe"
         },
-        "title": "Unduhan"
+        "title": "Unduhan",
+        "ETA": "Perkiraan waktu"
     },
     "epic": {
         "offline-notification-body": "Layanan daring mungkin tidak akan bekerja sepenuhnya karena server Epic Games sedang luring!",
@@ -361,7 +365,9 @@
             "error": "Pemasangan Gagal",
             "finished": "Pemasangan Selesai",
             "imported": "Gim Diimpor",
-            "startInstall": "Pemasangan Dimulai"
+            "startInstall": "Pemasangan Dimulai",
+            "failed": "Pemasangan Gagal",
+            "paused": "Instalasi Dijeda"
         },
         "moved": "Selesai Memindahkan",
         "moving": "Memindahkan Gim",
@@ -373,7 +379,9 @@
         "update": {
             "canceled": "Pembaruan Dibatalkan",
             "finished": "Pembaruan Selesai",
-            "started": "Pembaruan Dimulai"
+            "started": "Pembaruan Dimulai",
+            "failed": "Pembaharuan gagal",
+            "paused": "Pembaruan Dijeda"
         }
     },
     "offline-message": {
@@ -383,7 +391,7 @@
         "offline-retry-in": "Luring. Mencoba dalam {{seconds}} detik.",
         "retrying": "Mencoba kembali"
     },
-    "Open": "",
+    "Open": "Buka",
     "options": {
         "advanced": {
             "key": "Nama Variabel",
@@ -444,7 +452,9 @@
             "empty": "Tidak ada yang diunduh",
             "finished": "Selesai",
             "queued": "Antrian",
-            "remove": "Hapus dari Unduhan"
+            "remove": "Hapus dari Unduhan",
+            "pause": "Jeda unduhan",
+            "resume": "Lanjutkan unduhan"
         }
     },
     "Recent": "Dimainkan Baru-Baru Ini",

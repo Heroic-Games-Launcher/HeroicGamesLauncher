@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "message": "Installazione di Ubisoft Connect nel prefisso del gioco non riuscita. Controlla la nostra pagina wiki su https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac per installarlo manualmente.",
                 "title": "Ubisoft Connect"
+            },
+            "legendary": {
+                "generic": "C'è stato un errore! Prova a uscire e accedere al tuo account Epic. {{newline}} {{error}}"
             }
         },
         "info": {
@@ -201,7 +204,8 @@
             "start-time": "Iniziato il",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "ETA": "Tempo stimato"
     },
     "epic": {
         "offline-notification-body": "I servizi online potrebbero non funzionare completamente poiché i server di Epic Games sono offline!",
@@ -361,7 +365,9 @@
             "error": "Installazione non riuscita",
             "finished": "Installazione completata",
             "imported": "Gioco importato",
-            "startInstall": "Installazione avviata"
+            "startInstall": "Installazione avviata",
+            "failed": "Installazione non riuscita",
+            "paused": "Installazione sospesa"
         },
         "moved": "Spostamento completato",
         "moving": "Spostando il gioco",
@@ -373,7 +379,9 @@
         "update": {
             "canceled": "Aggiornamento annullato",
             "finished": "Aggiornamento completato",
-            "started": "Aggiornamento avviato"
+            "started": "Aggiornamento avviato",
+            "failed": "Aggiornamento non riuscito",
+            "paused": "Aggiornamento sospeso"
         }
     },
     "offline-message": {
@@ -383,7 +391,7 @@
         "offline-retry-in": "Offline. Riprova tra {{seconds}} secondi.",
         "retrying": "Riprova"
     },
-    "Open": "",
+    "Open": "Apri",
     "options": {
         "advanced": {
             "key": "Variable Name",
@@ -444,7 +452,9 @@
             "empty": "Niente da scaricare",
             "finished": "Completato",
             "queued": "In coda",
-            "remove": "Rimuovi dai Download"
+            "remove": "Rimuovi dai Download",
+            "pause": "Metti in pausa il download",
+            "resume": "Riprendere il download"
         }
     },
     "Recent": "Giocato di recente",

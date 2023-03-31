@@ -111,7 +111,11 @@
         "path": "Percorso d'installazione",
         "size": "Dimensione",
         "syncsaves": "Sincronizza i salvataggi",
-        "version": "Versione"
+        "version": "Versione",
+        "apple-gaming-wiki": "Valutazione di AppleGamingWiki",
+        "clickToOpen": "Clicca per aprire",
+        "game-scores": "Punteggi di gioco",
+        "installedInfo": "Informazioni installate"
     },
     "install": {
         "disk-space-left": "Spazio Disponibile",

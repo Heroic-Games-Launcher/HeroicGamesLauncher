@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "message": "ഗെയിം പ്രിഫിക്സിൽ Ubisoft കണക്റ്റിന്റെ ഇൻസ്റ്റാളേഷൻ പരാജയപ്പെട്ടു. ഇത് സ്വമേധയാ ഇൻസ്റ്റാൾ ചെയ്യുന്നതിന് https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac എന്നതിൽ ഞങ്ങളുടെ വിക്കി പേജ് പരിശോധിക്കുക.",
                 "title": "യുബിസോഫ്റ്റ് കണക്ട്"
+            },
+            "legendary": {
+                "generic": "ഒരു പിശക് സംഭവിച്ചു! നിങ്ങളുടെ എപ്പിക് അക്കൗണ്ടിൽ ലോഗൗട്ട് ചെയ്ത് ലോഗിൻ ചെയ്യാൻ ശ്രമിക്കുക. {{newline}} {{error}}"
             }
         },
         "info": {
@@ -201,7 +204,8 @@
             "start-time": "Started at",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "ETA": "കണക്കാക്കിയ സമയം"
     },
     "epic": {
         "offline-notification-body": "Heroic will not work probably!",
@@ -361,7 +365,9 @@
             "error": "നടീല് പരാജയപ്പെട്ടു",
             "finished": "സ്ഥാപിച്ചുകഴിഞ്ഞു",
             "imported": "കളി കൊണ്ടുവന്നു",
-            "startInstall": "നടീല് തുടങ്ങി"
+            "startInstall": "നടീല് തുടങ്ങി",
+            "failed": "നടീല് പരാജയപ്പെട്ടു",
+            "paused": "ഇൻസ്റ്റലേഷൻ താൽക്കാലികമായി നിർത്തി"
         },
         "moved": "മാറ്റിക്കഴിഞ്ഞു",
         "moving": "Moving Game",
@@ -373,7 +379,9 @@
         "update": {
             "canceled": "പുതുക്കല് റദ്ദാക്കി",
             "finished": "പുതുക്കി",
-            "started": "Update Started"
+            "started": "Update Started",
+            "failed": "അപ്ഡേറ്റ് പരാജയപ്പെട്ടു",
+            "paused": "അപ്‌ഡേറ്റ് താൽക്കാലികമായി നിർത്തി"
         }
     },
     "offline-message": {
@@ -383,7 +391,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
-    "Open": "",
+    "Open": "തുറക്കൂ",
     "options": {
         "advanced": {
             "key": "Variable Name",
@@ -444,7 +452,9 @@
             "empty": "Nothing to download",
             "finished": "Completed",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "pause": "ഡൗൺലോഡ് താൽക്കാലികമായി നിർത്തുക",
+            "resume": "ഡൗൺലോഡ് പുനരാരംഭിക്കുക"
         }
     },
     "Recent": "പതിവ് കളികള്",

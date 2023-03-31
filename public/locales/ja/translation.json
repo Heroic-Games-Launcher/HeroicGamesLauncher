@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "message": "ゲームプレフィックスでの Ubisoft Connect のインストールに失敗しました。 https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac の wiki ページをチェックして手動でインストールしてください。",
                 "title": "ユービーアイソフトコネクト"
+            },
+            "legendary": {
+                "generic": "エラーが発生しました！ Epic アカウントでログアウトしてログインしてみてください。 【X69X】【X82X】"
             }
         },
         "info": {
@@ -201,7 +204,8 @@
             "start-time": "Started at",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "ETA": "予定時刻"
     },
     "epic": {
         "offline-notification-body": "Heroic will not work probably!",
@@ -361,7 +365,9 @@
             "error": "インストールに失敗しました",
             "finished": "インストールが完了しました",
             "imported": "Game Imported",
-            "startInstall": "Installation Started"
+            "startInstall": "Installation Started",
+            "failed": "インストールに失敗しました",
+            "paused": "インストールの一時停止"
         },
         "moved": "移動が完了しました",
         "moving": "Moving Game",
@@ -373,17 +379,19 @@
         "update": {
             "canceled": "更新がキャンセルされました",
             "finished": "Update Finished",
-            "started": "Update Started"
+            "started": "Update Started",
+            "failed": "アップデートに失敗しました",
+            "paused": "更新を一時停止しました"
         }
     },
     "offline-message": {
-        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "hint": "{{newline}}github.com、{{newline}}gog.com、{{newline}}store.epicgames.com との接続を確認しています。",
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
-    "Open": "",
+    "Open": "開ける",
     "options": {
         "advanced": {
             "key": "Variable Name",
@@ -444,7 +452,9 @@
             "empty": "Nothing to download",
             "finished": "Completed",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "pause": "ダウンロードを一時停止",
+            "resume": "ダウンロードを再開"
         }
     },
     "Recent": "最近のゲーム",
@@ -590,7 +600,7 @@
             "general": "一般",
             "log": "Log",
             "other": "他",
-            "sync": "同期を保存",
+            "sync": "クラウド保存同期",
             "wineExt": "Wine Extensions"
         },
         "open-config-file": "Open Config File",

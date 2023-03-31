@@ -18,13 +18,13 @@
             "title": "Рамантаванне й Праверка"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "Выберыце EXE для запуску"
         },
         "select": {
-            "button": "Select"
+            "button": "Выберыце"
         },
         "sideload": {
-            "exe": "Select Executable"
+            "exe": "Выберыце Выкананы файл"
         },
         "stopInstall": {
             "keepInstalling": "Працягвайце ўсталёўваць",
@@ -34,7 +34,7 @@
         "uninstall": {
             "checkbox": "Выдаліць прэфікс: {{prefix}}{{newLine}}Заўвага: гэта нельга адрабіць, а таксама прывядзе да выдалення файлаў захавання, у якіх няма рэзервовых копій.",
             "message": "Вы хочаце выдаліць гэтую гульню?",
-            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+            "settingcheckbox": "Сцерці налады і выдаліць журнал{{newLine}}Заўвага: гэта нельга адмяніць. Любыя змененыя налады будуць забыты, а журнал выдалены.",
             "title": "Выдаліць",
             "prefix_warning": "Прэфікс Wine для гэтай гульні з'яўляецца прэфіксам па змаўчанні. Калі вы сапраўды хочаце выдаліць яго, вы павінны зрабіць гэта ўручную."
         },
@@ -49,22 +49,22 @@
         "add_to_favourites": "Дадаць у абранае",
         "cancel": "Паўза/Адмена",
         "continue": "Працягваць спампаванне",
-        "finish": "Finish",
+        "finish": "Скончыць",
         "force_update": "Прымусісць да абнаўлення, калі яно даступна",
-        "force-innstall": "Force Install",
+        "force-innstall": "Прымусовая ўстаноўка",
         "hide_game": "Схаваць гульню",
         "import": "Імпарт гульні",
         "install": "Усталяваць",
-        "no-path-selected": "No path selected",
+        "no-path-selected": "Шлях не выбраны",
         "queue": {
-            "remove": "Remove from Queue"
+            "remove": "Выдаліць з чаргі"
         },
         "remove_from_favourites": "Выдаліць з абранага",
-        "remove_from_recent": "Remove From Recent",
-        "run-exe-first": "Run Installer First",
-        "running-setup": "Running Setup",
+        "remove_from_recent": "Выдаліць з апошніх",
+        "run-exe-first": "Спачатку запусціце ўсталёўшчык",
+        "running-setup": "Запускаецца ўстаноўка",
         "sideload": {
-            "edit": "Edit App/Game"
+            "edit": "Рэдагаваць праграму/гульню"
         },
         "unhide_game": "Гульня Unhide",
         "uninstall": "Выдаліць",
@@ -98,20 +98,24 @@
         "error": "Невядомая памылка",
         "noDescription": "Апісанне адсутнічае"
     },
-    "hours": "Hours",
+    "hours": "Гадзіны",
     "how-long-to-beat": {
-        "completionist": "Completionist",
-        "main-plus-extras": "Main + Extras",
-        "main-story": "Main Story"
+        "completionist": "Завершанасць",
+        "main-plus-extras": "Галоўнае + Дадаткова",
+        "main-story": "Асноўная гісторыя"
     },
-    "howLongToBeat": "How Long To Beat",
+    "howLongToBeat": "Наколькі доўга праходзіць",
     "info": {
         "canRunOffline": "Патрабуецца Інтэрнэт",
         "installedPlatform": "Усталяваная платформа",
         "path": "Шлях усталявання",
         "size": "Памер",
         "syncsaves": "Сінхранізацыя захаванняў",
-        "version": "Версія"
+        "version": "Версія",
+        "apple-gaming-wiki": "Рэйтынг AppleGamingWiki",
+        "clickToOpen": "Націсніце, каб адкрыць",
+        "game-scores": "Вынікі гульні",
+        "installedInfo": "Усталяваная інфармацыя"
     },
     "install": {
         "disk-space-left": "Вольная прастора",
@@ -124,7 +128,7 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Іншыя гульні НЕ ПАДТРЫМЛЯЮЦЦА"
         },
         "playing": {
             "start": "Гуляць зараз",
@@ -140,31 +144,31 @@
         "options": "Параметры запуску..."
     },
     "not_logged_in": {
-        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
-        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "epic": "Вы не ўвайшлі ў сістэму з уліковым запісам Epic у Heroic. Не выкарыстоўвайце старонку крамы для ўваходу, націсніце замест гэтага наступную кнопку:",
+        "gog": "Вы не ўвайшлі ў сістэму з уліковым запісам GOG у Heroic. Не выкарыстоўвайце старонку крамы для ўваходу, націсніце замест гэтага наступную кнопку:",
         "login": "Log in",
-        "title": "You are NOT logged in"
+        "title": "Вы НЕ ўвайшлі ў сістэму"
     },
     "report_problem": "Паведаміць аб праблеме запуску гэтай гульні",
     "sdl": {
         "title": "Выберыце кампаненты для ўстаноўкі"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings",
-        "winecrossoverbottle": "CrossOver Bottle"
+        "use-default-wine-settings": "Выкарыстоўвайце налады Wine па змаўчанні",
+        "winecrossoverbottle": "Бутэлька CrossOver"
     },
     "sideload": {
         "field": {
-            "title": "Title"
+            "title": "Назва"
         },
         "info": {
-            "exe": "Select Executable",
-            "image": "App Image",
-            "title": "Game/App Title"
+            "exe": "Выберыце Выкананы файл",
+            "image": "Выява праграмы",
+            "title": "Назва гульні/праграмы"
         },
         "placeholder": {
-            "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "image": "Устаўце сюды URL выявы",
+            "title": "Дадайце назву вашай гульні/праграмы"
         }
     },
     "specs": {
@@ -173,20 +177,20 @@
     },
     "status": {
         "clickToUpdate": "Націсніце, каб абнавіць",
-        "gameNotAvailable": "Game not available",
+        "gameNotAvailable": "Гульня недаступная",
         "hasUpdates": "Даступная новая версія!",
         "installed": "Усталяваны",
         "installing": "Ўстаноўка",
         "moving": "Перанос усталёўкі, пачакайце",
         "notinstalled": "Гэтая гульня не ўстаноўлена",
-        "notSupported": "Not supported",
-        "notSupportedGame": "Not Supported",
+        "notSupported": "Не падтрымліваецца",
+        "notSupportedGame": "Не падтрымліваецца",
         "processing": "Апрацоўка файлаў, пачакайце",
-        "queued": "Queued",
+        "queued": "У чарзе",
         "reparing": "Ідзе рамонт гульні, пачакайце",
-        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
+        "this-game-uses-third-party": "У гэтай гульні выкарыстоўваецца старонняя праграма запуску, і яна пакуль не падтрымліваецца",
         "totalDownloaded": "Усяго спампавана",
-        "uninstalling": "Uninstalling",
+        "uninstalling": "Выдаленне",
         "updating": "Абнаўленне гульні",
         "playing": "Гуляючы",
         "moving-files": "Перамяшчэнне файла \"{{file}}\": {{percent}} ",

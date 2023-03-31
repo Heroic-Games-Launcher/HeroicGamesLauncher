@@ -17,7 +17,8 @@ import {
   searchForExecutableOnPath,
   quoteIfNecessary,
   errorHandler,
-  removeQuoteIfNecessary
+  removeQuoteIfNecessary,
+  memoryLog
 } from './utils'
 import {
   logDebug,
@@ -215,20 +216,10 @@ async function prepareWineLaunch(game: LegendaryGame | GOGGame): Promise<{
   // If DXVK/VKD3D installation is enabled, install it
   if (gameSettings.wineVersion.type === 'wine') {
     if (gameSettings.autoInstallDxvk) {
-      await DXVK.installRemove(
-        gameSettings.winePrefix,
-        gameSettings.wineVersion.bin,
-        'dxvk',
-        'backup'
-      )
+      await DXVK.installRemove(gameSettings, 'dxvk', 'backup')
     }
     if (gameSettings.autoInstallVkd3d) {
-      await DXVK.installRemove(
-        gameSettings.winePrefix,
-        gameSettings.wineVersion.bin,
-        'vkd3d',
-        'backup'
-      )
+      await DXVK.installRemove(gameSettings, 'vkd3d', 'backup')
     }
   }
 
@@ -602,8 +593,8 @@ async function runWineCommand({
       )
     }
 
-    const stdout: string[] = []
-    const stderr: string[] = []
+    const stdout = memoryLog()
+    const stderr = memoryLog()
 
     child.stdout.on('data', (data: string) => {
       if (options?.logFile) {
@@ -719,8 +710,8 @@ async function callRunner(
       signal: abortController.signal
     })
 
-    const stdout: string[] = []
-    const stderr: string[] = []
+    const stdout = memoryLog()
+    const stderr = memoryLog()
 
     child.stdout.setEncoding('utf-8')
     child.stdout.on('data', (data: string) => {

@@ -14,7 +14,8 @@ import {
 import {
   InstalledJsonMetadata,
   GameMetadata,
-  LegendaryInstallInfo
+  LegendaryInstallInfo,
+  LegendaryInstallPlatform
 } from 'common/types/legendary'
 import { LegendaryGame } from './games'
 import { LegendaryUser } from './user'
@@ -40,7 +41,7 @@ import {
 import { installStore, libraryStore } from './electronStores'
 import { callRunner } from '../launcher'
 import { dirname, join } from 'path'
-import { isOnline } from '../online_monitor'
+import { isOnline } from 'backend/online_monitor'
 
 /**
  * Legendary LegendaryLibrary.
@@ -152,7 +153,7 @@ export class LegendaryLibrary {
   public async getGames(fullRefresh = false): Promise<GameInfo[]> {
     logInfo('Refreshing library...', LogPrefix.Legendary)
     const isLoggedIn = LegendaryUser.isLoggedIn()
-    if (!isLoggedIn) {
+    if (!isLoggedIn || !isOnline()) {
       return []
     }
 
@@ -208,7 +209,7 @@ export class LegendaryLibrary {
     appName: string,
     installPlatform: InstallPlatform
   ): Promise<LegendaryInstallInfo> {
-    const cache = installStore.get_nodefault(appName)
+    const cache = installStore.get(appName)
     if (cache) {
       logDebug('Using cached install info', LogPrefix.Legendary)
       return cache
@@ -246,42 +247,7 @@ export class LegendaryLibrary {
    * @returns App names of updateable games.
    */
   public async listUpdateableGames(): Promise<string[]> {
-    const isLoggedIn = LegendaryUser.isLoggedIn()
-
-    if (!isLoggedIn || !isOnline()) {
-      return []
-    }
-    const epicOffline = await isEpicServiceOffline()
-    if (epicOffline) {
-      logWarning(
-        'Epic servers are offline, cannot check for game updates',
-        LogPrefix.Backend
-      )
-      return []
-    }
-
-    const abortID = 'legendary-check-updates'
-    const res = await runLegendaryCommand(
-      ['list', '--third-party'],
-      createAbortController(abortID),
-      {
-        logMessagePrefix: 'Checking for game updates'
-      }
-    )
-
-    deleteAbortController(abortID)
-
-    if (res.abort) {
-      return []
-    }
-
-    if (res.error) {
-      logError(
-        ['Failed to check for game updates:', res.error],
-        LogPrefix.Legendary
-      )
-      return []
-    }
+    this.getGames(true)
 
     // Once we ran `legendary list`, `assets.json` will be updated with the newest
     // game versions, and `installed.json` has our currently installed ones
@@ -478,7 +444,8 @@ export class LegendaryLibrary {
       dlcItemList,
       releaseInfo,
       customAttributes,
-      categories
+      categories,
+      mainGameItem
     } = metadata
 
     // skip mods from the library
@@ -544,6 +511,22 @@ export class LegendaryLibrary {
 
     const convertedSize = install_size ? getFileSize(Number(install_size)) : '0'
 
+    if (releaseInfo && !releaseInfo[0].platform) {
+      logWarning(
+        ['No platforms info for', fileName, app_name],
+        LogPrefix.Legendary
+      )
+    }
+
+    let metadataPlatform: LegendaryInstallPlatform[] = []
+    // some DLCs don't have a platform value
+    if (releaseInfo[0].platform) {
+      metadataPlatform = releaseInfo[0].platform
+    } else if (mainGameItem && mainGameItem.releaseInfo[0].platform) {
+      // when there's no platform, the DLC might reference the base game with the info
+      metadataPlatform = mainGameItem.releaseInfo[0].platform
+    }
+
     this.library.set(app_name, {
       app_name,
       art_cover: art_cover || art_square || fallBackImage,
@@ -572,7 +555,7 @@ export class LegendaryLibrary {
       namespace,
       is_mac_native: info
         ? platform === 'Mac'
-        : releaseInfo[0].platform.includes('Mac'),
+        : metadataPlatform.includes('Mac'),
       save_folder: saveFolder,
       save_path,
       title,

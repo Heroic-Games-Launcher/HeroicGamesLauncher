@@ -112,7 +112,11 @@
         "path": "Cale De Instalare",
         "size": "Mărime",
         "syncsaves": "Salvări sincronizate",
-        "version": "Versiune"
+        "version": "Versiune",
+        "apple-gaming-wiki": "Evaluare AppleGamingWiki",
+        "clickToOpen": "Faceți clic pentru a deschide",
+        "game-scores": "Scoruri de joc",
+        "installedInfo": "Informații instalate"
     },
     "install": {
         "disk-space-left": "Spatiu disponibil",

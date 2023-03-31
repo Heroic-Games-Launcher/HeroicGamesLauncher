@@ -17,7 +17,7 @@ import { LegendaryUser } from './legendary/user'
 import {
   currentGlobalConfigVersion,
   heroicConfigPath,
-  heroicDefaultWinePrefix,
+  heroicDefaultWinePrefixDir,
   heroicGamesConfigPath,
   heroicInstallPath,
   heroicToolsPath,
@@ -27,7 +27,8 @@ import {
   isWindows,
   getSteamLibraries,
   getSteamCompatFolder,
-  configStore
+  configStore,
+  heroicDefaultWinePrefix
 } from './constants'
 import { execAsync } from './utils'
 import { execSync } from 'child_process'
@@ -606,7 +607,7 @@ class GlobalConfigV0 extends GlobalConfig {
       defaultInstallPath: heroicInstallPath,
       libraryTopSection: 'disabled',
       defaultSteamPath: getSteamCompatFolder(),
-      defaultWinePrefix: heroicDefaultWinePrefix,
+      defaultWinePrefix: heroicDefaultWinePrefixDir,
       hideChangelogsOnStartup: false,
       language: 'en',
       maxWorkers: 0,
@@ -621,8 +622,8 @@ class GlobalConfigV0 extends GlobalConfig {
         name: userName
       },
       wineCrossoverBottle: 'Heroic',
-      winePrefix: isWindows ? defaultWine : `${userHome}/.wine`,
-      wineVersion: isWindows ? {} : defaultWine
+      winePrefix: isWindows ? '' : heroicDefaultWinePrefix,
+      wineVersion: defaultWine
     } as AppSettings
   }
 

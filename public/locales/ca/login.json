@@ -1,6 +1,9 @@
 {
     "button": {
-        "login": "Inicia la sessió"
+        "login": "Inicia la sessió",
+        "copy": "Còpia",
+        "open": "Enllaç obert",
+        "copied": "Copiat!"
     },
     "message": {
         "part1": "Per a iniciar sessió i instal·lar jocs, cal que segueixis primer les passes de sota:",

@@ -111,7 +111,11 @@
         "path": "Διαδρομή Εγκατάστασης",
         "size": "Μέγεθος",
         "syncsaves": "Συγχρονισμός Αποθηκεύσεων",
-        "version": "Έκδοση"
+        "version": "Έκδοση",
+        "apple-gaming-wiki": "Βαθμολογία AppleGamingWiki",
+        "clickToOpen": "Κάντε κλικ για άνοιγμα",
+        "game-scores": "Αποτελέσματα παιχνιδιού",
+        "installedInfo": "Εγκατεστημένες πληροφορίες"
     },
     "install": {
         "disk-space-left": "Διαθέσιμος Αποθηκευτικός Χώρος",

@@ -18,7 +18,7 @@ import {
   DialogModalOptions,
   ExternalLinkDialogOptions
 } from 'frontend/types'
-import { TFunction, withTranslation } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import {
   getGameInfo,
   getLegendaryConfig,
@@ -27,7 +27,7 @@ import {
   launch,
   notify
 } from '../helpers'
-import { i18n, t } from 'i18next'
+import { i18n, t, TFunction } from 'i18next'
 
 import ContextProvider from './ContextProvider'
 
@@ -410,6 +410,15 @@ class GlobalState extends PureComponent<Props> {
   ): Promise<void> => {
     console.log('refreshing')
 
+    let updates = this.state.gameUpdates
+    if (checkUpdates) {
+      try {
+        updates = await window.api.checkGameUpdates()
+      } catch (error) {
+        window.api.logError(`${error}`)
+      }
+    }
+
     const currentLibraryLength = this.state.epic.library?.length
     let epicLibrary = libraryStore.get('library', [])
 
@@ -418,15 +427,6 @@ class GlobalState extends PureComponent<Props> {
       window.api.logInfo('No cache found, getting data from legendary...')
       const { library: legendaryLibrary } = await getLegendaryConfig()
       epicLibrary = legendaryLibrary
-    }
-
-    let updates = this.state.gameUpdates
-    if (checkUpdates) {
-      try {
-        updates = await window.api.checkGameUpdates()
-      } catch (error) {
-        window.api.logError(`${error}`)
-      }
     }
 
     const updatedSideload = sideloadLibrary.get('games', [])
@@ -466,7 +466,10 @@ class GlobalState extends PureComponent<Props> {
     })
     window.api.logInfo('Refreshing Library')
     try {
-      await window.api.refreshLibrary(fullRefresh, library)
+      if (!checkForUpdates) {
+        await window.api.refreshLibrary(fullRefresh, library)
+      }
+
       return await this.refresh(library, checkForUpdates)
     } catch (error) {
       window.api.logError(`${error}`)
@@ -591,7 +594,7 @@ class GlobalState extends PureComponent<Props> {
         e: Event,
         appName: string,
         runner: Runner
-      ): Promise<{ status: 'done' | 'error' }> => {
+      ): Promise<{ status: 'done' | 'error' | 'abort' }> => {
         const currentApp = libraryStatus.filter(
           (game) => game.appName === appName
         )[0]

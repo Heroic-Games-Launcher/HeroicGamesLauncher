@@ -111,7 +111,11 @@
         "path": "Inštalovať cestu",
         "size": "Veľkosť",
         "syncsaves": "Synchronizovať uloženia",
-        "version": "Verzia"
+        "version": "Verzia",
+        "apple-gaming-wiki": "Hodnotenie AppleGamingWiki",
+        "clickToOpen": "Kliknutím otvoríte",
+        "game-scores": "Skóre hry",
+        "installedInfo": "Inštalované informácie"
     },
     "install": {
         "disk-space-left": "Priestor k dispozícii",

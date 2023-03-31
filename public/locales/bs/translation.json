@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "message": "Instalacija Ubisoft Connecta u prefiksu igre nije uspjela. Provjerite našu wiki stranicu na https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac da je instalirate ručno.",
                 "title": "Ubisoft Connect"
+            },
+            "legendary": {
+                "generic": "Došlo je do greške! Pokušajte se odjaviti i prijaviti na svoj Epic račun. {{newline}} {{error}}"
             }
         },
         "info": {
@@ -201,7 +204,8 @@
             "start-time": "Started at",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "ETA": "Predviđeno vrijeme"
     },
     "epic": {
         "offline-notification-body": "Online usluge možda neće raditi u potpunosti jer su Epic Games serveri van mreže!",
@@ -361,7 +365,9 @@
             "error": "Instalacija neuspješna",
             "finished": "Instalacija završena",
             "imported": "Video igra uvezena",
-            "startInstall": "Instalacija započeta"
+            "startInstall": "Instalacija započeta",
+            "failed": "Instalacija neuspješna",
+            "paused": "Instalacija je pauzirana"
         },
         "moved": "Premještanje završeno",
         "moving": "Igra se premješta",
@@ -373,7 +379,9 @@
         "update": {
             "canceled": "Ažuriranje otkazano",
             "finished": "Ažuriranje završeno",
-            "started": "Ažuriranje započeto"
+            "started": "Ažuriranje započeto",
+            "failed": "Ažuriranje nije uspjelo",
+            "paused": "Ažuriranje je pauzirano"
         }
     },
     "offline-message": {
@@ -383,7 +391,7 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
-    "Open": "",
+    "Open": "Otvori",
     "options": {
         "advanced": {
             "key": "Ime varijable",
@@ -444,7 +452,9 @@
             "empty": "Nothing to download",
             "finished": "Completed",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "pause": "Pauzirajte preuzimanje",
+            "resume": "Nastavi preuzimanje"
         }
     },
     "Recent": "Igrano nedavno",

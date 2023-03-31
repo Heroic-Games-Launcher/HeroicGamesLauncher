@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "message": "Instalace Ubisoft Connect do předpony hry se nezdařila. Podívejte se na naši wiki stránku na https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac a nainstalujte ji ručně.",
                 "title": "Ubisoft Connect"
+            },
+            "legendary": {
+                "generic": "Došlo k chybě! Zkuste se odhlásit a přihlásit na svůj Epic účet. {{newline}} {{error}}"
             }
         },
         "info": {
@@ -201,7 +204,8 @@
             "start-time": "Spuštěno",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "ETA": "Předpokládaný čas"
     },
     "epic": {
         "offline-notification-body": "Online služby nemusí plně fungovat, protože servery Epic Games jsou offline!",
@@ -361,7 +365,9 @@
             "error": "Instalace selhala",
             "finished": "Instalace dokončena",
             "imported": "Hra importována",
-            "startInstall": "Instalace zahájena"
+            "startInstall": "Instalace zahájena",
+            "failed": "Instalace selhala",
+            "paused": "Instalace pozastavena"
         },
         "moved": "Přesun dokončen",
         "moving": "Přesouvám hru",
@@ -373,7 +379,9 @@
         "update": {
             "canceled": "Aktualizace zrušena",
             "finished": "Aktualizace dokončena",
-            "started": "Aktualizace zahájena"
+            "started": "Aktualizace zahájena",
+            "failed": "Aktualizace selhala",
+            "paused": "Aktualizace pozastavena"
         }
     },
     "offline-message": {
@@ -383,7 +391,7 @@
         "offline-retry-in": "Offline. Opakování pokusu za {{seconds}} sekund.",
         "retrying": "Opakování pokusu"
     },
-    "Open": "",
+    "Open": "Otevřít",
     "options": {
         "advanced": {
             "key": "Variable Name",
@@ -444,7 +452,9 @@
             "empty": "Nic ke stažení",
             "finished": "Dokončeno",
             "queued": "Ve frontě",
-            "remove": "Odebrat ze stažených"
+            "remove": "Odebrat ze stažených",
+            "pause": "Pozastavit stahování",
+            "resume": "Obnovit stahování"
         }
     },
     "Recent": "Recently Played",

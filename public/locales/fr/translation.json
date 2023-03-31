@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "message": "L'installation d'Ubisoft Connect dans le préfixe du jeu a échoué. Consultez notre page wiki sur https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac pour l'installer manuellement.",
                 "title": "Connexion Ubisoft"
+            },
+            "legendary": {
+                "generic": "Une erreur est survenue ! Essayez de vous déconnecter et de vous reconnecter à votre compte Epic. {{newline}} {{error}}"
             }
         },
         "info": {
@@ -201,7 +204,8 @@
             "start-time": "Commencé le",
             "type": "Type"
         },
-        "title": "Téléchargements"
+        "title": "Téléchargements",
+        "ETA": "Temps estimé"
     },
     "epic": {
         "offline-notification-body": "Les services en ligne peuvent ne pas entièrement fonctionner car les serveurs d'Epic Games sont hors ligne !",
@@ -361,7 +365,9 @@
             "error": "Installation échouée",
             "finished": "Installation terminée",
             "imported": "Jeu importé",
-            "startInstall": "Installation commencée"
+            "startInstall": "Installation commencée",
+            "failed": "Installation échouée",
+            "paused": "Installation interrompue"
         },
         "moved": "Déplacement terminé",
         "moving": "Jeu en cours de déplacement",
@@ -373,7 +379,9 @@
         "update": {
             "canceled": "Mise à jour annulée",
             "finished": "Mise à jour terminée",
-            "started": "Mise à jour commencée"
+            "started": "Mise à jour commencée",
+            "paused": "Mise à jour suspendue",
+            "failed": "Mise à jour a échoué"
         }
     },
     "offline-message": {
@@ -383,7 +391,7 @@
         "offline-retry-in": "Déconnecté. Nouvel essai dans {{seconds}} secondes.",
         "retrying": "Réessayer"
     },
-    "Open": "",
+    "Open": "Ouvrez",
     "options": {
         "advanced": {
             "key": "Nom de Variable",
@@ -444,7 +452,9 @@
             "empty": "Rien à télécharger",
             "finished": "Achevés",
             "queued": "En attente",
-            "remove": "Retirer de la liste des Téléchargements"
+            "remove": "Retirer de la liste des Téléchargements",
+            "pause": "Suspendre le téléchargement",
+            "resume": "Reprendre le téléchargement"
         }
     },
     "Recent": "Joués récemment",

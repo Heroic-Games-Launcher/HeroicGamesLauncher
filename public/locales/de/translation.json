@@ -82,6 +82,9 @@
             "ubisoft-connect": {
                 "title": "Ubisoft Connect",
                 "message": "Die Installation von Ubisoft Connect im Spielpräfix ist fehlgeschlagen. Besuchen Sie unsere Wiki-Seite unter https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac, um es manuell zu installieren."
+            },
+            "legendary": {
+                "generic": "Ein Fehler ist aufgetreten! Versuchen Sie, sich bei Ihrem Epic-Konto abzumelden und anzumelden. {{newline}} {{error}}"
             }
         },
         "info": {
@@ -201,7 +204,8 @@
             "start-time": "Gestartet am",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "ETA": "Geschätzte Zeit"
     },
     "epic": {
         "offline-notification-body": "Online-Dienste funktionieren möglicherweise nicht vollständig, da die Server von Epic Games offline sind!",
@@ -307,7 +311,7 @@
         "path": "Installationspfad auswählen"
     },
     "label": {
-        "loading": "Loading"
+        "loading": "Ladevorgang läuft"
     },
     "library": {
         "refresh": "Aktualisieren",
@@ -361,7 +365,9 @@
             "error": "Installation fehlgeschlagen",
             "finished": "Installation abgeschlossen",
             "imported": "Spiel importiert",
-            "startInstall": "Installation gestartet"
+            "startInstall": "Installation gestartet",
+            "failed": "Installation fehlgeschlagen",
+            "paused": "Installation angehalten"
         },
         "moved": "Verschieben abgeschlossen",
         "moving": "Spiel wird verschoben",
@@ -373,7 +379,9 @@
         "update": {
             "canceled": "Update abgebrochen",
             "finished": "Update abgeschlossen",
-            "started": "Update gestartet"
+            "started": "Update gestartet",
+            "failed": "Update fehlgeschlagen",
+            "paused": "Aktualisierung angehalten"
         }
     },
     "offline-message": {
@@ -383,7 +391,7 @@
         "offline-retry-in": "Offline. Verbinde erneut in {{seconds}} Sekunden.",
         "retrying": "Versuche erneut"
     },
-    "Open": "",
+    "Open": "Öffnen Sie den",
     "options": {
         "advanced": {
             "key": "Variablenname",
@@ -444,7 +452,9 @@
             "empty": "Nichts zum Herunterladen",
             "finished": "Abgeschlossen",
             "queued": "In Warteschlange",
-            "remove": "Aus Downloads entfernen"
+            "remove": "Aus Downloads entfernen",
+            "pause": "Download pausieren",
+            "resume": "Download fortsetzen"
         }
     },
     "Recent": "Zuletzt gespielte Spiele",
