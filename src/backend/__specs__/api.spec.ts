@@ -9,20 +9,28 @@ import { ElectronApplication, Page, _electron as electron } from 'playwright'
 let electronApp: ElectronApplication
 
 test.beforeAll(async () => {
-  // must run yarn dist:<platform> prior to test
-  const latestBuild = findLatestBuild('dist')
-  const appInfo = parseElectronApp(latestBuild)
   process.env.CI = 'e2e'
-  console.log(
-    'app info main = ',
-    appInfo.main,
-    '\n app info exe = ',
-    appInfo.executable
-  )
-  electronApp = await electron.launch({
-    args: [appInfo.main],
-    executablePath: appInfo.executable
-  })
+  if (process.env.testPackaged) {
+    console.log('Testing packaged build')
+    // must run yarn dist:<platform> prior to test
+    const latestBuild = findLatestBuild('dist')
+    const appInfo = parseElectronApp(latestBuild)
+    console.log(
+      'app info main = ',
+      appInfo.main,
+      '\n app info exe = ',
+      appInfo.executable
+    )
+    electronApp = await electron.launch({
+      args: [appInfo.main],
+      executablePath: appInfo.executable
+    })
+  } else {
+    console.log('Testing unpackaged build')
+    electronApp = await electron.launch({
+      args: ['.', '--no-sandbox']
+    })
+  }
 
   // this pipes the main process std out to test std out
   electronApp

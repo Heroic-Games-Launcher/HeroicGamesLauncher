@@ -203,7 +203,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
     detectVCRedist(mainWindow)
   }
 
-  if (!app.isPackaged) {
+  if (!app.isPackaged && process.env.CI !== 'e2e') {
     if (!process.env.HEROIC_NO_REACT_DEVTOOLS) {
       import('electron-devtools-installer').then((devtools) => {
         const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
