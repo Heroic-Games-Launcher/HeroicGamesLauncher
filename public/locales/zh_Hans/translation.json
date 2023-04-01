@@ -644,7 +644,7 @@
     "two_col_table": {
         "save_hint": "此表中的更改不会自动保存。 单击 + 按钮"
     },
-    "Update Available!": "",
+    "Update Available!": "有更新可用！",
     "userselector": {
         "discord": "Discord",
         "logging_out": "退出登录",
