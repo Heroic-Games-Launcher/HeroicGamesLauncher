@@ -73,7 +73,6 @@ import {
   getLatestReleases,
   getShellPath,
   getCurrentChangelog,
-  wait,
   checkWineBeforeLaunch
 } from './utils'
 import {
@@ -1534,14 +1533,8 @@ ipcMain.handle(
 
 ipcMain.handle(
   'getDefaultSavePath',
-  async (event, appName, runner, alreadyDefinedGogSaves) => {
-    return Promise.race([
-      getDefaultSavePath(appName, runner, alreadyDefinedGogSaves),
-      wait(15000).then(() => {
-        return runner === 'gog' ? [] : ''
-      })
-    ])
-  }
+  async (event, appName, runner, alreadyDefinedGogSaves) =>
+    getDefaultSavePath(appName, runner, alreadyDefinedGogSaves)
 )
 
 // Simulate keyboard and mouse actions as if the real input device is used
