@@ -41,7 +41,8 @@ test.beforeAll(async () => {
     .stderr?.on('data', (error) => console.log(`main process stderr: ${error}`))
 
   electronApp.on('window', async (page) => {
-    console.log('window loaded ', page.title)
+    const title = await page.title()
+    console.log('Window loaded: ', title)
     const filename = page.url()?.split('/').pop()
     console.log(`Window opened: ${filename}`)
 
@@ -66,12 +67,23 @@ test('renders the first page', async () => {
   page = await electronApp.firstWindow()
   const title = await page.title()
   expect(title).toBe('Heroic Games Launcher')
+})
 
+test('gets heroic, legendary, and gog versions', async () => {
   const heroicVersion = await page.evaluate(async () => {
     return window.api.getHeroicVersion()
   })
-
   console.log('Heroic Version: ', heroicVersion)
+
+  const legendaryVersion = await page.evaluate(async () => {
+    return window.api.getHeroicVersion()
+  })
+  console.log('Legendary Version: ', legendaryVersion)
+
+  const gogdlVersion = await page.evaluate(async () => {
+    return window.api.getGogdlVersion()
+  })
+  console.log('Legendary Version: ', gogdlVersion)
 })
 
 test('test ipcMainInvokeHandler', async () => {

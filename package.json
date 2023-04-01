@@ -192,7 +192,7 @@
     "test": "jest",
     "test-watch": "jest --watch --maxWorkers=25%",
     "test:ci": "jest --runInBand --silent",
-    "test:e2e": "vite build && playwright test api.spec.ts",
+    "test:e2e": "cross-env testPackaged=false && vite build && playwright test api.spec.ts",
     "test:e2ePackaged": "cross-env testPackaged=true && yarn dist:linux && playwright test api.spec.ts",
     "release:linux": "vite build && electron-builder -p always --linux deb AppImage rpm pacman tar.xz snap",
     "release:mac": "vite build && electron-builder -p always --mac --x64 --arm64",
