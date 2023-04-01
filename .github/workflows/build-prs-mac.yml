@@ -24,8 +24,6 @@ jobs:
       - name: Build artifacts.
         run: yarn dist:mac --x64 --arm64 --publish=never
         env:
-          GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
           NOTARIZE: false
       - name: Upload x64.
         uses: actions/upload-artifact@v3
