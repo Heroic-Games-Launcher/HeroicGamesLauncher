@@ -637,7 +637,7 @@
     "two_col_table": {
         "save_hint": "Changes in this table are not saved automatically. Click the + button"
     },
-    "Update Available!": "",
+    "Update Available!": "Update Available!",
     "userselector": {
         "cancel": "Cancel",
         "discord": "Discord",
