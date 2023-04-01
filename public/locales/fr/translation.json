@@ -562,7 +562,7 @@
         "showfps": "Afficher les FPS (DX9, 10 et 11)",
         "start-in-tray": "Réduire au démarrage",
         "steamruntime": "Utiliser le runtime Steam",
-        "winecrossoverbottle": "CrossOver Bottle",
+        "winecrossoverbottle": "Bouteille CrossOver",
         "wineprefix": "Dossier WinePrefix",
         "wineversion": "Version de Wine",
         "autoUpdateGames": "Mettre les jeux à jour automatiquement",
@@ -644,7 +644,7 @@
     "two_col_table": {
         "save_hint": "Les changements faits dans cette liste ne sont pas enregistrés automatiquement. Cliquez sur le bouton « + »"
     },
-    "Update Available!": "",
+    "Update Available!": "Mise à jour disponible !",
     "userselector": {
         "discord": "Discord",
         "logging_out": "Déconnexion",

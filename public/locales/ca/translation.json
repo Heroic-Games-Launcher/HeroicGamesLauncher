@@ -363,7 +363,7 @@
         "install": {
             "canceled": "S'ha cancel·lat la instal·lació",
             "error": "La instal·lació ha fallat",
-            "finished": "Ha finalitzat la instal·lació",
+            "finished": "La instal·lació ha finalitzat",
             "imported": "S'ha importat el joc",
             "startInstall": "S'ha iniciat la instal·lació",
             "failed": "La instal·lació ha fallat",
@@ -644,7 +644,7 @@
     "two_col_table": {
         "save_hint": "Els canvis en aquesta taula no es desen automàticament. Fes clic al botó +"
     },
-    "Update Available!": "",
+    "Update Available!": "Hi ha una actualització disponible!",
     "userselector": {
         "discord": "Discord",
         "logging_out": "Es tanca la connexió",
