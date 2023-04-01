@@ -154,7 +154,7 @@
                 "title": "¡Vino no encontrado!"
             }
         },
-        "wineprefix": "Seleccione la carpeta WinePrefix",
+        "wineprefix": "Seleccione el prefijo de la carpeta de Wine",
         "yes": "SÍ",
         "dontShowAgain": "no volver a mostrar"
     },
@@ -305,7 +305,7 @@
         "wine-repfix": {
             "message": "Wine utiliza lo que se conoce como WINEPREFIX (prefijo de wine) para encapsular aplicaciones de Windows. Este prefijo contiene los archivos de configuración de Wine y una réplica de los directorios del disco C: (el disco principal en sistemas Windows). En esta réplica del disco C: se localizan los guardados del juego y las dependencias instaladas con Winetricks."
         },
-        "wine-path-invalid": "Wine Path no es válido, seleccione otro."
+        "wine-path-invalid": "La Wine Path no es válida, seleccione otra."
     },
     "install": {
         "path": "Seleccione la ruta de instalación"
@@ -361,9 +361,9 @@
             "reparing": "Reparación terminada"
         },
         "install": {
-            "canceled": "Instalación cancelada",
+            "canceled": "Instalación Cancelada",
             "error": "Error en la instalación",
-            "finished": "Instalación terminada",
+            "finished": "Instalación Terminada",
             "imported": "Juego importado",
             "startInstall": "Instalación iniciada",
             "failed": "Error en la instalación",
@@ -377,7 +377,7 @@
         },
         "uninstalled": "Desinstalado",
         "update": {
-            "canceled": "Actualización cancelada",
+            "canceled": "Actualización Cancelada",
             "finished": "Actualización terminada",
             "started": "Actualización iniciada",
             "failed": "Actualización fallida",
@@ -644,7 +644,7 @@
     "two_col_table": {
         "save_hint": "Los cambios en esta tabla no se guardan automáticamente. Haz clic en el botón «+»"
     },
-    "Update Available!": "",
+    "Update Available!": "¡Actualización disponible!",
     "userselector": {
         "discord": "Discord",
         "logging_out": "Cerrando sesión",
