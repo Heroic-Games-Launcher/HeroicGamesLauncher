@@ -1,17 +1,10 @@
-import React, { useContext, useState } from 'react'
+import React, { ChangeEvent, useContext, useState } from 'react'
 
 import { useTranslation } from 'react-i18next'
 
-import Backspace from '@mui/icons-material/Backspace'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
-import {
-  InfoBox,
-  TextInputWithIconField,
-  ToggleSwitch
-} from 'frontend/components/UI'
+import { InfoBox, ToggleSwitch, PathSelectionBox } from 'frontend/components/UI'
 
 const EgsSettings = () => {
   const { t } = useTranslation()
@@ -19,27 +12,23 @@ const EgsSettings = () => {
   const { platform, refreshLibrary, showDialogModal } =
     useContext(ContextProvider)
   const [egsPath, setEgsPath] = useSetting('egsLinkedPath', '')
-  const isLinked = Boolean(egsPath.length)
-  const isWindows = platform === 'win32'
 
-  async function handleSync() {
+  function handleSync(
+    path_or_change_event: string | ChangeEvent<HTMLInputElement>
+  ) {
     setIsSyncing(true)
-    if (isLinked) {
-      return window.api.egsSync('unlink').then(async () => {
-        showDialogModal({
-          showDialog: true,
-          message: t('message.unsync'),
-          title: 'EGS Sync'
-        })
-        setEgsPath('')
-        setIsSyncing(false)
-        refreshLibrary({ fullRefresh: true, runInBackground: false })
-      })
+    let newPath: string
+    if (typeof path_or_change_event === 'string') {
+      // -> We're on macOS/Linux. "unlink" denotes that EGL sync should be
+      //    turned off, any other value is treated as a path to the Wine prefix
+      newPath = path_or_change_event || 'unlink'
+    } else {
+      // -> We're on Windows. "unlink" still means "turn EGL sync off",
+      //    "windows" now means "turn EGL sync on"
+      newPath = path_or_change_event.target.checked ? 'windows' : 'unlink'
     }
-
-    return window.api.egsSync(egsPath).then(async (res: string) => {
+    window.api.egsSync(newPath).then((res) => {
       if (res === 'Error') {
-        setIsSyncing(false)
         showDialogModal({
           showDialog: true,
           type: 'ERROR',
@@ -47,110 +36,48 @@ const EgsSettings = () => {
           title: t('box.error.title', 'Error')
         })
         setEgsPath('')
-        return
+      } else {
+        showDialogModal({
+          showDialog: true,
+          message:
+            newPath === 'unlink' ? t('message.unsync') : t('message.sync'),
+          title: 'EGS Sync'
+        })
+        setEgsPath(newPath === 'unlink' ? '' : newPath)
+        refreshLibrary({ fullRefresh: true, runInBackground: false })
       }
-      showDialogModal({
-        showDialog: true,
-        message: t('message.sync'),
-        title: 'EGS Sync'
-      })
-
       setIsSyncing(false)
-      setEgsPath(isWindows ? 'windows' : egsPath)
-      refreshLibrary({ fullRefresh: true, runInBackground: false })
     })
   }
 
-  async function handleEgsFolder() {
-    if (isLinked) {
-      return ''
-    }
-    return window.api
-      .openDialog({
-        buttonLabel: t('box.choose'),
-        properties: ['openDirectory'],
-        title: t('box.choose-egs-prefix')
-      })
-      .then((path) => setEgsPath(path || ''))
+  // On Windows, Legendary only needs to be told to enable EGL sync
+  if (platform === 'win32') {
+    return (
+      <ToggleSwitch
+        htmlId="syncToggle"
+        value={egsPath}
+        handleChange={handleSync}
+        title={t('setting.egs-sync')}
+        disabled={isSyncing}
+      />
+    )
   }
 
+  // On macOS/Linux, we have to give Legendary the path to the Wineprefix
+  // the EGL is installed in
   return (
     <>
-      {!isWindows && (
-        <TextInputWithIconField
-          label={t('setting.egs-sync')}
-          extraClass="withRightButton"
-          htmlId="set_epic_sync_path"
-          placeholder={t('placeholder.egs-prefix')}
-          value={egsPath}
-          disabled={isLinked}
-          onChange={(event) => setEgsPath(event.target.value)}
-          icon={
-            !egsPath.length ? (
-              <FontAwesomeIcon
-                icon={faFolderOpen}
-                data-testid="setEpicSyncPathButton"
-                style={{
-                  color: isLinked ? 'transparent' : 'currentColor'
-                }}
-              />
-            ) : (
-              <Backspace
-                data-testid="setEpicSyncPathBackspace"
-                style={
-                  isLinked
-                    ? { color: 'transparent', pointerEvents: 'none' }
-                    : { color: '#B0ABB6' }
-                }
-              />
-            )
-          }
-          onIconClick={
-            !egsPath.length
-              ? async () => handleEgsFolder()
-              : () => (isLinked ? '' : setEgsPath(''))
-          }
-          afterInput={
-            <>
-              <span className="rightButton">
-                <button
-                  data-testid="syncButton"
-                  onClick={async () => handleSync()}
-                  disabled={isSyncing || !egsPath.length}
-                  className={`button is-small ${
-                    isLinked
-                      ? 'is-danger'
-                      : isSyncing
-                      ? 'is-primary'
-                      : 'settings'
-                  }`}
-                >
-                  {`${
-                    isLinked
-                      ? t('button.unsync')
-                      : isSyncing
-                      ? t('button.syncing')
-                      : t('button.sync')
-                  }`}
-                </button>
-              </span>
-              <div>
-                {!isWindows && (
-                  <InfoBox text="infobox.help">{t('help.general')}</InfoBox>
-                )}
-              </div>
-            </>
-          }
-        />
-      )}
-      {isWindows && (
-        <ToggleSwitch
-          htmlId="syncToggle"
-          value={isLinked}
-          handleChange={handleSync}
-          title={t('setting.egs-sync')}
-        />
-      )}
+      <PathSelectionBox
+        type={'directory'}
+        onPathChange={handleSync}
+        path={egsPath}
+        placeholder={t('placeholder.egs-prefix')}
+        pathDialogTitle={t('box.choose-egs-prefix')}
+        canEditPath={isSyncing}
+        label={t('setting.egs-sync')}
+        htmlId="set_epic_sync_path"
+      />
+      <InfoBox text="infobox.help">{t('help.general')}</InfoBox>
     </>
   )
 }

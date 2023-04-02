@@ -1,10 +1,8 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
-import { InfoBox, TextInputWithIconField } from 'frontend/components/UI'
+import { InfoBox, PathSelectionBox } from 'frontend/components/UI'
 import SettingsContext from '../SettingsContext'
 import { defaultWineVersion } from '..'
 
@@ -27,31 +25,15 @@ const WinePrefix = () => {
   }
 
   return (
-    <TextInputWithIconField
+    <PathSelectionBox
       htmlId="selectWinePrefix"
       label={t('setting.wineprefix')}
-      value={winePrefix}
-      onChange={(event) => setWinePrefix(event.target.value)}
-      icon={
-        <FontAwesomeIcon
-          icon={faFolderOpen}
-          data-testid="addWinePrefix"
-          title={t(
-            'toolbox.settings.default-wineprefix',
-            'Select the default prefix folder for new configs'
-          )}
-        />
-      }
-      onIconClick={async () =>
-        window.api
-          .openDialog({
-            buttonLabel: t('box.choose'),
-            properties: ['openDirectory'],
-            title: t('box.wineprefix'),
-            defaultPath: winePrefix
-          })
-          .then((path) => setWinePrefix(path || winePrefix))
-      }
+      path={winePrefix}
+      onPathChange={setWinePrefix}
+      type="directory"
+      pathDialogTitle={t('box.wineprefix')}
+      pathDialogDefaultPath={winePrefix}
+      noDeleteButton
       afterInput={
         <InfoBox text={t('infobox.wine-prefix.title', 'Wine Prefix')}>
           {t(
