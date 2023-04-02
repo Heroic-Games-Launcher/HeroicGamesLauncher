@@ -361,11 +361,13 @@
             "reparing": "Reparation slutförd"
         },
         "install": {
-            "canceled": "Installationen avbröts",
+            "canceled": "Installation avbruten",
             "error": "Installation misslyckades",
             "finished": "Installation slutförd",
             "imported": "Spelimport slutförd",
-            "startInstall": "Installation påbörjad"
+            "startInstall": "Installation påbörjad",
+            "failed": "Installation misslyckades",
+            "paused": "Installation pausad"
         },
         "moved": "Spelflytt slutförd",
         "moving": "Flyttar spel",
@@ -375,9 +377,11 @@
         },
         "uninstalled": "Avinstallerat",
         "update": {
-            "canceled": "Uppdatering avbröts",
+            "canceled": "Uppdatering avbruten",
             "finished": "Uppdatering slutförd",
-            "started": "Uppdatering påbörjad"
+            "started": "Uppdatering påbörjad",
+            "failed": "Uppdateringen misslyckades",
+            "paused": "Uppdatering pausad"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Inget att ladda ner",
             "finished": "Nedladdade",
             "queued": "Köad",
-            "remove": "Ta bort från nedladdningar"
+            "remove": "Ta bort från nedladdningar",
+            "pause": "Pausa nedladdningen",
+            "resume": "Fortsätt nedladdning"
         }
     },
     "Recent": "Nyligen spelat",
@@ -638,7 +644,7 @@
     "two_col_table": {
         "save_hint": "Ändringar i den här tabellen sparas inte automatiskt. Klicka på +knappen"
     },
-    "Update Available!": "",
+    "Update Available!": "Uppdatering tillgänglig!",
     "userselector": {
         "discord": "Discord",
         "logging_out": "Loggar ut",

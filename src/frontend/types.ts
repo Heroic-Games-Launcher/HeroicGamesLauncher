@@ -8,7 +8,8 @@ import {
   ButtonOptions,
   LibraryTopSectionOptions,
   DMQueueElement,
-  SideloadGame
+  SideloadGame,
+  DownloadManagerState
 } from 'common/types'
 
 export type Category = 'all' | 'legendary' | 'gog' | 'sideload'
@@ -177,4 +178,5 @@ export interface LocationState {
 export type DMQueue = {
   elements: DMQueueElement[]
   finished: DMQueueElement[]
+  state: DownloadManagerState
 }

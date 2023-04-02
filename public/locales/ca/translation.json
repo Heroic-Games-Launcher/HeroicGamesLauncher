@@ -363,9 +363,11 @@
         "install": {
             "canceled": "S'ha cancel·lat la instal·lació",
             "error": "La instal·lació ha fallat",
-            "finished": "Ha finalitzat la instal·lació",
+            "finished": "La instal·lació ha finalitzat",
             "imported": "S'ha importat el joc",
-            "startInstall": "S'ha iniciat la instal·lació"
+            "startInstall": "S'ha iniciat la instal·lació",
+            "failed": "La instal·lació ha fallat",
+            "paused": "Instal·lació en pausa"
         },
         "moved": "Ha finalitzat el desplaçament",
         "moving": "S'està movent el joc...",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "S'ha cancel·lat l'actualització",
             "finished": "L'actualització s'ha completat",
-            "started": "S'ha iniciat l'actualització"
+            "started": "S'ha iniciat l'actualització",
+            "failed": "No s'ha pogut actualitzar",
+            "paused": "Actualització en pausa"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "No hi ha res per baixar",
             "finished": "Completat",
             "queued": "A la cua",
-            "remove": "Suprimeix de les baixades"
+            "remove": "Suprimeix de les baixades",
+            "pause": "Posa en pausa la descàrrega",
+            "resume": "Reprèn la descàrrega"
         }
     },
     "Recent": "Jugats fa poc",
@@ -638,7 +644,7 @@
     "two_col_table": {
         "save_hint": "Els canvis en aquesta taula no es desen automàticament. Fes clic al botó +"
     },
-    "Update Available!": "",
+    "Update Available!": "Hi ha una actualització disponible!",
     "userselector": {
         "discord": "Discord",
         "logging_out": "Es tanca la connexió",

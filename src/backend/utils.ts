@@ -52,7 +52,7 @@ import {
 } from './legendary/electronStores'
 import {
   apiInfoCache as GOGapiInfoCache,
-  gogInstallInfoStore as GOGinstallInfoStore,
+  installInfoStore as GOGinstallInfoStore,
   libraryStore as GOGlibraryStore
 } from './gog/electronStores'
 import * as fileSize from 'filesize'
@@ -890,9 +890,6 @@ async function shutdownWine(gameSettings: GameSettings) {
 
 const getShellPath = async (path: string): Promise<string> =>
   normalize((await execAsync(`echo "${path}"`)).stdout.trim())
-
-export const wait = async (ms: number) =>
-  new Promise((resolve) => setTimeout(resolve, ms))
 
 export const spawnAsync = async (
   command: string,

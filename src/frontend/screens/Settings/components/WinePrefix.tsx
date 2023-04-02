@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
-import { configStore } from 'frontend/helpers/electronStores'
 import { InfoBox, TextInputWithIconField } from 'frontend/components/UI'
 import SettingsContext from '../SettingsContext'
 import { defaultWineVersion } from '..'
@@ -17,9 +16,11 @@ const WinePrefix = () => {
 
   const isWin = platform === 'win32'
 
-  const home = configStore.get('userHome', '')
-  const [winePrefix, setWinePrefix] = useSetting('winePrefix', `${home}/.wine`)
   const [defaultWinePrefix] = useSetting('defaultWinePrefix', '')
+  const [winePrefix, setWinePrefix] = useSetting(
+    'winePrefix',
+    defaultWinePrefix + '/default'
+  )
 
   if (isWin || wineVersion.type === 'crossover') {
     return <></>
@@ -47,7 +48,7 @@ const WinePrefix = () => {
             buttonLabel: t('box.choose'),
             properties: ['openDirectory'],
             title: t('box.wineprefix'),
-            defaultPath: defaultWinePrefix
+            defaultPath: winePrefix
           })
           .then((path) => setWinePrefix(path || winePrefix))
       }

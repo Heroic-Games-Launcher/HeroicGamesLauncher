@@ -307,9 +307,6 @@
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
         }
     },
-    "install": {
-        "path": "Select Install Path"
-    },
     "label": {
         "loading": "Loading"
     },
@@ -361,10 +358,12 @@
             "reparing": "Finished Repairing"
         },
         "install": {
-            "canceled": "Install Canceled",
+            "canceled": "Installation Canceled",
             "error": "Installation Failed",
-            "finished": "Install Finished",
+            "failed": "Installation Failed",
+            "finished": "Installation Finished",
             "imported": "Game Imported",
+            "paused": "Installation Paused",
             "startInstall": "Installation Started"
         },
         "moved": "Finished Moving",
@@ -375,8 +374,10 @@
         },
         "uninstalled": "Uninstalled",
         "update": {
-            "canceled": "Updated Canceled",
+            "canceled": "Update Canceled",
+            "failed": "Update Failed",
             "finished": "Update Finished",
+            "paused": "Update Paused",
             "started": "Update Started"
         }
     },
@@ -447,8 +448,10 @@
             "downloading": "Downloading",
             "empty": "Nothing to download",
             "finished": "Completed",
+            "pause": "Pause download",
             "queued": "Queued",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "resume": "Resume download"
         }
     },
     "Recent": "Played Recently",
@@ -633,7 +636,7 @@
     "two_col_table": {
         "save_hint": "Changes in this table are not saved automatically. Click the + button"
     },
-    "Update Available!": "",
+    "Update Available!": "Update Available!",
     "userselector": {
         "cancel": "Cancel",
         "discord": "Discord",

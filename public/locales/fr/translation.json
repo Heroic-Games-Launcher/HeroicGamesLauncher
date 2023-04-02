@@ -365,7 +365,9 @@
             "error": "Installation échouée",
             "finished": "Installation terminée",
             "imported": "Jeu importé",
-            "startInstall": "Installation commencée"
+            "startInstall": "Installation commencée",
+            "failed": "Installation échouée",
+            "paused": "Installation interrompue"
         },
         "moved": "Déplacement terminé",
         "moving": "Jeu en cours de déplacement",
@@ -377,7 +379,9 @@
         "update": {
             "canceled": "Mise à jour annulée",
             "finished": "Mise à jour terminée",
-            "started": "Mise à jour commencée"
+            "started": "Mise à jour commencée",
+            "paused": "Mise à jour suspendue",
+            "failed": "Mise à jour a échoué"
         }
     },
     "offline-message": {
@@ -448,7 +452,9 @@
             "empty": "Rien à télécharger",
             "finished": "Achevés",
             "queued": "En attente",
-            "remove": "Retirer de la liste des Téléchargements"
+            "remove": "Retirer de la liste des Téléchargements",
+            "pause": "Suspendre le téléchargement",
+            "resume": "Reprendre le téléchargement"
         }
     },
     "Recent": "Joués récemment",
@@ -556,7 +562,7 @@
         "showfps": "Afficher les FPS (DX9, 10 et 11)",
         "start-in-tray": "Réduire au démarrage",
         "steamruntime": "Utiliser le runtime Steam",
-        "winecrossoverbottle": "CrossOver Bottle",
+        "winecrossoverbottle": "Bouteille CrossOver",
         "wineprefix": "Dossier WinePrefix",
         "wineversion": "Version de Wine",
         "autoUpdateGames": "Mettre les jeux à jour automatiquement",
@@ -638,7 +644,7 @@
     "two_col_table": {
         "save_hint": "Les changements faits dans cette liste ne sont pas enregistrés automatiquement. Cliquez sur le bouton « + »"
     },
-    "Update Available!": "",
+    "Update Available!": "Mise à jour disponible !",
     "userselector": {
         "discord": "Discord",
         "logging_out": "Déconnexion",

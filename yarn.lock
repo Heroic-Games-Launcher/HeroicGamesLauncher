@@ -468,6 +468,14 @@
   optionalDependencies:
     global-agent "^3.0.0"
 
+"@electron/notarize@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@electron/notarize/-/notarize-1.2.3.tgz#38056a629e5a0b5fd56c975c4828c0f74285b644"
+  integrity sha512-9oRzT56rKh5bspk3KpAVF8lPKHYQrBnRwcgiOeR0hdilVEQmszDaAu0IPCPrwwzJN0ugNs0rRboTreHMt/6mBQ==
+  dependencies:
+    debug "^4.1.1"
+    fs-extra "^9.0.1"
+
 "@electron/universal@1.2.1":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@electron/universal/-/universal-1.2.1.tgz#3c2c4ff37063a4e9ab1e6ff57db0bc619bc82339"

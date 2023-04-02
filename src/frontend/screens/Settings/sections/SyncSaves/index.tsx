@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { configStore } from 'frontend/helpers/electronStores'
 import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
 import SettingsContext from '../../SettingsContext'
@@ -18,8 +17,8 @@ const SyncSaves = () => {
   const [savesPath, setSavesPath] = useSetting('savesPath', '')
   const [gogSavesLocations, setGogSavesLocations] = useSetting('gogSaves', [])
 
-  const home = configStore.get_nodefault('userHome')
-  const [winePrefix] = useSetting('winePrefix', `${home}/.wine`)
+  const [defaultWinePrefix] = useSetting('defaultWinePrefix', '')
+  const [winePrefix] = useSetting('winePrefix', defaultWinePrefix + '/default')
 
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
 
