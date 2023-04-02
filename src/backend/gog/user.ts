@@ -85,6 +85,12 @@ export class GOGUser {
    * @returns user credentials
    */
   public static async getCredentials() {
+    if (!isOnline()) {
+      logWarning('Unable to get credentials - app is offline', {
+        prefix: LogPrefix.Gog
+      })
+      return
+    }
     const { stdout } = await runGogdlCommand(
       ['auth'],
       createAbortController('gogdl-get-credentials')
