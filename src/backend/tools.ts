@@ -56,7 +56,7 @@ export const DXVK = {
       {
         name: 'dxvk-nvapi',
         url: 'https://api.github.com/repos/jp7677/dxvk-nvapi/releases/latest',
-        extractCommand: 'tar -xf',
+        extractCommand: 'tar --one-top-level -xf',
         os: 'linux'
       },
       {
