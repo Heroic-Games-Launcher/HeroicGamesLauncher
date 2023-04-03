@@ -644,7 +644,7 @@
     "two_col_table": {
         "save_hint": "Endringer i denne tabellen lagres ikke automatisk. Klikk på +-knappen"
     },
-    "Update Available!": "",
+    "Update Available!": "Ny versjon tilgjengelig",
     "userselector": {
         "discord": "Discord",
         "logging_out": "Logging out",

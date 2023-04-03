@@ -289,7 +289,7 @@
             "version": "Heroic Version"
         },
         "save-sync": {
-            "searching": "Sto cercando di determinare la cartella di salvataggi corretta"
+            "searching": "Sto cercando di determinare la cartella di salvataggi corretta (clicca qui per annullare)"
         },
         "settings": "Le impostazioni sono salvate automaticamente",
         "version": "Versione di Wine"
@@ -385,7 +385,7 @@
         }
     },
     "offline-message": {
-        "hint": "Stiamo controllando la connessione per:{{newline}}github.com,{{newline}}gog.com e{{newline}}store.epicgames.com",
+        "hint": "Stiamo controllando la connessione per:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com e{{newline}}cloudflare-dns.com",
         "ignore": "Ignora",
         "offline": "Offline",
         "offline-retry-in": "Offline. Riprova tra {{seconds}} secondi.",
@@ -413,7 +413,7 @@
             "placeholder": "Inserisci qui le opzioni del Launcher",
             "title": "Opzioni di gioco (da eseguire dopo il comando):"
         },
-        "quote-args-with-spaces": "Warning: Make sure to quote args with spaces! E.g.: \"path/with spaces/\"",
+        "quote-args-with-spaces": "Attenzione: Assicurati di citare i parametri con gli spazi! Es.: \"percorso/con spazi/\"",
         "wrapper": {
             "args": "Parametri",
             "arguments_example": "Esempio di parametro: --arg; --extra-file=\"file-path/ with/spaces\"",
@@ -433,7 +433,7 @@
         "alt-gogdl-bin": "Usando i binari built-in di GOGDL...",
         "alt-legendary-bin": "In uso i binari Legendary integrati...",
         "custom_themes_path": "Seleziona il percorso per cercare i file CSS personalizzati",
-        "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
+        "dxvkfpsvalue": "Valore positivo intero (es. 30, 60, ...)",
         "egs-prefix": "Prefix dove è installato EGS",
         "prefered_language": "Codice di 2 caratteri (es.: \\\"en\\\" o \\\"fr\\\")"
     },
@@ -448,7 +448,7 @@
         "label": {
             "canceled": "Annullato",
             "clear": "Cancella Lista",
-            "downloading": "Downloading",
+            "downloading": "Scaricamento",
             "empty": "Niente da scaricare",
             "finished": "Completato",
             "queued": "In coda",
@@ -467,10 +467,10 @@
         "alt-legendary-bin": "Scegli un binario Legendary alternativo",
         "autodxvk": "Installa/Aggiorna automaticamente DXVK sul prefix",
         "autosync": "Sincronizza automaticamente i salvataggi",
-        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
+        "autovkd3d": "Auto Installazione/Aggiornamento di VKD3D su Prefisso",
         "change-target-exe": "Seleziona un eseguibile alternativo da avviare",
         "checkForUpdatesOnStartup": "Controlla aggiornamenti di Heroic all'avvio",
-        "crossover-version": "Crossover/Wine Version",
+        "crossover-version": "Versione di Crossover/Wine",
         "custom_themes_path": "Percorso Temi Personalizzati",
         "customWineProton": "Percorsi di Wine/Proton personalizzati",
         "darktray": "Usa l'icona scura della barra delle applicazioni",
@@ -540,8 +540,8 @@
         "maxworkers": "Numero massimo di connessioni durante il download",
         "minimize-on-launch": "Minimizza Heroic dopo l'avvio del gioco",
         "offlinemode": "Avvia il gioco in modalità offline",
-        "prefered_language": "Prefered Language (Language Code)",
-        "preferSystemLibs": "Prefer system libraries",
+        "prefered_language": "Lingua Preferita (Codice Lingua)",
+        "preferSystemLibs": "Preferisci librerie di sistema",
         "primerun": {
             "confirmation": {
                 "message": "È stata rilevata una sola scheda video in questo apparecchio. Nota che questa opzione è solo per apparecchi multi-GPU con headless GPU (come i portatili). Su apparecchi con una sola GPU la GPU è utilizzata automaticamente e abilitare questa opzione può causare problemi. Vuoi veramente abilitare questa opzione?",
@@ -554,15 +554,15 @@
             "title": "Avvia l'EXE nel prefix"
         },
         "savefolder": {
-            "not-found": "La cartella dei Salvataggi non è stata trovata, per favore selezionala manualmente",
+            "not-found": "La cartella dei Salvataggi non è stata trovata, per favore selezionala manualmente (clicca per riprovare)",
             "placeholder": "Seleziona l'esatta cartella dei salvataggi dei giochi",
-            "warning": "Per favore assicurati che il percorso sia corretto"
+            "warning": "Per favore assicurati che il percorso sia corretto (clicca per riprovare)"
         },
         "select_theme": "Seleziona Tema",
         "showfps": "Mostra FPS (DX9, 10 e 11)",
         "start-in-tray": "Avvio Minimizzato",
         "steamruntime": "Usa Steam Runtime",
-        "winecrossoverbottle": "Bottiglia CrossOver",
+        "winecrossoverbottle": "Bottiglia di CrossOver",
         "wineprefix": "Cartella del prefix di Wine",
         "wineversion": "Versione di Wine",
         "autoUpdateGames": "Aggiorna automaticamente i giochi",
@@ -642,12 +642,12 @@
         "show": "Mostra"
     },
     "two_col_table": {
-        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+        "save_hint": "Le modifiche a questa tabella non sono salvate automaticamente. Clicca il pulsante +"
     },
-    "Update Available!": "",
+    "Update Available!": "Aggiornamento Disponibile!",
     "userselector": {
         "discord": "Discord",
-        "logging_out": "Logging out",
+        "logging_out": "Disconnessione in corso",
         "logout": "Disconnetti",
         "logout_confirmation": "Sei sicuro di voler uscire?",
         "manageaccounts": "Gestione Account",
@@ -666,10 +666,10 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "link": "Wine Manager",
+            "link": "Gestore di Wine",
             "not-found": "Nessuna versione di Wine trovata. Per favore clicca l'icona ricarica per provare ancora.",
-            "title": "Wine Manager",
-            "unzipping": "Unzipping"
+            "title": "Gestore di Wine",
+            "unzipping": "Decompressione in corso"
         },
         "release": "Release Date",
         "size": "Dimensione"

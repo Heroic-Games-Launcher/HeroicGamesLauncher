@@ -65,6 +65,10 @@ jobs:
         run: yarn
       - name: Build artifacts.
         run: yarn dist:mac --x64 --arm64 --publish=never
+        env:
+          GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+          CSC_IDENTITY_AUTO_DISCOVERY: false
       - name: Upload x64.
         uses: actions/upload-artifact@v3
         with:

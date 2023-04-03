@@ -26,7 +26,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-          NOTARIZE: false
+          CSC_IDENTITY_AUTO_DISCOVERY: false
       - name: Upload x64.
         uses: actions/upload-artifact@v3
         with:

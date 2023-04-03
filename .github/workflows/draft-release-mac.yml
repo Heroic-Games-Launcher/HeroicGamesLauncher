@@ -15,7 +15,6 @@ env:
   APPLE_ID: ${{ secrets.APPLE_ID }}
   APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
   TEAMID: ${{ secrets.TEAMID }}
-  NOTARIZE: true
 
 jobs:
   draft-releases:

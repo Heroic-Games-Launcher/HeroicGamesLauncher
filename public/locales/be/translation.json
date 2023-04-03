@@ -154,7 +154,7 @@
                 "title": "Віна не знойдзена!"
             }
         },
-        "wineprefix": "Выберыце папку Wine Prefix",
+        "wineprefix": "Аберыце папку Wine Prefix",
         "yes": "ТАК",
         "dontShowAgain": "Больш не паказваць"
     },
@@ -303,7 +303,7 @@
             "title": "Прэфікс Wine"
         },
         "wine-repfix": {
-            "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
+            "message": "Wine выкарыстоўвае тое, што называецца WINEPREFIX для інкапсуляцыі прыкладанняў Windows. Гэты прэфікс змяшчае файлы канфігурацыі Wine і прайграванне іерархіі файлаў C: (асноўнага дыска ў АС Windows). У гэтай копіі дыска C: захоўваюцца файлы захавання гульні і залежнасці, усталяваныя праз winetricks."
         },
         "wine-path-invalid": "Wine Path несапраўдны, абярыце іншы."
     },
@@ -406,7 +406,7 @@
                 "equal_sign_in_key": "Імёны зменных не могуць утрымліваць знак \"=\"",
                 "space_in_key": "Імёны зменных не могуць утрымліваць прабелы"
             },
-            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
+            "example": "НЕ ўключайце знак \"=\", напрыклад: для налады тыпу \"MY_FLAG=123\", усталюйце MY_FLAG у NAME і 123 у VALUE.",
             "info": "Задаць зменныя асяроддзі для дадання да каманды."
         },
         "gameargs": {
@@ -587,7 +587,7 @@
         },
         "gameMode": {
             "eacRuntimeEnabled": {
-                "message": "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?",
+                "message": "Уключана асяроддзе выканання EAC, якое не будзе працаваць належным чынам без GameMode.Вы хочаце адключыць EAC Runtime і GameMode?",
                 "title": "EAC Runtime уключаны"
             }
         },
@@ -644,7 +644,7 @@
     "two_col_table": {
         "save_hint": "Змены ў гэтай табліцы не захоўваюцца аўтаматычна. Націсніце кнопку +"
     },
-    "Update Available!": "",
+    "Update Available!": "Абнаўленне даступна!",
     "userselector": {
         "discord": "Discord",
         "logging_out": "Выхад з сістэмы",

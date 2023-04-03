@@ -32,7 +32,7 @@
             "title": "Ferma l'installazione"
         },
         "uninstall": {
-            "checkbox": "Rimuovi prefisso: {{prefix}}{{newLine}}Nota: questa operazione non è reversibile e saranno rimossi anche i salvataggi di cui non è stato effettuato il back up",
+            "checkbox": "Rimuovi prefisso: {{prefix}}{{newLine}}Nota: Questa operazione è irreversibile e verranno rimossi anche i salvataggi di cui non si è effettuato il backup.",
             "message": "Vuoi disinstallare questo gioco?",
             "settingcheckbox": "Elimina le impostazioni e rimuovi il log{{newLine}}Nota: questa operazione non è reversibile. Tutte le impostazioni modificate saranno dimenticate e il log verrà eliminato.",
             "title": "Disinstalla",
@@ -124,7 +124,7 @@
         "path-not-writtable": "Attenzione: il percorso potrebbe non essere scrivibile.",
         "space-after-install": "Dopo l'installazione",
         "wineprefix": "Prefisso Wine",
-        "wineversion": "Versione Wine"
+        "wineversion": "Versione di Wine"
     },
     "label": {
         "game": {
@@ -155,7 +155,7 @@
     },
     "setting": {
         "use-default-wine-settings": "Usa le impostazioni predefinite di Wine",
-        "winecrossoverbottle": "CrossOver Bottle"
+        "winecrossoverbottle": "Bottiglia di CrossOver"
     },
     "sideload": {
         "field": {
