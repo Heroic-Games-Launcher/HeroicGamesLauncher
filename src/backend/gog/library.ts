@@ -565,10 +565,15 @@ export class GOGLibrary {
       (value) => value.appName === appName
     )
 
+    if (cachedGameData.install.platform === 'osx') {
+      newInstallPath = join(newInstallPath, cachedGameData.folder_name)
+    }
+
     installedArray[gameIndex].install_path = newInstallPath
     cachedGameData.install.install_path = newInstallPath
     installedGamesStore.set('installed', installedArray)
   }
+
   public async importGame(data: GOGImportData, path: string) {
     const gameInfo = await this.getInstallInfo(data.appName)
 
