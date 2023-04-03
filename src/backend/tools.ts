@@ -9,9 +9,9 @@ import {
   copyFile,
   rm
 } from 'graceful-fs'
-import { exec, spawn } from 'child_process'
+import { exec, spawn, spawnSync } from 'child_process'
 
-import { execAsync, getWineFromProton } from './utils'
+import { execAsync, getNvngxBin, getWineFromProton } from './utils'
 import {
   execOptions,
   heroicToolsPath,
@@ -342,6 +342,52 @@ export const DXVK = {
         protonVerb: 'waitforexitandrun'
       })
     })
+
+    //locate and copy nvngx.dll to support DLSS on Nvidia cards
+    if (tool === 'dxvk-nvapi' && action === 'backup') {
+      const output = spawnSync(getNvngxBin())
+
+      if (output.status && output.status !== 0) {
+        logError(
+          [`Error when finding nvngx.dll: ${output.stderr.toString()}`],
+          LogPrefix.DXVKInstaller
+        )
+      } else {
+        let nvngx_path = output.stdout.toString().trim()
+        nvngx_path += '/nvidia/wine'
+        const copyDlls = ['nvngx.dll', '_nvngx.dll']
+        copyDlls.forEach((dll) => {
+          copyFile(
+            `${nvngx_path}/${dll}`,
+            `${winePrefix}/drive_c/windows/system32/${dll}`,
+            (err) => {
+              if (err) {
+                logError(
+                  [`Error when copying ${dll}`, err],
+                  LogPrefix.DXVKInstaller
+                )
+              }
+            }
+          )
+        })
+        const regModNvngx = [
+          'reg',
+          'add',
+          'HKEY_LOCAL_MACHINE\\SOFTWARE\\NVIDIA Corporation\\Global\\NGXCore',
+          '/v',
+          'FullPath',
+          '/d',
+          'C:\\windows\\system32',
+          '/f'
+        ]
+        await runWineCommand({
+          gameSettings,
+          commandParts: regModNvngx,
+          wait: true,
+          protonVerb: 'waitforexitandrun'
+        })
+      }
+    }
 
     writeFile(currentVersionCheck, globalVersion, (err) => {
       if (err) {
