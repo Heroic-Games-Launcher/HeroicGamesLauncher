@@ -821,13 +821,6 @@ class GOGGame extends Game {
       }
     )
 
-    // This always has to be done, so we do it before checking for res.error
-    sendFrontendMessage('gameStatusUpdate', {
-      appName: this.appName,
-      runner: 'gog',
-      status: 'done'
-    })
-
     deleteAbortController(this.appName)
 
     if (res.abort) {
@@ -839,6 +832,11 @@ class GOGGame extends Game {
         ['Failed to update', `${this.appName}:`, res.error],
         LogPrefix.Gog
       )
+      sendFrontendMessage('gameStatusUpdate', {
+        appName: this.appName,
+        runner: 'gog',
+        status: 'done'
+      })
       return { status: 'error' }
     }
 
@@ -852,9 +850,15 @@ class GOGGame extends Game {
       // Force getting new cache
       installInfoStore.delete(`${this.appName}_${gameData.install.platform}`)
       const installInfo = await this.getInstallInfo()
+      const { etag } = await GOGLibrary.getMetaResponse(
+        this.appName,
+        gameData.install.platform ?? 'windows',
+        installInfo.manifest.versionEtag
+      )
       gameObject.buildId = installInfo.game.buildId
       gameObject.version = installInfo.game.version
-      gameObject.versionEtag = installInfo.manifest.versionEtag
+      gameObject.versionEtag = etag
+
       gameObject.install_size = getFileSize(installInfo.manifest.disk_size)
     } else {
       const installerInfo = await GOGLibrary.getLinuxInstallerInfo(this.appName)
@@ -865,6 +869,11 @@ class GOGGame extends Game {
     }
     installedGamesStore.set('installed', installedArray)
     GOGLibrary.get().refreshInstalled()
+    sendFrontendMessage('gameStatusUpdate', {
+      appName: this.appName,
+      runner: 'gog',
+      status: 'done'
+    })
     return { status: 'done' }
   }
 
