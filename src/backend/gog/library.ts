@@ -401,6 +401,10 @@ export class GOGLibrary {
       return cache
     }
 
+    if (!isOnline) {
+      logWarning('App offline, unable to get install info')
+      return
+    }
     const credentials = await GOGUser.getCredentials()
     if (!credentials) {
       logError('No credentials, cannot get install info')
