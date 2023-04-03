@@ -70,7 +70,8 @@ async function install({
       await window.api.requestAppSettings()
     const args: Electron.OpenDialogOptions = {
       buttonLabel: t('gamepage:box.choose'),
-      properties: ['openDirectory'],
+      properties:
+        platformToInstall === 'Mac' ? ['openFile'] : ['openDirectory'],
       title: t('gamepage:box.importpath'),
       defaultPath: defaultInstallPath
     }

@@ -582,6 +582,7 @@ class GlobalState extends PureComponent<Props> {
           library: runner
         })
 
+        storage.setItem('updates', JSON.stringify(updatedGamesUpdates))
         return this.setState({
           gameUpdates: updatedGamesUpdates,
           libraryStatus: newLibraryStatus

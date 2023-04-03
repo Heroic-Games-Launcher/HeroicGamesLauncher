@@ -565,10 +565,15 @@ export class GOGLibrary {
       (value) => value.appName === appName
     )
 
+    if (cachedGameData.install.platform === 'osx') {
+      newInstallPath = join(newInstallPath, cachedGameData.folder_name)
+    }
+
     installedArray[gameIndex].install_path = newInstallPath
     cachedGameData.install.install_path = newInstallPath
     installedGamesStore.set('installed', installedArray)
   }
+
   public async importGame(data: GOGImportData, path: string) {
     const gameInfo = await this.getInstallInfo(data.appName)
 
@@ -648,7 +653,7 @@ export class GOGLibrary {
     return false
   }
 
-  public async checkForGameUpdate(
+  public static async getMetaResponse(
     appName: string,
     platform: string,
     etag?: string
@@ -656,17 +661,29 @@ export class GOGLibrary {
     const buildData = await axios.get(
       `https://content-system.gog.com/products/${appName}/os/${platform}/builds?generation=2`
     )
-    const metaUrl = buildData.data?.items[0]?.link
     const headers = etag
       ? {
           'If-None-Match': etag
         }
       : undefined
+    const metaUrl = buildData.data?.items[0]?.link
     const metaResponse = await axios.get(metaUrl, {
       headers,
       validateStatus: (status) => status === 200 || status === 304
     })
+    return { status: metaResponse.status, etag: metaResponse.headers.etag }
+  }
 
+  public async checkForGameUpdate(
+    appName: string,
+    platform: string,
+    etag?: string
+  ) {
+    const metaResponse = await GOGLibrary.getMetaResponse(
+      appName,
+      platform,
+      etag
+    )
     return metaResponse.status === 200
   }
 
