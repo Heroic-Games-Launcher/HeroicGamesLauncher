@@ -42,7 +42,7 @@
             "message": "Une mise à jour est disponible pour ce jeu. Souhaitez-vous le mettre à jour maintenant ?",
             "title": "Mise à jour nécessaire du jeu"
         },
-        "wineprefix": "Sélectionner le dossier de préfixe Wine",
+        "wineprefix": "Sélectionner le dossier WinePrefix",
         "yes": "OUI"
     },
     "button": {

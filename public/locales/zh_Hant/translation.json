@@ -361,9 +361,9 @@
             "reparing": "已完成修復"
         },
         "install": {
-            "canceled": "已取消安裝",
+            "canceled": "安裝已取消",
             "error": "安裝失敗",
-            "finished": "安裝完成",
+            "finished": "已完成安裝",
             "imported": "遊戲已導入",
             "startInstall": "安裝開始",
             "failed": "安裝失敗",
@@ -377,7 +377,7 @@
         },
         "uninstalled": "已解除安裝",
         "update": {
-            "canceled": "已取消更新",
+            "canceled": "更新已取消",
             "finished": "更新完成",
             "started": "更新開始",
             "failed": "更新失敗",
@@ -385,7 +385,7 @@
         }
     },
     "offline-message": {
-        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "hint": "我們正在檢查下列域名的連結狀態:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
@@ -600,7 +600,7 @@
             "general": "一般",
             "log": "Log",
             "other": "其它",
-            "sync": "存檔-同步",
+            "sync": "同步雲端存檔",
             "wineExt": "Wine 擴充元件"
         },
         "open-config-file": "開啟配置檔案",

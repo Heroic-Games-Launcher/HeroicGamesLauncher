@@ -34,7 +34,7 @@
         "uninstall": {
             "checkbox": "Radera prefix: {{prefix}}{{newLine}}OBS: Denna åtgärd kan ej ångras och kommer även radera sparfiler.",
             "message": "Vill du avinstallera spelet?",
-            "settingcheckbox": "Radera inställningar och ta bort logg{{newLine}}Notera: Detta kan inte ångras. Alla ändrade inställningar kommer att glömmas bort och loggen kommer att raderas.",
+            "settingcheckbox": "Radera inställningar och ta bort logg{{newLine}}OBS: Denna åtgärd kan ej ångras. Alla ändrade inställningar kommer att glömmas bort och loggen kommer att raderas.",
             "title": "Avinstallera",
             "prefix_warning": "Vinprefixet för det här spelet är standardprefixet. Om du verkligen vill ta bort det måste du göra det manuellt."
         },
@@ -121,7 +121,7 @@
         "disk-space-left": "Utrymme tillgängligt",
         "not-enough-disk-space": "Otillräckligt diskutrymme",
         "path": "Ange installationssökväg",
-        "path-not-writtable": "Varning: sökvägen kan vara skrivskyddad",
+        "path-not-writtable": "Varning: sökvägen kan vara skrivskyddad.",
         "space-after-install": "Efter installation",
         "wineprefix": "Wine-prefix",
         "wineversion": "Wine-version"
