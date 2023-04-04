@@ -36,7 +36,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       - name: Build Flatpak
-        uses: flatpak/flatpak-github-actions/flatpak-builder@v4
+        uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
           bundle: heroicgameslauncher.flatpak
           manifest-path: flatpak-build/com.heroicgameslauncher.hgl.yml
