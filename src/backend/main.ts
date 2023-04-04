@@ -93,7 +93,6 @@ import {
   wikiLink,
   fontsStore,
   heroicConfigPath,
-  isMac,
   isSteamDeckGameMode,
   isCLIFullscreen,
   isCLINoGui,
@@ -218,9 +217,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
   } else {
     Menu.setApplicationMenu(null)
     mainWindow.loadURL(`file://${path.join(publicDir, '../build/index.html')}`)
-    if (!isMac) {
-      autoUpdater.checkForUpdates()
-    }
+    autoUpdater.checkForUpdates()
   }
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
