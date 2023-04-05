@@ -19,11 +19,11 @@ function TimeContainer({ game }: Props) {
 
   if (!tsInfo) {
     return (
-      <p className="timeContainerLabel">
+      <div className="timeContainerLabel">
         <AvTimer />
         {`${t('game.lastPlayed', 'Last Played')}:`} {` `}
         {`${t('game.neverPlayed', 'Never')}`}
-      </p>
+      </div>
     )
   }
 
@@ -50,18 +50,23 @@ function TimeContainer({ game }: Props) {
   return (
     <PopoverComponent
       item={
-        <p className="timeContainerLabel">
+        <div
+          className="timeContainerLabel"
+          title={t('info.clickToOpen', 'Click to open')}
+        >
           <AvTimer />
           {`${t('game.totalPlayed', 'Time Played')}:`} {` `}
           {`${totalPlayed}`}
-        </p>
+        </div>
       }
     >
       <div className="info">
-        <SmallInfo
-          title={`${t('game.firstPlayed', 'First Played')}:`}
-          subtitle={firstDate}
-        />
+        <div style={{ marginBottom: '5px' }}>
+          <SmallInfo
+            title={`${t('game.firstPlayed', 'First Played')}:`}
+            subtitle={firstDate}
+          />
+        </div>
         {lastPlayed && (
           <SmallInfo
             title={`${t('game.lastPlayed', 'Last Played')}:`}

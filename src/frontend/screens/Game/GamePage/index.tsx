@@ -405,7 +405,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 <div className="developer">{developer}</div>
                 <div className="summary">{description}</div>
                 {is_installed && showCloudSaveInfo && (
-                  <p
+                  <div
                     style={{
                       color: autoSyncSaves ? '#07C5EF' : ''
                     }}
@@ -415,10 +415,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     <b>{t('info.syncsaves')}</b>
                     {': '}
                     {autoSyncSaves ? t('enabled') : t('disabled')}
-                  </p>
+                  </div>
                 )}
                 {is_installed && !showCloudSaveInfo && (
-                  <p
+                  <div
                     style={{
                       color: '#F45460'
                     }}
@@ -430,13 +430,16 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     {t('cloud_save_unsupported', 'Unsupported')}
                     <FontAwesomeIcon
                       className="helpIcon"
+                      style={{
+                        color: '#F45460'
+                      }}
                       icon={faCircleInfo}
                       title={t(
                         'help.cloud_save_unsupported',
                         'This game does not support cloud saves. This information is provided by the game developers. Some games do implement their own cloud save system'
                       )}
                     />
-                  </p>
+                  </div>
                 )}
                 {!is_installed && !isSideloaded && !notSupportedGame && (
                   <>
@@ -460,7 +463,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
                           'Geting install size'
                         )}...`}
                     </div>
-                    <br />
                   </>
                 )}
                 {is_installed && (
@@ -479,11 +481,16 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       {is_installed && (
                         <>
                           {!isSideloaded && (
-                            <div>
+                            <div style={{ marginBottom: '5px' }}>
                               <b>{t('info.size')}:</b> {install_size}
                             </div>
                           )}
-                          <div style={{ textTransform: 'capitalize' }}>
+                          <div
+                            style={{
+                              textTransform: 'capitalize',
+                              marginBottom: '5px'
+                            }}
+                          >
                             <b>
                               {t(
                                 'info.installedPlatform',
@@ -496,16 +503,17 @@ export default React.memo(function GamePage(): JSX.Element | null {
                               : installPlatform}
                           </div>
                           {!isSideloaded && (
-                            <div>
+                            <div style={{ marginBottom: '5px' }}>
                               <b>{t('info.version')}:</b> {version}
                             </div>
                           )}
-                          <div>
+                          <div style={{ marginBottom: '5px' }}>
                             <b>{t('info.canRunOffline', 'Online Required')}:</b>{' '}
                             {t(canRunOffline ? 'box.no' : 'box.yes')}
                           </div>
                           <div
                             className="clickable"
+                            style={{ marginBottom: '5px' }}
                             onClick={() =>
                               appLocation !== undefined
                                 ? window.api.openFolder(appLocation)
@@ -516,7 +524,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
                           </div>
                           {!isWin && !isNative && (
                             <>
-                              <b>Wine:</b> {wineVersion?.name}
+                              <div style={{ marginBottom: '5px' }}>
+                                <b>Wine:</b> {wineVersion?.name}
+                              </div>
+
                               {wineVersion &&
                               wineVersion.type === 'crossover' ? (
                                 <div>

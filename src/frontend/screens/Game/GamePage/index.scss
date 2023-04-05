@@ -213,11 +213,16 @@
       transition: color 300ms;
       display: flex;
       align-items: center;
+      margin-bottom: 5px;
 
       svg {
         margin-right: var(--space-3xs);
       }
     }
+  }
+
+  .iconWithText:hover {
+    color: var(--accent-overlay);
   }
 
   .timeContainerLabel,
