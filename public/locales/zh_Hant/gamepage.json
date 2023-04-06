@@ -18,10 +18,10 @@
             "title": "驗證並修復遊戲檔案"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "選擇要執行的EXE檔案"
         },
         "select": {
-            "button": "Select"
+            "button": "選擇"
         },
         "sideload": {
             "exe": "Select Executable"

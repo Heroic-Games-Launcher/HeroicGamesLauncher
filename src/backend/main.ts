@@ -68,7 +68,6 @@ import {
   getLatestReleases,
   getShellPath,
   getCurrentChangelog,
-  wait,
   checkWineBeforeLaunch,
   removeFolder
 } from './utils'
@@ -90,7 +89,6 @@ import {
   wikiLink,
   fontsStore,
   heroicConfigPath,
-  isMac,
   isSteamDeckGameMode,
   isCLIFullscreen,
   isCLINoGui,
@@ -214,9 +212,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
   } else {
     Menu.setApplicationMenu(null)
     mainWindow.loadURL(`file://${path.join(publicDir, '../build/index.html')}`)
-    if (!isMac) {
-      autoUpdater.checkForUpdates()
-    }
+    autoUpdater.checkForUpdates()
   }
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
@@ -1427,14 +1423,8 @@ ipcMain.handle(
 
 ipcMain.handle(
   'getDefaultSavePath',
-  async (event, appName, runner, alreadyDefinedGogSaves) => {
-    return Promise.race([
-      getDefaultSavePath(appName, runner, alreadyDefinedGogSaves),
-      wait(15000).then(() => {
-        return runner === 'gog' ? [] : ''
-      })
-    ])
-  }
+  async (event, appName, runner, alreadyDefinedGogSaves) =>
+    getDefaultSavePath(appName, runner, alreadyDefinedGogSaves)
 )
 
 // Simulate keyboard and mouse actions as if the real input device is used

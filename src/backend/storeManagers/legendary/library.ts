@@ -40,7 +40,7 @@ import {
 import { installStore, libraryStore } from './electronStores'
 import { callRunner } from '../../launcher'
 import { dirname, join } from 'path'
-import { isOnline } from '../../online_monitor'
+import { isOnline } from 'backend/online_monitor'
 import { update } from './games'
 
 const allGames: Set<string> = new Set()
@@ -124,7 +124,6 @@ export function refreshInstalled() {
 /**
  * Get the game info of all games in the library
  *
- * @param fullRefresh Reload from Legendary.
  * @returns Array of objects.
  */
 export async function refresh(): Promise<ExecResult | null> {

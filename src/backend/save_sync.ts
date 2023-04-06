@@ -42,7 +42,12 @@ async function getDefaultSavePath(
 }
 
 async function getDefaultLegendarySavePath(appName: string): Promise<string> {
-  const { save_path } = gameManagerMap['legendary'].getGameInfo(appName)
+  const { save_folder, save_path } =
+    gameManagerMap['legendary'].getGameInfo(appName)
+  logInfo(
+    ['Computing save path for save folder', save_folder],
+    LogPrefix.Legendary
+  )
   if (save_path) {
     logDebug(
       ['Legendary has a save path stored, discarding it:', save_path],
@@ -95,7 +100,7 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
 
   // If the save path was computed successfully, Legendary will have saved
   // this path in `installed.json` (so the GameInfo)
-  const { save_path: new_save_path, save_folder } = libraryManagerMap[
+  const { save_path: new_save_path } = libraryManagerMap[
     'legendary'
   ].getGameInfo(appName, true)!
   if (!new_save_path) {
@@ -103,7 +108,6 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
       ['Unable to compute default save path for', appName],
       LogPrefix.Legendary
     )
-    if (save_folder !== undefined) return save_folder
     return ''
   }
   logInfo(['Computed save path:', new_save_path], LogPrefix.Legendary)

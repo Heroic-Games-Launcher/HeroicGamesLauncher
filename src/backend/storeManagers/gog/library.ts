@@ -393,6 +393,11 @@ export async function getInstallInfo(
     }
   }
 
+  if (!isOnline) {
+    logWarning('App offline, unable to get install info')
+    return
+  }
+
   const credentials = await GOGUser.getCredentials()
   if (!credentials) {
     logError('No credentials, cannot get install info', LogPrefix.Gog)
@@ -557,7 +562,11 @@ export async function changeGameInstallPath(
 ) {
   const cachedGameData = library.get(appName)
 
-  if (!cachedGameData) {
+  if (
+    !cachedGameData ||
+    !cachedGameData.install ||
+    !cachedGameData.folder_name
+  ) {
     logError(
       "Changing game install path failed: Game data couldn't be found",
       LogPrefix.Gog
@@ -570,6 +579,10 @@ export async function changeGameInstallPath(
   const gameIndex = installedArray.findIndex(
     (value) => value.appName === appName
   )
+
+  if (cachedGameData.install.platform === 'osx') {
+    newInstallPath = join(newInstallPath, cachedGameData.folder_name)
+  }
 
   installedArray[gameIndex].install_path = newInstallPath
   cachedGameData.install.install_path = newInstallPath
@@ -649,7 +662,7 @@ export async function checkForLinuxInstallerUpdate(
   return false
 }
 
-export async function checkForGameUpdate(
+export async function getMetaResponse(
   appName: string,
   platform: string,
   etag?: string
@@ -657,16 +670,25 @@ export async function checkForGameUpdate(
   const buildData = await axios.get(
     `https://content-system.gog.com/products/${appName}/os/${platform}/builds?generation=2`
   )
-  const metaUrl = buildData.data?.items[0]?.link
   const headers = etag
     ? {
         'If-None-Match': etag
       }
     : undefined
+  const metaUrl = buildData.data?.items[0]?.link
   const metaResponse = await axios.get(metaUrl, {
     headers,
     validateStatus: (status) => status === 200 || status === 304
   })
+  return { status: metaResponse.status, etag: metaResponse.headers.etag }
+}
+
+export async function checkForGameUpdate(
+  appName: string,
+  platform: string,
+  etag?: string
+) {
+  const metaResponse = await getMetaResponse(appName, platform, etag)
 
   return metaResponse.status === 200
 }

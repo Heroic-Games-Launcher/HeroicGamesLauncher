@@ -6,6 +6,7 @@ import {
   currentGameConfigVersion,
   heroicConfigPath,
   gamesConfigPath,
+  heroicDefaultWinePrefix,
   isLinux,
   isMac,
   isWindows,
@@ -270,7 +271,7 @@ class GameConfigV0 extends GameConfig {
       if (isMac) {
         defaultSettings.wineCrossoverBottle = wineCrossoverBottle
       } else if (isLinux) {
-        defaultSettings.winePrefix = winePrefix || `${userHome}/.wine`
+        defaultSettings.winePrefix = winePrefix || heroicDefaultWinePrefix
 
         // fix winePrefix if needed
         if (gameSettings.winePrefix?.includes('~')) {

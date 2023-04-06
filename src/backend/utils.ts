@@ -226,7 +226,7 @@ const getGogdlVersion = async () => {
 const getHeroicVersion = () => {
   const VERSION_NUMBER = app.getVersion()
   const BETA_VERSION_NAME = 'Caesar Clown'
-  const STABLE_VERSION_NAME = 'Trafalgar Law'
+  const STABLE_VERSION_NAME = 'Eustass Kid'
   const isBetaorAlpha =
     VERSION_NUMBER.includes('alpha') || VERSION_NUMBER.includes('beta')
   const VERSION_NAME = isBetaorAlpha ? BETA_VERSION_NAME : STABLE_VERSION_NAME
@@ -873,9 +873,6 @@ async function shutdownWine(gameSettings: GameSettings) {
 
 const getShellPath = async (path: string): Promise<string> =>
   normalize((await execAsync(`echo "${path}"`)).stdout.trim())
-
-export const wait = async (ms: number) =>
-  new Promise((resolve) => setTimeout(resolve, ms))
 
 export const spawnAsync = async (
   command: string,

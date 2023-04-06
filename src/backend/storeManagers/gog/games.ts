@@ -10,7 +10,8 @@ import {
   getLinuxInstallerInfo,
   createReqsArray,
   getGameInfo as getGogLibraryGameInfo,
-  changeGameInstallPath
+  changeGameInstallPath,
+  getMetaResponse
 } from './library'
 import { join } from 'path'
 import { GameConfig } from '../../game_config'
@@ -756,13 +757,6 @@ export async function update(
     }
   )
 
-  // This always has to be done, so we do it before checking for res.error
-  sendFrontendMessage('gameStatusUpdate', {
-    appName: appName,
-    runner: 'gog',
-    status: 'done'
-  })
-
   deleteAbortController(appName)
 
   if (res.abort) {
@@ -771,6 +765,11 @@ export async function update(
 
   if (res.error) {
     logError(['Failed to update', `${appName}:`, res.error], LogPrefix.Gog)
+    sendFrontendMessage('gameStatusUpdate', {
+      appName: appName,
+      runner: 'gog',
+      status: 'done'
+    })
     return { status: 'error' }
   }
 
@@ -782,10 +781,15 @@ export async function update(
 
   if (gameData.install.platform !== 'linux') {
     const installInfo = await getInstallInfo(appName)
+    const { etag } = await getMetaResponse(
+      appName,
+      gameData.install.platform ?? 'windows',
+      installInfo?.manifest.versionEtag
+    )
     if (installInfo === undefined) return { status: 'error' }
     gameObject.buildId = installInfo.game.buildId
     gameObject.version = installInfo.game.version
-    gameObject.versionEtag = installInfo.manifest.versionEtag
+    gameObject.versionEtag = etag
     gameObject.install_size = getFileSize(installInfo.manifest.disk_size)
   } else {
     const installerInfo = await getLinuxInstallerInfo(appName)
@@ -796,6 +800,11 @@ export async function update(
   }
   installedGamesStore.set('installed', installedArray)
   refreshInstalled()
+  sendFrontendMessage('gameStatusUpdate', {
+    appName: appName,
+    runner: 'gog',
+    status: 'done'
+  })
   return { status: 'done' }
 }
 
