@@ -29,7 +29,7 @@ import si from 'systeminformation'
 import {
   fixAsarPath,
   getSteamLibraries,
-  heroicConfigPath,
+  configPath,
   gamesConfigPath,
   icon,
   isWindows,
@@ -471,8 +471,8 @@ async function clearCache() {
 }
 
 function resetHeroic() {
-  const heroicFolders = [gamesConfigPath, heroicConfigPath]
-  heroicFolders.forEach((folder) => {
+  const appFolders = [gamesConfigPath, configPath]
+  appFolders.forEach((folder) => {
     rmSync(folder, { recursive: true, force: true })
   })
   // wait a sec to avoid racing conditions

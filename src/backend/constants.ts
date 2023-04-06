@@ -42,25 +42,20 @@ const configFolder = app.getPath('appData')
 const legendaryConfigPath = isLinux
   ? join(configFolder, 'legendary')
   : join(userHome, '.config', 'legendary')
-const heroicFolder = join(configFolder, 'heroic')
-const heroicConfigPath = join(heroicFolder, 'config.json')
-const gamesConfigPath = join(heroicFolder, 'GamesConfig')
-const toolsPath = join(heroicFolder, 'tools')
-const heroicIconFolder = join(heroicFolder, 'icons')
+const appFolder = join(configFolder, 'heroic')
+const configPath = join(appFolder, 'config.json')
+const gamesConfigPath = join(appFolder, 'GamesConfig')
+const toolsPath = join(appFolder, 'tools')
+const heroicIconFolder = join(appFolder, 'icons')
 const runtimePath = join(toolsPath, 'runtimes')
 const userInfo = join(legendaryConfigPath, 'user.json')
 const heroicInstallPath = join(homedir(), 'Games', 'Heroic')
-const heroicDefaultWinePrefixDir = join(
-  homedir(),
-  'Games',
-  'Heroic',
-  'Prefixes'
-)
-const heroicDefaultWinePrefix = join(heroicDefaultWinePrefixDir, 'default')
-const heroicAnticheatDataPath = join(heroicFolder, 'areweanticheatyet.json')
-const imagesCachePath = join(heroicFolder, 'images-cache')
+const defaultWinePrefixDir = join(homedir(), 'Games', 'Heroic', 'Prefixes')
+const defaultWinePrefix = join(defaultWinePrefixDir, 'default')
+const anticheatDataPath = join(appFolder, 'areweanticheatyet.json')
+const imagesCachePath = join(appFolder, 'images-cache')
 const cachedUbisoftInstallerPath = join(
-  heroicFolder,
+  appFolder,
   'tools',
   'UbisoftConnectInstaller.exe'
 )
@@ -213,15 +208,15 @@ export {
   execOptions,
   fixAsarPath,
   configStore,
-  heroicConfigPath,
+  configPath,
   gamesConfigPath,
   heroicGithubURL,
   heroicIconFolder,
   heroicInstallPath,
   toolsPath,
-  heroicDefaultWinePrefixDir,
-  heroicDefaultWinePrefix,
-  heroicAnticheatDataPath,
+  defaultWinePrefixDir,
+  defaultWinePrefix,
+  anticheatDataPath,
   imagesCachePath,
   userHome,
   flatPakHome,

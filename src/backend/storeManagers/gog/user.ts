@@ -49,17 +49,17 @@ export class GOGUser {
 
   public static async getUserDetails() {
     if (!isOnline()) {
-      logError('Unable to get user data, Heroic offline', LogPrefix.Gog)
+      logError('Unable to login information, Heroic offline', LogPrefix.Gog)
       return
     }
-    logInfo('Getting data about the user', LogPrefix.Gog)
+    logInfo('Checking if login is valid', LogPrefix.Gog)
     if (!this.isLoggedIn()) {
       logWarning('User is not logged in', LogPrefix.Gog)
       return
     }
     const user = await this.getCredentials()
     if (!user) {
-      logError("No credentials, can't get user data", LogPrefix.Gog)
+      logError("No credentials, can't get login information", LogPrefix.Gog)
       return
     }
     const response = await axios
@@ -70,7 +70,7 @@ export class GOGUser {
         }
       })
       .catch((error) => {
-        logError(['Error getting user Data', error], LogPrefix.Gog)
+        logError(['Error getting login information', error], LogPrefix.Gog)
       })
 
     if (!response) {
@@ -83,7 +83,7 @@ export class GOGUser {
     delete data.email
 
     configStore.set('userData', data)
-    logInfo('Saved user data to config', LogPrefix.Gog)
+    logInfo('Saved username to config file', LogPrefix.Gog)
 
     return data
   }

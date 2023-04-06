@@ -16,8 +16,8 @@ import {
 import { LegendaryUser } from 'backend/storeManagers/legendary/user'
 import {
   currentGlobalConfigVersion,
-  heroicConfigPath,
-  heroicDefaultWinePrefix,
+  configPath,
+  defaultWinePrefix,
   gamesConfigPath,
   heroicInstallPath,
   toolsPath,
@@ -62,17 +62,17 @@ abstract class GlobalConfig {
     let version: GlobalConfigVersion
 
     // Config file doesn't already exist, make one with the current version.
-    if (!existsSync(heroicConfigPath)) {
+    if (!existsSync(configPath)) {
       version = currentGlobalConfigVersion
     }
     // Config file exists, detect its version.
     else {
       // Check version field in the config.
       try {
-        version = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))['version']
+        version = JSON.parse(readFileSync(configPath, 'utf-8'))['version']
       } catch (error) {
         logError(
-          `Config file is corrupted, please check ${heroicConfigPath}`,
+          `Config file is corrupted, please check ${configPath}`,
           LogPrefix.Backend
         )
         version = 'v0'
@@ -477,7 +477,7 @@ abstract class GlobalConfig {
   public abstract resetToDefaults(): void
 
   protected writeToFile(config: Record<string, unknown>) {
-    return writeFileSync(heroicConfigPath, JSON.stringify(config, null, 2))
+    return writeFileSync(configPath, JSON.stringify(config, null, 2))
   }
 
   /**
@@ -494,7 +494,7 @@ abstract class GlobalConfig {
    */
   protected load() {
     // Config file doesn't exist, make one.
-    if (!existsSync(heroicConfigPath)) {
+    if (!existsSync(configPath)) {
       this.resetToDefaults()
     }
     // Always upgrade before loading to avoid errors.
@@ -533,11 +533,11 @@ class GlobalConfigV0 extends GlobalConfig {
       mkdirSync(gamesConfigPath, { recursive: true })
     }
 
-    if (!existsSync(heroicConfigPath)) {
+    if (!existsSync(configPath)) {
       return this.getFactoryDefaults()
     }
 
-    let settings = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))
+    let settings = JSON.parse(readFileSync(configPath, 'utf-8'))
     const defaultSettings = settings.defaultSettings as AppSettings
 
     // fix relative paths
@@ -564,7 +564,7 @@ class GlobalConfigV0 extends GlobalConfig {
   public getCustomWinePaths(): Set<WineInstallation> {
     const customPaths = new Set<WineInstallation>()
     // skips this on new installations to avoid infinite loops
-    if (existsSync(heroicConfigPath)) {
+    if (existsSync(configPath)) {
       const { customWinePaths = [] } = this.getSettings()
       customWinePaths.forEach((path: string) => {
         if (path.endsWith('proton')) {
@@ -606,7 +606,7 @@ class GlobalConfigV0 extends GlobalConfig {
       defaultInstallPath: heroicInstallPath,
       libraryTopSection: 'disabled',
       defaultSteamPath: getSteamCompatFolder(),
-      defaultWinePrefix: heroicDefaultWinePrefix,
+      defaultWinePrefix: defaultWinePrefix,
       hideChangelogsOnStartup: false,
       language: 'en',
       maxWorkers: 0,
@@ -621,7 +621,7 @@ class GlobalConfigV0 extends GlobalConfig {
         name: userName
       },
       wineCrossoverBottle: 'Heroic',
-      winePrefix: isWindows ? '' : heroicDefaultWinePrefix,
+      winePrefix: isWindows ? '' : defaultWinePrefix,
       wineVersion: defaultWine
     } as AppSettings
   }

@@ -88,7 +88,7 @@ import {
   weblateUrl,
   wikiLink,
   fontsStore,
-  heroicConfigPath,
+  configPath,
   isSteamDeckGameMode,
   isCLIFullscreen,
   isCLINoGui,
@@ -537,7 +537,7 @@ ipcMain.on('openCustomThemesWiki', async () =>
 )
 ipcMain.on('showConfigFileInFolder', async (event, appName) => {
   if (appName === 'default') {
-    return openUrlOrFile(heroicConfigPath)
+    return openUrlOrFile(configPath)
   }
   return openUrlOrFile(path.join(gamesConfigPath, `${appName}.json`))
 })

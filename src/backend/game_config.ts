@@ -4,9 +4,9 @@ import { GameConfigVersion, GameSettings } from 'common/types'
 import { GlobalConfig } from './config'
 import {
   currentGameConfigVersion,
-  heroicConfigPath,
+  configPath,
   gamesConfigPath,
-  heroicDefaultWinePrefix,
+  defaultWinePrefix,
   isLinux,
   isMac,
   isWindows,
@@ -159,7 +159,7 @@ abstract class GameConfig {
    */
   protected async load() {
     // Config file doesn't exist, make one.
-    if (!existsSync(heroicConfigPath)) {
+    if (!existsSync(configPath)) {
       this.resetToDefaults()
     }
     // Always upgrade before loading to avoid errors.
@@ -271,7 +271,7 @@ class GameConfigV0 extends GameConfig {
       if (isMac) {
         defaultSettings.wineCrossoverBottle = wineCrossoverBottle
       } else if (isLinux) {
-        defaultSettings.winePrefix = winePrefix || heroicDefaultWinePrefix
+        defaultSettings.winePrefix = winePrefix || defaultWinePrefix
 
         // fix winePrefix if needed
         if (gameSettings.winePrefix?.includes('~')) {
