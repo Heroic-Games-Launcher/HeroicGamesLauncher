@@ -1,4 +1,4 @@
-import { GameInfo, SideloadGame, RecentGame } from 'common/types'
+import { GameInfo, RecentGame } from 'common/types'
 import { backendEvents } from '../backend_events'
 import { sendFrontendMessage } from '../main_window'
 import { GlobalConfig } from '../config'
@@ -27,7 +27,7 @@ const setRecentGames = (recentGames: RecentGame[]) => {
   backendEvents.emit('recentGamesChanged', recentGames)
 }
 
-const addRecentGame = async (game: GameInfo | SideloadGame) => {
+const addRecentGame = async (game: GameInfo) => {
   const games = await getRecentGames()
 
   // update list

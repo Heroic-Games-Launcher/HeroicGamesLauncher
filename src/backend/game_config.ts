@@ -4,9 +4,9 @@ import { GameConfigVersion, GameSettings } from 'common/types'
 import { GlobalConfig } from './config'
 import {
   currentGameConfigVersion,
-  heroicConfigPath,
-  heroicDefaultWinePrefix,
-  heroicGamesConfigPath,
+  configPath,
+  gamesConfigPath,
+  defaultWinePrefix,
   isLinux,
   isMac,
   isWindows,
@@ -35,7 +35,7 @@ abstract class GameConfig {
 
   protected constructor(appName: string) {
     this.appName = appName
-    this.path = join(heroicGamesConfigPath, appName + '.json')
+    this.path = join(gamesConfigPath, appName + '.json')
   }
 
   /**
@@ -47,7 +47,7 @@ abstract class GameConfig {
    */
   public static get(appName: string): GameConfig {
     let version: GameConfigVersion
-    const path = join(heroicGamesConfigPath, appName + '.json')
+    const path = join(gamesConfigPath, appName + '.json')
     // Config file doesn't already exist, make one with the current version.
     if (!existsSync(path)) {
       version = currentGameConfigVersion
@@ -159,7 +159,7 @@ abstract class GameConfig {
    */
   protected async load() {
     // Config file doesn't exist, make one.
-    if (!existsSync(heroicConfigPath)) {
+    if (!existsSync(configPath)) {
       this.resetToDefaults()
     }
     // Always upgrade before loading to avoid errors.
@@ -271,7 +271,7 @@ class GameConfigV0 extends GameConfig {
       if (isMac) {
         defaultSettings.wineCrossoverBottle = wineCrossoverBottle
       } else if (isLinux) {
-        defaultSettings.winePrefix = winePrefix || heroicDefaultWinePrefix
+        defaultSettings.winePrefix = winePrefix || defaultWinePrefix
 
         // fix winePrefix if needed
         if (gameSettings.winePrefix?.includes('~')) {

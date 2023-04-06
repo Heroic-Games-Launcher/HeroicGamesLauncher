@@ -12,13 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRepeat, faBan } from '@fortawesome/free-solid-svg-icons'
 
 import { ReactComponent as DownIcon } from 'frontend/assets/down-icon.svg'
-import {
-  FavouriteGame,
-  GameInfo,
-  HiddenGame,
-  Runner,
-  SideloadGame
-} from 'common/types'
+import { FavouriteGame, GameInfo, HiddenGame, Runner } from 'common/types'
 import { Link, useNavigate } from 'react-router-dom'
 import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
 import { ReactComponent as SettingsIcon } from 'frontend/assets/settings_icon_alt.svg'
@@ -50,7 +44,7 @@ interface Card {
   buttonClick: () => void
   hasUpdate: boolean
   isRecent: boolean
-  gameInfo: GameInfo | SideloadGame
+  gameInfo: GameInfo
   forceCard?: boolean
 }
 
@@ -81,9 +75,7 @@ const GameCard = ({
     }
   }, [])
 
-  const [gameInfo, setGameInfo] = useState<GameInfo | SideloadGame>(
-    gameInfoFromProps
-  )
+  const [gameInfo, setGameInfo] = useState<GameInfo>(gameInfoFromProps)
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [isLaunching, setIsLaunching] = useState(false)
 

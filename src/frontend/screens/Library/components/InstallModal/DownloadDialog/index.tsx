@@ -93,6 +93,13 @@ function getUniqueKey(sdl: SelectiveDownload) {
 
 const userHome = configStore.get('userHome', '')
 
+function getDefaultInstallPath() {
+  const { defaultInstallPath = `${userHome}/Games/Heroic` } = {
+    ...configStore.get_nodefault('settings')
+  }
+  return defaultInstallPath
+}
+
 export default function DownloadDialog({
   backdropClick,
   appName,
@@ -119,12 +126,8 @@ export default function DownloadDialog({
   const [installLanguages, setInstallLanguages] = useState(Array<string>())
   const [installLanguage, setInstallLanguage] = useState('')
 
-  const { defaultInstallPath = '' } = {
-    ...configStore.get_nodefault('settings')
-  }
-
   const [installPath, setInstallPath] = useState(
-    previousProgress.folder || defaultInstallPath || `${userHome}/Games/Heroic`
+    previousProgress.folder || getDefaultInstallPath()
   )
   const gameStatus: GameStatus = libraryStatus.filter(
     (game: GameStatus) => game.appName === appName
@@ -441,9 +444,9 @@ export default function DownloadDialog({
           type="directory"
           onPathChange={setInstallPath}
           path={installPath}
-          placeholder={defaultInstallPath}
+          placeholder={getDefaultInstallPath()}
           pathDialogTitle={t('install.path')}
-          pathDialogDefaultPath={defaultInstallPath}
+          pathDialogDefaultPath={getDefaultInstallPath()}
           htmlId="setinstallpath"
           label={t('install.path', 'Select Install Path')}
           noDeleteButton

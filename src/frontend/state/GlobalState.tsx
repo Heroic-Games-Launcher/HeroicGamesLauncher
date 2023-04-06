@@ -10,8 +10,7 @@ import {
   Runner,
   WineVersionInfo,
   InstallParams,
-  LibraryTopSectionOptions,
-  SideloadGame
+  LibraryTopSectionOptions
 } from 'common/types'
 import {
   Category,
@@ -91,7 +90,7 @@ interface StateProps {
   connectivity: { status: ConnectivityStatus; retryIn: number }
   dialogModalOptions: DialogModalOptions
   externalLinkDialogOptions: ExternalLinkDialogOptions
-  sideloadedLibrary: SideloadGame[]
+  sideloadedLibrary: GameInfo[]
   hideChangelogsOnStartup: boolean
   lastChangelogShown: string | null
   settingsModalOpen: {
@@ -331,7 +330,6 @@ class GlobalState extends PureComponent<Props> {
   handleSuccessfulLogin = (runner: Runner) => {
     this.handleCategory('all')
     this.refreshLibrary({
-      fullRefresh: true,
       runInBackground: false,
       library: runner
     })
@@ -403,7 +401,7 @@ class GlobalState extends PureComponent<Props> {
   handleSettingsModalOpen = (
     value: boolean,
     type?: 'settings' | 'log',
-    gameInfo?: GameInfo | SideloadGame
+    gameInfo?: GameInfo
   ) => {
     if (gameInfo) {
       this.setState({
@@ -466,7 +464,6 @@ class GlobalState extends PureComponent<Props> {
 
   refreshLibrary = async ({
     checkForUpdates,
-    fullRefresh,
     runInBackground = true,
     library = undefined
   }: RefreshOptions): Promise<void> => {
@@ -479,7 +476,7 @@ class GlobalState extends PureComponent<Props> {
     window.api.logInfo('Refreshing Library')
     try {
       if (!checkForUpdates) {
-        await window.api.refreshLibrary(fullRefresh, library)
+        await window.api.refreshLibrary(library)
       }
 
       return await this.refresh(library, checkForUpdates)
@@ -559,6 +556,7 @@ class GlobalState extends PureComponent<Props> {
         'installing',
         'updating',
         'playing',
+        'extracting',
         'launching',
         'ubisoft',
         'queued'
@@ -652,7 +650,6 @@ class GlobalState extends PureComponent<Props> {
     window.api.handleRefreshLibrary(async (e: Event, runner: Runner) => {
       this.refreshLibrary({
         checkForUpdates: false,
-        fullRefresh: true,
         runInBackground: true,
         library: runner
       })
@@ -676,7 +673,6 @@ class GlobalState extends PureComponent<Props> {
     if (legendaryUser || gogUser) {
       this.refreshLibrary({
         checkForUpdates: true,
-        fullRefresh: true,
         runInBackground: Boolean(epic.library.length)
       })
     }

@@ -14,7 +14,7 @@ import {
 } from 'common/types'
 
 import { getAvailableVersions, installVersion } from './downloader/main'
-import { heroicToolsPath, isMac } from '../../constants'
+import { toolsPath, isMac } from '../../constants'
 import { sendFrontendMessage } from '../../main_window'
 import { TypeCheckedStoreBackend } from 'backend/electron_store'
 
@@ -88,12 +88,12 @@ async function installWineVersion(
 ) {
   let updatedInfo: WineVersionInfo
 
-  if (!existsSync(`${heroicToolsPath}/wine`)) {
-    mkdirSync(`${heroicToolsPath}/wine`, { recursive: true })
+  if (!existsSync(`${toolsPath}/wine`)) {
+    mkdirSync(`${toolsPath}/wine`, { recursive: true })
   }
 
-  if (!existsSync(`${heroicToolsPath}/proton`)) {
-    mkdirSync(`${heroicToolsPath}/proton`, { recursive: true })
+  if (!existsSync(`${toolsPath}/proton`)) {
+    mkdirSync(`${toolsPath}/proton`, { recursive: true })
   }
 
   logInfo(
@@ -102,8 +102,8 @@ async function installWineVersion(
   )
 
   const installDir = release?.type?.includes('Wine')
-    ? `${heroicToolsPath}/wine`
-    : `${heroicToolsPath}/proton`
+    ? `${toolsPath}/wine`
+    : `${toolsPath}/proton`
 
   try {
     const response = await installVersion({

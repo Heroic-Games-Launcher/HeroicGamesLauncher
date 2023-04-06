@@ -1,4 +1,4 @@
-import { heroicAnticheatDataPath, isWindows } from '../constants'
+import { anticheatDataPath, isWindows } from '../constants'
 import * as axios from 'axios'
 import { logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { readFileSync, writeFileSync } from 'graceful-fs'
@@ -13,7 +13,7 @@ async function downloadAntiCheatData() {
       const { data } = await axios.default.get(
         'https://raw.githubusercontent.com/Starz0r/AreWeAntiCheatYet/HEAD/games.json'
       )
-      writeFileSync(heroicAnticheatDataPath, JSON.stringify(data, null, 2))
+      writeFileSync(anticheatDataPath, JSON.stringify(data, null, 2))
       logInfo(`AreWeAntiCheatYet data downloaded`, LogPrefix.Backend)
     } catch (error) {
       logWarning(
@@ -24,10 +24,13 @@ async function downloadAntiCheatData() {
   })
 }
 
-function gameAnticheatInfo(appNamespace: string): AntiCheatInfo | null {
+function gameAnticheatInfo(
+  appNamespace: string | undefined
+): AntiCheatInfo | null {
+  if (appNamespace === undefined) return null
   if (isWindows) return null
 
-  const data = readFileSync(heroicAnticheatDataPath)
+  const data = readFileSync(anticheatDataPath)
   const jsonData = JSON.parse(data.toString())
   return jsonData.find((info: AntiCheatInfo) => {
     const namespace = info.storeIds.epic?.namespace

@@ -40,7 +40,7 @@ export default React.memo(function NewLogin() {
   }, [epic.username, gog.username, t])
 
   async function handleLibraryClick() {
-    await refreshLibrary({ fullRefresh: true, runInBackground: false })
+    await refreshLibrary({ runInBackground: false })
     navigate('/library')
   }
 

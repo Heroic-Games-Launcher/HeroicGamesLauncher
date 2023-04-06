@@ -1,5 +1,6 @@
+import { gameManagerMap } from 'backend/storeManagers'
 import { logError, LogPrefix, logWarning } from '../logger/logger'
-import { getGame, isEpicServiceOffline } from '../utils'
+import { isEpicServiceOffline } from '../utils'
 import { DMStatus, InstallParams } from 'common/types'
 import i18next from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
@@ -19,8 +20,7 @@ async function installQueueElement(params: InstallParams): Promise<{
     installLanguage,
     platformToInstall
   } = params
-  const game = getGame(appName, runner)
-  const { title } = game.getGameInfo()
+  const { title } = gameManagerMap[runner].getGameInfo(appName)
 
   if (!isOnline()) {
     logWarning(
@@ -65,7 +65,7 @@ async function installQueueElement(params: InstallParams): Promise<{
   }
 
   try {
-    const { status, error } = await game.install({
+    const { status, error } = await gameManagerMap[runner].install(appName, {
       path: path.replaceAll("'", ''),
       installDlcs,
       sdlList,
@@ -95,8 +95,7 @@ async function updateQueueElement(params: InstallParams): Promise<{
   error?: string | undefined
 }> {
   const { appName, runner } = params
-  const game = getGame(appName, runner)
-  const { title } = game.getGameInfo()
+  const { title } = gameManagerMap[runner].getGameInfo(appName)
 
   if (!isOnline()) {
     logWarning(
@@ -140,7 +139,7 @@ async function updateQueueElement(params: InstallParams): Promise<{
   }
 
   try {
-    const { status } = await game.update()
+    const { status } = await gameManagerMap[runner].update(appName)
 
     if (status === 'error') {
       errorMessage('')

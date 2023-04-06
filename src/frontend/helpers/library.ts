@@ -74,6 +74,7 @@ async function install({
         platformToInstall === 'Mac' ? ['openFile'] : ['openDirectory'],
       title: t('gamepage:box.importpath'),
       defaultPath: defaultInstallPath
+      //TODO: add file filters
     }
     const path = await window.api.openDialog(args)
 
@@ -81,7 +82,12 @@ async function install({
       return
     }
 
-    return importGame({ appName, path, runner, platform: platformToInstall })
+    return window.api.importGame({
+      appName,
+      path,
+      runner,
+      platform: platformToInstall
+    })
   }
 
   if (installPath !== 'default') {
@@ -110,8 +116,6 @@ async function install({
     gameInfo
   })
 }
-
-const importGame = window.api.importGame
 
 async function handleStopInstallation(
   appName: string,
@@ -233,11 +237,4 @@ export const epicCategories = ['all', 'legendary', 'epic']
 export const gogCategories = ['all', 'gog']
 export const sideloadedCategories = ['all', 'sideload']
 
-export {
-  handleStopInstallation,
-  install,
-  launch,
-  repair,
-  //updateAllGames,
-  updateGame
-}
+export { handleStopInstallation, install, launch, repair, updateGame }

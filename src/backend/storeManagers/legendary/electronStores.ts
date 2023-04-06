@@ -1,4 +1,4 @@
-import CacheStore from '../cache'
+import CacheStore from '../../cache'
 import { ExtraInfo, GameInfo } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 

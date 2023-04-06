@@ -21,7 +21,6 @@ export default function ErrorComponent({ message }: { message: string }) {
           onClick={async () =>
             refreshLibrary({
               checkForUpdates: true,
-              fullRefresh: true,
               runInBackground: false
             })
           }

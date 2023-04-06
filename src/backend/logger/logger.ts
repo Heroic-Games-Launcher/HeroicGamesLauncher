@@ -24,7 +24,14 @@ export enum LogPrefix {
   WineTricks = 'Winetricks',
   Connection = 'Connection',
   DownloadManager = 'DownloadManager',
-  ExtraGameInfo = 'ExtraGameInfo'
+  ExtraGameInfo = 'ExtraGameInfo',
+  Sideload = 'Sideload'
+}
+
+export const RunnerToLogPrefixMap = {
+  legendary: LogPrefix.Legendary,
+  gog: LogPrefix.Gog,
+  sideload: LogPrefix.Sideload
 }
 
 type LogInputType = unknown[] | unknown

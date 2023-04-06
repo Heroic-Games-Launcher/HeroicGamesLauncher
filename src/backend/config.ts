@@ -13,22 +13,21 @@ import {
   GlobalConfigVersion,
   WineInstallation
 } from 'common/types'
-import { LegendaryUser } from './legendary/user'
+import { LegendaryUser } from 'backend/storeManagers/legendary/user'
 import {
   currentGlobalConfigVersion,
-  heroicConfigPath,
-  heroicDefaultWinePrefixDir,
-  heroicGamesConfigPath,
+  configPath,
+  defaultWinePrefix,
+  gamesConfigPath,
   heroicInstallPath,
-  heroicToolsPath,
+  toolsPath,
   userHome,
   isFlatpak,
   isMac,
   isWindows,
   getSteamLibraries,
   getSteamCompatFolder,
-  configStore,
-  heroicDefaultWinePrefix
+  configStore
 } from './constants'
 import { execAsync } from './utils'
 import { execSync } from 'child_process'
@@ -63,17 +62,17 @@ abstract class GlobalConfig {
     let version: GlobalConfigVersion
 
     // Config file doesn't already exist, make one with the current version.
-    if (!existsSync(heroicConfigPath)) {
+    if (!existsSync(configPath)) {
       version = currentGlobalConfigVersion
     }
     // Config file exists, detect its version.
     else {
       // Check version field in the config.
       try {
-        version = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))['version']
+        version = JSON.parse(readFileSync(configPath, 'utf-8'))['version']
       } catch (error) {
         logError(
-          `Config file is corrupted, please check ${heroicConfigPath}`,
+          `Config file is corrupted, please check ${configPath}`,
           LogPrefix.Backend
         )
         version = 'v0'
@@ -171,7 +170,7 @@ abstract class GlobalConfig {
     const winePaths = new Set<string>()
 
     // search for wine installed on $HOME/Library/Application Support/heroic/tools/wine
-    const wineToolsPath = `${heroicToolsPath}/wine/`
+    const wineToolsPath = `${toolsPath}/wine/`
     if (existsSync(wineToolsPath)) {
       readdirSync(wineToolsPath).forEach((path) => {
         winePaths.add(join(wineToolsPath, path))
@@ -311,18 +310,18 @@ abstract class GlobalConfig {
       return [...macOsWineSet]
     }
 
-    if (!existsSync(`${heroicToolsPath}/wine`)) {
-      mkdirSync(`${heroicToolsPath}/wine`, { recursive: true })
+    if (!existsSync(`${toolsPath}/wine`)) {
+      mkdirSync(`${toolsPath}/wine`, { recursive: true })
     }
 
-    if (!existsSync(`${heroicToolsPath}/proton`)) {
-      mkdirSync(`${heroicToolsPath}/proton`, { recursive: true })
+    if (!existsSync(`${toolsPath}/proton`)) {
+      mkdirSync(`${toolsPath}/proton`, { recursive: true })
     }
 
     const altWine = new Set<WineInstallation>()
 
-    readdirSync(`${heroicToolsPath}/wine/`).forEach((version) => {
-      const wineBin = join(heroicToolsPath, 'wine', version, 'bin', 'wine')
+    readdirSync(`${toolsPath}/wine/`).forEach((version) => {
+      const wineBin = join(toolsPath, 'wine', version, 'bin', 'wine')
       altWine.add({
         bin: wineBin,
         name: `Wine - ${version}`,
@@ -348,7 +347,7 @@ abstract class GlobalConfig {
       })
     }
 
-    const protonPaths = [`${heroicToolsPath}/proton/`]
+    const protonPaths = [`${toolsPath}/proton/`]
 
     await getSteamLibraries().then((libs) => {
       libs.forEach((path) => {
@@ -478,7 +477,7 @@ abstract class GlobalConfig {
   public abstract resetToDefaults(): void
 
   protected writeToFile(config: Record<string, unknown>) {
-    return writeFileSync(heroicConfigPath, JSON.stringify(config, null, 2))
+    return writeFileSync(configPath, JSON.stringify(config, null, 2))
   }
 
   /**
@@ -495,7 +494,7 @@ abstract class GlobalConfig {
    */
   protected load() {
     // Config file doesn't exist, make one.
-    if (!existsSync(heroicConfigPath)) {
+    if (!existsSync(configPath)) {
       this.resetToDefaults()
     }
     // Always upgrade before loading to avoid errors.
@@ -530,15 +529,15 @@ class GlobalConfigV0 extends GlobalConfig {
       return this.config
     }
 
-    if (!existsSync(heroicGamesConfigPath)) {
-      mkdirSync(heroicGamesConfigPath, { recursive: true })
+    if (!existsSync(gamesConfigPath)) {
+      mkdirSync(gamesConfigPath, { recursive: true })
     }
 
-    if (!existsSync(heroicConfigPath)) {
+    if (!existsSync(configPath)) {
       return this.getFactoryDefaults()
     }
 
-    let settings = JSON.parse(readFileSync(heroicConfigPath, 'utf-8'))
+    let settings = JSON.parse(readFileSync(configPath, 'utf-8'))
     const defaultSettings = settings.defaultSettings as AppSettings
 
     // fix relative paths
@@ -565,7 +564,7 @@ class GlobalConfigV0 extends GlobalConfig {
   public getCustomWinePaths(): Set<WineInstallation> {
     const customPaths = new Set<WineInstallation>()
     // skips this on new installations to avoid infinite loops
-    if (existsSync(heroicConfigPath)) {
+    if (existsSync(configPath)) {
       const { customWinePaths = [] } = this.getSettings()
       customWinePaths.forEach((path: string) => {
         if (path.endsWith('proton')) {
@@ -607,7 +606,7 @@ class GlobalConfigV0 extends GlobalConfig {
       defaultInstallPath: heroicInstallPath,
       libraryTopSection: 'disabled',
       defaultSteamPath: getSteamCompatFolder(),
-      defaultWinePrefix: heroicDefaultWinePrefixDir,
+      defaultWinePrefix: defaultWinePrefix,
       hideChangelogsOnStartup: false,
       language: 'en',
       maxWorkers: 0,
@@ -622,7 +621,7 @@ class GlobalConfigV0 extends GlobalConfig {
         name: userName
       },
       wineCrossoverBottle: 'Heroic',
-      winePrefix: isWindows ? '' : heroicDefaultWinePrefix,
+      winePrefix: isWindows ? '' : defaultWinePrefix,
       wineVersion: defaultWine
     } as AppSettings
   }

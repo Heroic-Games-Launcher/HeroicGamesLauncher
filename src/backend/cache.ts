@@ -55,4 +55,8 @@ export default class CacheStore<ValueType, KeyType extends string = string> {
   }
 
   public clear = () => this.store.clear()
+
+  public has(key: string) {
+    return this.store.has(key)
+  }
 }

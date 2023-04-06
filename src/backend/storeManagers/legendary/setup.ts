@@ -1,25 +1,20 @@
-import { sendFrontendMessage } from './../main_window'
-import { logInfo, LogPrefix } from './../logger/logger'
+import { sendFrontendMessage } from '../../main_window'
+import { logInfo, LogPrefix } from '../../logger/logger'
 import axios from 'axios'
 import { cachedUbisoftInstallerPath } from 'backend/constants'
 import { logWarning } from 'backend/logger/logger'
 import { existsSync, createWriteStream, statSync } from 'graceful-fs'
-import { LegendaryGame } from './games'
 import { Winetricks } from 'backend/tools'
 import { showDialogBoxModalAuto } from 'backend/dialog/dialog'
 import i18next from 'i18next'
 import { getWinePath } from 'backend/launcher'
+import { getGameInfo, getSettings, runWineCommandOnGame } from './games'
 
 const UBISOFT_INSTALLER_URL =
   'https://ubistatic3-a.akamaihd.net/orbit/launcher_installer/UbisoftConnectInstaller.exe'
 
 export const setupUbisoftConnect = async (appName: string) => {
-  const game = LegendaryGame.get(appName)
-  if (!game) {
-    return
-  }
-
-  const gameInfo = game.getGameInfo()
+  const gameInfo = getGameInfo(appName)
   if (!gameInfo) {
     return
   }
@@ -29,35 +24,35 @@ export const setupUbisoftConnect = async (appName: string) => {
     return
   }
 
-  if (await isUbisoftInstalled(game)) {
+  if (await isUbisoftInstalled(appName)) {
     // it's already installed, do nothing
     return
   }
 
   sendFrontendMessage('gameStatusUpdate', {
     appName,
-    runner: game.runner,
+    runner: 'legendary',
     status: 'ubisoft'
   })
 
-  const promise1 = installUbisoftConnect(game)
-  const promise2 = installArialFontInPrefix(game)
+  const promise1 = installUbisoftConnect(appName)
+  const promise2 = installArialFontInPrefix(appName)
   // running these 2 tasks in parallel, they are independent
   await Promise.all([promise1, promise2])
 }
 
-const installUbisoftConnect = async (game: LegendaryGame) => {
+const installUbisoftConnect = async (appName: string) => {
   try {
     await downloadIfNotCached(cachedUbisoftInstallerPath, UBISOFT_INSTALLER_URL)
 
-    await game.runWineCommand({
+    await runWineCommandOnGame(appName, {
       commandParts: [cachedUbisoftInstallerPath, '/S']
     })
   } catch (error) {
     logWarning(`Error installing Ubisoft Connect: ${error}`, LogPrefix.Backend)
   }
 
-  if (await isUbisoftInstalled(game)) {
+  if (await isUbisoftInstalled(appName)) {
     return true
   } else {
     // it was not installed correctly, show an error
@@ -73,8 +68,8 @@ const installUbisoftConnect = async (game: LegendaryGame) => {
   }
 }
 
-const installArialFontInPrefix = async (game: LegendaryGame) => {
-  const settings = await game.getSettings()
+const installArialFontInPrefix = async (appName: string) => {
+  const settings = await getSettings(appName)
   await Winetricks.runWithArgs(settings.wineVersion, settings.winePrefix, [
     'arial'
   ])
@@ -128,8 +123,8 @@ const download = async (cachePath: string, url: string) => {
     })
 }
 
-const isUbisoftInstalled = async (game: LegendaryGame) => {
-  const gameSettings = await game.getSettings()
+const isUbisoftInstalled = async (appName: string) => {
+  const gameSettings = await getSettings(appName)
 
   const ubisoftExecPath = await getWinePath({
     path: 'C:/Program FIles (x86)/Ubisoft/Ubisoft Game Launcher/UbisoftConnect.exe',

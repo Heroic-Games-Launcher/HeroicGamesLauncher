@@ -1,11 +1,11 @@
 import axios from 'axios'
 import { writeFileSync, existsSync, unlinkSync } from 'graceful-fs'
-import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
+import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import { GOGLoginData } from 'common/types'
-import { configStore, libraryStore } from '../gog/electronStores'
-import { isOnline } from '../online_monitor'
+import { configStore, libraryStore } from './electronStores'
+import { isOnline } from '../../online_monitor'
 import { UserData } from 'common/types/gog'
-import { runGogdlCommand } from './library'
+import { runRunnerCommand } from './library'
 import {
   createAbortController,
   deleteAbortController
@@ -23,13 +23,21 @@ export class GOGUser {
     logInfo('Logging using GOG credentials', LogPrefix.Gog)
 
     // Gets token from GOG basaed on authorization code
-    const { stdout } = await runGogdlCommand(
+    const { stdout } = await runRunnerCommand(
       ['auth', '--code', code],
       createAbortController('gogdl-auth')
     )
 
-    const data: GOGLoginData = JSON.parse(stdout.trim())
-    if (data?.error) {
+    try {
+      const data: GOGLoginData = JSON.parse(stdout.trim())
+      if (data?.error) {
+        return { status: 'error' }
+      }
+    } catch (err) {
+      logError(
+        `GOG login failed to parse std output from gogdl. stdout: ${stdout.trim()}`,
+        LogPrefix.Gog
+      )
       return { status: 'error' }
     }
     deleteAbortController('gogdl-auth')
@@ -41,17 +49,17 @@ export class GOGUser {
 
   public static async getUserDetails() {
     if (!isOnline()) {
-      logError('Unable to get user data, Heroic offline', LogPrefix.Gog)
+      logError('Unable to login information, Heroic offline', LogPrefix.Gog)
       return
     }
-    logInfo('Getting data about the user', LogPrefix.Gog)
+    logInfo('Checking if login is valid', LogPrefix.Gog)
     if (!this.isLoggedIn()) {
       logWarning('User is not logged in', LogPrefix.Gog)
       return
     }
     const user = await this.getCredentials()
     if (!user) {
-      logError("No credentials, can't get user data", LogPrefix.Gog)
+      logError("No credentials, can't get login information", LogPrefix.Gog)
       return
     }
     const response = await axios
@@ -62,7 +70,7 @@ export class GOGUser {
         }
       })
       .catch((error) => {
-        logError(['Error getting user Data', error], LogPrefix.Gog)
+        logError(['Error getting login information', error], LogPrefix.Gog)
       })
 
     if (!response) {
@@ -75,7 +83,7 @@ export class GOGUser {
     delete data.email
 
     configStore.set('userData', data)
-    logInfo('Saved user data to config', LogPrefix.Gog)
+    logInfo('Saved username to config file', LogPrefix.Gog)
 
     return data
   }
@@ -91,7 +99,7 @@ export class GOGUser {
       })
       return
     }
-    const { stdout } = await runGogdlCommand(
+    const { stdout } = await runRunnerCommand(
       ['auth'],
       createAbortController('gogdl-get-credentials')
     )
