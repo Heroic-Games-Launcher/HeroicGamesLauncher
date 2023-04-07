@@ -673,7 +673,7 @@ class GlobalState extends PureComponent<Props> {
     if (legendaryUser || gogUser) {
       this.refreshLibrary({
         checkForUpdates: true,
-        runInBackground: Boolean(epic.library.length)
+        runInBackground: Boolean(epic.library?.length)
       })
     }
 
