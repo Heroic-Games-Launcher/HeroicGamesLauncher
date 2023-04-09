@@ -194,9 +194,8 @@
     cursor: text;
   }
 
-  & > .settingSelect {
-    margin-bottom: 12px;
-    max-width: 420px;
+  & > .selectFieldWrapper.Field {
+    margin-bottom: var(--space-md);
   }
 
   & > *:not(:first-child) {

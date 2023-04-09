@@ -9,7 +9,7 @@ import {
 import {
   configStore,
   currentLogFile,
-  heroicGamesConfigPath,
+  gamesConfigPath,
   lastLogFile
 } from '../constants'
 import { app } from 'electron'
@@ -121,7 +121,7 @@ export function getLogFile(props: {
   defaultLast?: boolean
 }): string {
   return props.appName
-    ? join(heroicGamesConfigPath, props.appName + '-lastPlay.log')
+    ? join(gamesConfigPath, props.appName + '-lastPlay.log')
     : props.defaultLast
     ? lastLogFile
     : currentLogFile

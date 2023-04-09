@@ -1,5 +1,5 @@
-import { TypeCheckedStoreBackend } from './../electron_store'
-import CacheStore from '../cache'
+import { TypeCheckedStoreBackend } from '../../electron_store'
+import CacheStore from '../../cache'
 import { GameInfo } from 'common/types'
 import { GamesDBData, GogInstallInfo } from 'common/types/gog'
 

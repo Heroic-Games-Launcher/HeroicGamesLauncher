@@ -3,8 +3,6 @@ import {
   deleteAbortController,
   callAllAbortControllers
 } from './utils/aborthandler/aborthandler'
-import { GOGGame } from './gog/games'
-import { LegendaryGame } from './legendary/games'
 import {
   Runner,
   WineInstallation,
@@ -12,8 +10,7 @@ import {
   SteamRuntime,
   Release,
   GameInfo,
-  GameSettings,
-  SideloadGame
+  GameSettings
 } from 'common/types'
 import * as axios from 'axios'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
@@ -32,8 +29,8 @@ import si from 'systeminformation'
 import {
   fixAsarPath,
   getSteamLibraries,
-  heroicConfigPath,
-  heroicGamesConfigPath,
+  configPath,
+  gamesConfigPath,
   icon,
   isWindows,
   publicDir,
@@ -43,26 +40,26 @@ import {
 } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { basename, dirname, join, normalize } from 'path'
-import { runLegendaryCommand } from './legendary/library'
-import { runGogdlCommand } from './gog/library'
+import { runRunnerCommand as runLegendaryCommand } from 'backend/storeManagers/legendary/library'
+import { runRunnerCommand as runGogdlCommand } from './storeManagers/gog/library'
 import {
   gameInfoStore,
   installStore,
   libraryStore
-} from './legendary/electronStores'
+} from 'backend/storeManagers/legendary/electronStores'
 import {
   apiInfoCache as GOGapiInfoCache,
   installInfoStore as GOGinstallInfoStore,
   libraryStore as GOGlibraryStore
-} from './gog/electronStores'
+} from './storeManagers/gog/electronStores'
 import * as fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
-import { getAppInfo } from './sideload/games'
 import { getMainWindow, sendFrontendMessage } from './main_window'
 import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
-import { runWineCommand, validWine } from './launcher'
+import { validWine, runWineCommand } from './launcher'
+import { gameManagerMap } from 'backend/storeManagers'
 
 const execAsync = promisify(exec)
 
@@ -229,7 +226,7 @@ const getGogdlVersion = async () => {
 const getHeroicVersion = () => {
   const VERSION_NUMBER = app.getVersion()
   const BETA_VERSION_NAME = 'Caesar Clown'
-  const STABLE_VERSION_NAME = 'Trafalgar Law'
+  const STABLE_VERSION_NAME = 'Eustass Kid'
   const isBetaorAlpha =
     VERSION_NUMBER.includes('alpha') || VERSION_NUMBER.includes('beta')
   const VERSION_NAME = isBetaorAlpha ? BETA_VERSION_NAME : STABLE_VERSION_NAME
@@ -249,7 +246,7 @@ const showAboutWindow = () => {
 }
 
 async function handleExit() {
-  const isLocked = existsSync(join(heroicGamesConfigPath, 'lock'))
+  const isLocked = existsSync(join(gamesConfigPath, 'lock'))
   const mainWindow = getMainWindow()
 
   if (isLocked && mainWindow) {
@@ -406,8 +403,7 @@ async function errorHandler({
   if (error) {
     if (error.includes(deletedFolderMsg) && appName) {
       const runner = r.toLocaleLowerCase() as Runner
-      const game = getGame(appName, runner)
-      const { title } = game.getGameInfo()
+      const { title } = gameManagerMap[runner].getGameInfo(appName)
       const { response } = await showMessageBox({
         type: 'question',
         title,
@@ -419,7 +415,7 @@ async function errorHandler({
       })
 
       if (response === 1) {
-        return game.forceUninstall()
+        return gameManagerMap[runner].forceUninstall(appName)
       }
     }
 
@@ -475,8 +471,8 @@ async function clearCache() {
 }
 
 function resetHeroic() {
-  const heroicFolders = [heroicGamesConfigPath, heroicConfigPath]
-  heroicFolders.forEach((folder) => {
+  const appFolders = [gamesConfigPath, configPath]
+  appFolders.forEach((folder) => {
     rmSync(folder, { recursive: true, force: true })
   })
   // wait a sec to avoid racing conditions
@@ -774,15 +770,6 @@ function detectVCRedist(mainWindow: BrowserWindow) {
   })
 }
 
-function getGame(appName: string, runner: Runner) {
-  switch (runner) {
-    case 'legendary':
-      return LegendaryGame.get(appName)
-    default:
-      return GOGGame.get(appName)
-  }
-}
-
 function getFirstExistingParentPath(directoryPath: string): string {
   let parentDirectoryPath = directoryPath
   let parentDirectoryFound = existsSync(parentDirectoryPath)
@@ -860,12 +847,8 @@ const getCurrentChangelog = async (): Promise<Release | null> => {
   }
 }
 
-function getInfo(appName: string, runner: Runner): GameInfo | SideloadGame {
-  if (runner === 'sideload') {
-    return getAppInfo(appName)
-  }
-  const game = getGame(appName, runner)
-  return game.getGameInfo()
+function getInfo(appName: string, runner: Runner): GameInfo {
+  return gameManagerMap[runner].getGameInfo(appName)
 }
 
 // can be removed if legendary and gogdl handle SIGTERM and SIGKILL
@@ -1195,6 +1178,28 @@ const memoryLog = (limit = 50) => {
   }
 }
 
+function removeFolder(path: string, folderName: string) {
+  if (path === 'default') {
+    const { defaultInstallPath } = GlobalConfig.get().getSettings()
+    const path = defaultInstallPath.replaceAll("'", '')
+    const folderToDelete = `${path}/${folderName}`
+    if (existsSync(folderToDelete)) {
+      return setTimeout(() => {
+        rmSync(folderToDelete, { recursive: true })
+      }, 5000)
+    }
+    return
+  }
+
+  const folderToDelete = `${path}/${folderName}`.replaceAll("'", '')
+  if (existsSync(folderToDelete)) {
+    return setTimeout(() => {
+      rmSync(folderToDelete, { recursive: true })
+    }, 2000)
+  }
+  return
+}
+
 export {
   errorHandler,
   execAsync,
@@ -1217,7 +1222,6 @@ export {
   quoteIfNecessary,
   removeQuoteIfNecessary,
   detectVCRedist,
-  getGame,
   killPattern,
   shutdownWine,
   getInfo,
@@ -1229,7 +1233,8 @@ export {
   getFileSize,
   getLegendaryVersion,
   getGogdlVersion,
-  memoryLog
+  memoryLog,
+  removeFolder
 }
 
 // Exported only for testing purpose

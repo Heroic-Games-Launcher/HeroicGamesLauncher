@@ -125,7 +125,6 @@
             "title": "Shortcuts"
         },
         "sync": {
-            "button": "Choose",
             "error": "Invalid Path",
             "title": "Choose the saves directory"
         },
@@ -157,10 +156,7 @@
         "cancel": "Cancel",
         "continue": "Continue",
         "go_to_library": "Go to Library",
-        "login": "Log in",
-        "sync": "Sync",
-        "syncing": "Syncing",
-        "unsync": "Unsync"
+        "login": "Log in"
     },
     "controller": {
         "hints": {
@@ -619,7 +615,6 @@
     },
     "toolbox": {
         "settings": {
-            "default-wineprefix": "Select the default prefix folder for new configs",
             "wineprefix": "Select a Folder for new Wine Prefixes"
         }
     },

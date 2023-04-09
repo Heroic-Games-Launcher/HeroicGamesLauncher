@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from 'react'
-import { GameInfo, Runner, SideloadGame } from 'common/types'
+import { GameInfo, Runner } from 'common/types'
 import cx from 'classnames'
 import GameCard from '../GameCard'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 
 interface Props {
-  library: (GameInfo | SideloadGame)[]
+  library: GameInfo[]
   layout?: string
   isFirstLane?: boolean
   handleGameCardClick: (

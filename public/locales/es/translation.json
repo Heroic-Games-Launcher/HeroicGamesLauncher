@@ -154,7 +154,7 @@
                 "title": "¡Vino no encontrado!"
             }
         },
-        "wineprefix": "Seleccione el prefijo de la carpeta de Wine",
+        "wineprefix": "Elije la carpeta de prefijos de Wine",
         "yes": "SÍ",
         "dontShowAgain": "no volver a mostrar"
     },

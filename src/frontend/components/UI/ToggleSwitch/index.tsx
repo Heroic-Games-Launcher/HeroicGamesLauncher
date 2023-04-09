@@ -6,7 +6,7 @@ import './index.css'
 interface Props {
   htmlId: string
   handleChange: ChangeEventHandler<HTMLInputElement>
-  value: boolean
+  value: unknown
   title: string
   disabled?: boolean
   extraClass?: string
@@ -32,7 +32,7 @@ export default function ToggleSwitch(props: Props) {
       <input
         id={htmlId}
         disabled={disabled}
-        checked={value}
+        checked={Boolean(value)}
         type="checkbox"
         onChange={handleChange}
         aria-label={title}

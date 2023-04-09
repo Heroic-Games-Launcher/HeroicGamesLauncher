@@ -43,6 +43,7 @@ import { GOGCloudSavesLocation, GogInstallInfo } from 'common/types/gog'
  *    I've decided against that to keep it in line with the `AsyncIPCFunctions`
  *    interface
  */
+// ts-prune-ignore-next
 interface SyncIPCFunctions {
   setZoomFactor: (zoomFactor: string) => void
   changeLanguage: (language: string) => void
@@ -98,6 +99,7 @@ interface SyncIPCFunctions {
   cancelDownload: (removeDownloaded: boolean) => void
 }
 
+// ts-prune-ignore-next
 interface AsyncIPCFunctions {
   addToDMQueue: (element: DMQueueElement) => Promise<void>
   kill: (appName: string, runner: Runner) => Promise<void>
@@ -150,10 +152,7 @@ interface AsyncIPCFunctions {
   readConfig: (config_class: 'library' | 'user') => Promise<GameInfo[] | string>
   requestSettings: (appName: string) => Promise<AppSettings | GameSettings>
   writeConfig: (args: { appName: string; config: Partial<AppSettings> }) => void
-  refreshLibrary: (
-    fullRefresh?: boolean,
-    library?: Runner | 'all'
-  ) => Promise<void>
+  refreshLibrary: (library?: Runner | 'all') => Promise<void>
   launch: (args: LaunchParams) => StatusPromise
   openDialog: (args: OpenDialogOptions) => Promise<string | false>
   install: (
@@ -187,8 +186,8 @@ interface AsyncIPCFunctions {
   removeApp: (args: {
     appName: string
     shouldRemovePrefix: boolean
+    runner: Runner
   }) => Promise<void>
-  launchApp: (appName: string) => Promise<boolean>
   isNative: (args: { appName: string; runner: Runner }) => boolean
   getLogContent: (args: { appName: string; defaultLast?: boolean }) => string
   installWineVersion: (
@@ -249,6 +248,7 @@ interface AsyncIPCFunctions {
 
 // This is quite ugly & throws a lot of errors in a regular .ts file
 // TODO: Find a TS magician who can improve this further
+// ts-prune-ignore-next
 declare namespace Electron {
   class IpcMain extends EventEmitter {
     public on: <

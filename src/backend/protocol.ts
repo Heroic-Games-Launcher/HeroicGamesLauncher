@@ -2,7 +2,7 @@ import { dialog } from 'electron'
 import { logError, logInfo, LogPrefix } from './logger/logger'
 import i18next from 'i18next'
 import { getInfo } from './utils'
-import { GameInfo, Runner, SideloadGame } from 'common/types'
+import { GameInfo, Runner } from 'common/types'
 import { getMainWindow, sendFrontendMessage } from './main_window'
 import { icon } from './constants'
 
@@ -161,7 +161,7 @@ async function handleLaunch(
 async function findGame(
   runner: Runner | undefined,
   arg = ''
-): Promise<GameInfo | SideloadGame | null> {
+): Promise<GameInfo | null> {
   if (!arg) {
     return null
   }

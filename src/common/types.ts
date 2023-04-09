@@ -87,37 +87,41 @@ export type ExecResult = {
 }
 
 export interface ExtraInfo {
-  about: About
+  about?: About
   reqs: Reqs[]
-  storeUrl: string
+  storeUrl?: string
 }
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
 
 export interface GameInfo {
-  runner: 'legendary' | 'gog'
-  store_url: string
+  runner: 'legendary' | 'gog' | 'sideload'
+  store_url?: string
   app_name: string
   art_cover: string
   art_logo?: string
   art_square: string
-  cloud_save_enabled: boolean
-  developer: string
-  extra: ExtraInfo
-  folder_name: string
+  cloud_save_enabled?: boolean
+  developer?: string
+  extra?: ExtraInfo
+  folder_name?: string
   install: Partial<InstalledInfo>
   is_installed: boolean
-  namespace: string
+  namespace?: string
   // NOTE: This is the save folder without any variables filled in...
-  save_folder: string
+  save_folder?: string
   // ...and this is the folder with them filled in
   save_path?: string
   gog_save_location?: GOGCloudSavesLocation[]
   title: string
   canRunOffline: boolean
-  thirdPartyManagedApp: string | undefined
-  is_mac_native: boolean
-  is_linux_native: boolean
+  thirdPartyManagedApp?: string | undefined
+  is_mac_native?: boolean
+  is_linux_native?: boolean
+  browserUrl?: string
+  description?: string
+  //used for store release versions. if remote !== local, then update
+  version?: string
 }
 
 export interface GameSettings {
@@ -172,6 +176,7 @@ export type Status =
   | 'notInstalled'
   | 'installed'
   | 'ubisoft'
+  | 'extracting'
 
 export interface GameStatus {
   appName: string
@@ -518,7 +523,10 @@ type ElWebview = {
 
 export type WebviewType = HTMLWebViewElement & ElWebview
 
-export type InstallPlatform = LegendaryInstallPlatform | GogInstallPlatform
+export type InstallPlatform =
+  | LegendaryInstallPlatform
+  | GogInstallPlatform
+  | 'Browser'
 
 export type ConnectivityChangedCallback = (
   event: IpcRendererEvent,
@@ -561,21 +569,6 @@ export type WineCommandArgs = {
   options?: CallRunnerOptions
   startFolder?: string
   skipPrefixCheckIKnowWhatImDoing?: boolean
-}
-
-export interface SideloadGame {
-  runner: 'sideload'
-  app_name: string
-  art_cover: string
-  art_square: string
-  is_installed: true
-  title: string
-  install: {
-    executable: string
-    platform: InstallPlatform
-  }
-  folder_name?: string
-  canRunOffline: boolean
 }
 
 export interface SaveSyncArgs {

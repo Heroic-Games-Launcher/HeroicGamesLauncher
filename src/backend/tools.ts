@@ -10,15 +10,8 @@ import {
   rm
 } from 'graceful-fs'
 import { exec, spawn, spawnSync } from 'child_process'
-
 import { execAsync, getNvngxBin, getWineFromProton } from './utils'
-import {
-  execOptions,
-  heroicToolsPath,
-  isMac,
-  isWindows,
-  userHome
-} from './constants'
+import { execOptions, toolsPath, isMac, isWindows, userHome } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import i18next from 'i18next'
 import { dirname, join } from 'path'
@@ -79,8 +72,8 @@ export const DXVK = {
       const { name, browser_download_url: downloadUrl } = assets[0]
       const pkg = name.replace('.tar.gz', '').replace('.tar.xz', '')
 
-      const latestVersion = `${heroicToolsPath}/${tool.name}/${name}`
-      const pastVersionCheck = `${heroicToolsPath}/${tool.name}/latest_${tool.name}`
+      const latestVersion = `${toolsPath}/${tool.name}/${name}`
+      const pastVersionCheck = `${toolsPath}/${tool.name}/latest_${tool.name}`
       let pastVersion = ''
       if (existsSync(pastVersionCheck)) {
         pastVersion = readFileSync(pastVersionCheck).toString().split('\n')[0]
@@ -88,14 +81,14 @@ export const DXVK = {
 
       if (
         pastVersion === pkg &&
-        existsSync(`${heroicToolsPath}/${tool.name}/${pkg}`)
+        existsSync(`${toolsPath}/${tool.name}/${pkg}`)
       ) {
         return
       }
 
       const downloadCommand = `curl -L ${downloadUrl} -o '${latestVersion}' --create-dirs`
-      const extractCommand = `${tool.extractCommand} '${latestVersion}' -C '${heroicToolsPath}/${tool.name}'`
-      const echoCommand = `echo ${pkg} > '${heroicToolsPath}/${tool.name}/latest_${tool.name}'`
+      const extractCommand = `${tool.extractCommand} '${latestVersion}' -C '${toolsPath}/${tool.name}'`
+      const echoCommand = `echo ${pkg} > '${toolsPath}/${tool.name}/latest_${tool.name}'`
       const cleanCommand = `rm '${latestVersion}'`
 
       logInfo([`Updating ${tool.name} to:`, pkg], LogPrefix.DXVKInstaller)
@@ -155,14 +148,12 @@ export const DXVK = {
 
     tool = isMac ? 'dxvk-macOS' : tool
 
-    if (!existsSync(`${heroicToolsPath}/${tool}/latest_${tool}`)) {
+    if (!existsSync(`${toolsPath}/${tool}/latest_${tool}`)) {
       logWarning('dxvk not found!', LogPrefix.DXVKInstaller)
       await DXVK.getLatest()
     }
 
-    const globalVersion = readFileSync(
-      `${heroicToolsPath}/${tool}/latest_${tool}`
-    )
+    const globalVersion = readFileSync(`${toolsPath}/${tool}/latest_${tool}`)
       .toString()
       .split('\n')[0]
 
@@ -412,7 +403,7 @@ export const Winetricks = {
     const macUrl =
       'https://raw.githubusercontent.com/The-Wineskin-Project/winetricks/macOS/src/winetricks'
     const url = isMac ? macUrl : linuxUrl
-    const path = `${heroicToolsPath}/winetricks`
+    const path = `${toolsPath}/winetricks`
 
     if (!isOnline()) {
       return
@@ -441,7 +432,7 @@ export const Winetricks = {
     if (!(await validWine(wineVersion))) {
       return
     }
-    const winetricks = `${heroicToolsPath}/winetricks`
+    const winetricks = `${toolsPath}/winetricks`
 
     if (!existsSync(winetricks)) {
       await Winetricks.download()

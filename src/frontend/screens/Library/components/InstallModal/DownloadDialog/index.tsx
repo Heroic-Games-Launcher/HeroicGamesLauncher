@@ -1,8 +1,7 @@
 import {
   faDownload,
   faHardDrive,
-  faSpinner,
-  faFolderOpen
+  faSpinner
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -17,8 +16,8 @@ import {
 import { GogInstallInfo } from 'common/types/gog'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import {
+  PathSelectionBox,
   SelectField,
-  TextInputWithIconField,
   ToggleSwitch
 } from 'frontend/components/UI'
 import Anticheat from 'frontend/components/UI/Anticheat'
@@ -94,6 +93,13 @@ function getUniqueKey(sdl: SelectiveDownload) {
 
 const userHome = configStore.get('userHome', '')
 
+function getDefaultInstallPath() {
+  const { defaultInstallPath = `${userHome}/Games/Heroic` } = {
+    ...configStore.get_nodefault('settings')
+  }
+  return defaultInstallPath
+}
+
 export default function DownloadDialog({
   backdropClick,
   appName,
@@ -120,12 +126,8 @@ export default function DownloadDialog({
   const [installLanguages, setInstallLanguages] = useState(Array<string>())
   const [installLanguage, setInstallLanguage] = useState('')
 
-  const { defaultInstallPath = '' } = {
-    ...configStore.get_nodefault('settings')
-  }
-
   const [installPath, setInstallPath] = useState(
-    previousProgress.folder || defaultInstallPath || `${userHome}/Games/Heroic`
+    previousProgress.folder || getDefaultInstallPath()
   )
   const gameStatus: GameStatus = libraryStatus.filter(
     (game: GameStatus) => game.appName === appName
@@ -438,23 +440,16 @@ export default function DownloadDialog({
           </SelectField>
         )}
 
-        <TextInputWithIconField
+        <PathSelectionBox
+          type="directory"
+          onPathChange={setInstallPath}
+          path={installPath}
+          placeholder={getDefaultInstallPath()}
+          pathDialogTitle={t('install.path')}
+          pathDialogDefaultPath={getDefaultInstallPath()}
           htmlId="setinstallpath"
           label={t('install.path', 'Select Install Path')}
-          placeholder={defaultInstallPath}
-          value={installPath.replaceAll("'", '')}
-          onChange={(event) => setInstallPath(event.target.value)}
-          icon={<FontAwesomeIcon icon={faFolderOpen} />}
-          onIconClick={async () =>
-            window.api
-              .openDialog({
-                buttonLabel: t('box.choose'),
-                properties: ['openDirectory'],
-                title: t('install.path'),
-                defaultPath: defaultInstallPath
-              })
-              .then((path) => setInstallPath(path || defaultInstallPath))
-          }
+          noDeleteButton
           afterInput={
             gameInstallInfo?.manifest?.download_size ? (
               <span className="smallInputInfo">

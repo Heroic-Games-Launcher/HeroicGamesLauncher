@@ -15,12 +15,12 @@ import { join } from 'path'
 import { logError, logInfo, LogPrefix } from '../../logger/logger'
 import { GlobalConfig } from '../../config'
 import { removeSpecialcharacters } from '../../utils'
-import { GameInfo, SideloadGame } from 'common/types'
+import { GameInfo } from 'common/types'
 import { isMac, userHome } from '../../constants'
-import { GOGLibrary } from '../../gog/library'
 import { getIcon } from '../utils'
 import { addNonSteamGame } from '../nonesteamgame/nonesteamgame'
 import sanitize from 'sanitize-filename'
+import * as GogLibraryManager from '../../storeManagers/gog/library'
 
 /**
  * Adds a desktop shortcut to $HOME/Desktop and to /usr/share/applications
@@ -29,10 +29,7 @@ import sanitize from 'sanitize-filename'
  * @async
  * @public
  */
-async function addShortcuts(
-  gameInfo: GameInfo | SideloadGame,
-  fromMenu?: boolean
-) {
+async function addShortcuts(gameInfo: GameInfo, fromMenu?: boolean) {
   const { app_name, runner, title } = gameInfo
 
   logInfo(`Adding shortcuts for ${title}`, LogPrefix.Backend)
@@ -80,7 +77,7 @@ Categories=Game;
       }
       let executable = gameInfo.install.executable
       if (gameInfo.runner === 'gog') {
-        executable = GOGLibrary.get().getExecutable(gameInfo.app_name)
+        executable = GogLibraryManager.getExecutable(gameInfo.app_name)
       }
       if (executable) {
         let icon: string
@@ -117,7 +114,7 @@ Categories=Game;
  * @async
  * @public
  */
-async function removeShortcuts(gameInfo: GameInfo | SideloadGame) {
+async function removeShortcuts(gameInfo: GameInfo) {
   const [desktopFile, menuFile] = shortcutFiles(gameInfo.title)
 
   if (desktopFile) {
@@ -166,7 +163,7 @@ function shortcutFiles(gameTitle: string) {
   return [desktopFile, menuFile]
 }
 
-async function generateMacOsApp(gameInfo: GameInfo | SideloadGame) {
+async function generateMacOsApp(gameInfo: GameInfo) {
   const { app_name, runner } = gameInfo
 
   logInfo('Generating macOS shortcut', LogPrefix.Backend)
@@ -239,7 +236,7 @@ async function generateMacOsApp(gameInfo: GameInfo | SideloadGame) {
 
 async function convertPngToICNS(
   app_name: string,
-  gameInfo: GameInfo | SideloadGame,
+  gameInfo: GameInfo,
   dest: string
 ) {
   try {

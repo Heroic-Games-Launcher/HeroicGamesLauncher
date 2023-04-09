@@ -10,10 +10,10 @@ import {
   FavouriteGame,
   DMQueueElement,
   GOGLoginData,
-  SideloadGame,
   WineManagerUISettings,
   AppSettings,
-  WikiInfo
+  WikiInfo,
+  GameInfo
 } from 'common/types'
 import { UserData } from 'common/types/gog'
 
@@ -64,7 +64,7 @@ export interface StoreStructure {
     isLoggedIn: boolean
   }
   sideloadedStore: {
-    games: SideloadGame[]
+    games: GameInfo[]
     // FIXME: Not sure if this is correct, seems like this key is only used once
     installed: InstalledInfo[]
   }

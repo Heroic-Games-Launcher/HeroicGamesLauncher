@@ -8,20 +8,16 @@ import {
 } from 'graceful-fs'
 import { copySync } from 'fs-extra'
 import path from 'node:path'
-import { GOGLibrary } from './library'
 import { GameInfo, InstalledInfo } from 'common/types'
-import {
-  checkWineBeforeLaunch,
-  getGame,
-  getShellPath,
-  spawnAsync
-} from '../utils'
-import { GameConfig } from '../game_config'
-import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import { isWindows } from '../constants'
+import { checkWineBeforeLaunch, getShellPath, spawnAsync } from '../../utils'
+import { GameConfig } from '../../game_config'
+import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
+import { isWindows } from '../../constants'
 import ini from 'ini'
-import { isOnline } from '../online_monitor'
-import { getWinePath, runWineCommand, verifyWinePrefix } from '../launcher'
+import { isOnline } from '../../online_monitor'
+import { getWinePath, runWineCommand, verifyWinePrefix } from '../../launcher'
+import { logFileLocation } from 'backend/storeManagers/storeManagerCommon/games'
+import { getGameInfo as getGogLibraryGameInfo } from 'backend/storeManagers/gog/library'
 const nonNativePathSeparator = path.sep === '/' ? '\\' : '/'
 
 /**
@@ -35,8 +31,7 @@ async function setup(
   appName: string,
   installInfo?: InstalledInfo
 ): Promise<void> {
-  const gameInfo = GOGLibrary.get().getGameInfo(appName)
-  const game = getGame(appName, 'gog')
+  const gameInfo = getGogLibraryGameInfo(appName)
   if (installInfo && gameInfo) {
     gameInfo.install = installInfo
   }
@@ -58,7 +53,7 @@ async function setup(
     const isWineOkToLaunch = await checkWineBeforeLaunch(
       appName,
       gameSettings,
-      game.logFileLocation
+      logFileLocation(appName)
     )
 
     if (!isWineOkToLaunch) {

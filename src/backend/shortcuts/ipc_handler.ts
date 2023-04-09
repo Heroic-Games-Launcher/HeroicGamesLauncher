@@ -1,3 +1,4 @@
+import { gameManagerMap } from 'backend/storeManagers'
 import { existsSync } from 'graceful-fs'
 import { ipcMain } from 'electron'
 import i18next from 'i18next'
@@ -6,25 +7,13 @@ import {
   isAddedToSteam,
   removeNonSteamGame
 } from './nonesteamgame/nonesteamgame'
-import { getGame, getInfo } from '../utils'
+import { getInfo } from '../utils'
 import { shortcutFiles } from './shortcuts/shortcuts'
-import {
-  addAppShortcuts,
-  getAppInfo,
-  removeAppShortcuts
-} from '../sideload/games'
 import { isMac } from 'backend/constants'
 import { notify } from 'backend/dialog/dialog'
 
 ipcMain.on('addShortcut', async (event, appName, runner, fromMenu) => {
-  const isSideload = runner === 'sideload'
-
-  if (isSideload) {
-    addAppShortcuts(appName, fromMenu)
-  } else {
-    const game = getGame(appName, runner)
-    await game.addShortcuts(fromMenu)
-  }
+  gameManagerMap[runner].addShortcuts(appName, fromMenu)
 
   const body = i18next.t(
     'box.shortcuts.message',
@@ -43,28 +32,16 @@ ipcMain.on('addShortcut', async (event, appName, runner, fromMenu) => {
 })
 
 ipcMain.handle('shortcutsExists', (event, appName, runner) => {
-  const isSideload = runner === 'sideload'
-  let title = ''
+  const title = gameManagerMap[runner].getGameInfo(appName).title
 
-  if (isSideload) {
-    title = getAppInfo(appName).title
-  } else {
-    title = getGame(appName, runner).getGameInfo().title
-  }
   const [desktopFile, menuFile] = shortcutFiles(title)
 
   return existsSync(desktopFile ?? '') || existsSync(menuFile ?? '')
 })
 
 ipcMain.on('removeShortcut', async (event, appName, runner) => {
-  const isSideload = runner === 'sideload'
+  gameManagerMap[runner].removeShortcuts(appName)
 
-  if (isSideload) {
-    removeAppShortcuts(appName)
-  } else {
-    const game = getGame(appName, runner)
-    await game.removeShortcuts()
-  }
   const body = i18next.t(
     'box.shortcuts.message-remove',
     'Shortcuts were removed from Desktop and Start Menu'

@@ -42,25 +42,20 @@ const configFolder = app.getPath('appData')
 const legendaryConfigPath = isLinux
   ? join(configFolder, 'legendary')
   : join(userHome, '.config', 'legendary')
-const heroicFolder = join(configFolder, 'heroic')
-const heroicConfigPath = join(heroicFolder, 'config.json')
-const heroicGamesConfigPath = join(heroicFolder, 'GamesConfig')
-const heroicToolsPath = join(heroicFolder, 'tools')
-const heroicIconFolder = join(heroicFolder, 'icons')
-const runtimePath = join(heroicToolsPath, 'runtimes')
+const appFolder = join(configFolder, 'heroic')
+const configPath = join(appFolder, 'config.json')
+const gamesConfigPath = join(appFolder, 'GamesConfig')
+const toolsPath = join(appFolder, 'tools')
+const heroicIconFolder = join(appFolder, 'icons')
+const runtimePath = join(toolsPath, 'runtimes')
 const userInfo = join(legendaryConfigPath, 'user.json')
 const heroicInstallPath = join(homedir(), 'Games', 'Heroic')
-const heroicDefaultWinePrefixDir = join(
-  homedir(),
-  'Games',
-  'Heroic',
-  'Prefixes'
-)
-const heroicDefaultWinePrefix = join(heroicDefaultWinePrefixDir, 'default')
-const heroicAnticheatDataPath = join(heroicFolder, 'areweanticheatyet.json')
-const imagesCachePath = join(heroicFolder, 'images-cache')
+const defaultWinePrefixDir = join(homedir(), 'Games', 'Heroic', 'Prefixes')
+const defaultWinePrefix = join(defaultWinePrefixDir, 'default')
+const anticheatDataPath = join(appFolder, 'areweanticheatyet.json')
+const imagesCachePath = join(appFolder, 'images-cache')
 const cachedUbisoftInstallerPath = join(
-  heroicFolder,
+  appFolder,
   'tools',
   'UbisoftConnectInstaller.exe'
 )
@@ -186,16 +181,12 @@ const execOptions = {
   shell: getShell()
 }
 
-const defaultFolders = [
-  heroicGamesConfigPath,
-  heroicIconFolder,
-  imagesCachePath
-]
+const defaultFolders = [gamesConfigPath, heroicIconFolder, imagesCachePath]
 
 const necessaryFoldersByPlatform = {
   win32: [...defaultFolders],
-  linux: [...defaultFolders, heroicToolsPath],
-  darwin: [...defaultFolders, heroicToolsPath]
+  linux: [...defaultFolders, toolsPath],
+  darwin: [...defaultFolders, toolsPath]
 }
 
 export function createNecessaryFolders() {
@@ -217,15 +208,15 @@ export {
   execOptions,
   fixAsarPath,
   configStore,
-  heroicConfigPath,
-  heroicGamesConfigPath,
+  configPath,
+  gamesConfigPath,
   heroicGithubURL,
   heroicIconFolder,
   heroicInstallPath,
-  heroicToolsPath,
-  heroicDefaultWinePrefixDir,
-  heroicDefaultWinePrefix,
-  heroicAnticheatDataPath,
+  toolsPath,
+  defaultWinePrefixDir,
+  defaultWinePrefix,
+  anticheatDataPath,
   imagesCachePath,
   userHome,
   flatPakHome,
