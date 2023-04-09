@@ -157,11 +157,11 @@ export const DXVK = {
       .toString()
       .split('\n')[0]
 
-    const toolPathx32 = `${heroicToolsPath}/${tool}/${globalVersion}/${
+    const toolPathx32 = `${toolsPath}/${tool}/${globalVersion}/${
       tool === 'vkd3d' ? 'x86' : 'x32'
     }`
     const dlls32 = readdirSync(toolPathx32)
-    const toolPathx64 = `${heroicToolsPath}/${tool}/${globalVersion}/x64`
+    const toolPathx64 = `${toolsPath}/${tool}/${globalVersion}/x64`
     const dlls64 = readdirSync(toolPathx64)
     const currentVersionCheck = `${winePrefix}/current_${tool}`
     let currentVersion = ''
