@@ -8,7 +8,7 @@ import { DMQueueElement } from 'common/types'
 
 import { ReactComponent as HeroicIcon } from 'frontend/assets/heroic-icon.svg'
 
-let sidebarSize = localStorage.getItem('sidebar-width') || 240
+let sidebarSize = Number(localStorage.getItem('sidebar-width')) || 240
 const minWidth = 60
 const maxWidth = 400
 const collapsedWidth = 120

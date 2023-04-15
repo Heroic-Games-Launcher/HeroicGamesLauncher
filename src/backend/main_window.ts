@@ -62,7 +62,7 @@ export const createMainWindow = () => {
       contextIsolation: true,
       nodeIntegration: true,
       // sandbox: false,
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, '..', 'preload', 'preload.js')
     }
   })
 

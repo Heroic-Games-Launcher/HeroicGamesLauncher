@@ -1,8 +1,8 @@
-import { defineConfig, UserConfigExport } from 'vite'
+import { defineConfig, BuildOptions } from 'vite'
 import electron from 'vite-plugin-electron'
 import react from '@vitejs/plugin-react-swc'
 import svgr from 'vite-plugin-svgr'
-import path from 'path'
+import * as path from 'path'
 
 const srcAliases = ['backend', 'frontend', 'common'].map((srcFolder) => {
   return {
@@ -10,44 +10,52 @@ const srcAliases = ['backend', 'frontend', 'common'].map((srcFolder) => {
     replacement: path.resolve(__dirname, `./src/${srcFolder}`)
   }
 })
+srcAliases.push({
+  find: '~@fontsource',
+  replacement: path.resolve(__dirname, 'node_modules/@fontsource')
+})
 
-const electronViteConfig: UserConfigExport = {
-  build: { outDir: 'build/electron', target: 'esnext' },
-  resolve: {
-    alias: [
-      {
-        find: '~@fontsource',
-        replacement: path.resolve(__dirname, 'node_modules/@fontsource')
-      },
-      ...srcAliases
-    ]
-  }
+const otherBuildOptions: BuildOptions = {
+  reportCompressedSize: false,
+  target: 'esnext'
 }
 
 export default defineConfig({
   build: {
-    target: 'esnext',
-    outDir: 'build'
+    outDir: 'build',
+    ...otherBuildOptions
   },
   resolve: {
-    alias: [
-      {
-        find: '~@fontsource',
-        replacement: path.resolve(__dirname, 'node_modules/@fontsource')
-      },
-      ...srcAliases
-    ]
+    alias: srcAliases
   },
   plugins: [
     react(),
     electron([
       {
         entry: 'src/backend/main.ts',
-        vite: electronViteConfig
+        vite: {
+          build: {
+            outDir: 'build/main',
+            ...otherBuildOptions
+          },
+          resolve: {
+            alias: srcAliases
+          },
+          clearScreen: false
+        }
       },
       {
         entry: 'src/backend/preload.ts',
-        vite: electronViteConfig,
+        vite: {
+          build: {
+            outDir: 'build/preload',
+            ...otherBuildOptions
+          },
+          resolve: {
+            alias: srcAliases
+          },
+          clearScreen: false
+        },
         onstart: ({ reload }) => reload()
       }
     ]),
