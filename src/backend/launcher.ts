@@ -40,7 +40,6 @@ import {
   ExecResult,
   GameSettings,
   LaunchPreperationResult,
-  RpcClient,
   WineInstallation,
   WineCommandArgs
 } from 'common/types'
@@ -50,6 +49,7 @@ import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
 import { setupUbisoftConnect } from './storeManagers/legendary/setup'
 import { gameManagerMap } from 'backend/storeManagers'
+import RPCClient from '@heroicgl/discord-rpc'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
@@ -70,9 +70,9 @@ async function prepareLaunch(
   }
 
   // Update Discord RPC if enabled
-  let rpcClient = undefined
+  let rpcClient = null
   if (globalSettings.discordRPC) {
-    rpcClient = constructAndUpdateRPC(gameInfo.title)
+    rpcClient = await constructAndUpdateRPC(gameInfo.title)
   }
 
   // If we're not on Linux, we can return here
@@ -494,9 +494,9 @@ export async function verifyWinePrefix(
     })
 }
 
-function launchCleanup(rpcClient?: RpcClient) {
+async function launchCleanup(rpcClient?: RPCClient | null) {
   if (rpcClient) {
-    rpcClient.disconnect()
+    await rpcClient.close()
     logInfo('Stopped Discord Rich Presence', LogPrefix.Backend)
   }
 }

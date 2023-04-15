@@ -3,6 +3,7 @@ import { LegendaryInstallPlatform } from './types/legendary'
 import { IpcRendererEvent } from 'electron'
 import { ChildProcess } from 'child_process'
 import { HowLongToBeatEntry } from 'howlongtobeat'
+import RPCClient from '@heroicgl/discord-rpc'
 
 export type Runner = 'legendary' | 'gog' | 'sideload'
 
@@ -351,17 +352,11 @@ export interface SteamRuntime {
 export interface LaunchPreperationResult {
   success: boolean
   failureReason?: string
-  rpcClient?: RpcClient
+  rpcClient?: RPCClient | null
   mangoHudCommand?: string[]
   gameModeBin?: string
   steamRuntime?: string[]
   offlineMode?: boolean
-}
-
-export interface RpcClient {
-  updatePresence(d: unknown): void
-  reply(user: unknown, response: unknown): void
-  disconnect(): void
 }
 
 export interface CallRunnerOptions {

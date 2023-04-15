@@ -517,7 +517,7 @@ export async function launch(
     logError(['Error launching game:', error], LogPrefix.Gog)
   }
 
-  launchCleanup(rpcClient)
+  await launchCleanup(rpcClient)
 
   return !error
 }

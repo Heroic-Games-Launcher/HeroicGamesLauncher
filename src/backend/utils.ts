@@ -6,7 +6,6 @@ import {
 import {
   Runner,
   WineInstallation,
-  RpcClient,
   SteamRuntime,
   Release,
   GameInfo,
@@ -53,7 +52,7 @@ import {
   libraryStore as GOGlibraryStore
 } from './storeManagers/gog/electronStores'
 import * as fileSize from 'filesize'
-import makeClient from 'discord-rich-presence-typescript'
+import RPCClient from '@heroicgl/discord-rpc'
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
 import { getMainWindow, sendFrontendMessage } from './main_window'
 import { GlobalConfig } from './config'
@@ -612,16 +611,26 @@ async function getSteamRuntime(
   return allAvailableRuntimes.pop()!
 }
 
-function constructAndUpdateRPC(gameName: string): RpcClient {
-  const client = makeClient('852942976564723722')
-  client.updatePresence({
-    details: gameName,
-    instance: true,
-    largeImageKey: 'icon_new',
-    large_text: gameName,
-    startTimestamp: Date.now(),
-    state: 'via Heroic on ' + getFormattedOsName()
-  })
+async function constructAndUpdateRPC(
+  gameName: string,
+  pid = process.pid
+): Promise<RPCClient | null> {
+  const client = await RPCClient.make('852942976564723722')
+  if (client)
+    await client.request({
+      cmd: 'SET_ACTIVITY',
+      args: {
+        pid,
+        activity: {
+          details: gameName,
+          instance: true,
+          largeImageKey: 'icon_new',
+          large_text: gameName,
+          startTimestamp: Date.now(),
+          state: 'via Heroic on ' + getFormattedOsName()
+        }
+      }
+    })
   logInfo('Started Discord Rich Presence', LogPrefix.Backend)
   return client
 }

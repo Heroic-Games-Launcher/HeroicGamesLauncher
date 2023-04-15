@@ -925,7 +925,7 @@ export async function launch(
     })
   }
 
-  launchCleanup(rpcClient)
+  await launchCleanup(rpcClient)
 
   return !error
 }
