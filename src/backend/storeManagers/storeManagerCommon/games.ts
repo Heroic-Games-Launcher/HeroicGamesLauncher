@@ -184,6 +184,12 @@ export async function launchGame(
       LogPrefix.Backend
     )
 
+    sendFrontendMessage('gameStatusUpdate', {
+      appName: appName,
+      runner: 'sideload',
+      status: 'playing'
+    })
+
     await runWineCommand({
       commandParts: [executable, launcherArgs ?? ''],
       gameSettings,
