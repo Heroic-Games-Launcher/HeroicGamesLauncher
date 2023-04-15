@@ -148,7 +148,7 @@ export async function launchGame(
 
       sendFrontendMessage('gameStatusUpdate', {
         appName: appName,
-        runner: 'sideload',
+        runner: runner,
         status: 'playing'
       })
 
@@ -183,12 +183,6 @@ export async function launchGame(
       `launching non-native sideloaded: ${executable}}`,
       LogPrefix.Backend
     )
-
-    sendFrontendMessage('gameStatusUpdate', {
-      appName: appName,
-      runner: 'sideload',
-      status: 'playing'
-    })
 
     await runWineCommand({
       commandParts: [executable, launcherArgs ?? ''],
