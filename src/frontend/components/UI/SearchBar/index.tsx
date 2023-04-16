@@ -24,15 +24,15 @@ export default React.memo(function SearchBar() {
   const input = useRef<HTMLInputElement>(null)
 
   const list = useMemo(() => {
-    const library = new Set(
-      [...epic.library, ...gog.library, ...sideloadedLibrary]
-        .filter(Boolean)
-        .map((g) => g.title)
-        .sort()
-    )
-    return [...library].filter((i) =>
-      new RegExp(fixFilter(filterText), 'i').test(i)
-    )
+    const library = [
+      ...(epic.library ?? []),
+      ...(gog.library ?? []),
+      ...(sideloadedLibrary ?? [])
+    ]
+      .filter(Boolean)
+      .map((g) => g.title)
+      .sort()
+    return library.filter((i) => new RegExp(fixFilter(filterText), 'i').test(i))
   }, [epic.library, gog.library, filterText])
 
   // we have to use an event listener instead of the react

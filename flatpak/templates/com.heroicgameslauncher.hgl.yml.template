@@ -14,7 +14,7 @@ cleanup:
 sdk-extensions:
   - org.freedesktop.Sdk.Compat.i386
   - org.freedesktop.Sdk.Extension.toolchain-i386
-  
+
 finish-args:
   - --allow=devel
   - --allow=multiarch
@@ -40,6 +40,7 @@ finish-args:
   - --socket=wayland
   - --socket=pulseaudio
   - --talk-name=org.freedesktop.Notifications
+  - --own-name=org.kde.*
 
 add-extensions:
   org.freedesktop.Platform.Compat.i386:
@@ -62,7 +63,7 @@ add-extensions:
     merge-dirs: vulkan/icd.d;glvnd/egl_vendor.d;OpenCL/vendors;lib/dri;lib/d3d;vulkan/explicit_layer.d;vulkan/implicit_layer.d
     download-if: active-gl-driver
     enable-if: active-gl-driver
-  
+
   x-compat-i386-opts: &compat_i386_opts
     prepend-pkg-config-path: /app/lib32/pkgconfig:/usr/lib/i386-linux-gnu/pkgconfig
     ldflags: -L/app/lib32
@@ -83,7 +84,7 @@ add-extensions:
     autoprune-unless: have-intel-gpu
 
   com.valvesoftware.Steam.Utility:
-    subdirectories: true 
+    subdirectories: true
     directory: utils
     version: stable
     versions: stable;beta;test
@@ -117,7 +118,7 @@ modules:
         tag: '1.7'
         commit: 4dc99dff76218718763a6b07fc1900fa6d1dafd9
         x-checker-data:
-            type: git
+          type: git
 
   - name: gamemode-32bit
     build-options:
@@ -197,7 +198,7 @@ modules:
         path: com.heroicgameslauncher.hgl.png
       - type: file
         path: com.heroicgameslauncher.hgl.desktop
-  
+
   #START --- Winetricks Deps ---
   - name: p7zip
     no-autogen: true
@@ -247,8 +248,8 @@ modules:
       strip: true
     sources:
       - type: archive
-        url: "https://www.cabextract.org.uk/cabextract-1.9.1.tar.gz"
-        sha256: afc253673c8ef316b4d5c29cc4aa8445844bee14afffbe092ee9469405851ca7
+        url: "https://www.cabextract.org.uk/cabextract-1.10.tar.gz"
+        sha256: edfc785ef252460cab7fdfa6fb2599058a6f5618f7f48a4ad22da816da8cb117
         x-checker-data:
           type: anitya
           project-id: 245
@@ -262,8 +263,8 @@ modules:
       - DESTDIR=$(FLATPAK_DEST)
     sources:
       - type: archive
-        url: "https://www.rarlab.com/rar/unrarsrc-6.2.2.tar.gz"
-        sha256: 477d6ca7e246caec5412cc83b36c15a4ac837726a892df022919800129107cd5
+        url: "https://www.rarlab.com/rar/unrarsrc-6.2.5.tar.gz"
+        sha256: 9a3974410d1d340e3998dd2a6f98faefbe838cad556266e714adfb0e8cf9377c
         x-checker-data:
           type: anitya
           project-id: 13306
@@ -276,46 +277,6 @@ modules:
     build-commands:
       - install -Dm755 /usr/bin/ar -t ${FLATPAK_DEST}/bin/
       - install -Dm755 /usr/lib/$(gcc -print-multiarch)/libbfd-*.so -t ${FLATPAK_DEST}/lib/
-
-  - name: perl
-    no-autogen: true
-    config-opts:
-      - "-des"
-    cleanup:
-      - "*.pod"
-      - "/bin/perl5*"
-      - "/bin/c2ph"
-      - "/bin/corelist"
-      - "/bin/cpan"
-      - "/bin/enc2xs"
-      - "/bin/encguess"
-      - "/bin/h2*"
-      - "/bin/instmodsh"
-      - "/bin/json_pp"
-      - "/bin/libnetcfg"
-      - "/bin/perlbug"
-      - "/bin/perldoc"
-      - "/bin/perlthanks"
-      - "/bin/piconv"
-      - "/bin/pl2pm"
-      - "/bin/pod*"
-      - "/bin/prove"
-      - "/bin/pstruct"
-      - "/bin/ptar*"
-      - "/bin/shasum"
-      - "/bin/splain"
-      - "/bin/xsubpp"
-      - "/bin/zipdetails"
-    sources:
-      - type: archive
-        url: "https://www.cpan.org/src/5.0/perl-5.32.0.tar.gz"
-        sha256: efeb1ce1f10824190ad1cadbcccf6fdb8a5d37007d0100d2d9ae5f2b5900c0b4
-      - type: script
-        dest-filename: configure
-        commands:
-          - "exec ./configure.gnu $@"
-    post-install:
-      - "find ${FLATPAK_DEST}/lib/perl5 -type f -exec chmod u+w {} \\;"
 
   - name: aria2
     config-opts:
