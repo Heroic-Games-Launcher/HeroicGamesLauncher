@@ -196,7 +196,9 @@
         "moving-files": "Siirretään tiedostoa {{file}}: {{percent}} ",
         "syncingSaves": "Synkronoidaan tallennuksia",
         "launching": "Käynnistetään",
-        "ubisoft": "Ubisoftin asennus"
+        "ubisoft": "Ubisoftin asennus",
+        "downloading": "Downloading",
+        "extracting": "Purkaminen"
     },
     "submenu": {
         "addShortcut": "Lisää pikakuvake",
