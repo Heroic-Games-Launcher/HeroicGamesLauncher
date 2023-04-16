@@ -196,7 +196,9 @@
         "moving-files": "Premještanje datoteke '{{file}}': {{percent}} ",
         "syncingSaves": "Sinkoniziranje podataka",
         "ubisoft": "Instaliranje Ubisofta",
-        "launching": "Pokretanje"
+        "launching": "Pokretanje",
+        "downloading": "Downloading",
+        "extracting": "Vađenje"
     },
     "submenu": {
         "addShortcut": "Dodaj prečace",
