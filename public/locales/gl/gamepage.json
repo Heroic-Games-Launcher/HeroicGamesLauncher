@@ -196,7 +196,9 @@
         "moving-files": "Movendo o ficheiro '{{file}}': {{percent}} ",
         "syncingSaves": "Sincronización de gardados",
         "launching": "Lanzamento",
-        "ubisoft": "Instalación de Ubisoft"
+        "ubisoft": "Instalación de Ubisoft",
+        "downloading": "Downloading",
+        "extracting": "Extracción"
     },
     "submenu": {
         "addShortcut": "Engadir acceso directo",
