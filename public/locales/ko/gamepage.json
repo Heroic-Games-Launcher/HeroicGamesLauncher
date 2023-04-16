@@ -196,7 +196,9 @@
         "moving-files": "파일 '{{file}}' 이동: {{percent}} ",
         "syncingSaves": "세이브 동기화 중",
         "launching": "진수",
-        "ubisoft": "유비소프트 설치"
+        "ubisoft": "유비소프트 설치",
+        "downloading": "Downloading",
+        "extracting": "적출"
     },
     "submenu": {
         "addShortcut": "바로가기 생성",
