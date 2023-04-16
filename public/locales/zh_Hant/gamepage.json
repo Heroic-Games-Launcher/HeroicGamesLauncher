@@ -196,7 +196,9 @@
         "moving-files": "移動文件“{{file}}”：{{percent}} ",
         "syncingSaves": "同步保存",
         "ubisoft": "安裝育碧",
-        "launching": "發射"
+        "launching": "發射",
+        "downloading": "Downloading",
+        "extracting": "提取"
     },
     "submenu": {
         "addShortcut": "添加捷徑",
