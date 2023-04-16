@@ -196,7 +196,9 @@
         "moving-files": "Преместване на файла „{{file}}“: {{percent}} ",
         "syncingSaves": "Синхронизиране на запазените файлове",
         "launching": "Пускане",
-        "ubisoft": "Инсталиране на Ubisoft"
+        "ubisoft": "Инсталиране на Ubisoft",
+        "downloading": "Сваляне",
+        "extracting": "Разархивиране"
     },
     "submenu": {
         "addShortcut": "Добавяне на пряк път",
