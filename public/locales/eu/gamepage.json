@@ -197,7 +197,9 @@
         "moving-files": "'{{file}}' fitxategia mugitzen: {{percent}} ",
         "syncingSaves": "Gordeak sinkronizatzea",
         "launching": "Abian jartzea",
-        "ubisoft": "Ubisoft instalatzen"
+        "ubisoft": "Ubisoft instalatzen",
+        "downloading": "Downloading",
+        "extracting": "Erauzketa"
     },
     "submenu": {
         "addShortcut": "Sarbide zuzena gehitu",
