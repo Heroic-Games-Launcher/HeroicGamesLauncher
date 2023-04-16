@@ -196,7 +196,9 @@
         "moving-files": "Memindahkan berkas '{{file}}': {{percent}} ",
         "syncingSaves": "Menyinkronkan Penyimpanan Gim",
         "launching": "Meluncurkan",
-        "ubisoft": "Menginstal Ubisoft"
+        "ubisoft": "Menginstal Ubisoft",
+        "downloading": "Mengunduh",
+        "extracting": "Mengekstrak"
     },
     "submenu": {
         "addShortcut": "Tambahkan pintasan",
