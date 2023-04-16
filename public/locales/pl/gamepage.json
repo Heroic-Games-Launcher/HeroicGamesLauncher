@@ -196,7 +196,9 @@
         "moving-files": "Przenoszenie pliku „{{file}}”: {{percent}} ",
         "syncingSaves": "Synchronizowanie zapisów",
         "launching": "Wodowanie",
-        "ubisoft": "Instalowanie Ubisoftu"
+        "ubisoft": "Instalowanie Ubisoftu",
+        "downloading": "Downloading",
+        "extracting": "Ekstrahujący"
     },
     "submenu": {
         "addShortcut": "Dodaj skrót",
