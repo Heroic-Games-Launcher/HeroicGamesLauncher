@@ -196,7 +196,9 @@
         "moving-files": "Movendo arquivo '{{file}}': {{percent}} ",
         "syncingSaves": "Sincronizando",
         "launching": "Lançamento",
-        "ubisoft": "Instalando Ubisoft"
+        "ubisoft": "Instalando Ubisoft",
+        "downloading": "Downloading",
+        "extracting": "Extraindo"
     },
     "submenu": {
         "addShortcut": "Adicionar Atalhos",
