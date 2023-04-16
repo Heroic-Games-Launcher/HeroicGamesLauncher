@@ -196,7 +196,9 @@
         "moving-files": "'{{file}}' கோப்பை நகர்த்துகிறது: {{percent}} ",
         "syncingSaves": "சேமிப்புகள் ஒத்திசைவு செய்யப்படுகிறது",
         "launching": "தொடங்குதல்",
-        "ubisoft": "Ubisoft ஐ நிறுவுகிறது"
+        "ubisoft": "Ubisoft ஐ நிறுவுகிறது",
+        "downloading": "Downloading",
+        "extracting": "பிரித்தெடுத்தல்"
     },
     "submenu": {
         "addShortcut": "குறுக்குவழியை சேர்",
