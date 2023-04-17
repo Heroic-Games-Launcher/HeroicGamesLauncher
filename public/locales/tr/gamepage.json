@@ -196,7 +196,9 @@
         "moving-files": "'{{file}}' dosyası taşınıyor: {{percent}} ",
         "syncingSaves": "Kayıtlar Senkronize Ediliyor",
         "launching": "Fırlatma",
-        "ubisoft": "Ubisoft'u Kurmak"
+        "ubisoft": "Ubisoft'u Kurmak",
+        "downloading": "Downloading",
+        "extracting": "Ayıklanıyor"
     },
     "submenu": {
         "addShortcut": "Kısayol ekle",

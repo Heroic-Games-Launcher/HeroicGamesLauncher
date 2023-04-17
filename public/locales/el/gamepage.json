@@ -196,7 +196,9 @@
         "moving-files": "Μετακίνηση αρχείου '{{file}}': {{percent}} ",
         "syncingSaves": "Συγχρονισμός Αποθηκεύσεων",
         "launching": "Εκκίνηση",
-        "ubisoft": "Εγκατάσταση της Ubisoft"
+        "ubisoft": "Εγκατάσταση της Ubisoft",
+        "downloading": "Γίνεται λήψη",
+        "extracting": "Εξαγωγή"
     },
     "submenu": {
         "addShortcut": "Προσθήκη συντόμευσης",

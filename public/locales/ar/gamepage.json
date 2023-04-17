@@ -197,7 +197,9 @@
         "moving-files": "يُنقل الملف '{{file}}': {{percent}} ",
         "syncingSaves": "قيد مزامنة ملفات التخزين",
         "launching": "يشغّل",
-        "ubisoft": "يثبَّت يوبيسوفت"
+        "ubisoft": "يثبَّت يوبيسوفت",
+        "downloading": "قيد التنزيل",
+        "extracting": "استخراج"
     },
     "submenu": {
         "addShortcut": "أضف اختصارًا",

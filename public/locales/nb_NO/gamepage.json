@@ -197,7 +197,9 @@
         "moving-files": "Flytter filen «{{file}}»: {{percent}} ",
         "syncingSaves": "Synkroniserer lagrer",
         "launching": "Lansering",
-        "ubisoft": "Installerer Ubisoft"
+        "ubisoft": "Installerer Ubisoft",
+        "downloading": "Downloading",
+        "extracting": "Trekker ut"
     },
     "submenu": {
         "addShortcut": "Legg til snarvei",

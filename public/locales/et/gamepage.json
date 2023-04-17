@@ -196,7 +196,9 @@
         "moving-files": "Faili „{{file}}” teisaldamine: {{percent}} ",
         "syncingSaves": "Salvestuste sünkroonimine",
         "launching": "Käivitamine",
-        "ubisoft": "Ubisofti installimine"
+        "ubisoft": "Ubisofti installimine",
+        "downloading": "Downloading",
+        "extracting": "Ekstraheerimine"
     },
     "submenu": {
         "addShortcut": "Lisa otsetee",

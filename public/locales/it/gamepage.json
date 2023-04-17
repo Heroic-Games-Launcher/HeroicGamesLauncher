@@ -196,7 +196,9 @@
         "moving-files": "Spostamento del file '{{file}}': {{percent}} ",
         "syncingSaves": "Sincronizzando i salvataggi",
         "launching": "Lancio",
-        "ubisoft": "Installazione di Ubisoft"
+        "ubisoft": "Installazione di Ubisoft",
+        "downloading": "Scaricamento",
+        "extracting": "Estrazione"
     },
     "submenu": {
         "addShortcut": "Aggiungi scorciatoia",

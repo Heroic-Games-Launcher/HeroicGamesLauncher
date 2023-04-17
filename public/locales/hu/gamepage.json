@@ -196,7 +196,9 @@
         "moving-files": "„{{file}}” fájl áthelyezése: {{percent}} ",
         "syncingSaves": "Mentések szinkronizálása",
         "launching": "Indítás",
-        "ubisoft": "Ubisoft telepítése"
+        "ubisoft": "Ubisoft telepítése",
+        "downloading": "Downloading",
+        "extracting": "Kivonás"
     },
     "submenu": {
         "addShortcut": "Parancsikon hozzáadása",

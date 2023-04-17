@@ -1,0 +1,221 @@
+{
+    "box": {
+        "move": {
+            "path": "Piliin kung saan mo gustong lumipat",
+            "message": "Maaaring tumagal ito ng mahabang panahon, sigurado ka ba?",
+            "title": "Ilipat ang Pag-install ng Laro"
+        },
+        "no": "HINDI",
+        "stopInstall": {
+            "message": "Gusto mo bang PANATILIHAN ang mga na-download na file?",
+            "title": "Ihinto ang Pag-install",
+            "keepInstalling": "Panatilihin ang Pag-install"
+        },
+        "uninstall": {
+            "message": "Gusto mo bang i-uninstall ang larong ito?",
+            "prefix_warning": "Ang Wine prefix para sa larong ito ay ang default na prefix. Kung gusto mo talagang tanggalin ito, kailangan mong gawin ito nang manu-mano.",
+            "settingcheckbox": "Burahin ang mga setting at alisin ang log{{newLine}}Tandaan: Hindi na ito maa-undo. Ang anumang binagong setting ay malilimutan at ang log ay tatanggalin.",
+            "checkbox": "Alisin ang prefix: {{prefix}}{{newLine}}Tandaan: Hindi ito maa-undo at aalisin din ang hindi naka-back up na mga save na file.",
+            "title": "I-uninstall"
+        },
+        "change": {
+            "message": "Papalitan nito ang lokasyon ng pag-install ng larong ito, sigurado ka ba?",
+            "path": "Pumili ng bagong landas sa pag-install",
+            "title": "Baguhin ang Landas sa Pag-install ng Mga Laro"
+        },
+        "choose": "Pumili",
+        "importpath": "Piliin ang Folder ng Laro na ii-import",
+        "repair": {
+            "message": "Gusto mo bang subukang ayusin ang larong ito? Maaaring tumagal ito ng mahabang panahon.",
+            "title": "I-verify at Ayusin"
+        },
+        "runexe": {
+            "title": "Piliin ang EXE na Patakbuhin"
+        },
+        "select": {
+            "button": "Pumili"
+        },
+        "sideload": {
+            "exe": "Piliin ang Executable"
+        },
+        "update": {
+            "message": "Ang larong ito ay may update, ilapat ang update ngayon?",
+            "title": "Kailangan ng Pag-update ng Laro"
+        },
+        "wineprefix": "Piliin ang WinePrefix Folder",
+        "yes": "OO"
+    },
+    "cloud_save_unsupported": "Hindi suportado",
+    "disabled": "Hindi pinagana",
+    "dlc": {
+        "installDlcs": "I-install ang lahat ng DLC"
+    },
+    "enabled": "Pinagana",
+    "game": {
+        "downloadSize": "Laki ng Download",
+        "firstPlayed": "Unang Naglaro",
+        "installSize": "Laki ng Pag-install",
+        "getting-download-size": "Pagkuha ng laki ng pag-download",
+        "getting-install-size": "Pagkuha ng laki ng pag-install",
+        "language": "Wika",
+        "lastPlayed": "Huling Naglaro",
+        "neverPlayed": "Hindi kailanman",
+        "platform": "Piliin ang Bersyon ng Platform na I-install",
+        "requirements": "Pangangailangan sa System",
+        "totalPlayed": "Time Played"
+    },
+    "how-long-to-beat": {
+        "completionist": "Completionist",
+        "main-plus-extras": "Pangunahing + Mga Dagdag",
+        "main-story": "Pangunahing Kwento"
+    },
+    "label": {
+        "ubisoft": "Pag-install ng Ubisoft Connect",
+        "game": {
+            "third-party-game": "HINDI Sinusuportahan ang Third-Party na Laro"
+        },
+        "launching": "Paglulunsad",
+        "playing": {
+            "start": "Maglaro Ngayon",
+            "stop": "Naglalaro (Stop)"
+        },
+        "saves": {
+            "syncing": "Sini-sync ang mga pag-save"
+        }
+    },
+    "launch": {
+        "options": "Mga Pagpipilian sa Paglunsad..."
+    },
+    "not_logged_in": {
+        "epic": "Hindi ka naka-log in gamit ang isang Epic account sa Heroic. Huwag gamitin ang page ng store para mag-login, i-click na lang ang sumusunod na button:",
+        "gog": "Hindi ka naka-log in gamit ang isang GOG account sa Heroic. Huwag gamitin ang page ng store para mag-login, i-click na lang ang sumusunod na button:",
+        "login": "Mag log in",
+        "title": "Hindi ka naka-login"
+    },
+    "status": {
+        "notSupported": "Hindi suportado",
+        "notSupportedGame": "Hindi suportado",
+        "playing": "Naglalaro",
+        "processing": "Pinoproseso ang mga file, mangyaring maghintay",
+        "queued": "Nakapila",
+        "reparing": "Nag-aayos ng Laro, mangyaring maghintay",
+        "syncingSaves": "Sini-sync ang mga pag-save",
+        "this-game-uses-third-party": "Gumagamit ang larong ito ng third party launcher at hindi pa ito sinusuportahan",
+        "totalDownloaded": "Kabuuang Na-download",
+        "ubisoft": "Pag-install ng Ubisoft",
+        "uninstalling": "Ina-uninstall",
+        "updating": "Pag-update ng Laro",
+        "clickToUpdate": "I-click upang I-update",
+        "downloading": "Nagda-download",
+        "extracting": "Pag-extract",
+        "gameNotAvailable": "Hindi available ang laro",
+        "hasUpdates": "Available ang Bagong Bersyon!",
+        "installed": "Naka-install",
+        "installing": "Pag-install",
+        "launching": "Paglulunsad",
+        "moving": "Inilipat ang Pag-install, mangyaring maghintay",
+        "moving-files": "Inilipat ang file na '{{file}}': {{percent}} ",
+        "notinstalled": "Ang larong ito ay hindi naka-install"
+    },
+    "submenu": {
+        "addShortcut": "Magdagdag ng shortcut",
+        "addToSteam": "Idagdag sa Steam",
+        "change": "Baguhin ang landas ng pag-install",
+        "disableEosOverlay": "Huwag paganahin ang EOS Overlay",
+        "enableEosOverlay": "Paganahin ang EOS Overlay",
+        "logs": "Mga log",
+        "move": "Ilipat ang Laro",
+        "protondb": "Suriin ang Compatibility",
+        "removeFromSteam": "Alisin sa Steam",
+        "removeShortcut": "Alisin ang mga shortcut",
+        "settings": "Mga setting",
+        "store": "Pahina ng Tindahan",
+        "verify": "I-verify at Ayusin"
+    },
+    "button": {
+        "add_to_favourites": "Idagdag sa mga Paborito",
+        "cancel": "I-pause/Kanselahin",
+        "continue": "Magpatuloy sa Pag-download",
+        "details": "Mga Detalye",
+        "finish": "Tapusin",
+        "force_update": "Force Update kung Available",
+        "force-innstall": "Sapilitang I-install",
+        "hide_game": "Itago ang Laro",
+        "import": "Import na Laro",
+        "install": "I-install",
+        "no-path-selected": "Walang napiling landas",
+        "queue": {
+            "remove": "Alisin sa Queue"
+        },
+        "remove_from_favourites": "Alisin sa Mga Paborito",
+        "remove_from_recent": "Alisin Mula sa Kamakailan",
+        "run-exe-first": "Patakbuhin muna ang Installer",
+        "running-setup": "Tumatakbo sa Setup",
+        "sideload": {
+            "edit": "I-edit ang App/Laro"
+        },
+        "unhide_game": "I-unhide ang Laro",
+        "uninstall": "I-uninstall",
+        "update": "Update"
+    },
+    "gamecard": {
+        "moving": "Gumagalaw",
+        "repairing": "Nag-aayos"
+    },
+    "generic": {
+        "error": "Hindi kilalang error",
+        "noDescription": "Walang available na paglalarawan"
+    },
+    "help": {
+        "cloud_save_unsupported": "Ang larong ito ay hindi sumusuporta sa cloud save. Ang impormasyong ito ay ibinigay ng mga developer ng laro. Ang ilang mga laro ay nagpapatupad ng kanilang sariling cloud save system"
+    },
+    "hours": "Oras",
+    "howLongToBeat": "Gaano Katagal Upang Talunin",
+    "info": {
+        "apple-gaming-wiki": "Rating ng AppleGamingWiki",
+        "canRunOffline": "Kinakailangan ang Online",
+        "clickToOpen": "I-click para buksan",
+        "game-scores": "Mga Iskor ng Laro",
+        "installedInfo": "Naka-install na Impormasyon",
+        "installedPlatform": "Naka-install na Platform",
+        "path": "I-install ang Path",
+        "size": "Sukat",
+        "syncsaves": "Sync Saves",
+        "version": "Bersyon"
+    },
+    "install": {
+        "disk-space-left": "Magagamit na espasyo",
+        "not-enough-disk-space": "Walang sapat na espasyo sa disk",
+        "path": "Piliin ang Install Path",
+        "path-not-writtable": "Babala: maaaring hindi maisulat ang path.",
+        "space-after-install": "Pagkatapos ng Pag-install",
+        "wineprefix": "WinePfix",
+        "wineversion": "Bersyon ng alak"
+    },
+    "report_problem": "Mag-ulat ng problema sa pagpapatakbo ng larong ito",
+    "sdl": {
+        "title": "Pumili ng mga bahagi na I-install"
+    },
+    "setting": {
+        "use-default-wine-settings": "Gamitin ang Default na Mga Setting ng Alak",
+        "winecrossoverbottle": "CrossOver Bote"
+    },
+    "sideload": {
+        "field": {
+            "title": "Pamagat"
+        },
+        "info": {
+            "exe": "Piliin ang Executable",
+            "image": "Larawan ng App",
+            "title": "Pamagat ng Laro/App"
+        },
+        "placeholder": {
+            "image": "Mag-paste ng URL ng Larawan dito",
+            "title": "Magdagdag ng pamagat sa iyong Laro/App"
+        }
+    },
+    "specs": {
+        "minimum": "pinakamababa",
+        "recommended": "Inirerekomenda"
+    }
+}

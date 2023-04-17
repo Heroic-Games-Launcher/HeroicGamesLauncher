@@ -101,8 +101,8 @@
     "hours": "Heures",
     "how-long-to-beat": {
         "completionist": "Complétionniste",
-        "main-plus-extras": "Trame principale + Extras",
-        "main-story": "Histoire principale"
+        "main-plus-extras": "Trame principale \n+ Extras",
+        "main-story": "Histoire \nprincipale"
     },
     "howLongToBeat": "Durée pour finir le jeu",
     "info": {
@@ -115,7 +115,7 @@
         "apple-gaming-wiki": "Classement AppleGamingWiki",
         "clickToOpen": "Cliquez pour ouvrir",
         "game-scores": "Scores du jeu",
-        "installedInfo": "Informations installées"
+        "installedInfo": "Informations sur l'installation"
     },
     "install": {
         "disk-space-left": "Espace Disponible",
@@ -178,7 +178,7 @@
     "status": {
         "clickToUpdate": "Cliquez pour mettre à jour",
         "gameNotAvailable": "Jeu indisponible",
-        "hasUpdates": "Nouvelle version disponible !",
+        "hasUpdates": "Une nouvelle version est disponible !",
         "installed": "Installé",
         "installing": "Installation en cours",
         "moving": "Déplacement de l'installation, veuillez patienter",
@@ -196,7 +196,9 @@
         "moving-files": "Déplacement du fichier \"{{file}}\" : {{percent}} ",
         "syncingSaves": "Synchronisation des sauvegardes",
         "launching": "Lancement",
-        "ubisoft": "Installer Ubisoft"
+        "ubisoft": "Installer Ubisoft",
+        "downloading": "En cours de téléchargement",
+        "extracting": "Extraction"
     },
     "submenu": {
         "addShortcut": "Ajouter un raccourci",

@@ -196,7 +196,9 @@
         "moving-files": "移動ファイル '{{file}}': {{percent}} ",
         "syncingSaves": "保存を同期しています",
         "launching": "起動中",
-        "ubisoft": "Ubisoft のインストール"
+        "ubisoft": "Ubisoft のインストール",
+        "downloading": "Downloading",
+        "extracting": "抽出中"
     },
     "submenu": {
         "addShortcut": "ショートカットを追加する",

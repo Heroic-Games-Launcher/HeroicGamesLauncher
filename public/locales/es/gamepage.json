@@ -196,7 +196,9 @@
         "moving-files": "Moviendo archivo '{{file}}': {{percent}} ",
         "syncingSaves": "Sincronizando guardados",
         "launching": "Ejecutando",
-        "ubisoft": "Instalando Ubisoft"
+        "ubisoft": "Instalando Ubisoft",
+        "downloading": "Downloading",
+        "extracting": "extrayendo"
     },
     "submenu": {
         "addShortcut": "Añadir acceso directo",
