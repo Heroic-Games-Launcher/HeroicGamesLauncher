@@ -995,6 +995,12 @@ ipcMain.handle(
       }
     }
 
+    sendFrontendMessage('gameStatusUpdate', {
+      appName,
+      runner,
+      status: 'playing'
+    })
+
     const command = gameManagerMap[runner].launch(appName, launchArguments)
 
     const launchResult = await command.catch((exception) => {
