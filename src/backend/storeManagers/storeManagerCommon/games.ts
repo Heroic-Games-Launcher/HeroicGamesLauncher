@@ -19,7 +19,6 @@ import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { createAbortController } from '../../utils/aborthandler/aborthandler'
 import { app, BrowserWindow } from 'electron'
 import { gameManagerMap } from '../index'
-import { sendFrontendMessage } from 'backend/main_window'
 const buildDir = resolve(__dirname, '../../build')
 
 async function getAppSettings(appName: string): Promise<GameSettings> {
@@ -145,12 +144,6 @@ export async function launchGame(
           await chmod(executable, 0o775)
         }
       }
-
-      sendFrontendMessage('gameStatusUpdate', {
-        appName: appName,
-        runner: 'sideload',
-        status: 'playing'
-      })
 
       const commandParts = shlex.split(launcherArgs ?? '')
 

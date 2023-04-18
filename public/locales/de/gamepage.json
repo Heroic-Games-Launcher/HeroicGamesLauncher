@@ -196,7 +196,9 @@
         "moving-files": "Datei verschieben '{{file}}': {{percent}} ",
         "syncingSaves": "Spielstände werden synchronisiert",
         "launching": "Starten",
-        "ubisoft": "Ubisoft installieren"
+        "ubisoft": "Ubisoft installieren",
+        "downloading": "Lade herunter",
+        "extracting": "Extrahieren"
     },
     "submenu": {
         "addShortcut": "Verknüpfung hinzufügen",

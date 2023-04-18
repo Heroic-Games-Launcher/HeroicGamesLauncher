@@ -196,7 +196,9 @@
         "moving-files": "Переміщення файлу '{{file}}': {{percent}} ",
         "syncingSaves": "Синхронізація Збережень",
         "launching": "Запуск",
-        "ubisoft": "Встановлення Ubisoft"
+        "ubisoft": "Встановлення Ubisoft",
+        "downloading": "Downloading",
+        "extracting": "Видобуток"
     },
     "submenu": {
         "addShortcut": "Додати ярлик",

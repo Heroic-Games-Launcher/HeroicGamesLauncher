@@ -955,7 +955,7 @@ ipcMain.handle(
 
     systemInfo.then((systemInfo) => {
       if (systemInfo === '') return
-      writeFileSync(
+      appendFileSync(
         logFileLocation,
         'System Info:\n' + `${systemInfo}\n` + '\n'
       )
@@ -994,6 +994,12 @@ ipcMain.handle(
         return { status: 'error' }
       }
     }
+
+    sendFrontendMessage('gameStatusUpdate', {
+      appName,
+      runner,
+      status: 'playing'
+    })
 
     const command = gameManagerMap[runner].launch(appName, launchArguments)
 

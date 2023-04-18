@@ -114,7 +114,7 @@
         "version": "Versió",
         "apple-gaming-wiki": "Classificació AppleGamingWiki",
         "clickToOpen": "Feu clic per obrir",
-        "game-scores": "Resultats del joc",
+        "game-scores": "Puntuacions del joc",
         "installedInfo": "Informació instal·lada"
     },
     "install": {
@@ -196,7 +196,9 @@
         "moving-files": "S'està movent el fitxer '{{file}}': {{percent}} ",
         "syncingSaves": "S'estan sincronitzant les partides",
         "launching": "Llançament",
-        "ubisoft": "Instal·lació d'Ubisoft"
+        "ubisoft": "Instal·lació d'Ubisoft",
+        "downloading": "Es baixa",
+        "extracting": "Extracció"
     },
     "submenu": {
         "addShortcut": "Afegeix una drecera",

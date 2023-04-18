@@ -38,7 +38,9 @@
         "totalDownloaded": "Jami yuklab olingan",
         "ubisoft": "Ubisoft o'rnatilmoqda",
         "uninstalling": "Oʻchirish",
-        "updating": "O'yin yangilanmoqda"
+        "updating": "O'yin yangilanmoqda",
+        "extracting": "Chiqarish",
+        "downloading": "Yuklab olinmoqda"
     },
     "box": {
         "change": {

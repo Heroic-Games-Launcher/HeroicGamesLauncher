@@ -361,9 +361,9 @@
             "reparing": "Zavšen popravak"
         },
         "install": {
-            "canceled": "Instalacije prekinuta",
+            "canceled": "Instaliranje je prekinuto",
             "error": "Instalacija Neuspjela",
-            "finished": "Instalacija gotova",
+            "finished": "Instaliranje je završeno",
             "imported": "Game Imported",
             "startInstall": "Installation Started",
             "failed": "Instalacija Neuspjela",
@@ -377,7 +377,7 @@
         },
         "uninstalled": "Deinstalirano",
         "update": {
-            "canceled": "Ažuriranje prekinuto",
+            "canceled": "Ažuriranje je prekinuto",
             "finished": "Ažuriranje gotovo",
             "started": "Update Started",
             "failed": "Ažuriranje nije uspjelo",
