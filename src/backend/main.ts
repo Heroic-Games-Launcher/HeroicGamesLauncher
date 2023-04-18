@@ -955,7 +955,7 @@ ipcMain.handle(
 
     systemInfo.then((systemInfo) => {
       if (systemInfo === '') return
-      writeFileSync(
+      appendFileSync(
         logFileLocation,
         'System Info:\n' + `${systemInfo}\n` + '\n'
       )
