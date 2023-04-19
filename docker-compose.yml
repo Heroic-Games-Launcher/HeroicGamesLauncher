@@ -8,4 +8,4 @@ services:
       - .:/src
     command: yarn test:e2e
     environment:
-      testPackaged: false
+      testPackaged: 'false'
