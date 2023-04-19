@@ -17,4 +17,4 @@ jobs:
       - name: Install modules.
         run: yarn
       - name: Build and Test
-        run: UID=0 GUID=0 docker compose -f e2e/docker-compose.yml up --exit-code-from e2e
+        run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- yarn test:e2e

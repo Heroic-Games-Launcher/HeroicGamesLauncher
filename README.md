@@ -301,33 +301,19 @@ And you should be good to go, code and build away!
 
 It is recommended to run end to end tests with Docker so you don't alter your local config files or have your local config files interfere with the tests.
 
-To run e2e tests on the unpackaged app running in dev mode,
+To run e2e tests on the unpackaged app running in dev mode.
+From the root of your local Heroic directory, run:
 
-1. From the root of your local Heroic directory, run:
+```bash
+yarn test:e2e
+```
 
-   ```bash
-   docker-compose -f docker-compose.yml build
-   ```
+To run e2e tests on the packaged app.
+From the root of your local Heroic directory, run:
 
-2. Then
-
-   ```bash
-   docker-compose -f docker-compose.yml up
-   ```
-
-To run e2e tests on the packaged app,
-
-1. From the root of your local Heroic directory, run:
-
-   ```bash
-   docker-compose -f docker-compose-packaged.yml build
-   ```
-
-2. Then
-
-   ```bash
-   docker-compose -f docker-compose-packaged.yml up
-   ```
+```bash
+yarn test:e2ePackaged
+```
 
 ## Sponsors
 
