@@ -11,5 +11,10 @@ jobs:
     steps:
       - name: Checkout repository.
         uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Install modules.
+        run: yarn
       - name: Build and Test
-        run: docker-compose -f docker-compose-packaged.yml up
+        run: yarn test:e2ePackaged

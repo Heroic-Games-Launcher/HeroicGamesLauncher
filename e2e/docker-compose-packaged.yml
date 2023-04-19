@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  playwright:
+    image: mcr.microsoft.com/playwright:latest
+    volumes:
+      - ../:/src
+    working_dir: /src
+    command: >
+      sh -c "rm -rf /tmp/.X99-lock &&
+             Xvfb :99 -ac &
+             sleep 2 &&
+             export DISPLAY=:99 &&
+             yarn cross-env testPackaged=true && 
+             yarn dist:linux && 
+             yarn playwright test api.spec.ts"
+    user: 1000:1000
+    environment:
+      - ELECTRON_ENABLE_STACK_DUMPING=true
+      - ELECTRON_ENABLE_LOGGING=true
+    network_mode: 'host'
