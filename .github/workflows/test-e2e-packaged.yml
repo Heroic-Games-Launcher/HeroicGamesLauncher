@@ -17,4 +17,7 @@ jobs:
       - name: Install modules.
         run: yarn
       - name: Build and Test
-        run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- yarn test:e2ePackaged
+        run: yarn test:e2ePackaged
+        env:
+          GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}

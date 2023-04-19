@@ -6,13 +6,9 @@ services:
       - ../:/src
     working_dir: /src
     command: >
-      sh -c "rm -rf /tmp/.X99-lock &&
-             Xvfb :99 -ac &
-             sleep 2 &&
-             export DISPLAY=:99 &&
-             yarn cross-env testPackaged=false && 
-             yarn vite build && 
-             yarn playwright test api.spec.ts"
+      sh -c "yarn cross-env testPackaged=false && 
+             yarn vite build &&
+             xvfb-run -n 99 -e /dev/stdout -s \"-screen 0 1280x960x24\" yarn playwright test api.spec.ts"
     user: ${UID}:${GUID}
     environment:
       - ELECTRON_ENABLE_STACK_DUMPING=true
