@@ -11,5 +11,5 @@ jobs:
     steps:
       - name: Checkout repository.
         uses: actions/checkout@v3
-      - name: Build the stack
+      - name: Build and Test
         run: docker-compose -f docker-compose.yml up
