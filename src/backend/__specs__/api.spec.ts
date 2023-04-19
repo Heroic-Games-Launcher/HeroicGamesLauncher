@@ -1,3 +1,4 @@
+import { DiskSpaceData } from './../../common/types'
 import { expect, test } from '@playwright/test'
 import {
   findLatestBuild,
@@ -5,12 +6,14 @@ import {
   ipcMainInvokeHandler
 } from 'electron-playwright-helpers'
 import { ElectronApplication, Page, _electron as electron } from 'playwright'
+import { compareVersions } from 'compare-versions'
 
 let electronApp: ElectronApplication
 
 test.beforeAll(async () => {
+  test.setTimeout(120000)
   process.env.CI = 'e2e'
-  if (process.env.testPackaged) {
+  if (process.env.testPackaged === 'true') {
     console.log('Testing packaged build')
     // must run yarn dist:<platform> prior to test
     const latestBuild = findLatestBuild('dist')
@@ -74,22 +77,28 @@ test('gets heroic, legendary, and gog versions', async () => {
     return window.api.getHeroicVersion()
   })
   console.log('Heroic Version: ', heroicVersion)
+  // check that heroic version is newer or equal to 2.6.3
+  expect(compareVersions(heroicVersion, '2.6.3')).toBeGreaterThanOrEqual(0)
 
-  const legendaryVersion = await page.evaluate(async () => {
-    return window.api.getHeroicVersion()
+  let legendaryVersion = await page.evaluate(async () => {
+    return window.api.getLegendaryVersion()
   })
+  legendaryVersion = legendaryVersion.trim().split(' ')[0]
   console.log('Legendary Version: ', legendaryVersion)
+  expect(compareVersions(legendaryVersion, '0.20.32')).toBeGreaterThanOrEqual(0)
 
   const gogdlVersion = await page.evaluate(async () => {
     return window.api.getGogdlVersion()
   })
-  console.log('Legendary Version: ', gogdlVersion)
+  console.log('Gogdl Version: ', gogdlVersion)
+  expect(compareVersions(gogdlVersion, '0.7.1')).toBeGreaterThanOrEqual(0)
 })
 
 test('test ipcMainInvokeHandler', async () => {
-  const heroicVersion = await ipcMainInvokeHandler(
+  const platform: DiskSpaceData = (await ipcMainInvokeHandler(
     electronApp,
-    'checkGameUpdates'
-  )
-  console.log('Games that need updating: ', heroicVersion)
+    'getPlatform'
+  )) as DiskSpaceData
+  console.log('Platform: ', platform)
+  expect(platform).toEqual('linux')
 })

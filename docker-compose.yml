@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  process_all:
+    build:
+      context: ./
+      dockerfile: Dockerfile.test
+    volumes:
+      - .:/src
+    command: yarn test:e2e
+    environment:
+      testPackaged: false

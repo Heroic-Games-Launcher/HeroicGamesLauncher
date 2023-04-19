@@ -156,6 +156,7 @@
     "axios": "^0.26.1",
     "check-disk-space": "^3.3.1",
     "classnames": "^2.3.1",
+    "compare-versions": "^6.0.0-rc.1",
     "crc": "^4.3.2",
     "discord-rich-presence-typescript": "^0.0.8",
     "electron-store": "^8.0.1",
