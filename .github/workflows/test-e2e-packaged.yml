@@ -2,7 +2,7 @@ name: Test E2E Packaged App
 
 on:
   pull_request:
-    branches: [main, stable, tests/add_api_tests]
+    branches: [main, stable]
   workflow_dispatch:
 
 jobs:
