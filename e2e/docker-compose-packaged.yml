@@ -13,7 +13,7 @@ services:
              yarn cross-env testPackaged=true && 
              yarn dist:linux && 
              yarn playwright test api.spec.ts"
-    user: 1000:1000
+    user: ${UID}:${GUID}
     environment:
       - ELECTRON_ENABLE_STACK_DUMPING=true
       - ELECTRON_ENABLE_LOGGING=true
