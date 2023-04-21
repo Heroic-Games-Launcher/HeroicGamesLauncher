@@ -8,5 +8,5 @@ services:
     environment:
       - ELECTRON_ENABLE_STACK_DUMPING=true
       - ELECTRON_ENABLE_LOGGING=true
-      - TEST_PACKAGED=true
+      - TEST_PACKAGED=${TEST_PACKAGED}
     network_mode: 'host'
