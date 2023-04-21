@@ -16,5 +16,6 @@ jobs:
           node-version: '18'
       - name: Install modules.
         run: yarn
+      - run: id
       - name: Build and Test
-        run: UID=0 GUID=0 docker compose -f e2e/docker-compose.yml up --build --exit-code-from playwright
+        run: yarn test:e2e
