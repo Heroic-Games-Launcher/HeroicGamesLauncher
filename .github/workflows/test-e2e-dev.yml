@@ -17,7 +17,4 @@ jobs:
       - name: Install modules.
         run: yarn
       - name: Build and Test
-        run: yarn test:e2e
-        env:
-          GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+        run: UID=0 GUID=0 docker compose -f e2e/docker-compose.yml up --build --exit-code-from playwright
