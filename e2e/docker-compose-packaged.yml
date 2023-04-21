@@ -5,12 +5,8 @@ services:
     volumes:
       - ../:/src
     working_dir: /src
-    command: >
-      sh -c "yarn cross-env testPackaged=true && 
-             yarn dist:linux && 
-             xvfb-run -n 99 -e /dev/stdout -s \"-screen 0 1280x960x24\" yarn playwright test api.spec.ts"
-    user: ${UID}:${GUID}
     environment:
       - ELECTRON_ENABLE_STACK_DUMPING=true
       - ELECTRON_ENABLE_LOGGING=true
+      - TEST_PACKAGED=true
     network_mode: 'host'

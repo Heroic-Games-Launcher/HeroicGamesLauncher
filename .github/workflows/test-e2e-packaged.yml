@@ -16,5 +16,7 @@ jobs:
           node-version: '18'
       - name: Install modules.
         run: yarn
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
       - name: Build and Test
         run: yarn test:e2ePackaged

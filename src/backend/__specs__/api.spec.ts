@@ -13,7 +13,7 @@ let electronApp: ElectronApplication
 test.beforeAll(async () => {
   test.setTimeout(120000)
   process.env.CI = 'e2e'
-  if (process.env.testPackaged === 'true') {
+  if (process.env.TEST_PACKAGED === 'true') {
     console.log('Testing packaged build')
     // must run yarn dist:<platform> prior to test
     const latestBuild = findLatestBuild('dist')
@@ -21,9 +21,10 @@ test.beforeAll(async () => {
     console.log(
       'app info main = ',
       appInfo.main,
-      '\n app info exe = ',
+      '\napp info exe = ',
       appInfo.executable
     )
+
     electronApp = await electron.launch({
       args: [appInfo.main],
       executablePath: appInfo.executable
