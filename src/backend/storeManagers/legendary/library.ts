@@ -623,13 +623,17 @@ export async function runRunnerCommand(
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
   const { dir, bin } = getLegendaryBin()
+  const env = options?.env ?? ({} as Record<string, string>)
+  env['PYTHONIOENCODING'] = 'utf-8'
+
   return callRunner(
     commandParts,
     { name: 'legendary', logPrefix: LogPrefix.Legendary, bin, dir },
     abortController,
     {
       ...options,
-      verboseLogFile: legendaryLogFile
+      verboseLogFile: legendaryLogFile,
+      env: env
     }
   )
 }
