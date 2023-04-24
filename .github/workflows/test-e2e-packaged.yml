@@ -19,4 +19,4 @@ jobs:
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
       - name: Build and Test
-        run: yarn test:-ci
+        run: yarn test:e2ePackaged-ci
