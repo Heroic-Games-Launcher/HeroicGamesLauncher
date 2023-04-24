@@ -1,4 +1,4 @@
-name: Test E2E
+name: Test E2E Packaged
 
 on:
   pull_request:
@@ -18,7 +18,5 @@ jobs:
         run: yarn
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
-      - name: Build and Test Unpackaged
-        run: yarn test:e2e-ci
-      - name: Build and Test Packaged
+      - name: Build and Test
         run: yarn test:e2ePackaged
