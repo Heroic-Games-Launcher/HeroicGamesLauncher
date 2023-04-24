@@ -10,8 +10,10 @@ import { VersionInfo } from 'common/types'
 import * as axios from 'axios'
 import * as crypto from 'crypto'
 import { clearInterval } from 'timers'
+import { logWarning, logError } from 'backend/logger/logger'
 
 jest.mock('backend/logger/logger')
+jest.mock('backend/logger/logfile')
 
 const workDir = process.cwd()
 
@@ -28,19 +30,16 @@ describe('Main - InstallVersion', () => {
       disksize: 0,
       checksum: ''
     }
-    await installVersion({
-      versionInfo: releaseVersion,
-      installDir: 'invalid',
-      onProgress: progress
-    })
-      .then(() => {
-        throw Error('No error should be thrown!')
+
+    await expect(
+      installVersion({
+        versionInfo: releaseVersion,
+        installDir: 'invalid',
+        onProgress: progress
       })
-      .catch((error) => {
-        expect(error.message).toBe(
-          'Installation directory invalid does not exist!'
-        )
-      })
+    ).rejects.toStrictEqual(
+      Error('Installation directory invalid does not exist!')
+    )
   })
 
   test('install fails because installDir is not a directory', async () => {
@@ -55,19 +54,18 @@ describe('Main - InstallVersion', () => {
       disksize: 0,
       checksum: ''
     }
-    await installVersion({
-      versionInfo: releaseVersion,
-      installDir: __filename,
-      onProgress: progress
-    })
-      .then(() => {
-        throw Error('No error should be thrown!')
+
+    await expect(
+      installVersion({
+        versionInfo: releaseVersion,
+        installDir: __filename,
+        onProgress: progress
       })
-      .catch((error) => {
-        expect(error.message).toBe(
-          `Installation directory ${workDir}/src/backend/wine/manager/downloader/__tests__/main/install.test.ts is not a directory!`
-        )
-      })
+    ).rejects.toStrictEqual(
+      Error(
+        `Installation directory ${workDir}/src/backend/wine/manager/downloader/__tests__/main/install.test.ts is not a directory!`
+      )
+    )
   })
 
   test('install fails because no download link provided', async () => {
@@ -82,49 +80,19 @@ describe('Main - InstallVersion', () => {
       disksize: 0,
       checksum: ''
     }
-    await installVersion({
-      versionInfo: releaseVersion,
-      installDir: __dirname,
-      onProgress: progress
-    })
-      .then(() => {
-        throw Error('No error should be thrown!')
+    await expect(
+      installVersion({
+        versionInfo: releaseVersion,
+        installDir: __dirname,
+        onProgress: progress
       })
-      .catch((error) => {
-        expect(error.message).toBe('No download link provided for 1.2.3!')
-      })
-  })
-
-  test('install fails because no download link provided', async () => {
-    const progress = jest.fn()
-
-    const releaseVersion: VersionInfo = {
-      version: '1.2.3',
-      type: 'Wine-GE',
-      date: '12/24/2021',
-      download: '',
-      downsize: 100,
-      disksize: 0,
-      checksum: ''
-    }
-    await installVersion({
-      versionInfo: releaseVersion,
-      installDir: __dirname,
-      onProgress: progress
-    })
-      .then(() => {
-        throw Error('No error should be thrown!')
-      })
-      .catch((error) => {
-        expect(error.message).toBe('No download link provided for 1.2.3!')
-      })
+    ).rejects.toStrictEqual(Error('No download link provided for 1.2.3!'))
   })
 
   test('install fails because of checksum missmatch', async () => {
     const checksum = 'invalid_checksum'
 
     const installDir = __dirname + '/test_install'
-    let failed = false
     axios.default.get = jest.fn().mockReturnValue({ data: checksum })
     const progress = jest.fn()
 
@@ -141,24 +109,17 @@ describe('Main - InstallVersion', () => {
       disksize: 0,
       checksum: '<to-checksum-file>'
     }
-    await installVersion({
-      versionInfo: releaseVersion,
-      installDir: installDir,
-      onProgress: progress
-    })
-      .then(() => {
-        failed = true
+
+    await expect(
+      installVersion({
+        versionInfo: releaseVersion,
+        installDir: installDir,
+        onProgress: progress
       })
-      .catch((error) => {
-        expect(error.message).toBe('Checksum verification failed')
-      })
+    ).rejects.toStrictEqual(Error('Checksum verification failed'))
 
     if (existsSync(installDir)) {
       rmSync(installDir, { recursive: true })
-    }
-
-    if (failed) {
-      throw Error('No error should be thrown!')
     }
 
     expect(axios.default.get).toBeCalledWith('<to-checksum-file>', {
@@ -176,10 +137,8 @@ describe('Main - InstallVersion', () => {
 
   test('install warns because no checksum provided', async () => {
     const installDir = __dirname + '/test_install'
-    let failed = false
     axios.default.get = jest.fn()
     const progress = jest.fn()
-    console.warn = jest.fn()
 
     if (!existsSync(installDir)) {
       mkdirSync(installDir)
@@ -194,27 +153,20 @@ describe('Main - InstallVersion', () => {
       disksize: 0,
       checksum: ''
     }
-    await installVersion({
-      versionInfo: releaseVersion,
-      installDir: installDir,
-      onProgress: progress
+
+    await expect(
+      installVersion({
+        versionInfo: releaseVersion,
+        installDir: installDir,
+        onProgress: progress
+      })
+    ).resolves.toStrictEqual({
+      installDir: installDir + '/1.2.3',
+      versionInfo: releaseVersion
     })
-      .then((response) => {
-        expect(console.warn).toBeCalledWith(
-          'No checksum provided. Download of 1.2.3 could be invalid!'
-        )
-        expect(response.versionInfo.version).toBe(releaseVersion.version)
-      })
-      .catch(() => {
-        failed = true
-      })
 
     if (existsSync(installDir)) {
       rmSync(installDir, { recursive: true })
-    }
-
-    if (failed) {
-      throw Error('No error should be thrown!')
     }
 
     expect(axios.default.get).not.toBeCalledWith()
@@ -226,11 +178,15 @@ describe('Main - InstallVersion', () => {
     })
     expect(progress).toBeCalledWith('unzipping')
     expect(progress).toBeCalledWith('idle')
+    expect(logError).not.toBeCalled()
+    expect(logWarning).toBeCalledWith(
+      'No checksum provided. Download of 1.2.3 could be invalid!',
+      'WineDownloader'
+    )
   })
 
   test('install succeed because already exist', async () => {
     const installDir = __dirname + '/test_install'
-    let failed = false
     axios.default.get = jest.fn().mockReturnValue({ data: '' })
     const progress = jest.fn()
 
@@ -247,25 +203,20 @@ describe('Main - InstallVersion', () => {
       disksize: 0,
       checksum: '<to-checksum-file>'
     }
-    await installVersion({
-      versionInfo: releaseVersion,
-      installDir: installDir,
-      onProgress: progress
+
+    await expect(
+      installVersion({
+        versionInfo: releaseVersion,
+        installDir: installDir,
+        onProgress: progress
+      })
+    ).resolves.toStrictEqual({
+      installDir: installDir + '/Wine-1.2.3',
+      versionInfo: releaseVersion
     })
-      .then((response) => {
-        expect(response.versionInfo).toBe(releaseVersion)
-        expect(response.installDir).toBe(`${installDir}/Wine-1.2.3`)
-      })
-      .catch(() => {
-        failed = true
-      })
 
     if (existsSync(installDir)) {
       rmSync(installDir, { recursive: true })
-    }
-
-    if (failed) {
-      throw Error('No error should be thrown!')
     }
 
     expect(axios.default.get).toBeCalledWith('<to-checksum-file>', {
@@ -281,7 +232,6 @@ describe('Main - InstallVersion', () => {
     const checksum = hashSum.digest('hex')
 
     const installDir = __dirname + '/test_install'
-    let failed = false
     axios.default.get = jest.fn().mockReturnValue({ data: checksum })
     const progress = jest.fn()
 
@@ -312,28 +262,20 @@ describe('Main - InstallVersion', () => {
       }
     }, 1)
 
-    await installVersion({
-      versionInfo: releaseVersion,
-      installDir: installDir,
-      onProgress: progress,
-      abortSignal: abortController.signal
-    })
-      .then(() => {
-        failed = true
+    await expect(
+      installVersion({
+        versionInfo: releaseVersion,
+        installDir: installDir,
+        onProgress: progress,
+        abortSignal: abortController.signal
       })
-      .catch((error: Error) => {
-        expect(error.message).toBe('Installation of Wine-1.2.3 was aborted!')
-      })
+    ).rejects.toStrictEqual(Error('Installation of Wine-1.2.3 was aborted!'))
 
     if (existsSync(installDir)) {
       rmSync(installDir, { recursive: true })
     }
 
     clearInterval(interval)
-
-    if (failed) {
-      throw Error('No error should be thrown!')
-    }
 
     expect(axios.default.get).toBeCalledWith('<to-checksum-file>', {
       responseType: 'text'
@@ -348,7 +290,6 @@ describe('Main - InstallVersion', () => {
     const checksum = hashSum.digest('hex')
 
     const installDir = __dirname + '/test_install'
-    let failed = false
     axios.default.get = jest.fn().mockReturnValue({ data: checksum })
     const progress = jest.fn()
 
@@ -379,28 +320,20 @@ describe('Main - InstallVersion', () => {
       }
     }, 1)
 
-    await installVersion({
-      versionInfo: releaseVersion,
-      installDir: installDir,
-      onProgress: progress,
-      abortSignal: abortController.signal
-    })
-      .then(() => {
-        failed = true
+    await expect(
+      installVersion({
+        versionInfo: releaseVersion,
+        installDir: installDir,
+        onProgress: progress,
+        abortSignal: abortController.signal
       })
-      .catch((error: Error) => {
-        expect(error.message).toBe('Installation of Wine-1.2.3 was aborted!')
-      })
+    ).rejects.toStrictEqual(Error('Installation of Wine-1.2.3 was aborted!'))
 
     if (existsSync(installDir)) {
       rmSync(installDir, { recursive: true })
     }
 
     clearInterval(interval)
-
-    if (failed) {
-      throw Error('No error should be thrown!')
-    }
 
     expect(axios.default.get).toBeCalledWith('<to-checksum-file>', {
       responseType: 'text'
@@ -415,7 +348,6 @@ describe('Main - InstallVersion', () => {
     const checksum = hashSum.digest('hex')
 
     const installDir = __dirname + '/test_install'
-    let failed = false
     axios.default.get = jest.fn().mockReturnValue({ data: checksum })
     const progress = jest.fn()
 
@@ -432,25 +364,20 @@ describe('Main - InstallVersion', () => {
       disksize: 0,
       checksum: '<to-checksum-file>'
     }
-    await installVersion({
-      versionInfo: releaseVersion,
-      installDir: installDir,
-      onProgress: progress
+
+    await expect(
+      installVersion({
+        versionInfo: releaseVersion,
+        installDir: installDir,
+        onProgress: progress
+      })
+    ).resolves.toStrictEqual({
+      installDir: installDir + '/Wine-1.2.3',
+      versionInfo: releaseVersion
     })
-      .then((response) => {
-        expect(response.versionInfo).toBe(releaseVersion)
-        expect(response.installDir).toBe(`${installDir}/Wine-1.2.3`)
-      })
-      .catch(() => {
-        failed = true
-      })
 
     if (existsSync(installDir)) {
       rmSync(installDir, { recursive: true })
-    }
-
-    if (failed) {
-      throw Error('No error should be thrown!')
     }
 
     expect(axios.default.get).toBeCalledWith('<to-checksum-file>', {
@@ -474,7 +401,6 @@ describe('Main - InstallVersion', () => {
     const checksum = hashSum.digest('hex')
 
     const installDir = __dirname + '/test_install'
-    let failed = false
     axios.default.get = jest.fn().mockReturnValue({ data: checksum })
     const progress = jest.fn()
 
@@ -496,25 +422,19 @@ describe('Main - InstallVersion', () => {
       disksize: 0,
       checksum: '<to-checksum-file>'
     }
-    await installVersion({
-      versionInfo: releaseVersion,
-      installDir: installDir,
-      onProgress: progress
+    await expect(
+      installVersion({
+        versionInfo: releaseVersion,
+        installDir: installDir,
+        onProgress: progress
+      })
+    ).resolves.toStrictEqual({
+      installDir: installDir + '/Wine-1.2.3',
+      versionInfo: releaseVersion
     })
-      .then((response) => {
-        expect(response.versionInfo).toBe(releaseVersion)
-        expect(response.installDir).toBe(`${installDir}/Wine-1.2.3`)
-      })
-      .catch(() => {
-        failed = true
-      })
 
     if (existsSync(installDir)) {
       rmSync(installDir, { recursive: true })
-    }
-
-    if (failed) {
-      throw Error('No error should be thrown!')
     }
 
     expect(axios.default.get).toBeCalledWith('<to-checksum-file>', {
@@ -538,7 +458,6 @@ describe('Main - InstallVersion', () => {
     const checksum = hashSum.digest('hex')
 
     const installDir = __dirname + '/test_install'
-    let failed = false
     axios.default.get = jest.fn().mockReturnValue({ data: checksum })
     const progress = jest.fn()
 
@@ -555,26 +474,23 @@ describe('Main - InstallVersion', () => {
       disksize: 0,
       checksum: '<to-checksum-file>'
     }
-    await installVersion({
-      versionInfo: releaseVersion,
-      installDir: installDir,
-      onProgress: progress
-    })
-      .then(() => {
-        failed = true
+    await expect(
+      installVersion({
+        versionInfo: releaseVersion,
+        installDir: installDir,
+        onProgress: progress
       })
-      .catch((error: Error) => {
-        expect(error.message).toContain(
-          `Failed to make folder ${installDir}/Wine-1.2.3/invalid with:`
-        )
-      })
+    ).rejects.toStrictEqual(
+      Error(
+        `Failed to make folder ${installDir}/Wine-1.2.3/invalid with:\n ` +
+          Error(
+            `ENOENT: no such file or directory, mkdir '${installDir}/Wine-1.2.3/invalid'`
+          )
+      )
+    )
 
     if (existsSync(installDir)) {
       rmSync(installDir, { recursive: true })
-    }
-
-    if (failed) {
-      throw Error('No error should be thrown!')
     }
 
     expect(axios.default.get).toBeCalledWith('<to-checksum-file>', {
