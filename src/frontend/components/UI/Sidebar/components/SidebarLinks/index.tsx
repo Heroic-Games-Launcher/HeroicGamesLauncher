@@ -116,7 +116,8 @@ export default function SidebarLinks() {
               active: isActive || location.pathname.includes('store')
             })
           }
-          to="/epicstore"
+          //open gog store if only gog account logged in, otherwise by default open epic store
+          to={gog.username && !epic.username ? '/gogstore' : '/epicstore'}
         >
           <>
             <div className="Sidebar__itemIcon">
