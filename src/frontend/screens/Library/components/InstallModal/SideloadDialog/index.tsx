@@ -21,6 +21,7 @@ import { AvailablePlatforms } from '..'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
 import ContextProvider from 'frontend/state/ContextProvider'
 import classNames from 'classnames'
+import axios from 'axios'
 
 type Props = {
   availablePlatforms: AvailablePlatforms
@@ -50,7 +51,7 @@ export default function SideloadDialog({
     t('sideload.field.title', 'Title')
   )
   const [selectedExe, setSelectedExe] = useState('')
-  const [imageUrl, setImageUrl] = useState(fallbackImage)
+  const [imageUrl, setImageUrl] = useState('')
   const [searching, setSearching] = useState(false)
   const [app_name, setApp_name] = useState(appName ?? '')
   const [runningSetup, setRunningSetup] = useState(false)
@@ -115,20 +116,24 @@ export default function SideloadDialog({
     setSearching(true)
 
     try {
-      const res = await fetch(
-        `https://steamgrid.usebottles.com/api/search/${title}`
+      const response = await axios.get(
+        `https://steamgrid.usebottles.com/api/search/${title}`,
+        { timeout: 3500 }
       )
-      if (res.status === 200) {
-        const steamGridImage = (await res.json()) as string
+
+      if (response.status === 200) {
+        const steamGridImage = response.data as string
+
         if (steamGridImage && steamGridImage.startsWith('http')) {
           setImageUrl(steamGridImage)
         }
-        setSearching(false)
+      } else {
+        throw new Error('Fetch failed')
       }
     } catch (error) {
-      console.error('Error when getting image from SteamGridDB')
-      setSearching(false)
       window.api.logError(`${error}`)
+    } finally {
+      setSearching(false)
     }
   }
 
