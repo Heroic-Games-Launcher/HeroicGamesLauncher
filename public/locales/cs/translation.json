@@ -644,7 +644,7 @@
     "two_col_table": {
         "save_hint": "Změny v této tabulce se neukládají automaticky. Klikněte na tlačítko +"
     },
-    "Update Available!": "",
+    "Update Available!": "K dispozici je nová aktualizace!",
     "userselector": {
         "discord": "Discord",
         "logging_out": "Odhlašování",

@@ -29,7 +29,7 @@ export async function getInfoFromGamesDB(
  * @param etag (optional) value returned in response, works as checksum so we can check if we have up to date data
  * @returns object {isUpdated, data}, where isUpdated is true when Etags match
  */
-export async function getGamesdbData(
+async function getGamesdbData(
   runner: Runner,
   game_id: string,
   etag?: string
@@ -45,13 +45,18 @@ export async function getGamesdbData(
         }
       : undefined
 
-    const response = await axios.get(url, { headers: headers }).catch(() => {
-      logError(
-        [`Was not able to get GamesDB data for ${game_id}`],
-        LogPrefix.ExtraGameInfo
-      )
-      return null
-    })
+    const response = await axios
+      .get(url, { headers: headers })
+      .catch((error) => {
+        logError(
+          [
+            `Was not able to get GamesDB data for ${game_id}`,
+            error.response.data.error_description
+          ],
+          LogPrefix.ExtraGameInfo
+        )
+        return null
+      })
     if (!response) {
       return { isUpdated: false }
     }

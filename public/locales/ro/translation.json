@@ -115,10 +115,10 @@
             }
         },
         "runexe": {
-            "title": "Selectați EXE pentru a rula"
+            "title": "Selectează EXE-ul pentru rulare"
         },
         "select": {
-            "button": "Selectați",
+            "button": "Selectare",
             "exe": "Selectați EXE"
         },
         "shortcuts": {
@@ -644,7 +644,7 @@
     "two_col_table": {
         "save_hint": "Modificările din acest tabel nu sunt salvate automat. Faceți clic pe butonul +"
     },
-    "Update Available!": "",
+    "Update Available!": "Actualizare disponibila",
     "userselector": {
         "discord": "Discord",
         "logging_out": "Logging out",

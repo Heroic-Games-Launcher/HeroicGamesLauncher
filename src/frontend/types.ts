@@ -8,7 +8,6 @@ import {
   ButtonOptions,
   LibraryTopSectionOptions,
   DMQueueElement,
-  SideloadGame,
   DownloadManagerState
 } from 'common/types'
 
@@ -82,7 +81,7 @@ export interface ContextType {
   showResetDialog: () => void
   externalLinkDialogOptions: ExternalLinkDialogOptions
   handleExternalLinkDialog: (options: ExternalLinkDialogOptions) => void
-  sideloadedLibrary: SideloadGame[]
+  sideloadedLibrary: GameInfo[]
   hideChangelogsOnStartup: boolean
   setHideChangelogsOnStartup: (value: boolean) => void
   lastChangelogShown: string | null
@@ -95,7 +94,7 @@ export interface ContextType {
   setIsSettingsModalOpen: (
     value: boolean,
     type?: 'settings' | 'log',
-    gameInfo?: GameInfo | SideloadGame
+    gameInfo?: GameInfo
   ) => void
 }
 

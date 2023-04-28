@@ -18,10 +18,10 @@
             "title": "驗證並修復遊戲檔案"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "選擇要執行的EXE檔案"
         },
         "select": {
-            "button": "Select"
+            "button": "選擇"
         },
         "sideload": {
             "exe": "Select Executable"
@@ -196,7 +196,9 @@
         "moving-files": "移動文件“{{file}}”：{{percent}} ",
         "syncingSaves": "同步保存",
         "ubisoft": "安裝育碧",
-        "launching": "發射"
+        "launching": "發射",
+        "downloading": "Downloading",
+        "extracting": "提取"
     },
     "submenu": {
         "addShortcut": "添加捷徑",

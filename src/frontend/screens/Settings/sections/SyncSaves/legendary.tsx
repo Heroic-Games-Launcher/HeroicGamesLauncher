@@ -1,12 +1,11 @@
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Backspace, CreateNewFolder } from '@mui/icons-material'
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   InfoBox,
+  PathSelectionBox,
   SelectField,
-  TextInputWithIconField,
   ToggleSwitch
 } from 'frontend/components/UI'
 import { syncSaves } from 'frontend/helpers'
@@ -64,8 +63,6 @@ export default function LegendarySyncSaves({
     setDefaultSaveFolder()
   }, [winePrefix, isProton, retry])
 
-  const isLinked = Boolean(savesPath.length)
-
   async function handleSync() {
     setIsSyncing(true)
 
@@ -107,37 +104,14 @@ export default function LegendarySyncSaves({
         />
       ) : (
         <>
-          <TextInputWithIconField
+          <PathSelectionBox
             htmlId="inputSavePath"
+            type="directory"
+            onPathChange={setSavesPath}
+            path={savesPath}
             placeholder={t('setting.savefolder.placeholder')}
-            value={savesPath}
-            disabled={isSyncing}
-            onChange={(event) => setSavesPath(event.target.value)}
-            icon={
-              !isLinked ? (
-                <CreateNewFolder
-                  data-testid="selectSavePath"
-                  style={{ color: '#B0ABB6' }}
-                />
-              ) : (
-                <Backspace
-                  data-testid="removeSavePath"
-                  style={{ color: '#B0ABB6' }}
-                />
-              )
-            }
-            onIconClick={
-              !isLinked
-                ? async () =>
-                    window.api
-                      .openDialog({
-                        buttonLabel: t('box.sync.button'),
-                        properties: ['openDirectory'],
-                        title: t('box.sync.title')
-                      })
-                      .then((path) => setSavesPath(path || ''))
-                : () => setSavesPath('')
-            }
+            pathDialogTitle={t('box.sync.title')}
+            canEditPath={isSyncing}
             afterInput={
               <span
                 role={'button'}

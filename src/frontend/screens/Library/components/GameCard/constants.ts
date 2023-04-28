@@ -18,7 +18,8 @@ export function getCardStatus(
   isInstalled: boolean,
   layout: string
 ) {
-  const isInstalling = status === 'installing' || status === 'updating'
+  const isInstalling =
+    status === 'installing' || status === 'updating' || status === 'extracting'
   const isUpdating = status === 'updating'
   const isReparing = status === 'repairing'
   const isMoving = status === 'moving'

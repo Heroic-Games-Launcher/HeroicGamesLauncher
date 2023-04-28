@@ -163,7 +163,9 @@
         "moving-files": "Flytter fil '{{file}}': {{percent}} ",
         "syncingSaves": "Synkroniserer Saves",
         "launching": "Lancering",
-        "ubisoft": "Installation af Ubisoft"
+        "ubisoft": "Installation af Ubisoft",
+        "downloading": "Downloader",
+        "extracting": "Udvinding"
     },
     "submenu": {
         "addShortcut": "Opret genvej",

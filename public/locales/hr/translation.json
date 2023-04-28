@@ -361,9 +361,9 @@
             "reparing": "Zavšen popravak"
         },
         "install": {
-            "canceled": "Instalacije prekinuta",
+            "canceled": "Instaliranje je prekinuto",
             "error": "Instalacija Neuspjela",
-            "finished": "Instalacija gotova",
+            "finished": "Instaliranje je završeno",
             "imported": "Game Imported",
             "startInstall": "Installation Started",
             "failed": "Instalacija Neuspjela",
@@ -377,7 +377,7 @@
         },
         "uninstalled": "Deinstalirano",
         "update": {
-            "canceled": "Ažuriranje prekinuto",
+            "canceled": "Ažuriranje je prekinuto",
             "finished": "Ažuriranje gotovo",
             "started": "Update Started",
             "failed": "Ažuriranje nije uspjelo",
@@ -644,7 +644,7 @@
     "two_col_table": {
         "save_hint": "Changes in this table are not saved automatically. Click the + button"
     },
-    "Update Available!": "",
+    "Update Available!": "Update Available!",
     "userselector": {
         "discord": "Discord",
         "logging_out": "Logging out",

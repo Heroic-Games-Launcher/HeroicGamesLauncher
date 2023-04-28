@@ -1,11 +1,11 @@
+import { gameManagerMap, libraryManagerMap } from 'backend/storeManagers'
 import { TypeCheckedStoreBackend } from './../electron_store'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import { getFileSize, getGame } from '../utils'
+import { getFileSize, removeFolder } from '../utils'
 import { DMQueueElement, DMStatus, DownloadManagerState } from 'common/types'
 import { installQueueElement, updateQueueElement } from './utils'
 import { sendFrontendMessage } from '../main_window'
 import { callAbortController } from 'backend/utils/aborthandler/aborthandler'
-import { removeFolder } from 'backend/main'
 import { notify } from '../dialog/dialog'
 import i18next from 'i18next'
 
@@ -92,6 +92,8 @@ async function initQueue() {
       element = null
     }
   }
+
+  queueState = 'idle'
 }
 
 async function addToQueue(element: DMQueueElement) {
@@ -119,10 +121,9 @@ async function addToQueue(element: DMQueueElement) {
   if (elementIndex >= 0) {
     elements[elementIndex] = element
   } else {
-    const game = getGame(element.params.appName, element.params.runner)
-    const installInfo = await game.getInstallInfo(
-      element.params.platformToInstall
-    )
+    const installInfo = await libraryManagerMap[
+      element.params.runner
+    ].getInstallInfo(element.params.appName, element.params.platformToInstall)
 
     element.params.size = installInfo?.manifest?.download_size
       ? getFileSize(installInfo?.manifest?.download_size)
@@ -185,8 +186,10 @@ function cancelCurrentDownload({ removeDownloaded = false }) {
 
     if (removeDownloaded) {
       const { appName, runner } = currentElement!.params
-      const { folder_name } = getGame(appName, runner).getGameInfo()
-      removeFolder(currentElement.params.path, folder_name)
+      const { folder_name } = gameManagerMap[runner].getGameInfo(appName)
+      if (folder_name) {
+        removeFolder(currentElement.params.path, folder_name)
+      }
     }
     currentElement = null
   }
@@ -211,14 +214,15 @@ function resumeCurrentDownload() {
 function stopCurrentDownload() {
   const { appName, runner } = currentElement!.params
   callAbortController(appName)
-  getGame(appName, runner).stop(false)
+  gameManagerMap[runner].stop(appName, false)
 }
 
 // notify the user based on the status of the element and the status of the queue
 function processNotification(element: DMQueueElement, status: DMStatus) {
   const action = element.type === 'install' ? 'Installation' : 'Update'
-  const game = getGame(element.params.appName, element.params.runner)
-  const { title } = game.getGameInfo()
+  const { title } = gameManagerMap[element.params.runner].getGameInfo(
+    element.params.appName
+  )
 
   if (status === 'abort') {
     if (isPaused()) {

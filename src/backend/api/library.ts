@@ -3,9 +3,9 @@ import {
   Runner,
   InstallParams,
   LaunchParams,
-  SideloadGame,
   ImportGameArgs,
-  GameStatus
+  GameStatus,
+  GameInfo
 } from 'common/types'
 
 export const removeFolder = (args: [path: string, folderName: string]) =>
@@ -21,7 +21,11 @@ export const uninstall = async (
   shouldRemoveSetting: boolean
 ) => {
   if (runner === 'sideload') {
-    return ipcRenderer.invoke('removeApp', { appName, shouldRemovePrefix })
+    return ipcRenderer.invoke('removeApp', {
+      appName,
+      shouldRemovePrefix,
+      runner
+    })
   } else {
     return ipcRenderer.invoke(
       'uninstall',
@@ -87,8 +91,4 @@ export const handleRecentGamesChanged = (callback: any) => {
   }
 }
 
-export const addNewApp = (args: SideloadGame) =>
-  ipcRenderer.send('addNewApp', args)
-
-export const launchApp = async (appName: string): Promise<boolean> =>
-  ipcRenderer.invoke('launchApp', appName)
+export const addNewApp = (args: GameInfo) => ipcRenderer.send('addNewApp', args)

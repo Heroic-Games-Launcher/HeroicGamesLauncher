@@ -233,28 +233,19 @@
 				</p>
 				<ul>
 					<li>
-						New Default Theme called Midnight Mirage
+						Auto Install UbisoftConnect when running UbisoftConnect games
 					</li>
 					<li>
-						Game Settings will open on a dialog now instead of a new page
+						UI improvements on the GamePage to make it cleaner and organized
 					</li>
 					<li>
-						New item on game submenu will show extra information like HowLongToBeat and Game Score
+						Library render improvements and download GOG game images in the background
 					</li>
 					<li>
-						Heroic will show progress for individual files when moving a game
+						Improvements on Epic Login
 					</li>
 					<li>
-						Better caching for GOG games information
-					</li>
-					<li>
-						When selected wine version was not found Heroic will search and suggest for another one.
-					</li>
-					<li>
-						Added setting to auto-update games and also to skip updates for a specific game
-					</li>
-					<li>
-						Sidebar now will resize on drag event
+						Show game logs from the card's context menu
 					</li>
 				</ul>
 				<p>
@@ -262,16 +253,22 @@
 				</p>
 				<ul>
 					<li>
-						Fix not being able to download native GOG games
+						Fix Discord RPC for flatpak heroic
 					</li>
 					<li>
-						Cloud Sync saves settings not being shown for Windows GOG games that have Linux counterpart
+						Fix auto-enabling of anti-cheat runtimes
 					</li>
 					<li>
-						Install dialog was not pre-selecting the default Wine and WinePrefix
+						Fix non-available status for games just installed
 					</li>
 					<li>
-						Improved accessibility of the default theme and others Style fixes
+						Kill leftover wine processes after the stop button is pressed
+					</li>
+					<li>
+						Fix not being possible to change the default installation path
+					</li>
+					<li>
+						Inaccuracy of disk and down speed
 					</li>
 					<li>
 						Several other fixes and improvements

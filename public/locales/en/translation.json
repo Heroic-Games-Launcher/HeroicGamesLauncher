@@ -125,7 +125,6 @@
             "title": "Shortcuts"
         },
         "sync": {
-            "button": "Choose",
             "error": "Invalid Path",
             "title": "Choose the saves directory"
         },
@@ -157,10 +156,7 @@
         "cancel": "Cancel",
         "continue": "Continue",
         "go_to_library": "Go to Library",
-        "login": "Log in",
-        "sync": "Sync",
-        "syncing": "Syncing",
-        "unsync": "Unsync"
+        "login": "Log in"
     },
     "controller": {
         "hints": {
@@ -305,9 +301,6 @@
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
         }
-    },
-    "install": {
-        "path": "Select Install Path"
     },
     "label": {
         "loading": "Loading"
@@ -620,7 +613,6 @@
     },
     "toolbox": {
         "settings": {
-            "default-wineprefix": "Select the default prefix folder for new configs",
             "wineprefix": "Select a Folder for new Wine Prefixes"
         }
     },
@@ -637,7 +629,7 @@
     "two_col_table": {
         "save_hint": "Changes in this table are not saved automatically. Click the + button"
     },
-    "Update Available!": "",
+    "Update Available!": "Update Available!",
     "userselector": {
         "cancel": "Cancel",
         "discord": "Discord",

@@ -196,7 +196,9 @@
         "moving-files": "Presúvam súbor '{{file}}': {{percent}} ",
         "syncingSaves": "Synchronizácia uloženia",
         "launching": "Spustenie",
-        "ubisoft": "Inštalácia Ubisoftu"
+        "ubisoft": "Inštalácia Ubisoftu",
+        "downloading": "Downloading",
+        "extracting": "Extrakcia"
     },
     "submenu": {
         "addShortcut": "Pridať skratku",

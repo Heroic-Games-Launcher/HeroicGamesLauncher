@@ -42,7 +42,7 @@
             "message": "Да гэтай гульні ёсць абнаўленне. Усталяваць абнаўленне?",
             "title": "Гульня патрабуе абнаўлення"
         },
-        "wineprefix": "Выберыце папку WinePrefix",
+        "wineprefix": "Аберыце папку WinePrefix",
         "yes": "ТАК"
     },
     "button": {
@@ -196,7 +196,9 @@
         "moving-files": "Перамяшчэнне файла \"{{file}}\": {{percent}} ",
         "syncingSaves": "Сінхранізацыя захаванняў",
         "launching": "Запуск",
-        "ubisoft": "Ўстаноўка Ubisoft"
+        "ubisoft": "Ўстаноўка Ubisoft",
+        "downloading": "Ідзе загрузка",
+        "extracting": "Выманне"
     },
     "submenu": {
         "addShortcut": "Дадаць ярлык",

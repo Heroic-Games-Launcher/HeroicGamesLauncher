@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
-import { Backspace } from '@mui/icons-material'
 import useSetting from 'frontend/hooks/useSetting'
-import { TextInputWithIconField } from 'frontend/components/UI'
+import { PathSelectionBox } from 'frontend/components/UI'
 
 const AltLegendaryBin = () => {
   const { t } = useTranslation()
@@ -29,53 +26,24 @@ const AltLegendaryBin = () => {
     getMoreInfo()
   }, [altLegendaryBin])
 
-  async function handleLegendaryBinary() {
-    return window.api
-      .openDialog({
-        buttonLabel: t('box.choose'),
-        properties: ['openFile'],
-        title: t(
-          'box.choose-legendary-binary',
-          'Select Legendary Binary (needs restart)'
-        )
-      })
-      .then((path) => setAltLegendaryBin(path || ''))
-  }
-
   return (
-    <TextInputWithIconField
+    <PathSelectionBox
       htmlId="setting-alt-legendary"
       label={t(
         'setting.alt-legendary-bin',
         'Choose an Alternative Legendary Binary  (needs restart)to use'
       )}
+      type="file"
+      onPathChange={setAltLegendaryBin}
+      path={altLegendaryBin}
       placeholder={t(
         'placeholder.alt-legendary-bin',
         'Using built-in Legendary binary...'
       )}
-      value={altLegendaryBin.replaceAll("'", '')}
-      onChange={(event) => setAltLegendaryBin(event.target.value)}
-      icon={
-        !altLegendaryBin.length ? (
-          <FontAwesomeIcon
-            icon={faFolderOpen}
-            data-testid="setLegendaryBinaryButton"
-            style={{
-              color: altLegendaryBin.length ? 'transparent' : 'currentColor'
-            }}
-          />
-        ) : (
-          <Backspace
-            data-testid="setLegendaryBinaryBackspace"
-            style={{ color: 'currentColor' }}
-          />
-        )
-      }
-      onIconClick={
-        !altLegendaryBin.length
-          ? async () => handleLegendaryBinary()
-          : () => setAltLegendaryBin('')
-      }
+      pathDialogTitle={t(
+        'box.choose-legendary-binary',
+        'Select Legendary Binary (needs restart)'
+      )}
       afterInput={
         <span className="smallMessage">
           {t('other.legendary-version', 'Legendary Version: ')}

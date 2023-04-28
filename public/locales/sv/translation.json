@@ -361,7 +361,7 @@
             "reparing": "Reparation slutförd"
         },
         "install": {
-            "canceled": "Installationen avbröts",
+            "canceled": "Installation avbruten",
             "error": "Installation misslyckades",
             "finished": "Installation slutförd",
             "imported": "Spelimport slutförd",
@@ -377,7 +377,7 @@
         },
         "uninstalled": "Avinstallerat",
         "update": {
-            "canceled": "Uppdatering avbröts",
+            "canceled": "Uppdatering avbruten",
             "finished": "Uppdatering slutförd",
             "started": "Uppdatering påbörjad",
             "failed": "Uppdateringen misslyckades",
@@ -644,7 +644,7 @@
     "two_col_table": {
         "save_hint": "Ändringar i den här tabellen sparas inte automatiskt. Klicka på +knappen"
     },
-    "Update Available!": "",
+    "Update Available!": "Uppdatering tillgänglig!",
     "userselector": {
         "discord": "Discord",
         "logging_out": "Loggar ut",

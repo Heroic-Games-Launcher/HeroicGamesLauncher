@@ -196,7 +196,9 @@
         "moving-files": "Bestand verplaatsen '{{file}}': {{percent}} ",
         "syncingSaves": "Saves synchroniseren",
         "launching": "Lancering",
-        "ubisoft": "Ubisoft installeren"
+        "ubisoft": "Ubisoft installeren",
+        "downloading": "Downloading",
+        "extracting": "Extraheren"
     },
     "submenu": {
         "addShortcut": "Snelkoppeling toevoegen",

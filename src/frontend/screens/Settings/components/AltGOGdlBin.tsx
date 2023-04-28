@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
-import { Backspace } from '@mui/icons-material'
 import useSetting from 'frontend/hooks/useSetting'
-import { TextInputWithIconField } from 'frontend/components/UI'
+import { PathSelectionBox } from 'frontend/components/UI'
 
 const AltGOGdlBin = () => {
   const { t } = useTranslation()
@@ -27,53 +24,24 @@ const AltGOGdlBin = () => {
     getGogdlVersion()
   }, [altGogdlBin])
 
-  async function handleGogdlBinary() {
-    return window.api
-      .openDialog({
-        buttonLabel: t('box.choose'),
-        properties: ['openFile'],
-        title: t(
-          'box.choose-gogdl-binary',
-          'Select GOGDL Binary (needs restart)'
-        )
-      })
-      .then((path) => setAltGogdlBin(path || ''))
-  }
-
   return (
-    <TextInputWithIconField
+    <PathSelectionBox
       label={t(
         'setting.alt-gogdl-bin',
         'Choose an Alternative GOGDL Binary to use (needs restart)'
       )}
       htmlId="setting-alt-gogdl"
+      type="file"
+      onPathChange={setAltGogdlBin}
+      path={altGogdlBin}
       placeholder={t(
         'placeholder.alt-gogdl-bin',
         'Using built-in GOGDL binary...'
       )}
-      value={altGogdlBin.replaceAll("'", '')}
-      onChange={(event) => setAltGogdlBin(event.target.value)}
-      icon={
-        !altGogdlBin.length ? (
-          <FontAwesomeIcon
-            icon={faFolderOpen}
-            data-testid="setGogdlBinaryButton"
-            style={{
-              color: altGogdlBin.length ? 'transparent' : 'currentColor'
-            }}
-          />
-        ) : (
-          <Backspace
-            data-testid="setGogdlBinaryBackspace"
-            style={{ color: '#currentColor' }}
-          />
-        )
-      }
-      onIconClick={
-        !altGogdlBin.length
-          ? async () => handleGogdlBinary()
-          : () => setAltGogdlBin('')
-      }
+      pathDialogTitle={t(
+        'box.choose-gogdl-binary',
+        'Select GOGDL Binary (needs restart)'
+      )}
       afterInput={
         <span className="smallMessage">
           {t('other.gogdl-version', 'GOGDL Version: ')}

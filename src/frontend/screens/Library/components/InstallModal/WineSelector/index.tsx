@@ -1,10 +1,8 @@
-import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  TextInputWithIconField,
   SelectField,
   ToggleSwitch,
-  TextInputField
+  TextInputField,
+  PathSelectionBox
 } from 'frontend/components/UI'
 import React from 'react'
 import { WineInstallation } from 'common/types'
@@ -90,22 +88,14 @@ export default function WineSelector({
       {!useDefaultSettings && (
         <>
           {showPrefix && (
-            <TextInputWithIconField
+            <PathSelectionBox
+              type="directory"
+              onPathChange={setWinePrefix}
+              path={winePrefix}
+              pathDialogTitle={t('box.wineprefix', 'Select WinePrefix Folder')}
               label={t('install.wineprefix', 'WinePrefix')}
               htmlId="setinstallpath"
-              placeholder={winePrefix}
-              value={winePrefix.replaceAll("'", '')}
-              onChange={(event) => setWinePrefix(event.target.value)}
-              icon={<FontAwesomeIcon icon={faFolderOpen} />}
-              onIconClick={async () =>
-                window.api
-                  .openDialog({
-                    buttonLabel: t('box.choose'),
-                    properties: ['openDirectory'],
-                    title: t('box.wineprefix', 'Select WinePrefix Folder')
-                  })
-                  .then((path) => setWinePrefix(path || winePrefix))
-              }
+              noDeleteButton
             />
           )}
           {showBottle && (

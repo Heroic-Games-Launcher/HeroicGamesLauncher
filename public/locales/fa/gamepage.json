@@ -196,7 +196,9 @@
         "moving-files": "در حال انتقال فایل '{{file}}': {{percent}} ",
         "syncingSaves": "در حال همگام سازی ذخیره ها",
         "launching": "در حال راه اندازی",
-        "ubisoft": "نصب Ubisoft"
+        "ubisoft": "نصب Ubisoft",
+        "downloading": "در حال دانلود",
+        "extracting": "در حال استخراج"
     },
     "submenu": {
         "addShortcut": "افزودن میانبر",

@@ -644,7 +644,7 @@
     "two_col_table": {
         "save_hint": "Зміни у цій таблиці не зберігаються автоматично. Натисніть кнопку +"
     },
-    "Update Available!": "",
+    "Update Available!": "Оновлення доступне!",
     "userselector": {
         "discord": "Discord",
         "logging_out": "Виходимо",
