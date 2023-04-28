@@ -1558,9 +1558,6 @@ ipcMain.handle(
     if (runner === 'legendary' && updated) {
       await setupUbisoftConnect(appName)
     }
-    if (runner === 'legendary' && updated) {
-      await setupUbisoftConnect(appName)
-    }
 
     // FIXME: Why are we using `runinprefix` here?
     return runWineCommandOnGame(runner, appName, {
