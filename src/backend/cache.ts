@@ -2,7 +2,7 @@ import Store from 'electron-store'
 
 export default class CacheStore<ValueType, KeyType extends string = string> {
   private readonly store: Store
-  private readonly lifespan: number
+  private readonly lifespan: number | null
 
   /**
    * Creates a new cache store
@@ -10,7 +10,7 @@ export default class CacheStore<ValueType, KeyType extends string = string> {
    * @param max_value_lifespan How long an individual entry in the store will
    *                           be cached (in minutes)
    */
-  constructor(filename: string, max_value_lifespan = 60 * 6) {
+  constructor(filename: string, max_value_lifespan: number | null = 60 * 6) {
     this.store = new Store({
       cwd: 'store_cache',
       name: filename,
@@ -35,7 +35,7 @@ export default class CacheStore<ValueType, KeyType extends string = string> {
     const updateDate = new Date(lastUpdateTimestamp)
     const msSinceUpdate = Date.now() - updateDate.getTime()
     const minutesSinceUpdate = msSinceUpdate / 1000 / 60
-    if (minutesSinceUpdate > this.lifespan) {
+    if (this.lifespan && minutesSinceUpdate > this.lifespan) {
       this.store.delete(key)
       this.store.delete(`__timestamp.${key}`)
       return fallback

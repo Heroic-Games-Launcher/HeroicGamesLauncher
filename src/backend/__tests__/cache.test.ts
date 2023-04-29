@@ -49,4 +49,13 @@ describe('backend/cache.ts', () => {
     jest.setSystemTime(now)
     expect(testStore2.get('foo')).toBe(undefined)
   })
+
+  test('Allows having no expiration time', () => {
+    const testStore2 = new CacheStore<string>('test_store_2', null)
+    const three_hours_ago = new Date(now).setHours(now.getHours() - 3)
+    jest.setSystemTime(three_hours_ago)
+    testStore2.set('foo', 'bar')
+    jest.setSystemTime(now)
+    expect(testStore2.get('foo')).toBe('bar')
+  })
 })
