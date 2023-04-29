@@ -26,19 +26,22 @@ export default class CacheStore<ValueType, KeyType extends string = string> {
       return fallback
     }
 
-    const lastUpdateTimestamp = this.store.get(`__timestamp.${key}`) as
-      | string
-      | undefined
-    if (!lastUpdateTimestamp) {
-      return fallback
-    }
-    const updateDate = new Date(lastUpdateTimestamp)
-    const msSinceUpdate = Date.now() - updateDate.getTime()
-    const minutesSinceUpdate = msSinceUpdate / 1000 / 60
-    if (this.lifespan && minutesSinceUpdate > this.lifespan) {
-      this.store.delete(key)
-      this.store.delete(`__timestamp.${key}`)
-      return fallback
+    if (this.lifespan) {
+      const lastUpdateTimestamp = this.store.get(`__timestamp.${key}`) as
+        | string
+        | undefined
+      if (!lastUpdateTimestamp) {
+        return fallback
+      }
+
+      const updateDate = new Date(lastUpdateTimestamp)
+      const msSinceUpdate = Date.now() - updateDate.getTime()
+      const minutesSinceUpdate = msSinceUpdate / 1000 / 60
+      if (minutesSinceUpdate > this.lifespan) {
+        this.store.delete(key)
+        this.store.delete(`__timestamp.${key}`)
+        return fallback
+      }
     }
 
     return this.store.get(key) as ValueType
