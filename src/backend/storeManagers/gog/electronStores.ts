@@ -19,7 +19,7 @@ const apiInfoCache = new CacheStore<{
   isUpdated: boolean
   data: GamesDBData
 }>('gog_api_info')
-const libraryStore = new CacheStore<GameInfo[], 'games'>('gog_library')
+const libraryStore = new CacheStore<GameInfo[], 'games'>('gog_library', null)
 const syncStore = new TypeCheckedStoreBackend('gogSyncStore', {
   cwd: 'gog_store',
   name: 'saveTimestamps',
