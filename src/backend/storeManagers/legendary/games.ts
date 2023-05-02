@@ -973,7 +973,7 @@ export async function stop(appName: string, stopWine = true) {
   const pattern = process.platform === 'linux' ? appName : 'legendary'
   killPattern(pattern)
 
-  if (stopWine && isNative(appName)) {
+  if (stopWine && !isNative(appName)) {
     const gameSettings = await getSettings(appName)
     await shutdownWine(gameSettings)
   }

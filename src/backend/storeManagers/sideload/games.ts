@@ -9,7 +9,7 @@ import {
 import { libraryStore } from './electronStores'
 import { GameConfig } from '../../game_config'
 import { isWindows, isMac, isLinux, icon } from '../../constants'
-import { killPattern } from '../../utils'
+import { killPattern, shutdownWine } from '../../utils'
 import { logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import path, { dirname, resolve } from 'path'
 import { existsSync, rmSync } from 'graceful-fs'
@@ -129,6 +129,11 @@ export async function stop(appName: string): Promise<void> {
     const split = executable.split('/')
     const exe = split[split.length - 1]
     killPattern(exe)
+
+    if (!isNative(appName)) {
+      const gameSettings = await getSettings(appName)
+      shutdownWine(gameSettings)
+    }
   }
 }
 
