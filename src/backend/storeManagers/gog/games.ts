@@ -848,7 +848,7 @@ export async function stop(appName: string, stopWine = true): Promise<void> {
   const pattern = isLinux ? appName : 'gogdl'
   killPattern(pattern)
 
-  if (stopWine && !isNative(appName) && isLinux) {
+  if (stopWine && !isNative(appName)) {
     const gameSettings = await getSettings(appName)
     await shutdownWine(gameSettings)
   }
