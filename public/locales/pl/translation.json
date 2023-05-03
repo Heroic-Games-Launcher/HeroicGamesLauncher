@@ -377,7 +377,7 @@
         },
         "uninstalled": "Odinstalowano",
         "update": {
-            "canceled": "Aktualizacja przerwana",
+            "canceled": "Aktualizacja anulowana",
             "finished": "Aktualizacja zakończona",
             "started": "Aktualizacja rozpoczęta",
             "failed": "Aktualizacja nie powiodła się",
@@ -385,7 +385,7 @@
         }
     },
     "offline-message": {
-        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "hint": "Sprawdzamy łączność z:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com oraz{{newline}}cloudflare-dns.com.",
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
@@ -470,7 +470,7 @@
         "autovkd3d": "Automatyczne Instaluj/Aktualizuj VKD3D w prefiksie",
         "change-target-exe": "Wybierz alternatywny plik EXE do uruchomienia",
         "checkForUpdatesOnStartup": "Sprawdzaj aktualizacje Heroic podczas uruchomienia",
-        "crossover-version": "Wersja Crossover",
+        "crossover-version": "Wersja Crossover/Wine",
         "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Niestandardowe ścieżki Wine/Proton",
         "darktray": "Użyj ciemnego motywu ikon",
@@ -600,7 +600,7 @@
             "general": "Główne",
             "log": "Log",
             "other": "Inne",
-            "sync": "Synchronizuj zapisy",
+            "sync": "Synchronizuj zapisy w chmurze",
             "wineExt": "Rozszerzenia Wine"
         },
         "open-config-file": "Otwórz plik konfiguracyjny",
