@@ -67,7 +67,7 @@
             "moving": "Error Moving Game {{error}}",
             "title": "Error",
             "ubisoft-connect": {
-                "message": "Installation of Ubisoft Connect in the game prefix failed. Check our wiki page at https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac to install it maunally.",
+                "message": "Installation of Ubisoft Connect in the game prefix failed. Check our wiki page at https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac to install it manually.",
                 "title": "Ubisoft Connect"
             },
             "uncaught-exception": {

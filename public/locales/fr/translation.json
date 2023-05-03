@@ -66,8 +66,8 @@
                 "title": "Une exception inattendue s'est produite !"
             },
             "update": {
-                "message": "Quelque chose s'est mal passé lors de la mise-à-jour, veuillez vérifier les fichiers journaux ou réessayez plus tard !",
-                "title": "Erreur de mise-à-jour"
+                "message": "Quelque chose s'est mal passé lors de la mise à jour, veuillez vérifier les journaux d'événements ou réessayez plus tard !",
+                "title": "Erreur durant la mise à jour"
             },
             "wine-not-found": {
                 "invalid": "La version de Wine sélectionnée n'a pas été trouvée. Installez-la ou sélectionnez une version différente dans les paramètres du jeu{{newline}}Version: {{version}}{{newline}}Chemin: {{path}}",
@@ -94,7 +94,7 @@
                 "message": "Il y a une nouvelle version disponible !",
                 "message-finished": "Voulez-vous redémarrer Heroic maintenant ?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Mise à jour finie"
+                "title-finished": "Mise à jour terminée"
             }
         },
         "no": "NON",
@@ -191,7 +191,7 @@
     "download-manager": {
         "install-type": {
             "install": "Installation",
-            "update": "Mise-à-jour"
+            "update": "Mise à jour"
         },
         "label": {
             "disk": "Disque",
@@ -335,8 +335,8 @@
         "message": "Connectez-vous à votre plateforme. Vous pouvez vous connecter à plus d'une plateforme à la fois."
     },
     "message": {
-        "sync": "Synchronisation Complète",
-        "unsync": "Désynchronisation Complète"
+        "sync": "Synchronisation achevée",
+        "unsync": "Désynchronisation achevée"
     },
     "notify": {
         "error": {
@@ -361,13 +361,13 @@
             "reparing": "Réparation terminée"
         },
         "install": {
-            "canceled": "Installation Annulée",
+            "canceled": "Installation annulée",
             "error": "Installation échouée",
-            "finished": "Installation Terminée",
+            "finished": "Installation terminée",
             "imported": "Jeu importé",
             "startInstall": "Installation commencée",
             "failed": "Installation échouée",
-            "paused": "Installation Interrompue"
+            "paused": "Installation interrompue"
         },
         "moved": "Déplacement terminé",
         "moving": "Jeu en cours de déplacement",
@@ -377,11 +377,11 @@
         },
         "uninstalled": "Désinstallé",
         "update": {
-            "canceled": "Mise à Jour Annulée",
+            "canceled": "Mise à jour annulée",
             "finished": "Mise à jour terminée",
             "started": "Mise à jour commencée",
-            "paused": "Mise à Jour Interrompue",
-            "failed": "Mise à Jour Échouée"
+            "paused": "Mise à jour suspendue",
+            "failed": "Mise à jour échouée"
         }
     },
     "offline-message": {
@@ -453,7 +453,7 @@
             "finished": "Achevés",
             "queued": "En attente",
             "remove": "Retirer de la liste des Téléchargements",
-            "pause": "Interrompre le téléchargement",
+            "pause": "Suspendre le téléchargement",
             "resume": "Reprendre le téléchargement"
         }
     },
@@ -469,7 +469,7 @@
         "autosync": "Synchroniser automatiquement les sauvegardes",
         "autovkd3d": "Installer et mettre à jour automatiquement VKD3D dans le préfixe",
         "change-target-exe": "Choisir un fichier .exe alternatif à lancer",
-        "checkForUpdatesOnStartup": "Vérifier au démarrage si des mises à jour de Heroic sont disponibles",
+        "checkForUpdatesOnStartup": "Vérifier au démarrage si des mises à jour d'Heroic sont disponibles",
         "crossover-version": "Version de Crossover/Wine",
         "custom_themes_path": "Chemin vers les thèmes personnalisés",
         "customWineProton": "Chemins pour les Wine/Proton Custom",
@@ -644,7 +644,7 @@
     "two_col_table": {
         "save_hint": "Les changements faits dans cette liste ne sont pas enregistrés automatiquement. Cliquez sur le bouton « + »"
     },
-    "Update Available!": "Mise à Jour Disponible !",
+    "Update Available!": "Mise à jour disponible !",
     "userselector": {
         "discord": "Discord",
         "logging_out": "Déconnexion",
