@@ -19,7 +19,8 @@ import {
   powerSaveBlocker,
   protocol,
   screen,
-  clipboard
+  clipboard,
+  globalShortcut
 } from 'electron'
 import 'backend/updater'
 import { autoUpdater } from 'electron-updater'
@@ -396,6 +397,36 @@ if (!gotTheLock) {
     downloadAntiCheatData()
 
     initTrayIcon(mainWindow)
+
+    // hotkey to reload the app
+    globalShortcut.register('CommandOrControl+R', () => {
+      mainWindow.reload()
+    })
+
+    // hotkey to quit the app
+    globalShortcut.register('CommandOrControl+Q', () => {
+      handleExit()
+    })
+
+    // hotkey to open the dev tools
+    globalShortcut.register('CommandOrControl+Shift+I', () => {
+      mainWindow.webContents.openDevTools()
+    })
+
+    // hotkey to open the settings on frontend
+    globalShortcut.register('CommandOrControl+K', () => {
+      sendFrontendMessage('openScreen', '/settings/app/default/general')
+    })
+
+    // hotkey to open the library screen on frontend
+    globalShortcut.register('CommandOrControl+L', () => {
+      sendFrontendMessage('openScreen', '/library')
+    })
+
+    // hotkey to open the downloads screen on frontend
+    globalShortcut.register('CommandOrControl+J', () => {
+      sendFrontendMessage('openScreen', '/download-manager')
+    })
 
     return
   })

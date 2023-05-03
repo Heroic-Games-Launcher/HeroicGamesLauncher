@@ -7,6 +7,7 @@ import HeroicVersion from './components/HeroicVersion'
 import { DMQueueElement } from 'common/types'
 
 import { ReactComponent as HeroicIcon } from 'frontend/assets/heroic-icon.svg'
+import { useNavigate } from 'react-router-dom'
 
 let sidebarSize = localStorage.getItem('sidebar-width') || 240
 const minWidth = 60
@@ -16,6 +17,8 @@ const collapsedWidth = 120
 export default React.memo(function Sidebar() {
   const sidebarEl = useRef<HTMLDivElement | null>(null)
   const [currentDMElement, setCurrentDMElement] = useState<DMQueueElement>()
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     window.api.getDMQueueInformation().then(({ elements }) => {
@@ -36,7 +39,7 @@ export default React.memo(function Sidebar() {
   useEffect(() => {
     if (!sidebarEl.current) return
 
-    if (sidebarSize < collapsedWidth) {
+    if (Number(sidebarSize) < collapsedWidth) {
       sidebarEl.current.classList.add('collapsed')
     } else {
       sidebarEl.current.classList.remove('collapsed')
@@ -44,6 +47,13 @@ export default React.memo(function Sidebar() {
 
     sidebarEl.current.style.setProperty('--sidebar-width', `${sidebarSize}px`)
   }, [sidebarEl])
+
+  useEffect(() => {
+    window.api.handleGoToScreen((e: Event, screen: string) => {
+      // handle navigate to screen
+      navigate(screen, { state: { fromGameCard: false } })
+    })
+  }, [])
 
   const handleDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
     let mouseDragX = e.clientX
