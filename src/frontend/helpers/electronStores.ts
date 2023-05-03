@@ -61,7 +61,7 @@ export class TypeCheckedStoreFrontend<
 
 class CacheStore<ValueType, KeyType extends string = string> {
   private readonly storeName: string
-  private readonly lifespan: number
+  private readonly lifespan: number | null
 
   /**
    * Creates a new cache store
@@ -69,7 +69,7 @@ class CacheStore<ValueType, KeyType extends string = string> {
    * @param max_value_lifespan How long an individual entry in the store will
    *                           be cached (in minutes)
    */
-  constructor(filename: string, max_value_lifespan = 60 * 6) {
+  constructor(filename: string, max_value_lifespan: number | null = 60 * 6) {
     this.storeName = filename
     window.api.storeNew(filename, {
       cwd: 'store_cache',
@@ -96,7 +96,7 @@ class CacheStore<ValueType, KeyType extends string = string> {
     const updateDate = new Date(lastUpdateTimestamp)
     const msSinceUpdate = Date.now() - updateDate.getTime()
     const minutesSinceUpdate = msSinceUpdate / 1000 / 60
-    if (minutesSinceUpdate > this.lifespan) {
+    if (this.lifespan && minutesSinceUpdate > this.lifespan) {
       window.api.storeDelete(this.storeName, key)
       window.api.storeDelete(this.storeName, `__timestamp.${key}`)
       return
@@ -115,7 +115,10 @@ const configStore = new TypeCheckedStoreFrontend('configStore', {
   cwd: 'store'
 })
 
-const libraryStore = new CacheStore<GameInfo[], 'library'>('legendary_library')
+const libraryStore = new CacheStore<GameInfo[], 'library'>(
+  'legendary_library',
+  null
+)
 
 const wineDownloaderInfoStore = new TypeCheckedStoreFrontend(
   'wineDownloaderInfoStore',
@@ -125,7 +128,7 @@ const wineDownloaderInfoStore = new TypeCheckedStoreFrontend(
   }
 )
 
-const gogLibraryStore = new CacheStore<GameInfo[], 'games'>('gog_library')
+const gogLibraryStore = new CacheStore<GameInfo[], 'games'>('gog_library', null)
 const gogInstalledGamesStore = new TypeCheckedStoreFrontend(
   'gogInstalledGamesStore',
   {
