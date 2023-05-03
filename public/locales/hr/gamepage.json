@@ -2,19 +2,19 @@
     "box": {
         "change": {
             "message": "Ovo će promijeniti lokaciju instalacije za ovu igru, jeste li sigurni?",
-            "path": "Odaberite novu lokaciju za instalaciju",
-            "title": "Promijenite lokaciju instalacije igre"
+            "path": "Odaberi novu stazu za instaliranje",
+            "title": "Promijeni stazu za instaliranje igara"
         },
         "choose": "Odaberi",
-        "importpath": "Odaberi mapu igre za uvesti",
+        "importpath": "Odaberi mapu igrara za uvoz",
         "move": {
             "message": "Ovo može potrajati, jeste li sigurni?",
-            "path": "Odaberite gdje želite premjestiti",
-            "title": "Premjestite instalaciju igrice"
+            "path": "Odaberi kamo premjestiti",
+            "title": "Premjestite instalaciju igre"
         },
         "no": "NE",
         "repair": {
-            "message": "Želite li pokušati popraviti ovu igricu? Ovo može potrajati.",
+            "message": "Želite li pokušati popraviti ovu igru? Ovo može potrajati.",
             "title": "Provjeri i Popravi"
         },
         "runexe": {
@@ -33,7 +33,7 @@
         },
         "uninstall": {
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
-            "message": "Želite li deinstalirati igricu?",
+            "message": "Želite li deinstalirati igru?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Deinstaliraj",
             "prefix_warning": "Wine prefiks za ovu igru je zadani prefiks. Ako ga stvarno želite izbrisati, morate to učiniti ručno."
@@ -47,15 +47,15 @@
     },
     "button": {
         "add_to_favourites": "Dodaj u omiljene",
-        "cancel": "Otkaži/Prekini",
+        "cancel": "Zaustavi/Odustani",
         "continue": "Nastavi preuzimanje",
-        "finish": "Finish",
+        "finish": "Završi",
         "force_update": "Prisilno akturaliziraj ako je dostupno",
-        "force-innstall": "Force Install",
+        "force-innstall": "Prisilno instaliraj",
         "hide_game": "Sakrij igru",
         "import": "Uvezi igru",
         "install": "Instaliraj",
-        "no-path-selected": "No path selected",
+        "no-path-selected": "Nijedna staza nije odabrana",
         "queue": {
             "remove": "Remove from Queue"
         },
@@ -69,7 +69,7 @@
         "unhide_game": "Prikaži igru",
         "uninstall": "Deinstaliraj",
         "update": "Ažuriraj",
-        "details": "pojedinosti"
+        "details": "Pojedinosti"
     },
     "cloud_save_unsupported": "Unsupported",
     "disabled": "Onemogućeno",
@@ -108,7 +108,7 @@
     "info": {
         "canRunOffline": "Internet Potreban",
         "installedPlatform": "Instalirane Platforme",
-        "path": "Put instalacije",
+        "path": "Staza instalacije",
         "size": "Veličina",
         "syncsaves": "Sinkroniziraj podatke",
         "version": "Verzija",
@@ -121,7 +121,7 @@
         "disk-space-left": "Prostora dostupno",
         "not-enough-disk-space": "Nema dovoljno prostora na disku",
         "path": "Odaberi stazu instalacije",
-        "path-not-writtable": "Upozorenje: staza se možda ne može prepisati.",
+        "path-not-writtable": "Upozorenje: u stazu se možda ne može pisati.",
         "space-after-install": "Nakon Instalacije",
         "wineprefix": "WinePrefix",
         "wineversion": "Wine verzija"
@@ -149,12 +149,12 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
-    "report_problem": "Prijavi problem za ovu igricu",
+    "report_problem": "Prijavi problem za ovu igru",
     "sdl": {
         "title": "Odaberite komponente za instalaciju"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings",
+        "use-default-wine-settings": "Koristi zadane Wine postavke",
         "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {
@@ -187,11 +187,11 @@
         "notSupportedGame": "Not Supported",
         "processing": "Obrada datoteka, pričekaj",
         "queued": "Queued",
-        "reparing": "Popravljanje igrice, molimo pričekajte",
+        "reparing": "Popravljanje igre, pričekajte",
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Sveukupno preuzeto",
         "uninstalling": "Uninstalling",
-        "updating": "Ažuriranje igrice",
+        "updating": "Aktualiziranje igre",
         "playing": "Igranje",
         "moving-files": "Premještanje datoteke '{{file}}': {{percent}} ",
         "syncingSaves": "Sinkoniziranje podataka",
@@ -203,10 +203,10 @@
     "submenu": {
         "addShortcut": "Dodaj prečace",
         "addToSteam": "Dodaj Steamu",
-        "change": "Promijeni put instalacije",
+        "change": "Promijeni stazu instalacije",
         "disableEosOverlay": "Isključi EOS prekrivanje",
         "enableEosOverlay": "Uključi EOS prekrivanje",
-        "move": "Premjesti igricu",
+        "move": "Premjesti igru",
         "protondb": "Provjeri Kompatibilnost",
         "removeFromSteam": "Ukloni iz Steama",
         "removeShortcut": "Ukloni prečace",

@@ -17,7 +17,7 @@
     },
     "status": {
         "error": "Greška",
-        "loading": "Učitavanje liste Igrica, pričekajte"
+        "loading": "Učitavanje liste igara, pričekajte"
     },
-    "welcome": "Dobrodošli!"
+    "welcome": "Dobro došli!"
 }

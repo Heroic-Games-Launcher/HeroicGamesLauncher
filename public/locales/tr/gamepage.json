@@ -18,13 +18,13 @@
             "title": "Doğrula ve Onar"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "Çalıştırmak için EXE dosyası seçin"
         },
         "select": {
-            "button": "Select"
+            "button": "Seç"
         },
         "sideload": {
-            "exe": "Select Executable"
+            "exe": "Yürütülebiliri seçin"
         },
         "stopInstall": {
             "keepInstalling": "Kuruluma Devam Et",
@@ -32,9 +32,9 @@
             "title": "Kurulumu Durdur"
         },
         "uninstall": {
-            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
+            "checkbox": "Ön eki kaldır: {{prefix}}{{newLine}}Not: Bu işlem geri alınamaz ve yedeklenmemiş kayıtlı dosyaları da kaldırır.",
             "message": "Oyunu kaldırmak istiyor musunuz?",
-            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+            "settingcheckbox": "Ayarları sil ve günlüğü kaldır{{newLine}}Not: Bu işlem geri alınamaz. Değiştirilen tüm ayarlar unutulacak ve günlük silinecektir.",
             "title": "Kaldır",
             "prefix_warning": "Bu oyun için Wine öneki varsayılan önektir. Gerçekten silmek istiyorsanız, manuel olarak yapmanız gerekir."
         },
@@ -49,29 +49,29 @@
         "add_to_favourites": "Favorilere Ekle",
         "cancel": "Duraklat/İptal",
         "continue": "İndirmeye Devam Et",
-        "finish": "Finish",
+        "finish": "Bitir",
         "force_update": "Varsa Güncellemeyi Zorunlu Kur",
-        "force-innstall": "Force Install",
+        "force-innstall": "Yüklemeye Zorla",
         "hide_game": "Oyunu Gizle",
         "import": "Oyunu İçe Aktar",
         "install": "Kur",
-        "no-path-selected": "No path selected",
+        "no-path-selected": "Seçili yol yok",
         "queue": {
-            "remove": "Remove from Queue"
+            "remove": "Kuyruktan Çıkar"
         },
         "remove_from_favourites": "Favorilerden Kaldır",
-        "remove_from_recent": "Remove From Recent",
-        "run-exe-first": "Run Installer First",
-        "running-setup": "Running Setup",
+        "remove_from_recent": "Son Kullanılanlardan Kaldır",
+        "run-exe-first": "Önce Yükleyiciyi Çalıştırın",
+        "running-setup": "Kurulum Çalıştırılıyor",
         "sideload": {
-            "edit": "Edit App/Game"
+            "edit": "Uygulamayı/Oyunu Düzenle"
         },
         "unhide_game": "Oyunu Göster",
         "uninstall": "Kaldır",
         "update": "Güncelle",
         "details": "Detaylar"
     },
-    "cloud_save_unsupported": "Unsupported",
+    "cloud_save_unsupported": "Desteklenmiyor",
     "disabled": "Devre dışı",
     "dlc": {
         "installDlcs": "Tüm DLC'leri kur"
@@ -98,11 +98,11 @@
         "error": "Bilinmeyen hata",
         "noDescription": "Açıklama yok"
     },
-    "hours": "Hours",
+    "hours": "Saat",
     "how-long-to-beat": {
-        "completionist": "Completionist",
-        "main-plus-extras": "Main + Extras",
-        "main-story": "Main Story"
+        "completionist": "Tamamlayıcı",
+        "main-plus-extras": "Ana + Ekstralar",
+        "main-story": "Ana Hikaye"
     },
     "howLongToBeat": "How Long To Beat",
     "info": {
@@ -128,7 +128,7 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Üçüncü Parti Oyun Desteklenmiyor"
         },
         "playing": {
             "start": "Şimdi Oyna",
@@ -144,31 +144,31 @@
         "options": "Başlatma Seçenekleri..."
     },
     "not_logged_in": {
-        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
-        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "epic": "Heroic'te bir Epic hesabıyla oturum açmadın. Giriş yapmak için mağaza sayfasını kullanma, bunun yerine aşağıdaki düğmeye tıklayın:",
+        "gog": "Heroic'te bir GOG hesabıyla oturum açmadınız. Giriş yapmak için mağaza sayfasını kullanmayın, bunun yerine aşağıdaki düğmeye tıklayın:",
         "login": "Log in",
-        "title": "You are NOT logged in"
+        "title": "Giriş yapmadınız"
     },
     "report_problem": "Bu oyunun çalışmasıyla ilgili bir sorun bildir",
     "sdl": {
         "title": "Kurulacak bileşenleri seç"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings",
-        "winecrossoverbottle": "CrossOver Şişesi"
+        "use-default-wine-settings": "Varsayılan Wine Ayarlarını Kullan",
+        "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {
         "field": {
-            "title": "Title"
+            "title": "Başlık"
         },
         "info": {
-            "exe": "Select Executable",
+            "exe": "Yürütülebilir Dosyayı Seçin",
             "image": "App Image",
-            "title": "Game/App Title"
+            "title": "Oyun/Uygulama Adı"
         },
         "placeholder": {
-            "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "image": "Buraya bir Resim URL'si yapıştırın",
+            "title": "Oyununuza/Uygulamanıza bir başlık ekleyin"
         }
     },
     "specs": {
@@ -177,35 +177,35 @@
     },
     "status": {
         "clickToUpdate": "Güncellemek için tıklayın",
-        "gameNotAvailable": "Game not available",
+        "gameNotAvailable": "Oyun mevcut değil",
         "hasUpdates": "Yeni sürüm var!",
         "installed": "Kuruldu",
         "installing": "Kuruluyor",
         "moving": "Kurulum taşınıyor, lütfen bekleyin",
         "notinstalled": "Bu oyun kurulu değil",
-        "notSupported": "Not supported",
-        "notSupportedGame": "Not Supported",
+        "notSupported": "Desteklenmiyor",
+        "notSupportedGame": "Desteklenmiyor",
         "processing": "Dosyalar işleniyor, lütfen bekleyin",
-        "queued": "Queued",
+        "queued": "Sırada",
         "reparing": "Oyun onarılıyor, lütfen bekleyin",
-        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
+        "this-game-uses-third-party": "Bu oyun üçüncü parti başlatıcı kullanıyor ve henüz desteklenmiyor",
         "totalDownloaded": "Toplam İndirilen",
-        "uninstalling": "Uninstalling",
+        "uninstalling": "Kaldırılıyor",
         "updating": "Oyun Güncelleniyor",
         "playing": "oynamak",
         "moving-files": "'{{file}}' dosyası taşınıyor: {{percent}} ",
         "syncingSaves": "Kayıtlar Senkronize Ediliyor",
         "launching": "Fırlatma",
         "ubisoft": "Ubisoft'u Kurmak",
-        "downloading": "Downloading",
+        "downloading": "İndiriliyor",
         "extracting": "Ayıklanıyor"
     },
     "submenu": {
         "addShortcut": "Kısayol ekle",
         "addToSteam": "Steam'e Ekle",
         "change": "Kurulum yerini değiştir",
-        "disableEosOverlay": "Disable EOS Overlay",
-        "enableEosOverlay": "Enable EOS Overlay",
+        "disableEosOverlay": "EOS Arayüzünü Devre Dışı Bırak",
+        "enableEosOverlay": "EOS Arayüzünü Etkinleştir",
         "move": "Oyunu Taşı",
         "protondb": "Uyumluluğu Denetle",
         "removeFromSteam": "Steam'den Kaldır",
