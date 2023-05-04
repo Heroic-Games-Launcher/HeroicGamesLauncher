@@ -155,11 +155,3 @@ export const getWikiGameInfo = async (
   appName: string,
   runner: Runner
 ) => ipcRenderer.invoke('getWikiGameInfo', title, appName, runner)
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const handleGoToScreen = (callback: any) => {
-  ipcRenderer.on('openScreen', callback)
-  return () => {
-    ipcRenderer.removeListener('openScreen', callback)
-  }
-}
