@@ -36,7 +36,7 @@ export default React.memo(function Sidebar() {
   useEffect(() => {
     if (!sidebarEl.current) return
 
-    if (sidebarSize < collapsedWidth) {
+    if (Number(sidebarSize) < collapsedWidth) {
       sidebarEl.current.classList.add('collapsed')
     } else {
       sidebarEl.current.classList.remove('collapsed')
