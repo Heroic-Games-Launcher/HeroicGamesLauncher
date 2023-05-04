@@ -12,7 +12,6 @@ import {
 import * as path from 'path'
 import {
   BrowserWindow,
-  Menu,
   app,
   dialog,
   ipcMain,
@@ -210,7 +209,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
   } else {
-    Menu.setApplicationMenu(null)
+    mainWindow.setMenuBarVisibility(false)
     mainWindow.loadURL(`file://${path.join(publicDir, '../build/index.html')}`)
     autoUpdater.checkForUpdates()
   }
