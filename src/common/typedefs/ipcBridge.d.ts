@@ -79,6 +79,7 @@ interface SyncIPCFunctions {
   logInfo: (message: unknown) => void
   showItemInFolder: (item: string) => void
   clipboardWriteText: (text: string) => void
+  processShortcut: (combination: string) => void
   addNewApp: (args: SideloadGame) => void
   showLogFileInFolder: (args: {
     appName: string
