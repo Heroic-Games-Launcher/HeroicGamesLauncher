@@ -19,9 +19,13 @@ export default function SIDLogin({ backdropClick }: Props) {
   const { epic } = useContext(ContextProvider)
   const { t } = useTranslation('login')
   const [input, setInput] = useState('')
-  const [loading, setLoading] = useState(false)
-
+  const [status, setStatus] = useState({
+    loading: false,
+    error: false
+  })
   const [linkCopied, setLinkCopied] = useState(false)
+
+  const { loading, error } = status
 
   const handleCopyLink = () => {
     window.api.clipboardWriteText(epicLoginUrl)
@@ -30,21 +34,38 @@ export default function SIDLogin({ backdropClick }: Props) {
 
   const handleLogin = async (sid: string) => {
     window.api.logInfo('Called Epic Login')
-    setLoading(true)
+    setStatus({
+      loading: true,
+      error: false
+    })
     await epic.login(sid).then(async (res) => {
       console.log(res)
       if (res === 'done') {
         await window.api.getUserInfo()
-        setLoading(false)
+        setStatus({ loading: false, error: false })
         backdropClick()
       } else {
-        setLoading(false)
+        setStatus({
+          loading: false,
+          error: true
+        })
         setTimeout(() => {
-          setLoading(false)
+          setStatus({ loading: false, error: false })
         }, 2500)
       }
     })
   }
+
+  function getButtonLabel() {
+    if (loading) {
+      return t('button.loading', 'Loading')
+    } else if (error) {
+      return t('button.error', 'Error')
+    } else {
+      return t('button.login', 'Login')
+    }
+  }
+
   return (
     <div className="SIDLoginModal">
       <span className="backdrop" onClick={backdropClick}></span>
@@ -120,17 +141,15 @@ export default function SIDLogin({ backdropClick }: Props) {
         />
         {loading && (
           <p className="message">
-            <Autorenew className="material-icons" />{' '}
+            <Autorenew className="material-icons refreshing" />{' '}
           </p>
         )}
         <button
           onClick={async () => handleLogin(input)}
           className="button is-primary"
-          disabled={loading || input.length < 30}
+          disabled={loading || input.length < 30 || error}
         >
-          {loading
-            ? t('button.loading', 'Loading')
-            : t('button.login', 'Login')}
+          {getButtonLabel()}
         </button>
       </div>
     </div>
