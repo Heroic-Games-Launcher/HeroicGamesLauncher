@@ -148,12 +148,14 @@ interface tmpProgressMap {
   [key: string]: InstallProgress
 }
 
-const defaultTmpProgress = {
-  bytes: '',
-  eta: '',
-  percent: undefined,
-  diskSpeed: undefined,
-  downSpeed: undefined
+function defaultTmpProgress() {
+  return {
+    bytes: '',
+    eta: '',
+    percent: undefined,
+    diskSpeed: undefined,
+    downSpeed: undefined
+  }
 }
 const tmpProgress: tmpProgressMap = {}
 
@@ -165,48 +167,59 @@ export function onInstallOrUpdateOutput(
   totalDownloadSize = -1
 ) {
   if (!Object.hasOwn(tmpProgress, appName)) {
-    tmpProgress[appName] = defaultTmpProgress
+    tmpProgress[appName] = defaultTmpProgress()
   }
-  // parse log for percent
-  const percentMatch = data.match(/Progress: (\d+\.\d+) /m)
+  const progress = tmpProgress[appName]
 
-  tmpProgress[appName].percent = !Number.isNaN(Number(percentMatch?.at(1)))
-    ? Number(percentMatch?.at(1))
-    : undefined
+  // parse log for percent
+  if (!progress.percent) {
+    const percentMatch = data.match(/Progress: (\d+\.\d+) /m)
+
+    progress.percent = !Number.isNaN(Number(percentMatch?.at(1)))
+      ? Number(percentMatch?.at(1))
+      : undefined
+  }
 
   // parse log for eta
-  const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
-  tmpProgress[appName].eta =
-    etaMatch && etaMatch?.length >= 2 ? etaMatch[1] : ''
+  if (progress.eta === '') {
+    const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
+    progress.eta = etaMatch && etaMatch?.length >= 2 ? etaMatch[1] : ''
+  }
 
   // parse log for game download progress
-  const bytesMatch = data.match(/Downloaded: (\S+) MiB/m)
-  tmpProgress[appName].bytes =
-    bytesMatch && bytesMatch?.length >= 2 ? `${bytesMatch[1]}MB` : ''
+  if (progress.bytes === '') {
+    const bytesMatch = data.match(/Downloaded: (\S+) MiB/m)
+    progress.bytes =
+      bytesMatch && bytesMatch?.length >= 2 ? `${bytesMatch[1]}MB` : ''
+  }
 
   // parse log for download speed
-  const downSpeedMBytes = data.match(/Download\t- (\S+.) MiB/m)
-  tmpProgress[appName].downSpeed = !Number.isNaN(Number(downSpeedMBytes?.at(1)))
-    ? Number(downSpeedMBytes?.at(1))
-    : undefined
+  if (!progress.downSpeed) {
+    const downSpeedMBytes = data.match(/Download\t- (\S+.) MiB/m)
+    progress.downSpeed = !Number.isNaN(Number(downSpeedMBytes?.at(1)))
+      ? Number(downSpeedMBytes?.at(1))
+      : undefined
+  }
 
   // parse disk write speed
-  const diskSpeedMBytes = data.match(/Disk\t- (\S+.) MiB/m)
-  tmpProgress[appName].diskSpeed = !Number.isNaN(Number(diskSpeedMBytes?.at(1)))
-    ? Number(diskSpeedMBytes?.at(1))
-    : undefined
+  if (!progress.diskSpeed) {
+    const diskSpeedMBytes = data.match(/Disk\t- (\S+.) MiB/m)
+    progress.diskSpeed = !Number.isNaN(Number(diskSpeedMBytes?.at(1)))
+      ? Number(diskSpeedMBytes?.at(1))
+      : undefined
+  }
 
   // only send to frontend if all values are updated
   if (
-    Object.values(tmpProgress[appName]).every(
+    Object.values(progress).every(
       (value) => !(value === undefined || value === '')
     )
   ) {
     logInfo(
       [
         `Progress for ${getGameInfo(appName).title}:`,
-        `${tmpProgress[appName].percent}%/${tmpProgress[appName].bytes}/${tmpProgress[appName].eta}`.trim(),
-        `Down: ${tmpProgress[appName].downSpeed}MB/s / Disk: ${tmpProgress[appName].diskSpeed}MB/s`
+        `${progress.percent}%/${progress.bytes}/${progress.eta}`.trim(),
+        `Down: ${progress.downSpeed}MB/s / Disk: ${progress.diskSpeed}MB/s`
       ],
       LogPrefix.Gog
     )
@@ -215,11 +228,11 @@ export function onInstallOrUpdateOutput(
       appName: appName,
       runner: 'gog',
       status: action,
-      progress: tmpProgress[appName]
+      progress: progress
     })
 
     // reset
-    tmpProgress[appName] = defaultTmpProgress
+    tmpProgress[appName] = defaultTmpProgress()
   }
 }
 
