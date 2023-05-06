@@ -346,6 +346,18 @@ body.nord-light {
   .heroicVersion:hover {
     color: var(--navbar-active);
   }
+  .contextMenu > .MuiPaper-root {
+    &,
+    & > .MuiMenu-list {
+      background-color: var(--input-background);
+      .MuiMenuItem-root:hover {
+        background-color: var(--navbar-accent);
+      }
+    }
+  }
+  .progressDialog.log-box {
+    background-color: var(#dde1e7);
+  }
 }
 
 body.nord-light .alternative > svg {
