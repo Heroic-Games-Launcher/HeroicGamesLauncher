@@ -104,7 +104,7 @@
   font-family: var(--primary-font-family);
 }
 
-.SIDLoginModal .message > .material-icons {
+.material-icons.refreshing {
   color: var(--text-hover);
   animation: 2s refreshing;
   animation-iteration-count: infinite;

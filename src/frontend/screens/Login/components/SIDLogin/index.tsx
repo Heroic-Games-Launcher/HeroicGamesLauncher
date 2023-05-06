@@ -19,13 +19,9 @@ export default function SIDLogin({ backdropClick }: Props) {
   const { epic } = useContext(ContextProvider)
   const { t } = useTranslation('login')
   const [input, setInput] = useState('')
-  const [status, setStatus] = useState({
-    loading: false,
-    message: ''
-  })
-  const [linkCopied, setLinkCopied] = useState(false)
+  const [loading, setLoading] = useState(false)
 
-  const { loading, message } = status
+  const [linkCopied, setLinkCopied] = useState(false)
 
   const handleCopyLink = () => {
     window.api.clipboardWriteText(epicLoginUrl)
@@ -33,21 +29,18 @@ export default function SIDLogin({ backdropClick }: Props) {
   }
 
   const handleLogin = async (sid: string) => {
+    window.api.logInfo('Called Epic Login')
+    setLoading(true)
     await epic.login(sid).then(async (res) => {
-      setStatus({
-        loading: true,
-        message: t('status.loading', 'Loading Game list, please wait')
-      })
-      window.api.logInfo('Called Login')
       console.log(res)
       if (res === 'done') {
         await window.api.getUserInfo()
-        setStatus({ loading: false, message: '' })
+        setLoading(false)
         backdropClick()
       } else {
-        setStatus({ loading: true, message: t('status.error', 'Error') })
+        setLoading(false)
         setTimeout(() => {
-          setStatus({ ...status, loading: false })
+          setLoading(false)
         }, 2500)
       }
     })
@@ -127,7 +120,6 @@ export default function SIDLogin({ backdropClick }: Props) {
         />
         {loading && (
           <p className="message">
-            {message}
             <Autorenew className="material-icons" />{' '}
           </p>
         )}
@@ -136,7 +128,9 @@ export default function SIDLogin({ backdropClick }: Props) {
           className="button is-primary"
           disabled={loading || input.length < 30}
         >
-          {t('button.login', 'Login')}
+          {loading
+            ? t('button.loading', 'Loading')
+            : t('button.login', 'Login')}
         </button>
       </div>
     </div>
