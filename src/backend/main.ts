@@ -19,8 +19,7 @@ import {
   powerSaveBlocker,
   protocol,
   screen,
-  clipboard,
-  globalShortcut
+  clipboard
 } from 'electron'
 import 'backend/updater'
 import { autoUpdater } from 'electron-updater'
@@ -397,36 +396,6 @@ if (!gotTheLock) {
     downloadAntiCheatData()
 
     initTrayIcon(mainWindow)
-
-    // hotkey to reload the app
-    globalShortcut.register('CommandOrControl+R', () => {
-      mainWindow.reload()
-    })
-
-    // hotkey to quit the app
-    globalShortcut.register('CommandOrControl+Q', () => {
-      handleExit()
-    })
-
-    // hotkey to open the dev tools
-    globalShortcut.register('CommandOrControl+Shift+I', () => {
-      mainWindow.webContents.openDevTools()
-    })
-
-    // hotkey to open the settings on frontend
-    globalShortcut.register('CommandOrControl+K', () => {
-      sendFrontendMessage('openScreen', '/settings/app/default/general')
-    })
-
-    // hotkey to open the library screen on frontend
-    globalShortcut.register('CommandOrControl+L', () => {
-      sendFrontendMessage('openScreen', '/library')
-    })
-
-    // hotkey to open the downloads screen on frontend
-    globalShortcut.register('CommandOrControl+J', () => {
-      sendFrontendMessage('openScreen', '/download-manager')
-    })
 
     return
   })
@@ -1641,6 +1610,36 @@ ipcMain.handle('isNative', (e, { appName, runner }) => {
 
 ipcMain.handle('pathExists', async (e, path: string) => {
   return existsSync(path)
+})
+
+ipcMain.on('processShortcut', async (e, combination: string) => {
+  const mainWindow = getMainWindow()
+
+  switch (combination) {
+    // hotkey to reload the app
+    case 'ctrl+r':
+      mainWindow?.reload()
+      break
+    // hotkey to quit the app
+    case 'ctrl+q':
+      handleExit()
+      break
+    // hotkey to open the settings on frontend
+    case 'ctrl+k':
+      sendFrontendMessage('openScreen', '/settings/app/default/general')
+      break
+    // hotkey to open the downloads screen on frontend
+    case 'ctrl+j':
+      sendFrontendMessage('openScreen', '/download-manager')
+      break
+    // hotkey to open the library screen on frontend
+    case 'ctrl+l':
+      sendFrontendMessage('openScreen', '/library')
+      break
+    case 'ctrl+shift+i':
+      mainWindow?.webContents?.openDevTools()
+      break
+  }
 })
 
 /*

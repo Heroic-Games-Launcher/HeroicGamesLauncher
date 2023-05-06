@@ -88,6 +88,17 @@ export const clipboardWriteText = async (text: string) =>
 export const pathExists = async (path: string) =>
   ipcRenderer.invoke('pathExists', path)
 
+export const processShortcut = async (combination: string) =>
+  ipcRenderer.send('processShortcut', combination)
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const handleGoToScreen = (callback: any) => {
+  ipcRenderer.on('openScreen', callback)
+  return () => {
+    ipcRenderer.removeListener('openScreen', callback)
+  }
+}
+
 export const handleShowDialog = (
   onMessage: (
     e: Electron.IpcRendererEvent,
@@ -155,11 +166,3 @@ export const getWikiGameInfo = async (
   appName: string,
   runner: Runner
 ) => ipcRenderer.invoke('getWikiGameInfo', title, appName, runner)
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const handleGoToScreen = (callback: any) => {
-  ipcRenderer.on('openScreen', callback)
-  return () => {
-    ipcRenderer.removeListener('openScreen', callback)
-  }
-}
