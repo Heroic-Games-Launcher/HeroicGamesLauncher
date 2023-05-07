@@ -197,7 +197,7 @@ export default function WebView() {
         partition="persist:epicstore"
         src={startUrl}
         allowpopups={trueAsStr}
-        useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/200.0"
+        useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/111.0"
         {...(preloadPath ? { preload: preloadPath } : {})}
       />
       {showLoginWarningFor && (
