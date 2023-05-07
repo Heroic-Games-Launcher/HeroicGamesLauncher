@@ -147,9 +147,9 @@ export default function SideloadDialog({
         executable: selectedExe,
         platform: gameInfo.install?.platform ?? platformToInstall
       },
-      art_cover: imageUrl,
+      art_cover: imageUrl ? imageUrl : fallbackImage,
       is_installed: true,
-      art_square: imageUrl,
+      art_square: imageUrl ? imageUrl : fallbackImage,
       canRunOffline: true
     })
     const gameSettings = await getGameSettings(app_name, 'sideload')
