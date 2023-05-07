@@ -11,6 +11,7 @@ import {
   deleteAbortController
 } from 'backend/utils/aborthandler/aborthandler'
 import { gogdlAuthConfig } from 'backend/constants'
+import { clearCache } from 'backend/utils'
 
 export class GOGUser {
   static async login(
@@ -129,8 +130,8 @@ export class GOGUser {
   }
 
   public static logout() {
+    clearCache('gog')
     configStore.clear()
-    libraryStore.clear()
     if (existsSync(gogdlAuthConfig)) {
       unlinkSync(gogdlAuthConfig)
     }

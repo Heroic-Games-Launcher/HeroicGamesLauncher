@@ -78,7 +78,7 @@ export class LegendaryUser {
     await ses.clearAuthCache()
     await ses.clearHostResolverCache()
     configStore.delete('userInfo')
-    clearCache()
+    clearCache('legendary')
   }
 
   public static isLoggedIn() {
