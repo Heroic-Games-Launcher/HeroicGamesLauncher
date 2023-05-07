@@ -147,9 +147,9 @@ export default function SideloadDialog({
         executable: selectedExe,
         platform: gameInfo.install?.platform ?? platformToInstall
       },
-      art_cover: imageUrl ? imageUrl : fallbackImage,
+      art_cover: imageUrl ? imageUrl : 'fallback',
       is_installed: true,
-      art_square: imageUrl ? imageUrl : fallbackImage,
+      art_square: imageUrl ? imageUrl : 'fallback',
       canRunOffline: true
     })
     const gameSettings = await getGameSettings(app_name, 'sideload')
@@ -247,7 +247,9 @@ export default function SideloadDialog({
           <div className="imageIcons">
             <CachedImage
               className={classNames('appImage', { blackWhiteImage: searching })}
-              src={imageUrl ? imageUrl : fallbackImage}
+              src={
+                imageUrl || imageUrl !== 'fallback' ? imageUrl : fallbackImage
+              }
             />
             <span className="titleIcon">
               {title}
@@ -278,7 +280,7 @@ export default function SideloadDialog({
               )}
               onChange={(e) => setImageUrl(e.target.value)}
               htmlId="sideload-image"
-              value={imageUrl}
+              value={imageUrl !== 'fallback' ? imageUrl : ''}
             />
             {!editMode && children}
             <PathSelectionBox
