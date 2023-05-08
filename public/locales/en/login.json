@@ -2,7 +2,7 @@
     "button": {
         "copied": "Copied!",
         "copy": "Copy",
-        "error": "Error",
+        "error": "'Error, try a different Code'",
         "loading": "Loading",
         "login": "Log in",
         "open": "Open Link"

@@ -60,7 +60,7 @@ export default function SIDLogin({ backdropClick }: Props) {
     if (loading) {
       return t('button.loading', 'Loading')
     } else if (error) {
-      return t('button.error', 'Error')
+      return t('button.error', 'Error, try a different Code')
     } else {
       return t('button.login', 'Login')
     }
