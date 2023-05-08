@@ -3,7 +3,7 @@ import fallbackImage from 'frontend/assets/heroic_card.jpg'
 
 export function getImageFormatting(cover: string, runner: Runner) {
   const imageBase = cover
-  if (imageBase === 'fallback') {
+  if (imageBase === 'fallback' || !cover) {
     return fallbackImage
   }
   if (runner === 'legendary') {
