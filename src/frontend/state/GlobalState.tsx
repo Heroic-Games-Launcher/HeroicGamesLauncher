@@ -420,7 +420,9 @@ class GlobalState extends PureComponent<Props> {
   ): Promise<void> => {
     console.log('refreshing')
 
-    let updates = this.state.gameUpdates
+    const { epic, gog, gameUpdates } = this.state
+
+    let updates = gameUpdates
     if (checkUpdates) {
       try {
         updates = await window.api.checkGameUpdates()
@@ -429,18 +431,16 @@ class GlobalState extends PureComponent<Props> {
       }
     }
 
-    const { epic, gog } = this.state
-
     const currentLibraryLength = epic.library?.length
-    let epicLibrary = libraryStore.get('library', [])
 
-    let gogLibrary = this.loadGOGLibrary()
+    let epicLibrary = libraryStore.get('library', [])
     if (epic.username && (!epicLibrary.length || !epic.library.length)) {
       window.api.logInfo('No cache found, getting data from legendary...')
       const { library: legendaryLibrary } = await getLegendaryConfig()
       epicLibrary = legendaryLibrary
     }
 
+    let gogLibrary = this.loadGOGLibrary()
     if (gog.username && (!gogLibrary.length || !gog.library.length)) {
       window.api.logInfo('No cache found, getting data from gog...')
       await window.api.refreshLibrary('gog')
