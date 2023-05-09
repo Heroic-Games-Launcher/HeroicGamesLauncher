@@ -1,4 +1,4 @@
-import { BrowserView, BrowserWindow } from 'electron';
+import { BrowserView, BrowserWindow } from 'electron'
 import { IBrowserViewWrapper } from 'common/types/browserview'
 
 class BrowserViewWrapper extends IBrowserViewWrapper {
@@ -6,43 +6,43 @@ class BrowserViewWrapper extends IBrowserViewWrapper {
   initialURL: string
 
   constructor({ initialURL }: { initialURL: string }) {
-    super();
+    super()
     this.view = new BrowserView()
     this.initialURL = initialURL
   }
-  
-  get isLoading () {
-    return this.view.webContents.isLoading();
+
+  get isLoading() {
+    return this.view.webContents.isLoading()
   }
 
-  get URL () {
+  get URL() {
     return this.view.webContents.getURL()
   }
-  
-  set URL (newURL: string) {
+
+  set URL(newURL: string) {
     this.view.webContents.loadURL(newURL)
   }
-  
+
   get bounds() {
     return this.view.getBounds()
   }
 
   set bounds(rectangle) {
-    this.view.setBounds(rectangle);
+    this.view.setBounds(rectangle)
   }
 
   get canGoBack() {
-    return this.view.webContents.canGoBack();
+    return this.view.webContents.canGoBack()
   }
 
   get canGoForward() {
-    return this.view.webContents.canGoForward();
+    return this.view.webContents.canGoForward()
   }
-  
+
   reload() {
     this.view.webContents.reload()
   }
-  
+
   goForward() {
     this.view.webContents.goForward()
   }
@@ -52,9 +52,17 @@ class BrowserViewWrapper extends IBrowserViewWrapper {
 }
 
 // Create and remove webviews on demand
-export const viewListService: Map<string, BrowserViewWrapper> = new Map();
+export const viewListService: Map<string, BrowserViewWrapper> = new Map()
 
-export function safelySetMainBrowserView({ identifier, browserWindow, initialURL } : { identifier: string, browserWindow: BrowserWindow, initialURL: string}): void {
+export function safelySetMainBrowserView({
+  identifier,
+  browserWindow,
+  initialURL
+}: {
+  identifier: string
+  browserWindow: BrowserWindow
+  initialURL: string
+}): void {
   // FIXME: repeating viewListService[identifier] too much,
   // however javascript doesn't have pointers
   if (!viewListService[identifier]) {
