@@ -1,6 +1,14 @@
 import { IBrowserViewWrapper } from 'common/types/browserview'
 import { ipcRenderer } from 'electron/renderer'
 
+const browserviewExists = async (identifier: string): Promise<boolean> =>
+  ipcRenderer.invoke('browserview.exists', identifier)
+
+const browserviewSet = async (
+  identifier: string,
+  { initialURL }: { initialURL: string }
+) => ipcRenderer.send('browserview.set', identifier, { initialURL })
+
 // A wrapper for interacting with the BrowserView remotely
 
 class RemoteBrowserViewWrapper extends IBrowserViewWrapper {
@@ -34,11 +42,19 @@ class RemoteBrowserViewWrapper extends IBrowserViewWrapper {
 
   private readonly identifier: string
 
-  constructor(identifier: string) {
+  constructor(identifier: string, { initialURL }: { initialURL: string }) {
     super()
     this.identifier = identifier
+    browserviewExists(identifier).then((exists) => {
+      if (!exists) browserviewSet(identifier, { initialURL })
+    })
   }
 }
+
+export const browserViewFromIdentifier = (
+  identifier: string,
+  { initialURL }: { initialURL: string }
+) => new RemoteBrowserViewWrapper(identifier, { initialURL })
 
 export let currentBrowserView: IBrowserViewWrapper | undefined = undefined
 
