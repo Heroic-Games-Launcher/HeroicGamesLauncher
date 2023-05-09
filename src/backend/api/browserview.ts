@@ -57,6 +57,9 @@ ipcRenderer.on(
   }
 )
 
-export const setMainBrowserView = (identifier: string) => {
-  ipcRenderer.send('browserview.set_main', identifier)
+export const setMainBrowserView = (
+  identifier: string,
+  { initialURL }: { initialURL: string }
+) => {
+  ipcRenderer.send('browserview.set_main', identifier, { initialURL })
 }
