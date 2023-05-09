@@ -1,4 +1,4 @@
-import { BrowserView, BrowserWindow, Rectangle } from 'electron';
+import { BrowserView, BrowserWindow } from 'electron';
 import { IBrowserViewWrapper } from 'common/types/browserview'
 
 class BrowserViewWrapper extends IBrowserViewWrapper {
@@ -52,7 +52,7 @@ class BrowserViewWrapper extends IBrowserViewWrapper {
 }
 
 // Create and remove webviews on demand
-export var viewListService: Map<string, BrowserViewWrapper> = new Map();
+export const viewListService: Map<string, BrowserViewWrapper> = new Map();
 
 export function safelySetMainBrowserView({ identifier, browserWindow, initialURL } : { identifier: string, browserWindow: BrowserWindow, initialURL: string}): void {
   // FIXME: repeating viewListService[identifier] too much,
