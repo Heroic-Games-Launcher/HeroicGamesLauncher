@@ -1,6 +1,6 @@
 import { Rectangle } from 'electron/common'
 
-export abstract class IBrowserViewWrapper {
+export abstract class IBrowserView {
   abstract readonly initialURL: string
   abstract readonly canGoBack: boolean
   abstract readonly canGoForward: boolean

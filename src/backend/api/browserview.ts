@@ -1,4 +1,4 @@
-import { IBrowserViewWrapper } from 'common/types/browserview'
+import { IBrowserView } from 'common/types/browserview'
 import { ipcRenderer } from 'electron/renderer'
 
 const browserviewExists = async (identifier: string): Promise<boolean> =>
@@ -11,7 +11,7 @@ const browserviewSet = async (
 
 // A wrapper for interacting with the BrowserView remotely
 
-class RemoteBrowserViewWrapper extends IBrowserViewWrapper {
+class RemoteBrowserView extends IBrowserView {
   get initialURL() {
     return ipcRenderer.sendSync('browserview.initialURL', this.identifier)
   }
@@ -54,9 +54,9 @@ class RemoteBrowserViewWrapper extends IBrowserViewWrapper {
 export const browserViewFromIdentifier = (
   identifier: string,
   { initialURL }: { initialURL: string }
-) => new RemoteBrowserViewWrapper(identifier, { initialURL })
+) => new RemoteBrowserView(identifier, { initialURL })
 
-export let currentBrowserView: IBrowserViewWrapper | undefined = undefined
+export let currentBrowserView: IBrowserView | undefined = undefined
 
 // Notify preload to change "currentBrowserView" when
 // main browser view changes for main window
@@ -69,7 +69,7 @@ ipcRenderer.on(
       currentBrowserView = undefined
       return
     }
-    currentBrowserView = new RemoteBrowserViewWrapper(identifier)
+    currentBrowserView = new RemoteBrowserView(identifier)
   }
 )
 

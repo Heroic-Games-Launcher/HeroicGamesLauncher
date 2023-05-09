@@ -1,7 +1,7 @@
 import { BrowserView, BrowserWindow } from 'electron'
-import { IBrowserViewWrapper } from 'common/types/browserview'
+import { IBrowserView } from 'common/types/browserview'
 
-class BrowserViewWrapper extends IBrowserViewWrapper {
+class NodeBrowserView extends IBrowserView {
   private view: BrowserView
   initialURL: string
 
@@ -52,7 +52,7 @@ class BrowserViewWrapper extends IBrowserViewWrapper {
 }
 
 // Create and remove webviews on demand
-export const viewListService: Map<string, BrowserViewWrapper> = new Map()
+export const viewListService: Map<string, NodeBrowserView> = new Map()
 
 export function setMainBrowserView({
   identifier,
@@ -66,7 +66,7 @@ export function setMainBrowserView({
   // FIXME: repeating viewListService[identifier] too much,
   // however javascript doesn't have pointers
   if (!viewListService[identifier]) {
-    viewListService[identifier] = new BrowserViewWrapper({ initialURL })
+    viewListService[identifier] = new NodeBrowserView({ initialURL })
   }
   browserWindow.setBrowserView(viewListService[identifier])
 }
