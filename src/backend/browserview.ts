@@ -54,7 +54,7 @@ class BrowserViewWrapper extends IBrowserViewWrapper {
 // Create and remove webviews on demand
 export const viewListService: Map<string, BrowserViewWrapper> = new Map()
 
-export function safelySetMainBrowserView({
+export function setMainBrowserView({
   identifier,
   browserWindow,
   initialURL
