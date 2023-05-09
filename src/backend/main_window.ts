@@ -58,10 +58,6 @@ export const createMainWindow = () => {
     show: false,
 
     webPreferences: {
-      webviewTag: true,
-      contextIsolation: true,
-      nodeIntegration: true,
-      // sandbox: false,
       preload: path.join(__dirname, 'preload.js')
     }
   })
