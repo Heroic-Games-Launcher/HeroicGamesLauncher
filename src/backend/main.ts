@@ -126,7 +126,7 @@ import si from 'systeminformation'
 import { initTrayIcon } from './tray_icon/tray_icon'
 import {
   createMainWindow,
-  getMainWindow,
+  mainWindow,
   sendFrontendMessage
 } from './main_window'
 
@@ -251,7 +251,6 @@ if (!gotTheLock) {
 } else {
   app.on('second-instance', (event, argv) => {
     // Someone tried to run a second instance, we should focus our window.
-    const mainWindow = getMainWindow()
     mainWindow?.show()
 
     handleProtocol(argv)
@@ -509,7 +508,6 @@ app.on('window-all-closed', () => {
 
 app.on('open-url', (event, url) => {
   event.preventDefault()
-  const mainWindow = getMainWindow()
 
   if (mainWindow) {
     handleProtocol([url])
@@ -937,7 +935,6 @@ ipcMain.handle(
       status: 'launching'
     })
 
-    const mainWindow = getMainWindow()
     const showAfterClose = mainWindow?.isVisible()
     if (minimizeOnLaunch) {
       mainWindow?.hide()
@@ -1078,7 +1075,6 @@ ipcMain.handle(
 )
 
 ipcMain.handle('openDialog', async (e, args) => {
-  const mainWindow = getMainWindow()
   if (!mainWindow) {
     return false
   }
@@ -1435,9 +1431,6 @@ ipcMain.handle(
 
 // Simulate keyboard and mouse actions as if the real input device is used
 ipcMain.handle('gamepadAction', async (event, args) => {
-  // we can only receive gamepad events if the main window exists
-  const mainWindow = getMainWindow()!
-
   const { action, metadata } = args
   const inputEvents: GamepadInputEvent[] = []
 
@@ -1613,8 +1606,6 @@ ipcMain.handle('pathExists', async (e, path: string) => {
 })
 
 ipcMain.on('processShortcut', async (e, combination: string) => {
-  const mainWindow = getMainWindow()
-
   switch (combination) {
     // hotkey to reload the app
     case 'ctrl+r':

@@ -55,7 +55,7 @@ import {
 import * as fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
-import { getMainWindow, sendFrontendMessage } from './main_window'
+import { mainWindow, sendFrontendMessage } from './main_window'
 import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
 import { validWine, runWineCommand } from './launcher'
@@ -247,7 +247,6 @@ const showAboutWindow = () => {
 
 async function handleExit() {
   const isLocked = existsSync(join(gamesConfigPath, 'lock'))
-  const mainWindow = getMainWindow()
 
   if (isLocked && mainWindow) {
     const { response } = await showMessageBox(mainWindow, {

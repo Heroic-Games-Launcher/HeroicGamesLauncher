@@ -3,7 +3,7 @@ import { logError, logInfo, LogPrefix } from './logger/logger'
 import i18next from 'i18next'
 import { getInfo } from './utils'
 import { GameInfo, Runner } from 'common/types'
-import { getMainWindow, sendFrontendMessage } from './main_window'
+import { mainWindow, sendFrontendMessage } from './main_window'
 import { icon } from './constants'
 
 type Command = 'ping' | 'launch'
@@ -20,8 +20,6 @@ const RUNNERS = ['legendary', 'gog', 'sideload']
  * // => 'Received launch! Runner: gog, Arg: 123'
  **/
 export async function handleProtocol(args: string[]) {
-  const mainWindow = getMainWindow()
-
   const url = getUrl(args)
   if (!url) {
     return

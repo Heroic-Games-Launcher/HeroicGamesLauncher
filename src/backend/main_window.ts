@@ -2,11 +2,7 @@ import { BrowserWindow, screen } from 'electron'
 import path from 'path'
 import { configStore } from './constants'
 
-let mainWindow: BrowserWindow | null = null
-
-export const getMainWindow = () => {
-  return mainWindow
-}
+export let mainWindow: BrowserWindow | null = null
 
 // send a message to the main window's webContents if available
 // returns `false` if no mainWindow or no webContents
@@ -59,12 +55,7 @@ export const createMainWindow = () => {
 
     webPreferences: {
       webviewTag: true,
-      contextIsolation: true,
-      nodeIntegration: true,
-      // sandbox: false,
       preload: path.join(__dirname, 'preload.js')
     }
   })
-
-  return mainWindow
 }
