@@ -33,17 +33,15 @@ function showDialogBoxModalAuto(props: {
     } catch (error) {
       logWarning(['showDialogBoxModalAuto:', error], LogPrefix.Backend)
 
-      const window = getMainWindow()
-
       switch (props.type) {
         case 'ERROR':
           showErrorBox(props.title, props.message)
           break
         default:
-          if (!window) {
+          if (!mainWindow) {
             break
           }
-          showMessageBox(window, {
+          showMessageBox(mainWindow, {
             title: props.title,
             message: props.message,
             buttons: props.buttons?.map((button) => button.text) || []
@@ -61,7 +59,6 @@ type NotifyType = {
 
 function notify({ body, title }: NotifyType) {
   if (Notification.isSupported() && !isSteamDeckGameMode) {
-    const mainWindow = getMainWindow()
     const notify = new Notification({
       body,
       title
