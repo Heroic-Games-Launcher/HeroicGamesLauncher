@@ -1,5 +1,6 @@
-import { BrowserView, BrowserWindow } from 'electron'
+import { BrowserView, BrowserWindow, ipcMain } from 'electron/main'
 import { IBrowserView } from 'common/types/browserview'
+import { getMainWindow } from 'backend/main_window'
 
 class NodeBrowserView extends IBrowserView {
   private view: BrowserView
@@ -70,3 +71,48 @@ export function setMainBrowserView({
   }
   browserWindow.setBrowserView(viewListService[identifier])
 }
+
+// IPC: set main browser view in main window
+ipcMain.on('browserview.set-main', (_, identifier, { initialURL } : { initialURL: string }) => setMainBrowserView(identifier, getMainWindow(), initialURL))
+
+// IPC: does browserview exist in the list service?
+ipcMain.handle('browserview.exists', (_, identifier) => !viewListService[identifier])
+// IPC: set (or remove, undefined) a browserview in the list. Must be a IBrowserView
+ipcMain.on('browserview.set', (_, identifier, { initialURL } : { initialURL: string }) => { viewListService[identifier] = new NodeBrowserView({ initialURL }) })
+
+ipcMain.on('browserview.initialURL', (event, identifier) => {
+    event.returnValue = viewListService[identifier].initialURL
+})
+
+ipcMain.on('browserview.canGoBack', (event, identifier) => {
+    event.returnValue = viewListService[identifier].canGoBack
+})
+
+ipcMain.on('browserview.canGoForward', (event, identifier) => {
+    event.returnValue = viewListService[identifier].canGoForward
+})
+
+ipcMain.on('browserview.isLoading', (event, identifier) => {
+    event.returnValue = viewListService[identifier].isLoading
+})
+
+ipcMain.on('browserview.URL', (event, identifier) => {
+    event.returnValue = viewListService[identifier].URL
+})
+
+ipcMain.on('browserview.bounds', (event, identifier) => {
+    event.returnValue = viewListService[identifier].bounds
+})
+
+ipcMain.on('browserview.goBack', (event, identifier) => {
+    viewListService[identifier].goBack()
+})
+
+ipcMain.on('browserview.goForward', (event, identifier) => {
+    viewListService[identifier].goForward()
+})
+
+ipcMain.on('browserview.reload', (event, identifier) => {
+    viewListService[identifier].reload()
+})
+

@@ -21,15 +21,6 @@ class RemoteBrowserView extends IBrowserView {
   get canGoForward() {
     return ipcRenderer.sendSync('browserview.canGoForward', this.identifier)
   }
-  goBack(): void {
-    ipcRenderer.send('browserview.goBack', this.identifier)
-  }
-  goForward(): void {
-    ipcRenderer.send('browserview.goForward', this.identifier)
-  }
-  reload(): void {
-    ipcRenderer.send('browserview.reload', this.identifier)
-  }
   get isLoading() {
     return ipcRenderer.sendSync('browserview.isLoading', this.identifier)
   }
@@ -38,6 +29,15 @@ class RemoteBrowserView extends IBrowserView {
   }
   get bounds() {
     return ipcRenderer.sendSync('browserview.bounds', this.identifier)
+  }
+  goBack(): void {
+    ipcRenderer.send('browserview.goBack', this.identifier)
+  }
+  goForward(): void {
+    ipcRenderer.send('browserview.goForward', this.identifier)
+  }
+  reload(): void {
+    ipcRenderer.send('browserview.reload', this.identifier)
   }
 
   private readonly identifier: string
