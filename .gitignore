@@ -34,3 +34,6 @@ vite-plugin-electron.log
 #flatpak
 flatpak-build
 .env
+
+# Ignore IDE-generated files
+*~
