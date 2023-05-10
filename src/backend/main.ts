@@ -145,10 +145,10 @@ app.commandLine?.appendSwitch('remote-debugging-port', '9222')
 const { showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
 
-async function initializeWindow(): Promise<BrowserWindow> {
+async function initializeWindow(): Promise<void> {
   createNecessaryFolders()
   configStore.set('userHome', userHome)
-  const mainWindow = createMainWindow()
+  createMainWindow()
 
   if ((isSteamDeckGameMode || isCLIFullscreen) && !isCLINoGui) {
     logInfo(
@@ -160,7 +160,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
       ],
       LogPrefix.Backend
     )
-    mainWindow.setFullScreen(true)
+    mainWindow!.setFullScreen(true)
   }
 
   setTimeout(() => {
@@ -170,30 +170,30 @@ async function initializeWindow(): Promise<BrowserWindow> {
 
   GlobalConfig.get()
 
-  mainWindow.setIcon(icon)
+  mainWindow!.setIcon(icon)
   app.setAppUserModelId('Heroic')
   app.commandLine.appendSwitch('enable-spatial-navigation')
 
-  mainWindow.on('close', async (e) => {
+  mainWindow!.on('close', async (e) => {
     e.preventDefault()
 
     if (!isCLIFullscreen && !isSteamDeckGameMode) {
       // store windows properties
-      configStore.set('window-props', mainWindow.getBounds())
+      configStore.set('window-props', mainWindow!.getBounds())
     }
 
     const { exitToTray } = GlobalConfig.get().getSettings()
 
     if (exitToTray) {
       logInfo('Exitting to tray instead of quitting', LogPrefix.Backend)
-      return mainWindow.hide()
+      return mainWindow!.hide()
     }
 
     handleExit()
   })
 
   if (isWindows) {
-    detectVCRedist(mainWindow)
+    detectVCRedist(mainWindow!)
   }
 
   if (!app.isPackaged) {
@@ -206,27 +206,27 @@ async function initializeWindow(): Promise<BrowserWindow> {
         })
       })
     }
-    mainWindow.loadURL('http://localhost:5173')
+    mainWindow!.loadURL('http://localhost:5173')
     // Open the DevTools.
-    mainWindow.webContents.openDevTools()
+    mainWindow!.webContents.openDevTools()
   } else {
     Menu.setApplicationMenu(null)
-    mainWindow.loadURL(`file://${path.join(publicDir, '../build/index.html')}`)
+    mainWindow!.loadURL(`file://${path.join(publicDir, '../build/index.html')}`)
     autoUpdater.checkForUpdates()
   }
 
-  mainWindow.webContents.setWindowOpenHandler((details) => {
+  mainWindow!.webContents.setWindowOpenHandler((details) => {
     const pattern = app.isPackaged ? publicDir : 'localhost:5173'
     return { action: !details.url.match(pattern) ? 'allow' : 'deny' }
   })
 
   ipcMain.on('setZoomFactor', async (event, zoomFactor) => {
-    mainWindow.webContents.setZoomFactor(
+    mainWindow!.webContents.setZoomFactor(
       processZoomForScreen(parseFloat(zoomFactor))
     )
   })
 
-  return mainWindow
+  return
 }
 
 // This method will be called when Electron has finished
@@ -357,7 +357,8 @@ if (!gotTheLock) {
     })
 
     GOGUser.migrateCredentialsConfig()
-    const mainWindow = await initializeWindow()
+
+    await initializeWindow()
 
     protocol.registerStringProtocol('heroic', (request, callback) => {
       handleProtocol([request.url])
@@ -376,14 +377,14 @@ if (!gotTheLock) {
     const { startInTray } = GlobalConfig.get().getSettings()
     const headless = isCLINoGui || startInTray
     if (!headless) {
-      ipcMain.once('loadingScreenReady', () => mainWindow.show())
+      ipcMain.once('loadingScreenReady', () => mainWindow!.show())
     }
 
     // set initial zoom level after a moment, if set in sync the value stays as 1
     setTimeout(() => {
       const zoomFactor = configStore.get('zoomPercent', 100) / 100
 
-      mainWindow.webContents.setZoomFactor(processZoomForScreen(zoomFactor))
+      mainWindow!.webContents.setZoomFactor(processZoomForScreen(zoomFactor))
     }, 200)
 
     ipcMain.on('changeLanguage', async (event, language) => {
@@ -394,7 +395,7 @@ if (!gotTheLock) {
 
     downloadAntiCheatData()
 
-    initTrayIcon(mainWindow)
+    initTrayIcon(mainWindow!)
 
     return
   })
@@ -1447,16 +1448,16 @@ ipcMain.handle('gamepadAction', async (event, args) => {
       inputEvents.push({
         type: 'mouseWheel',
         deltaY: 50,
-        x: mainWindow.getBounds().width / 2,
-        y: mainWindow.getBounds().height / 2
+        x: mainWindow!.getBounds().width / 2,
+        y: mainWindow!.getBounds().height / 2
       })
       break
     case 'rightStickDown':
       inputEvents.push({
         type: 'mouseWheel',
         deltaY: -50,
-        x: mainWindow.getBounds().width / 2,
-        y: mainWindow.getBounds().height / 2
+        x: mainWindow!.getBounds().width / 2,
+        y: mainWindow!.getBounds().height / 2
       })
       break
     case 'leftStickUp':
@@ -1506,7 +1507,7 @@ ipcMain.handle('gamepadAction', async (event, args) => {
       })
       break
     case 'back':
-      mainWindow.webContents.goBack()
+      mainWindow?.webContents.goBack()
       break
     case 'esc':
       inputEvents.push({
@@ -1521,7 +1522,9 @@ ipcMain.handle('gamepadAction', async (event, args) => {
   }
 
   if (inputEvents.length) {
-    inputEvents.forEach((event) => mainWindow.webContents.sendInputEvent(event))
+    inputEvents.forEach((event) =>
+      mainWindow?.webContents.sendInputEvent(event)
+    )
   }
 })
 

@@ -18,20 +18,18 @@ import {
   steamDBBaseURL
 } from './constants'
 import { nativeImage } from 'electron'
-import { getMainWindow } from 'backend/main_window'
+import { mainWindow } from 'backend/main_window'
 
 const generateImage = async (
   src: string,
   width: number,
   height: number
 ): Promise<string> => {
-  const window = getMainWindow()
-
-  if (!window) {
+  if (!mainWindow) {
     return Promise.resolve('')
   }
 
-  return window.webContents.executeJavaScript(
+  return mainWindow.webContents.executeJavaScript(
     `window.imageData("${src}", ${width}, ${height})`
   )
 }
