@@ -56,13 +56,13 @@ export default function WebviewControls({
     (event: 'reload' | 'back' | 'forward') => {
       try {
         if (event === 'reload') {
-          return webview!.reload()
+          return webview?.reload()
         }
         if (event === 'back') {
-          return webview!.goBack()
+          return webview?.goBack()
         }
         if (event === 'forward') {
-          return webview!.goForward()
+          return webview?.goForward()
         }
       } catch (error) {
         console.error(error)

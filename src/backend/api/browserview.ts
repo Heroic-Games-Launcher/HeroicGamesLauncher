@@ -15,6 +15,8 @@ class RemoteBrowserView extends IBrowserView {
   get initialURL() {
     return ipcRenderer.sendSync('browserview.initialURL', this.identifier)
   }
+  // TODO: URLchanged event is local, is this a good idea? Has to be called from the backend
+  URLchanged: { () => void }[]
   get canGoBack() {
     return ipcRenderer.sendSync('browserview.canGoBack', this.identifier)
   }

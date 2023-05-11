@@ -38,17 +38,44 @@ function App() {
             <Route path="/" element={<Navigate replace to="/library" />} />
             <Route path="/library" element={<Library />} />
             <Route path="login" element={<Login />} />
-            <Route path="epicstore" element={<WebView />} />
-            <Route path="gogstore" element={<WebView />} />
-            <Route path="wiki" element={<WebView />} />
+            <Route
+              path="epicstore"
+              element={
+                <WebView
+                  identifier="epicstore"
+                  initialURL="https://epicgames.com/"
+                />
+              }
+            />
+            <Route
+              path="gogstore"
+              element={
+                <WebView identifier="gogstore" initialURL="https://gog.com/" />
+              }
+            />
+            <Route
+              path="wiki"
+              element={
+                <WebView
+                  identifier="wiki"
+                  initialURL="https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki"
+                />
+              }
+            />
             <Route path="/gamepage">
               <Route path=":runner">
                 <Route path=":appName" element={<GamePage />} />
               </Route>
             </Route>
-            <Route path="/store-page" element={<WebView />} />
+            <Route
+              path="/store-page"
+              element={<WebView identifier="store-page" />}
+            />
             <Route path="loginweb">
-              <Route path=":runner" element={<WebView />} />
+              <Route
+                path=":runner"
+                element={<WebView identifier="loginweb" />}
+              />
             </Route>
             <Route path="settings">
               <Route path=":runner">

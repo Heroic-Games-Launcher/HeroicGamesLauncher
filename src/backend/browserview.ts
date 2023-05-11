@@ -1,10 +1,11 @@
 import { BrowserView, BrowserWindow, ipcMain } from 'electron/main'
 import { IBrowserView } from 'common/types/browserview'
-import { getMainWindow } from 'backend/main_window'
+import { mainWindow } from 'backend/main_window'
 
 class NodeBrowserView extends IBrowserView {
   private view: BrowserView
   initialURL: string
+  URLchanged: { (): void }[]
 
   constructor({ initialURL }: { initialURL: string }) {
     super()
@@ -73,7 +74,7 @@ export function setMainBrowserView({
 }
 
 // IPC: set main browser view in main window
-ipcMain.on('browserview.set-main', (_, identifier, { initialURL } : { initialURL: string }) => setMainBrowserView(identifier, getMainWindow(), initialURL))
+ipcMain.on('browserview.set-main', (_, identifier, { initialURL } : { initialURL: string }) => setMainBrowserView(identifier, mainWindow, initialURL))
 
 // IPC: does browserview exist in the list service?
 ipcMain.handle('browserview.exists', (_, identifier) => !viewListService[identifier])
