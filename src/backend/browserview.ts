@@ -1,5 +1,9 @@
 import { BrowserView, BrowserWindow, ipcMain } from 'electron/main'
-import { IBrowserView, IBrowserViewIdentifier, IBrowserViewOptions } from 'common/types/browserview'
+import {
+  IBrowserView,
+  IBrowserViewIdentifier,
+  IBrowserViewOptions
+} from 'common/types/browserview'
 import { getMainWindow } from 'backend/main_window'
 
 class NodeBrowserView extends IBrowserView {
@@ -7,13 +11,19 @@ class NodeBrowserView extends IBrowserView {
   initialURL: string
   URLchanged: { (): void }[] = []
 
-  constructor(identifier: IBrowserViewIdentifier, { initialURL }: IBrowserViewOptions) {
+  constructor(
+    identifier: IBrowserViewIdentifier,
+    { initialURL }: IBrowserViewOptions
+  ) {
     super()
     this.view = new BrowserView()
     this.initialURL = initialURL
     this.view.webContents.on('did-navigate-in-page', () => {
-      getMainWindow()!.webContents.send('browserview.URLchanged.run', identifier)
-      for (var i = 0; i++; i > this.URLchanged.length) {
+      getMainWindow()!.webContents.send(
+        'browserview.URLchanged.run',
+        identifier
+      )
+      for (let i = 0; i++; i > this.URLchanged.length) {
         this.URLchanged[i]()
       }
     })
@@ -70,52 +80,67 @@ export function setMainBrowserView(
   // FIXME: repeating viewListService[identifier] too much,
   // however javascript doesn't have pointers
   if (!viewListService[identifier]) {
-    viewListService[identifier] = new NodeBrowserView(identifier, { initialURL })
+    viewListService[identifier] = new NodeBrowserView(identifier, {
+      initialURL
+    })
   }
   browserWindow.setBrowserView(viewListService[identifier])
 }
 
 // IPC: set main browser view in main window
-ipcMain.on('browserview.set-main', (_, identifier, options : IBrowserViewOptions) => setMainBrowserView(identifier, getMainWindow()!, options))
+ipcMain.on(
+  'browserview.set-main',
+  (_, identifier, options: IBrowserViewOptions) =>
+    setMainBrowserView(identifier, getMainWindow()!, options)
+)
 
 // IPC: does browserview exist in the list service?
-ipcMain.handle('browserview.exists', (_, identifier) => !viewListService[identifier])
+ipcMain.handle(
+  'browserview.exists',
+  (_, identifier) => !viewListService[identifier]
+)
 // IPC: set (or remove, undefined) a browserview in the list. Must be a IBrowserView
-ipcMain.on('browserview.set', (_, identifier, { initialURL } : IBrowserViewOptions) => { viewListService[identifier] = new NodeBrowserView(identifier, { initialURL }) })
+ipcMain.on(
+  'browserview.set',
+  (_, identifier, { initialURL }: IBrowserViewOptions) => {
+    viewListService[identifier] = new NodeBrowserView(identifier, {
+      initialURL
+    })
+  }
+)
 
 ipcMain.on('browserview.initialURL', (event, identifier) => {
-    event.returnValue = viewListService[identifier].initialURL
+  event.returnValue = viewListService[identifier].initialURL
 })
 
 ipcMain.on('browserview.canGoBack', (event, identifier) => {
-    event.returnValue = viewListService[identifier].canGoBack
+  event.returnValue = viewListService[identifier].canGoBack
 })
 
 ipcMain.on('browserview.canGoForward', (event, identifier) => {
-    event.returnValue = viewListService[identifier].canGoForward
+  event.returnValue = viewListService[identifier].canGoForward
 })
 
 ipcMain.on('browserview.isLoading', (event, identifier) => {
-    event.returnValue = viewListService[identifier].isLoading
+  event.returnValue = viewListService[identifier].isLoading
 })
 
 ipcMain.on('browserview.URL', (event, identifier) => {
-    event.returnValue = viewListService[identifier].URL
+  event.returnValue = viewListService[identifier].URL
 })
 
 ipcMain.on('browserview.bounds', (event, identifier) => {
-    event.returnValue = viewListService[identifier].bounds
+  event.returnValue = viewListService[identifier].bounds
 })
 
 ipcMain.on('browserview.goBack', (event, identifier) => {
-    viewListService[identifier].goBack()
+  viewListService[identifier].goBack()
 })
 
 ipcMain.on('browserview.goForward', (event, identifier) => {
-    viewListService[identifier].goForward()
+  viewListService[identifier].goForward()
 })
 
 ipcMain.on('browserview.reload', (event, identifier) => {
-    viewListService[identifier].reload()
+  viewListService[identifier].reload()
 })
-

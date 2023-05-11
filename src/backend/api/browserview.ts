@@ -1,8 +1,13 @@
-import { IBrowserView, IBrowserViewIdentifier, IBrowserViewOptions } from 'common/types/browserview'
+import {
+  IBrowserView,
+  IBrowserViewIdentifier,
+  IBrowserViewOptions
+} from 'common/types/browserview'
 import { ipcRenderer } from 'electron/renderer'
 
-const browserviewExists = async (identifier: IBrowserViewIdentifier): Promise<boolean> =>
-  ipcRenderer.invoke('browserview.exists', identifier)
+const browserviewExists = async (
+  identifier: IBrowserViewIdentifier
+): Promise<boolean> => ipcRenderer.invoke('browserview.exists', identifier)
 
 const browserviewSet = async (
   identifier: IBrowserViewIdentifier,
@@ -15,7 +20,7 @@ export class RemoteBrowserView extends IBrowserView {
   get initialURL() {
     return ipcRenderer.sendSync('browserview.initialURL', this.identifier)
   }
-  // TODO: URLchanged event is local, is this a good idea? Has to be called from the backend (see backend/browserview.ts:14)
+  // FIXME: implement: the list has to be a mere shortcut to the backend, both get/set
   URLchanged: { (): void }[] = []
   get canGoBack() {
     return ipcRenderer.sendSync('browserview.canGoBack', this.identifier)
@@ -44,7 +49,10 @@ export class RemoteBrowserView extends IBrowserView {
 
   private readonly identifier: IBrowserViewIdentifier
 
-  constructor(identifier: IBrowserViewIdentifier, options: IBrowserViewOptions) {
+  constructor(
+    identifier: IBrowserViewIdentifier,
+    options: IBrowserViewOptions
+  ) {
     super()
     this.identifier = identifier
     browserviewExists(identifier).then((exists) => {
@@ -53,13 +61,10 @@ export class RemoteBrowserView extends IBrowserView {
   }
 }
 
-
 export let currentBrowserView: IBrowserView | undefined = undefined
 
-ipcRenderer.on('browserview.URLchanged.run', (_, identifier) => {
-  for (var i = 0; i++; i > currentBrowserView!.URLchanged.length) {
-    currentBrowserView!.URLchanged[i]()
-  }
+ipcRenderer.on('browserview.URLchanged.run', (_, identifier, options) => {
+  new RemoteBrowserView(identifier, options)!.forEach((callback) => callback())
 })
 
 // Notify preload to change "currentBrowserView" when
@@ -67,7 +72,11 @@ ipcRenderer.on('browserview.URLchanged.run', (_, identifier) => {
 // identifier could be undefined
 ipcRenderer.on(
   'browserview.main-changed',
-  (_, identifier: IBrowserViewIdentifier | undefined, options: IBrowserViewOptions | undefined) => {
+  (
+    _,
+    identifier: IBrowserViewIdentifier | undefined,
+    options: IBrowserViewOptions | undefined
+  ) => {
     // If there is no identifier, set currentBrowserView to undefined
     if (!identifier || !options) {
       currentBrowserView = undefined
