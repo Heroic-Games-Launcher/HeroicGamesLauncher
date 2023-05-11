@@ -1,4 +1,4 @@
-import { IBrowserView, IBrowserViewIdentifier, IBrowserViewOptions } from 'common/types/browserview'
+import { IBrowserView } from 'common/types/browserview'
 import { ipcRenderer } from 'electron/renderer'
 
 const browserviewExists = async (identifier: IBrowserViewIdentifier): Promise<boolean> =>
@@ -6,8 +6,8 @@ const browserviewExists = async (identifier: IBrowserViewIdentifier): Promise<bo
 
 const browserviewSet = async (
   identifier: IBrowserViewIdentifier,
-  options: IBrowserViewOptions
-) => ipcRenderer.send('browserview.set', identifier, options)
+  { initialURL }: IBrowserViewOptions
+) => ipcRenderer.send('browserview.set', identifier, { initialURL })
 
 // A wrapper for interacting with the BrowserView remotely
 
@@ -16,7 +16,7 @@ export class RemoteBrowserView extends IBrowserView {
     return ipcRenderer.sendSync('browserview.initialURL', this.identifier)
   }
   // TODO: URLchanged event is local, is this a good idea? Has to be called from the backend (see backend/browserview.ts:14)
-  URLchanged: { (): void }[] = []
+  URLchanged: { (): void }[]
   get canGoBack() {
     return ipcRenderer.sendSync('browserview.canGoBack', this.identifier)
   }
@@ -44,11 +44,11 @@ export class RemoteBrowserView extends IBrowserView {
 
   private readonly identifier: IBrowserViewIdentifier
 
-  constructor(identifier: IBrowserViewIdentifier, options: IBrowserViewOptions) {
+  constructor(identifier: IBrowserViewIdentifier, { initialURL }: IBrowserViewOptions) {
     super()
     this.identifier = identifier
     browserviewExists(identifier).then((exists) => {
-      if (!exists) browserviewSet(identifier, options)
+      if (!exists) browserviewSet(identifier, { initialURL })
     })
   }
 }
@@ -57,8 +57,8 @@ export class RemoteBrowserView extends IBrowserView {
 export let currentBrowserView: IBrowserView | undefined = undefined
 
 ipcRenderer.on('browserview.URLchanged.run', (_, identifier) => {
-  for (var i = 0; i++; i > currentBrowserView!.URLchanged.length) {
-    currentBrowserView!.URLchanged[i]()
+  for (const callback in currentBrowserView.URLchanged) {
+    callback()
   }
 })
 
@@ -67,19 +67,19 @@ ipcRenderer.on('browserview.URLchanged.run', (_, identifier) => {
 // identifier could be undefined
 ipcRenderer.on(
   'browserview.main-changed',
-  (_, identifier: IBrowserViewIdentifier | undefined, options: IBrowserViewOptions | undefined) => {
+  (_, identifier: IBrowserViewIdentifier | undefined) => {
     // If there is no identifier, set currentBrowserView to undefined
-    if (!identifier || !options) {
+    if (!identifier) {
       currentBrowserView = undefined
       return
     }
-    currentBrowserView = new RemoteBrowserView(identifier, options)
+    currentBrowserView = new RemoteBrowserView(identifier)
   }
 )
 
 export const setMainBrowserView = (
   identifier: IBrowserViewIdentifier,
-  options: IBrowserViewOptions
+  { initialURL }: IBrowserViewOptions
 ) => {
-  ipcRenderer.send('browserview.set_main', identifier, options)
+  ipcRenderer.send('browserview.set_main', identifier, { initialURL })
 }
