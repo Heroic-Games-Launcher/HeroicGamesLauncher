@@ -69,16 +69,31 @@ function App() {
             </Route>
             <Route
               path="/store-page"
-              element={<WebView identifier="store-page" initialURL="https://www.epicgames.com/store" />}
+              element={
+                <WebView
+                  identifier="store-page"
+                  initialURL="https://www.epicgames.com/store"
+                />
+              }
             />
             <Route path="loginweb">
               <Route
                 path="epic"
-                element={<WebView identifier="loginweb-epic" initialURL="https://legendary.gl/epiclogin"/>}
+                element={
+                  <WebView
+                    identifier="loginweb-epic"
+                    initialURL="https://legendary.gl/epiclogin"
+                  />
+                }
               />
               <Route
                 path="gog"
-                element={<WebView identifier="loginweb-gog" initialURL="https://auth.gog.com/auth?client_id=46899977096215655&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code&layout=galaxy"/>}
+                element={
+                  <WebView
+                    identifier="loginweb-gog"
+                    initialURL="https://auth.gog.com/auth?client_id=46899977096215655&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code&layout=galaxy"
+                  />
+                }
               />
             </Route>
             <Route path="settings">

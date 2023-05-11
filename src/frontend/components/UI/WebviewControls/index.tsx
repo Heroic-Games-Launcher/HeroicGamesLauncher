@@ -31,7 +31,7 @@ export default function WebviewControls({
   webview,
   openInBrowser
 }: WebviewControlsProps) {
-  const [url, setUrl] = React.useState("")
+  const [url, setUrl] = React.useState('')
   const { t } = useTranslation()
   const [canGoBack, setCanGoBack] = useState(false)
   const [canGoForward, setCanGoForward] = useState(false)
