@@ -12,7 +12,7 @@ import { UpdateComponent } from 'frontend/components/UI'
 import WebviewControls from 'frontend/components/UI/WebviewControls'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { Runner } from 'common/types'
-import { IBrowserView } from 'common/types/browserview'
+import { IBrowserView, IBrowserViewIdentifier, IBrowserViewOptions } from 'common/types/browserview'
 import './index.css'
 import LoginWarning from '../Login/components/LoginWarning'
 import api from 'backend/api'
@@ -21,7 +21,7 @@ export default function WebView({
   identifier,
   initialURL
 }: {
-  identifier: string
+  identifier: IBrowserViewIdentifier
   initialURL: string
 }) {
   const { t } = useTranslation()

@@ -13,7 +13,6 @@ import './index.css'
 
 interface WebviewControlsProps {
   webview: IBrowserView | null
-  initURL: string
   openInBrowser: boolean
 }
 
@@ -30,21 +29,20 @@ function removeSelection(event: SyntheticEvent<unknown>) {
 
 export default function WebviewControls({
   webview,
-  initURL,
   openInBrowser
 }: WebviewControlsProps) {
-  const [url, setUrl] = React.useState(initURL)
+  const [url, setUrl] = React.useState("")
   const { t } = useTranslation()
   const [canGoBack, setCanGoBack] = useState(false)
   const [canGoForward, setCanGoForward] = useState(false)
 
   useEffect(() => {
     if (webview) {
-      webview.URLchanged += () => {
+      webview.URLchanged.push(() => {
         setUrl(webview.URL)
         setCanGoBack(webview.canGoBack)
         setCanGoForward(webview.canGoForward)
-      }
+      })
       return () => {
         webview.URLchanged = []
       }
