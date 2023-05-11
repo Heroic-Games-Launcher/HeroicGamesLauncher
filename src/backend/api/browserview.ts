@@ -64,7 +64,9 @@ export class RemoteBrowserView extends IBrowserView {
 export let currentBrowserView: IBrowserView | undefined = undefined
 
 ipcRenderer.on('browserview.URLchanged.run', (_, identifier, options) => {
-  new RemoteBrowserView(identifier, options)!.forEach((callback) => callback())
+  new RemoteBrowserView(identifier, options)!.URLchanged.forEach((callback) =>
+    callback()
+  )
 })
 
 // Notify preload to change "currentBrowserView" when
