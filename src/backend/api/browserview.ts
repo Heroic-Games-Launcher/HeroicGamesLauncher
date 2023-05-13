@@ -3,7 +3,7 @@ import {
   IBrowserViewIdentifier,
   IBrowserViewOptions
 } from 'common/types/browserview'
-import { ipcRenderer } from 'electron/renderer'
+import { ipcRenderer } from 'electron'
 
 const browserviewExists = async (
   identifier: IBrowserViewIdentifier
