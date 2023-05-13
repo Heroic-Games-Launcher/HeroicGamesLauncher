@@ -410,6 +410,7 @@ export async function getInstallInfo(
     return
   }
 
+  // We can't calculate install sizes for Linux-native games, so call gogdl info with "windows"
   const commandParts = [
     'info',
     appName,
@@ -417,7 +418,7 @@ export async function getInstallInfo(
     `"${credentials.access_token}"`,
     `--lang=${lang}`,
     '--os',
-    installPlatform
+    installPlatform === 'linux' ? 'windows' : installPlatform
   ]
 
   const res = await runRunnerCommand(
