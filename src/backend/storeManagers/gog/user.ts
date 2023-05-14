@@ -2,7 +2,7 @@ import axios from 'axios'
 import { writeFileSync, existsSync, unlinkSync } from 'graceful-fs'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import { GOGLoginData } from 'common/types'
-import { configStore, libraryStore } from './electronStores'
+import { configStore } from './electronStores'
 import { isOnline } from '../../online_monitor'
 import { UserData } from 'common/types/gog'
 import { runRunnerCommand } from './library'
@@ -11,6 +11,7 @@ import {
   deleteAbortController
 } from 'backend/utils/aborthandler/aborthandler'
 import { gogdlAuthConfig } from 'backend/constants'
+import { clearCache } from 'backend/utils'
 
 export class GOGUser {
   static async login(
@@ -129,8 +130,8 @@ export class GOGUser {
   }
 
   public static logout() {
+    clearCache('gog')
     configStore.clear()
-    libraryStore.clear()
     if (existsSync(gogdlAuthConfig)) {
       unlinkSync(gogdlAuthConfig)
     }

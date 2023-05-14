@@ -456,18 +456,21 @@ async function openUrlOrFile(url: string): Promise<string | void> {
   return shell.openPath(url)
 }
 
-async function clearCache() {
-  GOGapiInfoCache.clear()
-  GOGlibraryStore.clear()
-  GOGinstallInfoStore.clear()
-  installStore.clear()
-  libraryStore.clear()
-  gameInfoStore.clear()
-
-  const abortID = 'legendary-cleanup'
-  runLegendaryCommand(['cleanup'], createAbortController(abortID)).then(() =>
-    deleteAbortController(abortID)
-  )
+function clearCache(library?: 'gog' | 'legendary') {
+  if (library === 'gog' || !library) {
+    GOGapiInfoCache.clear()
+    GOGlibraryStore.clear()
+    GOGinstallInfoStore.clear()
+  }
+  if (library === 'legendary' || !library) {
+    installStore.clear()
+    libraryStore.clear()
+    gameInfoStore.clear()
+    const abortID = 'legendary-cleanup'
+    runLegendaryCommand(['cleanup'], createAbortController(abortID)).then(() =>
+      deleteAbortController(abortID)
+    )
+  }
 }
 
 function resetHeroic() {

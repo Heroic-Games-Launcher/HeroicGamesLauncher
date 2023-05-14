@@ -651,6 +651,7 @@ ipcMain.handle('getCurrentChangelog', async () => {
 
 ipcMain.on('clearCache', (event, showDialog?: boolean) => {
   clearCache()
+  sendFrontendMessage('refreshLibrary')
 
   if (showDialog) {
     showDialogBoxModalAuto({
