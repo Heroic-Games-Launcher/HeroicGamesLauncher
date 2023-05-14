@@ -420,7 +420,9 @@ class GlobalState extends PureComponent<Props> {
   ): Promise<void> => {
     console.log('refreshing')
 
-    let updates = this.state.gameUpdates
+    const { epic, gog, gameUpdates } = this.state
+
+    let updates = gameUpdates
     if (checkUpdates) {
       try {
         updates = await window.api.checkGameUpdates()
@@ -429,14 +431,20 @@ class GlobalState extends PureComponent<Props> {
       }
     }
 
-    const currentLibraryLength = this.state.epic.library?.length
-    let epicLibrary = libraryStore.get('library', [])
+    const currentLibraryLength = epic.library?.length
 
-    const gogLibrary = this.loadGOGLibrary()
-    if (!epicLibrary.length || !this.state.epic.library.length) {
+    let epicLibrary = libraryStore.get('library', [])
+    if (epic.username && (!epicLibrary.length || !epic.library.length)) {
       window.api.logInfo('No cache found, getting data from legendary...')
       const { library: legendaryLibrary } = await getLegendaryConfig()
       epicLibrary = legendaryLibrary
+    }
+
+    let gogLibrary = this.loadGOGLibrary()
+    if (gog.username && (!gogLibrary.length || !gog.library.length)) {
+      window.api.logInfo('No cache found, getting data from gog...')
+      await window.api.refreshLibrary('gog')
+      gogLibrary = this.loadGOGLibrary()
     }
 
     const updatedSideload = sideloadLibrary.get('games', [])
@@ -444,11 +452,11 @@ class GlobalState extends PureComponent<Props> {
     this.setState({
       epic: {
         library: epicLibrary,
-        username: this.state.epic.username
+        username: epic.username
       },
       gog: {
         library: gogLibrary,
-        username: this.state.gog.username
+        username: gog.username
       },
       gameUpdates: updates,
       refreshing: false,
@@ -473,9 +481,9 @@ class GlobalState extends PureComponent<Props> {
       refreshing: true,
       refreshingInTheBackground: runInBackground
     })
-    window.api.logInfo('Refreshing Library')
+    window.api.logInfo(`Refreshing ${library} Library`)
     try {
-      if (!checkForUpdates) {
+      if (!checkForUpdates || library === 'gog') {
         await window.api.refreshLibrary(library)
       }
 
