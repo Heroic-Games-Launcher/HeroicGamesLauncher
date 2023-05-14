@@ -6,6 +6,7 @@ body {
   --tertiary-button-overlay: var(--status-warning-hover);
   --cancel-button: var(--status-warning);
   --cancel-button-overlay: var(--status-warning-hover);
+  --background-darker-80: var(--eighty-percent-black);
 }
 
 body.midnightMirage {
@@ -21,7 +22,6 @@ body.midnightMirage {
 
   --background: var(--neutral-02);
   --background-darker: var(--neutral-01);
-  --background-darker-80: var(--eighty-percent-black);
   --background-lighter: var(--neutral-03);
   --body-background: var(--background-darker);
   --input-background: var(--background-lighter);
