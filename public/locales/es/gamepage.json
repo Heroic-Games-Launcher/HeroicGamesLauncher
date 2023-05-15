@@ -112,7 +112,7 @@
         "size": "Tamaño",
         "syncsaves": "Sincronizar guardados",
         "version": "Versión",
-        "apple-gaming-wiki": "Calificación de Wiki de juegos de Apple",
+        "apple-gaming-wiki": "Calificación de AppleGamingWiki",
         "clickToOpen": "Haga clic para abrir",
         "game-scores": "Puntuaciones del juego",
         "installedInfo": "Información instalada"
@@ -197,8 +197,8 @@
         "syncingSaves": "Sincronizando guardados",
         "launching": "Ejecutando",
         "ubisoft": "Instalando Ubisoft",
-        "downloading": "Downloading",
-        "extracting": "extrayendo"
+        "downloading": "Descargando",
+        "extracting": "Extrayendo"
     },
     "submenu": {
         "addShortcut": "Añadir acceso directo",
