@@ -3,7 +3,9 @@
         "login": "Autentificare",
         "open": "Deschide link-ul",
         "copy": "Copie",
-        "copied": "Copiat!"
+        "copied": "Copiat!",
+        "error": "Eroare, încercați un alt cod",
+        "loading": "Loading"
     },
     "message": {
         "part1": "In order to log in and install your games, you first need to follow the steps below:",
