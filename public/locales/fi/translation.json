@@ -115,7 +115,7 @@
             }
         },
         "runexe": {
-            "title": "Valitse EXE pyöritettäväksi"
+            "title": "Valitse suoritettava EXE"
         },
         "select": {
             "button": "Valitse",
@@ -616,9 +616,9 @@
         "uncollapse": "Uncollapse sidebar"
     },
     "status": {
-        "installing": "Installing",
+        "installing": "Asennetaan",
         "logging": "Kirjaudutaan sisään...",
-        "processing": "Processing files, please wait"
+        "processing": "Käsitellään tiedostoja, odota hetki"
     },
     "store": "Epic-kauppa",
     "stores": "Kaupat",
