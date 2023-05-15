@@ -3,7 +3,9 @@
         "login": "Logg inn",
         "open": "Åpen lenke",
         "copy": "Kopiere",
-        "copied": "Kopiert!"
+        "copied": "Kopiert!",
+        "loading": "Loading",
+        "error": "Feil, prøv en annen kode"
     },
     "message": {
         "part1": "Følg instruksen for å logge inn og installere spill:",
