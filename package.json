@@ -194,7 +194,7 @@
     "test-watch": "jest --watch --maxWorkers=25%",
     "test:ci": "jest --runInBand --silent",
     "test:e2e-ci": "e2e/entrypoint.sh",
-    "test:e2ePackaged-ci": "export TEST_PACKAGED=true && yarn test:e2e-ci",
+    "test:e2ePackaged-ci": "yarn test:e2e-ci",
     "test:e2e": "USER=\"$(id -u):$(id -g)\" docker compose -f e2e/docker-compose.yml run --rm --build playwright e2e/entrypoint.sh",
     "test:e2ePackaged": "TEST_PACKAGED=true yarn test:e2e",
     "release:linux": "vite build && electron-builder -p always --linux deb AppImage rpm pacman tar.xz snap",

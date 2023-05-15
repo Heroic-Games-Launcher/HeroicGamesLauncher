@@ -5,6 +5,9 @@ on:
     branches: [main, stable]
   workflow_dispatch:
 
+env:
+  TEST_PACKAGED: true
+
 jobs:
   linux:
     runs-on: ubuntu-latest

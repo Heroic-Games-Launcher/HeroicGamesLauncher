@@ -102,5 +102,5 @@ test('test ipcMainInvokeHandler', async () => {
     'getPlatform'
   )) as DiskSpaceData
   console.log('Platform: ', platform)
-  expect(platform).toEqual(platformOS)
+  expect(platform).toEqual(platformOS())
 })
