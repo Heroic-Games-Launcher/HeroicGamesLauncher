@@ -3,7 +3,9 @@
         "login": "Oturum Aç",
         "open": "Linki aç",
         "copy": "Kopyala",
-        "copied": "Kopyalandı!"
+        "copied": "Kopyalandı!",
+        "error": "Hata, farklı bir Kod deneyin",
+        "loading": "Loading"
     },
     "message": {
         "part1": "Oturum açabilmeniz ve oyunlarınızı kurabilmeniz için öncelikle aşağıdaki adımları uygulamanız gerekiyor:",
