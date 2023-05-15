@@ -958,7 +958,7 @@ export async function downloadDefaultWine() {
   // use Wine-GE type if on Linux and Wine-Crossover if on Mac
   const release = availableWine.filter((version) => {
     if (isLinux) {
-      return version.version.includes('Wine-GE')
+      return version.version.includes('Wine-GE-Proton')
     } else if (isMac) {
       return version.version.includes('Wine-Crossover')
     }
