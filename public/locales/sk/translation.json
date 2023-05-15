@@ -666,7 +666,7 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "link": "Wine Manager ",
+            "link": "Wine Manager",
             "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Wine Manager",
             "unzipping": "Unzipping"

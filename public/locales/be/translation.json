@@ -668,7 +668,7 @@
         "manager": {
             "link": "Менеджэр Wine",
             "not-found": "Версіі Wine не знойдзены. Націсніце на значок абнаўлення, каб паўтарыць спробу.",
-            "title": "Wine Manager (Beta)",
+            "title": "Wine Manager(Beta)",
             "unzipping": "Распакоўка"
         },
         "release": "Release Date",
