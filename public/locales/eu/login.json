@@ -3,7 +3,9 @@
         "login": "Hasi saioa",
         "open": "Ireki Esteka",
         "copy": "Kopiatu",
-        "copied": "Kopiatu!"
+        "copied": "Kopiatu!",
+        "error": "Errorea, saiatu beste kode bat",
+        "loading": "Loading"
     },
     "message": {
         "part1": "Saioa hasteko eta jolasak instalatzeko, lehenik eta behin, jarraitu beharreko pausoak:",
