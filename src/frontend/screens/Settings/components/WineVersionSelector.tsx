@@ -65,7 +65,7 @@ export default function WineVersionSelector() {
             <Link to={'/wine-manager'} className="smallInputInfo danger">
               {t(
                 'infobox.wine-path-none-found',
-                'No Wine version was found, download one from the Compatibility Manager'
+                'No Wine version was found, download one from the Wine Manager'
               )}
             </Link>
           )}

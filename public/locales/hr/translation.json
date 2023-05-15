@@ -666,9 +666,9 @@
     "wine": {
         "actions": "Radnje",
         "manager": {
-            "link": "Compatibility Layer ",
+            "link": "Wine Manager ",
             "not-found": "No Wine versions found. Please click the refresh icon to try again.",
-            "title": "Compatibility Layer ",
+            "title": "Wine Manager ",
             "unzipping": "Unzipping"
         },
         "release": "Release Date",

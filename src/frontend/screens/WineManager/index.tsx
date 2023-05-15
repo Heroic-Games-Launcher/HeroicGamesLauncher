@@ -89,7 +89,7 @@ export default React.memo(function WineManager(): JSX.Element | null {
   return (
     <>
       <h4 style={{ paddingTop: 'var(--space-md)' }}>
-        {t('wine.manager.title', 'Compatibility Layer')}
+        {t('wine.manager.title', 'Wine Manager')}
       </h4>
       <div className="wineManager">
         <span className="tabsWrapper">
