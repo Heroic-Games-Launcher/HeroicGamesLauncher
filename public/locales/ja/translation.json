@@ -1,56 +1,56 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Actions Font Family (Default: ",
-        "all_tiles_in_color": "Show all game tiles in color",
-        "content_font_family_no_default": "Content Font Family (Default: ",
-        "fonts": "Fonts",
-        "title": "Accessibility",
+        "actions_font_family_no_default": "アクションに用いるフォント (デフォルト: ",
+        "all_tiles_in_color": "ゲームタイルをカラーで表示",
+        "content_font_family_no_default": "コンテンツに用いるフォント (デフォルト: ",
+        "fonts": "フォント",
+        "title": "アクセシビリティ",
         "zoom": "Zoom"
     },
-    "add_game": "Add Game",
+    "add_game": "ゲームを追加",
     "All": "全て",
     "anticheat": {
-        "anticheats": "Anticheats",
-        "may_not_work": "It may not work due to denied or broken anticheat support.",
-        "reference": "Reference",
-        "source": "Source",
-        "status": "Status",
-        "title": "This game includes anticheat software"
+        "anticheats": "アンチチート",
+        "may_not_work": "アンチチートサポートを拒否または破損すると動作しないかもしれません。",
+        "reference": "リファレンス",
+        "source": "ソース",
+        "status": "状態",
+        "title": "このゲームにはアンチチートソフトウェアが含まれます"
     },
     "box": {
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
-            "title": "Cache Cleared"
+            "message": "Heroicのキャッシュを消去しました。",
+            "title": "キャッシュ消去完了"
         },
-        "choose": "選ぶ",
+        "choose": "選択",
         "choose-egs-prefix": "EGSがインストールされているプレフィックスを選択します",
-        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
-        "choose-legendary-binary": "Select Legendary Binary",
+        "choose-gogdl-binary": "GOGDL バイナリを選択 (要再起動)",
+        "choose-legendary-binary": "Legendaryのバイナリを選択",
         "customWine": "WineまたはProtonバイナリを選択します",
-        "default-install-path": "デフォルトのインストールパスを選択します",
-        "default-steam-path": "Steam path.",
-        "downloadNow": "Download now",
+        "default-install-path": "デフォルトのインストールパスを選択",
+        "default-steam-path": "Steamのパス。",
+        "downloadNow": "今すぐダウンロード",
         "error": {
             "add": {
                 "steam": {
-                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
-                    "title": "Adding Error"
+                    "body": "{{game}} をSteamに追加することに失敗しました 理由:{{newLine}} {{error}}",
+                    "title": "エラーを追加"
                 }
             },
             "credentials": {
                 "message": "クレデンシャルの有効期限が切れています。ログアウトしてから再度ログインしてください。"
             },
             "cx-bottle-not-found": {
-                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
-                "title": "CrossOver bottle not found"
+                "message": "ChrossOverボトル \"{{bottle_name}}\" が存在しないため起動できません!",
+                "title": "CrossOverボトルが見つかりません"
             },
             "diskspace": {
                 "message": "使用可能なディスク容量が不足しています",
                 "title": "ディスク容量がありません"
             },
             "dxvk": {
-                "message": "Error installing DXVK/VKD3D! Check your connection or if you have zstd/libzstd1 installed",
-                "title": "DXVK/VKD3D error"
+                "message": "DXVK/VKD3Dインストールエラー!接続を確認してください!",
+                "title": "DXVK/VKD3D エラー"
             },
             "folder-not-found": {
                 "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
@@ -154,7 +154,7 @@
                 "title": "ワインが見つかりません！"
             }
         },
-        "wineprefix": "Wineプレフィックスフォルダを選択します",
+        "wineprefix": "Wine環境フォルダを選択",
         "yes": "はい",
         "dontShowAgain": "今後表示しない"
     },
@@ -292,7 +292,7 @@
             "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "設定は自動的に保存されます",
-        "version": "Wine Version"
+        "version": "Wine バージョン"
     },
     "infobox": {
         "help": "ヘルプ",
@@ -377,7 +377,7 @@
         },
         "uninstalled": "アンインストールしました",
         "update": {
-            "canceled": "更新がキャンセルされました",
+            "canceled": "アップデートがキャンセルされました",
             "finished": "Update Finished",
             "started": "Update Started",
             "failed": "アップデートに失敗しました",
@@ -385,7 +385,7 @@
         }
     },
     "offline-message": {
-        "hint": "{{newline}}github.com、{{newline}}gog.com、{{newline}}store.epicgames.com との接続を確認しています。",
+        "hint": "{{newline}}github.com、{{newline}}gog.com、{{newline}}store.epicgames.com との接続を確認しています",
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
@@ -458,13 +458,13 @@
         }
     },
     "Recent": "最近のゲーム",
-    "search": "ここにゲーム名を入力してください...",
+    "search": "ゲーム名で検索",
     "setting": {
         "adddesktopshortcuts": "デスクトップショートカットを自動的に追加する",
         "addgamestostartmenu": "ゲームをスタートメニューに自動的に追加する",
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
-        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
+        "alt-legendary-bin": "Legendary代替 バイナリを選択 (再起動が必要)",
         "autodxvk": "プレフィックスでのDXVKの自動インストール/更新",
         "autosync": "保存を自動的に同期する",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
@@ -616,7 +616,7 @@
         "uncollapse": "Uncollapse sidebar"
     },
     "status": {
-        "installing": "Installing",
+        "installing": "インストール",
         "logging": "Logging In...",
         "processing": "Processing files, please wait"
     },
