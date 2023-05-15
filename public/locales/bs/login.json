@@ -3,7 +3,9 @@
         "login": "Prijavite se",
         "copy": "Kopiraj",
         "open": "Otvorite vezu",
-        "copied": "Kopirano!"
+        "copied": "Kopirano!",
+        "error": "Greška, pokušajte s drugim kodom",
+        "loading": "Loading"
     },
     "message": {
         "part1": "Da biste se prijavili i instalirali svoje igre, prvo morate slijediti korake u nastavku:",
