@@ -5,6 +5,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { WineInstallation } from 'common/types'
 import useSetting from 'frontend/hooks/useSetting'
 import { defaultWineVersion } from '..'
+import { Link } from 'react-router-dom'
 
 export default function WineVersionSelector() {
   const { t } = useTranslation()
@@ -17,15 +18,18 @@ export default function WineVersionSelector() {
   )
   const [altWine, setAltWine] = useState<WineInstallation[]>([])
   const [validWine, setValidWine] = useState(true)
+  const [refreshing, setRefreshing] = useState(true)
 
   useEffect(() => {
     const getAltWine = async () => {
+      setRefreshing(true)
       const wineList: WineInstallation[] = await window.api.getAlternativeWine()
       setAltWine(wineList)
       // Avoids not updating wine config when having one wine install only
       if (wineList && wineList.length === 1) {
         setWineVersion(wineList[0])
       }
+      setRefreshing(false)
     }
     getAltWine()
   }, [])
@@ -57,7 +61,15 @@ export default function WineVersionSelector() {
       value={wineVersion.name}
       afterSelect={
         <>
-          {!validWine && (
+          {!refreshing && !altWine.length && (
+            <Link to={'/wine-manager'} className="smallInputInfo danger">
+              {t(
+                'infobox.wine-path-none-found',
+                'No Wine version was found, download one from the Compatibility Manager'
+              )}
+            </Link>
+          )}
+          {!!altWine.length && !validWine && (
             <span className="smallInputInfo danger">
               {t(
                 'infobox.wine-path-invalid',

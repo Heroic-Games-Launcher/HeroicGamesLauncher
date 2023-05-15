@@ -666,9 +666,9 @@
     "wine": {
         "actions": "Action",
         "manager": {
-            "link": "Wine Manageri",
+            "link": "Compatibility Layer i",
             "not-found": "No Wine versions found. Please click the refresh icon to try again.",
-            "title": "Wine Manageri",
+            "title": "Compatibility Layer i",
             "unzipping": "Purkaminen"
         },
         "release": "Release Date",

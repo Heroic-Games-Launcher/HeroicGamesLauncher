@@ -248,10 +248,10 @@ export default function SidebarLinks() {
             <div className="Sidebar__itemIcon">
               <FontAwesomeIcon
                 icon={faWineGlass}
-                title={t('wine.manager.link', 'Wine Manager')}
+                title={t('wine.manager.link', 'Compatibility Layer ')}
               />
             </div>
-            <span>{t('wine.manager.link', 'Wine Manager')}</span>
+            <span>{t('wine.manager.link', 'Compatibility Layer ')}</span>
           </>
         </NavLink>
       )}
