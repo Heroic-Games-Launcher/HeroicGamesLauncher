@@ -1,6 +1,6 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Police d'Écriture pour les Actions (Par Défaut : ",
+        "actions_font_family_no_default": "Police d'écriture pour les actions (par défaut : ",
         "all_tiles_in_color": "Afficher les vignettes de tous les jeux en couleur",
         "content_font_family_no_default": "Police d'écriture pour les contenus (Par défaut : ",
         "fonts": "Polices d'écriture",
@@ -154,7 +154,7 @@
                 "title": "Wine introuvable !"
             }
         },
-        "wineprefix": "Choisissez le Dossier du Préfixe Wine",
+        "wineprefix": "Choisir le dossier des préfixes Wine",
         "yes": "OUI",
         "dontShowAgain": "Ne plus afficher"
     },
@@ -457,7 +457,7 @@
             "resume": "Reprendre le téléchargement"
         }
     },
-    "Recent": "Joués récemment",
+    "Recent": "Lancés récemment",
     "search": "Rechercher un jeu",
     "setting": {
         "adddesktopshortcuts": "Ajouter automatiquement des raccourcis sur le Bureau",
@@ -469,7 +469,7 @@
         "autosync": "Synchroniser automatiquement les sauvegardes",
         "autovkd3d": "Installer et mettre à jour automatiquement VKD3D dans le préfixe",
         "change-target-exe": "Choisir un fichier .exe alternatif à lancer",
-        "checkForUpdatesOnStartup": "Vérifier au démarrage si des mises à jour d'Heroic sont disponibles",
+        "checkForUpdatesOnStartup": "Vérifier au démarrage si une version plus récente d'Heroic est disponible",
         "crossover-version": "Version de Crossover/Wine",
         "custom_themes_path": "Chemin vers les thèmes personnalisés",
         "customWineProton": "Chemins pour les Wine/Proton Custom",

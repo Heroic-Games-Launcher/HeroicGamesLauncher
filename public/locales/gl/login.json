@@ -3,7 +3,9 @@
         "login": "Iniciar sesión",
         "open": "Abrir ligazón",
         "copy": "Copiar",
-        "copied": "Copiado!"
+        "copied": "Copiado!",
+        "error": "Produciuse un erro, proba cun código diferente",
+        "loading": "Loading"
     },
     "message": {
         "part1": "Para que poidas iniciar sesión e instalar os teus xogos, primeiro debes seguir os pasos a continuación:",

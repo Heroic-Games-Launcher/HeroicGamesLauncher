@@ -3,7 +3,9 @@
         "login": "Log ind",
         "open": "Åben link",
         "copy": "Kopi",
-        "copied": "Kopieret!"
+        "copied": "Kopieret!",
+        "error": "Fejl, prøv en anden kode",
+        "loading": "Indlæser"
     },
     "message": {
         "part1": "For at logge ind og installere dine spil, skal du først følge nedenstående trin:",

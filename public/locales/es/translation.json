@@ -80,11 +80,11 @@
             },
             "moving": "Error al mover el juego {{error}}",
             "ubisoft-connect": {
-                "title": "Conectar Ubisoft",
+                "title": "Ubisoft Connect",
                 "message": "La instalación de Ubisoft Connect en el prefijo del juego ha fallado. Consulta nuestra página wiki en https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac para instalarlo manualmente."
             },
             "legendary": {
-                "generic": "¡Se ha producido un error! Intente cerrar sesión e iniciar sesión en su cuenta de Epic. {{newline}} {{error}}"
+                "generic": "¡Se ha producido un error! Intente cerrar sesión e iniciar sesión nuevamente en su cuenta de Epic. {{newline}} {{error}}"
             }
         },
         "info": {
@@ -154,7 +154,7 @@
                 "title": "¡Vino no encontrado!"
             }
         },
-        "wineprefix": "Elija la carpeta de prefijo del vino",
+        "wineprefix": "Elija la carpeta de prefijos de Wine",
         "yes": "SÍ",
         "dontShowAgain": "no volver a mostrar"
     },
@@ -205,7 +205,7 @@
             "type": "Type"
         },
         "title": "Descargas",
-        "ETA": "Hora prevista"
+        "ETA": "Tiempo estimado"
     },
     "epic": {
         "offline-notification-body": "¡Puede que algunos servicios no funcionen correctamente si no estás conectado a los servidores de Epic Games!",
@@ -366,7 +366,7 @@
             "finished": "Instalación Terminada",
             "imported": "Juego importado",
             "startInstall": "Instalación iniciada",
-            "failed": "Error en la instalación",
+            "failed": "Instalación fallida",
             "paused": "Instalación en pausa"
         },
         "moved": "Movimiento terminado",
@@ -453,8 +453,8 @@
             "finished": "Completado",
             "queued": "En cola",
             "remove": "Eliminar de las descargas",
-            "pause": "pausar descarga",
-            "resume": "Descarga hoja de vida"
+            "pause": "Pausar descarga",
+            "resume": "Reanudar descarga"
         }
     },
     "Recent": "Jugado recientemente",
@@ -566,7 +566,7 @@
         "wineprefix": "Carpeta de Prefijo de Wine",
         "wineversion": "Versión de Wine",
         "autoUpdateGames": "Actualizar juegos automáticamente",
-        "ignoreGameUpdates": "Ignorar las actualizaciones del juego"
+        "ignoreGameUpdates": "Ignorar actualizaciones del juego"
     },
     "settings": {
         "battlEyeRuntime": {

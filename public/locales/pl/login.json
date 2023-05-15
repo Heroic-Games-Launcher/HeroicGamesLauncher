@@ -3,7 +3,9 @@
         "login": "Zaloguj",
         "open": "Otwórz łącze",
         "copy": "Kopiuj",
-        "copied": "Skopiowane!"
+        "copied": "Skopiowane!",
+        "loading": "Loading",
+        "error": "Błąd, spróbuj użyć innego kodu"
     },
     "message": {
         "part1": "Żeby się zalogować i móc instalować gry, najpierw wykonaj następujące kroki :",

@@ -1,7 +1,7 @@
 {
     "box": {
         "change": {
-            "message": "Dies wird den Installationsort dieses Spiels ändern, bist du sicher?",
+            "message": "Dies wird den Installationsort dieses Spiels ändern, bist du dir sicher?",
             "path": "Wähle einen neuen Installationspfad",
             "title": "Spiele-Installationspfad ändern"
         },
@@ -217,6 +217,6 @@
         "logs": "Protokolle"
     },
     "help": {
-        "cloud_save_unsupported": "Dieses Spiel unterstützt keine Cloud-Speicher. Diese Informationen werden von den Spieleentwicklern bereitgestellt. Einige Spiele implementieren ihr eigenes Cloud-Speichersystem"
+        "cloud_save_unsupported": "Dieses Spiel unterstützt keinen Cloud-Speicher. Diese Informationen werden von den Spieleentwicklern bereitgestellt. Einige Spiele implementieren ihr eigenes Cloud-Speichersystem"
     }
 }

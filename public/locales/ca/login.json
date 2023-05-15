@@ -3,7 +3,9 @@
         "login": "Inicia la sessió",
         "copy": "Còpia",
         "open": "Enllaç obert",
-        "copied": "Copiat!"
+        "copied": "Copiat!",
+        "loading": "Es carrega",
+        "error": "Error, prova amb un codi diferent"
     },
     "message": {
         "part1": "Per a iniciar sessió i instal·lar jocs, cal que segueixis primer les passes de sota:",

@@ -5,7 +5,7 @@
             "path": "新しいインストールパスを選択します",
             "title": "ゲームのインストールパスを変更します"
         },
-        "choose": "選ぶ",
+        "choose": "選択",
         "importpath": "インポートするゲームフォルダを選択します",
         "move": {
             "message": "これには長い時間がかかることがあります、よろしいですか ？",
@@ -180,7 +180,7 @@
         "gameNotAvailable": "Game not available",
         "hasUpdates": "新しいバージョンが利用可能です！",
         "installed": "インストールされています",
-        "installing": "インストールしています",
+        "installing": "インストール",
         "moving": "インストールを移動しています、お待ちください",
         "notinstalled": "このゲームはインストールされていません",
         "notSupported": "Not supported",

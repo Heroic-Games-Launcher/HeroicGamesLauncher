@@ -3,7 +3,9 @@
         "login": "Conecte-se",
         "open": "Link aberto",
         "copy": "cópia de",
-        "copied": "Copiado!"
+        "copied": "Copiado!",
+        "error": "Erro, tente um código diferente",
+        "loading": "Loading"
     },
     "message": {
         "part1": "Para fazer login e instalar seus jogos, primeiro você precisa seguir as etapas abaixo:",

@@ -3,7 +3,9 @@
         "login": "Entrar",
         "open": "Link aberto",
         "copy": "cópia de",
-        "copied": "Copiado!"
+        "copied": "Copiado!",
+        "error": "Erro, tente um código diferente",
+        "loading": "Loading"
     },
     "message": {
         "part1": "Para que você possa entrar e instalar os seus jogos, é necessário seguir os seguintes passos:",

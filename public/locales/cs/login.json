@@ -3,7 +3,9 @@
         "login": "Přihlásit se",
         "copied": "Zkopírováno!",
         "open": "Otevřít odkaz",
-        "copy": "kopírovat"
+        "copy": "kopírovat",
+        "error": "Chyba, zkuste jiný kód",
+        "loading": "Loading"
     },
     "message": {
         "part1": "Aby jste se mohli přihlásit a instalovat vaše hry, musíte postupovat podle kroků níže:",

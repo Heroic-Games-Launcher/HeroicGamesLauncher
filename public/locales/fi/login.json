@@ -3,7 +3,9 @@
         "login": "Kirjaudu sisään",
         "open": "Avaa linkki",
         "copy": "Kopio",
-        "copied": "Kopioitu!"
+        "copied": "Kopioitu!",
+        "error": "Virhe, kokeile toista koodia",
+        "loading": "Loading"
     },
     "message": {
         "part1": "Ennen kuin voit kirjautua sisään ja asentaa pelejäsi, suorita askeleet jotka alla:",
