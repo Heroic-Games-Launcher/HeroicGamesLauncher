@@ -7,6 +7,7 @@ import {
 } from 'electron-playwright-helpers'
 import { ElectronApplication, Page, _electron as electron } from 'playwright'
 import { compareVersions } from 'compare-versions'
+import { platform as platformOS } from 'os'
 
 let electronApp: ElectronApplication
 
@@ -101,5 +102,5 @@ test('test ipcMainInvokeHandler', async () => {
     'getPlatform'
   )) as DiskSpaceData
   console.log('Platform: ', platform)
-  expect(platform).toEqual('linux')
+  expect(platform).toEqual(platformOS)
 })
