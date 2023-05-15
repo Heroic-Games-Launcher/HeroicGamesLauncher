@@ -428,8 +428,8 @@ export async function validWine(
   )
 
   // verify if necessary binaries exist
-  const { bin, wineboot, wineserver, type } = wineVersion
-  const necessary = type === 'wine' ? [bin, wineboot, wineserver] : [bin]
+  const { bin, wineserver, type } = wineVersion
+  const necessary = type === 'wine' ? [bin, wineserver] : [bin]
   const haveAll = necessary.every((binary) => existsSync(binary as string))
 
   // if wine version does not exist, use the default one
