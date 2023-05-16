@@ -37,7 +37,15 @@ export default function WebView({
     message: t('loading.website', 'Loading Website')
   }))
 
-  api.setMainBrowserView(identifier, { initialURL })
 
-  return <div></div>
+  const ref = useRef<HTMLDivElement>(null)
+
+  const browserview = new api.RemoteBrowserView(identifier, { initialURL })
+  useEffect(() => setLoading({ refresh: browserview.isLoading, message: loading.message }), [browserview.isLoading])
+  if (ref.current) {
+    const { x, y, width, height } = ref.current.getBoundingClientRect()
+    browserview.bounds = { x, y, width, height }
+    api.setMainBrowserView(identifier, { initialURL })
+  }
+  return <div ref={ref} />
 }
