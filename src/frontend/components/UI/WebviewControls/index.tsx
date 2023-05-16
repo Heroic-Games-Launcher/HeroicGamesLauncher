@@ -36,19 +36,9 @@ export default function WebviewControls({
   const [canGoBack, setCanGoBack] = useState(false)
   const [canGoForward, setCanGoForward] = useState(false)
 
-  useEffect(() => {
-    if (webview) {
-      webview.URLchanged.push(() => {
-        setUrl(webview.URL)
-        setCanGoBack(webview.canGoBack)
-        setCanGoForward(webview.canGoForward)
-      })
-      return () => {
-        webview.URLchanged = []
-      }
-    }
-    return
-  }, [webview])
+  useEffect(() => setUrl(webview.URL), [webview.URL])
+  useEffect(() => setCanGoBack(webview.canGoBack), [webview.canGoBack])
+  useEffect(() => setCanGoBack(webview.canGoForward), [webview.canGoForward])
 
   const handleButtons = useCallback(
     (event: 'reload' | 'back' | 'forward') => {
