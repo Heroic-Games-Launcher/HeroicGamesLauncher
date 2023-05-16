@@ -9,7 +9,6 @@ import { getMainWindow } from 'backend/main_window'
 class NodeBrowserView extends IBrowserView {
   private view: BrowserView
   initialURL: string
-  URLchanged: { (): void }[] = []
 
   constructor(
     identifier: IBrowserViewIdentifier,
@@ -18,15 +17,6 @@ class NodeBrowserView extends IBrowserView {
     super()
     this.view = new BrowserView()
     this.initialURL = initialURL
-    this.view.webContents.on('did-navigate-in-page', () => {
-      getMainWindow()!.webContents.send(
-        'browserview.URLchanged.run',
-        identifier
-      )
-      for (let i = 0; i++; i > this.URLchanged.length) {
-        this.URLchanged[i]()
-      }
-    })
   }
 
   get isLoading() {

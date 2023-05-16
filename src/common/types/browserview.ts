@@ -2,7 +2,6 @@ import { Rectangle } from 'electron/common'
 
 export abstract class IBrowserView {
   abstract readonly initialURL: string
-  abstract URLchanged: { (): void }[]
   abstract readonly canGoBack: boolean
   abstract readonly canGoForward: boolean
   abstract readonly isLoading: boolean

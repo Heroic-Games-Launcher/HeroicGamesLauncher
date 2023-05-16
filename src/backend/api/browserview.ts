@@ -20,8 +20,6 @@ export class RemoteBrowserView extends IBrowserView {
   get initialURL() {
     return ipcRenderer.sendSync('browserview.initialURL', this.identifier)
   }
-  // FIXME: implement: the list has to be a mere shortcut to the backend, both get/set
-  URLchanged: { (): void }[] = []
   get canGoBack() {
     return ipcRenderer.sendSync('browserview.canGoBack', this.identifier)
   }
@@ -68,12 +66,6 @@ export class RemoteBrowserView extends IBrowserView {
 }
 
 export let currentBrowserView: IBrowserView | undefined = undefined
-
-ipcRenderer.on('browserview.URLchanged.run', (_, identifier, options) => {
-  new RemoteBrowserView(identifier, options)!.URLchanged.forEach((callback) =>
-    callback()
-  )
-})
 
 // Notify preload to change "currentBrowserView" when
 // main browser view changes for main window
