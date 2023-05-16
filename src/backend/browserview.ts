@@ -125,11 +125,19 @@ ipcMain.on('browserview.isLoading', (event, identifier) => {
   event.returnValue = viewListService[identifier].isLoading
 })
 
-ipcMain.on('browserview.URL', (event, identifier) => {
+ipcMain.on('browserview.URL', (event, identifier, newValue) => {
+  if (newValue) {
+    viewListService[identifier].URL = newValue
+    return
+  }
   event.returnValue = viewListService[identifier].URL
 })
 
-ipcMain.on('browserview.bounds', (event, identifier) => {
+ipcMain.on('browserview.bounds', (event, identifier, newValue) => {
+  if (newValue) {
+  viewListService[identifier].bounds = newValue
+    return
+  }
   event.returnValue = viewListService[identifier].bounds
 })
 
