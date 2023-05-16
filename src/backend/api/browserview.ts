@@ -35,13 +35,13 @@ export class RemoteBrowserView extends IBrowserView {
     return ipcRenderer.sendSync('browserview.URL', this.identifier)
   }
   set URL(newValue) {
-    return ipcRenderer.send('browserview.URL', this.identifier, newValue)
+    ipcRenderer.send('browserview.URL', this.identifier, newValue)
   }
   get bounds() {
     return ipcRenderer.sendSync('browserview.bounds', this.identifier)
   }
   set bounds(newValue) {
-    return ipcRenderer.send('browserview.bounds', this.identifier, newValue)
+    ipcRenderer.send('browserview.bounds', this.identifier, newValue)
   }
   goBack(): void {
     ipcRenderer.send('browserview.goBack', this.identifier)
