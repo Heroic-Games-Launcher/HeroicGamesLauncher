@@ -678,7 +678,7 @@ export async function getMetaResponse(
       }
     : undefined
   const metaUrl =
-    buildData.data?.items.find((build: BuildItem) => !build.branch)?.link ||
+    buildData.data?.items?.find((build: BuildItem) => !build.branch)?.link ||
     buildData.data?.items[0]?.link
   const metaResponse = await axios.get(metaUrl, {
     headers,
