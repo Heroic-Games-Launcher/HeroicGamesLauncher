@@ -566,6 +566,7 @@ function loadFile(fileName: string): boolean {
       reqs: [],
       storeUrl: formatEpicStoreUrl(title)
     },
+    dlcList: dlcItemList,
     folder_name: installFolder,
     install: {
       executable,

@@ -47,7 +47,7 @@ interface AssetInfo {
   namespace: string
 }
 
-interface GameMetadataInner {
+export interface GameMetadataInner {
   // TODO: So far every age gating has been {}
   ageGatings: Record<string, unknown>
   applicationId: string
