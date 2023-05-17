@@ -70,16 +70,6 @@
   outline-offset: -2px;
 }
 
-.Sidebar__item:hover {
-  background-color: var(--navbar-active-background);
-  transition: 0.2s;
-  scale: 1.02;
-}
-
-.Sidebar__item.SidebarLinks__subItem:hover {
-  scale: 1;
-}
-
 .Sidebar__item.active {
   color: var(--accent);
   color: var(--navbar-active, var(--accent-overlay));
