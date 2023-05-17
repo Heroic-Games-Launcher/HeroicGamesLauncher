@@ -3,7 +3,8 @@
   font-size: var(--text-lg);
 }
 
-.Sidebar__item.SidebarLinks__subItem, .Sidebar__item.SidebarLinks__subItem:hover  {
+.Sidebar__item.SidebarLinks__subItem,
+.Sidebar__item.SidebarLinks__subItem:hover {
   padding: var(--space-3xs) var(--sidebar-horizontal-padding) var(--space-3xs)
     var(--space-xl);
   font-size: var(--text-sm);
@@ -26,7 +27,8 @@
 }
 
 @media screen and (max-width: 730px) {
-  .Sidebar__item.SidebarLinks__subItem, .Sidebar__item.SidebarLinks__subItem:hover {
+  .Sidebar__item.SidebarLinks__subItem,
+  .Sidebar__item.SidebarLinks__subItem:hover {
     padding: var(--space-3xs) var(--sidebar-horizontal-padding) var(--space-3xs)
       var(--space-lg);
   }
