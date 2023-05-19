@@ -65,6 +65,9 @@ const { currentLogFile, lastLogFile, legendaryLogFile, gogdlLogFile } =
 
 const publicDir = resolve(__dirname, '..', app.isPackaged ? '' : '../public')
 const gogdlAuthConfig = join(app.getPath('userData'), 'gog_store', 'auth.json')
+const vulkanHelperBin = fixAsarPath(
+  join(publicDir, 'bin', process.platform, 'vulkan-helper')
+)
 const icon = fixAsarPath(join(publicDir, 'icon.png'))
 const iconDark = fixAsarPath(join(publicDir, 'icon-dark.png'))
 const iconLight = fixAsarPath(join(publicDir, 'icon-light.png'))
@@ -250,5 +253,6 @@ export {
   wineprefixFAQ,
   customThemesWikiLink,
   cachedUbisoftInstallerPath,
-  gogdlAuthConfig
+  gogdlAuthConfig,
+  vulkanHelperBin
 }

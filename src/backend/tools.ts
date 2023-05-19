@@ -20,6 +20,11 @@ import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
 import { runWineCommand, validWine } from './launcher'
 import { chmod } from 'fs/promises'
+import {
+  any_gpu_supports_version,
+  get_vulkan_instance_version
+} from './utils/graphics/vulkan'
+import { lt as semverLt } from 'semver'
 
 export const DXVK = {
   getLatest: async () => {
@@ -43,7 +48,36 @@ export const DXVK = {
       },
       {
         name: 'dxvk',
-        url: 'https://api.github.com/repos/doitsujin/dxvk/releases/latest',
+        url: () => {
+          if (any_gpu_supports_version([1, 3, 0])) {
+            const instance_version = get_vulkan_instance_version()
+            if (
+              instance_version &&
+              semverLt(instance_version.join('.'), '1.3.0')
+            ) {
+              // FIXME: How does the instance version matter? Even with 1.2, newer DXVK seems to work fine
+              logWarning(
+                'Vulkan 1.3 is supported by GPUs in this system, but instance version is outdated',
+                LogPrefix.DXVKInstaller
+              )
+            }
+            return 'https://api.github.com/repos/doitsujin/dxvk/releases/latest'
+          }
+          if (any_gpu_supports_version([1, 1, 0])) {
+            logInfo(
+              'The GPU(s) in this system only support Vulkan 1.1/1.2, falling back to DXVK 1.10.3',
+              LogPrefix.DXVKInstaller
+            )
+            return 'https://api.github.com/repos/doitsujin/dxvk/releases/tags/v1.10.3'
+          }
+          logWarning(
+            'No GPU with Vulkan 1.1 support found, DXVK will not work',
+            LogPrefix.DXVKInstaller
+          )
+          // FIXME: We currently lack a "Don't download at all" option here, but
+          //        that would also need bigger changes in the frontend
+          return 'https://api.github.com/repos/doitsujin/dxvk/releases/latest'
+        },
         extractCommand: 'tar -xf',
         os: 'linux'
       },
@@ -60,9 +94,10 @@ export const DXVK = {
         return
       }
 
+      const download_url = typeof tool.url === 'string' ? tool.url : tool.url()
       const {
         data: { assets }
-      } = await axios.get(tool.url)
+      } = await axios.get(download_url)
 
       const { name, browser_download_url: downloadUrl } = assets[0]
       const pkg = name.replace('.tar.gz', '').replace('.tar.xz', '')
