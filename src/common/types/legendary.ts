@@ -142,9 +142,10 @@ interface GameInstallInfo {
   version: string
 }
 
-interface DLCInfo {
+export interface DLCInfo {
   app_name: string
   title: string
+  is_installed?: boolean
 }
 
 interface GameManifest {

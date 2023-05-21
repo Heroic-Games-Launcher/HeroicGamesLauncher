@@ -121,10 +121,7 @@ interface AsyncIPCFunctions {
   showUpdateSetting: () => boolean
   getLatestReleases: () => Promise<Release[]>
   getCurrentChangelog: () => Promise<Release | null>
-  getGameInfo: (
-    appName: string,
-    runner: Runner
-  ) => Promise<GameInfo | SideloadGame | null>
+  getGameInfo: (appName: string, runner: Runner) => Promise<GameInfo | null>
   getExtraInfo: (appName: string, runner: Runner) => Promise<ExtraInfo | null>
   getGameSettings: (
     appName: string,
