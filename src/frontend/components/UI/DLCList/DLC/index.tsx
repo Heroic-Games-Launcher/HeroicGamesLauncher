@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { DLCInfo } from 'common/types/legendary'
 import './index.scss'
 import { useTranslation } from 'react-i18next'
-import { getGameInfo, install } from 'frontend/helpers'
+import { getGameInfo } from 'frontend/helpers'
 import { Runner } from 'common/types'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 
