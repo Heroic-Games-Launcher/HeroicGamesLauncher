@@ -20,7 +20,9 @@ const DLC = ({ dlc, runner }: Props) => {
   useEffect(() => {
     const checkInstalled = async () => {
       const dlcInfo = await getGameInfo(app_name, runner)
-      console.table(dlcInfo)
+      if (!dlcInfo) {
+        return
+      }
       const installed = dlcInfo.is_installed
       setIsInstalled(installed)
     }
