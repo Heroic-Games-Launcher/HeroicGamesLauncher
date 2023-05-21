@@ -22,6 +22,7 @@ interface Props {
   handleUpdate: () => void
   disableUpdate: boolean
   onShowRequirements?: () => void
+  onShowDlcs?: () => void
 }
 
 export default function GamesSubmenu({
@@ -32,7 +33,8 @@ export default function GamesSubmenu({
   runner,
   handleUpdate,
   disableUpdate,
-  onShowRequirements
+  onShowRequirements,
+  onShowDlcs
 }: Props) {
   const { refresh, platform, libraryStatus, showDialogModal } =
     useContext(ContextProvider)
@@ -221,6 +223,7 @@ export default function GamesSubmenu({
             appName={appName}
             runner={runner}
             onClose={() => setShowUninstallModal(false)}
+            isDlc={false}
           />
         )}
         <div className={`submenu`}>
@@ -331,6 +334,14 @@ export default function GamesSubmenu({
               className="link button is-text is-link"
             >
               {t('game.requirements', 'Requirements')}
+            </button>
+          )}
+          {onShowDlcs && (
+            <button
+              onClick={async () => onShowDlcs()}
+              className="link button is-text is-link"
+            >
+              {t('game.dlcs', 'DLCs')}
             </button>
           )}
         </div>

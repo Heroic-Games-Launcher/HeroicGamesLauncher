@@ -1,0 +1,29 @@
+.dlcItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #ccc;
+  margin: 0 var(--space-md-fixed);
+
+  &:last-child {
+    border-bottom: none;
+  }
+  .title {
+    grid-area: title;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-right: var(--space-xl-fixed);
+  }
+  .action {
+    grid-area: action;
+    font-size: 1.2rem;
+    font-weight: 400;
+    cursor: pointer;
+    color: var(--primary);
+    transition: color 0.2s ease-in-out;
+    &:hover {
+      color: var(--secondary);
+    }
+  }
+}
