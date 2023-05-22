@@ -3,27 +3,31 @@ import { DLCInfo } from 'common/types/legendary'
 import './index.scss'
 import { useTranslation } from 'react-i18next'
 import { getGameInfo } from 'frontend/helpers'
-import { Runner } from 'common/types'
+import { GameInfo, Runner } from 'common/types'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 
 type Props = {
   dlc: DLCInfo
   runner: Runner
+  mainAppInfo: GameInfo
+  onClose: () => void
 }
 
-const DLC = ({ dlc, runner }: Props) => {
+const DLC = ({ dlc, runner, mainAppInfo, onClose }: Props) => {
   const { title, app_name } = dlc
   const { t } = useTranslation('gamepage')
   const [isInstalled, setIsInstalled] = useState(false)
   const [showUninstallModal, setShowUninstallModal] = useState(false)
+  const [dlcInfo, setDlcInfo] = useState<GameInfo | null>(null)
 
   useEffect(() => {
     const checkInstalled = async () => {
-      const dlcInfo = await getGameInfo(app_name, runner)
-      if (!dlcInfo) {
+      const info = await getGameInfo(app_name, runner)
+      if (!info) {
         return
       }
-      const installed = dlcInfo.is_installed
+      setDlcInfo(info)
+      const installed = info.is_installed
       setIsInstalled(installed)
     }
     checkInstalled()
@@ -33,7 +37,21 @@ const DLC = ({ dlc, runner }: Props) => {
     if (isInstalled) {
       setShowUninstallModal(true)
     } else {
-      console.log('installing')
+      const {
+        install: { platform, install_path }
+      } = mainAppInfo
+
+      if (!dlcInfo || !platform || !install_path) {
+        return
+      }
+      onClose()
+      window.api.install({
+        appName: app_name,
+        runner,
+        path: install_path,
+        gameInfo: dlcInfo,
+        platformToInstall: platform
+      })
     }
   }
 

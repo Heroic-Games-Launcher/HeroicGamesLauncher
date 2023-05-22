@@ -766,6 +766,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   <DLCList
                     dlcs={gameInstallInfo?.game.owned_dlc}
                     runner={runner}
+                    mainAppInfo={gameInfo}
+                    onClose={() => setShowDlcs(false)}
                   />
                 </DialogContent>
               </Dialog>

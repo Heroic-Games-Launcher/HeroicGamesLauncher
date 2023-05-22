@@ -3,14 +3,16 @@ import { useTranslation } from 'react-i18next'
 import { DLCInfo } from 'common/types/legendary'
 import DLC from './DLC'
 import './index.scss'
-import { Runner } from 'common/types'
+import { GameInfo, Runner } from 'common/types'
 
 type Props = {
   dlcs: DLCInfo[]
   runner: Runner
+  mainAppInfo: GameInfo
+  onClose: () => void
 }
 
-const DlcList = ({ dlcs, runner }: Props) => {
+const DlcList = ({ dlcs, runner, mainAppInfo, onClose }: Props) => {
   const { t } = useTranslation()
 
   return (
@@ -20,7 +22,15 @@ const DlcList = ({ dlcs, runner }: Props) => {
         <span>{t('dlc.actions', 'Actions')}</span>
       </div>
       {dlcs.map((dlc) => {
-        return <DLC key={dlc.app_name} dlc={dlc} runner={runner} />
+        return (
+          <DLC
+            key={dlc.app_name}
+            dlc={dlc}
+            runner={runner}
+            mainAppInfo={mainAppInfo}
+            onClose={onClose}
+          />
+        )
       })}
     </div>
   )
