@@ -1,15 +1,10 @@
 version: '3.8'
 services:
-  playwright:
-    image: mcr.microsoft.com/playwright:latest
+  process_all:
+    build:
+      context: ../
+      dockerfile: e2e/Dockerfile.test
     volumes:
-      - ../:/home/pwuser/e2e
-    working_dir: /home/pwuser/e2e
-    user: ${USER}
-    cap_add:
-      - SYS_ADMIN
+      - .:/src
     environment:
-      - ELECTRON_ENABLE_STACK_DUMPING=true
-      - ELECTRON_ENABLE_LOGGING=true
       - TEST_PACKAGED=${TEST_PACKAGED}
-    network_mode: 'host'
