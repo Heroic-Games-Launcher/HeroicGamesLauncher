@@ -2,6 +2,8 @@
     "button": {
         "copied": "Copied!",
         "copy": "Copy",
+        "error": "Error, try a different Code",
+        "loading": "Loading",
         "login": "Log in",
         "open": "Open Link"
     },
@@ -14,10 +16,6 @@
         "part6": "Paste your",
         "part7": "authorization code number",
         "part8": "in the input box below and click on the login button."
-    },
-    "status": {
-        "error": "Error",
-        "loading": "Loading Game list, please wait"
     },
     "welcome": "Welcome!"
 }

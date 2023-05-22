@@ -3,7 +3,9 @@
         "login": "Daxil ol",
         "open": "Linki açın",
         "copy": "Kopyalayın",
-        "copied": "Kopyalandı!"
+        "copied": "Kopyalandı!",
+        "error": "Xəta, başqa kodu sınayın",
+        "loading": "Loading"
     },
     "message": {
         "part1": "Oyunlarınızı daxil etmək və quraşdırmaq üçün əvvəlcə aşağıdakı addımları yerinə yetirməlisiniz:",

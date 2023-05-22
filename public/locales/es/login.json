@@ -1,23 +1,25 @@
 {
     "button": {
         "login": "Iniciar sesión",
-        "open": "Enlace abierto",
+        "open": "Abrir enlace",
         "copy": "Copiar",
-        "copied": "¡Copiado!"
+        "copied": "¡Copiado!",
+        "loading": "Loading",
+        "error": "Error, intente con un código diferente"
     },
     "message": {
-        "part1": "Para iniciar la sesión e instalar los juegos, primero hay que seguir los siguientes pasos:",
-        "part2": "Abrir el",
-        "part3": "Epic Store aquí",
+        "part1": "Para iniciar la sesión e instalar tus juegos, primero debes seguir los siguientes pasos:",
+        "part2": "Abre la",
+        "part3": "Epic Games Store aquí",
         "part4": ", inicia sesión en tu cuenta y copia tu",
-        "part5": "número de información de authorization code",
-        "part6": "Pege el",
-        "part7": "número authorization code",
+        "part5": "número de información de código de autorización",
+        "part6": "Pega el",
+        "part7": "número del código de autorización",
         "part8": "en el recuadro de entrada y haz clic en el botón de inicio de sesión."
     },
     "status": {
         "error": "Error",
-        "loading": "Cargando la lista de juegos, por favor espere"
+        "loading": "Cargando la lista de juegos, por favor espera"
     },
     "welcome": "¡Bienvenido!"
 }

@@ -196,7 +196,9 @@
         "moving-files": "Přesouvání souboru '{{file}}': {{percent}} ",
         "syncingSaves": "Synchronizuji uložené soubory",
         "launching": "Spouštění",
-        "ubisoft": "Instalace Ubisoftu"
+        "ubisoft": "Instalace Ubisoftu",
+        "downloading": "Stahování",
+        "extracting": "Extrakce"
     },
     "submenu": {
         "addShortcut": "Přidat zástupce",

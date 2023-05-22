@@ -410,6 +410,7 @@ export async function getInstallInfo(
     return
   }
 
+  // We can't calculate install sizes for Linux-native games, so call gogdl info with "windows"
   const commandParts = [
     'info',
     appName,
@@ -417,7 +418,7 @@ export async function getInstallInfo(
     `"${credentials.access_token}"`,
     `--lang=${lang}`,
     '--os',
-    installPlatform
+    installPlatform === 'linux' ? 'windows' : installPlatform
   ]
 
   const res = await runRunnerCommand(
@@ -706,7 +707,7 @@ export async function gogToUnifiedInfo(
     store_url: `https://gog.com${info.url}`,
     developer: '',
     app_name: String(info.id),
-    art_cover: info.image,
+    art_cover: `https:${info.image}.jpg`,
     art_square: fallBackImage,
     cloud_save_enabled: cloudSavesEnabledGames.includes(String(info.id)),
     extra: {

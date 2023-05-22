@@ -1,3 +1,4 @@
+import { logWarning, LogPrefix, logError } from 'backend/logger/logger'
 import * as axios from 'axios'
 import * as crypto from 'crypto'
 import {
@@ -45,6 +46,7 @@ async function getAvailableVersions({
   count = 100
 }: getVersionsProps): Promise<VersionInfo[]> {
   const releases: Array<VersionInfo> = []
+
   for await (const repo of repositorys) {
     switch (repo) {
       case Repositorys.WINEGE: {
@@ -57,7 +59,7 @@ async function getAvailableVersions({
             releases.push(...fetchedReleases)
           })
           .catch((error: Error) => {
-            throw error
+            logError(error, LogPrefix.WineDownloader)
           })
         break
       }
@@ -71,7 +73,7 @@ async function getAvailableVersions({
             releases.push(...fetchedReleases)
           })
           .catch((error: Error) => {
-            throw error
+            logError(error, LogPrefix.WineDownloader)
           })
         break
       }
@@ -85,7 +87,7 @@ async function getAvailableVersions({
             releases.push(...fetchedReleases)
           })
           .catch((error: Error) => {
-            throw error
+            logError(error, LogPrefix.WineDownloader)
           })
         break
       }
@@ -99,7 +101,7 @@ async function getAvailableVersions({
             releases.push(...fetchedReleases)
           })
           .catch((error: Error) => {
-            throw error
+            logError(error, LogPrefix.WineDownloader)
           })
         break
       }
@@ -113,7 +115,7 @@ async function getAvailableVersions({
             releases.push(...fetchedReleases)
           })
           .catch((error: Error) => {
-            throw error
+            logError(error, LogPrefix.WineDownloader)
           })
         break
       }
@@ -127,18 +129,20 @@ async function getAvailableVersions({
             releases.push(...fetchedReleases)
           })
           .catch((error: Error) => {
-            throw error
+            logError(error, LogPrefix.WineDownloader)
           })
         break
       }
       default: {
-        console.warn(
-          `Unknown and not supported repository key passed! Skip fetch for ${repo}`
+        logWarning(
+          `Unknown and not supported repository key passed! Skip fetch for ${repo}`,
+          LogPrefix.WineDownloader
         )
         break
       }
     }
   }
+
   return releases
 }
 
@@ -218,8 +222,11 @@ async function installVersion({
 
   // Check if it already exist
   if (existsSync(installSubDir) && !overwrite) {
-    console.warn(`${versionInfo.version} is already installed. Skip installing! \n
-      Consider using 'override: true if you wan't to override it!'`)
+    logWarning(
+      `${versionInfo.version} is already installed. Skip installing! \n
+      Consider using 'override: true if you wan't to override it!'`,
+      LogPrefix.WineDownloader
+    )
 
     // resolve with disksize
     versionInfo.disksize = getFolderSize(installSubDir)
@@ -259,17 +266,20 @@ async function installVersion({
       throw new Error('Checksum verification failed')
     }
   } else {
-    console.warn(
-      `No checksum provided. Download of ${versionInfo.version} could be invalid!`
+    logWarning(
+      `No checksum provided. Download of ${versionInfo.version} could be invalid!`,
+      LogPrefix.WineDownloader
     )
   }
 
-  // Unzip
-  try {
-    mkdirSync(installSubDir)
-  } catch (error) {
-    unlinkFile(tarFile)
-    throw new Error(`Failed to make folder ${installSubDir} with:\n ${error}`)
+  if (!overwrite) {
+    // Unzip
+    try {
+      mkdirSync(installSubDir)
+    } catch (error) {
+      unlinkFile(tarFile)
+      throw new Error(`Failed to make folder ${installSubDir} with:\n ${error}`)
+    }
   }
 
   await unzipFile({
@@ -283,7 +293,9 @@ async function installVersion({
       abortHandler()
     }
 
-    rmSync(installSubDir, { recursive: true })
+    if (!overwrite) {
+      rmSync(installSubDir, { recursive: true })
+    }
     unlinkFile(tarFile)
     throw new Error(
       `Unzip of ${tarFile.split('/').slice(-1)[0]} failed with:\n ${error}`

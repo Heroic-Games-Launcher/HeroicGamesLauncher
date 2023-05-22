@@ -115,10 +115,10 @@
             }
         },
         "runexe": {
-            "title": "Selectați EXE pentru a rula"
+            "title": "Selectează EXE-ul pentru rulare"
         },
         "select": {
-            "button": "Selectați",
+            "button": "Selectare",
             "exe": "Selectați EXE"
         },
         "shortcuts": {

@@ -292,7 +292,7 @@
             "searching": "در حال تلاش برای یافتن پوشه ذخیره صحیح (برای انصراف کیک کنید)"
         },
         "settings": "تنظیمات به صورت خودکار ذخیره شدند",
-        "version": "نسخه Wine"
+        "version": "نسخه واین"
     },
     "infobox": {
         "help": "راهنما",
@@ -303,7 +303,7 @@
             "title": "Wine Prefix"
         },
         "wine-repfix": {
-            "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
+            "message": "واین از WINEPREFIX برای کپسوله کردن اپلیکیشن های ویندوز استفاده می کند. این مسیر شامل فایل های پیکربندی واین و فایل سیستم اصلی :C ویندوز می شود. در این بازسازی درایو :C، ذخیره های بازی و وابستگی هایی که توسط winetricks نصب شده اندذخیره می شوند."
         },
         "wine-path-invalid": "مسیر Wine نامعتبر است، لطفاً مسیر دیگری را انتخاب کنید."
     },
@@ -377,10 +377,10 @@
         },
         "uninstalled": "حذف شد",
         "update": {
-            "canceled": "بهروزرسانی لغو شد",
+            "canceled": "به روزرسانی لغو شد",
             "finished": "آپدیت به پایان رسید",
             "started": "بهروزرسانی آغاز شد",
-            "failed": "به روز رسانی نا موفق بود",
+            "failed": "به روز رسانی ناموفق بود",
             "paused": "به روز رسانی متوقف شد"
         }
     },
@@ -446,7 +446,7 @@
     "progress": "Progress",
     "queue": {
         "label": {
-            "canceled": "کنسل شده",
+            "canceled": "لغو شده",
             "clear": "پاک کردن لیست",
             "downloading": "در حال دانلود",
             "empty": "محتوایی برای دانلود نیست",
@@ -454,7 +454,7 @@
             "queued": "در صف",
             "remove": "پاک کردن از دانلودها",
             "pause": "توقف دانلود",
-            "resume": "دانلود رزومه"
+            "resume": "ادامه دانلود"
         }
     },
     "Recent": "اخیرا بازی شده",
@@ -509,7 +509,7 @@
         "fsync": "فعالسازی Fsync",
         "gamemode": "استفاده از GameMode (Feral Game Mode باید نصب شده باشد)",
         "hideChangelogsOnStartup": "عدم نمایش تغییرات در هنگام اجرا",
-        "language": "انتخاب زبان نرمافزار",
+        "language": "انتخاب زبان نرم افزار",
         "library_top_option": {
             "disabled": "غیر فعال",
             "favourites": "بازی های مورد علاقه",
@@ -544,7 +544,7 @@
         "preferSystemLibs": "ارجحیت کتابخانه های سیستم",
         "primerun": {
             "confirmation": {
-                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
+                "message": "تنها یک کارت گرافیک در این سیستم تشخیص داده شد. به یاد داشته باشید این گزینه برای سیستم های حاوی چند کارت گرافیک با گرافیک های headless (مانند لب تاپ ها) طراحی شده است. در سیستم های تک کارت گرافیکی، کارت گرافیک به صورت خودکار مورد استفاده قرار می گیرد و فعال کردن این گزینه می تواند مشکل ایجاد کند. آیا می خواهید این گزینه را فعال کنید؟",
                 "title": "فقط یک گرافیک شناسایی شد"
             },
             "description": "استفاده از کارت گرافیک اختصاص یافته"
@@ -554,8 +554,8 @@
             "title": "اجرای EXE در محل"
         },
         "savefolder": {
-            "not-found": "پوشه ذخیره ها یافت نشد، لطفا به صورت دستی انتخاب کنید (برای تلاش مجدد کلیک کنید)",
-            "placeholder": "انتخاب پوشه دقیق ذخیرههای بازیها",
+            "not-found": "پوشه سیو ها یافت نشد، لطفا به صورت دستی انتخاب کنید (برای تلاش مجدد کلیک کنید)",
+            "placeholder": "پوشه ی دقیق سیو بازی ها را انتخاب کنید",
             "warning": "لطفا برای درست بودن مسیر مجددا آن را چک کنید (برای تلاش مجدد کلیک کنید)"
         },
         "select_theme": "انتخاب تم",
@@ -576,7 +576,7 @@
         "clear-cache": "پاک کردن کش Heroic",
         "copiedToClipboard": "در کليپ بورد کپی شد!",
         "copyToClipboard": "کپی کردن همه تنظیمات در کليپ بورد",
-        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
+        "default_hint": "تغییرات در این قسمت فقط به عنوان مقدار پیش فرض در هنگام نصب بازی ها اعمال می شود. اگر می خواهید تنظیمات بازی نصب شده را تغییر دهید، از دکمه تنظیمات در صفحه بازی استفاده کنید.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode برای ران تایم EAC برای کار کردن در فلتپک نیاز است. آیا می خواهید آن را فعال کنید؟",

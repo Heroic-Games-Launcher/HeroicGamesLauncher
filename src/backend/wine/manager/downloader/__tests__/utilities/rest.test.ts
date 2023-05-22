@@ -25,24 +25,20 @@ describe('Utilities - Rest', () => {
     }
   )
 
-  test('unlink of folder fails', () => {
-    try {
+  test('unlink of folder fails', async () => {
+    expect(() => {
       unlinkFile(__dirname)
-      throw Error('No error should be thrown!')
-    } catch (error) {
-      expect(String(error)).toBe(
-        `Error: Couldn't remove ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities!`
-      )
-    }
+    }).toThrowError(
+      `Couldn't remove ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities!`
+    )
   })
 
   test('unlink files succeeds', () => {
     writeFileSync('newFile.txt', 'Hello new file!')
-    try {
+
+    expect(() => {
       unlinkFile('newFile.txt')
-      expect(existsSync('newFile.txt')).toBeFalsy()
-    } catch {
-      throw Error('No error should be thrown!')
-    }
+    }).not.toThrow()
+    expect(existsSync('newFile.txt')).toBeFalsy()
   })
 })

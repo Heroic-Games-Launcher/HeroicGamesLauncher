@@ -651,6 +651,7 @@ ipcMain.handle('getCurrentChangelog', async () => {
 
 ipcMain.on('clearCache', (event, showDialog?: boolean) => {
   clearCache()
+  sendFrontendMessage('refreshLibrary')
 
   if (showDialog) {
     showDialogBoxModalAuto({
@@ -963,7 +964,7 @@ ipcMain.handle(
 
     systemInfo.then((systemInfo) => {
       if (systemInfo === '') return
-      writeFileSync(
+      appendFileSync(
         logFileLocation,
         'System Info:\n' + `${systemInfo}\n` + '\n'
       )
@@ -1002,6 +1003,12 @@ ipcMain.handle(
         return { status: 'error' }
       }
     }
+
+    sendFrontendMessage('gameStatusUpdate', {
+      appName,
+      runner,
+      status: 'playing'
+    })
 
     const command = gameManagerMap[runner].launch(appName, launchArguments)
 
@@ -1560,9 +1567,6 @@ ipcMain.handle(
     if (runner === 'legendary' && updated) {
       await setupUbisoftConnect(appName)
     }
-    if (runner === 'legendary' && updated) {
-      await setupUbisoftConnect(appName)
-    }
 
     // FIXME: Why are we using `runinprefix` here?
     return runWineCommandOnGame(runner, appName, {
@@ -1615,6 +1619,36 @@ ipcMain.handle('isNative', (e, { appName, runner }) => {
 
 ipcMain.handle('pathExists', async (e, path: string) => {
   return existsSync(path)
+})
+
+ipcMain.on('processShortcut', async (e, combination: string) => {
+  const mainWindow = getMainWindow()
+
+  switch (combination) {
+    // hotkey to reload the app
+    case 'ctrl+r':
+      mainWindow?.reload()
+      break
+    // hotkey to quit the app
+    case 'ctrl+q':
+      handleExit()
+      break
+    // hotkey to open the settings on frontend
+    case 'ctrl+k':
+      sendFrontendMessage('openScreen', '/settings/app/default/general')
+      break
+    // hotkey to open the downloads screen on frontend
+    case 'ctrl+j':
+      sendFrontendMessage('openScreen', '/download-manager')
+      break
+    // hotkey to open the library screen on frontend
+    case 'ctrl+l':
+      sendFrontendMessage('openScreen', '/library')
+      break
+    case 'ctrl+shift+i':
+      mainWindow?.webContents?.openDevTools()
+      break
+  }
 })
 
 /*

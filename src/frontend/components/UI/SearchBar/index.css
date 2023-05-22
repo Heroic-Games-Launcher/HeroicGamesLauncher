@@ -5,7 +5,7 @@
   display: inline-flex;
   background: var(--search-bar-background, var(--input-background));
   border-radius: var(--space-md);
-  padding: var(--space-3xs);
+  padding: var(--space-xs);
 }
 
 .SearchBar:focus-within {
@@ -14,22 +14,28 @@
 
 .autoComplete {
   position: absolute;
-  top: 100%;
+  top: 75%;
   max-height: 200px;
   width: 100%;
   background-color: var(--input-background);
   overflow: auto;
   list-style: none;
-  margin: -2px -4px;
+  margin: -2px -8px;
   display: none;
   padding: var(--space-xs) var(--space-md);
   text-align: left;
   overflow-x: hidden;
   z-index: 1;
+  border-bottom-left-radius: var(--space-md);
+  border-bottom-right-radius: var(--space-md);
 }
 
 .SearchBar:focus-within ul.autoComplete {
   display: block;
+}
+
+li {
+  padding: 2px 0px;
 }
 
 .autoComplete li:hover {

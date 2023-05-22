@@ -196,7 +196,9 @@
         "moving-files": "Đang di chuyển tệp '{{file}}': {{percent}} ",
         "syncingSaves": "Đang đồng bộ bản lưu",
         "launching": "ra mắt",
-        "ubisoft": "Cài đặt Ubisoft"
+        "ubisoft": "Cài đặt Ubisoft",
+        "downloading": "Downloading",
+        "extracting": "giải nén"
     },
     "submenu": {
         "addShortcut": "Thêm shortcut",

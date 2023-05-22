@@ -196,7 +196,9 @@
         "moving-files": "'{{file}}' ഫയൽ നീക്കുന്നു: {{percent}} ",
         "syncingSaves": "സൂക്ഷിപ്പുകള് ഒന്നിപ്പിക്കുന്നു",
         "launching": "ലോഞ്ച് ചെയ്യുന്നു",
-        "ubisoft": "Ubisoft ഇൻസ്റ്റാൾ ചെയ്യുന്നു"
+        "ubisoft": "Ubisoft ഇൻസ്റ്റാൾ ചെയ്യുന്നു",
+        "downloading": "ഇറക്കുന്നു",
+        "extracting": "വേർതിരിച്ചെടുക്കുന്നു"
     },
     "submenu": {
         "addShortcut": "കുറുക്കുവഴി ചേര്ക്കൂ",

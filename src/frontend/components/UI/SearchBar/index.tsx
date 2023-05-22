@@ -7,10 +7,12 @@ import React, {
   useRef
 } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 import ContextProvider from 'frontend/state/ContextProvider'
 import './index.css'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { GameInfo } from '../../../../common/types'
 
 function fixFilter(text: string) {
   const regex = new RegExp(/([?\\|*|+|(|)|[|]|])+/, 'g')
@@ -21,11 +23,19 @@ export default React.memo(function SearchBar() {
   const { handleSearch, filterText, epic, gog, sideloadedLibrary } =
     useContext(ContextProvider)
   const { t } = useTranslation()
+  const navigate = useNavigate()
+
   const input = useRef<HTMLInputElement>(null)
 
   const list = useMemo(() => {
+    // Set can't handle spread of undefined. Leading to
+    // TypeError. If undefined we just pass empty array.
     const library = new Set(
-      [...epic.library, ...gog.library, ...sideloadedLibrary]
+      [
+        ...(epic.library ?? []),
+        ...(gog.library ?? []),
+        ...(sideloadedLibrary ?? [])
+      ]
         .filter(Boolean)
         .map((g) => g.title)
         .sort()
@@ -61,10 +71,33 @@ export default React.memo(function SearchBar() {
   }, [input])
 
   const handleClick = (title: string) => {
+    handleSearch('')
     if (input.current) {
-      input.current.value = title
-      handleSearch(title)
+      input.current.value = ''
+
+      const game: GameInfo | undefined = getGameInfoByAppTitle(title)
+
+      if (game !== undefined) {
+        navigate(`/gamepage/${game.runner}/${game.app_name}`, {
+          state: { gameInfo: game }
+        })
+      }
     }
+  }
+
+  const getGameInfoByAppTitle = (title: string) => {
+    return (
+      getGameInfoByAppTitleAndLibrary(epic.library, title) ||
+      getGameInfoByAppTitleAndLibrary(gog.library, title) ||
+      getGameInfoByAppTitleAndLibrary(sideloadedLibrary, title)
+    )
+  }
+
+  const getGameInfoByAppTitleAndLibrary = (
+    library: GameInfo[],
+    title: string
+  ) => {
+    return library.filter((g: GameInfo) => g.title === title).at(0)
   }
 
   return (

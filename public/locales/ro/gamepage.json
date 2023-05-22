@@ -18,13 +18,13 @@
             "title": "Verifică și Repară"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "Selectează EXE-ul pentru rulare"
         },
         "select": {
-            "button": "Select"
+            "button": "Selectare"
         },
         "sideload": {
-            "exe": "Select Executable"
+            "exe": "Selectare Executabil"
         },
         "stopInstall": {
             "keepInstalling": "Continuați să instalați",
@@ -32,10 +32,10 @@
             "title": "Opriți instalarea"
         },
         "uninstall": {
-            "checkbox": "Doriți să eliminați și prefixul? Acest lucru nu poate fi anulat.",
+            "checkbox": "Eliminarea prefixului: {{prefix}}{{newLine}}Notă: Acest lucru nu poate fi anulat și se vor șterge fișierele de salvare fără backup.",
             "checkbox_prefix": "Prefix",
             "message": "Doriți să dezinstalați acest joc?",
-            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+            "settingcheckbox": "Șterge setările și elimină jurnalul{{newLine}}Notă: Această acțiune nu poate fi anulată. Orice setări modificate vor fi uitate și jurnalul va fi șters.",
             "title": "Dezinstalează",
             "prefix_warning": "Prefixul Wine pentru acest joc este prefixul implicit. Dacă vrei cu adevărat să-l ștergi, trebuie să o faci manual."
         },
@@ -50,22 +50,22 @@
         "add_to_favourites": "Adaugă la favorite",
         "cancel": "Pauză/Anulează",
         "continue": "Continuați descărcarea",
-        "finish": "Finish",
+        "finish": "Finalizare",
         "force_update": "Forțați actualizarea dacă este disponibilă",
-        "force-innstall": "Force Install",
+        "force-innstall": "Instalare Forțată",
         "hide_game": "Ascunde jocul",
         "import": "Importă Jocul",
         "install": "Instalează",
-        "no-path-selected": "No path selected",
+        "no-path-selected": "Nici o cale selectată",
         "queue": {
-            "remove": "Remove from Queue"
+            "remove": "Eliminare din coadă"
         },
         "remove_from_favourites": "Eliminați din Favorite",
-        "remove_from_recent": "Remove From Recent",
-        "run-exe-first": "Run Installer First",
-        "running-setup": "Running Setup",
+        "remove_from_recent": "Eliminare din recente",
+        "run-exe-first": "Rulează mai întâi instalatorul",
+        "running-setup": "Rularea programului de instalare",
         "sideload": {
-            "edit": "Edit App/Game"
+            "edit": "Editarea aplicației/jocului"
         },
         "unhide_game": "Afișează jocul",
         "uninstall": "Dezinstalează",
@@ -99,7 +99,7 @@
         "error": "Eroare Necunoscută",
         "noDescription": "fara descriere"
     },
-    "hours": "Hours",
+    "hours": "Ore",
     "how-long-to-beat": {
         "completionist": "Completionist",
         "main-plus-extras": "Main + Extras",
@@ -197,7 +197,9 @@
         "moving-files": "Mutarea fișierului „{{file}}”: {{percent}} ",
         "syncingSaves": "Sincronizează Salvările",
         "launching": "Lansare",
-        "ubisoft": "Instalarea Ubisoft"
+        "ubisoft": "Instalarea Ubisoft",
+        "downloading": "Downloading",
+        "extracting": "Extragerea"
     },
     "submenu": {
         "addShortcut": "Adaugă scurtătură",

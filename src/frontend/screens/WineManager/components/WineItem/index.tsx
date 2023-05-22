@@ -5,12 +5,12 @@ import React, { useEffect, useState } from 'react'
 import { WineVersionInfo, ProgressInfo, State } from 'common/types'
 import { ReactComponent as DownIcon } from 'frontend/assets/down-icon.svg'
 import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
+import { faRepeat, faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { SvgButton } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 
 import { notify, size } from 'frontend/helpers'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 
 const WineItem = ({
   version,
@@ -117,16 +117,14 @@ const WineItem = ({
 
   const renderStatus = () => {
     let status
-    if (isInstalled) {
+    if (isDownloading) {
+      status = getProgressElement(progress.progress, downsize)
+    } else if (unZipping) {
+      status = t('wine.manager.unzipping', 'Unzipping')
+    } else if (isInstalled) {
       status = size(disksize)
     } else {
-      if (isDownloading) {
-        status = getProgressElement(progress.progress, downsize)
-      } else if (progress.state === 'unzipping') {
-        status = t('wine.manager.unzipping', 'Unzipping')
-      } else {
-        status = size(downsize)
-      }
+      status = size(downsize)
     }
     return status
   }
@@ -134,10 +132,10 @@ const WineItem = ({
   // using one element for the different states so it doesn't
   // lose focus from the button when using a game controller
   const handleMainActionClick = () => {
-    if (isInstalled) {
-      remove()
-    } else if (isDownloading || unZipping) {
+    if (isDownloading || unZipping) {
       window.api.abort(version)
+    } else if (isInstalled) {
+      remove()
     } else {
       install()
     }
@@ -152,10 +150,10 @@ const WineItem = ({
   }
 
   const mainIconTitle = () => {
-    if (isInstalled) {
+    if (isDownloading || unZipping) {
+      return `Cancel ${version} ${hasUpdate ? 'update' : 'installation'}`
+    } else if (isInstalled) {
       return `Uninstall ${version}`
-    } else if (isDownloading || unZipping) {
-      return `Cancel ${version} installation`
     } else {
       return `Install ${version}`
     }
@@ -170,11 +168,24 @@ const WineItem = ({
         {isInstalled && (
           <SvgButton
             className="material-icons settings folder"
-            onClick={() => openInstallDir()}
+            onClick={openInstallDir}
             title={`Open containing folder for ${version}`}
           >
             <FontAwesomeIcon
               icon={faFolderOpen}
+              data-testid="setinstallpathbutton"
+            />
+          </SvgButton>
+        )}
+
+        {hasUpdate && (
+          <SvgButton
+            className="material-icons settings folder"
+            onClick={install}
+            title={`Update ${version}`}
+          >
+            <FontAwesomeIcon
+              icon={faRepeat}
               data-testid="setinstallpathbutton"
             />
           </SvgButton>

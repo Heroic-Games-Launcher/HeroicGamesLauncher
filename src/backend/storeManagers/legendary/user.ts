@@ -38,11 +38,15 @@ export class LegendaryUser {
 
       deleteAbortController(abortID)
 
+      if (res.stderr.includes('ERROR: Logging in ')) {
+        return errorMessage(res.stderr)
+      }
+
       if (res.error || res.abort) {
         return errorMessage(res.error ?? 'abort by user')
       }
 
-      const userInfo = await this.getUserInfo()
+      const userInfo = this.getUserInfo()
       return { status: 'done', data: userInfo }
     } catch (error) {
       deleteAbortController(abortID)
@@ -78,7 +82,7 @@ export class LegendaryUser {
     await ses.clearAuthCache()
     await ses.clearHostResolverCache()
     configStore.delete('userInfo')
-    clearCache()
+    clearCache('legendary')
   }
 
   public static isLoggedIn() {

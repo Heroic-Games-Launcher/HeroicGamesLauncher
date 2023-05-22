@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import './index.css'
+import './index.scss'
 import Runner from './components/Runner'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'

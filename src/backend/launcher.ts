@@ -278,7 +278,7 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
       ret.WINEPREFIX = winePrefix
 
       // Disable Winemenubuilder to not mess with file associations
-      const wmbDisableString = 'winemenubuilder='
+      const wmbDisableString = 'winemenubuilder.exe=d'
       // If the user already set WINEDLLOVERRIDES, append to the end
       const dllOverridesVar = gameSettings.enviromentOptions.find(
         ({ key }) => key.toLowerCase() === 'winedlloverrides'
@@ -436,8 +436,8 @@ export async function validWine(
   )
 
   // verify if necessary binaries exist
-  const { bin, wineboot, wineserver, type } = wineVersion
-  const necessary = type === 'wine' ? [bin, wineboot, wineserver] : [bin]
+  const { bin, wineserver, type } = wineVersion
+  const necessary = type === 'wine' ? [bin, wineserver] : [bin]
   const haveAll = necessary.every((binary) => existsSync(binary as string))
 
   // if wine version does not exist, use the default one

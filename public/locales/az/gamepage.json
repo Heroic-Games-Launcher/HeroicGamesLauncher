@@ -197,7 +197,9 @@
         "moving-files": "'{{file}}' faylı köçürülür: {{percent}} ",
         "syncingSaves": "Sinxronizasiya Saxlamalar",
         "launching": "Başlanır",
-        "ubisoft": "Ubisoft quraşdırılması"
+        "ubisoft": "Ubisoft quraşdırılması",
+        "downloading": "Downloading",
+        "extracting": "Çıxarma"
     },
     "submenu": {
         "addShortcut": "Qısayol əlavə edin",
