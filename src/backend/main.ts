@@ -898,6 +898,8 @@ ipcMain.handle(
 
     const { minimizeOnLaunch } = GlobalConfig.get().getSettings()
 
+    const { autoCloseLauncher } = GlobalConfig.get().getSettings()
+
     const startPlayingDate = new Date()
 
     if (!tsStore.has(game.app_name)) {
@@ -942,6 +944,13 @@ ipcMain.handle(
     const showAfterClose = mainWindow?.isVisible()
     if (minimizeOnLaunch) {
       mainWindow?.hide()
+    }
+
+    if (autoCloseLauncher) {
+      mainWindow?.hide()
+      setTimeout(() => {
+        mainWindow?.close()
+      }, 8000)
     }
 
     // Prevent display from sleep

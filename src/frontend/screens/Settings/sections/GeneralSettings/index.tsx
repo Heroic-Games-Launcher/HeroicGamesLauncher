@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import LanguageSelector from 'frontend/components/UI/LanguageSelector'
 import { ThemeSelector } from 'frontend/components/UI/ThemeSelector'
 import {
+  AutoCloseLauncher,
   AutoUpdateGames,
   CheckUpdatesOnStartup,
   CustomWineProton,
@@ -52,6 +53,8 @@ export default function GeneralSettings() {
       <TraySettings />
 
       <MinimizeOnGameLaunch />
+
+      <AutoCloseLauncher />
 
       <UseDarkTrayIcon />
 

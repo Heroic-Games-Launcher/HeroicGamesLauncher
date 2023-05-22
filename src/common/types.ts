@@ -48,6 +48,7 @@ export interface AppSettings extends GameSettings {
   addSteamShortcuts: boolean
   altGogdlBin: string
   altLegendaryBin: string
+  autoCloseLauncher: boolean
   autoUpdateGames: boolean
   checkForUpdatesOnStartup: boolean
   checkUpdatesInterval: number
