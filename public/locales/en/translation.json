@@ -457,6 +457,8 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary",
+        "auto-close-launcher": "Close Heroic After Game Launch ⚠️ Disables Cloud Async",
+        "auto-close-launcher-description": "Enabling this setting will disable usage of cloud async but will slightly improve performance",
         "autodxvk": "Auto Install/Update DXVK on Prefix",
         "autosync": "Autosync Saves",
         "autoUpdateGames": "Automatically update games",
