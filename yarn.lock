@@ -6434,10 +6434,10 @@ nth-check@^2.0.1:
   dependencies:
     boolbase "^1.0.0"
 
-nvngx-finder@0.3.6:
-  version "0.3.6"
-  resolved "https://registry.yarnpkg.com/nvngx-finder/-/nvngx-finder-0.3.6.tgz#887f85f69d5e05165888d0067406fbc76b3ca9ba"
-  integrity sha512-e9MqMJzL3J14aKFMJuye7BEIfWBTMU7YoWe9UJ7SeDuu48iTJtcFtuYyGqIkSBxEXm+HCX9tWHHjvjOJBq+K8w==
+nvngx-finder@^0.3.8:
+  version "0.3.8"
+  resolved "https://registry.yarnpkg.com/nvngx-finder/-/nvngx-finder-0.3.8.tgz#343f2096251980c984de09edebe9e2621335eee2"
+  integrity sha512-VDFQPjd9MFGa5fNemDgih5oJ0vQdupbFefwdHl9nJMn95JvZQO4dpnMW1gjpFYXgT2VRFSOnJKeYRWwjlKUNMQ==
   dependencies:
     cargo-cp-artifact "^0.1"
 
