@@ -531,10 +531,6 @@ function getGOGdlBin(): { dir: string; bin: string } {
   )
 }
 
-function getNvngxBin(): string {
-  return fixAsarPath(join(publicDir, 'bin', process.platform, 'nvngx_finder'))
-}
-
 function getFormattedOsName(): string {
   switch (process.platform) {
     case 'linux':
@@ -1217,7 +1213,6 @@ export {
   resetHeroic,
   getLegendaryBin,
   getGOGdlBin,
-  getNvngxBin,
   formatEpicStoreUrl,
   searchForExecutableOnPath,
   getSteamRuntime,
