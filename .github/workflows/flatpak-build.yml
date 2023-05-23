@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: '18'
       - name: Install modules.
-        run: sudo apt install cargo -y && npm install --global yarn && yarn
+        run: npm install --global yarn && yarn
       - name: Build artifacts.
         run: npm run dist:linux appimage --publish=never
         env:
