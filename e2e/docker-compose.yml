@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  process_all:
+    build:
+      context: ../
+      dockerfile: e2e/Dockerfile.test
+    volumes:
+      - .:/src
+    environment:
+      - TEST_PACKAGED=${TEST_PACKAGED}

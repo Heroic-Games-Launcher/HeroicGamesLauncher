@@ -1,0 +1,29 @@
+FROM node:18 AS node
+
+FROM node AS headless
+
+RUN apt-get update && \
+    apt-get install -y xvfb \
+    libgbm1 \
+    libxss1 \
+    libnss3 \
+    libgtk-3-dev \
+    libasound2-dev \
+    unzip \
+    dos2unix \
+    && rm -rf /var/lib/apt/lists/*
+
+FROM headless AS final
+
+EXPOSE 9515
+ENV ELECTRON_ENABLE_STACK_DUMPING=true
+ENV ELECTRON_ENABLE_LOGGING=true
+
+# Create app directory
+WORKDIR /app
+
+# Install app dependencies
+COPY package.json ./
+
+# Bundle app source
+COPY . .
