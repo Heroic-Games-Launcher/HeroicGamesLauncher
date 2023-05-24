@@ -70,6 +70,17 @@ export default function WebView() {
   const isEpicLogin = runner === 'legendary' && startUrl === epicLoginUrl
   const [preloadPath, setPreloadPath] = useState('')
 
+  // Small hack here to use the user agent of firefox on linux for the epic login screen
+  // and firefox on windows for the rest of the pages
+  // this is to test if the epic login improves
+  let userAgent =
+    'Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/85.0'
+  if (isEpicLogin) {
+    // firefox on linux for login screen
+    userAgent =
+      'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:85.0) Gecko/20100101 Firefox/85.0'
+  }
+
   useEffect(() => {
     let mounted = true
     const fetchLocalPreloadPath = async () => {
@@ -197,7 +208,7 @@ export default function WebView() {
         partition="persist:epicstore"
         src={startUrl}
         allowpopups={trueAsStr}
-        useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/200.0"
+        useragent={userAgent}
         {...(preloadPath ? { preload: preloadPath } : {})}
       />
       {showLoginWarningFor && (
