@@ -115,7 +115,7 @@
         "apple-gaming-wiki": "Peringkat AppleGamingWiki",
         "clickToOpen": "Klik untuk membuka",
         "game-scores": "Skor Game",
-        "installedInfo": "Informasi Terpasang"
+        "installedInfo": "Informasi Instalasi"
     },
     "install": {
         "disk-space-left": "Ruang Penyimpanan yang Tersedia",
@@ -138,7 +138,7 @@
             "syncing": "Menyinkronkan Penyimpanan"
         },
         "launching": "Meluncurkan",
-        "ubisoft": "Menginstal Ubisoft Connect"
+        "ubisoft": "Memasang Ubisoft Connect"
     },
     "launch": {
         "options": "Opsi Peluncuran…"
@@ -196,7 +196,7 @@
         "moving-files": "Memindahkan berkas '{{file}}': {{percent}} ",
         "syncingSaves": "Menyinkronkan Penyimpanan Gim",
         "launching": "Meluncurkan",
-        "ubisoft": "Menginstal Ubisoft",
+        "ubisoft": "Memasang Ubisoft",
         "downloading": "Mengunduh",
         "extracting": "Mengekstrak"
     },
