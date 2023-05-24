@@ -8,7 +8,7 @@
         "choose": "Wybierz",
         "importpath": "Wybierz folder gry do zaimportowania",
         "move": {
-            "message": "To może chwilę zająć, jesteś pewny?",
+            "message": "To może zająć dłuższą chwilę, jesteś pewny?",
             "path": "Wybierz gdzie chcesz przejść",
             "title": "Przenieś pliki gry"
         },
@@ -34,7 +34,7 @@
         "uninstall": {
             "checkbox": "Usuń prefiks: {{prefix}}{{newLine}} Notka: Operacja nie może zostać cofnięta, zostaną usunięte również zapisy gry.",
             "message": "Czy chcesz odinstalować tę grę?",
-            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+            "settingcheckbox": "Wyczyść ustawienia i usuń dziennik zdarzeń{{newLine}}Uwaga: Ta operacja nie może zostać cofnięta. Wszystkie zmodyfikowane ustawienia zostaną zapomniane a dziennik zdarzeń zostanie usunięty.",
             "title": "Odinstaluj",
             "prefix_warning": "Prefiks Wine dla tej gry jest prefiksem domyślnym. Jeśli naprawdę chcesz go usunąć, musisz to zrobić ręcznie."
         },
@@ -60,9 +60,9 @@
             "remove": "Usuń z kolejki"
         },
         "remove_from_favourites": "Usuń z ulubionych",
-        "remove_from_recent": "Remove From Recent",
+        "remove_from_recent": "Usuń z ostatnio uruchamianych",
         "run-exe-first": "Uruchom najpierw instalator",
-        "running-setup": "Running Setup",
+        "running-setup": "Rozpoczynanie instalacji",
         "sideload": {
             "edit": "Edytuj Aplikację/Grę"
         },
@@ -80,8 +80,8 @@
     "game": {
         "downloadSize": "Rozmiar pobierania",
         "firstPlayed": "Pierwsze uruchomienie",
-        "getting-download-size": "Geting download size",
-        "getting-install-size": "Geting install size",
+        "getting-download-size": "Uzyskiwanie rozmiaru do pobrania",
+        "getting-install-size": "Uzyskiwanie rozmiaru po instalacji",
         "installSize": "Rozmiar instalacji",
         "language": "Język",
         "lastPlayed": "Ostatnio uruchamiane",
@@ -98,11 +98,11 @@
         "error": "Nieznany błąd",
         "noDescription": "Brak dostępnego opisu"
     },
-    "hours": "Hours",
+    "hours": "Godzin",
     "how-long-to-beat": {
-        "completionist": "Completionist",
-        "main-plus-extras": "Main + Extras",
-        "main-story": "Main Story"
+        "completionist": "Kolekcjoner",
+        "main-plus-extras": "Podstawowa + Dodatki",
+        "main-story": "Główny wątek"
     },
     "howLongToBeat": "How Long To Beat",
     "info": {
@@ -128,7 +128,7 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Gry stron trzecich NIE są obsługiwane"
         },
         "playing": {
             "start": "Graj",
@@ -144,31 +144,31 @@
         "options": "Opcje Uruchamiania..."
     },
     "not_logged_in": {
-        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
-        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "epic": "Nie jesteś zalogowany na konto Epic w Heroic. Nie używaj strony sklepu do logowania, zamiast tego kliknij poniższy przycisk:",
+        "gog": "Nie jesteś zalogowany na konto GOG w Heroic. Nie używaj strony sklepu do logowania, zamiast tego kliknij poniższy przycisk:",
         "login": "Log in",
-        "title": "You are NOT logged in"
+        "title": "NIE jesteś zalogowany"
     },
     "report_problem": "Zgłoś problem z uruchamianiem tej gry",
     "sdl": {
         "title": "Wybierz komponenty do instalacji"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings",
+        "use-default-wine-settings": "Użyj domyślnych ustawień Wine",
         "winecrossoverbottle": "Butelka CrossOver"
     },
     "sideload": {
         "field": {
-            "title": "Title"
+            "title": "Tytuł"
         },
         "info": {
-            "exe": "Select Executable",
-            "image": "App Image",
-            "title": "Game/App Title"
+            "exe": "Wybierz plik wykonywalny",
+            "image": "Obraz aplikacji",
+            "title": "Tytuł gry/aplikacji"
         },
         "placeholder": {
-            "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "image": "Wklej adres URL obrazu tutaj",
+            "title": "Dodaj tytuł do swojej gry/aplikacji"
         }
     },
     "specs": {
@@ -177,27 +177,27 @@
     },
     "status": {
         "clickToUpdate": "Kliknij by zaktualizować",
-        "gameNotAvailable": "Game not available",
+        "gameNotAvailable": "Gra nie jest dostępna",
         "hasUpdates": "Nowa wersja dostępna!",
         "installed": "Zainstalowane",
         "installing": "Instalowanie",
         "moving": "Przenoszenie plików gry, proszę czekać",
         "notinstalled": "Ta gra nie jest zainstalowana",
-        "notSupported": "Not supported",
-        "notSupportedGame": "Not Supported",
+        "notSupported": "Nieobsługiwane",
+        "notSupportedGame": "Nieobsługiwane",
         "processing": "Przetwarzanie plików, proszę czekać",
-        "queued": "Queued",
+        "queued": "W kolejce",
         "reparing": "Naprawianie gry, proszę czekać",
-        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
+        "this-game-uses-third-party": "Ta gra używa programu uruchamiającego strony trzeciej i nie jest jeszcze wspierana",
         "totalDownloaded": "Łącznie pobrane",
-        "uninstalling": "Uninstalling",
+        "uninstalling": "Odinstalowywanie",
         "updating": "Aktualizowanie gry",
-        "playing": "Gra",
+        "playing": "W grze",
         "moving-files": "Przenoszenie pliku „{{file}}”: {{percent}} ",
         "syncingSaves": "Synchronizowanie zapisów",
         "launching": "Wodowanie",
         "ubisoft": "Instalowanie Ubisoftu",
-        "downloading": "Downloading",
+        "downloading": "Pobieranie",
         "extracting": "Ekstrahujący"
     },
     "submenu": {
