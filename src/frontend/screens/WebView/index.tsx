@@ -78,7 +78,7 @@ export default function WebView() {
   if (isEpicLogin) {
     // firefox on linux for login screen
     userAgent =
-      'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:85.0) Gecko/20100101 Firefox/85.0'
+      'Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/113.0'
   }
 
   useEffect(() => {
