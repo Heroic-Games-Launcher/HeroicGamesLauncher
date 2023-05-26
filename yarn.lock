@@ -2681,11 +2681,6 @@ caniuse-lite@^1.0.30001400:
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001419.tgz#3542722d57d567c8210d5e4d0f9f17336b776457"
   integrity sha512-aFO1r+g6R7TW+PNQxKzjITwLOyDhVRLjW0LcwS/HCZGUUKTGNp9+IwLC4xyDSZBygVL/mxaFR3HIV6wEKQuSzw==
 
-cargo-cp-artifact@^0.1:
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/cargo-cp-artifact/-/cargo-cp-artifact-0.1.8.tgz#353814f49f6aa76601a4bcb3ea5f3071180b90de"
-  integrity sha512-3j4DaoTrsCD1MRkTF2Soacii0Nx7UHCce0EwUf4fHnggwiE4fbmF2AbnfzayR36DF8KGadfh7M/Yfy625kgPlA==
-
 chalk@^2.0.0:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.2.tgz#cd42541677a54333cf541a49108c1432b44c9424"
@@ -6474,13 +6469,6 @@ nth-check@^2.0.1:
   integrity sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==
   dependencies:
     boolbase "^1.0.0"
-
-nvngx-finder@^0.3.8:
-  version "0.3.8"
-  resolved "https://registry.yarnpkg.com/nvngx-finder/-/nvngx-finder-0.3.8.tgz#343f2096251980c984de09edebe9e2621335eee2"
-  integrity sha512-VDFQPjd9MFGa5fNemDgih5oJ0vQdupbFefwdHl9nJMn95JvZQO4dpnMW1gjpFYXgT2VRFSOnJKeYRWwjlKUNMQ==
-  dependencies:
-    cargo-cp-artifact "^0.1"
 
 object-assign@^4.1.0, object-assign@^4.1.1:
   version "4.1.1"

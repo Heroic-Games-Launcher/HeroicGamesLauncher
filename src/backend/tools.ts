@@ -19,7 +19,7 @@ import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
 import { runWineCommand, validWine } from './launcher'
 import { chmod } from 'fs/promises'
-import { getNvngxPath } from 'nvngx-finder'
+import { getNvngxPath } from './utils/graphics/nvngx-finder'
 
 export const DXVK = {
   getLatest: async () => {
