@@ -198,8 +198,8 @@
         "syncingSaves": "قيد مزامنة ملفات التخزين",
         "launching": "يشغّل",
         "ubisoft": "يثبَّت يوبيسوفت",
-        "downloading": "قيد التنزيل",
-        "extracting": "استخراج"
+        "downloading": "ينزَّل",
+        "extracting": "يستخرَج"
     },
     "submenu": {
         "addShortcut": "أضف اختصارًا",

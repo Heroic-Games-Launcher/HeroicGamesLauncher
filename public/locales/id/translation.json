@@ -80,11 +80,11 @@
             },
             "moving": "Terjadi Kesalahan saat Memindahkan Game {{error}}",
             "ubisoft-connect": {
-                "message": "Pemasangan Ubisoft Connect di awalan game gagal. Periksa halaman wiki kami di https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac untuk menginstalnya secara maunal.",
+                "message": "Pemasangan Ubisoft Connect di prefiks gim telah gagal. Periksa halaman wiki kami di https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac untuk memasangnya secara maunal.",
                 "title": "Ubisoft Connect"
             },
             "legendary": {
-                "generic": "Sebuah kesalahan telah terjadi! Cobalah Logout dan Login di akun Epic Anda. {{newline}} {{error}}"
+                "generic": "Sebuah kesalahan telah terjadi! Cobalah Keluar dan Masuk kembali di akun Epic Anda. {{newline}} {{error}}"
             }
         },
         "info": {
@@ -367,7 +367,7 @@
             "imported": "Gim Diimpor",
             "startInstall": "Pemasangan Dimulai",
             "failed": "Pemasangan Gagal",
-            "paused": "Instalasi Dijeda"
+            "paused": "Pemasangan Dijeda"
         },
         "moved": "Selesai Memindahkan",
         "moving": "Memindahkan Gim",
@@ -380,7 +380,7 @@
             "canceled": "Pembaruan Dibatalkan",
             "finished": "Pembaruan Selesai",
             "started": "Pembaruan Dimulai",
-            "failed": "Pembaharuan gagal",
+            "failed": "Pembaruan gagal",
             "paused": "Pembaruan Dijeda"
         }
     },
