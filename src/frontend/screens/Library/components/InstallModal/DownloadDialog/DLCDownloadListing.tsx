@@ -41,14 +41,7 @@ const DLCDownloadListing: React.FC<Props> = ({
       newDlcsToInstall.push(app_name)
     }
     setDlcsToInstall(newDlcsToInstall)
-
-    if (newDlcsToInstall.length === DLCList.length) {
-      setInstallAllDlcs(true)
-    }
-
-    if (newDlcsToInstall.length < DLCList.length) {
-      setInstallAllDlcs(false)
-    }
+    setInstallAllDlcs(newDlcsToInstall.length === DLCList.length)
   }
 
   return (

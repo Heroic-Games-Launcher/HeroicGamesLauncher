@@ -26,12 +26,13 @@ const DLC = ({ dlc, runner, mainAppInfo, onClose }: Props) => {
   const { title, app_name } = dlc
   const { libraryStatus, showDialogModal } = useContext(ContextProvider)
   const { t } = useTranslation('gamepage')
-  const [isInstalled, setIsInstalled] = useState(false)
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [dlcInfo, setDlcInfo] = useState<GameInfo | null>(null)
   const [dlcSize, setDlcSize] = useState<number>(0)
   const [refreshing, setRefreshing] = useState(true)
   const [progress] = hasProgress(app_name)
+
+  const isInstalled = dlcInfo?.is_installed
 
   useEffect(() => {
     const checkInstalled = async () => {
@@ -40,8 +41,6 @@ const DLC = ({ dlc, runner, mainAppInfo, onClose }: Props) => {
         return
       }
       setDlcInfo(info)
-      const installed = info.is_installed
-      setIsInstalled(installed)
     }
     checkInstalled()
   }, [dlc, runner])

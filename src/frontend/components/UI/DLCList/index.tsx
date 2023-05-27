@@ -17,11 +17,13 @@ const DlcList = ({ dlcs, runner, mainAppInfo, onClose }: Props) => {
 
   return (
     <div className="dlcList">
-      <div className="dlcHeader">
-        <span className="title">{t('dlc.title', 'Title')}</span>
-        <span className="size">{t('dlc.size', 'Size')}</span>
-        <span className="actions">{t('dlc.actions', 'Actions')}</span>
-      </div>
+      {dlcs.length > 0 && (
+        <div className="dlcHeader">
+          <span className="title">{t('dlc.title', 'Title')}</span>
+          <span className="size">{t('dlc.size', 'Size')}</span>
+          <span className="actions">{t('dlc.actions', 'Actions')}</span>
+        </div>
+      )}
       {dlcs.length > 0 &&
         dlcs.map((dlc) => {
           return (
