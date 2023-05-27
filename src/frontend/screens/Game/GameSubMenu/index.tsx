@@ -215,6 +215,8 @@ export default function GamesSubmenu({
     return <CircularProgress className="link button is-text is-link" />
   }
 
+  const showDlcsItem = onShowDlcs && runner === 'legendary'
+
   return (
     <>
       <div className="gameTools subMenuContainer">
@@ -336,7 +338,7 @@ export default function GamesSubmenu({
               {t('game.requirements', 'Requirements')}
             </button>
           )}
-          {onShowDlcs && (
+          {showDlcsItem && (
             <button
               onClick={async () => onShowDlcs()}
               className="link button is-text is-link"

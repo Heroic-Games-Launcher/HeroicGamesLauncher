@@ -82,8 +82,6 @@
 
 .InstallModal__dlcsList {
   max-width: 300px;
-  margin: var(--space-md)
-    calc(var(--space-md) + var(--space-xs) + var(--space-sm));
   color: var(--text-default);
 }
 

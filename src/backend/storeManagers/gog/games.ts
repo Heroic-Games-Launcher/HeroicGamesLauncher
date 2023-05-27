@@ -330,7 +330,7 @@ export async function install(
     is_dlc: false,
     version: additionalInfo ? additionalInfo.version : installInfo.game.version,
     appName: appName,
-    installedWithDLCs: installDlcs,
+    installedWithDLCs: Boolean(installDlcs),
     language: installLanguage,
     versionEtag: isLinuxNative ? '' : installInfo.manifest.versionEtag,
     buildId: isLinuxNative ? '' : installInfo.game.buildId
