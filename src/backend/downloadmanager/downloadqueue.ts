@@ -179,8 +179,8 @@ function getQueueInformation() {
 
 function cancelCurrentDownload({ removeDownloaded = false }) {
   if (currentElement) {
-    if (currentElement.params.installDlcs) {
-      const dlcsToRemove = currentElement.params.installDlcs as string[]
+    if (Array.isArray(currentElement.params.installDlcs)) {
+      const dlcsToRemove = currentElement.params.installDlcs
       for (const dlc of dlcsToRemove) {
         removeFromQueue(dlc)
       }
