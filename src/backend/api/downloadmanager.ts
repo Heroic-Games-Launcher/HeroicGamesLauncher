@@ -10,7 +10,27 @@ export const install = async (args: InstallParams) => {
     endTime: 0,
     startTime: 0
   }
-  ipcRenderer.invoke('addToDMQueue', dmQueueElement)
+
+  await ipcRenderer.invoke('addToDMQueue', dmQueueElement)
+
+  // Add Dlcs to the queue
+  if (Array.isArray(args.installDlcs) && args.installDlcs.length > 0) {
+    args.installDlcs.forEach(async (dlc) => {
+      const dlcArgs: InstallParams = {
+        ...args,
+        appName: dlc,
+        installDlcs: false
+      }
+      const dlcQueueElement: DMQueueElement = {
+        params: dlcArgs,
+        type: 'install',
+        addToQueueTime: Date.now(),
+        endTime: 0,
+        startTime: 0
+      }
+      await ipcRenderer.invoke('addToDMQueue', dlcQueueElement)
+    })
+  }
 }
 
 export const updateGame = (args: UpdateParams) => {
