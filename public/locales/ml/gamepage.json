@@ -18,13 +18,13 @@
             "title": "ഉറപ്പുവരുത്തി നന്നാക്കൂ"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "ഓടിക്കുവാനുള്ള EXE തിരഞ്ഞെടുക്കൂ"
         },
         "select": {
-            "button": "Select"
+            "button": "തിരഞ്ഞെടുക്കൂ"
         },
         "sideload": {
-            "exe": "Select Executable"
+            "exe": "എക്സക്യൂട്ടബിള്‍ തിരഞ്ഞെടുക്കൂ"
         },
         "stopInstall": {
             "keepInstalling": "നടീല് തുടര്ന്നുകൊള്ളൂ",

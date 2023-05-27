@@ -42,7 +42,7 @@
             "message": "Este juego tiene una actualización. ¿Quieres aplicarla ahora?",
             "title": "El juego necesita una actualización"
         },
-        "wineprefix": "Seleccione la carpeta WinePrefix",
+        "wineprefix": "Elige la carpeta de WinePrefix",
         "yes": "SÍ"
     },
     "button": {

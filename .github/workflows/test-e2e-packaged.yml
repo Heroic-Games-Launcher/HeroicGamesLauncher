@@ -1,0 +1,64 @@
+name: Test E2E Packaged
+
+on:
+  pull_request:
+    branches: [main, stable]
+  workflow_dispatch:
+
+env:
+  TEST_PACKAGED: true
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository.
+        uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Install modules.
+        run: yarn
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+      - name: Build and Test
+        run: yarn test:e2ePackaged-ci
+
+  mac:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository.
+        uses: actions/checkout@v3
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Install modules.
+        run: yarn
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+      - name: Build and Test
+        run: yarn test:e2ePackaged-ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository.
+        uses: actions/checkout@v3
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Install modules.
+        run: npm i --legacy-peer-deps
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+      - name: Build and Test
+        run: yarn test:e2ePackaged-ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
