@@ -180,6 +180,7 @@
     },
     "dlc": {
         "actions": "Actions",
+        "noDlcFound": "No DLCs found",
         "size": "Size",
         "title": "Title"
     },
