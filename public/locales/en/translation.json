@@ -178,6 +178,11 @@
             "update_game": "Update game"
         }
     },
+    "dlc": {
+        "actions": "Actions",
+        "size": "Size",
+        "title": "Title"
+    },
     "docs": "Documentation",
     "download-manager": {
         "ETA": "Estimated time",
