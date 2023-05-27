@@ -129,10 +129,9 @@ const DLC = ({ dlc, runner, mainAppInfo, onClose }: Props) => {
           </span>
         )}
         {refreshing && (
-          <FontAwesomeIcon
-            className={'InstallModal__sizeIcon fa-spin-pulse'}
-            icon={faSpinner}
-          />
+          <span className="action">
+            <FontAwesomeIcon className={'fa-spin-pulse'} icon={faSpinner} />
+          </span>
         )}
       </div>
     </>

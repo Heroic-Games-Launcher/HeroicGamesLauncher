@@ -297,7 +297,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
     hasRequirements = extraInfo?.reqs ? extraInfo.reqs.length > 0 : false
     hasUpdate = is_installed && gameUpdates?.includes(appName)
-    const hasDlcs = gameInstallInfo?.game?.owned_dlc.length
 
     const { howlongtobeat, pcgamingwiki, applegamingwiki } = wikiGameInfo || {}
     const hasHLTB = Boolean(howlongtobeat?.gameplayMain)
@@ -406,7 +405,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         ? () => setShowRequirements(true)
                         : undefined
                     }
-                    onShowDlcs={hasDlcs ? () => setShowDlcs(true) : undefined}
+                    onShowDlcs={() => setShowDlcs(true)}
                   />
                 </div>
               </div>
@@ -757,18 +756,22 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 </DialogContent>
               </Dialog>
             )}
-            {hasDlcs && showDlcs && (
+            {showDlcs && (
               <Dialog showCloseButton onClose={() => setShowDlcs(false)}>
                 <DialogHeader onClose={() => setShowDlcs(false)}>
                   <div>{t('game.dlcs', 'DLCs')}</div>
                 </DialogHeader>
                 <DialogContent>
-                  <DLCList
-                    dlcs={gameInstallInfo?.game.owned_dlc}
-                    runner={runner}
-                    mainAppInfo={gameInfo}
-                    onClose={() => setShowDlcs(false)}
-                  />
+                  {gameInstallInfo ? (
+                    <DLCList
+                      dlcs={gameInstallInfo?.game.owned_dlc}
+                      runner={runner}
+                      mainAppInfo={gameInfo}
+                      onClose={() => setShowDlcs(false)}
+                    />
+                  ) : (
+                    <UpdateComponent inline />
+                  )}
                 </DialogContent>
               </Dialog>
             )}

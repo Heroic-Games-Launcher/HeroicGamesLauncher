@@ -22,17 +22,21 @@ const DlcList = ({ dlcs, runner, mainAppInfo, onClose }: Props) => {
         <span className="size">{t('dlc.size', 'Size')}</span>
         <span className="actions">{t('dlc.actions', 'Actions')}</span>
       </div>
-      {dlcs.map((dlc) => {
-        return (
-          <DLC
-            key={dlc.app_name}
-            dlc={dlc}
-            runner={runner}
-            mainAppInfo={mainAppInfo}
-            onClose={onClose}
-          />
-        )
-      })}
+      {dlcs.length > 0 &&
+        dlcs.map((dlc) => {
+          return (
+            <DLC
+              key={dlc.app_name}
+              dlc={dlc}
+              runner={runner}
+              mainAppInfo={mainAppInfo}
+              onClose={onClose}
+            />
+          )
+        })}
+      {dlcs.length === 0 && (
+        <div className="noDlcFound">{t('dlc.noDlcFound', 'No DLCs found')}</div>
+      )}
     </div>
   )
 }
