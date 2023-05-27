@@ -1,10 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { DLCInfo } from 'common/types/legendary'
 import './index.scss'
 import { useTranslation } from 'react-i18next'
-import { getGameInfo } from 'frontend/helpers'
+import { getGameInfo, getInstallInfo, install, size } from 'frontend/helpers'
 import { GameInfo, Runner } from 'common/types'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
+import {
+  faCancel,
+  faCloudArrowDown,
+  faSpinner,
+  faTrash
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import ContextProvider from 'frontend/state/ContextProvider'
+import { hasProgress } from 'frontend/hooks/hasProgress'
 
 type Props = {
   dlc: DLCInfo
@@ -15,10 +24,14 @@ type Props = {
 
 const DLC = ({ dlc, runner, mainAppInfo, onClose }: Props) => {
   const { title, app_name } = dlc
+  const { libraryStatus, showDialogModal } = useContext(ContextProvider)
   const { t } = useTranslation('gamepage')
   const [isInstalled, setIsInstalled] = useState(false)
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [dlcInfo, setDlcInfo] = useState<GameInfo | null>(null)
+  const [dlcSize, setDlcSize] = useState<number>(0)
+  const [refreshing, setRefreshing] = useState(true)
+  const [progress] = hasProgress(app_name)
 
   useEffect(() => {
     const checkInstalled = async () => {
@@ -33,6 +46,30 @@ const DLC = ({ dlc, runner, mainAppInfo, onClose }: Props) => {
     checkInstalled()
   }, [dlc, runner])
 
+  useEffect(() => {
+    setRefreshing(true)
+    const getDlcSize = async () => {
+      if (!mainAppInfo.install.platform) {
+        return
+      }
+      const info = await getInstallInfo(
+        app_name,
+        runner,
+        mainAppInfo.install.platform
+      )
+      if (!info) {
+        return
+      }
+      setDlcSize(info.manifest.download_size)
+      setRefreshing(false)
+    }
+    getDlcSize()
+  }, [dlc, runner])
+
+  const currentApp = libraryStatus.find((app) => app.appName === app_name)
+  const isInstalling = currentApp?.status === 'installing'
+  const showInstallButton = !isInstalling && !refreshing
+
   function mainAction() {
     if (isInstalled) {
       setShowUninstallModal(true)
@@ -45,10 +82,13 @@ const DLC = ({ dlc, runner, mainAppInfo, onClose }: Props) => {
         return
       }
       onClose()
-      window.api.install({
-        appName: app_name,
-        runner,
-        path: install_path,
+      install({
+        isInstalling,
+        previousProgress: null,
+        progress,
+        showDialogModal,
+        t,
+        installPath: install_path,
         gameInfo: dlcInfo,
         platformToInstall: platform
       })
@@ -67,11 +107,33 @@ const DLC = ({ dlc, runner, mainAppInfo, onClose }: Props) => {
       )}
       <div className="dlcItem">
         <span className="title">{title}</span>
-        <span className="action" onClick={() => mainAction()}>
-          {isInstalled
-            ? t('dlc.uninstall', 'Uninstall')
-            : t('dlc.install', 'Install')}
-        </span>
+        {refreshing ? '...' : <span className="size">{size(dlcSize)}</span>}
+        {showInstallButton && (
+          <span className="action" onClick={() => mainAction()}>
+            <FontAwesomeIcon
+              icon={isInstalled ? faTrash : faCloudArrowDown}
+              title={
+                isInstalled
+                  ? t('dlc.uninstall', 'Uninstall')
+                  : t('dlc.install', 'Install')
+              }
+            />
+          </span>
+        )}
+        {isInstalling && (
+          <span className="action" onClick={() => mainAction()}>
+            <FontAwesomeIcon
+              icon={faCancel}
+              title={t('dlc.cancel', 'Cancel')}
+            />
+          </span>
+        )}
+        {refreshing && (
+          <FontAwesomeIcon
+            className={'InstallModal__sizeIcon fa-spin-pulse'}
+            icon={faSpinner}
+          />
+        )}
       </div>
     </>
   )

@@ -16,10 +16,11 @@ const DlcList = ({ dlcs, runner, mainAppInfo, onClose }: Props) => {
   const { t } = useTranslation()
 
   return (
-    <div className="wineList">
+    <div className="dlcList">
       <div className="dlcHeader">
-        <span>{t('dlc.title', 'Title')}</span>
-        <span>{t('dlc.actions', 'Actions')}</span>
+        <span className="title">{t('dlc.title', 'Title')}</span>
+        <span className="size">{t('dlc.size', 'Size')}</span>
+        <span className="actions">{t('dlc.actions', 'Actions')}</span>
       </div>
       {dlcs.map((dlc) => {
         return (

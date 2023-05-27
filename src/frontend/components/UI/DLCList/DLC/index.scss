@@ -1,24 +1,30 @@
 .dlcItem {
-  display: flex;
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-gap: var(--space-md-fixed);
+  grid-template-areas: 'title size action';
   justify-content: space-between;
   align-items: center;
   padding: 1rem 0;
   border-bottom: 1px solid #ccc;
-  margin: 0 var(--space-md-fixed);
 
   &:last-child {
     border-bottom: none;
   }
   .title {
     grid-area: title;
-    font-size: 1.3rem;
-    font-weight: 600;
-    margin-right: var(--space-xl-fixed);
+    font-weight: 400;
+  }
+  .size {
+    grid-area: size;
+    font-weight: 400;
+    text-align: center;
   }
   .action {
     grid-area: action;
-    font-size: 1.2rem;
     font-weight: 400;
+    text-align: center;
     cursor: pointer;
     color: var(--primary);
     transition: color 0.2s ease-in-out;
