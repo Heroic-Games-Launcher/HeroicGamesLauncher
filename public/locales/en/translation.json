@@ -180,6 +180,7 @@
     },
     "dlc": {
         "actions": "Actions",
+        "installDlcs": "Install all DLCs",
         "noDlcFound": "No DLCs found",
         "size": "Size",
         "title": "Title"
