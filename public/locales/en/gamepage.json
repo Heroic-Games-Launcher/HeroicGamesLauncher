@@ -75,10 +75,7 @@
     "cloud_save_unsupported": "Unsupported",
     "disabled": "Disabled",
     "dlc": {
-        "cancel": "Cancel",
-        "install": "Install",
-        "installDlcs": "Install all DLCs",
-        "uninstall": "Uninstall"
+        "installDlcs": "Install all DLCs"
     },
     "enabled": "Enabled",
     "game": {
