@@ -5,15 +5,14 @@ import { useTranslation } from 'react-i18next'
 import { getGameInfo, getInstallInfo, install, size } from 'frontend/helpers'
 import { GameInfo, Runner } from 'common/types'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
-import {
-  faCancel,
-  faCloudArrowDown,
-  faSpinner,
-  faTrash
-} from '@fortawesome/free-solid-svg-icons'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { hasProgress } from 'frontend/hooks/hasProgress'
+import { ReactComponent as DownIcon } from 'frontend/assets/down-icon.svg'
+import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
+import { ReactComponent as StopIconAlt } from 'frontend/assets/stop-icon-alt.svg'
+import SvgButton from '../../SvgButton'
 
 type Props = {
   dlc: DLCInfo
@@ -108,24 +107,26 @@ const DLC = ({ dlc, runner, mainAppInfo, onClose }: Props) => {
         <span className="title">{title}</span>
         {refreshing ? '...' : <span className="size">{size(dlcSize)}</span>}
         {showInstallButton && (
-          <span className="action" onClick={() => mainAction()}>
-            <FontAwesomeIcon
-              icon={isInstalled ? faTrash : faCloudArrowDown}
-              title={
-                isInstalled
-                  ? t('dlc.uninstall', 'Uninstall')
-                  : t('dlc.install', 'Install')
-              }
-            />
-          </span>
+          <SvgButton
+            className="action"
+            onClick={() => mainAction()}
+            title={`${
+              isInstalled
+                ? t('button.uninstall', 'Uninstall')
+                : t('button.install', 'Install')
+            } (${title})`}
+          >
+            {isInstalled ? <StopIcon /> : <DownIcon />}
+          </SvgButton>
         )}
         {isInstalling && (
-          <span className="action" onClick={() => mainAction()}>
-            <FontAwesomeIcon
-              icon={faCancel}
-              title={t('dlc.cancel', 'Cancel')}
-            />
-          </span>
+          <SvgButton
+            className="action"
+            onClick={() => mainAction()}
+            title={`${t('button.cancel', 'Cancel')} (${title})`}
+          >
+            <StopIconAlt />
+          </SvgButton>
         )}
         {refreshing && (
           <span className="action">
