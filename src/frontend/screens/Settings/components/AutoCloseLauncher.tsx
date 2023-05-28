@@ -17,11 +17,11 @@ const AutoCloseLauncher = () => {
       handleChange={() => setAutoCloseLauncher(!autoCloseLauncher)}
       title={t(
         'setting.auto-close-launcher',
-        'Close Heroic After Game Launch ⚠️ Disables Cloud Async'
+        'Close Heroic After Game Launch ⚠️ Disables Cloud Saves'
       )}
       description={t(
         'setting.auto-close-launcher-description',
-        'Enabling this setting will disable usage of cloud async but will slightly improve performance'
+        'Closes Heroic after a game is laucnhed. Note that this prevents cloud saves to be properly synced after closing the game.'
       )}
     />
   )

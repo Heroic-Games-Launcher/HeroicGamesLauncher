@@ -896,9 +896,8 @@ ipcMain.handle(
 
     const { title } = game
 
-    const { minimizeOnLaunch } = GlobalConfig.get().getSettings()
-
-    const { autoCloseLauncher } = GlobalConfig.get().getSettings()
+    const { minimizeOnLaunch, autoCloseLauncher } =
+      GlobalConfig.get().getSettings()
 
     const startPlayingDate = new Date()
 
@@ -948,9 +947,28 @@ ipcMain.handle(
 
     if (autoCloseLauncher) {
       mainWindow?.hide()
-      setTimeout(() => {
-        mainWindow?.close()
+      const timeoutId = setTimeout(() => {
+        try {
+          mainWindow?.close()
+        } catch (error) {
+          logError(
+            'Error closing the Heroic window after launch:',
+            LogPrefix.Backend
+          )
+          mainWindow?.show()
+        }
       }, 8000)
+
+      // Crashes before the timeout expires
+      mainWindow?.webContents.once('crashed', () => {
+        clearTimeout(timeoutId)
+        mainWindow?.show()
+      })
+
+      // Heroic is closed before the timeout expires
+      mainWindow?.once('closed', () => {
+        clearTimeout(timeoutId)
+      })
     }
 
     // Prevent display from sleep
