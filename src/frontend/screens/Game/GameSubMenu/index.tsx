@@ -215,7 +215,7 @@ export default function GamesSubmenu({
     return <CircularProgress className="link button is-text is-link" />
   }
 
-  const showDlcsItem = onShowDlcs && runner === 'legendary'
+  const showDlcsItem = onShowDlcs && runner === 'legendary' && isInstalled
 
   return (
     <>
