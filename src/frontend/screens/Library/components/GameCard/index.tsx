@@ -297,7 +297,10 @@ const GameCard = ({
     {
       label: t('submenu.logs', 'Logs'),
       onclick: () => setIsSettingsModalOpen(true, 'log', gameInfo),
-      show: isInstalled && !isUninstalling
+      show:
+        isInstalled &&
+        !isUninstalling &&
+        gameInfo.install.platform !== 'Browser'
     },
     {
       // hide

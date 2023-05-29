@@ -345,6 +345,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
       extraInfo?.about?.description ||
       t('generic.noDescription', 'No description available')
 
+    const showReportIssue = is_installed && installPlatform !== 'Browser'
+
     return (
       <div className="gameConfigContainer">
         {gameInfo.runner !== 'sideload' && showModal.show && (
@@ -729,7 +731,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   {getButtonLabel()}
                 </button>
               )}
-              {is_installed && (
+              {showReportIssue && (
                 <span
                   onClick={() => setIsSettingsModalOpen(true, 'log', gameInfo)}
                   className="clickable reportProblem"
