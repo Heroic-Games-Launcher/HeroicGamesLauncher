@@ -67,6 +67,8 @@ export default function SideloadDialog({
     setTitle(value)
   }
 
+  const appPlatform = gameInfo.install?.platform || platformToInstall
+
   useEffect(() => {
     if (appName) {
       getGameInfo(appName, 'sideload').then((info) => {
@@ -205,7 +207,7 @@ export default function SideloadDialog({
       buttonLabel: t('box.select.button', 'Select'),
       properties: ['openFile'],
       title: t('box.runexe.title', 'Select EXE to Run'),
-      filters: fileFilters[platformToInstall]
+      filters: fileFilters[appPlatform]
     })
     if (path) {
       exeToRun = path
@@ -248,7 +250,7 @@ export default function SideloadDialog({
 
   function platformIcon() {
     const platformIcon = availablePlatforms.filter(
-      (p) => p.name === platformToInstall
+      (p) => p.name === appPlatform
     )[0]?.icon
 
     return (
@@ -259,13 +261,13 @@ export default function SideloadDialog({
     )
   }
 
-  const showSideloadExe = platformToInstall !== 'Browser'
+  const showSideloadExe = appPlatform !== 'Browser'
 
   const shouldShowRunExe =
     platform !== 'win32' &&
-    platformToInstall !== 'Mac' &&
-    platformToInstall !== 'linux' &&
-    platformToInstall !== 'Browser'
+    appPlatform !== 'Mac' &&
+    appPlatform !== 'linux' &&
+    appPlatform !== 'Browser'
 
   return (
     <>
