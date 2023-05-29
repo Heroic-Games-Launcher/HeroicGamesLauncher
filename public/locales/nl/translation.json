@@ -80,7 +80,7 @@
             },
             "moving": "Fout bij verplaatsen van spel {{error}}",
             "ubisoft-connect": {
-                "message": "Installatie van Ubisoft Connect in het spelvoorvoegsel is mislukt. Bekijk onze wikipagina op https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac om het handmatig te installeren.",
+                "message": "De installatie van Ubisoft Connect in de spelprefix is mislukt. Bekijk onze wikipagina op https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac om het handmatig te installeren.",
                 "title": "Ubisoft Connect"
             },
             "legendary": {
@@ -385,7 +385,7 @@
         }
     },
     "offline-message": {
-        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "hint": "We controleren de connectiviteit met:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com en{{newline}}cloudflare-dns.com.",
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
@@ -600,7 +600,7 @@
             "general": "Algemeen",
             "log": "Log",
             "other": "Overig",
-            "sync": "Save-synchronisatie",
+            "sync": "Cloud Slag Sync",
             "wineExt": "Wine Extensions"
         },
         "open-config-file": "Open Config File",
