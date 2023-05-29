@@ -65,6 +65,7 @@ const DLCDownloadListing: React.FC<Props> = ({
               htmlId={`dlc-${index}`}
               value={dlcsToInstall.includes(app_name)}
               title={title}
+              extraClass="InstallModal__toggle--sdl"
               handleChange={() => handleDlcToggle(index)}
             />
           </label>
