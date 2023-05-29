@@ -36,7 +36,8 @@
             "message": "இந்த விளையாட்டை நிறுவல்-நீக்க விரும்புகிறீர்களா?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "நிறுவல் நீக்கு",
-            "prefix_warning": "இந்த கேமிற்கான ஒயின் முன்னொட்டு இயல்பு முன்னொட்டு ஆகும். நீங்கள் உண்மையில் அதை நீக்க விரும்பினால், நீங்கள் அதை கைமுறையாக செய்ய வேண்டும்."
+            "prefix_warning": "இந்த கேமிற்கான ஒயின் முன்னொட்டு இயல்பு முன்னொட்டு ஆகும். நீங்கள் உண்மையில் அதை நீக்க விரும்பினால், நீங்கள் அதை கைமுறையாக செய்ய வேண்டும்.",
+            "dlc": "இந்த DLC ஐ நிறுவல் நீக்க வேண்டுமா?"
         },
         "update": {
             "message": "இந்த விளையாட்டுக்கு ஒரு புதுப்பிப்பு உள்ளது,இப்போது புதுப்பிப்பைப் பயன்படுத்தவா?",
@@ -88,7 +89,8 @@
         "neverPlayed": "Never",
         "platform": "Select Platform Version to Install",
         "requirements": "System Requirements",
-        "totalPlayed": "Time Played"
+        "totalPlayed": "Time Played",
+        "dlcs": "DLCs"
     },
     "gamecard": {
         "moving": "நகர்த்தப்படுகிறது",

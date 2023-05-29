@@ -37,7 +37,8 @@
             "message": "Želite li izbrisati video igru?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Izbriši",
-            "prefix_warning": "Wine prefiks za ovu igru je podrazumevani prefiks. Ako ga zaista želite izbrisati, morate to učiniti ručno."
+            "prefix_warning": "Wine prefiks za ovu igru je podrazumevani prefiks. Ako ga zaista želite izbrisati, morate to učiniti ručno.",
+            "dlc": "Želite li deinstalirati ovaj DLC?"
         },
         "update": {
             "message": "Ova video igra ima ažuriranje. Želite li ažurirati sada?",
@@ -89,7 +90,8 @@
         "neverPlayed": "Nikada",
         "platform": "Odaberi verziju platforme za instalirati",
         "requirements": "Zahtjevi sistema",
-        "totalPlayed": "Vrijeme igranja"
+        "totalPlayed": "Vrijeme igranja",
+        "dlcs": "DLC"
     },
     "gamecard": {
         "moving": "Premještanje",

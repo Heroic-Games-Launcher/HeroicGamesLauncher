@@ -36,7 +36,8 @@
             "message": "你希望將這個遊戲解除安裝嗎？",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "解除安裝",
-            "prefix_warning": "此遊戲的 Wine 前綴是默認前綴。如果你真的想刪除它，你必須手動進行。"
+            "prefix_warning": "此遊戲的 Wine 前綴是默認前綴。如果你真的想刪除它，你必須手動進行。",
+            "dlc": "您要卸載此 DLC 嗎？"
         },
         "update": {
             "message": "此遊戲有更新，你希望現在更新嗎？",
@@ -88,7 +89,8 @@
         "neverPlayed": "從未遊玩",
         "platform": "選擇要安裝的平台版本",
         "requirements": "系統需求",
-        "totalPlayed": "遊玩時間"
+        "totalPlayed": "遊玩時間",
+        "dlcs": "DLCs"
     },
     "gamecard": {
         "moving": "移動中",

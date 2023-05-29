@@ -680,5 +680,12 @@
     },
     "wiki_info": {
         "not_found": "Chúng tôi không thể tìm thấy thêm thông tin."
+    },
+    "dlc": {
+        "actions": "hành động",
+        "installDlcs": "Cài đặt tất cả bản mở rộng (DLC)",
+        "noDlcFound": "Không tìm thấy DLC nào",
+        "size": "Kích thước",
+        "title": "Title"
     }
 }

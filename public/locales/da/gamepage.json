@@ -26,7 +26,8 @@
             "message": "Vil du afinstallere spillet?",
             "title": "Afinstaller",
             "settingcheckbox": "Slet indstillinger og fjern log{{newLine}}Bemærk: Dette kan ikke fortrydes. Eventuelle ændrede indstillinger vil blive glemt, og log vil blive slettet.",
-            "prefix_warning": "Vinpræfikset for dette spil er standardpræfikset. Hvis du virkelig vil slette det, skal du gøre det manuelt."
+            "prefix_warning": "Vinpræfikset for dette spil er standardpræfikset. Hvis du virkelig vil slette det, skal du gøre det manuelt.",
+            "dlc": "Vil du afinstallere denne DLC?"
         },
         "update": {
             "title": "Spillet skal opdateres",
@@ -91,7 +92,8 @@
         "requirements": "System Krav",
         "tools": "Værktøjer",
         "getting-download-size": "Henter downloadstørrelse",
-        "getting-install-size": "Får installationsstørrelse"
+        "getting-install-size": "Får installationsstørrelse",
+        "dlcs": "DLC'er"
     },
     "gamecard": {
         "moving": "Flytter",

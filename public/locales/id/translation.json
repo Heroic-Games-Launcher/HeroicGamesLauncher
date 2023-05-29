@@ -680,5 +680,12 @@
     },
     "wiki_info": {
         "not_found": "Kami tidak dapat menemukan informasi tambahan."
+    },
+    "dlc": {
+        "size": "Ukuran",
+        "title": "Judul",
+        "actions": "Tindakan",
+        "installDlcs": "Pasang semua DLC",
+        "noDlcFound": "Tidak ada DLC yang ditemukan"
     }
 }

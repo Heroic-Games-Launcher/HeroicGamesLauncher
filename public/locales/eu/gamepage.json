@@ -37,7 +37,8 @@
             "message": "Joko hau desinstatu nahi duzu?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Desinslalatu",
-            "prefix_warning": "Joko honen Wine aurrizkia lehenetsitako aurrizkia da. Benetan ezabatu nahi baduzu, eskuz egin behar duzu."
+            "prefix_warning": "Joko honen Wine aurrizkia lehenetsitako aurrizkia da. Benetan ezabatu nahi baduzu, eskuz egin behar duzu.",
+            "dlc": "DLC hau desinstalatu nahi duzu?"
         },
         "update": {
             "message": "Joko honek eguneraketa bat du, orain eguneratu?",
@@ -89,7 +90,8 @@
         "neverPlayed": "Inoiz ez",
         "platform": "Instalatzeko plataformaren bertsioa hautatu",
         "requirements": "Sistemaren betekizunak",
-        "totalPlayed": "Denbora jokatua"
+        "totalPlayed": "Denbora jokatua",
+        "dlcs": "DLCak"
     },
     "gamecard": {
         "moving": "Mugitzen",

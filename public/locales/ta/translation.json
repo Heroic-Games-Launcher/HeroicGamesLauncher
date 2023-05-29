@@ -680,5 +680,12 @@
     },
     "wiki_info": {
         "not_found": "கூடுதல் தகவல்களை எங்களால் கண்டுபிடிக்க முடியவில்லை."
+    },
+    "dlc": {
+        "actions": "செயல்கள்",
+        "installDlcs": "Install all DLCs",
+        "noDlcFound": "டிஎல்சிகள் எதுவும் இல்லை",
+        "size": "Size",
+        "title": "Title"
     }
 }

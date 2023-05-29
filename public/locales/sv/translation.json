@@ -680,5 +680,12 @@
     },
     "wiki_info": {
         "not_found": "Hittade ej någon extra information."
+    },
+    "dlc": {
+        "actions": "Handlingar",
+        "installDlcs": "Installera alla DLC",
+        "noDlcFound": "Inga DLC:er hittades",
+        "size": "Storlek",
+        "title": "Titel"
     }
 }

@@ -680,5 +680,12 @@
     },
     "wiki_info": {
         "not_found": "Nepodarilo sa nám nájsť ďalšie informácie."
+    },
+    "dlc": {
+        "actions": "Akcie",
+        "installDlcs": "Nainštalujte všetky DLC",
+        "noDlcFound": "Nenašli sa žiadne DLC",
+        "size": "Veľkosť",
+        "title": "Title"
     }
 }

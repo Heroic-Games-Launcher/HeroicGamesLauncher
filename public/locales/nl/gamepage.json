@@ -36,7 +36,8 @@
             "message": "Wilt u dit spel verwijderen?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Verwijderen",
-            "prefix_warning": "Het Wine-voorvoegsel voor dit spel is het standaardvoorvoegsel. Als u het echt wilt verwijderen, moet u dit handmatig doen."
+            "prefix_warning": "Het Wine-voorvoegsel voor dit spel is het standaardvoorvoegsel. Als u het echt wilt verwijderen, moet u dit handmatig doen.",
+            "dlc": "Wilt u deze DLC verwijderen?"
         },
         "update": {
             "message": "Dit spel heeft een update, update nu toepassen?",
@@ -88,7 +89,8 @@
         "neverPlayed": "Nooit",
         "platform": "Select Platform Version to Install",
         "requirements": "System Requirements",
-        "totalPlayed": "Tijd gespeeld"
+        "totalPlayed": "Tijd gespeeld",
+        "dlcs": "DLCs"
     },
     "gamecard": {
         "moving": "Aan het verplaatsen",

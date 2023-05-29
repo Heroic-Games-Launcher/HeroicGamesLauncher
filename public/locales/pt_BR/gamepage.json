@@ -36,7 +36,8 @@
             "message": "Deseja desinstalar este jogo?",
             "settingcheckbox": "Apagar configurações e remover logs{{newLine}}Obs: Isto não pode ser desfeito. Qualquer configuração modificada será esquecida e o log será deletado.",
             "title": "Desinstalar",
-            "prefix_warning": "O prefixo Wine para este jogo é o prefixo padrão. Se você realmente deseja excluí-lo, deve fazê-lo manualmente."
+            "prefix_warning": "O prefixo Wine para este jogo é o prefixo padrão. Se você realmente deseja excluí-lo, deve fazê-lo manualmente.",
+            "dlc": "Deseja desinstalar este DLC?"
         },
         "update": {
             "message": "Este jogo tem uma atualização, aplicar atualização agora?",
@@ -88,7 +89,8 @@
         "neverPlayed": "Nunca",
         "platform": "Seleccione a versão da plataforma para instalar",
         "requirements": "Requisitos",
-        "totalPlayed": "Tempo de jogo"
+        "totalPlayed": "Tempo de jogo",
+        "dlcs": "DLCs"
     },
     "gamecard": {
         "moving": "Movendo",

@@ -36,7 +36,8 @@
             "message": "Chcete túto hru odinštalovať?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Odinštalovať",
-            "prefix_warning": "Predpona Wine pre túto hru je predvolená predpona. Ak to naozaj chcete odstrániť, musíte to urobiť ručne."
+            "prefix_warning": "Predpona Wine pre túto hru je predvolená predpona. Ak to naozaj chcete odstrániť, musíte to urobiť ručne.",
+            "dlc": "Chcete odinštalovať toto DLC?"
         },
         "update": {
             "message": "Táto hra má aktualizáciu, použiť aktualizáciu teraz?",
@@ -88,7 +89,8 @@
         "neverPlayed": "Nikdy",
         "platform": "Vyberte Verzia platformy na inštaláciu",
         "requirements": "Požiadavky na systém",
-        "totalPlayed": "Hraný čas"
+        "totalPlayed": "Hraný čas",
+        "dlcs": "DLC"
     },
     "gamecard": {
         "moving": "Sťahovanie",
