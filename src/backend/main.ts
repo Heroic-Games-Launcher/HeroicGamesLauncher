@@ -19,7 +19,8 @@ import {
   powerSaveBlocker,
   protocol,
   screen,
-  clipboard
+  clipboard,
+  components
 } from 'electron'
 import 'backend/updater'
 import { autoUpdater } from 'electron-updater'
@@ -259,6 +260,8 @@ if (!gotTheLock) {
   app.whenReady().then(async () => {
     initStoreManagers()
     initOnlineMonitor()
+    await components.whenReady()
+    console.log('components ready:', components.status())
 
     getSystemInfo().then((systemInfo) => {
       if (systemInfo === '') return
@@ -358,6 +361,7 @@ if (!gotTheLock) {
     })
 
     GOGUser.migrateCredentialsConfig()
+
     const mainWindow = await initializeWindow()
 
     protocol.registerStringProtocol('heroic', (request, callback) => {
