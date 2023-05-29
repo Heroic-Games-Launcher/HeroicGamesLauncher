@@ -295,3 +295,17 @@ export interface Library {
   }
   hasHiddenProducts: boolean
 }
+
+// One item from https://content-system.gog.com/products/GAMEID/os/windows/builds?generation=2 endpoint
+export interface BuildItem {
+  build_id: string
+  product_id: string
+  os: 'windows' | 'osx' | 'linux' // Linux is not yet supported but it's good to have it here
+  branch: string | null
+  version_name: string
+  tags: string[]
+  public: boolean
+  date_published: string
+  generation: number
+  link: string
+}
