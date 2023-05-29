@@ -437,6 +437,7 @@
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
+        "browser": "Browser",
         "linux": "Linux",
         "mac": "Mac",
         "win": "Windows"

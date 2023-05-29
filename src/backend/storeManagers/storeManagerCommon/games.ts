@@ -2,7 +2,7 @@ import { GameInfo, GameSettings, Runner } from 'common/types'
 import { GameConfig } from '../../game_config'
 import { isMac, isLinux, gamesConfigPath, icon } from '../../constants'
 import { logInfo, LogPrefix, logWarning } from '../../logger/logger'
-import path, { dirname, join, resolve } from 'path'
+import { dirname, join } from 'path'
 import { appendFileSync, constants as FS_CONSTANTS } from 'graceful-fs'
 import i18next from 'i18next'
 import {
@@ -17,9 +17,8 @@ import { access, chmod } from 'fs/promises'
 import shlex from 'shlex'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { createAbortController } from '../../utils/aborthandler/aborthandler'
-import { app, BrowserWindow } from 'electron'
+import { BrowserWindow } from 'electron'
 import { gameManagerMap } from '../index'
-const buildDir = resolve(__dirname, '../../build')
 
 async function getAppSettings(appName: string): Promise<GameSettings> {
   return (
@@ -33,30 +32,30 @@ export function logFileLocation(appName: string) {
 }
 
 const openNewBrowserGameWindow = async (
-  browserUrl: string
+  browserUrl: string,
+  abortController: AbortController
 ): Promise<boolean> => {
+  const hostname = new URL(browserUrl).hostname
+
   return new Promise((res) => {
     const browserGame = new BrowserWindow({
       icon: icon,
+      fullscreen: true,
       webPreferences: {
+        partition: `persist:${hostname}`,
         webviewTag: true,
         contextIsolation: true,
-        nodeIntegration: true,
-        preload: path.join(__dirname, 'preload.js')
+        nodeIntegration: true
       }
     })
 
-    const url = !app.isPackaged
-      ? 'http://localhost:5173?view=BrowserGame&browserUrl=' +
-        encodeURIComponent(browserUrl)
-      : `file://${path.join(
-          buildDir,
-          './index.html?view=BrowserGame&browserUrl=' +
-            encodeURIComponent(browserUrl)
-        )}`
+    browserGame.loadURL(browserUrl)
+    browserGame.on('ready-to-show', () => browserGame.show())
 
-    browserGame.loadURL(url)
-    setTimeout(() => browserGame.focus(), 200)
+    abortController.signal.addEventListener('abort', () => {
+      browserGame.close()
+    })
+
     browserGame.on('close', () => {
       res(true)
     })
@@ -87,7 +86,7 @@ export async function launchGame(
   }
 
   if (browserUrl) {
-    return openNewBrowserGameWindow(browserUrl)
+    return openNewBrowserGameWindow(browserUrl, createAbortController(appName))
   }
 
   const gameSettings = await getAppSettings(appName)
