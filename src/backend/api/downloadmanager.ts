@@ -11,7 +11,7 @@ export const install = async (args: InstallParams) => {
     startTime: 0
   }
 
-  await ipcRenderer.invoke('addToDMQueue', dmQueueElement)
+  ipcRenderer.invoke('addToDMQueue', dmQueueElement)
 
   // Add Dlcs to the queue
   if (Array.isArray(args.installDlcs) && args.installDlcs.length > 0) {
@@ -28,7 +28,7 @@ export const install = async (args: InstallParams) => {
         endTime: 0,
         startTime: 0
       }
-      await ipcRenderer.invoke('addToDMQueue', dlcQueueElement)
+      ipcRenderer.invoke('addToDMQueue', dlcQueueElement)
     })
   }
 }
