@@ -81,7 +81,7 @@
             "moving": "Fehler beim Verschieben des Spiels {{error}}",
             "ubisoft-connect": {
                 "title": "Ubisoft Connect",
-                "message": "Die Installation von Ubisoft Connect im Spielpräfix ist fehlgeschlagen. Besuchen Sie unsere Wiki-Seite unter https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac, um es manuell zu installieren."
+                "message": "Die Installation von Ubisoft Connect im Spielpräfix ist fehlgeschlagen. Schauen Sie auf unserer Wikiseite https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac nach, um es manuell zu installieren."
             },
             "legendary": {
                 "generic": "Ein Fehler ist aufgetreten! Versuchen Sie, sich bei Ihrem Epic-Konto abzumelden und anzumelden. {{newline}} {{error}}"
@@ -680,5 +680,12 @@
     },
     "wiki_info": {
         "not_found": "Wir konnten keine zusätzlichen Informationen finden."
+    },
+    "dlc": {
+        "actions": "Aktionen",
+        "installDlcs": "Alle DLCs installieren",
+        "noDlcFound": "Keine DLCs gefunden",
+        "size": "Größe",
+        "title": "Titel"
     }
 }
