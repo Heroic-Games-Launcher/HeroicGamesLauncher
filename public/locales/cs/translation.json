@@ -150,13 +150,13 @@
             },
             "title": "Varování",
             "wine-change": {
-                "title": "Víno nenalezeno!",
-                "message": "Nemohli jsme najít vybranou verzi vína pro spuštění tohoto titulu ({{selectedWine}}). {{newline}} Našli jsme další, chcete pokračovat ve spouštění pomocí {{foundWine}}?"
+                "title": "Wine nenalezen!",
+                "message": "Nemohli jsme najít vybranou verzi wine pro spuštění tohoto titulu ({{selectedWine}}). {{newline}} Našli jsme jinou, chcete pokračovat ve spouštění pomocí {{foundWine}}?"
             }
         },
         "wineprefix": "Vyberte složku WinePrefix",
         "yes": "ANO",
-        "dontShowAgain": "Nezobrazovat znovu"
+        "dontShowAgain": "Znovu nezobrazovat"
     },
     "button": {
         "cancel": "Zrušit",
@@ -187,7 +187,7 @@
             "update_game": "Aktualizovat hru"
         }
     },
-    "docs": "Documentation",
+    "docs": "Dokumentace",
     "download-manager": {
         "install-type": {
             "install": "Install",
@@ -305,7 +305,7 @@
         "wine-repfix": {
             "message": "Wine používá funkci zvanou WINEPREFIX pro zapouzdření Windows aplikací. Tento prefix obsahuje konfigurační soubory Wine a reprodukci hierarchie souborů C: (hlavní disk na OS Windows). V této reprodukci disku C: jsou ukládány vaše soubory s uloženými hrami a se závislostmi nainstalovanými pomocí Winetricks."
         },
-        "wine-path-invalid": "Vinná cesta je neplatná, vyberte prosím jinou."
+        "wine-path-invalid": "Adresář Wine je neplatný, vyberte prosím jiný."
     },
     "install": {
         "path": "Vyberte cestu instalace"
@@ -653,7 +653,7 @@
         "manageaccounts": "Spravovat účty",
         "quit": "Ukončit",
         "cancel": "Zrušit",
-        "quitMessage": "Jste si jisti, že chcete skončit?"
+        "quitMessage": "Jste si jisti, že chcete odejít?"
     },
     "webview": {
         "controls": {
@@ -680,5 +680,12 @@
     },
     "wiki_info": {
         "not_found": "Další informace jsme nenašli."
+    },
+    "dlc": {
+        "noDlcFound": "Nebyly nalezeny žádné DLC",
+        "size": "Velikost",
+        "installDlcs": "Instalovat všechna DLC",
+        "title": "Název",
+        "actions": "Akce"
     }
 }
