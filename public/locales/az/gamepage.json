@@ -37,7 +37,8 @@
             "message": "Bu oyunu silmək istəyirsiniz?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Silin",
-            "prefix_warning": "Bu oyun üçün Şərab prefiksi standart prefiksdir. Əgər həqiqətən silmək istəyirsinizsə, bunu əl ilə etməlisiniz."
+            "prefix_warning": "Bu oyun üçün Şərab prefiksi standart prefiksdir. Əgər həqiqətən silmək istəyirsinizsə, bunu əl ilə etməlisiniz.",
+            "dlc": "Bu DLC-ni silmək istəyirsiniz?"
         },
         "update": {
             "message": "Bu oyunun yeniləməsi var, yeniləmə indi tətbiq edilsin?",
@@ -89,7 +90,8 @@
         "neverPlayed": "Heç vaxt",
         "platform": "Quraşdırmaq üçün Platforma Versiyasını seçin",
         "requirements": "Sistem Tələbləri",
-        "totalPlayed": "Oynanan Vaxt"
+        "totalPlayed": "Oynanan Vaxt",
+        "dlcs": "DLC-lər"
     },
     "gamecard": {
         "moving": "Hərəkət edir",

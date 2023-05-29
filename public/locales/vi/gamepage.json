@@ -36,7 +36,8 @@
             "message": "Xác nhận gỡ cài đặt game?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Gỡ cài đặt",
-            "prefix_warning": "Tiền tố Wine cho trò chơi này là tiền tố mặc định. Nếu bạn thực sự muốn xóa nó, bạn phải thực hiện thủ công."
+            "prefix_warning": "Tiền tố Wine cho trò chơi này là tiền tố mặc định. Nếu bạn thực sự muốn xóa nó, bạn phải thực hiện thủ công.",
+            "dlc": "Bạn có muốn Gỡ cài đặt DLC này không?"
         },
         "update": {
             "message": "Game có bản cập nhật, xác nhận cập nhật?",
@@ -88,7 +89,8 @@
         "neverPlayed": "Không bao giờ",
         "platform": "Chọn phiên bản nền tảng để cài đặt",
         "requirements": "Yêu cầu hệ thống",
-        "totalPlayed": "Thời gian chơi"
+        "totalPlayed": "Thời gian chơi",
+        "dlcs": "Bản mở rộng"
     },
     "gamecard": {
         "moving": "Đang chuyển",

@@ -36,7 +36,8 @@
             "message": "Czy chcesz odinstalować tę grę?",
             "settingcheckbox": "Wyczyść ustawienia i usuń dziennik zdarzeń{{newLine}}Uwaga: Ta operacja nie może zostać cofnięta. Wszystkie zmodyfikowane ustawienia zostaną zapomniane a dziennik zdarzeń zostanie usunięty.",
             "title": "Odinstaluj",
-            "prefix_warning": "Prefiks Wine dla tej gry jest prefiksem domyślnym. Jeśli naprawdę chcesz go usunąć, musisz to zrobić ręcznie."
+            "prefix_warning": "Prefiks Wine dla tej gry jest prefiksem domyślnym. Jeśli naprawdę chcesz go usunąć, musisz to zrobić ręcznie.",
+            "dlc": "Czy chcesz odinstalować to DLC?"
         },
         "update": {
             "message": "Ta gra ma dostępną aktualizację, czy chcesz zainstalować ją teraz?",
@@ -88,7 +89,8 @@
         "neverPlayed": "Nigdy",
         "platform": "Wybierz wersję platformy do zainstalowania",
         "requirements": "Wymagania systemowe",
-        "totalPlayed": "Czas Gry"
+        "totalPlayed": "Czas Gry",
+        "dlcs": "DLCs"
     },
     "gamecard": {
         "moving": "Przenoszenie",

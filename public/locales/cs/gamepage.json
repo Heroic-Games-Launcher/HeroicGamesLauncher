@@ -36,7 +36,8 @@
             "message": "Chcete odinstalovat tuto hru?",
             "settingcheckbox": "Vymazat nastavení a odstranit protokol{{newLine}}Poznámka: Tento krok nelze vrátit zpět. Veškerá změněná nastavení budou zapomenuta a protokol bude odstraněn.",
             "title": "Odinstalovat",
-            "prefix_warning": "Předpona Wine pro tuto hru je výchozí předpona. Pokud to opravdu chcete smazat, musíte to udělat ručně."
+            "prefix_warning": "Předpona Wine pro tuto hru je výchozí předpona. Pokud to opravdu chcete smazat, musíte to udělat ručně.",
+            "dlc": "Chcete toto DLC odinstalovat?"
         },
         "update": {
             "message": "Tato hra má aktualizaci, přejete si ji aktualizovat nyní?",
@@ -88,7 +89,8 @@
         "neverPlayed": "Nikdy",
         "platform": "Vyberte verzi platformy, kterou chcete nainstalovat",
         "requirements": "Systémové požadavky",
-        "totalPlayed": "Odehraný čas"
+        "totalPlayed": "Odehraný čas",
+        "dlcs": "DLCs"
     },
     "gamecard": {
         "moving": "Přesouvám",

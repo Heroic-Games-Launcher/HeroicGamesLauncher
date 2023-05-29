@@ -37,7 +37,8 @@
             "message": "Doriți să dezinstalați acest joc?",
             "settingcheckbox": "Șterge setările și elimină jurnalul{{newLine}}Notă: Această acțiune nu poate fi anulată. Orice setări modificate vor fi uitate și jurnalul va fi șters.",
             "title": "Dezinstalează",
-            "prefix_warning": "Prefixul Wine pentru acest joc este prefixul implicit. Dacă vrei cu adevărat să-l ștergi, trebuie să o faci manual."
+            "prefix_warning": "Prefixul Wine pentru acest joc este prefixul implicit. Dacă vrei cu adevărat să-l ștergi, trebuie să o faci manual.",
+            "dlc": "Doriți să dezinstalați acest DLC?"
         },
         "update": {
             "message": "Acest joc are o actualizare, vrei să actualizezi acum?",
@@ -89,7 +90,8 @@
         "neverPlayed": "Niciodată",
         "platform": "Selectați versiunea platformei de instalat",
         "requirements": "Cerințe de sistem",
-        "totalPlayed": "Timp Jucat"
+        "totalPlayed": "Timp Jucat",
+        "dlcs": "DLC-uri"
     },
     "gamecard": {
         "moving": "Mutare",

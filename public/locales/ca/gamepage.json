@@ -36,7 +36,8 @@
             "message": "Vols desinstal·lar aquest joc?",
             "settingcheckbox": "Esborra la configuració i suprimeix el registre{{newLine}}Avís: aquesta acció no es pot desfer. S'oblidarà qualsevol opció modificada i el registre se suprimirà.",
             "title": "Desinstal·la",
-            "prefix_warning": "El prefix Wine d'aquest joc és el prefix predefinit. Si realment vols eliminar-lo, has de fer-ho manualment."
+            "prefix_warning": "El prefix Wine d'aquest joc és el prefix predefinit. Si realment vols eliminar-lo, has de fer-ho manualment.",
+            "dlc": "Vols desinstal·lar aquest DLC?"
         },
         "update": {
             "message": "Hi ha una actualització per a aquest joc, el vols actualitzar ara?",
@@ -88,7 +89,8 @@
         "neverPlayed": "Mai",
         "platform": "Selecciona la versió de la plataforma a instal·lar",
         "requirements": "Requisits del sistema",
-        "totalPlayed": "Temps jugat"
+        "totalPlayed": "Temps jugat",
+        "dlcs": "DLCs"
     },
     "gamecard": {
         "moving": "S'està movent",

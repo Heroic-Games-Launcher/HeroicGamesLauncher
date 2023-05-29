@@ -36,7 +36,8 @@
             "message": "Möchtest du dieses Spiel deinstallieren?",
             "settingcheckbox": "Einstellungen löschen und Log entfernen{{newLine}}Beachte: Dies kann nicht rückgängig gemacht werden! Alle geänderten Einstellungen werden verworfen und das Log wird gelöscht.",
             "title": "Deinstallieren",
-            "prefix_warning": "Das Wine-Präfix für dieses Spiel ist das Standardpräfix. Wenn Sie es wirklich löschen möchten, müssen Sie es manuell tun."
+            "prefix_warning": "Das Wine-Präfix für dieses Spiel ist das Standardpräfix. Wenn Sie es wirklich löschen möchten, müssen Sie es manuell tun.",
+            "dlc": "Möchten Sie diesen DLC deinstallieren?"
         },
         "update": {
             "message": "Für dieses Spiel ist ein Update verfügbar. Jetzt installieren?",
@@ -88,7 +89,8 @@
         "neverPlayed": "Nie",
         "platform": "Zu installierende Version auswählen",
         "requirements": "Systemanforderungen",
-        "totalPlayed": "Spielzeit"
+        "totalPlayed": "Spielzeit",
+        "dlcs": "DLCs"
     },
     "gamecard": {
         "moving": "Verschiebe",

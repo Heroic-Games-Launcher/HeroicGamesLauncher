@@ -36,7 +36,8 @@
             "message": "El akarod távolítani ezt a játékot?",
             "settingcheckbox": "Beállítások és a log{{newLine}}törlése. Megjegyzés: Ez nem vonható vissza. Minden módosított beállítás visszaáll és a log fájl törlődik.",
             "title": "Eltávolítás",
-            "prefix_warning": "A játék Wine előtagja az alapértelmezett előtag. Ha valóban törölni szeretné, manuálisan kell megtennie."
+            "prefix_warning": "A játék Wine előtagja az alapértelmezett előtag. Ha valóban törölni szeretné, manuálisan kell megtennie.",
+            "dlc": "El szeretné távolítani ezt a DLC-t?"
         },
         "update": {
             "message": "Ennek a játéknak van egy frissítése, alkalmazzuk a frissítést most?",
@@ -88,7 +89,8 @@
         "neverPlayed": "Soha",
         "platform": "Telepítendő platform változat kiválasztása",
         "requirements": "Rendszerkövetelmények",
-        "totalPlayed": "Játszott idő"
+        "totalPlayed": "Játszott idő",
+        "dlcs": "DLC-k"
     },
     "gamecard": {
         "moving": "Áthelyezés",

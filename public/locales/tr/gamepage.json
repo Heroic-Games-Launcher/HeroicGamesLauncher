@@ -36,7 +36,8 @@
             "message": "Oyunu kaldırmak istiyor musunuz?",
             "settingcheckbox": "Ayarları sil ve günlüğü kaldır{{newLine}}Not: Bu işlem geri alınamaz. Değiştirilen tüm ayarlar unutulacak ve günlük silinecektir.",
             "title": "Kaldır",
-            "prefix_warning": "Bu oyun için Wine öneki varsayılan önektir. Gerçekten silmek istiyorsanız, manuel olarak yapmanız gerekir."
+            "prefix_warning": "Bu oyun için Wine öneki varsayılan önektir. Gerçekten silmek istiyorsanız, manuel olarak yapmanız gerekir.",
+            "dlc": "Bu DLC'yi Kaldırmak istiyor musunuz?"
         },
         "update": {
             "message": "Bu oyunun bir güncellemesi var, güncelleme şimdi uygulansın mı?",
@@ -88,7 +89,8 @@
         "neverPlayed": "Hiç Oynanmadı",
         "platform": "Kurulacak Platform Sürümünü Seç",
         "requirements": "Sistem Gereksinimleri",
-        "totalPlayed": "Oynanan Zaman"
+        "totalPlayed": "Oynanan Zaman",
+        "dlcs": "DLCs"
     },
     "gamecard": {
         "moving": "Taşınıyor",
