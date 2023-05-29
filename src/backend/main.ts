@@ -177,7 +177,6 @@ async function initializeWindow(): Promise<BrowserWindow> {
   GlobalConfig.get()
 
   mainWindow.setIcon(icon)
-  app.setAppUserModelId('Heroic')
   app.commandLine.appendSwitch('enable-spatial-navigation')
 
   mainWindow.on('close', async (e) => {
@@ -265,6 +264,11 @@ if (!gotTheLock) {
   app.whenReady().then(async () => {
     initStoreManagers()
     initOnlineMonitor()
+
+    // try to fix notification app name on windows
+    if (isWindows) {
+      app.setAppUserModelId('Heroic Games Launcher')
+    }
 
     getSystemInfo().then((systemInfo) => {
       if (systemInfo === '') return
