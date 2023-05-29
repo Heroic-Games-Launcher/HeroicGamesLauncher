@@ -11,7 +11,7 @@ import { GameConfig } from '../../game_config'
 import { isWindows, isMac, isLinux, icon } from '../../constants'
 import { killPattern, shutdownWine } from '../../utils'
 import { logInfo, LogPrefix, logWarning } from '../../logger/logger'
-import path, { dirname, resolve } from 'path'
+import { dirname } from 'path'
 import { existsSync, rmSync } from 'graceful-fs'
 import i18next from 'i18next'
 import {
@@ -24,7 +24,6 @@ import { app, BrowserWindow } from 'electron'
 import { launchGame } from 'backend/storeManagers/storeManagerCommon/games'
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import { InstallResult, RemoveArgs } from 'common/types/game_manager'
-const buildDir = resolve(__dirname, '../../build')
 
 export function getGameInfo(appName: string): GameInfo {
   const store = libraryStore.get('games', [])
@@ -82,30 +81,33 @@ if (Object.hasOwn(app, 'on'))
   })
 
 const openNewBrowserGameWindow = async (
-  browserUrl: string
+  browserUrl: string,
+  abortController?: AbortController
 ): Promise<boolean> => {
+  // get only the first part of the url
+  const mainUrlName = browserUrl.split('://')[1].split('/')[0]
+
   return new Promise((res) => {
     const browserGame = new BrowserWindow({
       icon: icon,
+      fullscreen: true,
       webPreferences: {
         webviewTag: true,
         contextIsolation: true,
         nodeIntegration: true,
-        preload: path.join(__dirname, 'preload.js')
+        partition: `persist:${mainUrlName}`
       }
     })
 
-    const url = !app.isPackaged
-      ? 'http://localhost:5173?view=BrowserGame&browserUrl=' +
-        encodeURIComponent(browserUrl)
-      : `file://${path.join(
-          buildDir,
-          './index.html?view=BrowserGame&browserUrl=' +
-            encodeURIComponent(browserUrl)
-        )}`
-
-    browserGame.loadURL(url)
+    browserGame.loadURL(browserUrl)
     setTimeout(() => browserGame.focus(), 200)
+
+    if (abortController) {
+      abortController.signal.addEventListener('abort', () => {
+        browserGame.close()
+      })
+    }
+
     browserGame.on('close', () => {
       res(true)
     })
