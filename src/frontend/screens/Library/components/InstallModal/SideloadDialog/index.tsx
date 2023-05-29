@@ -250,7 +250,7 @@ export default function SideloadDialog({
 
   function platformIcon() {
     const platformIcon = availablePlatforms.filter(
-      (p) => p.name === appPlatform
+      (p) => p.name === appPlatform.replace('Mac', 'macOS')
     )[0]?.icon
 
     return (
