@@ -1,5 +1,5 @@
 import { faApple, faLinux, faWindows } from '@fortawesome/free-brands-svg-icons'
-import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
+import { IconDefinition, faGlobe } from '@fortawesome/free-solid-svg-icons'
 
 import React, { useContext, useEffect, useState } from 'react'
 
@@ -74,6 +74,12 @@ export default React.memo(function InstallModal({
       available: true,
       value: 'Windows',
       icon: faWindows
+    },
+    {
+      name: 'Browser',
+      available: true,
+      value: 'Browser',
+      icon: faGlobe
     }
   ]
 

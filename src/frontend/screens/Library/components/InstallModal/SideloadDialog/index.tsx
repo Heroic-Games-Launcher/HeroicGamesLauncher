@@ -51,6 +51,7 @@ export default function SideloadDialog({
     t('sideload.field.title', 'Title')
   )
   const [selectedExe, setSelectedExe] = useState('')
+  const [gameUrl, setGameUrl] = useState('')
   const [imageUrl, setImageUrl] = useState('')
   const [searching, setSearching] = useState(false)
   const [app_name, setApp_name] = useState(appName ?? '')
@@ -77,11 +78,16 @@ export default function SideloadDialog({
           art_cover,
           art_square,
           install: { executable, platform },
-          title
+          title,
+          browserUrl
         } = info
 
         if (executable && platform) {
           setSelectedExe(executable)
+        }
+
+        if (browserUrl) {
+          setGameUrl(browserUrl)
         }
 
         setTitle(title)
@@ -150,7 +156,8 @@ export default function SideloadDialog({
       art_cover: imageUrl ? imageUrl : fallbackImage,
       is_installed: true,
       art_square: imageUrl ? imageUrl : fallbackImage,
-      canRunOffline: true
+      canRunOffline: true,
+      browserUrl: gameUrl
     })
     const gameSettings = await getGameSettings(app_name, 'sideload')
     if (!gameSettings) {
@@ -231,14 +238,34 @@ export default function SideloadDialog({
     return
   }
 
-  const platformIcon = availablePlatforms.filter(
-    (p) => p.value === platformToInstall
-  )[0]?.icon
+  function handleGameUrl(url: string) {
+    if (!url.startsWith('https://')) {
+      return setGameUrl(`https://${url}`)
+    }
+
+    setGameUrl(url)
+  }
+
+  function platformIcon() {
+    const platformIcon = availablePlatforms.filter(
+      (p) => p.name === platformToInstall
+    )[0]?.icon
+
+    return (
+      <FontAwesomeIcon
+        className="InstallModal__platformIcon"
+        icon={platformIcon}
+      />
+    )
+  }
+
+  const showSideloadExe = platformToInstall !== 'Browser'
 
   const shouldShowRunExe =
     platform !== 'win32' &&
     platformToInstall !== 'Mac' &&
-    platformToInstall !== 'linux'
+    platformToInstall !== 'linux' &&
+    platformToInstall !== 'Browser'
 
   return (
     <>
@@ -251,10 +278,7 @@ export default function SideloadDialog({
             />
             <span className="titleIcon">
               {title}
-              <FontAwesomeIcon
-                className="InstallModal__platformIcon"
-                icon={platformIcon}
-              />
+              {platformIcon()}
             </span>
           </div>
           <div className="sideloadForm">
@@ -281,18 +305,32 @@ export default function SideloadDialog({
               value={imageUrl}
             />
             {!editMode && children}
-            <PathSelectionBox
-              type="file"
-              onPathChange={setSelectedExe}
-              path={selectedExe}
-              placeholder={t('sideload.info.exe', 'Select Executable')}
-              pathDialogTitle={t('box.sideload.exe', 'Select Executable')}
-              pathDialogDefaultPath={winePrefix}
-              pathDialogFilters={fileFilters[platformToInstall]}
-              htmlId="sideload-exe"
-              label={t('sideload.info.exe', 'Select Executable')}
-              noDeleteButton
-            />
+            {showSideloadExe && (
+              <PathSelectionBox
+                type="file"
+                onPathChange={setSelectedExe}
+                path={selectedExe}
+                placeholder={t('sideload.info.exe', 'Select Executable')}
+                pathDialogTitle={t('box.sideload.exe', 'Select Executable')}
+                pathDialogDefaultPath={winePrefix}
+                pathDialogFilters={fileFilters[platformToInstall]}
+                htmlId="sideload-exe"
+                label={t('sideload.info.exe', 'Select Executable')}
+                noDeleteButton
+              />
+            )}
+            {!showSideloadExe && (
+              <TextInputField
+                label={t('sideload.info.broser', 'BrowserURL')}
+                placeholder={t(
+                  'sideload.placeholder.url',
+                  'Paste the Game URL here'
+                )}
+                onChange={(e) => handleGameUrl(e.target.value)}
+                htmlId="sideload-game-url"
+                value={gameUrl}
+              />
+            )}
           </div>
         </div>
       </DialogContent>
@@ -311,7 +349,7 @@ export default function SideloadDialog({
         <button
           onClick={async () => handleInstall()}
           className={`button is-success`}
-          disabled={!selectedExe.length || addingApp || searching}
+          disabled={(!selectedExe.length && !gameUrl) || addingApp || searching}
         >
           {addingApp && <FontAwesomeIcon icon={faSpinner} spin />}
           {!addingApp && t('button.finish', 'Finish')}
