@@ -140,6 +140,10 @@ import {
 } from './storeManagers'
 import { setupUbisoftConnect } from 'backend/storeManagers/legendary/setup'
 
+import { logFileLocation as getLogFileLocation } from './storeManagers/storeManagerCommon/games'
+import { addNewApp } from './storeManagers/sideload/library'
+import { getGameSdl } from 'backend/storeManagers/legendary/library'
+
 app.commandLine?.appendSwitch('remote-debugging-port', '9222')
 
 const { showOpenDialog } = dialog
@@ -626,6 +630,7 @@ ipcMain.handle('getLegendaryVersion', getLegendaryVersion)
 ipcMain.handle('getGogdlVersion', getGogdlVersion)
 ipcMain.handle('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
 ipcMain.handle('isFlatpak', () => isFlatpak)
+ipcMain.handle('getGameSdl', async (event, appName) => getGameSdl(appName))
 
 ipcMain.handle('getPlatform', () => process.platform)
 
@@ -1662,5 +1667,3 @@ import './downloadmanager/ipc_handler'
 import './utils/ipc_handler'
 import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
-import { logFileLocation as getLogFileLocation } from './storeManagers/storeManagerCommon/games'
-import { addNewApp } from './storeManagers/sideload/library'
