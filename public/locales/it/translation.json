@@ -680,5 +680,12 @@
     },
     "wiki_info": {
         "not_found": "Non siamo riusciti a trovare ulteriori informazioni."
+    },
+    "dlc": {
+        "actions": "Azioni",
+        "installDlcs": "Installa tutti i DLC",
+        "noDlcFound": "Nessun DLC trovato",
+        "size": "Dimensione",
+        "title": "Titolo"
     }
 }
