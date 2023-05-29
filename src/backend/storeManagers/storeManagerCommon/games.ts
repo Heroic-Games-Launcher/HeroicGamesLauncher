@@ -35,11 +35,14 @@ const openNewBrowserGameWindow = async (
   browserUrl: string,
   abortController: AbortController
 ): Promise<boolean> => {
+  const mainUrlName = browserUrl.split('://')[1].split('/')[0]
+
   return new Promise((res) => {
     const browserGame = new BrowserWindow({
       icon: icon,
       fullscreen: true,
       webPreferences: {
+        partition: `persist:${mainUrlName}`,
         webviewTag: true,
         contextIsolation: true,
         nodeIntegration: true

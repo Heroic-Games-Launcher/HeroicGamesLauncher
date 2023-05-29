@@ -8,7 +8,7 @@ import {
 } from 'common/types'
 import { libraryStore } from './electronStores'
 import { GameConfig } from '../../game_config'
-import { isWindows, isMac, isLinux, icon } from '../../constants'
+import { isWindows, isMac, isLinux } from '../../constants'
 import { killPattern, shutdownWine } from '../../utils'
 import { logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import { dirname } from 'path'
@@ -20,7 +20,6 @@ import {
 } from '../../shortcuts/shortcuts/shortcuts'
 import { notify } from '../../dialog/dialog'
 import { sendFrontendMessage } from '../../main_window'
-import { app, BrowserWindow } from 'electron'
 import { launchGame } from 'backend/storeManagers/storeManagerCommon/games'
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import { InstallResult, RemoveArgs } from 'common/types/game_manager'
@@ -64,54 +63,6 @@ export function isGameAvailable(appName: string): boolean {
     return existsSync(install.executable)
   }
   return false
-}
-
-if (Object.hasOwn(app, 'on'))
-  app.on('web-contents-created', (_, contents) => {
-    // Check for a webview
-    if (contents.getType() === 'webview') {
-      contents.setWindowOpenHandler(({ url }) => {
-        const protocol = new URL(url).protocol
-        if (['https:', 'http:'].includes(protocol)) {
-          openNewBrowserGameWindow(url)
-        }
-        return { action: 'deny' }
-      })
-    }
-  })
-
-const openNewBrowserGameWindow = async (
-  browserUrl: string,
-  abortController?: AbortController
-): Promise<boolean> => {
-  // get only the first part of the url
-  const mainUrlName = browserUrl.split('://')[1].split('/')[0]
-
-  return new Promise((res) => {
-    const browserGame = new BrowserWindow({
-      icon: icon,
-      fullscreen: true,
-      webPreferences: {
-        webviewTag: true,
-        contextIsolation: true,
-        nodeIntegration: true,
-        partition: `persist:${mainUrlName}`
-      }
-    })
-
-    browserGame.loadURL(browserUrl)
-    setTimeout(() => browserGame.focus(), 200)
-
-    if (abortController) {
-      abortController.signal.addEventListener('abort', () => {
-        browserGame.close()
-      })
-    }
-
-    browserGame.on('close', () => {
-      res(true)
-    })
-  })
 }
 
 export async function launch(
