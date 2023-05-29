@@ -178,6 +178,13 @@
             "update_game": "Update game"
         }
     },
+    "dlc": {
+        "actions": "Actions",
+        "installDlcs": "Install all DLCs",
+        "noDlcFound": "No DLCs found",
+        "size": "Size",
+        "title": "Title"
+    },
     "docs": "Documentation",
     "download-manager": {
         "ETA": "Estimated time",

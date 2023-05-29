@@ -47,7 +47,7 @@ interface AssetInfo {
   namespace: string
 }
 
-interface GameMetadataInner {
+export interface GameMetadataInner {
   // TODO: So far every age gating has been {}
   ageGatings: Record<string, unknown>
   applicationId: string
@@ -142,9 +142,10 @@ interface GameInstallInfo {
   version: string
 }
 
-interface DLCInfo {
+export interface DLCInfo {
   app_name: string
   title: string
+  is_installed?: boolean
 }
 
 interface GameManifest {
