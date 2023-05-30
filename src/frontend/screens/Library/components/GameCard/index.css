@@ -13,6 +13,10 @@
   aspect-ratio: 173/275;
 }
 
+.gameCard.justPlayed{
+  aspect-ratio: 275/205;
+}
+
 .gameCard.gamepad {
   aspect-ratio: 3/4;
 }
@@ -60,6 +64,12 @@
   object-fit: cover;
   aspect-ratio: 3 / 4;
   display: block;
+}
+
+.gameCard.justPlayed .justPlayedImg{
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  width: 100%;
 }
 
 .gameCard .gameLogo {
