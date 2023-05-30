@@ -420,6 +420,11 @@ async function errorHandler({
     }
 
     if (legendaryRegex.test(error)) {
+      const MemoryError = 'MemoryError: '
+      if (error.includes(MemoryError)) {
+        return
+      }
+
       return showDialogBoxModalAuto({
         title: plat,
         message: i18next.t(
