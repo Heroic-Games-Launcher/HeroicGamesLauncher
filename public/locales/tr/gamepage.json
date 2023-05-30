@@ -166,11 +166,13 @@
         "info": {
             "exe": "Yürütülebilir Dosyayı Seçin",
             "image": "App Image",
-            "title": "Oyun/Uygulama Adı"
+            "title": "Oyun/Uygulama Adı",
+            "broser": "TarayıcıURL'si"
         },
         "placeholder": {
             "image": "Buraya bir Resim URL'si yapıştırın",
-            "title": "Oyununuza/Uygulamanıza bir başlık ekleyin"
+            "title": "Oyununuza/Uygulamanıza bir başlık ekleyin",
+            "url": "Oyun URL'sini buraya yapıştırın"
         }
     },
     "specs": {

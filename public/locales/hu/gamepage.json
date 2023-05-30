@@ -166,11 +166,13 @@
         "info": {
             "exe": "Indítófájl kiválasztása",
             "image": "Alkalmazás képfájl",
-            "title": "Játék/Alkalmazás címe"
+            "title": "Játék/Alkalmazás címe",
+            "broser": "Böngésző URL"
         },
         "placeholder": {
             "image": "Ide másold be a kép URL címét",
-            "title": "Adj egy címet a játékodnbak/alkalmazásodnak"
+            "title": "Adj egy címet a játékodnbak/alkalmazásodnak",
+            "url": "Illessze be ide a játék URL-jét"
         }
     },
     "specs": {

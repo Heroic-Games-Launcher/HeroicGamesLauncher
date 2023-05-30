@@ -166,11 +166,13 @@
         "info": {
             "exe": "Sélectionner l'exécutable",
             "image": "Vignette de l'application",
-            "title": "Titre du Jeu/de l'Application"
+            "title": "Titre du Jeu/de l'Application",
+            "broser": "URL du navigateur"
         },
         "placeholder": {
             "image": "Collez ici l'URL d'une image",
-            "title": "Ajouter un titre à votre Jeu/Application"
+            "title": "Ajouter un titre à votre Jeu/Application",
+            "url": "Collez l'URL du jeu ici"
         }
     },
     "specs": {

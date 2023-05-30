@@ -166,11 +166,13 @@
         "info": {
             "exe": "Selecionar executável",
             "image": "Imagem do Aplicativo",
-            "title": "Título do Jogo/App"
+            "title": "Título do Jogo/App",
+            "broser": "URL do navegador"
         },
         "placeholder": {
             "image": "Cole um link de uma imagem aqui",
-            "title": "Adicione um título ao seu Jogo/App"
+            "title": "Adicione um título ao seu Jogo/App",
+            "url": "Cole a URL do jogo aqui"
         }
     },
     "specs": {

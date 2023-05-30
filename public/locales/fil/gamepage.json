@@ -209,11 +209,13 @@
         "info": {
             "exe": "Piliin ang Executable",
             "image": "Larawan ng App",
-            "title": "Pamagat ng Laro/App"
+            "title": "Pamagat ng Laro/App",
+            "broser": "BrowserURL"
         },
         "placeholder": {
             "image": "Mag-paste ng URL ng Larawan dito",
-            "title": "Magdagdag ng pamagat sa iyong Laro/App"
+            "title": "Magdagdag ng pamagat sa iyong Laro/App",
+            "url": "I-paste ang URL ng Laro dito"
         }
     },
     "specs": {

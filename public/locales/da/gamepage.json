@@ -211,11 +211,13 @@
         "info": {
             "exe": "Vælg Eksekverbar",
             "image": "App billede",
-            "title": "Spil/App titel"
+            "title": "Spil/App titel",
+            "broser": "BrowserURL"
         },
         "placeholder": {
             "image": "Indsæt en billed-URL her",
-            "title": "Tilføj en titel til dit spil/app"
+            "title": "Tilføj en titel til dit spil/app",
+            "url": "Indsæt spillets URL her"
         }
     },
     "setting": {
