@@ -185,7 +185,7 @@ interface TagInfo {
 }
 
 // types for the Legendary API https://heroic.legendary.gl/v1/version.json
-export type CxBottle = {
+/* export type CxBottle = {
   base_url: string | null
   compatible_apps: string[]
   cx_system: string
@@ -204,13 +204,13 @@ export type GameOverride = {
   sdl_config: Record<string, number>
 }
 
-export type GameWiki = Record<string, Record<string, string>>
+export type GameWiki = Record<string, Record<string, string>> */
 
 type LegendaryConfig = {
   webview_killswitch: boolean
 }
 
-export type ReleaseInfoLegendaryAPI = {
+/* export type ReleaseInfoLegendaryAPI = {
   critical: boolean
   download_hashes: Record<string, string>
   downloads: Record<string, string>
@@ -218,15 +218,15 @@ export type ReleaseInfoLegendaryAPI = {
   name: string
   summary: string
   version: string
-}
+} */
 
 export type ResponseDataLegendaryAPI = {
-  cx_bottles: CxBottle[]
+  // cx_bottles: CxBottle[]
   egl_config: Record<string, unknown>
-  game_overrides: GameOverride
-  game_wiki: GameWiki
+  // game_overrides: GameOverride
+  // game_wiki: GameWiki
   legendary_config: LegendaryConfig
-  release_info: ReleaseInfoLegendaryAPI
+  // release_info: ReleaseInfoLegendaryAPI
   runtimes: unknown[]
 }
 
