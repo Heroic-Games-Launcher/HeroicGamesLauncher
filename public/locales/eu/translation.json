@@ -440,7 +440,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Leihoak"
+        "win": "Leihoak",
+        "browser": "Arakatzailea"
     },
     "please-wait": "Please wait...",
     "progress": "Aurrerapena",
@@ -680,5 +681,12 @@
     },
     "wiki_info": {
         "not_found": "Ezin izan dugu informazio gehigarririk aurkitu."
+    },
+    "dlc": {
+        "actions": "Ekintzak",
+        "installDlcs": "Instalatu DLC guztiak",
+        "noDlcFound": "Ez da DLCrik aurkitu",
+        "size": "Tamaina",
+        "title": "Title"
     }
 }

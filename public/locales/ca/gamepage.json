@@ -166,11 +166,13 @@
         "info": {
             "exe": "Selecciona l'executable",
             "image": "Imatge de l'aplicació",
-            "title": "Títol del joc o aplicació"
+            "title": "Títol del joc o aplicació",
+            "broser": "URL del navegador"
         },
         "placeholder": {
             "image": "Enganxa-hi l'URL d'una imatge",
-            "title": "Afegeix un títol al joc o aplicació"
+            "title": "Afegeix un títol al joc o aplicació",
+            "url": "Enganxeu l'URL del joc aquí"
         }
     },
     "specs": {

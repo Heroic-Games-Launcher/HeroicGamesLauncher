@@ -2,7 +2,8 @@
     "sideload": {
         "placeholder": {
             "title": "O'yin/ilovangizga sarlavha qo'shing",
-            "image": "Tasvir URL manzilini bu yerga joylashtiring"
+            "image": "Tasvir URL manzilini bu yerga joylashtiring",
+            "url": "Oʻyin URL manzilini shu yerga qoʻying"
         },
         "field": {
             "title": "Sarlavha"
@@ -10,7 +11,8 @@
         "info": {
             "exe": "Bajariladigan ni tanlang",
             "image": "Ilova tasviri",
-            "title": "O'yin/ilova nomi"
+            "title": "O'yin/ilova nomi",
+            "broser": "BrowserURL"
         }
     },
     "specs": {

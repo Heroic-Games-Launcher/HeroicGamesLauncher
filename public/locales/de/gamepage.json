@@ -166,11 +166,13 @@
         "info": {
             "exe": "Ausführbare Datei auswählen",
             "image": "App-Bild",
-            "title": "Spiel/App-Titel"
+            "title": "Spiel/App-Titel",
+            "broser": "BrowserURL"
         },
         "placeholder": {
             "image": "Füge hier eine Bild-URL ein",
-            "title": "Gib deinem Spiel/deiner App einen Titel"
+            "title": "Gib deinem Spiel/deiner App einen Titel",
+            "url": "Fügen Sie hier die Spiel-URL ein"
         }
     },
     "specs": {

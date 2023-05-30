@@ -166,11 +166,13 @@
         "info": {
             "exe": "Wybierz plik wykonywalny",
             "image": "Obraz aplikacji",
-            "title": "Tytuł gry/aplikacji"
+            "title": "Tytuł gry/aplikacji",
+            "broser": "URL przeglądarki"
         },
         "placeholder": {
             "image": "Wklej adres URL obrazu tutaj",
-            "title": "Dodaj tytuł do swojej gry/aplikacji"
+            "title": "Dodaj tytuł do swojej gry/aplikacji",
+            "url": "Wklej tutaj adres URL gry"
         }
     },
     "specs": {

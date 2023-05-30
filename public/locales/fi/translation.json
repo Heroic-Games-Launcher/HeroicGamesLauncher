@@ -440,7 +440,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "Selain"
     },
     "please-wait": "Please wait...",
     "progress": "Progress",
@@ -680,5 +681,12 @@
     },
     "wiki_info": {
         "not_found": "Emme löytäneet lisätietoja."
+    },
+    "dlc": {
+        "actions": "Toiminnot",
+        "installDlcs": "Asenna kaikki ladattava sisältö",
+        "noDlcFound": "DLC:itä ei löytynyt",
+        "size": "Size",
+        "title": "Title"
     }
 }

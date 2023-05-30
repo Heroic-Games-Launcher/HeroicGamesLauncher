@@ -440,7 +440,8 @@
     "platforms": {
         "linux": "لینوکس",
         "mac": "مک",
-        "win": "ویندوز"
+        "win": "ویندوز",
+        "browser": "مرورگر"
     },
     "please-wait": "لطفا صیر کنید...",
     "progress": "Progress",
@@ -680,5 +681,12 @@
     },
     "wiki_info": {
         "not_found": "ما نتوانستیم اطلاعات اضافی پیدا کنیم."
+    },
+    "dlc": {
+        "actions": "اقدامات",
+        "installDlcs": "نصب همه DLCها",
+        "noDlcFound": "هیچ DLC یافت نشد",
+        "size": "اندازه",
+        "title": "عنوان"
     }
 }

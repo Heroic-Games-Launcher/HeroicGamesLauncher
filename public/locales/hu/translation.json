@@ -440,7 +440,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "Böngésző"
     },
     "please-wait": "Please wait...",
     "progress": "Progress",
@@ -680,5 +681,12 @@
     },
     "wiki_info": {
         "not_found": "Nem találtunk további információt."
+    },
+    "dlc": {
+        "actions": "Akciók",
+        "installDlcs": "Összes DLC telepítése",
+        "noDlcFound": "Nem található DLC",
+        "size": "Méret",
+        "title": "Cím"
     }
 }

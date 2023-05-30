@@ -440,7 +440,8 @@
     "platforms": {
         "linux": "Линукс",
         "mac": "Мак",
-        "win": "Уиндоус"
+        "win": "Уиндоус",
+        "browser": "Браузър"
     },
     "please-wait": "Моля, изчакайте…",
     "progress": "Progress",

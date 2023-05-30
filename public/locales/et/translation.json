@@ -440,7 +440,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "Brauser"
     },
     "please-wait": "Please wait...",
     "progress": "Progress",
@@ -680,5 +681,12 @@
     },
     "wiki_info": {
         "not_found": "Me ei leidnud lisateavet."
+    },
+    "dlc": {
+        "actions": "Tegevused",
+        "installDlcs": "Paigalda kõik DLC'd",
+        "noDlcFound": "DLC-sid ei leitud",
+        "size": "Suurus",
+        "title": "Title"
     }
 }

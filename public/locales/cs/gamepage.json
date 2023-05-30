@@ -166,11 +166,13 @@
         "info": {
             "exe": "Vyberte spustitelný soubor",
             "image": "Obrázek aplikace",
-            "title": "Název hry/aplikace"
+            "title": "Název hry/aplikace",
+            "broser": "Adresa URL prohlížeče"
         },
         "placeholder": {
             "image": "Sem vložte URL obrázku",
-            "title": "Přidejte název ke své hře/aplikaci"
+            "title": "Přidejte název ke své hře/aplikaci",
+            "url": "Sem vložte adresu URL hry"
         }
     },
     "specs": {
