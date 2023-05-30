@@ -16,7 +16,6 @@ import {
   GogInstallInfo,
   GOGGameDotIdFile,
   GOGClientsResponse,
-  GogInstallPlatform,
   GamesDBData,
   Library,
   BuildItem
@@ -375,10 +374,10 @@ export function getInstallAndGameInfo(slug: string): GameInfo | undefined {
  */
 export async function getInstallInfo(
   appName: string,
-  installPlatform: GogInstallPlatform = 'windows',
+  installPlatform = 'windows',
   lang = 'en-US'
 ): Promise<GogInstallInfo | undefined> {
-  installPlatform = installPlatform.toLowerCase() as GogInstallPlatform
+  installPlatform = installPlatform.toLowerCase()
 
   if (installInfoStore.has(`${appName}_${installPlatform}`)) {
     const cache = installInfoStore.get(`${appName}_${installPlatform}`)
