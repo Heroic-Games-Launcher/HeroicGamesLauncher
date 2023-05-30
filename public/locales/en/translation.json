@@ -302,6 +302,7 @@
         "warning": "Warning",
         "wine-path": "Wine Path",
         "wine-path-invalid": "Wine Path is invalid, please select another one.",
+        "wine-path-none-found": "No Wine version was found, download one from the Wine Manager",
         "wine-prefix": {
             "title": "Wine Prefix"
         },
