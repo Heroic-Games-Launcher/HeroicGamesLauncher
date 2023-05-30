@@ -440,7 +440,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "Browser"
     },
     "please-wait": "Please wait...",
     "progress": "Progres",
@@ -680,5 +681,12 @@
     },
     "wiki_info": {
         "not_found": "Nu am putut găsi informații suplimentare."
+    },
+    "dlc": {
+        "actions": "Acțiuni",
+        "installDlcs": "Instalați toate DLC-urile",
+        "noDlcFound": "Nu s-au găsit DLC",
+        "size": "Mărime",
+        "title": "Title"
     }
 }
