@@ -378,6 +378,12 @@ export async function getInstallInfo(
   lang = 'en-US'
 ): Promise<GogInstallInfo | undefined> {
   installPlatform = installPlatform.toLowerCase()
+  if (installPlatform === 'linux') {
+    installPlatform = 'windows'
+  }
+  if (installPlatform === 'mac') {
+    installPlatform = 'osx'
+  }
 
   if (installInfoStore.has(`${appName}_${installPlatform}`)) {
     const cache = installInfoStore.get(`${appName}_${installPlatform}`)
