@@ -42,10 +42,7 @@ const openNewBrowserGameWindow = async (
       icon: icon,
       fullscreen: true,
       webPreferences: {
-        partition: `persist:${hostname}`,
-        webviewTag: true,
-        contextIsolation: true,
-        nodeIntegration: true
+        partition: `persist:${hostname}`
       }
     })
 
