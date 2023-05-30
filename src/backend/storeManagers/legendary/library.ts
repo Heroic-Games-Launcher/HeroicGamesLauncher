@@ -653,8 +653,12 @@ export async function getGameSdl(
     `https://heroic.legendary.gl/v1/sdl/${appName}.json`
   )
 
-  if (response.status !== 200) {
-    logInfo(`No SDL available for ${appName}`)
+  // if data type is not a json return empty array
+  if (response.headers['content-type'] !== 'application/json') {
+    logInfo(
+      ['No Selective Download data found for', appName],
+      LogPrefix.Legendary
+    )
     return []
   }
 

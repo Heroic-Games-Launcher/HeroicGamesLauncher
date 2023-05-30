@@ -88,7 +88,10 @@ function getInstallLanguage(
 }
 
 function getUniqueKey(sdl: SelectiveDownload) {
-  return sdl.tags.join(',')
+  if (sdl.tags) {
+    return sdl.tags.join(',')
+  }
+  return ''
 }
 
 const userHome = configStore.get('userHome', '')
@@ -157,7 +160,7 @@ export default function DownloadDialog({
 
   const sdlList = useMemo(() => {
     const list = []
-    if (sdls) {
+    if (haveSDL) {
       for (const sdl of sdls) {
         if (sdl.required || selectedSdls[getUniqueKey(sdl)]) {
           if (Array.isArray(sdl.tags)) {
@@ -272,7 +275,9 @@ export default function DownloadDialog({
     const getGameSdl = async () => {
       if (runner === 'legendary') {
         const sdl = await window.api.getGameSdl(appName)
-        setSdls(sdl)
+        if (sdl.length > 0) {
+          setSdls(sdl)
+        }
       }
     }
     getGameSdl()
@@ -372,8 +377,6 @@ export default function DownloadDialog({
 
   const showDlcSelector =
     runner === 'legendary' && DLCList && DLCList?.length > 0
-
-  console.log(sdlList)
 
   return (
     <>
