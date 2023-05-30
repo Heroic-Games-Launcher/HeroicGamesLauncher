@@ -212,8 +212,8 @@
     "flatpak:prepare-release": "node ./flatpak/prepareFlatpak.js release",
     "i18n": "i18next --silent",
     "prepare": "husky install",
-    "prettier": "prettier --check . '!flatpak-build'",
-    "prettier-fix": "prettier --write . '!flatpak-build'"
+    "prettier": "prettier --check . !'flatpak-build'",
+    "prettier-fix": "prettier --write . !'flatpak-build'"
   },
   "eslintConfig": {
     "extends": [
