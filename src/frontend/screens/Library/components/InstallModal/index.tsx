@@ -77,7 +77,7 @@ export default React.memo(function InstallModal({
     },
     {
       name: 'Browser',
-      available: true,
+      available: isSideload,
       value: 'Browser',
       icon: faGlobe
     }
