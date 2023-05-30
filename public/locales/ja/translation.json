@@ -440,7 +440,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "ブラウザ"
     },
     "please-wait": "しばらくお待ちください…",
     "progress": "進捗状況",
@@ -680,5 +681,12 @@
     },
     "wiki_info": {
         "not_found": "追加情報は見つかりませんでした。"
+    },
+    "dlc": {
+        "title": "Title",
+        "actions": "行動",
+        "installDlcs": "すべてのDLCをインストールします",
+        "noDlcFound": "DLCが見つかりませんでした",
+        "size": "Size"
     }
 }
