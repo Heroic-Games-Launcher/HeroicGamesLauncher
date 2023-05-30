@@ -11,14 +11,9 @@ interface Point {
   disk: number
 }
 
-const roundToNearestHundredthByte = function (val: number | undefined) {
+const roundToNearestHundredth = function (val: number | undefined) {
   if (!val) return 0
   return Math.round(val * 100) / 100
-}
-
-const roundToNearestHundredthBit = function (val: number | undefined) {
-  if (!val) return 0
-  return Math.round(val * 100) / 100 * 8
 }
 
 export default function ProgressHeader(props: {
@@ -30,7 +25,6 @@ export default function ProgressHeader(props: {
   const [avgSpeed, setAvgDownloadSpeed] = useState<Point[]>(
     Array<Point>(20).fill({ download: 0, disk: 0 })
   )
-  const [speedType, setSpeedType] = useState<'megabit' | 'megabyte'>('megabyte')
 
   useEffect(() => {
     if (props.state === 'idle') {
@@ -52,16 +46,6 @@ export default function ProgressHeader(props: {
 
     setAvgDownloadSpeed([...avgSpeed])
   }, [progress, props.state])
-
-  const roundSpeed = function (val: number | undefined) {
-    if (speedType === 'megabyte') return roundToNearestHundredthByte(val)
-    return roundToNearestHundredthBit(val)
-  }
-
-  const toggleSpeedType = function () {    
-    if (speedType === 'megabyte') setSpeedType('megabit')
-    else setSpeedType('megabyte')
-  }
 
   return (
     <>
@@ -99,17 +83,17 @@ export default function ProgressHeader(props: {
               </ResponsiveContainer>
             </div>
           </div>
-          <div className="realtimeDownloadStatContainer" onClick={toggleSpeedType}>
+          <div className="realtimeDownloadStatContainer">
             <h5 className="realtimeDownloadStat">
-              {roundSpeed(avgSpeed.at(-1)?.download)} {speedType === 'megabyte' ? 'MB/s' : 'Mb/s'}
+              {roundToNearestHundredth(avgSpeed.at(-1)?.download)} MB/s
             </h5>
             <div className="realtimeDownloadStatLabel downLabel">
               {t('download-manager.label.speed', 'Download')}{' '}
             </div>
           </div>
-          <div className="realtimeDownloadStatContainer" onClick={toggleSpeedType}>
+          <div className="realtimeDownloadStatContainer">
             <h5 className="realtimeDownloadStat">
-              {roundSpeed(avgSpeed.at(-1)?.disk)} {speedType === 'megabyte' ? 'MB/s' : 'Mb/s'}
+              {roundToNearestHundredth(avgSpeed.at(-1)?.disk)} MB/s
             </h5>
             <div className="realtimeDownloadStatLabel diskLabel">
               {t('download-manager.label.disk', 'Disk')}{' '}
@@ -120,8 +104,9 @@ export default function ProgressHeader(props: {
       {props.state !== 'idle' && props.appName && progress.eta && (
         <div className="downloadBar">
           <div className="downloadProgressStats">
-            <p className="downloadStat" color="var(--text-default)">{`${progress.percent ?? 0
-              }% [${progress.bytes ?? ''}] `}</p>
+            <p className="downloadStat" color="var(--text-default)">{`${
+              progress.percent ?? 0
+            }% [${progress.bytes ?? ''}] `}</p>
           </div>
           <Box sx={{ display: 'flex', alignItems: 'baseline' }}>
             <Box sx={{ width: '100%', mr: 1 }}>
