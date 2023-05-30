@@ -440,7 +440,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "Tarayıcı"
     },
     "please-wait": "Lütfen bekleyin...",
     "progress": "İlerleme",
@@ -680,5 +681,12 @@
     },
     "wiki_info": {
         "not_found": "Ek bilgi bulamadık."
+    },
+    "dlc": {
+        "actions": "Hareketler",
+        "installDlcs": "Tüm DLC'leri kur",
+        "noDlcFound": "DLC bulunamadı",
+        "size": "Boyut",
+        "title": "Title"
     }
 }

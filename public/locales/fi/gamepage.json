@@ -166,11 +166,13 @@
         "info": {
             "exe": "Valitse suoritettava tiedosto",
             "image": "App Image",
-            "title": "Pelin/sovelluksen otsikko"
+            "title": "Pelin/sovelluksen otsikko",
+            "broser": "Selaimen URL-osoite"
         },
         "placeholder": {
             "image": "Liitä kuvan URL tähän",
-            "title": "Lisää otsikko peliisi/sovellukseesi"
+            "title": "Lisää otsikko peliisi/sovellukseesi",
+            "url": "Liitä pelin URL-osoite tähän"
         }
     },
     "specs": {

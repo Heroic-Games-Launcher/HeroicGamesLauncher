@@ -166,11 +166,13 @@
         "info": {
             "exe": "Pilih Executable",
             "image": "Gambar App",
-            "title": "Gim/Judul App"
+            "title": "Gim/Judul App",
+            "broser": "URL browser"
         },
         "placeholder": {
             "image": "Tempel URL Gambar di sini",
-            "title": "Tambahkan judul ke Gim/App Anda"
+            "title": "Tambahkan judul ke Gim/App Anda",
+            "url": "Rekatkan URL Game di sini"
         }
     },
     "specs": {

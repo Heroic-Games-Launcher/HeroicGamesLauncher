@@ -160,7 +160,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "Brauzer"
     },
     "two_col_table": {
         "save_hint": "Ushbu jadvaldagi o'zgarishlar avtomatik ravishda saqlanmaydi. + tugmasini bosing"
@@ -669,5 +670,12 @@
         "removepath": "Yo'lni olib tashlash"
     },
     "Open": "Ochiq",
-    "Update Available!": "Yangilanish mavjud!"
+    "Update Available!": "Yangilanish mavjud!",
+    "dlc": {
+        "actions": "Harakatlar",
+        "installDlcs": "Barcha DLC-larni o'rnating",
+        "noDlcFound": "Hech qanday DLC topilmadi",
+        "size": "Hajmi",
+        "title": "Sarlavha"
+    }
 }

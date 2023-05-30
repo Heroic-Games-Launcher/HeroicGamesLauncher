@@ -166,11 +166,13 @@
         "info": {
             "exe": "実行可能ファイルを選択",
             "image": "Appイメージ",
-            "title": "ゲーム/Appタイトル"
+            "title": "ゲーム/Appタイトル",
+            "broser": "ブラウザのURL"
         },
         "placeholder": {
             "image": "ここにイメージURLをペーストしてください",
-            "title": "ゲーム/Appにタイトルを追加してください"
+            "title": "ゲーム/Appにタイトルを追加してください",
+            "url": "ゲームの URL をここに貼り付けます"
         }
     },
     "specs": {

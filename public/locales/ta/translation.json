@@ -440,7 +440,8 @@
     "platforms": {
         "linux": "லினக்ஸ்",
         "mac": "மேக்",
-        "win": "விண்டோஸ்"
+        "win": "விண்டோஸ்",
+        "browser": "உலாவி"
     },
     "please-wait": "Please wait...",
     "progress": "Progress",

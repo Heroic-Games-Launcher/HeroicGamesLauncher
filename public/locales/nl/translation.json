@@ -440,7 +440,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "ramen"
+        "win": "ramen",
+        "browser": "Browser"
     },
     "please-wait": "Please wait...",
     "progress": "Progress",
@@ -680,5 +681,12 @@
     },
     "wiki_info": {
         "not_found": "We konden geen extra informatie vinden."
+    },
+    "dlc": {
+        "actions": "Acties",
+        "noDlcFound": "Geen DLC's gevonden",
+        "installDlcs": "Installeer alle DLC's",
+        "size": "Size",
+        "title": "Title"
     }
 }

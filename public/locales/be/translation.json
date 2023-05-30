@@ -440,7 +440,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "вокны"
+        "win": "вокны",
+        "browser": "Браўзэр"
     },
     "please-wait": "Калі ласка пачакай...",
     "progress": "Progress",

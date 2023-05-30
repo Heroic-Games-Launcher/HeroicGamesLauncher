@@ -440,7 +440,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "Peramban"
     },
     "please-wait": "Mohon tunggu...",
     "progress": "Progress",

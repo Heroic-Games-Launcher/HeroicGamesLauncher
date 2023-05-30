@@ -166,11 +166,13 @@
         "info": {
             "exe": "Välj EXE-fil",
             "image": "Applikationens bild",
-            "title": "Spel/Applikation titel"
+            "title": "Spel/Applikation titel",
+            "broser": "BrowserURL"
         },
         "placeholder": {
             "image": "Klistra in bildens URL här",
-            "title": "Lägg till Spel/Applikation titel"
+            "title": "Lägg till Spel/Applikation titel",
+            "url": "Klistra in spelets URL här"
         }
     },
     "specs": {

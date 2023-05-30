@@ -440,7 +440,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "Navegador"
     },
     "please-wait": "Espera...",
     "progress": "Progress",
@@ -680,5 +681,12 @@
     },
     "wiki_info": {
         "not_found": "No hem pogut trobar informació addicional."
+    },
+    "dlc": {
+        "actions": "Accions",
+        "installDlcs": "Instal·la tots els DLCs",
+        "noDlcFound": "No s'han trobat DLC",
+        "size": "Mida",
+        "title": "Títol"
     }
 }

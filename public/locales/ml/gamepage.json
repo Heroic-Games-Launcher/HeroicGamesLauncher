@@ -166,11 +166,13 @@
         "info": {
             "exe": "Select Executable",
             "image": "App Image",
-            "title": "Game/App Title"
+            "title": "Game/App Title",
+            "broser": "ബ്രൗസർURL"
         },
         "placeholder": {
             "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "title": "Add a title to your Game/App",
+            "url": "ഗെയിം URL ഇവിടെ ഒട്ടിക്കുക"
         }
     },
     "specs": {
