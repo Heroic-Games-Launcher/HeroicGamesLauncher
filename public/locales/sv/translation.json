@@ -440,7 +440,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "Webbläsare"
     },
     "please-wait": "Var god dröj...",
     "progress": "Progress",
