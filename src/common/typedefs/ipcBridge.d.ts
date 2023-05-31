@@ -32,7 +32,7 @@ import {
   ExtraInfo,
   LaunchOption
 } from 'common/types'
-import { LegendaryInstallInfo } from 'common/types/legendary'
+import { LegendaryInstallInfo, SelectiveDownload } from 'common/types/legendary'
 import { GOGCloudSavesLocation, GogInstallInfo } from 'common/types/gog'
 
 /**
@@ -241,6 +241,8 @@ interface AsyncIPCFunctions {
   toggleDXVK: (args: ToolArgs) => Promise<boolean>
   pathExists: (path: string) => Promise<boolean>
   getGOGLaunchOptions: (appName: string) => Promise<LaunchOption[]>
+  getGameOverride: () => Promise<GameOverride | null>
+  getGameSdl: (appName: string) => Promise<SelectiveDownload[]>
 }
 
 // This is quite ugly & throws a lot of errors in a regular .ts file

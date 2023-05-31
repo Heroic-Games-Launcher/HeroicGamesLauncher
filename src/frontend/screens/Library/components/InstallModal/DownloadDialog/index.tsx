@@ -14,7 +14,7 @@ import {
   WineInstallation
 } from 'common/types'
 import { GogInstallInfo } from 'common/types/gog'
-import { LegendaryInstallInfo } from 'common/types/legendary'
+import { LegendaryInstallInfo, SelectiveDownload } from 'common/types/legendary'
 import {
   PathSelectionBox,
   SelectField,
@@ -44,7 +44,6 @@ import React, {
 } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AvailablePlatforms } from '../index'
-import { SDL_GAMES, SelectiveDownload } from '../selective_dl'
 import { configStore } from 'frontend/helpers/electronStores'
 import DLCDownloadListing from './DLCDownloadListing'
 
@@ -89,7 +88,10 @@ function getInstallLanguage(
 }
 
 function getUniqueKey(sdl: SelectiveDownload) {
-  return sdl.tags.join(',')
+  if (sdl.tags) {
+    return sdl.tags.join(',')
+  }
+  return ''
 }
 
 const userHome = configStore.get('userHome', '')
@@ -136,6 +138,7 @@ export default function DownloadDialog({
 
   const [dlcsToInstall, setDlcsToInstall] = useState<string[]>([])
   const [installAllDlcs, setInstallAllDlcs] = useState(false)
+  const [sdls, setSdls] = useState<SelectiveDownload[]>([])
   const [selectedSdls, setSelectedSdls] = useState<{ [key: string]: boolean }>(
     {}
   )
@@ -153,14 +156,13 @@ export default function DownloadDialog({
   const { i18n, t } = useTranslation('gamepage')
   const { t: tr } = useTranslation()
 
-  const sdls: SelectiveDownload[] | undefined = SDL_GAMES[appName]
-  const haveSDL = Array.isArray(sdls) && sdls.length !== 0
+  const haveSDL = sdls.length > 0
 
   const sdlList = useMemo(() => {
     const list = []
-    if (sdls) {
+    if (haveSDL) {
       for (const sdl of sdls) {
-        if (sdl.mandatory || selectedSdls[getUniqueKey(sdl)]) {
+        if (sdl.required || selectedSdls[getUniqueKey(sdl)]) {
           if (Array.isArray(sdl.tags)) {
             list.push(...sdl.tags)
           }
@@ -268,6 +270,21 @@ export default function DownloadDialog({
     }
     getIinstInfo()
   }, [appName, i18n.languages, platformToInstall])
+
+  useEffect(() => {
+    const getGameSdl = async () => {
+      if (runner === 'legendary') {
+        const { sdl_config } = await window.api.getGameOverride()
+        if (sdl_config && sdl_config[appName]) {
+          const sdl = await window.api.getGameSdl(appName)
+          if (sdl.length > 0) {
+            setSdls(sdl)
+          }
+        }
+      }
+    }
+    getGameSdl()
+  }, [appName, runner])
 
   useEffect(() => {
     const getSpace = async () => {
@@ -518,11 +535,11 @@ export default function DownloadDialog({
                 <ToggleSwitch
                   htmlId={`sdls-${idx}`}
                   title={sdl.name}
-                  value={!!sdl.mandatory || !!selectedSdls[getUniqueKey(sdl)]}
-                  disabled={sdl.mandatory}
+                  extraClass="InstallModal__toggle--sdl"
+                  value={!!sdl.required || !!selectedSdls[getUniqueKey(sdl)]}
+                  disabled={sdl.required}
                   handleChange={(e) => handleSdl(sdl, e.target.checked)}
                 />
-                <span>{sdl.name}</span>
               </label>
             ))}
           </div>

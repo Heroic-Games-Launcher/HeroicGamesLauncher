@@ -12,7 +12,7 @@ import {
 } from 'common/types'
 import { Dialog } from 'frontend/components/UI/Dialog'
 
-import './index.css'
+import './index.scss'
 
 import DownloadDialog from './DownloadDialog'
 import SideloadDialog from './SideloadDialog'
@@ -77,7 +77,7 @@ export default React.memo(function InstallModal({
     },
     {
       name: 'Browser',
-      available: true,
+      available: isSideload,
       value: 'Browser',
       icon: faGlobe
     }

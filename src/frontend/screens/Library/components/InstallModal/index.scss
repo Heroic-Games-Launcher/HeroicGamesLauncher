@@ -78,6 +78,10 @@
 .InstallModal__dlcs,
 .InstallModal__sdls {
   margin: 0 var(--space-md);
+
+  .InstallModal__toggle--sdl {
+    padding: 0 !important;
+  }
 }
 
 .InstallModal__dlcsList {

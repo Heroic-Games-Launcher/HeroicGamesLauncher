@@ -183,3 +183,57 @@ interface TagInfo {
   // How big the tag is (in bytes)
   size: number
 }
+
+// types for the Legendary API https://heroic.legendary.gl/v1/version.json
+/* export type CxBottle = {
+  base_url: string | null
+  compatible_apps: string[]
+  cx_system: string
+  cx_version: string
+  cx_versions: string[]
+  description: string
+  is_default: boolean
+  manifest: string
+  name: string
+  version: number
+}
+
+
+export type GameWiki = Record<string, Record<string, string>> */
+
+export type GameOverride = {
+  executable_override: Record<string, Record<string, string>>
+  reorder_optimization: Record<string, string[]>
+  sdl_config: Record<string, number>
+}
+
+type LegendaryConfig = {
+  webview_killswitch: boolean
+}
+
+/* export type ReleaseInfoLegendaryAPI = {
+  critical: boolean
+  download_hashes: Record<string, string>
+  downloads: Record<string, string>
+  gh_url: string
+  name: string
+  summary: string
+  version: string
+} */
+
+export type ResponseDataLegendaryAPI = {
+  // cx_bottles: CxBottle[]
+  egl_config: Record<string, unknown>
+  game_overrides: GameOverride
+  // game_wiki: GameWiki
+  legendary_config: LegendaryConfig
+  // release_info: ReleaseInfoLegendaryAPI
+  runtimes: unknown[]
+}
+
+export interface SelectiveDownload {
+  tags: Array<string>
+  name: string
+  description: string
+  required?: boolean
+}

@@ -15,7 +15,10 @@ import {
   InstalledJsonMetadata,
   GameMetadata,
   LegendaryInstallInfo,
-  LegendaryInstallPlatform
+  LegendaryInstallPlatform,
+  ResponseDataLegendaryAPI,
+  SelectiveDownload,
+  GameOverride
 } from 'common/types/legendary'
 import { LegendaryUser } from './user'
 import {
@@ -37,11 +40,16 @@ import {
   LogPrefix,
   logWarning
 } from '../../logger/logger'
-import { installStore, libraryStore } from './electronStores'
+import {
+  gamesOverrideStore,
+  installStore,
+  libraryStore
+} from './electronStores'
 import { callRunner } from '../../launcher'
 import { dirname, join } from 'path'
 import { isOnline } from 'backend/online_monitor'
 import { update } from './games'
+import axios from 'axios'
 
 const allGames: Set<string> = new Set()
 let installedGames: Map<string, InstalledJsonMetadata> = new Map()
@@ -633,4 +641,67 @@ export async function runRunnerCommand(
       verboseLogFile: legendaryLogFile
     }
   )
+}
+
+export async function getGameOverride(): Promise<GameOverride> {
+  const cached = gamesOverrideStore.get('gamesOverride')
+  if (cached) {
+    return cached
+  }
+
+  try {
+    const response = await axios.get<ResponseDataLegendaryAPI>(
+      'https://heroic.legendary.gl/v1/version.json'
+    )
+
+    if (response.data.game_overrides) {
+      gamesOverrideStore.set('gamesOverride', response.data.game_overrides)
+    }
+
+    return response.data.game_overrides
+  } catch (error) {
+    logWarning(['Error fetching Legendary API:', error], LogPrefix.Legendary)
+    throw error
+  }
+}
+
+export async function getGameSdl(
+  appName: string
+): Promise<SelectiveDownload[]> {
+  try {
+    const response = await axios.get<Record<string, SelectiveDownload>>(
+      `https://heroic.legendary.gl/v1/sdl/${appName}.json`
+    )
+
+    // if data type is not a json return empty array
+    if (response.headers['content-type'] !== 'application/json') {
+      logInfo(
+        ['No Selective Download data found for', appName],
+        LogPrefix.Legendary
+      )
+      return []
+    }
+
+    const list = Object.keys(response.data)
+    const sdlList: SelectiveDownload[] = []
+
+    list.forEach((key) => {
+      const { name, description, tags } = response.data[
+        key
+      ] as SelectiveDownload
+      if (key === '__required') {
+        sdlList.unshift({ name, description, tags, required: true })
+      } else {
+        sdlList.push({ name, description, tags })
+      }
+    })
+
+    return sdlList
+  } catch (error) {
+    logWarning(
+      ['Error fetching Selective Download data for', appName, error],
+      LogPrefix.Legendary
+    )
+    return []
+  }
 }
