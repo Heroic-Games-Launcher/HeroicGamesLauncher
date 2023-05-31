@@ -93,7 +93,7 @@ const GamesList = ({
         library.map((gameInfo, index) => {
           const { app_name, is_installed, runner } = gameInfo
           let isJustPlayed = false
-          if (isRecent && index == 0) {
+          if (isRecent && index === 0) {
             isJustPlayed = true
           }
           let is_dlc = false
