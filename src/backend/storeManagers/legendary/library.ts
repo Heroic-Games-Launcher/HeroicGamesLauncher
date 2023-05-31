@@ -639,40 +639,54 @@ export async function runRunnerCommand(
 }
 
 export async function getLegendaryApi(): Promise<ResponseDataLegendaryAPI> {
-  const response = await axios.get<ResponseDataLegendaryAPI>(
-    'https://heroic.legendary.gl/v1/version.json'
-  )
-  return response.data
+  try {
+    const response = await axios.get<ResponseDataLegendaryAPI>(
+      'https://heroic.legendary.gl/v1/version.json'
+    )
+    return response.data
+  } catch (error) {
+    logWarning(['Error fetching Legendary API:', error], LogPrefix.Legendary)
+    throw error
+  }
 }
 
 export async function getGameSdl(
   appName: string
 ): Promise<SelectiveDownload[]> {
-  // get data from https://heroic.legendary.gl/v1/sdl/appName.json using axios
-  const response = await axios.get<Record<string, SelectiveDownload>>(
-    `https://heroic.legendary.gl/v1/sdl/${appName}.json`
-  )
+  try {
+    const response = await axios.get<Record<string, SelectiveDownload>>(
+      `https://heroic.legendary.gl/v1/sdl/${appName}.json`
+    )
 
-  // if data type is not a json return empty array
-  if (response.headers['content-type'] !== 'application/json') {
-    logInfo(
-      ['No Selective Download data found for', appName],
+    // if data type is not a json return empty array
+    if (response.headers['content-type'] !== 'application/json') {
+      logInfo(
+        ['No Selective Download data found for', appName],
+        LogPrefix.Legendary
+      )
+      return []
+    }
+
+    const list = Object.keys(response.data)
+    const sdlList: SelectiveDownload[] = []
+
+    list.forEach((key) => {
+      const { name, description, tags } = response.data[
+        key
+      ] as SelectiveDownload
+      if (key === '__required') {
+        sdlList.unshift({ name, description, tags, required: true })
+      } else {
+        sdlList.push({ name, description, tags })
+      }
+    })
+
+    return sdlList
+  } catch (error) {
+    logWarning(
+      ['Error fetching Selective Download data for', appName, error],
       LogPrefix.Legendary
     )
     return []
   }
-
-  const list = Object.keys(response.data)
-  const sdlList: SelectiveDownload[] = []
-
-  list.forEach((key) => {
-    const { name, description, tags } = response.data[key] as SelectiveDownload
-    if (key === '__required') {
-      sdlList.unshift({ name, description, tags, required: true })
-    } else {
-      sdlList.push({ name, description, tags })
-    }
-  })
-
-  return sdlList
 }
