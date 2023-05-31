@@ -142,7 +142,10 @@ import { setupUbisoftConnect } from 'backend/storeManagers/legendary/setup'
 
 import { logFileLocation as getLogFileLocation } from './storeManagers/storeManagerCommon/games'
 import { addNewApp } from './storeManagers/sideload/library'
-import { getGameSdl } from 'backend/storeManagers/legendary/library'
+import {
+  getGameOverride,
+  getGameSdl
+} from 'backend/storeManagers/legendary/library'
 
 app.commandLine?.appendSwitch('remote-debugging-port', '9222')
 
@@ -630,6 +633,7 @@ ipcMain.handle('getLegendaryVersion', getLegendaryVersion)
 ipcMain.handle('getGogdlVersion', getGogdlVersion)
 ipcMain.handle('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
 ipcMain.handle('isFlatpak', () => isFlatpak)
+ipcMain.handle('getGameOverride', async () => getGameOverride())
 ipcMain.handle('getGameSdl', async (event, appName) => getGameSdl(appName))
 
 ipcMain.handle('getPlatform', () => process.platform)

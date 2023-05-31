@@ -274,9 +274,12 @@ export default function DownloadDialog({
   useEffect(() => {
     const getGameSdl = async () => {
       if (runner === 'legendary') {
-        const sdl = await window.api.getGameSdl(appName)
-        if (sdl.length > 0) {
-          setSdls(sdl)
+        const { sdl_config } = await window.api.getGameOverride()
+        if (sdl_config && sdl_config[appName]) {
+          const sdl = await window.api.getGameSdl(appName)
+          if (sdl.length > 0) {
+            setSdls(sdl)
+          }
         }
       }
     }

@@ -17,7 +17,8 @@ import {
   LegendaryInstallInfo,
   LegendaryInstallPlatform,
   ResponseDataLegendaryAPI,
-  SelectiveDownload
+  SelectiveDownload,
+  GameOverride
 } from 'common/types/legendary'
 import { LegendaryUser } from './user'
 import {
@@ -39,7 +40,11 @@ import {
   LogPrefix,
   logWarning
 } from '../../logger/logger'
-import { installStore, libraryStore } from './electronStores'
+import {
+  gamesOverrideStore,
+  installStore,
+  libraryStore
+} from './electronStores'
 import { callRunner } from '../../launcher'
 import { dirname, join } from 'path'
 import { isOnline } from 'backend/online_monitor'
@@ -638,12 +643,22 @@ export async function runRunnerCommand(
   )
 }
 
-export async function getLegendaryApi(): Promise<ResponseDataLegendaryAPI> {
+export async function getGameOverride(): Promise<GameOverride> {
+  const cached = gamesOverrideStore.get('gamesOverride')
+  if (cached) {
+    return cached
+  }
+
   try {
     const response = await axios.get<ResponseDataLegendaryAPI>(
       'https://heroic.legendary.gl/v1/version.json'
     )
-    return response.data
+
+    if (response.data.game_overrides) {
+      gamesOverrideStore.set('gamesOverride', response.data.game_overrides)
+    }
+
+    return response.data.game_overrides
   } catch (error) {
     logWarning(['Error fetching Legendary API:', error], LogPrefix.Legendary)
     throw error

@@ -198,13 +198,14 @@ interface TagInfo {
   version: number
 }
 
+
+export type GameWiki = Record<string, Record<string, string>> */
+
 export type GameOverride = {
   executable_override: Record<string, Record<string, string>>
   reorder_optimization: Record<string, string[]>
   sdl_config: Record<string, number>
 }
-
-export type GameWiki = Record<string, Record<string, string>> */
 
 type LegendaryConfig = {
   webview_killswitch: boolean
@@ -223,7 +224,7 @@ type LegendaryConfig = {
 export type ResponseDataLegendaryAPI = {
   // cx_bottles: CxBottle[]
   egl_config: Record<string, unknown>
-  // game_overrides: GameOverride
+  game_overrides: GameOverride
   // game_wiki: GameWiki
   legendary_config: LegendaryConfig
   // release_info: ReleaseInfoLegendaryAPI

@@ -241,6 +241,7 @@ interface AsyncIPCFunctions {
   toggleDXVK: (args: ToolArgs) => Promise<boolean>
   pathExists: (path: string) => Promise<boolean>
   getGOGLaunchOptions: (appName: string) => Promise<LaunchOption[]>
+  getGameOverride: () => Promise<GameOverride | null>
   getGameSdl: (appName: string) => Promise<SelectiveDownload[]>
 }
 
