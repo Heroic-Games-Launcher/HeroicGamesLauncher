@@ -669,7 +669,7 @@
         "manager": {
             "link": "Wine Manager",
             "not-found": "No Wine versions found. Please click the refresh icon to try again.",
-            "title": "Wine Manager (Beta)",
+            "title": "Wine Manager",
             "unzipping": "Unzipping"
         },
         "release": "Release Date",
