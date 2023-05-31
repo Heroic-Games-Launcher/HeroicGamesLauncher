@@ -387,10 +387,10 @@ const GameCard = ({
           >
             <StoreLogos runner={runner} />
             {justPlayed ? (
-              <CachedImage 
+              <CachedImage
                 src={art_cover}
                 className="justPlayedImg"
-                alt={title} 
+                alt={title}
               />
             ) : (
               <CachedImage
