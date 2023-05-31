@@ -10,7 +10,9 @@ import {
   SteamRuntime,
   Release,
   GameInfo,
-  GameSettings
+  GameSettings,
+  State,
+  ProgressInfo
 } from 'common/types'
 import * as axios from 'axios'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
@@ -36,7 +38,8 @@ import {
   publicDir,
   GITHUB_API,
   isMac,
-  configStore
+  configStore,
+  isLinux
 } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import { basename, dirname, join, normalize } from 'path'
@@ -60,6 +63,11 @@ import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
 import { validWine, runWineCommand } from './launcher'
 import { gameManagerMap } from 'backend/storeManagers'
+import {
+  installWineVersion,
+  updateWineVersionInfos,
+  wineDownloaderInfoStore
+} from './wine/manager/utils'
 
 const execAsync = promisify(exec)
 
@@ -225,8 +233,9 @@ const getGogdlVersion = async () => {
 
 const getHeroicVersion = () => {
   const VERSION_NUMBER = app.getVersion()
+  // One Piece reference
   const BETA_VERSION_NAME = 'Caesar Clown'
-  const STABLE_VERSION_NAME = 'Eustass Kid'
+  const STABLE_VERSION_NAME = 'Nico Robin'
   const isBetaorAlpha =
     VERSION_NUMBER.includes('alpha') || VERSION_NUMBER.includes('beta')
   const VERSION_NAME = isBetaorAlpha ? BETA_VERSION_NAME : STABLE_VERSION_NAME
@@ -420,6 +429,11 @@ async function errorHandler({
     }
 
     if (legendaryRegex.test(error)) {
+      const MemoryError = 'MemoryError: '
+      if (error.includes(MemoryError)) {
+        return
+      }
+
       return showDialogBoxModalAuto({
         title: plat,
         message: i18next.t(
@@ -942,6 +956,58 @@ async function ContinueWithFoundWine(
   return { response }
 }
 
+export async function downloadDefaultWine() {
+  // refresh wine list
+  await updateWineVersionInfos(true)
+  // get list of wines on wineDownloaderInfoStore
+  const availableWine = wineDownloaderInfoStore.get('wine-releases', [])
+  // use Wine-GE type if on Linux and Wine-Crossover if on Mac
+  const release = availableWine.filter((version) => {
+    if (isLinux) {
+      return version.version.includes('Wine-GE-Proton')
+    } else if (isMac) {
+      return version.version.includes('Wine-Crossover')
+    }
+    return false
+  })[0]
+
+  if (!release) {
+    logError('Could not find default wine version', LogPrefix.Backend)
+    return null
+  }
+
+  // download the latest version
+  const onProgress = (state: State, progress?: ProgressInfo) => {
+    sendFrontendMessage('progressOfWineManager' + release.version, {
+      state,
+      progress
+    })
+  }
+  const result = await installWineVersion(
+    release,
+    onProgress,
+    createAbortController(release.version).signal
+  )
+  deleteAbortController(release.version)
+  if (result === 'success') {
+    let downloadedWine = null
+    try {
+      const wineList = await GlobalConfig.get().getAlternativeWine()
+      // update the game config to use that wine
+      downloadedWine = wineList[0]
+      logInfo(`Changing wine version to ${downloadedWine.name}`)
+      GlobalConfig.get().setSetting('wineVersion', downloadedWine)
+    } catch (error) {
+      logError(
+        ['Error when changing wine version to default', error],
+        LogPrefix.Backend
+      )
+    }
+    return downloadedWine
+  }
+  return null
+}
+
 export async function checkWineBeforeLaunch(
   appName: string,
   gameSettings: GameSettings,
@@ -985,6 +1051,17 @@ export async function checkWineBeforeLaunch(
       const firstFoundWine = wineList[0]
 
       const isValidWine = await validWine(firstFoundWine)
+
+      if (!wineList.length || !firstFoundWine || !isValidWine) {
+        const firstFoundWine = await downloadDefaultWine()
+        if (firstFoundWine) {
+          logInfo(`Changing wine version to ${firstFoundWine.name}`)
+          gameSettings.wineVersion = firstFoundWine
+          GameConfig.get(appName).setSetting('wineVersion', firstFoundWine)
+          return true
+        }
+      }
+
       if (firstFoundWine && isValidWine) {
         const { response } = await ContinueWithFoundWine(
           gameSettings.wineVersion.name,

@@ -440,7 +440,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "Πρόγραμμα περιήγησης"
     },
     "please-wait": "Please wait...",
     "progress": "Progress",
@@ -680,5 +681,12 @@
     },
     "wiki_info": {
         "not_found": "Δεν μπορέσαμε να βρούμε επιπλέον πληροφορίες."
+    },
+    "dlc": {
+        "size": "Μέγεθος",
+        "actions": "Ενέργειες",
+        "installDlcs": "Εγκατάσταση όλων των DLCs",
+        "noDlcFound": "Δεν βρέθηκαν DLC",
+        "title": "Title"
     }
 }

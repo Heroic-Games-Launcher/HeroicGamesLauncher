@@ -440,7 +440,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "вокны"
+        "win": "вокны",
+        "browser": "Браўзэр"
     },
     "please-wait": "Калі ласка пачакай...",
     "progress": "Progress",
@@ -668,7 +669,7 @@
         "manager": {
             "link": "Менеджэр Wine",
             "not-found": "Версіі Wine не знойдзены. Націсніце на значок абнаўлення, каб паўтарыць спробу.",
-            "title": "Wine Manager (Beta)",
+            "title": "Wine Manager",
             "unzipping": "Распакоўка"
         },
         "release": "Release Date",
@@ -680,5 +681,12 @@
     },
     "wiki_info": {
         "not_found": "Мы не змаглі знайсці дадатковую інфармацыю."
+    },
+    "dlc": {
+        "actions": "Дзеянні",
+        "size": "Памер",
+        "title": "Назва",
+        "installDlcs": "Усталюйце ўсе DLC",
+        "noDlcFound": "DLC не знойдзены"
     }
 }

@@ -36,7 +36,8 @@
             "message": "이 게임을 제거하시겠습니까?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "설치 제거",
-            "prefix_warning": "이 게임의 Wine 접두사는 기본 접두사입니다. 정말로 삭제하고 싶다면 수동으로 삭제해야 합니다."
+            "prefix_warning": "이 게임의 Wine 접두사는 기본 접두사입니다. 정말로 삭제하고 싶다면 수동으로 삭제해야 합니다.",
+            "dlc": "이 DLC를 제거하시겠습니까?"
         },
         "update": {
             "message": "이 게임에 업데이트가 있습니다, 지금 업데이트하시겠습니까?",
@@ -88,7 +89,8 @@
         "neverPlayed": "플레이 한 적 없음",
         "platform": "설치할 플랫폼 버전 선택",
         "requirements": "시스템 요구 사항",
-        "totalPlayed": "플레이 시간"
+        "totalPlayed": "플레이 시간",
+        "dlcs": "DLCs"
     },
     "gamecard": {
         "moving": "옮기는 중",
@@ -164,11 +166,13 @@
         "info": {
             "exe": "Select Executable",
             "image": "App Image",
-            "title": "Game/App Title"
+            "title": "Game/App Title",
+            "broser": "브라우저 URL"
         },
         "placeholder": {
             "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "title": "Add a title to your Game/App",
+            "url": "여기에 게임 URL을 붙여넣으세요."
         }
     },
     "specs": {

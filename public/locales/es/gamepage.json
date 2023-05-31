@@ -36,7 +36,8 @@
             "message": "¿Quieres desinstalar este juego?",
             "settingcheckbox": "Borrar ajustes y eliminar registros{{newLine}}Nota: Este cambio no se puede deshacer. Todos los ajustes serán olvidados y el registro serán borrado.",
             "title": "Desinstalar",
-            "prefix_warning": "El prefijo Wine para este juego es el prefijo predeterminado. Si realmente desea eliminarlo, debe hacerlo manualmente."
+            "prefix_warning": "El prefijo Wine para este juego es el prefijo predeterminado. Si realmente desea eliminarlo, debe hacerlo manualmente.",
+            "dlc": "¿Quieres desinstalar este DLC?"
         },
         "update": {
             "message": "Este juego tiene una actualización. ¿Quieres aplicarla ahora?",
@@ -88,7 +89,8 @@
         "neverPlayed": "Nunca",
         "platform": "Seleccionar la Versión de la Plataforma a Instalar",
         "requirements": "Requerimientos del Sistema",
-        "totalPlayed": "Tiempo Jugado"
+        "totalPlayed": "Tiempo Jugado",
+        "dlcs": "DLCs"
     },
     "gamecard": {
         "moving": "Moviendo",
@@ -164,11 +166,13 @@
         "info": {
             "exe": "Seleccionar ejecutable",
             "image": "Imagen de la aplicación/juego",
-            "title": "Título de la aplicación/juego"
+            "title": "Título de la aplicación/juego",
+            "broser": "URL del navegador"
         },
         "placeholder": {
             "image": "Ingrese una URL de una imagen aquí",
-            "title": "Agregue un título a su juego/aplicación"
+            "title": "Agregue un título a su juego/aplicación",
+            "url": "Pega la URL del juego aquí"
         }
     },
     "specs": {

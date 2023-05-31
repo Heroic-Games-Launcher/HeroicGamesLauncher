@@ -187,6 +187,10 @@ export default React.memo(function Library(): JSX.Element {
             ? game?.install?.platform === 'linux'
             : game?.is_linux_native
         })
+      case 'browser':
+        return library.filter((game) => {
+          return game?.install?.platform === 'Browser'
+        })
       default:
         return library
     }

@@ -566,7 +566,8 @@
     "platforms": {
         "win": "Windows",
         "linux": "Linux",
-        "mac": "Mac"
+        "mac": "Mac",
+        "browser": "Browser"
     },
     "toolbox": {
         "settings": {
@@ -728,5 +729,12 @@
         "not_found": "Vi kunne ikke finde yderligere information."
     },
     "Open": "Åben",
-    "Update Available!": "Opdatering tilgængelig!"
+    "Update Available!": "Opdatering tilgængelig!",
+    "dlc": {
+        "actions": "Handlinger",
+        "installDlcs": "Installer alle DLC'er",
+        "noDlcFound": "Ingen DLC'er fundet",
+        "title": "Titel",
+        "size": "Størrelse"
+    }
 }

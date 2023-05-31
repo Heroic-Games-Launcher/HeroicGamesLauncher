@@ -2,7 +2,8 @@
     "sideload": {
         "placeholder": {
             "title": "O'yin/ilovangizga sarlavha qo'shing",
-            "image": "Tasvir URL manzilini bu yerga joylashtiring"
+            "image": "Tasvir URL manzilini bu yerga joylashtiring",
+            "url": "Oʻyin URL manzilini shu yerga qoʻying"
         },
         "field": {
             "title": "Sarlavha"
@@ -10,7 +11,8 @@
         "info": {
             "exe": "Bajariladigan ni tanlang",
             "image": "Ilova tasviri",
-            "title": "O'yin/ilova nomi"
+            "title": "O'yin/ilova nomi",
+            "broser": "BrowserURL"
         }
     },
     "specs": {
@@ -79,7 +81,8 @@
             "message": "Bu oʻyinni oʻchirib tashlamoqchimisiz?",
             "prefix_warning": "Ushbu o'yin uchun Wine prefiksi standart prefiksdir. Agar siz haqiqatan ham uni o'chirmoqchi bo'lsangiz, uni qo'lda qilishingiz kerak.",
             "settingcheckbox": "Sozlamalarni oʻchirish va jurnalni oʻchirish{{newLine}}Izoh: Buni ortga qaytarib boʻlmaydi. Har qanday o'zgartirilgan sozlamalar unutiladi va jurnal o'chiriladi.",
-            "title": "Oʻchirish"
+            "title": "Oʻchirish",
+            "dlc": "Ushbu DLCni o'chirib tashlamoqchimisiz?"
         },
         "update": {
             "message": "Bu oʻyinda yangilanish bor, yangilanish hozir qoʻllanilsinmi?",
@@ -131,7 +134,8 @@
         "neverPlayed": "Hech qachon",
         "platform": "O'rnatish uchun platforma versiyasini tanlang",
         "requirements": "Tizim talablari",
-        "totalPlayed": "O'yin vaqti"
+        "totalPlayed": "O'yin vaqti",
+        "dlcs": "DLClar"
     },
     "gamecard": {
         "moving": "Harakatlanuvchi",

@@ -440,7 +440,8 @@
     "platforms": {
         "linux": "ലിനക്സ്",
         "mac": "മാക്",
-        "win": "വിൻഡോസ്"
+        "win": "വിൻഡോസ്",
+        "browser": "ബ്രൗസർ"
     },
     "please-wait": "Please wait...",
     "progress": "Progress",
@@ -680,5 +681,12 @@
     },
     "wiki_info": {
         "not_found": "ഞങ്ങൾക്ക് അധിക വിവരങ്ങൾ കണ്ടെത്താൻ കഴിഞ്ഞില്ല."
+    },
+    "dlc": {
+        "size": "Size",
+        "actions": "പ്രവർത്തനങ്ങൾ",
+        "noDlcFound": "DLC-കളൊന്നും കണ്ടെത്തിയില്ല",
+        "title": "Title",
+        "installDlcs": "എല്ലാ കൂട്ടുരേഖകളും നടൂ"
     }
 }

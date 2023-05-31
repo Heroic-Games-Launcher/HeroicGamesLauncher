@@ -36,7 +36,8 @@
             "message": "您想要卸载该游戏吗？",
             "settingcheckbox": "擦除设置并删除日志{{newLine}}注意：此操作无法撤消。 任何修改的设置都将被遗忘，日志也将被删除。",
             "title": "卸载",
-            "prefix_warning": "此游戏的 Wine 前缀是默认前缀。如果你真的想删除它，你必须手动进行。"
+            "prefix_warning": "此游戏的 Wine 前缀是默认前缀。如果你真的想删除它，你必须手动进行。",
+            "dlc": "您要卸载此 DLC 吗？"
         },
         "update": {
             "message": "该游戏有更新，您想要现在更新吗？",
@@ -88,7 +89,8 @@
         "neverPlayed": "从未玩过",
         "platform": "选择要安装的平台版本",
         "requirements": "系统要求",
-        "totalPlayed": "游玩时间"
+        "totalPlayed": "游玩时间",
+        "dlcs": "DLCs"
     },
     "gamecard": {
         "moving": "移动中",
@@ -164,11 +166,13 @@
         "info": {
             "exe": "选择可执行文件",
             "image": "App 映像",
-            "title": "游戏/应用标题"
+            "title": "游戏/应用标题",
+            "broser": "浏览器网址"
         },
         "placeholder": {
             "image": "在此粘贴映像 URL",
-            "title": "添加标题到你的“游戏/应用”"
+            "title": "添加标题到你的“游戏/应用”",
+            "url": "在此处粘贴游戏网址"
         }
     },
     "specs": {

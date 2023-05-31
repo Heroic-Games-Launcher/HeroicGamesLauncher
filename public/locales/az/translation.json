@@ -440,7 +440,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Makintoş",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "Brauzer"
     },
     "please-wait": "Please wait...",
     "progress": "Tərəqqi",
@@ -680,5 +681,12 @@
     },
     "wiki_info": {
         "not_found": "Əlavə məlumat tapa bilmədik."
+    },
+    "dlc": {
+        "actions": "Tədbirlər",
+        "installDlcs": "Bütün DLC-ləri quraşdırın",
+        "noDlcFound": "Heç bir DLC tapılmadı",
+        "size": "Ölçü",
+        "title": "Title"
     }
 }

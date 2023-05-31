@@ -16,11 +16,17 @@ interface UninstallModalProps {
   appName: string
   runner: Runner
   onClose: () => void
+  isDlc: boolean
 }
 
-const UninstallModal: React.FC<UninstallModalProps> = function (props) {
-  const { platform, refreshLibrary } = useContext(ContextProvider)
-  const [isWindowsOnLinux, setIsWindowsOnLinux] = useState(false)
+const UninstallModal: React.FC<UninstallModalProps> = function ({
+  appName,
+  runner,
+  onClose,
+  isDlc
+}) {
+  const { refreshLibrary } = useContext(ContextProvider)
+  const [isNative, setIsNative] = useState(true)
   const [winePrefix, setWinePrefix] = useState('')
   const [deletePrefixChecked, setDeletePrefixChecked] = useState(false)
   const [deleteSettingsChecked, setDeleteSettingsChecked] = useState(false)
@@ -29,17 +35,24 @@ const UninstallModal: React.FC<UninstallModalProps> = function (props) {
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const navigate = useNavigate()
 
-  const checkIfWindowsOnLinux = async () => {
+  const checkIfIsNative = async () => {
     // This assumes native games are installed should be changed in the future
     // if we add option to install windows games even if native is available
 
     setShowUninstallModal(true)
 
-    if (platform !== 'linux') {
+    const gameInfo = await window.api.getGameInfo(appName, runner)
+
+    const isNative = await window.api.isNative({
+      runner,
+      appName
+    })
+    setIsNative(isNative)
+
+    if (!isNative || isDlc) {
       return
     }
 
-    const gameInfo = await window.api.getGameInfo(props.appName, props.runner)
     if (!gameInfo) {
       return
     }
@@ -49,58 +62,57 @@ const UninstallModal: React.FC<UninstallModalProps> = function (props) {
       return
     }
 
-    const gameSettings = await window.api.getGameSettings(
-      props.appName,
-      props.runner
-    )
+    const gameSettings = await window.api.getGameSettings(appName, runner)
     if (!gameSettings) {
       return
     }
 
     const defaultSettings = await window.api.requestGameSettings('default')
 
-    setIsWindowsOnLinux(true)
     setWinePrefix(gameSettings.winePrefix)
     setDisableDeleteWine(gameSettings.winePrefix === defaultSettings.winePrefix)
   }
 
   useEffect(() => {
-    checkIfWindowsOnLinux()
+    checkIfIsNative()
   }, [])
 
   const storage: Storage = window.localStorage
   const uninstallGame = async () => {
-    props.onClose()
+    onClose()
 
     await window.api.uninstall(
-      props.appName,
-      props.runner,
+      appName,
+      runner,
       deletePrefixChecked,
       deleteSettingsChecked
     )
-    if (props.runner === 'sideload') {
+    if (runner === 'sideload') {
       navigate('/')
     }
-    storage.removeItem(props.appName)
+    storage.removeItem(appName)
     refreshLibrary({ fullRefresh: true, checkForUpdates: false })
   }
+
+  const showWineCheckbox = !isNative && !isDlc
 
   return (
     <>
       {showUninstallModal && (
-        <Dialog
-          onClose={props.onClose}
-          showCloseButton
-          className="uninstall-modal"
-        >
-          <DialogHeader onClose={props.onClose}>
+        <Dialog onClose={onClose} showCloseButton className="uninstall-modal">
+          <DialogHeader onClose={onClose}>
             {t('gamepage:box.uninstall.title')}
           </DialogHeader>
           <DialogContent>
             <div className="uninstallModalMessage">
-              {t('gamepage:box.uninstall.message')}
+              {isDlc
+                ? t(
+                    'gamepage:box.uninstall.dlc',
+                    'Do you want to Uninstall this DLC?'
+                  )
+                : t('gamepage:box.uninstall.message')}
             </div>
-            {isWindowsOnLinux && (
+            {showWineCheckbox && (
               <ToggleSwitch
                 htmlId="uninstallCheckbox"
                 value={deletePrefixChecked}
@@ -124,18 +136,20 @@ const UninstallModal: React.FC<UninstallModalProps> = function (props) {
                 )}
               </p>
             )}
-            <ToggleSwitch
-              htmlId="uninstallsettingCheckbox"
-              value={deleteSettingsChecked}
-              title={t('gamepage:box.uninstall.settingcheckbox', {
-                defaultValue:
-                  "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
-                newLine: '\n'
-              })}
-              handleChange={() => {
-                setDeleteSettingsChecked(!deleteSettingsChecked)
-              }}
-            />
+            {!isDlc && (
+              <ToggleSwitch
+                htmlId="uninstallsettingCheckbox"
+                value={deleteSettingsChecked}
+                title={t('gamepage:box.uninstall.settingcheckbox', {
+                  defaultValue:
+                    "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+                  newLine: '\n'
+                })}
+                handleChange={() => {
+                  setDeleteSettingsChecked(!deleteSettingsChecked)
+                }}
+              />
+            )}
           </DialogContent>
           <DialogFooter>
             <button
@@ -144,10 +158,7 @@ const UninstallModal: React.FC<UninstallModalProps> = function (props) {
             >
               {t('box.yes')}
             </button>
-            <button
-              onClick={props.onClose}
-              className={`button is-secondary outline`}
-            >
+            <button onClick={onClose} className={`button is-secondary outline`}>
               {t('box.no')}
             </button>
           </DialogFooter>

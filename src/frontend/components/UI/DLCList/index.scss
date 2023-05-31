@@ -1,0 +1,22 @@
+.dlcHeader {
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-gap: 10px;
+  font-weight: 700;
+  color: var(--text-default);
+
+  .title {
+    grid-column: 1 / 2;
+  }
+
+  .size {
+    grid-column: 2 / 3;
+    text-align: center;
+  }
+
+  .actions {
+    grid-column: 3 / 4;
+    text-align: center;
+  }
+}

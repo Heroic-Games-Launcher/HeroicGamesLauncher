@@ -178,6 +178,13 @@
             "update_game": "Update game"
         }
     },
+    "dlc": {
+        "actions": "Actions",
+        "installDlcs": "Install all DLCs",
+        "noDlcFound": "No DLCs found",
+        "size": "Size",
+        "title": "Title"
+    },
     "docs": "Documentation",
     "download-manager": {
         "ETA": "Estimated time",
@@ -295,6 +302,7 @@
         "warning": "Warning",
         "wine-path": "Wine Path",
         "wine-path-invalid": "Wine Path is invalid, please select another one.",
+        "wine-path-none-found": "No Wine version was found, download one from the Wine Manager",
         "wine-prefix": {
             "title": "Wine Prefix"
         },
@@ -430,6 +438,7 @@
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
     "platforms": {
+        "browser": "Browser",
         "linux": "Linux",
         "mac": "Mac",
         "win": "Windows"

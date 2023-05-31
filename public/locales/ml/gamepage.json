@@ -36,7 +36,8 @@
             "message": "ഇാ കളി എടുത്തുനീക്കട്ടെ?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "എടുത്തു നീക്കൂ",
-            "prefix_warning": "ഈ ഗെയിമിന്റെ വൈൻ പ്രിഫിക്‌സ് ഡിഫോൾട്ട് പ്രിഫിക്‌സാണ്. നിങ്ങൾക്ക് ഇത് ശരിക്കും ഇല്ലാതാക്കണമെങ്കിൽ, നിങ്ങൾ അത് സ്വമേധയാ ചെയ്യേണ്ടതുണ്ട്."
+            "prefix_warning": "ഈ ഗെയിമിന്റെ വൈൻ പ്രിഫിക്‌സ് ഡിഫോൾട്ട് പ്രിഫിക്‌സാണ്. നിങ്ങൾക്ക് ഇത് ശരിക്കും ഇല്ലാതാക്കണമെങ്കിൽ, നിങ്ങൾ അത് സ്വമേധയാ ചെയ്യേണ്ടതുണ്ട്.",
+            "dlc": "നിങ്ങൾക്ക് ഈ DLC അൺഇൻസ്റ്റാൾ ചെയ്യണോ?"
         },
         "update": {
             "message": "ഈ ഗെയിമിന് ഒരു അപ്ഡേറ്റ് ഉണ്ട്, ഇപ്പോൾ അപ്ഡേറ്റ് ചെയ്യട്ടെ?",
@@ -88,7 +89,8 @@
         "neverPlayed": "കളിച്ചിട്ടേയില്ല",
         "platform": "Select Platform Version to Install",
         "requirements": "System Requirements",
-        "totalPlayed": "കളിച്ച നേരം"
+        "totalPlayed": "കളിച്ച നേരം",
+        "dlcs": "DLCs"
     },
     "gamecard": {
         "moving": "മാറ്റുന്നു",
@@ -164,11 +166,13 @@
         "info": {
             "exe": "Select Executable",
             "image": "App Image",
-            "title": "Game/App Title"
+            "title": "Game/App Title",
+            "broser": "ബ്രൗസർURL"
         },
         "placeholder": {
             "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "title": "Add a title to your Game/App",
+            "url": "ഗെയിം URL ഇവിടെ ഒട്ടിക്കുക"
         }
     },
     "specs": {

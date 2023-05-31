@@ -36,7 +36,8 @@
             "message": "Haluatko poistaa pelin asennuksen?",
             "settingcheckbox": "Tyhjennä asetukset ja poista lokitiedosto{{newLine}}Huom: Tätä ei voi peruuttaa. Kaikki muutokset asetuksiin unohdetaan ja lokitiedosto poistetaan.",
             "title": "Poista",
-            "prefix_warning": "Tämän pelin Wine-etuliite on oletusetuliite. Jos todella haluat poistaa sen, sinun on tehtävä se manuaalisesti."
+            "prefix_warning": "Tämän pelin Wine-etuliite on oletusetuliite. Jos todella haluat poistaa sen, sinun on tehtävä se manuaalisesti.",
+            "dlc": "Haluatko poistaa tämän DLC:n?"
         },
         "update": {
             "message": "Tälle pelille on saatavilla päivitys, haluatko asentaa sen nyt?",
@@ -88,7 +89,8 @@
         "neverPlayed": "Ei koskaan",
         "platform": "Valitse alustaversio asentaaksesi",
         "requirements": "Järjestelmävaatimukset",
-        "totalPlayed": "Pelattu aika"
+        "totalPlayed": "Pelattu aika",
+        "dlcs": "DLCs"
     },
     "gamecard": {
         "moving": "Siirretään",
@@ -164,11 +166,13 @@
         "info": {
             "exe": "Valitse suoritettava tiedosto",
             "image": "App Image",
-            "title": "Pelin/sovelluksen otsikko"
+            "title": "Pelin/sovelluksen otsikko",
+            "broser": "Selaimen URL-osoite"
         },
         "placeholder": {
             "image": "Liitä kuvan URL tähän",
-            "title": "Lisää otsikko peliisi/sovellukseesi"
+            "title": "Lisää otsikko peliisi/sovellukseesi",
+            "url": "Liitä pelin URL-osoite tähän"
         }
     },
     "specs": {

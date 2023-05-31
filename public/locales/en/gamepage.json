@@ -33,6 +33,7 @@
         },
         "uninstall": {
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
+            "dlc": "Do you want to Uninstall this DLC?",
             "message": "Do you want to uninstall this game?",
             "prefix_warning": "The Wine prefix for this game is the default prefix. If you really want to delete it, you have to do it manually.",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
@@ -78,6 +79,7 @@
     },
     "enabled": "Enabled",
     "game": {
+        "dlcs": "DLCs",
         "downloadSize": "Download Size",
         "firstPlayed": "First Played",
         "getting-download-size": "Getting download size",
@@ -165,13 +167,15 @@
             "title": "Title"
         },
         "info": {
+            "broser": "BrowserURL",
             "exe": "Select Executable",
             "image": "App Image",
             "title": "Game/App Title"
         },
         "placeholder": {
             "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "title": "Add a title to your Game/App",
+            "url": "Paste the Game URL here"
         }
     },
     "specs": {

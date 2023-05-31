@@ -36,7 +36,8 @@
             "message": "Você deseja desinstalar esse jogo?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Desinstalar",
-            "prefix_warning": "O prefixo Wine para este jogo é o prefixo padrão. Se você realmente deseja excluí-lo, deve fazê-lo manualmente."
+            "prefix_warning": "O prefixo Wine para este jogo é o prefixo padrão. Se você realmente deseja excluí-lo, deve fazê-lo manualmente.",
+            "dlc": "Deseja desinstalar este DLC?"
         },
         "update": {
             "message": "Esse jogo precisa ser atualizado, deseja atualizar agora?",
@@ -88,7 +89,8 @@
         "neverPlayed": "Nunca",
         "platform": "Select Platform Version to Install",
         "requirements": "Requisitos",
-        "totalPlayed": "Tempo de Jogo"
+        "totalPlayed": "Tempo de Jogo",
+        "dlcs": "DLCs"
     },
     "gamecard": {
         "moving": "Movendo",
@@ -164,11 +166,13 @@
         "info": {
             "exe": "Select Executable",
             "image": "App Image",
-            "title": "Game/App Title"
+            "title": "Game/App Title",
+            "broser": "URL do navegador"
         },
         "placeholder": {
             "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "title": "Add a title to your Game/App",
+            "url": "Cole a URL do jogo aqui"
         }
     },
     "specs": {

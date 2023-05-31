@@ -76,6 +76,7 @@ import { hasStatus } from 'frontend/hooks/hasStatus'
 import PopoverComponent from 'frontend/components/UI/PopoverComponent'
 import HowLongToBeat from 'frontend/components/UI/WikiGameInfo/components/HowLongToBeat'
 import GameScore from 'frontend/components/UI/WikiGameInfo/components/GameScore'
+import DLCList from 'frontend/components/UI/DLCList'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -121,6 +122,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [winePrefix, setWinePrefix] = useState('')
   const [wineVersion, setWineVersion] = useState<WineInstallation>()
   const [showRequirements, setShowRequirements] = useState(false)
+  const [showDlcs, setShowDlcs] = useState(false)
 
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
@@ -343,6 +345,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
       extraInfo?.about?.description ||
       t('generic.noDescription', 'No description available')
 
+    const showReportIssue = is_installed && installPlatform !== 'Browser'
+
     return (
       <div className="gameConfigContainer">
         {gameInfo.runner !== 'sideload' && showModal.show && (
@@ -403,6 +407,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         ? () => setShowRequirements(true)
                         : undefined
                     }
+                    onShowDlcs={() => setShowDlcs(true)}
                   />
                 </div>
               </div>
@@ -726,7 +731,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   {getButtonLabel()}
                 </button>
               )}
-              {is_installed && (
+              {showReportIssue && (
                 <span
                   onClick={() => setIsSettingsModalOpen(true, 'log', gameInfo)}
                   className="clickable reportProblem"
@@ -750,6 +755,25 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 </DialogHeader>
                 <DialogContent>
                   <GameRequirements reqs={extraInfo?.reqs} />
+                </DialogContent>
+              </Dialog>
+            )}
+            {showDlcs && (
+              <Dialog showCloseButton onClose={() => setShowDlcs(false)}>
+                <DialogHeader onClose={() => setShowDlcs(false)}>
+                  <div>{t('game.dlcs', 'DLCs')}</div>
+                </DialogHeader>
+                <DialogContent>
+                  {gameInstallInfo ? (
+                    <DLCList
+                      dlcs={gameInstallInfo?.game.owned_dlc}
+                      runner={runner}
+                      mainAppInfo={gameInfo}
+                      onClose={() => setShowDlcs(false)}
+                    />
+                  ) : (
+                    <UpdateComponent inline />
+                  )}
                 </DialogContent>
               </Dialog>
             )}

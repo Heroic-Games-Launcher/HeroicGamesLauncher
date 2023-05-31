@@ -440,7 +440,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "瀏覽器"
     },
     "please-wait": "Please wait...",
     "progress": "Progress",
@@ -680,5 +681,12 @@
     },
     "wiki_info": {
         "not_found": "我們找不到額外的信息。"
+    },
+    "dlc": {
+        "size": "大小",
+        "actions": "動作",
+        "installDlcs": "安裝所有DLC",
+        "noDlcFound": "未找到 DLC",
+        "title": "Title"
     }
 }

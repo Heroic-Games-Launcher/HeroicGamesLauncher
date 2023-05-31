@@ -440,7 +440,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "Webbläsare"
     },
     "please-wait": "Var god dröj...",
     "progress": "Progress",
@@ -680,5 +681,12 @@
     },
     "wiki_info": {
         "not_found": "Hittade ej någon extra information."
+    },
+    "dlc": {
+        "actions": "Handlingar",
+        "installDlcs": "Installera alla DLC",
+        "noDlcFound": "Inga DLC:er hittades",
+        "size": "Storlek",
+        "title": "Titel"
     }
 }

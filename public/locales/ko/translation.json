@@ -440,7 +440,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "브라우저"
     },
     "please-wait": "Please wait...",
     "progress": "Progress",
@@ -680,5 +681,12 @@
     },
     "wiki_info": {
         "not_found": "추가 정보를 찾을 수 없습니다."
+    },
+    "dlc": {
+        "actions": "행위",
+        "installDlcs": "모든 DLC를 설치합니다",
+        "noDlcFound": "DLC를 찾을 수 없습니다.",
+        "size": "Size",
+        "title": "Title"
     }
 }

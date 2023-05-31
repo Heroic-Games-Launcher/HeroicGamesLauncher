@@ -69,7 +69,8 @@ import {
   getShellPath,
   getCurrentChangelog,
   checkWineBeforeLaunch,
-  removeFolder
+  removeFolder,
+  downloadDefaultWine
 } from './utils'
 import {
   configStore,
@@ -140,6 +141,13 @@ import {
 } from './storeManagers'
 import { setupUbisoftConnect } from 'backend/storeManagers/legendary/setup'
 
+import { logFileLocation as getLogFileLocation } from './storeManagers/storeManagerCommon/games'
+import { addNewApp } from './storeManagers/sideload/library'
+import {
+  getGameOverride,
+  getGameSdl
+} from 'backend/storeManagers/legendary/library'
+
 app.commandLine?.appendSwitch('remote-debugging-port', '9222')
 
 const { showOpenDialog } = dialog
@@ -163,15 +171,19 @@ async function initializeWindow(): Promise<BrowserWindow> {
     mainWindow.setFullScreen(true)
   }
 
-  setTimeout(() => {
+  setTimeout(async () => {
+    // Will download Wine if none was found
+    const availableWine = await GlobalConfig.get().getAlternativeWine()
     DXVK.getLatest()
     Winetricks.download()
+    if (!availableWine.length) {
+      downloadDefaultWine()
+    }
   }, 2500)
 
   GlobalConfig.get()
 
   mainWindow.setIcon(icon)
-  app.setAppUserModelId('Heroic')
   app.commandLine.appendSwitch('enable-spatial-navigation')
 
   mainWindow.on('close', async (e) => {
@@ -259,6 +271,11 @@ if (!gotTheLock) {
   app.whenReady().then(async () => {
     initStoreManagers()
     initOnlineMonitor()
+
+    // try to fix notification app name on windows
+    if (isWindows) {
+      app.setAppUserModelId('Heroic Games Launcher')
+    }
 
     getSystemInfo().then((systemInfo) => {
       if (systemInfo === '') return
@@ -626,6 +643,8 @@ ipcMain.handle('getLegendaryVersion', getLegendaryVersion)
 ipcMain.handle('getGogdlVersion', getGogdlVersion)
 ipcMain.handle('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
 ipcMain.handle('isFlatpak', () => isFlatpak)
+ipcMain.handle('getGameOverride', async () => getGameOverride())
+ipcMain.handle('getGameSdl', async (event, appName) => getGameSdl(appName))
 
 ipcMain.handle('getPlatform', () => process.platform)
 
@@ -1689,5 +1708,3 @@ import './downloadmanager/ipc_handler'
 import './utils/ipc_handler'
 import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
-import { logFileLocation as getLogFileLocation } from './storeManagers/storeManagerCommon/games'
-import { addNewApp } from './storeManagers/sideload/library'

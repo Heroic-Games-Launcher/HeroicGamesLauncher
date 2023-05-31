@@ -36,7 +36,8 @@
             "message": "Vuoi disinstallare questo gioco?",
             "settingcheckbox": "Elimina le impostazioni e rimuovi il log{{newLine}}Nota: questa operazione non è reversibile. Tutte le impostazioni modificate saranno dimenticate e il log verrà eliminato.",
             "title": "Disinstalla",
-            "prefix_warning": "Il prefisso Wine per questo gioco è il prefisso predefinito. Se vuoi davvero eliminarlo, devi farlo manualmente."
+            "prefix_warning": "Il prefisso Wine per questo gioco è il prefisso predefinito. Se vuoi davvero eliminarlo, devi farlo manualmente.",
+            "dlc": "Vuoi disinstallare questo DLC?"
         },
         "update": {
             "message": "Questo gioco ha un aggiornamento, desideri aggiornarlo ora?",
@@ -88,7 +89,8 @@
         "neverPlayed": "Mai",
         "platform": "Seleziona la versione della piattaforma da installare",
         "requirements": "Requisiti Di Sistema",
-        "totalPlayed": "Tempo giocato"
+        "totalPlayed": "Tempo giocato",
+        "dlcs": "DLCs"
     },
     "gamecard": {
         "moving": "Spostamento in corso",
@@ -164,11 +166,13 @@
         "info": {
             "exe": "Selezione l'Eseguibile",
             "image": "Immagine dell'App",
-            "title": "Titolo Gioco/App"
+            "title": "Titolo Gioco/App",
+            "broser": "URL del browser"
         },
         "placeholder": {
             "image": "Incolla qui l'URL di un'Immagine",
-            "title": "Aggiungi un Titolo per il tuo Gioco/App"
+            "title": "Aggiungi un Titolo per il tuo Gioco/App",
+            "url": "Incolla qui l'URL del gioco"
         }
     },
     "specs": {

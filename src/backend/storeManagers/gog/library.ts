@@ -17,7 +17,8 @@ import {
   GOGGameDotIdFile,
   GOGClientsResponse,
   GamesDBData,
-  Library
+  Library,
+  BuildItem
 } from 'common/types/gog'
 import { basename, join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
@@ -376,6 +377,14 @@ export async function getInstallInfo(
   installPlatform = 'windows',
   lang = 'en-US'
 ): Promise<GogInstallInfo | undefined> {
+  installPlatform = installPlatform.toLowerCase()
+  if (installPlatform === 'linux') {
+    installPlatform = 'windows'
+  }
+  if (installPlatform === 'mac') {
+    installPlatform = 'osx'
+  }
+
   if (installInfoStore.has(`${appName}_${installPlatform}`)) {
     const cache = installInfoStore.get(`${appName}_${installPlatform}`)
     if (cache) {
@@ -676,7 +685,9 @@ export async function getMetaResponse(
         'If-None-Match': etag
       }
     : undefined
-  const metaUrl = buildData.data?.items[0]?.link
+  const metaUrl =
+    buildData.data?.items?.find((build: BuildItem) => !build.branch)?.link ||
+    buildData.data?.items[0]?.link
   const metaResponse = await axios.get(metaUrl, {
     headers,
     validateStatus: (status) => status === 200 || status === 304

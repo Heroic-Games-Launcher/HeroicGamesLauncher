@@ -16,7 +16,8 @@
             "prefix_warning": "Ang Wine prefix para sa larong ito ay ang default na prefix. Kung gusto mo talagang tanggalin ito, kailangan mong gawin ito nang manu-mano.",
             "settingcheckbox": "Burahin ang mga setting at alisin ang log{{newLine}}Tandaan: Hindi na ito maa-undo. Ang anumang binagong setting ay malilimutan at ang log ay tatanggalin.",
             "checkbox": "Alisin ang prefix: {{prefix}}{{newLine}}Tandaan: Hindi ito maa-undo at aalisin din ang hindi naka-back up na mga save na file.",
-            "title": "I-uninstall"
+            "title": "I-uninstall",
+            "dlc": "Gusto mo bang i-uninstall ang DLC na ito?"
         },
         "change": {
             "message": "Papalitan nito ang lokasyon ng pag-install ng larong ito, sigurado ka ba?",
@@ -62,7 +63,8 @@
         "neverPlayed": "Hindi kailanman",
         "platform": "Piliin ang Bersyon ng Platform na I-install",
         "requirements": "Pangangailangan sa System",
-        "totalPlayed": "Time Played"
+        "totalPlayed": "Time Played",
+        "dlcs": "Mga DLC"
     },
     "how-long-to-beat": {
         "completionist": "Completionist",
@@ -207,11 +209,13 @@
         "info": {
             "exe": "Piliin ang Executable",
             "image": "Larawan ng App",
-            "title": "Pamagat ng Laro/App"
+            "title": "Pamagat ng Laro/App",
+            "broser": "BrowserURL"
         },
         "placeholder": {
             "image": "Mag-paste ng URL ng Larawan dito",
-            "title": "Magdagdag ng pamagat sa iyong Laro/App"
+            "title": "Magdagdag ng pamagat sa iyong Laro/App",
+            "url": "I-paste ang URL ng Laro dito"
         }
     },
     "specs": {

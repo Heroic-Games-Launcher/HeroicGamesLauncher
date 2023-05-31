@@ -37,7 +37,8 @@
             "message": "Avinstaller dette spillet?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Avinstaller",
-            "prefix_warning": "Vinprefikset for dette spillet er standardprefikset. Hvis du virkelig vil slette det, må du gjøre det manuelt."
+            "prefix_warning": "Vinprefikset for dette spillet er standardprefikset. Hvis du virkelig vil slette det, må du gjøre det manuelt.",
+            "dlc": "Vil du avinstallere denne DLC?"
         },
         "update": {
             "message": "Dette spillet har en oppdatering. Vil du bruke oppdatering nå?",
@@ -89,7 +90,8 @@
         "neverPlayed": "Aldri",
         "platform": "Velg plattformversjon som skal installeres",
         "requirements": "Systemkrav",
-        "totalPlayed": "Spilletid"
+        "totalPlayed": "Spilletid",
+        "dlcs": "DLC-er"
     },
     "gamecard": {
         "moving": "Flytte",
@@ -165,11 +167,13 @@
         "info": {
             "exe": "Select Executable",
             "image": "App Image",
-            "title": "Game/App Title"
+            "title": "Game/App Title",
+            "broser": "NettleserURL"
         },
         "placeholder": {
             "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "title": "Add a title to your Game/App",
+            "url": "Lim inn spillets URL her"
         }
     },
     "specs": {

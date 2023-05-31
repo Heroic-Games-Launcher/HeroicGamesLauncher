@@ -36,7 +36,8 @@
             "message": "Voulez-vous désinstaller ce jeu ?",
             "settingcheckbox": "Effacer les paramètres et supprimer le rapport d'événements{{newLine}}Attention : ceci ne peut pas être annulé. Tout paramètre modifié sera réinitialisé et le rapport d'événements sera définitivement supprimé .",
             "title": "Désinstaller",
-            "prefix_warning": "Le préfixe Wine pour ce jeu est le préfixe par défaut. Si vous voulez vraiment le supprimer, vous devez le faire manuellement."
+            "prefix_warning": "Le préfixe Wine pour ce jeu est le préfixe par défaut. Si vous voulez vraiment le supprimer, vous devez le faire manuellement.",
+            "dlc": "Voulez-vous désinstaller ce DLC ?"
         },
         "update": {
             "message": "Une mise à jour est disponible pour ce jeu. Souhaitez-vous le mettre à jour maintenant ?",
@@ -88,7 +89,8 @@
         "neverPlayed": "Jamais",
         "platform": "Sélectionner la version de la plateforme à installer",
         "requirements": "Configuration requise",
-        "totalPlayed": "Temps de jeu"
+        "totalPlayed": "Temps de jeu",
+        "dlcs": "DLCs"
     },
     "gamecard": {
         "moving": "Déplacement",
@@ -164,11 +166,13 @@
         "info": {
             "exe": "Sélectionner l'exécutable",
             "image": "Vignette de l'application",
-            "title": "Titre du Jeu/de l'Application"
+            "title": "Titre du Jeu/de l'Application",
+            "broser": "URL du navigateur"
         },
         "placeholder": {
             "image": "Collez ici l'URL d'une image",
-            "title": "Ajouter un titre à votre Jeu/Application"
+            "title": "Ajouter un titre à votre Jeu/Application",
+            "url": "Collez l'URL du jeu ici"
         }
     },
     "specs": {
