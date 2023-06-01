@@ -305,7 +305,8 @@
         "wine-repfix": {
             "message": "Wine bruker det som kalles WINEPREFIX for å kapsle inn Windows-applikasjoner. Dette prefikset inneholder Wine-konfigurasjonsfilene og en reproduksjon av filhierarkiet til C: (hoveddisken på et Windows-operativsystem). I denne reproduksjonen av C:-stasjonen, lagres spilllagringsfiler og avhengigheter installert via vintriks."
         },
-        "wine-path-invalid": "Vinstien er ugyldig. Velg en annen."
+        "wine-path-invalid": "Vinstien er ugyldig. Velg en annen.",
+        "wine-path-none-found": "Ingen vinversjon ble funnet, last ned en fra Wine Manager"
     },
     "install": {
         "path": "Velg Installer bane"
