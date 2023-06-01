@@ -305,7 +305,8 @@
         "wine-repfix": {
             "message": "O Wine usa o que é chamado de prefixo Wine para encapsular aplicativos do Windows. Este prefixo contém os arquivos de configuração do Wine e uma reprodução da hierarquia de arquivos de C: (o disco principal em um sistema operacional Windows). Nesta reprodução da unidade C:, são armazenados os arquivos salvos do jogo e as dependências instaladas via winetricks."
         },
-        "wine-path-invalid": "Wine Path é inválido, selecione outro."
+        "wine-path-invalid": "Wine Path é inválido, selecione outro.",
+        "wine-path-none-found": "Nenhuma versão do Wine foi encontrada, baixe uma do Wine Manager"
     },
     "install": {
         "path": "Selecione o local de instalação"
