@@ -305,7 +305,8 @@
         "wine-repfix": {
             "message": "Wine-k WINEPREFIX deritzona erabiltzen du Windows aplikazioak kapsulatzeko. Aurrizki honek Wine konfigurazio-fitxategiak eta C:-ren fitxategi-hierarkiaren erreprodukzioa ditu (Windows OS bateko disko nagusia). C: diskoaren erreprodukzio honetan, zure jokoa gordetzeko fitxategiak eta winetricks bidez instalatutako mendekotasunak gordetzen dira."
         },
-        "wine-path-invalid": "Ardoaren bidea baliogabea da, hautatu beste bat."
+        "wine-path-invalid": "Ardoaren bidea baliogabea da, hautatu beste bat.",
+        "wine-path-none-found": "Ez da Wine bertsiorik aurkitu, deskargatu bat Wine Manager-etik"
     },
     "install": {
         "path": "Hautatu Instalatu bidea"

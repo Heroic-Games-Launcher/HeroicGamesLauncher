@@ -305,7 +305,8 @@
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
         },
-        "wine-path-invalid": "와인 경로가 잘못되었습니다. 다른 경로를 선택하십시오."
+        "wine-path-invalid": "와인 경로가 잘못되었습니다. 다른 경로를 선택하십시오.",
+        "wine-path-none-found": "와인 버전을 찾을 수 없습니다. 와인 관리자에서 다운로드하세요."
     },
     "install": {
         "path": "설치 경로 선택"

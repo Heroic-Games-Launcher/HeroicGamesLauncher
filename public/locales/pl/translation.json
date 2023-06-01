@@ -305,7 +305,8 @@
         "wine-repfix": {
             "message": "Wine wykorzystuje tzw. Prefiks w celu przechowywania aplikacji Windowsowych. Prefiks ten zawiera pliki konfiguracyjne Wine oraz dokładne odwzorowanie hierarchii dysku C:// (głównego dysku w systemie Windows). Tam przechowywane są zapisy gier oraz pliki potrzebne do uruchomienia gry zainstalowane przez winetricks."
         },
-        "wine-path-invalid": "Ścieżka wina jest nieprawidłowa, wybierz inną."
+        "wine-path-invalid": "Ścieżka wina jest nieprawidłowa, wybierz inną.",
+        "wine-path-none-found": "Nie znaleziono wersji Wine, pobierz ją z Wine Managera"
     },
     "install": {
         "path": "Wybierz ścieżkę instalacji"

@@ -305,7 +305,8 @@
         "wine-repfix": {
             "message": "Wine utiliza lo que se conoce como WINEPREFIX (prefijo de wine) para encapsular aplicaciones de Windows. Este prefijo contiene los archivos de configuración de Wine y una réplica de los directorios del disco C: (el disco principal en sistemas Windows). En esta réplica del disco C: se localizan los guardados del juego y las dependencias instaladas con Winetricks."
         },
-        "wine-path-invalid": "La Wine Path no es válida, seleccione otra."
+        "wine-path-invalid": "La Wine Path no es válida, seleccione otra.",
+        "wine-path-none-found": "No se encontró ninguna versión de Wine, descargue una desde Wine Manager"
     },
     "install": {
         "path": "Seleccione la ruta de instalación"

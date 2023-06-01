@@ -305,7 +305,8 @@
         "wine-repfix": {
             "message": "Wineは、Wine環境（WINEPREFIX）と呼ばれるものを使用してWindowsアプリケーションをカプセル化します。この環境には、Wine構成ファイルとC:（Windows OSのメインディスク）を再現したファイル階層が含まれています。このC:ドライブの再現には、ゲームのセーブデータファイルとWinetricks経由でインストールされた依存関係が保存されます。"
         },
-        "wine-path-invalid": "Wineパスが無効です。別のパスを選択してください。"
+        "wine-path-invalid": "Wineパスが無効です。別のパスを選択してください。",
+        "wine-path-none-found": "Wine バージョンが見つかりませんでした。Wine Manager からダウンロードしてください"
     },
     "install": {
         "path": "Select Install Path"

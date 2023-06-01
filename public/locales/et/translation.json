@@ -305,7 +305,8 @@
         "wine-repfix": {
             "message": "Wine kasutab Windowsi rakenduste kapseldamiseks nn WINEPREFIXi. See eesliide sisaldab Wine'i konfiguratsioonifaile ja C: (Windows OSi põhiketta) failihierarhia reproduktsiooni. Sellesse C: ketta reproduktsiooni salvestatakse teie mängu salvestusfailid ja winetricks'i kaudu paigaldatud sõltuvused."
         },
-        "wine-path-invalid": "Veinitee on kehtetu, valige mõni muu."
+        "wine-path-invalid": "Veinitee on kehtetu, valige mõni muu.",
+        "wine-path-none-found": "Wine'i versiooni ei leitud, laadige see alla veinihaldurist"
     },
     "install": {
         "path": "Valige paigaldustee"

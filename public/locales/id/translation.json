@@ -305,7 +305,8 @@
         "wine-repfix": {
             "message": "Wine membutuhkan WINEPREFIX untuk menjalankan aplikasi Windows. Prefiks ini mengandung berkas konfigurasi Wine dan reproduksi dari struktur berkas yang ada dalam partisi C: (penyimpanan utama dalam OS Windows). Berkas yang disimpan dari hasil reproduksi ini adalah, penyimpanan save gim dan perangkat lunak lainnya yang terpasang melalui winetricks."
         },
-        "wine-path-invalid": "Lokasi Wine tidak valid, silakan pilih lokasi yang lain."
+        "wine-path-invalid": "Lokasi Wine tidak valid, silakan pilih lokasi yang lain.",
+        "wine-path-none-found": "Tidak ada versi Wine yang ditemukan, unduh dari Wine Manager"
     },
     "install": {
         "path": "Pilih Lokasi Pemasangan"

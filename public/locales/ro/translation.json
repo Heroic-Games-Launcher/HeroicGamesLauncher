@@ -305,7 +305,8 @@
         "wine-repfix": {
             "message": "Wine folosește ceea ce se numește WINEPREFIX pentru a încapsula aplicațiile Windows. Acest prefix conține fișierele de configurare Wine și o reproducere a ierarhiei fișierelor C: (discul principal pe un sistem de operare Windows). În această reproducere a unității C:, sunt stocate fișierele de salvare a jocului și dependențele instalate prin winetricks."
         },
-        "wine-path-invalid": "Calea vinului este nevalidă, vă rugăm să selectați alta."
+        "wine-path-invalid": "Calea vinului este nevalidă, vă rugăm să selectați alta.",
+        "wine-path-none-found": "Nu a fost găsită nicio versiune Wine, descărcați una din Wine Manager"
     },
     "install": {
         "path": "Selectați Calea de instalare"

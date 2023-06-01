@@ -198,7 +198,8 @@
             "message": "Wine bruger det, der kaldes en WINEPREFIX til at indkapsle Windows-applikationer. Dette præfiks indeholder Wine-konfigurationsfilerne og en gengivelse af filhierarkiet af C: (hoveddisken på et Windows OS). I denne gengivelse af C:-drevet gemmes dine spillagringsfiler og afhængigheder installeret via winetricks."
         },
         "warning": "Advarsel",
-        "wine-path-invalid": "Vinstien er ugyldig, vælg venligst en anden."
+        "wine-path-invalid": "Vinstien er ugyldig, vælg venligst en anden.",
+        "wine-path-none-found": "Ingen vinversion blev fundet, download en fra Wine Manager"
     },
     "button": {
         "go_to_library": "Gå til biblioteket",
