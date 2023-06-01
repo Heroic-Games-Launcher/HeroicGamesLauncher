@@ -305,7 +305,8 @@
         "wine-repfix": {
             "message": "El Wine fa servir el que s'anomena WINEPREFIX per encapsular les aplicacions de Windows. El prefix conté els fitxers de la configuració del Wine i una reproducció de la jerarquia de fitxers a la unitat C: (el disc principal del SO Windows). En aquesta reproducció del disc és on es desen les partides i s'instal·len les dependències a través del winetricks."
         },
-        "wine-path-invalid": "La ruta del Wine no és vàlida, selecciona'n una altra."
+        "wine-path-invalid": "La ruta del Wine no és vàlida, selecciona'n una altra.",
+        "wine-path-none-found": "No s'ha trobat cap versió de Wine, descarregueu-ne una des del Wine Manager"
     },
     "install": {
         "path": "Selecciona la ruta d'instal·lació"
