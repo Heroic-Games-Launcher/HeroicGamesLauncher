@@ -305,7 +305,8 @@
         "wine-repfix": {
             "message": "Wine koristi ono što se zove WINEPREFIX da inkapsulira Windows aplikacije. Ovaj prefiks sadrži Wine konfiguracijske datoteke i reprodukciju hijerarhije datoteka C: (glavni disk na Windows OS-u). U ovoj reprodukciji C: diska, pohranjuju se datoteke za spremanje vaše igre i ovisnosti instalirane putem winetricks-a."
         },
-        "wine-path-invalid": "Wine Path je nevažeći, molimo odaberite drugi."
+        "wine-path-invalid": "Wine Path je nevažeći, molimo odaberite drugi.",
+        "wine-path-none-found": "Nije pronađena nijedna Wine verzija, preuzmite je iz Wine Managera"
     },
     "install": {
         "path": "Izaberi put instalacije"
