@@ -305,7 +305,8 @@
         "wine-repfix": {
             "message": "Wine, Windows proqramlarını əhatə etmək üçün WINEPREFIX adlanandan istifadə edir. Bu prefiks Şərab konfiqurasiya fayllarını və C: fayl iyerarxiyasının reproduksiyasını ehtiva edir (Windows OS-də əsas disk). C: sürücüsünün bu reproduksiyasında oyun saxlama faylları və winetricks vasitəsilə quraşdırılmış asılılıqlar saxlanılır."
         },
-        "wine-path-invalid": "Şərab Yolu yanlışdır, lütfən, başqa birini seçin."
+        "wine-path-invalid": "Şərab Yolu yanlışdır, lütfən, başqa birini seçin.",
+        "wine-path-none-found": "Şərab versiyası tapılmadı, Wine Manager-dən birini endirin"
     },
     "install": {
         "path": "Quraşdırma yolunu seçin"
