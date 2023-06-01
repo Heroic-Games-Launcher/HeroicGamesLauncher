@@ -305,7 +305,8 @@
         "wine-repfix": {
             "message": "Wine utilise un préfixe (aussi appelé \"bouteille\" et dont le chemin est défini dans la variable WINEPREFIX) pour encapsuler les programmes Windows. Ce préfixe comporte les fichiers de configuration de Wine ainsi qu'une reproduction du système de fichiers de la partition C : (la partition principale d'un système Windows). On y trouve aussi les dépendances et les fichiers de sauvegardes des jeux installés via Winetricks."
         },
-        "wine-path-invalid": "Le chemin vers Wine n'est pas valide, veuillez en sélectionner un autre."
+        "wine-path-invalid": "Le chemin vers Wine n'est pas valide, veuillez en sélectionner un autre.",
+        "wine-path-none-found": "Aucune version de Wine n'a été trouvée, téléchargez-en une depuis le Wine Manager"
     },
     "install": {
         "path": "Sélectionner le chemin d'installation"
