@@ -305,7 +305,8 @@
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
         },
-        "wine-path-invalid": "ஒயின் பாதை தவறானது, வேறொன்றைத் தேர்ந்தெடுக்கவும்."
+        "wine-path-invalid": "ஒயின் பாதை தவறானது, வேறொன்றைத் தேர்ந்தெடுக்கவும்.",
+        "wine-path-none-found": "ஒயின் பதிப்பு எதுவும் கிடைக்கவில்லை, ஒயின் மேலாளரிடமிருந்து ஒன்றைப் பதிவிறக்கவும்"
     },
     "install": {
         "path": "Select Install Path"
