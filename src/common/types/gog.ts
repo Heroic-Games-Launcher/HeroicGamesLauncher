@@ -304,6 +304,32 @@ export interface BuildItem {
   link: string
 }
 
+interface ProductsEndpointFile {
+  id: string
+  size: number
+  downlink: string
+}
+
+interface ProductsEndpointBonusContent {
+  id: number
+  name: string
+  type: string
+  count: number
+  total_size: number
+  files: Array<ProductsEndpointFile>
+}
+
+interface ProductsEndpointInstaller {
+  id: string
+  name: string
+  os: 'windows' | 'osx' | 'linux'
+  language: string
+  language_full: string
+  version: string
+  total_size: number
+  files: Array<ProductsEndpointFile>
+}
+
 export interface ProductsEndpointData {
   id: number
   title: string
@@ -362,30 +388,4 @@ export interface ProductsEndpointData {
     language_packs: Array<ProductsEndpointInstaller>
     bonus_content: Array<ProductsEndpointBonusContent>
   }
-}
-
-export interface ProductsEndpointFile {
-  id: string
-  size: number
-  downlink: string
-}
-
-export interface ProductsEndpointBonusContent {
-  id: number
-  name: string
-  type: string
-  count: number
-  total_size: number
-  files: Array<ProductsEndpointFile>
-}
-
-export interface ProductsEndpointInstaller {
-  id: string
-  name: string
-  os: 'windows' | 'osx' | 'linux'
-  language: string
-  language_full: string
-  version: string
-  total_size: number
-  files: Array<ProductsEndpointFile>
 }

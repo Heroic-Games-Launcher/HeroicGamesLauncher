@@ -613,7 +613,7 @@ export async function checkForGameUpdate(
 }
 
 /**
- * Convert GOGGameInfo object to GameInfo
+ * Convert GamesDBData and ProductEndpointData objects to GameInfo
  * That way it will be easly accessible on frontend
  */
 export async function gogToUnifiedInfo(

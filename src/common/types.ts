@@ -263,42 +263,6 @@ export interface GOGLoginData {
   error?: boolean
 }
 
-export interface GOGGameInfo {
-  isGalaxyCompatible: true
-  tags: string[]
-  id: number
-  availability: {
-    isAvailable: boolean
-    isAvailableInAccount: true
-  }
-  title: string
-  image: string
-  url: string
-  worksOn: {
-    [key in 'Windows' | 'Mac' | 'Linux']: boolean
-  }
-  category: string
-  rating: number
-  isComingSoon: boolean
-  isMovie: false
-  isGame: true
-  slug: string
-  updates: number
-  isNew: boolean
-  dlcCount: number
-  releaseDate: {
-    date: string
-    timezone_type: number
-    timezone: string
-  }
-  isBaseProductMissing: boolean
-  isHidingDisabled: boolean
-  isInDevelopment: boolean
-  extraInfo: unknown[]
-  isHidden: boolean
-  runner: 'gogdl'
-}
-
 export interface GOGImportData {
   // "appName": "1441974651", "buildId": "55136646198962890", "title": "Prison Architect", "tasks": [{"category": "launcher", "isPrimary": true, "languages": ["en-US"], "name": "Prison Architect", "osBitness": ["64"], "path": "Launcher/dowser.exe", "type": "FileTask"}, {"category": "game", "isHidden": true, "languages": ["en-US"], "name": "Prison Architect - launcher process Prison Architect64_exe", "osBitness": ["64"], "path": "Prison Architect64.exe", "type": "FileTask"}, {"category": "document", "languages": ["en-US"], "link": "http://www.gog.com/support/prison_architect", "name": "Support", "type": "URLTask"}, {"category": "other", "languages": ["en-US"], "link": "http://www.gog.com/forum/prison_architect/prison_break_escape_map_megathread/post1", "name": "Escape Map Megathread", "type": "URLTask"}], "installedLanguage": "en-US"}
   appName: string
