@@ -965,23 +965,13 @@ ipcMain.handle(
     }
 
     if (autoCloseLauncher) {
-      mainWindow?.hide()
       const timeoutId = setTimeout(() => {
-        try {
-          mainWindow?.close()
-        } catch (error) {
-          logError(
-            'Error closing the Heroic window after launch:',
-            LogPrefix.Backend
-          )
-          mainWindow?.show()
-        }
+        mainWindow?.close()
       }, 8000)
 
       // Crashes before the timeout expires
       mainWindow?.webContents.once('crashed', () => {
         clearTimeout(timeoutId)
-        mainWindow?.show()
       })
 
       // Heroic is closed before the timeout expires
