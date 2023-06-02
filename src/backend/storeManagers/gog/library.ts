@@ -2,7 +2,6 @@ import { sendFrontendMessage } from '../../main_window'
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import { GOGUser } from './user'
 import {
-  GOGGameInfo,
   GameInfo,
   InstalledInfo,
   GOGImportData,
@@ -18,7 +17,9 @@ import {
   GOGClientsResponse,
   GamesDBData,
   Library,
-  BuildItem
+  BuildItem,
+  GalaxyLibraryEntry,
+  ProductsEndpointData
 } from 'common/types/gog'
 import { basename, join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
@@ -26,9 +27,8 @@ import { app } from 'electron'
 
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import { getGOGdlBin, getFileSize } from '../../utils'
-import { fallBackImage, gogdlLogFile } from '../../constants'
+import { gogdlLogFile } from '../../constants'
 import {
-  apiInfoCache,
   libraryStore,
   installedGamesStore,
   installInfoStore
@@ -39,6 +39,7 @@ import {
   deleteAbortController
 } from '../../utils/aborthandler/aborthandler'
 import { isOnline } from '../../online_monitor'
+import i18next from 'i18next'
 
 const library: Map<string, GameInfo> = new Map()
 const installedGames: Map<string, InstalledInfo> = new Map()
@@ -86,59 +87,6 @@ export async function getSaveSyncLocation(
   const savesInfo = platformInfo.cloudStorage
   return savesInfo.locations
 }
-/**
- * Returns ids of games with requested features ids
- * @param features
- * @returns
- */
-async function getGamesWithFeatures(
-  features: string[] = ['512']
-): Promise<string[]> {
-  const credentials = await GOGUser.getCredentials()
-  if (!credentials) {
-    return []
-  }
-
-  const headers = {
-    Authorization: 'Bearer ' + credentials.access_token,
-    'User-Agent': 'GOGGalaxyClient/2.0.45.61 (GOG Galaxy)'
-  }
-  const gameArray = []
-  const games = await axios
-    .get(
-      `https://embed.gog.com/account/getFilteredProducts?mediaType=1&sortBy=title&feature=${features.join()}`,
-      { headers }
-    )
-    .catch((e: AxiosError) => {
-      logError(
-        [
-          'There was an error getting games with features',
-          `${features}`,
-          `${e.message}`
-        ],
-        LogPrefix.Gog
-      )
-    })
-
-  if (!games) {
-    return []
-  }
-
-  gameArray.push(...games.data.products)
-  const numberOfPages = games?.data.totalPages
-  for (let page = 2; page <= numberOfPages; page++) {
-    logInfo(['Getting data for page', String(page)], LogPrefix.Gog)
-    const pageData = await axios.get(
-      `https://embed.gog.com/account/getFilteredProducts?mediaType=1&sortBy=title&page=${page}&features=${features.join()}`,
-      { headers }
-    )
-    if (pageData.data?.products) {
-      gameArray.push(...pageData.data.products)
-    }
-  }
-
-  return gameArray.map((value) => String(value.id))
-}
 
 const defaultExecResult = {
   stderr: '',
@@ -174,10 +122,10 @@ export async function refresh(): Promise<ExecResult> {
     'User-Agent': 'GOGGalaxyClient/2.0.45.61 (GOG Galaxy)'
   }
   logInfo('Getting GOG library', LogPrefix.Gog)
-  const gameApiArray: GOGGameInfo[] = []
+  const gameApiArray: GalaxyLibraryEntry[] = []
   const games: Library | null = await axios
     .get(
-      'https://embed.gog.com/account/getFilteredProducts?mediaType=1&sortBy=title',
+      `https://galaxy-library.gog.com/users/${credentials.user_id}/releases`,
       { headers }
     )
     .then(({ data }) => data)
@@ -194,153 +142,112 @@ export async function refresh(): Promise<ExecResult> {
     return defaultExecResult
   }
 
-  if (games.products.length) {
-    const numberOfPages = games.totalPages
-    logInfo(['Number of library pages:', numberOfPages], LogPrefix.Gog)
-    gameApiArray.push(...games.products)
-    for (let page = 2; page <= numberOfPages; page++) {
-      logInfo(['Getting data for page', String(page)], LogPrefix.Gog)
-      const pageData: Library | null = await axios
-        .get(
-          `https://embed.gog.com/account/getFilteredProducts?mediaType=1&sortBy=title&page=${page}`,
-          { headers }
-        )
-        .then(({ data }) => data)
-        .catch((e) => {
-          logError(
-            [
-              'There was an error getting games library data for page',
-              page,
-              e.message
-            ],
-            {
-              prefix: LogPrefix.Gog
-            }
-          )
-          return null
-        })
-      if (pageData && pageData.products.length) {
-        gameApiArray.push(...pageData.products)
-      }
-    }
-  }
+  gameApiArray.push(...games.items)
+  const filteredApiArray = gameApiArray.filter(
+    (entry) => entry.platform_id === 'gog'
+  )
+  // if (games.items.length) {
+  //   const numberOfPages = games.total_count
+  //   logInfo(['Number of library pages:', numberOfPages], LogPrefix.Gog)
+  //   for (let page = 2; page <= numberOfPages; page++) {
+  //     logInfo(['Getting data for page', String(page)], LogPrefix.Gog)
+  //     const pageData: Library | null = await axios
+  //       .get(
+  //         `https://embed.gog.com/account/getFilteredProducts?mediaType=1&sortBy=title&page=${page}`,
+  //         { headers }
+  //       )
+  //       .then(({ data }) => data)
+  //       .catch((e) => {
+  //         logError(
+  //           [
+  //             'There was an error getting games library data for page',
+  //             page,
+  //             e.message
+  //           ],
+  //           {
+  //             prefix: LogPrefix.Gog
+  //           }
+  //         )
+  //         return null
+  //       })
+  //     if (pageData && pageData.products.length) {
+  //       gameApiArray.push(...pageData.products)
+  //     }
+  //   }
+  // }
 
   const gamesObjects: GameInfo[] = []
-  const gamesArray = libraryStore.get('games', [])
-  const cloudSavesEnabledGames = await getGamesWithFeatures(['512'])
-  for (const game of gameApiArray) {
-    let unifiedObject = gamesArray
-      ? gamesArray.find((value) => value.app_name === String(game.id))
-      : null
-    if (!unifiedObject) {
-      unifiedObject = await gogToUnifiedInfo(game, cloudSavesEnabledGames)
-    }
-    gamesObjects.push(unifiedObject)
-    const installedInfo = installedGames.get(String(game.id))
-    // If game is installed, verify if installed game supports cloud saves
-    if (
-      !cloudSavesEnabledGames.includes(String(game.id)) &&
-      installedInfo &&
-      installedInfo?.platform !== 'linux'
-    ) {
-      const saveLocations = await getSaveSyncLocation(
-        unifiedObject.app_name,
-        installedInfo
-      )
-
-      if (saveLocations) {
-        unifiedObject.cloud_save_enabled = true
-        unifiedObject.gog_save_location = saveLocations
+  const promises = filteredApiArray.map(async (game): Promise<GameInfo> => {
+    let retries = 5
+    while (retries > 0) {
+      const { data } = await getGamesdbData(
+        'gog',
+        game.external_id,
+        undefined,
+        game.certificate,
+        credentials.access_token
+      ).catch(() => ({
+        data: null
+      }))
+      const product = await getProductApi(game.external_id).catch(() => null)
+      if (!data) {
+        await new Promise((resolve) => setTimeout(resolve, 2000))
+        retries -= 1
+        continue
       }
+      const unifiedObject = await gogToUnifiedInfo(data, product?.data)
+      if (unifiedObject.app_name) {
+        gamesObjects.push(unifiedObject)
+      }
+      const installedInfo = installedGames.get(String(game.external_id))
+      // If game is installed, verify if installed game supports cloud saves
+      if (installedInfo && installedInfo?.platform !== 'linux') {
+        const saveLocations = await getSaveSyncLocation(
+          unifiedObject.app_name,
+          installedInfo
+        )
+
+        if (saveLocations) {
+          unifiedObject.cloud_save_enabled = true
+          unifiedObject.gog_save_location = saveLocations
+        }
+      }
+      // Create new object to not write install data into library store
+      const copyObject = Object.assign({}, unifiedObject)
+      if (installedInfo) {
+        copyObject.is_installed = true
+        copyObject.install = installedInfo
+      }
+      return copyObject
     }
-    // Create new object to not write install data into library store
-    const copyObject = Object.assign({}, unifiedObject)
-    if (installedInfo) {
-      copyObject.is_installed = true
-      copyObject.install = installedInfo
-    }
-    library.set(String(game.id), copyObject)
-  }
-  libraryStore.set('games', gamesObjects)
-  logInfo('Saved games data', LogPrefix.Gog)
+    throw new Error('Exceeeded max number of retries')
+  })
 
-  // fetch images async
-  fetchImages()
-  return defaultExecResult
-}
-
-export async function fetchImages() {
-  if (!GOGUser.isLoggedIn()) {
-    return
-  }
-
-  const lib = libraryStore.get('games', [])
-
-  // only process games with no image
-  const gamesWithNoImage = lib.filter(
-    (game) => game.art_square === fallBackImage
-  )
-  let changed = false // flag to only save and notify the frontend if something changed
-
-  // split games in chunks of 20 to fetch info in parallel
-  const chunks: GameInfo[][] = []
-  while (gamesWithNoImage.length) {
-    chunks.push(gamesWithNoImage.splice(0, 20))
+  // Await in chunks of 10
+  const chunks: Array<Array<Promise<GameInfo>>> = []
+  while (promises.length) {
+    chunks.push(promises.splice(0, 10))
   }
 
   for (const chunk of chunks) {
-    const promises = chunk.map(async (game) => {
-      // try gamesdb.gog.com
-      const { isUpdated, data } = await getGamesdbData(
-        'gog',
-        String(game.app_name)
-      )
+    const settled = await Promise.allSettled(chunk)
+    const fulfilled = settled
+      .filter((promise) => promise.status === 'fulfilled')
+      //@ts-expect-error Typescript is confused about this filter statement, it's correct however
+      .map((promise: PromiseFulfilledResult<GameInfo>) => promise.value)
 
-      if (data) {
-        // if data available, update the game in memory
-        let newImageUrl = data?.game?.vertical_cover?.url_format
-        if (newImageUrl && newImageUrl !== game.art_square) {
-          newImageUrl = newImageUrl
-            .replace('{formatter}', '')
-            .replace('{ext}', 'jpg')
-          apiInfoCache.set(String(game.app_name), { isUpdated, data })
-          game.art_square = newImageUrl
-          game.developer = data.game.developers
-            .map((dev) => dev.name)
-            .join(', ')
-          if (game.extra !== undefined && game.extra.about !== undefined)
-            game.extra.about.description = data.game.summary['*']
-          changed = true
-        }
-      } else {
-        // if no data, try api api.gog.com
-        const apiData = await getGamesData(String(game.app_name))
-        if (apiData?._links?.boxArtImage) {
-          game.art_square = apiData._links.boxArtImage.href
-          changed = true
-        }
-      }
-
-      return game
-    })
-
-    // update lib array with the upated games from the current chunk
-    const results = await Promise.all(promises)
-    results.forEach((game) => {
-      const index = lib.findIndex((g) => g.app_name === game.app_name)
-      if (index !== -1) {
-        lib[index] = game
+    fulfilled.forEach((data: GameInfo) => {
+      if (data?.app_name) {
+        sendFrontendMessage('pushGameToLibrary', data)
+        library.set(data.app_name, data)
       }
     })
   }
 
-  // if any game changed, store the new updated array and notify the frontend
-  // without this it may end up in an infinite loop since the frontend triggers
-  // another refresh
-  if (changed) {
-    libraryStore.set('games', lib)
-    sendFrontendMessage('refreshLibrary')
-  }
+  libraryStore.set('games', gamesObjects)
+  logInfo('Saved games data', LogPrefix.Gog)
+
+  return defaultExecResult
 }
 
 export function getGameInfo(slug: string): GameInfo | undefined {
@@ -663,7 +570,7 @@ export async function checkForLinuxInstallerUpdate(
   const response = await getProductApi(appName, ['downloads'])
   if (!response) return false
 
-  const installers = response.data?.downloads?.installers
+  const installers = response.data?.downloads?.installers ?? []
   for (const installer of installers) {
     if (installer.os === 'linux') {
       return installer.version === version
@@ -710,33 +617,42 @@ export async function checkForGameUpdate(
  * That way it will be easly accessible on frontend
  */
 export async function gogToUnifiedInfo(
-  info: GOGGameInfo,
-  cloudSavesEnabledGames: string[]
+  info: GamesDBData | undefined,
+  galaxyProductInfo: ProductsEndpointData | undefined
 ): Promise<GameInfo> {
+  // @ts-expect-error TODO: Handle this somehow
+  if (!info || info.type !== 'game') return {}
   const object: GameInfo = {
     runner: 'gog',
-    store_url: `https://gog.com${info.url}`,
-    developer: '',
-    app_name: String(info.id),
-    art_cover: `https:${info.image}.jpg`,
-    art_square: fallBackImage,
-    cloud_save_enabled: cloudSavesEnabledGames.includes(String(info.id)),
+    store_url: galaxyProductInfo?.links.product_card,
+    developer: info.game.developers.map((dev) => dev.name).join(', '),
+    app_name: String(info.external_id),
+    art_cover: `https:${galaxyProductInfo?.images.logo2x}`,
+    art_square: info.game.vertical_cover.url_format
+      .replace('{formatter}', '')
+      .replace('{ext}', 'jpg'),
+    cloud_save_enabled: false,
     extra: {
-      about: { description: '', shortDescription: '' },
+      about: { description: info.summary['*'], shortDescription: '' },
       reqs: [],
-      storeUrl: `https://gog.com${info.url}`
+      storeUrl: galaxyProductInfo?.links.product_card
     },
     folder_name: '',
     install: {
       is_dlc: false
     },
     is_installed: false,
-    namespace: info.slug,
+    namespace: galaxyProductInfo?.slug,
     save_folder: '',
-    title: info.title,
+    title: galaxyProductInfo?.title ?? info.game.title['en-US'] ?? '',
+    sorting_title: info.game.sorting_title['*'] ?? '',
     canRunOffline: true,
-    is_mac_native: info.worksOn.Mac,
-    is_linux_native: info.worksOn.Linux,
+    is_mac_native: Boolean(
+      info.supported_operating_systems.find((os) => os.slug === 'osx')
+    ),
+    is_linux_native: Boolean(
+      info.supported_operating_systems.find((os) => os.slug === 'linux')
+    ),
     thirdPartyManagedApp: undefined
   }
 
@@ -750,7 +666,9 @@ export async function gogToUnifiedInfo(
  * @returns plain API response
  */
 export async function getGamesData(appName: string, lang?: string) {
-  const url = `https://api.gog.com/v2/games/${appName}?locale=${lang || 'en'}`
+  const url = `https://api.gog.com/v2/games/${appName}?locale=${
+    lang || 'en-US'
+  }`
 
   const response: AxiosResponse | null = await axios.get(url).catch(() => {
     return null
@@ -914,18 +832,26 @@ export function getExecutable(appName: string): string {
 export async function getGamesdbData(
   store: string,
   game_id: string,
-  etag?: string
+  etag?: string,
+  certificate?: string,
+  access_token?: string
 ): Promise<{ isUpdated: boolean; data?: GamesDBData | undefined }> {
   const url = `https://gamesdb.gog.com/platforms/${store}/external_releases/${game_id}`
-  const headers = etag
-    ? {
-        'If-None-Match': etag
-      }
-    : undefined
+  const headers = {
+    'If-None-Match': etag ?? '',
+    'X-GOG-Library-Cert': certificate ?? '',
+    Authorization: `Bearer ${access_token}`
+  }
 
-  const response = await axios.get(url, { headers: headers }).catch(() => {
-    return null
-  })
+  const response = await axios
+    .get(url, { headers: headers })
+    .catch((error: AxiosError) => {
+      if (error.response?.status === 404) {
+        return null
+      }
+      throw new Error('connection error', { cause: error })
+    })
+
   if (!response) {
     return { isUpdated: false }
   }
@@ -946,11 +872,21 @@ export async function getGamesdbData(
  * @param expand expanded results to be returned
  * @returns raw axios response, or null if there was a error
  */
-export async function getProductApi(appName: string, expand?: string[]) {
+export async function getProductApi(
+  appName: string,
+  expand?: string[]
+): Promise<AxiosResponse<ProductsEndpointData> | null> {
   expand = expand ?? []
-  const expandString = expand.length ? '?expand=' + expand.join(',') : ''
-  const url = `https://api.gog.com/products/${appName}${expandString}`
-  const response = await axios.get(url).catch(() => null)
+  const language = i18next.language
+  const url = new URL(`https://api.gog.com/products/${appName}`)
+  url.searchParams.set('locale', language)
+  if (expand.length > 0) {
+    url.searchParams.set('expand', expand.join(','))
+  }
+  // `https://api.gog.com/products/${appName}?locale=${language}${expandString}`
+  const response = await axios
+    .get<ProductsEndpointData>(url.toString())
+    .catch(() => null)
 
   return response
 }
@@ -962,11 +898,8 @@ export async function getProductApi(appName: string, expand?: string[]) {
 export async function getLinuxInstallersLanguages(appName: string) {
   const response = await getProductApi(appName, ['downloads'])
   if (response) {
-    const installers = response.data?.downloads?.installers
-    const linuxInstallers = installers.filter(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (value: any) => value.os === 'linux'
-    )
+    const installers = response.data?.downloads?.installers ?? []
+    const linuxInstallers = installers.filter((value) => value.os === 'linux')
     const possibleLanguages: string[] = []
 
     for (const installer of linuxInstallers) {
@@ -994,7 +927,7 @@ export async function getLinuxInstallerInfo(appName: string): Promise<
   if (!response) {
     return
   }
-  const installers = response.data?.downloads?.installers
+  const installers = response.data?.downloads?.installers ?? []
 
   for (const installer of installers) {
     if (installer.os === 'linux')

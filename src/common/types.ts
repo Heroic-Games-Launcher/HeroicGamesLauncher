@@ -114,6 +114,7 @@ export interface GameInfo {
   save_path?: string
   gog_save_location?: GOGCloudSavesLocation[]
   title: string
+  sorting_title?: string
   canRunOffline: boolean
   thirdPartyManagedApp?: string | undefined
   is_mac_native?: boolean

@@ -11,7 +11,8 @@ import {
   createReqsArray,
   getGameInfo as getGogLibraryGameInfo,
   changeGameInstallPath,
-  getMetaResponse
+  getMetaResponse,
+  getGamesData
 } from './library'
 import { join } from 'path'
 import { GameConfig } from '../../game_config'
@@ -80,7 +81,7 @@ export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   const extra: ExtraInfo = {
     about: gameInfo.extra?.about,
     reqs: await createReqsArray(appName, targetPlatform),
-    storeUrl: gameInfo.store_url
+    storeUrl: (await getGamesData(appName))?._links.store.href
   }
   return extra
 }

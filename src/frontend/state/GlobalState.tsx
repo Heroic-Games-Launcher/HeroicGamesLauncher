@@ -651,6 +651,25 @@ class GlobalState extends PureComponent<Props> {
       }
     })
 
+    window.api.handleGamePush((e: Event, args: GameInfo) => {
+      if (!args.app_name) return
+      if (args.runner === 'gog') {
+        const library = [...this.state.gog.library]
+        const index = library.findIndex(
+          (game) => game.app_name === args.app_name
+        )
+        if (index !== -1) {
+          library.splice(index, 1)
+        }
+        this.setState({
+          gog: {
+            library: [...library, args],
+            username: this.state.gog.username
+          }
+        })
+      }
+    })
+
     window.api.handleGameStatus(async (e: Event, args: GameStatus) => {
       return this.handleGameStatus({ ...args })
     })
