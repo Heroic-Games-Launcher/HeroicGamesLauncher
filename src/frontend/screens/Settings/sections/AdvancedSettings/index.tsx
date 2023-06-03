@@ -15,7 +15,12 @@ import classNames from 'classnames'
 import SettingsContext from '../../SettingsContext'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { GameStatus } from 'common/types'
-import { AltGOGdlBin, AltLegendaryBin, DownloadNoHTTPS } from '../../components'
+import {
+  AltGOGdlBin,
+  AltLegendaryBin,
+  DisableLogs,
+  DownloadNoHTTPS
+} from '../../components'
 
 export default function AdvancedSettings() {
   const { config } = useContext(SettingsContext)
@@ -170,6 +175,8 @@ export default function AdvancedSettings() {
       <AltGOGdlBin />
 
       <DownloadNoHTTPS />
+
+      <DisableLogs />
 
       <hr />
 
