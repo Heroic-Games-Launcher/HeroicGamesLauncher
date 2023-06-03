@@ -964,7 +964,7 @@ ipcMain.handle(
       mainWindow?.hide()
     }
     if (exitOnLaunch) {
-      mainWindow?.hide()
+      app.exit()
     }
 
     // Prevent display from sleep
