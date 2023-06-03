@@ -22,11 +22,10 @@
 }
 
 .numberOfgames {
-  margin-left: 4px;
   font-size: var(--text-md);
   font-weight: var(--regular);
   background: var(--input-background);
   padding: var(--space-xs);
-  margin-left: var(--space-sm);
+  margin-inline-start: var(--space-sm, 4px);
   border-radius: var(--space-3xs);
 }

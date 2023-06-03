@@ -29,7 +29,7 @@
 }
 
 .Header__filters .FormControl {
-  margin-right: 8px;
+  margin-inline-end: 8px;
 }
 
 .Header__search {
@@ -43,9 +43,9 @@
 
 .Header__summary {
   grid-area: summary;
-  text-align: right;
+  text-align: end;
   white-space: nowrap;
-  margin-left: 8px;
+  margin-inline-start: 8px;
 }
 
 /* TODO move following styles to the components which use them */
