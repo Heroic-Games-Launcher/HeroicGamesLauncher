@@ -506,6 +506,7 @@
             "updating": "Updating..."
         },
         "esync": "Enable Esync",
+        "exit-on-launch": "Exit Heroic After Game Launch",
         "exit-to-tray": "Exit to System Tray",
         "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
