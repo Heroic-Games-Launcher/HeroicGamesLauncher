@@ -272,9 +272,10 @@ if (!gotTheLock) {
   app.whenReady().then(async () => {
     initStoreManagers()
     initOnlineMonitor()
-    await components.whenReady()
-    logInfo(['DRM module staus', components.status()])
-
+    if (!process.env.CI) {
+      await components.whenReady()
+      logInfo(['DRM module staus', components.status()])
+    }
     // try to fix notification app name on windows
     if (isWindows) {
       app.setAppUserModelId('Heroic Games Launcher')
