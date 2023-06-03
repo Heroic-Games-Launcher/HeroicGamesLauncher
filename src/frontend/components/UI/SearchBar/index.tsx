@@ -35,21 +35,19 @@ export default React.memo(function SearchBar() {
   const list = useMemo(() => {
     // Set can't handle spread of undefined. Leading to
     // TypeError. If undefined we just pass empty array.
-    return new Set(
-      [
-        ...(epic.library ?? []),
-        ...(gog.library ?? []),
-        ...(sideloadedLibrary ?? [])
-      ]
-        .filter(Boolean)
-        .filter((el) => {
-          return (
-            !el.install.is_dlc &&
-            new RegExp(fixFilter(filterText), 'i').test(el.title)
-          )
-        })
-        .sort((g1, g2) => (g1.title < g2.title ? -1 : 1))
-    )
+    return [
+      ...(epic.library ?? []),
+      ...(gog.library ?? []),
+      ...(sideloadedLibrary ?? [])
+    ]
+      .filter(Boolean)
+      .filter((el) => {
+        return (
+          !el.install.is_dlc &&
+          new RegExp(fixFilter(filterText), 'i').test(el.title)
+        )
+      })
+      .sort((g1, g2) => (g1.title < g2.title ? -1 : 1))
   }, [epic.library, gog.library, filterText])
 
   // we have to use an event listener instead of the react
@@ -106,8 +104,8 @@ export default React.memo(function SearchBar() {
       {filterText.length > 0 && (
         <>
           <ul className="autoComplete">
-            {list.size > 0 &&
-              [...list].map((game) => (
+            {list.length > 0 &&
+              list.map((game) => (
                 <li onClick={() => handleClick(game)} key={game.app_name}>
                   {game.title}{' '}
                   <span>({RUNNER_TO_STORE[game.runner] || game.runner})</span>
