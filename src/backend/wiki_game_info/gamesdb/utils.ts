@@ -17,7 +17,8 @@ export async function getInfoFromGamesDB(
   }
   const gamesdb: { data?: GamesDBData } = await getGamesdbData(
     storeName,
-    appName
+    appName,
+    true
   ).catch(() => ({ data: undefined }))
 
   const steamID =

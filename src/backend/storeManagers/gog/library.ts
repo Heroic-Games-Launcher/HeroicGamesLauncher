@@ -839,7 +839,7 @@ export async function getGamesdbData(
   access_token?: string
 ): Promise<{ isUpdated: boolean; data?: GamesDBData | undefined }> {
   const pieceId = `${store}_${game_id}`
-  const cachedData = apiInfoCache.get(pieceId)
+  const cachedData = !forceUpdate ? apiInfoCache.get(pieceId) : null
   if (cachedData && cachedData?.id && !forceUpdate) {
     return { isUpdated: false, data: apiInfoCache.get(pieceId) }
   }
@@ -853,6 +853,13 @@ export async function getGamesdbData(
   const response = await axios
     .get<GamesDBData>(url, { headers: headers })
     .catch((error: AxiosError) => {
+      logError(
+        [
+          `Was not able to get GamesDB data for ${game_id}`,
+          error.response?.data.error_description
+        ],
+        LogPrefix.ExtraGameInfo
+      )
       if (error.response?.status === 404) {
         return null
       }
@@ -862,7 +869,7 @@ export async function getGamesdbData(
   if (!response) {
     return { isUpdated: false }
   }
-  const resEtag = response.headers.etag
+  const resEtag = response.headers?.etag
   const isUpdated = cachedData?.etag === resEtag
   const data = response.data
 
