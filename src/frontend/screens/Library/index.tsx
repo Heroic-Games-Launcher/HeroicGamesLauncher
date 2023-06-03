@@ -282,10 +282,8 @@ export default React.memo(function Library(): JSX.Element {
 
     // sort
     library = library.sort((a, b) => {
-      const titleA = a.sorting_title ?? a.title
-      const titleB = b.sorting_title ?? b.title
-      const gameA = titleA.toUpperCase().replace('THE ', '')
-      const gameB = titleB.toUpperCase().replace('THE ', '')
+      const gameA = a.title.toUpperCase().replace('THE ', '')
+      const gameB = b.title.toUpperCase().replace('THE ', '')
       return sortDescending
         ? -gameA.localeCompare(gameB)
         : gameA.localeCompare(gameB)

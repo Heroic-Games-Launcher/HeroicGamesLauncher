@@ -85,6 +85,9 @@ export async function getSaveSyncLocation(
   }
   const platformInfo = response.content[syncPlatform]
   const savesInfo = platformInfo.cloudStorage
+  if (!savesInfo.enabled) {
+    return
+  }
   return savesInfo.locations
 }
 
@@ -645,7 +648,6 @@ export async function gogToUnifiedInfo(
     namespace: galaxyProductInfo?.slug,
     save_folder: '',
     title: galaxyProductInfo?.title ?? info.game.title['en-US'] ?? '',
-    sorting_title: info.game.sorting_title['*'] ?? '',
     canRunOffline: true,
     is_mac_native: Boolean(
       info.supported_operating_systems.find((os) => os.slug === 'osx')
