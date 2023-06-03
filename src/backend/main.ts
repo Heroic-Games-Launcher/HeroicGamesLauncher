@@ -916,6 +916,7 @@ ipcMain.handle(
     const { title } = game
 
     const { minimizeOnLaunch } = GlobalConfig.get().getSettings()
+    const { exitOnLaunch } = GlobalConfig.get().getSettings()
 
     const startPlayingDate = new Date()
 
@@ -960,6 +961,9 @@ ipcMain.handle(
     const mainWindow = getMainWindow()
     const showAfterClose = mainWindow?.isVisible()
     if (minimizeOnLaunch) {
+      mainWindow?.hide()
+    }
+    if (exitOnLaunch) {
       mainWindow?.hide()
     }
 

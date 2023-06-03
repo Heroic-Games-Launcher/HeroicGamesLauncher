@@ -16,6 +16,7 @@ import {
   MaxRecentGames,
   MaxWorkers,
   MinimizeOnGameLaunch,
+  ExitOnGameLaunch,
   Shortcuts,
   TraySettings,
   UseDarkTrayIcon,
@@ -52,6 +53,8 @@ export default function GeneralSettings() {
       <TraySettings />
 
       <MinimizeOnGameLaunch />
+      
+      <ExitOnGameLaunch />
 
       <UseDarkTrayIcon />
 

@@ -68,6 +68,7 @@ export interface AppSettings extends GameSettings {
   maxRecentGames: number
   maxWorkers: number
   minimizeOnLaunch: boolean
+  exitOnLaunch: boolean
   startInTray: boolean
   userInfo: UserInfo
 }
