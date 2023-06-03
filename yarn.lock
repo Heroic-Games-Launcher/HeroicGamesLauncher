@@ -3545,9 +3545,9 @@ electron-updater@^5.0.1:
     semver "^7.3.5"
     typed-emitter "^2.1.0"
 
-"electron@https://github.com/castlabs/electron-releases#24.4.1+wvcus":
-  version "24.4.1"
-  resolved "https://github.com/castlabs/electron-releases#382f71fa5495e1523d6677fa96b3d3c583d79e3a"
+"electron@https://github.com/castlabs/electron-releases#25.0.1+wvcus":
+  version "25.0.1"
+  resolved "https://github.com/castlabs/electron-releases#6d177e6bf7143902128e27f6427afad7259c8dd0"
   dependencies:
     "@electron/get" "^2.0.0"
     "@types/node" "^18.11.18"
