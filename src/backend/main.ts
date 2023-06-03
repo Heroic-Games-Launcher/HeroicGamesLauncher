@@ -958,7 +958,6 @@ ipcMain.handle(
     })
 
     const mainWindow = getMainWindow()
-    const showAfterClose = mainWindow?.isVisible()
     if (minimizeOnLaunch) {
       mainWindow?.hide()
     }
@@ -1089,8 +1088,6 @@ ipcMain.handle(
     // Exit if we've been launched without UI
     if (isCLINoGui) {
       app.exit()
-    } else if (showAfterClose) {
-      mainWindow?.show()
     }
 
     return { status: launchResult ? 'done' : 'error' }
