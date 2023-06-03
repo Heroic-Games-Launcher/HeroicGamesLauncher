@@ -53,9 +53,9 @@ export default function GeneralSettings() {
       <TraySettings />
 
       <MinimizeOnGameLaunch />
-      
+
       <ExitOnGameLaunch />
-      
+
       <UseDarkTrayIcon />
 
       <Shortcuts />
