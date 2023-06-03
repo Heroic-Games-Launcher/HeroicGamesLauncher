@@ -276,6 +276,8 @@ interface Release {
 // Data returned from https://galaxy-library.gog.com/users/${credentials.user_id}/releases
 export interface Library {
   total_count: number
+  next_page_token?: string
+  page_token?: string
   limit: number
   items: Array<GalaxyLibraryEntry>
 }

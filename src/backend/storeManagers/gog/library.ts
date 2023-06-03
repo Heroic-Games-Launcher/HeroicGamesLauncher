@@ -31,7 +31,8 @@ import { gogdlLogFile } from '../../constants'
 import {
   libraryStore,
   installedGamesStore,
-  installInfoStore
+  installInfoStore,
+  apiInfoCache
 } from './electronStores'
 import { callRunner } from '../../launcher'
 import {
@@ -96,6 +97,47 @@ const defaultExecResult = {
   stdout: ''
 }
 
+async function getGalaxyLibrary(
+  page_token?: string
+): Promise<Array<GalaxyLibraryEntry>> {
+  const credentials = await GOGUser.getCredentials()
+  const headers = {
+    Authorization: `Bearer ${credentials.access_token}`
+  }
+  const url = new URL(
+    `https://galaxy-library.gog.com/users/${credentials.user_id}/releases`
+  )
+  if (page_token) {
+    url.searchParams.set('page_token', page_token)
+  }
+  console.log(url.toString())
+  const objects: GalaxyLibraryEntry[] = []
+  const data = await axios
+    .get<Library>(url.toString(), { headers })
+    .then(({ data }) => data)
+    .catch((e: AxiosError) => {
+      logError(
+        ['There was an error getting games library data', e.message],
+        LogPrefix.Gog
+      )
+      return null
+    })
+
+  const gamesItems = data?.items
+  if (gamesItems) {
+    objects.push(...gamesItems)
+  }
+
+  if (data?.next_page_token) {
+    const nextPageGames = await getGalaxyLibrary(data.next_page_token)
+    if (nextPageGames.length) {
+      objects.push(...nextPageGames)
+    }
+  }
+
+  return objects
+}
+
 export async function refresh(): Promise<ExecResult> {
   if (!GOGUser.isLoggedIn()) {
     return defaultExecResult
@@ -120,73 +162,26 @@ export async function refresh(): Promise<ExecResult> {
   if (!credentials) {
     return defaultExecResult
   }
-  const headers = {
-    Authorization: 'Bearer ' + credentials.access_token,
-    'User-Agent': 'GOGGalaxyClient/2.0.45.61 (GOG Galaxy)'
-  }
   logInfo('Getting GOG library', LogPrefix.Gog)
-  const gameApiArray: GalaxyLibraryEntry[] = []
-  const games: Library | null = await axios
-    .get(
-      `https://galaxy-library.gog.com/users/${credentials.user_id}/releases`,
-      { headers }
-    )
-    .then(({ data }) => data)
-    .catch((e: AxiosError) => {
-      logError(
-        ['There was an error getting games library data', e.message],
-        LogPrefix.Gog
-      )
-      return null
-    })
-
-  if (!games) {
+  const gameApiArray: GalaxyLibraryEntry[] = await getGalaxyLibrary()
+  if (!gameApiArray.length) {
     logError('There was an error Loading games library', LogPrefix.Gog)
     return defaultExecResult
   }
 
-  gameApiArray.push(...games.items)
   const filteredApiArray = gameApiArray.filter(
     (entry) => entry.platform_id === 'gog'
   )
-  // if (games.items.length) {
-  //   const numberOfPages = games.total_count
-  //   logInfo(['Number of library pages:', numberOfPages], LogPrefix.Gog)
-  //   for (let page = 2; page <= numberOfPages; page++) {
-  //     logInfo(['Getting data for page', String(page)], LogPrefix.Gog)
-  //     const pageData: Library | null = await axios
-  //       .get(
-  //         `https://embed.gog.com/account/getFilteredProducts?mediaType=1&sortBy=title&page=${page}`,
-  //         { headers }
-  //       )
-  //       .then(({ data }) => data)
-  //       .catch((e) => {
-  //         logError(
-  //           [
-  //             'There was an error getting games library data for page',
-  //             page,
-  //             e.message
-  //           ],
-  //           {
-  //             prefix: LogPrefix.Gog
-  //           }
-  //         )
-  //         return null
-  //       })
-  //     if (pageData && pageData.products.length) {
-  //       gameApiArray.push(...pageData.products)
-  //     }
-  //   }
-  // }
 
   const gamesObjects: GameInfo[] = []
+  apiInfoCache.use_in_memory() // Prevent blocking operations
   const promises = filteredApiArray.map(async (game): Promise<GameInfo> => {
     let retries = 5
     while (retries > 0) {
       const { data } = await getGamesdbData(
         'gog',
         game.external_id,
-        undefined,
+        false,
         game.certificate,
         credentials.access_token
       ).catch(() => ({
@@ -247,6 +242,7 @@ export async function refresh(): Promise<ExecResult> {
     })
   }
 
+  apiInfoCache.commit() // Sync cache to drive
   libraryStore.set('games', gamesObjects)
   logInfo('Saved games data', LogPrefix.Gog)
 
@@ -623,8 +619,10 @@ export async function gogToUnifiedInfo(
   info: GamesDBData | undefined,
   galaxyProductInfo: ProductsEndpointData | undefined
 ): Promise<GameInfo> {
-  // @ts-expect-error TODO: Handle this somehow
-  if (!info || info.type !== 'game') return {}
+  if (!info || info.type !== 'game') {
+    // @ts-expect-error TODO: Handle this somehow
+    return {}
+  }
   const object: GameInfo = {
     runner: 'gog',
     store_url: galaxyProductInfo?.links.product_card,
@@ -828,25 +826,32 @@ export function getExecutable(appName: string): string {
  * This endpoint doesn't require user to be authenticated.
  * @param store Indicates a store we have game_id from, like: epic, itch, humble, gog, uplay
  * @param game_id ID of a game
- * @param etag (optional) value returned in response, works as checksum so we can check if we have up to date data
+ * @param forceUpdate (optional) force data update check
+ * @param certificate (optional) Galaxy library certificate
+ * @param access_token (optional) GOG Galaxy access token
  * @returns object {isUpdated, data}, where isUpdated is true when Etags match
  */
 export async function getGamesdbData(
   store: string,
   game_id: string,
-  etag?: string,
+  forceUpdate?: boolean,
   certificate?: string,
   access_token?: string
 ): Promise<{ isUpdated: boolean; data?: GamesDBData | undefined }> {
+  const pieceId = `${store}_${game_id}`
+  const cachedData = apiInfoCache.get(pieceId)
+  if (cachedData && cachedData?.id && !forceUpdate) {
+    return { isUpdated: false, data: apiInfoCache.get(pieceId) }
+  }
   const url = `https://gamesdb.gog.com/platforms/${store}/external_releases/${game_id}`
   const headers = {
-    'If-None-Match': etag ?? '',
-    'X-GOG-Library-Cert': certificate ?? '',
-    Authorization: `Bearer ${access_token}`
+    ...(cachedData?.etag ? { 'If-None-Match': cachedData.etag } : {}),
+    ...(certificate ? { 'X-GOG-Library-Cert': certificate } : {}),
+    ...(access_token ? { Authorization: `Bearer ${access_token}` } : {})
   }
 
   const response = await axios
-    .get(url, { headers: headers })
+    .get<GamesDBData>(url, { headers: headers })
     .catch((error: AxiosError) => {
       if (error.response?.status === 404) {
         return null
@@ -858,10 +863,11 @@ export async function getGamesdbData(
     return { isUpdated: false }
   }
   const resEtag = response.headers.etag
-  const isUpdated = etag === resEtag
+  const isUpdated = cachedData?.etag === resEtag
   const data = response.data
 
   data.etag = resEtag
+  apiInfoCache.set(pieceId, data)
   return {
     isUpdated,
     data
