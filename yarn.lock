@@ -453,17 +453,15 @@
     ajv "^6.12.0"
     ajv-keywords "^3.4.1"
 
-"@electron/asar@^3.2.2":
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/@electron/asar/-/asar-3.2.3.tgz#f598db50061ae5f90ad651f0255366b4e818000e"
-  integrity sha512-wmOfE6szYyqZhRIiLH+eyZEp+bGcJI0OD/SCvSUrfBE0jvauyGYO2ZhpWxmNCcDojKu5DYrsVqT5BOCZZ01XIg==
+"@electron/asar@^3.2.4":
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/@electron/asar/-/asar-3.2.4.tgz#7e8635a3c4f6d8b3f8ae6efaf5ecb9fbf3bd9864"
+  integrity sha512-lykfY3TJRRWFeTxccEKdf1I6BLl2Plw81H0bbp4Fc5iEc67foDCa5pjJQULVgo0wF+Dli75f3xVcdb/67FFZ/g==
   dependencies:
     chromium-pickle-js "^0.2.0"
     commander "^5.0.0"
     glob "^7.1.6"
     minimatch "^3.0.4"
-  optionalDependencies:
-    "@types/glob" "^7.1.1"
 
 "@electron/get@^2.0.0":
   version "2.0.2"
@@ -3497,12 +3495,12 @@ electron-osx-sign@^0.6.0:
     minimist "^1.2.0"
     plist "^3.0.1"
 
-electron-playwright-helpers@^1.5.4:
-  version "1.5.4"
-  resolved "https://registry.yarnpkg.com/electron-playwright-helpers/-/electron-playwright-helpers-1.5.4.tgz#f64c8cad21c19231e26b3677fc34aaeafad6de4c"
-  integrity sha512-bZoaiDzVqy8/JCjHc6VEuxZDYZntVZHcBrJkY8C2+7EIXv2K8UA1KnpdDYFLPHDPa0rbGtUJUEmaUaktJAvcBw==
+electron-playwright-helpers@^1.5.5:
+  version "1.5.5"
+  resolved "https://registry.yarnpkg.com/electron-playwright-helpers/-/electron-playwright-helpers-1.5.5.tgz#56e8bc709d5685b2953c53b8c8e984a9fd841454"
+  integrity sha512-4WAHzIU+f8xFvmqbeB5O2syyRfhpPbA52/GGt5p7y8l04+CsZt4fUkCbvsph1xyn4itdsE2snS/fIoE33t+GfA==
   dependencies:
-    "@electron/asar" "^3.2.2"
+    "@electron/asar" "^3.2.4"
 
 electron-publish@23.6.0:
   version "23.6.0"
@@ -3545,9 +3543,9 @@ electron-updater@^5.0.1:
     semver "^7.3.5"
     typed-emitter "^2.1.0"
 
-"electron@https://github.com/castlabs/electron-releases#25.0.1+wvcus":
-  version "25.0.1"
-  resolved "https://github.com/castlabs/electron-releases#6d177e6bf7143902128e27f6427afad7259c8dd0"
+"electron@https://github.com/castlabs/electron-releases#24.4.1+wvcus":
+  version "24.4.1"
+  resolved "https://github.com/castlabs/electron-releases#382f71fa5495e1523d6677fa96b3d3c583d79e3a"
   dependencies:
     "@electron/get" "^2.0.0"
     "@types/node" "^18.11.18"
