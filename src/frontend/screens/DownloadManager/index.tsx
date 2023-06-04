@@ -81,7 +81,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
       <h4
         style={{
           padding: 'var(--space-xl) var(--space-md) 0',
-          textAlign: 'left'
+          textAlign: 'start'
         }}
       >
         {t('download-manager.title', 'Downloads')}

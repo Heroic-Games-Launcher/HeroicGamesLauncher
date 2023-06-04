@@ -125,7 +125,7 @@ svg.disabled {
   line-height: var(--space-lg);
   font-family: var(--secondary-font-family);
   cursor: pointer;
-  text-align: left;
+  text-align: start;
 }
 
 .react-contextmenu-item:hover {

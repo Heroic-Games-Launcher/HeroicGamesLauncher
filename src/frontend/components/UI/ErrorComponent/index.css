@@ -20,5 +20,5 @@
 
 .button-icon-flex > .refreshIcon {
   font-size: var(--text-xl);
-  padding-right: 2px;
+  padding-inline-end: 2px;
 }

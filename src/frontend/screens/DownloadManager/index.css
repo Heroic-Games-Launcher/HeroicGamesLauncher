@@ -30,15 +30,15 @@
 }
 
 .downloadManagerCurrentSectionTitle {
-  margin: 0px 0px 0px 0px;
+  margin: 0px;
   text-align: initial;
-  padding-left: 30px;
+  padding-inline-start: 30px;
 }
 
 .downloadManagerQueuedSectionTitle {
-  margin: 30px 0px 0px 0px;
+  margin: 30px 0px 0px;
   text-align: initial;
-  padding-left: 30px;
+  padding-inline-start: 30px;
 }
 
 .dmItemList {
