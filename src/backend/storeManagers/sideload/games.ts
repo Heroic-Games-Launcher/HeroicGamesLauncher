@@ -104,10 +104,11 @@ export async function uninstall({
   const old = libraryStore.get('games', [])
   const current = old.filter((a: GameInfo) => a.app_name !== appName)
 
+  const gameInfo = getGameInfo(appName)
   const {
     title,
     install: { executable }
-  } = getGameInfo(appName)
+  } = gameInfo
   const { winePrefix } = await getSettings(appName)
 
   if (shouldRemovePrefix) {
@@ -125,7 +126,7 @@ export async function uninstall({
 
   notify({ title, body: i18next.t('notify.uninstalled') })
 
-  removeShortcuts(appName)
+  removeShortcutsUtil(gameInfo)
 
   sendFrontendMessage('gameStatusUpdate', {
     appName,
