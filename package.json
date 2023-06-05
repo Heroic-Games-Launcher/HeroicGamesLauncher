@@ -17,7 +17,8 @@
   "build": {
     "appId": "com.heroicgameslauncher.hgl",
     "productName": "Heroic",
-    "afterSign": "sign/notarize.js",
+    "afterSign": "sign/afterSign.js",
+    "afterPack": "sign/afterPack.js",
     "files": [
       "build/**/*",
       "node_modules/**/*",
