@@ -10,9 +10,13 @@ exports.default = async function (context) {
 
     // Make sure we don't leave an outdated electron.exe.sig laying about
     if (context.packager.appInfo.productFilename !== 'electron') {
-      console.log("Skipping VMP sign, not electron.exe", context.packager.appInfo.productFilename)
+      console.log("Removing old electron.exe.sig")
+      const isMac = context.packager.platform.name === 'mac'
         const fs = require("fs");
-        const path = context.appOutDir + '/electron.exe.sig'
+        const macPath = context.appOutDir + '/Heroic.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Resources/Electron Framework.sig'
+        const winPath = context.appOutDir + '/electron.exe.sig'
+        const path = isMac ? macPath : winPath
+        console.log("Removing old sig file at: " + path)
         if (fs.existsSync(path)) {
         fs.unlinkSync(path)
     }
