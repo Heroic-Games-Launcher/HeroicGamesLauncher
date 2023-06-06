@@ -48,7 +48,7 @@ body:
   - type: markdown
     attributes:
       value: |-
-        ## Latest stable version of Heroic is 2.6.2. Please, update Heroic before reporting a bug if you have an older version.
+        ## Latest stable version of Heroic is 2.8.0. Please, update Heroic before reporting a bug if you have an older version.
   - type: dropdown
     id: heroic_version
     attributes:
