@@ -12,8 +12,7 @@
 }
 
 .gameList.firstLane > :first-child {
-  grid-column-start: 1;
-  grid-column-end: 3;
+  grid-column: span 2;
 }
 
 .gameListLayout {

@@ -92,10 +92,7 @@ const GamesList = ({
       {!!library.length &&
         library.map((gameInfo, index) => {
           const { app_name, is_installed, runner } = gameInfo
-          let isJustPlayed = false
-          if (isRecent && index === 0) {
-            isJustPlayed = true
-          }
+          const isJustPlayed = isRecent && index === 0
           let is_dlc = false
           if (gameInfo.runner !== 'sideload') {
             is_dlc = gameInfo.install.is_dlc ?? false
