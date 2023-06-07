@@ -14,6 +14,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - run: python3 -m pip install castlabs-evs
       - run: npm install --legacy-peer-deps
       - run: npm run release:win
         env:
