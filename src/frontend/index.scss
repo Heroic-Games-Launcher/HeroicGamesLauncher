@@ -68,6 +68,7 @@ body {
 .smallInputInfo {
   font-size: var(--text-sm);
   align-self: flex-start;
-  margin: var(--space-xs) 0 var(--space-3xs) var(--space-xs);
+  margin-block: var(--space-xs) var(--space-3xs);
+  margin-inline: var(--space-xs) 0;
   color: var(--text-secondary);
 }

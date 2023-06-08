@@ -1,6 +1,6 @@
 .gameCard {
   background-color: var(--gradient-gamecard);
-  text-align: left;
+  text-align: start;
   width: 100%;
   overflow: hidden;
   position: relative;
@@ -44,7 +44,7 @@
 
 .gameCard.notAvailable > .gameCardStatus {
   color: var(--text-log);
-  text-align: right;
+  text-align: end;
 }
 
 .gameCard > a {
@@ -196,8 +196,8 @@
 .gameListItem .gameTitle {
   grid-area: name;
   font-size: var(--text-md);
-  padding-right: var(--space-md-fixed);
-  text-align: left;
+  padding-inline-end: var(--space-md-fixed);
+  text-align: start;
 }
 
 .gameListItem .installed {

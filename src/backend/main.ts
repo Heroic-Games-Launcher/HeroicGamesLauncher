@@ -19,7 +19,8 @@ import {
   powerSaveBlocker,
   protocol,
   screen,
-  clipboard
+  clipboard,
+  components
 } from 'electron'
 import 'backend/updater'
 import { autoUpdater } from 'electron-updater'
@@ -271,7 +272,10 @@ if (!gotTheLock) {
   app.whenReady().then(async () => {
     initStoreManagers()
     initOnlineMonitor()
-
+    if (!process.env.CI) {
+      await components.whenReady()
+      logInfo(['DRM module staus', components.status()])
+    }
     // try to fix notification app name on windows
     if (isWindows) {
       app.setAppUserModelId('Heroic Games Launcher')
@@ -958,7 +962,6 @@ ipcMain.handle(
     })
 
     const mainWindow = getMainWindow()
-    const showAfterClose = mainWindow?.isVisible()
     if (minimizeOnLaunch) {
       mainWindow?.hide()
     }
@@ -1089,8 +1092,6 @@ ipcMain.handle(
     // Exit if we've been launched without UI
     if (isCLINoGui) {
       app.exit()
-    } else if (showAfterClose) {
-      mainWindow?.show()
     }
 
     return { status: launchResult ? 'done' : 'error' }

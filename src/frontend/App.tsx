@@ -16,12 +16,18 @@ import DownloadManager from './screens/DownloadManager'
 import DialogHandler from './components/UI/DialogHandler'
 import SettingsModal from './screens/Settings/components/SettingsModal'
 import ExternalLinkDialog from './components/UI/ExternalLinkDialog'
+import classNames from 'classnames'
 
 function App() {
-  const { isSettingsModalOpen } = useContext(ContextProvider)
+  const { isSettingsModalOpen, isRTL } = useContext(ContextProvider)
 
   return (
-    <div id="app" className="App">
+    <div
+      id="app"
+      className={classNames('App', {
+        isRTL
+      })}
+    >
       <HashRouter>
         <OfflineMessage />
         <Sidebar />

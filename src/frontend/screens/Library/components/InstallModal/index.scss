@@ -9,8 +9,7 @@
   display: flex;
   padding: var(--space-xs) var(--space-md);
   gap: 0.4rem;
-  margin: var(--space-md) var(--dialog-margin-horizontal) 0
-    var(--dialog-margin-horizontal);
+  margin: var(--space-md) var(--dialog-margin-horizontal) 0;
   border-radius: 20px;
   background-color: var(--current-background);
   min-width: min-content;
@@ -23,7 +22,7 @@
 }
 
 .InstallModal__platformIcon {
-  margin-left: 16px;
+  margin-inline-start: 16px;
 }
 
 .InstallModal__sizes {
@@ -42,7 +41,7 @@
   grid-area: icon;
   align-self: center;
   height: 28px;
-  margin-right: var(--space-md);
+  margin-inline-end: var(--space-md);
   color: var(--text-secondary);
 }
 
@@ -90,5 +89,5 @@
 }
 
 .sideloadForm {
-  padding-left: var(--space-xs);
+  padding-inline-start: var(--space-xs);
 }

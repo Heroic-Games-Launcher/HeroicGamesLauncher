@@ -23,7 +23,7 @@
   margin: -2px -8px;
   display: none;
   padding: var(--space-xs) var(--space-md);
-  text-align: left;
+  text-align: start;
   overflow-x: hidden;
   z-index: 1;
   border-bottom-left-radius: var(--space-md);
@@ -48,7 +48,7 @@ li {
 }
 
 .clearSearchButton {
-  padding-right: var(--space-md);
+  padding-inline-end: var(--space-md);
   transition: color 250ms;
   background: transparent;
   border: none;

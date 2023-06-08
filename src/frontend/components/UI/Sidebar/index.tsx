@@ -56,12 +56,21 @@ export default React.memo(function Sidebar() {
   }, [])
 
   const handleDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
+    const isRTL = document.getElementById('app')?.classList.contains('isRTL')
+    const viewportWidth = window.innerWidth
+
     let mouseDragX = e.clientX
+    if (isRTL) {
+      mouseDragX = viewportWidth - mouseDragX
+    }
     let dragging = true
 
     const onMouseMove = (e: MouseEvent) => {
       if (e.clientX !== 0) {
         mouseDragX = e.clientX
+        if (isRTL) {
+          mouseDragX = viewportWidth - e.clientX
+        }
       }
     }
 
