@@ -293,34 +293,42 @@ abstract class GlobalConfig {
       return gamingPortingToolkit
     }
 
+    logInfo('Searching for Gaming Porting Toolkit', LogPrefix.GlobalConfig)
     await execAsync('mdfind gameportingtoolkit-no-hud').then(
       async ({ stdout }) => {
         const gptNoHud = stdout
           .split('\n')
           .filter((p) => p.includes('gameportingtoolkit'))[0]
 
-        // get the directory and add the binaries 'gameportingtoolkit-no-hud' and 'gameportingtoolkit' and 'gameportingtoolkit-no-esync' to the set
-        const gptHud = join(dirname(gptNoHud), 'gameportingtoolkit')
-        const gptNoEsync = join(
-          dirname(gptNoHud),
-          'gameportingtoolkit-no-esync'
-        )
+        if (gptNoHud) {
+          logInfo(
+            `Found Gaming Porting Toolkit at ${dirname(gptNoHud)}`,
+            LogPrefix.GlobalConfig
+          )
 
-        gamingPortingToolkit.add({
-          bin: gptNoHud,
-          name: `Gaming Porting Toolkit No Hud`,
-          type: 'toolkit'
-        })
-        gamingPortingToolkit.add({
-          bin: gptHud,
-          name: `Gaming Porting Toolkit With Hud`,
-          type: 'toolkit'
-        })
-        gamingPortingToolkit.add({
-          bin: gptNoEsync,
-          name: `Gaming Porting Toolkit No Esync`,
-          type: 'toolkit'
-        })
+          // get the directory and add the binaries 'gameportingtoolkit-no-hud' and 'gameportingtoolkit' and 'gameportingtoolkit-no-esync' to the set
+          const gptHud = join(dirname(gptNoHud), 'gameportingtoolkit')
+          const gptNoEsync = join(
+            dirname(gptNoHud),
+            'gameportingtoolkit-no-esync'
+          )
+
+          gamingPortingToolkit.add({
+            bin: gptNoHud,
+            name: `Gaming Porting Toolkit No Hud`,
+            type: 'toolkit'
+          })
+          gamingPortingToolkit.add({
+            bin: gptHud,
+            name: `Gaming Porting Toolkit With Hud`,
+            type: 'toolkit'
+          })
+          gamingPortingToolkit.add({
+            bin: gptNoEsync,
+            name: `Gaming Porting Toolkit No Esync`,
+            type: 'toolkit'
+          })
+        }
       }
     )
     return gamingPortingToolkit
