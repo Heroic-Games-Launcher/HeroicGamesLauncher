@@ -25,7 +25,8 @@ import {
   quoteIfNecessary,
   errorHandler,
   removeQuoteIfNecessary,
-  memoryLog
+  memoryLog,
+  spawnAsync
 } from './utils'
 import {
   logDebug,
@@ -519,6 +520,25 @@ function launchCleanup(rpcClient?: RpcClient) {
     logInfo('Stopped Discord Rich Presence', LogPrefix.Backend)
   }
 }
+
+export async function runToolkitCommand(
+  gameSettings: GameSettings,
+  command: string
+): Promise<{ stderr: string; stdout: string }> {
+  const {
+    winePrefix = defaultWinePrefix,
+    wineVersion: { bin: wineBin }
+  } = gameSettings
+
+  logInfo(
+    `Running App using Apple's Gaming Toolkit: ${wineBin} ${winePrefix} ${command}`,
+    LogPrefix.Backend
+  )
+  const { stderr, stdout } = await spawnAsync(wineBin, [winePrefix, command])
+
+  return { stderr, stdout }
+}
+
 async function runWineCommand({
   gameSettings,
   commandParts,

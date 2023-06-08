@@ -111,7 +111,7 @@ import {
 } from './logger/logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
 import { getFonts } from 'font-list'
-import { runWineCommand, verifyWinePrefix } from './launcher'
+import { runToolkitCommand, runWineCommand, verifyWinePrefix } from './launcher'
 import shlex from 'shlex'
 import { initQueue } from './downloadmanager/downloadqueue'
 import {
@@ -574,6 +574,10 @@ async function runWineCommandOnGame(
   }
   const { folder_name } = gameManagerMap[runner].getGameInfo(appName)
   const gameSettings = await gameManagerMap[runner].getSettings(appName)
+
+  if (gameSettings.wineVersion.type === 'toolkit') {
+    return runToolkitCommand(gameSettings, commandParts[0])
+  }
 
   return runWineCommand({
     gameSettings,
