@@ -554,11 +554,11 @@ async function runWineCommand({
     : GlobalConfig.get().getSettings()
   const { wineVersion, winePrefix } = settings
 
-  if (
-    !skipPrefixCheckIKnowWhatImDoing &&
-    wineVersion.type !== 'crossover' &&
-    wineVersion.type !== 'toolkit'
-  ) {
+  if (wineVersion.type === 'toolkit') {
+    return runToolkitCommand(settings, commandParts[0])
+  }
+
+  if (!skipPrefixCheckIKnowWhatImDoing && wineVersion.type !== 'crossover') {
     let requiredPrefixFiles = [
       'dosdevices',
       'drive_c',
