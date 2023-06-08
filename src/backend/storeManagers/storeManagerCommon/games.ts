@@ -17,7 +17,7 @@ import { access, chmod } from 'fs/promises'
 import shlex from 'shlex'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { createAbortController } from '../../utils/aborthandler/aborthandler'
-import { BrowserWindow } from 'electron'
+import { BrowserWindow, Menu } from 'electron'
 import { gameManagerMap } from '../index'
 
 async function getAppSettings(appName: string): Promise<GameSettings> {
@@ -41,11 +41,23 @@ const openNewBrowserGameWindow = async (
     const browserGame = new BrowserWindow({
       icon: icon,
       fullscreen: true,
+      autoHideMenuBar: true,
       webPreferences: {
         partition: `persist:${hostname}`
       }
     })
 
+    browserGame.setMenu(
+      Menu.buildFromTemplate([
+        { role: 'close' },
+        { role: 'reload' },
+        { role: 'togglefullscreen' },
+        { role: 'toggleDevTools' }
+      ])
+    )
+    browserGame.menuBarVisible = false
+    browserGame.webContents.userAgent =
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'
     browserGame.loadURL(browserUrl)
     browserGame.on('ready-to-show', () => browserGame.show())
 
