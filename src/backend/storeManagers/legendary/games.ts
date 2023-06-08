@@ -851,10 +851,18 @@ export async function launch(
         ? wineExec.replaceAll("'", '')
         : wineExec
 
+    const wineFlagsObj = {
+      proton: ['--no-wine', '--wrapper', `'${wineBin}' run`],
+      wine: ['--wine', wineBin],
+      toolkit: [
+        '--wrapper',
+        `${wineBin} ${gameSettings.winePrefix}`,
+        '--no-wine'
+      ]
+    }
+
     wineFlag.push(
-      ...(wineType === 'proton'
-        ? ['--no-wine', '--wrapper', `'${wineBin}' run`]
-        : ['--wine', wineBin])
+      ...(wineFlagsObj[wineType as keyof typeof wineFlagsObj] || [])
     )
   }
 

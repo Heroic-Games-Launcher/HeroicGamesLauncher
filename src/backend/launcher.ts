@@ -164,6 +164,13 @@ async function prepareWineLaunch(
     GameConfig.get(appName).config ||
     (await GameConfig.get(appName).getSettings())
 
+  if (gameSettings.wineVersion.type === 'toolkit') {
+    return {
+      success: true,
+      envVars: {}
+    }
+  }
+
   if (!(await validWine(gameSettings.wineVersion))) {
     const defaultWine = GlobalConfig.get().getSettings().wineVersion
     // now check if the default wine is valid as well
@@ -457,6 +464,11 @@ export async function verifyWinePrefix(
 ): Promise<{ res: ExecResult; updated: boolean }> {
   const { winePrefix = defaultWinePrefix, wineVersion } = settings
 
+  // if type === 'toolkit', we don't need to verify the prefix
+  if (wineVersion.type === 'toolkit') {
+    return { res: { stdout: '', stderr: '' }, updated: false }
+  }
+
   const isValidWine = await validWine(wineVersion)
 
   if (!isValidWine) {
@@ -522,7 +534,11 @@ async function runWineCommand({
     : GlobalConfig.get().getSettings()
   const { wineVersion, winePrefix } = settings
 
-  if (!skipPrefixCheckIKnowWhatImDoing && wineVersion.type !== 'crossover') {
+  if (
+    !skipPrefixCheckIKnowWhatImDoing &&
+    wineVersion.type !== 'crossover' &&
+    wineVersion.type !== 'toolkit'
+  ) {
     let requiredPrefixFiles = [
       'dosdevices',
       'drive_c',
