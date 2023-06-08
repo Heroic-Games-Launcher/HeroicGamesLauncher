@@ -286,6 +286,46 @@ abstract class GlobalConfig {
     return crossover
   }
 
+  public async getGamingPortingToolkit(): Promise<Set<WineInstallation>> {
+    const gamingPortingToolkit = new Set<WineInstallation>()
+
+    if (!isMac) {
+      return gamingPortingToolkit
+    }
+
+    await execAsync('mdfind gameportingtoolkit-no-hud').then(
+      async ({ stdout }) => {
+        const gptNoHud = stdout
+          .split('\n')
+          .filter((p) => p.includes('gameportingtoolkit'))[0]
+
+        // get the directory and add the binaries 'gameportingtoolkit-no-hud' and 'gameportingtoolkit' and 'gameportingtoolkit-no-esync' to the set
+        const gptHud = join(dirname(gptNoHud), 'gameportingtoolkit')
+        const gptNoEsync = join(
+          dirname(gptNoHud),
+          'gameportingtoolkit-no-esync'
+        )
+
+        gamingPortingToolkit.add({
+          bin: gptNoHud,
+          name: `Gaming Porting Toolkit No Hud`,
+          type: 'toolkit'
+        })
+        gamingPortingToolkit.add({
+          bin: gptHud,
+          name: `Gaming Porting Toolkit With Hud`,
+          type: 'toolkit'
+        })
+        gamingPortingToolkit.add({
+          bin: gptNoEsync,
+          name: `Gaming Porting Toolkit No Esync`,
+          type: 'toolkit'
+        })
+      }
+    )
+    return gamingPortingToolkit
+  }
+
   public async getMacOsWineSet(): Promise<Set<WineInstallation>> {
     if (!isMac) {
       return new Set<WineInstallation>()
@@ -294,7 +334,13 @@ abstract class GlobalConfig {
     const crossover = await this.getCrossover()
     const wineOnMac = await this.getWineOnMac()
     const wineskinWine = await this.getWineskinWine()
-    return new Set([...crossover, ...wineOnMac, ...wineskinWine])
+    const gamingPortingToolkit = await this.getGamingPortingToolkit()
+    return new Set([
+      ...gamingPortingToolkit,
+      ...crossover,
+      ...wineOnMac,
+      ...wineskinWine
+    ])
   }
 
   /**
