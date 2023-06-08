@@ -337,7 +337,7 @@ export interface ProductsEndpointData {
   title: string
   purchase_link: string
   slug: string
-  conent_system_compatibility: {
+  content_system_compatibility: {
     windows: boolean
     osx: boolean
     linux: boolean

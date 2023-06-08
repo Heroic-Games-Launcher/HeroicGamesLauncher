@@ -106,6 +106,7 @@ export interface GameInfo {
   extra?: ExtraInfo
   folder_name?: string
   install: Partial<InstalledInfo>
+  installable?: boolean
   is_installed: boolean
   namespace?: string
   // NOTE: This is the save folder without any variables filled in...

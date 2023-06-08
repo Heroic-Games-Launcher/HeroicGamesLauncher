@@ -110,7 +110,6 @@ async function getGalaxyLibrary(
   if (page_token) {
     url.searchParams.set('page_token', page_token)
   }
-  console.log(url.toString())
   const objects: GalaxyLibraryEntry[] = []
   const data = await axios
     .get<Library>(url.toString(), { headers })
@@ -619,7 +618,7 @@ export async function gogToUnifiedInfo(
   info: GamesDBData | undefined,
   galaxyProductInfo: ProductsEndpointData | undefined
 ): Promise<GameInfo> {
-  if (!info || info.type !== 'game') {
+  if (!info || info.type !== 'game' || !info.game.visible_in_library) {
     // @ts-expect-error TODO: Handle this somehow
     return {}
   }
@@ -642,6 +641,11 @@ export async function gogToUnifiedInfo(
     install: {
       is_dlc: false
     },
+    installable:
+      (galaxyProductInfo?.content_system_compatibility.osx ||
+        galaxyProductInfo?.content_system_compatibility.windows ||
+        galaxyProductInfo?.content_system_compatibility.linux) ??
+      false,
     is_installed: false,
     namespace: galaxyProductInfo?.slug,
     save_folder: '',
