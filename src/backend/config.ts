@@ -327,7 +327,7 @@ abstract class GlobalConfig {
     await execAsync('mdfind wine64').then(async ({ stdout }) => {
       const wineBin = stdout
         .split('\n')
-        .filter((p) => p.includes('bin/wine64'))[0]
+        .filter((p) => p.includes('game-porting-toolkit/1.0/bin/wine64'))[0]
       if (existsSync(wineBin)) {
         try {
           const { stdout: out } = await execAsync(`'${wineBin}' --version`)
