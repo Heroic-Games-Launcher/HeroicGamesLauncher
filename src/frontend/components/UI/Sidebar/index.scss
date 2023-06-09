@@ -166,8 +166,16 @@
   }
 
   .currentDownloads {
+    margin: 0;
+
     .statusIcon {
       display: block;
+      text-align: center;
+
+      .MuiBadge-root > .MuiBadge-badge {
+        font-family: var(--primary-font-family);
+        right: 12px;
+      }
     }
     .full-size {
       display: none;
