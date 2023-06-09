@@ -51,6 +51,7 @@ export default function GamesSettings({ useDetails = true }: Props) {
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
   const [nativeGame, setNativeGame] = useState(false)
   const isLinux = platform === 'linux'
+  const isWin = platform === 'win32'
   const isCrossover = wineVersion?.type === 'crossover'
   const hasCloudSaves =
     gameInfo?.cloud_save_enabled && gameInfo.install.platform !== 'linux'
@@ -125,15 +126,15 @@ export default function GamesSettings({ useDetails = true }: Props) {
 
         {!nativeGame && <EnableDXVKFpsLimit />}
 
-        {isLinux && !nativeGame && (
+        {!isWin && !nativeGame && (
           <>
-            <PreferSystemLibs />
-
             <EnableEsync />
 
             {isLinux && (
               <>
                 <EnableFsync />
+
+                <PreferSystemLibs />
 
                 <EnableFSR />
 

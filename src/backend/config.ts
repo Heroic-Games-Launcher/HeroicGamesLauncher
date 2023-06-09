@@ -306,26 +306,9 @@ abstract class GlobalConfig {
             LogPrefix.GlobalConfig
           )
 
-          // get the directory and add the binaries 'gameportingtoolkit-no-hud' and 'gameportingtoolkit' and 'gameportingtoolkit-no-esync' to the set
-          const gptHud = join(dirname(gptNoHud), 'gameportingtoolkit')
-          const gptNoEsync = join(
-            dirname(gptNoHud),
-            'gameportingtoolkit-no-esync'
-          )
-
           gamingPortingToolkit.add({
             bin: gptNoHud,
-            name: `Gaming Porting Toolkit No Hud`,
-            type: 'toolkit'
-          })
-          gamingPortingToolkit.add({
-            bin: gptHud,
-            name: `Gaming Porting Toolkit With Hud`,
-            type: 'toolkit'
-          })
-          gamingPortingToolkit.add({
-            bin: gptNoEsync,
-            name: `Gaming Porting Toolkit No Esync`,
+            name: `Gaming Toolkit Script`,
             type: 'toolkit'
           })
         }
@@ -344,14 +327,14 @@ abstract class GlobalConfig {
     await execAsync('mdfind wine64').then(async ({ stdout }) => {
       const wineBin = stdout
         .split('\n')
-        .filter((p) => p.includes('game-porting-toolkit'))[0]
+        .filter((p) => p.includes('bin/wine64'))[0]
       if (existsSync(wineBin)) {
         try {
           const { stdout: out } = await execAsync(`'${wineBin}' --version`)
           const version = out.split('\n')[0]
           gamingPortingToolkitWine.add({
             ...this.getWineExecs(wineBin),
-            name: `Game Porting Toolkit Wine - ${version}`,
+            name: `Gaming Toolkit Standalone Wine - ${version}`,
             type: 'wine',
             bin: wineBin
           })

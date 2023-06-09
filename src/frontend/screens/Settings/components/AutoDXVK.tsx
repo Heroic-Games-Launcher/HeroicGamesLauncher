@@ -17,8 +17,6 @@ const AutoDXVK = () => {
   const { appName } = useContext(SettingsContext)
   const [installingDxvk, setInstallingDxvk] = React.useState(false)
 
-  console.log('wineVersion', wineVersion)
-
   if (wineVersion.type !== 'wine' || wineVersion.bin.includes('toolkit')) {
     return <></>
   }
