@@ -10,15 +10,10 @@
   flex-direction: column;
   border-radius: var(--space-3xs);
   animation: fade-in 0.1s ease-in;
-  aspect-ratio: 173/275;
-}
-
-.gameCard.gamepad {
-  aspect-ratio: 3/4;
 }
 
 .gameCard:focus-within {
-  outline: -webkit-focus-ring-color auto 1px;
+  outline: var(--accent) auto 1px;
 }
 
 .gameCard > .gameCardStatus {
