@@ -334,6 +334,39 @@ abstract class GlobalConfig {
     return gamingPortingToolkit
   }
 
+  public async getGamingPortingToolkitWine(): Promise<Set<WineInstallation>> {
+    const gamingPortingToolkitWine = new Set<WineInstallation>()
+    if (!isMac) {
+      return gamingPortingToolkitWine
+    }
+
+    logInfo('Searching for Gaming Porting Toolkit Wine', LogPrefix.GlobalConfig)
+    await execAsync('mdfind wine64').then(async ({ stdout }) => {
+      const wineBin = stdout
+        .split('\n')
+        .filter((p) => p.includes('game-porting-toolkit'))[0]
+      if (existsSync(wineBin)) {
+        try {
+          const { stdout: out } = await execAsync(`'${wineBin}' --version`)
+          const version = out.split('\n')[0]
+          gamingPortingToolkitWine.add({
+            ...this.getWineExecs(wineBin),
+            name: `Game Porting Toolkit Wine - ${version}`,
+            type: 'wine',
+            bin: wineBin
+          })
+        } catch (error) {
+          logError(
+            `Error getting wine version for ${wineBin}`,
+            LogPrefix.GlobalConfig
+          )
+        }
+      }
+    })
+
+    return gamingPortingToolkitWine
+  }
+
   public async getMacOsWineSet(): Promise<Set<WineInstallation>> {
     if (!isMac) {
       return new Set<WineInstallation>()
@@ -343,8 +376,11 @@ abstract class GlobalConfig {
     const wineOnMac = await this.getWineOnMac()
     const wineskinWine = await this.getWineskinWine()
     const gamingPortingToolkit = await this.getGamingPortingToolkit()
+    const gamingPortingToolkitWine = await this.getGamingPortingToolkitWine()
+
     return new Set([
       ...gamingPortingToolkit,
+      ...gamingPortingToolkitWine,
       ...crossover,
       ...wineOnMac,
       ...wineskinWine

@@ -141,6 +141,15 @@ export const DXVK = {
       return true
     }
 
+    if (gameSettings.wineVersion.bin.includes('toolkit')) {
+      logWarning(
+        'Skipping DXVK install on Game Porting Toolkit prefix!',
+        LogPrefix.DXVKInstaller
+      )
+      // will return true anyway because otherwise the toggle will be stuck and the prefix might just not be crated yet.
+      return true
+    }
+
     tool = isMac ? 'dxvk-macOS' : tool
 
     if (!existsSync(`${toolsPath}/${tool}/latest_${tool}`)) {
