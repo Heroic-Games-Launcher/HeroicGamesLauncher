@@ -153,6 +153,7 @@
 
 .Sidebar.collapsed {
   .heroicVersion {
+    display: inherit;
     margin: var(--space-sm);
     font-size: var(--text-xs);
     text-align: center;
