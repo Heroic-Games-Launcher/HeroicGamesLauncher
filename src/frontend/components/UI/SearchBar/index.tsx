@@ -33,8 +33,6 @@ export default React.memo(function SearchBar() {
   const input = useRef<HTMLInputElement>(null)
 
   const list = useMemo(() => {
-    // Set can't handle spread of undefined. Leading to
-    // TypeError. If undefined we just pass empty array.
     return [
       ...(epic.library ?? []),
       ...(gog.library ?? []),
