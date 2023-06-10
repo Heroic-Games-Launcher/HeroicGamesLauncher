@@ -18,7 +18,7 @@
   height: min(calc(1vw + 9px), 36px);
   min-width: 22px;
   min-height: 22px;
-  margin-left: 12px;
+  margin-inline-start: 12px;
 }
 
 .wineManagerListItem {
@@ -50,8 +50,8 @@
 }
 
 .wineManagerListItem > .icons > button {
-  margin-left: 0;
-  padding-left: 4px;
+  margin-inline-start: 0;
+  padding-inline-start: 4px;
 }
 
 .wineManagerListItem > .progress {
@@ -101,7 +101,7 @@
   line-height: 26px;
   font-family: var(--secondary-font-family);
   cursor: pointer;
-  text-align: left;
+  text-align: start;
 }
 
 .react-contextmenu-item:hover {

@@ -30,6 +30,8 @@ import * as GogLibraryManager from '../../storeManagers/gog/library'
  * @public
  */
 async function addShortcuts(gameInfo: GameInfo, fromMenu?: boolean) {
+  if (gameInfo.install.is_dlc) return
+
   const { app_name, runner, title } = gameInfo
 
   logInfo(`Adding shortcuts for ${title}`, LogPrefix.Backend)
@@ -115,6 +117,8 @@ Categories=Game;
  * @public
  */
 async function removeShortcuts(gameInfo: GameInfo) {
+  if (gameInfo.install.is_dlc) return
+
   const [desktopFile, menuFile] = shortcutFiles(gameInfo.title)
 
   if (desktopFile) {

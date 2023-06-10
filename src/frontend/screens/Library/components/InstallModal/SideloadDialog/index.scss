@@ -8,7 +8,8 @@
   }
 
   .imageIcons {
-    margin: var(--space-lg) var(--space-lg) 0 0;
+    margin-block: var(--space-lg) 0;
+    margin-inline: 0 var(--space-lg);
     width: min-content;
   }
 

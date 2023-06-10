@@ -62,7 +62,7 @@
 }
 
 .loginInstructions .login-link h6 {
-  padding-left: 0px;
+  padding-inline-start: 0px;
 }
 
 .loginInstructions .icon-button {
@@ -87,7 +87,7 @@
 }
 
 .loginInstructions li {
-  text-align: left;
+  text-align: start;
 }
 
 .sid-modal > .sid-input {

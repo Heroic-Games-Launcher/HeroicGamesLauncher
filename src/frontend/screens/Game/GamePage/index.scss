@@ -19,7 +19,7 @@
       font-size: var(--text-xl);
       line-height: 30px;
       color: var(--text-default);
-      text-align: left;
+      text-align: start;
       flex-basis: 100%;
       align-self: center;
     }
@@ -93,7 +93,7 @@
       .gameTools .link {
         width: 100%;
         padding: 0 0 0.5rem;
-        text-align: left;
+        text-align: start;
         white-space: nowrap;
         font-size: 1rem;
         background: var(--navbar-background);
@@ -135,9 +135,24 @@
       border-radius: 10px;
 
       &.gogIcon {
-        padding: 0px var(--space-3xs) var(--space-3xs) var(--space-3xs);
+        padding: 0px var(--space-3xs) var(--space-3xs);
       }
     }
+  }
+}
+
+.isRTL {
+  .gameTools {
+    right: auto !important;
+    left: 0px;
+  }
+  .settings-icon {
+    right: auto !important;
+    left: 6px;
+  }
+  .store-icon {
+    left: auto !important;
+    right: 1rem;
   }
 }
 
@@ -172,6 +187,12 @@
   }
 }
 
+.isRTL .backButton {
+  right: 12px;
+  left: auto;
+  transform: scaleX(-100%);
+}
+
 .gameInfo {
   text-align: initial;
   align-self: flex-start;
@@ -183,7 +204,8 @@
   max-height: 100vh;
   overflow-y: auto;
   user-select: text;
-  padding: 0 2.2em 4rem 1.2em;
+  padding-block: 0 4rem;
+  padding-inline: 1.2em 2.2em;
 
   .title {
     font-weight: var(--bold);
@@ -215,7 +237,7 @@
       align-items: center;
 
       svg {
-        margin-right: var(--space-3xs);
+        margin-inline-end: var(--space-3xs);
       }
     }
   }
@@ -226,7 +248,7 @@
   }
 
   .developer {
-    padding: var(--space-md-fixed) 0 var(--space-md-fixed) 0;
+    padding: var(--space-md-fixed) 0;
     color: var(--text-default);
   }
 
@@ -269,7 +291,7 @@
     }
 
     & svg {
-      margin-right: 0.4em;
+      margin-inline-end: 0.4em;
     }
   }
 }
@@ -282,8 +304,8 @@
 .gamePageStoreIcon {
   fill: var(--text-default);
   flex-grow: 1;
-  text-align: right;
-  padding-right: var(--space-sm);
+  text-align: end;
+  padding-inline-end: var(--space-sm);
 
   & > svg {
     width: var(--text-5xl);
@@ -354,10 +376,6 @@
   &:hover {
     color: var(--download-button);
   }
-}
-
-.itemName {
-  margin-left: 4px;
 }
 
 .MuiIconButton-colorPrimary,

@@ -1,6 +1,6 @@
 .Dialog {
   padding: 0;
-  text-align: left;
+  text-align: start;
 
   --dialog-margin-horizontal: 32px;
   --dialog-margin-vertical: 24px;
@@ -39,6 +39,7 @@
   padding: var(--dialog-margin-vertical) 16px 0 var(--dialog-margin-horizontal);
   font-size: var(--text-xl);
   margin: var(--space-lg) 0 0;
+  text-align: start;
 }
 
 .Dialog__Close {
