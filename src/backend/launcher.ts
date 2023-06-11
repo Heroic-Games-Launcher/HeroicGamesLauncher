@@ -120,7 +120,7 @@ async function prepareLaunch(
     (isNative || gameSettings.wineVersion.type === 'proton')
   if (shouldUseRuntime) {
     // for native games lets use scout for now
-    const runtimeType = isNative ? 'scout' : 'soldier'
+    const runtimeType = isNative ? 'scout' : 'sniper'
     const { path, args } = await getSteamRuntime(runtimeType)
     if (!path) {
       return {
@@ -128,7 +128,7 @@ async function prepareLaunch(
         failureReason:
           'Steam Runtime is enabled, but no runtimes could be found\n' +
           `Make sure Steam ${
-            isNative ? 'is' : 'and the "SteamLinuxRuntime - Soldier" are'
+            isNative ? 'is' : 'and the "SteamLinuxRuntime - Sniper" are'
           } installed`
       }
     }

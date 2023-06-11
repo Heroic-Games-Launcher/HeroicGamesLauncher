@@ -586,13 +586,13 @@ async function searchForExecutableOnPath(executable: string): Promise<string> {
   }
 }
 async function getSteamRuntime(
-  requestedType: 'scout' | 'soldier'
+  requestedType: 'scout' | 'sniper'
 ): Promise<SteamRuntime> {
   const steamLibraries = await getSteamLibraries()
   const runtimeTypes: SteamRuntime[] = [
     {
-      path: 'steamapps/common/SteamLinuxRuntime_soldier/run',
-      type: 'soldier',
+      path: 'steamapps/common/SteamLinuxRuntime_sniper/run',
+      type: 'sniper',
       args: ['--']
     },
     {
