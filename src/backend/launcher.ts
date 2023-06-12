@@ -534,11 +534,18 @@ export async function runToolkitCommand(
     wineVersion: { bin: wineBin }
   } = gameSettings
 
+  const env_vars = {
+    ...process.env,
+    ...setupEnvVars(gameSettings)
+  }
+
   logInfo(
     `Running App using Apple's Gaming Toolkit: ${wineBin} ${winePrefix} ${command}`,
     LogPrefix.Backend
   )
-  const { stderr, stdout } = await spawnAsync(wineBin, [winePrefix, command])
+  const { stderr, stdout } = await spawnAsync(wineBin, [winePrefix, command], {
+    env: env_vars
+  })
 
   return { stderr, stdout }
 }

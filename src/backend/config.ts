@@ -308,7 +308,7 @@ abstract class GlobalConfig {
           )
 
           gamingPortingToolkit.add({
-            bin: stdout,
+            bin: stdout.replace('\n', ''),
             name: `Gaming Toolkit Script`,
             type: 'toolkit'
           })
