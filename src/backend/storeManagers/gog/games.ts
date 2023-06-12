@@ -78,10 +78,13 @@ export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
     targetPlatform = 'windows'
   }
 
+  const reqs = await createReqsArray(appName, targetPlatform)
+  const storeUrl = (await getGamesData(appName))?._links.store.href
+
   const extra: ExtraInfo = {
     about: gameInfo.extra?.about,
-    reqs: await createReqsArray(appName, targetPlatform),
-    storeUrl: (await getGamesData(appName))?._links.store.href
+    reqs,
+    storeUrl
   }
   return extra
 }

@@ -133,7 +133,7 @@
     },
     "label": {
         "game": {
-            "not-installable-game": "",
+            "not-installable-game": "Game is NOT Installable",
             "third-party-game": "Third-Party Game NOT Supported"
         },
         "launching": "Launching",

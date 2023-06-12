@@ -155,9 +155,10 @@ const GameCard = ({
     if (!isInstallable) {
       return (
         <FontAwesomeIcon
-          title={
-            (t('label.game.not-installable-game'), 'Game is NOT Installable')
-          }
+          title={t(
+            'label.game.not-installable-game',
+            'Game is NOT Installable'
+          )}
           className="downIcon"
           icon={faBan}
         />
