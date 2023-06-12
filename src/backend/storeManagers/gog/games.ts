@@ -38,7 +38,7 @@ import {
 } from 'common/types'
 import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
 import { gamesConfigPath, isWindows, isMac, isLinux } from '../../constants'
-import { installedGamesStore, syncStore } from './electronStores'
+import { configStore, installedGamesStore, syncStore } from './electronStores'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import { GOGUser } from './user'
 import {
@@ -58,12 +58,18 @@ import {
 import setup from './setup'
 import { removeNonSteamGame } from '../../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
-import { GOGCloudSavesLocation, GogInstallPlatform } from 'common/types/gog'
+import {
+  GOGCloudSavesLocation,
+  GogInstallPlatform,
+  UserData
+} from 'common/types/gog'
 import { t } from 'i18next'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { sendFrontendMessage } from '../../main_window'
 import { RemoveArgs } from 'common/types/game_manager'
 import { logFileLocation } from 'backend/storeManagers/storeManagerCommon/games'
+import axios from 'axios'
+import { isOnline } from 'backend/online_monitor'
 
 export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   const gameInfo = getGameInfo(appName)
@@ -877,4 +883,63 @@ export function isGameAvailable(appName: string) {
     }
   }
   return false
+}
+
+export async function updatePlaytime(
+  appName: string,
+  startPlayingDate: Date,
+  finishedPlayingDate: Date
+) {
+  // Let server know about new session
+  const sessionDate = Math.floor(startPlayingDate.getTime() / 1000) // In seconds
+  const time = Math.floor(
+    (finishedPlayingDate.getTime() - startPlayingDate.getTime()) / 1000
+  ) // In seconds
+
+  const data = {
+    session_date: sessionDate,
+    time
+  }
+
+  if (!isOnline()) {
+    logWarning(['App offline, unable to post new session at this time'], {
+      prefix: LogPrefix.Gog
+    })
+    // TODO: Handle offline playtime
+    return
+  }
+
+  const userData: UserData | undefined = configStore.get_nodefault('userData')
+  const credentials = await GOGUser.getCredentials().catch(() => null)
+
+  if (!userData || !credentials) {
+    logError(
+      "No userData in config or couldn't fetch credentials, unable to post new session",
+      {
+        prefix: LogPrefix.Gog
+      }
+    )
+    return
+  }
+
+  const response = await axios
+    .post(
+      `https://gameplay.gog.com/games/${appName}/users/${userData?.galaxyUserId}/sessions`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${credentials.access_token}`
+        }
+      }
+    )
+    .catch(() => {
+      return null
+    })
+
+  if (!response || response.status !== 201) {
+    logError('Failed to post session', { prefix: LogPrefix.Gog })
+    return
+  }
+
+  logInfo('Posted session to gameplay.gog.com', { prefix: LogPrefix.Gog })
 }

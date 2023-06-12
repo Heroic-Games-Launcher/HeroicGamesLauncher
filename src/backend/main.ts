@@ -1051,6 +1051,10 @@ ipcMain.handle(
       sessionPlaytime + tsStore.get(`${appName}.totalPlayed`, 0)
     tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
 
+    if (runner === 'gog') {
+      await updatePlaytime(appName, startPlayingDate, finishedPlayingDate)
+    }
+
     await addRecentGame(game)
 
     if (autoSyncSaves && isOnline()) {
@@ -1682,3 +1686,4 @@ import './downloadmanager/ipc_handler'
 import './utils/ipc_handler'
 import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
+import { updatePlaytime } from './storeManagers/gog/games'
