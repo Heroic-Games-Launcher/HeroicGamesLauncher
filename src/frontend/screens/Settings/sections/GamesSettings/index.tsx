@@ -122,7 +122,7 @@ export default function GamesSettings({ useDetails = true }: Props) {
       >
         <AlternativeExe />
 
-        {!nativeGame && <ShowFPS />}
+        <ShowFPS />
 
         {!nativeGame && <EnableDXVKFpsLimit />}
 

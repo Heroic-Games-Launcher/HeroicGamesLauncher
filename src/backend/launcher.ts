@@ -259,6 +259,10 @@ function setupEnvVars(gameSettings: GameSettings) {
     ret.__GLX_VENDOR_LIBRARY_NAME = 'nvidia'
   }
 
+  if (isMac && gameSettings.showFps) {
+    ret.MTL_HUD_ENABLED = '1'
+  }
+
   if (gameSettings.enviromentOptions) {
     gameSettings.enviromentOptions.forEach((envEntry: EnviromentVariable) => {
       ret[envEntry.key] = removeQuoteIfNecessary(envEntry.value)
