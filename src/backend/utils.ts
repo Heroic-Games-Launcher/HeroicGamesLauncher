@@ -388,6 +388,8 @@ async function errorHandler({
   const deletedFolderMsg = 'appears to be deleted'
   const expiredCredentials = 'No saved credentials'
   const legendaryRegex = /legendary.*\.py/
+  // this message appears on macOS when no Crossover was found in the system but its a false alarm
+  const ignoreMessage = 'IndexError: list index out of range'
 
   if (logPath) {
     execAsync(`tail "${logPath}" | grep 'disk space'`)
@@ -410,6 +412,9 @@ async function errorHandler({
       })
   }
   if (error) {
+    if (error.includes(ignoreMessage)) {
+      return
+    }
     if (error.includes(deletedFolderMsg) && appName) {
       const runner = r.toLocaleLowerCase() as Runner
       const { title } = gameManagerMap[runner].getGameInfo(appName)
