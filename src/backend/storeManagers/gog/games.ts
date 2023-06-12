@@ -893,8 +893,10 @@ export async function updatePlaytime(
   // Let server know about new session
   const sessionDate = Math.floor(startPlayingDate.getTime() / 1000) // In seconds
   const time = Math.floor(
-    (finishedPlayingDate.getTime() - startPlayingDate.getTime()) / 1000
-  ) // In seconds
+    (finishedPlayingDate.getTime() - startPlayingDate.getTime()) / 1000 / 60
+  ) // In minutes
+
+  if (time < 1) return
 
   const data = {
     session_date: sessionDate,
