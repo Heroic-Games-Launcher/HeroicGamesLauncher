@@ -133,6 +133,10 @@ import {
 } from './main_window'
 
 import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
+import {
+  getGOGPlaytime,
+  updateGOGPlaytime
+} from 'backend/storeManagers/gog/games'
 import * as LegendaryLibraryManager from 'backend/storeManagers/legendary/library'
 import {
   autoUpdate,
@@ -1052,7 +1056,7 @@ ipcMain.handle(
     tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
 
     if (runner === 'gog') {
-      await updatePlaytime(appName, startPlayingDate, finishedPlayingDate)
+      await updateGOGPlaytime(appName, startPlayingDate, finishedPlayingDate)
     }
 
     await addRecentGame(game)
@@ -1667,6 +1671,17 @@ ipcMain.on('processShortcut', async (e, combination: string) => {
   }
 })
 
+ipcMain.handle(
+  'getPlaytimeFromRunner',
+  async (e, runner, appName): Promise<number | undefined> => {
+    if (runner === 'gog') {
+      return getGOGPlaytime(appName)
+    }
+
+    return
+  }
+)
+
 /*
   Other Keys that should go into translation files:
   t('box.error.generic.title')
@@ -1686,4 +1701,3 @@ import './downloadmanager/ipc_handler'
 import './utils/ipc_handler'
 import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
-import { updatePlaytime } from './storeManagers/gog/games'

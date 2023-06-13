@@ -639,7 +639,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   </PopoverComponent>
                 )}
               </div>
-              <TimeContainer game={appName} />
+              <TimeContainer runner={runner} game={appName} />
               <div className="gameStatus">
                 {(isInstalling || isUpdating) && (
                   <progress

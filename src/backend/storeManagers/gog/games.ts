@@ -885,7 +885,7 @@ export function isGameAvailable(appName: string) {
   return false
 }
 
-export async function updatePlaytime(
+export async function updateGOGPlaytime(
   appName: string,
   startPlayingDate: Date,
   finishedPlayingDate: Date
@@ -896,7 +896,10 @@ export async function updatePlaytime(
     (finishedPlayingDate.getTime() - startPlayingDate.getTime()) / 1000 / 60
   ) // In minutes
 
-  if (time < 1) return
+  // It makes no sense to post 0 minutes of playtime
+  if (time < 1) {
+    return
+  }
 
   const data = {
     session_date: sessionDate,
@@ -944,4 +947,35 @@ export async function updatePlaytime(
   }
 
   logInfo('Posted session to gameplay.gog.com', { prefix: LogPrefix.Gog })
+}
+
+export async function getGOGPlaytime(
+  appName: string
+): Promise<number | undefined> {
+  if (!isOnline()) {
+    return
+  }
+  const credentials = await GOGUser.getCredentials()
+  const userData: UserData | undefined = configStore.get_nodefault('userData')
+
+  if (!credentials || !userData) {
+    return
+  }
+  const response = await axios
+    .get(
+      `https://gameplay.gog.com/games/${appName}/users/${userData?.galaxyUserId}/sessions`,
+      {
+        headers: {
+          Authorization: `Bearer ${credentials.access_token}`
+        }
+      }
+    )
+    .catch(() => {
+      logWarning(['Failed attempt to get playtime of', appName], {
+        prefix: LogPrefix.Gog
+      })
+      return null
+    })
+
+  return response?.data?.time_sum
 }
