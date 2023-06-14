@@ -81,7 +81,7 @@
             "moving": "Fehler beim Verschieben des Spiels {{error}}",
             "ubisoft-connect": {
                 "title": "Ubisoft Connect",
-                "message": "Die Installation von Ubisoft Connect im Spielpräfix ist fehlgeschlagen. Schauen Sie auf unserer Wikiseite https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac nach, um es manuell zu installieren."
+                "message": "Die Installation von Ubisoft Connect im Spielpräfix ist fehlgeschlagen. Besuch unsere Wiki-Seite unter https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac, um es manuell zu installieren."
             },
             "legendary": {
                 "generic": "Ein Fehler ist aufgetreten! Versuchen Sie, sich bei Ihrem Epic-Konto abzumelden und anzumelden. {{newline}} {{error}}"
@@ -123,9 +123,9 @@
         },
         "shortcuts": {
             "message": "Verknüpfungen wurden auf dem Desktop und im Startmenü erstellt",
-            "message-mac": "Shortcuts were created on the Applications folder",
+            "message-mac": "Verknüpfungen wurden im Anwendungsordner erstellt",
             "message-remove": "Verknüpfungen wurden von Desktop und Startmenü entfernt",
-            "message-remove-mac": "Shortcuts were removed from the Applications folder",
+            "message-remove-mac": "Verknüpfungen wurden aus dem Anwendungsordner entfernt",
             "title": "Verknüpfungen"
         },
         "sync": {
@@ -231,11 +231,11 @@
     "GOG": "GOG",
     "gog-store": "GOG-Store",
     "header": {
-        "hide_non_available_games": "Hide non-available games",
+        "hide_non_available_games": "Nicht verfügbare Spiele ausblenden",
         "ignore_hidden": "Ausgeblendete ignorieren",
         "platform": "Plattform",
         "show_all_games": "Alle Spiele anzeigen",
-        "show_available_games": "Show non-Available games",
+        "show_available_games": "Nicht verfügbare Spiele anzeigen",
         "show_favourites_only": "Nur Favoriten anzeigen",
         "show_hidden": "Ausgeblendete anzeigen",
         "store": "Store filtern"
@@ -245,7 +245,7 @@
         "custom_themes_path": "Verwende kein CSS aus unbekannten Quellen. Bei Zweifeln bitte in unserem Discord-Channel um eine Überprüfung.",
         "custom_themes_wiki": "Mehr Details zum Hinzufügen von benutzerdefinierten Designs findest du im Wiki. Klick hier.",
         "dxvk": "DXVK ist eine Vulkan-basierte Übersetzungsschicht für DirectX 9, 10 und 11 Spiele. Durch Aktivieren kann die Kompatibilität verbessert werden. Kann Probleme verursachen, insbesondere bei älteren DirectX-Spielen.",
-        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
+        "dxvkfpslimit": "Setzt eine Framerate-Grenze für DXVK-Spiele",
         "esync": "Esync zielt darauf ab, den Wineserver-Overhead in CPU-intensiven Spielen zu reduzieren. Durch Aktivieren kann die Leistung verbessert werden.",
         "fsync": "Fsync zielt darauf ab, den Wineserver-Overhead in CPU-intensiven Spielen zu reduzieren. Durch Aktivieren kann die Leistung auf unterstützten Linux-Kerneln verbessert werden.",
         "game_language": {
@@ -434,7 +434,7 @@
         "alt-gogdl-bin": "Nutze eingebaute GOGDL-Binärdatei...",
         "alt-legendary-bin": "Nutze eingebaute Legendary-Binärdatei...",
         "custom_themes_path": "Wähle den Pfad für benutzerdefinierte CSS-Dateien",
-        "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
+        "dxvkfpsvalue": "Positiver ganzzahliger Wert (z. B. 30, 60, ...)",
         "egs-prefix": "Prefix, in dem EGS installiert ist",
         "prefered_language": "2-Zeichen-Code (z. B.: \"en\" oder \"fr\")"
     },
@@ -482,7 +482,7 @@
         "disable_controller": "Heroic-Navigation mit Gamepad deaktivieren",
         "discordRPC": "Discord Rich Presence aktivieren",
         "download-no-https": "Spiele ohne HTTPS herunterladen (nützlich für CDNs z. B. LanCache)",
-        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
+        "dxvkfpslimit": "FPS begrenzen (DX9, 10 und 11)",
         "egs-sync": "Mit installiertem Epic Games synchronisieren",
         "enableFSRHack": "FSR Hack aktivieren (Wine-Version muss es unterstützen)",
         "eosOverlay": {
@@ -522,7 +522,7 @@
         "log": {
             "copy-to-clipboard": "Log-Inhalt in Zwischenablage kopieren",
             "current-log": "Aktueller Log",
-            "instructions": "Tritt unserem Discord bei und suche den Kanal, der zu deinem Betriebssystem passt. Teile den Inhalt der hier angezeigten Logs und füge eine klare Beschreibung des Problems mit allen relevanten Informationen und Details hinzu.",
+            "instructions": "Tritt unserem Discord bei und suche den \"#-support\"-Kanal. Lies den angehefteten Thread \"Lies mich zuerst | Häufig gestellte Fragen\" und folge den Anweisungen, um diese Protokolle und alle relevanten Informationen zu Deinem Problem zu teilen.",
             "instructions_title": "Wie melde ich ein Problem?",
             "last-log": "Letztes Log",
             "no-file": "Keine Log-Datei gefunden",
@@ -649,13 +649,13 @@
     "Update Available!": "Update verfügbar!",
     "userselector": {
         "discord": "Discord",
-        "logging_out": "Logging out",
+        "logging_out": "Abmelden",
         "logout": "Abmelden",
         "logout_confirmation": "Möchtest du dich wirklich abmelden?",
         "manageaccounts": "Konten verwalten",
         "quit": "Beenden",
-        "cancel": "Absagen",
-        "quitMessage": "Sind Sie sicher, dass Sie aufhören wollen?"
+        "cancel": "Abbrechen",
+        "quitMessage": "Willst du Heroic wirklich beenden?"
     },
     "webview": {
         "controls": {
