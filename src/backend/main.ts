@@ -135,8 +135,10 @@ import {
 import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
 import {
   getGOGPlaytime,
+  syncQueuedPlaytimeGOG,
   updateGOGPlaytime
 } from 'backend/storeManagers/gog/games'
+import { playtimeSyncQueue } from './storeManagers/gog/electronStores'
 import * as LegendaryLibraryManager from 'backend/storeManagers/legendary/library'
 import {
   autoUpdate,
@@ -327,6 +329,10 @@ if (!gotTheLock) {
         GOGUser.getUserDetails()
       }
     })
+
+    // Make sure lock is not present when starting up
+    playtimeSyncQueue.delete('lock')
+    runOnceWhenOnline(syncQueuedPlaytimeGOG)
 
     await i18next.use(Backend).init({
       backend: {
