@@ -10,7 +10,7 @@
     "add_game": "Añadir juego",
     "All": "Todos",
     "anticheat": {
-        "anticheats": "Anticheats",
+        "anticheats": "Antitrampas",
         "may_not_work": "Puede no funcionar debido a soporte de anticheat denegado o roto.",
         "reference": "Referencia",
         "source": "Fuente",
@@ -80,7 +80,7 @@
             },
             "moving": "Error al mover el juego {{error}}",
             "ubisoft-connect": {
-                "title": "Ubisoft Connect",
+                "title": "Conectar a Ubisoft",
                 "message": "La instalación de Ubisoft Connect en el prefijo del juego ha fallado. Consulta nuestra página wiki en https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac para instalarlo manualmente."
             },
             "legendary": {
@@ -154,7 +154,7 @@
                 "title": "¡Vino no encontrado!"
             }
         },
-        "wineprefix": "Elija la carpeta de prefijos de Wine",
+        "wineprefix": "Elige la carpeta de los prefijos de Wine",
         "yes": "SÍ",
         "dontShowAgain": "no volver a mostrar"
     },
@@ -306,7 +306,7 @@
             "message": "Wine utiliza lo que se conoce como WINEPREFIX (prefijo de wine) para encapsular aplicaciones de Windows. Este prefijo contiene los archivos de configuración de Wine y una réplica de los directorios del disco C: (el disco principal en sistemas Windows). En esta réplica del disco C: se localizan los guardados del juego y las dependencias instaladas con Winetricks."
         },
         "wine-path-invalid": "La Wine Path no es válida, seleccione otra.",
-        "wine-path-none-found": "No se encontró ninguna versión de Wine, descargue una desde Wine Manager"
+        "wine-path-none-found": "No se ha encontrado ninguna versión de Wine, descarga una desde el Gestor de Wine"
     },
     "install": {
         "path": "Seleccione la ruta de instalación"
@@ -522,7 +522,7 @@
         "log": {
             "copy-to-clipboard": "Copiar el contenido del registro en el portapapeles",
             "current-log": "Registro actual",
-            "instructions": "Únete a nuestro Discord y busca el canal que corresponde a tu sistema operativo. Comparte el contenido del registro mostrado aquí, e incluye una descripción clara del problema con cualquier información relevante y detalles.",
+            "instructions": "Únete a nuestro Discord y busca la sección \"#-support\". Lee el hilo fijado \"Léeme primero | Preguntas frecuentes\" y sigue las instrucciones para compartir estos registros y cualquier información relevante sobre tu problema.",
             "instructions_title": "¿Cómo reportar un problema?",
             "last-log": "Último registro",
             "no-file": "No se ha encontrado ningún archivo de registro",
@@ -573,7 +573,7 @@
     "settings": {
         "battlEyeRuntime": {
             "installing": "Instalando runtime de BattlEye...",
-            "name": "BattlEye AntiCheat Runtime"
+            "name": "Tiempo de ejecución del sistema antitrampas de BattlEye"
         },
         "clear-cache": "Borrar la caché de Heroic",
         "copiedToClipboard": "¡Copiado en el portapapeles!",
@@ -585,7 +585,7 @@
                 "title": "Requiere GameMode"
             },
             "installing": "Instalando EAC Runtime...",
-            "name": "EasyAntiCheat Runtime"
+            "name": "Tiempo de ejecución de EasyAntiCheat"
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -684,9 +684,9 @@
         "not_found": "No pudimos encontrar información adicional."
     },
     "dlc": {
-        "actions": "Comportamiento",
-        "installDlcs": "Instalar todos los DLCs",
-        "noDlcFound": "No se encontraron DLC",
+        "actions": "Acciones",
+        "installDlcs": "Instalar todos los DLC",
+        "noDlcFound": "No se ha encontrado ningún DLC",
         "size": "Tamaño",
         "title": "Título"
     }
