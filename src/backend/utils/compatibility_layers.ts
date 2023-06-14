@@ -299,34 +299,37 @@ export async function getCrossover(): Promise<Set<WineInstallation>> {
 
   await execAsync(
     'mdfind kMDItemCFBundleIdentifier = "com.codeweavers.CrossOver"'
-  ).then(async ({ stdout }) => {
-    stdout.split('\n').forEach((crossoverMacPath) => {
-      const infoFilePath = join(crossoverMacPath, 'Contents/Info.plist')
-      if (crossoverMacPath && existsSync(infoFilePath)) {
-        const info = plistParse(
-          readFileSync(infoFilePath, 'utf-8')
-        ) as PlistObject
-        const version = info['CFBundleShortVersionString'] || ''
-        const crossoverWineBin = join(
-          crossoverMacPath,
-          'Contents/SharedSupport/CrossOver/bin/wine'
-        )
-        crossover.add({
-          bin: crossoverWineBin,
-          name: `CrossOver - ${version}`,
-          type: 'crossover',
-          ...getWineExecs(crossoverWineBin)
-        })
-      }
+  )
+    .then(async ({ stdout }) => {
+      stdout.split('\n').forEach((crossoverMacPath) => {
+        const infoFilePath = join(crossoverMacPath, 'Contents/Info.plist')
+        if (crossoverMacPath && existsSync(infoFilePath)) {
+          const info = plistParse(
+            readFileSync(infoFilePath, 'utf-8')
+          ) as PlistObject
+          const version = info['CFBundleShortVersionString'] || ''
+          const crossoverWineBin = join(
+            crossoverMacPath,
+            'Contents/SharedSupport/CrossOver/bin/wine'
+          )
+          crossover.add({
+            bin: crossoverWineBin,
+            name: `CrossOver - ${version}`,
+            type: 'crossover',
+            ...getWineExecs(crossoverWineBin)
+          })
+        }
+      })
     })
-  })
+    .catch(() => {
+      logInfo('CrossOver not found', LogPrefix.GlobalConfig)
+    })
   return crossover
 }
 
 /**
  * Detects Gaming Porting Toolkit Wine installs on Mac
  * @returns Promise<Set<WineInstallation>>
- * @memberof GlobalConfig
  **/
 export async function getGamingPortingToolkit(): Promise<
   Set<WineInstallation>
@@ -338,8 +341,8 @@ export async function getGamingPortingToolkit(): Promise<
   }
 
   logInfo('Searching for Gaming Porting Toolkit', LogPrefix.GlobalConfig)
-  await execAsync('which gameportingtoolkit-no-hud').then(
-    async ({ stdout }) => {
+  await execAsync('which gameportingtoolkit-no-hud')
+    .then(async ({ stdout }) => {
       if (stdout) {
         logInfo(
           `Found Gaming Porting Toolkit at ${dirname(stdout)}`,
@@ -352,15 +355,16 @@ export async function getGamingPortingToolkit(): Promise<
           type: 'toolkit'
         })
       }
-    }
-  )
+    })
+    .catch(() => {
+      logInfo('Gaming Porting Toolkit not found', LogPrefix.GlobalConfig)
+    })
   return gamingPortingToolkit
 }
 
 /**
  * Detects Gaming Porting Toolkit Wine installs on Mac
  * @returns Promise<Set<WineInstallation>>
- * @memberof GlobalConfig
  **/
 export async function getGamingPortingToolkitWine(): Promise<
   Set<WineInstallation>

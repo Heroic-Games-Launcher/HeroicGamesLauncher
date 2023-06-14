@@ -30,6 +30,7 @@ describe('getDefaultWine', () => {
     }
 
     // spy on the execSync calling which wine and returning /usr/bin/wine
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const execSync = jest.spyOn(require('child_process'), 'execSync')
     execSync.mockImplementation((command: any) => {
       if (command === 'which wine') {
