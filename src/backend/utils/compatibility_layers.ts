@@ -45,7 +45,7 @@ export function getDefaultWine(): WineInstallation {
   }
 }
 
-export function getCustomWinePaths(): Set<WineInstallation> {
+function getCustomWinePaths(): Set<WineInstallation> {
   const customPaths = new Set<WineInstallation>()
   // skips this on new installations to avoid infinite loops
   if (existsSync(configPath)) {
