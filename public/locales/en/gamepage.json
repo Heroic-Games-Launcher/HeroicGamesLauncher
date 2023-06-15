@@ -133,6 +133,7 @@
     },
     "label": {
         "game": {
+            "not-installable-game": "Game is NOT Installable",
             "third-party-game": "Third-Party Game NOT Supported"
         },
         "launching": "Launching",
@@ -187,6 +188,8 @@
         "downloading": "Downloading",
         "extracting": "Extracting",
         "gameNotAvailable": "Game not available",
+        "gog-goodie": "This game doesn't appear to be installable. Check downloadable content on https://gog.com/account",
+        "goodie": "Not installable",
         "hasUpdates": "New Version Available!",
         "installed": "Installed",
         "installing": "Installing",

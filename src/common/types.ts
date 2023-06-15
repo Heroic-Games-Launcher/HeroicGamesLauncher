@@ -106,6 +106,7 @@ export interface GameInfo {
   extra?: ExtraInfo
   folder_name?: string
   install: Partial<InstalledInfo>
+  installable?: boolean
   is_installed: boolean
   namespace?: string
   // NOTE: This is the save folder without any variables filled in...
@@ -260,42 +261,6 @@ export interface GOGLoginData {
   user_id: string
   loginTime: number
   error?: boolean
-}
-
-export interface GOGGameInfo {
-  isGalaxyCompatible: true
-  tags: string[]
-  id: number
-  availability: {
-    isAvailable: boolean
-    isAvailableInAccount: true
-  }
-  title: string
-  image: string
-  url: string
-  worksOn: {
-    [key in 'Windows' | 'Mac' | 'Linux']: boolean
-  }
-  category: string
-  rating: number
-  isComingSoon: boolean
-  isMovie: false
-  isGame: true
-  slug: string
-  updates: number
-  isNew: boolean
-  dlcCount: number
-  releaseDate: {
-    date: string
-    timezone_type: number
-    timezone: string
-  }
-  isBaseProductMissing: boolean
-  isHidingDisabled: boolean
-  isInDevelopment: boolean
-  extraInfo: unknown[]
-  isHidden: boolean
-  runner: 'gogdl'
 }
 
 export interface GOGImportData {

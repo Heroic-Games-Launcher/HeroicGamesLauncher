@@ -104,6 +104,9 @@ const GameCard = ({
     install: gameInstallInfo
   } = { ...gameInfoFromProps }
 
+  const isInstallable =
+    gameInfo.installable === undefined || gameInfo.installable // If it's undefined we assume it's installable
+
   const [progress, previousProgress] = hasProgress(appName)
   const { install_size: size = '0' } = {
     ...gameInstallInfo
@@ -149,6 +152,19 @@ const GameCard = ({
   }
 
   const renderIcon = () => {
+    if (!isInstallable) {
+      return (
+        <FontAwesomeIcon
+          title={t(
+            'label.game.not-installable-game',
+            'Game is NOT Installable'
+          )}
+          className="downIcon"
+          icon={faBan}
+        />
+      )
+    }
+
     if (notSupportedGame) {
       return (
         <FontAwesomeIcon
@@ -273,7 +289,7 @@ const GameCard = ({
       // install
       label: t('button.install'),
       onclick: () => buttonClick(),
-      show: !isInstalled && !isQueued
+      show: !isInstalled && !isQueued && isInstallable
     },
     {
       // cancel installation/update

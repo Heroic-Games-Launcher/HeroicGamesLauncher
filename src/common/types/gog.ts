@@ -1,4 +1,4 @@
-import { GOGGameInfo, LaunchOption } from 'common/types'
+import { LaunchOption } from 'common/types'
 
 export type GogInstallPlatform = 'windows' | 'osx' | 'linux'
 
@@ -273,27 +273,23 @@ interface Release {
   release_per_platform_id: string
 }
 
-// Data returned from https://embed.gog.com/account/getFilteredProducts?mediaType=1&sortBy=title
+// Data returned from https://galaxy-library.gog.com/users/${credentials.user_id}/releases
 export interface Library {
-  sortBy: string
-  page: number
-  totalProducts: number
-  totalPages: number
-  productsPerPage: number
-  contentSystemCompatibility: null
-  moviesCount: number
-  tags: {
-    id: string
-    name: string
-    productCount: string
-  }[]
-  products: GOGGameInfo[]
-  updatedProductsCount: number
-  hiddenUpdatedProductsCount: number
-  appliedFilters: {
-    tags: null
-  }
-  hasHiddenProducts: boolean
+  total_count: number
+  next_page_token?: string
+  page_token?: string
+  limit: number
+  items: Array<GalaxyLibraryEntry>
+}
+
+export interface GalaxyLibraryEntry {
+  platform_id: string
+  external_id: string
+  origin: string
+  owned: boolean
+  date_created: number
+  owned_since: number | null
+  certificate: string
 }
 
 // One item from https://content-system.gog.com/products/GAMEID/os/windows/builds?generation=2 endpoint
@@ -308,4 +304,90 @@ export interface BuildItem {
   date_published: string
   generation: number
   link: string
+}
+
+interface ProductsEndpointFile {
+  id: string
+  size: number
+  downlink: string
+}
+
+interface ProductsEndpointBonusContent {
+  id: number
+  name: string
+  type: string
+  count: number
+  total_size: number
+  files: Array<ProductsEndpointFile>
+}
+
+interface ProductsEndpointInstaller {
+  id: string
+  name: string
+  os: 'windows' | 'osx' | 'linux'
+  language: string
+  language_full: string
+  version: string
+  total_size: number
+  files: Array<ProductsEndpointFile>
+}
+
+export interface ProductsEndpointData {
+  id: number
+  title: string
+  purchase_link: string
+  slug: string
+  content_system_compatibility: {
+    windows: boolean
+    osx: boolean
+    linux: boolean
+  }
+  languages: { [key: string]: string }
+  links: {
+    purchase_link: string
+    product_card: string
+    support: string
+    forum: string
+  }
+  in_development: {
+    active: boolean
+    until: number | null
+  }
+  is_secret: boolean
+  is_installable: boolean
+  game_type: 'game' | 'dlc' | 'spam'
+  is_pre_order: boolean
+  release_date: string
+  images: {
+    background: string
+    logo: string
+    logo2x: string
+    icon: string
+    sidebarIcon: string
+    sidebarIcon2x: string
+    menuNotificationAv: string
+    menuNotificationAv2: string
+  }
+  dlcs: {
+    products: Array<{
+      id: number
+      link: string
+      expanded_link: string
+    }>
+    all_products_url: string
+    expanded_all_products_url: string
+  }
+  // Requires expanded description
+  description?: {
+    lead: string
+    full: string
+    whats_cool_about_it: string
+  }
+  // Requires downloads
+  downloads?: {
+    installers: Array<ProductsEndpointInstaller>
+    patches: Array<ProductsEndpointInstaller>
+    language_packs: Array<ProductsEndpointInstaller>
+    bonus_content: Array<ProductsEndpointBonusContent>
+  }
 }
