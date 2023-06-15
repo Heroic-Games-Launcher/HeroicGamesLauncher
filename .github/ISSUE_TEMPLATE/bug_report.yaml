@@ -6,11 +6,20 @@ body:
       value: |-
         ## Important: If this is a game issue, check out [our Discord server](https://discord.gg/rHJ2uqdquK) and [our Wiki](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/Troubleshooting) to get help instead!
         Examples for valid issues: "Heroic doesn't open", "This button is out of place", "Heroic closes unexpectedly", "Installs get interrupted"
+  - type: dropdown
+    id: issue_type
+    attributes:
+      label: Issue Type
+      options:
+        - Bug
+        - Feature Request
+    validations:
+      required: true
   - type: textarea
     id: bug_description
     attributes:
-      label: Describe the bug
-      description: 'A clear and concise description of what the bug is.'
+      label: Describe the issue
+      description: 'A clear and concise description of what the issue is.'
     validations:
       required: true
   - type: textarea
@@ -71,4 +80,18 @@ body:
     id: additional_info
     attributes:
       label: Additional information
-      description: Add any other context about the problem here.
+      description: Add any other context about the issue here.
+  - type: checkboxes
+    id: confirm_info
+    attributes:
+      label: Confirm all required information has been provided
+      options:
+        - value: confirm
+          label: I confirm that I have provided all required information and that this is not an issue with a game.
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |-
+        ## Warning
+        If the issue does not meet the criteria outlined above, it will be closed without further investigation.
