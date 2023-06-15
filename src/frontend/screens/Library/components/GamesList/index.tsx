@@ -95,7 +95,7 @@ const GamesList = ({
 
           let is_dlc = false
           if (gameInfo.runner !== 'sideload') {
-            is_dlc = gameInfo.install.is_dlc ?? false
+            is_dlc = gameInfo.install?.is_dlc ?? false
           }
 
           if (is_dlc) {

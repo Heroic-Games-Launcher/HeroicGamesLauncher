@@ -41,7 +41,7 @@ export default React.memo(function SearchBar() {
       .filter(Boolean)
       .filter((el) => {
         return (
-          !el.install.is_dlc &&
+          !el.install?.is_dlc &&
           new RegExp(fixFilter(filterText), 'i').test(el.title)
         )
       })
