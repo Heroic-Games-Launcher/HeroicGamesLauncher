@@ -932,10 +932,9 @@ export async function updateGOGPlaytime(
 ) {
   // Let server know about new session
   const sessionDate = Math.floor(startPlayingDate.getTime() / 1000) // In seconds
-  const time =
-    Math.floor(
-      (finishedPlayingDate.getTime() - startPlayingDate.getTime()) / 1000 / 60
-    ) + 1 // In minutes
+  const time = Math.floor(
+    (finishedPlayingDate.getTime() - startPlayingDate.getTime()) / 1000 / 60
+  ) // In minutes
 
   // It makes no sense to post 0 minutes of playtime
   if (time < 1) {
