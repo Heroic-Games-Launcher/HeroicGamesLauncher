@@ -522,7 +522,7 @@
         "log": {
             "copy-to-clipboard": "复制日志内容到剪贴板",
             "current-log": "当前日志",
-            "instructions": "加入我们的 Discord，寻找与您的操作系统匹配的频道。共享此处显示的日志内容，并包含对问题的清晰描述以及任何相关信息和细节。",
+            "instructions": "加入我们的 Discord，并搜索 \"#-support\" 部分。阅读置顶的 \"Read Me First | Frequently Asked Questions\" 帖子并遵照指示分享这些日志文件及任何与你的问题相关的信息。",
             "instructions_title": "如何报告问题？",
             "last-log": "上一日志",
             "no-file": "未找到日志文件",

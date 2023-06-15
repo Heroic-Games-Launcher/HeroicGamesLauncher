@@ -362,9 +362,9 @@
             "reparing": "பழுதுபார்ப்பு முடிவடைந்தது"
         },
         "install": {
-            "canceled": "நிறுவல் ரத்துசெய்யப்பட்டது",
+            "canceled": "நிறுவல் ரத்து செய்யப்பட்டது",
             "error": "நிறுவல் தோல்வி",
-            "finished": "நிறுவல் முடிவடைந்தது",
+            "finished": "நிறுவல் முடிந்தது",
             "imported": "Game Imported",
             "startInstall": "Installation Started",
             "failed": "நிறுவல் தோல்வி",

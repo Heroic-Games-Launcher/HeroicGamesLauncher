@@ -1,5 +1,7 @@
 name: Bug report
 description: "Things aren't working right? Create a bug report to let us know!"
+title: '[Bug]: '
+labels: bug:unconfirmed
 body:
   - type: markdown
     attributes:
