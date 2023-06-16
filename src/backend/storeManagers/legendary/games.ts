@@ -858,31 +858,6 @@ export async function launch(
     )
   }
 
-  // Log any launch information configured in Legendary's config.ini
-  const { stdout } = await runLegendaryCommand(
-    ['launch', appName, '--json', '--offline'],
-    createAbortController(appName)
-  )
-
-  appendFileSync(
-    logFileLocation(appName),
-    "Legendary's config from config.ini (before App's settings):\n"
-  )
-
-  try {
-    const json = JSON.parse(stdout)
-    // remove egl auth info
-    delete json['egl_parameters']
-
-    appendFileSync(
-      logFileLocation(appName),
-      JSON.stringify(json, null, 2) + '\n\n'
-    )
-  } catch (error) {
-    // in case legendary's command fails and the output is not json
-    appendFileSync(logFileLocation(appName), error + '\n' + stdout + '\n\n')
-  }
-
   const commandParts = [
     'launch',
     appName,
