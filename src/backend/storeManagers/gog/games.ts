@@ -998,7 +998,7 @@ export async function syncQueuedPlaytimeGOG() {
   const failed = []
 
   for (const session of queue) {
-    if (!isOnline) {
+    if (!isOnline()) {
       failed.push(session)
     }
     const response = await postPlaytimeSession(session)
