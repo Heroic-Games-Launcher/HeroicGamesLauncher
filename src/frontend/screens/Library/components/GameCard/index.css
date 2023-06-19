@@ -121,7 +121,7 @@
 }
 
 .gameCard.justPlayed > .icons {
-  justify-content: space-between;
+  justify-content: right;
   grid-template-columns: 0.15fr 0.15fr 0.15fr;
   grid-template-areas: 'update settings play';
 }
