@@ -18,7 +18,8 @@ import {
   Cancel,
   Pause,
   Warning,
-  Hardware
+  Hardware,
+  Error
 } from '@mui/icons-material'
 import {
   createNewWindow,
@@ -140,6 +141,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const isLaunching = status === 'launching'
   const isInstallingUbisoft = status === 'ubisoft'
   const notAvailable = !gameAvailable && gameInfo.is_installed
+  const notInstallable =
+    gameInfo.installable !== undefined && !gameInfo.installable
   const notSupportedGame =
     gameInfo.runner !== 'sideload' && gameInfo.thirdPartyManagedApp === 'Origin'
 
@@ -175,7 +178,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
             ? 'Mac'
             : 'Windows')
 
-        if (runner !== 'sideload' && !notSupportedGame) {
+        if (runner !== 'sideload' && !notSupportedGame && !notInstallable) {
           getInstallInfo(appName, runner, installPlatform)
             .then((info) => {
               if (!info) {
@@ -448,31 +451,34 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     />
                   </p>
                 )}
-                {!is_installed && !isSideloaded && !notSupportedGame && (
-                  <>
-                    <div className="iconWithText">
-                      <CloudDownload />
-                      <b>{t('game.downloadSize', 'Download Size')}</b>
-                      {': '}
-                      {downloadSize ??
-                        `${t(
-                          'game.getting-download-size',
-                          'Geting download size'
-                        )}...`}
-                    </div>
-                    <div className="iconWithText">
-                      <Storage />
-                      <b>{t('game.installSize', 'Install Size')}</b>
-                      {': '}
-                      {installSize ??
-                        `${t(
-                          'game.getting-install-size',
-                          'Geting install size'
-                        )}...`}
-                    </div>
-                    <br />
-                  </>
-                )}
+                {!is_installed &&
+                  !isSideloaded &&
+                  !notSupportedGame &&
+                  !notInstallable && (
+                    <>
+                      <div className="iconWithText">
+                        <CloudDownload />
+                        <b>{t('game.downloadSize', 'Download Size')}</b>
+                        {': '}
+                        {downloadSize ??
+                          `${t(
+                            'game.getting-download-size',
+                            'Geting download size'
+                          )}...`}
+                      </div>
+                      <div className="iconWithText">
+                        <Storage />
+                        <b>{t('game.installSize', 'Install Size')}</b>
+                        {': '}
+                        {installSize ??
+                          `${t(
+                            'game.getting-install-size',
+                            'Geting install size'
+                          )}...`}
+                      </div>
+                      <br />
+                    </>
+                  )}
                 {is_installed && (
                   <PopoverComponent
                     item={
@@ -639,7 +645,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   </PopoverComponent>
                 )}
               </div>
-              <TimeContainer game={appName} />
+              {!notInstallable && <TimeContainer game={appName} />}
               <div className="gameStatus">
                 {(isInstalling || isUpdating) && (
                   <progress
@@ -719,12 +725,17 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     isReparing ||
                     isMoving ||
                     isUninstalling ||
-                    notSupportedGame
+                    notSupportedGame ||
+                    notInstallable
                   }
                   autoFocus={true}
                   className={classNames('button', {
                     'is-primary': is_installed,
-                    'is-tertiary': notAvailable || isInstalling || isQueued,
+                    'is-tertiary':
+                      notAvailable ||
+                      isInstalling ||
+                      isQueued ||
+                      notInstallable,
                     'is-secondary': !is_installed && !isQueued
                   })}
                 >
@@ -830,6 +841,13 @@ export default React.memo(function GamePage(): JSX.Element | null {
   ): React.ReactNode {
     const { eta, bytes, percent, file } = progress
 
+    if (runner === 'gog' && notInstallable) {
+      return t(
+        'status.gog-goodie',
+        "This game doesn't appear to be installable. Check downloadable content on https://gog.com/account"
+      )
+    }
+
     if (notSupportedGame) {
       return t(
         'status.this-game-uses-third-party',
@@ -911,6 +929,14 @@ export default React.memo(function GamePage(): JSX.Element | null {
   }
 
   function getButtonLabel() {
+    if (notInstallable) {
+      return (
+        <span className="buttonWithIcon">
+          {t('status.goodie', 'Not installable')}
+          <Error style={{ marginLeft: '5px', cursor: 'not-allowed' }} />
+        </span>
+      )
+    }
     if (notSupportedGame) {
       return (
         <span className="buttonWithIcon">

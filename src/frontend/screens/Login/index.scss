@@ -71,7 +71,8 @@
   transition: 0.2s;
   width: fit-content;
   backdrop-filter: blur(var(--blur-light));
-  margin: 20px 0px 10px auto;
+  margin-block: 20px 10px;
+  margin-inline: auto 0px;
   text-transform: uppercase;
 }
 
@@ -90,7 +91,7 @@
 }
 
 .loginPage .smallLink {
-  text-align: left;
+  text-align: start;
   margin-top: var(--space-xs);
 }
 
@@ -138,7 +139,7 @@
   width: 75%;
   margin-top: 0;
   margin-bottom: var(--message-padding);
-  text-align: left;
+  text-align: start;
 }
 
 .runnerGroup {
@@ -162,7 +163,7 @@
     grid-template-columns: repeat(2, 1fr);
     overflow-y: unset;
     max-height: unset;
-    padding-right: 0;
+    padding-inline-end: 0;
   } */
 
   .runnerWrapper:nth-child(odd):last-child {

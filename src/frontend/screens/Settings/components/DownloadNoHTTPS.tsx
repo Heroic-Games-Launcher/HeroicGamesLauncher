@@ -14,7 +14,7 @@ const DownloadNoHTTPS = () => {
     <ToggleSwitch
       htmlId="downloadNoHttps"
       value={downloadNoHttps}
-      handleChange={() => setDownloadNoHttps(!setDownloadNoHttps)}
+      handleChange={() => setDownloadNoHttps(!downloadNoHttps)}
       title={t(
         'setting.download-no-https',
         'Download games without HTTPS (useful for CDNs e.g. LanCache)'

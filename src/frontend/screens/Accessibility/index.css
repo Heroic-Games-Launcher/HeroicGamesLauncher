@@ -54,7 +54,7 @@ input[type='range']::-webkit-slider-thumb {
 
 .Accessibility .fonts-label button {
   width: auto;
-  margin-left: 1rem;
+  margin-inline-start: 1rem;
 }
 
 .Accessibility .fonts-label button:hover {
@@ -67,5 +67,5 @@ input[type='range']::-webkit-slider-thumb {
 }
 
 .Accessibility h1.headerTitle {
-  margin-left: 0px;
+  margin-inline-start: 0px;
 }

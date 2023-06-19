@@ -13,12 +13,17 @@
   top: 0px;
   height: 100%;
   width: 100%;
+  --gradient-angle: 90deg;
   background: linear-gradient(
-      90deg,
+      var(--gradient-angle),
       rgba(0, 0, 0, 0),
       var(--background-darker) 100%
     ),
     linear-gradient(0deg, rgba(0, 0, 0, 0) 89%, var(--background-darker) 100%);
+}
+
+.isRTL .gamePicture::after {
+  --gradient-angle: 270deg;
 }
 
 .gamePicture > .gameImg {

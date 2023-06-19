@@ -281,10 +281,12 @@ export default React.memo(function Library(): JSX.Element {
     }
 
     // sort
-    library = library.sort((a: { title: string }, b: { title: string }) => {
+    library = library.sort((a, b) => {
       const gameA = a.title.toUpperCase().replace('THE ', '')
       const gameB = b.title.toUpperCase().replace('THE ', '')
-      return sortDescending ? (gameA > gameB ? -1 : 1) : gameA < gameB ? -1 : 1
+      return sortDescending
+        ? -gameA.localeCompare(gameB)
+        : gameA.localeCompare(gameB)
     })
     const installed = library.filter((game) => game?.is_installed)
     const notInstalled = library.filter(

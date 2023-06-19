@@ -196,13 +196,13 @@
         "totalDownloaded": "Insgesamt heruntergeladen",
         "uninstalling": "Wird deinstalliert",
         "updating": "Spiel wird aktualisiert",
-        "playing": "Spielen",
+        "playing": "Wird gespielt",
         "moving-files": "Datei verschieben '{{file}}': {{percent}} ",
         "syncingSaves": "Spielstände werden synchronisiert",
-        "launching": "Starten",
-        "ubisoft": "Ubisoft installieren",
-        "downloading": "Lade herunter",
-        "extracting": "Extrahieren"
+        "launching": "Wird gestartet",
+        "ubisoft": "Ubisoft wird installiert",
+        "downloading": "Wird heruntergeladen",
+        "extracting": "Wird extrahiert"
     },
     "submenu": {
         "addShortcut": "Verknüpfung hinzufügen",

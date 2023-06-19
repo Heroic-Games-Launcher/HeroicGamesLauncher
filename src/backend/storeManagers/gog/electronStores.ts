@@ -15,10 +15,7 @@ const configStore = new TypeCheckedStoreBackend('gogConfigStore', {
   cwd: 'gog_store'
 })
 
-const apiInfoCache = new CacheStore<{
-  isUpdated: boolean
-  data: GamesDBData
-}>('gog_api_info')
+const apiInfoCache = new CacheStore<GamesDBData>('gog_api_info')
 const libraryStore = new CacheStore<GameInfo[], 'games'>('gog_library', null)
 const syncStore = new TypeCheckedStoreBackend('gogSyncStore', {
   cwd: 'gog_store',
