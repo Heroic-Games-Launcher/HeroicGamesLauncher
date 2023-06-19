@@ -137,6 +137,47 @@ async function getGalaxyLibrary(
   return objects
 }
 
+export async function updateGameState(
+  appName: string,
+  checkForCloudSaves?: boolean
+): Promise<void> {
+  const game = library.get(appName)
+  if (!game) {
+    return
+  } else if (!installedGames.has(appName)) {
+    game.is_installed = false
+    game.install = {}
+  } else {
+    game.install = installedGames.get(appName) ?? {}
+    game.is_installed = true
+
+    if (checkForCloudSaves) {
+      if (game.install && game.install?.platform !== 'linux') {
+        // @ts-expect-error This shouldn't cause us issues as executable is not used anywhere
+        const saveLocations = await getSaveSyncLocation(appName, game.install)
+
+        if (saveLocations) {
+          game.cloud_save_enabled = true
+          game.gog_save_location = saveLocations
+          // Update in array in cache store
+          const games = libraryStore.get('games')
+
+          const target =
+            games?.findIndex((value) => value.app_name === appName) ?? -1
+          if (games && target > -1) {
+            const targetGame = games[target]
+            targetGame.cloud_save_enabled = true
+            targetGame.gog_save_location = saveLocations
+            libraryStore.set('games', games)
+          }
+        }
+      }
+    }
+  }
+
+  library.set(appName, game)
+}
+
 export async function refresh(): Promise<ExecResult> {
   if (!GOGUser.isLoggedIn()) {
     return defaultExecResult
@@ -194,6 +235,10 @@ export async function refresh(): Promise<ExecResult> {
       }
       const unifiedObject = await gogToUnifiedInfo(data, product?.data)
       if (unifiedObject.app_name) {
+        const oldData = library.get(unifiedObject.app_name)
+        if (oldData) {
+          unifiedObject.folder_name = oldData.folder_name
+        }
         gamesObjects.push(unifiedObject)
       }
       const installedInfo = installedGames.get(String(game.external_id))

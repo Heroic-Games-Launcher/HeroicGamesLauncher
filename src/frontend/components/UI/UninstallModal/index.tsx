@@ -1,12 +1,11 @@
 import './index.scss'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader
 } from 'frontend/components/UI/Dialog'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 import { Runner } from 'common/types'
 import ToggleSwitch from '../ToggleSwitch'
@@ -25,7 +24,6 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
   onClose,
   isDlc
 }) {
-  const { refreshLibrary } = useContext(ContextProvider)
   const [isNative, setIsNative] = useState(true)
   const [winePrefix, setWinePrefix] = useState('')
   const [deletePrefixChecked, setDeletePrefixChecked] = useState(false)
@@ -91,7 +89,6 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
       navigate('/')
     }
     storage.removeItem(appName)
-    refreshLibrary({ fullRefresh: true, checkForUpdates: false })
   }
 
   const showWineCheckbox = !isNative && !isDlc

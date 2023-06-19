@@ -12,7 +12,8 @@ import {
   getGameInfo as getGogLibraryGameInfo,
   changeGameInstallPath,
   getMetaResponse,
-  getGamesData
+  getGamesData,
+  updateGameState
 } from './library'
 import { join } from 'path'
 import { GameConfig } from '../../game_config'
@@ -322,7 +323,7 @@ export async function install(
     ? await getLinuxInstallerInfo(appName)
     : null
 
-  if (gameInfo.folder_name === undefined) {
+  if (gameInfo.folder_name === undefined || gameInfo.folder_name.length === 0) {
     logError('game info folder is undefined in GOG install', LogPrefix.Gog)
     return { status: 'error' }
   }
@@ -343,6 +344,7 @@ export async function install(
   array.push(installedData)
   installedGamesStore.set('installed', array)
   refreshInstalled()
+  await updateGameState(appName, true)
   if (isWindows) {
     logInfo('Windows os, running setup instructions on install', LogPrefix.Gog)
     try {
@@ -560,6 +562,7 @@ export async function moveInstall(
   }
 
   changeGameInstallPath(appName, moveResult.installPath)
+  sendFrontendMessage('pushGameToLibrary', getGameInfo(appName))
   return { status: 'done' }
 }
 
@@ -602,6 +605,10 @@ export async function repair(appName: string): Promise<ExecResult> {
   if (res.error) {
     logError(['Failed to repair', `${appName}:`, res.error], LogPrefix.Gog)
   }
+
+  refreshInstalled()
+  await updateGameState(appName)
+  sendFrontendMessage('pushGameToLibrary', getGameInfo(appName))
 
   return res
 }
@@ -730,11 +737,12 @@ export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
   }
   installedGamesStore.set('installed', array)
   refreshInstalled()
+  await updateGameState(appName)
   const gameInfo = getGameInfo(appName)
   await removeShortcutsUtil(gameInfo)
   syncStore.delete(appName)
   await removeNonSteamGame({ gameInfo })
-  sendFrontendMessage('refreshLibrary', 'gog')
+  sendFrontendMessage('pushGameToLibrary', gameInfo)
   return res
 }
 
@@ -817,6 +825,7 @@ export async function update(
   }
   installedGamesStore.set('installed', installedArray)
   refreshInstalled()
+  await updateGameState(appName, true)
   sendFrontendMessage('gameStatusUpdate', {
     appName: appName,
     runner: 'gog',
@@ -856,7 +865,9 @@ export async function forceUninstall(appName: string): Promise<void> {
   const installed = installedGamesStore.get('installed', [])
   const newInstalled = installed.filter((g) => g.appName !== appName)
   installedGamesStore.set('installed', newInstalled)
-  sendFrontendMessage('refreshLibrary', 'gog')
+  refreshInstalled()
+  await updateGameState(appName)
+  sendFrontendMessage('pushGameToLibrary', getGameInfo(appName))
 }
 
 // Could be removed if gogdl handles SIGKILL and SIGTERM for us

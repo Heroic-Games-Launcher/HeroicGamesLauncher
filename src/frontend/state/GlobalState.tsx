@@ -583,11 +583,13 @@ class GlobalState extends PureComponent<Props> {
           (game) => game !== appName
         )
         // This avoids calling legendary again before the previous process is killed when canceling
-        this.refreshLibrary({
-          checkForUpdates: true,
-          runInBackground: true,
-          library: runner
-        })
+        if (runner !== 'gog') {
+          this.refreshLibrary({
+            checkForUpdates: true,
+            runInBackground: true,
+            library: runner
+          })
+        }
 
         storage.setItem('updates', JSON.stringify(updatedGamesUpdates))
         return this.setState({
@@ -596,7 +598,9 @@ class GlobalState extends PureComponent<Props> {
         })
       }
 
-      this.refreshLibrary({ runInBackground: true, library: runner })
+      if (runner !== 'gog') {
+        this.refreshLibrary({ runInBackground: true, library: runner })
+      }
       this.setState({ libraryStatus: newLibraryStatus })
     }
   }
@@ -678,12 +682,31 @@ class GlobalState extends PureComponent<Props> {
           (game) => game.app_name === args.app_name
         )
         if (index !== -1) {
-          library.splice(index, 1)
+          library.splice(index, 1, args)
+        } else {
+          library.push(args)
         }
         this.setState({
           gog: {
-            library: [...library, args],
+            library,
             username: this.state.gog.username
+          }
+        })
+      }
+      if (args.runner === 'legendary') {
+        const library = [...this.state.epic.library]
+        const index = library.findIndex(
+          (game) => game.app_name === args.app_name
+        )
+        if (index !== -1) {
+          library.splice(index, 1, args)
+        } else {
+          library.push(args)
+        }
+        this.setState({
+          epic: {
+            library,
+            username: this.state.epic.username
           }
         })
       }

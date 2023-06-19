@@ -87,6 +87,10 @@ async function installQueueElement(params: InstallParams): Promise<{
       runner,
       status: 'done'
     })
+    sendFrontendMessage(
+      'pushGameToLibrary',
+      gameManagerMap[runner].getGameInfo(appName)
+    )
   }
 }
 
@@ -155,6 +159,10 @@ async function updateQueueElement(params: InstallParams): Promise<{
       runner,
       status: 'done'
     })
+    sendFrontendMessage(
+      'pushGameToLibrary',
+      gameManagerMap[runner].getGameInfo(appName)
+    )
   }
 }
 
