@@ -33,6 +33,7 @@ import { execAsync } from './utils'
 import { execSync } from 'child_process'
 import { logError, logInfo, LogPrefix } from './logger/logger'
 import { dirname, join } from 'path'
+import { backendEvents } from './backend_events'
 
 /**
  * This class does config handling.
@@ -623,9 +624,13 @@ class GlobalConfigV0 extends GlobalConfig {
     const config = this.getSettings()
     const configStoreSettings = configStore.get_nodefault('settings') || config
     configStore.set('settings', { ...configStoreSettings, [key]: value })
+
+    const oldValue = config[key]
     config[key] = value
     this.config = config
-    logInfo(`Heroic: Setting ${key} to ${JSON.stringify(value)}`)
+
+    backendEvents.emit('settingChanged', { key, oldValue, newValue: value })
+
     return this.flush()
   }
 

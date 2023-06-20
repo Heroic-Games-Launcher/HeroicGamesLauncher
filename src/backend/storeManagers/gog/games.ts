@@ -40,7 +40,13 @@ import {
 import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
 import { gamesConfigPath, isWindows, isMac, isLinux } from '../../constants'
 import { installedGamesStore, syncStore } from './electronStores'
-import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
+import {
+  logError,
+  logInfo,
+  LogPrefix,
+  logsDisabled,
+  logWarning
+} from '../../logger/logger'
 import { GOGUser } from './user'
 import {
   getRunnerCallWithoutCredentials,
@@ -519,7 +525,7 @@ export async function launch(
       wrappers,
       logMessagePrefix: `Launching ${gameInfo.title}`,
       onOutput: (output: string) => {
-        appendFileSync(logFileLocation(appName), output)
+        if (!logsDisabled) appendFileSync(logFileLocation(appName), output)
       }
     }
   )
