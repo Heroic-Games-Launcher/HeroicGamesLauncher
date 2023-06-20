@@ -45,7 +45,13 @@ import {
   playtimeSyncQueue,
   syncStore
 } from './electronStores'
-import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
+import {
+  logDebug,
+  logError,
+  logInfo,
+  LogPrefix,
+  logWarning
+} from '../../logger/logger'
 import { GOGUser } from './user'
 import {
   getRunnerCallWithoutCredentials,
@@ -75,7 +81,7 @@ import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { sendFrontendMessage } from '../../main_window'
 import { RemoveArgs } from 'common/types/game_manager'
 import { logFileLocation } from 'backend/storeManagers/storeManagerCommon/games'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { isOnline, runOnceWhenOnline } from 'backend/online_monitor'
 
 export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
@@ -901,16 +907,18 @@ async function postPlaytimeSession({
   time
 }: GOGSessionSyncQueueItem) {
   const userData: UserData | undefined = configStore.get_nodefault('userData')
-
+  if (!userData) {
+    logError('No userData, unable to post new session', {
+      prefix: LogPrefix.Gog
+    })
+    return null
+  }
   const credentials = await GOGUser.getCredentials().catch(() => null)
 
-  if (!userData || !credentials) {
-    logError(
-      "No userData in config or couldn't fetch credentials, unable to post new session",
-      {
-        prefix: LogPrefix.Gog
-      }
-    )
+  if (!credentials) {
+    logError("Couldn't fetch credentials, unable to post new session", {
+      prefix: LogPrefix.Gog
+    })
     return null
   }
 
@@ -924,7 +932,10 @@ async function postPlaytimeSession({
         }
       }
     )
-    .catch(() => {
+    .catch((e: AxiosError) => {
+      logDebug(['Failed to post session', e.toJSON()], {
+        prefix: LogPrefix.Gog
+      })
       return null
     })
 }
@@ -1039,8 +1050,8 @@ export async function getGOGPlaytime(
         }
       }
     )
-    .catch(() => {
-      logWarning(['Failed attempt to get playtime of', appName], {
+    .catch((e: AxiosError) => {
+      logWarning(['Failed attempt to get playtime of', appName, e.toJSON()], {
         prefix: LogPrefix.Gog
       })
       return null

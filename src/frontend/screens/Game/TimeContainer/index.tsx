@@ -62,7 +62,9 @@ function TimeContainer({ runner, game }: Props) {
     minute: 'numeric',
     second: 'numeric'
   }
-  const firstPlayed = new Date(tsInfo.firstPlayed)
+  const firstPlayed = tsInfo.firstPlayed
+    ? new Date(tsInfo.firstPlayed)
+    : undefined
   const firstDate = new Intl.DateTimeFormat(undefined, options).format(
     firstPlayed
   )
@@ -87,7 +89,7 @@ function TimeContainer({ runner, game }: Props) {
       <div className="info">
         <SmallInfo
           title={`${t('game.firstPlayed', 'First Played')}:`}
-          subtitle={firstDate}
+          subtitle={firstPlayed ? firstDate : t('game.neverPlayed', 'Never')}
         />
         {lastPlayed && (
           <SmallInfo
