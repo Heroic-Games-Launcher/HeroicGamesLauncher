@@ -130,7 +130,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Third-Party Game NOT Supported",
+            "not-installable-game": "Mäng EI ole installitav"
         },
         "playing": {
             "start": "Mängi",
@@ -202,7 +203,9 @@
         "launching": "Käivitamine",
         "ubisoft": "Ubisofti installimine",
         "downloading": "Downloading",
-        "extracting": "Ekstraheerimine"
+        "extracting": "Ekstraheerimine",
+        "gog-goodie": "See mäng ei tundu olevat installitav. Kontrollige allalaaditavat sisu aadressil https://gog.com/account",
+        "goodie": "Pole paigaldatav"
     },
     "submenu": {
         "addShortcut": "Lisa otsetee",
