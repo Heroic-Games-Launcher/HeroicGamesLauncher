@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroic 启动器会在以下文件夹中查找现有的 Wine/Proton/CrossOver：",
             "part2": "如果在其它位置，请使用软链接连接到这些中的一个文件夹"
-        }
+        },
+        "disable_logs": "将此复选框切换为“开”可禁用对日志文件的大部分写入（始终记录关键信息）。请确保在报告任何问题之前关闭此设置。"
     },
     "info": {
         "heroic": {
@@ -568,7 +569,8 @@
         "wineprefix": "WinePrefix文件夹",
         "wineversion": "Wine 版本",
         "autoUpdateGames": "自动更新游戏",
-        "ignoreGameUpdates": "忽略游戏更新"
+        "ignoreGameUpdates": "忽略游戏更新",
+        "disable_logs": "禁用日志"
     },
     "settings": {
         "battlEyeRuntime": {
