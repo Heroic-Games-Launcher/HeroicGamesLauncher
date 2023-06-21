@@ -130,7 +130,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "非対応のサードパーティ製ゲーム"
+            "third-party-game": "非対応のサードパーティ製ゲーム",
+            "not-installable-game": "ゲームはインストールできません"
         },
         "playing": {
             "start": "今すぐプレイ",
@@ -202,7 +203,9 @@
         "launching": "起動中",
         "ubisoft": "Ubisoftをインストール中",
         "downloading": "ダウンロード中",
-        "extracting": "抽出中"
+        "extracting": "抽出中",
+        "gog-goodie": "このゲームはインストールできないようです。 https://gog.com/account でダウンロード可能なコンテンツを確認してください",
+        "goodie": "インストール不可"
     },
     "submenu": {
         "addShortcut": "ショートカットを追加",
