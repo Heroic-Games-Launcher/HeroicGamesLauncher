@@ -522,7 +522,7 @@
         "log": {
             "copy-to-clipboard": "Kopiera loggen till urklipp/klippbord",
             "current-log": "Aktuell logg",
-            "instructions": "Gå med i vår Discord, välj kanalen för ditt operativsystem. Dela loggfilerna som finns här, inkludera tydlig beskrivning av problemet och relevanta detaljer.",
+            "instructions": "Gå med i vår Discord och leta efter kanalen \"#-support\". Läs den fästa \"Read Me First | Frequently Asked Questions\" tråden och följ instruktionerna för att dela dessa loggar och all relevant information om ditt problem.",
             "instructions_title": "Hur rapporterar jag problem?",
             "last-log": "Senaste logg",
             "no-file": "Ingen loggfil hittades",
