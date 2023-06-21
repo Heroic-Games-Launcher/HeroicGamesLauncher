@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroiske søk etter versjoner av Wine, Proton og CrossOver i følgende mapper:",
             "part2": "For andre steder, bruk en symbolsk lenke til en av disse mappene"
-        }
+        },
+        "disable_logs": "Slå denne avmerkingsboksen PÅ for å deaktivere de fleste skrivingene til loggfiler (kritisk informasjon logges alltid). Sørg for å slå AV denne innstillingen før du rapporterer problemer."
     },
     "info": {
         "heroic": {
@@ -568,7 +569,8 @@
         "wineprefix": "WinePrefix-mappen",
         "wineversion": "Vinversjon",
         "autoUpdateGames": "Oppdater spill automatisk",
-        "ignoreGameUpdates": "Ignorer spilloppdateringer"
+        "ignoreGameUpdates": "Ignorer spilloppdateringer",
+        "disable_logs": "Deaktiver logger"
     },
     "settings": {
         "battlEyeRuntime": {
