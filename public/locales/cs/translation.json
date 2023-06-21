@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroic hledá verze Wine, Proton a CrossOver v následujících složkách:",
             "part2": "Pro jiná místa použijte symbolický odkaz na jednu z těchto složek"
-        }
+        },
+        "disable_logs": "Zapnutím tohoto zaškrtávacího políčka zakážete většinu zápisů do souborů protokolu (kritické informace jsou vždy protokolovány). Před nahlášením jakéhokoli problému nezapomeňte toto nastavení VYPNOUT."
     },
     "info": {
         "heroic": {
@@ -568,7 +569,8 @@
         "wineprefix": "Složka WinePrefix",
         "wineversion": "Verze Wine",
         "autoUpdateGames": "Automaticky aktualizovat hry",
-        "ignoreGameUpdates": "Ignorovat aktualizace hry"
+        "ignoreGameUpdates": "Ignorovat aktualizace hry",
+        "disable_logs": "Zakázat protokoly"
     },
     "settings": {
         "battlEyeRuntime": {
