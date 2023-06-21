@@ -130,7 +130,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Іншыя гульні НЕ ПАДТРЫМЛЯЮЦЦА"
+            "third-party-game": "Іншыя гульні НЕ ПАДТРЫМЛЯЮЦЦА",
+            "not-installable-game": "Гульня НЕ ўсталёўваецца"
         },
         "playing": {
             "start": "Гуляць зараз",
@@ -202,7 +203,9 @@
         "launching": "Запуск",
         "ubisoft": "Ўстаноўка Ubisoft",
         "downloading": "Ідзе загрузка",
-        "extracting": "Выманне"
+        "extracting": "Выманне",
+        "gog-goodie": "Гэтую гульню, здаецца, нельга ўсталяваць. Праверце змесціва для загрузкі на https://gog.com/account",
+        "goodie": "Не ўсталёўваецца"
     },
     "submenu": {
         "addShortcut": "Дадаць ярлык",
