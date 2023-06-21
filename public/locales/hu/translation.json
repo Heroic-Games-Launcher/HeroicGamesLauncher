@@ -278,7 +278,8 @@
         "wine": {
             "part1": "A Heroic a Wine, Proton és CrossOver verzióit a következő mappákban keresi:",
             "part2": "Más hely esetén, használj egy szimbolikus linket az egyik mappához"
-        }
+        },
+        "disable_logs": "Kapcsolja be ezt a jelölőnégyzetet a naplófájlokba való legtöbb írás letiltásához (a kritikus információk mindig naplózásra kerülnek). Mielőtt bármilyen problémát jelentene, feltétlenül kapcsolja KI ezt a beállítást."
     },
     "info": {
         "heroic": {
@@ -568,7 +569,8 @@
         "wineprefix": "Wine prefix mappa",
         "wineversion": "Wine verzió",
         "ignoreGameUpdates": "Figyelmen kívül hagyja a játékfrissítéseket",
-        "autoUpdateGames": "Játékok automatikus frissítése"
+        "autoUpdateGames": "Játékok automatikus frissítése",
+        "disable_logs": "Naplók letiltása"
     },
     "settings": {
         "battlEyeRuntime": {
