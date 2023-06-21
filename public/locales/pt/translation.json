@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroic procura versões de Wine, Proton e CrossOver nas seguintes pastas:",
             "part2": "Para outros lugares, crie um link simbólico até uma dessas pastas"
-        }
+        },
+        "disable_logs": "Ative esta caixa de seleção para desativar a maioria das gravações em arquivos de log (informações críticas sempre são registradas). Certifique-se de desativar essa configuração antes de relatar qualquer problema."
     },
     "info": {
         "heroic": {
@@ -568,7 +569,8 @@
         "wineprefix": "Prefixo Wine",
         "wineversion": "Versão do Wine",
         "autoUpdateGames": "Atualizar jogos automaticamente",
-        "ignoreGameUpdates": "Ignorar atualizações do jogo"
+        "ignoreGameUpdates": "Ignorar atualizações do jogo",
+        "disable_logs": "Desativar registros"
     },
     "settings": {
         "battlEyeRuntime": {
