@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroic mencari versi Wine, Proton, dan CrossOver di folder berikut ini:",
             "part2": "Untuk tempat lain, gunakan tautan simbolis ke salah satu folder ini"
-        }
+        },
+        "disable_logs": "Aktifkan kotak centang ini untuk menonaktifkan sebagian besar penulisan ke file log (informasi penting selalu dicatat). Pastikan untuk MENONAKTIFKAN setelan ini sebelum melaporkan masalah apa pun."
     },
     "info": {
         "heroic": {
@@ -568,7 +569,8 @@
         "wineprefix": "Folder Prefiks Wine",
         "wineversion": "Versi Wine",
         "autoUpdateGames": "Perbarui gim secara otomatis",
-        "ignoreGameUpdates": "Abaikan pembaruan gim"
+        "ignoreGameUpdates": "Abaikan pembaruan gim",
+        "disable_logs": "Nonaktifkan Log"
     },
     "settings": {
         "battlEyeRuntime": {
