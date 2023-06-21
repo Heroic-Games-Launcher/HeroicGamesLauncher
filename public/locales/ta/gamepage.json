@@ -130,7 +130,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Third-Party Game NOT Supported",
+            "not-installable-game": "விளையாட்டு நிறுவப்படவில்லை"
         },
         "playing": {
             "start": "இப்போது விளையாடு",
@@ -202,7 +203,9 @@
         "launching": "தொடங்குதல்",
         "ubisoft": "Ubisoft ஐ நிறுவுகிறது",
         "downloading": "Downloading",
-        "extracting": "பிரித்தெடுத்தல்"
+        "extracting": "பிரித்தெடுத்தல்",
+        "gog-goodie": "இந்த கேம் நிறுவக்கூடியதாகத் தெரியவில்லை. https://gog.com/account இல் பதிவிறக்கக்கூடிய உள்ளடக்கத்தைச் சரிபார்க்கவும்",
+        "goodie": "நிறுவ முடியாது"
     },
     "submenu": {
         "addShortcut": "குறுக்குவழியை சேர்",

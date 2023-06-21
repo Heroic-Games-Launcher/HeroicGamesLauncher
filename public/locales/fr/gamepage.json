@@ -130,7 +130,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Les jeux nécessitant un lanceur tiers ne sont PAS compatibles"
+            "third-party-game": "Les jeux nécessitant un lanceur tiers ne sont PAS compatibles",
+            "not-installable-game": "Le jeu n'est PAS installable"
         },
         "playing": {
             "start": "Y jouer maintenant",
@@ -202,7 +203,9 @@
         "launching": "Lancement",
         "ubisoft": "Installer Ubisoft",
         "downloading": "En cours de téléchargement",
-        "extracting": "Extraction"
+        "extracting": "Extraction",
+        "goodie": "Non installable",
+        "gog-goodie": "Ce jeu ne semble pas être installable. Vérifiez le contenu téléchargeable sur https://gog.com/account"
     },
     "submenu": {
         "addShortcut": "Ajouter un raccourci",

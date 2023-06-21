@@ -130,7 +130,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Third-Party Game NOT Supported",
+            "not-installable-game": "Trò chơi KHÔNG thể cài đặt"
         },
         "playing": {
             "start": "Chơi ngay",
@@ -202,7 +203,9 @@
         "launching": "ra mắt",
         "ubisoft": "Cài đặt Ubisoft",
         "downloading": "Downloading",
-        "extracting": "giải nén"
+        "extracting": "giải nén",
+        "gog-goodie": "Trò chơi này dường như không thể cài đặt được. Kiểm tra nội dung có thể tải xuống trên https://gog.com/account",
+        "goodie": "Không thể cài đặt"
     },
     "submenu": {
         "addShortcut": "Thêm shortcut",
