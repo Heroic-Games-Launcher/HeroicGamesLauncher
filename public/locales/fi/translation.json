@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroic etsii Wine, Proton- ja CrossOver -versioita seuraavista kansioista:",
             "part2": "Muille sijainneille käytä symbolista linkkiä kansioon"
-        }
+        },
+        "disable_logs": "Ota tämä valintaruutu PÄÄLLE, jos haluat poistaa suurimman osan lokitiedostoihin kirjoituksista (kriittiset tiedot kirjataan aina lokiin). Muista poistaa tämä asetus käytöstä ennen kuin ilmoitat ongelmasta."
     },
     "info": {
         "heroic": {
@@ -568,7 +569,8 @@
         "wineprefix": "WinePrefixin kansio",
         "wineversion": "Winen versio",
         "autoUpdateGames": "Päivitä pelit automaattisesti",
-        "ignoreGameUpdates": "Ohita pelipäivitykset"
+        "ignoreGameUpdates": "Ohita pelipäivitykset",
+        "disable_logs": "Poista lokit käytöstä"
     },
     "settings": {
         "battlEyeRuntime": {

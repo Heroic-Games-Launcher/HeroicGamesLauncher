@@ -21,7 +21,7 @@
             "title": "Vyberte EXE ke spuštění"
         },
         "select": {
-            "button": "Vybrat"
+            "button": "Zvolit"
         },
         "sideload": {
             "exe": "Vybrat spustitelný soubor"
@@ -48,7 +48,7 @@
     },
     "button": {
         "add_to_favourites": "Přidat do oblíbených",
-        "cancel": "Zrušit",
+        "cancel": "Pozastavit/Zrušit",
         "continue": "Pokračovat ve stahování",
         "finish": "Dokončit",
         "force_update": "Vynutit aktualizaci, pokud je dostupná",

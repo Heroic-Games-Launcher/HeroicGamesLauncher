@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Búsquedas de versións de Wine, Proton e CrossOver nos seguintes cartafoles:",
             "part2": "Para outros lugares, use unha ligazón simbólica a un destos cartafoles"
-        }
+        },
+        "disable_logs": "Activa esta caixa de verificación para desactivar a maioría das escrituras nos ficheiros de rexistro (a información crítica sempre se rexistra). Asegúrate de desactivar esta configuración antes de informar de calquera problema."
     },
     "info": {
         "heroic": {
@@ -568,7 +569,8 @@
         "wineprefix": "Cartafol WinePrefix",
         "wineversion": "Versión de Wine",
         "ignoreGameUpdates": "Ignorar as actualizacións do xogo",
-        "autoUpdateGames": "Actualiza os xogos automaticamente"
+        "autoUpdateGames": "Actualiza os xogos automaticamente",
+        "disable_logs": "Desactivar rexistros"
     },
     "settings": {
         "battlEyeRuntime": {

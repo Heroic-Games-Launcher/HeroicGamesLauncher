@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Qəhrəmanlıq aşağıdakı qovluqlarda Wine, Proton və CrossOver versiyalarını axtarır:",
             "part2": "Digər yerlər üçün bu qovluqlardan birinə simvolik keçiddən istifadə edin"
-        }
+        },
+        "disable_logs": "Giriş fayllarına yazılanların əksəriyyətini söndürmək üçün bu qeyd qutusunu AKTİV vəziyyətinə qoyun (kritik məlumatlar həmişə qeyd olunur). Hər hansı problemi bildirməzdən əvvəl bu ayarı SÖNDÜRLƏNDİYƏ əmin olun."
     },
     "info": {
         "heroic": {
@@ -568,7 +569,8 @@
         "wineprefix": "WinePrefix qovluğu",
         "wineversion": "Şərab versiyası",
         "autoUpdateGames": "Oyunları avtomatik yeniləyin",
-        "ignoreGameUpdates": "Oyun yeniləmələrinə məhəl qoymayın"
+        "ignoreGameUpdates": "Oyun yeniləmələrinə məhəl qoymayın",
+        "disable_logs": "Qeydləri deaktiv edin"
     },
     "settings": {
         "battlEyeRuntime": {
