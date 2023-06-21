@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroic sucht in den folgenden Verzeichnissen nach Versionen von Wine, Proton und CrossOver:",
             "part2": "Für andere Orte verwende einen symbolischen Link zu einem dieser Ordner"
-        }
+        },
+        "disable_logs": "Aktivieren Sie dieses Kontrollkästchen, um die meisten Schreibvorgänge in Protokolldateien zu deaktivieren (kritische Informationen werden immer protokolliert). Stellen Sie sicher, dass Sie diese Einstellung deaktivieren, bevor Sie ein Problem melden."
     },
     "info": {
         "heroic": {
@@ -568,7 +569,8 @@
         "wineprefix": "WinePrefix-Ordner",
         "wineversion": "Wine-Version",
         "autoUpdateGames": "Spiele automatisch aktualisieren",
-        "ignoreGameUpdates": "Spieleupdates ignorieren"
+        "ignoreGameUpdates": "Spieleupdates ignorieren",
+        "disable_logs": "Protokolle deaktivieren"
     },
     "settings": {
         "battlEyeRuntime": {
