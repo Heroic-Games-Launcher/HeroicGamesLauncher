@@ -131,7 +131,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Third-Party Game NOT Supported",
+            "not-installable-game": "Spillet kan IKKE installeres"
         },
         "playing": {
             "start": "Leke nå",
@@ -203,7 +204,9 @@
         "launching": "Lansering",
         "ubisoft": "Installerer Ubisoft",
         "downloading": "Downloading",
-        "extracting": "Trekker ut"
+        "extracting": "Trekker ut",
+        "gog-goodie": "Dette spillet ser ikke ut til å være installerbart. Sjekk nedlastbart innhold på https://gog.com/account",
+        "goodie": "Ikke installerbar"
     },
     "submenu": {
         "addShortcut": "Legg til snarvei",
