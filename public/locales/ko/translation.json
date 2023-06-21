@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroric은 다음 폴더에서 Wine, Proton, 그리고 CrossOver 의 버전을 검색합니다:",
             "part2": "다른 경로의 경우에는, 이 폴더 중 하나에 심볼릭 링크를 사용하세요"
-        }
+        },
+        "disable_logs": "로그 파일에 대한 대부분의 쓰기를 비활성화하려면 이 확인란을 ON으로 전환합니다(중요한 정보는 항상 기록됨). 문제를 보고하기 전에 이 설정을 해제해야 합니다."
     },
     "info": {
         "heroic": {
@@ -568,7 +569,8 @@
         "wineprefix": "Wine 설치 경로 폴더",
         "wineversion": "Wine 버전",
         "autoUpdateGames": "게임 자동 업데이트",
-        "ignoreGameUpdates": "게임 업데이트 무시"
+        "ignoreGameUpdates": "게임 업데이트 무시",
+        "disable_logs": "로그 비활성화"
     },
     "settings": {
         "battlEyeRuntime": {
