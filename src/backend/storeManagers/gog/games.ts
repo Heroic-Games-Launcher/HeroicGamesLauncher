@@ -328,7 +328,7 @@ export async function install(
     ? await getLinuxInstallerInfo(appName)
     : null
 
-  if (gameInfo.folder_name === undefined) {
+  if (gameInfo.folder_name === undefined || gameInfo.folder_name.length === 0) {
     logError('game info folder is undefined in GOG install', LogPrefix.Gog)
     return { status: 'error' }
   }
