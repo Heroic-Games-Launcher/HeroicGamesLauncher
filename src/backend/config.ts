@@ -309,7 +309,7 @@ abstract class GlobalConfig {
             readFileSync(infoFilePath, 'utf-8')
           ) as PlistObject
           const version = info['CFBundleShortVersionString'] || ''
-          const whiskyWineBin = `${userHome}/Application Support/com.isaacmarovitz.Whisky/Libraries/Wine/bin/wine64`
+          const whiskyWineBin = `${userHome}/Library/Application Support/com.isaacmarovitz.Whisky/Libraries/Wine/bin/wine64`
           whisky.add({
             bin: whiskyWineBin,
             name: `Whisky - ${version}`,
