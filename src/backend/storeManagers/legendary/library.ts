@@ -57,6 +57,7 @@ const library: Map<string, GameInfo> = new Map()
 
 export async function initLegendaryLibraryManager() {
   loadGamesInAccount()
+  refreshInstalled()
 }
 
 /**

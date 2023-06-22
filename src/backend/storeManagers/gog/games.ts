@@ -50,6 +50,7 @@ import {
   logError,
   logInfo,
   LogPrefix,
+  logsDisabled,
   logWarning
 } from '../../logger/logger'
 import { GOGUser } from './user'
@@ -340,7 +341,7 @@ export async function install(
     ? await getLinuxInstallerInfo(appName)
     : null
 
-  if (gameInfo.folder_name === undefined) {
+  if (gameInfo.folder_name === undefined || gameInfo.folder_name.length === 0) {
     logError('game info folder is undefined in GOG install', LogPrefix.Gog)
     return { status: 'error' }
   }
@@ -537,7 +538,7 @@ export async function launch(
       wrappers,
       logMessagePrefix: `Launching ${gameInfo.title}`,
       onOutput: (output: string) => {
-        appendFileSync(logFileLocation(appName), output)
+        if (!logsDisabled) appendFileSync(logFileLocation(appName), output)
       }
     }
   )

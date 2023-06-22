@@ -49,7 +49,7 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
     })
     setIsNative(isNative)
 
-    if (!isNative || isDlc) {
+    if (isDlc) {
       return
     }
 

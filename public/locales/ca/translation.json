@@ -278,7 +278,8 @@
         "wine": {
             "part1": "L'Heroic cerca les versions del Wine, Proton i CrossOver als directoris següents:",
             "part2": "Per a altres llocs, utilitza un enllaç simbòlic (symlink) a algun d'aquests directoris"
-        }
+        },
+        "disable_logs": "Activeu aquesta casella de selecció per desactivar la majoria de les escriptures als fitxers de registre (la informació crítica sempre es registra). Assegureu-vos de desactivar aquesta configuració abans d'informar de qualsevol problema."
     },
     "info": {
         "heroic": {
@@ -568,7 +569,8 @@
         "wineprefix": "Directori WinePrefix",
         "wineversion": "Versió del Wine",
         "autoUpdateGames": "Actualitza els jocs automàticament",
-        "ignoreGameUpdates": "Ignora les actualitzacions del joc"
+        "ignoreGameUpdates": "Ignora les actualitzacions del joc",
+        "disable_logs": "Desactiva els registres"
     },
     "settings": {
         "battlEyeRuntime": {

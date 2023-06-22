@@ -14,7 +14,7 @@ import {
 } from '../constants'
 import { app } from 'electron'
 import { join } from 'path'
-import { logError, LogPrefix } from './logger'
+import { logError, LogPrefix, logsDisabled } from './logger'
 
 interface createLogFileReturn {
   currentLogFile: string
@@ -133,7 +133,7 @@ export function getLogFile(props: {
  */
 export function appendMessageToLogFile(message: string) {
   try {
-    if (currentLogFile) {
+    if (!logsDisabled && currentLogFile) {
       appendFileSync(currentLogFile, `${message}\n`)
     }
   } catch (error) {

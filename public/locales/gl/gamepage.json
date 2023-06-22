@@ -130,7 +130,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Third-Party Game NOT Supported",
+            "not-installable-game": "O xogo NON se pode instalar"
         },
         "playing": {
             "start": "Xogar",
@@ -202,7 +203,9 @@
         "launching": "Lanzamento",
         "ubisoft": "Instalación de Ubisoft",
         "downloading": "Downloading",
-        "extracting": "Extracción"
+        "extracting": "Extracción",
+        "goodie": "Non instalable",
+        "gog-goodie": "Este xogo non parece instalarse. Consulta o contido descargable en https://gog.com/account"
     },
     "submenu": {
         "addShortcut": "Engadir acceso directo",

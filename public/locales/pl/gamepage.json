@@ -81,8 +81,8 @@
     "game": {
         "downloadSize": "Rozmiar pobierania",
         "firstPlayed": "Pierwsze uruchomienie",
-        "getting-download-size": "Uzyskiwanie rozmiaru do pobrania",
-        "getting-install-size": "Uzyskiwanie rozmiaru po instalacji",
+        "getting-download-size": "Sprawdzanie rozmiaru pliku do pobrania",
+        "getting-install-size": "Sprawdzanie rozmiaru instalacji",
         "installSize": "Rozmiar instalacji",
         "language": "Język",
         "lastPlayed": "Ostatnio uruchamiane",
@@ -90,7 +90,7 @@
         "platform": "Wybierz wersję platformy do zainstalowania",
         "requirements": "Wymagania systemowe",
         "totalPlayed": "Czas Gry",
-        "dlcs": "DLCs"
+        "dlcs": "DLC"
     },
     "gamecard": {
         "moving": "Przenoszenie",
@@ -106,7 +106,7 @@
         "main-plus-extras": "Podstawowa + Dodatki",
         "main-story": "Główny wątek"
     },
-    "howLongToBeat": "How Long To Beat",
+    "howLongToBeat": "Czas na ukończenie",
     "info": {
         "canRunOffline": "Wymagane połączenie z internetem",
         "installedPlatform": "Zainstalowana platforma",

@@ -130,7 +130,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Гра Від Сторонніх Розробників НЕ Підтримується"
+            "third-party-game": "Гра Від Сторонніх Розробників НЕ Підтримується",
+            "not-installable-game": "Гра НЕ встановлюється"
         },
         "playing": {
             "start": "Грати",
@@ -202,7 +203,9 @@
         "launching": "Запуск",
         "ubisoft": "Встановлення Ubisoft",
         "downloading": "Завантаження",
-        "extracting": "Видобуток"
+        "extracting": "Видобуток",
+        "gog-goodie": "Здається, цю гру неможливо встановити. Перевірте вміст для завантаження на https://gog.com/account",
+        "goodie": "Не встановлюється"
     },
     "submenu": {
         "addShortcut": "Додати ярлик",

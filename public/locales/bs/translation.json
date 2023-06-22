@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroic traži verzije Wine, Proton i CrossOver u sljedećim mapama:",
             "part2": "Za druga mjesta koristite simboličku vezu do jednog od ovih mapa"
-        }
+        },
+        "disable_logs": "Uključite ovaj okvir za potvrdu kako biste onemogućili većinu upisivanja u datoteke dnevnika (kritične informacije se uvijek evidentiraju). Obavezno ISKLJUČITE ovu postavku prije nego što prijavite bilo kakav problem."
     },
     "info": {
         "heroic": {
@@ -568,7 +569,8 @@
         "wineprefix": "WinePrefix mapa",
         "wineversion": "Wine verzija",
         "ignoreGameUpdates": "Zanemari ažuriranja igre",
-        "autoUpdateGames": "Automatski ažuriraj igre"
+        "autoUpdateGames": "Automatski ažuriraj igre",
+        "disable_logs": "Onemogući dnevnike"
     },
     "settings": {
         "battlEyeRuntime": {

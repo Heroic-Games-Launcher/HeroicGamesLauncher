@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroicは、次のフォルダでWine、Proton、CrossOverのバージョンを検索します:",
             "part2": "その他の場所については、これらのフォルダのいずれかへのシンボリックリンクを使用してください"
-        }
+        },
+        "disable_logs": "このチェックボックスをオンに切り替えると、ログ ファイルへのほとんどの書き込みが無効になります (重要な情報は常にログに記録されます)。問題を報告する前に、必ずこの設定をオフにしてください。"
     },
     "info": {
         "heroic": {
@@ -568,7 +569,8 @@
         "wineprefix": "Wine環境フォルダ",
         "wineversion": "Wineバージョン",
         "autoUpdateGames": "ゲームを自動アップデート",
-        "ignoreGameUpdates": "ゲームのアップデートを無視"
+        "ignoreGameUpdates": "ゲームのアップデートを無視",
+        "disable_logs": "ログを無効にする"
     },
     "settings": {
         "battlEyeRuntime": {

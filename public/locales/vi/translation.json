@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroic tìm kiếm các phiên bản Wine, Proton và CrossOver trong các thư mục sau:",
             "part2": "Đối với vị trí khác, sử dụng biểu tượng liên kết với một trong những thư mục này"
-        }
+        },
+        "disable_logs": "BẬT hộp kiểm này để vô hiệu hóa hầu hết các thao tác ghi vào tệp nhật ký (thông tin quan trọng luôn được ghi lại). Đảm bảo TẮT cài đặt này trước khi báo cáo bất kỳ sự cố nào."
     },
     "info": {
         "heroic": {
@@ -568,7 +569,8 @@
         "wineprefix": "Thư mục WinePrefix",
         "wineversion": "Phiên bản Wine",
         "autoUpdateGames": "Tự động cập nhật trò chơi",
-        "ignoreGameUpdates": "Bỏ qua cập nhật trò chơi"
+        "ignoreGameUpdates": "Bỏ qua cập nhật trò chơi",
+        "disable_logs": "Tắt nhật ký"
     },
     "settings": {
         "battlEyeRuntime": {

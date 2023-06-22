@@ -74,7 +74,8 @@
     "label": {
         "ubisoft": "Pag-install ng Ubisoft Connect",
         "game": {
-            "third-party-game": "HINDI Sinusuportahan ang Third-Party na Laro"
+            "third-party-game": "HINDI Sinusuportahan ang Third-Party na Laro",
+            "not-installable-game": "Ang laro ay HINDI Nai-install"
         },
         "launching": "Paglulunsad",
         "playing": {
@@ -117,7 +118,9 @@
         "launching": "Paglulunsad",
         "moving": "Inilipat ang Pag-install, mangyaring maghintay",
         "moving-files": "Inilipat ang file na '{{file}}': {{percent}} ",
-        "notinstalled": "Ang larong ito ay hindi naka-install"
+        "notinstalled": "Ang larong ito ay hindi naka-install",
+        "gog-goodie": "Mukhang hindi mai-install ang larong ito. Tingnan ang nada-download na nilalaman sa https://gog.com/account",
+        "goodie": "Hindi mai-install"
     },
     "submenu": {
         "addShortcut": "Magdagdag ng shortcut",

@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroic; Wine, Proton ve CrossOver sürümlerini şu klasörlerde arar:",
             "part2": "Diğer yerler için bu klasörlerden birisine sembolik bağlantı kullanın"
-        }
+        },
+        "disable_logs": "Günlük dosyalarına yazma işlemlerinin çoğunu devre dışı bırakmak için bu onay kutusunu AÇIK konuma getirin (kritik bilgiler her zaman günlüğe kaydedilir). Herhangi bir sorunu bildirmeden önce bu ayarı KAPALI konuma getirdiğinizden emin olun."
     },
     "info": {
         "heroic": {
@@ -568,7 +569,8 @@
         "wineprefix": "WinePrefix klasörü",
         "wineversion": "Wine Sürümü",
         "autoUpdateGames": "Oyunları otomatik olarak güncelle",
-        "ignoreGameUpdates": "Oyun güncellemelerini yoksay"
+        "ignoreGameUpdates": "Oyun güncellemelerini yoksay",
+        "disable_logs": "Günlükleri Devre Dışı Bırak"
     },
     "settings": {
         "battlEyeRuntime": {
