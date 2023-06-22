@@ -287,15 +287,52 @@ abstract class GlobalConfig {
     return crossover
   }
 
+  /**
+   * Detects Whisky installs on Mac
+   *
+   * @returns Promise<Set<WineInstallation>>
+   */
+  public async getWhisky(): Promise<Set<WineInstallation>> {
+    const whisky = new Set<WineInstallation>()
+
+    if (!isMac) {
+      return whisky
+    }
+
+    await execAsync(
+      'mdfind kMDItemCFBundleIdentifier = "com.isaacmarovitz.Whisky"'
+    ).then(async ({ stdout }) => {
+      stdout.split('\n').forEach((whiskyMacPath) => {
+        const infoFilePath = join(whiskyMacPath, 'Contents/Info.plist')
+        if (whiskyMacPath && existsSync(infoFilePath)) {
+          const info = plistParse(
+            readFileSync(infoFilePath, 'utf-8')
+          ) as PlistObject
+          const version = info['CFBundleShortVersionString'] || ''
+          const whiskyWineBin = `${userHome}/Application Support/com.isaacmarovitz.Whisky/Libraries/Wine/bin/wine64`
+          whisky.add({
+            bin: whiskyWineBin,
+            name: `Whisky - ${version}`,
+            type: `whisky`,
+            ...this.getWineExecs(whiskyWineBin)
+          })
+        }
+      })
+    })
+
+    return whisky
+  }
+
   public async getMacOsWineSet(): Promise<Set<WineInstallation>> {
     if (!isMac) {
       return new Set<WineInstallation>()
     }
 
     const crossover = await this.getCrossover()
+    const whisky = await this.getWhisky()
     const wineOnMac = await this.getWineOnMac()
     const wineskinWine = await this.getWineskinWine()
-    return new Set([...crossover, ...wineOnMac, ...wineskinWine])
+    return new Set([...crossover, ...whisky, ...wineOnMac, ...wineskinWine])
   }
 
   /**
