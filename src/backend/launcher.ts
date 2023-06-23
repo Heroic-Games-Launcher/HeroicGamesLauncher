@@ -25,8 +25,7 @@ import {
   quoteIfNecessary,
   errorHandler,
   removeQuoteIfNecessary,
-  memoryLog,
-  spawnAsync
+  memoryLog
 } from './utils'
 import {
   logDebug,
@@ -164,13 +163,6 @@ async function prepareWineLaunch(
   const gameSettings =
     GameConfig.get(appName).config ||
     (await GameConfig.get(appName).getSettings())
-
-  if (gameSettings.wineVersion.type === 'toolkit') {
-    return {
-      success: true,
-      envVars: {}
-    }
-  }
 
   if (!(await validWine(gameSettings.wineVersion))) {
     const defaultWine = GlobalConfig.get().getSettings().wineVersion
@@ -469,11 +461,6 @@ export async function verifyWinePrefix(
 ): Promise<{ res: ExecResult; updated: boolean }> {
   const { winePrefix = defaultWinePrefix, wineVersion } = settings
 
-  // if type === 'toolkit', we don't need to verify the prefix
-  if (wineVersion.type === 'toolkit') {
-    return { res: { stdout: '', stderr: '' }, updated: false }
-  }
-
   const isValidWine = await validWine(wineVersion)
 
   if (!isValidWine) {
@@ -525,31 +512,6 @@ function launchCleanup(rpcClient?: RpcClient) {
   }
 }
 
-export async function runToolkitCommand(
-  gameSettings: GameSettings,
-  command: string
-): Promise<{ stderr: string; stdout: string }> {
-  const {
-    winePrefix = defaultWinePrefix,
-    wineVersion: { bin: wineBin }
-  } = gameSettings
-
-  const env_vars = {
-    ...process.env,
-    ...setupEnvVars(gameSettings)
-  }
-
-  logInfo(
-    `Running App using Apple's Gaming Toolkit: ${wineBin} ${winePrefix} ${command}`,
-    LogPrefix.Backend
-  )
-  const { stderr, stdout } = await spawnAsync(wineBin, [winePrefix, command], {
-    env: env_vars
-  })
-
-  return { stderr, stdout }
-}
-
 async function runWineCommand({
   gameSettings,
   commandParts,
@@ -564,10 +526,6 @@ async function runWineCommand({
     ? gameSettings
     : GlobalConfig.get().getSettings()
   const { wineVersion, winePrefix } = settings
-
-  if (wineVersion.type === 'toolkit') {
-    return runToolkitCommand(settings, commandParts[0])
-  }
 
   if (!skipPrefixCheckIKnowWhatImDoing && wineVersion.type !== 'crossover') {
     let requiredPrefixFiles = [

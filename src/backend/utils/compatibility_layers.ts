@@ -331,41 +331,6 @@ export async function getCrossover(): Promise<Set<WineInstallation>> {
  * Detects Gaming Porting Toolkit Wine installs on Mac
  * @returns Promise<Set<WineInstallation>>
  **/
-export async function getGamingPortingToolkit(): Promise<
-  Set<WineInstallation>
-> {
-  const gamingPortingToolkit = new Set<WineInstallation>()
-
-  if (!isMac) {
-    return gamingPortingToolkit
-  }
-
-  logInfo('Searching for Gaming Porting Toolkit', LogPrefix.GlobalConfig)
-  await execAsync('which gameportingtoolkit-no-hud')
-    .then(async ({ stdout }) => {
-      if (stdout) {
-        logInfo(
-          `Found Gaming Porting Toolkit at ${dirname(stdout)}`,
-          LogPrefix.GlobalConfig
-        )
-
-        gamingPortingToolkit.add({
-          bin: stdout.replace('\n', ''),
-          name: `Gaming Toolkit Script`,
-          type: 'toolkit'
-        })
-      }
-    })
-    .catch(() => {
-      logInfo('Gaming Porting Toolkit not found', LogPrefix.GlobalConfig)
-    })
-  return gamingPortingToolkit
-}
-
-/**
- * Detects Gaming Porting Toolkit Wine installs on Mac
- * @returns Promise<Set<WineInstallation>>
- **/
 export async function getGamingPortingToolkitWine(): Promise<
   Set<WineInstallation>
 > {
@@ -395,8 +360,8 @@ export async function getGamingPortingToolkitWine(): Promise<
         const version = out.split('\n')[0]
         gamingPortingToolkitWine.add({
           ...getWineExecs(wineBin),
-          name: `Gaming Toolkit Standalone Wine - ${version}`,
-          type: 'wine',
+          name: `Gaming Toolkit Wine - ${version}`,
+          type: 'toolkit',
           lib: `${dirname(wineBin)}/../lib`,
           lib32: `${dirname(wineBin)}/../lib`,
           bin: wineBin

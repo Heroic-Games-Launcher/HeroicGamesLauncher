@@ -25,7 +25,6 @@ import { logError, logInfo, LogPrefix } from './logger/logger'
 import {
   getCrossover,
   getDefaultWine,
-  getGamingPortingToolkit,
   getGamingPortingToolkitWine,
   getLinuxWineSet,
   getWineOnMac,
@@ -137,11 +136,9 @@ abstract class GlobalConfig {
     const crossover = await getCrossover()
     const wineOnMac = await getWineOnMac()
     const wineskinWine = await getWineskinWine()
-    const gamingPortingToolkit = await getGamingPortingToolkit()
     const gamingPortingToolkitWine = await getGamingPortingToolkitWine()
 
     return new Set([
-      ...gamingPortingToolkit,
       ...gamingPortingToolkitWine,
       ...crossover,
       ...wineOnMac,

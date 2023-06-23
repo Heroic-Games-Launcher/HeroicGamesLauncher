@@ -9,7 +9,6 @@ import {
   callRunner,
   launchCleanup,
   prepareLaunch,
-  runToolkitCommand,
   runWineCommand,
   setupEnvVars,
   setupWrappers
@@ -173,13 +172,6 @@ export async function launchGame(
       `launching non-native sideloaded: ${executable}}`,
       LogPrefix.Backend
     )
-
-    if (gameSettings.wineVersion.type === 'toolkit') {
-      logInfo('Using wine toolkit', LogPrefix.Backend)
-      await runToolkitCommand(gameSettings, executable)
-      launchCleanup(rpcClient)
-      return true
-    }
 
     await runWineCommand({
       commandParts: [executable, launcherArgs ?? ''],
