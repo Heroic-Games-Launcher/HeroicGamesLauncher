@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Búsquedas de versións de Wine, Proton e CrossOver nos seguintes cartafoles:",
             "part2": "Para outros lugares, use unha ligazón simbólica a un destos cartafoles"
-        }
+        },
+        "disable_logs": "Activa esta caixa de verificación para desactivar a maioría das escrituras nos ficheiros de rexistro (a información crítica sempre se rexistra). Asegúrate de desactivar esta configuración antes de informar de calquera problema."
     },
     "info": {
         "heroic": {
@@ -522,7 +523,7 @@
         "log": {
             "copy-to-clipboard": "Copy log content to clipboard",
             "current-log": "Current Log",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",
             "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
             "no-file": "No log file found",
@@ -568,7 +569,8 @@
         "wineprefix": "Cartafol WinePrefix",
         "wineversion": "Versión de Wine",
         "ignoreGameUpdates": "Ignorar as actualizacións do xogo",
-        "autoUpdateGames": "Actualiza os xogos automaticamente"
+        "autoUpdateGames": "Actualiza os xogos automaticamente",
+        "disable_logs": "Desactivar rexistros"
     },
     "settings": {
         "battlEyeRuntime": {

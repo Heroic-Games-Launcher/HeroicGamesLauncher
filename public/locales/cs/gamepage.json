@@ -21,7 +21,7 @@
             "title": "Vyberte EXE ke spuštění"
         },
         "select": {
-            "button": "Vybrat"
+            "button": "Zvolit"
         },
         "sideload": {
             "exe": "Vybrat spustitelný soubor"
@@ -48,7 +48,7 @@
     },
     "button": {
         "add_to_favourites": "Přidat do oblíbených",
-        "cancel": "Zrušit",
+        "cancel": "Pozastavit/Zrušit",
         "continue": "Pokračovat ve stahování",
         "finish": "Dokončit",
         "force_update": "Vynutit aktualizaci, pokud je dostupná",
@@ -130,7 +130,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Hra třetí strany NENÍ podporována"
+            "third-party-game": "Hra třetí strany NENÍ podporována",
+            "not-installable-game": "Hra NELZE nainstalovat"
         },
         "playing": {
             "start": "Hrát",
@@ -202,7 +203,9 @@
         "launching": "Spouštění",
         "ubisoft": "Instalace Ubisoftu",
         "downloading": "Stahování",
-        "extracting": "Extrakce"
+        "extracting": "Extrakce",
+        "gog-goodie": "Zdá se, že tuto hru nelze nainstalovat. Zkontrolujte obsah ke stažení na https://gog.com/account",
+        "goodie": "Nelze nainstalovat"
     },
     "submenu": {
         "addShortcut": "Přidat zástupce",

@@ -130,7 +130,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Third-Party Game NOT Supported",
+            "not-installable-game": "Hra NIE JE INŠTALOVANÁ"
         },
         "playing": {
             "start": "Hrať teraz",
@@ -202,7 +203,9 @@
         "launching": "Spustenie",
         "ubisoft": "Inštalácia Ubisoftu",
         "downloading": "Downloading",
-        "extracting": "Extrakcia"
+        "extracting": "Extrakcia",
+        "gog-goodie": "Zdá sa, že túto hru nie je možné nainštalovať. Skontrolujte obsah na stiahnutie na https://gog.com/account",
+        "goodie": "Nedá sa nainštalovať"
     },
     "submenu": {
         "addShortcut": "Pridať skratku",

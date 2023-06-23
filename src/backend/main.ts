@@ -19,7 +19,8 @@ import {
   powerSaveBlocker,
   protocol,
   screen,
-  clipboard
+  clipboard,
+  components
 } from 'electron'
 import 'backend/updater'
 import { autoUpdater } from 'electron-updater'
@@ -61,7 +62,6 @@ import {
   showAboutWindow,
   showItemInFolder,
   getLegendaryBin,
-  getGOGdlBin,
   getFileSize,
   detectVCRedist,
   getFirstExistingParentPath,
@@ -102,11 +102,13 @@ import {
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
+  initLogger,
   logChangedSetting,
   logDebug,
   logError,
   logInfo,
   LogPrefix,
+  logsDisabled,
   logWarning
 } from './logger/logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
@@ -269,33 +271,20 @@ if (!gotTheLock) {
     handleProtocol(argv)
   })
   app.whenReady().then(async () => {
+    initLogger()
     initStoreManagers()
     initOnlineMonitor()
+    initImagesCache()
+
+    if (!process.env.CI) {
+      await components.whenReady()
+      logInfo(['DRM module staus', components.status()])
+    }
 
     // try to fix notification app name on windows
     if (isWindows) {
       app.setAppUserModelId('Heroic Games Launcher')
     }
-
-    getSystemInfo().then((systemInfo) => {
-      if (systemInfo === '') return
-      logInfo(`\n\n${systemInfo}\n`, LogPrefix.Backend)
-    })
-
-    initImagesCache()
-
-    logInfo(
-      ['Legendary location:', join(...Object.values(getLegendaryBin()))],
-      LogPrefix.Legendary
-    )
-    logInfo(
-      ['GOGDL location:', join(...Object.values(getGOGdlBin()))],
-      LogPrefix.Gog
-    )
-    logInfo(
-      ['GOGDL location:', join(...Object.values(getGOGdlBin()))],
-      LogPrefix.Gog
-    )
 
     // TODO: Remove this after a couple of stable releases
     // Affects only current users, not new installs
@@ -310,7 +299,10 @@ if (!gotTheLock) {
       const isLoggedIn = LegendaryUser.isLoggedIn()
 
       if (!isLoggedIn) {
-        logInfo('User Not Found, removing it from Store', LogPrefix.Backend)
+        logInfo('User Not Found, removing it from Store', {
+          prefix: LogPrefix.Backend,
+          forceLog: true
+        })
         configStore.delete('userInfo')
       }
 
@@ -987,6 +979,13 @@ ipcMain.handle(
         `Game launched at: ${startPlayingDate}\n` +
         '\n'
     )
+
+    if (logsDisabled) {
+      appendFileSync(
+        logFileLocation,
+        'IMPORTANT: Logs are disabled. Enable logs before reporting an issue.'
+      )
+    }
 
     const isNative = gameManagerMap[runner].isNative(appName)
 

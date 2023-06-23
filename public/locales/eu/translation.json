@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroikoek Wine, Proton eta CrossOver-en bertsioak bilatzen ditu karpeta hauetan:",
             "part2": "Beste leku batzuetarako, erabili karpeta horietako batera esteka sinboliko bat"
-        }
+        },
+        "disable_logs": "Aktibatu kontrol-lauki hau erregistro-fitxategietako idazketa gehienak desgaitzeko (informazio kritikoa beti erregistratzen da). Ziurtatu ezarpen hau desaktibatu duzula edozein arazoren berri eman aurretik."
     },
     "info": {
         "heroic": {
@@ -568,7 +569,8 @@
         "wineprefix": "WinePrefix karpeta",
         "wineversion": "Ardoaren Bertsioa",
         "autoUpdateGames": "Eguneratu jokoak automatikoki",
-        "ignoreGameUpdates": "Ez ikusi jokoaren eguneraketak"
+        "ignoreGameUpdates": "Ez ikusi jokoaren eguneraketak",
+        "disable_logs": "Desgaitu erregistroak"
     },
     "settings": {
         "battlEyeRuntime": {

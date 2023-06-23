@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Το Heroic αναζητά εκδόσεις Wine, Proton και CrossOver στους ακόλουθους φακέλους:",
             "part2": "Για άλλες τοποθεσίες, χρησιμοποιήστε έναν συμβολικό σύνδεσμο σε έναν απ' αυτούς τους φακέλους"
-        }
+        },
+        "disable_logs": "Ενεργοποιήστε αυτό το πλαίσιο ελέγχου για να απενεργοποιήσετε τις περισσότερες εγγραφές σε αρχεία καταγραφής (οι κρίσιμες πληροφορίες καταγράφονται πάντα). Βεβαιωθείτε ότι έχετε απενεργοποιήσει αυτήν τη ρύθμιση πριν αναφέρετε οποιοδήποτε πρόβλημα."
     },
     "info": {
         "heroic": {
@@ -522,7 +523,7 @@
         "log": {
             "copy-to-clipboard": "Αντιγραφή αρχείου καταγραφής στο πρόχειρο",
             "current-log": "Τρέχων Αρχείο Καταγραφής",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",
             "instructions_title": "How to report a problem?",
             "last-log": "Τελευταίο Αρχείο Καταγραφής",
             "no-file": "Δεν βρέθηκε αρχείο σύνδεσης",
@@ -568,7 +569,8 @@
         "wineprefix": "Φάκελος Προθημάτων Wine",
         "wineversion": "Έκδοση Wine",
         "autoUpdateGames": "Αυτόματη ενημέρωση παιχνιδιών",
-        "ignoreGameUpdates": "Αγνοήστε τις ενημερώσεις του παιχνιδιού"
+        "ignoreGameUpdates": "Αγνοήστε τις ενημερώσεις του παιχνιδιού",
+        "disable_logs": "Απενεργοποίηση αρχείων καταγραφής"
     },
     "settings": {
         "battlEyeRuntime": {

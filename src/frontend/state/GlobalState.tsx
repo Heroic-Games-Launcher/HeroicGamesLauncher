@@ -39,6 +39,7 @@ import {
   wineDownloaderInfoStore
 } from '../helpers/electronStores'
 import { sideloadLibrary } from 'frontend/helpers/electronStores'
+import { IpcRendererEvent } from 'electron'
 
 const storage: Storage = window.localStorage
 const globalSettings = configStore.get_nodefault('settings')
@@ -610,7 +611,7 @@ class GlobalState extends PureComponent<Props> {
     // Deals launching from protocol. Also checks if the game is already running
     window.api.handleLaunchGame(
       async (
-        e: Event,
+        e: IpcRendererEvent,
         appName: string,
         runner: Runner
       ): Promise<{ status: 'done' | 'error' | 'abort' }> => {
@@ -630,37 +631,62 @@ class GlobalState extends PureComponent<Props> {
       }
     )
 
-    window.api.handleInstallGame(async (e: Event, args: InstallParams) => {
-      const currentApp = libraryStatus.filter(
-        (game) => game.appName === appName
-      )[0]
-      const { appName, runner } = args
-      if (!currentApp || (currentApp && currentApp.status !== 'installing')) {
-        const gameInfo = await getGameInfo(appName, runner)
-        if (!gameInfo || gameInfo.runner === 'sideload') {
-          return
+    window.api.handleInstallGame(
+      async (e: IpcRendererEvent, args: InstallParams) => {
+        const currentApp = libraryStatus.filter(
+          (game) => game.appName === appName
+        )[0]
+        const { appName, runner } = args
+        if (!currentApp || (currentApp && currentApp.status !== 'installing')) {
+          const gameInfo = await getGameInfo(appName, runner)
+          if (!gameInfo || gameInfo.runner === 'sideload') {
+            return
+          }
+          return this.setState({
+            showInstallModal: {
+              show: true,
+              appName,
+              runner,
+              gameInfo
+            }
+          })
         }
-        return this.setState({
-          showInstallModal: {
-            show: true,
-            appName,
-            runner,
-            gameInfo
+      }
+    )
+
+    window.api.handleGameStatus(
+      async (e: IpcRendererEvent, args: GameStatus) => {
+        return this.handleGameStatus({ ...args })
+      }
+    )
+
+    window.api.handleRefreshLibrary(
+      async (e: IpcRendererEvent, runner: Runner) => {
+        this.refreshLibrary({
+          checkForUpdates: false,
+          runInBackground: true,
+          library: runner
+        })
+      }
+    )
+
+    window.api.handleGamePush((e: IpcRendererEvent, args: GameInfo) => {
+      if (!args.app_name) return
+      if (args.runner === 'gog') {
+        const library = [...this.state.gog.library]
+        const index = library.findIndex(
+          (game) => game.app_name === args.app_name
+        )
+        if (index !== -1) {
+          library.splice(index, 1)
+        }
+        this.setState({
+          gog: {
+            library: [...library, args],
+            username: this.state.gog.username
           }
         })
       }
-    })
-
-    window.api.handleGameStatus(async (e: Event, args: GameStatus) => {
-      return this.handleGameStatus({ ...args })
-    })
-
-    window.api.handleRefreshLibrary(async (e: Event, runner: Runner) => {
-      this.refreshLibrary({
-        checkForUpdates: false,
-        runInBackground: true,
-        library: runner
-      })
     })
 
     const legendaryUser = configStore.has('userInfo')

@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroic hledá verze Wine, Proton a CrossOver v následujících složkách:",
             "part2": "Pro jiná místa použijte symbolický odkaz na jednu z těchto složek"
-        }
+        },
+        "disable_logs": "Zapnutím tohoto zaškrtávacího políčka zakážete většinu zápisů do souborů protokolu (kritické informace jsou vždy protokolovány). Před nahlášením jakéhokoli problému nezapomeňte toto nastavení VYPNOUT."
     },
     "info": {
         "heroic": {
@@ -522,7 +523,7 @@
         "log": {
             "copy-to-clipboard": "Zkopírovat obsah protokolu do schránky",
             "current-log": "Aktuální protokol",
-            "instructions": "Připojte se k našemu Discordu a vyhledejte kanál, který odpovídá vašemu operačnímu systému. Sdílejte obsah zde zobrazených protokolů a připojte jasný popis problému s veškerými důležitými informacemi a podrobnostmi.",
+            "instructions": "Připojte se k našemu Discordu a najděte sekci „#-support“. Přečtěte si vlákno „Read Me First | Frequently Asked Questions“ a následujte instrukce pro sdílení těchto protokolů a dalších relevantních informací o vašem problému.",
             "instructions_title": "Jak nahlásit problém?",
             "last-log": "Poslední protokol",
             "no-file": "Nebyl nalezen žádný soubor protokolu",
@@ -568,7 +569,8 @@
         "wineprefix": "Složka WinePrefix",
         "wineversion": "Verze Wine",
         "autoUpdateGames": "Automaticky aktualizovat hry",
-        "ignoreGameUpdates": "Ignorovat aktualizace hry"
+        "ignoreGameUpdates": "Ignorovat aktualizace hry",
+        "disable_logs": "Zakázat protokoly"
     },
     "settings": {
         "battlEyeRuntime": {

@@ -130,7 +130,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Tredjeparts-spel stöds ej"
+            "third-party-game": "Tredjeparts-spel stöds ej",
+            "not-installable-game": "Spelet kan INTE installeras"
         },
         "playing": {
             "start": "Starta spelet",
@@ -202,7 +203,9 @@
         "launching": "Startar",
         "ubisoft": "Installerar Ubisoft",
         "downloading": "Nerladdning",
-        "extracting": "Extrahera"
+        "extracting": "Extrahera",
+        "gog-goodie": "Det här spelet verkar inte gå att installera. Kontrollera nedladdningsbart innehåll på https://gog.com/account",
+        "goodie": "Ej installationsbar"
     },
     "submenu": {
         "addShortcut": "Skapa genväg",

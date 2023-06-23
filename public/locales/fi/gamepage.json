@@ -130,7 +130,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Kolmannen osapuolen peliä EI tueta"
+            "third-party-game": "Kolmannen osapuolen peliä EI tueta",
+            "not-installable-game": "Peli EI ole asennettavissa"
         },
         "playing": {
             "start": "Pelaa nyt",
@@ -202,7 +203,9 @@
         "launching": "Käynnistetään",
         "ubisoft": "Ubisoftin asennus",
         "downloading": "Ladataan",
-        "extracting": "Purkaminen"
+        "extracting": "Purkaminen",
+        "goodie": "Ei asennettavissa",
+        "gog-goodie": "Tämä peli ei näytä olevan asennettavissa. Tarkista ladattava sisältö osoitteessa https://gog.com/account"
     },
     "submenu": {
         "addShortcut": "Lisää pikakuvake",

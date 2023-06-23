@@ -130,7 +130,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Drittanbieterspiel NICHT unterstützt"
+            "third-party-game": "Drittanbieterspiel NICHT unterstützt",
+            "not-installable-game": "Das Spiel ist NICHT installierbar"
         },
         "playing": {
             "start": "Jetzt spielen",
@@ -196,13 +197,15 @@
         "totalDownloaded": "Insgesamt heruntergeladen",
         "uninstalling": "Wird deinstalliert",
         "updating": "Spiel wird aktualisiert",
-        "playing": "Spielen",
+        "playing": "Wird gespielt",
         "moving-files": "Datei verschieben '{{file}}': {{percent}} ",
         "syncingSaves": "Spielstände werden synchronisiert",
-        "launching": "Starten",
-        "ubisoft": "Ubisoft installieren",
-        "downloading": "Lade herunter",
-        "extracting": "Extrahieren"
+        "launching": "Wird gestartet",
+        "ubisoft": "Ubisoft wird installiert",
+        "downloading": "Wird heruntergeladen",
+        "extracting": "Wird extrahiert",
+        "gog-goodie": "Dieses Spiel scheint nicht installierbar zu sein. Überprüfen Sie herunterladbare Inhalte auf https://gog.com/account",
+        "goodie": "Nicht installierbar"
     },
     "submenu": {
         "addShortcut": "Verknüpfung hinzufügen",

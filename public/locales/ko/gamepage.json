@@ -36,7 +36,7 @@
             "message": "이 게임을 제거하시겠습니까?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "설치 제거",
-            "prefix_warning": "이 게임의 Wine 접두사는 기본 접두사입니다. 정말로 삭제하고 싶다면 수동으로 삭제해야 합니다.",
+            "prefix_warning": "이 게임의 Wine 설치 경로는 기본 설치 경로입니다. 정말로 삭제하고 싶다면 수동으로 삭제해야 합니다.",
             "dlc": "이 DLC를 제거하시겠습니까?"
         },
         "update": {
@@ -70,7 +70,7 @@
         "unhide_game": "게임 숨기기 해제",
         "uninstall": "설치 제거",
         "update": "업데이트",
-        "details": "세부"
+        "details": "세부 정보"
     },
     "cloud_save_unsupported": "Unsupported",
     "disabled": "비활성화",
@@ -115,7 +115,7 @@
         "syncsaves": "세이브 동기화",
         "version": "버전",
         "apple-gaming-wiki": "AppleGamingWiki 등급",
-        "clickToOpen": "열려면 클릭",
+        "clickToOpen": "클릭하여 열기",
         "game-scores": "게임 점수",
         "installedInfo": "설치된 정보"
     },
@@ -196,10 +196,10 @@
         "totalDownloaded": "총 다운로드",
         "uninstalling": "Uninstalling",
         "updating": "게임 업데이트 중",
-        "playing": "놀이",
+        "playing": "플레이 중",
         "moving-files": "파일 '{{file}}' 이동: {{percent}} ",
         "syncingSaves": "세이브 동기화 중",
-        "launching": "진수",
+        "launching": "시작 중",
         "ubisoft": "유비소프트 설치",
         "downloading": "Downloading",
         "extracting": "적출"
@@ -221,6 +221,6 @@
         "logs": "로그"
     },
     "help": {
-        "cloud_save_unsupported": "이 게임은 클라우드 저장을 지원하지 않습니다. 이 정보는 게임 개발자가 제공합니다. 일부 게임은 자체 클라우드 저장 시스템을 구현합니다."
+        "cloud_save_unsupported": "이 게임은 클라우드 저장을 지원하지 않습니다. 이 정보는 게임 개발자가 제공합니다. 일부 게임은 자체 클라우드 저장 시스템을 구현합니다"
     }
 }

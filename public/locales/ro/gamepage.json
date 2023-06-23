@@ -131,7 +131,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Third-Party Game NOT Supported",
+            "not-installable-game": "Jocul NU este instalabil"
         },
         "playing": {
             "start": "Joacă Acum",
@@ -203,7 +204,9 @@
         "launching": "Lansare",
         "ubisoft": "Instalarea Ubisoft",
         "downloading": "Downloading",
-        "extracting": "Extragerea"
+        "extracting": "Extragerea",
+        "gog-goodie": "Acest joc nu pare a fi instalabil. Verificați conținutul descărcabil pe https://gog.com/account",
+        "goodie": "Nu se poate instala"
     },
     "submenu": {
         "addShortcut": "Adaugă scurtătură",

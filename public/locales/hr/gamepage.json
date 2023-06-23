@@ -130,7 +130,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Third-Party Game NOT Supported",
+            "not-installable-game": "Igra se NIJE instalirati"
         },
         "playing": {
             "start": "Igraj Sada",
@@ -202,7 +203,9 @@
         "ubisoft": "Instaliranje Ubisofta",
         "launching": "Pokretanje",
         "downloading": "Downloading",
-        "extracting": "Vađenje"
+        "extracting": "Vađenje",
+        "gog-goodie": "Čini se da se ova igra ne može instalirati. Provjerite sadržaj za preuzimanje na https://gog.com/account",
+        "goodie": "Nije moguće instalirati"
     },
     "submenu": {
         "addShortcut": "Dodaj prečace",

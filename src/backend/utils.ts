@@ -41,7 +41,13 @@ import {
   configStore,
   isLinux
 } from './constants'
-import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
+import {
+  logError,
+  logInfo,
+  LogPrefix,
+  logsDisabled,
+  logWarning
+} from './logger/logger'
 import { basename, dirname, join, normalize } from 'path'
 import { runRunnerCommand as runLegendaryCommand } from 'backend/storeManagers/legendary/library'
 import { runRunnerCommand as runGogdlCommand } from './storeManagers/gog/library'
@@ -1023,15 +1029,17 @@ export async function checkWineBeforeLaunch(
   if (wineIsValid) {
     return true
   } else {
-    logError(
-      `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`,
-      LogPrefix.Backend
-    )
+    if (!logsDisabled) {
+      logError(
+        `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`,
+        LogPrefix.Backend
+      )
 
-    appendFileSync(
-      logFileLocation,
-      `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`
-    )
+      appendFileSync(
+        logFileLocation,
+        `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`
+      )
+    }
 
     // check if the default wine is valid now
     const { wineVersion: defaultwine } = GlobalConfig.get().getSettings()

@@ -130,7 +130,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "不支持第三方游戏"
+            "third-party-game": "不支持第三方游戏",
+            "not-installable-game": "游戏不可安装"
         },
         "playing": {
             "start": "开始游戏",
@@ -202,7 +203,9 @@
         "launching": "发射",
         "ubisoft": "安装育碧",
         "downloading": "下载中",
-        "extracting": "提取"
+        "extracting": "提取",
+        "gog-goodie": "该游戏似乎无法安装。在 https://gog.com/account 上查看可下载内容",
+        "goodie": "不可安装"
     },
     "submenu": {
         "addShortcut": "添加快捷方式",
