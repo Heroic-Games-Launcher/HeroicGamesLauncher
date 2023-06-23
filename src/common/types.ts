@@ -598,6 +598,18 @@ export interface GamesDBInfo {
   steamID: string
 }
 
+export interface ProtonCompatibility {
+  level: string
+}
+export interface ProtonDBInfo {
+  bestReportedTier: string
+  confidence: string
+  score: number
+  tier: string
+  total: number
+  trendingTier: string
+}
+
 export interface WikiInfo {
   timestampLastFetch: string
   pcgamingwiki: PCGamingWikiInfo | null
