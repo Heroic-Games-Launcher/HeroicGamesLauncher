@@ -1,11 +1,12 @@
 import { ProtonDBInfo, ProtonCompatibility } from 'common/types'
 import axios, { AxiosError } from 'axios'
-import { logInfo, logError, LogPrefix } from 'backend/logger/logger'
+import { logDebug, logError, LogPrefix } from 'backend/logger/logger'
 
 export async function getInfoFromProtonDB(
   steamID: string
 ): Promise<ProtonCompatibility | null> {
   if (steamID === '') {
+    logDebug('No SteamID, not getting ProtonDB info')
     return null
   }
   const url = `https://www.protondb.com/api/v1/reports/summaries/${steamID}.json`
@@ -27,9 +28,11 @@ export async function getInfoFromProtonDB(
     })
 
   if (!response) {
+    logDebug('No response when getting ProtonDB info')
     return null
   }
-  logInfo(`ProtonDB data for ${steamID} ${response.data}`)
+  const resp_str = JSON.stringify(response.data)
+  logDebug(`ProtonDB data for ${steamID} ${resp_str}`)
 
   return { level: response.data.tier }
 }
