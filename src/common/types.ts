@@ -598,7 +598,7 @@ export interface GamesDBInfo {
   steamID: string
 }
 
-export interface ProtonCompatibility {
+export interface ProtonDBCompatibilityInfo {
   level: string
 }
 export interface ProtonDBInfo {
@@ -616,6 +616,7 @@ export interface WikiInfo {
   applegamingwiki: AppleGamingWikiInfo | null
   howlongtobeat: HowLongToBeatEntry | null
   gamesdb: GamesDBInfo | null
+  protondb: ProtonDBCompatibilityInfo | null
 }
 
 /**

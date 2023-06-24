@@ -1,10 +1,10 @@
-import { ProtonDBInfo, ProtonCompatibility } from 'common/types'
+import { ProtonDBInfo, ProtonDBCompatibilityInfo } from 'common/types'
 import axios, { AxiosError } from 'axios'
 import { logDebug, logError, LogPrefix } from 'backend/logger/logger'
 
 export async function getInfoFromProtonDB(
   steamID: string
-): Promise<ProtonCompatibility | null> {
+): Promise<ProtonDBCompatibilityInfo | null> {
   if (steamID === '') {
     logDebug('No SteamID, not getting ProtonDB info')
     return null
@@ -21,10 +21,7 @@ export async function getInfoFromProtonDB(
         ],
         LogPrefix.ExtraGameInfo
       )
-      if (error.response?.status === 404) {
-        return null
-      }
-      throw new Error('connection error', { cause: error })
+      return null
     })
 
   if (!response) {
