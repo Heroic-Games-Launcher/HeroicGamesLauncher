@@ -35,7 +35,7 @@ describe('getInfoFromProtonDB', () => {
 
     const result = await getInfoFromProtonDB('')
     expect(result).toBeNull()
-    expect(mockAxios).toBeCalledTimes(0)
+    expect(mockAxios).not.toBeCalled()
   })
 })
 

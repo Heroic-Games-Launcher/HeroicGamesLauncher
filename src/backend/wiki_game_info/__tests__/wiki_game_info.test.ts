@@ -52,7 +52,7 @@ describe('getWikiGameInfo', () => {
     expect(mockAppleGamingWiki).not.toBeCalled()
     expect(mockHowLongToBeat).not.toBeCalled()
     expect(mockGamesDB).not.toBeCalled()
-    expect(mockProtonDB).toBeCalled()
+    expect(mockProtonDB).not.toBeCalled()
   })
 
   test('cached data outdated', async () => {
