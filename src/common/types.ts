@@ -601,14 +601,6 @@ export interface GamesDBInfo {
 export interface ProtonDBCompatibilityInfo {
   level: string
 }
-export interface ProtonDBInfo {
-  bestReportedTier: string
-  confidence: string
-  score: number
-  tier: string
-  total: number
-  trendingTier: string
-}
 
 export interface WikiInfo {
   timestampLastFetch: string

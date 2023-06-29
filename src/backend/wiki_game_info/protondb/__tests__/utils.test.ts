@@ -15,7 +15,15 @@ describe('getInfoFromProtonDB', () => {
     expect(result).toStrictEqual(testProtonDBInfo)
     expect(mockAxios).toBeCalled()
   })
+  test('api change', async () => {
+    const mockAxios = jest.spyOn(axios, 'get').mockResolvedValue({
+      data: { tierLevel: 'gold' }
+    })
 
+    const result = await getInfoFromProtonDB('1234')
+    expect(result).toStrictEqual(null)
+    expect(mockAxios).toBeCalled()
+  })
   test('does not find game', async () => {
     const mockAxios = jest
       .spyOn(axios, 'get')
