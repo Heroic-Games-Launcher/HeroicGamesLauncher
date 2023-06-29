@@ -130,7 +130,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Външна игра, която НЕ се поддържа"
+            "third-party-game": "Външна игра, която НЕ се поддържа",
+            "not-installable-game": "Играта НЕ МОЖЕ да се инсталира"
         },
         "playing": {
             "start": "Пускане сега",
@@ -202,7 +203,9 @@
         "launching": "Пускане",
         "ubisoft": "Инсталиране на Ubisoft",
         "downloading": "Сваляне",
-        "extracting": "Разархивиране"
+        "extracting": "Извличане",
+        "gog-goodie": "Тази игра изглежда не може да се инсталира. Проверете съдържанието за сваляне на https://gog.com/account",
+        "goodie": "Не може да се инсталира"
     },
     "submenu": {
         "addShortcut": "Добавяне на пряк път",

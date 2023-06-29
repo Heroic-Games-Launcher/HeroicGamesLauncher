@@ -130,7 +130,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Third-Party Game NOT Supported",
+            "not-installable-game": "ഗെയിം ഇൻസ്റ്റാൾ ചെയ്യാൻ കഴിയില്ല"
         },
         "playing": {
             "start": "കളിക്കാം",
@@ -202,7 +203,9 @@
         "launching": "ലോഞ്ച് ചെയ്യുന്നു",
         "ubisoft": "Ubisoft ഇൻസ്റ്റാൾ ചെയ്യുന്നു",
         "downloading": "ഇറക്കുന്നു",
-        "extracting": "വേർതിരിച്ചെടുക്കുന്നു"
+        "extracting": "വേർതിരിച്ചെടുക്കുന്നു",
+        "goodie": "ഇൻസ്റ്റാൾ ചെയ്യാൻ കഴിയില്ല",
+        "gog-goodie": "ഈ ഗെയിം ഇൻസ്റ്റാൾ ചെയ്യാൻ കഴിയുന്നതായി തോന്നുന്നില്ല. https://gog.com/account എന്നതിൽ ഡൗൺലോഡ് ചെയ്യാവുന്ന ഉള്ളടക്കം പരിശോധിക്കുക"
     },
     "submenu": {
         "addShortcut": "കുറുക്കുവഴി ചേര്ക്കൂ",

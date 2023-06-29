@@ -150,8 +150,8 @@
             },
             "title": "Aviso",
             "wine-change": {
-                "message": "Não foi possível encontrar a versão do vinho selecionada para lançar este título ({{selectedWine}}). {{newline}} Encontramos outro, deseja continuar iniciando usando {{foundWine}}?",
-                "title": "Vinho não encontrado!"
+                "message": "Não foi possível encontrar a versão do Wine selecionada para iniciar este título ({{selectedWine}}). {{newline}} Encontramos outra versão, deseja continuar a iniciar usando {{foundWine}}?",
+                "title": "Wine não encontrado!"
             }
         },
         "wineprefix": "Selecione a pasta do prefixo Wine",
@@ -278,7 +278,8 @@
         "wine": {
             "part1": "O Heroic busca por versões do Wine, Proton e CrossOver nas pastas a seguir:",
             "part2": "Para outros locais, use um link simbólico para uma dessas pastas"
-        }
+        },
+        "disable_logs": "Ative esta caixa de seleção para desativar a maioria das gravações em arquivos de log (informações críticas sempre são registradas). Certifique-se de desativar essa configuração antes de relatar qualquer problema."
     },
     "info": {
         "heroic": {
@@ -522,7 +523,7 @@
         "log": {
             "copy-to-clipboard": "Copiar log para a área de transferência",
             "current-log": "Log atual",
-            "instructions": "Acesse o nosso Discord e procure pelo canal relacionado ao seu sistema operacional. Compartilhe o conteúdo do Log mostrado aqui e inclua uma descrição do problema, detalhes e outras informações relevantes.",
+            "instructions": "Acesse o nosso Discord e procure pela seção \"#-support\". Leia a thread fixada \"Read Me First | Frequently Asked Questions\" e siga as instruções (Em Inglês) para compartilhar o conteúdo do Log e qualquer informação relevante sobre seu problema.",
             "instructions_title": "Como reportar um problema?",
             "last-log": "Último log",
             "no-file": "Arquivo de log não encontrado",
@@ -568,7 +569,8 @@
         "wineprefix": "Pasta do prefixo Wine",
         "wineversion": "Versão do Wine",
         "autoUpdateGames": "Atualizar jogos automaticamente",
-        "ignoreGameUpdates": "Ignorar atualizações do jogo"
+        "ignoreGameUpdates": "Ignorar atualizações do jogo",
+        "disable_logs": "Desativar registros"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -578,7 +580,7 @@
         "clear-cache": "Limpar cache do Heroic",
         "copiedToClipboard": "Copiado para a área de Transferência!",
         "copyToClipboard": "Copiar todas as configurações para a área de transferência",
-        "default_hint": "Mudanças nessa seção só se aplicam como valores padrão quando novos jogos forem instalados. Se você quer mudar as configurações de jogos já instalados, use o botão Configurações na página do jogo.",
+        "default_hint": "Mudanças nessa sessão só são aplicadas como valores padrão quando novos jogos forem instalados. Para modificar as configurações de um jogo já instalado, use o botão de configurações na página do jogo.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "O GameMode é necessário para que o tempo de execução do EAC funcione no Flatpak. Deseja habilitá-lo agora?",
@@ -602,7 +604,7 @@
             "general": "Config. Gerais",
             "log": "Log",
             "other": "Outros",
-            "sync": "Sincronização",
+            "sync": "Sincronização de Saves na Nuvem",
             "wineExt": "Extensões do Wine"
         },
         "open-config-file": "Abrir arquivo de configuração",
@@ -686,8 +688,8 @@
     "dlc": {
         "title": "Título",
         "actions": "Ações",
-        "installDlcs": "Instalar DLCs",
-        "noDlcFound": "Nenhum DLC encontrado",
+        "installDlcs": "Instalar todas as DLCs",
+        "noDlcFound": "Nenhuma DLC encontrada",
         "size": "Tamanho"
     }
 }

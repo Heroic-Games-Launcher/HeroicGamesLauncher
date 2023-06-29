@@ -194,6 +194,10 @@ export async function refresh(): Promise<ExecResult> {
       }
       const unifiedObject = await gogToUnifiedInfo(data, product?.data)
       if (unifiedObject.app_name) {
+        const oldData = library.get(unifiedObject.app_name)
+        if (oldData) {
+          unifiedObject.folder_name = oldData.folder_name
+        }
         gamesObjects.push(unifiedObject)
       }
       const installedInfo = installedGames.get(String(game.external_id))

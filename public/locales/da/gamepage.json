@@ -129,7 +129,8 @@
             "syncing": "Synkroniserer Saves"
         },
         "game": {
-            "third-party-game": "Tredjepartsspil understøttes IKKE"
+            "third-party-game": "Tredjepartsspil understøttes IKKE",
+            "not-installable-game": "Spillet kan IKKE installeres"
         },
         "launching": "Lancering",
         "ubisoft": "Installation af Ubisoft Connect"
@@ -167,7 +168,9 @@
         "launching": "Lancering",
         "ubisoft": "Installation af Ubisoft",
         "downloading": "Downloader",
-        "extracting": "Udvinding"
+        "extracting": "Udvinding",
+        "gog-goodie": "Dette spil ser ikke ud til at kunne installeres. Tjek downloadbart indhold på https://gog.com/account",
+        "goodie": "Kan ikke installeres"
     },
     "submenu": {
         "addShortcut": "Opret genvej",

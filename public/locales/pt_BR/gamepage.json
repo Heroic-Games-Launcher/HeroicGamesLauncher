@@ -37,7 +37,7 @@
             "settingcheckbox": "Apagar configurações e remover logs{{newLine}}Obs: Isto não pode ser desfeito. Qualquer configuração modificada será esquecida e o log será deletado.",
             "title": "Desinstalar",
             "prefix_warning": "O prefixo Wine para este jogo é o prefixo padrão. Se você realmente deseja excluí-lo, deve fazê-lo manualmente.",
-            "dlc": "Deseja desinstalar este DLC?"
+            "dlc": "Deseja desinstalar esta DLC?"
         },
         "update": {
             "message": "Este jogo tem uma atualização, aplicar atualização agora?",
@@ -75,7 +75,7 @@
     "cloud_save_unsupported": "Sem suporte",
     "disabled": "Desabilitado",
     "dlc": {
-        "installDlcs": "Instalar DLCs"
+        "installDlcs": "Instalar todas as DLCs"
     },
     "enabled": "Habilitado",
     "game": {
