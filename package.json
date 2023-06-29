@@ -135,6 +135,15 @@
       "category": "Games",
       "synopsis": "An Open Source Launcher for GOG and Epic Games",
       "description": "Heroic is an Open Source Games Launcher. Right now it supports launching games from the Epic Games Store using Legendary and GOG Games using our custom implementation with gogdl.",
+      "stagePackages": [
+        "default",
+        "curl"
+      ],
+      "plugs": [
+        "default",
+        "screen-inhibit-control",
+        "joystick"
+      ],
       "publish": {
         "provider": "snapStore",
         "channels": [
