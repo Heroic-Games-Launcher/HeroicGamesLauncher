@@ -1,5 +1,6 @@
 import { getInfoFromGamesDB } from 'backend/wiki_game_info/gamesdb/utils'
 import { getInfoFromProtonDB } from 'backend/wiki_game_info/protondb/utils'
+import { getSteamDeckComp } from 'backend/wiki_game_info/steamdeck/utils'
 import { wikiGameInfoStore } from './electronStore'
 import { removeSpecialcharacters } from '../utils'
 import { Runner, WikiInfo } from 'common/types'
@@ -49,16 +50,18 @@ export async function getWikiGameInfo(
         isMac ? getInfoFromAppleGamingWiki(title) : null
       ])
 
-    const protondb = await getInfoFromProtonDB(
-      gamesdb?.steamID ? gamesdb.steamID : ''
-    )
+    const [protondb, steamdeck] = await Promise.all([
+      getInfoFromProtonDB(gamesdb?.steamID ? gamesdb.steamID : ''),
+      getSteamDeckComp(gamesdb?.steamID ? gamesdb.steamID : '')
+    ])
     const wikiGameInfo = {
       timestampLastFetch: Date(),
       pcgamingwiki,
       applegamingwiki,
       howlongtobeat,
       gamesdb,
-      protondb
+      protondb,
+      steamdeck
     }
 
     wikiGameInfoStore.set(title, wikiGameInfo)

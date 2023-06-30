@@ -4,7 +4,8 @@ import {
   AppleGamingWikiInfo,
   WikiInfo,
   PCGamingWikiInfo,
-  ProtonDBCompatibilityInfo
+  ProtonDBCompatibilityInfo,
+  SteamDeckComp
 } from 'common/types'
 import { wikiGameInfoStore } from '../electronStore'
 import { getWikiGameInfo } from '../wiki_game_info'
@@ -13,6 +14,7 @@ import * as AppleGamingWiki from '../applegamingwiki/utils'
 import * as HowLongToBeat from '../howlongtobeat/utils'
 import * as GamesDB from '../gamesdb/utils'
 import * as ProtonDB from '../protondb/utils'
+import * as SteamDeck from '../steamdeck/utils'
 import { logError } from '../../logger/logger'
 
 jest.mock('electron-store')
@@ -43,6 +45,9 @@ describe('getWikiGameInfo', () => {
     const mockProtonDB = jest
       .spyOn(ProtonDB, 'getInfoFromProtonDB')
       .mockResolvedValue(testProtonDBInfo)
+    const mockSteamDeck = jest
+      .spyOn(SteamDeck, 'getSteamDeckComp')
+      .mockResolvedValue(testSteamCompat)
 
     wikiGameInfoStore.set('The Witcher 3', testExtraGameInfo)
 
@@ -53,6 +58,7 @@ describe('getWikiGameInfo', () => {
     expect(mockHowLongToBeat).not.toBeCalled()
     expect(mockGamesDB).not.toBeCalled()
     expect(mockProtonDB).not.toBeCalled()
+    expect(mockSteamDeck).not.toBeCalled()
   })
 
   test('cached data outdated', async () => {
@@ -74,6 +80,9 @@ describe('getWikiGameInfo', () => {
     const mockProtonDB = jest
       .spyOn(ProtonDB, 'getInfoFromProtonDB')
       .mockResolvedValue(testProtonDBInfo)
+    const mockSteamDeck = jest
+      .spyOn(SteamDeck, 'getSteamDeckComp')
+      .mockResolvedValue(testSteamCompat)
 
     wikiGameInfoStore.set('The Witcher 3', {
       ...testExtraGameInfo,
@@ -87,6 +96,7 @@ describe('getWikiGameInfo', () => {
     expect(mockHowLongToBeat).toBeCalled()
     expect(mockGamesDB).toBeCalled()
     expect(mockProtonDB).toBeCalled()
+    expect(mockSteamDeck).toBeCalled()
   })
 
   test('catches throws', async () => {
@@ -154,11 +164,16 @@ const testProtonDBInfo = {
   level: 'platinum'
 } as ProtonDBCompatibilityInfo
 
+const testSteamCompat = {
+  category: 1
+} as SteamDeckComp
+
 const testExtraGameInfo = {
   timestampLastFetch: currentTime.toString(),
   pcgamingwiki: testPCGamingWikiInfo,
   applegamingwiki: testAppleGamingWikiInfo,
   howlongtobeat: testHowLongToBeat,
   gamesdb: testGamesDBInfo,
-  protondb: testProtonDBInfo
+  protondb: testProtonDBInfo,
+  steamdeck: testSteamCompat
 } as WikiInfo

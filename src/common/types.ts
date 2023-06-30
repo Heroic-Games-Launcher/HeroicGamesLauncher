@@ -603,6 +603,10 @@ export interface ProtonDBCompatibilityInfo {
   level: string
 }
 
+export interface SteamDeckComp {
+  category: number
+}
+
 export interface WikiInfo {
   timestampLastFetch: string
   pcgamingwiki: PCGamingWikiInfo | null
@@ -610,6 +614,7 @@ export interface WikiInfo {
   howlongtobeat: HowLongToBeatEntry | null
   gamesdb: GamesDBInfo | null
   protondb: ProtonDBCompatibilityInfo | null
+  steamdeck: SteamDeckComp | null
 }
 
 /**
