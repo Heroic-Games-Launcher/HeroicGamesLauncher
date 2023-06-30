@@ -31,7 +31,9 @@ import {
   fallBackImage,
   legendaryConfigPath,
   legendaryLogFile,
-  legendaryMetadata
+  legendaryMetadata,
+  isLinux,
+  userHome
 } from '../../constants'
 import {
   logDebug,
@@ -50,12 +52,24 @@ import { dirname, join } from 'path'
 import { isOnline } from 'backend/online_monitor'
 import { update } from './games'
 import axios from 'axios'
+import { app } from 'electron'
+import { copySync } from 'fs-extra'
 
 const allGames: Set<string> = new Set()
 let installedGames: Map<string, InstalledJsonMetadata> = new Map()
 const library: Map<string, GameInfo> = new Map()
 
 export async function initLegendaryLibraryManager() {
+  // Migrate user data from global Legendary config if necessary
+  const globalLegendaryConfig = isLinux
+    ? join(app.getPath('appData'), 'legendary')
+    : join(userHome, '.config', 'legendary')
+  if (!existsSync(legendaryConfigPath) && existsSync(globalLegendaryConfig)) {
+    copySync(globalLegendaryConfig, legendaryConfigPath, {
+      recursive: true
+    })
+  }
+
   loadGamesInAccount()
   refreshInstalled()
 }
@@ -632,6 +646,17 @@ export async function runRunnerCommand(
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
   const { dir, bin } = getLegendaryBin()
+
+  // Set XDG_CONFIG_HOME to a custom, Heroic-specific location so user-made
+  // changes to Legendary's main config file don't affect us
+  if (!options) {
+    options = {}
+  }
+  if (!options.env) {
+    options.env = {}
+  }
+  options.env.XDG_CONFIG_HOME = dirname(legendaryConfigPath)
+
   return callRunner(
     commandParts,
     { name: 'legendary', logPrefix: LogPrefix.Legendary, bin, dir },
