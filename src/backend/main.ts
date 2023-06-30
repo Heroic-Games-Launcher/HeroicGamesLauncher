@@ -134,6 +134,12 @@ import {
 } from './main_window'
 
 import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
+import {
+  getGOGPlaytime,
+  syncQueuedPlaytimeGOG,
+  updateGOGPlaytime
+} from 'backend/storeManagers/gog/games'
+import { playtimeSyncQueue } from './storeManagers/gog/electronStores'
 import * as LegendaryLibraryManager from 'backend/storeManagers/legendary/library'
 import {
   autoUpdate,
@@ -311,6 +317,10 @@ if (!gotTheLock) {
         GOGUser.getUserDetails()
       }
     })
+
+    // Make sure lock is not present when starting up
+    playtimeSyncQueue.delete('lock')
+    runOnceWhenOnline(syncQueuedPlaytimeGOG)
 
     await i18next.use(Backend).init({
       backend: {
@@ -1046,6 +1056,10 @@ ipcMain.handle(
       sessionPlaytime + tsStore.get(`${appName}.totalPlayed`, 0)
     tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
 
+    if (runner === 'gog') {
+      await updateGOGPlaytime(appName, startPlayingDate, finishedPlayingDate)
+    }
+
     await addRecentGame(game)
 
     if (autoSyncSaves && isOnline()) {
@@ -1657,6 +1671,17 @@ ipcMain.on('processShortcut', async (e, combination: string) => {
       break
   }
 })
+
+ipcMain.handle(
+  'getPlaytimeFromRunner',
+  async (e, runner, appName): Promise<number | undefined> => {
+    if (runner === 'gog') {
+      return getGOGPlaytime(appName)
+    }
+
+    return
+  }
+)
 
 /*
   Other Keys that should go into translation files:

@@ -645,7 +645,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   </PopoverComponent>
                 )}
               </div>
-              {!notInstallable && <TimeContainer game={appName} />}
+              {!notInstallable && (
+                <TimeContainer runner={runner} game={appName} />
+              )}
               <div className="gameStatus">
                 {(isInstalling || isUpdating) && (
                   <progress
