@@ -128,6 +128,11 @@ class GlobalState extends PureComponent<Props> {
 
     return games
   }
+  loadAmazonLibrary = (): Array<GameInfo> => {
+    const games = nileLibraryStore.get('library', [])
+
+    return games
+  }
   state: StateProps = {
     category: (storage.getItem('category') as Category) || 'legendary',
     epic: {
@@ -139,7 +144,7 @@ class GlobalState extends PureComponent<Props> {
       username: gogConfigStore.get_nodefault('userData.username')
     },
     amazon: {
-      library: nileLibraryStore.get('library', []),
+      library: this.loadAmazonLibrary(),
       username: undefined // TODO: Fill in username
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
@@ -440,7 +445,7 @@ class GlobalState extends PureComponent<Props> {
   ): Promise<void> => {
     console.log('refreshing')
 
-    const { epic, gog, gameUpdates } = this.state
+    const { epic, gog, amazon, gameUpdates } = this.state
 
     let updates = gameUpdates
     if (checkUpdates) {
@@ -467,6 +472,14 @@ class GlobalState extends PureComponent<Props> {
       gogLibrary = this.loadGOGLibrary()
     }
 
+    let amazonLibrary = nileLibraryStore.get('library', [])
+    if (!amazonLibrary.length || !amazon.library.length) {
+      // TODO: Check if logged in
+      window.api.logInfo('No cache found, getting data from nile...')
+      await window.api.refreshLibrary('nile')
+      amazonLibrary = this.loadAmazonLibrary()
+    }
+
     const updatedSideload = sideloadLibrary.get('games', [])
 
     this.setState({
@@ -477,6 +490,10 @@ class GlobalState extends PureComponent<Props> {
       gog: {
         library: gogLibrary,
         username: gog.username
+      },
+      amazon: {
+        library: amazonLibrary,
+        username: amazon.username
       },
       gameUpdates: updates,
       refreshing: false,

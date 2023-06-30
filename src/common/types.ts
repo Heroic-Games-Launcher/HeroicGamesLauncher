@@ -3,6 +3,7 @@ import { LegendaryInstallPlatform, GameMetadataInner } from './types/legendary'
 import { IpcRendererEvent } from 'electron'
 import { ChildProcess } from 'child_process'
 import { HowLongToBeatEntry } from 'howlongtobeat'
+import { NileInstallPlatform } from './types/nile'
 
 export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile'
 
@@ -96,7 +97,7 @@ export interface ExtraInfo {
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
 
 export interface GameInfo {
-  runner: 'legendary' | 'gog' | 'sideload'
+  runner: 'legendary' | 'gog' | 'sideload' | 'nile'
   store_url?: string
   app_name: string
   art_cover: string
@@ -490,6 +491,7 @@ export type WebviewType = HTMLWebViewElement & ElWebview
 export type InstallPlatform =
   | LegendaryInstallPlatform
   | GogInstallPlatform
+  | NileInstallPlatform
   | 'Browser'
 
 export type ConnectivityChangedCallback = (

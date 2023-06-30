@@ -7,6 +7,7 @@ import {
 } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import { GogInstallInfo } from 'common/types/gog'
+import { NileInstallInfo } from 'common/types/nile'
 
 import { install, launch, repair, updateGame } from './library'
 import * as fileSize from 'filesize'
@@ -76,7 +77,7 @@ const getInstallInfo = async (
   appName: string,
   runner: Runner,
   installPlatform: InstallPlatform
-): Promise<LegendaryInstallInfo | GogInstallInfo | null> => {
+): Promise<LegendaryInstallInfo | GogInstallInfo | NileInstallInfo | null> => {
   return window.api.getInstallInfo(
     appName,
     runner,

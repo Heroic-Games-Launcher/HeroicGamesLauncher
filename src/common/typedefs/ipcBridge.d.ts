@@ -34,6 +34,7 @@ import {
 } from 'common/types'
 import { LegendaryInstallInfo, SelectiveDownload } from 'common/types/legendary'
 import { GOGCloudSavesLocation, GogInstallInfo } from 'common/types/gog'
+import { NileInstallInfo } from 'common/types/nile'
 
 /**
  * Some notes here:
@@ -132,7 +133,7 @@ interface AsyncIPCFunctions {
     appName: string,
     runner: Runner,
     installPlatform: InstallPlatform
-  ) => Promise<LegendaryInstallInfo | GogInstallInfo | null>
+  ) => Promise<LegendaryInstallInfo | GogInstallInfo | NileInstallInfo | null>
   getUserInfo: () => Promise<UserInfo | undefined>
   isLoggedIn: () => boolean
   login: (sid: string) => Promise<{

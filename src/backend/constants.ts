@@ -41,6 +41,7 @@ const userHome = homedir()
 const configFolder = app.getPath('appData')
 const appFolder = join(configFolder, 'heroic')
 const legendaryConfigPath = join(appFolder, 'legendaryConfig', 'legendary')
+const nileConfigPath = join(configFolder, 'nile')
 const configPath = join(appFolder, 'config.json')
 const gamesConfigPath = join(appFolder, 'GamesConfig')
 const toolsPath = join(appFolder, 'tools')
@@ -71,6 +72,8 @@ const iconDark = fixAsarPath(join(publicDir, 'icon-dark.png'))
 const iconLight = fixAsarPath(join(publicDir, 'icon-light.png'))
 const installed = join(legendaryConfigPath, 'installed.json')
 const legendaryMetadata = join(legendaryConfigPath, 'metadata')
+const nileInstalled = join(nileConfigPath, 'installed.json')
+const nileLibrary = join(nileConfigPath, 'library.json')
 const fallBackImage = 'fallback'
 const epicLoginUrl = 'https://legendary.gl/epiclogin'
 const sidInfoUrl =
@@ -252,5 +255,8 @@ export {
   customThemesWikiLink,
   cachedUbisoftInstallerPath,
   gogdlAuthConfig,
-  vulkanHelperBin
+  vulkanHelperBin,
+  nileConfigPath,
+  nileInstalled,
+  nileLibrary
 }

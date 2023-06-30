@@ -46,6 +46,7 @@ import { useTranslation } from 'react-i18next'
 import { AvailablePlatforms } from '../index'
 import { configStore } from 'frontend/helpers/electronStores'
 import DLCDownloadListing from './DLCDownloadListing'
+import { NileInstallInfo } from 'common/types/nile'
 
 interface Props {
   backdropClick: () => void
@@ -124,7 +125,7 @@ export default function DownloadDialog({
   const isWin = platform === 'win32'
 
   const [gameInstallInfo, setGameInstallInfo] = useState<
-    LegendaryInstallInfo | GogInstallInfo | null
+    LegendaryInstallInfo | GogInstallInfo | NileInstallInfo | null
   >(null)
   const [installLanguages, setInstallLanguages] = useState(Array<string>())
   const [installLanguage, setInstallLanguage] = useState('')
