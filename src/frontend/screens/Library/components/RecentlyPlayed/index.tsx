@@ -31,13 +31,18 @@ export default React.memo(function RecentlyPlayed({
   onlyInstalled
 }: Props) {
   const { t } = useTranslation()
-  const { epic, gog, sideloadedLibrary } = useContext(ContextProvider)
+  const { epic, gog, sideloadedLibrary, amazon } = useContext(ContextProvider)
   const [recentGames, setRecentGames] = useState<GameInfo[]>([])
 
   const loadRecentGames = async () => {
     const { maxRecentGames } = await window.api.requestAppSettings()
     const newRecentGames = getRecentGames(
-      [...epic.library, ...gog.library, ...sideloadedLibrary],
+      [
+        ...epic.library,
+        ...gog.library,
+        ...sideloadedLibrary,
+        ...amazon.library
+      ],
       maxRecentGames
     )
 
@@ -57,7 +62,7 @@ export default React.memo(function RecentlyPlayed({
     return () => {
       recentGamesChangedRemoveListener()
     }
-  }, [epic.library, gog.library, sideloadedLibrary])
+  }, [epic.library, gog.library, amazon.library, sideloadedLibrary])
 
   if (!recentGames.length) {
     return null

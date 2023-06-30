@@ -4,7 +4,7 @@ import { IpcRendererEvent } from 'electron'
 import { ChildProcess } from 'child_process'
 import { HowLongToBeatEntry } from 'howlongtobeat'
 
-export type Runner = 'legendary' | 'gog' | 'sideload'
+export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile'
 
 // NOTE: Do not put enum's in this module or it will break imports
 

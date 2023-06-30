@@ -11,7 +11,7 @@ import {
   DownloadManagerState
 } from 'common/types'
 
-export type Category = 'all' | 'legendary' | 'gog' | 'sideload'
+export type Category = 'all' | 'legendary' | 'gog' | 'sideload' | 'nile'
 
 export interface ContextType {
   category: Category
@@ -66,6 +66,12 @@ export interface ContextType {
     library: GameInfo[]
     username?: string
     login: (token: string) => Promise<string>
+    logout: () => Promise<void>
+  }
+  amazon: {
+    library: GameInfo[]
+    username?: string
+    login: () => Promise<string>
     logout: () => Promise<void>
   }
   allTilesInColor: boolean

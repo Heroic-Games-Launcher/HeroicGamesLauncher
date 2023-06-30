@@ -16,7 +16,8 @@ export default function PlatformFilter() {
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
   const isWindows = platform === 'win32'
-  const disabledIcon = isLinux && category === 'legendary'
+  const disabledIcon =
+    (isLinux && category === 'legendary') || category === 'nile' // Amazon Games only offers Windows games
 
   if (isWindows) {
     return null

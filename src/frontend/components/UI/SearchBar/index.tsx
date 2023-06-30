@@ -25,7 +25,7 @@ const RUNNER_TO_STORE = {
 }
 
 export default React.memo(function SearchBar() {
-  const { handleSearch, filterText, epic, gog, sideloadedLibrary } =
+  const { handleSearch, filterText, epic, gog, sideloadedLibrary, amazon } =
     useContext(ContextProvider)
   const { t } = useTranslation()
   const navigate = useNavigate()
@@ -36,7 +36,8 @@ export default React.memo(function SearchBar() {
     return [
       ...(epic.library ?? []),
       ...(gog.library ?? []),
-      ...(sideloadedLibrary ?? [])
+      ...(sideloadedLibrary ?? []),
+      ...(amazon.library ?? [])
     ]
       .filter(Boolean)
       .filter((el) => {
@@ -46,7 +47,7 @@ export default React.memo(function SearchBar() {
         )
       })
       .sort((g1, g2) => (g1.title < g2.title ? -1 : 1))
-  }, [epic.library, gog.library, filterText])
+  }, [amazon.library, epic.library, gog.library, filterText])
 
   // we have to use an event listener instead of the react
   // onChange callback so it works with the virtual keyboard

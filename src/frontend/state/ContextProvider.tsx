@@ -14,6 +14,11 @@ const initialContext: ContextType = {
     login: async () => Promise.resolve(''),
     logout: async () => Promise.resolve()
   },
+  amazon: {
+    library: [],
+    login: async () => Promise.resolve(''),
+    logout: async () => Promise.resolve()
+  },
   sideloadedLibrary: [],
   error: false,
   filterText: '',

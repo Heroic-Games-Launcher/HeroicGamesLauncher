@@ -36,6 +36,7 @@ import {
   gogInstalledGamesStore,
   gogLibraryStore,
   libraryStore,
+  nileLibraryStore,
   wineDownloaderInfoStore
 } from '../helpers/electronStores'
 import { sideloadLibrary } from 'frontend/helpers/electronStores'
@@ -61,6 +62,10 @@ interface StateProps {
     username?: string
   }
   gog: {
+    library: GameInfo[]
+    username?: string
+  }
+  amazon: {
     library: GameInfo[]
     username?: string
   }
@@ -132,6 +137,10 @@ class GlobalState extends PureComponent<Props> {
     gog: {
       library: this.loadGOGLibrary(),
       username: gogConfigStore.get_nodefault('userData.username')
+    },
+    amazon: {
+      library: nileLibraryStore.get('library', []),
+      username: undefined // TODO: Fill in username
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
     error: false,
@@ -397,6 +406,16 @@ class GlobalState extends PureComponent<Props> {
     })
     console.log('Logging out from gog')
     window.location.reload()
+  }
+
+  amazonLogin = async () => {
+    console.log('logging amazon')
+
+    return 'TODO'
+  }
+
+  amazonLogout = async () => {
+    console.log('Logging out from amazon')
   }
 
   handleSettingsModalOpen = (
@@ -773,6 +792,7 @@ class GlobalState extends PureComponent<Props> {
       language,
       epic,
       gog,
+      amazon,
       favouriteGames,
       hiddenGames,
       settingsModalOpen,
@@ -796,6 +816,12 @@ class GlobalState extends PureComponent<Props> {
             username: gog.username,
             login: this.gogLogin,
             logout: this.gogLogout
+          },
+          amazon: {
+            library: amazon.library,
+            username: amazon.username,
+            login: this.amazonLogin,
+            logout: this.amazonLogout
           },
           handleCategory: this.handleCategory,
           handleLayout: this.handleLayout,

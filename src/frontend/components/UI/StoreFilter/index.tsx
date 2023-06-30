@@ -10,6 +10,7 @@ export default React.memo(function StoreFilter() {
 
   const isGOGLoggedin = gog.username
   const isEpicLoggedin = epic.username
+  const isAmazonLoggedin = true // TODO: Check for amazon login
 
   return (
     <div className="storeFilter">
@@ -43,6 +44,17 @@ export default React.memo(function StoreFilter() {
             onClick={() => handleCategory('gog')}
           >
             GOG
+          </button>
+        )}
+        {isAmazonLoggedin && (
+          <button
+            className={classNames('FormControl__button', {
+              active: category === 'nile'
+            })}
+            title={`${t('header.store')}: ${t('amazon')}`}
+            onClick={() => handleCategory('nile')}
+          >
+            AMAZON
           </button>
         )}
         <button
