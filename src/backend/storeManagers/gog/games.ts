@@ -71,6 +71,7 @@ import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { sendFrontendMessage } from '../../main_window'
 import { RemoveArgs } from 'common/types/game_manager'
 import { logFileLocation } from 'backend/storeManagers/storeManagerCommon/games'
+import { getWineFlags } from 'backend/utils/compatibility_layers'
 
 export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   const gameInfo = getGameInfo(appName)
@@ -445,7 +446,7 @@ export async function launch(
   let commandEnv = isWindows
     ? process.env
     : { ...process.env, ...setupEnvVars(gameSettings) }
-  const wineFlag: string[] = []
+  let wineFlag: string[] = []
 
   if (!isNative(appName)) {
     const {
@@ -481,19 +482,7 @@ export async function launch(
         ? wineExec.replaceAll("'", '')
         : wineExec
 
-    const wineFlagsObj = {
-      proton: ['--no-wine', '--wrapper', `'${wineBin}' run`],
-      wine: ['--wine', wineBin],
-      toolkit: [
-        '--wrapper',
-        `${wineBin} ${gameSettings.winePrefix}`,
-        '--no-wine'
-      ]
-    }
-
-    wineFlag.push(
-      ...(wineFlagsObj[wineType as keyof typeof wineFlagsObj] || [])
-    )
+    wineFlag = [...getWineFlags(wineBin, gameSettings, wineType)]
   }
 
   const commandParts = [

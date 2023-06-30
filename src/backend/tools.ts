@@ -128,6 +128,15 @@ export const DXVK = {
     tool: 'dxvk' | 'vkd3d' | 'dxvk-macOS',
     action: 'backup' | 'restore'
   ): Promise<boolean> => {
+    if (gameSettings.wineVersion.bin.includes('toolkit')) {
+      // we don't want to install dxvk on the toolkit prefix since it breaks Apple's implementation
+      logWarning(
+        'Skipping DXVK install on Game Porting Toolkit prefix!',
+        LogPrefix.DXVKInstaller
+      )
+      return true
+    }
+
     const prefix = gameSettings.winePrefix
     const winePrefix = prefix.replace('~', userHome)
     const isValidPrefix = existsSync(`${winePrefix}/.update-timestamp`)
@@ -135,15 +144,6 @@ export const DXVK = {
     if (!isValidPrefix) {
       logWarning(
         'DXVK cannot be installed on a Proton or a invalid prefix!',
-        LogPrefix.DXVKInstaller
-      )
-      // will return true anyway because otherwise the toggle will be stuck and the prefix might just not be crated yet.
-      return true
-    }
-
-    if (gameSettings.wineVersion.bin.includes('toolkit')) {
-      logWarning(
-        'Skipping DXVK install on Game Porting Toolkit prefix!',
         LogPrefix.DXVKInstaller
       )
       // will return true anyway because otherwise the toggle will be stuck and the prefix might just not be crated yet.

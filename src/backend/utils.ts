@@ -395,7 +395,7 @@ async function errorHandler({
   const expiredCredentials = 'No saved credentials'
   const legendaryRegex = /legendary.*\.py/
   // this message appears on macOS when no Crossover was found in the system but its a false alarm
-  const ignoreMessage = 'IndexError: list index out of range'
+  const ignoreCrossoverMessage = 'IndexError: list index out of range'
 
   if (logPath) {
     execAsync(`tail "${logPath}" | grep 'disk space'`)
@@ -418,7 +418,7 @@ async function errorHandler({
       })
   }
   if (error) {
-    if (error.includes(ignoreMessage)) {
+    if (error.includes(ignoreCrossoverMessage)) {
       return
     }
     if (error.includes(deletedFolderMsg) && appName) {
