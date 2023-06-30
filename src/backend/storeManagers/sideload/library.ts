@@ -78,12 +78,18 @@ export async function refresh() {
   return null
 }
 
-export function getGameInfo(
-  appName: string,
-  forceReload?: boolean
-): GameInfo | undefined {
+export function getGameInfo(appName: string, forceReload?: boolean): GameInfo {
   logWarning(`getGameInfo not implemented on Sideload Library Manager`)
-  return undefined
+  return {
+    app_name: '',
+    runner: 'sideload',
+    art_cover: '',
+    art_square: '',
+    install: {},
+    is_installed: false,
+    title: '',
+    canRunOffline: false
+  }
 }
 
 export async function listUpdateableGames(): Promise<string[]> {

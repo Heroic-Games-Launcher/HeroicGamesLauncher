@@ -599,12 +599,17 @@ export interface GamesDBInfo {
   steamID: string
 }
 
+export interface ProtonDBCompatibilityInfo {
+  level: string
+}
+
 export interface WikiInfo {
   timestampLastFetch: string
   pcgamingwiki: PCGamingWikiInfo | null
   applegamingwiki: AppleGamingWikiInfo | null
   howlongtobeat: HowLongToBeatEntry | null
   gamesdb: GamesDBInfo | null
+  protondb: ProtonDBCompatibilityInfo | null
 }
 
 /**

@@ -243,6 +243,10 @@ interface AsyncIPCFunctions {
   getGOGLaunchOptions: (appName: string) => Promise<LaunchOption[]>
   getGameOverride: () => Promise<GameOverride | null>
   getGameSdl: (appName: string) => Promise<SelectiveDownload[]>
+  getPlaytimeFromRunner: (
+    runner: Runner,
+    appName: string
+  ) => Promise<number | undefined>
 }
 
 // This is quite ugly & throws a lot of errors in a regular .ts file
