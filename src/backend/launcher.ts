@@ -252,6 +252,10 @@ function setupEnvVars(gameSettings: GameSettings) {
     ret.__GLX_VENDOR_LIBRARY_NAME = 'nvidia'
   }
 
+  if (isMac && gameSettings.showFps) {
+    ret.MTL_HUD_ENABLED = '1'
+  }
+
   if (gameSettings.enviromentOptions) {
     gameSettings.enviromentOptions.forEach((envEntry: EnviromentVariable) => {
       ret[envEntry.key] = removeQuoteIfNecessary(envEntry.value)
@@ -309,7 +313,7 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   }
 
   if (gameSettings.showFps) {
-    ret.DXVK_HUD = 'fps'
+    isMac ? (ret.MTL_HUD_ENABLED = '1') : (ret.DXVK_HUD = 'fps')
   }
   if (gameSettings.enableDXVKFpsLimit) {
     ret.DXVK_FRAME_RATE = gameSettings.DXVKFpsCap
@@ -508,6 +512,7 @@ function launchCleanup(rpcClient?: RpcClient) {
     logInfo('Stopped Discord Rich Presence', LogPrefix.Backend)
   }
 }
+
 async function runWineCommand({
   gameSettings,
   commandParts,
