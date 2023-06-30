@@ -1,6 +1,5 @@
 name: Feature request
 description: "Are we missing something? Open a feature request and we'll get it implemented!"
-title: '[Feature Request]: '
 labels: feature-request
 body:
   - type: textarea
