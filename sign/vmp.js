@@ -24,7 +24,7 @@ exports.default = async function (context) {
     }
   
     const spawnSync = require("child_process").spawnSync; 
-    console.log("Signing with VMP")
+    console.log("Signing with VMP", pythonBin)
     const vmp = spawnSync(pythonBin, [
         '-m',
         'castlabs_evs.vmp',

@@ -7,8 +7,8 @@ init:
   - git config --global core.autocrlf input
 
 install:
-  - npm i --legacy-peer-deps
   - pip install castlabs-evs
+  - npm i --legacy-peer-deps
 
 environment:
   GH_TOKEN:
