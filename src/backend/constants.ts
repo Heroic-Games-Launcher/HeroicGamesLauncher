@@ -39,10 +39,8 @@ const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
 const flatPakHome = env.XDG_DATA_HOME?.replace('/data', '') || homedir()
 const userHome = homedir()
 const configFolder = app.getPath('appData')
-const legendaryConfigPath = isLinux
-  ? join(configFolder, 'legendary')
-  : join(userHome, '.config', 'legendary')
 const appFolder = join(configFolder, 'heroic')
+const legendaryConfigPath = join(appFolder, 'legendaryConfig', 'legendary')
 const configPath = join(appFolder, 'config.json')
 const gamesConfigPath = join(appFolder, 'GamesConfig')
 const toolsPath = join(appFolder, 'tools')
