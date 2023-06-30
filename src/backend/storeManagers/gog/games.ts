@@ -119,8 +119,16 @@ export function getGameInfo(appName: string): GameInfo {
       ],
       LogPrefix.Gog
     )
-    // @ts-expect-error TODO: Handle this better
-    return {}
+    return {
+      app_name: '',
+      runner: 'gog',
+      art_cover: '',
+      art_square: '',
+      install: {},
+      is_installed: false,
+      title: '',
+      canRunOffline: false
+    }
   }
   return info
 }
