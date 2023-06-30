@@ -1,10 +1,10 @@
 import { nileInstalled, nileLibrary } from 'backend/constants'
 import { LogPrefix, logDebug, logError, logInfo } from 'backend/logger/logger'
-import {
-  createAbortController,
-  deleteAbortController
-} from 'backend/utils/aborthandler/aborthandler'
-import { CallRunnerOptions, ExecResult, GameInfo } from 'common/types'
+// import {
+//   createAbortController,
+//   deleteAbortController
+// } from 'backend/utils/aborthandler/aborthandler'
+import { /* CallRunnerOptions, */ ExecResult, GameInfo } from 'common/types'
 import {
   NileGameInfo,
   NileInstallInfo,
@@ -75,19 +75,22 @@ export async function listUpdateableGames(): Promise<string[]> {
 async function refreshNile(): Promise<ExecResult> {
   logInfo('Refreshing Amazon Games...', LogPrefix.Nile)
 
-  const abortID = 'nile-refresh'
-  const res = await runRunnerCommand(
-    ['library', 'sync'],
-    createAbortController(abortID)
-  )
+  // const abortID = 'nile-refresh'
+  // const res = await runRunnerCommand(
+  //   ['library', 'sync'],
+  //   createAbortController(abortID)
+  // )
 
-  deleteAbortController(abortID)
+  // deleteAbortController(abortID)
 
-  if (res.error) {
-    logError(['Failed to refresh library:', res.error], LogPrefix.Nile)
-  }
+  // if (res.error) {
+  //   logError(['Failed to refresh library:', res.error], LogPrefix.Nile)
+  // }
   refreshInstalled()
-  return res
+  return {
+    stderr: '',
+    stdout: ''
+  }
 }
 
 function gameToInstallInfo(
@@ -189,8 +192,8 @@ export async function refresh(): Promise<ExecResult | null> {
  * @returns GameInfo
  */
 export function getGameInfo(
-  appName: string,
-  forceReload = false
+  appName: string
+  // forceReload = false
 ): GameInfo | undefined {
   // TODO: Fill in logic
   return library.get(appName)
@@ -232,10 +235,9 @@ export async function getInstallInfo(
  * @param appName
  * @param newPath
  */
-export async function changeGameInstallPath(
-  appName: string,
-  newAppPath: string
-) {
+export async function changeGameInstallPath() {
+  /* appName: string,
+  newAppPath: string */
   // TODO: Fill in logic
 }
 
@@ -245,15 +247,14 @@ export async function changeGameInstallPath(
  * @param appName
  * @param state true if its installed, false otherwise.
  */
-export function installState(appName: string, state: boolean) {
+export function installState(/* appName: string, state: boolean */) {
   // TODO: Fill in logic
 }
 
-export async function runRunnerCommand(
-  commandParts: string[],
+export async function runRunnerCommand(): Promise<ExecResult> {
+  /* commandParts: string[],
   abortController: AbortController,
-  options?: CallRunnerOptions
-): Promise<ExecResult> {
+  options?: CallRunnerOptions */
   // TODO: Fill in logic
   return {
     stderr: '',
