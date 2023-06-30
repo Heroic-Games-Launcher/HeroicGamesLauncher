@@ -8,7 +8,7 @@ init:
 
 install:
   - npm i --legacy-peer-deps
-  - C:\Python311-x64 -m pip install castlabs-evs
+  - pip install castlabs-evs
 
 environment:
   GH_TOKEN:
