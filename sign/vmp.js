@@ -1,6 +1,8 @@
 // Widevine VMP signing
 require('dotenv').config()
 
+const pythonBin = process.env.PYTHON_BIN || 'python3'
+
 exports.default = async function (context) {
 
     if(!process.env.EVS_ACCOUNT_NAME || !process.env.EVS_PASSWD) {
@@ -23,7 +25,7 @@ exports.default = async function (context) {
   
     const spawnSync = require("child_process").spawnSync; 
     console.log("Signing with VMP")
-    const vmp = spawnSync('python3', [
+    const vmp = spawnSync(pythonBin, [
         '-m',
         'castlabs_evs.vmp',
         '-n',
