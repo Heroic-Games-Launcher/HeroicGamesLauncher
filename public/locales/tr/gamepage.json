@@ -130,7 +130,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Üçüncü Parti Oyun Desteklenmiyor"
+            "third-party-game": "Üçüncü Parti Oyun Desteklenmiyor",
+            "not-installable-game": "Oyun Yüklenemez"
         },
         "playing": {
             "start": "Şimdi Oyna",
@@ -202,7 +203,9 @@
         "launching": "Fırlatma",
         "ubisoft": "Ubisoft'u Kurmak",
         "downloading": "İndiriliyor",
-        "extracting": "Ayıklanıyor"
+        "extracting": "Ayıklanıyor",
+        "gog-goodie": "Bu oyun kurulabilir görünmüyor. İndirilebilir içeriği https://gog.com/account adresinden kontrol edin",
+        "goodie": "kurulamaz"
     },
     "submenu": {
         "addShortcut": "Kısayol ekle",

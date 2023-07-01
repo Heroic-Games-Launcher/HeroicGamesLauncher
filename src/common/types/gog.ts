@@ -8,6 +8,12 @@ export interface GogInstallInfo {
   manifest: GameManifest
 }
 
+export interface GOGSessionSyncQueueItem {
+  appName: string
+  session_date: number
+  time: number
+}
+
 interface GameInstallInfo {
   app_name: string
   launch_options: Array<LaunchOption>

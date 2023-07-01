@@ -42,7 +42,9 @@
         "uninstalling": "Oʻchirish",
         "updating": "O'yin yangilanmoqda",
         "extracting": "Chiqarish",
-        "downloading": "Yuklab olinmoqda"
+        "downloading": "Yuklab olinmoqda",
+        "gog-goodie": "Bu oʻyinni oʻrnatib boʻlmaydi. Yuklab olinadigan kontentni https://gog.com/account orqali tekshiring",
+        "goodie": "Oʻrnatish mumkin emas"
     },
     "box": {
         "change": {
@@ -178,7 +180,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Uchinchi tomon oʻyinlari qoʻllab-quvvatlanmaydi"
+            "third-party-game": "Uchinchi tomon oʻyinlari qoʻllab-quvvatlanmaydi",
+            "not-installable-game": "O'yinni o'rnatib bo'lmaydi"
         },
         "launching": "Ishga tushirilmoqda",
         "playing": {

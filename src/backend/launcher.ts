@@ -32,6 +32,7 @@ import {
   logError,
   logInfo,
   LogPrefix,
+  logsDisabled,
   logWarning
 } from './logger/logger'
 import { GlobalConfig } from './config'
@@ -251,6 +252,10 @@ function setupEnvVars(gameSettings: GameSettings) {
     ret.__GLX_VENDOR_LIBRARY_NAME = 'nvidia'
   }
 
+  if (isMac && gameSettings.showFps) {
+    ret.MTL_HUD_ENABLED = '1'
+  }
+
   if (gameSettings.enviromentOptions) {
     gameSettings.enviromentOptions.forEach((envEntry: EnviromentVariable) => {
       ret[envEntry.key] = removeQuoteIfNecessary(envEntry.value)
@@ -308,7 +313,7 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   }
 
   if (gameSettings.showFps) {
-    ret.DXVK_HUD = 'fps'
+    isMac ? (ret.MTL_HUD_ENABLED = '1') : (ret.DXVK_HUD = 'fps')
   }
   if (gameSettings.enableDXVKFpsLimit) {
     ret.DXVK_FRAME_RATE = gameSettings.DXVKFpsCap
@@ -507,6 +512,7 @@ function launchCleanup(rpcClient?: RpcClient) {
     logInfo('Stopped Discord Rich Presence', LogPrefix.Backend)
   }
 }
+
 async function runWineCommand({
   gameSettings,
   commandParts,
@@ -590,23 +596,25 @@ async function runWineCommand({
     child.stdout.setEncoding('utf-8')
     child.stderr.setEncoding('utf-8')
 
-    if (options?.logFile) {
-      logDebug(`Logging to file "${options?.logFile}"`, LogPrefix.Backend)
-    }
+    if (!logsDisabled) {
+      if (options?.logFile) {
+        logDebug(`Logging to file "${options?.logFile}"`, LogPrefix.Backend)
+      }
 
-    if (options?.logFile && existsSync(options.logFile)) {
-      writeFileSync(options.logFile, '')
-      appendFileSync(
-        options.logFile,
-        `Wine Command: ${bin} ${commandParts.join(' ')}\n\nGame Log:\n`
-      )
+      if (options?.logFile && existsSync(options.logFile)) {
+        writeFileSync(options.logFile, '')
+        appendFileSync(
+          options.logFile,
+          `Wine Command: ${bin} ${commandParts.join(' ')}\n\nGame Log:\n`
+        )
+      }
     }
 
     const stdout = memoryLog()
     const stderr = memoryLog()
 
     child.stdout.on('data', (data: string) => {
-      if (options?.logFile) {
+      if (!logsDisabled && options?.logFile) {
         appendFileSync(options.logFile, data)
       }
 
@@ -618,7 +626,7 @@ async function runWineCommand({
     })
 
     child.stderr.on('data', (data: string) => {
-      if (options?.logFile) {
+      if (!logsDisabled && options?.logFile) {
         appendFileSync(options.logFile, data)
       }
 
@@ -681,24 +689,26 @@ async function callRunner(
     fullRunnerPath
   )
 
-  logInfo(
-    [(options?.logMessagePrefix ?? `Running command`) + ':', safeCommand],
-    runner.logPrefix
-  )
-
-  if (options?.logFile) {
-    logDebug(`Logging to file "${options?.logFile}"`, runner.logPrefix)
-  }
-
-  if (options?.verboseLogFile) {
-    appendFileSync(
-      options.verboseLogFile,
-      `[${new Date().toLocaleString()}] ${safeCommand}\n`
+  if (!logsDisabled) {
+    logInfo(
+      [(options?.logMessagePrefix ?? `Running command`) + ':', safeCommand],
+      runner.logPrefix
     )
-  }
 
-  if (options?.logFile && existsSync(options.logFile)) {
-    writeFileSync(options.logFile, '')
+    if (options?.logFile) {
+      logDebug(`Logging to file "${options?.logFile}"`, runner.logPrefix)
+    }
+
+    if (options?.verboseLogFile) {
+      appendFileSync(
+        options.verboseLogFile,
+        `[${new Date().toLocaleString()}] ${safeCommand}\n`
+      )
+    }
+
+    if (options?.logFile && existsSync(options.logFile)) {
+      writeFileSync(options.logFile, '')
+    }
   }
 
   // If we have wrappers (things we want to run before the command), set bin to the first wrapper
@@ -724,12 +734,14 @@ async function callRunner(
 
     child.stdout.setEncoding('utf-8')
     child.stdout.on('data', (data: string) => {
-      if (options?.logFile) {
-        appendFileSync(options.logFile, data)
-      }
+      if (!logsDisabled) {
+        if (options?.logFile) {
+          appendFileSync(options.logFile, data)
+        }
 
-      if (options?.verboseLogFile) {
-        appendFileSync(options.verboseLogFile, data)
+        if (options?.verboseLogFile) {
+          appendFileSync(options.verboseLogFile, data)
+        }
       }
 
       if (options?.onOutput) {
@@ -741,12 +753,14 @@ async function callRunner(
 
     child.stderr.setEncoding('utf-8')
     child.stderr.on('data', (data: string) => {
-      if (options?.logFile) {
-        appendFileSync(options.logFile, data)
-      }
+      if (!logsDisabled) {
+        if (options?.logFile) {
+          appendFileSync(options.logFile, data)
+        }
 
-      if (options?.verboseLogFile) {
-        appendFileSync(options.verboseLogFile, data)
+        if (options?.verboseLogFile) {
+          appendFileSync(options.verboseLogFile, data)
+        }
       }
 
       if (options?.onOutput) {

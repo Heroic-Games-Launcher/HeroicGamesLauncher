@@ -1,6 +1,5 @@
 name: Bug report
 description: "Things aren't working right? Create a bug report to let us know!"
-title: '[Bug]: '
 labels: bug:unconfirmed
 body:
   - type: markdown
@@ -50,14 +49,14 @@ body:
   - type: markdown
     attributes:
       value: |-
-        ## Latest stable version of Heroic is 2.8.0. Please, update Heroic before reporting a bug if you have an older version.
+        ## Latest stable version of Heroic is 2.9.0. Please, update Heroic before reporting a bug if you have an older version.
   - type: dropdown
     id: heroic_version
     attributes:
       label: Heroic Version
       options:
         - Latest Stable
-        - Latest Beta
+        - Latest Stable (Flatpak)
         - main branch from GitHub
     validations:
       required: true

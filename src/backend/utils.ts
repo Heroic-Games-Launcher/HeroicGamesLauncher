@@ -41,7 +41,13 @@ import {
   configStore,
   isLinux
 } from './constants'
-import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
+import {
+  logError,
+  logInfo,
+  LogPrefix,
+  logsDisabled,
+  logWarning
+} from './logger/logger'
 import { basename, dirname, join, normalize } from 'path'
 import { runRunnerCommand as runLegendaryCommand } from 'backend/storeManagers/legendary/library'
 import { runRunnerCommand as runGogdlCommand } from './storeManagers/gog/library'
@@ -235,7 +241,7 @@ const getHeroicVersion = () => {
   const VERSION_NUMBER = app.getVersion()
   // One Piece reference
   const BETA_VERSION_NAME = 'Caesar Clown'
-  const STABLE_VERSION_NAME = 'Nico Robin'
+  const STABLE_VERSION_NAME = 'Boa Hancock'
   const isBetaorAlpha =
     VERSION_NUMBER.includes('alpha') || VERSION_NUMBER.includes('beta')
   const VERSION_NAME = isBetaorAlpha ? BETA_VERSION_NAME : STABLE_VERSION_NAME
@@ -388,6 +394,8 @@ async function errorHandler({
   const deletedFolderMsg = 'appears to be deleted'
   const expiredCredentials = 'No saved credentials'
   const legendaryRegex = /legendary.*\.py/
+  // this message appears on macOS when no Crossover was found in the system but its a false alarm
+  const ignoreCrossoverMessage = 'IndexError: list index out of range'
 
   if (logPath) {
     execAsync(`tail "${logPath}" | grep 'disk space'`)
@@ -410,6 +418,9 @@ async function errorHandler({
       })
   }
   if (error) {
+    if (error.includes(ignoreCrossoverMessage)) {
+      return
+    }
     if (error.includes(deletedFolderMsg) && appName) {
       const runner = r.toLocaleLowerCase() as Runner
       const { title } = gameManagerMap[runner].getGameInfo(appName)
@@ -1018,15 +1029,17 @@ export async function checkWineBeforeLaunch(
   if (wineIsValid) {
     return true
   } else {
-    logError(
-      `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`,
-      LogPrefix.Backend
-    )
+    if (!logsDisabled) {
+      logError(
+        `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`,
+        LogPrefix.Backend
+      )
 
-    appendFileSync(
-      logFileLocation,
-      `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`
-    )
+      appendFileSync(
+        logFileLocation,
+        `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`
+      )
+    }
 
     // check if the default wine is valid now
     const { wineVersion: defaultwine } = GlobalConfig.get().getSettings()

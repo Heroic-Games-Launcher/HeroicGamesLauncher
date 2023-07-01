@@ -39,10 +39,8 @@ const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
 const flatPakHome = env.XDG_DATA_HOME?.replace('/data', '') || homedir()
 const userHome = homedir()
 const configFolder = app.getPath('appData')
-const legendaryConfigPath = isLinux
-  ? join(configFolder, 'legendary')
-  : join(userHome, '.config', 'legendary')
 const appFolder = join(configFolder, 'heroic')
+const legendaryConfigPath = join(appFolder, 'legendaryConfig', 'legendary')
 const configPath = join(appFolder, 'config.json')
 const gamesConfigPath = join(appFolder, 'GamesConfig')
 const toolsPath = join(appFolder, 'tools')
@@ -65,6 +63,9 @@ const { currentLogFile, lastLogFile, legendaryLogFile, gogdlLogFile } =
 
 const publicDir = resolve(__dirname, '..', app.isPackaged ? '' : '../public')
 const gogdlAuthConfig = join(app.getPath('userData'), 'gog_store', 'auth.json')
+const vulkanHelperBin = fixAsarPath(
+  join(publicDir, 'bin', process.platform, 'vulkan-helper')
+)
 const icon = fixAsarPath(join(publicDir, 'icon.png'))
 const iconDark = fixAsarPath(join(publicDir, 'icon-dark.png'))
 const iconLight = fixAsarPath(join(publicDir, 'icon-light.png'))
@@ -250,5 +251,6 @@ export {
   wineprefixFAQ,
   customThemesWikiLink,
   cachedUbisoftInstallerPath,
-  gogdlAuthConfig
+  gogdlAuthConfig,
+  vulkanHelperBin
 }

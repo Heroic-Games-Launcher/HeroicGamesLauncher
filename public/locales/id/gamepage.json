@@ -130,7 +130,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Gim pihak ketiga TIDAK didukung"
+            "third-party-game": "Gim pihak ketiga TIDAK didukung",
+            "not-installable-game": "Game TIDAK Dapat Diinstal"
         },
         "playing": {
             "start": "Mainkan sekarang",
@@ -202,7 +203,9 @@
         "launching": "Meluncurkan",
         "ubisoft": "Memasang Ubisoft",
         "downloading": "Mengunduh",
-        "extracting": "Mengekstrak"
+        "extracting": "Mengekstrak",
+        "goodie": "Tidak dapat diinstal",
+        "gog-goodie": "Game ini tampaknya tidak dapat diinstal. Periksa konten yang dapat diunduh di https://gog.com/account"
     },
     "submenu": {
         "addShortcut": "Tambahkan pintasan",

@@ -131,7 +131,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "لعبة الطرف الثالث ليست مدعومة"
+            "third-party-game": "لعبة الطرف الثالث ليست مدعومة",
+            "not-installable-game": "اللعبة غير قابلة للتثبيت"
         },
         "playing": {
             "start": "إلعب الآن",
@@ -203,7 +204,9 @@
         "launching": "يشغّل",
         "ubisoft": "يثبَّت يوبيسوفت",
         "downloading": "ينزَّل",
-        "extracting": "يستخرَج"
+        "extracting": "يستخرَج",
+        "goodie": "غير قابل للتثبيت",
+        "gog-goodie": "لا يبدو أن هذه اللعبة قابلة للتثبيت. تحقق من المحتوى القابل للتنزيل على https://gog.com/account"
     },
     "submenu": {
         "addShortcut": "أضف اختصارًا",

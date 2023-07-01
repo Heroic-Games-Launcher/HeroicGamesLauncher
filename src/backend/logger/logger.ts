@@ -7,6 +7,10 @@
 import { AppSettings, GameSettings } from 'common/types'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
 import { appendMessageToLogFile, getLongestPrefix } from './logfile'
+import { backendEvents } from 'backend/backend_events'
+import { GlobalConfig } from 'backend/config'
+import { getGOGdlBin, getLegendaryBin, getSystemInfo } from 'backend/utils'
+import { join } from 'path'
 
 export enum LogPrefix {
   General = '',
@@ -40,6 +44,58 @@ interface LogOptions {
   prefix?: LogPrefix
   showDialog?: boolean
   skipLogToFile?: boolean
+  forceLog?: boolean
+}
+
+// global variable to use by logBase
+export let logsDisabled = false
+
+export function initLogger() {
+  // check `disableLogs` setting
+  const { disableLogs } = GlobalConfig.get().getSettings()
+
+  logsDisabled = disableLogs
+
+  if (logsDisabled) {
+    logWarning(
+      'IMPORTANT: Logs are disabled. Enable logs before reporting any issue.',
+      {
+        forceLog: true
+      }
+    )
+  }
+
+  // log important information: binaries, system specs
+  getSystemInfo().then((systemInfo) => {
+    if (systemInfo === '') return
+    logInfo(`\n\n${systemInfo}\n`, {
+      prefix: LogPrefix.Backend,
+      forceLog: true
+    })
+  })
+
+  logInfo(['Legendary location:', join(...Object.values(getLegendaryBin()))], {
+    prefix: LogPrefix.Legendary,
+    forceLog: true
+  })
+  logInfo(['GOGDL location:', join(...Object.values(getGOGdlBin()))], {
+    prefix: LogPrefix.Gog,
+    forceLog: true
+  })
+
+  // listen to the settingChanged event, log change and enable/disable logging if needed
+  backendEvents.on('settingChanged', ({ key, oldValue, newValue }) => {
+    logInfo(
+      `Heroic: Setting ${key} to ${JSON.stringify(
+        newValue
+      )} (previous value: ${JSON.stringify(oldValue)})`,
+      { forceLog: true }
+    )
+
+    if (key === 'disableLogs') {
+      logsDisabled = newValue
+    }
+  })
 }
 
 // helper to convert LogInputType to string
@@ -117,6 +173,8 @@ function logBase(
   } else {
     options = options_or_prefix
   }
+
+  if (logsDisabled && !options?.forceLog) return
 
   const text = convertInputToString(input)
   const messagePrefix = `${getTimeStamp()} ${getLogLevelString(

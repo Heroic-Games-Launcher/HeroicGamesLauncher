@@ -1,12 +1,18 @@
 import { GamesDBInfo } from './../../../common/types'
 import { HowLongToBeatEntry } from 'howlongtobeat'
-import { AppleGamingWikiInfo, WikiInfo, PCGamingWikiInfo } from 'common/types'
+import {
+  AppleGamingWikiInfo,
+  WikiInfo,
+  PCGamingWikiInfo,
+  ProtonDBCompatibilityInfo
+} from 'common/types'
 import { wikiGameInfoStore } from '../electronStore'
 import { getWikiGameInfo } from '../wiki_game_info'
 import * as PCGamingWiki from '../pcgamingwiki/utils'
 import * as AppleGamingWiki from '../applegamingwiki/utils'
 import * as HowLongToBeat from '../howlongtobeat/utils'
 import * as GamesDB from '../gamesdb/utils'
+import * as ProtonDB from '../protondb/utils'
 import { logError } from '../../logger/logger'
 
 jest.mock('electron-store')
@@ -34,6 +40,9 @@ describe('getWikiGameInfo', () => {
     const mockGamesDB = jest
       .spyOn(GamesDB, 'getInfoFromGamesDB')
       .mockResolvedValue(testGamesDBInfo)
+    const mockProtonDB = jest
+      .spyOn(ProtonDB, 'getInfoFromProtonDB')
+      .mockResolvedValue(testProtonDBInfo)
 
     wikiGameInfoStore.set('The Witcher 3', testExtraGameInfo)
 
@@ -43,6 +52,7 @@ describe('getWikiGameInfo', () => {
     expect(mockAppleGamingWiki).not.toBeCalled()
     expect(mockHowLongToBeat).not.toBeCalled()
     expect(mockGamesDB).not.toBeCalled()
+    expect(mockProtonDB).not.toBeCalled()
   })
 
   test('cached data outdated', async () => {
@@ -61,6 +71,9 @@ describe('getWikiGameInfo', () => {
     const mockGamesDB = jest
       .spyOn(GamesDB, 'getInfoFromGamesDB')
       .mockResolvedValue(testGamesDBInfo)
+    const mockProtonDB = jest
+      .spyOn(ProtonDB, 'getInfoFromProtonDB')
+      .mockResolvedValue(testProtonDBInfo)
 
     wikiGameInfoStore.set('The Witcher 3', {
       ...testExtraGameInfo,
@@ -73,6 +86,7 @@ describe('getWikiGameInfo', () => {
     expect(mockAppleGamingWiki).toBeCalled()
     expect(mockHowLongToBeat).toBeCalled()
     expect(mockGamesDB).toBeCalled()
+    expect(mockProtonDB).toBeCalled()
   })
 
   test('catches throws', async () => {
@@ -136,10 +150,15 @@ const testGamesDBInfo = {
   steamID: '123'
 } as GamesDBInfo
 
+const testProtonDBInfo = {
+  level: 'platinum'
+} as ProtonDBCompatibilityInfo
+
 const testExtraGameInfo = {
   timestampLastFetch: currentTime.toString(),
   pcgamingwiki: testPCGamingWikiInfo,
   applegamingwiki: testAppleGamingWikiInfo,
   howlongtobeat: testHowLongToBeat,
-  gamesdb: testGamesDBInfo
+  gamesdb: testGamesDBInfo,
+  protondb: testProtonDBInfo
 } as WikiInfo

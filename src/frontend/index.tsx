@@ -104,15 +104,15 @@ const root = createRoot(container!) // createRoot(container!) if you use TypeScr
 const App = lazy(async () => import('./App'))
 
 root.render(
-  <React.StrictMode>
-    <GlobalState>
-      <I18nextProvider i18n={i18next}>
-        <Suspense fallback={<Loading />}>
-          <App />
-        </Suspense>
-      </I18nextProvider>
-    </GlobalState>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <GlobalState>
+    <I18nextProvider i18n={i18next}>
+      <Suspense fallback={<Loading />}>
+        <App />
+      </Suspense>
+    </I18nextProvider>
+  </GlobalState>
+  // </React.StrictMode>
 )
 
 // helper function to set the theme class and load custom css if needed

@@ -1,6 +1,6 @@
 {
   "name": "heroic",
-  "version": "2.8.0",
+  "version": "2.9.0",
   "private": true,
   "main": "build/electron/main.js",
   "homepage": "./",
@@ -105,7 +105,8 @@
       },
       "asarUnpack": [
         "build/bin/linux/legendary",
-        "build/bin/linux/gogdl"
+        "build/bin/linux/gogdl",
+        "build/bin/linux/vulkan-helper"
       ],
       "files": [
         "build/bin/linux/*"
@@ -183,6 +184,7 @@
     "react-router-dom": "^6.9.0",
     "recharts": "^2.4.3",
     "sanitize-filename": "^1.6.3",
+    "semver": "^7.5.1",
     "shlex": "^2.1.2",
     "short-uuid": "^4.2.2",
     "simple-keyboard": "^3.5.33",
@@ -203,8 +205,8 @@
     "test:e2ePackaged": "cross-env TEST_PACKAGED=true yarn test:e2e",
     "release:linux": "vite build && electron-builder -p always --linux deb AppImage rpm pacman tar.xz snap",
     "release:mac": "vite build && electron-builder -p always --mac --x64 --arm64",
-    "release:win": "vite build && electron-builder -p always --win portable --x64 --arm64",
-    "sign:win": "vite build && electron-builder -p never --win nsis --x64 --arm64",
+    "release:win": "vite build && electron-builder -p always --win portable --x64",
+    "sign:win": "vite build && electron-builder -p never --win nsis --x64",
     "dist:linux": "vite build && electron-builder --linux",
     "dist:mac": "export CSC_IDENTITY_AUTO_DISCOVERY=false && vite build && electron-builder --mac",
     "dist:win": "vite build && electron-builder --win",
@@ -246,7 +248,7 @@
     "@typescript-eslint/parser": "^5.47.1",
     "@vitejs/plugin-react-swc": "^3.2.0",
     "cross-env": "^7.0.3",
-    "electron": "https://github.com/castlabs/electron-releases#24.4.1+wvcus",
+    "electron": "git+ssh://git@github.com:castlabs/electron-releases.git#v24.4.1+wvcus",
     "electron-builder": "^23.6.0",
     "electron-devtools-installer": "^3.2.0",
     "electron-playwright-helpers": "^1.5.5",

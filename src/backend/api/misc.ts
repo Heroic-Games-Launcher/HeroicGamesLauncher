@@ -166,3 +166,8 @@ export const getWikiGameInfo = async (
   appName: string,
   runner: Runner
 ) => ipcRenderer.invoke('getWikiGameInfo', title, appName, runner)
+
+export const fetchPlaytimeFromServer = async (
+  runner: Runner,
+  appName: string
+) => ipcRenderer.invoke('getPlaytimeFromRunner', runner, appName)

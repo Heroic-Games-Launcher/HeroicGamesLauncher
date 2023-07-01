@@ -1,12 +1,17 @@
-.MuiPaper-root.MuiPopover-paper.popover-paper {
-  background-color: var(--background);
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  box-shadow: 0 0 0 1px var(--border-color);
-  padding: 16px;
-  width: fit-content;
-  max-width: 500px;
-  overflow-y: auto;
-  overflow-x: hidden;
+.popover-wrapper {
+  position: relative;
+  .popover {
+    background-color: var(--background);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-shadow: 0 0 0 1px var(--border-color);
+    padding: 16px;
+    width: fit-content;
+    max-width: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: absolute;
+    z-index: 2;
+  }
 }

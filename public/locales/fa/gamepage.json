@@ -130,7 +130,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "بازی های شخص ثالث پشتیبانی نمی شوند"
+            "third-party-game": "بازی های شخص ثالث پشتیبانی نمی شوند",
+            "not-installable-game": "بازی قابل نصب نیست"
         },
         "playing": {
             "start": "اجرا",
@@ -202,7 +203,9 @@
         "launching": "در حال راه اندازی",
         "ubisoft": "نصب Ubisoft",
         "downloading": "در حال دانلود",
-        "extracting": "در حال استخراج"
+        "extracting": "در حال استخراج",
+        "gog-goodie": "به نظر نمی رسد این بازی قابل نصب باشد. محتوای قابل دانلود را در https://gog.com/account بررسی کنید",
+        "goodie": "قابل نصب نیست"
     },
     "submenu": {
         "addShortcut": "افزودن میانبر",

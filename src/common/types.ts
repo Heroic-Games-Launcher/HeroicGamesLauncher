@@ -58,6 +58,7 @@ export interface AppSettings extends GameSettings {
   defaultSteamPath: string
   defaultWinePrefix: string
   disableController: boolean
+  disableLogs: boolean
   discordRPC: boolean
   downloadNoHttps: boolean
   egsLinkedPath: string
@@ -227,7 +228,7 @@ export type UserInfo = {
 export interface WineInstallation {
   bin: string
   name: string
-  type: 'wine' | 'proton' | 'crossover'
+  type: 'wine' | 'proton' | 'crossover' | 'toolkit'
   lib?: string
   lib32?: string
   wineserver?: string
@@ -598,12 +599,17 @@ export interface GamesDBInfo {
   steamID: string
 }
 
+export interface ProtonDBCompatibilityInfo {
+  level: string
+}
+
 export interface WikiInfo {
   timestampLastFetch: string
   pcgamingwiki: PCGamingWikiInfo | null
   applegamingwiki: AppleGamingWikiInfo | null
   howlongtobeat: HowLongToBeatEntry | null
   gamesdb: GamesDBInfo | null
+  protondb: ProtonDBCompatibilityInfo | null
 }
 
 /**

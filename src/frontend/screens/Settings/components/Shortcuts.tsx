@@ -11,7 +11,7 @@ const Shortcuts = () => {
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
-  const supportsShortcuts = isWin || isLinux
+  const supportsDesktopShortcut = isWin || isLinux
 
   const [addDesktopShortcuts, setAddDesktopShortcuts] = useSetting(
     'addDesktopShortcuts',
@@ -30,32 +30,38 @@ const Shortcuts = () => {
     return <></>
   }
 
+  let menuShortcutsLabel = t(
+    'setting.addgamestostartmenu',
+    'Add games to start menu automatically'
+  )
+  if (!isLinux && !isWin) {
+    menuShortcutsLabel = t(
+      'setting.addgamestoapplications',
+      'Add games to Applications automatically'
+    )
+  }
+
   return (
     <>
-      {supportsShortcuts && (
-        <>
-          <ToggleSwitch
-            htmlId="shortcutsToDesktop"
-            value={addDesktopShortcuts}
-            handleChange={() => setAddDesktopShortcuts(!addDesktopShortcuts)}
-            title={t(
-              'setting.adddesktopshortcuts',
-              'Add desktop shortcuts automatically'
-            )}
-          />
-          <ToggleSwitch
-            htmlId="shortcutsToMenu"
-            value={addStartMenuShortcuts}
-            handleChange={() =>
-              setAddStartMenuShortcuts(!addStartMenuShortcuts)
-            }
-            title={t(
-              'setting.addgamestostartmenu',
-              'Add games to start menu automatically'
-            )}
-          />
-        </>
+      {supportsDesktopShortcut && (
+        <ToggleSwitch
+          htmlId="shortcutsToDesktop"
+          value={addDesktopShortcuts}
+          handleChange={() => setAddDesktopShortcuts(!addDesktopShortcuts)}
+          title={t(
+            'setting.adddesktopshortcuts',
+            'Add desktop shortcuts automatically'
+          )}
+        />
       )}
+
+      <ToggleSwitch
+        htmlId="shortcutsToMenu"
+        value={addStartMenuShortcuts}
+        handleChange={() => setAddStartMenuShortcuts(!addStartMenuShortcuts)}
+        title={menuShortcutsLabel}
+      />
+
       <ToggleSwitch
         htmlId="shortcutsToSteam"
         value={addSteamShortcuts}
