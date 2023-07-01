@@ -44,12 +44,11 @@ function loadGamesInAccount() {
 
     const info = installedGames.get(game.id)
 
-    // Not sure which images I should use
     library.set(game.id, {
       app_name: game.id,
       art_cover: iconUrl,
       art_square: iconUrl,
-      canRunOffline: true, // Not sure if there is a way to know this
+      canRunOffline: true, // Amazon Games only has offline games
       install: info
         ? {
             install_path: info.path,
@@ -63,8 +62,7 @@ function loadGamesInAccount() {
       description: shortDescription,
       developer,
       is_linux_native: false,
-      is_mac_native: false,
-      namespace: undefined // TODO: Check what this should be for anticheat
+      is_mac_native: false
     })
   })
 }
@@ -308,8 +306,9 @@ function updateInstalledPathInJSON(appName: string, newAppPath: string) {
  * @param appName
  * @param state true if its installed, false otherwise.
  */
-export function installState(/* appName: string, state: boolean */) {
-  // TODO: Fill in logic
+export function installState() {
+  // It's easier to just reload installed from config
+  refreshInstalled()
 }
 
 export async function runRunnerCommand(

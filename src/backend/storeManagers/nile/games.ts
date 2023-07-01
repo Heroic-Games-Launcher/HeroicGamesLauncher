@@ -6,12 +6,13 @@ import {
   InstallArgs,
   InstallProgress
 } from 'common/types'
-import { InstallResult } from 'common/types/game_manager'
+import { InstallResult, RemoveArgs } from 'common/types/game_manager'
 import {
   runRunnerCommand as runNileCommand,
   getGameInfo as nileLibraryGetGameInfo,
   // getInstallInfo,
-  changeGameInstallPath
+  changeGameInstallPath,
+  installState
 } from './library'
 import {
   LogPrefix,
@@ -53,6 +54,8 @@ import {
   addShortcuts as addShortcutsUtil,
   removeShortcuts as removeShortcutsUtil
 } from '../../shortcuts/shortcuts/shortcuts'
+import { removeNonSteamGame } from 'backend/shortcuts/nonesteamgame/nonesteamgame'
+import { sendFrontendMessage } from 'backend/main_window'
 
 // used when downloading games, store the download size read from Nile's output
 interface currentDownloadSizeMap {
@@ -397,18 +400,32 @@ export async function repair(/* appName: string */): Promise<ExecResult> {
 }
 
 export async function syncSaves(): Promise<string> {
-  /* appName: string,
-  arg: string,
-  path: string,
-  gogSaves?: GOGCloudSavesLocation[] */
+  // Amazon Games doesn't support cloud saves
   return ''
 }
 
-export async function uninstall(/* args: RemoveArgs */): Promise<ExecResult> {
-  return {
-    stderr: '',
-    stdout: ''
+export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
+  const commandParts = ['uninstall', appName]
+
+  const res = await runNileCommand(
+    commandParts,
+    createAbortController(appName),
+    {
+      logMessagePrefix: `Uninstalling ${appName}`
+    }
+  )
+  deleteAbortController(appName)
+
+  if (res.error) {
+    logError(['Failed to uninstall', `${appName}:`, res.error], LogPrefix.Nile)
+  } else if (!res.abort) {
+    const gameInfo = getGameInfo(appName)
+    await removeShortcutsUtil(gameInfo)
+    await removeNonSteamGame({ gameInfo })
+    installState()
   }
+  sendFrontendMessage('refreshLibrary', 'nile')
+  return res
 }
 
 export async function update(/* appName: string */): Promise<InstallResult> {
