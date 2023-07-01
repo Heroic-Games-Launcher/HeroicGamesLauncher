@@ -10,9 +10,10 @@ import { InstallResult, RemoveArgs } from 'common/types/game_manager'
 import {
   runRunnerCommand as runNileCommand,
   getGameInfo as nileLibraryGetGameInfo,
-  // getInstallInfo,
   changeGameInstallPath,
-  installState
+  installState,
+  removeFromInstalledConfig,
+  fetchFuelJSON
 } from './library'
 import {
   LogPrefix,
@@ -47,7 +48,13 @@ import { t } from 'i18next'
 import { getWineFlags } from 'backend/utils/compatibility_layers'
 import shlex from 'shlex'
 import { join } from 'path'
-import { getNileBin, moveOnUnix, moveOnWindows } from 'backend/utils'
+import {
+  getNileBin,
+  killPattern,
+  moveOnUnix,
+  moveOnWindows,
+  shutdownWine
+} from 'backend/utils'
 import { GlobalConfig } from 'backend/config'
 import { gameAnticheatInfo } from 'backend/anticheat/utils'
 import {
@@ -434,11 +441,24 @@ export async function update(/* appName: string */): Promise<InstallResult> {
   }
 }
 
-export async function forceUninstall(/* appName: string */) {
-  return
+export async function forceUninstall(appName: string) {
+  removeFromInstalledConfig(appName)
 }
 
-export async function stop(/* appName: string, stopWine?: boolean */) {
+export async function stop(appName: string, stopWine?: boolean) {
+  const fuel = fetchFuelJSON(appName)
+  if (fuel) {
+    // Find the executable name in order to pkill it
+    const { Command: exeName } = fuel.Main
+    killPattern(exeName)
+  } else {
+    logError(['Could not fetch `fuel.json` for', appName], LogPrefix.Nile)
+  }
+
+  if (stopWine && !isNative()) {
+    const gameSettings = await getSettings(appName)
+    await shutdownWine(gameSettings)
+  }
   return
 }
 

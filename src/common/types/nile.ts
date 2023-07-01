@@ -81,3 +81,12 @@ export interface NileGameProductDetails {
     }
   }
 }
+
+export interface FuelSchema {
+  SchemaVersion: string
+  PostInstall: string[]
+  Main: {
+    Command: string
+    Args: string[]
+  }
+}

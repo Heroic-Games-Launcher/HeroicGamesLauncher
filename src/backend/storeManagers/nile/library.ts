@@ -12,6 +12,7 @@ import {
 } from 'backend/utils/aborthandler/aborthandler'
 import { CallRunnerOptions, ExecResult, GameInfo } from 'common/types'
 import {
+  FuelSchema,
   NileGameInfo,
   NileInstallInfo,
   NileInstallMetadataInfo
@@ -20,6 +21,7 @@ import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
 import { installStore, libraryStore } from './electronStores'
 import { getNileBin } from 'backend/utils'
 import { callRunner } from 'backend/launcher'
+import { join } from 'path'
 
 const installedGames: Map<string, NileInstallMetadataInfo> = new Map()
 const library: Map<string, GameInfo> = new Map()
@@ -65,6 +67,55 @@ function loadGamesInAccount() {
       is_mac_native: false
     })
   })
+}
+
+/**
+ * Removes a game entry directly from Niles' installed.json config file
+ *
+ * @param appName The id of the app entry to remove
+ */
+export function removeFromInstalledConfig(appName: string) {
+  installedGames.clear()
+  if (existsSync(nileInstalled)) {
+    try {
+      const installed: NileInstallMetadataInfo[] = JSON.parse(
+        readFileSync(nileInstalled, 'utf-8')
+      )
+      const newInstalled = installed.filter((game) => game.id !== appName)
+      writeFileSync(nileInstalled, JSON.stringify(newInstalled), 'utf-8')
+    } catch (error) {
+      logError(
+        ['Corrupted installed.json file, cannot load installed games', error],
+        LogPrefix.Nile
+      )
+    }
+  }
+}
+
+/**
+ * Fetches and parses the game's `fuel.json` file
+ */
+export function fetchFuelJSON(appName: string): FuelSchema | null {
+  const game = getGameInfo(appName)
+  if (!game?.install.install_path) {
+    logError(['Could not find install path for', appName], LogPrefix.Nile)
+    return null
+  }
+
+  const { install_path } = game.install
+  const fuelJSONPath = join(install_path, 'fuel.json')
+
+  if (!existsSync(fuelJSONPath)) {
+    return null
+  }
+
+  try {
+    return JSON.parse(readFileSync(fuelJSONPath, 'utf-8'))
+  } catch (error) {
+    logError(['Could not read', `${fuelJSONPath}:`, error], LogPrefix.Nile)
+  }
+
+  return null
 }
 
 /**
