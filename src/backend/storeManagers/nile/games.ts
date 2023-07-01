@@ -8,6 +8,8 @@ import {
 } from 'common/types'
 import { InstallResult /* RemoveArgs */ } from 'common/types/game_manager'
 // import { GOGCloudSavesLocation } from 'common/types/gog'
+import { getGameInfo as nileLibraryGetGameInfo } from './library'
+import { LogPrefix, logError } from 'backend/logger/logger'
 
 export async function getSettings(/* appName: string */): Promise<GameSettings> {
   // TODO: Logic
@@ -46,22 +48,41 @@ export async function getSettings(/* appName: string */): Promise<GameSettings> 
   }
 }
 
-export function getGameInfo(/* appName: string */): GameInfo {
-  return {
-    app_name: '',
-    art_cover: '',
-    art_square: '',
-    canRunOffline: false,
-    install: {},
-    is_installed: false,
-    runner: 'nile',
-    title: ''
+export function getGameInfo(appName: string): GameInfo {
+  const info = nileLibraryGetGameInfo(appName)
+  if (!info) {
+    logError(
+      [
+        'Could not get game info for',
+        `${appName},`,
+        'returning empty object. Something is probably gonna go wrong soon'
+      ],
+      LogPrefix.Nile
+    )
+    return {
+      app_name: '',
+      runner: 'nile',
+      art_cover: '',
+      art_square: '',
+      install: {},
+      is_installed: false,
+      title: '',
+      canRunOffline: false
+    }
   }
+  return info
 }
 
-export async function getExtraInfo(/* appName: string */): Promise<ExtraInfo> {
+export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
+  const info = nileLibraryGetGameInfo(appName)
   return {
-    reqs: []
+    reqs: [],
+    about: info?.description
+      ? {
+          description: info.description,
+          shortDescription: info.description
+        }
+      : undefined
   }
 }
 

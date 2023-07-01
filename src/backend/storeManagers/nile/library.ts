@@ -1,5 +1,5 @@
 import { nileInstalled, nileLibrary } from 'backend/constants'
-import { LogPrefix, logError, logInfo } from 'backend/logger/logger'
+import { LogPrefix, logDebug, logError, logInfo } from 'backend/logger/logger'
 // import {
 //   createAbortController,
 //   deleteAbortController
@@ -11,7 +11,7 @@ import {
   NileInstallMetadataInfo
 } from 'common/types/nile'
 import { existsSync, readFileSync } from 'graceful-fs'
-import { libraryStore } from './electronStores'
+import { installStore, libraryStore } from './electronStores'
 
 const installedGames: Map<string, NileInstallMetadataInfo> = new Map()
 const library: Map<string, GameInfo> = new Map()
@@ -88,7 +88,6 @@ async function refreshNile(): Promise<ExecResult> {
   // if (res.error) {
   //   logError(['Failed to refresh library:', res.error], LogPrefix.Nile)
   // }
-  refreshInstalled()
   return {
     stderr: '',
     stdout: ''
@@ -147,11 +146,29 @@ export async function refresh(): Promise<ExecResult | null> {
  * @returns GameInfo
  */
 export function getGameInfo(
-  appName: string
-  // forceReload = false
+  appName: string,
+  forceReload = false
 ): GameInfo | undefined {
-  // TODO: Fill in logic
-  return library.get(appName)
+  if (!forceReload) {
+    const gameInMemory = library.get(appName)
+    if (gameInMemory) {
+      return gameInMemory
+    }
+  }
+
+  logInfo(['Loading', appName, 'from metadata files'], LogPrefix.Nile)
+  refreshInstalled()
+  loadGamesInAccount()
+
+  const game = library.get(appName)
+  if (!game) {
+    logError(
+      ['Could not find game with id', appName, `in user's library`],
+      LogPrefix.Nile
+    )
+    return
+  }
+  return game
 }
 
 /**
@@ -160,20 +177,19 @@ export function getGameInfo(
 export async function getInstallInfo(
   appName: string
 ): Promise<NileInstallInfo> {
-  // TODO: Cache
-  // const cache = installStore.get(appName)
-  // if (cache) {
-  //   logDebug('Using cached install info', LogPrefix.Nile)
-  //   return cache
-  // }
+  const cache = installStore.get(appName)
+  if (cache) {
+    logDebug('Using cached install info', LogPrefix.Nile)
+    return cache
+  }
 
   logInfo('Getting more details', LogPrefix.Nile)
   refreshInstalled()
 
   const game = library.get(appName)
   if (game) {
-    const info = installedGames.get(appName)
-    return {
+    const metadata = installedGames.get(appName)
+    const installInfo = {
       game: {
         id: appName,
         path: '',
@@ -185,10 +201,10 @@ export async function getInstallInfo(
         external_activation: '',
         is_dlc: false,
         platform_versions: {
-          Windows: info?.version ?? ''
+          Windows: metadata?.version ?? ''
         },
         title: game.title,
-        ...info
+        ...metadata
       },
       manifest: {
         download_size: 1000, // FIXME: Proper size
@@ -196,6 +212,8 @@ export async function getInstallInfo(
         // TODO: Fill out later
       }
     }
+    installStore.set(appName, installInfo)
+    return installInfo
   }
 
   logError(['Could not find game with id', appName], LogPrefix.Nile)
