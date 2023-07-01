@@ -621,7 +621,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     )}:{' '}
                     {steamInfo!.compatibilityLevel!.charAt(0).toUpperCase() +
                       steamInfo!.compatibilityLevel!.slice(1) +
-                      (steamInfo?.steamDeckCatagory
+                      (Number.isFinite(steamInfo?.steamDeckCatagory) &&
+                      steamInfo?.steamDeckCatagory !== null
                         ? ', ' +
                           t('info.steam-deck', 'Steam Deck') +
                           ' ' +

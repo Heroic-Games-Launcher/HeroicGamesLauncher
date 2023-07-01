@@ -31,7 +31,7 @@ export async function getSteamDeckComp(
   const resp_str = JSON.stringify(response.data)
   logDebug(`SteamDeck data for ${steamID} ${resp_str}`)
 
-  if (!response.data?.results?.resolved_category) {
+  if (!Number.isFinite(response.data?.results?.resolved_category)) {
     logError('No resolved_category in response, API changed?')
     return null
   }
