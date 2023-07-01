@@ -555,6 +555,17 @@ function getGOGdlBin(): { dir: string; bin: string } {
     fixAsarPath(join(publicDir, 'bin', process.platform, 'gogdl'))
   )
 }
+
+function getNileBin(): { dir: string; bin: string } {
+  const settings = GlobalConfig.get().getSettings()
+  if (settings?.altNileBin) {
+    return splitPathAndName(settings.altNileBin)
+  }
+  return splitPathAndName(
+    fixAsarPath(join(publicDir, 'bin', process.platform, 'nile'))
+  )
+}
+
 function getFormattedOsName(): string {
   switch (process.platform) {
     case 'linux':
@@ -1302,6 +1313,7 @@ export {
   resetHeroic,
   getLegendaryBin,
   getGOGdlBin,
+  getNileBin,
   formatEpicStoreUrl,
   searchForExecutableOnPath,
   getSteamRuntime,

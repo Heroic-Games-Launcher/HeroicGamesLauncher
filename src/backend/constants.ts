@@ -59,8 +59,13 @@ const cachedUbisoftInstallerPath = join(
   'UbisoftConnectInstaller.exe'
 )
 
-const { currentLogFile, lastLogFile, legendaryLogFile, gogdlLogFile } =
-  createNewLogFileAndClearOldOnes()
+const {
+  currentLogFile,
+  lastLogFile,
+  legendaryLogFile,
+  gogdlLogFile,
+  nileLogFile
+} = createNewLogFileAndClearOldOnes()
 
 const publicDir = resolve(__dirname, '..', app.isPackaged ? '' : '../public')
 const gogdlAuthConfig = join(app.getPath('userData'), 'gog_store', 'auth.json')
@@ -208,6 +213,7 @@ export {
   lastLogFile,
   legendaryLogFile,
   gogdlLogFile,
+  nileLogFile,
   discordLink,
   execOptions,
   fixAsarPath,

@@ -1,10 +1,10 @@
-import { nileInstalled, nileLibrary } from 'backend/constants'
+import { nileInstalled, nileLibrary, nileLogFile } from 'backend/constants'
 import { LogPrefix, logDebug, logError, logInfo } from 'backend/logger/logger'
-// import {
-//   createAbortController,
-//   deleteAbortController
-// } from 'backend/utils/aborthandler/aborthandler'
-import { /* CallRunnerOptions, */ ExecResult, GameInfo } from 'common/types'
+import {
+  createAbortController,
+  deleteAbortController
+} from 'backend/utils/aborthandler/aborthandler'
+import { CallRunnerOptions, ExecResult, GameInfo } from 'common/types'
 import {
   NileGameInfo,
   NileInstallInfo,
@@ -12,6 +12,8 @@ import {
 } from 'common/types/nile'
 import { existsSync, readFileSync } from 'graceful-fs'
 import { installStore, libraryStore } from './electronStores'
+import { getNileBin } from 'backend/utils'
+import { callRunner } from 'backend/launcher'
 
 const installedGames: Map<string, NileInstallMetadataInfo> = new Map()
 const library: Map<string, GameInfo> = new Map()
@@ -77,17 +79,17 @@ export async function listUpdateableGames(): Promise<string[]> {
 async function refreshNile(): Promise<ExecResult> {
   logInfo('Refreshing Amazon Games...', LogPrefix.Nile)
 
-  // const abortID = 'nile-refresh'
-  // const res = await runRunnerCommand(
-  //   ['library', 'sync'],
-  //   createAbortController(abortID)
-  // )
+  const abortID = 'nile-refresh'
+  const res = await runRunnerCommand(
+    ['library', 'sync'],
+    createAbortController(abortID)
+  )
 
-  // deleteAbortController(abortID)
+  deleteAbortController(abortID)
 
-  // if (res.error) {
-  //   logError(['Failed to refresh library:', res.error], LogPrefix.Nile)
-  // }
+  if (res.error) {
+    logError(['Failed to refresh library:', res.error], LogPrefix.Nile)
+  }
   return {
     stderr: '',
     stdout: ''
@@ -262,13 +264,21 @@ export function installState(/* appName: string, state: boolean */) {
   // TODO: Fill in logic
 }
 
-export async function runRunnerCommand(): Promise<ExecResult> {
-  /* commandParts: string[],
+export async function runRunnerCommand(
+  commandParts: string[],
   abortController: AbortController,
-  options?: CallRunnerOptions */
-  // TODO: Fill in logic
-  return {
-    stderr: '',
-    stdout: ''
-  }
+  options?: CallRunnerOptions
+): Promise<ExecResult> {
+  const { dir, bin } = getNileBin()
+
+  // TODO: Set XDG_CONFIG_HOME to a separate location
+  return callRunner(
+    commandParts,
+    { name: 'nile', logPrefix: LogPrefix.Nile, bin, dir },
+    abortController,
+    {
+      ...options,
+      verboseLogFile: nileLogFile
+    }
+  )
 }
