@@ -1,11 +1,31 @@
-import { ExecResult, ExtraInfo, GameInfo, GameSettings } from 'common/types'
+import {
+  ExecResult,
+  ExtraInfo,
+  GameInfo,
+  GameSettings,
+  InstallArgs,
+  InstallProgress
+} from 'common/types'
 import { InstallResult } from 'common/types/game_manager'
 import {
   runRunnerCommand as runNileCommand,
-  getGameInfo as nileLibraryGetGameInfo
+  getGameInfo as nileLibraryGetGameInfo,
+  // getInstallInfo,
+  changeGameInstallPath
 } from './library'
-import { LogPrefix, logError, logsDisabled } from 'backend/logger/logger'
-import { isWindows } from 'backend/constants'
+import {
+  LogPrefix,
+  logDebug,
+  logError,
+  logInfo,
+  logsDisabled
+} from 'backend/logger/logger'
+import {
+  gamesConfigPath,
+  isFlatpak,
+  isLinux,
+  isWindows
+} from 'backend/constants'
 import { GameConfig } from 'backend/game_config'
 import {
   createAbortController,
@@ -26,7 +46,19 @@ import { t } from 'i18next'
 import { getWineFlags } from 'backend/utils/compatibility_layers'
 import shlex from 'shlex'
 import { join } from 'path'
-import { getNileBin } from 'backend/utils'
+import { getNileBin, moveOnUnix, moveOnWindows } from 'backend/utils'
+import { GlobalConfig } from 'backend/config'
+import { gameAnticheatInfo } from 'backend/anticheat/utils'
+import {
+  addShortcuts as addShortcutsUtil,
+  removeShortcuts as removeShortcutsUtil
+} from '../../shortcuts/shortcuts/shortcuts'
+
+// used when downloading games, store the download size read from Nile's output
+interface currentDownloadSizeMap {
+  [key: string]: number
+}
+const currentDownloadSize: currentDownloadSizeMap = {}
 
 export async function getSettings(appName: string): Promise<GameSettings> {
   const gameConfig = GameConfig.get(appName)
@@ -72,41 +104,137 @@ export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
 }
 
 export async function importGame(): Promise<ExecResult> {
-  /* appName: string,
-  path: string,
-  platform: InstallPlatform */
+  // Currently not supported in Nile
   return {
     stderr: '',
     stdout: ''
   }
 }
 
-export function onInstallOrUpdateOutput() {
-  /* appName: string,
+interface tmpProgressMap {
+  [key: string]: InstallProgress
+}
+
+function defaultTmpProgress() {
+  return {
+    bytes: '',
+    eta: '',
+    percent: undefined,
+    diskSpeed: undefined,
+    downSpeed: undefined
+  }
+}
+const tmpProgress: tmpProgressMap = {}
+
+export function onInstallOrUpdateOutput(
+  appName: string,
   action: 'installing' | 'updating',
-  data: string,
-  totalDownloadSize: number */
+  data: string
+  // totalDownloadSize: number
+) {
+  const downloadSizeMatch = data.match(/Download size: ([\d.]+)MB/)
+  logDebug(['Download size:', downloadSizeMatch], LogPrefix.Nile)
+
+  // store the download size, needed for correct calculation
+  // when cancel/resume downloads
+  if (downloadSizeMatch) {
+    currentDownloadSize[appName] = parseFloat(downloadSizeMatch[1])
+  }
+
+  if (!Object.hasOwn(tmpProgress, appName)) {
+    tmpProgress[appName] = defaultTmpProgress()
+  }
+
+  // const progress = tmpProgress[appName]
+
+  // TODO: Download Progress
+  // original is in bytes, convert to MiB with 2 decimals
+  // totalDownloadSize = Math.round((totalDownloadSize / 1024 / 1024) * 100) / 100
+
   return
 }
 
-export async function install(): Promise<InstallResult> {
-  /* appName: string,
-  args: InstallArgs */
-  return {
-    status: 'abort'
+export async function install(
+  appName: string,
+  { path }: InstallArgs
+): Promise<InstallResult> {
+  const { maxWorkers } = GlobalConfig.get().getSettings()
+  // const info = await getInstallInfo(appName)
+  const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
+
+  const logPath = join(gamesConfigPath, `${appName}.log`)
+
+  const commandParts = ['install', '--base-path', path, ...workers, appName]
+
+  const onOutput = (data: string) => {
+    onInstallOrUpdateOutput(
+      appName,
+      'installing',
+      data
+      // info.manifest?.download_size
+    )
   }
+
+  const res = await runNileCommand(
+    commandParts,
+    createAbortController(appName),
+    {
+      logFile: logPath,
+      onOutput,
+      logMessagePrefix: `Installing ${appName}`
+    }
+  )
+
+  deleteAbortController(appName)
+
+  if (res.abort) {
+    return { status: 'abort' }
+  }
+
+  if (res.error) {
+    if (!res.error.includes('signal')) {
+      logError(['Failed to install', appName, res.error], LogPrefix.Nile)
+    }
+    return { status: 'error', error: res.error }
+  }
+  addShortcuts(appName)
+
+  const antiCheatInfo = gameAnticheatInfo(getGameInfo(appName).namespace)
+
+  if (antiCheatInfo && isLinux) {
+    const gameSettings = await getSettings(appName)
+
+    gameSettings.eacRuntime =
+      antiCheatInfo.anticheats.includes('Easy Anti-Cheat')
+    if (gameSettings.eacRuntime && isFlatpak) gameSettings.useGameMode = true
+    gameSettings.battlEyeRuntime = antiCheatInfo.anticheats.includes('BattlEye')
+  }
+
+  return { status: 'done' }
 }
 
 export function isNative(): boolean {
   return isWindows
 }
 
-export async function addShortcuts(/* appName: string, fromMenu?: boolean */) {
-  return
+/**
+ * Adds a desktop shortcut to $HOME/Desktop and to /usr/share/applications
+ * so that the game can be opened from the start menu and the desktop folder.
+ * Both can be disabled with addDesktopShortcuts and addStartMenuShortcuts
+ * @async
+ * @public
+ */
+export async function addShortcuts(appName: string, fromMenu?: boolean) {
+  return addShortcutsUtil(getGameInfo(appName), fromMenu)
 }
 
-export async function removeShortcuts(/* appName: string */) {
-  return
+/**
+ * Removes a desktop shortcut from $HOME/Desktop and to $HOME/.local/share/applications
+ * @async
+ * @public
+ */
+export async function removeShortcuts(appName: string) {
+  return removeShortcutsUtil(getGameInfo(appName))
 }
 
 export async function launch(
@@ -238,12 +366,27 @@ export async function launch(
   return !error
 }
 
-export async function moveInstall(): Promise<InstallResult> {
-  /* appName: string,
-  newInstallPath: string */
-  return {
-    status: 'abort'
+export async function moveInstall(
+  appName: string,
+  newInstallPath: string
+): Promise<InstallResult> {
+  const gameInfo = getGameInfo(appName)
+  logInfo(`Moving ${gameInfo.title} to ${newInstallPath}`, LogPrefix.Nile)
+
+  const moveImpl = isWindows ? moveOnWindows : moveOnUnix
+  const moveResult = await moveImpl(newInstallPath, gameInfo)
+
+  if (moveResult.status === 'error') {
+    const { error } = moveResult
+    logError(
+      ['Error moving', gameInfo.title, 'to', newInstallPath, error],
+      LogPrefix.Nile
+    )
+    return { status: 'error', error }
   }
+
+  await changeGameInstallPath(appName, moveResult.installPath)
+  return { status: 'done' }
 }
 
 export async function repair(/* appName: string */): Promise<ExecResult> {

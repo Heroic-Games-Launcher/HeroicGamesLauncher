@@ -1,5 +1,11 @@
 import { nileInstalled, nileLibrary, nileLogFile } from 'backend/constants'
-import { LogPrefix, logDebug, logError, logInfo } from 'backend/logger/logger'
+import {
+  LogPrefix,
+  logDebug,
+  logError,
+  logInfo,
+  logWarning
+} from 'backend/logger/logger'
 import {
   createAbortController,
   deleteAbortController
@@ -10,7 +16,7 @@ import {
   NileInstallInfo,
   NileInstallMetadataInfo
 } from 'common/types/nile'
-import { existsSync, readFileSync } from 'graceful-fs'
+import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
 import { installStore, libraryStore } from './electronStores'
 import { getNileBin } from 'backend/utils'
 import { callRunner } from 'backend/launcher'
@@ -57,7 +63,8 @@ function loadGamesInAccount() {
       description: shortDescription,
       developer,
       is_linux_native: false,
-      is_mac_native: false
+      is_mac_native: false,
+      namespace: undefined // TODO: Check what this should be for anticheat
     })
   })
 }
@@ -247,10 +254,52 @@ export async function getInstallInfo(
  * @param appName
  * @param newPath
  */
-export async function changeGameInstallPath() {
-  /* appName: string,
-  newAppPath: string */
-  // TODO: Fill in logic
+export async function changeGameInstallPath(
+  appName: string,
+  newAppPath: string
+) {
+  const libraryGameInfo = library.get(appName)
+  if (libraryGameInfo) libraryGameInfo.install.install_path = newAppPath
+  else {
+    logWarning(
+      `library game info not found in changeGameInstallPath for ${appName}`,
+      LogPrefix.Nile
+    )
+  }
+
+  updateInstalledPathInJSON(appName, newAppPath)
+}
+
+function updateInstalledPathInJSON(appName: string, newAppPath: string) {
+  // Make sure we get the latest installed info
+  refreshInstalled()
+
+  const installedGameInfo = installedGames.get(appName)
+  if (installedGameInfo) installedGameInfo.path = newAppPath
+  else {
+    logWarning(
+      `installed game info not found in changeGameInstallPath for ${appName}`,
+      LogPrefix.Nile
+    )
+  }
+
+  if (!existsSync(nileInstalled)) {
+    logError(
+      ['Could not find installed.json in', nileInstalled],
+      LogPrefix.Nile
+    )
+    return
+  }
+
+  writeFileSync(
+    nileInstalled,
+    JSON.stringify(Array.from(installedGames.values())),
+    'utf-8'
+  )
+  logInfo(
+    ['Updated install path for', appName, 'in', nileInstalled],
+    LogPrefix.Nile
+  )
 }
 
 /**
