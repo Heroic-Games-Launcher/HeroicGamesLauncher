@@ -301,7 +301,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
     hasRequirements = extraInfo?.reqs ? extraInfo.reqs.length > 0 : false
     hasUpdate = is_installed && gameUpdates?.includes(appName)
 
-    const { howlongtobeat, pcgamingwiki, applegamingwiki } = wikiGameInfo || {}
+    const {
+      howlongtobeat,
+      pcgamingwiki,
+      applegamingwiki,
+      steamInfo: steamInfo
+    } = wikiGameInfo || {}
     const hasHLTB = Boolean(howlongtobeat?.gameplayMain)
     const hasScores =
       pcgamingwiki?.metacritic.score ||
@@ -309,6 +314,13 @@ export default React.memo(function GamePage(): JSX.Element | null {
       pcgamingwiki?.opencritic.score
     const hasAppleInfo = applegamingwiki?.crossoverRating
     const appLocation = install_path || folder_name
+    const hasCompat = steamInfo && steamInfo.compatibilityLevel !== null
+    const steamLevelNames = [
+      t('info.steam-deck-compat.level0', 'Unknown'),
+      t('info.steam-deck-compat.level1', 'Unsupported'),
+      t('info.steam-deck-compat.level2', 'Playable'),
+      t('info.steam-deck-compat.level3', 'Verified')
+    ]
 
     const downloadSize =
       gameInstallInfo?.manifest?.download_size &&
@@ -599,6 +611,25 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       <HowLongToBeat info={howlongtobeat!} />
                     </div>
                   </PopoverComponent>
+                )}
+                {hasCompat && (
+                  <div className="iconWithText">
+                    <WineBar />
+                    {t(
+                      'info.compatibility-info',
+                      'Proton Compatibility Tier'
+                    )}:{' '}
+                    {steamInfo!.compatibilityLevel!.charAt(0).toUpperCase() +
+                      steamInfo!.compatibilityLevel!.slice(1) +
+                      (steamInfo?.steamDeckCatagory
+                        ? ', ' +
+                          t('info.steam-deck', 'Steam Deck') +
+                          ' ' +
+                          steamInfo.steamDeckCatagory +
+                          ' - ' +
+                          steamLevelNames[steamInfo.steamDeckCatagory]
+                        : '')}
+                  </div>
                 )}
                 {hasAppleInfo && (
                   <a
