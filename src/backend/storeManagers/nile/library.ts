@@ -1,5 +1,5 @@
 import { nileInstalled, nileLibrary } from 'backend/constants'
-import { LogPrefix, logDebug, logError, logInfo } from 'backend/logger/logger'
+import { LogPrefix, logError, logInfo } from 'backend/logger/logger'
 // import {
 //   createAbortController,
 //   deleteAbortController
@@ -11,21 +11,21 @@ import {
   NileInstallMetadataInfo
 } from 'common/types/nile'
 import { existsSync, readFileSync } from 'graceful-fs'
-import { installStore, libraryStore } from './electronStores'
+import { libraryStore } from './electronStores'
 
-let installedGames: Map<string, NileInstallInfo> = new Map()
-// FIXME: Refactor plsplspls
-let libraryJSON: NileGameInfo[]
+const installedGames: Map<string, NileInstallMetadataInfo> = new Map()
 const library: Map<string, GameInfo> = new Map()
 
 /**
  * Loads all the user's games into `library`
  */
-export function loadGamesInAccount() {
+function loadGamesInAccount() {
   if (!existsSync(nileLibrary)) {
     return
   }
-  libraryJSON = JSON.parse(readFileSync(nileLibrary, 'utf-8'))
+  const libraryJSON: NileGameInfo[] = JSON.parse(
+    readFileSync(nileLibrary, 'utf-8')
+  )
   libraryJSON.forEach((game) => {
     const { product } = game
     const { title, productDetail } = product
@@ -42,11 +42,13 @@ export function loadGamesInAccount() {
       art_cover: iconUrl,
       art_square: iconUrl,
       canRunOffline: true, // Not sure if there is a way to know this
-      install: {
-        install_path: info?.game?.path,
-        version: info?.game?.path,
-        platform: 'Windows' // Amazon Games only supports Windows
-      },
+      install: info
+        ? {
+            install_path: info.path,
+            version: info.version,
+            platform: 'Windows' // Amazon Games only supports Windows
+          }
+        : {},
       is_installed: info !== undefined,
       runner: 'nile',
       title,
@@ -93,66 +95,19 @@ async function refreshNile(): Promise<ExecResult> {
   }
 }
 
-function gameToInstallInfo(
-  appName: string,
-  metadata?: NileInstallMetadataInfo
-): NileInstallInfo | null {
-  const { id, version } = metadata ?? { id: appName, version: '' }
-  const game = library.get(id)
-
-  if (!game) {
-    return null
-  }
-
-  return {
-    game: {
-      id: appName,
-      path: '',
-      version: '',
-      launch_options: [],
-      owned_dlc: [],
-      app_name: game.app_name,
-      cloud_saves_supported: false,
-      external_activation: '',
-      is_dlc: false,
-      platform_versions: {
-        Windows: version
-      },
-      title: game.title,
-      ...metadata
-    },
-    manifest: {
-      download_size: 1000, // FIXME: Proper size
-      disk_size: 1000 // FIXME: Proper size
-      // TODO: Fill out later
-    }
-  }
-}
-
 /**
  * Refresh `installedGames` from file.
  */
 export function refreshInstalled() {
-  installedGames = new Map()
+  installedGames.clear()
   if (existsSync(nileInstalled)) {
     try {
       const installed: NileInstallMetadataInfo[] = JSON.parse(
         readFileSync(nileInstalled, 'utf-8')
       )
-
-      for (const metadata of installed) {
-        const info = gameToInstallInfo(metadata.id, metadata)
-
-        if (!info) {
-          logError(
-            `Could not find installed game with id ${metadata.id} in library`,
-            LogPrefix.Nile
-          )
-          continue
-        }
-
-        installedGames.set(metadata.id, info)
-      }
+      installed.forEach((metadata) => {
+        installedGames.set(metadata.id, metadata)
+      })
     } catch (error) {
       logError(
         ['Corrupted installed.json file, cannot load installed games', error],
@@ -171,8 +126,8 @@ export async function refresh(): Promise<ExecResult | null> {
   logInfo('Refreshing library...', LogPrefix.Nile)
 
   refreshNile()
-  loadGamesInAccount()
   refreshInstalled()
+  loadGamesInAccount()
 
   const arr = Array.from(library.values())
   libraryStore.set('library', arr)
@@ -205,28 +160,66 @@ export function getGameInfo(
 export async function getInstallInfo(
   appName: string
 ): Promise<NileInstallInfo> {
-  const cache = installStore.get(appName)
-  if (cache) {
-    logDebug('Using cached install info', LogPrefix.Nile)
-    return cache
-  }
+  // TODO: Cache
+  // const cache = installStore.get(appName)
+  // if (cache) {
+  //   logDebug('Using cached install info', LogPrefix.Nile)
+  //   return cache
+  // }
 
   logInfo('Getting more details', LogPrefix.Nile)
   refreshInstalled()
 
-  const installed = installedGames.get(appName)
-  if (installed) {
-    return installed
+  const game = library.get(appName)
+  if (game) {
+    const info = installedGames.get(appName)
+    return {
+      game: {
+        id: appName,
+        path: '',
+        version: '',
+        launch_options: [],
+        owned_dlc: [],
+        app_name: game.app_name,
+        cloud_saves_supported: false,
+        external_activation: '',
+        is_dlc: false,
+        platform_versions: {
+          Windows: info?.version ?? ''
+        },
+        title: game.title,
+        ...info
+      },
+      manifest: {
+        download_size: 1000, // FIXME: Proper size
+        disk_size: 1000 // FIXME: Proper size
+        // TODO: Fill out later
+      }
+    }
   }
 
-  const installInfo = gameToInstallInfo(appName)
-  if (!installInfo) {
-    throw Error(
-      `[Nile]: Could not find game with id ${appName} in user's library`
-    )
+  logError(['Could not find game with id', appName], LogPrefix.Nile)
+  return {
+    game: {
+      app_name: '',
+      cloud_saves_supported: false,
+      external_activation: '',
+      id: '',
+      is_dlc: false,
+      launch_options: [],
+      owned_dlc: [],
+      path: '',
+      platform_versions: {
+        Windows: ''
+      },
+      title: '',
+      version: ''
+    },
+    manifest: {
+      disk_size: 0,
+      download_size: 0
+    }
   }
-  installStore.set(appName, installInfo)
-  return installInfo
 }
 
 /**
