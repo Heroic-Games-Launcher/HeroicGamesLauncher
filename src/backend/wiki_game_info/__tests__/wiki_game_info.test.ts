@@ -5,7 +5,8 @@ import {
   WikiInfo,
   PCGamingWikiInfo,
   ProtonDBCompatibilityInfo,
-  SteamDeckComp
+  SteamDeckComp,
+  SteamInfo
 } from 'common/types'
 import { wikiGameInfoStore } from '../electronStore'
 import { getWikiGameInfo } from '../wiki_game_info'
@@ -168,12 +169,16 @@ const testSteamCompat = {
   category: 1
 } as SteamDeckComp
 
+const testSteamInfo = {
+  compatibilityLevel: testProtonDBInfo.level,
+  steamDeckCatagory: testSteamCompat.category
+} as SteamInfo
+
 const testExtraGameInfo = {
   timestampLastFetch: currentTime.toString(),
   pcgamingwiki: testPCGamingWikiInfo,
   applegamingwiki: testAppleGamingWikiInfo,
   howlongtobeat: testHowLongToBeat,
   gamesdb: testGamesDBInfo,
-  protondb: testProtonDBInfo,
-  steamdeck: testSteamCompat
+  steamInfo: testSteamInfo
 } as WikiInfo

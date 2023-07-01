@@ -3,7 +3,7 @@ import { getInfoFromProtonDB } from 'backend/wiki_game_info/protondb/utils'
 import { getSteamDeckComp } from 'backend/wiki_game_info/steamdeck/utils'
 import { wikiGameInfoStore } from './electronStore'
 import { removeSpecialcharacters } from '../utils'
-import { Runner, WikiInfo } from 'common/types'
+import { Runner, SteamInfo, WikiInfo } from 'common/types'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { getInfoFromAppleGamingWiki } from './applegamingwiki/utils'
 import { getHowLongToBeat } from './howlongtobeat/utils'
@@ -54,14 +54,22 @@ export async function getWikiGameInfo(
       getInfoFromProtonDB(gamesdb?.steamID ? gamesdb.steamID : ''),
       getSteamDeckComp(gamesdb?.steamID ? gamesdb.steamID : '')
     ])
+
+    const steamInfo =
+      protondb || steamdeck
+        ? ({
+            compatibilityLevel: protondb?.level,
+            steamDeckCatagory: steamdeck?.category
+          } as SteamInfo)
+        : null
+
     const wikiGameInfo = {
       timestampLastFetch: Date(),
       pcgamingwiki,
       applegamingwiki,
       howlongtobeat,
       gamesdb,
-      protondb,
-      steamdeck
+      steamInfo
     }
 
     wikiGameInfoStore.set(title, wikiGameInfo)
