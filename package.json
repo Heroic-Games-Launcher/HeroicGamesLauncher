@@ -184,7 +184,7 @@
     "react-router-dom": "^6.9.0",
     "recharts": "^2.4.3",
     "sanitize-filename": "^1.6.3",
-    "semver": "^7.5.1",
+    "semver": "^7.5.2",
     "shlex": "^2.1.2",
     "short-uuid": "^4.2.2",
     "simple-keyboard": "^3.5.33",
