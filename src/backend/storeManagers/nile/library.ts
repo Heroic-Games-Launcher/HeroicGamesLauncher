@@ -32,7 +32,7 @@ function loadGamesInAccount() {
     const { product } = game
     const { title, productDetail } = product
     const {
-      details: { logoUrl, shortDescription, developer },
+      details: { shortDescription, developer },
       iconUrl
     } = productDetail
 
@@ -54,7 +54,6 @@ function loadGamesInAccount() {
       is_installed: info !== undefined,
       runner: 'nile',
       title,
-      art_logo: logoUrl,
       description: shortDescription,
       developer,
       is_linux_native: false,
