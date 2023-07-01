@@ -41,7 +41,7 @@ import {
   setupEnvVars,
   setupWrappers
 } from 'backend/launcher'
-import { appendFileSync } from 'graceful-fs'
+import { appendFileSync, existsSync } from 'graceful-fs'
 import { logFileLocation } from 'backend/storeManagers/storeManagerCommon/games'
 import { showDialogBoxModalAuto } from 'backend/dialog/dialog'
 import { t } from 'i18next'
@@ -462,6 +462,11 @@ export async function stop(appName: string, stopWine?: boolean) {
   return
 }
 
-export function isGameAvailable(/* appname: string */) {
-  return true
+export function isGameAvailable(appName: string): boolean {
+  const info = getGameInfo(appName)
+  return Boolean(
+    info?.is_installed &&
+      info.install.install_path &&
+      existsSync(info.install.install_path)
+  )
 }
