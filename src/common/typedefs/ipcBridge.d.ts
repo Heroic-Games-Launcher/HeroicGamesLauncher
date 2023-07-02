@@ -140,6 +140,7 @@ interface AsyncIPCFunctions {
     installPlatform: InstallPlatform
   ) => Promise<LegendaryInstallInfo | GogInstallInfo | NileInstallInfo | null>
   getUserInfo: () => Promise<UserInfo | undefined>
+  getAmazonUserInfo: () => Promise<NileUserData | undefined>
   isLoggedIn: () => boolean
   login: (sid: string) => Promise<{
     status: 'done' | 'failed'

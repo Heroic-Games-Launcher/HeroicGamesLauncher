@@ -742,10 +742,15 @@ class GlobalState extends PureComponent<Props> {
 
     const legendaryUser = configStore.has('userInfo')
     const gogUser = gogConfigStore.has('userData')
+    const amazonUser = nileConfigStore.has('userData')
     const platform = await getPlatform()
 
     if (legendaryUser) {
       await window.api.getUserInfo()
+    }
+
+    if (amazonUser) {
+      await window.api.getAmazonUserInfo()
     }
 
     if (!gameUpdates.length) {
@@ -755,7 +760,7 @@ class GlobalState extends PureComponent<Props> {
 
     this.setState({ platform })
 
-    if (legendaryUser || gogUser) {
+    if (legendaryUser || gogUser || amazonUser) {
       this.refreshLibrary({
         checkForUpdates: true,
         runInBackground: Boolean(epic.library?.length)

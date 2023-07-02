@@ -332,9 +332,9 @@
     },
     "login": {
         "alternative_method": "Alternative Login Method",
+        "amazon": "Amazon Login",
         "epic": "Epic Games Login",
         "gog": "GOG Login",
-        "amazon": "Amazon Login",
         "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
@@ -617,8 +617,8 @@
     "status": {
         "installing": "Installing",
         "logging": "Logging In...",
-        "processing": "Processing files, please wait",
-        "preparing_login": "Preparing Login... "
+        "preparing_login": "Preparing Login... ",
+        "processing": "Processing files, please wait"
     },
     "store": "Epic Store",
     "stores": "Stores",

@@ -753,6 +753,8 @@ ipcMain.handle('getUserInfo', async () => {
   return LegendaryUser.getUserInfo()
 })
 
+ipcMain.handle('getAmazonUserInfo', async () => NileUser.getUserData())
+
 // Checks if the user have logged in with Legendary already
 ipcMain.handle('isLoggedIn', LegendaryUser.isLoggedIn)
 

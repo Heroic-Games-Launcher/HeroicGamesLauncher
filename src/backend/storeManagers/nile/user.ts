@@ -77,6 +77,7 @@ export class NileUser {
   static async getUserData(): Promise<NileUserData | undefined> {
     if (!existsSync(nileUserData)) {
       logError('user.json does not exist', LogPrefix.Nile)
+      configStore.delete('userData')
       return
     }
 
@@ -85,6 +86,7 @@ export class NileUser {
     )
     if (!Object.keys(user).length) {
       logInfo('user.json is empty', LogPrefix.Nile)
+      configStore.delete('userData')
       return
     }
 
