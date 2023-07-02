@@ -622,7 +622,12 @@ export async function gogToUnifiedInfo(
   info: GamesDBData | undefined,
   galaxyProductInfo: ProductsEndpointData | undefined
 ): Promise<GameInfo> {
-  if (!info || info.type !== 'game' || !info.game.visible_in_library) {
+  if (
+    !info ||
+    info.type !== 'game' ||
+    !info.game.visible_in_library ||
+    (galaxyProductInfo && galaxyProductInfo.game_type === 'pack')
+  ) {
     // @ts-expect-error TODO: Handle this somehow
     return {}
   }

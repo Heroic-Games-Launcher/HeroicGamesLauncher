@@ -361,7 +361,7 @@ export interface ProductsEndpointData {
   }
   is_secret: boolean
   is_installable: boolean
-  game_type: 'game' | 'dlc' | 'spam'
+  game_type: 'game' | 'dlc' | 'pack'
   is_pre_order: boolean
   release_date: string
   images: {
