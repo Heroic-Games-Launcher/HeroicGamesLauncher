@@ -47,10 +47,8 @@ describe('getWikiGameInfo', () => {
       .mockResolvedValue(testSteamCompat)
 
     wikiGameInfoStore.set('The Witcher 3', testExtraGameInfo)
-    // @ts-ignore
-    mockConstants.isMac = true
-    // @ts-ignore
-    mockConstants.isLinux = true
+    Object.defineProperty(mockConstants, 'isMac', { value: true })
+    Object.defineProperty(mockConstants, 'isLinux', { value: true })
 
     const result = await getWikiGameInfo('The Witcher 3', '1234', 'gog')
     expect(result).toStrictEqual(testExtraGameInfo)
@@ -66,10 +64,8 @@ describe('getWikiGameInfo', () => {
     const oneMonthAgo = new Date(testExtraGameInfo.timestampLastFetch)
     oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1)
 
-    // @ts-ignore
-    mockConstants.isMac = true
-    // @ts-ignore
-    mockConstants.isLinux = true
+    Object.defineProperty(mockConstants, 'isMac', { value: true })
+    Object.defineProperty(mockConstants, 'isLinux', { value: true })
     const mockPCGamingWiki = jest
       .spyOn(PCGamingWiki, 'getInfoFromPCGamingWiki')
       .mockResolvedValue(testPCGamingWikiInfo)
@@ -110,10 +106,8 @@ describe('getWikiGameInfo', () => {
     const oneMonthAgo = new Date(testExtraGameInfo.timestampLastFetch)
     oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1)
 
-    // @ts-ignore
-    mockConstants.isMac = false
-    // @ts-ignore
-    mockConstants.isLinux = false
+    Object.defineProperty(mockConstants, 'isMac', { value: false })
+    Object.defineProperty(mockConstants, 'isLinux', { value: false })
     const mockPCGamingWiki = jest
       .spyOn(PCGamingWiki, 'getInfoFromPCGamingWiki')
       .mockResolvedValue(testPCGamingWikiInfo)
