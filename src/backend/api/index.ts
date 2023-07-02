@@ -5,6 +5,7 @@ import * as Menu from './menu'
 import * as Settings from './settings'
 import * as Wine from './wine'
 import * as DownloadManager from './downloadmanager'
+import * as BrowserView from './browserview'
 
 export default {
   ...Misc,
@@ -13,5 +14,6 @@ export default {
   ...Menu,
   ...Settings,
   ...Wine,
-  ...DownloadManager
+  ...DownloadManager,
+  ...BrowserView
 }

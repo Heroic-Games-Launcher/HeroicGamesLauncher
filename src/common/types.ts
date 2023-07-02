@@ -473,21 +473,6 @@ interface GamepadActionArgsWithoutMetadata {
   metadata?: undefined
 }
 
-type ElWebview = {
-  canGoBack: () => boolean
-  canGoForward: () => boolean
-  goBack: () => void
-  goForward: () => void
-  reload: () => void
-  isLoading: () => boolean
-  getURL: () => string
-  copy: () => string
-  selectAll: () => void
-  findInPage: (text: string | RegExp) => void
-}
-
-export type WebviewType = HTMLWebViewElement & ElWebview
-
 export type InstallPlatform =
   | LegendaryInstallPlatform
   | GogInstallPlatform

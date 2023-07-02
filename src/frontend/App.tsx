@@ -44,17 +44,63 @@ function App() {
             <Route path="/" element={<Navigate replace to="/library" />} />
             <Route path="/library" element={<Library />} />
             <Route path="login" element={<Login />} />
-            <Route path="epicstore" element={<WebView />} />
-            <Route path="gogstore" element={<WebView />} />
-            <Route path="wiki" element={<WebView />} />
+            <Route
+              path="epicstore"
+              element={
+                <WebView
+                  identifier="epicstore"
+                  initialURL="https://epicgames.com/"
+                />
+              }
+            />
+            <Route
+              path="gogstore"
+              element={
+                <WebView identifier="gogstore" initialURL="https://gog.com/" />
+              }
+            />
+            <Route
+              path="wiki"
+              element={
+                <WebView
+                  identifier="wiki"
+                  initialURL="https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki"
+                />
+              }
+            />
             <Route path="/gamepage">
               <Route path=":runner">
                 <Route path=":appName" element={<GamePage />} />
               </Route>
             </Route>
-            <Route path="/store-page" element={<WebView />} />
+            <Route
+              path="/store-page"
+              element={
+                <WebView
+                  identifier="store-page"
+                  initialURL="https://www.epicgames.com/store"
+                />
+              }
+            />
             <Route path="loginweb">
-              <Route path=":runner" element={<WebView />} />
+              <Route
+                path="epic"
+                element={
+                  <WebView
+                    identifier="loginweb-epic"
+                    initialURL="https://legendary.gl/epiclogin"
+                  />
+                }
+              />
+              <Route
+                path="gog"
+                element={
+                  <WebView
+                    identifier="loginweb-gog"
+                    initialURL="https://auth.gog.com/auth?client_id=46899977096215655&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code&layout=galaxy"
+                  />
+                }
+              />
             </Route>
             <Route path="settings">
               <Route path=":runner">

@@ -7,13 +7,12 @@ import {
 import cx from 'classnames'
 import React, { SyntheticEvent, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { WebviewType } from 'common/types'
+import { IBrowserView } from 'common/types/browserview'
 import SvgButton from '../SvgButton'
 import './index.css'
 
 interface WebviewControlsProps {
-  webview: WebviewType | null
-  initURL: string
+  webview: IBrowserView | null
   openInBrowser: boolean
 }
 
@@ -30,46 +29,28 @@ function removeSelection(event: SyntheticEvent<unknown>) {
 
 export default function WebviewControls({
   webview,
-  initURL,
   openInBrowser
 }: WebviewControlsProps) {
-  const [url, setUrl] = React.useState(initURL)
+  const [url, setUrl] = React.useState('')
   const { t } = useTranslation()
   const [canGoBack, setCanGoBack] = useState(false)
   const [canGoForward, setCanGoForward] = useState(false)
 
-  useEffect(() => {
-    if (webview) {
-      const eventCallback = () => setUrl(webview.getURL())
-      webview.addEventListener('did-navigate-in-page', eventCallback)
-      webview.addEventListener('did-navigate', eventCallback)
-      webview.addEventListener('did-navigate-in-page', () => {
-        setCanGoBack(webview.canGoBack())
-        setCanGoForward(webview.canGoForward())
-      })
-      webview.addEventListener('did-navigate', () => {
-        setCanGoBack(webview.canGoBack())
-        setCanGoForward(webview.canGoForward())
-      })
-      return () => {
-        webview.removeEventListener('did-navigate-in-page', eventCallback)
-        webview.removeEventListener('did-navigate', eventCallback)
-      }
-    }
-    return
-  }, [webview])
+  useEffect(() => setUrl(webview.URL), [webview.URL])
+  useEffect(() => setCanGoBack(webview.canGoBack), [webview.canGoBack])
+  useEffect(() => setCanGoBack(webview.canGoForward), [webview.canGoForward])
 
   const handleButtons = useCallback(
     (event: 'reload' | 'back' | 'forward') => {
       try {
         if (event === 'reload') {
-          return webview?.reload()
+          return webview!.reload()
         }
         if (event === 'back') {
-          return webview?.goBack()
+          return webview!.goBack()
         }
         if (event === 'forward') {
-          return webview?.goForward()
+          return webview!.goForward()
         }
       } catch (error) {
         console.error(error)
