@@ -322,6 +322,11 @@ export default React.memo(function GamePage(): JSX.Element | null {
       t('info.steam-deck-compat.level3', 'Verified')
     ]
 
+    let protonDBurl = `https://www.protondb.com/search?q=${title}`
+    if (pcgamingwiki?.steamID) {
+      protonDBurl = `https://www.protondb.com/app/${pcgamingwiki?.steamID}`
+    }
+
     const downloadSize =
       gameInstallInfo?.manifest?.download_size &&
       size(Number(gameInstallInfo?.manifest?.download_size))
@@ -613,7 +618,14 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   </PopoverComponent>
                 )}
                 {hasCompat && (
-                  <div className="iconWithText">
+                  <a
+                    role="button"
+                    onClick={() => {
+                      createNewWindow(protonDBurl)
+                    }}
+                    title={t('info.clickToOpen', 'Click to open')}
+                    className="iconWithText"
+                  >
                     <WineBar />
                     {t(
                       'info.compatibility-info',
@@ -630,7 +642,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                           ' - ' +
                           steamLevelNames[steamInfo.steamDeckCatagory]
                         : '')}
-                  </div>
+                  </a>
                 )}
                 {hasAppleInfo && (
                   <a
