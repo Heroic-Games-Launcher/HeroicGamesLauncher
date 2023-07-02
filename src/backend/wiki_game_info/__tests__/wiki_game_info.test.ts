@@ -21,11 +21,7 @@ import { logError } from '../../logger/logger'
 jest.mock('electron-store')
 jest.mock('../../logger/logfile')
 jest.mock('../../logger/logger')
-jest.mock('../../constants', () => {
-  return {
-    isMac: true
-  }
-})
+import * as mockConstants from '../../constants'
 const currentTime = new Date()
 jest.useFakeTimers().setSystemTime(currentTime)
 
@@ -51,6 +47,10 @@ describe('getWikiGameInfo', () => {
       .mockResolvedValue(testSteamCompat)
 
     wikiGameInfoStore.set('The Witcher 3', testExtraGameInfo)
+    // @ts-ignore
+    mockConstants.isMac = true
+    // @ts-ignore
+    mockConstants.isLinux = true
 
     const result = await getWikiGameInfo('The Witcher 3', '1234', 'gog')
     expect(result).toStrictEqual(testExtraGameInfo)
@@ -66,6 +66,10 @@ describe('getWikiGameInfo', () => {
     const oneMonthAgo = new Date(testExtraGameInfo.timestampLastFetch)
     oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1)
 
+    // @ts-ignore
+    mockConstants.isMac = true
+    // @ts-ignore
+    mockConstants.isLinux = true
     const mockPCGamingWiki = jest
       .spyOn(PCGamingWiki, 'getInfoFromPCGamingWiki')
       .mockResolvedValue(testPCGamingWikiInfo)
@@ -97,9 +101,54 @@ describe('getWikiGameInfo', () => {
     expect(mockHowLongToBeat).toBeCalled()
     expect(mockGamesDB).toBeCalled()
     expect(mockProtonDB).toBeCalled()
+    expect(mockProtonDB).toBeCalledWith('123')
     expect(mockSteamDeck).toBeCalled()
+    expect(mockSteamDeck).toBeCalledWith('123')
   })
 
+  test('cached data outdated - not mac not linux', async () => {
+    const oneMonthAgo = new Date(testExtraGameInfo.timestampLastFetch)
+    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1)
+
+    // @ts-ignore
+    mockConstants.isMac = false
+    // @ts-ignore
+    mockConstants.isLinux = false
+    const mockPCGamingWiki = jest
+      .spyOn(PCGamingWiki, 'getInfoFromPCGamingWiki')
+      .mockResolvedValue(testPCGamingWikiInfo)
+    const mockAppleGamingWiki = jest
+      .spyOn(AppleGamingWiki, 'getInfoFromAppleGamingWiki')
+      .mockResolvedValue(testAppleGamingWikiInfo)
+    const mockHowLongToBeat = jest
+      .spyOn(HowLongToBeat, 'getHowLongToBeat')
+      .mockResolvedValue(testHowLongToBeat)
+    const mockGamesDB = jest
+      .spyOn(GamesDB, 'getInfoFromGamesDB')
+      .mockResolvedValue(testGamesDBInfo)
+    const mockProtonDB = jest
+      .spyOn(ProtonDB, 'getInfoFromProtonDB')
+      .mockResolvedValue(null)
+    const mockSteamDeck = jest
+      .spyOn(SteamDeck, 'getSteamDeckComp')
+      .mockResolvedValue(null)
+
+    wikiGameInfoStore.set('The Witcher 3', {
+      ...testExtraGameInfo,
+      timestampLastFetch: oneMonthAgo.toString()
+    })
+
+    const result = await await getWikiGameInfo('The Witcher 3', '1234', 'gog')
+    expect(result).toStrictEqual(testExtraGameInfoNoMac)
+    expect(mockPCGamingWiki).toBeCalled()
+    expect(mockAppleGamingWiki).not.toBeCalled()
+    expect(mockHowLongToBeat).toBeCalled()
+    expect(mockGamesDB).toBeCalled()
+    expect(mockProtonDB).toBeCalled()
+    expect(mockProtonDB).toBeCalledWith('')
+    expect(mockSteamDeck).toBeCalled()
+    expect(mockSteamDeck).toBeCalledWith('')
+  })
   test('catches throws', async () => {
     jest
       .spyOn(PCGamingWiki, 'getInfoFromPCGamingWiki')
@@ -181,4 +230,13 @@ const testExtraGameInfo = {
   howlongtobeat: testHowLongToBeat,
   gamesdb: testGamesDBInfo,
   steamInfo: testSteamInfo
+} as WikiInfo
+
+const testExtraGameInfoNoMac = {
+  timestampLastFetch: currentTime.toString(),
+  pcgamingwiki: testPCGamingWikiInfo,
+  applegamingwiki: null,
+  howlongtobeat: testHowLongToBeat,
+  gamesdb: testGamesDBInfo,
+  steamInfo: null
 } as WikiInfo

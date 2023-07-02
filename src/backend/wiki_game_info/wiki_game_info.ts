@@ -8,7 +8,7 @@ import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { getInfoFromAppleGamingWiki } from './applegamingwiki/utils'
 import { getHowLongToBeat } from './howlongtobeat/utils'
 import { getInfoFromPCGamingWiki } from './pcgamingwiki/utils'
-import { isMac } from '../constants'
+import { isMac, isLinux } from '../constants'
 
 export async function getWikiGameInfo(
   title: string,
@@ -50,9 +50,10 @@ export async function getWikiGameInfo(
         isMac ? getInfoFromAppleGamingWiki(title) : null
       ])
 
+    const steamID = gamesdb?.steamID ? gamesdb.steamID : ''
     const [protondb, steamdeck] = await Promise.all([
-      getInfoFromProtonDB(gamesdb?.steamID ? gamesdb.steamID : ''),
-      getSteamDeckComp(gamesdb?.steamID ? gamesdb.steamID : '')
+      getInfoFromProtonDB(isLinux ? steamID : ''),
+      getSteamDeckComp(isLinux ? steamID : '')
     ])
 
     const steamInfo =
