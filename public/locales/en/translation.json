@@ -9,7 +9,7 @@
     },
     "add_game": "Add Game",
     "All": "All",
-    "amazon": "",
+    "amazon": "Amazon",
     "Amazon Games": "Amazon Games",
     "anticheat": {
         "anticheats": "Anticheats",
@@ -334,6 +334,7 @@
         "alternative_method": "Alternative Login Method",
         "epic": "Epic Games Login",
         "gog": "GOG Login",
+        "amazon": "Amazon Login",
         "message": "Login with your platform. You can login to more than one platform at the same time."
     },
     "message": {
@@ -616,7 +617,8 @@
     "status": {
         "installing": "Installing",
         "logging": "Logging In...",
-        "processing": "Processing files, please wait"
+        "processing": "Processing files, please wait",
+        "preparing_login": "Preparing Login... "
     },
     "store": "Epic Store",
     "stores": "Stores",

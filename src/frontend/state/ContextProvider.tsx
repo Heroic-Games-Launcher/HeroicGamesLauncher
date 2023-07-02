@@ -16,6 +16,13 @@ const initialContext: ContextType = {
   },
   amazon: {
     library: [],
+    getLoginData: async () =>
+      Promise.resolve({
+        client_id: '',
+        code_verifier: '',
+        serial: '',
+        url: ''
+      }),
     login: async () => Promise.resolve(''),
     logout: async () => Promise.resolve()
   },

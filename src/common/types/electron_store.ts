@@ -16,6 +16,7 @@ import {
   GameInfo
 } from 'common/types'
 import { UserData } from 'common/types/gog'
+import { NileUserData } from './nile'
 
 export interface StoreStructure {
   configStore: {
@@ -63,6 +64,9 @@ export interface StoreStructure {
     userData: UserData
     credentials?: GOGLoginData
     isLoggedIn: boolean
+  }
+  nileConfigStore: {
+    userData?: NileUserData
   }
   sideloadedStore: {
     games: GameInfo[]

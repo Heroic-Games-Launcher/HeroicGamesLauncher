@@ -79,6 +79,7 @@ const installed = join(legendaryConfigPath, 'installed.json')
 const legendaryMetadata = join(legendaryConfigPath, 'metadata')
 const nileInstalled = join(nileConfigPath, 'installed.json')
 const nileLibrary = join(nileConfigPath, 'library.json')
+const nileUserData = join(nileConfigPath, 'user.json')
 const fallBackImage = 'fallback'
 const epicLoginUrl = 'https://legendary.gl/epiclogin'
 const sidInfoUrl =
@@ -264,5 +265,6 @@ export {
   vulkanHelperBin,
   nileConfigPath,
   nileInstalled,
-  nileLibrary
+  nileLibrary,
+  nileUserData
 }

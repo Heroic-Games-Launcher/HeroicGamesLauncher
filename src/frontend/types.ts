@@ -10,6 +10,7 @@ import {
   DMQueueElement,
   DownloadManagerState
 } from 'common/types'
+import { NileLoginData, NileRegisterData } from 'common/types/nile'
 
 export type Category = 'all' | 'legendary' | 'gog' | 'sideload' | 'nile'
 
@@ -71,7 +72,8 @@ export interface ContextType {
   amazon: {
     library: GameInfo[]
     username?: string
-    login: () => Promise<string>
+    getLoginData: () => Promise<NileLoginData>
+    login: (data: NileRegisterData) => Promise<string>
     logout: () => Promise<void>
   }
   allTilesInColor: boolean

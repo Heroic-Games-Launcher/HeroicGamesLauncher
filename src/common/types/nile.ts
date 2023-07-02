@@ -90,3 +90,25 @@ export interface FuelSchema {
     Args: string[]
   }
 }
+
+export interface NileUserData {
+  account_pool: string
+  user_id: string
+  home_region: string
+  name: string
+  given_name: string
+}
+
+export interface NileLoginData {
+  url: string
+  code_verifier: string
+  serial: string
+  client_id: string
+}
+
+export interface NileRegisterData {
+  code: string
+  code_verifier: string
+  serial: string
+  client_id: string
+}

@@ -36,11 +36,13 @@ import {
   gogInstalledGamesStore,
   gogLibraryStore,
   libraryStore,
+  nileConfigStore,
   nileLibraryStore,
   wineDownloaderInfoStore
 } from '../helpers/electronStores'
 import { sideloadLibrary } from 'frontend/helpers/electronStores'
 import { IpcRendererEvent } from 'electron'
+import { NileRegisterData } from 'common/types/nile'
 
 const storage: Storage = window.localStorage
 const globalSettings = configStore.get_nodefault('settings')
@@ -145,7 +147,7 @@ class GlobalState extends PureComponent<Props> {
     },
     amazon: {
       library: this.loadAmazonLibrary(),
-      username: undefined // TODO: Fill in username
+      username: nileConfigStore.get_nodefault('userData.name')
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
     error: false,
@@ -413,15 +415,29 @@ class GlobalState extends PureComponent<Props> {
     window.location.reload()
   }
 
-  amazonLogin = async () => {
+  amazonLogin = async (data: NileRegisterData) => {
     console.log('logging amazon')
+    const response = await window.api.authAmazon(data)
 
-    return 'TODO'
+    if (response.status === 'done') {
+      this.setState({
+        amazon: {
+          library: [],
+          username: response.user?.name
+        }
+      })
+
+      this.handleSuccessfulLogin('nile')
+    }
+
+    return response.status
   }
 
   amazonLogout = async () => {
     console.log('Logging out from amazon')
   }
+
+  getAmazonLoginData = async () => window.api.getAmazonLoginData()
 
   handleSettingsModalOpen = (
     value: boolean,
@@ -473,8 +489,7 @@ class GlobalState extends PureComponent<Props> {
     }
 
     let amazonLibrary = nileLibraryStore.get('library', [])
-    if (!amazonLibrary.length || !amazon.library.length) {
-      // TODO: Check if logged in
+    if (amazon.username && (!amazonLibrary.length || !amazon.library.length)) {
       window.api.logInfo('No cache found, getting data from nile...')
       await window.api.refreshLibrary('nile')
       amazonLibrary = this.loadAmazonLibrary()
@@ -837,6 +852,7 @@ class GlobalState extends PureComponent<Props> {
           amazon: {
             library: amazon.library,
             username: amazon.username,
+            getLoginData: this.getAmazonLoginData,
             login: this.amazonLogin,
             logout: this.amazonLogout
           },

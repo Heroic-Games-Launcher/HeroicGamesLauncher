@@ -144,6 +144,9 @@ const nileLibraryStore = new CacheStore<GameInfo[], 'library'>(
   'nile_library',
   null
 )
+const nileConfigStore = new TypeCheckedStoreFrontend('nileConfigStore', {
+  cwd: 'nile_store'
+})
 
 const timestampStore = new TypeCheckedStoreFrontend('timestampStore', {
   cwd: 'store',
@@ -170,5 +173,6 @@ export {
   sideloadLibrary,
   wineDownloaderInfoStore,
   downloadManagerStore,
-  nileLibraryStore
+  nileLibraryStore,
+  nileConfigStore
 }

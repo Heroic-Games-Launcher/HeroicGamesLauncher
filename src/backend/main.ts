@@ -48,6 +48,7 @@ import { GameConfig } from './game_config'
 import { GlobalConfig } from './config'
 import { LegendaryUser } from 'backend/storeManagers/legendary/user'
 import { GOGUser } from './storeManagers/gog/user'
+import { NileUser } from './storeManagers/nile/user'
 import setup from './storeManagers/gog/setup'
 import {
   clearCache,
@@ -762,6 +763,9 @@ ipcMain.on('logoutGOG', GOGUser.logout)
 ipcMain.handle('getLocalPeloadPath', async () => {
   return fixAsarPath(join('file://', publicDir, 'webviewPreload.js'))
 })
+
+ipcMain.handle('getAmazonLoginData', NileUser.getLoginData)
+ipcMain.handle('authAmazon', async (event, data) => NileUser.login(data))
 
 ipcMain.handle('getAlternativeWine', async () =>
   GlobalConfig.get().getAlternativeWine()

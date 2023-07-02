@@ -34,7 +34,12 @@ import {
 } from 'common/types'
 import { LegendaryInstallInfo, SelectiveDownload } from 'common/types/legendary'
 import { GOGCloudSavesLocation, GogInstallInfo } from 'common/types/gog'
-import { NileInstallInfo } from 'common/types/nile'
+import {
+  NileInstallInfo,
+  NileLoginData,
+  NileRegisterData,
+  NileUserData
+} from 'common/types/nile'
 
 /**
  * Some notes here:
@@ -144,6 +149,10 @@ interface AsyncIPCFunctions {
     status: 'done' | 'error'
     data?: UserData
   }>
+  authAmazon: (data: NileRegisterData) => Promise<{
+    status: 'done' | 'failed'
+    user: NileUserData | undefined
+  }>
   logoutLegendary: () => Promise<void>
   getAlternativeWine: () => Promise<WineInstallation[]>
   getLocalPeloadPath: () => Promise<string>
@@ -248,6 +257,7 @@ interface AsyncIPCFunctions {
     runner: Runner,
     appName: string
   ) => Promise<number | undefined>
+  getAmazonLoginData: () => Promise<NileLoginData>
 }
 
 // This is quite ugly & throws a lot of errors in a regular .ts file

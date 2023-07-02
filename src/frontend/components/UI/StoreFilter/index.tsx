@@ -5,12 +5,13 @@ import FormControl from 'frontend/components/UI/FormControl'
 import ContextProvider from 'frontend/state/ContextProvider'
 
 export default React.memo(function StoreFilter() {
-  const { category, handleCategory, gog, epic } = useContext(ContextProvider)
+  const { category, handleCategory, gog, epic, amazon } =
+    useContext(ContextProvider)
   const { t } = useTranslation()
 
   const isGOGLoggedin = gog.username
   const isEpicLoggedin = epic.username
-  const isAmazonLoggedin = true // TODO: Check for amazon login
+  const isAmazonLoggedin = amazon.username
 
   return (
     <div className="storeFilter">
