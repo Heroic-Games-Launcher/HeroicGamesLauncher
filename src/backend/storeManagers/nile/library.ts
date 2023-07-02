@@ -1,4 +1,9 @@
-import { nileInstalled, nileLibrary, nileLogFile } from 'backend/constants'
+import {
+  nileConfigPath,
+  nileInstalled,
+  nileLibrary,
+  nileLogFile
+} from 'backend/constants'
 import {
   LogPrefix,
   logDebug,
@@ -21,10 +26,22 @@ import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
 import { installStore, libraryStore } from './electronStores'
 import { getNileBin } from 'backend/utils'
 import { callRunner } from 'backend/launcher'
-import { join } from 'path'
+import { dirname, join } from 'path'
+import { app } from 'electron'
+import { copySync } from 'fs-extra'
 
 const installedGames: Map<string, NileInstallMetadataInfo> = new Map()
 const library: Map<string, GameInfo> = new Map()
+
+export async function initNileLibraryManager() {
+  // Migrate user data from global Nile config if necessary
+  const globalNileConfig = join(app.getPath('appData'), 'nile')
+  if (!existsSync(nileConfigPath) && existsSync(globalNileConfig)) {
+    copySync(globalNileConfig, nileConfigPath)
+  }
+
+  refresh()
+}
 
 /**
  * Loads all the user's games into `library`
@@ -369,7 +386,16 @@ export async function runRunnerCommand(
 ): Promise<ExecResult> {
   const { dir, bin } = getNileBin()
 
-  // TODO: Set XDG_CONFIG_HOME to a separate location
+  // Set XDG_CONFIG_HOME to a custom, Heroic-specific location so user-made
+  // changes to Legendary's main config file don't affect us
+  if (!options) {
+    options = {}
+  }
+  if (!options.env) {
+    options.env = {}
+  }
+  options.env.XDG_CONFIG_HOME = dirname(nileConfigPath)
+
   return callRunner(
     commandParts,
     { name: 'nile', logPrefix: LogPrefix.Nile, bin, dir },

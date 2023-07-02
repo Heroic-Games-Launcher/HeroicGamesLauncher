@@ -37,7 +37,6 @@ async function getDefaultSavePath(
     case 'gog':
       return getDefaultGogSavePaths(appName, alreadyDefinedGogSaves)
     case 'nile':
-      // TODO: Implement Amazon save paths
       return ''
     case 'sideload':
       return ''

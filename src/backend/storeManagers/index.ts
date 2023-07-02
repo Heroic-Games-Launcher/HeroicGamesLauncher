@@ -79,5 +79,5 @@ export function autoUpdate(runner: string, gamesToUpdate: string[]) {
 export async function initStoreManagers() {
   await LegendaryLibraryManager.initLegendaryLibraryManager()
   await GOGLibraryManager.refresh()
-  await NileLibraryManager.refresh()
+  await NileLibraryManager.initNileLibraryManager()
 }
