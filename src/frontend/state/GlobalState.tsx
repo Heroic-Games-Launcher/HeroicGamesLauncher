@@ -434,7 +434,15 @@ class GlobalState extends PureComponent<Props> {
   }
 
   amazonLogout = async () => {
+    await window.api.logoutAmazon()
+    this.setState({
+      amazon: {
+        library: [],
+        username: null
+      }
+    })
     console.log('Logging out from amazon')
+    window.location.reload()
   }
 
   getAmazonLoginData = async () => window.api.getAmazonLoginData()

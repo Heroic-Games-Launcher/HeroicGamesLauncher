@@ -12,6 +12,7 @@ import { runRunnerCommand } from './library'
 import { existsSync, readFileSync } from 'graceful-fs'
 import { nileUserData } from 'backend/constants'
 import { configStore } from './electronStores'
+import { clearCache } from 'backend/utils'
 
 export class NileUser {
   static async getLoginData(): Promise<NileLoginData> {
@@ -72,6 +73,25 @@ export class NileUser {
       status: 'done',
       user
     }
+  }
+
+  static async logout() {
+    const commandParts = ['auth', '--logout']
+
+    const abortID = 'nile-logout'
+    const res = await runRunnerCommand(
+      commandParts,
+      createAbortController(abortID)
+    )
+    deleteAbortController(abortID)
+
+    if (res.abort) {
+      logError('Failed to logout: abort by user'), LogPrefix.Nile
+      return
+    }
+
+    configStore.delete('userData')
+    clearCache('nile')
   }
 
   static async getUserData(): Promise<NileUserData | undefined> {

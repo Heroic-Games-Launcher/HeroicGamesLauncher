@@ -55,6 +55,7 @@ export default function PlatformFilter() {
               active: filterPlatform === 'mac'
             })}
             title={`${t('header.platform')}: ${t('platforms.mac')}`}
+            disabled={disabledIcon}
           >
             <FontAwesomeIcon
               className="FormControl__segmentedFaIcon"

@@ -80,6 +80,7 @@ interface SyncIPCFunctions {
   resetHeroic: () => void
   createNewWindow: (url: string) => void
   logoutGOG: () => void
+  logoutAmazon: () => void
   toggleVKD3D: (args: ToolArgs) => void
   logError: (message: unknown) => void
   logInfo: (message: unknown) => void

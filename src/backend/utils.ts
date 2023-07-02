@@ -61,6 +61,10 @@ import {
   installInfoStore as GOGinstallInfoStore,
   libraryStore as GOGlibraryStore
 } from './storeManagers/gog/electronStores'
+import {
+  installStore as nileInstallStore,
+  libraryStore as nileLibraryStore
+} from './storeManagers/nile/electronStores'
 import * as fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
@@ -481,7 +485,7 @@ async function openUrlOrFile(url: string): Promise<string | void> {
   return shell.openPath(url)
 }
 
-function clearCache(library?: 'gog' | 'legendary') {
+function clearCache(library?: 'gog' | 'legendary' | 'nile') {
   if (library === 'gog' || !library) {
     GOGapiInfoCache.clear()
     GOGlibraryStore.clear()
@@ -495,6 +499,10 @@ function clearCache(library?: 'gog' | 'legendary') {
     runLegendaryCommand(['cleanup'], createAbortController(abortID)).then(() =>
       deleteAbortController(abortID)
     )
+  }
+  if (library === 'nile' || !library) {
+    nileInstallStore.clear()
+    nileLibraryStore.clear()
   }
 }
 
