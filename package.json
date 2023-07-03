@@ -248,7 +248,7 @@
     "@typescript-eslint/parser": "^5.47.1",
     "@vitejs/plugin-react-swc": "^3.2.0",
     "cross-env": "^7.0.3",
-    "electron": "git+ssh://git@github.com:castlabs/electron-releases.git#v24.4.1+wvcus",
+    "electron": "castlabs/electron-releases#24.4.1+wvcus",
     "electron-builder": "^23.6.0",
     "electron-devtools-installer": "^3.2.0",
     "electron-playwright-helpers": "^1.5.5",
