@@ -110,7 +110,6 @@ export class NileUser {
       return
     }
 
-    logDebug(['user.json:', user], LogPrefix.Nile)
     configStore.set('userData', user.extensions.customer_info)
     logInfo('Saved user data to config file', LogPrefix.Nile)
 

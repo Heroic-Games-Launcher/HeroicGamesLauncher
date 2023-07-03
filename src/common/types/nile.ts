@@ -112,3 +112,7 @@ export interface NileRegisterData {
   serial: string
   client_id: string
 }
+
+export interface NileGameDownloadInfo {
+  download_size: number
+}

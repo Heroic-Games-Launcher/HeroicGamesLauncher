@@ -18,6 +18,7 @@ import {
 import { CallRunnerOptions, ExecResult, GameInfo } from 'common/types'
 import {
   FuelSchema,
+  NileGameDownloadInfo,
   NileGameInfo,
   NileInstallInfo,
   NileInstallMetadataInfo
@@ -61,10 +62,10 @@ function loadGamesInAccount() {
       iconUrl
     } = productDetail
 
-    const info = installedGames.get(game.id)
+    const info = installedGames.get(product.id)
 
-    library.set(game.id, {
-      app_name: game.id,
+    library.set(product.id, {
+      app_name: product.id,
       art_cover: iconUrl,
       art_square: iconUrl,
       canRunOffline: true, // Amazon Games only has offline games
@@ -75,6 +76,7 @@ function loadGamesInAccount() {
             platform: 'Windows' // Amazon Games only supports Windows
           }
         : {},
+      folder_name: title,
       is_installed: info !== undefined,
       runner: 'nile',
       title,
@@ -263,6 +265,14 @@ export async function getInstallInfo(
   const game = library.get(appName)
   if (game) {
     const metadata = installedGames.get(appName)
+    // Get size info from Nile
+    const { stdout: output } = await runRunnerCommand(
+      ['install', '--info', '--json', appName],
+      createAbortController(appName)
+    )
+    deleteAbortController(appName)
+
+    const { download_size }: NileGameDownloadInfo = JSON.parse(output)
     const installInfo = {
       game: {
         id: appName,
@@ -281,9 +291,8 @@ export async function getInstallInfo(
         ...metadata
       },
       manifest: {
-        download_size: 1000, // FIXME: Proper size
-        disk_size: 1000 // FIXME: Proper size
-        // TODO: Fill out later
+        download_size,
+        disk_size: download_size
       }
     }
     installStore.set(appName, installInfo)

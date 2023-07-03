@@ -13,21 +13,16 @@ import {
   changeGameInstallPath,
   installState,
   removeFromInstalledConfig,
-  fetchFuelJSON
+  fetchFuelJSON,
+  getInstallInfo
 } from './library'
 import {
   LogPrefix,
-  logDebug,
   logError,
   logInfo,
   logsDisabled
 } from 'backend/logger/logger'
-import {
-  gamesConfigPath,
-  isFlatpak,
-  isLinux,
-  isWindows
-} from 'backend/constants'
+import { gamesConfigPath, isWindows } from 'backend/constants'
 import { GameConfig } from 'backend/game_config'
 import {
   createAbortController,
@@ -56,19 +51,12 @@ import {
   shutdownWine
 } from 'backend/utils'
 import { GlobalConfig } from 'backend/config'
-import { gameAnticheatInfo } from 'backend/anticheat/utils'
 import {
   addShortcuts as addShortcutsUtil,
   removeShortcuts as removeShortcutsUtil
 } from '../../shortcuts/shortcuts/shortcuts'
 import { removeNonSteamGame } from 'backend/shortcuts/nonesteamgame/nonesteamgame'
 import { sendFrontendMessage } from 'backend/main_window'
-
-// used when downloading games, store the download size read from Nile's output
-interface currentDownloadSizeMap {
-  [key: string]: number
-}
-const currentDownloadSize: currentDownloadSizeMap = {}
 
 export async function getSettings(appName: string): Promise<GameSettings> {
   const gameConfig = GameConfig.get(appName)
@@ -139,29 +127,78 @@ const tmpProgress: tmpProgressMap = {}
 export function onInstallOrUpdateOutput(
   appName: string,
   action: 'installing' | 'updating',
-  data: string
-  // totalDownloadSize: number
+  data: string,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  totalDownloadSize = -1
 ) {
-  const downloadSizeMatch = data.match(/Download size: ([\d.]+)MB/)
-  logDebug(['Download size:', downloadSizeMatch], LogPrefix.Nile)
-
-  // store the download size, needed for correct calculation
-  // when cancel/resume downloads
-  if (downloadSizeMatch) {
-    currentDownloadSize[appName] = parseFloat(downloadSizeMatch[1])
-  }
-
   if (!Object.hasOwn(tmpProgress, appName)) {
     tmpProgress[appName] = defaultTmpProgress()
   }
+  const progress = tmpProgress[appName]
 
-  // const progress = tmpProgress[appName]
+  // parse log for percent
+  if (!progress.percent) {
+    const percentMatch = data.match(/Progress: (\d+\.\d+) /m)
 
-  // TODO: Download Progress
-  // original is in bytes, convert to MiB with 2 decimals
-  // totalDownloadSize = Math.round((totalDownloadSize / 1024 / 1024) * 100) / 100
+    progress.percent = !Number.isNaN(Number(percentMatch?.at(1)))
+      ? Number(percentMatch?.at(1))
+      : undefined
+  }
 
-  return
+  // parse log for eta
+  if (progress.eta === '') {
+    const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
+    progress.eta = etaMatch && etaMatch?.length >= 2 ? etaMatch[1] : ''
+  }
+
+  // parse log for game download progress
+  if (progress.bytes === '') {
+    const bytesMatch = data.match(/Downloaded: (\S+) MiB/m)
+    progress.bytes =
+      bytesMatch && bytesMatch?.length >= 2 ? `${bytesMatch[1]}MB` : ''
+  }
+
+  // parse log for download speed
+  if (!progress.downSpeed) {
+    const downSpeedMBytes = data.match(/Download\t- (\S+.) MiB/m)
+    progress.downSpeed = !Number.isNaN(Number(downSpeedMBytes?.at(1)))
+      ? Number(downSpeedMBytes?.at(1))
+      : undefined
+  }
+
+  // parse disk write speed
+  if (!progress.diskSpeed) {
+    const diskSpeedMBytes = data.match(/Disk\t- (\S+.) MiB/m)
+    progress.diskSpeed = !Number.isNaN(Number(diskSpeedMBytes?.at(1)))
+      ? Number(diskSpeedMBytes?.at(1))
+      : undefined
+  }
+
+  // only send to frontend if all values are updated
+  if (
+    Object.values(progress).every(
+      (value) => !(value === undefined || value === '')
+    )
+  ) {
+    logInfo(
+      [
+        `Progress for ${getGameInfo(appName).title}:`,
+        `${progress.percent}%/${progress.bytes}/${progress.eta}`.trim(),
+        `Down: ${progress.downSpeed}MB/s / Disk: ${progress.diskSpeed}MB/s`
+      ],
+      LogPrefix.Nile
+    )
+
+    sendFrontendMessage(`progressUpdate-${appName}`, {
+      appName: appName,
+      runner: 'nile',
+      status: action,
+      progress: progress
+    })
+
+    // reset
+    tmpProgress[appName] = defaultTmpProgress()
+  }
 }
 
 export async function install(
@@ -169,7 +206,7 @@ export async function install(
   { path }: InstallArgs
 ): Promise<InstallResult> {
   const { maxWorkers } = GlobalConfig.get().getSettings()
-  // const info = await getInstallInfo(appName)
+  const info = await getInstallInfo(appName)
   const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
 
   const logPath = join(gamesConfigPath, `${appName}.log`)
@@ -180,8 +217,8 @@ export async function install(
     onInstallOrUpdateOutput(
       appName,
       'installing',
-      data
-      // info.manifest?.download_size
+      data,
+      info.manifest?.download_size
     )
   }
 
@@ -208,17 +245,6 @@ export async function install(
     return { status: 'error', error: res.error }
   }
   addShortcuts(appName)
-
-  const antiCheatInfo = gameAnticheatInfo(getGameInfo(appName).namespace)
-
-  if (antiCheatInfo && isLinux) {
-    const gameSettings = await getSettings(appName)
-
-    gameSettings.eacRuntime =
-      antiCheatInfo.anticheats.includes('Easy Anti-Cheat')
-    if (gameSettings.eacRuntime && isFlatpak) gameSettings.useGameMode = true
-    gameSettings.battlEyeRuntime = antiCheatInfo.anticheats.includes('BattlEye')
-  }
 
   return { status: 'done' }
 }
@@ -446,6 +472,9 @@ export async function forceUninstall(appName: string) {
 }
 
 export async function stop(appName: string, stopWine?: boolean) {
+  // This pattern is required to stop the download
+  killPattern(appName)
+  // Try to find the .exe name to stop the game, if running
   const fuel = fetchFuelJSON(appName)
   if (fuel) {
     // Find the executable name in order to pkill it
@@ -454,12 +483,10 @@ export async function stop(appName: string, stopWine?: boolean) {
   } else {
     logError(['Could not fetch `fuel.json` for', appName], LogPrefix.Nile)
   }
-
   if (stopWine && !isNative()) {
     const gameSettings = await getSettings(appName)
     await shutdownWine(gameSettings)
   }
-  return
 }
 
 export function isGameAvailable(appName: string): boolean {
