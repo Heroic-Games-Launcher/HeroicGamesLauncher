@@ -215,7 +215,7 @@ const GameCard = ({
           title={`${t('label.playing.start')} (${title})`}
           disabled={disabled}
         >
-          <PlayIcon />
+          {justPlayed ? <span>PLAY</span> : <PlayIcon />}
         </SvgButton>
       )
     } else {
