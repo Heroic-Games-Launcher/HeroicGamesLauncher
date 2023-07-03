@@ -71,7 +71,8 @@ import {
   getCurrentChangelog,
   checkWineBeforeLaunch,
   removeFolder,
-  downloadDefaultWine
+  downloadDefaultWine,
+  getNileVersion
 } from './utils'
 import {
   configStore,
@@ -644,6 +645,7 @@ ipcMain.handle('getMaxCpus', () => cpus().length)
 ipcMain.handle('getHeroicVersion', app.getVersion)
 ipcMain.handle('getLegendaryVersion', getLegendaryVersion)
 ipcMain.handle('getGogdlVersion', getGogdlVersion)
+ipcMain.handle('getNileVersion', getNileVersion)
 ipcMain.handle('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
 ipcMain.handle('isFlatpak', () => isFlatpak)
 ipcMain.handle('getGameOverride', async () => getGameOverride())

@@ -122,6 +122,7 @@ interface AsyncIPCFunctions {
   getHeroicVersion: () => string
   getLegendaryVersion: () => Promise<string>
   getGogdlVersion: () => Promise<string>
+  getNileVersion: () => Promise<string>
   isFullscreen: () => boolean
   isFlatpak: () => boolean
   getPlatform: () => NodeJS.Platform

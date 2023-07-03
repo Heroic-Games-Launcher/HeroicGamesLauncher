@@ -51,6 +51,7 @@ import {
 import { basename, dirname, join, normalize } from 'path'
 import { runRunnerCommand as runLegendaryCommand } from 'backend/storeManagers/legendary/library'
 import { runRunnerCommand as runGogdlCommand } from './storeManagers/gog/library'
+import { runRunnerCommand as runNileCommand } from './storeManagers/nile/library'
 import {
   gameInfoStore,
   installStore,
@@ -241,6 +242,20 @@ const getGogdlVersion = async () => {
   return stdout
 }
 
+const getNileVersion = async () => {
+  const abortID = 'nile-version'
+  const { stdout, error } = await runNileCommand(
+    ['--version'],
+    createAbortController(abortID)
+  )
+  deleteAbortController(abortID)
+
+  if (error) {
+    return 'invalid'
+  }
+  return stdout
+}
+
 const getHeroicVersion = () => {
   const VERSION_NUMBER = app.getVersion()
   // One Piece reference
@@ -303,6 +318,7 @@ const getSystemInfoInternal = async (): Promise<string> => {
   const heroicVersion = getHeroicVersion()
   const legendaryVersion = await getLegendaryVersion()
   const gogdlVersion = await getGogdlVersion()
+  const nileVersion = await getNileVersion()
 
   const electronVersion = process.versions.electron || 'unknown'
   const chromeVersion = process.versions.chrome || 'unknown'
@@ -339,6 +355,7 @@ const getSystemInfoInternal = async (): Promise<string> => {
   const systemInfo = `Heroic Version: ${heroicVersion}
 Legendary Version: ${legendaryVersion}
 GOGdl Version: ${gogdlVersion}
+Nile Version: ${nileVersion}
 
 Electron Version: ${electronVersion}
 Chrome Version: ${chromeVersion}
@@ -1340,6 +1357,7 @@ export {
   getFileSize,
   getLegendaryVersion,
   getGogdlVersion,
+  getNileVersion,
   memoryLog,
   removeFolder
 }

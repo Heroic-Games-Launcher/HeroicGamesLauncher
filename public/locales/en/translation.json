@@ -28,6 +28,7 @@
         "choose-egs-prefix": "Choose Prefix where EGS is installed",
         "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Select Legendary binary",
+        "choose-nile-binary": "Select Nile binary",
         "customWine": "Select the Wine or Proton binary",
         "default-install-path": "Choose Default Install Path",
         "default-steam-path": "Steam path.",
@@ -429,12 +430,14 @@
     "other": {
         "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary Version: ",
+        "nile-version": "Nile Version: ",
         "weblate": "Help translate Heroic."
     },
     "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
+        "alt-nile-bin": "Using built-in Nile binary...",
         "custom_themes_path": "Select the path to look for custom CSS files",
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix where EGS is installed",
@@ -470,6 +473,7 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary",
+        "alt-nile-bin": "Choose an Alternative Nile Binary",
         "autodxvk": "Auto Install/Update DXVK on Prefix",
         "autosync": "Autosync Saves",
         "autoUpdateGames": "Automatically update games",
