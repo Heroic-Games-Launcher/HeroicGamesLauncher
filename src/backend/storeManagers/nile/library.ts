@@ -1,3 +1,4 @@
+import JSON5 from 'json5'
 import {
   nileConfigPath,
   nileInstalled,
@@ -129,7 +130,7 @@ export function fetchFuelJSON(appName: string): FuelSchema | null {
   }
 
   try {
-    return JSON.parse(readFileSync(fuelJSONPath, 'utf-8'))
+    return JSON5.parse(readFileSync(fuelJSONPath, 'utf-8'))
   } catch (error) {
     logError(['Could not read', `${fuelJSONPath}:`, error], LogPrefix.Nile)
   }

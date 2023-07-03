@@ -176,6 +176,7 @@
     "i18next-fs-backend": "^2.1.1",
     "i18next-http-backend": "^2.1.1",
     "ini": "^3.0.0",
+    "json5": "^2.2.3",
     "plist": "^3.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
