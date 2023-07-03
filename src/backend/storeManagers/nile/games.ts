@@ -13,8 +13,7 @@ import {
   changeGameInstallPath,
   installState,
   removeFromInstalledConfig,
-  fetchFuelJSON,
-  getInstallInfo
+  fetchFuelJSON
 } from './library'
 import {
   LogPrefix,
@@ -190,10 +189,10 @@ export function onInstallOrUpdateOutput(
     )
 
     sendFrontendMessage(`progressUpdate-${appName}`, {
-      appName: appName,
+      appName,
       runner: 'nile',
       status: action,
-      progress: progress
+      progress
     })
 
     // reset
@@ -206,7 +205,6 @@ export async function install(
   { path }: InstallArgs
 ): Promise<InstallResult> {
   const { maxWorkers } = GlobalConfig.get().getSettings()
-  const info = await getInstallInfo(appName)
   const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
 
   const logPath = join(gamesConfigPath, `${appName}.log`)
@@ -214,12 +212,7 @@ export async function install(
   const commandParts = ['install', '--base-path', path, ...workers, appName]
 
   const onOutput = (data: string) => {
-    onInstallOrUpdateOutput(
-      appName,
-      'installing',
-      data,
-      info.manifest?.download_size
-    )
+    onInstallOrUpdateOutput(appName, 'installing', data)
   }
 
   const res = await runNileCommand(
@@ -461,10 +454,48 @@ export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
   return res
 }
 
-export async function update(/* appName: string */): Promise<InstallResult> {
-  return {
-    status: 'abort'
+export async function update(appName: string): Promise<InstallResult> {
+  const { maxWorkers } = GlobalConfig.get().getSettings()
+  const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
+
+  const logPath = join(gamesConfigPath, `${appName}.log`)
+
+  const commandParts = ['update', ...workers, appName]
+
+  const onOutput = (data: string) => {
+    onInstallOrUpdateOutput(appName, 'updating', data)
   }
+
+  const res = await runNileCommand(
+    commandParts,
+    createAbortController(appName),
+    {
+      logFile: logPath,
+      onOutput,
+      logMessagePrefix: `Updating ${appName}`
+    }
+  )
+
+  deleteAbortController(appName)
+
+  if (res.abort) {
+    return { status: 'abort' }
+  }
+
+  if (res.error) {
+    if (!res.error.includes('signal')) {
+      logError(['Failed to update', appName, res.error], LogPrefix.Nile)
+    }
+    return { status: 'error', error: res.error }
+  }
+
+  sendFrontendMessage('gameStatusUpdate', {
+    appName,
+    runner: 'nile',
+    status: 'done'
+  })
+
+  return { status: 'done' }
 }
 
 export async function forceUninstall(appName: string) {

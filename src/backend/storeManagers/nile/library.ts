@@ -144,8 +144,20 @@ export function fetchFuelJSON(appName: string): FuelSchema | null {
  * @returns App names of updateable games.
  */
 export async function listUpdateableGames(): Promise<string[]> {
-  // TODO: Fill in logic
-  return []
+  logInfo('Looking for updates...', LogPrefix.Nile)
+
+  const abortID = 'nile-list-updates'
+  const { stdout: output } = await runRunnerCommand(
+    ['list-updates', '--json'],
+    createAbortController(abortID)
+  )
+  deleteAbortController(abortID)
+
+  const updates: string[] = JSON.parse(output)
+  if (updates.length) {
+    logInfo(['Found', `${updates.length}`, 'games to update'], LogPrefix.Nile)
+  }
+  return updates
 }
 
 /**
