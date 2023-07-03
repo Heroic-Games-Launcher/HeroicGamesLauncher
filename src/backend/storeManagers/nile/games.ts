@@ -22,7 +22,7 @@ import {
   logInfo,
   logsDisabled
 } from 'backend/logger/logger'
-import { gamesConfigPath, isWindows } from 'backend/constants'
+import { gamesConfigPath, isLinux, isWindows } from 'backend/constants'
 import { GameConfig } from 'backend/game_config'
 import {
   createAbortController,
@@ -472,14 +472,18 @@ export async function forceUninstall(appName: string) {
 }
 
 export async function stop(appName: string, stopWine?: boolean) {
-  // This pattern is required to stop the download
-  killPattern(appName)
+  const pattern = isLinux ? appName : 'nile'
+  killPattern(pattern)
   // Try to find the .exe name to stop the game, if running
   const fuel = fetchFuelJSON(appName)
   if (fuel) {
     // Find the executable name in order to pkill it
+    // Killing nile is not enough as it doesn't manage the games it launches
     const { Command: exeName } = fuel.Main
-    killPattern(exeName)
+    // Remove `.exe` extension for Windows to be able to kill the process
+    const processName =
+      isWindows && exeName.endsWith('.exe') ? exeName.slice(0, -4) : exeName
+    killPattern(processName)
   } else {
     logError(['Could not fetch `fuel.json` for', appName], LogPrefix.Nile)
   }
