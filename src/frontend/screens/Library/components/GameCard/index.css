@@ -118,7 +118,7 @@
 
 .gameCard.justPlayed > .icons {
   justify-content: right;
-  grid-template-columns: 0.3fr 1fr 0.3fr 0.3fr;
+  grid-template-columns: 0.3fr 1fr 0.4fr 0.5fr;
   grid-template-areas: 'update gap settings play';
 }
 
