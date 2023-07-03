@@ -16,7 +16,7 @@ import ContextProvider from '../../state/ContextProvider'
 
 export const epicLoginPath = '/loginweb/legendary'
 export const gogLoginPath = '/loginweb/gog'
-export const amazonLoginPath = '/loginweb/nile'
+const amazonLoginPath = '/loginweb/nile'
 
 export default React.memo(function NewLogin() {
   const { epic, gog, amazon, refreshLibrary } = useContext(ContextProvider)

@@ -45,13 +45,13 @@ export interface NileGameInfo {
   product: NileGameProduct
 }
 
-export interface NileGameProduct {
+interface NileGameProduct {
   id: string
   title: string
   productDetail: NileGameProductDetails
 }
 
-export interface NileGameProductDetails {
+interface NileGameProductDetails {
   iconUrl: string
   details: {
     backgroundUrl1: string
