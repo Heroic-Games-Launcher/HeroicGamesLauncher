@@ -59,9 +59,18 @@ function loadGamesInAccount() {
     const { product } = game
     const { title, productDetail } = product
     const {
-      details: { shortDescription, developer },
+      details: { shortDescription, developer, websites },
       iconUrl
     } = productDetail
+
+    let storePage: string | undefined
+    if (websites.steam) {
+      storePage = websites.steam
+    } else if (websites.gog) {
+      storePage = websites.gog
+    } else if (websites.official) {
+      storePage = websites.official
+    }
 
     const info = installedGames.get(product.id)
 
@@ -77,6 +86,7 @@ function loadGamesInAccount() {
             platform: 'Windows' // Amazon Games only supports Windows
           }
         : {},
+      store_url: storePage,
       folder_name: title,
       is_installed: info !== undefined,
       runner: 'nile',
