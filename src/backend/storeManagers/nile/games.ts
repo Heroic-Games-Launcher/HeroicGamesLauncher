@@ -19,6 +19,7 @@ import {
 } from './library'
 import {
   LogPrefix,
+  logDebug,
   logError,
   logInfo,
   logsDisabled
@@ -455,11 +456,37 @@ export async function moveInstall(
   return { status: 'done' }
 }
 
-export async function repair(/* appName: string */): Promise<ExecResult> {
-  return {
-    stderr: '',
-    stdout: ''
+export async function repair(appName: string): Promise<ExecResult> {
+  const installInfo = getGameInfo(appName)
+  const { install_path } = installInfo.install ?? {}
+
+  if (!install_path) {
+    const error = `Could not find install path for ${appName}`
+    logError(error, LogPrefix.Nile)
+    return {
+      stderr: '',
+      stdout: '',
+      error
+    }
   }
+
+  logDebug([appName, 'is installed at', install_path], LogPrefix.Nile)
+  const logPath = join(gamesConfigPath, `${appName}.log`)
+  const res = await runNileCommand(
+    ['verify', '--path', install_path, appName],
+    createAbortController(appName),
+    {
+      logFile: logPath,
+      logMessagePrefix: `Repairing ${appName}`
+    }
+  )
+  deleteAbortController(appName)
+
+  if (res.error) {
+    logError(['Failed to repair', `${appName}:`, res.error], LogPrefix.Nile)
+  }
+
+  return res
 }
 
 export async function syncSaves(): Promise<string> {
