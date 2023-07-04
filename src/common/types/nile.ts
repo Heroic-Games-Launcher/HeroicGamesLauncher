@@ -47,7 +47,8 @@ export interface NileGameInfo {
 
 interface NileGameProduct {
   id: string
-  title: string
+  // For some reason, some games might not have a title
+  title?: string
   productDetail: NileGameProductDetails
 }
 

@@ -80,7 +80,7 @@ function loadGamesInAccount() {
       folder_name: title,
       is_installed: info !== undefined,
       runner: 'nile',
-      title,
+      title: title ?? '???',
       description: shortDescription,
       developer,
       is_linux_native: false,
