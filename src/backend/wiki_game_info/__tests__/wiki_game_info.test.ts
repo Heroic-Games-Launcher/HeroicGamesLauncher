@@ -97,9 +97,9 @@ describe('getWikiGameInfo', () => {
     expect(mockHowLongToBeat).toBeCalled()
     expect(mockGamesDB).toBeCalled()
     expect(mockProtonDB).toBeCalled()
-    expect(mockProtonDB).toBeCalledWith('123')
+    expect(mockProtonDB).toBeCalledWith('100')
     expect(mockSteamDeck).toBeCalled()
-    expect(mockSteamDeck).toBeCalledWith('123')
+    expect(mockSteamDeck).toBeCalledWith('100')
   })
 
   test('cached data outdated - not mac not linux', async () => {
@@ -132,16 +132,14 @@ describe('getWikiGameInfo', () => {
       timestampLastFetch: oneMonthAgo.toString()
     })
 
-    const result = await await getWikiGameInfo('The Witcher 3', '1234', 'gog')
+    const result = await getWikiGameInfo('The Witcher 3', '1234', 'gog')
     expect(result).toStrictEqual(testExtraGameInfoNoMac)
     expect(mockPCGamingWiki).toBeCalled()
     expect(mockAppleGamingWiki).not.toBeCalled()
     expect(mockHowLongToBeat).toBeCalled()
     expect(mockGamesDB).toBeCalled()
-    expect(mockProtonDB).toBeCalled()
-    expect(mockProtonDB).toBeCalledWith('')
-    expect(mockSteamDeck).toBeCalled()
-    expect(mockSteamDeck).toBeCalledWith('')
+    expect(mockProtonDB).not.toBeCalled()
+    expect(mockSteamDeck).not.toBeCalled()
   })
   test('catches throws', async () => {
     jest

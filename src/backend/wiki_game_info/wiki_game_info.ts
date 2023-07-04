@@ -50,19 +50,21 @@ export async function getWikiGameInfo(
         isMac ? getInfoFromAppleGamingWiki(title) : null
       ])
 
-    const steamID = gamesdb?.steamID ? gamesdb.steamID : ''
-    const [protondb, steamdeck] = await Promise.all([
-      getInfoFromProtonDB(isLinux ? steamID : ''),
-      getSteamDeckComp(isLinux ? steamID : '')
-    ])
+    let steamInfo = null
+    if (isLinux) {
+      const steamID = pcgamingwiki?.steamID ?? gamesdb?.steamID
+      const [protondb, steamdeck] = await Promise.all([
+        getInfoFromProtonDB(steamID),
+        getSteamDeckComp(steamID)
+      ])
 
-    const steamInfo =
-      protondb || steamdeck
-        ? ({
-            compatibilityLevel: protondb?.level,
-            steamDeckCatagory: steamdeck?.category
-          } as SteamInfo)
-        : null
+      if (protondb || steamdeck) {
+        steamInfo = {
+          compatibilityLevel: protondb?.level,
+          steamDeckCatagory: steamdeck?.category
+        } as SteamInfo
+      }
+    }
 
     const wikiGameInfo = {
       timestampLastFetch: Date(),

@@ -114,19 +114,13 @@
         "apple-gaming-wiki": "AppleGamingWiki Rating",
         "canRunOffline": "Online Required",
         "clickToOpen": "Click to open",
-        "compatibility-info": "Proton Compatibility Tier",
         "game-scores": "Game Scores",
         "installedInfo": "Installed Information",
         "installedPlatform": "Installed Platform",
         "path": "Install Path",
+        "protondb-compatibility-info": "Proton Compatibility Tier",
         "size": "Size",
-        "steam-deck": "Steam Deck:",
-        "steam-deck-compat": {
-            "level0": "Unknown",
-            "level1": "Unsupported",
-            "level2": "Playable",
-            "level3": "Verified"
-        },
+        "steamdeck-compatibility-info": "SteamDeck Compatibility",
         "syncsaves": "Sync Saves",
         "version": "Version"
     },

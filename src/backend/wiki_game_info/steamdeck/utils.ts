@@ -3,9 +3,9 @@ import axios, { AxiosError } from 'axios'
 import { logDebug, logError, LogPrefix } from 'backend/logger/logger'
 
 export async function getSteamDeckComp(
-  steamID: string
+  steamID: string | undefined
 ): Promise<SteamDeckComp | null> {
-  if (steamID === '') {
+  if (!steamID) {
     logDebug('No SteamID, not getting Stem Deck info')
     return null
   }

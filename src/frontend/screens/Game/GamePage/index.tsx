@@ -19,7 +19,11 @@ import {
   Pause,
   Warning,
   Hardware,
-  Error
+  Error,
+  CheckCircleOutline,
+  ErrorOutline,
+  DoNotDisturb,
+  HelpOutline
 } from '@mui/icons-material'
 import {
   createNewWindow,
@@ -78,7 +82,6 @@ import PopoverComponent from 'frontend/components/UI/PopoverComponent'
 import HowLongToBeat from 'frontend/components/UI/WikiGameInfo/components/HowLongToBeat'
 import GameScore from 'frontend/components/UI/WikiGameInfo/components/GameScore'
 import DLCList from 'frontend/components/UI/DLCList'
-
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
   const location = useLocation() as {
@@ -314,12 +317,25 @@ export default React.memo(function GamePage(): JSX.Element | null {
       pcgamingwiki?.opencritic.score
     const hasAppleInfo = applegamingwiki?.crossoverRating
     const appLocation = install_path || folder_name
-    const hasCompat = steamInfo && steamInfo.compatibilityLevel !== null
+    const hasProtonDB = steamInfo?.compatibilityLevel
+    const hasSteamDeckCompat = steamInfo?.steamDeckCatagory
     const steamLevelNames = [
-      t('info.steam-deck-compat.level0', 'Unknown'),
-      t('info.steam-deck-compat.level1', 'Unsupported'),
-      t('info.steam-deck-compat.level2', 'Playable'),
-      t('info.steam-deck-compat.level3', 'Verified')
+      <HelpOutline
+        key={0}
+        style={{ marginLeft: '5px', cursor: 'not-allowed' }}
+      />,
+      <DoNotDisturb
+        key={1}
+        style={{ marginLeft: '5px', cursor: 'not-allowed' }}
+      />,
+      <ErrorOutline
+        key={2}
+        style={{ marginLeft: '5px', cursor: 'not-allowed' }}
+      />,
+      <CheckCircleOutline
+        key={3}
+        style={{ marginLeft: '5px', cursor: 'not-allowed' }}
+      />
     ]
 
     let protonDBurl = `https://www.protondb.com/search?q=${title}`
@@ -617,7 +633,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     </div>
                   </PopoverComponent>
                 )}
-                {hasCompat && (
+                {hasProtonDB && (
                   <a
                     role="button"
                     onClick={() => {
@@ -628,20 +644,22 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   >
                     <WineBar />
                     {t(
-                      'info.compatibility-info',
+                      'info.protondb-compatibility-info',
                       'Proton Compatibility Tier'
-                    )}:{' '}
+                    )}
+                    :{' '}
                     {steamInfo!.compatibilityLevel!.charAt(0).toUpperCase() +
-                      steamInfo!.compatibilityLevel!.slice(1) +
-                      (Number.isFinite(steamInfo?.steamDeckCatagory) &&
-                      steamInfo?.steamDeckCatagory !== null
-                        ? ', ' +
-                          t('info.steam-deck', 'Steam Deck') +
-                          ' ' +
-                          steamInfo.steamDeckCatagory +
-                          ' - ' +
-                          steamLevelNames[steamInfo.steamDeckCatagory]
-                        : '')}
+                      steamInfo!.compatibilityLevel!.slice(1)}
+                  </a>
+                )}
+                {hasSteamDeckCompat && (
+                  <a className="iconWithText" style={{ cursor: 'unset' }}>
+                    <WineBar />
+                    {t(
+                      'info.steamdeck-compatibility-info',
+                      'SteamDeck Compatibility'
+                    )}
+                    : {steamLevelNames[steamInfo?.steamDeckCatagory ?? 3]}
                   </a>
                 )}
                 {hasAppleInfo && (
