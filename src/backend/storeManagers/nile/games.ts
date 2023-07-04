@@ -4,12 +4,14 @@ import {
   GameInfo,
   GameSettings,
   InstallArgs,
+  InstallPlatform,
   InstallProgress
 } from 'common/types'
 import { InstallResult, RemoveArgs } from 'common/types/game_manager'
 import {
   runRunnerCommand as runNileCommand,
   getGameInfo as nileLibraryGetGameInfo,
+  refreshInstalled as nileRefreshInstalled,
   changeGameInstallPath,
   installState,
   removeFromInstalledConfig,
@@ -100,12 +102,47 @@ export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   }
 }
 
-export async function importGame(): Promise<ExecResult> {
-  // Currently not supported in Nile
-  return {
-    stderr: '',
-    stdout: ''
+export async function importGame(
+  appName: string,
+  folderPath: string,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  platform: InstallPlatform
+): Promise<ExecResult> {
+  const res = await runNileCommand(
+    ['import', '--path', folderPath, appName],
+    createAbortController(appName),
+    {
+      logMessagePrefix: `Importing ${appName}`
+    }
+  )
+  deleteAbortController(appName)
+
+  if (res.abort) {
+    return res
   }
+
+  if (res.error) {
+    logError(['Failed to import', `${appName}:`, res.error], LogPrefix.Nile)
+    return res
+  }
+
+  const errorMatch = res.stderr.match(/ERROR \[IMPORT]:\t(.*)/)
+  if (errorMatch) {
+    logError(['Failed to import', `${appName}:`, errorMatch[1]], LogPrefix.Nile)
+    return {
+      ...res,
+      error: errorMatch[1]
+    }
+  }
+
+  try {
+    nileRefreshInstalled()
+    addShortcuts(appName)
+  } catch (error) {
+    logError(['Failed to import', `${appName}:`, error], LogPrefix.Nile)
+  }
+
+  return res
 }
 
 interface tmpProgressMap {
