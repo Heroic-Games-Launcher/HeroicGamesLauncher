@@ -109,10 +109,12 @@ export async function importGame(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   platform: InstallPlatform
 ): Promise<ExecResult> {
+  const logPath = join(gamesConfigPath, `${appName}.log`)
   const res = await runNileCommand(
     ['import', '--path', folderPath, appName],
     createAbortController(appName),
     {
+      logFile: logPath,
       logMessagePrefix: `Importing ${appName}`
     }
   )
