@@ -21,7 +21,8 @@ function fixFilter(text: string) {
 
 const RUNNER_TO_STORE = {
   legendary: 'Epic',
-  gog: 'GOG'
+  gog: 'GOG',
+  nile: 'Amazon'
 }
 
 export default React.memo(function SearchBar() {
