@@ -125,15 +125,19 @@ export function removeFromInstalledConfig(appName: string) {
 /**
  * Fetches and parses the game's `fuel.json` file
  */
-export function fetchFuelJSON(appName: string): FuelSchema | null {
+export function fetchFuelJSON(
+  appName: string,
+  installedPath?: string
+): FuelSchema | null {
   const game = getGameInfo(appName)
-  if (!game?.install.install_path) {
+  const basePath = installedPath ?? game?.install.install_path
+  if (!basePath) {
     logError(['Could not find install path for', appName], LogPrefix.Nile)
     return null
   }
 
-  const { install_path } = game.install
-  const fuelJSONPath = join(install_path, 'fuel.json')
+  const fuelJSONPath = join(basePath, 'fuel.json')
+  logDebug(['fuel.json path:', fuelJSONPath], LogPrefix.Nile)
 
   if (!existsSync(fuelJSONPath)) {
     return null

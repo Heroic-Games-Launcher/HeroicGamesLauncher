@@ -83,9 +83,17 @@ interface NileGameProductDetails {
   }
 }
 
+interface FuelPostInstall {
+  Command: string
+  Args: string[]
+  ValidReturns?: number[]
+  AlwaysRun?: boolean
+  HideWindow?: boolean
+}
+
 export interface FuelSchema {
   SchemaVersion: string
-  PostInstall: string[]
+  PostInstall: FuelPostInstall[]
   Main: {
     Command: string
     Args: string[]
