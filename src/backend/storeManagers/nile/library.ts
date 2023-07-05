@@ -197,6 +197,27 @@ async function refreshNile(): Promise<ExecResult> {
   }
 }
 
+export function getInstallMetadata(
+  appName: string
+): NileInstallMetadataInfo | undefined {
+  if (!existsSync(nileInstalled)) {
+    return
+  }
+
+  try {
+    const installed: NileInstallMetadataInfo[] = JSON.parse(
+      readFileSync(nileInstalled, 'utf-8')
+    )
+    return installed.find((game) => game.id === appName)
+  } catch (error) {
+    logError(
+      ['Corrupted installed.json file, cannot load installed games', error],
+      LogPrefix.Nile
+    )
+  }
+  return
+}
+
 /**
  * Refresh `installedGames` from file.
  */
@@ -410,9 +431,19 @@ function updateInstalledPathInJSON(appName: string, newAppPath: string) {
  * @param appName
  * @param state true if its installed, false otherwise.
  */
-export function installState() {
-  // It's easier to just reload installed from config
-  refreshInstalled()
+export function installState(appName: string, state: boolean) {
+  if (!state) {
+    installedGames.delete(appName)
+    installStore.delete(appName)
+    return
+  }
+
+  const metadata = getInstallMetadata(appName)
+  if (!metadata) {
+    logError(['Could not find install metadata for', appName], LogPrefix.Nile)
+    return
+  }
+  installedGames.set(appName, metadata)
 }
 
 export async function runRunnerCommand(

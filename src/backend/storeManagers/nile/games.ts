@@ -11,11 +11,11 @@ import { InstallResult, RemoveArgs } from 'common/types/game_manager'
 import {
   runRunnerCommand as runNileCommand,
   getGameInfo as nileLibraryGetGameInfo,
-  refreshInstalled as nileRefreshInstalled,
   changeGameInstallPath,
   installState,
   removeFromInstalledConfig,
-  fetchFuelJSON
+  fetchFuelJSON,
+  getInstallMetadata
 } from './library'
 import {
   LogPrefix,
@@ -59,6 +59,7 @@ import {
 } from '../../shortcuts/shortcuts/shortcuts'
 import { removeNonSteamGame } from 'backend/shortcuts/nonesteamgame/nonesteamgame'
 import { sendFrontendMessage } from 'backend/main_window'
+import setup from './setup'
 
 export async function getSettings(appName: string): Promise<GameSettings> {
   const gameConfig = GameConfig.get(appName)
@@ -139,8 +140,8 @@ export async function importGame(
   }
 
   try {
-    nileRefreshInstalled()
     addShortcuts(appName)
+    installState(appName, true)
   } catch (error) {
     logError(['Failed to import', `${appName}:`, error], LogPrefix.Nile)
   }
@@ -278,6 +279,9 @@ export async function install(
     return { status: 'error', error: res.error }
   }
   addShortcuts(appName)
+  installState(appName, true)
+  const metadata = getInstallMetadata(appName)
+  await setup(appName, metadata?.path)
 
   return { status: 'done' }
 }
@@ -514,7 +518,7 @@ export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
     const gameInfo = getGameInfo(appName)
     await removeShortcutsUtil(gameInfo)
     await removeNonSteamGame({ gameInfo })
-    installState()
+    installState(appName, false)
   }
   sendFrontendMessage('refreshLibrary', 'nile')
   return res

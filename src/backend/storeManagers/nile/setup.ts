@@ -8,7 +8,7 @@ import {
 import { fetchFuelJSON, getGameInfo } from './library'
 import { GameConfig } from 'backend/game_config'
 import { isWindows } from 'backend/constants'
-import { checkWineBeforeLaunch } from 'backend/utils'
+import { checkWineBeforeLaunch, spawnAsync } from 'backend/utils'
 import { logFileLocation } from '../storeManagerCommon/games'
 import { runWineCommand, verifyWinePrefix } from 'backend/launcher'
 
@@ -81,15 +81,19 @@ export default async function setup(
     const exeArguments = action.Args ?? []
 
     if (isWindows) {
-      // TODO: Implement Windows
+      const command = ['Start-Process', '-FilePath', action.Command]
+      if (exeArguments.length) {
+        command.push('-ArgumentList', ...exeArguments)
+      }
+      logInfo(['Setup: Executing', command.join(' ')], LogPrefix.Nile)
+      await spawnAsync('powershell', command, {
+        cwd: basePath
+      })
+      continue
     }
 
     logInfo(
-      [
-        'Setup: Executing',
-        [action.Command, ...exeArguments].join(' '),
-        basePath
-      ],
+      ['Setup: Executing', [action.Command, ...exeArguments].join(' ')],
       LogPrefix.Nile
     )
 
