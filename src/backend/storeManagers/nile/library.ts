@@ -31,6 +31,7 @@ import { callRunner } from 'backend/launcher'
 import { dirname, join } from 'path'
 import { app } from 'electron'
 import { copySync } from 'fs-extra'
+import { NileUser } from './user'
 
 const installedGames: Map<string, NileInstallMetadataInfo> = new Map()
 const library: Map<string, GameInfo> = new Map()
@@ -40,6 +41,7 @@ export async function initNileLibraryManager() {
   const globalNileConfig = join(app.getPath('appData'), 'nile')
   if (!existsSync(nileConfigPath) && existsSync(globalNileConfig)) {
     copySync(globalNileConfig, nileConfigPath)
+    await NileUser.getUserData()
   }
 
   refresh()
