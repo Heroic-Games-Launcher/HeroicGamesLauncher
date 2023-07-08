@@ -570,7 +570,9 @@
         "wineversion": "Phiên bản Wine",
         "autoUpdateGames": "Tự động cập nhật trò chơi",
         "ignoreGameUpdates": "Bỏ qua cập nhật trò chơi",
-        "disable_logs": "Tắt nhật ký"
+        "disable_logs": "Tắt nhật ký",
+        "addgamestoapplications": "Tự động thêm trò chơi vào Ứng dụng",
+        "showMetalOverlay": "Hiển thị lớp phủ thống kê"
     },
     "settings": {
         "battlEyeRuntime": {
