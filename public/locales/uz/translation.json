@@ -609,7 +609,9 @@
         "winecrossoverbottle": "Krossover shishasi",
         "wineprefix": "WinePrefix papkasi",
         "wineversion": "Vino versiyasi",
-        "disable_logs": "Jurnallarni o'chirib qo'ying"
+        "disable_logs": "Jurnallarni o'chirib qo'ying",
+        "addgamestoapplications": "Ilovalarga o'yinlarni avtomatik ravishda qo'shing",
+        "showMetalOverlay": "Statistika qavatini ko'rsatish"
     },
     "settings": {
         "battlEyeRuntime": {
