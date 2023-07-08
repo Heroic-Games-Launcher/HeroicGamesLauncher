@@ -323,7 +323,12 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     ret.WINE_FULLSCREEN_FSR_STRENGTH =
       gameSettings.maxSharpness?.toString() || '2'
   }
-  if (gameSettings.showMangohud) {
+  if (
+    gameSettings.showMangohud &&
+    !gameSettings.enviromentOptions.find(
+      ({ key }) => key.toLowerCase() === 'mangohud_configfile'
+    )
+  ) {
     if (!process.env.XDG_CONFIG_HOME) {
       ret.MANGOHUD_CONFIGFILE = join(userHome, '.config/MangoHud/MangoHud.conf')
     } else {
