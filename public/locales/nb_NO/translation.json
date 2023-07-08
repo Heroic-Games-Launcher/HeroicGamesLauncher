@@ -570,7 +570,9 @@
         "wineversion": "Vinversjon",
         "autoUpdateGames": "Oppdater spill automatisk",
         "ignoreGameUpdates": "Ignorer spilloppdateringer",
-        "disable_logs": "Deaktiver logger"
+        "disable_logs": "Deaktiver logger",
+        "showMetalOverlay": "Vis statistikkoverlegg",
+        "addgamestoapplications": "Legg spill til applikasjoner automatisk"
     },
     "settings": {
         "battlEyeRuntime": {
