@@ -330,7 +330,7 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     )
   ) {
     if (!process.env.XDG_CONFIG_HOME) {
-      ret.MANGOHUD_CONFIGFILE = join(userHome, '.config/MangoHud/MangoHud.conf')
+      ret.MANGOHUD_CONFIGFILE = join(flatPakHome, '.config/MangoHud/MangoHud.conf')
     } else {
       ret.MANGOHUD_CONFIGFILE = join(
         process.env.XDG_CONFIG_HOME,
