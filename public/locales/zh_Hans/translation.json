@@ -570,7 +570,9 @@
         "wineversion": "Wine 版本",
         "autoUpdateGames": "自动更新游戏",
         "ignoreGameUpdates": "忽略游戏更新",
-        "disable_logs": "禁用日志"
+        "disable_logs": "禁用日志",
+        "addgamestoapplications": "自动将游戏添加到应用程序",
+        "showMetalOverlay": "显示统计数据叠加"
     },
     "settings": {
         "battlEyeRuntime": {
