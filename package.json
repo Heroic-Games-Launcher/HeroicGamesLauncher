@@ -131,6 +131,7 @@
       ]
     },
     "snap": {
+      "base": "core20",
       "allowNativeWayland": true,
       "category": "Games",
       "synopsis": "An Open Source Launcher for GOG and Epic Games",
