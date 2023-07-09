@@ -326,7 +326,7 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   if (
     gameSettings.showMangohud &&
     !gameSettings.enviromentOptions.find(
-      ({ key }) => key.toLowerCase() === 'mangohud_configfile'
+      ({ key }) => key === 'mangohud_configfile'
     )
   ) {
     if (!process.env.XDG_CONFIG_HOME) {
