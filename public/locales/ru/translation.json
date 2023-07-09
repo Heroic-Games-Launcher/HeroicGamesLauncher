@@ -570,7 +570,9 @@
         "wineversion": "Версия Wine",
         "autoUpdateGames": "Автоматическое обновление игр",
         "ignoreGameUpdates": "Игнорировать обновления игры",
-        "disable_logs": "Отключить журналы"
+        "disable_logs": "Отключить журналы",
+        "addgamestoapplications": "Добавляйте игры в приложения автоматически",
+        "showMetalOverlay": "Показать наложение статистики"
     },
     "settings": {
         "battlEyeRuntime": {

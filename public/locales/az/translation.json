@@ -570,7 +570,9 @@
         "wineversion": "Şərab versiyası",
         "autoUpdateGames": "Oyunları avtomatik yeniləyin",
         "ignoreGameUpdates": "Oyun yeniləmələrinə məhəl qoymayın",
-        "disable_logs": "Qeydləri deaktiv edin"
+        "disable_logs": "Qeydləri deaktiv edin",
+        "addgamestoapplications": "Oyunları avtomatik olaraq Proqramlara əlavə edin",
+        "showMetalOverlay": "Statistikanı göstərin"
     },
     "settings": {
         "battlEyeRuntime": {

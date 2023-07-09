@@ -570,7 +570,9 @@
         "wineversion": "Wine verzija",
         "ignoreGameUpdates": "Zanemari ažuriranja igre",
         "autoUpdateGames": "Automatski ažuriraj igre",
-        "disable_logs": "Onemogući dnevnike"
+        "disable_logs": "Onemogući dnevnike",
+        "addgamestoapplications": "Automatski dodajte igre u aplikacije",
+        "showMetalOverlay": "Prikaži preklapanje statistike"
     },
     "settings": {
         "battlEyeRuntime": {

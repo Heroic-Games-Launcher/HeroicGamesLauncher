@@ -279,7 +279,7 @@
             "part1": "Heroic mencari versi Wine, Proton, dan CrossOver di folder berikut ini:",
             "part2": "Untuk tempat lain, gunakan tautan simbolis ke salah satu folder ini"
         },
-        "disable_logs": "Aktifkan kotak centang ini untuk menonaktifkan sebagian besar penulisan ke file log (informasi penting selalu dicatat). Pastikan untuk MENONAKTIFKAN setelan ini sebelum melaporkan masalah apa pun."
+        "disable_logs": "Aktifkan kotak centang ini untuk menonaktifkan sebagian besar penulisan ke berkas log (informasi penting selalu dicatat). Pastikan untuk MENONAKTIFKAN setelan ini sebelum melaporkan masalah apa pun."
     },
     "info": {
         "heroic": {
@@ -523,7 +523,7 @@
         "log": {
             "copy-to-clipboard": "Salin konten log ke papan klip",
             "current-log": "Log Saat Ini",
-            "instructions": "Bergabunglah dengan Discord kami dan cari saluran yang cocok dengan sistem operasi Anda. Bagikan konten log yang ditampilkan di sini, dan sertakan deskripsi yang jelas tentang masalah yang dialami dengan informasi dan detail yang relevan.",
+            "instructions": "Bergabunglah dengan Discord kami dan carilah bagian \"#-support\". Bacalah utas \"Read Me First | Frequently Asked Questions\" dan ikuti instruksinya untuk membagikan log ini dan informasi lain yang relevan mengenai masalahmu.",
             "instructions_title": "Bagaimana cara melaporkan masalah?",
             "last-log": "Log Terakhir",
             "no-file": "Tidak ditemukan berkas log",
@@ -570,7 +570,9 @@
         "wineversion": "Versi Wine",
         "autoUpdateGames": "Perbarui gim secara otomatis",
         "ignoreGameUpdates": "Abaikan pembaruan gim",
-        "disable_logs": "Nonaktifkan Log"
+        "disable_logs": "Nonaktifkan Log",
+        "addgamestoapplications": "Tambahkan gim ke Aplikasi secara otomatis",
+        "showMetalOverlay": "Tampilkan Hamparan Statistik"
     },
     "settings": {
         "battlEyeRuntime": {
