@@ -20,8 +20,7 @@ import {
   Warning,
   Hardware,
   Error,
-  CheckCircleOutline,
-  ErrorOutline,
+  CheckCircle,
   DoNotDisturb,
   HelpOutline
 } from '@mui/icons-material'
@@ -318,23 +317,26 @@ export default React.memo(function GamePage(): JSX.Element | null {
     const hasAppleInfo = applegamingwiki?.crossoverRating
     const appLocation = install_path || folder_name
     const hasProtonDB = steamInfo?.compatibilityLevel
-    const hasSteamDeckCompat = steamInfo?.steamDeckCatagory
+    // check if we got a number. zero is also valid.
+    const hasSteamDeckCompat = Number.isFinite(steamInfo?.steamDeckCatagory)
     const steamLevelNames = [
+      // use outline for help icon because steam does it aswell
+      // colors come from the steam verified icons
       <HelpOutline
         key={0}
-        style={{ marginLeft: '5px', cursor: 'not-allowed' }}
+        style={{ marginLeft: '5px', cursor: 'default', color: '#a0a5a8' }}
       />,
       <DoNotDisturb
         key={1}
-        style={{ marginLeft: '5px', cursor: 'not-allowed' }}
+        style={{ marginLeft: '5px', cursor: 'default', color: '#a0a5a8' }}
       />,
-      <ErrorOutline
+      <Error
         key={2}
-        style={{ marginLeft: '5px', cursor: 'not-allowed' }}
+        style={{ marginLeft: '5px', cursor: 'default', color: '#ffc82c' }}
       />,
-      <CheckCircleOutline
+      <CheckCircle
         key={3}
-        style={{ marginLeft: '5px', cursor: 'not-allowed' }}
+        style={{ marginLeft: '5px', cursor: 'default', color: '#58be42' }}
       />
     ]
 
@@ -653,7 +655,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   </a>
                 )}
                 {hasSteamDeckCompat && (
-                  <a className="iconWithText" style={{ cursor: 'unset' }}>
+                  <a className="iconWithText" style={{ cursor: 'default' }}>
                     <WineBar />
                     {t(
                       'info.steamdeck-compatibility-info',

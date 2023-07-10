@@ -52,7 +52,7 @@ export async function getWikiGameInfo(
 
     let steamInfo = null
     if (isLinux) {
-      const steamID = pcgamingwiki?.steamID ?? gamesdb?.steamID
+      const steamID = pcgamingwiki?.steamID || gamesdb?.steamID
       const [protondb, steamdeck] = await Promise.all([
         getInfoFromProtonDB(steamID),
         getSteamDeckComp(steamID)

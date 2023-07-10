@@ -90,7 +90,7 @@ describe('getWikiGameInfo', () => {
       timestampLastFetch: oneMonthAgo.toString()
     })
 
-    const result = await await getWikiGameInfo('The Witcher 3', '1234', 'gog')
+    const result = await getWikiGameInfo('The Witcher 3', '1234', 'gog')
     expect(result).toStrictEqual(testExtraGameInfo)
     expect(mockPCGamingWiki).toBeCalled()
     expect(mockAppleGamingWiki).toBeCalled()
@@ -100,6 +100,51 @@ describe('getWikiGameInfo', () => {
     expect(mockProtonDB).toBeCalledWith('100')
     expect(mockSteamDeck).toBeCalled()
     expect(mockSteamDeck).toBeCalledWith('100')
+  })
+
+  test('fallback to gamesdb steamID', async () => {
+    const oneMonthAgo = new Date(testExtraGameInfo.timestampLastFetch)
+    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1)
+
+    Object.defineProperty(mockConstants, 'isMac', { value: true })
+    Object.defineProperty(mockConstants, 'isLinux', { value: true })
+    const mockPCGamingWiki = jest
+      .spyOn(PCGamingWiki, 'getInfoFromPCGamingWiki')
+      .mockResolvedValue({ ...testPCGamingWikiInfo, steamID: '' })
+    const mockAppleGamingWiki = jest
+      .spyOn(AppleGamingWiki, 'getInfoFromAppleGamingWiki')
+      .mockResolvedValue(testAppleGamingWikiInfo)
+    const mockHowLongToBeat = jest
+      .spyOn(HowLongToBeat, 'getHowLongToBeat')
+      .mockResolvedValue(testHowLongToBeat)
+    const mockGamesDB = jest
+      .spyOn(GamesDB, 'getInfoFromGamesDB')
+      .mockResolvedValue(testGamesDBInfo)
+    const mockProtonDB = jest
+      .spyOn(ProtonDB, 'getInfoFromProtonDB')
+      .mockResolvedValue(testProtonDBInfo)
+    const mockSteamDeck = jest
+      .spyOn(SteamDeck, 'getSteamDeckComp')
+      .mockResolvedValue(testSteamCompat)
+
+    wikiGameInfoStore.set('The Witcher 3', {
+      ...testExtraGameInfo,
+      timestampLastFetch: oneMonthAgo.toString()
+    })
+
+    const result = await getWikiGameInfo('The Witcher 3', '1234', 'gog')
+    expect(result).toStrictEqual({
+      ...testExtraGameInfo,
+      pcgamingwiki: { ...testPCGamingWikiInfo, steamID: '' }
+    })
+    expect(mockPCGamingWiki).toBeCalled()
+    expect(mockAppleGamingWiki).toBeCalled()
+    expect(mockHowLongToBeat).toBeCalled()
+    expect(mockGamesDB).toBeCalled()
+    expect(mockProtonDB).toBeCalled()
+    expect(mockProtonDB).toBeCalledWith('123')
+    expect(mockSteamDeck).toBeCalled()
+    expect(mockSteamDeck).toBeCalledWith('123')
   })
 
   test('cached data outdated - not mac not linux', async () => {
@@ -148,7 +193,7 @@ describe('getWikiGameInfo', () => {
 
     wikiGameInfoStore.clear()
 
-    const result = await await getWikiGameInfo('The Witcher 3', '1234', 'gog')
+    const result = await getWikiGameInfo('The Witcher 3', '1234', 'gog')
     expect(result).toBeNull()
     expect(logError).toBeCalledWith(
       [
