@@ -543,7 +543,7 @@ class GlobalState extends PureComponent<Props> {
     })
     window.api.logInfo(`Refreshing ${library} Library`)
     try {
-      if (!checkForUpdates || library === 'gog') {
+      if (!checkForUpdates || library === 'gog' || library === 'nile') {
         await window.api.refreshLibrary(library)
       }
 
