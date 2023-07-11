@@ -80,7 +80,6 @@ interface SyncIPCFunctions {
   resetHeroic: () => void
   createNewWindow: (url: string) => void
   logoutGOG: () => void
-  logoutAmazon: () => void
   toggleVKD3D: (args: ToolArgs) => void
   logError: (message: unknown) => void
   logInfo: (message: unknown) => void
@@ -157,6 +156,7 @@ interface AsyncIPCFunctions {
     user: NileUserData | undefined
   }>
   logoutLegendary: () => Promise<void>
+  logoutAmazon: () => Promise<void>
   getAlternativeWine: () => Promise<WineInstallation[]>
   getLocalPeloadPath: () => Promise<string>
   readConfig: (config_class: 'library' | 'user') => Promise<GameInfo[] | string>

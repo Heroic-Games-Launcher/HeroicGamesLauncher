@@ -771,7 +771,7 @@ ipcMain.handle('getLocalPeloadPath', async () => {
 
 ipcMain.handle('getAmazonLoginData', NileUser.getLoginData)
 ipcMain.handle('authAmazon', async (event, data) => NileUser.login(data))
-ipcMain.on('logoutAmazon', NileUser.logout)
+ipcMain.handle('logoutAmazon', NileUser.logout)
 
 ipcMain.handle('getAlternativeWine', async () =>
   GlobalConfig.get().getAlternativeWine()
