@@ -43,6 +43,7 @@ export default function WebView() {
 
   const epicStore = `https://www.epicgames.com/store/${lang}/`
   const gogStore = `https://gog.com`
+  const amazonStore = `https://gaming.amazon.com`
   const wikiURL =
     'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
   const gogEmbedRegExp = new RegExp('https://embed.gog.com/on_login_success?')
@@ -55,6 +56,7 @@ export default function WebView() {
   const urls: { [pathname: string]: string } = {
     '/epicstore': epicStore,
     '/gogstore': gogStore,
+    '/amazonstore': amazonStore,
     '/wiki': wikiURL,
     '/loginEpic': epicLoginUrl,
     '/loginGOG': gogLoginUrl,
@@ -211,7 +213,7 @@ export default function WebView() {
   }, [webviewRef.current, preloadPath, amazonLoginData])
 
   const [showLoginWarningFor, setShowLoginWarningFor] = useState<
-    null | 'epic' | 'gog'
+    null | 'epic' | 'gog' | 'amazon'
   >(null)
 
   useEffect(() => {
@@ -223,6 +225,8 @@ export default function WebView() {
       !gog.username
     ) {
       setShowLoginWarningFor('gog')
+    } else if (startUrl.match(/gaming\.amazon\.com/) && !amazon.username) {
+      setShowLoginWarningFor('amazon')
     }
   }, [startUrl])
 

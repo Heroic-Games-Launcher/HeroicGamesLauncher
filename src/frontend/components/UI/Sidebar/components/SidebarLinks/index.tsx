@@ -80,6 +80,16 @@ export default function SidebarLinks() {
     }
   }
 
+  // By default, open Epic Store
+  let defaultStore = '/epicstore'
+  if (!epic.username && !gog.username && amazon.username) {
+    // If only logged in to Amazon Games, open Amazon Gaming
+    defaultStore = '/amazonstore'
+  } else if (!epic.username && gog.username) {
+    // Otherwise, if not logged in to Epic Games, open GOG Store
+    defaultStore = '/gogstore'
+  }
+
   return (
     <div className="SidebarLinks Sidebar__section">
       {!loggedIn && (
@@ -123,8 +133,7 @@ export default function SidebarLinks() {
               active: isActive || location.pathname.includes('store')
             })
           }
-          //open gog store if only gog account logged in, otherwise by default open epic store
-          to={gog.username && !epic.username ? '/gogstore' : '/epicstore'}
+          to={defaultStore}
         >
           <>
             <div className="Sidebar__itemIcon">
@@ -156,6 +165,17 @@ export default function SidebarLinks() {
               to="/gogstore"
             >
               <span>{t('gog-store', 'GOG Store')}</span>
+            </NavLink>
+            <NavLink
+              data-testid="store"
+              className={({ isActive }) =>
+                classNames('Sidebar__item', 'SidebarLinks__subItem', {
+                  active: isActive
+                })
+              }
+              to="/amazonstore"
+            >
+              <span>{t('prime-gaming', 'Prime Gaming')}</span>
             </NavLink>
           </div>
         )}
