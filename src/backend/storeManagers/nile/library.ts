@@ -66,10 +66,10 @@ function loadGamesInAccount() {
     } = productDetail
 
     let storePage: string | undefined
-    if (websites.steam) {
-      storePage = websites.steam
-    } else if (websites.gog) {
+    if (websites.gog) {
       storePage = websites.gog
+    } else if (websites.steam) {
+      storePage = websites.steam
     } else if (websites.official) {
       storePage = websites.official
     }
