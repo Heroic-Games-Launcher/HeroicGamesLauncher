@@ -36,11 +36,11 @@
             "message": "Möchtest du dieses Spiel deinstallieren?",
             "settingcheckbox": "Einstellungen löschen und Log entfernen{{newLine}}Beachte: Dies kann nicht rückgängig gemacht werden! Alle geänderten Einstellungen werden verworfen und das Log wird gelöscht.",
             "title": "Deinstallieren",
-            "prefix_warning": "Das Wine-Präfix für dieses Spiel ist das Standardpräfix. Wenn Sie es wirklich löschen möchten, müssen Sie es manuell tun.",
-            "dlc": "Möchten Sie diesen DLC deinstallieren?"
+            "prefix_warning": "Das Wine-Präfix für dieses Spiel ist das Standardpräfix. Wenn du es wirklich löschen möchtest, dann musst du das manuell tun.",
+            "dlc": "Möchtest du dieses DLC deinstallieren?"
         },
         "update": {
-            "message": "Für dieses Spiel ist ein Update verfügbar. Jetzt installieren?",
+            "message": "Für dieses Spiel ist eine Aktualisierung verfügbar. Jetzt installieren?",
             "title": "Spiel benötigt eine neuere Version"
         },
         "wineprefix": "Wine-Prefix-Ordner auswählen",
@@ -51,7 +51,7 @@
         "cancel": "Pausieren/Abbrechen",
         "continue": "Download fortsetzen",
         "finish": "Abschließen",
-        "force_update": "Update erzwingen, falls verfügbar",
+        "force_update": "Aktualisierung erzwingen, falls verfügbar",
         "force-innstall": "Installation erzwingen",
         "hide_game": "Spiel ausblenden",
         "import": "Spiel importieren",
@@ -65,11 +65,11 @@
         "run-exe-first": "Zuerst Installationsprogramm ausführen",
         "running-setup": "Setup ausführen",
         "sideload": {
-            "edit": "App/Spiel bearbeiten"
+            "edit": "Anwendung/Spiel bearbeiten"
         },
         "unhide_game": "Spiel einblenden",
         "uninstall": "Deinstallieren",
-        "update": "Update",
+        "update": "Aktualisieren",
         "details": "Einzelheiten"
     },
     "cloud_save_unsupported": "Nicht unterstützt",
@@ -81,13 +81,13 @@
     "game": {
         "downloadSize": "Downloadgröße",
         "firstPlayed": "Erstmals gespielt",
-        "getting-download-size": "Ermittle Download-Größe",
-        "getting-install-size": "Ermittle installierte Größe",
+        "getting-download-size": "Downloadgröße wird ermittelt …",
+        "getting-install-size": "Installierte Größe wird ermittelt …",
         "installSize": "Installierte Größe",
         "language": "Sprache",
         "lastPlayed": "Zuletzt gespielt",
         "neverPlayed": "Nie",
-        "platform": "Zu installierende Version auswählen",
+        "platform": "Plattform für die Installation auswählen",
         "requirements": "Systemanforderungen",
         "totalPlayed": "Spielzeit",
         "dlcs": "DLCs"
@@ -116,7 +116,7 @@
         "version": "Version",
         "apple-gaming-wiki": "AppleGamingWiki-Bewertung",
         "clickToOpen": "Zum Öffnen klicken",
-        "game-scores": "Spielergebnisse",
+        "game-scores": "Spielbewertungen",
         "installedInfo": "Installierte Informationen"
     },
     "install": {
@@ -125,20 +125,20 @@
         "path": "Installationspfad auswählen",
         "path-not-writtable": "Warnung: Der Pfad ist möglicherweise nicht beschreibbar.",
         "space-after-install": "Nach der Installation",
-        "wineprefix": "Wine-Prefix",
+        "wineprefix": "Wine-Präfix",
         "wineversion": "Wine-Version"
     },
     "label": {
         "game": {
             "third-party-game": "Drittanbieterspiel NICHT unterstützt",
-            "not-installable-game": "Das Spiel ist NICHT installierbar"
+            "not-installable-game": "Das Spiel kann NICHT installiert werden"
         },
         "playing": {
             "start": "Jetzt spielen",
             "stop": "Anhalten"
         },
         "saves": {
-            "syncing": "Spielstände werden synchronisiert"
+            "syncing": "Spielstände werden synchronisiert …"
         },
         "launching": "Starten",
         "ubisoft": "Installation von Ubisoft Connect"
@@ -158,7 +158,7 @@
     },
     "setting": {
         "use-default-wine-settings": "Verwende Standardeinstellungen für Wine",
-        "winecrossoverbottle": "CrossOver Flasche"
+        "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {
         "field": {
@@ -166,14 +166,14 @@
         },
         "info": {
             "exe": "Ausführbare Datei auswählen",
-            "image": "App-Bild",
-            "title": "Spiel/App-Titel",
-            "broser": "BrowserURL"
+            "image": "Bild der Anwendung",
+            "title": "Titel des Spiels / der Anwendung",
+            "broser": "Browser-URL"
         },
         "placeholder": {
-            "image": "Füge hier eine Bild-URL ein",
-            "title": "Gib deinem Spiel/deiner App einen Titel",
-            "url": "Fügen Sie hier die Spiel-URL ein"
+            "image": "Hier die URL eines Bildes einfügen",
+            "title": "Einen Titel zum Spiel / zur Anwendung hinzufügen",
+            "url": "Hier die URL des Spiels einfügen"
         }
     },
     "specs": {
@@ -181,7 +181,7 @@
         "recommended": "Empfohlen"
     },
     "status": {
-        "clickToUpdate": "Klicken zum Aktualisieren",
+        "clickToUpdate": "Zum Aktualisieren klicken",
         "gameNotAvailable": "Spiel nicht verfügbar",
         "hasUpdates": "Neue Version verfügbar!",
         "installed": "Installiert",
@@ -196,16 +196,16 @@
         "this-game-uses-third-party": "Dieses Spiel verwendet einen Drittanbieter-Launcher und wird noch nicht unterstützt",
         "totalDownloaded": "Insgesamt heruntergeladen",
         "uninstalling": "Wird deinstalliert",
-        "updating": "Spiel wird aktualisiert",
+        "updating": "Spiel wird aktualisiert …",
         "playing": "Wird gespielt",
         "moving-files": "Datei verschieben '{{file}}': {{percent}} ",
-        "syncingSaves": "Spielstände werden synchronisiert",
+        "syncingSaves": "Spielstände werden synchronisiert …",
         "launching": "Wird gestartet",
         "ubisoft": "Ubisoft wird installiert",
         "downloading": "Wird heruntergeladen",
         "extracting": "Wird extrahiert",
-        "gog-goodie": "Dieses Spiel scheint nicht installierbar zu sein. Überprüfen Sie herunterladbare Inhalte auf https://gog.com/account",
-        "goodie": "Nicht installierbar"
+        "gog-goodie": "Dieses Spiel scheint nicht installiert werden zu können. Überprüfe herunterladbare Inhalte auf https://gog.com/account",
+        "goodie": "Kann nicht installiert werden"
     },
     "submenu": {
         "addShortcut": "Verknüpfung hinzufügen",
