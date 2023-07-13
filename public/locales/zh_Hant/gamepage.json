@@ -56,7 +56,7 @@
         "hide_game": "隱藏遊戲",
         "import": "導入",
         "install": "安裝",
-        "no-path-selected": "No path selected",
+        "no-path-selected": "未選擇路徑",
         "queue": {
             "remove": "Remove from Queue"
         },
@@ -115,7 +115,7 @@
         "syncsaves": "同步存檔",
         "version": "版本",
         "apple-gaming-wiki": "AppleGamingWiki 評級",
-        "clickToOpen": "點擊打開",
+        "clickToOpen": "點擊開啟",
         "game-scores": "比賽成績",
         "installedInfo": "安裝訊息"
     },
@@ -140,7 +140,7 @@
         "saves": {
             "syncing": "存檔同步中"
         },
-        "launching": "發射",
+        "launching": "啟動中",
         "ubisoft": "安裝育碧連接"
     },
     "launch": {
@@ -173,7 +173,7 @@
         "placeholder": {
             "image": "Paste an Image URL here",
             "title": "Add a title to your Game/App",
-            "url": "在此處粘貼遊戲網址"
+            "url": "在此處貼上遊戲網址"
         }
     },
     "specs": {
@@ -197,11 +197,11 @@
         "totalDownloaded": "總共已下載",
         "uninstalling": "解除安裝中",
         "updating": "遊戲更新中",
-        "playing": "播放",
+        "playing": "遊戲中",
         "moving-files": "移動文件“{{file}}”：{{percent}} ",
         "syncingSaves": "同步保存",
         "ubisoft": "安裝育碧",
-        "launching": "發射",
+        "launching": "啟動中",
         "downloading": "下載中",
         "extracting": "提取",
         "goodie": "不可安裝",
@@ -224,6 +224,6 @@
         "logs": "日誌"
     },
     "help": {
-        "cloud_save_unsupported": "本遊戲不支持雲存檔。此信息由遊戲開發商提供。有些遊戲確實實現了自己的雲保存系統"
+        "cloud_save_unsupported": "本遊戲不支援雲端存檔。此訊息由遊戲開發商提供。有些遊戲確實實現了自己的雲端存檔系統"
     }
 }

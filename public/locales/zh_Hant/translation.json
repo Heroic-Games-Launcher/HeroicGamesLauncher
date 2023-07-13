@@ -14,7 +14,7 @@
         "may_not_work": "由於拒絕或破壞的反作弊支持，它可能無法運作。",
         "reference": "參考",
         "source": "Source",
-        "status": "Status",
+        "status": "狀態",
         "title": "此遊戲包含反作弊軟體"
     },
     "box": {
@@ -56,7 +56,7 @@
                 "title": "遊戲資料夾似乎已被刪除，你是否要從安裝列表中刪除遊戲？"
             },
             "generic": {
-                "message": "一般錯誤信息",
+                "message": "一般錯誤訊息",
                 "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
@@ -89,7 +89,7 @@
         },
         "info": {
             "update": {
-                "changelog": "打開更新日誌",
+                "changelog": "開啟更新日誌",
                 "detail": "你想在背景下載更新嗎？",
                 "message": "目前有新版本可用！",
                 "message-finished": "你想立即重啟 Heroic 嗎？",
@@ -111,7 +111,7 @@
         "reset-heroic": {
             "question": {
                 "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
-                "title": "Reset Heroic"
+                "title": "重置 Heroic"
             }
         },
         "runexe": {
@@ -125,7 +125,7 @@
             "message": "已建立捷徑在桌面和開始功能表內",
             "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "將捷徑從桌面和開始功能表移除",
-            "message-remove-mac": "Shortcuts were removed from the Applications folder",
+            "message-remove-mac": "已從應用程式資料夾中刪除捷徑",
             "title": "捷徑"
         },
         "sync": {
@@ -190,12 +190,12 @@
     "docs": "Documentation",
     "download-manager": {
         "install-type": {
-            "install": "Install",
-            "update": "Update"
+            "install": "安裝",
+            "update": "更新"
         },
         "label": {
-            "disk": "Disk",
-            "speed": "Download"
+            "disk": "磁碟",
+            "speed": "下載"
         },
         "link": "Downloads",
         "queue": {
@@ -209,13 +209,13 @@
     },
     "epic": {
         "offline-notification-body": "因為Epic Games伺服器離線，可能無法提供完整線上服務！",
-        "offline-notification-title": "offline"
+        "offline-notification-title": "離線"
     },
     "Epic Games": "Epic Games",
-    "error": "Error",
+    "error": "錯誤",
     "favourites": "最愛",
     "game": {
-        "status": "Status",
+        "status": "狀態",
         "store": "商店",
         "title": "遊戲名稱"
     },
@@ -287,7 +287,7 @@
             "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Update Available!",
             "stable": "Stable",
-            "version": "Heroic Version"
+            "version": "Heroic 版本"
         },
         "save-sync": {
             "searching": "Trying to detect the correct save folder (click to cancel)"
@@ -445,7 +445,7 @@
         "win": "Windows",
         "browser": "瀏覽器"
     },
-    "please-wait": "Please wait...",
+    "please-wait": "請等待…",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -493,7 +493,7 @@
             "currentVersion": "目前版本： {{version}}",
             "disable": "停用",
             "enable": "啟用",
-            "install": "Install",
+            "install": "安裝",
             "installed": "已安裝 EOS 內嵌介面",
             "installing": "正在安裝 EOS 內嵌介面...",
             "latestVersion": "最新版本： {{version}}",
@@ -503,7 +503,7 @@
             "remove": "解除安裝",
             "removeConfirm": "確定要現在解除安裝 EOS 內嵌介面嗎？",
             "removeConfirmTitle": "確認移除內嵌介面",
-            "updateNow": "Update",
+            "updateNow": "更新",
             "updating": "更新中..."
         },
         "esync": "啟用 Esync",
@@ -542,7 +542,7 @@
         "maxRecentGames": "要顯示最近遊玩的遊戲",
         "maxworkers": "下載時的最大Worker數量",
         "minimize-on-launch": "遊戲啟動後最小化 Heroic",
-        "offlinemode": "離線運行遊戲",
+        "offlinemode": "離線執行遊戲",
         "prefered_language": "首選語言（語言代碼）",
         "preferSystemLibs": "偏好系統庫",
         "primerun": {
