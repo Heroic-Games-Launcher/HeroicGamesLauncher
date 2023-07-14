@@ -22,8 +22,8 @@
             "message": "Heroic-Cache wurde geleert.",
             "title": "Cache geleert"
         },
-        "choose": "Wähle",
-        "choose-egs-prefix": "Wähle den Präfix unter dem EGS installiert ist",
+        "choose": "Auswählen",
+        "choose-egs-prefix": "Wähle das Präfix unter dem EGS installiert ist",
         "choose-gogdl-binary": "GOGDL-Binärdatei auswählen (benötigt Neustart)",
         "choose-legendary-binary": "Legendary-Binärdatei auswählen",
         "customWine": "Benutzerdefinierter Wine/Proton-Pfad",
@@ -56,7 +56,7 @@
                 "title": "Der Spieleordner scheint gelöscht zu sein, möchtest du das Spiel aus der Liste der installierten Spiele entfernen?"
             },
             "generic": {
-                "message": "allgemeine Fehlermeldung",
+                "message": "Allgemeine Fehlermeldung",
                 "title": "Wähle auszuführende EXE"
             },
             "launchAborted": "Starten abgebrochen",
@@ -151,10 +151,10 @@
             "title": "Warnung",
             "wine-change": {
                 "message": "Die ausgewählte Wine-Version konnte nicht gefunden werden, um den Titel zu starten ({{selectedWine}}). {{newline}} Wir haben eine andere Version gefunden, möchtest du den Start mit {{foundWine}} fortsetzen?",
-                "title": "Wein nicht gefunden!"
+                "title": "Wine nicht gefunden!"
             }
         },
-        "wineprefix": "Wine-Prefix-Ordner auswählen",
+        "wineprefix": "Wine-Präfix-Ordner auswählen",
         "yes": "JA",
         "dontShowAgain": "Nicht erneut anzeigen"
     },
@@ -165,7 +165,7 @@
         "sync": "Synchronisieren",
         "syncing": "Synchronisiere",
         "unsync": "Nicht mehr synchronisieren",
-        "continue": "Fortsetzen"
+        "continue": "Weiter"
     },
     "controller": {
         "hints": {
@@ -270,7 +270,7 @@
         "steamruntime": "Benutzerdefinierte Bibliotheken, die von Steam bereitgestellt werden, um die Ausführung von Linux- und Windows-Spielen (Proton) zu unterstützen. Durch Aktivieren kann die Kompatibilität verbessert werden.",
         "sync": {
             "part1": "Heroic versucht, den richtigen Spielstände Ordner zu erraten, was in den meisten Fällen auch funktioniert. Falls der richtige Ordner nicht gefunden wurde, verwende das Feld, um den jetzigen Ordner zu überschreiben.",
-            "part2": "Falls du den Präfix-Ordner für Wine oder Proton änderst, musst du auch den Pfad erneut überprüfen, da Proton einen anderen Präfix (/pfx) und Benutzernamen (steamuser) verwendet. Du kannst in diesem Fall den jetzigen Ordner löschen, die Synchronisations-Einstellungen verlassen und wieder zurückkehren. Heroic wird dann erneut versuchen, den Ordner erneut mit dem richtigen Prefix zu finden.",
+            "part2": "Falls du den Präfix-Ordner für Wine oder Proton änderst, musst du auch den Pfad erneut überprüfen, da Proton ein anderes Präfix (/pfx) und Benutzernamen (steamuser) verwendet. Du kannst in diesem Fall den jetzigen Ordner löschen, die Synchronisations-Einstellungen verlassen und wieder zurückkehren. Heroic wird dann erneut versuchen, den Ordner erneut mit dem richtigen Präfix zu finden.",
             "part3": "Manuelle Synchronisation: Wähle „Download“, um die in der Cloud gespeicherten Spielstände herunterzuladen. „Upload“, um die lokalen in die Cloud hochzuladen. „Download erzwingen“ und „Upload erzwingen“ ignorieren die Version, die sich lokal oder in der Cloud befindet.",
             "part4": "„Spielstände automatisch synchronisieren“ synchronisiert die Spielstände jedes Mal, wenn ein Spiel gestartet und nachdem ein Spiel beendet wurde."
         },
@@ -301,10 +301,10 @@
         "warning": "Warnung",
         "wine-path": "Wine-Pfad",
         "wine-prefix": {
-            "title": "Wine-Prefix"
+            "title": "Wine-Präfix"
         },
         "wine-repfix": {
-            "message": "Wine verwendet einen so genannten WINEPREFIX, um Windows-Anwendungen abzukapseln. Dieser Präfix enthält die Wine-Konfigurationsdateien und eine Nachbildung der Dateihierarchie von C: (der Hauptfestplatte eines Windows-Betriebssystems). In dieser Reproduktion des Laufwerks C: werden deine Spielespeicherdateien und die über Winetricks installierten Abhängigkeiten gespeichert."
+            "message": "Wine verwendet einen sogenannten WINEPREFIX, um Windows-Anwendungen abzukapseln. Dieses Präfix enthält die Wine-Konfigurationsdateien und eine Nachbildung der Dateihierarchie von C: (der Hauptfestplatte eines Windows-Betriebssystems). In dieser Reproduktion des Laufwerks C: werden deine Spielstände und die über Winetricks installierten Abhängigkeiten gespeichert."
         },
         "wine-path-invalid": "Der Wine-Pfad ist ungültig. Bitte wähle einen anderen aus.",
         "wine-path-none-found": "Es wurde keine Wine-Version gefunden. Lade eine vom Wine Manager herunter"
@@ -436,7 +436,7 @@
         "alt-legendary-bin": "Integrierte Legendary-Binärdatei wird verwendet …",
         "custom_themes_path": "Wähle den Pfad für benutzerdefinierte CSS-Dateien",
         "dxvkfpsvalue": "Positiver ganzzahliger Wert (z. B. 30, 60, …)",
-        "egs-prefix": "Prefix, in dem EGS installiert ist",
+        "egs-prefix": "Präfix, in dem EGS installiert ist",
         "prefered_language": "Zwei-Zeichen-Code (z. B.: „en“ oder „fr“)"
     },
     "platforms": {
@@ -468,7 +468,7 @@
         "addgamestosteam": "Spiele automatisch zu Steam hinzufügen",
         "alt-gogdl-bin": "Alternative GOGDL-Binärdatei zum Verwenden auswählen",
         "alt-legendary-bin": "Alternative Legendary-Binärdatei zum Verwenden auswählen",
-        "autodxvk": "Automatisches Installieren/Aktualisieren von DXVK im Prefix",
+        "autodxvk": "Automatisches Installieren/Aktualisieren von DXVK im Präfix",
         "autosync": "Spielstände automatisch synchronisieren",
         "autovkd3d": "VKD3D automatisch im Präfix installieren/aktualisieren",
         "change-target-exe": "Alternativ EXE zum Ausführen auswählen",
@@ -479,7 +479,7 @@
         "darktray": "Dunkles Taskleistensymbol verwenden",
         "default-install-path": "Standard-Installationspfad",
         "default-steam-path": "Standard-Steam-Pfad",
-        "defaultWinePrefix": "Ordner für neue Wine Präfixe festlegen",
+        "defaultWinePrefix": "Ordner für neue Wine-Präfixe festlegen",
         "disable_controller": "Heroic-Navigation mit Gamepad deaktivieren",
         "discordRPC": "Discord Rich Presence aktivieren",
         "download-no-https": "Spiele ohne HTTPS herunterladen (nützlich für CDNs z. B. LanCache)",
@@ -554,7 +554,7 @@
         },
         "runexe": {
             "message": "Dateien hierher ziehen und ablegen",
-            "title": "EXE in Prefix starten"
+            "title": "EXE in Präfix starten"
         },
         "savefolder": {
             "not-found": "Ordner für Speicherdaten nicht gefunden, bitte wähle ihn manuell aus (klicken, um es erneut zu versuchen)",
@@ -566,7 +566,7 @@
         "start-in-tray": "Minimiert starten",
         "steamruntime": "Steam Runtime verwenden",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "WinePrefix-Ordner",
+        "wineprefix": "Wine-Präfix-Ordner",
         "wineversion": "Wine-Version",
         "autoUpdateGames": "Spiele automatisch aktualisieren",
         "ignoreGameUpdates": "Spielaktualisierungen ignorieren",
@@ -622,9 +622,9 @@
         "uncollapse": "Seitenleiste ausklappen"
     },
     "status": {
-        "installing": "Wird installiert",
+        "installing": "Wird installiert …",
         "logging": "Anmelden …",
-        "processing": "Dateien werden verarbeitet, bitte warten"
+        "processing": "Bitte warten. Dateien werden verarbeitet …"
     },
     "store": "Epic Store",
     "stores": "Shops",
@@ -634,7 +634,7 @@
     "toolbox": {
         "settings": {
             "default-wineprefix": "Wähle den Standard-Präfix-Ordner für neue Konfigurationen",
-            "wineprefix": "Wähle einen Ordner für neue Wine Präfixe"
+            "wineprefix": "Wähle einen Ordner für neue Wine-Präfixe"
         }
     },
     "tooltip": {
