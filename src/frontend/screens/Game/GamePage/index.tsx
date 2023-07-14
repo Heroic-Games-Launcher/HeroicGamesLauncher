@@ -19,7 +19,10 @@ import {
   Pause,
   Warning,
   Hardware,
-  Error
+  Error,
+  CheckCircle,
+  DoNotDisturb,
+  HelpOutline
 } from '@mui/icons-material'
 import {
   createNewWindow,
@@ -78,7 +81,6 @@ import PopoverComponent from 'frontend/components/UI/PopoverComponent'
 import HowLongToBeat from 'frontend/components/UI/WikiGameInfo/components/HowLongToBeat'
 import GameScore from 'frontend/components/UI/WikiGameInfo/components/GameScore'
 import DLCList from 'frontend/components/UI/DLCList'
-
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
   const location = useLocation() as {
@@ -301,7 +303,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
     hasRequirements = extraInfo?.reqs ? extraInfo.reqs.length > 0 : false
     hasUpdate = is_installed && gameUpdates?.includes(appName)
 
-    const { howlongtobeat, pcgamingwiki, applegamingwiki } = wikiGameInfo || {}
+    const {
+      howlongtobeat,
+      pcgamingwiki,
+      applegamingwiki,
+      steamInfo: steamInfo
+    } = wikiGameInfo || {}
     const hasHLTB = Boolean(howlongtobeat?.gameplayMain)
     const hasScores =
       pcgamingwiki?.metacritic.score ||
@@ -309,6 +316,34 @@ export default React.memo(function GamePage(): JSX.Element | null {
       pcgamingwiki?.opencritic.score
     const hasAppleInfo = applegamingwiki?.crossoverRating
     const appLocation = install_path || folder_name
+    const hasProtonDB = steamInfo?.compatibilityLevel
+    // check if we got a number. zero is also valid.
+    const hasSteamDeckCompat = Number.isFinite(steamInfo?.steamDeckCatagory)
+    const steamLevelNames = [
+      // use outline for help icon because steam does it aswell
+      // colors come from the steam verified icons
+      <HelpOutline
+        key={0}
+        style={{ marginLeft: '5px', cursor: 'default', color: '#a0a5a8' }}
+      />,
+      <DoNotDisturb
+        key={1}
+        style={{ marginLeft: '5px', cursor: 'default', color: '#a0a5a8' }}
+      />,
+      <Error
+        key={2}
+        style={{ marginLeft: '5px', cursor: 'default', color: '#ffc82c' }}
+      />,
+      <CheckCircle
+        key={3}
+        style={{ marginLeft: '5px', cursor: 'default', color: '#58be42' }}
+      />
+    ]
+
+    let protonDBurl = `https://www.protondb.com/search?q=${title}`
+    if (pcgamingwiki?.steamID) {
+      protonDBurl = `https://www.protondb.com/app/${pcgamingwiki?.steamID}`
+    }
 
     const downloadSize =
       gameInstallInfo?.manifest?.download_size &&
@@ -599,6 +634,35 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       <HowLongToBeat info={howlongtobeat!} />
                     </div>
                   </PopoverComponent>
+                )}
+                {hasProtonDB && (
+                  <a
+                    role="button"
+                    onClick={() => {
+                      createNewWindow(protonDBurl)
+                    }}
+                    title={t('info.clickToOpen', 'Click to open')}
+                    className="iconWithText"
+                  >
+                    <WineBar />
+                    {t(
+                      'info.protondb-compatibility-info',
+                      'Proton Compatibility Tier'
+                    )}
+                    :{' '}
+                    {steamInfo!.compatibilityLevel!.charAt(0).toUpperCase() +
+                      steamInfo!.compatibilityLevel!.slice(1)}
+                  </a>
+                )}
+                {hasSteamDeckCompat && (
+                  <a className="iconWithText" style={{ cursor: 'default' }}>
+                    <WineBar />
+                    {t(
+                      'info.steamdeck-compatibility-info',
+                      'SteamDeck Compatibility'
+                    )}
+                    : {steamLevelNames[steamInfo?.steamDeckCatagory ?? 3]}
+                  </a>
                 )}
                 {hasAppleInfo && (
                   <a

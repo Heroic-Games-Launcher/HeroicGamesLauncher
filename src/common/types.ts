@@ -602,13 +602,22 @@ export interface ProtonDBCompatibilityInfo {
   level: string
 }
 
+export interface SteamDeckComp {
+  category: number
+}
+
+export interface SteamInfo {
+  compatibilityLevel: string | null
+  steamDeckCatagory: number | null
+}
+
 export interface WikiInfo {
   timestampLastFetch: string
   pcgamingwiki: PCGamingWikiInfo | null
   applegamingwiki: AppleGamingWikiInfo | null
   howlongtobeat: HowLongToBeatEntry | null
   gamesdb: GamesDBInfo | null
-  protondb: ProtonDBCompatibilityInfo | null
+  steamInfo: SteamInfo | null
 }
 
 /**
