@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "Рейтинг на AppleGamingWiki",
         "clickToOpen": "Щракнете, за да отворите",
         "game-scores": "Резултати на играта",
-        "installedInfo": "Информация за инсталацията"
+        "installedInfo": "Информация за инсталацията",
+        "protondb-compatibility-info": "Протонно ниво на съвместимост",
+        "steamdeck-compatibility-info": "Съвместимост със SteamDeck"
     },
     "install": {
         "disk-space-left": "Свободно място",
@@ -185,7 +187,7 @@
         "gameNotAvailable": "Играта не е налична",
         "hasUpdates": "Има нова версия!",
         "installed": "Инсталирана",
-        "installing": "Инсталиране",
+        "installing": "Инсталиране…",
         "moving": "Преместване на играта; моля, изчакайте",
         "notinstalled": "Играта не е инсталирана",
         "notSupported": "Не се поддържа",
@@ -196,7 +198,7 @@
         "this-game-uses-third-party": "Тази игра използва външна пускова програма и все още не се поддържа",
         "totalDownloaded": "Общо свалено",
         "uninstalling": "Деинсталиране",
-        "updating": "Обновяване на играта",
+        "updating": "Обновяване на играта…",
         "playing": "Пуснато",
         "moving-files": "Преместване на файла „{{file}}“: {{percent}} ",
         "syncingSaves": "Синхронизиране на запазените файлове",

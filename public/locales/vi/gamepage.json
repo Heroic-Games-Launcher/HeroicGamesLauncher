@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "Xếp hạng Wiki của AppleGaming",
         "clickToOpen": "Bấm để mở",
         "game-scores": "Tỷ số trận đấu",
-        "installedInfo": "Thông tin đã cài đặt"
+        "installedInfo": "Thông tin đã cài đặt",
+        "protondb-compatibility-info": "Bậc Tương thích Proton",
+        "steamdeck-compatibility-info": "Khả năng tương thích SteamDeck"
     },
     "install": {
         "disk-space-left": "Dung lượng trống",

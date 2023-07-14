@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "Βαθμολογία AppleGamingWiki",
         "clickToOpen": "Κάντε κλικ για άνοιγμα",
         "game-scores": "Αποτελέσματα παιχνιδιού",
-        "installedInfo": "Εγκατεστημένες πληροφορίες"
+        "installedInfo": "Εγκατεστημένες πληροφορίες",
+        "protondb-compatibility-info": "Επίπεδο συμβατότητας πρωτονίων",
+        "steamdeck-compatibility-info": "Συμβατότητα SteamDeck"
     },
     "install": {
         "disk-space-left": "Διαθέσιμος Αποθηκευτικός Χώρος",

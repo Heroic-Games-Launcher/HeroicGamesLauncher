@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "AppleGamingWiki-luokitus",
         "clickToOpen": "Avaa napsauttamalla",
         "game-scores": "Pelin Pisteet",
-        "installedInfo": "Asennettu tiedot"
+        "installedInfo": "Asennettu tiedot",
+        "protondb-compatibility-info": "Protonien yhteensopivuustaso",
+        "steamdeck-compatibility-info": "SteamDeck-yhteensopivuus"
     },
     "install": {
         "disk-space-left": "Tilaa saatavilla",

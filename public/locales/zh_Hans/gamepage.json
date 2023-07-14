@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "AppleGamingWiki 评级",
         "clickToOpen": "单击打开",
         "game-scores": "游戏分数",
-        "installedInfo": "已安装信息"
+        "installedInfo": "已安装信息",
+        "protondb-compatibility-info": "质子兼容性层",
+        "steamdeck-compatibility-info": "SteamDeck 兼容性"
     },
     "install": {
         "disk-space-left": "可用空间",

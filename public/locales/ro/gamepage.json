@@ -118,7 +118,9 @@
         "apple-gaming-wiki": "Evaluare AppleGamingWiki",
         "clickToOpen": "Faceți clic pentru a deschide",
         "game-scores": "Scoruri de joc",
-        "installedInfo": "Informații instalate"
+        "installedInfo": "Informații instalate",
+        "protondb-compatibility-info": "Nivelul de compatibilitate cu protoni",
+        "steamdeck-compatibility-info": "Compatibilitate cu SteamDeck"
     },
     "install": {
         "disk-space-left": "Spatiu disponibil",

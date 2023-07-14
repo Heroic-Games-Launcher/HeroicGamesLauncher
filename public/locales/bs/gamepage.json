@@ -118,7 +118,9 @@
         "clickToOpen": "Kliknite da otvorite",
         "apple-gaming-wiki": "AppleGamingWiki Ocjena",
         "game-scores": "Rezultati igre",
-        "installedInfo": "Instalirane informacije"
+        "installedInfo": "Instalirane informacije",
+        "protondb-compatibility-info": "Proton Compatibility Tier",
+        "steamdeck-compatibility-info": "SteamDeck kompatibilnost"
     },
     "install": {
         "disk-space-left": "Prostora dostupno",

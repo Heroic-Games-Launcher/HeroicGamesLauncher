@@ -167,7 +167,9 @@
         "apple-gaming-wiki": "AppleGamingWiki reytingi",
         "clickToOpen": "Ochish uchun bosing",
         "game-scores": "O'yin natijalari",
-        "installedInfo": "O'rnatilgan ma'lumotlar"
+        "installedInfo": "O'rnatilgan ma'lumotlar",
+        "protondb-compatibility-info": "Proton muvofiqlik darajasi",
+        "steamdeck-compatibility-info": "SteamDeck mosligi"
     },
     "install": {
         "disk-space-left": "Bo'sh joy mavjud",

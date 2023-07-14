@@ -1,21 +1,21 @@
 {
     "box": {
         "change": {
-            "message": "Dies wird den Installationsort dieses Spiels ändern, bist du dir sicher?",
+            "message": "Das wird den Installationsort dieses Spiels ändern. Möchtest du fortfahren?",
             "path": "Wähle einen neuen Installationspfad",
             "title": "Spiele-Installationspfad ändern"
         },
-        "choose": "Wähle",
+        "choose": "Auswählen",
         "importpath": "Zu importierenden Spieleordner auswählen",
         "move": {
-            "message": "Dies kann einige Zeit in Anspruch nehmen, möchtest du wirklich fortfahren?",
+            "message": "Das kann einige Zeit in Anspruch nehmen. Möchtest du fortfahren?",
             "path": "Wähle, wohin du verschieben möchtest",
             "title": "Spielinstallation verschieben"
         },
         "no": "NEIN",
         "repair": {
-            "message": "Möchtest du versuchen, dieses Spiel zu reparieren? Dies kann einige Zeit in Anspruch nehmen.",
-            "title": "Auf Fehler überprüfen und Reparieren"
+            "message": "Möchtest du versuchen, dieses Spiel zu reparieren? Das kann einige Zeit in Anspruch nehmen.",
+            "title": "Auf Fehler überprüfen und reparieren"
         },
         "runexe": {
             "title": "Wähle auszuführende EXE"
@@ -32,18 +32,18 @@
             "title": "Installation abbrechen"
         },
         "uninstall": {
-            "checkbox": "Entferne Prefix: {{prefix}}{{newLine}}Hinweis: Dies kann nicht rückgängig gemacht werden und löscht auch ungesicherte Speicherdaten.",
+            "checkbox": "Präfix entfernen: {{prefix}}{{newLine}}Hinweis: Dies kann nicht rückgängig gemacht werden und löscht auch nicht gesicherte Spielstände.",
             "message": "Möchtest du dieses Spiel deinstallieren?",
-            "settingcheckbox": "Einstellungen löschen und Log entfernen{{newLine}}Beachte: Dies kann nicht rückgängig gemacht werden! Alle geänderten Einstellungen werden verworfen und das Log wird gelöscht.",
+            "settingcheckbox": "Einstellungen löschen und Log entfernen{{newLine}}Hinweis: Dies kann nicht rückgängig gemacht werden! Alle geänderten Einstellungen werden verworfen und das Log wird gelöscht.",
             "title": "Deinstallieren",
             "prefix_warning": "Das Wine-Präfix für dieses Spiel ist das Standardpräfix. Wenn du es wirklich löschen möchtest, dann musst du das manuell tun.",
             "dlc": "Möchtest du dieses DLC deinstallieren?"
         },
         "update": {
             "message": "Für dieses Spiel ist eine Aktualisierung verfügbar. Jetzt installieren?",
-            "title": "Spiel benötigt eine neuere Version"
+            "title": "Spiel benötigt eine Aktualisierung"
         },
-        "wineprefix": "Wine-Prefix-Ordner auswählen",
+        "wineprefix": "Wine-Präfix-Ordner auswählen",
         "yes": "JA"
     },
     "button": {
@@ -61,7 +61,7 @@
             "remove": "Aus Warteschlange entfernen"
         },
         "remove_from_favourites": "Aus Favoriten entfernen",
-        "remove_from_recent": "Aus Zuletzt Gespielt entfernen",
+        "remove_from_recent": "Aus „Zuletzt gespielte Spiele“ entfernen",
         "run-exe-first": "Zuerst Installationsprogramm ausführen",
         "running-setup": "Setup ausführen",
         "sideload": {
@@ -70,7 +70,7 @@
         "unhide_game": "Spiel einblenden",
         "uninstall": "Deinstallieren",
         "update": "Aktualisieren",
-        "details": "Einzelheiten"
+        "details": "Informationen"
     },
     "cloud_save_unsupported": "Nicht unterstützt",
     "disabled": "Deaktiviert",
@@ -93,8 +93,8 @@
         "dlcs": "DLCs"
     },
     "gamecard": {
-        "moving": "Verschiebe",
-        "repairing": "Repariere"
+        "moving": "Wird verschoben …",
+        "repairing": "Wird repariert …"
     },
     "generic": {
         "error": "Unbekannter Fehler",
@@ -102,8 +102,8 @@
     },
     "hours": "Stunden",
     "how-long-to-beat": {
-        "completionist": "Vollendungswillig",
-        "main-plus-extras": "Haupt + Extras",
+        "completionist": "Alles vervollständigen",
+        "main-plus-extras": "Hauptgeschichte + Extras",
         "main-story": "Hauptgeschichte"
     },
     "howLongToBeat": "Wie lange dauert es",
@@ -117,10 +117,12 @@
         "apple-gaming-wiki": "AppleGamingWiki-Bewertung",
         "clickToOpen": "Zum Öffnen klicken",
         "game-scores": "Spielbewertungen",
-        "installedInfo": "Installierte Informationen"
+        "installedInfo": "Installierte Informationen",
+        "protondb-compatibility-info": "Proton-Kompatibilitätsstufe",
+        "steamdeck-compatibility-info": "Steam Deck-Kompatibilität"
     },
     "install": {
-        "disk-space-left": "Verfügbarer Speicherplatz auf dem Gerät",
+        "disk-space-left": "Verfügbarer Speicherplatz",
         "not-enough-disk-space": "Nicht genügend Speicherplatz",
         "path": "Installationspfad auswählen",
         "path-not-writtable": "Warnung: Der Pfad ist möglicherweise nicht beschreibbar.",
@@ -140,15 +142,15 @@
         "saves": {
             "syncing": "Spielstände werden synchronisiert …"
         },
-        "launching": "Starten",
-        "ubisoft": "Installation von Ubisoft Connect"
+        "launching": "Wird gestartet …",
+        "ubisoft": "Ubisoft Connect wird installiert …"
     },
     "launch": {
-        "options": "Startoptionen..."
+        "options": "Startoptionen …"
     },
     "not_logged_in": {
-        "epic": "Du bist mit keinem Epic-Account in Heroic angemeldet. Verwende nicht die Store-Seite, um dich anzumelden, sondern klicke stattdessen auf die folgende Schaltfläche:",
-        "gog": "Du bist mit keinem GOG-Account in Heroic angemeldet. Verwende nicht die Store-Seite, um dich anzumelden, sondern klicke stattdessen auf die folgende Schaltfläche:",
+        "epic": "Du bist mit keinem Epic-Konto in Heroic angemeldet. Verwende zum Anmelden nicht die Store-Seite, sondern klicke stattdessen auf die folgende Schaltfläche:",
+        "gog": "Du bist mit keinem GOG-Konto in Heroic angemeldet. Verwende zum Anmelden nicht die Store-Seite, sondern klicke stattdessen auf die folgende Schaltfläche:",
         "login": "Anmelden",
         "title": "Du bist NICHT angemeldet"
     },
@@ -157,7 +159,7 @@
         "title": "Zu installierende Komponenten auswählen"
     },
     "setting": {
-        "use-default-wine-settings": "Verwende Standardeinstellungen für Wine",
+        "use-default-wine-settings": "Standardeinstellungen für Wine verwenden",
         "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {
@@ -177,7 +179,7 @@
         }
     },
     "specs": {
-        "minimum": "Minimal",
+        "minimum": "Minimum",
         "recommended": "Empfohlen"
     },
     "status": {
@@ -185,25 +187,25 @@
         "gameNotAvailable": "Spiel nicht verfügbar",
         "hasUpdates": "Neue Version verfügbar!",
         "installed": "Installiert",
-        "installing": "Wird installiert",
-        "moving": "Installation wird verschoben, bitte warten",
+        "installing": "Wird installiert …",
+        "moving": "Bitte warten. Installation wird verschoben …",
         "notinstalled": "Dieses Spiel ist nicht installiert",
         "notSupported": "Nicht unterstützt",
         "notSupportedGame": "Nicht unterstützt",
-        "processing": "Dateien werden verarbeitet, bitte warten",
+        "processing": "Bitte warten. Dateien werden verarbeitet …",
         "queued": "In Warteschlange",
-        "reparing": "Spiel wird repariert, bitte warten",
+        "reparing": "Bitte warten. Spiel wird repariert …",
         "this-game-uses-third-party": "Dieses Spiel verwendet einen Drittanbieter-Launcher und wird noch nicht unterstützt",
         "totalDownloaded": "Insgesamt heruntergeladen",
-        "uninstalling": "Wird deinstalliert",
+        "uninstalling": "Wird deinstalliert …",
         "updating": "Spiel wird aktualisiert …",
-        "playing": "Wird gespielt",
+        "playing": "Wird gespielt …",
         "moving-files": "Datei verschieben '{{file}}': {{percent}} ",
         "syncingSaves": "Spielstände werden synchronisiert …",
-        "launching": "Wird gestartet",
-        "ubisoft": "Ubisoft wird installiert",
-        "downloading": "Wird heruntergeladen",
-        "extracting": "Wird extrahiert",
+        "launching": "Wird gestartet …",
+        "ubisoft": "Ubisoft wird installiert …",
+        "downloading": "Wird heruntergeladen …",
+        "extracting": "Wird extrahiert …",
         "gog-goodie": "Dieses Spiel scheint nicht installiert werden zu können. Überprüfe herunterladbare Inhalte auf https://gog.com/account",
         "goodie": "Kann nicht installiert werden"
     },
@@ -219,9 +221,9 @@
         "removeShortcut": "Verknüpfungen entfernen",
         "settings": "Einstellungen",
         "store": "Store-Seite",
-        "verify": "Prüfen und reparieren",
+        "verify": "Auf Fehler überprüfen und Reparieren",
         "extraInfo": "Zusatzinformation",
-        "logs": "Protokolle"
+        "logs": "Logs"
     },
     "help": {
         "cloud_save_unsupported": "Dieses Spiel unterstützt keinen Cloud-Speicher. Diese Informationen werden von den Spieleentwicklern bereitgestellt. Einige Spiele implementieren ihr eigenes Cloud-Speichersystem"
