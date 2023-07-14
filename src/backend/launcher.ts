@@ -311,12 +311,29 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     case 'crossover':
       ret.CX_BOTTLE = wineCrossoverBottle
   }
-
   if (gameSettings.showFps) {
     isMac ? (ret.MTL_HUD_ENABLED = '1') : (ret.DXVK_HUD = 'fps')
   }
   if (gameSettings.enableDXVKFpsLimit) {
     ret.DXVK_FRAME_RATE = gameSettings.DXVKFpsCap
+  }
+  if (
+    gameSettings.showMangohud &&
+    !gameSettings.enviromentOptions.find(
+      ({ key }) => key === 'MANGOHUD_CONFIGFILE'
+    )
+  ) {
+    if (!process.env.XDG_CONFIG_HOME) {
+      ret.MANGOHUD_CONFIGFILE = join(
+        flatPakHome,
+        '.config/MangoHud/MangoHud.conf'
+      )
+    } else {
+      ret.MANGOHUD_CONFIGFILE = join(
+        process.env.XDG_CONFIG_HOME,
+        'MangoHud/MangoHud.conf'
+      )
+    }
   }
   if (gameSettings.enableEsync && wineVersion.type !== 'proton') {
     ret.WINEESYNC = '1'
