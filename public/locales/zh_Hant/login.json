@@ -3,13 +3,13 @@
         "login": "登入",
         "open": "打開鏈接",
         "copy": "複製",
-        "copied": "已復制！",
+        "copied": "已複製！",
         "error": "錯誤，嘗試不同的代碼",
-        "loading": "Loading"
+        "loading": "載入中"
     },
     "message": {
         "part1": "為了讓您能夠登入並安裝您的遊戲，您首先需要按照以下步驟操作：",
-        "part2": "打開",
+        "part2": "開啟",
         "part3": "Epic Games商城",
         "part4": "，登入您的帳號，複製您的",
         "part5": "資訊號碼",
