@@ -7,14 +7,14 @@
         "title": "無障礙設定",
         "zoom": "Zoom"
     },
-    "add_game": "Add Game",
+    "add_game": "新增遊戲",
     "All": "全部",
     "anticheat": {
         "anticheats": "反作弊",
         "may_not_work": "由於拒絕或破壞的反作弊支持，它可能無法運作。",
         "reference": "參考",
         "source": "Source",
-        "status": "Status",
+        "status": "狀態",
         "title": "此遊戲包含反作弊軟體"
     },
     "box": {
@@ -33,8 +33,8 @@
         "error": {
             "add": {
                 "steam": {
-                    "body": "添加 {{game}} 到 Steam 失敗，錯誤：{{newLine}} {{error}}",
-                    "title": "添加錯誤"
+                    "body": "新增 {{game}} 到 Steam 失敗，錯誤：{{newLine}} {{error}}",
+                    "title": "新增錯誤"
                 }
             },
             "credentials": {
@@ -56,7 +56,7 @@
                 "title": "遊戲資料夾似乎已被刪除，你是否要從安裝列表中刪除遊戲？"
             },
             "generic": {
-                "message": "一般錯誤信息",
+                "message": "一般錯誤訊息",
                 "title": "Select EXE to Run"
             },
             "launchAborted": "Launch aborted",
@@ -67,7 +67,7 @@
             },
             "update": {
                 "message": "更新出現問題，請檢查日誌或稍後再試！",
-                "title": "Update Error"
+                "title": "更新錯誤"
             },
             "wine-not-found": {
                 "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
@@ -89,7 +89,7 @@
         },
         "info": {
             "update": {
-                "changelog": "打開更新日誌",
+                "changelog": "開啟更新日誌",
                 "detail": "你想在背景下載更新嗎？",
                 "message": "目前有新版本可用！",
                 "message-finished": "你想立即重啟 Heroic 嗎？",
@@ -111,7 +111,7 @@
         "reset-heroic": {
             "question": {
                 "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
-                "title": "Reset Heroic"
+                "title": "重置 Heroic"
             }
         },
         "runexe": {
@@ -125,7 +125,7 @@
             "message": "已建立捷徑在桌面和開始功能表內",
             "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "將捷徑從桌面和開始功能表移除",
-            "message-remove-mac": "Shortcuts were removed from the Applications folder",
+            "message-remove-mac": "已從應用程式資料夾中刪除捷徑",
             "title": "捷徑"
         },
         "sync": {
@@ -159,43 +159,43 @@
         "dontShowAgain": "不再顯示"
     },
     "button": {
-        "cancel": "Cancel",
+        "cancel": "取消",
         "go_to_library": "前往遊戲庫",
         "login": "登入",
         "sync": "同步",
         "syncing": "正在同步",
         "unsync": "不同步",
-        "continue": "Continue"
+        "continue": "繼續"
     },
     "controller": {
         "hints": {
-            "back": "Back",
+            "back": "返回",
             "backspace": "Backspace",
             "close_dialog": "Close dialog",
-            "close_keyboard": "Close keyboard",
-            "close_options": "Close Options",
-            "game_details": "Game details",
-            "game_settings": "Game settings",
-            "install_game": "Install game",
-            "move_cursor": "Move cursor",
-            "open_virtual_keyboard": "Open virtual keyboard",
-            "options": "Options",
-            "play_game": "Play game",
+            "close_keyboard": "關閉鍵盤",
+            "close_options": "關閉選項",
+            "game_details": "遊戲內容",
+            "game_settings": "遊戲設定",
+            "install_game": "安裝遊戲",
+            "move_cursor": "移動游標",
+            "open_virtual_keyboard": "開啟虛擬鍵盤",
+            "options": "選項",
+            "play_game": "開始遊戲",
             "scroll": "Scroll",
-            "select": "Select",
+            "select": "選擇",
             "space": "Space",
-            "update_game": "Update game"
+            "update_game": "更新遊戲"
         }
     },
     "docs": "Documentation",
     "download-manager": {
         "install-type": {
-            "install": "Install",
-            "update": "Update"
+            "install": "安裝",
+            "update": "更新"
         },
         "label": {
-            "disk": "Disk",
-            "speed": "Download"
+            "disk": "磁碟",
+            "speed": "下載"
         },
         "link": "Downloads",
         "queue": {
@@ -209,13 +209,13 @@
     },
     "epic": {
         "offline-notification-body": "因為Epic Games伺服器離線，可能無法提供完整線上服務！",
-        "offline-notification-title": "offline"
+        "offline-notification-title": "離線"
     },
     "Epic Games": "Epic Games",
-    "error": "Error",
+    "error": "錯誤",
     "favourites": "最愛",
     "game": {
-        "status": "Status",
+        "status": "狀態",
         "store": "商店",
         "title": "遊戲名稱"
     },
@@ -287,7 +287,7 @@
             "click-to-see-changelog": "Click to see changelog",
             "newReleases": "Update Available!",
             "stable": "Stable",
-            "version": "Heroic Version"
+            "version": "Heroic 版本"
         },
         "save-sync": {
             "searching": "Trying to detect the correct save folder (click to cancel)"
@@ -298,7 +298,7 @@
     "infobox": {
         "help": "幫助",
         "requirements": "系統要求",
-        "warning": "Warning",
+        "warning": "警告",
         "wine-path": "Wine 路徑",
         "wine-prefix": {
             "title": "Wine Prefix"
@@ -313,7 +313,7 @@
         "path": "選擇安裝路徑"
     },
     "label": {
-        "loading": "Loading"
+        "loading": "載入中"
     },
     "library": {
         "refresh": "重新整理",
@@ -350,7 +350,7 @@
                 "steam": {
                     "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
                     "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
-                    "title": "已添加到 Steam"
+                    "title": "已新增至 Steam"
                 }
             },
             "remove": {
@@ -391,9 +391,9 @@
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
-        "retrying": "Retrying"
+        "retrying": "重試中"
     },
-    "Open": "打開",
+    "Open": "開啟",
     "options": {
         "advanced": {
             "key": "Variable Name",
@@ -445,15 +445,15 @@
         "win": "Windows",
         "browser": "瀏覽器"
     },
-    "please-wait": "Please wait...",
+    "please-wait": "請等待…",
     "progress": "Progress",
     "queue": {
         "label": {
             "canceled": "Canceled",
             "clear": "Clear List",
-            "downloading": "Downloading",
+            "downloading": "下載中",
             "empty": "Nothing to download",
-            "finished": "Completed",
+            "finished": "已完成",
             "queued": "Queued",
             "remove": "Remove from Downloads",
             "resume": "恢復下載",
@@ -463,8 +463,8 @@
     "Recent": "最近遊玩的遊戲",
     "search": "搜尋遊戲",
     "setting": {
-        "adddesktopshortcuts": "自動添加桌面捷徑",
-        "addgamestostartmenu": "自動添加捷徑到開始功能表",
+        "adddesktopshortcuts": "自動新增桌面捷徑",
+        "addgamestostartmenu": "自動新增捷徑到開始功能表",
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "選擇要使用的備選 GOGDL 二進制文件",
         "alt-legendary-bin": "選擇備選的 Legendary 二進制文件",
@@ -493,7 +493,7 @@
             "currentVersion": "目前版本： {{version}}",
             "disable": "停用",
             "enable": "啟用",
-            "install": "Install",
+            "install": "安裝",
             "installed": "已安裝 EOS 內嵌介面",
             "installing": "正在安裝 EOS 內嵌介面...",
             "latestVersion": "最新版本： {{version}}",
@@ -503,7 +503,7 @@
             "remove": "解除安裝",
             "removeConfirm": "確定要現在解除安裝 EOS 內嵌介面嗎？",
             "removeConfirmTitle": "確認移除內嵌介面",
-            "updateNow": "Update",
+            "updateNow": "更新",
             "updating": "更新中..."
         },
         "esync": "啟用 Esync",
@@ -542,7 +542,7 @@
         "maxRecentGames": "要顯示最近遊玩的遊戲",
         "maxworkers": "下載時的最大Worker數量",
         "minimize-on-launch": "遊戲啟動後最小化 Heroic",
-        "offlinemode": "離線運行遊戲",
+        "offlinemode": "離線執行遊戲",
         "prefered_language": "首選語言（語言代碼）",
         "preferSystemLibs": "偏好系統庫",
         "primerun": {
@@ -570,7 +570,9 @@
         "wineversion": "Wine 版本",
         "autoUpdateGames": "自動更新遊戲",
         "ignoreGameUpdates": "忽略遊戲更新",
-        "disable_logs": "禁用日誌"
+        "disable_logs": "禁用日誌",
+        "addgamestoapplications": "自動將遊戲新增到應用程式",
+        "showMetalOverlay": "顯示統計數據疊加"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -600,7 +602,7 @@
         },
         "navbar": {
             "advanced": "進階",
-            "games_settings_defaults": "Game Defaults",
+            "games_settings_defaults": "遊戲預設",
             "general": "一般",
             "log": "Log",
             "other": "其它",
@@ -636,7 +638,7 @@
         }
     },
     "tooltip": {
-        "addpath": "添加新路徑",
+        "addpath": "新增新路徑",
         "removepath": "刪除路徑"
     },
     "tray": {

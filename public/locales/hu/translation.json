@@ -570,7 +570,9 @@
         "wineversion": "Wine verzió",
         "ignoreGameUpdates": "Figyelmen kívül hagyja a játékfrissítéseket",
         "autoUpdateGames": "Játékok automatikus frissítése",
-        "disable_logs": "Naplók letiltása"
+        "disable_logs": "Naplók letiltása",
+        "showMetalOverlay": "Statisztika fedvény megjelenítése",
+        "addgamestoapplications": "Adjon hozzá játékokat automatikusan az Alkalmazásokhoz"
     },
     "settings": {
         "battlEyeRuntime": {

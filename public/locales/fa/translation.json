@@ -570,7 +570,9 @@
         "wineversion": "نسخه Wine",
         "ignoreGameUpdates": "نادیده گرفتن به‌روزرسانی‌های بازی",
         "autoUpdateGames": "به روز رسانی خودکار بازی ها",
-        "disable_logs": "غیرفعال کردن گزارش‌ها"
+        "disable_logs": "غیرفعال کردن گزارش‌ها",
+        "addgamestoapplications": "بازی ها را به طور خودکار به برنامه ها اضافه کنید",
+        "showMetalOverlay": "نمایش همپوشانی آمار"
     },
     "settings": {
         "battlEyeRuntime": {

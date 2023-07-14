@@ -570,7 +570,9 @@
         "wineversion": "വൈനിന്റെ പതിപ്പ്",
         "autoUpdateGames": "ഗെയിമുകൾ യാന്ത്രികമായി അപ്ഡേറ്റ് ചെയ്യുക",
         "ignoreGameUpdates": "ഗെയിം അപ്‌ഡേറ്റുകൾ അവഗണിക്കുക",
-        "disable_logs": "ലോഗുകൾ പ്രവർത്തനരഹിതമാക്കുക"
+        "disable_logs": "ലോഗുകൾ പ്രവർത്തനരഹിതമാക്കുക",
+        "addgamestoapplications": "ആപ്ലിക്കേഷനുകളിലേക്ക് ഗെയിമുകൾ സ്വയമേവ ചേർക്കുക",
+        "showMetalOverlay": "സ്ഥിതിവിവരക്കണക്കുകളുടെ ഓവർലേ കാണിക്കുക"
     },
     "settings": {
         "battlEyeRuntime": {

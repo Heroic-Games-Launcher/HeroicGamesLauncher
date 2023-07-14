@@ -118,7 +118,9 @@
         "installedInfo": "Installed Information",
         "installedPlatform": "Installed Platform",
         "path": "Install Path",
+        "protondb-compatibility-info": "Proton Compatibility Tier",
         "size": "Size",
+        "steamdeck-compatibility-info": "SteamDeck Compatibility",
         "syncsaves": "Sync Saves",
         "version": "Version"
     },

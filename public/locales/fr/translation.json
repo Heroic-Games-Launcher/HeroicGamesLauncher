@@ -5,7 +5,7 @@
         "content_font_family_no_default": "Police d'écriture pour les contenus (Par défaut : ",
         "fonts": "Polices d'écriture",
         "title": "Accessibilité",
-        "zoom": "Zoom"
+        "zoom": "Agrandir"
     },
     "add_game": "Ajouter un jeu",
     "All": "Tout",
@@ -279,7 +279,7 @@
             "part1": "Heroic recherche des versions de Wine, Proton et CrossOver dans ces dossiers :",
             "part2": "Pour d'autres emplacements, utilisez un lien symbolique vers un de ces dossiers"
         },
-        "disable_logs": "Activez cette case à cocher pour désactiver la plupart des écritures dans les fichiers journaux (les informations critiques sont toujours enregistrées). Assurez-vous de désactiver ce paramètre avant de signaler un problème."
+        "disable_logs": "Cochez cette case pour désactiver la plupart des écritures dans les fichiers journaux (les informations critiques sont toujours enregistrées). Assurez-vous de désactiver ce paramètre avant de signaler un problème."
     },
     "info": {
         "heroic": {
@@ -523,7 +523,7 @@
         "log": {
             "copy-to-clipboard": "Copier le contenu du log dans le presse-papier",
             "current-log": "Log actuel",
-            "instructions": "Rejoignez notre Discord et regardez le canal qui correspond à votre système d'exploitation. Partagez le contenu des logs affichés ici, et incluez une description claire du problème avec toute information et détails pertinents.",
+            "instructions": "Rejoignez notre Discord et recherchez la section \"#-support\". Lisez le fil épinglé \"Read Me First | Frequently Asked Questions\" et suivez les instructions pour partager le contenu de ces journaux, ainsi que toute information pertinente concernant votre problème.",
             "instructions_title": "Comment signaler un problème ?",
             "last-log": "Dernier log",
             "no-file": "Aucun fichier log trouvé",
@@ -570,7 +570,9 @@
         "wineversion": "Version de Wine",
         "autoUpdateGames": "Mettre les jeux à jour automatiquement",
         "ignoreGameUpdates": "Ignorer les mises à jour du jeu",
-        "disable_logs": "Désactiver les journaux"
+        "disable_logs": "Désactiver les journaux",
+        "showMetalOverlay": "Afficher la superposition des statistiques",
+        "addgamestoapplications": "Ajouter automatiquement des jeux aux applications"
     },
     "settings": {
         "battlEyeRuntime": {

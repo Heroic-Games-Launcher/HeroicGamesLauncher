@@ -570,7 +570,9 @@
         "wineversion": "Versión de Wine",
         "autoUpdateGames": "Actualizar juegos automáticamente",
         "ignoreGameUpdates": "Ignorar actualizaciones del juego",
-        "disable_logs": "Deshabilitar registros"
+        "disable_logs": "Deshabilitar registros",
+        "addgamestoapplications": "Agregar juegos a Aplicaciones automáticamente",
+        "showMetalOverlay": "Mostrar superposición de estadísticas"
     },
     "settings": {
         "battlEyeRuntime": {

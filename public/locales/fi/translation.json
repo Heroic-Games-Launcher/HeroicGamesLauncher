@@ -570,7 +570,9 @@
         "wineversion": "Winen versio",
         "autoUpdateGames": "Päivitä pelit automaattisesti",
         "ignoreGameUpdates": "Ohita pelipäivitykset",
-        "disable_logs": "Poista lokit käytöstä"
+        "disable_logs": "Poista lokit käytöstä",
+        "addgamestoapplications": "Lisää pelejä automaattisesti sovelluksiin",
+        "showMetalOverlay": "Näytä tilastojen peittokuva"
     },
     "settings": {
         "battlEyeRuntime": {

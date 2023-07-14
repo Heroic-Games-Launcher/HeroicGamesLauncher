@@ -523,7 +523,7 @@
         "log": {
             "copy-to-clipboard": "Copia el registre al porta-retalls",
             "current-log": "Registre actual",
-            "instructions": "Uneix-te al nostre canal de Discord i cerca el canal que s'adigui amb el teu sistema operatiu. Comparteix-hi el contingut del registre i inclou-hi una explicació clara del problema amb tota la informació i detalls rellevants.",
+            "instructions": "Uneix-te al nostre canal de Discord i cerca la secció «#-support». Llegeix el fil fixat «Read Me First | Frequently Asked Questions» i segueix les instruccions per a compartir els registres i qualsevol informació rellevant sobre el teu problema.",
             "instructions_title": "Com informar d'un problema",
             "last-log": "Últim registre",
             "no-file": "No s'ha trobat cap registre",
@@ -570,7 +570,9 @@
         "wineversion": "Versió del Wine",
         "autoUpdateGames": "Actualitza els jocs automàticament",
         "ignoreGameUpdates": "Ignora les actualitzacions del joc",
-        "disable_logs": "Desactiva els registres"
+        "disable_logs": "Desactiva els registres",
+        "showMetalOverlay": "Mostra la superposició d'estadístiques",
+        "addgamestoapplications": "Afegeix jocs a Aplicacions automàticament"
     },
     "settings": {
         "battlEyeRuntime": {

@@ -570,7 +570,9 @@
         "wineversion": "Ardoaren Bertsioa",
         "autoUpdateGames": "Eguneratu jokoak automatikoki",
         "ignoreGameUpdates": "Ez ikusi jokoaren eguneraketak",
-        "disable_logs": "Desgaitu erregistroak"
+        "disable_logs": "Desgaitu erregistroak",
+        "addgamestoapplications": "Gehitu automatikoki jokoak aplikazioetan",
+        "showMetalOverlay": "Erakutsi estatistikak gainjartzea"
     },
     "settings": {
         "battlEyeRuntime": {

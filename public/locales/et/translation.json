@@ -570,7 +570,9 @@
         "wineversion": "Wine'i versioon",
         "autoUpdateGames": "Mängude automaatne värskendamine",
         "ignoreGameUpdates": "Ignoreeri mängu värskendusi",
-        "disable_logs": "Keela logid"
+        "disable_logs": "Keela logid",
+        "addgamestoapplications": "Lisage mänge rakendustesse automaatselt",
+        "showMetalOverlay": "Kuva statistika ülekate"
     },
     "settings": {
         "battlEyeRuntime": {

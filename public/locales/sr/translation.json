@@ -509,7 +509,9 @@
         "steamruntime": "Користите Стеам Рунтиме",
         "autoUpdateGames": "Аутоматски ажурирајте игре",
         "ignoreGameUpdates": "Игноришите ажурирања игре",
-        "disable_logs": "Онемогући евиденцију"
+        "disable_logs": "Онемогући евиденцију",
+        "showMetalOverlay": "Прикажи преклапање статистике",
+        "addgamestoapplications": "Аутоматски додајте игре у апликације"
     },
     "settings": {
         "battlEyeRuntime": {

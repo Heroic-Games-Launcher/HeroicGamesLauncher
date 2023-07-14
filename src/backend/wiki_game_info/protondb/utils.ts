@@ -3,12 +3,13 @@ import axios, { AxiosError } from 'axios'
 import { logDebug, logError, LogPrefix } from 'backend/logger/logger'
 
 export async function getInfoFromProtonDB(
-  steamID: string
+  steamID: string | undefined
 ): Promise<ProtonDBCompatibilityInfo | null> {
-  if (steamID === '') {
+  if (!steamID) {
     logDebug('No SteamID, not getting ProtonDB info')
     return null
   }
+
   const url = `https://www.protondb.com/api/v1/reports/summaries/${steamID}.json`
 
   const response = await axios

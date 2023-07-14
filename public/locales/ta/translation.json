@@ -570,7 +570,9 @@
         "wineversion": "Wine பதிப்பு",
         "autoUpdateGames": "கேம்களை தானாகவே புதுப்பிக்கவும்",
         "ignoreGameUpdates": "கேம் புதுப்பிப்புகளைப் புறக்கணிக்கவும்",
-        "disable_logs": "பதிவுகளை முடக்கு"
+        "disable_logs": "பதிவுகளை முடக்கு",
+        "addgamestoapplications": "தானாகவே பயன்பாடுகளில் கேம்களைச் சேர்க்கவும்",
+        "showMetalOverlay": "புள்ளிவிவர மேலடுக்கைக் காட்டு"
     },
     "settings": {
         "battlEyeRuntime": {
