@@ -10,7 +10,11 @@ interface Props {
   onlyInstalled: boolean
 }
 
-function getRecentGames(libraries: GameInfo[], limit: number): GameInfo[] {
+function getRecentGames(
+  libraries: GameInfo[],
+  limit: number,
+  onlyInstalled: boolean
+): GameInfo[] {
   const recentGames = configStore.get('games.recent', [])
 
   const games: GameInfo[] = []
@@ -18,6 +22,7 @@ function getRecentGames(libraries: GameInfo[], limit: number): GameInfo[] {
   for (const recent of recentGames) {
     const found = libraries.find((game) => game.app_name === recent.appName)
     if (found) {
+      if (onlyInstalled && !found.is_installed) continue
       games.push(found)
       if (games.length === limit) break
     }
@@ -43,7 +48,8 @@ export default React.memo(function RecentlyPlayed({
         ...sideloadedLibrary,
         ...amazon.library
       ],
-      maxRecentGames
+      maxRecentGames,
+      onlyInstalled
     )
 
     setRecentGames(newRecentGames)
