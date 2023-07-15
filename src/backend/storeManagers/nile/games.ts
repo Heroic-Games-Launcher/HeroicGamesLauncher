@@ -571,7 +571,7 @@ export async function forceUninstall(appName: string) {
   removeFromInstalledConfig(appName)
 }
 
-export async function stop(appName: string, stopWine?: boolean) {
+export async function stop(appName: string, stopWine = true) {
   const pattern = process.platform === 'linux' ? appName : 'nile'
   killPattern(pattern)
 
