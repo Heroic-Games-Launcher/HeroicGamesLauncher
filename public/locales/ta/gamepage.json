@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "AppleGamingWiki மதிப்பீடு",
         "clickToOpen": "திறக்க கிளிக் செய்யவும்",
         "game-scores": "விளையாட்டு மதிப்பெண்கள்",
-        "installedInfo": "நிறுவப்பட்ட தகவல்"
+        "installedInfo": "நிறுவப்பட்ட தகவல்",
+        "protondb-compatibility-info": "புரோட்டான் பொருந்தக்கூடிய அடுக்கு",
+        "steamdeck-compatibility-info": "SteamDeck இணக்கத்தன்மை"
     },
     "install": {
         "disk-space-left": "Space Available",

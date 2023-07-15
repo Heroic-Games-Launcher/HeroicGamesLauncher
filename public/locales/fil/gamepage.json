@@ -186,7 +186,9 @@
         "path": "I-install ang Path",
         "size": "Sukat",
         "syncsaves": "Sync Saves",
-        "version": "Bersyon"
+        "version": "Bersyon",
+        "protondb-compatibility-info": "Proton Compatibility Tier",
+        "steamdeck-compatibility-info": "SteamDeck Compatibility"
     },
     "install": {
         "disk-space-left": "Magagamit na espasyo",

@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "Рэйтынг AppleGamingWiki",
         "clickToOpen": "Націсніце, каб адкрыць",
         "game-scores": "Вынікі гульні",
-        "installedInfo": "Усталяваная інфармацыя"
+        "installedInfo": "Усталяваная інфармацыя",
+        "protondb-compatibility-info": "Узровень сумяшчальнасці Proton",
+        "steamdeck-compatibility-info": "Сумяшчальнасць SteamDeck"
     },
     "install": {
         "disk-space-left": "Вольная прастора",

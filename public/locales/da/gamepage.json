@@ -109,7 +109,9 @@
         "apple-gaming-wiki": "AppleGamingWiki-vurdering",
         "clickToOpen": "Klik for at åbne",
         "game-scores": "Spilscore",
-        "installedInfo": "Installeret information"
+        "installedInfo": "Installeret information",
+        "protondb-compatibility-info": "Protonkompatibilitetsniveau",
+        "steamdeck-compatibility-info": "SteamDeck-kompatibilitet"
     },
     "install": {
         "path": "Vælg Installations Sti",

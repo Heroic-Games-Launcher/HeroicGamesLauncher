@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "Рейтинг AppleGamingWiki",
         "clickToOpen": "Натисніть, щоб відкрити",
         "game-scores": "Результати гри",
-        "installedInfo": "Інстальована інформація"
+        "installedInfo": "Інстальована інформація",
+        "protondb-compatibility-info": "Протонний рівень сумісності",
+        "steamdeck-compatibility-info": "Сумісність із SteamDeck"
     },
     "install": {
         "disk-space-left": "Вільне Місце",

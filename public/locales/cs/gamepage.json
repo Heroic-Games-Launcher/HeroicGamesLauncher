@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "Hodnocení AppleGamingWiki",
         "clickToOpen": "Kliknutím otevřete",
         "game-scores": "Skóre hry",
-        "installedInfo": "Instalované informace"
+        "installedInfo": "Instalované informace",
+        "protondb-compatibility-info": "Úroveň protonové kompatibility",
+        "steamdeck-compatibility-info": "Kompatibilita se SteamDeck"
     },
     "install": {
         "disk-space-left": "Volné místo",

@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "AppleGamingWikiの評価",
         "clickToOpen": "クリックして開きます",
         "game-scores": "ゲームのスコア",
-        "installedInfo": "インストール情報"
+        "installedInfo": "インストール情報",
+        "protondb-compatibility-info": "プロトン互換性層",
+        "steamdeck-compatibility-info": "SteamDeck の互換性"
     },
     "install": {
         "disk-space-left": "空き領域",

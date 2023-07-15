@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "AppleGamingWiki 등급",
         "clickToOpen": "클릭하여 열기",
         "game-scores": "게임 점수",
-        "installedInfo": "설치된 정보"
+        "installedInfo": "설치된 정보",
+        "protondb-compatibility-info": "양성자 호환성 계층",
+        "steamdeck-compatibility-info": "SteamDeck 호환성"
     },
     "install": {
         "disk-space-left": "사용 가능한 공간",

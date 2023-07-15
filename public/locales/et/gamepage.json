@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "AppleGamingWiki hinnang",
         "clickToOpen": "Avamiseks klõpsake",
         "game-scores": "Mängutulemused",
-        "installedInfo": "Installitud teave"
+        "installedInfo": "Installitud teave",
+        "protondb-compatibility-info": "Prootoni ühilduvusaste",
+        "steamdeck-compatibility-info": "SteamDecki ühilduvus"
     },
     "install": {
         "disk-space-left": "Vaba ruumi",

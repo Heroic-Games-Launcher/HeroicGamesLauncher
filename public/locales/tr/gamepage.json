@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "AppleGamingWiki Derecelendirmesi",
         "clickToOpen": "açmak için tıklayın",
         "game-scores": "Oyun Skorları",
-        "installedInfo": "Yüklü Bilgiler"
+        "installedInfo": "Yüklü Bilgiler",
+        "protondb-compatibility-info": "Proton Uyumluluk Katmanı",
+        "steamdeck-compatibility-info": "SteamDeck Uyumluluğu"
     },
     "install": {
         "disk-space-left": "Kullanılabilir Alan",

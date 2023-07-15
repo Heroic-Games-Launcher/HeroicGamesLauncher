@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "Peringkat AppleGamingWiki",
         "clickToOpen": "Klik untuk membuka",
         "game-scores": "Skor Game",
-        "installedInfo": "Informasi Instalasi"
+        "installedInfo": "Informasi Instalasi",
+        "protondb-compatibility-info": "Tingkat Kompatibilitas Proton",
+        "steamdeck-compatibility-info": "Kompatibilitas SteamDeck"
     },
     "install": {
         "disk-space-left": "Ruang Penyimpanan yang Tersedia",

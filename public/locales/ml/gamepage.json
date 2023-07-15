@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "AppleGamingWiki റേറ്റിംഗ്",
         "clickToOpen": "തുറക്കാൻ ക്ലിക്ക് ചെയ്യുക",
         "game-scores": "ഗെയിം സ്കോറുകൾ",
-        "installedInfo": "ഇൻസ്റ്റാൾ ചെയ്ത വിവരങ്ങൾ"
+        "installedInfo": "ഇൻസ്റ്റാൾ ചെയ്ത വിവരങ്ങൾ",
+        "protondb-compatibility-info": "പ്രോട്ടോൺ കോംപാറ്റിബിലിറ്റി ടയർ",
+        "steamdeck-compatibility-info": "SteamDeck അനുയോജ്യത"
     },
     "install": {
         "disk-space-left": "Space Available",

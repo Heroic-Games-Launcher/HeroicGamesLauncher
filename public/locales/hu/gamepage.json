@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "AppleGamingWiki értékelés",
         "clickToOpen": "Kattintson a megnyitáshoz",
         "game-scores": "Játékpontszámok",
-        "installedInfo": "Telepített információk"
+        "installedInfo": "Telepített információk",
+        "protondb-compatibility-info": "Proton kompatibilitási szint",
+        "steamdeck-compatibility-info": "SteamDeck kompatibilitás"
     },
     "install": {
         "disk-space-left": "Elérhető tárhely",
