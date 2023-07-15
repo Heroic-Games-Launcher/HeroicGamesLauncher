@@ -11,6 +11,10 @@
   padding: 0 var(--space-md-fixed) var(--space-md-fixed);
 }
 
+.gameList.firstLane > :first-child {
+  grid-column: span 2;
+}
+
 .gameListLayout {
   display: flex;
   flex-direction: column;

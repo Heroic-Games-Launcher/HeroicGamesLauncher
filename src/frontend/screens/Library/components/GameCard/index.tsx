@@ -44,6 +44,7 @@ interface Card {
   buttonClick: () => void
   hasUpdate: boolean
   isRecent: boolean
+  justPlayed: boolean
   gameInfo: GameInfo
   forceCard?: boolean
 }
@@ -55,6 +56,7 @@ const GameCard = ({
   buttonClick,
   forceCard,
   isRecent = false,
+  justPlayed = false,
   gameInfo: gameInfoFromProps
 }: Card) => {
   const [visible, setVisible] = useState(false)
@@ -96,6 +98,7 @@ const GameCard = ({
 
   const {
     title,
+    art_cover,
     art_square: cover,
     art_logo: logo = undefined,
     app_name: appName,
@@ -228,7 +231,7 @@ const GameCard = ({
           title={`${t('label.playing.start')} (${title})`}
           disabled={disabled}
         >
-          <PlayIcon />
+          {justPlayed ? <span>PLAY</span> : <PlayIcon />}
         </SvgButton>
       )
     } else {
@@ -357,6 +360,7 @@ const GameCard = ({
   const hiddenClass = isHiddenGame ? 'hidden' : ''
   const notAvailableClass = notAvailable ? 'notAvailable' : ''
   const gamepadClass = activeController ? 'gamepad' : ''
+  const justPlayedClass = justPlayed ? 'justPlayed' : ''
   const imgClasses = `gameImg ${isInstalled ? 'installed' : ''} ${
     allTilesInColor ? 'allTilesInColor' : ''
   }`
@@ -366,7 +370,7 @@ const GameCard = ({
 
   const wrapperClasses = `${
     grid ? 'gameCard' : 'gameListItem'
-  }  ${instClass} ${hiddenClass} ${notAvailableClass} ${gamepadClass}`
+  }  ${instClass} ${hiddenClass} ${notAvailableClass} ${gamepadClass} ${justPlayedClass}`
 
   const showUpdateButton =
     hasUpdate && !isUpdating && !isQueued && !notAvailable
@@ -402,11 +406,19 @@ const GameCard = ({
             }
           >
             <StoreLogos runner={runner} />
-            <CachedImage
-              src={getImageFormatting(cover, runner)}
-              className={imgClasses}
-              alt="cover"
-            />
+            {justPlayed ? (
+              <CachedImage
+                src={art_cover}
+                className="justPlayedImg"
+                alt={title}
+              />
+            ) : (
+              <CachedImage
+                src={getImageFormatting(cover, runner)}
+                className={imgClasses}
+                alt="cover"
+              />
+            )}
             {logo && (
               <CachedImage
                 alt="logo"

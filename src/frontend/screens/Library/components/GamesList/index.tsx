@@ -90,9 +90,9 @@ const GamesList = ({
         </div>
       )}
       {!!library.length &&
-        library.map((gameInfo) => {
+        library.map((gameInfo, index) => {
           const { app_name, is_installed, runner } = gameInfo
-
+          const isJustPlayed = isRecent && index === 0
           let is_dlc = false
           if (gameInfo.runner !== 'sideload') {
             is_dlc = gameInfo.install.is_dlc ?? false
@@ -117,6 +117,7 @@ const GamesList = ({
               forceCard={layout === 'grid'}
               isRecent={isRecent}
               gameInfo={gameInfo}
+              justPlayed={isJustPlayed}
             />
           )
         })}
