@@ -314,7 +314,7 @@ export default function GamesSubmenu({
                 ))}
             </>
           )}
-          {!isSideloaded && (
+          {!isSideloaded && storeUrl && (
             <NavLink
               className="link button is-text is-link"
               to={`/store-page?store-url=${storeUrl}`}

@@ -39,6 +39,7 @@ import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
 import { DXVK } from './tools'
 import setup from './storeManagers/gog/setup'
+import nileSetup from './storeManagers/nile/setup'
 import {
   CallRunnerOptions,
   GameInfo,
@@ -216,6 +217,9 @@ async function prepareWineLaunch(
     )
     if (runner === 'gog') {
       await setup(appName)
+    }
+    if (runner === 'nile') {
+      await nileSetup(appName)
     }
     if (runner === 'legendary') {
       await setupUbisoftConnect(appName)

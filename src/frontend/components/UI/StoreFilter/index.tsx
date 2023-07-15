@@ -5,11 +5,13 @@ import FormControl from 'frontend/components/UI/FormControl'
 import ContextProvider from 'frontend/state/ContextProvider'
 
 export default React.memo(function StoreFilter() {
-  const { category, handleCategory, gog, epic } = useContext(ContextProvider)
+  const { category, handleCategory, gog, epic, amazon } =
+    useContext(ContextProvider)
   const { t } = useTranslation()
 
   const isGOGLoggedin = gog.username
   const isEpicLoggedin = epic.username
+  const isAmazonLoggedin = amazon.username
 
   return (
     <div className="storeFilter">
@@ -43,6 +45,17 @@ export default React.memo(function StoreFilter() {
             onClick={() => handleCategory('gog')}
           >
             GOG
+          </button>
+        )}
+        {isAmazonLoggedin && (
+          <button
+            className={classNames('FormControl__button', {
+              active: category === 'nile'
+            })}
+            title={`${t('header.store')}: ${t('amazon')}`}
+            onClick={() => handleCategory('nile')}
+          >
+            AMAZON
           </button>
         )}
         <button

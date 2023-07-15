@@ -140,6 +140,14 @@ const gogConfigStore = new TypeCheckedStoreFrontend('gogConfigStore', {
   cwd: 'gog_store'
 })
 
+const nileLibraryStore = new CacheStore<GameInfo[], 'library'>(
+  'nile_library',
+  null
+)
+const nileConfigStore = new TypeCheckedStoreFrontend('nileConfigStore', {
+  cwd: 'nile_store'
+})
+
 const timestampStore = new TypeCheckedStoreFrontend('timestampStore', {
   cwd: 'store',
   name: 'timestamp'
@@ -164,5 +172,7 @@ export {
   timestampStore,
   sideloadLibrary,
   wineDownloaderInfoStore,
-  downloadManagerStore
+  downloadManagerStore,
+  nileLibraryStore,
+  nileConfigStore
 }

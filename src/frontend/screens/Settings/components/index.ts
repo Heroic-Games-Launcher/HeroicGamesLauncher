@@ -1,6 +1,7 @@
 export { default as AlternativeExe } from './AlternativeExe'
 export { default as AltGOGdlBin } from './AltGOGdlBin'
 export { default as AltLegendaryBin } from './AltLegendaryBin'
+export { default as AltNileBin } from './AltNileBin'
 export { default as AutoDXVK } from './AutoDXVK'
 export { default as AutoUpdateGames } from './AutoUpdateGames'
 export { default as AutoVKD3D } from './AutoVKD3D'
