@@ -366,6 +366,7 @@ export default React.memo(function Library(): JSX.Element {
             <GamesList
               library={favourites}
               handleGameCardClick={handleModal}
+              isFavourite
               isFirstLane
             />
           </>
