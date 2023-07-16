@@ -280,7 +280,10 @@ export async function install(
   addShortcuts(appName)
   installState(appName, true)
   const metadata = getInstallMetadata(appName)
-  await setup(appName, metadata?.path)
+
+  if (isWindows) {
+    await setup(appName, metadata?.path)
+  }
 
   return { status: 'done' }
 }
