@@ -701,7 +701,6 @@ async function callRunner(
   const safeCommand = getRunnerCallWithoutCredentials(
     [...commandParts],
     options?.env,
-    options?.wrappers,
     fullRunnerPath
   )
 
@@ -727,16 +726,7 @@ async function callRunner(
     }
   }
 
-  // If we have wrappers (things we want to run before the command), set bin to the first wrapper
-  // and add every other wrapper and the actual bin to the start of filteredArgs
-  const wrappers = options?.wrappers || []
-  let bin = ''
-  if (wrappers.length) {
-    bin = wrappers.shift()!
-    commandParts.unshift(...wrappers, runner.bin)
-  } else {
-    bin = runner.bin
-  }
+  const bin = runner.bin
 
   return new Promise<ExecResult>((res, rej) => {
     const child = spawn(bin, commandParts, {
@@ -855,7 +845,6 @@ async function callRunner(
 function getRunnerCallWithoutCredentials(
   commandParts: string[],
   env: Record<string, string> | NodeJS.ProcessEnv = {},
-  wrappers: string[] = [],
   runnerPath: string
 ): string {
   const modifiedCommandParts = [...commandParts]
@@ -883,7 +872,6 @@ function getRunnerCallWithoutCredentials(
 
   return [
     ...formattedEnvVars,
-    ...wrappers.map(quoteIfNecessary),
     quoteIfNecessary(runnerPath),
     ...modifiedCommandParts.map(quoteIfNecessary)
   ].join(' ')

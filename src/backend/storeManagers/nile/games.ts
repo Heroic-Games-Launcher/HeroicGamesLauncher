@@ -344,7 +344,15 @@ export async function launch(
   let commandEnv = isWindows
     ? process.env
     : { ...process.env, ...setupEnvVars(gameSettings) }
-  let wineFlag: string[] = []
+
+  const wrappers = setupWrappers(
+    gameSettings,
+    mangoHudCommand,
+    gameModeBin,
+    steamRuntime?.length ? [...steamRuntime] : undefined
+  )
+
+  let wineFlag: string[] = wrappers
 
   if (!isNative()) {
     // -> We're using Wine/Proton on Linux or CX on Mac
@@ -382,9 +390,7 @@ export async function launch(
         : wineExec
 
     wineFlag = [
-      ...getWineFlags(wineBin, gameSettings, wineType),
-      '--wine-prefix',
-      gameSettings.winePrefix
+      ...getWineFlags(wineBin, gameSettings, wineType, shlex.join(wrappers))
     ]
   }
 
@@ -396,17 +402,9 @@ export async function launch(
     ...shlex.split(gameSettings.launcherArgs ?? ''),
     appName
   ]
-  const wrappers = setupWrappers(
-    gameSettings,
-    mangoHudCommand,
-    gameModeBin,
-    steamRuntime?.length ? [...steamRuntime] : undefined
-  )
-
   const fullCommand = getRunnerCallWithoutCredentials(
     commandParts,
     commandEnv,
-    wrappers,
     join(...Object.values(getNileBin()))
   )
   appendFileSync(

@@ -375,13 +375,18 @@ export async function getGamingPortingToolkitWine(): Promise<
 export function getWineFlags(
   wineBin: string,
   gameSettings: GameSettings,
-  wineType: string
+  wineType: string,
+  wrapper: string
 ) {
   const wineFlags = []
   const wineFlagsObj = {
-    proton: ['--no-wine', '--wrapper', `'${wineBin}' run`],
-    wine: ['--wine', wineBin],
-    toolkit: ['--wrapper', `${wineBin} ${gameSettings.winePrefix}`, '--no-wine']
+    proton: ['--no-wine', '--wrapper', `${wrapper} '${wineBin}' run`],
+    wine: ['--wine', wineBin, '--wrapper', wrapper],
+    toolkit: [
+      '--wrapper',
+      `${wrapper} ${wineBin} ${gameSettings.winePrefix}`,
+      '--no-wine'
+    ]
   }
 
   wineFlags.push(...(wineFlagsObj[wineType as keyof typeof wineFlagsObj] || []))

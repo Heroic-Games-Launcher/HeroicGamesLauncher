@@ -467,7 +467,15 @@ export async function launch(
   let commandEnv = isWindows
     ? process.env
     : { ...process.env, ...setupEnvVars(gameSettings) }
-  let wineFlag: string[] = []
+
+  const wrappers = setupWrappers(
+    gameSettings,
+    mangoHudCommand,
+    gameModeBin,
+    steamRuntime?.length ? [...steamRuntime] : undefined
+  )
+
+  let wineFlag: string[] = wrappers
 
   if (!isNative(appName)) {
     const {
@@ -503,7 +511,9 @@ export async function launch(
         ? wineExec.replaceAll("'", '')
         : wineExec
 
-    wineFlag = [...getWineFlags(wineBin, gameSettings, wineType)]
+    wineFlag = [
+      ...getWineFlags(wineBin, gameSettings, wineType, shlex.join(wrappers))
+    ]
   }
 
   const commandParts = [
@@ -517,17 +527,10 @@ export async function launch(
     ...shlex.split(launchArguments ?? ''),
     ...shlex.split(gameSettings.launcherArgs ?? '')
   ]
-  const wrappers = setupWrappers(
-    gameSettings,
-    mangoHudCommand,
-    gameModeBin,
-    steamRuntime?.length ? [...steamRuntime] : undefined
-  )
 
   const fullCommand = getRunnerCallWithoutCredentials(
     commandParts,
     commandEnv,
-    wrappers,
     join(...Object.values(getGOGdlBin()))
   )
   appendFileSync(
