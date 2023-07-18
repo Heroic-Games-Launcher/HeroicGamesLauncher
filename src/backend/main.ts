@@ -577,12 +577,13 @@ async function runWineCommandOnGame(
     logError('runWineCommand called on native game!', LogPrefix.Gog)
     return { stdout: '', stderr: '' }
   }
-  const { folder_name } = gameManagerMap[runner].getGameInfo(appName)
+  const { folder_name, install } = gameManagerMap[runner].getGameInfo(appName)
   const gameSettings = await gameManagerMap[runner].getSettings(appName)
 
   return runWineCommand({
     gameSettings,
     installFolderName: folder_name,
+    gameInstallPath: install.install_path,
     commandParts,
     wait,
     protonVerb,

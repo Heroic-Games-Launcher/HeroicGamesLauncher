@@ -832,7 +832,7 @@ export async function launch(
     steamRuntime?.length ? [...steamRuntime] : undefined
   )
 
-  let wineFlag: string[] = wrappers
+  let wineFlag: string[] = ['--wrapper', shlex.join(wrappers)]
 
   if (!isNative(appName)) {
     // -> We're using Wine/Proton on Linux or CX on Mac
@@ -994,11 +994,12 @@ export async function runWineCommandOnGame(
     return { stdout: '', stderr: '' }
   }
 
-  const { folder_name } = getGameInfo(appName)
+  const { folder_name, install } = getGameInfo(appName)
   const gameSettings = await getSettings(appName)
 
   return runWineCommandUtil({
     gameSettings,
+    gameInstallPath: install.install_path,
     installFolderName: folder_name,
     commandParts,
     wait,

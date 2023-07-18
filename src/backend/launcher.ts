@@ -236,9 +236,13 @@ async function prepareWineLaunch(
     }
   }
 
-  const { folder_name: installFolderName } =
+  const { folder_name: installFolderName, install } =
     gameManagerMap[runner].getGameInfo(appName)
-  const envVars = setupWineEnvVars(gameSettings, installFolderName)
+  const envVars = setupWineEnvVars(
+    gameSettings,
+    installFolderName,
+    install.install_path
+  )
 
   return { success: true, envVars: envVars }
 }
@@ -282,7 +286,11 @@ function setupEnvVars(gameSettings: GameSettings) {
  * @param gameId If Proton and the Steam Runtime are used, the SteamGameId variable will be set to `heroic-gameId`
  * @returns A Record that can be passed to execAsync/spawn
  */
-function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
+function setupWineEnvVars(
+  gameSettings: GameSettings,
+  gameId = '0',
+  installPath?: string
+) {
   const { wineVersion, winePrefix, wineCrossoverBottle } = gameSettings
 
   const ret: Record<string, string> = {}
@@ -311,6 +319,9 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     case 'proton':
       ret.STEAM_COMPAT_CLIENT_INSTALL_PATH = steamInstallPath
       ret.STEAM_COMPAT_DATA_PATH = winePrefix
+      if (installPath) {
+        ret.STEAM_COMPAT_INSTALL_PATH = installPath
+      }
       break
     case 'crossover':
       ret.CX_BOTTLE = wineCrossoverBottle
@@ -532,6 +543,7 @@ function launchCleanup(rpcClient?: RpcClient) {
 async function runWineCommand({
   gameSettings,
   commandParts,
+  gameInstallPath,
   wait,
   protonVerb = 'run',
   installFolderName,
@@ -583,7 +595,7 @@ async function runWineCommand({
   const env_vars = {
     ...process.env,
     ...setupEnvVars(settings),
-    ...setupWineEnvVars(settings, installFolderName)
+    ...setupWineEnvVars(settings, installFolderName, gameInstallPath)
   }
 
   const isProton = wineVersion.type === 'proton'

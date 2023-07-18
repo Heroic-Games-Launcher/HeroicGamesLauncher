@@ -352,7 +352,7 @@ export async function launch(
     steamRuntime?.length ? [...steamRuntime] : undefined
   )
 
-  let wineFlag: string[] = wrappers
+  let wineFlag: string[] = ['--wrapper', shlex.join(wrappers)]
 
   if (!isNative()) {
     // -> We're using Wine/Proton on Linux or CX on Mac
