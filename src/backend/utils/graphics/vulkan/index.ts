@@ -14,7 +14,7 @@ let physical_versions: SpawnSyncReturns<string> | null = null
  * support. For that, see {@link get_supported_vulkan_versions}
  */
 function get_vulkan_instance_version(): VulkanVersion | false {
-  if(!instance_version)
+  if (!instance_version)
     instance_version = spawnSync(vulkanHelperBin, ['instance-version'], {
       encoding: 'utf-8'
     })
@@ -33,7 +33,7 @@ function get_supported_vulkan_versions(): [
   name: string,
   version: VulkanVersion
 ][] {
-  if(!physical_versions)
+  if (!physical_versions)
     physical_versions = spawnSync(vulkanHelperBin, ['physical-versions'], {
       encoding: 'utf-8'
     })
