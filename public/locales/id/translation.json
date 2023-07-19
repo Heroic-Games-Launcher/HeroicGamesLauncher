@@ -80,11 +80,11 @@
             },
             "moving": "Terjadi Kesalahan saat Memindahkan Game {{error}}",
             "ubisoft-connect": {
-                "message": "Pemasangan Ubisoft Connect di awalan game gagal. Periksa halaman wiki kami di https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac untuk menginstalnya secara maunal.",
+                "message": "Pemasangan Ubisoft Connect di prefiks gim telah gagal. Periksa halaman wiki kami di https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac untuk memasangnya secara maunal.",
                 "title": "Ubisoft Connect"
             },
             "legendary": {
-                "generic": "Sebuah kesalahan telah terjadi! Cobalah Logout dan Login di akun Epic Anda. {{newline}} {{error}}"
+                "generic": "Sebuah kesalahan telah terjadi! Cobalah Keluar dan Masuk kembali di akun Epic Anda. {{newline}} {{error}}"
             }
         },
         "info": {
@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroic mencari versi Wine, Proton, dan CrossOver di folder berikut ini:",
             "part2": "Untuk tempat lain, gunakan tautan simbolis ke salah satu folder ini"
-        }
+        },
+        "disable_logs": "Aktifkan kotak centang ini untuk menonaktifkan sebagian besar penulisan ke berkas log (informasi penting selalu dicatat). Pastikan untuk MENONAKTIFKAN setelan ini sebelum melaporkan masalah apa pun."
     },
     "info": {
         "heroic": {
@@ -305,7 +306,8 @@
         "wine-repfix": {
             "message": "Wine membutuhkan WINEPREFIX untuk menjalankan aplikasi Windows. Prefiks ini mengandung berkas konfigurasi Wine dan reproduksi dari struktur berkas yang ada dalam partisi C: (penyimpanan utama dalam OS Windows). Berkas yang disimpan dari hasil reproduksi ini adalah, penyimpanan save gim dan perangkat lunak lainnya yang terpasang melalui winetricks."
         },
-        "wine-path-invalid": "Lokasi Wine tidak valid, silakan pilih lokasi yang lain."
+        "wine-path-invalid": "Lokasi Wine tidak valid, silakan pilih lokasi yang lain.",
+        "wine-path-none-found": "Tidak ada versi Wine yang ditemukan, unduh dari Wine Manager"
     },
     "install": {
         "path": "Pilih Lokasi Pemasangan"
@@ -367,7 +369,7 @@
             "imported": "Gim Diimpor",
             "startInstall": "Pemasangan Dimulai",
             "failed": "Pemasangan Gagal",
-            "paused": "Instalasi Dijeda"
+            "paused": "Pemasangan Dijeda"
         },
         "moved": "Selesai Memindahkan",
         "moving": "Memindahkan Gim",
@@ -380,7 +382,7 @@
             "canceled": "Pembaruan Dibatalkan",
             "finished": "Pembaruan Selesai",
             "started": "Pembaruan Dimulai",
-            "failed": "Pembaharuan gagal",
+            "failed": "Pembaruan gagal",
             "paused": "Pembaruan Dijeda"
         }
     },
@@ -440,7 +442,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "Peramban"
     },
     "please-wait": "Mohon tunggu...",
     "progress": "Progress",
@@ -520,7 +523,7 @@
         "log": {
             "copy-to-clipboard": "Salin konten log ke papan klip",
             "current-log": "Log Saat Ini",
-            "instructions": "Bergabunglah dengan Discord kami dan cari saluran yang cocok dengan sistem operasi Anda. Bagikan konten log yang ditampilkan di sini, dan sertakan deskripsi yang jelas tentang masalah yang dialami dengan informasi dan detail yang relevan.",
+            "instructions": "Bergabunglah dengan Discord kami dan carilah bagian \"#-support\". Bacalah utas \"Read Me First | Frequently Asked Questions\" dan ikuti instruksinya untuk membagikan log ini dan informasi lain yang relevan mengenai masalahmu.",
             "instructions_title": "Bagaimana cara melaporkan masalah?",
             "last-log": "Log Terakhir",
             "no-file": "Tidak ditemukan berkas log",
@@ -566,7 +569,10 @@
         "wineprefix": "Folder Prefiks Wine",
         "wineversion": "Versi Wine",
         "autoUpdateGames": "Perbarui gim secara otomatis",
-        "ignoreGameUpdates": "Abaikan pembaruan gim"
+        "ignoreGameUpdates": "Abaikan pembaruan gim",
+        "disable_logs": "Nonaktifkan Log",
+        "addgamestoapplications": "Tambahkan gim ke Aplikasi secara otomatis",
+        "showMetalOverlay": "Tampilkan Hamparan Statistik"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -680,5 +686,12 @@
     },
     "wiki_info": {
         "not_found": "Kami tidak dapat menemukan informasi tambahan."
+    },
+    "dlc": {
+        "size": "Ukuran",
+        "title": "Judul",
+        "actions": "Tindakan",
+        "installDlcs": "Pasang semua DLC",
+        "noDlcFound": "Tidak ada DLC yang ditemukan"
     }
 }

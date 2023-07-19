@@ -26,7 +26,8 @@
             "message": "Vil du afinstallere spillet?",
             "title": "Afinstaller",
             "settingcheckbox": "Slet indstillinger og fjern log{{newLine}}Bemærk: Dette kan ikke fortrydes. Eventuelle ændrede indstillinger vil blive glemt, og log vil blive slettet.",
-            "prefix_warning": "Vinpræfikset for dette spil er standardpræfikset. Hvis du virkelig vil slette det, skal du gøre det manuelt."
+            "prefix_warning": "Vinpræfikset for dette spil er standardpræfikset. Hvis du virkelig vil slette det, skal du gøre det manuelt.",
+            "dlc": "Vil du afinstallere denne DLC?"
         },
         "update": {
             "title": "Spillet skal opdateres",
@@ -91,7 +92,8 @@
         "requirements": "System Krav",
         "tools": "Værktøjer",
         "getting-download-size": "Henter downloadstørrelse",
-        "getting-install-size": "Får installationsstørrelse"
+        "getting-install-size": "Får installationsstørrelse",
+        "dlcs": "DLC'er"
     },
     "gamecard": {
         "moving": "Flytter",
@@ -107,7 +109,9 @@
         "apple-gaming-wiki": "AppleGamingWiki-vurdering",
         "clickToOpen": "Klik for at åbne",
         "game-scores": "Spilscore",
-        "installedInfo": "Installeret information"
+        "installedInfo": "Installeret information",
+        "protondb-compatibility-info": "Protonkompatibilitetsniveau",
+        "steamdeck-compatibility-info": "SteamDeck-kompatibilitet"
     },
     "install": {
         "path": "Vælg Installations Sti",
@@ -127,7 +131,8 @@
             "syncing": "Synkroniserer Saves"
         },
         "game": {
-            "third-party-game": "Tredjepartsspil understøttes IKKE"
+            "third-party-game": "Tredjepartsspil understøttes IKKE",
+            "not-installable-game": "Spillet kan IKKE installeres"
         },
         "launching": "Lancering",
         "ubisoft": "Installation af Ubisoft Connect"
@@ -165,7 +170,9 @@
         "launching": "Lancering",
         "ubisoft": "Installation af Ubisoft",
         "downloading": "Downloader",
-        "extracting": "Udvinding"
+        "extracting": "Udvinding",
+        "gog-goodie": "Dette spil ser ikke ud til at kunne installeres. Tjek downloadbart indhold på https://gog.com/account",
+        "goodie": "Kan ikke installeres"
     },
     "submenu": {
         "addShortcut": "Opret genvej",
@@ -209,11 +216,13 @@
         "info": {
             "exe": "Vælg Eksekverbar",
             "image": "App billede",
-            "title": "Spil/App titel"
+            "title": "Spil/App titel",
+            "broser": "BrowserURL"
         },
         "placeholder": {
             "image": "Indsæt en billed-URL her",
-            "title": "Tilføj en titel til dit spil/app"
+            "title": "Tilføj en titel til dit spil/app",
+            "url": "Indsæt spillets URL her"
         }
     },
     "setting": {

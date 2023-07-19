@@ -36,7 +36,8 @@
             "message": "Oyunu kaldırmak istiyor musunuz?",
             "settingcheckbox": "Ayarları sil ve günlüğü kaldır{{newLine}}Not: Bu işlem geri alınamaz. Değiştirilen tüm ayarlar unutulacak ve günlük silinecektir.",
             "title": "Kaldır",
-            "prefix_warning": "Bu oyun için Wine öneki varsayılan önektir. Gerçekten silmek istiyorsanız, manuel olarak yapmanız gerekir."
+            "prefix_warning": "Bu oyun için Wine öneki varsayılan önektir. Gerçekten silmek istiyorsanız, manuel olarak yapmanız gerekir.",
+            "dlc": "Bu DLC'yi Kaldırmak istiyor musunuz?"
         },
         "update": {
             "message": "Bu oyunun bir güncellemesi var, güncelleme şimdi uygulansın mı?",
@@ -88,7 +89,8 @@
         "neverPlayed": "Hiç Oynanmadı",
         "platform": "Kurulacak Platform Sürümünü Seç",
         "requirements": "Sistem Gereksinimleri",
-        "totalPlayed": "Oynanan Zaman"
+        "totalPlayed": "Oynanan Zaman",
+        "dlcs": "DLCs"
     },
     "gamecard": {
         "moving": "Taşınıyor",
@@ -115,7 +117,9 @@
         "apple-gaming-wiki": "AppleGamingWiki Derecelendirmesi",
         "clickToOpen": "açmak için tıklayın",
         "game-scores": "Oyun Skorları",
-        "installedInfo": "Yüklü Bilgiler"
+        "installedInfo": "Yüklü Bilgiler",
+        "protondb-compatibility-info": "Proton Uyumluluk Katmanı",
+        "steamdeck-compatibility-info": "SteamDeck Uyumluluğu"
     },
     "install": {
         "disk-space-left": "Kullanılabilir Alan",
@@ -128,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Üçüncü Parti Oyun Desteklenmiyor"
+            "third-party-game": "Üçüncü Parti Oyun Desteklenmiyor",
+            "not-installable-game": "Oyun Yüklenemez"
         },
         "playing": {
             "start": "Şimdi Oyna",
@@ -164,11 +169,13 @@
         "info": {
             "exe": "Yürütülebilir Dosyayı Seçin",
             "image": "App Image",
-            "title": "Oyun/Uygulama Adı"
+            "title": "Oyun/Uygulama Adı",
+            "broser": "TarayıcıURL'si"
         },
         "placeholder": {
             "image": "Buraya bir Resim URL'si yapıştırın",
-            "title": "Oyununuza/Uygulamanıza bir başlık ekleyin"
+            "title": "Oyununuza/Uygulamanıza bir başlık ekleyin",
+            "url": "Oyun URL'sini buraya yapıştırın"
         }
     },
     "specs": {
@@ -198,7 +205,9 @@
         "launching": "Fırlatma",
         "ubisoft": "Ubisoft'u Kurmak",
         "downloading": "İndiriliyor",
-        "extracting": "Ayıklanıyor"
+        "extracting": "Ayıklanıyor",
+        "gog-goodie": "Bu oyun kurulabilir görünmüyor. İndirilebilir içeriği https://gog.com/account adresinden kontrol edin",
+        "goodie": "kurulamaz"
     },
     "submenu": {
         "addShortcut": "Kısayol ekle",

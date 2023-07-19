@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroic procura versões de Wine, Proton e CrossOver nas seguintes pastas:",
             "part2": "Para outros lugares, crie um link simbólico até uma dessas pastas"
-        }
+        },
+        "disable_logs": "Ative esta caixa de seleção para desativar a maioria das gravações em arquivos de log (informações críticas sempre são registradas). Certifique-se de desativar essa configuração antes de relatar qualquer problema."
     },
     "info": {
         "heroic": {
@@ -305,7 +306,8 @@
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
         },
-        "wine-path-invalid": "Wine Path é inválido, selecione outro."
+        "wine-path-invalid": "Wine Path é inválido, selecione outro.",
+        "wine-path-none-found": "Nenhuma versão do Wine foi encontrada, baixe uma do Wine Manager"
     },
     "install": {
         "path": "Select Install Path"
@@ -440,7 +442,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "janelas"
+        "win": "janelas",
+        "browser": "Navegador"
     },
     "please-wait": "Please wait...",
     "progress": "Progress",
@@ -520,7 +523,7 @@
         "log": {
             "copy-to-clipboard": "Copy log content to clipboard",
             "current-log": "Current Log",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",
             "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
             "no-file": "No log file found",
@@ -566,7 +569,10 @@
         "wineprefix": "Prefixo Wine",
         "wineversion": "Versão do Wine",
         "autoUpdateGames": "Atualizar jogos automaticamente",
-        "ignoreGameUpdates": "Ignorar atualizações do jogo"
+        "ignoreGameUpdates": "Ignorar atualizações do jogo",
+        "disable_logs": "Desativar registros",
+        "addgamestoapplications": "Adicionar jogos a aplicativos automaticamente",
+        "showMetalOverlay": "Mostrar sobreposição de estatísticas"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -680,5 +686,12 @@
     },
     "wiki_info": {
         "not_found": "Não encontramos informações extras."
+    },
+    "dlc": {
+        "size": "Size",
+        "actions": "Ações",
+        "installDlcs": "Instalar todas as DLCs",
+        "noDlcFound": "Nenhum DLC encontrado",
+        "title": "Title"
     }
 }

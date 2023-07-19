@@ -36,7 +36,8 @@
             "message": "Desexas desinstalar o xogo?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Desinstalar",
-            "prefix_warning": "O prefixo Wine para este xogo é o prefixo predeterminado. Se realmente queres borralo, tes que facelo manualmente."
+            "prefix_warning": "O prefixo Wine para este xogo é o prefixo predeterminado. Se realmente queres borralo, tes que facelo manualmente.",
+            "dlc": "Queres desinstalar este DLC?"
         },
         "update": {
             "message": "Este xogo ten unha actualización, ¿desexas actualizar agora?",
@@ -88,7 +89,8 @@
         "neverPlayed": "Nunca",
         "platform": "Select Platform Version to Install",
         "requirements": "System Requirements",
-        "totalPlayed": "Tempo xogado"
+        "totalPlayed": "Tempo xogado",
+        "dlcs": "DLCs"
     },
     "gamecard": {
         "moving": "Movendo",
@@ -115,7 +117,9 @@
         "apple-gaming-wiki": "Clasificación de AppleGamingWiki",
         "clickToOpen": "Fai clic para abrir",
         "game-scores": "Puntuacións do xogo",
-        "installedInfo": "Información instalada"
+        "installedInfo": "Información instalada",
+        "protondb-compatibility-info": "Nivel de compatibilidade de protóns",
+        "steamdeck-compatibility-info": "Compatibilidade con SteamDeck"
     },
     "install": {
         "disk-space-left": "Space Available",
@@ -128,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Third-Party Game NOT Supported",
+            "not-installable-game": "O xogo NON se pode instalar"
         },
         "playing": {
             "start": "Xogar",
@@ -164,11 +169,13 @@
         "info": {
             "exe": "Select Executable",
             "image": "App Image",
-            "title": "Game/App Title"
+            "title": "Game/App Title",
+            "broser": "URL do navegador"
         },
         "placeholder": {
             "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "title": "Add a title to your Game/App",
+            "url": "Pega aquí o URL do xogo"
         }
     },
     "specs": {
@@ -198,7 +205,9 @@
         "launching": "Lanzamento",
         "ubisoft": "Instalación de Ubisoft",
         "downloading": "Downloading",
-        "extracting": "Extracción"
+        "extracting": "Extracción",
+        "goodie": "Non instalable",
+        "gog-goodie": "Este xogo non parece instalarse. Consulta o contido descargable en https://gog.com/account"
     },
     "submenu": {
         "addShortcut": "Engadir acceso directo",

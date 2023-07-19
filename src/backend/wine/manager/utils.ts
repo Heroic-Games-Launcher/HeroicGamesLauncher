@@ -18,7 +18,7 @@ import { toolsPath, isMac } from '../../constants'
 import { sendFrontendMessage } from '../../main_window'
 import { TypeCheckedStoreBackend } from 'backend/electron_store'
 
-const wineDownloaderInfoStore = new TypeCheckedStoreBackend(
+export const wineDownloaderInfoStore = new TypeCheckedStoreBackend(
   'wineDownloaderInfoStore',
   {
     cwd: 'store',

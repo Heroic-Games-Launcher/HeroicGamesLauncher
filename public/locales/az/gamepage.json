@@ -37,7 +37,8 @@
             "message": "Bu oyunu silmək istəyirsiniz?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Silin",
-            "prefix_warning": "Bu oyun üçün Şərab prefiksi standart prefiksdir. Əgər həqiqətən silmək istəyirsinizsə, bunu əl ilə etməlisiniz."
+            "prefix_warning": "Bu oyun üçün Şərab prefiksi standart prefiksdir. Əgər həqiqətən silmək istəyirsinizsə, bunu əl ilə etməlisiniz.",
+            "dlc": "Bu DLC-ni silmək istəyirsiniz?"
         },
         "update": {
             "message": "Bu oyunun yeniləməsi var, yeniləmə indi tətbiq edilsin?",
@@ -89,7 +90,8 @@
         "neverPlayed": "Heç vaxt",
         "platform": "Quraşdırmaq üçün Platforma Versiyasını seçin",
         "requirements": "Sistem Tələbləri",
-        "totalPlayed": "Oynanan Vaxt"
+        "totalPlayed": "Oynanan Vaxt",
+        "dlcs": "DLC-lər"
     },
     "gamecard": {
         "moving": "Hərəkət edir",
@@ -116,7 +118,9 @@
         "apple-gaming-wiki": "AppleGamingWiki reytinqi",
         "clickToOpen": "Açmaq üçün klikləyin",
         "game-scores": "Oyun Xalları",
-        "installedInfo": "Quraşdırılmış Məlumat"
+        "installedInfo": "Quraşdırılmış Məlumat",
+        "protondb-compatibility-info": "Proton Uyğunluq Səviyyəsi",
+        "steamdeck-compatibility-info": "SteamDeck Uyğunluğu"
     },
     "install": {
         "disk-space-left": "Yer Mövcuddur",
@@ -129,7 +133,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Third-Party Game NOT Supported",
+            "not-installable-game": "Oyun Quraşdırıla bilməz"
         },
         "playing": {
             "start": "İndi oyna",
@@ -165,11 +170,13 @@
         "info": {
             "exe": "Select Executable",
             "image": "App Image",
-            "title": "Game/App Title"
+            "title": "Game/App Title",
+            "broser": "BrowserURL"
         },
         "placeholder": {
             "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "title": "Add a title to your Game/App",
+            "url": "Oyun URL-ni bura yerləşdirin"
         }
     },
     "specs": {
@@ -199,7 +206,9 @@
         "launching": "Başlanır",
         "ubisoft": "Ubisoft quraşdırılması",
         "downloading": "Downloading",
-        "extracting": "Çıxarma"
+        "extracting": "Çıxarma",
+        "gog-goodie": "Bu oyun quraşdırmaq mümkün deyil. Yüklənə bilən məzmunu https://gog.com/account saytında yoxlayın",
+        "goodie": "Quraşdırıla bilməz"
     },
     "submenu": {
         "addShortcut": "Qısayol əlavə edin",

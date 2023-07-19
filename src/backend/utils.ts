@@ -10,7 +10,9 @@ import {
   SteamRuntime,
   Release,
   GameInfo,
-  GameSettings
+  GameSettings,
+  State,
+  ProgressInfo
 } from 'common/types'
 import * as axios from 'axios'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
@@ -36,12 +38,20 @@ import {
   publicDir,
   GITHUB_API,
   isMac,
-  configStore
+  configStore,
+  isLinux
 } from './constants'
-import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
+import {
+  logError,
+  logInfo,
+  LogPrefix,
+  logsDisabled,
+  logWarning
+} from './logger/logger'
 import { basename, dirname, join, normalize } from 'path'
 import { runRunnerCommand as runLegendaryCommand } from 'backend/storeManagers/legendary/library'
 import { runRunnerCommand as runGogdlCommand } from './storeManagers/gog/library'
+import { runRunnerCommand as runNileCommand } from './storeManagers/nile/library'
 import {
   gameInfoStore,
   installStore,
@@ -52,6 +62,10 @@ import {
   installInfoStore as GOGinstallInfoStore,
   libraryStore as GOGlibraryStore
 } from './storeManagers/gog/electronStores'
+import {
+  installStore as nileInstallStore,
+  libraryStore as nileLibraryStore
+} from './storeManagers/nile/electronStores'
 import * as fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
@@ -60,6 +74,11 @@ import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
 import { validWine, runWineCommand } from './launcher'
 import { gameManagerMap } from 'backend/storeManagers'
+import {
+  installWineVersion,
+  updateWineVersionInfos,
+  wineDownloaderInfoStore
+} from './wine/manager/utils'
 
 const execAsync = promisify(exec)
 
@@ -223,10 +242,25 @@ const getGogdlVersion = async () => {
   return stdout
 }
 
+const getNileVersion = async () => {
+  const abortID = 'nile-version'
+  const { stdout, error } = await runNileCommand(
+    ['--version'],
+    createAbortController(abortID)
+  )
+  deleteAbortController(abortID)
+
+  if (error) {
+    return 'invalid'
+  }
+  return stdout
+}
+
 const getHeroicVersion = () => {
   const VERSION_NUMBER = app.getVersion()
+  // One Piece reference
   const BETA_VERSION_NAME = 'Caesar Clown'
-  const STABLE_VERSION_NAME = 'Eustass Kid'
+  const STABLE_VERSION_NAME = 'Boa Hancock'
   const isBetaorAlpha =
     VERSION_NUMBER.includes('alpha') || VERSION_NUMBER.includes('beta')
   const VERSION_NAME = isBetaorAlpha ? BETA_VERSION_NAME : STABLE_VERSION_NAME
@@ -284,6 +318,7 @@ const getSystemInfoInternal = async (): Promise<string> => {
   const heroicVersion = getHeroicVersion()
   const legendaryVersion = await getLegendaryVersion()
   const gogdlVersion = await getGogdlVersion()
+  const nileVersion = await getNileVersion()
 
   const electronVersion = process.versions.electron || 'unknown'
   const chromeVersion = process.versions.chrome || 'unknown'
@@ -320,6 +355,7 @@ const getSystemInfoInternal = async (): Promise<string> => {
   const systemInfo = `Heroic Version: ${heroicVersion}
 Legendary Version: ${legendaryVersion}
 GOGdl Version: ${gogdlVersion}
+Nile Version: ${nileVersion}
 
 Electron Version: ${electronVersion}
 Chrome Version: ${chromeVersion}
@@ -379,6 +415,8 @@ async function errorHandler({
   const deletedFolderMsg = 'appears to be deleted'
   const expiredCredentials = 'No saved credentials'
   const legendaryRegex = /legendary.*\.py/
+  // this message appears on macOS when no Crossover was found in the system but its a false alarm
+  const ignoreCrossoverMessage = 'IndexError: list index out of range'
 
   if (logPath) {
     execAsync(`tail "${logPath}" | grep 'disk space'`)
@@ -401,6 +439,9 @@ async function errorHandler({
       })
   }
   if (error) {
+    if (error.includes(ignoreCrossoverMessage)) {
+      return
+    }
     if (error.includes(deletedFolderMsg) && appName) {
       const runner = r.toLocaleLowerCase() as Runner
       const { title } = gameManagerMap[runner].getGameInfo(appName)
@@ -420,6 +461,11 @@ async function errorHandler({
     }
 
     if (legendaryRegex.test(error)) {
+      const MemoryError = 'MemoryError: '
+      if (error.includes(MemoryError)) {
+        return
+      }
+
       return showDialogBoxModalAuto({
         title: plat,
         message: i18next.t(
@@ -456,7 +502,7 @@ async function openUrlOrFile(url: string): Promise<string | void> {
   return shell.openPath(url)
 }
 
-function clearCache(library?: 'gog' | 'legendary') {
+function clearCache(library?: 'gog' | 'legendary' | 'nile') {
   if (library === 'gog' || !library) {
     GOGapiInfoCache.clear()
     GOGlibraryStore.clear()
@@ -470,6 +516,10 @@ function clearCache(library?: 'gog' | 'legendary') {
     runLegendaryCommand(['cleanup'], createAbortController(abortID)).then(() =>
       deleteAbortController(abortID)
     )
+  }
+  if (library === 'nile' || !library) {
+    nileInstallStore.clear()
+    nileLibraryStore.clear()
   }
 }
 
@@ -528,6 +578,16 @@ function getGOGdlBin(): { dir: string; bin: string } {
   }
   return splitPathAndName(
     fixAsarPath(join(publicDir, 'bin', process.platform, 'gogdl'))
+  )
+}
+
+function getNileBin(): { dir: string; bin: string } {
+  const settings = GlobalConfig.get().getSettings()
+  if (settings?.altNileBin) {
+    return splitPathAndName(settings.altNileBin)
+  }
+  return splitPathAndName(
+    fixAsarPath(join(publicDir, 'bin', process.platform, 'nile'))
   )
 }
 
@@ -943,6 +1003,58 @@ async function ContinueWithFoundWine(
   return { response }
 }
 
+export async function downloadDefaultWine() {
+  // refresh wine list
+  await updateWineVersionInfos(true)
+  // get list of wines on wineDownloaderInfoStore
+  const availableWine = wineDownloaderInfoStore.get('wine-releases', [])
+  // use Wine-GE type if on Linux and Wine-Crossover if on Mac
+  const release = availableWine.filter((version) => {
+    if (isLinux) {
+      return version.version.includes('Wine-GE-Proton')
+    } else if (isMac) {
+      return version.version.includes('Wine-Crossover')
+    }
+    return false
+  })[0]
+
+  if (!release) {
+    logError('Could not find default wine version', LogPrefix.Backend)
+    return null
+  }
+
+  // download the latest version
+  const onProgress = (state: State, progress?: ProgressInfo) => {
+    sendFrontendMessage('progressOfWineManager' + release.version, {
+      state,
+      progress
+    })
+  }
+  const result = await installWineVersion(
+    release,
+    onProgress,
+    createAbortController(release.version).signal
+  )
+  deleteAbortController(release.version)
+  if (result === 'success') {
+    let downloadedWine = null
+    try {
+      const wineList = await GlobalConfig.get().getAlternativeWine()
+      // update the game config to use that wine
+      downloadedWine = wineList[0]
+      logInfo(`Changing wine version to ${downloadedWine.name}`)
+      GlobalConfig.get().setSetting('wineVersion', downloadedWine)
+    } catch (error) {
+      logError(
+        ['Error when changing wine version to default', error],
+        LogPrefix.Backend
+      )
+    }
+    return downloadedWine
+  }
+  return null
+}
+
 export async function checkWineBeforeLaunch(
   appName: string,
   gameSettings: GameSettings,
@@ -953,15 +1065,17 @@ export async function checkWineBeforeLaunch(
   if (wineIsValid) {
     return true
   } else {
-    logError(
-      `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`,
-      LogPrefix.Backend
-    )
+    if (!logsDisabled) {
+      logError(
+        `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`,
+        LogPrefix.Backend
+      )
 
-    appendFileSync(
-      logFileLocation,
-      `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`
-    )
+      appendFileSync(
+        logFileLocation,
+        `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`
+      )
+    }
 
     // check if the default wine is valid now
     const { wineVersion: defaultwine } = GlobalConfig.get().getSettings()
@@ -986,6 +1100,17 @@ export async function checkWineBeforeLaunch(
       const firstFoundWine = wineList[0]
 
       const isValidWine = await validWine(firstFoundWine)
+
+      if (!wineList.length || !firstFoundWine || !isValidWine) {
+        const firstFoundWine = await downloadDefaultWine()
+        if (firstFoundWine) {
+          logInfo(`Changing wine version to ${firstFoundWine.name}`)
+          gameSettings.wineVersion = firstFoundWine
+          GameConfig.get(appName).setSetting('wineVersion', firstFoundWine)
+          return true
+        }
+      }
+
       if (firstFoundWine && isValidWine) {
         const { response } = await ContinueWithFoundWine(
           gameSettings.wineVersion.name,
@@ -1213,6 +1338,7 @@ export {
   resetHeroic,
   getLegendaryBin,
   getGOGdlBin,
+  getNileBin,
   formatEpicStoreUrl,
   searchForExecutableOnPath,
   getSteamRuntime,
@@ -1231,6 +1357,7 @@ export {
   getFileSize,
   getLegendaryVersion,
   getGogdlVersion,
+  getNileVersion,
   memoryLog,
   removeFolder
 }

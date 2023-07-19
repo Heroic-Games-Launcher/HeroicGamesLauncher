@@ -42,7 +42,7 @@ import {
   isFlatpak,
   isCLINoGui
 } from '../../constants'
-import { logError, logInfo, LogPrefix } from '../../logger/logger'
+import { logError, logInfo, LogPrefix, logsDisabled } from '../../logger/logger'
 import {
   prepareLaunch,
   prepareWineLaunch,
@@ -68,6 +68,7 @@ import { Catalog, Product } from 'common/types/epic-graphql'
 import { sendFrontendMessage } from '../../main_window'
 import { RemoveArgs } from 'common/types/game_manager'
 import { logFileLocation } from 'backend/storeManagers/storeManagerCommon/games'
+import { getWineFlags } from 'backend/utils/compatibility_layers'
 
 /**
  * Alias for `LegendaryLibrary.listUpdateableGames`
@@ -96,8 +97,16 @@ export function getGameInfo(appName: string): GameInfo {
       ],
       LogPrefix.Legendary
     )
-    // @ts-expect-error TODO: Handle this better
-    return {}
+    return {
+      app_name: '',
+      runner: 'legendary',
+      art_cover: '',
+      art_square: '',
+      install: {},
+      is_installed: false,
+      title: '',
+      canRunOffline: false
+    }
   }
   return info
 }
@@ -550,7 +559,7 @@ function getSdlList(sdlList: Array<string>) {
  */
 export async function install(
   appName: string,
-  { path, installDlcs, sdlList, platformToInstall }: InstallArgs
+  { path, sdlList, platformToInstall }: InstallArgs
 ): Promise<{
   status: 'done' | 'error' | 'abort'
   error?: string
@@ -559,7 +568,6 @@ export async function install(
   const info = await getInstallInfo(appName, platformToInstall)
   const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
   const noHttps = downloadNoHttps ? ['--no-https'] : []
-  const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
   const installSdl = sdlList?.length ? getSdlList(sdlList) : ['--skip-sdl']
 
   const logPath = join(gamesConfigPath, appName + '.log')
@@ -571,7 +579,7 @@ export async function install(
     platformToInstall,
     '--base-path',
     path,
-    withDlcs,
+    '--skip-dlcs',
     ...installSdl,
     ...workers,
     ...noHttps,
@@ -816,7 +824,7 @@ export async function launch(
   let commandEnv = isWindows
     ? process.env
     : { ...process.env, ...setupEnvVars(gameSettings) }
-  const wineFlag: string[] = []
+  let wineFlag: string[] = []
   if (!isNative(appName)) {
     // -> We're using Wine/Proton on Linux or CX on Mac
     const {
@@ -852,36 +860,7 @@ export async function launch(
         ? wineExec.replaceAll("'", '')
         : wineExec
 
-    wineFlag.push(
-      ...(wineType === 'proton'
-        ? ['--no-wine', '--wrapper', `'${wineBin}' run`]
-        : ['--wine', wineBin])
-    )
-  }
-
-  // Log any launch information configured in Legendary's config.ini
-  const { stdout } = await runLegendaryCommand(
-    ['launch', appName, '--json', '--offline'],
-    createAbortController(appName)
-  )
-
-  appendFileSync(
-    logFileLocation(appName),
-    "Legendary's config from config.ini (before App's settings):\n"
-  )
-
-  try {
-    const json = JSON.parse(stdout)
-    // remove egl auth info
-    delete json['egl_parameters']
-
-    appendFileSync(
-      logFileLocation(appName),
-      JSON.stringify(json, null, 2) + '\n\n'
-    )
-  } catch (error) {
-    // in case legendary's command fails and the output is not json
-    appendFileSync(logFileLocation(appName), error + '\n' + stdout + '\n\n')
+    wineFlag = [...getWineFlags(wineBin, gameSettings, wineType)]
   }
 
   const commandParts = [
@@ -921,7 +900,7 @@ export async function launch(
       wrappers: wrappers,
       logMessagePrefix: `Launching ${gameInfo.title}`,
       onOutput: (output) => {
-        appendFileSync(logFileLocation(appName), output)
+        if (!logsDisabled) appendFileSync(logFileLocation(appName), output)
       }
     }
   )

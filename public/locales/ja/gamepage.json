@@ -1,222 +1,231 @@
 {
     "box": {
         "change": {
-            "message": "これにより、このゲームのインストール場所が変更されます、よろしいですか？",
-            "path": "新しいインストールパスを選択します",
-            "title": "ゲームのインストールパスを変更します"
+            "message": "この操作により、このゲームのインストール場所が変更されます。よろしいですか?",
+            "path": "新しいインストールパスを選択してください",
+            "title": "ゲームのインストールパスを変更"
         },
         "choose": "選択",
-        "importpath": "インポートするゲームフォルダを選択します",
+        "importpath": "インポートするゲームフォルダを選択",
         "move": {
-            "message": "これには長い時間がかかることがあります、よろしいですか ？",
-            "path": "移動したい場所を選択してください",
-            "title": "ゲームのインストールを移動します"
+            "message": "これには長い時間がかかる場合があります。よろしいですか?",
+            "path": "移動先を選択してください",
+            "title": "ゲームのインストール場所を移動"
         },
         "no": "いいえ",
         "repair": {
-            "message": "このゲームを修復したいですか？これには長い時間がかかることがあります。",
-            "title": "確認と修復"
+            "message": "このゲームの修復を試行しますか? これには長い時間がかかる場合があります。",
+            "title": "検証と修復"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "実行するEXEを選択"
         },
         "select": {
-            "button": "Select"
+            "button": "選択"
         },
         "sideload": {
-            "exe": "Select Executable"
+            "exe": "実行可能ファイルを選択"
         },
         "stopInstall": {
             "keepInstalling": "インストールを続ける",
-            "message": "ダウンロードしたファイルを保持しますか？",
-            "title": "インストールを停止する"
+            "message": "ダウンロードしたファイルを保持しますか?",
+            "title": "インストールを中止"
         },
         "uninstall": {
-            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
-            "message": "このゲームをアンインストールしたいですか？",
-            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+            "checkbox": "環境を削除します: {{prefix}}{{newLine}}注意: この操作は元に戻すことができず、バックアップされていない保存ファイルも削除されます。",
+            "message": "このゲームをアンインストールしますか?",
+            "settingcheckbox": "設定を消去し、ログを削除します{{newLine}}注意: この操作は元に戻すことができません。変更された設定はすべて失われ、ログは削除されます。",
             "title": "アンインストール",
-            "prefix_warning": "このゲームの Wine プレフィックスはデフォルトのプレフィックスです。本当に削除したい場合は、手動で行う必要があります。"
+            "prefix_warning": "このゲームが使用しているWine環境はデフォルトの環境です。本当に削除したい場合は、手動で行う必要があります。",
+            "dlc": "このDLCをアンインストールしますか?"
         },
         "update": {
-            "message": "このゲームにはアップデートがありますが、今すぐアップデートしたいですか？",
-            "title": "ゲームの更新が必要"
+            "message": "このゲームにはアップデートがあります。今すぐアップデートを適用しますか?",
+            "title": "ゲームのアップデート"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "Wine環境フォルダを選択",
         "yes": "はい"
     },
     "button": {
-        "add_to_favourites": "Add To Favourites",
+        "add_to_favourites": "お気に入りに追加",
         "cancel": "一時停止/キャンセル",
         "continue": "ダウンロードを続ける",
-        "finish": "Finish",
-        "force_update": "Force Update if Available",
-        "force-innstall": "Force Install",
-        "hide_game": "Hide Game",
-        "import": "インポート",
+        "finish": "終了",
+        "force_update": "強制アップデート（利用可能な場合）",
+        "force-innstall": "強制インストール",
+        "hide_game": "ゲームを非表示",
+        "import": "ゲームをインポート",
         "install": "インストール",
-        "no-path-selected": "No path selected",
+        "no-path-selected": "パスが選択されていません",
         "queue": {
-            "remove": "Remove from Queue"
+            "remove": "キューから削除"
         },
-        "remove_from_favourites": "Remove From Favourites",
-        "remove_from_recent": "Remove From Recent",
-        "run-exe-first": "Run Installer First",
-        "running-setup": "Running Setup",
+        "remove_from_favourites": "お気に入りから削除",
+        "remove_from_recent": "最近のゲームから削除",
+        "run-exe-first": "最初にインストーラを実行",
+        "running-setup": "セットアップを実行中",
         "sideload": {
-            "edit": "Edit App/Game"
+            "edit": "App/ゲームを編集"
         },
-        "unhide_game": "Unhide Game",
+        "unhide_game": "ゲームを再表示",
         "uninstall": "アンインストール",
         "update": "アップデート",
         "details": "詳細"
     },
-    "cloud_save_unsupported": "Unsupported",
-    "disabled": "無効になっています",
+    "cloud_save_unsupported": "非対応",
+    "disabled": "無効",
     "dlc": {
-        "installDlcs": "すべてのDLCをインストールします"
+        "installDlcs": "すべてのDLCをインストール"
     },
-    "enabled": "有効になっています",
+    "enabled": "有効",
     "game": {
         "downloadSize": "ダウンロードサイズ",
-        "firstPlayed": "最初にプレイした",
-        "getting-download-size": "Geting download size",
-        "getting-install-size": "Geting install size",
+        "firstPlayed": "初回プレイ日時",
+        "getting-download-size": "ダウンロードサイズを取得中",
+        "getting-install-size": "インストールサイズを取得中",
         "installSize": "インストールサイズ",
-        "language": "Language",
-        "lastPlayed": "最後にプレイした",
-        "neverPlayed": "一度もない",
-        "platform": "Select Platform Version to Install",
-        "requirements": "System Requirements",
-        "totalPlayed": "プレイ時間"
+        "language": "言語",
+        "lastPlayed": "最終プレイ日時",
+        "neverPlayed": "未プレイ",
+        "platform": "インストールするプラットフォームのバージョンを選択",
+        "requirements": "システム要件",
+        "totalPlayed": "プレイ時間",
+        "dlcs": "DLCs"
     },
     "gamecard": {
-        "moving": "移動しています",
-        "repairing": "修復しています"
+        "moving": "移動中",
+        "repairing": "修復中"
     },
     "generic": {
-        "error": "Unknown error",
+        "error": "不明なエラー",
         "noDescription": "説明がありません"
     },
-    "hours": "Hours",
+    "hours": "時間",
     "how-long-to-beat": {
-        "completionist": "Completionist",
-        "main-plus-extras": "Main + Extras",
-        "main-story": "Main Story"
+        "completionist": "100%クリア",
+        "main-plus-extras": "メイン+追加コンテンツ",
+        "main-story": "メインストーリー"
     },
-    "howLongToBeat": "How Long To Beat",
+    "howLongToBeat": "目安クリア時間",
     "info": {
-        "canRunOffline": "Online Required",
-        "installedPlatform": "Installed Platform",
+        "canRunOffline": "オンライン必須",
+        "installedPlatform": "インストールプラットフォーム",
         "path": "インストールパス",
         "size": "サイズ",
-        "syncsaves": "保存を同期",
+        "syncsaves": "セーブデータ同期",
         "version": "バージョン",
-        "apple-gaming-wiki": "AppleGamingWiki 評価",
+        "apple-gaming-wiki": "AppleGamingWikiの評価",
         "clickToOpen": "クリックして開きます",
         "game-scores": "ゲームのスコア",
-        "installedInfo": "インストール情報"
+        "installedInfo": "インストール情報",
+        "protondb-compatibility-info": "プロトン互換性層",
+        "steamdeck-compatibility-info": "SteamDeck の互換性"
     },
     "install": {
-        "disk-space-left": "Space Available",
-        "not-enough-disk-space": "Not enough disk space",
-        "path": "Select Install Path",
-        "path-not-writtable": "Warning: path might not be writable.",
-        "space-after-install": "After Install",
-        "wineprefix": "WinePrefix",
-        "wineversion": "Wine Version"
+        "disk-space-left": "空き領域",
+        "not-enough-disk-space": "ディスク領域が不足しています",
+        "path": "インストールパスを選択",
+        "path-not-writtable": "警告: パスが書き込み可能でない可能性があります。",
+        "space-after-install": "インストール後",
+        "wineprefix": "Wine環境",
+        "wineversion": "Wineバージョン"
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "非対応のサードパーティ製ゲーム",
+            "not-installable-game": "ゲームはインストールできません"
         },
         "playing": {
-            "start": "プレイ",
-            "stop": "プレイしています（停止）"
+            "start": "今すぐプレイ",
+            "stop": "プレイ中（中止）"
         },
         "saves": {
-            "syncing": "保存を同期しています"
+            "syncing": "セーブデータを同期中"
         },
         "launching": "起動中",
-        "ubisoft": "Ubisoft Connect のインストール"
+        "ubisoft": "Ubisoft Connectをインストール中"
     },
     "launch": {
-        "options": "Launch Options..."
+        "options": "起動オプション…"
     },
     "not_logged_in": {
-        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
-        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
-        "login": "Log in",
-        "title": "You are NOT logged in"
+        "epic": "HeroicにEpicアカウントでログインしていません。ストアページを使用してログインせず、代わりに次のボタンをクリックしてください:",
+        "gog": "HeroicにGOGアカウントでログインしていません。ストアページを使用してログインせず、代わりに次のボタンをクリックしてください:",
+        "login": "ログイン",
+        "title": "ログインしていません"
     },
-    "report_problem": "Report a problem running this game",
+    "report_problem": "このゲームの実行に関する問題を報告",
     "sdl": {
-        "title": "インストールするコンポーネントを選択します"
+        "title": "インストールするコンポーネントを選択"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings",
-        "winecrossoverbottle": "CrossOver ボトル"
+        "use-default-wine-settings": "デフォルトのWine設定を使用",
+        "winecrossoverbottle": "CrossOverボトル"
     },
     "sideload": {
         "field": {
-            "title": "Title"
+            "title": "タイトル"
         },
         "info": {
-            "exe": "Select Executable",
-            "image": "App Image",
-            "title": "Game/App Title"
+            "exe": "実行可能ファイルを選択",
+            "image": "Appイメージ",
+            "title": "ゲーム/Appタイトル",
+            "broser": "ブラウザのURL"
         },
         "placeholder": {
-            "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "image": "ここにイメージURLをペーストしてください",
+            "title": "ゲーム/Appにタイトルを追加してください",
+            "url": "ゲームの URL をここに貼り付けます"
         }
     },
     "specs": {
-        "minimum": "最小",
-        "recommended": "推奨される"
+        "minimum": "最低",
+        "recommended": "推奨"
     },
     "status": {
-        "clickToUpdate": "クリックして更新",
-        "gameNotAvailable": "Game not available",
-        "hasUpdates": "新しいバージョンが利用可能です！",
-        "installed": "インストールされています",
-        "installing": "インストール",
-        "moving": "インストールを移動しています、お待ちください",
+        "clickToUpdate": "クリックしてアップデート",
+        "gameNotAvailable": "ゲームは利用できません",
+        "hasUpdates": "新しいバージョンが利用可能です!",
+        "installed": "インストール済み",
+        "installing": "インストール中",
+        "moving": "インストール場所を移動中。しばらくお待ちください",
         "notinstalled": "このゲームはインストールされていません",
-        "notSupported": "Not supported",
-        "notSupportedGame": "Not Supported",
-        "processing": "Processing files, please wait",
-        "queued": "Queued",
-        "reparing": "ゲームを修復しています、お待ちください",
-        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
-        "totalDownloaded": "ダウンロードの総数",
-        "uninstalling": "Uninstalling",
-        "updating": "ゲームを更新しています",
-        "playing": "遊んでいる",
-        "moving-files": "移動ファイル '{{file}}': {{percent}} ",
-        "syncingSaves": "保存を同期しています",
+        "notSupported": "対応していません",
+        "notSupportedGame": "対応していません",
+        "processing": "ファイルを処理中。しばらくお待ちください",
+        "queued": "キューに追加済み",
+        "reparing": "ゲームを修復中。しばらくお待ちください",
+        "this-game-uses-third-party": "このゲームはサードパーティ製ランチャーを使用しているため、まだ対応していません",
+        "totalDownloaded": "合計ダウンロード",
+        "uninstalling": "アンインストール中",
+        "updating": "ゲームをアップデート中",
+        "playing": "プレイ中",
+        "moving-files": "ファイル '{{file}}' を移動中: {{percent}} ",
+        "syncingSaves": "セーブデータを同期中",
         "launching": "起動中",
-        "ubisoft": "Ubisoft のインストール",
-        "downloading": "Downloading",
-        "extracting": "抽出中"
+        "ubisoft": "Ubisoftをインストール中",
+        "downloading": "ダウンロード中",
+        "extracting": "抽出中",
+        "gog-goodie": "このゲームはインストールできないようです。 https://gog.com/account でダウンロード可能なコンテンツを確認してください",
+        "goodie": "インストール不可"
     },
     "submenu": {
-        "addShortcut": "ショートカットを追加する",
-        "addToSteam": "Add to Steam",
-        "change": "インストールパスを変更する",
-        "disableEosOverlay": "Disable EOS Overlay",
-        "enableEosOverlay": "Enable EOS Overlay",
-        "move": "ゲームを移動する",
-        "protondb": "互換性を確認する",
-        "removeFromSteam": "Remove from Steam",
-        "removeShortcut": "Remove shortcuts",
+        "addShortcut": "ショートカットを追加",
+        "addToSteam": "Steamに追加",
+        "change": "インストールパスを変更",
+        "disableEosOverlay": "EOSオーバーレイを無効にする",
+        "enableEosOverlay": "EOSオーバーレイを有効にする",
+        "move": "ゲームを移動",
+        "protondb": "互換性を確認",
+        "removeFromSteam": "Steamから削除",
+        "removeShortcut": "ショートカットを削除",
         "settings": "設定",
         "store": "ストアページ",
-        "verify": "確認と修復",
+        "verify": "検証と修復",
         "extraInfo": "追加情報",
         "logs": "ログ"
     },
     "help": {
-        "cloud_save_unsupported": "このゲームはクラウドセーブをサポートしていません。この情報は、ゲーム開発者によって提供されます。一部のゲームは独自のクラウド保存システムを実装しています"
+        "cloud_save_unsupported": "このゲームはクラウドセーブに対応していません。この情報はゲーム開発者によって提供されたものです。一部のゲームでは、独自のクラウドセーブシステムを実装しているものもあります"
     }
 }

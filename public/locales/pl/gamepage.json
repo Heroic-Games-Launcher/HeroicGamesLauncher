@@ -8,14 +8,14 @@
         "choose": "Wybierz",
         "importpath": "Wybierz folder gry do zaimportowania",
         "move": {
-            "message": "To może chwilę zająć, jesteś pewny?",
-            "path": "Wybierz gdzie chcesz przejść",
+            "message": "To może zająć dłuższą chwilę, jesteś pewien?",
+            "path": "Wybierz gdzie chcesz przenieść",
             "title": "Przenieś pliki gry"
         },
         "no": "NIE",
         "repair": {
-            "message": "Chcesz spróbować naprawić tą grę? To może zająć dużo czasu.",
-            "title": "Sprawdź i napraw"
+            "message": "Chcesz spróbować naprawić tę grę? To może zająć dużo czasu.",
+            "title": "Zweryfikuj i napraw"
         },
         "runexe": {
             "title": "Wybierz EXE do uruchomienia"
@@ -28,18 +28,19 @@
         },
         "stopInstall": {
             "keepInstalling": "Kontynuuj instalację",
-            "message": "Czy chcesz zachować pobrane pliki?",
+            "message": "Czy chcesz ZACHOWAĆ pobrane pliki?",
             "title": "Zatrzymaj instalację"
         },
         "uninstall": {
             "checkbox": "Usuń prefiks: {{prefix}}{{newLine}} Notka: Operacja nie może zostać cofnięta, zostaną usunięte również zapisy gry.",
             "message": "Czy chcesz odinstalować tę grę?",
-            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+            "settingcheckbox": "Wyczyść ustawienia i usuń dziennik zdarzeń{{newLine}}Uwaga: Ta operacja nie może zostać cofnięta. Wszystkie zmodyfikowane ustawienia zostaną zapomniane, a dziennik zdarzeń zostanie usunięty.",
             "title": "Odinstaluj",
-            "prefix_warning": "Prefiks Wine dla tej gry jest prefiksem domyślnym. Jeśli naprawdę chcesz go usunąć, musisz to zrobić ręcznie."
+            "prefix_warning": "Prefiks Wine dla tej gry jest prefiksem domyślnym. Jeśli na pewno chcesz go usunąć, musisz to zrobić ręcznie.",
+            "dlc": "Czy chcesz odinstalować to DLC?"
         },
         "update": {
-            "message": "Ta gra ma dostępną aktualizację, czy chcesz zainstalować ją teraz?",
+            "message": "Ta gra ma dostępną aktualizację, czy chcesz ją teraz zainstalować?",
             "title": "Gra wymaga aktualizacji"
         },
         "wineprefix": "Wybierz folder z prefiksem Wine",
@@ -60,35 +61,36 @@
             "remove": "Usuń z kolejki"
         },
         "remove_from_favourites": "Usuń z ulubionych",
-        "remove_from_recent": "Remove From Recent",
+        "remove_from_recent": "Usuń z ostatnio uruchamianych",
         "run-exe-first": "Uruchom najpierw instalator",
-        "running-setup": "Running Setup",
+        "running-setup": "Rozpoczynanie instalacji",
         "sideload": {
             "edit": "Edytuj Aplikację/Grę"
         },
         "unhide_game": "Odkryj Grę",
         "uninstall": "Odinstaluj",
         "update": "Aktualizuj",
-        "details": "Detale"
+        "details": "Szczegóły"
     },
     "cloud_save_unsupported": "Niewspierana",
-    "disabled": "Wyłączone",
+    "disabled": "Wyłączono",
     "dlc": {
         "installDlcs": "Zainstaluj wszystkie DLC"
     },
-    "enabled": "Włączone",
+    "enabled": "Włączono",
     "game": {
         "downloadSize": "Rozmiar pobierania",
         "firstPlayed": "Pierwsze uruchomienie",
-        "getting-download-size": "Geting download size",
-        "getting-install-size": "Geting install size",
+        "getting-download-size": "Sprawdzanie rozmiaru pliku do pobrania",
+        "getting-install-size": "Sprawdzanie rozmiaru instalacji",
         "installSize": "Rozmiar instalacji",
         "language": "Język",
         "lastPlayed": "Ostatnio uruchamiane",
         "neverPlayed": "Nigdy",
         "platform": "Wybierz wersję platformy do zainstalowania",
         "requirements": "Wymagania systemowe",
-        "totalPlayed": "Czas Gry"
+        "totalPlayed": "Czas Gry",
+        "dlcs": "DLC"
     },
     "gamecard": {
         "moving": "Przenoszenie",
@@ -98,13 +100,13 @@
         "error": "Nieznany błąd",
         "noDescription": "Brak dostępnego opisu"
     },
-    "hours": "Hours",
+    "hours": "Godzin",
     "how-long-to-beat": {
-        "completionist": "Completionist",
-        "main-plus-extras": "Main + Extras",
-        "main-story": "Main Story"
+        "completionist": "Kolekcjoner",
+        "main-plus-extras": "Podstawowa + Dodatki",
+        "main-story": "Główny wątek"
     },
-    "howLongToBeat": "How Long To Beat",
+    "howLongToBeat": "Czas na ukończenie",
     "info": {
         "canRunOffline": "Wymagane połączenie z internetem",
         "installedPlatform": "Zainstalowana platforma",
@@ -115,7 +117,9 @@
         "apple-gaming-wiki": "Ocena AppleGamingWiki",
         "clickToOpen": "Kliknij, aby otworzyć",
         "game-scores": "Wyniki gier",
-        "installedInfo": "Zainstalowane informacje"
+        "installedInfo": "Zainstalowane informacje",
+        "protondb-compatibility-info": "Poziom zgodności protonów",
+        "steamdeck-compatibility-info": "Zgodność ze SteamDeck"
     },
     "install": {
         "disk-space-left": "Dostępne miejsce",
@@ -128,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Gry stron trzecich NIE są obsługiwane",
+            "not-installable-game": "Gry NIE MOŻNA zainstalować"
         },
         "playing": {
             "start": "Graj",
@@ -137,68 +142,72 @@
         "saves": {
             "syncing": "Synchronizowanie zapisów"
         },
-        "launching": "Wodowanie",
+        "launching": "Uruchamianie",
         "ubisoft": "Instalowanie Ubisoft Connect"
     },
     "launch": {
         "options": "Opcje Uruchamiania..."
     },
     "not_logged_in": {
-        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
-        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
-        "login": "Log in",
-        "title": "You are NOT logged in"
+        "epic": "Nie jesteś zalogowany kontem Epic w Heroic. Nie używaj strony sklepu do zalogowania, zamiast tego kliknij ten przycisk:",
+        "gog": "Nie jesteś zalogowany kontem GOG w Heroic. Nie używaj strony sklepu do logowania, zamiast tego kliknij ten przycisk:",
+        "login": "Zaloguj",
+        "title": "NIE jesteś zalogowany"
     },
     "report_problem": "Zgłoś problem z uruchamianiem tej gry",
     "sdl": {
         "title": "Wybierz komponenty do instalacji"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings",
+        "use-default-wine-settings": "Użyj domyślnych ustawień Wine",
         "winecrossoverbottle": "Butelka CrossOver"
     },
     "sideload": {
         "field": {
-            "title": "Title"
+            "title": "Tytuł"
         },
         "info": {
-            "exe": "Select Executable",
-            "image": "App Image",
-            "title": "Game/App Title"
+            "exe": "Wybierz plik wykonywalny",
+            "image": "Obraz aplikacji",
+            "title": "Tytuł gry/aplikacji",
+            "broser": "URL przeglądarki"
         },
         "placeholder": {
-            "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "image": "Wklej adres URL obrazka tutaj",
+            "title": "Dodaj tytuł do swojej gry/aplikacji",
+            "url": "Wklej tutaj adres URL gry"
         }
     },
     "specs": {
-        "minimum": "Minimum",
-        "recommended": "Zalecany"
+        "minimum": "Minimalne",
+        "recommended": "Zalecane"
     },
     "status": {
         "clickToUpdate": "Kliknij by zaktualizować",
-        "gameNotAvailable": "Game not available",
+        "gameNotAvailable": "Gra nie jest dostępna",
         "hasUpdates": "Nowa wersja dostępna!",
         "installed": "Zainstalowane",
         "installing": "Instalowanie",
         "moving": "Przenoszenie plików gry, proszę czekać",
         "notinstalled": "Ta gra nie jest zainstalowana",
-        "notSupported": "Not supported",
-        "notSupportedGame": "Not Supported",
+        "notSupported": "Nieobsługiwane",
+        "notSupportedGame": "Nieobsługiwana",
         "processing": "Przetwarzanie plików, proszę czekać",
-        "queued": "Queued",
+        "queued": "W kolejce",
         "reparing": "Naprawianie gry, proszę czekać",
-        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
+        "this-game-uses-third-party": "Ta gra używa programu uruchamiającego strony trzeciej i nie jest jeszcze wspierana",
         "totalDownloaded": "Łącznie pobrane",
-        "uninstalling": "Uninstalling",
+        "uninstalling": "Odinstalowywanie",
         "updating": "Aktualizowanie gry",
-        "playing": "Gra",
+        "playing": "W grze",
         "moving-files": "Przenoszenie pliku „{{file}}”: {{percent}} ",
         "syncingSaves": "Synchronizowanie zapisów",
-        "launching": "Wodowanie",
-        "ubisoft": "Instalowanie Ubisoftu",
-        "downloading": "Downloading",
-        "extracting": "Ekstrahujący"
+        "launching": "Uruchamianie",
+        "ubisoft": "Instalowanie Ubisoft",
+        "downloading": "Pobieranie",
+        "extracting": "Wypakowywanie",
+        "gog-goodie": "Wygląda na to, że tej gry nie da się zainstalować. Sprawdź zawartość do pobrania na https://gog.com/account",
+        "goodie": "Nie do zainstalowania"
     },
     "submenu": {
         "addShortcut": "Dodaj skrót",

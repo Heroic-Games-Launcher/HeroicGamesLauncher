@@ -11,7 +11,14 @@ import {
 } from 'graceful-fs'
 import { exec, spawn } from 'child_process'
 import { execAsync, getWineFromProton } from './utils'
-import { execOptions, toolsPath, isMac, isWindows, userHome } from './constants'
+import {
+  execOptions,
+  toolsPath,
+  isMac,
+  isWindows,
+  userHome,
+  isLinux
+} from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import i18next from 'i18next'
 import { dirname, join } from 'path'
@@ -20,6 +27,11 @@ import { showDialogBoxModalAuto } from './dialog/dialog'
 import { runWineCommand, validWine } from './launcher'
 import { chmod } from 'fs/promises'
 import { getNvngxPath } from './utils/graphics/nvngx-finder'
+import {
+  any_gpu_supports_version,
+  get_vulkan_instance_version
+} from './utils/graphics/vulkan'
+import { lt as semverLt } from 'semver'
 
 export const DXVK = {
   getLatest: async () => {
@@ -43,7 +55,7 @@ export const DXVK = {
       },
       {
         name: 'dxvk',
-        url: 'https://api.github.com/repos/doitsujin/dxvk/releases/latest',
+        url: getDxvkUrl(),
         extractCommand: 'tar -xf',
         os: 'linux'
       },
@@ -134,6 +146,15 @@ export const DXVK = {
     tool: 'dxvk' | 'dxvk-nvapi' | 'vkd3d' | 'dxvk-macOS',
     action: 'backup' | 'restore'
   ): Promise<boolean> => {
+    if (gameSettings.wineVersion.bin.includes('toolkit')) {
+      // we don't want to install dxvk on the toolkit prefix since it breaks Apple's implementation
+      logWarning(
+        'Skipping DXVK install on Game Porting Toolkit prefix!',
+        LogPrefix.DXVKInstaller
+      )
+      return true
+    }
+
     const prefix = gameSettings.winePrefix
     const winePrefix = prefix.replace('~', userHome)
     const isValidPrefix = existsSync(`${winePrefix}/.update-timestamp`)
@@ -560,4 +581,40 @@ export const Winetricks = {
       event
     )
   }
+}
+
+/**
+ * Figures out the right DXVK version to use, taking the user's hardware
+ * (specifically their Vulkan support) into account
+ */
+function getDxvkUrl(): string {
+  if (!isLinux) {
+    return ''
+  }
+
+  if (any_gpu_supports_version([1, 3, 0])) {
+    const instance_version = get_vulkan_instance_version()
+    if (instance_version && semverLt(instance_version.join('.'), '1.3.0')) {
+      // FIXME: How does the instance version matter? Even with 1.2, newer DXVK seems to work fine
+      logWarning(
+        'Vulkan 1.3 is supported by GPUs in this system, but instance version is outdated',
+        LogPrefix.DXVKInstaller
+      )
+    }
+    return 'https://api.github.com/repos/doitsujin/dxvk/releases/latest'
+  }
+  if (any_gpu_supports_version([1, 1, 0])) {
+    logInfo(
+      'The GPU(s) in this system only support Vulkan 1.1/1.2, falling back to DXVK 1.10.3',
+      LogPrefix.DXVKInstaller
+    )
+    return 'https://api.github.com/repos/doitsujin/dxvk/releases/tags/v1.10.3'
+  }
+  logWarning(
+    'No GPU with Vulkan 1.1 support found, DXVK will not work',
+    LogPrefix.DXVKInstaller
+  )
+  // FIXME: We currently lack a "Don't download at all" option here, but
+  //        that would also need bigger changes in the frontend
+  return 'https://api.github.com/repos/doitsujin/dxvk/releases/latest'
 }

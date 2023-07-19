@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroic caută pentru versiuni de Wine, Proton și CrossOver în următoarele foldere:",
             "part2": "Pentru alte locuri, utilizați un link simbolic către unul dintre aceste dosare"
-        }
+        },
+        "disable_logs": "Activați această casetă de selectare pentru a dezactiva majoritatea scrierilor în fișierele jurnal (informațiile critice sunt întotdeauna înregistrate). Asigurați-vă că dezactivați această setare înainte de a raporta orice problemă."
     },
     "info": {
         "heroic": {
@@ -305,7 +306,8 @@
         "wine-repfix": {
             "message": "Wine folosește ceea ce se numește WINEPREFIX pentru a încapsula aplicațiile Windows. Acest prefix conține fișierele de configurare Wine și o reproducere a ierarhiei fișierelor C: (discul principal pe un sistem de operare Windows). În această reproducere a unității C:, sunt stocate fișierele de salvare a jocului și dependențele instalate prin winetricks."
         },
-        "wine-path-invalid": "Calea vinului este nevalidă, vă rugăm să selectați alta."
+        "wine-path-invalid": "Calea vinului este nevalidă, vă rugăm să selectați alta.",
+        "wine-path-none-found": "Nu a fost găsită nicio versiune Wine, descărcați una din Wine Manager"
     },
     "install": {
         "path": "Selectați Calea de instalare"
@@ -440,7 +442,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "Browser"
     },
     "please-wait": "Please wait...",
     "progress": "Progres",
@@ -566,7 +569,10 @@
         "wineprefix": "dosar WinePrefix",
         "wineversion": "Versiune Wine",
         "autoUpdateGames": "Actualizați automat jocurile",
-        "ignoreGameUpdates": "Ignora actualizările jocului"
+        "ignoreGameUpdates": "Ignora actualizările jocului",
+        "disable_logs": "Dezactivați jurnalele",
+        "addgamestoapplications": "Adăugați automat jocuri la Aplicații",
+        "showMetalOverlay": "Afișați statistici suprapuse"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -680,5 +686,12 @@
     },
     "wiki_info": {
         "not_found": "Nu am putut găsi informații suplimentare."
+    },
+    "dlc": {
+        "actions": "Acțiuni",
+        "installDlcs": "Instalați toate DLC-urile",
+        "noDlcFound": "Nu s-au găsit DLC",
+        "size": "Mărime",
+        "title": "Title"
     }
 }

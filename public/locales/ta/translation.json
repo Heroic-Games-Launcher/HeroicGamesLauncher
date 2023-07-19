@@ -278,7 +278,8 @@
         "wine": {
             "part1": "ஹீரோயிக் பின்வரும் கோப்புறைகளில் Wine, Proton மற்றும் crossover பதிப்புகளை தேடும்:",
             "part2": "பிற இடங்களுக்கு, இவற்றில் ஒரு கோப்புறைக்கு குறியீட்டு-இணைப்பை பயன்படுத்து"
-        }
+        },
+        "disable_logs": "கோப்புகளைப் பதிவு செய்வதற்கான பெரும்பாலான எழுத்துகளை முடக்க, இந்த தேர்வுப்பெட்டியை இயக்கவும் (முக்கியமான தகவல்கள் எப்போதும் பதிவுசெய்யப்பட்டிருக்கும்). ஏதேனும் சிக்கலைப் புகாரளிக்கும் முன் இந்த அமைப்பை முடக்குவதை உறுதிசெய்யவும்."
     },
     "info": {
         "heroic": {
@@ -305,7 +306,8 @@
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
         },
-        "wine-path-invalid": "ஒயின் பாதை தவறானது, வேறொன்றைத் தேர்ந்தெடுக்கவும்."
+        "wine-path-invalid": "ஒயின் பாதை தவறானது, வேறொன்றைத் தேர்ந்தெடுக்கவும்.",
+        "wine-path-none-found": "ஒயின் பதிப்பு எதுவும் கிடைக்கவில்லை, ஒயின் மேலாளரிடமிருந்து ஒன்றைப் பதிவிறக்கவும்"
     },
     "install": {
         "path": "Select Install Path"
@@ -361,9 +363,9 @@
             "reparing": "பழுதுபார்ப்பு முடிவடைந்தது"
         },
         "install": {
-            "canceled": "நிறுவல் ரத்துசெய்யப்பட்டது",
+            "canceled": "நிறுவல் ரத்து செய்யப்பட்டது",
             "error": "நிறுவல் தோல்வி",
-            "finished": "நிறுவல் முடிவடைந்தது",
+            "finished": "நிறுவல் முடிந்தது",
             "imported": "Game Imported",
             "startInstall": "Installation Started",
             "failed": "நிறுவல் தோல்வி",
@@ -440,7 +442,8 @@
     "platforms": {
         "linux": "லினக்ஸ்",
         "mac": "மேக்",
-        "win": "விண்டோஸ்"
+        "win": "விண்டோஸ்",
+        "browser": "உலாவி"
     },
     "please-wait": "Please wait...",
     "progress": "Progress",
@@ -520,7 +523,7 @@
         "log": {
             "copy-to-clipboard": "Copy log content to clipboard",
             "current-log": "Current Log",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",
             "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
             "no-file": "No log file found",
@@ -566,7 +569,10 @@
         "wineprefix": "WinePrefix கோப்புறை",
         "wineversion": "Wine பதிப்பு",
         "autoUpdateGames": "கேம்களை தானாகவே புதுப்பிக்கவும்",
-        "ignoreGameUpdates": "கேம் புதுப்பிப்புகளைப் புறக்கணிக்கவும்"
+        "ignoreGameUpdates": "கேம் புதுப்பிப்புகளைப் புறக்கணிக்கவும்",
+        "disable_logs": "பதிவுகளை முடக்கு",
+        "addgamestoapplications": "தானாகவே பயன்பாடுகளில் கேம்களைச் சேர்க்கவும்",
+        "showMetalOverlay": "புள்ளிவிவர மேலடுக்கைக் காட்டு"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -680,5 +686,12 @@
     },
     "wiki_info": {
         "not_found": "கூடுதல் தகவல்களை எங்களால் கண்டுபிடிக்க முடியவில்லை."
+    },
+    "dlc": {
+        "actions": "செயல்கள்",
+        "installDlcs": "Install all DLCs",
+        "noDlcFound": "டிஎல்சிகள் எதுவும் இல்லை",
+        "size": "Size",
+        "title": "Title"
     }
 }

@@ -163,7 +163,7 @@ export default React.memo(function ActionIcons({
           onClick={async () =>
             refreshLibrary({
               checkForUpdates: true,
-              runInBackground: false,
+              runInBackground: library === 'gog',
               library
             })
           }

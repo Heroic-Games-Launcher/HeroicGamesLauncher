@@ -8,10 +8,10 @@ import {
 } from 'common/types'
 import { libraryStore } from './electronStores'
 import { GameConfig } from '../../game_config'
-import { isWindows, isMac, isLinux, icon } from '../../constants'
+import { isWindows, isMac, isLinux } from '../../constants'
 import { killPattern, shutdownWine } from '../../utils'
 import { logInfo, LogPrefix, logWarning } from '../../logger/logger'
-import path, { dirname, resolve } from 'path'
+import { dirname } from 'path'
 import { existsSync, rmSync } from 'graceful-fs'
 import i18next from 'i18next'
 import {
@@ -20,11 +20,9 @@ import {
 } from '../../shortcuts/shortcuts/shortcuts'
 import { notify } from '../../dialog/dialog'
 import { sendFrontendMessage } from '../../main_window'
-import { app, BrowserWindow } from 'electron'
 import { launchGame } from 'backend/storeManagers/storeManagerCommon/games'
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import { InstallResult, RemoveArgs } from 'common/types/game_manager'
-const buildDir = resolve(__dirname, '../../build')
 
 export function getGameInfo(appName: string): GameInfo {
   const store = libraryStore.get('games', [])
@@ -67,51 +65,6 @@ export function isGameAvailable(appName: string): boolean {
   return false
 }
 
-if (Object.hasOwn(app, 'on'))
-  app.on('web-contents-created', (_, contents) => {
-    // Check for a webview
-    if (contents.getType() === 'webview') {
-      contents.setWindowOpenHandler(({ url }) => {
-        const protocol = new URL(url).protocol
-        if (['https:', 'http:'].includes(protocol)) {
-          openNewBrowserGameWindow(url)
-        }
-        return { action: 'deny' }
-      })
-    }
-  })
-
-const openNewBrowserGameWindow = async (
-  browserUrl: string
-): Promise<boolean> => {
-  return new Promise((res) => {
-    const browserGame = new BrowserWindow({
-      icon: icon,
-      webPreferences: {
-        webviewTag: true,
-        contextIsolation: true,
-        nodeIntegration: true,
-        preload: path.join(__dirname, 'preload.js')
-      }
-    })
-
-    const url = !app.isPackaged
-      ? 'http://localhost:5173?view=BrowserGame&browserUrl=' +
-        encodeURIComponent(browserUrl)
-      : `file://${path.join(
-          buildDir,
-          './index.html?view=BrowserGame&browserUrl=' +
-            encodeURIComponent(browserUrl)
-        )}`
-
-    browserGame.loadURL(url)
-    setTimeout(() => browserGame.focus(), 200)
-    browserGame.on('close', () => {
-      res(true)
-    })
-  })
-}
-
 export async function launch(
   appName: string,
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
@@ -151,10 +104,11 @@ export async function uninstall({
   const old = libraryStore.get('games', [])
   const current = old.filter((a: GameInfo) => a.app_name !== appName)
 
+  const gameInfo = getGameInfo(appName)
   const {
     title,
     install: { executable }
-  } = getGameInfo(appName)
+  } = gameInfo
   const { winePrefix } = await getSettings(appName)
 
   if (shouldRemovePrefix) {
@@ -172,7 +126,7 @@ export async function uninstall({
 
   notify({ title, body: i18next.t('notify.uninstalled') })
 
-  removeShortcuts(appName)
+  removeShortcutsUtil(gameInfo)
 
   sendFrontendMessage('gameStatusUpdate', {
     appName,

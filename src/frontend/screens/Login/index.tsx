@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router'
 import { ReactComponent as EpicLogo } from 'frontend/assets/epic-logo.svg'
 import { ReactComponent as GOGLogo } from 'frontend/assets/gog-logo.svg'
 import { ReactComponent as HeroicLogo } from 'frontend/assets/heroic-icon.svg'
+import { ReactComponent as AmazonLogo } from 'frontend/assets/amazon-logo.svg'
 
 import { LanguageSelector, UpdateComponent } from '../../components/UI'
 import { FlagPosition } from '../../components/UI/LanguageSelector'
@@ -15,15 +16,19 @@ import ContextProvider from '../../state/ContextProvider'
 
 export const epicLoginPath = '/loginweb/legendary'
 export const gogLoginPath = '/loginweb/gog'
+export const amazonLoginPath = '/loginweb/nile'
 
 export default React.memo(function NewLogin() {
-  const { epic, gog, refreshLibrary } = useContext(ContextProvider)
+  const { epic, gog, amazon, refreshLibrary } = useContext(ContextProvider)
   const { t } = useTranslation()
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const [showSidLogin, setShowSidLogin] = useState(false)
   const [isEpicLoggedIn, setIsEpicLoggedIn] = useState(Boolean(epic.username))
   const [isGogLoggedIn, setIsGogLoggedIn] = useState(Boolean(gog.username))
+  const [isAmazonLoggedIn, setIsAmazonLoggedIn] = useState(
+    Boolean(amazon.username)
+  )
 
   const loginMessage = t(
     'login.message',
@@ -37,7 +42,8 @@ export default React.memo(function NewLogin() {
   useEffect(() => {
     setIsEpicLoggedIn(Boolean(epic.username))
     setIsGogLoggedIn(Boolean(gog.username))
-  }, [epic.username, gog.username, t])
+    setIsAmazonLoggedIn(Boolean(amazon.username))
+  }, [epic.username, gog.username, amazon.username, t])
 
   async function handleLibraryClick() {
     await refreshLibrary({ runInBackground: false })
@@ -98,6 +104,14 @@ export default React.memo(function NewLogin() {
               isLoggedIn={isGogLoggedIn}
               user={gog.username}
               logoutAction={gog.logout}
+            />
+            <Runner
+              class="nile"
+              icon={() => <AmazonLogo />}
+              loginUrl={amazonLoginPath}
+              isLoggedIn={isAmazonLoggedIn}
+              user={amazon.username}
+              logoutAction={amazon.logout}
             />
           </div>
         </div>

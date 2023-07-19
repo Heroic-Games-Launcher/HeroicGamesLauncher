@@ -36,7 +36,8 @@
             "message": "Vols desinstal·lar aquest joc?",
             "settingcheckbox": "Esborra la configuració i suprimeix el registre{{newLine}}Avís: aquesta acció no es pot desfer. S'oblidarà qualsevol opció modificada i el registre se suprimirà.",
             "title": "Desinstal·la",
-            "prefix_warning": "El prefix Wine d'aquest joc és el prefix predefinit. Si realment vols eliminar-lo, has de fer-ho manualment."
+            "prefix_warning": "El prefix Wine d'aquest joc és el prefix predefinit. Si realment vols eliminar-lo, has de fer-ho manualment.",
+            "dlc": "Vols desinstal·lar aquest DLC?"
         },
         "update": {
             "message": "Hi ha una actualització per a aquest joc, el vols actualitzar ara?",
@@ -88,7 +89,8 @@
         "neverPlayed": "Mai",
         "platform": "Selecciona la versió de la plataforma a instal·lar",
         "requirements": "Requisits del sistema",
-        "totalPlayed": "Temps jugat"
+        "totalPlayed": "Temps jugat",
+        "dlcs": "DLCs"
     },
     "gamecard": {
         "moving": "S'està movent",
@@ -115,7 +117,9 @@
         "apple-gaming-wiki": "Classificació AppleGamingWiki",
         "clickToOpen": "Feu clic per obrir",
         "game-scores": "Puntuacions del joc",
-        "installedInfo": "Informació instal·lada"
+        "installedInfo": "Informació instal·lada",
+        "protondb-compatibility-info": "Nivell de compatibilitat de protons",
+        "steamdeck-compatibility-info": "Compatibilitat amb SteamDeck"
     },
     "install": {
         "disk-space-left": "Espai disponible",
@@ -128,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "No s'admeten jocs de tercers"
+            "third-party-game": "No s'admeten jocs de tercers",
+            "not-installable-game": "El joc NO es pot instal·lar"
         },
         "playing": {
             "start": "Juga",
@@ -164,11 +169,13 @@
         "info": {
             "exe": "Selecciona l'executable",
             "image": "Imatge de l'aplicació",
-            "title": "Títol del joc o aplicació"
+            "title": "Títol del joc o aplicació",
+            "broser": "URL del navegador"
         },
         "placeholder": {
             "image": "Enganxa-hi l'URL d'una imatge",
-            "title": "Afegeix un títol al joc o aplicació"
+            "title": "Afegeix un títol al joc o aplicació",
+            "url": "Enganxeu l'URL del joc aquí"
         }
     },
     "specs": {
@@ -198,7 +205,9 @@
         "launching": "Llançament",
         "ubisoft": "Instal·lació d'Ubisoft",
         "downloading": "Es baixa",
-        "extracting": "Extracció"
+        "extracting": "Extracció",
+        "gog-goodie": "Sembla que aquest joc no es pot instal·lar. Comproveu el contingut baixable a https://gog.com/account",
+        "goodie": "No instal·lable"
     },
     "submenu": {
         "addShortcut": "Afegeix una drecera",

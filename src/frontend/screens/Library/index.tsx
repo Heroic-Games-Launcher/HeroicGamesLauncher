@@ -27,6 +27,7 @@ import {
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import LibraryHeader from './components/LibraryHeader'
 import {
+  amazonCategories,
   epicCategories,
   gogCategories,
   sideloadedCategories
@@ -52,6 +53,7 @@ export default React.memo(function Library(): JSX.Element {
     category,
     epic,
     gog,
+    amazon,
     sideloadedLibrary,
     favouriteGames,
     libraryTopSection,
@@ -151,7 +153,10 @@ export default React.memo(function Library(): JSX.Element {
     if (gogCategories.includes(category) && !gog.username) {
       handleCategory('all')
     }
-  }, [epic.username, gog.username])
+    if (amazonCategories.includes(category) && !amazon.username) {
+      handleCategory('all')
+    }
+  }, [epic.username, gog.username, amazon.username])
 
   const filterByPlatform = (library: GameInfo[], filter: string) => {
     if (!library) {
@@ -160,6 +165,11 @@ export default React.memo(function Library(): JSX.Element {
 
     // Epic doesn't offer Linux games, so just default to showing all games there
     if (category === 'legendary' && platform === 'linux') {
+      return library
+    }
+
+    // Amazon Games only offers Windows games, so just default to showing all games there
+    if (category === 'nile') {
       return library
     }
 
@@ -187,6 +197,10 @@ export default React.memo(function Library(): JSX.Element {
             ? game?.install?.platform === 'linux'
             : game?.is_linux_native
         })
+      case 'browser':
+        return library.filter((game) => {
+          return game?.install?.platform === 'Browser'
+        })
       default:
         return library
     }
@@ -213,6 +227,9 @@ export default React.memo(function Library(): JSX.Element {
       sideloadedLibrary.forEach((game) => {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
+      amazon.library.forEach((game) => {
+        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
+      })
     }
     return tempArray
   }, [showFavourites, favouriteGames, epic, gog])
@@ -227,13 +244,20 @@ export default React.memo(function Library(): JSX.Element {
     } else {
       const isEpic = epic.username && epicCategories.includes(category)
       const isGog = gog.username && gogCategories.includes(category)
+      const isAmazon = amazon.username && amazonCategories.includes(category)
       const epicLibrary = isEpic ? epic.library : []
       const gogLibrary = isGog ? gog.library : []
       const sideloadedApps = sideloadedCategories.includes(category)
         ? sideloadedLibrary
         : []
+      const amazonLibrary = isAmazon ? amazon.library : []
 
-      library = [...sideloadedApps, ...epicLibrary, ...gogLibrary]
+      library = [
+        ...sideloadedApps,
+        ...epicLibrary,
+        ...gogLibrary,
+        ...amazonLibrary
+      ]
 
       if (!showNonAvailable) {
         const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
@@ -277,10 +301,12 @@ export default React.memo(function Library(): JSX.Element {
     }
 
     // sort
-    library = library.sort((a: { title: string }, b: { title: string }) => {
+    library = library.sort((a, b) => {
       const gameA = a.title.toUpperCase().replace('THE ', '')
       const gameB = b.title.toUpperCase().replace('THE ', '')
-      return sortDescending ? (gameA > gameB ? -1 : 1) : gameA < gameB ? -1 : 1
+      return sortDescending
+        ? -gameA.localeCompare(gameB)
+        : gameA.localeCompare(gameB)
     })
     const installed = library.filter((game) => game?.is_installed)
     const notInstalled = library.filter(
@@ -299,6 +325,7 @@ export default React.memo(function Library(): JSX.Element {
     category,
     epic.library,
     gog.library,
+    amazon.library,
     filterText,
     filterPlatform,
     sortDescending,
@@ -309,7 +336,7 @@ export default React.memo(function Library(): JSX.Element {
     showNonAvailable
   ])
 
-  if (!epic && !gog) {
+  if (!epic && !gog && !amazon) {
     return (
       <ErrorComponent
         message={t(
@@ -339,6 +366,7 @@ export default React.memo(function Library(): JSX.Element {
             <GamesList
               library={favourites}
               handleGameCardClick={handleModal}
+              isFavourite
               isFirstLane
             />
           </>

@@ -10,7 +10,7 @@
   height: 100%;
   padding: 0;
   font-family: var(--secondary-font-family);
-  text-align: left;
+  text-align: start;
   background: var(--navbar-background);
   overflow: auto;
   overflow-x: hidden;
@@ -70,16 +70,6 @@
   outline-offset: -2px;
 }
 
-.Sidebar__item:hover {
-  background-color: var(--navbar-active-background);
-  transition: 0.2s;
-  scale: 1.02;
-}
-
-.Sidebar__item.SidebarLinks__subItem:hover {
-  scale: 1;
-}
-
 .Sidebar__item.active {
   color: var(--accent);
   color: var(--navbar-active, var(--accent-overlay));
@@ -101,7 +91,7 @@
 .Sidebar__itemIcon {
   box-sizing: border-box;
   width: 24px;
-  margin-right: 10px;
+  margin-inline-end: 10px;
   display: inline-flex;
   justify-content: center;
   color: var(--accent);
@@ -111,8 +101,8 @@
 .currentDownloads {
   grid-area: utils;
   align-self: end;
-  margin: 0 var(--space-3xs) var(--sidebar-vertical-padding)
-    var(--sidebar-horizontal-padding);
+  margin-block: 0 var(--sidebar-vertical-padding);
+  margin-inline: var(--sidebar-horizontal-padding) var(--space-3xs);
 }
 
 .divider {
@@ -123,9 +113,11 @@
 }
 
 .heroicVersion {
+  display: flex;
+  gap: 5px;
   grid-area: version;
-  margin: 0 var(--space-3xs) var(--sidebar-vertical-padding)
-    var(--sidebar-horizontal-padding);
+  margin-block: 0 var(--sidebar-vertical-padding);
+  margin-inline: var(--sidebar-horizontal-padding) var(--space-3xs);
   font-size: var(--text-sm);
   cursor: pointer;
   transition: 300ms;
@@ -141,7 +133,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  margin: 0 var(--space-3xs) var(--space-sm) var(--sidebar-horizontal-padding);
+  margin-block: 0 var(--space-sm);
+  margin-inline: var(--space-3xs) var(--sidebar-horizontal-padding);
   font-size: var(--text-sm);
 }
 
@@ -238,4 +231,9 @@
   height: 100%;
   z-index: 1;
   cursor: col-resize;
+}
+
+.isRTL .resizer {
+  left: 0;
+  right: auto;
 }

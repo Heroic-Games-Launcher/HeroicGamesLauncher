@@ -160,7 +160,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "Brauzer"
     },
     "two_col_table": {
         "save_hint": "Ushbu jadvaldagi o'zgarishlar avtomatik ravishda saqlanmaydi. + tugmasini bosing"
@@ -323,7 +324,8 @@
         "wine": {
             "part1": "Qahramonlik quyidagi papkalarda Wine, Proton va CrossOver versiyalarini qidiradi:",
             "part2": "Boshqa joylar uchun ushbu papkalardan biriga ramziy havoladan foydalaning"
-        }
+        },
+        "disable_logs": "Jurnal fayllariga yozishning ko'p qismini o'chirish uchun ushbu katakchani ON holatiga o'tkazing (muhim ma'lumotlar har doim qayd qilinadi). Har qanday muammo haqida xabar berishdan oldin ushbu sozlamani O‘CHIRING."
     },
     "info": {
         "heroic": {
@@ -350,7 +352,8 @@
         },
         "wine-repfix": {
             "message": "Wine Windows ilovalarini qamrab olish uchun WINEPREFIX deb ataladigan narsadan foydalanadi. Ushbu prefiks Wine konfiguratsiya fayllarini va C: fayl ierarxiyasining takrorlanishini o'z ichiga oladi (Windows operatsion tizimidagi asosiy disk). C: diskining ushbu reproduktsiyasida o'yinni saqlash fayllari va winetricks orqali o'rnatilgan bog'liqliklar saqlanadi."
-        }
+        },
+        "wine-path-none-found": "Hech qanday sharob versiyasi topilmadi, Wine menejeridan birini yuklab oling"
     },
     "install": {
         "path": "O'rnatish yo'lini tanlang"
@@ -605,7 +608,10 @@
         "steamruntime": "Steam Runtime dan foydalaning",
         "winecrossoverbottle": "Krossover shishasi",
         "wineprefix": "WinePrefix papkasi",
-        "wineversion": "Vino versiyasi"
+        "wineversion": "Vino versiyasi",
+        "disable_logs": "Jurnallarni o'chirib qo'ying",
+        "addgamestoapplications": "Ilovalarga o'yinlarni avtomatik ravishda qo'shing",
+        "showMetalOverlay": "Statistika qavatini ko'rsatish"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -669,5 +675,12 @@
         "removepath": "Yo'lni olib tashlash"
     },
     "Open": "Ochiq",
-    "Update Available!": "Yangilanish mavjud!"
+    "Update Available!": "Yangilanish mavjud!",
+    "dlc": {
+        "actions": "Harakatlar",
+        "installDlcs": "Barcha DLC-larni o'rnating",
+        "noDlcFound": "Hech qanday DLC topilmadi",
+        "size": "Hajmi",
+        "title": "Sarlavha"
+    }
 }

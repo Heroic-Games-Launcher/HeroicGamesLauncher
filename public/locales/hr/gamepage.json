@@ -36,7 +36,8 @@
             "message": "Želite li deinstalirati igru?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Deinstaliraj",
-            "prefix_warning": "Wine prefiks za ovu igru je zadani prefiks. Ako ga stvarno želite izbrisati, morate to učiniti ručno."
+            "prefix_warning": "Wine prefiks za ovu igru je zadani prefiks. Ako ga stvarno želite izbrisati, morate to učiniti ručno.",
+            "dlc": "Želite li deinstalirati ovaj DLC?"
         },
         "update": {
             "message": "Ova igra ima ažuriranje, želite li ažurirati sada?",
@@ -88,7 +89,8 @@
         "neverPlayed": "Nikad",
         "platform": "Odaberi verziju platforme za instalirati",
         "requirements": "Zahtjevi sustava",
-        "totalPlayed": "Vrijeme igranja"
+        "totalPlayed": "Vrijeme igranja",
+        "dlcs": "DLCs"
     },
     "gamecard": {
         "moving": "Premještanje",
@@ -115,7 +117,9 @@
         "apple-gaming-wiki": "Ocjena AppleGamingWiki",
         "clickToOpen": "Kliknite za otvaranje",
         "game-scores": "Rezultati igre",
-        "installedInfo": "Instalirane informacije"
+        "installedInfo": "Instalirane informacije",
+        "protondb-compatibility-info": "Razina kompatibilnosti protona",
+        "steamdeck-compatibility-info": "Kompatibilnost sa SteamDeckom"
     },
     "install": {
         "disk-space-left": "Prostora dostupno",
@@ -128,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Third-Party Game NOT Supported",
+            "not-installable-game": "Igra se NIJE instalirati"
         },
         "playing": {
             "start": "Igraj Sada",
@@ -164,11 +169,13 @@
         "info": {
             "exe": "Select Executable",
             "image": "App Image",
-            "title": "Game/App Title"
+            "title": "Game/App Title",
+            "broser": "URL preglednika"
         },
         "placeholder": {
             "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "title": "Add a title to your Game/App",
+            "url": "Ovdje zalijepite URL igre"
         }
     },
     "specs": {
@@ -198,7 +205,9 @@
         "ubisoft": "Instaliranje Ubisofta",
         "launching": "Pokretanje",
         "downloading": "Downloading",
-        "extracting": "Vađenje"
+        "extracting": "Vađenje",
+        "gog-goodie": "Čini se da se ova igra ne može instalirati. Provjerite sadržaj za preuzimanje na https://gog.com/account",
+        "goodie": "Nije moguće instalirati"
     },
     "submenu": {
         "addShortcut": "Dodaj prečace",

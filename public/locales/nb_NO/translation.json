@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroiske søk etter versjoner av Wine, Proton og CrossOver i følgende mapper:",
             "part2": "For andre steder, bruk en symbolsk lenke til en av disse mappene"
-        }
+        },
+        "disable_logs": "Slå denne avmerkingsboksen PÅ for å deaktivere de fleste skrivingene til loggfiler (kritisk informasjon logges alltid). Sørg for å slå AV denne innstillingen før du rapporterer problemer."
     },
     "info": {
         "heroic": {
@@ -305,7 +306,8 @@
         "wine-repfix": {
             "message": "Wine bruker det som kalles WINEPREFIX for å kapsle inn Windows-applikasjoner. Dette prefikset inneholder Wine-konfigurasjonsfilene og en reproduksjon av filhierarkiet til C: (hoveddisken på et Windows-operativsystem). I denne reproduksjonen av C:-stasjonen, lagres spilllagringsfiler og avhengigheter installert via vintriks."
         },
-        "wine-path-invalid": "Vinstien er ugyldig. Velg en annen."
+        "wine-path-invalid": "Vinstien er ugyldig. Velg en annen.",
+        "wine-path-none-found": "Ingen vinversjon ble funnet, last ned en fra Wine Manager"
     },
     "install": {
         "path": "Velg Installer bane"
@@ -440,7 +442,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "Nettleser"
     },
     "please-wait": "Please wait...",
     "progress": "Framgang",
@@ -566,7 +569,10 @@
         "wineprefix": "WinePrefix-mappen",
         "wineversion": "Vinversjon",
         "autoUpdateGames": "Oppdater spill automatisk",
-        "ignoreGameUpdates": "Ignorer spilloppdateringer"
+        "ignoreGameUpdates": "Ignorer spilloppdateringer",
+        "disable_logs": "Deaktiver logger",
+        "showMetalOverlay": "Vis statistikkoverlegg",
+        "addgamestoapplications": "Legg spill til applikasjoner automatisk"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -680,5 +686,12 @@
     },
     "wiki_info": {
         "not_found": "Vi kunne ikke finne ekstra informasjon."
+    },
+    "dlc": {
+        "actions": "Handlinger",
+        "installDlcs": "Installer alle DLC-er",
+        "noDlcFound": "Ingen DLC-er funnet",
+        "size": "Størrelse",
+        "title": "Title"
     }
 }

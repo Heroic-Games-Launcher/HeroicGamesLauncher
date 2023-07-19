@@ -1,5 +1,5 @@
 import { faApple, faLinux, faWindows } from '@fortawesome/free-brands-svg-icons'
-import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
+import { IconDefinition, faGlobe } from '@fortawesome/free-solid-svg-icons'
 
 import React, { useContext, useEffect, useState } from 'react'
 
@@ -12,7 +12,7 @@ import {
 } from 'common/types'
 import { Dialog } from 'frontend/components/UI/Dialog'
 
-import './index.css'
+import './index.scss'
 
 import DownloadDialog from './DownloadDialog'
 import SideloadDialog from './SideloadDialog'
@@ -74,6 +74,12 @@ export default React.memo(function InstallModal({
       available: true,
       value: 'Windows',
       icon: faWindows
+    },
+    {
+      name: 'Browser',
+      available: isSideload,
+      value: 'Browser',
+      icon: faGlobe
     }
   ]
 
@@ -120,7 +126,7 @@ export default React.memo(function InstallModal({
   }, [hasWine])
 
   function platformSelection() {
-    const showPlatformSelection = !isWin && availablePlatforms.length > 1
+    const showPlatformSelection = availablePlatforms.length > 1
 
     if (!showPlatformSelection) {
       return null

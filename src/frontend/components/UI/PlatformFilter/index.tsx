@@ -6,6 +6,7 @@ import { faApple, faLinux, faWindows } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ContextProvider from 'frontend/state/ContextProvider'
 import './index.css'
+import { faGlobe } from '@fortawesome/free-solid-svg-icons'
 
 export default function PlatformFilter() {
   const { t } = useTranslation()
@@ -15,7 +16,8 @@ export default function PlatformFilter() {
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'
   const isWindows = platform === 'win32'
-  const disabledIcon = isLinux && category === 'legendary'
+  const disabledIcon =
+    (isLinux && category === 'legendary') || category === 'nile' // Amazon Games only offers Windows games
 
   if (isWindows) {
     return null
@@ -53,6 +55,7 @@ export default function PlatformFilter() {
               active: filterPlatform === 'mac'
             })}
             title={`${t('header.platform')}: ${t('platforms.mac')}`}
+            disabled={disabledIcon}
           >
             <FontAwesomeIcon
               className="FormControl__segmentedFaIcon"
@@ -77,6 +80,19 @@ export default function PlatformFilter() {
             />
           </button>
         )}
+        <button
+          onClick={() => handlePlatformFilter('browser')}
+          className={cx('FormControl__button', {
+            active: filterPlatform === 'browser'
+          })}
+          title={`${t('header.platform')}: ${t('platforms.browser')}`}
+        >
+          <FontAwesomeIcon
+            className="FormControl__segmentedFaIcon"
+            icon={faGlobe}
+            tabIndex={-1}
+          />
+        </button>
       </FormControl>
     </div>
   )

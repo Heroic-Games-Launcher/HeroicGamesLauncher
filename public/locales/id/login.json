@@ -4,8 +4,8 @@
         "open": "Buka tautan",
         "copy": "Menyalin",
         "copied": "Disalin!",
-        "error": "Kesalahan, coba Kode lain",
-        "loading": "Loading"
+        "error": "Terjadi kesalahan, coba Kode lainnya",
+        "loading": "Memuat"
     },
     "message": {
         "part1": "Untuk masuk dan memasang permainanmu, kamu harus mengikuti langkah-langkah di bawah:",

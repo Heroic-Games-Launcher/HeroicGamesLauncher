@@ -36,7 +36,8 @@
             "message": "Vill du avinstallera spelet?",
             "settingcheckbox": "Radera inställningar och ta bort logg{{newLine}}OBS: Denna åtgärd kan ej ångras. Alla ändrade inställningar kommer att glömmas bort och loggen kommer att raderas.",
             "title": "Avinstallera",
-            "prefix_warning": "Vinprefixet för det här spelet är standardprefixet. Om du verkligen vill ta bort det måste du göra det manuellt."
+            "prefix_warning": "Vinprefixet för det här spelet är standardprefixet. Om du verkligen vill ta bort det måste du göra det manuellt.",
+            "dlc": "Vill du avinstallera denna DLC?"
         },
         "update": {
             "message": "Det finns en speluppdatering, uppdatera nu?",
@@ -88,7 +89,8 @@
         "neverPlayed": "Aldrig",
         "platform": "Välj plattform för installation",
         "requirements": "Systemkrav",
-        "totalPlayed": "Speltid"
+        "totalPlayed": "Speltid",
+        "dlcs": "DLC"
     },
     "gamecard": {
         "moving": "Flyttar",
@@ -115,7 +117,9 @@
         "apple-gaming-wiki": "AppleGamingWiki-betyg",
         "clickToOpen": "Klicka för att öppna",
         "game-scores": "Spelresultat",
-        "installedInfo": "Installerad information"
+        "installedInfo": "Installerad information",
+        "protondb-compatibility-info": "Protonkompatibilitetsnivå",
+        "steamdeck-compatibility-info": "SteamDeck-kompatibilitet"
     },
     "install": {
         "disk-space-left": "Utrymme tillgängligt",
@@ -128,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Tredjeparts-spel stöds ej"
+            "third-party-game": "Tredjeparts-spel stöds ej",
+            "not-installable-game": "Spelet kan INTE installeras"
         },
         "playing": {
             "start": "Starta spelet",
@@ -164,11 +169,13 @@
         "info": {
             "exe": "Välj EXE-fil",
             "image": "Applikationens bild",
-            "title": "Spel/Applikation titel"
+            "title": "Spel/Applikation titel",
+            "broser": "BrowserURL"
         },
         "placeholder": {
             "image": "Klistra in bildens URL här",
-            "title": "Lägg till Spel/Applikation titel"
+            "title": "Lägg till Spel/Applikation titel",
+            "url": "Klistra in spelets URL här"
         }
     },
     "specs": {
@@ -198,7 +205,9 @@
         "launching": "Startar",
         "ubisoft": "Installerar Ubisoft",
         "downloading": "Nerladdning",
-        "extracting": "Extrahera"
+        "extracting": "Extrahera",
+        "gog-goodie": "Det här spelet verkar inte gå att installera. Kontrollera nedladdningsbart innehåll på https://gog.com/account",
+        "goodie": "Ej installationsbar"
     },
     "submenu": {
         "addShortcut": "Skapa genväg",

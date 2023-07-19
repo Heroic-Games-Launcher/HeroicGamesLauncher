@@ -278,7 +278,8 @@
         "wine": {
             "part1": "L'Heroic cerca les versions del Wine, Proton i CrossOver als directoris següents:",
             "part2": "Per a altres llocs, utilitza un enllaç simbòlic (symlink) a algun d'aquests directoris"
-        }
+        },
+        "disable_logs": "Activeu aquesta casella de selecció per desactivar la majoria de les escriptures als fitxers de registre (la informació crítica sempre es registra). Assegureu-vos de desactivar aquesta configuració abans d'informar de qualsevol problema."
     },
     "info": {
         "heroic": {
@@ -305,7 +306,8 @@
         "wine-repfix": {
             "message": "El Wine fa servir el que s'anomena WINEPREFIX per encapsular les aplicacions de Windows. El prefix conté els fitxers de la configuració del Wine i una reproducció de la jerarquia de fitxers a la unitat C: (el disc principal del SO Windows). En aquesta reproducció del disc és on es desen les partides i s'instal·len les dependències a través del winetricks."
         },
-        "wine-path-invalid": "La ruta del Wine no és vàlida, selecciona'n una altra."
+        "wine-path-invalid": "La ruta del Wine no és vàlida, selecciona'n una altra.",
+        "wine-path-none-found": "No s'ha trobat cap versió de Wine, descarregueu-ne una des del Wine Manager"
     },
     "install": {
         "path": "Selecciona la ruta d'instal·lació"
@@ -440,7 +442,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "Navegador"
     },
     "please-wait": "Espera...",
     "progress": "Progress",
@@ -520,7 +523,7 @@
         "log": {
             "copy-to-clipboard": "Copia el registre al porta-retalls",
             "current-log": "Registre actual",
-            "instructions": "Uneix-te al nostre canal de Discord i cerca el canal que s'adigui amb el teu sistema operatiu. Comparteix-hi el contingut del registre i inclou-hi una explicació clara del problema amb tota la informació i detalls rellevants.",
+            "instructions": "Uneix-te al nostre canal de Discord i cerca la secció «#-support». Llegeix el fil fixat «Read Me First | Frequently Asked Questions» i segueix les instruccions per a compartir els registres i qualsevol informació rellevant sobre el teu problema.",
             "instructions_title": "Com informar d'un problema",
             "last-log": "Últim registre",
             "no-file": "No s'ha trobat cap registre",
@@ -566,7 +569,10 @@
         "wineprefix": "Directori WinePrefix",
         "wineversion": "Versió del Wine",
         "autoUpdateGames": "Actualitza els jocs automàticament",
-        "ignoreGameUpdates": "Ignora les actualitzacions del joc"
+        "ignoreGameUpdates": "Ignora les actualitzacions del joc",
+        "disable_logs": "Desactiva els registres",
+        "showMetalOverlay": "Mostra la superposició d'estadístiques",
+        "addgamestoapplications": "Afegeix jocs a Aplicacions automàticament"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -680,5 +686,12 @@
     },
     "wiki_info": {
         "not_found": "No hem pogut trobar informació addicional."
+    },
+    "dlc": {
+        "actions": "Accions",
+        "installDlcs": "Instal·la tots els DLCs",
+        "noDlcFound": "No s'han trobat DLC",
+        "size": "Mida",
+        "title": "Títol"
     }
 }

@@ -16,12 +16,18 @@ import DownloadManager from './screens/DownloadManager'
 import DialogHandler from './components/UI/DialogHandler'
 import SettingsModal from './screens/Settings/components/SettingsModal'
 import ExternalLinkDialog from './components/UI/ExternalLinkDialog'
+import classNames from 'classnames'
 
 function App() {
-  const { isSettingsModalOpen } = useContext(ContextProvider)
+  const { isSettingsModalOpen, isRTL } = useContext(ContextProvider)
 
   return (
-    <div id="app" className="App">
+    <div
+      id="app"
+      className={classNames('App', {
+        isRTL
+      })}
+    >
       <HashRouter>
         <OfflineMessage />
         <Sidebar />
@@ -40,6 +46,7 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="epicstore" element={<WebView />} />
             <Route path="gogstore" element={<WebView />} />
+            <Route path="amazonstore" element={<WebView />} />
             <Route path="wiki" element={<WebView />} />
             <Route path="/gamepage">
               <Route path=":runner">

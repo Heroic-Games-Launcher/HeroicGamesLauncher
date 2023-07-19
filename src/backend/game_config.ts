@@ -6,11 +6,10 @@ import {
   currentGameConfigVersion,
   configPath,
   gamesConfigPath,
-  defaultWinePrefix,
-  isLinux,
   isMac,
   isWindows,
-  userHome
+  userHome,
+  defaultWinePrefix
 } from './constants'
 import { logError, logInfo, LogPrefix } from './logger/logger'
 import { join } from 'path'
@@ -212,7 +211,6 @@ class GameConfigV0 extends GameConfig {
       preferSystemLibs,
       autoSyncSaves,
       enableEsync,
-      enableFSR,
       enableFsync,
       maxSharpness,
       launcherArgs,
@@ -239,7 +237,6 @@ class GameConfigV0 extends GameConfig {
       preferSystemLibs,
       autoSyncSaves,
       enableEsync,
-      enableFSR,
       enableFsync,
       maxSharpness,
       launcherArgs,
@@ -270,16 +267,13 @@ class GameConfigV0 extends GameConfig {
       // set specific keys depending on the platform
       if (isMac) {
         defaultSettings.wineCrossoverBottle = wineCrossoverBottle
-      } else if (isLinux) {
-        defaultSettings.winePrefix = winePrefix || defaultWinePrefix
+      }
 
-        // fix winePrefix if needed
-        if (gameSettings.winePrefix?.includes('~')) {
-          gameSettings.winePrefix = gameSettings.winePrefix.replace(
-            '~',
-            userHome
-          )
-        }
+      defaultSettings.winePrefix = winePrefix || defaultWinePrefix
+
+      // fix winePrefix if needed
+      if (gameSettings.winePrefix?.includes('~')) {
+        gameSettings.winePrefix = gameSettings.winePrefix.replace('~', userHome)
       }
     }
 

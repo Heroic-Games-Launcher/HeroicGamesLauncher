@@ -4,8 +4,8 @@
         "open": "Abrir enlace",
         "copy": "Copiar",
         "copied": "¡Copiado!",
-        "loading": "Loading",
-        "error": "Error, intente con un código diferente"
+        "loading": "Cargando",
+        "error": "Error, prueba con otro código"
     },
     "message": {
         "part1": "Para iniciar la sesión e instalar tus juegos, primero debes seguir los siguientes pasos:",

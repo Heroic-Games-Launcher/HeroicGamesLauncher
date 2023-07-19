@@ -37,7 +37,8 @@
             "message": "Doriți să dezinstalați acest joc?",
             "settingcheckbox": "Șterge setările și elimină jurnalul{{newLine}}Notă: Această acțiune nu poate fi anulată. Orice setări modificate vor fi uitate și jurnalul va fi șters.",
             "title": "Dezinstalează",
-            "prefix_warning": "Prefixul Wine pentru acest joc este prefixul implicit. Dacă vrei cu adevărat să-l ștergi, trebuie să o faci manual."
+            "prefix_warning": "Prefixul Wine pentru acest joc este prefixul implicit. Dacă vrei cu adevărat să-l ștergi, trebuie să o faci manual.",
+            "dlc": "Doriți să dezinstalați acest DLC?"
         },
         "update": {
             "message": "Acest joc are o actualizare, vrei să actualizezi acum?",
@@ -89,7 +90,8 @@
         "neverPlayed": "Niciodată",
         "platform": "Selectați versiunea platformei de instalat",
         "requirements": "Cerințe de sistem",
-        "totalPlayed": "Timp Jucat"
+        "totalPlayed": "Timp Jucat",
+        "dlcs": "DLC-uri"
     },
     "gamecard": {
         "moving": "Mutare",
@@ -116,7 +118,9 @@
         "apple-gaming-wiki": "Evaluare AppleGamingWiki",
         "clickToOpen": "Faceți clic pentru a deschide",
         "game-scores": "Scoruri de joc",
-        "installedInfo": "Informații instalate"
+        "installedInfo": "Informații instalate",
+        "protondb-compatibility-info": "Nivelul de compatibilitate cu protoni",
+        "steamdeck-compatibility-info": "Compatibilitate cu SteamDeck"
     },
     "install": {
         "disk-space-left": "Spatiu disponibil",
@@ -129,7 +133,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Third-Party Game NOT Supported",
+            "not-installable-game": "Jocul NU este instalabil"
         },
         "playing": {
             "start": "Joacă Acum",
@@ -165,11 +170,13 @@
         "info": {
             "exe": "Select Executable",
             "image": "App Image",
-            "title": "Game/App Title"
+            "title": "Game/App Title",
+            "broser": "URL browser"
         },
         "placeholder": {
             "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "title": "Add a title to your Game/App",
+            "url": "Lipiți adresa URL a jocului aici"
         }
     },
     "specs": {
@@ -199,7 +206,9 @@
         "launching": "Lansare",
         "ubisoft": "Instalarea Ubisoft",
         "downloading": "Downloading",
-        "extracting": "Extragerea"
+        "extracting": "Extragerea",
+        "gog-goodie": "Acest joc nu pare a fi instalabil. Verificați conținutul descărcabil pe https://gog.com/account",
+        "goodie": "Nu se poate instala"
     },
     "submenu": {
         "addShortcut": "Adaugă scurtătură",

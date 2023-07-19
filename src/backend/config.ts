@@ -1,12 +1,5 @@
-import {
-  existsSync,
-  mkdirSync,
-  readFileSync,
-  readdirSync,
-  writeFileSync
-} from 'graceful-fs'
-import { homedir, userInfo as user } from 'os'
-import { parse as plistParse, PlistObject } from 'plist'
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'graceful-fs'
+import { userInfo as user } from 'os'
 
 import {
   AppSettings,
@@ -20,19 +13,24 @@ import {
   defaultWinePrefix,
   gamesConfigPath,
   heroicInstallPath,
-  toolsPath,
   userHome,
   isFlatpak,
   isMac,
   isWindows,
-  getSteamLibraries,
   getSteamCompatFolder,
   configStore
 } from './constants'
-import { execAsync } from './utils'
-import { execSync } from 'child_process'
+
 import { logError, logInfo, LogPrefix } from './logger/logger'
-import { dirname, join } from 'path'
+import {
+  getCrossover,
+  getDefaultWine,
+  getGamingPortingToolkitWine,
+  getLinuxWineSet,
+  getWineOnMac,
+  getWineskinWine
+} from './utils/compatibility_layers'
+import { backendEvents } from './backend_events'
 
 /**
  * This class does config handling.
@@ -127,174 +125,26 @@ abstract class GlobalConfig {
   }
 
   /**
-   * Loads the default wine installation path and version.
-   *
-   * @returns Promise<WineInstallation>
-   */
-  public getDefaultWine(): WineInstallation {
-    const defaultWine: WineInstallation = {
-      bin: '',
-      name: 'Default Wine - Not Found',
-      type: 'wine'
-    }
-
-    try {
-      let stdout = execSync(`which wine`).toString()
-      const wineBin = stdout.split('\n')[0]
-      defaultWine.bin = wineBin
-
-      stdout = execSync(`wine --version`).toString()
-      const version = stdout.split('\n')[0]
-      defaultWine.name = `Wine Default - ${version}`
-
-      return {
-        ...defaultWine,
-        ...this.getWineExecs(wineBin)
-      }
-    } catch {
-      return defaultWine
-    }
-  }
-
-  /**
-   * Detects Wine installed on home application folder on Mac
-   *
+   * Detects Wine on Mac
    * @returns Promise<Set<WineInstallation>>
-   */
-  public async getWineOnMac(): Promise<Set<WineInstallation>> {
-    const wineSet = new Set<WineInstallation>()
-    if (!isMac) {
-      return wineSet
-    }
-
-    const winePaths = new Set<string>()
-
-    // search for wine installed on $HOME/Library/Application Support/heroic/tools/wine
-    const wineToolsPath = `${toolsPath}/wine/`
-    if (existsSync(wineToolsPath)) {
-      readdirSync(wineToolsPath).forEach((path) => {
-        winePaths.add(join(wineToolsPath, path))
-      })
-    }
-
-    // search for wine installed around the system
-    await execAsync('mdfind kMDItemCFBundleIdentifier = "*.wine"').then(
-      async ({ stdout }) => {
-        stdout.split('\n').forEach((winePath) => {
-          winePaths.add(winePath)
-        })
-      }
-    )
-
-    winePaths.forEach((winePath) => {
-      const infoFilePath = join(winePath, 'Contents/Info.plist')
-      if (winePath && existsSync(infoFilePath)) {
-        const info = plistParse(
-          readFileSync(infoFilePath, 'utf-8')
-        ) as PlistObject
-        const version = info['CFBundleShortVersionString'] || ''
-        const name = info['CFBundleName'] || ''
-        const wineBin = join(winePath, '/Contents/Resources/wine/bin/wine64')
-        if (existsSync(wineBin)) {
-          wineSet.add({
-            ...this.getWineExecs(wineBin),
-            lib: `${winePath}/Contents/Resources/wine/lib`,
-            lib32: `${winePath}/Contents/Resources/wine/lib`,
-            bin: wineBin,
-            name: `${name} - ${version}`,
-            type: 'wine',
-            ...this.getWineExecs(wineBin)
-          })
-        }
-      }
-    })
-
-    return wineSet
-  }
-
-  public async getWineskinWine(): Promise<Set<WineInstallation>> {
-    const wineSet = new Set<WineInstallation>()
-    if (!isMac) {
-      return wineSet
-    }
-    const wineSkinPath = `${userHome}/Applications/Wineskin`
-    if (existsSync(wineSkinPath)) {
-      const apps = readdirSync(wineSkinPath)
-      for (const app of apps) {
-        if (app.includes('.app')) {
-          const wineBin = `${userHome}/Applications/Wineskin/${app}/Contents/SharedSupport/wine/bin/wine64`
-          if (existsSync(wineBin)) {
-            try {
-              const { stdout: out } = await execAsync(`'${wineBin}' --version`)
-              const version = out.split('\n')[0]
-              wineSet.add({
-                ...this.getWineExecs(wineBin),
-                lib: `${userHome}/Applications/Wineskin/${app}/Contents/SharedSupport/wine/lib`,
-                lib32: `${userHome}/Applications/Wineskin/${app}/Contents/SharedSupport/wine/lib`,
-                name: `Wineskin - ${version}`,
-                type: 'wine',
-                bin: wineBin
-              })
-            } catch (error) {
-              logError(
-                `Error getting wine version for ${wineBin}`,
-                LogPrefix.GlobalConfig
-              )
-            }
-          }
-        }
-      }
-    }
-    return wineSet
-  }
-
-  /**
-   * Detects CrossOver installs on Mac
-   *
-   * @returns Promise<Set<WineInstallation>>
-   */
-  public async getCrossover(): Promise<Set<WineInstallation>> {
-    const crossover = new Set<WineInstallation>()
-
-    if (!isMac) {
-      return crossover
-    }
-
-    await execAsync(
-      'mdfind kMDItemCFBundleIdentifier = "com.codeweavers.CrossOver"'
-    ).then(async ({ stdout }) => {
-      stdout.split('\n').forEach((crossoverMacPath) => {
-        const infoFilePath = join(crossoverMacPath, 'Contents/Info.plist')
-        if (crossoverMacPath && existsSync(infoFilePath)) {
-          const info = plistParse(
-            readFileSync(infoFilePath, 'utf-8')
-          ) as PlistObject
-          const version = info['CFBundleShortVersionString'] || ''
-          const crossoverWineBin = join(
-            crossoverMacPath,
-            'Contents/SharedSupport/CrossOver/bin/wine'
-          )
-          crossover.add({
-            bin: crossoverWineBin,
-            name: `CrossOver - ${version}`,
-            type: 'crossover',
-            ...this.getWineExecs(crossoverWineBin)
-          })
-        }
-      })
-    })
-    return crossover
-  }
-
+   * @memberof GlobalConfig
+   **/
   public async getMacOsWineSet(): Promise<Set<WineInstallation>> {
     if (!isMac) {
       return new Set<WineInstallation>()
     }
 
-    const crossover = await this.getCrossover()
-    const wineOnMac = await this.getWineOnMac()
-    const wineskinWine = await this.getWineskinWine()
-    return new Set([...crossover, ...wineOnMac, ...wineskinWine])
+    const crossover = await getCrossover()
+    const wineOnMac = await getWineOnMac()
+    const wineskinWine = await getWineskinWine()
+    const gamingPortingToolkitWine = await getGamingPortingToolkitWine()
+
+    return new Set([
+      ...gamingPortingToolkitWine,
+      ...crossover,
+      ...wineOnMac,
+      ...wineskinWine
+    ])
   }
 
   /**
@@ -310,123 +160,9 @@ abstract class GlobalConfig {
       return [...macOsWineSet]
     }
 
-    if (!existsSync(`${toolsPath}/wine`)) {
-      mkdirSync(`${toolsPath}/wine`, { recursive: true })
-    }
+    const linuxWineSet = await getLinuxWineSet(scanCustom)
 
-    if (!existsSync(`${toolsPath}/proton`)) {
-      mkdirSync(`${toolsPath}/proton`, { recursive: true })
-    }
-
-    const altWine = new Set<WineInstallation>()
-
-    readdirSync(`${toolsPath}/wine/`).forEach((version) => {
-      const wineBin = join(toolsPath, 'wine', version, 'bin', 'wine')
-      altWine.add({
-        bin: wineBin,
-        name: `Wine - ${version}`,
-        type: 'wine',
-        ...this.getWineLibs(wineBin),
-        ...this.getWineExecs(wineBin)
-      })
-    })
-
-    const lutrisPath = `${homedir()}/.local/share/lutris`
-    const lutrisCompatPath = `${lutrisPath}/runners/wine/`
-
-    if (existsSync(lutrisCompatPath)) {
-      readdirSync(lutrisCompatPath).forEach((version) => {
-        const wineBin = join(lutrisCompatPath, version, 'bin', 'wine')
-        altWine.add({
-          bin: wineBin,
-          name: `Wine - ${version}`,
-          type: 'wine',
-          ...this.getWineLibs(wineBin),
-          ...this.getWineExecs(wineBin)
-        })
-      })
-    }
-
-    const protonPaths = [`${toolsPath}/proton/`]
-
-    await getSteamLibraries().then((libs) => {
-      libs.forEach((path) => {
-        protonPaths.push(`${path}/steam/steamapps/common`)
-        protonPaths.push(`${path}/steamapps/common`)
-        protonPaths.push(`${path}/root/compatibilitytools.d`)
-        protonPaths.push(`${path}/compatibilitytools.d`)
-        return
-      })
-    })
-
-    const proton = new Set<WineInstallation>()
-
-    protonPaths.forEach((path) => {
-      if (existsSync(path)) {
-        readdirSync(path).forEach((version) => {
-          const protonBin = join(path, version, 'proton')
-          // check if bin exists to avoid false positives
-          if (existsSync(protonBin)) {
-            proton.add({
-              bin: protonBin,
-              name: `Proton - ${version}`,
-              type: 'proton'
-              // No need to run this.getWineExecs here since Proton ships neither Wineboot nor Wineserver
-            })
-          }
-        })
-      }
-    })
-
-    const defaultWineSet = new Set<WineInstallation>()
-    const defaultWine = await this.getDefaultWine()
-    if (!defaultWine.name.includes('Not Found')) {
-      defaultWineSet.add(defaultWine)
-    }
-
-    let customWineSet = new Set<WineInstallation>()
-    if (scanCustom) {
-      customWineSet = this.getCustomWinePaths()
-    }
-
-    return [...defaultWineSet, ...altWine, ...proton, ...customWineSet]
-  }
-
-  /**
-   * Checks if a Wine version has the Wineserver executable and returns the path to it if it's present
-   * @param wineBin The unquoted path to the Wine binary ('wine')
-   * @returns The quoted path to wineserver, if present
-   */
-  public getWineExecs(wineBin: string): { wineserver: string } {
-    const wineDir = dirname(wineBin)
-    const ret = { wineserver: '' }
-    const potWineserverPath = join(wineDir, 'wineserver')
-    if (existsSync(potWineserverPath)) {
-      ret.wineserver = potWineserverPath
-    }
-    return ret
-  }
-
-  /**
-   * Checks if a Wine version has lib/lib32 folders and returns the path to those if they're present
-   * @param wineBin The unquoted path to the Wine binary ('wine')
-   * @returns The paths to lib and lib32, if present
-   */
-  public getWineLibs(wineBin: string): {
-    lib: string
-    lib32: string
-  } {
-    const wineDir = dirname(wineBin)
-    const ret = { lib: '', lib32: '' }
-    const potLib32Path = join(wineDir, '../lib')
-    if (existsSync(potLib32Path)) {
-      ret.lib32 = potLib32Path
-    }
-    const potLibPath = join(wineDir, '../lib64')
-    if (existsSync(potLibPath)) {
-      ret.lib = potLibPath
-    }
-    return ret
+    return [...linuxWineSet]
   }
 
   /**
@@ -447,13 +183,6 @@ abstract class GlobalConfig {
    * @returns true if upgrade successful if upgrade fails or no upgrade needed.
    */
   public abstract upgrade(): boolean
-
-  /**
-   * Get custom Wine installations as defined in the config file.
-   *
-   * @returns Set of Wine installations.
-   */
-  public abstract getCustomWinePaths(): Set<WineInstallation>
 
   /**
    * Get default settings as if the user's config file doesn't exist.
@@ -554,34 +283,10 @@ class GlobalConfigV0 extends GlobalConfig {
     return settings
   }
 
-  public getCustomWinePaths(): Set<WineInstallation> {
-    const customPaths = new Set<WineInstallation>()
-    // skips this on new installations to avoid infinite loops
-    if (existsSync(configPath)) {
-      const { customWinePaths = [] } = this.getSettings()
-      customWinePaths.forEach((path: string) => {
-        if (path.endsWith('proton')) {
-          return customPaths.add({
-            bin: path,
-            name: `Custom Proton - ${path}`,
-            type: 'proton'
-          })
-        }
-        return customPaths.add({
-          bin: path,
-          name: `Custom Wine - ${path}`,
-          type: 'wine',
-          ...this.getWineExecs(path)
-        })
-      })
-    }
-    return customPaths
-  }
-
   public getFactoryDefaults(): AppSettings {
     const account_id = LegendaryUser.getUserInfo()?.account_id
     const userName = user().username
-    const defaultWine = isWindows ? {} : this.getDefaultWine()
+    const defaultWine = isWindows ? {} : getDefaultWine()
 
     // @ts-expect-error TODO: We need to settle on *one* place to define settings defaults
     return {
@@ -624,9 +329,13 @@ class GlobalConfigV0 extends GlobalConfig {
     const config = this.getSettings()
     const configStoreSettings = configStore.get_nodefault('settings') || config
     configStore.set('settings', { ...configStoreSettings, [key]: value })
+
+    const oldValue = config[key]
     config[key] = value
     this.config = config
-    logInfo(`Heroic: Setting ${key} to ${JSON.stringify(value)}`)
+
+    backendEvents.emit('settingChanged', { key, oldValue, newValue: value })
+
     return this.flush()
   }
 

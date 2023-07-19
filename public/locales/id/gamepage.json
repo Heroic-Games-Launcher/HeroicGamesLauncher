@@ -36,7 +36,8 @@
             "message": "Apakah Anda ingin mencopot pemasangan gim ini?",
             "settingcheckbox": "Hapus pengaturan dan log{{newLine}}Catatan: Tindakan ini tidak dapat diurungkan. Semua pengaturan lama dan log akan dihapus.",
             "title": "Copot Pemasangan",
-            "prefix_warning": "Prefiks Wine bawaan digunakan untuk game ini. Jika Anda benar-benar ingin menghapusnya, Anda harus melakukannya secara manual."
+            "prefix_warning": "Prefiks Wine bawaan digunakan untuk game ini. Jika Anda benar-benar ingin menghapusnya, Anda harus melakukannya secara manual.",
+            "dlc": "Apakah Anda ingin Menghapus Instalasi DLC ini?"
         },
         "update": {
             "message": "Gim ini memiliki pembaruan, terapkan pembaruan sekarang?",
@@ -88,7 +89,8 @@
         "neverPlayed": "Tidak pernah",
         "platform": "Pilih Versi Platform yang Akan Dipasang",
         "requirements": "Persyaratan Sistem",
-        "totalPlayed": "Lama Dimainkan"
+        "totalPlayed": "Lama Dimainkan",
+        "dlcs": "DLC"
     },
     "gamecard": {
         "moving": "Memindahkan",
@@ -115,7 +117,9 @@
         "apple-gaming-wiki": "Peringkat AppleGamingWiki",
         "clickToOpen": "Klik untuk membuka",
         "game-scores": "Skor Game",
-        "installedInfo": "Informasi Terpasang"
+        "installedInfo": "Informasi Instalasi",
+        "protondb-compatibility-info": "Tingkat Kompatibilitas Proton",
+        "steamdeck-compatibility-info": "Kompatibilitas SteamDeck"
     },
     "install": {
         "disk-space-left": "Ruang Penyimpanan yang Tersedia",
@@ -128,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Gim pihak ketiga TIDAK didukung"
+            "third-party-game": "Gim pihak ketiga TIDAK didukung",
+            "not-installable-game": "Game TIDAK Dapat Diinstal"
         },
         "playing": {
             "start": "Mainkan sekarang",
@@ -138,7 +143,7 @@
             "syncing": "Menyinkronkan Penyimpanan"
         },
         "launching": "Meluncurkan",
-        "ubisoft": "Menginstal Ubisoft Connect"
+        "ubisoft": "Memasang Ubisoft Connect"
     },
     "launch": {
         "options": "Opsi Peluncuran…"
@@ -164,11 +169,13 @@
         "info": {
             "exe": "Pilih Executable",
             "image": "Gambar App",
-            "title": "Gim/Judul App"
+            "title": "Gim/Judul App",
+            "broser": "URL browser"
         },
         "placeholder": {
             "image": "Tempel URL Gambar di sini",
-            "title": "Tambahkan judul ke Gim/App Anda"
+            "title": "Tambahkan judul ke Gim/App Anda",
+            "url": "Rekatkan URL Game di sini"
         }
     },
     "specs": {
@@ -196,9 +203,11 @@
         "moving-files": "Memindahkan berkas '{{file}}': {{percent}} ",
         "syncingSaves": "Menyinkronkan Penyimpanan Gim",
         "launching": "Meluncurkan",
-        "ubisoft": "Menginstal Ubisoft",
+        "ubisoft": "Memasang Ubisoft",
         "downloading": "Mengunduh",
-        "extracting": "Mengekstrak"
+        "extracting": "Mengekstrak",
+        "goodie": "Tidak dapat diinstal",
+        "gog-goodie": "Game ini tampaknya tidak dapat diinstal. Periksa konten yang dapat diunduh di https://gog.com/account"
     },
     "submenu": {
         "addShortcut": "Tambahkan pintasan",

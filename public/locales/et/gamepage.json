@@ -36,7 +36,8 @@
             "message": "Kas soovite selle mängu eemaldada?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Eemalda",
-            "prefix_warning": "Selle mängu eesliide Wine on vaikeprefiks. Kui soovite seda tõesti kustutada, peate seda käsitsi tegema."
+            "prefix_warning": "Selle mängu eesliide Wine on vaikeprefiks. Kui soovite seda tõesti kustutada, peate seda käsitsi tegema.",
+            "dlc": "Kas soovite selle DLC desinstallida?"
         },
         "update": {
             "message": "Sellele mängule on saadaval uuendus, rakenda uuendus kohe?",
@@ -88,7 +89,8 @@
         "neverPlayed": "Mitte kunagi",
         "platform": "Valige paigaldatava platvormi versioon",
         "requirements": "Süsteeminõuded",
-        "totalPlayed": "Mängitud aeg"
+        "totalPlayed": "Mängitud aeg",
+        "dlcs": "DLC'd"
     },
     "gamecard": {
         "moving": "Liigutamine",
@@ -115,7 +117,9 @@
         "apple-gaming-wiki": "AppleGamingWiki hinnang",
         "clickToOpen": "Avamiseks klõpsake",
         "game-scores": "Mängutulemused",
-        "installedInfo": "Installitud teave"
+        "installedInfo": "Installitud teave",
+        "protondb-compatibility-info": "Prootoni ühilduvusaste",
+        "steamdeck-compatibility-info": "SteamDecki ühilduvus"
     },
     "install": {
         "disk-space-left": "Vaba ruumi",
@@ -128,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Third-Party Game NOT Supported",
+            "not-installable-game": "Mäng EI ole installitav"
         },
         "playing": {
             "start": "Mängi",
@@ -164,11 +169,13 @@
         "info": {
             "exe": "Select Executable",
             "image": "App Image",
-            "title": "Game/App Title"
+            "title": "Game/App Title",
+            "broser": "Brauseri URL"
         },
         "placeholder": {
             "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "title": "Add a title to your Game/App",
+            "url": "Kleepige mängu URL siia"
         }
     },
     "specs": {
@@ -198,7 +205,9 @@
         "launching": "Käivitamine",
         "ubisoft": "Ubisofti installimine",
         "downloading": "Downloading",
-        "extracting": "Ekstraheerimine"
+        "extracting": "Ekstraheerimine",
+        "gog-goodie": "See mäng ei tundu olevat installitav. Kontrollige allalaaditavat sisu aadressil https://gog.com/account",
+        "goodie": "Pole paigaldatav"
     },
     "submenu": {
         "addShortcut": "Lisa otsetee",

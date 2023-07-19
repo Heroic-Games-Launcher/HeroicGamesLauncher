@@ -1,5 +1,4 @@
-import Popover from '@mui/material/Popover/Popover'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './index.scss'
 
 interface PopoverComponentProps {
@@ -11,46 +10,45 @@ const PopoverComponent: React.FC<PopoverComponentProps> = ({
   item,
   children
 }) => {
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
-  const open = Boolean(anchorEl)
+  const [open, setOpen] = useState(false)
+  const wrapper = useRef<HTMLDivElement>(null)
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    // if already open, close it
+  const handleClick = () => {
+    setOpen(!open)
+  }
+
+  useEffect(() => {
     if (open) {
-      setAnchorEl(null)
-      return
+      // add a click listener to close the popover when clicking outside
+      const callback = (event: MouseEvent) => {
+        if (!wrapper.current!.contains(event.target as HTMLElement)) {
+          setOpen(false)
+        }
+      }
+
+      document.addEventListener('click', callback)
+
+      return () => {
+        // remove the listener when the popover is closed
+        document.removeEventListener('click', callback)
+      }
+    } else {
+      return () => ''
     }
-
-    setAnchorEl(event.currentTarget)
-  }
-
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
+  }, [open])
 
   return (
-    <>
+    <div className="popover-wrapper" ref={wrapper}>
       {React.cloneElement(item, {
         onClick: handleClick,
         style: { cursor: 'pointer' }
       })}
-      <Popover
-        id={item.props.id}
-        open={open}
-        anchorEl={anchorEl}
-        onClick={handleClick}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left'
-        }}
-        classes={{
-          paper: 'popover-paper'
-        }}
-      >
-        {children}
-      </Popover>
-    </>
+      {open && (
+        <div id={item.props.id} className="popover">
+          {children}
+        </div>
+      )}
+    </div>
   )
 }
 

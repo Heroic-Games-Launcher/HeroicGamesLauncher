@@ -37,7 +37,8 @@
             "message": "Joko hau desinstatu nahi duzu?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Desinslalatu",
-            "prefix_warning": "Joko honen Wine aurrizkia lehenetsitako aurrizkia da. Benetan ezabatu nahi baduzu, eskuz egin behar duzu."
+            "prefix_warning": "Joko honen Wine aurrizkia lehenetsitako aurrizkia da. Benetan ezabatu nahi baduzu, eskuz egin behar duzu.",
+            "dlc": "DLC hau desinstalatu nahi duzu?"
         },
         "update": {
             "message": "Joko honek eguneraketa bat du, orain eguneratu?",
@@ -89,7 +90,8 @@
         "neverPlayed": "Inoiz ez",
         "platform": "Instalatzeko plataformaren bertsioa hautatu",
         "requirements": "Sistemaren betekizunak",
-        "totalPlayed": "Denbora jokatua"
+        "totalPlayed": "Denbora jokatua",
+        "dlcs": "DLCak"
     },
     "gamecard": {
         "moving": "Mugitzen",
@@ -116,7 +118,9 @@
         "apple-gaming-wiki": "AppleGamingWiki balorazioa",
         "clickToOpen": "Egin klik irekitzeko",
         "game-scores": "Joko puntuazioak",
-        "installedInfo": "Instalatutako informazioa"
+        "installedInfo": "Instalatutako informazioa",
+        "protondb-compatibility-info": "Protoien bateragarritasun maila",
+        "steamdeck-compatibility-info": "SteamDeck bateragarritasuna"
     },
     "install": {
         "disk-space-left": "Espazio erabilgarria",
@@ -129,7 +133,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Third-Party Game NOT Supported",
+            "not-installable-game": "Jokoa EZ DA Instalagarria"
         },
         "playing": {
             "start": "Jokatu orain",
@@ -165,11 +170,13 @@
         "info": {
             "exe": "Select Executable",
             "image": "App Image",
-            "title": "Game/App Title"
+            "title": "Game/App Title",
+            "broser": "ArakatzailearenURLa"
         },
         "placeholder": {
             "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "title": "Add a title to your Game/App",
+            "url": "Itsatsi jokoaren URLa hemen"
         }
     },
     "specs": {
@@ -199,7 +206,9 @@
         "launching": "Abian jartzea",
         "ubisoft": "Ubisoft instalatzen",
         "downloading": "Downloading",
-        "extracting": "Erauzketa"
+        "extracting": "Erauzketa",
+        "gog-goodie": "Joko hau ez dirudi instalagarria denik. Egiaztatu deskarga daitekeen edukia https://gog.com/account helbidean",
+        "goodie": "Ez da instalagarria"
     },
     "submenu": {
         "addShortcut": "Sarbide zuzena gehitu",

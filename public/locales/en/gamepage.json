@@ -33,6 +33,7 @@
         },
         "uninstall": {
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
+            "dlc": "Do you want to Uninstall this DLC?",
             "message": "Do you want to uninstall this game?",
             "prefix_warning": "The Wine prefix for this game is the default prefix. If you really want to delete it, you have to do it manually.",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
@@ -78,6 +79,7 @@
     },
     "enabled": "Enabled",
     "game": {
+        "dlcs": "DLCs",
         "downloadSize": "Download Size",
         "firstPlayed": "First Played",
         "getting-download-size": "Getting download size",
@@ -116,7 +118,9 @@
         "installedInfo": "Installed Information",
         "installedPlatform": "Installed Platform",
         "path": "Install Path",
+        "protondb-compatibility-info": "Proton Compatibility Tier",
         "size": "Size",
+        "steamdeck-compatibility-info": "SteamDeck Compatibility",
         "syncsaves": "Sync Saves",
         "version": "Version"
     },
@@ -131,6 +135,7 @@
     },
     "label": {
         "game": {
+            "not-installable-game": "Game is NOT Installable",
             "third-party-game": "Third-Party Game NOT Supported"
         },
         "launching": "Launching",
@@ -147,6 +152,7 @@
         "options": "Launch Options..."
     },
     "not_logged_in": {
+        "amazon": "You are not logged in with an Amazon account in Heroic. Don't use the store page to login, click the following button instead:",
         "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
         "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
         "login": "Log in",
@@ -165,13 +171,15 @@
             "title": "Title"
         },
         "info": {
+            "broser": "BrowserURL",
             "exe": "Select Executable",
             "image": "App Image",
             "title": "Game/App Title"
         },
         "placeholder": {
             "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "title": "Add a title to your Game/App",
+            "url": "Paste the Game URL here"
         }
     },
     "specs": {
@@ -183,6 +191,8 @@
         "downloading": "Downloading",
         "extracting": "Extracting",
         "gameNotAvailable": "Game not available",
+        "gog-goodie": "This game doesn't appear to be installable. Check downloadable content on https://gog.com/account",
+        "goodie": "Not installable",
         "hasUpdates": "New Version Available!",
         "installed": "Installed",
         "installing": "Installing",

@@ -81,6 +81,10 @@ export const handleRefreshLibrary = (
   callback: (event: Electron.IpcRendererEvent, runner: Runner) => void
 ) => ipcRenderer.on('refreshLibrary', callback)
 
+export const handleGamePush = (
+  callback: (event: Electron.IpcRendererEvent, game: GameInfo) => void
+) => ipcRenderer.on('pushGameToLibrary', callback)
+
 export const removeRecentGame = async (appName: string) =>
   ipcRenderer.invoke('removeRecent', appName)
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -92,3 +96,8 @@ export const handleRecentGamesChanged = (callback: any) => {
 }
 
 export const addNewApp = (args: GameInfo) => ipcRenderer.send('addNewApp', args)
+
+export const getGameOverride = async () => ipcRenderer.invoke('getGameOverride')
+
+export const getGameSdl = async (appName: string) =>
+  ipcRenderer.invoke('getGameSdl', appName)

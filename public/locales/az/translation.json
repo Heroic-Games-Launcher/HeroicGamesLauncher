@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Qəhrəmanlıq aşağıdakı qovluqlarda Wine, Proton və CrossOver versiyalarını axtarır:",
             "part2": "Digər yerlər üçün bu qovluqlardan birinə simvolik keçiddən istifadə edin"
-        }
+        },
+        "disable_logs": "Giriş fayllarına yazılanların əksəriyyətini söndürmək üçün bu qeyd qutusunu AKTİV vəziyyətinə qoyun (kritik məlumatlar həmişə qeyd olunur). Hər hansı problemi bildirməzdən əvvəl bu ayarı SÖNDÜRLƏNDİYƏ əmin olun."
     },
     "info": {
         "heroic": {
@@ -305,7 +306,8 @@
         "wine-repfix": {
             "message": "Wine, Windows proqramlarını əhatə etmək üçün WINEPREFIX adlanandan istifadə edir. Bu prefiks Şərab konfiqurasiya fayllarını və C: fayl iyerarxiyasının reproduksiyasını ehtiva edir (Windows OS-də əsas disk). C: sürücüsünün bu reproduksiyasında oyun saxlama faylları və winetricks vasitəsilə quraşdırılmış asılılıqlar saxlanılır."
         },
-        "wine-path-invalid": "Şərab Yolu yanlışdır, lütfən, başqa birini seçin."
+        "wine-path-invalid": "Şərab Yolu yanlışdır, lütfən, başqa birini seçin.",
+        "wine-path-none-found": "Şərab versiyası tapılmadı, Wine Manager-dən birini endirin"
     },
     "install": {
         "path": "Quraşdırma yolunu seçin"
@@ -440,7 +442,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Makintoş",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "Brauzer"
     },
     "please-wait": "Please wait...",
     "progress": "Tərəqqi",
@@ -566,7 +569,10 @@
         "wineprefix": "WinePrefix qovluğu",
         "wineversion": "Şərab versiyası",
         "autoUpdateGames": "Oyunları avtomatik yeniləyin",
-        "ignoreGameUpdates": "Oyun yeniləmələrinə məhəl qoymayın"
+        "ignoreGameUpdates": "Oyun yeniləmələrinə məhəl qoymayın",
+        "disable_logs": "Qeydləri deaktiv edin",
+        "addgamestoapplications": "Oyunları avtomatik olaraq Proqramlara əlavə edin",
+        "showMetalOverlay": "Statistikanı göstərin"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -680,5 +686,12 @@
     },
     "wiki_info": {
         "not_found": "Əlavə məlumat tapa bilmədik."
+    },
+    "dlc": {
+        "actions": "Tədbirlər",
+        "installDlcs": "Bütün DLC-ləri quraşdırın",
+        "noDlcFound": "Heç bir DLC tapılmadı",
+        "size": "Ölçü",
+        "title": "Title"
     }
 }

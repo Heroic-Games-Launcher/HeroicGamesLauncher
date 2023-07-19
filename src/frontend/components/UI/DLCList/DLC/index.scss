@@ -1,0 +1,35 @@
+.dlcItem {
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-gap: var(--space-md-fixed);
+  grid-template-areas: 'title size action';
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #ccc;
+
+  &:last-child {
+    border-bottom: none;
+  }
+  .title {
+    grid-area: title;
+    font-weight: 400;
+  }
+  .size {
+    grid-area: size;
+    font-weight: 400;
+    text-align: center;
+  }
+  .action {
+    grid-area: action;
+    font-weight: 400;
+    text-align: center;
+    cursor: pointer;
+    color: var(--primary);
+    transition: color 0.2s ease-in-out;
+    &:hover {
+      color: var(--secondary);
+    }
+  }
+}

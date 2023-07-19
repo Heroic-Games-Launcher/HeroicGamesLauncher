@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroic traži verzije Wine, Proton i CrossOver u sljedećim mapama:",
             "part2": "Za druga mjesta koristite simboličku vezu do jednog od ovih mapa"
-        }
+        },
+        "disable_logs": "Uključite ovaj okvir za potvrdu kako biste onemogućili većinu upisivanja u datoteke dnevnika (kritične informacije se uvijek evidentiraju). Obavezno ISKLJUČITE ovu postavku prije nego što prijavite bilo kakav problem."
     },
     "info": {
         "heroic": {
@@ -305,7 +306,8 @@
         "wine-repfix": {
             "message": "Wine koristi ono što se zove WINEPREFIX da inkapsulira Windows aplikacije. Ovaj prefiks sadrži Wine konfiguracijske datoteke i reprodukciju hijerarhije datoteka C: (glavni disk na Windows OS-u). U ovoj reprodukciji C: diska, pohranjuju se datoteke za spremanje vaše igre i ovisnosti instalirane putem winetricks-a."
         },
-        "wine-path-invalid": "Wine Path je nevažeći, molimo odaberite drugi."
+        "wine-path-invalid": "Wine Path je nevažeći, molimo odaberite drugi.",
+        "wine-path-none-found": "Nije pronađena nijedna Wine verzija, preuzmite je iz Wine Managera"
     },
     "install": {
         "path": "Izaberi put instalacije"
@@ -361,9 +363,9 @@
             "reparing": "Popravka završena"
         },
         "install": {
-            "canceled": "Instalacija otkazana",
+            "canceled": "Instalacija Otkazana",
             "error": "Instalacija neuspješna",
-            "finished": "Instalacija završena",
+            "finished": "Instalacija Završena",
             "imported": "Video igra uvezena",
             "startInstall": "Instalacija započeta",
             "failed": "Instalacija neuspješna",
@@ -377,7 +379,7 @@
         },
         "uninstalled": "Deinstalirano",
         "update": {
-            "canceled": "Ažuriranje otkazano",
+            "canceled": "Ažuriranje Otkazano",
             "finished": "Ažuriranje završeno",
             "started": "Ažuriranje započeto",
             "failed": "Ažuriranje nije uspjelo",
@@ -385,7 +387,7 @@
         }
     },
     "offline-message": {
-        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "hint": "Provjeravamo povezanost sa: {{newline}}github.com, {{newline}}gog.com, {{newline}}store.epicgames.com i {{newline}}cloudflare-dns.com",
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
@@ -440,7 +442,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "Pretraživač"
     },
     "please-wait": "Please wait...",
     "progress": "Napredak",
@@ -470,7 +473,7 @@
         "autovkd3d": "Automatska instalacija/ažuriranje VKD3D na prefiksu",
         "change-target-exe": "Odaberite alternativni EXE za pokretanje",
         "checkForUpdatesOnStartup": "Provjeri ima li Heroic Updates pri pokretanju",
-        "crossover-version": "Crossover verzija",
+        "crossover-version": "Crossover/Wine verzija",
         "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Prilagođeni putevi za Wine/Proton",
         "darktray": "Koristite Dark Tray ikonu",
@@ -566,7 +569,10 @@
         "wineprefix": "WinePrefix mapa",
         "wineversion": "Wine verzija",
         "ignoreGameUpdates": "Zanemari ažuriranja igre",
-        "autoUpdateGames": "Automatski ažuriraj igre"
+        "autoUpdateGames": "Automatski ažuriraj igre",
+        "disable_logs": "Onemogući dnevnike",
+        "addgamestoapplications": "Automatski dodajte igre u aplikacije",
+        "showMetalOverlay": "Prikaži preklapanje statistike"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -600,7 +606,7 @@
             "general": "Generalno",
             "log": "Prijavite se",
             "other": "Drugi",
-            "sync": "Spremi-Sinhroniziraj",
+            "sync": "Sinhronizacija Čuvanja u Oblaku",
             "wineExt": "Wine Extensions"
         },
         "open-config-file": "Otvorite konfig. fajl",
@@ -680,5 +686,12 @@
     },
     "wiki_info": {
         "not_found": "Nismo mogli pronaći dodatne informacije."
+    },
+    "dlc": {
+        "actions": "Akcije",
+        "installDlcs": "Instaliraj sve DLC-ove",
+        "noDlcFound": "Nije pronađen nijedan DLC",
+        "size": "Veličina",
+        "title": "Title"
     }
 }

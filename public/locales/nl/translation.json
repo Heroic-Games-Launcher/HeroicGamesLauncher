@@ -80,7 +80,7 @@
             },
             "moving": "Fout bij verplaatsen van spel {{error}}",
             "ubisoft-connect": {
-                "message": "Installatie van Ubisoft Connect in het spelvoorvoegsel is mislukt. Bekijk onze wikipagina op https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac om het handmatig te installeren.",
+                "message": "De installatie van Ubisoft Connect in de spelprefix is mislukt. Bekijk onze wikipagina op https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac om het handmatig te installeren.",
                 "title": "Ubisoft Connect"
             },
             "legendary": {
@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroic zoekt naar versies van Wine, Proton en CrossOver op de volgende mappen:",
             "part2": "Voor andere locaties moet je een symbolische link begruiken naar een van deze mappen"
-        }
+        },
+        "disable_logs": "Schakel dit selectievakje in om de meeste schrijfbewerkingen naar logbestanden uit te schakelen (kritieke informatie wordt altijd geregistreerd). Zorg ervoor dat u deze instelling uitschakelt voordat u een probleem meldt."
     },
     "info": {
         "heroic": {
@@ -305,7 +306,8 @@
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
         },
-        "wine-path-invalid": "Wine Path is ongeldig, selecteer een andere."
+        "wine-path-invalid": "Wine Path is ongeldig, selecteer een andere.",
+        "wine-path-none-found": "Er is geen Wine-versie gevonden, download er een van de Wine Manager"
     },
     "install": {
         "path": "Select Install Path"
@@ -385,7 +387,7 @@
         }
     },
     "offline-message": {
-        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "hint": "We controleren de connectiviteit met:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com en{{newline}}cloudflare-dns.com.",
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
@@ -440,7 +442,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "ramen"
+        "win": "ramen",
+        "browser": "Browser"
     },
     "please-wait": "Please wait...",
     "progress": "Progress",
@@ -520,7 +523,7 @@
         "log": {
             "copy-to-clipboard": "Copy log content to clipboard",
             "current-log": "Current Log",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",
             "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
             "no-file": "No log file found",
@@ -566,7 +569,10 @@
         "wineprefix": "WinePrefix map",
         "wineversion": "Wine versie",
         "autoUpdateGames": "Games automatisch bijwerken",
-        "ignoreGameUpdates": "Negeer game-updates"
+        "ignoreGameUpdates": "Negeer game-updates",
+        "disable_logs": "Logboeken uitschakelen",
+        "addgamestoapplications": "Voeg automatisch games toe aan applicaties",
+        "showMetalOverlay": "Statistieken-overlay weergeven"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -600,7 +606,7 @@
             "general": "Algemeen",
             "log": "Log",
             "other": "Overig",
-            "sync": "Save-synchronisatie",
+            "sync": "Cloud Slag Sync",
             "wineExt": "Wine Extensions"
         },
         "open-config-file": "Open Config File",
@@ -680,5 +686,12 @@
     },
     "wiki_info": {
         "not_found": "We konden geen extra informatie vinden."
+    },
+    "dlc": {
+        "actions": "Acties",
+        "noDlcFound": "Geen DLC's gevonden",
+        "installDlcs": "Installeer alle DLC's",
+        "size": "Size",
+        "title": "Title"
     }
 }

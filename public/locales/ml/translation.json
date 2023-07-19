@@ -115,7 +115,7 @@
             }
         },
         "runexe": {
-            "title": "ഓടിക്കുവാനുള്ള EXE നല്കൂ"
+            "title": "ഓടിക്കുവാനുള്ള EXE തിരഞ്ഞെടുക്കൂ"
         },
         "select": {
             "button": "തിരഞ്ഞെടുക്കൂ",
@@ -278,7 +278,8 @@
         "wine": {
             "part1": "വൈനിനും പ്രോട്ടോണിനും ക്രോസ്സോവറിനുമായി ഹീറോയിക് താഴെപ്പറയുന്ന സ്ഥലങ്ങളില് തപ്പുന്നു:",
             "part2": "മറ്റിടങ്ങളെ ഈ സ്ഥലങ്ങളുമായി കോര്ക്കാന് കണ്ണികള് ഉപയോഗിക്കൂ"
-        }
+        },
+        "disable_logs": "ഫയലുകൾ ലോഗ് ചെയ്യുന്നതിനുള്ള മിക്ക റൈറ്റുകളും പ്രവർത്തനരഹിതമാക്കാൻ ഈ ചെക്ക്ബോക്സ് ഓണാക്കുക (നിർണ്ണായക വിവരങ്ങൾ എല്ലായ്പ്പോഴും ലോഗ് ചെയ്തിരിക്കും). എന്തെങ്കിലും പ്രശ്‌നം റിപ്പോർട്ടുചെയ്യുന്നതിന് മുമ്പ് ഈ ക്രമീകരണം ഓഫാക്കുന്നത് ഉറപ്പാക്കുക."
     },
     "info": {
         "heroic": {
@@ -305,7 +306,8 @@
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
         },
-        "wine-path-invalid": "വൈൻ പാത്ത് അസാധുവാണ്, ദയവായി മറ്റൊന്ന് തിരഞ്ഞെടുക്കുക."
+        "wine-path-invalid": "വൈൻ പാത്ത് അസാധുവാണ്, ദയവായി മറ്റൊന്ന് തിരഞ്ഞെടുക്കുക.",
+        "wine-path-none-found": "വൈൻ പതിപ്പൊന്നും കണ്ടെത്തിയില്ല, വൈൻ മാനേജറിൽ നിന്ന് ഒരെണ്ണം ഡൗൺലോഡ് ചെയ്യുക"
     },
     "install": {
         "path": "നടീലിടം തിരഞ്ഞെടുക്കൂ"
@@ -440,7 +442,8 @@
     "platforms": {
         "linux": "ലിനക്സ്",
         "mac": "മാക്",
-        "win": "വിൻഡോസ്"
+        "win": "വിൻഡോസ്",
+        "browser": "ബ്രൗസർ"
     },
     "please-wait": "Please wait...",
     "progress": "Progress",
@@ -520,7 +523,7 @@
         "log": {
             "copy-to-clipboard": "Copy log content to clipboard",
             "current-log": "Current Log",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",
             "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
             "no-file": "No log file found",
@@ -566,7 +569,10 @@
         "wineprefix": "വൈനിരിക്കുന്ന അറ",
         "wineversion": "വൈനിന്റെ പതിപ്പ്",
         "autoUpdateGames": "ഗെയിമുകൾ യാന്ത്രികമായി അപ്ഡേറ്റ് ചെയ്യുക",
-        "ignoreGameUpdates": "ഗെയിം അപ്‌ഡേറ്റുകൾ അവഗണിക്കുക"
+        "ignoreGameUpdates": "ഗെയിം അപ്‌ഡേറ്റുകൾ അവഗണിക്കുക",
+        "disable_logs": "ലോഗുകൾ പ്രവർത്തനരഹിതമാക്കുക",
+        "addgamestoapplications": "ആപ്ലിക്കേഷനുകളിലേക്ക് ഗെയിമുകൾ സ്വയമേവ ചേർക്കുക",
+        "showMetalOverlay": "സ്ഥിതിവിവരക്കണക്കുകളുടെ ഓവർലേ കാണിക്കുക"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -680,5 +686,12 @@
     },
     "wiki_info": {
         "not_found": "ഞങ്ങൾക്ക് അധിക വിവരങ്ങൾ കണ്ടെത്താൻ കഴിഞ്ഞില്ല."
+    },
+    "dlc": {
+        "size": "Size",
+        "actions": "പ്രവർത്തനങ്ങൾ",
+        "noDlcFound": "DLC-കളൊന്നും കണ്ടെത്തിയില്ല",
+        "title": "Title",
+        "installDlcs": "എല്ലാ കൂട്ടുരേഖകളും നടൂ"
     }
 }
