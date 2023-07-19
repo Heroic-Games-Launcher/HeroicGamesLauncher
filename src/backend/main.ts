@@ -844,13 +844,13 @@ ipcMain.handle('toggleDXVK', async (event, { appName, action }) =>
     )
 )
 
-ipcMain.on('toggleVKD3D', (event, { appName, action }) => {
+ipcMain.handle('toggleVKD3D', async (event, { appName, action }) =>
   GameConfig.get(appName)
     .getSettings()
-    .then((gameSettings) => {
+    .then(async (gameSettings) =>
       DXVK.installRemove(gameSettings, 'vkd3d', action)
-    })
-})
+    )
+)
 
 ipcMain.handle('writeConfig', (event, { appName, config }) => {
   logInfo(

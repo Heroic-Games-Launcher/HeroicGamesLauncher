@@ -80,7 +80,6 @@ interface SyncIPCFunctions {
   resetHeroic: () => void
   createNewWindow: (url: string) => void
   logoutGOG: () => void
-  toggleVKD3D: (args: ToolArgs) => void
   logError: (message: unknown) => void
   logInfo: (message: unknown) => void
   showItemInFolder: (item: string) => void
@@ -252,6 +251,7 @@ interface AsyncIPCFunctions {
     runner: Runner
   }) => Promise<boolean>
   toggleDXVK: (args: ToolArgs) => Promise<boolean>
+  toggleVKD3D: (args: ToolArgs) => Promise<boolean>
   pathExists: (path: string) => Promise<boolean>
   getGOGLaunchOptions: (appName: string) => Promise<LaunchOption[]>
   getGameOverride: () => Promise<GameOverride | null>
