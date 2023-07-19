@@ -1,8 +1,11 @@
 import { vulkanHelperBin } from 'backend/constants'
-import { spawnSync } from 'child_process'
+import { SpawnSyncReturns, spawnSync } from 'child_process'
 import { gte as semverGte } from 'semver'
 
 type VulkanVersion = [maj: number, min: number, patch: number]
+
+let instance_version: SpawnSyncReturns<string> | null = null
+let physical_versions: SpawnSyncReturns<string> | null = null
 
 /**
  * @returns The version of the installed Vulkan API interface, or `false` if
@@ -11,20 +14,17 @@ type VulkanVersion = [maj: number, min: number, patch: number]
  * support. For that, see {@link get_supported_vulkan_versions}
  */
 function get_vulkan_instance_version(): VulkanVersion | false {
-  const result = spawnSync(vulkanHelperBin, ['instance-version'], {
-    encoding: 'utf-8'
-  })
+  if(!instance_version)
+    instance_version = spawnSync(vulkanHelperBin, ['instance-version'], {
+      encoding: 'utf-8'
+    })
 
   try {
-    return JSON.parse(result.stdout) as VulkanVersion
+    return JSON.parse(instance_version.stdout) as VulkanVersion
   } catch {
     return false
   }
 }
-
-const result = spawnSync(vulkanHelperBin, ['physical-versions'], {
-  encoding: 'utf-8'
-})
 
 /**
  * @returns A list of device names and their supported Vulkan versions
@@ -33,8 +33,12 @@ function get_supported_vulkan_versions(): [
   name: string,
   version: VulkanVersion
 ][] {
+  if(!physical_versions)
+    physical_versions = spawnSync(vulkanHelperBin, ['physical-versions'], {
+      encoding: 'utf-8'
+    })
   try {
-    const output = JSON.parse(result.stdout) as Array<{
+    const output = JSON.parse(physical_versions.stdout) as Array<{
       name: string
       major: number
       minor: number
