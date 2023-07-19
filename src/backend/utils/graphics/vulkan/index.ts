@@ -22,6 +22,10 @@ function get_vulkan_instance_version(): VulkanVersion | false {
   }
 }
 
+const result = spawnSync(vulkanHelperBin, ['physical-versions'], {
+  encoding: 'utf-8'
+})
+
 /**
  * @returns A list of device names and their supported Vulkan versions
  */
@@ -29,10 +33,6 @@ function get_supported_vulkan_versions(): [
   name: string,
   version: VulkanVersion
 ][] {
-  const result = spawnSync(vulkanHelperBin, ['physical-versions'], {
-    encoding: 'utf-8'
-  })
-
   try {
     const output = JSON.parse(result.stdout) as Array<{
       name: string
