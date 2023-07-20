@@ -340,10 +340,16 @@ export async function getGamingPortingToolkitWine(): Promise<
   }
 
   logInfo('Searching for Gaming Porting Toolkit Wine', LogPrefix.GlobalConfig)
-  const { stdout } = await execAsync('mdfind wine64')
-  const wineBin = stdout.split('\n').filter((p) => {
+  const { stdout: wineStdout } = await execAsync('mdfind wine64')
+  const wineBin = wineStdout.split('\n').filter((p) => {
     return p.match(/game-porting-toolkit.*\/wine64$/)
   })[0]
+
+  const { stdout: gptkStdout } = await execAsync('mdfind gameportingtoolkit')
+  const gptkBin = gptkStdout.split('\n').filter((p) => {
+    return p.match(/.*\/gameportingtoolkit$/)
+  })[0]
+
 
   if (existsSync(wineBin)) {
     logInfo(
@@ -359,7 +365,7 @@ export async function getGamingPortingToolkitWine(): Promise<
         type: 'toolkit',
         lib: `${dirname(wineBin)}/../lib`,
         lib32: `${dirname(wineBin)}/../lib`,
-        bin: wineBin
+        bin: gptkBin
       })
     } catch (error) {
       logError(
@@ -381,7 +387,7 @@ export function getWineFlags(
   const wineFlagsObj = {
     proton: ['--no-wine', '--wrapper', `'${wineBin}' run`],
     wine: ['--wine', wineBin],
-    toolkit: ['--wrapper', `${wineBin} ${gameSettings.winePrefix}`, '--no-wine']
+    toolkit: ['--wrapper', `${wineBin} "${gameSettings.winePrefix}"`, '--no-wine']
   }
 
   wineFlags.push(...(wineFlagsObj[wineType as keyof typeof wineFlagsObj] || []))
