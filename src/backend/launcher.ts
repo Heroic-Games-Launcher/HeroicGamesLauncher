@@ -597,7 +597,10 @@ async function runWineCommand({
     commandParts.unshift(prefix)
   }
 
-  const wineBin = wineVersion.bin.replaceAll("'", '')
+  const wineBin =
+    isGPTK && wineVersion.gptkBin !== null
+      ? wineVersion.gptkBin!.replaceAll("'", '')
+      : wineVersion.bin.replaceAll("'", '')
 
   logDebug(['Running Wine command:', commandParts.join(' ')], LogPrefix.Backend)
 

@@ -232,6 +232,7 @@ export interface WineInstallation {
   type: 'wine' | 'proton' | 'crossover' | 'toolkit'
   lib?: string
   lib32?: string
+  gptkBin?: string
   wineserver?: string
 }
 

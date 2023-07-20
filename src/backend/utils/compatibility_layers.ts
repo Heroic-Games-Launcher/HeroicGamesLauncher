@@ -364,7 +364,8 @@ export async function getGamingPortingToolkitWine(): Promise<
         type: 'toolkit',
         lib: `${dirname(wineBin)}/../lib`,
         lib32: `${dirname(wineBin)}/../lib`,
-        bin: gptkBin
+        bin: wineBin,
+        gptkBin: gptkBin
       })
     } catch (error) {
       logError(
@@ -380,7 +381,8 @@ export async function getGamingPortingToolkitWine(): Promise<
 export function getWineFlags(
   wineBin: string,
   gameSettings: GameSettings,
-  wineType: string
+  wineType: string,
+  gptkBin?: string
 ) {
   const wineFlags = []
   const wineFlagsObj = {
@@ -388,7 +390,7 @@ export function getWineFlags(
     wine: ['--wine', wineBin],
     toolkit: [
       '--wrapper',
-      `${wineBin} "${gameSettings.winePrefix}"`,
+      `${gptkBin} "${gameSettings.winePrefix}"`,
       '--no-wine'
     ]
   }
