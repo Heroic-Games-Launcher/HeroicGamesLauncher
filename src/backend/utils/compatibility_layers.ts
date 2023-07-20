@@ -350,7 +350,6 @@ export async function getGamingPortingToolkitWine(): Promise<
     return p.match(/.*\/gameportingtoolkit$/)
   })[0]
 
-
   if (existsSync(wineBin)) {
     logInfo(
       `Found Gaming Porting Toolkit Wine at ${dirname(wineBin)}`,
@@ -387,7 +386,11 @@ export function getWineFlags(
   const wineFlagsObj = {
     proton: ['--no-wine', '--wrapper', `'${wineBin}' run`],
     wine: ['--wine', wineBin],
-    toolkit: ['--wrapper', `${wineBin} "${gameSettings.winePrefix}"`, '--no-wine']
+    toolkit: [
+      '--wrapper',
+      `${wineBin} "${gameSettings.winePrefix}"`,
+      '--no-wine'
+    ]
   }
 
   wineFlags.push(...(wineFlagsObj[wineType as keyof typeof wineFlagsObj] || []))
