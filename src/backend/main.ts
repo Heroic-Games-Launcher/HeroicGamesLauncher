@@ -200,7 +200,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
       } catch (error) {
         logError(error, LogPrefix.Backend)
       }
-    }, 2500)
+    }, 5000)
   }
 
   GlobalConfig.get()
