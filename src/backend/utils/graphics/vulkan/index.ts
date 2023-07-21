@@ -20,7 +20,7 @@ function get_vulkan_instance_version(): VulkanVersion | false {
     })
 
   try {
-    return JSON.parse(instance_version.stdout) as VulkanVersion
+    return JSON.parse(instance_version.stdout.toString()) as VulkanVersion
   } catch {
     return false
   }
@@ -38,7 +38,7 @@ function get_supported_vulkan_versions(): [
       encoding: 'utf-8'
     })
   try {
-    const output = JSON.parse(physical_versions.stdout) as Array<{
+    const output = JSON.parse(physical_versions.stdout.toString()) as Array<{
       name: string
       major: number
       minor: number
