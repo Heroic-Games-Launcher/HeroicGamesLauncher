@@ -4,8 +4,8 @@ import { gte as semverGte } from 'semver'
 
 type VulkanVersion = [maj: number, min: number, patch: number]
 
-let instance_version: SpawnSyncReturns<string> | null = null
-let physical_versions: SpawnSyncReturns<string> | null = null
+let instance_version: ReturnType<typeof spawnSync> | null = null
+let physical_versions: ReturnType<typeof spawnSync> | null = null
 
 /**
  * @returns The version of the installed Vulkan API interface, or `false` if
