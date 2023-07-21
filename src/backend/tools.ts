@@ -200,7 +200,7 @@ export const DXVK = {
         })
       }
 
-      logInfo('Restoring old dlls', LogPrefix.DXVKInstaller)
+      logInfo('Removing DLL overrides', LogPrefix.DXVKInstaller)
 
       // unregister the dlls on the wine prefix
       dlls.forEach(async (dll) => {
