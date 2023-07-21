@@ -50,8 +50,6 @@ import { GlobalConfig } from './config'
 import { LegendaryUser } from 'backend/storeManagers/legendary/user'
 import { GOGUser } from './storeManagers/gog/user'
 import { NileUser } from './storeManagers/nile/user'
-import setup from './storeManagers/gog/setup'
-import nileSetup from './storeManagers/nile/setup'
 import {
   clearCache,
   execAsync,
@@ -117,7 +115,7 @@ import {
 } from './logger/logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
 import { getFonts } from 'font-list'
-import { prepareWineLaunch, runWineCommand, verifyWinePrefix } from './launcher'
+import { prepareWineLaunch, runWineCommand } from './launcher'
 import shlex from 'shlex'
 import { initQueue } from './downloadmanager/downloadqueue'
 import {
@@ -151,7 +149,6 @@ import {
   initStoreManagers,
   libraryManagerMap
 } from './storeManagers'
-import { setupUbisoftConnect } from 'backend/storeManagers/legendary/setup'
 
 import { logFileLocation as getLogFileLocation } from './storeManagers/storeManagerCommon/games'
 import { addNewApp } from './storeManagers/sideload/library'
