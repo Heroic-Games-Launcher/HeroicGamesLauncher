@@ -151,6 +151,7 @@ import {
   libraryManagerMap
 } from './storeManagers'
 import { setupUbisoftConnect } from 'backend/storeManagers/legendary/setup'
+import { updateWineVersionInfos } from './wine/manager/utils'
 
 import { logFileLocation as getLogFileLocation } from './storeManagers/storeManagerCommon/games'
 import { addNewApp } from './storeManagers/sideload/library'
@@ -191,6 +192,16 @@ async function initializeWindow(): Promise<BrowserWindow> {
       downloadDefaultWine()
     }
   }, 2500)
+
+  if (!isWindows) {
+    setTimeout(async () => {
+      try {
+        await updateWineVersionInfos(true)
+      } catch (error) {
+        logError(error, LogPrefix.Backend)
+      }
+    }, 2500)
+  }
 
   GlobalConfig.get()
 
