@@ -1,5 +1,5 @@
 import { vulkanHelperBin } from 'backend/constants'
-import { SpawnSyncReturns, spawnSync } from 'child_process'
+import { spawnSync } from 'child_process'
 import { gte as semverGte } from 'semver'
 
 type VulkanVersion = [maj: number, min: number, patch: number]
