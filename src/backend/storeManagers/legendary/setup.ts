@@ -69,10 +69,7 @@ const installUbisoftConnect = async (appName: string) => {
 }
 
 const installArialFontInPrefix = async (appName: string) => {
-  const settings = await getSettings(appName)
-  await Winetricks.runWithArgs(settings.wineVersion, settings.winePrefix, [
-    'arial'
-  ])
+  await Winetricks.runWithArgs('legendary', appName, ['arial'])
 }
 
 const downloadIfNotCached = async (cachePath: string, url: string) => {

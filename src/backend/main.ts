@@ -593,11 +593,10 @@ async function runWineCommandOnGame(
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
 ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
   const gameSettings = await gameManagerMap[runner].getSettings(appName)
-  const { wineVersion, winePrefix } = gameSettings
 
   switch (tool) {
     case 'winetricks':
-      await Winetricks.run(wineVersion, winePrefix, event)
+      await Winetricks.run(runner, appName, event)
       break
     case 'winecfg':
       runWineCommandOnGame(runner, appName, {
