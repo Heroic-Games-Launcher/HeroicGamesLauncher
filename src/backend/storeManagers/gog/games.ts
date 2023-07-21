@@ -503,7 +503,7 @@ export async function launch(
         ? wineExec.replaceAll("'", '')
         : wineExec
 
-    wineFlag = [...getWineFlags(wineBin, gameSettings, wineType)]
+    wineFlag = getWineFlags(wineBin, wineType)
   }
 
   const commandParts = [
