@@ -573,11 +573,6 @@ async function runWineCommand({
       )
       mkdirSync(winePrefix, { recursive: true })
       await verifyWinePrefix(settings)
-
-      if (gameSettings?.autoInstallDxvk)
-        await DXVK.installRemove(gameSettings, 'dxvk', 'backup')
-      if (gameSettings?.autoInstallVkd3d)
-        await DXVK.installRemove(gameSettings, 'vkd3d', 'backup')
     }
   }
 

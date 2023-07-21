@@ -993,6 +993,8 @@ export async function runWineCommandOnGame(
   const { folder_name } = getGameInfo(appName)
   const gameSettings = await getSettings(appName)
 
+  await prepareWineLaunch('legendary', appName)
+
   return runWineCommandUtil({
     gameSettings,
     installFolderName: folder_name,
