@@ -542,7 +542,7 @@ function getVkd3dUrl(): string {
   if (any_gpu_supports_version([1, 3, 0])) {
     const instance_version = get_vulkan_instance_version()
     if (instance_version && semverLt(instance_version.join('.'), '1.3.0')) {
-      // FIXME: How does the instance version matter? Even with 1.2, newer DXVK seems to work fine
+      // FIXME: How does the instance version matter? Even with 1.2, newer VKD3D seems to work fine
       logWarning(
         'Vulkan 1.3 is supported by GPUs in this system, but instance version is outdated',
         LogPrefix.DXVKInstaller
