@@ -124,6 +124,7 @@ async function prepareLaunch(
     gameSettings.useSteamRuntime &&
     (isNative || gameSettings.wineVersion.type === 'proton')
   if (shouldUseRuntime) {
+    // Determine which runtime to use based on toolmanifest.vdf which is shipped with proton
     let nonNativeRuntime: SteamRuntime['type'] = 'soldier'
     if (!isNative) {
       try {
