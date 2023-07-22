@@ -148,7 +148,7 @@ async function prepareLaunch(
             isNative
               ? 'is'
               : `and the SteamLinuxRuntime - ${
-                  nonNativeRuntime === 'sniper' ? 'Sniper' : 'Solider'
+                  nonNativeRuntime === 'sniper' ? 'Sniper' : 'Soldier'
                 } are`
           } installed`
       }
