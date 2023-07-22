@@ -190,21 +190,21 @@
     "docs": "Документация",
     "download-manager": {
         "install-type": {
-            "install": "Install",
-            "update": "Update"
+            "install": "Инсталиране",
+            "update": "Обновяване"
         },
         "label": {
             "disk": "Диск",
-            "speed": "Download"
+            "speed": "Сваляне"
         },
-        "link": "Downloads",
+        "link": "Сваляния",
         "queue": {
             "end-time": "Завършено в",
             "queue-time": "Добавено в",
             "start-time": "Започнато в",
-            "type": "Type"
+            "type": "Тип"
         },
-        "title": "Downloads",
+        "title": "Сваляния",
         "ETA": "Предполагаемо време"
     },
     "epic": {
@@ -212,7 +212,7 @@
         "offline-notification-title": "извън линия"
     },
     "Epic Games": "Epic Games",
-    "error": "Error",
+    "error": "Грешка",
     "favourites": "Любими",
     "game": {
         "status": "Състояние",
@@ -372,7 +372,7 @@
             "paused": "Инсталацията е спряна на пауза"
         },
         "moved": "Преместването е завършено",
-        "moving": "Преместване на играта",
+        "moving": "Преместване на играта…",
         "new-heroic-version": "Излезе нова версия на Heroic!",
         "refresh": {
             "error": "Не могат да бъдат получени изданията от отдалеченото хранилище, може би поради ограничения на ППИ на Github! Опитайте отново по-късно."
@@ -451,7 +451,7 @@
         "label": {
             "canceled": "Отменено",
             "clear": "Изчистване на списъка",
-            "downloading": "Сваляне",
+            "downloading": "Сваляне…",
             "empty": "Няма нищо за сваляне",
             "finished": "Завършено",
             "queued": "В опашката",
@@ -570,7 +570,9 @@
         "wineversion": "Версия на Wine",
         "autoUpdateGames": "Автоматично обновяване на игрите",
         "ignoreGameUpdates": "Пренебрегване на обновленията на играта",
-        "disable_logs": "Деактивиране на регистрационни файлове"
+        "disable_logs": "Деактивиране на регистрационни файлове",
+        "addgamestoapplications": "Автоматично добавяне на игрите към приложенията",
+        "showMetalOverlay": "Показване на слой със статистики"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -620,7 +622,7 @@
         "uncollapse": "Разпъване на страничната лента"
     },
     "status": {
-        "installing": "Инсталиране",
+        "installing": "Инсталиране…",
         "logging": "Влизане…",
         "processing": "Файловете се обработват, изчакайте"
     },
@@ -651,7 +653,7 @@
     "Update Available!": "Има налично обновление!",
     "userselector": {
         "discord": "Дискорд",
-        "logging_out": "Излизане",
+        "logging_out": "Излизане…",
         "logout": "Излизане",
         "logout_confirmation": "Наистина ли искате да излезете?",
         "manageaccounts": "Управление на акаунтите",

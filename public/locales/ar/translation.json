@@ -570,7 +570,9 @@
         "wineversion": "إصدار واين",
         "autoUpdateGames": "حدِّث الألعاب تلقائيًّا",
         "ignoreGameUpdates": "تجاهَل تحديثات اللعبة",
-        "disable_logs": "تعطيل السجلات"
+        "disable_logs": "تعطيل السجلات",
+        "showMetalOverlay": "إظهار تراكب الإحصائيات",
+        "addgamestoapplications": "أضف ألعابًا إلى التطبيقات تلقائيًا"
     },
     "settings": {
         "battlEyeRuntime": {

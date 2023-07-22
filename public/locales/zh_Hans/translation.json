@@ -81,7 +81,7 @@
             "moving": "移动游戏出错 {{error}}",
             "ubisoft-connect": {
                 "message": "在游戏前缀中安装 Ubisoft Connect 失败。查看我们的 wiki 页面 https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac 来手动安装它。",
-                "title": "育碧连接"
+                "title": "Ubisoft Connect"
             },
             "legendary": {
                 "generic": "发生了错误！尝试注销并登录您的 Epic 帐户。 {{newline}} {{error}}"
@@ -150,8 +150,8 @@
             },
             "title": "警告",
             "wine-change": {
-                "message": "我们找不到启动此标题的选定 wine 版本 ({{selectedWine}})。 {{newline}} 我们找到了另一个，你想继续使用 {{foundWine}} 启动吗？",
-                "title": "找不到酒！"
+                "message": "我们找不到启动此游戏的选定 wine 版本 ({{selectedWine}})。 {{newline}} 我们找到了另一个，你想继续使用 {{foundWine}} 启动吗？",
+                "title": "未找到 Wine ！"
             }
         },
         "wineprefix": "选择 Wine Prefix 文件夹",
@@ -570,7 +570,9 @@
         "wineversion": "Wine 版本",
         "autoUpdateGames": "自动更新游戏",
         "ignoreGameUpdates": "忽略游戏更新",
-        "disable_logs": "禁用日志"
+        "disable_logs": "禁用日志",
+        "addgamestoapplications": "自动将游戏添加到应用程序",
+        "showMetalOverlay": "显示统计数据叠加"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -686,7 +688,7 @@
         "not_found": "我们找不到额外的信息。"
     },
     "dlc": {
-        "actions": "动作",
+        "actions": "操作",
         "installDlcs": "安装所有 DLC",
         "noDlcFound": "未找到 DLC",
         "size": "大小",

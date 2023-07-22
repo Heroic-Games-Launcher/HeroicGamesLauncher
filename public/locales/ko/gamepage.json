@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "AppleGamingWiki 등급",
         "clickToOpen": "클릭하여 열기",
         "game-scores": "게임 점수",
-        "installedInfo": "설치된 정보"
+        "installedInfo": "설치된 정보",
+        "protondb-compatibility-info": "양성자 호환성 계층",
+        "steamdeck-compatibility-info": "SteamDeck 호환성"
     },
     "install": {
         "disk-space-left": "사용 가능한 공간",
@@ -130,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Third-Party Game NOT Supported",
+            "not-installable-game": "게임을 설치할 수 없습니다"
         },
         "playing": {
             "start": "지금 실행하기",
@@ -202,7 +205,9 @@
         "launching": "시작 중",
         "ubisoft": "유비소프트 설치",
         "downloading": "Downloading",
-        "extracting": "적출"
+        "extracting": "적출",
+        "gog-goodie": "이 게임은 설치할 수 없는 것 같습니다. https://gog.com/account에서 다운로드 가능한 콘텐츠 확인",
+        "goodie": "설치할 수 없음"
     },
     "submenu": {
         "addShortcut": "바로가기 생성",

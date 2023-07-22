@@ -10,7 +10,11 @@ interface Props {
   onlyInstalled: boolean
 }
 
-function getRecentGames(libraries: GameInfo[], limit: number): GameInfo[] {
+function getRecentGames(
+  libraries: GameInfo[],
+  limit: number,
+  onlyInstalled: boolean
+): GameInfo[] {
   const recentGames = configStore.get('games.recent', [])
 
   const games: GameInfo[] = []
@@ -18,6 +22,7 @@ function getRecentGames(libraries: GameInfo[], limit: number): GameInfo[] {
   for (const recent of recentGames) {
     const found = libraries.find((game) => game.app_name === recent.appName)
     if (found) {
+      if (onlyInstalled && !found.is_installed) continue
       games.push(found)
       if (games.length === limit) break
     }
@@ -31,14 +36,20 @@ export default React.memo(function RecentlyPlayed({
   onlyInstalled
 }: Props) {
   const { t } = useTranslation()
-  const { epic, gog, sideloadedLibrary } = useContext(ContextProvider)
+  const { epic, gog, sideloadedLibrary, amazon } = useContext(ContextProvider)
   const [recentGames, setRecentGames] = useState<GameInfo[]>([])
 
   const loadRecentGames = async () => {
     const { maxRecentGames } = await window.api.requestAppSettings()
     const newRecentGames = getRecentGames(
-      [...epic.library, ...gog.library, ...sideloadedLibrary],
-      maxRecentGames
+      [
+        ...epic.library,
+        ...gog.library,
+        ...sideloadedLibrary,
+        ...amazon.library
+      ],
+      maxRecentGames,
+      onlyInstalled
     )
 
     setRecentGames(newRecentGames)
@@ -57,7 +68,7 @@ export default React.memo(function RecentlyPlayed({
     return () => {
       recentGamesChangedRemoveListener()
     }
-  }, [epic.library, gog.library, sideloadedLibrary])
+  }, [epic.library, gog.library, amazon.library, sideloadedLibrary])
 
   if (!recentGames.length) {
     return null

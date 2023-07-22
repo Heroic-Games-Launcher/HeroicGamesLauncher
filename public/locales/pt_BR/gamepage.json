@@ -117,7 +117,9 @@
         "installedInfo": "Informação Instalada",
         "apple-gaming-wiki": "Classificação AppleGamingWiki",
         "clickToOpen": "Clique para abrir",
-        "game-scores": "Pontuações do jogo"
+        "game-scores": "Pontuações do jogo",
+        "protondb-compatibility-info": "Nível de compatibilidade de prótons",
+        "steamdeck-compatibility-info": "Compatibilidade do SteamDeck"
     },
     "install": {
         "disk-space-left": "Espaço restante no dispositivo",
@@ -130,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Jogo de Terceiros NÃO Suportado"
+            "third-party-game": "Jogo de Terceiros NÃO Suportado",
+            "not-installable-game": "O jogo NÃO é instalável"
         },
         "playing": {
             "start": "Jogar",
@@ -202,7 +205,9 @@
         "launching": "Lançamento",
         "ubisoft": "Instalando Ubisoft",
         "downloading": "Baixando",
-        "extracting": "Extraindo"
+        "extracting": "Extraindo",
+        "gog-goodie": "Este jogo não parece ser instalável. Verifique o conteúdo para download em https://gog.com/account",
+        "goodie": "Não instalável"
     },
     "submenu": {
         "addShortcut": "Adicionar Atalho",

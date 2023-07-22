@@ -21,6 +21,7 @@ interface createLogFileReturn {
   lastLogFile: string
   legendaryLogFile: string
   gogdlLogFile: string
+  nileLogFile: string
 }
 
 let longestPrefix = 0
@@ -49,10 +50,12 @@ export function createNewLogFileAndClearOldOnes(): createLogFileReturn {
   const newLogFile = join(logDir, `heroic-${fmtDate}.log`)
   const newLegendaryLogFile = join(logDir, `legendary-${fmtDate}.log`)
   const newGogdlLogFile = join(logDir, `gogdl-${fmtDate}.log`)
+  const newNileLogFile = join(logDir, `nile-${fmtDate}.log`)
 
   createLogFile(newLogFile)
   createLogFile(newLegendaryLogFile)
   createLogFile(newGogdlLogFile)
+  createLogFile(newNileLogFile)
 
   // Clean out logs that are more than a month old
   if (existsSync(logDir)) {
@@ -67,9 +70,9 @@ export function createNewLogFileAndClearOldOnes(): createLogFileReturn {
         .map((dirent) => dirent.name)
 
       logs.forEach((log) => {
-        if (log.match(/(heroic|legendary|gogdl)-/)) {
+        if (log.match(/(heroic|legendary|gogdl|nile)-/)) {
           const dateString = log
-            .replace(/(heroic|legendary|gogdl)-/, '')
+            .replace(/(heroic|legendary|gogdl|nile)-/, '')
             .replace('.log', '')
             .replaceAll('_', ':')
           const logDate = new Date(dateString)
@@ -90,13 +93,15 @@ export function createNewLogFileAndClearOldOnes(): createLogFileReturn {
     currentLogFile: '',
     lastLogFile: '',
     legendaryLogFile: '',
-    gogdlLogFile: ''
+    gogdlLogFile: '',
+    nileLogFile: ''
   })
 
   logs.lastLogFile = logs.currentLogFile
   logs.currentLogFile = newLogFile
   logs.legendaryLogFile = newLegendaryLogFile
   logs.gogdlLogFile = newGogdlLogFile
+  logs.nileLogFile = newNileLogFile
 
   configStore.set('general-logs', logs)
 

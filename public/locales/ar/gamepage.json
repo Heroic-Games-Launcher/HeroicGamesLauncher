@@ -118,7 +118,9 @@
         "apple-gaming-wiki": "تقييم AppleGamingWiki",
         "clickToOpen": "انقر لتفتح",
         "game-scores": "نتائج اللعبة",
-        "installedInfo": "معلومات المثبَّت"
+        "installedInfo": "معلومات المثبَّت",
+        "protondb-compatibility-info": "طبقة توافق البروتون",
+        "steamdeck-compatibility-info": "التوافق مع SteamDeck"
     },
     "install": {
         "disk-space-left": "المساحة المتوفرة",

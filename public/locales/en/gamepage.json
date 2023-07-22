@@ -118,7 +118,9 @@
         "installedInfo": "Installed Information",
         "installedPlatform": "Installed Platform",
         "path": "Install Path",
+        "protondb-compatibility-info": "Proton Compatibility Tier",
         "size": "Size",
+        "steamdeck-compatibility-info": "SteamDeck Compatibility",
         "syncsaves": "Sync Saves",
         "version": "Version"
     },
@@ -150,6 +152,7 @@
         "options": "Launch Options..."
     },
     "not_logged_in": {
+        "amazon": "You are not logged in with an Amazon account in Heroic. Don't use the store page to login, click the following button instead:",
         "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
         "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
         "login": "Log in",

@@ -8,14 +8,14 @@
         "choose": "Wybierz",
         "importpath": "Wybierz folder gry do zaimportowania",
         "move": {
-            "message": "To może zająć dłuższą chwilę, jesteś pewny?",
-            "path": "Wybierz gdzie chcesz przejść",
+            "message": "To może zająć dłuższą chwilę, jesteś pewien?",
+            "path": "Wybierz gdzie chcesz przenieść",
             "title": "Przenieś pliki gry"
         },
         "no": "NIE",
         "repair": {
-            "message": "Chcesz spróbować naprawić tą grę? To może zająć dużo czasu.",
-            "title": "Sprawdź i napraw"
+            "message": "Chcesz spróbować naprawić tę grę? To może zająć dużo czasu.",
+            "title": "Zweryfikuj i napraw"
         },
         "runexe": {
             "title": "Wybierz EXE do uruchomienia"
@@ -28,19 +28,19 @@
         },
         "stopInstall": {
             "keepInstalling": "Kontynuuj instalację",
-            "message": "Czy chcesz zachować pobrane pliki?",
+            "message": "Czy chcesz ZACHOWAĆ pobrane pliki?",
             "title": "Zatrzymaj instalację"
         },
         "uninstall": {
             "checkbox": "Usuń prefiks: {{prefix}}{{newLine}} Notka: Operacja nie może zostać cofnięta, zostaną usunięte również zapisy gry.",
             "message": "Czy chcesz odinstalować tę grę?",
-            "settingcheckbox": "Wyczyść ustawienia i usuń dziennik zdarzeń{{newLine}}Uwaga: Ta operacja nie może zostać cofnięta. Wszystkie zmodyfikowane ustawienia zostaną zapomniane a dziennik zdarzeń zostanie usunięty.",
+            "settingcheckbox": "Wyczyść ustawienia i usuń dziennik zdarzeń{{newLine}}Uwaga: Ta operacja nie może zostać cofnięta. Wszystkie zmodyfikowane ustawienia zostaną zapomniane, a dziennik zdarzeń zostanie usunięty.",
             "title": "Odinstaluj",
-            "prefix_warning": "Prefiks Wine dla tej gry jest prefiksem domyślnym. Jeśli naprawdę chcesz go usunąć, musisz to zrobić ręcznie.",
+            "prefix_warning": "Prefiks Wine dla tej gry jest prefiksem domyślnym. Jeśli na pewno chcesz go usunąć, musisz to zrobić ręcznie.",
             "dlc": "Czy chcesz odinstalować to DLC?"
         },
         "update": {
-            "message": "Ta gra ma dostępną aktualizację, czy chcesz zainstalować ją teraz?",
+            "message": "Ta gra ma dostępną aktualizację, czy chcesz ją teraz zainstalować?",
             "title": "Gra wymaga aktualizacji"
         },
         "wineprefix": "Wybierz folder z prefiksem Wine",
@@ -70,14 +70,14 @@
         "unhide_game": "Odkryj Grę",
         "uninstall": "Odinstaluj",
         "update": "Aktualizuj",
-        "details": "Detale"
+        "details": "Szczegóły"
     },
     "cloud_save_unsupported": "Niewspierana",
-    "disabled": "Wyłączone",
+    "disabled": "Wyłączono",
     "dlc": {
         "installDlcs": "Zainstaluj wszystkie DLC"
     },
-    "enabled": "Włączone",
+    "enabled": "Włączono",
     "game": {
         "downloadSize": "Rozmiar pobierania",
         "firstPlayed": "Pierwsze uruchomienie",
@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "Ocena AppleGamingWiki",
         "clickToOpen": "Kliknij, aby otworzyć",
         "game-scores": "Wyniki gier",
-        "installedInfo": "Zainstalowane informacje"
+        "installedInfo": "Zainstalowane informacje",
+        "protondb-compatibility-info": "Poziom zgodności protonów",
+        "steamdeck-compatibility-info": "Zgodność ze SteamDeck"
     },
     "install": {
         "disk-space-left": "Dostępne miejsce",
@@ -130,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Gry stron trzecich NIE są obsługiwane"
+            "third-party-game": "Gry stron trzecich NIE są obsługiwane",
+            "not-installable-game": "Gry NIE MOŻNA zainstalować"
         },
         "playing": {
             "start": "Graj",
@@ -139,16 +142,16 @@
         "saves": {
             "syncing": "Synchronizowanie zapisów"
         },
-        "launching": "Wodowanie",
+        "launching": "Uruchamianie",
         "ubisoft": "Instalowanie Ubisoft Connect"
     },
     "launch": {
         "options": "Opcje Uruchamiania..."
     },
     "not_logged_in": {
-        "epic": "Nie jesteś zalogowany na konto Epic w Heroic. Nie używaj strony sklepu do logowania, zamiast tego kliknij poniższy przycisk:",
-        "gog": "Nie jesteś zalogowany na konto GOG w Heroic. Nie używaj strony sklepu do logowania, zamiast tego kliknij poniższy przycisk:",
-        "login": "Log in",
+        "epic": "Nie jesteś zalogowany kontem Epic w Heroic. Nie używaj strony sklepu do zalogowania, zamiast tego kliknij ten przycisk:",
+        "gog": "Nie jesteś zalogowany kontem GOG w Heroic. Nie używaj strony sklepu do logowania, zamiast tego kliknij ten przycisk:",
+        "login": "Zaloguj",
         "title": "NIE jesteś zalogowany"
     },
     "report_problem": "Zgłoś problem z uruchamianiem tej gry",
@@ -170,14 +173,14 @@
             "broser": "URL przeglądarki"
         },
         "placeholder": {
-            "image": "Wklej adres URL obrazu tutaj",
+            "image": "Wklej adres URL obrazka tutaj",
             "title": "Dodaj tytuł do swojej gry/aplikacji",
             "url": "Wklej tutaj adres URL gry"
         }
     },
     "specs": {
-        "minimum": "Minimum",
-        "recommended": "Zalecany"
+        "minimum": "Minimalne",
+        "recommended": "Zalecane"
     },
     "status": {
         "clickToUpdate": "Kliknij by zaktualizować",
@@ -188,7 +191,7 @@
         "moving": "Przenoszenie plików gry, proszę czekać",
         "notinstalled": "Ta gra nie jest zainstalowana",
         "notSupported": "Nieobsługiwane",
-        "notSupportedGame": "Nieobsługiwane",
+        "notSupportedGame": "Nieobsługiwana",
         "processing": "Przetwarzanie plików, proszę czekać",
         "queued": "W kolejce",
         "reparing": "Naprawianie gry, proszę czekać",
@@ -199,10 +202,12 @@
         "playing": "W grze",
         "moving-files": "Przenoszenie pliku „{{file}}”: {{percent}} ",
         "syncingSaves": "Synchronizowanie zapisów",
-        "launching": "Wodowanie",
-        "ubisoft": "Instalowanie Ubisoftu",
+        "launching": "Uruchamianie",
+        "ubisoft": "Instalowanie Ubisoft",
         "downloading": "Pobieranie",
-        "extracting": "Ekstrahujący"
+        "extracting": "Wypakowywanie",
+        "gog-goodie": "Wygląda na to, że tej gry nie da się zainstalować. Sprawdź zawartość do pobrania na https://gog.com/account",
+        "goodie": "Nie do zainstalowania"
     },
     "submenu": {
         "addShortcut": "Dodaj skrót",

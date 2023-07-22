@@ -49,7 +49,8 @@
       "icon": "build/win_icon.ico",
       "asarUnpack": [
         "build/bin/win32/legendary.exe",
-        "build/bin/win32/gogdl.exe"
+        "build/bin/win32/gogdl.exe",
+        "build/bin/win32/nile.exe"
       ],
       "files": [
         "build/bin/win32/*"
@@ -69,7 +70,8 @@
       },
       "asarUnpack": [
         "build/bin/darwin/legendary",
-        "build/bin/darwin/gogdl"
+        "build/bin/darwin/gogdl",
+        "build/bin/darwin/nile"
       ],
       "files": [
         "build/bin/darwin/*"
@@ -106,6 +108,7 @@
       "asarUnpack": [
         "build/bin/linux/legendary",
         "build/bin/linux/gogdl",
+        "build/bin/linux/nile",
         "build/bin/linux/vulkan-helper"
       ],
       "files": [
@@ -176,6 +179,7 @@
     "i18next-fs-backend": "^2.1.1",
     "i18next-http-backend": "^2.1.1",
     "ini": "^3.0.0",
+    "json5": "^2.2.3",
     "plist": "^3.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -184,7 +188,7 @@
     "react-router-dom": "^6.9.0",
     "recharts": "^2.4.3",
     "sanitize-filename": "^1.6.3",
-    "semver": "^7.5.1",
+    "semver": "^7.5.2",
     "shlex": "^2.1.2",
     "short-uuid": "^4.2.2",
     "simple-keyboard": "^3.5.33",

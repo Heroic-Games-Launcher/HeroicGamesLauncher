@@ -570,7 +570,9 @@
         "wineversion": "Wine Sürümü",
         "autoUpdateGames": "Oyunları otomatik olarak güncelle",
         "ignoreGameUpdates": "Oyun güncellemelerini yoksay",
-        "disable_logs": "Günlükleri Devre Dışı Bırak"
+        "disable_logs": "Günlükleri Devre Dışı Bırak",
+        "showMetalOverlay": "İstatistik Yer Paylaşımını Göster",
+        "addgamestoapplications": "Oyunları Uygulamalara otomatik olarak ekleyin"
     },
     "settings": {
         "battlEyeRuntime": {

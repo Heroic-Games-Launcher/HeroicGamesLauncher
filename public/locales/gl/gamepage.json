@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "Clasificación de AppleGamingWiki",
         "clickToOpen": "Fai clic para abrir",
         "game-scores": "Puntuacións do xogo",
-        "installedInfo": "Información instalada"
+        "installedInfo": "Información instalada",
+        "protondb-compatibility-info": "Nivel de compatibilidade de protóns",
+        "steamdeck-compatibility-info": "Compatibilidade con SteamDeck"
     },
     "install": {
         "disk-space-left": "Space Available",

@@ -51,6 +51,7 @@ import {
 import { basename, dirname, join, normalize } from 'path'
 import { runRunnerCommand as runLegendaryCommand } from 'backend/storeManagers/legendary/library'
 import { runRunnerCommand as runGogdlCommand } from './storeManagers/gog/library'
+import { runRunnerCommand as runNileCommand } from './storeManagers/nile/library'
 import {
   gameInfoStore,
   installStore,
@@ -61,6 +62,10 @@ import {
   installInfoStore as GOGinstallInfoStore,
   libraryStore as GOGlibraryStore
 } from './storeManagers/gog/electronStores'
+import {
+  installStore as nileInstallStore,
+  libraryStore as nileLibraryStore
+} from './storeManagers/nile/electronStores'
 import * as fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
@@ -237,6 +242,20 @@ const getGogdlVersion = async () => {
   return stdout
 }
 
+const getNileVersion = async () => {
+  const abortID = 'nile-version'
+  const { stdout, error } = await runNileCommand(
+    ['--version'],
+    createAbortController(abortID)
+  )
+  deleteAbortController(abortID)
+
+  if (error) {
+    return 'invalid'
+  }
+  return stdout
+}
+
 const getHeroicVersion = () => {
   const VERSION_NUMBER = app.getVersion()
   // One Piece reference
@@ -299,6 +318,7 @@ const getSystemInfoInternal = async (): Promise<string> => {
   const heroicVersion = getHeroicVersion()
   const legendaryVersion = await getLegendaryVersion()
   const gogdlVersion = await getGogdlVersion()
+  const nileVersion = await getNileVersion()
 
   const electronVersion = process.versions.electron || 'unknown'
   const chromeVersion = process.versions.chrome || 'unknown'
@@ -335,6 +355,7 @@ const getSystemInfoInternal = async (): Promise<string> => {
   const systemInfo = `Heroic Version: ${heroicVersion}
 Legendary Version: ${legendaryVersion}
 GOGdl Version: ${gogdlVersion}
+Nile Version: ${nileVersion}
 
 Electron Version: ${electronVersion}
 Chrome Version: ${chromeVersion}
@@ -481,7 +502,7 @@ async function openUrlOrFile(url: string): Promise<string | void> {
   return shell.openPath(url)
 }
 
-function clearCache(library?: 'gog' | 'legendary') {
+function clearCache(library?: 'gog' | 'legendary' | 'nile') {
   if (library === 'gog' || !library) {
     GOGapiInfoCache.clear()
     GOGlibraryStore.clear()
@@ -495,6 +516,10 @@ function clearCache(library?: 'gog' | 'legendary') {
     runLegendaryCommand(['cleanup'], createAbortController(abortID)).then(() =>
       deleteAbortController(abortID)
     )
+  }
+  if (library === 'nile' || !library) {
+    nileInstallStore.clear()
+    nileLibraryStore.clear()
   }
 }
 
@@ -555,6 +580,17 @@ function getGOGdlBin(): { dir: string; bin: string } {
     fixAsarPath(join(publicDir, 'bin', process.platform, 'gogdl'))
   )
 }
+
+function getNileBin(): { dir: string; bin: string } {
+  const settings = GlobalConfig.get().getSettings()
+  if (settings?.altNileBin) {
+    return splitPathAndName(settings.altNileBin)
+  }
+  return splitPathAndName(
+    fixAsarPath(join(publicDir, 'bin', process.platform, 'nile'))
+  )
+}
+
 function getFormattedOsName(): string {
   switch (process.platform) {
     case 'linux':
@@ -1302,6 +1338,7 @@ export {
   resetHeroic,
   getLegendaryBin,
   getGOGdlBin,
+  getNileBin,
   formatEpicStoreUrl,
   searchForExecutableOnPath,
   getSteamRuntime,
@@ -1320,6 +1357,7 @@ export {
   getFileSize,
   getLegendaryVersion,
   getGogdlVersion,
+  getNileVersion,
   memoryLog,
   removeFolder
 }

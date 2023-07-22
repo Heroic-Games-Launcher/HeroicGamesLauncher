@@ -1,10 +1,12 @@
 import * as SideloadGameManager from 'backend/storeManagers/sideload/games'
 import * as GOGGameManager from 'backend/storeManagers/gog/games'
 import * as LegendaryGameManager from 'backend/storeManagers/legendary/games'
+import * as NileGameManager from 'backend/storeManagers/nile/games'
 
 import * as SideloadLibraryManager from 'backend/storeManagers/sideload/library'
 import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
 import * as LegendaryLibraryManager from 'backend/storeManagers/legendary/library'
+import * as NileLibraryManager from 'backend/storeManagers/nile/library'
 import { GameManager, LibraryManager } from 'common/types/game_manager'
 
 import { logInfo, RunnerToLogPrefixMap } from 'backend/logger/logger'
@@ -18,7 +20,8 @@ interface GameManagerMap {
 export const gameManagerMap: GameManagerMap = {
   sideload: SideloadGameManager,
   gog: GOGGameManager,
-  legendary: LegendaryGameManager
+  legendary: LegendaryGameManager,
+  nile: NileGameManager
 }
 
 interface LibraryManagerMap {
@@ -28,7 +31,8 @@ interface LibraryManagerMap {
 export const libraryManagerMap: LibraryManagerMap = {
   sideload: SideloadLibraryManager,
   gog: GOGLibraryManager,
-  legendary: LegendaryLibraryManager
+  legendary: LegendaryLibraryManager,
+  nile: NileLibraryManager
 }
 
 function getDMElement(gameInfo: GameInfo, appName: string) {
@@ -75,4 +79,5 @@ export function autoUpdate(runner: string, gamesToUpdate: string[]) {
 export async function initStoreManagers() {
   await LegendaryLibraryManager.initLegendaryLibraryManager()
   await GOGLibraryManager.refresh()
+  await NileLibraryManager.initNileLibraryManager()
 }

@@ -570,7 +570,9 @@
         "wineversion": "Wine version",
         "ignoreGameUpdates": "Ignorera speluppdateringar",
         "autoUpdateGames": "Uppdatera spel automatiskt",
-        "disable_logs": "Inaktivera loggar"
+        "disable_logs": "Inaktivera loggar",
+        "addgamestoapplications": "Lägg till spel till applikationer automatiskt",
+        "showMetalOverlay": "Visa statistiköverlägg"
     },
     "settings": {
         "battlEyeRuntime": {

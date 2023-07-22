@@ -3,8 +3,9 @@ import { LegendaryInstallPlatform, GameMetadataInner } from './types/legendary'
 import { IpcRendererEvent } from 'electron'
 import { ChildProcess } from 'child_process'
 import { HowLongToBeatEntry } from 'howlongtobeat'
+import { NileInstallPlatform } from './types/nile'
 
-export type Runner = 'legendary' | 'gog' | 'sideload'
+export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile'
 
 // NOTE: Do not put enum's in this module or it will break imports
 
@@ -48,6 +49,7 @@ export interface AppSettings extends GameSettings {
   addSteamShortcuts: boolean
   altGogdlBin: string
   altLegendaryBin: string
+  altNileBin: string
   autoUpdateGames: boolean
   checkForUpdatesOnStartup: boolean
   checkUpdatesInterval: number
@@ -96,7 +98,7 @@ export interface ExtraInfo {
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
 
 export interface GameInfo {
-  runner: 'legendary' | 'gog' | 'sideload'
+  runner: 'legendary' | 'gog' | 'sideload' | 'nile'
   store_url?: string
   app_name: string
   art_cover: string
@@ -136,7 +138,6 @@ export interface GameSettings {
   eacRuntime: boolean
   enableDXVKFpsLimit: boolean
   enableEsync: boolean
-  enableFSR: boolean
   enableFsync: boolean
   enviromentOptions: EnviromentVariable[]
   ignoreGameUpdates: boolean
@@ -491,6 +492,7 @@ export type WebviewType = HTMLWebViewElement & ElWebview
 export type InstallPlatform =
   | LegendaryInstallPlatform
   | GogInstallPlatform
+  | NileInstallPlatform
   | 'Browser'
 
 export type ConnectivityChangedCallback = (
@@ -603,13 +605,22 @@ export interface ProtonDBCompatibilityInfo {
   level: string
 }
 
+export interface SteamDeckComp {
+  category: number
+}
+
+export interface SteamInfo {
+  compatibilityLevel: string | null
+  steamDeckCatagory: number | null
+}
+
 export interface WikiInfo {
   timestampLastFetch: string
   pcgamingwiki: PCGamingWikiInfo | null
   applegamingwiki: AppleGamingWikiInfo | null
   howlongtobeat: HowLongToBeatEntry | null
   gamesdb: GamesDBInfo | null
-  protondb: ProtonDBCompatibilityInfo | null
+  steamInfo: SteamInfo | null
 }
 
 /**

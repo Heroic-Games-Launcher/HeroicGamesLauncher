@@ -50,13 +50,13 @@
         "add_to_favourites": "加入我的最愛",
         "cancel": "暫停/取消",
         "continue": "繼續下載",
-        "finish": "Finish",
+        "finish": "完成",
         "force_update": "如果可用則強制更新",
-        "force-innstall": "Force Install",
+        "force-innstall": "強制安裝",
         "hide_game": "隱藏遊戲",
         "import": "導入",
         "install": "安裝",
-        "no-path-selected": "No path selected",
+        "no-path-selected": "未選擇路徑",
         "queue": {
             "remove": "Remove from Queue"
         },
@@ -65,14 +65,14 @@
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
         "sideload": {
-            "edit": "Edit App/Game"
+            "edit": "編輯應用程式/遊戲"
         },
         "unhide_game": "取消隱藏遊戲",
         "uninstall": "解除安裝",
         "update": "更新",
         "details": "細節"
     },
-    "cloud_save_unsupported": "Unsupported",
+    "cloud_save_unsupported": "不支援",
     "disabled": "已禁用",
     "dlc": {
         "installDlcs": "安裝所有DLC"
@@ -100,7 +100,7 @@
         "error": "未知的錯誤",
         "noDescription": "沒有可用的描述"
     },
-    "hours": "Hours",
+    "hours": "小時",
     "how-long-to-beat": {
         "completionist": "Completionist",
         "main-plus-extras": "Main + Extras",
@@ -115,9 +115,11 @@
         "syncsaves": "同步存檔",
         "version": "版本",
         "apple-gaming-wiki": "AppleGamingWiki 評級",
-        "clickToOpen": "點擊打開",
+        "clickToOpen": "點擊開啟",
         "game-scores": "比賽成績",
-        "installedInfo": "安裝信息"
+        "installedInfo": "安裝訊息",
+        "protondb-compatibility-info": "質子兼容性層",
+        "steamdeck-compatibility-info": "SteamDeck 兼容性"
     },
     "install": {
         "disk-space-left": "可用空間",
@@ -140,7 +142,7 @@
         "saves": {
             "syncing": "存檔同步中"
         },
-        "launching": "發射",
+        "launching": "啟動中",
         "ubisoft": "安裝育碧連接"
     },
     "launch": {
@@ -173,7 +175,7 @@
         "placeholder": {
             "image": "Paste an Image URL here",
             "title": "Add a title to your Game/App",
-            "url": "在此處粘貼遊戲網址"
+            "url": "在此處貼上遊戲網址"
         }
     },
     "specs": {
@@ -195,20 +197,20 @@
         "reparing": "遊戲修復中，請稍等",
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "總共已下載",
-        "uninstalling": "Uninstalling",
+        "uninstalling": "解除安裝中",
         "updating": "遊戲更新中",
-        "playing": "播放",
+        "playing": "遊戲中",
         "moving-files": "移動文件“{{file}}”：{{percent}} ",
         "syncingSaves": "同步保存",
         "ubisoft": "安裝育碧",
-        "launching": "發射",
-        "downloading": "Downloading",
+        "launching": "啟動中",
+        "downloading": "下載中",
         "extracting": "提取",
         "goodie": "不可安裝",
         "gog-goodie": "該遊戲似乎無法安裝。在 https://gog.com/account 上查看可下載內容"
     },
     "submenu": {
-        "addShortcut": "添加捷徑",
+        "addShortcut": "新增捷徑",
         "addToSteam": "加入到 Steam",
         "change": "更改安裝路徑",
         "disableEosOverlay": "停用 EOS 內嵌界面",
@@ -224,6 +226,6 @@
         "logs": "日誌"
     },
     "help": {
-        "cloud_save_unsupported": "本遊戲不支持雲存檔。此信息由遊戲開發商提供。有些遊戲確實實現了自己的雲保存系統"
+        "cloud_save_unsupported": "本遊戲不支援雲端存檔。此訊息由遊戲開發商提供。有些遊戲確實實現了自己的雲端存檔系統"
     }
 }

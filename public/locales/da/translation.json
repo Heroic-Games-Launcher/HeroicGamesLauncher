@@ -412,7 +412,9 @@
         "dxvkfpslimit": "Begræns FPS (DX9, 10 og 11)",
         "autoUpdateGames": "Opdater spil automatisk",
         "ignoreGameUpdates": "Ignorer spilopdateringer",
-        "disable_logs": "Deaktiver logfiler"
+        "disable_logs": "Deaktiver logfiler",
+        "addgamestoapplications": "Føj spil til applikationer automatisk",
+        "showMetalOverlay": "Vis statistikoverlejring"
     },
     "wine": {
         "manager": {

@@ -41,6 +41,7 @@ import { GameContextType } from 'frontend/types'
 import {
   AppleWikiInfo,
   CloudSavesSync,
+  CompatibilityInfo,
   Description,
   Developer,
   DotsMenu,
@@ -55,6 +56,7 @@ import {
   Scores,
   SettingsButton
 } from './components'
+import { NileInstallInfo } from 'common/types/nile'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -88,7 +90,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   const [extraInfo, setExtraInfo] = useState<ExtraInfo | null>(null)
   const [gameInstallInfo, setGameInstallInfo] = useState<
-    LegendaryInstallInfo | GogInstallInfo | null
+    LegendaryInstallInfo | GogInstallInfo | NileInstallInfo | null
   >(null)
   const [launchArguments, setLaunchArguments] = useState('')
   const [hasError, setHasError] = useState<{
@@ -307,6 +309,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 <InstalledInfo gameInfo={gameInfo} />
                 <Scores gameInfo={gameInfo} />
                 <HLTB />
+                <CompatibilityInfo gameInfo={gameInfo} />
                 <AppleWikiInfo gameInfo={gameInfo} />
                 <Requirements />
               </div>

@@ -18,6 +18,7 @@ import { GameStatus } from 'common/types'
 import {
   AltGOGdlBin,
   AltLegendaryBin,
+  AltNileBin,
   DisableLogs,
   DownloadNoHTTPS
 } from '../../components'
@@ -173,6 +174,8 @@ export default function AdvancedSettings() {
       <AltLegendaryBin />
 
       <AltGOGdlBin />
+
+      <AltNileBin />
 
       <DownloadNoHTTPS />
 

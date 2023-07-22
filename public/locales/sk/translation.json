@@ -570,7 +570,9 @@
         "wineversion": "Wine Version",
         "autoUpdateGames": "Automaticky aktualizovať hry",
         "ignoreGameUpdates": "Ignorovať aktualizácie hry",
-        "disable_logs": "Zakázať denníky"
+        "disable_logs": "Zakázať denníky",
+        "addgamestoapplications": "Automaticky pridávajte hry do aplikácií",
+        "showMetalOverlay": "Zobraziť prekrytie štatistík"
     },
     "settings": {
         "battlEyeRuntime": {

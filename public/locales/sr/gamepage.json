@@ -133,7 +133,9 @@
         "game-scores": "Резултати игре",
         "apple-gaming-wiki": "АпплеГамингВики Ратинг",
         "clickToOpen": "Кликните да отворите",
-        "installedInfo": "Инсталиране информације"
+        "installedInfo": "Инсталиране информације",
+        "protondb-compatibility-info": "Протонски ниво компатибилности",
+        "steamdeck-compatibility-info": "СтеамДецк компатибилност"
     },
     "install": {
         "disk-space-left": "Доступан простор",

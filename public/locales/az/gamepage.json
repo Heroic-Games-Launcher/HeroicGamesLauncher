@@ -118,7 +118,9 @@
         "apple-gaming-wiki": "AppleGamingWiki reytinqi",
         "clickToOpen": "Açmaq üçün klikləyin",
         "game-scores": "Oyun Xalları",
-        "installedInfo": "Quraşdırılmış Məlumat"
+        "installedInfo": "Quraşdırılmış Məlumat",
+        "protondb-compatibility-info": "Proton Uyğunluq Səviyyəsi",
+        "steamdeck-compatibility-info": "SteamDeck Uyğunluğu"
     },
     "install": {
         "disk-space-left": "Yer Mövcuddur",

@@ -14,12 +14,13 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { Runner, WebviewType } from 'common/types'
 import './index.css'
 import LoginWarning from '../Login/components/LoginWarning'
+import { NileLoginData } from 'common/types/nile'
 
 export default function WebView() {
   const { i18n } = useTranslation()
   const { pathname, search } = useLocation()
   const { t } = useTranslation()
-  const { epic, gog, connectivity } = useContext(ContextProvider)
+  const { epic, gog, amazon, connectivity } = useContext(ContextProvider)
   const [loading, setLoading] = useState<{
     refresh: boolean
     message: string
@@ -27,6 +28,9 @@ export default function WebView() {
     refresh: true,
     message: t('loading.website', 'Loading Website')
   }))
+  const [amazonLoginData, setAmazonLoginData] = useState<NileLoginData | null>(
+    null
+  )
   const navigate = useNavigate()
   const webviewRef = useRef<WebviewType>(null)
 
@@ -39,6 +43,7 @@ export default function WebView() {
 
   const epicStore = `https://www.epicgames.com/store/${lang}/`
   const gogStore = `https://gog.com`
+  const amazonStore = `https://gaming.amazon.com`
   const wikiURL =
     'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
   const gogEmbedRegExp = new RegExp('https://embed.gog.com/on_login_success?')
@@ -48,14 +53,16 @@ export default function WebView() {
   const trueAsStr = 'true' as unknown as boolean | undefined
   const { runner } = useParams() as { runner: Runner }
 
-  const urls = {
+  const urls: { [pathname: string]: string } = {
     '/epicstore': epicStore,
     '/gogstore': gogStore,
+    '/amazonstore': amazonStore,
     '/wiki': wikiURL,
     '/loginEpic': epicLoginUrl,
     '/loginGOG': gogLoginUrl,
     '/loginweb/legendary': epicLoginUrl,
-    '/loginweb/gog': gogLoginUrl
+    '/loginweb/gog': gogLoginUrl,
+    '/loginweb/nile': amazonLoginData ? amazonLoginData.url : ''
   }
   let startUrl = urls[pathname]
 
@@ -87,6 +94,45 @@ export default function WebView() {
       mounted = false
     }
   }, [])
+
+  useEffect(() => {
+    if (pathname !== '/loginweb/nile') return
+    console.log('Loading amazon login data')
+
+    setLoading({
+      refresh: true,
+      message: t('status.preparing_login', 'Preparing Login...')
+    })
+    amazon.getLoginData().then((data) => {
+      setAmazonLoginData(data)
+      setLoading({
+        ...loading,
+        refresh: false
+      })
+    })
+  }, [pathname])
+
+  const handleAmazonLogin = (code: string) => {
+    if (!amazonLoginData) {
+      console.error('Could not login to Amazon because login data is missing')
+      return
+    }
+
+    setLoading({
+      refresh: true,
+      message: t('status.logging', 'Logging In...')
+    })
+    amazon
+      .login({
+        client_id: amazonLoginData.client_id,
+        code: code,
+        code_verifier: amazonLoginData.code_verifier,
+        serial: amazonLoginData.serial
+      })
+      .then(() => {
+        handleSuccessfulLogin()
+      })
+  }
 
   const handleSuccessfulLogin = () => {
     navigate('/login')
@@ -134,6 +180,15 @@ export default function WebView() {
               })
             }
           }
+        } else if (runner === 'nile') {
+          const pageURL = webview.getURL()
+          const parsedURL = new URL(pageURL)
+          const code = parsedURL.searchParams.get(
+            'openid.oa2.authorization_code'
+          )
+          if (code) {
+            handleAmazonLogin(code)
+          }
         }
       }
 
@@ -155,10 +210,10 @@ export default function WebView() {
       }
     }
     return
-  }, [webviewRef.current, preloadPath])
+  }, [webviewRef.current, preloadPath, amazonLoginData])
 
   const [showLoginWarningFor, setShowLoginWarningFor] = useState<
-    null | 'epic' | 'gog'
+    null | 'epic' | 'gog' | 'amazon'
   >(null)
 
   useEffect(() => {
@@ -170,6 +225,8 @@ export default function WebView() {
       !gog.username
     ) {
       setShowLoginWarningFor('gog')
+    } else if (startUrl.match(/gaming\.amazon\.com/) && !amazon.username) {
+      setShowLoginWarningFor('amazon')
     }
   }, [startUrl])
 

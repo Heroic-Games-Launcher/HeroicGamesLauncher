@@ -115,9 +115,11 @@
         "syncsaves": "同步存档",
         "version": "版本",
         "apple-gaming-wiki": "AppleGamingWiki 评级",
-        "clickToOpen": "点击打开",
-        "game-scores": "比赛成绩",
-        "installedInfo": "安装信息"
+        "clickToOpen": "单击打开",
+        "game-scores": "游戏分数",
+        "installedInfo": "已安装信息",
+        "protondb-compatibility-info": "质子兼容性层",
+        "steamdeck-compatibility-info": "SteamDeck 兼容性"
     },
     "install": {
         "disk-space-left": "可用空间",
@@ -140,15 +142,15 @@
         "saves": {
             "syncing": "存档同步中"
         },
-        "launching": "发射",
-        "ubisoft": "安装育碧连接"
+        "launching": "启动中",
+        "ubisoft": "安装 Ubisoft Connect"
     },
     "launch": {
         "options": "启动选项..."
     },
     "not_logged_in": {
-        "epic": "你在 Heroic 中未登录 Epic 账户。不要使用商店页面进行登录，请点击下面的按钮：",
-        "gog": "你在 Heroic 中未登录 GOG 账户。不要使用商店页面进行登录，请点击下面的按钮：",
+        "epic": "你在 Heroic 中未登录 Epic 账户。不要使用商店页面进行登录，请单击下面的按钮：",
+        "gog": "你在 Heroic 中未登录 GOG 账户。不要使用商店页面进行登录，请单击下面的按钮：",
         "login": "登录",
         "title": "你未登录"
     },
@@ -181,7 +183,7 @@
         "recommended": "推荐配置"
     },
     "status": {
-        "clickToUpdate": "点击更新",
+        "clickToUpdate": "单击更新",
         "gameNotAvailable": "游戏不可用",
         "hasUpdates": "新版本可用！",
         "installed": "已安装",
@@ -197,13 +199,13 @@
         "totalDownloaded": "下载总计",
         "uninstalling": "卸载中",
         "updating": "游戏更新中",
-        "playing": "播放",
-        "moving-files": "移动文件“{{file}}”：{{percent}} ",
+        "playing": "播放中",
+        "moving-files": "正在移动文件“{{file}}”：{{percent}} ",
         "syncingSaves": "存档同步中",
-        "launching": "发射",
-        "ubisoft": "安装育碧",
+        "launching": "启动中",
+        "ubisoft": "安装 Ubisoft",
         "downloading": "下载中",
-        "extracting": "提取",
+        "extracting": "提取中",
         "gog-goodie": "该游戏似乎无法安装。在 https://gog.com/account 上查看可下载内容",
         "goodie": "不可安装"
     },
@@ -224,6 +226,6 @@
         "logs": "日志"
     },
     "help": {
-        "cloud_save_unsupported": "本游戏不支持云存档。此信息由游戏开发商提供。有些游戏确实实现了自己的云保存系统"
+        "cloud_save_unsupported": "本游戏不支持云存档。此信息由游戏开发商提供。有些游戏部署了自己的云保存系统"
     }
 }

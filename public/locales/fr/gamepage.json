@@ -9,12 +9,12 @@
         "importpath": "Choisir le répertoire du jeu à importer",
         "move": {
             "message": "Cette opération peut prendre du temps. Êtes-vous certain(e) de vouloir continuer ?",
-            "path": "Choisir la localisation de déplacement",
-            "title": "Déplacer l'installation du jeu"
+            "path": "Choisissez où vous voulez le déplacer",
+            "title": "Déplacer le dossier d'installation du jeu"
         },
         "no": "NON",
         "repair": {
-            "message": "Voulez-vous essayer de réparer ce jeu ? Ceci peut prendre un moment.",
+            "message": "Voulez-vous essayer de réparer ce jeu ? Ceci peut prendre un long moment.",
             "title": "Vérifier et réparer"
         },
         "runexe": {
@@ -41,7 +41,7 @@
         },
         "update": {
             "message": "Une mise à jour est disponible pour ce jeu. Souhaitez-vous le mettre à jour maintenant ?",
-            "title": "Mise à jour nécessaire du jeu"
+            "title": "Mise à jour du jeu nécessaire"
         },
         "wineprefix": "Sélectionner le dossier WinePrefix",
         "yes": "OUI"
@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "Classement AppleGamingWiki",
         "clickToOpen": "Cliquez pour ouvrir",
         "game-scores": "Scores du jeu",
-        "installedInfo": "Informations sur l'installation"
+        "installedInfo": "Informations sur l'installation",
+        "protondb-compatibility-info": "Niveau de compatibilité proton",
+        "steamdeck-compatibility-info": "Compatibilité SteamDeck"
     },
     "install": {
         "disk-space-left": "Espace Disponible",

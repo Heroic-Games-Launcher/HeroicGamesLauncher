@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "رتبه بندی AppleGamingWiki",
         "clickToOpen": "برای باز کردن کلیک کنید",
         "game-scores": "امتیازات بازی",
-        "installedInfo": "اطلاعات نصب شده"
+        "installedInfo": "اطلاعات نصب شده",
+        "protondb-compatibility-info": "ردیف سازگاری پروتون",
+        "steamdeck-compatibility-info": "سازگاری SteamDeck"
     },
     "install": {
         "disk-space-left": "فضای موجود",

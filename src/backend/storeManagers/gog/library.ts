@@ -622,7 +622,12 @@ export async function gogToUnifiedInfo(
   info: GamesDBData | undefined,
   galaxyProductInfo: ProductsEndpointData | undefined
 ): Promise<GameInfo> {
-  if (!info || info.type !== 'game' || !info.game.visible_in_library) {
+  if (
+    !info ||
+    info.type !== 'game' ||
+    !info.game.visible_in_library ||
+    (galaxyProductInfo && galaxyProductInfo.game_type === 'pack')
+  ) {
     // @ts-expect-error TODO: Handle this somehow
     return {}
   }
@@ -631,7 +636,10 @@ export async function gogToUnifiedInfo(
     store_url: galaxyProductInfo?.links.product_card,
     developer: info.game.developers.map((dev) => dev.name).join(', '),
     app_name: String(info.external_id),
-    art_cover: `https:${galaxyProductInfo?.images.logo2x}`,
+    art_cover:
+      info.game?.logo?.url_format
+        ?.replace('{formatter}', '')
+        .replace('{ext}', 'jpg') || `https:${galaxyProductInfo?.images.logo2x}`,
     art_square: info.game.vertical_cover.url_format
       .replace('{formatter}', '')
       .replace('{ext}', 'jpg'),

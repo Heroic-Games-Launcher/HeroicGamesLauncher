@@ -1,13 +1,14 @@
 import { getInfoFromGamesDB } from 'backend/wiki_game_info/gamesdb/utils'
 import { getInfoFromProtonDB } from 'backend/wiki_game_info/protondb/utils'
+import { getSteamDeckComp } from 'backend/wiki_game_info/steamdeck/utils'
 import { wikiGameInfoStore } from './electronStore'
 import { removeSpecialcharacters } from '../utils'
-import { Runner, WikiInfo } from 'common/types'
+import { Runner, SteamInfo, WikiInfo } from 'common/types'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { getInfoFromAppleGamingWiki } from './applegamingwiki/utils'
 import { getHowLongToBeat } from './howlongtobeat/utils'
 import { getInfoFromPCGamingWiki } from './pcgamingwiki/utils'
-import { isMac } from '../constants'
+import { isMac, isLinux } from '../constants'
 
 export async function getWikiGameInfo(
   title: string,
@@ -49,16 +50,29 @@ export async function getWikiGameInfo(
         isMac ? getInfoFromAppleGamingWiki(title) : null
       ])
 
-    const protondb = await getInfoFromProtonDB(
-      gamesdb?.steamID ? gamesdb.steamID : ''
-    )
+    let steamInfo = null
+    if (isLinux) {
+      const steamID = pcgamingwiki?.steamID || gamesdb?.steamID
+      const [protondb, steamdeck] = await Promise.all([
+        getInfoFromProtonDB(steamID),
+        getSteamDeckComp(steamID)
+      ])
+
+      if (protondb || steamdeck) {
+        steamInfo = {
+          compatibilityLevel: protondb?.level,
+          steamDeckCatagory: steamdeck?.category
+        } as SteamInfo
+      }
+    }
+
     const wikiGameInfo = {
       timestampLastFetch: Date(),
       pcgamingwiki,
       applegamingwiki,
       howlongtobeat,
       gamesdb,
-      protondb
+      steamInfo
     }
 
     wikiGameInfoStore.set(title, wikiGameInfo)

@@ -9,6 +9,7 @@ import {
 } from 'common/types'
 import { GOGCloudSavesLocation, GogInstallInfo } from './gog'
 import { LegendaryInstallInfo } from './legendary'
+import { NileInstallInfo } from './nile'
 
 export interface InstallResult {
   status: 'done' | 'error' | 'abort'
@@ -66,7 +67,9 @@ export interface LibraryManager {
     appName: string,
     installPlatform: InstallPlatform,
     lang?: string
-  ) => Promise<LegendaryInstallInfo | GogInstallInfo | undefined>
+  ) => Promise<
+    LegendaryInstallInfo | GogInstallInfo | NileInstallInfo | undefined
+  >
   listUpdateableGames: () => Promise<string[]>
   changeGameInstallPath: (appName: string, newPath: string) => Promise<void>
   installState: (appName: string, state: boolean) => void
