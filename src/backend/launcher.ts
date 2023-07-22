@@ -130,7 +130,7 @@ async function prepareLaunch(
         const parentPath = normalize(join(gameSettings.wineVersion.bin, '..'))
         const requiredAppId = VDF.parse(
           readFileSync(join(parentPath, 'toolmanifest.vdf'), 'utf-8')
-        )['manifest']['require_tool_appid']
+        ).manifest?.require_tool_appid
         if (requiredAppId === 1628350) nonNativeRuntime = 'sniper'
       } catch (error) {
         logError(['Failed to parse toolmanifest.vdf:', error], LogPrefix.Backend)
