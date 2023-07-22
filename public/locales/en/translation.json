@@ -516,6 +516,9 @@
         },
         "esync": "Enable Esync",
         "exit-to-tray": "Exit to System Tray",
+        "experimental_features": {
+            "enableNewShinyFeature": "New shiny feature"
+        },
         "fsync": "Enable Fsync",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
@@ -594,6 +597,9 @@
             },
             "installing": "Installing EAC Runtime...",
             "name": "EasyAntiCheat Runtime"
+        },
+        "experimental_features": {
+            "title": "Experimental Features"
         },
         "gameMode": {
             "eacRuntimeEnabled": {

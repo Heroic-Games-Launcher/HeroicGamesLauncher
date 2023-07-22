@@ -8,7 +8,8 @@ import {
   ButtonOptions,
   LibraryTopSectionOptions,
   DMQueueElement,
-  DownloadManagerState
+  DownloadManagerState,
+  ExperimentalFeatures
 } from 'common/types'
 import { NileLoginData, NileRegisterData } from 'common/types/nile'
 
@@ -104,6 +105,8 @@ export interface ContextType {
     type?: 'settings' | 'log',
     gameInfo?: GameInfo
   ) => void
+  experimentalFeatures: ExperimentalFeatures
+  handleExperimentalFeatures: (newSetting: ExperimentalFeatures) => void
 }
 
 export type DialogModalOptions = {

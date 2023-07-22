@@ -86,7 +86,9 @@ const initialContext: ContextType = {
   lastChangelogShown: null,
   setLastChangelogShown: () => null,
   isSettingsModalOpen: { value: false, type: 'settings' },
-  setIsSettingsModalOpen: () => null
+  setIsSettingsModalOpen: () => null,
+  experimentalFeatures: { enableNewShinyFeature: false },
+  handleExperimentalFeatures: () => null
 }
 
 export default React.createContext(initialContext)
