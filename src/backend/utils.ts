@@ -586,7 +586,7 @@ async function searchForExecutableOnPath(executable: string): Promise<string> {
   }
 }
 async function getSteamRuntime(
-  requestedType: 'scout' | 'sniper'
+  requestedType: 'scout' | 'sniper' | 'soldier'
 ): Promise<SteamRuntime> {
   const steamLibraries = await getSteamLibraries()
   const runtimeTypes: SteamRuntime[] = [
@@ -596,20 +596,30 @@ async function getSteamRuntime(
       args: ['--']
     },
     {
+      path: 'steamapps/common/SteamLinuxRuntime_soldier/run',
+      type: 'soldier',
+      args: ['--']
+    },
+    {
       path: 'ubuntu12_32/steam-runtime/run.sh',
       type: 'scout',
       args: []
     }
   ]
+  let sniperFound = false
   const allAvailableRuntimes: SteamRuntime[] = []
   steamLibraries.forEach((library) => {
     runtimeTypes.forEach(({ path, type, args }) => {
       const fullPath = join(library, path)
       if (existsSync(fullPath)) {
         allAvailableRuntimes.push({ path: fullPath, type, args })
+        if (type === 'sniper') sniperFound = true
       }
     })
   })
+
+  // Fall back to soldier
+  if (!sniperFound) requestedType = 'soldier'
   // Add dummy runtime at the end to not return `undefined`
   allAvailableRuntimes.push({ path: '', type: 'scout', args: [] })
   const requestedRuntime = allAvailableRuntimes.find(({ type }) => {
