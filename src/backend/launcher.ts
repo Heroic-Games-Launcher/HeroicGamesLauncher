@@ -134,7 +134,10 @@ async function prepareLaunch(
         ).manifest?.require_tool_appid
         if (requiredAppId === 1628350) nonNativeRuntime = 'sniper'
       } catch (error) {
-        logError(['Failed to parse toolmanifest.vdf:', error], LogPrefix.Backend)
+        logError(
+          ['Failed to parse toolmanifest.vdf:', error],
+          LogPrefix.Backend
+        )
       }
     }
     // for native games lets use scout for now
