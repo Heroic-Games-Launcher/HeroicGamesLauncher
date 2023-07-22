@@ -25,7 +25,13 @@ import { basename, join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
 import { app } from 'electron'
 
-import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
+import {
+  logDebug,
+  logError,
+  logInfo,
+  LogPrefix,
+  logWarning
+} from '../../logger/logger'
 import { getGOGdlBin, getFileSize } from '../../utils'
 import { gogdlLogFile } from '../../constants'
 import {
@@ -587,21 +593,37 @@ export async function getMetaResponse(
   etag?: string
 ) {
   const buildData = await axios.get(
-    `https://content-system.gog.com/products/${appName}/os/${platform}/builds?generation=2`
+    `https://content-system.gog.com/products/${appName}/os/${platform}/builds?generation=2&_version=2`
   )
   const headers = etag
     ? {
         'If-None-Match': etag
       }
     : undefined
-  const metaUrl =
-    buildData.data?.items?.find((build: BuildItem) => !build.branch)?.link ||
-    buildData.data?.items[0]?.link
-  const metaResponse = await axios.get(metaUrl, {
-    headers,
-    validateStatus: (status) => status === 200 || status === 304
-  })
-  return { status: metaResponse.status, etag: metaResponse.headers.etag }
+  const metaUrls =
+    buildData.data?.items?.find((build: BuildItem) => !build.branch)?.urls ||
+    buildData.data?.items[0]?.urls
+
+  for (const metaUrl of metaUrls) {
+    try {
+      const metaResponse = await axios.get(metaUrl.url, {
+        headers,
+        validateStatus: (status) => status === 200 || status === 304
+      })
+
+      return { status: metaResponse.status, etag: metaResponse.headers.etag }
+    } catch (e) {
+      logDebug(
+        `Failed to obtain manifest from CDN for ${appName}, ignoring ${e}`,
+        {
+          prefix: LogPrefix.Gog
+        }
+      )
+      continue
+    }
+  }
+
+  return { status: 304, etag: etag }
 }
 
 export async function checkForGameUpdate(
