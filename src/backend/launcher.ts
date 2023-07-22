@@ -126,11 +126,15 @@ async function prepareLaunch(
   if (shouldUseRuntime) {
     let nonNativeRuntime: SteamRuntime['type'] = 'soldier'
     if (!isNative) {
-      const parentPath = normalize(join(gameSettings.wineVersion.bin, '..'))
-      const requiredAppId = VDF.parse(
-        readFileSync(join(parentPath, 'toolmanifest.vdf'), 'utf-8')
-      )['require_tool_appid']
-      if (requiredAppId === '1628350') nonNativeRuntime = 'sniper'
+      try {
+        const parentPath = normalize(join(gameSettings.wineVersion.bin, '..'))
+        const requiredAppId = VDF.parse(
+          readFileSync(join(parentPath, 'toolmanifest.vdf'), 'utf-8')
+        )['manifest']['require_tool_appid']
+        if (requiredAppId === 1628350) nonNativeRuntime = 'sniper'
+      } catch (error) {
+        logError('Failed to parse toolmanifest.vdf', LogPrefix.Backend)
+      }
     }
     // for native games lets use scout for now
     const runtimeType = isNative ? 'scout' : nonNativeRuntime
