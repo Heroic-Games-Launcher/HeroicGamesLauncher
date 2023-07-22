@@ -13,6 +13,10 @@
   aspect-ratio: 173/275;
 }
 
+.gameCard.justPlayed {
+  aspect-ratio: 275/205;
+}
+
 .gameCard.gamepad {
   aspect-ratio: 3/4;
 }
@@ -62,6 +66,12 @@
   display: block;
 }
 
+.gameCard.justPlayed .justPlayedImg {
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  width: 100%;
+}
+
 .gameCard .gameLogo {
   position: absolute;
   top: 50%;
@@ -104,6 +114,12 @@
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-areas: 'update settings play';
   padding: var(--space-xs-fixed);
+}
+
+.gameCard.justPlayed > .icons {
+  justify-content: right;
+  grid-template-columns: 0.3fr 1fr 0.4fr 0.5fr;
+  grid-template-areas: 'update gap settings play';
 }
 
 .gameCard.gamepad > .icons {
@@ -306,6 +322,19 @@
 .cancelIcon {
   grid-area: play;
   transition: all 300ms;
+}
+
+.playIcon > span {
+  font-family: var(--secondary-font-family);
+  border-radius: 5px;
+  color: #161616;
+  cursor: pointer;
+  padding: var(--space-xs-fixed);
+  background: var(--success);
+  color: var(--text-tertiary);
+  font-weight: 500;
+  font-size: 15px;
+  text-align: center;
 }
 
 .icons path,

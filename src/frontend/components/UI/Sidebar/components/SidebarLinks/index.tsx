@@ -39,8 +39,14 @@ export default function SidebarLinks() {
   const location = useLocation() as { pathname: string }
   const [, , runner, appName, type] = location.pathname.split('/') as PathSplit
 
-  const { epic, gog, platform, refreshLibrary, handleExternalLinkDialog } =
-    useContext(ContextProvider)
+  const {
+    amazon,
+    epic,
+    gog,
+    platform,
+    refreshLibrary,
+    handleExternalLinkDialog
+  } = useContext(ContextProvider)
 
   const isStore = location.pathname.includes('store')
   const isSettings = location.pathname.includes('settings')
@@ -48,14 +54,15 @@ export default function SidebarLinks() {
 
   const settingsPath = '/settings/app/default/general'
 
-  const loggedIn = epic.username || gog.username
+  const loggedIn = epic.username || gog.username || amazon.username
 
   async function handleRefresh() {
     localStorage.setItem('scrollPosition', '0')
 
     const shouldRefresh =
       (epic.username && !epic.library.length) ||
-      (gog.username && !gog.library.length)
+      (gog.username && !gog.library.length) ||
+      (amazon.username && !amazon.library.length)
     if (shouldRefresh) {
       return refreshLibrary({ runInBackground: true })
     }
@@ -71,6 +78,16 @@ export default function SidebarLinks() {
     } else {
       linkCallback()
     }
+  }
+
+  // By default, open Epic Store
+  let defaultStore = '/epicstore'
+  if (!epic.username && !gog.username && amazon.username) {
+    // If only logged in to Amazon Games, open Amazon Gaming
+    defaultStore = '/amazonstore'
+  } else if (!epic.username && gog.username) {
+    // Otherwise, if not logged in to Epic Games, open GOG Store
+    defaultStore = '/gogstore'
   }
 
   return (
@@ -116,8 +133,7 @@ export default function SidebarLinks() {
               active: isActive || location.pathname.includes('store')
             })
           }
-          //open gog store if only gog account logged in, otherwise by default open epic store
-          to={gog.username && !epic.username ? '/gogstore' : '/epicstore'}
+          to={defaultStore}
         >
           <>
             <div className="Sidebar__itemIcon">
@@ -149,6 +165,17 @@ export default function SidebarLinks() {
               to="/gogstore"
             >
               <span>{t('gog-store', 'GOG Store')}</span>
+            </NavLink>
+            <NavLink
+              data-testid="store"
+              className={({ isActive }) =>
+                classNames('Sidebar__item', 'SidebarLinks__subItem', {
+                  active: isActive
+                })
+              }
+              to="/amazonstore"
+            >
+              <span>{t('prime-gaming', 'Prime Gaming')}</span>
             </NavLink>
           </div>
         )}

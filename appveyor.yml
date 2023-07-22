@@ -7,6 +7,7 @@ init:
   - git config --global core.autocrlf input
 
 install:
+  - pip install castlabs-evs
   - npm i --legacy-peer-deps
 
 environment:
@@ -15,7 +16,7 @@ environment:
 
 build_script:
   - yarn sign:win
-  - 7z.exe a -tzip dist\HeroicWin.zip dist\*x64.exe dist\*arm64.exe dist\*.blockmap dist\*.yml
+  - 7z.exe a -tzip dist\HeroicWin.zip dist\*x64.exe dist\*.blockmap dist\*.yml
 
 test: off
 

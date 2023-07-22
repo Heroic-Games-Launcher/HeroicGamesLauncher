@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "Peringkat AppleGamingWiki",
         "clickToOpen": "Klik untuk membuka",
         "game-scores": "Skor Game",
-        "installedInfo": "Informasi Instalasi"
+        "installedInfo": "Informasi Instalasi",
+        "protondb-compatibility-info": "Tingkat Kompatibilitas Proton",
+        "steamdeck-compatibility-info": "Kompatibilitas SteamDeck"
     },
     "install": {
         "disk-space-left": "Ruang Penyimpanan yang Tersedia",
@@ -130,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Gim pihak ketiga TIDAK didukung"
+            "third-party-game": "Gim pihak ketiga TIDAK didukung",
+            "not-installable-game": "Game TIDAK Dapat Diinstal"
         },
         "playing": {
             "start": "Mainkan sekarang",
@@ -202,7 +205,9 @@
         "launching": "Meluncurkan",
         "ubisoft": "Memasang Ubisoft",
         "downloading": "Mengunduh",
-        "extracting": "Mengekstrak"
+        "extracting": "Mengekstrak",
+        "goodie": "Tidak dapat diinstal",
+        "gog-goodie": "Game ini tampaknya tidak dapat diinstal. Periksa konten yang dapat diunduh di https://gog.com/account"
     },
     "submenu": {
         "addShortcut": "Tambahkan pintasan",

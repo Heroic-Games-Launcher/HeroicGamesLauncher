@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "Рейтинг AppleGamingWiki",
         "clickToOpen": "Нажмите, чтобы открыть",
         "game-scores": "Результаты игр",
-        "installedInfo": "Установленная информация"
+        "installedInfo": "Установленная информация",
+        "protondb-compatibility-info": "Уровень совместимости протонов",
+        "steamdeck-compatibility-info": "Совместимость со SteamDeck"
     },
     "install": {
         "disk-space-left": "Свободное место",
@@ -130,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Сторонняя игра НЕ поддерживается"
+            "third-party-game": "Сторонняя игра НЕ поддерживается",
+            "not-installable-game": "Игра НЕ УСТАНАВЛИВАЕТСЯ"
         },
         "playing": {
             "start": "Начать игру",
@@ -202,7 +205,9 @@
         "launching": "Запуск",
         "ubisoft": "Установка Ubisoft",
         "downloading": "Загрузка",
-        "extracting": "Извлечение"
+        "extracting": "Извлечение",
+        "gog-goodie": "Эта игра не устанавливается. Проверьте загружаемый контент на https://gog.com/account.",
+        "goodie": "Не устанавливается"
     },
     "submenu": {
         "addShortcut": "Создать ярлык",

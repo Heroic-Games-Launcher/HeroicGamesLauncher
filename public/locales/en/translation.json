@@ -9,6 +9,8 @@
     },
     "add_game": "Add Game",
     "All": "All",
+    "amazon": "Amazon",
+    "Amazon Games": "Amazon Games",
     "anticheat": {
         "anticheats": "Anticheats",
         "may_not_work": "It may not work due to denied or broken anticheat support.",
@@ -26,6 +28,7 @@
         "choose-egs-prefix": "Choose Prefix where EGS is installed",
         "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Select Legendary binary",
+        "choose-nile-binary": "Select Nile binary",
         "customWine": "Select the Wine or Proton binary",
         "default-install-path": "Choose Default Install Path",
         "default-steam-path": "Steam path.",
@@ -243,9 +246,9 @@
         "store": "Filter Store"
     },
     "help": {
-        "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
+        "disable_logs": "Toggle this checkbox ON to disable most of the writes to log files (critical information is always logged). Make sure to turn OFF this setting before reporting any issue.",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
         "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
@@ -330,6 +333,7 @@
     },
     "login": {
         "alternative_method": "Alternative Login Method",
+        "amazon": "Amazon Login",
         "epic": "Epic Games Login",
         "gog": "GOG Login",
         "message": "Login with your platform. You can login to more than one platform at the same time."
@@ -426,12 +430,14 @@
     "other": {
         "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary Version: ",
+        "nile-version": "Nile Version: ",
         "weblate": "Help translate Heroic."
     },
     "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
+        "alt-nile-bin": "Using built-in Nile binary...",
         "custom_themes_path": "Select the path to look for custom CSS files",
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix where EGS is installed",
@@ -444,6 +450,7 @@
         "win": "Windows"
     },
     "please-wait": "Please wait...",
+    "prime-gaming": "Prime Gaming",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -462,10 +469,12 @@
     "search": "Search for Games",
     "setting": {
         "adddesktopshortcuts": "Add desktop shortcuts automatically",
+        "addgamestoapplications": "Add games to Applications automatically",
         "addgamestostartmenu": "Add games to start menu automatically",
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary",
+        "alt-nile-bin": "Choose an Alternative Nile Binary",
         "autodxvk": "Auto Install/Update DXVK on Prefix",
         "autosync": "Autosync Saves",
         "autoUpdateGames": "Automatically update games",
@@ -480,11 +489,11 @@
         "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "disable_controller": "Disable Heroic navigation using controller",
+        "disable_logs": "Disable Logs",
         "discordRPC": "Enable Discord Rich Presence",
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Sync with Installed Epic Games",
-        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "eosOverlay": {
             "cancelInstall": "Cancel",
             "checkForUpdates": "Check for updates",
@@ -507,7 +516,6 @@
         },
         "esync": "Enable Esync",
         "exit-to-tray": "Exit to System Tray",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
@@ -563,6 +571,7 @@
         },
         "select_theme": "Select Theme",
         "showfps": "Show FPS (DX9, 10 and 11)",
+        "showMetalOverlay": "Show Stats Overlay",
         "start-in-tray": "Start Minimized",
         "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
@@ -613,6 +622,7 @@
     "status": {
         "installing": "Installing",
         "logging": "Logging In...",
+        "preparing_login": "Preparing Login... ",
         "processing": "Processing files, please wait"
     },
     "store": "Epic Store",

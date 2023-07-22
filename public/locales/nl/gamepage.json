@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "AppleGamingWiki-beoordeling",
         "clickToOpen": "Klik om te openen",
         "game-scores": "Spelscores",
-        "installedInfo": "Geïnstalleerde informatie"
+        "installedInfo": "Geïnstalleerde informatie",
+        "protondb-compatibility-info": "Proton-compatibiliteitslaag",
+        "steamdeck-compatibility-info": "SteamDeck-compatibiliteit"
     },
     "install": {
         "disk-space-left": "Space Available",
@@ -130,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Third-Party Game NOT Supported",
+            "not-installable-game": "Spel kan NIET worden geïnstalleerd"
         },
         "playing": {
             "start": "Nu spelen",
@@ -202,7 +205,9 @@
         "launching": "Lancering",
         "ubisoft": "Ubisoft installeren",
         "downloading": "Downloading",
-        "extracting": "Extraheren"
+        "extracting": "Extraheren",
+        "gog-goodie": "Deze game lijkt niet te kunnen worden geïnstalleerd. Controleer downloadbare inhoud op https://gog.com/account",
+        "goodie": "Niet installeerbaar"
     },
     "submenu": {
         "addShortcut": "Snelkoppeling toevoegen",

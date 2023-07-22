@@ -118,7 +118,9 @@
         "apple-gaming-wiki": "AppleGamingWiki reytinqi",
         "clickToOpen": "Açmaq üçün klikləyin",
         "game-scores": "Oyun Xalları",
-        "installedInfo": "Quraşdırılmış Məlumat"
+        "installedInfo": "Quraşdırılmış Məlumat",
+        "protondb-compatibility-info": "Proton Uyğunluq Səviyyəsi",
+        "steamdeck-compatibility-info": "SteamDeck Uyğunluğu"
     },
     "install": {
         "disk-space-left": "Yer Mövcuddur",
@@ -131,7 +133,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Third-Party Game NOT Supported",
+            "not-installable-game": "Oyun Quraşdırıla bilməz"
         },
         "playing": {
             "start": "İndi oyna",
@@ -203,7 +206,9 @@
         "launching": "Başlanır",
         "ubisoft": "Ubisoft quraşdırılması",
         "downloading": "Downloading",
-        "extracting": "Çıxarma"
+        "extracting": "Çıxarma",
+        "gog-goodie": "Bu oyun quraşdırmaq mümkün deyil. Yüklənə bilən məzmunu https://gog.com/account saytında yoxlayın",
+        "goodie": "Quraşdırıla bilməz"
     },
     "submenu": {
         "addShortcut": "Qısayol əlavə edin",

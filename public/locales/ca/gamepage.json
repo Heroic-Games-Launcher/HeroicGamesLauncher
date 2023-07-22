@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "Classificació AppleGamingWiki",
         "clickToOpen": "Feu clic per obrir",
         "game-scores": "Puntuacions del joc",
-        "installedInfo": "Informació instal·lada"
+        "installedInfo": "Informació instal·lada",
+        "protondb-compatibility-info": "Nivell de compatibilitat de protons",
+        "steamdeck-compatibility-info": "Compatibilitat amb SteamDeck"
     },
     "install": {
         "disk-space-left": "Espai disponible",
@@ -130,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "No s'admeten jocs de tercers"
+            "third-party-game": "No s'admeten jocs de tercers",
+            "not-installable-game": "El joc NO es pot instal·lar"
         },
         "playing": {
             "start": "Juga",
@@ -202,7 +205,9 @@
         "launching": "Llançament",
         "ubisoft": "Instal·lació d'Ubisoft",
         "downloading": "Es baixa",
-        "extracting": "Extracció"
+        "extracting": "Extracció",
+        "gog-goodie": "Sembla que aquest joc no es pot instal·lar. Comproveu el contingut baixable a https://gog.com/account",
+        "goodie": "No instal·lable"
     },
     "submenu": {
         "addShortcut": "Afegeix una drecera",

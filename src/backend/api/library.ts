@@ -81,6 +81,10 @@ export const handleRefreshLibrary = (
   callback: (event: Electron.IpcRendererEvent, runner: Runner) => void
 ) => ipcRenderer.on('refreshLibrary', callback)
 
+export const handleGamePush = (
+  callback: (event: Electron.IpcRendererEvent, game: GameInfo) => void
+) => ipcRenderer.on('pushGameToLibrary', callback)
+
 export const removeRecentGame = async (appName: string) =>
   ipcRenderer.invoke('removeRecent', appName)
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -48,7 +48,9 @@ import { GameConfig } from './game_config'
 import { GlobalConfig } from './config'
 import { LegendaryUser } from 'backend/storeManagers/legendary/user'
 import { GOGUser } from './storeManagers/gog/user'
+import { NileUser } from './storeManagers/nile/user'
 import setup from './storeManagers/gog/setup'
+import nileSetup from './storeManagers/nile/setup'
 import {
   clearCache,
   execAsync,
@@ -62,7 +64,6 @@ import {
   showAboutWindow,
   showItemInFolder,
   getLegendaryBin,
-  getGOGdlBin,
   getFileSize,
   detectVCRedist,
   getFirstExistingParentPath,
@@ -71,7 +72,8 @@ import {
   getCurrentChangelog,
   checkWineBeforeLaunch,
   removeFolder,
-  downloadDefaultWine
+  downloadDefaultWine,
+  getNileVersion
 } from './utils'
 import {
   configStore,
@@ -103,11 +105,13 @@ import {
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
+  initLogger,
   logChangedSetting,
   logDebug,
   logError,
   logInfo,
   LogPrefix,
+  logsDisabled,
   logWarning
 } from './logger/logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
@@ -133,6 +137,12 @@ import {
 } from './main_window'
 
 import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
+import {
+  getGOGPlaytime,
+  syncQueuedPlaytimeGOG,
+  updateGOGPlaytime
+} from 'backend/storeManagers/gog/games'
+import { playtimeSyncQueue } from './storeManagers/gog/electronStores'
 import * as LegendaryLibraryManager from 'backend/storeManagers/legendary/library'
 import {
   autoUpdate,
@@ -270,36 +280,20 @@ if (!gotTheLock) {
     handleProtocol(argv)
   })
   app.whenReady().then(async () => {
+    initLogger()
     initStoreManagers()
     initOnlineMonitor()
+    initImagesCache()
+
     if (!process.env.CI) {
       await components.whenReady()
       logInfo(['DRM module staus', components.status()])
     }
+
     // try to fix notification app name on windows
     if (isWindows) {
       app.setAppUserModelId('Heroic Games Launcher')
     }
-
-    getSystemInfo().then((systemInfo) => {
-      if (systemInfo === '') return
-      logInfo(`\n\n${systemInfo}\n`, LogPrefix.Backend)
-    })
-
-    initImagesCache()
-
-    logInfo(
-      ['Legendary location:', join(...Object.values(getLegendaryBin()))],
-      LogPrefix.Legendary
-    )
-    logInfo(
-      ['GOGDL location:', join(...Object.values(getGOGdlBin()))],
-      LogPrefix.Gog
-    )
-    logInfo(
-      ['GOGDL location:', join(...Object.values(getGOGdlBin()))],
-      LogPrefix.Gog
-    )
 
     // TODO: Remove this after a couple of stable releases
     // Affects only current users, not new installs
@@ -314,7 +308,10 @@ if (!gotTheLock) {
       const isLoggedIn = LegendaryUser.isLoggedIn()
 
       if (!isLoggedIn) {
-        logInfo('User Not Found, removing it from Store', LogPrefix.Backend)
+        logInfo('User Not Found, removing it from Store', {
+          prefix: LogPrefix.Backend,
+          forceLog: true
+        })
         configStore.delete('userInfo')
       }
 
@@ -323,6 +320,10 @@ if (!gotTheLock) {
         GOGUser.getUserDetails()
       }
     })
+
+    // Make sure lock is not present when starting up
+    playtimeSyncQueue.delete('lock')
+    runOnceWhenOnline(syncQueuedPlaytimeGOG)
 
     await i18next.use(Backend).init({
       backend: {
@@ -645,6 +646,7 @@ ipcMain.handle('getMaxCpus', () => cpus().length)
 ipcMain.handle('getHeroicVersion', app.getVersion)
 ipcMain.handle('getLegendaryVersion', getLegendaryVersion)
 ipcMain.handle('getGogdlVersion', getGogdlVersion)
+ipcMain.handle('getNileVersion', getNileVersion)
 ipcMain.handle('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
 ipcMain.handle('isFlatpak', () => isFlatpak)
 ipcMain.handle('getGameOverride', async () => getGameOverride())
@@ -754,6 +756,8 @@ ipcMain.handle('getUserInfo', async () => {
   return LegendaryUser.getUserInfo()
 })
 
+ipcMain.handle('getAmazonUserInfo', async () => NileUser.getUserData())
+
 // Checks if the user have logged in with Legendary already
 ipcMain.handle('isLoggedIn', LegendaryUser.isLoggedIn)
 
@@ -764,6 +768,10 @@ ipcMain.on('logoutGOG', GOGUser.logout)
 ipcMain.handle('getLocalPeloadPath', async () => {
   return fixAsarPath(join('file://', publicDir, 'webviewPreload.js'))
 })
+
+ipcMain.handle('getAmazonLoginData', NileUser.getLoginData)
+ipcMain.handle('authAmazon', async (event, data) => NileUser.login(data))
+ipcMain.handle('logoutAmazon', NileUser.logout)
 
 ipcMain.handle('getAlternativeWine', async () =>
   GlobalConfig.get().getAlternativeWine()
@@ -992,6 +1000,13 @@ ipcMain.handle(
         '\n'
     )
 
+    if (logsDisabled) {
+      appendFileSync(
+        logFileLocation,
+        'IMPORTANT: Logs are disabled. Enable logs before reporting an issue.'
+      )
+    }
+
     const isNative = gameManagerMap[runner].isNative(appName)
 
     // check if isNative, if not, check if wine is valid
@@ -1050,6 +1065,10 @@ ipcMain.handle(
     const totalPlaytime =
       sessionPlaytime + tsStore.get(`${appName}.totalPlayed`, 0)
     tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
+
+    if (runner === 'gog') {
+      await updateGOGPlaytime(appName, startPlayingDate, finishedPlayingDate)
+    }
 
     await addRecentGame(game)
 
@@ -1576,6 +1595,9 @@ ipcMain.handle(
     if (runner === 'gog' && updated) {
       await setup(appName)
     }
+    if (runner === 'nile' && updated) {
+      await nileSetup(appName)
+    }
     if (runner === 'legendary' && updated) {
       await setupUbisoftConnect(appName)
     }
@@ -1662,6 +1684,17 @@ ipcMain.on('processShortcut', async (e, combination: string) => {
       break
   }
 })
+
+ipcMain.handle(
+  'getPlaytimeFromRunner',
+  async (e, runner, appName): Promise<number | undefined> => {
+    if (runner === 'gog') {
+      return getGOGPlaytime(appName)
+    }
+
+    return
+  }
+)
 
 /*
   Other Keys that should go into translation files:

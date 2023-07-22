@@ -18,7 +18,11 @@ import {
   Cancel,
   Pause,
   Warning,
-  Hardware
+  Hardware,
+  Error,
+  CheckCircle,
+  DoNotDisturb,
+  HelpOutline
 } from '@mui/icons-material'
 import {
   createNewWindow,
@@ -77,6 +81,7 @@ import PopoverComponent from 'frontend/components/UI/PopoverComponent'
 import HowLongToBeat from 'frontend/components/UI/WikiGameInfo/components/HowLongToBeat'
 import GameScore from 'frontend/components/UI/WikiGameInfo/components/GameScore'
 import DLCList from 'frontend/components/UI/DLCList'
+import { NileInstallInfo } from 'common/types/nile'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -111,7 +116,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [extraInfo, setExtraInfo] = useState<ExtraInfo | null>(null)
   const [autoSyncSaves, setAutoSyncSaves] = useState(false)
   const [gameInstallInfo, setGameInstallInfo] = useState<
-    LegendaryInstallInfo | GogInstallInfo | null
+    LegendaryInstallInfo | GogInstallInfo | NileInstallInfo | null
   >(null)
   const [launchOptions, setLaunchOptions] = useState<LaunchOption[]>([])
   const [launchArguments, setLaunchArguments] = useState('')
@@ -140,6 +145,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const isLaunching = status === 'launching'
   const isInstallingUbisoft = status === 'ubisoft'
   const notAvailable = !gameAvailable && gameInfo.is_installed
+  const notInstallable =
+    gameInfo.installable !== undefined && !gameInfo.installable
   const notSupportedGame =
     gameInfo.runner !== 'sideload' && gameInfo.thirdPartyManagedApp === 'Origin'
 
@@ -175,7 +182,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
             ? 'Mac'
             : 'Windows')
 
-        if (runner !== 'sideload' && !notSupportedGame) {
+        if (runner !== 'sideload' && !notSupportedGame && !notInstallable) {
           getInstallInfo(appName, runner, installPlatform)
             .then((info) => {
               if (!info) {
@@ -298,7 +305,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
     hasRequirements = extraInfo?.reqs ? extraInfo.reqs.length > 0 : false
     hasUpdate = is_installed && gameUpdates?.includes(appName)
 
-    const { howlongtobeat, pcgamingwiki, applegamingwiki } = wikiGameInfo || {}
+    const {
+      howlongtobeat,
+      pcgamingwiki,
+      applegamingwiki,
+      steamInfo: steamInfo
+    } = wikiGameInfo || {}
     const hasHLTB = Boolean(howlongtobeat?.gameplayMain)
     const hasScores =
       pcgamingwiki?.metacritic.score ||
@@ -306,6 +318,34 @@ export default React.memo(function GamePage(): JSX.Element | null {
       pcgamingwiki?.opencritic.score
     const hasAppleInfo = applegamingwiki?.crossoverRating
     const appLocation = install_path || folder_name
+    const hasProtonDB = steamInfo?.compatibilityLevel
+    // check if we got a number. zero is also valid.
+    const hasSteamDeckCompat = Number.isFinite(steamInfo?.steamDeckCatagory)
+    const steamLevelNames = [
+      // use outline for help icon because steam does it aswell
+      // colors come from the steam verified icons
+      <HelpOutline
+        key={0}
+        style={{ marginLeft: '5px', cursor: 'default', color: '#a0a5a8' }}
+      />,
+      <DoNotDisturb
+        key={1}
+        style={{ marginLeft: '5px', cursor: 'default', color: '#a0a5a8' }}
+      />,
+      <Error
+        key={2}
+        style={{ marginLeft: '5px', cursor: 'default', color: '#ffc82c' }}
+      />,
+      <CheckCircle
+        key={3}
+        style={{ marginLeft: '5px', cursor: 'default', color: '#58be42' }}
+      />
+    ]
+
+    let protonDBurl = `https://www.protondb.com/search?q=${title}`
+    if (pcgamingwiki?.steamID) {
+      protonDBurl = `https://www.protondb.com/app/${pcgamingwiki?.steamID}`
+    }
 
     const downloadSize =
       gameInstallInfo?.manifest?.download_size &&
@@ -448,31 +488,34 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     />
                   </p>
                 )}
-                {!is_installed && !isSideloaded && !notSupportedGame && (
-                  <>
-                    <div className="iconWithText">
-                      <CloudDownload />
-                      <b>{t('game.downloadSize', 'Download Size')}</b>
-                      {': '}
-                      {downloadSize ??
-                        `${t(
-                          'game.getting-download-size',
-                          'Geting download size'
-                        )}...`}
-                    </div>
-                    <div className="iconWithText">
-                      <Storage />
-                      <b>{t('game.installSize', 'Install Size')}</b>
-                      {': '}
-                      {installSize ??
-                        `${t(
-                          'game.getting-install-size',
-                          'Geting install size'
-                        )}...`}
-                    </div>
-                    <br />
-                  </>
-                )}
+                {!is_installed &&
+                  !isSideloaded &&
+                  !notSupportedGame &&
+                  !notInstallable && (
+                    <>
+                      <div className="iconWithText">
+                        <CloudDownload />
+                        <b>{t('game.downloadSize', 'Download Size')}</b>
+                        {': '}
+                        {downloadSize ??
+                          `${t(
+                            'game.getting-download-size',
+                            'Geting download size'
+                          )}...`}
+                      </div>
+                      <div className="iconWithText">
+                        <Storage />
+                        <b>{t('game.installSize', 'Install Size')}</b>
+                        {': '}
+                        {installSize ??
+                          `${t(
+                            'game.getting-install-size',
+                            'Geting install size'
+                          )}...`}
+                      </div>
+                      <br />
+                    </>
+                  )}
                 {is_installed && (
                   <PopoverComponent
                     item={
@@ -594,6 +637,35 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     </div>
                   </PopoverComponent>
                 )}
+                {hasProtonDB && (
+                  <a
+                    role="button"
+                    onClick={() => {
+                      createNewWindow(protonDBurl)
+                    }}
+                    title={t('info.clickToOpen', 'Click to open')}
+                    className="iconWithText"
+                  >
+                    <WineBar />
+                    {t(
+                      'info.protondb-compatibility-info',
+                      'Proton Compatibility Tier'
+                    )}
+                    :{' '}
+                    {steamInfo!.compatibilityLevel!.charAt(0).toUpperCase() +
+                      steamInfo!.compatibilityLevel!.slice(1)}
+                  </a>
+                )}
+                {hasSteamDeckCompat && (
+                  <a className="iconWithText" style={{ cursor: 'default' }}>
+                    <WineBar />
+                    {t(
+                      'info.steamdeck-compatibility-info',
+                      'SteamDeck Compatibility'
+                    )}
+                    : {steamLevelNames[steamInfo?.steamDeckCatagory ?? 3]}
+                  </a>
+                )}
                 {hasAppleInfo && (
                   <a
                     role="button"
@@ -639,7 +711,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   </PopoverComponent>
                 )}
               </div>
-              <TimeContainer game={appName} />
+              {!notInstallable && (
+                <TimeContainer runner={runner} game={appName} />
+              )}
               <div className="gameStatus">
                 {(isInstalling || isUpdating) && (
                   <progress
@@ -719,12 +793,17 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     isReparing ||
                     isMoving ||
                     isUninstalling ||
-                    notSupportedGame
+                    notSupportedGame ||
+                    notInstallable
                   }
                   autoFocus={true}
                   className={classNames('button', {
                     'is-primary': is_installed,
-                    'is-tertiary': notAvailable || isInstalling || isQueued,
+                    'is-tertiary':
+                      notAvailable ||
+                      isInstalling ||
+                      isQueued ||
+                      notInstallable,
                     'is-secondary': !is_installed && !isQueued
                   })}
                 >
@@ -830,6 +909,13 @@ export default React.memo(function GamePage(): JSX.Element | null {
   ): React.ReactNode {
     const { eta, bytes, percent, file } = progress
 
+    if (runner === 'gog' && notInstallable) {
+      return t(
+        'status.gog-goodie',
+        "This game doesn't appear to be installable. Check downloadable content on https://gog.com/account"
+      )
+    }
+
     if (notSupportedGame) {
       return t(
         'status.this-game-uses-third-party',
@@ -911,6 +997,14 @@ export default React.memo(function GamePage(): JSX.Element | null {
   }
 
   function getButtonLabel() {
+    if (notInstallable) {
+      return (
+        <span className="buttonWithIcon">
+          {t('status.goodie', 'Not installable')}
+          <Error style={{ marginLeft: '5px', cursor: 'not-allowed' }} />
+        </span>
+      )
+    }
     if (notSupportedGame) {
       return (
         <span className="buttonWithIcon">

@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "Ocjena AppleGamingWiki",
         "clickToOpen": "Kliknite za otvaranje",
         "game-scores": "Rezultati igre",
-        "installedInfo": "Instalirane informacije"
+        "installedInfo": "Instalirane informacije",
+        "protondb-compatibility-info": "Razina kompatibilnosti protona",
+        "steamdeck-compatibility-info": "Kompatibilnost sa SteamDeckom"
     },
     "install": {
         "disk-space-left": "Prostora dostupno",
@@ -130,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Third-Party Game NOT Supported",
+            "not-installable-game": "Igra se NIJE instalirati"
         },
         "playing": {
             "start": "Igraj Sada",
@@ -202,7 +205,9 @@
         "ubisoft": "Instaliranje Ubisofta",
         "launching": "Pokretanje",
         "downloading": "Downloading",
-        "extracting": "Vađenje"
+        "extracting": "Vađenje",
+        "gog-goodie": "Čini se da se ova igra ne može instalirati. Provjerite sadržaj za preuzimanje na https://gog.com/account",
+        "goodie": "Nije moguće instalirati"
     },
     "submenu": {
         "addShortcut": "Dodaj prečace",

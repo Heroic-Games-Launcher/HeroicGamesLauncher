@@ -53,7 +53,8 @@ describeSkipOnWindows('logger/logfile.ts', () => {
       currentLogFile: 'old/log/path/file.log',
       lastLogFile: '',
       legendaryLogFile: '',
-      gogdlLogFile: ''
+      gogdlLogFile: '',
+      nileLogFile: ''
     })
 
     const data = logfile.createNewLogFileAndClearOldOnes()
@@ -63,7 +64,8 @@ describeSkipOnWindows('logger/logfile.ts', () => {
       currentLogFile: expect.any(String),
       lastLogFile: 'old/log/path/file.log',
       legendaryLogFile: expect.any(String),
-      gogdlLogFile: expect.any(String)
+      gogdlLogFile: expect.any(String),
+      nileLogFile: expect.any(String)
     })
   })
 

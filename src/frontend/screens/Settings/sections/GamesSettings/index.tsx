@@ -11,7 +11,6 @@ import {
   CrossoverBottle,
   EacRuntime,
   EnableEsync,
-  EnableFSR,
   EnableFsync,
   EnvVariablesTable,
   GameMode,
@@ -51,6 +50,7 @@ export default function GamesSettings({ useDetails = true }: Props) {
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
   const [nativeGame, setNativeGame] = useState(false)
   const isLinux = platform === 'linux'
+  const isWin = platform === 'win32'
   const isCrossover = wineVersion?.type === 'crossover'
   const hasCloudSaves =
     gameInfo?.cloud_save_enabled && gameInfo.install.platform !== 'linux'
@@ -121,21 +121,19 @@ export default function GamesSettings({ useDetails = true }: Props) {
       >
         <AlternativeExe />
 
-        {!nativeGame && <ShowFPS />}
+        <ShowFPS />
 
         {!nativeGame && <EnableDXVKFpsLimit />}
 
-        {isLinux && !nativeGame && (
+        {!isWin && !nativeGame && (
           <>
-            <PreferSystemLibs />
-
             <EnableEsync />
 
             {isLinux && (
               <>
                 <EnableFsync />
 
-                <EnableFSR />
+                <PreferSystemLibs />
 
                 <GameMode />
               </>

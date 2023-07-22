@@ -44,6 +44,9 @@ export const abort = (id: string) => ipcRenderer.send('abort', id)
 
 export const getUserInfo = async () => ipcRenderer.invoke('getUserInfo')
 
+export const getAmazonUserInfo = async () =>
+  ipcRenderer.invoke('getAmazonUserInfo')
+
 export const syncSaves = async (args: {
   arg: string | undefined
   path: string

@@ -75,7 +75,7 @@
     "cloud_save_unsupported": "No compatible",
     "disabled": "Deshabilitado",
     "dlc": {
-        "installDlcs": "Instalar todos los DLCs"
+        "installDlcs": "Instalar todos los DLC"
     },
     "enabled": "Habilitado",
     "game": {
@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "Calificación de AppleGamingWiki",
         "clickToOpen": "Haga clic para abrir",
         "game-scores": "Puntuaciones del juego",
-        "installedInfo": "Información instalada"
+        "installedInfo": "Información instalada",
+        "protondb-compatibility-info": "Nivel de compatibilidad de protones",
+        "steamdeck-compatibility-info": "Compatibilidad con SteamDeck"
     },
     "install": {
         "disk-space-left": "Espacio disponible",
@@ -130,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Juego NO soportado"
+            "third-party-game": "Juego NO soportado",
+            "not-installable-game": "El juego NO es instalable"
         },
         "playing": {
             "start": "Jugar",
@@ -202,7 +205,9 @@
         "launching": "Ejecutando",
         "ubisoft": "Instalando Ubisoft",
         "downloading": "Descargando",
-        "extracting": "Extrayendo"
+        "extracting": "Extrayendo",
+        "gog-goodie": "Este juego no parece ser instalable. Consulte el contenido descargable en https://gog.com/account",
+        "goodie": "No instalable"
     },
     "submenu": {
         "addShortcut": "Añadir acceso directo",

@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "Valutazione di AppleGamingWiki",
         "clickToOpen": "Clicca per aprire",
         "game-scores": "Punteggi di gioco",
-        "installedInfo": "Informazioni installate"
+        "installedInfo": "Informazioni installate",
+        "protondb-compatibility-info": "Livello di compatibilità protonica",
+        "steamdeck-compatibility-info": "Compatibilità SteamDeck"
     },
     "install": {
         "disk-space-left": "Spazio Disponibile",
@@ -130,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Gioco di terze parti NON supportato"
+            "third-party-game": "Gioco di terze parti NON supportato",
+            "not-installable-game": "Il gioco NON è installabile"
         },
         "playing": {
             "start": "Esegui ora",
@@ -202,7 +205,9 @@
         "launching": "Lancio",
         "ubisoft": "Installazione di Ubisoft",
         "downloading": "Scaricamento",
-        "extracting": "Estrazione"
+        "extracting": "Estrazione",
+        "gog-goodie": "Questo gioco non sembra essere installabile. Controlla i contenuti scaricabili su https://gog.com/account",
+        "goodie": "Non installabile"
     },
     "submenu": {
         "addShortcut": "Aggiungi scorciatoia",

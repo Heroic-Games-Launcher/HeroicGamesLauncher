@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "Βαθμολογία AppleGamingWiki",
         "clickToOpen": "Κάντε κλικ για άνοιγμα",
         "game-scores": "Αποτελέσματα παιχνιδιού",
-        "installedInfo": "Εγκατεστημένες πληροφορίες"
+        "installedInfo": "Εγκατεστημένες πληροφορίες",
+        "protondb-compatibility-info": "Επίπεδο συμβατότητας πρωτονίων",
+        "steamdeck-compatibility-info": "Συμβατότητα SteamDeck"
     },
     "install": {
         "disk-space-left": "Διαθέσιμος Αποθηκευτικός Χώρος",
@@ -130,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Third-Party Game NOT Supported",
+            "not-installable-game": "Το παιχνίδι ΔΕΝ μπορεί να εγκατασταθεί"
         },
         "playing": {
             "start": "Παίξτε τώρα",
@@ -202,7 +205,9 @@
         "launching": "Εκκίνηση",
         "ubisoft": "Εγκατάσταση της Ubisoft",
         "downloading": "Γίνεται λήψη",
-        "extracting": "Εξαγωγή"
+        "extracting": "Εξαγωγή",
+        "gog-goodie": "Αυτό το παιχνίδι δεν φαίνεται να μπορεί να εγκατασταθεί. Ελέγξτε το περιεχόμενο με δυνατότητα λήψης στη διεύθυνση https://gog.com/account",
+        "goodie": "Δεν μπορεί να εγκατασταθεί"
     },
     "submenu": {
         "addShortcut": "Προσθήκη συντόμευσης",

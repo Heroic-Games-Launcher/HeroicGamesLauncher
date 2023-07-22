@@ -1,21 +1,21 @@
 {
     "button": {
         "login": "로그인",
-        "copied": "복사했습니다!",
+        "copied": "복사 완료!",
         "open": "링크 열기",
         "copy": "복사",
-        "error": "오류입니다. 다른 코드를 입력하세요.",
-        "loading": "Loading"
+        "error": "오류가 발생했습니다. 다른 코드를 입력하세요",
+        "loading": "로딩 중"
     },
     "message": {
-        "part1": "로그인하고 게임을 설치하려면, 먼저 아래 단계를 따라야 합니다:",
-        "part2": "열기",
-        "part3": "Epic Store",
-        "part4": ", 사용자의 계정으로 로그인 하고, 다음을 복사합니다:",
-        "part5": "authorization code 정보 번호",
-        "part6": "다음을 입력란에 붙여 넣습니다:",
-        "part7": "authorization code 번호",
-        "part8": "이후, 로그인 버튼을 누르십시오."
+        "part1": "로그인하고 게임을 설치하려면 먼저 다음 단계를 따라야 합니다:",
+        "part2": "이 링크에서",
+        "part3": "Epic Store 열기",
+        "part4": ", 사용자의 계정으로 로그인 하고,",
+        "part5": "인증 코드(authorization code) 정보 번호를 복사합니다",
+        "part6": "다음 입력 란에",
+        "part7": "인증 코드를 붙여 넣고",
+        "part8": "로그인 버튼을 누릅니다."
     },
     "status": {
         "error": "오류",

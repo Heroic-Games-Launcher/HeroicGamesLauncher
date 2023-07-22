@@ -37,7 +37,7 @@ function convertToTime(time: number) {
 }
 
 const DownloadManagerItem = ({ element, current, state }: Props) => {
-  const { epic, gog, showDialogModal } = useContext(ContextProvider)
+  const { amazon, epic, gog, showDialogModal } = useContext(ContextProvider)
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation('translation')
 
@@ -51,7 +51,7 @@ const DownloadManagerItem = ({ element, current, state }: Props) => {
     )
   }
 
-  const library = [...epic.library, ...gog.library]
+  const library = [...epic.library, ...gog.library, ...amazon.library]
 
   const { params, addToQueueTime, endTime, type, startTime } = element
   const {

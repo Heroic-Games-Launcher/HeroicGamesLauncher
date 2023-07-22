@@ -81,7 +81,7 @@
             "moving": "移动游戏出错 {{error}}",
             "ubisoft-connect": {
                 "message": "在游戏前缀中安装 Ubisoft Connect 失败。查看我们的 wiki 页面 https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac 来手动安装它。",
-                "title": "育碧连接"
+                "title": "Ubisoft Connect"
             },
             "legendary": {
                 "generic": "发生了错误！尝试注销并登录您的 Epic 帐户。 {{newline}} {{error}}"
@@ -150,8 +150,8 @@
             },
             "title": "警告",
             "wine-change": {
-                "message": "我们找不到启动此标题的选定 wine 版本 ({{selectedWine}})。 {{newline}} 我们找到了另一个，你想继续使用 {{foundWine}} 启动吗？",
-                "title": "找不到酒！"
+                "message": "我们找不到启动此游戏的选定 wine 版本 ({{selectedWine}})。 {{newline}} 我们找到了另一个，你想继续使用 {{foundWine}} 启动吗？",
+                "title": "未找到 Wine ！"
             }
         },
         "wineprefix": "选择 Wine Prefix 文件夹",
@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroic 启动器会在以下文件夹中查找现有的 Wine/Proton/CrossOver：",
             "part2": "如果在其它位置，请使用软链接连接到这些中的一个文件夹"
-        }
+        },
+        "disable_logs": "将此复选框切换为“开”可禁用对日志文件的大部分写入（始终记录关键信息）。请确保在报告任何问题之前关闭此设置。"
     },
     "info": {
         "heroic": {
@@ -522,7 +523,7 @@
         "log": {
             "copy-to-clipboard": "复制日志内容到剪贴板",
             "current-log": "当前日志",
-            "instructions": "加入我们的 Discord，寻找与您的操作系统匹配的频道。共享此处显示的日志内容，并包含对问题的清晰描述以及任何相关信息和细节。",
+            "instructions": "加入我们的 Discord，并搜索 \"#-support\" 部分。阅读置顶的 \"Read Me First | Frequently Asked Questions\" 帖子并遵照指示分享这些日志文件及任何与你的问题相关的信息。",
             "instructions_title": "如何报告问题？",
             "last-log": "上一日志",
             "no-file": "未找到日志文件",
@@ -568,7 +569,10 @@
         "wineprefix": "WinePrefix文件夹",
         "wineversion": "Wine 版本",
         "autoUpdateGames": "自动更新游戏",
-        "ignoreGameUpdates": "忽略游戏更新"
+        "ignoreGameUpdates": "忽略游戏更新",
+        "disable_logs": "禁用日志",
+        "addgamestoapplications": "自动将游戏添加到应用程序",
+        "showMetalOverlay": "显示统计数据叠加"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -684,7 +688,7 @@
         "not_found": "我们找不到额外的信息。"
     },
     "dlc": {
-        "actions": "动作",
+        "actions": "操作",
         "installDlcs": "安装所有 DLC",
         "noDlcFound": "未找到 DLC",
         "size": "大小",
