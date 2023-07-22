@@ -143,7 +143,7 @@ async function prepareLaunch(
       return {
         success: false,
         failureReason:
-          'Steam Runtime is enabled, but no runtsimes could be found\n' +
+          'Steam Runtime is enabled, but no runtimes could be found\n' +
           `Make sure Steam ${
             isNative
               ? 'is'
