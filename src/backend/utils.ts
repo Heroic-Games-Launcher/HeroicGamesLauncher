@@ -606,20 +606,15 @@ async function getSteamRuntime(
       args: []
     }
   ]
-  let sniperFound = false
   const allAvailableRuntimes: SteamRuntime[] = []
   steamLibraries.forEach((library) => {
     runtimeTypes.forEach(({ path, type, args }) => {
       const fullPath = join(library, path)
       if (existsSync(fullPath)) {
         allAvailableRuntimes.push({ path: fullPath, type, args })
-        if (type === 'sniper') sniperFound = true
       }
     })
   })
-
-  // Fall back to soldier
-  if (!sniperFound) requestedType = 'soldier'
   // Add dummy runtime at the end to not return `undefined`
   allAvailableRuntimes.push({ path: '', type: 'scout', args: [] })
   const requestedRuntime = allAvailableRuntimes.find(({ type }) => {

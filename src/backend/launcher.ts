@@ -7,7 +7,7 @@ import {
   appendFileSync,
   writeFileSync
 } from 'graceful-fs'
-import { join } from 'path'
+import { join, normalize } from 'path'
 
 import {
   defaultWinePrefix,
@@ -49,7 +49,8 @@ import {
   LaunchPreperationResult,
   RpcClient,
   WineInstallation,
-  WineCommandArgs
+  WineCommandArgs,
+  SteamRuntime
 } from 'common/types'
 import { spawn } from 'child_process'
 import shlex from 'shlex'
@@ -57,6 +58,8 @@ import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
 import { setupUbisoftConnect } from './storeManagers/legendary/setup'
 import { gameManagerMap } from 'backend/storeManagers'
+import * as VDF from '@node-steam/vdf'
+import { readFileSync } from 'fs'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
@@ -119,8 +122,16 @@ async function prepareLaunch(
     gameSettings.useSteamRuntime &&
     (isNative || gameSettings.wineVersion.type === 'proton')
   if (shouldUseRuntime) {
+    let nonNativeRuntime: SteamRuntime['type'] = 'soldier'
+    if (!isNative) {
+      const parentPath = normalize(join(gameSettings.wineVersion.bin, '..'))
+      const requiredAppId = VDF.parse(
+        readFileSync(join(parentPath, 'toolmanifest.vdf'), 'utf-8')
+      )['require_tool_appid']
+      if (requiredAppId === '1628350') nonNativeRuntime = 'sniper'
+    }
     // for native games lets use scout for now
-    const runtimeType = isNative ? 'scout' : 'sniper'
+    const runtimeType = isNative ? 'scout' : nonNativeRuntime
     const { path, args } = await getSteamRuntime(runtimeType)
     if (!path) {
       return {
