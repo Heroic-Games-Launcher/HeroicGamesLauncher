@@ -24,6 +24,7 @@ import {
 } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import { GogInstallInfo } from 'common/types/gog'
+import { NileInstallInfo } from 'common/types/nile'
 
 import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
@@ -56,7 +57,6 @@ import {
   Scores,
   SettingsButton
 } from './components'
-import { NileInstallInfo } from 'common/types/nile'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
