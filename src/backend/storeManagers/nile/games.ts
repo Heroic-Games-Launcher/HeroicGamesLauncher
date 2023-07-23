@@ -385,7 +385,7 @@ export async function launch(
         : wineExec
 
     wineFlag = [
-      ...getWineFlags(wineBin, gameSettings, wineType),
+      ...getWineFlags(wineBin, wineType),
       '--wine-prefix',
       gameSettings.winePrefix
     ]
