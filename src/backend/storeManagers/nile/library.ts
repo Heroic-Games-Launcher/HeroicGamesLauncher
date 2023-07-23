@@ -150,6 +150,9 @@ export function fetchFuelJSON(
  * @returns App names of updateable games.
  */
 export async function listUpdateableGames(): Promise<string[]> {
+  if (!NileUser.isLoggedIn()) {
+    return []
+  }
   logInfo('Looking for updates...', LogPrefix.Nile)
 
   const abortID = 'nile-list-updates'
@@ -232,12 +235,20 @@ export function refreshInstalled() {
   }
 }
 
+const defaultExecResult = {
+  stderr: '',
+  stdout: ''
+}
+
 /**
  * Get the game info of all games in the library
  *
  * @returns Array of objects.
  */
 export async function refresh(): Promise<ExecResult | null> {
+  if (!NileUser.isLoggedIn()) {
+    return defaultExecResult
+  }
   logInfo('Refreshing library...', LogPrefix.Nile)
 
   refreshNile()
@@ -248,10 +259,7 @@ export async function refresh(): Promise<ExecResult | null> {
   libraryStore.set('library', arr)
   logInfo(['Game list updated, got', `${arr.length}`, 'games'], LogPrefix.Nile)
 
-  return {
-    stderr: '',
-    stdout: ''
-  }
+  return defaultExecResult
 }
 
 /**

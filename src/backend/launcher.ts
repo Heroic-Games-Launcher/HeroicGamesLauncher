@@ -692,6 +692,8 @@ interface RunnerProps {
   dir: string
 }
 
+const commandsRunning = {}
+
 async function callRunner(
   commandParts: string[],
   runner: RunnerProps,
@@ -745,7 +747,16 @@ async function callRunner(
     bin = runner.bin
   }
 
-  return new Promise<ExecResult>((res, rej) => {
+  // check if the same command is currently running
+  // if so, return the same promise instead of running it again
+  const key = [runner.name, commandParts].join(' ')
+  const currentPromise = commandsRunning[key]
+
+  if (currentPromise) {
+    return currentPromise
+  }
+
+  const promise = new Promise<ExecResult>((res, rej) => {
     const child = spawn(bin, commandParts, {
       cwd: runner.dir,
       env: { ...process.env, ...options?.env },
@@ -815,6 +826,11 @@ async function callRunner(
       rej(error)
     })
   })
+
+  // keep track of which commands are running
+  commandsRunning[key] = promise
+
+  promise
     .then(({ stdout, stderr }) => {
       return { stdout, stderr, fullCommand: safeCommand }
     })
@@ -848,6 +864,12 @@ async function callRunner(
 
       return { stdout: '', stderr: `${error}`, fullCommand: safeCommand, error }
     })
+    .finally(() => {
+      // remove from list when done
+      delete commandsRunning[key]
+    })
+
+  return promise
 }
 
 /**

@@ -143,6 +143,11 @@ export function refreshInstalled() {
   }
 }
 
+const defaultExecResult = {
+  stderr: '',
+  stdout: ''
+}
+
 /**
  * Get the game info of all games in the library
  *
@@ -150,12 +155,8 @@ export function refreshInstalled() {
  */
 export async function refresh(): Promise<ExecResult | null> {
   logInfo('Refreshing library...', LogPrefix.Legendary)
-  const isLoggedIn = LegendaryUser.isLoggedIn()
-  if (!isLoggedIn) {
-    return {
-      stderr: 'You must be logged into Epic Games to refresh this library!',
-      stdout: ''
-    }
+  if (!LegendaryUser.isLoggedIn()) {
+    return defaultExecResult
   }
 
   refreshLegendary()
@@ -173,10 +174,7 @@ export async function refresh(): Promise<ExecResult | null> {
     ['Game list updated, got', `${arr.length}`, 'games & DLCs'],
     LogPrefix.Legendary
   )
-  return {
-    stderr: '',
-    stdout: ''
-  }
+  return defaultExecResult
 }
 
 export function getListOfGames() {
