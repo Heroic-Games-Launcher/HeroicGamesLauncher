@@ -339,6 +339,13 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
       )
     }
   }
+  if (gameSettings.enableFSR) {
+    ret.WINE_FULLSCREEN_FSR = '1'
+    ret.WINE_FULLSCREEN_FSR_STRENGTH =
+      gameSettings.maxSharpness?.toString() || '2'
+  } else {
+    ret.WINE_FULLSCREEN_FSR = '0'
+  }
   if (gameSettings.enableEsync && wineVersion.type !== 'proton') {
     ret.WINEESYNC = '1'
   }
