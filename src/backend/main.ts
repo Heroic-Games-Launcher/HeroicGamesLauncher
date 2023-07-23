@@ -193,7 +193,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
     }
   }, 2500)
 
-  if (!isWindows) {
+  if (!isWindows && !isCLINoGui) {
     setTimeout(async () => {
       try {
         await updateWineVersionInfos(true)
