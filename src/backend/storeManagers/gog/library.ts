@@ -634,7 +634,7 @@ export async function checkForGameUpdate(
 ) {
   const metaResponse = await getMetaResponse(appName, platform, etag)
 
-  return metaResponse.status === 200
+  return metaResponse.status === 200 && metaResponse.etag !== etag
 }
 
 /**
