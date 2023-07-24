@@ -177,6 +177,7 @@ async function setup(
           }
           await runWineCommand({
             gameSettings,
+            gameInstallPath: gameInfo.install.install_path,
             commandParts: command,
             wait: true,
             protonVerb: 'runinprefix'
@@ -282,6 +283,7 @@ async function setup(
 
           await runWineCommand({
             gameSettings,
+            gameInstallPath: gameInfo.install.install_path,
             commandParts: [executablePath, ...exeArguments],
             wait: true,
             protonVerb: 'waitforexitandrun',
@@ -485,6 +487,7 @@ async function setup(
       logInfo(['Setup: Executing', command, `${supportDir}`], LogPrefix.Gog)
       await runWineCommand({
         gameSettings,
+        gameInstallPath: gameInfo.install.install_path,
         commandParts: command,
         wait: true,
         protonVerb: 'waitforexitandrun',

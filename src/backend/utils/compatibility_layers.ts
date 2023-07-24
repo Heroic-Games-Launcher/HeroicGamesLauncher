@@ -374,14 +374,15 @@ export async function getGamingPortingToolkitWine(): Promise<
 
 export function getWineFlags(
   wineBin: string,
-  wineType: WineInstallation['type']
+  wineType: WineInstallation['type'],
+  wrapper: string
 ) {
   switch (wineType) {
     case 'wine':
     case 'toolkit':
-      return ['--wine', wineBin]
+      return ['--wine', wineBin, '--wrapper', wrapper]
     case 'proton':
-      return ['--no-wine', '--wrapper', `'${wineBin}' run`]
+      return ['--no-wine', '--wrapper', `${wrapper} '${wineBin}' run`]
     default:
       return []
   }

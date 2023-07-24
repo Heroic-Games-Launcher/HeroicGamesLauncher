@@ -147,7 +147,7 @@ class GlobalState extends PureComponent<Props> {
     },
     amazon: {
       library: this.loadAmazonLibrary(),
-      username: nileConfigStore.get_nodefault('userData.name')
+      username: nileConfigStore.get_nodefault('userData.given_name')
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
     error: false,

@@ -533,6 +533,7 @@ export type WineCommandArgs = {
   wait?: boolean
   protonVerb?: ProtonVerb
   gameSettings?: GameSettings
+  gameInstallPath?: string
   installFolderName?: string
   options?: CallRunnerOptions
   startFolder?: string
