@@ -7,7 +7,7 @@ import {
   appendFileSync,
   writeFileSync
 } from 'graceful-fs'
-import { join } from 'path'
+import { join, normalize } from 'path'
 
 import {
   defaultWinePrefix,
@@ -51,7 +51,8 @@ import {
   LaunchPreperationResult,
   RpcClient,
   WineInstallation,
-  WineCommandArgs
+  WineCommandArgs,
+  SteamRuntime
 } from 'common/types'
 import { spawn } from 'child_process'
 import shlex from 'shlex'
@@ -59,6 +60,8 @@ import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
 import { setupUbisoftConnect } from './storeManagers/legendary/setup'
 import { gameManagerMap } from 'backend/storeManagers'
+import * as VDF from '@node-steam/vdf'
+import { readFileSync } from 'fs'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
@@ -121,8 +124,24 @@ async function prepareLaunch(
     gameSettings.useSteamRuntime &&
     (isNative || gameSettings.wineVersion.type === 'proton')
   if (shouldUseRuntime) {
+    // Determine which runtime to use based on toolmanifest.vdf which is shipped with proton
+    let nonNativeRuntime: SteamRuntime['type'] = 'soldier'
+    if (!isNative) {
+      try {
+        const parentPath = normalize(join(gameSettings.wineVersion.bin, '..'))
+        const requiredAppId = VDF.parse(
+          readFileSync(join(parentPath, 'toolmanifest.vdf'), 'utf-8')
+        ).manifest?.require_tool_appid
+        if (requiredAppId === 1628350) nonNativeRuntime = 'sniper'
+      } catch (error) {
+        logError(
+          ['Failed to parse toolmanifest.vdf:', error],
+          LogPrefix.Backend
+        )
+      }
+    }
     // for native games lets use scout for now
-    const runtimeType = isNative ? 'scout' : 'soldier'
+    const runtimeType = isNative ? 'scout' : nonNativeRuntime
     const { path, args } = await getSteamRuntime(runtimeType)
     if (!path) {
       return {
@@ -130,7 +149,11 @@ async function prepareLaunch(
         failureReason:
           'Steam Runtime is enabled, but no runtimes could be found\n' +
           `Make sure Steam ${
-            isNative ? 'is' : 'and the "SteamLinuxRuntime - Soldier" are'
+            isNative
+              ? 'is'
+              : `and the SteamLinuxRuntime - ${
+                  nonNativeRuntime === 'sniper' ? 'Sniper' : 'Soldier'
+                } are`
           } installed`
       }
     }
