@@ -23,6 +23,7 @@ function getRecentGames(
     const found = libraries.find((game) => game.app_name === recent.appName)
     if (found) {
       if (onlyInstalled && !found.is_installed) continue
+      if (found.install.is_dlc) continue
       games.push(found)
       if (games.length === limit) break
     }
