@@ -77,7 +77,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
     gameUpdates,
     platform,
     showDialogModal,
-    isSettingsModalOpen
+    isSettingsModalOpen,
+    connectivity
   } = useContext(ContextProvider)
 
   const [gameInfo, setGameInfo] = useState(locationGameInfo)
@@ -118,6 +119,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
     gameInfo.installable !== undefined && !gameInfo.installable
   const notSupportedGame =
     gameInfo.runner !== 'sideload' && gameInfo.thirdPartyManagedApp === 'Origin'
+  const isOffline = connectivity.status !== 'online'
 
   const backRoute = location.state?.fromDM ? '/download-manager' : '/library'
 
@@ -153,7 +155,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
             ? 'Mac'
             : 'Windows')
 
-        if (runner !== 'sideload' && !notSupportedGame && !notInstallable) {
+        if (
+          runner !== 'sideload' &&
+          !notSupportedGame &&
+          !notInstallable &&
+          !isOffline
+        ) {
           getInstallInfo(appName, runner, installPlatform)
             .then((info) => {
               if (!info) {
@@ -178,7 +185,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       }
     }
     updateConfig()
-  }, [status, epic.library, gog.library, gameInfo, isSettingsModalOpen])
+  }, [status, epic.library, gog.library, gameInfo, isSettingsModalOpen, isOffline])
 
   useEffect(() => {
     window.api

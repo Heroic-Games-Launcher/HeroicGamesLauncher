@@ -4,6 +4,7 @@ import GameContext from '../../GameContext'
 import { CloudDownload, Storage } from '@mui/icons-material'
 import { size } from 'frontend/helpers'
 import { GameInfo } from 'common/types'
+import ContextProvider from 'frontend/state/ContextProvider'
 
 interface Props {
   gameInfo: GameInfo
@@ -12,6 +13,11 @@ interface Props {
 const DownloadSizeInfo = ({ gameInfo }: Props) => {
   const { t } = useTranslation('gamepage')
   const { gameInstallInfo, runner } = useContext(GameContext)
+  const { connectivity } = useContext(ContextProvider)
+
+  if (connectivity.status !== 'online') {
+    return null
+  }
 
   if (gameInfo.is_installed) {
     return null

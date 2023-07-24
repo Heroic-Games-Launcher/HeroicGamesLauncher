@@ -115,4 +115,8 @@ export class NileUser {
 
     return user.extensions.customer_info
   }
+
+  public static isLoggedIn() {
+    return configStore.get_nodefault('userData') || false
+  }
 }
