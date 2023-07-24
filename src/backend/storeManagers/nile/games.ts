@@ -280,7 +280,10 @@ export async function install(
   addShortcuts(appName)
   installState(appName, true)
   const metadata = getInstallMetadata(appName)
-  await setup(appName, metadata?.path)
+
+  if (isWindows) {
+    await setup(appName, metadata?.path)
+  }
 
   return { status: 'done' }
 }
@@ -390,7 +393,9 @@ export async function launch(
         : wineExec
 
     wineFlag = [
-      ...getWineFlags(wineBin, gameSettings, wineType, shlex.join(wrappers))
+      ...getWineFlags(wineBin, wineType, shlex.join(wrappers)),
+      '--wine-prefix',
+      gameSettings.winePrefix
     ]
   }
 

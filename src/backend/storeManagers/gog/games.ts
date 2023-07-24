@@ -511,9 +511,7 @@ export async function launch(
         ? wineExec.replaceAll("'", '')
         : wineExec
 
-    wineFlag = [
-      ...getWineFlags(wineBin, gameSettings, wineType, shlex.join(wrappers))
-    ]
+    wineFlag = [...getWineFlags(wineBin, wineType, shlex.join(wrappers))]
   }
 
   const commandParts = [
@@ -1006,7 +1004,6 @@ export async function syncQueuedPlaytimeGOG() {
   if (playtimeSyncQueue.has('lock')) {
     return
   }
-  playtimeSyncQueue.set('lock', [])
   const userData: UserData | undefined = configStore.get_nodefault('userData')
   if (!userData) {
     logError('Unable to syncQueued playtime, userData not present', {
@@ -1015,6 +1012,10 @@ export async function syncQueuedPlaytimeGOG() {
     return
   }
   const queue = playtimeSyncQueue.get(userData.galaxyUserId, [])
+  if (queue.length === 0) {
+    return
+  }
+  playtimeSyncQueue.set('lock', [])
   const failed = []
 
   for (const session of queue) {

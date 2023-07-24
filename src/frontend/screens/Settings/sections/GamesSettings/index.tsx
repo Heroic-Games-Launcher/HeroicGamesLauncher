@@ -11,6 +11,7 @@ import {
   CrossoverBottle,
   EacRuntime,
   EnableEsync,
+  EnableFSR,
   EnableFsync,
   EnvVariablesTable,
   GameMode,
@@ -134,6 +135,8 @@ export default function GamesSettings({ useDetails = true }: Props) {
                 <EnableFsync />
 
                 <PreferSystemLibs />
+
+                <EnableFSR />
 
                 <GameMode />
               </>
