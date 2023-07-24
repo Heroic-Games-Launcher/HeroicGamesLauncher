@@ -380,7 +380,7 @@ export function getWineFlags(
   switch (wineType) {
     case 'wine':
     case 'toolkit':
-      return ['--wine', wineBin, '--wrapper', wrapper]
+      return ['--wine', wineBin, ...(wrapper ? ['--wrapper', wrapper] : [])]
     case 'proton':
       return ['--no-wine', '--wrapper', `${wrapper} '${wineBin}' run`]
     default:
