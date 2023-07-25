@@ -475,7 +475,9 @@ export async function launch(
     steamRuntime?.length ? [...steamRuntime] : undefined
   )
 
-  let wineFlag: string[] = ['--wrapper', shlex.join(wrappers)]
+  let wineFlag: string[] = wrappers.length
+    ? ['--wrapper', shlex.join(wrappers)]
+    : []
 
   if (!isNative(appName)) {
     const {
