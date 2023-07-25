@@ -26,7 +26,7 @@ import {
 } from 'common/types/nile'
 import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
 import { installStore, libraryStore } from './electronStores'
-import { getNileBin } from 'backend/utils'
+import { getFileSize, getNileBin } from 'backend/utils'
 import { callRunner } from 'backend/launcher'
 import { dirname, join } from 'path'
 import { app } from 'electron'
@@ -47,6 +47,7 @@ export async function initNileLibraryManager() {
   refresh()
 }
 
+const ILLEGAL_CHARACTERS = ['?', ':', '"', '*', '<', '>', '|', '\\', '/']
 /**
  * Loads all the user's games into `library`
  */
@@ -66,6 +67,11 @@ function loadGamesInAccount() {
     } = productDetail
 
     const info = installedGames.get(product.id)
+    // Create save folder name like nile
+    const safeFolderName = ILLEGAL_CHARACTERS.reduce(
+      (acc: string, val: string) => acc.replaceAll(val, ''),
+      title ?? ''
+    )
 
     library.set(product.id, {
       app_name: product.id,
@@ -75,11 +81,14 @@ function loadGamesInAccount() {
       install: info
         ? {
             install_path: info.path,
+            // For some time size was undefined in installed.json, that's why we
+            // need to keep this fallback to 0
+            install_size: getFileSize(info?.size ?? 0),
             version: info.version,
             platform: 'Windows' // Amazon Games only supports Windows
           }
         : {},
-      folder_name: title,
+      folder_name: safeFolderName,
       is_installed: info !== undefined,
       runner: 'nile',
       title: title ?? '???',
