@@ -54,7 +54,7 @@ export default function SidebarLinks() {
 
   const settingsPath = '/settings/app/default/general'
 
-  const loggedIn = epic.username || gog.username || amazon.username
+  const loggedIn = epic.username || gog.username || amazon.user_id
 
   async function handleRefresh() {
     localStorage.setItem('scrollPosition', '0')
@@ -62,7 +62,7 @@ export default function SidebarLinks() {
     const shouldRefresh =
       (epic.username && !epic.library.length) ||
       (gog.username && !gog.library.length) ||
-      (amazon.username && !amazon.library.length)
+      (amazon.user_id && !amazon.library.length)
     if (shouldRefresh) {
       return refreshLibrary({ runInBackground: true })
     }
@@ -82,7 +82,7 @@ export default function SidebarLinks() {
 
   // By default, open Epic Store
   let defaultStore = '/epicstore'
-  if (!epic.username && !gog.username && amazon.username) {
+  if (!epic.username && !gog.username && amazon.user_id) {
     // If only logged in to Amazon Games, open Amazon Gaming
     defaultStore = '/amazonstore'
   } else if (!epic.username && gog.username) {
