@@ -19,22 +19,19 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
-      - name: Install yarn
-        run: npm install -g yarn
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'yarn'
       - name: Install modules.
-        run: yarn install
+        run: npm i --legacy-peer-deps
       - name: Build artifacts.
-        run: yarn dist:linux appimage --publish=never
+        run: npm run dist:linux appimage --publish=never
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       - name: Prepare Flatpak
-        run: yarn flatpak:prepare
+        run: npm run flatpak:prepare
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}

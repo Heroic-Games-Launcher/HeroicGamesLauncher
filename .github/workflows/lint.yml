@@ -15,7 +15,7 @@ jobs:
           node-version: '18'
           cache: 'yarn'
       - name: Install modules.
-        run: yarn
+        run: yarn install --frozen-lockfile
       - name: Lint code.
         run: yarn lint
       - name: Prettier code.

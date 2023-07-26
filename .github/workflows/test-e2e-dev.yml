@@ -16,7 +16,7 @@ jobs:
           node-version: '18'
           cache: 'yarn'
       - name: Install modules.
-        run: yarn install
+        run: yarn install --frozen-lockfile
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
       - name: Build and Test
@@ -33,7 +33,7 @@ jobs:
           node-version: '18'
           cache: 'yarn'
       - name: Install modules.
-        run: yarn install
+        run: yarn install --frozen-lockfile
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
       - name: Build and Test
@@ -54,7 +54,7 @@ jobs:
           node-version: '18'
           cache: 'yarn'
       - name: Install modules.
-        run: yarn install
+        run: yarn install --frozen-lockfile
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
       - name: Build and Test
