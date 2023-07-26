@@ -26,7 +26,7 @@ import {
 } from 'common/types/nile'
 import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
 import { installStore, libraryStore } from './electronStores'
-import { getFileSize, getNileBin } from 'backend/utils'
+import { getFileSize, getNileBin, removeSpecialcharacters } from 'backend/utils'
 import { callRunner } from 'backend/launcher'
 import { dirname, join } from 'path'
 import { app } from 'electron'
@@ -47,7 +47,6 @@ export async function initNileLibraryManager() {
   refresh()
 }
 
-const ILLEGAL_CHARACTERS = ['?', ':', '"', '*', '<', '>', '|', '\\', '/']
 /**
  * Loads all the user's games into `library`
  */
@@ -68,11 +67,7 @@ function loadGamesInAccount() {
 
     const info = installedGames.get(product.id)
     // Create save folder name like nile
-    const safeFolderName = ILLEGAL_CHARACTERS.reduce(
-      (acc: string, val: string) => acc.replaceAll(val, ''),
-      title ?? ''
-    )
-
+    const safeFolderName = removeSpecialcharacters(title ?? '')
     library.set(product.id, {
       app_name: product.id,
       art_cover: iconUrl,

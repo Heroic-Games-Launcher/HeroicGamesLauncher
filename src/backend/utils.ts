@@ -490,6 +490,8 @@ async function errorHandler({
   }
 }
 
+// If you ever modify this range of characters, please also add them to nile
+// source as this function is used to determine how game directory will be named
 function removeSpecialcharacters(text: string): string {
   const regexp = new RegExp(/[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|'|"|®]/, 'gi')
   return text.replaceAll(regexp, '')
