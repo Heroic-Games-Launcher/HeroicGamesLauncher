@@ -83,7 +83,7 @@ function loadGamesInAccount() {
             install_path: info.path,
             // For some time size was undefined in installed.json, that's why we
             // need to keep this fallback to 0
-            install_size: getFileSize(info?.size ?? 0),
+            install_size: getFileSize(info.size ?? 0),
             version: info.version,
             platform: 'Windows' // Amazon Games only supports Windows
           }
