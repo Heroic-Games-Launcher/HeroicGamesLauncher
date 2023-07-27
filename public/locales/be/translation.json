@@ -156,7 +156,8 @@
         },
         "wineprefix": "Аберыце папку Wine Prefix",
         "yes": "ТАК",
-        "dontShowAgain": "Больш не паказваць"
+        "dontShowAgain": "Больш не паказваць",
+        "choose-nile-binary": "Выберыце двайковы файл Nile"
     },
     "button": {
         "cancel": "Адмяніць",
@@ -334,7 +335,8 @@
         "alternative_method": "Альтэрнатыўны метад уваходу",
         "epic": "Уваход у Epic Games",
         "gog": "Уваход у GOG",
-        "message": "Увайдзіце са сваёй платформы. Вы можаце ўвайсці на больш чым адну платформу адначасова."
+        "message": "Увайдзіце са сваёй платформы. Вы можаце ўвайсці на больш чым адну платформу адначасова.",
+        "amazon": "Уваход у Amazon"
     },
     "message": {
         "sync": "Сінхранізацыя завершана",
@@ -428,7 +430,8 @@
     "other": {
         "gogdl-version": "Версія GOGDL: ",
         "legendary-version": "Версія Legendary: ",
-        "weblate": "Help Improve this translation."
+        "weblate": "Help Improve this translation.",
+        "nile-version": "Версія Ніла: "
     },
     "Other": "Other",
     "placeholder": {
@@ -437,7 +440,8 @@
         "custom_themes_path": "Выберыце шлях для пошуку карыстальніцкіх файлаў CSS",
         "dxvkfpsvalue": "Цэлы станоўчы лік (напр. 30, 60, ...)",
         "egs-prefix": "Прэфікс, дзе ўсталяваны EGS",
-        "prefered_language": "2-значны код (напрыклад: \"en\" ці \"fr\")"
+        "prefered_language": "2-значны код (напрыклад: \"en\" ці \"fr\")",
+        "alt-nile-bin": "Выкарыстоўваючы ўбудаваны двайковы файл Nile..."
     },
     "platforms": {
         "linux": "Linux",
@@ -572,7 +576,8 @@
         "ignoreGameUpdates": "Ігнараваць абнаўленні гульні",
         "disable_logs": "Адключыць часопісы",
         "addgamestoapplications": "Дадавайце гульні ў праграмы аўтаматычна",
-        "showMetalOverlay": "Паказаць накладанне статыстыкі"
+        "showMetalOverlay": "Паказаць накладанне статыстыкі",
+        "alt-nile-bin": "Выберыце альтэрнатыўны двайковы файл Nile"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -624,7 +629,8 @@
     "status": {
         "installing": "Ўстаноўка",
         "logging": "Уваход...",
-        "processing": "Апрацоўка файлаў, пачакайце"
+        "processing": "Апрацоўка файлаў, пачакайце",
+        "preparing_login": "Падрыхтоўка ўваходу... "
     },
     "store": "Epic Store",
     "stores": "Крамы",
@@ -693,5 +699,8 @@
         "title": "Назва",
         "installDlcs": "Усталюйце ўсе DLC",
         "noDlcFound": "DLC не знойдзены"
-    }
+    },
+    "amazon": "Amazon",
+    "prime-gaming": "Prime Gaming",
+    "Amazon Games": "Гульні Amazon"
 }

@@ -152,7 +152,8 @@
         "epic": "Nie jesteś zalogowany kontem Epic w Heroic. Nie używaj strony sklepu do zalogowania, zamiast tego kliknij ten przycisk:",
         "gog": "Nie jesteś zalogowany kontem GOG w Heroic. Nie używaj strony sklepu do logowania, zamiast tego kliknij ten przycisk:",
         "login": "Zaloguj",
-        "title": "NIE jesteś zalogowany"
+        "title": "NIE jesteś zalogowany",
+        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "report_problem": "Zgłoś problem z uruchamianiem tej gry",
     "sdl": {

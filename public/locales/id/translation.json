@@ -156,7 +156,8 @@
         },
         "wineprefix": "Pilih Folder Prefiks Wine",
         "yes": "YA",
-        "dontShowAgain": "Jangan tampilkan lagi"
+        "dontShowAgain": "Jangan tampilkan lagi",
+        "choose-nile-binary": "Pilih biner Nil"
     },
     "button": {
         "cancel": "Batalkan",
@@ -334,7 +335,8 @@
         "alternative_method": "Metode Masuk Alternatif",
         "epic": "Masuk Epic Games",
         "gog": "Masuk GOG",
-        "message": "Masuk dengan platform anda. Anda dapat masuk ke lebih dari satu platform secara bersamaan."
+        "message": "Masuk dengan platform anda. Anda dapat masuk ke lebih dari satu platform secara bersamaan.",
+        "amazon": "Login Amazon"
     },
     "message": {
         "sync": "Sinkronisasi Selesai",
@@ -428,7 +430,8 @@
     "other": {
         "gogdl-version": "Versi GOGDL: ",
         "legendary-version": "Versi Legendary: ",
-        "weblate": "Bantu kami untuk menerjemahkan Heroic."
+        "weblate": "Bantu kami untuk menerjemahkan Heroic.",
+        "nile-version": "Versi Nil: "
     },
     "Other": "Lainnya",
     "placeholder": {
@@ -437,7 +440,8 @@
         "custom_themes_path": "Pilih jalur untuk mencari file CSS khusus",
         "dxvkfpsvalue": "Nilai bilangan bulat positif (contohnya 30, 60, ...)",
         "egs-prefix": "Prefiks di mana EGS dipasang",
-        "prefered_language": "Kode 2 karakter (contohnya: \"en\" atau \"fr\")"
+        "prefered_language": "Kode 2 karakter (contohnya: \"en\" atau \"fr\")",
+        "alt-nile-bin": "Menggunakan biner Nil bawaan ..."
     },
     "platforms": {
         "linux": "Linux",
@@ -572,7 +576,8 @@
         "ignoreGameUpdates": "Abaikan pembaruan gim",
         "disable_logs": "Nonaktifkan Log",
         "addgamestoapplications": "Tambahkan gim ke Aplikasi secara otomatis",
-        "showMetalOverlay": "Tampilkan Hamparan Statistik"
+        "showMetalOverlay": "Tampilkan Hamparan Statistik",
+        "alt-nile-bin": "Pilih Biner Nil Alternatif"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -624,7 +629,8 @@
     "status": {
         "installing": "Memasang",
         "logging": "Log Masuk...",
-        "processing": "Memproses berkas, harap tunggu"
+        "processing": "Memproses berkas, harap tunggu",
+        "preparing_login": "Mempersiapkan Masuk... "
     },
     "store": "Epic Store",
     "stores": "Toko",
@@ -693,5 +699,8 @@
         "actions": "Tindakan",
         "installDlcs": "Pasang semua DLC",
         "noDlcFound": "Tidak ada DLC yang ditemukan"
-    }
+    },
+    "amazon": "Amazon",
+    "prime-gaming": "Game Perdana",
+    "Amazon Games": "Game Amazon"
 }

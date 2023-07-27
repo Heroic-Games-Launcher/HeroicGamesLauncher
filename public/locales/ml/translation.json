@@ -156,7 +156,8 @@
         },
         "wineprefix": "വൈനിരിക്കുന്ന അറ തിരഞ്ഞെടുക്കൂ",
         "yes": "ശരി",
-        "dontShowAgain": "വീണ്ടും കാണിക്കരുത്"
+        "dontShowAgain": "വീണ്ടും കാണിക്കരുത്",
+        "choose-nile-binary": "നൈൽ ബൈനറി തിരഞ്ഞെടുക്കുക"
     },
     "button": {
         "cancel": "Cancel",
@@ -334,7 +335,8 @@
         "alternative_method": "Alternative Login Method",
         "epic": "Epic Games Login",
         "gog": "GOG Login",
-        "message": "Login with your platform. You can login to more than one platform at the same time."
+        "message": "Login with your platform. You can login to more than one platform at the same time.",
+        "amazon": "ആമസോൺ ലോഗിൻ"
     },
     "message": {
         "sync": "ഒന്നിപ്പിച്ചു",
@@ -428,7 +430,8 @@
     "other": {
         "gogdl-version": "GOGDL Version: ",
         "legendary-version": "ലെജന്ററിയുടെ പതിപ്പ്: ",
-        "weblate": "ഹീറോയിക്കിനെ മൊഴിമാറ്റുവാന് സഹായിക്കൂ."
+        "weblate": "ഹീറോയിക്കിനെ മൊഴിമാറ്റുവാന് സഹായിക്കൂ.",
+        "nile-version": "നൈൽ പതിപ്പ്: "
     },
     "Other": "Other",
     "placeholder": {
@@ -437,7 +440,8 @@
         "custom_themes_path": "Select the path to look for custom CSS files",
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "EGS സ്ഥാപിച്ചയിടം",
-        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")",
+        "alt-nile-bin": "ബിൽറ്റ്-ഇൻ നൈൽ ബൈനറി ഉപയോഗിച്ച്..."
     },
     "platforms": {
         "linux": "ലിനക്സ്",
@@ -572,7 +576,8 @@
         "ignoreGameUpdates": "ഗെയിം അപ്‌ഡേറ്റുകൾ അവഗണിക്കുക",
         "disable_logs": "ലോഗുകൾ പ്രവർത്തനരഹിതമാക്കുക",
         "addgamestoapplications": "ആപ്ലിക്കേഷനുകളിലേക്ക് ഗെയിമുകൾ സ്വയമേവ ചേർക്കുക",
-        "showMetalOverlay": "സ്ഥിതിവിവരക്കണക്കുകളുടെ ഓവർലേ കാണിക്കുക"
+        "showMetalOverlay": "സ്ഥിതിവിവരക്കണക്കുകളുടെ ഓവർലേ കാണിക്കുക",
+        "alt-nile-bin": "ഒരു ഇതര നൈൽ ബൈനറി തിരഞ്ഞെടുക്കുക"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -624,7 +629,8 @@
     "status": {
         "installing": "Installing",
         "logging": "Logging In...",
-        "processing": "Processing files, please wait"
+        "processing": "Processing files, please wait",
+        "preparing_login": "ലോഗിൻ തയ്യാറാക്കുന്നു... "
     },
     "store": "കട",
     "stores": "Stores",
@@ -693,5 +699,8 @@
         "noDlcFound": "DLC-കളൊന്നും കണ്ടെത്തിയില്ല",
         "title": "Title",
         "installDlcs": "എല്ലാ കൂട്ടുരേഖകളും നടൂ"
-    }
+    },
+    "amazon": "ആമസോൺ",
+    "Amazon Games": "ആമസോൺ ഗെയിമുകൾ",
+    "prime-gaming": "പ്രൈം ഗെയിമിംഗ്"
 }

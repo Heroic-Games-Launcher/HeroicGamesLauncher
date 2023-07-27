@@ -156,7 +156,8 @@
         },
         "wineprefix": "Оберіть теку префікса Wine",
         "yes": "ТАК",
-        "dontShowAgain": "Не показувати більше"
+        "dontShowAgain": "Не показувати більше",
+        "choose-nile-binary": "Виберіть подвійний файл Nile"
     },
     "button": {
         "cancel": "Скасувати",
@@ -334,7 +335,8 @@
         "alternative_method": "Альтернативний метод входу",
         "epic": "Вхід у Epic Games",
         "gog": "Вхід у GOG",
-        "message": "Увійдіть за допомогою своєї платформи. Ви можете увійти на декілька платформ одночасно."
+        "message": "Увійдіть за допомогою своєї платформи. Ви можете увійти на декілька платформ одночасно.",
+        "amazon": "Вхід на Amazon"
     },
     "message": {
         "sync": "Синхронізація завершена",
@@ -428,7 +430,8 @@
     "other": {
         "gogdl-version": "Версія GOGDL: ",
         "legendary-version": "Версія Legendary: ",
-        "weblate": "Допоможіть перекласти Heroic."
+        "weblate": "Допоможіть перекласти Heroic.",
+        "nile-version": "Версія Нілу: "
     },
     "Other": "Інше",
     "placeholder": {
@@ -437,7 +440,8 @@
         "custom_themes_path": "Оберіть шлях до власних файлів CSS",
         "dxvkfpsvalue": "Ціле позитивне значення (наприклад: 30, 60, ...)",
         "egs-prefix": "Префікс де встановлено EGS",
-        "prefered_language": "2-значний код (приклад: \"en\" або \"uk\")"
+        "prefered_language": "2-значний код (приклад: \"en\" або \"uk\")",
+        "alt-nile-bin": "Використовуючи вбудований двійковий файл Nile..."
     },
     "platforms": {
         "linux": "Linux",
@@ -572,7 +576,8 @@
         "ignoreGameUpdates": "Ігнорувати оновлення гри",
         "disable_logs": "Вимкнути журнали",
         "addgamestoapplications": "Автоматично додавайте ігри в програми",
-        "showMetalOverlay": "Показати накладення статистики"
+        "showMetalOverlay": "Показати накладення статистики",
+        "alt-nile-bin": "Виберіть альтернативний двійковий файл Nile"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -624,7 +629,8 @@
     "status": {
         "installing": "Встановлення",
         "logging": "Вхід...",
-        "processing": "Обробка файлів, будь ласка, зачекайте"
+        "processing": "Обробка файлів, будь ласка, зачекайте",
+        "preparing_login": "Підготовка до входу... "
     },
     "store": "Крамниця Epic",
     "stores": "Крамниці",
@@ -693,5 +699,8 @@
         "noDlcFound": "DLC не знайдено",
         "size": "Розмір",
         "title": "Назва"
-    }
+    },
+    "amazon": "Amazon",
+    "Amazon Games": "Ігри Amazon",
+    "prime-gaming": "Prime Gaming"
 }

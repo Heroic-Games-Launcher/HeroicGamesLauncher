@@ -156,7 +156,8 @@
         },
         "wineprefix": "Choisir le dossier des préfixes Wine",
         "yes": "OUI",
-        "dontShowAgain": "Ne plus afficher"
+        "dontShowAgain": "Ne plus afficher",
+        "choose-nile-binary": "Sélectionnez le binaire du Nil"
     },
     "button": {
         "cancel": "Annuler",
@@ -334,7 +335,8 @@
         "alternative_method": "- Méthode de connexion alternative",
         "epic": "Connexion à Epic Games",
         "gog": "Connexion à GOG",
-        "message": "Connectez-vous à votre plateforme. Vous pouvez vous connecter à plus d'une plateforme à la fois."
+        "message": "Connectez-vous à votre plateforme. Vous pouvez vous connecter à plus d'une plateforme à la fois.",
+        "amazon": "Connexion Amazon"
     },
     "message": {
         "sync": "Synchronisation achevée",
@@ -428,7 +430,8 @@
     "other": {
         "gogdl-version": "Version de GOGDL : ",
         "legendary-version": "Version de Legendary : ",
-        "weblate": "Aidez à traduire Heroic."
+        "weblate": "Aidez à traduire Heroic.",
+        "nile-version": "Version Nil : "
     },
     "Other": "Autre",
     "placeholder": {
@@ -437,7 +440,8 @@
         "custom_themes_path": "Sélectionner le chemin où rechercher des fichiers CSS personnalisés",
         "dxvkfpsvalue": "Entier positif (p. ex. 30, 60, ...)",
         "egs-prefix": "Prefix où EGS est installé",
-        "prefered_language": "2-char code (exemple : \"en\" ou \"fr\")"
+        "prefered_language": "2-char code (exemple : \"en\" ou \"fr\")",
+        "alt-nile-bin": "Utilisation du binaire Nile intégré..."
     },
     "platforms": {
         "linux": "Linux",
@@ -572,7 +576,8 @@
         "ignoreGameUpdates": "Ignorer les mises à jour du jeu",
         "disable_logs": "Désactiver les journaux",
         "showMetalOverlay": "Afficher la superposition des statistiques",
-        "addgamestoapplications": "Ajouter automatiquement des jeux aux applications"
+        "addgamestoapplications": "Ajouter automatiquement des jeux aux applications",
+        "alt-nile-bin": "Choisissez un binaire alternatif du Nil"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -624,7 +629,8 @@
     "status": {
         "installing": "Installation en cours",
         "logging": "Connexion en cours...",
-        "processing": "Traitement des fichiers, veuillez patienter"
+        "processing": "Traitement des fichiers, veuillez patienter",
+        "preparing_login": "Préparation de la connexion... "
     },
     "store": "Boutique Epic",
     "stores": "Boutiques",
@@ -693,5 +699,8 @@
         "noDlcFound": "Aucun DLC trouvé",
         "size": "Taille",
         "title": "Titre"
-    }
+    },
+    "amazon": "Amazone",
+    "Amazon Games": "Jeux Amazon",
+    "prime-gaming": "Premier jeu"
 }

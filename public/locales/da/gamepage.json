@@ -201,7 +201,8 @@
         "epic": "Du er ikke logget ind med en Epic-konto i Heroic. Brug ikke butikssiden til at logge ind, klik i stedet på følgende knap:",
         "gog": "Du er ikke logget ind med en GOG-konto i Heroic. Brug ikke butikssiden til at logge ind, klik i stedet på følgende knap:",
         "login": "Log ind",
-        "title": "Du er ikke logget ind"
+        "title": "Du er ikke logget ind",
+        "amazon": "Du er ikke logget ind med en Amazon-konto i Heroic. Brug ikke butikssiden til at logge ind, klik i stedet på følgende knap:"
     },
     "queue": {
         "label": {
