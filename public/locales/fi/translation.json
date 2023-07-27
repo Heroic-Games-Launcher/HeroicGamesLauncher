@@ -156,7 +156,8 @@
         },
         "wineprefix": "Valitse Wine Prefix kansio",
         "yes": "KYLLÄ",
-        "dontShowAgain": "Älä näytä uudelleen"
+        "dontShowAgain": "Älä näytä uudelleen",
+        "choose-nile-binary": "Valitse Niilin binaari"
     },
     "button": {
         "cancel": "Cancel",
@@ -334,7 +335,8 @@
         "alternative_method": "Alternative Login Method",
         "epic": "Epic Games Login",
         "gog": "GOG Login",
-        "message": "Login with your platform. You can login to more than one platform at the same time."
+        "message": "Login with your platform. You can login to more than one platform at the same time.",
+        "amazon": "Amazon kirjautuminen"
     },
     "message": {
         "sync": "Synkronointi valmis",
@@ -428,7 +430,8 @@
     "other": {
         "gogdl-version": "GOGDL-versio: ",
         "legendary-version": "Legendaarinen versio: ",
-        "weblate": "Auta kääntämään Heroic."
+        "weblate": "Auta kääntämään Heroic.",
+        "nile-version": "Niilin versio: "
     },
     "Other": "Other",
     "placeholder": {
@@ -437,7 +440,8 @@
         "custom_themes_path": "Select the path to look for custom CSS files",
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefiksi johon EGS on asennettu",
-        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")",
+        "alt-nile-bin": "Käyttämällä sisäänrakennettua Niilin binaarista..."
     },
     "platforms": {
         "linux": "Linux",
@@ -572,7 +576,8 @@
         "ignoreGameUpdates": "Ohita pelipäivitykset",
         "disable_logs": "Poista lokit käytöstä",
         "addgamestoapplications": "Lisää pelejä automaattisesti sovelluksiin",
-        "showMetalOverlay": "Näytä tilastojen peittokuva"
+        "showMetalOverlay": "Näytä tilastojen peittokuva",
+        "alt-nile-bin": "Valitse vaihtoehtoinen Niilin binaari"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -624,7 +629,8 @@
     "status": {
         "installing": "Asennetaan",
         "logging": "Kirjaudutaan sisään...",
-        "processing": "Käsitellään tiedostoja, odota hetki"
+        "processing": "Käsitellään tiedostoja, odota hetki",
+        "preparing_login": "Valmistellaan kirjautumista... "
     },
     "store": "Epic-kauppa",
     "stores": "Kaupat",
@@ -693,5 +699,8 @@
         "noDlcFound": "DLC:itä ei löytynyt",
         "size": "Size",
         "title": "Title"
-    }
+    },
+    "amazon": "Amazon",
+    "Amazon Games": "Amazon pelit",
+    "prime-gaming": "Prime Gaming"
 }
