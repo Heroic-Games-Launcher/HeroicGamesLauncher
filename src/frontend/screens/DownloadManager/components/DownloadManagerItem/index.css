@@ -18,7 +18,7 @@
   height: min(calc(1vw + 9px), 36px);
   min-width: 22px;
   min-height: 22px;
-  margin-left: 12px;
+  margin-inline-start: 12px;
 }
 
 .downloadManagerListItem .cancelIcon circle {
@@ -71,7 +71,7 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  text-align: left;
+  text-align: start;
 }
 
 .titleSize {
@@ -87,7 +87,7 @@
 
 .downloadManagerTitleList > img {
   width: var(--space-2xl-fixed);
-  margin-right: var(--space-md-fixed);
+  margin-inline-end: var(--space-md-fixed);
 }
 
 .downloadManagerListItem > a {
@@ -98,8 +98,8 @@
 }
 
 .downloadManagerListItem > .icons > button {
-  margin-left: 0;
-  padding-left: 4px;
+  margin-inline-start: 0;
+  padding-inline-start: 4px;
 }
 
 .downloadManagerListItem > .progress {
@@ -139,7 +139,7 @@
   line-height: 26px;
   font-family: var(--actions-font-family);
   cursor: pointer;
-  text-align: left;
+  text-align: start;
 }
 
 .react-contextmenu-item:hover {

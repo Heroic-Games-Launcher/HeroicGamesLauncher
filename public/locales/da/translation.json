@@ -198,7 +198,8 @@
             "message": "Wine bruger det, der kaldes en WINEPREFIX til at indkapsle Windows-applikationer. Dette præfiks indeholder Wine-konfigurationsfilerne og en gengivelse af filhierarkiet af C: (hoveddisken på et Windows OS). I denne gengivelse af C:-drevet gemmes dine spillagringsfiler og afhængigheder installeret via winetricks."
         },
         "warning": "Advarsel",
-        "wine-path-invalid": "Vinstien er ugyldig, vælg venligst en anden."
+        "wine-path-invalid": "Vinstien er ugyldig, vælg venligst en anden.",
+        "wine-path-none-found": "Ingen vinversion blev fundet, download en fra Wine Manager"
     },
     "button": {
         "go_to_library": "Gå til biblioteket",
@@ -248,7 +249,8 @@
         "steam_path": {
             "info": "Denne sti lader Heroic bestemme, hvilken version af Proton Steam bruger, til at tilføje ikke-Steam-spil til Steam."
         },
-        "dxvkfpslimit": "Indstiller et billedhastighedsloft for DXVK-spil"
+        "dxvkfpslimit": "Indstiller et billedhastighedsloft for DXVK-spil",
+        "disable_logs": "Slå dette afkrydsningsfelt TIL for at deaktivere de fleste skrivninger til logfiler (kritisk information logges altid). Sørg for at slå denne indstilling FRA, før du rapporterer et problem."
     },
     "notify": {
         "uninstalled": "Afinstalleret",
@@ -409,7 +411,10 @@
         "hideChangelogsOnStartup": "Vis ikke ændringslogs ved opstart",
         "dxvkfpslimit": "Begræns FPS (DX9, 10 og 11)",
         "autoUpdateGames": "Opdater spil automatisk",
-        "ignoreGameUpdates": "Ignorer spilopdateringer"
+        "ignoreGameUpdates": "Ignorer spilopdateringer",
+        "disable_logs": "Deaktiver logfiler",
+        "addgamestoapplications": "Føj spil til applikationer automatisk",
+        "showMetalOverlay": "Vis statistikoverlejring"
     },
     "wine": {
         "manager": {
@@ -566,7 +571,8 @@
     "platforms": {
         "win": "Windows",
         "linux": "Linux",
-        "mac": "Mac"
+        "mac": "Mac",
+        "browser": "Browser"
     },
     "toolbox": {
         "settings": {
@@ -728,5 +734,12 @@
         "not_found": "Vi kunne ikke finde yderligere information."
     },
     "Open": "Åben",
-    "Update Available!": "Opdatering tilgængelig!"
+    "Update Available!": "Opdatering tilgængelig!",
+    "dlc": {
+        "actions": "Handlinger",
+        "installDlcs": "Installer alle DLC'er",
+        "noDlcFound": "Ingen DLC'er fundet",
+        "title": "Titel",
+        "size": "Størrelse"
+    }
 }

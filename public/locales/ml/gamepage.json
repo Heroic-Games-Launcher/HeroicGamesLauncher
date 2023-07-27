@@ -18,13 +18,13 @@
             "title": "ഉറപ്പുവരുത്തി നന്നാക്കൂ"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "ഓടിക്കുവാനുള്ള EXE തിരഞ്ഞെടുക്കൂ"
         },
         "select": {
-            "button": "Select"
+            "button": "തിരഞ്ഞെടുക്കൂ"
         },
         "sideload": {
-            "exe": "Select Executable"
+            "exe": "എക്സക്യൂട്ടബിള്‍ തിരഞ്ഞെടുക്കൂ"
         },
         "stopInstall": {
             "keepInstalling": "നടീല് തുടര്ന്നുകൊള്ളൂ",
@@ -36,7 +36,8 @@
             "message": "ഇാ കളി എടുത്തുനീക്കട്ടെ?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "എടുത്തു നീക്കൂ",
-            "prefix_warning": "ഈ ഗെയിമിന്റെ വൈൻ പ്രിഫിക്‌സ് ഡിഫോൾട്ട് പ്രിഫിക്‌സാണ്. നിങ്ങൾക്ക് ഇത് ശരിക്കും ഇല്ലാതാക്കണമെങ്കിൽ, നിങ്ങൾ അത് സ്വമേധയാ ചെയ്യേണ്ടതുണ്ട്."
+            "prefix_warning": "ഈ ഗെയിമിന്റെ വൈൻ പ്രിഫിക്‌സ് ഡിഫോൾട്ട് പ്രിഫിക്‌സാണ്. നിങ്ങൾക്ക് ഇത് ശരിക്കും ഇല്ലാതാക്കണമെങ്കിൽ, നിങ്ങൾ അത് സ്വമേധയാ ചെയ്യേണ്ടതുണ്ട്.",
+            "dlc": "നിങ്ങൾക്ക് ഈ DLC അൺഇൻസ്റ്റാൾ ചെയ്യണോ?"
         },
         "update": {
             "message": "ഈ ഗെയിമിന് ഒരു അപ്ഡേറ്റ് ഉണ്ട്, ഇപ്പോൾ അപ്ഡേറ്റ് ചെയ്യട്ടെ?",
@@ -88,7 +89,8 @@
         "neverPlayed": "കളിച്ചിട്ടേയില്ല",
         "platform": "Select Platform Version to Install",
         "requirements": "System Requirements",
-        "totalPlayed": "കളിച്ച നേരം"
+        "totalPlayed": "കളിച്ച നേരം",
+        "dlcs": "DLCs"
     },
     "gamecard": {
         "moving": "മാറ്റുന്നു",
@@ -115,7 +117,9 @@
         "apple-gaming-wiki": "AppleGamingWiki റേറ്റിംഗ്",
         "clickToOpen": "തുറക്കാൻ ക്ലിക്ക് ചെയ്യുക",
         "game-scores": "ഗെയിം സ്കോറുകൾ",
-        "installedInfo": "ഇൻസ്റ്റാൾ ചെയ്ത വിവരങ്ങൾ"
+        "installedInfo": "ഇൻസ്റ്റാൾ ചെയ്ത വിവരങ്ങൾ",
+        "protondb-compatibility-info": "പ്രോട്ടോൺ കോംപാറ്റിബിലിറ്റി ടയർ",
+        "steamdeck-compatibility-info": "SteamDeck അനുയോജ്യത"
     },
     "install": {
         "disk-space-left": "Space Available",
@@ -128,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Third-Party Game NOT Supported",
+            "not-installable-game": "ഗെയിം ഇൻസ്റ്റാൾ ചെയ്യാൻ കഴിയില്ല"
         },
         "playing": {
             "start": "കളിക്കാം",
@@ -164,11 +169,13 @@
         "info": {
             "exe": "Select Executable",
             "image": "App Image",
-            "title": "Game/App Title"
+            "title": "Game/App Title",
+            "broser": "ബ്രൗസർURL"
         },
         "placeholder": {
             "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App"
+            "title": "Add a title to your Game/App",
+            "url": "ഗെയിം URL ഇവിടെ ഒട്ടിക്കുക"
         }
     },
     "specs": {
@@ -196,7 +203,11 @@
         "moving-files": "'{{file}}' ഫയൽ നീക്കുന്നു: {{percent}} ",
         "syncingSaves": "സൂക്ഷിപ്പുകള് ഒന്നിപ്പിക്കുന്നു",
         "launching": "ലോഞ്ച് ചെയ്യുന്നു",
-        "ubisoft": "Ubisoft ഇൻസ്റ്റാൾ ചെയ്യുന്നു"
+        "ubisoft": "Ubisoft ഇൻസ്റ്റാൾ ചെയ്യുന്നു",
+        "downloading": "ഇറക്കുന്നു",
+        "extracting": "വേർതിരിച്ചെടുക്കുന്നു",
+        "goodie": "ഇൻസ്റ്റാൾ ചെയ്യാൻ കഴിയില്ല",
+        "gog-goodie": "ഈ ഗെയിം ഇൻസ്റ്റാൾ ചെയ്യാൻ കഴിയുന്നതായി തോന്നുന്നില്ല. https://gog.com/account എന്നതിൽ ഡൗൺലോഡ് ചെയ്യാവുന്ന ഉള്ളടക്കം പരിശോധിക്കുക"
     },
     "submenu": {
         "addShortcut": "കുറുക്കുവഴി ചേര്ക്കൂ",

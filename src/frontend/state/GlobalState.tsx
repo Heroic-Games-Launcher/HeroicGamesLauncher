@@ -36,9 +36,13 @@ import {
   gogInstalledGamesStore,
   gogLibraryStore,
   libraryStore,
+  nileConfigStore,
+  nileLibraryStore,
   wineDownloaderInfoStore
 } from '../helpers/electronStores'
 import { sideloadLibrary } from 'frontend/helpers/electronStores'
+import { IpcRendererEvent } from 'electron'
+import { NileRegisterData } from 'common/types/nile'
 
 const storage: Storage = window.localStorage
 const globalSettings = configStore.get_nodefault('settings')
@@ -60,6 +64,10 @@ interface StateProps {
     username?: string
   }
   gog: {
+    library: GameInfo[]
+    username?: string
+  }
+  amazon: {
     library: GameInfo[]
     username?: string
   }
@@ -122,6 +130,11 @@ class GlobalState extends PureComponent<Props> {
 
     return games
   }
+  loadAmazonLibrary = (): Array<GameInfo> => {
+    const games = nileLibraryStore.get('library', [])
+
+    return games
+  }
   state: StateProps = {
     category: (storage.getItem('category') as Category) || 'legendary',
     epic: {
@@ -131,6 +144,10 @@ class GlobalState extends PureComponent<Props> {
     gog: {
       library: this.loadGOGLibrary(),
       username: gogConfigStore.get_nodefault('userData.username')
+    },
+    amazon: {
+      library: this.loadAmazonLibrary(),
+      username: nileConfigStore.get_nodefault('userData.given_name')
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
     error: false,
@@ -398,6 +415,38 @@ class GlobalState extends PureComponent<Props> {
     window.location.reload()
   }
 
+  amazonLogin = async (data: NileRegisterData) => {
+    console.log('logging amazon')
+    const response = await window.api.authAmazon(data)
+
+    if (response.status === 'done') {
+      this.setState({
+        amazon: {
+          library: [],
+          username: response.user?.name
+        }
+      })
+
+      this.handleSuccessfulLogin('nile')
+    }
+
+    return response.status
+  }
+
+  amazonLogout = async () => {
+    await window.api.logoutAmazon()
+    this.setState({
+      amazon: {
+        library: [],
+        username: null
+      }
+    })
+    console.log('Logging out from amazon')
+    window.location.reload()
+  }
+
+  getAmazonLoginData = async () => window.api.getAmazonLoginData()
+
   handleSettingsModalOpen = (
     value: boolean,
     type?: 'settings' | 'log',
@@ -420,7 +469,9 @@ class GlobalState extends PureComponent<Props> {
   ): Promise<void> => {
     console.log('refreshing')
 
-    let updates = this.state.gameUpdates
+    const { epic, gog, amazon, gameUpdates } = this.state
+
+    let updates = gameUpdates
     if (checkUpdates) {
       try {
         updates = await window.api.checkGameUpdates()
@@ -429,14 +480,27 @@ class GlobalState extends PureComponent<Props> {
       }
     }
 
-    const currentLibraryLength = this.state.epic.library?.length
-    let epicLibrary = libraryStore.get('library', [])
+    const currentLibraryLength = epic.library?.length
 
-    const gogLibrary = this.loadGOGLibrary()
-    if (!epicLibrary.length || !this.state.epic.library.length) {
+    let epicLibrary = libraryStore.get('library', [])
+    if (epic.username && (!epicLibrary.length || !epic.library.length)) {
       window.api.logInfo('No cache found, getting data from legendary...')
       const { library: legendaryLibrary } = await getLegendaryConfig()
       epicLibrary = legendaryLibrary
+    }
+
+    let gogLibrary = this.loadGOGLibrary()
+    if (gog.username && (!gogLibrary.length || !gog.library.length)) {
+      window.api.logInfo('No cache found, getting data from gog...')
+      await window.api.refreshLibrary('gog')
+      gogLibrary = this.loadGOGLibrary()
+    }
+
+    let amazonLibrary = nileLibraryStore.get('library', [])
+    if (amazon.username && (!amazonLibrary.length || !amazon.library.length)) {
+      window.api.logInfo('No cache found, getting data from nile...')
+      await window.api.refreshLibrary('nile')
+      amazonLibrary = this.loadAmazonLibrary()
     }
 
     const updatedSideload = sideloadLibrary.get('games', [])
@@ -444,11 +508,15 @@ class GlobalState extends PureComponent<Props> {
     this.setState({
       epic: {
         library: epicLibrary,
-        username: this.state.epic.username
+        username: epic.username
       },
       gog: {
         library: gogLibrary,
-        username: this.state.gog.username
+        username: gog.username
+      },
+      amazon: {
+        library: amazonLibrary,
+        username: amazon.username
       },
       gameUpdates: updates,
       refreshing: false,
@@ -473,12 +541,9 @@ class GlobalState extends PureComponent<Props> {
       refreshing: true,
       refreshingInTheBackground: runInBackground
     })
-    window.api.logInfo('Refreshing Library')
+    window.api.logInfo(`Refreshing ${library} Library`)
     try {
-      if (!checkForUpdates) {
-        await window.api.refreshLibrary(library)
-      }
-
+      await window.api.refreshLibrary(library)
       return await this.refresh(library, checkForUpdates)
     } catch (error) {
       window.api.logError(`${error}`)
@@ -602,7 +667,7 @@ class GlobalState extends PureComponent<Props> {
     // Deals launching from protocol. Also checks if the game is already running
     window.api.handleLaunchGame(
       async (
-        e: Event,
+        e: IpcRendererEvent,
         appName: string,
         runner: Runner
       ): Promise<{ status: 'done' | 'error' | 'abort' }> => {
@@ -622,45 +687,75 @@ class GlobalState extends PureComponent<Props> {
       }
     )
 
-    window.api.handleInstallGame(async (e: Event, args: InstallParams) => {
-      const currentApp = libraryStatus.filter(
-        (game) => game.appName === appName
-      )[0]
-      const { appName, runner } = args
-      if (!currentApp || (currentApp && currentApp.status !== 'installing')) {
-        const gameInfo = await getGameInfo(appName, runner)
-        if (!gameInfo || gameInfo.runner === 'sideload') {
-          return
+    window.api.handleInstallGame(
+      async (e: IpcRendererEvent, args: InstallParams) => {
+        const currentApp = libraryStatus.filter(
+          (game) => game.appName === appName
+        )[0]
+        const { appName, runner } = args
+        if (!currentApp || (currentApp && currentApp.status !== 'installing')) {
+          const gameInfo = await getGameInfo(appName, runner)
+          if (!gameInfo || gameInfo.runner === 'sideload') {
+            return
+          }
+          return this.setState({
+            showInstallModal: {
+              show: true,
+              appName,
+              runner,
+              gameInfo
+            }
+          })
         }
-        return this.setState({
-          showInstallModal: {
-            show: true,
-            appName,
-            runner,
-            gameInfo
+      }
+    )
+
+    window.api.handleGameStatus(
+      async (e: IpcRendererEvent, args: GameStatus) => {
+        return this.handleGameStatus({ ...args })
+      }
+    )
+
+    window.api.handleRefreshLibrary(
+      async (e: IpcRendererEvent, runner: Runner) => {
+        this.refreshLibrary({
+          checkForUpdates: false,
+          runInBackground: true,
+          library: runner
+        })
+      }
+    )
+
+    window.api.handleGamePush((e: IpcRendererEvent, args: GameInfo) => {
+      if (!args.app_name) return
+      if (args.runner === 'gog') {
+        const library = [...this.state.gog.library]
+        const index = library.findIndex(
+          (game) => game.app_name === args.app_name
+        )
+        if (index !== -1) {
+          library.splice(index, 1)
+        }
+        this.setState({
+          gog: {
+            library: [...library, args],
+            username: this.state.gog.username
           }
         })
       }
     })
 
-    window.api.handleGameStatus(async (e: Event, args: GameStatus) => {
-      return this.handleGameStatus({ ...args })
-    })
-
-    window.api.handleRefreshLibrary(async (e: Event, runner: Runner) => {
-      this.refreshLibrary({
-        checkForUpdates: false,
-        runInBackground: true,
-        library: runner
-      })
-    })
-
     const legendaryUser = configStore.has('userInfo')
     const gogUser = gogConfigStore.has('userData')
+    const amazonUser = nileConfigStore.has('userData')
     const platform = await getPlatform()
 
     if (legendaryUser) {
       await window.api.getUserInfo()
+    }
+
+    if (amazonUser) {
+      await window.api.getAmazonUserInfo()
     }
 
     if (!gameUpdates.length) {
@@ -670,10 +765,10 @@ class GlobalState extends PureComponent<Props> {
 
     this.setState({ platform })
 
-    if (legendaryUser || gogUser) {
+    if (legendaryUser || gogUser || amazonUser) {
       this.refreshLibrary({
         checkForUpdates: true,
-        runInBackground: Boolean(epic.library.length)
+        runInBackground: Boolean(epic.library?.length)
       })
     }
 
@@ -739,6 +834,7 @@ class GlobalState extends PureComponent<Props> {
       language,
       epic,
       gog,
+      amazon,
       favouriteGames,
       hiddenGames,
       settingsModalOpen,
@@ -762,6 +858,13 @@ class GlobalState extends PureComponent<Props> {
             username: gog.username,
             login: this.gogLogin,
             logout: this.gogLogout
+          },
+          amazon: {
+            library: amazon.library,
+            username: amazon.username,
+            getLoginData: this.getAmazonLoginData,
+            login: this.amazonLogin,
+            logout: this.amazonLogout
           },
           handleCategory: this.handleCategory,
           handleLayout: this.handleLayout,

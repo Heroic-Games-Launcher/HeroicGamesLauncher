@@ -3,7 +3,9 @@
         "login": "Đăng nhập",
         "open": "Mở liên kết",
         "copy": "Sao chép",
-        "copied": "Đã sao chép!"
+        "copied": "Đã sao chép!",
+        "error": "Lỗi, hãy thử Mã khác",
+        "loading": "Loading"
     },
     "message": {
         "part1": "Để đăng nhập và cài đặt game, làm theo hướng dẫn sau:",

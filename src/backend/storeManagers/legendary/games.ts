@@ -42,7 +42,7 @@ import {
   isFlatpak,
   isCLINoGui
 } from '../../constants'
-import { logError, logInfo, LogPrefix } from '../../logger/logger'
+import { logError, logInfo, LogPrefix, logsDisabled } from '../../logger/logger'
 import {
   prepareLaunch,
   prepareWineLaunch,
@@ -68,6 +68,7 @@ import { Catalog, Product } from 'common/types/epic-graphql'
 import { sendFrontendMessage } from '../../main_window'
 import { RemoveArgs } from 'common/types/game_manager'
 import { logFileLocation } from 'backend/storeManagers/storeManagerCommon/games'
+import { getWineFlags } from 'backend/utils/compatibility_layers'
 
 /**
  * Alias for `LegendaryLibrary.listUpdateableGames`
@@ -96,8 +97,16 @@ export function getGameInfo(appName: string): GameInfo {
       ],
       LogPrefix.Legendary
     )
-    // @ts-expect-error TODO: Handle this better
-    return {}
+    return {
+      app_name: '',
+      runner: 'legendary',
+      art_cover: '',
+      art_square: '',
+      install: {},
+      is_installed: false,
+      title: '',
+      canRunOffline: false
+    }
   }
   return info
 }
@@ -358,12 +367,14 @@ interface tmpProgressMap {
   [key: string]: InstallProgress
 }
 
-const defaultTmpProgress = {
-  bytes: '',
-  eta: '',
-  percent: undefined,
-  diskSpeed: undefined,
-  downSpeed: undefined
+function defaultTmpProgres() {
+  return {
+    bytes: '',
+    eta: '',
+    percent: undefined,
+    diskSpeed: undefined,
+    downSpeed: undefined
+  }
 }
 const tmpProgress: tmpProgressMap = {}
 
@@ -382,55 +393,64 @@ export function onInstallOrUpdateOutput(
   }
 
   if (!Object.hasOwn(tmpProgress, appName)) {
-    tmpProgress[appName] = defaultTmpProgress
+    tmpProgress[appName] = defaultTmpProgres()
   }
 
+  const progress = tmpProgress[appName]
+
   // parse log for eta
-  const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
-  tmpProgress[appName].eta =
-    etaMatch && etaMatch?.length >= 2 ? etaMatch[1] : ''
+  if (progress.eta === '') {
+    const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
+    progress.eta = etaMatch && etaMatch?.length >= 2 ? etaMatch[1] : ''
+  }
 
   // parse log for game download progress
-  const bytesMatch = data.match(/Downloaded: (\S+.) MiB/m)
-  tmpProgress[appName].bytes =
-    bytesMatch && bytesMatch?.length >= 2 ? `${bytesMatch[1]}MB` : ''
+  if (progress.bytes === '') {
+    const bytesMatch = data.match(/Downloaded: (\S+.) MiB/m)
+    progress.bytes =
+      bytesMatch && bytesMatch?.length >= 2 ? `${bytesMatch[1]}MB` : ''
+  }
 
   // parse log for download speed
-  const downSpeedMBytes = data.match(/Download\t- (\S+.) MiB/m)
-  tmpProgress[appName].downSpeed = !Number.isNaN(Number(downSpeedMBytes?.at(1)))
-    ? Number(downSpeedMBytes?.at(1))
-    : undefined
+  if (!progress.downSpeed) {
+    const downSpeedMBytes = data.match(/Download\t- (\S+.) MiB/m)
+    progress.downSpeed = !Number.isNaN(Number(downSpeedMBytes?.at(1)))
+      ? Number(downSpeedMBytes?.at(1))
+      : undefined
+  }
 
   // parse disk write speed
-  const diskSpeedMBytes = data.match(/Disk\t- (\S+.) MiB/m)
-  tmpProgress[appName].diskSpeed = !Number.isNaN(Number(diskSpeedMBytes?.at(1)))
-    ? Number(diskSpeedMBytes?.at(1))
-    : undefined
+  if (!progress.diskSpeed) {
+    const diskSpeedMBytes = data.match(/Disk\t- (\S+.) MiB/m)
+    progress.diskSpeed = !Number.isNaN(Number(diskSpeedMBytes?.at(1)))
+      ? Number(diskSpeedMBytes?.at(1))
+      : undefined
+  }
 
   // original is in bytes, convert to MiB with 2 decimals
   totalDownloadSize = Math.round((totalDownloadSize / 1024 / 1024) * 100) / 100
 
   // calculate percentage
-  if (tmpProgress[appName].bytes !== '') {
-    const downloaded = parseFloat(tmpProgress[appName].bytes)
+  if (progress.bytes !== '') {
+    const downloaded = parseFloat(progress.bytes)
     const downloadCache = totalDownloadSize - currentDownloadSize[appName]
     const totalDownloaded = downloaded + downloadCache
     const newPercent =
       Math.round((totalDownloaded / totalDownloadSize) * 10000) / 100
-    tmpProgress[appName].percent = newPercent >= 0 ? newPercent : undefined
+    progress.percent = newPercent >= 0 ? newPercent : undefined
   }
 
   // only send to frontend if all values are updated
   if (
-    Object.values(tmpProgress[appName]).every(
+    Object.values(progress).every(
       (value) => !(value === undefined || value === '')
     )
   ) {
     logInfo(
       [
         `Progress for ${getGameInfo(appName).title}:`,
-        `${tmpProgress[appName].percent}%/${tmpProgress[appName].bytes}/${tmpProgress[appName].eta}`.trim(),
-        `Down: ${tmpProgress[appName].downSpeed}MB/s / Disk: ${tmpProgress[appName].diskSpeed}MB/s`
+        `${progress.percent}%/${progress.bytes}/${progress.eta}`.trim(),
+        `Down: ${progress.downSpeed}MB/s / Disk: ${progress.diskSpeed}MB/s`
       ],
       LogPrefix.Legendary
     )
@@ -439,11 +459,11 @@ export function onInstallOrUpdateOutput(
       appName: appName,
       runner: 'legendary',
       status: action,
-      progress: tmpProgress[appName]
+      progress: progress
     })
 
     // reset
-    tmpProgress[appName] = defaultTmpProgress
+    tmpProgress[appName] = defaultTmpProgres()
   }
 }
 
@@ -539,7 +559,7 @@ function getSdlList(sdlList: Array<string>) {
  */
 export async function install(
   appName: string,
-  { path, installDlcs, sdlList, platformToInstall }: InstallArgs
+  { path, sdlList, platformToInstall }: InstallArgs
 ): Promise<{
   status: 'done' | 'error' | 'abort'
   error?: string
@@ -548,7 +568,6 @@ export async function install(
   const info = await getInstallInfo(appName, platformToInstall)
   const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
   const noHttps = downloadNoHttps ? ['--no-https'] : []
-  const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
   const installSdl = sdlList?.length ? getSdlList(sdlList) : ['--skip-sdl']
 
   const logPath = join(gamesConfigPath, appName + '.log')
@@ -560,7 +579,7 @@ export async function install(
     platformToInstall,
     '--base-path',
     path,
-    withDlcs,
+    '--skip-dlcs',
     ...installSdl,
     ...workers,
     ...noHttps,
@@ -805,7 +824,16 @@ export async function launch(
   let commandEnv = isWindows
     ? process.env
     : { ...process.env, ...setupEnvVars(gameSettings) }
-  const wineFlag: string[] = []
+
+  const wrappers = setupWrappers(
+    gameSettings,
+    mangoHudCommand,
+    gameModeBin,
+    steamRuntime?.length ? [...steamRuntime] : undefined
+  )
+
+  let wineFlag: string[] = ['--wrapper', shlex.join(wrappers)]
+
   if (!isNative(appName)) {
     // -> We're using Wine/Proton on Linux or CX on Mac
     const {
@@ -841,36 +869,7 @@ export async function launch(
         ? wineExec.replaceAll("'", '')
         : wineExec
 
-    wineFlag.push(
-      ...(wineType === 'proton'
-        ? ['--no-wine', '--wrapper', `'${wineBin}' run`]
-        : ['--wine', wineBin])
-    )
-  }
-
-  // Log any launch information configured in Legendary's config.ini
-  const { stdout } = await runLegendaryCommand(
-    ['launch', appName, '--json', '--offline'],
-    createAbortController(appName)
-  )
-
-  appendFileSync(
-    logFileLocation(appName),
-    "Legendary's config from config.ini (before App's settings):\n"
-  )
-
-  try {
-    const json = JSON.parse(stdout)
-    // remove egl auth info
-    delete json['egl_parameters']
-
-    appendFileSync(
-      logFileLocation(appName),
-      JSON.stringify(json, null, 2) + '\n\n'
-    )
-  } catch (error) {
-    // in case legendary's command fails and the output is not json
-    appendFileSync(logFileLocation(appName), error + '\n' + stdout + '\n\n')
+    wineFlag = [...getWineFlags(wineBin, wineType, shlex.join(wrappers))]
   }
 
   const commandParts = [
@@ -884,17 +883,10 @@ export async function launch(
     isCLINoGui ? '--skip-version-check' : '',
     ...shlex.split(gameSettings.launcherArgs ?? '')
   ]
-  const wrappers = setupWrappers(
-    gameSettings,
-    mangoHudCommand,
-    gameModeBin,
-    steamRuntime?.length ? [...steamRuntime] : undefined
-  )
 
   const fullCommand = getRunnerCallWithoutCredentials(
     commandParts,
     commandEnv,
-    wrappers,
     join(...Object.values(getLegendaryBin()))
   )
   appendFileSync(
@@ -910,7 +902,7 @@ export async function launch(
       wrappers: wrappers,
       logMessagePrefix: `Launching ${gameInfo.title}`,
       onOutput: (output) => {
-        appendFileSync(logFileLocation(appName), output)
+        if (!logsDisabled) appendFileSync(logFileLocation(appName), output)
       }
     }
   )
@@ -973,7 +965,7 @@ export async function stop(appName: string, stopWine = true) {
   const pattern = process.platform === 'linux' ? appName : 'legendary'
   killPattern(pattern)
 
-  if (stopWine && isNative(appName)) {
+  if (stopWine && !isNative(appName)) {
     const gameSettings = await getSettings(appName)
     await shutdownWine(gameSettings)
   }
@@ -1000,11 +992,12 @@ export async function runWineCommandOnGame(
     return { stdout: '', stderr: '' }
   }
 
-  const { folder_name } = getGameInfo(appName)
+  const { folder_name, install } = getGameInfo(appName)
   const gameSettings = await getSettings(appName)
 
   return runWineCommandUtil({
     gameSettings,
+    gameInstallPath: install.install_path,
     installFolderName: folder_name,
     commandParts,
     wait,

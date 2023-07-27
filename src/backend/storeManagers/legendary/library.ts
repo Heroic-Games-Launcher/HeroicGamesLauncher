@@ -15,7 +15,10 @@ import {
   InstalledJsonMetadata,
   GameMetadata,
   LegendaryInstallInfo,
-  LegendaryInstallPlatform
+  LegendaryInstallPlatform,
+  ResponseDataLegendaryAPI,
+  SelectiveDownload,
+  GameOverride
 } from 'common/types/legendary'
 import { LegendaryUser } from './user'
 import {
@@ -28,7 +31,9 @@ import {
   fallBackImage,
   legendaryConfigPath,
   legendaryLogFile,
-  legendaryMetadata
+  legendaryMetadata,
+  isLinux,
+  userHome
 } from '../../constants'
 import {
   logDebug,
@@ -37,19 +42,36 @@ import {
   LogPrefix,
   logWarning
 } from '../../logger/logger'
-import { installStore, libraryStore } from './electronStores'
+import {
+  gamesOverrideStore,
+  installStore,
+  libraryStore
+} from './electronStores'
 import { callRunner } from '../../launcher'
 import { dirname, join } from 'path'
 import { isOnline } from 'backend/online_monitor'
 import { update } from './games'
+import axios from 'axios'
+import { app } from 'electron'
+import { copySync } from 'fs-extra'
 
 const allGames: Set<string> = new Set()
 let installedGames: Map<string, InstalledJsonMetadata> = new Map()
 const library: Map<string, GameInfo> = new Map()
 
 export async function initLegendaryLibraryManager() {
+  // Migrate user data from global Legendary config if necessary
+  const globalLegendaryConfig = isLinux
+    ? join(app.getPath('appData'), 'legendary')
+    : join(userHome, '.config', 'legendary')
+  if (!existsSync(legendaryConfigPath) && existsSync(globalLegendaryConfig)) {
+    copySync(globalLegendaryConfig, legendaryConfigPath, {
+      recursive: true
+    })
+  }
+
   loadGamesInAccount()
-  await refresh()
+  refreshInstalled()
 }
 
 /**
@@ -121,6 +143,11 @@ export function refreshInstalled() {
   }
 }
 
+const defaultExecResult = {
+  stderr: '',
+  stdout: ''
+}
+
 /**
  * Get the game info of all games in the library
  *
@@ -128,12 +155,8 @@ export function refreshInstalled() {
  */
 export async function refresh(): Promise<ExecResult | null> {
   logInfo('Refreshing library...', LogPrefix.Legendary)
-  const isLoggedIn = LegendaryUser.isLoggedIn()
-  if (!isLoggedIn) {
-    return {
-      stderr: 'You must be logged into Epic Games to refresh this library!',
-      stdout: ''
-    }
+  if (!LegendaryUser.isLoggedIn()) {
+    return defaultExecResult
   }
 
   refreshLegendary()
@@ -151,10 +174,7 @@ export async function refresh(): Promise<ExecResult | null> {
     ['Game list updated, got', `${arr.length}`, 'games & DLCs'],
     LogPrefix.Legendary
   )
-  return {
-    stderr: '',
-    stdout: ''
-  }
+  return defaultExecResult
 }
 
 export function getListOfGames() {
@@ -566,6 +586,7 @@ function loadFile(fileName: string): boolean {
       reqs: [],
       storeUrl: formatEpicStoreUrl(title)
     },
+    dlcList: dlcItemList,
     folder_name: installFolder,
     install: {
       executable,
@@ -623,6 +644,17 @@ export async function runRunnerCommand(
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
   const { dir, bin } = getLegendaryBin()
+
+  // Set XDG_CONFIG_HOME to a custom, Heroic-specific location so user-made
+  // changes to Legendary's main config file don't affect us
+  if (!options) {
+    options = {}
+  }
+  if (!options.env) {
+    options.env = {}
+  }
+  options.env.XDG_CONFIG_HOME = dirname(legendaryConfigPath)
+
   return callRunner(
     commandParts,
     { name: 'legendary', logPrefix: LogPrefix.Legendary, bin, dir },
@@ -632,4 +664,67 @@ export async function runRunnerCommand(
       verboseLogFile: legendaryLogFile
     }
   )
+}
+
+export async function getGameOverride(): Promise<GameOverride> {
+  const cached = gamesOverrideStore.get('gamesOverride')
+  if (cached) {
+    return cached
+  }
+
+  try {
+    const response = await axios.get<ResponseDataLegendaryAPI>(
+      'https://heroic.legendary.gl/v1/version.json'
+    )
+
+    if (response.data.game_overrides) {
+      gamesOverrideStore.set('gamesOverride', response.data.game_overrides)
+    }
+
+    return response.data.game_overrides
+  } catch (error) {
+    logWarning(['Error fetching Legendary API:', error], LogPrefix.Legendary)
+    throw error
+  }
+}
+
+export async function getGameSdl(
+  appName: string
+): Promise<SelectiveDownload[]> {
+  try {
+    const response = await axios.get<Record<string, SelectiveDownload>>(
+      `https://heroic.legendary.gl/v1/sdl/${appName}.json`
+    )
+
+    // if data type is not a json return empty array
+    if (response.headers['content-type'] !== 'application/json') {
+      logInfo(
+        ['No Selective Download data found for', appName],
+        LogPrefix.Legendary
+      )
+      return []
+    }
+
+    const list = Object.keys(response.data)
+    const sdlList: SelectiveDownload[] = []
+
+    list.forEach((key) => {
+      const { name, description, tags } = response.data[
+        key
+      ] as SelectiveDownload
+      if (key === '__required') {
+        sdlList.unshift({ name, description, tags, required: true })
+      } else {
+        sdlList.push({ name, description, tags })
+      }
+    })
+
+    return sdlList
+  } catch (error) {
+    logWarning(
+      ['Error fetching Selective Download data for', appName, error],
+      LogPrefix.Legendary
+    )
+    return []
+  }
 }

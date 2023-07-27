@@ -32,8 +32,14 @@ import {
   ExtraInfo,
   LaunchOption
 } from 'common/types'
-import { LegendaryInstallInfo } from 'common/types/legendary'
+import { LegendaryInstallInfo, SelectiveDownload } from 'common/types/legendary'
 import { GOGCloudSavesLocation, GogInstallInfo } from 'common/types/gog'
+import {
+  NileInstallInfo,
+  NileLoginData,
+  NileRegisterData,
+  NileUserData
+} from 'common/types/nile'
 
 /**
  * Some notes here:
@@ -79,6 +85,7 @@ interface SyncIPCFunctions {
   logInfo: (message: unknown) => void
   showItemInFolder: (item: string) => void
   clipboardWriteText: (text: string) => void
+  processShortcut: (combination: string) => void
   addNewApp: (args: SideloadGame) => void
   showLogFileInFolder: (args: {
     appName: string
@@ -114,16 +121,14 @@ interface AsyncIPCFunctions {
   getHeroicVersion: () => string
   getLegendaryVersion: () => Promise<string>
   getGogdlVersion: () => Promise<string>
+  getNileVersion: () => Promise<string>
   isFullscreen: () => boolean
   isFlatpak: () => boolean
   getPlatform: () => NodeJS.Platform
   showUpdateSetting: () => boolean
   getLatestReleases: () => Promise<Release[]>
   getCurrentChangelog: () => Promise<Release | null>
-  getGameInfo: (
-    appName: string,
-    runner: Runner
-  ) => Promise<GameInfo | SideloadGame | null>
+  getGameInfo: (appName: string, runner: Runner) => Promise<GameInfo | null>
   getExtraInfo: (appName: string, runner: Runner) => Promise<ExtraInfo | null>
   getGameSettings: (
     appName: string,
@@ -134,8 +139,9 @@ interface AsyncIPCFunctions {
     appName: string,
     runner: Runner,
     installPlatform: InstallPlatform
-  ) => Promise<LegendaryInstallInfo | GogInstallInfo | null>
+  ) => Promise<LegendaryInstallInfo | GogInstallInfo | NileInstallInfo | null>
   getUserInfo: () => Promise<UserInfo | undefined>
+  getAmazonUserInfo: () => Promise<NileUserData | undefined>
   isLoggedIn: () => boolean
   login: (sid: string) => Promise<{
     status: 'done' | 'failed'
@@ -145,7 +151,12 @@ interface AsyncIPCFunctions {
     status: 'done' | 'error'
     data?: UserData
   }>
+  authAmazon: (data: NileRegisterData) => Promise<{
+    status: 'done' | 'failed'
+    user: NileUserData | undefined
+  }>
   logoutLegendary: () => Promise<void>
+  logoutAmazon: () => Promise<void>
   getAlternativeWine: () => Promise<WineInstallation[]>
   getLocalPeloadPath: () => Promise<string>
   readConfig: (config_class: 'library' | 'user') => Promise<GameInfo[] | string>
@@ -243,6 +254,13 @@ interface AsyncIPCFunctions {
   toggleDXVK: (args: ToolArgs) => Promise<boolean>
   pathExists: (path: string) => Promise<boolean>
   getGOGLaunchOptions: (appName: string) => Promise<LaunchOption[]>
+  getGameOverride: () => Promise<GameOverride | null>
+  getGameSdl: (appName: string) => Promise<SelectiveDownload[]>
+  getPlaytimeFromRunner: (
+    runner: Runner,
+    appName: string
+  ) => Promise<number | undefined>
+  getAmazonLoginData: () => Promise<NileLoginData>
 }
 
 // This is quite ugly & throws a lot of errors in a regular .ts file

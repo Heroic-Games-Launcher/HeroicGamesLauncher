@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroic otsib Wine'i, Proton'i ja CrossOveri versioone järgmistes kaustades:",
             "part2": "Muude kohtade puhul kasutage sümboolset linki ühele neist kaustadest"
-        }
+        },
+        "disable_logs": "Lülitage see märkeruut sisse, et keelata suurem osa logifailidesse kirjutamisest (oluline teave logitakse alati sisse). Enne probleemist teatamist lülitage see seade kindlasti VÄLJA."
     },
     "info": {
         "heroic": {
@@ -305,7 +306,8 @@
         "wine-repfix": {
             "message": "Wine kasutab Windowsi rakenduste kapseldamiseks nn WINEPREFIXi. See eesliide sisaldab Wine'i konfiguratsioonifaile ja C: (Windows OSi põhiketta) failihierarhia reproduktsiooni. Sellesse C: ketta reproduktsiooni salvestatakse teie mängu salvestusfailid ja winetricks'i kaudu paigaldatud sõltuvused."
         },
-        "wine-path-invalid": "Veinitee on kehtetu, valige mõni muu."
+        "wine-path-invalid": "Veinitee on kehtetu, valige mõni muu.",
+        "wine-path-none-found": "Wine'i versiooni ei leitud, laadige see alla veinihaldurist"
     },
     "install": {
         "path": "Valige paigaldustee"
@@ -440,7 +442,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "Brauser"
     },
     "please-wait": "Please wait...",
     "progress": "Progress",
@@ -566,7 +569,10 @@
         "wineprefix": "WinePrefiksi kaust",
         "wineversion": "Wine'i versioon",
         "autoUpdateGames": "Mängude automaatne värskendamine",
-        "ignoreGameUpdates": "Ignoreeri mängu värskendusi"
+        "ignoreGameUpdates": "Ignoreeri mängu värskendusi",
+        "disable_logs": "Keela logid",
+        "addgamestoapplications": "Lisage mänge rakendustesse automaatselt",
+        "showMetalOverlay": "Kuva statistika ülekate"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -680,5 +686,12 @@
     },
     "wiki_info": {
         "not_found": "Me ei leidnud lisateavet."
+    },
+    "dlc": {
+        "actions": "Tegevused",
+        "installDlcs": "Paigalda kõik DLC'd",
+        "noDlcFound": "DLC-sid ei leitud",
+        "size": "Suurus",
+        "title": "Title"
     }
 }

@@ -18,7 +18,7 @@ import { toolsPath, isMac } from '../../constants'
 import { sendFrontendMessage } from '../../main_window'
 import { TypeCheckedStoreBackend } from 'backend/electron_store'
 
-const wineDownloaderInfoStore = new TypeCheckedStoreBackend(
+export const wineDownloaderInfoStore = new TypeCheckedStoreBackend(
   'wineDownloaderInfoStore',
   {
     cwd: 'store',
@@ -35,9 +35,11 @@ async function updateWineVersionInfos(
   logInfo('Updating wine versions info', LogPrefix.WineDownloader)
   if (fetch) {
     logInfo('Fetching upstream information...', LogPrefix.WineDownloader)
+
     const repositorys = isMac
       ? [Repositorys.WINECROSSOVER, Repositorys.WINESTAGINGMACOS]
       : [Repositorys.WINEGE, Repositorys.PROTONGE]
+
     await getAvailableVersions({
       repositorys,
       count
@@ -87,6 +89,7 @@ async function installWineVersion(
   abortSignal: AbortSignal
 ) {
   let updatedInfo: WineVersionInfo
+  const variant = release.hasUpdate ? 'update' : 'installation'
 
   if (!existsSync(`${toolsPath}/wine`)) {
     mkdirSync(`${toolsPath}/wine`, { recursive: true })
@@ -97,7 +100,7 @@ async function installWineVersion(
   }
 
   logInfo(
-    `Start installation of wine version ${release.version}`,
+    `Start ${variant} of wine version ${release.version}`,
     LogPrefix.WineDownloader
   )
 
@@ -109,6 +112,7 @@ async function installWineVersion(
     const response = await installVersion({
       versionInfo: release as VersionInfo,
       installDir,
+      overwrite: release.hasUpdate,
       onProgress: onProgress,
       abortSignal: abortSignal
     })
@@ -157,7 +161,7 @@ async function installWineVersion(
   }
 
   logInfo(
-    `Finished installation of wine version ${release.version}`,
+    `Finished ${variant} of wine version ${release.version}`,
     LogPrefix.WineDownloader
   )
 

@@ -31,7 +31,7 @@
 }
 
 .infoBox > ul {
-  text-align: left;
+  text-align: start;
 }
 
 .infoBox > strong {

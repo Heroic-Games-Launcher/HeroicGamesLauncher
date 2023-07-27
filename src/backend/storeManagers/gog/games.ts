@@ -11,7 +11,8 @@ import {
   createReqsArray,
   getGameInfo as getGogLibraryGameInfo,
   changeGameInstallPath,
-  getMetaResponse
+  getMetaResponse,
+  getGamesData
 } from './library'
 import { join } from 'path'
 import { GameConfig } from '../../game_config'
@@ -38,8 +39,20 @@ import {
 } from 'common/types'
 import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
 import { gamesConfigPath, isWindows, isMac, isLinux } from '../../constants'
-import { installedGamesStore, syncStore } from './electronStores'
-import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
+import {
+  configStore,
+  installedGamesStore,
+  playtimeSyncQueue,
+  syncStore
+} from './electronStores'
+import {
+  logDebug,
+  logError,
+  logInfo,
+  LogPrefix,
+  logsDisabled,
+  logWarning
+} from '../../logger/logger'
 import { GOGUser } from './user'
 import {
   getRunnerCallWithoutCredentials,
@@ -58,12 +71,20 @@ import {
 import setup from './setup'
 import { removeNonSteamGame } from '../../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
-import { GOGCloudSavesLocation, GogInstallPlatform } from 'common/types/gog'
+import {
+  GOGCloudSavesLocation,
+  GOGSessionSyncQueueItem,
+  GogInstallPlatform,
+  UserData
+} from 'common/types/gog'
 import { t } from 'i18next'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { sendFrontendMessage } from '../../main_window'
 import { RemoveArgs } from 'common/types/game_manager'
 import { logFileLocation } from 'backend/storeManagers/storeManagerCommon/games'
+import { getWineFlags } from 'backend/utils/compatibility_layers'
+import axios, { AxiosError } from 'axios'
+import { isOnline, runOnceWhenOnline } from 'backend/online_monitor'
 
 export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   const gameInfo = getGameInfo(appName)
@@ -77,10 +98,13 @@ export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
     targetPlatform = 'windows'
   }
 
+  const reqs = await createReqsArray(appName, targetPlatform)
+  const storeUrl = (await getGamesData(appName))?._links.store.href
+
   const extra: ExtraInfo = {
     about: gameInfo.extra?.about,
-    reqs: await createReqsArray(appName, targetPlatform),
-    storeUrl: gameInfo.store_url
+    reqs,
+    storeUrl
   }
   return extra
 }
@@ -96,8 +120,16 @@ export function getGameInfo(appName: string): GameInfo {
       ],
       LogPrefix.Gog
     )
-    // @ts-expect-error TODO: Handle this better
-    return {}
+    return {
+      app_name: '',
+      runner: 'gog',
+      art_cover: '',
+      art_square: '',
+      install: {},
+      is_installed: false,
+      title: '',
+      canRunOffline: false
+    }
   }
   return info
 }
@@ -148,12 +180,14 @@ interface tmpProgressMap {
   [key: string]: InstallProgress
 }
 
-const defaultTmpProgress = {
-  bytes: '',
-  eta: '',
-  percent: undefined,
-  diskSpeed: undefined,
-  downSpeed: undefined
+function defaultTmpProgress() {
+  return {
+    bytes: '',
+    eta: '',
+    percent: undefined,
+    diskSpeed: undefined,
+    downSpeed: undefined
+  }
 }
 const tmpProgress: tmpProgressMap = {}
 
@@ -165,48 +199,59 @@ export function onInstallOrUpdateOutput(
   totalDownloadSize = -1
 ) {
   if (!Object.hasOwn(tmpProgress, appName)) {
-    tmpProgress[appName] = defaultTmpProgress
+    tmpProgress[appName] = defaultTmpProgress()
   }
-  // parse log for percent
-  const percentMatch = data.match(/Progress: (\d+\.\d+) /m)
+  const progress = tmpProgress[appName]
 
-  tmpProgress[appName].percent = !Number.isNaN(Number(percentMatch?.at(1)))
-    ? Number(percentMatch?.at(1))
-    : undefined
+  // parse log for percent
+  if (!progress.percent) {
+    const percentMatch = data.match(/Progress: (\d+\.\d+) /m)
+
+    progress.percent = !Number.isNaN(Number(percentMatch?.at(1)))
+      ? Number(percentMatch?.at(1))
+      : undefined
+  }
 
   // parse log for eta
-  const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
-  tmpProgress[appName].eta =
-    etaMatch && etaMatch?.length >= 2 ? etaMatch[1] : ''
+  if (progress.eta === '') {
+    const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
+    progress.eta = etaMatch && etaMatch?.length >= 2 ? etaMatch[1] : ''
+  }
 
   // parse log for game download progress
-  const bytesMatch = data.match(/Downloaded: (\S+) MiB/m)
-  tmpProgress[appName].bytes =
-    bytesMatch && bytesMatch?.length >= 2 ? `${bytesMatch[1]}MB` : ''
+  if (progress.bytes === '') {
+    const bytesMatch = data.match(/Downloaded: (\S+) MiB/m)
+    progress.bytes =
+      bytesMatch && bytesMatch?.length >= 2 ? `${bytesMatch[1]}MB` : ''
+  }
 
   // parse log for download speed
-  const downSpeedMBytes = data.match(/Download\t- (\S+.) MiB/m)
-  tmpProgress[appName].downSpeed = !Number.isNaN(Number(downSpeedMBytes?.at(1)))
-    ? Number(downSpeedMBytes?.at(1))
-    : undefined
+  if (!progress.downSpeed) {
+    const downSpeedMBytes = data.match(/Download\t- (\S+.) MiB/m)
+    progress.downSpeed = !Number.isNaN(Number(downSpeedMBytes?.at(1)))
+      ? Number(downSpeedMBytes?.at(1))
+      : undefined
+  }
 
   // parse disk write speed
-  const diskSpeedMBytes = data.match(/Disk\t- (\S+.) MiB/m)
-  tmpProgress[appName].diskSpeed = !Number.isNaN(Number(diskSpeedMBytes?.at(1)))
-    ? Number(diskSpeedMBytes?.at(1))
-    : undefined
+  if (!progress.diskSpeed) {
+    const diskSpeedMBytes = data.match(/Disk\t- (\S+.) MiB/m)
+    progress.diskSpeed = !Number.isNaN(Number(diskSpeedMBytes?.at(1)))
+      ? Number(diskSpeedMBytes?.at(1))
+      : undefined
+  }
 
   // only send to frontend if all values are updated
   if (
-    Object.values(tmpProgress[appName]).every(
+    Object.values(progress).every(
       (value) => !(value === undefined || value === '')
     )
   ) {
     logInfo(
       [
         `Progress for ${getGameInfo(appName).title}:`,
-        `${tmpProgress[appName].percent}%/${tmpProgress[appName].bytes}/${tmpProgress[appName].eta}`.trim(),
-        `Down: ${tmpProgress[appName].downSpeed}MB/s / Disk: ${tmpProgress[appName].diskSpeed}MB/s`
+        `${progress.percent}%/${progress.bytes}/${progress.eta}`.trim(),
+        `Down: ${progress.downSpeed}MB/s / Disk: ${progress.diskSpeed}MB/s`
       ],
       LogPrefix.Gog
     )
@@ -215,11 +260,11 @@ export function onInstallOrUpdateOutput(
       appName: appName,
       runner: 'gog',
       status: action,
-      progress: tmpProgress[appName]
+      progress: progress
     })
 
     // reset
-    tmpProgress[appName] = defaultTmpProgress
+    tmpProgress[appName] = defaultTmpProgress()
   }
 }
 
@@ -305,7 +350,7 @@ export async function install(
     ? await getLinuxInstallerInfo(appName)
     : null
 
-  if (gameInfo.folder_name === undefined) {
+  if (gameInfo.folder_name === undefined || gameInfo.folder_name.length === 0) {
     logError('game info folder is undefined in GOG install', LogPrefix.Gog)
     return { status: 'error' }
   }
@@ -317,7 +362,7 @@ export async function install(
     is_dlc: false,
     version: additionalInfo ? additionalInfo.version : installInfo.game.version,
     appName: appName,
-    installedWithDLCs: installDlcs,
+    installedWithDLCs: Boolean(installDlcs),
     language: installLanguage,
     versionEtag: isLinuxNative ? '' : installInfo.manifest.versionEtag,
     buildId: isLinuxNative ? '' : installInfo.game.buildId
@@ -422,7 +467,15 @@ export async function launch(
   let commandEnv = isWindows
     ? process.env
     : { ...process.env, ...setupEnvVars(gameSettings) }
-  const wineFlag: string[] = []
+
+  const wrappers = setupWrappers(
+    gameSettings,
+    mangoHudCommand,
+    gameModeBin,
+    steamRuntime?.length ? [...steamRuntime] : undefined
+  )
+
+  let wineFlag: string[] = ['--wrapper', shlex.join(wrappers)]
 
   if (!isNative(appName)) {
     const {
@@ -458,11 +511,7 @@ export async function launch(
         ? wineExec.replaceAll("'", '')
         : wineExec
 
-    wineFlag.push(
-      ...(wineType === 'proton'
-        ? ['--no-wine', '--wrapper', `'${wineBin}' run`]
-        : ['--wine', wineBin])
-    )
+    wineFlag = [...getWineFlags(wineBin, wineType, shlex.join(wrappers))]
   }
 
   const commandParts = [
@@ -476,17 +525,10 @@ export async function launch(
     ...shlex.split(launchArguments ?? ''),
     ...shlex.split(gameSettings.launcherArgs ?? '')
   ]
-  const wrappers = setupWrappers(
-    gameSettings,
-    mangoHudCommand,
-    gameModeBin,
-    steamRuntime?.length ? [...steamRuntime] : undefined
-  )
 
   const fullCommand = getRunnerCallWithoutCredentials(
     commandParts,
     commandEnv,
-    wrappers,
     join(...Object.values(getGOGdlBin()))
   )
   appendFileSync(
@@ -502,7 +544,7 @@ export async function launch(
       wrappers,
       logMessagePrefix: `Launching ${gameInfo.title}`,
       onOutput: (output: string) => {
-        appendFileSync(logFileLocation(appName), output)
+        if (!logsDisabled) appendFileSync(logFileLocation(appName), output)
       }
     }
   )
@@ -848,7 +890,7 @@ export async function stop(appName: string, stopWine = true): Promise<void> {
   const pattern = isLinux ? appName : 'gogdl'
   killPattern(pattern)
 
-  if (stopWine && !isNative(appName) && isLinux) {
+  if (stopWine && !isNative(appName)) {
     const gameSettings = await getSettings(appName)
     await shutdownWine(gameSettings)
   }
@@ -864,4 +906,166 @@ export function isGameAvailable(appName: string) {
     }
   }
   return false
+}
+
+async function postPlaytimeSession({
+  appName,
+  session_date,
+  time
+}: GOGSessionSyncQueueItem) {
+  const userData: UserData | undefined = configStore.get_nodefault('userData')
+  if (!userData) {
+    logError('No userData, unable to post new session', {
+      prefix: LogPrefix.Gog
+    })
+    return null
+  }
+  const credentials = await GOGUser.getCredentials().catch(() => null)
+
+  if (!credentials) {
+    logError("Couldn't fetch credentials, unable to post new session", {
+      prefix: LogPrefix.Gog
+    })
+    return null
+  }
+
+  return axios
+    .post(
+      `https://gameplay.gog.com/games/${appName}/users/${userData?.galaxyUserId}/sessions`,
+      { session_date, time },
+      {
+        headers: {
+          Authorization: `Bearer ${credentials.access_token}`
+        }
+      }
+    )
+    .catch((e: AxiosError) => {
+      logDebug(['Failed to post session', e.toJSON()], {
+        prefix: LogPrefix.Gog
+      })
+      return null
+    })
+}
+
+export async function updateGOGPlaytime(
+  appName: string,
+  startPlayingDate: Date,
+  finishedPlayingDate: Date
+) {
+  // Let server know about new session
+  const sessionDate = Math.floor(startPlayingDate.getTime() / 1000) // In seconds
+  const time = Math.floor(
+    (finishedPlayingDate.getTime() - startPlayingDate.getTime()) / 1000 / 60
+  ) // In minutes
+
+  // It makes no sense to post 0 minutes of playtime
+  if (time < 1) {
+    return
+  }
+
+  const data = {
+    session_date: sessionDate,
+    time
+  }
+  const userData: UserData | undefined = configStore.get_nodefault('userData')
+
+  if (!userData) {
+    logWarning(['Unable to post session, userData not present'], {
+      prefix: LogPrefix.Gog
+    })
+    return
+  }
+
+  if (!isOnline()) {
+    logWarning(['App offline, unable to post new session at this time'], {
+      prefix: LogPrefix.Gog
+    })
+    const alreadySetData = playtimeSyncQueue.get(userData.galaxyUserId, [])
+    alreadySetData.push({ ...data, appName })
+    playtimeSyncQueue.set(userData.galaxyUserId, alreadySetData)
+    runOnceWhenOnline(syncQueuedPlaytimeGOG)
+    return
+  }
+
+  const response = await postPlaytimeSession({ ...data, appName })
+
+  if (!response || response.status !== 201) {
+    logError('Failed to post session', { prefix: LogPrefix.Gog })
+    const alreadySetData = playtimeSyncQueue.get(userData.galaxyUserId, [])
+    alreadySetData.push({ ...data, appName })
+    playtimeSyncQueue.set(userData.galaxyUserId, alreadySetData)
+    return
+  }
+
+  logInfo('Posted session to gameplay.gog.com', { prefix: LogPrefix.Gog })
+}
+
+export async function syncQueuedPlaytimeGOG() {
+  if (playtimeSyncQueue.has('lock')) {
+    return
+  }
+  const userData: UserData | undefined = configStore.get_nodefault('userData')
+  if (!userData) {
+    logError('Unable to syncQueued playtime, userData not present', {
+      prefix: LogPrefix.Gog
+    })
+    return
+  }
+  const queue = playtimeSyncQueue.get(userData.galaxyUserId, [])
+  if (queue.length === 0) {
+    return
+  }
+  playtimeSyncQueue.set('lock', [])
+  const failed = []
+
+  for (const session of queue) {
+    if (!isOnline()) {
+      failed.push(session)
+    }
+    const response = await postPlaytimeSession(session)
+
+    if (!response || response.status !== 201) {
+      logError('Failed to post session', { prefix: LogPrefix.Gog })
+      failed.push(session)
+    }
+  }
+  playtimeSyncQueue.set(userData.galaxyUserId, failed)
+  playtimeSyncQueue.delete('lock')
+  logInfo(
+    ['Finished posting sessions to gameplay.gog.com', 'failed:', failed.length],
+    {
+      prefix: LogPrefix.Gog
+    }
+  )
+}
+
+export async function getGOGPlaytime(
+  appName: string
+): Promise<number | undefined> {
+  if (!isOnline()) {
+    return
+  }
+  const credentials = await GOGUser.getCredentials()
+  const userData: UserData | undefined = configStore.get_nodefault('userData')
+
+  if (!credentials || !userData) {
+    return
+  }
+  const response = await axios
+    .get(
+      `https://gameplay.gog.com/games/${appName}/users/${userData?.galaxyUserId}/sessions`,
+      {
+        headers: {
+          Authorization: `Bearer ${credentials.access_token}`
+        }
+      }
+    )
+    .catch((e: AxiosError) => {
+      logWarning(['Failed attempt to get playtime of', appName, e.toJSON()], {
+        prefix: LogPrefix.Gog
+      })
+      return null
+    })
+
+  return response?.data?.time_sum
 }

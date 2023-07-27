@@ -1,0 +1,173 @@
+.loginPage {
+  --wrapper-padding: 30px;
+  --message-padding: 40px;
+  --login-padding: 14px;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.loginBackground {
+  height: 100%;
+  width: 100%;
+  background: url('../../assets/login-background-1536x864.jpg');
+  background-size: cover;
+  opacity: 0.3;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.loginContentWrapper {
+  width: min(500px, 95%);
+  height: 100%;
+  max-width: fit-content;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  grid-column: 1;
+  grid-row: 1;
+  z-index: 1;
+  margin: 0 auto;
+}
+
+.runnerList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  user-select: none;
+  flex-wrap: wrap;
+  background-color: var(--body-background);
+  opacity: 0.96;
+  padding: var(--wrapper-padding);
+  border-radius: 10px;
+  min-width: 400px;
+}
+
+.loginPage .languageSelector {
+  max-width: 300px;
+  flex-basis: 50%;
+}
+
+.runnerList,
+.languageSelector {
+  width: 100%;
+}
+
+.goToLibrary {
+  position: relative;
+  font-family: var(--font-primary-bold);
+  font-weight: 700;
+  color: var(--background);
+  background: var(--primary-button, var(--accent));
+  border: none;
+  padding: 10px 40px;
+  border-radius: 10px;
+  font-size: var(--text-default);
+  border-radius: var(--space-2xs);
+  cursor: pointer;
+  transition: 0.2s;
+  width: fit-content;
+  backdrop-filter: blur(var(--blur-light));
+  margin-block: 20px 10px;
+  margin-inline: auto 0px;
+  text-transform: uppercase;
+}
+
+.goToLibrary:hover {
+  box-shadow: 0px 0px 0px 3px var(--button-stroke, var(--text-default));
+}
+
+.goToLibrary.disabled {
+  cursor: default;
+  color: var(--background);
+  display: none;
+}
+
+.loginPage .languageSelector label {
+  margin-bottom: var(--space-xs);
+}
+
+.loginPage .smallLink {
+  text-align: start;
+  margin-top: var(--space-xs);
+}
+
+.title,
+.subtitle {
+  margin: 0;
+}
+
+.title {
+  font-family: var(--actions-font-family);
+  font-size: 18px;
+  margin: 0;
+  color: var(--accent);
+}
+
+.subtitle {
+  font-size: 12px;
+  font-family: var(--actions-font-family);
+  font-weight: 400;
+  color: var(--text-default);
+}
+
+.runnerHeader {
+  display: flex;
+  column-gap: 8px;
+  width: 100%;
+  padding-bottom: var(--message-padding);
+}
+
+.runnerHeaderText {
+  text-align: start;
+  align-self: center;
+  white-space: nowrap;
+  flex-grow: 1;
+}
+
+.runnerHeaderIcon {
+  width: 60px;
+  height: 60px;
+  align-self: center;
+  flex-shrink: 0;
+}
+
+.runnerMessage {
+  width: 75%;
+  margin-top: 0;
+  margin-bottom: var(--message-padding);
+  text-align: start;
+}
+
+.runnerGroup {
+  width: 100%;
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--login-padding);
+}
+
+@media screen and (min-width: 850px) {
+  .loginContentWrapper {
+    width: max(500px, 75%);
+    height: auto;
+    margin: auto;
+    max-width: fit-content;
+  }
+
+  /* Enable when there have been more than 5 logins added */
+  /* .runnerGroup {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    overflow-y: unset;
+    max-height: unset;
+    padding-inline-end: 0;
+  } */
+
+  .runnerWrapper:nth-child(odd):last-child {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+}

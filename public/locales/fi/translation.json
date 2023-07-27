@@ -115,7 +115,7 @@
             }
         },
         "runexe": {
-            "title": "Valitse EXE pyöritettäväksi"
+            "title": "Valitse suoritettava EXE"
         },
         "select": {
             "button": "Valitse",
@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroic etsii Wine, Proton- ja CrossOver -versioita seuraavista kansioista:",
             "part2": "Muille sijainneille käytä symbolista linkkiä kansioon"
-        }
+        },
+        "disable_logs": "Ota tämä valintaruutu PÄÄLLE, jos haluat poistaa suurimman osan lokitiedostoihin kirjoituksista (kriittiset tiedot kirjataan aina lokiin). Muista poistaa tämä asetus käytöstä ennen kuin ilmoitat ongelmasta."
     },
     "info": {
         "heroic": {
@@ -305,7 +306,8 @@
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
         },
-        "wine-path-invalid": "Viinipolku on virheellinen, valitse toinen."
+        "wine-path-invalid": "Viinipolku on virheellinen, valitse toinen.",
+        "wine-path-none-found": "Wine-versiota ei löytynyt, lataa se Wine Managerista"
     },
     "install": {
         "path": "Valitse asennuspolku"
@@ -440,7 +442,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "Selain"
     },
     "please-wait": "Please wait...",
     "progress": "Progress",
@@ -520,7 +523,7 @@
         "log": {
             "copy-to-clipboard": "Kopioi lokin sisältö leikepöydälle",
             "current-log": "Nykyinen loki",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",
             "instructions_title": "How to report a problem?",
             "last-log": "Viimeisin loki",
             "no-file": "Lokitiedostoja ei löytynyt",
@@ -566,7 +569,10 @@
         "wineprefix": "WinePrefixin kansio",
         "wineversion": "Winen versio",
         "autoUpdateGames": "Päivitä pelit automaattisesti",
-        "ignoreGameUpdates": "Ohita pelipäivitykset"
+        "ignoreGameUpdates": "Ohita pelipäivitykset",
+        "disable_logs": "Poista lokit käytöstä",
+        "addgamestoapplications": "Lisää pelejä automaattisesti sovelluksiin",
+        "showMetalOverlay": "Näytä tilastojen peittokuva"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -616,9 +622,9 @@
         "uncollapse": "Uncollapse sidebar"
     },
     "status": {
-        "installing": "Installing",
+        "installing": "Asennetaan",
         "logging": "Kirjaudutaan sisään...",
-        "processing": "Processing files, please wait"
+        "processing": "Käsitellään tiedostoja, odota hetki"
     },
     "store": "Epic-kauppa",
     "stores": "Kaupat",
@@ -680,5 +686,12 @@
     },
     "wiki_info": {
         "not_found": "Emme löytäneet lisätietoja."
+    },
+    "dlc": {
+        "actions": "Toiminnot",
+        "installDlcs": "Asenna kaikki ladattava sisältö",
+        "noDlcFound": "DLC:itä ei löytynyt",
+        "size": "Size",
+        "title": "Title"
     }
 }

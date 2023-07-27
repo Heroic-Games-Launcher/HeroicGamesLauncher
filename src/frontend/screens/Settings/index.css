@@ -47,11 +47,11 @@
 }
 
 .headerTitle > svg {
-  margin-left: 12px;
+  margin-inline-start: 12px;
 }
 
 .settingSubheader {
-  text-align: left;
+  text-align: start;
   margin-top: 0;
 }
 
@@ -68,7 +68,8 @@
 
 .save {
   cursor: default;
-  margin: var(--space-md) 0 0 var(--space-md);
+  margin-block: var(--space-md) 0;
+  margin-inline: var(--space-md) 0;
   padding-block-end: var(--space-xs);
   display: flex;
   align-items: center;
@@ -202,7 +203,7 @@ a {
 }
 
 .eosSettings {
-  text-align: left;
+  text-align: start;
 }
 
 .settingsWrapper .button {
@@ -217,5 +218,5 @@ a {
 }
 
 .infoBox.saves-warning svg {
-  padding-right: 10px;
+  padding-inline-end: 10px;
 }

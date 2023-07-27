@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroic hľadá verzie Wine, Proton a CrossOver v nasledujúcich priečinkoch:",
             "part2": "Pre ostatné miesta použite symbolický odkaz na jeden z týchto priečinkov"
-        }
+        },
+        "disable_logs": "Zapnite toto začiarkavacie políčko, ak chcete zakázať väčšinu zápisov do protokolových súborov (kritické informácie sú vždy protokolované). Pred nahlásením akéhokoľvek problému nezabudnite toto nastavenie VYPNÚŤ."
     },
     "info": {
         "heroic": {
@@ -305,7 +306,8 @@
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
         },
-        "wine-path-invalid": "Vínna cesta je neplatná, vyberte si inú."
+        "wine-path-invalid": "Vínna cesta je neplatná, vyberte si inú.",
+        "wine-path-none-found": "Nebola nájdená žiadna verzia Wine, stiahnite si ju z Wine Managera"
     },
     "install": {
         "path": "Select Install Path"
@@ -440,7 +442,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "Prehliadač"
     },
     "please-wait": "Please wait...",
     "progress": "Progress",
@@ -520,7 +523,7 @@
         "log": {
             "copy-to-clipboard": "Copy log content to clipboard.",
             "current-log": "Current log",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",
             "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
             "no-file": "No log file found.",
@@ -566,7 +569,10 @@
         "wineprefix": "Priečinok WinePrefix",
         "wineversion": "Wine Version",
         "autoUpdateGames": "Automaticky aktualizovať hry",
-        "ignoreGameUpdates": "Ignorovať aktualizácie hry"
+        "ignoreGameUpdates": "Ignorovať aktualizácie hry",
+        "disable_logs": "Zakázať denníky",
+        "addgamestoapplications": "Automaticky pridávajte hry do aplikácií",
+        "showMetalOverlay": "Zobraziť prekrytie štatistík"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -668,7 +674,7 @@
         "manager": {
             "link": "Wine Manager",
             "not-found": "No Wine versions found. Please click the refresh icon to try again.",
-            "title": "Wine Manager (Beta)",
+            "title": "Wine Manager",
             "unzipping": "Unzipping"
         },
         "release": "Release Date",
@@ -680,5 +686,12 @@
     },
     "wiki_info": {
         "not_found": "Nepodarilo sa nám nájsť ďalšie informácie."
+    },
+    "dlc": {
+        "actions": "Akcie",
+        "installDlcs": "Nainštalujte všetky DLC",
+        "noDlcFound": "Nenašli sa žiadne DLC",
+        "size": "Veľkosť",
+        "title": "Title"
     }
 }

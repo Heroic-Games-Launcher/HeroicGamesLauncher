@@ -36,13 +36,14 @@
             "message": "¿Quieres desinstalar este juego?",
             "settingcheckbox": "Borrar ajustes y eliminar registros{{newLine}}Nota: Este cambio no se puede deshacer. Todos los ajustes serán olvidados y el registro serán borrado.",
             "title": "Desinstalar",
-            "prefix_warning": "El prefijo Wine para este juego es el prefijo predeterminado. Si realmente desea eliminarlo, debe hacerlo manualmente."
+            "prefix_warning": "El prefijo Wine para este juego es el prefijo predeterminado. Si realmente desea eliminarlo, debe hacerlo manualmente.",
+            "dlc": "¿Quieres desinstalar este DLC?"
         },
         "update": {
             "message": "Este juego tiene una actualización. ¿Quieres aplicarla ahora?",
             "title": "El juego necesita una actualización"
         },
-        "wineprefix": "Seleccione la carpeta WinePrefix",
+        "wineprefix": "Elige la carpeta de WinePrefix",
         "yes": "SÍ"
     },
     "button": {
@@ -74,7 +75,7 @@
     "cloud_save_unsupported": "No compatible",
     "disabled": "Deshabilitado",
     "dlc": {
-        "installDlcs": "Instalar todos los DLCs"
+        "installDlcs": "Instalar todos los DLC"
     },
     "enabled": "Habilitado",
     "game": {
@@ -88,7 +89,8 @@
         "neverPlayed": "Nunca",
         "platform": "Seleccionar la Versión de la Plataforma a Instalar",
         "requirements": "Requerimientos del Sistema",
-        "totalPlayed": "Tiempo Jugado"
+        "totalPlayed": "Tiempo Jugado",
+        "dlcs": "DLCs"
     },
     "gamecard": {
         "moving": "Moviendo",
@@ -112,10 +114,12 @@
         "size": "Tamaño",
         "syncsaves": "Sincronizar guardados",
         "version": "Versión",
-        "apple-gaming-wiki": "Calificación de Wiki de juegos de Apple",
+        "apple-gaming-wiki": "Calificación de AppleGamingWiki",
         "clickToOpen": "Haga clic para abrir",
         "game-scores": "Puntuaciones del juego",
-        "installedInfo": "Información instalada"
+        "installedInfo": "Información instalada",
+        "protondb-compatibility-info": "Nivel de compatibilidad de protones",
+        "steamdeck-compatibility-info": "Compatibilidad con SteamDeck"
     },
     "install": {
         "disk-space-left": "Espacio disponible",
@@ -128,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Juego NO soportado"
+            "third-party-game": "Juego NO soportado",
+            "not-installable-game": "El juego NO es instalable"
         },
         "playing": {
             "start": "Jugar",
@@ -164,11 +169,13 @@
         "info": {
             "exe": "Seleccionar ejecutable",
             "image": "Imagen de la aplicación/juego",
-            "title": "Título de la aplicación/juego"
+            "title": "Título de la aplicación/juego",
+            "broser": "URL del navegador"
         },
         "placeholder": {
             "image": "Ingrese una URL de una imagen aquí",
-            "title": "Agregue un título a su juego/aplicación"
+            "title": "Agregue un título a su juego/aplicación",
+            "url": "Pega la URL del juego aquí"
         }
     },
     "specs": {
@@ -196,7 +203,11 @@
         "moving-files": "Moviendo archivo '{{file}}': {{percent}} ",
         "syncingSaves": "Sincronizando guardados",
         "launching": "Ejecutando",
-        "ubisoft": "Instalando Ubisoft"
+        "ubisoft": "Instalando Ubisoft",
+        "downloading": "Descargando",
+        "extracting": "Extrayendo",
+        "gog-goodie": "Este juego no parece ser instalable. Consulte el contenido descargable en https://gog.com/account",
+        "goodie": "No instalable"
     },
     "submenu": {
         "addShortcut": "Añadir acceso directo",

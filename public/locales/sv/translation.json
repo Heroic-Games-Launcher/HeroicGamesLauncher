@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroic söker efter Wine, Proton och CrossOver i dessa mappar:",
             "part2": "För övriga platser, använd symbolisk länk till en av dessa mappar"
-        }
+        },
+        "disable_logs": "Slå den här kryssrutan PÅ för att inaktivera de flesta skrivningar till loggfiler (kritisk information loggas alltid). Se till att stänga AV den här inställningen innan du rapporterar något problem."
     },
     "info": {
         "heroic": {
@@ -305,7 +306,8 @@
         "wine-repfix": {
             "message": "Wine använder WINEPREFIX för att kapsla in Windows-applikationer. Detta prefix innehåller Wines konfigurationsfiler och en skapad filhierarki för C: (huvuddisken på ett Windows-operativsystem). I den skapade C:-enheten lagras spelets sparfiler och beroenden som installerats via winetricks."
         },
-        "wine-path-invalid": "Vinvägen är ogiltig, välj en annan."
+        "wine-path-invalid": "Vinvägen är ogiltig, välj en annan.",
+        "wine-path-none-found": "Ingen Wine-version hittades, ladda ner en från Wine Manager"
     },
     "install": {
         "path": "Ange installationssökväg"
@@ -440,7 +442,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "Webbläsare"
     },
     "please-wait": "Var god dröj...",
     "progress": "Progress",
@@ -520,7 +523,7 @@
         "log": {
             "copy-to-clipboard": "Kopiera loggen till urklipp/klippbord",
             "current-log": "Aktuell logg",
-            "instructions": "Gå med i vår Discord, välj kanalen för ditt operativsystem. Dela loggfilerna som finns här, inkludera tydlig beskrivning av problemet och relevanta detaljer.",
+            "instructions": "Gå med i vår Discord och leta efter kanalen \"#-support\". Läs den fästa \"Read Me First | Frequently Asked Questions\" tråden och följ instruktionerna för att dela dessa loggar och all relevant information om ditt problem.",
             "instructions_title": "Hur rapporterar jag problem?",
             "last-log": "Senaste logg",
             "no-file": "Ingen loggfil hittades",
@@ -566,7 +569,10 @@
         "wineprefix": "Wine-prefix mapp",
         "wineversion": "Wine version",
         "ignoreGameUpdates": "Ignorera speluppdateringar",
-        "autoUpdateGames": "Uppdatera spel automatiskt"
+        "autoUpdateGames": "Uppdatera spel automatiskt",
+        "disable_logs": "Inaktivera loggar",
+        "addgamestoapplications": "Lägg till spel till applikationer automatiskt",
+        "showMetalOverlay": "Visa statistiköverlägg"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -680,5 +686,12 @@
     },
     "wiki_info": {
         "not_found": "Hittade ej någon extra information."
+    },
+    "dlc": {
+        "actions": "Handlingar",
+        "installDlcs": "Installera alla DLC",
+        "noDlcFound": "Inga DLC:er hittades",
+        "size": "Storlek",
+        "title": "Titel"
     }
 }

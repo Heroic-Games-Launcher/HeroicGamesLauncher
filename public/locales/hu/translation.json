@@ -15,7 +15,7 @@
         "reference": "Referencia",
         "source": "Forrás",
         "status": "Állapot",
-        "title": "Ez a játék csalásellenes szoftvert tartalmaz"
+        "title": "Ez a játék anticheat szoftvert tartalmaz"
     },
     "box": {
         "cache-cleared": {
@@ -23,13 +23,13 @@
             "title": "Gyorsítótár törölve"
         },
         "choose": "Kiválasztás",
-        "choose-egs-prefix": "Válaszd ki a prefixet ahol telepítve van az EGS",
+        "choose-egs-prefix": "Válaszd ki a könyvtárat ahol telepítve van az EGS",
         "choose-gogdl-binary": "GOGDL Binary kiválasztása (újraindítást igényel)",
         "choose-legendary-binary": "Legendary bináris kiválasztása",
-        "customWine": "Válaszd ki a Wine vagy Proton binárist",
+        "customWine": "Válaszd ki a Wine vagy Proton verzitót",
         "default-install-path": "Válassz alapértelmezett telepítési útvonalat",
         "default-steam-path": "Steam könyvtár.",
-        "downloadNow": "Letöltés most",
+        "downloadNow": "Letöltés",
         "error": {
             "add": {
                 "steam": {
@@ -80,7 +80,7 @@
             },
             "moving": "Hiba történt a játék áthelyezésekor {{error}}",
             "ubisoft-connect": {
-                "message": "A Ubisoft Connect telepítése a játék előtagjában nem sikerült. A kézi telepítéshez tekintse meg wikioldalunkat a https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac címen.",
+                "message": "A Ubisoft Connect telepítése a játék könyvtárában nem sikerült. A manuális telepítéshez tekintse meg wikioldalunkat a https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac címen.",
                 "title": "Ubisoft Connect"
             },
             "legendary": {
@@ -278,7 +278,8 @@
         "wine": {
             "part1": "A Heroic a Wine, Proton és CrossOver verzióit a következő mappákban keresi:",
             "part2": "Más hely esetén, használj egy szimbolikus linket az egyik mappához"
-        }
+        },
+        "disable_logs": "Kapcsolja be ezt a jelölőnégyzetet a naplófájlokba való legtöbb írás letiltásához (a kritikus információk mindig naplózásra kerülnek). Mielőtt bármilyen problémát jelentene, feltétlenül kapcsolja KI ezt a beállítást."
     },
     "info": {
         "heroic": {
@@ -305,7 +306,8 @@
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
         },
-        "wine-path-invalid": "A borút érvénytelen, válasszon másikat."
+        "wine-path-invalid": "A borút érvénytelen, válasszon másikat.",
+        "wine-path-none-found": "Nem található Wine verzió, töltsön le egyet a Wine Managerből"
     },
     "install": {
         "path": "Telepítési útvonal kiválasztása"
@@ -361,7 +363,7 @@
             "reparing": "Javítás befejezve"
         },
         "install": {
-            "canceled": "Telepítés visszavonva",
+            "canceled": "Telepítés megszakítva",
             "error": "A telepítés meghiúsult",
             "finished": "Telepítés befejezve",
             "imported": "Játék importálva",
@@ -377,7 +379,7 @@
         },
         "uninstalled": "Eltávolítva",
         "update": {
-            "canceled": "Frissítés visszavonva",
+            "canceled": "Frissítés megszakítva",
             "finished": "Frissítés befejezve",
             "started": "Frissítés elindult",
             "failed": "Frissítés sikertelen",
@@ -440,7 +442,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "Böngésző"
     },
     "please-wait": "Please wait...",
     "progress": "Progress",
@@ -520,7 +523,7 @@
         "log": {
             "copy-to-clipboard": "Napló tartalmának vágólapra másolása",
             "current-log": "Jelenlegi napló",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",
             "instructions_title": "How to report a problem?",
             "last-log": "Utolsó napló",
             "no-file": "Nem található naplófájl",
@@ -566,7 +569,10 @@
         "wineprefix": "Wine prefix mappa",
         "wineversion": "Wine verzió",
         "ignoreGameUpdates": "Figyelmen kívül hagyja a játékfrissítéseket",
-        "autoUpdateGames": "Játékok automatikus frissítése"
+        "autoUpdateGames": "Játékok automatikus frissítése",
+        "disable_logs": "Naplók letiltása",
+        "showMetalOverlay": "Statisztika fedvény megjelenítése",
+        "addgamestoapplications": "Adjon hozzá játékokat automatikusan az Alkalmazásokhoz"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -680,5 +686,12 @@
     },
     "wiki_info": {
         "not_found": "Nem találtunk további információt."
+    },
+    "dlc": {
+        "actions": "Akciók",
+        "installDlcs": "Összes DLC telepítése",
+        "noDlcFound": "Nem található DLC",
+        "size": "Méret",
+        "title": "Cím"
     }
 }

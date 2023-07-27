@@ -9,9 +9,10 @@ const ShowFPS = () => {
   const { t } = useTranslation()
   const [showFps, setShowFps] = useSetting('showFps', false)
   const { platform } = useContext(ContextProvider)
-  const { isMacNative, isLinuxNative } = useContext(SettingsContext)
+  const { isLinuxNative } = useContext(SettingsContext)
   const isWin = platform === 'win32'
-  const shouldRenderFpsOption = !isMacNative && !isWin && !isLinuxNative
+  const isLinux = platform === 'linux'
+  const shouldRenderFpsOption = !isWin || (isLinux && !isLinuxNative)
 
   if (!shouldRenderFpsOption) {
     return <></>
@@ -22,7 +23,11 @@ const ShowFPS = () => {
       htmlId="showFPS"
       value={showFps}
       handleChange={() => setShowFps(!showFps)}
-      title={t('setting.showfps')}
+      title={
+        isLinux
+          ? t('setting.showfps')
+          : t('setting.showMetalOverlay', 'Show Stats Overlay')
+      }
     />
   )
 }

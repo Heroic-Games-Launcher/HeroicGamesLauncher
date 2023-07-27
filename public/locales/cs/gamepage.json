@@ -21,7 +21,7 @@
             "title": "Vyberte EXE ke spuštění"
         },
         "select": {
-            "button": "Vybrat"
+            "button": "Zvolit"
         },
         "sideload": {
             "exe": "Vybrat spustitelný soubor"
@@ -36,7 +36,8 @@
             "message": "Chcete odinstalovat tuto hru?",
             "settingcheckbox": "Vymazat nastavení a odstranit protokol{{newLine}}Poznámka: Tento krok nelze vrátit zpět. Veškerá změněná nastavení budou zapomenuta a protokol bude odstraněn.",
             "title": "Odinstalovat",
-            "prefix_warning": "Předpona Wine pro tuto hru je výchozí předpona. Pokud to opravdu chcete smazat, musíte to udělat ručně."
+            "prefix_warning": "Předpona Wine pro tuto hru je výchozí předpona. Pokud to opravdu chcete smazat, musíte to udělat ručně.",
+            "dlc": "Chcete toto DLC odinstalovat?"
         },
         "update": {
             "message": "Tato hra má aktualizaci, přejete si ji aktualizovat nyní?",
@@ -47,7 +48,7 @@
     },
     "button": {
         "add_to_favourites": "Přidat do oblíbených",
-        "cancel": "Zrušit",
+        "cancel": "Pozastavit/Zrušit",
         "continue": "Pokračovat ve stahování",
         "finish": "Dokončit",
         "force_update": "Vynutit aktualizaci, pokud je dostupná",
@@ -88,7 +89,8 @@
         "neverPlayed": "Nikdy",
         "platform": "Vyberte verzi platformy, kterou chcete nainstalovat",
         "requirements": "Systémové požadavky",
-        "totalPlayed": "Odehraný čas"
+        "totalPlayed": "Odehraný čas",
+        "dlcs": "DLC"
     },
     "gamecard": {
         "moving": "Přesouvám",
@@ -115,7 +117,9 @@
         "apple-gaming-wiki": "Hodnocení AppleGamingWiki",
         "clickToOpen": "Kliknutím otevřete",
         "game-scores": "Skóre hry",
-        "installedInfo": "Instalované informace"
+        "installedInfo": "Instalované informace",
+        "protondb-compatibility-info": "Úroveň protonové kompatibility",
+        "steamdeck-compatibility-info": "Kompatibilita se SteamDeck"
     },
     "install": {
         "disk-space-left": "Volné místo",
@@ -128,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Hra třetí strany NENÍ podporována"
+            "third-party-game": "Hra třetí strany NENÍ podporována",
+            "not-installable-game": "Hra NELZE nainstalovat"
         },
         "playing": {
             "start": "Hrát",
@@ -164,11 +169,13 @@
         "info": {
             "exe": "Vyberte spustitelný soubor",
             "image": "Obrázek aplikace",
-            "title": "Název hry/aplikace"
+            "title": "Název hry/aplikace",
+            "broser": "Adresa URL prohlížeče"
         },
         "placeholder": {
             "image": "Sem vložte URL obrázku",
-            "title": "Přidejte název ke své hře/aplikaci"
+            "title": "Přidejte název ke své hře/aplikaci",
+            "url": "Sem vložte adresu URL hry"
         }
     },
     "specs": {
@@ -196,7 +203,11 @@
         "moving-files": "Přesouvání souboru '{{file}}': {{percent}} ",
         "syncingSaves": "Synchronizuji uložené soubory",
         "launching": "Spouštění",
-        "ubisoft": "Instalace Ubisoftu"
+        "ubisoft": "Instalace Ubisoftu",
+        "downloading": "Stahování",
+        "extracting": "Extrakce",
+        "gog-goodie": "Zdá se, že tuto hru nelze nainstalovat. Zkontrolujte obsah ke stažení na https://gog.com/account",
+        "goodie": "Nelze nainstalovat"
     },
     "submenu": {
         "addShortcut": "Přidat zástupce",

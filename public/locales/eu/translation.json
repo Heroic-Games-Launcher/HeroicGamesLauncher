@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroikoek Wine, Proton eta CrossOver-en bertsioak bilatzen ditu karpeta hauetan:",
             "part2": "Beste leku batzuetarako, erabili karpeta horietako batera esteka sinboliko bat"
-        }
+        },
+        "disable_logs": "Aktibatu kontrol-lauki hau erregistro-fitxategietako idazketa gehienak desgaitzeko (informazio kritikoa beti erregistratzen da). Ziurtatu ezarpen hau desaktibatu duzula edozein arazoren berri eman aurretik."
     },
     "info": {
         "heroic": {
@@ -305,7 +306,8 @@
         "wine-repfix": {
             "message": "Wine-k WINEPREFIX deritzona erabiltzen du Windows aplikazioak kapsulatzeko. Aurrizki honek Wine konfigurazio-fitxategiak eta C:-ren fitxategi-hierarkiaren erreprodukzioa ditu (Windows OS bateko disko nagusia). C: diskoaren erreprodukzio honetan, zure jokoa gordetzeko fitxategiak eta winetricks bidez instalatutako mendekotasunak gordetzen dira."
         },
-        "wine-path-invalid": "Ardoaren bidea baliogabea da, hautatu beste bat."
+        "wine-path-invalid": "Ardoaren bidea baliogabea da, hautatu beste bat.",
+        "wine-path-none-found": "Ez da Wine bertsiorik aurkitu, deskargatu bat Wine Manager-etik"
     },
     "install": {
         "path": "Hautatu Instalatu bidea"
@@ -440,7 +442,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Leihoak"
+        "win": "Leihoak",
+        "browser": "Arakatzailea"
     },
     "please-wait": "Please wait...",
     "progress": "Aurrerapena",
@@ -566,7 +569,10 @@
         "wineprefix": "WinePrefix karpeta",
         "wineversion": "Ardoaren Bertsioa",
         "autoUpdateGames": "Eguneratu jokoak automatikoki",
-        "ignoreGameUpdates": "Ez ikusi jokoaren eguneraketak"
+        "ignoreGameUpdates": "Ez ikusi jokoaren eguneraketak",
+        "disable_logs": "Desgaitu erregistroak",
+        "addgamestoapplications": "Gehitu automatikoki jokoak aplikazioetan",
+        "showMetalOverlay": "Erakutsi estatistikak gainjartzea"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -680,5 +686,12 @@
     },
     "wiki_info": {
         "not_found": "Ezin izan dugu informazio gehigarririk aurkitu."
+    },
+    "dlc": {
+        "actions": "Ekintzak",
+        "installDlcs": "Instalatu DLC guztiak",
+        "noDlcFound": "Ez da DLCrik aurkitu",
+        "size": "Tamaina",
+        "title": "Title"
     }
 }

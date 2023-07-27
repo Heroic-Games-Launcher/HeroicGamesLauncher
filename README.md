@@ -10,7 +10,7 @@
 [![kofi](https://img.shields.io/badge/Ko--Fi-Donate-orange?style=for-the-badge&logo=ko-fi)](https://ko-fi.com/heroicgames)
 
 Heroic is an Open Source Game Launcher for Linux, Windows and macOS.  
-Right now it supports launching games from the Epic Games Store using [Legendary](https://github.com/derrod/legendary) and GOG Games using our custom implementation with [gogdl](https://github.com/Heroic-Games-Launcher/heroic-gogdl).
+Right now it supports launching games from the Epic Games Store using [Legendary](https://github.com/derrod/legendary), GOG Games using our custom implementation with [gogdl](https://github.com/Heroic-Games-Launcher/heroic-gogdl) and Amazon Games using [Nile](https://github.com/imLinguin/nile).
 
 Heroic is built with Web Technologies:  
 [![Typescript](https://img.shields.io/badge/Typescript-3178c6?style=for-the-badge&logo=typescript&labelColor=gray)](https://www.typescriptlang.org/)
@@ -45,13 +45,14 @@ Heroic is built with Web Technologies:
     - [Building with VS Code](#building-with-vs-code)
     - [Quickly testing/debugging Heroic on your own system](#quickly-testingdebugging-heroic-on-your-own-system)
     - [Development Using a Container](#development-using-a-container)
+    - [Testing with Docker](#testing-with-docker)
   - [Sponsors](#sponsors)
   - [Screenshots](#screenshots)
   - [Credits](#credits)
 
 ## Features available right now
 
-- Login with an existing Epic Games account or GOG account
+- Login with an existing Epic Games, GOG or Amazon account
 - Install, uninstall, update, repair and move Games
 - Import an already installed game
 - Play Epic games online [AntiCheat on macOS and on Linux depends on the game]
@@ -60,15 +61,16 @@ Heroic is built with Web Technologies:
 - Download custom Wine and Proton versions [Linux]
 - Access to Epic and GOG stores directly from Heroic
 - Search for the game on ProtonDB for compatibility information [Linux]
+- Show ProtonDB and Steam Deck compatibility information [Linux]
 - Sync installed games with an existing Epic Games Store installation
 - Sync saves with the cloud
 - Custom Theming Support
 - Download queue
-- Add Games and Applications outside GOG and Epic Games
+- Add Games and Applications outside GOG, Epic Games and Amazon Games
 
 ## Planned features
 
-- Support Other Store (Amazon Gaming, IndieGala, etc)
+- Support Other Store (IndieGala, etc)
 - Play GOG games online
 
 ## Supported Operating Systems
@@ -294,15 +296,33 @@ And you should be good to go, code and build away!
 
 </details>
 
+### Testing with Docker
+
+It is recommended to run end to end tests with Docker so you don't alter your local config files or have your local config files interfere with the tests.
+
+To run e2e tests on the unpackaged app running in dev mode.
+From the root of your local Heroic directory, run:
+
+```bash
+yarn test:e2e
+```
+
+To run e2e tests on the packaged app.
+From the root of your local Heroic directory, run:
+
+```bash
+yarn test:e2ePackaged
+```
+
 ## Sponsors
 
 Thanks [Weblate](https://weblate.org/en/) for hosting our translations
 
 ![weblate](https://s.weblate.org/cdn/Logo-Darktext-borders.png)
 
-Thanks [Signpath](https://about.signpath.io) for providing free signing of Windows binaries
+Thanks [Signpath](https://signpath.io/?utm_source=foundation&utm_medium=github&utm_campaign=heroicgameslauncher) for providing free signing of Windows binaries
 
-![signpath](https://user-images.githubusercontent.com/26871415/182468471-6ef4aac6-a4e2-4ae8-93ef-d638cd01627d.png)
+[![signpath](https://user-images.githubusercontent.com/26871415/182468471-6ef4aac6-a4e2-4ae8-93ef-d638cd01627d.png)](https://signpath.io/?utm_source=foundation&utm_medium=github&utm_campaign=heroicgameslauncher)
 
 ## Screenshots
 

@@ -16,5 +16,5 @@
 }
 
 .timeContainerLabel svg {
-  margin-right: var(--space-3xs);
+  margin-inline-end: var(--space-3xs);
 }

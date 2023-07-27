@@ -307,7 +307,7 @@ export const initGamepad = () => {
       const controller = gamepads[index]
       if (!controller) return
 
-      // logState(index)
+      logState(index)
 
       const buttons = controller.buttons
       const axes = controller.axes
@@ -334,26 +334,32 @@ export const initGamepad = () => {
     requestAnimationFrame(updateStatus)
   }
 
-  // function logState(index: number) {
-  //   const controller = navigator.getGamepads()[index]
-  //   if (!controller) return
+  function logState(index: number) {
+    const controller = navigator.getGamepads()[index]
+    if (!controller) return
 
-  //   const buttons = controller.buttons
-  //   const axes = controller.axes
+    const buttons = controller.buttons
+    const axes = controller.axes
 
-  //   for (const button in buttons) {
-  //     if (buttons[button].pressed)
-  //       console.log(`button ${button} pressed ${buttons[button].value}`)
-  //   }
-  //   for (const axis in axes) {
-  //     if (axes[axis] < -0.2 && axes[axis] >= -1)
-  //       console.log(`axis ${axis} activated negative`)
-  //     if (axes[axis] > 0.2 && axes[axis] <= 1)
-  //       console.log(`axis ${axis} activated positive`)
-  //   }
-  // }
+    for (const button in buttons) {
+      if (buttons[button].pressed)
+        console.log(`button ${button} pressed ${buttons[button].value}`)
+    }
+    for (const axis in axes) {
+      if (axes[axis] < -0.2 && axes[axis] >= -1)
+        console.log(`axis ${axis} activated negative`)
+      if (axes[axis] > 0.2 && axes[axis] <= 1)
+        console.log(`axis ${axis} activated positive`)
+    }
+  }
 
   function connecthandler(e: GamepadEvent) {
+    console.log('controller connected event')
+    console.log(e)
+    // Ignore Logitech's G29 Driving Force Racing Wheel
+    if (e.gamepad.id.match(/046d.*c24f/i)) {
+      return
+    }
     addgamepad(e.gamepad)
   }
 

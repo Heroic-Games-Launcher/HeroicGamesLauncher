@@ -3,7 +3,9 @@
         "login": "Bejelentkezés",
         "open": "Link megnyitása",
         "copy": "Másolat",
-        "copied": "Másolva!"
+        "copied": "Másolva!",
+        "error": "Hiba, próbálkozzon másik kóddal",
+        "loading": "Loading"
     },
     "message": {
         "part1": "Annak érdekében, hogy be tudj jelentkezni és le tudd tölteni a játékaid, először követned kell az itt lent felsoroltakat:",

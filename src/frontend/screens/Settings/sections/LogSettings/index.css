@@ -26,7 +26,7 @@
 }
 
 .log-buttons {
-  margin-right: 20px;
+  margin-inline-end: 20px;
   cursor: pointer;
 }
 
@@ -37,7 +37,7 @@
 .log-error,
 .log-warning,
 .log-info {
-  text-align: left;
+  text-align: start;
   margin-block: 0;
   min-height: 1em;
   height: max-content;
@@ -68,6 +68,6 @@
 }
 
 .report-problem-instructions {
-  text-align: left;
+  text-align: start;
   max-width: 513px;
 }

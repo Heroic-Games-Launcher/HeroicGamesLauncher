@@ -3,7 +3,9 @@
         "login": "Masuk",
         "open": "Buka tautan",
         "copy": "Menyalin",
-        "copied": "Disalin!"
+        "copied": "Disalin!",
+        "error": "Terjadi kesalahan, coba Kode lainnya",
+        "loading": "Memuat"
     },
     "message": {
         "part1": "Untuk masuk dan memasang permainanmu, kamu harus mengikuti langkah-langkah di bawah:",

@@ -18,7 +18,7 @@
   color: var(--accent);
   font-size: var(--text-lg);
   padding: var(--space-xs-fixed);
-  text-align: left;
+  text-align: start;
 }
 
 /* using max and min width on purpose, width doesn't work as expected on these */
@@ -41,7 +41,7 @@
 
 .tableFieldWrapper td span {
   padding: var(--space-2xs-fixed) 0;
-  text-align: left;
+  text-align: start;
   overflow: auto;
   white-space: nowrap;
 }
@@ -94,7 +94,7 @@
 
 .tableFieldWrapper tfoot tr.dirty span {
   white-space: normal;
-  text-align: right;
+  text-align: end;
   flex-grow: 1;
 }
 
@@ -108,7 +108,7 @@
 
 .tableFieldWrapper tfoot tr.error td {
   display: table-cell;
-  text-align: left;
+  text-align: start;
   padding-top: 0.2rem;
 }
 

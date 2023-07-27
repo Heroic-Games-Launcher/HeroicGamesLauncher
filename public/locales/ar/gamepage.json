@@ -37,7 +37,8 @@
             "message": "هل تريد إلغاء تثبيت هذه اللعبة؟",
             "settingcheckbox": "امحُ الإعدادات واحذف السجل{{newLine}}ملاحظة: لا يمكن التراجع عن هذا. ستُنسى كل الإعدادات التي عُدّلت وسيُحذف السجل.",
             "title": "أزِل التثبيت",
-            "prefix_warning": "سابقة واين لهذه اللعبة هي السابقة الافتراضية. إذا أردت حذفها فعليك فعل ذلك يدويًّا."
+            "prefix_warning": "سابقة واين لهذه اللعبة هي السابقة الافتراضية. إذا أردت حذفها فعليك فعل ذلك يدويًّا.",
+            "dlc": "هل تريد إلغاء تثبيت DLC هذا؟"
         },
         "update": {
             "message": "هنالك تحديث متاح لهذه اللعبة، هل تريد تطبيقه الآن؟",
@@ -89,7 +90,8 @@
         "neverPlayed": "لم تُلعب مطلقًا",
         "platform": "حدد إصدار المنصة لتثبيته",
         "requirements": "متطلبات النظام",
-        "totalPlayed": "مدة اللعب"
+        "totalPlayed": "مدة اللعب",
+        "dlcs": "DLCs"
     },
     "gamecard": {
         "moving": "قيد النقل",
@@ -116,7 +118,9 @@
         "apple-gaming-wiki": "تقييم AppleGamingWiki",
         "clickToOpen": "انقر لتفتح",
         "game-scores": "نتائج اللعبة",
-        "installedInfo": "معلومات المثبَّت"
+        "installedInfo": "معلومات المثبَّت",
+        "protondb-compatibility-info": "طبقة توافق البروتون",
+        "steamdeck-compatibility-info": "التوافق مع SteamDeck"
     },
     "install": {
         "disk-space-left": "المساحة المتوفرة",
@@ -129,7 +133,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "لعبة الطرف الثالث ليست مدعومة"
+            "third-party-game": "لعبة الطرف الثالث ليست مدعومة",
+            "not-installable-game": "اللعبة غير قابلة للتثبيت"
         },
         "playing": {
             "start": "إلعب الآن",
@@ -165,11 +170,13 @@
         "info": {
             "exe": "حدد ملفًا تنفيذيًا",
             "image": "آب إيمَج",
-            "title": "اسم اللعبة/التطبيق"
+            "title": "اسم اللعبة/التطبيق",
+            "broser": "BrowserURL"
         },
         "placeholder": {
             "image": "الصق عنوان URL للصورة هنا",
-            "title": "أضف عنوانًا إلى لعبتك/تطبيقك"
+            "title": "أضف عنوانًا إلى لعبتك/تطبيقك",
+            "url": "الصق عنوان URL الخاص باللعبة هنا"
         }
     },
     "specs": {
@@ -197,7 +204,11 @@
         "moving-files": "يُنقل الملف '{{file}}': {{percent}} ",
         "syncingSaves": "قيد مزامنة ملفات التخزين",
         "launching": "يشغّل",
-        "ubisoft": "يثبَّت يوبيسوفت"
+        "ubisoft": "يثبَّت يوبيسوفت",
+        "downloading": "ينزَّل",
+        "extracting": "يستخرَج",
+        "goodie": "غير قابل للتثبيت",
+        "gog-goodie": "لا يبدو أن هذه اللعبة قابلة للتثبيت. تحقق من المحتوى القابل للتنزيل على https://gog.com/account"
     },
     "submenu": {
         "addShortcut": "أضف اختصارًا",

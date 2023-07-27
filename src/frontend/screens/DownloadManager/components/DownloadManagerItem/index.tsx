@@ -37,7 +37,7 @@ function convertToTime(time: number) {
 }
 
 const DownloadManagerItem = ({ element, current, state }: Props) => {
-  const { epic, gog, showDialogModal } = useContext(ContextProvider)
+  const { amazon, epic, gog, showDialogModal } = useContext(ContextProvider)
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation('translation')
 
@@ -51,7 +51,7 @@ const DownloadManagerItem = ({ element, current, state }: Props) => {
     )
   }
 
-  const library = [...epic.library, ...gog.library]
+  const library = [...epic.library, ...gog.library, ...amazon.library]
 
   const { params, addToQueueTime, endTime, type, startTime } = element
   const {
@@ -75,7 +75,11 @@ const DownloadManagerItem = ({ element, current, state }: Props) => {
     getNewInfo()
   }, [element])
 
-  const { art_cover, art_square } = gameInfo || {}
+  const {
+    art_cover,
+    art_square,
+    install: { is_dlc }
+  } = gameInfo || {}
 
   const [progress] = hasProgress(appName)
   const { status } = element
@@ -100,6 +104,9 @@ const DownloadManagerItem = ({ element, current, state }: Props) => {
   }
 
   const goToGamePage = () => {
+    if (is_dlc) {
+      return
+    }
     return navigate(`/gamepage/${runner}/${appName}`, {
       state: { fromDM: true, gameInfo: gameInfo }
     })
@@ -127,6 +134,9 @@ const DownloadManagerItem = ({ element, current, state }: Props) => {
 
   const mainActionIcon = () => {
     if (finished) {
+      if (is_dlc) {
+        return <>-</>
+      }
       return <PlayIcon className="playIcon" />
     }
 
@@ -212,7 +222,10 @@ const DownloadManagerItem = ({ element, current, state }: Props) => {
         role="button"
         onClick={() => goToGamePage()}
         className="downloadManagerTitleList"
-        style={{ color: getStatusColor() }}
+        style={{
+          color: getStatusColor(),
+          cursor: is_dlc ? 'default' : 'pointer'
+        }}
       >
         {cover && <CachedImage src={cover} alt={title} />}
         <span className="titleSize">

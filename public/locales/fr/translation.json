@@ -1,11 +1,11 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Police d'écriture pour les actions (Par défaut : ",
+        "actions_font_family_no_default": "Police d'écriture pour les actions (par défaut : ",
         "all_tiles_in_color": "Afficher les vignettes de tous les jeux en couleur",
         "content_font_family_no_default": "Police d'écriture pour les contenus (Par défaut : ",
         "fonts": "Polices d'écriture",
         "title": "Accessibilité",
-        "zoom": "Zoom"
+        "zoom": "Agrandir"
     },
     "add_game": "Ajouter un jeu",
     "All": "Tout",
@@ -66,8 +66,8 @@
                 "title": "Une exception inattendue s'est produite !"
             },
             "update": {
-                "message": "Quelque chose s'est mal passé lors de la mise-à-jour, veuillez vérifier les fichiers journaux ou réessayez plus tard !",
-                "title": "Erreur de mise-à-jour"
+                "message": "Quelque chose s'est mal passé lors de la mise à jour, veuillez vérifier les journaux d'événements ou réessayez plus tard !",
+                "title": "Erreur durant la mise à jour"
             },
             "wine-not-found": {
                 "invalid": "La version de Wine sélectionnée n'a pas été trouvée. Installez-la ou sélectionnez une version différente dans les paramètres du jeu{{newline}}Version: {{version}}{{newline}}Chemin: {{path}}",
@@ -81,7 +81,7 @@
             "moving": "Erreur lors du déplacement du jeu {{error}}",
             "ubisoft-connect": {
                 "message": "L'installation d'Ubisoft Connect dans le préfixe du jeu a échoué. Consultez notre page wiki sur https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac pour l'installer manuellement.",
-                "title": "Connexion Ubisoft"
+                "title": "Ubisoft Connect"
             },
             "legendary": {
                 "generic": "Une erreur est survenue ! Essayez de vous déconnecter et de vous reconnecter à votre compte Epic. {{newline}} {{error}}"
@@ -94,7 +94,7 @@
                 "message": "Il y a une nouvelle version disponible !",
                 "message-finished": "Voulez-vous redémarrer Heroic maintenant ?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Mise à jour finie"
+                "title-finished": "Mise à jour terminée"
             }
         },
         "no": "NON",
@@ -154,7 +154,7 @@
                 "title": "Wine introuvable !"
             }
         },
-        "wineprefix": "Choisir le dossier de préfixe Wine",
+        "wineprefix": "Choisir le dossier des préfixes Wine",
         "yes": "OUI",
         "dontShowAgain": "Ne plus afficher"
     },
@@ -191,7 +191,7 @@
     "download-manager": {
         "install-type": {
             "install": "Installation",
-            "update": "Mise-à-jour"
+            "update": "Mise à jour"
         },
         "label": {
             "disk": "Disque",
@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroic recherche des versions de Wine, Proton et CrossOver dans ces dossiers :",
             "part2": "Pour d'autres emplacements, utilisez un lien symbolique vers un de ces dossiers"
-        }
+        },
+        "disable_logs": "Cochez cette case pour désactiver la plupart des écritures dans les fichiers journaux (les informations critiques sont toujours enregistrées). Assurez-vous de désactiver ce paramètre avant de signaler un problème."
     },
     "info": {
         "heroic": {
@@ -305,7 +306,8 @@
         "wine-repfix": {
             "message": "Wine utilise un préfixe (aussi appelé \"bouteille\" et dont le chemin est défini dans la variable WINEPREFIX) pour encapsuler les programmes Windows. Ce préfixe comporte les fichiers de configuration de Wine ainsi qu'une reproduction du système de fichiers de la partition C : (la partition principale d'un système Windows). On y trouve aussi les dépendances et les fichiers de sauvegardes des jeux installés via Winetricks."
         },
-        "wine-path-invalid": "Le chemin vers Wine n'est pas valide, veuillez en sélectionner un autre."
+        "wine-path-invalid": "Le chemin vers Wine n'est pas valide, veuillez en sélectionner un autre.",
+        "wine-path-none-found": "Aucune version de Wine n'a été trouvée, téléchargez-en une depuis le Wine Manager"
     },
     "install": {
         "path": "Sélectionner le chemin d'installation"
@@ -335,8 +337,8 @@
         "message": "Connectez-vous à votre plateforme. Vous pouvez vous connecter à plus d'une plateforme à la fois."
     },
     "message": {
-        "sync": "Synchronisation Complète",
-        "unsync": "Désynchronisation Complète"
+        "sync": "Synchronisation achevée",
+        "unsync": "Désynchronisation achevée"
     },
     "notify": {
         "error": {
@@ -381,7 +383,7 @@
             "finished": "Mise à jour terminée",
             "started": "Mise à jour commencée",
             "paused": "Mise à jour suspendue",
-            "failed": "Mise à jour a échoué"
+            "failed": "Mise à jour échouée"
         }
     },
     "offline-message": {
@@ -440,7 +442,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "Navigateur"
     },
     "please-wait": "Veuillez patienter...",
     "progress": "Progression",
@@ -457,7 +460,7 @@
             "resume": "Reprendre le téléchargement"
         }
     },
-    "Recent": "Joués récemment",
+    "Recent": "Lancés récemment",
     "search": "Rechercher un jeu",
     "setting": {
         "adddesktopshortcuts": "Ajouter automatiquement des raccourcis sur le Bureau",
@@ -469,7 +472,7 @@
         "autosync": "Synchroniser automatiquement les sauvegardes",
         "autovkd3d": "Installer et mettre à jour automatiquement VKD3D dans le préfixe",
         "change-target-exe": "Choisir un fichier .exe alternatif à lancer",
-        "checkForUpdatesOnStartup": "Vérifier au démarrage si des mises à jour de Heroic sont disponibles",
+        "checkForUpdatesOnStartup": "Vérifier au démarrage si une version plus récente d'Heroic est disponible",
         "crossover-version": "Version de Crossover/Wine",
         "custom_themes_path": "Chemin vers les thèmes personnalisés",
         "customWineProton": "Chemins pour les Wine/Proton Custom",
@@ -520,7 +523,7 @@
         "log": {
             "copy-to-clipboard": "Copier le contenu du log dans le presse-papier",
             "current-log": "Log actuel",
-            "instructions": "Rejoignez notre Discord et regardez le canal qui correspond à votre système d'exploitation. Partagez le contenu des logs affichés ici, et incluez une description claire du problème avec toute information et détails pertinents.",
+            "instructions": "Rejoignez notre Discord et recherchez la section \"#-support\". Lisez le fil épinglé \"Read Me First | Frequently Asked Questions\" et suivez les instructions pour partager le contenu de ces journaux, ainsi que toute information pertinente concernant votre problème.",
             "instructions_title": "Comment signaler un problème ?",
             "last-log": "Dernier log",
             "no-file": "Aucun fichier log trouvé",
@@ -566,7 +569,10 @@
         "wineprefix": "Dossier WinePrefix",
         "wineversion": "Version de Wine",
         "autoUpdateGames": "Mettre les jeux à jour automatiquement",
-        "ignoreGameUpdates": "Ignorer les mises à jour du jeu"
+        "ignoreGameUpdates": "Ignorer les mises à jour du jeu",
+        "disable_logs": "Désactiver les journaux",
+        "showMetalOverlay": "Afficher la superposition des statistiques",
+        "addgamestoapplications": "Ajouter automatiquement des jeux aux applications"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -647,8 +653,8 @@
     "Update Available!": "Mise à jour disponible !",
     "userselector": {
         "discord": "Discord",
-        "logging_out": "Déconnexion",
-        "logout": "Déconnexion",
+        "logging_out": "Déconnexion en cours",
+        "logout": "Se déconnecter",
         "logout_confirmation": "Êtes-vous certain(e) de vouloir vous déconnecter ?",
         "manageaccounts": "Comptes",
         "quit": "Quitter",
@@ -680,5 +686,12 @@
     },
     "wiki_info": {
         "not_found": "Nous n'avons pas trouvé d'informations supplémentaires."
+    },
+    "dlc": {
+        "actions": "Actions",
+        "installDlcs": "Installer tous les DLCs",
+        "noDlcFound": "Aucun DLC trouvé",
+        "size": "Taille",
+        "title": "Titre"
     }
 }

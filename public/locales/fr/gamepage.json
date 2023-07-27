@@ -9,12 +9,12 @@
         "importpath": "Choisir le répertoire du jeu à importer",
         "move": {
             "message": "Cette opération peut prendre du temps. Êtes-vous certain(e) de vouloir continuer ?",
-            "path": "Choisir la localisation de déplacement",
-            "title": "Déplacer l'installation du jeu"
+            "path": "Choisissez où vous voulez le déplacer",
+            "title": "Déplacer le dossier d'installation du jeu"
         },
         "no": "NON",
         "repair": {
-            "message": "Voulez-vous essayer de réparer ce jeu ? Ceci peut prendre un moment.",
+            "message": "Voulez-vous essayer de réparer ce jeu ? Ceci peut prendre un long moment.",
             "title": "Vérifier et réparer"
         },
         "runexe": {
@@ -36,11 +36,12 @@
             "message": "Voulez-vous désinstaller ce jeu ?",
             "settingcheckbox": "Effacer les paramètres et supprimer le rapport d'événements{{newLine}}Attention : ceci ne peut pas être annulé. Tout paramètre modifié sera réinitialisé et le rapport d'événements sera définitivement supprimé .",
             "title": "Désinstaller",
-            "prefix_warning": "Le préfixe Wine pour ce jeu est le préfixe par défaut. Si vous voulez vraiment le supprimer, vous devez le faire manuellement."
+            "prefix_warning": "Le préfixe Wine pour ce jeu est le préfixe par défaut. Si vous voulez vraiment le supprimer, vous devez le faire manuellement.",
+            "dlc": "Voulez-vous désinstaller ce DLC ?"
         },
         "update": {
             "message": "Une mise à jour est disponible pour ce jeu. Souhaitez-vous le mettre à jour maintenant ?",
-            "title": "Mise à jour nécessaire du jeu"
+            "title": "Mise à jour du jeu nécessaire"
         },
         "wineprefix": "Sélectionner le dossier WinePrefix",
         "yes": "OUI"
@@ -88,7 +89,8 @@
         "neverPlayed": "Jamais",
         "platform": "Sélectionner la version de la plateforme à installer",
         "requirements": "Configuration requise",
-        "totalPlayed": "Temps de jeu"
+        "totalPlayed": "Temps de jeu",
+        "dlcs": "DLCs"
     },
     "gamecard": {
         "moving": "Déplacement",
@@ -101,8 +103,8 @@
     "hours": "Heures",
     "how-long-to-beat": {
         "completionist": "Complétionniste",
-        "main-plus-extras": "Trame principale + Extras",
-        "main-story": "Histoire principale"
+        "main-plus-extras": "Trame principale \n+ Extras",
+        "main-story": "Histoire \nprincipale"
     },
     "howLongToBeat": "Durée pour finir le jeu",
     "info": {
@@ -115,7 +117,9 @@
         "apple-gaming-wiki": "Classement AppleGamingWiki",
         "clickToOpen": "Cliquez pour ouvrir",
         "game-scores": "Scores du jeu",
-        "installedInfo": "Informations installées"
+        "installedInfo": "Informations sur l'installation",
+        "protondb-compatibility-info": "Niveau de compatibilité proton",
+        "steamdeck-compatibility-info": "Compatibilité SteamDeck"
     },
     "install": {
         "disk-space-left": "Espace Disponible",
@@ -128,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Les jeux nécessitant un lanceur tiers ne sont PAS compatibles"
+            "third-party-game": "Les jeux nécessitant un lanceur tiers ne sont PAS compatibles",
+            "not-installable-game": "Le jeu n'est PAS installable"
         },
         "playing": {
             "start": "Y jouer maintenant",
@@ -164,11 +169,13 @@
         "info": {
             "exe": "Sélectionner l'exécutable",
             "image": "Vignette de l'application",
-            "title": "Titre du Jeu/de l'Application"
+            "title": "Titre du Jeu/de l'Application",
+            "broser": "URL du navigateur"
         },
         "placeholder": {
             "image": "Collez ici l'URL d'une image",
-            "title": "Ajouter un titre à votre Jeu/Application"
+            "title": "Ajouter un titre à votre Jeu/Application",
+            "url": "Collez l'URL du jeu ici"
         }
     },
     "specs": {
@@ -178,7 +185,7 @@
     "status": {
         "clickToUpdate": "Cliquez pour mettre à jour",
         "gameNotAvailable": "Jeu indisponible",
-        "hasUpdates": "Nouvelle version disponible !",
+        "hasUpdates": "Une nouvelle version est disponible !",
         "installed": "Installé",
         "installing": "Installation en cours",
         "moving": "Déplacement de l'installation, veuillez patienter",
@@ -196,7 +203,11 @@
         "moving-files": "Déplacement du fichier \"{{file}}\" : {{percent}} ",
         "syncingSaves": "Synchronisation des sauvegardes",
         "launching": "Lancement",
-        "ubisoft": "Installer Ubisoft"
+        "ubisoft": "Installer Ubisoft",
+        "downloading": "En cours de téléchargement",
+        "extracting": "Extraction",
+        "goodie": "Non installable",
+        "gog-goodie": "Ce jeu ne semble pas être installable. Vérifiez le contenu téléchargeable sur https://gog.com/account"
     },
     "submenu": {
         "addShortcut": "Ajouter un raccourci",

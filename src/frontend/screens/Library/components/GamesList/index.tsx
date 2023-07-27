@@ -16,6 +16,7 @@ interface Props {
   ) => void
   onlyInstalled?: boolean
   isRecent?: boolean
+  isFavourite?: boolean
 }
 
 const GamesList = ({
@@ -24,7 +25,8 @@ const GamesList = ({
   handleGameCardClick,
   isFirstLane = false,
   onlyInstalled = false,
-  isRecent = false
+  isRecent = false,
+  isFavourite = false
 }: Props): JSX.Element => {
   const { gameUpdates } = useContext(ContextProvider)
   const { t } = useTranslation()
@@ -90,9 +92,9 @@ const GamesList = ({
         </div>
       )}
       {!!library.length &&
-        library.map((gameInfo) => {
+        library.map((gameInfo, index) => {
           const { app_name, is_installed, runner } = gameInfo
-
+          const isJustPlayed = (isFavourite || isRecent) && index === 0
           let is_dlc = false
           if (gameInfo.runner !== 'sideload') {
             is_dlc = gameInfo.install.is_dlc ?? false
@@ -108,7 +110,7 @@ const GamesList = ({
           const hasUpdate = is_installed && gameUpdates?.includes(app_name)
           return (
             <GameCard
-              key={app_name}
+              key={`${runner}_${app_name}${isFirstLane ? '_firstlane' : ''}`}
               hasUpdate={hasUpdate}
               buttonClick={() => {
                 if (gameInfo.runner !== 'sideload')
@@ -117,6 +119,7 @@ const GamesList = ({
               forceCard={layout === 'grid'}
               isRecent={isRecent}
               gameInfo={gameInfo}
+              justPlayed={isJustPlayed}
             />
           )
         })}

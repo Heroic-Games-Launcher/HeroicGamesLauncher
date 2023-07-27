@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroic tìm kiếm các phiên bản Wine, Proton và CrossOver trong các thư mục sau:",
             "part2": "Đối với vị trí khác, sử dụng biểu tượng liên kết với một trong những thư mục này"
-        }
+        },
+        "disable_logs": "BẬT hộp kiểm này để vô hiệu hóa hầu hết các thao tác ghi vào tệp nhật ký (thông tin quan trọng luôn được ghi lại). Đảm bảo TẮT cài đặt này trước khi báo cáo bất kỳ sự cố nào."
     },
     "info": {
         "heroic": {
@@ -305,7 +306,8 @@
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
         },
-        "wine-path-invalid": "Đường dẫn Rượu không hợp lệ, vui lòng chọn một đường dẫn khác."
+        "wine-path-invalid": "Đường dẫn Rượu không hợp lệ, vui lòng chọn một đường dẫn khác.",
+        "wine-path-none-found": "Không tìm thấy phiên bản Wine nào, hãy tải xuống một phiên bản từ Trình quản lý rượu"
     },
     "install": {
         "path": "Chọn đường dẫn cài"
@@ -440,7 +442,8 @@
     "platforms": {
         "linux": "LInux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "trình duyệt"
     },
     "please-wait": "Please wait...",
     "progress": "Progress",
@@ -566,7 +569,10 @@
         "wineprefix": "Thư mục WinePrefix",
         "wineversion": "Phiên bản Wine",
         "autoUpdateGames": "Tự động cập nhật trò chơi",
-        "ignoreGameUpdates": "Bỏ qua cập nhật trò chơi"
+        "ignoreGameUpdates": "Bỏ qua cập nhật trò chơi",
+        "disable_logs": "Tắt nhật ký",
+        "addgamestoapplications": "Tự động thêm trò chơi vào Ứng dụng",
+        "showMetalOverlay": "Hiển thị lớp phủ thống kê"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -680,5 +686,12 @@
     },
     "wiki_info": {
         "not_found": "Chúng tôi không thể tìm thấy thêm thông tin."
+    },
+    "dlc": {
+        "actions": "hành động",
+        "installDlcs": "Cài đặt tất cả bản mở rộng (DLC)",
+        "noDlcFound": "Không tìm thấy DLC nào",
+        "size": "Kích thước",
+        "title": "Title"
     }
 }

@@ -278,7 +278,8 @@
         "wine": {
             "part1": "Heroic cercherà possibili versioni di Wine, Proton, e CrossOver nelle seguenti cartelle:",
             "part2": "Per altre posizioni, utilizza un link simbolico ad una di queste cartelle"
-        }
+        },
+        "disable_logs": "Attiva questa casella di controllo per disabilitare la maggior parte delle scritture sui file di registro (le informazioni critiche vengono sempre registrate). Assicurati di disattivare questa impostazione prima di segnalare qualsiasi problema."
     },
     "info": {
         "heroic": {
@@ -305,7 +306,8 @@
         "wine-repfix": {
             "message": "Wine utilizza quello che viene chiamato WINEPREFIX per incapsulare le applicazioni di Windows. Questo prefisso contiene i file di configurazione di Wine e una riproduzione della gerarchia di C: (il disco principale di un sistema operativo Windows). I tuoi salvataggi e le dependencies installate attraverso Winetricks sono contenute in questa riproduzione del disco C:."
         },
-        "wine-path-invalid": "Wine Path non è valido, selezionane un altro."
+        "wine-path-invalid": "Wine Path non è valido, selezionane un altro.",
+        "wine-path-none-found": "Non è stata trovata alcuna versione di Wine, scaricane una da Wine Manager"
     },
     "install": {
         "path": "Seleziona percorso di installazione"
@@ -440,7 +442,8 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "Windows"
+        "win": "Windows",
+        "browser": "Navigatore"
     },
     "please-wait": "Attendi, per favore...",
     "progress": "Progresso",
@@ -566,7 +569,10 @@
         "wineprefix": "Cartella del prefix di Wine",
         "wineversion": "Versione di Wine",
         "autoUpdateGames": "Aggiorna automaticamente i giochi",
-        "ignoreGameUpdates": "Ignora gli aggiornamenti del gioco"
+        "ignoreGameUpdates": "Ignora gli aggiornamenti del gioco",
+        "disable_logs": "Disabilita i log",
+        "addgamestoapplications": "Aggiungi giochi alle applicazioni automaticamente",
+        "showMetalOverlay": "Mostra sovrapposizione statistiche"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -680,5 +686,12 @@
     },
     "wiki_info": {
         "not_found": "Non siamo riusciti a trovare ulteriori informazioni."
+    },
+    "dlc": {
+        "actions": "Azioni",
+        "installDlcs": "Installa tutti i DLC",
+        "noDlcFound": "Nessun DLC trovato",
+        "size": "Dimensione",
+        "title": "Titolo"
     }
 }
