@@ -20,7 +20,7 @@ export const legendarySetup = async (appName: string) => {
 
   //Fixes games like Fallout New Vegas and Dishonored: Death of the Outsider
   await runWineCommandOnGame(appName, {
-    commandParts: ['reg', 'add', 'HKCR\\com.epicgames.launcher'],
+    commandParts: ['reg', 'add', 'HKEY_CLASSES_ROOT\\com.epicgames.launcher'],
     wait: true,
     protonVerb: 'waitforexitandrun'
   })
