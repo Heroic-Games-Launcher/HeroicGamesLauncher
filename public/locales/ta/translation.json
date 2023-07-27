@@ -156,7 +156,8 @@
         },
         "wineprefix": "Wine முன்னொட்டு கோப்புறையை தேர்வுசெய்",
         "yes": "ஆம்",
-        "dontShowAgain": "மீண்டும் காட்டாதே"
+        "dontShowAgain": "மீண்டும் காட்டாதே",
+        "choose-nile-binary": "நைல் பைனரியைத் தேர்ந்தெடுக்கவும்"
     },
     "button": {
         "cancel": "Cancel",
@@ -334,7 +335,8 @@
         "alternative_method": "Alternative Login Method",
         "epic": "Epic Games Login",
         "gog": "GOG Login",
-        "message": "Login with your platform. You can login to more than one platform at the same time."
+        "message": "Login with your platform. You can login to more than one platform at the same time.",
+        "amazon": "அமேசான் உள்நுழைவு"
     },
     "message": {
         "sync": "ஒத்திசைவு நிறைப்படைந்தது",
@@ -428,7 +430,8 @@
     "other": {
         "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary Version: ",
-        "weblate": "ஹீரோயிக் ஐ மொழிபெயர்க்க உதவுங்கள்."
+        "weblate": "ஹீரோயிக் ஐ மொழிபெயர்க்க உதவுங்கள்.",
+        "nile-version": "நைல் பதிப்பு: "
     },
     "Other": "Other",
     "placeholder": {
@@ -437,7 +440,8 @@
         "custom_themes_path": "Select the path to look for custom CSS files",
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "EGS நிறுவப்பட்ட முன்னொட்டு",
-        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")",
+        "alt-nile-bin": "உள்ளமைக்கப்பட்ட நைல் பைனரியைப் பயன்படுத்துகிறது..."
     },
     "platforms": {
         "linux": "லினக்ஸ்",
@@ -572,7 +576,8 @@
         "ignoreGameUpdates": "கேம் புதுப்பிப்புகளைப் புறக்கணிக்கவும்",
         "disable_logs": "பதிவுகளை முடக்கு",
         "addgamestoapplications": "தானாகவே பயன்பாடுகளில் கேம்களைச் சேர்க்கவும்",
-        "showMetalOverlay": "புள்ளிவிவர மேலடுக்கைக் காட்டு"
+        "showMetalOverlay": "புள்ளிவிவர மேலடுக்கைக் காட்டு",
+        "alt-nile-bin": "ஒரு மாற்று நைல் பைனரியைத் தேர்ந்தெடுக்கவும்"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -624,7 +629,8 @@
     "status": {
         "installing": "Installing",
         "logging": "Logging In...",
-        "processing": "Processing files, please wait"
+        "processing": "Processing files, please wait",
+        "preparing_login": "உள்நுழைவு தயாராகிறது... "
     },
     "store": "Epic விற்பனைக்கூடம்",
     "stores": "Stores",
@@ -693,5 +699,8 @@
         "noDlcFound": "டிஎல்சிகள் எதுவும் இல்லை",
         "size": "Size",
         "title": "Title"
-    }
+    },
+    "amazon": "அமேசான்",
+    "Amazon Games": "அமேசான் கேம்ஸ்",
+    "prime-gaming": "பிரைம் கேமிங்"
 }
