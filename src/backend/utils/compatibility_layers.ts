@@ -14,6 +14,8 @@ import { existsSync, mkdirSync, readFileSync, readdirSync } from 'graceful-fs'
 import { homedir } from 'os'
 import { dirname, join } from 'path'
 import { PlistObject, parse as plistParse } from 'plist'
+import LaunchCommand from '../storeManagers/legendary/commands/launch'
+import { NonEmptyString, Path } from '../storeManagers/legendary/commands/base'
 
 /**
  * Loads the default wine installation path and version.
@@ -372,18 +374,51 @@ export async function getGamingPortingToolkitWine(): Promise<
   return gamingPortingToolkitWine
 }
 
+export type AllowedWineFlags = Pick<
+  LaunchCommand,
+  '--wine' | '--wrapper' | '--no-wine'
+>
+
 export function getWineFlags(
   wineBin: string,
   wineType: WineInstallation['type'],
-  wrapper: string
-) {
+  wrapper: string,
+  asArray?: false
+): AllowedWineFlags
+export function getWineFlags(
+  wineBin: string,
+  wineType: WineInstallation['type'],
+  wrapper: string,
+  asArray: true
+): string[]
+export function getWineFlags(
+  wineBin: string,
+  wineType: WineInstallation['type'],
+  wrapper: string,
+  asArray?: boolean
+): AllowedWineFlags | string[] {
+  let partialCommand: AllowedWineFlags = {}
   switch (wineType) {
     case 'wine':
     case 'toolkit':
-      return ['--wine', wineBin, ...(wrapper ? ['--wrapper', wrapper] : [])]
+      partialCommand = { '--wine': Path.parse(wineBin) }
+      if (wrapper) partialCommand['--wrapper'] = NonEmptyString.parse(wrapper)
+      break
     case 'proton':
-      return ['--no-wine', '--wrapper', `${wrapper} '${wineBin}' run`]
+      partialCommand = {
+        '--no-wine': true,
+        '--wrapper': NonEmptyString.parse(`${wrapper} '${wineBin}' run`)
+      }
+      break
     default:
-      return []
+      break
   }
+  if (!asArray) return partialCommand
+
+  const commandArray: string[] = []
+  for (const [key, value] of Object.entries(partialCommand)) {
+    if (value === true) commandArray.push(key)
+    else commandArray.push(key, value)
+  }
+  return commandArray
 }

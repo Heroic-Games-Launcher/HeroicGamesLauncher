@@ -513,7 +513,7 @@ export async function launch(
         ? wineExec.replaceAll("'", '')
         : wineExec
 
-    wineFlag = [...getWineFlags(wineBin, wineType, shlex.join(wrappers))]
+    wineFlag = [...getWineFlags(wineBin, wineType, shlex.join(wrappers), true)]
   }
 
   const commandParts = [
