@@ -156,7 +156,8 @@
         },
         "wineprefix": "Tria la carpeta del WinePrefix",
         "yes": "SÍ",
-        "dontShowAgain": "No tornis a mostrar"
+        "dontShowAgain": "No tornis a mostrar",
+        "choose-nile-binary": "Seleccioneu el binari del Nil"
     },
     "button": {
         "cancel": "Cancel·la",
@@ -334,7 +335,8 @@
         "alternative_method": "Mètode d'inici de sessió alternatiu",
         "epic": "Inici de sessió a l'Epic Games",
         "gog": "Inici de sessió al GOG",
-        "message": "Inicia la sessió. Pots iniciar sessió a més d'una plataforma alhora."
+        "message": "Inicia la sessió. Pots iniciar sessió a més d'una plataforma alhora.",
+        "amazon": "Inici de sessió d'Amazon"
     },
     "message": {
         "sync": "S'ha completat la sincronització",
@@ -428,7 +430,8 @@
     "other": {
         "gogdl-version": "Versió del GOGDL: ",
         "legendary-version": "Versió del Legendary: ",
-        "weblate": "Ajuda a traduir l'Heroic."
+        "weblate": "Ajuda a traduir l'Heroic.",
+        "nile-version": "Versió Nile: "
     },
     "Other": "Altres",
     "placeholder": {
@@ -437,7 +440,8 @@
         "custom_themes_path": "Selecciona la ruta per a cercar fitxers CSS personalitzats",
         "dxvkfpsvalue": "Valor enter positiu (com ara 30, 60, ...)",
         "egs-prefix": "Prefix on l'EGS està instal·lat",
-        "prefered_language": "Codi de dos caràcters, com ara «en», «fr» o «ca»"
+        "prefered_language": "Codi de dos caràcters, com ara «en», «fr» o «ca»",
+        "alt-nile-bin": "S'està utilitzant el binari integrat del Nil..."
     },
     "platforms": {
         "linux": "Linux",
@@ -572,7 +576,8 @@
         "ignoreGameUpdates": "Ignora les actualitzacions del joc",
         "disable_logs": "Desactiva els registres",
         "showMetalOverlay": "Mostra la superposició d'estadístiques",
-        "addgamestoapplications": "Afegeix jocs a Aplicacions automàticament"
+        "addgamestoapplications": "Afegeix jocs a Aplicacions automàticament",
+        "alt-nile-bin": "Trieu un binari alternatiu del Nil"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -624,7 +629,8 @@
     "status": {
         "installing": "S'està instal·lant",
         "logging": "S'està iniciant la sessió...",
-        "processing": "S'estan processant els fitxers, espera"
+        "processing": "S'estan processant els fitxers, espera",
+        "preparing_login": "S'està preparant l'inici de sessió... "
     },
     "store": "Botiga de l'Epic",
     "stores": "Botigues",
@@ -693,5 +699,8 @@
         "noDlcFound": "No s'han trobat DLC",
         "size": "Mida",
         "title": "Títol"
-    }
+    },
+    "prime-gaming": "Prime Gaming",
+    "amazon": "Amazon",
+    "Amazon Games": "Jocs d'Amazon"
 }
