@@ -12,11 +12,18 @@ import { getGameInfo, getSettings, runWineCommandOnGame } from './games'
 const UBISOFT_INSTALLER_URL =
   'https://ubistatic3-a.akamaihd.net/orbit/launcher_installer/UbisoftConnectInstaller.exe'
 
-export const setupUbisoftConnect = async (appName: string) => {
+export const legendarySetup = async (appName: string) => {
   const gameInfo = getGameInfo(appName)
   if (!gameInfo) {
     return
   }
+
+  //Fixes games like Fallout New Vegas and Dishonored: Death of the Outsider
+  await runWineCommandOnGame(appName, {
+    commandParts: ['reg', 'add', 'HKCR\\com.epicgames.launcher'],
+    wait: true,
+    protonVerb: 'waitforexitandrun'
+  })
 
   // if not a ubisoft game, do nothing
   if (gameInfo.install.executable !== 'UplayLaunch.exe') {

@@ -58,7 +58,7 @@ import { spawn } from 'child_process'
 import shlex from 'shlex'
 import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
-import { setupUbisoftConnect } from './storeManagers/legendary/setup'
+import { legendarySetup } from './storeManagers/legendary/setup'
 import { gameManagerMap } from 'backend/storeManagers'
 import * as VDF from '@node-steam/vdf'
 import { readFileSync } from 'fs'
@@ -245,7 +245,7 @@ async function prepareWineLaunch(
       await nileSetup(appName)
     }
     if (runner === 'legendary') {
-      await setupUbisoftConnect(appName)
+      await legendarySetup(appName)
     }
   }
 
