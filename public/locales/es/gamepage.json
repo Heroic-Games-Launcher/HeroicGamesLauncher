@@ -152,7 +152,8 @@
         "epic": "No ha iniciado sesión con una cuenta de Epic en Heroic. No use la página de la tienda, haga click en el siguiente botón:",
         "gog": "No ha iniciado sesión con una cuenta de GOG en Heroic. No use la página de la tienda, haga click en el siguiente botón:",
         "login": "Iniciar Sesión",
-        "title": "No ha iniciado sesión"
+        "title": "No ha iniciado sesión",
+        "amazon": "No ha iniciado sesión con una cuenta de Epic en Heroic. No use la página de la tienda, haga click en el siguiente botón:"
     },
     "report_problem": "Reportar un problema ejecutando este juego",
     "sdl": {

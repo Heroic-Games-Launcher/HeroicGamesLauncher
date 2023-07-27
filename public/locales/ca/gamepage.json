@@ -152,7 +152,8 @@
         "epic": "No has iniciat sessió amb un compte d'Epic a l'Heroic. No facis servir la pàgina de la botiga per a iniciar-la. Fes-ho després de prémer el botó següent:",
         "gog": "No has iniciat sessió amb un compte de GOG a l'Heroic. No facis servir la pàgina de la botiga per a iniciar-la. Fes-ho després de prémer el botó següent:",
         "login": "Inicia la sessió",
-        "title": "No has iniciat sessió"
+        "title": "No has iniciat sessió",
+        "amazon": "No has iniciat sessió amb un compte d'Epic a l'Heroic. No facis servir la pàgina de la botiga per a iniciar-la. Fes-ho després de prémer el botó següent:"
     },
     "report_problem": "Informa d'un problema quan s'executa el joc",
     "sdl": {

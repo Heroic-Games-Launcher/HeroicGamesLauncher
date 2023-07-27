@@ -152,7 +152,8 @@
         "epic": "Vous n'êtes pas connecté à un compte Epic dans Heroic. N'utilisez pas la page du magasin pour vous connecter, cliquez plutôt sur ce bouton :",
         "gog": "Vous n'êtes pas connecté à un compte GOG dans Heroic. N'utilisez pas la page du magasin pour vous connecter, cliquez plutôt sur ce bouton :",
         "login": "Connexion",
-        "title": "Vous n'êtes PAS connecté"
+        "title": "Vous n'êtes PAS connecté",
+        "amazon": "Vous n'êtes pas connecté à un compte Epic dans Heroic. N'utilisez pas la page du magasin pour vous connecter, cliquez plutôt sur ce bouton :"
     },
     "report_problem": "Signaler un problème de fonctionnement du jeu",
     "sdl": {
