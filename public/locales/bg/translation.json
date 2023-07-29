@@ -157,12 +157,12 @@
         "wineprefix": "Изберете папка за префикс на Wine",
         "yes": "ДА",
         "dontShowAgain": "Да не се показва отново",
-        "choose-nile-binary": "Изберете Nile binary"
+        "choose-nile-binary": "Изберете изпълнимия файл на Nile"
     },
     "button": {
         "cancel": "Отказ",
         "go_to_library": "Към библиотеката",
-        "login": "Влизане",
+        "login": "Вписване",
         "sync": "Синхронизиране",
         "syncing": "Синхронизиране",
         "unsync": "Десинхронизиране",
@@ -332,11 +332,11 @@
         "website": "Зареждане на уеб сайта"
     },
     "login": {
-        "alternative_method": "Друг вариант за влизане",
-        "epic": "Влизане чрез Epic Games",
-        "gog": "Влизане чрез GOG",
-        "message": "Влезте чрез своята система. Може да сте влезли едновременно чрез няколко системи.",
-        "amazon": "Вход в Amazon"
+        "alternative_method": "Друг вариант за вписване",
+        "epic": "Вписване в Epic Games",
+        "gog": "Вписване в GOG",
+        "message": "Впишете се в избраната система. Може да сте вписан(а) едновременно в няколко системи.",
+        "amazon": "Вписване в Amazon"
     },
     "message": {
         "sync": "Синхронизацията е завършена",
@@ -431,7 +431,7 @@
         "gogdl-version": "Версия на GOGDL: ",
         "legendary-version": "Версия на Legendary: ",
         "weblate": "Помогнете за превода на Heroic.",
-        "nile-version": "Версия на Нил: "
+        "nile-version": "Версия на Nile: "
     },
     "Other": "Other",
     "placeholder": {
@@ -441,7 +441,7 @@
         "dxvkfpsvalue": "Положително цяло число (например: 30, 60, …)",
         "egs-prefix": "Префикс, където е инсталиран EGS",
         "prefered_language": "Код съставен от 2 знака (например: „en“ или „fr“)",
-        "alt-nile-bin": "Използвайки вграден двоичен код на Nile..."
+        "alt-nile-bin": "Използване на вградения изпълним файл на Nile…"
     },
     "platforms": {
         "linux": "Линукс",
@@ -450,7 +450,7 @@
         "browser": "Браузър"
     },
     "please-wait": "Моля, изчакайте…",
-    "progress": "Progress",
+    "progress": "Напредък",
     "queue": {
         "label": {
             "canceled": "Отменено",
@@ -577,7 +577,7 @@
         "disable_logs": "Деактивиране на регистрационни файлове",
         "addgamestoapplications": "Автоматично добавяне на игрите към приложенията",
         "showMetalOverlay": "Показване на слой със статистики",
-        "alt-nile-bin": "Изберете алтернативен двоичен файл на Nile"
+        "alt-nile-bin": "Избиране на алтернативен изпълним файл на Nile"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -629,8 +629,8 @@
     "status": {
         "installing": "Инсталиране…",
         "logging": "Влизане…",
-        "processing": "Файловете се обработват, изчакайте",
-        "preparing_login": "Подготвя се влизане... "
+        "processing": "Файловете се обработват… моля, изчакайте",
+        "preparing_login": "Подготовка за вписване… "
     },
     "store": "Мазагин на Epic",
     "stores": "Магазини",
@@ -701,6 +701,6 @@
         "size": "Размер"
     },
     "amazon": "Amazon",
-    "Amazon Games": "Игри на Amazon",
+    "Amazon Games": "Игри от Amazon",
     "prime-gaming": "Prime Gaming"
 }
