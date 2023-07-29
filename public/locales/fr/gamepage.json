@@ -161,7 +161,7 @@
     },
     "setting": {
         "use-default-wine-settings": "Utiliser les paramètres de Wine par défaut",
-        "winecrossoverbottle": "Bouteille CrossOver"
+        "winecrossoverbottle": "Pont-Bouteille"
     },
     "sideload": {
         "field": {

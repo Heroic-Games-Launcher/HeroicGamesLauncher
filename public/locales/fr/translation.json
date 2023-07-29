@@ -41,8 +41,8 @@
                 "message": "Vos informations d'identification ont expiré, veuillez vous reconnecter."
             },
             "cx-bottle-not-found": {
-                "message": "Le préfixe-bouteille CrossOver \"{{bottle_name}}\" n'existe pas, impossible de lancer !",
-                "title": "Préfixe CrossOver introuvable"
+                "message": "Le Pont-Bouteille \"{{bottle_name}}\" n'existe pas, impossible de lancer !",
+                "title": "Pont-Bouteille introuvable"
             },
             "diskspace": {
                 "message": "Espace disque nécessaire insuffisant",
@@ -336,7 +336,7 @@
         "epic": "Connexion à Epic Games",
         "gog": "Connexion à GOG",
         "message": "Connectez-vous à votre plateforme. Vous pouvez vous connecter à plus d'une plateforme à la fois.",
-        "amazon": "Connexion Amazon"
+        "amazon": "Connexion à Amazon"
     },
     "message": {
         "sync": "Synchronisation achevée",
@@ -569,7 +569,7 @@
         "showfps": "Afficher les FPS (DX9, 10 et 11)",
         "start-in-tray": "Réduire au démarrage",
         "steamruntime": "Utiliser le runtime Steam",
-        "winecrossoverbottle": "Bouteille CrossOver",
+        "winecrossoverbottle": "Pont-Bouteille",
         "wineprefix": "Dossier WinePrefix",
         "wineversion": "Version de Wine",
         "autoUpdateGames": "Mettre les jeux à jour automatiquement",
@@ -700,7 +700,7 @@
         "size": "Taille",
         "title": "Titre"
     },
-    "amazon": "Amazone",
+    "amazon": "Amazon",
     "Amazon Games": "Jeux Amazon",
     "prime-gaming": "Premier jeu"
 }
