@@ -152,7 +152,8 @@
         "epic": "V Heroic nejste přihlášeni pomocí účtu Epic. K přihlášení nepoužívejte stránku obchodu, ale klikněte na následující tlačítko:",
         "gog": "V Heroic nejste přihlášeni pomocí účtu GOG. K přihlášení nepoužívejte stránku obchodu, ale klikněte na následující tlačítko:",
         "login": "Log in",
-        "title": "NEjste přihlášeni"
+        "title": "NEjste přihlášeni",
+        "amazon": "V Heroic nejste přihlášeni pomocí účtu Epic. K přihlášení nepoužívejte stránku obchodu, ale klikněte na následující tlačítko:"
     },
     "report_problem": "Nahlásit problém se spouštěním této hry",
     "sdl": {

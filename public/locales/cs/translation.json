@@ -156,7 +156,8 @@
         },
         "wineprefix": "Vyberte složku WinePrefix",
         "yes": "ANO",
-        "dontShowAgain": "Znovu nezobrazovat"
+        "dontShowAgain": "Znovu nezobrazovat",
+        "choose-nile-binary": "Vyberte binární Nil"
     },
     "button": {
         "cancel": "Zrušit",
@@ -334,7 +335,8 @@
         "alternative_method": "Alternativní způsob přihlášení",
         "epic": "Přihlášení s Epic Games",
         "gog": "Přihlášení s GOG",
-        "message": "Přihlaste se pomocí své platformy. Můžete se přihlásit k více platformám najednou."
+        "message": "Přihlaste se pomocí své platformy. Můžete se přihlásit k více platformám najednou.",
+        "amazon": "Přihlášení na Amazon"
     },
     "message": {
         "sync": "Synchronizace dokončena",
@@ -428,7 +430,8 @@
     "other": {
         "gogdl-version": "Verze GOGDL: ",
         "legendary-version": "Verze Legenary: ",
-        "weblate": "Pomozte s překladem Heroic."
+        "weblate": "Pomozte s překladem Heroic.",
+        "nile-version": "Verze Nile: "
     },
     "Other": "Other",
     "placeholder": {
@@ -437,7 +440,8 @@
         "custom_themes_path": "Vyberte cestu k vyhledávání vlastních souborů CSS",
         "dxvkfpsvalue": "Kladná celočíselná hodnota (např. 30, 60, ...)",
         "egs-prefix": "Prefix kde je nainstalován EGS",
-        "prefered_language": "2znakový kód (tj.: \"en\" nebo \"fr\")"
+        "prefered_language": "2znakový kód (tj.: \"en\" nebo \"fr\")",
+        "alt-nile-bin": "Pomocí vestavěného nilského binárního..."
     },
     "platforms": {
         "linux": "Linux",
@@ -572,7 +576,8 @@
         "ignoreGameUpdates": "Ignorovat aktualizace hry",
         "disable_logs": "Zakázat protokoly",
         "addgamestoapplications": "Přidávejte hry do aplikací automaticky",
-        "showMetalOverlay": "Zobrazit překryvnou statistiku"
+        "showMetalOverlay": "Zobrazit překryvnou statistiku",
+        "alt-nile-bin": "Vyberte alternativní binární soubor Nilu"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -624,7 +629,8 @@
     "status": {
         "installing": "Instaluji",
         "logging": "Přihlašování...",
-        "processing": "Zpracovávám soubory, čekejte prosím"
+        "processing": "Zpracovávám soubory, čekejte prosím",
+        "preparing_login": "Příprava přihlášení... "
     },
     "store": "Epic Store",
     "stores": "Obchody",
@@ -693,5 +699,8 @@
         "installDlcs": "Instalovat všechna DLC",
         "title": "Název",
         "actions": "Akce"
-    }
+    },
+    "amazon": "Amazonka",
+    "prime-gaming": "Prime Gaming",
+    "Amazon Games": "Amazon hry"
 }

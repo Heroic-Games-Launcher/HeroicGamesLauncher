@@ -152,7 +152,8 @@
         "epic": "Du bist mit keinem Epic-Konto in Heroic angemeldet. Verwende zum Anmelden nicht die Store-Seite, sondern klicke stattdessen auf die folgende Schaltfläche:",
         "gog": "Du bist mit keinem GOG-Konto in Heroic angemeldet. Verwende zum Anmelden nicht die Store-Seite, sondern klicke stattdessen auf die folgende Schaltfläche:",
         "login": "Anmelden",
-        "title": "Du bist NICHT angemeldet"
+        "title": "Du bist NICHT angemeldet",
+        "amazon": "Du bist mit keinem Epic-Account in Heroic angemeldet. Verwende nicht die Store-Seite, um dich anzumelden, sondern klicke stattdessen auf die folgende Schaltfläche:"
     },
     "report_problem": "Ein Problem bei der Ausführung dieses Spiels melden",
     "sdl": {

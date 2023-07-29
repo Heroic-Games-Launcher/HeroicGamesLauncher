@@ -156,7 +156,8 @@
         },
         "wineprefix": "Wine Prefix Klasörünü Seçin",
         "yes": "EVET",
-        "dontShowAgain": "Tekrar gösterme"
+        "dontShowAgain": "Tekrar gösterme",
+        "choose-nile-binary": "Nil ikili dosyasını seçin"
     },
     "button": {
         "cancel": "İptal et",
@@ -334,7 +335,8 @@
         "alternative_method": "Alternatif Giriş Yöntemi",
         "epic": "Epic Games Giriş",
         "gog": "GOG Giriş",
-        "message": "Platformunuz ile giriş yapın. Aynı anda birden fazla platforma giriş yapabilirsiniz."
+        "message": "Platformunuz ile giriş yapın. Aynı anda birden fazla platforma giriş yapabilirsiniz.",
+        "amazon": "Amazon Girişi"
     },
     "message": {
         "sync": "Eşzamanlama Tamamlandı",
@@ -428,7 +430,8 @@
     "other": {
         "gogdl-version": "GOGDL Sürümü: ",
         "legendary-version": "Legendary Sürüm: ",
-        "weblate": "Heroic'i çevirmeye yardımcı ol."
+        "weblate": "Heroic'i çevirmeye yardımcı ol.",
+        "nile-version": "Nil Sürümü: "
     },
     "Other": "Diğer",
     "placeholder": {
@@ -437,7 +440,8 @@
         "custom_themes_path": "Özel CSS dosyalarının aranacağı yolu seçin",
         "dxvkfpsvalue": "Pozitif tamsayı değeri (ör. 30, 60, ...)",
         "egs-prefix": "EGS'nin kurulu olduğu yer",
-        "prefered_language": "2 karakterli kod (örneğin: \"en\" veya \"tr\")"
+        "prefered_language": "2 karakterli kod (örneğin: \"en\" veya \"tr\")",
+        "alt-nile-bin": "Yerleşik Nile ikili dosyası kullanılıyor..."
     },
     "platforms": {
         "linux": "Linux",
@@ -572,7 +576,8 @@
         "ignoreGameUpdates": "Oyun güncellemelerini yoksay",
         "disable_logs": "Günlükleri Devre Dışı Bırak",
         "showMetalOverlay": "İstatistik Yer Paylaşımını Göster",
-        "addgamestoapplications": "Oyunları Uygulamalara otomatik olarak ekleyin"
+        "addgamestoapplications": "Oyunları Uygulamalara otomatik olarak ekleyin",
+        "alt-nile-bin": "Alternatif Bir Nil İkilisi Seçin"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -624,7 +629,8 @@
     "status": {
         "installing": "Kuruluyor",
         "logging": "Oturum Açılıyor…",
-        "processing": "Dosyalar işleniyor, lütfen bekleyin"
+        "processing": "Dosyalar işleniyor, lütfen bekleyin",
+        "preparing_login": "Giriş hazırlanıyor... "
     },
     "store": "Epic Mağazası",
     "stores": "Mağazalar",
@@ -693,5 +699,8 @@
         "noDlcFound": "DLC bulunamadı",
         "size": "Boyut",
         "title": "Title"
-    }
+    },
+    "amazon": "Amazon",
+    "Amazon Games": "amazon oyunları",
+    "prime-gaming": "Prime Oyun"
 }

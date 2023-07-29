@@ -9,7 +9,7 @@ import {
 import { logError, LogPrefix, logInfo } from 'backend/logger/logger'
 import { execAsync } from 'backend/utils'
 import { execSync } from 'child_process'
-import { GameSettings, WineInstallation } from 'common/types'
+import { WineInstallation } from 'common/types'
 import { existsSync, mkdirSync, readFileSync, readdirSync } from 'graceful-fs'
 import { homedir } from 'os'
 import { dirname, join } from 'path'
@@ -374,16 +374,16 @@ export async function getGamingPortingToolkitWine(): Promise<
 
 export function getWineFlags(
   wineBin: string,
-  gameSettings: GameSettings,
-  wineType: string
+  wineType: WineInstallation['type'],
+  wrapper: string
 ) {
-  const wineFlags = []
-  const wineFlagsObj = {
-    proton: ['--no-wine', '--wrapper', `'${wineBin}' run`],
-    wine: ['--wine', wineBin],
-    toolkit: ['--wrapper', `${wineBin} ${gameSettings.winePrefix}`, '--no-wine']
+  switch (wineType) {
+    case 'wine':
+    case 'toolkit':
+      return ['--wine', wineBin, ...(wrapper ? ['--wrapper', wrapper] : [])]
+    case 'proton':
+      return ['--no-wine', '--wrapper', `${wrapper} '${wineBin}' run`]
+    default:
+      return []
   }
-
-  wineFlags.push(...(wineFlagsObj[wineType as keyof typeof wineFlagsObj] || []))
-  return wineFlags
 }

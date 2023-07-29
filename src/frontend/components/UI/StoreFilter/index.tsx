@@ -11,7 +11,7 @@ export default React.memo(function StoreFilter() {
 
   const isGOGLoggedin = gog.username
   const isEpicLoggedin = epic.username
-  const isAmazonLoggedin = amazon.username
+  const isAmazonLoggedin = amazon.user_id
 
   return (
     <div className="storeFilter">

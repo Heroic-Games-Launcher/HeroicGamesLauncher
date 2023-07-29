@@ -321,7 +321,9 @@ class GlobalConfigV0 extends GlobalConfig {
       },
       wineCrossoverBottle: 'Heroic',
       winePrefix: isWindows ? '' : defaultWinePrefix,
-      wineVersion: defaultWine
+      wineVersion: defaultWine,
+      enableEsync: true,
+      enableFsync: true
     } as AppSettings
   }
 
