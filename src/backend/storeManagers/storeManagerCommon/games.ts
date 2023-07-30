@@ -17,7 +17,7 @@ import { access, chmod } from 'fs/promises'
 import shlex from 'shlex'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { createAbortController } from '../../utils/aborthandler/aborthandler'
-import { BrowserWindow, Menu } from 'electron'
+import { BrowserWindow, dialog, Menu } from 'electron'
 import { gameManagerMap } from '../index'
 
 async function getAppSettings(appName: string): Promise<GameSettings> {
@@ -65,7 +65,22 @@ const openNewBrowserGameWindow = async (
       browserGame.close()
     })
 
-    browserGame.on('close', () => {
+    browserGame.webContents.on('will-prevent-unload', (event) => {
+      const choice = dialog.showMessageBoxSync(browserGame, {
+        type: 'question',
+        buttons: ['Yes', 'No'],
+        title: 'Are you sure you want to quit?',
+        message: 'Any unsaved progress might be lost',
+        defaultId: 0,
+        cancelId: 1
+      })
+      const leave = choice === 0
+      if (leave) {
+        event.preventDefault()
+      }
+    })
+
+    browserGame.on('closed', () => {
       res(true)
     })
   })
