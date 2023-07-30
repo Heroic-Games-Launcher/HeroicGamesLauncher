@@ -1,0 +1,37 @@
+name: Update Version in Bug Report template
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  update_version_job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Get Latest Release Version
+        id: get_latest_release
+        run: echo "RELEASE_VERSION=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
+
+      - name: Update File with Version
+        run: |
+          sed -i '/^        ## Latest stable version of Heroic is/c\        ## Latest stable version of Heroic is ${{ env.RELEASE_VERSION }}. Please, update Heroic before reporting a bug if you have an older version.' .github/ISSUE_TEMPLATE/bug_report.yaml
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "${GITHUB_ACTOR}"
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git add .github/ISSUE_TEMPLATE/bug_report.yaml
+          git commit -m "Update bug report template with latest release"
+          git checkout -b update_bug_template
+          git push origin update_bug_template -f
+
+      - name: Create Pull Request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr create --base main --head update_bug_template --title "Update bug report template with latest release" --body "This pull request updates the bug report template with the latest release version (${{ env.RELEASE_VERSION }})."
