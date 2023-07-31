@@ -379,24 +379,17 @@ export type AllowedWineFlags = Pick<
   '--wine' | '--wrapper' | '--no-wine'
 >
 
+/**
+ * Returns a LegendaryCommand with the required flags to use a specified Wine version
+ * @param wineBin The full path to the Wine binary (`wine`/`wine64`/`proton`)
+ * @param wineType The type of the Wine version
+ * @param wrapper Any wrappers to be used, may be `''`
+ */
 export function getWineFlags(
   wineBin: string,
   wineType: WineInstallation['type'],
-  wrapper: string,
-  asArray?: false
-): AllowedWineFlags
-export function getWineFlags(
-  wineBin: string,
-  wineType: WineInstallation['type'],
-  wrapper: string,
-  asArray: true
-): string[]
-export function getWineFlags(
-  wineBin: string,
-  wineType: WineInstallation['type'],
-  wrapper: string,
-  asArray?: boolean
-): AllowedWineFlags | string[] {
+  wrapper: string
+): AllowedWineFlags {
   let partialCommand: AllowedWineFlags = {}
   switch (wineType) {
     case 'wine':
@@ -413,7 +406,18 @@ export function getWineFlags(
     default:
       break
   }
-  if (!asArray) return partialCommand
+  return partialCommand
+}
+
+/**
+ * Like {@link getWineFlags}, but returns a `string[]` with the flags instead
+ */
+export function getWineFlagsArray(
+  wineBin: string,
+  wineType: WineInstallation['type'],
+  wrapper: string
+): string[] {
+  const partialCommand = getWineFlags(wineBin, wineType, wrapper)
 
   const commandArray: string[] = []
   for (const [key, value] of Object.entries(partialCommand)) {
