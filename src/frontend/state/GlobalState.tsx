@@ -36,10 +36,12 @@ import {
   sideloadLibrary,
   zoomConfigStore,
   zoomInstalledGamesStore,
-  zoomLibraryStore
+  zoomLibraryStore,
+  steamLibraryStore
 } from '../helpers/electronStores'
 import { IpcRendererEvent } from 'electron'
 import { NileRegisterData } from 'common/types/nile'
+import { SteamLoginUser } from 'common/types/steam'
 
 const storage: Storage = window.localStorage
 const globalSettings = configStore.get_nodefault('settings')
@@ -71,6 +73,10 @@ interface StateProps {
   zoom: {
     library: GameInfo[]
     username?: string
+  }
+  steam: {
+    library: GameInfo[]
+    enabledUsers: SteamLoginUser[]
   }
   wineVersions: WineVersionInfo[]
   error: boolean
@@ -166,6 +172,11 @@ class GlobalState extends PureComponent<Props> {
     return games
   }
 
+  loadSteamLibrary = (): Array<GameInfo> => {
+    const games = steamLibraryStore.get('games', [])
+
+    return games
+  }
   state: StateProps = {
     epic: {
       library: libraryStore.get('library', []),
@@ -183,6 +194,10 @@ class GlobalState extends PureComponent<Props> {
     zoom: {
       library: this.loadZoomLibrary(),
       username: zoomConfigStore.get_nodefault('username')
+    },
+    steam: {
+      library: this.loadSteamLibrary(),
+      enabledUsers: []
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
     error: false,
@@ -1062,6 +1077,7 @@ class GlobalState extends PureComponent<Props> {
       gog,
       amazon,
       zoom,
+      steam,
       favouriteGames,
       customCategories,
       hiddenGames,
@@ -1104,6 +1120,10 @@ class GlobalState extends PureComponent<Props> {
             username: zoom.username,
             login: this.zoomLogin,
             logout: this.zoomLogout
+          },
+          steam: {
+            library: steam.library,
+            enabledUsers: steam.enabledUsers
           },
           installingEpicGame,
           setLanguage: this.setLanguage,

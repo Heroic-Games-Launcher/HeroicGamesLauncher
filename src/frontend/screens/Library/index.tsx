@@ -25,7 +25,8 @@ import {
   epicCategories,
   gogCategories,
   sideloadedCategories,
-  zoomCategories
+  zoomCategories,
+  steamCategories
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
 import LibraryContext from './LibraryContext'
@@ -50,6 +51,7 @@ export default React.memo(function Library(): JSX.Element {
     gog,
     amazon,
     zoom,
+    steam,
     sideloadedLibrary,
     favouriteGames,
     libraryTopSection,
@@ -85,8 +87,9 @@ export default React.memo(function Library(): JSX.Element {
       legendary: epicCategories.includes(storedCategory),
       gog: gogCategories.includes(storedCategory),
       nile: amazonCategories.includes(storedCategory),
-      sideload: sideloadedCategories.includes(storedCategory),
-      zoom: zoomCategories.includes(storedCategory)
+      zoom: zoomCategories.includes(storedCategory),
+      steam: steamCategories.includes(storedCategory),
+      sideload: sideloadedCategories.includes(storedCategory)
     }
   }
 
@@ -365,6 +368,9 @@ export default React.memo(function Library(): JSX.Element {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
       zoom.library.forEach((game) => {
+        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
+      })
+      steam.library.forEach((game) => {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
     }
