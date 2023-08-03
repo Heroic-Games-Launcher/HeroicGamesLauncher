@@ -5,7 +5,7 @@ const pictureExt = '.jpg'
 const coverArtSufix = 'p' + pictureExt
 const backGroundArtSufix = '_hero' + pictureExt
 const logoArtSufix = '_logo' + pictureExt
-const steamDBBaseURL = 'https://cdn.cloudflare.steamstatic.com/steam/apps'
+const steamDBBaseURL = 'https://cdn.steamstatic.com/steam/apps'
 
 export {
   transparentSteamLogoHex,

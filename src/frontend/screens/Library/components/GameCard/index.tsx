@@ -455,6 +455,7 @@ const GameCard = ({
                 src={getImageFormatting(cover, runner)}
                 className={imgClasses}
                 alt="cover"
+                fallback={getImageFormatting('fallback', runner)}
               />
             )}
             {(justPlayed || runner !== 'nile') && logo && (
@@ -522,6 +523,11 @@ const GameCard = ({
   )
 
   async function handlePlay(runner: Runner) {
+    if(runner === 'steam') {
+        window.api.openExternalUrl(`steam://run/${appName}`) 
+        return
+    }
+
     if (!isInstalled && !isQueued && gameInfo.runner !== 'sideload') {
       return install({
         gameInfo,

@@ -3,6 +3,7 @@ import * as GOGGameManager from 'backend/storeManagers/gog/games'
 import * as LegendaryGameManager from 'backend/storeManagers/legendary/games'
 import * as NileGameManager from 'backend/storeManagers/nile/games'
 import * as ZoomGameManager from 'backend/storeManagers/zoom/games'
+import * as SteamGameManager from 'backend/storeManagers/steam/games'
 
 import * as SideloadLibraryManager from 'backend/storeManagers/sideload/library'
 import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
@@ -25,7 +26,8 @@ export const gameManagerMap: GameManagerMap = {
   gog: GOGGameManager,
   legendary: LegendaryGameManager,
   nile: NileGameManager,
-  zoom: ZoomGameManager
+  zoom: ZoomGameManager,
+  steam: SteamGameManager
 }
 
 type LibraryManagerMap = {

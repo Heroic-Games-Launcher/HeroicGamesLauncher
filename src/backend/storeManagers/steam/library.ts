@@ -3,8 +3,7 @@ import path from 'node:path'
 import { parse } from '@node-steam/vdf'
 import { existsSync, readFileSync } from 'graceful-fs'
 import { readdir } from 'node:fs/promises'
-import { getSteamLibraries } from 'backend/constants'
-import { logDebug, LogPrefix, logWarning } from 'backend/logger/logger'
+import { getSteamLibraries } from 'backend/utils'
 import { isOnline } from 'backend/online_monitor'
 import { steamDBBaseURL } from 'backend/shortcuts/nonesteamgame/constants'
 import {
@@ -18,6 +17,7 @@ import { loadUsers } from './user'
 import { GameInfo, LaunchOption } from 'common/types'
 import { getGamesdbData } from '../gog/library'
 import { apiInfoCache } from '../gog/electronStores'
+import { logDebug, logWarning } from 'backend/logger'
 
 const library = new Map<string, GameInfo>()
 const installed = new Map<string, SteamInstallInfo>()
@@ -62,7 +62,7 @@ export async function getInstalledGames() {
         })
         try {
           const parsedManifest: AppManifest = parse(data).AppState
-          installed.set(parsedManifest.appid, {
+          installed.set(parsedManifest.appid.toString(), {
             ...parsedManifest,
             install_dir: path.join(
               steamApps,
@@ -71,9 +71,7 @@ export async function getInstalledGames() {
             )
           })
         } catch (e) {
-          logWarning(['Error parsing appmanifest of', steamApps, file, e], {
-            prefix: LogPrefix.Steam
-          })
+          logWarning(['Error parsing appmanifest of', steamApps, file, e])
         }
       }
     }
@@ -101,14 +99,12 @@ export async function refresh(): Promise<null> {
   await getInstalledGames()
   // Get all user owned games
   if (!isOnline()) {
-    logDebug('App offline, skipping steam sync', { prefix: LogPrefix.Steam })
+    logDebug('App offline, skipping steam sync')
     return null
   }
 
   for (const user of enabledSteamUsers) {
-    logDebug(['Loading owned games for user', user.id], {
-      prefix: LogPrefix.Steam
-    })
+    logDebug(['Loading owned games for user', user.id])
     const ownedGames = await getOwnedGames(user.id)
     if (!ownedGames?.length) {
       continue
@@ -130,7 +126,7 @@ export async function refresh(): Promise<null> {
       const newGameObject: GameInfo = {
         app_name: steamGame.appid.toString(),
         runner: 'steam',
-        art_square: `${steamDBBaseURL}/${steamGame.appid}/library_600x900_2x.jpg`,
+        art_square: `${steamDBBaseURL}/${steamGame.appid}/library_600x900.jpg`,
         art_cover: `${steamDBBaseURL}/${steamGame.appid}/header.jpg`,
         canRunOffline: false,
         title: steamGame.name,
@@ -150,9 +146,7 @@ export async function refresh(): Promise<null> {
     }
     apiInfoCache.commit()
     libraryCache.set('games', Array.from(library.values()))
-    logDebug(['Loaded', Array.from(library.values()).length], {
-      prefix: LogPrefix.Steam
-    })
+    logDebug(['Loaded', Array.from(library.values()).length])
   }
 
   return null
