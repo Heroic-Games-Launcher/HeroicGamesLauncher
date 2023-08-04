@@ -69,8 +69,14 @@ const openNewBrowserGameWindow = async (
       const choice = dialog.showMessageBoxSync(browserGame, {
         type: 'question',
         buttons: ['Yes', 'No'],
-        title: 'Are you sure you want to quit?',
-        message: 'Any unsaved progress might be lost',
+        title: i18next.t(
+          'box.warning.sideload.confirmExit.title',
+          'Are you sure you want to quit?'
+        ),
+        message: i18next.t(
+          'box.warning.sideload.confirmExit.message',
+          'Any unsaved progress might be lost'
+        ),
         defaultId: 0,
         cancelId: 1
       })
