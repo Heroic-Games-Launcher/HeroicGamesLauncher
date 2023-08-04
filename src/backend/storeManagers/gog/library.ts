@@ -655,7 +655,9 @@ export async function gogToUnifiedInfo(
     !info ||
     info.type === 'dlc' ||
     !info.game.visible_in_library ||
-    (galaxyProductInfo && !galaxyProductInfo.is_installable)
+    (galaxyProductInfo &&
+      !galaxyProductInfo.is_installable &&
+      galaxyProductInfo.game_type !== 'game')
   ) {
     // @ts-expect-error TODO: Handle this somehow
     return {}
