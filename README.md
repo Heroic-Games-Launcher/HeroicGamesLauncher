@@ -59,7 +59,7 @@ Heroic is built with Web Technologies:
 - Play games using Wine or Proton [Linux]
 - Play games using Crossover [macOS]
 - Download custom Wine and Proton versions [Linux]
-- Access to Epic and GOG stores directly from Heroic
+- Access to Epic, GOG and Amazon Games stores directly from Heroic
 - Search for the game on ProtonDB for compatibility information [Linux]
 - Show ProtonDB and Steam Deck compatibility information [Linux]
 - Sync installed games with an existing Epic Games Store installation
