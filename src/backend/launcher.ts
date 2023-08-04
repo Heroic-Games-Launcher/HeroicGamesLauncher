@@ -781,7 +781,7 @@ async function callRunner(
     return currentPromise
   }
 
-  const promise = new Promise<ExecResult>((res, rej) => {
+  let promise = new Promise<ExecResult>((res, rej) => {
     const child = spawn(bin, commandParts, {
       cwd: runner.dir,
       env: { ...process.env, ...options?.env },
@@ -852,10 +852,7 @@ async function callRunner(
     })
   })
 
-  // keep track of which commands are running
-  commandsRunning[key] = promise
-
-  promise
+  promise = promise
     .then(({ stdout, stderr }) => {
       return { stdout, stderr, fullCommand: safeCommand }
     })
@@ -893,6 +890,9 @@ async function callRunner(
       // remove from list when done
       delete commandsRunning[key]
     })
+
+  // keep track of which commands are running
+  commandsRunning[key] = promise
 
   return promise
 }
