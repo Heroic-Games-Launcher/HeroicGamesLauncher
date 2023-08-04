@@ -147,10 +147,6 @@
   color: var(--accent-overlay);
 }
 
-.currentDownloads .statusIcon {
-  display: none;
-}
-
 .Sidebar.collapsed {
   .heroicVersion {
     margin: var(--space-sm);
@@ -166,6 +162,7 @@
   }
 
   .currentDownloads {
+    margin-inline: auto;
     .statusIcon {
       display: block;
     }
