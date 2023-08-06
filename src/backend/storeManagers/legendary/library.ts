@@ -2,7 +2,7 @@ import {
   createAbortController,
   deleteAbortController
 } from '../../utils/aborthandler/aborthandler'
-import { existsSync, readFileSync, readdirSync } from 'graceful-fs'
+import { existsSync, mkdirSync, readFileSync, readdirSync } from 'graceful-fs'
 
 import {
   GameInfo,
@@ -54,6 +54,7 @@ import { update } from './games'
 import axios from 'axios'
 import { app } from 'electron'
 import { copySync } from 'fs-extra'
+import { platform } from 'os'
 
 const allGames: Set<string> = new Set()
 let installedGames: Map<string, InstalledJsonMetadata> = new Map()
@@ -726,5 +727,49 @@ export async function getGameSdl(
       LogPrefix.Legendary
     )
     return []
+  }
+}
+
+/**
+ * Toggles the EGL synchronization on/off based on arguments
+ * @param path_or_action On Windows: "unlink" (turn off), "windows" (turn on). On linux/mac: "unlink" (turn off), any other string (prefix path)
+ * @returns string with stdout + stderr, or error message
+ */
+export async function toggleGamesSync(path_or_action: string) {
+  const isWindows = platform() === 'win32'
+
+  if (isWindows) {
+    const egl_manifestPath =
+      'C:\\ProgramData\\Epic\\EpicGamesLauncher\\Data\\Manifests'
+
+    if (!existsSync(egl_manifestPath)) {
+      mkdirSync(egl_manifestPath, { recursive: true })
+    }
+  }
+
+  const linkArgs = isWindows
+    ? ['--enable-sync']
+    : ['--enable-sync', '--egl-wine-prefix', path_or_action]
+  const unlinkArgs = ['--unlink']
+  const isLink = path_or_action !== 'unlink'
+  const command = isLink ? linkArgs : unlinkArgs
+
+  const { error, stderr, stdout } = await runRunnerCommand(
+    ['egl-sync', ...command, '-y'],
+    createAbortController('toggle-sync')
+  )
+
+  deleteAbortController('toggle-sync')
+
+  if (error) {
+    logError(['Failed to toggle EGS-Sync', error], LogPrefix.Legendary)
+    return 'Error'
+  } else {
+    logInfo(`${stdout}`, LogPrefix.Legendary)
+    if (stderr.includes('ERROR') || stderr.includes('error')) {
+      logError(`${stderr}`, LogPrefix.Legendary)
+      return 'Error'
+    }
+    return `${stdout} - ${stderr}`
   }
 }
