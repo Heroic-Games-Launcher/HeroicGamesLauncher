@@ -150,7 +150,7 @@ import {
   initStoreManagers,
   libraryManagerMap
 } from './storeManagers'
-import { setupUbisoftConnect } from 'backend/storeManagers/legendary/setup'
+import { legendarySetup } from 'backend/storeManagers/legendary/setup'
 
 import { logFileLocation as getLogFileLocation } from './storeManagers/storeManagerCommon/games'
 import { addNewApp } from './storeManagers/sideload/library'
@@ -1600,7 +1600,7 @@ ipcMain.handle(
       await nileSetup(appName)
     }
     if (runner === 'legendary' && updated) {
-      await setupUbisoftConnect(appName)
+      await legendarySetup(appName)
     }
 
     // FIXME: Why are we using `runinprefix` here?
