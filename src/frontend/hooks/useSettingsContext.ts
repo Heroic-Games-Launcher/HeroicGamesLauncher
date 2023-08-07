@@ -18,8 +18,11 @@ const useSettingsContext = ({ appName, gameInfo, runner }: Props) => {
   const isDefault = appName === 'default'
   const isLinux = platform === 'linux'
   const isMac = platform === 'darwin'
-  const isMacNative = isMac && (gameInfo?.is_mac_native || false)
-  const isLinuxNative = isLinux && (gameInfo?.is_linux_native || false)
+  const isMacNative =
+    isMac &&
+    (['Mac', 'osx'].includes(gameInfo?.install.platform ?? '') || false)
+  const isLinuxNative =
+    isLinux && (gameInfo?.install.platform === 'linux' || false)
 
   // Load Heroic's or game's config, only if not loaded already
   useEffect(() => {

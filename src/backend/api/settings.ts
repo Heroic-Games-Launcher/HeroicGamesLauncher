@@ -16,6 +16,7 @@ export const setSetting = (args: {
 export const getLegendaryVersion = async () =>
   ipcRenderer.invoke('getLegendaryVersion')
 export const getGogdlVersion = async () => ipcRenderer.invoke('getGogdlVersion')
+export const getNileVersion = async () => ipcRenderer.invoke('getNileVersion')
 export const getEosOverlayStatus = async () =>
   ipcRenderer.invoke('getEosOverlayStatus')
 export const getLatestEosOverlayVersion = async () =>

@@ -151,7 +151,8 @@
             }
         },
         "default-steam-path": "Dampvej.",
-        "dontShowAgain": "Vis ikke igen"
+        "dontShowAgain": "Vis ikke igen",
+        "choose-nile-binary": "Vælg Nile binær"
     },
     "All": "Alle",
     "accessibility": {
@@ -184,7 +185,8 @@
     "status": {
         "installing": "Installerer",
         "processing": "Behandler filerne, vent venligst",
-        "logging": "Logger ind..."
+        "logging": "Logger ind...",
+        "preparing_login": "Forbereder login... "
     },
     "Assets": "Aktiver",
     "infobox": {
@@ -198,7 +200,8 @@
             "message": "Wine bruger det, der kaldes en WINEPREFIX til at indkapsle Windows-applikationer. Dette præfiks indeholder Wine-konfigurationsfilerne og en gengivelse af filhierarkiet af C: (hoveddisken på et Windows OS). I denne gengivelse af C:-drevet gemmes dine spillagringsfiler og afhængigheder installeret via winetricks."
         },
         "warning": "Advarsel",
-        "wine-path-invalid": "Vinstien er ugyldig, vælg venligst en anden."
+        "wine-path-invalid": "Vinstien er ugyldig, vælg venligst en anden.",
+        "wine-path-none-found": "Ingen vinversion blev fundet, download en fra Wine Manager"
     },
     "button": {
         "go_to_library": "Gå til biblioteket",
@@ -248,7 +251,8 @@
         "steam_path": {
             "info": "Denne sti lader Heroic bestemme, hvilken version af Proton Steam bruger, til at tilføje ikke-Steam-spil til Steam."
         },
-        "dxvkfpslimit": "Indstiller et billedhastighedsloft for DXVK-spil"
+        "dxvkfpslimit": "Indstiller et billedhastighedsloft for DXVK-spil",
+        "disable_logs": "Slå dette afkrydsningsfelt TIL for at deaktivere de fleste skrivninger til logfiler (kritisk information logges altid). Sørg for at slå denne indstilling FRA, før du rapporterer et problem."
     },
     "notify": {
         "uninstalled": "Afinstalleret",
@@ -409,7 +413,11 @@
         "hideChangelogsOnStartup": "Vis ikke ændringslogs ved opstart",
         "dxvkfpslimit": "Begræns FPS (DX9, 10 og 11)",
         "autoUpdateGames": "Opdater spil automatisk",
-        "ignoreGameUpdates": "Ignorer spilopdateringer"
+        "ignoreGameUpdates": "Ignorer spilopdateringer",
+        "disable_logs": "Deaktiver logfiler",
+        "addgamestoapplications": "Føj spil til applikationer automatisk",
+        "showMetalOverlay": "Vis statistikoverlejring",
+        "alt-nile-bin": "Vælg en alternativ Nile Binær"
     },
     "wine": {
         "manager": {
@@ -561,7 +569,8 @@
     "other": {
         "gogdl-version": "GOGDL-version: ",
         "legendary-version": "Legendarisk version: ",
-        "weblate": "Hjælp med at oversætte Heroic."
+        "weblate": "Hjælp med at oversætte Heroic.",
+        "nile-version": "Nile version: "
     },
     "platforms": {
         "win": "Windows",
@@ -630,7 +639,8 @@
         "alternative_method": "Alternativ login-metode",
         "epic": "Epic Games Login",
         "gog": "GOG login",
-        "message": "Log ind med din platform. Du kan logge ind på mere end én platform på samme tid."
+        "message": "Log ind med din platform. Du kan logge ind på mere end én platform på samme tid.",
+        "amazon": "Amazon login"
     },
     "placeholder": {
         "prefered_language": "2-tegn kode (dvs.: \"en\" eller \"fr\")",
@@ -638,7 +648,8 @@
         "alt-legendary-bin": "Bruger indbygget Legendary binær...",
         "egs-prefix": "Præfiks hvor EGS er installeret",
         "custom_themes_path": "Vælg stien for at søge efter tilpassede CSS-filer",
-        "dxvkfpsvalue": "Positiv heltalsværdi (f.eks. 30, 60, ...)"
+        "dxvkfpsvalue": "Positiv heltalsværdi (f.eks. 30, 60, ...)",
+        "alt-nile-bin": "Brug af indbygget Nile binær..."
     },
     "search": "Søg efter spil",
     "store": "Episk butik",
@@ -736,5 +747,8 @@
         "noDlcFound": "Ingen DLC'er fundet",
         "title": "Titel",
         "size": "Størrelse"
-    }
+    },
+    "amazon": "Amazon",
+    "Amazon Games": "Amazon spil",
+    "prime-gaming": "Prime Gaming"
 }

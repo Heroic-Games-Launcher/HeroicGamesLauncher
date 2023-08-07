@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "AppleGamingWiki-luokitus",
         "clickToOpen": "Avaa napsauttamalla",
         "game-scores": "Pelin Pisteet",
-        "installedInfo": "Asennettu tiedot"
+        "installedInfo": "Asennettu tiedot",
+        "protondb-compatibility-info": "Protonien yhteensopivuustaso",
+        "steamdeck-compatibility-info": "SteamDeck-yhteensopivuus"
     },
     "install": {
         "disk-space-left": "Tilaa saatavilla",
@@ -130,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Kolmannen osapuolen peliä EI tueta"
+            "third-party-game": "Kolmannen osapuolen peliä EI tueta",
+            "not-installable-game": "Peli EI ole asennettavissa"
         },
         "playing": {
             "start": "Pelaa nyt",
@@ -149,7 +152,8 @@
         "epic": "Et ole kirjautunut sisään Epic-käyttäjällä. Älä käytä kauppaa sisäänkirjautumiseen, vaan paina seuraavaa nappia:",
         "gog": "Et ole kirjautunut sisään GOG-käyttäjällä. Älä käytä kauppaa sisäänkirjautumiseen, vaan paina seuraavaa nappia:",
         "login": "Log in",
-        "title": "ET ole kirjautunut sisään"
+        "title": "ET ole kirjautunut sisään",
+        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "report_problem": "Ilmoita ongelmasta tässä pelissä",
     "sdl": {
@@ -202,7 +206,9 @@
         "launching": "Käynnistetään",
         "ubisoft": "Ubisoftin asennus",
         "downloading": "Ladataan",
-        "extracting": "Purkaminen"
+        "extracting": "Purkaminen",
+        "goodie": "Ei asennettavissa",
+        "gog-goodie": "Tämä peli ei näytä olevan asennettavissa. Tarkista ladattava sisältö osoitteessa https://gog.com/account"
     },
     "submenu": {
         "addShortcut": "Lisää pikakuvake",

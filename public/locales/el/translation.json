@@ -156,7 +156,8 @@
         },
         "wineprefix": "Διαλέξτε τον φάκελο Προθέματος Wine",
         "yes": "ΝΑΙ",
-        "dontShowAgain": "Μην εμφανιστείτε ξανά"
+        "dontShowAgain": "Μην εμφανιστείτε ξανά",
+        "choose-nile-binary": "Επιλέξτε Nile binary"
     },
     "button": {
         "cancel": "Cancel",
@@ -278,7 +279,8 @@
         "wine": {
             "part1": "Το Heroic αναζητά εκδόσεις Wine, Proton και CrossOver στους ακόλουθους φακέλους:",
             "part2": "Για άλλες τοποθεσίες, χρησιμοποιήστε έναν συμβολικό σύνδεσμο σε έναν απ' αυτούς τους φακέλους"
-        }
+        },
+        "disable_logs": "Ενεργοποιήστε αυτό το πλαίσιο ελέγχου για να απενεργοποιήσετε τις περισσότερες εγγραφές σε αρχεία καταγραφής (οι κρίσιμες πληροφορίες καταγράφονται πάντα). Βεβαιωθείτε ότι έχετε απενεργοποιήσει αυτήν τη ρύθμιση πριν αναφέρετε οποιοδήποτε πρόβλημα."
     },
     "info": {
         "heroic": {
@@ -305,7 +307,8 @@
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
         },
-        "wine-path-invalid": "Το Wine Path δεν είναι έγκυρο, επιλέξτε άλλο."
+        "wine-path-invalid": "Το Wine Path δεν είναι έγκυρο, επιλέξτε άλλο.",
+        "wine-path-none-found": "Δεν βρέθηκε έκδοση Wine, κατεβάστε μία από το Wine Manager"
     },
     "install": {
         "path": "Επιλέξτε διαδρομή εγκατάστασης"
@@ -332,7 +335,8 @@
         "alternative_method": "Alternative Login Method",
         "epic": "Epic Games Login",
         "gog": "GOG Login",
-        "message": "Login with your platform. You can login to more than one platform at the same time."
+        "message": "Login with your platform. You can login to more than one platform at the same time.",
+        "amazon": "Είσοδος Amazon"
     },
     "message": {
         "sync": "Ο συγχρονισμός ολοκληρώθηκε",
@@ -426,7 +430,8 @@
     "other": {
         "gogdl-version": "Έκδοση GOGDL: ",
         "legendary-version": "Έκδοση Legendary: ",
-        "weblate": "Βοηθήστε να μεταφραστεί το Heroic."
+        "weblate": "Βοηθήστε να μεταφραστεί το Heroic.",
+        "nile-version": "Έκδοση Nile: "
     },
     "Other": "Other",
     "placeholder": {
@@ -435,7 +440,8 @@
         "custom_themes_path": "Select the path to look for custom CSS files",
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Πρόθημα διαδρομής εγκατάστασης EGS",
-        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")",
+        "alt-nile-bin": "Χρησιμοποιώντας το ενσωματωμένο δυαδικό σύστημα Nile..."
     },
     "platforms": {
         "linux": "Linux",
@@ -521,7 +527,7 @@
         "log": {
             "copy-to-clipboard": "Αντιγραφή αρχείου καταγραφής στο πρόχειρο",
             "current-log": "Τρέχων Αρχείο Καταγραφής",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",
             "instructions_title": "How to report a problem?",
             "last-log": "Τελευταίο Αρχείο Καταγραφής",
             "no-file": "Δεν βρέθηκε αρχείο σύνδεσης",
@@ -567,7 +573,11 @@
         "wineprefix": "Φάκελος Προθημάτων Wine",
         "wineversion": "Έκδοση Wine",
         "autoUpdateGames": "Αυτόματη ενημέρωση παιχνιδιών",
-        "ignoreGameUpdates": "Αγνοήστε τις ενημερώσεις του παιχνιδιού"
+        "ignoreGameUpdates": "Αγνοήστε τις ενημερώσεις του παιχνιδιού",
+        "disable_logs": "Απενεργοποίηση αρχείων καταγραφής",
+        "addgamestoapplications": "Προσθέστε αυτόματα παιχνίδια στις Εφαρμογές",
+        "showMetalOverlay": "Εμφάνιση επικάλυψης στατιστικών",
+        "alt-nile-bin": "Επιλέξτε ένα εναλλακτικό δυαδικό αρχείο Nile"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -619,7 +629,8 @@
     "status": {
         "installing": "Εγκατάσταση",
         "logging": "Σύνδεση...",
-        "processing": "Επεξεργασία αρχείων, παρακαλώ περιμένετε"
+        "processing": "Επεξεργασία αρχείων, παρακαλώ περιμένετε",
+        "preparing_login": "Προετοιμασία σύνδεσης... "
     },
     "store": "Κατάστημα Epic",
     "stores": "Καταστήματα",
@@ -688,5 +699,8 @@
         "installDlcs": "Εγκατάσταση όλων των DLCs",
         "noDlcFound": "Δεν βρέθηκαν DLC",
         "title": "Title"
-    }
+    },
+    "amazon": "Αμαζόνα",
+    "Amazon Games": "Παιχνίδια Amazon",
+    "prime-gaming": "Prime Gaming"
 }

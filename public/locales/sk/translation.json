@@ -156,7 +156,8 @@
         },
         "wineprefix": "Vyberte Priečinok predpony vína",
         "yes": "ÁNO",
-        "dontShowAgain": "Už nezobrazovať"
+        "dontShowAgain": "Už nezobrazovať",
+        "choose-nile-binary": "Vyberte binárny Níl"
     },
     "button": {
         "cancel": "Cancel",
@@ -278,7 +279,8 @@
         "wine": {
             "part1": "Heroic hľadá verzie Wine, Proton a CrossOver v nasledujúcich priečinkoch:",
             "part2": "Pre ostatné miesta použite symbolický odkaz na jeden z týchto priečinkov"
-        }
+        },
+        "disable_logs": "Zapnite toto začiarkavacie políčko, ak chcete zakázať väčšinu zápisov do protokolových súborov (kritické informácie sú vždy protokolované). Pred nahlásením akéhokoľvek problému nezabudnite toto nastavenie VYPNÚŤ."
     },
     "info": {
         "heroic": {
@@ -305,7 +307,8 @@
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
         },
-        "wine-path-invalid": "Vínna cesta je neplatná, vyberte si inú."
+        "wine-path-invalid": "Vínna cesta je neplatná, vyberte si inú.",
+        "wine-path-none-found": "Nebola nájdená žiadna verzia Wine, stiahnite si ju z Wine Managera"
     },
     "install": {
         "path": "Select Install Path"
@@ -332,7 +335,8 @@
         "alternative_method": "Alternative Login Method",
         "epic": "Epic Games Login",
         "gog": "GOG Login",
-        "message": "Login with your platform. You can login to more than one platform at the same time."
+        "message": "Login with your platform. You can login to more than one platform at the same time.",
+        "amazon": "Prihlásenie na Amazon"
     },
     "message": {
         "sync": "Synchronizácia dokončená",
@@ -426,7 +430,8 @@
     "other": {
         "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary Version: ",
-        "weblate": "Help Improve this translation."
+        "weblate": "Help Improve this translation.",
+        "nile-version": "Nílska verzia: "
     },
     "Other": "Other",
     "placeholder": {
@@ -435,7 +440,8 @@
         "custom_themes_path": "Select the path to look for custom CSS files",
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Predpona, kde je nainštalovaný EGS",
-        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")",
+        "alt-nile-bin": "Pomocou vstavaného binárneho systému Níl..."
     },
     "platforms": {
         "linux": "Linux",
@@ -521,7 +527,7 @@
         "log": {
             "copy-to-clipboard": "Copy log content to clipboard.",
             "current-log": "Current log",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",
             "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
             "no-file": "No log file found.",
@@ -567,7 +573,11 @@
         "wineprefix": "Priečinok WinePrefix",
         "wineversion": "Wine Version",
         "autoUpdateGames": "Automaticky aktualizovať hry",
-        "ignoreGameUpdates": "Ignorovať aktualizácie hry"
+        "ignoreGameUpdates": "Ignorovať aktualizácie hry",
+        "disable_logs": "Zakázať denníky",
+        "addgamestoapplications": "Automaticky pridávajte hry do aplikácií",
+        "showMetalOverlay": "Zobraziť prekrytie štatistík",
+        "alt-nile-bin": "Vyberte si alternatívny binárny súbor Níl"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -619,7 +629,8 @@
     "status": {
         "installing": "Installing",
         "logging": "Logging In...",
-        "processing": "Processing files, please wait"
+        "processing": "Processing files, please wait",
+        "preparing_login": "Pripravuje sa prihlásenie... "
     },
     "store": "Epic Store",
     "stores": "Stores",
@@ -688,5 +699,8 @@
         "noDlcFound": "Nenašli sa žiadne DLC",
         "size": "Veľkosť",
         "title": "Title"
-    }
+    },
+    "amazon": "Amazon",
+    "Amazon Games": "Amazon Games",
+    "prime-gaming": "Prime Gaming"
 }

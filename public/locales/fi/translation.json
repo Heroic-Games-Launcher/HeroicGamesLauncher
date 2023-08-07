@@ -156,7 +156,8 @@
         },
         "wineprefix": "Valitse Wine Prefix kansio",
         "yes": "KYLLÄ",
-        "dontShowAgain": "Älä näytä uudelleen"
+        "dontShowAgain": "Älä näytä uudelleen",
+        "choose-nile-binary": "Valitse Niilin binaari"
     },
     "button": {
         "cancel": "Cancel",
@@ -278,7 +279,8 @@
         "wine": {
             "part1": "Heroic etsii Wine, Proton- ja CrossOver -versioita seuraavista kansioista:",
             "part2": "Muille sijainneille käytä symbolista linkkiä kansioon"
-        }
+        },
+        "disable_logs": "Ota tämä valintaruutu PÄÄLLE, jos haluat poistaa suurimman osan lokitiedostoihin kirjoituksista (kriittiset tiedot kirjataan aina lokiin). Muista poistaa tämä asetus käytöstä ennen kuin ilmoitat ongelmasta."
     },
     "info": {
         "heroic": {
@@ -305,7 +307,8 @@
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
         },
-        "wine-path-invalid": "Viinipolku on virheellinen, valitse toinen."
+        "wine-path-invalid": "Viinipolku on virheellinen, valitse toinen.",
+        "wine-path-none-found": "Wine-versiota ei löytynyt, lataa se Wine Managerista"
     },
     "install": {
         "path": "Valitse asennuspolku"
@@ -332,7 +335,8 @@
         "alternative_method": "Alternative Login Method",
         "epic": "Epic Games Login",
         "gog": "GOG Login",
-        "message": "Login with your platform. You can login to more than one platform at the same time."
+        "message": "Login with your platform. You can login to more than one platform at the same time.",
+        "amazon": "Amazon kirjautuminen"
     },
     "message": {
         "sync": "Synkronointi valmis",
@@ -426,7 +430,8 @@
     "other": {
         "gogdl-version": "GOGDL-versio: ",
         "legendary-version": "Legendaarinen versio: ",
-        "weblate": "Auta kääntämään Heroic."
+        "weblate": "Auta kääntämään Heroic.",
+        "nile-version": "Niilin versio: "
     },
     "Other": "Other",
     "placeholder": {
@@ -435,7 +440,8 @@
         "custom_themes_path": "Select the path to look for custom CSS files",
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefiksi johon EGS on asennettu",
-        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")",
+        "alt-nile-bin": "Käyttämällä sisäänrakennettua Niilin binaarista..."
     },
     "platforms": {
         "linux": "Linux",
@@ -521,7 +527,7 @@
         "log": {
             "copy-to-clipboard": "Kopioi lokin sisältö leikepöydälle",
             "current-log": "Nykyinen loki",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",
             "instructions_title": "How to report a problem?",
             "last-log": "Viimeisin loki",
             "no-file": "Lokitiedostoja ei löytynyt",
@@ -567,7 +573,11 @@
         "wineprefix": "WinePrefixin kansio",
         "wineversion": "Winen versio",
         "autoUpdateGames": "Päivitä pelit automaattisesti",
-        "ignoreGameUpdates": "Ohita pelipäivitykset"
+        "ignoreGameUpdates": "Ohita pelipäivitykset",
+        "disable_logs": "Poista lokit käytöstä",
+        "addgamestoapplications": "Lisää pelejä automaattisesti sovelluksiin",
+        "showMetalOverlay": "Näytä tilastojen peittokuva",
+        "alt-nile-bin": "Valitse vaihtoehtoinen Niilin binaari"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -619,7 +629,8 @@
     "status": {
         "installing": "Asennetaan",
         "logging": "Kirjaudutaan sisään...",
-        "processing": "Käsitellään tiedostoja, odota hetki"
+        "processing": "Käsitellään tiedostoja, odota hetki",
+        "preparing_login": "Valmistellaan kirjautumista... "
     },
     "store": "Epic-kauppa",
     "stores": "Kaupat",
@@ -688,5 +699,8 @@
         "noDlcFound": "DLC:itä ei löytynyt",
         "size": "Size",
         "title": "Title"
-    }
+    },
+    "amazon": "Amazon",
+    "Amazon Games": "Amazon pelit",
+    "prime-gaming": "Prime Gaming"
 }

@@ -1,0 +1,40 @@
+.currentDownload {
+  font-size: var(--text-sm);
+  padding: var(--space-md) 0;
+  transition: 300ms;
+  margin-top: var(--space-sm);
+
+  & > .gameTitle {
+    font-size: var(--text-md);
+    transition: 600ms;
+    font-weight: var(--bold);
+  }
+
+  &:hover > .gameTitle {
+    color: var(--accent-overlay);
+    transition: 600ms;
+  }
+
+  .downloadStatus {
+    color: var(--success);
+    font-family: var(--secondary-font-family);
+    font-style: italic;
+    font-weight: normal;
+    font-size: var(--text-sm);
+    line-height: var(--text-sm);
+  }
+
+  .MuiLinearProgress-bar1Determinate {
+    background-color: var(--success);
+  }
+
+  .statusIcon {
+    display: none;
+    margin-inline-end: 10px;
+    svg {
+      width: 27px;
+      height: auto;
+      color: var(--success);
+    }
+  }
+}

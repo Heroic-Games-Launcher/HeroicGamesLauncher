@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "AppleGamingWiki റേറ്റിംഗ്",
         "clickToOpen": "തുറക്കാൻ ക്ലിക്ക് ചെയ്യുക",
         "game-scores": "ഗെയിം സ്കോറുകൾ",
-        "installedInfo": "ഇൻസ്റ്റാൾ ചെയ്ത വിവരങ്ങൾ"
+        "installedInfo": "ഇൻസ്റ്റാൾ ചെയ്ത വിവരങ്ങൾ",
+        "protondb-compatibility-info": "പ്രോട്ടോൺ കോംപാറ്റിബിലിറ്റി ടയർ",
+        "steamdeck-compatibility-info": "SteamDeck അനുയോജ്യത"
     },
     "install": {
         "disk-space-left": "Space Available",
@@ -130,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Third-Party Game NOT Supported",
+            "not-installable-game": "ഗെയിം ഇൻസ്റ്റാൾ ചെയ്യാൻ കഴിയില്ല"
         },
         "playing": {
             "start": "കളിക്കാം",
@@ -149,7 +152,8 @@
         "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
         "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
         "login": "Log in",
-        "title": "You are NOT logged in"
+        "title": "You are NOT logged in",
+        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "report_problem": "Report a problem running this game",
     "sdl": {
@@ -202,7 +206,9 @@
         "launching": "ലോഞ്ച് ചെയ്യുന്നു",
         "ubisoft": "Ubisoft ഇൻസ്റ്റാൾ ചെയ്യുന്നു",
         "downloading": "ഇറക്കുന്നു",
-        "extracting": "വേർതിരിച്ചെടുക്കുന്നു"
+        "extracting": "വേർതിരിച്ചെടുക്കുന്നു",
+        "goodie": "ഇൻസ്റ്റാൾ ചെയ്യാൻ കഴിയില്ല",
+        "gog-goodie": "ഈ ഗെയിം ഇൻസ്റ്റാൾ ചെയ്യാൻ കഴിയുന്നതായി തോന്നുന്നില്ല. https://gog.com/account എന്നതിൽ ഡൗൺലോഡ് ചെയ്യാവുന്ന ഉള്ളടക്കം പരിശോധിക്കുക"
     },
     "submenu": {
         "addShortcut": "കുറുക്കുവഴി ചേര്ക്കൂ",

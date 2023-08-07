@@ -49,11 +49,11 @@
 }
 
 .FormControl--clearable > input {
-  padding-right: 40px;
+  padding-inline-end: 40px;
 }
 
 .FormControl--hasSideButton > input {
-  padding-right: 64px;
+  padding-inline-end: 64px;
 }
 
 .FormControl--hasLeftButton > input {
@@ -62,7 +62,7 @@
 
 .FormControl--select > select {
   cursor: pointer;
-  padding-right: 40px;
+  padding-inline-end: 40px;
 }
 
 .FormControl--segmented > button {
@@ -87,7 +87,7 @@
 .FormControl--segmented > button:not(:first-child) {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  margin-left: var(--space-xs);
+  margin-inline-start: var(--space-xs);
 }
 
 .FormControl--segmented > button:not(:last-child) {
@@ -135,7 +135,7 @@
 
 .FormControl__caret,
 .FormControl__clear {
-  padding-right: var(--space-md);
+  padding-inline-end: var(--space-md);
   transition: color 250ms;
 }
 

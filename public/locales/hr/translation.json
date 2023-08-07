@@ -156,7 +156,8 @@
         },
         "wineprefix": "Odaberite WinePrefix mapu",
         "yes": "DA",
-        "dontShowAgain": "Ne prikazuj više"
+        "dontShowAgain": "Ne prikazuj više",
+        "choose-nile-binary": "Odaberite Nile binary"
     },
     "button": {
         "cancel": "Cancel",
@@ -278,7 +279,8 @@
         "wine": {
             "part1": "Heroic traži verzije za WIne, Proton i CrossOver u sljedečim mapama:",
             "part2": "Za druga mjesta, koristite simbolični link do tih mapa"
-        }
+        },
+        "disable_logs": "Uključite ovaj potvrdni okvir kako biste onemogućili većinu pisanja u datoteke dnevnika (kritične informacije se uvijek bilježe). Obavezno ISKLJUČITE ovu postavku prije nego prijavite bilo kakav problem."
     },
     "info": {
         "heroic": {
@@ -305,7 +307,8 @@
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
         },
-        "wine-path-invalid": "Wine staza je nevažeća, odaberi jednu drugu."
+        "wine-path-invalid": "Wine staza je nevažeća, odaberi jednu drugu.",
+        "wine-path-none-found": "Nije pronađena verzija Winea, preuzmite je iz Wine Managera"
     },
     "install": {
         "path": "Odaberi stazu instalacije"
@@ -332,7 +335,8 @@
         "alternative_method": "Alternative Login Method",
         "epic": "Epic Games Login",
         "gog": "GOG Login",
-        "message": "Login with your platform. You can login to more than one platform at the same time."
+        "message": "Login with your platform. You can login to more than one platform at the same time.",
+        "amazon": "Prijava na Amazon"
     },
     "message": {
         "sync": "Sinkroniziranje završeno",
@@ -426,7 +430,8 @@
     "other": {
         "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary Version: ",
-        "weblate": "Help Improve this translation."
+        "weblate": "Help Improve this translation.",
+        "nile-version": "Verzija Nila: "
     },
     "Other": "Other",
     "placeholder": {
@@ -435,7 +440,8 @@
         "custom_themes_path": "Odaberi stazu za traženje prilagođenih CSS datoteka",
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Put gdje je EGS instaliran",
-        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")",
+        "alt-nile-bin": "Korištenje ugrađenog Nile binarnog..."
     },
     "platforms": {
         "linux": "Linux",
@@ -521,7 +527,7 @@
         "log": {
             "copy-to-clipboard": "Kopiraj sadržaj dnevnika u međuspremnik",
             "current-log": "Current log",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",
             "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
             "no-file": "Nije pronađena nijedna datoteka dnevnika",
@@ -567,7 +573,11 @@
         "wineprefix": "WinePrefix mapa",
         "wineversion": "Wine verzija",
         "ignoreGameUpdates": "Ignorirajte ažuriranja igre",
-        "autoUpdateGames": "Automatski ažuriraj igre"
+        "autoUpdateGames": "Automatski ažuriraj igre",
+        "disable_logs": "Onemogući zapisnike",
+        "addgamestoapplications": "Automatski dodajte igre u aplikacije",
+        "showMetalOverlay": "Prikaži preklapanje statistike",
+        "alt-nile-bin": "Odaberite alternativni Nile Binary"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -619,7 +629,8 @@
     "status": {
         "installing": "Instaliranje u tijeku",
         "logging": "Logging In...",
-        "processing": "Obrada datoteka, pričekaj"
+        "processing": "Obrada datoteka, pričekaj",
+        "preparing_login": "Priprema prijave... "
     },
     "store": "Epic Store",
     "stores": "Stores",
@@ -688,5 +699,8 @@
         "noDlcFound": "Nije pronađen nijedan DLC",
         "size": "Size",
         "title": "Title"
-    }
+    },
+    "prime-gaming": "Prime Gaming",
+    "amazon": "Amazon",
+    "Amazon Games": "Amazonove igre"
 }

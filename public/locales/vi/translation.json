@@ -156,7 +156,8 @@
         },
         "wineprefix": "Chọn thư mục Wine Prefix",
         "yes": "Có",
-        "dontShowAgain": "Không hiển thị lại"
+        "dontShowAgain": "Không hiển thị lại",
+        "choose-nile-binary": "Chọn nhị phân sông Nile"
     },
     "button": {
         "cancel": "Cancel",
@@ -278,7 +279,8 @@
         "wine": {
             "part1": "Heroic tìm kiếm các phiên bản Wine, Proton và CrossOver trong các thư mục sau:",
             "part2": "Đối với vị trí khác, sử dụng biểu tượng liên kết với một trong những thư mục này"
-        }
+        },
+        "disable_logs": "BẬT hộp kiểm này để vô hiệu hóa hầu hết các thao tác ghi vào tệp nhật ký (thông tin quan trọng luôn được ghi lại). Đảm bảo TẮT cài đặt này trước khi báo cáo bất kỳ sự cố nào."
     },
     "info": {
         "heroic": {
@@ -305,7 +307,8 @@
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
         },
-        "wine-path-invalid": "Đường dẫn Rượu không hợp lệ, vui lòng chọn một đường dẫn khác."
+        "wine-path-invalid": "Đường dẫn Rượu không hợp lệ, vui lòng chọn một đường dẫn khác.",
+        "wine-path-none-found": "Không tìm thấy phiên bản Wine nào, hãy tải xuống một phiên bản từ Trình quản lý rượu"
     },
     "install": {
         "path": "Chọn đường dẫn cài"
@@ -332,7 +335,8 @@
         "alternative_method": "Alternative Login Method",
         "epic": "Epic Games Login",
         "gog": "GOG Login",
-        "message": "Login with your platform. You can login to more than one platform at the same time."
+        "message": "Login with your platform. You can login to more than one platform at the same time.",
+        "amazon": "Đăng nhập Amazon"
     },
     "message": {
         "sync": "Hoàn tất quá trình đồng bộ",
@@ -426,7 +430,8 @@
     "other": {
         "gogdl-version": "Phiên bản GOGDL: ",
         "legendary-version": "Phiên bản Legendary ",
-        "weblate": "Giúp dịch Heroic."
+        "weblate": "Giúp dịch Heroic.",
+        "nile-version": "Phiên bản sông Nile: "
     },
     "Other": "Other",
     "placeholder": {
@@ -435,7 +440,8 @@
         "custom_themes_path": "Select the path to look for custom CSS files",
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix nơi EGS được cài đặt",
-        "prefered_language": "mã ngôn ngữ (2 ký tự ví dụ: \"en\" or \"fr\")"
+        "prefered_language": "mã ngôn ngữ (2 ký tự ví dụ: \"en\" or \"fr\")",
+        "alt-nile-bin": "Sử dụng nhị phân Nile tích hợp sẵn..."
     },
     "platforms": {
         "linux": "LInux",
@@ -567,7 +573,11 @@
         "wineprefix": "Thư mục WinePrefix",
         "wineversion": "Phiên bản Wine",
         "autoUpdateGames": "Tự động cập nhật trò chơi",
-        "ignoreGameUpdates": "Bỏ qua cập nhật trò chơi"
+        "ignoreGameUpdates": "Bỏ qua cập nhật trò chơi",
+        "disable_logs": "Tắt nhật ký",
+        "addgamestoapplications": "Tự động thêm trò chơi vào Ứng dụng",
+        "showMetalOverlay": "Hiển thị lớp phủ thống kê",
+        "alt-nile-bin": "Chọn một nhị phân Nile thay thế"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -619,7 +629,8 @@
     "status": {
         "installing": "Đang cài đặt",
         "logging": "Đang đăng nhập...",
-        "processing": "Đang xử lý tệp, vui lòng đợi"
+        "processing": "Đang xử lý tệp, vui lòng đợi",
+        "preparing_login": "Đang chuẩn bị đăng nhập... "
     },
     "store": "Cửa hàng Epic",
     "stores": "Cửa hàng",
@@ -688,5 +699,8 @@
         "noDlcFound": "Không tìm thấy DLC nào",
         "size": "Kích thước",
         "title": "Title"
-    }
+    },
+    "amazon": "amazon",
+    "Amazon Games": "Trò chơi Amazon",
+    "prime-gaming": "Trò chơi chính"
 }

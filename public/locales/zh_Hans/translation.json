@@ -81,7 +81,7 @@
             "moving": "移动游戏出错 {{error}}",
             "ubisoft-connect": {
                 "message": "在游戏前缀中安装 Ubisoft Connect 失败。查看我们的 wiki 页面 https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac 来手动安装它。",
-                "title": "育碧连接"
+                "title": "Ubisoft Connect"
             },
             "legendary": {
                 "generic": "发生了错误！尝试注销并登录您的 Epic 帐户。 {{newline}} {{error}}"
@@ -150,13 +150,14 @@
             },
             "title": "警告",
             "wine-change": {
-                "message": "我们找不到启动此标题的选定 wine 版本 ({{selectedWine}})。 {{newline}} 我们找到了另一个，你想继续使用 {{foundWine}} 启动吗？",
-                "title": "找不到酒！"
+                "message": "我们找不到启动此游戏的选定 wine 版本 ({{selectedWine}})。 {{newline}} 我们找到了另一个，你想继续使用 {{foundWine}} 启动吗？",
+                "title": "未找到 Wine ！"
             }
         },
         "wineprefix": "选择 Wine Prefix 文件夹",
         "yes": "是",
-        "dontShowAgain": "不再显示"
+        "dontShowAgain": "不再显示",
+        "choose-nile-binary": "选择尼罗河二进制文件"
     },
     "button": {
         "cancel": "取消",
@@ -278,7 +279,8 @@
         "wine": {
             "part1": "Heroic 启动器会在以下文件夹中查找现有的 Wine/Proton/CrossOver：",
             "part2": "如果在其它位置，请使用软链接连接到这些中的一个文件夹"
-        }
+        },
+        "disable_logs": "将此复选框切换为“开”可禁用对日志文件的大部分写入（始终记录关键信息）。请确保在报告任何问题之前关闭此设置。"
     },
     "info": {
         "heroic": {
@@ -305,7 +307,8 @@
         "wine-repfix": {
             "message": "Wine 使用所谓的 WINEPREFIX 来封装 Windows 应用程序。这个前缀包含 Wine 配置文件和 C:(Windows操作系统上的主磁盘) 文件层次结构的副本。你的游戏保存文件和通过 winetricks 安装的依赖项存储在这个复制的 C:驱动器中。"
         },
-        "wine-path-invalid": "Wine Path 无效，请选择另一个。"
+        "wine-path-invalid": "Wine Path 无效，请选择另一个。",
+        "wine-path-none-found": "没有找到 Wine 版本，从 Wine Manager 下载一个"
     },
     "install": {
         "path": "选择安装路径"
@@ -332,7 +335,8 @@
         "alternative_method": "备选登录方式",
         "epic": "Epic Games 登录",
         "gog": "GOG 登录",
-        "message": "平台登录。你可以同时登录超过一个平台。"
+        "message": "平台登录。你可以同时登录超过一个平台。",
+        "amazon": "亚马逊登录"
     },
     "message": {
         "sync": "同步完成",
@@ -426,7 +430,8 @@
     "other": {
         "gogdl-version": "GOGDL 版本： ",
         "legendary-version": "Legendary 版本： ",
-        "weblate": "帮助翻译 Heroic。"
+        "weblate": "帮助翻译 Heroic。",
+        "nile-version": "尼罗河版本： "
     },
     "Other": "Other",
     "placeholder": {
@@ -435,7 +440,8 @@
         "custom_themes_path": "选择查找自定义 CSS 文件的路径",
         "dxvkfpsvalue": "正整数值 (如30, 60, ...)",
         "egs-prefix": "Epic 游戏商城安装位置",
-        "prefered_language": "双字符代码 (如: \"en\" 或 \"fr\")"
+        "prefered_language": "双字符代码 (如: \"en\" 或 \"fr\")",
+        "alt-nile-bin": "使用内置 Nile 二进制文件..."
     },
     "platforms": {
         "linux": "Linux",
@@ -521,7 +527,7 @@
         "log": {
             "copy-to-clipboard": "复制日志内容到剪贴板",
             "current-log": "当前日志",
-            "instructions": "加入我们的 Discord，寻找与您的操作系统匹配的频道。共享此处显示的日志内容，并包含对问题的清晰描述以及任何相关信息和细节。",
+            "instructions": "加入我们的 Discord，并搜索 \"#-support\" 部分。阅读置顶的 \"Read Me First | Frequently Asked Questions\" 帖子并遵照指示分享这些日志文件及任何与你的问题相关的信息。",
             "instructions_title": "如何报告问题？",
             "last-log": "上一日志",
             "no-file": "未找到日志文件",
@@ -567,7 +573,11 @@
         "wineprefix": "WinePrefix文件夹",
         "wineversion": "Wine 版本",
         "autoUpdateGames": "自动更新游戏",
-        "ignoreGameUpdates": "忽略游戏更新"
+        "ignoreGameUpdates": "忽略游戏更新",
+        "disable_logs": "禁用日志",
+        "addgamestoapplications": "自动将游戏添加到应用程序",
+        "showMetalOverlay": "显示统计数据叠加",
+        "alt-nile-bin": "选择替代尼罗河二进制"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -619,7 +629,8 @@
     "status": {
         "installing": "安装中",
         "logging": "正在登录...",
-        "processing": "处理文件中，请稍等"
+        "processing": "处理文件中，请稍等",
+        "preparing_login": "正在准备登录... "
     },
     "store": "Epic 商店",
     "stores": "商店",
@@ -683,10 +694,13 @@
         "not_found": "我们找不到额外的信息。"
     },
     "dlc": {
-        "actions": "动作",
+        "actions": "操作",
         "installDlcs": "安装所有 DLC",
         "noDlcFound": "未找到 DLC",
         "size": "大小",
         "title": "标题"
-    }
+    },
+    "amazon": "亚马逊",
+    "Amazon Games": "亚马逊游戏",
+    "prime-gaming": "优质游戏"
 }

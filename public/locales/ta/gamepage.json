@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "AppleGamingWiki மதிப்பீடு",
         "clickToOpen": "திறக்க கிளிக் செய்யவும்",
         "game-scores": "விளையாட்டு மதிப்பெண்கள்",
-        "installedInfo": "நிறுவப்பட்ட தகவல்"
+        "installedInfo": "நிறுவப்பட்ட தகவல்",
+        "protondb-compatibility-info": "புரோட்டான் பொருந்தக்கூடிய அடுக்கு",
+        "steamdeck-compatibility-info": "SteamDeck இணக்கத்தன்மை"
     },
     "install": {
         "disk-space-left": "Space Available",
@@ -130,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Third-Party Game NOT Supported",
+            "not-installable-game": "விளையாட்டு நிறுவப்படவில்லை"
         },
         "playing": {
             "start": "இப்போது விளையாடு",
@@ -149,7 +152,8 @@
         "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
         "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
         "login": "Log in",
-        "title": "You are NOT logged in"
+        "title": "You are NOT logged in",
+        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "report_problem": "Report a problem running this game",
     "sdl": {
@@ -202,7 +206,9 @@
         "launching": "தொடங்குதல்",
         "ubisoft": "Ubisoft ஐ நிறுவுகிறது",
         "downloading": "Downloading",
-        "extracting": "பிரித்தெடுத்தல்"
+        "extracting": "பிரித்தெடுத்தல்",
+        "gog-goodie": "இந்த கேம் நிறுவக்கூடியதாகத் தெரியவில்லை. https://gog.com/account இல் பதிவிறக்கக்கூடிய உள்ளடக்கத்தைச் சரிபார்க்கவும்",
+        "goodie": "நிறுவ முடியாது"
     },
     "submenu": {
         "addShortcut": "குறுக்குவழியை சேர்",

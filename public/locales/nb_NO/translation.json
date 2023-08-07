@@ -156,7 +156,8 @@
         },
         "wineprefix": "Velg mappe for Wine-prefiks",
         "yes": "Ja",
-        "dontShowAgain": "Ikke vis igjen"
+        "dontShowAgain": "Ikke vis igjen",
+        "choose-nile-binary": "Velg Nile binær"
     },
     "button": {
         "cancel": "Cancel",
@@ -278,7 +279,8 @@
         "wine": {
             "part1": "Heroiske søk etter versjoner av Wine, Proton og CrossOver i følgende mapper:",
             "part2": "For andre steder, bruk en symbolsk lenke til en av disse mappene"
-        }
+        },
+        "disable_logs": "Slå denne avmerkingsboksen PÅ for å deaktivere de fleste skrivingene til loggfiler (kritisk informasjon logges alltid). Sørg for å slå AV denne innstillingen før du rapporterer problemer."
     },
     "info": {
         "heroic": {
@@ -305,7 +307,8 @@
         "wine-repfix": {
             "message": "Wine bruker det som kalles WINEPREFIX for å kapsle inn Windows-applikasjoner. Dette prefikset inneholder Wine-konfigurasjonsfilene og en reproduksjon av filhierarkiet til C: (hoveddisken på et Windows-operativsystem). I denne reproduksjonen av C:-stasjonen, lagres spilllagringsfiler og avhengigheter installert via vintriks."
         },
-        "wine-path-invalid": "Vinstien er ugyldig. Velg en annen."
+        "wine-path-invalid": "Vinstien er ugyldig. Velg en annen.",
+        "wine-path-none-found": "Ingen vinversjon ble funnet, last ned en fra Wine Manager"
     },
     "install": {
         "path": "Velg Installer bane"
@@ -332,7 +335,8 @@
         "alternative_method": "Alternative Login Method",
         "epic": "Epic Games Login",
         "gog": "GOG Login",
-        "message": "Login with your platform. You can login to more than one platform at the same time."
+        "message": "Login with your platform. You can login to more than one platform at the same time.",
+        "amazon": "Amazon-pålogging"
     },
     "message": {
         "sync": "Synkronisering fullført",
@@ -426,7 +430,8 @@
     "other": {
         "gogdl-version": "GOGDL-versjon: ",
         "legendary-version": "Legendarisk versjon: ",
-        "weblate": "Hjelp til å oversette Heroic."
+        "weblate": "Hjelp til å oversette Heroic.",
+        "nile-version": "Nile versjon: "
     },
     "Other": "Other",
     "placeholder": {
@@ -435,7 +440,8 @@
         "custom_themes_path": "Select the path to look for custom CSS files",
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefiks der EGS er installert",
-        "prefered_language": "2-tegnskode (dvs.: \"en\" eller \"fr\")"
+        "prefered_language": "2-tegnskode (dvs.: \"en\" eller \"fr\")",
+        "alt-nile-bin": "Bruker innebygd Nile binær..."
     },
     "platforms": {
         "linux": "Linux",
@@ -567,7 +573,11 @@
         "wineprefix": "WinePrefix-mappen",
         "wineversion": "Vinversjon",
         "autoUpdateGames": "Oppdater spill automatisk",
-        "ignoreGameUpdates": "Ignorer spilloppdateringer"
+        "ignoreGameUpdates": "Ignorer spilloppdateringer",
+        "disable_logs": "Deaktiver logger",
+        "showMetalOverlay": "Vis statistikkoverlegg",
+        "addgamestoapplications": "Legg spill til applikasjoner automatisk",
+        "alt-nile-bin": "Velg en alternativ Nile Binær"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -619,7 +629,8 @@
     "status": {
         "installing": "Installerer",
         "logging": "Logger inn...",
-        "processing": "Behandler filer, vennligst vent"
+        "processing": "Behandler filer, vennligst vent",
+        "preparing_login": "Forbereder pålogging... "
     },
     "store": "Episk butikk",
     "stores": "Butikker",
@@ -688,5 +699,8 @@
         "noDlcFound": "Ingen DLC-er funnet",
         "size": "Størrelse",
         "title": "Title"
-    }
+    },
+    "amazon": "Amazon",
+    "Amazon Games": "Amazon-spill",
+    "prime-gaming": "Prime Gaming"
 }

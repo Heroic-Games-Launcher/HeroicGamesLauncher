@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "AppleGamingWiki-betyg",
         "clickToOpen": "Klicka för att öppna",
         "game-scores": "Spelresultat",
-        "installedInfo": "Installerad information"
+        "installedInfo": "Installerad information",
+        "protondb-compatibility-info": "Protonkompatibilitetsnivå",
+        "steamdeck-compatibility-info": "SteamDeck-kompatibilitet"
     },
     "install": {
         "disk-space-left": "Utrymme tillgängligt",
@@ -130,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Tredjeparts-spel stöds ej"
+            "third-party-game": "Tredjeparts-spel stöds ej",
+            "not-installable-game": "Spelet kan INTE installeras"
         },
         "playing": {
             "start": "Starta spelet",
@@ -149,7 +152,8 @@
         "epic": "Du är ej inloggad med Epic-konto i Heroic. Använd inte Butiksidan för att logga in, klicka denna knapp istället:",
         "gog": "Du är ej inloggad med GOG-konto i Heroic. Använd inte Butiksidan för att logga in, klicka denna knapp istället:",
         "login": "Logga in",
-        "title": "Du är ej inloggad!"
+        "title": "Du är ej inloggad!",
+        "amazon": "Du är ej inloggad med Epic-konto i Heroic. Använd inte Butiksidan för att logga in, klicka denna knapp istället:"
     },
     "report_problem": "Rapportera problem med spelet",
     "sdl": {
@@ -202,7 +206,9 @@
         "launching": "Startar",
         "ubisoft": "Installerar Ubisoft",
         "downloading": "Nerladdning",
-        "extracting": "Extrahera"
+        "extracting": "Extrahera",
+        "gog-goodie": "Det här spelet verkar inte gå att installera. Kontrollera nedladdningsbart innehåll på https://gog.com/account",
+        "goodie": "Ej installationsbar"
     },
     "submenu": {
         "addShortcut": "Skapa genväg",

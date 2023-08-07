@@ -110,7 +110,7 @@ export default function LogSettings() {
       <p className="report-problem-instructions">
         {t(
           'setting.log.instructions',
-          'Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.'
+          'Join our Discord and look for the "#-support" section. Read the pinned "Read Me First | Frequently Asked Questions" thread and follow the instructions to share these logs and any relevant information about your problem.'
         )}
       </p>
       {isDefault && (

@@ -156,7 +156,8 @@
         },
         "wineprefix": "Wybierz folder z prefiksem Wine",
         "yes": "TAK",
-        "dontShowAgain": "Nie pokazuj więcej"
+        "dontShowAgain": "Nie pokazuj więcej",
+        "choose-nile-binary": "Wybierz binarny Nil"
     },
     "button": {
         "cancel": "Anuluj",
@@ -278,7 +279,8 @@
         "wine": {
             "part1": "Heroic szuka wersji Wine, Proton oraz CrossOver w poniższych lokalizacjach:",
             "part2": "W przypadku innych lokalizacji użyj linku symbolicznego do jednego z tych folderów"
-        }
+        },
+        "disable_logs": "Włącz to pole wyboru, aby wyłączyć większość zapisów w plikach dziennika (krytyczne informacje są zawsze rejestrowane). Pamiętaj, aby wyłączyć to ustawienie przed zgłoszeniem jakiegokolwiek problemu."
     },
     "info": {
         "heroic": {
@@ -305,7 +307,8 @@
         "wine-repfix": {
             "message": "Wine wykorzystuje tzw. Prefiks w celu przechowywania aplikacji Windowsowych. Prefiks ten zawiera pliki konfiguracyjne Wine oraz dokładne odwzorowanie hierarchii dysku C:// (głównego dysku w systemie Windows). Tam przechowywane są zapisy gier oraz pliki potrzebne do uruchomienia gry zainstalowane przez winetricks."
         },
-        "wine-path-invalid": "Ścieżka wina jest nieprawidłowa, wybierz inną."
+        "wine-path-invalid": "Ścieżka wina jest nieprawidłowa, wybierz inną.",
+        "wine-path-none-found": "Nie znaleziono wersji Wine, pobierz ją z Wine Managera"
     },
     "install": {
         "path": "Wybierz ścieżkę instalacji"
@@ -332,7 +335,8 @@
         "alternative_method": "Alternatywna metoda logowania",
         "epic": "Zaloguj do Epic Games",
         "gog": "Zaloguj do GOG",
-        "message": "Zaloguj się do swojej platformy. Możesz zalogować się do więcej niż jednej platformy w tym samym czasie."
+        "message": "Zaloguj się do swojej platformy. Możesz zalogować się do więcej niż jednej platformy w tym samym czasie.",
+        "amazon": "Logowanie do Amazona"
     },
     "message": {
         "sync": "Synchronizacja zakończona",
@@ -426,7 +430,8 @@
     "other": {
         "gogdl-version": "Wersja GOGDL: ",
         "legendary-version": "Wersja Legendary: ",
-        "weblate": "Pomóż przetłumaczyć Heroic."
+        "weblate": "Pomóż przetłumaczyć Heroic.",
+        "nile-version": "Wersja Nilu: "
     },
     "Other": "Other",
     "placeholder": {
@@ -435,7 +440,8 @@
         "custom_themes_path": "Wybierz ścieżkę do niestandardowych plików CSS",
         "dxvkfpsvalue": "Dodatnia liczba całkowita (np. 30, 60, ...)",
         "egs-prefix": "Prefiks, w którym zainstalowany jest EGS",
-        "prefered_language": "dwu-znakowy kod (np. : \"en\" lub \"pl\")"
+        "prefered_language": "dwu-znakowy kod (np. : \"en\" lub \"pl\")",
+        "alt-nile-bin": "Korzystanie z wbudowanego kodu binarnego Nile..."
     },
     "platforms": {
         "linux": "Linux",
@@ -567,7 +573,11 @@
         "wineprefix": "Folder prefiksu Wine",
         "wineversion": "Wersja Wine",
         "autoUpdateGames": "Automatycznie aktualizuj gry",
-        "ignoreGameUpdates": "Ignoruj aktualizacje gier"
+        "ignoreGameUpdates": "Ignoruj aktualizacje gier",
+        "disable_logs": "Wyłącz dzienniki",
+        "showMetalOverlay": "Pokaż nakładkę statystyk",
+        "addgamestoapplications": "Automatycznie dodawaj gry do aplikacji",
+        "alt-nile-bin": "Wybierz alternatywny plik binarny Nilu"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -619,7 +629,8 @@
     "status": {
         "installing": "Instalowanie",
         "logging": "Logowanie...",
-        "processing": "Przetwarzanie plików, proszę czekać"
+        "processing": "Przetwarzanie plików, proszę czekać",
+        "preparing_login": "Przygotowanie logowania... "
     },
     "store": "Sklep Epic",
     "stores": "Sklepy",
@@ -688,5 +699,8 @@
         "size": "Rozmiar",
         "installDlcs": "Zainstaluj wszystkie DLC",
         "title": "Title"
-    }
+    },
+    "prime-gaming": "Najlepsze gry",
+    "amazon": "Amazonka",
+    "Amazon Games": "Gry Amazona"
 }

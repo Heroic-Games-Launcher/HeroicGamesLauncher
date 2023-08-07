@@ -30,6 +30,8 @@ import * as GogLibraryManager from '../../storeManagers/gog/library'
  * @public
  */
 async function addShortcuts(gameInfo: GameInfo, fromMenu?: boolean) {
+  if (gameInfo.install.is_dlc) return
+
   const { app_name, runner, title } = gameInfo
 
   logInfo(`Adding shortcuts for ${title}`, LogPrefix.Backend)
@@ -103,7 +105,9 @@ Categories=Game;
       break
     }
     case 'darwin': {
-      await generateMacOsApp(gameInfo)
+      if (addStartMenuShortcuts || fromMenu) {
+        await generateMacOsApp(gameInfo)
+      }
       break
     }
   }
@@ -115,13 +119,16 @@ Categories=Game;
  * @public
  */
 async function removeShortcuts(gameInfo: GameInfo) {
+  if (gameInfo.install.is_dlc) return
+
   const [desktopFile, menuFile] = shortcutFiles(gameInfo.title)
 
-  if (desktopFile) {
+  if (desktopFile && !isMac) {
     unlink(desktopFile, () =>
       logInfo('Desktop shortcut removed', LogPrefix.Backend)
     )
   }
+
   if (menuFile) {
     if (isMac) {
       rm(menuFile, { recursive: true, force: true }, () =>
@@ -156,7 +163,7 @@ function shortcutFiles(gameTitle: string) {
     }
     case 'darwin':
       menuFile = join(userHome, 'Applications', `${gameTitle}.app`)
-      desktopFile = join(userHome, 'Applications', `${gameTitle}.app`)
+      desktopFile = menuFile
       break
   }
 
@@ -168,7 +175,8 @@ async function generateMacOsApp(gameInfo: GameInfo) {
 
   logInfo('Generating macOS shortcut', LogPrefix.Backend)
 
-  const appShortcut = shortcutFiles(gameInfo.title)[0]!
+  // shortcutFiles => [desktop, menu] on mac, we don't add desktop shortcut
+  const appShortcut = shortcutFiles(gameInfo.title)[1]!
   const macOSFolder = `${appShortcut}/Contents/MacOS`
   const resourcesFolder = `${appShortcut}/Contents/Resources`
   const plistFile = `${appShortcut}/Contents/Info.plist`

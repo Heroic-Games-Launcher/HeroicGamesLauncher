@@ -156,7 +156,8 @@
         },
         "wineprefix": "Wine環境フォルダを選択",
         "yes": "はい",
-        "dontShowAgain": "次回から確認しない"
+        "dontShowAgain": "次回から確認しない",
+        "choose-nile-binary": "ナイル川バイナリを選択"
     },
     "button": {
         "cancel": "キャンセル",
@@ -278,7 +279,8 @@
         "wine": {
             "part1": "Heroicは、次のフォルダでWine、Proton、CrossOverのバージョンを検索します:",
             "part2": "その他の場所については、これらのフォルダのいずれかへのシンボリックリンクを使用してください"
-        }
+        },
+        "disable_logs": "このチェックボックスをオンに切り替えると、ログ ファイルへのほとんどの書き込みが無効になります (重要な情報は常にログに記録されます)。問題を報告する前に、必ずこの設定をオフにしてください。"
     },
     "info": {
         "heroic": {
@@ -305,7 +307,8 @@
         "wine-repfix": {
             "message": "Wineは、Wine環境（WINEPREFIX）と呼ばれるものを使用してWindowsアプリケーションをカプセル化します。この環境には、Wine構成ファイルとC:（Windows OSのメインディスク）を再現したファイル階層が含まれています。このC:ドライブの再現には、ゲームのセーブデータファイルとWinetricks経由でインストールされた依存関係が保存されます。"
         },
-        "wine-path-invalid": "Wineパスが無効です。別のパスを選択してください。"
+        "wine-path-invalid": "Wineパスが無効です。別のパスを選択してください。",
+        "wine-path-none-found": "Wine バージョンが見つかりませんでした。Wine Manager からダウンロードしてください"
     },
     "install": {
         "path": "Select Install Path"
@@ -332,7 +335,8 @@
         "alternative_method": "別のログイン方法",
         "epic": "Epic Gamesログイン",
         "gog": "GOGログイン",
-        "message": "お使いのプラットフォームにログインします。同時に複数のプラットフォームにログインすることができます。"
+        "message": "お使いのプラットフォームにログインします。同時に複数のプラットフォームにログインすることができます。",
+        "amazon": "アマゾンログイン"
     },
     "message": {
         "sync": "同期を完了しました",
@@ -426,7 +430,8 @@
     "other": {
         "gogdl-version": "GOGDLバージョン: ",
         "legendary-version": "Legendaryバージョン: ",
-        "weblate": "Heroicの翻訳に協力"
+        "weblate": "Heroicの翻訳に協力",
+        "nile-version": "ナイルバージョン: "
     },
     "Other": "その他",
     "placeholder": {
@@ -435,7 +440,8 @@
         "custom_themes_path": "カスタムCSSファイルを探索するパスを選択してください",
         "dxvkfpsvalue": "正の整数値（例: 30、60、…）",
         "egs-prefix": "EGSがインストールされている環境",
-        "prefered_language": "2文字のコード（“en”や“fr”など）"
+        "prefered_language": "2文字のコード（“en”や“fr”など）",
+        "alt-nile-bin": "組み込みの Nile バイナリを使用しています..."
     },
     "platforms": {
         "linux": "Linux",
@@ -567,7 +573,11 @@
         "wineprefix": "Wine環境フォルダ",
         "wineversion": "Wineバージョン",
         "autoUpdateGames": "ゲームを自動アップデート",
-        "ignoreGameUpdates": "ゲームのアップデートを無視"
+        "ignoreGameUpdates": "ゲームのアップデートを無視",
+        "disable_logs": "ログを無効にする",
+        "addgamestoapplications": "ゲームをアプリケーションに自動的に追加する",
+        "showMetalOverlay": "統計オーバーレイを表示",
+        "alt-nile-bin": "代替の Nile バイナリを選択する"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -619,7 +629,8 @@
     "status": {
         "installing": "インストール中",
         "logging": "ログイン中…",
-        "processing": "ファイルを処理中。しばらくお待ちください"
+        "processing": "ファイルを処理中。しばらくお待ちください",
+        "preparing_login": "ログインを準備しています... "
     },
     "store": "Epic Store",
     "stores": "ストア",
@@ -688,5 +699,8 @@
         "installDlcs": "すべてのDLCをインストールします",
         "noDlcFound": "DLCが見つかりませんでした",
         "size": "Size"
-    }
+    },
+    "Amazon Games": "アマゾンゲーム",
+    "amazon": "アマゾン",
+    "prime-gaming": "プライムゲーミング"
 }

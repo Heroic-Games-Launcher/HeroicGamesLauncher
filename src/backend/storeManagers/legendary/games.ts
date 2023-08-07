@@ -42,7 +42,7 @@ import {
   isFlatpak,
   isCLINoGui
 } from '../../constants'
-import { logError, logInfo, LogPrefix } from '../../logger/logger'
+import { logError, logInfo, LogPrefix, logsDisabled } from '../../logger/logger'
 import {
   prepareLaunch,
   prepareWineLaunch,
@@ -68,6 +68,7 @@ import { Catalog, Product } from 'common/types/epic-graphql'
 import { sendFrontendMessage } from '../../main_window'
 import { RemoveArgs } from 'common/types/game_manager'
 import { logFileLocation } from 'backend/storeManagers/storeManagerCommon/games'
+import { getWineFlags } from 'backend/utils/compatibility_layers'
 
 /**
  * Alias for `LegendaryLibrary.listUpdateableGames`
@@ -96,8 +97,16 @@ export function getGameInfo(appName: string): GameInfo {
       ],
       LogPrefix.Legendary
     )
-    // @ts-expect-error TODO: Handle this better
-    return {}
+    return {
+      app_name: '',
+      runner: 'legendary',
+      art_cover: '',
+      art_square: '',
+      install: {},
+      is_installed: false,
+      title: '',
+      canRunOffline: false
+    }
   }
   return info
 }
@@ -815,7 +824,18 @@ export async function launch(
   let commandEnv = isWindows
     ? process.env
     : { ...process.env, ...setupEnvVars(gameSettings) }
-  const wineFlag: string[] = []
+
+  const wrappers = setupWrappers(
+    gameSettings,
+    mangoHudCommand,
+    gameModeBin,
+    steamRuntime?.length ? [...steamRuntime] : undefined
+  )
+
+  let wineFlag: string[] = wrappers.length
+    ? ['--wrapper', shlex.join(wrappers)]
+    : []
+
   if (!isNative(appName)) {
     // -> We're using Wine/Proton on Linux or CX on Mac
     const {
@@ -851,36 +871,7 @@ export async function launch(
         ? wineExec.replaceAll("'", '')
         : wineExec
 
-    wineFlag.push(
-      ...(wineType === 'proton'
-        ? ['--no-wine', '--wrapper', `'${wineBin}' run`]
-        : ['--wine', wineBin])
-    )
-  }
-
-  // Log any launch information configured in Legendary's config.ini
-  const { stdout } = await runLegendaryCommand(
-    ['launch', appName, '--json', '--offline'],
-    createAbortController(appName)
-  )
-
-  appendFileSync(
-    logFileLocation(appName),
-    "Legendary's config from config.ini (before App's settings):\n"
-  )
-
-  try {
-    const json = JSON.parse(stdout)
-    // remove egl auth info
-    delete json['egl_parameters']
-
-    appendFileSync(
-      logFileLocation(appName),
-      JSON.stringify(json, null, 2) + '\n\n'
-    )
-  } catch (error) {
-    // in case legendary's command fails and the output is not json
-    appendFileSync(logFileLocation(appName), error + '\n' + stdout + '\n\n')
+    wineFlag = [...getWineFlags(wineBin, wineType, shlex.join(wrappers))]
   }
 
   const commandParts = [
@@ -894,17 +885,10 @@ export async function launch(
     isCLINoGui ? '--skip-version-check' : '',
     ...shlex.split(gameSettings.launcherArgs ?? '')
   ]
-  const wrappers = setupWrappers(
-    gameSettings,
-    mangoHudCommand,
-    gameModeBin,
-    steamRuntime?.length ? [...steamRuntime] : undefined
-  )
 
   const fullCommand = getRunnerCallWithoutCredentials(
     commandParts,
     commandEnv,
-    wrappers,
     join(...Object.values(getLegendaryBin()))
   )
   appendFileSync(
@@ -920,7 +904,7 @@ export async function launch(
       wrappers: wrappers,
       logMessagePrefix: `Launching ${gameInfo.title}`,
       onOutput: (output) => {
-        appendFileSync(logFileLocation(appName), output)
+        if (!logsDisabled) appendFileSync(logFileLocation(appName), output)
       }
     }
   )
@@ -1010,11 +994,12 @@ export async function runWineCommandOnGame(
     return { stdout: '', stderr: '' }
   }
 
-  const { folder_name } = getGameInfo(appName)
+  const { folder_name, install } = getGameInfo(appName)
   const gameSettings = await getSettings(appName)
 
   return runWineCommandUtil({
     gameSettings,
+    gameInstallPath: install.install_path,
     installFolderName: folder_name,
     commandParts,
     wait,

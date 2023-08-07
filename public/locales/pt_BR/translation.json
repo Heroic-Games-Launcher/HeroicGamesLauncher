@@ -150,13 +150,14 @@
             },
             "title": "Aviso",
             "wine-change": {
-                "message": "Não foi possível encontrar a versão do vinho selecionada para lançar este título ({{selectedWine}}). {{newline}} Encontramos outro, deseja continuar iniciando usando {{foundWine}}?",
-                "title": "Vinho não encontrado!"
+                "message": "Não foi possível encontrar a versão do Wine selecionada para iniciar este título ({{selectedWine}}). {{newline}} Encontramos outra versão, deseja continuar a iniciar usando {{foundWine}}?",
+                "title": "Wine não encontrado!"
             }
         },
         "wineprefix": "Selecione a pasta do prefixo Wine",
         "yes": "SIM",
-        "dontShowAgain": "Não mostrar novamente"
+        "dontShowAgain": "Não mostrar novamente",
+        "choose-nile-binary": "Selecione o binário do Nilo"
     },
     "button": {
         "cancel": "Cancelar",
@@ -278,7 +279,8 @@
         "wine": {
             "part1": "O Heroic busca por versões do Wine, Proton e CrossOver nas pastas a seguir:",
             "part2": "Para outros locais, use um link simbólico para uma dessas pastas"
-        }
+        },
+        "disable_logs": "Ative esta caixa de seleção para desativar a maioria das gravações em arquivos de log (informações críticas sempre são registradas). Certifique-se de desativar essa configuração antes de relatar qualquer problema."
     },
     "info": {
         "heroic": {
@@ -305,7 +307,8 @@
         "wine-repfix": {
             "message": "O Wine usa o que é chamado de prefixo Wine para encapsular aplicativos do Windows. Este prefixo contém os arquivos de configuração do Wine e uma reprodução da hierarquia de arquivos de C: (o disco principal em um sistema operacional Windows). Nesta reprodução da unidade C:, são armazenados os arquivos salvos do jogo e as dependências instaladas via winetricks."
         },
-        "wine-path-invalid": "Wine Path é inválido, selecione outro."
+        "wine-path-invalid": "Wine Path é inválido, selecione outro.",
+        "wine-path-none-found": "Nenhuma versão do Wine foi encontrada, baixe uma do Wine Manager"
     },
     "install": {
         "path": "Selecione o local de instalação"
@@ -332,7 +335,8 @@
         "alternative_method": "Método de Login Alternativo",
         "epic": "Login da Epic Games",
         "gog": "Login da GOG",
-        "message": "Faça login com sua plataforma. Você pode acessar mais de uma plataforma ao mesmo tempo."
+        "message": "Faça login com sua plataforma. Você pode acessar mais de uma plataforma ao mesmo tempo.",
+        "amazon": "Login da Amazon"
     },
     "message": {
         "sync": "Sincronização Completa",
@@ -361,7 +365,7 @@
             "reparing": "Reparo Concluído"
         },
         "install": {
-            "canceled": "Instalação Cancelada",
+            "canceled": "Instalação cancelada",
             "error": "Erro na instalação",
             "finished": "Instalação concluída",
             "imported": "Jogo importado",
@@ -426,7 +430,8 @@
     "other": {
         "gogdl-version": "Versão do GOGDL: ",
         "legendary-version": "Versão do Legendary: ",
-        "weblate": "Ajude a traduzir o Heroic."
+        "weblate": "Ajude a traduzir o Heroic.",
+        "nile-version": "Versão do Nilo: "
     },
     "Other": "Outros",
     "placeholder": {
@@ -435,7 +440,8 @@
         "custom_themes_path": "Selecione o caminho para buscar por arquivos CSS customizados",
         "dxvkfpsvalue": "Valor inteiro positivo (ex. 30, 60, ...)",
         "egs-prefix": "Prefixo onde a EGS está instalada",
-        "prefered_language": "Código de 2 caracteres (ou seja: \"en\" ou \"fr\")"
+        "prefered_language": "Código de 2 caracteres (ou seja: \"en\" ou \"fr\")",
+        "alt-nile-bin": "Usando o binário integrado do Nilo..."
     },
     "platforms": {
         "linux": "Linux",
@@ -521,7 +527,7 @@
         "log": {
             "copy-to-clipboard": "Copiar log para a área de transferência",
             "current-log": "Log atual",
-            "instructions": "Acesse o nosso Discord e procure pelo canal relacionado ao seu sistema operacional. Compartilhe o conteúdo do Log mostrado aqui e inclua uma descrição do problema, detalhes e outras informações relevantes.",
+            "instructions": "Acesse o nosso Discord e procure pela seção \"#-support\". Leia a thread fixada \"Read Me First | Frequently Asked Questions\" e siga as instruções (Em Inglês) para compartilhar o conteúdo do Log e qualquer informação relevante sobre seu problema.",
             "instructions_title": "Como reportar um problema?",
             "last-log": "Último log",
             "no-file": "Arquivo de log não encontrado",
@@ -567,7 +573,11 @@
         "wineprefix": "Pasta do prefixo Wine",
         "wineversion": "Versão do Wine",
         "autoUpdateGames": "Atualizar jogos automaticamente",
-        "ignoreGameUpdates": "Ignorar atualizações do jogo"
+        "ignoreGameUpdates": "Ignorar atualizações do jogo",
+        "disable_logs": "Desativar registros",
+        "addgamestoapplications": "Adicionar jogos a aplicativos automaticamente",
+        "showMetalOverlay": "Mostrar sobreposição de estatísticas",
+        "alt-nile-bin": "Escolha um binário alternativo do Nilo"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -577,7 +587,7 @@
         "clear-cache": "Limpar cache do Heroic",
         "copiedToClipboard": "Copiado para a área de Transferência!",
         "copyToClipboard": "Copiar todas as configurações para a área de transferência",
-        "default_hint": "Mudanças nessa seção só se aplicam como valores padrão quando novos jogos forem instalados. Se você quer mudar as configurações de jogos já instalados, use o botão Configurações na página do jogo.",
+        "default_hint": "Mudanças nessa sessão só são aplicadas como valores padrão quando novos jogos forem instalados. Para modificar as configurações de um jogo já instalado, use o botão de configurações na página do jogo.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "O GameMode é necessário para que o tempo de execução do EAC funcione no Flatpak. Deseja habilitá-lo agora?",
@@ -601,7 +611,7 @@
             "general": "Config. Gerais",
             "log": "Log",
             "other": "Outros",
-            "sync": "Sincronização",
+            "sync": "Sincronização de Saves na Nuvem",
             "wineExt": "Extensões do Wine"
         },
         "open-config-file": "Abrir arquivo de configuração",
@@ -619,7 +629,8 @@
     "status": {
         "installing": "Instalando",
         "logging": "Logando...",
-        "processing": "Processando arquivos, aguarde"
+        "processing": "Processando arquivos, aguarde",
+        "preparing_login": "Preparando login... "
     },
     "store": "Loja Epic",
     "stores": "Lojas",
@@ -685,8 +696,11 @@
     "dlc": {
         "title": "Título",
         "actions": "Ações",
-        "installDlcs": "Instalar DLCs",
-        "noDlcFound": "Nenhum DLC encontrado",
+        "installDlcs": "Instalar todas as DLCs",
+        "noDlcFound": "Nenhuma DLC encontrada",
         "size": "Tamanho"
-    }
+    },
+    "amazon": "Amazonas",
+    "Amazon Games": "Amazon Games",
+    "prime-gaming": "Prime Gaming"
 }

@@ -156,7 +156,8 @@
         },
         "wineprefix": "Seleccionar o cartafol de prefixo de Wine",
         "yes": "Sí",
-        "dontShowAgain": "Non volvas mostrar"
+        "dontShowAgain": "Non volvas mostrar",
+        "choose-nile-binary": "Seleccione o binario do Nilo"
     },
     "button": {
         "cancel": "Cancel",
@@ -278,7 +279,8 @@
         "wine": {
             "part1": "Búsquedas de versións de Wine, Proton e CrossOver nos seguintes cartafoles:",
             "part2": "Para outros lugares, use unha ligazón simbólica a un destos cartafoles"
-        }
+        },
+        "disable_logs": "Activa esta caixa de verificación para desactivar a maioría das escrituras nos ficheiros de rexistro (a información crítica sempre se rexistra). Asegúrate de desactivar esta configuración antes de informar de calquera problema."
     },
     "info": {
         "heroic": {
@@ -305,7 +307,8 @@
         "wine-repfix": {
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
         },
-        "wine-path-invalid": "A ruta do viño non é válida, selecciona outra."
+        "wine-path-invalid": "A ruta do viño non é válida, selecciona outra.",
+        "wine-path-none-found": "Non se atopou ningunha versión de Wine, descarga unha do Wine Manager"
     },
     "install": {
         "path": "Seleccionar a ruta de instalación"
@@ -332,7 +335,8 @@
         "alternative_method": "Alternative Login Method",
         "epic": "Epic Games Login",
         "gog": "GOG Login",
-        "message": "Login with your platform. You can login to more than one platform at the same time."
+        "message": "Login with your platform. You can login to more than one platform at the same time.",
+        "amazon": "Inicio de sesión en Amazon"
     },
     "message": {
         "sync": "Sincronización completa",
@@ -426,7 +430,8 @@
     "other": {
         "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Versión de Legendary: ",
-        "weblate": "Axuda a traducir Heroic."
+        "weblate": "Axuda a traducir Heroic.",
+        "nile-version": "Versión Nile: "
     },
     "Other": "Other",
     "placeholder": {
@@ -435,7 +440,8 @@
         "custom_themes_path": "Select the path to look for custom CSS files",
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefixo onde está instalado EGS",
-        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")",
+        "alt-nile-bin": "Usando o binario Nile incorporado..."
     },
     "platforms": {
         "linux": "Linux",
@@ -521,7 +527,7 @@
         "log": {
             "copy-to-clipboard": "Copy log content to clipboard",
             "current-log": "Current Log",
-            "instructions": "Join our Discord and look for the channel that matches your operating system. Share the content of the logs displayed here, and include a clear description of the problem with any relevant information and details.",
+            "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",
             "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
             "no-file": "No log file found",
@@ -567,7 +573,11 @@
         "wineprefix": "Cartafol WinePrefix",
         "wineversion": "Versión de Wine",
         "ignoreGameUpdates": "Ignorar as actualizacións do xogo",
-        "autoUpdateGames": "Actualiza os xogos automaticamente"
+        "autoUpdateGames": "Actualiza os xogos automaticamente",
+        "disable_logs": "Desactivar rexistros",
+        "showMetalOverlay": "Mostrar superposición de estatísticas",
+        "addgamestoapplications": "Engade xogos a Aplicacións automaticamente",
+        "alt-nile-bin": "Escolla un binario alternativo do Nilo"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -619,7 +629,8 @@
     "status": {
         "installing": "Installing",
         "logging": "Inciando sesión…",
-        "processing": "Processing files, please wait"
+        "processing": "Processing files, please wait",
+        "preparing_login": "Preparando inicio de sesión... "
     },
     "store": "Epic Store",
     "stores": "Stores",
@@ -688,5 +699,8 @@
         "actions": "Accións",
         "installDlcs": "Instalar todos os DLCs",
         "noDlcFound": "Non se atoparon DLC"
-    }
+    },
+    "amazon": "Amazon",
+    "Amazon Games": "Xogos de Amazon",
+    "prime-gaming": "Prime Gaming"
 }

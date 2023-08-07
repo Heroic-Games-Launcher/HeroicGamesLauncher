@@ -156,7 +156,8 @@
         },
         "wineprefix": "انتخاب پوشه Wine Prefix",
         "yes": "بله",
-        "dontShowAgain": "عدم نمایش"
+        "dontShowAgain": "عدم نمایش",
+        "choose-nile-binary": "باینری Nile را انتخاب کنید"
     },
     "button": {
         "cancel": "انصراف",
@@ -278,7 +279,8 @@
         "wine": {
             "part1": "Heroic در این پوشهها برای نسخههای Wine، Proton و CrossOver جستوجو میکند:",
             "part2": "برای دیگر مکانها،از یک symbolic link به یکی از این پوشهها استفاده کنید"
-        }
+        },
+        "disable_logs": "این چک باکس را روشن کنید تا بسیاری از نوشتن‌ها در فایل‌های گزارش غیرفعال شود (اطلاعات مهم همیشه ثبت می‌شوند). قبل از گزارش هر مشکلی حتماً این تنظیم را خاموش کنید."
     },
     "info": {
         "heroic": {
@@ -305,7 +307,8 @@
         "wine-repfix": {
             "message": "واین از WINEPREFIX برای کپسوله کردن اپلیکیشن های ویندوز استفاده می کند. این مسیر شامل فایل های پیکربندی واین و فایل سیستم اصلی :C ویندوز می شود. در این بازسازی درایو :C، ذخیره های بازی و وابستگی هایی که توسط winetricks نصب شده اندذخیره می شوند."
         },
-        "wine-path-invalid": "مسیر Wine نامعتبر است، لطفاً مسیر دیگری را انتخاب کنید."
+        "wine-path-invalid": "مسیر Wine نامعتبر است، لطفاً مسیر دیگری را انتخاب کنید.",
+        "wine-path-none-found": "نسخه Wine پیدا نشد، یکی از Wine Manager را دانلود کنید"
     },
     "install": {
         "path": "انتخاب محل نصب"
@@ -332,7 +335,8 @@
         "alternative_method": "روش ورود جایگزین",
         "epic": "ورود Epic Games",
         "gog": "ورود GOG",
-        "message": "با پلتفرم خود وارد شوید. شما می توانید همزمان از چندین پلتفرم وارد شوید."
+        "message": "با پلتفرم خود وارد شوید. شما می توانید همزمان از چندین پلتفرم وارد شوید.",
+        "amazon": "ورود به آمازون"
     },
     "message": {
         "sync": "همگامسازی کامل شد",
@@ -426,7 +430,8 @@
     "other": {
         "gogdl-version": "نسخه GOGDL: ",
         "legendary-version": "نسخه Legendary: ",
-        "weblate": "کمک به ترجمه Heroic."
+        "weblate": "کمک به ترجمه Heroic.",
+        "nile-version": "نسخه نیل: "
     },
     "Other": "Other",
     "placeholder": {
@@ -435,7 +440,8 @@
         "custom_themes_path": "انتخاب مسیر گشتن برای فایل های CSS شخصی سازی شده",
         "dxvkfpsvalue": "مقدار عدد طبیعی (مانند 30،‌60، ...)",
         "egs-prefix": "محل نصب شده EGS",
-        "prefered_language": "کد دو حرفی (مانند \"en\" یا \"fr\")"
+        "prefered_language": "کد دو حرفی (مانند \"en\" یا \"fr\")",
+        "alt-nile-bin": "استفاده از باینری داخلی نیل..."
     },
     "platforms": {
         "linux": "لینوکس",
@@ -567,7 +573,11 @@
         "wineprefix": "پوشه محل Wine",
         "wineversion": "نسخه Wine",
         "ignoreGameUpdates": "نادیده گرفتن به‌روزرسانی‌های بازی",
-        "autoUpdateGames": "به روز رسانی خودکار بازی ها"
+        "autoUpdateGames": "به روز رسانی خودکار بازی ها",
+        "disable_logs": "غیرفعال کردن گزارش‌ها",
+        "addgamestoapplications": "بازی ها را به طور خودکار به برنامه ها اضافه کنید",
+        "showMetalOverlay": "نمایش همپوشانی آمار",
+        "alt-nile-bin": "یک باینری جایگزین نیل را انتخاب کنید"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -619,7 +629,8 @@
     "status": {
         "installing": "در حال نصب",
         "logging": "در حال وارد شدن...",
-        "processing": "در حال پردازش فایلها، لطفا منتظر بمانید"
+        "processing": "در حال پردازش فایلها، لطفا منتظر بمانید",
+        "preparing_login": "در حال آماده سازی ورود... "
     },
     "store": "فروشگاه اپیک",
     "stores": "فروشگاهها",
@@ -688,5 +699,8 @@
         "noDlcFound": "هیچ DLC یافت نشد",
         "size": "اندازه",
         "title": "عنوان"
-    }
+    },
+    "amazon": "آمازون",
+    "Amazon Games": "بازی های آمازون",
+    "prime-gaming": "پرایم گیمینگ"
 }

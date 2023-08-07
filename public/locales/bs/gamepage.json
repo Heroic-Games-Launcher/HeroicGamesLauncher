@@ -118,7 +118,9 @@
         "clickToOpen": "Kliknite da otvorite",
         "apple-gaming-wiki": "AppleGamingWiki Ocjena",
         "game-scores": "Rezultati igre",
-        "installedInfo": "Instalirane informacije"
+        "installedInfo": "Instalirane informacije",
+        "protondb-compatibility-info": "Proton Compatibility Tier",
+        "steamdeck-compatibility-info": "SteamDeck kompatibilnost"
     },
     "install": {
         "disk-space-left": "Prostora dostupno",
@@ -131,7 +133,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Third-Party Game NOT Supported",
+            "not-installable-game": "Igra NIJE instalirana"
         },
         "playing": {
             "start": "Igraj sada",
@@ -150,7 +153,8 @@
         "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
         "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
         "login": "Log in",
-        "title": "You are NOT logged in"
+        "title": "You are NOT logged in",
+        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "report_problem": "Prijavi problem za ovu video igru",
     "sdl": {
@@ -203,7 +207,9 @@
         "launching": "Lansiranje",
         "ubisoft": "Instaliranje Ubisofta",
         "downloading": "Downloading",
-        "extracting": "Ekstrakcija"
+        "extracting": "Ekstrakcija",
+        "goodie": "Nije moguće instalirati",
+        "gog-goodie": "Čini se da se ova igra ne može instalirati. Provjerite sadržaj koji se može preuzeti na https://gog.com/account"
     },
     "submenu": {
         "addShortcut": "Dodaj prečicu",

@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "Xếp hạng Wiki của AppleGaming",
         "clickToOpen": "Bấm để mở",
         "game-scores": "Tỷ số trận đấu",
-        "installedInfo": "Thông tin đã cài đặt"
+        "installedInfo": "Thông tin đã cài đặt",
+        "protondb-compatibility-info": "Bậc Tương thích Proton",
+        "steamdeck-compatibility-info": "Khả năng tương thích SteamDeck"
     },
     "install": {
         "disk-space-left": "Dung lượng trống",
@@ -130,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Third-Party Game NOT Supported",
+            "not-installable-game": "Trò chơi KHÔNG thể cài đặt"
         },
         "playing": {
             "start": "Chơi ngay",
@@ -149,7 +152,8 @@
         "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
         "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
         "login": "Log in",
-        "title": "You are NOT logged in"
+        "title": "You are NOT logged in",
+        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "report_problem": "Báo cáo sự cố khi chạy game này",
     "sdl": {
@@ -202,7 +206,9 @@
         "launching": "ra mắt",
         "ubisoft": "Cài đặt Ubisoft",
         "downloading": "Downloading",
-        "extracting": "giải nén"
+        "extracting": "giải nén",
+        "gog-goodie": "Trò chơi này dường như không thể cài đặt được. Kiểm tra nội dung có thể tải xuống trên https://gog.com/account",
+        "goodie": "Không thể cài đặt"
     },
     "submenu": {
         "addShortcut": "Thêm shortcut",

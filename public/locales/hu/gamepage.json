@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "AppleGamingWiki értékelés",
         "clickToOpen": "Kattintson a megnyitáshoz",
         "game-scores": "Játékpontszámok",
-        "installedInfo": "Telepített információk"
+        "installedInfo": "Telepített információk",
+        "protondb-compatibility-info": "Proton kompatibilitási szint",
+        "steamdeck-compatibility-info": "SteamDeck kompatibilitás"
     },
     "install": {
         "disk-space-left": "Elérhető tárhely",
@@ -130,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Harmadik féltől származó játék nem támogatott"
+            "third-party-game": "Harmadik féltől származó játék nem támogatott",
+            "not-installable-game": "A játék NEM telepíthető"
         },
         "playing": {
             "start": "Indítás most",
@@ -149,7 +152,8 @@
         "epic": "Nem vagy bejelentkezve egy Epic fiókkal a Heroicba. Ne az áruházi oldalon jelentkezz be, kattints erre a gombra helyette:",
         "gog": "Nem vagy bejelentkezve egy GOG fiókkal a Heroicba. Ne az áruházi oldalon jelentkezz be, kattints erre a gombra helyette:",
         "login": "Log in",
-        "title": "NEM vagy bejelentkezve"
+        "title": "NEM vagy bejelentkezve",
+        "amazon": "Nem vagy bejelentkezve egy Epic fiókkal a Heroicba. Ne az áruházi oldalon jelentkezz be, kattints erre a gombra helyette:"
     },
     "report_problem": "Játék futtatásával kapcsolatos hiba jelentése",
     "sdl": {
@@ -202,7 +206,9 @@
         "launching": "Indítás",
         "ubisoft": "Ubisoft telepítése",
         "downloading": "Downloading",
-        "extracting": "Kivonás"
+        "extracting": "Kivonás",
+        "gog-goodie": "Úgy tűnik, hogy ez a játék nem telepíthető. Ellenőrizze a letölthető tartalmat a https://gog.com/account oldalon",
+        "goodie": "Nem telepíthető"
     },
     "submenu": {
         "addShortcut": "Parancsikon hozzáadása",

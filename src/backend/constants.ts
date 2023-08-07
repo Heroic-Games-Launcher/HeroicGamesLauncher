@@ -39,10 +39,9 @@ const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
 const flatPakHome = env.XDG_DATA_HOME?.replace('/data', '') || homedir()
 const userHome = homedir()
 const configFolder = app.getPath('appData')
-const legendaryConfigPath = isLinux
-  ? join(configFolder, 'legendary')
-  : join(userHome, '.config', 'legendary')
 const appFolder = join(configFolder, 'heroic')
+const legendaryConfigPath = join(appFolder, 'legendaryConfig', 'legendary')
+const nileConfigPath = join(appFolder, 'nile_config', 'nile')
 const configPath = join(appFolder, 'config.json')
 const gamesConfigPath = join(appFolder, 'GamesConfig')
 const toolsPath = join(appFolder, 'tools')
@@ -60,16 +59,27 @@ const cachedUbisoftInstallerPath = join(
   'UbisoftConnectInstaller.exe'
 )
 
-const { currentLogFile, lastLogFile, legendaryLogFile, gogdlLogFile } =
-  createNewLogFileAndClearOldOnes()
+const {
+  currentLogFile,
+  lastLogFile,
+  legendaryLogFile,
+  gogdlLogFile,
+  nileLogFile
+} = createNewLogFileAndClearOldOnes()
 
 const publicDir = resolve(__dirname, '..', app.isPackaged ? '' : '../public')
 const gogdlAuthConfig = join(app.getPath('userData'), 'gog_store', 'auth.json')
+const vulkanHelperBin = fixAsarPath(
+  join(publicDir, 'bin', process.platform, 'vulkan-helper')
+)
 const icon = fixAsarPath(join(publicDir, 'icon.png'))
 const iconDark = fixAsarPath(join(publicDir, 'icon-dark.png'))
 const iconLight = fixAsarPath(join(publicDir, 'icon-light.png'))
 const installed = join(legendaryConfigPath, 'installed.json')
 const legendaryMetadata = join(legendaryConfigPath, 'metadata')
+const nileInstalled = join(nileConfigPath, 'installed.json')
+const nileLibrary = join(nileConfigPath, 'library.json')
+const nileUserData = join(nileConfigPath, 'user.json')
 const fallBackImage = 'fallback'
 const epicLoginUrl = 'https://legendary.gl/epiclogin'
 const sidInfoUrl =
@@ -204,6 +214,7 @@ export {
   lastLogFile,
   legendaryLogFile,
   gogdlLogFile,
+  nileLogFile,
   discordLink,
   execOptions,
   fixAsarPath,
@@ -250,5 +261,10 @@ export {
   wineprefixFAQ,
   customThemesWikiLink,
   cachedUbisoftInstallerPath,
-  gogdlAuthConfig
+  gogdlAuthConfig,
+  vulkanHelperBin,
+  nileConfigPath,
+  nileInstalled,
+  nileLibrary,
+  nileUserData
 }

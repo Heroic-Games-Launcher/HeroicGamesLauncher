@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "Hodnotenie AppleGamingWiki",
         "clickToOpen": "Kliknutím otvoríte",
         "game-scores": "Skóre hry",
-        "installedInfo": "Inštalované informácie"
+        "installedInfo": "Inštalované informácie",
+        "protondb-compatibility-info": "Úroveň protónovej kompatibility",
+        "steamdeck-compatibility-info": "Kompatibilita so SteamDeck"
     },
     "install": {
         "disk-space-left": "Priestor k dispozícii",
@@ -130,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported"
+            "third-party-game": "Third-Party Game NOT Supported",
+            "not-installable-game": "Hra NIE JE INŠTALOVANÁ"
         },
         "playing": {
             "start": "Hrať teraz",
@@ -149,7 +152,8 @@
         "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
         "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
         "login": "Log in",
-        "title": "You are NOT logged in"
+        "title": "You are NOT logged in",
+        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "report_problem": "Nahlásiť problém so spustením tejto hry",
     "sdl": {
@@ -202,7 +206,9 @@
         "launching": "Spustenie",
         "ubisoft": "Inštalácia Ubisoftu",
         "downloading": "Downloading",
-        "extracting": "Extrakcia"
+        "extracting": "Extrakcia",
+        "gog-goodie": "Zdá sa, že túto hru nie je možné nainštalovať. Skontrolujte obsah na stiahnutie na https://gog.com/account",
+        "goodie": "Nedá sa nainštalovať"
     },
     "submenu": {
         "addShortcut": "Pridať skratku",

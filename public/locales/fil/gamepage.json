@@ -74,7 +74,8 @@
     "label": {
         "ubisoft": "Pag-install ng Ubisoft Connect",
         "game": {
-            "third-party-game": "HINDI Sinusuportahan ang Third-Party na Laro"
+            "third-party-game": "HINDI Sinusuportahan ang Third-Party na Laro",
+            "not-installable-game": "Ang laro ay HINDI Nai-install"
         },
         "launching": "Paglulunsad",
         "playing": {
@@ -92,7 +93,8 @@
         "epic": "Hindi ka naka-log in gamit ang isang Epic account sa Heroic. Huwag gamitin ang page ng store para mag-login, i-click na lang ang sumusunod na button:",
         "gog": "Hindi ka naka-log in gamit ang isang GOG account sa Heroic. Huwag gamitin ang page ng store para mag-login, i-click na lang ang sumusunod na button:",
         "login": "Mag log in",
-        "title": "Hindi ka naka-login"
+        "title": "Hindi ka naka-login",
+        "amazon": "Hindi ka naka-log in gamit ang isang Amazon account sa Heroic. Huwag gamitin ang page ng store para mag-login, i-click na lang ang sumusunod na button:"
     },
     "status": {
         "notSupported": "Hindi suportado",
@@ -117,7 +119,9 @@
         "launching": "Paglulunsad",
         "moving": "Inilipat ang Pag-install, mangyaring maghintay",
         "moving-files": "Inilipat ang file na '{{file}}': {{percent}} ",
-        "notinstalled": "Ang larong ito ay hindi naka-install"
+        "notinstalled": "Ang larong ito ay hindi naka-install",
+        "gog-goodie": "Mukhang hindi mai-install ang larong ito. Tingnan ang nada-download na nilalaman sa https://gog.com/account",
+        "goodie": "Hindi mai-install"
     },
     "submenu": {
         "addShortcut": "Magdagdag ng shortcut",
@@ -183,7 +187,9 @@
         "path": "I-install ang Path",
         "size": "Sukat",
         "syncsaves": "Sync Saves",
-        "version": "Bersyon"
+        "version": "Bersyon",
+        "protondb-compatibility-info": "Proton Compatibility Tier",
+        "steamdeck-compatibility-info": "SteamDeck Compatibility"
     },
     "install": {
         "disk-space-left": "Magagamit na espasyo",

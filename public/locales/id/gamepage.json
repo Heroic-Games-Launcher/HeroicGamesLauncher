@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "Peringkat AppleGamingWiki",
         "clickToOpen": "Klik untuk membuka",
         "game-scores": "Skor Game",
-        "installedInfo": "Informasi Instalasi"
+        "installedInfo": "Informasi Instalasi",
+        "protondb-compatibility-info": "Tingkat Kompatibilitas Proton",
+        "steamdeck-compatibility-info": "Kompatibilitas SteamDeck"
     },
     "install": {
         "disk-space-left": "Ruang Penyimpanan yang Tersedia",
@@ -130,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Gim pihak ketiga TIDAK didukung"
+            "third-party-game": "Gim pihak ketiga TIDAK didukung",
+            "not-installable-game": "Game TIDAK Dapat Diinstal"
         },
         "playing": {
             "start": "Mainkan sekarang",
@@ -149,7 +152,8 @@
         "epic": "Anda tidak masuk dengan akun Epic di Heroic. Jangan gunakan halaman toko untuk masuk, klik tombol berikut sebagai gantinya:",
         "gog": "Anda tidak masuk dengan akun GOG di Heroic. Jangan gunakan halaman toko untuk masuk, klik tombol berikut sebagai gantinya:",
         "login": "Log in",
-        "title": "Anda TIDAK masuk"
+        "title": "Anda TIDAK masuk",
+        "amazon": "Anda tidak masuk dengan akun Epic di Heroic. Jangan gunakan halaman toko untuk masuk, klik tombol berikut sebagai gantinya:"
     },
     "report_problem": "Laporkan masalah yang terjadi saat memainkan gim ini",
     "sdl": {
@@ -202,7 +206,9 @@
         "launching": "Meluncurkan",
         "ubisoft": "Memasang Ubisoft",
         "downloading": "Mengunduh",
-        "extracting": "Mengekstrak"
+        "extracting": "Mengekstrak",
+        "goodie": "Tidak dapat diinstal",
+        "gog-goodie": "Game ini tampaknya tidak dapat diinstal. Periksa konten yang dapat diunduh di https://gog.com/account"
     },
     "submenu": {
         "addShortcut": "Tambahkan pintasan",

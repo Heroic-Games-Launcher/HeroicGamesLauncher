@@ -21,7 +21,7 @@
             "title": "Vyberte EXE ke spuštění"
         },
         "select": {
-            "button": "Vybrat"
+            "button": "Zvolit"
         },
         "sideload": {
             "exe": "Vybrat spustitelný soubor"
@@ -48,7 +48,7 @@
     },
     "button": {
         "add_to_favourites": "Přidat do oblíbených",
-        "cancel": "Zrušit",
+        "cancel": "Pozastavit/Zrušit",
         "continue": "Pokračovat ve stahování",
         "finish": "Dokončit",
         "force_update": "Vynutit aktualizaci, pokud je dostupná",
@@ -90,7 +90,7 @@
         "platform": "Vyberte verzi platformy, kterou chcete nainstalovat",
         "requirements": "Systémové požadavky",
         "totalPlayed": "Odehraný čas",
-        "dlcs": "DLCs"
+        "dlcs": "DLC"
     },
     "gamecard": {
         "moving": "Přesouvám",
@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "Hodnocení AppleGamingWiki",
         "clickToOpen": "Kliknutím otevřete",
         "game-scores": "Skóre hry",
-        "installedInfo": "Instalované informace"
+        "installedInfo": "Instalované informace",
+        "protondb-compatibility-info": "Úroveň protonové kompatibility",
+        "steamdeck-compatibility-info": "Kompatibilita se SteamDeck"
     },
     "install": {
         "disk-space-left": "Volné místo",
@@ -130,7 +132,8 @@
     },
     "label": {
         "game": {
-            "third-party-game": "Hra třetí strany NENÍ podporována"
+            "third-party-game": "Hra třetí strany NENÍ podporována",
+            "not-installable-game": "Hra NELZE nainstalovat"
         },
         "playing": {
             "start": "Hrát",
@@ -149,7 +152,8 @@
         "epic": "V Heroic nejste přihlášeni pomocí účtu Epic. K přihlášení nepoužívejte stránku obchodu, ale klikněte na následující tlačítko:",
         "gog": "V Heroic nejste přihlášeni pomocí účtu GOG. K přihlášení nepoužívejte stránku obchodu, ale klikněte na následující tlačítko:",
         "login": "Log in",
-        "title": "NEjste přihlášeni"
+        "title": "NEjste přihlášeni",
+        "amazon": "V Heroic nejste přihlášeni pomocí účtu Amazon. K přihlášení nepoužívejte stránku obchodu, ale klikněte na následující tlačítko:"
     },
     "report_problem": "Nahlásit problém se spouštěním této hry",
     "sdl": {
@@ -202,7 +206,9 @@
         "launching": "Spouštění",
         "ubisoft": "Instalace Ubisoftu",
         "downloading": "Stahování",
-        "extracting": "Extrakce"
+        "extracting": "Extrakce",
+        "gog-goodie": "Zdá se, že tuto hru nelze nainstalovat. Zkontrolujte obsah ke stažení na https://gog.com/account",
+        "goodie": "Nelze nainstalovat"
     },
     "submenu": {
         "addShortcut": "Přidat zástupce",

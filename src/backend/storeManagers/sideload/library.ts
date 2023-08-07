@@ -8,8 +8,8 @@ import {
 import { readdirSync } from 'graceful-fs'
 import { dirname, join } from 'path'
 import { libraryStore } from './electronStores'
-import { addShortcuts } from './games'
 import { logWarning } from 'backend/logger/logger'
+import { addShortcuts } from 'backend/shortcuts/shortcuts/shortcuts'
 
 export function addNewApp({
   app_name,
@@ -27,7 +27,8 @@ export function addNewApp({
     title,
     install: {
       executable,
-      platform
+      platform,
+      is_dlc: false
     },
     folder_name: executable !== undefined ? dirname(executable) : undefined,
     art_cover,
@@ -59,7 +60,7 @@ export function addNewApp({
     current[gameIndex] = { ...current[gameIndex], ...game }
   } else {
     current.push(game)
-    addShortcuts(app_name)
+    addShortcuts(game)
   }
 
   libraryStore.set('games', current)
@@ -77,12 +78,18 @@ export async function refresh() {
   return null
 }
 
-export function getGameInfo(
-  appName: string,
-  forceReload?: boolean
-): GameInfo | undefined {
+export function getGameInfo(appName: string, forceReload?: boolean): GameInfo {
   logWarning(`getGameInfo not implemented on Sideload Library Manager`)
-  return undefined
+  return {
+    app_name: '',
+    runner: 'sideload',
+    art_cover: '',
+    art_square: '',
+    install: {},
+    is_installed: false,
+    title: '',
+    canRunOffline: false
+  }
 }
 
 export async function listUpdateableGames(): Promise<string[]> {

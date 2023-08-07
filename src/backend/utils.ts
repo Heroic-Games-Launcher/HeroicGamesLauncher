@@ -41,10 +41,17 @@ import {
   configStore,
   isLinux
 } from './constants'
-import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
+import {
+  logError,
+  logInfo,
+  LogPrefix,
+  logsDisabled,
+  logWarning
+} from './logger/logger'
 import { basename, dirname, join, normalize } from 'path'
 import { runRunnerCommand as runLegendaryCommand } from 'backend/storeManagers/legendary/library'
 import { runRunnerCommand as runGogdlCommand } from './storeManagers/gog/library'
+import { runRunnerCommand as runNileCommand } from './storeManagers/nile/library'
 import {
   gameInfoStore,
   installStore,
@@ -55,6 +62,10 @@ import {
   installInfoStore as GOGinstallInfoStore,
   libraryStore as GOGlibraryStore
 } from './storeManagers/gog/electronStores'
+import {
+  installStore as nileInstallStore,
+  libraryStore as nileLibraryStore
+} from './storeManagers/nile/electronStores'
 import * as fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
@@ -231,11 +242,25 @@ const getGogdlVersion = async () => {
   return stdout
 }
 
+const getNileVersion = async () => {
+  const abortID = 'nile-version'
+  const { stdout, error } = await runNileCommand(
+    ['--version'],
+    createAbortController(abortID)
+  )
+  deleteAbortController(abortID)
+
+  if (error) {
+    return 'invalid'
+  }
+  return stdout
+}
+
 const getHeroicVersion = () => {
   const VERSION_NUMBER = app.getVersion()
   // One Piece reference
   const BETA_VERSION_NAME = 'Caesar Clown'
-  const STABLE_VERSION_NAME = 'Nico Robin'
+  const STABLE_VERSION_NAME = 'Boa Hancock'
   const isBetaorAlpha =
     VERSION_NUMBER.includes('alpha') || VERSION_NUMBER.includes('beta')
   const VERSION_NAME = isBetaorAlpha ? BETA_VERSION_NAME : STABLE_VERSION_NAME
@@ -293,6 +318,7 @@ const getSystemInfoInternal = async (): Promise<string> => {
   const heroicVersion = getHeroicVersion()
   const legendaryVersion = await getLegendaryVersion()
   const gogdlVersion = await getGogdlVersion()
+  const nileVersion = await getNileVersion()
 
   const electronVersion = process.versions.electron || 'unknown'
   const chromeVersion = process.versions.chrome || 'unknown'
@@ -329,6 +355,7 @@ const getSystemInfoInternal = async (): Promise<string> => {
   const systemInfo = `Heroic Version: ${heroicVersion}
 Legendary Version: ${legendaryVersion}
 GOGdl Version: ${gogdlVersion}
+Nile Version: ${nileVersion}
 
 Electron Version: ${electronVersion}
 Chrome Version: ${chromeVersion}
@@ -388,6 +415,8 @@ async function errorHandler({
   const deletedFolderMsg = 'appears to be deleted'
   const expiredCredentials = 'No saved credentials'
   const legendaryRegex = /legendary.*\.py/
+  // this message appears on macOS when no Crossover was found in the system but its a false alarm
+  const ignoreCrossoverMessage = 'IndexError: list index out of range'
 
   if (logPath) {
     execAsync(`tail "${logPath}" | grep 'disk space'`)
@@ -410,6 +439,9 @@ async function errorHandler({
       })
   }
   if (error) {
+    if (error.includes(ignoreCrossoverMessage)) {
+      return
+    }
     if (error.includes(deletedFolderMsg) && appName) {
       const runner = r.toLocaleLowerCase() as Runner
       const { title } = gameManagerMap[runner].getGameInfo(appName)
@@ -458,6 +490,8 @@ async function errorHandler({
   }
 }
 
+// If you ever modify this range of characters, please also add them to nile
+// source as this function is used to determine how game directory will be named
 function removeSpecialcharacters(text: string): string {
   const regexp = new RegExp(/[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|'|"|®]/, 'gi')
   return text.replaceAll(regexp, '')
@@ -470,7 +504,7 @@ async function openUrlOrFile(url: string): Promise<string | void> {
   return shell.openPath(url)
 }
 
-function clearCache(library?: 'gog' | 'legendary') {
+function clearCache(library?: 'gog' | 'legendary' | 'nile') {
   if (library === 'gog' || !library) {
     GOGapiInfoCache.clear()
     GOGlibraryStore.clear()
@@ -484,6 +518,10 @@ function clearCache(library?: 'gog' | 'legendary') {
     runLegendaryCommand(['cleanup'], createAbortController(abortID)).then(() =>
       deleteAbortController(abortID)
     )
+  }
+  if (library === 'nile' || !library) {
+    nileInstallStore.clear()
+    nileLibraryStore.clear()
   }
 }
 
@@ -544,6 +582,17 @@ function getGOGdlBin(): { dir: string; bin: string } {
     fixAsarPath(join(publicDir, 'bin', process.platform, 'gogdl'))
   )
 }
+
+function getNileBin(): { dir: string; bin: string } {
+  const settings = GlobalConfig.get().getSettings()
+  if (settings?.altNileBin) {
+    return splitPathAndName(settings.altNileBin)
+  }
+  return splitPathAndName(
+    fixAsarPath(join(publicDir, 'bin', process.platform, 'nile'))
+  )
+}
+
 function getFormattedOsName(): string {
   switch (process.platform) {
     case 'linux':
@@ -586,10 +635,15 @@ async function searchForExecutableOnPath(executable: string): Promise<string> {
   }
 }
 async function getSteamRuntime(
-  requestedType: 'scout' | 'soldier'
+  requestedType: SteamRuntime['type']
 ): Promise<SteamRuntime> {
   const steamLibraries = await getSteamLibraries()
   const runtimeTypes: SteamRuntime[] = [
+    {
+      path: 'steamapps/common/SteamLinuxRuntime_sniper/run',
+      type: 'sniper',
+      args: ['--']
+    },
     {
       path: 'steamapps/common/SteamLinuxRuntime_soldier/run',
       type: 'soldier',
@@ -1018,15 +1072,17 @@ export async function checkWineBeforeLaunch(
   if (wineIsValid) {
     return true
   } else {
-    logError(
-      `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`,
-      LogPrefix.Backend
-    )
+    if (!logsDisabled) {
+      logError(
+        `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`,
+        LogPrefix.Backend
+      )
 
-    appendFileSync(
-      logFileLocation,
-      `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`
-    )
+      appendFileSync(
+        logFileLocation,
+        `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`
+      )
+    }
 
     // check if the default wine is valid now
     const { wineVersion: defaultwine } = GlobalConfig.get().getSettings()
@@ -1289,6 +1345,7 @@ export {
   resetHeroic,
   getLegendaryBin,
   getGOGdlBin,
+  getNileBin,
   formatEpicStoreUrl,
   searchForExecutableOnPath,
   getSteamRuntime,
@@ -1307,6 +1364,7 @@ export {
   getFileSize,
   getLegendaryVersion,
   getGogdlVersion,
+  getNileVersion,
   memoryLog,
   removeFolder
 }
