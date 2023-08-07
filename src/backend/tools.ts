@@ -365,6 +365,11 @@ export const DXVK = {
             wait: true,
             protonVerb: 'waitforexitandrun'
           })
+        } else {
+          logWarning(
+            'Could not find nvngx.dll for DLSS!',
+            LogPrefix.DXVKInstaller
+          )
         }
       } catch (err) {
         logError([`Error when finding nvngx.dll`, err], LogPrefix.DXVKInstaller)
