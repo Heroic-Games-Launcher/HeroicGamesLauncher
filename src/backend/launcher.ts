@@ -254,6 +254,9 @@ async function prepareWineLaunch(
     if (gameSettings.autoInstallDxvk) {
       await DXVK.installRemove(gameSettings, 'dxvk', 'backup')
     }
+    if (gameSettings.autoInstallDxvkNvapi) {
+      await DXVK.installRemove(gameSettings, 'dxvk-nvapi', 'backup')
+    }
     if (gameSettings.autoInstallVkd3d) {
       await DXVK.installRemove(gameSettings, 'vkd3d', 'backup')
     }
