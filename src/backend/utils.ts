@@ -209,7 +209,7 @@ async function isEpicServiceOffline(
 const getLegendaryVersion = async () => {
   const abortID = 'legendary-version'
   const { stdout, error, abort } = await runLegendaryCommand(
-    ['--version'],
+    { subcommand: undefined, '--version': true },
     createAbortController(abortID)
   )
 
@@ -515,9 +515,10 @@ function clearCache(library?: 'gog' | 'legendary' | 'nile') {
     libraryStore.clear()
     gameInfoStore.clear()
     const abortID = 'legendary-cleanup'
-    runLegendaryCommand(['cleanup'], createAbortController(abortID)).then(() =>
-      deleteAbortController(abortID)
-    )
+    runLegendaryCommand(
+      { subcommand: 'cleanup' },
+      createAbortController(abortID)
+    ).then(() => deleteAbortController(abortID))
   }
   if (library === 'nile' || !library) {
     nileInstallStore.clear()
