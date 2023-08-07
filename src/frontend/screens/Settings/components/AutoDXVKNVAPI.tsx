@@ -18,7 +18,7 @@ const AutoDXVKNVAPI = () => {
   const [installingDxvkNvapi, setInstallingDxvkNvapi] = React.useState(false)
 
   const handleAutoInstallDxvkNvapi = async () => {
-    let res = false
+    let res = true
     const isProton = wineVersion.type === 'proton'
     setInstallingDxvkNvapi(true)
 
