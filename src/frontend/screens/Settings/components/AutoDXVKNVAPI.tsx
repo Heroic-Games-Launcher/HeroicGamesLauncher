@@ -42,10 +42,14 @@ const AutoDXVKNVAPI = () => {
         htmlId="autodxvknvapi"
         value={autoInstallDXVKNVAPI}
         handleChange={handleAutoInstallDxvkNvapi}
-        title={t(
-          'setting.autodxvknvapi',
-          'Auto Install/Update DXVK-NVAPI on Prefix'
-        )}
+        title={
+          installingDxvkNvapi
+            ? t('please-wait', 'Please wait...')
+            : t(
+                'setting.autodxvknvapi',
+                'Auto Install/Update DXVK-NVAPI on Prefix'
+              )
+        }
         fading={installingDxvkNvapi}
         disabled={installingDxvkNvapi}
       />
