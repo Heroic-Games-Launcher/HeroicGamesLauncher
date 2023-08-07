@@ -201,34 +201,7 @@ export const DXVK = {
         })
       }
 
-      logInfo(`Removing ${tool} files`, LogPrefix.DXVKInstaller)
-
-      // remove the dlls from the prefix
-      await new Promise((resolve) => {
-        dlls.forEach((dll) => {
-          const dllPath = `${winePrefix}/drive_c/windows/system32/${dll}`
-          if (existsSync(`${dllPath}.bak`)) {
-            const removeDll = `rm ${dllPath}`
-            exec(removeDll)
-          }
-
-          const dllPath64 = `${winePrefix}/drive_c/windows/syswow64/${dll}`
-          if (existsSync(`${dllPath}.bak`)) {
-            const removeDll = `rm ${dllPath64}`
-            exec(removeDll)
-          }
-        })
-        resolve(true)
-      })
-      // run wineboot -u restore the old dlls
-      const restoreDlls = ['wineboot', '-u']
-      logInfo('Restoring old dlls', LogPrefix.DXVKInstaller)
-      await runWineCommand({
-        gameSettings,
-        commandParts: restoreDlls,
-        wait: true,
-        protonVerb: 'waitforexitandrun'
-      })
+      logInfo('Removing DLL overrides', LogPrefix.DXVKInstaller)
 
       // unregister the dlls on the wine prefix
       dlls.forEach(async (dll) => {

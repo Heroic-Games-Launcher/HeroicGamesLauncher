@@ -156,7 +156,8 @@
         },
         "wineprefix": "Velg mappe for Wine-prefiks",
         "yes": "Ja",
-        "dontShowAgain": "Ikke vis igjen"
+        "dontShowAgain": "Ikke vis igjen",
+        "choose-nile-binary": "Velg Nile binær"
     },
     "button": {
         "cancel": "Cancel",
@@ -334,7 +335,8 @@
         "alternative_method": "Alternative Login Method",
         "epic": "Epic Games Login",
         "gog": "GOG Login",
-        "message": "Login with your platform. You can login to more than one platform at the same time."
+        "message": "Login with your platform. You can login to more than one platform at the same time.",
+        "amazon": "Amazon-pålogging"
     },
     "message": {
         "sync": "Synkronisering fullført",
@@ -428,7 +430,8 @@
     "other": {
         "gogdl-version": "GOGDL-versjon: ",
         "legendary-version": "Legendarisk versjon: ",
-        "weblate": "Hjelp til å oversette Heroic."
+        "weblate": "Hjelp til å oversette Heroic.",
+        "nile-version": "Nile versjon: "
     },
     "Other": "Other",
     "placeholder": {
@@ -437,7 +440,8 @@
         "custom_themes_path": "Select the path to look for custom CSS files",
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefiks der EGS er installert",
-        "prefered_language": "2-tegnskode (dvs.: \"en\" eller \"fr\")"
+        "prefered_language": "2-tegnskode (dvs.: \"en\" eller \"fr\")",
+        "alt-nile-bin": "Bruker innebygd Nile binær..."
     },
     "platforms": {
         "linux": "Linux",
@@ -572,7 +576,8 @@
         "ignoreGameUpdates": "Ignorer spilloppdateringer",
         "disable_logs": "Deaktiver logger",
         "showMetalOverlay": "Vis statistikkoverlegg",
-        "addgamestoapplications": "Legg spill til applikasjoner automatisk"
+        "addgamestoapplications": "Legg spill til applikasjoner automatisk",
+        "alt-nile-bin": "Velg en alternativ Nile Binær"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -624,7 +629,8 @@
     "status": {
         "installing": "Installerer",
         "logging": "Logger inn...",
-        "processing": "Behandler filer, vennligst vent"
+        "processing": "Behandler filer, vennligst vent",
+        "preparing_login": "Forbereder pålogging... "
     },
     "store": "Episk butikk",
     "stores": "Butikker",
@@ -693,5 +699,8 @@
         "noDlcFound": "Ingen DLC-er funnet",
         "size": "Størrelse",
         "title": "Title"
-    }
+    },
+    "amazon": "Amazon",
+    "Amazon Games": "Amazon-spill",
+    "prime-gaming": "Prime Gaming"
 }

@@ -71,6 +71,7 @@ export interface ContextType {
   }
   amazon: {
     library: GameInfo[]
+    user_id?: string
     username?: string
     getLoginData: () => Promise<NileLoginData>
     login: (data: NileRegisterData) => Promise<string>

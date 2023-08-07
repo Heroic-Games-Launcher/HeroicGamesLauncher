@@ -156,7 +156,8 @@
         },
         "wineprefix": "Chọn thư mục Wine Prefix",
         "yes": "Có",
-        "dontShowAgain": "Không hiển thị lại"
+        "dontShowAgain": "Không hiển thị lại",
+        "choose-nile-binary": "Chọn nhị phân sông Nile"
     },
     "button": {
         "cancel": "Cancel",
@@ -334,7 +335,8 @@
         "alternative_method": "Alternative Login Method",
         "epic": "Epic Games Login",
         "gog": "GOG Login",
-        "message": "Login with your platform. You can login to more than one platform at the same time."
+        "message": "Login with your platform. You can login to more than one platform at the same time.",
+        "amazon": "Đăng nhập Amazon"
     },
     "message": {
         "sync": "Hoàn tất quá trình đồng bộ",
@@ -428,7 +430,8 @@
     "other": {
         "gogdl-version": "Phiên bản GOGDL: ",
         "legendary-version": "Phiên bản Legendary ",
-        "weblate": "Giúp dịch Heroic."
+        "weblate": "Giúp dịch Heroic.",
+        "nile-version": "Phiên bản sông Nile: "
     },
     "Other": "Other",
     "placeholder": {
@@ -437,7 +440,8 @@
         "custom_themes_path": "Select the path to look for custom CSS files",
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix nơi EGS được cài đặt",
-        "prefered_language": "mã ngôn ngữ (2 ký tự ví dụ: \"en\" or \"fr\")"
+        "prefered_language": "mã ngôn ngữ (2 ký tự ví dụ: \"en\" or \"fr\")",
+        "alt-nile-bin": "Sử dụng nhị phân Nile tích hợp sẵn..."
     },
     "platforms": {
         "linux": "LInux",
@@ -572,7 +576,8 @@
         "ignoreGameUpdates": "Bỏ qua cập nhật trò chơi",
         "disable_logs": "Tắt nhật ký",
         "addgamestoapplications": "Tự động thêm trò chơi vào Ứng dụng",
-        "showMetalOverlay": "Hiển thị lớp phủ thống kê"
+        "showMetalOverlay": "Hiển thị lớp phủ thống kê",
+        "alt-nile-bin": "Chọn một nhị phân Nile thay thế"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -624,7 +629,8 @@
     "status": {
         "installing": "Đang cài đặt",
         "logging": "Đang đăng nhập...",
-        "processing": "Đang xử lý tệp, vui lòng đợi"
+        "processing": "Đang xử lý tệp, vui lòng đợi",
+        "preparing_login": "Đang chuẩn bị đăng nhập... "
     },
     "store": "Cửa hàng Epic",
     "stores": "Cửa hàng",
@@ -693,5 +699,8 @@
         "noDlcFound": "Không tìm thấy DLC nào",
         "size": "Kích thước",
         "title": "Title"
-    }
+    },
+    "amazon": "amazon",
+    "Amazon Games": "Trò chơi Amazon",
+    "prime-gaming": "Trò chơi chính"
 }

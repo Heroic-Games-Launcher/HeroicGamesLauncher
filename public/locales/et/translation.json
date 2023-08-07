@@ -156,7 +156,8 @@
         },
         "wineprefix": "Valige Wine prefiksi kaust",
         "yes": "JAH",
-        "dontShowAgain": "Ära näita enam"
+        "dontShowAgain": "Ära näita enam",
+        "choose-nile-binary": "Valige Niiluse kahendkood"
     },
     "button": {
         "cancel": "Cancel",
@@ -334,7 +335,8 @@
         "alternative_method": "Alternative Login Method",
         "epic": "Epic Games Login",
         "gog": "GOG Login",
-        "message": "Login with your platform. You can login to more than one platform at the same time."
+        "message": "Login with your platform. You can login to more than one platform at the same time.",
+        "amazon": "Amazoni sisselogimine"
     },
     "message": {
         "sync": "Sünkroonimine lõpetatud",
@@ -428,7 +430,8 @@
     "other": {
         "gogdl-version": "GOGDL versioon: ",
         "legendary-version": "Legendary versioon: ",
-        "weblate": "Aidake tõlkida Heroic'ut."
+        "weblate": "Aidake tõlkida Heroic'ut.",
+        "nile-version": "Niiluse versioon: "
     },
     "Other": "Other",
     "placeholder": {
@@ -437,7 +440,8 @@
         "custom_themes_path": "Select the path to look for custom CSS files",
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefiks, kuhu EGS on paigaldatud",
-        "prefered_language": "2-täheline kood (st: \"en\" või \"fr\")"
+        "prefered_language": "2-täheline kood (st: \"en\" või \"fr\")",
+        "alt-nile-bin": "Sisseehitatud Niiluse kahendfaili kasutamine..."
     },
     "platforms": {
         "linux": "Linux",
@@ -572,7 +576,8 @@
         "ignoreGameUpdates": "Ignoreeri mängu värskendusi",
         "disable_logs": "Keela logid",
         "addgamestoapplications": "Lisage mänge rakendustesse automaatselt",
-        "showMetalOverlay": "Kuva statistika ülekate"
+        "showMetalOverlay": "Kuva statistika ülekate",
+        "alt-nile-bin": "Valige alternatiivne Niiluse binaar"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -624,7 +629,8 @@
     "status": {
         "installing": "Paigaldamine",
         "logging": "Sisselogimine...",
-        "processing": "Failide töötlemine, palun oodake"
+        "processing": "Failide töötlemine, palun oodake",
+        "preparing_login": "Sisselogimise ettevalmistamine... "
     },
     "store": "Epic Pood",
     "stores": "Poed",
@@ -693,5 +699,8 @@
         "noDlcFound": "DLC-sid ei leitud",
         "size": "Suurus",
         "title": "Title"
-    }
+    },
+    "amazon": "Amazon",
+    "Amazon Games": "Amazoni mängud",
+    "prime-gaming": "Prime Gaming"
 }

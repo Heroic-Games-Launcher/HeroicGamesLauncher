@@ -156,7 +156,8 @@
         },
         "wineprefix": "Alegeți dosarul Wine Prefix",
         "yes": "DA",
-        "dontShowAgain": "Nu mai arăta"
+        "dontShowAgain": "Nu mai arăta",
+        "choose-nile-binary": "Selectați binarul Nil"
     },
     "button": {
         "cancel": "Cancel",
@@ -334,7 +335,8 @@
         "alternative_method": "Alternative Login Method",
         "epic": "Epic Games Login",
         "gog": "GOG Login",
-        "message": "Login with your platform. You can login to more than one platform at the same time."
+        "message": "Login with your platform. You can login to more than one platform at the same time.",
+        "amazon": "Conectare Amazon"
     },
     "message": {
         "sync": "Sincronizare Completă",
@@ -428,7 +430,8 @@
     "other": {
         "gogdl-version": "Versiunea GOGDL: ",
         "legendary-version": "Versiune Legendary: ",
-        "weblate": "Ajută la traducerea Heroic."
+        "weblate": "Ajută la traducerea Heroic.",
+        "nile-version": "Versiunea Nile: "
     },
     "Other": "Other",
     "placeholder": {
@@ -437,7 +440,8 @@
         "custom_themes_path": "Select the path to look for custom CSS files",
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefixul unde este instalat EGS",
-        "prefered_language": "Cod de 2 caractere (adică: „en” sau „fr”)"
+        "prefered_language": "Cod de 2 caractere (adică: „en” sau „fr”)",
+        "alt-nile-bin": "Folosind binarul Nile încorporat..."
     },
     "platforms": {
         "linux": "Linux",
@@ -572,7 +576,8 @@
         "ignoreGameUpdates": "Ignora actualizările jocului",
         "disable_logs": "Dezactivați jurnalele",
         "addgamestoapplications": "Adăugați automat jocuri la Aplicații",
-        "showMetalOverlay": "Afișați statistici suprapuse"
+        "showMetalOverlay": "Afișați statistici suprapuse",
+        "alt-nile-bin": "Alegeți un binar alternativ pentru Nil"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -624,7 +629,8 @@
     "status": {
         "installing": "Se Instalează",
         "logging": "Autentificare...",
-        "processing": "Se procesează fișierele, așteptați"
+        "processing": "Se procesează fișierele, așteptați",
+        "preparing_login": "Se pregătește autentificare... "
     },
     "store": "Magazin",
     "stores": "Magazine",
@@ -693,5 +699,8 @@
         "noDlcFound": "Nu s-au găsit DLC",
         "size": "Mărime",
         "title": "Title"
-    }
+    },
+    "amazon": "Amazon",
+    "prime-gaming": "Prime Gaming",
+    "Amazon Games": "Jocuri Amazon"
 }

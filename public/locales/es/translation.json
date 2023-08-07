@@ -156,7 +156,8 @@
         },
         "wineprefix": "Elige la carpeta de los prefijos de Wine",
         "yes": "SÍ",
-        "dontShowAgain": "no volver a mostrar"
+        "dontShowAgain": "no volver a mostrar",
+        "choose-nile-binary": "Seleccionar binario del Nilo"
     },
     "button": {
         "cancel": "Cancelar",
@@ -334,7 +335,8 @@
         "alternative_method": "Método Alternativo de Inicio de Sesión",
         "epic": "Iniciar Sesión en Epic Games",
         "gog": "Iniciar Sesión en GOG",
-        "message": "Inicie sesión en sus plataformas. Puede iniciar sesión en más de una a la vez."
+        "message": "Inicie sesión en sus plataformas. Puede iniciar sesión en más de una a la vez.",
+        "amazon": "Inicio de sesión en Amazon"
     },
     "message": {
         "sync": "Sincronización completa",
@@ -428,7 +430,8 @@
     "other": {
         "gogdl-version": "Versión de GOGDL: ",
         "legendary-version": "Versión de Legendary: ",
-        "weblate": "Ayuda a traducir Heroic."
+        "weblate": "Ayuda a traducir Heroic.",
+        "nile-version": "Versión del Nilo: "
     },
     "Other": "Otros",
     "placeholder": {
@@ -437,7 +440,8 @@
         "custom_themes_path": "Seleccione la ubicación de donde buscar los archivos CSS",
         "dxvkfpsvalue": "Valor entero positivo (por ejemplo, 30, 60, ...)",
         "egs-prefix": "Prefijo donde está instalado EGS",
-        "prefered_language": "Código de 2 caracteres (ej: \"en\" o \"fr\")"
+        "prefered_language": "Código de 2 caracteres (ej: \"en\" o \"fr\")",
+        "alt-nile-bin": "Usando el binario integrado Nile..."
     },
     "platforms": {
         "linux": "Linux",
@@ -572,7 +576,8 @@
         "ignoreGameUpdates": "Ignorar actualizaciones del juego",
         "disable_logs": "Deshabilitar registros",
         "addgamestoapplications": "Agregar juegos a Aplicaciones automáticamente",
-        "showMetalOverlay": "Mostrar superposición de estadísticas"
+        "showMetalOverlay": "Mostrar superposición de estadísticas",
+        "alt-nile-bin": "Elija un binario alternativo del Nilo"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -624,7 +629,8 @@
     "status": {
         "installing": "Instalando",
         "logging": "Iniciando sesión…",
-        "processing": "Procesando los archivos, por favor espere"
+        "processing": "Procesando los archivos, por favor espere",
+        "preparing_login": "Preparando inicio de sesión... "
     },
     "store": "Tienda de Epic",
     "stores": "Tiendas",
@@ -693,5 +699,8 @@
         "noDlcFound": "No se ha encontrado ningún DLC",
         "size": "Tamaño",
         "title": "Título"
-    }
+    },
+    "prime-gaming": "primer juego",
+    "amazon": "Amazonas",
+    "Amazon Games": "Juegos de Amazonas"
 }

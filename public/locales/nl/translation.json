@@ -156,7 +156,8 @@
         },
         "wineprefix": "Selecteer een Wine Prefix Folder",
         "yes": "JA",
-        "dontShowAgain": "Niet meer laten zien"
+        "dontShowAgain": "Niet meer laten zien",
+        "choose-nile-binary": "Selecteer Nijl binair"
     },
     "button": {
         "cancel": "Cancel",
@@ -334,7 +335,8 @@
         "alternative_method": "Alternative Login Method",
         "epic": "Epic Games Login",
         "gog": "GOG Login",
-        "message": "Login with your platform. You can login to more than one platform at the same time."
+        "message": "Login with your platform. You can login to more than one platform at the same time.",
+        "amazon": "Amazon-login"
     },
     "message": {
         "sync": "Synchronisatie compleet",
@@ -428,7 +430,8 @@
     "other": {
         "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary Versie: ",
-        "weblate": "Help met het vertalen van Heroic."
+        "weblate": "Help met het vertalen van Heroic.",
+        "nile-version": "Nijlversie: "
     },
     "Other": "Other",
     "placeholder": {
@@ -437,7 +440,8 @@
         "custom_themes_path": "Select the path to look for custom CSS files",
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix waar EGS is geïnstalleerd",
-        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")",
+        "alt-nile-bin": "Gebruik van ingebouwde Nijl binaire..."
     },
     "platforms": {
         "linux": "Linux",
@@ -572,7 +576,8 @@
         "ignoreGameUpdates": "Negeer game-updates",
         "disable_logs": "Logboeken uitschakelen",
         "addgamestoapplications": "Voeg automatisch games toe aan applicaties",
-        "showMetalOverlay": "Statistieken-overlay weergeven"
+        "showMetalOverlay": "Statistieken-overlay weergeven",
+        "alt-nile-bin": "Kies een alternatief Nijlbinair getal"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -624,7 +629,8 @@
     "status": {
         "installing": "Installing",
         "logging": "Logging In...",
-        "processing": "Processing files, please wait"
+        "processing": "Processing files, please wait",
+        "preparing_login": "Inloggen voorbereiden... "
     },
     "store": "Epic Winkel",
     "stores": "Stores",
@@ -693,5 +699,8 @@
         "installDlcs": "Installeer alle DLC's",
         "size": "Size",
         "title": "Title"
-    }
+    },
+    "Amazon Games": "Amazon-spellen",
+    "amazon": "Amazone",
+    "prime-gaming": "Prime-gaming"
 }

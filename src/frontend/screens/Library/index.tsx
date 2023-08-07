@@ -153,7 +153,7 @@ export default React.memo(function Library(): JSX.Element {
     if (gogCategories.includes(category) && !gog.username) {
       handleCategory('all')
     }
-    if (amazonCategories.includes(category) && !amazon.username) {
+    if (amazonCategories.includes(category) && !amazon.user_id) {
       handleCategory('all')
     }
   }, [epic.username, gog.username, amazon.username])
@@ -244,7 +244,7 @@ export default React.memo(function Library(): JSX.Element {
     } else {
       const isEpic = epic.username && epicCategories.includes(category)
       const isGog = gog.username && gogCategories.includes(category)
-      const isAmazon = amazon.username && amazonCategories.includes(category)
+      const isAmazon = amazon.user_id && amazonCategories.includes(category)
       const epicLibrary = isEpic ? epic.library : []
       const gogLibrary = isGog ? gog.library : []
       const sideloadedApps = sideloadedCategories.includes(category)

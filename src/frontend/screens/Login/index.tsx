@@ -27,7 +27,7 @@ export default React.memo(function NewLogin() {
   const [isEpicLoggedIn, setIsEpicLoggedIn] = useState(Boolean(epic.username))
   const [isGogLoggedIn, setIsGogLoggedIn] = useState(Boolean(gog.username))
   const [isAmazonLoggedIn, setIsAmazonLoggedIn] = useState(
-    Boolean(amazon.username)
+    Boolean(amazon.user_id)
   )
 
   const loginMessage = t(
@@ -42,8 +42,8 @@ export default React.memo(function NewLogin() {
   useEffect(() => {
     setIsEpicLoggedIn(Boolean(epic.username))
     setIsGogLoggedIn(Boolean(gog.username))
-    setIsAmazonLoggedIn(Boolean(amazon.username))
-  }, [epic.username, gog.username, amazon.username, t])
+    setIsAmazonLoggedIn(Boolean(amazon.user_id))
+  }, [epic.username, gog.username, amazon.user_id, t])
 
   async function handleLibraryClick() {
     await refreshLibrary({ runInBackground: false })
@@ -110,7 +110,7 @@ export default React.memo(function NewLogin() {
               icon={() => <AmazonLogo />}
               loginUrl={amazonLoginPath}
               isLoggedIn={isAmazonLoggedIn}
-              user={amazon.username}
+              user={amazon.username || 'Unknown'}
               logoutAction={amazon.logout}
             />
           </div>

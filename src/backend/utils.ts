@@ -490,6 +490,8 @@ async function errorHandler({
   }
 }
 
+// If you ever modify this range of characters, please also add them to nile
+// source as this function is used to determine how game directory will be named
 function removeSpecialcharacters(text: string): string {
   const regexp = new RegExp(/[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|'|"|®]/, 'gi')
   return text.replaceAll(regexp, '')
@@ -633,10 +635,15 @@ async function searchForExecutableOnPath(executable: string): Promise<string> {
   }
 }
 async function getSteamRuntime(
-  requestedType: 'scout' | 'soldier'
+  requestedType: SteamRuntime['type']
 ): Promise<SteamRuntime> {
   const steamLibraries = await getSteamLibraries()
   const runtimeTypes: SteamRuntime[] = [
+    {
+      path: 'steamapps/common/SteamLinuxRuntime_sniper/run',
+      type: 'sniper',
+      args: ['--']
+    },
     {
       path: 'steamapps/common/SteamLinuxRuntime_soldier/run',
       type: 'soldier',

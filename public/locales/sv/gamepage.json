@@ -152,7 +152,8 @@
         "epic": "Du är ej inloggad med Epic-konto i Heroic. Använd inte Butiksidan för att logga in, klicka denna knapp istället:",
         "gog": "Du är ej inloggad med GOG-konto i Heroic. Använd inte Butiksidan för att logga in, klicka denna knapp istället:",
         "login": "Logga in",
-        "title": "Du är ej inloggad!"
+        "title": "Du är ej inloggad!",
+        "amazon": "Du är ej inloggad med Epic-konto i Heroic. Använd inte Butiksidan för att logga in, klicka denna knapp istället:"
     },
     "report_problem": "Rapportera problem med spelet",
     "sdl": {

@@ -156,7 +156,8 @@
         },
         "wineprefix": "Odaberite WinePrefix mapu",
         "yes": "DA",
-        "dontShowAgain": "Ne prikazuj više"
+        "dontShowAgain": "Ne prikazuj više",
+        "choose-nile-binary": "Odaberite Nile binary"
     },
     "button": {
         "cancel": "Cancel",
@@ -334,7 +335,8 @@
         "alternative_method": "Alternative Login Method",
         "epic": "Epic Games Login",
         "gog": "GOG Login",
-        "message": "Login with your platform. You can login to more than one platform at the same time."
+        "message": "Login with your platform. You can login to more than one platform at the same time.",
+        "amazon": "Prijava na Amazon"
     },
     "message": {
         "sync": "Sinkroniziranje završeno",
@@ -428,7 +430,8 @@
     "other": {
         "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary Version: ",
-        "weblate": "Help Improve this translation."
+        "weblate": "Help Improve this translation.",
+        "nile-version": "Verzija Nila: "
     },
     "Other": "Other",
     "placeholder": {
@@ -437,7 +440,8 @@
         "custom_themes_path": "Odaberi stazu za traženje prilagođenih CSS datoteka",
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Put gdje je EGS instaliran",
-        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
+        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")",
+        "alt-nile-bin": "Korištenje ugrađenog Nile binarnog..."
     },
     "platforms": {
         "linux": "Linux",
@@ -572,7 +576,8 @@
         "autoUpdateGames": "Automatski ažuriraj igre",
         "disable_logs": "Onemogući zapisnike",
         "addgamestoapplications": "Automatski dodajte igre u aplikacije",
-        "showMetalOverlay": "Prikaži preklapanje statistike"
+        "showMetalOverlay": "Prikaži preklapanje statistike",
+        "alt-nile-bin": "Odaberite alternativni Nile Binary"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -624,7 +629,8 @@
     "status": {
         "installing": "Instaliranje u tijeku",
         "logging": "Logging In...",
-        "processing": "Obrada datoteka, pričekaj"
+        "processing": "Obrada datoteka, pričekaj",
+        "preparing_login": "Priprema prijave... "
     },
     "store": "Epic Store",
     "stores": "Stores",
@@ -693,5 +699,8 @@
         "noDlcFound": "Nije pronađen nijedan DLC",
         "size": "Size",
         "title": "Title"
-    }
+    },
+    "prime-gaming": "Prime Gaming",
+    "amazon": "Amazon",
+    "Amazon Games": "Amazonove igre"
 }

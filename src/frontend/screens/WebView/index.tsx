@@ -225,7 +225,7 @@ export default function WebView() {
       !gog.username
     ) {
       setShowLoginWarningFor('gog')
-    } else if (startUrl.match(/gaming\.amazon\.com/) && !amazon.username) {
+    } else if (startUrl.match(/gaming\.amazon\.com/) && !amazon.user_id) {
       setShowLoginWarningFor('amazon')
     }
   }, [startUrl])

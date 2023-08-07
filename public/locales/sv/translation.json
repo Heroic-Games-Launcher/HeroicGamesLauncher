@@ -156,7 +156,8 @@
         },
         "wineprefix": "Ange Wine-prefix mapp",
         "yes": "Ja",
-        "dontShowAgain": "Visa inte igen"
+        "dontShowAgain": "Visa inte igen",
+        "choose-nile-binary": "Välj Nile binär"
     },
     "button": {
         "cancel": "Avbryt",
@@ -334,7 +335,8 @@
         "alternative_method": "Alternativ inloggningsmetod",
         "epic": "Epic Games inloggning",
         "gog": "GOG inloggning",
-        "message": "Logga in på önskad plattform. Du kan vara inloggad på fler än en plattform samtidigt."
+        "message": "Logga in på önskad plattform. Du kan vara inloggad på fler än en plattform samtidigt.",
+        "amazon": "Amazon logga in"
     },
     "message": {
         "sync": "Synkronisering slutförd",
@@ -428,7 +430,8 @@
     "other": {
         "gogdl-version": "GOGDL version: ",
         "legendary-version": "Legendary version: ",
-        "weblate": "Bidra till översättning av Heroic."
+        "weblate": "Bidra till översättning av Heroic.",
+        "nile-version": "Nile version: "
     },
     "Other": "Övrigt",
     "placeholder": {
@@ -437,7 +440,8 @@
         "custom_themes_path": "Välj sökvägen för att leta efter anpassade CSS-filer",
         "dxvkfpsvalue": "Positivt heltalsvärde (t.ex. 30, 60, ...)",
         "egs-prefix": "Prefix för befintlig EGS installation",
-        "prefered_language": "Tvåställig bokstavskod (t.ex: \"en\" eller \"fr\")"
+        "prefered_language": "Tvåställig bokstavskod (t.ex: \"en\" eller \"fr\")",
+        "alt-nile-bin": "Använder inbyggd Nile binär..."
     },
     "platforms": {
         "linux": "Linux",
@@ -572,7 +576,8 @@
         "autoUpdateGames": "Uppdatera spel automatiskt",
         "disable_logs": "Inaktivera loggar",
         "addgamestoapplications": "Lägg till spel till applikationer automatiskt",
-        "showMetalOverlay": "Visa statistiköverlägg"
+        "showMetalOverlay": "Visa statistiköverlägg",
+        "alt-nile-bin": "Välj en alternativ Nile Binär"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -624,7 +629,8 @@
     "status": {
         "installing": "Installerar",
         "logging": "Loggar in...",
-        "processing": "Hanterar filer, vänligen vänta"
+        "processing": "Hanterar filer, vänligen vänta",
+        "preparing_login": "Förbereder inloggning... "
     },
     "store": "Epic Butik",
     "stores": "Butiker",
@@ -693,5 +699,8 @@
         "noDlcFound": "Inga DLC:er hittades",
         "size": "Storlek",
         "title": "Titel"
-    }
+    },
+    "amazon": "Amazon",
+    "Amazon Games": "Amazon spel",
+    "prime-gaming": "Prime Gaming"
 }

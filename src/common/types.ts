@@ -138,6 +138,7 @@ export interface GameSettings {
   eacRuntime: boolean
   enableDXVKFpsLimit: boolean
   enableEsync: boolean
+  enableFSR: boolean
   enableFsync: boolean
   enviromentOptions: EnviromentVariable[]
   ignoreGameUpdates: boolean
@@ -311,7 +312,7 @@ interface GamepadInputEventMouse {
 
 export interface SteamRuntime {
   path: string
-  type: 'soldier' | 'scout'
+  type: 'sniper' | 'scout' | 'soldier'
   args: string[]
 }
 
@@ -532,6 +533,7 @@ export type WineCommandArgs = {
   wait?: boolean
   protonVerb?: ProtonVerb
   gameSettings?: GameSettings
+  gameInstallPath?: string
   installFolderName?: string
   options?: CallRunnerOptions
   startFolder?: string

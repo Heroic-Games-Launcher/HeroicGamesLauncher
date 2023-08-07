@@ -156,7 +156,8 @@
         },
         "wineprefix": "選擇 WinePrefix 資料夾",
         "yes": "是",
-        "dontShowAgain": "不再顯示"
+        "dontShowAgain": "不再顯示",
+        "choose-nile-binary": "選擇尼羅河二進製文件"
     },
     "button": {
         "cancel": "取消",
@@ -334,7 +335,8 @@
         "alternative_method": "Alternative Login Method",
         "epic": "Epic Games Login",
         "gog": "GOG Login",
-        "message": "Login with your platform. You can login to more than one platform at the same time."
+        "message": "Login with your platform. You can login to more than one platform at the same time.",
+        "amazon": "亞馬遜登錄"
     },
     "message": {
         "sync": "同步完成",
@@ -428,7 +430,8 @@
     "other": {
         "gogdl-version": "GOGDL 版本: ",
         "legendary-version": "Legendary 版本: ",
-        "weblate": "請幫助翻譯Heroic啟動器。"
+        "weblate": "請幫助翻譯Heroic啟動器。",
+        "nile-version": "尼羅河版本： "
     },
     "Other": "Other",
     "placeholder": {
@@ -437,7 +440,8 @@
         "custom_themes_path": "Select the path to look for custom CSS files",
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Epic Games商城安裝位置",
-        "prefered_language": "雙字元代碼 (如: \"en\" 或 \"fr\")"
+        "prefered_language": "雙字元代碼 (如: \"en\" 或 \"fr\")",
+        "alt-nile-bin": "使用內置 Nile 二進製文件..."
     },
     "platforms": {
         "linux": "Linux",
@@ -572,7 +576,8 @@
         "ignoreGameUpdates": "忽略遊戲更新",
         "disable_logs": "禁用日誌",
         "addgamestoapplications": "自動將遊戲新增到應用程式",
-        "showMetalOverlay": "顯示統計數據疊加"
+        "showMetalOverlay": "顯示統計數據疊加",
+        "alt-nile-bin": "選擇替代尼羅河二進制"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -624,7 +629,8 @@
     "status": {
         "installing": "正在安裝",
         "logging": "正在登入...",
-        "processing": "檔案處理中，請等待"
+        "processing": "檔案處理中，請等待",
+        "preparing_login": "正在準備登錄... "
     },
     "store": "Epic 商店",
     "stores": "商店",
@@ -693,5 +699,8 @@
         "installDlcs": "安裝所有DLC",
         "noDlcFound": "未找到 DLC",
         "title": "Title"
-    }
+    },
+    "amazon": "亞馬遜",
+    "Amazon Games": "亞馬遜遊戲",
+    "prime-gaming": "優質遊戲"
 }
