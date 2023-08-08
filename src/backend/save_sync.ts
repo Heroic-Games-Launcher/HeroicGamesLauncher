@@ -25,6 +25,7 @@ import {
 import { legendaryConfigPath } from './constants'
 import { join } from 'path'
 import { gameManagerMap, libraryManagerMap } from 'backend/storeManagers'
+import { LegendaryAppName } from './storeManagers/legendary/commands/base'
 
 async function getDefaultSavePath(
   appName: string,
@@ -81,13 +82,13 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
   logInfo(['Computing default save path for', appName], LogPrefix.Legendary)
   const abortControllerName = appName + '-savePath'
   await runLegendaryCommand(
-    [
-      'sync-saves',
-      appName,
-      '--skip-upload',
-      '--skip-download',
-      '--accept-path'
-    ],
+    {
+      subcommand: 'sync-saves',
+      appName: LegendaryAppName.parse(appName),
+      '--skip-upload': true,
+      '--skip-download': true,
+      '--accept-path': true
+    },
     createAbortController(abortControllerName),
     {
       logMessagePrefix: 'Getting default save path',
