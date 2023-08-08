@@ -660,7 +660,7 @@
     "userselector": {
         "discord": "Discord",
         "logging_out": "Виходимо",
-        "logout": "Вийти",
+        "logout": "Вийти з облікого запису",
         "logout_confirmation": "Точно бажаєте вийти?",
         "manageaccounts": "Облікові Записи",
         "quit": "Вийти",
