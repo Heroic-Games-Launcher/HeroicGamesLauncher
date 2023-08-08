@@ -45,6 +45,7 @@ import {
   GameInfo,
   Runner,
   EnviromentVariable,
+  WrapperEnv,
   WrapperVariable,
   ExecResult,
   GameSettings,
@@ -275,6 +276,7 @@ async function prepareWineLaunch(
 /**
  * Maps general settings to environment variables
  * @param gameSettings The GameSettings to get the environment variables for
+ * @param wrapperEnv The wrapper info to be added into the environment variables
  * @returns A big string of environment variables, structured key=value
  */
 function setupEnvVars(gameSettings: GameSettings) {
@@ -301,6 +303,20 @@ function setupEnvVars(gameSettings: GameSettings) {
   if (!process.env.LD_PRELOAD && !ret.LD_PRELOAD) {
     ret.LD_PRELOAD = ''
   }
+
+  return ret
+}
+
+/**
+ * Maps launcher info to environment variables for consumption by wrappers
+ * @param wrapperEnv The info to be added into the environment variables
+ * @returns Environment variables
+ */
+function setupWrapperEnvVars(wrapperEnv: WrapperEnv) {
+  const ret: Record<string, string> = {}
+
+  ret.HEROIC_APP_NAME = wrapperEnv.appName
+  ret.HEROIC_APP_STORE = wrapperEnv.appStore
 
   return ret
 }
@@ -982,6 +998,7 @@ export {
   launchCleanup,
   prepareWineLaunch,
   setupEnvVars,
+  setupWrapperEnvVars,
   setupWineEnvVars,
   setupWrappers,
   runWineCommand,

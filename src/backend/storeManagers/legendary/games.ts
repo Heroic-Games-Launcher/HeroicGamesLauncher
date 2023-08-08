@@ -47,6 +47,7 @@ import {
   prepareLaunch,
   prepareWineLaunch,
   setupEnvVars,
+  setupWrapperEnvVars,
   setupWrappers,
   launchCleanup,
   getRunnerCallWithoutCredentials,
@@ -822,9 +823,13 @@ export async function launch(
 
   const languageCode = gameSettings.language || configStore.get('language', '')
 
-  let commandEnv = isWindows
-    ? process.env
-    : { ...process.env, ...setupEnvVars(gameSettings) }
+  let commandEnv = {
+    ...process.env,
+    ...setupWrapperEnvVars({ appName, appStore: 'epic' })
+  }
+  if (!isWindows) {
+    commandEnv = { ...commandEnv, ...setupEnvVars(gameSettings) }
+  }
 
   const wrappers = setupWrappers(
     gameSettings,

@@ -62,6 +62,7 @@ import {
   prepareWineLaunch,
   runWineCommand as runWineCommandUtil,
   setupEnvVars,
+  setupWrapperEnvVars,
   setupWrappers
 } from '../../launcher'
 import {
@@ -464,9 +465,13 @@ export async function launch(
     ? ['--override-exe', gameSettings.targetExe]
     : []
 
-  let commandEnv = isWindows
-    ? process.env
-    : { ...process.env, ...setupEnvVars(gameSettings) }
+  let commandEnv = {
+    ...process.env,
+    ...setupWrapperEnvVars({ appName, appStore: 'gog' })
+  }
+  if (!isWindows) {
+    commandEnv = { ...commandEnv, ...setupEnvVars(gameSettings) }
+  }
 
   const wrappers = setupWrappers(
     gameSettings,

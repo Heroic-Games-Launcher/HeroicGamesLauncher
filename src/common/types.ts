@@ -351,6 +351,11 @@ export interface WrapperVariable {
   args: string
 }
 
+export interface WrapperEnv {
+  appName: string
+  appStore: 'amazon' | 'epic' | 'gog'
+}
+
 type AntiCheat =
   | 'Arbiter'
   | 'BattlEye'
