@@ -50,7 +50,7 @@ function get_supported_vulkan_versions(): [
 }
 
 function get_nvngx_path(): string {
-  const result = spawnSync(vulkanHelperBin, ['nvngx-path'], {
+  const result = spawnSync(vulkanHelperBin, ['nvapi-path'], {
     encoding: 'utf-8'
   })
 
