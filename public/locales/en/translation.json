@@ -146,6 +146,12 @@
                 "install": "Epic Servers are having major outage right now, the game cannot be installed!",
                 "update": "Epic Servers are having major outage right now, the game cannot be updated!"
             },
+            "sideload": {
+                "confirmExit": {
+                    "message": "Any unsaved progress might be lost",
+                    "title": "Are you sure you want to quit?"
+                }
+            },
             "title": "Warning",
             "wine-change": {
                 "message": "We could not find the selected wine version to launch this title ({{selectedWine}}). {{newline}} We found another one, do you want to continue launching using {{foundWine}} ?",

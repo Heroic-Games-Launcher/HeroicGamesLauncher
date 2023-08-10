@@ -935,12 +935,18 @@ function killPattern(pattern: string) {
 }
 
 async function shutdownWine(gameSettings: GameSettings) {
-  await runWineCommand({
-    gameSettings,
-    commandParts: ['wineboot', '-k'],
-    wait: true,
-    protonVerb: 'waitforexitandrun'
-  })
+  if (gameSettings.wineVersion.wineserver) {
+    spawnSync(gameSettings.wineVersion.wineserver, ['-k'], {
+      env: { WINEPREFIX: gameSettings.winePrefix }
+    })
+  } else {
+    await runWineCommand({
+      gameSettings,
+      commandParts: ['wineboot', '-k'],
+      wait: true,
+      protonVerb: 'waitforexitandrun'
+    })
+  }
 }
 
 const getShellPath = async (path: string): Promise<string> =>
