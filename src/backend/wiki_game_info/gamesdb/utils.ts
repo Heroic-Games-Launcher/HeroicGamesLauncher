@@ -10,7 +10,12 @@ export async function getInfoFromGamesDB(
 ): Promise<GamesDBInfo | null> {
   logInfo(`Getting GamesDB data for ${title}`, LogPrefix.ExtraGameInfo)
 
-  const storeMap = { legendary: 'epic', gog: 'gog', sideloaded: undefined }
+  const storeMap: { [key in Runner]: string | undefined } = {
+    legendary: 'epic',
+    gog: 'gog',
+    nile: 'amazon',
+    sideload: undefined
+  }
   const storeName = storeMap[runner]
   if (!storeName) {
     return { steamID: '' }

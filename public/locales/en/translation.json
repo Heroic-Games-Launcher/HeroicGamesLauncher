@@ -9,6 +9,8 @@
     },
     "add_game": "Add Game",
     "All": "All",
+    "amazon": "Amazon",
+    "Amazon Games": "Amazon Games",
     "anticheat": {
         "anticheats": "Anticheats",
         "may_not_work": "It may not work due to denied or broken anticheat support.",
@@ -26,6 +28,7 @@
         "choose-egs-prefix": "Choose Prefix where EGS is installed",
         "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Select Legendary binary",
+        "choose-nile-binary": "Select Nile binary",
         "customWine": "Select the Wine or Proton binary",
         "default-install-path": "Choose Default Install Path",
         "default-steam-path": "Steam path.",
@@ -142,6 +145,12 @@
                 "import": "Epic Servers are having major outage right now, the game cannot be imported!",
                 "install": "Epic Servers are having major outage right now, the game cannot be installed!",
                 "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "message": "Any unsaved progress might be lost",
+                    "title": "Are you sure you want to quit?"
+                }
             },
             "title": "Warning",
             "wine-change": {
@@ -331,6 +340,7 @@
     },
     "login": {
         "alternative_method": "Alternative Login Method",
+        "amazon": "Amazon Login",
         "epic": "Epic Games Login",
         "gog": "GOG Login",
         "message": "Login with your platform. You can login to more than one platform at the same time."
@@ -427,12 +437,14 @@
     "other": {
         "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary Version: ",
+        "nile-version": "Nile Version: ",
         "weblate": "Help translate Heroic."
     },
     "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
+        "alt-nile-bin": "Using built-in Nile binary...",
         "custom_themes_path": "Select the path to look for custom CSS files",
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix where EGS is installed",
@@ -445,6 +457,7 @@
         "win": "Windows"
     },
     "please-wait": "Please wait...",
+    "prime-gaming": "Prime Gaming",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -468,6 +481,7 @@
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary",
+        "alt-nile-bin": "Choose an Alternative Nile Binary",
         "autodxvk": "Auto Install/Update DXVK on Prefix",
         "autosync": "Autosync Saves",
         "autoUpdateGames": "Automatically update games",
@@ -617,6 +631,7 @@
     "status": {
         "installing": "Installing",
         "logging": "Logging In...",
+        "preparing_login": "Preparing Login... ",
         "processing": "Processing files, please wait"
     },
     "store": "Epic Store",

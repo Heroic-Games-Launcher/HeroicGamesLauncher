@@ -9,12 +9,12 @@
         "importpath": "Choisir le répertoire du jeu à importer",
         "move": {
             "message": "Cette opération peut prendre du temps. Êtes-vous certain(e) de vouloir continuer ?",
-            "path": "Choisir la localisation de déplacement",
-            "title": "Déplacer l'installation du jeu"
+            "path": "Choisissez où vous voulez le déplacer",
+            "title": "Déplacer le dossier d'installation du jeu"
         },
         "no": "NON",
         "repair": {
-            "message": "Voulez-vous essayer de réparer ce jeu ? Ceci peut prendre un moment.",
+            "message": "Voulez-vous essayer de réparer ce jeu ? Ceci peut prendre un long moment.",
             "title": "Vérifier et réparer"
         },
         "runexe": {
@@ -41,7 +41,7 @@
         },
         "update": {
             "message": "Une mise à jour est disponible pour ce jeu. Souhaitez-vous le mettre à jour maintenant ?",
-            "title": "Mise à jour nécessaire du jeu"
+            "title": "Mise à jour du jeu nécessaire"
         },
         "wineprefix": "Sélectionner le dossier WinePrefix",
         "yes": "OUI"
@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "Classement AppleGamingWiki",
         "clickToOpen": "Cliquez pour ouvrir",
         "game-scores": "Scores du jeu",
-        "installedInfo": "Informations sur l'installation"
+        "installedInfo": "Informations sur l'installation",
+        "protondb-compatibility-info": "Niveau de compatibilité proton",
+        "steamdeck-compatibility-info": "Compatibilité SteamDeck"
     },
     "install": {
         "disk-space-left": "Espace Disponible",
@@ -150,7 +152,8 @@
         "epic": "Vous n'êtes pas connecté à un compte Epic dans Heroic. N'utilisez pas la page du magasin pour vous connecter, cliquez plutôt sur ce bouton :",
         "gog": "Vous n'êtes pas connecté à un compte GOG dans Heroic. N'utilisez pas la page du magasin pour vous connecter, cliquez plutôt sur ce bouton :",
         "login": "Connexion",
-        "title": "Vous n'êtes PAS connecté"
+        "title": "Vous n'êtes PAS connecté",
+        "amazon": "Vous n'êtes pas connecté à un compte Epic dans Heroic. N'utilisez pas la page du magasin pour vous connecter, cliquez plutôt sur ce bouton :"
     },
     "report_problem": "Signaler un problème de fonctionnement du jeu",
     "sdl": {
@@ -158,7 +161,7 @@
     },
     "setting": {
         "use-default-wine-settings": "Utiliser les paramètres de Wine par défaut",
-        "winecrossoverbottle": "Bouteille CrossOver"
+        "winecrossoverbottle": "Pont-Bouteille"
     },
     "sideload": {
         "field": {

@@ -156,7 +156,8 @@
         },
         "wineprefix": "Pilih Folder Prefiks Wine",
         "yes": "YA",
-        "dontShowAgain": "Jangan tampilkan lagi"
+        "dontShowAgain": "Jangan tampilkan lagi",
+        "choose-nile-binary": "Pilih biner Nil"
     },
     "button": {
         "cancel": "Batalkan",
@@ -279,7 +280,7 @@
             "part1": "Heroic mencari versi Wine, Proton, dan CrossOver di folder berikut ini:",
             "part2": "Untuk tempat lain, gunakan tautan simbolis ke salah satu folder ini"
         },
-        "disable_logs": "Aktifkan kotak centang ini untuk menonaktifkan sebagian besar penulisan ke file log (informasi penting selalu dicatat). Pastikan untuk MENONAKTIFKAN setelan ini sebelum melaporkan masalah apa pun."
+        "disable_logs": "Aktifkan kotak centang ini untuk menonaktifkan sebagian besar penulisan ke berkas log (informasi penting selalu dicatat). Pastikan untuk MENONAKTIFKAN setelan ini sebelum melaporkan masalah apa pun."
     },
     "info": {
         "heroic": {
@@ -334,7 +335,8 @@
         "alternative_method": "Metode Masuk Alternatif",
         "epic": "Masuk Epic Games",
         "gog": "Masuk GOG",
-        "message": "Masuk dengan platform anda. Anda dapat masuk ke lebih dari satu platform secara bersamaan."
+        "message": "Masuk dengan platform anda. Anda dapat masuk ke lebih dari satu platform secara bersamaan.",
+        "amazon": "Login Amazon"
     },
     "message": {
         "sync": "Sinkronisasi Selesai",
@@ -428,7 +430,8 @@
     "other": {
         "gogdl-version": "Versi GOGDL: ",
         "legendary-version": "Versi Legendary: ",
-        "weblate": "Bantu kami untuk menerjemahkan Heroic."
+        "weblate": "Bantu kami untuk menerjemahkan Heroic.",
+        "nile-version": "Versi Nil: "
     },
     "Other": "Lainnya",
     "placeholder": {
@@ -437,7 +440,8 @@
         "custom_themes_path": "Pilih jalur untuk mencari file CSS khusus",
         "dxvkfpsvalue": "Nilai bilangan bulat positif (contohnya 30, 60, ...)",
         "egs-prefix": "Prefiks di mana EGS dipasang",
-        "prefered_language": "Kode 2 karakter (contohnya: \"en\" atau \"fr\")"
+        "prefered_language": "Kode 2 karakter (contohnya: \"en\" atau \"fr\")",
+        "alt-nile-bin": "Menggunakan biner Nil bawaan ..."
     },
     "platforms": {
         "linux": "Linux",
@@ -523,7 +527,7 @@
         "log": {
             "copy-to-clipboard": "Salin konten log ke papan klip",
             "current-log": "Log Saat Ini",
-            "instructions": "Bergabunglah dengan Discord kami dan cari saluran yang cocok dengan sistem operasi Anda. Bagikan konten log yang ditampilkan di sini, dan sertakan deskripsi yang jelas tentang masalah yang dialami dengan informasi dan detail yang relevan.",
+            "instructions": "Bergabunglah dengan Discord kami dan carilah bagian \"#-support\". Bacalah utas \"Read Me First | Frequently Asked Questions\" dan ikuti instruksinya untuk membagikan log ini dan informasi lain yang relevan mengenai masalahmu.",
             "instructions_title": "Bagaimana cara melaporkan masalah?",
             "last-log": "Log Terakhir",
             "no-file": "Tidak ditemukan berkas log",
@@ -570,7 +574,10 @@
         "wineversion": "Versi Wine",
         "autoUpdateGames": "Perbarui gim secara otomatis",
         "ignoreGameUpdates": "Abaikan pembaruan gim",
-        "disable_logs": "Nonaktifkan Log"
+        "disable_logs": "Nonaktifkan Log",
+        "addgamestoapplications": "Tambahkan gim ke Aplikasi secara otomatis",
+        "showMetalOverlay": "Tampilkan Hamparan Statistik",
+        "alt-nile-bin": "Pilih Biner Nil Alternatif"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -622,7 +629,8 @@
     "status": {
         "installing": "Memasang",
         "logging": "Log Masuk...",
-        "processing": "Memproses berkas, harap tunggu"
+        "processing": "Memproses berkas, harap tunggu",
+        "preparing_login": "Mempersiapkan Masuk... "
     },
     "store": "Epic Store",
     "stores": "Toko",
@@ -691,5 +699,8 @@
         "actions": "Tindakan",
         "installDlcs": "Pasang semua DLC",
         "noDlcFound": "Tidak ada DLC yang ditemukan"
-    }
+    },
+    "amazon": "Amazon",
+    "prime-gaming": "Game Perdana",
+    "Amazon Games": "Game Amazon"
 }

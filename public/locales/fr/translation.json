@@ -5,7 +5,7 @@
         "content_font_family_no_default": "Police d'écriture pour les contenus (Par défaut : ",
         "fonts": "Polices d'écriture",
         "title": "Accessibilité",
-        "zoom": "Zoom"
+        "zoom": "Agrandir"
     },
     "add_game": "Ajouter un jeu",
     "All": "Tout",
@@ -41,8 +41,8 @@
                 "message": "Vos informations d'identification ont expiré, veuillez vous reconnecter."
             },
             "cx-bottle-not-found": {
-                "message": "Le préfixe-bouteille CrossOver \"{{bottle_name}}\" n'existe pas, impossible de lancer !",
-                "title": "Préfixe CrossOver introuvable"
+                "message": "Le Pont-Bouteille \"{{bottle_name}}\" n'existe pas, impossible de lancer !",
+                "title": "Pont-Bouteille introuvable"
             },
             "diskspace": {
                 "message": "Espace disque nécessaire insuffisant",
@@ -156,7 +156,8 @@
         },
         "wineprefix": "Choisir le dossier des préfixes Wine",
         "yes": "OUI",
-        "dontShowAgain": "Ne plus afficher"
+        "dontShowAgain": "Ne plus afficher",
+        "choose-nile-binary": "Sélectionnez le binaire du Nil"
     },
     "button": {
         "cancel": "Annuler",
@@ -279,7 +280,7 @@
             "part1": "Heroic recherche des versions de Wine, Proton et CrossOver dans ces dossiers :",
             "part2": "Pour d'autres emplacements, utilisez un lien symbolique vers un de ces dossiers"
         },
-        "disable_logs": "Activez cette case à cocher pour désactiver la plupart des écritures dans les fichiers journaux (les informations critiques sont toujours enregistrées). Assurez-vous de désactiver ce paramètre avant de signaler un problème."
+        "disable_logs": "Cochez cette case pour désactiver la plupart des écritures dans les fichiers journaux (les informations critiques sont toujours enregistrées). Assurez-vous de désactiver ce paramètre avant de signaler un problème."
     },
     "info": {
         "heroic": {
@@ -334,7 +335,8 @@
         "alternative_method": "- Méthode de connexion alternative",
         "epic": "Connexion à Epic Games",
         "gog": "Connexion à GOG",
-        "message": "Connectez-vous à votre plateforme. Vous pouvez vous connecter à plus d'une plateforme à la fois."
+        "message": "Connectez-vous à votre plateforme. Vous pouvez vous connecter à plus d'une plateforme à la fois.",
+        "amazon": "Connexion à Amazon"
     },
     "message": {
         "sync": "Synchronisation achevée",
@@ -428,7 +430,8 @@
     "other": {
         "gogdl-version": "Version de GOGDL : ",
         "legendary-version": "Version de Legendary : ",
-        "weblate": "Aidez à traduire Heroic."
+        "weblate": "Aidez à traduire Heroic.",
+        "nile-version": "Version Nil : "
     },
     "Other": "Autre",
     "placeholder": {
@@ -437,7 +440,8 @@
         "custom_themes_path": "Sélectionner le chemin où rechercher des fichiers CSS personnalisés",
         "dxvkfpsvalue": "Entier positif (p. ex. 30, 60, ...)",
         "egs-prefix": "Prefix où EGS est installé",
-        "prefered_language": "2-char code (exemple : \"en\" ou \"fr\")"
+        "prefered_language": "2-char code (exemple : \"en\" ou \"fr\")",
+        "alt-nile-bin": "Utilisation du binaire Nile intégré..."
     },
     "platforms": {
         "linux": "Linux",
@@ -523,7 +527,7 @@
         "log": {
             "copy-to-clipboard": "Copier le contenu du log dans le presse-papier",
             "current-log": "Log actuel",
-            "instructions": "Rejoignez notre Discord et regardez le canal qui correspond à votre système d'exploitation. Partagez le contenu des logs affichés ici, et incluez une description claire du problème avec toute information et détails pertinents.",
+            "instructions": "Rejoignez notre Discord et recherchez la section \"#-support\". Lisez le fil épinglé \"Read Me First | Frequently Asked Questions\" et suivez les instructions pour partager le contenu de ces journaux, ainsi que toute information pertinente concernant votre problème.",
             "instructions_title": "Comment signaler un problème ?",
             "last-log": "Dernier log",
             "no-file": "Aucun fichier log trouvé",
@@ -565,12 +569,15 @@
         "showfps": "Afficher les FPS (DX9, 10 et 11)",
         "start-in-tray": "Réduire au démarrage",
         "steamruntime": "Utiliser le runtime Steam",
-        "winecrossoverbottle": "Bouteille CrossOver",
+        "winecrossoverbottle": "Pont-Bouteille",
         "wineprefix": "Dossier WinePrefix",
         "wineversion": "Version de Wine",
         "autoUpdateGames": "Mettre les jeux à jour automatiquement",
         "ignoreGameUpdates": "Ignorer les mises à jour du jeu",
-        "disable_logs": "Désactiver les journaux"
+        "disable_logs": "Désactiver les journaux",
+        "showMetalOverlay": "Afficher la superposition des statistiques",
+        "addgamestoapplications": "Ajouter automatiquement des jeux aux applications",
+        "alt-nile-bin": "Choisissez un binaire alternatif du Nil"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -622,7 +629,8 @@
     "status": {
         "installing": "Installation en cours",
         "logging": "Connexion en cours...",
-        "processing": "Traitement des fichiers, veuillez patienter"
+        "processing": "Traitement des fichiers, veuillez patienter",
+        "preparing_login": "Préparation de la connexion... "
     },
     "store": "Boutique Epic",
     "stores": "Boutiques",
@@ -691,5 +699,8 @@
         "noDlcFound": "Aucun DLC trouvé",
         "size": "Taille",
         "title": "Titre"
-    }
+    },
+    "amazon": "Amazon",
+    "Amazon Games": "Jeux Amazon",
+    "prime-gaming": "Premier jeu"
 }

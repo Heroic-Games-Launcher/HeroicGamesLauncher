@@ -7,7 +7,7 @@ import {
   appendFileSync,
   writeFileSync
 } from 'graceful-fs'
-import { join } from 'path'
+import { join, normalize } from 'path'
 
 import {
   defaultWinePrefix,
@@ -39,6 +39,7 @@ import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
 import { DXVK } from './tools'
 import setup from './storeManagers/gog/setup'
+import nileSetup from './storeManagers/nile/setup'
 import {
   CallRunnerOptions,
   GameInfo,
@@ -50,14 +51,19 @@ import {
   LaunchPreperationResult,
   RpcClient,
   WineInstallation,
-  WineCommandArgs
+  WineCommandArgs,
+  SteamRuntime
 } from 'common/types'
 import { spawn } from 'child_process'
 import shlex from 'shlex'
 import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
-import { setupUbisoftConnect } from './storeManagers/legendary/setup'
+import { legendarySetup } from './storeManagers/legendary/setup'
 import { gameManagerMap } from 'backend/storeManagers'
+import * as VDF from '@node-steam/vdf'
+import { readFileSync } from 'fs'
+import { LegendaryCommand } from './storeManagers/legendary/commands'
+import { commandToArgsArray } from './storeManagers/legendary/library'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
@@ -120,8 +126,24 @@ async function prepareLaunch(
     gameSettings.useSteamRuntime &&
     (isNative || gameSettings.wineVersion.type === 'proton')
   if (shouldUseRuntime) {
+    // Determine which runtime to use based on toolmanifest.vdf which is shipped with proton
+    let nonNativeRuntime: SteamRuntime['type'] = 'soldier'
+    if (!isNative) {
+      try {
+        const parentPath = normalize(join(gameSettings.wineVersion.bin, '..'))
+        const requiredAppId = VDF.parse(
+          readFileSync(join(parentPath, 'toolmanifest.vdf'), 'utf-8')
+        ).manifest?.require_tool_appid
+        if (requiredAppId === 1628350) nonNativeRuntime = 'sniper'
+      } catch (error) {
+        logError(
+          ['Failed to parse toolmanifest.vdf:', error],
+          LogPrefix.Backend
+        )
+      }
+    }
     // for native games lets use scout for now
-    const runtimeType = isNative ? 'scout' : 'soldier'
+    const runtimeType = isNative ? 'scout' : nonNativeRuntime
     const { path, args } = await getSteamRuntime(runtimeType)
     if (!path) {
       return {
@@ -129,7 +151,11 @@ async function prepareLaunch(
         failureReason:
           'Steam Runtime is enabled, but no runtimes could be found\n' +
           `Make sure Steam ${
-            isNative ? 'is' : 'and the "SteamLinuxRuntime - Soldier" are'
+            isNative
+              ? 'is'
+              : `and the SteamLinuxRuntime - ${
+                  nonNativeRuntime === 'sniper' ? 'Sniper' : 'Soldier'
+                } are`
           } installed`
       }
     }
@@ -217,8 +243,11 @@ async function prepareWineLaunch(
     if (runner === 'gog') {
       await setup(appName)
     }
+    if (runner === 'nile') {
+      await nileSetup(appName)
+    }
     if (runner === 'legendary') {
-      await setupUbisoftConnect(appName)
+      await legendarySetup(appName)
     }
   }
 
@@ -232,9 +261,13 @@ async function prepareWineLaunch(
     }
   }
 
-  const { folder_name: installFolderName } =
+  const { folder_name: installFolderName, install } =
     gameManagerMap[runner].getGameInfo(appName)
-  const envVars = setupWineEnvVars(gameSettings, installFolderName)
+  const envVars = setupWineEnvVars(
+    gameSettings,
+    installFolderName,
+    install.install_path
+  )
 
   return { success: true, envVars: envVars }
 }
@@ -278,7 +311,11 @@ function setupEnvVars(gameSettings: GameSettings) {
  * @param gameId If Proton and the Steam Runtime are used, the SteamGameId variable will be set to `heroic-gameId`
  * @returns A Record that can be passed to execAsync/spawn
  */
-function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
+function setupWineEnvVars(
+  gameSettings: GameSettings,
+  gameId = '0',
+  installPath?: string
+) {
   const { wineVersion, winePrefix, wineCrossoverBottle } = gameSettings
 
   const ret: Record<string, string> = {}
@@ -307,21 +344,43 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     case 'proton':
       ret.STEAM_COMPAT_CLIENT_INSTALL_PATH = steamInstallPath
       ret.STEAM_COMPAT_DATA_PATH = winePrefix
+      if (installPath) {
+        ret.STEAM_COMPAT_INSTALL_PATH = installPath
+      }
       break
     case 'crossover':
       ret.CX_BOTTLE = wineCrossoverBottle
   }
-
   if (gameSettings.showFps) {
     isMac ? (ret.MTL_HUD_ENABLED = '1') : (ret.DXVK_HUD = 'fps')
   }
   if (gameSettings.enableDXVKFpsLimit) {
     ret.DXVK_FRAME_RATE = gameSettings.DXVKFpsCap
   }
+  if (
+    gameSettings.showMangohud &&
+    !gameSettings.enviromentOptions.find(
+      ({ key }) => key === 'MANGOHUD_CONFIGFILE'
+    )
+  ) {
+    if (!process.env.XDG_CONFIG_HOME) {
+      ret.MANGOHUD_CONFIGFILE = join(
+        flatPakHome,
+        '.config/MangoHud/MangoHud.conf'
+      )
+    } else {
+      ret.MANGOHUD_CONFIGFILE = join(
+        process.env.XDG_CONFIG_HOME,
+        'MangoHud/MangoHud.conf'
+      )
+    }
+  }
   if (gameSettings.enableFSR) {
     ret.WINE_FULLSCREEN_FSR = '1'
     ret.WINE_FULLSCREEN_FSR_STRENGTH =
       gameSettings.maxSharpness?.toString() || '2'
+  } else {
+    ret.WINE_FULLSCREEN_FSR = '0'
   }
   if (gameSettings.enableEsync && wineVersion.type !== 'proton') {
     ret.WINEESYNC = '1'
@@ -516,6 +575,7 @@ function launchCleanup(rpcClient?: RpcClient) {
 async function runWineCommand({
   gameSettings,
   commandParts,
+  gameInstallPath,
   wait,
   protonVerb = 'run',
   installFolderName,
@@ -567,7 +627,7 @@ async function runWineCommand({
   const env_vars = {
     ...process.env,
     ...setupEnvVars(settings),
-    ...setupWineEnvVars(settings, installFolderName)
+    ...setupWineEnvVars(settings, installFolderName, gameInstallPath)
   }
 
   const isProton = wineVersion.type === 'proton'
@@ -669,6 +729,8 @@ interface RunnerProps {
   dir: string
 }
 
+const commandsRunning = {}
+
 async function callRunner(
   commandParts: string[],
   runner: RunnerProps,
@@ -685,7 +747,6 @@ async function callRunner(
   const safeCommand = getRunnerCallWithoutCredentials(
     [...commandParts],
     options?.env,
-    options?.wrappers,
     fullRunnerPath
   )
 
@@ -711,18 +772,18 @@ async function callRunner(
     }
   }
 
-  // If we have wrappers (things we want to run before the command), set bin to the first wrapper
-  // and add every other wrapper and the actual bin to the start of filteredArgs
-  const wrappers = options?.wrappers || []
-  let bin = ''
-  if (wrappers.length) {
-    bin = wrappers.shift()!
-    commandParts.unshift(...wrappers, runner.bin)
-  } else {
-    bin = runner.bin
+  const bin = runner.bin
+
+  // check if the same command is currently running
+  // if so, return the same promise instead of running it again
+  const key = [runner.name, commandParts].join(' ')
+  const currentPromise = commandsRunning[key]
+
+  if (currentPromise) {
+    return currentPromise
   }
 
-  return new Promise<ExecResult>((res, rej) => {
+  let promise = new Promise<ExecResult>((res, rej) => {
     const child = spawn(bin, commandParts, {
       cwd: runner.dir,
       env: { ...process.env, ...options?.env },
@@ -792,6 +853,8 @@ async function callRunner(
       rej(error)
     })
   })
+
+  promise = promise
     .then(({ stdout, stderr }) => {
       return { stdout, stderr, fullCommand: safeCommand }
     })
@@ -825,11 +888,20 @@ async function callRunner(
 
       return { stdout: '', stderr: `${error}`, fullCommand: safeCommand, error }
     })
+    .finally(() => {
+      // remove from list when done
+      delete commandsRunning[key]
+    })
+
+  // keep track of which commands are running
+  commandsRunning[key] = promise
+
+  return promise
 }
 
 /**
  * Generates a formatted, safe command that can be logged
- * @param commandParts The runner command that's executed, e. g. install, list, etc.
+ * @param command The runner command that's executed, e.g. install, list, etc.
  * Note that this will be modified, so pass a copy of your actual command parts
  * @param env Enviroment variables to use
  * @param wrappers Wrappers to use (gamemode, steam runtime, etc.)
@@ -837,19 +909,20 @@ async function callRunner(
  * @returns
  */
 function getRunnerCallWithoutCredentials(
-  commandParts: string[],
+  command: string[] | LegendaryCommand,
   env: Record<string, string> | NodeJS.ProcessEnv = {},
-  wrappers: string[] = [],
   runnerPath: string
 ): string {
-  const modifiedCommandParts = [...commandParts]
+  if (!Array.isArray(command)) command = commandToArgsArray(command)
+
+  const modifiedCommand = [...command]
   // Redact sensitive arguments (Authorization Code for Legendary, token for GOGDL)
   for (const sensitiveArg of ['--code', '--token']) {
-    const sensitiveArgIndex = modifiedCommandParts.indexOf(sensitiveArg)
+    const sensitiveArgIndex = modifiedCommand.indexOf(sensitiveArg)
     if (sensitiveArgIndex === -1) {
       continue
     }
-    modifiedCommandParts[sensitiveArgIndex + 1] = '<redacted>'
+    modifiedCommand[sensitiveArgIndex + 1] = '<redacted>'
   }
 
   const formattedEnvVars: string[] = []
@@ -863,13 +936,10 @@ function getRunnerCallWithoutCredentials(
     formattedEnvVars.push(`${key}=${quoteIfNecessary(value ?? '')}`)
   }
 
-  commandParts = commandParts.filter(Boolean)
-
   return [
     ...formattedEnvVars,
-    ...wrappers.map(quoteIfNecessary),
     quoteIfNecessary(runnerPath),
-    ...modifiedCommandParts.map(quoteIfNecessary)
+    ...modifiedCommand.map(quoteIfNecessary)
   ].join(' ')
 }
 

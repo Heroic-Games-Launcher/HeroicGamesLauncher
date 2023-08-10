@@ -9,7 +9,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import { Runner } from 'common/types'
 import ToggleSwitch from '../ToggleSwitch'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 interface UninstallModalProps {
   appName: string
@@ -32,6 +32,7 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
   const { t } = useTranslation('gamepage')
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const navigate = useNavigate()
+  const location = useLocation()
 
   const checkIfIsNative = async () => {
     // This assumes native games are installed should be changed in the future
@@ -85,8 +86,8 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
       deletePrefixChecked,
       deleteSettingsChecked
     )
-    if (runner === 'sideload') {
-      navigate('/')
+    if (runner === 'sideload' && location.pathname.match(/gamepage/)) {
+      navigate('/#library')
     }
     storage.removeItem(appName)
   }

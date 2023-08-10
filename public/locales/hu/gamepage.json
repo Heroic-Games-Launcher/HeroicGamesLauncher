@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "AppleGamingWiki értékelés",
         "clickToOpen": "Kattintson a megnyitáshoz",
         "game-scores": "Játékpontszámok",
-        "installedInfo": "Telepített információk"
+        "installedInfo": "Telepített információk",
+        "protondb-compatibility-info": "Proton kompatibilitási szint",
+        "steamdeck-compatibility-info": "SteamDeck kompatibilitás"
     },
     "install": {
         "disk-space-left": "Elérhető tárhely",
@@ -150,7 +152,8 @@
         "epic": "Nem vagy bejelentkezve egy Epic fiókkal a Heroicba. Ne az áruházi oldalon jelentkezz be, kattints erre a gombra helyette:",
         "gog": "Nem vagy bejelentkezve egy GOG fiókkal a Heroicba. Ne az áruházi oldalon jelentkezz be, kattints erre a gombra helyette:",
         "login": "Log in",
-        "title": "NEM vagy bejelentkezve"
+        "title": "NEM vagy bejelentkezve",
+        "amazon": "Nem vagy bejelentkezve egy Epic fiókkal a Heroicba. Ne az áruházi oldalon jelentkezz be, kattints erre a gombra helyette:"
     },
     "report_problem": "Játék futtatásával kapcsolatos hiba jelentése",
     "sdl": {

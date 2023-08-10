@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "AppleGamingWikiの評価",
         "clickToOpen": "クリックして開きます",
         "game-scores": "ゲームのスコア",
-        "installedInfo": "インストール情報"
+        "installedInfo": "インストール情報",
+        "protondb-compatibility-info": "プロトン互換性層",
+        "steamdeck-compatibility-info": "SteamDeck の互換性"
     },
     "install": {
         "disk-space-left": "空き領域",
@@ -150,7 +152,8 @@
         "epic": "HeroicにEpicアカウントでログインしていません。ストアページを使用してログインせず、代わりに次のボタンをクリックしてください:",
         "gog": "HeroicにGOGアカウントでログインしていません。ストアページを使用してログインせず、代わりに次のボタンをクリックしてください:",
         "login": "ログイン",
-        "title": "ログインしていません"
+        "title": "ログインしていません",
+        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "report_problem": "このゲームの実行に関する問題を報告",
     "sdl": {

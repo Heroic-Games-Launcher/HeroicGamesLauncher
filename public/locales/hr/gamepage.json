@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "Ocjena AppleGamingWiki",
         "clickToOpen": "Kliknite za otvaranje",
         "game-scores": "Rezultati igre",
-        "installedInfo": "Instalirane informacije"
+        "installedInfo": "Instalirane informacije",
+        "protondb-compatibility-info": "Razina kompatibilnosti protona",
+        "steamdeck-compatibility-info": "Kompatibilnost sa SteamDeckom"
     },
     "install": {
         "disk-space-left": "Prostora dostupno",
@@ -150,7 +152,8 @@
         "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
         "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
         "login": "Log in",
-        "title": "You are NOT logged in"
+        "title": "You are NOT logged in",
+        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "report_problem": "Prijavi problem za ovu igru",
     "sdl": {

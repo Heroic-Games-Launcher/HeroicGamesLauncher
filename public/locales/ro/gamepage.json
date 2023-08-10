@@ -118,7 +118,9 @@
         "apple-gaming-wiki": "Evaluare AppleGamingWiki",
         "clickToOpen": "Faceți clic pentru a deschide",
         "game-scores": "Scoruri de joc",
-        "installedInfo": "Informații instalate"
+        "installedInfo": "Informații instalate",
+        "protondb-compatibility-info": "Nivelul de compatibilitate cu protoni",
+        "steamdeck-compatibility-info": "Compatibilitate cu SteamDeck"
     },
     "install": {
         "disk-space-left": "Spatiu disponibil",
@@ -151,7 +153,8 @@
         "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
         "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
         "login": "Log in",
-        "title": "You are NOT logged in"
+        "title": "You are NOT logged in",
+        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "report_problem": "Raportați o problemă la rularea acestui joc",
     "sdl": {

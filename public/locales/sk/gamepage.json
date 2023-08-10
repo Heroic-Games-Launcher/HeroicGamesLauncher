@@ -117,7 +117,9 @@
         "apple-gaming-wiki": "Hodnotenie AppleGamingWiki",
         "clickToOpen": "Kliknutím otvoríte",
         "game-scores": "Skóre hry",
-        "installedInfo": "Inštalované informácie"
+        "installedInfo": "Inštalované informácie",
+        "protondb-compatibility-info": "Úroveň protónovej kompatibility",
+        "steamdeck-compatibility-info": "Kompatibilita so SteamDeck"
     },
     "install": {
         "disk-space-left": "Priestor k dispozícii",
@@ -150,7 +152,8 @@
         "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
         "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
         "login": "Log in",
-        "title": "You are NOT logged in"
+        "title": "You are NOT logged in",
+        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "report_problem": "Nahlásiť problém so spustením tejto hry",
     "sdl": {
