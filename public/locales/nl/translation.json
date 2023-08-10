@@ -115,7 +115,7 @@
             }
         },
         "runexe": {
-            "title": "Selecteer EXE on te lanceren"
+            "title": "Selecteer EXE om uit te voeren"
         },
         "select": {
             "button": "Selecteer",
@@ -627,7 +627,7 @@
         "uncollapse": "Uncollapse sidebar"
     },
     "status": {
-        "installing": "Installing",
+        "installing": "Installeren",
         "logging": "Logging In...",
         "processing": "Processing files, please wait",
         "preparing_login": "Inloggen voorbereiden... "

@@ -55,6 +55,10 @@ import axios from 'axios'
 import { app } from 'electron'
 import { copySync } from 'fs-extra'
 import { platform } from 'os'
+import { LegendaryCommand } from './commands'
+import { LegendaryAppName, LegendaryPlatform, Path } from './commands/base'
+import shlex from 'shlex'
+import { Entries } from 'type-fest'
 
 const allGames: Set<string> = new Set()
 let installedGames: Map<string, InstalledJsonMetadata> = new Map()
@@ -108,7 +112,10 @@ async function refreshLegendary(): Promise<ExecResult> {
 
   const abortID = 'legendary-refresh'
   const res = await runRunnerCommand(
-    ['list', '--third-party'],
+    {
+      subcommand: 'list',
+      '--third-party': true
+    },
     createAbortController(abortID)
   )
 
@@ -221,16 +228,16 @@ export async function getInstallInfo(
   }
 
   logInfo(`Getting more details with 'legendary info'`, LogPrefix.Legendary)
-  const res = await runRunnerCommand(
-    [
-      'info',
-      appName,
-      ...(installPlatform ? ['--platform', installPlatform] : []),
-      '--json',
-      (await isEpicServiceOffline()) ? '--offline' : ''
-    ],
-    createAbortController(appName)
-  )
+  const command: LegendaryCommand = {
+    subcommand: 'info',
+    appName: LegendaryAppName.parse(appName),
+    '--json': true,
+    '--platform': LegendaryPlatform.parse(installPlatform)
+  }
+  if (await isEpicServiceOffline()) {
+    command['--offline'] = true
+  }
+  const res = await runRunnerCommand(command, createAbortController(appName))
 
   deleteAbortController(appName)
 
@@ -268,7 +275,7 @@ export async function listUpdateableGames(): Promise<string[]> {
 
   const abortID = 'legendary-check-updates'
   const res = await runRunnerCommand(
-    ['list', '--third-party'],
+    { subcommand: 'list', '--third-party': true },
     createAbortController(abortID),
     {
       logMessagePrefix: 'Checking for game updates'
@@ -423,7 +430,12 @@ export async function changeGameInstallPath(appName: string, newPath: string) {
   }
 
   const { error } = await runRunnerCommand(
-    ['move', appName, dirname(newPath), '--skip-move'],
+    {
+      subcommand: 'move',
+      appName: LegendaryAppName.parse(appName),
+      newBasePath: Path.parse(dirname(newPath)),
+      '--skip-move': true
+    },
     createAbortController(appName)
   )
 
@@ -640,7 +652,7 @@ async function loadAll(): Promise<string[]> {
 export const hasGame = (appName: string) => allGames.has(appName)
 
 export async function runRunnerCommand(
-  commandParts: string[],
+  command: LegendaryCommand,
   abortController: AbortController,
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
@@ -655,6 +667,8 @@ export async function runRunnerCommand(
     options.env = {}
   }
   options.env.XDG_CONFIG_HOME = dirname(legendaryConfigPath)
+
+  const commandParts = commandToArgsArray(command)
 
   return callRunner(
     commandParts,
@@ -747,15 +761,22 @@ export async function toggleGamesSync(path_or_action: string) {
     }
   }
 
-  const linkArgs = isWindows
-    ? ['--enable-sync']
-    : ['--enable-sync', '--egl-wine-prefix', path_or_action]
-  const unlinkArgs = ['--unlink']
-  const isLink = path_or_action !== 'unlink'
-  const command = isLink ? linkArgs : unlinkArgs
+  const command: LegendaryCommand = {
+    subcommand: 'egl-sync',
+    '-y': true
+  }
+
+  if (path_or_action === 'unlink') {
+    command['--unlink'] = true
+  } else {
+    command['--enable-sync'] = true
+    if (!isWindows) {
+      command['--egl-wine-prefix'] = Path.parse(path_or_action)
+    }
+  }
 
   const { error, stderr, stdout } = await runRunnerCommand(
-    ['egl-sync', ...command, '-y'],
+    command,
     createAbortController('toggle-sync')
   )
 
@@ -772,4 +793,61 @@ export async function toggleGamesSync(path_or_action: string) {
     }
     return `${stdout} - ${stderr}`
   }
+}
+
+/*
+ * Converts a LegendaryCommand to a parameter list passable to Legendary
+ * @param command
+ */
+export function commandToArgsArray(command: LegendaryCommand): string[] {
+  const commandParts: string[] = []
+
+  if (command.subcommand) commandParts.push(command.subcommand)
+
+  // Some commands need special handling
+  switch (command.subcommand) {
+    case 'install':
+      commandParts.push(command.appName)
+      if (command.sdlList) {
+        commandParts.push('--install-tag=')
+        for (const sdlTag of command.sdlList)
+          commandParts.push('--install-tag', sdlTag)
+      }
+      break
+    case 'launch':
+      commandParts.push(command.appName)
+      if (command.extraArguments)
+        commandParts.push(...shlex.split(command.extraArguments))
+      break
+    case 'info':
+    case 'sync-saves':
+    case 'uninstall':
+      commandParts.push(command.appName)
+      break
+    case 'move':
+      commandParts.push(command.appName, command.newBasePath)
+      break
+    case 'eos-overlay':
+      commandParts.push(command.action)
+      break
+    case 'import':
+      commandParts.push(command.appName, command.installationDirectory)
+      break
+  }
+
+  // Append parameters (anything starting with -)
+  for (const [parameter, value] of Object.entries(
+    command
+  ) as Entries<LegendaryCommand>) {
+    if (!parameter.startsWith('-')) continue
+    if (!value) continue
+    // Boolean values (specifically `true`) have to be handled differently
+    // Parameters that have a boolean type are just signified
+    // by the parameter being present, they don't have a value.
+    // Thus, we only add the key (parameter) here, instead of the key & value
+    if (value === true) commandParts.push(parameter)
+    else commandParts.push(parameter, value.toString())
+  }
+
+  return commandParts
 }

@@ -527,7 +527,7 @@
         "log": {
             "copy-to-clipboard": "Kopiraj sadržaj dnevnika u međuspremnik",
             "current-log": "Current log",
-            "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",
+            "instructions": "Pridružite se našem Discordu i potražite odjeljak za \"#-podršku\". Pročitajte prikvačenu nit \"Prvo me pročitaj | Često postavljana pitanja\" i slijedite upute za dijeljenje ovih zapisa i svih relevantnih informacija o vašem problemu.",
             "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
             "no-file": "Nije pronađena nijedna datoteka dnevnika",

@@ -527,7 +527,7 @@
         "log": {
             "copy-to-clipboard": "Kopirajte sadržaj zapisnika u međuspremnik",
             "current-log": "Trenutni dnevnik",
-            "instructions": "Pridružite se našem Discordu i potražite kanal koji odgovara vašem operativnom sistemu. Podijelite sadržaj ovdje prikazanih dnevnika i uključite jasan opis problema sa svim relevantnim informacijama i detaljima.",
+            "instructions": "Pridružite se našem Discordu i potražite odjeljak \"#-podrška\". Pročitajte zakačenu nit \"Prvo me pročitajte | Često postavljana pitanja\" i slijedite upute da podijelite ove zapise i sve relevantne informacije o svom problemu.",
             "instructions_title": "Kako prijaviti problem?",
             "last-log": "Zadnji dnevnik",
             "no-file": "Nije pronađena datoteka zapisnika",
