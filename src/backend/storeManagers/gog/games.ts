@@ -467,7 +467,7 @@ export async function launch(
 
   let commandEnv = {
     ...process.env,
-    ...setupWrapperEnvVars({ appName, appStore: 'gog' })
+    ...setupWrapperEnvVars({ appName, appRunner: 'gog' })
   }
   if (!isWindows) {
     commandEnv = { ...commandEnv, ...setupEnvVars(gameSettings) }

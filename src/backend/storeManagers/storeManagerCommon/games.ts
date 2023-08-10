@@ -11,6 +11,7 @@ import {
   prepareLaunch,
   runWineCommand,
   setupEnvVars,
+  setupWrapperEnvVars,
   setupWrappers
 } from '../../launcher'
 import { access, chmod } from 'fs/promises'
@@ -131,7 +132,12 @@ export async function launchGame(
       })
       return false
     }
-    const env = { ...process.env, ...setupEnvVars(gameSettings) }
+
+    const env = {
+      ...process.env,
+      ...setupWrapperEnvVars({ appName, appRunner: runner }),
+      ...setupEnvVars(gameSettings)
+    }
 
     // Native
     if (isNative) {

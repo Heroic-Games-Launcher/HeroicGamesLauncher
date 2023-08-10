@@ -353,7 +353,7 @@ export interface WrapperVariable {
 
 export interface WrapperEnv {
   appName: string
-  appStore: 'amazon' | 'epic' | 'gog'
+  appRunner: Runner
 }
 
 type AntiCheat =

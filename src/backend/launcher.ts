@@ -316,7 +316,21 @@ function setupWrapperEnvVars(wrapperEnv: WrapperEnv) {
   const ret: Record<string, string> = {}
 
   ret.HEROIC_APP_NAME = wrapperEnv.appName
-  ret.HEROIC_APP_STORE = wrapperEnv.appStore
+
+  switch (wrapperEnv.appRunner) {
+    case 'gog':
+      ret.HEROIC_APP_SOURCE = 'gog'
+      break
+    case 'legendary':
+      ret.HEROIC_APP_SOURCE = 'epic'
+      break
+    case 'nile':
+      ret.HEROIC_APP_SOURCE = 'amazon'
+      break
+    case 'sideload':
+      ret.HEROIC_APP_SOURCE = 'sideload'
+      break
+  }
 
   return ret
 }
