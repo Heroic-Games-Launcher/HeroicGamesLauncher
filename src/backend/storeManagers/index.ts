@@ -14,8 +14,8 @@ import { logInfo, RunnerToLogPrefixMap } from 'backend/logger/logger'
 import { addToQueue } from 'backend/downloadmanager/downloadqueue'
 import { DMQueueElement, GameInfo, Runner } from 'common/types'
 import { isGameAvailable } from 'backend/api/helpers'
-interface GameManagerMap {
-  [key: string]: GameManager
+type GameManagerMap = {
+  [key in Runner]: GameManager
 }
 
 export const gameManagerMap: GameManagerMap = {
