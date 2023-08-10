@@ -12,7 +12,8 @@ import { GameManager, LibraryManager } from 'common/types/game_manager'
 import { logInfo, RunnerToLogPrefixMap } from 'backend/logger/logger'
 
 import { addToQueue } from 'backend/downloadmanager/downloadqueue'
-import { DMQueueElement, GameInfo } from 'common/types'
+import { DMQueueElement, GameInfo, Runner } from 'common/types'
+import { isGameAvailable } from 'backend/api/helpers'
 interface GameManagerMap {
   [key: string]: GameManager
 }
@@ -24,8 +25,8 @@ export const gameManagerMap: GameManagerMap = {
   nile: NileGameManager
 }
 
-interface LibraryManagerMap {
-  [key: string]: LibraryManager
+type LibraryManagerMap = {
+  [key in Runner]: LibraryManager
 }
 
 export const libraryManagerMap: LibraryManagerMap = {
@@ -56,14 +57,14 @@ function getDMElement(gameInfo: GameInfo, appName: string) {
   return dmQueueElement
 }
 
-export function autoUpdate(runner: string, gamesToUpdate: string[]) {
+export function autoUpdate(runner: Runner, gamesToUpdate: string[]) {
   const logPrefix = RunnerToLogPrefixMap[runner]
   gamesToUpdate.forEach(async (appName) => {
     const { ignoreGameUpdates } = await gameManagerMap[runner].getSettings(
       appName
     )
     const gameInfo = gameManagerMap[runner].getGameInfo(appName)
-    if (!ignoreGameUpdates) {
+    if (!ignoreGameUpdates && (await isGameAvailable({ appName, runner }))) {
       logInfo(`Auto-Updating ${gameInfo.title}`, logPrefix)
       const dmQueueElement: DMQueueElement = getDMElement(gameInfo, appName)
       addToQueue(dmQueueElement)
