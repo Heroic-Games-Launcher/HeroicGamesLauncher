@@ -59,7 +59,7 @@ const AutoDXVKNVAPI = () => {
         icon={faCircleInfo}
         title={t(
           'help.dxvknvapi',
-          'DXVK-NVAPI is an implementation of NVAPI built on top of DXVK and the linux native NVAPI, it is allows for the usage of DLSS on Nvidia GPUs.'
+          'DXVK-NVAPI is an implementation of NVAPI built on top of DXVK and the linux native NVAPI, it allows for the usage of DLSS on Nvidia GPUs.'
         )}
       />
     </div>

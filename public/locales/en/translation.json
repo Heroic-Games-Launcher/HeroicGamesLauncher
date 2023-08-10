@@ -258,7 +258,7 @@
         "disable_logs": "Toggle this checkbox ON to disable most of the writes to log files (critical information is always logged). Make sure to turn OFF this setting before reporting any issue.",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
         "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
-        "dxvknvapi": "DXVK-NVAPI is an implementation of NVAPI built on top of DXVK and the linux native NVAPI, it is allows for the usage of DLSS on Nvidia GPUs.",
+        "dxvknvapi": "DXVK-NVAPI is an implementation of NVAPI built on top of DXVK and the linux native NVAPI, it allows for the usage of DLSS on Nvidia GPUs.",
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
