@@ -33,7 +33,8 @@ import {
   legendaryLogFile,
   legendaryMetadata,
   isLinux,
-  userHome
+  userHome,
+  isWindows
 } from '../../constants'
 import {
   logDebug,
@@ -54,7 +55,6 @@ import { update } from './games'
 import axios from 'axios'
 import { app } from 'electron'
 import { copySync } from 'fs-extra'
-import { platform } from 'os'
 import { LegendaryCommand } from './commands'
 import { LegendaryAppName, LegendaryPlatform, Path } from './commands/base'
 import shlex from 'shlex'
@@ -750,8 +750,6 @@ export async function getGameSdl(
  * @returns string with stdout + stderr, or error message
  */
 export async function toggleGamesSync(path_or_action: string) {
-  const isWindows = platform() === 'win32'
-
   if (isWindows) {
     const egl_manifestPath =
       'C:\\ProgramData\\Epic\\EpicGamesLauncher\\Data\\Manifests'
@@ -771,7 +769,12 @@ export async function toggleGamesSync(path_or_action: string) {
   } else {
     command['--enable-sync'] = true
     if (!isWindows) {
-      command['--egl-wine-prefix'] = Path.parse(path_or_action)
+      const pathParse = Path.safeParse(path_or_action)
+      if (pathParse.success) {
+        command['--egl-wine-prefix'] = pathParse.data
+      } else {
+        return 'Error'
+      }
     }
   }
 
