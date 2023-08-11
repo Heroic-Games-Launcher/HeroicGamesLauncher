@@ -2,7 +2,7 @@ import {
   createAbortController,
   deleteAbortController
 } from '../../utils/aborthandler/aborthandler'
-import { existsSync, readFileSync, readdirSync } from 'graceful-fs'
+import { existsSync, mkdirSync, readFileSync, readdirSync } from 'graceful-fs'
 
 import {
   GameInfo,
@@ -33,7 +33,8 @@ import {
   legendaryLogFile,
   legendaryMetadata,
   isLinux,
-  userHome
+  userHome,
+  isWindows
 } from '../../constants'
 import {
   logDebug,
@@ -744,6 +745,60 @@ export async function getGameSdl(
 }
 
 /**
+ * Toggles the EGL synchronization on/off based on arguments
+ * @param path_or_action On Windows: "unlink" (turn off), "windows" (turn on). On linux/mac: "unlink" (turn off), any other string (prefix path)
+ * @returns string with stdout + stderr, or error message
+ */
+export async function toggleGamesSync(path_or_action: string) {
+  if (isWindows) {
+    const egl_manifestPath =
+      'C:\\ProgramData\\Epic\\EpicGamesLauncher\\Data\\Manifests'
+
+    if (!existsSync(egl_manifestPath)) {
+      mkdirSync(egl_manifestPath, { recursive: true })
+    }
+  }
+
+  const command: LegendaryCommand = {
+    subcommand: 'egl-sync',
+    '-y': true
+  }
+
+  if (path_or_action === 'unlink') {
+    command['--unlink'] = true
+  } else {
+    command['--enable-sync'] = true
+    if (!isWindows) {
+      const pathParse = Path.safeParse(path_or_action)
+      if (pathParse.success) {
+        command['--egl-wine-prefix'] = pathParse.data
+      } else {
+        return 'Error'
+      }
+    }
+  }
+
+  const { error, stderr, stdout } = await runRunnerCommand(
+    command,
+    createAbortController('toggle-sync')
+  )
+
+  deleteAbortController('toggle-sync')
+
+  if (error) {
+    logError(['Failed to toggle EGS-Sync', error], LogPrefix.Legendary)
+    return 'Error'
+  } else {
+    logInfo(`${stdout}`, LogPrefix.Legendary)
+    if (stderr.includes('ERROR') || stderr.includes('error')) {
+      logError(`${stderr}`, LogPrefix.Legendary)
+      return 'Error'
+    }
+    return `${stdout} - ${stderr}`
+  }
+}
+
+/*
  * Converts a LegendaryCommand to a parameter list passable to Legendary
  * @param command
  */

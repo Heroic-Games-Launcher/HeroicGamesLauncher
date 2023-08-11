@@ -12,6 +12,7 @@ import UninstallCommand from './uninstall'
 import ImportCommand from './import'
 import CleanupCommand from './cleanup'
 import AuthCommand from './auth'
+import EglSyncCommand from './egl_sync'
 
 interface BaseLegendaryCommand {
   '-v'?: true
@@ -41,4 +42,5 @@ export type LegendaryCommand = BaseLegendaryCommand &
     | ImportCommand
     | CleanupCommand
     | AuthCommand
+    | EglSyncCommand
   )
