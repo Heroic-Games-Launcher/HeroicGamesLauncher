@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import classNames from 'classnames'
 import {
-  AntiCheatInfo,
   GameInfo,
   GameStatus,
   InstallPlatform,
@@ -48,6 +47,7 @@ import { AvailablePlatforms } from '../index'
 import { configStore } from 'frontend/helpers/electronStores'
 import DLCDownloadListing from './DLCDownloadListing'
 import { NileInstallInfo } from 'common/types/nile'
+import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
 
 interface Props {
   backdropClick: () => void
@@ -155,21 +155,7 @@ export default function DownloadDialog({
     spaceLeftAfter: ''
   })
 
-  const [anticheatInfo, setAnticheatInfo] = useState<AntiCheatInfo | null>(null)
-
-  useEffect(() => {
-    if (
-      gameInfo.runner !== 'sideload' &&
-      gameInfo.title &&
-      gameInfo.namespace !== undefined
-    ) {
-      window.api
-        .getAnticheatInfo(gameInfo.namespace)
-        .then((anticheatInfo: AntiCheatInfo | null) => {
-          setAnticheatInfo(anticheatInfo)
-        })
-    }
-  }, [gameInfo])
+  const anticheatInfo = hasAnticheatInfo(gameInfo)
 
   const { i18n, t } = useTranslation('gamepage')
   const { t: tr } = useTranslation()
@@ -206,7 +192,7 @@ export default function DownloadDialog({
 
   function confirmInstallBrokenAnticheat(path?: string) {
     showDialogModal({
-      title: t('install.anticheat-warning.title', 'Anticheat Broken or Denied'),
+      title: t('install.anticheat-warning.title', 'Anticheat Broken/Denied'),
       message: t(
         'install.anticheat-warning.message',
         'The anticheat support is broken or denied. The game will not work. Do you want to install it anyway?'
