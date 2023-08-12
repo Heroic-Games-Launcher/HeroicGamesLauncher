@@ -20,18 +20,21 @@ interface GameInstallInfo {
   owned_dlc: Array<DLCInfo>
   title: string
   version: string
+  branches: Array<string | null>
   buildId: string
 }
 
 interface DLCInfo {
   app_name: string
   title: string
+  perLangSize: { [key: string]: { download_size: number; disk_size: number } }
 }
 
 interface GameManifest {
   app_name: string
   disk_size: number
   download_size: number
+  perLangSize: { [key: string]: { download_size: number; disk_size: number } }
   languages: string[]
   versionEtag: string
 }

@@ -243,6 +243,7 @@ export interface InstallArgs {
   installDlcs?: Array<string> | boolean
   sdlList?: string[]
   installLanguage?: string
+  branch?: string
 }
 
 export interface InstallParams extends InstallArgs {

@@ -82,8 +82,9 @@ export const getGameSettings = async (
 export const getInstallInfo = async (
   appName: string,
   runner: Runner,
-  installPlatform: InstallPlatform
-) => ipcRenderer.invoke('getInstallInfo', appName, runner, installPlatform)
+  installPlatform: InstallPlatform,
+  branch?: string
+) => ipcRenderer.invoke('getInstallInfo', appName, runner, installPlatform, branch)
 
 export const runWineCommand = async (args: WineCommandArgs) =>
   ipcRenderer.invoke('runWineCommand', args)

@@ -277,7 +277,9 @@ export async function install(
 }> {
   const { maxWorkers } = GlobalConfig.get().getSettings()
   const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
-  const withDlcs = installDlcs ? '--with-dlcs' : '--skip-dlcs'
+  const withDlcs = installDlcs?.length
+    ? ['--with-dlcs', '--dlcs', installDlcs.join(',')]
+    : ['--skip-dlcs']
 
   const credentials = await GOGUser.getCredentials()
 
@@ -301,10 +303,9 @@ export async function install(
     appName,
     '--platform',
     installPlatform,
-    `--path=${path}`,
-    '--token',
-    `"${credentials.access_token}"`,
-    withDlcs,
+    '--path',
+    path,
+    ...withDlcs,
     `--lang=${installLanguage}`,
     ...workers
   ]

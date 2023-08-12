@@ -76,12 +76,14 @@ const getGameSettings = async (
 const getInstallInfo = async (
   appName: string,
   runner: Runner,
-  installPlatform: InstallPlatform
+  installPlatform: InstallPlatform,
+  branch?: string
 ): Promise<LegendaryInstallInfo | GogInstallInfo | NileInstallInfo | null> => {
   return window.api.getInstallInfo(
     appName,
     runner,
-    handleRunnersPlatforms(installPlatform, runner)
+    handleRunnersPlatforms(installPlatform, runner),
+    branch
   )
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ToggleSwitch from 'frontend/components/UI/ToggleSwitch'
 import { useTranslation } from 'react-i18next'
 import { DLCInfo } from 'common/types/legendary'
@@ -15,11 +15,15 @@ const DLCDownloadListing: React.FC<Props> = ({
   dlcsToInstall
 }) => {
   const { t } = useTranslation()
-  const [installAllDlcs, setInstallAllDlcs] = useState(false)
+  const [installAllDlcs, setInstallAllDlcs] = useState(true)
 
   if (!DLCList) {
     return null
   }
+
+  useEffect(() => {
+    setDlcsToInstall(DLCList.map(({ app_name }) => app_name))
+  }, [])
 
   const handleAllDlcs = () => {
     setInstallAllDlcs(!installAllDlcs)

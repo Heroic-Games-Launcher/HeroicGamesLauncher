@@ -130,6 +130,10 @@ export default function DownloadDialog({
   const [installLanguages, setInstallLanguages] = useState(Array<string>())
   const [installLanguage, setInstallLanguage] = useState('')
 
+  const [diskSize, setDiskSize] = useState(0)
+  const [branches, setBranches] = useState(Array<string | null>())
+  const [selectedBranch, setSelectedBranch] = useState('null')
+
   const [installPath, setInstallPath] = useState(
     previousProgress.folder || getDefaultInstallPath()
   )
@@ -138,7 +142,6 @@ export default function DownloadDialog({
   )[0]
 
   const [dlcsToInstall, setDlcsToInstall] = useState<string[]>([])
-  const [installAllDlcs, setInstallAllDlcs] = useState(false)
   const [sdls, setSdls] = useState<SelectiveDownload[]>([])
   const [selectedSdls, setSelectedSdls] = useState<{ [key: string]: boolean }>(
     {}
@@ -183,10 +186,6 @@ export default function DownloadDialog({
     [selectedSdls]
   )
 
-  function handleDlcs() {
-    setInstallAllDlcs(!installAllDlcs)
-  }
-
   async function handleInstall(path?: string) {
     backdropClick()
 
@@ -215,9 +214,10 @@ export default function DownloadDialog({
       progress: previousProgress,
       t,
       sdlList,
-      installDlcs: runner === 'gog' ? installAllDlcs : dlcsToInstall,
+      installDlcs: dlcsToInstall,
       installLanguage,
       platformToInstall,
+      branch: selectedBranch,
       showDialogModal: () => backdropClick()
     })
   }
@@ -225,14 +225,33 @@ export default function DownloadDialog({
   useEffect(() => {
     const getIinstInfo = async () => {
       try {
+        const fetchedPlatform = platformToInstall
         setGettingInstallInfo(true)
         const gameInstallInfo = await getInstallInfo(
           appName,
           runner,
-          platformToInstall
+          platformToInstall,
+          selectedBranch
         )
         setGameInstallInfo(gameInstallInfo)
         setGettingInstallInfo(false)
+
+        // Prevent condition when user changes the platform before we reach this point
+        if (platformToInstall !== fetchedPlatform) {
+          return
+        }
+
+        if (gameInstallInfo && gameInstallInfo.manifest) {
+          setDiskSize(gameInstallInfo.manifest?.disk_size ?? 0)
+        }
+
+        if (
+          gameInstallInfo &&
+          gameInstallInfo &&
+          'branches' in gameInstallInfo.game
+        ) {
+          setBranches(gameInstallInfo.game.branches)
+        }
 
         if (
           gameInstallInfo &&
@@ -270,7 +289,7 @@ export default function DownloadDialog({
       }
     }
     getIinstInfo()
-  }, [appName, i18n.languages, platformToInstall])
+  }, [appName, i18n.languages, platformToInstall, selectedBranch])
 
   useEffect(() => {
     const getGameSdl = async () => {
@@ -292,19 +311,14 @@ export default function DownloadDialog({
       const { message, free, validPath } = await window.api.checkDiskSpace(
         installPath
       )
-      if (gameInstallInfo?.manifest?.disk_size) {
-        let notEnoughDiskSpace = free < gameInstallInfo.manifest.disk_size
-        let spaceLeftAfter = size(
-          free - Number(gameInstallInfo.manifest.disk_size)
-        )
+      if (diskSize) {
+        let notEnoughDiskSpace = free < diskSize
+        let spaceLeftAfter = size(free - diskSize)
         if (previousProgress.folder === installPath) {
           const progress = 100 - getProgress(previousProgress)
-          notEnoughDiskSpace =
-            free < (progress / 100) * Number(gameInstallInfo.manifest.disk_size)
+          notEnoughDiskSpace = free < (progress / 100) * diskSize
 
-          spaceLeftAfter = size(
-            free - (progress / 100) * Number(gameInstallInfo.manifest.disk_size)
-          )
+          spaceLeftAfter = size(free - (progress / 100) * diskSize)
         }
 
         setSpaceLeft({
@@ -316,13 +330,35 @@ export default function DownloadDialog({
       }
     }
     getSpace()
-  }, [installPath, gameInstallInfo?.manifest?.disk_size])
+  }, [installPath, diskSize])
 
   const haveDLCs =
     gameInstallInfo && gameInstallInfo?.game?.owned_dlc?.length > 0
-  const DLCList = gameInstallInfo?.game?.owned_dlc
+  const DLCList = gameInstallInfo?.game?.owned_dlc ?? []
 
-  const downloadSize = () => {
+  const downloadSize = useMemo(() => {
+    if (
+      gameInstallInfo?.manifest?.perLangSize &&
+      platformToInstall !== 'linux'
+    ) {
+      const languageSize =
+        gameInstallInfo?.manifest?.perLangSize[installLanguage]
+          ?.download_size ?? 0
+      const universalSize =
+        gameInstallInfo?.manifest?.perLangSize['*']?.download_size ?? 0
+
+      const dlcSize = DLCList.reduce((acc, dlc) => {
+        if (dlcsToInstall.includes(dlc.app_name)) {
+          const languageSize =
+            dlc.perLangSize[installLanguage]?.download_size ?? 0
+          const universalSize = dlc.perLangSize['*']?.download_size ?? 0
+          acc += languageSize + universalSize
+        }
+        return acc
+      }, 0)
+
+      return size(languageSize + universalSize + dlcSize)
+    }
     if (gameInstallInfo?.manifest?.download_size) {
       if (previousProgress.folder === installPath) {
         const progress = 100 - getProgress(previousProgress)
@@ -334,11 +370,35 @@ export default function DownloadDialog({
       return size(Number(gameInstallInfo?.manifest?.download_size))
     }
     return ''
-  }
+  }, [installPath, gameInstallInfo, installLanguage, dlcsToInstall])
 
-  const installSize =
-    gameInstallInfo?.manifest?.disk_size &&
-    size(Number(gameInstallInfo?.manifest?.disk_size))
+  const installSize = useMemo(() => {
+    if (
+      gameInstallInfo?.manifest?.perLangSize &&
+      platformToInstall !== 'linux'
+    ) {
+      const languageSize =
+        gameInstallInfo?.manifest?.perLangSize[installLanguage]?.disk_size ?? 0
+      const universalSize =
+        gameInstallInfo?.manifest?.perLangSize['*']?.disk_size ?? 0
+      const dlcSize = DLCList.reduce((acc, dlc) => {
+        if (dlcsToInstall.includes(dlc.app_name)) {
+          const languageSize = dlc.perLangSize[installLanguage]?.disk_size ?? 0
+          const universalSize = dlc.perLangSize['*']?.disk_size ?? 0
+          acc += languageSize + universalSize
+        }
+        return acc
+      }, 0)
+      setDiskSize(languageSize + universalSize + dlcSize)
+      return size(languageSize + universalSize + dlcSize)
+    }
+
+    if (gameInstallInfo?.manifest?.disk_size) {
+      return size(Number(gameInstallInfo?.manifest?.disk_size))
+    }
+
+    return ''
+  }, [gameInstallInfo, installLanguage, platformToInstall, dlcsToInstall])
 
   const getLanguageName = useMemo(() => {
     return (language: string) => {
@@ -374,13 +434,10 @@ export default function DownloadDialog({
     return t('button.no-path-selected', 'No path selected')
   }
 
-  const readyToInstall =
-    installPath &&
-    gameInstallInfo?.manifest?.download_size &&
-    !gettingInstallInfo
+  const readyToInstall = installPath && downloadSize && !gettingInstallInfo
 
   const showDlcSelector =
-    runner === 'legendary' && DLCList && DLCList?.length > 0
+    ['legendary', 'gog'].includes(runner) && DLCList && DLCList?.length > 0
 
   return (
     <>
@@ -400,16 +457,16 @@ export default function DownloadDialog({
           <div className="InstallModal__size">
             <FontAwesomeIcon
               className={classNames('InstallModal__sizeIcon', {
-                'fa-spin-pulse': !downloadSize()
+                'fa-spin-pulse': !downloadSize
               })}
-              icon={downloadSize() ? faDownload : faSpinner}
+              icon={downloadSize ? faDownload : faSpinner}
             />
-            {downloadSize() ? (
+            {downloadSize ? (
               <>
                 <div className="InstallModal__sizeLabel">
                   {t('game.downloadSize', 'Download Size')}:
                 </div>
-                <div className="InstallModal__sizeValue">{downloadSize()}</div>
+                <div className="InstallModal__sizeValue">{downloadSize}</div>
               </>
             ) : (
               `${t('game.getting-download-size', 'Geting download size')}...`
@@ -418,11 +475,11 @@ export default function DownloadDialog({
           <div className="InstallModal__size">
             <FontAwesomeIcon
               className={classNames('InstallModal__sizeIcon', {
-                'fa-spin-pulse': !downloadSize()
+                'fa-spin-pulse': !downloadSize
               })}
-              icon={downloadSize() ? faHardDrive : faSpinner}
+              icon={downloadSize ? faHardDrive : faSpinner}
             />
-            {downloadSize() ? (
+            {downloadSize ? (
               <>
                 <div className="InstallModal__sizeLabel">
                   {t('game.installSize', 'Install Size')}:
@@ -464,6 +521,21 @@ export default function DownloadDialog({
           </SelectField>
         )}
 
+        {platformToInstall !== 'linux' && branches && branches.length > 1 && (
+          <SelectField
+            label={`${t('game.branch.title', 'Branch')}:`}
+            htmlId="branchPick"
+            value={selectedBranch}
+            onChange={(e) => setSelectedBranch(e.target.value)}
+          >
+            {branches.map((value) => (
+              <option value={String(value)} key={`branch-${value}`}>
+                {value ?? t('game.branch.none', 'None')}
+              </option>
+            ))}
+          </SelectField>
+        )}
+
         <PathSelectionBox
           type="directory"
           onPathChange={setInstallPath}
@@ -475,7 +547,7 @@ export default function DownloadDialog({
           label={t('install.path', 'Select Install Path')}
           noDeleteButton
           afterInput={
-            gameInstallInfo?.manifest?.download_size ? (
+            downloadSize ? (
               <span className="smallInputInfo">
                 {validPath && (
                   <>
@@ -551,22 +623,6 @@ export default function DownloadDialog({
             dlcsToInstall={dlcsToInstall}
             setDlcsToInstall={setDlcsToInstall}
           />
-        )}
-        {haveDLCs && runner === 'gog' && (
-          <div className="InstallModal__dlcs">
-            <label className={classNames('InstallModal__toggle toggleWrapper')}>
-              <ToggleSwitch
-                htmlId="dlcs"
-                value={installAllDlcs}
-                handleChange={() => handleDlcs()}
-                title={t('dlc.installDlcs', 'Install all DLCs')}
-              />
-              <span>{t('dlc.installDlcs', 'Install all DLCs')}:</span>
-            </label>
-            <div className="InstallModal__dlcsList">
-              {DLCList?.map(({ title }) => title).join(', ')}
-            </div>
-          </div>
         )}
       </DialogContent>
       <DialogFooter>

@@ -296,7 +296,8 @@ export function getInstallAndGameInfo(slug: string): GameInfo | undefined {
 export async function getInstallInfo(
   appName: string,
   installPlatform = 'windows',
-  lang = 'en-US'
+  lang = 'en-US',
+  branch = 'null'
 ): Promise<GogInstallInfo | undefined> {
   installPlatform = installPlatform.toLowerCase()
   if (installPlatform === 'linux') {
@@ -306,8 +307,8 @@ export async function getInstallInfo(
     installPlatform = 'osx'
   }
 
-  if (installInfoStore.has(`${appName}_${installPlatform}`)) {
-    const cache = installInfoStore.get(`${appName}_${installPlatform}`)
+  if (installInfoStore.has(`${appName}_${installPlatform}_${branch}`)) {
+    const cache = installInfoStore.get(`${appName}_${installPlatform}_${branch}`)
     if (cache) {
       logInfo(
         [
@@ -344,11 +345,10 @@ export async function getInstallInfo(
   const commandParts = [
     'info',
     appName,
-    '--token',
-    `"${credentials.access_token}"`,
     `--lang=${lang}`,
     '--os',
-    installPlatform === 'linux' ? 'windows' : installPlatform
+    installPlatform === 'linux' ? 'windows' : installPlatform,
+    ...(branch !== 'null' ? ['--branch', branch] : [])
   ]
 
   const res = await runRunnerCommand(
@@ -391,18 +391,6 @@ export async function getInstallInfo(
     return
   }
 
-  // some games don't support `en-US`
-  if (!gogInfo.languages && gogInfo.languages.includes(lang)) {
-    // if the game supports `en-us`, use it, else use the first valid language
-    const newLang = gogInfo.languages.includes('en-us')
-      ? 'en-us'
-      : gogInfo.languages[0]
-
-    // call itself with the new language and return
-    const infoWithLang = await getInstallInfo(appName, installPlatform, newLang)
-    return infoWithLang
-  }
-
   let libraryArray = libraryStore.get('games', [])
   let gameObjectIndex = libraryArray.findIndex(
     (value) => value.app_name === appName
@@ -443,20 +431,22 @@ export async function getInstallInfo(
     game: {
       app_name: appName,
       title: gameData.title,
-      owned_dlc: gogInfo.dlcs,
+      owned_dlc: gogInfo.dlcs.map((dlc) => ({app_name: dlc.id, title: dlc.title, perLangSize: dlc.size})),
       version: gogInfo.versionName,
       launch_options: [],
+      branches: gogInfo.available_branches,
       buildId: gogInfo!.buildId
     },
     manifest: {
-      disk_size: Number(gogInfo.disk_size),
-      download_size: Number(gogInfo.download_size),
+      download_size: 0,
+      disk_size: 0,
+      perLangSize: gogInfo.size,
       app_name: appName,
       languages: gogInfo.languages,
       versionEtag: gogInfo.versionEtag
     }
   }
-  installInfoStore.set(`${appName}_${installPlatform}`, info)
+  installInfoStore.set(`${appName}_${installPlatform}_${branch}`, info)
   if (!info) {
     logWarning(
       [

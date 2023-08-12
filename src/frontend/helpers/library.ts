@@ -19,13 +19,14 @@ type InstallArgs = {
   isInstalling: boolean
   previousProgress: InstallProgress | null
   progress: InstallProgress
-  installDlcs?: Array<string> | boolean
+  installDlcs?: Array<string>
   t: TFunction<'gamepage'>
   showDialogModal: (options: DialogModalOptions) => void
   setInstallPath?: (path: string) => void
   platformToInstall?: InstallPlatform
   sdlList?: Array<string>
   installLanguage?: string
+  branch?: string
 }
 
 async function install({
@@ -37,9 +38,10 @@ async function install({
   previousProgress,
   setInstallPath,
   sdlList = [],
-  installDlcs = false,
+  installDlcs = [],
   installLanguage = 'en-US',
   platformToInstall = 'Windows',
+  branch = 'null',
   showDialogModal
 }: InstallArgs) {
   if (!installPath) {
@@ -113,7 +115,8 @@ async function install({
     installLanguage,
     runner,
     platformToInstall,
-    gameInfo
+    gameInfo,
+    branch
   })
 }
 

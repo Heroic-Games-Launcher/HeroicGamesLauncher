@@ -14,7 +14,7 @@ export const install = async (args: InstallParams) => {
   ipcRenderer.invoke('addToDMQueue', dmQueueElement)
 
   // Add Dlcs to the queue
-  if (Array.isArray(args.installDlcs) && args.installDlcs.length > 0) {
+  if (Array.isArray(args.installDlcs) && args.installDlcs.length > 0 && args.runner === 'legendary') {
     args.installDlcs.forEach(async (dlc) => {
       const dlcArgs: InstallParams = {
         ...args,
