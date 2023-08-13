@@ -47,7 +47,7 @@ export default React.memo(function NewLogin() {
       oldMac = true
       oldMacMessage = t(
         'login.old-mac',
-        'Your MacOS version is {{version}}. MacOS 12 or newer is required to log in the stores.',
+        'Your macOS version is {{version}}. macOS 12 or newer is required to log in.',
         { version: systemInfo.release }
       )
     }

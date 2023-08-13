@@ -344,7 +344,7 @@
         "epic": "Epic Games Login",
         "gog": "GOG Login",
         "message": "Login with your platform. You can login to more than one platform at the same time.",
-        "old-mac": "Your MacOS version is {{version}}. MacOS 12 or newer is required to log in the stores."
+        "old-mac": "Your macOS version is {{version}}. macOS 12 or newer is required to log in."
     },
     "message": {
         "sync": "Sync Complete",
