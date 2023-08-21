@@ -20,7 +20,8 @@ import {
   protocol,
   screen,
   clipboard,
-  components
+  components,
+  powerMonitor
 } from 'electron'
 import 'backend/updater'
 import { autoUpdater } from 'electron-updater'
@@ -321,8 +322,13 @@ if (!gotTheLock) {
 
     // Make sure lock is not present when starting up
     playtimeSyncQueue.delete('lock')
-    runOnceWhenOnline(syncQueuedPlaytimeGOG)
-
+    if (!settings.disablePlaytimeSync) {
+      runOnceWhenOnline(syncQueuedPlaytimeGOG)
+    } else {
+      logDebug('Skipping playtime sync queue upload - playtime sync disabled', {
+        prefix: LogPrefix.Backend
+      })
+    }
     await i18next.use(Backend).init({
       backend: {
         addPath: path.join(publicDir, 'locales', '{{lng}}', '{{ns}}'),
@@ -928,12 +934,32 @@ ipcMain.handle(
 
     const { minimizeOnLaunch } = GlobalConfig.get().getSettings()
 
-    const startPlayingDate = new Date()
+    // For storing multiple sessions (e.g when user suspended the device)
+    const playTimeSessions: { start: Date; end: Date }[] = []
+    let currentSession: { start: Date; end: Date } = {
+      start: new Date(),
+      end: new Date()
+    }
+
+    const handleSuspend = () => {
+      logInfo('Detected suspend, ending playtime session', {
+        prefix: LogPrefix.Backend
+      })
+      currentSession.end = new Date()
+      playTimeSessions.push(currentSession)
+    }
+
+    const handleResume = () => {
+      logInfo('Detected resume, starting new playtime session', {
+        prefix: LogPrefix.Backend
+      })
+      currentSession = { start: new Date(), end: new Date() }
+    }
 
     if (!tsStore.has(game.app_name)) {
       tsStore.set(
         `${game.app_name}.firstPlayed`,
-        startPlayingDate.toISOString()
+        currentSession.start.toISOString()
       )
     }
 
@@ -979,6 +1005,9 @@ ipcMain.handle(
       powerDisplayId = powerSaveBlocker.start('prevent-display-sleep')
     }
 
+    powerMonitor.addListener('suspend', handleSuspend)
+    powerMonitor.addListener('resume', handleResume)
+
     const systemInfo = getSystemInfo()
     const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
     const logFileLocation = getLogFileLocation(appName)
@@ -995,7 +1024,7 @@ ipcMain.handle(
       logFileLocation,
       `Game Settings: ${gameSettingsString}\n` +
         '\n' +
-        `Game launched at: ${startPlayingDate}\n` +
+        `Game launched at: ${currentSession.start}\n` +
         '\n'
     )
 
@@ -1049,6 +1078,9 @@ ipcMain.handle(
       return false
     })
 
+    powerMonitor.removeListener('suspend', handleSuspend)
+    powerMonitor.removeListener('resume', handleResume)
+
     // Stop display sleep blocker
     if (powerDisplayId !== null) {
       logInfo('Stopping Display Power Saver Blocker', LogPrefix.Backend)
@@ -1056,17 +1088,31 @@ ipcMain.handle(
     }
 
     // Update playtime and last played date
-    const finishedPlayingDate = new Date()
-    tsStore.set(`${appName}.lastPlayed`, finishedPlayingDate.toISOString())
-    // Playtime of this session in minutes
-    const sessionPlaytime =
-      (finishedPlayingDate.getTime() - startPlayingDate.getTime()) / 1000 / 60
+    currentSession.end = new Date()
+    playTimeSessions.push(currentSession)
+    tsStore.set(`${appName}.lastPlayed`, currentSession.end.toISOString())
+
+    const sessionPlaytime = playTimeSessions.reduce(
+      (acc, next) =>
+        acc + (next.end.getTime() - next.start.getTime()) / 1000 / 60,
+      0
+    )
     const totalPlaytime =
       sessionPlaytime + tsStore.get(`${appName}.totalPlayed`, 0)
     tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
 
-    if (runner === 'gog') {
-      await updateGOGPlaytime(appName, startPlayingDate, finishedPlayingDate)
+    const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
+    if (!disablePlaytimeSync) {
+      for (const session of playTimeSessions) {
+        if (runner === 'gog') {
+          await updateGOGPlaytime(appName, session.start, session.end)
+        }
+      }
+    } else {
+      logWarning(
+        'Posting playtime session to server skipped - playtime sync disabled',
+        { prefix: LogPrefix.Backend }
+      )
     }
 
     await addRecentGame(game)

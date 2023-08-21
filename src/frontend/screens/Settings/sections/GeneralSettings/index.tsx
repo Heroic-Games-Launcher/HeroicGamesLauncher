@@ -19,7 +19,8 @@ import {
   Shortcuts,
   TraySettings,
   UseDarkTrayIcon,
-  WinePrefixesBasePath
+  WinePrefixesBasePath,
+  PlaytimeSync
 } from '../../components'
 
 export default function GeneralSettings() {
@@ -56,6 +57,8 @@ export default function GeneralSettings() {
       <UseDarkTrayIcon />
 
       <Shortcuts />
+
+      <PlaytimeSync />
 
       <DiscordRPC />
 
