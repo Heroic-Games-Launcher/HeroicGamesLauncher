@@ -1094,9 +1094,9 @@ ipcMain.handle(
 
     const sessionPlaytime = playTimeSessions.reduce(
       (acc, next) =>
-        acc + (next.end.getTime() - next.start.getTime()) / 1000 / 60,
+        acc + next.end.getTime() - next.start.getTime(),
       0
-    )
+    ) / 60000
     const totalPlaytime =
       sessionPlaytime + tsStore.get(`${appName}.totalPlayed`, 0)
     tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
