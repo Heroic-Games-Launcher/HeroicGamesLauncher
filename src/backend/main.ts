@@ -1092,11 +1092,12 @@ ipcMain.handle(
     playTimeSessions.push(currentSession)
     tsStore.set(`${appName}.lastPlayed`, currentSession.end.toISOString())
 
-    const sessionPlaytime = playTimeSessions.reduce(
-      (acc, next) =>
-        acc + next.end.getTime() - next.start.getTime(),
-      0
-    ) / 60000
+    const sessionPlaytime =
+      playTimeSessions.reduce(
+        (acc, next) => acc + next.end.getTime() - next.start.getTime(),
+        0
+      ) / 60000
+
     const totalPlaytime =
       sessionPlaytime + tsStore.get(`${appName}.totalPlayed`, 0)
     tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
@@ -1702,6 +1703,10 @@ ipcMain.on('processShortcut', async (e, combination: string) => {
 ipcMain.handle(
   'getPlaytimeFromRunner',
   async (e, runner, appName): Promise<number | undefined> => {
+    const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
+    if (disablePlaytimeSync) {
+      return
+    }
     if (runner === 'gog') {
       return getGOGPlaytime(appName)
     }
