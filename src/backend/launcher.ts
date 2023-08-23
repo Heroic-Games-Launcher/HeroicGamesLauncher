@@ -26,6 +26,7 @@ import {
   flatPakHome,
   isLinux,
   isMac,
+  isWindows,
   isSteamDeckGameMode,
   runtimePath,
   userHome
@@ -993,12 +994,31 @@ async function callRunner(
   runner: RunnerProps,
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
-  const fullRunnerPath = join(runner.dir, runner.bin)
   const appName = appNameFromCommandParts(commandParts, runner.name)
 
   // Necessary to get rid of possible undefined or null entries, else
   // TypeError is triggered
   commandParts = commandParts.filter(Boolean)
+
+  let bin = runner.bin
+  let fullRunnerPath = join(runner.dir, bin)
+
+  // On Windows: Use PowerShell's `Start-Process` to wait for the process and
+  // its children to exit
+  if (isWindows) {
+    const argsAsString = commandParts
+      .map((part) => (part.includes(' ') ? `"\`"${part}\`""` : `"${part}"`))
+      .join(',')
+    commandParts = [
+      'Start-Process',
+      `${fullRunnerPath}`,
+      '-Wait',
+      '-ArgumentList',
+      argsAsString,
+      '-NoNewWindow'
+    ]
+    bin = fullRunnerPath = 'powershell'
+  }
 
   const safeCommand = getRunnerCallWithoutCredentials(
     [...commandParts],
@@ -1031,8 +1051,6 @@ async function callRunner(
       }
     }
   }
-
-  const bin = runner.bin
 
   // check if the same command is currently running
   // if so, return the same promise instead of running it again
@@ -1198,11 +1216,25 @@ function getRunnerCallWithoutCredentials(
   const modifiedCommand = [...command]
   // Redact sensitive arguments (Authorization Code for Legendary, token for GOGDL)
   for (const sensitiveArg of ['--code', '--token']) {
-    const sensitiveArgIndex = modifiedCommand.indexOf(sensitiveArg)
-    if (sensitiveArgIndex === -1) {
-      continue
+    // PowerShell's argument formatting is quite different, instead of having
+    // arguments as members of `command`, they're all in one specific member
+    // (the one after "-ArgumentList")
+    if (runnerPath === 'powershell') {
+      const argumentListIndex = modifiedCommand.indexOf('-ArgumentList') + 1
+      if (!argumentListIndex) continue
+      modifiedCommand[argumentListIndex] = modifiedCommand[
+        argumentListIndex
+      ].replace(
+        new RegExp(`"${sensitiveArg}","(.*?)"`),
+        `"${sensitiveArg}","<redacted>"`
+      )
+    } else {
+      const sensitiveArgIndex = modifiedCommand.indexOf(sensitiveArg)
+      if (sensitiveArgIndex === -1) {
+        continue
+      }
+      modifiedCommand[sensitiveArgIndex + 1] = '<redacted>'
     }
-    modifiedCommand[sensitiveArgIndex + 1] = '<redacted>'
   }
 
   const formattedEnvVars: string[] = []
