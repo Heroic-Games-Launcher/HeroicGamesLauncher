@@ -1,3 +1,4 @@
+import { WindowProps } from 'common/types'
 import { BrowserWindow, screen } from 'electron'
 import path from 'path'
 import { configStore } from './constants'
@@ -28,11 +29,12 @@ export const sendFrontendMessage = (message: string, ...payload: unknown[]) => {
 
 // creates the mainWindow based on the configuration
 export const createMainWindow = () => {
-  let windowProps: Electron.Rectangle = {
+  let windowProps: WindowProps = {
     height: 690,
     width: 1200,
     x: 0,
-    y: 0
+    y: 0,
+    maximized: false
   }
 
   if (configStore.has('window-props')) {
@@ -49,10 +51,10 @@ export const createMainWindow = () => {
       windowProps.width = screenInfo.workAreaSize.width * 0.8
     }
   }
-
+  const { maximized, ...props } = windowProps
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    ...windowProps,
+    ...props,
     minHeight: 345,
     minWidth: 600,
     show: false,
@@ -65,6 +67,10 @@ export const createMainWindow = () => {
       preload: path.join(__dirname, 'preload.js')
     }
   })
+
+  if (maximized) {
+    mainWindow.maximize()
+  }
 
   return mainWindow
 }

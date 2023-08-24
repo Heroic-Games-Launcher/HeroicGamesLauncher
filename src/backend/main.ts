@@ -200,7 +200,10 @@ async function initializeWindow(): Promise<BrowserWindow> {
 
     if (!isCLIFullscreen && !isSteamDeckGameMode) {
       // store windows properties
-      configStore.set('window-props', mainWindow.getBounds())
+      configStore.set('window-props', {
+        ...mainWindow.getBounds(),
+        maximized: mainWindow.isMaximized()
+      })
     }
 
     const { exitToTray } = GlobalConfig.get().getSettings()

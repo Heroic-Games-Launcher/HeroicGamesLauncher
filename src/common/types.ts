@@ -689,3 +689,7 @@ export interface WineManagerUISettings {
 }
 
 export type DownloadManagerState = 'idle' | 'running' | 'paused' | 'stopped'
+
+export interface WindowProps extends Electron.Rectangle {
+  maximized: boolean
+}
