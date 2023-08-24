@@ -118,8 +118,8 @@
         "clickToOpen": "Feu clic per obrir",
         "game-scores": "Puntuacions del joc",
         "installedInfo": "Informació instal·lada",
-        "protondb-compatibility-info": "Nivell de compatibilitat de protons",
-        "steamdeck-compatibility-info": "Compatibilitat amb SteamDeck"
+        "protondb-compatibility-info": "Nivell de compatibilitat amb el Proton",
+        "steamdeck-compatibility-info": "Compatibilitat amb l'SteamDeck"
     },
     "install": {
         "disk-space-left": "Espai disponible",
