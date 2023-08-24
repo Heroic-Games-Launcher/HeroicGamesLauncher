@@ -152,6 +152,11 @@
             "wine-change": {
                 "message": "Nous n'avons pas pu trouver la version de Wine sélectionnée pour lancer ce titre ({{selectedWine}}). {{newline}} Nous en avons trouvé une autre, voulez-vous continuer le lancement avec {{foundWine}} ?",
                 "title": "Wine introuvable !"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "Êtes-vous sûr de vouloir quitter ?"
+                }
             }
         },
         "wineprefix": "Choisir le dossier des préfixes Wine",
@@ -577,7 +582,8 @@
         "disable_logs": "Désactiver les journaux",
         "showMetalOverlay": "Afficher la superposition des statistiques",
         "addgamestoapplications": "Ajouter automatiquement des jeux aux applications",
-        "alt-nile-bin": "Choisissez un binaire alternatif du Nil"
+        "alt-nile-bin": "Choisissez un binaire alternatif du Nil",
+        "autodxvknvapi": "Installation/Mise à jour automatique du préfix DXVK/VKD3D"
     },
     "settings": {
         "battlEyeRuntime": {
