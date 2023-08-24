@@ -577,7 +577,8 @@
         "disable_logs": "로그 비활성화",
         "addgamestoapplications": "응용 프로그램에 자동으로 게임 추가",
         "showMetalOverlay": "통계 오버레이 표시",
-        "alt-nile-bin": "대체 Nile 바이너리 선택"
+        "alt-nile-bin": "대체 Nile 바이너리 선택",
+        "autodxvknvapi": "설치 경로에서 DXVK 자동 설치/업데이트"
     },
     "settings": {
         "battlEyeRuntime": {
