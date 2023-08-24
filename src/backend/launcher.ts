@@ -256,6 +256,9 @@ async function prepareWineLaunch(
     if (gameSettings.autoInstallDxvk) {
       await DXVK.installRemove(gameSettings, 'dxvk', 'backup')
     }
+    if (gameSettings.autoInstallDxvkNvapi) {
+      await DXVK.installRemove(gameSettings, 'dxvk-nvapi', 'backup')
+    }
     if (gameSettings.autoInstallVkd3d) {
       await DXVK.installRemove(gameSettings, 'vkd3d', 'backup')
     }
@@ -393,6 +396,14 @@ function setupWineEnvVars(
   }
   if (!gameSettings.enableFsync && wineVersion.type === 'proton') {
     ret.PROTON_NO_FSYNC = '1'
+  }
+  if (gameSettings.autoInstallDxvkNvapi && wineVersion.type === 'proton') {
+    ret.PROTON_ENABLE_NVAPI = '1'
+    ret.DXVK_NVAPI_ALLOW_OTHER_DRIVERS = '1'
+  }
+  if (gameSettings.autoInstallDxvkNvapi && wineVersion.type === 'wine') {
+    ret.DXVK_ENABLE_NVAPI = '1'
+    ret.DXVK_NVAPI_ALLOW_OTHER_DRIVERS = '1'
   }
   if (gameSettings.eacRuntime) {
     ret.PROTON_EAC_RUNTIME = join(runtimePath, 'eac_runtime')
