@@ -152,6 +152,12 @@
             "wine-change": {
                 "message": "我们找不到启动此游戏的选定 wine 版本 ({{selectedWine}})。 {{newline}} 我们找到了另一个，你想继续使用 {{foundWine}} 启动吗？",
                 "title": "未找到 Wine ！"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "message": "可能会丢失任何未保存的进度",
+                    "title": "你确定要退出吗？"
+                }
             }
         },
         "wineprefix": "选择 Wine Prefix 文件夹",
@@ -577,7 +583,8 @@
         "disable_logs": "禁用日志",
         "addgamestoapplications": "自动将游戏添加到应用程序",
         "showMetalOverlay": "显示统计数据叠加",
-        "alt-nile-bin": "选择替代尼罗河二进制"
+        "alt-nile-bin": "选择替代尼罗河二进制",
+        "autodxvknvapi": "在前置自动安装并更新 DXVK"
     },
     "settings": {
         "battlEyeRuntime": {
