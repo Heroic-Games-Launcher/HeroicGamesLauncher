@@ -18,7 +18,8 @@ async function installQueueElement(params: InstallParams): Promise<{
     sdlList = [],
     runner,
     installLanguage,
-    platformToInstall
+    platformToInstall,
+    build
   } = params
   const { title } = gameManagerMap[runner].getGameInfo(appName)
 
@@ -70,7 +71,8 @@ async function installQueueElement(params: InstallParams): Promise<{
       installDlcs,
       sdlList,
       platformToInstall,
-      installLanguage
+      installLanguage,
+      build
     })
 
     if (status === 'error') {

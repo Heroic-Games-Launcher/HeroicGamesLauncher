@@ -13,8 +13,16 @@ import {
   Runner,
   WineInstallation
 } from 'common/types'
-import { GogInstallInfo } from 'common/types/gog'
-import { LegendaryInstallInfo, SelectiveDownload } from 'common/types/legendary'
+import {
+  BuildItem,
+  GogInstallInfo,
+  DLCInfo as GOGDLCInfo
+} from 'common/types/gog'
+import {
+  DLCInfo as LegendaryDLCInfo,
+  LegendaryInstallInfo,
+  SelectiveDownload
+} from 'common/types/legendary'
 import {
   PathSelectionBox,
   SelectField,
@@ -131,8 +139,9 @@ export default function DownloadDialog({
   const [installLanguage, setInstallLanguage] = useState('')
 
   const [diskSize, setDiskSize] = useState(0)
-  const [branches, setBranches] = useState(Array<string | null>())
-  const [selectedBranch, setSelectedBranch] = useState('null')
+
+  const [gameBuilds, setBuilds] = useState<BuildItem[]>([])
+  const [selectedBuild, setSelectedBuild] = useState<string | undefined>()
 
   const [installPath, setInstallPath] = useState(
     previousProgress.folder || getDefaultInstallPath()
@@ -217,7 +226,7 @@ export default function DownloadDialog({
       installDlcs: dlcsToInstall,
       installLanguage,
       platformToInstall,
-      branch: selectedBranch,
+      build: selectedBuild,
       showDialogModal: () => backdropClick()
     })
   }
@@ -231,7 +240,7 @@ export default function DownloadDialog({
           appName,
           runner,
           platformToInstall,
-          selectedBranch
+          selectedBuild
         )
         setGameInstallInfo(gameInstallInfo)
         setGettingInstallInfo(false)
@@ -245,26 +254,35 @@ export default function DownloadDialog({
           setDiskSize(gameInstallInfo.manifest?.disk_size ?? 0)
         }
 
-        if (
-          gameInstallInfo &&
-          gameInstallInfo &&
-          'branches' in gameInstallInfo.game
-        ) {
-          setBranches(gameInstallInfo.game.branches)
-        }
+        if (gameInstallInfo) {
+          if (
+            gameInstallInfo.manifest &&
+            'builds' in gameInstallInfo.manifest
+          ) {
+            const builds = (gameInstallInfo.manifest.builds || [])
+              .filter((build) => !build.branch)
+              .sort(
+                (a, b) =>
+                  new Date(b.date_published).getTime() -
+                  new Date(a.date_published).getTime()
+              )
+            setBuilds(builds)
+          }
 
-        if (
-          gameInstallInfo &&
-          gameInstallInfo.manifest &&
-          'languages' in gameInstallInfo.manifest
-        ) {
-          setInstallLanguages(gameInstallInfo.manifest.languages)
-          setInstallLanguage(
-            getInstallLanguage(
-              gameInstallInfo.manifest.languages,
-              i18n.languages
-            )
-          )
+          if (
+            gameInstallInfo.manifest &&
+            'languages' in gameInstallInfo.manifest
+          ) {
+            setInstallLanguages(gameInstallInfo.manifest.languages.sort())
+            if (!gameInstallInfo.manifest.languages.includes(installLanguage)) {
+              setInstallLanguage(
+                getInstallLanguage(
+                  gameInstallInfo.manifest.languages,
+                  i18n.languages
+                )
+              )
+            }
+          }
         }
 
         if (platformToInstall === 'linux' && runner === 'gog') {
@@ -289,7 +307,7 @@ export default function DownloadDialog({
       }
     }
     getIinstInfo()
-  }, [appName, i18n.languages, platformToInstall, selectedBranch])
+  }, [appName, i18n.languages, platformToInstall, selectedBuild])
 
   useEffect(() => {
     const getGameSdl = async () => {
@@ -334,11 +352,13 @@ export default function DownloadDialog({
 
   const haveDLCs =
     gameInstallInfo && gameInstallInfo?.game?.owned_dlc?.length > 0
-  const DLCList = gameInstallInfo?.game?.owned_dlc ?? []
+  const DLCList: Array<GOGDLCInfo | LegendaryDLCInfo> =
+    gameInstallInfo?.game?.owned_dlc ?? []
 
   const downloadSize = useMemo(() => {
     if (
-      gameInstallInfo?.manifest?.perLangSize &&
+      gameInstallInfo &&
+      'perLangSize' in gameInstallInfo.manifest &&
       platformToInstall !== 'linux'
     ) {
       const languageSize =
@@ -348,14 +368,14 @@ export default function DownloadDialog({
         gameInstallInfo?.manifest?.perLangSize['*']?.download_size ?? 0
 
       const dlcSize = DLCList.reduce((acc, dlc) => {
-        if (dlcsToInstall.includes(dlc.app_name)) {
+        if (dlcsToInstall.includes(dlc.app_name) && 'perLangSize' in dlc) {
           const languageSize =
             dlc.perLangSize[installLanguage]?.download_size ?? 0
           const universalSize = dlc.perLangSize['*']?.download_size ?? 0
           acc += languageSize + universalSize
         }
         return acc
-      }, 0)
+      }, 0 as number)
 
       return size(languageSize + universalSize + dlcSize)
     }
@@ -374,7 +394,8 @@ export default function DownloadDialog({
 
   const installSize = useMemo(() => {
     if (
-      gameInstallInfo?.manifest?.perLangSize &&
+      gameInstallInfo &&
+      'perLangSize' in gameInstallInfo.manifest &&
       platformToInstall !== 'linux'
     ) {
       const languageSize =
@@ -382,7 +403,7 @@ export default function DownloadDialog({
       const universalSize =
         gameInstallInfo?.manifest?.perLangSize['*']?.disk_size ?? 0
       const dlcSize = DLCList.reduce((acc, dlc) => {
-        if (dlcsToInstall.includes(dlc.app_name)) {
+        if (dlcsToInstall.includes(dlc.app_name) && 'perLangSize' in dlc) {
           const languageSize = dlc.perLangSize[installLanguage]?.disk_size ?? 0
           const universalSize = dlc.perLangSize['*']?.disk_size ?? 0
           acc += languageSize + universalSize
@@ -432,6 +453,10 @@ export default function DownloadDialog({
       }
     }
     return t('button.no-path-selected', 'No path selected')
+  }
+
+  const getFormattedDate = (dateStr: string) => {
+    return new Date(dateStr).toLocaleDateString(i18n.languages)
   }
 
   const readyToInstall = installPath && downloadSize && !gettingInstallInfo
@@ -521,21 +546,6 @@ export default function DownloadDialog({
           </SelectField>
         )}
 
-        {platformToInstall !== 'linux' && branches && branches.length > 1 && (
-          <SelectField
-            label={`${t('game.branch.title', 'Branch')}:`}
-            htmlId="branchPick"
-            value={selectedBranch}
-            onChange={(e) => setSelectedBranch(e.target.value)}
-          >
-            {branches.map((value) => (
-              <option value={String(value)} key={`branch-${value}`}>
-                {value ?? t('game.branch.none', 'None')}
-              </option>
-            ))}
-          </SelectField>
-        )}
-
         <PathSelectionBox
           type="directory"
           onPathChange={setInstallPath}
@@ -592,6 +602,47 @@ export default function DownloadDialog({
             ) : null
           }
         />
+        {platformToInstall !== 'linux' && !!gameBuilds.length && (
+          <div>
+            <ToggleSwitch
+              title={`${t('game.builds.toggle', 'Keep game up to date')}`}
+              htmlId="buildsSelectorToggle"
+              value={!selectedBuild}
+              handleChange={() => {
+                if (selectedBuild) {
+                  setSelectedBuild(undefined)
+                } else {
+                  setSelectedBuild(gameBuilds[0].build_id)
+                }
+              }}
+            />
+
+            {!!selectedBuild && !!gameBuilds.length && (
+              <SelectField
+                label={`${t(
+                  'game.builds.buildsSelector',
+                  'Select Game Version'
+                )}`}
+                htmlId="buildsSelectorField"
+                value={selectedBuild}
+                disabled={gameBuilds.length <= 1}
+                onChange={(e) => setSelectedBuild(e.target.value)}
+              >
+                {gameBuilds.map((build) => (
+                  <option
+                    key={`build-${build.build_id}`}
+                    value={build.build_id}
+                  >
+                    <>
+                      {t('game.builds.version', 'Version')} {build.version_name}{' '}
+                      - {getFormattedDate(build.date_published)}
+                    </>
+                  </option>
+                ))}
+              </SelectField>
+            )}
+          </div>
+        )}
         {children}
         {(haveDLCs || haveSDL) && (
           <div className="InstallModal__sectionHeader">

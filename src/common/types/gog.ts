@@ -24,19 +24,46 @@ interface GameInstallInfo {
   buildId: string
 }
 
-interface DLCInfo {
+type PerLanguageSize = {
+  '*': { download_size: number; disk_size: number }
+  [key: string]: { download_size: number; disk_size: number }
+}
+
+// Raw output of gogdl info command
+export interface GOGDLInstallInfo {
+  size: PerLanguageSize
+  languages: Array<string>
+  dlcs: Array<{ title: string; id: string; size: PerLanguageSize }>
+  buildId: string
+  os: GogInstallPlatform
+  branch: string | null
+  dependencies: Array<string>
+  versionName: string
+  versionEtag: string
+  folder_name: string
+  available_branches: Array<string>
+  builds: {
+    items: Array<BuildItem>
+    total_count: number
+    count: number
+    has_private_branches: boolean
+  }
+}
+
+export interface DLCInfo {
   app_name: string
   title: string
-  perLangSize: { [key: string]: { download_size: number; disk_size: number } }
+  perLangSize: PerLanguageSize
 }
 
 interface GameManifest {
   app_name: string
   disk_size: number
   download_size: number
-  perLangSize: { [key: string]: { download_size: number; disk_size: number } }
+  perLangSize: PerLanguageSize
   languages: string[]
   versionEtag: string
+  builds?: BuildItem[]
 }
 
 export interface GOGCloudSavesLocation {
@@ -399,4 +426,5 @@ export interface ProductsEndpointData {
     language_packs: Array<ProductsEndpointInstaller>
     bonus_content: Array<ProductsEndpointBonusContent>
   }
+  changelog?: string
 }

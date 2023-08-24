@@ -41,6 +41,7 @@ const userHome = homedir()
 const configFolder = app.getPath('appData')
 const appFolder = join(configFolder, 'heroic')
 const legendaryConfigPath = join(appFolder, 'legendaryConfig', 'legendary')
+const gogdlConfigPath = join(appFolder, 'gogdlConfig', 'heroic_gogdl')
 const nileConfigPath = join(appFolder, 'nile_config', 'nile')
 const configPath = join(appFolder, 'config.json')
 const gamesConfigPath = join(appFolder, 'GamesConfig')
@@ -262,6 +263,7 @@ export {
   customThemesWikiLink,
   cachedUbisoftInstallerPath,
   gogdlAuthConfig,
+  gogdlConfigPath,
   vulkanHelperBin,
   nileConfigPath,
   nileInstalled,

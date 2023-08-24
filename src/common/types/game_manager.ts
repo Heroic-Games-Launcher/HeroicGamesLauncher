@@ -65,8 +65,8 @@ export interface LibraryManager {
   getInstallInfo: (
     appName: string,
     installPlatform: InstallPlatform,
-    lang?: string,
-    branch?: string
+    branch?: string,
+    build?: string
   ) => Promise<
     LegendaryInstallInfo | GogInstallInfo | NileInstallInfo | undefined
   >

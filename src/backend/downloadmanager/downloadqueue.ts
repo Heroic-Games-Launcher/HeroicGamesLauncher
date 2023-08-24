@@ -127,7 +127,7 @@ async function addToQueue(element: DMQueueElement) {
       element.params.appName,
       element.params.platformToInstall,
       undefined,
-      element.params.branch
+      element.params.build
     )
 
     element.params.size = installInfo?.manifest?.download_size

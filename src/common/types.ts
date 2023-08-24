@@ -93,6 +93,7 @@ export interface ExtraInfo {
   about?: About
   reqs: Reqs[]
   storeUrl?: string
+  changelog?: string
 }
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
@@ -209,10 +210,12 @@ export interface InstalledInfo {
   version: string
   platform: InstallPlatform
   appName?: string
-  installedWithDLCs?: boolean // For verifing GOG games
-  language?: string // For verifing GOG games
+  installedWithDLCs?: boolean // OLD GOG DLC boolean (deprecated)
+  installedDLCs?: string[] // New installed GOG DLCs array
+  language?: string // For GOG games
   versionEtag?: string // Checksum for checking GOG updates
-  buildId?: string // For verifing GOG games
+  buildId?: string // For verifing and version pinning of GOG games
+  branch?: string // GOG beta channels
 }
 
 export interface Reqs {
@@ -240,10 +243,10 @@ export interface WineInstallation {
 export interface InstallArgs {
   path: string
   platformToInstall: InstallPlatform
-  installDlcs?: Array<string> | boolean
+  installDlcs?: Array<string>
   sdlList?: string[]
   installLanguage?: string
-  branch?: string
+  build?: string
 }
 
 export interface InstallParams extends InstallArgs {

@@ -18,11 +18,13 @@ interface Props {
   isInstalled: boolean
   title: string
   storeUrl: string
+  changelog?: string
   runner: Runner
   handleUpdate: () => void
+  handleChangeLog: () => void
   disableUpdate: boolean
   onShowRequirements?: () => void
-  onShowDlcs?: () => void
+  onShowModifyInstall?: () => void
 }
 
 export default function GamesSubmenu({
@@ -30,11 +32,13 @@ export default function GamesSubmenu({
   isInstalled,
   title,
   storeUrl,
+  changelog,
   runner,
   handleUpdate,
+  handleChangeLog,
   disableUpdate,
   onShowRequirements,
-  onShowDlcs
+  onShowModifyInstall
 }: Props) {
   const { refresh, platform, libraryStatus, showDialogModal } =
     useContext(ContextProvider)
@@ -215,7 +219,8 @@ export default function GamesSubmenu({
     return <CircularProgress className="link button is-text is-link" />
   }
 
-  const showDlcsItem = onShowDlcs && runner === 'legendary' && isInstalled
+  const showModifyItem =
+    onShowModifyInstall && ['legendary', 'gog'].includes(runner) && isInstalled
 
   return (
     <>
@@ -322,6 +327,14 @@ export default function GamesSubmenu({
               {t('submenu.store')}
             </NavLink>
           )}
+          {!isSideloaded && !!changelog?.length && (
+            <button
+              onClick={() => handleChangeLog()}
+              className="link button is-text is-link"
+            >
+              {t('button.changelog', 'Show Changelog')}
+            </button>
+          )}{' '}
           {!isSideloaded && isLinux && (
             <button
               onClick={() => createNewWindow(protonDBurl)}
@@ -338,12 +351,12 @@ export default function GamesSubmenu({
               {t('game.requirements', 'Requirements')}
             </button>
           )}
-          {showDlcsItem && (
+          {showModifyItem && (
             <button
-              onClick={async () => onShowDlcs()}
+              onClick={async () => onShowModifyInstall()}
               className="link button is-text is-link"
             >
-              {t('game.dlcs', 'DLCs')}
+              {t('game.modify', 'Modify Installation')}
             </button>
           )}
         </div>

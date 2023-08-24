@@ -80,8 +80,9 @@ import { hasStatus } from 'frontend/hooks/hasStatus'
 import PopoverComponent from 'frontend/components/UI/PopoverComponent'
 import HowLongToBeat from 'frontend/components/UI/WikiGameInfo/components/HowLongToBeat'
 import GameScore from 'frontend/components/UI/WikiGameInfo/components/GameScore'
-import DLCList from 'frontend/components/UI/DLCList'
 import { NileInstallInfo } from 'common/types/nile'
+import GameChangeLog from '../GameChangeLog'
+import ModifyInstallModal from '../ModifyInstallModal'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -94,6 +95,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const { gameInfo: locationGameInfo } = location.state
 
   const [showModal, setShowModal] = useState({ game: '', show: false })
+  const [showChangelog, setShowChangelog] = useState(false)
   const [wikiGameInfo, setWikiGameInfo] = useState<WikiInfo | null>(null)
 
   const {
@@ -128,7 +130,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [winePrefix, setWinePrefix] = useState('')
   const [wineVersion, setWineVersion] = useState<WineInstallation>()
   const [showRequirements, setShowRequirements] = useState(false)
-  const [showDlcs, setShowDlcs] = useState(false)
+  const [showModifyInstall, setShowModifyInstall] = useState(false)
 
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
@@ -404,6 +406,15 @@ export default React.memo(function GamePage(): JSX.Element | null {
             gameInfo={gameInfo}
           />
         )}
+        {extraInfo?.changelog && showChangelog && (
+          <GameChangeLog
+            title={gameInfo.title}
+            changelog={extraInfo.changelog}
+            backdropClick={() => {
+              setShowChangelog(false)
+            }}
+          />
+        )}
         {title ? (
           <>
             <GamePicture art_square={art_square} store={runner} />
@@ -446,7 +457,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         ? gameInfo.store_url
                         : '')
                     }
+                    changelog={extraInfo?.changelog}
                     runner={gameInfo.runner}
+                    handleChangeLog={() => setShowChangelog(true)}
                     handleUpdate={handleUpdate}
                     disableUpdate={isInstalling || isUpdating}
                     onShowRequirements={
@@ -454,7 +467,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         ? () => setShowRequirements(true)
                         : undefined
                     }
-                    onShowDlcs={() => setShowDlcs(true)}
+                    onShowModifyInstall={() => setShowModifyInstall(true)}
                   />
                 </div>
               </div>
@@ -845,24 +858,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 </DialogContent>
               </Dialog>
             )}
-            {showDlcs && (
-              <Dialog showCloseButton onClose={() => setShowDlcs(false)}>
-                <DialogHeader onClose={() => setShowDlcs(false)}>
-                  <div>{t('game.dlcs', 'DLCs')}</div>
-                </DialogHeader>
-                <DialogContent>
-                  {gameInstallInfo ? (
-                    <DLCList
-                      dlcs={gameInstallInfo?.game.owned_dlc}
-                      runner={runner}
-                      mainAppInfo={gameInfo}
-                      onClose={() => setShowDlcs(false)}
-                    />
-                  ) : (
-                    <UpdateComponent inline />
-                  )}
-                </DialogContent>
-              </Dialog>
+            {showModifyInstall && (
+              <ModifyInstallModal
+                gameInfo={gameInfo}
+                gameInstallInfo={gameInstallInfo}
+                onClose={() => setShowModifyInstall(false)}
+              />
             )}
             <div id="game-settings"></div>
           </>

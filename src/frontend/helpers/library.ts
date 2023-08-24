@@ -26,7 +26,7 @@ type InstallArgs = {
   platformToInstall?: InstallPlatform
   sdlList?: Array<string>
   installLanguage?: string
-  branch?: string
+  build?: string
 }
 
 async function install({
@@ -41,7 +41,7 @@ async function install({
   installDlcs = [],
   installLanguage = 'en-US',
   platformToInstall = 'Windows',
-  branch = 'null',
+  build,
   showDialogModal
 }: InstallArgs) {
   if (!installPath) {
@@ -116,7 +116,7 @@ async function install({
     runner,
     platformToInstall,
     gameInfo,
-    branch
+    build
   })
 }
 

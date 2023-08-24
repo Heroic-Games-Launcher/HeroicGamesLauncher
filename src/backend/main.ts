@@ -236,6 +236,15 @@ async function initializeWindow(): Promise<BrowserWindow> {
     autoUpdater.checkForUpdates()
   }
 
+  // Changelog links workaround
+  mainWindow.webContents.on('will-navigate', (event, url) => {
+    const pattern = app.isPackaged ? publicDir : 'localhost:5173'
+    if (!url.match(pattern)) {
+      event.preventDefault()
+      openUrlOrFile(url)
+    }
+  })
+
   mainWindow.webContents.setWindowOpenHandler((details) => {
     const pattern = app.isPackaged ? publicDir : 'localhost:5173'
     return { action: !details.url.match(pattern) ? 'allow' : 'deny' }
@@ -733,13 +742,13 @@ ipcMain.handle('getGOGLinuxInstallersLangs', async (event, appName) =>
 
 ipcMain.handle(
   'getInstallInfo',
-  async (event, appName, runner, installPlatform, branch) => {
+  async (event, appName, runner, installPlatform, build) => {
     try {
       const info = await libraryManagerMap[runner].getInstallInfo(
         appName,
         installPlatform,
         undefined,
-        branch
+        build
       )
       if (info === undefined) return null
       return info
@@ -1078,7 +1087,6 @@ ipcMain.handle(
     if (runner === 'gog') {
       await updateGOGPlaytime(appName, startPlayingDate, finishedPlayingDate)
     }
-
     await addRecentGame(game)
 
     if (autoSyncSaves && isOnline()) {

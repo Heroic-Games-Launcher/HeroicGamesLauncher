@@ -77,13 +77,13 @@ const getInstallInfo = async (
   appName: string,
   runner: Runner,
   installPlatform: InstallPlatform,
-  branch?: string
+  build?: string
 ): Promise<LegendaryInstallInfo | GogInstallInfo | NileInstallInfo | null> => {
   return window.api.getInstallInfo(
     appName,
     runner,
     handleRunnersPlatforms(installPlatform, runner),
-    branch
+    build
   )
 }
 

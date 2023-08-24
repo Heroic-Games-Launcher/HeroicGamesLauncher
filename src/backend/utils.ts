@@ -79,6 +79,7 @@ import {
   updateWineVersionInfos,
   wineDownloaderInfoStore
 } from './wine/manager/utils'
+import { readdir, stat } from 'fs/promises'
 
 const execAsync = promisify(exec)
 
@@ -1338,6 +1339,22 @@ function removeFolder(path: string, folderName: string) {
   return
 }
 
+async function getPathDiskSize(path: string): Promise<number> {
+  const statData = await stat(path)
+  let size = 0
+  if (statData.isDirectory()) {
+    const contents = await readdir(path)
+
+    for (const item of contents) {
+      const itemPath = join(path, item)
+      size += await getPathDiskSize(itemPath)
+    }
+    return size
+  }
+
+  return statData.size
+}
+
 export {
   errorHandler,
   execAsync,
@@ -1373,7 +1390,8 @@ export {
   getGogdlVersion,
   getNileVersion,
   memoryLog,
-  removeFolder
+  removeFolder,
+  getPathDiskSize
 }
 
 // Exported only for testing purpose

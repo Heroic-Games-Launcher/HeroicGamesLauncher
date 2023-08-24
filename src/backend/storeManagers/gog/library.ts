@@ -19,7 +19,8 @@ import {
   Library,
   BuildItem,
   GalaxyLibraryEntry,
-  ProductsEndpointData
+  ProductsEndpointData,
+  GOGDLInstallInfo
 } from 'common/types/gog'
 import { basename, join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
@@ -33,7 +34,7 @@ import {
   logWarning
 } from '../../logger/logger'
 import { getGOGdlBin, getFileSize } from '../../utils'
-import { gogdlLogFile } from '../../constants'
+import { gogdlConfigPath, gogdlLogFile } from '../../constants'
 import {
   libraryStore,
   installedGamesStore,
@@ -296,8 +297,8 @@ export function getInstallAndGameInfo(slug: string): GameInfo | undefined {
 export async function getInstallInfo(
   appName: string,
   installPlatform = 'windows',
-  lang = 'en-US',
-  branch = 'null'
+  branch = 'null',
+  build?: string
 ): Promise<GogInstallInfo | undefined> {
   installPlatform = installPlatform.toLowerCase()
   if (installPlatform === 'linux') {
@@ -307,8 +308,10 @@ export async function getInstallInfo(
     installPlatform = 'osx'
   }
 
-  if (installInfoStore.has(`${appName}_${installPlatform}_${branch}`)) {
-    const cache = installInfoStore.get(`${appName}_${installPlatform}_${branch}`)
+  const installInfoStoreKey = `${appName}_${installPlatform}_${branch}_${build}`
+
+  if (installInfoStore.has(installInfoStoreKey)) {
+    const cache = installInfoStore.get(installInfoStoreKey)
     if (cache) {
       logInfo(
         [
@@ -345,10 +348,10 @@ export async function getInstallInfo(
   const commandParts = [
     'info',
     appName,
-    `--lang=${lang}`,
     '--os',
     installPlatform === 'linux' ? 'windows' : installPlatform,
-    ...(branch !== 'null' ? ['--branch', branch] : [])
+    ...(branch !== 'null' ? ['--branch', branch] : []),
+    ...(build ? ['--build', build] : [])
   ]
 
   const res = await runRunnerCommand(
@@ -380,7 +383,7 @@ export async function getInstallInfo(
     errorMessage(res.error)
   }
 
-  let gogInfo
+  let gogInfo: GOGDLInstallInfo
   try {
     gogInfo = JSON.parse(res.stdout)
   } catch (error) {
@@ -427,26 +430,67 @@ export async function getInstallInfo(
   gameData.folder_name = gogInfo.folder_name
   libraryStore.set('games', libraryArray)
   library.set(appName, gameData)
+
+  let language = gogInfo.languages[0]
+  const foundPreffered = i18next.languages.find((plang) =>
+    gogInfo.languages.some((alang) => alang.startsWith(plang))
+  )
+  if (foundPreffered) {
+    const foundAvailable = gogInfo.languages.find((alang) =>
+      alang.startsWith(foundPreffered)
+    )
+    if (foundAvailable) {
+      language = foundAvailable
+    }
+  }
+
+  // Calculate highest possible size (with DLCs) for display on game page
+  const download_size =
+    (gogInfo.size['*']?.download_size || 0) + // Universal depot
+    gogInfo.size[language].download_size + // Language depot
+    gogInfo.dlcs.reduce(
+      (acc, dlc) =>
+        acc +
+        (dlc.size['*']?.download_size || 0) + // Universal
+        (dlc.size[language]?.download_size || 0), // Lanuage
+      0
+    )
+  const disk_size =
+    (gogInfo.size['*']?.disk_size || 0) +
+    gogInfo.size[language].disk_size +
+    gogInfo.dlcs.reduce(
+      (acc, dlc) =>
+        acc +
+        (dlc.size['*']?.disk_size || 0) +
+        (dlc.size[language]?.disk_size || 0),
+      0
+    )
+
   const info: GogInstallInfo = {
     game: {
       app_name: appName,
       title: gameData.title,
-      owned_dlc: gogInfo.dlcs.map((dlc) => ({app_name: dlc.id, title: dlc.title, perLangSize: dlc.size})),
+      owned_dlc: gogInfo.dlcs.map((dlc) => ({
+        app_name: dlc.id,
+        title: dlc.title,
+        perLangSize: dlc.size
+      })),
       version: gogInfo.versionName,
       launch_options: [],
       branches: gogInfo.available_branches,
-      buildId: gogInfo!.buildId
+      buildId: gogInfo.buildId
     },
     manifest: {
-      download_size: 0,
-      disk_size: 0,
+      download_size: download_size,
+      disk_size: disk_size,
       perLangSize: gogInfo.size,
       app_name: appName,
       languages: gogInfo.languages,
-      versionEtag: gogInfo.versionEtag
+      versionEtag: gogInfo.versionEtag,
+      builds: gogInfo?.builds.items
     }
   }
-  installInfoStore.set(`${appName}_${installPlatform}_${branch}`, info)
+  installInfoStore.set(installInfoStoreKey, info)
   if (!info) {
     logWarning(
       [
@@ -1009,6 +1053,15 @@ export async function runRunnerCommand(
 ): Promise<ExecResult> {
   const { dir, bin } = getGOGdlBin()
   const authConfig = join(app.getPath('userData'), 'gog_store', 'auth.json')
+
+  if (!options) {
+    options = {}
+  }
+  if (!options.env) {
+    options.env = {}
+  }
+  options.env.GOGDL_CONFIG_PATH = gogdlConfigPath
+
   return callRunner(
     ['--auth-config-path', authConfig, ...commandParts],
     { name: 'gog', logPrefix: LogPrefix.Gog, bin, dir },

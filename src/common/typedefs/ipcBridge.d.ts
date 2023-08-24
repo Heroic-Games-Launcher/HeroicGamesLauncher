@@ -139,7 +139,8 @@ interface AsyncIPCFunctions {
     appName: string,
     runner: Runner,
     installPlatform: InstallPlatform,
-    branch?: string
+    branch?: string,
+    build?: string
   ) => Promise<LegendaryInstallInfo | GogInstallInfo | NileInstallInfo | null>
   getUserInfo: () => Promise<UserInfo | undefined>
   getAmazonUserInfo: () => Promise<NileUserData | undefined>

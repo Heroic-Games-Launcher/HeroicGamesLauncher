@@ -12,6 +12,7 @@ import {
   getGameInfo as getGogLibraryGameInfo,
   changeGameInstallPath,
   getMetaResponse,
+  getProductApi,
   getGamesData
 } from './library'
 import { join } from 'path'
@@ -25,7 +26,8 @@ import {
   spawnAsync,
   moveOnUnix,
   moveOnWindows,
-  shutdownWine
+  shutdownWine,
+  getPathDiskSize
 } from '../../utils'
 import {
   ExtraInfo,
@@ -99,12 +101,15 @@ export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   }
 
   const reqs = await createReqsArray(appName, targetPlatform)
-  const storeUrl = (await getGamesData(appName))?._links.store.href
+  const productInfo = await getProductApi(appName, ['changelog'])
 
   const extra: ExtraInfo = {
     about: gameInfo.extra?.about,
     reqs,
-    storeUrl
+    storeUrl:
+      productInfo?.data.links.product_card ||
+      (await getGamesData(appName))?._links?.store.href,
+    changelog: productInfo?.data.changelog
   }
   return extra
 }
@@ -270,7 +275,7 @@ export function onInstallOrUpdateOutput(
 
 export async function install(
   appName: string,
-  { path, installDlcs, platformToInstall, installLanguage }: InstallArgs
+  { path, installDlcs, platformToInstall, installLanguage, build }: InstallArgs
 ): Promise<{
   status: 'done' | 'error' | 'abort'
   error?: string
@@ -280,6 +285,8 @@ export async function install(
   const withDlcs = installDlcs?.length
     ? ['--with-dlcs', '--dlcs', installDlcs.join(',')]
     : ['--skip-dlcs']
+
+  const buildArgs = build ? ['--build', build] : []
 
   const credentials = await GOGUser.getCredentials()
 
@@ -306,7 +313,9 @@ export async function install(
     '--path',
     path,
     ...withDlcs,
-    `--lang=${installLanguage}`,
+    '--lang',
+    String(installLanguage),
+    ...buildArgs,
     ...workers
   ]
 
@@ -340,7 +349,12 @@ export async function install(
 
   // Installation succeded
   // Save new game info to installed games store
-  const installInfo = await getInstallInfo(appName, installPlatform)
+  const installInfo = await getInstallInfo(
+    appName,
+    installPlatform,
+    undefined,
+    build
+  )
   if (installInfo === undefined) {
     logError('install info is undefined in GOG install', LogPrefix.Gog)
     return { status: 'error' }
@@ -355,15 +369,18 @@ export async function install(
     logError('game info folder is undefined in GOG install', LogPrefix.Gog)
     return { status: 'error' }
   }
+
+  const sizeOnDisk = await getPathDiskSize(join(path, gameInfo.folder_name))
+
   const installedData: InstalledInfo = {
     platform: installPlatform,
     executable: '',
     install_path: join(path, gameInfo.folder_name),
-    install_size: getFileSize(installInfo.manifest.disk_size),
+    install_size: getFileSize(sizeOnDisk),
     is_dlc: false,
     version: additionalInfo ? additionalInfo.version : installInfo.game.version,
     appName: appName,
-    installedWithDLCs: Boolean(installDlcs),
+    installedDLCs: installDlcs,
     language: installLanguage,
     versionEtag: isLinuxNative ? '' : installInfo.manifest.versionEtag,
     buildId: isLinuxNative ? '' : installInfo.game.buildId
@@ -608,8 +625,6 @@ export async function repair(appName: string): Promise<ExecResult> {
     '--platform',
     installPlatform!,
     `--path=${gameData.install.install_path}`,
-    '--token',
-    `"${credentials.access_token}"`,
     withDlcs,
     `--lang=${gameData.install.language || 'en-US'}`,
     '-b=' + gameData.install.buildId,
@@ -661,8 +676,6 @@ export async function syncSaves(
       'save-sync',
       location.location,
       appName,
-      '--token',
-      `"${credentials.refresh_token}"`,
       '--os',
       gameInfo.install.platform,
       '--ts',
@@ -780,11 +793,11 @@ export async function update(
     appName,
     '--platform',
     installPlatform,
-    `--path=${gameData.install.install_path}`,
-    '--token',
-    `"${credentials.access_token}"`,
+    '--path',
+    String(gameData.install.install_path),
     withDlcs,
-    `--lang=${gameData.install.language || 'en-US'}`,
+    '--lang',
+    gameData.install.language || 'en-US',
     ...workers
   ]
 
@@ -835,7 +848,6 @@ export async function update(
     gameObject.buildId = installInfo.game.buildId
     gameObject.version = installInfo.game.version
     gameObject.versionEtag = etag
-    gameObject.install_size = getFileSize(installInfo.manifest.disk_size)
   } else {
     const installerInfo = await getLinuxInstallerInfo(appName)
     if (!installerInfo) {
@@ -843,6 +855,8 @@ export async function update(
     }
     gameObject.version = installerInfo.version
   }
+  const sizeOnDisk = await getPathDiskSize(join(gameObject.install_path))
+  gameObject.install_size = getFileSize(sizeOnDisk)
   installedGamesStore.set('installed', installedArray)
   refreshInstalled()
   sendFrontendMessage('gameStatusUpdate', {
@@ -864,9 +878,17 @@ async function getCommandParameters(appName: string) {
   const logPath = join(gamesConfigPath, appName + '.log')
   const credentials = await GOGUser.getCredentials()
 
-  const withDlcs = gameData.install.installedWithDLCs
-    ? '--with-dlcs'
-    : '--skip-dlcs'
+  const numberOfDLCs = gameData.install?.installedDLCs?.length || 0
+
+  const withDlcs =
+    gameData.install.installedWithDLCs || numberOfDLCs > 0
+      ? '--with-dlcs'
+      : '--skip-dlcs'
+
+  const dlcs =
+    numberOfDLCs > 0
+      ? ['--dlcs', gameData.install.installedDLCs?.join(',')]
+      : []
 
   const installPlatform = gameData.install.platform
 
@@ -876,7 +898,8 @@ async function getCommandParameters(appName: string) {
     installPlatform,
     logPath,
     credentials,
-    gameData
+    gameData,
+    dlcs
   }
 }
 
