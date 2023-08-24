@@ -152,6 +152,12 @@
             "wine-change": {
                 "message": "Vi kunde inte hitta den valda vinversionen för att lansera den här titeln ({{selectedWine}}). {{newline}} Vi hittade en till, vill du fortsätta lanseringen med {{foundWine}}?",
                 "title": "Vinet hittades inte!"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "Är du säker på att du vill sluta?",
+                    "message": "Alla osparade framsteg kan gå förlorade"
+                }
             }
         },
         "wineprefix": "Ange Wine-prefix mapp",
@@ -577,7 +583,8 @@
         "disable_logs": "Inaktivera loggar",
         "addgamestoapplications": "Lägg till spel till applikationer automatiskt",
         "showMetalOverlay": "Visa statistiköverlägg",
-        "alt-nile-bin": "Välj en alternativ Nile Binär"
+        "alt-nile-bin": "Välj en alternativ Nile Binär",
+        "autodxvknvapi": "Installera/uppdatera DXVK i prefix automatiskt"
     },
     "settings": {
         "battlEyeRuntime": {
