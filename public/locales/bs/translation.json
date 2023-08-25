@@ -577,7 +577,8 @@
         "disable_logs": "Onemogući dnevnike",
         "addgamestoapplications": "Automatski dodajte igre u aplikacije",
         "showMetalOverlay": "Prikaži preklapanje statistike",
-        "alt-nile-bin": "Odaberite alternativnu Nilsku binarnu"
+        "alt-nile-bin": "Odaberite alternativnu Nilsku binarnu",
+        "autodxvknvapi": "Automatska instalacija/ažuriranje DXVK na prefiksu"
     },
     "settings": {
         "battlEyeRuntime": {

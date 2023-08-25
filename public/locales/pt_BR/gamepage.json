@@ -21,7 +21,7 @@
             "title": "Selecione o EXE para executar"
         },
         "select": {
-            "button": "Selecionar"
+            "button": "Selecionar ignore-reused"
         },
         "sideload": {
             "exe": "Selecionar executável"
@@ -118,7 +118,7 @@
         "apple-gaming-wiki": "Classificação AppleGamingWiki",
         "clickToOpen": "Clique para abrir",
         "game-scores": "Pontuações do jogo",
-        "protondb-compatibility-info": "Nível de compatibilidade de prótons",
+        "protondb-compatibility-info": "Nível de compatibilidade do Proton",
         "steamdeck-compatibility-info": "Compatibilidade do SteamDeck"
     },
     "install": {

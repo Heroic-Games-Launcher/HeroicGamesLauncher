@@ -577,7 +577,8 @@
         "disable_logs": "Keela logid",
         "addgamestoapplications": "Lisage mänge rakendustesse automaatselt",
         "showMetalOverlay": "Kuva statistika ülekate",
-        "alt-nile-bin": "Valige alternatiivne Niiluse binaar"
+        "alt-nile-bin": "Valige alternatiivne Niiluse binaar",
+        "autodxvknvapi": "DXVK/VKD3D automaatne paigaldamine/uuendamine prefiksile"
     },
     "settings": {
         "battlEyeRuntime": {
