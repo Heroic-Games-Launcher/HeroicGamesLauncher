@@ -1,4 +1,5 @@
 import React from 'react'
+import './index.scss'
 import {
   Dialog,
   DialogContent,
@@ -31,7 +32,11 @@ export default function ModifyInstallModal({
   const { t } = useTranslation()
 
   return (
-    <Dialog showCloseButton onClose={() => onClose()}>
+    <Dialog
+      showCloseButton
+      onClose={() => onClose()}
+      className={'ModifyInstall__dialog'}
+    >
       <DialogHeader onClose={() => onClose()}>
         <div>{t('game.modify', 'Modify Installation')}</div>
       </DialogHeader>
@@ -39,10 +44,7 @@ export default function ModifyInstallModal({
         {gameInstallInfo ? (
           <>
             {gameInfo.runner === 'gog' && (
-              <GOGModifyInstallModal
-                gameInstallInfo={gameInstallInfo}
-                onClose={onClose}
-              />
+              <GOGModifyInstallModal gameInfo={gameInfo} onClose={onClose} />
             )}
             {gameInfo.runner === 'legendary' && (
               <LegendaryModifyInstallModal

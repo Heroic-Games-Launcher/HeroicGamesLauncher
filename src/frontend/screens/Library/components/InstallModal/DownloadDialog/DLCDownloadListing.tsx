@@ -15,15 +15,15 @@ const DLCDownloadListing: React.FC<Props> = ({
   dlcsToInstall
 }) => {
   const { t } = useTranslation()
-  const [installAllDlcs, setInstallAllDlcs] = useState(true)
+  const [installAllDlcs, setInstallAllDlcs] = useState(false)
 
   if (!DLCList) {
     return null
   }
 
   useEffect(() => {
-    setDlcsToInstall(DLCList.map(({ app_name }) => app_name))
-  }, [])
+    setInstallAllDlcs(dlcsToInstall.length === DLCList.length)
+  }, [dlcsToInstall])
 
   const handleAllDlcs = () => {
     setInstallAllDlcs(!installAllDlcs)
@@ -45,7 +45,6 @@ const DLCDownloadListing: React.FC<Props> = ({
       newDlcsToInstall.push(app_name)
     }
     setDlcsToInstall(newDlcsToInstall)
-    setInstallAllDlcs(newDlcsToInstall.length === DLCList.length)
   }
 
   return (

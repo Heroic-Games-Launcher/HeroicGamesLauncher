@@ -210,12 +210,14 @@ export interface InstalledInfo {
   version: string
   platform: InstallPlatform
   appName?: string
-  installedWithDLCs?: boolean // OLD GOG DLC boolean (deprecated)
+  installedWithDLCs?: boolean // OLD DLC boolean (all dlcs installed)
   installedDLCs?: string[] // New installed GOG DLCs array
   language?: string // For GOG games
   versionEtag?: string // Checksum for checking GOG updates
   buildId?: string // For verifing and version pinning of GOG games
   branch?: string // GOG beta channels
+  // Whether to skip update check for this title (currently only used for GOG as it is the only platform actively supporting version rollback)
+  pinnedVersion?: boolean
 }
 
 export interface Reqs {
@@ -246,6 +248,7 @@ export interface InstallArgs {
   installDlcs?: Array<string>
   sdlList?: string[]
   installLanguage?: string
+  branch?: string
   build?: string
 }
 

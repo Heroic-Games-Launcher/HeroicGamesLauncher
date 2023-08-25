@@ -742,12 +742,12 @@ ipcMain.handle('getGOGLinuxInstallersLangs', async (event, appName) =>
 
 ipcMain.handle(
   'getInstallInfo',
-  async (event, appName, runner, installPlatform, build) => {
+  async (event, appName, runner, installPlatform, build, branch) => {
     try {
       const info = await libraryManagerMap[runner].getInstallInfo(
         appName,
         installPlatform,
-        undefined,
+        branch,
         build
       )
       if (info === undefined) return null

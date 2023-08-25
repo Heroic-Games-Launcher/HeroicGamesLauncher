@@ -49,6 +49,7 @@
     "button": {
         "add_to_favourites": "Add To Favourites",
         "cancel": "Pause/Cancel",
+        "changelog": "Show Changelog",
         "continue": "Continue Download",
         "details": "Details",
         "finish": "Finish",
@@ -74,12 +75,19 @@
     },
     "cloud_save_unsupported": "Unsupported",
     "disabled": "Disabled",
-    "dlc": {
-        "installDlcs": "Install all DLCs"
-    },
     "enabled": "Enabled",
     "game": {
-        "dlcs": "DLCs",
+        "branch": {
+            "disabled": "Disabled",
+            "select": "Select beta channel",
+            "setPrivateBranchPassword": "Set private channel password"
+        },
+        "builds": {
+            "buildsSelector": "Select Game Version",
+            "toggle": "Keep the game at specific version",
+            "version": "Version"
+        },
+        "changelogFor": "Changelog for {{title}}",
         "downloadSize": "Download Size",
         "firstPlayed": "First Played",
         "getting-download-size": "Getting download size",
@@ -87,6 +95,7 @@
         "installSize": "Install Size",
         "language": "Language",
         "lastPlayed": "Last Played",
+        "modify": "Modify Installation",
         "neverPlayed": "Never",
         "platform": "Select Platform Version to Install",
         "requirements": "System Requirements",
@@ -150,6 +159,10 @@
     },
     "launch": {
         "options": "Launch Options..."
+    },
+    "modifyInstall": {
+        "dlcsCollapsible": "DLC",
+        "versionCollapsable": "Game Version"
     },
     "not_logged_in": {
         "amazon": "You are not logged in with an Amazon account in Heroic. Don't use the store page to login, click the following button instead:",

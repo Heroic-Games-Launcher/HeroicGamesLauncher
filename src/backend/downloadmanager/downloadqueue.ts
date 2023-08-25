@@ -126,7 +126,7 @@ async function addToQueue(element: DMQueueElement) {
     ].getInstallInfo(
       element.params.appName,
       element.params.platformToInstall,
-      undefined,
+      element.params.branch,
       element.params.build
     )
 

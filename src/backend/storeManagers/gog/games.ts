@@ -608,8 +608,9 @@ export async function moveInstall(
   return { status: 'done' }
 }
 
-/**
- * Literally installing game, since gogdl verifies files at runtime
+/*
+ * This proces verifies and repairs game files
+ * verification step doesn't have progress, but download does
  */
 export async function repair(appName: string): Promise<ExecResult> {
   const { installPlatform, gameData, credentials, withDlcs, logPath, workers } =
@@ -619,12 +620,15 @@ export async function repair(appName: string): Promise<ExecResult> {
     return { stderr: 'Unable to repair game, no credentials', stdout: '' }
   }
 
+  // Most of the data provided here is discarded, but can be used
+  // to obtain any missing manifest
   const commandParts = [
     'repair',
     appName,
     '--platform',
     installPlatform!,
-    `--path=${gameData.install.install_path}`,
+    '--path',
+    gameData.install.install_path!,
     withDlcs,
     `--lang=${gameData.install.language || 'en-US'}`,
     '-b=' + gameData.install.buildId,
@@ -890,6 +894,8 @@ async function getCommandParameters(appName: string) {
       ? ['--dlcs', gameData.install.installedDLCs?.join(',')]
       : []
 
+  const branch = gameData.install.branch
+
   const installPlatform = gameData.install.platform
 
   return {
@@ -899,7 +905,8 @@ async function getCommandParameters(appName: string) {
     logPath,
     credentials,
     gameData,
-    dlcs
+    dlcs,
+    branch
   }
 }
 

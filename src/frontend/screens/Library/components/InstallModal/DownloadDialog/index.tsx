@@ -23,11 +23,7 @@ import {
   LegendaryInstallInfo,
   SelectiveDownload
 } from 'common/types/legendary'
-import {
-  PathSelectionBox,
-  SelectField,
-  ToggleSwitch
-} from 'frontend/components/UI'
+import { PathSelectionBox, ToggleSwitch } from 'frontend/components/UI'
 import Anticheat from 'frontend/components/UI/Anticheat'
 import {
   DialogHeader,
@@ -39,7 +35,8 @@ import {
   size,
   getInstallInfo,
   writeConfig,
-  install
+  install,
+  getPreferredInstallLanguage
 } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { InstallProgress } from 'frontend/types'
@@ -55,6 +52,8 @@ import { AvailablePlatforms } from '../index'
 import { configStore } from 'frontend/helpers/electronStores'
 import DLCDownloadListing from './DLCDownloadListing'
 import { NileInstallInfo } from 'common/types/nile'
+import BuildSelector from './BuildSelector'
+import GameLanguageSelector from './GameLanguageSelector'
 
 interface Props {
   backdropClick: () => void
@@ -77,24 +76,6 @@ type DiskSpaceInfo = {
 }
 
 const storage: Storage = window.localStorage
-
-function getInstallLanguage(
-  availableLanguages: string[],
-  preferredLanguages: readonly string[]
-) {
-  const foundPreffered = preferredLanguages.find((plang) =>
-    availableLanguages.some((alang) => alang.startsWith(plang))
-  )
-  if (foundPreffered) {
-    const foundAvailable = availableLanguages.find((alang) =>
-      alang.startsWith(foundPreffered)
-    )
-    if (foundAvailable) {
-      return foundAvailable
-    }
-  }
-  return availableLanguages[0]
-}
 
 function getUniqueKey(sdl: SelectiveDownload) {
   if (sdl.tags) {
@@ -235,6 +216,7 @@ export default function DownloadDialog({
     const getIinstInfo = async () => {
       try {
         const fetchedPlatform = platformToInstall
+        const fetchedBuild = selectedBuild
         setGettingInstallInfo(true)
         const gameInstallInfo = await getInstallInfo(
           appName,
@@ -246,10 +228,15 @@ export default function DownloadDialog({
         setGettingInstallInfo(false)
 
         // Prevent condition when user changes the platform before we reach this point
-        if (platformToInstall !== fetchedPlatform) {
+        if (
+          platformToInstall !== fetchedPlatform ||
+          fetchedBuild !== selectedBuild
+        ) {
           return
         }
-
+        setDlcsToInstall(
+          (gameInstallInfo?.game.owned_dlc || []).map((dlc) => dlc.app_name)
+        )
         if (gameInstallInfo && gameInstallInfo.manifest) {
           setDiskSize(gameInstallInfo.manifest?.disk_size ?? 0)
         }
@@ -276,7 +263,7 @@ export default function DownloadDialog({
             setInstallLanguages(gameInstallInfo.manifest.languages.sort())
             if (!gameInstallInfo.manifest.languages.includes(installLanguage)) {
               setInstallLanguage(
-                getInstallLanguage(
+                getPreferredInstallLanguage(
                   gameInstallInfo.manifest.languages,
                   i18n.languages
                 )
@@ -291,7 +278,7 @@ export default function DownloadDialog({
             await window.api.getGOGLinuxInstallersLangs(appName)
           setInstallLanguages(installer_languages)
           setInstallLanguage(
-            getInstallLanguage(installer_languages, i18n.languages)
+            getPreferredInstallLanguage(installer_languages, i18n.languages)
           )
           setGettingInstallInfo(false)
         }
@@ -421,24 +408,6 @@ export default function DownloadDialog({
     return ''
   }, [gameInstallInfo, installLanguage, platformToInstall, dlcsToInstall])
 
-  const getLanguageName = useMemo(() => {
-    return (language: string) => {
-      try {
-        const locale = language.replace('_', '-')
-        const displayNames = new Intl.DisplayNames(
-          [locale, ...i18n.languages, 'en'],
-          {
-            type: 'language',
-            style: 'long'
-          }
-        )
-        return displayNames.of(locale)
-      } catch (e) {
-        return language
-      }
-    }
-  }, [i18n.languages, platformToInstall])
-
   const { validPath, notEnoughDiskSpace, message, spaceLeftAfter } = spaceLeft
   const title = gameInfo?.title
 
@@ -453,10 +422,6 @@ export default function DownloadDialog({
       }
     }
     return t('button.no-path-selected', 'No path selected')
-  }
-
-  const getFormattedDate = (dateStr: string) => {
-    return new Date(dateStr).toLocaleDateString(i18n.languages)
   }
 
   const readyToInstall = installPath && downloadSize && !gettingInstallInfo
@@ -531,19 +496,12 @@ export default function DownloadDialog({
           )}
         </div>
         {installLanguages && installLanguages?.length > 1 && (
-          <SelectField
-            label={`${t('game.language', 'Language')}:`}
-            htmlId="languagePick"
-            value={installLanguage}
-            onChange={(e) => setInstallLanguage(e.target.value)}
-          >
-            {installLanguages &&
-              installLanguages.map((value) => (
-                <option value={value} key={value}>
-                  {getLanguageName(value)}
-                </option>
-              ))}
-          </SelectField>
+          <GameLanguageSelector
+            installPlatform={platformToInstall}
+            installLanguage={installLanguage}
+            setInstallLanguage={setInstallLanguage}
+            installLanguages={installLanguages}
+          />
         )}
 
         <PathSelectionBox
@@ -604,43 +562,11 @@ export default function DownloadDialog({
         />
         {platformToInstall !== 'linux' && !!gameBuilds.length && (
           <div>
-            <ToggleSwitch
-              title={`${t('game.builds.toggle', 'Keep game up to date')}`}
-              htmlId="buildsSelectorToggle"
-              value={!selectedBuild}
-              handleChange={() => {
-                if (selectedBuild) {
-                  setSelectedBuild(undefined)
-                } else {
-                  setSelectedBuild(gameBuilds[0].build_id)
-                }
-              }}
+            <BuildSelector
+              gameBuilds={gameBuilds}
+              selectedBuild={selectedBuild}
+              setSelectedBuild={setSelectedBuild}
             />
-
-            {!!selectedBuild && !!gameBuilds.length && (
-              <SelectField
-                label={`${t(
-                  'game.builds.buildsSelector',
-                  'Select Game Version'
-                )}`}
-                htmlId="buildsSelectorField"
-                value={selectedBuild}
-                disabled={gameBuilds.length <= 1}
-                onChange={(e) => setSelectedBuild(e.target.value)}
-              >
-                {gameBuilds.map((build) => (
-                  <option
-                    key={`build-${build.build_id}`}
-                    value={build.build_id}
-                  >
-                    <>
-                      {t('game.builds.version', 'Version')} {build.version_name}{' '}
-                      - {getFormattedDate(build.date_published)}
-                    </>
-                  </option>
-                ))}
-              </SelectField>
-            )}
           </div>
         )}
         {children}

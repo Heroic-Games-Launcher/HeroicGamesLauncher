@@ -77,13 +77,15 @@ const getInstallInfo = async (
   appName: string,
   runner: Runner,
   installPlatform: InstallPlatform,
-  build?: string
+  build?: string,
+  branch?: string
 ): Promise<LegendaryInstallInfo | GogInstallInfo | NileInstallInfo | null> => {
   return window.api.getInstallInfo(
     appName,
     runner,
     handleRunnersPlatforms(installPlatform, runner),
-    build
+    build,
+    branch
   )
 }
 
@@ -141,6 +143,24 @@ const getStoreName = (runner: Runner, other: string) => {
   }
 }
 
+function getPreferredInstallLanguage(
+  availableLanguages: string[],
+  preferredLanguages: readonly string[]
+) {
+  const foundPreffered = preferredLanguages.find((plang) =>
+    availableLanguages.some((alang) => alang.startsWith(plang))
+  )
+  if (foundPreffered) {
+    const foundAvailable = availableLanguages.find((alang) =>
+      alang.startsWith(foundPreffered)
+    )
+    if (foundAvailable) {
+      return foundAvailable
+    }
+  }
+  return availableLanguages[0]
+}
+
 export {
   createNewWindow,
   getGameInfo,
@@ -163,5 +183,6 @@ export {
   writeConfig,
   removeSpecialcharacters,
   getStoreName,
-  getGOGLaunchOptions
+  getGOGLaunchOptions,
+  getPreferredInstallLanguage
 }

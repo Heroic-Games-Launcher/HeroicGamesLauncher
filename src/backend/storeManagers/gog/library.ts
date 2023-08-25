@@ -22,7 +22,7 @@ import {
   ProductsEndpointData,
   GOGDLInstallInfo
 } from 'common/types/gog'
-import { basename, join } from 'node:path'
+import { basename, dirname, join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
 import { app } from 'electron'
 
@@ -447,7 +447,7 @@ export async function getInstallInfo(
   // Calculate highest possible size (with DLCs) for display on game page
   const download_size =
     (gogInfo.size['*']?.download_size || 0) + // Universal depot
-    gogInfo.size[language].download_size + // Language depot
+    (gogInfo.size[language]?.download_size || 0) + // Language depot
     gogInfo.dlcs.reduce(
       (acc, dlc) =>
         acc +
@@ -457,7 +457,7 @@ export async function getInstallInfo(
     )
   const disk_size =
     (gogInfo.size['*']?.disk_size || 0) +
-    gogInfo.size[language].disk_size +
+    (gogInfo.size[language]?.disk_size || 0) +
     gogInfo.dlcs.reduce(
       (acc, dlc) =>
         acc +
@@ -1060,7 +1060,7 @@ export async function runRunnerCommand(
   if (!options.env) {
     options.env = {}
   }
-  options.env.GOGDL_CONFIG_PATH = gogdlConfigPath
+  options.env.GOGDL_CONFIG_PATH = dirname(gogdlConfigPath)
 
   return callRunner(
     ['--auth-config-path', authConfig, ...commandParts],

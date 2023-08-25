@@ -83,9 +83,17 @@ export const getInstallInfo = async (
   appName: string,
   runner: Runner,
   installPlatform: InstallPlatform,
-  build?: string
+  build?: string,
+  branch?: string
 ) =>
-  ipcRenderer.invoke('getInstallInfo', appName, runner, installPlatform, build)
+  ipcRenderer.invoke(
+    'getInstallInfo',
+    appName,
+    runner,
+    installPlatform,
+    build,
+    branch
+  )
 
 export const runWineCommand = async (args: WineCommandArgs) =>
   ipcRenderer.invoke('runWineCommand', args)
