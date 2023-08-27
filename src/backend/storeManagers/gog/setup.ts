@@ -529,7 +529,6 @@ async function obtainSetupInstructions(gameInfo: GameInfo) {
     return metaResponse.data.product?.support_commands
   }
 
-  // TODO: find if there are V2 games with something like support_commands in manifest
   return null
 }
 

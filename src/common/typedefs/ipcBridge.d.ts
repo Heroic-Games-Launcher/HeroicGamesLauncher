@@ -103,6 +103,11 @@ interface SyncIPCFunctions {
   resumeCurrentDownload: () => void
   pauseCurrentDownload: () => void
   cancelDownload: (removeDownloaded: boolean) => void
+  changeGameVersionPinnedStatus: (
+    appName: string,
+    runner: Runner,
+    status: boolean
+  ) => void
 }
 
 // ts-prune-ignore-next
@@ -264,6 +269,12 @@ interface AsyncIPCFunctions {
     appName: string
   ) => Promise<number | undefined>
   getAmazonLoginData: () => Promise<NileLoginData>
+
+  getAvailableCyberpunkMods: () => Promise<string[]>
+  setCyberpunkModConfig: (props: {
+    enabled: boolean
+    modsToLoad: string[]
+  }) => Promise<void>
 }
 
 // This is quite ugly & throws a lot of errors in a regular .ts file

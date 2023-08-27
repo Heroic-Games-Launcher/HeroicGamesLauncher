@@ -136,6 +136,7 @@ import {
 
 import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
 import {
+  getCyberpunkMods,
   getGOGPlaytime,
   syncQueuedPlaytimeGOG,
   updateGOGPlaytime
@@ -1681,6 +1682,15 @@ ipcMain.handle(
     return
   }
 )
+
+ipcMain.handle('getAvailableCyberpunkMods', async () => getCyberpunkMods())
+ipcMain.handle('setCyberpunkModConfig', async (e, props) =>
+  GOGLibraryManager.setCyberpunkModConfig(props)
+)
+
+ipcMain.on('changeGameVersionPinnedStatus', (e, appName, runner, status) => {
+  libraryManagerMap[runner].changeVersionPinnedStatus(appName, status)
+})
 
 /*
   Other Keys that should go into translation files:

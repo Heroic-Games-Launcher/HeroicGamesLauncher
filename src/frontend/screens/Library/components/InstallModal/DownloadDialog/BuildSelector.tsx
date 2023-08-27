@@ -22,25 +22,27 @@ export default function BuildSelector({
 
   return (
     <>
-      <ToggleSwitch
-        title={`${t(
-          'game.builds.toggle',
-          'Keep the game at specific version'
-        )}`}
-        htmlId="buildsSelectorToggle"
-        value={!!selectedBuild}
-        handleChange={() => {
-          if (selectedBuild) {
-            setSelectedBuild(undefined)
-          } else {
-            setSelectedBuild(gameBuilds[0].build_id)
-          }
-        }}
-      />
+      <label htmlFor="buildsSelectorToggle">
+        <ToggleSwitch
+          title={`${t(
+            'game.builds.toggle',
+            'Keep the game at specific version'
+          )}`}
+          htmlId="buildsSelectorToggle"
+          value={!!selectedBuild}
+          handleChange={() => {
+            if (selectedBuild) {
+              setSelectedBuild(undefined)
+            } else {
+              setSelectedBuild(gameBuilds[0].build_id)
+            }
+          }}
+        />
+      </label>
 
       {!!selectedBuild && !!gameBuilds.length && (
         <SelectField
-          label={`${t('game.builds.buildsSelector', 'Select Game Version')}`}
+          label={`${t('game.builds.buildsSelector', 'Select game version')}`}
           htmlId="buildsSelectorField"
           value={selectedBuild}
           disabled={gameBuilds.length <= 1}

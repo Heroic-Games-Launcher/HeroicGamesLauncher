@@ -97,6 +97,12 @@ export const handleRecentGamesChanged = (callback: any) => {
 
 export const addNewApp = (args: GameInfo) => ipcRenderer.send('addNewApp', args)
 
+export const changeGameVersionPinnedStatus = (
+  appName: string,
+  runner: Runner,
+  status: boolean
+) => ipcRenderer.send('changeGameVersionPinnedStatus', appName, runner, status)
+
 export const getGameOverride = async () => ipcRenderer.invoke('getGameOverride')
 
 export const getGameSdl = async (appName: string) =>

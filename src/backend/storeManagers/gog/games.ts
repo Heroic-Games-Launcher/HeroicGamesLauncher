@@ -87,6 +87,8 @@ import { logFileLocation } from 'backend/storeManagers/storeManagerCommon/games'
 import { getWineFlagsArray } from 'backend/utils/compatibility_layers'
 import axios, { AxiosError } from 'axios'
 import { isOnline, runOnceWhenOnline } from 'backend/online_monitor'
+import { readdir } from 'fs/promises'
+import { statSync } from 'fs'
 
 export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   const gameInfo = getGameInfo(appName)
@@ -383,7 +385,8 @@ export async function install(
     installedDLCs: installDlcs,
     language: installLanguage,
     versionEtag: isLinuxNative ? '' : installInfo.manifest.versionEtag,
-    buildId: isLinuxNative ? '' : installInfo.game.buildId
+    buildId: isLinuxNative ? '' : installInfo.game.buildId,
+    pinnedVersion: !!build
   }
   const array = installedGamesStore.get('installed', [])
   array.push(installedData)
@@ -480,6 +483,11 @@ export async function launch(
 
   const exeOverrideFlag = gameSettings.targetExe
     ? ['--override-exe', gameSettings.targetExe]
+    : gameInfo.install.cyberpunk?.modsEnabled
+    ? [
+        '--override-exe',
+        join(gameInfo.install.install_path, 'REDprelauncher.exe')
+      ]
     : []
 
   let commandEnv = isWindows
@@ -545,6 +553,66 @@ export async function launch(
     ...shlex.split(launchArguments ?? ''),
     ...shlex.split(gameSettings.launcherArgs ?? '')
   ]
+
+  if (gameInfo.install.cyberpunk?.modsEnabled) {
+    const startFolder = join(
+      gameInfo.install.install_path,
+      'tools',
+      'redmod',
+      'bin'
+    )
+
+    if (existsSync(startFolder)) {
+      const installDirectory = isWindows
+        ? gameInfo.install.install_path
+        : await getWinePath({
+            path: gameInfo.install.install_path,
+            variant: 'win',
+            gameSettings
+          })
+
+      const availableMods = await getCyberpunkMods()
+      const modsEnabledToLoad = gameInfo.install.cyberpunk.modsToLoad
+      const modsAbleToLoad: string[] = []
+
+      for (const mod in availableMods) {
+        if (modsEnabledToLoad.includes(mod)) {
+          modsAbleToLoad.push(mod)
+        }
+      }
+
+      if (!availableMods.length && !!availableMods) {
+        logWarning('No mods selected to load, loading all')
+        availableMods.push(...availableMods)
+      }
+
+      const redModCommand = [
+        'redMod.exe',
+        'deploy',
+        '-reportProgress',
+        '-root',
+        installDirectory,
+        ...modsAbleToLoad.map((mod) => ['-mod', mod]).flat()
+      ]
+
+      const result = await runWineCommandUtil({
+        commandParts: redModCommand,
+        wait: true,
+        gameSettings,
+        gameInstallPath: gameInfo.install.install_path,
+        startFolder
+      })
+
+      logInfo(result.stdout, { prefix: LogPrefix.Gog })
+      appendFileSync(
+        logFileLocation(appName),
+        `\nMods deploy log:\n${result.stdout}\n\n\n`
+      )
+      commandParts.push('-modded')
+    } else {
+      logError(['Unable to start modded game'], { prefix: LogPrefix.Gog })
+    }
+  }
 
   const fullCommand = getRunnerCallWithoutCredentials(
     commandParts,
@@ -784,13 +852,41 @@ export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
 }
 
 export async function update(
-  appName: string
+  appName: string,
+  updateOverwrites?: {
+    build?: string
+    branch?: string
+    language?: string
+    dlcs?: string[]
+  }
 ): Promise<{ status: 'done' | 'error' }> {
-  const { installPlatform, gameData, credentials, withDlcs, logPath, workers } =
-    await getCommandParameters(appName)
+  const {
+    installPlatform,
+    gameData,
+    credentials,
+    withDlcs,
+    logPath,
+    workers,
+    dlcs
+  } = await getCommandParameters(appName)
   if (!installPlatform || !credentials) {
     return { status: 'error' }
   }
+
+  const overwrittenBuild: string[] = updateOverwrites?.build
+    ? ['--build', updateOverwrites.build]
+    : []
+
+  const overwrittenBranch: string[] = updateOverwrites?.branch
+    ? ['--branch', updateOverwrites.branch]
+    : []
+
+  const overwrittenLanguage: string =
+    updateOverwrites?.language || gameData.install.language || 'en-US'
+
+  const overwrittenDlcs: string[] = updateOverwrites?.dlcs?.length
+    ? ['--dlcs', updateOverwrites.dlcs.join(',')]
+    : dlcs
 
   const commandParts = [
     'update',
@@ -801,8 +897,11 @@ export async function update(
     String(gameData.install.install_path),
     withDlcs,
     '--lang',
-    gameData.install.language || 'en-US',
-    ...workers
+    overwrittenLanguage,
+    ...overwrittenDlcs,
+    ...workers,
+    ...overwrittenBuild,
+    ...overwrittenBranch
   ]
 
   const onOutput = (data: string) => {
@@ -842,7 +941,13 @@ export async function update(
   const gameObject = installedArray[gameIndex]
 
   if (gameData.install.platform !== 'linux') {
-    const installInfo = await getInstallInfo(appName)
+    const installInfo = await getInstallInfo(
+      appName,
+      gameData.install.platform ?? 'windows',
+      updateOverwrites?.branch,
+      updateOverwrites?.build
+    )
+    // TODO: use installInfo.game.builds
     const { etag } = await getMetaResponse(
       appName,
       gameData.install.platform ?? 'windows',
@@ -851,6 +956,11 @@ export async function update(
     if (installInfo === undefined) return { status: 'error' }
     gameObject.buildId = installInfo.game.buildId
     gameObject.version = installInfo.game.version
+    gameObject.branch = updateOverwrites?.branch
+    gameObject.language = overwrittenLanguage
+    if (updateOverwrites?.dlcs) {
+      gameObject.installedDLCs = updateOverwrites?.dlcs
+    }
     gameObject.versionEtag = etag
   } else {
     const installerInfo = await getLinuxInstallerInfo(appName)
@@ -868,6 +978,8 @@ export async function update(
     runner: 'gog',
     status: 'done'
   })
+  gameData.install = gameObject
+  sendFrontendMessage('pushGameToLibrary', gameData)
   return { status: 'done' }
 }
 
@@ -890,8 +1002,8 @@ async function getCommandParameters(appName: string) {
       : '--skip-dlcs'
 
   const dlcs =
-    numberOfDLCs > 0
-      ? ['--dlcs', gameData.install.installedDLCs?.join(',')]
+    gameData.install.installedDLCs && numberOfDLCs > 0
+      ? ['--dlcs', gameData.install.installedDLCs.join(',')]
       : []
 
   const branch = gameData.install.branch
@@ -946,6 +1058,7 @@ async function postPlaytimeSession({
   session_date,
   time
 }: GOGSessionSyncQueueItem) {
+  return
   const userData: UserData | undefined = configStore.get_nodefault('userData')
   if (!userData) {
     logError('No userData, unable to post new session', {
@@ -1101,4 +1214,30 @@ export async function getGOGPlaytime(
     })
 
   return response?.data?.time_sum
+}
+
+export async function getCyberpunkMods(): Promise<string[]> {
+  const gameInfo = getGogLibraryGameInfo('1423049311')
+  if (!gameInfo || !gameInfo?.install?.install_path) {
+    return []
+  }
+
+  const modsPath = join(gameInfo.install.install_path, 'mods')
+  if (!existsSync(modsPath)) {
+    return []
+  }
+  const modsPathContents = await readdir(modsPath)
+
+  return modsPathContents.reduce((acc, next) => {
+    const modPath = join(modsPath, next)
+    const infoFilePath = join(modPath, 'info.json')
+
+    const modStat = statSync(modPath)
+
+    if (modStat.isDirectory() && existsSync(infoFilePath)) {
+      acc.push(next)
+    }
+
+    return acc
+  }, [] as string[])
 }

@@ -141,7 +141,12 @@ async function updateQueueElement(params: InstallParams): Promise<{
   }
 
   try {
-    const { status } = await gameManagerMap[runner].update(appName)
+    const { status } = await gameManagerMap[runner].update(appName, {
+      build: params.build,
+      branch: params.branch,
+      language: params.installLanguage,
+      dlcs: params.installDlcs
+    })
 
     if (status === 'error') {
       errorMessage('')

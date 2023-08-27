@@ -1,6 +1,11 @@
 import { GameInfo } from 'common/types'
 import { BuildItem, GogInstallInfo } from 'common/types/gog'
-import { SelectField, UpdateComponent } from 'frontend/components/UI'
+import {
+  SelectField,
+  TextInputField,
+  ToggleSwitch,
+  UpdateComponent
+} from 'frontend/components/UI'
 import { getInstallInfo, getPreferredInstallLanguage } from 'frontend/helpers'
 import DLCDownloadListing from 'frontend/screens/Library/components/InstallModal/DownloadDialog/DLCDownloadListing'
 import Collapsible from 'frontend/components/UI/Collapsible/Collapsible'
@@ -8,6 +13,11 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import BuildSelector from 'frontend/screens/Library/components/InstallModal/DownloadDialog/BuildSelector'
 import GameLanguageSelector from 'frontend/screens/Library/components/InstallModal/DownloadDialog/GameLanguageSelector'
+import { Dialog, DialogContent } from 'frontend/components/UI/Dialog'
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
+import classNames from 'classnames'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGripLines } from '@fortawesome/free-solid-svg-icons'
 
 interface GOGModifyInstallModal {
   gameInfo: GameInfo
@@ -19,6 +29,7 @@ export default function GOGModifyInstallModal({
   onClose
 }: GOGModifyInstallModal) {
   const { t, i18n } = useTranslation('gamepage')
+  const { t: tr } = useTranslation()
   const [gameInstallInfo, setGameInstallInfo] = useState<GogInstallInfo>()
 
   const [installLanguages, setInstallLanguages] = useState<string[]>([])
@@ -27,17 +38,32 @@ export default function GOGModifyInstallModal({
   )
 
   const [branches, setBranches] = useState<Array<string | null>>([])
-  const [branch, setBranch] = useState<string | undefined>()
+  const [branch, setBranch] = useState<string | undefined>(
+    gameInfo.install.branch
+  )
+  const [showBranchPasswordInput, setShowBranchPasswordInput] =
+    useState<boolean>(false)
+  const [branchPassword, setBranchPassword] = useState<string>('')
 
   // undefined means latest from current branch
   const [selectedBuild, setSelectedBuild] = useState<string | undefined>(
     gameInfo.install.pinnedVersion ? gameInfo.install.buildId : undefined
   )
   const [builds, setBuilds] = useState<BuildItem[]>([])
-  const [currentBuildNotAvailable, setCurrentBuildNotAvailable] =
-    useState<boolean>(false)
+  /*const [currentBuildNotAvailable, setCurrentBuildNotAvailable] =
+    useState<boolean>(false)*/
 
   const [installedDlcs, setInstalledDlcs] = useState<string[]>([])
+
+  const [detectedMods, setDetectedMods] = useState<string[]>([])
+  const [enabledModsList, setEnabledModsList] = useState<string[]>(
+    gameInfo.install.cyberpunk?.modsToLoad || []
+  )
+  const [modsEnabled, setModsEnabled] = useState<boolean>(
+    gameInfo.install.cyberpunk?.modsEnabled || false
+  )
+
+  const redModInstalled = gameInfo.install.installedDLCs?.includes('1597316373')
 
   const handleConfirm = () => {
     const gameBuild = selectedBuild || builds[0].build_id
@@ -46,15 +72,57 @@ export default function GOGModifyInstallModal({
     const languageModified = installLanguage !== gameInfo.install.language
     const branchModified = branch !== gameInfo.install.branch
 
-    console.log('-----')
-    console.log('buildModified', buildModified)
-    console.log('branchModified', branchModified)
-    console.log('languageModified', languageModified)
-    console.log('versionPinned', versionPinned)
-    console.log('-----')
+    const currentDlcs = (gameInfo.install.installedDLCs || []).sort()
+    const sortedChoice = installedDlcs.sort()
+    const dlcLengthModified = installedDlcs.length !== currentDlcs.length
+    let dlcIdsModified = false
+    if (!dlcLengthModified) {
+      for (const index in currentDlcs) {
+        if (currentDlcs[index] !== sortedChoice[index]) {
+          dlcIdsModified = true
+          break
+        }
+      }
+    }
 
-    const gameModified = buildModified || branchModified || languageModified
-    console.log('Game modified', gameModified)
+    const dlcModified = dlcLengthModified || dlcIdsModified
+
+    if (redModInstalled) {
+      const sortedMods = []
+      for (const mod of detectedMods) {
+        if (enabledModsList.includes(mod)) {
+          sortedMods.push(mod)
+        }
+      }
+      window.api.setCyberpunModConfig({
+        enabled: modsEnabled,
+        modsToLoad: sortedMods
+      })
+    }
+
+    const gameModified =
+      buildModified || branchModified || languageModified || dlcModified
+
+    if (gameModified) {
+      // Create update
+      window.api.updateGame({
+        gameInfo,
+        appName: gameInfo.app_name,
+        runner: gameInfo.runner,
+        installDlcs: installedDlcs,
+        installLanguage: installLanguage,
+        branch: branch,
+        build: selectedBuild
+      })
+    }
+
+    // Update version pin
+    window.api.changeGameVersionPinnedStatus(
+      gameInfo.app_name,
+      gameInfo.runner,
+      versionPinned
+    )
+
     onClose()
   }
 
@@ -89,12 +157,14 @@ export default function GOGModifyInstallModal({
       const currentBuildInList = newBuilds.find(
         (build) => build.build_id === gameInfo.install.buildId
       )
-      if (branch === gameInfo.install.branch) {
+      /*if (branch === gameInfo.install.branch) {
         setCurrentBuildNotAvailable(!currentBuildInList)
-        console.log(currentBuildNotAvailable)
-      }
+      }*/
       if (newBuilds.length > 0) {
-        setSelectedBuild(selectedBuild ? newBuilds[0].build_id : undefined)
+        const newBuild = currentBuildInList
+          ? gameInfo.install.buildId
+          : newBuilds[0].build_id
+        setSelectedBuild(selectedBuild ? newBuild : undefined)
       }
       setBuilds(newBuilds)
     }
@@ -122,13 +192,66 @@ export default function GOGModifyInstallModal({
     }
   }, [gameInstallInfo, gameInfo.install])
 
+  // Mods
+  useEffect(() => {
+    const get = async () => {
+      if (redModInstalled) {
+        const mods = await window.api.getAvailableCyberpunkMods()
+        const sortedMods: string[] = []
+        // Apply sorting of enabled mods
+        for (const mod of enabledModsList) {
+          if (mods.includes(mod)) {
+            sortedMods.push(mod)
+          }
+        }
+        const rest = mods.filter((mod) => !sortedMods.includes(mod))
+        const detMods = [...sortedMods, ...rest]
+        setDetectedMods(detMods)
+        if (!enabledModsList.length) {
+          setEnabledModsList(detMods)
+        }
+      }
+    }
+    get()
+  }, [redModInstalled])
+
   const DLCList = gameInstallInfo?.game.owned_dlc || []
 
   return gameInstallInfo ? (
     <>
+      {showBranchPasswordInput && (
+        <Dialog
+          showCloseButton={false}
+          onClose={() => setShowBranchPasswordInput(false)}
+        >
+          <DialogContent className="ModifyInstall__branchPassword">
+            <TextInputField
+              htmlId="private-branch-password-input"
+              value={branchPassword}
+              type={'password'}
+              onChange={(e) => setBranchPassword(e.target.value)}
+              placeholder={t(
+                'game.branch.password',
+                'Set private channel password'
+              )}
+            />
+            <div className="controls">
+              <button
+                className="button is-danger"
+                onClick={() => setShowBranchPasswordInput(false)}
+              >
+                {tr('button.cancel', 'Cancel')}
+              </button>
+              <button className="button is-success">
+                {tr('box.ok', 'OK')}
+              </button>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
       <Collapsible
         isOpen
-        isCollapsible={DLCList.length > 0}
+        isCollapsible={DLCList.length > 0 || redModInstalled}
         summary={t('modifyInstall.versionCollapsable', 'Game Version')}
       >
         <div className="ModifyInstall__branch">
@@ -141,7 +264,7 @@ export default function GOGModifyInstallModal({
               if (value === 'null') {
                 setBranch(undefined)
               } else if (value === 'heroic-update-passwordOption') {
-                // Handle password setting
+                setShowBranchPasswordInput(true)
               } else {
                 setBranch(e.target.value)
               }
@@ -195,8 +318,111 @@ export default function GOGModifyInstallModal({
           </div>
         </Collapsible>
       )}
+
+      {/* REDMod compatibility */}
+      {redModInstalled && (
+        <Collapsible
+          isOpen
+          isCollapsible
+          summary={t('modifyInstall.redMod.collapsible', 'REDmod Integration')}
+        >
+          <DragDropContext
+            onDragEnd={(result) => {
+              const { source, destination } = result
+
+              if (!destination) {
+                return
+              }
+
+              if (
+                destination.droppableId === source.droppableId &&
+                destination.index === source.index
+              ) {
+                return
+              }
+
+              const newModsArray = [...detectedMods]
+              const removed = newModsArray.splice(source.index, 1)
+              newModsArray.splice(destination.index, 0, ...removed)
+
+              setDetectedMods(newModsArray)
+            }}
+          >
+            <div className="ModifyInstall__redMod">
+              <label htmlFor="REDenableMods">
+                <ToggleSwitch
+                  htmlId="REDenableMods"
+                  value={modsEnabled}
+                  handleChange={() => setModsEnabled(!modsEnabled)}
+                  title={t('modifyInstall.redMod.enable', 'Enable mods')}
+                />
+              </label>
+
+              <Droppable droppableId="mods">
+                {(provided, snapshot) => (
+                  <div
+                    ref={provided.innerRef}
+                    className={classNames('mods', {
+                      draggingOver: snapshot.isDraggingOver
+                    })}
+                    {...provided.droppableProps}
+                  >
+                    {detectedMods.map((mod, index) => (
+                      <Draggable
+                        key={`mod-${mod}`}
+                        draggableId={mod}
+                        index={index}
+                      >
+                        {(provided) => (
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            className="modDraggable"
+                          >
+                            <label htmlFor={`mod-${mod}`}>
+                              <ToggleSwitch
+                                htmlId={`mod-${mod}`}
+                                title={mod}
+                                value={enabledModsList.includes(mod)}
+                                handleChange={() => {
+                                  const enabled = enabledModsList.includes(mod)
+                                  const enabledList = [...enabledModsList]
+                                  if (enabled) {
+                                    // We need to have at least one mod enabled for this feature to work
+                                    if (enabledModsList.length === 1) {
+                                      return
+                                    }
+                                    // Remove
+                                    const index = enabledList.findIndex(
+                                      (modL) => modL === mod
+                                    )
+                                    enabledList.splice(index, 1)
+                                  } else {
+                                    // Add
+                                    enabledList.push(mod)
+                                  }
+                                  setEnabledModsList(enabledList)
+                                }}
+                              />
+                            </label>
+                            <div {...provided.dragHandleProps}>
+                              <FontAwesomeIcon icon={faGripLines} width={40} />
+                            </div>
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </div>
+          </DragDropContext>
+        </Collapsible>
+      )}
+
       <button className="button is-success" onClick={handleConfirm}>
-        OK
+        {tr('box.ok', 'Ok')}
       </button>
     </>
   ) : (

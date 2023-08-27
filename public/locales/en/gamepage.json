@@ -79,11 +79,12 @@
     "game": {
         "branch": {
             "disabled": "Disabled",
+            "password": "Set private channel password",
             "select": "Select beta channel",
             "setPrivateBranchPassword": "Set private channel password"
         },
         "builds": {
-            "buildsSelector": "Select Game Version",
+            "buildsSelector": "Select game version",
             "toggle": "Keep the game at specific version",
             "version": "Version"
         },
@@ -162,6 +163,10 @@
     },
     "modifyInstall": {
         "dlcsCollapsible": "DLC",
+        "redMod": {
+            "collapsible": "REDmod Integration",
+            "enable": "Enable mods"
+        },
         "versionCollapsable": "Game Version"
     },
     "not_logged_in": {

@@ -592,6 +592,14 @@ export async function listUpdateableGames(): Promise<string[]> {
     if (!game.appName) {
       continue
     }
+
+    if (game.pinnedVersion) {
+      logWarning(
+        ['Game', game.appName, 'has pinned version, update check skipped'],
+        { prefix: LogPrefix.Gog }
+      )
+      continue
+    }
     // use different check for linux games
     if (game.platform === 'linux') {
       if (!(await checkForLinuxInstallerUpdate(game.appName, game.version)))
@@ -1099,4 +1107,57 @@ export function getLaunchOptions(appName: string): LaunchOption[] {
   }
 
   return newLaunchOptions
+}
+
+export function changeVersionPinnedStatus(appName: string, status: boolean) {
+  const game = library.get(appName)
+  const installed = installedGames.get(appName)
+  if (!game || !installed) {
+    return
+  }
+  game.install.pinnedVersion = status
+  installed.pinnedVersion = status
+  library.set(appName, game)
+  installedGames.set(appName, installed)
+
+  const installedArray = installedGamesStore.get('installed', [])
+
+  const index = installedArray.findIndex((iGame) => iGame.appName === appName)
+
+  if (index > -1) {
+    installedArray.splice(index, 1, installed)
+  }
+  installedGamesStore.set('installed', installedArray)
+  sendFrontendMessage('pushGameToLibrary', game)
+}
+
+export function setCyberpunkModConfig(props: {
+  enabled: boolean
+  modsToLoad: string[]
+}) {
+  const cpId = '1423049311'
+  const game = library.get(cpId)
+  const installed = installedGames.get(cpId)
+  if (!game || !installed) {
+    return
+  }
+
+  installed.cyberpunk = {
+    modsEnabled: props.enabled,
+    modsToLoad: props.modsToLoad
+  }
+
+  game.install = installed
+  const installedArray = installedGamesStore.get('installed', [])
+
+  const index = installedArray.findIndex((iGame) => iGame.appName === cpId)
+
+  if (index > -1) {
+    installedArray.splice(index, 1, installed)
+  }
+
+  library.set(cpId, game)
+  installedGames.set(cpId, installed)
+  installedGamesStore.set('installed', installedArray)
+  sendFrontendMessage('pushGameToLibrary', game)
 }

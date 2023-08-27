@@ -73,6 +73,14 @@ export const getExtraInfo = async (appName: string, runner: Runner) =>
 export const getGOGLaunchOptions = async (appName: string) =>
   ipcRenderer.invoke('getGOGLaunchOptions', appName)
 
+// REDmod integration
+export const getAvailableCyberpunkMods = async () =>
+  ipcRenderer.invoke('getAvailableCyberpunkMods')
+export const setCyberpunModConfig = async (props: {
+  enabled: boolean
+  modsToLoad: string[]
+}) => ipcRenderer.invoke('setCyberpunkModConfig', props)
+
 export const getGameSettings = async (
   appName: string,
   runner: Runner
