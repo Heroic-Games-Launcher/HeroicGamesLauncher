@@ -270,6 +270,9 @@ interface AsyncIPCFunctions {
   ) => Promise<number | undefined>
   getAmazonLoginData: () => Promise<NileLoginData>
 
+  setPrivateBranchPassword: (appName: string, password: string) => void
+  getPrivateBranchPassword: (appName: string) => string
+
   getAvailableCyberpunkMods: () => Promise<string[]>
   setCyberpunkModConfig: (props: {
     enabled: boolean

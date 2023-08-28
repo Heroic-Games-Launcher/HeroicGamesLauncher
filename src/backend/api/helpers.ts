@@ -73,6 +73,13 @@ export const getExtraInfo = async (appName: string, runner: Runner) =>
 export const getGOGLaunchOptions = async (appName: string) =>
   ipcRenderer.invoke('getGOGLaunchOptions', appName)
 
+export const getPrivateBranchPassword = async (appName: string) =>
+  ipcRenderer.invoke('getPrivateBranchPassword', appName)
+export const setPrivateBranchPassword = async (
+  appName: string,
+  password: string
+) => ipcRenderer.invoke('setPrivateBranchPassword', appName, password)
+
 // REDmod integration
 export const getAvailableCyberpunkMods = async () =>
   ipcRenderer.invoke('getAvailableCyberpunkMods')

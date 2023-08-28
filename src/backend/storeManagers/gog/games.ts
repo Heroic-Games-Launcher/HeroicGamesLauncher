@@ -45,6 +45,7 @@ import {
   configStore,
   installedGamesStore,
   playtimeSyncQueue,
+  privateBranchesStore,
   syncStore
 } from './electronStores'
 import {
@@ -284,6 +285,7 @@ export async function install(
 }> {
   const { maxWorkers } = GlobalConfig.get().getSettings()
   const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
+  const privateBranchPassword = privateBranchesStore.get(appName, '')
   const withDlcs = installDlcs?.length
     ? ['--with-dlcs', '--dlcs', installDlcs.join(',')]
     : ['--skip-dlcs']
@@ -320,6 +322,10 @@ export async function install(
     ...buildArgs,
     ...workers
   ]
+
+  if (privateBranchPassword.length) {
+    commandParts.push('--password', privateBranchPassword)
+  }
 
   const onOutput = (data: string) => {
     onInstallOrUpdateOutput(appName, 'installing', data)
@@ -575,15 +581,15 @@ export async function launch(
       const modsEnabledToLoad = gameInfo.install.cyberpunk.modsToLoad
       const modsAbleToLoad: string[] = []
 
-      for (const mod in availableMods) {
-        if (modsEnabledToLoad.includes(mod)) {
+      for (const mod of modsEnabledToLoad) {
+        if (availableMods.includes(mod)) {
           modsAbleToLoad.push(mod)
         }
       }
 
-      if (!availableMods.length && !!availableMods) {
-        logWarning('No mods selected to load, loading all')
-        availableMods.push(...availableMods)
+      if (!modsEnabledToLoad.length && !!availableMods.length) {
+        logWarning('No mods selected to load, loading all in alphabetic order')
+        modsAbleToLoad.push(...availableMods)
       }
 
       const redModCommand = [
@@ -594,6 +600,7 @@ export async function launch(
         installDirectory,
         ...modsAbleToLoad.map((mod) => ['-mod', mod]).flat()
       ]
+
 
       const result = await runWineCommandUtil({
         commandParts: redModCommand,
@@ -606,8 +613,16 @@ export async function launch(
       logInfo(result.stdout, { prefix: LogPrefix.Gog })
       appendFileSync(
         logFileLocation(appName),
-        `\nMods deploy log:\n${result.stdout}\n\n\n`
+        `\nMods deploy log:\n${result.stdout}\n\n${result.stderr}\n\n\n`
       )
+      if (result.code && result.code !== 0) {
+        showDialogBoxModalAuto({
+          title: 'Mod deploy failed',
+          message: `Following logs are also available in game log\n\nredMod log:\n ${result.stdout}\n\n\n${result.stderr}`,
+          type: 'ERROR'
+        })
+        return true
+      }
       commandParts.push('-modded')
     } else {
       logError(['Unable to start modded game'], { prefix: LogPrefix.Gog })
@@ -687,6 +702,7 @@ export async function repair(appName: string): Promise<ExecResult> {
   if (!credentials) {
     return { stderr: 'Unable to repair game, no credentials', stdout: '' }
   }
+  const privateBranchPassword = privateBranchesStore.get(appName, '')
 
   // Most of the data provided here is discarded, but can be used
   // to obtain any missing manifest
@@ -702,6 +718,10 @@ export async function repair(appName: string): Promise<ExecResult> {
     '-b=' + gameData.install.buildId,
     ...workers
   ]
+
+  if (privateBranchPassword.length) {
+    commandParts.push('--password', privateBranchPassword)
+  }
 
   const res = await runGogdlCommand(
     commandParts,
@@ -873,6 +893,8 @@ export async function update(
     return { status: 'error' }
   }
 
+  const privateBranchPassword = privateBranchesStore.get(appName, '')
+
   const overwrittenBuild: string[] = updateOverwrites?.build
     ? ['--build', updateOverwrites.build]
     : []
@@ -903,6 +925,9 @@ export async function update(
     ...overwrittenBuild,
     ...overwrittenBranch
   ]
+  if (privateBranchPassword.length) {
+    commandParts.push('--password', privateBranchPassword)
+  }
 
   const onOutput = (data: string) => {
     onInstallOrUpdateOutput(appName, 'updating', data)
@@ -1213,6 +1238,14 @@ export async function getGOGPlaytime(
     })
 
   return response?.data?.time_sum
+}
+
+export function getBranchPassword(appName: string): string {
+  return privateBranchesStore.get(appName, '')
+}
+
+export function setBranchPassword(appName: string, password: string): void {
+  privateBranchesStore.set(appName, password)
 }
 
 export async function getCyberpunkMods(): Promise<string[]> {

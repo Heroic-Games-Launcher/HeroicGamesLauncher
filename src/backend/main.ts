@@ -137,6 +137,8 @@ import {
 import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
 import {
   getCyberpunkMods,
+  getBranchPassword,
+  setBranchPassword,
   getGOGPlaytime,
   syncQueuedPlaytimeGOG,
   updateGOGPlaytime
@@ -1681,6 +1683,13 @@ ipcMain.handle(
 
     return
   }
+)
+
+ipcMain.handle('getPrivateBranchPassword', (e, appName) =>
+  getBranchPassword(appName)
+)
+ipcMain.handle('setPrivateBranchPassword', (e, appName, password) =>
+  setBranchPassword(appName, password)
 )
 
 ipcMain.handle('getAvailableCyberpunkMods', async () => getCyberpunkMods())

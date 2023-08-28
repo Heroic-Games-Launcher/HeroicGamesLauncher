@@ -17,6 +17,9 @@
 
   &__redMod {
     margin-bottom: var(--space-md);
+    & .modsHelpWrapper {
+      margin: 0 var(--space-md);
+    }
     & .modDraggable {
       top: auto !important;
       left: auto !important;

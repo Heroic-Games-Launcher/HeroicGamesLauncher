@@ -39,7 +39,8 @@ import {
   libraryStore,
   installedGamesStore,
   installInfoStore,
-  apiInfoCache
+  apiInfoCache,
+  privateBranchesStore
 } from './electronStores'
 import { callRunner } from '../../launcher'
 import {
@@ -308,7 +309,9 @@ export async function getInstallInfo(
     installPlatform = 'osx'
   }
 
-  const installInfoStoreKey = `${appName}_${installPlatform}_${branch}_${build}`
+  const privateBranchPassword = privateBranchesStore.get(appName, '')
+
+  const installInfoStoreKey = `${appName}_${installPlatform}_${branch}_${build}_${privateBranchPassword}`
 
   if (installInfoStore.has(installInfoStoreKey)) {
     const cache = installInfoStore.get(installInfoStoreKey)
@@ -353,6 +356,10 @@ export async function getInstallInfo(
     ...(branch !== 'null' ? ['--branch', branch] : []),
     ...(build ? ['--build', build] : [])
   ]
+
+  if (privateBranchPassword.length) {
+    commandParts.push('--password', privateBranchPassword)
+  }
 
   const res = await runRunnerCommand(
     commandParts,
@@ -1069,6 +1076,10 @@ export async function runRunnerCommand(
     options.env = {}
   }
   options.env.GOGDL_CONFIG_PATH = dirname(gogdlConfigPath)
+
+  if (!app.isPackaged) {
+    commandParts.push('-d') // Enable debug logging when in development
+  }
 
   return callRunner(
     ['--auth-config-path', authConfig, ...commandParts],

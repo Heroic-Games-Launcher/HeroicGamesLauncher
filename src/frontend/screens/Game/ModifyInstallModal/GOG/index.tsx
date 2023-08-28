@@ -1,6 +1,7 @@
 import { GameInfo } from 'common/types'
 import { BuildItem, GogInstallInfo } from 'common/types/gog'
 import {
+  InfoBox,
   SelectField,
   TextInputField,
   ToggleSwitch,
@@ -43,6 +44,8 @@ export default function GOGModifyInstallModal({
   )
   const [showBranchPasswordInput, setShowBranchPasswordInput] =
     useState<boolean>(false)
+
+  const [savedBranchPassword, setSavedBranchPassword] = useState<string>('')
   const [branchPassword, setBranchPassword] = useState<string>('')
 
   // undefined means latest from current branch
@@ -128,6 +131,17 @@ export default function GOGModifyInstallModal({
 
   useEffect(() => {
     async function get() {
+      const branchPassword = await window.api.getPrivateBranchPassword(
+        gameInfo.app_name
+      )
+      setBranchPassword(branchPassword)
+      setSavedBranchPassword(branchPassword)
+    }
+    get()
+  }, [])
+
+  useEffect(() => {
+    async function get() {
       const installInfo = (await getInstallInfo(
         gameInfo.app_name,
         'gog',
@@ -142,7 +156,7 @@ export default function GOGModifyInstallModal({
       setGameInstallInfo(installInfo)
     }
     get()
-  }, [branch])
+  }, [branch, savedBranchPassword])
 
   useEffect(() => {
     if (gameInstallInfo && 'builds' in gameInstallInfo.manifest) {
@@ -238,11 +252,24 @@ export default function GOGModifyInstallModal({
             <div className="controls">
               <button
                 className="button is-danger"
-                onClick={() => setShowBranchPasswordInput(false)}
+                onClick={() => {
+                  setShowBranchPasswordInput(false)
+                  setBranchPassword(savedBranchPassword)
+                }}
               >
                 {tr('button.cancel', 'Cancel')}
               </button>
-              <button className="button is-success">
+              <button
+                className="button is-success"
+                onClick={() => {
+                  setShowBranchPasswordInput(false)
+                  window.api
+                    .setPrivateBranchPassword(gameInfo.app_name, branchPassword)
+                    .finally(() => {
+                      setSavedBranchPassword(branchPassword)
+                    })
+                }}
+              >
                 {tr('box.ok', 'OK')}
               </button>
             </div>
@@ -357,6 +384,23 @@ export default function GOGModifyInstallModal({
                   title={t('modifyInstall.redMod.enable', 'Enable mods')}
                 />
               </label>
+
+              <div className="modsHelpWrapper">
+                <InfoBox text="infobox.help">
+                  <p>The list below contains all mods detected by REDmod.</p>
+                  <p>
+                    Mods can be reordered, which will alter the load order. E.g
+                    if two mods modify same file, the mod that is lower in the
+                    list will overwrite the changes of the other one.
+                  </p>
+                  <p>At least one mod has to be enabled</p>
+                  <p>
+                    Checkbox &quot;Enable mods&quot; decides whether the game
+                    should be launched with mods. Mod deployment log can be
+                    found within the game log
+                  </p>
+                </InfoBox>
+              </div>
 
               <Droppable droppableId="mods">
                 {(provided, snapshot) => (

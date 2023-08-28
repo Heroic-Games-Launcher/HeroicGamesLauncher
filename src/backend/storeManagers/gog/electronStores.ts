@@ -29,6 +29,12 @@ const syncStore = new TypeCheckedStoreBackend('gogSyncStore', {
 
 const installInfoStore = new CacheStore<GogInstallInfo>('gog_install_info')
 
+const privateBranchesStore = new TypeCheckedStoreBackend('gogPrivateBranches', {
+  cwd: 'gog_store',
+  name: 'privateBranches',
+  clearInvalidConfig: true
+})
+
 const playtimeSyncQueue = new CacheStore<Array<GOGSessionSyncQueueItem>>(
   'gog_playtime_sync_queue'
 )
@@ -40,5 +46,6 @@ export {
   libraryStore,
   syncStore,
   installInfoStore,
-  playtimeSyncQueue
+  playtimeSyncQueue,
+  privateBranchesStore
 }
