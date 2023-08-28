@@ -601,15 +601,22 @@ export async function launch(
         ...modsAbleToLoad.map((mod) => ['-mod', mod]).flat()
       ]
 
-
-      const result = await runWineCommandUtil({
-        commandParts: redModCommand,
-        wait: true,
-        gameSettings,
-        gameInstallPath: gameInfo.install.install_path,
-        startFolder
-      })
-
+      let result: { stdout: string; stderr: string; code?: number | null } = {
+        stdout: '',
+        stderr: ''
+      }
+      if (isWindows) {
+        const [bin, ...args] = redModCommand
+        result = await spawnAsync(bin, args, { cwd: startFolder })
+      } else {
+        result = await runWineCommandUtil({
+          commandParts: redModCommand,
+          wait: true,
+          gameSettings,
+          gameInstallPath: gameInfo.install.install_path,
+          startFolder
+        })
+      }
       logInfo(result.stdout, { prefix: LogPrefix.Gog })
       appendFileSync(
         logFileLocation(appName),

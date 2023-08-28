@@ -593,7 +593,11 @@ async function runWineCommand({
   options,
   startFolder,
   skipPrefixCheckIKnowWhatImDoing = false
-}: WineCommandArgs): Promise<{ stderr: string; stdout: string; code?: number }> {
+}: WineCommandArgs): Promise<{
+  stderr: string
+  stdout: string
+  code?: number
+}> {
   const settings = gameSettings
     ? gameSettings
     : GlobalConfig.get().getSettings()
@@ -709,7 +713,11 @@ async function runWineCommand({
     })
 
     child.on('close', async (code) => {
-      const response = { stderr: stderr.join(''), stdout: stdout.join(''), code }
+      const response = {
+        stderr: stderr.join(''),
+        stdout: stdout.join(''),
+        code
+      }
 
       if (wait && wineVersion.wineserver) {
         await new Promise<void>((res_wait) => {
