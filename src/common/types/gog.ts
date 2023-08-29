@@ -63,6 +63,7 @@ interface GameManifest {
   perLangSize: PerLanguageSize
   languages: string[]
   versionEtag: string
+  dependencies: string[]
   builds?: BuildItem[]
 }
 
@@ -339,7 +340,17 @@ export interface BuildItem {
   public: boolean
   date_published: string
   generation: number
-  link: string
+  link?: string
+  // Visible only with _version=2 parameter
+  urls?: {
+    endpoint_name: string
+    url: string
+    url_format: string
+    parameters: string
+    fallback_only: boolean
+    max_fails: number
+    priority: number
+  }[]
 }
 
 interface ProductsEndpointFile {
@@ -428,3 +439,67 @@ export interface ProductsEndpointData {
   }
   changelog?: string
 }
+
+// MANIFESTS
+
+export interface GOGv1Manifest {
+  version: 1
+  product: {
+    timestamp: number
+    depots: Array<
+      | {
+          languages: string[]
+          size: string
+          gameIDs: string[]
+          systems: string[]
+          manifest: string
+        }
+      | { redist: string; executable: string; argument: string; size: string }
+    >
+
+    support_commands: {
+      languages: string[]
+      executable: string
+      gameID: string
+      argument: string
+      systems: string[]
+    }
+    installDirectory: string
+    rootGameID: string
+    gameIDs: {
+      gameID: string
+      name: { [lang: string]: string }
+      dependencies: string[]
+      standalone: boolean
+    }[]
+    projectName: string
+  }
+}
+
+export interface GOGv2Manifest {
+  version: 2
+  baseProductId: string
+  buildId: string
+  clientId?: string
+  clientSecret?: string
+  dependencies?: string[]
+  depots: Array<{
+    compressedSize: number
+    languages: string[]
+    manifest: string
+    productId: string
+    size: number
+    isGogDepot?: boolean
+  }>
+  platform: GogInstallPlatform
+  installDirectory: string
+  products: Array<{
+    name: string
+    productId: string
+    temp_arguments: string
+    temp_executable: string
+  }>
+  tags?: string[]
+  scriptInterpreter: boolean
+}
+

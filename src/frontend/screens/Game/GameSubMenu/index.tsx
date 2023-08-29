@@ -19,6 +19,7 @@ interface Props {
   title: string
   storeUrl: string
   changelog?: string
+  installPlatform?: string
   runner: Runner
   handleUpdate: () => void
   handleChangeLog: () => void
@@ -34,6 +35,7 @@ export default function GamesSubmenu({
   storeUrl,
   changelog,
   runner,
+  installPlatform,
   handleUpdate,
   handleChangeLog,
   disableUpdate,
@@ -220,7 +222,10 @@ export default function GamesSubmenu({
   }
 
   const showModifyItem =
-    onShowModifyInstall && ['legendary', 'gog'].includes(runner) && isInstalled
+    onShowModifyInstall &&
+    ['legendary', 'gog'].includes(runner) &&
+    isInstalled &&
+    installPlatform !== 'linux'
 
   return (
     <>

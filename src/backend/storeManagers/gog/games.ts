@@ -22,7 +22,6 @@ import {
   errorHandler,
   getFileSize,
   getGOGdlBin,
-  killPattern,
   spawnAsync,
   moveOnUnix,
   moveOnWindows,
@@ -40,7 +39,14 @@ import {
   InstallProgress
 } from 'common/types'
 import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
-import { gamesConfigPath, isWindows, isMac, isLinux } from '../../constants'
+import {
+  gamesConfigPath,
+  isWindows,
+  isMac,
+  isLinux,
+  gogdlConfigPath,
+  gogSupportPath
+} from '../../constants'
 import {
   configStore,
   installedGamesStore,
@@ -90,6 +96,10 @@ import axios, { AxiosError } from 'axios'
 import { isOnline, runOnceWhenOnline } from 'backend/online_monitor'
 import { readdir } from 'fs/promises'
 import { statSync } from 'fs'
+import {
+  getRequiredRedistList,
+  updateRedist
+} from './redist'
 
 export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   const gameInfo = getGameInfo(appName)
@@ -316,6 +326,8 @@ export async function install(
     installPlatform,
     '--path',
     path,
+    '--support',
+    join(gogSupportPath, appName),
     ...withDlcs,
     '--lang',
     String(installLanguage),
@@ -720,6 +732,8 @@ export async function repair(appName: string): Promise<ExecResult> {
     installPlatform!,
     '--path',
     gameData.install.install_path!,
+    '--support',
+    join(gogSupportPath, appName),
     withDlcs,
     `--lang=${gameData.install.language || 'en-US'}`,
     '-b=' + gameData.install.buildId,
@@ -868,6 +882,10 @@ export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
     if (existsSync(object.install_path))
       rmSync(object.install_path, { recursive: true })
   }
+  const manifestPath = join(gogdlConfigPath, 'manifests', appName)
+  if (existsSync(manifestPath)) {
+    rmSync(manifestPath)
+  }
   installedGamesStore.set('installed', array)
   refreshInstalled()
   const gameInfo = getGameInfo(appName)
@@ -885,8 +903,20 @@ export async function update(
     branch?: string
     language?: string
     dlcs?: string[]
+    dependencies?: string[]
   }
 ): Promise<{ status: 'done' | 'error' }> {
+  if (appName === 'gog-redist') {
+    const redist = await getRequiredRedistList()
+    if (updateOverwrites?.dependencies?.length) {
+      for (const dep of updateOverwrites.dependencies) {
+        if (!redist.includes(dep)) {
+          redist.push(dep)
+        }
+      }
+    }
+    return updateRedist(redist)
+  }
   const {
     installPlatform,
     gameData,
@@ -923,7 +953,9 @@ export async function update(
     '--platform',
     installPlatform,
     '--path',
-    String(gameData.install.install_path),
+    gameData.install.install_path!,
+    '--support',
+    join(gogSupportPath, appName),
     withDlcs,
     '--lang',
     overwrittenLanguage,
@@ -1061,12 +1093,8 @@ export async function forceUninstall(appName: string): Promise<void> {
   sendFrontendMessage('refreshLibrary', 'gog')
 }
 
-// Could be removed if gogdl handles SIGKILL and SIGTERM for us
-// which is send via AbortController
+// GOGDL now handles the signal, this is no longer needed
 export async function stop(appName: string, stopWine = true): Promise<void> {
-  const pattern = isLinux ? appName : 'gogdl'
-  killPattern(pattern)
-
   if (stopWine && !isNative(appName)) {
     const gameSettings = await getSettings(appName)
     await shutdownWine(gameSettings)

@@ -200,7 +200,9 @@ const DownloadManagerItem = ({ element, current, state }: Props) => {
     return current ? 'var(--text-default)' : 'var(--accent)'
   }
 
-  const currentApp = library.find((val) => val.app_name === appName)
+  const currentApp = library.find(
+    (val) => val.app_name === appName && val.runner === runner
+  )
 
   if (!currentApp) {
     return null

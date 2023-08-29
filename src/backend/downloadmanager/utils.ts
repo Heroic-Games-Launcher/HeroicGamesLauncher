@@ -145,7 +145,8 @@ async function updateQueueElement(params: InstallParams): Promise<{
       build: params.build,
       branch: params.branch,
       language: params.installLanguage,
-      dlcs: params.installDlcs
+      dlcs: params.installDlcs,
+      dependencies: params.dependencies
     })
 
     if (status === 'error') {

@@ -8,6 +8,9 @@ import { sendFrontendMessage } from '../main_window'
 import { callAbortController } from 'backend/utils/aborthandler/aborthandler'
 import { notify } from '../dialog/dialog'
 import i18next from 'i18next'
+import {
+  createRedistDMQueueElement
+} from 'backend/storeManagers/gog/redist'
 
 const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
   cwd: 'store',
@@ -115,7 +118,9 @@ async function addToQueue(element: DMQueueElement) {
   const elements = downloadManager.get('queue', [])
 
   const elementIndex = elements.findIndex(
-    (el) => el.params.appName === element.params.appName
+    (el) =>
+      el.params.appName === element.params.appName &&
+      el.params.runner === element.params.runner
   )
 
   if (elementIndex >= 0) {
@@ -133,6 +138,20 @@ async function addToQueue(element: DMQueueElement) {
     element.params.size = installInfo?.manifest?.download_size
       ? getFileSize(installInfo?.manifest?.download_size)
       : '?? MB'
+
+    if (
+      element.params.runner === 'gog' &&
+      installInfo &&
+      'dependencies' in installInfo.manifest
+    ) {
+      const newDependencies = installInfo.manifest.dependencies
+      if (newDependencies?.length) {
+        // create redist element
+        const redistElement = createRedistDMQueueElement()
+        redistElement.params.dependencies = newDependencies
+        elements.push(redistElement)
+      }
+    }
     elements.push(element)
   }
 

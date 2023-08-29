@@ -60,6 +60,7 @@ export interface GameManager {
       branch?: string
       language?: string
       dlcs?: string[]
+      dependencies?: string[]
     }
   ) => Promise<InstallResult>
   forceUninstall: (appName: string) => Promise<void>

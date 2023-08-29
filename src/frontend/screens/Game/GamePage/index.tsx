@@ -458,6 +458,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         : '')
                     }
                     changelog={extraInfo?.changelog}
+                    installPlatform={gameInfo.install?.platform}
                     runner={gameInfo.runner}
                     handleChangeLog={() => setShowChangelog(true)}
                     handleUpdate={handleUpdate}

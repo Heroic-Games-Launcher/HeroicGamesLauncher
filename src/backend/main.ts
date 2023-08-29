@@ -291,8 +291,8 @@ if (!gotTheLock) {
   })
   app.whenReady().then(async () => {
     initLogger()
-    initStoreManagers()
     initOnlineMonitor()
+    initStoreManagers()
     initImagesCache()
 
     if (!process.env.CI) {

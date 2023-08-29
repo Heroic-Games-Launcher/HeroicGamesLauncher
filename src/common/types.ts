@@ -255,6 +255,7 @@ export interface InstallArgs {
   installLanguage?: string
   branch?: string
   build?: string
+  dependencies?: string[]
 }
 
 export interface InstallParams extends InstallArgs {
@@ -300,7 +301,7 @@ export interface GOGImportData {
   installedLanguage: string
   platform: GogInstallPlatform
   versionName: string
-  installedWithDlcs: boolean
+  dlcs: string[]
 }
 
 export type GamepadInputEvent =

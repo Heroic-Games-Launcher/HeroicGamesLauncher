@@ -1,5 +1,208 @@
-// Todo: manage redist required by games and push them to download queue
+// Manage redist required by games and push them to download queue
 // as Galaxy Common Redistributables
-// logo: https://images.gog-statics.com/516af877f6a03199526d1ce5a76358b8f85f6b828764cf46c820f77ae8832fc5.jpg
-//
-export {}
+
+import {
+  gamesConfigPath,
+  gogdlConfigPath,
+  gogRedistPath
+} from 'backend/constants'
+import path from 'path'
+import { existsSync } from 'fs'
+import { readdir, readFile } from 'fs/promises'
+import { logError, logInfo, LogPrefix } from 'backend/logger/logger'
+import { GOGv1Manifest, GOGv2Manifest } from 'common/types/gog'
+import { getGameInfo, onInstallOrUpdateOutput } from './games'
+import { runRunnerCommand as runGogdlCommand } from './library'
+import {
+  createAbortController,
+  deleteAbortController
+} from 'backend/utils/aborthandler/aborthandler'
+import { GlobalConfig } from 'backend/config'
+import {
+  addToQueue,
+  getQueueInformation
+} from 'backend/downloadmanager/downloadqueue'
+import { DMQueueElement } from 'common/types'
+import axios from 'axios'
+import { GOGUser } from './user'
+
+export async function checkForRedistUpdates() {
+  if (!GOGUser.isLoggedIn()) {
+    return
+  }
+  const manifestPath = path.join(gogRedistPath, '.gogdl-redist-manifest')
+  let shouldUpdate = false
+  if (existsSync(manifestPath)) {
+    // Check if newer buildId is available
+    try {
+      const fileData = await readFile(manifestPath, { encoding: 'utf8' })
+      const manifest = JSON.parse(fileData)
+
+      const requiredRedist = await getRequiredRedistList()
+      const installed = manifest.HGLInstalled || []
+      // Something is no longer required or new redist is needed
+      if (requiredRedist.length !== installed.length) {
+        shouldUpdate = true
+      } else {
+        // Check if we need new redist
+        const sortedReq = requiredRedist.sort()
+        const sortedInst = installed.sort()
+
+        for (const index in sortedReq) {
+          if (sortedReq[index] !== sortedInst[index]) {
+            shouldUpdate = true
+            break
+          }
+        }
+      }
+
+      // Check if manifest itself changed
+      if (!shouldUpdate) {
+        const buildId = manifest?.build_id
+        const response = await axios.get(
+          'https://content-system.gog.com/dependencies/repository?generation=2'
+        )
+        const newBuildId = response.data.build_id
+        shouldUpdate = buildId !== newBuildId
+      }
+    } catch (e) {
+      logError(['Failed to read gog redist manifest', e], {
+        prefix: LogPrefix.Gog
+      })
+      return
+    }
+  } else {
+    shouldUpdate = true
+  }
+  if (!shouldUpdate) {
+    return
+  }
+  pushRedistUpdateToQueue()
+}
+
+export async function pushRedistUpdateToQueue() {
+  const currentQueue = getQueueInformation()
+
+  const currentRedistElement = currentQueue.elements.find(
+    (element) => element.params.appName === 'gog-redist'
+  )
+
+  if (currentRedistElement) {
+    return
+  }
+  const newElement = createRedistDMQueueElement()
+
+  await addToQueue(newElement)
+}
+
+export function createRedistDMQueueElement(): DMQueueElement {
+  const gameInfo = getGameInfo('gog-redist')
+  const newElement: DMQueueElement = {
+    params: {
+      appName: 'gog-redist',
+      runner: 'gog',
+      path: gogRedistPath,
+      platformToInstall: 'windows',
+      gameInfo,
+      size: '?? MB'
+    },
+    addToQueueTime: new Date().getTime(),
+    startTime: 0,
+    endTime: 0,
+    type: 'update'
+  }
+  return newElement
+}
+
+export async function getRequiredRedistList(): Promise<string[]> {
+  // Scan manifests in gogdl directory to obtain list of redist that will be
+  // required
+  const manifestsDir = path.join(gogdlConfigPath, 'manifests')
+  if (!existsSync(manifestsDir)) {
+    return []
+  }
+
+  const manifests = await readdir(manifestsDir)
+  const redist: string[] = []
+  // Iterate over files
+  for (const manifest of manifests) {
+    const manifestDataRaw = await readFile(path.join(manifestsDir, manifest), {
+      encoding: 'utf8'
+    })
+    try {
+      const manifestData: GOGv1Manifest | GOGv2Manifest =
+        JSON.parse(manifestDataRaw)
+
+      // Get list from manifest and merge with global redist variable
+      if (manifestData.version === 1) {
+        const dependencies = manifestData.product.depots.reduce((acc, next) => {
+          if ('redist' in next) {
+            acc.push(next.redist)
+          }
+          return acc
+        }, [] as string[])
+        for (const dependency of dependencies) {
+          if (!redist.includes(dependency)) {
+            redist.push(dependency)
+          }
+        }
+      } else if (manifestData.version === 2) {
+        for (const dependency of manifestData.dependencies || []) {
+          if (!redist.includes(dependency)) {
+            redist.push(dependency)
+          }
+        }
+      }
+    } catch (e) {
+      logError(['REDIST:', 'Unable to parse manifest', manifest, String(e)], {
+        prefix: LogPrefix.Gog
+      })
+      continue
+    }
+  }
+
+  return redist
+}
+
+export async function updateRedist(redistToSync: string[]): Promise<{
+  status: 'done' | 'error'
+}> {
+  const { maxWorkers } = GlobalConfig.get().getSettings()
+  const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
+  const logPath = path.join(gamesConfigPath, 'gog-redist.log')
+
+  redistToSync.push('ISI') // Always install scriptinterpreter.exe
+
+  const commandParts = [
+    'redist',
+    '--ids',
+    redistToSync.join(','),
+    '--path',
+    gogRedistPath,
+    ...workers
+  ]
+
+  logInfo(['Updating GOG redistributables', commandParts], {
+    prefix: LogPrefix.Gog
+  })
+
+  const res = await runGogdlCommand(
+    commandParts,
+    createAbortController('gog-redist'),
+    {
+      logMessagePrefix: 'GOG REDIST:',
+      logFile: logPath,
+      onOutput: (output) =>
+        onInstallOrUpdateOutput('gog-redist', 'updating', output)
+    }
+  )
+
+  deleteAbortController('gog-redist')
+
+  if (res.error) {
+    logError(['Failed to update redist', res.error], LogPrefix.Gog)
+    return { status: 'error' }
+  }
+
+  return { status: 'done' }
+}
