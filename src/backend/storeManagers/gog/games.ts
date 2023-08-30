@@ -96,10 +96,7 @@ import axios, { AxiosError } from 'axios'
 import { isOnline, runOnceWhenOnline } from 'backend/online_monitor'
 import { readdir } from 'fs/promises'
 import { statSync } from 'fs'
-import {
-  getRequiredRedistList,
-  updateRedist
-} from './redist'
+import { getRequiredRedistList, updateRedist } from './redist'
 
 export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   const gameInfo = getGameInfo(appName)
@@ -850,14 +847,16 @@ export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
 
     const command = [
       uninstallerPath,
-      '/verysilent',
-      `/dir=${shlex.quote(installDirectory)}`
+      '/VERYSILENT',
+      `/ProductId=${appName}`,
+      '/galaxyclient',
+      '/KEEPSAVES'
     ]
 
     logInfo(['Executing uninstall command', command.join(' ')], LogPrefix.Gog)
 
     if (!isWindows) {
-      runWineCommandUtil({
+      await runWineCommandUtil({
         gameSettings,
         commandParts: command,
         wait: true,
@@ -875,16 +874,21 @@ export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
 
       await spawnAsync('powershell', [
         ...adminCommand,
-        `/verysilent /dir=${shlex.quote(installDirectory)}`
+        '/verysilent',
+        `/dir=${installDirectory}`
       ])
     }
-  } else {
-    if (existsSync(object.install_path))
-      rmSync(object.install_path, { recursive: true })
+  }
+  if (existsSync(object.install_path)) {
+    rmSync(object.install_path, { recursive: true })
   }
   const manifestPath = join(gogdlConfigPath, 'manifests', appName)
   if (existsSync(manifestPath)) {
     rmSync(manifestPath)
+  }
+  const supportPath = join(gogSupportPath, appName)
+  if (existsSync(supportPath)) {
+    rmSync(supportPath)
   }
   installedGamesStore.set('installed', array)
   refreshInstalled()
@@ -1037,6 +1041,12 @@ export async function update(
   gameObject.install_size = getFileSize(sizeOnDisk)
   installedGamesStore.set('installed', installedArray)
   refreshInstalled()
+  const gameSettings = GameConfig.get(appName).config
+  // Simple check if wine prefix exists and setup can be performed because of an
+  // update
+  if (isWindows || existsSync(gameSettings.winePrefix)) {
+    await setup(appName)
+  }
   sendFrontendMessage('gameStatusUpdate', {
     appName: appName,
     runner: 'gog',
@@ -1118,6 +1128,7 @@ async function postPlaytimeSession({
   session_date,
   time
 }: GOGSessionSyncQueueItem) {
+  return
   const userData: UserData | undefined = configStore.get_nodefault('userData')
   if (!userData) {
     logError('No userData, unable to post new session', {

@@ -1207,10 +1207,6 @@ export async function runRunnerCommand(
   }
   options.env.GOGDL_CONFIG_PATH = dirname(gogdlConfigPath)
 
-  if (!app.isPackaged) {
-    commandParts.push('-d') // Enable debug logging when in development
-  }
-
   return callRunner(
     ['--auth-config-path', authConfig, ...commandParts],
     { name: 'gog', logPrefix: LogPrefix.Gog, bin, dir },

@@ -10,7 +10,11 @@ import path from 'path'
 import { existsSync } from 'fs'
 import { readdir, readFile } from 'fs/promises'
 import { logError, logInfo, LogPrefix } from 'backend/logger/logger'
-import { GOGv1Manifest, GOGv2Manifest } from 'common/types/gog'
+import {
+  GOGRedistManifest,
+  GOGv1Manifest,
+  GOGv2Manifest
+} from 'common/types/gog'
 import { getGameInfo, onInstallOrUpdateOutput } from './games'
 import { runRunnerCommand as runGogdlCommand } from './library'
 import {
@@ -36,12 +40,22 @@ export async function checkForRedistUpdates() {
     // Check if newer buildId is available
     try {
       const fileData = await readFile(manifestPath, { encoding: 'utf8' })
-      const manifest = JSON.parse(fileData)
+      const manifest: GOGRedistManifest = JSON.parse(fileData)
 
-      const requiredRedist = await getRequiredRedistList()
+      const requiredRedistList = await getRequiredRedistList()
+      const requiredRedist = requiredRedistList.filter((redist) => {
+        const foundRedist = manifest.depots.find(
+          (dep) => dep.dependencyId === redist
+        )
+        return foundRedist && foundRedist.executable.path.startsWith('__redist') // Filter redist that are installed into game directory
+      })
+      // Filter redist with those only
       const installed = manifest.HGLInstalled || []
       // Something is no longer required or new redist is needed
       if (requiredRedist.length !== installed.length) {
+        logInfo('Updating redist, reason - different number of redist', {
+          prefix: LogPrefix.Gog
+        })
         shouldUpdate = true
       } else {
         // Check if we need new redist
@@ -50,6 +64,9 @@ export async function checkForRedistUpdates() {
 
         for (const index in sortedReq) {
           if (sortedReq[index] !== sortedInst[index]) {
+            logInfo('Updating redist, reason - different redist required', {
+              prefix: LogPrefix.Gog
+            })
             shouldUpdate = true
             break
           }
@@ -63,6 +80,9 @@ export async function checkForRedistUpdates() {
           'https://content-system.gog.com/dependencies/repository?generation=2'
         )
         const newBuildId = response.data.build_id
+        logInfo('Updating redist, reason - new buildId', {
+          prefix: LogPrefix.Gog
+        })
         shouldUpdate = buildId !== newBuildId
       }
     } catch (e) {
@@ -119,11 +139,11 @@ export async function getRequiredRedistList(): Promise<string[]> {
   // required
   const manifestsDir = path.join(gogdlConfigPath, 'manifests')
   if (!existsSync(manifestsDir)) {
-    return []
+    return ['ISI']
   }
 
   const manifests = await readdir(manifestsDir)
-  const redist: string[] = []
+  const redist: string[] = ['ISI']
   // Iterate over files
   for (const manifest of manifests) {
     const manifestDataRaw = await readFile(path.join(manifestsDir, manifest), {
@@ -171,8 +191,6 @@ export async function updateRedist(redistToSync: string[]): Promise<{
   const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
   const logPath = path.join(gamesConfigPath, 'gog-redist.log')
 
-  redistToSync.push('ISI') // Always install scriptinterpreter.exe
-
   const commandParts = [
     'redist',
     '--ids',
@@ -182,7 +200,7 @@ export async function updateRedist(redistToSync: string[]): Promise<{
     ...workers
   ]
 
-  logInfo(['Updating GOG redistributables', commandParts], {
+  logInfo('Updating GOG redistributables', {
     prefix: LogPrefix.Gog
   })
 

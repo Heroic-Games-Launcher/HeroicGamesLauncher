@@ -8,9 +8,7 @@ import { sendFrontendMessage } from '../main_window'
 import { callAbortController } from 'backend/utils/aborthandler/aborthandler'
 import { notify } from '../dialog/dialog'
 import i18next from 'i18next'
-import {
-  createRedistDMQueueElement
-} from 'backend/storeManagers/gog/redist'
+import { createRedistDMQueueElement } from 'backend/storeManagers/gog/redist'
 
 const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
   cwd: 'store',

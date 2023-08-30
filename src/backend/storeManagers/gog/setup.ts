@@ -1,29 +1,32 @@
-import axios from 'axios'
-import {
-  copyFileSync,
-  existsSync,
-  mkdirSync,
-  readFileSync,
-  writeFileSync
-} from 'graceful-fs'
-import { copySync } from 'fs-extra'
+import { existsSync } from 'graceful-fs'
 import path from 'node:path'
-import { GameInfo, InstalledInfo } from 'common/types'
-import { checkWineBeforeLaunch, getShellPath, spawnAsync } from '../../utils'
+import { InstalledInfo } from 'common/types'
+import { checkWineBeforeLaunch } from '../../utils'
 import { GameConfig } from '../../game_config'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
-import { isWindows } from '../../constants'
-import ini from 'ini'
-import { isOnline } from '../../online_monitor'
+import {
+  gogdlConfigPath,
+  gogRedistPath,
+  gogSupportPath,
+  isWindows
+} from '../../constants'
+import languages from '@cospired/i18n-iso-languages'
 import { getWinePath, runWineCommand, verifyWinePrefix } from '../../launcher'
 import { logFileLocation } from 'backend/storeManagers/storeManagerCommon/games'
 import { getGameInfo as getGogLibraryGameInfo } from 'backend/storeManagers/gog/library'
-const nonNativePathSeparator = path.sep === '/' ? '\\' : '/'
+import { readFile } from 'node:fs/promises'
+import shlex from 'shlex'
+import {
+  GOGRedistManifest,
+  GOGv1Manifest,
+  GOGv2Manifest
+} from 'common/types/gog'
+
+// TODO: Make it work on Windows itself
 
 /**
  * Handles setup instructions like create folders, move files, run exe, create registry entry etc...
  * For Galaxy games only (Windows)
- * This relies on root file system mounted at Z: in prefixes (We need better approach to access game path from prefix)
  * @param appName
  * @param installInfo Allows passing install instructions directly
  */
@@ -38,15 +41,6 @@ async function setup(
   if (!gameInfo || gameInfo.install.platform !== 'windows') {
     return
   }
-  const instructions = await obtainSetupInstructions(gameInfo)
-  if (!instructions) {
-    logInfo('Setup: No instructions', LogPrefix.Gog)
-    return
-  }
-  logWarning(
-    'Running setup instructions, if you notice issues with launching a game, please report it on our Discord server',
-    LogPrefix.Gog
-  )
 
   const gameSettings = GameConfig.get(appName).config
   if (!isWindows) {
@@ -66,507 +60,267 @@ async function setup(
     // Make sure prefix is initalized correctly
     await verifyWinePrefix(gameSettings)
   }
-  // Funny part begins here
-  // Deterimine if it's basically from .script file or from manifest
-  if (instructions[0]?.install) {
-    // It's from .script file
-    // Parse actions
-    const supportDir = path.join(
-      gameInfo.install.install_path!,
-      'support',
-      appName
+
+  // Read game manifest
+  const manifestPath = path.join(gogdlConfigPath, 'manifests', appName)
+
+  if (!existsSync(manifestPath)) {
+    logWarning(
+      [
+        'SETUP: no manifest for',
+        gameInfo.title,
+        "unable to continue setup, this shouldn't cause much issues with modern games, but some older titles may need special registry keys"
+      ],
+      { prefix: LogPrefix.Gog }
     )
+    return
+  }
 
-    const [localAppData, documentsPath, installPath] = await Promise.all([
-      isWindows
-        ? getShellPath('%APPDATA%')
-        : getWinePath({ path: '%APPDATA%', gameSettings }),
+  const manifestDataRaw = await readFile(manifestPath, { encoding: 'utf8' })
 
-      isWindows
-        ? getShellPath('%USERPROFILE%/Documents')
-        : getWinePath({ path: '%USERPROFILE%/Documents', gameSettings }),
+  let manifestData: GOGv1Manifest | GOGv2Manifest
+  try {
+    manifestData = JSON.parse(manifestDataRaw)
+  } catch (e) {
+    logError(['SETUP: Failed to parse game manifest', e], {
+      prefix: LogPrefix.Gog
+    })
+    return
+  }
 
-      isWindows
-        ? gameInfo.install.install_path || ''
-        : getWinePath({
-            path: gameInfo.install.install_path || '',
-            gameSettings,
-            variant: 'win'
-          })
-    ])
+  const gameSupportDir = path.join(gogSupportPath, appName) // This doesn't need to exist, scriptinterpreter.exe will handle it gracefully
 
-    // In the future we need to find more path cases
-    const pathsValues = new Map<string, string>([
-      ['productid', appName],
-      ['app', installPath],
-      ['support', supportDir],
-      ['supportdir', supportDir],
-      ['localappdata', localAppData],
-      ['userdocs', documentsPath]
-    ])
+  const installLanguage = gameInfo.install.language?.split('-')[0]
+  // FIXME: When Node 20 hits LTS channel replace this with implementation Intl
+  // less dependencies = good
+  const lang: string | undefined = languages.getName(installLanguage!, 'en')
 
-    for (const action of instructions) {
-      const actionArguments = action.install?.arguments
-      switch (action.install.action) {
-        case 'setRegistry': {
-          const registryPath =
-            actionArguments.root +
-            '\\' +
-            handlePathVars(actionArguments.subkey, pathsValues).replaceAll(
-              path.sep,
-              '\\'
-            )
+  const dependencies: string[] = []
+  const gameDirectoryPath = await getWinePath({
+    path: gameInfo.install.install_path!,
+    variant: 'win',
+    gameSettings
+  })
 
-          let valueData = handlePathVars(
-            actionArguments?.valueData,
-            pathsValues
-          )?.replaceAll(path.sep, '\\')
-
-          let valueName = actionArguments?.valueName || ''
-          const valueType = actionArguments?.valueType
-
-          let keyCommand: string[] = []
-          if (valueName) {
-            valueName = handlePathVars(valueName, pathsValues).replaceAll(
-              path.sep,
-              '\\'
-            )
-          }
-          if (valueData && valueType) {
-            const regType = getRegDataType(valueType)
-            if (!regType) {
-              logError(
-                `Setup: Unsupported registry type ${valueType}, skipping this key`
-              )
-              break
-            }
-            if (valueType === 'binary') {
-              valueData = Buffer.from(valueData, 'base64').toString('hex')
-            }
-            valueData = valueData.replaceAll('\\', '/')
-            keyCommand = ['/d', valueData, '/v', valueName, '/t', regType]
-          }
-          // Now create a key
-          const command = [
-            'reg',
-            'add',
-            registryPath,
-            ...keyCommand,
-            '/f',
-            '/reg:32'
-          ]
-
-          logInfo(
-            [
-              'Setup: Adding a registry key',
-              registryPath,
-              valueName,
-              valueData
-            ],
-            LogPrefix.Gog
+  if (manifestData.version === 1) {
+    if (existsSync(gameSupportDir)) {
+      for (const supportCommand of manifestData.product?.support_commands ||
+        []) {
+        if (
+          !supportCommand.languages.includes(
+            gameInfo.install.language ?? 'English'
+          ) ||
+          supportCommand.languages.includes('Neutral')
+        ) {
+          const absPath = path.join(
+            gameSupportDir,
+            supportCommand.gameID,
+            supportCommand.executable
           )
-          if (isWindows) {
-            await spawnAsync('reg', [
-              'add',
-              registryPath,
-              ...keyCommand,
-              '/f',
-              '/reg:32'
-            ])
-            break
-          }
-          await runWineCommand({
-            gameSettings,
-            gameInstallPath: gameInfo.install.install_path,
-            commandParts: command,
-            wait: true,
-            protonVerb: 'runinprefix'
-          })
-          break
-        }
-        case 'Execute': {
-          const executableName = actionArguments.executable
-          const infoPath = path.join(
-            gameInfo.install.install_path!,
-            `goggame-${appName}.info`
-          )
-          let Language = 'english'
-          // Load game language data
-          if (existsSync(infoPath)) {
-            const contents = readFileSync(infoPath, 'utf-8')
-            Language = JSON.parse(contents).language
-            Language = Language.toLowerCase()
-          }
+          const language = (lang || installLanguage || 'English').toLowerCase()
 
-          // Please don't fix any typos here, everything is intended
-          const exeArguments = [
+          const exeArgs = [
             '/VERYSILENT',
-            `/DIR=${installPath}`,
-            `/Language=${Language}`,
-            `/LANG=${Language}`,
-            `/ProductId=${appName}`,
+            `/DIR=${gameDirectoryPath}`,
+            `/Language=${language}`,
+            `/LANG=${language}`,
+            `/ProductId=${language}`,
             `/galaxyclient`,
-            `/buildId=${gameInfo.install.buildId}`,
+            `/buildId=${manifestData.product.timestamp}`,
             `/versionName=${gameInfo.install.version}`,
-            `/nodesktopshorctut`, // Disable desktop shortcuts but misspelled :/
-            `/nodesktopshortcut`, // Disable desktop shortcuts
-            '/NOICONS' // Disable start menu icons
+            '/nodesktopshorctut',
+            '/nodesktopshortcut'
           ]
-
-          const workingDir = handlePathVars(
-            actionArguments?.workingDir?.replace(
-              '{app}',
-              gameInfo.install.install_path
-            ),
-            pathsValues
-          )
-
-          let executablePath = path.join(
-            handlePathVars(
-              executableName.replace('{app}', gameInfo.install.install_path),
-              pathsValues
-            )
-          )
-
-          // If exectuable doesn't exist in desired location search in supportDir
-          if (!existsSync(executablePath)) {
-            const alternateLocation = path.join(supportDir, executableName)
-            if (existsSync(alternateLocation)) {
-              executablePath = alternateLocation
-            } else {
-              logError(
-                [
-                  "Couldn't find executable, skipping this step, tried: ",
-                  executablePath,
-                  'and',
-                  alternateLocation
-                ],
-                LogPrefix.Gog
-              )
-              break
-            }
-          }
-
-          // Requires testing
-          if (isWindows) {
-            const command = [
-              'Start-Process',
-              '-FilePath',
-              executablePath,
-              '-Verb',
-              'RunAs',
-              '-ArgumentList'
-            ]
-            logInfo(
-              [
-                'Setup: Executing',
-                command,
-                `${workingDir || gameInfo.install.install_path}`
-              ],
-              LogPrefix.Gog
-            )
-            await spawnAsync(
-              'powershell',
-              [...command, exeArguments.join(' ')],
-              { cwd: workingDir || gameInfo.install.install_path }
-            )
-            break
-          }
-          logInfo(
-            [
-              'Setup: Executing',
-              [executablePath, ...exeArguments].join(' '),
-              `${workingDir || gameInfo.install.install_path}`
-            ],
-            LogPrefix.Gog
-          )
-
           await runWineCommand({
+            commandParts: [absPath, ...exeArgs],
             gameSettings,
-            gameInstallPath: gameInfo.install.install_path,
-            commandParts: [executablePath, ...exeArguments],
-            wait: true,
-            protonVerb: 'waitforexitandrun',
-            startFolder: workingDir || gameInfo.install.install_path
+            wait: false,
+            protonVerb: 'run',
+            skipPrefixCheckIKnowWhatImDoing: true,
+            startFolder: path.join(gameSupportDir, supportCommand.gameID)
           })
-
-          break
-        }
-        case 'supportData': {
-          const targetPath = handlePathVars(
-            actionArguments.target.replace(
-              '{app}',
-              gameInfo.install.install_path
-            ),
-            pathsValues
-          ).replaceAll(nonNativePathSeparator, path.sep)
-          const type = actionArguments.type
-          const sourcePath = handlePathVars(
-            actionArguments?.source?.replace(
-              '{app}',
-              gameInfo.install.install_path
-            ),
-            pathsValues
-          ).replaceAll(nonNativePathSeparator, path.sep)
-          if (type === 'folder') {
-            if (!actionArguments?.source) {
-              logInfo(['Setup: Creating directory', targetPath], LogPrefix.Gog)
-              mkdirSync(targetPath, { recursive: true })
-            } else {
-              logInfo(
-                ['Setup: Copying directory', sourcePath, 'to', targetPath],
-                LogPrefix.Gog
-              )
-
-              if (!existsSync(sourcePath)) {
-                logWarning(
-                  ['Source path', sourcePath, "doesn't exist, skipping..."],
-                  LogPrefix.Gog
-                )
-
-                break
-              }
-              copySync(sourcePath, targetPath, {
-                overwrite: actionArguments?.overwrite,
-                recursive: true
-              })
-            }
-          } else if (type === 'file') {
-            if (sourcePath && existsSync(sourcePath)) {
-              logInfo(
-                ['Setup: Copying file', sourcePath, 'to', targetPath],
-                LogPrefix.Gog
-              )
-              copyFileSync(sourcePath, targetPath)
-            } else {
-              logWarning(
-                ['Setup: sourcePath:', sourcePath, 'does not exist.'],
-                LogPrefix.Gog
-              )
-            }
-          } else {
-            logError(
-              ['Setup: Unsupported supportData type:', type],
-              LogPrefix.Gog
-            )
-          }
-          break
-        }
-        case 'setIni': {
-          const filePath = handlePathVars(
-            actionArguments?.filename?.replace(
-              '{app}',
-              gameInfo.install.install_path
-            ),
-            pathsValues
-          ).replaceAll(nonNativePathSeparator, path.sep)
-          if (!filePath || !existsSync(filePath)) {
-            logError("Setup: setIni file doesn't exists", LogPrefix.Gog)
-            break
-          }
-          const encoding = actionArguments?.utf8 ? 'utf-8' : 'ascii'
-          const fileData = readFileSync(filePath, {
-            encoding
-          })
-          const config = ini.parse(fileData)
-          const section: string | undefined = actionArguments?.section
-          const keyName = actionArguments?.keyName
-          if (!section || !keyName) {
-            logError(
-              "Setup: Missing section and key values, this message shouldn't appear for you. Please report it on our Discord or GitHub",
-              LogPrefix.Gog
-            )
-            break
-          }
-
-          let leaf = config
-          // section can be in the format `Key.SubKey1.SubKey2.etc`
-          // Alien Breed: Impact is one example of such game
-          section.split('.').forEach((key) => {
-            leaf = leaf[key]
-          })
-
-          leaf[keyName] = handlePathVars(actionArguments.keyValue, pathsValues)
-
-          writeFileSync(filePath, ini.stringify(config), { encoding })
-          break
-        }
-        default: {
-          logError(
-            [
-              'Setup: Looks like you have found new setup instruction, please report it on our Discord or GitHub',
-              `appName: ${appName}, action: ${action.install.action}`
-            ],
-            LogPrefix.Gog
-          )
         }
       }
     }
+    // Find redist depots and push to dependency installer
+    for (const depot of manifestData.product.depots) {
+      if ('redist' in depot && !dependencies.includes(depot.redist)) {
+        dependencies.push(depot.redist)
+      }
+    }
   } else {
-    // I's from V1 game manifest
-    // Sample
-    /*
-      "support_commands": [
-            {
-                "languages": [
-                    "Neutral"
-                ],
-                "executable": "/galaxy_akalabeth_2.0.0.1.exe",
-                "gameID": "1207666073",
-                "systems": [
-                    "Windows"
-                ],
-                "argument": ""
-            }
-        ],
-    */
+    // check if scriptinterpreter is required based on manifest
+    if (manifestData.scriptInterpreter) {
+      const wineGameSupportDir = await getWinePath({
+        path: gameSupportDir,
+        variant: 'win',
+        gameSettings
+      })
+      const isiPath = path.join(
+        gogRedistPath,
+        '__redist/ISI/scriptinterpreter.exe'
+      )
+      if (!existsSync(isiPath)) {
+        logError(
+          [
+            "Script interpreter couldn't be found",
+            isiPath,
+            'to try again restart Heroic and delete wine prefix of the game;',
+            'if on Windows reinstall the game'
+          ],
+          {
+            prefix: LogPrefix.Gog
+          }
+        )
+      } else {
+        // Run scriptinterpreter for every installed product
+        for (const manifestProduct of manifestData.products) {
+          if (
+            manifestProduct.productId !== appName &&
+            !(gameInfo.install.installedDLCs || []).includes(
+              manifestProduct.productId
+            )
+          ) {
+            continue
+          }
+          const language = lang || 'English'
 
-    if (instructions[0]?.gameID !== appName) {
-      logError('Setup: Unexpected instruction gameID missmatch', LogPrefix.Gog)
+          const exeArgs = [
+            '/VERYSILENT',
+            `/DIR=${gameDirectoryPath}`,
+            `/Language=${language}`,
+            `/LANG=${language}`,
+            `/ProductId=${manifestProduct.productId}`,
+            `/galaxyclient`,
+            `/buildId=${gameInfo.install.buildId}`,
+            `/versionName=${gameInfo.install.version}`,
+            `/supportDir=${wineGameSupportDir}`,
+            '/nodesktopshorctut',
+            '/nodesktopshortcut'
+          ]
+
+          await runWineCommand({
+            commandParts: [isiPath, ...exeArgs],
+            gameSettings,
+            wait: false,
+            protonVerb: 'run',
+            skipPrefixCheckIKnowWhatImDoing: true,
+            startFolder: gogRedistPath
+          })
+        }
+      }
+    } else {
+      // Check for temp executables
+      for (const manifestProduct of manifestData.products) {
+        if (
+          manifestProduct.productId !== appName &&
+          !(gameInfo.install.installedDLCs || []).includes(
+            manifestProduct.productId
+          )
+        ) {
+          continue
+        }
+        if (!manifestProduct.temp_executable?.length) {
+          continue
+        }
+        const absPath = path.join(
+          gameSupportDir,
+          manifestProduct.productId,
+          manifestProduct.temp_executable
+        )
+        const language = (lang || 'English').toLowerCase()
+
+        const exeArgs = [
+          '/VERYSILENT',
+          `/DIR=${gameDirectoryPath}`,
+          `/Language=${language}`,
+          `/LANG=${language}`,
+          `/lang-code=${gameInfo.install.language || 'en-US'}`,
+          `/ProductId=${manifestProduct.productId}`,
+          `/galaxyclient`,
+          `/buildId=${gameInfo.install.buildId}`,
+          `/versionName=${gameInfo.install.version}`,
+          '/nodesktopshorctut',
+          '/nodesktopshortcut'
+        ]
+        await runWineCommand({
+          commandParts: [absPath, ...exeArgs],
+          gameSettings,
+          wait: false,
+          protonVerb: 'run',
+          skipPrefixCheckIKnowWhatImDoing: true,
+          startFolder: path.join(gameSupportDir, manifestProduct.productId)
+        })
+      }
+    }
+
+    for (const dep of manifestData.dependencies || []) {
+      if (!dependencies.includes(dep)) {
+        dependencies.push(dep)
+      }
+    }
+  }
+
+  // Install redistributables according to redist manifest
+  const gogRedistManifestPath = path.join(
+    gogRedistPath,
+    '.gogdl-redist-manifest'
+  )
+
+  if (existsSync(gogRedistManifestPath)) {
+    const gogRedistManifestDataRaw = await readFile(gogRedistManifestPath, {
+      encoding: 'utf-8'
+    })
+    let gogRedistManifestData: GOGRedistManifest
+    try {
+      gogRedistManifestData = JSON.parse(gogRedistManifestDataRaw)
+    } catch (e) {
+      logError('SETUP: Failed to parse redist manifest', {
+        prefix: LogPrefix.Gog
+      })
       return
     }
 
-    const supportDir = path.join(
-      gameInfo.install.install_path!,
-      'support',
-      appName
-    )
-    const infoPath = path.join(
-      gameInfo.install.install_path!,
-      `goggame-${appName}.info`
-    )
-
-    const installPath = isWindows
-      ? gameInfo.install.install_path || ''
-      : await getWinePath({
-          path: gameInfo.install.install_path || '',
-          gameSettings,
-          variant: 'win'
+    for (const dep of dependencies) {
+      const foundDep = gogRedistManifestData.depots.find(
+        (depot) => depot.dependencyId === dep
+      )
+      if (!foundDep) {
+        logWarning(['SETUP: Was not able to find redist data for', dep], {
+          prefix: LogPrefix.Gog
         })
-    let Language = 'english'
-    // Load game language data
-    if (existsSync(infoPath)) {
-      const contents = readFileSync(infoPath, 'utf-8')
-      Language = JSON.parse(contents).language
-      Language = Language.toLowerCase()
-    }
+        continue
+      }
 
-    const exeArguments = [
-      '/VERYSILENT',
-      `/DIR=${installPath}`,
-      `/Language=${Language}`,
-      `/LANG=${Language}`,
-      `/ProductId=${appName}`,
-      `/galaxyclient`,
-      `/buildId=${gameInfo.install.buildId}`,
-      `/versionName=${gameInfo.install.version}`,
-      `/nodesktopshorctut`, // Disable desktop shortcuts but misspelled :/
-      `/nodesktopshortcut`, // Disable desktop shortcuts
-      '/NOICONS' // Disable start menu icons
-    ]
+      if (!foundDep.executable.path.length) {
+        logInfo(['SETUP: skipping redist', dep], { prefix: LogPrefix.Gog })
+        continue
+      }
 
-    const executablePath = path.join(supportDir, instructions[0].executable)
+      const exePath = path.join(gogRedistPath, foundDep.executable.path)
+      const exeArguments = foundDep.executable.arguments.length
+        ? shlex.split(foundDep.executable.arguments)
+        : []
 
-    let command = [executablePath, ...exeArguments]
+      const commandParts = [exePath, ...exeArguments]
 
-    // Requires testing
-    if (isWindows) {
-      command = [
-        'Start-Process',
-        '-FilePath',
-        executablePath,
-        '-Verb',
-        'RunAs',
-        '-ArgumentList'
-      ]
-      logInfo(['Setup: Executing', command, supportDir], LogPrefix.Gog)
-      await spawnAsync('powershell', [...command, exeArguments.join(' ')], {
-        cwd: supportDir
+      logInfo(['SETUP: Installing redist', foundDep.readableName], {
+        prefix: LogPrefix.Gog
       })
-    } else {
-      logInfo(['Setup: Executing', command, `${supportDir}`], LogPrefix.Gog)
+
       await runWineCommand({
+        commandParts,
         gameSettings,
-        gameInstallPath: gameInfo.install.install_path,
-        commandParts: command,
-        wait: true,
-        protonVerb: 'waitforexitandrun',
-        startFolder: supportDir
+        startFolder: gogRedistPath,
+        wait: false,
+        protonVerb: 'run',
+        skipPrefixCheckIKnowWhatImDoing: true,
+        gameInstallPath: gameInfo.install.install_path!
       })
     }
   }
+
   logInfo('Setup: Finished', LogPrefix.Gog)
-}
-
-async function obtainSetupInstructions(gameInfo: GameInfo) {
-  const { buildId, appName, install_path } = gameInfo.install
-
-  const scriptPath = path.join(install_path!, `goggame-${appName}.script`)
-  if (existsSync(scriptPath)) {
-    const data = readFileSync(scriptPath, { encoding: 'utf-8' })
-    return JSON.parse(data).actions
-  }
-  // No .script is present, check for support_commands in repository.json of V1 games
-  if (!isOnline()) {
-    logWarning(
-      "Setup: App is offline, couldn't check if there are any support_commands in manifest",
-      LogPrefix.Gog
-    )
-    return null
-  }
-  const buildResponse = await axios.get(
-    `https://content-system.gog.com/products/${appName}/os/windows/builds`
-  )
-  const buildData = buildResponse.data
-  const buildItem = buildData.items.find(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (value: any) =>
-      value.legacy_build_id === buildId || value.build_id === buildId
-  )
-  // Get data only if it's V1 depot game
-  if (buildItem?.generation === 1) {
-    const metaResponse = await axios.get(buildItem.link)
-    return metaResponse.data.product?.support_commands
-  }
-
-  return null
-}
-
-const registryDataTypes = new Map([
-  ['string', 'REG_SZ'],
-  ['dword', 'REG_DWORD'],
-  ['binary', 'REG_BINARY']
-  // If needed please add those values REG_NONE REG_EXPAND_SZ REG_MULTI_SZ
-])
-const getRegDataType = (dataType: string): string | undefined =>
-  registryDataTypes.get(dataType.toLowerCase())
-
-/**
- * Handles getting a path variable from possibleValues Map
- * Every key is lower cased to avoid edge cases
- * @returns
- */
-const handlePathVars = (
-  path: string,
-  possibleValues: Map<string, string>
-): string => {
-  if (!path) {
-    return path
-  }
-  const variables = path.match(/{[a-zA-Z]+}|%[a-zA-Z]+%/g)
-  if (!variables) {
-    return path
-  }
-  for (const value of variables) {
-    const trimmedValue = value.slice(1, -1)
-
-    return path.replace(
-      value,
-      possibleValues.get(trimmedValue.toLowerCase()) ?? ''
-    )
-  }
-
-  return ''
 }
 
 export default setup

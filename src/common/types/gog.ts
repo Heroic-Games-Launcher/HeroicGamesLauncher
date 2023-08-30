@@ -463,7 +463,7 @@ export interface GOGv1Manifest {
       gameID: string
       argument: string
       systems: string[]
-    }
+    }[]
     installDirectory: string
     rootGameID: string
     gameIDs: {
@@ -500,6 +500,20 @@ export interface GOGv2Manifest {
     temp_executable: string
   }>
   tags?: string[]
-  scriptInterpreter: boolean
+  scriptInterpreter?: boolean
 }
 
+export interface GOGRedistManifest {
+  depots: Array<{
+    compressedSize: number
+    dependencyId: string
+    executable: { arguments: string; path: string }
+    internal: boolean
+    readableName: string
+    manifest: string
+    signature: string
+    size: number
+  }>
+  build_id?: string
+  HGLInstalled?: string[]
+}
