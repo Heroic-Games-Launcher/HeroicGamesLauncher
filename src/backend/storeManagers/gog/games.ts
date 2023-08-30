@@ -1128,7 +1128,6 @@ async function postPlaytimeSession({
   session_date,
   time
 }: GOGSessionSyncQueueItem) {
-  return
   const userData: UserData | undefined = configStore.get_nodefault('userData')
   if (!userData) {
     logError('No userData, unable to post new session', {

@@ -100,7 +100,7 @@ export async function checkForRedistUpdates() {
   pushRedistUpdateToQueue()
 }
 
-export async function pushRedistUpdateToQueue() {
+async function pushRedistUpdateToQueue() {
   const currentQueue = getQueueInformation()
 
   const currentRedistElement = currentQueue.elements.find(
