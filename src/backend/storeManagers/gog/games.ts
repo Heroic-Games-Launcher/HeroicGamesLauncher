@@ -878,13 +878,14 @@ export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
         uninstallerPath,
         '-Verb',
         'RunAs',
+        '-Wait',
         '-ArgumentList'
       ]
 
       await spawnAsync('powershell', [
         ...adminCommand,
-        '/verysilent',
-        `/dir=${installDirectory}`
+        `"/verysilent","\`"/dir=${installDirectory}\`""`,
+        ``
       ])
     }
   }
@@ -974,18 +975,38 @@ export async function update(
         if (removedDlcs.includes(productId)) {
           // Run uninstall on DLC
           const uninstallExeFile = uninstallerFile.replace('ini', 'exe')
-          await runWineCommand({
-            gameSettings: gameConfig,
-            protonVerb: 'run',
-            commandParts: [
+          if (isWindows) {
+            const adminCommand = [
+              'Start-Process',
+              '-FilePath',
               uninstallExeFile,
-              `/ProductId=${productId}`,
-              '/VERYSILENT',
-              '/galaxyclient',
-              '/KEEPSAVES'
-            ],
-            startFolder: gameData.install.install_path!
-          })
+              '-Verb',
+              'RunAs',
+              '-Wait',
+              '-ArgumentList'
+            ]
+            await spawnAsync(
+              'powershell',
+              [
+                ...adminCommand,
+                `"/ProductId=${productId}","/VERYSILENT","/galaxyclient","/KEEPSAVES"`
+              ],
+              { cwd: gameData.install.install_path }
+            )
+          } else {
+            await runWineCommand({
+              gameSettings: gameConfig,
+              protonVerb: 'run',
+              commandParts: [
+                uninstallExeFile,
+                `/ProductId=${productId}`,
+                '/VERYSILENT',
+                '/galaxyclient',
+                '/KEEPSAVES'
+              ],
+              startFolder: gameData.install.install_path!
+            })
+          }
         }
       }
     }

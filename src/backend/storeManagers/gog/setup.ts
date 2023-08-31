@@ -1,7 +1,7 @@
 import { existsSync } from 'graceful-fs'
 import path from 'node:path'
-import { InstalledInfo } from 'common/types'
-import { checkWineBeforeLaunch } from '../../utils'
+import { InstalledInfo, WineCommandArgs } from 'common/types'
+import { checkWineBeforeLaunch, spawnAsync } from '../../utils'
 import { GameConfig } from '../../game_config'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import {
@@ -22,7 +22,43 @@ import {
   GOGv2Manifest
 } from 'common/types/gog'
 
-// TODO: Make it work on Windows itself
+/*
+ * Automatially executes command properly according to operating system
+ *  on Windows pre-appends powershell command to spawn UAC prompt
+ */
+async function runSetupCommand(wineArgs: WineCommandArgs) {
+  if (isWindows) {
+    // Run shell
+    const [exe, ...args] = wineArgs.commandParts
+    return spawnAsync(
+      'powershell',
+      [
+        'Start-Process',
+        '-FilePath',
+        exe,
+        '-Verb',
+        'RunAs',
+        '-Wait',
+        '-ArgumentList',
+        // TODO: Verify how Powershell will handle those
+        args
+          .map((argument) => {
+            if (argument.includes(' ')) {
+              // Add super quotes:tm:
+              argument = '`"' + argument + '`"'
+            }
+            // Add normal quotes
+            argument = '"' + argument + '"'
+            return argument
+          })
+          .join(',')
+      ],
+      { cwd: wineArgs.startFolder }
+    )
+  } else {
+    return runWineCommand(wineArgs)
+  }
+}
 
 /**
  * Handles setup instructions like create folders, move files, run exe, create registry entry etc...
@@ -132,7 +168,7 @@ async function setup(
             '/nodesktopshorctut',
             '/nodesktopshortcut'
           ]
-          await runWineCommand({
+          await runSetupCommand({
             commandParts: [absPath, ...exeArgs],
             gameSettings,
             wait: false,
@@ -200,7 +236,7 @@ async function setup(
             '/nodesktopshortcut'
           ]
 
-          await runWineCommand({
+          await runSetupCommand({
             commandParts: [isiPath, ...exeArgs],
             gameSettings,
             wait: false,
@@ -244,7 +280,7 @@ async function setup(
           '/nodesktopshorctut',
           '/nodesktopshortcut'
         ]
-        await runWineCommand({
+        await runSetupCommand({
           commandParts: [absPath, ...exeArgs],
           gameSettings,
           wait: false,
@@ -309,7 +345,7 @@ async function setup(
         prefix: LogPrefix.Gog
       })
 
-      await runWineCommand({
+      await runSetupCommand({
         commandParts,
         gameSettings,
         startFolder: gogRedistPath,
