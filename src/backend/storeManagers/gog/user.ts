@@ -4,7 +4,7 @@ import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import { GOGLoginData } from 'common/types'
 import { configStore } from './electronStores'
 import { isOnline } from '../../online_monitor'
-import { UserData } from 'common/types/gog'
+import { GOGCredentials, UserData } from 'common/types/gog'
 import { runRunnerCommand } from './library'
 import {
   createAbortController,
@@ -93,7 +93,7 @@ export class GOGUser {
    * if needed refreshes token and returns new credentials
    * @returns user credentials
    */
-  public static async getCredentials() {
+  public static async getCredentials(): Promise<GOGCredentials | undefined> {
     if (!isOnline()) {
       logWarning('Unable to get credentials - app is offline', {
         prefix: LogPrefix.Gog

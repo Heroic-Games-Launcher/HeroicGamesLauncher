@@ -69,6 +69,7 @@ import {
   launchCleanup,
   prepareLaunch,
   prepareWineLaunch,
+  runWineCommand,
   runWineCommand as runWineCommandUtil,
   setupEnvVars,
   setupWrappers
@@ -94,8 +95,9 @@ import { logFileLocation } from 'backend/storeManagers/storeManagerCommon/games'
 import { getWineFlagsArray } from 'backend/utils/compatibility_layers'
 import axios, { AxiosError } from 'axios'
 import { isOnline, runOnceWhenOnline } from 'backend/online_monitor'
-import { readdir } from 'fs/promises'
+import { readdir, readFile } from 'fs/promises'
 import { statSync } from 'fs'
+import ini from 'ini'
 import { getRequiredRedistList, updateRedist } from './redist'
 
 export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
@@ -688,6 +690,7 @@ export async function moveInstall(
   newInstallPath: string
 ): Promise<{ status: 'done' } | { status: 'error'; error: string }> {
   const gameInfo = getGameInfo(appName)
+  const gameConfig = GameConfig.get(appName).config
   logInfo(`Moving ${gameInfo.title} to ${newInstallPath}`, LogPrefix.Gog)
 
   const moveImpl = isWindows ? moveOnWindows : moveOnUnix
@@ -703,7 +706,13 @@ export async function moveInstall(
     return { status: 'error', error }
   }
 
-  changeGameInstallPath(appName, moveResult.installPath)
+  await changeGameInstallPath(appName, moveResult.installPath)
+  if (
+    gameInfo.install.platform === 'windows' &&
+    (isWindows || existsSync(gameConfig.winePrefix))
+  ) {
+    await setup(appName, undefined, false)
+  }
   return { status: 'done' }
 }
 
@@ -720,8 +729,7 @@ export async function repair(appName: string): Promise<ExecResult> {
   }
   const privateBranchPassword = privateBranchesStore.get(appName, '')
 
-  // Most of the data provided here is discarded, but can be used
-  // to obtain any missing manifest
+  // Most of the data provided here is discarded and read from manifest instead
   const commandParts = [
     'repair',
     appName,
@@ -732,7 +740,8 @@ export async function repair(appName: string): Promise<ExecResult> {
     '--support',
     join(gogSupportPath, appName),
     withDlcs,
-    `--lang=${gameData.install.language || 'en-US'}`,
+    '--lang',
+    gameData.install.language || 'en-US',
     '-b=' + gameData.install.buildId,
     ...workers
   ]
@@ -928,10 +937,58 @@ export async function update(
     withDlcs,
     logPath,
     workers,
-    dlcs
+    dlcs,
+    branch
   } = await getCommandParameters(appName)
   if (!installPlatform || !credentials) {
     return { status: 'error' }
+  }
+
+  const gameConfig = GameConfig.get(appName).config
+  const installedDlcs = gameData.install.installedDLCs || []
+
+  if (updateOverwrites?.dlcs) {
+    const removedDlcs = installedDlcs.filter(
+      (dlc) => !updateOverwrites.dlcs?.includes(dlc)
+    )
+    if (
+      removedDlcs.length &&
+      gameData.install.platform === 'windows' &&
+      (isWindows || existsSync(gameConfig.winePrefix))
+    ) {
+      // Run uninstaller per DLC
+      // Find uninstallers of dlcs we are looking for first
+      const listOfFiles = await readdir(gameData.install.install_path!)
+      const uninstallerIniList = listOfFiles.filter((file) =>
+        file.match(/unins\d{3}\.ini/)
+      )
+
+      for (const uninstallerFile of uninstallerIniList) {
+        // Parse ini and find all uninstallers we need
+        const rawData = await readFile(
+          join(gameData.install.install_path!, uninstallerFile),
+          { encoding: 'utf8' }
+        )
+        const parsedData = ini.parse(rawData)
+        const productId = parsedData['InstallSettings']['productID']
+        if (removedDlcs.includes(productId)) {
+          // Run uninstall on DLC
+          const uninstallExeFile = uninstallerFile.replace('ini', 'exe')
+          await runWineCommand({
+            gameSettings: gameConfig,
+            protonVerb: 'run',
+            commandParts: [
+              uninstallExeFile,
+              `/ProductId=${productId}`,
+              '/VERYSILENT',
+              '/galaxyclient',
+              '/KEEPSAVES'
+            ],
+            startFolder: gameData.install.install_path!
+          })
+        }
+      }
+    }
   }
 
   const privateBranchPassword = privateBranchesStore.get(appName, '')
@@ -942,7 +999,7 @@ export async function update(
 
   const overwrittenBranch: string[] = updateOverwrites?.branch
     ? ['--branch', updateOverwrites.branch]
-    : []
+    : branch
 
   const overwrittenLanguage: string =
     updateOverwrites?.language || gameData.install.language || 'en-US'
@@ -950,6 +1007,12 @@ export async function update(
   const overwrittenDlcs: string[] = updateOverwrites?.dlcs?.length
     ? ['--dlcs', updateOverwrites.dlcs.join(',')]
     : dlcs
+
+  const overwrittenWithDlcs: string = updateOverwrites?.dlcs
+    ? updateOverwrites.dlcs.length
+      ? '--with-dlcs'
+      : '--skip-dlcs'
+    : withDlcs
 
   const commandParts = [
     'update',
@@ -960,7 +1023,7 @@ export async function update(
     gameData.install.install_path!,
     '--support',
     join(gogSupportPath, appName),
-    withDlcs,
+    overwrittenWithDlcs,
     '--lang',
     overwrittenLanguage,
     ...overwrittenDlcs,
@@ -1044,8 +1107,11 @@ export async function update(
   const gameSettings = GameConfig.get(appName).config
   // Simple check if wine prefix exists and setup can be performed because of an
   // update
-  if (isWindows || existsSync(gameSettings.winePrefix)) {
-    await setup(appName)
+  if (
+    gameObject.platform === 'windows' &&
+    (isWindows || existsSync(gameSettings.winePrefix))
+  ) {
+    await setup(appName, gameObject, false)
   }
   sendFrontendMessage('gameStatusUpdate', {
     appName: appName,
@@ -1081,6 +1147,8 @@ async function getCommandParameters(appName: string) {
       : []
 
   const branch = gameData.install.branch
+    ? ['--branch', gameData.install.branch]
+    : []
 
   const installPlatform = gameData.install.platform
 

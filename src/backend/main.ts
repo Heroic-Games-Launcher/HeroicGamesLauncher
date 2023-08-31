@@ -612,7 +612,7 @@ ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
       await Winetricks.run(wineVersion, winePrefix, event)
       break
     case 'winecfg':
-      runWineCommandOnGame(runner, appName, {
+      await runWineCommandOnGame(runner, appName, {
         gameSettings,
         commandParts: ['winecfg'],
         wait: false
@@ -621,7 +621,7 @@ ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
     case 'runExe':
       if (exe) {
         const workingDir = path.parse(exe).dir
-        runWineCommandOnGame(runner, appName, {
+        await runWineCommandOnGame(runner, appName, {
           gameSettings,
           commandParts: [exe],
           wait: false,
@@ -629,6 +629,14 @@ ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
         })
       }
       break
+  }
+  if (runner === 'gog') {
+    // Check if game was modified by offline installer / wine uninstaller
+    await GOGLibraryManager.checkForOfflineInstallerChanges(appName)
+    sendFrontendMessage(
+      'pushGameToLibrary',
+      GOGLibraryManager.getGameInfo(appName)
+    )
   }
 })
 

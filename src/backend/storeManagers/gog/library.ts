@@ -20,7 +20,8 @@ import {
   BuildItem,
   GalaxyLibraryEntry,
   ProductsEndpointData,
-  GOGDLInstallInfo
+  GOGDLInstallInfo,
+  GOGCredentials
 } from 'common/types/gog'
 import { dirname, join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
@@ -49,16 +50,15 @@ import {
 } from '../../utils/aborthandler/aborthandler'
 import { isOnline, runOnceWhenOnline } from '../../online_monitor'
 import i18next from 'i18next'
-import { mkdir } from 'node:fs/promises'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { unzipSync } from 'node:zlib'
-import { writeFileSync } from 'node:fs'
+import { readdirSync, rmSync, writeFileSync } from 'node:fs'
 import { checkForRedistUpdates } from './redist'
 
 const library: Map<string, GameInfo> = new Map()
 const installedGames: Map<string, InstalledInfo> = new Map()
 
 export async function initGOGLibraryManager() {
-  refreshInstalled()
   await refresh()
 
   // Based on installed games scan for missing manifests and attempt to pull
@@ -72,69 +72,78 @@ export async function initGOGLibraryManager() {
 
   const credentials = await GOGUser.getCredentials()
   for (const appName of installedGamesList) {
-    const manifestPath = join(manifestDir, appName)
-    const installedData = installedGames.get(appName)! // It exists for sure
-    if (existsSync(manifestPath) || installedData?.platform === 'linux') {
-      continue
-    }
-    // Pull the data, read info file from install dir if possible
-    const res = await runRunnerCommand(
-      ['import', installedData.install_path],
-      createAbortController(appName),
-      {
-        logMessagePrefix: `Getting data of ${appName}`
-      }
-    )
-    deleteAbortController(appName)
-    try {
-      const importData: GOGImportData = JSON.parse(res.stdout)
-      if (!importData.buildId) {
-        logError(`Unable to get data of ${appName}`, { prefix: LogPrefix.Gog })
-        continue
-      }
-      const builds = await getBuilds(
-        appName,
-        installedData.platform,
-        credentials?.access_token
-      )
-      const buildItems: BuildItem[] = builds.data.items
-
-      // Find our build in the list
-
-      const currentBuild = buildItems.find(
-        (item) => item.build_id === importData.buildId
-      )
-      if (!currentBuild || !currentBuild.urls) {
-        logError(`Unable to get current build of ${appName}`, {
-          prefix: LogPrefix.Gog
-        })
-        continue
-      }
-
-      // Get meta
-      const url = currentBuild.urls[0]
-
-      const response = await axios.get(url.url, { responseType: 'arraybuffer' })
-      let manifestDataRaw = response.data.toString()
-      if (currentBuild.generation === 2) {
-        manifestDataRaw = unzipSync(response.data)
-      }
-      const manifestData = JSON.parse(manifestDataRaw.toString())
-
-      manifestData.HGLInstallLanguage = importData.installedLanguage
-      manifestData.HGLdlcs = importData.dlcs.map((dlc) => ({ id: dlc }))
-
-      writeFileSync(manifestPath, JSON.stringify(manifestData), {
-        encoding: 'utf8'
-      })
-    } catch (e) {
-      logError(`Unable to get data of ${appName} ${e}`, {
-        prefix: LogPrefix.Gog
-      })
-      continue
-    }
+    await createMissingGogdlManifest(appName, credentials)
   }
   runOnceWhenOnline(checkForRedistUpdates)
+}
+
+async function createMissingGogdlManifest(
+  appName: string,
+  credentials?: GOGCredentials
+) {
+  const manifestDir = join(gogdlConfigPath, 'manifests')
+
+  const manifestPath = join(manifestDir, appName)
+  const installedData = installedGames.get(appName)! // It exists for sure
+  if (existsSync(manifestPath) || installedData?.platform === 'linux') {
+    return
+  }
+  // Pull the data, read info file from install dir if possible
+  const res = await runRunnerCommand(
+    ['import', installedData.install_path],
+    createAbortController(appName),
+    {
+      logMessagePrefix: `Getting data of ${appName}`
+    }
+  )
+  deleteAbortController(appName)
+  try {
+    const importData: GOGImportData = JSON.parse(res.stdout)
+    if (!importData.buildId) {
+      logError(`Unable to get data of ${appName}`, { prefix: LogPrefix.Gog })
+      return
+    }
+    const builds = await getBuilds(
+      appName,
+      installedData.platform,
+      credentials?.access_token
+    )
+    const buildItems: BuildItem[] = builds.data.items
+
+    // Find our build in the list
+
+    const currentBuild = buildItems.find(
+      (item) => item.build_id === importData.buildId
+    )
+    if (!currentBuild || !currentBuild.urls) {
+      logError(`Unable to get current build of ${appName}`, {
+        prefix: LogPrefix.Gog
+      })
+      return
+    }
+
+    // Get meta
+    const url = currentBuild.urls[0]
+
+    const response = await axios.get(url.url, { responseType: 'arraybuffer' })
+    let manifestDataRaw = response.data.toString()
+    if (currentBuild.generation === 2) {
+      manifestDataRaw = unzipSync(response.data)
+    }
+    const manifestData = JSON.parse(manifestDataRaw.toString())
+
+    manifestData.HGLInstallLanguage = importData.installedLanguage
+    manifestData.HGLdlcs = importData.dlcs.map((dlc) => ({ id: dlc }))
+
+    writeFileSync(manifestPath, JSON.stringify(manifestData), {
+      encoding: 'utf8'
+    })
+  } catch (e) {
+    logError(`Unable to get data of ${appName} ${e}`, {
+      prefix: LogPrefix.Gog
+    })
+    return
+  }
 }
 
 export async function getSaveSyncLocation(
@@ -193,6 +202,9 @@ async function getGalaxyLibrary(
   page_token?: string
 ): Promise<Array<GalaxyLibraryEntry>> {
   const credentials = await GOGUser.getCredentials()
+  if (!credentials) {
+    return []
+  }
   const headers = {
     Authorization: `Bearer ${credentials.access_token}`
   }
@@ -229,19 +241,93 @@ async function getGalaxyLibrary(
   return objects
 }
 
-export async function refresh(): Promise<ExecResult> {
-  if (!GOGUser.isLoggedIn()) {
-    return defaultExecResult
-  }
-  refreshInstalled()
+async function loadLocalLibrary() {
   for (const game of libraryStore.get('games', [])) {
     const copyObject = { ...game }
     if (installedGames.has(game.app_name)) {
+      await checkForOfflineInstallerChanges(game.app_name)
       copyObject.install = installedGames.get(game.app_name)!
       copyObject.is_installed = true
     }
     library.set(game.app_name, copyObject)
   }
+  installedGamesStore.set('installed', Array.from(installedGames.values()))
+}
+
+export async function checkForOfflineInstallerChanges(appName: string) {
+  // game could've been updated
+  // DLC may've been installed etc..
+  const installedGame = installedGames.get(appName)
+  if (
+    !installedGame ||
+    installedGame.platform === 'linux' ||
+    !existsSync(installedGame.install_path)
+  ) {
+    return
+  }
+
+  // Update installed DLCs
+  const installedProducts = listInstalledProducts(appName)
+  const dlcs = installedProducts.filter((product) => product !== appName).sort()
+  const installedDLCs = (installedGame.installedDLCs || []).sort()
+  let dlcChanged = installedDLCs.length !== dlcs.length
+
+  if (!dlcChanged) {
+    for (const index in installedDLCs) {
+      dlcChanged = installedDLCs[index] !== dlcs[index]
+      if (dlcChanged) {
+        break
+      }
+    }
+  }
+
+  if (dlcChanged) {
+    installedGame.installedDLCs = dlcs
+    // Update gogdl manifest
+    try {
+      const manifestPath = join(gogdlConfigPath, 'manifests', appName)
+      if (existsSync(manifestPath)) {
+        const manifestDataRaw = await readFile(manifestPath, {
+          encoding: 'utf8'
+        })
+        const manifestData = JSON.parse(manifestDataRaw)
+        manifestData['HGLdlcs'] = dlcs.map((dlc) => ({ id: dlc }))
+        const newData = JSON.stringify(manifestData)
+        await writeFile(manifestPath, newData, { encoding: 'utf8' })
+      }
+    } catch (e) {
+      logWarning(['Failed to update gogdl manifest', e], {
+        prefix: LogPrefix.Gog
+      })
+    }
+    installedGames.set(appName, installedGame)
+  }
+  // Check buildId
+  const data = readInfoFile(appName)
+  if (!data) {
+    return
+  }
+
+  if (data.buildId !== installedGame.buildId) {
+    // The game was updated, remove gogdl
+    // manifest and re-import it
+    const manifestPath = join(gogdlConfigPath, 'manifests', appName)
+    if (existsSync(manifestPath)) {
+      rmSync(manifestPath)
+    }
+    const credentials = await GOGUser.getCredentials()
+    await createMissingGogdlManifest(appName, credentials)
+    installedGame.buildId = data.buildId
+  }
+  installedGames.set(appName, installedGame)
+}
+
+export async function refresh(): Promise<ExecResult> {
+  if (!GOGUser.isLoggedIn()) {
+    return defaultExecResult
+  }
+  refreshInstalled()
+  await loadLocalLibrary()
   const redistGameInfo: GameInfo = {
     app_name: 'gog-redist',
     runner: 'gog',
@@ -953,6 +1039,32 @@ export async function createReqsArray(
     returnValue.push(object)
   }
   return returnValue
+}
+
+/* Get product ids installed in for given game
+ */
+export function listInstalledProducts(appName: string): string[] {
+  const installedData = installedGames.get(appName)
+  if (!installedData) {
+    return []
+  }
+
+  let root = installedData.install_path
+  if (installedData.platform === 'osx') {
+    root = join(root, 'Contents', 'Resources')
+  }
+  if (!existsSync(root)) {
+    return []
+  }
+
+  const files = readdirSync(root)
+  return files.reduce((acc, file) => {
+    const matcher = file.match(/goggame-(\d+)\.info/)
+    if (matcher) {
+      acc.push(matcher[1])
+    }
+    return acc
+  }, [] as string[])
 }
 
 /**

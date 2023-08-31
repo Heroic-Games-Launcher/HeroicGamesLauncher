@@ -32,7 +32,8 @@ import {
  */
 async function setup(
   appName: string,
-  installInfo?: InstalledInfo
+  installInfo?: InstalledInfo,
+  installRedist = true
 ): Promise<void> {
   const gameInfo = getGogLibraryGameInfo(appName)
   if (installInfo && gameInfo) {
@@ -267,7 +268,7 @@ async function setup(
     '.gogdl-redist-manifest'
   )
 
-  if (existsSync(gogRedistManifestPath)) {
+  if (existsSync(gogRedistManifestPath) && installRedist) {
     const gogRedistManifestDataRaw = await readFile(gogRedistManifestPath, {
       encoding: 'utf-8'
     })
