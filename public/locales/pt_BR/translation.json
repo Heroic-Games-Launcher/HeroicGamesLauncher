@@ -172,7 +172,7 @@
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
         "unsync": "Dessincronizar",
-        "continue": "Continuar ignore-inconsistent"
+        "continue": "Continuar"
     },
     "controller": {
         "hints": {
@@ -300,7 +300,7 @@
             "searching": "Tentando detectar a pasta de salvamento correta (Clique para cancelar)"
         },
         "settings": "As configurações são salvas automaticamente",
-        "version": "Versão do Wine ignore-inconsistent"
+        "version": "Versão do Wine"
     },
     "infobox": {
         "help": "Ajuda",
@@ -478,7 +478,7 @@
         "addgamestosteam": "Adicionar jogos à Steam automaticamente",
         "alt-gogdl-bin": "Escolha um binário do GOGDL alternativo para usar",
         "alt-legendary-bin": "Escolha um binário alternativo do Legendary",
-        "autodxvk": "Instalar/atualizar o DXVK automaticamente no prefixo",
+        "autodxvk": "Auto Instalar/atualizar o DXVK automaticamente no prefixo",
         "autosync": "Sincronizar saves automaticamente",
         "autovkd3d": "Instalar/Atualizar VKD3D automaticamente no prefixo",
         "change-target-exe": "Selecione um EXE alternativo para executar",
@@ -584,7 +584,7 @@
         "addgamestoapplications": "Adicionar jogos a aplicativos automaticamente",
         "showMetalOverlay": "Mostrar sobreposição de estatísticas",
         "alt-nile-bin": "Escolha um binário alternativo do Nilo",
-        "autodxvknvapi": "Instalar/atualizar o DXVK automaticamente no prefixo"
+        "autodxvknvapi": "Auto Instalar/atualizar o DXVK-NVAPI automaticamente no prefixo"
     },
     "settings": {
         "battlEyeRuntime": {
