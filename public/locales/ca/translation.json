@@ -286,7 +286,8 @@
             "part1": "L'Heroic cerca les versions del Wine, Proton i CrossOver als directoris següents:",
             "part2": "Per a altres llocs, utilitza un enllaç simbòlic (symlink) a algun d'aquests directoris"
         },
-        "disable_logs": "Activeu aquesta casella de selecció per desactivar la majoria de les escriptures als fitxers de registre (la informació crítica sempre es registra). Assegureu-vos de desactivar aquesta configuració abans d'informar de qualsevol problema."
+        "disable_logs": "Activeu aquesta casella de selecció per desactivar la majoria de les escriptures als fitxers de registre (la informació crítica sempre es registra). Assegureu-vos de desactivar aquesta configuració abans d'informar de qualsevol problema.",
+        "dxvknvapi": "DXVK-NVAPI és una implementació de NVAPI construïda sobre DXVK i Linux natiu NVAPI. Permet l'ús de DLSS en les GPU de Nvidia."
     },
     "info": {
         "heroic": {
@@ -584,7 +585,7 @@
         "showMetalOverlay": "Mostra la superposició d'estadístiques",
         "addgamestoapplications": "Afegeix jocs a Aplicacions automàticament",
         "alt-nile-bin": "Trieu un binari alternatiu del Nil",
-        "autodxvknvapi": "Instal·la/Actualitza el DXVK al prefix automàticament"
+        "autodxvknvapi": "Instal·la/Actualitza el DXVK-NVAPI al prefix automàticament"
     },
     "settings": {
         "battlEyeRuntime": {
