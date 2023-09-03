@@ -165,7 +165,7 @@ async function setup(
             `/galaxyclient`,
             `/buildId=${manifestData.product.timestamp}`,
             `/versionName=${gameInfo.install.version}`,
-            '/nodesktopshorctut',
+            '/nodesktopshorctut', // YES THEY MADE A TYPO
             '/nodesktopshortcut'
           ]
           await runSetupCommand({
