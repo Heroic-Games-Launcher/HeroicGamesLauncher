@@ -622,12 +622,34 @@
             "general": "General",
             "log": "Log",
             "other": "Other",
-            "sync": "Cloud Saves Sync"
+            "sync": "Cloud Saves Sync",
+            "systemInformation": "System Information"
         },
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",
         "saves": {
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        },
+        "systemInformation": {
+            "copyToClipboard": "Copy to clipboard",
+            "cpu": "CPU:",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "gogdlVersion": "Gogdl: {{gogdlVersion}}",
+            "gpu": "GPU:",
+            "gpuDriver": "Driver: {{driverVersion}}",
+            "gpuWithNumber": "GPU {{number}}:",
+            "heroicVersion": "Heroic: {{heroicVersion}}",
+            "legendaryVersion": "Legendary: {{legendaryVersion}}",
+            "memory": "Memory:",
+            "memoryStats": "{{percentUsed}}% used ({{usedGib}} / {{totalGib}}",
+            "nileVersion": "Nile: {{nileVersion}}",
+            "os": "Operating System:",
+            "osVersion": "Version {{versionNumber}}",
+            "showDetailed": "Show detailed system specifications",
+            "software": "Software:",
+            "steamDeck": "Steam Deck",
+            "systemModel": "System Model:",
+            "systemSpecifications": "System Specifications:"
         }
     },
     "Settings": "Settings",

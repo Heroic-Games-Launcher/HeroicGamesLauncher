@@ -237,6 +237,18 @@ export default function SidebarLinks() {
             </NavLink>
             <NavLink
               role="link"
+              to={`/settings/${runner}/${appName}/systeminfo`}
+              state={{ ...state, runner: state?.runner }}
+              className={classNames('Sidebar__item SidebarLinks__subItem', {
+                ['active']: type === 'systeminfo'
+              })}
+            >
+              <span>
+                {t('settings.navbar.systemInformation', 'System Information')}
+              </span>
+            </NavLink>
+            <NavLink
+              role="link"
               to={`/settings/${runner}/${appName}/log`}
               state={{ ...state, runner: state?.runner }}
               className={classNames('Sidebar__item SidebarLinks__subItem', {
