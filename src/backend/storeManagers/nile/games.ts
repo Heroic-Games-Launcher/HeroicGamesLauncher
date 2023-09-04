@@ -347,10 +347,8 @@ export async function launch(
 
   let commandEnv = {
     ...process.env,
-    ...setupWrapperEnvVars({ appName, appRunner: 'nile' })
-  }
-  if (!isWindows) {
-    commandEnv = { ...commandEnv, ...setupEnvVars(gameSettings) }
+    ...setupWrapperEnvVars({ appName, appRunner: 'nile' }),
+    ...(isWindows ? {} : setupEnvVars(gameSettings))
   }
 
   const wrappers = setupWrappers(
