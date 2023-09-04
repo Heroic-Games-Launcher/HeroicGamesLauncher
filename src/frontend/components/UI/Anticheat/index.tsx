@@ -1,5 +1,5 @@
-import React, { MouseEvent, useEffect, useState } from 'react'
-import { AntiCheatInfo, GameInfo } from 'common/types'
+import React, { MouseEvent } from 'react'
+import { AntiCheatInfo } from 'common/types'
 import { createNewWindow } from 'frontend/helpers'
 
 import { ReactComponent as InfoIcon } from 'frontend/assets/info_icon.svg'
@@ -10,29 +10,13 @@ import './index.scss'
 import { useTranslation } from 'react-i18next'
 
 type Props = {
-  gameInfo: GameInfo
+  anticheatInfo: AntiCheatInfo | null
 }
 
 const awacyUrl = 'https://areweanticheatyet.com/'
 
-export default function Anticheat({ gameInfo }: Props) {
+export default function Anticheat({ anticheatInfo }: Props) {
   const { t } = useTranslation()
-
-  const [anticheatInfo, setAnticheatInfo] = useState<AntiCheatInfo | null>(null)
-
-  useEffect(() => {
-    if (
-      gameInfo.runner !== 'sideload' &&
-      gameInfo.title &&
-      gameInfo.namespace !== undefined
-    ) {
-      window.api
-        .getAnticheatInfo(gameInfo.namespace)
-        .then((anticheatInfo: AntiCheatInfo | null) => {
-          setAnticheatInfo(anticheatInfo)
-        })
-    }
-  }, [gameInfo])
 
   if (!anticheatInfo) {
     return null

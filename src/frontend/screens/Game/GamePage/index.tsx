@@ -82,6 +82,7 @@ import HowLongToBeat from 'frontend/components/UI/WikiGameInfo/components/HowLon
 import GameScore from 'frontend/components/UI/WikiGameInfo/components/GameScore'
 import DLCList from 'frontend/components/UI/DLCList'
 import { NileInstallInfo } from 'common/types/nile'
+import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -129,6 +130,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [wineVersion, setWineVersion] = useState<WineInstallation>()
   const [showRequirements, setShowRequirements] = useState(false)
   const [showDlcs, setShowDlcs] = useState(false)
+
+  const anticheatInfo = hasAnticheatInfo(gameInfo)
 
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
@@ -760,7 +763,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   ))}
                 </SelectField>
               )}
-              <Anticheat gameInfo={gameInfo} />
+              <Anticheat anticheatInfo={anticheatInfo} />
               {is_installed && !isQueued && (
                 <button
                   disabled={
