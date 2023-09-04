@@ -286,7 +286,8 @@
             "part1": "Búsquedas de versiones de Wine, Proton y CrossOver en las siguientes carpetas:",
             "part2": "Para otros lugares, use un enlace simbólico a una de estas carpetas"
         },
-        "disable_logs": "Active esta casilla de verificación para desactivar la mayoría de las escrituras en los archivos de registro (la información crítica siempre se registra). Asegúrese de DESACTIVAR esta configuración antes de informar cualquier problema."
+        "disable_logs": "Active esta casilla de verificación para desactivar la mayoría de las escrituras en los archivos de registro (la información crítica siempre se registra). Asegúrese de DESACTIVAR esta configuración antes de informar cualquier problema.",
+        "dxvknvapi": "DXVK-NVAPI es una implementación de NVAPI construida sobre DXVK y la NVAPI nativa de Linux, que permite el uso de DLSS en GPUs Nvidia."
     },
     "info": {
         "heroic": {

@@ -286,7 +286,8 @@
             "part1": "Heroic hledá verze Wine, Proton a CrossOver v následujících složkách:",
             "part2": "Pro jiná místa použijte symbolický odkaz na jednu z těchto složek"
         },
-        "disable_logs": "Zapnutím tohoto políčka zakážete většinu zápisů do souborů protokolu (kritické informace jsou vždy protokolovány). Před nahlášením jakéhokoli problému nezapomeňte toto nastavení vypnout."
+        "disable_logs": "Zapnutím tohoto políčka zakážete většinu zápisů do souborů protokolu (kritické informace jsou vždy protokolovány). Před nahlášením jakéhokoli problému nezapomeňte toto nastavení vypnout.",
+        "dxvknvapi": "DXVK-NVAPI je implementace NVAPI postavená na DXVK a nativním NVAPI Linuxu, umožňuje použití DLSS na grafických kartách Nvidia."
     },
     "info": {
         "heroic": {
