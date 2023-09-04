@@ -276,7 +276,6 @@ async function prepareWineLaunch(
 /**
  * Maps general settings to environment variables
  * @param gameSettings The GameSettings to get the environment variables for
- * @param wrapperEnv The wrapper info to be added into the environment variables
  * @returns A big string of environment variables, structured key=value
  */
 function setupEnvVars(gameSettings: GameSettings) {
