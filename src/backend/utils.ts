@@ -50,8 +50,6 @@ import {
 } from './logger/logger'
 import { basename, dirname, join, normalize } from 'path'
 import { runRunnerCommand as runLegendaryCommand } from 'backend/storeManagers/legendary/library'
-import { runRunnerCommand as runGogdlCommand } from './storeManagers/gog/library'
-import { runRunnerCommand as runNileCommand } from './storeManagers/nile/library'
 import {
   gameInfoStore,
   installStore,
@@ -79,6 +77,7 @@ import {
   updateWineVersionInfos,
   wineDownloaderInfoStore
 } from './wine/manager/utils'
+import { getHeroicVersion } from './utils/systeminfo/heroicVersion'
 
 const execAsync = promisify(exec)
 
@@ -204,68 +203,6 @@ async function isEpicServiceOffline(
     )
     return false
   }
-}
-
-const getLegendaryVersion = async () => {
-  const abortID = 'legendary-version'
-  const { stdout, error, abort } = await runLegendaryCommand(
-    { subcommand: undefined, '--version': true },
-    createAbortController(abortID)
-  )
-
-  deleteAbortController(abortID)
-
-  if (error || abort) {
-    return 'invalid'
-  }
-
-  return stdout
-    .split('legendary version')[1]
-    .replaceAll('"', '')
-    .replaceAll(', codename', '')
-    .replaceAll('\n', '')
-}
-
-const getGogdlVersion = async () => {
-  const abortID = 'gogdl-version'
-  const { stdout, error } = await runGogdlCommand(
-    ['--version'],
-    createAbortController(abortID)
-  )
-
-  deleteAbortController(abortID)
-
-  if (error) {
-    return 'invalid'
-  }
-
-  return stdout
-}
-
-const getNileVersion = async () => {
-  const abortID = 'nile-version'
-  const { stdout, error } = await runNileCommand(
-    ['--version'],
-    createAbortController(abortID)
-  )
-  deleteAbortController(abortID)
-
-  if (error) {
-    return 'invalid'
-  }
-  return stdout
-}
-
-const getHeroicVersion = () => {
-  const VERSION_NUMBER = app.getVersion()
-  // One Piece reference
-  const BETA_VERSION_NAME = 'Caesar Clown'
-  const STABLE_VERSION_NAME = 'Boa Hancock'
-  const isBetaorAlpha =
-    VERSION_NUMBER.includes('alpha') || VERSION_NUMBER.includes('beta')
-  const VERSION_NAME = isBetaorAlpha ? BETA_VERSION_NAME : STABLE_VERSION_NAME
-
-  return `${VERSION_NUMBER} ${VERSION_NAME}`
 }
 
 const showAboutWindow = () => {
@@ -1369,9 +1306,6 @@ export {
   getSystemInfo,
   getWineFromProton,
   getFileSize,
-  getLegendaryVersion,
-  getGogdlVersion,
-  getNileVersion,
   memoryLog,
   removeFolder
 }

@@ -54,8 +54,6 @@ import {
   clearCache,
   execAsync,
   isEpicServiceOffline,
-  getLegendaryVersion,
-  getGogdlVersion,
   getSystemInfo,
   handleExit,
   openUrlOrFile,
@@ -70,8 +68,7 @@ import {
   getCurrentChangelog,
   checkWineBeforeLaunch,
   removeFolder,
-  downloadDefaultWine,
-  getNileVersion
+  downloadDefaultWine
 } from './utils'
 import {
   configStore,
@@ -646,9 +643,6 @@ ipcMain.handle('getEpicGamesStatus', async () => isEpicServiceOffline())
 ipcMain.handle('getMaxCpus', () => cpus().length)
 
 ipcMain.handle('getHeroicVersion', app.getVersion)
-ipcMain.handle('getLegendaryVersion', getLegendaryVersion)
-ipcMain.handle('getGogdlVersion', getGogdlVersion)
-ipcMain.handle('getNileVersion', getNileVersion)
 ipcMain.handle('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
 ipcMain.handle('isFlatpak', () => isFlatpak)
 ipcMain.handle('getGameOverride', async () => getGameOverride())
@@ -1688,7 +1682,7 @@ import './logger/ipc_handler'
 import './wine/manager/ipc_handler'
 import './shortcuts/ipc_handler'
 import './anticheat/ipc_handler'
-import 'backend/storeManagers/legendary/eos_overlay/ipc_handler'
+import './storeManagers/legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
 import './downloadmanager/ipc_handler'
 import './utils/ipc_handler'
