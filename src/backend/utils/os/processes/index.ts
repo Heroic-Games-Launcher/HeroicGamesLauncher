@@ -14,7 +14,7 @@ interface SpawnWrapperReturn {
 
 async function genericSpawnWrapper(
   command: string,
-  args: string[],
+  args: string[] = [],
   options: SpawnWrapperOptions = {}
 ): Promise<SpawnWrapperReturn> {
   const child = spawn(command, args)

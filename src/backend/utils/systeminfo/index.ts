@@ -7,6 +7,7 @@ import process from 'process'
 import { filesize } from 'filesize'
 
 import { getGpuInfo } from './gpu'
+import { getMemoryInfo } from './memory'
 import { getOsInfo } from './osInfo'
 import { isSteamDeck } from './steamDeck'
 import { getHeroicVersion } from './heroicVersion'
@@ -70,16 +71,7 @@ async function getSystemInfo(cache = true): Promise<SystemInformation> {
   if (cache && cachedSystemInfo) return cachedSystemInfo
 
   const cpus = os.cpus()
-  const memory = process.getSystemMemoryInfo()
-  // NOTE: Electron's memory statistics seem to be in kibibytes, not in
-  // kilobytes (like the docs say)
-  const totalMemory = memory.total * 1024
-  // FIXME: This is inaccurate, since "free" RAM is not the same as "available"
-  //        RAM on Linux ("free" often only being a couple hundred MB, while
-  //        "available" can be tens of GBs)
-  //        We're probably going to have to write our own function for this that
-  //        interprets the output of the `free` command
-  const usedMemory = (memory.total - memory.free) * 1024
+  const memory = await getMemoryInfo()
   const gpus = await getGpuInfo()
   const detailedOsInfo = await getOsInfo()
   const isDeck = isSteamDeck(cpus, gpus)
@@ -97,10 +89,10 @@ async function getSystemInfo(cache = true): Promise<SystemInformation> {
       cores: cpus.length
     },
     memory: {
-      total: totalMemory,
-      used: usedMemory,
-      totalFormatted: filesize(totalMemory, { base: 2 }) as string,
-      usedFormatted: filesize(usedMemory, { base: 2 }) as string
+      total: memory.total,
+      used: memory.used,
+      totalFormatted: filesize(memory.total, { base: 2 }) as string,
+      usedFormatted: filesize(memory.used, { base: 2 }) as string
     },
     GPUs: gpus,
     OS: {
