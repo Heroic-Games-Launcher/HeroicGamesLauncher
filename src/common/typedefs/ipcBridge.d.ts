@@ -40,6 +40,7 @@ import {
   NileRegisterData,
   NileUserData
 } from 'common/types/nile'
+import { Systeminformation } from 'systeminformation'
 
 /**
  * Some notes here:
@@ -262,6 +263,7 @@ interface AsyncIPCFunctions {
     appName: string
   ) => Promise<number | undefined>
   getAmazonLoginData: () => Promise<NileLoginData>
+  getOSInfo: () => Promise<Systeminformation.OsData>
 }
 
 // This is quite ugly & throws a lot of errors in a regular .ts file
