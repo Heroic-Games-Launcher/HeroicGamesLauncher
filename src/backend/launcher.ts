@@ -315,6 +315,7 @@ function setupWrapperEnvVars(wrapperEnv: WrapperEnv) {
   const ret: Record<string, string> = {}
 
   ret.HEROIC_APP_NAME = wrapperEnv.appName
+  ret.HEROIC_APP_RUNNER = wrapperEnv.appRunner
 
   switch (wrapperEnv.appRunner) {
     case 'gog':
