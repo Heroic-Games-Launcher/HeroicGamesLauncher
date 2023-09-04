@@ -26,7 +26,6 @@ import {
 import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
-import si from 'systeminformation'
 
 import {
   fixAsarPath,
@@ -249,89 +248,6 @@ async function handleExit() {
     callAllAbortControllers()
   }
   app.exit()
-}
-
-const getSystemInfoInternal = async (): Promise<string> => {
-  const heroicVersion = getHeroicVersion()
-  const legendaryVersion = await getLegendaryVersion()
-  const gogdlVersion = await getGogdlVersion()
-  const nileVersion = await getNileVersion()
-
-  const electronVersion = process.versions.electron || 'unknown'
-  const chromeVersion = process.versions.chrome || 'unknown'
-  const nodeVersion = process.versions.node || 'unknown'
-
-  // get CPU and RAM info
-  const { manufacturer, brand, speed, governor } = await si.cpu()
-  const { total, available } = await si.mem()
-
-  // get OS information
-  const { distro, kernel, arch, platform, release, codename } =
-    await si.osInfo()
-
-  // get GPU information
-  const { controllers } = await si.graphics()
-  const graphicsCards = String(
-    controllers
-      .map(
-        ({ name, model, vram, driverVersion }, i: number) =>
-          `GPU${i}: ${name ? name : model} ${vram ? `VRAM: ${vram}MB` : ''} ${
-            driverVersion ? `DRIVER: ${driverVersion}` : ''
-          }\n`
-      )
-      .join('')
-  )
-    .replaceAll(',', '')
-    .replaceAll('\n', '')
-
-  const isLinux = platform === 'linux'
-  const xEnv = isLinux
-    ? (await execAsync('echo $XDG_SESSION_TYPE')).stdout.replaceAll('\n', '')
-    : ''
-
-  const systemInfo = `Heroic Version: ${heroicVersion}
-Legendary Version: ${legendaryVersion}
-GOGdl Version: ${gogdlVersion}
-Nile Version: ${nileVersion}
-
-Electron Version: ${electronVersion}
-Chrome Version: ${chromeVersion}
-NodeJS Version: ${nodeVersion}
-
-OS: ${isMac ? `${codename} ${release}` : distro} KERNEL: ${kernel} ARCH: ${arch}
-CPU: ${manufacturer} ${brand} @${speed} ${
-    governor ? `GOVERNOR: ${governor}` : ''
-  }
-RAM: Total: ${getFileSize(total)} Available: ${getFileSize(available)}
-GRAPHICS: ${graphicsCards}
-${isLinux ? `PROTOCOL: ${xEnv}` : ''}`
-  return systemInfo
-}
-
-// This won't change while the app is running
-// Caching significantly increases performance when launching games
-let systemInfoCache = ''
-const getSystemInfo = async (): Promise<string> => {
-  if (systemInfoCache !== '') {
-    return systemInfoCache
-  }
-  try {
-    const timeoutPromise = new Promise((resolve, reject) =>
-      setTimeout(reject, 5000)
-    )
-    const systemInfo = await Promise.race([
-      getSystemInfoInternal(),
-      timeoutPromise
-    ])
-    systemInfoCache = systemInfo as string
-    return systemInfoCache
-  } catch (err) {
-    // On some systems this race might fail in time because of the sub-processes
-    // in systeminformation hanging indefinitely.
-    // To make sure that the app doesn't become a zombie process we exit this promise after 5 seconds.
-    logWarning('Could not determine System Info', LogPrefix.Backend)
-    return ''
-  }
 }
 
 type ErrorHandlerMessage = {
@@ -1274,7 +1190,6 @@ export {
   getShellPath,
   getFirstExistingParentPath,
   getLatestReleases,
-  getSystemInfo,
   getWineFromProton,
   getFileSize,
   memoryLog,

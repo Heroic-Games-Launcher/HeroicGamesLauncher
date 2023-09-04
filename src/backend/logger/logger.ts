@@ -9,8 +9,9 @@ import { showDialogBoxModalAuto } from '../dialog/dialog'
 import { appendMessageToLogFile, getLongestPrefix } from './logfile'
 import { backendEvents } from 'backend/backend_events'
 import { GlobalConfig } from 'backend/config'
-import { getGOGdlBin, getLegendaryBin, getSystemInfo } from 'backend/utils'
+import { getGOGdlBin, getLegendaryBin } from 'backend/utils'
 import { join } from 'path'
+import { formatSystemInfo, getSystemInfo } from '../utils/systeminfo'
 
 export enum LogPrefix {
   General = '',
@@ -67,13 +68,14 @@ export function initLogger() {
   }
 
   // log important information: binaries, system specs
-  getSystemInfo().then((systemInfo) => {
-    if (systemInfo === '') return
-    logInfo(`\n\n${systemInfo}\n`, {
-      prefix: LogPrefix.Backend,
-      forceLog: true
+  getSystemInfo()
+    .then(formatSystemInfo)
+    .then((systemInfo) => {
+      logInfo(`\nSystem Information:\n${systemInfo}\n`, {
+        prefix: LogPrefix.Backend,
+        forceLog: true
+      })
     })
-  })
 
   logInfo(['Legendary location:', join(...Object.values(getLegendaryBin()))], {
     prefix: LogPrefix.Legendary,
