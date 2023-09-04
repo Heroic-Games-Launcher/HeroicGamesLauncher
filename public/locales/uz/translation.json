@@ -133,7 +133,8 @@
             }
         },
         "wineprefix": "Wine prefiks papkasini tanlang",
-        "yes": "HA"
+        "yes": "HA",
+        "choose-nile-binary": "Nil ikkilik-ni tanlang"
     },
     "accessibility": {
         "actions_font_family_no_default": "Harakatlar shriftlari oilasi (standart: ",
@@ -380,7 +381,8 @@
         "alternative_method": "Muqobil kirish usuli",
         "epic": "Epic Games tizimiga kirish",
         "gog": "GOG tizimiga kirish",
-        "message": "Platformangiz bilan tizimga kiring. Siz bir vaqtning o'zida bir nechta platformaga kirishingiz mumkin."
+        "message": "Platformangiz bilan tizimga kiring. Siz bir vaqtning o'zida bir nechta platformaga kirishingiz mumkin.",
+        "amazon": "Amazonga kirish"
     },
     "message": {
         "sync": "Sinxronizatsiya tugallandi",
@@ -473,7 +475,8 @@
     "other": {
         "gogdl-version": "GOGDL versiyasi: ",
         "legendary-version": "Afsonaviy versiya: ",
-        "weblate": "Heroic tarjimasiga yordam bering."
+        "weblate": "Heroic tarjimasiga yordam bering.",
+        "nile-version": "Nil versiyasi: "
     },
     "Other": "Boshqa",
     "placeholder": {
@@ -482,7 +485,8 @@
         "custom_themes_path": "Maxsus CSS fayllarini qidirish uchun yo'lni tanlang",
         "dxvkfpsvalue": "Postiv tamsayı qiymati (masalan, 30, 60, ...)",
         "egs-prefix": "EGS o'rnatilgan prefiks",
-        "prefered_language": "2 belgili kod (masalan: \"en\" yoki \"fr\")"
+        "prefered_language": "2 belgili kod (masalan: \"en\" yoki \"fr\")",
+        "alt-nile-bin": "O'rnatilgan Nil ikkilik tizimidan foydalanish..."
     },
     "please-wait": "Iltimos kuting...",
     "progress": "Taraqqiyot",
@@ -611,7 +615,8 @@
         "wineversion": "Vino versiyasi",
         "disable_logs": "Jurnallarni o'chirib qo'ying",
         "addgamestoapplications": "Ilovalarga o'yinlarni avtomatik ravishda qo'shing",
-        "showMetalOverlay": "Statistika qavatini ko'rsatish"
+        "showMetalOverlay": "Statistika qavatini ko'rsatish",
+        "alt-nile-bin": "Muqobil Nil Binarini tanlang"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -657,7 +662,8 @@
     "status": {
         "installing": "Oʻrnatilmoqda",
         "logging": "Tizimga kirish...",
-        "processing": "Fayllarga ishlov berilmoqda, kuting"
+        "processing": "Fayllarga ishlov berilmoqda, kuting",
+        "preparing_login": "Kirish tayyorlanmoqda... "
     },
     "store": "Epic Store",
     "stores": "Do'konlar",
@@ -682,5 +688,8 @@
         "noDlcFound": "Hech qanday DLC topilmadi",
         "size": "Hajmi",
         "title": "Sarlavha"
-    }
+    },
+    "amazon": "Amazon",
+    "Amazon Games": "Amazon o'yinlari",
+    "prime-gaming": "Prime Gaming"
 }

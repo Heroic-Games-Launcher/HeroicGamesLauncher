@@ -40,6 +40,7 @@ import {
   NileRegisterData,
   NileUserData
 } from 'common/types/nile'
+import { Systeminformation } from 'systeminformation'
 
 /**
  * Some notes here:
@@ -252,6 +253,7 @@ interface AsyncIPCFunctions {
   }) => Promise<boolean>
   toggleDXVK: (args: ToolArgs) => Promise<boolean>
   toggleVKD3D: (args: ToolArgs) => Promise<boolean>
+  toggleDXVKNVAPI: (args: ToolArgs) => Promise<boolean>
   pathExists: (path: string) => Promise<boolean>
   getGOGLaunchOptions: (appName: string) => Promise<LaunchOption[]>
   getGameOverride: () => Promise<GameOverride | null>
@@ -261,6 +263,7 @@ interface AsyncIPCFunctions {
     appName: string
   ) => Promise<number | undefined>
   getAmazonLoginData: () => Promise<NileLoginData>
+  getOSInfo: () => Promise<Systeminformation.OsData>
 }
 
 // This is quite ugly & throws a lot of errors in a regular .ts file

@@ -30,7 +30,6 @@ import {
   appendFileSync,
   constants,
   existsSync,
-  mkdirSync,
   rmSync,
   unlinkSync,
   watch,
@@ -63,7 +62,6 @@ import {
   resetHeroic,
   showAboutWindow,
   showItemInFolder,
-  getLegendaryBin,
   getFileSize,
   detectVCRedist,
   getFirstExistingParentPath,
@@ -150,7 +148,7 @@ import {
   initStoreManagers,
   libraryManagerMap
 } from './storeManagers'
-import { setupUbisoftConnect } from 'backend/storeManagers/legendary/setup'
+import { legendarySetup } from 'backend/storeManagers/legendary/setup'
 
 import { logFileLocation as getLogFileLocation } from './storeManagers/storeManagerCommon/games'
 import { addNewApp } from './storeManagers/sideload/library'
@@ -202,7 +200,10 @@ async function initializeWindow(): Promise<BrowserWindow> {
 
     if (!isCLIFullscreen && !isSteamDeckGameMode) {
       // store windows properties
-      configStore.set('window-props', mainWindow.getBounds())
+      configStore.set('window-props', {
+        ...mainWindow.getBounds(),
+        maximized: mainWindow.isMaximized()
+      })
     }
 
     const { exitToTray } = GlobalConfig.get().getSettings()
@@ -577,12 +578,13 @@ async function runWineCommandOnGame(
     logError('runWineCommand called on native game!', LogPrefix.Gog)
     return { stdout: '', stderr: '' }
   }
-  const { folder_name } = gameManagerMap[runner].getGameInfo(appName)
+  const { folder_name, install } = gameManagerMap[runner].getGameInfo(appName)
   const gameSettings = await gameManagerMap[runner].getSettings(appName)
 
   return runWineCommand({
     gameSettings,
     installFolderName: folder_name,
+    gameInstallPath: install.install_path,
     commandParts,
     wait,
     protonVerb,
@@ -841,6 +843,14 @@ ipcMain.handle('toggleDXVK', async (event, { appName, action }) =>
     .getSettings()
     .then(async (gameSettings) =>
       DXVK.installRemove(gameSettings, 'dxvk', action)
+    )
+)
+
+ipcMain.handle('toggleDXVKNVAPI', async (event, { appName, action }) =>
+  GameConfig.get(appName)
+    .getSettings()
+    .then(async (gameSettings) =>
+      DXVK.installRemove(gameSettings, 'dxvk-nvapi', action)
     )
 )
 
@@ -1401,38 +1411,7 @@ ipcMain.handle(
 )
 
 ipcMain.handle('egsSync', async (event, args) => {
-  if (isWindows) {
-    const egl_manifestPath =
-      'C:\\ProgramData\\Epic\\EpicGamesLauncher\\Data\\Manifests'
-
-    if (!existsSync(egl_manifestPath)) {
-      mkdirSync(egl_manifestPath, { recursive: true })
-    }
-  }
-
-  const linkArgs = isWindows
-    ? `--enable-sync`
-    : `--enable-sync --egl-wine-prefix ${args}`
-  const unlinkArgs = `--unlink`
-  const isLink = args !== 'unlink'
-  const command = isLink ? linkArgs : unlinkArgs
-  const { bin, dir } = getLegendaryBin()
-  const legendary = path.join(dir, bin)
-
-  try {
-    const { stderr, stdout } = await execAsync(
-      `${legendary} egl-sync ${command} -y`
-    )
-    logInfo(`${stdout}`, LogPrefix.Legendary)
-    if (stderr.includes('ERROR')) {
-      logError(`${stderr}`, LogPrefix.Legendary)
-      return 'Error'
-    }
-    return `${stdout} - ${stderr}`
-  } catch (error) {
-    logError(error, LogPrefix.Legendary)
-    return 'Error'
-  }
+  return LegendaryLibraryManager.toggleGamesSync(args)
 })
 
 ipcMain.handle('syncGOGSaves', async (event, gogSaves, appName, arg) =>
@@ -1599,7 +1578,7 @@ ipcMain.handle(
       await nileSetup(appName)
     }
     if (runner === 'legendary' && updated) {
-      await setupUbisoftConnect(appName)
+      await legendarySetup(appName)
     }
 
     // FIXME: Why are we using `runinprefix` here?

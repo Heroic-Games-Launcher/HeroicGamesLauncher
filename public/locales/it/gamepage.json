@@ -152,7 +152,8 @@
         "epic": "Non hai effettuato l'accesso con nessun account Epic in Heroic. Non usare la pagina dello store per accede ma clicca sul seguente pulsante:",
         "gog": "Non hai effettuato l'accesso con nessun account GOG in Heroic. Non usare la pagina dello store per accede ma clicca sul seguente pulsante:",
         "login": "Accedi",
-        "title": "NON hai effettuato l'accesso"
+        "title": "NON hai effettuato l'accesso",
+        "amazon": "Non hai effettuato l'accesso con nessun account Epic in Heroic. Non usare la pagina dello store per accede ma clicca sul seguente pulsante:"
     },
     "report_problem": "Segnala un problema nell'esecuzione di questo gioco",
     "sdl": {

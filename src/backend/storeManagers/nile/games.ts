@@ -41,7 +41,7 @@ import { appendFileSync, existsSync } from 'graceful-fs'
 import { logFileLocation } from 'backend/storeManagers/storeManagerCommon/games'
 import { showDialogBoxModalAuto } from 'backend/dialog/dialog'
 import { t } from 'i18next'
-import { getWineFlags } from 'backend/utils/compatibility_layers'
+import { getWineFlagsArray } from 'backend/utils/compatibility_layers'
 import shlex from 'shlex'
 import { join } from 'path'
 import {
@@ -280,7 +280,10 @@ export async function install(
   addShortcuts(appName)
   installState(appName, true)
   const metadata = getInstallMetadata(appName)
-  await setup(appName, metadata?.path)
+
+  if (isWindows) {
+    await setup(appName, metadata?.path)
+  }
 
   return { status: 'done' }
 }
@@ -344,7 +347,17 @@ export async function launch(
   let commandEnv = isWindows
     ? process.env
     : { ...process.env, ...setupEnvVars(gameSettings) }
-  let wineFlag: string[] = []
+
+  const wrappers = setupWrappers(
+    gameSettings,
+    mangoHudCommand,
+    gameModeBin,
+    steamRuntime?.length ? [...steamRuntime] : undefined
+  )
+
+  let wineFlag: string[] = wrappers.length
+    ? ['--wrapper', shlex.join(wrappers)]
+    : []
 
   if (!isNative()) {
     // -> We're using Wine/Proton on Linux or CX on Mac
@@ -382,7 +395,7 @@ export async function launch(
         : wineExec
 
     wineFlag = [
-      ...getWineFlags(wineBin, gameSettings, wineType),
+      ...getWineFlagsArray(wineBin, wineType, shlex.join(wrappers)),
       '--wine-prefix',
       gameSettings.winePrefix
     ]
@@ -396,17 +409,9 @@ export async function launch(
     ...shlex.split(gameSettings.launcherArgs ?? ''),
     appName
   ]
-  const wrappers = setupWrappers(
-    gameSettings,
-    mangoHudCommand,
-    gameModeBin,
-    steamRuntime?.length ? [...steamRuntime] : undefined
-  )
-
   const fullCommand = getRunnerCallWithoutCredentials(
     commandParts,
     commandEnv,
-    wrappers,
     join(...Object.values(getNileBin()))
   )
   appendFileSync(

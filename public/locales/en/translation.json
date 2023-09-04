@@ -146,6 +146,12 @@
                 "install": "Epic Servers are having major outage right now, the game cannot be installed!",
                 "update": "Epic Servers are having major outage right now, the game cannot be updated!"
             },
+            "sideload": {
+                "confirmExit": {
+                    "message": "Any unsaved progress might be lost",
+                    "title": "Are you sure you want to quit?"
+                }
+            },
             "title": "Warning",
             "wine-change": {
                 "message": "We could not find the selected wine version to launch this title ({{selectedWine}}). {{newline}} We found another one, do you want to continue launching using {{foundWine}} ?",
@@ -246,11 +252,13 @@
         "store": "Filter Store"
     },
     "help": {
+        "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "disable_logs": "Toggle this checkbox ON to disable most of the writes to log files (critical information is always logged). Make sure to turn OFF this setting before reporting any issue.",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
         "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
+        "dxvknvapi": "DXVK-NVAPI is an implementation of NVAPI built on top of DXVK and the linux native NVAPI, it allows for the usage of DLSS on Nvidia GPUs.",
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
@@ -336,7 +344,8 @@
         "amazon": "Amazon Login",
         "epic": "Epic Games Login",
         "gog": "GOG Login",
-        "message": "Login with your platform. You can login to more than one platform at the same time."
+        "message": "Login with your platform. You can login to more than one platform at the same time.",
+        "old-mac": "Your macOS version is {{version}}. macOS 12 or newer is required to log in."
     },
     "message": {
         "sync": "Sync Complete",
@@ -476,6 +485,7 @@
         "alt-legendary-bin": "Choose an Alternative Legendary Binary",
         "alt-nile-bin": "Choose an Alternative Nile Binary",
         "autodxvk": "Auto Install/Update DXVK on Prefix",
+        "autodxvknvapi": "Auto Install/Update DXVK-NVAPI on Prefix",
         "autosync": "Autosync Saves",
         "autoUpdateGames": "Automatically update games",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
@@ -494,6 +504,7 @@
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Sync with Installed Epic Games",
+        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "eosOverlay": {
             "cancelInstall": "Cancel",
             "checkForUpdates": "Check for updates",
@@ -516,6 +527,7 @@
         },
         "esync": "Enable Esync",
         "exit-to-tray": "Exit to System Tray",
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",

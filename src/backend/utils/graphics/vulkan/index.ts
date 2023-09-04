@@ -49,6 +49,14 @@ function get_supported_vulkan_versions(): [
   }
 }
 
+function get_nvngx_path(): string {
+  const result = spawnSync(vulkanHelperBin, ['nvapi-path'], {
+    encoding: 'utf-8'
+  })
+
+  return result.stdout.trim()
+}
+
 /**
  * Helper function to detect if any GPU in the system supports a specified Vulkan version
  * @returns The name of first the adapter supporting the target version, or `false` if none do
@@ -64,4 +72,4 @@ function any_gpu_supports_version(
   return false
 }
 
-export { get_vulkan_instance_version, any_gpu_supports_version }
+export { get_vulkan_instance_version, any_gpu_supports_version, get_nvngx_path }

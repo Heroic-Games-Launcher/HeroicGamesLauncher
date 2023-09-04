@@ -99,6 +99,7 @@ export default async function setup(
 
     await runWineCommand({
       gameSettings,
+      gameInstallPath: basePath,
       commandParts: [action.Command, ...exeArguments],
       wait: true,
       protonVerb: 'waitforexitandrun',
