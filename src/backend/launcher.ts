@@ -21,7 +21,6 @@ import {
   constructAndUpdateRPC,
   getSteamRuntime,
   isEpicServiceOffline,
-  searchForExecutableOnPath,
   quoteIfNecessary,
   errorHandler,
   removeQuoteIfNecessary,
@@ -64,6 +63,7 @@ import * as VDF from '@node-steam/vdf'
 import { readFileSync } from 'fs'
 import { LegendaryCommand } from './storeManagers/legendary/commands'
 import { commandToArgsArray } from './storeManagers/legendary/library'
+import { searchForExecutableOnPath } from './utils/os/path'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
@@ -96,7 +96,7 @@ async function prepareLaunch(
 
   // Figure out where MangoHud/GameMode are located, if they're enabled
   let mangoHudCommand: string[] = []
-  let gameModeBin = ''
+  let gameModeBin: string | null = null
   if (gameSettings.showMangohud) {
     const mangoHudBin = await searchForExecutableOnPath('mangohud')
     if (!mangoHudBin) {
@@ -173,7 +173,7 @@ async function prepareLaunch(
     success: true,
     rpcClient,
     mangoHudCommand,
-    gameModeBin,
+    gameModeBin: gameModeBin ?? undefined,
     steamRuntime,
     offlineMode
   }

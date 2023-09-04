@@ -544,34 +544,6 @@ function getFormattedOsName(): string {
   }
 }
 
-/**
- * Finds an executable on %PATH%/$PATH
- * @param executable The executable to find
- * @returns The full path to the executable, or nothing if it was not found
- */
-// This name could use some work
-async function searchForExecutableOnPath(executable: string): Promise<string> {
-  if (isWindows) {
-    // Todo: Respect %PATHEXT% here
-    const paths = process.env.PATH?.split(';') || []
-    for (const path of paths) {
-      const fullPath = join(path, executable)
-      if (existsSync(fullPath)) {
-        return fullPath
-      }
-    }
-    return ''
-  } else {
-    return execAsync(`which ${executable}`)
-      .then(({ stdout }) => {
-        return stdout.split('\n')[0]
-      })
-      .catch((error) => {
-        logError(error, LogPrefix.Backend)
-        return ''
-      })
-  }
-}
 async function getSteamRuntime(
   requestedType: SteamRuntime['type']
 ): Promise<SteamRuntime> {
@@ -1291,7 +1263,6 @@ export {
   getGOGdlBin,
   getNileBin,
   formatEpicStoreUrl,
-  searchForExecutableOnPath,
   getSteamRuntime,
   constructAndUpdateRPC,
   quoteIfNecessary,
