@@ -152,7 +152,8 @@
         "epic": "Nem vagy bejelentkezve egy Epic fiókkal a Heroicba. Ne az áruházi oldalon jelentkezz be, kattints erre a gombra helyette:",
         "gog": "Nem vagy bejelentkezve egy GOG fiókkal a Heroicba. Ne az áruházi oldalon jelentkezz be, kattints erre a gombra helyette:",
         "login": "Log in",
-        "title": "NEM vagy bejelentkezve"
+        "title": "NEM vagy bejelentkezve",
+        "amazon": "Nem vagy bejelentkezve egy Epic fiókkal a Heroicba. Ne az áruházi oldalon jelentkezz be, kattints erre a gombra helyette:"
     },
     "report_problem": "Játék futtatásával kapcsolatos hiba jelentése",
     "sdl": {

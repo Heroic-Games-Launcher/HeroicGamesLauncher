@@ -209,7 +209,7 @@ async function isEpicServiceOffline(
 const getLegendaryVersion = async () => {
   const abortID = 'legendary-version'
   const { stdout, error, abort } = await runLegendaryCommand(
-    ['--version'],
+    { subcommand: undefined, '--version': true },
     createAbortController(abortID)
   )
 
@@ -490,6 +490,8 @@ async function errorHandler({
   }
 }
 
+// If you ever modify this range of characters, please also add them to nile
+// source as this function is used to determine how game directory will be named
 function removeSpecialcharacters(text: string): string {
   const regexp = new RegExp(/[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|'|"|®]/, 'gi')
   return text.replaceAll(regexp, '')
@@ -513,9 +515,10 @@ function clearCache(library?: 'gog' | 'legendary' | 'nile') {
     libraryStore.clear()
     gameInfoStore.clear()
     const abortID = 'legendary-cleanup'
-    runLegendaryCommand(['cleanup'], createAbortController(abortID)).then(() =>
-      deleteAbortController(abortID)
-    )
+    runLegendaryCommand(
+      { subcommand: 'cleanup' },
+      createAbortController(abortID)
+    ).then(() => deleteAbortController(abortID))
   }
   if (library === 'nile' || !library) {
     nileInstallStore.clear()
@@ -932,12 +935,18 @@ function killPattern(pattern: string) {
 }
 
 async function shutdownWine(gameSettings: GameSettings) {
-  await runWineCommand({
-    gameSettings,
-    commandParts: ['wineboot', '-k'],
-    wait: true,
-    protonVerb: 'waitforexitandrun'
-  })
+  if (gameSettings.wineVersion.wineserver) {
+    spawnSync(gameSettings.wineVersion.wineserver, ['-k'], {
+      env: { WINEPREFIX: gameSettings.winePrefix }
+    })
+  } else {
+    await runWineCommand({
+      gameSettings,
+      commandParts: ['wineboot', '-k'],
+      wait: true,
+      protonVerb: 'waitforexitandrun'
+    })
+  }
 }
 
 const getShellPath = async (path: string): Promise<string> =>

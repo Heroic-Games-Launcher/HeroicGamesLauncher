@@ -132,6 +132,7 @@ export interface GameInfo {
 export interface GameSettings {
   autoInstallDxvk: boolean
   autoInstallVkd3d: boolean
+  autoInstallDxvkNvapi: boolean
   autoSyncSaves: boolean
   battlEyeRuntime: boolean
   DXVKFpsCap: string //Entered as string but used as number
@@ -689,3 +690,7 @@ export interface WineManagerUISettings {
 }
 
 export type DownloadManagerState = 'idle' | 'running' | 'paused' | 'stopped'
+
+export interface WindowProps extends Electron.Rectangle {
+  maximized: boolean
+}

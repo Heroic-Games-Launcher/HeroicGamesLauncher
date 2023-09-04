@@ -4,7 +4,6 @@ import axios from 'axios'
 import { cachedUbisoftInstallerPath } from 'backend/constants'
 import { logWarning } from 'backend/logger/logger'
 import { existsSync, createWriteStream, statSync } from 'graceful-fs'
-import { Winetricks } from 'backend/tools'
 import { showDialogBoxModalAuto } from 'backend/dialog/dialog'
 import i18next from 'i18next'
 import { getWinePath } from 'backend/launcher'
@@ -13,11 +12,18 @@ import { getGameInfo, getSettings, runWineCommandOnGame } from './games'
 const UBISOFT_INSTALLER_URL =
   'https://ubistatic3-a.akamaihd.net/orbit/launcher_installer/UbisoftConnectInstaller.exe'
 
-export const setupUbisoftConnect = async (appName: string) => {
+export const legendarySetup = async (appName: string) => {
   const gameInfo = getGameInfo(appName)
   if (!gameInfo) {
     return
   }
+
+  // Fixes games like Fallout New Vegas and Dishonored: Death of the Outsider
+  await runWineCommandOnGame(appName, {
+    commandParts: ['reg', 'add', 'HKEY_CLASSES_ROOT\\com.epicgames.launcher'],
+    wait: true,
+    protonVerb: 'waitforexitandrun'
+  })
 
   // if not a ubisoft game, do nothing
   if (gameInfo.install.executable !== 'UplayLaunch.exe') {
@@ -35,10 +41,7 @@ export const setupUbisoftConnect = async (appName: string) => {
     status: 'ubisoft'
   })
 
-  const promise1 = installUbisoftConnect(appName)
-  const promise2 = installArialFontInPrefix(appName)
-  // running these 2 tasks in parallel, they are independent
-  await Promise.all([promise1, promise2])
+  await installUbisoftConnect(appName)
 }
 
 const installUbisoftConnect = async (appName: string) => {
@@ -66,13 +69,6 @@ const installUbisoftConnect = async (appName: string) => {
     })
     return false
   }
-}
-
-const installArialFontInPrefix = async (appName: string) => {
-  const settings = await getSettings(appName)
-  await Winetricks.runWithArgs(settings.wineVersion, settings.winePrefix, [
-    'arial'
-  ])
 }
 
 const downloadIfNotCached = async (cachePath: string, url: string) => {

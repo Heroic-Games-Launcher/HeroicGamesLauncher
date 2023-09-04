@@ -152,7 +152,8 @@
         "epic": "Heroic'te bir Epic hesabıyla oturum açmadın. Giriş yapmak için mağaza sayfasını kullanma, bunun yerine aşağıdaki düğmeye tıklayın:",
         "gog": "Heroic'te bir GOG hesabıyla oturum açmadınız. Giriş yapmak için mağaza sayfasını kullanmayın, bunun yerine aşağıdaki düğmeye tıklayın:",
         "login": "Log in",
-        "title": "Giriş yapmadınız"
+        "title": "Giriş yapmadınız",
+        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "report_problem": "Bu oyunun çalışmasıyla ilgili bir sorun bildir",
     "sdl": {

@@ -30,6 +30,7 @@ export interface NileInstallMetadataInfo {
   id: string
   version: string
   path: string
+  size?: number
 }
 
 export interface NileInstallInfo {

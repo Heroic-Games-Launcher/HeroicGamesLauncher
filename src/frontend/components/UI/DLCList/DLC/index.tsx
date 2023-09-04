@@ -58,7 +58,7 @@ const DLC = ({ dlc, runner, mainAppInfo, onClose }: Props) => {
       if (!info) {
         return
       }
-      setDlcSize(info.manifest.download_size)
+      setDlcSize(info?.manifest?.download_size || 0)
       setRefreshing(false)
     }
     getDlcSize()
