@@ -57,6 +57,7 @@ import {
   Scores,
   SettingsButton
 } from './components'
+import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -98,6 +99,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
     error: boolean
     message: string | unknown
   }>({ error: false, message: '' })
+
+  const anticheatInfo = hasAnticheatInfo(gameInfo)
 
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
@@ -335,7 +338,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 setLaunchArguments={setLaunchArguments}
               />
 
-              <Anticheat gameInfo={gameInfo} />
+              <Anticheat anticheatInfo={anticheatInfo} />
               <MainButton
                 gameInfo={gameInfo}
                 handlePlay={handlePlay}

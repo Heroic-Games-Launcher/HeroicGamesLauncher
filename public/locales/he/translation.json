@@ -1,0 +1,692 @@
+{
+    "box": {
+        "no": "לא",
+        "select": {
+            "button": "בחרו",
+            "exe": "בחרו EXE"
+        },
+        "choose": "בחרו",
+        "error": {
+            "generic": {
+                "title": "בחרו קובץ EXE להפעיל",
+                "message": "הודעת שגיאה גנרית"
+            },
+            "cx-bottle-not-found": {
+                "title": "CrossOver bottle לא נמצא",
+                "message": "CrossOver bottle \"{{bottle_name}}\" אינו קיים, לא יכול להריץ!"
+            },
+            "dxvk": {
+                "message": "שגיאה בהתקנת DXVK/VKD3D! נא לבדוק את החיבור שלכם לרשת!",
+                "title": "שגיאת DXVK/VKD3D"
+            },
+            "add": {
+                "steam": {
+                    "body": "הוספת {{game}} לSteam נכשל בשל: {{newLine}}{{error}}",
+                    "title": "מוסיף שגיאה"
+                }
+            },
+            "folder-not-found": {
+                "title": "נראה שתיקיית המשחק נמחקה, אתם רוצים להסיר את המשחק מרשימת המותקנים?"
+            },
+            "diskspace": {
+                "message": "אין מספיק שטח דיסק זמין",
+                "title": "אין מקום"
+            },
+            "moving": "שגיאה בהזזת המשחק {{error}}",
+            "launchAborted": "הפעלה הופסקה",
+            "legendary": {
+                "generic": "שגיאה ארעה! נסו לצאת ולהכנס שוב לחשבון הEpic שלכם. {{newline}}  {{error}}"
+            },
+            "ubisoft-connect": {
+                "message": "התקנת Ubisoft Connect בתוך הprefix של המשחק הזה נכשלה. בדקו את עמוד הוויקי שלנו בhttps://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac על מנת להתקין את זה ידנית.",
+                "title": "Ubisoft Connect"
+            },
+            "title": "שגיאה",
+            "uncaught-exception": {
+                "title": "שגיאה שלא נתפסה ארעה!",
+                "message": "שגיאה שלא נתפסה ארעה:{{newLine}}{{error}}{{newLine}}{{newLine}} דווח על השגיאה אלינו בGithub שלנו."
+            },
+            "winetricks": {
+                "message": "Winetricks החזיר את השגיאה הבאה בזמן ההפעלה:{{newLine}}{{error}}",
+                "title": "שגיאת Winetricks"
+            },
+            "update": {
+                "message": "משהו השתבש עם העדכון, אנא בדקו את הלוג או נסו שוב מאוחר יותר‍!",
+                "title": "שגיאת עדכון"
+            },
+            "credentials": {
+                "message": "האישורים שלכם בתוכנה פגו, אנא התנתקו וכנסו שוב."
+            }
+        },
+        "runexe": {
+            "title": "בחרו קובץ EXE להפעיל"
+        },
+        "yes": "כן",
+        "cache-cleared": {
+            "message": "המטמון של Heroic נמחק.",
+            "title": "המטמון של Heroic נמחק"
+        },
+        "warning": {
+            "epic": {
+                "update": "לשרתי Epic יש הפסקה גדולה כרגע, לא ניתן לעדכן את המשחק!",
+                "import": "לשרתי Epic יש הפסקה גדולה כרגע, לא ניתן לייבא את המשחק!",
+                "install": "לשרתי Epic יש הפסקה גדולה כרגע, לא ניתן להתקין את המשחק!"
+            },
+            "wine-change": {
+                "message": "לא יכולנו למצוא את גרסת הwine שנבחרה כדי להפעיל את התוכנה הזאת ({{selectedWine}}). {{newline}}מצאנו אחד אחר, אתם רוצים להפעיל בעזרת {{foundWine}}?",
+                "title": "Wine לא נמצא!"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "message": "כל התקדמות שלא נשמרה עלולה ללכת לאיבוד",
+                    "title": "אתה בטוח שאתה רוצה לסגור את התוכנה?"
+                }
+            },
+            "title": "אזהרה"
+        },
+        "wineprefix": "בחרו תיקיית wine prefix",
+        "default-steam-path": "מיקום Steam.",
+        "customWine": "בחרו קובץ הרצה של Wine או Proton",
+        "dontShowAgain": "אל תראה שוב",
+        "choose-egs-prefix": "בחרו Prefix שבו EGS מותקן",
+        "choose-gogdl-binary": "בחרו קובץ הרצה של GOGDL (דורש הפעלה מחדש של התוכנה)",
+        "choose-nile-binary": "בחרו קובץ הרצה של Nile",
+        "choose-legendary-binary": "בחרו קובץ הרצה של Legendary",
+        "downloadNow": "הורד עכשיו",
+        "default-install-path": "בחרו ברירת מחדל למיקום התקנה",
+        "vcruntime": {
+            "notfound": {
+                "message": "זמני הריצה של Microsoft Visual C++ אינם מותקנים, הם נדרשים על ידי כמה משחקים",
+                "title": "VCRuntime אינו מותקן"
+            },
+            "install": {
+                "message": "קישורים להורדה ל- Visual C++ Runtimes נפתחו. נא להתקין את הגרסאות x86 ו- x64."
+            }
+        },
+        "reset-heroic": {
+            "question": {
+                "message": "האם אתה בטוח שברצונך לאפס את Heroic? פעולה זו תסיר את כל ההגדרות והמטמון, אך לא תסיר את המשחקים המותקנים שלך או את האישורים של Epic. גרסאות ניידות (AppImage, WinPortable,...) של Heroic צריכות להיות מופעלות מחדש באופן ידני לאחר מכן.",
+                "title": "איפוס Heroic"
+            }
+        },
+        "protocol": {
+            "install": {
+                "not_installed": "כרגע לא מותקן. להתקין?"
+            }
+        },
+        "info": {
+            "update": {
+                "title": "לאוונצ'ר המשחקים הרואיק",
+                "title-finished": "עדכון הסתיים",
+                "message": "יש גרסה חדשה זמינה!",
+                "changelog": "פתח רשימת שינויים",
+                "detail": "אתם רוצים להוריד את האפדייט ברקע?",
+                "message-finished": "רוצים לפתוח מחדש את Heroic עכשיו?"
+            }
+        },
+        "ok": "בסדר",
+        "quit": {
+            "message": "יש פעולות ממתינות, אתם בטוחים?",
+            "title": "יציאה"
+        },
+        "shortcuts": {
+            "message": "קיצורי דרך נוצרו בשולחן העבודה ובתפריט הראשי",
+            "message-mac": "קיצורי דרך נוצרו בתיקיית האפליקציות",
+            "message-remove": "קיצורי דרך הוסרו משולחן העבודה ומהתפריט הראשי",
+            "message-remove-mac": "קיצורי דרך הוסרו מתיקיית האפליקציות",
+            "title": "קיצורי דרך"
+        },
+        "sync": {
+            "error": "נתיב לא חוקי",
+            "title": "בחרו מיקום עבור שמירות במשחק"
+        }
+    },
+    "wine": {
+        "size": "גודל",
+        "actions": "פעולה",
+        "manager": {
+            "link": "מנהל גרסאות Wine",
+            "not-found": "לא נמצאו שום גרסאות של Wine. נא ללחוץ על סמל הרענון כדי לנסות שוב.",
+            "unzipping": "מחלץ",
+            "title": "מנהל גרסאות Wine"
+        },
+        "release": "תאריך יציאה"
+    },
+    "button": {
+        "login": "היכנס",
+        "cancel": "ביטול",
+        "continue": "המשך",
+        "go_to_library": "ללכת לספריה"
+    },
+    "controller": {
+        "hints": {
+            "select": "בחרו",
+            "back": "חזור",
+            "game_details": "פרטי משחק",
+            "options": "אפשרויות",
+            "space": "רווח",
+            "update_game": "עדכן משחק",
+            "install_game": "התקן משחק",
+            "backspace": "מקש לחזור אחורה (מחיקה)",
+            "close_dialog": "סגור חלונית",
+            "close_keyboard": "סגור מקלדת",
+            "close_options": "סגור הגדרות",
+            "game_settings": "הגדרות משחק",
+            "move_cursor": "הזז סמן",
+            "play_game": "שחק משחק",
+            "open_virtual_keyboard": "פתח מקלדת וירטואלית",
+            "scroll": "גללו"
+        }
+    },
+    "dlc": {
+        "installDlcs": "התקן את כל הDLCים",
+        "size": "גודל",
+        "noDlcFound": "שום DLCים לא נמצאו",
+        "title": "כותרת",
+        "actions": "פעולות"
+    },
+    "download-manager": {
+        "install-type": {
+            "install": "התקן",
+            "update": "עדכן"
+        },
+        "label": {
+            "disk": "דיסק",
+            "speed": "הורדה"
+        },
+        "link": "הורדות",
+        "queue": {
+            "end-time": "הסתיים בשעה",
+            "queue-time": "התווסף בשעה",
+            "start-time": "התחיל בשעה",
+            "type": "סוג"
+        },
+        "title": "הורדות",
+        "ETA": "זמן משוער"
+    },
+    "info": {
+        "version": "גרסת Wine",
+        "heroic": {
+            "beta": "בטה",
+            "newReleases": "עדכון זמין!",
+            "stable": "יציב",
+            "version": "גרסת Heroic",
+            "click-to-see-changelog": "לחצו כדי לראות רשימת שינויים"
+        },
+        "save-sync": {
+            "searching": "מנסה לזהות את תקיית השמירה הנכונה (לחץ כדי לבטל)"
+        },
+        "settings": "הגדרות נשמרות באופן אוטומטי"
+    },
+    "infobox": {
+        "requirements": "דרישות מערכת",
+        "help": "עזרה",
+        "wine-path-invalid": "נתיב Wine אינו חוקי, נא לבחור אחד אחר.",
+        "wine-prefix": {
+            "title": "prefix של wine"
+        },
+        "warning": "אזהרה",
+        "wine-path": "נתיב/מיקום Wine",
+        "wine-path-none-found": "שום גרסת Wine לא נמצאה, מורידה אחת ממנהל גרסאות הWine",
+        "wine-repfix": {
+            "message": "Wine משתמש במה שמכונה WINEPRFIX כדי למסגר את יישומי Windows. בprefix הזה יש קבצי הגדרות Wine ושכפול של היררכית הקבצים בC: (הדיסק הראשי על מערכת ההפעלה Windows). בשכפול זה של קונן ה- C: , קבצי השמירה של המשחק שלכם והספריות הנדרשים שהותקנו על ידי winetricks משומרים."
+        }
+    },
+    "label": {
+        "loading": "טוען"
+    },
+    "loading": {
+        "default": "טוען",
+        "website": "טוען אתר"
+    },
+    "notify": {
+        "uninstalled": "התקנה הוסרה",
+        "finished": {
+            "add": {
+                "steam": {
+                    "title": "התווסף לSteam",
+                    "corrupt": "לא היה ניתן להוסיף את {{game}} לכל משתמשי הSteam שנמצאו. הסתכלו בלוג למידע נוסף. אתחול של Steam נדרש כדי שהשינויים יכנסו לתוקף.",
+                    "success": "{{game}} התווסף בהצלחה לSteam. אתחול של Steam נדרש כדי שהשינויים יכנסו לתוקף."
+                }
+            },
+            "remove": {
+                "steam": {
+                    "corrupt": "לא היה ניתן להסיר את {{game}} מכל משתמשי הSteam שנמצאו. הסתכלו בלוג למידע נוסף. אתחול של Steam נדרש כדי שהשינויים יכנסו לתוקף.",
+                    "success": "{{game}} הוסר בהצלחה מSteam. אתחול של Sאקשצ נדרש כדי שהשינויים יכנסו לתוקף.",
+                    "title": "הוסר מSteam"
+                }
+            },
+            "reparing": "התיקון הסתיים"
+        },
+        "install": {
+            "error": "ההתקנה נכשלה",
+            "canceled": "ההתקנה בוטלה",
+            "failed": "ההתקנה נכשלה",
+            "finished": "ההתקנה הסתיימה",
+            "imported": "יבוא המשחק הסתיים בהצלחה",
+            "paused": "ההתקנה מושהית",
+            "startInstall": "ההתקנה החלה"
+        },
+        "update": {
+            "paused": "עדכון בהשהיה",
+            "canceled": "עדכון בוטל",
+            "finished": "עדכון הסתיים",
+            "failed": "עדכון נכשל",
+            "started": "עדכון התחיל"
+        },
+        "error": {
+            "move": "שגיאה בהזזת המשחק",
+            "reparing": "שגיאה בתיקון"
+        },
+        "moved": "המעבר הסתיים",
+        "moving": "מזיז את המשחק",
+        "new-heroic-version": "גרסה חדשה של Heroic הושקה!",
+        "refresh": {
+            "error": "לא ניתן היה למצוא את רשימת הגרסאות ממעלה הזרם, אולי בגלל הגבלות של ה- Github API! נסו שוב מאוחר יותר."
+        }
+    },
+    "queue": {
+        "label": {
+            "downloading": "מוריד",
+            "canceled": "בוטל",
+            "clear": "מחק רשימה",
+            "empty": "אין מה להוריד",
+            "finished": "הושלם",
+            "pause": "השהה הורדה",
+            "queued": "בתור",
+            "remove": "הסר מהורדות",
+            "resume": "המשך הורדה"
+        }
+    },
+    "setting": {
+        "eosOverlay": {
+            "disable": "בטל",
+            "enable": "הפעל",
+            "install": "התקן",
+            "remove": "הסר התקנה",
+            "updateNow": "עדכן",
+            "cancelInstall": "ביטול",
+            "checkForUpdates": "בדוק עדכונים",
+            "checkingForUpdates": "בודק עדכונים...",
+            "currentVersion": "גרסה נוכחית: {{version}}",
+            "installed": "שכבת העל EOS מותקנת",
+            "installing": "שכבת העל EOS בהתקנה...",
+            "latestVersion": "גרסה חדשה ביותר: {{version}}",
+            "notInstalled": "שכבת העל EOS אינה מותקנת",
+            "notInstalledMsg": "שכבת העל EOS אינה מותקנת. האם אתם רוצים להתקין אותה עכשיו?",
+            "notInstalledTitle": "שכבת העל לא מותקנת",
+            "removeConfirm": "אתם בטוחים שאתם רוצים להסיר את ההתקנה של שכבת העל EOS?",
+            "removeConfirmTitle": "אשר הורדת שכבת העל",
+            "updating": "מעדכן..."
+        },
+        "library_top_option": {
+            "disabled": "מושבת",
+            "favourites": "משחקים מועדפים",
+            "recently_played": "משחקים שהופעלו לאחרונה",
+            "recently_played_installed": "משחקים שהופעלו לאחרונה (רק כאלה שעוד מותקנים)"
+        },
+        "wineversion": "גרסת Wine",
+        "adddesktopshortcuts": "הוסף קיצורי דרך בשולחן העבודה באופן אוטומטי",
+        "addgamestoapplications": "הוסף משחקים לאפליקציות באופן אוטומטי",
+        "addgamestostartmenu": "הוסף משחקים לתפריט הראשי באופן אוטומטי",
+        "addgamestosteam": "הוסף משחקים לSteam באופן אוטומטי",
+        "custom_themes_path": "מיקום ערכות נושא מותאם אישית",
+        "customWineProton": "מיקומי Wine/Proton מותאמים אישית",
+        "darktray": "השתמש בtray icon כהה",
+        "defaultWinePrefix": "הגדירו תיקיה עבור prefixים של Wine חדשים",
+        "disable_controller": "בטל ניווט של Heroic באמצעות קונטרולר",
+        "discordRPC": "הפעל Discord Rich Presence",
+        "download-no-https": "הורד משחקים ללא HTTPS (שימושי עבור CDNים למשל LanCache)",
+        "dxvkfpslimit": "הגבל קצב פריימים (FPS) (DX9, 10, ו-11)",
+        "egs-sync": "סנכרן עם הEpic Games המותקן",
+        "enableFSRHack": "הפעל FSR hack (גרסת הWine צריכה לתמוך בה)",
+        "esync": "הפעל Esync",
+        "exit-to-tray": "סגור תוכנה לתוך System tray",
+        "FsrSharpnessStrenght": "עוצמת חידוד FSR",
+        "fsync": "הפעל Fsync",
+        "hideChangelogsOnStartup": "אל תציג שינויים בסטארט-אפ",
+        "ignoreGameUpdates": "התעלם מעדכוני המשחק",
+        "language": "בחירת שפה",
+        "library_top_section": "החלק העליון של הספרייה",
+        "log": {
+            "copy-to-clipboard": "העתק תוכן לוג",
+            "instructions_title": "איך לדווח על בעיה?",
+            "last-log": "הלוג הקודם",
+            "current-log": "לוג נוכחי",
+            "instructions": "הצטרפו לדיסקורד שלנו וחפשו את החלק בשם \"#-support\". קראו את ההודעה המוצמדת \"Read Me First | Frequently Asked Questions\" ופעלו לפי ההוראות כדי לשתף את הלוגים הללו וכל מידע רלוונטי על הבעיה שלכם.",
+            "no-file": "לא נמצא קובץ לוג",
+            "show-in-folder": "הצגת קובץ הלוג בתוך התיקייה שלה"
+        },
+        "mangohud": "הפעל Mangohud (צריכה להיות התקנה של Mangohud)",
+        "manualsync": {
+            "download": "הורד",
+            "forcedownload": "כפה הורדה",
+            "title": "סנכרון שמירות ידני",
+            "upload": "העלה",
+            "forceupload": "כפה העלאה",
+            "sync": "סנכרן",
+            "syncing": "מסנכרן"
+        },
+        "maxRecentGames": "משחקים ששוחקו לאחרונה כדי להראות ש",
+        "maxworkers": "מספר מקסימלי של עובדים(בתוכנה) בזמן ההורדה",
+        "offlinemode": "הפעל משחק ללא חיבור לרשת",
+        "prefered_language": "שפה מועדפת (Language Code)",
+        "preferSystemLibs": "העדף ספריות מערכת",
+        "primerun": {
+            "confirmation": {
+                "title": "רק כרטיס גרפי אחד זוהה",
+                "message": "רק כרטיס גרפי יחיד זוהה במערכת הזאת. שימו לב שאופציה זאת מיועדת למערכות עם יותר מכרטיס גרפי אחד שיש להם כרטיס גרפי ללא פלט ישיר למסך (כגון לפטופים מסויימים). במערכות עם כרטיס גרפי יחיד, השימוש בכרטיס הגרפי הוא אוטומטי והפעלה של אופציה זאת יכולה לגרום לבעיות. אתם באמת רוצים להפעיל אופציה זו?"
+            },
+            "description": "השתמש בכרטיס גרפי ייעודי"
+        },
+        "runexe": {
+            "title": "הפעל EXE על Prefix",
+            "message": "גררו קבצים לפה"
+        },
+        "savefolder": {
+            "not-found": "תיקיית שמירות לא נמצאה, נא לבחור אותה ידנית (לחצו על מנת לנסות מחדש)",
+            "placeholder": "בחרו את תיקיית המשחקים המדויקת",
+            "warning": "נא לבדוק שוב אם הנתיב נכון (לחצו כדי לנסות שוב)"
+        },
+        "select_theme": "בחרו ערכת נושא",
+        "showMetalOverlay": "הצג סטטיסטיקות מעל המסך",
+        "alt-gogdl-bin": "בחרו GOGDL Binary אלטרנטיבית לשימוש",
+        "alt-legendary-bin": "בחרו Legendary Binary אלטרנטיבי",
+        "alt-nile-bin": "בחרו Nile Binary אלטרנטיבי",
+        "autodxvk": "התקן או עדכן DXVK בprefix אוטומטית",
+        "autosync": "שמירות של Autosync",
+        "autovkd3d": "התקן או עדכן VKD3D בprefix באופן אוטומטי",
+        "autodxvknvapi": "התקן או עדכן DXVK-NVAPI בprefix אוטומטית",
+        "change-target-exe": "בחרו EXE חלופי להרצה",
+        "autoUpdateGames": "עדכן משחקים אוטומטית",
+        "checkForUpdatesOnStartup": "בדוק לעדכונים לHeroic בעת פתיחת התוכנה",
+        "crossover-version": "גרסת Crossover/Wine",
+        "default-install-path": "נתיב התקנה ברירת מחדל",
+        "default-steam-path": "נתיב Steam ברירת מחדל",
+        "disable_logs": "בטל לוגים",
+        "gamemode": "להשתמש בGameMode (צריכה להיות התקנה של Feral Game Mode)",
+        "minimize-on-launch": "צמצם את Heroic לאחר הפעלת המשחק",
+        "showfps": "הצג FPS (קצב פריימים) (DX9, 10, ו-11)",
+        "start-in-tray": "התחל מצומצם",
+        "steamruntime": "השתמש בSteam Runtime",
+        "winecrossoverbottle": "CrossOver Bottle",
+        "wineprefix": "תיקיית WinePrefix"
+    },
+    "status": {
+        "processing": "מעבד קבצים, נא לחכות",
+        "installing": "מתקין",
+        "logging": "נכנס...",
+        "preparing_login": "מכין כניסה... "
+    },
+    "accessibility": {
+        "content_font_family_no_default": "משפחת גופני תוכן (ברירת מחדל: ",
+        "actions_font_family_no_default": "משפחת גופני פעולות (ברירת מחדל: ",
+        "zoom": "זום",
+        "all_tiles_in_color": "הצג את כל אריחי המשחק בצבע",
+        "fonts": "גופנים",
+        "title": "נגישות"
+    },
+    "docs": "תיעוד",
+    "epic": {
+        "offline-notification-title": "לא מחובר לרשת",
+        "offline-notification-body": "שירותים מקוונים עשויים לא לעבוד באופן מלא כי שרתי Epic Games אינם פעילים!"
+    },
+    "Epic Games": "Epic Games",
+    "externalLink": {
+        "dontAskAgain": "אל תשאל שוב",
+        "warning": "אתם עומדים לפתוח קישור חיצוני."
+    },
+    "favourites": "מועדפים",
+    "game": {
+        "status": "סטטוס",
+        "store": "חנות",
+        "title": "כותרת משחק"
+    },
+    "generic": {
+        "library": {
+            "refresh": "רענן ספריה"
+        },
+        "error": {
+            "component": "לא נמצאו משחקים - נסו לצאת ולהיכנס שוב או את אחד מהאפשרויות הבאות"
+        }
+    },
+    "header": {
+        "hide_non_available_games": "הסתר משחקים שאינם זמינים",
+        "show_available_games": "הצג משחקים שאינם זמינים",
+        "store": "סנן בחנות",
+        "show_hidden": "הצג מוסתרים",
+        "ignore_hidden": "התעלם ממוסתרים",
+        "platform": "פלטפורמה",
+        "show_all_games": "הצג את כל המשחקים",
+        "show_favourites_only": "הצג מועדפים בלבד"
+    },
+    "help": {
+        "custom_themes_path": "אל תשתמשו בקבצי CSS ממקורות שאינם מהימנים. כאשר יש ספק, בקש סקירה בערוץ הדיסקורד שלנו.",
+        "disable_logs": "הדליקו תיבת סימון זו על מנת לבטל את רוב הכתיבה לקבצי לוג (מידע קריטי תמיד נכתב). וודאו לכבות הגדרה הזאת לפני דיווח על בעיה.",
+        "dxvkfpslimit": "קובע את גבול קצב הפריימים עבור משחקי DXVK",
+        "dxvknvapi": "DXVK-NVAPI הוא יישום של NVAPI שנבנה על גבי DXVK וה-NVAPI של לינוקס, הוא מאפשר שימוש בDLSS על כרטיסים גרפיים מחברת Nvidia.",
+        "other": {
+            "part4": "השתמש ב ",
+            "part7": " כדי לדלג על הלאונצר במשחקים מסוימים, וכו'.",
+            "part5": "ארגומנטי המשחק",
+            "part6": " יקרא לאחר פקודת ההפעלה לתוכנה/משחק, למשל "
+        },
+        "sync": {
+            "part3": "סנכרון ידני: בחרו \"הורד\" כדי להוריד את השמירות של המשחקים שנשמרים בענן. בחרו \"העלה\" על מנת להעלות את האלה הלוקאליים לענן. \"אלץ הורדה\" ו\"אלץ העלאה\" יתעלמו מהגרסה הלוקאלית או זאת שבענן בהתאמה.",
+            "part4": "\"סנכרן שמירות\" אוטומטית יסנכרן את השמירות כל פעם שתתחילו ותסגרו משחק.",
+            "part1": "Heroic מנסה לנחש את תיקיית השמירה הנכונה, זה יעבוד ברוב המקרים. במקרים שבהם התיקייה שגויה, השתמשו בתיבת הoverride כדי לשנות אותה.",
+            "part2": "במקרה שתשנו את תיקיית הprefix עבור Wine או Proton, תצטרכו לבדוק שוב את הנתיב מכיוון ש-Proton משתמש בprefix שונה (/pfx) ובשם משתמש (steamuser) שונה. אז אתם יכולים פשוט למחוק את הנתיב הנוכחי לצאת מדף הגדרות הסנכרון ולחזור שוב כדי ש-Heroic ינחש את התיקייה פעם נוספת עם הprefix הנכונה."
+        },
+        "wine": {
+            "part1": "Heroic מחפש גרסאות של Wine, Proton, ו-CrossOver בתיקיות הבאות:",
+            "part2": "בשביל מקומות אחרים, השתמשו בsymbolic link לאחד מהתיקיות האלה"
+        },
+        "custom_themes_wiki": "בדקו את הויקי לפרטים נוספים על הוספת ערכות נושא מותאמים אישית. לחצו כאן.",
+        "dxvk": "DXVK הוא שכבת תרגום מבוססת Vulkan עבור משחקים עם DirectX מגרסה 9, 10 ו-11. הדלקה יכולה לשפר תאימות. עשוי לגרום לבעיות במיוחד עבור משחקי DirectX ישנים יותר.",
+        "amdfsr": "ה-FSR של AMD מסייע להגביר את קצב הפריימים (framerate/fps) על ידי הגדלת רזולוציות נמוכות יותר במצב מסך מלא. איכות התמונה היא בין 5 ל1 במחיר של פגיעה קלה בביצועים. הדלקה יכולה לשפר את הביצועים.",
+        "esync": "מטרת Esync היא להפחית את השימוש במעבד של winesever במשחקים הקשים על המעבד. הדלקה יכולה לשפר את הביצועים.",
+        "fsync": "מטרת Fsync היא להפחית את השימוש במעבד של winesever במשחקים הקשים על המעבד. הדלקה יכולה לשפר את הביצועים על הקרנלים של לינוקס הנתמכים.",
+        "game_language": {
+            "fallback": "השאירו ריק להשתמש בשפה של Heroic.",
+            "in_game_config": "לא כל המשחקים תומכים בתצורה זו, לחלקם יש הגדרת שפה בתוך המשחק.",
+            "valid_codes": "קודי שפה חוקיים תלויים במשחק."
+        },
+        "gamemode": "Feral GameMode מחיל שינויים אוטומטיים וזמניים על המערכת בעת הפעלת משחקים. הפעלה עשויה לשפר את הביצועים.",
+        "general": "סנכרנו עם EGL אם יש לכם התקנה תקינה של Epic Games Launcher במקום אחר ואתם רוצים לייבא את המשחקים שלכם כדי להימנע מהורדתם שוב.",
+        "mangohud": "MangoHUD הוא שכבת-על שמציגה ועוקבת אחרי FPS, טמפרטורות, עומס CPU/GPU ומשאבי מערכת אחרים.",
+        "preferSystemLibs": "גרסאות Wine מותאמות אישית (Wine-GE, Wine-Lutris) באות עם הספריות שלהן. על ידי הפעלת אפשרות זו, wine יתעלם מהספריות הנשלחות הללו, ויטען ספריות מערכת במקום זאת. אזהרה! בעיות עלולות להתרחש אם הספריות שיש בהן תלות לא קיימות.",
+        "primerun": "השתמשו בכרטיס גרפי (מאיץ גרפי) ייעודי כדי לרנדר את המשחק במערכות עם כמה כרטיסים גרפיים. נחוץ רק במחשבים ניידים למשחקים או במחשבים שולחניים המשתמשים ב-GPU ללא ראש לעיבוד (NVIDIA Optimus, AMD CrossFire)",
+        "steam_path": {
+            "info": "המיקום הזה נותן לHeroic לקבוע באיזה גרסת Proton משתמשת Steam, על מנת להוסיף משחקים שאינם מSteam לSteam."
+        },
+        "steamruntime": "ספריות מותאמות אישית המסופקות על ידי Steam כדי לסייע בהפעלת משחקי Linux ו-Windows (Proton). הפעלה עשויה לשפר את התאימות.",
+        "vkd3d": "VKD3D הוא שכבת תרגום מבוססת Vulkan עבור משחקי DirectX 12. הפעלה יכולה לשפר תאימות באופן משמעותי. אין השפעה על משחקי DirectX ישנים יותר."
+    },
+    "Library": "ספריה",
+    "message": {
+        "sync": "סנכרון הסתיים",
+        "unsync": "ביטול סנכרון הסתיים"
+    },
+    "Open": "פתוח",
+    "options": {
+        "advanced": {
+            "value": "ערך",
+            "placeHolderValue": "לדוגמה: Path/To/ExtraFiles",
+            "key": "שם משתנה",
+            "placeHolderKey": "שם",
+            "title": "משתני הסביבה"
+        },
+        "env_variables": {
+            "error": {
+                "empty_key": "שמות משתנים לא יכולים להיות ריקים",
+                "equal_sign_in_key": "שמות משתנים אינם יכולים להכיל את הסימן \"=\"",
+                "space_in_key": "שמות משתנים אינם יכולים להכיל רווחים"
+            },
+            "example": "אל תכללו את סימן ה\"=\", למשל: להגדרה כגון \"MY_FLAG=123\", שימו את MY_FLAG בתוך NAME(שם) ואת 123 בתוך VALUE(ערך).",
+            "info": "בחרו משתני סביבה להוסיף לפקודה."
+        },
+        "gameargs": {
+            "placeholder": "שימו פה ארגומנטים של הלאוונצר",
+            "title": "ארגומנטי משחק (להפעיל לאחר הפקודה):"
+        },
+        "quote-args-with-spaces": "אזהרה: הקפידו לצטט ארגומנטים עם רווחים! למשל \"path/with spaces/\"",
+        "wrapper": {
+            "args": "ארגומנטים",
+            "exe": "עטיפה/ממסגר",
+            "placeHolderKey": "עטיפה/מסגור חדש",
+            "placeHolderValue": "ארגומנטים לעטיפה/ממסגר",
+            "title": "פקודת הממסגר/עטיפה:",
+            "arguments_example": "דוגמה לארגומנטים: --arg; --extra-file=\"file-path/ with/spaces\""
+        }
+    },
+    "other": {
+        "gogdl-version": "גרסת GOGDL: ",
+        "legendary-version": "גרסת Legendary: ",
+        "nile-version": "גרסת Nile: ",
+        "weblate": "עזרו לתרגם את Heroic."
+    },
+    "placeholder": {
+        "alt-gogdl-bin": "משתמש בגרסה המובנה של GOGDL...",
+        "alt-legendary-bin": "משתמש בגרסה המובנית של Legendary...",
+        "alt-nile-bin": "משתמש בגרסה המובנית של Nile...",
+        "custom_themes_path": "בחרו מיקום שבו לחפש את קבצי הCSS המותאמים אישית",
+        "dxvkfpsvalue": "ערך שלם חיובי (למשל 30, 60,...)",
+        "egs-prefix": "הPrefix שבו מותקן EGS",
+        "prefered_language": "קוד דו-תווי (כגון: \"en\" או \"fr\")"
+    },
+    "progress": "התקדמות",
+    "search": "חיפוש משחקים",
+    "settings": {
+        "clear-cache": "מחק מטמון של Heroic",
+        "copyToClipboard": "העתק את כל ההגדרות",
+        "default_hint": "שינויים בסעיף זה חלים רק כערכי ברירת מחדל בעת התקנת משחקים. אם אתם רוצים לשנות את ההגדרות של משחק שכבר מותקן, השתמשו בלחצן ההגדרות בדף המשחק.",
+        "eacRuntime": {
+            "gameModeRequired": {
+                "message": "GameMode נדרש בשביל להפעיל את EAC על Flatpak. אתם רוצים להפעיל את זה עכשיו?",
+                "title": "GameMode נדרש"
+            },
+            "name": "EasyAntiCheat Runtime",
+            "installing": "מתקין EAC Runtime..."
+        },
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "message": "הRuntime של EAC מופעל, אשר לא יפעל כראוי ללא GameMode. האם אתה רוצה להשבית את EAC Runtime ו-GameMode?",
+                "title": "EAC Runtime מופעל"
+            }
+        },
+        "log": {
+            "long-log-hint": "הלוג קוצר, רק ה1000 שורות האחרונות מוצגות!"
+        },
+        "navbar": {
+            "advanced": "מתקדם",
+            "games_settings_defaults": "ברירות מחדל של המשחק",
+            "general": "כללי",
+            "log": "לוג",
+            "other": "אחר",
+            "sync": "סנכרן שמירות בענן"
+        },
+        "open-config-file": "פתח את קובץ התצורה",
+        "reset-heroic": "אפס את Heroic",
+        "battlEyeRuntime": {
+            "installing": "מתקין BattlEye Runtime...",
+            "name": "BattlEye AntiCheat Runtime"
+        },
+        "copiedToClipboard": "הועתק!",
+        "saves": {
+            "warning": "תכונת שמירת ענן נמצאת בגרסת בטה, נא לגבות את השמירה שלכם לפני הסנכרון (למקרה שמשהו ישתבש)"
+        }
+    },
+    "Settings": "הגדרות",
+    "store": "Epic Store",
+    "stores": "חנויות",
+    "title": {
+        "allGames": "כל המשחקים"
+    },
+    "toolbox": {
+        "settings": {
+            "wineprefix": "בחרו תיקיה עבור prefixים של Wine חדשים"
+        }
+    },
+    "tooltip": {
+        "removepath": "הסר את הנתיב",
+        "addpath": "הוסיפו נתיב חדש"
+    },
+    "tray": {
+        "about": "אודות",
+        "reload": "טען מחדש",
+        "show": "הצג",
+        "quit": "יציאה"
+    },
+    "two_col_table": {
+        "save_hint": "שינויים בטבלה זו אינם נשמרים באופן אוטומטי. לחץ על כפתור +"
+    },
+    "Update Available!": "עדכון זמין!",
+    "userselector": {
+        "cancel": "בטל",
+        "discord": "דיסקורד",
+        "logging_out": "מתנתק",
+        "logout": "התנתק",
+        "logout_confirmation": "אתם בטוחים שאתם רוצים להתנתק?",
+        "manageaccounts": "ניהול חשבונות",
+        "quit": "יציאה",
+        "quitMessage": "אתה בטוח שאתה רוצה לסגור את התוכנה?"
+    },
+    "webview": {
+        "controls": {
+            "back": "חזור",
+            "forward": "התקדם קדימה",
+            "openInBrowser": "פתח בדפדפן",
+            "reload": "טען עמוד מחדש"
+        }
+    },
+    "All": "הכל",
+    "Amazon Games": "Amazon Games",
+    "add_game": "הוסף משחק",
+    "amazon": "אמזון",
+    "anticheat": {
+        "status": "סטטוס",
+        "anticheats": "אנטיציטים",
+        "may_not_work": "זה עלול לא לעבוד בשל חוסר תמיכה באנטיציט.",
+        "reference": "רפרנס",
+        "source": "מקור",
+        "title": "המשחק הזה כולל תוכנת אנטיציט"
+    },
+    "error": "שגיאה",
+    "globalSettings": "הגדרות גלובליות",
+    "GOG": "GOG",
+    "login": {
+        "gog": "כניסה עם GOG",
+        "alternative_method": "שיטת כניסה חלופית",
+        "amazon": "כניסת אמזון",
+        "epic": "כניסה עם Epic Games",
+        "message": "הכנס עם הפלטפורמה שלך. אתה יכול להתחבר ליותר מפלטפורמה אחת בו זמנית."
+    },
+    "library": {
+        "refresh": "רענן",
+        "sortByStatus": "מיין על פי סטטוס",
+        "sortDescending": "מיין בסדר יורד",
+        "sortAscending": "מיין בסדר עולה",
+        "toggleLayout": {
+            "grid": "בחרו אם להיות בפריסת רשת",
+            "list": "בחרו אם להיות בפריסת רשימה"
+        }
+    },
+    "offline-message": {
+        "offline": "לא מחובר לרשת",
+        "hint": "אנו בודקים את החיבור ל-:{{newline}}github.com{{newline}}gog.com{{newline}}store.epicgames.com {{newline}}cloudflare-dns.com",
+        "ignore": "התעלם",
+        "offline-retry-in": "לא מחובר לרשת. מנסה שוב בעוד {{seconds}} שניות.",
+        "retrying": "מנסה מחדש"
+    },
+    "Other": "אחר",
+    "platforms": {
+        "linux": "לינוקס",
+        "browser": "דפדפן",
+        "mac": "מאק",
+        "win": "ווינדוס"
+    },
+    "Recent": "שיחקתם לאחרונה",
+    "please-wait": "נא לחכות...",
+    "prime-gaming": "Prime Gaming",
+    "gog-store": "חנות GOG"
+}
