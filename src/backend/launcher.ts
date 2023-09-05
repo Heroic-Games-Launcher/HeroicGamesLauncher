@@ -45,6 +45,7 @@ import {
   GameInfo,
   Runner,
   EnviromentVariable,
+  WrapperEnv,
   WrapperVariable,
   ExecResult,
   GameSettings,
@@ -303,6 +304,35 @@ function setupEnvVars(gameSettings: GameSettings) {
   // thanks to https://github.com/Diyou
   if (!process.env.LD_PRELOAD && !ret.LD_PRELOAD) {
     ret.LD_PRELOAD = ''
+  }
+
+  return ret
+}
+
+/**
+ * Maps launcher info to environment variables for consumption by wrappers
+ * @param wrapperEnv The info to be added into the environment variables
+ * @returns Environment variables
+ */
+function setupWrapperEnvVars(wrapperEnv: WrapperEnv) {
+  const ret: Record<string, string> = {}
+
+  ret.HEROIC_APP_NAME = wrapperEnv.appName
+  ret.HEROIC_APP_RUNNER = wrapperEnv.appRunner
+
+  switch (wrapperEnv.appRunner) {
+    case 'gog':
+      ret.HEROIC_APP_SOURCE = 'gog'
+      break
+    case 'legendary':
+      ret.HEROIC_APP_SOURCE = 'epic'
+      break
+    case 'nile':
+      ret.HEROIC_APP_SOURCE = 'amazon'
+      break
+    case 'sideload':
+      ret.HEROIC_APP_SOURCE = 'sideload'
+      break
   }
 
   return ret
@@ -995,6 +1025,7 @@ export {
   launchCleanup,
   prepareWineLaunch,
   setupEnvVars,
+  setupWrapperEnvVars,
   setupWineEnvVars,
   setupWrappers,
   runWineCommand,

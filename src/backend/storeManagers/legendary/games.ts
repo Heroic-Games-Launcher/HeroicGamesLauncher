@@ -47,6 +47,7 @@ import {
   prepareLaunch,
   prepareWineLaunch,
   setupEnvVars,
+  setupWrapperEnvVars,
   setupWrappers,
   launchCleanup,
   getRunnerCallWithoutCredentials,
@@ -822,9 +823,11 @@ export async function launch(
 
   const languageCode = gameSettings.language || configStore.get('language', '')
 
-  let commandEnv = isWindows
-    ? process.env
-    : { ...process.env, ...setupEnvVars(gameSettings) }
+  let commandEnv = {
+    ...process.env,
+    ...setupWrapperEnvVars({ appName, appRunner: 'legendary' }),
+    ...(isWindows ? {} : setupEnvVars(gameSettings))
+  }
 
   const wrappers = setupWrappers(
     gameSettings,
