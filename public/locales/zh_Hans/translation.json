@@ -343,7 +343,8 @@
         "epic": "Epic Games 登录",
         "gog": "GOG 登录",
         "message": "平台登录。你可以同时登录超过一个平台。",
-        "amazon": "亚马逊登录"
+        "amazon": "亚马逊登录",
+        "old-mac": "你的 macOS 版本是 {{version}}。需要 macOS 12 或以上版本才能登录。"
     },
     "message": {
         "sync": "同步完成",
