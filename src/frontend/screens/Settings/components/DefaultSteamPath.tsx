@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { InfoBox, PathSelectionBox } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import SettingsContext from '../SettingsContext'
+import { hasHelp } from 'frontend/hooks/hasHelp'
 
 const DefaultSteamPath = () => {
   const { t } = useTranslation()
@@ -15,6 +16,17 @@ const DefaultSteamPath = () => {
   if (!isDefault) {
     return <></>
   }
+
+  hasHelp(
+    'defaultSteamPath',
+    'Default Steam Path',
+    <p>
+      {t(
+        'help.steam_path.info',
+        'This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam.'
+      )}
+    </p>
+  )
 
   const steamPathInfo = (
     <InfoBox text="infobox.help">

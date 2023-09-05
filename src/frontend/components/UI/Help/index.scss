@@ -1,0 +1,19 @@
+.Help {
+  padding: 1rem;
+  transform: translateX(100%);
+  transition: transform 300ms ease-out;
+
+  &.open {
+    transform: translateX(0);
+  }
+
+  button {
+    position: absolute;
+    right: 100%;
+    top: 0;
+    background: white;
+    border: 0;
+    border-radius: 0 0 0 50%;
+    padding: 0.5rem 1rem;
+  }
+}

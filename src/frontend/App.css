@@ -60,6 +60,17 @@ html,
   grid-area: offline;
 }
 
+.Help {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background: white;
+  color: black;
+  bottom: 0;
+  z-index: 100;
+  width: 50vw;
+}
+
 .danger {
   font-weight: var(--bold);
   color: var(--text-danger, var(--danger));

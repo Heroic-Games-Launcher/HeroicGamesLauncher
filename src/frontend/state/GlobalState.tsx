@@ -15,7 +15,8 @@ import {
 import {
   Category,
   DialogModalOptions,
-  ExternalLinkDialogOptions
+  ExternalLinkDialogOptions,
+  HelpItem
 } from 'frontend/types'
 import { withTranslation } from 'react-i18next'
 import {
@@ -113,6 +114,7 @@ interface StateProps {
     appName: string
     runner: Runner
   }
+  helpItems: { [key: string]: HelpItem }
 }
 
 class GlobalState extends PureComponent<Props> {
@@ -197,7 +199,8 @@ class GlobalState extends PureComponent<Props> {
     externalLinkDialogOptions: { showDialog: false },
     hideChangelogsOnStartup: globalSettings?.hideChangelogsOnStartup || false,
     lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null'),
-    settingsModalOpen: { value: false, type: 'settings', gameInfo: undefined }
+    settingsModalOpen: { value: false, type: 'settings', gameInfo: undefined },
+    helpItems: {}
   }
 
   setLanguage = (newLanguage: string) => {
@@ -833,6 +836,21 @@ class GlobalState extends PureComponent<Props> {
     }
   }
 
+  addHelpItem = (helpItemId: string, helpItem: HelpItem) => {
+    this.setState((previous: StateProps) => {
+      const newItems = { ...previous.helpItems }
+      newItems[helpItemId] = helpItem
+      return { helpItems: newItems }
+    })
+  }
+
+  removeHelpItem = (helpItemId: string) => {
+    this.setState((previous: StateProps) => {
+      delete previous.helpItems[helpItemId]
+      return { helpItems: previous.helpItems }
+    })
+  }
+
   render() {
     const {
       showInstallModal,
@@ -909,7 +927,12 @@ class GlobalState extends PureComponent<Props> {
           lastChangelogShown: lastChangelogShown,
           setLastChangelogShown: this.setLastChangelogShown,
           isSettingsModalOpen: settingsModalOpen,
-          setIsSettingsModalOpen: this.handleSettingsModalOpen
+          setIsSettingsModalOpen: this.handleSettingsModalOpen,
+          help: {
+            items: this.state.helpItems,
+            addHelpItem: this.addHelpItem,
+            removeHelpItem: this.removeHelpItem
+          }
         }}
       >
         {this.props.children}

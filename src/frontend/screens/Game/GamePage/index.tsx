@@ -105,8 +105,20 @@ export default React.memo(function GamePage(): JSX.Element | null {
     showDialogModal,
     setIsSettingsModalOpen,
     isSettingsModalOpen,
-    connectivity
+    connectivity,
+    help
   } = useContext(ContextProvider)
+
+  useEffect(() => {
+    help.addHelpItem('gamePage', {
+      title: 'Game Page',
+      content: <p>Something</p>
+    })
+
+    return () => {
+      help.removeHelpItem('gamePage')
+    }
+  }, [])
 
   const [gameInfo, setGameInfo] = useState(locationGameInfo)
 

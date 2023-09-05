@@ -11,7 +11,7 @@ import Sidebar from './components/UI/Sidebar'
 import Settings from './screens/Settings'
 import Accessibility from './screens/Accessibility'
 import ContextProvider from './state/ContextProvider'
-import { ControllerHints, OfflineMessage } from './components/UI'
+import { ControllerHints, Help, OfflineMessage } from './components/UI'
 import DownloadManager from './screens/DownloadManager'
 import DialogHandler from './components/UI/DialogHandler'
 import SettingsModal from './screens/Settings/components/SettingsModal'
@@ -19,7 +19,7 @@ import ExternalLinkDialog from './components/UI/ExternalLinkDialog'
 import classNames from 'classnames'
 
 function App() {
-  const { isSettingsModalOpen, isRTL } = useContext(ContextProvider)
+  const { isSettingsModalOpen, isRTL, help } = useContext(ContextProvider)
 
   return (
     <div
@@ -73,6 +73,7 @@ function App() {
           <ControllerHints />
           <div className="simple-keyboard"></div>
         </div>
+        <Help items={help.items} />
       </HashRouter>
     </div>
   )

@@ -2,9 +2,16 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import useSetting from 'frontend/hooks/useSetting'
 import { PathSelectionBox } from 'frontend/components/UI'
+import { hasHelp } from 'frontend/hooks/hasHelp'
 
 const DefaultInstallPath = () => {
   const { t } = useTranslation()
+
+  hasHelp(
+    'defaultInstallPath',
+    t('setting.default-install-path'),
+    <p>This is the default path preselected when installing games</p>
+  )
   const [defaultInstallPath, setDefaultInstallPath] = useSetting(
     'defaultInstallPath',
     ''
