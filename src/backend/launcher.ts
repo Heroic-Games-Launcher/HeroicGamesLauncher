@@ -323,6 +323,8 @@ function setupWineEnvVars(
 
   const ret: Record<string, string> = {}
 
+  ret.DOTNET_BUNDLE_EXTRACT_BASE_DIR = ''
+
   // Add WINEPREFIX / STEAM_COMPAT_DATA_PATH / CX_BOTTLE
   const steamInstallPath = join(flatPakHome, '.steam', 'steam')
   switch (wineVersion.type) {
