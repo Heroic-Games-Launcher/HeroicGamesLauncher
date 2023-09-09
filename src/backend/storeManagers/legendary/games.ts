@@ -637,12 +637,15 @@ export async function install(
   const anticheatInfo = gameAnticheatInfo(getGameInfo(appName).namespace)
 
   if (anticheatInfo && isLinux) {
-    const gameSettings = await getSettings(appName)
+    const gameConfig = GameConfig.get(appName)
 
-    gameSettings.eacRuntime =
-      anticheatInfo.anticheats.includes('Easy Anti-Cheat')
-    if (gameSettings.eacRuntime && isFlatpak) gameSettings.useGameMode = true
-    gameSettings.battlEyeRuntime = anticheatInfo.anticheats.includes('BattlEye')
+    if (anticheatInfo.anticheats.includes('Easy Anti-Cheat')) {
+      gameConfig.setSetting('eacRuntime', true)
+      if (isFlatpak) gameConfig.setSetting('useGameMode', true)
+    }
+
+    if (anticheatInfo.anticheats.includes('BattlEye'))
+      gameConfig.setSetting('battleyeRuntime', true)
   }
 
   return { status: 'done' }
