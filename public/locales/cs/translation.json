@@ -343,7 +343,8 @@
         "epic": "Přihlášení s Epic Games",
         "gog": "Přihlášení s GOG",
         "message": "Přihlaste se pomocí své platformy. Můžete se přihlásit k více platformám najednou.",
-        "amazon": "Přihlášení s Amazonem"
+        "amazon": "Přihlášení s Amazonem",
+        "old-mac": "Verze vašeho systému macOS je {{version}}. Pro přihlášení je vyžadován macOS 12 nebo novější."
     },
     "message": {
         "sync": "Synchronizace dokončena",
