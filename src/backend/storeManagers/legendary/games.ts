@@ -641,11 +641,14 @@ export async function install(
 
     if (anticheatInfo.anticheats.includes('Easy Anti-Cheat')) {
       gameConfig.setSetting('eacRuntime', true)
-      if (isFlatpak) gameConfig.setSetting('useGameMode', true)
+      if (isFlatpak) {
+        gameConfig.setSetting('useGameMode', true)
+      }
     }
 
-    if (anticheatInfo.anticheats.includes('BattlEye'))
+    if (anticheatInfo.anticheats.includes('BattlEye')) {
       gameConfig.setSetting('battleyeRuntime', true)
+    }
   }
 
   return { status: 'done' }
