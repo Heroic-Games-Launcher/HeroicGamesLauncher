@@ -1,3 +1,4 @@
+import { NileInstallInfo } from './../common/types/nile'
 import {
   AppSettings,
   GameInfo,
@@ -8,8 +9,14 @@ import {
   ButtonOptions,
   LibraryTopSectionOptions,
   DMQueueElement,
-  DownloadManagerState
+  DownloadManagerState,
+  GameSettings,
+  WikiInfo,
+  ExtraInfo,
+  Status
 } from 'common/types'
+import { GogInstallInfo } from 'common/types/gog'
+import { LegendaryInstallInfo } from 'common/types/legendary'
 import { NileLoginData, NileRegisterData } from 'common/types/nile'
 
 export type Category = 'all' | 'legendary' | 'gog' | 'sideload' | 'nile'
@@ -173,6 +180,43 @@ export interface SettingsContextType {
   gameInfo: GameInfo | null
   isMacNative: boolean
   isLinuxNative: boolean
+}
+
+export interface GameContextType {
+  appName: string
+  runner: Runner
+  gameInfo: GameInfo | null
+  gameExtraInfo: ExtraInfo | null
+  gameSettings: GameSettings | null
+  gameInstallInfo:
+    | LegendaryInstallInfo
+    | GogInstallInfo
+    | NileInstallInfo
+    | null
+  is: {
+    installing: boolean
+    installingUbisoft: boolean
+    launching: boolean
+    linux: boolean
+    linuxNative: boolean
+    mac: boolean
+    macNative: boolean
+    moving: boolean
+    native: boolean
+    notAvailable: boolean
+    notInstallable: boolean
+    notSupportedGame: boolean
+    playing: boolean
+    queued: boolean
+    reparing: boolean
+    sideloaded: boolean
+    syncing: boolean
+    uninstalling: boolean
+    updating: boolean
+    win: boolean
+  }
+  status: Status | undefined
+  wikiInfo: WikiInfo | null
 }
 
 export interface LocationState {
