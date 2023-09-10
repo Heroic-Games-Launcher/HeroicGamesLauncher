@@ -1,0 +1,231 @@
+{
+    "box": {
+        "uninstall": {
+            "title": "הסר התקנה",
+            "dlc": "אתם רוצים להסיר התקנה של DLC זה?",
+            "prefix_warning": "prefix הwine של משחק זה הוא prefix הברירת מחדל. אם אתם באמת מעוניינים למחוק אותה, תצטרכו לעשות זאת ידנית.",
+            "checkbox": "הסר prefix:{{prefix}}{{newLine}}שימו לב: פעולה זאת אינה ניתנת לביטול והיא גם תסיר קבצי שמירה שלא גובו.",
+            "message": "אתם רוצים להסיר משחק זה?",
+            "settingcheckbox": "מחק הגדרות ומחק לוג{{newLine}}שימו לב: פעולה זאת לא ניתנת לביטול. כל הגדרות ששונו יישכחו והלוג יימחק."
+        },
+        "change": {
+            "message": "‌זה ישנה את מיקום ההתקנה של המשחק הזה, אתם בטוחים?",
+            "path": "בחרו מיקום התקנה חדש",
+            "title": "שנה מיקום התקנה של המשחק/ים"
+        },
+        "importpath": "בחרו תיקיית משחקים לייבא",
+        "choose": "בחרו",
+        "move": {
+            "path": "בחרו לאיפה אתם רוצים להזיז",
+            "title": "הזז מיקום התקנה של המשחק",
+            "message": "זה עלול לקחת זמן רב, אתם בטוחים?"
+        },
+        "no": "לא",
+        "repair": {
+            "message": "אתם רוצים לתקן משחק זה? זה עלול לקחת זמן רב.",
+            "title": "אימות קבצי המשחק ותיקונם"
+        },
+        "stopInstall": {
+            "keepInstalling": "המשך התקנה",
+            "message": "אתם מעוניינים לשמר את הקבצים שירדו?",
+            "title": "הפסק התקנה"
+        },
+        "select": {
+            "button": "בחרו"
+        },
+        "runexe": {
+            "title": "בחרו קובץ EXE להפעיל"
+        },
+        "sideload": {
+            "exe": "בחרו קובץ הרצה"
+        },
+        "update": {
+            "message": "למשחק זה יש עדכון, החל עדכון עכשיו?",
+            "title": "משחק זה צריך עדכון"
+        },
+        "wineprefix": "בחר תיקיית WinePrefix",
+        "yes": "כן"
+    },
+    "button": {
+        "install": "התקן",
+        "update": "עדכן",
+        "add_to_favourites": "הוסף למועדפים",
+        "cancel": "השהה/בטל",
+        "continue": "המשך הורדה",
+        "details": "פרטים",
+        "finish": "סיים",
+        "force-innstall": "כפה התקנה",
+        "hide_game": "הסתר משחק",
+        "remove_from_favourites": "הסר ממועדפים",
+        "force_update": "כפה עדכון אם זמין",
+        "import": "יבא משחק",
+        "no-path-selected": "לא נבחר מיקום",
+        "remove_from_recent": "הסר מאחרונים",
+        "queue": {
+            "remove": "הסר מהתור"
+        },
+        "run-exe-first": "הפעל מתקין קודם",
+        "sideload": {
+            "edit": "ערוך אפליקציה/משחק"
+        },
+        "unhide_game": "הסר משחק מרשימת המוסתרים",
+        "uninstall": "הסר התקנה",
+        "running-setup": "מפעיל הגדרה"
+    },
+    "gamecard": {
+        "repairing": "מתקן",
+        "moving": "מזיז"
+    },
+    "info": {
+        "version": "גרסה",
+        "path": "מיקום התקנה",
+        "apple-gaming-wiki": "דירוג AppleGamingWiki",
+        "canRunOffline": "אינטרנט נדרש",
+        "clickToOpen": "לחצו על מנת לפתוח",
+        "game-scores": "תוצאות המשחק",
+        "installedInfo": "מידע מותקן",
+        "installedPlatform": "פלטפורמה מותקנת",
+        "size": "גודל",
+        "steamdeck-compatibility-info": "התאמה לSteamDeck",
+        "syncsaves": "סנכרון שמירות",
+        "protondb-compatibility-info": "רמת תאימות Proton"
+    },
+    "sideload": {
+        "info": {
+            "broser": "קישור דפדפן",
+            "exe": "בחרו קובץ הרצה",
+            "image": "תמונת אפליקציה",
+            "title": "כותרת אפליקציה/משחק"
+        },
+        "placeholder": {
+            "title": "הוסיפו כותרת למשחק/אפליקציה שלכם",
+            "image": "הדבק קישור תמונה לפה",
+            "url": "הדביקו את קישור המשחק פה"
+        },
+        "field": {
+            "title": "כותרת"
+        }
+    },
+    "status": {
+        "notSupportedGame": "לא נתמך",
+        "clickToUpdate": "לחצו על מנת לעדכן",
+        "downloading": "מוריד",
+        "moving": "מזיז התקנה, נא לחכות",
+        "gog-goodie": "נראה שהמשחק הזה לא ניתן להתקנה. בדקו את התוכן שניתן להוריד מ https://gog.com/account",
+        "goodie": "לא ניתן להתקין",
+        "syncingSaves": "מסנכרן שמירות",
+        "extracting": "מחלץ",
+        "launching": "מפעיל",
+        "playing": "משחק",
+        "gameNotAvailable": "משחק לא זמין",
+        "hasUpdates": "גרסה חדשה זמינה!",
+        "processing": "מעבד קבצים, נא לחכות",
+        "reparing": "מתקן את המשחק, נא לחכות",
+        "moving-files": "מזיז קובץ '{{file}}': {{percent}} ",
+        "notinstalled": "המשחק הזה לא מותקן",
+        "notSupported": "לא נתמך",
+        "this-game-uses-third-party": "המשחק הזה משתמש בלאונצ'ר חיצוני ועוד לא נתמך",
+        "installed": "מותקן",
+        "installing": "מתקין",
+        "totalDownloaded": "סך הורדות",
+        "queued": "בתור",
+        "ubisoft": "מתקין Ubisoft",
+        "updating": "מעדכן משחק",
+        "uninstalling": "מסיר התקנה"
+    },
+    "submenu": {
+        "settings": "הגדרות",
+        "store": "דף החנות",
+        "change": "שינוי מיקום התקנה",
+        "enableEosOverlay": "הדלק תגית EOS",
+        "protondb": "בדוק התאמה",
+        "removeFromSteam": "הסר מSteam",
+        "removeShortcut": "הסר קיצורי דרך",
+        "disableEosOverlay": "בטל תגית EOS",
+        "logs": "לוג",
+        "move": "הזז משחק",
+        "addShortcut": "הוסף קיצור דרך",
+        "addToSteam": "הוסף ל-Steam",
+        "verify": "אמת קבצים ותקן"
+    },
+    "cloud_save_unsupported": "לא נתמך",
+    "enabled": "מופעל",
+    "disabled": "מושבת",
+    "game": {
+        "downloadSize": "גודל הורדה",
+        "dlcs": "DLCים",
+        "firstPlayed": "נפתח לראשונה",
+        "getting-install-size": "מקבל גודל התקנה",
+        "getting-download-size": "מקבל גודל הורדה",
+        "installSize": "גודל התקנה",
+        "requirements": "דרישות מערכת",
+        "language": "שפה",
+        "lastPlayed": "נפתח לאחרונה",
+        "neverPlayed": "מעולם לא",
+        "platform": "בחר גרסת פלטפורמה להתקין",
+        "totalPlayed": "זמן במשחק"
+    },
+    "dlc": {
+        "installDlcs": "התקן את כל הDLCים"
+    },
+    "how-long-to-beat": {
+        "main-plus-extras": "ראשי + תוספות",
+        "main-story": "הסיפור הראשי",
+        "completionist": "משלים-כל"
+    },
+    "generic": {
+        "noDescription": "אין תיאור זמין",
+        "error": "שגיאה לא ידועה"
+    },
+    "help": {
+        "cloud_save_unsupported": "המשחק הזה לא תומך בשמירה בענן. מידע זה מסופק על ידי מפתחי המשחק. לחלק מהמשחקים יש מערכת שמירת ענן משלהם"
+    },
+    "hours": "שעות",
+    "howLongToBeat": "כמה זמן יש לנצח",
+    "label": {
+        "launching": "מפעיל",
+        "game": {
+            "not-installable-game": "המשחק אינו ניתן להתקנה",
+            "third-party-game": "המשחק החיצוני אינו נתמך"
+        },
+        "playing": {
+            "stop": "משחק (עצור)",
+            "start": "שחקו עכשיו"
+        },
+        "ubisoft": "מתקין Ubisoft Connect",
+        "saves": {
+            "syncing": "מסנכרן שמירות"
+        }
+    },
+    "install": {
+        "wineversion": "גרסת Wine",
+        "disk-space-left": "חלל זמין",
+        "space-after-install": "לאחר ההתקנה",
+        "wineprefix": "WinePrefix",
+        "not-enough-disk-space": "לא מספיק שטח דיסק",
+        "path": "בחרו מיקום התקנה",
+        "path-not-writtable": "אזהרה: מיקום עלול להיות בלתי ניתן לכתיבה."
+    },
+    "not_logged_in": {
+        "amazon": "אתה לא מחובר לחשבון אמזון בHeroic. אל תשתמש בדף החנות כדי להתחבר, לחץ על הכפתור הבא במקום:",
+        "title": "אתה לא מחובר",
+        "epic": "אתה לא מחובר עם חשבון Epic בHeroic. אל תשתמש בדף החנות כדי להתחבר, לחץ על הכפתור הבא במקום:",
+        "gog": "אתה לא מחובר לחשבון GOG בHeroic. אל תשתמש בדף החנות כדי להתחבר, לחץ על הכפתור הבא במקום:",
+        "login": "היכנס"
+    },
+    "report_problem": "דיווח על בעיה בהפעלת המשחק",
+    "launch": {
+        "options": "פותח הגדרות..."
+    },
+    "sdl": {
+        "title": "בחרו רכיבים להתקין"
+    },
+    "setting": {
+        "use-default-wine-settings": "השתמש בהגדרות ברירת המחדל של Wine",
+        "winecrossoverbottle": "CrossOver Bottle"
+    },
+    "specs": {
+        "minimum": "מינימום",
+        "recommended": "מומלצים"
+    }
+}

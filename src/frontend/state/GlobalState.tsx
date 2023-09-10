@@ -70,6 +70,7 @@ interface StateProps {
   }
   amazon: {
     library: GameInfo[]
+    user_id?: string
     username?: string
   }
   wineVersions: WineVersionInfo[]
@@ -149,7 +150,8 @@ class GlobalState extends PureComponent<Props> {
     },
     amazon: {
       library: this.loadAmazonLibrary(),
-      username: nileConfigStore.get_nodefault('userData.given_name')
+      user_id: nileConfigStore.get_nodefault('userData.user_id'),
+      username: nileConfigStore.get_nodefault('userData.name')
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
     error: false,
@@ -432,6 +434,7 @@ class GlobalState extends PureComponent<Props> {
       this.setState({
         amazon: {
           library: [],
+          user_id: response.user?.user_id,
           username: response.user?.name
         }
       })
@@ -447,6 +450,7 @@ class GlobalState extends PureComponent<Props> {
     this.setState({
       amazon: {
         library: [],
+        user_id: null,
         username: null
       }
     })
@@ -506,7 +510,7 @@ class GlobalState extends PureComponent<Props> {
     }
 
     let amazonLibrary = nileLibraryStore.get('library', [])
-    if (amazon.username && (!amazonLibrary.length || !amazon.library.length)) {
+    if (amazon.user_id && (!amazonLibrary.length || !amazon.library.length)) {
       window.api.logInfo('No cache found, getting data from nile...')
       await window.api.refreshLibrary('nile')
       amazonLibrary = this.loadAmazonLibrary()
@@ -525,6 +529,7 @@ class GlobalState extends PureComponent<Props> {
       },
       amazon: {
         library: amazonLibrary,
+        user_id: amazon.user_id,
         username: amazon.username
       },
       gameUpdates: updates,
@@ -870,6 +875,7 @@ class GlobalState extends PureComponent<Props> {
           },
           amazon: {
             library: amazon.library,
+            user_id: amazon.user_id,
             username: amazon.username,
             getLoginData: this.getAmazonLoginData,
             login: this.amazonLogin,
