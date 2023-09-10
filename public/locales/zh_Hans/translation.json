@@ -152,6 +152,12 @@
             "wine-change": {
                 "message": "我们找不到启动此游戏的选定 wine 版本 ({{selectedWine}})。 {{newline}} 我们找到了另一个，你想继续使用 {{foundWine}} 启动吗？",
                 "title": "未找到 Wine ！"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "message": "可能会丢失任何未保存的进度",
+                    "title": "你确定要退出吗？"
+                }
             }
         },
         "wineprefix": "选择 Wine Prefix 文件夹",
@@ -280,7 +286,8 @@
             "part1": "Heroic 启动器会在以下文件夹中查找现有的 Wine/Proton/CrossOver：",
             "part2": "如果在其它位置，请使用软链接连接到这些中的一个文件夹"
         },
-        "disable_logs": "将此复选框切换为“开”可禁用对日志文件的大部分写入（始终记录关键信息）。请确保在报告任何问题之前关闭此设置。"
+        "disable_logs": "将此复选框切换为“开”可禁用对日志文件的大部分写入（始终记录关键信息）。请确保在报告任何问题之前关闭此设置。",
+        "dxvknvapi": "DXVK-NVAPI 是基于 DXVK 和 linux 原生 NVAPI 构建的 NVAPI 的实现，它允许在 Nvidia GPU 上使用 DLSS。"
     },
     "info": {
         "heroic": {
@@ -336,7 +343,8 @@
         "epic": "Epic Games 登录",
         "gog": "GOG 登录",
         "message": "平台登录。你可以同时登录超过一个平台。",
-        "amazon": "亚马逊登录"
+        "amazon": "亚马逊登录",
+        "old-mac": "你的 macOS 版本是 {{version}}。需要 macOS 12 或以上版本才能登录。"
     },
     "message": {
         "sync": "同步完成",
@@ -577,7 +585,8 @@
         "disable_logs": "禁用日志",
         "addgamestoapplications": "自动将游戏添加到应用程序",
         "showMetalOverlay": "显示统计数据叠加",
-        "alt-nile-bin": "选择替代尼罗河二进制"
+        "alt-nile-bin": "选择替代尼罗河二进制",
+        "autodxvknvapi": "在前置自动安装并更新 DXVK"
     },
     "settings": {
         "battlEyeRuntime": {

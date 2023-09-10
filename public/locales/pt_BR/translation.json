@@ -80,7 +80,7 @@
             },
             "moving": "Erro ao mover o jogo {{error}}",
             "ubisoft-connect": {
-                "title": "Ubisoft Connect",
+                "title": "Ubisoft Connect ignore-same",
                 "message": "A instalação do Ubisoft Connect no prefixo do jogo falhou. Verifique nossa página wiki em https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac para instalá-lo manualmente."
             },
             "legendary": {
@@ -118,7 +118,7 @@
             "title": "Selecione o EXE para executar"
         },
         "select": {
-            "button": "Selecionar",
+            "button": "Selecionar ignore-reused",
             "exe": "Selecionar EXE"
         },
         "shortcuts": {
@@ -152,6 +152,12 @@
             "wine-change": {
                 "message": "Não foi possível encontrar a versão do Wine selecionada para iniciar este título ({{selectedWine}}). {{newline}} Encontramos outra versão, deseja continuar a iniciar usando {{foundWine}}?",
                 "title": "Wine não encontrado!"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "message": "Qualquer progresso não salvo pode ser perdido",
+                    "title": "Tem certeza que deseja sair?"
+                }
             }
         },
         "wineprefix": "Selecione a pasta do prefixo Wine",
@@ -170,7 +176,7 @@
     },
     "controller": {
         "hints": {
-            "back": "Voltar",
+            "back": "Voltar ignore-reused",
             "backspace": "Backspace",
             "close_dialog": "Fechar caixa de diálogo",
             "close_keyboard": "Fechar teclado",
@@ -183,7 +189,7 @@
             "options": "Opções",
             "play_game": "Jogar um jogo",
             "scroll": "Scroll",
-            "select": "Selecionar",
+            "select": "Selecionar ignore-reused",
             "space": "Espaço",
             "update_game": "Atualizar jogo"
         }
@@ -212,7 +218,7 @@
         "offline-notification-body": "Serviços online podem não funcionar totalmente, os servidores da Epic Games estão offline!",
         "offline-notification-title": "offline"
     },
-    "Epic Games": "Epic Games",
+    "Epic Games": "Epic Games ignore-same",
     "error": "Error",
     "favourites": "Favoritos",
     "game": {
@@ -421,7 +427,7 @@
         "wrapper": {
             "args": "Argumentos",
             "arguments_example": "Exemplo de argumentos: --arg; -extra-file=\"caminho-arquivo/ com/espaços\"",
-            "exe": "Wrapper",
+            "exe": "Wrapper ignore-same",
             "placeHolderKey": "Novo Wrapper",
             "placeHolderValue": "Argumentos do Wrapper",
             "title": "Comando do Wrapper:"
@@ -472,7 +478,7 @@
         "addgamestosteam": "Adicionar jogos à Steam automaticamente",
         "alt-gogdl-bin": "Escolha um binário do GOGDL alternativo para usar",
         "alt-legendary-bin": "Escolha um binário alternativo do Legendary",
-        "autodxvk": "Instalar/atualizar o DXVK automaticamente no prefixo",
+        "autodxvk": "Auto Instalar/atualizar o DXVK automaticamente no prefixo",
         "autosync": "Sincronizar saves automaticamente",
         "autovkd3d": "Instalar/Atualizar VKD3D automaticamente no prefixo",
         "change-target-exe": "Selecione um EXE alternativo para executar",
@@ -577,7 +583,8 @@
         "disable_logs": "Desativar registros",
         "addgamestoapplications": "Adicionar jogos a aplicativos automaticamente",
         "showMetalOverlay": "Mostrar sobreposição de estatísticas",
-        "alt-nile-bin": "Escolha um binário alternativo do Nilo"
+        "alt-nile-bin": "Escolha um binário alternativo do Nilo",
+        "autodxvknvapi": "Auto Instalar/atualizar o DXVK-NVAPI automaticamente no prefixo"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -669,7 +676,7 @@
     },
     "webview": {
         "controls": {
-            "back": "Voltar",
+            "back": "Voltar ignore-reused",
             "forward": "Avançar",
             "openInBrowser": "Abrir no navegador",
             "reload": "Recarregar página"
@@ -702,5 +709,5 @@
     },
     "amazon": "Amazonas",
     "Amazon Games": "Amazon Games",
-    "prime-gaming": "Prime Gaming"
+    "prime-gaming": "Prime Gaming ignore-same"
 }

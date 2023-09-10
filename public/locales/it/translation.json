@@ -577,7 +577,8 @@
         "disable_logs": "Disabilita i log",
         "addgamestoapplications": "Aggiungi giochi alle applicazioni automaticamente",
         "showMetalOverlay": "Mostra sovrapposizione statistiche",
-        "alt-nile-bin": "Scegli un binario Nilo alternativo"
+        "alt-nile-bin": "Scegli un binario Nilo alternativo",
+        "autodxvknvapi": "Installa/Aggiorna automaticamente DXVK/VKD3D sul prefix"
     },
     "settings": {
         "battlEyeRuntime": {

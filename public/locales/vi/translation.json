@@ -577,7 +577,8 @@
         "disable_logs": "Tắt nhật ký",
         "addgamestoapplications": "Tự động thêm trò chơi vào Ứng dụng",
         "showMetalOverlay": "Hiển thị lớp phủ thống kê",
-        "alt-nile-bin": "Chọn một nhị phân Nile thay thế"
+        "alt-nile-bin": "Chọn một nhị phân Nile thay thế",
+        "autodxvknvapi": "Tự động cài đặt/cập nhật DXVK trên prefix"
     },
     "settings": {
         "battlEyeRuntime": {

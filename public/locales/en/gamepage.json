@@ -125,6 +125,12 @@
         "version": "Version"
     },
     "install": {
+        "anticheat-warning": {
+            "cancel": "No",
+            "install": "Yes (I understand it will not work)",
+            "message": "The anticheat support is broken or denied. The game will not work. Do you want to install it anyway?",
+            "title": "Anticheat Broken/Denied"
+        },
         "disk-space-left": "Space Available",
         "not-enough-disk-space": "Not enough disk space",
         "path": "Select Install Path",

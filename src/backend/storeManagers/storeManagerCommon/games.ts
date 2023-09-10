@@ -12,13 +12,14 @@ import {
   prepareWineLaunch,
   runWineCommand,
   setupEnvVars,
+  setupWrapperEnvVars,
   setupWrappers
 } from '../../launcher'
 import { access, chmod } from 'fs/promises'
 import shlex from 'shlex'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { createAbortController } from '../../utils/aborthandler/aborthandler'
-import { BrowserWindow, Menu } from 'electron'
+import { BrowserWindow, dialog, Menu } from 'electron'
 import { gameManagerMap } from '../index'
 
 async function getAppSettings(appName: string): Promise<GameSettings> {
@@ -66,7 +67,28 @@ const openNewBrowserGameWindow = async (
       browserGame.close()
     })
 
-    browserGame.on('close', () => {
+    browserGame.webContents.on('will-prevent-unload', (event) => {
+      const choice = dialog.showMessageBoxSync(browserGame, {
+        type: 'question',
+        buttons: ['Yes', 'No'],
+        title: i18next.t(
+          'box.warning.sideload.confirmExit.title',
+          'Are you sure you want to quit?'
+        ),
+        message: i18next.t(
+          'box.warning.sideload.confirmExit.message',
+          'Any unsaved progress might be lost'
+        ),
+        defaultId: 0,
+        cancelId: 1
+      })
+      const leave = choice === 0
+      if (leave) {
+        event.preventDefault()
+      }
+    })
+
+    browserGame.on('closed', () => {
       res(true)
     })
   })
@@ -156,7 +178,11 @@ export async function launchGame(
       }
 
       const commandParts = shlex.split(launcherArgs ?? '')
-      const env = { ...process.env, ...setupEnvVars(gameSettings) }
+      const env = {
+        ...process.env,
+        ...setupWrapperEnvVars({ appName, appRunner: runner }),
+        ...setupEnvVars(gameSettings)
+      }
 
       await callRunner(
         commandParts,

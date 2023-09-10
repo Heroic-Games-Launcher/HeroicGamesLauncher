@@ -35,13 +35,14 @@ import {
   prepareLaunch,
   prepareWineLaunch,
   setupEnvVars,
+  setupWrapperEnvVars,
   setupWrappers
 } from 'backend/launcher'
 import { appendFileSync, existsSync } from 'graceful-fs'
 import { logFileLocation } from 'backend/storeManagers/storeManagerCommon/games'
 import { showDialogBoxModalAuto } from 'backend/dialog/dialog'
 import { t } from 'i18next'
-import { getWineFlags } from 'backend/utils/compatibility_layers'
+import { getWineFlagsArray } from 'backend/utils/compatibility_layers'
 import shlex from 'shlex'
 import { join } from 'path'
 import {
@@ -344,9 +345,11 @@ export async function launch(
     ? ['--override-exe', gameSettings.targetExe]
     : []
 
-  let commandEnv = isWindows
-    ? process.env
-    : { ...process.env, ...setupEnvVars(gameSettings) }
+  let commandEnv = {
+    ...process.env,
+    ...setupWrapperEnvVars({ appName, appRunner: 'nile' }),
+    ...(isWindows ? {} : setupEnvVars(gameSettings))
+  }
 
   const wrappers = setupWrappers(
     gameSettings,
@@ -395,7 +398,7 @@ export async function launch(
         : wineExec
 
     wineFlag = [
-      ...getWineFlags(wineBin, wineType, shlex.join(wrappers)),
+      ...getWineFlagsArray(wineBin, wineType, shlex.join(wrappers)),
       '--wine-prefix',
       gameSettings.winePrefix
     ]

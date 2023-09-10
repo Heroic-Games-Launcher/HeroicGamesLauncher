@@ -26,7 +26,7 @@
         "choose-egs-prefix": "Elija el prefijo de Wine donde está instalado EGS",
         "choose-gogdl-binary": "Seleccionar binario de GOGDL (requiere reiniciar)",
         "choose-legendary-binary": "Seleccione el binario de Legendary",
-        "customWine": "Seleccione binario de Wine o Proton",
+        "customWine": "Selecciona un binario de Wine o Proton",
         "default-install-path": "Elija la ruta de instalación predeterminada",
         "default-steam-path": "Ruta de instalación de Steam.",
         "downloadNow": "Descargar ahora",
@@ -152,9 +152,15 @@
             "wine-change": {
                 "message": "No pudimos encontrar la versión de vino seleccionada para lanzar este título ({{selectedWine}}). {{newline}} Encontramos otro, ¿quieres continuar iniciando usando {{foundWine}}?",
                 "title": "¡Vino no encontrado!"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "message": "Cualquier progreso no guardado podría perderse",
+                    "title": "¿Seguro que quieres dejarlo?"
+                }
             }
         },
-        "wineprefix": "Elige la carpeta de los prefijos de Wine",
+        "wineprefix": "Seleccions la carpeta de los prefijos de Wine",
         "yes": "SÍ",
         "dontShowAgain": "no volver a mostrar",
         "choose-nile-binary": "Seleccionar binario del Nilo"
@@ -271,7 +277,7 @@
         "steamruntime": "Librerías provistas por Steam para ayudar a ejecutar juegos de Linux y Windows (Proton). Activarlas puede mejorar la compatibilidad.",
         "sync": {
             "part1": "Heroic intenta adivinar la carpeta de guardado correcta y esto funcionará en la mayoría de los casos. En caso de que la carpeta sea incorrecta, use el cuadro de sobreescritura para cambiarla.",
-            "part2": "En caso de que cambie la carpeta del prefijo de Wine o Proton, deberá verificar la ruta nuevamente, ya que Proton usa un prefijo (/pfx) y un nombre de usuario (steamuser) diferentes. Por lo tanto, puede borrar la ruta actual, salir de la página de configuración de sincronización y volver para que Heroic adivine la carpeta una vez más con el prefijo correcto.",
+            "part2": "En caso de que cambies la carpeta del prefijo de Wine o Proton, deberás verificar la ruta nuevamente, ya que Proton usa un prefijo (/pfx) y un nombre de usuario (steamuser) diferentes. Por lo tanto, puedes borrar la ruta actual, salir de la página de configuración de sincronización y volver para que Heroic adivine la carpeta una vez más con el prefijo correcto.",
             "part3": "Sincronización manual: elija Descargar para descargar los juegos guardados en la nube. Subir para subir los locales a la nube. Forzar descarga y Carga forzada ignorarán la versión local o en la nube.",
             "part4": "Sincronizar guardados automáticamente sincronizará los guardados cada vez que inicie un juego y después de terminar de jugar."
         },
@@ -280,7 +286,8 @@
             "part1": "Búsquedas de versiones de Wine, Proton y CrossOver en las siguientes carpetas:",
             "part2": "Para otros lugares, use un enlace simbólico a una de estas carpetas"
         },
-        "disable_logs": "Active esta casilla de verificación para desactivar la mayoría de las escrituras en los archivos de registro (la información crítica siempre se registra). Asegúrese de DESACTIVAR esta configuración antes de informar cualquier problema."
+        "disable_logs": "Active esta casilla de verificación para desactivar la mayoría de las escrituras en los archivos de registro (la información crítica siempre se registra). Asegúrese de DESACTIVAR esta configuración antes de informar cualquier problema.",
+        "dxvknvapi": "DXVK-NVAPI es una implementación de NVAPI construida sobre DXVK y la NVAPI nativa de Linux, que permite el uso de DLSS en GPUs Nvidia."
     },
     "info": {
         "heroic": {
@@ -317,7 +324,7 @@
         "loading": "Cargando"
     },
     "library": {
-        "refresh": "Actualizar",
+        "refresh": "Renovar",
         "sortAscending": "Orden Ascendente",
         "sortByStatus": "Ordenar por Estado",
         "sortDescending": "Orden Descendente",
@@ -488,7 +495,7 @@
         "discordRPC": "Activar Discord Rich Presence",
         "download-no-https": "Descargar juegos sin HTTPS (útil para CDNs, ej: LanCache)",
         "dxvkfpslimit": "Límite de CPS/FPS (DX9, 10 y 11)",
-        "egs-sync": "Sincronizar con juegos EGS",
+        "egs-sync": "Sincronizar con los juegos de Epic Games instalados",
         "enableFSRHack": "Habilitar el hack FSR (La versión de Wine debe soportarlo)",
         "eosOverlay": {
             "cancelInstall": "Cancelar",
@@ -577,7 +584,8 @@
         "disable_logs": "Deshabilitar registros",
         "addgamestoapplications": "Agregar juegos a Aplicaciones automáticamente",
         "showMetalOverlay": "Mostrar superposición de estadísticas",
-        "alt-nile-bin": "Elija un binario alternativo del Nilo"
+        "alt-nile-bin": "Elija un binario alternativo del Nilo",
+        "autodxvknvapi": "Autoinstalar/actualizar DXVK en el Prefix"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -629,7 +637,7 @@
     "status": {
         "installing": "Instalando",
         "logging": "Iniciando sesión…",
-        "processing": "Procesando los archivos, por favor espere",
+        "processing": "Procesando los archivos, por favor, espera un momento",
         "preparing_login": "Preparando inicio de sesión... "
     },
     "store": "Tienda de Epic",
@@ -701,6 +709,6 @@
         "title": "Título"
     },
     "prime-gaming": "primer juego",
-    "amazon": "Amazonas",
-    "Amazon Games": "Juegos de Amazonas"
+    "amazon": "Amazon",
+    "Amazon Games": "Juegos de Amazon"
 }

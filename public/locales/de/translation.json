@@ -152,6 +152,11 @@
             "wine-change": {
                 "message": "Die ausgewählte Wine-Version konnte nicht gefunden werden, um den Titel zu starten ({{selectedWine}}). {{newline}} Wir haben eine andere Version gefunden, möchtest du den Start mit {{foundWine}} fortsetzen?",
                 "title": "Wine nicht gefunden!"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "Möchtest du Heroic wirklich beenden?"
+                }
             }
         },
         "wineprefix": "Wine-Präfix-Ordner auswählen",
@@ -577,7 +582,8 @@
         "disable_logs": "Logs deaktivieren",
         "addgamestoapplications": "Spiele automatisch zu Anwendungen hinzufügen",
         "showMetalOverlay": "Statistik-Overlay anzeigen",
-        "alt-nile-bin": "Wählen Sie eine alternative Nil-Binärdatei"
+        "alt-nile-bin": "Wählen Sie eine alternative Nil-Binärdatei",
+        "autodxvknvapi": "Automatisches Installieren/Aktualisieren von DXVK im Präfix"
     },
     "settings": {
         "battlEyeRuntime": {

@@ -45,6 +45,7 @@ import {
   GameInfo,
   Runner,
   EnviromentVariable,
+  WrapperEnv,
   WrapperVariable,
   ExecResult,
   GameSettings,
@@ -62,6 +63,8 @@ import { legendarySetup } from './storeManagers/legendary/setup'
 import { gameManagerMap } from 'backend/storeManagers'
 import * as VDF from '@node-steam/vdf'
 import { readFileSync } from 'fs'
+import { LegendaryCommand } from './storeManagers/legendary/commands'
+import { commandToArgsArray } from './storeManagers/legendary/library'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
@@ -254,6 +257,9 @@ async function prepareWineLaunch(
     if (gameSettings.autoInstallDxvk) {
       await DXVK.installRemove(gameSettings, 'dxvk', 'backup')
     }
+    if (gameSettings.autoInstallDxvkNvapi) {
+      await DXVK.installRemove(gameSettings, 'dxvk-nvapi', 'backup')
+    }
     if (gameSettings.autoInstallVkd3d) {
       await DXVK.installRemove(gameSettings, 'vkd3d', 'backup')
     }
@@ -304,6 +310,35 @@ function setupEnvVars(gameSettings: GameSettings) {
 }
 
 /**
+ * Maps launcher info to environment variables for consumption by wrappers
+ * @param wrapperEnv The info to be added into the environment variables
+ * @returns Environment variables
+ */
+function setupWrapperEnvVars(wrapperEnv: WrapperEnv) {
+  const ret: Record<string, string> = {}
+
+  ret.HEROIC_APP_NAME = wrapperEnv.appName
+  ret.HEROIC_APP_RUNNER = wrapperEnv.appRunner
+
+  switch (wrapperEnv.appRunner) {
+    case 'gog':
+      ret.HEROIC_APP_SOURCE = 'gog'
+      break
+    case 'legendary':
+      ret.HEROIC_APP_SOURCE = 'epic'
+      break
+    case 'nile':
+      ret.HEROIC_APP_SOURCE = 'amazon'
+      break
+    case 'sideload':
+      ret.HEROIC_APP_SOURCE = 'sideload'
+      break
+  }
+
+  return ret
+}
+
+/**
  * Maps Wine-related settings to environment variables
  * @param gameSettings The GameSettings to get the environment variables for
  * @param gameId If Proton and the Steam Runtime are used, the SteamGameId variable will be set to `heroic-gameId`
@@ -317,6 +352,8 @@ function setupWineEnvVars(
   const { wineVersion, winePrefix, wineCrossoverBottle } = gameSettings
 
   const ret: Record<string, string> = {}
+
+  ret.DOTNET_BUNDLE_EXTRACT_BASE_DIR = ''
 
   // Add WINEPREFIX / STEAM_COMPAT_DATA_PATH / CX_BOTTLE
   const steamInstallPath = join(flatPakHome, '.steam', 'steam')
@@ -391,6 +428,14 @@ function setupWineEnvVars(
   }
   if (!gameSettings.enableFsync && wineVersion.type === 'proton') {
     ret.PROTON_NO_FSYNC = '1'
+  }
+  if (gameSettings.autoInstallDxvkNvapi && wineVersion.type === 'proton') {
+    ret.PROTON_ENABLE_NVAPI = '1'
+    ret.DXVK_NVAPI_ALLOW_OTHER_DRIVERS = '1'
+  }
+  if (gameSettings.autoInstallDxvkNvapi && wineVersion.type === 'wine') {
+    ret.DXVK_ENABLE_NVAPI = '1'
+    ret.DXVK_NVAPI_ALLOW_OTHER_DRIVERS = '1'
   }
   if (gameSettings.eacRuntime) {
     ret.PROTON_EAC_RUNTIME = join(runtimePath, 'eac_runtime')
@@ -899,7 +944,7 @@ async function callRunner(
 
 /**
  * Generates a formatted, safe command that can be logged
- * @param commandParts The runner command that's executed, e. g. install, list, etc.
+ * @param command The runner command that's executed, e.g. install, list, etc.
  * Note that this will be modified, so pass a copy of your actual command parts
  * @param env Enviroment variables to use
  * @param wrappers Wrappers to use (gamemode, steam runtime, etc.)
@@ -907,18 +952,20 @@ async function callRunner(
  * @returns
  */
 function getRunnerCallWithoutCredentials(
-  commandParts: string[],
+  command: string[] | LegendaryCommand,
   env: Record<string, string> | NodeJS.ProcessEnv = {},
   runnerPath: string
 ): string {
-  const modifiedCommandParts = [...commandParts]
+  if (!Array.isArray(command)) command = commandToArgsArray(command)
+
+  const modifiedCommand = [...command]
   // Redact sensitive arguments (Authorization Code for Legendary, token for GOGDL)
   for (const sensitiveArg of ['--code', '--token']) {
-    const sensitiveArgIndex = modifiedCommandParts.indexOf(sensitiveArg)
+    const sensitiveArgIndex = modifiedCommand.indexOf(sensitiveArg)
     if (sensitiveArgIndex === -1) {
       continue
     }
-    modifiedCommandParts[sensitiveArgIndex + 1] = '<redacted>'
+    modifiedCommand[sensitiveArgIndex + 1] = '<redacted>'
   }
 
   const formattedEnvVars: string[] = []
@@ -932,12 +979,10 @@ function getRunnerCallWithoutCredentials(
     formattedEnvVars.push(`${key}=${quoteIfNecessary(value ?? '')}`)
   }
 
-  commandParts = commandParts.filter(Boolean)
-
   return [
     ...formattedEnvVars,
     quoteIfNecessary(runnerPath),
-    ...modifiedCommandParts.map(quoteIfNecessary)
+    ...modifiedCommand.map(quoteIfNecessary)
   ].join(' ')
 }
 
@@ -980,6 +1025,7 @@ export {
   launchCleanup,
   prepareWineLaunch,
   setupEnvVars,
+  setupWrapperEnvVars,
   setupWineEnvVars,
   setupWrappers,
   runWineCommand,

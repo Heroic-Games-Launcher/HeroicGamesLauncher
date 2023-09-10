@@ -577,7 +577,8 @@
         "disable_logs": "Poista lokit käytöstä",
         "addgamestoapplications": "Lisää pelejä automaattisesti sovelluksiin",
         "showMetalOverlay": "Näytä tilastojen peittokuva",
-        "alt-nile-bin": "Valitse vaihtoehtoinen Niilin binaari"
+        "alt-nile-bin": "Valitse vaihtoehtoinen Niilin binaari",
+        "autodxvknvapi": "Asenna automaattisesti/Päivitä DXVK/VKD3D Prefiksissä"
     },
     "settings": {
         "battlEyeRuntime": {

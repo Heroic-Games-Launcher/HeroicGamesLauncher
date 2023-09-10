@@ -10,7 +10,6 @@ import {
   rm
 } from 'graceful-fs'
 import { exec, spawn } from 'child_process'
-
 import { execAsync, getWineFromProton } from './utils'
 import {
   execOptions,
@@ -34,6 +33,7 @@ import {
 import { chmod } from 'fs/promises'
 import {
   any_gpu_supports_version,
+  get_nvngx_path,
   get_vulkan_instance_version
 } from './utils/graphics/vulkan'
 import { lt as semverLt } from 'semver'
@@ -63,6 +63,12 @@ export const DXVK = {
         name: 'dxvk',
         url: getDxvkUrl(),
         extractCommand: 'tar -xf',
+        os: 'linux'
+      },
+      {
+        name: 'dxvk-nvapi',
+        url: 'https://api.github.com/repos/jp7677/dxvk-nvapi/releases/latest',
+        extractCommand: 'tar --one-top-level -xf',
         os: 'linux'
       },
       {
@@ -143,7 +149,7 @@ export const DXVK = {
 
   installRemove: async (
     gameSettings: GameSettings,
-    tool: 'dxvk' | 'vkd3d' | 'dxvk-macOS',
+    tool: 'dxvk' | 'dxvk-nvapi' | 'vkd3d' | 'dxvk-macOS',
     action: 'backup' | 'restore'
   ): Promise<boolean> => {
     if (gameSettings.wineVersion.bin.includes('toolkit')) {
@@ -179,11 +185,12 @@ export const DXVK = {
       .toString()
       .split('\n')[0]
 
-    const dlls = readdirSync(`${toolsPath}/${tool}/${globalVersion}/x64`)
     const toolPathx32 = `${toolsPath}/${tool}/${globalVersion}/${
       tool === 'vkd3d' ? 'x86' : 'x32'
     }`
+    const dlls32 = readdirSync(toolPathx32)
     const toolPathx64 = `${toolsPath}/${tool}/${globalVersion}/x64`
+    const dlls64 = readdirSync(toolPathx64)
     const currentVersionCheck = `${winePrefix}/current_${tool}`
     let currentVersion = ''
 
@@ -209,7 +216,24 @@ export const DXVK = {
       logInfo('Removing DLL overrides', LogPrefix.DXVKInstaller)
 
       // unregister the dlls on the wine prefix
-      dlls.forEach(async (dll) => {
+      dlls64.forEach(async (dll) => {
+        dll = dll.replace('.dll', '')
+        const unregisterDll = [
+          'reg',
+          'delete',
+          'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides',
+          '/v',
+          dll,
+          '/f'
+        ]
+        await runWineCommand({
+          gameSettings,
+          commandParts: unregisterDll,
+          wait: true,
+          protonVerb: 'waitforexitandrun'
+        })
+      })
+      dlls32.forEach(async (dll) => {
         dll = dll.replace('.dll', '')
         const unregisterDll = [
           'reg',
@@ -237,7 +261,7 @@ export const DXVK = {
     }
 
     // copy the new dlls to the prefix
-    dlls.forEach((dll) => {
+    dlls32.forEach((dll) => {
       if (!isMac) {
         copyFile(
           `${toolPathx32}/${dll}`,
@@ -252,7 +276,8 @@ export const DXVK = {
           }
         )
       }
-
+    })
+    dlls64.forEach((dll) => {
       copyFile(
         `${toolPathx64}/${dll}`,
         `${winePrefix}/drive_c/windows/system32/${dll}`,
@@ -268,7 +293,7 @@ export const DXVK = {
     })
 
     // register dlls on the wine prefix
-    dlls.forEach(async (dll) => {
+    dlls64.forEach(async (dll) => {
       // remove the .dll extension otherwise will fail
       dll = dll.replace('.dll', '')
       const registerDll = [
@@ -288,6 +313,74 @@ export const DXVK = {
         protonVerb: 'waitforexitandrun'
       })
     })
+    dlls32.forEach(async (dll) => {
+      // remove the .dll extension otherwise will fail
+      dll = dll.replace('.dll', '')
+      const registerDll = [
+        'reg',
+        'add',
+        'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides',
+        '/v',
+        dll,
+        '/d',
+        'native,builtin',
+        '/f'
+      ]
+      await runWineCommand({
+        gameSettings,
+        commandParts: registerDll,
+        wait: true,
+        protonVerb: 'waitforexitandrun'
+      })
+    })
+
+    //locate and copy nvngx.dll to support DLSS on Nvidia GPUs
+    if (tool === 'dxvk-nvapi' && action === 'backup') {
+      try {
+        let nvngx_path = get_nvngx_path()
+        if (nvngx_path.length !== 0) {
+          nvngx_path += '/nvidia/wine'
+          const copyDlls = ['nvngx.dll', '_nvngx.dll']
+          copyDlls.forEach((dll) => {
+            copyFile(
+              `${nvngx_path}/${dll}`,
+              `${winePrefix}/drive_c/windows/system32/${dll}`,
+              (err) => {
+                if (err) {
+                  logError(
+                    [`Error when copying ${dll}`, err],
+                    LogPrefix.DXVKInstaller
+                  )
+                }
+              }
+            )
+          })
+          const regModNvngx = [
+            'reg',
+            'add',
+            'HKEY_LOCAL_MACHINE\\SOFTWARE\\NVIDIA Corporation\\Global\\NGXCore',
+            '/v',
+            'FullPath',
+            '/d',
+            'C:\\windows\\system32',
+            '/f'
+          ]
+          await runWineCommand({
+            gameSettings,
+            commandParts: regModNvngx,
+            wait: true,
+            protonVerb: 'waitforexitandrun'
+          })
+        } else {
+          logWarning(
+            'Could not find nvngx.dll for DLSS!',
+            LogPrefix.DXVKInstaller
+          )
+        }
+      } catch (err) {
+        logError([`Error when finding nvngx.dll`, err], LogPrefix.DXVKInstaller)
+      }
+    }
 
     writeFile(currentVersionCheck, globalVersion, (err) => {
       if (err) {

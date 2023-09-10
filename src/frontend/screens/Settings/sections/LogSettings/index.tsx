@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
+import { Done } from '@mui/icons-material'
 import { UpdateComponent } from 'frontend/components/UI'
 import SettingsContext from '../../SettingsContext'
 import './index.css'
@@ -64,6 +65,7 @@ export default function LogSettings() {
   const [logFileExist, setLogFileExist] = useState<boolean>(false)
   const [defaultLast, setDefaultLast] = useState<boolean>(false)
   const [refreshing, setRefreshing] = useState<boolean>(true)
+  const [copiedLog, setCopiedLog] = useState<boolean>(false)
   const { appName, isDefault } = useContext(SettingsContext)
 
   const getLogContent = () => {
@@ -163,6 +165,10 @@ export default function LogSettings() {
           <a
             onClick={() => {
               navigator.clipboard.writeText(logFileContent)
+              setCopiedLog(true)
+              setTimeout(() => {
+                setCopiedLog(false)
+              }, 3000)
             }}
             title={t(
               'setting.log.copy-to-clipboard',
@@ -172,7 +178,7 @@ export default function LogSettings() {
           >
             <div className="button-icontext-flex">
               <div className="button-icon-flex">
-                <ContentCopyIcon />
+                {copiedLog ? <Done /> : <ContentCopyIcon />}
               </div>
               <span className="button-icon-text">
                 {t(

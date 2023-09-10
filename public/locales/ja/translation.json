@@ -152,6 +152,11 @@
             "wine-change": {
                 "message": "このタイトル（{{selectedWine}}）を起動するために選択されたWineバージョンが見つかりませんでした。{{newline}}代わりに、見つかった{{foundWine}}を使用して起動を続けますか?",
                 "title": "Wineが見つかりません!"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "終了してもよろしいですか?"
+                }
             }
         },
         "wineprefix": "Wine環境フォルダを選択",
@@ -577,7 +582,8 @@
         "disable_logs": "ログを無効にする",
         "addgamestoapplications": "ゲームをアプリケーションに自動的に追加する",
         "showMetalOverlay": "統計オーバーレイを表示",
-        "alt-nile-bin": "代替の Nile バイナリを選択する"
+        "alt-nile-bin": "代替の Nile バイナリを選択する",
+        "autodxvknvapi": "プレフィックスでのDXVK/VKD3Dの自動インストール/更新"
     },
     "settings": {
         "battlEyeRuntime": {

@@ -5,7 +5,7 @@
   "main": "build/electron/main.js",
   "homepage": "./",
   "license": "GPL-3.0-only",
-  "description": "An Open Source Launcher for GOG and Epic Games",
+  "description": "An Open Source Launcher for GOG, Epic Games and Amazon Games",
   "repository": {
     "type": "Github",
     "url": "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher"
@@ -194,7 +194,8 @@
     "simple-keyboard": "^3.5.33",
     "steam-shortcut-editor": "^3.1.1",
     "systeminformation": "^5.17.12",
-    "tslib": "^2.5.0"
+    "tslib": "^2.5.0",
+    "zod": "^3.21.4"
   },
   "scripts": {
     "start": "vite",

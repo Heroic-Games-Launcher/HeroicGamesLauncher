@@ -577,7 +577,8 @@
         "disable_logs": "Naplók letiltása",
         "showMetalOverlay": "Statisztika fedvény megjelenítése",
         "addgamestoapplications": "Adjon hozzá játékokat automatikusan az Alkalmazásokhoz",
-        "alt-nile-bin": "Válasszon egy alternatív nílusi binárist"
+        "alt-nile-bin": "Válasszon egy alternatív nílusi binárist",
+        "autodxvknvapi": "A DXVK automatikus telepítése/frissítése a prefixen"
     },
     "settings": {
         "battlEyeRuntime": {

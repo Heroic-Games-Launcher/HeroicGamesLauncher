@@ -15,8 +15,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
-      - run: npm install --legacy-peer-deps
-      - run: npm run release:linux
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile
+      - run: yarn release:linux
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
