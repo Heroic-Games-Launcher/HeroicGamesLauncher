@@ -10,6 +10,7 @@ import {
   LibraryTopSectionOptions,
   DMQueueElement,
   DownloadManagerState,
+  ExperimentalFeatures,
   GameSettings,
   WikiInfo,
   ExtraInfo,
@@ -112,6 +113,8 @@ export interface ContextType {
     type?: 'settings' | 'log',
     gameInfo?: GameInfo
   ) => void
+  experimentalFeatures: ExperimentalFeatures
+  handleExperimentalFeatures: (newSetting: ExperimentalFeatures) => void
 }
 
 export type DialogModalOptions = {
