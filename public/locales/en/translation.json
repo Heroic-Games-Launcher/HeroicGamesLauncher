@@ -644,6 +644,7 @@
             "memoryStats": "{{percentUsed}}% used ({{usedGib}} / {{totalGib}}",
             "nileVersion": "Nile: {{nileVersion}}",
             "os": "Operating System:",
+            "osNameFlatpak": "{{osName}} (inside Flatpak)",
             "osVersion": "Version {{versionNumber}}",
             "showDetailed": "Show detailed system specifications",
             "software": "Software:",

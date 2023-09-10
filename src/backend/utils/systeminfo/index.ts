@@ -53,6 +53,7 @@ interface SystemInformation {
     version: string
   }
   isSteamDeck: boolean
+  isFlatpak: boolean
   softwareInUse: {
     heroicVersion: string
     legendaryVersion: string
@@ -101,6 +102,7 @@ async function getSystemInfo(cache = true): Promise<SystemInformation> {
       ...detailedOsInfo
     },
     isSteamDeck: isDeck,
+    isFlatpak: !!process.env.FLATPAK_ID,
     softwareInUse: {
       heroicVersion: getHeroicVersion(),
       legendaryVersion: legendaryVersion,
@@ -125,6 +127,7 @@ ${info.GPUs.map(
 OS: ${info.OS.name} ${info.OS.version} (${info.OS.platform})
 
 The current system is${info.isSteamDeck ? '' : ' not'} a Steam Deck
+We are${info.isFlatpak ? '' : ' not'} running inside a Flatpak container
 
 Software Versions:
   Heroic: ${info.softwareInUse.heroicVersion}
