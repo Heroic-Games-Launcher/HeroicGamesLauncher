@@ -355,21 +355,19 @@ export default React.memo(function GamePage(): JSX.Element | null {
   }
   return <UpdateComponent />
 
-  function handlePlay(gameInfo: GameInfo) {
-    return async () => {
-      if (isPlaying || isUpdating) {
-        return sendKill(appName, gameInfo.runner)
-      }
-
-      await launch({
-        appName,
-        t,
-        launchArguments,
-        runner: gameInfo.runner,
-        hasUpdate,
-        showDialogModal
-      })
+  async function handlePlay(gameInfo: GameInfo) {
+    if (isPlaying || isUpdating) {
+      return sendKill(appName, gameInfo.runner)
     }
+
+    await launch({
+      appName,
+      t,
+      launchArguments,
+      runner: gameInfo.runner,
+      hasUpdate,
+      showDialogModal
+    })
   }
 
   async function handleInstall(is_installed: boolean) {

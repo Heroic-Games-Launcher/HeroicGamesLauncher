@@ -16,7 +16,7 @@ import { GameInfo } from 'common/types'
 
 interface Props {
   gameInfo: GameInfo
-  handlePlay: (gameInfo: GameInfo) => () => Promise<void>
+  handlePlay: (gameInfo: GameInfo) => Promise<void>
   handleInstall: (
     is_installed: boolean
   ) => Promise<void | { status: 'done' | 'error' | 'abort' }>
