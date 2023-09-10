@@ -146,9 +146,11 @@ export default React.memo(function Sidebar() {
         )}
       </div>
       <HeroicVersion />
+      {/* remove this when adding a real experimental feature */}
       {experimentalFeatures.enableNewShinyFeature && (
         <p>New Shiny Feature enabled</p>
       )}
+      {/* remove */}
       <div className="resizer" onMouseDown={handleDragStart} />
     </aside>
   )
