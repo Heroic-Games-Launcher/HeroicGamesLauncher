@@ -128,7 +128,13 @@
         "path-not-writtable": "Advertencia: La ruta puede estar protegida contra escritura.",
         "space-after-install": "Después de la instalación",
         "wineprefix": "Prefijo de Wine",
-        "wineversion": "Version de Wine"
+        "wineversion": "Version de Wine",
+        "anticheat-warning": {
+            "cancel": "No",
+            "message": "El antitrampas está roto o desactivado. El juego no funcionará. ¿Quieres instalarlo de todos modos?",
+            "install": "Sí (entiendo que no funcionará)",
+            "title": "Antitrampa desactivado/denegado"
+        }
     },
     "label": {
         "game": {
