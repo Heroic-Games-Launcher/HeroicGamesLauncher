@@ -586,7 +586,10 @@
         "addgamestoapplications": "Automaticky přidávat hry do Aplikací",
         "showMetalOverlay": "Zobrazit překryvnou statistiku",
         "alt-nile-bin": "Vyberte alternativní binární soubor Nile",
-        "autodxvknvapi": "Automaticky instalovat/aktualizovat DXVK/VKD3D na prefixu"
+        "autodxvknvapi": "Automaticky instalovat/aktualizovat DXVK/VKD3D na prefixu",
+        "experimental_features": {
+            "enableNewShinyFeature": "Nová skvělá funkce"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -628,6 +631,9 @@
         "saves": {
             "label": "Umístění pro ukládání:",
             "warning": "Funkce Cloud Saves je v Beta verzi, před synchronizací si prosím uložená data zálohujte (pro případ, že by se něco pokazilo)"
+        },
+        "experimental_features": {
+            "title": "Experimentální funkce"
         }
     },
     "Settings": "Nastavení",
