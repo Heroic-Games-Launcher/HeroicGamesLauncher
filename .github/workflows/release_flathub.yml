@@ -3,6 +3,11 @@ name: Draft Release Flathub
 on:
   release:
     types: [published]
+  workflow_dispatch:
+    inputs:
+      ref_name:
+        description: 'Release Flatpak'
+        required: false
 
 env:
   GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
