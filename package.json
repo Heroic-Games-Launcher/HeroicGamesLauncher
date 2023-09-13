@@ -214,6 +214,7 @@
     "release:linux": "vite build && electron-builder -p always --linux deb AppImage rpm pacman tar.xz snap",
     "release:mac": "vite build && electron-builder -p always --mac --x64 --arm64",
     "release:win": "vite build && electron-builder -p always --win portable --x64",
+    "release:updateFlathub:ci": "tsc flathub/update-flathub.ts --skipLibCheck --target es2015 --moduleResolution node --module commonjs && node flathub/update-flathub.js",
     "sign:win": "vite build && electron-builder -p never --win nsis --x64",
     "dist:linux": "vite build && electron-builder --linux",
     "dist:mac": "export CSC_IDENTITY_AUTO_DISCOVERY=false && vite build && electron-builder --mac",
@@ -279,7 +280,8 @@
     "unimported": "^1.26.0",
     "vite": "^3.2.7",
     "vite-plugin-electron": "^0.10.2",
-    "vite-plugin-svgr": "^2.4.0"
+    "vite-plugin-svgr": "^2.4.0",
+    "xml-js": "^1.6.11"
   },
   "resolutions": {
     "ts-morph": "^17.0.1"
