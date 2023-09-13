@@ -70,10 +70,12 @@ export async function initGOGLibraryManager() {
     await mkdir(manifestDir, { recursive: true })
   }
 
-  const credentials = await GOGUser.getCredentials()
-  for (const appName of installedGamesList) {
-    await createMissingGogdlManifest(appName, credentials)
-  }
+  runOnceWhenOnline(async () => {
+    const credentials = await GOGUser.getCredentials()
+    for (const appName of installedGamesList) {
+      await createMissingGogdlManifest(appName, credentials)
+    }
+  })
   runOnceWhenOnline(checkForRedistUpdates)
 }
 
@@ -91,18 +93,14 @@ async function createMissingGogdlManifest(
   // Pull the data, read info file from install dir if possible
   const res = await runRunnerCommand(
     ['import', installedData.install_path],
-    createAbortController(appName),
+    createAbortController(`${appName}-manifest-restore`),
     {
       logMessagePrefix: `Getting data of ${appName}`
     }
   )
-  deleteAbortController(appName)
+  deleteAbortController(`${appName}-manifest-restore`)
   try {
     const importData: GOGImportData = JSON.parse(res.stdout)
-    if (!importData.buildId) {
-      logError(`Unable to get data of ${appName}`, { prefix: LogPrefix.Gog })
-      return
-    }
     const builds = await getBuilds(
       appName,
       installedData.platform,
@@ -112,9 +110,9 @@ async function createMissingGogdlManifest(
 
     // Find our build in the list
 
-    const currentBuild = buildItems.find(
-      (item) => item.build_id === importData.buildId
-    )
+    const currentBuild = importData.buildId
+      ? buildItems.find((item) => item.build_id === importData.buildId)
+      : buildItems.find((item) => !item.branch)
     if (!currentBuild || !currentBuild.urls) {
       logError(`Unable to get current build of ${appName}`, {
         prefix: LogPrefix.Gog
@@ -132,6 +130,7 @@ async function createMissingGogdlManifest(
     }
     const manifestData = JSON.parse(manifestDataRaw.toString())
 
+    manifestData.HGLPlatform = importData.platform
     manifestData.HGLInstallLanguage = importData.installedLanguage
     manifestData.HGLdlcs = importData.dlcs.map((dlc) => ({ id: dlc }))
 
@@ -772,6 +771,10 @@ export async function importGame(data: GOGImportData, executablePath: string) {
   gameData.is_installed = true
   library.set(data.appName, gameData)
   installedGamesStore.set('installed', Array.from(installedGames.values()))
+  refreshInstalled()
+  await createMissingGogdlManifest(data.appName)
+  await checkForRedistUpdates()
+  sendFrontendMessage('pushGameToLibrary', gameData)
 }
 
 // This checks for updates of Windows and Mac titles

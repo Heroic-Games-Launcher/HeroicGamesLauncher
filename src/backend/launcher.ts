@@ -38,7 +38,7 @@ import {
 import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
 import { DXVK } from './tools'
-import setup from './storeManagers/gog/setup'
+import gogSetup from './storeManagers/gog/setup'
 import nileSetup from './storeManagers/nile/setup'
 import {
   CallRunnerOptions,
@@ -241,7 +241,7 @@ async function prepareWineLaunch(
       LogPrefix.Backend
     )
     if (runner === 'gog') {
-      await setup(appName)
+      await gogSetup(appName)
     }
     if (runner === 'nile') {
       await nileSetup(appName)

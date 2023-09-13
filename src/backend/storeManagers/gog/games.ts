@@ -408,6 +408,9 @@ export async function install(
   const array = installedGamesStore.get('installed', [])
   array.push(installedData)
   installedGamesStore.set('installed', array)
+  gameInfo.is_installed = true
+  gameInfo.install = installedData
+  sendFrontendMessage('pushGameToLibrary', gameInfo)
   refreshInstalled()
   if (isWindows) {
     logInfo('Windows os, running setup instructions on install', LogPrefix.Gog)
@@ -416,7 +419,7 @@ export async function install(
     } catch (e) {
       logWarning(
         [
-          `Failed to run setup instructions on install for ${gameInfo.title}, some other step might be needed for the game to work. Check the 'goggame-${appName}.script' file in the game folder`,
+          `Failed to run setup instructions on install for ${gameInfo.title}`,
           'Error:',
           e
         ],
@@ -906,7 +909,7 @@ export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
   await removeShortcutsUtil(gameInfo)
   syncStore.delete(appName)
   await removeNonSteamGame({ gameInfo })
-  sendFrontendMessage('refreshLibrary', 'gog')
+  sendFrontendMessage('pushGameToLibrary', gameInfo)
   return res
 }
 
@@ -1189,7 +1192,8 @@ export async function forceUninstall(appName: string): Promise<void> {
   const installed = installedGamesStore.get('installed', [])
   const newInstalled = installed.filter((g) => g.appName !== appName)
   installedGamesStore.set('installed', newInstalled)
-  sendFrontendMessage('refreshLibrary', 'gog')
+  refreshInstalled()
+  sendFrontendMessage('pushGameToLibrary', getGameInfo(appName))
 }
 
 // GOGDL now handles the signal, this is no longer needed

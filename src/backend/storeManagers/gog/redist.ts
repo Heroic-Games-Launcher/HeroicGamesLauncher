@@ -29,9 +29,10 @@ import {
 import { DMQueueElement } from 'common/types'
 import axios from 'axios'
 import { GOGUser } from './user'
+import { isOnline } from 'backend/online_monitor'
 
 export async function checkForRedistUpdates() {
-  if (!GOGUser.isLoggedIn()) {
+  if (!GOGUser.isLoggedIn() || !isOnline()) {
     return
   }
   const manifestPath = path.join(gogRedistPath, '.gogdl-redist-manifest')
@@ -80,10 +81,12 @@ export async function checkForRedistUpdates() {
           'https://content-system.gog.com/dependencies/repository?generation=2'
         )
         const newBuildId = response.data.build_id
-        logInfo('Updating redist, reason - new buildId', {
-          prefix: LogPrefix.Gog
-        })
         shouldUpdate = buildId !== newBuildId
+        if (shouldUpdate) {
+          logInfo('Updating redist, reason - new buildId', {
+            prefix: LogPrefix.Gog
+          })
+        }
       }
     } catch (e) {
       logError(['Failed to read gog redist manifest', e], {
