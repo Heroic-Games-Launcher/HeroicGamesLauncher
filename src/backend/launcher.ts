@@ -144,7 +144,7 @@ async function prepareLaunch(
       }
     }
     // for native games lets use scout for now
-    const runtimeType = isNative ? 'scout' : nonNativeRuntime
+    const runtimeType = isNative ? 'sniper' : nonNativeRuntime
     const { path, args } = await getSteamRuntime(runtimeType)
     if (!path) {
       return {
@@ -161,13 +161,7 @@ async function prepareLaunch(
       }
     }
 
-    steamRuntime = [
-      path,
-      isNative || !gameInfo.install['install_path']
-        ? ''
-        : `--filesystem=${gameInfo.install['install_path']}`,
-      ...args
-    ]
+    steamRuntime = [path, ...args]
   }
 
   return {

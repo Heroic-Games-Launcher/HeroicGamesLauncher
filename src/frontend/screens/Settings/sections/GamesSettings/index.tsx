@@ -140,12 +140,12 @@ export default function GamesSettings({ useDetails = true }: Props) {
                 <PreferSystemLibs />
 
                 <EnableFSR />
-
-                <GameMode />
               </>
             )}
           </>
         )}
+
+        {isLinux && <GameMode />}
 
         <UseDGPU />
 

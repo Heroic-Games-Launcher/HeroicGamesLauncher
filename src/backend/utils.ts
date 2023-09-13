@@ -467,12 +467,12 @@ async function getSteamRuntime(
   const steamLibraries = await getSteamLibraries()
   const runtimeTypes: SteamRuntime[] = [
     {
-      path: 'steamapps/common/SteamLinuxRuntime_sniper/run',
+      path: 'steamapps/common/SteamLinuxRuntime_sniper/_v2-entry-point',
       type: 'sniper',
       args: ['--']
     },
     {
-      path: 'steamapps/common/SteamLinuxRuntime_soldier/run',
+      path: 'steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point',
       type: 'soldier',
       args: ['--']
     },

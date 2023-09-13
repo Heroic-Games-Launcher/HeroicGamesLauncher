@@ -217,7 +217,8 @@ export async function launchGame(
     await runWineCommand({
       commandParts: [executable, launcherArgs ?? ''],
       gameSettings,
-      wait: false,
+      wait: true,
+      protonVerb: 'waitforexitandrun',
       startFolder: dirname(executable),
       options: {
         wrappers,
