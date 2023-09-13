@@ -89,7 +89,6 @@
             "version": "Version"
         },
         "changelogFor": "Changelog for {{title}}",
-        "dlcs": "DLCs",
         "downloadSize": "Download Size",
         "firstPlayed": "First Played",
         "getting-download-size": "Getting download size",

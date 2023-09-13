@@ -11,9 +11,8 @@ import {
 } from 'frontend/components/UI/Dialog'
 import GameRequirements from '../../GameRequirements'
 import { useTranslation } from 'react-i18next'
-import DLCList from 'frontend/components/UI/DLCList'
-import { UpdateComponent } from 'frontend/components/UI'
 import GameChangeLog from '../../GameChangeLog'
+import ModifyInstallModal from '../../ModifyInstallModal'
 
 interface Props {
   gameInfo: GameInfo
@@ -22,7 +21,7 @@ interface Props {
 
 const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
   const { t } = useTranslation('gamepage')
-  const { appName, gameExtraInfo, gameInstallInfo, runner, is } =
+  const { appName, gameExtraInfo, gameInstallInfo, is } =
     useContext(GameContext)
   const [showRequirements, setShowRequirements] = useState(false)
   const [showChangelog, setShowChangelog] = useState(false)
@@ -49,6 +48,7 @@ const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
               ? gameInfo.store_url
               : '')
           }
+          changelog={gameExtraInfo?.changelog}
           runner={gameInfo.runner}
           handleUpdate={handleUpdate}
           handleChangeLog={() => setShowChangelog(true)}
@@ -76,21 +76,11 @@ const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
           showCloseButton
           onClose={() => setShowModifyInstallModal(false)}
         >
-          <DialogHeader onClose={() => setShowModifyInstallModal(false)}>
-            <div>{t('game.dlcs', 'DLCs')}</div>
-          </DialogHeader>
-          <DialogContent>
-            {gameInstallInfo ? (
-              <DLCList
-                dlcs={gameInstallInfo?.game.owned_dlc}
-                runner={runner}
-                mainAppInfo={gameInfo}
-                onClose={() => setShowModifyInstallModal(false)}
-              />
-            ) : (
-              <UpdateComponent inline />
-            )}
-          </DialogContent>
+          <ModifyInstallModal
+            gameInfo={gameInfo}
+            gameInstallInfo={gameInstallInfo}
+            onClose={() => setShowModifyInstallModal(false)}
+          />
         </Dialog>
       )}
 
