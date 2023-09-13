@@ -90,7 +90,7 @@
         "platform": "Seleziona la versione della piattaforma da installare",
         "requirements": "Requisiti Di Sistema",
         "totalPlayed": "Tempo giocato",
-        "dlcs": "DLCs"
+        "dlcs": "DLC"
     },
     "gamecard": {
         "moving": "Spostamento in corso",
@@ -117,8 +117,8 @@
         "apple-gaming-wiki": "Valutazione di AppleGamingWiki",
         "clickToOpen": "Clicca per aprire",
         "game-scores": "Punteggi di gioco",
-        "installedInfo": "Informazioni installate",
-        "protondb-compatibility-info": "Livello di compatibilità protonica",
+        "installedInfo": "Informazioni di installazione",
+        "protondb-compatibility-info": "Livello di compatibilità Proton",
         "steamdeck-compatibility-info": "Compatibilità SteamDeck"
     },
     "install": {
@@ -128,7 +128,13 @@
         "path-not-writtable": "Attenzione: il percorso potrebbe non essere scrivibile.",
         "space-after-install": "Dopo l'installazione",
         "wineprefix": "Prefisso Wine",
-        "wineversion": "Versione di Wine"
+        "wineversion": "Versione di Wine",
+        "anticheat-warning": {
+            "cancel": "No",
+            "message": "Il supporto dell'anticheat è non funzionante o negato. Il gioco non funzionerà. Vuoi installarlo comunque?",
+            "install": "Si (Capisco che non funzionerà)",
+            "title": "Anticheat Rotto/Negato"
+        }
     },
     "label": {
         "game": {
@@ -142,7 +148,7 @@
         "saves": {
             "syncing": "Sincronizzando i salvataggi"
         },
-        "launching": "Lancio",
+        "launching": "Avviando",
         "ubisoft": "Installazione di Ubisoft Connect"
     },
     "launch": {
@@ -152,7 +158,8 @@
         "epic": "Non hai effettuato l'accesso con nessun account Epic in Heroic. Non usare la pagina dello store per accede ma clicca sul seguente pulsante:",
         "gog": "Non hai effettuato l'accesso con nessun account GOG in Heroic. Non usare la pagina dello store per accede ma clicca sul seguente pulsante:",
         "login": "Accedi",
-        "title": "NON hai effettuato l'accesso"
+        "title": "NON hai effettuato l'accesso",
+        "amazon": "Non hai effettuato l'accesso con un account Amazon in Heroic. Non usare la pagina dello store per accede ma clicca sul seguente pulsante:"
     },
     "report_problem": "Segnala un problema nell'esecuzione di questo gioco",
     "sdl": {
@@ -202,7 +209,7 @@
         "playing": "Giocando",
         "moving-files": "Spostamento del file '{{file}}': {{percent}} ",
         "syncingSaves": "Sincronizzando i salvataggi",
-        "launching": "Lancio",
+        "launching": "Avviando",
         "ubisoft": "Installazione di Ubisoft",
         "downloading": "Scaricamento",
         "extracting": "Estrazione",

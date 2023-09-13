@@ -128,7 +128,13 @@
         "path-not-writtable": "警告：路径可能不可写。",
         "space-after-install": "安装后",
         "wineprefix": "WinePrefix",
-        "wineversion": "Wine 版本"
+        "wineversion": "Wine 版本",
+        "anticheat-warning": {
+            "cancel": "否",
+            "message": "反作弊支持损坏或被拒。游戏不会正常运行。你仍要安装它吗？",
+            "install": "是（我理解它不会正常工作）",
+            "title": "反作弊损坏/被拒"
+        }
     },
     "label": {
         "game": {
@@ -152,7 +158,8 @@
         "epic": "你在 Heroic 中未登录 Epic 账户。不要使用商店页面进行登录，请单击下面的按钮：",
         "gog": "你在 Heroic 中未登录 GOG 账户。不要使用商店页面进行登录，请单击下面的按钮：",
         "login": "登录",
-        "title": "你未登录"
+        "title": "你未登录",
+        "amazon": "你在 Heroic 中未登录 Epic 账户。不要使用商店页面进行登录，请点击下面的按钮："
     },
     "report_problem": "报告运行此游戏时出现的问题",
     "sdl": {

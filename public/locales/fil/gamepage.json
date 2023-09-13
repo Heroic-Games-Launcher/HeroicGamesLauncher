@@ -93,7 +93,8 @@
         "epic": "Hindi ka naka-log in gamit ang isang Epic account sa Heroic. Huwag gamitin ang page ng store para mag-login, i-click na lang ang sumusunod na button:",
         "gog": "Hindi ka naka-log in gamit ang isang GOG account sa Heroic. Huwag gamitin ang page ng store para mag-login, i-click na lang ang sumusunod na button:",
         "login": "Mag log in",
-        "title": "Hindi ka naka-login"
+        "title": "Hindi ka naka-login",
+        "amazon": "Hindi ka naka-log in gamit ang isang Amazon account sa Heroic. Huwag gamitin ang page ng store para mag-login, i-click na lang ang sumusunod na button:"
     },
     "status": {
         "notSupported": "Hindi suportado",

@@ -151,7 +151,8 @@
             }
         },
         "default-steam-path": "Dampvej.",
-        "dontShowAgain": "Vis ikke igen"
+        "dontShowAgain": "Vis ikke igen",
+        "choose-nile-binary": "Vælg Nile binær"
     },
     "All": "Alle",
     "accessibility": {
@@ -184,7 +185,8 @@
     "status": {
         "installing": "Installerer",
         "processing": "Behandler filerne, vent venligst",
-        "logging": "Logger ind..."
+        "logging": "Logger ind...",
+        "preparing_login": "Forbereder login... "
     },
     "Assets": "Aktiver",
     "infobox": {
@@ -414,7 +416,8 @@
         "ignoreGameUpdates": "Ignorer spilopdateringer",
         "disable_logs": "Deaktiver logfiler",
         "addgamestoapplications": "Føj spil til applikationer automatisk",
-        "showMetalOverlay": "Vis statistikoverlejring"
+        "showMetalOverlay": "Vis statistikoverlejring",
+        "alt-nile-bin": "Vælg en alternativ Nile Binær"
     },
     "wine": {
         "manager": {
@@ -566,7 +569,8 @@
     "other": {
         "gogdl-version": "GOGDL-version: ",
         "legendary-version": "Legendarisk version: ",
-        "weblate": "Hjælp med at oversætte Heroic."
+        "weblate": "Hjælp med at oversætte Heroic.",
+        "nile-version": "Nile version: "
     },
     "platforms": {
         "win": "Windows",
@@ -635,7 +639,8 @@
         "alternative_method": "Alternativ login-metode",
         "epic": "Epic Games Login",
         "gog": "GOG login",
-        "message": "Log ind med din platform. Du kan logge ind på mere end én platform på samme tid."
+        "message": "Log ind med din platform. Du kan logge ind på mere end én platform på samme tid.",
+        "amazon": "Amazon login"
     },
     "placeholder": {
         "prefered_language": "2-tegn kode (dvs.: \"en\" eller \"fr\")",
@@ -643,7 +648,8 @@
         "alt-legendary-bin": "Bruger indbygget Legendary binær...",
         "egs-prefix": "Præfiks hvor EGS er installeret",
         "custom_themes_path": "Vælg stien for at søge efter tilpassede CSS-filer",
-        "dxvkfpsvalue": "Positiv heltalsværdi (f.eks. 30, 60, ...)"
+        "dxvkfpsvalue": "Positiv heltalsværdi (f.eks. 30, 60, ...)",
+        "alt-nile-bin": "Brug af indbygget Nile binær..."
     },
     "search": "Søg efter spil",
     "store": "Episk butik",
@@ -741,5 +747,8 @@
         "noDlcFound": "Ingen DLC'er fundet",
         "title": "Titel",
         "size": "Størrelse"
-    }
+    },
+    "amazon": "Amazon",
+    "Amazon Games": "Amazon spil",
+    "prime-gaming": "Prime Gaming"
 }

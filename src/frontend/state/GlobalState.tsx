@@ -10,7 +10,8 @@ import {
   Runner,
   WineVersionInfo,
   InstallParams,
-  LibraryTopSectionOptions
+  LibraryTopSectionOptions,
+  ExperimentalFeatures
 } from 'common/types'
 import {
   Category,
@@ -69,6 +70,7 @@ interface StateProps {
   }
   amazon: {
     library: GameInfo[]
+    user_id?: string
     username?: string
   }
   wineVersions: WineVersionInfo[]
@@ -112,6 +114,7 @@ interface StateProps {
     appName: string
     runner: Runner
   }
+  experimentalFeatures: ExperimentalFeatures
 }
 
 class GlobalState extends PureComponent<Props> {
@@ -147,6 +150,7 @@ class GlobalState extends PureComponent<Props> {
     },
     amazon: {
       library: this.loadAmazonLibrary(),
+      user_id: nileConfigStore.get_nodefault('userData.user_id'),
       username: nileConfigStore.get_nodefault('userData.name')
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
@@ -195,7 +199,10 @@ class GlobalState extends PureComponent<Props> {
     externalLinkDialogOptions: { showDialog: false },
     hideChangelogsOnStartup: globalSettings?.hideChangelogsOnStartup || false,
     lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null'),
-    settingsModalOpen: { value: false, type: 'settings', gameInfo: undefined }
+    settingsModalOpen: { value: false, type: 'settings', gameInfo: undefined },
+    experimentalFeatures: globalSettings?.experimentalFeatures || {
+      enableNewShinyFeature: false // remove this when adding a real experimental feature
+    }
   }
 
   setLanguage = (newLanguage: string) => {
@@ -344,6 +351,10 @@ class GlobalState extends PureComponent<Props> {
     this.setState({ libraryTopSection: value })
   }
 
+  handleExperimentalFeatures = (value: ExperimentalFeatures) => {
+    this.setState({ experimentalFeatures: value })
+  }
+
   handleSuccessfulLogin = (runner: Runner) => {
     this.handleCategory('all')
     this.refreshLibrary({
@@ -423,6 +434,7 @@ class GlobalState extends PureComponent<Props> {
       this.setState({
         amazon: {
           library: [],
+          user_id: response.user?.user_id,
           username: response.user?.name
         }
       })
@@ -438,6 +450,7 @@ class GlobalState extends PureComponent<Props> {
     this.setState({
       amazon: {
         library: [],
+        user_id: null,
         username: null
       }
     })
@@ -497,7 +510,7 @@ class GlobalState extends PureComponent<Props> {
     }
 
     let amazonLibrary = nileLibraryStore.get('library', [])
-    if (amazon.username && (!amazonLibrary.length || !amazon.library.length)) {
+    if (amazon.user_id && (!amazonLibrary.length || !amazon.library.length)) {
       window.api.logInfo('No cache found, getting data from nile...')
       await window.api.refreshLibrary('nile')
       amazonLibrary = this.loadAmazonLibrary()
@@ -516,6 +529,7 @@ class GlobalState extends PureComponent<Props> {
       },
       amazon: {
         library: amazonLibrary,
+        user_id: amazon.user_id,
         username: amazon.username
       },
       gameUpdates: updates,
@@ -543,10 +557,7 @@ class GlobalState extends PureComponent<Props> {
     })
     window.api.logInfo(`Refreshing ${library} Library`)
     try {
-      if (!checkForUpdates || library === 'gog' || library === 'nile') {
-        await window.api.refreshLibrary(library)
-      }
-
+      await window.api.refreshLibrary(library)
       return await this.refresh(library, checkForUpdates)
     } catch (error) {
       window.api.logError(`${error}`)
@@ -864,6 +875,7 @@ class GlobalState extends PureComponent<Props> {
           },
           amazon: {
             library: amazon.library,
+            user_id: amazon.user_id,
             username: amazon.username,
             getLoginData: this.getAmazonLoginData,
             login: this.amazonLogin,
@@ -892,6 +904,7 @@ class GlobalState extends PureComponent<Props> {
             remove: this.removeGameFromFavourites
           },
           handleLibraryTopSection: this.handleLibraryTopSection,
+          handleExperimentalFeatures: this.handleExperimentalFeatures,
           setTheme: this.setTheme,
           setZoomPercent: this.setZoomPercent,
           setAllTilesInColor: this.setAllTilesInColor,

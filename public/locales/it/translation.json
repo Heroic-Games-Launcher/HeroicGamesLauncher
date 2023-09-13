@@ -7,7 +7,7 @@
         "title": "Accessibilità",
         "zoom": "Zoom"
     },
-    "add_game": "Aggiungi Gioco",
+    "add_game": "Aggiungi Un Gioco",
     "All": "Tutto",
     "anticheat": {
         "anticheats": "Anticheat",
@@ -26,7 +26,7 @@
         "choose-egs-prefix": "Scegli il prefix dove EGS è installato",
         "choose-gogdl-binary": "Seleziona il binario GOGDL (riavvio necessario)",
         "choose-legendary-binary": "Seleziona binari Legendary",
-        "customWine": "Scegli fra il binario Wine o Proton",
+        "customWine": "Scegli il binario Wine o Proton",
         "default-install-path": "Seleziona il percorso d'installazione predefinito",
         "default-steam-path": "Percorso Steam.",
         "downloadNow": "Scarica ora",
@@ -45,7 +45,7 @@
                 "title": "Bottiglia CrossOver non trovata"
             },
             "diskspace": {
-                "message": "Spazio su disco insufficiente",
+                "message": "Spazio disponibile su disco insufficiente",
                 "title": "Spazio insufficiente"
             },
             "dxvk": {
@@ -57,7 +57,7 @@
             },
             "generic": {
                 "message": "messaggio di errore generico",
-                "title": "Seleziona EXE per eseguire"
+                "title": "Scegli file EXE da Eseguire"
             },
             "launchAborted": "Lancio annullato",
             "title": "Errore",
@@ -80,7 +80,7 @@
             },
             "moving": "Errore durante lo spostamento del gioco {{error}}",
             "ubisoft-connect": {
-                "message": "Installazione di Ubisoft Connect nel prefisso del gioco non riuscita. Controlla la nostra pagina wiki su https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac per installarlo manualmente.",
+                "message": "Installazione di Ubisoft Connect nel prefix del gioco non riuscita. Controlla la nostra pagina wiki su https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac per installarlo manualmente.",
                 "title": "Ubisoft Connect"
             },
             "legendary": {
@@ -150,13 +150,20 @@
             },
             "title": "Attenzione",
             "wine-change": {
-                "message": "Non siamo riusciti a trovare la versione wine selezionata per lanciare questo titolo ({{selectedWine}}). {{newline}} Ne abbiamo trovato un altro, vuoi continuare l'avvio utilizzando {{foundWine}} ?",
+                "message": "Non siamo riusciti a trovare la versione Wine selezionata per lanciare questo titolo ({{selectedWine}}). {{newline}} Ne abbiamo trovato un altro, vuoi continuare l'avvio utilizzando {{foundWine}} ?",
                 "title": "Wine non trovato!"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "Sei sicuro di voler uscire?",
+                    "message": "I progressi non salvati potrebbero essere persi"
+                }
             }
         },
         "wineprefix": "Seleziona la cartella del prefisso di Wine",
         "yes": "SI",
-        "dontShowAgain": "Non mostrare più"
+        "dontShowAgain": "Non mostrare più",
+        "choose-nile-binary": "Seleziona binario di Nile"
     },
     "button": {
         "cancel": "Annulla",
@@ -229,7 +236,7 @@
     },
     "globalSettings": "Impostazioni globali",
     "GOG": "GOG",
-    "gog-store": "GOG Store",
+    "gog-store": "Negozio GOG",
     "header": {
         "hide_non_available_games": "Nascondi giochi non disponibili",
         "ignore_hidden": "Ignora nascosti",
@@ -279,7 +286,8 @@
             "part1": "Heroic cercherà possibili versioni di Wine, Proton, e CrossOver nelle seguenti cartelle:",
             "part2": "Per altre posizioni, utilizza un link simbolico ad una di queste cartelle"
         },
-        "disable_logs": "Attiva questa casella di controllo per disabilitare la maggior parte delle scritture sui file di registro (le informazioni critiche vengono sempre registrate). Assicurati di disattivare questa impostazione prima di segnalare qualsiasi problema."
+        "disable_logs": "Attiva questa casella di controllo per disabilitare la maggior parte delle scritture sui file di registro (le informazioni critiche vengono sempre registrate). Assicurati di disattivare questa impostazione prima di segnalare qualsiasi problema.",
+        "dxvknvapi": "DXVK-NVAPI è un'implementazione di NVAPI che utilizza DXVK e la versione linux di NVAPI, permette l'utilizzo del DLSS sulle GPU Nvidia."
     },
     "info": {
         "heroic": {
@@ -287,7 +295,7 @@
             "click-to-see-changelog": "Clicca per vedere i cambiamenti (changelog)",
             "newReleases": "Aggiornamento disponibile!",
             "stable": "Stabile",
-            "version": "Heroic Version"
+            "version": "Versione Heroic"
         },
         "save-sync": {
             "searching": "Sto cercando di determinare la cartella di salvataggi corretta (clicca qui per annullare)"
@@ -306,7 +314,7 @@
         "wine-repfix": {
             "message": "Wine utilizza quello che viene chiamato WINEPREFIX per incapsulare le applicazioni di Windows. Questo prefisso contiene i file di configurazione di Wine e una riproduzione della gerarchia di C: (il disco principale di un sistema operativo Windows). I tuoi salvataggi e le dependencies installate attraverso Winetricks sono contenute in questa riproduzione del disco C:."
         },
-        "wine-path-invalid": "Wine Path non è valido, selezionane un altro.",
+        "wine-path-invalid": "Il percorso di Wine non è valido, selezionane un altro.",
         "wine-path-none-found": "Non è stata trovata alcuna versione di Wine, scaricane una da Wine Manager"
     },
     "install": {
@@ -334,7 +342,9 @@
         "alternative_method": "Metodo di Accesso Alternativo",
         "epic": "Accedi a Epic Games",
         "gog": "Accedi a GOG",
-        "message": "Accedi con la tua piattaforma. Puoi effettuare l'accesso a più di una piattaforma contemporaneamente."
+        "message": "Accedi con la tua piattaforma. Puoi effettuare l'accesso a più di una piattaforma contemporaneamente.",
+        "amazon": "Accedi ad Amazon",
+        "old-mac": "La tua versione di macOS è {{version}}. Per accedere è necessario macOS 12 o superiore."
     },
     "message": {
         "sync": "Sincronizzazione completata",
@@ -428,7 +438,8 @@
     "other": {
         "gogdl-version": "Versione di GOGDL: ",
         "legendary-version": "Versione Legendary: ",
-        "weblate": "Aiuta a tradurre Heroic."
+        "weblate": "Aiuta a tradurre Heroic.",
+        "nile-version": "Versione di Nile: "
     },
     "Other": "Other",
     "placeholder": {
@@ -437,7 +448,8 @@
         "custom_themes_path": "Seleziona il percorso per cercare i file CSS personalizzati",
         "dxvkfpsvalue": "Valore positivo intero (es. 30, 60, ...)",
         "egs-prefix": "Prefix dove è installato EGS",
-        "prefered_language": "Codice di 2 caratteri (es.: \\\"en\\\" o \\\"fr\\\")"
+        "prefered_language": "Codice di 2 caratteri (es.: \\\"en\\\" o \\\"fr\\\")",
+        "alt-nile-bin": "Usando il binario Nile integrato..."
     },
     "platforms": {
         "linux": "Linux",
@@ -457,7 +469,7 @@
             "queued": "In coda",
             "remove": "Rimuovi dai Download",
             "pause": "Metti in pausa il download",
-            "resume": "Riprendere il download"
+            "resume": "Riprendi il download"
         }
     },
     "Recent": "Giocato di recente",
@@ -501,7 +513,7 @@
             "notInstalledMsg": "L'EOS Overlay non è installato. Vuoi installarlo ora?",
             "notInstalledTitle": "Overlay non installato",
             "remove": "Disinstalla",
-            "removeConfirm": "Sei sicuro di voler disinstallare l'EOS Overlay?",
+            "removeConfirm": "Sei sicuro di voler disinstallare l'Overlay EOS?",
             "removeConfirmTitle": "Conferma la rimozione dell'overlay",
             "updateNow": "Update",
             "updating": "Aggiornando..."
@@ -523,7 +535,7 @@
         "log": {
             "copy-to-clipboard": "Copia il contenuto dei log negli appunti",
             "current-log": "Accesso corrente",
-            "instructions": "Unisciti al nostro Discord e cerca il canale corrispondente al tuo sistema operativo. Condividi il contenuto dei log mostrati qui e includi una chiara descrizione dei problemi con ogni informazione rilevante e i dettagli.",
+            "instructions": "Unisciti al nostro Discord e cerca la sezione \"#-support\". Leggi il messaggio fissato \"Read Me First | Frequently Asked Questions\" e segui le istruzioni per condividere il contenuto dei log e una chiara descrizione dei problemi che stai riscontrando.",
             "instructions_title": "Come segnalare un problema?",
             "last-log": "Ultimo accesso",
             "no-file": "Nessun log file trovato",
@@ -557,9 +569,9 @@
             "title": "Avvia l'EXE nel prefix"
         },
         "savefolder": {
-            "not-found": "La cartella dei Salvataggi non è stata trovata, per favore selezionala manualmente (clicca per riprovare)",
+            "not-found": "La cartella dei salvataggi non è stata trovata, per favore selezionala manualmente (clicca qui per riprovare)",
             "placeholder": "Seleziona l'esatta cartella dei salvataggi dei giochi",
-            "warning": "Per favore assicurati che il percorso sia corretto (clicca per riprovare)"
+            "warning": "Per favore assicurati che il percorso sia corretto (clicca qui per riprovare)"
         },
         "select_theme": "Seleziona Tema",
         "showfps": "Mostra FPS (DX9, 10 e 11)",
@@ -571,13 +583,15 @@
         "autoUpdateGames": "Aggiorna automaticamente i giochi",
         "ignoreGameUpdates": "Ignora gli aggiornamenti del gioco",
         "disable_logs": "Disabilita i log",
-        "addgamestoapplications": "Aggiungi giochi alle applicazioni automaticamente",
-        "showMetalOverlay": "Mostra sovrapposizione statistiche"
+        "addgamestoapplications": "Aggiungi giochi alla lista applicazioni automaticamente",
+        "showMetalOverlay": "Mostra Overlay Statistiche",
+        "alt-nile-bin": "Scegli un binario Nile alternativo",
+        "autodxvknvapi": "Installa/Aggiorna automaticamente DXVK/VKD3D sul Prefix"
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "Installando BattlEye Runtime...",
-            "name": "BattlEye AntiCheat Runtime"
+            "name": "Runtime AntiCheat BattlEye"
         },
         "clear-cache": "Pulisci cache Heroic",
         "copiedToClipboard": "Copiato negli appunti!",
@@ -589,7 +603,7 @@
                 "title": "GameMode richiesta"
             },
             "installing": "Installando EAC Runtime...",
-            "name": "EasyAntiCheat Runtime"
+            "name": "Runtime EasyAntiCheat"
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -624,7 +638,8 @@
     "status": {
         "installing": "Installazione in corso",
         "logging": "Accesso in corso...",
-        "processing": "File in elaborazione, attendere"
+        "processing": "File in elaborazione, attendere",
+        "preparing_login": "Preparazione dell'accesso... "
     },
     "store": "Epic Store",
     "stores": "Negozi",
@@ -655,7 +670,7 @@
         "discord": "Discord",
         "logging_out": "Disconnessione in corso",
         "logout": "Disconnetti",
-        "logout_confirmation": "Sei sicuro di voler uscire?",
+        "logout_confirmation": "Sei sicuro di voler uscire dall'account?",
         "manageaccounts": "Gestione Account",
         "quit": "Esci",
         "cancel": "Annulla",
@@ -663,7 +678,7 @@
     },
     "webview": {
         "controls": {
-            "back": "Indietro",
+            "back": "Torna indietro",
             "forward": "Avanti",
             "openInBrowser": "Apri nel browser",
             "reload": "Ricarica pagina"
@@ -693,5 +708,8 @@
         "noDlcFound": "Nessun DLC trovato",
         "size": "Dimensione",
         "title": "Titolo"
-    }
+    },
+    "amazon": "Amazon",
+    "Amazon Games": "Giochi Amazon",
+    "prime-gaming": "Prime Gaming"
 }

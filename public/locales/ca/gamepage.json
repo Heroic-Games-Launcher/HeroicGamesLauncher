@@ -118,8 +118,8 @@
         "clickToOpen": "Feu clic per obrir",
         "game-scores": "Puntuacions del joc",
         "installedInfo": "Informació instal·lada",
-        "protondb-compatibility-info": "Nivell de compatibilitat de protons",
-        "steamdeck-compatibility-info": "Compatibilitat amb SteamDeck"
+        "protondb-compatibility-info": "Nivell de compatibilitat amb el Proton",
+        "steamdeck-compatibility-info": "Compatibilitat amb l'SteamDeck"
     },
     "install": {
         "disk-space-left": "Espai disponible",
@@ -128,7 +128,13 @@
         "path-not-writtable": "Avís: potser no es pot escriure a la ruta indicada.",
         "space-after-install": "Després de la instal·lació",
         "wineprefix": "WinePrefix",
-        "wineversion": "Versió del Wine"
+        "wineversion": "Versió del Wine",
+        "anticheat-warning": {
+            "cancel": "No",
+            "message": "La compatibilitat amb el sistema antitrampes s'ha trencat o rebutjat. El joc no funcionarà. Segur que el voleu instal·lar de totes maneres?",
+            "install": "Sí (entenc que no funcionarà)",
+            "title": "Antitrampes trencat/rebutjat"
+        }
     },
     "label": {
         "game": {
@@ -152,7 +158,8 @@
         "epic": "No has iniciat sessió amb un compte d'Epic a l'Heroic. No facis servir la pàgina de la botiga per a iniciar-la. Fes-ho després de prémer el botó següent:",
         "gog": "No has iniciat sessió amb un compte de GOG a l'Heroic. No facis servir la pàgina de la botiga per a iniciar-la. Fes-ho després de prémer el botó següent:",
         "login": "Inicia la sessió",
-        "title": "No has iniciat sessió"
+        "title": "No has iniciat sessió",
+        "amazon": "No has iniciat sessió amb un compte d'Epic a l'Heroic. No facis servir la pàgina de la botiga per a iniciar-la. Fes-ho després de prémer el botó següent:"
     },
     "report_problem": "Informa d'un problema quan s'executa el joc",
     "sdl": {

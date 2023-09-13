@@ -11,12 +11,17 @@ import { logError, LogPrefix } from '../../logger/logger'
 import { userInfo as user } from 'os'
 import { session } from 'electron'
 import { runRunnerCommand as runLegendaryCommand } from './library'
+import { LegendaryCommand } from './commands'
+import { NonEmptyString } from './commands/base'
 
 export class LegendaryUser {
   public static async login(
     authorizationCode: string
   ): Promise<{ status: 'done' | 'failed'; data: UserInfo | undefined }> {
-    const commandParts = ['auth', '--code', authorizationCode]
+    const command: LegendaryCommand = {
+      subcommand: 'auth',
+      '--code': NonEmptyString.parse(authorizationCode)
+    }
 
     const abortID = 'legendary-login'
     const errorMessage = (
@@ -29,7 +34,7 @@ export class LegendaryUser {
 
     try {
       const res = await runLegendaryCommand(
-        commandParts,
+        command,
         createAbortController(abortID),
         {
           logMessagePrefix: 'Logging in'
@@ -55,11 +60,11 @@ export class LegendaryUser {
   }
 
   public static async logout() {
-    const commandParts = ['auth', '--delete']
+    const command: LegendaryCommand = { subcommand: 'auth', '--delete': true }
 
     const abortID = 'legendary-logout'
     const res = await runLegendaryCommand(
-      commandParts,
+      command,
       createAbortController(abortID),
       {
         logMessagePrefix: 'Logging out'

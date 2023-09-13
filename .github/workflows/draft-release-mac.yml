@@ -26,10 +26,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
+          cache: 'yarn'
       - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
       - run: python3 -m pip install castlabs-evs
-      - run: npm install -g yarn
-      - run: yarn
+      - run: yarn install --frozen-lockfile
       - run: yarn release:mac

@@ -128,7 +128,13 @@
         "path-not-writtable": "Varování: na cestu možná nelze zapisovat.",
         "space-after-install": "Po instalaci",
         "wineprefix": "WinePrefix",
-        "wineversion": "Verze Wine"
+        "wineversion": "Verze Wine",
+        "anticheat-warning": {
+            "cancel": "Ne",
+            "message": "Podpora anticheatu je rozbitá nebo zakázaná. Hra nebude fungovat. Chcete jej přesto nainstalovat?",
+            "install": "Ano (chápu, že to nebude fungovat)",
+            "title": "Rozbitý/zakázaný anticheat"
+        }
     },
     "label": {
         "game": {
@@ -152,7 +158,8 @@
         "epic": "V Heroic nejste přihlášeni pomocí účtu Epic. K přihlášení nepoužívejte stránku obchodu, ale klikněte na následující tlačítko:",
         "gog": "V Heroic nejste přihlášeni pomocí účtu GOG. K přihlášení nepoužívejte stránku obchodu, ale klikněte na následující tlačítko:",
         "login": "Log in",
-        "title": "NEjste přihlášeni"
+        "title": "NEjste přihlášeni",
+        "amazon": "V Heroic nejste přihlášeni pomocí účtu Amazon. K přihlášení nepoužívejte stránku obchodu, ale klikněte na následující tlačítko:"
     },
     "report_problem": "Nahlásit problém se spouštěním této hry",
     "sdl": {

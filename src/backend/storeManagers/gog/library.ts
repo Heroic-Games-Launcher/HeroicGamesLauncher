@@ -1,5 +1,5 @@
 import { sendFrontendMessage } from '../../main_window'
-import axios, { AxiosError, AxiosResponse } from 'axios'
+import axios, { AxiosError, AxiosRequestHeaders, AxiosResponse } from 'axios'
 import { GOGUser } from './user'
 import {
   GameInfo,
@@ -25,7 +25,13 @@ import { basename, join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
 import { app } from 'electron'
 
-import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
+import {
+  logDebug,
+  logError,
+  logInfo,
+  LogPrefix,
+  logWarning
+} from '../../logger/logger'
 import { getGOGdlBin, getFileSize } from '../../utils'
 import { gogdlLogFile } from '../../constants'
 import {
@@ -186,7 +192,13 @@ export async function refresh(): Promise<ExecResult> {
       ).catch(() => ({
         data: null
       }))
-      const product = await getProductApi(game.external_id).catch(() => null)
+
+      const product = await getProductApi(
+        game.external_id,
+        [],
+        credentials.access_token
+      ).catch(() => null)
+
       if (!data) {
         await new Promise((resolve) => setTimeout(resolve, 2000))
         retries -= 1
@@ -587,21 +599,38 @@ export async function getMetaResponse(
   etag?: string
 ) {
   const buildData = await axios.get(
-    `https://content-system.gog.com/products/${appName}/os/${platform}/builds?generation=2`
+    `https://content-system.gog.com/products/${appName}/os/${platform}/builds?generation=2&_version=2`
   )
   const headers = etag
     ? {
         'If-None-Match': etag
       }
     : undefined
-  const metaUrl =
-    buildData.data?.items?.find((build: BuildItem) => !build.branch)?.link ||
-    buildData.data?.items[0]?.link
-  const metaResponse = await axios.get(metaUrl, {
-    headers,
-    validateStatus: (status) => status === 200 || status === 304
-  })
-  return { status: metaResponse.status, etag: metaResponse.headers.etag }
+  const metaUrls =
+    buildData.data?.items?.find((build: BuildItem) => !build.branch)?.urls ||
+    buildData.data?.items[0]?.urls ||
+    []
+
+  for (const metaUrl of metaUrls) {
+    try {
+      const metaResponse = await axios.get(metaUrl.url, {
+        headers,
+        validateStatus: (status) => status === 200 || status === 304
+      })
+
+      return { status: metaResponse.status, etag: metaResponse.headers.etag }
+    } catch (e) {
+      logDebug(
+        `Failed to obtain manifest from CDN for ${appName}, ignoring ${e}`,
+        {
+          prefix: LogPrefix.Gog
+        }
+      )
+      continue
+    }
+  }
+
+  return { status: 304, etag: etag }
 }
 
 export async function checkForGameUpdate(
@@ -611,7 +640,7 @@ export async function checkForGameUpdate(
 ) {
   const metaResponse = await getMetaResponse(appName, platform, etag)
 
-  return metaResponse.status === 200
+  return metaResponse.status === 200 && metaResponse.etag !== etag
 }
 
 /**
@@ -624,9 +653,11 @@ export async function gogToUnifiedInfo(
 ): Promise<GameInfo> {
   if (
     !info ||
-    info.type !== 'game' ||
+    info.type === 'dlc' ||
     !info.game.visible_in_library ||
-    (galaxyProductInfo && galaxyProductInfo.game_type === 'pack')
+    (galaxyProductInfo &&
+      !galaxyProductInfo.is_installable &&
+      galaxyProductInfo.game_type !== 'game')
   ) {
     // @ts-expect-error TODO: Handle this somehow
     return {}
@@ -905,7 +936,8 @@ export async function getGamesdbData(
  */
 export async function getProductApi(
   appName: string,
-  expand?: string[]
+  expand?: string[],
+  access_token?: string
 ): Promise<AxiosResponse<ProductsEndpointData> | null> {
   expand = expand ?? []
   const language = i18next.language
@@ -914,9 +946,15 @@ export async function getProductApi(
   if (expand.length > 0) {
     url.searchParams.set('expand', expand.join(','))
   }
+
+  const headers: AxiosRequestHeaders = {}
+  if (access_token) {
+    headers.Authorization = `Bearer ${access_token}`
+  }
+
   // `https://api.gog.com/products/${appName}?locale=${language}${expandString}`
   const response = await axios
-    .get<ProductsEndpointData>(url.toString())
+    .get<ProductsEndpointData>(url.toString(), { headers })
     .catch(() => null)
 
   return response

@@ -13,7 +13,8 @@ import {
   WineManagerUISettings,
   AppSettings,
   WikiInfo,
-  GameInfo
+  GameInfo,
+  WindowProps
 } from 'common/types'
 import { UserData } from 'common/types/gog'
 import { NileUserData } from './nile'
@@ -40,7 +41,7 @@ export interface StoreStructure {
       gogdlLogFile: string
       nileLogFile: string
     }
-    'window-props': Electron.Rectangle
+    'window-props': WindowProps
     settings: AppSettings
     skipVcRuntime: boolean
   }
