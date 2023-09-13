@@ -105,8 +105,6 @@ export const handleGoToScreen = (callback: any) => {
   }
 }
 
-export const getOSInfo = async () => ipcRenderer.invoke('getOSInfo')
-
 export const handleShowDialog = (
   onMessage: (
     e: Electron.IpcRendererEvent,

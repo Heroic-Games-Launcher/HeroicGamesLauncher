@@ -55,9 +55,6 @@ import {
   clearCache,
   execAsync,
   isEpicServiceOffline,
-  getLegendaryVersion,
-  getGogdlVersion,
-  getSystemInfo,
   handleExit,
   openUrlOrFile,
   resetHeroic,
@@ -71,8 +68,7 @@ import {
   getCurrentChangelog,
   checkWineBeforeLaunch,
   removeFolder,
-  downloadDefaultWine,
-  getNileVersion
+  downloadDefaultWine
 } from './utils'
 import {
   configStore,
@@ -127,7 +123,6 @@ import { notify, showDialogBoxModalAuto } from './dialog/dialog'
 import { addRecentGame } from './recent_games/recent_games'
 import { callAbortController } from './utils/aborthandler/aborthandler'
 import { getDefaultSavePath } from './save_sync'
-import si from 'systeminformation'
 import { initTrayIcon } from './tray_icon/tray_icon'
 import {
   createMainWindow,
@@ -157,6 +152,7 @@ import {
   getGameOverride,
   getGameSdl
 } from 'backend/storeManagers/legendary/library'
+import { formatSystemInfo, getSystemInfo } from './utils/systeminfo'
 
 app.commandLine?.appendSwitch('remote-debugging-port', '9222')
 
@@ -647,9 +643,6 @@ ipcMain.handle('getEpicGamesStatus', async () => isEpicServiceOffline())
 ipcMain.handle('getMaxCpus', () => cpus().length)
 
 ipcMain.handle('getHeroicVersion', app.getVersion)
-ipcMain.handle('getLegendaryVersion', getLegendaryVersion)
-ipcMain.handle('getGogdlVersion', getGogdlVersion)
-ipcMain.handle('getNileVersion', getNileVersion)
 ipcMain.handle('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
 ipcMain.handle('isFlatpak', () => isFlatpak)
 ipcMain.handle('getGameOverride', async () => getGameOverride())
@@ -658,11 +651,6 @@ ipcMain.handle('getGameSdl', async (event, appName) => getGameSdl(appName))
 ipcMain.handle('getPlatform', () => process.platform)
 
 ipcMain.handle('showUpdateSetting', () => !isFlatpak)
-
-ipcMain.handle('getNumOfGpus', async (): Promise<number> => {
-  const { controllers } = await si.graphics()
-  return controllers.length
-})
 
 ipcMain.handle('getLatestReleases', async () => {
   const { checkForUpdatesOnStartup } = GlobalConfig.get().getSettings()
@@ -991,19 +979,13 @@ ipcMain.handle(
       powerDisplayId = powerSaveBlocker.start('prevent-display-sleep')
     }
 
-    const systemInfo = getSystemInfo()
-    const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
     const logFileLocation = getLogFileLocation(appName)
 
-    systemInfo.then((systemInfo) => {
-      if (systemInfo === '') return
-      appendFileSync(
-        logFileLocation,
-        'System Info:\n' + `${systemInfo}\n` + '\n'
-      )
-    })
+    const systemInfo = await getSystemInfo().then(formatSystemInfo)
+    writeFileSync(logFileLocation, 'System Info:\n' + `${systemInfo}\n` + '\n')
 
-    writeFileSync(
+    const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
+    appendFileSync(
       logFileLocation,
       `Game Settings: ${gameSettingsString}\n` +
         '\n' +
@@ -1689,7 +1671,7 @@ import './logger/ipc_handler'
 import './wine/manager/ipc_handler'
 import './shortcuts/ipc_handler'
 import './anticheat/ipc_handler'
-import 'backend/storeManagers/legendary/eos_overlay/ipc_handler'
+import './storeManagers/legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
 import './downloadmanager/ipc_handler'
 import './utils/ipc_handler'

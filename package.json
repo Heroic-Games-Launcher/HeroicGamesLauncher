@@ -1,6 +1,10 @@
 {
   "name": "heroic",
   "version": "2.9.1",
+  "versionNames": {
+    "stable": "Boa Hancock",
+    "beta": "Caesar Clown"
+  },
   "private": true,
   "main": "build/electron/main.js",
   "homepage": "./",
@@ -193,7 +197,6 @@
     "short-uuid": "^4.2.2",
     "simple-keyboard": "^3.5.33",
     "steam-shortcut-editor": "^3.1.1",
-    "systeminformation": "^5.17.12",
     "tslib": "^2.5.0",
     "zod": "^3.21.4"
   },
