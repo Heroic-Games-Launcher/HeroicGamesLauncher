@@ -32,7 +32,7 @@ jobs:
           git config --global url."https://github.com/".insteadOf
           ssh://git@github.com/
       - name: Install modules.
-        run: yarn setup
+        run: yarn install
       - name: Checkout flathub repository.
         run: git clone https://github.com/flathub/com.heroicgameslauncher.hgl.git
       - name: Update flathub release
