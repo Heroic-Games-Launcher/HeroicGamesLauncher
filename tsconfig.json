@@ -6,7 +6,6 @@
     "sourceMap": true,
     "jsx": "react-jsx",
     "moduleResolution": "node",
-    "rootDir": "src",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,

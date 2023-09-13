@@ -26,7 +26,6 @@ import {
 import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
-import si from 'systeminformation'
 
 import {
   fixAsarPath,
@@ -50,8 +49,6 @@ import {
 } from './logger/logger'
 import { basename, dirname, join, normalize } from 'path'
 import { runRunnerCommand as runLegendaryCommand } from 'backend/storeManagers/legendary/library'
-import { runRunnerCommand as runGogdlCommand } from './storeManagers/gog/library'
-import { runRunnerCommand as runNileCommand } from './storeManagers/nile/library'
 import {
   gameInfoStore,
   installStore,
@@ -80,6 +77,7 @@ import {
   wineDownloaderInfoStore
 } from './wine/manager/utils'
 import { readdir, stat } from 'fs/promises'
+import { getHeroicVersion } from './utils/systeminfo/heroicVersion'
 
 const execAsync = promisify(exec)
 
@@ -207,68 +205,6 @@ async function isEpicServiceOffline(
   }
 }
 
-const getLegendaryVersion = async () => {
-  const abortID = 'legendary-version'
-  const { stdout, error, abort } = await runLegendaryCommand(
-    { subcommand: undefined, '--version': true },
-    createAbortController(abortID)
-  )
-
-  deleteAbortController(abortID)
-
-  if (error || abort) {
-    return 'invalid'
-  }
-
-  return stdout
-    .split('legendary version')[1]
-    .replaceAll('"', '')
-    .replaceAll(', codename', '')
-    .replaceAll('\n', '')
-}
-
-const getGogdlVersion = async () => {
-  const abortID = 'gogdl-version'
-  const { stdout, error } = await runGogdlCommand(
-    ['--version'],
-    createAbortController(abortID)
-  )
-
-  deleteAbortController(abortID)
-
-  if (error) {
-    return 'invalid'
-  }
-
-  return stdout
-}
-
-const getNileVersion = async () => {
-  const abortID = 'nile-version'
-  const { stdout, error } = await runNileCommand(
-    ['--version'],
-    createAbortController(abortID)
-  )
-  deleteAbortController(abortID)
-
-  if (error) {
-    return 'invalid'
-  }
-  return stdout
-}
-
-const getHeroicVersion = () => {
-  const VERSION_NUMBER = app.getVersion()
-  // One Piece reference
-  const BETA_VERSION_NAME = 'Caesar Clown'
-  const STABLE_VERSION_NAME = 'Boa Hancock'
-  const isBetaorAlpha =
-    VERSION_NUMBER.includes('alpha') || VERSION_NUMBER.includes('beta')
-  const VERSION_NAME = isBetaorAlpha ? BETA_VERSION_NAME : STABLE_VERSION_NAME
-
-  return `${VERSION_NUMBER} ${VERSION_NAME}`
-}
-
 const showAboutWindow = () => {
   app.setAboutPanelOptions({
     applicationName: 'Heroic Games Launcher',
@@ -313,89 +249,6 @@ async function handleExit() {
     callAllAbortControllers()
   }
   app.exit()
-}
-
-const getSystemInfoInternal = async (): Promise<string> => {
-  const heroicVersion = getHeroicVersion()
-  const legendaryVersion = await getLegendaryVersion()
-  const gogdlVersion = await getGogdlVersion()
-  const nileVersion = await getNileVersion()
-
-  const electronVersion = process.versions.electron || 'unknown'
-  const chromeVersion = process.versions.chrome || 'unknown'
-  const nodeVersion = process.versions.node || 'unknown'
-
-  // get CPU and RAM info
-  const { manufacturer, brand, speed, governor } = await si.cpu()
-  const { total, available } = await si.mem()
-
-  // get OS information
-  const { distro, kernel, arch, platform, release, codename } =
-    await si.osInfo()
-
-  // get GPU information
-  const { controllers } = await si.graphics()
-  const graphicsCards = String(
-    controllers
-      .map(
-        ({ name, model, vram, driverVersion }, i: number) =>
-          `GPU${i}: ${name ? name : model} ${vram ? `VRAM: ${vram}MB` : ''} ${
-            driverVersion ? `DRIVER: ${driverVersion}` : ''
-          }\n`
-      )
-      .join('')
-  )
-    .replaceAll(',', '')
-    .replaceAll('\n', '')
-
-  const isLinux = platform === 'linux'
-  const xEnv = isLinux
-    ? (await execAsync('echo $XDG_SESSION_TYPE')).stdout.replaceAll('\n', '')
-    : ''
-
-  const systemInfo = `Heroic Version: ${heroicVersion}
-Legendary Version: ${legendaryVersion}
-GOGdl Version: ${gogdlVersion}
-Nile Version: ${nileVersion}
-
-Electron Version: ${electronVersion}
-Chrome Version: ${chromeVersion}
-NodeJS Version: ${nodeVersion}
-
-OS: ${isMac ? `${codename} ${release}` : distro} KERNEL: ${kernel} ARCH: ${arch}
-CPU: ${manufacturer} ${brand} @${speed} ${
-    governor ? `GOVERNOR: ${governor}` : ''
-  }
-RAM: Total: ${getFileSize(total)} Available: ${getFileSize(available)}
-GRAPHICS: ${graphicsCards}
-${isLinux ? `PROTOCOL: ${xEnv}` : ''}`
-  return systemInfo
-}
-
-// This won't change while the app is running
-// Caching significantly increases performance when launching games
-let systemInfoCache = ''
-const getSystemInfo = async (): Promise<string> => {
-  if (systemInfoCache !== '') {
-    return systemInfoCache
-  }
-  try {
-    const timeoutPromise = new Promise((resolve, reject) =>
-      setTimeout(reject, 5000)
-    )
-    const systemInfo = await Promise.race([
-      getSystemInfoInternal(),
-      timeoutPromise
-    ])
-    systemInfoCache = systemInfo as string
-    return systemInfoCache
-  } catch (err) {
-    // On some systems this race might fail in time because of the sub-processes
-    // in systeminformation hanging indefinitely.
-    // To make sure that the app doesn't become a zombie process we exit this promise after 5 seconds.
-    logWarning('Could not determine System Info', LogPrefix.Backend)
-    return ''
-  }
 }
 
 type ErrorHandlerMessage = {
@@ -608,34 +461,6 @@ function getFormattedOsName(): string {
   }
 }
 
-/**
- * Finds an executable on %PATH%/$PATH
- * @param executable The executable to find
- * @returns The full path to the executable, or nothing if it was not found
- */
-// This name could use some work
-async function searchForExecutableOnPath(executable: string): Promise<string> {
-  if (isWindows) {
-    // Todo: Respect %PATHEXT% here
-    const paths = process.env.PATH?.split(';') || []
-    for (const path of paths) {
-      const fullPath = join(path, executable)
-      if (existsSync(fullPath)) {
-        return fullPath
-      }
-    }
-    return ''
-  } else {
-    return execAsync(`which ${executable}`)
-      .then(({ stdout }) => {
-        return stdout.split('\n')[0]
-      })
-      .catch((error) => {
-        logError(error, LogPrefix.Backend)
-        return ''
-      })
-  }
-}
 async function getSteamRuntime(
   requestedType: SteamRuntime['type']
 ): Promise<SteamRuntime> {
@@ -1371,7 +1196,6 @@ export {
   getGOGdlBin,
   getNileBin,
   formatEpicStoreUrl,
-  searchForExecutableOnPath,
   getSteamRuntime,
   constructAndUpdateRPC,
   quoteIfNecessary,
@@ -1383,12 +1207,8 @@ export {
   getShellPath,
   getFirstExistingParentPath,
   getLatestReleases,
-  getSystemInfo,
   getWineFromProton,
   getFileSize,
-  getLegendaryVersion,
-  getGogdlVersion,
-  getNileVersion,
   memoryLog,
   removeFolder,
   getPathDiskSize

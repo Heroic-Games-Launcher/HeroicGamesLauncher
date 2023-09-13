@@ -54,6 +54,7 @@ import DLCDownloadListing from './DLCDownloadListing'
 import { NileInstallInfo } from 'common/types/nile'
 import BuildSelector from './BuildSelector'
 import GameLanguageSelector from './GameLanguageSelector'
+import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
 
 interface Props {
   backdropClick: () => void
@@ -147,6 +148,8 @@ export default function DownloadDialog({
     spaceLeftAfter: ''
   })
 
+  const anticheatInfo = hasAnticheatInfo(gameInfo)
+
   const { i18n, t } = useTranslation('gamepage')
   const { t: tr } = useTranslation()
 
@@ -176,7 +179,37 @@ export default function DownloadDialog({
     [selectedSdls]
   )
 
-  async function handleInstall(path?: string) {
+  function confirmInstallBrokenAnticheat(path?: string) {
+    showDialogModal({
+      title: t('install.anticheat-warning.title', 'Anticheat Broken/Denied'),
+      message: t(
+        'install.anticheat-warning.message',
+        'The anticheat support is broken or denied. The game will not work. Do you want to install it anyway?'
+      ),
+      buttons: [
+        {
+          text: t(
+            'install.anticheat-warning.install',
+            'Yes (I understand it will not work)'
+          ),
+          onClick: async () => handleInstall(path, true)
+        },
+        {
+          text: t('install.anticheat-warning.cancel', 'No'),
+          onClick: () => null
+        }
+      ]
+    })
+  }
+
+  async function handleInstall(path?: string, ignoreAnticheat = false) {
+    if (anticheatInfo && ['Denied', 'Broken'].includes(anticheatInfo.status)) {
+      if (!ignoreAnticheat) {
+        confirmInstallBrokenAnticheat(path)
+        return
+      }
+    }
+
     backdropClick()
 
     // Write Default game config with prefix on linux
@@ -441,7 +474,7 @@ export default function DownloadDialog({
           />
         ))}
       </DialogHeader>
-      {gameInfo && <Anticheat gameInfo={gameInfo} />}
+      <Anticheat anticheatInfo={anticheatInfo} />
       <DialogContent>
         <div className="InstallModal__sizes">
           <div className="InstallModal__size">

@@ -1,0 +1,45 @@
+.systeminfo {
+  hr {
+    width: 100%;
+    background-color: var(--text-default);
+  }
+
+  .logo {
+    height: 100%;
+    zoom: 2;
+  }
+
+  .heroic-icon {
+    zoom: 0.191;
+  }
+
+  .fillWithThemeColor {
+    path {
+      fill: var(--text-default) !important;
+    }
+  }
+
+  .MuiPaper-root {
+    color: var(--text-default);
+    background-color: var(--background);
+  }
+
+  .MuiTypography-root {
+    font-family: var(--primary-font-family);
+  }
+
+  .MuiLinearProgress-bar {
+    background-color: var(--success);
+  }
+
+  .copyToClipboardButton {
+    width: 50%;
+    margin-top: 20px;
+    color: var(--text-tertiary);
+    background: var(--primary-button);
+  }
+
+  .showSystemSpecifications {
+    font-size: initial;
+  }
+}

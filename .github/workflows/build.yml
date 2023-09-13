@@ -17,10 +17,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+          cache: 'yarn'
       - name: Install modules.
-        run: npm i --legacy-peer-deps
+        run: yarn install --frozen-lockfile
       - name: Build artifacts.
-        run: npm run dist:win portable
+        run: yarn dist:win portable
       - name: Upload EXE.
         uses: actions/upload-artifact@v3
         with:
@@ -37,8 +38,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+          cache: 'yarn'
       - name: Install modules.
-        run: yarn
+        run: yarn install --frozen-lockfile
       - name: Upload Snap to Edge Channel.
         run: yarn dist:linux snap --publish=always
         env:
@@ -61,8 +63,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+          cache: 'yarn'
       - name: Install modules.
-        run: yarn
+        run: yarn install --frozen-lockfile
       - name: Build artifacts.
         run: yarn dist:mac --x64 --arm64 --publish=never
         env:

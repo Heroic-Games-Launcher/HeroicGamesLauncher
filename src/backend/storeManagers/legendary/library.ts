@@ -822,6 +822,7 @@ export function commandToArgsArray(command: LegendaryCommand): string[] {
       if (command.extraArguments)
         commandParts.push(...shlex.split(command.extraArguments))
       break
+    case 'update':
     case 'info':
     case 'sync-saves':
     case 'uninstall':

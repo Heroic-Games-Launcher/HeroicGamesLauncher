@@ -286,7 +286,8 @@
             "part1": "Heroic hledá verze Wine, Proton a CrossOver v následujících složkách:",
             "part2": "Pro jiná místa použijte symbolický odkaz na jednu z těchto složek"
         },
-        "disable_logs": "Zapnutím tohoto políčka zakážete většinu zápisů do souborů protokolu (kritické informace jsou vždy protokolovány). Před nahlášením jakéhokoli problému nezapomeňte toto nastavení vypnout."
+        "disable_logs": "Zapnutím tohoto políčka zakážete většinu zápisů do souborů protokolu (kritické informace jsou vždy protokolovány). Před nahlášením jakéhokoli problému nezapomeňte toto nastavení vypnout.",
+        "dxvknvapi": "DXVK-NVAPI je implementace NVAPI postavená na DXVK a nativním NVAPI Linuxu, umožňuje použití DLSS na grafických kartách Nvidia."
     },
     "info": {
         "heroic": {
@@ -342,7 +343,8 @@
         "epic": "Přihlášení s Epic Games",
         "gog": "Přihlášení s GOG",
         "message": "Přihlaste se pomocí své platformy. Můžete se přihlásit k více platformám najednou.",
-        "amazon": "Přihlášení s Amazonem"
+        "amazon": "Přihlášení s Amazonem",
+        "old-mac": "Verze vašeho systému macOS je {{version}}. Pro přihlášení je vyžadován macOS 12 nebo novější."
     },
     "message": {
         "sync": "Synchronizace dokončena",
@@ -584,7 +586,10 @@
         "addgamestoapplications": "Automaticky přidávat hry do Aplikací",
         "showMetalOverlay": "Zobrazit překryvnou statistiku",
         "alt-nile-bin": "Vyberte alternativní binární soubor Nile",
-        "autodxvknvapi": "Automaticky instalovat/aktualizovat DXVK/VKD3D na prefixu"
+        "autodxvknvapi": "Automaticky instalovat/aktualizovat DXVK/VKD3D na prefixu",
+        "experimental_features": {
+            "enableNewShinyFeature": "Nová skvělá funkce"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -626,6 +631,9 @@
         "saves": {
             "label": "Umístění pro ukládání:",
             "warning": "Funkce Cloud Saves je v Beta verzi, před synchronizací si prosím uložená data zálohujte (pro případ, že by se něco pokazilo)"
+        },
+        "experimental_features": {
+            "title": "Experimentální funkce"
         }
     },
     "Settings": "Nastavení",

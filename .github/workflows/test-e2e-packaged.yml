@@ -17,8 +17,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
+          cache: 'yarn'
       - name: Install modules.
-        run: yarn
+        run: yarn install --frozen-lockfile
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
       - name: Build and Test
@@ -33,8 +34,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+          cache: 'yarn'
       - name: Install modules.
-        run: yarn
+        run: yarn install --frozen-lockfile
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
       - name: Build and Test
@@ -54,7 +56,7 @@ jobs:
         with:
           node-version: '18'
       - name: Install modules.
-        run: npm i --legacy-peer-deps
+        run: npm install --legacy-peer-deps
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
       - name: Build and Test

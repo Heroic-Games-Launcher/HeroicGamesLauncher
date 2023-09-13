@@ -166,6 +166,14 @@ export async function listUpdateableGames(): Promise<string[]> {
   )
   deleteAbortController(abortID)
 
+  if (!output) {
+    /*
+     * Nothing installed: nothing to update, output will be empty and JSON.parse can't
+     * handle empty strings (they aren't proper JSON).
+     */
+    return []
+  }
+
   const updates: string[] = JSON.parse(output)
   if (updates.length) {
     logInfo(['Found', `${updates.length}`, 'games to update'], LogPrefix.Nile)

@@ -21,7 +21,6 @@ import {
   constructAndUpdateRPC,
   getSteamRuntime,
   isEpicServiceOffline,
-  searchForExecutableOnPath,
   quoteIfNecessary,
   errorHandler,
   removeQuoteIfNecessary,
@@ -45,6 +44,7 @@ import {
   GameInfo,
   Runner,
   EnviromentVariable,
+  WrapperEnv,
   WrapperVariable,
   ExecResult,
   GameSettings,
@@ -64,6 +64,7 @@ import * as VDF from '@node-steam/vdf'
 import { readFileSync } from 'fs'
 import { LegendaryCommand } from './storeManagers/legendary/commands'
 import { commandToArgsArray } from './storeManagers/legendary/library'
+import { searchForExecutableOnPath } from './utils/os/path'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
@@ -96,7 +97,7 @@ async function prepareLaunch(
 
   // Figure out where MangoHud/GameMode are located, if they're enabled
   let mangoHudCommand: string[] = []
-  let gameModeBin = ''
+  let gameModeBin: string | null = null
   if (gameSettings.showMangohud) {
     const mangoHudBin = await searchForExecutableOnPath('mangohud')
     if (!mangoHudBin) {
@@ -173,7 +174,7 @@ async function prepareLaunch(
     success: true,
     rpcClient,
     mangoHudCommand,
-    gameModeBin,
+    gameModeBin: gameModeBin ?? undefined,
     steamRuntime,
     offlineMode
   }
@@ -309,6 +310,35 @@ function setupEnvVars(gameSettings: GameSettings) {
 }
 
 /**
+ * Maps launcher info to environment variables for consumption by wrappers
+ * @param wrapperEnv The info to be added into the environment variables
+ * @returns Environment variables
+ */
+function setupWrapperEnvVars(wrapperEnv: WrapperEnv) {
+  const ret: Record<string, string> = {}
+
+  ret.HEROIC_APP_NAME = wrapperEnv.appName
+  ret.HEROIC_APP_RUNNER = wrapperEnv.appRunner
+
+  switch (wrapperEnv.appRunner) {
+    case 'gog':
+      ret.HEROIC_APP_SOURCE = 'gog'
+      break
+    case 'legendary':
+      ret.HEROIC_APP_SOURCE = 'epic'
+      break
+    case 'nile':
+      ret.HEROIC_APP_SOURCE = 'amazon'
+      break
+    case 'sideload':
+      ret.HEROIC_APP_SOURCE = 'sideload'
+      break
+  }
+
+  return ret
+}
+
+/**
  * Maps Wine-related settings to environment variables
  * @param gameSettings The GameSettings to get the environment variables for
  * @param gameId If Proton and the Steam Runtime are used, the SteamGameId variable will be set to `heroic-gameId`
@@ -322,6 +352,8 @@ function setupWineEnvVars(
   const { wineVersion, winePrefix, wineCrossoverBottle } = gameSettings
 
   const ret: Record<string, string> = {}
+
+  ret.DOTNET_BUNDLE_EXTRACT_BASE_DIR = ''
 
   // Add WINEPREFIX / STEAM_COMPAT_DATA_PATH / CX_BOTTLE
   const steamInstallPath = join(flatPakHome, '.steam', 'steam')
@@ -1001,6 +1033,7 @@ export {
   launchCleanup,
   prepareWineLaunch,
   setupEnvVars,
+  setupWrapperEnvVars,
   setupWineEnvVars,
   setupWrappers,
   runWineCommand,
