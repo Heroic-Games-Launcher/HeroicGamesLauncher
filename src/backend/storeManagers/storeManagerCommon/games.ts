@@ -9,6 +9,7 @@ import {
   callRunner,
   launchCleanup,
   prepareLaunch,
+  prepareWineLaunch,
   runWineCommand,
   setupEnvVars,
   setupWrapperEnvVars,
@@ -134,6 +135,8 @@ export async function launchGame(
       steamRuntime
     } = await prepareLaunch(gameSettings, gameInfo, isNative)
 
+    if (!isNative) await prepareWineLaunch(runner, appName)
+
     const wrappers = setupWrappers(
       gameSettings,
       mangoHudCommand,
@@ -152,12 +155,6 @@ export async function launchGame(
         type: 'ERROR'
       })
       return false
-    }
-
-    const env = {
-      ...process.env,
-      ...setupWrapperEnvVars({ appName, appRunner: runner }),
-      ...setupEnvVars(gameSettings)
     }
 
     // Native
@@ -181,6 +178,11 @@ export async function launchGame(
       }
 
       const commandParts = shlex.split(launcherArgs ?? '')
+      const env = {
+        ...process.env,
+        ...setupWrapperEnvVars({ appName, appRunner: runner }),
+        ...setupEnvVars(gameSettings)
+      }
 
       await callRunner(
         commandParts,
