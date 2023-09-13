@@ -343,7 +343,8 @@
         "epic": "Inici de sessió a l'Epic Games",
         "gog": "Inici de sessió al GOG",
         "message": "Inicia la sessió. Pots iniciar sessió a més d'una plataforma alhora.",
-        "amazon": "Inici de sessió d'Amazon"
+        "amazon": "Inici de sessió d'Amazon",
+        "old-mac": "La vostra versió del macOS és {{version}}. Cal el macOS 12 o posterior per a iniciar la sessió."
     },
     "message": {
         "sync": "S'ha completat la sincronització",
