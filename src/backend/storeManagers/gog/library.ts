@@ -634,26 +634,28 @@ export async function getInstallInfo(
   }
 
   // Calculate highest possible size (with DLCs) for display on game page
-  const download_size = gogInfo.download_size ? gogInfo.download_size :
-    (gogInfo.size['*']?.download_size || 0) + // Universal depot
-    (gogInfo.size[language]?.download_size || 0) + // Language depot
-    gogInfo.dlcs.reduce(
-      (acc, dlc) =>
-        acc +
-        (dlc.size['*']?.download_size || 0) + // Universal
-        (dlc.size[language]?.download_size || 0), // Lanuage
-      0
-    )
-  const disk_size = gogInfo.disk_size ? gogInfo.disk_size :
-    (gogInfo.size['*']?.disk_size || 0) +
-    (gogInfo.size[language]?.disk_size || 0) +
-    gogInfo.dlcs.reduce(
-      (acc, dlc) =>
-        acc +
-        (dlc.size['*']?.disk_size || 0) +
-        (dlc.size[language]?.disk_size || 0),
-      0
-    )
+  const download_size = gogInfo.download_size
+    ? gogInfo.download_size
+    : (gogInfo.size['*']?.download_size || 0) + // Universal depot
+      (gogInfo.size[language]?.download_size || 0) + // Language depot
+      gogInfo.dlcs.reduce(
+        (acc, dlc) =>
+          acc +
+          (dlc.size['*']?.download_size || 0) + // Universal
+          (dlc.size[language]?.download_size || 0), // Lanuage
+        0
+      )
+  const disk_size = gogInfo.disk_size
+    ? gogInfo.disk_size
+    : (gogInfo.size['*']?.disk_size || 0) +
+      (gogInfo.size[language]?.disk_size || 0) +
+      gogInfo.dlcs.reduce(
+        (acc, dlc) =>
+          acc +
+          (dlc.size['*']?.disk_size || 0) +
+          (dlc.size[language]?.disk_size || 0),
+        0
+      )
 
   const info: GogInstallInfo = {
     game: {
