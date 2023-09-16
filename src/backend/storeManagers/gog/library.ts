@@ -471,7 +471,8 @@ export function getInstallAndGameInfo(slug: string): GameInfo | undefined {
 
 /**
  * Gets data metadata about game using gogdl info for current system,
- * when os is Linux: gets Windows build data.
+ * gogdl data for linux contains different fields than windows and mac
+ * this is handled but some fields may be unexepectedly empty, so watch out
  * Contains data like download size
  * @param appName
  * @param installPlatform
@@ -484,10 +485,8 @@ export async function getInstallInfo(
   branch = 'null',
   build?: string
 ): Promise<GogInstallInfo | undefined> {
+  console.log(installPlatform, appName)
   installPlatform = installPlatform.toLowerCase()
-  if (installPlatform === 'linux') {
-    installPlatform = 'windows'
-  }
   if (installPlatform === 'mac') {
     installPlatform = 'osx'
   }
@@ -535,7 +534,7 @@ export async function getInstallInfo(
     'info',
     appName,
     '--os',
-    installPlatform === 'linux' ? 'windows' : installPlatform,
+    installPlatform,
     ...(branch !== 'null' ? ['--branch', branch] : []),
     ...(build ? ['--build', build] : [])
   ]
@@ -635,7 +634,7 @@ export async function getInstallInfo(
   }
 
   // Calculate highest possible size (with DLCs) for display on game page
-  const download_size =
+  const download_size = gogInfo.download_size ? gogInfo.download_size :
     (gogInfo.size['*']?.download_size || 0) + // Universal depot
     (gogInfo.size[language]?.download_size || 0) + // Language depot
     gogInfo.dlcs.reduce(
@@ -645,7 +644,7 @@ export async function getInstallInfo(
         (dlc.size[language]?.download_size || 0), // Lanuage
       0
     )
-  const disk_size =
+  const disk_size = gogInfo.disk_size ? gogInfo.disk_size :
     (gogInfo.size['*']?.disk_size || 0) +
     (gogInfo.size[language]?.disk_size || 0) +
     gogInfo.dlcs.reduce(
@@ -677,7 +676,7 @@ export async function getInstallInfo(
       app_name: appName,
       languages: gogInfo.languages,
       versionEtag: gogInfo.versionEtag,
-      builds: gogInfo?.builds.items,
+      builds: gogInfo?.builds?.items,
       dependencies: gogInfo.dependencies
     }
   }

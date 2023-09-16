@@ -32,7 +32,7 @@ const DLCDownloadListing: React.FC<Props> = ({
     }
 
     if (installAllDlcs) {
-      setDlcsToInstall([...DLCList.map(({ app_name }) => app_name)])
+      setDlcsToInstall([])
     }
   }
 

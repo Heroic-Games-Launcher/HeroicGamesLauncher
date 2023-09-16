@@ -32,6 +32,8 @@ type PerLanguageSize = {
 // Raw output of gogdl info command
 export interface GOGDLInstallInfo {
   size: PerLanguageSize
+  download_size?: number // only linux native
+  disk_size?: number
   languages: Array<string>
   dlcs: Array<{ title: string; id: string; size: PerLanguageSize }>
   buildId: string
