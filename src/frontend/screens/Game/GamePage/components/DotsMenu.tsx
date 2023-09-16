@@ -27,7 +27,7 @@ const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
   const [showChangelog, setShowChangelog] = useState(false)
   const [showModifyInstallModal, setShowModifyInstallModal] = useState(false)
 
-  const { is_installed, title } = gameInfo
+  const { is_installed, title, install } = gameInfo
 
   const hasRequirements = (gameExtraInfo?.reqs || []).length > 0
 
@@ -50,6 +50,7 @@ const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
           }
           changelog={gameExtraInfo?.changelog}
           runner={gameInfo.runner}
+          installPlatform={install.platform}
           handleUpdate={handleUpdate}
           handleChangeLog={() => setShowChangelog(true)}
           disableUpdate={is.installing || is.updating}

@@ -249,6 +249,12 @@ function stopCurrentDownload() {
 // notify the user based on the status of the element and the status of the queue
 function processNotification(element: DMQueueElement, status: DMStatus) {
   const action = element.type === 'install' ? 'Installation' : 'Update'
+  if (
+    element.params.runner === 'gog' &&
+    element.params.appName === 'gog-redist'
+  ) {
+    return
+  }
   const { title } = gameManagerMap[element.params.runner].getGameInfo(
     element.params.appName
   )

@@ -466,7 +466,7 @@ export default function GOGModifyInstallModal({
       )}
 
       <button className="button is-success" onClick={handleConfirm}>
-        {tr('box.ok', 'Ok')}
+        {tr('box.apply', 'Apply')}
       </button>
     </>
   ) : (
