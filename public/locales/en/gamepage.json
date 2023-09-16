@@ -159,6 +159,7 @@
             "start": "Play Now",
             "stop": "Playing (Stop)"
         },
+        "redist": "Installing Redistributables",
         "saves": {
             "syncing": "Syncing Saves"
         },
@@ -229,6 +230,7 @@
         "playing": "Playing",
         "processing": "Processing files, please wait",
         "queued": "Queued",
+        "redist": "Installing Redistributables ({{redist}})",
         "reparing": "Repairing Game, please wait",
         "syncingSaves": "Syncing Saves",
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
