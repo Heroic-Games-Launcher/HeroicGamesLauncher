@@ -327,7 +327,7 @@
 .playIcon > span {
   font-family: var(--secondary-font-family);
   border-radius: 5px;
-  color: #161616;
+  color: #1d1d1d;
   cursor: pointer;
   padding: var(--space-xs-fixed);
   background: var(--success);
@@ -335,6 +335,15 @@
   font-weight: 500;
   font-size: 15px;
   text-align: center;
+}
+
+.playIcon:hover > span {
+  transition: 300ms;
+  background: var(--success-hover);
+}
+
+.playIcon[disabled] > span {
+  background: var(--icon-disabled);
 }
 
 .icons path,
