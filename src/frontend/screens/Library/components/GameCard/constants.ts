@@ -31,6 +31,7 @@ export function getCardStatus(
   const syncingSaves = status === 'syncing-saves'
   const isLaunching = status === 'launching'
   const isInstallingUbisoft = status === 'ubisoft'
+  const isInstallingRedist = status === 'redist'
 
   const haveStatus =
     isMoving ||
@@ -45,6 +46,7 @@ export function getCardStatus(
     syncingSaves ||
     isLaunching ||
     isInstallingUbisoft ||
+    isInstallingRedist ||
     (isInstalled && layout !== 'grid')
   return {
     isInstalling,
@@ -56,6 +58,7 @@ export function getCardStatus(
     isUpdating,
     isLaunching,
     isInstallingUbisoft,
+    isInstallingRedist,
     haveStatus
   }
 }

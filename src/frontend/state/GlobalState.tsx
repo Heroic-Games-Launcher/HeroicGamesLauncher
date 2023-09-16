@@ -603,6 +603,7 @@ class GlobalState extends PureComponent<Props> {
     appName,
     status,
     folder,
+    context,
     progress,
     runner
   }: GameStatus) => {
@@ -614,13 +615,13 @@ class GlobalState extends PureComponent<Props> {
       return this.setState({
         libraryStatus: [
           ...libraryStatus,
-          { appName, status, folder, progress, runner }
+          { appName, status, folder, context, progress, runner }
         ]
       })
     }
 
     // if the app's status didn't change, do nothing
-    if (currentApp.status === status) {
+    if (currentApp.status === status && currentApp.context === context) {
       return
     }
 
@@ -638,10 +639,18 @@ class GlobalState extends PureComponent<Props> {
         'extracting',
         'launching',
         'ubisoft',
+        'redist',
         'queued'
       ].includes(status)
     ) {
-      newLibraryStatus.push({ appName, status, folder, progress, runner })
+      newLibraryStatus.push({
+        appName,
+        status,
+        folder,
+        context,
+        progress,
+        runner
+      })
       this.setState({ libraryStatus: newLibraryStatus })
     }
 

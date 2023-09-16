@@ -39,6 +39,9 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
         </span>
       )
     }
+    if (is.installingRedist) {
+      return t('label.redist', 'Installing Redistributables')
+    }
     if (is.installingUbisoft) {
       return t('label.ubisoft', 'Installing Ubisoft Connect')
     }
@@ -136,7 +139,8 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
             is.uninstalling ||
             is.syncing ||
             is.launching ||
-            is.installingUbisoft
+            is.installingUbisoft ||
+            is.installingRedist
           }
           autoFocus={true}
           onClick={async () => handlePlay(gameInfo)}

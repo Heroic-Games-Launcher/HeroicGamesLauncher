@@ -21,6 +21,7 @@ import {
   GOGv1Manifest,
   GOGv2Manifest
 } from 'common/types/gog'
+import { sendFrontendMessage } from 'backend/main_window'
 
 /*
  * Automatially executes command properly according to operating system
@@ -63,6 +64,8 @@ async function runSetupCommand(wineArgs: WineCommandArgs) {
 /**
  * Handles setup instructions like create folders, move files, run exe, create registry entry etc...
  * For Galaxy games only (Windows)
+ * As long as wine menu builder is disabled we shouldn't have trash application
+ * menu entries
  * @param appName
  * @param installInfo Allows passing install instructions directly
  */
@@ -139,6 +142,12 @@ async function setup(
     gameSettings
   })
 
+  sendFrontendMessage('gameStatusUpdate', {
+    appName,
+    runner: 'gog',
+    status: 'redist',
+    context: 'GOG'
+  })
   if (manifestData.version === 1) {
     if (existsSync(gameSupportDir)) {
       for (const supportCommand of manifestData.product?.support_commands ||
@@ -345,13 +354,20 @@ async function setup(
         prefix: LogPrefix.Gog
       })
 
+      sendFrontendMessage('gameStatusUpdate', {
+        appName,
+        runner: 'gog',
+        status: 'redist',
+        context: foundDep.readableName
+      })
+
       await runSetupCommand({
         commandParts,
         gameSettings,
         startFolder: gogRedistPath,
         wait: false,
         protonVerb: 'run',
-        skipPrefixCheckIKnowWhatImDoing: true,
+        skipPrefixCheckIKnowWhatImDoing: true, // We are running those commands after we check if prefix is valid, this shouldn't cause issues
         gameInstallPath: gameInfo.install.install_path!
       })
     }

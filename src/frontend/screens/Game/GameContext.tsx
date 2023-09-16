@@ -12,6 +12,7 @@ const initialContext: GameContextType = {
   is: {
     installing: false,
     installingUbisoft: false,
+    installingRedist: false,
     launching: false,
     linux: false,
     linuxNative: false,

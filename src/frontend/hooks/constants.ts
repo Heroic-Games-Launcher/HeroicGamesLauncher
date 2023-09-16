@@ -5,12 +5,14 @@ type StatusArgs = {
   status: Status
   t: TFunction<'gamepage', undefined>
   runner: Runner
+  statusContext?: string
   percent?: number
   size?: string
 }
 
 export function getStatusLabel({
   status,
+  statusContext,
   t,
   runner,
   size,
@@ -35,7 +37,12 @@ export function getStatusLabel({
     }`,
     notInstalled: t('gamepage:status.notinstalled'),
     launching: t('gamepage:status.launching', 'Launching'),
-    ubisoft: t('gamepage:status.ubisoft', 'Installing Ubisoft')
+    ubisoft: t('gamepage:status.ubisoft', 'Installing Ubisoft'),
+    redist: t(
+      'gamepage:status.redist',
+      'Installing Redistributables ({{redist}})',
+      { redist: statusContext || '' }
+    )
   }
 
   return statusMap[status] || t('gamepage:status.notinstalled')

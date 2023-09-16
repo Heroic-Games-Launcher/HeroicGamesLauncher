@@ -65,6 +65,7 @@ import { readFileSync } from 'fs'
 import { LegendaryCommand } from './storeManagers/legendary/commands'
 import { commandToArgsArray } from './storeManagers/legendary/library'
 import { searchForExecutableOnPath } from './utils/os/path'
+import { sendFrontendMessage } from './main_window'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
@@ -237,6 +238,11 @@ async function prepareWineLaunch(
     )
     if (runner === 'gog') {
       await gogSetup(appName)
+      sendFrontendMessage('gameStatusUpdate', {
+        appName,
+        runner: 'gog',
+        status: 'playing'
+      })
     }
     if (runner === 'nile') {
       await nileSetup(appName)

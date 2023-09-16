@@ -187,12 +187,14 @@ export type Status =
   | 'notInstalled'
   | 'installed'
   | 'ubisoft'
+  | 'redist'
   | 'extracting'
 
 export interface GameStatus {
   appName: string
   progress?: InstallProgress
   folder?: string
+  context?: string // Additional context e.g current step
   runner?: Runner
   status: Status
 }

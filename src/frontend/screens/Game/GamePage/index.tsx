@@ -85,7 +85,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [gameInfo, setGameInfo] = useState(locationGameInfo)
   const [gameSettings, setGameSettings] = useState<GameSettings | null>(null)
 
-  const { status, folder } = hasStatus(appName, gameInfo)
+  const { status, folder, statusContext } = hasStatus(appName, gameInfo)
   const gameAvailable = gameInfo.is_installed && status !== 'notAvailable'
 
   const [progress, previousProgress] = hasProgress(appName)
@@ -117,6 +117,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const isSyncing = status === 'syncing-saves'
   const isLaunching = status === 'launching'
   const isInstallingUbisoft = status === 'ubisoft'
+  const isInstallingRedist = status === 'redist'
   const notAvailable = !gameAvailable && gameInfo.is_installed
   const notInstallable =
     gameInfo.installable !== undefined && !gameInfo.installable
@@ -259,6 +260,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       is: {
         installing: isInstalling,
         installingUbisoft: isInstallingUbisoft,
+        installingRedist: isInstallingRedist,
         launching: isLaunching,
         linux: isLinux,
         linuxNative: isLinuxNative,
@@ -278,6 +280,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
         updating: isUpdating,
         win: isWin
       },
+      statusContext,
       status,
       wikiInfo
     }

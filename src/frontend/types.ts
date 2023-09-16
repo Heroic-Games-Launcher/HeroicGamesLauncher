@@ -199,6 +199,7 @@ export interface GameContextType {
   is: {
     installing: boolean
     installingUbisoft: boolean
+    installingRedist: boolean
     launching: boolean
     linux: boolean
     linuxNative: boolean
@@ -218,6 +219,7 @@ export interface GameContextType {
     updating: boolean
     win: boolean
   }
+  statusContext?: string
   status: Status | undefined
   wikiInfo: WikiInfo | null
 }
