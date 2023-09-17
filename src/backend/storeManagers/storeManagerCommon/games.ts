@@ -18,7 +18,10 @@ import {
 import { access, chmod } from 'fs/promises'
 import shlex from 'shlex'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
-import { createAbortController } from '../../utils/aborthandler/aborthandler'
+import {
+  createAbortController,
+  deleteAbortController
+} from '../../utils/aborthandler/aborthandler'
 import { BrowserWindow, dialog, Menu } from 'electron'
 import { gameManagerMap } from '../index'
 
@@ -91,6 +94,7 @@ const openNewBrowserGameWindow = async (
     })
 
     browserGame.on('closed', () => {
+      deleteAbortController(abortId)
       res(true)
     })
   })
