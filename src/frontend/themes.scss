@@ -227,6 +227,7 @@ body.high-contrast {
   --primary-hover: #ff36a8;
   --danger: #ff0000;
   --text-title: #00ddff;
+  --text-hover: #00ddff;
   --icons-background: var(--background);
   --action-icon-hover: var(--accent);
   --action-icon-active: var(--accent);
@@ -311,6 +312,7 @@ body.nord-light {
   --text-default: var(--text-title);
   --text-secondary: #393b41;
   --text-tertiary: var(--brand-text-01);
+  --text-hover: #5e81ac;
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
   --osk-button-border: var(--navbar-background);
