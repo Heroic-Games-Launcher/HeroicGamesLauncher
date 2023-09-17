@@ -41,10 +41,6 @@ import {
   apiInfoCache
 } from './electronStores'
 import { callRunner } from '../../launcher'
-import {
-  createAbortController,
-  deleteAbortController
-} from '../../utils/aborthandler/aborthandler'
 import { isOnline } from '../../online_monitor'
 import i18next from 'i18next'
 
@@ -351,15 +347,10 @@ export async function getInstallInfo(
     installPlatform === 'linux' ? 'windows' : installPlatform
   ]
 
-  const res = await runRunnerCommand(
-    commandParts,
-    createAbortController(appName),
-    {
-      logMessagePrefix: 'Getting game metadata'
-    }
-  )
-
-  deleteAbortController(appName)
+  const res = await runRunnerCommand(commandParts, {
+    abortId: appName,
+    logMessagePrefix: 'Getting game metadata'
+  })
 
   if (!res.stdout || res.abort) {
     logError(
@@ -1014,15 +1005,14 @@ export async function getLinuxInstallerInfo(appName: string): Promise<
  */
 export async function runRunnerCommand(
   commandParts: string[],
-  abortController: AbortController,
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
   const { dir, bin } = getGOGdlBin()
   const authConfig = join(app.getPath('userData'), 'gog_store', 'auth.json')
+
   return callRunner(
     ['--auth-config-path', authConfig, ...commandParts],
     { name: 'gog', logPrefix: LogPrefix.Gog, bin, dir },
-    abortController,
     {
       ...options,
       verboseLogFile: gogdlLogFile

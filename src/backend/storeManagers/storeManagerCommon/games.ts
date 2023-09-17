@@ -35,7 +35,7 @@ export function logFileLocation(appName: string) {
 
 const openNewBrowserGameWindow = async (
   browserUrl: string,
-  abortController: AbortController
+  abortId: string
 ): Promise<boolean> => {
   const hostname = new URL(browserUrl).hostname
 
@@ -62,6 +62,8 @@ const openNewBrowserGameWindow = async (
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'
     browserGame.loadURL(browserUrl)
     browserGame.on('ready-to-show', () => browserGame.show())
+
+    const abortController = createAbortController(abortId)
 
     abortController.signal.addEventListener('abort', () => {
       browserGame.close()
@@ -118,7 +120,7 @@ export async function launchGame(
   }
 
   if (browserUrl) {
-    return openNewBrowserGameWindow(browserUrl, createAbortController(appName))
+    return openNewBrowserGameWindow(browserUrl, appName)
   }
 
   const gameSettings = await getAppSettings(appName)
@@ -192,7 +194,6 @@ export async function launchGame(
           bin: executable,
           dir: dirname(executable)
         },
-        createAbortController(appName),
         {
           env,
           wrappers,
