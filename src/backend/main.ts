@@ -468,7 +468,7 @@ ipcMain.on('unlock', () => {
     unlinkSync(join(gamesConfigPath, 'lock'))
     if (powerId) {
       logInfo('Stopping Power Saver Blocker', LogPrefix.Backend)
-      return powerSaveBlocker.stop(powerId)
+      powerSaveBlocker.stop(powerId)
     }
   }
 })
