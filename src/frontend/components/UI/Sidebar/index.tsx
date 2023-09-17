@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 
 import CurrentDownload from './components/CurrentDownload'
 import SidebarLinks from './components/SidebarLinks'
@@ -8,6 +8,7 @@ import { DMQueueElement } from 'common/types'
 
 import { ReactComponent as HeroicIcon } from 'frontend/assets/heroic-icon.svg'
 import { useNavigate } from 'react-router-dom'
+import ContextProvider from 'frontend/state/ContextProvider'
 
 let sidebarSize = localStorage.getItem('sidebar-width') || 240
 const minWidth = 60
@@ -17,6 +18,7 @@ const collapsedWidth = 120
 export default React.memo(function Sidebar() {
   const sidebarEl = useRef<HTMLDivElement | null>(null)
   const [currentDMElement, setCurrentDMElement] = useState<DMQueueElement>()
+  const { experimentalFeatures } = useContext(ContextProvider)
 
   const navigate = useNavigate()
 
@@ -144,6 +146,11 @@ export default React.memo(function Sidebar() {
         )}
       </div>
       <HeroicVersion />
+      {/* remove this when adding a real experimental feature */}
+      {experimentalFeatures.enableNewShinyFeature && (
+        <p>New Shiny Feature enabled</p>
+      )}
+      {/* remove */}
       <div className="resizer" onMouseDown={handleDragStart} />
     </aside>
   )

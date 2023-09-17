@@ -40,7 +40,7 @@ import {
   NileRegisterData,
   NileUserData
 } from 'common/types/nile'
-import { Systeminformation } from 'systeminformation'
+import type { SystemInformation } from 'backend/utils/systeminfo'
 
 /**
  * Some notes here:
@@ -104,6 +104,7 @@ interface SyncIPCFunctions {
   resumeCurrentDownload: () => void
   pauseCurrentDownload: () => void
   cancelDownload: (removeDownloaded: boolean) => void
+  copySystemInfoToClipboard: () => void
 }
 
 // ts-prune-ignore-next
@@ -236,7 +237,7 @@ interface AsyncIPCFunctions {
     status: ConnectivityStatus
     retryIn: number
   }
-  getNumOfGpus: () => Promise<number>
+  getSystemInfo: (cache?: boolean) => Promise<SystemInformation>
   removeRecent: (appName: string) => Promise<void>
   getWikiGameInfo: (
     title: string,
@@ -263,7 +264,6 @@ interface AsyncIPCFunctions {
     appName: string
   ) => Promise<number | undefined>
   getAmazonLoginData: () => Promise<NileLoginData>
-  getOSInfo: () => Promise<Systeminformation.OsData>
 }
 
 // This is quite ugly & throws a lot of errors in a regular .ts file

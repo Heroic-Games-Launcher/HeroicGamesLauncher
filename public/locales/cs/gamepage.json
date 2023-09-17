@@ -128,7 +128,13 @@
         "path-not-writtable": "Varování: na cestu možná nelze zapisovat.",
         "space-after-install": "Po instalaci",
         "wineprefix": "WinePrefix",
-        "wineversion": "Verze Wine"
+        "wineversion": "Verze Wine",
+        "anticheat-warning": {
+            "cancel": "Ne",
+            "message": "Podpora anticheatu je rozbitá nebo zakázaná. Hra nebude fungovat. Chcete jej přesto nainstalovat?",
+            "install": "Ano (chápu, že to nebude fungovat)",
+            "title": "Rozbitý/zakázaný anticheat"
+        }
     },
     "label": {
         "game": {

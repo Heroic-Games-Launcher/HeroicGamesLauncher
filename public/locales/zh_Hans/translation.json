@@ -343,7 +343,8 @@
         "epic": "Epic Games 登录",
         "gog": "GOG 登录",
         "message": "平台登录。你可以同时登录超过一个平台。",
-        "amazon": "亚马逊登录"
+        "amazon": "亚马逊登录",
+        "old-mac": "你的 macOS 版本是 {{version}}。需要 macOS 12 或以上版本才能登录。"
     },
     "message": {
         "sync": "同步完成",
@@ -585,7 +586,10 @@
         "addgamestoapplications": "自动将游戏添加到应用程序",
         "showMetalOverlay": "显示统计数据叠加",
         "alt-nile-bin": "选择替代尼罗河二进制",
-        "autodxvknvapi": "在前置自动安装并更新 DXVK"
+        "autodxvknvapi": "在前置自动安装并更新 DXVK",
+        "experimental_features": {
+            "enableNewShinyFeature": "新功能"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -627,6 +631,9 @@
         "saves": {
             "label": "存档位置：",
             "warning": "云存档功能处于测试期，请在同步前备份你的存档（以防出现问题）"
+        },
+        "experimental_features": {
+            "title": "实验性功能"
         }
     },
     "Settings": "设置",

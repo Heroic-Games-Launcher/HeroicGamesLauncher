@@ -1,8 +1,8 @@
 {
     "button": {
         "login": "Accedi",
-        "open": "Link aperto",
-        "copy": "copia",
+        "open": "Apri Link",
+        "copy": "Copia",
         "copied": "Copiato!",
         "error": "Errore, prova un codice diverso",
         "loading": "Caricamento"

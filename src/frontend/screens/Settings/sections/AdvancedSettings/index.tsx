@@ -20,7 +20,8 @@ import {
   AltLegendaryBin,
   AltNileBin,
   DisableLogs,
-  DownloadNoHTTPS
+  DownloadNoHTTPS,
+  ExperimentalFeatures
 } from '../../components'
 
 export default function AdvancedSettings() {
@@ -295,6 +296,8 @@ export default function AdvancedSettings() {
           )}
         </div>
         <br />
+        <hr />
+        <ExperimentalFeatures />
         <hr />
       </div>
       <div className="footerFlex">

@@ -733,7 +733,7 @@ export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
     logInfo(['Executing uninstall command', command.join(' ')], LogPrefix.Gog)
 
     if (!isWindows) {
-      runWineCommandUtil({
+      await runWineCommandUtil({
         gameSettings,
         commandParts: command,
         wait: true,

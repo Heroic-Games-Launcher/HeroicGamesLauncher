@@ -91,7 +91,9 @@ const initialContext: ContextType = {
     items: {},
     addHelpItem: () => null,
     removeHelpItem: () => null
-  }
+  },
+  experimentalFeatures: { enableNewShinyFeature: false }, // remove this when adding a real experimental feature
+  handleExperimentalFeatures: () => null
 }
 
 export default React.createContext(initialContext)

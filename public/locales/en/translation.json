@@ -527,6 +527,9 @@
         },
         "esync": "Enable Esync",
         "exit-to-tray": "Exit to System Tray",
+        "experimental_features": {
+            "enableNewShinyFeature": "New shiny feature"
+        },
         "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
@@ -607,6 +610,9 @@
             "installing": "Installing EAC Runtime...",
             "name": "EasyAntiCheat Runtime"
         },
+        "experimental_features": {
+            "title": "Experimental Features"
+        },
         "gameMode": {
             "eacRuntimeEnabled": {
                 "message": "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?",
@@ -622,12 +628,35 @@
             "general": "General",
             "log": "Log",
             "other": "Other",
-            "sync": "Cloud Saves Sync"
+            "sync": "Cloud Saves Sync",
+            "systemInformation": "System Information"
         },
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",
         "saves": {
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        },
+        "systemInformation": {
+            "copyToClipboard": "Copy to clipboard",
+            "cpu": "CPU:",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "gogdlVersion": "Gogdl: {{gogdlVersion}}",
+            "gpu": "GPU:",
+            "gpuDriver": "Driver: {{driverVersion}}",
+            "gpuWithNumber": "GPU {{number}}:",
+            "heroicVersion": "Heroic: {{heroicVersion}}",
+            "legendaryVersion": "Legendary: {{legendaryVersion}}",
+            "memory": "Memory:",
+            "memoryStats": "{{percentUsed}}% used ({{usedGib}} / {{totalGib}}",
+            "nileVersion": "Nile: {{nileVersion}}",
+            "os": "Operating System:",
+            "osNameFlatpak": "{{osName}} (inside Flatpak)",
+            "osVersion": "Version {{versionNumber}}",
+            "showDetailed": "Show detailed system specifications",
+            "software": "Software:",
+            "steamDeck": "Steam Deck",
+            "systemModel": "System Model:",
+            "systemSpecifications": "System Specifications:"
         }
     },
     "Settings": "Settings",

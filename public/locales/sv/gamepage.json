@@ -128,7 +128,13 @@
         "path-not-writtable": "Varning: sökvägen kan vara skrivskyddad.",
         "space-after-install": "Efter installation",
         "wineprefix": "Wine-prefix",
-        "wineversion": "Wine-version"
+        "wineversion": "Wine-version",
+        "anticheat-warning": {
+            "cancel": "Nej",
+            "message": "Antifusk stödet är trasigt eller nekat. Spelet kommer inte att fungera. Vill du installera det ändå?",
+            "install": "Ja (jag förstår att det inte kommer att fungera)",
+            "title": "Antifusk trasigt/nekat"
+        }
     },
     "label": {
         "game": {

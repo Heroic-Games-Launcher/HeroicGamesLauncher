@@ -343,7 +343,8 @@
         "epic": "Iniciar Sesión en Epic Games",
         "gog": "Iniciar Sesión en GOG",
         "message": "Inicie sesión en sus plataformas. Puede iniciar sesión en más de una a la vez.",
-        "amazon": "Inicio de sesión en Amazon"
+        "amazon": "Inicio de sesión en Amazon",
+        "old-mac": "Tu versión de macOS es {{version}}. Se requiere macOS 12 o posterior para iniciar la sesión."
     },
     "message": {
         "sync": "Sincronización completa",
@@ -585,7 +586,10 @@
         "addgamestoapplications": "Agregar juegos a Aplicaciones automáticamente",
         "showMetalOverlay": "Mostrar superposición de estadísticas",
         "alt-nile-bin": "Elija un binario alternativo del Nilo",
-        "autodxvknvapi": "Autoinstalar/actualizar DXVK en el Prefix"
+        "autodxvknvapi": "Autoinstalar/actualizar DXVK en el Prefix",
+        "experimental_features": {
+            "enableNewShinyFeature": "Una nueva función brillante"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -627,6 +631,9 @@
         "saves": {
             "label": "Ubicación de guardados:",
             "warning": "La funcionalidad Cloud Saves es Beta, por favor, respalda tus guardados antes de sincronizar (en caso de que algo salga mal)"
+        },
+        "experimental_features": {
+            "title": "Funciones experimentales"
         }
     },
     "Settings": "Ajustes",

@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: '18'
       - name: Install modules.
-        run: npm i --legacy-peer-deps
+        run: npm install --legacy-peer-deps
       - name: Build artifacts.
         run: npm run dist:win portable
         env:
