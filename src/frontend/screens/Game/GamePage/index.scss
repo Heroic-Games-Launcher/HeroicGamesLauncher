@@ -560,6 +560,12 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         column-gap: 10px;
+
+        // hiding the `uninstall` button temporarily until
+        // properly implemented
+        button:nth-child(2) {
+          display: none;
+        }
       }
     }
 
