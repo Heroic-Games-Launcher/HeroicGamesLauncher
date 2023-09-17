@@ -786,10 +786,6 @@ async function callRunner(
   const fullRunnerPath = join(runner.dir, runner.bin)
   const appName = commandParts[commandParts.findIndex(() => 'launch') + 1]
 
-  const abortId = options?.abortId || appName || Math.random().toString()
-
-  const abortController = createAbortController(abortId)
-
   // Necessary to get rid of possible undefined or null entries, else
   // TypeError is triggered
   commandParts = commandParts.filter(Boolean)
@@ -832,6 +828,9 @@ async function callRunner(
   if (currentPromise) {
     return currentPromise
   }
+
+  const abortId = options?.abortId || appName || Math.random().toString()
+  const abortController = createAbortController(abortId)
 
   let promise = new Promise<ExecResult>((res, rej) => {
     const child = spawn(bin, commandParts, {
