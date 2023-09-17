@@ -504,7 +504,7 @@
 
     .mainInfo {
       grid-area: main;
-      padding: min(25vh, 300px) min(4vw, 70px) min(4vw, 70px);
+      padding: min(25vh, 300px) min(4vw, 70px) min(2vw, 25px);
 
       .store-icon {
         position: absolute;
@@ -560,6 +560,13 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         column-gap: 10px;
+      }
+    }
+
+    .reportProblem {
+      grid-column: 1 / -1;
+      svg {
+        margin-inline-end: 0.5rem;
       }
     }
   }

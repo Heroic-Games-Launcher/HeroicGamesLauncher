@@ -416,6 +416,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       {gameInfo.is_installed && <button>Uninstall</button>}
                     </div>
                   </div>
+                  <ReportIssue gameInfo={gameInfo} />
                 </div>
                 <div className="extraInfoWrapper">
                   <div className="tabs">
@@ -466,7 +467,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   </div>
 
                   <Anticheat anticheatInfo={anticheatInfo} />
-                  <ReportIssue gameInfo={gameInfo} />
                 </div>
               </>
             )}

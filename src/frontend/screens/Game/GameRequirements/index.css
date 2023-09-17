@@ -29,3 +29,7 @@ table span.text {
   color: var(--text-secondary);
   font-size: var(--text-sm);
 }
+
+.tabContent .gameRequirements {
+  width: 100%;
+}
