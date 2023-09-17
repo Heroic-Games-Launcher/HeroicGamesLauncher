@@ -448,22 +448,24 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   </div>
 
                   <div className={`tabContent ${tab}Tab`}>
-                    {tab === 'info' && (
-                      <>
-                        <DownloadSizeInfo gameInfo={gameInfo} />
-                        <InstalledInfo gameInfo={gameInfo} />
-                        <CloudSavesSync gameInfo={gameInfo} />
-                      </>
-                    )}
-                    {tab === 'extra' && (
-                      <>
-                        <Scores gameInfo={gameInfo} />
-                        <HLTB />
-                        <CompatibilityInfo gameInfo={gameInfo} />
-                        <AppleWikiInfo gameInfo={gameInfo} />
-                      </>
-                    )}
-                    {tab === 'requirements' && <Requirements />}
+                    <div>
+                      {tab === 'info' && (
+                        <>
+                          <DownloadSizeInfo gameInfo={gameInfo} />
+                          <InstalledInfo gameInfo={gameInfo} />
+                          <CloudSavesSync gameInfo={gameInfo} />
+                        </>
+                      )}
+                      {tab === 'extra' && (
+                        <>
+                          <Scores gameInfo={gameInfo} />
+                          <HLTB />
+                          <CompatibilityInfo gameInfo={gameInfo} />
+                          <AppleWikiInfo gameInfo={gameInfo} />
+                        </>
+                      )}
+                      {tab === 'requirements' && <Requirements />}
+                    </div>
                   </div>
 
                   <Anticheat anticheatInfo={anticheatInfo} />
