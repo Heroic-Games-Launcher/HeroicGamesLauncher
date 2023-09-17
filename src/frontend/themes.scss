@@ -7,6 +7,12 @@ body {
   --cancel-button: var(--status-warning);
   --cancel-button-overlay: var(--status-warning-hover);
   --background-darker-80: var(--eighty-percent-black);
+
+  --anticheat-denied: var(--status-danger);
+  --anticheat-broken: var(--status-warning);
+  --anticheat-running: var(--status-default);
+  --anticheat-supported: var(--status-success);
+  --anticheat-planned: var(--status-info);
 }
 
 body.midnightMirage {
@@ -77,11 +83,6 @@ body.midnightMirage {
   /* Status */
   --success: var(--status-success);
   --success-hover: var(--status-success-hover);
-  --anticheat-denied: var(--status-danger);
-  --anticheat-broken: var(--status-warning);
-  --anticheat-running: var(--status-default);
-  --anticheat-supported: var(--status-success);
-  --anticheat-planned: var(--status-info);
   --danger: var(--status-danger);
   --danger-hover: var(--status-danger-hover);
 
@@ -488,6 +489,7 @@ body.old-school {
   --action-icon: var(--text-default);
   --action-icon-hover: var(--accent);
   --action-icon-active: var(--accent);
+  --primary-button: var(--success);
 }
 body.classic .sid-input,
 body.old-school .sid-input {
