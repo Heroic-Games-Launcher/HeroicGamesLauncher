@@ -58,6 +58,7 @@ import {
   SettingsButton
 } from './components'
 import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
+import { hasHelp } from 'frontend/hooks/hasHelp'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -79,20 +80,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
     platform,
     showDialogModal,
     isSettingsModalOpen,
-    connectivity,
-    help
+    connectivity
   } = useContext(ContextProvider)
 
-  useEffect(() => {
-    help.addHelpItem('gamePage', {
-      title: 'Game Page',
-      content: <p>Something</p>
-    })
-
-    return () => {
-      help.removeHelpItem('gamePage')
-    }
-  }, [])
+  hasHelp('gamePage', 'Game Page', <p>Something</p>)
 
   const [gameInfo, setGameInfo] = useState(locationGameInfo)
   const [gameSettings, setGameSettings] = useState<GameSettings | null>(null)

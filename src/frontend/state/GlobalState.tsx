@@ -856,7 +856,7 @@ class GlobalState extends PureComponent<Props> {
   removeHelpItem = (helpItemId: string) => {
     this.setState((previous: StateProps) => {
       delete previous.helpItems[helpItemId]
-      return { helpItems: previous.helpItems }
+      return { helpItems: { ...previous.helpItems } }
     })
   }
 

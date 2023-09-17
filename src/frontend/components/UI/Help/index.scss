@@ -1,16 +1,33 @@
-.Help {
-  padding: 1rem;
+.HelpButton,
+.HelpContent {
+  transition: transform 300ms ease-out;
+  z-index: 100;
+}
+
+.HelpButton {
+  transform: translateX(0);
+
+  &.open {
+    transform: translateX(-30vw);
+  }
+}
+
+.HelpContent {
+  display: block;
+  background: white;
+  top: 0px;
+  height: 100vh;
+  width: 30vw;
+  right: 0;
+  left: 70vw;
   transform: translateX(100%);
   transition: transform 300ms ease-out;
 
-  &.open {
+  &:popover-open {
     transform: translateX(0);
   }
 
   button {
-    position: absolute;
-    right: 100%;
-    top: 0;
     background: white;
     border: 0;
     border-radius: 0 0 0 50%;

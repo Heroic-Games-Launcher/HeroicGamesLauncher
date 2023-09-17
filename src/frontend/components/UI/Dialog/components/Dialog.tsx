@@ -32,10 +32,11 @@ export const Dialog: React.FC<DialogProps> = ({
         onCloseRef.current()
       }
       dialog.addEventListener('cancel', cancel)
-      dialog['showModal']()
+      dialog['showPopover']()
+
       return () => {
         dialog.removeEventListener('cancel', cancel)
-        dialog['close']()
+        dialog['hidePopover']()
       }
     }
     return
@@ -65,6 +66,7 @@ export const Dialog: React.FC<DialogProps> = ({
         className={`Dialog__element ${className}`}
         ref={dialogRef}
         onClick={onDialogClick}
+        popover="manual"
       >
         {showCloseButton && (
           <div className="Dialog__Close">

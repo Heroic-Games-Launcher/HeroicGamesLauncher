@@ -60,15 +60,20 @@ html,
   grid-area: offline;
 }
 
-.Help {
+.HelpButton {
   position: fixed;
   top: 0;
   right: 0;
-  background: white;
   color: black;
-  bottom: 0;
-  z-index: 100;
-  width: 50vw;
+}
+
+#root:has(dialog:popover-open) {
+  pointer-events: none;
+
+  .HelpButton,
+  :popover-open {
+    pointer-events: all;
+  }
 }
 
 .danger {

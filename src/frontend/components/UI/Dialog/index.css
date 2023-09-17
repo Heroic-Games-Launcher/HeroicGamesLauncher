@@ -23,8 +23,11 @@
   transition: opacity 500ms, transform 500ms;
   max-width: min(700px, 85vw);
 }
+.Dialog__element::backdrop {
+  background: rgba(0, 0, 0, 0.4);
+}
 
-.Dialog__element[open] {
+.Dialog__element:popover-open {
   opacity: 1;
   transform: translateY(0);
   box-shadow: 0px 0px 0px 100vmax var(--modal-backdrop);
