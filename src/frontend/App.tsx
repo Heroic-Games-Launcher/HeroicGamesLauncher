@@ -19,13 +19,15 @@ import ExternalLinkDialog from './components/UI/ExternalLinkDialog'
 import classNames from 'classnames'
 
 function App() {
-  const { isSettingsModalOpen, isRTL } = useContext(ContextProvider)
+  const { isSettingsModalOpen, isRTL, experimentalFeatures } =
+    useContext(ContextProvider)
 
   return (
     <div
       id="app"
       className={classNames('App', {
-        isRTL
+        isRTL,
+        oldDesign: !experimentalFeatures.enableNewDesign
       })}
     >
       <HashRouter>

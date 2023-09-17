@@ -44,7 +44,7 @@ export type Release = {
 }
 
 export type ExperimentalFeatures = {
-  enableNewShinyFeature: boolean // remove this when adding a real experimental feature
+  enableNewDesign: boolean
 }
 
 export interface AppSettings extends GameSettings {
