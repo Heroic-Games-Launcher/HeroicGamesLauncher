@@ -1,6 +1,6 @@
 import './index.scss'
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 
 import {
   ArrowCircleLeft,
@@ -137,6 +137,11 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   const [tab, setTab] = useState<'info' | 'extra' | 'requirements'>('info')
 
+  const handleImageLoadAnimation: React.ReactEventHandler<HTMLImageElement> =
+    useCallback((e) => {
+      e.currentTarget.style.opacity = '1'
+    }, [])
+
   useEffect(() => {
     const updateGameInfo = async () => {
       if (status) {
@@ -229,6 +234,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       title,
       art_square,
       art_cover,
+      art_background,
       install: { platform: installPlatform },
       is_installed
     } = gameInfo
@@ -386,7 +392,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   <SettingsButton gameInfo={gameInfo} />
 
                   <div className="mainInfo">
-                    <GamePicture art_square={art_cover} store={runner} />
+                    <GamePicture
+                      art_square={art_cover}
+                      store={runner}
+                      style={{ opacity: '0' }}
+                      onLoad={handleImageLoadAnimation}
+                    />
                     <div className="store-icon">
                       <StoreLogos runner={runner} />
                     </div>
@@ -475,6 +486,15 @@ export default React.memo(function GamePage(): JSX.Element | null {
           </GameContext.Provider>
         ) : (
           <UpdateComponent />
+        )}
+        {!!(art_background ?? art_cover) && (
+          <div className="artBackgroundWrapper">
+            <img
+              src={art_background || art_cover}
+              loading="lazy"
+              onLoad={handleImageLoadAnimation}
+            />
+          </div>
         )}
       </div>
     )
