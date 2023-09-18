@@ -20,8 +20,7 @@ import {
   protocol,
   screen,
   clipboard,
-  components,
-  powerMonitor
+  components
 } from 'electron'
 import 'backend/updater'
 import { autoUpdater } from 'electron-updater'
@@ -934,32 +933,12 @@ ipcMain.handle(
 
     const { minimizeOnLaunch } = GlobalConfig.get().getSettings()
 
-    // For storing multiple sessions (e.g when user suspended the device)
-    const playTimeSessions: { start: Date; end: Date }[] = []
-    let currentSession: { start: Date; end: Date } = {
-      start: new Date(),
-      end: new Date()
-    }
-
-    const handleSuspend = () => {
-      logInfo('Detected suspend, ending playtime session', {
-        prefix: LogPrefix.Backend
-      })
-      currentSession.end = new Date()
-      playTimeSessions.push(currentSession)
-    }
-
-    const handleResume = () => {
-      logInfo('Detected resume, starting new playtime session', {
-        prefix: LogPrefix.Backend
-      })
-      currentSession = { start: new Date(), end: new Date() }
-    }
+    const startPlayingDate = new Date()
 
     if (!tsStore.has(game.app_name)) {
       tsStore.set(
         `${game.app_name}.firstPlayed`,
-        currentSession.start.toISOString()
+        startPlayingDate.toISOString()
       )
     }
 
@@ -1005,9 +984,6 @@ ipcMain.handle(
       powerDisplayId = powerSaveBlocker.start('prevent-display-sleep')
     }
 
-    powerMonitor.addListener('suspend', handleSuspend)
-    powerMonitor.addListener('resume', handleResume)
-
     const systemInfo = getSystemInfo()
     const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
     const logFileLocation = getLogFileLocation(appName)
@@ -1024,7 +1000,7 @@ ipcMain.handle(
       logFileLocation,
       `Game Settings: ${gameSettingsString}\n` +
         '\n' +
-        `Game launched at: ${currentSession.start}\n` +
+        `Game launched at: ${startPlayingDate}\n` +
         '\n'
     )
 
@@ -1078,9 +1054,6 @@ ipcMain.handle(
       return false
     })
 
-    powerMonitor.removeListener('suspend', handleSuspend)
-    powerMonitor.removeListener('resume', handleResume)
-
     // Stop display sleep blocker
     if (powerDisplayId !== null) {
       logInfo('Stopping Display Power Saver Blocker', LogPrefix.Backend)
@@ -1088,26 +1061,19 @@ ipcMain.handle(
     }
 
     // Update playtime and last played date
-    currentSession.end = new Date()
-    playTimeSessions.push(currentSession)
-    tsStore.set(`${appName}.lastPlayed`, currentSession.end.toISOString())
-
+    const finishedPlayingDate = new Date()
+    tsStore.set(`${appName}.lastPlayed`, finishedPlayingDate.toISOString())
+    // Playtime of this session in minutes
     const sessionPlaytime =
-      playTimeSessions.reduce(
-        (acc, next) => acc + next.end.getTime() - next.start.getTime(),
-        0
-      ) / 60000
-
+      (finishedPlayingDate.getTime() - startPlayingDate.getTime()) / 1000 / 60
     const totalPlaytime =
       sessionPlaytime + tsStore.get(`${appName}.totalPlayed`, 0)
     tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
 
     const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
     if (!disablePlaytimeSync) {
-      for (const session of playTimeSessions) {
-        if (runner === 'gog') {
-          await updateGOGPlaytime(appName, session.start, session.end)
-        }
+      if (runner === 'gog') {
+        await updateGOGPlaytime(appName, startPlayingDate, finishedPlayingDate)
       }
     } else {
       logWarning(
