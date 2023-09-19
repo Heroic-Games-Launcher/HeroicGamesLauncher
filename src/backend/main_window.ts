@@ -1,6 +1,8 @@
-import { WindowProps } from 'common/types'
+import { TitleBarOptions, WindowProps } from 'common/types'
 import { BrowserWindow, screen } from 'electron'
 import path from 'path'
+import { existsSync, readFileSync } from 'graceful-fs'
+import { camelCase } from 'camel-case'
 import { configStore } from './constants'
 
 let mainWindow: BrowserWindow | null = null
@@ -55,6 +57,24 @@ export const createMainWindow = () => {
   const settings = configStore.get_nodefault('settings')
   if (settings?.framelessWindow) {
     windowProps.titleBarStyle = 'hidden'
+    const theme = configStore.get_nodefault('theme')
+
+    if (theme?.match(/\.css$/)) {
+      const cssPath = path.join(settings.customThemesPath, theme)
+
+      if (existsSync(cssPath)) {
+        const themeCSS = readFileSync(cssPath, 'utf-8')
+        const titleBarOptions = Object.fromEntries(
+          [...themeCSS.matchAll(/--titlebar-(\S+)\s*:\s+(#?\w+);/g)].map(
+            ([, name, val]) => [
+              camelCase(name),
+              name === 'height' ? parseInt(val) : val
+            ]
+          )
+        ) as TitleBarOptions
+        windowProps.titleBarOverlay = titleBarOptions
+      }
+    }
   }
   const { maximized, ...props } = windowProps
   // Create the browser window.

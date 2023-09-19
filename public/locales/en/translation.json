@@ -530,6 +530,7 @@
         "experimental_features": {
             "enableNewShinyFeature": "New shiny feature"
         },
+        "frameless-window": "Use frameless window (restart required)",
         "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",

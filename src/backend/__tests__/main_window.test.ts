@@ -112,9 +112,13 @@ describe('main_window', () => {
     describe('with frameless window enabled', () => {
       beforeEach(() => {
         jest.spyOn(configStore, 'has').mockReturnValue(false)
-        jest.spyOn(configStore, 'get_nodefault').mockReturnValue({
-          framelessWindow: true
-        })
+        jest
+          .spyOn(configStore, 'get_nodefault')
+          .mockReturnValueOnce({
+            customThemesPath: path.join(__dirname, 'test_data'),
+            framelessWindow: true
+          })
+          .mockReturnValueOnce('custom_titlebar.css')
       })
 
       it('creates the new window without a titlebar', () => {
@@ -122,6 +126,17 @@ describe('main_window', () => {
         const options = window['options']
 
         expect(options.titleBarStyle).toBe('hidden')
+      })
+
+      it('extracts titlebar options from theme', () => {
+        const window = createMainWindow()
+        const options = window['options']
+
+        expect(options.titleBarOverlay).toMatchObject({
+          color: '#1a1b1c',
+          symbolColor: '#fafbfc',
+          height: 40
+        })
       })
     })
 
