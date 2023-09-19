@@ -304,17 +304,6 @@ export default function DownloadDialog({
             }
           }
         }
-
-        if (platformToInstall === 'linux' && runner === 'gog') {
-          setGettingInstallInfo(true)
-          const installer_languages =
-            await window.api.getGOGLinuxInstallersLangs(appName)
-          setInstallLanguages(installer_languages)
-          setInstallLanguage(
-            getPreferredInstallLanguage(installer_languages, i18n.languages)
-          )
-          setGettingInstallInfo(false)
-        }
       } catch (error) {
         showDialogModal({
           type: 'ERROR',
@@ -379,7 +368,7 @@ export default function DownloadDialog({
     if (
       gameInstallInfo &&
       'perLangSize' in gameInstallInfo.manifest &&
-      platformToInstall !== 'linux'
+      gameInstallInfo.manifest.perLangSize
     ) {
       const languageSize =
         gameInstallInfo?.manifest?.perLangSize[installLanguage]
@@ -416,7 +405,7 @@ export default function DownloadDialog({
     if (
       gameInstallInfo &&
       'perLangSize' in gameInstallInfo.manifest &&
-      platformToInstall !== 'linux'
+      gameInstallInfo.manifest.perLangSize
     ) {
       const languageSize =
         gameInstallInfo?.manifest?.perLangSize[installLanguage]?.disk_size ?? 0

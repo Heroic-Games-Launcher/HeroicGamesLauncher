@@ -902,11 +902,11 @@ export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
   }
   const manifestPath = join(gogdlConfigPath, 'manifests', appName)
   if (existsSync(manifestPath)) {
-    rmSync(manifestPath)
+    rmSync(manifestPath) // Delete manifest so gogdl won't try to patch the not installed game
   }
   const supportPath = join(gogSupportPath, appName)
   if (existsSync(supportPath)) {
-    rmSync(supportPath)
+    rmSync(supportPath, { recursive: true }) // Remove unnecessary support dir
   }
   installedGamesStore.set('installed', array)
   refreshInstalled()

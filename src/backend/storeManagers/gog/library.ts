@@ -21,7 +21,9 @@ import {
   GalaxyLibraryEntry,
   ProductsEndpointData,
   GOGDLInstallInfo,
-  GOGCredentials
+  GOGCredentials,
+  GOGv1Manifest,
+  GOGv2Manifest
 } from 'common/types/gog'
 import { dirname, join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
@@ -159,7 +161,27 @@ export async function getSaveSyncLocation(
       syncPlatform = 'MacOS'
       break
   }
-  const clientId = readInfoFile(appName, install.install_path)?.clientId
+
+  let clientId
+
+  const manifestPath = join(gogdlConfigPath, 'manifests', appName)
+  if (existsSync(manifestPath)) {
+    try {
+      const dataRaw = readFileSync(manifestPath, { encoding: 'utf-8' })
+      const data: GOGv1Manifest | GOGv2Manifest = JSON.parse(dataRaw)
+      if (data.version === 2) {
+        clientId = data.clientId
+      }
+    } catch (err) {
+      clientId = undefined
+      logWarning(
+        'Was not able to read clientId from manifest, falling back to info file'
+      )
+      clientId = readInfoFile(appName, install.install_path)?.clientId
+    }
+  } else {
+    clientId = readInfoFile(appName, install.install_path)?.clientId
+  }
 
   if (!clientId) {
     logWarning(
