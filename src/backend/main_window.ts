@@ -51,6 +51,11 @@ export const createMainWindow = () => {
       windowProps.width = screenInfo.workAreaSize.width * 0.8
     }
   }
+  // Set up frameless window if enabled in settings
+  const settings = configStore.get_nodefault('settings')
+  if (settings?.framelessWindow) {
+    windowProps.titleBarStyle = 'hidden'
+  }
   const { maximized, ...props } = windowProps
   // Create the browser window.
   mainWindow = new BrowserWindow({

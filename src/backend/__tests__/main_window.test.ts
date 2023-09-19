@@ -1,6 +1,7 @@
 import { createMainWindow, sendFrontendMessage } from '../main_window'
 import { BrowserWindow, Display, screen } from 'electron'
 import { configStore } from '../constants'
+import path from 'path'
 
 jest.mock('../logger/logfile')
 
@@ -60,6 +61,7 @@ describe('main_window', () => {
           x: 0,
           y: 0
         })
+        jest.spyOn(configStore, 'set')
       })
 
       it('creates the new window with the given geometry', () => {
@@ -104,6 +106,35 @@ describe('main_window', () => {
         expect(options.width).toBe(1024 * 0.8) // 80% of the workAreaSize.width
         expect(options.x).toBe(0)
         expect(options.y).toBe(0)
+      })
+    })
+
+    describe('with frameless window enabled', () => {
+      beforeEach(() => {
+        jest.spyOn(configStore, 'has').mockReturnValue(false)
+        jest.spyOn(configStore, 'get_nodefault').mockReturnValue({
+          framelessWindow: true
+        })
+      })
+
+      it('creates the new window without a titlebar', () => {
+        const window = createMainWindow()
+        const options = window['options']
+
+        expect(options.titleBarStyle).toBe('hidden')
+      })
+    })
+
+    describe('with frameless window disabled', () => {
+      beforeAll(() => {
+        jest.spyOn(configStore, 'has').mockReturnValue(false)
+      })
+
+      it('creates the new window with default titlebar', () => {
+        const window = createMainWindow()
+        const options = window['options']
+
+        expect(options.titleBarStyle).toBeUndefined()
       })
     })
   })
