@@ -9,7 +9,7 @@ interface Props extends React.ImgHTMLAttributes<HTMLImageElement> {
   store: string
 }
 
-function GamePicture({ art_square, store, ...props }: Props) {
+function GamePicture({ art_square, store, className, ...props }: Props) {
   function getImageFormatting() {
     if (art_square === 'fallback' || !art_square)
       return { src: fallbackImage, fallback: fallbackImage }
@@ -29,7 +29,7 @@ function GamePicture({ art_square, store, ...props }: Props) {
     <div className="gamePicture">
       <CachedImage
         alt="cover-art"
-        className="gameImg"
+        className={`gameImg ${className}`}
         src={src}
         fallback={fallback}
         {...props}

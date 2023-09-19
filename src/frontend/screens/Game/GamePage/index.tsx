@@ -1,6 +1,6 @@
 import './index.scss'
 
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import {
   ArrowCircleLeft,
@@ -64,6 +64,7 @@ import {
   SettingsButton
 } from './components'
 import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
+import { useImageAnimation } from 'frontend/hooks/useImageAnimation'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -137,10 +138,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   const [tab, setTab] = useState<'info' | 'extra' | 'requirements'>('info')
 
-  const handleImageLoadAnimation: React.ReactEventHandler<HTMLImageElement> =
-    useCallback((e) => {
-      e.currentTarget.style.opacity = '1'
-    }, [])
+  const { imageAnimationClass, ...animImageProps } = useImageAnimation()
 
   useEffect(() => {
     const updateGameInfo = async () => {
@@ -309,6 +307,16 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
     return (
       <div className="gameConfigContainer">
+        {!!(art_background ?? art_cover) && (
+          <div className="artBackgroundWrapper">
+            <img
+              src={art_background || art_cover}
+              loading="lazy"
+              className={imageAnimationClass}
+              {...animImageProps}
+            />
+          </div>
+        )}
         {gameInfo.runner !== 'sideload' && showModal.show && (
           <InstallModal
             appName={showModal.game}
@@ -395,8 +403,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     <GamePicture
                       art_square={art_cover}
                       store={runner}
-                      style={{ opacity: '0' }}
-                      onLoad={handleImageLoadAnimation}
+                      className={imageAnimationClass}
+                      {...animImageProps}
                     />
                     <div className="store-icon">
                       <StoreLogos runner={runner} />
@@ -486,15 +494,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
           </GameContext.Provider>
         ) : (
           <UpdateComponent />
-        )}
-        {!!(art_background ?? art_cover) && (
-          <div className="artBackgroundWrapper">
-            <img
-              src={art_background || art_cover}
-              loading="lazy"
-              onLoad={handleImageLoadAnimation}
-            />
-          </div>
         )}
       </div>
     )
