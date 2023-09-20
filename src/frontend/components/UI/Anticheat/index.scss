@@ -23,7 +23,8 @@
   margin: 0 0 var(--space-md);
 }
 
-.anticheatInfo.Denied {
+.anticheatInfo.Denied,
+.anticheatInfo.Unknown {
   border: 2px solid var(--anticheat-denied);
   .statusIcon path {
     fill: var(--anticheat-denied);

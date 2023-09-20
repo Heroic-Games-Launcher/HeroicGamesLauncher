@@ -82,6 +82,7 @@ body.midnightMirage {
   --anticheat-running: var(--status-default);
   --anticheat-supported: var(--status-success);
   --anticheat-planned: var(--status-info);
+  --anticheat-unknown: var(--status-denied);
   --danger: var(--status-danger);
   --danger-hover: var(--status-danger-hover);
 
