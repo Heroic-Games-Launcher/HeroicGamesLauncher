@@ -284,7 +284,7 @@ if (!gotTheLock) {
       await components.whenReady().catch((e) => {
         logError([
           'Failed to download / update DRM components.',
-          'Make sure you do not block update.googleapis.com domain if you want to use WideVine in Browser siedeloaded apps',
+          'Make sure you do not block update.googleapis.com domain if you want to use WideVine in Browser sideloaded apps',
           e
         ])
       })
