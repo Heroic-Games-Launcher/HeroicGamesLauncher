@@ -1588,8 +1588,9 @@ ipcMain.handle('getThemeCSS', async (event, theme) => {
 })
 
 ipcMain.on('setTitleBarOverlay', (e, args) => {
-  if (GlobalConfig.get().getSettings().framelessWindow) {
-    const mainWindow = getMainWindow()
+  const mainWindow = getMainWindow()
+  if (typeof mainWindow?.['setTitleBarOverlay'] === 'function') {
+    logDebug(`Setting titlebar overlay options ${JSON.stringify(args)}`)
     mainWindow?.setTitleBarOverlay(args)
   }
 })

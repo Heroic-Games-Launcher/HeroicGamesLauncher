@@ -136,17 +136,19 @@ window.setTheme = async (themeClass: string) => {
 
   document.body.className = themeClass
 
-  const titlebarOverlay = Object.fromEntries(
-    ['height', 'color', 'symbol-color']
-      .map((item) => [
-        camelCase(item),
-        getComputedStyle(document.body)
-          .getPropertyValue(`--titlebar-${item}`)
-          .trim()
-      ])
-      .filter(([, val]) => !!val)
-  )
-  window.api.setTitleBarOverlay(titlebarOverlay)
+  if (navigator['windowControlsOverlay']?.visible) {
+    const titlebarOverlay = Object.fromEntries(
+      ['height', 'color', 'symbol-color']
+        .map((item) => [
+          camelCase(item),
+          getComputedStyle(document.body)
+            .getPropertyValue(`--titlebar-${item}`)
+            .trim()
+        ])
+        .filter(([, val]) => !!val)
+    )
+    window.api.setTitleBarOverlay(titlebarOverlay)
+  }
 }
 
 const themeClass = configStore.get('theme', DEFAULT_THEME)
