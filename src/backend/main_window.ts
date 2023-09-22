@@ -54,8 +54,12 @@ export const createMainWindow = () => {
   // Set up frameless window if enabled in settings
   const settings = configStore.get('settings', <AppSettings>{})
   if (settings.framelessWindow) {
-    windowProps.titleBarStyle = 'hidden'
-    windowProps.titleBarOverlay = true
+    if (process.platform === 'linux') {
+      windowProps.frame = false
+    } else {
+      windowProps.titleBarStyle = 'hidden'
+      windowProps.titleBarOverlay = true
+    }
   }
   const { maximized, ...props } = windowProps
   // Create the browser window.

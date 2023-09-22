@@ -1,6 +1,7 @@
 import { createMainWindow, sendFrontendMessage } from '../main_window'
 import { BrowserWindow, Display, screen } from 'electron'
 import { configStore } from '../constants'
+import { overrideProcessPlatform } from './constants.test'
 
 jest.mock('../logger/logfile')
 
@@ -116,12 +117,28 @@ describe('main_window', () => {
         })
       })
 
-      it('creates the new window without a titlebar', () => {
+      it('creates a simple frameless window on Linux', () => {
+        const originalPlatform = overrideProcessPlatform('linux')
         const window = createMainWindow()
         const options = window['options']
+        overrideProcessPlatform(originalPlatform)
 
-        expect(options.titleBarStyle).toBe('hidden')
-        expect(options.titleBarOverlay).toBe(true)
+        expect(options.frame).toBe(false)
+        expect(options.titleBarStyle).toBeUndefined()
+        expect(options.titleBarOverlay).toBeUndefined()
+      })
+
+      it('creates a frameless window with overlay controls on macOS and Windows', () => {
+        ;['darwin', 'win32'].forEach((platform) => {
+          const originalPlatform = overrideProcessPlatform(platform)
+          const window = createMainWindow()
+          const options = window['options']
+          overrideProcessPlatform(originalPlatform)
+
+          expect(options.frame).toBeUndefined()
+          expect(options.titleBarStyle).toBe('hidden')
+          expect(options.titleBarOverlay).toBe(true)
+        })
       })
     })
 
@@ -137,6 +154,7 @@ describe('main_window', () => {
         const window = createMainWindow()
         const options = window['options']
 
+        expect(options.frame).toBeUndefined()
         expect(options.titleBarStyle).toBeUndefined()
         expect(options.titleBarOverlay).toBeUndefined()
       })
