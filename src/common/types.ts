@@ -1,6 +1,6 @@
 import { GOGCloudSavesLocation, GogInstallPlatform } from './types/gog'
 import { LegendaryInstallPlatform, GameMetadataInner } from './types/legendary'
-import { IpcRendererEvent } from 'electron'
+import { IpcRendererEvent, TitleBarOverlay } from 'electron'
 import { ChildProcess } from 'child_process'
 import { HowLongToBeatEntry } from 'howlongtobeat'
 import { NileInstallPlatform } from './types/nile'
@@ -708,18 +708,8 @@ export type DownloadManagerState = 'idle' | 'running' | 'paused' | 'stopped'
  */
 export type TitleBarStyle = 'default' | 'hidden' | 'hiddenInset'
 
-/**
- * Interface for setting extra title bar options
- * @see https://www.electronjs.org/docs/latest/api/browser-window#new-browserwindowoptions
- */
-export interface TitleBarOptions {
-  color?: string
-  symbolColor?: string
-  height?: number
-}
-
 export interface WindowProps extends Electron.Rectangle {
   maximized: boolean
   titleBarStyle?: TitleBarStyle
-  titleBarOverlay?: TitleBarOptions
+  titleBarOverlay?: TitleBarOverlay | boolean
 }

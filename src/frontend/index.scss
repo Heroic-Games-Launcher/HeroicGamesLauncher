@@ -25,6 +25,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   user-select: none;
+  /* Frameless window defaults */
+  --titlebar-height: 40px;
+  --titlebar-color: var(--body-background);
+  --titlebar-symbol-color: var(--accent);
 }
 
 /* Overlay Scrollbar*/

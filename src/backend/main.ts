@@ -1587,6 +1587,13 @@ ipcMain.handle('getThemeCSS', async (event, theme) => {
   return readFileSync(cssPath, 'utf-8')
 })
 
+ipcMain.on('setTitleBarOverlay', (e, args) => {
+  if (GlobalConfig.get().getSettings().framelessWindow) {
+    const mainWindow = getMainWindow()
+    mainWindow?.setTitleBarOverlay(args)
+  }
+})
+
 ipcMain.on('addNewApp', (e, args) => addNewApp(args))
 
 ipcMain.handle('removeApp', async (e, args) => {

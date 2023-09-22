@@ -1,7 +1,6 @@
 import { createMainWindow, sendFrontendMessage } from '../main_window'
 import { BrowserWindow, Display, screen } from 'electron'
 import { configStore } from '../constants'
-import path from 'path'
 
 jest.mock('../logger/logfile')
 
@@ -112,13 +111,9 @@ describe('main_window', () => {
     describe('with frameless window enabled', () => {
       beforeEach(() => {
         jest.spyOn(configStore, 'has').mockReturnValue(false)
-        jest
-          .spyOn(configStore, 'get_nodefault')
-          .mockReturnValueOnce({
-            customThemesPath: path.join(__dirname, 'test_data'),
-            framelessWindow: true
-          })
-          .mockReturnValueOnce('custom_titlebar.css')
+        jest.spyOn(configStore, 'get').mockReturnValue({
+          framelessWindow: true
+        })
       })
 
       it('creates the new window without a titlebar', () => {
@@ -126,23 +121,16 @@ describe('main_window', () => {
         const options = window['options']
 
         expect(options.titleBarStyle).toBe('hidden')
-      })
-
-      it('extracts titlebar options from theme', () => {
-        const window = createMainWindow()
-        const options = window['options']
-
-        expect(options.titleBarOverlay).toMatchObject({
-          color: '#1a1b1c',
-          symbolColor: '#fafbfc',
-          height: 40
-        })
+        expect(options.titleBarOverlay).toBe(true)
       })
     })
 
     describe('with frameless window disabled', () => {
       beforeAll(() => {
         jest.spyOn(configStore, 'has').mockReturnValue(false)
+        jest.spyOn(configStore, 'get').mockReturnValue({
+          framelessWindow: false
+        })
       })
 
       it('creates the new window with default titlebar', () => {
@@ -150,6 +138,7 @@ describe('main_window', () => {
         const options = window['options']
 
         expect(options.titleBarStyle).toBeUndefined()
+        expect(options.titleBarOverlay).toBeUndefined()
       })
     })
   })

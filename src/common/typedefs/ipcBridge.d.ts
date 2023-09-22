@@ -1,6 +1,10 @@
 import { DownloadManagerState } from './../types'
 import { EventEmitter } from 'node:events'
-import { IpcMainEvent, OpenDialogOptions } from 'electron'
+import {
+  IpcMainEvent,
+  OpenDialogOptions,
+  TitleBarOverlayOptions
+} from 'electron'
 
 import {
   Runner,
@@ -105,6 +109,7 @@ interface SyncIPCFunctions {
   pauseCurrentDownload: () => void
   cancelDownload: (removeDownloaded: boolean) => void
   copySystemInfoToClipboard: () => void
+  setTitleBarOverlay: (options: TitleBarOverlayOptions) => void
 }
 
 // ts-prune-ignore-next
