@@ -702,14 +702,8 @@ export interface WineManagerUISettings {
 
 export type DownloadManagerState = 'idle' | 'running' | 'paused' | 'stopped'
 
-/**
- * Interface for customizing title bar style
- * @see https://www.electronjs.org/docs/latest/api/browser-window#new-browserwindowoptions
- */
-export type TitleBarStyle = 'default' | 'hidden' | 'hiddenInset'
-
 export interface WindowProps extends Electron.Rectangle {
   maximized: boolean
-  titleBarStyle?: TitleBarStyle
+  titleBarStyle?: 'default' | 'hidden' | 'hiddenInset'
   titleBarOverlay?: TitleBarOverlay | boolean
 }
