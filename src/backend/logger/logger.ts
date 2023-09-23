@@ -76,6 +76,9 @@ export function initLogger() {
         forceLog: true
       })
     })
+    .catch((error) =>
+      logError(['Failed to fetch system information', error], LogPrefix.Backend)
+    )
 
   logInfo(['Legendary location:', join(...Object.values(getLegendaryBin()))], {
     prefix: LogPrefix.Legendary,
