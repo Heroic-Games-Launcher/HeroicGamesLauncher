@@ -256,6 +256,8 @@ async function getGalaxyLibrary(
     const nextPageGames = await getGalaxyLibrary(data.next_page_token)
     if (nextPageGames.length) {
       objects.push(...nextPageGames)
+    } else {
+      return []
     }
   }
 
