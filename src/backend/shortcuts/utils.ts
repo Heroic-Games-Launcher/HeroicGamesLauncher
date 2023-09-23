@@ -63,6 +63,20 @@ async function getIcon(appName: string, gameInfo: GameInfo) {
   let icon = `${iconsFolder}/${appName}.jpg`
 
   if (gameInfo.runner === 'gog') {
+    const icoPath = join(
+      gameInfo.install.install_path!,
+      `goggame-${appName}.ico`
+    )
+    const linuxNativePath = join(
+      gameInfo.install.install_path!,
+      'support',
+      'icon.png'
+    )
+    if (existsSync(icoPath)) {
+      return icoPath
+    } else if (existsSync(linuxNativePath)) {
+      return linuxNativePath
+    }
     const productApiData = await getProductApi(appName)
     if (productApiData && productApiData.data.images?.icon) {
       image = 'https:' + productApiData.data.images?.icon
