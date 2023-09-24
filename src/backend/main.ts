@@ -516,7 +516,7 @@ ipcMain.handle('checkDiskSpace', async (event, folder) => {
   })
 })
 
-ipcMain.handle('isFrameless', () => getWindowProps().frame === false)
+ipcMain.handle('isFrameless', () => getWindowProps()?.frame === false)
 ipcMain.handle('isMinimized', () => !!getMainWindow()?.isMinimized())
 ipcMain.handle('isMaximized', () => !!getMainWindow()?.isMaximized())
 ipcMain.on('minimizeWindow', () => getMainWindow()?.minimize())
