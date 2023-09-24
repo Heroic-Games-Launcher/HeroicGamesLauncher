@@ -555,7 +555,7 @@ function getVkd3dUrl(): string {
       'The GPU(s) in this system only support Vulkan 1.1/1.2, falling back to VKD3D 2.6',
       LogPrefix.DXVKInstaller
     )
-    return 'https://api.github.com/repos/HansKristian-Work/vkd3d-proton/releases/tags/v2.6'
+    return 'https://api.github.com/repos/Heroic-Games-Launcher/vkd3d-proton/releases/tags/v2.6'
   }
   logWarning(
     'No GPU with Vulkan 1.1 support found, VKD3D will not work',
