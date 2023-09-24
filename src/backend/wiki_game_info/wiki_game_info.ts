@@ -19,25 +19,13 @@ export async function getWikiGameInfo(
     title = removeSpecialcharacters(title)
 
     // check if we have a cached response
-    const cachedResponse = wikiGameInfoStore.get_nodefault(title)
+    const cachedResponse = wikiGameInfoStore.get(title)
     if (cachedResponse) {
       logInfo(
         [`Using cached ExtraGameInfo data for ${title}`],
         LogPrefix.ExtraGameInfo
       )
-
-      const oneMonthAgo = new Date()
-      oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1)
-
-      const timestampLastFetch = new Date(cachedResponse.timestampLastFetch)
-      if (timestampLastFetch > oneMonthAgo) {
-        return cachedResponse
-      }
-
-      logInfo(
-        [`Cached ExtraGameInfo data for ${title} outdated.`],
-        LogPrefix.ExtraGameInfo
-      )
+      return cachedResponse
     }
 
     logInfo(`Getting ExtraGameInfo data for ${title}`, LogPrefix.ExtraGameInfo)
@@ -67,7 +55,6 @@ export async function getWikiGameInfo(
     }
 
     const wikiGameInfo = {
-      timestampLastFetch: Date(),
       pcgamingwiki,
       applegamingwiki,
       howlongtobeat,

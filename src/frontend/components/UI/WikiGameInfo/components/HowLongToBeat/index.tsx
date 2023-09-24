@@ -1,7 +1,7 @@
-import { HowLongToBeatEntry } from 'howlongtobeat'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import './index.scss'
+import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
 
 type Props = {
   info: HowLongToBeatEntry
@@ -14,7 +14,7 @@ export default function HowLongToBeat({ info }: Props) {
     return null
   }
 
-  const { gameplayMain, gameplayMainExtra, gameplayCompletionist } = info
+  const { comp_100, comp_plus, comp_main } = info
 
   return (
     <>
@@ -24,7 +24,7 @@ export default function HowLongToBeat({ info }: Props) {
             {t('how-long-to-beat.main-story', 'Main Story')}
           </div>
           <div className="circle__value">
-            {gameplayMain || '?'} {t('hours', 'Hours')}
+            {Math.round(comp_main / 60 / 60)} {t('hours', 'Hours')}
           </div>
         </div>
         <div className="circle green">
@@ -32,7 +32,7 @@ export default function HowLongToBeat({ info }: Props) {
             {t('how-long-to-beat.main-plus-extras', 'Main + Extras')}
           </div>
           <div className="circle__value">
-            {gameplayMainExtra || '?'} {t('hours', 'Hours')}
+            {Math.round(comp_plus / 60 / 60)} {t('hours', 'Hours')}
           </div>
         </div>
         <div className="circle green">
@@ -40,7 +40,7 @@ export default function HowLongToBeat({ info }: Props) {
             {t('how-long-to-beat.completionist', 'Completionist')}
           </div>
           <div className="circle__value">
-            {gameplayCompletionist || '?'} {t('hours', 'Hours')}
+            {Math.round(comp_100 / 60 / 60)} {t('hours', 'Hours')}
           </div>
         </div>
       </div>
