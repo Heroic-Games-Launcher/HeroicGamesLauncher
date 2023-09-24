@@ -16,6 +16,7 @@ import DownloadManager from './screens/DownloadManager'
 import DialogHandler from './components/UI/DialogHandler'
 import SettingsModal from './screens/Settings/components/SettingsModal'
 import ExternalLinkDialog from './components/UI/ExternalLinkDialog'
+import WindowControls from './components/UI/WindowControls'
 import classNames from 'classnames'
 
 function App() {
@@ -73,6 +74,7 @@ function App() {
           <ControllerHints />
           <div className="simple-keyboard"></div>
         </div>
+        {window.isFrameless && !window.hasOverlayControls && <WindowControls />}
       </HashRouter>
     </div>
   )

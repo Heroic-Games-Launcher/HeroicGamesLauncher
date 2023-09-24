@@ -109,6 +109,9 @@ interface SyncIPCFunctions {
   pauseCurrentDownload: () => void
   cancelDownload: (removeDownloaded: boolean) => void
   copySystemInfoToClipboard: () => void
+  minimizeWindow: () => void
+  maximizeWindow: () => void
+  unmaximizeWindow: () => void
   setTitleBarOverlay: (options: TitleBarOverlayOptions) => void
 }
 
@@ -130,6 +133,9 @@ interface AsyncIPCFunctions {
   getGogdlVersion: () => Promise<string>
   getNileVersion: () => Promise<string>
   isFullscreen: () => boolean
+  isFrameless: () => boolean
+  isMaximized: () => boolean
+  isMinimized: () => boolean
   isFlatpak: () => boolean
   getPlatform: () => NodeJS.Platform
   showUpdateSetting: () => boolean

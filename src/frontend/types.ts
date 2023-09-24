@@ -159,6 +159,8 @@ declare global {
       canvas_height: number
     ) => Promise<string>
     setTheme: (themeClass: string) => void
+    isFrameless: boolean
+    hasOverlayControls: boolean
   }
 
   interface WindowEventMap {

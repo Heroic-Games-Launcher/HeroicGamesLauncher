@@ -125,6 +125,7 @@ import { initTrayIcon } from './tray_icon/tray_icon'
 import {
   createMainWindow,
   getMainWindow,
+  getWindowProps,
   sendFrontendMessage
 } from './main_window'
 
@@ -189,6 +190,8 @@ async function initializeWindow(): Promise<BrowserWindow> {
   mainWindow.setIcon(icon)
   app.commandLine.appendSwitch('enable-spatial-navigation')
 
+  mainWindow.on('maximize', () => sendFrontendMessage('maximized'))
+  mainWindow.on('unmaximize', () => sendFrontendMessage('unmaximized'))
   mainWindow.on('close', async (e) => {
     e.preventDefault()
 
@@ -513,6 +516,12 @@ ipcMain.handle('checkDiskSpace', async (event, folder) => {
   })
 })
 
+ipcMain.handle('isFrameless', () => getWindowProps().frame === false)
+ipcMain.handle('isMinimized', () => !!getMainWindow()?.isMinimized())
+ipcMain.handle('isMaximized', () => !!getMainWindow()?.isMaximized())
+ipcMain.on('minimizeWindow', () => getMainWindow()?.minimize())
+ipcMain.on('maximizeWindow', () => getMainWindow()?.maximize())
+ipcMain.on('unmaximizeWindow', () => getMainWindow()?.unmaximize())
 ipcMain.on('quit', async () => handleExit())
 
 // Quit when all windows are closed, except on macOS. There, it's common

@@ -4,9 +4,20 @@ import path from 'path'
 import { configStore } from './constants'
 
 let mainWindow: BrowserWindow | null = null
+let windowProps: WindowProps = {
+  height: 690,
+  width: 1200,
+  x: 0,
+  y: 0,
+  maximized: false
+}
 
 export const getMainWindow = () => {
   return mainWindow
+}
+
+export const getWindowProps = () => {
+  return windowProps
 }
 
 // send a message to the main window's webContents if available
@@ -29,14 +40,6 @@ export const sendFrontendMessage = (message: string, ...payload: unknown[]) => {
 
 // creates the mainWindow based on the configuration
 export const createMainWindow = () => {
-  let windowProps: WindowProps = {
-    height: 690,
-    width: 1200,
-    x: 0,
-    y: 0,
-    maximized: false
-  }
-
   if (configStore.has('window-props')) {
     windowProps = configStore.get('window-props', windowProps)
   } else {
