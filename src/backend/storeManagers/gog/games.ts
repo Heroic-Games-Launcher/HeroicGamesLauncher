@@ -876,8 +876,7 @@ export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
       await runWineCommandUtil({
         gameSettings,
         commandParts: command,
-        wait: true,
-        protonVerb: 'waitforexitandrun'
+        wait: true
       })
     } else {
       const adminCommand = [

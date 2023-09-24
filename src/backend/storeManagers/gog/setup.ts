@@ -211,8 +211,8 @@ async function setup(
           [
             "Script interpreter couldn't be found",
             isiPath,
-            'to try again restart Heroic and delete wine prefix of the game;',
-            'if on Windows reinstall the game'
+            'to try again restart Heroic and',
+            isWindows ? 'reinstall the game' : 'delete wine prefix of the game'
           ],
           {
             prefix: LogPrefix.Gog
