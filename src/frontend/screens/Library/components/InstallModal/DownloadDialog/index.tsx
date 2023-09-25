@@ -551,10 +551,10 @@ export default function DownloadDialog({
                   </span>
                 )}
                 {validPath && !validFlatpakPath && (
-                  <span className="error">
+                  <span className="warning">
                     {`${t(
                       'install.flatpak-path-not-writtable',
-                      'Error: Sandbox access not granted to this location, data loss will occur.'
+                      'Error: Sandbox access not granted to this path, data loss will occur.'
                     )}`}
                   </span>
                 )}
