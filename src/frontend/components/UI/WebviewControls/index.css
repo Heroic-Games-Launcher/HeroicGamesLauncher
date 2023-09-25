@@ -10,6 +10,10 @@
   user-select: text;
 }
 
+.frameless .WebviewControls {
+  padding-right: var(--overlay-controls-width);
+}
+
 .WebviewControls__icons {
   display: flex;
   flex: 0 1 120px;
