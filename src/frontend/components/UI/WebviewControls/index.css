@@ -11,7 +11,9 @@
 }
 
 .frameless .WebviewControls {
-  padding-right: calc(var(--overlay-controls-width) - env(titlebar-area-x));
+  padding-right: calc(
+    var(--overlay-controls-width) - env(titlebar-area-x, 0px)
+  );
 }
 
 .WebviewControls__icons {

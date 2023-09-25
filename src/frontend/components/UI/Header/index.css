@@ -13,7 +13,9 @@
 }
 
 .frameless .Header {
-  padding-right: calc(var(--overlay-controls-width) - env(titlebar-area-x));
+  padding-right: calc(
+    var(--overlay-controls-width) - env(titlebar-area-x, 0px)
+  );
 }
 
 @media screen and (max-width: 1000px) {
