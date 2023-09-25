@@ -525,7 +525,8 @@ ipcMain.handle('checkDiskSpace', async (event, folder) => {
         free,
         diskSize,
         message: `${getFileSize(free)} / ${getFileSize(diskSize)}`,
-        validPath: !writeError && isValidFlatpakPath
+        validPath: !writeError,
+        validFlatpakPath: isValidFlatpakPath
       }
       logDebug(`${JSON.stringify(ret)}`, LogPrefix.Backend)
       res(ret)
