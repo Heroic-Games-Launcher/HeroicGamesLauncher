@@ -6,20 +6,21 @@
   -webkit-app-region: no-drag;
 
   button {
-    height: 36px;
-    width: 36px;
     display: inline-flex;
     justify-content: center;
     align-items: center;
     border-radius: 0;
-    background-color: var(--body-background);
+    background-color: var(--titlebar-color);
+    color: var(--titlebar-symbol-color);
+    height: var(--overlay-controls-height);
+    width: var(--overlay-controls-height);
 
     &:hover {
       background-color: var(--secondary-hover);
     }
-  }
 
-  button.close:hover {
-    background-color: var(--status-danger-hover);
+    &.close:hover {
+      background-color: var(--status-danger-hover);
+    }
   }
 }
