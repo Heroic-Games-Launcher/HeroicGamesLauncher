@@ -28,7 +28,7 @@ body {
   /* Frameless window defaults */
   --titlebar-color: var(--body-background);
   --titlebar-symbol-color: var(--accent);
-  --overlay-controls-height: env(titlebar-area-height, 36px);
+  --overlay-controls-height: env(titlebar-area-height, 39px);
   --overlay-controls-width: calc(
     100vw - env(titlebar-area-width, calc(100vw - 120px))
   );
