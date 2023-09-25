@@ -61,7 +61,6 @@ describe('main_window', () => {
           x: 0,
           y: 0
         })
-        jest.spyOn(configStore, 'set')
       })
 
       it('creates the new window with the given geometry', () => {
