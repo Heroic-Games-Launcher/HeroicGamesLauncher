@@ -108,7 +108,7 @@
 }
 
 .error {
-  color: var(--danger);
+  color: red;
   font-size: var(--text-sm);
   width: 100%;
   max-width: 513px;
