@@ -22,11 +22,15 @@ import classNames from 'classnames'
 function App() {
   const { isSettingsModalOpen, isRTL } = useContext(ContextProvider)
 
+  const hasNativeOverlayControls = navigator['windowControlsOverlay']?.visible
+  const showOverlayControls = window.isFrameless && !hasNativeOverlayControls
+
   return (
     <div
       id="app"
       className={classNames('App', {
-        isRTL
+        isRTL,
+        frameless: window.isFrameless
       })}
     >
       <HashRouter>
@@ -74,7 +78,7 @@ function App() {
           <ControllerHints />
           <div className="simple-keyboard"></div>
         </div>
-        {window.isFrameless && !window.hasOverlayControls && <WindowControls />}
+        {showOverlayControls && <WindowControls />}
       </HashRouter>
     </div>
   )

@@ -116,18 +116,6 @@ root.render(
   // </React.StrictMode>
 )
 
-window.api.isFrameless().then((value) =>
-  Object.defineProperty(window, 'isFrameless', {
-    value
-  })
-)
-
-Object.defineProperty(window, 'hasOverlayControls', {
-  get() {
-    return navigator['windowControlsOverlay']?.visible
-  }
-})
-
 // helper function to set the theme class and load custom css if needed
 window.setTheme = async (themeClass: string) => {
   document.querySelector('style.customTheme')?.remove()

@@ -160,7 +160,6 @@ declare global {
     ) => Promise<string>
     setTheme: (themeClass: string) => void
     isFrameless: boolean
-    hasOverlayControls: boolean
   }
 
   interface WindowEventMap {

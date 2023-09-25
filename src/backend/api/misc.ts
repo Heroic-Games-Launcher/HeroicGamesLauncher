@@ -29,7 +29,6 @@ export const getCurrentChangelog = async () =>
 export const openPatreonPage = () => ipcRenderer.send('openPatreonPage')
 export const openKofiPage = () => ipcRenderer.send('openKofiPage')
 export const isFullscreen = async () => ipcRenderer.invoke('isFullscreen')
-export const isFrameless = async () => ipcRenderer.invoke('isFrameless')
 export const isMinimized = async () => ipcRenderer.invoke('isMinimized')
 export const isMaximized = async () => ipcRenderer.invoke('isMaximized')
 export const minimizeWindow = () => ipcRenderer.send('minimizeWindow')

@@ -236,6 +236,11 @@ async function initializeWindow(): Promise<BrowserWindow> {
     autoUpdater.checkForUpdates()
   }
 
+  mainWindow.webContents.executeJavaScript(
+    `Object.defineProperty(window, 'isFrameless', {
+      value: ${getWindowProps()?.frame === false}
+    })`
+  )
   mainWindow.webContents.setWindowOpenHandler((details) => {
     const pattern = app.isPackaged ? publicDir : 'localhost:5173'
     return { action: !details.url.match(pattern) ? 'allow' : 'deny' }
@@ -516,7 +521,6 @@ ipcMain.handle('checkDiskSpace', async (event, folder) => {
   })
 })
 
-ipcMain.handle('isFrameless', () => getWindowProps()?.frame === false)
 ipcMain.handle('isMinimized', () => !!getMainWindow()?.isMinimized())
 ipcMain.handle('isMaximized', () => !!getMainWindow()?.isMaximized())
 ipcMain.on('minimizeWindow', () => getMainWindow()?.minimize())

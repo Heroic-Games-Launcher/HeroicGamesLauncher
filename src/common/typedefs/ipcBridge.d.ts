@@ -133,7 +133,6 @@ interface AsyncIPCFunctions {
   getGogdlVersion: () => Promise<string>
   getNileVersion: () => Promise<string>
   isFullscreen: () => boolean
-  isFrameless: () => boolean
   isMaximized: () => boolean
   isMinimized: () => boolean
   isFlatpak: () => boolean
