@@ -410,7 +410,11 @@ export default function DownloadDialog({
   const readyToInstall =
     installPath &&
     gameInstallInfo?.manifest?.download_size &&
-    !gettingInstallInfo
+    !gettingInstallInfo &&
+    !(
+      !!process.env.FLATPAK_ID &&
+      installPath.startsWith(process.env.XDG_RUNTIME_DIR || '/run/user/')
+    )
 
   const showDlcSelector =
     runner === 'legendary' && DLCList && DLCList?.length > 0
