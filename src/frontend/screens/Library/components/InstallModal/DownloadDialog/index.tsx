@@ -519,7 +519,7 @@ export default function DownloadDialog({
           afterInput={
             gameInstallInfo?.manifest?.download_size ? (
               <span className="smallInputInfo">
-                {validPath && (
+                {validPath && validFlatpakPath && (
                   <>
                     <span>
                       {`${t('install.disk-space-left', 'Space Available')}: `}
