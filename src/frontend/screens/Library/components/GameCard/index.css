@@ -26,7 +26,7 @@
 }
 
 .gameCard:focus-within {
-  outline: -webkit-focus-ring-color auto 1px;
+  outline: var(--accent) auto 1px;
 }
 
 .gameCard > .gameCardStatus {

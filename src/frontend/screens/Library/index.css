@@ -40,13 +40,13 @@
 
 .libraryHeader {
   text-align: start;
-  padding: 0 var(--space-md-fixed);
+  padding: var(--space-xs) var(--space-md-fixed);
   margin: var(--space-sm) 0;
   background: var(--background-darker);
   position: sticky;
   top: 0px;
   z-index: 9;
-  height: 46px;
+  height: 50px;
 }
 
 .libraryHeaderWrapper {
