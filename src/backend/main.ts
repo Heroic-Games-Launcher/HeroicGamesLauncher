@@ -514,7 +514,7 @@ ipcMain.handle('checkDiskSpace', async (event, folder) => {
 
       const isValidFlatpakPath = !(
         isFlatpak &&
-        folder.startsWith(process.env.XDG_RUNTIME_HOME || '/run/user/')
+        folder.startsWith(process.env.XDG_RUNTIME_DIR || '/run/user/')
       )
 
       if (!isValidFlatpakPath) {
