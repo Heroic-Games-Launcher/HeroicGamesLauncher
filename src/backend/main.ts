@@ -236,9 +236,12 @@ async function initializeWindow(): Promise<BrowserWindow> {
     autoUpdater.checkForUpdates()
   }
 
+  const windowProps = getWindowProps()
   mainWindow.webContents.executeJavaScript(
     `Object.defineProperty(window, 'isFrameless', {
-      value: ${getWindowProps()?.frame === false}
+      value: ${
+        windowProps?.frame === false || windowProps?.titleBarStyle === 'hidden'
+      }
     })`
   )
   mainWindow.webContents.setWindowOpenHandler((details) => {
