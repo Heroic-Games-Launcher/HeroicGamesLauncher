@@ -519,11 +519,21 @@ ipcMain.handle('checkDiskSpace', async (event, folder) => {
         )
       }
 
+      const isValidFlatpakPath = !(
+        isFlatpak &&
+        folder.startsWith(process.env.XDG_RUNTIME_DIR || '/run/user/')
+      )
+
+      if (!isValidFlatpakPath) {
+        logWarning(`Install location was not granted sandbox access!`)
+      }
+
       const ret = {
         free,
         diskSize,
         message: `${getFileSize(free)} / ${getFileSize(diskSize)}`,
-        validPath: !writeError
+        validPath: !writeError,
+        validFlatpakPath: isValidFlatpakPath
       }
       logDebug(`${JSON.stringify(ret)}`, LogPrefix.Backend)
       res(ret)

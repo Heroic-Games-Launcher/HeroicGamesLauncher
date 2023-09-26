@@ -66,6 +66,7 @@ type DiskSpaceInfo = {
   notEnoughDiskSpace: boolean
   message: string | `ERROR`
   validPath: boolean
+  validFlatpakPath: boolean
   spaceLeftAfter: string
 }
 
@@ -152,6 +153,7 @@ export default function DownloadDialog({
     message: '',
     notEnoughDiskSpace: false,
     validPath: true,
+    validFlatpakPath: true,
     spaceLeftAfter: ''
   })
 
@@ -322,9 +324,8 @@ export default function DownloadDialog({
 
   useEffect(() => {
     const getSpace = async () => {
-      const { message, free, validPath } = await window.api.checkDiskSpace(
-        installPath
-      )
+      const { message, free, validPath, validFlatpakPath } =
+        await window.api.checkDiskSpace(installPath)
       if (gameInstallInfo?.manifest?.disk_size) {
         let notEnoughDiskSpace = free < gameInstallInfo.manifest.disk_size
         let spaceLeftAfter = size(
@@ -344,6 +345,7 @@ export default function DownloadDialog({
           message,
           notEnoughDiskSpace,
           validPath,
+          validFlatpakPath,
           spaceLeftAfter
         })
       }
@@ -391,7 +393,13 @@ export default function DownloadDialog({
     }
   }, [i18n.languages, platformToInstall])
 
-  const { validPath, notEnoughDiskSpace, message, spaceLeftAfter } = spaceLeft
+  const {
+    validPath,
+    validFlatpakPath,
+    notEnoughDiskSpace,
+    message,
+    spaceLeftAfter
+  } = spaceLeft
   const title = gameInfo?.title
 
   function getInstallLabel() {
@@ -410,7 +418,8 @@ export default function DownloadDialog({
   const readyToInstall =
     installPath &&
     gameInstallInfo?.manifest?.download_size &&
-    !gettingInstallInfo
+    !gettingInstallInfo &&
+    validFlatpakPath
 
   const showDlcSelector =
     runner === 'legendary' && DLCList && DLCList?.length > 0
@@ -510,7 +519,7 @@ export default function DownloadDialog({
           afterInput={
             gameInstallInfo?.manifest?.download_size ? (
               <span className="smallInputInfo">
-                {validPath && (
+                {validPath && validFlatpakPath && (
                   <>
                     <span>
                       {`${t('install.disk-space-left', 'Space Available')}: `}
@@ -538,6 +547,14 @@ export default function DownloadDialog({
                     {`${t(
                       'install.path-not-writtable',
                       'Warning: path might not be writable.'
+                    )}`}
+                  </span>
+                )}
+                {validPath && !validFlatpakPath && (
+                  <span className="error">
+                    {`${t(
+                      'install.flatpak-path-not-writtable',
+                      'Error: Sandbox access not granted to this path, data loss will occur.'
                     )}`}
                   </span>
                 )}
