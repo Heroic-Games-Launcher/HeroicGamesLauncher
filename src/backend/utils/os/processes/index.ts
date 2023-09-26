@@ -3,6 +3,7 @@ import { ChildProcess, spawn } from 'child_process'
 type SpawnWrapperOptions = Partial<{
   onStdout: (data: string, child: ChildProcess) => unknown
   onStderr: (data: string, child: ChildProcess) => unknown
+  env: Record<string, string | undefined>
 }>
 
 interface SpawnWrapperReturn {
@@ -17,7 +18,7 @@ async function genericSpawnWrapper(
   args: string[] = [],
   options: SpawnWrapperOptions = {}
 ): Promise<SpawnWrapperReturn> {
-  const child = spawn(command, args)
+  const child = spawn(command, args, { env: options?.env })
   child.stdout.setEncoding('utf-8')
   child.stderr.setEncoding('utf-8')
 

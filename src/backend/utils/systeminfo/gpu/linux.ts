@@ -35,8 +35,8 @@ async function getGpuInfo_linux(): Promise<PartialGpuInfo[]> {
     gpus.push({
       // Electron gives us these IDs as numbers, most other use cases need
       // them as hexadecimal strings
-      deviceId: gpu.deviceId.toString(16),
-      vendorId: gpu.vendorId.toString(16),
+      deviceId: gpu.deviceId.toString(16).padStart(4, '0'),
+      vendorId: gpu.vendorId.toString(16).padStart(4, '0'),
       ...(hasLspci ? await getLspciInfo(gpu.deviceId, gpu.vendorId) : {})
     })
   }

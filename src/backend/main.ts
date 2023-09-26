@@ -145,6 +145,7 @@ import {
   initStoreManagers,
   libraryManagerMap
 } from './storeManagers'
+import { updateWineVersionInfos } from './wine/manager/utils'
 
 import { logFileLocation as getLogFileLocation } from './storeManagers/storeManagerCommon/games'
 import { addNewApp } from './storeManagers/sideload/library'
@@ -155,6 +156,7 @@ import {
 import { formatSystemInfo, getSystemInfo } from './utils/systeminfo'
 
 app.commandLine?.appendSwitch('remote-debugging-port', '9222')
+app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
 const { showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -186,6 +188,16 @@ async function initializeWindow(): Promise<BrowserWindow> {
       downloadDefaultWine()
     }
   }, 2500)
+
+  if (!isWindows && !isCLINoGui) {
+    setTimeout(async () => {
+      try {
+        await updateWineVersionInfos(true)
+      } catch (error) {
+        logError(error, LogPrefix.Backend)
+      }
+    }, 5000)
+  }
 
   GlobalConfig.get()
 
@@ -293,7 +305,13 @@ if (!gotTheLock) {
     initImagesCache()
 
     if (!process.env.CI) {
-      await components.whenReady()
+      await components.whenReady().catch((e) => {
+        logError([
+          'Failed to download / update DRM components.',
+          'Make sure you do not block update.googleapis.com domain if you want to use WideVine in Browser sideloaded apps',
+          e
+        ])
+      })
       logInfo(['DRM module staus', components.status()])
     }
 
@@ -862,13 +880,13 @@ ipcMain.handle('toggleDXVKNVAPI', async (event, { appName, action }) =>
     )
 )
 
-ipcMain.on('toggleVKD3D', (event, { appName, action }) => {
+ipcMain.handle('toggleVKD3D', async (event, { appName, action }) =>
   GameConfig.get(appName)
     .getSettings()
-    .then((gameSettings) => {
+    .then(async (gameSettings) =>
       DXVK.installRemove(gameSettings, 'vkd3d', action)
-    })
-})
+    )
+)
 
 ipcMain.handle('writeConfig', (event, { appName, config }) => {
   logInfo(
@@ -1000,7 +1018,15 @@ ipcMain.handle(
 
     const logFileLocation = getLogFileLocation(appName)
 
-    const systemInfo = await getSystemInfo().then(formatSystemInfo)
+    const systemInfo = await getSystemInfo()
+      .then(formatSystemInfo)
+      .catch((error) => {
+        logError(
+          ['Failed to fetch system information', error],
+          LogPrefix.Backend
+        )
+        return 'Error, check general log'
+      })
     writeFileSync(logFileLocation, 'System Info:\n' + `${systemInfo}\n` + '\n')
 
     const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
