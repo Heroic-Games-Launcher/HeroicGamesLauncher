@@ -60,11 +60,12 @@ export const createMainWindow = () => {
   // Set up frameless window if enabled in settings
   const settings = configStore.get('settings', <AppSettings>{})
   if (settings.framelessWindow) {
-    if (process.platform === 'linux') {
-      windowProps.frame = false
-    } else {
+    // use native overlay controls where supported
+    if (['darwin', 'win32'].includes(process.platform)) {
       windowProps.titleBarStyle = 'hidden'
       windowProps.titleBarOverlay = true
+    } else {
+      windowProps.frame = false
     }
   }
   const { maximized, ...props } = windowProps
