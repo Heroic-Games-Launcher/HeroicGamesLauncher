@@ -109,7 +109,7 @@
     "howLongToBeat": "Duración del juego",
     "info": {
         "canRunOffline": "Requiere acceso a internet",
-        "installedPlatform": "Plataforma de Instalación",
+        "installedPlatform": "Plataforma de instalación",
         "path": "Instalado en",
         "size": "Tamaño",
         "syncsaves": "Sincronizar guardados",
