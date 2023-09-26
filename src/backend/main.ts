@@ -996,7 +996,15 @@ ipcMain.handle(
 
     const logFileLocation = getLogFileLocation(appName)
 
-    const systemInfo = await getSystemInfo().then(formatSystemInfo)
+    const systemInfo = await getSystemInfo()
+      .then(formatSystemInfo)
+      .catch((error) => {
+        logError(
+          ['Failed to fetch system information', error],
+          LogPrefix.Backend
+        )
+        return 'Error, check general log'
+      })
     writeFileSync(logFileLocation, 'System Info:\n' + `${systemInfo}\n` + '\n')
 
     const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
