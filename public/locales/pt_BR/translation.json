@@ -286,7 +286,8 @@
             "part1": "O Heroic busca por versões do Wine, Proton e CrossOver nas pastas a seguir:",
             "part2": "Para outros locais, use um link simbólico para uma dessas pastas"
         },
-        "disable_logs": "Ative esta caixa de seleção para desativar a maioria das gravações em arquivos de log (informações críticas sempre são registradas). Certifique-se de desativar essa configuração antes de relatar qualquer problema."
+        "disable_logs": "Ative esta caixa de seleção para desativar a maioria das gravações em arquivos de log (informações críticas sempre são registradas). Certifique-se de desativar essa configuração antes de relatar qualquer problema.",
+        "dxvknvapi": "DXVK-NVAPI é uma implementação de NVAPI construído sobre DXVK e o NVAPI nativo linux, ele permite o uso de DLSS em GPUs Nvidia."
     },
     "info": {
         "heroic": {
@@ -342,7 +343,8 @@
         "epic": "Login da Epic Games",
         "gog": "Login da GOG",
         "message": "Faça login com sua plataforma. Você pode acessar mais de uma plataforma ao mesmo tempo.",
-        "amazon": "Login da Amazon"
+        "amazon": "Login da Amazon",
+        "old-mac": "Sua versão do macOS é {{version}}. O macOS 12 ou mais recente é necessário para fazer login."
     },
     "message": {
         "sync": "Sincronização Completa",
@@ -584,7 +586,10 @@
         "addgamestoapplications": "Adicionar jogos a aplicativos automaticamente",
         "showMetalOverlay": "Mostrar sobreposição de estatísticas",
         "alt-nile-bin": "Escolha um binário alternativo do Nilo",
-        "autodxvknvapi": "Auto Instalar/atualizar o DXVK-NVAPI automaticamente no prefixo"
+        "autodxvknvapi": "Auto Instalar/atualizar o DXVK-NVAPI automaticamente no prefixo",
+        "experimental_features": {
+            "enableNewShinyFeature": "Novidade"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -619,13 +624,39 @@
             "log": "Log",
             "other": "Outros",
             "sync": "Sincronização de Saves na Nuvem",
-            "wineExt": "Extensões do Wine"
+            "wineExt": "Extensões do Wine",
+            "systemInformation": "Informações do Sistema"
         },
         "open-config-file": "Abrir arquivo de configuração",
         "reset-heroic": "Redefinir Heroic",
         "saves": {
             "label": "Salvar localização:",
             "warning": "O recurso Cloud Saves está em Beta, faça backup de seus saves antes de sincronizar (caso algo dê errado)"
+        },
+        "systemInformation": {
+            "cpu": "CPU:",
+            "gpuWithNumber": "GPU {{number}}:",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "legendaryVersion": "Legendary: {{legendaryVersion}}",
+            "systemSpecifications": "Especificações do Sistema:",
+            "steamDeck": "Steam Deck",
+            "gpuDriver": "Driver: {{driverVersion}}",
+            "os": "Sistema Operacional:",
+            "gpu": "GPU:",
+            "gogdlVersion": "Gogdl: {{gogdlVersion}}",
+            "osVersion": "Versão {{versionNumber}}",
+            "osNameFlatpak": "{{osName}} (dentro do Flatpak)",
+            "software": "Software:",
+            "memoryStats": "{{percentUsed}}% usada ({{usedGib}} / {{totalGib}}",
+            "systemModel": "Modelo do Sistema:",
+            "showDetailed": "Mostrar especificações detalhadas do sistema",
+            "memory": "Memória:",
+            "copyToClipboard": "Copiar para área de transferência",
+            "heroicVersion": "Heroic: {{heroicVersion}}",
+            "nileVersion": "Nile: {{nileVersion}}"
+        },
+        "experimental_features": {
+            "title": "Recursos Experimentais"
         }
     },
     "Settings": "Configurações",
