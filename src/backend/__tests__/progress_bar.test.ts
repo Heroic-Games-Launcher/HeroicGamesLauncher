@@ -28,6 +28,17 @@ describe('progress_bar', () => {
     window.setProgressBar = jest.fn()
   })
 
+  describe('on gameStatusUpdate with status="queued"', () => {
+    it('does nothing', () => {
+      sendFrontendMessage('gameStatusUpdate', {
+        appName: 'Test',
+        status: 'queued'
+      })
+
+      expect(window.setProgressBar).not.toBeCalled()
+    })
+  })
+
   describe('on gameStatusUpdate with status other than "done"', () => {
     it('sets progress bar to indeterminate', () => {
       sendFrontendMessage('gameStatusUpdate', {

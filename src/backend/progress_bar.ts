@@ -10,10 +10,13 @@ const handleProgressUpdate = ({ progress }: { progress: InstallProgress }) => {
 
 backendEvents.on('gameStatusUpdate', ({ appName, status }) => {
   if (status === 'done') {
-    getMainWindow()?.setProgressBar(-1) // no progress bar
+    getMainWindow()?.setProgressBar(-1) // reset progress bar
+    // stop listening for progress updates
     backendEvents.off(`progressUpdate-${appName}`, handleProgressUpdate)
-  } else {
+  } else if (status !== 'queued') {
+    // ignore 'queued' events as download may be in progress
     getMainWindow()?.setProgressBar(2) // indeterminate
+    // subscribe to progress updates for current app
     backendEvents.on(`progressUpdate-${appName}`, handleProgressUpdate)
   }
 })
