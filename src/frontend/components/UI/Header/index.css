@@ -12,7 +12,7 @@
   color: var(--text-secondary);
 }
 
-.frameless .Header {
+.frameless:not(.fullscreen) .Header {
   padding-right: calc(
     var(--overlay-controls-width) - env(titlebar-area-x, 0px)
   );

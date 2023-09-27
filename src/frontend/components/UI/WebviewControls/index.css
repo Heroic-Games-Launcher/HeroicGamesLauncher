@@ -10,7 +10,7 @@
   user-select: text;
 }
 
-.frameless .WebviewControls {
+.frameless:not(.fullscreen) .WebviewControls {
   padding-right: calc(
     var(--overlay-controls-width) - env(titlebar-area-x, 0px)
   );
