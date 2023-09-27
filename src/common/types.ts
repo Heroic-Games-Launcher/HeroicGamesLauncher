@@ -708,7 +708,7 @@ export interface WindowProps extends Electron.Rectangle {
   maximized: boolean
 }
 
-export interface GameScopeSettings {
+interface GameScopeSettings {
   enabled: boolean
   integerScaling: boolean
   windowType: string

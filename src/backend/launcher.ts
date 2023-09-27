@@ -576,6 +576,12 @@ function setupWrappers(
   steamRuntime?: string[]
 ): Array<string> {
   const wrappers: string[] = []
+
+  // let gamescope be first wrapper always
+  if (gameScopeCommand) {
+    wrappers.push(...gameScopeCommand)
+  }
+
   if (gameSettings.wrapperOptions) {
     gameSettings.wrapperOptions.forEach((wrapperEntry: WrapperVariable) => {
       wrappers.push(wrapperEntry.exe)
@@ -590,9 +596,6 @@ function setupWrappers(
   }
   if (steamRuntime) {
     wrappers.push(...steamRuntime)
-  }
-  if (gameScopeCommand) {
-    wrappers.push(...gameScopeCommand)
   }
   return wrappers.filter((n) => n)
 }
