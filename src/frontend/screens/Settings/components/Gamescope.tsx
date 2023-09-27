@@ -51,7 +51,10 @@ const Gamescope = () => {
           handleChange={() =>
             setGamescope({ ...gamescope, enabled: !gamescope.enabled })
           }
-          title={t('setting.gamescope.enable', 'Enable')}
+          title={t(
+            'setting.gamescope.enable',
+            'Enable (Gamescope need to be installed)'
+          )}
         />
 
         <FontAwesomeIcon

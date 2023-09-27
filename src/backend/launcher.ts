@@ -174,12 +174,12 @@ async function prepareLaunch(
     if (gameSettings.gamescope.windowType === 'borderless') {
       gameScopeCommand.push('-b')
     }
-
     if (gameSettings.gamescope.upscaleMethod === 'fsr') {
       oldVersion
         ? gameScopeCommand.push('-U')
         : gameScopeCommand.push('-F', 'fsr')
-    } else {
+    }
+    if (gameSettings.gamescope.upscaleMethod === 'nis') {
       oldVersion
         ? gameScopeCommand.push('-Y')
         : gameScopeCommand.push('-F', 'nis')
