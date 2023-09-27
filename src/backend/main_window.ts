@@ -2,6 +2,7 @@ import { WindowProps } from 'common/types'
 import { BrowserWindow, screen } from 'electron'
 import path from 'path'
 import { configStore } from './constants'
+import { backendEvents } from './backend_events'
 
 let mainWindow: BrowserWindow | null = null
 
@@ -24,6 +25,7 @@ export const sendFrontendMessage = (message: string, ...payload: unknown[]) => {
   }
 
   mainWindow.webContents.send(message, ...payload)
+  backendEvents.emit(message, ...payload)
   return true
 }
 
