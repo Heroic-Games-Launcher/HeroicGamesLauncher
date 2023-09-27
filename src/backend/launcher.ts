@@ -66,6 +66,7 @@ import { readFileSync } from 'fs'
 import { LegendaryCommand } from './storeManagers/legendary/commands'
 import { commandToArgsArray } from './storeManagers/legendary/library'
 import { searchForExecutableOnPath } from './utils/os/path'
+import { getSystemInfo, GPUInfo } from './utils/systeminfo'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
@@ -173,16 +174,18 @@ async function prepareLaunch(
       gameScopeCommand.push('-b')
     }
 
-    // How we can detect nvidia card here ?
-    // if (nvidia) {
-    oldVersion
-      ? gameScopeCommand.push('-Y')
-      : gameScopeCommand.push('-F', 'nis')
-    // } else {
-    // oldVersion
-    //   ? gameScopeCommand.push('-U')
-    //   : gameScopeCommand.push('-F', 'fsr')
-    // }
+    const { GPUs } = await getSystemInfo()
+    if (
+      GPUs.some((value: GPUInfo) => value.driverVersion?.includes('nvidia'))
+    ) {
+      oldVersion
+        ? gameScopeCommand.push('-Y')
+        : gameScopeCommand.push('-F', 'nis')
+    } else {
+      oldVersion
+        ? gameScopeCommand.push('-U')
+        : gameScopeCommand.push('-F', 'fsr')
+    }
 
     // Note: needs to be the last option
     gameScopeCommand.push('--')
