@@ -131,6 +131,7 @@ export async function launchGame(
       failureReason: launchPrepFailReason,
       rpcClient,
       mangoHudCommand,
+      gameScopeCommand,
       gameModeBin,
       steamRuntime
     } = await prepareLaunch(gameSettings, gameInfo, isNative)
@@ -141,6 +142,7 @@ export async function launchGame(
       gameSettings,
       mangoHudCommand,
       gameModeBin,
+      gameScopeCommand,
       steamRuntime?.length ? [...steamRuntime] : undefined
     )
 

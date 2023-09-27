@@ -28,7 +28,8 @@ import {
   WineVersionSelector,
   WrappersTable,
   EnableDXVKFpsLimit,
-  IgnoreGameUpdates
+  IgnoreGameUpdates,
+  Gamescope
 } from '../../components'
 import ContextProvider from 'frontend/state/ContextProvider'
 import Tools from '../../components/Tools'
@@ -112,6 +113,16 @@ export default function GamesSettings({ useDetails = true }: Props) {
             )}
           </Collapsible>
         </>
+      )}
+
+      {isLinux && (
+        <Collapsible
+          isOpen={false}
+          isCollapsible={useDetails}
+          summary={t('settings.navbar.gamescope', 'Gamescope')}
+        >
+          <Gamescope />
+        </Collapsible>
       )}
 
       <Collapsible

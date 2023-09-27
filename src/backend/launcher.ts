@@ -1,3 +1,18 @@
+import {
+  CallRunnerOptions,
+  GameInfo,
+  Runner,
+  EnviromentVariable,
+  WrapperEnv,
+  WrapperVariable,
+  ExecResult,
+  LaunchPreperationResult,
+  RpcClient,
+  WineInstallation,
+  WineCommandArgs,
+  SteamRuntime,
+  GameSettings
+} from 'common/types'
 // This handles launching games, prefix creation etc..
 
 import i18next from 'i18next'
@@ -14,6 +29,7 @@ import {
   flatPakHome,
   isLinux,
   isMac,
+  isSteamDeckGameMode,
   runtimePath,
   userHome
 } from './constants'
@@ -39,22 +55,7 @@ import { GameConfig } from './game_config'
 import { DXVK } from './tools'
 import setup from './storeManagers/gog/setup'
 import nileSetup from './storeManagers/nile/setup'
-import {
-  CallRunnerOptions,
-  GameInfo,
-  Runner,
-  EnviromentVariable,
-  WrapperEnv,
-  WrapperVariable,
-  ExecResult,
-  GameSettings,
-  LaunchPreperationResult,
-  RpcClient,
-  WineInstallation,
-  WineCommandArgs,
-  SteamRuntime
-} from 'common/types'
-import { spawn } from 'child_process'
+import { spawn, spawnSync } from 'child_process'
 import shlex from 'shlex'
 import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
@@ -95,9 +96,10 @@ async function prepareLaunch(
     return { success: true, rpcClient }
   }
 
-  // Figure out where MangoHud/GameMode are located, if they're enabled
+  // Figure out where MangoHud/GameMode/Gamescope are located, if they're enabled
   let mangoHudCommand: string[] = []
   let gameModeBin: string | null = null
+  const gameScopeCommand: string[] = []
   if (gameSettings.showMangohud) {
     const mangoHudBin = await searchForExecutableOnPath('mangohud')
     if (!mangoHudBin) {
@@ -106,10 +108,11 @@ async function prepareLaunch(
         failureReason:
           'Mangohud is enabled, but `mangohud` executable could not be found on $PATH'
       }
-    } else {
-      mangoHudCommand = [mangoHudBin, '--dlsym']
     }
+
+    mangoHudCommand = [mangoHudBin, '--dlsym']
   }
+
   if (gameSettings.useGameMode) {
     gameModeBin = await searchForExecutableOnPath('gamemoderun')
     if (!gameModeBin) {
@@ -119,6 +122,70 @@ async function prepareLaunch(
           'GameMode is enabled, but `gamemoderun` executable could not be found on $PATH'
       }
     }
+  }
+
+  if (gameSettings.gamescope.enabled && !isSteamDeckGameMode) {
+    const gameScopeBin = await searchForExecutableOnPath('gamescope')
+    if (!gameScopeBin) {
+      return {
+        success: false,
+        failureReason:
+          'Gamescope is enabled, but `gamescope` executable could not be found on $PATH'
+      }
+    }
+
+    // Gamescope does not provide a version option and they changed
+    // cli options on version 3.12. So we do what lutris does.
+    let oldVersion = true // < 3.12
+    const { stderr } = spawnSync(`${gameScopeBin} --help`)
+    if (stderr && stderr.toString().includes('-F, --filter')) {
+      oldVersion = false
+    }
+
+    gameScopeCommand.push(gameScopeBin)
+    if (gameSettings.gamescope.gameWidth) {
+      gameScopeCommand.push('-w', gameSettings.gamescope.gameWidth)
+    }
+    if (gameSettings.gamescope.gameHeight) {
+      gameScopeCommand.push('-h', gameSettings.gamescope.gameHeight)
+    }
+    if (gameSettings.gamescope.upscaleWidth) {
+      gameScopeCommand.push('-W', gameSettings.gamescope.upscaleWidth)
+    }
+    if (gameSettings.gamescope.upscaleHeight) {
+      gameScopeCommand.push('-H', gameSettings.gamescope.upscaleHeight)
+    }
+    if (gameSettings.gamescope.fpsLimiter) {
+      gameScopeCommand.push('-r', gameSettings.gamescope.fpsLimiter)
+    }
+    if (gameSettings.gamescope.fpsLimiterNoFocus) {
+      gameScopeCommand.push('-o', gameSettings.gamescope.fpsLimiterNoFocus)
+    }
+    if (gameSettings.gamescope.integerScaling) {
+      oldVersion
+        ? gameScopeCommand.push('-i')
+        : gameScopeCommand.push('-S', 'integer')
+    }
+    if (gameSettings.gamescope.windowType === 'fullscreen') {
+      gameScopeCommand.push('-f')
+    }
+    if (gameSettings.gamescope.windowType === 'borderless') {
+      gameScopeCommand.push('-b')
+    }
+
+    // How we can detect nvidia card here ?
+    // if (nvidia) {
+    oldVersion
+      ? gameScopeCommand.push('-Y')
+      : gameScopeCommand.push('-F', 'nis')
+    // } else {
+    // oldVersion
+    //   ? gameScopeCommand.push('-U')
+    //   : gameScopeCommand.push('-F', 'fsr')
+    // }
+
+    // Note: needs to be the last option
+    gameScopeCommand.push('--')
   }
 
   // If the Steam Runtime is enabled, find a valid one
@@ -175,6 +242,7 @@ async function prepareLaunch(
     rpcClient,
     mangoHudCommand,
     gameModeBin: gameModeBin ?? undefined,
+    gameScopeCommand,
     steamRuntime,
     offlineMode
   }
@@ -503,6 +571,7 @@ function setupWrappers(
   gameSettings: GameSettings,
   mangoHudCommand?: string[],
   gameModeBin?: string,
+  gameScopeCommand?: string[],
   steamRuntime?: string[]
 ): Array<string> {
   const wrappers: string[] = []
@@ -520,6 +589,9 @@ function setupWrappers(
   }
   if (steamRuntime) {
     wrappers.push(...steamRuntime)
+  }
+  if (gameScopeCommand) {
+    wrappers.push(...gameScopeCommand)
   }
   return wrappers.filter((n) => n)
 }
