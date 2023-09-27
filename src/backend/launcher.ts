@@ -66,7 +66,6 @@ import { readFileSync } from 'fs'
 import { LegendaryCommand } from './storeManagers/legendary/commands'
 import { commandToArgsArray } from './storeManagers/legendary/library'
 import { searchForExecutableOnPath } from './utils/os/path'
-import { getSystemInfo, GPUInfo } from './utils/systeminfo'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
@@ -138,8 +137,10 @@ async function prepareLaunch(
     // Gamescope does not provide a version option and they changed
     // cli options on version 3.12. So we do what lutris does.
     let oldVersion = true // < 3.12
-    const { stderr } = spawnSync(`${gameScopeBin} --help`)
-    if (stderr && stderr.toString().includes('-F, --filter')) {
+    const { stderr } = spawnSync(gameScopeBin, ['--help'], {
+      encoding: 'utf-8'
+    })
+    if (stderr && stderr.includes('-F, --filter')) {
       oldVersion = false
     }
 
@@ -174,17 +175,14 @@ async function prepareLaunch(
       gameScopeCommand.push('-b')
     }
 
-    const { GPUs } = await getSystemInfo()
-    if (
-      GPUs.some((value: GPUInfo) => value.driverVersion?.includes('nvidia'))
-    ) {
-      oldVersion
-        ? gameScopeCommand.push('-Y')
-        : gameScopeCommand.push('-F', 'nis')
-    } else {
+    if (gameSettings.gamescope.upscaleMethod === 'fsr') {
       oldVersion
         ? gameScopeCommand.push('-U')
         : gameScopeCommand.push('-F', 'fsr')
+    } else {
+      oldVersion
+        ? gameScopeCommand.push('-Y')
+        : gameScopeCommand.push('-F', 'nis')
     }
 
     // Note: needs to be the last option

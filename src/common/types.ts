@@ -716,6 +716,7 @@ export interface GameScopeSettings {
   gameHeight: string
   upscaleWidth: string
   upscaleHeight: string
+  upscaleMethod: string
   fpsLimiter: string
   fpsLimiterNoFocus: string
 }

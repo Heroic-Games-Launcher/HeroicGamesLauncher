@@ -22,6 +22,7 @@ const Gamescope = () => {
     gameHeight: '',
     upscaleHeight: '',
     upscaleWidth: '',
+    upscaleMethod: 'fsr',
     fpsLimiter: '',
     fpsLimiterNoFocus: ''
   })
@@ -42,7 +43,7 @@ const Gamescope = () => {
 
   return (
     <div>
-      {/* Enable*/}
+      {/* Enable */}
       <div className="toggleRow">
         <ToggleSwitch
           htmlId="gamescopeToggle"
@@ -59,7 +60,7 @@ const Gamescope = () => {
           title={t('help.gamescope.enable', 'Enable Gamescope')}
         />
       </div>
-      {/* Integer Scaling*/}
+      {/* Integer Scaling */}
       <div className="toggleRow">
         <ToggleSwitch
           htmlId="gamescopeIntToggle"
@@ -80,7 +81,7 @@ const Gamescope = () => {
           title={t('help.gamescope.integerScaling', 'Use integer scaling')}
         />
       </div>
-      {/* Window Type*/}
+      {/* Window Type */}
       <SelectField
         disabled={!gamescope.enabled}
         label={'Window Type'}
@@ -94,7 +95,7 @@ const Gamescope = () => {
           <option key={i}>{opt}</option>
         ))}
       </SelectField>
-      {/* Game Res*/}
+      {/* Game Res */}
       <div className="toggleRow">
         <TextInputField
           disabled={!gamescope.enabled}
@@ -138,7 +139,24 @@ const Gamescope = () => {
           )}
         />
       </div>
-      {/* Upscale Res*/}
+      {/* Upscale Method */}
+      <SelectField
+        disabled={!gamescope.enabled}
+        label={'Upscale Method'}
+        htmlId="upscaleMethod"
+        onChange={(event: ChangeEvent<HTMLSelectElement>) =>
+          setGamescope({
+            ...gamescope,
+            upscaleMethod: event.currentTarget.value
+          })
+        }
+        value={gamescope.upscaleMethod}
+      >
+        {['fsr', 'nis'].map((opt, i) => (
+          <option key={i}>{opt}</option>
+        ))}
+      </SelectField>
+      {/* Upscale Res */}
       <div className="toggleRow">
         <TextInputField
           disabled={!gamescope.enabled}
@@ -184,7 +202,7 @@ const Gamescope = () => {
           )}
         />
       </div>
-      {/* FPS Limiters*/}
+      {/* FPS Limiters */}
       <div className="toggleRow">
         <TextInputField
           disabled={!gamescope.enabled}
