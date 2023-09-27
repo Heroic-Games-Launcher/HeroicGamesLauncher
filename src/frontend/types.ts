@@ -29,6 +29,8 @@ export interface ContextType {
   filterPlatform: string
   gameUpdates: string[]
   isRTL: boolean
+  isFullscreen: boolean
+  isFrameless: boolean
   language: string
   setLanguage: (newLanguage: string) => void
   handleCategory: (value: Category) => void

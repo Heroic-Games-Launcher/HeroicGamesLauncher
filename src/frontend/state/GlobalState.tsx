@@ -91,6 +91,8 @@ interface StateProps {
   showNonAvailable: boolean
   favouriteGames: FavouriteGame[]
   theme: string
+  isFullscreen: boolean
+  isFrameless: boolean
   zoomPercent: number
   primaryFontFamily: string
   secondaryFontFamily: string
@@ -174,6 +176,8 @@ class GlobalState extends PureComponent<Props> {
     ),
     favouriteGames: configStore.get('games.favourites', []),
     theme: configStore.get('theme', ''),
+    isFullscreen: false,
+    isFrameless: false,
     zoomPercent: configStore.get('zoomPercent', 100),
     secondaryFontFamily:
       configStore.get_nodefault('contentFontFamily') ||
@@ -758,6 +762,16 @@ class GlobalState extends PureComponent<Props> {
         })
       }
     })
+
+    this.setState({
+      isFullscreen: await window.api.isFullscreen(),
+      isFrameless: await window.api.isFrameless()
+    })
+    window.api.handleFullscreen(
+      (e: IpcRendererEvent, isFullscreen: boolean) => {
+        this.setState({ isFullscreen })
+      }
+    )
 
     const legendaryUser = configStore.has('userInfo')
     const gogUser = gogConfigStore.has('userData')

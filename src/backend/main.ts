@@ -192,6 +192,12 @@ async function initializeWindow(): Promise<BrowserWindow> {
 
   mainWindow.on('maximize', () => sendFrontendMessage('maximized'))
   mainWindow.on('unmaximize', () => sendFrontendMessage('unmaximized'))
+  mainWindow.on('enter-full-screen', () =>
+    sendFrontendMessage('fullscreen', true)
+  )
+  mainWindow.on('leave-full-screen', () =>
+    sendFrontendMessage('fullscreen', false)
+  )
   mainWindow.on('close', async (e) => {
     e.preventDefault()
 
@@ -236,14 +242,6 @@ async function initializeWindow(): Promise<BrowserWindow> {
     autoUpdater.checkForUpdates()
   }
 
-  const windowProps = getWindowProps()
-  mainWindow.webContents.executeJavaScript(
-    `Object.defineProperty(window, 'isFrameless', {
-      value: ${
-        windowProps?.frame === false || windowProps?.titleBarStyle === 'hidden'
-      }
-    })`
-  )
   mainWindow.webContents.setWindowOpenHandler((details) => {
     const pattern = app.isPackaged ? publicDir : 'localhost:5173'
     return { action: !details.url.match(pattern) ? 'allow' : 'deny' }
@@ -524,6 +522,12 @@ ipcMain.handle('checkDiskSpace', async (event, folder) => {
   })
 })
 
+ipcMain.handle(
+  'isFrameless',
+  () =>
+    getWindowProps()?.frame === false ||
+    getWindowProps()?.titleBarStyle === 'hidden'
+)
 ipcMain.handle('isMinimized', () => !!getMainWindow()?.isMinimized())
 ipcMain.handle('isMaximized', () => !!getMainWindow()?.isMaximized())
 ipcMain.on('minimizeWindow', () => getMainWindow()?.minimize())

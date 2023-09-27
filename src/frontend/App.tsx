@@ -20,7 +20,8 @@ import WindowControls from './components/UI/WindowControls'
 import classNames from 'classnames'
 
 function App() {
-  const { isSettingsModalOpen, isRTL } = useContext(ContextProvider)
+  const { isSettingsModalOpen, isRTL, isFullscreen, isFrameless } =
+    useContext(ContextProvider)
 
   const hasNativeOverlayControls = navigator['windowControlsOverlay']?.visible
   const showOverlayControls = window.isFrameless && !hasNativeOverlayControls
@@ -30,7 +31,8 @@ function App() {
       id="app"
       className={classNames('App', {
         isRTL,
-        frameless: window.isFrameless
+        frameless: isFrameless,
+        fullscreen: isFullscreen
       })}
     >
       <HashRouter>
