@@ -1,4 +1,4 @@
-import { InstallProgress } from './../common/types'
+import { InstallProgress } from 'common/types'
 import { backendEvents } from './backend_events'
 import { getMainWindow } from './main_window'
 
