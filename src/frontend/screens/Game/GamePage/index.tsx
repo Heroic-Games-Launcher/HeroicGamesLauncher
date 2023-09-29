@@ -307,16 +307,17 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
     return (
       <div className="gameConfigContainer">
-        {!!(art_background ?? art_cover) && (
-          <div className="artBackgroundWrapper">
-            <img
-              src={art_background || art_cover}
-              loading="lazy"
-              className={imageAnimationClass}
-              {...animImageProps}
-            />
-          </div>
-        )}
+        {!!(art_background ?? art_cover) &&
+          experimentalFeatures.enableNewDesign && (
+            <div className="artBackgroundWrapper">
+              <img
+                src={art_background || art_cover}
+                loading="lazy"
+                className={imageAnimationClass}
+                {...animImageProps}
+              />
+            </div>
+          )}
         {gameInfo.runner !== 'sideload' && showModal.show && (
           <InstallModal
             appName={showModal.game}

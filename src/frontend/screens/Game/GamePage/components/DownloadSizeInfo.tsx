@@ -27,10 +27,6 @@ const DownloadSizeInfo = ({ gameInfo }: Props) => {
     return null
   }
 
-  if (!gameInstallInfo) {
-    return null
-  }
-
   if (gameInfo.thirdPartyManagedApp) {
     return null
   }

@@ -506,6 +506,7 @@
     .mainInfo {
       grid-area: main;
       padding: min(25vh, 300px) min(4vw, 70px) min(2vh, 25px);
+      background-color: var(--body-background);
 
       .store-icon {
         position: absolute;
