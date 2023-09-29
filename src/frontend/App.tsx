@@ -24,7 +24,7 @@ function App() {
     useContext(ContextProvider)
 
   const hasNativeOverlayControls = navigator['windowControlsOverlay']?.visible
-  const showOverlayControls = window.isFrameless && !hasNativeOverlayControls
+  const showOverlayControls = isFrameless && !hasNativeOverlayControls
 
   return (
     <div
