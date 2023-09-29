@@ -4,10 +4,10 @@ import { handleQuit } from 'frontend/helpers'
 import SvgButton from '../SvgButton'
 import {
   Minimize as MinimizeIcon,
-  OpenInFull as MaximizeIcon,
-  Close as CloseIcon,
-  CloseFullscreen as RestoreIcon
+  CropSquare as MaximizeIcon,
+  Close as CloseIcon
 } from '@mui/icons-material'
+import RestoreIcon from './RestoreWindow'
 import './index.scss'
 
 export default function WindowControls() {
