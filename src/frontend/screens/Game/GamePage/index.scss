@@ -415,6 +415,8 @@
   padding: 2vh 2vw;
   height: 100%;
   gap: min(3vw, 50px);
+  align-items: flex-start;
+  max-height: 1100px;
 
   .backButton,
   .showInfo,
@@ -485,7 +487,7 @@
 
   .mainInfoWrapper {
     grid-template-columns: 1fr min-content min-content;
-    grid-template-areas: 'back settings menu' 'main main main';
+    grid-template-areas: 'back settings menu' 'main main main' 'report report report';
     column-gap: 15px;
     min-width: 300px;
     width: 50%;
@@ -505,7 +507,7 @@
 
     .mainInfo {
       grid-area: main;
-      padding: min(25vh, 300px) min(4vw, 70px) min(2vh, 25px);
+      padding: min(25vh, 300px) min(4vw, 70px) min(5vh, 25px);
       background-color: var(--body-background);
 
       .store-icon {
@@ -572,7 +574,7 @@
     }
 
     .reportProblem {
-      grid-column: 1 / -1;
+      grid-area: report;
       svg {
         margin-inline-end: 0.5rem;
       }
@@ -635,6 +637,16 @@
         }
       }
     }
+  }
+
+  .mainInfoWrapper,
+  .extraInfoWrapper {
+    max-width: 800px;
+    height: 100%;
+  }
+  .mainInfo,
+  .tabContent {
+    max-height: 900px;
   }
 
   .store-icon {
