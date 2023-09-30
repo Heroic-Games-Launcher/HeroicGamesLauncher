@@ -1071,17 +1071,16 @@ ipcMain.handle(
     tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
 
     const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
-    if (!disablePlaytimeSync) {
-      if (runner === 'gog') {
+    if (runner === 'gog') {
+      if (!disablePlaytimeSync) {
         await updateGOGPlaytime(appName, startPlayingDate, finishedPlayingDate)
+      } else {
+        logWarning(
+          'Posting playtime session to server skipped - playtime sync disabled',
+          { prefix: LogPrefix.Backend }
+        )
       }
-    } else {
-      logWarning(
-        'Posting playtime session to server skipped - playtime sync disabled',
-        { prefix: LogPrefix.Backend }
-      )
     }
-
     await addRecentGame(game)
 
     if (autoSyncSaves && isOnline()) {
