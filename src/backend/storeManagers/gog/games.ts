@@ -641,7 +641,7 @@ export async function launch(
         logFileLocation(appName),
         `\nMods deploy log:\n${result.stdout}\n\n${result.stderr}\n\n\n`
       )
-      if (result.code && result.code !== 0) {
+      if (result.stderr.includes('deploy has succeeded')) {
         showDialogBoxModalAuto({
           title: 'Mod deploy failed',
           message: `Following logs are also available in game log\n\nredMod log:\n ${result.stdout}\n\n\n${result.stderr}`,
@@ -912,6 +912,8 @@ export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
   installedGamesStore.set('installed', array)
   refreshInstalled()
   const gameInfo = getGameInfo(appName)
+  gameInfo.is_installed = false
+  gameInfo.install = { is_dlc: false }
   await removeShortcutsUtil(gameInfo)
   syncStore.delete(appName)
   await removeNonSteamGame({ gameInfo })

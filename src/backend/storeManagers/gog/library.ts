@@ -509,7 +509,6 @@ export async function getInstallInfo(
   branch = 'null',
   build?: string
 ): Promise<GogInstallInfo | undefined> {
-  console.log(installPlatform, appName)
   installPlatform = installPlatform.toLowerCase()
   if (installPlatform === 'mac') {
     installPlatform = 'osx'
