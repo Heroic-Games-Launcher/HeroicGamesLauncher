@@ -13,7 +13,6 @@ import { configStore } from './helpers/electronStores'
 import { initOnlineMonitor } from './helpers/onlineMonitor'
 import { defaultThemes } from './components/UI/ThemeSelector'
 import Loading from './screens/Loading'
-import { camelCase } from 'camel-case'
 
 initOnlineMonitor()
 
@@ -140,7 +139,7 @@ window.setTheme = async (themeClass: string) => {
     const titlebarOverlay = Object.fromEntries(
       ['height', 'color', 'symbol-color']
         .map((item) => [
-          camelCase(item),
+          item === 'symbol-color' ? 'symbolColor' : item,
           getComputedStyle(document.body)
             .getPropertyValue(`--titlebar-${item}`)
             .trim()
