@@ -13,10 +13,10 @@ import { toolsPath, isLinux, legendaryConfigPath } from '../../../constants'
 import { logError, LogPrefix, logWarning } from '../../../logger/logger'
 import { runRunnerCommand as runLegendaryCommand } from '../library'
 import { verifyWinePrefix } from '../../../launcher'
-import { sendFrontendMessage } from '../../../main_window'
 import { setCurrentDownloadSize } from '../games'
 import { Path } from '../commands/base'
 import { LegendaryCommand } from '../commands'
+import { sendGameStatusUpdate } from 'backend/utils'
 
 const currentVersionPath = join(legendaryConfigPath, 'overlay_version.json')
 const installedVersionPath = join(legendaryConfigPath, 'overlay_install.json')
@@ -90,7 +90,7 @@ async function updateInfo() {
  * @returns The error encountered when installing, if any
  */
 async function install() {
-  sendFrontendMessage('gameStatusUpdate', {
+  sendGameStatusUpdate({
     appName: eosOverlayAppName,
     runner: 'legendary',
     status: isInstalled() ? 'updating' : 'installing'
@@ -148,7 +148,7 @@ async function install() {
 
   deleteAbortController(eosOverlayAppName)
 
-  sendFrontendMessage('gameStatusUpdate', {
+  sendGameStatusUpdate({
     appName: eosOverlayAppName,
     runner: 'legendary',
     status: 'done'

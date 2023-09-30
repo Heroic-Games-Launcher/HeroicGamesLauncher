@@ -1,7 +1,7 @@
 import { gameManagerMap, libraryManagerMap } from 'backend/storeManagers'
 import { TypeCheckedStoreBackend } from './../electron_store'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
-import { getFileSize, removeFolder } from '../utils'
+import { getFileSize, removeFolder, sendGameStatusUpdate } from '../utils'
 import { DMQueueElement, DMStatus, DownloadManagerState } from 'common/types'
 import { installQueueElement, updateQueueElement } from './utils'
 import { sendFrontendMessage } from '../main_window'
@@ -105,7 +105,7 @@ async function addToQueue(element: DMQueueElement) {
     return
   }
 
-  sendFrontendMessage('gameStatusUpdate', {
+  sendGameStatusUpdate({
     appName: element.params.appName,
     runner: element.params.runner,
     folder: element.params.path,
@@ -156,7 +156,7 @@ function removeFromQueue(appName: string) {
       downloadManager.set('queue', elements)
     }
 
-    sendFrontendMessage('gameStatusUpdate', {
+    sendGameStatusUpdate({
       appName,
       status: 'done'
     })

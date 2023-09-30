@@ -1,4 +1,3 @@
-import { sendFrontendMessage } from '../../main_window'
 import { logInfo, LogPrefix } from '../../logger/logger'
 import axios from 'axios'
 import { cachedUbisoftInstallerPath } from 'backend/constants'
@@ -8,6 +7,7 @@ import { showDialogBoxModalAuto } from 'backend/dialog/dialog'
 import i18next from 'i18next'
 import { getWinePath } from 'backend/launcher'
 import { getGameInfo, getSettings, runWineCommandOnGame } from './games'
+import { sendGameStatusUpdate } from 'backend/utils'
 
 const UBISOFT_INSTALLER_URL =
   'https://ubistatic3-a.akamaihd.net/orbit/launcher_installer/UbisoftConnectInstaller.exe'
@@ -35,7 +35,7 @@ export const legendarySetup = async (appName: string) => {
     return
   }
 
-  sendFrontendMessage('gameStatusUpdate', {
+  sendGameStatusUpdate({
     appName,
     runner: 'legendary',
     status: 'ubisoft'

@@ -66,7 +66,8 @@ import {
   getCurrentChangelog,
   checkWineBeforeLaunch,
   removeFolder,
-  downloadDefaultWine
+  downloadDefaultWine,
+  sendGameStatusUpdate
 } from './utils'
 import {
   configStore,
@@ -937,7 +938,7 @@ ipcMain.handle(
     logInfo(`Launching ${title} (${game.app_name})`, LogPrefix.Backend)
 
     if (autoSyncSaves && isOnline()) {
-      sendFrontendMessage('gameStatusUpdate', {
+      sendGameStatusUpdate({
         appName,
         runner,
         status: 'syncing-saves'
@@ -959,7 +960,7 @@ ipcMain.handle(
       }
     }
 
-    sendFrontendMessage('gameStatusUpdate', {
+    sendGameStatusUpdate({
       appName,
       runner,
       status: 'launching'
@@ -1013,7 +1014,7 @@ ipcMain.handle(
           LogPrefix.Backend
         )
 
-        sendFrontendMessage('gameStatusUpdate', {
+        sendGameStatusUpdate({
           appName,
           runner,
           status: 'done'
@@ -1023,7 +1024,7 @@ ipcMain.handle(
       }
     }
 
-    sendFrontendMessage('gameStatusUpdate', {
+    sendGameStatusUpdate({
       appName,
       runner,
       status: 'playing'
@@ -1063,13 +1064,13 @@ ipcMain.handle(
     await addRecentGame(game)
 
     if (autoSyncSaves && isOnline()) {
-      sendFrontendMessage('gameStatusUpdate', {
+      sendGameStatusUpdate({
         appName,
         runner,
         status: 'done'
       })
 
-      sendFrontendMessage('gameStatusUpdate', {
+      sendGameStatusUpdate({
         appName,
         runner,
         status: 'syncing-saves'
@@ -1092,7 +1093,7 @@ ipcMain.handle(
       }
     }
 
-    sendFrontendMessage('gameStatusUpdate', {
+    sendGameStatusUpdate({
       appName,
       runner,
       status: 'done'
@@ -1125,7 +1126,7 @@ ipcMain.on('showItemInFolder', async (e, item) => showItemInFolder(item))
 ipcMain.handle(
   'uninstall',
   async (event, appName, runner, shouldRemovePrefix, shouldRemoveSetting) => {
-    sendFrontendMessage('gameStatusUpdate', {
+    sendGameStatusUpdate({
       appName,
       runner,
       status: 'uninstalling'
@@ -1173,7 +1174,7 @@ ipcMain.handle(
       logInfo('Finished uninstalling', LogPrefix.Backend)
     }
 
-    sendFrontendMessage('gameStatusUpdate', {
+    sendGameStatusUpdate({
       appName,
       runner,
       status: 'done'
@@ -1190,7 +1191,7 @@ ipcMain.handle('repair', async (event, appName, runner) => {
     return
   }
 
-  sendFrontendMessage('gameStatusUpdate', {
+  sendGameStatusUpdate({
     appName,
     runner,
     status: 'repairing'
@@ -1210,7 +1211,7 @@ ipcMain.handle('repair', async (event, appName, runner) => {
   notify({ title, body: i18next.t('notify.finished.reparing') })
   logInfo('Finished repairing', LogPrefix.Backend)
 
-  sendFrontendMessage('gameStatusUpdate', {
+  sendGameStatusUpdate({
     appName,
     runner,
     status: 'done'
@@ -1220,7 +1221,7 @@ ipcMain.handle('repair', async (event, appName, runner) => {
 ipcMain.handle(
   'moveInstall',
   async (event, { appName, path, runner }): Promise<void> => {
-    sendFrontendMessage('gameStatusUpdate', {
+    sendGameStatusUpdate({
       appName,
       runner,
       status: 'moving'
@@ -1255,7 +1256,7 @@ ipcMain.handle(
       logInfo(`Finished moving ${appName} to ${path}.`, LogPrefix.Backend)
     }
 
-    sendFrontendMessage('gameStatusUpdate', {
+    sendGameStatusUpdate({
       appName,
       runner,
       status: 'done'
@@ -1281,7 +1282,7 @@ ipcMain.handle(
     }
 
     const title = gameManagerMap[runner].getGameInfo(appName).title
-    sendFrontendMessage('gameStatusUpdate', {
+    sendGameStatusUpdate({
       appName,
       runner,
       status: 'installing'
@@ -1289,7 +1290,7 @@ ipcMain.handle(
 
     const abortMessage = () => {
       notify({ title, body: i18next.t('notify.install.canceled') })
-      sendFrontendMessage('gameStatusUpdate', {
+      sendGameStatusUpdate({
         appName,
         runner,
         status: 'done'
@@ -1316,7 +1317,7 @@ ipcMain.handle(
       title,
       body: i18next.t('notify.install.imported', 'Game Imported')
     })
-    sendFrontendMessage('gameStatusUpdate', {
+    sendGameStatusUpdate({
       appName,
       runner,
       status: 'done'

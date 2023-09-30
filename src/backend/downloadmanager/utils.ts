@@ -1,11 +1,10 @@
 import { gameManagerMap } from 'backend/storeManagers'
 import { logError, LogPrefix, logWarning } from '../logger/logger'
-import { isEpicServiceOffline } from '../utils'
+import { isEpicServiceOffline, sendGameStatusUpdate } from '../utils'
 import { DMStatus, InstallParams } from 'common/types'
 import i18next from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
 import { isOnline } from '../online_monitor'
-import { sendFrontendMessage } from '../main_window'
 
 async function installQueueElement(params: InstallParams): Promise<{
   status: DMStatus
@@ -45,7 +44,7 @@ async function installQueueElement(params: InstallParams): Promise<{
     }
   }
 
-  sendFrontendMessage('gameStatusUpdate', {
+  sendGameStatusUpdate({
     appName,
     runner,
     status: 'installing',
@@ -82,7 +81,7 @@ async function installQueueElement(params: InstallParams): Promise<{
     errorMessage(`${error}`)
     return { status: 'error' }
   } finally {
-    sendFrontendMessage('gameStatusUpdate', {
+    sendGameStatusUpdate({
       appName,
       runner,
       status: 'done'
@@ -120,7 +119,7 @@ async function updateQueueElement(params: InstallParams): Promise<{
     }
   }
 
-  sendFrontendMessage('gameStatusUpdate', {
+  sendGameStatusUpdate({
     appName,
     runner,
     status: 'updating'
@@ -150,7 +149,7 @@ async function updateQueueElement(params: InstallParams): Promise<{
     errorMessage(`${error}`)
     return { status: 'error' }
   } finally {
-    sendFrontendMessage('gameStatusUpdate', {
+    sendGameStatusUpdate({
       appName,
       runner,
       status: 'done'

@@ -25,7 +25,9 @@ import {
   spawnAsync,
   moveOnUnix,
   moveOnWindows,
-  shutdownWine
+  shutdownWine,
+  sendProgressUpdate,
+  sendGameStatusUpdate
 } from '../../utils'
 import {
   ExtraInfo,
@@ -257,7 +259,7 @@ export function onInstallOrUpdateOutput(
       LogPrefix.Gog
     )
 
-    sendFrontendMessage(`progressUpdate-${appName}`, {
+    sendProgressUpdate({
       appName: appName,
       runner: 'gog',
       status: action,
@@ -812,7 +814,7 @@ export async function update(
 
   if (res.error) {
     logError(['Failed to update', `${appName}:`, res.error], LogPrefix.Gog)
-    sendFrontendMessage('gameStatusUpdate', {
+    sendGameStatusUpdate({
       appName: appName,
       runner: 'gog',
       status: 'done'
@@ -847,7 +849,7 @@ export async function update(
   }
   installedGamesStore.set('installed', installedArray)
   refreshInstalled()
-  sendFrontendMessage('gameStatusUpdate', {
+  sendGameStatusUpdate({
     appName: appName,
     runner: 'gog',
     status: 'done'

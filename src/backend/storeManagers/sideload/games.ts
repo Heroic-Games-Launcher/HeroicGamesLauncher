@@ -9,7 +9,7 @@ import {
 import { libraryStore } from './electronStores'
 import { GameConfig } from '../../game_config'
 import { isWindows, isMac, isLinux } from '../../constants'
-import { killPattern, shutdownWine } from '../../utils'
+import { killPattern, sendGameStatusUpdate, shutdownWine } from '../../utils'
 import { logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import { dirname } from 'path'
 import { existsSync, rmSync } from 'graceful-fs'
@@ -19,7 +19,6 @@ import {
   removeShortcuts as removeShortcutsUtil
 } from '../../shortcuts/shortcuts/shortcuts'
 import { notify } from '../../dialog/dialog'
-import { sendFrontendMessage } from '../../main_window'
 import { launchGame } from 'backend/storeManagers/storeManagerCommon/games'
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import { InstallResult, RemoveArgs } from 'common/types/game_manager'
@@ -95,7 +94,7 @@ export async function uninstall({
   shouldRemovePrefix,
   deleteFiles = false
 }: RemoveArgs): Promise<ExecResult> {
-  sendFrontendMessage('gameStatusUpdate', {
+  sendGameStatusUpdate({
     appName,
     runner: 'sideload',
     status: 'uninstalling'
@@ -128,7 +127,7 @@ export async function uninstall({
 
   removeShortcutsUtil(gameInfo)
 
-  sendFrontendMessage('gameStatusUpdate', {
+  sendGameStatusUpdate({
     appName,
     runner: 'sideload',
     status: 'done'

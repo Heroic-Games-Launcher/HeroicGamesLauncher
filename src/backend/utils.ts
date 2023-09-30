@@ -77,6 +77,7 @@ import {
   wineDownloaderInfoStore
 } from './wine/manager/utils'
 import { getHeroicVersion } from './utils/systeminfo/heroicVersion'
+import { backendEvents } from './backend_events'
 
 const execAsync = promisify(exec)
 
@@ -1163,6 +1164,19 @@ function removeFolder(path: string, folderName: string) {
   return
 }
 
+function sendGameStatusUpdate(payload: unknown) {
+  sendFrontendMessage('gameStatusUpdate', payload)
+  backendEvents.emit('gameStatusUpdate', payload)
+}
+
+function sendProgressUpdate(payload: {
+  appName: string
+  [key: string]: unknown
+}) {
+  sendFrontendMessage(`progressUpdate-${payload.appName}`, payload)
+  backendEvents.emit(`progressUpdate-${payload.appName}`, payload)
+}
+
 export {
   errorHandler,
   execAsync,
@@ -1193,7 +1207,9 @@ export {
   getWineFromProton,
   getFileSize,
   memoryLog,
-  removeFolder
+  removeFolder,
+  sendGameStatusUpdate,
+  sendProgressUpdate
 }
 
 // Exported only for testing purpose

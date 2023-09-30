@@ -1,6 +1,6 @@
 import { BrowserWindow } from 'electron'
 import { backendEvents } from '../backend_events'
-import { sendFrontendMessage } from '../main_window'
+import { sendGameStatusUpdate, sendProgressUpdate } from '../utils'
 import '../progress_bar'
 
 jest.mock('../logger/logfile')
@@ -30,7 +30,7 @@ describe('progress_bar', () => {
 
   describe('on gameStatusUpdate with status="queued"', () => {
     it('does nothing', () => {
-      sendFrontendMessage('gameStatusUpdate', {
+      sendGameStatusUpdate({
         appName: 'Test',
         status: 'queued'
       })
@@ -41,7 +41,7 @@ describe('progress_bar', () => {
 
   describe('on gameStatusUpdate with status other than "done"', () => {
     it('sets progress bar to indeterminate', () => {
-      sendFrontendMessage('gameStatusUpdate', {
+      sendGameStatusUpdate({
         appName: 'Test',
         status: 'installing'
       })
@@ -52,7 +52,7 @@ describe('progress_bar', () => {
     it('starts listening for progress updates', () => {
       jest.spyOn(backendEvents, 'on')
 
-      sendFrontendMessage('gameStatusUpdate', {
+      sendGameStatusUpdate({
         appName: 'Test',
         status: 'installing'
       })
@@ -66,7 +66,8 @@ describe('progress_bar', () => {
 
   describe('on progressUpdate-${appName}', () => {
     it('sets progress bar according to progress', () => {
-      sendFrontendMessage('progressUpdate-Test', {
+      sendProgressUpdate({
+        appName: 'Test',
         progress: { percent: 42 }
       })
 
@@ -76,7 +77,7 @@ describe('progress_bar', () => {
 
   describe('on gameStatusUpdate with status="done"', () => {
     it('removes the progress bar', () => {
-      sendFrontendMessage('gameStatusUpdate', {
+      sendGameStatusUpdate({
         appName: 'Test',
         status: 'done'
       })
@@ -87,7 +88,7 @@ describe('progress_bar', () => {
     it('stops listening for progress updates', () => {
       jest.spyOn(backendEvents, 'off')
 
-      sendFrontendMessage('gameStatusUpdate', {
+      sendGameStatusUpdate({
         appName: 'Test',
         status: 'done'
       })
