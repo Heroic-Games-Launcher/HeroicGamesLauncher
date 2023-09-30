@@ -586,7 +586,10 @@
         "addgamestoapplications": "Дадавайце гульні ў праграмы аўтаматычна",
         "showMetalOverlay": "Паказаць накладанне статыстыкі",
         "alt-nile-bin": "Выберыце альтэрнатыўны двайковы файл Nile",
-        "autodxvknvapi": "Аўтаматычная ўстаноўка/абнаўленне DXVK на прэфіксе"
+        "autodxvknvapi": "Аўтаматычная ўстаноўка/абнаўленне DXVK на прэфіксе",
+        "experimental_features": {
+            "enableNewShinyFeature": "Новая бліскучая функцыя"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -621,13 +624,39 @@
             "log": "Log",
             "other": "Other",
             "sync": "Сінхранізацыя захаванняў з воблакам",
-            "wineExt": "Wine Extensions"
+            "wineExt": "Wine Extensions",
+            "systemInformation": "Інфармацыя аб сістэме"
         },
         "open-config-file": "Адкрыйце файл канфігурацыі",
         "reset-heroic": "Reset Heroic",
         "saves": {
             "label": "Save Location:",
             "warning": "Функцыя захавання ў воблаку знаходзіцца ў бэта-версіі, зрабіце рэзервовую копію захаванняў перад сінхранізацыяй (на выпадак, калі нешта пойдзе не так)"
+        },
+        "systemInformation": {
+            "cpu": "ЦП:",
+            "gpuWithNumber": "ГП {{number}}:",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "legendaryVersion": "Legendary: {{legendaryVersion}}",
+            "systemSpecifications": "Характарыстыкі сістэмы:",
+            "steamDeck": "Steam Deck",
+            "gpuDriver": "Драйвер: {{driverVersion}}",
+            "os": "Аперацыйная сістэма:",
+            "gpu": "ГП:",
+            "gogdlVersion": "Gogdl: {{gogdlVersion}}",
+            "osVersion": "Версія {{versionNumber}}",
+            "osNameFlatpak": "{{osName}} (унутры Flatpak)",
+            "software": "ПЗ:",
+            "memoryStats": "{{percentUsed}}% выкарыстана ({{usedGib}} / {{totalGib}}",
+            "systemModel": "Мадэль сістэмы:",
+            "showDetailed": "Паказаць падрабязныя характарыстыкі сістэмы",
+            "memory": "Аб'ём памяці:",
+            "copyToClipboard": "Скапіраваць у буфер абмену",
+            "heroicVersion": "Heroic: {{heroicVersion}}",
+            "nileVersion": "Nile: {{nileVersion}}"
+        },
+        "experimental_features": {
+            "title": "Эксперыментальныя асаблівасці"
         }
     },
     "Settings": "Налады",

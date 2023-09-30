@@ -1,18 +1,18 @@
 {
     "button": {
         "login": "Hasi saioa",
-        "open": "Ireki Esteka",
+        "open": "Ireki esteka",
         "copy": "Kopiatu",
-        "copied": "Kopiatu!",
-        "error": "Errorea, saiatu beste kode bat",
-        "loading": "Loading"
+        "copied": "Kopiatu da!",
+        "error": "Errore bat gertatu da, saiatu beste kode batekin",
+        "loading": "Kargatzen"
     },
     "message": {
         "part1": "Saioa hasteko eta jolasak instalatzeko, lehenik eta behin, jarraitu beharreko pausoak:",
         "part2": "Ireki",
         "part3": "Epic Store hemen",
         "part4": ", saioa hasi zure kontuan eta kopiatu",
-        "part5": "zure authorization code informazio zenbakia",
+        "part5": "zure autentikatzeko kodearen informazio zenbakia",
         "part6": "Itsatsi zure",
         "part7": "authorization code zenbakia",
         "part8": "azpiko sarrera eremuan, eta klik egin saio hasierako botoian."
