@@ -455,7 +455,7 @@ export default function DownloadDialog({
   }
 
   const readyToInstall =
-    installPath && diskSize && !gettingInstallInfo && validFlatpakPath
+    installPath && !!diskSize && !gettingInstallInfo && validFlatpakPath
 
   const showDlcSelector =
     ['legendary', 'gog'].includes(runner) && DLCList && DLCList?.length > 0
