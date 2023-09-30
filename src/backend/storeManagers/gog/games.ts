@@ -873,11 +873,13 @@ export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
     logInfo(['Executing uninstall command', command.join(' ')], LogPrefix.Gog)
 
     if (!isWindows) {
-      await runWineCommandUtil({
-        gameSettings,
-        commandParts: command,
-        wait: true
-      })
+      if (existsSync(gameSettings.winePrefix)) {
+        await runWineCommandUtil({
+          gameSettings,
+          commandParts: command,
+          wait: true
+        })
+      }
     } else {
       const adminCommand = [
         'Start-Process',
