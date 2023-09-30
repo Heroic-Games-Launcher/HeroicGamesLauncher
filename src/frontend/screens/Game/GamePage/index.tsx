@@ -19,7 +19,7 @@ import {
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { UpdateComponent } from 'frontend/components/UI'
+import { CachedImage, UpdateComponent } from 'frontend/components/UI'
 
 import {
   ExtraInfo,
@@ -64,7 +64,6 @@ import {
   SettingsButton
 } from './components'
 import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
-import { useImageAnimation } from 'frontend/hooks/useImageAnimation'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -137,8 +136,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const storage: Storage = window.localStorage
 
   const [tab, setTab] = useState<'info' | 'extra' | 'requirements'>('info')
-
-  const { imageAnimationClass, ...animImageProps } = useImageAnimation()
 
   useEffect(() => {
     const updateGameInfo = async () => {
@@ -309,14 +306,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
       <div className="gameConfigContainer">
         {!!(art_background ?? art_cover) &&
           experimentalFeatures.enableNewDesign && (
-            <div className="artBackgroundWrapper">
-              <img
-                src={art_background || art_cover}
-                loading="lazy"
-                className={imageAnimationClass}
-                {...animImageProps}
-              />
-            </div>
+            <CachedImage
+              src={art_background || art_cover}
+              className="backgroundImage"
+            />
           )}
         {gameInfo.runner !== 'sideload' && showModal.show && (
           <InstallModal
@@ -401,12 +394,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   <SettingsButton gameInfo={gameInfo} />
 
                   <div className="mainInfo">
-                    <GamePicture
-                      art_square={art_cover}
-                      store={runner}
-                      className={imageAnimationClass}
-                      {...animImageProps}
-                    />
+                    <GamePicture art_square={art_cover} store={runner} />
                     <div className="store-icon">
                       <StoreLogos runner={runner} />
                     </div>

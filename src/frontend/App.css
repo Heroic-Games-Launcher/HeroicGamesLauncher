@@ -112,12 +112,12 @@ svg.disabled {
   color: var(--background);
 }
 
-img.loadAnimation {
-  transition: opacity 500ms;
+img.loading {
   opacity: 0;
 }
 
-img.loadAnimation.loaded {
+img.loaded {
+  transition: opacity 500ms;
   opacity: 1;
 }
 
