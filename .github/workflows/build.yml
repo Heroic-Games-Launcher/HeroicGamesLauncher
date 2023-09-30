@@ -19,7 +19,7 @@ jobs:
           node-version: '18'
           cache: 'yarn'
       - name: Install modules.
-        run: yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfile --verbose
       - name: Build artifacts.
         run: yarn dist:win portable
       - name: Upload EXE.
@@ -40,7 +40,7 @@ jobs:
           node-version: '18'
           cache: 'yarn'
       - name: Install modules.
-        run: yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfile --verbose
       - name: Upload Snap to Edge Channel.
         run: yarn dist:linux snap --publish=always
         env:
@@ -65,7 +65,7 @@ jobs:
           node-version: '18'
           cache: 'yarn'
       - name: Install modules.
-        run: yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfile --verbose
       - name: Build artifacts.
         run: yarn dist:mac --x64 --arm64 --publish=never
         env:

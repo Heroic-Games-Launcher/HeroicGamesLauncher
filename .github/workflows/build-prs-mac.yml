@@ -21,7 +21,7 @@ jobs:
           node-version: '18'
           cache: 'yarn'
       - name: Install modules.
-        run: yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfile --verbose
       - name: Build artifacts.
         run: yarn dist:mac --x64 --arm64 --publish=never
         env:
