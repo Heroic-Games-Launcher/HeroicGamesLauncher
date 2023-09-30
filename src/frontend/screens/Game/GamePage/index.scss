@@ -564,6 +564,7 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         column-gap: 10px;
+        margin-top: 15px;
 
         // hiding the `uninstall` button temporarily until
         // properly implemented
@@ -636,6 +637,10 @@
           }
         }
       }
+    }
+
+    .anticheatInfo {
+      max-width: none;
     }
   }
 
