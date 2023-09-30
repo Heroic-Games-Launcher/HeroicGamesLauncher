@@ -14,6 +14,8 @@ jobs:
         with:
           node-version: '18'
           cache: 'yarn'
+      - name: Install node-gyp.
+        run: yarn global add node-gyp
       - name: Install modules.
         run: yarn install --frozen-lockfile --verbose
       - name: Lint code.
