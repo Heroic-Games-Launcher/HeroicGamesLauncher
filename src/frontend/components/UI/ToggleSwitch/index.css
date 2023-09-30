@@ -16,7 +16,8 @@
 /* add fake checkbox */
 .toggleSwitchWrapper:before {
   content: '';
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
   margin-inline-start: 13px;
   margin-inline-end: 0.5rem;
   width: 20px;

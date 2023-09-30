@@ -586,7 +586,10 @@
         "addgamestoapplications": "Автоматично додавайте ігри в програми",
         "showMetalOverlay": "Показати накладення статистики",
         "alt-nile-bin": "Виберіть альтернативний двійковий файл Nile",
-        "autodxvknvapi": "Автоматично встановлювати/оновлювати DXVK/VKD3D на префіксі"
+        "autodxvknvapi": "Автоматично встановлювати/оновлювати DXVK/VKD3D на префіксі",
+        "experimental_features": {
+            "enableNewShinyFeature": "Нова блискуча функція"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -621,13 +624,39 @@
             "log": "Журнал",
             "other": "Інше",
             "sync": "Хмарна синхронізація збережень",
-            "wineExt": "Wine Extensions"
+            "wineExt": "Wine Extensions",
+            "systemInformation": "Інформація про систему"
         },
         "open-config-file": "Відкрити файл налаштування",
         "reset-heroic": "Скинути Heroic",
         "saves": {
             "label": "Save Location:",
             "warning": "Збереження у хмарі, наразі у тестовому режимі. Будь ласка збережіть ваш файл збереження у іншому місці (у разі якщо щось піде не так)"
+        },
+        "systemInformation": {
+            "cpu": "ЦП:",
+            "gpuWithNumber": "ГП {{number}}:",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "legendaryVersion": "Legendary: {{legendaryVersion}}",
+            "systemSpecifications": "Системні характеристики:",
+            "steamDeck": "Steam Deck",
+            "gpuDriver": "Драйвер: {{driverVersion}}",
+            "os": "Операційна система:",
+            "gpu": "ГП:",
+            "gogdlVersion": "Gogdl: {{gogdlVersion}}",
+            "osVersion": "Версія {{versionNumber}}",
+            "osNameFlatpak": "{{osName}} (у Flatpak)",
+            "software": "ПЗ:",
+            "memoryStats": "{{percentUsed}}% використано ({{usedGib}} / {{totalGib}}",
+            "systemModel": "Модель системи:",
+            "showDetailed": "Показати докладні характеристики системи",
+            "memory": "Обсяг пам'яті:",
+            "copyToClipboard": "Копіювати в буфер обміну",
+            "heroicVersion": "Heroic: {{heroicVersion}}",
+            "nileVersion": "Nile: {{nileVersion}}"
+        },
+        "experimental_features": {
+            "title": "Експериментальні особливості"
         }
     },
     "Settings": "Налаштування",

@@ -281,7 +281,7 @@
             "part3": "手动同步：选择下载以下载存储在云端的存档。选择上传将会把本地存档上传到云端。强制下载将会忽略本地版本，强制上传将会忽略云端版本。",
             "part4": "自动同步将在你每次开始游戏时和结束游戏后同步存档。"
         },
-        "vkd3d": "VKD3D 是一个基于 Vulkan 的转换层，用于 DirectX 12 游戏。启用可能会显著提高兼容性。对老的 DirectX 游戏没有效果。",
+        "vkd3d": "VKD3D 是一个基于 Vulkan 的转换层，用于 DirectX 12 游戏。启用可能会显著提高兼容性。对老的 DirectX 游戏没有效果。它需要 DXVK。",
         "wine": {
             "part1": "Heroic 启动器会在以下文件夹中查找现有的 Wine/Proton/CrossOver：",
             "part2": "如果在其它位置，请使用软链接连接到这些中的一个文件夹"
@@ -624,7 +624,8 @@
             "log": "日志",
             "other": "其它",
             "sync": "存档-同步",
-            "wineExt": "Wine 扩展"
+            "wineExt": "Wine 扩展",
+            "systemInformation": "系统信息"
         },
         "open-config-file": "打开配置文件",
         "reset-heroic": "重置 Heroic",
@@ -634,6 +635,28 @@
         },
         "experimental_features": {
             "title": "实验性功能"
+        },
+        "systemInformation": {
+            "cpu": "CPU：",
+            "gpuWithNumber": "GPU {{number}}：",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "legendaryVersion": "Legendary: {{legendaryVersion}}",
+            "systemSpecifications": "系统规格：",
+            "steamDeck": "Steam Deck",
+            "gpuDriver": "驱动：{{driverVersion}}",
+            "os": "操作系统：",
+            "gpu": "GPU：",
+            "gogdlVersion": "Gogdl: {{gogdlVersion}}",
+            "osVersion": "版本 {{versionNumber}}",
+            "osNameFlatpak": "{{osName}} (inside Flatpak)",
+            "software": "软件：",
+            "memoryStats": "已用 {{percentUsed}}% {{usedGib}}/{{totalGib}}",
+            "systemModel": "系统型号：",
+            "showDetailed": "显示详细的系统规格",
+            "memory": "内存：",
+            "copyToClipboard": "复制到剪贴板",
+            "heroicVersion": "Heroic: {{heroicVersion}}",
+            "nileVersion": "Nile: {{nileVersion}}"
         }
     },
     "Settings": "设置",

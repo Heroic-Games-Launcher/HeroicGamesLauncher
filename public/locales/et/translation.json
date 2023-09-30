@@ -57,9 +57,9 @@
             },
             "generic": {
                 "message": "üldine veateade",
-                "title": "Select EXE to Run"
+                "title": "Vali EXE mida jooksutada"
             },
-            "launchAborted": "Launch aborted",
+            "launchAborted": "Käivitamine aborditud",
             "title": "Viga",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",

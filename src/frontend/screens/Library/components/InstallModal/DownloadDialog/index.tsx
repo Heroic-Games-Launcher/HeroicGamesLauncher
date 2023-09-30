@@ -73,6 +73,7 @@ type DiskSpaceInfo = {
   notEnoughDiskSpace: boolean
   message: string | `ERROR`
   validPath: boolean
+  validFlatpakPath: boolean
   spaceLeftAfter: string
 }
 
@@ -145,6 +146,7 @@ export default function DownloadDialog({
     message: '',
     notEnoughDiskSpace: false,
     validPath: true,
+    validFlatpakPath: true,
     spaceLeftAfter: ''
   })
 
@@ -335,12 +337,11 @@ export default function DownloadDialog({
 
   useEffect(() => {
     const getSpace = async () => {
-      const { message, free, validPath } = await window.api.checkDiskSpace(
-        installPath
-      )
+      const { message, free, validPath, validFlatpakPath } =
+        await window.api.checkDiskSpace(installPath)
       if (diskSize) {
         let notEnoughDiskSpace = free < diskSize
-        let spaceLeftAfter = size(free - diskSize)
+        let spaceLeftAfter = size(free - Number(diskSize))
         if (previousProgress.folder === installPath) {
           const progress = 100 - getProgress(previousProgress)
           notEnoughDiskSpace = free < (progress / 100) * diskSize
@@ -352,6 +353,7 @@ export default function DownloadDialog({
           message,
           notEnoughDiskSpace,
           validPath,
+          validFlatpakPath,
           spaceLeftAfter
         })
       }
@@ -430,7 +432,13 @@ export default function DownloadDialog({
     return ''
   }, [gameInstallInfo, installLanguage, platformToInstall, dlcsToInstall])
 
-  const { validPath, notEnoughDiskSpace, message, spaceLeftAfter } = spaceLeft
+  const {
+    validPath,
+    validFlatpakPath,
+    notEnoughDiskSpace,
+    message,
+    spaceLeftAfter
+  } = spaceLeft
   const title = gameInfo?.title
 
   function getInstallLabel() {
@@ -446,7 +454,8 @@ export default function DownloadDialog({
     return t('button.no-path-selected', 'No path selected')
   }
 
-  const readyToInstall = installPath && downloadSize && !gettingInstallInfo
+  const readyToInstall =
+    installPath && diskSize && !gettingInstallInfo && validFlatpakPath
 
   const showDlcSelector =
     ['legendary', 'gog'].includes(runner) && DLCList && DLCList?.length > 0
@@ -539,7 +548,7 @@ export default function DownloadDialog({
           afterInput={
             downloadSize ? (
               <span className="smallInputInfo">
-                {validPath && (
+                {validPath && validFlatpakPath && (
                   <>
                     <span>
                       {`${t('install.disk-space-left', 'Space Available')}: `}
@@ -567,6 +576,14 @@ export default function DownloadDialog({
                     {`${t(
                       'install.path-not-writtable',
                       'Warning: path might not be writable.'
+                    )}`}
+                  </span>
+                )}
+                {validPath && !validFlatpakPath && (
+                  <span className="error">
+                    {`${t(
+                      'install.flatpak-path-not-writtable',
+                      'Error: Sandbox access not granted to this path, data loss will occur.'
                     )}`}
                   </span>
                 )}
