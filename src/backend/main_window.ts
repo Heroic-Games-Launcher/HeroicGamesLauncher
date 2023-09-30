@@ -11,8 +11,8 @@ export const getMainWindow = () => {
 
 let windowProps: WindowProps | null = null
 
-export const getWindowProps = () => {
-  return windowProps
+export const isFrameless = () => {
+  return windowProps?.frame === false || windowProps?.titleBarStyle === 'hidden'
 }
 
 // send a message to the main window's webContents if available

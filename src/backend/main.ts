@@ -125,7 +125,7 @@ import { initTrayIcon } from './tray_icon/tray_icon'
 import {
   createMainWindow,
   getMainWindow,
-  getWindowProps,
+  isFrameless,
   sendFrontendMessage
 } from './main_window'
 
@@ -522,12 +522,7 @@ ipcMain.handle('checkDiskSpace', async (event, folder) => {
   })
 })
 
-ipcMain.handle(
-  'isFrameless',
-  () =>
-    getWindowProps()?.frame === false ||
-    getWindowProps()?.titleBarStyle === 'hidden'
-)
+ipcMain.handle('isFrameless', () => isFrameless())
 ipcMain.handle('isMinimized', () => !!getMainWindow()?.isMinimized())
 ipcMain.handle('isMaximized', () => !!getMainWindow()?.isMaximized())
 ipcMain.on('minimizeWindow', () => getMainWindow()?.minimize())
