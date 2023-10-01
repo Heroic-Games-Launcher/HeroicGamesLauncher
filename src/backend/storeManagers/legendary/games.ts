@@ -38,8 +38,6 @@ import {
   installed,
   configStore,
   gamesConfigPath,
-  isLinux,
-  isFlatpak,
   isCLINoGui
 } from '../../constants'
 import { logError, logInfo, LogPrefix, logsDisabled } from '../../logger/logger'
@@ -64,7 +62,6 @@ import shlex from 'shlex'
 import { t } from 'i18next'
 import { isOnline } from '../../online_monitor'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
-import { gameAnticheatInfo } from '../../anticheat/utils'
 import { Catalog, Product } from 'common/types/epic-graphql'
 import { sendFrontendMessage } from '../../main_window'
 import { RemoveArgs } from 'common/types/game_manager'
@@ -633,23 +630,6 @@ export async function install(
     return { status: 'error', error: res.error }
   }
   addShortcuts(appName)
-
-  const anticheatInfo = gameAnticheatInfo(getGameInfo(appName).namespace)
-
-  if (anticheatInfo && isLinux) {
-    const gameConfig = GameConfig.get(appName)
-
-    if (anticheatInfo.anticheats.includes('Easy Anti-Cheat')) {
-      gameConfig.setSetting('eacRuntime', true)
-      if (isFlatpak) {
-        gameConfig.setSetting('useGameMode', true)
-      }
-    }
-
-    if (anticheatInfo.anticheats.includes('BattlEye')) {
-      gameConfig.setSetting('battleyeRuntime', true)
-    }
-  }
 
   return { status: 'done' }
 }
