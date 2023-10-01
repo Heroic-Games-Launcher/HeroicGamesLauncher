@@ -128,7 +128,13 @@
         "path-not-writtable": "Aviso: caminho pode não permitir escrita.",
         "space-after-install": "Pós-instalação",
         "wineprefix": "Prefixo Wine (WinePrefix)",
-        "wineversion": "Versão do Wine"
+        "wineversion": "Versão do Wine",
+        "anticheat-warning": {
+            "cancel": "Não",
+            "message": "O suporte antitrapaça está quebrado ou foi negado. O jogo não vai funcionar. Você quer instalá-lo de qualquer maneira?",
+            "install": "Sim (eu entendo que não vai funcionar)",
+            "title": "Antitrapaça Quebrado/Negado"
+        }
     },
     "label": {
         "game": {

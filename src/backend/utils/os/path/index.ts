@@ -11,13 +11,20 @@ async function searchForExecutableOnPath(
   executable: string
 ): Promise<string | null> {
   return new Promise<string | null>((resolve) => {
+    // no need to check stderr or error
+    // if stdout returns the first path we take this
+    // if nothing is send to stdout we didn't found it
+    // this avoids problems inside steam where "which" calls
+    // throws alot of errors and still find the exectuable.
+    // We also prevent endless waiting when stderr, stdout
+    // and error are never called
     const child = spawn(findCommand, [executable])
     child.stdout.on('data', (output: Buffer | string) => {
       resolve(output.toString().trim())
     })
-    // Getting any data on stderr means the executable wasn't found
-    child.stderr.on('data', () => resolve(null))
-    child.on('error', () => resolve(null))
+
+    // if we close and not got any data on stdout, we return null
+    child.on('close', () => resolve(null))
   })
 }
 

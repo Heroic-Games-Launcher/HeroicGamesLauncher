@@ -109,7 +109,7 @@
     "howLongToBeat": "Duración del juego",
     "info": {
         "canRunOffline": "Requiere acceso a internet",
-        "installedPlatform": "Plataforma de Instalación",
+        "installedPlatform": "Plataforma de instalación",
         "path": "Instalado en",
         "size": "Tamaño",
         "syncsaves": "Sincronizar guardados",
@@ -134,7 +134,8 @@
             "message": "El antitrampas está roto o desactivado. El juego no funcionará. ¿Quieres instalarlo de todos modos?",
             "install": "Sí (entiendo que no funcionará)",
             "title": "Antitrampa desactivado/denegado"
-        }
+        },
+        "flatpak-path-not-writtable": "Error: No se ha concedido acceso al Sandbox a esta ruta, se perderán los datos."
     },
     "label": {
         "game": {

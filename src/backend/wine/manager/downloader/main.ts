@@ -5,6 +5,7 @@ import {
   existsSync,
   mkdirSync,
   readFileSync,
+  renameSync,
   rmSync,
   statSync
 } from 'graceful-fs'
@@ -280,6 +281,9 @@ async function installVersion({
       unlinkFile(tarFile)
       throw new Error(`Failed to make folder ${installSubDir} with:\n ${error}`)
     }
+  } else {
+    // backup old folder
+    renameSync(installSubDir, `${installSubDir}_backup`)
   }
 
   await unzipFile({
@@ -293,16 +297,24 @@ async function installVersion({
       abortHandler()
     }
 
-    if (!overwrite) {
-      rmSync(installSubDir, { recursive: true })
-    }
+    // remove artefacts
+    rmSync(installSubDir, { recursive: true })
     unlinkFile(tarFile)
+
+    // restore backup
+    if (overwrite) {
+      renameSync(`${installSubDir}_backup`, installSubDir)
+    }
+
     throw new Error(
       `Unzip of ${tarFile.split('/').slice(-1)[0]} failed with:\n ${error}`
     )
   })
 
   // clean up
+  if (overwrite) {
+    rmSync(`${installSubDir}_backup`, { recursive: true })
+  }
   unlinkFile(tarFile)
 
   // resolve with disksize

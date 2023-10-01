@@ -223,7 +223,6 @@ interface unzipProps {
  *
  * @param filePath url of the file
  * @param unzipDir absolute path to the unzip directory
- * @param overwrite allow overwriting existing unpacked files
  * @defaultValue false
  * @param onProgress callback to get unzip progress
  * @returns resolves or rejects with a message
@@ -231,7 +230,6 @@ interface unzipProps {
 async function unzipFile({
   filePath,
   unzipDir,
-  overwrite = false,
   onProgress,
   abortSignal
 }: unzipProps): Promise<string> {
@@ -266,10 +264,6 @@ async function unzipFile({
       extension_options,
       filePath
     ]
-
-    if (overwrite && !isMac) {
-      args.push('--overwrite')
-    }
 
     const unzip = spawn('tar', args, { signal: abortSignal })
 

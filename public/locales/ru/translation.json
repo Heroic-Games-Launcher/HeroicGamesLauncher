@@ -586,7 +586,10 @@
         "addgamestoapplications": "Добавляйте игры в приложения автоматически",
         "showMetalOverlay": "Показать наложение статистики",
         "alt-nile-bin": "Выберите альтернативный двоичный файл Nile",
-        "autodxvknvapi": "Автоматически устанавливать/обновлять DXVK в префиксе"
+        "autodxvknvapi": "Автоматически устанавливать/обновлять DXVK в префиксе",
+        "experimental_features": {
+            "enableNewShinyFeature": "Новая блестящая функция"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -621,13 +624,39 @@
             "log": "Журнал",
             "other": "Другие",
             "sync": "Синхронизация облачных сохранений",
-            "wineExt": "Расширения Wine"
+            "wineExt": "Расширения Wine",
+            "systemInformation": "Информация о системе"
         },
         "open-config-file": "Открыть файл конфигурации",
         "reset-heroic": "Сброс Heroic",
         "saves": {
             "label": "Место сохранения:",
             "warning": "Функция облачных сохранений находится в стадии бета-тестирования, сделайте резервную копию ваших сохранений перед синхронизацией (на случай, если что-то пойдет не так)"
+        },
+        "systemInformation": {
+            "cpu": "ЦП:",
+            "gpuWithNumber": "ГП {{number}}:",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "legendaryVersion": "Legendary: {{legendaryVersion}}",
+            "systemSpecifications": "Системные характеристики:",
+            "steamDeck": "Steam Deck",
+            "gpuDriver": "Драйвер: {{driverVersion}}",
+            "os": "Операционная система:",
+            "gpu": "ГП:",
+            "gogdlVersion": "Gogdl: {{gogdlVersion}}",
+            "osVersion": "Версия {{versionNumber}}",
+            "osNameFlatpak": "{{osName}} (внутри Flatpak)",
+            "software": "ПО:",
+            "memoryStats": "Использовано {{percentUsed}}% ({{usedGib}} / {{totalGib}}",
+            "systemModel": "Модель системы:",
+            "showDetailed": "Показать подробные характеристики системы",
+            "memory": "Объём памяти:",
+            "copyToClipboard": "Скопировать в буфер обмена",
+            "heroicVersion": "Heroic: {{heroicVersion}}",
+            "nileVersion": "Nile: {{nileVersion}}"
+        },
+        "experimental_features": {
+            "title": "Экспериментальные возможности"
         }
     },
     "Settings": "Настройки",
