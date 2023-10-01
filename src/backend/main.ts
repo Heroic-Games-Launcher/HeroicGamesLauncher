@@ -591,7 +591,7 @@ ipcMain.on('removeFolder', async (e, [path, folderName]) => {
   removeFolder(path, folderName)
 })
 
-async function runWineCommandOnGame(
+export async function runWineCommandOnGame(
   runner: Runner,
   appName: string,
   { commandParts, wait = false, protonVerb, startFolder }: WineCommandArgs
@@ -615,35 +615,6 @@ async function runWineCommandOnGame(
     startFolder
   })
 }
-
-// Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
-ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
-  const gameSettings = await gameManagerMap[runner].getSettings(appName)
-
-  switch (tool) {
-    case 'winetricks':
-      await Winetricks.run(runner, appName, event)
-      break
-    case 'winecfg':
-      runWineCommandOnGame(runner, appName, {
-        gameSettings,
-        commandParts: ['winecfg'],
-        wait: false
-      })
-      break
-    case 'runExe':
-      if (exe) {
-        const workingDir = path.parse(exe).dir
-        runWineCommandOnGame(runner, appName, {
-          gameSettings,
-          commandParts: [exe],
-          wait: false,
-          startFolder: workingDir
-        })
-      }
-      break
-  }
-})
 
 ipcMain.handle('runWineCommand', async (e, args) => runWineCommand(args))
 

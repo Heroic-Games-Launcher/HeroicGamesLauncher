@@ -21,7 +21,7 @@ import {
 } from './constants'
 import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
 import i18next from 'i18next'
-import { dirname, join } from 'path'
+import path, { dirname, join } from 'path'
 import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
 import {
@@ -38,6 +38,9 @@ import {
 } from './utils/graphics/vulkan'
 import { lt as semverLt } from 'semver'
 import { gameManagerMap } from './storeManagers'
+import { ipcMain } from 'electron'
+import { runWineCommandOnGame } from './main'
+import { sendFrontendMessage } from './main_window'
 
 export const DXVK = {
   getLatest: async () => {
@@ -429,7 +432,7 @@ export const Winetricks = {
     runner: Runner,
     appName: string,
     args: string[],
-    event?: Electron.IpcMainInvokeEvent
+    returnOutput = false
   ) => {
     const gameSettings = await gameManagerMap[runner].getSettings(appName)
 
@@ -445,7 +448,7 @@ export const Winetricks = {
       await Winetricks.download()
     }
 
-    return new Promise<void>((resolve) => {
+    return new Promise<string[] | null>((resolve) => {
       const { winePrefix, wineBin } = getWineFromProton(
         wineVersion,
         baseWinePrefix
@@ -487,14 +490,12 @@ export const Winetricks = {
         executeMessages.push(message)
         progressUpdated = true
       }
-      const sendProgress =
-        event &&
-        setInterval(() => {
-          if (progressUpdated) {
-            event.sender.send('progressOfWinetricks', executeMessages)
-            progressUpdated = false
-          }
-        }, 1000)
+      const sendProgress = setInterval(() => {
+        if (progressUpdated) {
+          sendFrontendMessage('progressOfWinetricks', executeMessages)
+          progressUpdated = false
+        }
+      }, 1000)
 
       // check if winetricks dependencies are installed
       const dependencies = ['7z', 'cabextract', 'zenity', 'unzip', 'curl']
@@ -515,16 +516,24 @@ export const Winetricks = {
       })
 
       logInfo(
-        `Running WINEPREFIX='${winePrefix}' PATH='${winepath}':$PATH ${winetricks} --force -q`,
+        `Running WINEPREFIX='${winePrefix}' PATH='${winepath}':$PATH ${winetricks} ${args.join(
+          ' '
+        )}`,
         LogPrefix.WineTricks
       )
 
       const child = spawn(winetricks, args, { env: envs })
 
+      const output: string[] = []
+
       child.stdout.setEncoding('utf8')
       child.stdout.on('data', (data: string) => {
-        logInfo(data, LogPrefix.WineTricks)
-        appendMessage(data)
+        if (returnOutput) {
+          output.push(data)
+        } else {
+          appendMessage(data)
+          logInfo(data, LogPrefix.WineTricks)
+        }
       })
 
       child.stderr.setEncoding('utf8')
@@ -536,7 +545,6 @@ export const Winetricks = {
       child.on('error', (error) => {
         logError(['Winetricks threw Error:', error], LogPrefix.WineTricks)
         showDialogBoxModalAuto({
-          event,
           title: i18next.t('box.error.winetricks.title', 'Winetricks error'),
           message: i18next.t('box.error.winetricks.message', {
             defaultValue:
@@ -547,26 +555,78 @@ export const Winetricks = {
           type: 'ERROR'
         })
         clearInterval(sendProgress)
-        resolve()
+        resolve(returnOutput ? output : null)
       })
 
       child.on('exit', () => {
+        sendFrontendMessage('progressOfWinetricks', ['Done'])
         clearInterval(sendProgress)
-        resolve()
+        resolve(returnOutput ? output : null)
       })
 
       child.on('close', () => {
         clearInterval(sendProgress)
-        resolve()
+        resolve(returnOutput ? output : null)
       })
     })
   },
-  run: async (
-    runner: Runner,
-    appName: string,
-    event: Electron.IpcMainInvokeEvent
-  ) => {
-    await Winetricks.runWithArgs(runner, appName, ['--force', '-q'], event)
+  run: async (runner: Runner, appName: string) => {
+    await Winetricks.runWithArgs(runner, appName, ['--force', '-q'])
+  },
+  listAvailable: async (runner: Runner, appName: string) => {
+    try {
+      const dlls: string[] = []
+      const outputDlls = await Winetricks.runWithArgs(
+        runner,
+        appName,
+        ['dlls', 'list'],
+        true
+      )
+      if (outputDlls) {
+        outputDlls.forEach((component: string) =>
+          dlls.push(component.split(' ', 1)[0])
+        )
+      }
+
+      const fonts: string[] = []
+      const outputFonts = await Winetricks.runWithArgs(
+        runner,
+        appName,
+        ['fonts', 'list'],
+        true
+      )
+      if (outputFonts) {
+        outputFonts.forEach((font: string) => fonts.push(font.split(' ', 1)[0]))
+      }
+      return [...dlls, ...fonts]
+    } catch {
+      return []
+    }
+  },
+  listInstalled: async (runner: Runner, appName: string) => {
+    try {
+      const output = await Winetricks.runWithArgs(
+        runner,
+        appName,
+        ['list-installed'],
+        true
+      )
+      if (!output) {
+        return []
+      } else {
+        const last = output.pop() || ''
+        if (
+          last === '' ||
+          last.match('winetricks has not installed anything')
+        ) {
+          return []
+        } else {
+          return last.split('\n').filter((component) => component.trim() !== '')
+        }
+      }
+    } catch {
+      return []
+    }
   }
 }
 
@@ -641,3 +701,62 @@ function getVkd3dUrl(): string {
   //        that would also need bigger changes in the frontend
   return 'https://api.github.com/repos/Heroic-Games-Launcher/vkd3d-proton/releases/latest'
 }
+
+// Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
+ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
+  const gameSettings = await gameManagerMap[runner].getSettings(appName)
+
+  switch (tool) {
+    case 'winetricks':
+      await Winetricks.run(runner, appName)
+      break
+    case 'winecfg':
+      runWineCommandOnGame(runner, appName, {
+        gameSettings,
+        commandParts: ['winecfg'],
+        wait: false
+      })
+      break
+    case 'runExe':
+      if (exe) {
+        const workingDir = path.parse(exe).dir
+        runWineCommandOnGame(runner, appName, {
+          gameSettings,
+          commandParts: [exe],
+          wait: false,
+          startFolder: workingDir
+        })
+      }
+      break
+  }
+})
+
+ipcMain.on(
+  'winetricksInstall',
+  async (event, { runner, appName, component }) => {
+    sendFrontendMessage('installing-winetricks-component', component)
+    try {
+      await Winetricks.runWithArgs(runner, appName, ['-q', component])
+    } finally {
+      sendFrontendMessage('installing-winetricks-component', '')
+    }
+  }
+)
+
+ipcMain.handle('winetricksAvailable', async (event, { runner, appName }) => {
+  try {
+    const x = await Winetricks.listAvailable(runner, appName)
+    return x || []
+  } catch {
+    return []
+  }
+})
+
+ipcMain.handle('winetricksInstalled', async (event, { runner, appName }) => {
+  try {
+    const x = await Winetricks.listInstalled(runner, appName)
+    return x || []
+  } catch {
+    return []
+  }
+})
