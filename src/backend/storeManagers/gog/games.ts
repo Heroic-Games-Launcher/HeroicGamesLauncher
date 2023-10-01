@@ -504,11 +504,6 @@ export async function launch(
 
   const exeOverrideFlag = gameSettings.targetExe
     ? ['--override-exe', gameSettings.targetExe]
-    : gameInfo.install.cyberpunk?.modsEnabled
-    ? [
-        '--override-exe',
-        join(gameInfo.install.install_path, 'REDprelauncher.exe')
-      ]
     : []
 
   let commandEnv = {
@@ -571,7 +566,10 @@ export async function launch(
     'launch',
     gameInfo.install.install_path,
     ...exeOverrideFlag,
-    gameInfo.app_name,
+    gameInfo.app_name === '1423049311' &&
+    gameInfo.install.cyberpunk?.modsEnabled
+      ? '1597316373'
+      : gameInfo.app_name,
     ...wineFlag,
     '--platform',
     gameInfo.install.platform.toLowerCase(),
@@ -649,7 +647,7 @@ export async function launch(
         })
         return true
       }
-      commandParts.push('-modded')
+      commandParts.push('--prefer-task', '0')
     } else {
       logError(['Unable to start modded game'], { prefix: LogPrefix.Gog })
     }
