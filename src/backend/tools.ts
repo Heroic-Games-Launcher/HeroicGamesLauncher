@@ -583,6 +583,7 @@ export const Winetricks = {
         true
       )
       if (outputDlls) {
+        // the output is an array of strings, the first word is the component name
         outputDlls.forEach((component: string) =>
           dlls.push(component.split(' ', 1)[0])
         )
@@ -596,6 +597,7 @@ export const Winetricks = {
         true
       )
       if (outputFonts) {
+        // the output is an array of strings, the first word is the font name
         outputFonts.forEach((font: string) => fonts.push(font.split(' ', 1)[0]))
       }
       return [...dlls, ...fonts]
@@ -614,6 +616,8 @@ export const Winetricks = {
       if (!output) {
         return []
       } else {
+        // the last element of the result is a new-line separated list of installed components
+        // it can also be a message saying nothing was installed yet
         const last = output.pop() || ''
         if (
           last === '' ||
@@ -745,8 +749,7 @@ ipcMain.on(
 
 ipcMain.handle('winetricksAvailable', async (event, { runner, appName }) => {
   try {
-    const x = await Winetricks.listAvailable(runner, appName)
-    return x || []
+    return await Winetricks.listAvailable(runner, appName)
   } catch {
     return []
   }
@@ -754,8 +757,7 @@ ipcMain.handle('winetricksAvailable', async (event, { runner, appName }) => {
 
 ipcMain.handle('winetricksInstalled', async (event, { runner, appName }) => {
   try {
-    const x = await Winetricks.listInstalled(runner, appName)
-    return x || []
+    return await Winetricks.listInstalled(runner, appName)
   } catch {
     return []
   }
