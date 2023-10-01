@@ -6,8 +6,6 @@ import {
   DiskSpaceData,
   StatusPromise,
   GamepadInputEvent,
-  WineCommandArgs,
-  ExecResult,
   Runner
 } from 'common/types'
 import * as path from 'path'
@@ -51,7 +49,6 @@ import { GOGUser } from './storeManagers/gog/user'
 import { NileUser } from './storeManagers/nile/user'
 import {
   clearCache,
-  execAsync,
   isEpicServiceOffline,
   handleExit,
   openUrlOrFile,
@@ -109,7 +106,7 @@ import {
 } from './logger/logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
 import { getFonts } from 'font-list'
-import { prepareWineLaunch, runWineCommand } from './launcher'
+import { runWineCommand } from './launcher'
 import shlex from 'shlex'
 import { initQueue } from './downloadmanager/downloadqueue'
 import {
@@ -590,31 +587,6 @@ ipcMain.on('showConfigFileInFolder', async (event, appName) => {
 ipcMain.on('removeFolder', async (e, [path, folderName]) => {
   removeFolder(path, folderName)
 })
-
-export async function runWineCommandOnGame(
-  runner: Runner,
-  appName: string,
-  { commandParts, wait = false, protonVerb, startFolder }: WineCommandArgs
-): Promise<ExecResult> {
-  if (gameManagerMap[runner].isNative(appName)) {
-    logError('runWineCommand called on native game!', LogPrefix.Gog)
-    return { stdout: '', stderr: '' }
-  }
-  const { folder_name, install } = gameManagerMap[runner].getGameInfo(appName)
-  const gameSettings = await gameManagerMap[runner].getSettings(appName)
-
-  await prepareWineLaunch(runner, appName)
-
-  return runWineCommand({
-    gameSettings,
-    installFolderName: folder_name,
-    gameInstallPath: install.install_path,
-    commandParts,
-    wait,
-    protonVerb,
-    startFolder
-  })
-}
 
 ipcMain.handle('runWineCommand', async (e, args) => runWineCommand(args))
 
@@ -1547,22 +1519,6 @@ ipcMain.handle('getFonts', async (event, reload) => {
   }
   return cachedFonts
 })
-
-ipcMain.handle(
-  'runWineCommandForGame',
-  async (event, { appName, commandParts, runner }) => {
-    if (isWindows) {
-      return execAsync(commandParts.join(' '))
-    }
-
-    // FIXME: Why are we using `runinprefix` here?
-    return runWineCommandOnGame(runner, appName, {
-      commandParts,
-      wait: false,
-      protonVerb: 'runinprefix'
-    })
-  }
-)
 
 ipcMain.handle('getShellPath', async (event, path) => getShellPath(path))
 

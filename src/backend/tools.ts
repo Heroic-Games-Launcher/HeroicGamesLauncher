@@ -1,4 +1,4 @@
-import { GameSettings, Runner } from 'common/types'
+import { ExecResult, GameSettings, Runner, WineCommandArgs } from 'common/types'
 import axios from 'axios'
 import {
   existsSync,
@@ -25,6 +25,7 @@ import path, { dirname, join } from 'path'
 import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
 import {
+  prepareWineLaunch,
   runWineCommand,
   setupEnvVars,
   setupWineEnvVars,
@@ -39,7 +40,6 @@ import {
 import { lt as semverLt } from 'semver'
 import { gameManagerMap } from './storeManagers'
 import { ipcMain } from 'electron'
-import { runWineCommandOnGame } from './main'
 import { sendFrontendMessage } from './main_window'
 
 export const DXVK = {
@@ -704,6 +704,47 @@ function getVkd3dUrl(): string {
   // FIXME: We currently lack a "Don't download at all" option here, but
   //        that would also need bigger changes in the frontend
   return 'https://api.github.com/repos/Heroic-Games-Launcher/vkd3d-proton/releases/latest'
+}
+
+ipcMain.handle(
+  'runWineCommandForGame',
+  async (event, { appName, commandParts, runner }) => {
+    if (isWindows) {
+      return execAsync(commandParts.join(' '))
+    }
+
+    // FIXME: Why are we using `runinprefix` here?
+    return runWineCommandOnGame(runner, appName, {
+      commandParts,
+      wait: false,
+      protonVerb: 'runinprefix'
+    })
+  }
+)
+
+async function runWineCommandOnGame(
+  runner: Runner,
+  appName: string,
+  { commandParts, wait = false, protonVerb, startFolder }: WineCommandArgs
+): Promise<ExecResult> {
+  if (gameManagerMap[runner].isNative(appName)) {
+    logError('runWineCommand called on native game!', LogPrefix.Gog)
+    return { stdout: '', stderr: '' }
+  }
+  const { folder_name, install } = gameManagerMap[runner].getGameInfo(appName)
+  const gameSettings = await gameManagerMap[runner].getSettings(appName)
+
+  await prepareWineLaunch(runner, appName)
+
+  return runWineCommand({
+    gameSettings,
+    installFolderName: folder_name,
+    gameInstallPath: install.install_path,
+    commandParts,
+    wait,
+    protonVerb,
+    startFolder
+  })
 }
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
