@@ -10,7 +10,7 @@ import {
   rm
 } from 'graceful-fs'
 import { exec, spawn } from 'child_process'
-import { execAsync, getWineFromProton } from './utils'
+import { execAsync, getWineFromProton } from '../utils'
 import {
   execOptions,
   toolsPath,
@@ -18,29 +18,28 @@ import {
   isWindows,
   userHome,
   isLinux
-} from './constants'
-import { logError, logInfo, LogPrefix, logWarning } from './logger/logger'
+} from '../constants'
+import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import i18next from 'i18next'
-import path, { dirname, join } from 'path'
-import { isOnline } from './online_monitor'
-import { showDialogBoxModalAuto } from './dialog/dialog'
+import { dirname, join } from 'path'
+import { isOnline } from '../online_monitor'
+import { showDialogBoxModalAuto } from '../dialog/dialog'
 import {
   prepareWineLaunch,
   runWineCommand,
   setupEnvVars,
   setupWineEnvVars,
   validWine
-} from './launcher'
+} from '../launcher'
 import { chmod } from 'fs/promises'
 import {
   any_gpu_supports_version,
   get_nvngx_path,
   get_vulkan_instance_version
-} from './utils/graphics/vulkan'
+} from '../utils/graphics/vulkan'
 import { lt as semverLt } from 'semver'
-import { gameManagerMap } from './storeManagers'
-import { ipcMain } from 'electron'
-import { sendFrontendMessage } from './main_window'
+import { gameManagerMap } from '../storeManagers'
+import { sendFrontendMessage } from '../main_window'
 
 export const DXVK = {
   getLatest: async () => {
@@ -706,23 +705,7 @@ function getVkd3dUrl(): string {
   return 'https://api.github.com/repos/Heroic-Games-Launcher/vkd3d-proton/releases/latest'
 }
 
-ipcMain.handle(
-  'runWineCommandForGame',
-  async (event, { appName, commandParts, runner }) => {
-    if (isWindows) {
-      return execAsync(commandParts.join(' '))
-    }
-
-    // FIXME: Why are we using `runinprefix` here?
-    return runWineCommandOnGame(runner, appName, {
-      commandParts,
-      wait: false,
-      protonVerb: 'runinprefix'
-    })
-  }
-)
-
-async function runWineCommandOnGame(
+export async function runWineCommandOnGame(
   runner: Runner,
   appName: string,
   { commandParts, wait = false, protonVerb, startFolder }: WineCommandArgs
@@ -746,60 +729,3 @@ async function runWineCommandOnGame(
     startFolder
   })
 }
-
-// Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
-ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
-  const gameSettings = await gameManagerMap[runner].getSettings(appName)
-
-  switch (tool) {
-    case 'winetricks':
-      await Winetricks.run(runner, appName)
-      break
-    case 'winecfg':
-      runWineCommandOnGame(runner, appName, {
-        gameSettings,
-        commandParts: ['winecfg'],
-        wait: false
-      })
-      break
-    case 'runExe':
-      if (exe) {
-        const workingDir = path.parse(exe).dir
-        runWineCommandOnGame(runner, appName, {
-          gameSettings,
-          commandParts: [exe],
-          wait: false,
-          startFolder: workingDir
-        })
-      }
-      break
-  }
-})
-
-ipcMain.on(
-  'winetricksInstall',
-  async (event, { runner, appName, component }) => {
-    sendFrontendMessage('installing-winetricks-component', component)
-    try {
-      await Winetricks.runWithArgs(runner, appName, ['-q', component])
-    } finally {
-      sendFrontendMessage('installing-winetricks-component', '')
-    }
-  }
-)
-
-ipcMain.handle('winetricksAvailable', async (event, { runner, appName }) => {
-  try {
-    return await Winetricks.listAvailable(runner, appName)
-  } catch {
-    return []
-  }
-})
-
-ipcMain.handle('winetricksInstalled', async (event, { runner, appName }) => {
-  try {
-    return await Winetricks.listInstalled(runner, appName)
-  } catch {
-    return []
-  }
-})
