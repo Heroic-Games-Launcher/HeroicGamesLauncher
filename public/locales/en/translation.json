@@ -718,5 +718,14 @@
         },
         "release": "Release Date",
         "size": "Size"
+    },
+    "winetricks": {
+        "install": "Install",
+        "installed": "Installed components:",
+        "installing": "Installation in progress",
+        "loading": "Loading",
+        "nothingYet": "Nothing was installed by Winetricks yet",
+        "openGUI": "Open Winetricks GUI",
+        "search": "Search fonts or components"
     }
 }

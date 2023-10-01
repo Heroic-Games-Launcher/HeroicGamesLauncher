@@ -72,6 +72,8 @@ export default function Winetricks({ onClose }: Props) {
       e: Electron.IpcRendererEvent,
       newLogs: string[]
     ) {
+      // this conditionals help to show the correct state if the dialog
+      // is closed during an installation and then re-opened
       if (newLogs[0] && newLogs[0] === 'Done') {
         setInstalling(false)
       } else if (!installing) {
