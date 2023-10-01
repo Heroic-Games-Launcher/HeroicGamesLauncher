@@ -18,7 +18,8 @@ import {
   isMac,
   isWindows,
   getSteamCompatFolder,
-  configStore
+  configStore,
+  isLinux
 } from './constants'
 
 import { logError, logInfo, LogPrefix } from './logger/logger'
@@ -324,8 +325,8 @@ class GlobalConfigV0 extends GlobalConfig {
       wineVersion: defaultWine,
       enableEsync: true,
       enableFsync: true,
-      eacRuntime: true,
-      battlEyeRuntime: true
+      eacRuntime: isLinux,
+      battlEyeRuntime: isLinux
     } as AppSettings
   }
 
