@@ -153,21 +153,21 @@ export default function GamesSettings() {
       </TabPanel>
 
       <TabPanel value={value} index={1}>
+        <ShowFPS />
+        <Mangohud />
+        <GameMode />
         {!isCrossover && (
           <>
-            <GameMode />
-            <ShowFPS />
-            <Mangohud />
-            <BattlEyeRuntime />
-            <EacRuntime />
             <PreferSystemLibs />
             <EnableDXVKFpsLimit />
             <SteamRuntime />
-            <IgnoreGameUpdates />
             <UseDGPU />
-            <OfflineMode />
           </>
         )}
+        <BattlEyeRuntime />
+        <EacRuntime />
+        <IgnoreGameUpdates />
+        <OfflineMode />
       </TabPanel>
 
       <TabPanel value={value} index={2}>
