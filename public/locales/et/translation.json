@@ -57,9 +57,9 @@
             },
             "generic": {
                 "message": "üldine veateade",
-                "title": "Select EXE to Run"
+                "title": "Vali EXE mida jooksutada"
             },
-            "launchAborted": "Launch aborted",
+            "launchAborted": "Käivitamine aborditud",
             "title": "Viga",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
@@ -577,7 +577,8 @@
         "disable_logs": "Keela logid",
         "addgamestoapplications": "Lisage mänge rakendustesse automaatselt",
         "showMetalOverlay": "Kuva statistika ülekate",
-        "alt-nile-bin": "Valige alternatiivne Niiluse binaar"
+        "alt-nile-bin": "Valige alternatiivne Niiluse binaar",
+        "autodxvknvapi": "DXVK/VKD3D automaatne paigaldamine/uuendamine prefiksile"
     },
     "settings": {
         "battlEyeRuntime": {

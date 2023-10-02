@@ -2,7 +2,7 @@ import { GOGCloudSavesLocation, GogInstallPlatform } from './types/gog'
 import { LegendaryInstallPlatform, GameMetadataInner } from './types/legendary'
 import { IpcRendererEvent } from 'electron'
 import { ChildProcess } from 'child_process'
-import { HowLongToBeatEntry } from 'howlongtobeat'
+import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
 import { NileInstallPlatform } from './types/nile'
 
 export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile'
@@ -43,6 +43,10 @@ export type Release = {
   body?: string
 }
 
+export type ExperimentalFeatures = {
+  enableNewShinyFeature: boolean // remove this when adding a real experimental feature
+}
+
 export interface AppSettings extends GameSettings {
   addDesktopShortcuts: boolean
   addStartMenuShortcuts: boolean
@@ -67,6 +71,7 @@ export interface AppSettings extends GameSettings {
   egsLinkedPath: string
   enableUpdates: boolean
   exitToTray: boolean
+  experimentalFeatures: ExperimentalFeatures
   hideChangelogsOnStartup: boolean
   libraryTopSection: LibraryTopSectionOptions
   maxRecentGames: number
@@ -133,6 +138,7 @@ export interface GameInfo {
 export interface GameSettings {
   autoInstallDxvk: boolean
   autoInstallVkd3d: boolean
+  autoInstallDxvkNvapi: boolean
   autoSyncSaves: boolean
   battlEyeRuntime: boolean
   DXVKFpsCap: string //Entered as string but used as number
@@ -350,6 +356,11 @@ export interface EnviromentVariable {
 export interface WrapperVariable {
   exe: string
   args: string
+}
+
+export interface WrapperEnv {
+  appName: string
+  appRunner: Runner
 }
 
 type AntiCheat =
@@ -572,6 +583,7 @@ export interface DiskSpaceData {
   diskSize: number
   message: string
   validPath: boolean
+  validFlatpakPath: boolean
 }
 
 export interface ToolArgs {
@@ -618,7 +630,6 @@ export interface SteamInfo {
 }
 
 export interface WikiInfo {
-  timestampLastFetch: string
   pcgamingwiki: PCGamingWikiInfo | null
   applegamingwiki: AppleGamingWikiInfo | null
   howlongtobeat: HowLongToBeatEntry | null
@@ -690,3 +701,7 @@ export interface WineManagerUISettings {
 }
 
 export type DownloadManagerState = 'idle' | 'running' | 'paused' | 'stopped'
+
+export interface WindowProps extends Electron.Rectangle {
+  maximized: boolean
+}

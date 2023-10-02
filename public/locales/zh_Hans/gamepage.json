@@ -128,7 +128,14 @@
         "path-not-writtable": "警告：路径可能不可写。",
         "space-after-install": "安装后",
         "wineprefix": "WinePrefix",
-        "wineversion": "Wine 版本"
+        "wineversion": "Wine 版本",
+        "anticheat-warning": {
+            "cancel": "否",
+            "message": "反作弊支持损坏或被拒。游戏不会正常运行。你仍要安装它吗？",
+            "install": "是（我理解它不会正常工作）",
+            "title": "反作弊损坏/被拒"
+        },
+        "flatpak-path-not-writtable": "错误：未授予此路径沙盒访问权限，可能发生数据丢失。"
     },
     "label": {
         "game": {

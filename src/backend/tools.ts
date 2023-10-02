@@ -1,4 +1,4 @@
-import { GameSettings, WineInstallation } from 'common/types'
+import { GameSettings, Runner } from 'common/types'
 import axios from 'axios'
 import {
   existsSync,
@@ -10,7 +10,6 @@ import {
   rm
 } from 'graceful-fs'
 import { exec, spawn } from 'child_process'
-
 import { execAsync, getWineFromProton } from './utils'
 import {
   execOptions,
@@ -25,13 +24,20 @@ import i18next from 'i18next'
 import { dirname, join } from 'path'
 import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
-import { runWineCommand, validWine } from './launcher'
+import {
+  runWineCommand,
+  setupEnvVars,
+  setupWineEnvVars,
+  validWine
+} from './launcher'
 import { chmod } from 'fs/promises'
 import {
   any_gpu_supports_version,
+  get_nvngx_path,
   get_vulkan_instance_version
 } from './utils/graphics/vulkan'
 import { lt as semverLt } from 'semver'
+import { gameManagerMap } from './storeManagers'
 
 export const DXVK = {
   getLatest: async () => {
@@ -49,7 +55,7 @@ export const DXVK = {
     const tools = [
       {
         name: 'vkd3d',
-        url: 'https://api.github.com/repos/Heroic-Games-Launcher/vkd3d-proton/releases/latest',
+        url: getVkd3dUrl(),
         extractCommand: 'tar -xf',
         os: 'linux'
       },
@@ -57,6 +63,12 @@ export const DXVK = {
         name: 'dxvk',
         url: getDxvkUrl(),
         extractCommand: 'tar -xf',
+        os: 'linux'
+      },
+      {
+        name: 'dxvk-nvapi',
+        url: 'https://api.github.com/repos/jp7677/dxvk-nvapi/releases/latest',
+        extractCommand: 'tar --one-top-level -xf',
         os: 'linux'
       },
       {
@@ -137,7 +149,7 @@ export const DXVK = {
 
   installRemove: async (
     gameSettings: GameSettings,
-    tool: 'dxvk' | 'vkd3d' | 'dxvk-macOS',
+    tool: 'dxvk' | 'dxvk-nvapi' | 'vkd3d' | 'dxvk-macOS',
     action: 'backup' | 'restore'
   ): Promise<boolean> => {
     if (gameSettings.wineVersion.bin.includes('toolkit')) {
@@ -173,11 +185,12 @@ export const DXVK = {
       .toString()
       .split('\n')[0]
 
-    const dlls = readdirSync(`${toolsPath}/${tool}/${globalVersion}/x64`)
     const toolPathx32 = `${toolsPath}/${tool}/${globalVersion}/${
       tool === 'vkd3d' ? 'x86' : 'x32'
     }`
+    const dlls32 = readdirSync(toolPathx32)
     const toolPathx64 = `${toolsPath}/${tool}/${globalVersion}/x64`
+    const dlls64 = readdirSync(toolPathx64)
     const currentVersionCheck = `${winePrefix}/current_${tool}`
     let currentVersion = ''
 
@@ -203,7 +216,24 @@ export const DXVK = {
       logInfo('Removing DLL overrides', LogPrefix.DXVKInstaller)
 
       // unregister the dlls on the wine prefix
-      dlls.forEach(async (dll) => {
+      dlls64.forEach(async (dll) => {
+        dll = dll.replace('.dll', '')
+        const unregisterDll = [
+          'reg',
+          'delete',
+          'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides',
+          '/v',
+          dll,
+          '/f'
+        ]
+        await runWineCommand({
+          gameSettings,
+          commandParts: unregisterDll,
+          wait: true,
+          protonVerb: 'waitforexitandrun'
+        })
+      })
+      dlls32.forEach(async (dll) => {
         dll = dll.replace('.dll', '')
         const unregisterDll = [
           'reg',
@@ -231,7 +261,7 @@ export const DXVK = {
     }
 
     // copy the new dlls to the prefix
-    dlls.forEach((dll) => {
+    dlls32.forEach((dll) => {
       if (!isMac) {
         copyFile(
           `${toolPathx32}/${dll}`,
@@ -246,7 +276,8 @@ export const DXVK = {
           }
         )
       }
-
+    })
+    dlls64.forEach((dll) => {
       copyFile(
         `${toolPathx64}/${dll}`,
         `${winePrefix}/drive_c/windows/system32/${dll}`,
@@ -262,7 +293,7 @@ export const DXVK = {
     })
 
     // register dlls on the wine prefix
-    dlls.forEach(async (dll) => {
+    dlls64.forEach(async (dll) => {
       // remove the .dll extension otherwise will fail
       dll = dll.replace('.dll', '')
       const registerDll = [
@@ -282,6 +313,74 @@ export const DXVK = {
         protonVerb: 'waitforexitandrun'
       })
     })
+    dlls32.forEach(async (dll) => {
+      // remove the .dll extension otherwise will fail
+      dll = dll.replace('.dll', '')
+      const registerDll = [
+        'reg',
+        'add',
+        'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides',
+        '/v',
+        dll,
+        '/d',
+        'native,builtin',
+        '/f'
+      ]
+      await runWineCommand({
+        gameSettings,
+        commandParts: registerDll,
+        wait: true,
+        protonVerb: 'waitforexitandrun'
+      })
+    })
+
+    //locate and copy nvngx.dll to support DLSS on Nvidia GPUs
+    if (tool === 'dxvk-nvapi' && action === 'backup') {
+      try {
+        let nvngx_path = get_nvngx_path()
+        if (nvngx_path.length !== 0) {
+          nvngx_path += '/nvidia/wine'
+          const copyDlls = ['nvngx.dll', '_nvngx.dll']
+          copyDlls.forEach((dll) => {
+            copyFile(
+              `${nvngx_path}/${dll}`,
+              `${winePrefix}/drive_c/windows/system32/${dll}`,
+              (err) => {
+                if (err) {
+                  logError(
+                    [`Error when copying ${dll}`, err],
+                    LogPrefix.DXVKInstaller
+                  )
+                }
+              }
+            )
+          })
+          const regModNvngx = [
+            'reg',
+            'add',
+            'HKEY_LOCAL_MACHINE\\SOFTWARE\\NVIDIA Corporation\\Global\\NGXCore',
+            '/v',
+            'FullPath',
+            '/d',
+            'C:\\windows\\system32',
+            '/f'
+          ]
+          await runWineCommand({
+            gameSettings,
+            commandParts: regModNvngx,
+            wait: true,
+            protonVerb: 'waitforexitandrun'
+          })
+        } else {
+          logWarning(
+            'Could not find nvngx.dll for DLSS!',
+            LogPrefix.DXVKInstaller
+          )
+        }
+      } catch (err) {
+        logError([`Error when finding nvngx.dll`, err], LogPrefix.DXVKInstaller)
+      }
+    }
 
     writeFile(currentVersionCheck, globalVersion, (err) => {
       if (err) {
@@ -327,11 +426,16 @@ export const Winetricks = {
     }
   },
   runWithArgs: async (
-    wineVersion: WineInstallation,
-    baseWinePrefix: string,
+    runner: Runner,
+    appName: string,
     args: string[],
     event?: Electron.IpcMainInvokeEvent
   ) => {
+    const gameSettings = await gameManagerMap[runner].getSettings(appName)
+
+    const { wineVersion } = gameSettings
+    const baseWinePrefix = gameSettings.winePrefix
+
     if (!(await validWine(wineVersion))) {
       return
     }
@@ -352,7 +456,9 @@ export const Winetricks = {
       const linuxEnvs = {
         ...process.env,
         WINEPREFIX: winePrefix,
-        PATH: `${winepath}:${process.env.PATH}`
+        PATH: `${winepath}:${process.env.PATH}`,
+        ...setupEnvVars(gameSettings),
+        ...setupWineEnvVars(gameSettings, appName)
       }
 
       const wineServer = join(winepath, 'wineserver')
@@ -363,7 +469,9 @@ export const Winetricks = {
         WINESERVER: wineServer,
         WINE: wineBin,
         WINE64: wineBin,
-        PATH: `/opt/homebrew/bin:${process.env.PATH}`
+        PATH: `/opt/homebrew/bin:${process.env.PATH}`,
+        ...setupEnvVars(gameSettings),
+        ...setupWineEnvVars(gameSettings, appName)
       }
 
       const envs = isMac ? macEnvs : linuxEnvs
@@ -454,16 +562,11 @@ export const Winetricks = {
     })
   },
   run: async (
-    wineVersion: WineInstallation,
-    baseWinePrefix: string,
+    runner: Runner,
+    appName: string,
     event: Electron.IpcMainInvokeEvent
   ) => {
-    await Winetricks.runWithArgs(
-      wineVersion,
-      baseWinePrefix,
-      ['--force', '-q'],
-      event
-    )
+    await Winetricks.runWithArgs(runner, appName, ['--force', '-q'], event)
   }
 }
 
@@ -501,4 +604,40 @@ function getDxvkUrl(): string {
   // FIXME: We currently lack a "Don't download at all" option here, but
   //        that would also need bigger changes in the frontend
   return 'https://api.github.com/repos/doitsujin/dxvk/releases/latest'
+}
+
+/**
+ * Figures out the right VKD3D version to use, taking the user's hardware
+ * (specifically their Vulkan support) into account
+ */
+function getVkd3dUrl(): string {
+  if (!isLinux) {
+    return ''
+  }
+
+  if (any_gpu_supports_version([1, 3, 0])) {
+    const instance_version = get_vulkan_instance_version()
+    if (instance_version && semverLt(instance_version.join('.'), '1.3.0')) {
+      // FIXME: How does the instance version matter? Even with 1.2, newer VKD3D seems to work fine
+      logWarning(
+        'Vulkan 1.3 is supported by GPUs in this system, but instance version is outdated',
+        LogPrefix.DXVKInstaller
+      )
+    }
+    return 'https://api.github.com/repos/Heroic-Games-Launcher/vkd3d-proton/releases/latest'
+  }
+  if (any_gpu_supports_version([1, 1, 0])) {
+    logInfo(
+      'The GPU(s) in this system only support Vulkan 1.1/1.2, falling back to VKD3D 2.6',
+      LogPrefix.DXVKInstaller
+    )
+    return 'https://api.github.com/repos/Heroic-Games-Launcher/vkd3d-proton/releases/tags/v2.6'
+  }
+  logWarning(
+    'No GPU with Vulkan 1.1 support found, VKD3D will not work',
+    LogPrefix.DXVKInstaller
+  )
+  // FIXME: We currently lack a "Don't download at all" option here, but
+  //        that would also need bigger changes in the frontend
+  return 'https://api.github.com/repos/Heroic-Games-Launcher/vkd3d-proton/releases/latest'
 }

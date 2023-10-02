@@ -10,7 +10,8 @@ import {
   Runner,
   WineVersionInfo,
   InstallParams,
-  LibraryTopSectionOptions
+  LibraryTopSectionOptions,
+  ExperimentalFeatures
 } from 'common/types'
 import {
   Category,
@@ -113,6 +114,7 @@ interface StateProps {
     appName: string
     runner: Runner
   }
+  experimentalFeatures: ExperimentalFeatures
 }
 
 class GlobalState extends PureComponent<Props> {
@@ -197,7 +199,10 @@ class GlobalState extends PureComponent<Props> {
     externalLinkDialogOptions: { showDialog: false },
     hideChangelogsOnStartup: globalSettings?.hideChangelogsOnStartup || false,
     lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null'),
-    settingsModalOpen: { value: false, type: 'settings', gameInfo: undefined }
+    settingsModalOpen: { value: false, type: 'settings', gameInfo: undefined },
+    experimentalFeatures: globalSettings?.experimentalFeatures || {
+      enableNewShinyFeature: false // remove this when adding a real experimental feature
+    }
   }
 
   setLanguage = (newLanguage: string) => {
@@ -344,6 +349,10 @@ class GlobalState extends PureComponent<Props> {
 
   handleLibraryTopSection = (value: LibraryTopSectionOptions) => {
     this.setState({ libraryTopSection: value })
+  }
+
+  handleExperimentalFeatures = (value: ExperimentalFeatures) => {
+    this.setState({ experimentalFeatures: value })
   }
 
   handleSuccessfulLogin = (runner: Runner) => {
@@ -895,6 +904,7 @@ class GlobalState extends PureComponent<Props> {
             remove: this.removeGameFromFavourites
           },
           handleLibraryTopSection: this.handleLibraryTopSection,
+          handleExperimentalFeatures: this.handleExperimentalFeatures,
           setTheme: this.setTheme,
           setZoomPercent: this.setZoomPercent,
           setAllTilesInColor: this.setAllTilesInColor,

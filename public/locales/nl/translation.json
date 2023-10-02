@@ -577,7 +577,8 @@
         "disable_logs": "Logboeken uitschakelen",
         "addgamestoapplications": "Voeg automatisch games toe aan applicaties",
         "showMetalOverlay": "Statistieken-overlay weergeven",
-        "alt-nile-bin": "Kies een alternatief Nijlbinair getal"
+        "alt-nile-bin": "Kies een alternatief Nijlbinair getal",
+        "autodxvknvapi": "Automatisch installeren/updated van DXVK/VKD3D op Prefix"
     },
     "settings": {
         "battlEyeRuntime": {

@@ -152,6 +152,12 @@
             "wine-change": {
                 "message": "Die ausgewählte Wine-Version konnte nicht gefunden werden, um den Titel zu starten ({{selectedWine}}). {{newline}} Wir haben eine andere Version gefunden, möchtest du den Start mit {{foundWine}} fortsetzen?",
                 "title": "Wine nicht gefunden!"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "Möchtest du Heroic wirklich beenden?",
+                    "message": "Jeder nicht gespeicherte Fortschritt könnte verloren gehen"
+                }
             }
         },
         "wineprefix": "Wine-Präfix-Ordner auswählen",
@@ -280,7 +286,8 @@
             "part1": "Heroic sucht in den folgenden Verzeichnissen nach Versionen von Wine, Proton und CrossOver:",
             "part2": "Für andere Orte verwende einen symbolischen Link zu einem dieser Ordner"
         },
-        "disable_logs": "Aktiviere dieses Kontrollkästchen, um die meisten Schreibvorgänge in Logs zu deaktivieren (kritische Informationen werden immer protokolliert). Vergewissere dich, dass diese Einstellung deaktiviert ist, bevor du ein Problem meldest."
+        "disable_logs": "Aktiviere dieses Kontrollkästchen, um die meisten Schreibvorgänge in Logs zu deaktivieren (kritische Informationen werden immer protokolliert). Vergewissere dich, dass diese Einstellung deaktiviert ist, bevor du ein Problem meldest.",
+        "dxvknvapi": "DXVK-NVAPI ist eine Implementation von NVAPI, welche auf DXVK und der Linux-nativen NVAPI basiert, sie erlaubt die Verwendung von DLSS auf Nvidia Grafikkarten."
     },
     "info": {
         "heroic": {
@@ -336,7 +343,8 @@
         "epic": "Epic Games-Anmeldung",
         "gog": "GOG-Anmeldung",
         "message": "Melde dich bei deiner Plattform an. Du kannst auch bei mehreren gleichzeitig angemeldet sein.",
-        "amazon": "Amazon-Login"
+        "amazon": "Amazon-Login",
+        "old-mac": "Deine macOS Version ist {{version}}. Um sich anzumelden wird mindestens macOS 12 benötigt."
     },
     "message": {
         "sync": "Synchronisation abgeschlossen",
@@ -577,7 +585,8 @@
         "disable_logs": "Logs deaktivieren",
         "addgamestoapplications": "Spiele automatisch zu Anwendungen hinzufügen",
         "showMetalOverlay": "Statistik-Overlay anzeigen",
-        "alt-nile-bin": "Wählen Sie eine alternative Nil-Binärdatei"
+        "alt-nile-bin": "Wählen Sie eine alternative Nil-Binärdatei",
+        "autodxvknvapi": "Automatisches Installieren/Aktualisieren von DXVK im Präfix"
     },
     "settings": {
         "battlEyeRuntime": {

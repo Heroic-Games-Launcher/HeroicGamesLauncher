@@ -152,6 +152,11 @@
             "wine-change": {
                 "message": "ما نتوانستیم نسخه Wine انتخابی را برای راه اندازی این عنوان ({{selectedWine}}) پیدا کنیم. {{newline}} ما یکی دیگر را پیدا کردیم، آیا می‌خواهید با استفاده از {{foundWine}} راه‌اندازی را ادامه دهید؟",
                 "title": "Wine پیدا نشد!"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "آیا مطمئن هستید که می خواهید خارج شوید؟"
+                }
             }
         },
         "wineprefix": "انتخاب پوشه Wine Prefix",
@@ -577,7 +582,8 @@
         "disable_logs": "غیرفعال کردن گزارش‌ها",
         "addgamestoapplications": "بازی ها را به طور خودکار به برنامه ها اضافه کنید",
         "showMetalOverlay": "نمایش همپوشانی آمار",
-        "alt-nile-bin": "یک باینری جایگزین نیل را انتخاب کنید"
+        "alt-nile-bin": "یک باینری جایگزین نیل را انتخاب کنید",
+        "autodxvknvapi": "نصب/بهروزرسانی خودکار DXVK در Prefix"
     },
     "settings": {
         "battlEyeRuntime": {

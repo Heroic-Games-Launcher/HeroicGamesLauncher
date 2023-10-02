@@ -152,6 +152,12 @@
             "wine-change": {
                 "message": "Vi kunde inte hitta den valda vinversionen för att lansera den här titeln ({{selectedWine}}). {{newline}} Vi hittade en till, vill du fortsätta lanseringen med {{foundWine}}?",
                 "title": "Vinet hittades inte!"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "Är du säker på att du vill sluta?",
+                    "message": "Alla osparade framsteg kan gå förlorade"
+                }
             }
         },
         "wineprefix": "Ange Wine-prefix mapp",
@@ -280,7 +286,8 @@
             "part1": "Heroic söker efter Wine, Proton och CrossOver i dessa mappar:",
             "part2": "För övriga platser, använd symbolisk länk till en av dessa mappar"
         },
-        "disable_logs": "Slå den här kryssrutan PÅ för att inaktivera de flesta skrivningar till loggfiler (kritisk information loggas alltid). Se till att stänga AV den här inställningen innan du rapporterar något problem."
+        "disable_logs": "Slå den här kryssrutan PÅ för att inaktivera de flesta skrivningar till loggfiler (kritisk information loggas alltid). Se till att stänga AV den här inställningen innan du rapporterar något problem.",
+        "dxvknvapi": "DXVK-NVAPI är en implementering av NVAPI byggt ovanpå DXVK och Linux-native NVAPI, det tillåter användning av DLSS på Nvidia GPU:er."
     },
     "info": {
         "heroic": {
@@ -336,7 +343,8 @@
         "epic": "Epic Games inloggning",
         "gog": "GOG inloggning",
         "message": "Logga in på önskad plattform. Du kan vara inloggad på fler än en plattform samtidigt.",
-        "amazon": "Amazon logga in"
+        "amazon": "Amazon logga in",
+        "old-mac": "Din macOS version är {{version}}. macOS 12 eller senare krävs för att logga in."
     },
     "message": {
         "sync": "Synkronisering slutförd",
@@ -577,7 +585,8 @@
         "disable_logs": "Inaktivera loggar",
         "addgamestoapplications": "Lägg till spel till applikationer automatiskt",
         "showMetalOverlay": "Visa statistiköverlägg",
-        "alt-nile-bin": "Välj en alternativ Nile Binär"
+        "alt-nile-bin": "Välj en alternativ Nile Binär",
+        "autodxvknvapi": "Installera/uppdatera DXVK i prefix automatiskt"
     },
     "settings": {
         "battlEyeRuntime": {

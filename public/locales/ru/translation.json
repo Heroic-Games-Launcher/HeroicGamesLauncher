@@ -106,7 +106,7 @@
         },
         "quit": {
             "message": "Есть незавершенные операции. Вы уверены?",
-            "title": "Выйти"
+            "title": "Выход"
         },
         "reset-heroic": {
             "question": {
@@ -152,6 +152,12 @@
             "wine-change": {
                 "message": "Нам не удалось найти выбранную версию Wine ({{selectedWine}}) для запуска этой игры. {{newline}} Мы нашли другую версию, вы хотите продолжить запуск с помощью {{foundWine}}?",
                 "title": "Wine не найден!"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "Вы уверены, что хотите выйти?",
+                    "message": "Любой несохранённый прогресс может быть потерян"
+                }
             }
         },
         "wineprefix": "Выбрать папку префикса Wine",
@@ -280,7 +286,8 @@
             "part1": "Heroic ищет версии Wine, Proton и CrossOver в следующих папках:",
             "part2": "Для других мест используйте символическую ссылку на одну из этих папок"
         },
-        "disable_logs": "Установите этот флажок в положение ON, чтобы отключить большую часть операций записи в файлы журналов (критическая информация всегда регистрируется). Не забудьте отключить этот параметр, прежде чем сообщать о какой-либо проблеме."
+        "disable_logs": "Установите этот флажок в положение ON, чтобы отключить большую часть операций записи в файлы журналов (критическая информация всегда регистрируется). Не забудьте отключить этот параметр, прежде чем сообщать о какой-либо проблеме.",
+        "dxvknvapi": "DXVK-NVAPI — это реализация NVAPI, построенная на основе DXVK и собственного NVAPI Linux, она позволяет использовать DLSS на видеокартах Nvidia."
     },
     "info": {
         "heroic": {
@@ -336,7 +343,8 @@
         "epic": "Вход в Epic Games",
         "gog": "Вход в GOG",
         "message": "Войдите с помощью своей платформы. Вы можете войти одновременно в несколько платформ.",
-        "amazon": "Амазон Войти"
+        "amazon": "Амазон Войти",
+        "old-mac": "Ваша версия macOS: {{version}}. Для входа требуется macOS 12 или новее."
     },
     "message": {
         "sync": "Синхронизация завершена",
@@ -577,7 +585,11 @@
         "disable_logs": "Отключить журналы",
         "addgamestoapplications": "Добавляйте игры в приложения автоматически",
         "showMetalOverlay": "Показать наложение статистики",
-        "alt-nile-bin": "Выберите альтернативный двоичный файл Nile"
+        "alt-nile-bin": "Выберите альтернативный двоичный файл Nile",
+        "autodxvknvapi": "Автоматически устанавливать/обновлять DXVK в префиксе",
+        "experimental_features": {
+            "enableNewShinyFeature": "Новая блестящая функция"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -612,13 +624,39 @@
             "log": "Журнал",
             "other": "Другие",
             "sync": "Синхронизация облачных сохранений",
-            "wineExt": "Расширения Wine"
+            "wineExt": "Расширения Wine",
+            "systemInformation": "Информация о системе"
         },
         "open-config-file": "Открыть файл конфигурации",
         "reset-heroic": "Сброс Heroic",
         "saves": {
             "label": "Место сохранения:",
             "warning": "Функция облачных сохранений находится в стадии бета-тестирования, сделайте резервную копию ваших сохранений перед синхронизацией (на случай, если что-то пойдет не так)"
+        },
+        "systemInformation": {
+            "cpu": "ЦП:",
+            "gpuWithNumber": "ГП {{number}}:",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "legendaryVersion": "Legendary: {{legendaryVersion}}",
+            "systemSpecifications": "Системные характеристики:",
+            "steamDeck": "Steam Deck",
+            "gpuDriver": "Драйвер: {{driverVersion}}",
+            "os": "Операционная система:",
+            "gpu": "ГП:",
+            "gogdlVersion": "Gogdl: {{gogdlVersion}}",
+            "osVersion": "Версия {{versionNumber}}",
+            "osNameFlatpak": "{{osName}} (внутри Flatpak)",
+            "software": "ПО:",
+            "memoryStats": "Использовано {{percentUsed}}% ({{usedGib}} / {{totalGib}}",
+            "systemModel": "Модель системы:",
+            "showDetailed": "Показать подробные характеристики системы",
+            "memory": "Объём памяти:",
+            "copyToClipboard": "Скопировать в буфер обмена",
+            "heroicVersion": "Heroic: {{heroicVersion}}",
+            "nileVersion": "Nile: {{nileVersion}}"
+        },
+        "experimental_features": {
+            "title": "Экспериментальные возможности"
         }
     },
     "Settings": "Настройки",

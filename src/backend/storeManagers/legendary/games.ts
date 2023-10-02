@@ -47,6 +47,7 @@ import {
   prepareLaunch,
   prepareWineLaunch,
   setupEnvVars,
+  setupWrapperEnvVars,
   setupWrappers,
   launchCleanup,
   getRunnerCallWithoutCredentials,
@@ -636,12 +637,18 @@ export async function install(
   const anticheatInfo = gameAnticheatInfo(getGameInfo(appName).namespace)
 
   if (anticheatInfo && isLinux) {
-    const gameSettings = await getSettings(appName)
+    const gameConfig = GameConfig.get(appName)
 
-    gameSettings.eacRuntime =
-      anticheatInfo.anticheats.includes('Easy Anti-Cheat')
-    if (gameSettings.eacRuntime && isFlatpak) gameSettings.useGameMode = true
-    gameSettings.battlEyeRuntime = anticheatInfo.anticheats.includes('BattlEye')
+    if (anticheatInfo.anticheats.includes('Easy Anti-Cheat')) {
+      gameConfig.setSetting('eacRuntime', true)
+      if (isFlatpak) {
+        gameConfig.setSetting('useGameMode', true)
+      }
+    }
+
+    if (anticheatInfo.anticheats.includes('BattlEye')) {
+      gameConfig.setSetting('battleyeRuntime', true)
+    }
   }
 
   return { status: 'done' }
@@ -822,9 +829,11 @@ export async function launch(
 
   const languageCode = gameSettings.language || configStore.get('language', '')
 
-  let commandEnv = isWindows
-    ? process.env
-    : { ...process.env, ...setupEnvVars(gameSettings) }
+  let commandEnv = {
+    ...process.env,
+    ...setupWrapperEnvVars({ appName, appRunner: 'legendary' }),
+    ...(isWindows ? {} : setupEnvVars(gameSettings))
+  }
 
   const wrappers = setupWrappers(
     gameSettings,
@@ -1004,6 +1013,8 @@ export async function runWineCommandOnGame(
 
   const { folder_name, install } = getGameInfo(appName)
   const gameSettings = await getSettings(appName)
+
+  await prepareWineLaunch('legendary', appName)
 
   return runWineCommandUtil({
     gameSettings,

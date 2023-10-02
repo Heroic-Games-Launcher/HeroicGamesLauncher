@@ -577,7 +577,8 @@
         "disable_logs": "Günlükleri Devre Dışı Bırak",
         "showMetalOverlay": "İstatistik Yer Paylaşımını Göster",
         "addgamestoapplications": "Oyunları Uygulamalara otomatik olarak ekleyin",
-        "alt-nile-bin": "Alternatif Bir Nil İkilisi Seçin"
+        "alt-nile-bin": "Alternatif Bir Nil İkilisi Seçin",
+        "autodxvknvapi": "DXVK/VKD3D'yı otomatik kur/güncelle"
     },
     "settings": {
         "battlEyeRuntime": {

@@ -577,7 +577,8 @@
         "disable_logs": "Zakázať denníky",
         "addgamestoapplications": "Automaticky pridávajte hry do aplikácií",
         "showMetalOverlay": "Zobraziť prekrytie štatistík",
-        "alt-nile-bin": "Vyberte si alternatívny binárny súbor Níl"
+        "alt-nile-bin": "Vyberte si alternatívny binárny súbor Níl",
+        "autodxvknvapi": "Auto Install/Update DXVK on Prefix"
     },
     "settings": {
         "battlEyeRuntime": {

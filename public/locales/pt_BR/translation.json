@@ -80,7 +80,7 @@
             },
             "moving": "Erro ao mover o jogo {{error}}",
             "ubisoft-connect": {
-                "title": "Ubisoft Connect",
+                "title": "Ubisoft Connect ignore-same",
                 "message": "A instalação do Ubisoft Connect no prefixo do jogo falhou. Verifique nossa página wiki em https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac para instalá-lo manualmente."
             },
             "legendary": {
@@ -118,7 +118,7 @@
             "title": "Selecione o EXE para executar"
         },
         "select": {
-            "button": "Selecionar",
+            "button": "Selecionar ignore-reused",
             "exe": "Selecionar EXE"
         },
         "shortcuts": {
@@ -152,6 +152,12 @@
             "wine-change": {
                 "message": "Não foi possível encontrar a versão do Wine selecionada para iniciar este título ({{selectedWine}}). {{newline}} Encontramos outra versão, deseja continuar a iniciar usando {{foundWine}}?",
                 "title": "Wine não encontrado!"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "message": "Qualquer progresso não salvo pode ser perdido",
+                    "title": "Tem certeza que deseja sair?"
+                }
             }
         },
         "wineprefix": "Selecione a pasta do prefixo Wine",
@@ -170,7 +176,7 @@
     },
     "controller": {
         "hints": {
-            "back": "Voltar",
+            "back": "Voltar ignore-reused",
             "backspace": "Backspace",
             "close_dialog": "Fechar caixa de diálogo",
             "close_keyboard": "Fechar teclado",
@@ -183,7 +189,7 @@
             "options": "Opções",
             "play_game": "Jogar um jogo",
             "scroll": "Scroll",
-            "select": "Selecionar",
+            "select": "Selecionar ignore-reused",
             "space": "Espaço",
             "update_game": "Atualizar jogo"
         }
@@ -212,7 +218,7 @@
         "offline-notification-body": "Serviços online podem não funcionar totalmente, os servidores da Epic Games estão offline!",
         "offline-notification-title": "offline"
     },
-    "Epic Games": "Epic Games",
+    "Epic Games": "Epic Games ignore-same",
     "error": "Error",
     "favourites": "Favoritos",
     "game": {
@@ -280,7 +286,8 @@
             "part1": "O Heroic busca por versões do Wine, Proton e CrossOver nas pastas a seguir:",
             "part2": "Para outros locais, use um link simbólico para uma dessas pastas"
         },
-        "disable_logs": "Ative esta caixa de seleção para desativar a maioria das gravações em arquivos de log (informações críticas sempre são registradas). Certifique-se de desativar essa configuração antes de relatar qualquer problema."
+        "disable_logs": "Ative esta caixa de seleção para desativar a maioria das gravações em arquivos de log (informações críticas sempre são registradas). Certifique-se de desativar essa configuração antes de relatar qualquer problema.",
+        "dxvknvapi": "DXVK-NVAPI é uma implementação de NVAPI construído sobre DXVK e o NVAPI nativo linux, ele permite o uso de DLSS em GPUs Nvidia."
     },
     "info": {
         "heroic": {
@@ -336,7 +343,8 @@
         "epic": "Login da Epic Games",
         "gog": "Login da GOG",
         "message": "Faça login com sua plataforma. Você pode acessar mais de uma plataforma ao mesmo tempo.",
-        "amazon": "Login da Amazon"
+        "amazon": "Login da Amazon",
+        "old-mac": "Sua versão do macOS é {{version}}. O macOS 12 ou mais recente é necessário para fazer login."
     },
     "message": {
         "sync": "Sincronização Completa",
@@ -421,7 +429,7 @@
         "wrapper": {
             "args": "Argumentos",
             "arguments_example": "Exemplo de argumentos: --arg; -extra-file=\"caminho-arquivo/ com/espaços\"",
-            "exe": "Wrapper",
+            "exe": "Wrapper ignore-same",
             "placeHolderKey": "Novo Wrapper",
             "placeHolderValue": "Argumentos do Wrapper",
             "title": "Comando do Wrapper:"
@@ -472,7 +480,7 @@
         "addgamestosteam": "Adicionar jogos à Steam automaticamente",
         "alt-gogdl-bin": "Escolha um binário do GOGDL alternativo para usar",
         "alt-legendary-bin": "Escolha um binário alternativo do Legendary",
-        "autodxvk": "Instalar/atualizar o DXVK automaticamente no prefixo",
+        "autodxvk": "Auto Instalar/atualizar o DXVK automaticamente no prefixo",
         "autosync": "Sincronizar saves automaticamente",
         "autovkd3d": "Instalar/Atualizar VKD3D automaticamente no prefixo",
         "change-target-exe": "Selecione um EXE alternativo para executar",
@@ -577,7 +585,11 @@
         "disable_logs": "Desativar registros",
         "addgamestoapplications": "Adicionar jogos a aplicativos automaticamente",
         "showMetalOverlay": "Mostrar sobreposição de estatísticas",
-        "alt-nile-bin": "Escolha um binário alternativo do Nilo"
+        "alt-nile-bin": "Escolha um binário alternativo do Nilo",
+        "autodxvknvapi": "Auto Instalar/atualizar o DXVK-NVAPI automaticamente no prefixo",
+        "experimental_features": {
+            "enableNewShinyFeature": "Novidade"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -612,13 +624,39 @@
             "log": "Log",
             "other": "Outros",
             "sync": "Sincronização de Saves na Nuvem",
-            "wineExt": "Extensões do Wine"
+            "wineExt": "Extensões do Wine",
+            "systemInformation": "Informações do Sistema"
         },
         "open-config-file": "Abrir arquivo de configuração",
         "reset-heroic": "Redefinir Heroic",
         "saves": {
             "label": "Salvar localização:",
             "warning": "O recurso Cloud Saves está em Beta, faça backup de seus saves antes de sincronizar (caso algo dê errado)"
+        },
+        "systemInformation": {
+            "cpu": "CPU:",
+            "gpuWithNumber": "GPU {{number}}:",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "legendaryVersion": "Legendary: {{legendaryVersion}}",
+            "systemSpecifications": "Especificações do Sistema:",
+            "steamDeck": "Steam Deck",
+            "gpuDriver": "Driver: {{driverVersion}}",
+            "os": "Sistema Operacional:",
+            "gpu": "GPU:",
+            "gogdlVersion": "Gogdl: {{gogdlVersion}}",
+            "osVersion": "Versão {{versionNumber}}",
+            "osNameFlatpak": "{{osName}} (dentro do Flatpak)",
+            "software": "Software:",
+            "memoryStats": "{{percentUsed}}% usada ({{usedGib}} / {{totalGib}}",
+            "systemModel": "Modelo do Sistema:",
+            "showDetailed": "Mostrar especificações detalhadas do sistema",
+            "memory": "Memória:",
+            "copyToClipboard": "Copiar para área de transferência",
+            "heroicVersion": "Heroic: {{heroicVersion}}",
+            "nileVersion": "Nile: {{nileVersion}}"
+        },
+        "experimental_features": {
+            "title": "Recursos Experimentais"
         }
     },
     "Settings": "Configurações",
@@ -669,7 +707,7 @@
     },
     "webview": {
         "controls": {
-            "back": "Voltar",
+            "back": "Voltar ignore-reused",
             "forward": "Avançar",
             "openInBrowser": "Abrir no navegador",
             "reload": "Recarregar página"
@@ -702,5 +740,5 @@
     },
     "amazon": "Amazonas",
     "Amazon Games": "Amazon Games",
-    "prime-gaming": "Prime Gaming"
+    "prime-gaming": "Prime Gaming ignore-same"
 }

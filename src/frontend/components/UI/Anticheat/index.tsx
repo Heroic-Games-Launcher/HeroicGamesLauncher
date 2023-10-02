@@ -1,5 +1,5 @@
-import React, { MouseEvent, useEffect, useState } from 'react'
-import { AntiCheatInfo, GameInfo } from 'common/types'
+import React, { MouseEvent, useContext } from 'react'
+import { AntiCheatInfo } from 'common/types'
 import { createNewWindow } from 'frontend/helpers'
 
 import { ReactComponent as InfoIcon } from 'frontend/assets/info_icon.svg'
@@ -8,37 +8,25 @@ import { ReactComponent as AllowedIcon } from 'frontend/assets/rounded_checkmark
 
 import './index.scss'
 import { useTranslation } from 'react-i18next'
+import ContextProvider from 'frontend/state/ContextProvider'
 
 type Props = {
-  gameInfo: GameInfo
+  anticheatInfo: AntiCheatInfo | null
 }
 
 const awacyUrl = 'https://areweanticheatyet.com/'
 
-export default function Anticheat({ gameInfo }: Props) {
+export default function Anticheat({ anticheatInfo }: Props) {
   const { t } = useTranslation()
-
-  const [anticheatInfo, setAnticheatInfo] = useState<AntiCheatInfo | null>(null)
-
-  useEffect(() => {
-    if (
-      gameInfo.runner !== 'sideload' &&
-      gameInfo.title &&
-      gameInfo.namespace !== undefined
-    ) {
-      window.api
-        .getAnticheatInfo(gameInfo.namespace)
-        .then((anticheatInfo: AntiCheatInfo | null) => {
-          setAnticheatInfo(anticheatInfo)
-        })
-    }
-  }, [gameInfo])
+  const { platform } = useContext(ContextProvider)
 
   if (!anticheatInfo) {
     return null
   }
 
-  const mayNotWork = ['Denied', 'Broken'].includes(anticheatInfo.status)
+  const mayNotWork = ['Denied', 'Broken', 'Unknown'].includes(
+    anticheatInfo.status
+  )
 
   const latestUpdate =
     anticheatInfo.reference ||
@@ -97,12 +85,14 @@ export default function Anticheat({ gameInfo }: Props) {
           )}
         </span>
 
-        <span>
-          <b>{t('anticheat.source', 'Source')}:</b>&nbsp;
-          <a href="#" onClick={onAWACYClick}>
-            AreWeAntiCheatYet
-          </a>
-        </span>
+        {platform === 'linux' && (
+          <span>
+            <b>{t('anticheat.source', 'Source')}:</b>&nbsp;
+            <a href="#" onClick={onAWACYClick}>
+              AreWeAntiCheatYet
+            </a>
+          </span>
+        )}
       </div>
     </div>
   )

@@ -577,7 +577,8 @@
         "disable_logs": "Dezactivați jurnalele",
         "addgamestoapplications": "Adăugați automat jocuri la Aplicații",
         "showMetalOverlay": "Afișați statistici suprapuse",
-        "alt-nile-bin": "Alegeți un binar alternativ pentru Nil"
+        "alt-nile-bin": "Alegeți un binar alternativ pentru Nil",
+        "autodxvknvapi": "Instalare/Actualizare automată DXVK în Prefix"
     },
     "settings": {
         "battlEyeRuntime": {

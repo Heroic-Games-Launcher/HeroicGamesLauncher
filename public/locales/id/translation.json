@@ -152,6 +152,12 @@
             "wine-change": {
                 "message": "Kami tidak dapat menemukan versi wine yang dipilih untuk meluncurkan judul ini ({{selectedWine}}). {{newline}} Tapi kami menemukan yang lain, apakah Anda ingin melanjutkan peluncuran menggunakan {{foundWine}}?",
                 "title": "Wine tidak ditemukan!"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "Apakah Anda yakin ingin keluar?",
+                    "message": "Kemajuan yang belum disimpan mungkin akan hilang"
+                }
             }
         },
         "wineprefix": "Pilih Folder Prefiks Wine",
@@ -577,7 +583,8 @@
         "disable_logs": "Nonaktifkan Log",
         "addgamestoapplications": "Tambahkan gim ke Aplikasi secara otomatis",
         "showMetalOverlay": "Tampilkan Hamparan Statistik",
-        "alt-nile-bin": "Pilih Biner Nil Alternatif"
+        "alt-nile-bin": "Pilih Biner Nil Alternatif",
+        "autodxvknvapi": "Pasang/ Perbarui Otomatis DXVK di Prefiks"
     },
     "settings": {
         "battlEyeRuntime": {

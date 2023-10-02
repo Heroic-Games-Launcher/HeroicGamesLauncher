@@ -76,7 +76,7 @@
     "cloud_save_unsupported": "غير مدعوم",
     "disabled": "معطّل",
     "dlc": {
-        "installDlcs": "ثبت كل المحتوى القابل للتنزيل (DLC)"
+        "installDlcs": "ثبِّت كلَّ المحتوى القابل للتنزيل"
     },
     "enabled": "مُمكّن",
     "game": {
@@ -129,7 +129,14 @@
         "path-not-writtable": "تحذير: قد لا يكون المسار قابلًا للتحرير.",
         "space-after-install": "بعد التثبيت",
         "wineprefix": "سابقة واين",
-        "wineversion": "إصدار واين"
+        "wineversion": "إصدار واين",
+        "anticheat-warning": {
+            "cancel": "لا",
+            "message": "إما دعم مكافحة الغش تعطَّل أو رُفِض، فلن تعمل اللعبة إن ثبَّتتها، فهل تريد تثبيتها؟",
+            "install": "حسنًا، وأعي أن لا جدوى في ذلك",
+            "title": "مكافحة الغش تعطَّلت أو رُفِضت"
+        },
+        "flatpak-path-not-writtable": "خطأ: ليس عند هذا المسار وصول للمعزل، وسوف تفقد بيانات."
     },
     "label": {
         "game": {
