@@ -284,7 +284,8 @@ export async function checkForOfflineInstallerChanges(appName: string) {
   if (
     !installedGame ||
     installedGame.platform === 'linux' ||
-    !existsSync(installedGame.install_path)
+    !existsSync(installedGame.install_path) ||
+    existsSync(join(installedGame.install_path, '.gogdl-resume'))
   ) {
     return
   }
@@ -327,7 +328,7 @@ export async function checkForOfflineInstallerChanges(appName: string) {
   }
   // Check buildId
   const data = readInfoFile(appName)
-  if (!data) {
+  if (!data?.buildId) {
     return
   }
 
