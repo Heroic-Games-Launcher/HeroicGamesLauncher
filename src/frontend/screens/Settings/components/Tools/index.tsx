@@ -14,6 +14,7 @@ export default function Tools() {
   const { t } = useTranslation()
   const [winecfgRunning, setWinecfgRunning] = useState(false)
   const [winetricksRunning, setWinetricksRunning] = useState(false)
+  const [runExeRunning, setRunExeRunning] = useState(false)
   const [progress, setProgress] = useState<string[]>([])
   const { appName, runner, isDefault } = useContext(SettingsContext)
   const { platform } = useContext(ContextProvider)
@@ -25,20 +26,26 @@ export default function Tools() {
 
   type Tool = 'winecfg' | 'winetricks' | string
   async function callTools(tool: Tool, exe?: string) {
-    if (tool === 'winetricks') {
-      setWinetricksRunning(true)
+    const toolStates = {
+      winetricks: setWinetricksRunning,
+      winecfg: setWinecfgRunning,
+      runExe: setRunExeRunning
     }
-    if (tool === 'winecfg') {
-      setWinecfgRunning(true)
+
+    if (tool in toolStates) {
+      toolStates[tool](true)
     }
+
     await window.api.callTool({
       tool,
       exe,
       appName,
       runner
     })
-    setWinetricksRunning(false)
-    setWinecfgRunning(false)
+
+    if (tool in toolStates) {
+      toolStates[tool](false)
+    }
   }
 
   useEffect(() => {
@@ -98,6 +105,12 @@ export default function Tools() {
     ev.preventDefault()
   }
 
+  console.log('toolsSettings', {
+    winetricksRunning,
+    winecfgRunning,
+    runExeRunning
+  })
+
   return (
     <>
       <div data-testid="toolsSettings" className="settingsTools">
@@ -131,12 +144,15 @@ export default function Tools() {
           <a
             onDrop={async (ev) => dropHandler(ev)}
             onDragOver={(ev) => dragOverHandler(ev)}
-            className="button outline drag"
+            className={classNames('button outline drag', {
+              active: runExeRunning
+            })}
             onClick={handleRunExe}
           >
-            {t('setting.runexe.title')}
-            <br />
-            <span>{t('setting.runexe.message')}</span>
+            <div>
+              {t('setting.runexe.title')} <br />
+              <span>{t('setting.runexe.message')}</span>
+            </div>
           </a>
         </div>
       </div>
