@@ -124,7 +124,11 @@ async function prepareLaunch(
     }
   }
 
-  if (gameSettings.gamescope.enabled && !isSteamDeckGameMode) {
+  if (
+    (gameSettings.gamescope?.enableLimiter ||
+      gameSettings.gamescope?.enableUpscaling) &&
+    !isSteamDeckGameMode
+  ) {
     const gameScopeBin = await searchForExecutableOnPath('gamescope')
     if (!gameScopeBin) {
       return {
@@ -145,44 +149,61 @@ async function prepareLaunch(
     }
 
     gameScopeCommand.push(gameScopeBin)
-    if (gameSettings.gamescope.gameWidth) {
-      gameScopeCommand.push('-w', gameSettings.gamescope.gameWidth)
+
+    if (gameSettings.gamescope.enableUpscaling) {
+      // game res
+      if (gameSettings.gamescope.gameWidth) {
+        gameScopeCommand.push('-w', gameSettings.gamescope.gameWidth)
+      }
+      if (gameSettings.gamescope.gameHeight) {
+        gameScopeCommand.push('-h', gameSettings.gamescope.gameHeight)
+      }
+
+      // gamescope res
+      if (gameSettings.gamescope.upscaleWidth) {
+        gameScopeCommand.push('-W', gameSettings.gamescope.upscaleWidth)
+      }
+      if (gameSettings.gamescope.upscaleHeight) {
+        gameScopeCommand.push('-H', gameSettings.gamescope.upscaleHeight)
+      }
+
+      // upscale method
+      if (gameSettings.gamescope.upscaleMethod === 'fsr') {
+        oldVersion
+          ? gameScopeCommand.push('-U')
+          : gameScopeCommand.push('-F', 'fsr')
+      }
+      if (gameSettings.gamescope.upscaleMethod === 'nis') {
+        oldVersion
+          ? gameScopeCommand.push('-Y')
+          : gameScopeCommand.push('-F', 'nis')
+      }
+      if (gameSettings.gamescope.upscaleMethod === 'integer') {
+        oldVersion
+          ? gameScopeCommand.push('-i')
+          : gameScopeCommand.push('-S', 'integer')
+      }
+      // didn't find stretch in old version
+      if (gameSettings.gamescope.upscaleMethod === 'stretch' && !oldVersion) {
+        gameScopeCommand.push('-S', 'stretch')
+      }
+
+      // window type
+      if (gameSettings.gamescope.windowType === 'fullscreen') {
+        gameScopeCommand.push('-f')
+      }
+      if (gameSettings.gamescope.windowType === 'borderless') {
+        gameScopeCommand.push('-b')
+      }
     }
-    if (gameSettings.gamescope.gameHeight) {
-      gameScopeCommand.push('-h', gameSettings.gamescope.gameHeight)
-    }
-    if (gameSettings.gamescope.upscaleWidth) {
-      gameScopeCommand.push('-W', gameSettings.gamescope.upscaleWidth)
-    }
-    if (gameSettings.gamescope.upscaleHeight) {
-      gameScopeCommand.push('-H', gameSettings.gamescope.upscaleHeight)
-    }
-    if (gameSettings.gamescope.fpsLimiter) {
-      gameScopeCommand.push('-r', gameSettings.gamescope.fpsLimiter)
-    }
-    if (gameSettings.gamescope.fpsLimiterNoFocus) {
-      gameScopeCommand.push('-o', gameSettings.gamescope.fpsLimiterNoFocus)
-    }
-    if (gameSettings.gamescope.integerScaling) {
-      oldVersion
-        ? gameScopeCommand.push('-i')
-        : gameScopeCommand.push('-S', 'integer')
-    }
-    if (gameSettings.gamescope.windowType === 'fullscreen') {
-      gameScopeCommand.push('-f')
-    }
-    if (gameSettings.gamescope.windowType === 'borderless') {
-      gameScopeCommand.push('-b')
-    }
-    if (gameSettings.gamescope.upscaleMethod === 'fsr') {
-      oldVersion
-        ? gameScopeCommand.push('-U')
-        : gameScopeCommand.push('-F', 'fsr')
-    }
-    if (gameSettings.gamescope.upscaleMethod === 'nis') {
-      oldVersion
-        ? gameScopeCommand.push('-Y')
-        : gameScopeCommand.push('-F', 'nis')
+
+    if (gameSettings.gamescope.enableLimiter) {
+      if (gameSettings.gamescope.fpsLimiter) {
+        gameScopeCommand.push('-r', gameSettings.gamescope.fpsLimiter)
+      }
+      if (gameSettings.gamescope.fpsLimiterNoFocus) {
+        gameScopeCommand.push('-o', gameSettings.gamescope.fpsLimiterNoFocus)
+      }
     }
 
     // Note: needs to be the last option

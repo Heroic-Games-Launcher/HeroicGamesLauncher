@@ -1,9 +1,10 @@
-import React, { ChangeEvent, useContext } from 'react'
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   SelectField,
   TextInputField,
-  ToggleSwitch
+  ToggleSwitch,
+  UpdateComponent
 } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -15,8 +16,8 @@ const Gamescope = () => {
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
   const [gamescope, setGamescope] = useSetting('gamescope', {
-    enabled: false,
-    integerScaling: false,
+    enableUpscaling: false,
+    enableLimiter: false,
     windowType: 'fullscreen',
     gameWidth: '',
     gameHeight: '',
@@ -26,6 +27,22 @@ const Gamescope = () => {
     fpsLimiter: '',
     fpsLimiterNoFocus: ''
   })
+  const [fetching, setFetching] = useState(true)
+  const [isInstalled, setIsInstalled] = useState(false)
+
+  useEffect(() => {
+    setFetching(true)
+    window.api
+      .hasExecutable('gamescope')
+      .then((installed) => {
+        setIsInstalled(installed)
+        setFetching(false)
+      })
+      .catch(() => {
+        setIsInstalled(false)
+        setFetching(false)
+      })
+  }, [])
 
   function setResolution(value: string): string | undefined {
     const re = /^[0-9\b]+$/
@@ -41,218 +58,275 @@ const Gamescope = () => {
     return <></>
   }
 
+  if (fetching) {
+    return (
+      <UpdateComponent
+        message={t(
+          'settings.gamescope.searchMsg',
+          'Searching for gamescope executable.'
+        )}
+      />
+    )
+  }
+
+  if (!isInstalled) {
+    return (
+      <div style={{ color: 'red' }}>
+        {t(
+          'setting.gamescope.missingMsg',
+          'We could not found gamescope on the PATH. Install it or add it to the PATH.'
+        )}
+      </div>
+    )
+  }
+
   return (
     <div>
-      {/* Enable */}
+      {/* Enable Upscale */}
       <div className="toggleRow">
         <ToggleSwitch
-          htmlId="gamescopeToggle"
-          value={gamescope.enabled || false}
-          handleChange={() =>
-            setGamescope({ ...gamescope, enabled: !gamescope.enabled })
-          }
-          title={t(
-            'setting.gamescope.enable',
-            'Enable (Gamescope need to be installed)'
-          )}
-        />
-
-        <FontAwesomeIcon
-          className="helpIcon"
-          icon={faCircleInfo}
-          title={t('help.gamescope.enable', 'Enable Gamescope')}
-        />
-      </div>
-      {/* Integer Scaling */}
-      <div className="toggleRow">
-        <ToggleSwitch
-          htmlId="gamescopeIntToggle"
-          disabled={!gamescope.enabled}
-          value={gamescope.integerScaling || false}
+          htmlId="gamescopeUpscaleToggle"
+          value={gamescope.enableUpscaling || false}
           handleChange={() =>
             setGamescope({
               ...gamescope,
-              integerScaling: !gamescope.integerScaling
+              enableUpscaling: !gamescope.enableUpscaling
             })
           }
-          title={t('setting.gamescope.integerScaling', 'Use integer scaling')}
-        />
-
-        <FontAwesomeIcon
-          className="helpIcon"
-          icon={faCircleInfo}
-          title={t('help.gamescope.integerScaling', 'Use integer scaling')}
+          title={t('setting.gamescope.enableUpscaling', 'Enables Upscaling')}
         />
       </div>
-      {/* Window Type */}
-      <SelectField
-        disabled={!gamescope.enabled}
-        label={'Window Type'}
-        htmlId="windowType"
-        onChange={(event: ChangeEvent<HTMLSelectElement>) =>
-          setGamescope({ ...gamescope, windowType: event.currentTarget.value })
-        }
-        value={gamescope.windowType}
-      >
-        {['fullscreen', 'borderless'].map((opt, i) => (
-          <option key={i}>{opt}</option>
-        ))}
-      </SelectField>
-      {/* Game Res */}
+      {/* Upscale Settings */}
+      {gamescope.enableUpscaling && (
+        <>
+          {/* Upscale Method */}
+          <SelectField
+            label={'Upscale Method'}
+            htmlId="upscaleMethod"
+            afterSelect={
+              <FontAwesomeIcon
+                className="helpIcon"
+                icon={faCircleInfo}
+                title={t(
+                  'help.gamescope.upscaleMethod',
+                  'The upscaling method gamescope should use.'
+                )}
+              />
+            }
+            onChange={(event: ChangeEvent<HTMLSelectElement>) =>
+              setGamescope({
+                ...gamescope,
+                upscaleMethod: event.currentTarget.value
+              })
+            }
+            value={gamescope.upscaleMethod}
+          >
+            {['fsr', 'nis', 'integer', 'stretch'].map((opt, i) => (
+              <option key={i}>{opt}</option>
+            ))}
+          </SelectField>
+          {/* Game Res */}
+          <div className="toggleRow">
+            <TextInputField
+              label={t('options.gamescope.gameWidth', 'Game Width')}
+              htmlId="gameWidth"
+              placeholder=""
+              maxLength={4}
+              value={gamescope.gameWidth}
+              afterInput={
+                <FontAwesomeIcon
+                  className="helpIcon"
+                  icon={faCircleInfo}
+                  title={t(
+                    'help.gamescope.gameWidth',
+                    'The width resolution used by the game. A 16:9 aspect ratio is assumed by gamescope.'
+                  )}
+                />
+              }
+              onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                setGamescope({
+                  ...gamescope,
+                  gameWidth:
+                    setResolution(event.currentTarget.value) ??
+                    gamescope.gameWidth
+                })
+              }}
+            />
+            <div style={{ marginRight: 10 }}></div>
+            <TextInputField
+              label={t('options.gamescope.gameHeight', 'Game Height')}
+              htmlId="gameHeight"
+              placeholder=""
+              maxLength={4}
+              value={gamescope.gameHeight}
+              afterInput={
+                <FontAwesomeIcon
+                  className="helpIcon"
+                  icon={faCircleInfo}
+                  title={t(
+                    'help.gamescope.gameHeight',
+                    'The height resolution used by the game. A 16:9 aspect ratio is assumed by gamescope.'
+                  )}
+                />
+              }
+              onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                setGamescope({
+                  ...gamescope,
+                  gameHeight:
+                    setResolution(event.currentTarget.value) ??
+                    gamescope.gameHeight
+                })
+              }}
+            />
+          </div>
+          {/* Upscale Res */}
+          <div className="toggleRow">
+            <TextInputField
+              label={t('options.gamescope.upscaleWidth', 'Upscale Width')}
+              htmlId="upscaleWidth"
+              placeholder=""
+              maxLength={4}
+              value={gamescope.upscaleWidth}
+              afterInput={
+                <FontAwesomeIcon
+                  className="helpIcon"
+                  icon={faCircleInfo}
+                  title={t(
+                    'help.gamescope.upscaleWidth',
+                    'The width resolution used by gamescope. A 16:9 aspect ratio is assumed.'
+                  )}
+                />
+              }
+              onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                setGamescope({
+                  ...gamescope,
+                  upscaleWidth:
+                    setResolution(event.currentTarget.value) ??
+                    gamescope.upscaleWidth
+                })
+              }}
+            />
+            <div style={{ marginRight: 10 }}></div>
+
+            <TextInputField
+              label={t('options.gamescope.upscaleHeight', 'Upscale Height')}
+              htmlId="upscaleHeight"
+              placeholder=""
+              maxLength={4}
+              value={gamescope.upscaleHeight}
+              afterInput={
+                <FontAwesomeIcon
+                  className="helpIcon"
+                  icon={faCircleInfo}
+                  title={t(
+                    'help.gamescope.upscaleHeight',
+                    'The height resolution used by gamescope. A 16:9 aspect ratio is assumed.'
+                  )}
+                />
+              }
+              onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                setGamescope({
+                  ...gamescope,
+                  upscaleHeight:
+                    setResolution(event.currentTarget.value) ??
+                    gamescope.upscaleHeight
+                })
+              }}
+            />
+          </div>
+          {/* Window Type */}
+          <SelectField
+            label={'Window Type'}
+            htmlId="windowType"
+            onChange={(event: ChangeEvent<HTMLSelectElement>) =>
+              setGamescope({
+                ...gamescope,
+                windowType: event.currentTarget.value
+              })
+            }
+            value={gamescope.windowType}
+          >
+            {['fullscreen', 'borderless'].map((opt, i) => (
+              <option key={i}>{opt}</option>
+            ))}
+          </SelectField>
+        </>
+      )}
+      {/* Enable Limiter*/}
       <div className="toggleRow">
-        <TextInputField
-          disabled={!gamescope.enabled}
-          label={t('options.gamescope.gameWidth', 'Game Width')}
-          htmlId="gameWidth"
-          placeholder=""
-          maxLength={4}
-          value={gamescope.gameWidth}
-          onChange={(event: ChangeEvent<HTMLInputElement>) => {
+        <ToggleSwitch
+          htmlId="gamescopeLimiterToggle"
+          value={gamescope.enableLimiter || false}
+          handleChange={() =>
             setGamescope({
               ...gamescope,
-              gameWidth:
-                setResolution(event.currentTarget.value) ?? gamescope.gameWidth
+              enableLimiter: !gamescope.enableLimiter
             })
-          }}
-        />
-        <div style={{ marginRight: 10 }}></div>
-
-        <TextInputField
-          disabled={!gamescope.enabled}
-          label={t('options.gamescope.gameHeight', 'Game Height')}
-          htmlId="gameHeight"
-          placeholder=""
-          maxLength={4}
-          value={gamescope.gameHeight}
-          onChange={(event: ChangeEvent<HTMLInputElement>) => {
-            setGamescope({
-              ...gamescope,
-              gameHeight:
-                setResolution(event.currentTarget.value) ?? gamescope.gameHeight
-            })
-          }}
-        />
-
-        <FontAwesomeIcon
-          className="helpIcon"
-          icon={faCircleInfo}
-          title={t(
-            'help.gamescope.gameResolution',
-            'The native resolution the game can run on. E.g. your monitor pixel width and height.'
-          )}
+          }
+          title={t('setting.gamescope.enableLimiter', 'Enable FPS Limiter')}
         />
       </div>
-      {/* Upscale Method */}
-      <SelectField
-        disabled={!gamescope.enabled}
-        label={'Upscale Method'}
-        htmlId="upscaleMethod"
-        onChange={(event: ChangeEvent<HTMLSelectElement>) =>
-          setGamescope({
-            ...gamescope,
-            upscaleMethod: event.currentTarget.value
-          })
-        }
-        value={gamescope.upscaleMethod}
-      >
-        {['fsr', 'nis'].map((opt, i) => (
-          <option key={i}>{opt}</option>
-        ))}
-      </SelectField>
-      {/* Upscale Res */}
-      <div className="toggleRow">
-        <TextInputField
-          disabled={!gamescope.enabled}
-          label={t('options.gamescope.upscaleWidth', 'Upscale Width')}
-          htmlId="upscaleWidth"
-          placeholder=""
-          maxLength={4}
-          value={gamescope.upscaleWidth}
-          onChange={(event: ChangeEvent<HTMLInputElement>) => {
-            setGamescope({
-              ...gamescope,
-              upscaleWidth:
-                setResolution(event.currentTarget.value) ??
-                gamescope.upscaleWidth
-            })
-          }}
-        />
-        <div style={{ marginRight: 10 }}></div>
-
-        <TextInputField
-          disabled={!gamescope.enabled}
-          label={t('options.gamescope.upscaleHeight', 'Upscale Height')}
-          htmlId="upscaleHeight"
-          placeholder=""
-          maxLength={4}
-          value={gamescope.upscaleHeight}
-          onChange={(event: ChangeEvent<HTMLInputElement>) => {
-            setGamescope({
-              ...gamescope,
-              upscaleHeight:
-                setResolution(event.currentTarget.value) ??
-                gamescope.upscaleHeight
-            })
-          }}
-        />
-
-        <FontAwesomeIcon
-          className="helpIcon"
-          icon={faCircleInfo}
-          title={t(
-            'help.gamescope.upscaleResolution',
-            'The resolution gamescope should upscale to.'
-          )}
-        />
-      </div>
-      {/* FPS Limiters */}
-      <div className="toggleRow">
-        <TextInputField
-          disabled={!gamescope.enabled}
-          label={t('options.gamescope.fpsLimiter', 'FPS Limiter')}
-          htmlId="fpsLimiter"
-          placeholder=""
-          maxLength={3}
-          value={gamescope.fpsLimiter}
-          onChange={(event: ChangeEvent<HTMLInputElement>) => {
-            setGamescope({
-              ...gamescope,
-              fpsLimiter:
-                setResolution(event.currentTarget.value) ?? gamescope.fpsLimiter
-            })
-          }}
-        />
-        <div style={{ marginRight: 10 }}></div>
-
-        <TextInputField
-          disabled={!gamescope.enabled}
-          label={t(
-            'options.gamescope.fpsLimiterNoFocus',
-            'FPS Limiter (No Focus)'
-          )}
-          htmlId="fpsLimiterNoFocus"
-          placeholder=""
-          maxLength={3}
-          value={gamescope.fpsLimiterNoFocus}
-          onChange={(event: ChangeEvent<HTMLInputElement>) => {
-            setGamescope({
-              ...gamescope,
-              fpsLimiterNoFocus:
-                setResolution(event.currentTarget.value) ??
-                gamescope.fpsLimiterNoFocus
-            })
-          }}
-        />
-
-        <FontAwesomeIcon
-          className="helpIcon"
-          icon={faCircleInfo}
-          title={t(
-            'help.gamescope.fpsLimiter',
-            'The amount of frames gamescope should limit to. E.g. 60'
-          )}
-        />
-      </div>
+      {/* FPS Limiter Settings */}
+      {gamescope.enableLimiter && (
+        <>
+          <div className="toggleRow">
+            <TextInputField
+              label={t('options.gamescope.fpsLimiter', 'FPS Limiter')}
+              htmlId="fpsLimiter"
+              placeholder=""
+              maxLength={3}
+              value={gamescope.fpsLimiter}
+              afterInput={
+                <FontAwesomeIcon
+                  className="helpIcon"
+                  icon={faCircleInfo}
+                  title={t(
+                    'help.gamescope.fpsLimiter',
+                    'The frame rate limit gamescope should limit per second.'
+                  )}
+                />
+              }
+              onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                setGamescope({
+                  ...gamescope,
+                  fpsLimiter:
+                    setResolution(event.currentTarget.value) ??
+                    gamescope.fpsLimiter
+                })
+              }}
+            />
+            <div style={{ marginRight: 10 }}></div>
+            <TextInputField
+              label={t(
+                'options.gamescope.fpsLimiterNoFocus',
+                'FPS Limiter (No Focus)'
+              )}
+              htmlId="fpsLimiterNoFocus"
+              placeholder=""
+              maxLength={3}
+              value={gamescope.fpsLimiterNoFocus}
+              afterInput={
+                <FontAwesomeIcon
+                  className="helpIcon"
+                  icon={faCircleInfo}
+                  title={t(
+                    'help.gamescope.fpsLimiterNoFocus',
+                    'The frame rate limit gamescope should limit per second if the game is not focused.'
+                  )}
+                />
+              }
+              onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                setGamescope({
+                  ...gamescope,
+                  fpsLimiterNoFocus:
+                    setResolution(event.currentTarget.value) ??
+                    gamescope.fpsLimiterNoFocus
+                })
+              }}
+            />
+          </div>
+        </>
+      )}
     </div>
   )
 }

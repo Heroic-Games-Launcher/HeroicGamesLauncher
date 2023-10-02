@@ -264,6 +264,7 @@ interface AsyncIPCFunctions {
     appName: string
   ) => Promise<number | undefined>
   getAmazonLoginData: () => Promise<NileLoginData>
+  hasExecutable: (executable: string) => Promise<boolean>
 }
 
 // This is quite ugly & throws a lot of errors in a regular .ts file

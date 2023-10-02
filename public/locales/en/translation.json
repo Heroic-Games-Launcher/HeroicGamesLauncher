@@ -268,11 +268,13 @@
         },
         "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
         "gamescope": {
-            "enable": "Enable Gamescope",
             "fpsLimiter": "The amount of frames gamescope should limit to. E.g. 60",
-            "gameResolution": "The native resolution the game can run on. E.g. your monitor pixel width and height.",
-            "integerScaling": "Use integer scaling",
-            "upscaleResolution": "The resolution gamescope should upscale to."
+            "fpsLimiterNoFocus": "The frame rate limit gamescope should limit per second if the game is not focused.",
+            "gameHeight": "The height resolution used by the game. A 16:9 aspect ratio is assumed by gamescope.",
+            "gameWidth": "The width resolution used by the game. A 16:9 aspect ratio is assumed by gamescope.",
+            "upscaleHeight": "The height resolution used by gamescope. A 16:9 aspect ratio is assumed.",
+            "upscaleMethod": "The upscaling method gamescope should use.",
+            "upscaleWidth": "The width resolution used by gamescope. A 16:9 aspect ratio is assumed."
         },
         "general": "Sync with EGL if you have a working installation of the Epic Games Launcher elsewhere and want to import your games to avoid downloading them again.",
         "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
@@ -549,8 +551,9 @@
         "fsync": "Enable Fsync",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
         "gamescope": {
-            "enable": "Enable",
-            "integerScaling": "Use integer scaling"
+            "enableLimiter": "Enable FPS Limiter",
+            "enableUpscaling": "Enables Upscaling",
+            "missingMsg": "We could not found gamescope on the PATH. Install it or add it to the PATH."
         },
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "ignoreGameUpdates": "Ignore game updates",
@@ -637,6 +640,9 @@
                 "message": "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?",
                 "title": "EAC runtime enabled"
             }
+        },
+        "gamescope": {
+            "searchMsg": "Searching for gamescope executable."
         },
         "log": {
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
