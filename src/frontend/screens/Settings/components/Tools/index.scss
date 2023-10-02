@@ -44,11 +44,13 @@
 
 @keyframes fading {
   0% {
-    opacity: 0.5;
+    opacity: 0.2;
   }
 
   50% {
-    opacity: 0.8;
+    opacity: 0.5;
+    background-color: var(--navbar-background);
+    color: var(--text-default);
   }
 
   100% {
