@@ -2,7 +2,7 @@ import { GOGCloudSavesLocation, GogInstallPlatform } from './types/gog'
 import { LegendaryInstallPlatform, GameMetadataInner } from './types/legendary'
 import { IpcRendererEvent } from 'electron'
 import { ChildProcess } from 'child_process'
-import { HowLongToBeatEntry } from 'howlongtobeat'
+import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
 import { NileInstallPlatform } from './types/nile'
 
 export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile'
@@ -631,7 +631,6 @@ export interface SteamInfo {
 }
 
 export interface WikiInfo {
-  timestampLastFetch: string
   pcgamingwiki: PCGamingWikiInfo | null
   applegamingwiki: AppleGamingWikiInfo | null
   howlongtobeat: HowLongToBeatEntry | null

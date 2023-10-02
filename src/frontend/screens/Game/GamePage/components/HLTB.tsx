@@ -19,12 +19,6 @@ const HLTB = () => {
     return null
   }
 
-  const hasHLTB = Boolean(howlongtobeat.gameplayMain)
-
-  if (!hasHLTB) {
-    return null
-  }
-
   return (
     <PopoverComponent
       item={
@@ -38,7 +32,7 @@ const HLTB = () => {
       }
     >
       <div className="poppedElement">
-        <HowLongToBeat info={howlongtobeat!} />
+        <HowLongToBeat info={howlongtobeat} />
       </div>
     </PopoverComponent>
   )

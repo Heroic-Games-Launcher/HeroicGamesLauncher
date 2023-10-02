@@ -75,7 +75,7 @@
     "cloud_save_unsupported": "Ei tuettu",
     "disabled": "Pois käytöstä",
     "dlc": {
-        "installDlcs": "Asenna kaikki ladattava sisältö"
+        "installDlcs": "Asenna kaikki lisäosat"
     },
     "enabled": "Käytössä",
     "game": {
@@ -128,7 +128,14 @@
         "path-not-writtable": "Varoitus: polkuun ei ehkä pysty kirjoittamaan.",
         "space-after-install": "Asennuksen jälkeen",
         "wineprefix": "WinePrefix",
-        "wineversion": "Wine Version"
+        "wineversion": "Wine Version",
+        "anticheat-warning": {
+            "cancel": "Ei",
+            "message": "Huijauksenesto on rikki tai evätty. Peli ei tule toimimaan. Haluatko asentaa sen tästä huolimatta?",
+            "install": "Kyllä (ymmärtäen että tämä ei tule toimimaan)",
+            "title": "Huijauksenesto rikki/evätty"
+        },
+        "flatpak-path-not-writtable": "Virhe: pääsy tähän polkuun on hiekkalaatikoinnin ulkopuolella ja evätty, tiedonmenetystä tulee tapahtumaan."
     },
     "label": {
         "game": {

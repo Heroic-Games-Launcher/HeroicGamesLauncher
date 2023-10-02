@@ -13,6 +13,7 @@ body {
   --anticheat-running: var(--status-default);
   --anticheat-supported: var(--status-success);
   --anticheat-planned: var(--status-info);
+  --anticheat-unknown: var(--status-denied);
 }
 
 body.midnightMirage {

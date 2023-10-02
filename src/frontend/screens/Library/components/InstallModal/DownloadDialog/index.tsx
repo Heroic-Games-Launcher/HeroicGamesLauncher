@@ -216,7 +216,10 @@ export default function DownloadDialog({
   }
 
   async function handleInstall(path?: string, ignoreAnticheat = false) {
-    if (anticheatInfo && ['Denied', 'Broken'].includes(anticheatInfo.status)) {
+    if (
+      anticheatInfo &&
+      ['Denied', 'Broken', 'Unknown'].includes(anticheatInfo.status)
+    ) {
       if (!ignoreAnticheat) {
         confirmInstallBrokenAnticheat(path)
         return
