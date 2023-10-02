@@ -64,6 +64,7 @@ export interface AppSettings extends GameSettings {
   defaultSteamPath: string
   defaultWinePrefix: string
   disableController: boolean
+  disablePlaytimeSync: boolean
   disableLogs: boolean
   discordRPC: boolean
   downloadNoHttps: boolean
