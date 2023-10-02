@@ -1,4 +1,4 @@
-import { anticheatDataPath, isWindows } from '../constants'
+import { anticheatDataPath, isMac, isWindows } from '../constants'
 import * as axios from 'axios'
 import { logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { readFileSync, writeFileSync } from 'graceful-fs'
@@ -9,10 +9,12 @@ async function downloadAntiCheatData() {
   if (isWindows) return
 
   runOnceWhenOnline(async () => {
+    const url = isMac
+      ? 'https://raw.githubusercontent.com/Heroic-Games-Launcher/MacAnticheatData/main/games.json'
+      : 'https://raw.githubusercontent.com/Starz0r/AreWeAntiCheatYet/HEAD/games.json'
+
     try {
-      const { data } = await axios.default.get(
-        'https://raw.githubusercontent.com/Starz0r/AreWeAntiCheatYet/HEAD/games.json'
-      )
+      const { data } = await axios.default.get(url)
       writeFileSync(anticheatDataPath, JSON.stringify(data, null, 2))
       logInfo(`AreWeAntiCheatYet data downloaded`, LogPrefix.Backend)
     } catch (error) {
