@@ -12,7 +12,8 @@ import {
   GameInfo,
   GameSettings,
   State,
-  ProgressInfo
+  ProgressInfo,
+  GameStatus
 } from 'common/types'
 import * as axios from 'axios'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
@@ -1166,15 +1167,12 @@ function removeFolder(path: string, folderName: string) {
   return
 }
 
-function sendGameStatusUpdate(payload: unknown) {
+function sendGameStatusUpdate(payload: GameStatus) {
   sendFrontendMessage('gameStatusUpdate', payload)
   backendEvents.emit('gameStatusUpdate', payload)
 }
 
-function sendProgressUpdate(payload: {
-  appName: string
-  [key: string]: unknown
-}) {
+function sendProgressUpdate(payload: GameStatus) {
   sendFrontendMessage(`progressUpdate-${payload.appName}`, payload)
   backendEvents.emit(`progressUpdate-${payload.appName}`, payload)
 }
