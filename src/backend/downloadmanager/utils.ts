@@ -67,7 +67,7 @@ async function installQueueElement(params: InstallParams): Promise<{
     const { status, error } = await gameManagerMap[runner].install(appName, {
       path: path.replaceAll("'", ''),
       installDlcs,
-      sdlList,
+      sdlList: sdlList.filter((el) => el !== ''),
       platformToInstall,
       installLanguage
     })

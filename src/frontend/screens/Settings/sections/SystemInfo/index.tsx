@@ -123,7 +123,7 @@ export default function SystemInfo() {
           </Grid>
         </Grid>
         <Button
-          className="copyToClipboardButton"
+          className="copyToClipboardButton button is-primary"
           variant="contained"
           startIcon={<ContentCopyIcon />}
           onClick={window.api.systemInfo.copyToClipboard}

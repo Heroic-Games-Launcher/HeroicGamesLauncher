@@ -281,7 +281,7 @@
             "part3": "Ruční synchronizace: Vyberte Stáhnout pro stažení uložených souborů hry z cloudu. Nahrát pro nahrání místních souborů do cloudu. Vynutit stahování a Vynutit nahrávání bude ignorovat verzi, která je místní nebo v cloudu.",
             "part4": "Automatická synchronizace uložených souborů synchronizuje uložené soubory při každém spuštění hry a po dokončení hraní."
         },
-        "vkd3d": "VKD3D je překladová vrstva založená na Vulkanu pro hry DirectX 12. Povolení může výrazně zlepšit kompatibilitu. Nemá žádný vliv na starší DirectX hry.",
+        "vkd3d": "VKD3D je překladová vrstva založená na Vulkanu pro hry DirectX 12. Povolení může výrazně zlepšit kompatibilitu. Nemá žádný vliv na starší DirectX hry, vyžaduje DXVK.",
         "wine": {
             "part1": "Heroic hledá verze Wine, Proton a CrossOver v následujících složkách:",
             "part2": "Pro jiná místa použijte symbolický odkaz na jednu z těchto složek"
@@ -624,7 +624,8 @@
             "log": "Protokol",
             "other": "Ostatní",
             "sync": "Synchronizace uložených souborů",
-            "wineExt": "Wine rozšíření"
+            "wineExt": "Wine rozšíření",
+            "systemInformation": "Systémové informace"
         },
         "open-config-file": "Otevřít soubor konfigurace",
         "reset-heroic": "Resetovat Heroic",
@@ -634,6 +635,28 @@
         },
         "experimental_features": {
             "title": "Experimentální funkce"
+        },
+        "systemInformation": {
+            "cpu": "CPU:",
+            "gpuWithNumber": "GPU {{number}}:",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "legendaryVersion": "Legendary: {{legendaryVersion}}",
+            "systemSpecifications": "Systémové specifikace:",
+            "steamDeck": "Steam Deck",
+            "gpuDriver": "Ovladač: {{driverVersion}}",
+            "os": "Operační systém:",
+            "gpu": "GPU:",
+            "gogdlVersion": "Gogdl: {{gogdlVersion}}",
+            "osVersion": "Verze {{versionNumber}}",
+            "osNameFlatpak": "{{osName}} (uvnitř Flatpaku)",
+            "software": "Software:",
+            "memoryStats": "Využito {{percentUsed}}% ({{usedGib}} / {{totalGib}}",
+            "systemModel": "Model systému:",
+            "showDetailed": "Zobrazit podrobné informace o systému",
+            "memory": "Paměť:",
+            "copyToClipboard": "Zkopírovat do schránky",
+            "heroicVersion": "Heroic: {{heroicVersion}}",
+            "nileVersion": "Nile: {{nileVersion}}"
         }
     },
     "Settings": "Nastavení",

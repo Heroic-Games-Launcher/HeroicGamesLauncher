@@ -281,7 +281,7 @@
             "part3": "Sincronización manual: elija Descargar para descargar los juegos guardados en la nube. Subir para subir los locales a la nube. Forzar descarga y Carga forzada ignorarán la versión local o en la nube.",
             "part4": "Sincronizar guardados automáticamente sincronizará los guardados cada vez que inicie un juego y después de terminar de jugar."
         },
-        "vkd3d": "VKD3D una capa de traducción basada en Vulkan para juegos que usan DirectX 12. Activarla puede mejorar el rendimiento significativamente. No tiene efecto en juegos viejos que usen DirectX.",
+        "vkd3d": "VKD3D es una capa de traslación basada en Vulkan para juegos DirectX 12. Habilitarla puede mejorar significativamente la compatibilidad. No tiene efecto en juegos DirectX anteriores, requiere DXVK.",
         "wine": {
             "part1": "Búsquedas de versiones de Wine, Proton y CrossOver en las siguientes carpetas:",
             "part2": "Para otros lugares, use un enlace simbólico a una de estas carpetas"
@@ -510,7 +510,7 @@
             "installing": "El EOS Overlay está siendo instalado...",
             "latestVersion": "Última versión: {{version}}",
             "notInstalled": "El EOS Overlay no está instalado",
-            "notInstalledMsg": "El EOS Overlay no está instalado. Quieres instalarlo ahora?",
+            "notInstalledMsg": "El EOS Overlay no está instalado. ¿Quieres instalarlo ahora?",
             "notInstalledTitle": "Overlay no instalado",
             "remove": "Desinstalar",
             "removeConfirm": "Seguro que quiere desinstalar EOS Overlay?",
@@ -529,7 +529,7 @@
             "disabled": "Desactivada",
             "favourites": "Juegos Favoritos",
             "recently_played": "Juegos Jugados Recientemente",
-            "recently_played_installed": "Juegos Jugados Recientemente (Sólo Instalados)"
+            "recently_played_installed": "Juegos jugados recientemente (sólo instalados)"
         },
         "library_top_section": "Sección superior de la biblioteca",
         "log": {
@@ -624,7 +624,8 @@
             "log": "Registro",
             "other": "Otro",
             "sync": "Guardar-Sincronización",
-            "wineExt": "Extensiones de Wine"
+            "wineExt": "Extensiones de Wine",
+            "systemInformation": "Información del sistema"
         },
         "open-config-file": "Abrir archivo de configuración",
         "reset-heroic": "Restablecer Heroic",
@@ -634,6 +635,28 @@
         },
         "experimental_features": {
             "title": "Funciones experimentales"
+        },
+        "systemInformation": {
+            "cpu": "CPU:",
+            "gpuWithNumber": "GPU {{number}}:",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "legendaryVersion": "Leyenda: {{legendaryVersion}}",
+            "systemSpecifications": "Especificaciones del sistema:",
+            "steamDeck": "Steam Deck",
+            "gpuDriver": "Controlador: {{driverVersion}}",
+            "os": "Sistema operativo:",
+            "gpu": "GPU:",
+            "gogdlVersion": "Gogdl: {{gogdlVersion}}",
+            "osVersion": "Versión {{versionNumber}}",
+            "osNameFlatpak": "{{osName}} (en Flatpak)",
+            "software": "Software:",
+            "memoryStats": "{{percentUsed}}% utilizado ({{usedGib}} / {{totalGib}}",
+            "systemModel": "Modelo del sistema:",
+            "showDetailed": "Mostrar las especificaciones detalladas del sistema",
+            "memory": "Memoria:",
+            "copyToClipboard": "Copiar al portapapeles",
+            "heroicVersion": "Heroic: {{heroicVersion}}",
+            "nileVersion": "Nile: {{nileVersion}}"
         }
     },
     "Settings": "Ajustes",
@@ -715,7 +738,7 @@
         "size": "Tamaño",
         "title": "Título"
     },
-    "prime-gaming": "primer juego",
+    "prime-gaming": "Prime Gaming",
     "amazon": "Amazon",
     "Amazon Games": "Juegos de Amazon"
 }
