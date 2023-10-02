@@ -76,9 +76,10 @@ export default function GamesSettings() {
     gameInfo?.cloud_save_enabled && gameInfo.install.platform !== 'linux'
 
   // Get the latest used tab index for the current game
-  const latestTabIndex = parseInt(
-    localStorage.getItem(`${gameInfo!.app_name}-setting_tab`) || '0'
-  )
+  const localStorageKey = gameInfo
+    ? `${gameInfo!.app_name}-setting_tab`
+    : 'default'
+  const latestTabIndex = parseInt(localStorage.getItem(localStorageKey) || '0')
   const [value, setValue] = useState(latestTabIndex)
 
   const handleChange = (
@@ -87,10 +88,7 @@ export default function GamesSettings() {
   ) => {
     setValue(newValue)
     // Store the latest used tab index for the current game
-    localStorage.setItem(
-      `${gameInfo!.app_name}-setting_tab`,
-      newValue.toString()
-    )
+    localStorage.setItem(localStorageKey, newValue.toString())
   }
 
   useEffect(() => {
