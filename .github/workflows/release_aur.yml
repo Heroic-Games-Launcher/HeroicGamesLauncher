@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Install Dependencies
         run: |
-          pacman -Syu --noconfirm base-devel wget jq
+          pacman -Syu --noconfirm wget jq
 
       - name: Download Package
         run: |
