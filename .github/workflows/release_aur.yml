@@ -8,14 +8,7 @@ jobs:
   update-aur:
     runs-on: ubuntu-latest
 
-    container:
-      image: archlinux
-
     steps:
-      - name: Install Dependencies
-        run: |
-          pacman -Syu --noconfirm base-devel wget jq
-
       - name: Download Package
         run: |
           set -x
