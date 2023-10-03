@@ -174,14 +174,18 @@ const launch = async ({
   if (hasUpdate) {
     const { ignoreGameUpdates } = await window.api.requestGameSettings(appName)
 
+    const launchArgsSkipUpdate: string[] = []
+    if (launchArguments) {
+      launchArgsSkipUpdate.push(launchArguments)
+    }
+    if (runner === 'legendary')
+      launchArgsSkipUpdate.push('--skip-version-check')
+
     if (ignoreGameUpdates) {
       return window.api.launch({
         appName,
         runner,
-        launchArguments:
-          launchArguments +
-          ' ' +
-          (runner === 'legendary' ? '--skip-version-check' : '')
+        launchArguments: launchArgsSkipUpdate.join(' ')
       })
     }
 
@@ -210,10 +214,7 @@ const launch = async ({
                   window.api.launch({
                     appName,
                     runner,
-                    launchArguments:
-                      launchArguments +
-                      ' ' +
-                      (runner === 'legendary' ? '--skip-version-check' : '')
+                    launchArguments: launchArgsSkipUpdate.join(' ')
                   })
                 )
               }
