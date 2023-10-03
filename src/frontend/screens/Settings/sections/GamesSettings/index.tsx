@@ -43,8 +43,8 @@ import { Tabs, Tab } from '@mui/material'
 
 type TabPanelProps = {
   children?: React.ReactNode
-  index: number
-  value: number
+  index: string
+  value: string
 }
 
 function TabPanel(props: TabPanelProps) {
@@ -79,12 +79,12 @@ export default function GamesSettings() {
   const localStorageKey = gameInfo
     ? `${gameInfo!.app_name}-setting_tab`
     : 'default'
-  const latestTabIndex = parseInt(localStorage.getItem(localStorageKey) || '0')
+  const latestTabIndex = localStorage.getItem(localStorageKey) || 'wine'
   const [value, setValue] = useState(latestTabIndex)
 
   const handleChange = (
     event: React.ChangeEvent<unknown>,
-    newValue: number
+    newValue: string
   ) => {
     setValue(newValue)
     // Store the latest used tab index for the current game
@@ -117,60 +117,68 @@ export default function GamesSettings() {
       )}
 
       <Tabs value={value} onChange={handleChange} aria-label="settings tabs">
-        {!isWin && <Tab label="Wine" />}
-        <Tab label={t('settings.navbar.other', 'Other')} />
+        {!isWin && !nativeGame && <Tab label="Wine" value="wine" />}
+        <Tab label={t('settings.navbar.other', 'Other')} value="other" />
         {!isCrossover && !isWin && (
-          <Tab label={t('settings.navbar.advanced', 'Advanced')} />
+          <Tab
+            label={t('settings.navbar.advanced', 'Advanced')}
+            value="advanced"
+          />
         )}
         {hasCloudSaves && (
-          <Tab label={t('settings.navbar.sync', 'Cloud Saves Sync')} />
+          <Tab
+            label={t('settings.navbar.sync', 'Cloud Saves Sync')}
+            value="saves"
+          />
         )}
       </Tabs>
 
-      <TabPanel value={value} index={0}>
-        {!nativeGame && (
-          <>
-            <WineVersionSelector />
-            <WinePrefix />
-            <CrossoverBottle />
-            {!isCrossover && (
-              <>
-                <AutoDXVK />
-                {isLinux && (
-                  <>
-                    <AutoDXVKNVAPI />
-                    <AutoVKD3D />
-                  </>
-                )}
-                <EnableEsync />
-                <EnableFsync />
-                <EnableFSR />
-                <Tools />
-              </>
-            )}
-          </>
-        )}
+      <TabPanel value={value} index={'wine'}>
+        <>
+          <WineVersionSelector />
+          <WinePrefix />
+          <CrossoverBottle />
+          {!isCrossover && (
+            <>
+              <AutoDXVK />
+              {isLinux && (
+                <>
+                  <AutoDXVKNVAPI />
+                  <AutoVKD3D />
+                </>
+              )}
+              <EnableEsync />
+              <EnableFsync />
+              <EnableFSR />
+              <EnableDXVKFpsLimit />
+              <Tools />
+            </>
+          )}
+        </>
       </TabPanel>
 
-      <TabPanel value={value} index={1}>
-        <ShowFPS />
+      <TabPanel value={value} index={'other'}>
+        {!nativeGame && <ShowFPS />}
         <Mangohud />
         <GameMode />
         {!isCrossover && (
           <>
             <PreferSystemLibs />
-            <EnableDXVKFpsLimit />
             <SteamRuntime />
             <UseDGPU />
           </>
         )}
-        <BattlEyeRuntime />
-        <EacRuntime />
+        {!nativeGame && (
+          <>
+            <BattlEyeRuntime />
+            <EacRuntime />
+          </>
+        )}
         <IgnoreGameUpdates />
         <OfflineMode />
       </TabPanel>
 
-      <TabPanel value={value} index={2}>
+      <TabPanel value={value} index={'advanced'}>
         <AlternativeExe />
         <LauncherArgs />
         <WrappersTable />
@@ -178,11 +186,9 @@ export default function GamesSettings() {
         <PreferedLanguage />
       </TabPanel>
 
-      {hasCloudSaves && (
-        <TabPanel value={value} index={3}>
-          <SyncSaves />
-        </TabPanel>
-      )}
+      <TabPanel value={value} index={'saves'}>
+        <SyncSaves />
+      </TabPanel>
 
       {!isDefault && <FooterInfo />}
     </>
