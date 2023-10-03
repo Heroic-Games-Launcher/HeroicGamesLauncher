@@ -1,128 +1,660 @@
-.gameConfigContainer {
-  background: var(--background-darker);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  display: flex;
-  height: 100%;
-  overflow: hidden;
-  justify-content: stretch;
-  position: relative;
-
-  .titleWrapper {
-    display: flex;
-    position: sticky;
-    top: 0px;
-    padding-top: 2rem;
-    margin-top: 2rem;
+.App.oldDesign {
+  .gameConfigContainer {
     background: var(--background-darker);
-    z-index: 1;
-    .title {
-      font-weight: var(--medium);
-      font-size: var(--text-xl);
-      line-height: 30px;
-      color: var(--text-default);
-      text-align: start;
-      flex-basis: 100%;
-      align-self: center;
-    }
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    height: 100%;
+    overflow: hidden;
+    justify-content: stretch;
+    position: relative;
 
-    .settings-icon {
-      width: 44px;
-      position: relative;
-      padding: 6px;
-      right: 6px;
-      background: var(--neutral-03);
-      border-radius: 10px;
-      display: grid;
-      place-items: center;
-      height: 44px;
-
-      svg path {
-        fill: var(--neutral-06);
-        transition: fill 0.2s;
-      }
-
-      &:hover {
-        svg path {
-          fill: var(--neutral-05);
-        }
-      }
-    }
-
-    .game-actions {
-      position: relative;
+    .titleWrapper {
       display: flex;
-      flex-direction: column;
+      position: sticky;
+      top: 0px;
+      padding-top: 2rem;
+      margin-top: 2rem;
+      background: var(--background-darker);
+      z-index: 1;
+      .title {
+        font-weight: var(--medium);
+        font-size: var(--text-xl);
+        line-height: 30px;
+        color: var(--text-default);
+        text-align: start;
+        flex-basis: 100%;
+        align-self: center;
+      }
 
-      .toggle {
-        align-self: flex-end;
-        border: none;
-        color: var(--neutral-06);
-        font-size: var(--text-2xl);
-        padding: var(--space-xs-fixed);
-        cursor: pointer;
-        position: relative;
-        transition: color 0.2s;
-        display: flex;
-        justify-content: center;
+      .settings-icon {
         width: 44px;
-        height: 44px;
+        position: relative;
+        padding: 6px;
+        right: 6px;
         background: var(--neutral-03);
         border-radius: 10px;
-      }
+        display: grid;
+        place-items: center;
+        height: 44px;
 
-      &:focus-within .toggle,
-      &:hover .toggle,
-      .toggle:hover {
-        color: var(--neutral-05);
-      }
-
-      .gameTools {
-        position: absolute;
-        opacity: 1;
-        pointer-events: all;
-        transition: all 0.2s;
-        background: var(--navbar-background);
-        border-radius: 5px;
-        z-index: 2;
-        padding: 0;
-        max-height: 0px;
-        overflow: hidden;
-        right: 0;
-        top: 112%;
-      }
-
-      .gameTools .link {
-        width: 100%;
-        padding: 0 0 0.5rem;
-        text-align: start;
-        white-space: nowrap;
-        font-size: 1rem;
-        background: var(--navbar-background);
+        svg path {
+          fill: var(--neutral-06);
+          transition: fill 0.2s;
+        }
 
         &:hover {
-          color: var(--accent-overlay);
-        }
-
-        &:last-child {
-          padding-bottom: 0;
+          svg path {
+            fill: var(--neutral-05);
+          }
         }
       }
 
-      &:focus-within .gameTools,
-      &:hover .gameTools {
-        opacity: 1;
-        pointer-events: all;
-        padding: var(--space-md);
-        max-height: 100vh;
-        box-shadow: 4px 5px 5px -2px rgba(0, 0, 0, 0.2);
+      .game-actions {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+
+        .toggle {
+          align-self: flex-end;
+          border: none;
+          color: var(--neutral-06);
+          font-size: var(--text-2xl);
+          padding: var(--space-xs-fixed);
+          cursor: pointer;
+          position: relative;
+          transition: color 0.2s;
+          display: flex;
+          justify-content: center;
+          width: 44px;
+          height: 44px;
+          background: var(--neutral-03);
+          border-radius: 10px;
+        }
+
+        &:focus-within .toggle,
+        &:hover .toggle,
+        .toggle:hover {
+          color: var(--neutral-05);
+        }
+
+        .gameTools {
+          position: absolute;
+          opacity: 1;
+          pointer-events: all;
+          transition: all 0.2s;
+          background: var(--navbar-background);
+          border-radius: 5px;
+          z-index: 2;
+          padding: 0;
+          max-height: 0px;
+          overflow: hidden;
+          right: 0;
+          top: 112%;
+        }
+
+        .gameTools .link {
+          width: 100%;
+          padding: 0 0 0.5rem;
+          text-align: start;
+          white-space: nowrap;
+          font-size: 1rem;
+          background: var(--navbar-background);
+
+          &:hover {
+            color: var(--accent-overlay);
+          }
+
+          &:last-child {
+            padding-bottom: 0;
+          }
+        }
+
+        &:focus-within .gameTools,
+        &:hover .gameTools {
+          opacity: 1;
+          pointer-events: all;
+          padding: var(--space-md);
+          max-height: 100vh;
+          box-shadow: 4px 5px 5px -2px rgba(0, 0, 0, 0.2);
+        }
+      }
+    }
+
+    .store-icon {
+      position: absolute;
+      left: 1rem;
+      bottom: 0.5rem;
+      border-radius: 10px;
+      padding: var(--space-3xs);
+      place-content: center;
+      fill: var(--text-default);
+
+      & > svg {
+        background-color: var(--body-background);
+        width: 60px;
+        height: 60px;
+        padding: var(--space-3xs);
+        border-radius: 10px;
+
+        &.gogIcon {
+          padding: 0px var(--space-3xs) var(--space-3xs);
+        }
       }
     }
   }
 
-  .store-icon {
+  .isRTL {
+    .gameTools {
+      right: auto !important;
+      left: 0px;
+    }
+    .settings-icon {
+      right: auto !important;
+      left: 6px;
+    }
+    .store-icon {
+      left: auto !important;
+      right: 1rem;
+    }
+  }
+
+  .gameConfig {
+    display: flex;
+    align-self: center;
+    max-width: 1000px;
+  }
+
+  .gamePicture {
+    flex-basis: 40%;
+    flex-shrink: 0;
+    flex-grow: 0;
+  }
+
+  .backButton {
     position: absolute;
-    left: 1rem;
-    bottom: 0.5rem;
+    top: 12px;
+    left: 12px;
+    background: none;
+    border: none;
+    color: var(--accent);
+
+    & > .MuiSvgIcon-root {
+      width: 40px;
+      height: 40px;
+      transition: 300ms;
+
+      &:hover {
+        color: var(--accent-overlay);
+      }
+    }
+  }
+
+  .isRTL .backButton {
+    right: 12px;
+    left: auto;
+    transform: scaleX(-100%);
+  }
+
+  .gameInfo {
+    text-align: initial;
+    align-self: flex-start;
+    font-size: var(--text-md);
+    color: var(--text-default);
+    display: flex;
+    flex-direction: column;
+    flex: 100%;
+    max-height: 100vh;
+    overflow-y: auto;
+    user-select: text;
+    padding-block: 0 4rem;
+    padding-inline: 1.2em 2.2em;
+
+    .title {
+      font-weight: var(--bold);
+      margin-bottom: 0;
+    }
+
+    svg {
+      cursor: text;
+    }
+
+    & > .selectFieldWrapper.Field {
+      margin-bottom: var(--space-md);
+    }
+
+    & > *:not(:first-child) {
+      max-width: 560px;
+    }
+
+    .infoWrapper {
+      color: var(--text-default);
+      flex-grow: 1;
+      line-height: 22px;
+      display: flex;
+      flex-direction: column;
+
+      .iconWithText {
+        transition: color 300ms;
+        display: flex;
+        align-items: center;
+
+        svg {
+          margin-inline-end: var(--space-3xs);
+        }
+      }
+    }
+
+    .timeContainerLabel,
+    .iconWithText {
+      align-self: flex-start;
+    }
+
+    .developer {
+      padding: var(--space-md-fixed) 0;
+      color: var(--text-default);
+    }
+
+    button {
+      max-width: 560px;
+    }
+
+    .summary {
+      font-family: var(--primary-font-family);
+      font-style: normal;
+      font-weight: normal;
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-md);
+      font-size: var(--text-md);
+      max-width: 560px;
+      text-overflow: ellipsis;
+      color: var(--text-default);
+      overflow: hidden;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+      overflow: auto;
+      height: 150px;
+      line-height: 1.5;
+      b {
+        font-weight: 700;
+      }
+    }
+
+    .info .smallTitle {
+      font-weight: bold;
+    }
+
+    .reportProblem {
+      align-self: flex-start;
+      margin-top: 1.2em;
+      color: var(--accent);
+
+      &:hover {
+        color: var(--accent-overlay);
+      }
+
+      & svg {
+        margin-inline-end: 0.4em;
+      }
+    }
+  }
+
+  .gameRequirements {
+    align-self: flex-start;
+    overflow: auto;
+  }
+
+  .gamePageStoreIcon {
+    fill: var(--text-default);
+    flex-grow: 1;
+    text-align: end;
+    padding-inline-end: var(--space-sm);
+
+    & > svg {
+      width: var(--text-5xl);
+      height: var(--text-5xl);
+      padding: var(--space-3xs);
+      border-radius: 10px;
+    }
+  }
+
+  .installProgress[value] {
+    appearance: none;
+    width: 169px;
+    height: 5px;
+
+    &::-webkit-progress-value {
+      color: var(--success);
+      animation: animate-stripes 5s linear infinite;
+    }
+  }
+
+  .selectFieldWrapper.Field ~ .buttonsWrapper {
+    margin-top: 24px;
+  }
+
+  .updateText {
+    cursor: pointer;
+
+    &:hover {
+      color: var(--text-secondary);
+    }
+  }
+
+  .pictureTimeContainer {
+    display: flex;
+    flex-direction: column;
+    max-height: 400px;
+  }
+
+  .infoWrapper.itemContainer {
+    place-content: center;
+    text-align: initial;
+    width: 20vw;
+    min-width: fit-content;
+    max-width: 290px;
+    margin-bottom: 12px;
+  }
+
+  .itemTitle {
+    font-weight: var(--bold);
+    text-align: center;
+  }
+
+  .checkBox {
+    display: flex;
+    margin-top: 6px;
+    align-items: center;
+  }
+
+  .dlcTitle {
+    font-weight: var(--bold);
+    margin-top: 16px;
+  }
+
+  .sdlTitle {
+    cursor: pointer;
+    font-weight: var(--bold);
+
+    &:hover {
+      color: var(--download-button);
+    }
+  }
+
+  .MuiIconButton-colorPrimary,
+  .MuiCheckbox-colorPrimary.Mui-checked {
+    color: var(--download-button);
+  }
+
+  .PrivateSwitchBase-root-1 {
+    padding: var(--space-3xs);
+  }
+
+  .buttonsWrapper .button {
+    min-width: max-content;
+  }
+
+  .buttonWithIcon {
+    display: flex;
+    place-items: center;
+    justify-content: center;
+
+    & > svg {
+      height: 20px;
+    }
+  }
+
+  @keyframes animate-stripes {
+    100% {
+      background-position: -100px 0px;
+    }
+  }
+}
+
+.App:not(.oldDesign) .gameConfigContainer {
+  display: flex;
+  padding: 2vh 2vw;
+  height: 100%;
+  gap: min(3vw, 50px);
+  align-items: flex-start;
+  max-height: 1100px;
+
+  .backButton,
+  .showInfo,
+  .showExtra,
+  .showRequirements {
+    justify-self: flex-start;
+    width: 44px;
+    height: 44px;
+    padding: 6px;
+    background: var(--neutral-03);
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    border: none;
+
+    svg path {
+      fill: var(--neutral-06);
+      transition: fill 0.2s;
+    }
+
+    &:hover {
+      svg path {
+        fill: var(--neutral-05);
+      }
+    }
+  }
+
+  .mainInfoWrapper,
+  .extraInfoWrapper {
+    flex-basis: 50%;
+    display: grid;
+    grid-template-rows: min-content 1fr;
+    row-gap: 20px;
+  }
+
+  .mainInfo,
+  .tabContent {
+    outline: 3px solid #8a8a8a;
+    outline-offset: -4px;
+    border-radius: 15px;
+    isolation: isolate;
+    position: relative;
+    overflow: hidden;
+    align-self: stretch;
+    justify-self: stretch;
+    display: flex;
+    flex-direction: column;
+
+    & > * {
+      position: relative;
+      z-index: 2;
+      text-align: left;
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      inset: 0px;
+      position: absolute;
+      z-index: 0;
+      background-image: linear-gradient(
+        180deg,
+        transparent,
+        var(--body-background) 65%
+      );
+    }
+  }
+
+  .mainInfoWrapper {
+    grid-template-columns: 1fr min-content min-content;
+    grid-template-areas: 'back settings menu' 'main main main' 'report report report';
+    column-gap: 15px;
+    min-width: 300px;
+    width: 50%;
+
+    .backButton {
+      grid-area: back;
+    }
+
+    .game-actions {
+      grid-area: menu;
+    }
+
+    .settings-icon {
+      grid-area: settings;
+      right: unset;
+    }
+
+    .mainInfo {
+      grid-area: main;
+      padding: min(25vh, 300px) min(4vw, 70px) min(5vh, 25px);
+      background-color: var(--body-background);
+
+      .store-icon {
+        position: absolute;
+        left: 0.5rem;
+        top: 0.5rem;
+      }
+
+      .gamePicture {
+        position: absolute;
+        left: 2px;
+        top: 2px;
+        right: 2px;
+        z-index: -1;
+        border-radius: 10px;
+        overflow: hidden;
+
+        &::after {
+          content: '';
+          display: block;
+          inset: 0px;
+          position: absolute;
+          background-image: linear-gradient(
+            180deg,
+            transparent,
+            var(--body-background)
+          );
+        }
+      }
+
+      h1 {
+        font-size: 34px;
+        line-height: 39px;
+      }
+
+      h1,
+      .developer {
+        margin-bottom: 10px;
+      }
+
+      .summary {
+        overflow: auto;
+        font-size: 18px;
+        line-height: 34px;
+        text-align: left;
+        flex-grow: 1;
+      }
+
+      .gameStatus {
+        text-align: left;
+      }
+
+      .buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 10px;
+        margin-top: 15px;
+
+        // hiding the `uninstall` button temporarily until
+        // properly implemented
+        button:nth-child(2) {
+          display: none;
+        }
+      }
+    }
+
+    .reportProblem {
+      grid-area: report;
+      svg {
+        margin-inline-end: 0.5rem;
+      }
+    }
+  }
+
+  .extraInfoWrapper {
+    .tabs {
+      display: flex;
+      gap: 15px;
+      justify-content: flex-end;
+    }
+
+    .tabContent {
+      padding: 4vh 1.5vw;
+
+      & > div {
+        overflow: auto;
+        padding: 10px;
+      }
+
+      &.infoTab,
+      &.extraTab {
+        & > div > * {
+          display: flex;
+          text-align: end;
+          font-size: 16px;
+          line-height: 24px;
+          height: 56px;
+          gap: 10px;
+          padding: 10px 0;
+          align-items: center;
+          border-bottom: 1px solid var(--base-06);
+
+          &:last-child {
+            border-bottom: 0px;
+          }
+
+          b {
+            text-align: start;
+            white-space: nowrap;
+            flex-grow: 1;
+            flex-basis: 140px;
+            flex-shrink: 0;
+          }
+
+          .truncatedPath {
+            z-index: 1;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+
+          &:hover .truncatedPath,
+          &:focus .truncatedPath {
+            overflow: visible;
+            white-space: normal;
+            background: var(--body-background);
+          }
+        }
+      }
+    }
+
+    .anticheatInfo {
+      max-width: none;
+    }
+  }
+
+  .mainInfoWrapper,
+  .extraInfoWrapper {
+    max-width: 800px;
+    height: 100%;
+  }
+  .mainInfo,
+  .tabContent {
+    max-height: 900px;
+  }
+
+  .store-icon {
     border-radius: 10px;
     padding: var(--space-3xs);
     place-content: center;
@@ -140,270 +672,109 @@
       }
     }
   }
-}
 
-.isRTL {
-  .gameTools {
-    right: auto !important;
-    left: 0px;
-  }
   .settings-icon {
-    right: auto !important;
-    left: 6px;
-  }
-  .store-icon {
-    left: auto !important;
-    right: 1rem;
-  }
-}
+    width: 44px;
+    position: relative;
+    padding: 6px;
+    right: 6px;
+    background: var(--neutral-03);
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    height: 44px;
 
-.gameConfig {
-  display: flex;
-  align-self: center;
-  max-width: 1000px;
-}
-
-.gamePicture {
-  flex-basis: 40%;
-  flex-shrink: 0;
-  flex-grow: 0;
-}
-
-.backButton {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  background: none;
-  border: none;
-  color: var(--accent);
-
-  & > .MuiSvgIcon-root {
-    width: 40px;
-    height: 40px;
-    transition: 300ms;
+    svg path {
+      fill: var(--neutral-06);
+      transition: fill 0.2s;
+    }
 
     &:hover {
-      color: var(--accent-overlay);
-    }
-  }
-}
-
-.isRTL .backButton {
-  right: 12px;
-  left: auto;
-  transform: scaleX(-100%);
-}
-
-.gameInfo {
-  text-align: initial;
-  align-self: flex-start;
-  font-size: var(--text-md);
-  color: var(--text-default);
-  display: flex;
-  flex-direction: column;
-  flex: 100%;
-  max-height: 100vh;
-  overflow-y: auto;
-  user-select: text;
-  padding-block: 0 4rem;
-  padding-inline: 1.2em 2.2em;
-
-  .title {
-    font-weight: var(--bold);
-    margin-bottom: 0;
-  }
-
-  svg {
-    cursor: text;
-  }
-
-  & > .selectFieldWrapper.Field {
-    margin-bottom: var(--space-md);
-  }
-
-  & > *:not(:first-child) {
-    max-width: 560px;
-  }
-
-  .infoWrapper {
-    color: var(--text-default);
-    flex-grow: 1;
-    line-height: 22px;
-    display: flex;
-    flex-direction: column;
-
-    .iconWithText {
-      transition: color 300ms;
-      display: flex;
-      align-items: center;
-
-      svg {
-        margin-inline-end: var(--space-3xs);
+      svg path {
+        fill: var(--neutral-05);
       }
     }
   }
 
-  .timeContainerLabel,
-  .iconWithText {
-    align-self: flex-start;
+  .game-actions {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    .toggle {
+      align-self: flex-end;
+      border: none;
+      color: var(--neutral-06);
+      font-size: var(--text-2xl);
+      padding: var(--space-xs-fixed);
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s;
+      display: flex;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      background: var(--neutral-03);
+      border-radius: 10px;
+    }
+
+    &:focus-within .toggle,
+    &:hover .toggle,
+    .toggle:hover {
+      color: var(--neutral-05);
+    }
+
+    .gameTools {
+      position: absolute;
+      opacity: 1;
+      pointer-events: all;
+      transition: all 0.2s;
+      background: var(--navbar-background);
+      border-radius: 5px;
+      z-index: 2;
+      padding: 0;
+      max-height: 0px;
+      overflow: hidden;
+      right: 0;
+      top: 112%;
+    }
+
+    .gameTools .link {
+      width: 100%;
+      padding: 0 0 0.5rem;
+      text-align: start;
+      white-space: nowrap;
+      font-size: 1rem;
+      background: var(--navbar-background);
+
+      &:hover {
+        color: var(--accent-overlay);
+      }
+
+      &:last-child {
+        padding-bottom: 0;
+      }
+    }
+
+    &:focus-within .gameTools,
+    &:hover .gameTools {
+      opacity: 1;
+      pointer-events: all;
+      padding: var(--space-md);
+      max-height: 100vh;
+      box-shadow: 4px 5px 5px -2px rgba(0, 0, 0, 0.2);
+    }
   }
 
-  .developer {
-    padding: var(--space-md-fixed) 0;
-    color: var(--text-default);
-  }
-
-  button {
-    max-width: 560px;
-  }
-
-  .summary {
-    font-family: var(--primary-font-family);
-    font-style: normal;
-    font-weight: normal;
-    padding-bottom: var(--space-sm);
-    margin-bottom: var(--space-md);
-    font-size: var(--text-md);
-    max-width: 560px;
-    text-overflow: ellipsis;
-    color: var(--text-default);
+  & .backgroundImage {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     overflow: hidden;
-    -webkit-line-clamp: 5;
-    -webkit-box-orient: vertical;
-    overflow: auto;
-    height: 150px;
-    line-height: 1.5;
-    b {
-      font-weight: 700;
-    }
-  }
-
-  .info .smallTitle {
-    font-weight: bold;
-  }
-
-  .reportProblem {
-    align-self: flex-start;
-    margin-top: 1.2em;
-    color: var(--accent);
-
-    &:hover {
-      color: var(--accent-overlay);
-    }
-
-    & svg {
-      margin-inline-end: 0.4em;
-    }
-  }
-}
-
-.gameRequirements {
-  align-self: flex-start;
-  overflow: auto;
-}
-
-.gamePageStoreIcon {
-  fill: var(--text-default);
-  flex-grow: 1;
-  text-align: end;
-  padding-inline-end: var(--space-sm);
-
-  & > svg {
-    width: var(--text-5xl);
-    height: var(--text-5xl);
-    padding: var(--space-3xs);
-    border-radius: 10px;
-  }
-}
-
-.installProgress[value] {
-  appearance: none;
-  width: 169px;
-  height: 5px;
-
-  &::-webkit-progress-value {
-    color: var(--success);
-    animation: animate-stripes 5s linear infinite;
-  }
-}
-
-.selectFieldWrapper.Field ~ .buttonsWrapper {
-  margin-top: 24px;
-}
-
-.updateText {
-  cursor: pointer;
-
-  &:hover {
-    color: var(--text-secondary);
-  }
-}
-
-.pictureTimeContainer {
-  display: flex;
-  flex-direction: column;
-  max-height: 400px;
-}
-
-.infoWrapper.itemContainer {
-  place-content: center;
-  text-align: initial;
-  width: 20vw;
-  min-width: fit-content;
-  max-width: 290px;
-  margin-bottom: 12px;
-}
-
-.itemTitle {
-  font-weight: var(--bold);
-  text-align: center;
-}
-
-.checkBox {
-  display: flex;
-  margin-top: 6px;
-  align-items: center;
-}
-
-.dlcTitle {
-  font-weight: var(--bold);
-  margin-top: 16px;
-}
-
-.sdlTitle {
-  cursor: pointer;
-  font-weight: var(--bold);
-
-  &:hover {
-    color: var(--download-button);
-  }
-}
-
-.MuiIconButton-colorPrimary,
-.MuiCheckbox-colorPrimary.Mui-checked {
-  color: var(--download-button);
-}
-
-.PrivateSwitchBase-root-1 {
-  padding: var(--space-3xs);
-}
-
-.buttonsWrapper .button {
-  min-width: max-content;
-}
-
-.buttonWithIcon {
-  display: flex;
-  place-items: center;
-  justify-content: center;
-
-  & > svg {
-    height: 20px;
-  }
-}
-
-@keyframes animate-stripes {
-  100% {
-    background-position: -100px 0px;
+    object-fit: cover;
+    filter: blur(15px) brightness(30%);
   }
 }

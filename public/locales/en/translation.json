@@ -530,7 +530,7 @@
         "esync": "Enable Esync",
         "exit-to-tray": "Exit to System Tray",
         "experimental_features": {
-            "enableNewShinyFeature": "New shiny feature"
+            "enableNewDesign": "New design"
         },
         "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
