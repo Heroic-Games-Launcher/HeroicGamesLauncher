@@ -1,6 +1,6 @@
 import './index.scss'
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 import {
@@ -79,7 +79,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
     platform,
     showDialogModal,
     isSettingsModalOpen,
-    connectivity
+    connectivity,
+    customCategories
   } = useContext(ContextProvider)
 
   const [gameInfo, setGameInfo] = useState(locationGameInfo)
@@ -203,6 +204,14 @@ export default React.memo(function GamePage(): JSX.Element | null {
       })
   }, [appName])
 
+  const category: string = useMemo(() => {
+    let categories = ''
+    for (const [cat, games] of Object.entries(customCategories.list)) {
+      if (games.includes(appName)) categories += cat
+    }
+    return categories
+  }, [appName, customCategories.list])
+
   function handleUpdate() {
     if (gameInfo.runner !== 'sideload')
       updateGame({ appName, runner, gameInfo })
@@ -308,6 +317,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
             <div className="gameInfo">
               <div className="titleWrapper">
                 <h1 className="title">{title}</h1>
+                {category.length > 0 && <h2>{category}</h2>}
                 <SettingsButton gameInfo={gameInfo} />
                 <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
               </div>

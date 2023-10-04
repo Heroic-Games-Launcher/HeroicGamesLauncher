@@ -64,6 +64,14 @@ const initialContext: ContextType = {
     add: () => null,
     remove: () => null
   },
+  customCategories: {
+    list: {},
+    listCategories: () => [],
+    add: () => null,
+    remove: () => null,
+    addCategory: () => null,
+    removeCategory: () => null
+  },
   theme: 'midnightMirage',
   setTheme: () => null,
   zoomPercent: 100,
