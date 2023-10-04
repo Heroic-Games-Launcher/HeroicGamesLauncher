@@ -39,7 +39,11 @@ export default function WindowControls() {
       </SvgButton>
       <SvgButton
         className="maximize"
-        title={t('window.maximize', 'Maximize window')}
+        title={
+          maximized
+            ? t('window.restore', 'Restore window')
+            : t('window.maximize', 'Maximize window')
+        }
         onClick={handleMaximize}
       >
         {maximized ? <RestoreIcon /> : <MaximizeIcon />}

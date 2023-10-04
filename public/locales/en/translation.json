@@ -718,7 +718,8 @@
     "window": {
         "close": "Close",
         "maximize": "Maximize window",
-        "minimize": "Minimize window"
+        "minimize": "Minimize window",
+        "restore": "Restore window"
     },
     "wine": {
         "actions": "Action",
