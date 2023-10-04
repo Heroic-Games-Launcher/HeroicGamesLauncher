@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 interface CachedImageProps {
   src: string
   fallback?: string
+  className?: string
 }
 
 type Props = React.ImgHTMLAttributes<HTMLImageElement> & CachedImageProps
@@ -11,6 +12,7 @@ const CachedImage = (props: Props) => {
   const [useCache, setUseCache] = useState(
     props.src?.startsWith('http') || false
   )
+  const [loaded, setLoaded] = useState(false)
   const [useFallback, setUseFallback] = useState(false)
 
   const onError = () => {
@@ -29,7 +31,16 @@ const CachedImage = (props: Props) => {
   let src = useFallback ? props.fallback : props.src
   src = useCache ? `imagecache://${src}` : src
 
-  return <img loading="lazy" {...props} src={src} onError={onError} />
+  return (
+    <img
+      loading="lazy"
+      onLoad={() => setLoaded(true)}
+      {...props}
+      src={src}
+      onError={onError}
+      className={`${props.className} ${loaded ? 'loaded' : 'loading'}`}
+    />
+  )
 }
 
 export default CachedImage
