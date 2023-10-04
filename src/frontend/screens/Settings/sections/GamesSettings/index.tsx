@@ -116,7 +116,12 @@ export default function GamesSettings() {
         </p>
       )}
 
-      <Tabs value={value} onChange={handleChange} aria-label="settings tabs">
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        aria-label="settings tabs"
+        variant="scrollable"
+      >
         {!isWin && !nativeGame && <Tab label="Wine" value="wine" />}
         <Tab label={t('settings.navbar.other', 'Other')} value="other" />
         {!isCrossover && !isWin && (
