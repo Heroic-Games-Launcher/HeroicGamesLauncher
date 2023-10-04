@@ -105,12 +105,6 @@ export default function Tools() {
     ev.preventDefault()
   }
 
-  console.log('toolsSettings', {
-    winetricksRunning,
-    winecfgRunning,
-    runExeRunning
-  })
-
   return (
     <>
       <div data-testid="toolsSettings" className="settingsTools">
@@ -149,10 +143,8 @@ export default function Tools() {
             })}
             onClick={handleRunExe}
           >
-            <div>
-              {t('setting.runexe.title')} <br />
-              <span>{t('setting.runexe.message')}</span>
-            </div>
+            {t('setting.runexe.title')} <br />
+            <span>{t('setting.runexe.message')}</span>
           </a>
         </div>
       </div>

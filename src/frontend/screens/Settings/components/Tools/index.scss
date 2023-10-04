@@ -26,11 +26,7 @@
     flex-direction: column;
     text-decoration: none;
     white-space: nowrap;
-
-    & div {
-      position: relative;
-      top: -18px;
-    }
+    justify-content: center;
 
     & span {
       transition: 350ms;

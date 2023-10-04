@@ -139,27 +139,25 @@ export default function GamesSettings() {
       </Tabs>
 
       <TabPanel value={value} index={'wine'}>
-        <>
-          <WineVersionSelector />
-          <WinePrefix />
-          <CrossoverBottle />
-          {!isCrossover && (
-            <>
-              <AutoDXVK />
-              {isLinux && (
-                <>
-                  <AutoDXVKNVAPI />
-                  <AutoVKD3D />
-                </>
-              )}
-              <EnableEsync />
-              <EnableFsync />
-              <EnableFSR />
-              <EnableDXVKFpsLimit />
-              <Tools />
-            </>
-          )}
-        </>
+        <WineVersionSelector />
+        <WinePrefix />
+        <CrossoverBottle />
+        {!isCrossover && (
+          <>
+            <AutoDXVK />
+            {isLinux && (
+              <>
+                <AutoDXVKNVAPI />
+                <AutoVKD3D />
+              </>
+            )}
+            <EnableEsync />
+            <EnableFsync />
+            <EnableFSR />
+            <EnableDXVKFpsLimit />
+            <Tools />
+          </>
+        )}
       </TabPanel>
 
       <TabPanel value={value} index={'other'}>
