@@ -15,6 +15,8 @@ const AutoVKD3D = () => {
   )
   const { appName } = useContext(SettingsContext)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
+  const [autoInstallDxvk] = useSetting('autoInstallDxvk', false)
+  const [installingVKD3D, setInstallingVKD3D] = React.useState(false)
 
   const isProton = wineVersion.type === 'proton'
 
@@ -22,13 +24,18 @@ const AutoVKD3D = () => {
     return <></>
   }
 
-  const handleAutoInstallVkd3d = () => {
+  const handleAutoInstallVkd3d = async () => {
     const action = autoInstallVkd3d ? 'restore' : 'backup'
-    window.api.toggleVKD3D({
+    setInstallingVKD3D(true)
+    const res = await window.api.toggleVKD3D({
       appName,
       action
     })
-    return setAutoInstallVkd3d(!autoInstallVkd3d)
+
+    setInstallingVKD3D(false)
+    if (res) {
+      setAutoInstallVkd3d(!autoInstallVkd3d)
+    }
   }
 
   return (
@@ -37,7 +44,13 @@ const AutoVKD3D = () => {
         htmlId="autovkd3d"
         value={autoInstallVkd3d}
         handleChange={handleAutoInstallVkd3d}
-        title={t('setting.autovkd3d', 'Auto Install/Update VKD3D on Prefix')}
+        title={
+          installingVKD3D
+            ? t('please-wait', 'Please wait...')
+            : t('setting.autovkd3d', 'Auto Install/Update VKD3D on Prefix')
+        }
+        fading={installingVKD3D}
+        disabled={!autoInstallDxvk || installingVKD3D}
       />
 
       <FontAwesomeIcon
@@ -45,7 +58,7 @@ const AutoVKD3D = () => {
         icon={faCircleInfo}
         title={t(
           'help.vkd3d',
-          'VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.'
+          'VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games, it requires DXVK.'
         )}
       />
     </div>

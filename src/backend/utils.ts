@@ -77,6 +77,7 @@ import {
   wineDownloaderInfoStore
 } from './wine/manager/utils'
 import { getHeroicVersion } from './utils/systeminfo/heroicVersion'
+import { wikiGameInfoStore } from './wiki_game_info/electronStore'
 
 const execAsync = promisify(exec)
 
@@ -358,6 +359,7 @@ async function openUrlOrFile(url: string): Promise<string | void> {
 }
 
 function clearCache(library?: 'gog' | 'legendary' | 'nile') {
+  wikiGameInfoStore.clear()
   if (library === 'gog' || !library) {
     GOGapiInfoCache.clear()
     GOGlibraryStore.clear()

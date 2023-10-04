@@ -143,6 +143,7 @@ import {
   initStoreManagers,
   libraryManagerMap
 } from './storeManagers'
+import { updateWineVersionInfos } from './wine/manager/utils'
 
 import { logFileLocation as getLogFileLocation } from './storeManagers/storeManagerCommon/games'
 import { addNewApp } from './storeManagers/sideload/library'
@@ -153,6 +154,7 @@ import {
 import { formatSystemInfo, getSystemInfo } from './utils/systeminfo'
 
 app.commandLine?.appendSwitch('remote-debugging-port', '9222')
+app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
 const { showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -184,6 +186,16 @@ async function initializeWindow(): Promise<BrowserWindow> {
       downloadDefaultWine()
     }
   }, 2500)
+
+  if (!isWindows && !isCLINoGui) {
+    setTimeout(async () => {
+      try {
+        await updateWineVersionInfos(true)
+      } catch (error) {
+        logError(error, LogPrefix.Backend)
+      }
+    }, 5000)
+  }
 
   GlobalConfig.get()
 
@@ -290,7 +302,13 @@ if (!gotTheLock) {
     initImagesCache()
 
     if (!process.env.CI) {
-      await components.whenReady()
+      await components.whenReady().catch((e) => {
+        logError([
+          'Failed to download / update DRM components.',
+          'Make sure you do not block update.googleapis.com domain if you want to use WideVine in Browser sideloaded apps',
+          e
+        ])
+      })
       logInfo(['DRM module staus', components.status()])
     }
 
@@ -327,8 +345,13 @@ if (!gotTheLock) {
 
     // Make sure lock is not present when starting up
     playtimeSyncQueue.delete('lock')
-    runOnceWhenOnline(syncQueuedPlaytimeGOG)
-
+    if (!settings.disablePlaytimeSync) {
+      runOnceWhenOnline(syncQueuedPlaytimeGOG)
+    } else {
+      logDebug('Skipping playtime sync queue upload - playtime sync disabled', {
+        prefix: LogPrefix.Backend
+      })
+    }
     await i18next.use(Backend).init({
       backend: {
         addPath: path.join(publicDir, 'locales', '{{lng}}', '{{ns}}'),
@@ -510,11 +533,21 @@ ipcMain.handle('checkDiskSpace', async (event, folder) => {
         )
       }
 
+      const isValidFlatpakPath = !(
+        isFlatpak &&
+        folder.startsWith(process.env.XDG_RUNTIME_DIR || '/run/user/')
+      )
+
+      if (!isValidFlatpakPath) {
+        logWarning(`Install location was not granted sandbox access!`)
+      }
+
       const ret = {
         free,
         diskSize,
         message: `${getFileSize(free)} / ${getFileSize(diskSize)}`,
-        validPath: !writeError
+        validPath: !writeError,
+        validFlatpakPath: isValidFlatpakPath
       }
       logDebug(`${JSON.stringify(ret)}`, LogPrefix.Backend)
       res(ret)
@@ -855,13 +888,13 @@ ipcMain.handle('toggleDXVKNVAPI', async (event, { appName, action }) =>
     )
 )
 
-ipcMain.on('toggleVKD3D', (event, { appName, action }) => {
+ipcMain.handle('toggleVKD3D', async (event, { appName, action }) =>
   GameConfig.get(appName)
     .getSettings()
-    .then((gameSettings) => {
+    .then(async (gameSettings) =>
       DXVK.installRemove(gameSettings, 'vkd3d', action)
-    })
-})
+    )
+)
 
 ipcMain.handle('writeConfig', (event, { appName, config }) => {
   logInfo(
@@ -993,7 +1026,15 @@ ipcMain.handle(
 
     const logFileLocation = getLogFileLocation(appName)
 
-    const systemInfo = await getSystemInfo().then(formatSystemInfo)
+    const systemInfo = await getSystemInfo()
+      .then(formatSystemInfo)
+      .catch((error) => {
+        logError(
+          ['Failed to fetch system information', error],
+          LogPrefix.Backend
+        )
+        return 'Error, check general log'
+      })
     writeFileSync(logFileLocation, 'System Info:\n' + `${systemInfo}\n` + '\n')
 
     const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
@@ -1071,10 +1112,17 @@ ipcMain.handle(
       sessionPlaytime + tsStore.get(`${appName}.totalPlayed`, 0)
     tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
 
+    const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
     if (runner === 'gog') {
-      await updateGOGPlaytime(appName, startPlayingDate, finishedPlayingDate)
+      if (!disablePlaytimeSync) {
+        await updateGOGPlaytime(appName, startPlayingDate, finishedPlayingDate)
+      } else {
+        logWarning(
+          'Posting playtime session to server skipped - playtime sync disabled',
+          { prefix: LogPrefix.Backend }
+        )
+      }
     }
-
     await addRecentGame(game)
 
     if (autoSyncSaves && isOnline()) {
@@ -1657,6 +1705,10 @@ ipcMain.on('processShortcut', async (e, combination: string) => {
 ipcMain.handle(
   'getPlaytimeFromRunner',
   async (e, runner, appName): Promise<number | undefined> => {
+    const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
+    if (disablePlaytimeSync) {
+      return
+    }
     if (runner === 'gog') {
       return getGOGPlaytime(appName)
     }

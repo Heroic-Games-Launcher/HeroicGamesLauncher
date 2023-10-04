@@ -281,7 +281,7 @@
             "part3": "Ръчно синхронизиране: изберете „Сваляне“, за да свалите запазените файлове за игрите си, съхранявани в облака. „Качване“ ще качи файловете от този компютър в облака. „Принудително сваляне“ и „Принудително качване“ ще пренебрегнат версията, която е налична съответно на този компютър или в облака.",
             "part4": "Автоматичното синхронизиране на запазените файлове ще ги синхронизира всеки пък, когато пуснете игра, както и след като я спрете."
         },
-        "vkd3d": "VKD3D е базиран на Vulkan междинен слой за игри ползващи DirectX 12. Включването му може значително да подобри съвместимостта. Няма ефект при по-стари игри използващи DirectX.",
+        "vkd3d": "VKD3D е базиран на Vulkan междинен слой за игри ползващи DirectX 12. Включването му може значително да подобри съвместимостта. Няма ефект при по-стари игри използващи DirectX. Изисква DXVK.",
         "wine": {
             "part1": "Heroic търси версии на Wine, Proton и CrossOver в следните папки:",
             "part2": "За други места използвайте символна връзка към една от тези папки"
@@ -624,7 +624,8 @@
             "log": "Журнал",
             "other": "Други",
             "sync": "Синхронизиране на запазените файлове",
-            "wineExt": "Wine Extensions"
+            "wineExt": "Wine Extensions",
+            "systemInformation": "Системна информация"
         },
         "open-config-file": "Отваряне на конфигурационния файл",
         "reset-heroic": "Зачистване на Heroic",
@@ -634,6 +635,28 @@
         },
         "experimental_features": {
             "title": "Експериментални функционалности"
+        },
+        "systemInformation": {
+            "cpu": "Централен процесор:",
+            "gpuWithNumber": "Графичен процесор {{number}}:",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "legendaryVersion": "Legendary: {{legendaryVersion}}",
+            "gpuDriver": "Драйвер: {{driverVersion}}",
+            "os": "Операционна система:",
+            "gpu": "Графичен процесор:",
+            "gogdlVersion": "Gogdl: {{gogdlVersion}}",
+            "osVersion": "Версия {{versionNumber}}",
+            "osNameFlatpak": "{{osName}} (във Flatpak)",
+            "memoryStats": "{{percentUsed}}% заета ({{usedGib}} / {{totalGib}})",
+            "showDetailed": "Показване на подробни данни за системата",
+            "memory": "Памет:",
+            "copyToClipboard": "Копиране в буфера",
+            "heroicVersion": "Heroic: {{heroicVersion}}",
+            "nileVersion": "Nile: {{nileVersion}}",
+            "systemSpecifications": "Спецификации на системата:",
+            "steamDeck": "Steam Deck",
+            "software": "Софтуер:",
+            "systemModel": "Модел на системата:"
         }
     },
     "Settings": "Настройки",

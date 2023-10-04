@@ -89,7 +89,7 @@ const initialContext: ContextType = {
   setLastChangelogShown: () => null,
   isSettingsModalOpen: { value: false, type: 'settings' },
   setIsSettingsModalOpen: () => null,
-  experimentalFeatures: { enableNewShinyFeature: false }, // remove this when adding a real experimental feature
+  experimentalFeatures: { enableNewDesign: false },
   handleExperimentalFeatures: () => null
 }
 

@@ -112,6 +112,15 @@ svg.disabled {
   color: var(--background);
 }
 
+img.loading {
+  opacity: 0;
+}
+
+img.loaded {
+  transition: opacity 500ms;
+  opacity: 1;
+}
+
 .react-contextmenu--visible {
   background-color: var(--input-background);
   padding: var(--space-md) var(--space-lg);

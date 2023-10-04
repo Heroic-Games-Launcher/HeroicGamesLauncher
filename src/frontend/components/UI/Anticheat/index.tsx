@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react'
+import React, { MouseEvent, useContext } from 'react'
 import { AntiCheatInfo } from 'common/types'
 import { createNewWindow } from 'frontend/helpers'
 
@@ -8,6 +8,7 @@ import { ReactComponent as AllowedIcon } from 'frontend/assets/rounded_checkmark
 
 import './index.scss'
 import { useTranslation } from 'react-i18next'
+import ContextProvider from 'frontend/state/ContextProvider'
 
 type Props = {
   anticheatInfo: AntiCheatInfo | null
@@ -17,12 +18,15 @@ const awacyUrl = 'https://areweanticheatyet.com/'
 
 export default function Anticheat({ anticheatInfo }: Props) {
   const { t } = useTranslation()
+  const { platform } = useContext(ContextProvider)
 
   if (!anticheatInfo) {
     return null
   }
 
-  const mayNotWork = ['Denied', 'Broken'].includes(anticheatInfo.status)
+  const mayNotWork = ['Denied', 'Broken', 'Unknown'].includes(
+    anticheatInfo.status
+  )
 
   const latestUpdate =
     anticheatInfo.reference ||
@@ -81,12 +85,14 @@ export default function Anticheat({ anticheatInfo }: Props) {
           )}
         </span>
 
-        <span>
-          <b>{t('anticheat.source', 'Source')}:</b>&nbsp;
-          <a href="#" onClick={onAWACYClick}>
-            AreWeAntiCheatYet
-          </a>
-        </span>
+        {platform === 'linux' && (
+          <span>
+            <b>{t('anticheat.source', 'Source')}:</b>&nbsp;
+            <a href="#" onClick={onAWACYClick}>
+              AreWeAntiCheatYet
+            </a>
+          </span>
+        )}
       </div>
     </div>
   )

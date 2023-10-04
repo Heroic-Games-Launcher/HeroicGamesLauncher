@@ -110,7 +110,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Sei sicuro di voler resettare Heroic? Saranno rimosse tutte le Impostazioni e la Cache ma non saranno rimossi i giochi installati e le credenziali di Epic. Le verioni portatili (AppImage, WinPortable, ...) di Heroic devono essere riavviate manualmente in seguito.",
+                "message": "Sei sicuro di voler resettare Heroic? Saranno rimosse tutte le Impostazioni e la Cache ma non saranno rimossi i giochi installati e le credenziali di Epic. Le versioni portatili (AppImage, WinPortable, ...) di Heroic devono essere riavviate manualmente in seguito.",
                 "title": "Ripristina Heroic"
             }
         },
@@ -586,7 +586,10 @@
         "addgamestoapplications": "Aggiungi giochi alla lista applicazioni automaticamente",
         "showMetalOverlay": "Mostra Overlay Statistiche",
         "alt-nile-bin": "Scegli un binario Nile alternativo",
-        "autodxvknvapi": "Installa/Aggiorna automaticamente DXVK/VKD3D sul Prefix"
+        "autodxvknvapi": "Installa/Aggiorna automaticamente DXVK/VKD3D sul Prefix",
+        "experimental_features": {
+            "enableNewShinyFeature": "Nuova funzione bellissima"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -621,13 +624,39 @@
             "log": "Log",
             "other": "Altro",
             "sync": "Sincronizzazione salvataggi in cloud",
-            "wineExt": "Estensioni di Wine"
+            "wineExt": "Estensioni di Wine",
+            "systemInformation": "Informazioni di Sistema"
         },
         "open-config-file": "Apri File di Configurazione",
         "reset-heroic": "Reset Heroic",
         "saves": {
             "label": "Percorso dei Salvataggi:",
             "warning": "Il salvataggio nel Cloud è attualmente in Beta, per favore effettua un backup dei salvataggi prima di sincronizzarti (in caso qualcosa vada storto)"
+        },
+        "systemInformation": {
+            "cpu": "CPU:",
+            "gpuWithNumber": "GPU {{number}}:",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "legendaryVersion": "Legendary: {{legendaryVersion}}",
+            "systemSpecifications": "Specifiche del Sistema:",
+            "steamDeck": "Steam Deck",
+            "gpuDriver": "Driver: {{driverVersion}}",
+            "os": "Sistema Operativo:",
+            "gpu": "GPU:",
+            "gogdlVersion": "Gogdl: {{gogdlVersion}}",
+            "osVersion": "Versione {{versionNumber}}",
+            "osNameFlatpak": "{{osName}} (in Flatpak)",
+            "software": "Software:",
+            "memoryStats": "{{percentUsed}}% utilizzata ({{usedGib}} / {{totalGib}}",
+            "systemModel": "Modello di Sistema:",
+            "showDetailed": "Mostra specifiche di sistema dettagliate",
+            "memory": "Memoria:",
+            "copyToClipboard": "Copia negli appunti",
+            "heroicVersion": "Heroic: {{heroicVersion}}",
+            "nileVersion": "Nile: {{nileVersion}}"
+        },
+        "experimental_features": {
+            "title": "Funzioni Sperimentali"
         }
     },
     "Settings": "Impostazioni",
