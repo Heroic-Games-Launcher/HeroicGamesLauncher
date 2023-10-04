@@ -123,13 +123,15 @@ export default function GamesSettings() {
         variant="scrollable"
       >
         {!isWin && !nativeGame && <Tab label="Wine" value="wine" />}
-        <Tab label={t('settings.navbar.other', 'Other')} value="other" />
-        {!isCrossover && !isWin && (
-          <Tab
-            label={t('settings.navbar.advanced', 'Advanced')}
-            value="advanced"
-          />
+        {!isWin && (
+          <Tab label={t('settings.navbar.other', 'Other')} value="other" />
         )}
+
+        <Tab
+          label={t('settings.navbar.advanced', 'Advanced')}
+          value="advanced"
+        />
+
         {hasCloudSaves && (
           <Tab
             label={t('settings.navbar.sync', 'Cloud Saves Sync')}
