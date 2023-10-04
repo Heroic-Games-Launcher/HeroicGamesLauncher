@@ -79,7 +79,8 @@ export default function GamesSettings() {
   const localStorageKey = gameInfo
     ? `${gameInfo!.app_name}-setting_tab`
     : 'default'
-  const latestTabIndex = localStorage.getItem(localStorageKey) || 'wine'
+  const latestTabIndex =
+    localStorage.getItem(localStorageKey) || (isWin ? 'advanced' : 'wine')
   const [value, setValue] = useState(latestTabIndex)
 
   const handleChange = (
@@ -179,11 +180,11 @@ export default function GamesSettings() {
             <EacRuntime />
           </>
         )}
-        <IgnoreGameUpdates />
-        <OfflineMode />
       </TabPanel>
 
       <TabPanel value={value} index={'advanced'}>
+        <IgnoreGameUpdates />
+        <OfflineMode />
         <AlternativeExe />
         <LauncherArgs />
         <WrappersTable />
