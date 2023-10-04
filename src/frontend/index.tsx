@@ -4,10 +4,11 @@ import React, { lazy, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import i18next from 'i18next'
 import { initGamepad } from './helpers/gamepad'
+import { RecoilRoot } from 'recoil'
 
 import './index.scss'
 import './themes.scss'
-import GlobalState from './state/GlobalState'
+import { GlobalStateFunctional } from './state/GlobalStateFunctional'
 import { initShortcuts } from './helpers/shortcuts'
 import { configStore } from './helpers/electronStores'
 import { initOnlineMonitor } from './helpers/onlineMonitor'
@@ -104,15 +105,17 @@ const root = createRoot(container!) // createRoot(container!) if you use TypeScr
 const App = lazy(async () => import('./App'))
 
 root.render(
-  // <React.StrictMode>
-  <GlobalState>
-    <I18nextProvider i18n={i18next}>
-      <Suspense fallback={<Loading />}>
-        <App />
-      </Suspense>
-    </I18nextProvider>
-  </GlobalState>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <RecoilRoot>
+      <GlobalStateFunctional>
+        <I18nextProvider i18n={i18next}>
+          <Suspense fallback={<Loading />}>
+            <App />
+          </Suspense>
+        </I18nextProvider>
+      </GlobalStateFunctional>
+    </RecoilRoot>
+  </React.StrictMode>
 )
 
 // helper function to set the theme class and load custom css if needed

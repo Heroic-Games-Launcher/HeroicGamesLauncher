@@ -14,13 +14,17 @@ import { FlagPosition } from '../../components/UI/LanguageSelector'
 import SIDLogin from './components/SIDLogin'
 import ContextProvider from '../../state/ContextProvider'
 import { useAwaited } from '../../hooks/useAwaited'
+import { epicState } from 'frontend/state/epic_state'
+import { useRecoilValue } from 'recoil'
 
 export const epicLoginPath = '/loginweb/legendary'
 export const gogLoginPath = '/loginweb/gog'
 export const amazonLoginPath = '/loginweb/nile'
 
 export default React.memo(function NewLogin() {
-  const { epic, gog, amazon, refreshLibrary } = useContext(ContextProvider)
+  const epic = useRecoilValue(epicState)
+  const { epicLogout, gog, amazon, refreshLibrary } =
+    useContext(ContextProvider)
   const { t } = useTranslation()
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
@@ -111,7 +115,7 @@ export default React.memo(function NewLogin() {
               icon={() => <EpicLogo />}
               isLoggedIn={isEpicLoggedIn}
               user={epic.username}
-              logoutAction={epic.logout}
+              logoutAction={epicLogout}
               alternativeLoginAction={() => {
                 setShowSidLogin(true)
               }}

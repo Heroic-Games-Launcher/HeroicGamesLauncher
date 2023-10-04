@@ -15,12 +15,15 @@ import { Runner, WebviewType } from 'common/types'
 import './index.css'
 import LoginWarning from '../Login/components/LoginWarning'
 import { NileLoginData } from 'common/types/nile'
+import { epicState } from 'frontend/state/epic_state'
+import { useRecoilValue } from 'recoil'
 
 export default function WebView() {
   const { i18n } = useTranslation()
   const { pathname, search } = useLocation()
   const { t } = useTranslation()
-  const { epic, gog, amazon, connectivity } = useContext(ContextProvider)
+  const epic = useRecoilValue(epicState)
+  const { epicLogin, gog, amazon, connectivity } = useContext(ContextProvider)
   const [loading, setLoading] = useState<{
     refresh: boolean
     message: string
@@ -149,7 +152,7 @@ export default function WebView() {
               refresh: true,
               message: t('status.logging', 'Logging In...')
             })
-            await epic.login(e.args[0])
+            await epicLogin(e.args[0])
             handleSuccessfulLogin()
           } catch (error) {
             console.error(error)

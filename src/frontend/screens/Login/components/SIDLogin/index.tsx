@@ -16,7 +16,7 @@ interface Props {
 export default function SIDLogin({ backdropClick }: Props) {
   const epicLoginUrl = 'https://legendary.gl/epiclogin'
 
-  const { epic } = useContext(ContextProvider)
+  const { epicLogin } = useContext(ContextProvider)
   const { t } = useTranslation('login')
   const [input, setInput] = useState('')
   const [status, setStatus] = useState({
@@ -38,7 +38,7 @@ export default function SIDLogin({ backdropClick }: Props) {
       loading: true,
       error: false
     })
-    await epic.login(sid).then(async (res) => {
+    await epicLogin(sid).then(async (res) => {
       console.log(res)
       if (res === 'done') {
         await window.api.getUserInfo()

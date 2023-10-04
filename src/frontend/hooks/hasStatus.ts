@@ -1,16 +1,19 @@
+import { useRecoilValue } from 'recoil'
 import React from 'react'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { GameInfo, GameStatus, Status } from 'common/types'
 import { hasProgress } from './hasProgress'
 import { useTranslation } from 'react-i18next'
 import { getStatusLabel, handleNonAvailableGames } from './constants'
+import { epicState } from 'frontend/state/epic_state'
 
 export function hasStatus(
   appName: string,
   gameInfo: GameInfo,
   gameSize?: string
 ) {
-  const { libraryStatus, epic, gog } = React.useContext(ContextProvider)
+  const epic = useRecoilValue(epicState)
+  const { libraryStatus, gog } = React.useContext(ContextProvider)
   const [progress] = hasProgress(appName)
   const { t } = useTranslation('gamepage')
 

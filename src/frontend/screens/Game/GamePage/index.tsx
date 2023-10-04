@@ -64,6 +64,8 @@ import {
   SettingsButton
 } from './components'
 import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
+import { epicState } from 'frontend/state/epic_state'
+import { useRecoilValue } from 'recoil'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -77,9 +79,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   const [showModal, setShowModal] = useState({ game: '', show: false })
   const [wikiInfo, setWikiInfo] = useState<WikiInfo | null>(null)
+  const epic = useRecoilValue(epicState)
 
   const {
-    epic,
     gog,
     gameUpdates,
     platform,

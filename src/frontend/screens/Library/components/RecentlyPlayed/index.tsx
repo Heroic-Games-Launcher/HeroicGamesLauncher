@@ -4,6 +4,8 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { GameInfo, Runner } from 'common/types'
 import GamesList from '../GamesList'
 import { configStore } from 'frontend/helpers/electronStores'
+import { epicState } from 'frontend/state/epic_state'
+import { useRecoilValue } from 'recoil'
 
 interface Props {
   handleModal: (appName: string, runner: Runner, gameInfo: GameInfo) => void
@@ -37,7 +39,8 @@ export default React.memo(function RecentlyPlayed({
   onlyInstalled
 }: Props) {
   const { t } = useTranslation()
-  const { epic, gog, sideloadedLibrary, amazon } = useContext(ContextProvider)
+  const epic = useRecoilValue(epicState)
+  const { gog, sideloadedLibrary, amazon } = useContext(ContextProvider)
   const [recentGames, setRecentGames] = useState<GameInfo[]>([])
 
   const loadRecentGames = async () => {

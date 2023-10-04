@@ -13,6 +13,8 @@ import './index.scss'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { GameInfo } from '../../../../common/types'
+import { epicState } from 'frontend/state/epic_state'
+import { useRecoilValue } from 'recoil'
 
 function fixFilter(text: string) {
   const regex = new RegExp(/([?\\|*|+|(|)|[|]|])+/, 'g')
@@ -26,7 +28,8 @@ const RUNNER_TO_STORE = {
 }
 
 export default React.memo(function SearchBar() {
-  const { handleSearch, filterText, epic, gog, sideloadedLibrary, amazon } =
+  const epic = useRecoilValue(epicState)
+  const { handleSearch, filterText, gog, sideloadedLibrary, amazon } =
     useContext(ContextProvider)
   const { t } = useTranslation()
   const navigate = useNavigate()

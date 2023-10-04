@@ -190,6 +190,7 @@
     "react-markdown": "^8.0.5",
     "react-router-dom": "^6.9.0",
     "recharts": "^2.4.3",
+    "recoil": "^0.7.7",
     "sanitize-filename": "^1.6.3",
     "semver": "^7.5.2",
     "shlex": "^2.1.2",

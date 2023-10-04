@@ -24,6 +24,8 @@ import './index.css'
 import QuitButton from '../QuitButton'
 import { LocationState } from 'frontend/types'
 import { SHOW_EXTERNAL_LINK_DIALOG_STORAGE_KEY } from 'frontend/components/UI/ExternalLinkDialog'
+import { epicState } from 'frontend/state/epic_state'
+import { useRecoilValue } from 'recoil'
 
 type PathSplit = [
   a: undefined,
@@ -39,14 +41,10 @@ export default function SidebarLinks() {
   const location = useLocation() as { pathname: string }
   const [, , runner, appName, type] = location.pathname.split('/') as PathSplit
 
-  const {
-    amazon,
-    epic,
-    gog,
-    platform,
-    refreshLibrary,
-    handleExternalLinkDialog
-  } = useContext(ContextProvider)
+  const epic = useRecoilValue(epicState)
+
+  const { amazon, gog, platform, refreshLibrary, handleExternalLinkDialog } =
+    useContext(ContextProvider)
 
   const isStore = location.pathname.includes('store')
   const isSettings = location.pathname.includes('settings')

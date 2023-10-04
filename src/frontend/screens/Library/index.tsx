@@ -34,6 +34,8 @@ import {
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
 import { InstallModal } from './components'
+import { epicState } from 'frontend/state/epic_state'
+import { useRecoilValue } from 'recoil'
 
 const storage = window.localStorage
 
@@ -45,13 +47,14 @@ type ModalState = {
 }
 
 export default React.memo(function Library(): JSX.Element {
+  const epic = useRecoilValue(epicState)
+
   const {
     layout,
     libraryStatus,
     refreshing,
     refreshingInTheBackground,
     category,
-    epic,
     gog,
     amazon,
     sideloadedLibrary,

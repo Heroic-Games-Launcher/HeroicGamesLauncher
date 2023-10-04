@@ -14,6 +14,8 @@ import { useNavigate } from 'react-router-dom'
 import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
 import { ReactComponent as DownIcon } from 'frontend/assets/down-icon.svg'
 import { ReactComponent as PauseIcon } from 'frontend/assets/pause-icon.svg'
+import { epicState } from 'frontend/state/epic_state'
+import { useRecoilValue } from 'recoil'
 
 type Props = {
   element?: DMQueueElement
@@ -37,7 +39,8 @@ function convertToTime(time: number) {
 }
 
 const DownloadManagerItem = ({ element, current, state }: Props) => {
-  const { amazon, epic, gog, showDialogModal } = useContext(ContextProvider)
+  const epic = useRecoilValue(epicState)
+  const { amazon, gog, showDialogModal } = useContext(ContextProvider)
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation('translation')
 

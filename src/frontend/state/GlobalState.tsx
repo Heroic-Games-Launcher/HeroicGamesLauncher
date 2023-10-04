@@ -1,4 +1,6 @@
 import React, { PureComponent } from 'react'
+import { SetterOrUpdater } from 'recoil'
+import { EpicState } from '../state/epic_state'
 
 import {
   ConnectivityStatus,
@@ -56,14 +58,12 @@ interface Props {
   children: React.ReactNode
   i18n: i18n
   t: T
+  epic: EpicState
+  setEpic: SetterOrUpdater<EpicState>
 }
 
 interface StateProps {
   category: Category
-  epic: {
-    library: GameInfo[]
-    username?: string
-  }
   gog: {
     library: GameInfo[]
     username?: string
@@ -140,10 +140,6 @@ class GlobalState extends PureComponent<Props> {
   }
   state: StateProps = {
     category: (storage.getItem('category') as Category) || 'legendary',
-    epic: {
-      library: libraryStore.get('library', []),
-      username: configStore.get_nodefault('userInfo.displayName')
-    },
     gog: {
       library: this.loadGOGLibrary(),
       username: gogConfigStore.get_nodefault('userData.username')
@@ -481,8 +477,7 @@ class GlobalState extends PureComponent<Props> {
     checkUpdates = false
   ): Promise<void> => {
     console.log('refreshing')
-
-    const { epic, gog, amazon, gameUpdates } = this.state
+    const { gog, amazon, gameUpdates } = this.state
 
     let updates = gameUpdates
     if (checkUpdates) {
@@ -493,10 +488,13 @@ class GlobalState extends PureComponent<Props> {
       }
     }
 
-    const currentLibraryLength = epic.library?.length
+    const currentLibraryLength = this.props.epic.library?.length
 
     let epicLibrary = libraryStore.get('library', [])
-    if (epic.username && (!epicLibrary.length || !epic.library.length)) {
+    if (
+      this.props.epic.username &&
+      (!epicLibrary.length || !this.props.epic.library.length)
+    ) {
       window.api.logInfo('No cache found, getting data from legendary...')
       const { library: legendaryLibrary } = await getLegendaryConfig()
       epicLibrary = legendaryLibrary
@@ -518,11 +516,12 @@ class GlobalState extends PureComponent<Props> {
 
     const updatedSideload = sideloadLibrary.get('games', [])
 
+    this.props.setEpic({
+      library: epicLibrary,
+      username: this.props.epic.username
+    })
+
     this.setState({
-      epic: {
-        library: epicLibrary,
-        username: epic.username
-      },
       gog: {
         library: gogLibrary,
         username: gog.username
@@ -673,7 +672,7 @@ class GlobalState extends PureComponent<Props> {
 
   async componentDidMount() {
     const { t } = this.props
-    const { epic, gameUpdates = [], libraryStatus, category } = this.state
+    const { gameUpdates = [], libraryStatus, category } = this.state
     const oldCategory: string = category
     if (oldCategory === 'epic') {
       this.handleCategory('all')
@@ -782,7 +781,7 @@ class GlobalState extends PureComponent<Props> {
     if (legendaryUser || gogUser || amazonUser) {
       this.refreshLibrary({
         checkForUpdates: true,
-        runInBackground: Boolean(epic.library?.length)
+        runInBackground: Boolean(this.props.epic.library?.length)
       })
     }
 
@@ -846,7 +845,6 @@ class GlobalState extends PureComponent<Props> {
     const {
       showInstallModal,
       language,
-      epic,
       gog,
       amazon,
       favouriteGames,
@@ -861,12 +859,8 @@ class GlobalState extends PureComponent<Props> {
       <ContextProvider.Provider
         value={{
           ...this.state,
-          epic: {
-            library: epic.library,
-            username: epic.username,
-            login: this.epicLogin,
-            logout: this.epicLogout
-          },
+          epicLogin: this.epicLogin,
+          epicLogout: this.epicLogout,
           gog: {
             library: gog.library,
             username: gog.username,

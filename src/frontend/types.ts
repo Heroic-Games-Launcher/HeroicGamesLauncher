@@ -65,12 +65,8 @@ export interface ContextType {
   setTheme: (themeName: string) => void
   zoomPercent: number
   setZoomPercent: (newZoomPercent: number) => void
-  epic: {
-    library: GameInfo[]
-    username?: string
-    login: (sid: string) => Promise<string>
-    logout: () => Promise<void>
-  }
+  epicLogin: (sid: string) => Promise<string>
+  epicLogout: () => Promise<void>
   gog: {
     library: GameInfo[]
     username?: string

@@ -3,10 +3,12 @@ import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import FormControl from 'frontend/components/UI/FormControl'
 import ContextProvider from 'frontend/state/ContextProvider'
+import { epicState } from 'frontend/state/epic_state'
+import { useRecoilValue } from 'recoil'
 
 export default React.memo(function StoreFilter() {
-  const { category, handleCategory, gog, epic, amazon } =
-    useContext(ContextProvider)
+  const epic = useRecoilValue(epicState)
+  const { category, handleCategory, gog, amazon } = useContext(ContextProvider)
   const { t } = useTranslation()
 
   const isGOGLoggedin = gog.username
