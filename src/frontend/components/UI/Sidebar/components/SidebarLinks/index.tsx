@@ -213,18 +213,23 @@ export default function SidebarLinks() {
             >
               <span>{t('settings.navbar.general')}</span>
             </NavLink>
-            <NavLink
-              role="link"
-              to={`/settings/${runner}/${appName}/games_settings`}
-              state={{ ...state, runner: state?.runner }}
-              className={classNames('Sidebar__item SidebarLinks__subItem', {
-                ['active']: type === 'games_settings'
-              })}
-            >
-              <span>
-                {t('settings.navbar.games_settings_defaults', 'Game Defaults')}
-              </span>
-            </NavLink>
+            {!isWin && (
+              <NavLink
+                role="link"
+                to={`/settings/${runner}/${appName}/games_settings`}
+                state={{ ...state, runner: state?.runner }}
+                className={classNames('Sidebar__item SidebarLinks__subItem', {
+                  ['active']: type === 'games_settings'
+                })}
+              >
+                <span>
+                  {t(
+                    'settings.navbar.games_settings_defaults',
+                    'Game Defaults'
+                  )}
+                </span>
+              </NavLink>
+            )}
             <NavLink
               role="link"
               to={`/settings/${runner}/${appName}/advanced`}
