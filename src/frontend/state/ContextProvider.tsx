@@ -59,6 +59,8 @@ const initialContext: ContextType = {
   setShowNonAvailable: () => null,
   showNonAvailable: false,
   setShowFavourites: () => null,
+  currentCustomCategory: null,
+  setCurrentCustomCategory: () => null,
   favouriteGames: {
     list: [],
     add: () => null,

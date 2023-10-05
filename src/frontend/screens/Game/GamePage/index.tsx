@@ -1,6 +1,6 @@
 import './index.scss'
 
-import React, { useContext, useEffect, useMemo, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import {
   ArrowCircleLeft,
@@ -86,7 +86,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
     showDialogModal,
     isSettingsModalOpen,
     connectivity,
-    customCategories,
     experimentalFeatures
   } = useContext(ContextProvider)
 
@@ -212,14 +211,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
         }
       })
   }, [appName])
-
-  const category: string = useMemo(() => {
-    let categories = ''
-    for (const [cat, games] of Object.entries(customCategories.list)) {
-      if (games.includes(appName)) categories += cat
-    }
-    return categories
-  }, [appName, customCategories.list])
 
   function handleUpdate() {
     if (gameInfo.runner !== 'sideload')

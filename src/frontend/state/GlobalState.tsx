@@ -91,6 +91,7 @@ interface StateProps {
   showNonAvailable: boolean
   favouriteGames: FavouriteGame[]
   customCategories: Record<string, string[]>
+  currentCustomCategory: string | null
   theme: string
   zoomPercent: number
   primaryFontFamily: string
@@ -169,6 +170,7 @@ class GlobalState extends PureComponent<Props> {
     hiddenGames: configStore.get('games.hidden', []),
     showHidden: JSON.parse(storage.getItem('show_hidden') || 'false'),
     showFavourites: JSON.parse(storage.getItem('show_favorites') || 'false'),
+    currentCustomCategory: storage.getItem('current_custom_category') || null,
     showNonAvailable: true,
     sidebarCollapsed: JSON.parse(
       storage.getItem('sidebar_collapsed') || 'false'
@@ -205,6 +207,10 @@ class GlobalState extends PureComponent<Props> {
     experimentalFeatures: globalSettings?.experimentalFeatures || {
       enableNewDesign: false
     }
+  }
+
+  setCurrentCustomCategory = (newCustomCategory: string) => {
+    this.setState({ currentCustomCategory: newCustomCategory })
   }
 
   setLanguage = (newLanguage: string) => {
@@ -980,7 +986,8 @@ class GlobalState extends PureComponent<Props> {
           lastChangelogShown: lastChangelogShown,
           setLastChangelogShown: this.setLastChangelogShown,
           isSettingsModalOpen: settingsModalOpen,
-          setIsSettingsModalOpen: this.handleSettingsModalOpen
+          setIsSettingsModalOpen: this.handleSettingsModalOpen,
+          setCurrentCustomCategory: this.setCurrentCustomCategory
         }}
       >
         {this.props.children}

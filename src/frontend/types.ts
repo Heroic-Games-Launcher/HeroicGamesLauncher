@@ -69,6 +69,8 @@ export interface ContextType {
   setShowFavourites: (value: boolean) => void
   showNonAvailable: boolean
   setShowNonAvailable: (value: boolean) => void
+  currentCustomCategory: string | null
+  setCurrentCustomCategory: (newCustomCategory: string) => void
   theme: string
   setTheme: (themeName: string) => void
   zoomPercent: number

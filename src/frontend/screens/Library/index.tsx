@@ -64,7 +64,9 @@ export default React.memo(function Library(): JSX.Element {
     showHidden,
     handleCategory,
     showFavourites: showFavouritesLibrary,
-    showNonAvailable
+    showNonAvailable,
+    currentCustomCategory,
+    customCategories
   } = useContext(ContextProvider)
 
   const [showModal, setShowModal] = useState<ModalState>({
@@ -234,6 +236,20 @@ export default React.memo(function Library(): JSX.Element {
     return tempArray
   }, [showFavourites, favouriteGames, epic, gog])
 
+  const makeLibrary = () => {
+    const isEpic = epic.username && epicCategories.includes(category)
+    const isGog = gog.username && gogCategories.includes(category)
+    const isAmazon = amazon.user_id && amazonCategories.includes(category)
+    const epicLibrary = isEpic ? epic.library : []
+    const gogLibrary = isGog ? gog.library : []
+    const sideloadedApps = sideloadedCategories.includes(category)
+      ? sideloadedLibrary
+      : []
+    const amazonLibrary = isAmazon ? amazon.library : []
+
+    return [...sideloadedApps, ...epicLibrary, ...gogLibrary, ...amazonLibrary]
+  }
+
   // select library
   const libraryToShow = useMemo(() => {
     let library: Array<GameInfo> = []
@@ -241,24 +257,13 @@ export default React.memo(function Library(): JSX.Element {
       library = [...favourites].filter((game) =>
         category === 'all' ? game : game?.runner === category
       )
+    } else if (currentCustomCategory && currentCustomCategory.length > 0) {
+      const gamesInCustomCategory = customCategories.list[currentCustomCategory]
+      library = makeLibrary().filter((game) =>
+        gamesInCustomCategory.includes(game.app_name)
+      )
     } else {
-      const isEpic = epic.username && epicCategories.includes(category)
-      const isGog = gog.username && gogCategories.includes(category)
-      const isAmazon = amazon.user_id && amazonCategories.includes(category)
-      const epicLibrary = isEpic ? epic.library : []
-      const gogLibrary = isGog ? gog.library : []
-      const sideloadedApps = sideloadedCategories.includes(category)
-        ? sideloadedLibrary
-        : []
-      const amazonLibrary = isAmazon ? amazon.library : []
-
-      library = [
-        ...sideloadedApps,
-        ...epicLibrary,
-        ...gogLibrary,
-        ...amazonLibrary
-      ]
-
+      library = makeLibrary()
       if (!showNonAvailable) {
         const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
         const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)

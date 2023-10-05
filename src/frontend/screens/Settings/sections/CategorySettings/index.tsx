@@ -63,14 +63,17 @@ const CategorySettings = () => {
             label={category}
             key={category}
             onDelete={() => handleRemoveGameFromCategory(category)}
-            sx={{ backgroundColor: 'var(--primary)' }}
+            sx={{
+              backgroundColor: 'var(--brand-primary)',
+              ':hover': { backgroundColor: 'var(--primary-hover)' }
+            }}
           />
         ))}
       </Box>
       {availableCategories.length > 0 && (
         <>
           <Divider
-            sx={{ mt: 2, mb: 2, backgroundColor: 'var(--background-lighter)' }}
+            sx={{ mt: 4, mb: 4, backgroundColor: 'var(--neutral-04)' }}
           />
           <Typography variant="h4" sx={{ mb: 2 }}>
             Available categories
@@ -88,15 +91,16 @@ const CategorySettings = () => {
                 key={category}
                 onClick={() => handleAddGameToCategory(category)}
                 onDelete={() => handleRemoveCategory(category)}
-                sx={{ backgroundColor: 'var(--secondary)' }}
+                sx={{
+                  backgroundColor: 'var(--brand-secondary)',
+                  ':hover': { backgroundColor: 'var(--secondary-hover)' }
+                }}
               />
             ))}
           </Box>
         </>
       )}
-      <Divider
-        sx={{ mt: 2, mb: 2, backgroundColor: 'var(--background-lighter)' }}
-      />
+      <Divider sx={{ mt: 4, mb: 4, backgroundColor: 'var(--neutral-04)' }} />
       <Box sx={{ display: 'grid' }}>
         <TextInputField
           label="New category"
@@ -110,7 +114,10 @@ const CategorySettings = () => {
           variant="contained"
           onClick={handleSubmit}
           disabled={newCategory.length <= 0}
-          sx={{ placeSelf: 'end' }}
+          sx={{
+            placeSelf: 'end',
+            ':disabled': { backgroundColor: 'var(--neutral-03)' }
+          }}
         >
           Add new category
         </Button>
