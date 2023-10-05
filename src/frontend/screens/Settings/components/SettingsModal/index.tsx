@@ -37,7 +37,7 @@ function SettingsModal({ gameInfo, type }: Props) {
     const titleTypeLiterals = {
       settings: t('Settings', 'Settings'),
       log: t('settings.navbar.log', 'Log'),
-      category: 'Categories'
+      category: t('Categories', 'Categories')
     }
 
     return titleTypeLiterals[type]

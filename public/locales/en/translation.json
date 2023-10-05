@@ -249,7 +249,8 @@
         "show_available_games": "Show non-Available games",
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
-        "store": "Filter Store"
+        "store": "Filter Store",
+        "all_categories": "All Categories"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -720,5 +721,13 @@
         },
         "release": "Release Date",
         "size": "Size"
+    },
+    "Categories": "Categories",
+    "category-settings": {
+        "assigned-categories": "Assigned Categories",
+        "available-categories":  "Available Categories",
+        "new-category": "New Category",
+        "add-new-category": "Add New Category",
+        "no-assigned-categories": "No categories have been assigned to this game"
     }
 }

@@ -233,6 +233,7 @@
         "removeShortcut": "Remove shortcuts",
         "settings": "Settings",
         "store": "Store Page",
-        "verify": "Verify and Repair"
+        "verify": "Verify and Repair",
+        "manageCategories": "Manage Categories"
     }
 }

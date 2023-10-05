@@ -339,7 +339,7 @@ const GameCard = ({
       show: !isFavouriteGame
     },
     {
-      label: 'Add to category',
+      label: t('submenu.manageCategories', 'Manage Categories'),
       onclick: () => setIsSettingsModalOpen(true, 'category', gameInfo),
       show: true
     },

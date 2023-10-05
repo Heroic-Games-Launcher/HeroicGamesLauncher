@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import SettingsContext from '../../SettingsContext'
 import { Box, Button, Chip, Divider, Typography } from '@mui/material'
 import { TextInputField } from 'frontend/components/UI'
+import { useTranslation } from 'react-i18next'
 
 const CategorySettings = () => {
   const { customCategories } = useContext(ContextProvider)
@@ -11,6 +12,8 @@ const CategorySettings = () => {
   const [newCategory, setNewCategory] = useState('')
   const [assignedCategories, setAssignedCategories] = useState<string[]>([])
   const [availableCategories, setAvailableCategories] = useState<string[]>([])
+
+  const { t } = useTranslation()
 
   const updateCategories = () => {
     setAssignedCategories(
@@ -53,11 +56,23 @@ const CategorySettings = () => {
   return (
     <>
       <Typography variant="h4" sx={{ mb: 2 }}>
-        Assigned categories
+        {t('category-settings.assigned-categories', 'Assigned categories')}
       </Typography>
       <Box
         sx={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 2 }}
       >
+        {assignedCategories.length <= 0 && (
+          <Typography
+            variant="body1"
+            width="max-content"
+            color="var(--text-secondary)"
+          >
+            {t(
+              'category-settings.no-assigned-categories',
+              'No categories have been assigned to this game'
+            )}
+          </Typography>
+        )}
         {assignedCategories.map((category) => (
           <Chip
             label={category}
@@ -76,7 +91,10 @@ const CategorySettings = () => {
             sx={{ mt: 4, mb: 4, backgroundColor: 'var(--neutral-04)' }}
           />
           <Typography variant="h4" sx={{ mb: 2 }}>
-            Available categories
+            {t(
+              'category-settings.available-categories',
+              'Available categories'
+            )}
           </Typography>
           <Box
             sx={{
@@ -103,7 +121,7 @@ const CategorySettings = () => {
       <Divider sx={{ mt: 4, mb: 4, backgroundColor: 'var(--neutral-04)' }} />
       <Box sx={{ display: 'grid' }}>
         <TextInputField
-          label="New category"
+          label={t('category-settings.new-category', 'New category')}
           htmlId="new-category-input"
           onChange={(e) => {
             setNewCategory(e.target.value)
@@ -119,7 +137,7 @@ const CategorySettings = () => {
             ':disabled': { backgroundColor: 'var(--neutral-03)' }
           }}
         >
-          Add new category
+          {t('category-settings.add-new-category', 'Add new category')}
         </Button>
       </Box>
     </>

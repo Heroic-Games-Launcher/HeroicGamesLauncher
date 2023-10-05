@@ -33,7 +33,9 @@ export default React.memo(function StoreFilter() {
             setCurrentCustomCategory(e.target.value)
           }}
         >
-          <option value="">All categories</option>
+          <option value="">
+            {t('header.all_categories', 'All Categories')}
+          </option>
           {customCategories.listCategories().map((category) => (
             <option value={category} key={category}>
               {category}

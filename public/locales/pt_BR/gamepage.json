@@ -230,7 +230,8 @@
         "store": "Página na Loja",
         "verify": "Verificar e Reparar",
         "extraInfo": "Informação extra",
-        "logs": "Histórico"
+        "logs": "Histórico",
+        "manageCategories": "Gerenciar Categorias"
     },
     "help": {
         "cloud_save_unsupported": "Este jogo não suporta salvamentos na nuvem. Esta informação é fornecida pelos desenvolvedores do jogo. Alguns jogos implementam seu próprio sistema de salvamento na nuvem"
