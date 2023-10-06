@@ -53,7 +53,6 @@ function TabPanel(props: TabPanelProps) {
   return (
     <div
       role="tabpanel"
-      hidden={value !== index}
       id={`tabpanel-${index}`}
       aria-labelledby={`tab-${index}`}
       {...other}
@@ -63,24 +62,48 @@ function TabPanel(props: TabPanelProps) {
   )
 }
 
+const windowsPlatforms = ['Win32', 'Windows', 'windows']
+
 export default function GamesSettings() {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const { isDefault, gameInfo } = useContext(SettingsContext)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
-  const [nativeGame, setNativeGame] = useState(false)
+  const [isNative, setIsNative] = useState(false)
   const isLinux = platform === 'linux'
   const isWin = platform === 'win32'
   const isCrossover = wineVersion?.type === 'crossover'
   const hasCloudSaves =
     gameInfo?.cloud_save_enabled && gameInfo.install.platform !== 'linux'
+  const isBrowserGame = gameInfo?.install.platform === 'Browser'
+  const isSideloaded = gameInfo?.runner === 'sideload'
+
+  function shouldShowSettings(tab: 'wine' | 'other'): boolean {
+    if (tab === 'wine') {
+      if (isWin || isNative || isBrowserGame) {
+        return false
+      }
+      return true
+    }
+
+    if (isLinux) {
+      return true
+    }
+    return false
+  }
+
+  // if Windows start on advanced tab, native games start on other tab and wine games start on wine tab
+  const startingTab = isWin
+    ? 'advanced'
+    : windowsPlatforms.includes(gameInfo?.install.platform || '')
+    ? 'wine'
+    : 'other'
 
   // Get the latest used tab index for the current game
   const localStorageKey = gameInfo
     ? `${gameInfo!.app_name}-setting_tab`
     : 'default'
-  const latestTabIndex =
-    localStorage.getItem(localStorageKey) || (isWin ? 'advanced' : 'wine')
+  const latestTabIndex = localStorage.getItem(localStorageKey) || startingTab
   const [value, setValue] = useState(latestTabIndex)
 
   const handleChange = (
@@ -99,11 +122,14 @@ export default function GamesSettings() {
           appName: gameInfo?.app_name,
           runner: gameInfo?.runner
         })
-        setNativeGame(isNative)
+        setIsNative(isNative)
       }
       getIsNative()
     }
   }, [])
+
+  const showOtherTab = shouldShowSettings('other')
+  const showWineTab = shouldShowSettings('wine')
 
   return (
     <>
@@ -123,11 +149,10 @@ export default function GamesSettings() {
         aria-label="settings tabs"
         variant="scrollable"
       >
-        {!isWin && !nativeGame && <Tab label="Wine" value="wine" />}
-        {!isWin && (
+        {showWineTab && <Tab label="Wine" value="wine" />}
+        {showOtherTab && (
           <Tab label={t('settings.navbar.other', 'Other')} value="other" />
         )}
-
         <Tab
           label={t('settings.navbar.advanced', 'Advanced')}
           value="advanced"
@@ -164,17 +189,13 @@ export default function GamesSettings() {
       </TabPanel>
 
       <TabPanel value={value} index={'other'}>
-        {!nativeGame && <ShowFPS />}
+        {!isNative && <ShowFPS />}
         <Mangohud />
         <GameMode />
-        {!isCrossover && (
-          <>
-            <PreferSystemLibs />
-            <SteamRuntime />
-            <UseDGPU />
-          </>
-        )}
-        {!nativeGame && (
+        <PreferSystemLibs />
+        <SteamRuntime />
+        <UseDGPU />
+        {!isNative && (
           <>
             <BattlEyeRuntime />
             <EacRuntime />
@@ -183,7 +204,7 @@ export default function GamesSettings() {
       </TabPanel>
 
       <TabPanel value={value} index={'advanced'}>
-        <IgnoreGameUpdates />
+        {!isSideloaded && <IgnoreGameUpdates />}
         <OfflineMode />
         <AlternativeExe />
         <LauncherArgs />
