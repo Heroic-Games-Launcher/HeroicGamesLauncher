@@ -12,6 +12,10 @@ const UseFramelessWindow = () => {
     false
   )
 
+  if (window.isSteamDeckGameMode) {
+    return <></>
+  }
+
   async function toggleFramelessWindow() {
     if (!framelessWindow) {
       showDialogModal({
