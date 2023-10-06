@@ -42,7 +42,7 @@ jobs:
           pkgname=heroic-games-launcher-bin
           pkgver=$pkgver
           pkgrel=$pkgrel
-          pkgdesc="An open source Web3 gaming platform."
+          pkgdesc="An Open source Launcher for Epic, Amazon and GOG Games"
           arch=('x86_64')
           url="$url"
           license=('GPL3')
