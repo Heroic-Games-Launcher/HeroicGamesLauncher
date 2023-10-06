@@ -226,7 +226,7 @@ export default function GamesSettings() {
         <LauncherArgs />
         <WrappersTable />
         <EnvVariablesTable />
-        <PreferedLanguage />
+        {!isSideloaded && <PreferedLanguage />}
       </TabPanel>
 
       <TabPanel value={value} index={'saves'}>
