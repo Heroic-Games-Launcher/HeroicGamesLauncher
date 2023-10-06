@@ -40,6 +40,7 @@ import { defaultWineVersion } from '../..'
 import SyncSaves from '../SyncSaves'
 import FooterInfo from '../FooterInfo'
 import { Tabs, Tab } from '@mui/material'
+import { GameInfo } from 'common/types'
 
 type TabPanelProps = {
   children?: React.ReactNode
@@ -63,6 +64,23 @@ function TabPanel(props: TabPanelProps) {
 }
 
 const windowsPlatforms = ['Win32', 'Windows', 'windows']
+function getStartingTab(platform: string, gameInfo?: GameInfo | null): string {
+  if (!gameInfo) {
+    if (platform !== 'win32') {
+      return 'wine'
+    }
+    return 'advanced'
+  }
+  if (platform === 'win32') {
+    return 'advanced'
+  } else if (windowsPlatforms.includes(gameInfo?.install.platform || '')) {
+    return 'wine'
+  } else if (platform === 'darwin') {
+    return 'advanced'
+  } else {
+    return 'other'
+  }
+}
 
 export default function GamesSettings() {
   const { t } = useTranslation()
@@ -92,18 +110,12 @@ export default function GamesSettings() {
     return false
   }
 
-  // if Windows start on advanced tab, native games start on other tab and wine games start on wine tab
-  const startingTab = isWin
-    ? 'advanced'
-    : windowsPlatforms.includes(gameInfo?.install.platform || '')
-    ? 'wine'
-    : 'other'
-
   // Get the latest used tab index for the current game
   const localStorageKey = gameInfo
     ? `${gameInfo!.app_name}-setting_tab`
     : 'default'
-  const latestTabIndex = localStorage.getItem(localStorageKey) || startingTab
+  const latestTabIndex =
+    localStorage.getItem(localStorageKey) || getStartingTab(platform, gameInfo)
   const [value, setValue] = useState(latestTabIndex)
 
   const handleChange = (
@@ -204,8 +216,12 @@ export default function GamesSettings() {
       </TabPanel>
 
       <TabPanel value={value} index={'advanced'}>
-        {!isSideloaded && <IgnoreGameUpdates />}
-        <OfflineMode />
+        {!isSideloaded && (
+          <>
+            <IgnoreGameUpdates />
+            <OfflineMode />
+          </>
+        )}
         <AlternativeExe />
         <LauncherArgs />
         <WrappersTable />
