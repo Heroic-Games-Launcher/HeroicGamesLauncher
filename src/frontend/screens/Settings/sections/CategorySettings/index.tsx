@@ -4,12 +4,18 @@ import SettingsContext from '../../SettingsContext'
 import { Box, Button, Chip, Divider, Typography } from '@mui/material'
 import { TextInputField } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader
+} from 'frontend/components/UI/Dialog'
 
 const CategorySettings = () => {
   const { customCategories } = useContext(ContextProvider)
   const { appName } = useContext(SettingsContext)
 
   const [newCategory, setNewCategory] = useState('')
+  const [categoryToDelete, setCategoryToDelete] = useState('')
   const [assignedCategories, setAssignedCategories] = useState<string[]>([])
   const [availableCategories, setAvailableCategories] = useState<string[]>([])
 
@@ -40,21 +46,55 @@ const CategorySettings = () => {
   }
 
   const handleRemoveGameFromCategory = (category: string) => {
-    customCategories.remove(category, appName)
+    customCategories.removeFromGame(category, appName)
   }
 
   const handleAddGameToCategory = (category: string) => {
-    customCategories.add(category, appName)
+    customCategories.addToGame(category, appName)
     updateCategories()
+  }
+
+  const handleShowRemoveCategoryConfirmation = (category: string) => {
+    setCategoryToDelete(category)
   }
 
   const handleRemoveCategory = (category: string) => {
     customCategories.removeCategory(category)
     updateCategories()
+    setCategoryToDelete('')
   }
 
   return (
     <>
+      {categoryToDelete.length > 0 && (
+        <Dialog showCloseButton onClose={() => setCategoryToDelete('')}>
+          <DialogHeader onClose={() => setCategoryToDelete('')}>
+            {t('category-settings.warning', 'Warning')}
+          </DialogHeader>
+          <DialogContent>
+            {t(
+              'category-settings.delete-question',
+              `Proceeding will permanently remove this category and unassign it
+            from all games. Continue?`
+            )}
+            <Box sx={{ display: 'flex', gap: 2, placeContent: 'end', mt: 4 }}>
+              <Button
+                variant="contained"
+                color="error"
+                onClick={() => handleRemoveCategory(categoryToDelete)}
+              >
+                {t('category-settings.remove-category', 'Remove Category')}
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => setCategoryToDelete('')}
+              >
+                {t('category-settings.cancel', 'Cancel')}
+              </Button>
+            </Box>
+          </DialogContent>
+        </Dialog>
+      )}
       <Typography variant="h4" sx={{ mb: 2 }}>
         {t('category-settings.assigned-categories', 'Assigned categories')}
       </Typography>
@@ -108,7 +148,7 @@ const CategorySettings = () => {
                 label={category}
                 key={category}
                 onClick={() => handleAddGameToCategory(category)}
-                onDelete={() => handleRemoveCategory(category)}
+                onDelete={() => handleShowRemoveCategoryConfirmation(category)}
                 sx={{
                   backgroundColor: 'var(--brand-secondary)',
                   ':hover': { backgroundColor: 'var(--secondary-hover)' }

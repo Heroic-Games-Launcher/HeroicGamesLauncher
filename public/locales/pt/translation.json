@@ -239,8 +239,7 @@
         "show_available_games": "Show non-Available games",
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
-        "store": "Filter Store",
-        "all_categories": "Todas as categorias"
+        "store": "Filter Store"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -704,13 +703,5 @@
     },
     "amazon": "Amazonas",
     "Amazon Games": "Amazon Games",
-    "prime-gaming": "Prime Gaming",
-    "Categories": "Categorias",
-    "category-settings": {
-        "assigned-categories": "Categorias Atribuídas",
-        "available-categories":  "Categorias Disponíveis",
-        "new-category": "Nova Categoria",
-        "add-new-category": "Adicionar Nova Categoria",
-        "no-assigned-categories": "Nenhuma categoria atribuída a este jogo"
-    }
+    "prime-gaming": "Prime Gaming"
 }

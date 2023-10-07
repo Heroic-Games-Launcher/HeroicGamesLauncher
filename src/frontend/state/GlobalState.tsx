@@ -965,8 +965,8 @@ class GlobalState extends PureComponent<Props> {
           customCategories: {
             list: customCategories,
             listCategories: this.getCustomCategories,
-            add: this.addGameToCustomCategory,
-            remove: this.removeGameFromCustomCategory,
+            addToGame: this.addGameToCustomCategory,
+            removeFromGame: this.removeGameFromCustomCategory,
             addCategory: this.setCustomCategory,
             removeCategory: this.removeCustomCategory
           },

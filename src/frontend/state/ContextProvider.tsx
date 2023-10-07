@@ -69,8 +69,8 @@ const initialContext: ContextType = {
   customCategories: {
     list: {},
     listCategories: () => [],
-    add: () => null,
-    remove: () => null,
+    addToGame: () => null,
+    removeFromGame: () => null,
     addCategory: () => null,
     removeCategory: () => null
   },

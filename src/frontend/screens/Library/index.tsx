@@ -258,10 +258,23 @@ export default React.memo(function Library(): JSX.Element {
         category === 'all' ? game : game?.runner === category
       )
     } else if (currentCustomCategory && currentCustomCategory.length > 0) {
-      const gamesInCustomCategory = customCategories.list[currentCustomCategory]
-      library = makeLibrary().filter((game) =>
-        gamesInCustomCategory.includes(game.app_name)
-      )
+      if (currentCustomCategory === 'preset_uncategorized') {
+        // list of all games that have at least one category assigned to them
+        const categorizedGames = Array.from(
+          new Set(Object.values(customCategories.list).flat())
+        )
+
+        library = makeLibrary().filter(
+          (game) => !categorizedGames.includes(game.app_name)
+        )
+      } else {
+        const gamesInCustomCategory =
+          customCategories.list[currentCustomCategory]
+
+        library = makeLibrary().filter((game) =>
+          gamesInCustomCategory.includes(game.app_name)
+        )
+      }
     } else {
       library = makeLibrary()
       if (!showNonAvailable) {

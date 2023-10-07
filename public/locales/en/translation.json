@@ -173,7 +173,11 @@
         "assigned-categories": "Assigned Categories",
         "available-categories": "Available Categories",
         "new-category": "New Category",
-        "no-assigned-categories": "No categories have been assigned to this game"
+        "no-assigned-categories": "No categories have been assigned to this game",
+        "warning": "Warning",
+        "delete-question": "Proceeding will permanently remove this category and unassign it from all games. Continue?",
+        "cancel": "Cancel",
+        "remove-category": "Remove Category"
     },
     "controller": {
         "hints": {
@@ -251,6 +255,7 @@
     "gog-store": "GOG Store",
     "header": {
         "all_categories": "All Categories",
+        "uncategorized": "Uncategorized",
         "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Ignore Hidden",
         "platform": "Platform",

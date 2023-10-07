@@ -36,6 +36,9 @@ export default React.memo(function StoreFilter() {
           <option value="">
             {t('header.all_categories', 'All Categories')}
           </option>
+          <option value="preset_uncategorized">
+            {t('header.uncategorized', 'Uncategorized')}
+          </option>
           {customCategories.listCategories().map((category) => (
             <option value={category} key={category}>
               {category}

@@ -58,8 +58,8 @@ export interface ContextType {
   customCategories: {
     list: Record<string, string[]>
     listCategories: () => string[]
-    add: (category: string, appName: string) => void
-    remove: (category: string, appName: string) => void
+    addToGame: (category: string, appName: string) => void
+    removeFromGame: (category: string, appName: string) => void
     addCategory: (newCategory: string) => void
     removeCategory: (category: string) => void
   }

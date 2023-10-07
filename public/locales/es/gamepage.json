@@ -231,8 +231,7 @@
         "store": "Página de la tienda",
         "verify": "Verificar y reparar",
         "extraInfo": "Información extra",
-        "logs": "Registros",
-        "manageCategories": "Administrar Categorías"
+        "logs": "Registros"
     },
     "help": {
         "cloud_save_unsupported": "Este juego no admite guardados en la nube. Esta información es proporcionada por los desarrolladores del juego. Algunos juegos implementan su propio sistema de guardado en la nube"
