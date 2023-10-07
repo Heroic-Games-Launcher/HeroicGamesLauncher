@@ -172,12 +172,12 @@
         "add-new-category": "Add New Category",
         "assigned-categories": "Assigned Categories",
         "available-categories": "Available Categories",
+        "cancel": "Cancel",
+        "delete-question": "Proceeding will permanently remove this category and unassign it from all games. Continue?",
         "new-category": "New Category",
         "no-assigned-categories": "No categories have been assigned to this game",
-        "warning": "Warning",
-        "delete-question": "Proceeding will permanently remove this category and unassign it from all games. Continue?",
-        "cancel": "Cancel",
-        "remove-category": "Remove Category"
+        "remove-category": "Remove Category",
+        "warning": "Warning"
     },
     "controller": {
         "hints": {
@@ -255,7 +255,6 @@
     "gog-store": "GOG Store",
     "header": {
         "all_categories": "All Categories",
-        "uncategorized": "Uncategorized",
         "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Ignore Hidden",
         "platform": "Platform",
@@ -263,7 +262,8 @@
         "show_available_games": "Show non-Available games",
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
-        "store": "Filter Store"
+        "store": "Filter Store",
+        "uncategorized": "Uncategorized"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",

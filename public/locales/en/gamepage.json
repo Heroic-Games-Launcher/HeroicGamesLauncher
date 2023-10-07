@@ -223,11 +223,11 @@
     "submenu": {
         "addShortcut": "Add shortcut",
         "addToSteam": "Add to Steam",
+        "categories": "Categories",
         "change": "Change install path",
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",
         "logs": "Logs",
-        "categories": "Categories",
         "move": "Move Game",
         "protondb": "Check Compatibility",
         "removeFromSteam": "Remove from Steam",
