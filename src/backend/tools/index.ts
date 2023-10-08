@@ -396,6 +396,7 @@ export const DXVK = {
   }
 }
 
+let installingComponent = ''
 export const Winetricks = {
   download: async () => {
     if (isWindows) {
@@ -491,7 +492,10 @@ export const Winetricks = {
       }
       const sendProgress = setInterval(() => {
         if (progressUpdated) {
-          sendFrontendMessage('progressOfWinetricks', executeMessages)
+          sendFrontendMessage('progressOfWinetricks', {
+            messages: executeMessages,
+            installingComponent
+          })
           progressUpdated = false
         }
       }, 1000)
@@ -558,7 +562,10 @@ export const Winetricks = {
       })
 
       child.on('exit', () => {
-        sendFrontendMessage('progressOfWinetricks', ['Done'])
+        sendFrontendMessage('progressOfWinetricks', {
+          messages: ['Done'],
+          installingComponent
+        })
         clearInterval(sendProgress)
         resolve(returnOutput ? output : null)
       })
@@ -629,6 +636,16 @@ export const Winetricks = {
       }
     } catch {
       return []
+    }
+  },
+  install: async (runner: Runner, appName: string, component: string) => {
+    sendFrontendMessage('installing-winetricks-component', component)
+    try {
+      installingComponent = component
+      await Winetricks.runWithArgs(runner, appName, ['-q', component])
+    } finally {
+      installingComponent = ''
+      sendFrontendMessage('installing-winetricks-component', '')
     }
   }
 }

@@ -2,7 +2,6 @@ import { gameManagerMap } from 'backend/storeManagers'
 import { ipcMain } from 'electron'
 import { Winetricks, runWineCommandOnGame } from '.'
 import path from 'path'
-import { sendFrontendMessage } from 'backend/main_window'
 import { isWindows } from 'backend/constants'
 import { execAsync } from 'backend/utils'
 
@@ -51,16 +50,8 @@ ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
   }
 })
 
-ipcMain.on(
-  'winetricksInstall',
-  async (event, { runner, appName, component }) => {
-    sendFrontendMessage('installing-winetricks-component', component)
-    try {
-      await Winetricks.runWithArgs(runner, appName, ['-q', component])
-    } finally {
-      sendFrontendMessage('installing-winetricks-component', '')
-    }
-  }
+ipcMain.on('winetricksInstall', async (event, { runner, appName, component }) =>
+  Winetricks.install(runner, appName, component)
 )
 
 ipcMain.handle('winetricksAvailable', async (event, { runner, appName }) => {

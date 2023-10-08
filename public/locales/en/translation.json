@@ -722,7 +722,7 @@
     "winetricks": {
         "install": "Install",
         "installed": "Installed components:",
-        "installing": "Installation in progress",
+        "installing": "Installation in progress: {{component}}",
         "loading": "Loading",
         "nothingYet": "Nothing was installed by Winetricks yet",
         "openGUI": "Open Winetricks GUI",

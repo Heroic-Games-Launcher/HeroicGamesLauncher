@@ -52,6 +52,7 @@ export default function Winetricks({ onClose }: Props) {
 
   // handles the installation of components
   const [installing, setInstalling] = useState(false)
+  const [installingComponent, setInstallingComponent] = useState('')
   const [logs, setLogs] = useState<string[]>([])
   function install(component: string) {
     window.api.winetricksInstall(runner, appName, component)
@@ -70,16 +71,17 @@ export default function Winetricks({ onClose }: Props) {
 
     async function onWinetricksProgress(
       e: Electron.IpcRendererEvent,
-      newLogs: string[]
+      payload: { messages: string[]; installingComponent: string }
     ) {
       // this conditionals help to show the correct state if the dialog
       // is closed during an installation and then re-opened
-      if (newLogs[0] && newLogs[0] === 'Done') {
-        setInstalling(false)
-      } else if (!installing) {
-        setInstalling(true)
+      if (payload.installingComponent.length) {
+        setInstalling(payload.messages[0] !== 'Done')
       }
-      setLogs((currentLogs) => [...currentLogs, ...newLogs])
+      if (installingComponent !== payload.installingComponent) {
+        setInstallingComponent(payload.installingComponent)
+      }
+      setLogs((currentLogs) => [...currentLogs, ...payload.messages])
     }
 
     const removeListener1 =
@@ -123,7 +125,13 @@ export default function Winetricks({ onClose }: Props) {
             </div>
           )}
           {installing && (
-            <p>{t('winetricks.installing', 'Installation in progress')}</p>
+            <p>
+              {t(
+                'winetricks.installing',
+                'Installation in progress: {{component}}',
+                { component: installingComponent }
+              )}
+            </p>
           )}
         </div>
       )}
