@@ -33,14 +33,17 @@ const isSteamDeckGameMode = process.env.XDG_CURRENT_DESKTOP === 'gamescope'
 const isCLIFullscreen = process.argv.includes('--fullscreen')
 const isCLINoGui = process.argv.includes('--no-gui')
 const isFlatpak = Boolean(env.FLATPAK_ID)
+const isSnap = Boolean(env.SNAP)
 const currentGameConfigVersion: GameConfigVersion = 'v0'
 const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
 
 const flatPakHome = env.XDG_DATA_HOME?.replace('/data', '') || homedir()
-const userHome = homedir()
+let userHome = homedir()
 const configFolder = app.getPath('appData')
 const appFolder = join(configFolder, 'heroic')
-const legendaryConfigPath = join(appFolder, 'legendaryConfig', 'legendary')
+const legendaryConfigPath = isSnap
+  ? join(env.XDG_CONFIG_HOME!, 'legendary')
+  : join(appFolder, 'legendaryConfig', 'legendary')
 const nileConfigPath = join(appFolder, 'nile_config', 'nile')
 const configPath = join(appFolder, 'config.json')
 const gamesConfigPath = join(appFolder, 'GamesConfig')
@@ -139,6 +142,10 @@ export function getSteamCompatFolder() {
   } else if (isMac) {
     return join(userHome, 'Library/Application Support/Steam')
   } else {
+    if (isSnap) {
+      console.log({ snapReal: env.SNAP_REAL_HOME, home: env.HOME, userHome })
+      userHome = env.SNAP_REAL_HOME || userHome
+    }
     const flatpakSteamPath = join(
       userHome,
       '.var/app/com.valvesoftware.Steam/.steam/steam'
@@ -237,6 +244,7 @@ export {
   iconLight,
   installed,
   isFlatpak,
+  isSnap,
   isMac,
   isWindows,
   isLinux,
