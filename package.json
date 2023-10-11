@@ -138,7 +138,6 @@
       ]
     },
     "snap": {
-      "allowNativeWayland": true,
       "base": "core20",
       "category": "Games",
       "synopsis": "An Open Source Launcher for GOG, Amazon and Epic Games",
@@ -150,7 +149,8 @@
             "interface": "personal-files",
             "write": [
               "$HOME/.local/share/Steam",
-              "$HOME/.local/share/lutris"
+              "$HOME/.local/share/lutris",
+              "$HOME/Games"
             ]
           }
         }
