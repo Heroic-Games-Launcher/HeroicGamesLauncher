@@ -139,9 +139,22 @@
     },
     "snap": {
       "allowNativeWayland": true,
+      "base": "core20",
       "category": "Games",
-      "synopsis": "An Open Source Launcher for GOG and Epic Games",
+      "synopsis": "An Open Source Launcher for GOG, Amazon and Epic Games",
       "description": "Heroic is an Open Source Games Launcher. Right now it supports launching games from the Epic Games Store using Legendary and GOG Games using our custom implementation with gogdl.",
+      "plugs": [
+        "default",
+        {
+          "dot-local-share": {
+            "interface": "personal-files",
+            "write": [
+              "$HOME/.local/share/Steam",
+              "$HOME/.local/share/lutris"
+            ]
+          }
+        }
+      ],
       "publish": {
         "provider": "snapStore",
         "channels": [
@@ -257,7 +270,7 @@
     "@vitejs/plugin-react-swc": "^3.2.0",
     "cross-env": "^7.0.3",
     "electron": "castlabs/electron-releases#24.4.1+wvcus",
-    "electron-builder": "^23.6.0",
+    "electron-builder": "^24.6.4",
     "electron-devtools-installer": "^3.2.0",
     "electron-playwright-helpers": "^1.5.5",
     "eslint": "^8.36.0",
