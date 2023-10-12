@@ -171,6 +171,7 @@
     "compare-versions": "^6.0.0-rc.1",
     "crc": "^4.3.2",
     "discord-rich-presence-typescript": "^0.0.8",
+    "easydl": "^1.1.0",
     "electron-store": "^8.0.1",
     "electron-updater": "^5.0.1",
     "filesize": "^10.0.6",

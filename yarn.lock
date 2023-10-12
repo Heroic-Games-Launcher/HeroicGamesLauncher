@@ -3422,6 +3422,11 @@ duplexify@^3.6.0:
     readable-stream "^2.0.0"
     stream-shift "^1.0.0"
 
+easydl@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/easydl/-/easydl-1.1.0.tgz#99bdaf0599686800450c043fd86e37fb0dc5f699"
+  integrity sha512-TSW/RRbgniHVqFFvyzmIhWNRulEZ2tJdZ7Ns1qn54yQAxg6afPPvtFUF1n9UdLRa9QWtutLrHtnJGA6ogE3PGQ==
+
 ejs@^3.1.7:
   version "3.1.8"
   resolved "https://registry.yarnpkg.com/ejs/-/ejs-3.1.8.tgz#758d32910c78047585c7ef1f92f9ee041c1c190b"
