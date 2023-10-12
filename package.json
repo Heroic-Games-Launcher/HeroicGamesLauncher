@@ -119,24 +119,6 @@
         "build/bin/linux/*"
       ]
     },
-    "deb": {
-      "packageCategory": "games",
-      "depends": [
-        "curl"
-      ]
-    },
-    "pacman": {
-      "packageCategory": "games",
-      "depends": [
-        "curl"
-      ]
-    },
-    "rpm": {
-      "packageCategory": "games",
-      "depends": [
-        "curl"
-      ]
-    },
     "snap": {
       "allowNativeWayland": true,
       "category": "Games",
