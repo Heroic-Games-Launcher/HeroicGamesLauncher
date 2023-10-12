@@ -138,10 +138,19 @@
       ]
     },
     "snap": {
-      "base": "core20",
+      "base": "core22",
+      "confinement": "strict",
+      "grade": "stable",
       "category": "Games",
       "synopsis": "An Open Source Launcher for GOG, Amazon and Epic Games",
-      "description": "Heroic is an Open Source Games Launcher. Right now it supports launching games from the Epic Games Store using Legendary and GOG Games using our custom implementation with gogdl.",
+      "description": "Heroic is an Open Source Games Launcher. Right now it supports launching games from the Epic Games Store using Legendary, Amazon Games using Nile and GOG Games using our custom implementations Nile and gogdl.",
+      "stagePackages": [
+        "default",
+        "curl",
+        "mangohud",
+        "gamemode",
+        "gamescope"
+      ],
       "plugs": [
         "default",
         {
@@ -228,7 +237,7 @@
     "release:win": "vite build && electron-builder -p always --win portable --x64",
     "release:updateFlathub:ci": "tsc flathub/update-flathub.ts --skipLibCheck --target es2015 --moduleResolution node --module commonjs && node flathub/update-flathub.js",
     "sign:win": "vite build && electron-builder -p never --win nsis --x64",
-    "dist:linux": "vite build && electron-builder --linux",
+    "dist:linux": "export SNAP_DESTRUCTIVE_MODE=true && vite build && electron-builder --linux",
     "dist:mac": "export CSC_IDENTITY_AUTO_DISCOVERY=false && vite build && electron-builder --mac",
     "dist:win": "vite build && electron-builder --win",
     "dist:flatpak": "yarn dist:linux appimage && yarn flatpak:prepare && yarn flatpak:build",
