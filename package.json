@@ -138,7 +138,7 @@
       ]
     },
     "snap": {
-      "base": "core22",
+      "base": "core20",
       "confinement": "strict",
       "grade": "stable",
       "category": "Games",
