@@ -81,7 +81,7 @@ const Gamescope = () => {
   }
 
   return (
-    <div>
+    <div className="gamescopeSettings">
       {/* Enable Upscale */}
       <div className="toggleRow">
         <ToggleSwitch
@@ -126,7 +126,7 @@ const Gamescope = () => {
             ))}
           </SelectField>
           {/* Game Res */}
-          <div className="toggleRow">
+          <div className="row">
             <TextInputField
               label={t('options.gamescope.gameWidth', 'Game Width')}
               htmlId="gameWidth"
@@ -152,7 +152,7 @@ const Gamescope = () => {
                 })
               }}
             />
-            <div style={{ marginRight: 10 }}></div>
+
             <TextInputField
               label={t('options.gamescope.gameHeight', 'Game Height')}
               htmlId="gameHeight"
@@ -180,7 +180,7 @@ const Gamescope = () => {
             />
           </div>
           {/* Upscale Res */}
-          <div className="toggleRow">
+          <div className="row">
             <TextInputField
               label={t('options.gamescope.upscaleWidth', 'Upscale Width')}
               htmlId="upscaleWidth"
@@ -206,7 +206,6 @@ const Gamescope = () => {
                 })
               }}
             />
-            <div style={{ marginRight: 10 }}></div>
 
             <TextInputField
               label={t('options.gamescope.upscaleHeight', 'Upscale Height')}
@@ -268,64 +267,62 @@ const Gamescope = () => {
       </div>
       {/* FPS Limiter Settings */}
       {gamescope.enableLimiter && (
-        <>
-          <div className="toggleRow">
-            <TextInputField
-              label={t('options.gamescope.fpsLimiter', 'FPS Limiter')}
-              htmlId="fpsLimiter"
-              placeholder=""
-              maxLength={3}
-              value={gamescope.fpsLimiter}
-              afterInput={
-                <FontAwesomeIcon
-                  className="helpIcon"
-                  icon={faCircleInfo}
-                  title={t(
-                    'help.gamescope.fpsLimiter',
-                    'The frame rate limit gamescope should limit per second.'
-                  )}
-                />
-              }
-              onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                setGamescope({
-                  ...gamescope,
-                  fpsLimiter:
-                    setResolution(event.currentTarget.value) ??
-                    gamescope.fpsLimiter
-                })
-              }}
-            />
-            <div style={{ marginRight: 10 }}></div>
-            <TextInputField
-              label={t(
-                'options.gamescope.fpsLimiterNoFocus',
-                'FPS Limiter (No Focus)'
-              )}
-              htmlId="fpsLimiterNoFocus"
-              placeholder=""
-              maxLength={3}
-              value={gamescope.fpsLimiterNoFocus}
-              afterInput={
-                <FontAwesomeIcon
-                  className="helpIcon"
-                  icon={faCircleInfo}
-                  title={t(
-                    'help.gamescope.fpsLimiterNoFocus',
-                    'The frame rate limit gamescope should limit per second if the game is not focused.'
-                  )}
-                />
-              }
-              onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                setGamescope({
-                  ...gamescope,
-                  fpsLimiterNoFocus:
-                    setResolution(event.currentTarget.value) ??
-                    gamescope.fpsLimiterNoFocus
-                })
-              }}
-            />
-          </div>
-        </>
+        <div className="toggleRow">
+          <TextInputField
+            label={t('options.gamescope.fpsLimiter', 'FPS Limiter')}
+            htmlId="fpsLimiter"
+            placeholder=""
+            maxLength={3}
+            value={gamescope.fpsLimiter}
+            afterInput={
+              <FontAwesomeIcon
+                className="helpIcon"
+                icon={faCircleInfo}
+                title={t(
+                  'help.gamescope.fpsLimiter',
+                  'The frame rate limit gamescope should limit per second.'
+                )}
+              />
+            }
+            onChange={(event: ChangeEvent<HTMLInputElement>) => {
+              setGamescope({
+                ...gamescope,
+                fpsLimiter:
+                  setResolution(event.currentTarget.value) ??
+                  gamescope.fpsLimiter
+              })
+            }}
+          />
+          <div style={{ marginRight: 10 }}></div>
+          <TextInputField
+            label={t(
+              'options.gamescope.fpsLimiterNoFocus',
+              'FPS Limiter (No Focus)'
+            )}
+            htmlId="fpsLimiterNoFocus"
+            placeholder=""
+            maxLength={3}
+            value={gamescope.fpsLimiterNoFocus}
+            afterInput={
+              <FontAwesomeIcon
+                className="helpIcon"
+                icon={faCircleInfo}
+                title={t(
+                  'help.gamescope.fpsLimiterNoFocus',
+                  'The frame rate limit gamescope should limit per second if the game is not focused.'
+                )}
+              />
+            }
+            onChange={(event: ChangeEvent<HTMLInputElement>) => {
+              setGamescope({
+                ...gamescope,
+                fpsLimiterNoFocus:
+                  setResolution(event.currentTarget.value) ??
+                  gamescope.fpsLimiterNoFocus
+              })
+            }}
+          />
+        </div>
       )}
     </div>
   )
