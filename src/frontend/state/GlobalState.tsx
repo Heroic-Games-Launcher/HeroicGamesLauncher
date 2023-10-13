@@ -204,7 +204,8 @@ class GlobalState extends PureComponent<Props> {
     settingsModalOpen: { value: false, type: 'settings', gameInfo: undefined },
     helpItems: {},
     experimentalFeatures: globalSettings?.experimentalFeatures || {
-      enableNewDesign: false
+      enableNewDesign: false,
+      enableHelp: false
     }
   }
 

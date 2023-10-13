@@ -75,7 +75,7 @@ function App() {
           <ControllerHints />
           <div className="simple-keyboard"></div>
         </div>
-        <Help items={help.items} />
+        {experimentalFeatures.enableHelp && <Help items={help.items} />}
       </HashRouter>
     </div>
   )
