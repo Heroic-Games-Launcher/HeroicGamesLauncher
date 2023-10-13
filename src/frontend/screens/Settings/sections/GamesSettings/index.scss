@@ -26,6 +26,26 @@
   }
 }
 
+.MuiTabs-root {
+  padding-bottom: var(--space-xs);
+
+  .MuiTabs-scroller {
+    .MuiTabs-indicator {
+      background-color: var(--accent);
+    }
+
+    .MuiTabs-flexContainer {
+      .MuiTab-root {
+        color: var(--text-default);
+      }
+
+      .Mui-selected {
+        color: var(--accent);
+      }
+    }
+  }
+}
+
 // details, should have an hover effect and a pointer cursor and also the summary should be bold and have a background color
 details {
   cursor: pointer;

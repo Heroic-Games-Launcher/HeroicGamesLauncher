@@ -630,7 +630,7 @@ ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
       await Winetricks.run(runner, appName, event)
       break
     case 'winecfg':
-      runWineCommandOnGame(runner, appName, {
+      await runWineCommandOnGame(runner, appName, {
         gameSettings,
         commandParts: ['winecfg'],
         wait: false
@@ -639,7 +639,7 @@ ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
     case 'runExe':
       if (exe) {
         const workingDir = path.parse(exe).dir
-        runWineCommandOnGame(runner, appName, {
+        await runWineCommandOnGame(runner, appName, {
           gameSettings,
           commandParts: [exe],
           wait: false,

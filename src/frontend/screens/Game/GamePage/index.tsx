@@ -113,6 +113,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const isLinux = platform === 'linux'
   const isMac = platform === 'darwin'
   const isSideloaded = runner === 'sideload'
+  const isBrowserGame = gameInfo?.install.platform === 'Browser'
 
   const isInstalling = status === 'installing'
   const isPlaying = status === 'playing'
@@ -338,7 +339,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 <div className="gameInfo">
                   <div className="titleWrapper">
                     <h1 className="title">{title}</h1>
-                    <SettingsButton gameInfo={gameInfo} />
+                    {!isBrowserGame && <SettingsButton gameInfo={gameInfo} />}
                     <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
                   </div>
                   <div className="infoWrapper">
@@ -391,8 +392,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   </NavLink>
 
                   <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
-                  <SettingsButton gameInfo={gameInfo} />
-
+                  {!isBrowserGame && <SettingsButton gameInfo={gameInfo} />}
                   <div className="mainInfo">
                     <GamePicture art_square={art_cover} store={runner} />
                     <div className="store-icon">
