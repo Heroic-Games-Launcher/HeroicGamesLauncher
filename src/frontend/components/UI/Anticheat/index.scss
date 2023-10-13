@@ -11,7 +11,8 @@
   .statusInfo {
     flex-direction: column;
     display: flex;
-    padding-inline-start: var(--space-md);
+    margin-inline: auto;
+    text-align: start;
   }
 }
 

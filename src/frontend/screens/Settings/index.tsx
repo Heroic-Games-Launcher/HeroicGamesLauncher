@@ -121,7 +121,7 @@ function Settings() {
             </h1>
 
             {isGeneralSettings && <GeneralSettings />}
-            {isGamesSettings && <GamesSettings useDetails={false} />}
+            {isGamesSettings && <GamesSettings />}
             {isSyncSettings && <SyncSaves />}
             {isAdvancedSetting && <AdvancedSettings />}
             {isLogSettings && <LogSettings />}
