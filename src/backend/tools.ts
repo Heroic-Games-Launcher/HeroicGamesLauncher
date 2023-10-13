@@ -494,7 +494,7 @@ export const Winetricks = {
             event.sender.send('progressOfWinetricks', executeMessages)
             progressUpdated = false
           }
-        }, 1000)
+        }, 10000)
 
       // check if winetricks dependencies are installed
       const dependencies = ['7z', 'cabextract', 'zenity', 'unzip', 'curl']
