@@ -152,7 +152,6 @@ import {
 } from 'backend/storeManagers/legendary/library'
 import { formatSystemInfo, getSystemInfo } from './utils/systeminfo'
 
-app.commandLine?.appendSwitch('remote-debugging-port', '9222')
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
 const { showOpenDialog } = dialog
