@@ -90,7 +90,16 @@ export default React.memo(function GamePage(): JSX.Element | null {
     connectivity
   } = useContext(ContextProvider)
 
-  hasHelp('gamePage', 'Game Page', <p>Something</p>)
+  hasHelp(
+    'gamePage',
+    t('help.title.gamePage', 'Game Page'),
+    <p>
+      {t(
+        'help.content.gamePage',
+        'Show all game details and actions. Use the 3 dots menu for more options.'
+      )}
+    </p>
+  )
 
   const [gameInfo, setGameInfo] = useState(locationGameInfo)
   const [gameSettings, setGameSettings] = useState<GameSettings | null>(null)

@@ -6,6 +6,21 @@
 
 .HelpButton {
   transform: translateX(0);
+  color: white;
+  border: 1px solid white;
+  border-radius: 0px;
+  background: black;
+  padding: 0.5rem 1rem;
+  font-size: 2rem;
+  font-weight: bold;
+  opacity: 0.5;
+  transition: opacity 100ms linear, transform 300ms ease-out;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    opacity: 1;
+  }
 
   &.open {
     transform: translateX(-30vw);
@@ -14,14 +29,18 @@
 
 .HelpContent {
   display: block;
-  background: white;
+  background: var(--background);
+  color: var(--text-default);
+  border: 1px solid var(--text-default);
   top: 0px;
   height: 100vh;
   width: 30vw;
   right: 0;
   left: 70vw;
+  padding: 0 1rem;
   transform: translateX(100%);
   transition: transform 300ms ease-out;
+  text-align: start;
 
   &:popover-open {
     transform: translateX(0);
@@ -32,5 +51,21 @@
     border: 0;
     border-radius: 0 0 0 50%;
     padding: 0.5rem 1rem;
+  }
+
+  details:not(:last-child) {
+    border-bottom: 1px solid var(--text-default);
+  }
+
+  summary {
+    font-size: 1.2rem;
+  }
+
+  p {
+    font-size: 1.1rem;
+  }
+
+  summary + p {
+    margin-top: 0;
   }
 }

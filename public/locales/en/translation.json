@@ -253,6 +253,21 @@
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
+        "button": {
+            "close": "Close Help",
+            "open": "Open Help"
+        },
+        "content": {
+            "accessibility": "Shows accessibility settings.",
+            "customThemesPath": "Check our wiki.",
+            "defaultInstallPath": "This is the default path preselected when installing games.",
+            "downloadManager": "Shows current and past downloads.",
+            "library": "Shows all owned games.",
+            "login": "Log in into the different stores.",
+            "settingsDefault": "Shows all settings of Heroic and defaults for games.",
+            "settingsGame": "Show all settings for a game.",
+            "wineManager": "Install different versions of Wine, Proton, Crossover, etc."
+        },
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "disable_logs": "Toggle this checkbox ON to disable most of the writes to log files (critical information is always logged). Make sure to turn OFF this setting before reporting any issue.",
@@ -287,6 +302,14 @@
             "part2": "In case you change the prefix folder for Wine or Proton, you will need to check the path again since Proton uses a different prefix (/pfx) and username (steamuser). So you can simple erase the current path get out of the sync settings page and get back again for Heroic to guess the folder one more time with the right prefix.",
             "part3": "Manual Sync: Choose Download to download the games saves stored on the Cloud. Upload to upload the local ones to the cloud. Force Download and Force Upload will ignore the version that is locally or on the cloud.",
             "part4": "Sync Saves Automatically will sync the saves every time you Start a Game and after finishing playing."
+        },
+        "title": {
+            "accessibility": "Accessibility",
+            "downloadManager": "Download Manager",
+            "library": "Library",
+            "login": "Login",
+            "settings": "Settings",
+            "wineManager": "Wine Manager"
         },
         "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games, it requires DXVK.",
         "wine": {

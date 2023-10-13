@@ -101,7 +101,13 @@
         "noDescription": "No description available"
     },
     "help": {
-        "cloud_save_unsupported": "This game does not support cloud saves. This information is provided by the game developers. Some games do implement their own cloud save system"
+        "cloud_save_unsupported": "This game does not support cloud saves. This information is provided by the game developers. Some games do implement their own cloud save system",
+        "content": {
+            "gamePage": "Show all game details and actions. Use the 3 dots menu for more options."
+        },
+        "title": {
+            "gamePage": "Game Page"
+        }
     },
     "hours": "Hours",
     "how-long-to-beat": {

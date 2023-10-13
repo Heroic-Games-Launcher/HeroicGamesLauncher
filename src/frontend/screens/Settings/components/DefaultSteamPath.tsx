@@ -17,25 +17,18 @@ const DefaultSteamPath = () => {
     return <></>
   }
 
-  hasHelp(
-    'defaultSteamPath',
-    'Default Steam Path',
-    <p>
-      {t(
-        'help.steam_path.info',
-        'This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam.'
-      )}
-    </p>
+  const helpContent = t(
+    'help.steam_path.info',
+    'This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam.'
   )
 
-  const steamPathInfo = (
-    <InfoBox text="infobox.help">
-      {t(
-        'help.steam_path.info',
-        'This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam.'
-      )}
-    </InfoBox>
+  hasHelp(
+    'defaultSteamPath',
+    t('setting.default-steam-path', 'Default Steam path'),
+    <p>{helpContent}</p>
   )
+
+  const steamPathInfo = <InfoBox text="infobox.help">{helpContent}</InfoBox>
 
   return (
     <PathSelectionBox

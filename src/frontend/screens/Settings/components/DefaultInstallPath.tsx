@@ -10,7 +10,12 @@ const DefaultInstallPath = () => {
   hasHelp(
     'defaultInstallPath',
     t('setting.default-install-path'),
-    <p>This is the default path preselected when installing games</p>
+    <p>
+      {t(
+        'help.content.defaultInstallPath',
+        'This is the default path preselected when installing games.'
+      )}
+    </p>
   )
   const [defaultInstallPath, setDefaultInstallPath] = useSetting(
     'defaultInstallPath',

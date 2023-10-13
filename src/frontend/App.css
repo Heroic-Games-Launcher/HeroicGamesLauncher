@@ -62,9 +62,8 @@ html,
 
 .HelpButton {
   position: fixed;
-  top: 0;
+  bottom: 0;
   right: 0;
-  color: black;
 }
 
 #root:has(dialog:popover-open) {

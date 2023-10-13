@@ -34,6 +34,7 @@ import {
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
 import { InstallModal } from './components'
+import { hasHelp } from 'frontend/hooks/hasHelp'
 
 const storage = window.localStorage
 
@@ -45,6 +46,8 @@ type ModalState = {
 }
 
 export default React.memo(function Library(): JSX.Element {
+  const { t } = useTranslation()
+
   const {
     layout,
     libraryStatus,
@@ -67,6 +70,12 @@ export default React.memo(function Library(): JSX.Element {
     showNonAvailable
   } = useContext(ContextProvider)
 
+  hasHelp(
+    'library',
+    t('help.title.library', 'Library'),
+    <p>{t('help.content.library', 'Shows all owned games.')}</p>
+  )
+
   const [showModal, setShowModal] = useState<ModalState>({
     game: '',
     show: false,
@@ -79,7 +88,6 @@ export default React.memo(function Library(): JSX.Element {
   const [sortInstalled, setSortInstalled] = useState(
     JSON.parse(storage?.getItem('sortInstalled') || 'true')
   )
-  const { t } = useTranslation()
   const backToTopElement = useRef(null)
   const listing = useRef<HTMLDivElement>(null)
 

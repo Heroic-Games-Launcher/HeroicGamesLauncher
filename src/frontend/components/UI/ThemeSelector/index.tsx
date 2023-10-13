@@ -32,13 +32,8 @@ export const ThemeSelector = () => {
 
   hasHelp(
     'customThemesPath',
-    'Custom Themes Path',
-    <p>
-      {t(
-        'help.custom_themes_wiki',
-        'Check the Wiki for more details on adding custom themes. Click here.'
-      )}
-    </p>
+    t('setting.custom_themes_path', 'Custom Themes Path'),
+    <p>{t('help.content.customThemesPath', 'Check our wiki.')}</p>
   )
 
   // load themes from the custom themes path
