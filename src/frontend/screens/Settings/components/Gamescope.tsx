@@ -267,7 +267,7 @@ const Gamescope = () => {
       </div>
       {/* FPS Limiter Settings */}
       {gamescope.enableLimiter && (
-        <div className="toggleRow">
+        <div className="row">
           <TextInputField
             label={t('options.gamescope.fpsLimiter', 'FPS Limiter')}
             htmlId="fpsLimiter"
@@ -293,7 +293,7 @@ const Gamescope = () => {
               })
             }}
           />
-          <div style={{ marginRight: 10 }}></div>
+
           <TextInputField
             label={t(
               'options.gamescope.fpsLimiterNoFocus',
