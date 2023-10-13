@@ -354,6 +354,7 @@ function setupWineEnvVars(
   const ret: Record<string, string> = {}
 
   ret.DOTNET_BUNDLE_EXTRACT_BASE_DIR = ''
+  ret.DOTNET_ROOT = ''
 
   // Add WINEPREFIX / STEAM_COMPAT_DATA_PATH / CX_BOTTLE
   const steamInstallPath = join(flatPakHome, '.steam', 'steam')
@@ -705,7 +706,6 @@ async function runWineCommand({
       }
 
       if (options?.logFile && existsSync(options.logFile)) {
-        writeFileSync(options.logFile, '')
         appendFileSync(
           options.logFile,
           `Wine Command: ${bin} ${commandParts.join(' ')}\n\nGame Log:\n`

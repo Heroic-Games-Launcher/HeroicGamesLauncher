@@ -92,7 +92,7 @@ const initialContext: ContextType = {
     addHelpItem: () => null,
     removeHelpItem: () => null
   },
-  experimentalFeatures: { enableNewShinyFeature: false }, // remove this when adding a real experimental feature
+  experimentalFeatures: { enableNewDesign: false },
   handleExperimentalFeatures: () => null
 }
 

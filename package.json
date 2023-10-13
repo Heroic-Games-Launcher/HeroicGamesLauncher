@@ -178,7 +178,6 @@
     "fs-extra": "^11.1.0",
     "fuse.js": "^6.6.2",
     "graceful-fs": "^4.2.10",
-    "howlongtobeat": "^1.7.0",
     "i18next": "^22.4.11",
     "i18next-fs-backend": "^2.1.1",
     "i18next-http-backend": "^2.1.1",

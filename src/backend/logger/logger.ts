@@ -53,6 +53,24 @@ interface LogOptions {
 export let logsDisabled = false
 
 export function initLogger() {
+  // Add a basic error handler to our stdout/stderr. If we don't do this,
+  // the main `process.on('uncaughtException', ...)` handler catches them (and
+  // presents an error message to the user, which is hardly necessary for
+  // "just" failing to write to the streams)
+  for (const channel of ['stdout', 'stderr'] as const) {
+    process[channel].once('error', (error: Error) => {
+      const prefix = `${getTimeStamp()} ${getLogLevelString(
+        'ERROR'
+      )} ${getPrefixString(LogPrefix.Backend)}`
+      appendMessageToLogFile(
+        `${prefix} Error writing to ${channel}: ${error.stack}`
+      )
+      process[channel].on('error', () => {
+        // Silence further write errors
+      })
+    })
+  }
+
   // check `disableLogs` setting
   const { disableLogs } = GlobalConfig.get().getSettings()
 
@@ -76,6 +94,9 @@ export function initLogger() {
         forceLog: true
       })
     })
+    .catch((error) =>
+      logError(['Failed to fetch system information', error], LogPrefix.Backend)
+    )
 
   logInfo(['Legendary location:', join(...Object.values(getLegendaryBin()))], {
     prefix: LogPrefix.Legendary,

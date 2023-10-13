@@ -204,7 +204,7 @@ class GlobalState extends PureComponent<Props> {
     settingsModalOpen: { value: false, type: 'settings', gameInfo: undefined },
     helpItems: {},
     experimentalFeatures: globalSettings?.experimentalFeatures || {
-      enableNewShinyFeature: false // remove this when adding a real experimental feature
+      enableNewDesign: false
     }
   }
 

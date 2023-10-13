@@ -410,7 +410,10 @@
         "start-in-tray": "התחל מצומצם",
         "steamruntime": "השתמש בSteam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "תיקיית WinePrefix"
+        "wineprefix": "תיקיית WinePrefix",
+        "experimental_features": {
+            "enableNewShinyFeature": "תכונה מבריקה חדשה"
+        }
     },
     "status": {
         "processing": "מעבד קבצים, נא לחכות",
@@ -583,7 +586,8 @@
             "general": "כללי",
             "log": "לוג",
             "other": "אחר",
-            "sync": "סנכרן שמירות בענן"
+            "sync": "סנכרן שמירות בענן",
+            "systemInformation": "מידע מערכת"
         },
         "open-config-file": "פתח את קובץ התצורה",
         "reset-heroic": "אפס את Heroic",
@@ -594,6 +598,31 @@
         "copiedToClipboard": "הועתק!",
         "saves": {
             "warning": "תכונת שמירת ענן נמצאת בגרסת בטה, נא לגבות את השמירה שלכם לפני הסנכרון (למקרה שמשהו ישתבש)"
+        },
+        "systemInformation": {
+            "cpu": "מעבד:",
+            "gpuWithNumber": "מעבד גרפי מס' {{number}}:",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "legendaryVersion": "Legendary: {{legendaryVersion}}",
+            "systemSpecifications": "מפרט מערכת:",
+            "steamDeck": "Steam Deck",
+            "gpuDriver": "מנהל התקן: {{driverVersion}}",
+            "os": "מערכת הפעלה:",
+            "gpu": "מעבד גרפי:",
+            "gogdlVersion": "Gogdl: {{gogdlVersion}}",
+            "osVersion": "גרסה {{versionNumber}}",
+            "osNameFlatpak": "{{osName}} (בתוך Flatpak)",
+            "software": "תוכנה:",
+            "memoryStats": "{{percentUsed}}% משומשים ({{usedGib}} / {{totalGib}})",
+            "systemModel": "מודל מערכת:",
+            "showDetailed": "הראה מפרט מערכת מפורט",
+            "memory": "זיכרון:",
+            "copyToClipboard": "העתק ללוח הגזירים",
+            "heroicVersion": "Heroic: {{heroicVersion}}",
+            "nileVersion": "Nile: {{nileVersion}}"
+        },
+        "experimental_features": {
+            "title": "תכונות ניסיוניות"
         }
     },
     "Settings": "הגדרות",
@@ -659,7 +688,8 @@
         "alternative_method": "שיטת כניסה חלופית",
         "amazon": "כניסת אמזון",
         "epic": "כניסה עם Epic Games",
-        "message": "הכנס עם הפלטפורמה שלך. אתה יכול להתחבר ליותר מפלטפורמה אחת בו זמנית."
+        "message": "הכנס עם הפלטפורמה שלך. אתה יכול להתחבר ליותר מפלטפורמה אחת בו זמנית.",
+        "old-mac": "גרסת ה-macOS שלך היא {{version}}. macOS 12 או יותר נדרשת כדי להיכנס."
     },
     "library": {
         "refresh": "רענן",

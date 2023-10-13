@@ -18,6 +18,7 @@ async function osInfo_linux(): Promise<{ name: string; version?: string }> {
     try {
       await stat(potPath)
       os_release_path = potPath
+      break
     } catch {
       // We want to ignore errors here, since we're searching for a file that may not exist
     }
