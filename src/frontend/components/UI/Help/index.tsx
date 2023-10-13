@@ -20,6 +20,8 @@ export default function Help({ items }: Props) {
     <>
       <button
         className={`HelpButton ${open ? 'open' : ''}`}
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore, this feature is new and not yet typed
         popovertarget="help_content"
         onClick={() => toggleOpen()}
         title={
@@ -33,6 +35,8 @@ export default function Help({ items }: Props) {
       <div
         className={`HelpContent ${open ? 'open' : ''}`}
         id="help_content"
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore, this feature is new and not yet typed
         popover="manual"
       >
         {Object.keys(items).map((key) => (

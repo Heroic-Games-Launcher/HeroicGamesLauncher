@@ -66,6 +66,8 @@ export const Dialog: React.FC<DialogProps> = ({
         className={`Dialog__element ${className}`}
         ref={dialogRef}
         onClick={onDialogClick}
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore, this feature is new and not yet typed
         popover="manual"
       >
         {showCloseButton && (
