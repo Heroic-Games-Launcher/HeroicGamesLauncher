@@ -260,7 +260,7 @@ async function addNonSteamGame(props: {
     } else if (!isWindows && process.env.APPIMAGE) {
       newEntry.Exe = `"${process.env.APPIMAGE}"`
     } else if (isWindows && process.env.PORTABLE_EXECUTABLE_FILE) {
-      newEntry.Exe = `"${process.env.PORTABLE_EXECUTABLE_FILE}`
+      newEntry.Exe = `"${process.env.PORTABLE_EXECUTABLE_FILE}"`
       newEntry.StartDir = `"${process.env.PORTABLE_EXECUTABLE_DIR}"`
     }
 
