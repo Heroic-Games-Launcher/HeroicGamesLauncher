@@ -11,7 +11,8 @@
   .statusInfo {
     flex-direction: column;
     display: flex;
-    padding-inline-start: var(--space-md);
+    margin-inline: auto;
+    text-align: start;
   }
 }
 
@@ -23,7 +24,8 @@
   margin: 0 0 var(--space-md);
 }
 
-.anticheatInfo.Denied {
+.anticheatInfo.Denied,
+.anticheatInfo.Unknown {
   border: 2px solid var(--anticheat-denied);
   .statusIcon path {
     fill: var(--anticheat-denied);

@@ -333,8 +333,13 @@ if (!gotTheLock) {
 
     // Make sure lock is not present when starting up
     playtimeSyncQueue.delete('lock')
-    runOnceWhenOnline(syncQueuedPlaytimeGOG)
-
+    if (!settings.disablePlaytimeSync) {
+      runOnceWhenOnline(syncQueuedPlaytimeGOG)
+    } else {
+      logDebug('Skipping playtime sync queue upload - playtime sync disabled', {
+        prefix: LogPrefix.Backend
+      })
+    }
     await i18next.use(Backend).init({
       backend: {
         addPath: path.join(publicDir, 'locales', '{{lng}}', '{{ns}}'),
@@ -1035,10 +1040,17 @@ ipcMain.handle(
       sessionPlaytime + tsStore.get(`${appName}.totalPlayed`, 0)
     tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
 
+    const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
     if (runner === 'gog') {
-      await updateGOGPlaytime(appName, startPlayingDate, finishedPlayingDate)
+      if (!disablePlaytimeSync) {
+        await updateGOGPlaytime(appName, startPlayingDate, finishedPlayingDate)
+      } else {
+        logWarning(
+          'Posting playtime session to server skipped - playtime sync disabled',
+          { prefix: LogPrefix.Backend }
+        )
+      }
     }
-
     await addRecentGame(game)
 
     if (autoSyncSaves && isOnline()) {
@@ -1597,6 +1609,10 @@ ipcMain.on('processShortcut', async (e, combination: string) => {
 ipcMain.handle(
   'getPlaytimeFromRunner',
   async (e, runner, appName): Promise<number | undefined> => {
+    const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
+    if (disablePlaytimeSync) {
+      return
+    }
     if (runner === 'gog') {
       return getGOGPlaytime(appName)
     }

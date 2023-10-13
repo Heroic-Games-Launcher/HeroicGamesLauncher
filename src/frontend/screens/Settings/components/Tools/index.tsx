@@ -14,6 +14,7 @@ export default function Tools() {
   const { t } = useTranslation()
   const [winecfgRunning, setWinecfgRunning] = useState(false)
   const [winetricksRunning, setWinetricksRunning] = useState(false)
+  const [runExeRunning, setRunExeRunning] = useState(false)
   const { appName, runner, isDefault } = useContext(SettingsContext)
   const { platform } = useContext(ContextProvider)
   const isWindows = platform === 'win32'
@@ -24,16 +25,25 @@ export default function Tools() {
 
   type Tool = 'winecfg' | string
   async function callTools(tool: Tool, exe?: string) {
-    if (tool === 'winecfg') {
-      setWinecfgRunning(true)
+    const toolStates = {
+      winecfg: setWinecfgRunning,
+      runExe: setRunExeRunning
     }
+
+    if (tool in toolStates) {
+      toolStates[tool](true)
+    }
+
     await window.api.callTool({
       tool,
       exe,
       appName,
       runner
     })
-    setWinecfgRunning(false)
+
+    if (tool in toolStates) {
+      toolStates[tool](false)
+    }
   }
 
   const handleRunExe = async () => {
@@ -107,11 +117,12 @@ export default function Tools() {
           <a
             onDrop={async (ev) => dropHandler(ev)}
             onDragOver={(ev) => dragOverHandler(ev)}
-            className="button outline drag"
+            className={classNames('button outline drag', {
+              active: runExeRunning
+            })}
             onClick={handleRunExe}
           >
-            {t('setting.runexe.title')}
-            <br />
+            {t('setting.runexe.title')} <br />
             <span>{t('setting.runexe.message')}</span>
           </a>
         </div>

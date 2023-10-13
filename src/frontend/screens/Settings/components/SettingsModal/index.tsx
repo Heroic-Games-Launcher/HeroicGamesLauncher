@@ -51,7 +51,7 @@ function SettingsModal({ gameInfo, type }: Props) {
       </DialogHeader>
       <DialogContent className="settingsDialogContent">
         <SettingsContext.Provider value={contextValues}>
-          {type === 'settings' ? <GamesSettings useDetails /> : <LogSettings />}
+          {type === 'settings' ? <GamesSettings /> : <LogSettings />}
         </SettingsContext.Provider>
       </DialogContent>
     </Dialog>
