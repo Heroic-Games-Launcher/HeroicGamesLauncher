@@ -20,29 +20,29 @@ body,
 html,
 #root,
 .App {
-  height: 100%;
-  overflow: hidden;
+  min-height: 100vh;
 }
 
 .App {
   text-align: center;
   display: grid;
   grid-template-columns: min-content 1fr;
-  grid-template-areas: 'offline offline' 'sidebar content' 'controller controller';
+  grid-template-areas: 'offline offline' 'sidebar content' 'sidebar controller';
   grid-template-rows: min-content 1fr min-content;
 }
 
 .App .Sidebar {
   grid-area: sidebar;
+  max-height: 100vh;
+  position: sticky;
+  top: 0px;
 }
 
 .App .content {
   display: flex;
   grid-area: content;
   flex-direction: column;
-  height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
+  min-height: 100%;
   background: var(--gradient-body-background);
 }
 
@@ -53,7 +53,10 @@ html,
 
 .App .controller {
   grid-area: controller;
-  position: relative;
+  position: sticky;
+  bottom: 0px;
+  background: var(--background);
+  z-index: 10;
 }
 
 .App .offline-message {
