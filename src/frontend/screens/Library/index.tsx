@@ -328,6 +328,16 @@ export default React.memo(function Library(): JSX.Element {
     showNonAvailable
   ])
 
+  // we need this to do proper `position: sticky` of the Add Game area
+  // the height of the Header can change at runtime with different font families
+  useEffect(() => {
+    const header = document.querySelector('.Header')
+    if (header) {
+      const headerHeight = header.getBoundingClientRect().height
+      document.body.style.setProperty('--header-height', `${headerHeight}px`)
+    }
+  }, [])
+
   if (!epic && !gog && !amazon) {
     return (
       <ErrorComponent

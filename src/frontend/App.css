@@ -43,7 +43,7 @@ html,
   grid-area: content;
   flex-direction: column;
   min-height: 100%;
-  background: var(--gradient-body-background);
+  background: var(--gradient-body-background, var(--body-background));
 }
 
 .App .content .UpdateComponent--topLevel {
