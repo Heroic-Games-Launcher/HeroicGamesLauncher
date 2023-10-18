@@ -1187,7 +1187,7 @@ export interface DownloadArgs {
  *
  * @param {string} url - The URL of the file to download.
  * @param {string} dest - The destination path to save the downloaded file.
- * @param {AbortController} abortController - The AbortController instance to cancel the download.
+ * @param {AbortSignal} abortSignal - The AbortSignal instance to cancel the download.
  * @param {ProgressCallback} [progressCallback] - An optional callback function to track the download progress.
  * @returns {Promise<void>} - A Promise that resolves when the download is complete.
  * @throws {Error} - If the download fails or is incomplete.

@@ -211,7 +211,7 @@ async function installVersion({
 
   // Check if installDir exist
   if (!existsSync(installDir)) {
-    throw new Error(`Installation directory ${installDir} does not exist!`)
+    mkdirSync(installDir, { recursive: true })
   } else if (!statSync(installDir).isDirectory()) {
     throw new Error(`Installation directory ${installDir} is not a directory!`)
   }
@@ -261,8 +261,8 @@ async function installVersion({
     dest: installDir,
     progressCallback: getProgress,
     abortSignal
-  }).catch((error: string) => {
-    if (error.includes('AbortError')) {
+  }).catch((error: Error) => {
+    if (error instanceof Error && error.message.includes('Download stopped')) {
       abortHandler()
     }
 
