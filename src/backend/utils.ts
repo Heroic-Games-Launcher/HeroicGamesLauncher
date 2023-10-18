@@ -1164,7 +1164,7 @@ function removeFolder(path: string, folderName: string) {
   return
 }
 
-export interface ProgressCallback {
+interface ProgressCallback {
   (
     downloadedBytes: number,
     downloadSpeed: number,
@@ -1173,7 +1173,7 @@ export interface ProgressCallback {
   ): void
 }
 
-export interface DownloadArgs {
+interface DownloadArgs {
   url: string
   dest: string
   abortSignal?: AbortSignal
@@ -1310,7 +1310,7 @@ function throttle<T extends (...args: any[]) => any>(
   }
 }
 
-export function bytesToSize(bytes: number) {
+function bytesToSize(bytes: number) {
   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB']
   if (bytes === 0) return `0 ${sizes[0]}`
   const i = Math.floor(Math.log(bytes) / Math.log(1024))
@@ -1326,7 +1326,7 @@ function formatTime(seconds: number): string {
     .padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`
 }
 
-export function calculateEta(
+function calculateEta(
   downloadedBytes: number,
   downloadSpeed: number,
   downloadSize: number,
@@ -1379,7 +1379,11 @@ export {
   getWineFromProton,
   getFileSize,
   memoryLog,
-  removeFolder
+  removeFolder,
+  bytesToSize,
+  calculateEta,
+  ProgressCallback,
+  DownloadArgs
 }
 
 // Exported only for testing purpose
