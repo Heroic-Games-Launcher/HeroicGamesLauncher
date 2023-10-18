@@ -1380,10 +1380,7 @@ export {
   getFileSize,
   memoryLog,
   removeFolder,
-  bytesToSize,
-  calculateEta,
-  ProgressCallback,
-  DownloadArgs
+  calculateEta
 }
 
 // Exported only for testing purpose
