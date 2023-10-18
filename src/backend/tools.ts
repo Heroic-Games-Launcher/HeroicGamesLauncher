@@ -127,7 +127,7 @@ export const DXVK = {
       return downloadFile({
         url: downloadUrl,
         dest: latestVersion,
-        abortController: createAbortController(tool.name)
+        abortSignal: createAbortController(tool.name).signal
       })
         .then(async () => {
           logInfo(`downloaded ${tool.name}`, LogPrefix.DXVKInstaller)
