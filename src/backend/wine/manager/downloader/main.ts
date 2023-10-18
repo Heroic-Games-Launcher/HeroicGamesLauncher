@@ -240,17 +240,17 @@ async function installVersion({
   const getProgress = (
     downloadedBytes: number,
     downloadSpeed: number,
-    progress: number
+    percentage: number
   ) => {
     const eta = calculateEta(
       downloadedBytes,
       downloadSpeed,
-      versionInfo.disksize
+      versionInfo.downsize
     )
 
     onProgress('downloading', {
-      percentage: progress,
-      eta: eta || '00:00:00',
+      percentage,
+      eta: eta!,
       avgSpeed: downloadSpeed
     })
   }

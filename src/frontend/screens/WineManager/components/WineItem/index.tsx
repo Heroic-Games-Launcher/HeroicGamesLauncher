@@ -63,6 +63,10 @@ const WineItem = ({
 
   async function install() {
     notify({ title: `${version}`, body: t('notify.install.startInstall') })
+    setProgress({
+      state: 'downloading',
+      progress: { percentage: 0, avgSpeed: 0, eta: '00:00:00' }
+    })
     window.api
       .installWineVersion({
         version,
@@ -121,7 +125,7 @@ const WineItem = ({
   const renderStatus = () => {
     let status
     if (isDownloading) {
-      status = getProgressElement(progress.progress, downsize)
+      status = getProgressElement(progress.progress)
     } else if (unZipping) {
       status = t('wine.manager.unzipping', 'Unzipping')
     } else if (isInstalled) {
@@ -202,13 +206,11 @@ const WineItem = ({
   )
 }
 
-function getProgressElement(progress: ProgressInfo, downsize: number) {
-  const { percentage, eta, avgSpeed } = progress
+function getProgressElement(progress: ProgressInfo) {
+  const { percentage, eta } = progress
 
-  const percentageAsString = `${percentage}%`
-  const bytesAsString = `[${size((percentage / 100) * downsize)}]`
-  const etaAsString = `| ETA: ${eta}`
-  const avgSpeedAsString = `(${size(avgSpeed)}ps)`
+  const percentageAsString = `${percentage.toFixed(2)}%`
+  const etaAsString = `${eta}`
 
   return (
     <p
@@ -217,9 +219,7 @@ function getProgressElement(progress: ProgressInfo, downsize: number) {
         fontStyle: 'italic'
       }}
     >
-      {[percentageAsString, bytesAsString, avgSpeedAsString, etaAsString].join(
-        ' '
-      )}
+      {percentageAsString} ({etaAsString})
     </p>
   )
 }
