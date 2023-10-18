@@ -46,48 +46,19 @@ const createLogFile = (filePath: string) => {
 export function createNewLogFileAndClearOldOnes(): createLogFileReturn {
   const date = new Date()
   const logDir = app.getPath('logs')
-  const fmtDate = date.toISOString().replaceAll(':', '_')
-  const newLogFile = join(logDir, `heroic-${fmtDate}.log`)
-  const newLegendaryLogFile = join(logDir, `legendary-${fmtDate}.log`)
-  const newGogdlLogFile = join(logDir, `gogdl-${fmtDate}.log`)
-  const newNileLogFile = join(logDir, `nile-${fmtDate}.log`)
+  const fmtDate = date
+    .toISOString()
+    .replaceAll(':', '_')
+    .replace(/\.\d\d\dZ/, '')
+  const newLogFile = join(logDir, `${fmtDate}-heroic.log`)
+  const newLegendaryLogFile = join(logDir, `${fmtDate}-legendary.log`)
+  const newGogdlLogFile = join(logDir, `${fmtDate}-gogdl.log`)
+  const newNileLogFile = join(logDir, `${fmtDate}-nile.log`)
 
   createLogFile(newLogFile)
   createLogFile(newLegendaryLogFile)
   createLogFile(newGogdlLogFile)
   createLogFile(newNileLogFile)
-
-  // Clean out logs that are more than a month old
-  if (existsSync(logDir)) {
-    try {
-      const oneMonthAgo = new Date()
-      oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1)
-
-      const logs = readdirSync(logDir, {
-        withFileTypes: true
-      })
-        .filter((dirent) => dirent.isFile())
-        .map((dirent) => dirent.name)
-
-      logs.forEach((log) => {
-        if (log.match(/(heroic|legendary|gogdl|nile)-/)) {
-          const dateString = log
-            .replace(/(heroic|legendary|gogdl|nile)-/, '')
-            .replace('.log', '')
-            .replaceAll('_', ':')
-          const logDate = new Date(dateString)
-          if (logDate <= oneMonthAgo) {
-            unlinkSync(`${logDir}/${log}`)
-          }
-        }
-      })
-    } catch (error) {
-      logError([`Removing old logs in ${logDir} failed with`, error], {
-        prefix: LogPrefix.Backend,
-        skipLogToFile: true
-      })
-    }
-  }
 
   const logs = configStore.get('general-logs', {
     currentLogFile: '',
@@ -96,6 +67,36 @@ export function createNewLogFileAndClearOldOnes(): createLogFileReturn {
     gogdlLogFile: '',
     nileLogFile: ''
   })
+
+  const keep = [
+    newLogFile,
+    newLegendaryLogFile,
+    newGogdlLogFile,
+    newNileLogFile,
+    logs.currentLogFile,
+    logs.legendaryLogFile,
+    logs.gogdlLogFile,
+    logs.nileLogFile
+  ]
+
+  // Keep only the last 2 files for each log
+  if (existsSync(logDir)) {
+    try {
+      const logs = readdirSync(logDir, {
+        withFileTypes: true
+      })
+        .filter((dirent) => dirent.isFile())
+        .map((dirent) => dirent.name)
+        .filter((filename) => !keep.includes(`${logDir}/${filename}`))
+
+      logs.forEach((log) => unlinkSync(`${logDir}/${log}`))
+    } catch (error) {
+      logError([`Removing old logs in ${logDir} failed with`, error], {
+        prefix: LogPrefix.Backend,
+        skipLogToFile: true
+      })
+    }
+  }
 
   logs.lastLogFile = logs.currentLogFile
   logs.currentLogFile = newLogFile

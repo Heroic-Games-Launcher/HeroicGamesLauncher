@@ -31,16 +31,18 @@ describeSkipOnWindows('logger/logfile.ts', () => {
 
     logfile.createNewLogFileAndClearOldOnes()
 
+    const year = `${new Date().getFullYear()}`
+
     expect(spyOpenSync).toBeCalledWith(
-      expect.stringContaining('invalid/heroic-'),
+      expect.stringContaining(`invalid/${year}-`),
       'w'
     )
     expect(spyAppGetPath).toBeCalledWith('logs')
     expect(logError).toBeCalledWith(
       [
-        expect.stringContaining(`Open invalid/heroic-`),
+        expect.stringContaining(`Open invalid/${year}-`),
         expect.objectContaining(
-          Error("ENOENT: no such file or directory, open 'invalid/heroic-")
+          Error(`ENOENT: no such file or directory, open 'invalid/${year}-`)
         )
       ],
       { prefix: 'Backend', skipLogToFile: true }
