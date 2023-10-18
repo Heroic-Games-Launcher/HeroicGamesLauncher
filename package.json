@@ -18,6 +18,9 @@
     "name": "Heroic Games Launcher",
     "email": "heroicgameslauncher@protonmail.com"
   },
+  "engines": {
+    "node": ">= 16"
+  },
   "build": {
     "appId": "com.heroicgameslauncher.hgl",
     "productName": "Heroic",
