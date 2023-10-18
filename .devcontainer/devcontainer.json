@@ -8,7 +8,9 @@
   "dockerFile": "../Dockerfile",
 
   // Add the IDs of extensions you want installed when the container is created.
-  "extensions": [],
+  "extensions": [
+	"steoates.autoimport"
+],
 
   "postCreateCommand": "pacman -Syyu --noconfirm && pacman -S nodejs npm yarn --noconfirm"
 }
