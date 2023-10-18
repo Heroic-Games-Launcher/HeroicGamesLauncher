@@ -692,7 +692,7 @@ export type State = 'downloading' | 'unzipping' | 'idle'
 export interface ProgressInfo {
   percentage: number
   avgSpeed: number
-  eta: number
+  eta: string
 }
 
 export interface WineManagerUISettings {

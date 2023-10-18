@@ -111,105 +111,6 @@ function getFolderSize(folder: string): number {
   return isMac ? value * 1024 : value
 }
 
-interface downloadProps {
-  url: string
-  downloadDir: string
-  downsize: number
-  onProgress: (state: State, progress?: ProgressInfo) => void
-  abortSignal?: AbortSignal
-}
-
-/**
- * Helper to download a file via curl.
- *
- * @param url url of the file
- * @param downloadDir absolute path to the download directory
- * @param downsize needed to calculate download speed
- * @param onProgress callback to get download progress
- * @param abortSignal signal to abort spawn
- * @returns resolves or rejects with a message
- */
-async function downloadFile({
-  url,
-  downloadDir,
-  downsize,
-  onProgress,
-  abortSignal
-}: downloadProps): Promise<string> {
-  return new Promise((resolve, reject) => {
-    try {
-      if (!existsSync(downloadDir)) {
-        reject(`Download path ${downloadDir} does not exist!`)
-      } else if (!statSync(downloadDir).isDirectory()) {
-        reject(`Download path ${downloadDir} is not a directory!`)
-      }
-    } catch (error) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore: can't give error a type but it mostly a Error or SystemError
-      reject(error.message)
-    }
-
-    let percentage = 0
-    const filePath = downloadDir + '/' + url.split('/').slice(-1)[0]
-    const download = spawn('curl', ['-L', url, '-o', filePath, '-#'], {
-      signal: abortSignal
-    })
-
-    const startTime = process.hrtime.bigint()
-
-    // curl does somehow print on stderr
-    // progress calculation is done on stderr
-    download.stderr.on('data', function (stderr) {
-      // get time
-      const time = process.hrtime.bigint()
-
-      // get info from curl output
-      const newPercentage = parseInt(stderr.toString())
-
-      // check if percentage is valid
-      percentage =
-        !isNaN(newPercentage) &&
-        100 > newPercentage &&
-        newPercentage > percentage
-          ? newPercentage
-          : percentage
-
-      // calculate download speed
-      const alreadyDonwloaded = (downsize * percentage) / 100
-      const seconds = Number(time - startTime) / Math.pow(10, 9)
-      const avgSpeed = alreadyDonwloaded / seconds
-
-      // calculate eta
-      const eta =
-        percentage > 0 ? (100 * seconds) / percentage - seconds : seconds
-
-      // Calculate avgSpeed
-      onProgress('downloading', {
-        percentage: percentage,
-        avgSpeed: avgSpeed,
-        eta: Math.ceil(eta)
-      })
-    })
-
-    download.on('close', function (exitcode: number) {
-      onProgress('idle')
-      if (exitcode !== 0) {
-        reject(`Download of ${url} failed with exit code:\n ${exitcode}!`)
-      }
-
-      resolve(`Succesfully downloaded ${url} to ${filePath}.`)
-    })
-
-    download.on('error', (error: Error) => {
-      if (error.name.includes('AbortError')) {
-        reject(error.name)
-      } else {
-        reject(`Download of ${url} failed with:\n ${error.message}!`)
-      }
-    })
-  })
-}
-
 interface unzipProps {
   filePath: string
   unzipDir: string
@@ -297,4 +198,4 @@ async function unzipFile({
   })
 }
 
-export { fetchReleases, unlinkFile, getFolderSize, downloadFile, unzipFile }
+export { fetchReleases, unlinkFile, getFolderSize, unzipFile }

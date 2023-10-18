@@ -28,7 +28,10 @@ const WineItem = ({
   const [progress, setProgress] = useState<{
     state: State
     progress: ProgressInfo
-  }>({ state: 'idle', progress: { percentage: 0, avgSpeed: 0, eta: Infinity } })
+  }>({
+    state: 'idle',
+    progress: { percentage: 0, avgSpeed: 0, eta: '00:00:00' }
+  })
 
   useEffect(() => {
     if (version) {
@@ -202,24 +205,9 @@ const WineItem = ({
 function getProgressElement(progress: ProgressInfo, downsize: number) {
   const { percentage, eta, avgSpeed } = progress
 
-  let totalSeconds = eta
-  const hours = Math.floor(totalSeconds / 3600)
-  totalSeconds %= 3600
-  const minutes = Math.floor(totalSeconds / 60)
-  const seconds = totalSeconds % 60
-
-  // https://stackoverflow.com/a/40350003
-  const formattedTime = [
-    hours,
-    minutes > 9 ? minutes : hours ? '0' + minutes : minutes || '0',
-    seconds > 9 ? seconds : '0' + seconds
-  ]
-    .filter(Boolean)
-    .join(':')
-
   const percentageAsString = `${percentage}%`
   const bytesAsString = `[${size((percentage / 100) * downsize)}]`
-  const etaAsString = `| ETA: ${formattedTime}`
+  const etaAsString = `| ETA: ${eta}`
   const avgSpeedAsString = `(${size(avgSpeed)}ps)`
 
   return (

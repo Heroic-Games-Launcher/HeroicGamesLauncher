@@ -20,12 +20,12 @@ import {
 } from './constants'
 import { VersionInfo, Repositorys, State, ProgressInfo } from 'common/types'
 import {
-  downloadFile,
   fetchReleases,
   getFolderSize,
   unlinkFile,
   unzipFile
 } from './utilities'
+import { calculateEta, downloadFile } from 'backend/utils'
 
 interface getVersionsProps {
   repositorys?: Repositorys[]
@@ -237,13 +237,30 @@ async function installVersion({
   // remove tarFile if still exist
   unlinkFile(tarFile)
 
+  const getProgress = (
+    downloadedBytes: number,
+    downloadSpeed: number,
+    progress: number
+  ) => {
+    const eta = calculateEta(
+      downloadedBytes,
+      downloadSpeed,
+      versionInfo.disksize
+    )
+
+    onProgress('downloading', {
+      percentage: progress,
+      eta: eta || '00:00:00',
+      avgSpeed: downloadSpeed
+    })
+  }
+
   // Download
   await downloadFile({
     url: versionInfo.download,
-    downloadDir: installDir,
-    downsize: versionInfo.downsize,
-    onProgress: onProgress,
-    abortSignal: abortSignal
+    dest: installDir,
+    progressCallback: getProgress,
+    abortSignal
   }).catch((error: string) => {
     if (error.includes('AbortError')) {
       abortHandler()

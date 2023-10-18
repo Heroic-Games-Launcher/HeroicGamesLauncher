@@ -1173,6 +1173,13 @@ export interface ProgressCallback {
   ): void
 }
 
+export interface DownloadArgs {
+  url: string
+  dest: string
+  abortSignal?: AbortSignal
+  progressCallback?: ProgressCallback
+}
+
 /**
  * Downloads a file from a given URL to a specified destination path.
  * If there is cache on the CDN it will use 5 connections so the download will be faster.
@@ -1185,12 +1192,12 @@ export interface ProgressCallback {
  * @returns {Promise<void>} - A Promise that resolves when the download is complete.
  * @throws {Error} - If the download fails or is incomplete.
  */
-export async function downloadFile(
-  url: string,
-  dest: string,
-  abortController: AbortController,
-  progressCallback?: ProgressCallback
-): Promise<void> {
+export async function downloadFile({
+  url,
+  dest,
+  abortSignal,
+  progressCallback
+}: DownloadArgs): Promise<void> {
   let lastProgressUpdateTime = Date.now()
   let lastBytesWritten = 0
   let fileSize = 0
@@ -1213,7 +1220,7 @@ export async function downloadFile(
       connections
     }).start()
 
-    abortController.signal.addEventListener('abort', () => {
+    abortSignal?.addEventListener('abort', () => {
       dl.destroy()
     })
 
@@ -1308,6 +1315,38 @@ export function bytesToSize(bytes: number) {
   if (bytes === 0) return `0 ${sizes[0]}`
   const i = Math.floor(Math.log(bytes) / Math.log(1024))
   return `${parseFloat((bytes / Math.pow(1024, i)).toFixed(2))} ${sizes[i]}`
+}
+
+function formatTime(seconds: number): string {
+  const hours = Math.floor(seconds / 3600)
+  const minutes = Math.floor((seconds - hours * 3600) / 60)
+  const remainingSeconds = seconds - hours * 3600 - minutes * 60
+  return `${hours.toString().padStart(2, '0')}:${minutes
+    .toString()
+    .padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`
+}
+
+export function calculateEta(
+  downloadedBytes: number,
+  downloadSpeed: number,
+  downloadSize: number,
+  lastProgressTime: number = Date.now()
+): string | null {
+  // Calculate the remaining seconds
+  const remainingBytes = downloadSize - downloadedBytes
+  const elapsedSeconds = (Date.now() - lastProgressTime) / 1000
+  const remainingSeconds = remainingBytes / downloadSpeed - elapsedSeconds
+
+  // Check if the download has completed or failed
+  if (remainingSeconds <= 0) {
+    return '00:00:00'
+  } else if (!isFinite(remainingSeconds)) {
+    return null
+  }
+
+  // Format the remaining seconds as "hh:mm:ss"
+  const eta = formatTime(Math.floor(remainingSeconds))
+  return eta
 }
 
 export {

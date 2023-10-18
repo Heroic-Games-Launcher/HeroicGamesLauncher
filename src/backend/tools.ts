@@ -124,11 +124,11 @@ export const DXVK = {
 
       logInfo([`Updating ${tool.name} to:`, pkg], LogPrefix.DXVKInstaller)
 
-      return downloadFile(
-        downloadUrl,
-        latestVersion,
-        createAbortController(tool.name)
-      )
+      return downloadFile({
+        url: downloadUrl,
+        dest: latestVersion,
+        abortController: createAbortController(tool.name)
+      })
         .then(async () => {
           logInfo(`downloaded ${tool.name}`, LogPrefix.DXVKInstaller)
           logInfo(`extracting ${tool.name}`, LogPrefix.DXVKInstaller)
