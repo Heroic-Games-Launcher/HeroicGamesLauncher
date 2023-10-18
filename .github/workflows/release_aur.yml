@@ -31,10 +31,10 @@ jobs:
           latest_version=$(curl -s https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest | jq -r .tag_name)
           pkgver=${latest_version#v}
           pkgrel=1
-          url="https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher"
+          url="https://heroicgameslauncher.com"
           _filename=heroic-${pkgver}.pacman
           source=("$url/releases/download/$latest_version/$_filename")
-          md5sums=($(md5sum heroic.pacman | cut -d' ' -f1))
+          sha256sums=($(sha256sum heroic.pacman | cut -d' ' -f1))
 
           cat <<EOF > PKGBUILD
           # Maintainer: flaviofearn <flavioislima@gmail.com>
@@ -46,12 +46,13 @@ jobs:
           arch=('x86_64')
           url="$url"
           license=('GPL3')
-          depends=('gawk')
           _filename=$_filename
           source=("$source")
           noextract=("$_filename")
-          md5sums=(${md5sums[@]})
+          sha256sums=(${sha256sums[@]})
           options=(!strip)
+          provides=(heroic-games-launcher)
+          conflicts=(heroic-games-launcher)
 
           package() {
             tar -xJv -C "\$pkgdir" -f "\$srcdir/\$_filename" usr opt
