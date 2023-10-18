@@ -92,7 +92,7 @@ async function prepareLaunch(
 
   // If we're not on Linux, we can return here
   if (!isLinux) {
-    return { success: true, rpcClient }
+    return { success: true, rpcClient, offlineMode }
   }
 
   // Figure out where MangoHud/GameMode are located, if they're enabled
