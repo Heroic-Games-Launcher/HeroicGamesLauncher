@@ -14,14 +14,14 @@ jobs:
     steps:
       - name: Install Dependencies
         run: |
-          pacman -Syu --noconfirm wget jq
+          pacman -Syu --noconfirm jq
 
       - name: Download Package
         run: |
           set -x
           latest_version=$(curl -s https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest | jq -r .tag_name)
           version_without_v=$(echo $latest_version | cut -c 2-)
-          wget https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/${latest_version}/heroic-${version_without_v}.pacman -O heroic.pacman
+          curl -L https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/${latest_version}/heroic-${version_without_v}.pacman -o heroic.pacman
           set +x
         if: ${{ success() }}
 
