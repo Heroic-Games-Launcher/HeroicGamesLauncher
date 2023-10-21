@@ -307,7 +307,7 @@ export const initGamepad = () => {
       const controller = gamepads[index]
       if (!controller) return
 
-      logState(index)
+      // logState(index)
 
       const buttons = controller.buttons
       const axes = controller.axes
