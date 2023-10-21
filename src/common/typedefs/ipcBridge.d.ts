@@ -87,10 +87,7 @@ interface SyncIPCFunctions {
   clipboardWriteText: (text: string) => void
   processShortcut: (combination: string) => void
   addNewApp: (args: SideloadGame) => void
-  showLogFileInFolder: (args: {
-    appName: string
-    defaultLast?: boolean
-  }) => void
+  showLogFileInFolder: (appNameOrRunner: string) => void
   addShortcut: (appName: string, runner: Runner, fromMenu: boolean) => void
   removeShortcut: (appName: string, runner: Runner) => void
   removeFromDMQueue: (appName: string) => void
@@ -213,7 +210,7 @@ interface AsyncIPCFunctions {
     runner: Runner
   }) => Promise<void>
   isNative: (args: { appName: string; runner: Runner }) => boolean
-  getLogContent: (args: { appName: string; defaultLast?: boolean }) => string
+  getLogContent: (appNameOrRunner: string) => string
   installWineVersion: (
     release: WineVersionInfo
   ) => Promise<'error' | 'abort' | 'success'>

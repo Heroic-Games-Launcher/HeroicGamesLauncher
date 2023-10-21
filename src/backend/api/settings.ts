@@ -34,14 +34,10 @@ export const showUpdateSetting = async () =>
 export const egsSync = async (args: string) =>
   ipcRenderer.invoke('egsSync', args)
 
-export const showLogFileInFolder = (args: {
-  appName: string
-  defaultLast?: boolean
-}) => ipcRenderer.send('showLogFileInFolder', args)
-export const getLogContent = async (args: {
-  appName: string
-  defaultLast?: boolean
-}) => ipcRenderer.invoke('getLogContent', args)
+export const showLogFileInFolder = (appNameOrRunner: string) =>
+  ipcRenderer.send('showLogFileInFolder', appNameOrRunner)
+export const getLogContent = async (appNameOrRunner: string) =>
+  ipcRenderer.invoke('getLogContent', appNameOrRunner)
 
 export const systemInfo = {
   get: async (cache?: boolean): Promise<SystemInformation> =>

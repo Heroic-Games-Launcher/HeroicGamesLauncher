@@ -2,32 +2,55 @@
   max-width: none;
 }
 
-.setting.log-box {
-  background-color: #1e1e1e;
-  border-radius: 10px;
-  padding-block: 4px;
-  padding-inline: 6px;
+.logs-wrapper {
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  grid-template-rows: 1fr;
+  column-gap: 0.5rem;
   height: 25em;
-  overflow: auto;
-  user-select: text;
-  width: 100%;
+  --buttons-width: 150px;
+
+  .log-buttongroup {
+    display: flex;
+    flex-direction: column;
+    max-width: var(--buttons-width);
+    gap: 1rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    grid-row: 1 / 3;
+    height: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .setting.log-box {
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    padding-block: 4px;
+    padding-inline: 6px;
+    overflow: auto;
+    user-select: text;
+    width: calc(80vw - var(--buttons-width, 0px));
+    grid-column: 2;
+    height: 100%;
+  }
 }
 
-.log-buttongroup {
-  display: flex;
-  flex-direction: row;
+dialog .logs-wrapper {
+  --buttons-width: 0px;
 }
 
 .log-buttons.log-choosen,
 .log-buttons.log-choosen:hover {
   color: var(--accent);
   transition: all 350ms ease-out 0s;
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 
 .log-buttons {
-  margin-inline-end: 20px;
   cursor: pointer;
+  text-align: start;
+  transform-origin: 0% 50%;
 }
 
 .log-buttons:hover {
