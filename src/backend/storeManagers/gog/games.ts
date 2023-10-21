@@ -1301,7 +1301,9 @@ export async function updateGOGPlaytime(
     return
   }
 
-  const response = await postPlaytimeSession({ ...data, appName })
+  const response = await postPlaytimeSession({ ...data, appName }).catch(
+    () => null
+  )
 
   if (!response || response.status !== 201) {
     logError('Failed to post session', { prefix: LogPrefix.Gog })

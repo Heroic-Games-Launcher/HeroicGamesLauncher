@@ -117,6 +117,8 @@ const GameCard = ({
 
   const { status, folder, label } = hasStatus(appName, gameInfo, size)
 
+  const isBrowserGame = gameInfo.install.platform === 'Browser'
+
   useEffect(() => {
     setIsLaunching(false)
     const updateGameInfo = async () => {
@@ -311,15 +313,12 @@ const GameCard = ({
       // settings
       label: t('submenu.settings', 'Settings'),
       onclick: () => setIsSettingsModalOpen(true, 'settings', gameInfo),
-      show: isInstalled && !isUninstalling
+      show: isInstalled && !isUninstalling && !isBrowserGame
     },
     {
       label: t('submenu.logs', 'Logs'),
       onclick: () => setIsSettingsModalOpen(true, 'log', gameInfo),
-      show:
-        isInstalled &&
-        !isUninstalling &&
-        gameInfo.install.platform !== 'Browser'
+      show: isInstalled && !isUninstalling && !isBrowserGame
     },
     {
       // hide
@@ -384,6 +383,8 @@ const GameCard = ({
       ></div>
     )
   }
+
+  const showSettingsButton = isInstalled && !isUninstalling && !isBrowserGame
 
   return (
     <div>
@@ -464,7 +465,7 @@ const GameCard = ({
                   <FontAwesomeIcon size={'2x'} icon={faRepeat} />
                 </SvgButton>
               )}
-              {isInstalled && !isUninstalling && (
+              {showSettingsButton && (
                 <>
                   <SvgButton
                     title={`${t('submenu.settings')} (${title})`}

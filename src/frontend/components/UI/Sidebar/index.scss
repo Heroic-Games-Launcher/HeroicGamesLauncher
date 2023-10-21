@@ -181,6 +181,11 @@
   display: none;
 }
 
+.Sidebar.collapsed .SidebarItemWithSubmenu:has(.SidebarSubmenu) {
+  position: relative;
+  z-index: 2;
+}
+
 .Sidebar.collapsed .SidebarItemWithSubmenu .SidebarSubmenu {
   display: none;
 }
@@ -194,7 +199,7 @@
 .Sidebar.collapsed .SidebarItemWithSubmenu:focus-within .SidebarSubmenu {
   display: block;
   position: fixed;
-  left: 62px;
+  left: var(--sidebar-width);
   top: 66px;
   background-color: var(--navbar-background);
   padding: var(--space-2xs) 0;

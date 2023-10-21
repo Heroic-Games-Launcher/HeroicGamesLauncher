@@ -967,6 +967,9 @@ export async function gogToUnifiedInfo(
     art_square: info.game.vertical_cover.url_format
       .replace('{formatter}', '')
       .replace('{ext}', 'jpg'),
+    art_background: info.game.background.url_format
+      .replace('{formatter}', '')
+      .replace('{ext}', 'webp'),
     cloud_save_enabled: false,
     extra: {
       about: { description: info.summary['*'], shortDescription: '' },

@@ -93,7 +93,7 @@ async function prepareLaunch(
 
   // If we're not on Linux, we can return here
   if (!isLinux) {
-    return { success: true, rpcClient }
+    return { success: true, rpcClient, offlineMode }
   }
 
   // Figure out where MangoHud/GameMode are located, if they're enabled
@@ -351,6 +351,7 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   const ret: Record<string, string> = {}
 
   ret.DOTNET_BUNDLE_EXTRACT_BASE_DIR = ''
+  ret.DOTNET_ROOT = ''
 
   // Add WINEPREFIX / STEAM_COMPAT_DATA_PATH / CX_BOTTLE
   const steamInstallPath = join(flatPakHome, '.steam', 'steam')

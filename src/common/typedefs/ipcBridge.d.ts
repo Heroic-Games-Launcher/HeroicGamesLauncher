@@ -104,6 +104,11 @@ interface SyncIPCFunctions {
   pauseCurrentDownload: () => void
   cancelDownload: (removeDownloaded: boolean) => void
   copySystemInfoToClipboard: () => void
+  winetricksInstall: ({
+    runner: Runner,
+    appName: string,
+    component: string
+  }) => void
   changeGameVersionPinnedStatus: (
     appName: string,
     runner: Runner,
@@ -120,6 +125,14 @@ interface AsyncIPCFunctions {
   runWineCommand: (
     args: WineCommandArgs
   ) => Promise<{ stdout: string; stderr: string }>
+  winetricksInstalled: ({
+    runner: Runner,
+    appName: string
+  }) => Promise<string[]>
+  winetricksAvailable: ({
+    runner: Runner,
+    appName: string
+  }) => Promise<string[]>
   checkGameUpdates: () => Promise<string[]>
   getEpicGamesStatus: () => Promise<boolean>
   updateAll: () => Promise<({ status: 'done' | 'error' | 'abort' } | null)[]>

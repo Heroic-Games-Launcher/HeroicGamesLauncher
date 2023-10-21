@@ -6,8 +6,6 @@ import {
   DiskSpaceData,
   StatusPromise,
   GamepadInputEvent,
-  WineCommandArgs,
-  ExecResult,
   Runner
 } from 'common/types'
 import * as path from 'path'
@@ -51,7 +49,6 @@ import { GOGUser } from './storeManagers/gog/user'
 import { NileUser } from './storeManagers/nile/user'
 import {
   clearCache,
-  execAsync,
   isEpicServiceOffline,
   handleExit,
   openUrlOrFile,
@@ -109,7 +106,7 @@ import {
 } from './logger/logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
 import { getFonts } from 'font-list'
-import { prepareWineLaunch, runWineCommand } from './launcher'
+import { runWineCommand } from './launcher'
 import shlex from 'shlex'
 import { initQueue } from './downloadmanager/downloadqueue'
 import {
@@ -155,7 +152,6 @@ import {
 } from 'backend/storeManagers/legendary/library'
 import { formatSystemInfo, getSystemInfo } from './utils/systeminfo'
 
-app.commandLine?.appendSwitch('remote-debugging-port', '9222')
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
 const { showOpenDialog } = dialog
@@ -348,8 +344,13 @@ if (!gotTheLock) {
 
     // Make sure lock is not present when starting up
     playtimeSyncQueue.delete('lock')
-    runOnceWhenOnline(syncQueuedPlaytimeGOG)
-
+    if (!settings.disablePlaytimeSync) {
+      runOnceWhenOnline(syncQueuedPlaytimeGOG)
+    } else {
+      logDebug('Skipping playtime sync queue upload - playtime sync disabled', {
+        prefix: LogPrefix.Backend
+      })
+    }
     await i18next.use(Backend).init({
       backend: {
         addPath: path.join(publicDir, 'locales', '{{lng}}', '{{ns}}'),
@@ -601,68 +602,6 @@ ipcMain.on('showConfigFileInFolder', async (event, appName) => {
 
 ipcMain.on('removeFolder', async (e, [path, folderName]) => {
   removeFolder(path, folderName)
-})
-
-async function runWineCommandOnGame(
-  runner: Runner,
-  appName: string,
-  { commandParts, wait = false, protonVerb, startFolder }: WineCommandArgs
-): Promise<ExecResult> {
-  if (gameManagerMap[runner].isNative(appName)) {
-    logError('runWineCommand called on native game!', LogPrefix.Gog)
-    return { stdout: '', stderr: '' }
-  }
-  const { folder_name, install } = gameManagerMap[runner].getGameInfo(appName)
-  const gameSettings = await gameManagerMap[runner].getSettings(appName)
-
-  await prepareWineLaunch(runner, appName)
-
-  return runWineCommand({
-    gameSettings,
-    installFolderName: folder_name,
-    gameInstallPath: install.install_path,
-    commandParts,
-    wait,
-    protonVerb,
-    startFolder
-  })
-}
-
-// Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
-ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
-  const gameSettings = await gameManagerMap[runner].getSettings(appName)
-
-  switch (tool) {
-    case 'winetricks':
-      await Winetricks.run(runner, appName, event)
-      break
-    case 'winecfg':
-      await runWineCommandOnGame(runner, appName, {
-        gameSettings,
-        commandParts: ['winecfg'],
-        wait: false
-      })
-      break
-    case 'runExe':
-      if (exe) {
-        const workingDir = path.parse(exe).dir
-        await runWineCommandOnGame(runner, appName, {
-          gameSettings,
-          commandParts: [exe],
-          wait: false,
-          startFolder: workingDir
-        })
-      }
-      break
-  }
-  if (runner === 'gog') {
-    // Check if game was modified by offline installer / wine uninstaller
-    await GOGLibraryManager.checkForOfflineInstallerChanges(appName)
-    sendFrontendMessage(
-      'pushGameToLibrary',
-      GOGLibraryManager.getGameInfo(appName)
-    )
-  }
 })
 
 ipcMain.handle('runWineCommand', async (e, args) => runWineCommand(args))
@@ -1114,8 +1053,16 @@ ipcMain.handle(
       sessionPlaytime + tsStore.get(`${appName}.totalPlayed`, 0)
     tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
 
+    const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
     if (runner === 'gog') {
-      await updateGOGPlaytime(appName, startPlayingDate, finishedPlayingDate)
+      if (!disablePlaytimeSync) {
+        await updateGOGPlaytime(appName, startPlayingDate, finishedPlayingDate)
+      } else {
+        logWarning(
+          'Posting playtime session to server skipped - playtime sync disabled',
+          { prefix: LogPrefix.Backend }
+        )
+      }
     }
     await addRecentGame(game)
 
@@ -1598,22 +1545,6 @@ ipcMain.handle('getFonts', async (event, reload) => {
   return cachedFonts
 })
 
-ipcMain.handle(
-  'runWineCommandForGame',
-  async (event, { appName, commandParts, runner }) => {
-    if (isWindows) {
-      return execAsync(commandParts.join(' '))
-    }
-
-    // FIXME: Why are we using `runinprefix` here?
-    return runWineCommandOnGame(runner, appName, {
-      commandParts,
-      wait: false,
-      protonVerb: 'runinprefix'
-    })
-  }
-)
-
 ipcMain.handle('getShellPath', async (event, path) => getShellPath(path))
 
 ipcMain.handle('clipboardReadText', () => clipboard.readText())
@@ -1691,6 +1622,10 @@ ipcMain.on('processShortcut', async (e, combination: string) => {
 ipcMain.handle(
   'getPlaytimeFromRunner',
   async (e, runner, appName): Promise<number | undefined> => {
+    const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
+    if (disablePlaytimeSync) {
+      return
+    }
     if (runner === 'gog') {
       return getGOGPlaytime(appName)
     }
@@ -1734,3 +1669,4 @@ import './downloadmanager/ipc_handler'
 import './utils/ipc_handler'
 import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
+import './tools/ipc_handler'
