@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html t="0x31" i="YA-9517" v="1.60">
+    <head>
+        <title>Hangman (Game)</title>
+        <style>body {
+    background-color: #eee;
+    margin: 0;
+}
+
+#home {
+    background: linear-gradient(#eee, #aaa);
+    background: -webkit-linear-gradient(top, #eee, #aaa);
+    background: -ms-linear-gradient(top, #eee, #aaa);
+    background: -moz-linear-gradient(top, #eee, #aaa);
+    background: -o-linear-gradient(top, #eee, #aaa);
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 99;
+}
+
+#home .title {
+    font-size: 48px;
+    font-weight: bold;
+    margin-top: 15%;
+    text-align: center;
+}
+
+#home .button {
+    background: #afa;
+    background: linear-gradient(#afa, #6f6);
+    background: -webkit-linear-gradient(top, #afa, #6f6);
+    background: -ms-linear-gradient(top, #afa, #6f6);
+    background: -moz-linear-gradient(top, #afa, #6f6);
+    background: -o-linear-gradient(top, #afa, #6f6);
+    border-radius: 2px;
+    box-shadow: 0 0 0 5px #090;
+    display: table;
+    font-weight: bold;
+    padding: 10px 20px;
+    margin: 20% auto;
+}
+
+#home .foother {
+    bottom: 20px;
+    font-size: 12px;
+    font-style: italic;
+    position: absolute;
+    right: 20px;
+}
+
+.h {
+    display: none;
+}
+
+#result {
+    background: #700;
+    background: linear-gradient(rgba(125, 0, 0, 0.9) 20%, rgba(0, 0, 0, 0.7) 80%);
+    background: -webkit-linear-gradient(top, rgba(125, 0, 0, 0.9) 20%, rgba(0, 0, 0, 0.7) 80%);
+    background: -ms-linear-gradient(top, rgba(125, 0, 0, 0.9) 20%, rgba(0, 0, 0, 0.7) 80%);
+    background: -moz-linear-gradient(top, rgba(125, 0, 0, 0.9) 20%, rgba(0, 0, 0, 0.7) 80%);
+    background: -o-linear-gradient(top, rgba(125, 0, 0, 0.9) 20%, rgba(0, 0, 0, 0.7) 80%);
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 100;
+}
+
+#result[data="true"] {
+    background: #070;
+    background: linear-gradient(rgba(0, 125, 0, 0.9) 20%, rgba(0, 0, 0, 0.7) 80%);
+    background: -webkit-linear-gradient(top, rgba(0, 125, 0, 0.9) 20%, rgba(0, 0, 0, 0.7) 80%);
+    background: -ms-linear-gradient(top, rgba(0, 125, 0, 0.9) 20%, rgba(0, 0, 0, 0.7) 80%);
+    background: -moz-linear-gradient(top, rgba(0, 125, 0, 0.9) 20%, rgba(0, 0, 0, 0.7) 80%);
+    background: -o-linear-gradient(top, rgba(0, 125, 0, 0.9) 20%, rgba(0, 0, 0, 0.7) 80%);
+}
+
+#result .title {
+    color: #eee;
+    font-size: 48px;
+    margin-top: 15%;
+    text-align: center;
+    text-shadow: 1px 1px 0 #000;
+}
+
+#result .body {
+    color: #fff;
+    margin-top: 30px;
+    text-align: center;
+    text-shadow: 1px 1px 0 #000;
+}
+
+#result .button {
+    background:#afa;
+    background: linear-gradient(#afa, #6f6);
+    background: -webkit-linear-gradient(top, #afa, #6f6);
+    background: -ms-linear-gradient(top, #afa, #6f6);
+    background: -moz-linear-gradient(top, #afa, #6f6);
+    background: -o-linear-gradient(top, #afa, #6f6);
+    border-radius: 2px;
+    box-shadow: 0 0 0 5px #090;
+    display: table;
+    font-weight: bold;
+    padding: 10px 20px;
+    margin: 40px auto;
+    margin-bottom: 0;
+}
+
+#letter {
+    font-size: 22px;
+    height: 30px;
+    margin: 20px;
+    text-align: center;
+}
+
+.l {
+    box-shadow: 0 3px 0 -1px #555;
+    display: inline-block;
+    margin: 1px;
+    height: 20px;
+    text-transform: uppercase;
+    width: 20px;
+}
+
+.ls {
+    box-shadow: 0 0 0 0 #555;
+    width: 10px;
+}
+
+#game {
+    height: 250px;
+    margin: auto;
+    position: relative;
+    width: 220px;
+}
+
+#game .player {
+    left: 53px;
+    position: absolute;
+    top: 90px;
+    height: 130px;
+    width: 75px;
+}
+
+.player .playerModel {
+    height: 100%;
+    position: relative;
+    width: 100%;
+}
+
+.playerModel .head {
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px #000 inset;
+    height: 35px;
+    margin: auto;
+    width: 35px;
+}
+
+.playerModel .head[data="false"] {
+    display: none;
+}
+
+.playerModel .body {
+    background-color: #000;
+    height: 45px;
+    margin: auto;
+    width: 2px;
+}
+
+.playerModel .body[data="false"] {
+    display: none;
+}
+
+.playerModel .body:before, .playerModel .body:after {
+    background-color: #000;
+    content: "";
+    display: inline-block;
+    height: 30px;
+    position: absolute;
+    width: 2px;
+}
+
+.playerModel .body[l="false"]:before, .playerModel .body[r="false"]:after {
+    display: none;
+}
+
+.playerModel .body:before {
+    left: 27px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+.playerModel .body:after {
+    right: 26px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+
+.playerModel .foot {
+    background-color: #000;
+    height: 3px;
+    margin: auto;
+    width: 2px;
+}
+
+.playerModel .foot[data="false"] {
+    display: none;
+}
+
+.playerModel .foot:before, .playerModel .foot:after {
+    background-color: #000;
+    content: "";
+    display: inline-block;
+    height: 40px;
+    position: absolute;
+    width: 2px;
+}
+
+.playerModel .foot[l="false"]:before, .playerModel .foot[r="false"]:after {
+    display: none;
+}
+
+.playerModel .foot:before {
+    left: 30px;
+    transform: rotate(20deg);
+    -webkit-transform: rotate(20deg);
+}
+
+.playerModel .foot:after {
+    right: 29px;
+    transform: rotate(-20deg);
+    -webkit-transform: rotate(-20deg);
+}
+
+#game .stang3 {
+    background-color: #000;
+    height: 20px;
+    left: 90px;
+    position: absolute;
+    top: 70px;
+    width: 2px;
+}
+
+#game .stang3[data="false"] {
+    display: none;
+}
+
+#game .stang2 {
+    background-color: #000;
+    border-radius: 5px 0 0 5px;
+    bottom: 180px;
+    height: 5px;
+    position: absolute;
+    right: 45px;
+    width: 95px;
+}
+
+#game .stang2:before {
+    background-color: #000;
+    content: "";
+    left: 50px;
+    height: 5px;
+    position: absolute;
+    top: 17px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    width: 50px;
+}
+
+#game .stang2[data="false"] {
+    display: none;
+}
+
+#game .stang {
+    background-color: #000;
+    bottom: 0;
+    height: 180px;
+    margin: auto;
+    position: absolute;
+    right: 45px;
+    width: 5px;
+}
+
+#game .stang[data="false"] {
+    display: none;
+}
+
+#game .ground {
+    background-color: #000;
+    border-radius: 5px;
+    bottom: 0;
+    left: 0;
+    height: 5px;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    width: 220px;
+}
+
+#game .ground[data="false"] {
+    display: none;
+}
+
+#game .hintButton {
+    background: #ccc;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.1));
+    background: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.1));
+    background: -ms-linear-gradient(top, transparent, rgba(0, 0, 0, 0.1));
+    background: -moz-linear-gradient(top, transparent, rgba(0, 0, 0, 0.1));
+    background: -o-linear-gradient(top, transparent, rgba(0, 0, 0, 0.1));
+    border-radius: 8%;
+    box-shadow: 1px 1px 3px #999;
+    font-weight: bold;
+    padding: 5px 10px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+#game .hintButton[data="false"] {
+    display: none;
+}
+
+#tastatur {
+    background-color: rgba(238, 238, 238, 0.9);
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    margin-bottom: 20px;
+    max-width: 500px;
+    padding: 0 15px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+}
+
+#moveKeybord {
+    padding: 15px;
+}
+
+.marg {
+    border-bottom: solid 2px #ccc;
+}
+
+#hint {
+    border-radius: 2px;
+    box-shadow: 1px 1px 4px #888;
+    display: none;
+    left: 0;
+    margin: auto;
+    margin-top: 75px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 250px;
+}
+
+#hint .title {
+    background: #fff;
+    background: linear-gradient(#fff, #bbb);
+    background: -webkit-linear-gradient(top, #fff, #bbb);
+    background: -ms-linear-gradient(top, #fff, #bbb);
+    background: -moz-linear-gradient(top, #fff, #bbb);
+    background: -o-linear-gradient(top, #fff, #bbb);
+    border-bottom: solid 1px #555;
+    border-radius: 2px 2px 0 0;
+    font-weight: bold;
+    padding: 5px 10px;
+    position: relative;
+}
+
+#hint .title .exit {
+    background-color: #f55;
+    border-radius: 50%;
+    box-shadow: 1px 1px 4px #888;
+    font-weight: bold;
+    padding: 8px 12px;
+    position: absolute;
+    right: -15px;
+    top: -15px;
+}
+
+#hint .body {
+    background-color: #ddd;
+    border-radius: 0 0 2px 2px;
+    padding: 10px;
+}
+
+.b {
+    background: #eee;
+    background: linear-gradient(#fff, #eee);
+    background: -webkit-linear-gradient(top, #fff, #eee);
+    background: -ms-linear-gradient(top, #fff, #eee);
+    background: -moz-linear-gradient(top, #fff, #eee);
+    background: -o-linear-gradient(top, #fff, #eee);
+    box-shadow: 1px 1px 1px 0 #ccc;
+    display: inline-block;
+    margin: 2px;
+    padding: 8px;
+    text-align: center;
+    width: 25px;
+}
+
+.b[data="false"], .b[data="true"] {
+    color: #555;
+    font-weight: bold;
+}
+
+.b[data="true"] {
+    background: #9f9;
+}
+
+.b[data="false"] {
+    background: #aaa;
+}
+
+.anim {
+    animation: button 3s infinite;
+    -webkit-animation: button 3s infinite;
+}
+
+@keyframes button {
+    0%, 50%, 90% {
+        transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+    }
+    60% {
+        transform: rotate(5deg) scale(1);
+        -webkit-transform: rotate(5deg) scale(1);
+    }
+    70% {
+        transform: rotate(-5deg) scale(0.97);
+        -webkit-transform: rotate(-5deg) scale(0.97);
+    }
+    80% {
+        transform: rotate(5deg) scale(1.05);
+        -webkit-transform: rotate(5deg) scale(1.05);
+    }
+}
+
+@-webkit-keyframes button {
+    0%, 50%, 90% {
+        transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+    }
+    60% {
+        transform: rotate(5deg) scale(1);
+        -webkit-transform: rotate(5deg) scale(1);
+    }
+    70% {
+        transform: rotate(-5deg) scale(0.97);
+        -webkit-transform: rotate(-5deg) scale(0.97);
+    }
+    80% {
+        transform: rotate(5deg) scale(1.05);
+        -webkit-transform: rotate(5deg) scale(1.05);
+    }
+}
+</style>
+    </head>
+    <body>
+        <div id="home">
+            <div class="title">Hangman</div>
+            <div class="button anim" onclick="startGame()">Play</div>
+            <div class="foother">Coded by Thomas Hj</div>
+        </div>
+        <div id="result" class="h">
+            <div class="title" id="rT"></div>
+            <div class="body" id="rM"></div>
+            <div class="button anim" onclick="startGame()">Try Again?</div>
+        </div>
+        <div id="pGame">
+            <div id="letter"></div>
+            <div id="game">
+                <div class="player">
+                    <div class="playerModel">
+                        <div class="head" data="false" id="g4"></div>
+                        <div class="body" data="false" l="false" r="false" id="g5"></div>
+                        <div class="foot" data="false" l="false" r="false" id="g6"></div>
+                    </div>
+                </div>
+                <div class="stang3" data="false" id="g3"></div>
+                <div class="stang2" data="false" id="g2"></div>
+                <div class="stang" data="false" id="g1"></div>
+                <div class="ground" data="false" id="g0"></div>
+                <div class="hintButton" data="false" id="hintButton" onclick="hint()">?</div>
+            </div>
+            <div id="tastatur">
+                <div id="moveKeybord"><div class="marg"></div></div>
+                <div id="keybord"></div>
+            </div>
+            <div class="hint" id="hint">
+                <div class="title">Hint<div class="exit" onclick="hintExit()">X</div></div>
+                <div class="body" id="hintText"></div>
+            </div>
+        </div>
+    </body>
+    <script>// Word selection
+// New word = ["Word name", "Hint"]
+var word = [["Hangman", "That game you are playing right now."], ["Thomas Hj", "About the creator of this game."], ["HTML", "Markup language for creating Web pages."], ["CSS", "Wep page styles"], ["PHP", "A very popular server scripting language."], ["JavaScript", "Make web-page dynamic without reload the web page."], ["Java", "Run 15 billion devices.\nA program can be run in Windows, Linux and Mac"], ["SoloLearn", "A company that everyone can code for fun and share."], ["Love", "What is ?\nBaby don't hurt me\nDon't hurt me\nNo more"], ["Document", "A lot of text in the a file."], ["Playground", "There school kids go to."], ["Run", "Usain bolt."], ["Code", "var hw = 'Hello World';"], ["Samsung", "A company create Phone, Tv, Monitor, SDD, Memory chip..."], ["Super Mario", "A very popular game in Nintendo 64 that have red hat."], ["Star", "Super Mario like to get."], ["Clock", "14:12 or 14pm"], ["Binary Clock", "A clock that only use 0 or 1."], ["Sword", "Link from Zelda have on the hand."], ["Girl", "Not boy but ?"], ["Boy", "Not girl but ?"], ["Female", "Other name as girl."], ["Male", "Other name as boy."], ["Smartphone", "Something you've always on you."]]
+
+// Game keyboard
+var tastatur = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+// Game memory
+var select = 0
+var wordLeft = []
+var fail = 0
+
+// Web-page onload
+window.onload = function() {
+    gId("moveKeybord").addEventListener('touchmove', function(e) {
+        wH = window.innerHeight
+        tY = e.touches[0].clientY
+        eL = gId("tastatur")
+        resY = wH - tY - eL.offsetHeight
+        if(resY < 0) {
+            resY = 0
+        } else if(resY > wH / 2) {
+            resY = wH / 2
+        }
+        eL.style.bottom = resY + "px"
+    }, false)
+    createTastur()
+}
+
+// Start game
+function startGame() {
+    gId("home").className = "h"
+    gId("result").className = "h"
+    newGame()
+}
+
+// New game
+function newGame() {
+    clearTastatur()
+    clearPlayer()
+    createWord()
+}
+
+// Clear keyboard
+function clearTastatur() {
+    var e = document.getElementsByClassName("b")
+    for(a = 0; a < e.length; a++) {
+        e[a].setAttribute("data", "")
+    }
+}
+
+// Clear player
+function clearPlayer() {
+    fail = 0
+    wordLeft = []
+    gId("g0").setAttribute("data", "false")
+    gId("g1").setAttribute("data", "false")
+    gId("g2").setAttribute("data", "false")
+    gId("g3").setAttribute("data", "false")
+    gId("g4").setAttribute("data", "false")
+    gId("g5").setAttribute("data", "false")
+    gId("g5").setAttribute("r", "false")
+    gId("g5").setAttribute("l", "false")
+    gId("g6").setAttribute("data", "false")
+    gId("g6").setAttribute("l", "false")
+    gId("g6").setAttribute("r", "false")
+    gId("hintButton").setAttribute("data", "false")
+    gId("hint").style.display = "none"
+}
+
+// Get new word
+function createWord() {
+    var d = gId("letter")
+    d.innerHTML = ""
+    select = Math.floor(Math.random() * word.length)
+    for(a = 0; a < word[select][0].length; a++) {
+        var x = word[select][0][a].toUpperCase()
+        var b = document.createElement("span")
+        b.className = "l" + (x == " " ? " ls" : "")
+        b.innerHTML = "&nbsp"
+        b.id = "l" + a;
+        d.appendChild(b)
+        
+        if(x != " ") {
+            if(wordLeft.indexOf(x) == -1) {
+                wordLeft.push(x)
+            }
+        }
+    }
+}
+
+// Create keyboard
+function createTastur() {
+    var tas = gId("keybord")
+    tas.innerHTML = ""
+    for(a = 0; a < tastatur.length; a++) {
+        var b = document.createElement("span")
+        b.className = "b"
+        b.innerText = tastatur[a]
+        b.setAttribute("data", "")
+        b.onclick = function() {
+            bTas(this)
+        }
+        tas.appendChild(b)
+    }
+}
+
+// Game check, If show next error / game end
+function bTas(a) {
+    if(a.getAttribute("data") == "") {
+        var x = isExist(a.innerText)
+        a.setAttribute("data", x)
+        if(x) {
+            if(wordLeft.length == 0) {
+                gameEnd(true)
+            }
+        } else {
+            showNextFail()
+        }
+    }
+}
+
+// If letter "X" exist
+function isExist(e) {
+    e = e.toUpperCase()
+    var x = wordLeft.indexOf(e)
+    if(x != -1) {
+        wordLeft.splice(x, 1)
+        typeWord(e)
+        return true
+    }
+    return false
+}
+
+// Show next fail drawing
+function showNextFail() {
+    fail++
+    switch(fail) {
+        case 1:
+            gId("g0").setAttribute("data", "true")
+            break;
+        
+        case 2:
+            gId("g1").setAttribute("data", "true")
+            break;
+        
+        case 3:
+            gId("g2").setAttribute("data", "true")
+            break;
+        
+        case 4:
+            gId("g3").setAttribute("data", "true")
+            gId("hintButton").setAttribute("data", "true")
+            break;
+        
+        case 5:
+            gId("g4").setAttribute("data", "true")
+            break;
+        
+        case 6:
+            gId("g5").setAttribute("data", "true")
+            break;
+        
+        case 7:
+            gId("g5").setAttribute("l", "true")
+            break;
+        
+        case 8:
+            gId("g5").setAttribute("r", "true")
+            break;
+        
+        case 9:
+            gId("g6").setAttribute("data", "true")
+            gId("g6").setAttribute("l", "true")
+            break;
+        
+        case 10:
+            gId("g6").setAttribute("r", "true")
+            gameEnd(false)
+            break;
+    }
+}
+
+function typeWord(e) {
+    for(a = 0; a < word[select][0].length; a++) {
+        if(word[select][0][a].toUpperCase() == e) {
+            gId("l" + a).innerText = e
+        }
+    }
+}
+
+// Game result
+function gameEnd(e) {
+    var d = gId("result")
+    d.setAttribute("data", e)
+    if(e) {
+        gId("rT").innerText = "You Win!"
+        gId("rM").innerHTML = "Congratulations, you found the word!<br/><br/>Good Job!"
+    } else {
+        gId("rT").innerText = "You Lose!"
+        gId("rM").innerHTML = "The word was <br/><br/>\"" + word[select][0].toUpperCase() + "\"<br/><br/>Better luck next time."
+    }
+    d.className = ""
+}
+
+// Show hint
+function hint() {
+    gId("hintText").innerText = word[select][1]
+    gId("hint").style.display = "block"
+}
+
+// Exit hint
+function hintExit() {
+    gId("hint").style.display = "none"
+}
+
+// Get HTML ID element by name
+function gId(a) {
+    return document.getElementById(a)
+}
+</script>
+</html>
