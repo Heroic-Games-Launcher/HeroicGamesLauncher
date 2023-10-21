@@ -66,6 +66,14 @@ export default function WebView() {
   }
   let startUrl = urls[pathname]
 
+  // /last-page path uses the stored url for the webview
+  if (pathname === '/last-url') {
+    const lastUrl = localStorage.getItem('last-url')
+    if (lastUrl) {
+      startUrl = lastUrl
+    }
+  }
+
   if (pathname.match(/store-page/)) {
     const searchParams = new URLSearchParams(search)
     const queryParam = searchParams.get('store-url')
@@ -211,6 +219,27 @@ export default function WebView() {
     }
     return
   }, [webviewRef.current, preloadPath, amazonLoginData])
+
+  useEffect(() => {
+    const webview = webviewRef.current
+    if (webview) {
+      const onNavigate = () => {
+        localStorage.setItem('last-url', webview.getURL())
+      }
+
+      // this one is needed for gog/amazon
+      webview.addEventListener('did-navigate', onNavigate)
+      // this one is needed for epic
+      webview.addEventListener('did-navigate-in-page', onNavigate)
+
+      return () => {
+        webview.removeEventListener('did-navigate', onNavigate)
+        webview.removeEventListener('did-navigate-in-page', onNavigate)
+      }
+    }
+
+    return
+  }, [webviewRef.current])
 
   const [showLoginWarningFor, setShowLoginWarningFor] = useState<
     null | 'epic' | 'gog' | 'amazon'

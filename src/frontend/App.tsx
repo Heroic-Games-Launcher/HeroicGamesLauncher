@@ -56,6 +56,7 @@ function App() {
               </Route>
             </Route>
             <Route path="/store-page" element={<WebView />} />
+            <Route path="/last-url" element={<WebView />} />
             <Route path="loginweb">
               <Route path=":runner" element={<WebView />} />
             </Route>
