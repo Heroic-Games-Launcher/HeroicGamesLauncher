@@ -29,9 +29,11 @@ export default function GameChangeLog({
   return (
     <Dialog showCloseButton onClose={backdropClick}>
       <DialogHeader onClose={backdropClick}>
-        {t('game.changelogFor', 'Changelog for {{title}}', { title })}
+        {t('game.changelogFor', 'Changelog for {{gameTitle}}', {
+          gameTitle: title
+        })}
       </DialogHeader>
-      <DialogContent>
+      <DialogContent className="changelogModalContent">
         <div
           dangerouslySetInnerHTML={santiziedChangeLog}
           className={'gameChangeLog'}

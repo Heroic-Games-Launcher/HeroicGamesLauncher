@@ -88,7 +88,7 @@
             "toggle": "Keep the game at specific version",
             "version": "Version"
         },
-        "changelogFor": "Changelog for {{title}}",
+        "changelogFor": "Changelog for {{gameTitle}}",
         "downloadSize": "Download Size",
         "firstPlayed": "First Played",
         "getting-download-size": "Getting download size",
@@ -171,6 +171,7 @@
     },
     "modifyInstall": {
         "dlcsCollapsible": "DLC",
+        "nodlcs": "No DLC available",
         "redMod": {
             "collapsible": "REDmod Integration",
             "enable": "Enable mods"

@@ -15,6 +15,16 @@
     }
   }
 
+  &__gogDlcs .emptyState {
+    text-align: center;
+    margin: var(--space-lg) 0;
+    opacity: 0.5;
+    & svg {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
   &__redMod {
     margin-bottom: var(--space-md);
     & .modsHelpWrapper {
