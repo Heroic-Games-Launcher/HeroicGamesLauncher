@@ -326,7 +326,7 @@ class GlobalState extends PureComponent<Props> {
   }
 
   handleSuccessfulLogin = (runner: Runner) => {
-    // this.handleCategory('all')
+    storage.setItem('category', 'all')
     this.refreshLibrary({
       runInBackground: false,
       library: runner
@@ -638,10 +638,7 @@ class GlobalState extends PureComponent<Props> {
   async componentDidMount() {
     const { t } = this.props
     const { epic, gameUpdates = [], libraryStatus } = this.state
-    // const oldCategory: string = category
-    // if (oldCategory === 'epic') {
-    //   this.handleCategory('all')
-    // }
+
     // Deals launching from protocol. Also checks if the game is already running
     window.api.handleLaunchGame(
       async (
