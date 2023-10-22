@@ -16,7 +16,11 @@ const initialContext: LibraryContextType = {
   showFavourites: false,
   setShowNonAvailable: () => null,
   showNonAvailable: false,
-  setShowFavourites: () => null
+  setShowFavourites: () => null,
+  sortDescending: true,
+  setSortDescending: () => null,
+  sortInstalled: true,
+  setSortInstalled: () => null
 }
 
 export default React.createContext(initialContext)

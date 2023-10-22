@@ -62,18 +62,51 @@ export default React.memo(function Library(): JSX.Element {
   } = useContext(ContextProvider)
 
   const [layout, setLayout] = useState(storage.getItem('layout') || 'grid')
+  const handleLayout = (layout: string) => {
+    storage.setItem('layout', layout)
+    setLayout(layout)
+  }
+
   const [category, setCategory] = useState(
     (storage.getItem('category') as Category) || 'legendary'
   )
+  const handleCategory = (category: Category) => {
+    storage.setItem('category', category)
+    setCategory(category)
+  }
+
   const [filterText, setFilterText] = useState('')
-  const [filterPlatform, setFilterPlatform] = useState('all')
+  const [filterPlatform, setFilterPlatform] = useState(
+    storage.getItem('filterPlatform') || 'all'
+  )
+  const handlePlatformFilter = (filterPlatform: string) => {
+    storage.setItem('filterPlatform', filterPlatform)
+    setFilterPlatform(filterPlatform)
+  }
+
   const [showHidden, setShowHidden] = useState(
     JSON.parse(storage.getItem('show_hidden') || 'false')
   )
+  const handleShowHidden = (value: boolean) => {
+    storage.setItem('show_hidden', JSON.stringify(value))
+    setShowHidden(value)
+  }
+
   const [showFavouritesLibrary, setShowFavourites] = useState(
     JSON.parse(storage.getItem('show_favorites') || 'false')
   )
-  const [showNonAvailable, setShowNonAvailable] = useState(true)
+  const handleShowFavourites = (value: boolean) => {
+    storage.setItem('show_favorites', JSON.stringify(value))
+    setShowFavourites(value)
+  }
+
+  const [showNonAvailable, setShowNonAvailable] = useState(
+    JSON.parse(storage.getItem('show_non_available') || 'true')
+  )
+  const handleShowNonAvailable = (value: boolean) => {
+    storage.setItem('show_non_available', JSON.stringify(value))
+    setShowNonAvailable(value)
+  }
 
   const [showModal, setShowModal] = useState<ModalState>({
     game: '',
@@ -84,9 +117,19 @@ export default React.memo(function Library(): JSX.Element {
   const [sortDescending, setSortDescending] = useState(
     JSON.parse(storage?.getItem('sortDescending') || 'false')
   )
+  function handleSortDescending(value: boolean) {
+    storage.setItem('sortDescending', JSON.stringify(value))
+    setSortDescending(value)
+  }
+
   const [sortInstalled, setSortInstalled] = useState(
     JSON.parse(storage?.getItem('sortInstalled') || 'true')
   )
+  function handleSortInstalled(value: boolean) {
+    storage.setItem('sortInstalled', JSON.stringify(value))
+    setSortInstalled(value)
+  }
+
   const { t } = useTranslation()
   const backToTopElement = useRef(null)
   const listing = useRef<HTMLDivElement>(null)
@@ -355,45 +398,27 @@ export default React.memo(function Library(): JSX.Element {
     )
   }
 
-  const handleSearch = (input: string) => setFilterText(input)
-  const handlePlatformFilter = (filterPlatform: string) =>
-    setFilterPlatform(filterPlatform)
-  const handleLayout = (layout: string) => setLayout(layout)
-  const handleCategory = (category: Category) => setCategory(category)
-
-  useEffect(() => {
-    storage.setItem('layout', layout)
-  }, [layout])
-
-  useEffect(() => {
-    storage.setItem('category', category)
-  }, [category])
-
-  useEffect(() => {
-    storage.setItem('show_hidden', JSON.stringify(showHidden))
-  }, [showHidden])
-
-  useEffect(() => {
-    storage.setItem('show_favorites', JSON.stringify(showFavourites))
-  }, [showFavourites])
-
   return (
     <LibraryContext.Provider
       value={{
         category,
         layout,
         showHidden,
-        showFavourites,
+        showFavourites: showFavouritesLibrary,
         showNonAvailable,
         filterPlatform,
         filterText,
         handleCategory: handleCategory,
         handleLayout: handleLayout,
         handlePlatformFilter: handlePlatformFilter,
-        handleSearch: handleSearch,
-        setShowHidden: setShowHidden,
-        setShowFavourites: setShowFavourites,
-        setShowNonAvailable: setShowNonAvailable
+        handleSearch: setFilterText,
+        setShowHidden: handleShowHidden,
+        setShowFavourites: handleShowFavourites,
+        setShowNonAvailable: handleShowNonAvailable,
+        setSortDescending: handleSortDescending,
+        setSortInstalled: handleSortInstalled,
+        sortDescending,
+        sortInstalled
       }}
     >
       <Header />
@@ -421,10 +446,6 @@ export default React.memo(function Library(): JSX.Element {
 
         <LibraryHeader
           list={libraryToShow}
-          setSortDescending={setSortDescending}
-          setSortInstalled={setSortInstalled}
-          sortDescending={sortDescending}
-          sortInstalled={sortInstalled}
           handleAddGameButtonClick={() => handleModal('', 'sideload', null)}
         />
 

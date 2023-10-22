@@ -186,6 +186,10 @@ export interface LibraryContextType {
   setShowFavourites: (value: boolean) => void
   showNonAvailable: boolean
   setShowNonAvailable: (value: boolean) => void
+  sortDescending: boolean
+  setSortDescending: (value: boolean) => void
+  sortInstalled: boolean
+  setSortInstalled: (valur: boolean) => void
 }
 
 export interface GameContextType {
