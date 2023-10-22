@@ -13,7 +13,7 @@ import {
   lastLogFile
 } from '../constants'
 import { app } from 'electron'
-import { join } from 'path'
+import path, { join } from 'path'
 import { logError, LogPrefix, logsDisabled } from './logger'
 
 interface createLogFileReturn {
@@ -87,9 +87,9 @@ export function createNewLogFileAndClearOldOnes(): createLogFileReturn {
       })
         .filter((dirent) => dirent.isFile())
         .map((dirent) => dirent.name)
-        .filter((filename) => !keep.includes(`${logDir}/${filename}`))
+        .filter((filename) => !keep.includes(`${logDir}${path.sep}${filename}`))
 
-      logs.forEach((log) => unlinkSync(`${logDir}/${log}`))
+      logs.forEach((log) => unlinkSync(`${logDir}${path.sep}${log}`))
     } catch (error) {
       logError([`Removing old logs in ${logDir} failed with`, error], {
         prefix: LogPrefix.Backend,
