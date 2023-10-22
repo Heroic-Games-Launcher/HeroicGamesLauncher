@@ -34,6 +34,8 @@ import {
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
 import { InstallModal } from './components'
+import LibraryContext from './LibraryContext'
+import { Category } from 'frontend/types'
 
 const storage = window.localStorage
 
@@ -46,26 +48,32 @@ type ModalState = {
 
 export default React.memo(function Library(): JSX.Element {
   const {
-    layout,
     libraryStatus,
     refreshing,
     refreshingInTheBackground,
-    category,
     epic,
     gog,
     amazon,
     sideloadedLibrary,
     favouriteGames,
     libraryTopSection,
-    filterText,
     platform,
-    filterPlatform,
-    hiddenGames,
-    showHidden,
-    handleCategory,
-    showFavourites: showFavouritesLibrary,
-    showNonAvailable
+    hiddenGames
   } = useContext(ContextProvider)
+
+  const [layout, setLayout] = useState(storage.getItem('layout') || 'grid')
+  const [category, setCategory] = useState(
+    (storage.getItem('category') as Category) || 'legendary'
+  )
+  const [filterText, setFilterText] = useState('')
+  const [filterPlatform, setFilterPlatform] = useState('all')
+  const [showHidden, setShowHidden] = useState(
+    JSON.parse(storage.getItem('show_hidden') || 'false')
+  )
+  const [showFavouritesLibrary, setShowFavourites] = useState(
+    JSON.parse(storage.getItem('show_favorites') || 'false')
+  )
+  const [showNonAvailable, setShowNonAvailable] = useState(true)
 
   const [showModal, setShowModal] = useState<ModalState>({
     game: '',
@@ -347,8 +355,47 @@ export default React.memo(function Library(): JSX.Element {
     )
   }
 
+  const handleSearch = (input: string) => setFilterText(input)
+  const handlePlatformFilter = (filterPlatform: string) =>
+    setFilterPlatform(filterPlatform)
+  const handleLayout = (layout: string) => setLayout(layout)
+  const handleCategory = (category: Category) => setCategory(category)
+
+  useEffect(() => {
+    storage.setItem('layout', layout)
+  }, [layout])
+
+  useEffect(() => {
+    storage.setItem('category', category)
+  }, [category])
+
+  useEffect(() => {
+    storage.setItem('show_hidden', JSON.stringify(showHidden))
+  }, [showHidden])
+
+  useEffect(() => {
+    storage.setItem('show_favorites', JSON.stringify(showFavourites))
+  }, [showFavourites])
+
   return (
-    <>
+    <LibraryContext.Provider
+      value={{
+        category,
+        layout,
+        showHidden,
+        showFavourites,
+        showNonAvailable,
+        filterPlatform,
+        filterText,
+        handleCategory: handleCategory,
+        handleLayout: handleLayout,
+        handlePlatformFilter: handlePlatformFilter,
+        handleSearch: handleSearch,
+        setShowHidden: setShowHidden,
+        setShowFavourites: setShowFavourites,
+        setShowNonAvailable: setShowNonAvailable
+      }}
+    >
       <Header />
 
       <div className="listing" ref={listing}>
@@ -411,6 +458,6 @@ export default React.memo(function Library(): JSX.Element {
           }
         />
       )}
-    </>
+    </LibraryContext.Provider>
   )
 })
