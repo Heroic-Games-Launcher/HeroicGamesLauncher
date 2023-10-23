@@ -32,6 +32,15 @@ const InstalledInfo = ({ gameInfo }: Props) => {
     folder_name
   } = gameInfo
 
+  if (installPlatform === 'Browser') {
+    return (
+      <div style={{ textTransform: 'capitalize' }}>
+        <b>{t('info.installedPlatform', 'Installed Platform')}:</b>{' '}
+        {installPlatform}
+      </div>
+    )
+  }
+
   let install_path: string | undefined
   let install_size: string | undefined
   let version: string | undefined
