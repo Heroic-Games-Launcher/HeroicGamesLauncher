@@ -703,5 +703,9 @@
     },
     "amazon": "Αμαζόνα",
     "Amazon Games": "Παιχνίδια Amazon",
-    "prime-gaming": "Prime Gaming"
+    "prime-gaming": "Prime Gaming",
+    "winetricks": {
+        "install": "Εγκατάσταση",
+        "loading": "Loading"
+    }
 }
