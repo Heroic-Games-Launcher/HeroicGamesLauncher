@@ -18,7 +18,7 @@
             "title": "Verificar e Reparar"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "Selecionar o EXE para Executar"
         },
         "select": {
             "button": "Select"
@@ -43,7 +43,7 @@
             "message": "Esse jogo precisa ser atualizado, deseja atualizar agora?",
             "title": "Atualização!"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "Selecionar a Pasta do WinePrefix",
         "yes": "SIM"
     },
     "button": {
@@ -128,7 +128,14 @@
         "path-not-writtable": "Warning: path might not be writable.",
         "space-after-install": "After Install",
         "wineprefix": "WinePrefix",
-        "wineversion": "Wine Version"
+        "wineversion": "Wine Version",
+        "anticheat-warning": {
+            "cancel": "Não",
+            "message": "O suporte ao anticheat está inoperável ou foi recusado. O jogo não irá funcionar. Deseja instalá-lo mesmo assim?",
+            "install": "Sim (Eu entendo que não irá funcionar)",
+            "title": "Anticheat danificado/negado"
+        },
+        "flatpak-path-not-writtable": "Erro: Acesso à área restrita não concedido a este caminho, ocorrerá perda de dados."
     },
     "label": {
         "game": {
@@ -140,7 +147,7 @@
             "stop": "Jogando (Parar)"
         },
         "saves": {
-            "syncing": "Sincronizando"
+            "syncing": "Sincronizando Jogos Guardados"
         },
         "launching": "Lançamento",
         "ubisoft": "Instalando o Ubisoft Connect"
@@ -188,7 +195,7 @@
         "gameNotAvailable": "Game not available",
         "hasUpdates": "Nova versão disponível!",
         "installed": "Jogo Instalado",
-        "installing": "Instalando",
+        "installing": "A instalar",
         "moving": "Movendo Jogo, por favor espere",
         "notinstalled": "Jogo não instalado",
         "notSupported": "Not supported",
@@ -202,7 +209,7 @@
         "updating": "Atualizando jogo",
         "playing": "Jogando",
         "moving-files": "Movendo arquivo '{{file}}': {{percent}} ",
-        "syncingSaves": "Sincronizando",
+        "syncingSaves": "Sincronizando Jogos Guardados",
         "launching": "Lançamento",
         "ubisoft": "Instalando Ubisoft",
         "downloading": "Downloading",

@@ -119,7 +119,7 @@
         "clickToOpen": "Clique para abrir",
         "game-scores": "Pontuações do jogo",
         "protondb-compatibility-info": "Nível de compatibilidade do Proton",
-        "steamdeck-compatibility-info": "Compatibilidade do SteamDeck"
+        "steamdeck-compatibility-info": "Compatibilidade com SteamDeck"
     },
     "install": {
         "disk-space-left": "Espaço restante no dispositivo",
@@ -134,7 +134,8 @@
             "message": "O suporte antitrapaça está quebrado ou foi negado. O jogo não vai funcionar. Você quer instalá-lo de qualquer maneira?",
             "install": "Sim (eu entendo que não vai funcionar)",
             "title": "Antitrapaça Quebrado/Negado"
-        }
+        },
+        "flatpak-path-not-writtable": "Erro: Acesso ao sandbox não concedido a este caminho, ocorrerá perda de dados."
     },
     "label": {
         "game": {
@@ -148,7 +149,7 @@
         "saves": {
             "syncing": "Sincronizando Saves"
         },
-        "launching": "Lançamento",
+        "launching": "Iniciando",
         "ubisoft": "Instalando o Ubisoft Connect"
     },
     "launch": {
@@ -159,7 +160,7 @@
         "gog": "Você não está logado numa conta GOG no Heroic. Não use a página da loja para logar, ao invés disso,clique no botão a seguir:",
         "login": "Entrar",
         "title": "Você NÃO está logado",
-        "amazon": "Você não está logado numa conta Epic no Heroic. Não use a página da loja para logar, ao invés disso, clique no botão a seguir:"
+        "amazon": "Você não está logado com uma conta Amazon no Heroic. Não use a página da loja para fazer login, clique no seguinte botão:"
     },
     "report_problem": "Relatar um problema na execução deste jogo",
     "sdl": {
@@ -182,7 +183,7 @@
         "placeholder": {
             "image": "Cole um link de uma imagem aqui",
             "title": "Adicione um título ao seu Jogo/App",
-            "url": "Cole a URL do jogo aqui"
+            "url": "Cole o URL do jogo aqui"
         }
     },
     "specs": {
@@ -208,8 +209,8 @@
         "updating": "Atualizando Jogo",
         "playing": "Jogando",
         "moving-files": "Movendo arquivo '{{file}}': {{percent}} ",
-        "syncingSaves": "Sincronizando Saves",
-        "launching": "Lançamento",
+        "syncingSaves": "Sincronizando Salvamentos",
+        "launching": "Iniciando",
         "ubisoft": "Instalando Ubisoft",
         "downloading": "Baixando",
         "extracting": "Extraindo",
@@ -230,7 +231,7 @@
         "store": "Página na Loja",
         "verify": "Verificar e Reparar",
         "extraInfo": "Informação extra",
-        "logs": "Histórico"
+        "logs": "Registros"
     },
     "help": {
         "cloud_save_unsupported": "Este jogo não suporta salvamentos na nuvem. Esta informação é fornecida pelos desenvolvedores do jogo. Alguns jogos implementam seu próprio sistema de salvamento na nuvem"

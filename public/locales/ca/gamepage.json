@@ -134,7 +134,8 @@
             "message": "La compatibilitat amb el sistema antitrampes s'ha trencat o rebutjat. El joc no funcionarà. Segur que el voleu instal·lar de totes maneres?",
             "install": "Sí (entenc que no funcionarà)",
             "title": "Antitrampes trencat/rebutjat"
-        }
+        },
+        "flatpak-path-not-writtable": "Error: L'accés lliure a aquest camí no està garantit. Potser es perden dades."
     },
     "label": {
         "game": {
@@ -148,8 +149,8 @@
         "saves": {
             "syncing": "S'estan sincronitzant les partides"
         },
-        "launching": "Llançament",
-        "ubisoft": "Instal·lació d'Ubisoft Connect"
+        "launching": "S'inicia",
+        "ubisoft": "S'instal·la l'Ubisoft Connect"
     },
     "launch": {
         "options": "Opcions d'execució..."
@@ -233,6 +234,6 @@
         "logs": "Registres"
     },
     "help": {
-        "cloud_save_unsupported": "Aquest joc no admet desacions al núvol. Aquesta informació la proporcionen els desenvolupadors del joc. Alguns jocs implementen el seu propi sistema de desat al núvol"
+        "cloud_save_unsupported": "Aquest joc no permet desar partides al núvol. Aquesta informació la proporcionen els desenvolupadors del joc. Alguns jocs implementen el seu propi sistema de desat al núvol"
     }
 }
