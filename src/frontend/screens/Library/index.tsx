@@ -283,13 +283,13 @@ export default React.memo(function Library(): JSX.Element {
       })
     }
     return tempArray
-  }, [showFavourites, favouriteGames, epic, gog])
+  }, [showFavourites, showFavouritesLibrary, favouriteGames, epic, gog])
 
   // select library
   const libraryToShow = useMemo(() => {
     let library: Array<GameInfo> = []
     if (showFavouritesLibrary) {
-      library = [...favourites].filter((game) =>
+      library = favourites.filter((game) =>
         category === 'all' ? game : game?.runner === category
       )
     } else {
