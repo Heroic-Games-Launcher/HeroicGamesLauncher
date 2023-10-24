@@ -12,7 +12,6 @@ import { hasProgress } from 'frontend/hooks/hasProgress'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useNavigate } from 'react-router-dom'
 import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
-import { ReactComponent as DownIcon } from 'frontend/assets/down-icon.svg'
 import { ReactComponent as PauseIcon } from 'frontend/assets/pause-icon.svg'
 
 type Props = {
