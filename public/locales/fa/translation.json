@@ -708,5 +708,9 @@
     },
     "amazon": "آمازون",
     "Amazon Games": "بازی های آمازون",
-    "prime-gaming": "پرایم گیمینگ"
+    "prime-gaming": "پرایم گیمینگ",
+    "winetricks": {
+        "install": "Install",
+        "loading": "درحال بارگذاری"
+    }
 }
