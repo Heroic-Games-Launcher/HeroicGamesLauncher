@@ -1,9 +1,5 @@
 import { LogPrefix, logDebug, logError, logInfo } from 'backend/logger/logger'
 import {
-  createAbortController,
-  deleteAbortController
-} from 'backend/utils/aborthandler/aborthandler'
-import {
   NileLoginData,
   NileRegisterData,
   NileUserData
@@ -19,9 +15,8 @@ export class NileUser {
     logDebug('Getting login data from Nile', LogPrefix.Nile)
     const { stdout } = await runRunnerCommand(
       ['auth', '--login', '--non-interactive'],
-      createAbortController('nile-auth')
+      { abortId: 'nile-auth' }
     )
-    deleteAbortController('nile-auth')
     const output: NileLoginData = JSON.parse(stdout)
 
     logInfo(['Register data is:', output], LogPrefix.Nile)
@@ -46,9 +41,8 @@ export class NileUser {
         '--client-id',
         client_id
       ],
-      createAbortController('nile-login')
+      { abortId: 'nile-login' }
     )
-    deleteAbortController('nile-login')
 
     const successRegex = /\[AUTH_MANAGER]:.*Succesfully registered a device/
     if (!successRegex.test(output)) {
@@ -78,12 +72,7 @@ export class NileUser {
   static async logout() {
     const commandParts = ['auth', '--logout']
 
-    const abortID = 'nile-logout'
-    const res = await runRunnerCommand(
-      commandParts,
-      createAbortController(abortID)
-    )
-    deleteAbortController(abortID)
+    const res = await runRunnerCommand(commandParts, { abortId: 'nile-logout' })
 
     if (res.abort) {
       logError('Failed to logout: abort by user'), LogPrefix.Nile

@@ -1,7 +1,3 @@
-import {
-  createAbortController,
-  deleteAbortController
-} from '../../utils/aborthandler/aborthandler'
 import { appendFileSync, existsSync } from 'graceful-fs'
 import axios from 'axios'
 
@@ -513,17 +509,12 @@ export async function update(
     )
   }
 
-  const res = await runLegendaryCommand(
-    command,
-    createAbortController(appName),
-    {
-      logFile: logPath,
-      onOutput,
-      logMessagePrefix: `Updating ${appName}`
-    }
-  )
-
-  deleteAbortController(appName)
+  const res = await runLegendaryCommand(command, {
+    abortId: appName,
+    logFile: logPath,
+    onOutput,
+    logMessagePrefix: `Updating ${appName}`
+  })
 
   sendFrontendMessage('gameStatusUpdate', {
     appName: appName,
@@ -600,23 +591,21 @@ export async function install(
     )
   }
 
-  let res = await runLegendaryCommand(command, createAbortController(appName), {
+  let res = await runLegendaryCommand(command, {
+    abortId: appName,
     logFile: logPath,
     onOutput,
     logMessagePrefix: `Installing ${appName}`
   })
 
-  deleteAbortController(appName)
-
   // try to run the install again with higher memory limit
   if (res.stderr.includes('MemoryError:')) {
     command['--max-shared-memory'] = PositiveInteger.parse(5000)
-    res = await runLegendaryCommand(command, createAbortController(appName), {
+    res = await runLegendaryCommand(command, {
+      abortId: appName,
       logFile: logPath,
       onOutput
     })
-
-    deleteAbortController(appName)
   }
 
   if (res.abort) {
@@ -661,15 +650,10 @@ export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
     '-y': true
   }
 
-  const res = await runLegendaryCommand(
-    command,
-    createAbortController(appName),
-    {
-      logMessagePrefix: `Uninstalling ${appName}`
-    }
-  )
-
-  deleteAbortController(appName)
+  const res = await runLegendaryCommand(command, {
+    abortId: appName,
+    logMessagePrefix: `Uninstalling ${appName}`
+  })
 
   if (res.error) {
     logError(
@@ -703,16 +687,11 @@ export async function repair(appName: string): Promise<ExecResult> {
   if (maxWorkers) command['--max-workers'] = PositiveInteger.parse(maxWorkers)
   if (downloadNoHttps) command['--no-https'] = true
 
-  const res = await runLegendaryCommand(
-    command,
-    createAbortController(appName),
-    {
-      logFile: logPath,
-      logMessagePrefix: `Repairing ${appName}`
-    }
-  )
-
-  deleteAbortController(appName)
+  const res = await runLegendaryCommand(command, {
+    abortId: appName,
+    logFile: logPath,
+    logMessagePrefix: `Repairing ${appName}`
+  })
 
   if (res.error) {
     logError(
@@ -738,10 +717,8 @@ export async function importGame(
 
   logInfo(`Importing ${appName}.`, LogPrefix.Legendary)
 
-  const res = await runLegendaryCommand(command, createAbortController(appName))
+  const res = await runLegendaryCommand(command, { abortId: appName })
   addShortcuts(appName)
-
-  deleteAbortController(appName)
 
   if (res.error) {
     logError(
@@ -778,16 +755,11 @@ export async function syncSaves(
   }
 
   let fullOutput = ''
-  const res = await runLegendaryCommand(
-    command,
-    createAbortController(appName),
-    {
-      logMessagePrefix: `Syncing saves for ${getGameInfo(appName).title}`,
-      onOutput: (output) => (fullOutput += output)
-    }
-  )
-
-  deleteAbortController(appName)
+  const res = await runLegendaryCommand(command, {
+    abortId: appName,
+    logMessagePrefix: `Syncing saves for ${getGameInfo(appName).title}`,
+    onOutput: (output) => (fullOutput += output)
+  })
 
   if (res.error) {
     logError(
@@ -908,20 +880,15 @@ export async function launch(
     `Launch Command: ${fullCommand}\n\nGame Log:\n`
   )
 
-  const { error } = await runLegendaryCommand(
-    command,
-    createAbortController(appName),
-    {
-      env: commandEnv,
-      wrappers: wrappers,
-      logMessagePrefix: `Launching ${gameInfo.title}`,
-      onOutput: (output) => {
-        if (!logsDisabled) appendFileSync(logFileLocation(appName), output)
-      }
+  const { error } = await runLegendaryCommand(command, {
+    abortId: appName,
+    env: commandEnv,
+    wrappers: wrappers,
+    logMessagePrefix: `Launching ${gameInfo.title}`,
+    onOutput: (output) => {
+      if (!logsDisabled) appendFileSync(logFileLocation(appName), output)
     }
-  )
-
-  deleteAbortController(appName)
+  })
 
   if (error) {
     const showDialog = !`${error}`.includes('appears to be deleted')
@@ -960,10 +927,10 @@ export async function forceUninstall(appName: string) {
         '-y': true,
         '--keep-files': true
       },
-      createAbortController(appName)
+      {
+        abortId: appName
+      }
     )
-
-    deleteAbortController(appName)
 
     sendFrontendMessage('refreshLibrary', 'legendary')
   } catch (error) {
