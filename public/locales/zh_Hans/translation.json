@@ -287,7 +287,8 @@
             "part2": "如果在其它位置，请使用软链接连接到这些中的一个文件夹"
         },
         "disable_logs": "将此复选框切换为“开”可禁用对日志文件的大部分写入（始终记录关键信息）。请确保在报告任何问题之前关闭此设置。",
-        "dxvknvapi": "DXVK-NVAPI 是基于 DXVK 和 linux 原生 NVAPI 构建的 NVAPI 的实现，它允许在 Nvidia GPU 上使用 DLSS。"
+        "dxvknvapi": "DXVK-NVAPI 是基于 DXVK 和 linux 原生 NVAPI 构建的 NVAPI 的实现，它允许在 Nvidia GPU 上使用 DLSS。",
+        "disablePlaytimeSync": "停用与给定游戏商店服务器的游戏时间同步（当前只支持 GOG）"
     },
     "info": {
         "heroic": {
@@ -588,8 +589,10 @@
         "alt-nile-bin": "选择替代尼罗河二进制",
         "autodxvknvapi": "在前置自动安装并更新 DXVK",
         "experimental_features": {
-            "enableNewShinyFeature": "新功能"
-        }
+            "enableNewShinyFeature": "新功能",
+            "enableNewDesign": "新设计"
+        },
+        "disablePlaytimeSync": "停用游戏时间同步"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -740,5 +743,14 @@
     },
     "amazon": "亚马逊",
     "Amazon Games": "亚马逊游戏",
-    "prime-gaming": "优质游戏"
+    "prime-gaming": "优质游戏",
+    "winetricks": {
+        "install": "安装",
+        "loading": "加载中",
+        "installing": "正在安装：{{component}}",
+        "openGUI": "打开 Winetricks 用户界面",
+        "search": "搜索字体或部件",
+        "nothingYet": "Winetricks 还没安装任何东西",
+        "installed": "已安装的部件："
+    }
 }

@@ -4,6 +4,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { GameInfo } from '../../../../common/types'
 import SearchBar from '../SearchBar'
 import { useTranslation } from 'react-i18next'
+import LibraryContext from 'frontend/screens/Library/LibraryContext'
 
 function fixFilter(text: string) {
   const regex = new RegExp(/([?\\|*|+|(|)|[|]|])+/, 'g')
@@ -17,8 +18,8 @@ const RUNNER_TO_STORE = {
 }
 
 export default function LibrarySearchBar() {
-  const { handleSearch, filterText, epic, gog, sideloadedLibrary, amazon } =
-    useContext(ContextProvider)
+  const { epic, gog, sideloadedLibrary, amazon } = useContext(ContextProvider)
+  const { handleSearch, filterText } = useContext(LibraryContext)
   const navigate = useNavigate()
   const { t } = useTranslation()
 

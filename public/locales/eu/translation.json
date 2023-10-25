@@ -702,5 +702,9 @@
     },
     "amazon": "Amazon",
     "Amazon Games": "Amazon Jokoak",
-    "prime-gaming": "Prime Gaming"
+    "prime-gaming": "Prime Gaming",
+    "winetricks": {
+        "install": "Install",
+        "loading": "Kargatzen"
+    }
 }

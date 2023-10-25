@@ -82,9 +82,9 @@ export function createNewLogFileAndClearOldOnes(): createLogFileReturn {
       })
         .filter((dirent) => dirent.isFile())
         .map((dirent) => dirent.name)
-        .filter((filename) => !keep.includes(`${logDir}/${filename}`))
+        .filter((filename) => !keep.includes(join(logDir, filename)))
 
-      logs.forEach((log) => unlinkSync(`${logDir}/${log}`))
+      logs.forEach((log) => unlinkSync(join(logDir, log)))
     } catch (error) {
       logError([`Removing old logs in ${logDir} failed with`, error], {
         prefix: LogPrefix.Backend,

@@ -24,7 +24,7 @@
             "button": "Seç"
         },
         "sideload": {
-            "exe": "Yürütülebiliri seçin"
+            "exe": "Yürütülebilir Dosyayı Seçin"
         },
         "stopInstall": {
             "keepInstalling": "Kuruluma Devam Et",
@@ -43,7 +43,7 @@
             "message": "Bu oyunun bir güncellemesi var, güncelleme şimdi uygulansın mı?",
             "title": "Oyunun Güncellenmesi Gerekiyor"
         },
-        "wineprefix": "Wine Prefix Klasörünü Seçin",
+        "wineprefix": "WinePrefix Klasörünü Seçin",
         "yes": "EVET"
     },
     "button": {
@@ -90,7 +90,7 @@
         "platform": "Kurulacak Platform Sürümünü Seç",
         "requirements": "Sistem Gereksinimleri",
         "totalPlayed": "Oynanan Zaman",
-        "dlcs": "DLCs"
+        "dlcs": "DLC'ler"
     },
     "gamecard": {
         "moving": "Taşınıyor",
@@ -128,7 +128,14 @@
         "path-not-writtable": "Uyarı: yol yazılabilir olmayabilir.",
         "space-after-install": "Kurulumdan Sonra",
         "wineprefix": "WinePrefix",
-        "wineversion": "Wine sürümü"
+        "wineversion": "Wine sürümü",
+        "anticheat-warning": {
+            "cancel": "Hayır",
+            "message": "Anti hile desteği bozuldu veya reddedildi. Oyun çalışmayacak. Yine de yüklemek istiyor musunuz?",
+            "install": "Evet (Bunun işe yaramayacağının farkındayım)",
+            "title": "Anti Hile Bozuldu/Reddedildi"
+        },
+        "flatpak-path-not-writtable": "Hata: Bu yola sandbox erişimi verilmedi, veri kaybı yaşanacak."
     },
     "label": {
         "game": {

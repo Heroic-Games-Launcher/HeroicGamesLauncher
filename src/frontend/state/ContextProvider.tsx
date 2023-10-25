@@ -3,7 +3,6 @@ import React from 'react'
 import { ContextType } from 'frontend/types'
 
 const initialContext: ContextType = {
-  category: 'all',
   epic: {
     library: [],
     login: async () => Promise.resolve(''),
@@ -28,14 +27,7 @@ const initialContext: ContextType = {
   },
   sideloadedLibrary: [],
   error: false,
-  filterText: '',
-  filterPlatform: 'all',
   gameUpdates: [],
-  handleCategory: () => null,
-  handleLayout: () => null,
-  handlePlatformFilter: () => null,
-  handleSearch: () => null,
-  layout: 'grid',
   libraryStatus: [],
   libraryTopSection: 'disabled',
   handleLibraryTopSection: () => null,
@@ -53,12 +45,6 @@ const initialContext: ContextType = {
     add: () => null,
     remove: () => null
   },
-  showHidden: false,
-  setShowHidden: () => null,
-  showFavourites: false,
-  setShowNonAvailable: () => null,
-  showNonAvailable: false,
-  setShowFavourites: () => null,
   favouriteGames: {
     list: [],
     add: () => null,
