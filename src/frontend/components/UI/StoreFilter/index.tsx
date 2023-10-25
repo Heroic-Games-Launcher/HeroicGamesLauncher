@@ -3,10 +3,11 @@ import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import FormControl from 'frontend/components/UI/FormControl'
 import ContextProvider from 'frontend/state/ContextProvider'
+import LibraryContext from 'frontend/screens/Library/LibraryContext'
 
 export default React.memo(function StoreFilter() {
-  const { category, handleCategory, gog, epic, amazon } =
-    useContext(ContextProvider)
+  const { gog, epic, amazon } = useContext(ContextProvider)
+  const { category, handleCategory } = useContext(LibraryContext)
   const { t } = useTranslation()
 
   const isGOGLoggedin = gog.username
