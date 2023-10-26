@@ -446,6 +446,12 @@ ipcMain.once('loadingScreenReady', () => {
 ipcMain.once('frontendReady', () => {
   logInfo('Frontend Ready', LogPrefix.Backend)
   handleProtocol([openUrlArgument, ...process.argv])
+
+  // skip the download queue if we are running in CLI mode
+  if (isCLINoGui) {
+    return
+  }
+
   setTimeout(() => {
     logInfo('Starting the Download Queue', LogPrefix.Backend)
     initQueue()
