@@ -348,6 +348,7 @@ export interface CallRunnerOptions {
   env?: Record<string, string> | NodeJS.ProcessEnv
   wrappers?: string[]
   onOutput?: (output: string, child: ChildProcess) => void
+  abortId?: string
 }
 
 export interface EnviromentVariable {

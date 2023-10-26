@@ -65,6 +65,10 @@ import { readFileSync } from 'fs'
 import { LegendaryCommand } from './storeManagers/legendary/commands'
 import { commandToArgsArray } from './storeManagers/legendary/library'
 import { searchForExecutableOnPath } from './utils/os/path'
+import {
+  createAbortController,
+  deleteAbortController
+} from './utils/aborthandler/aborthandler'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
@@ -777,7 +781,6 @@ const commandsRunning = {}
 async function callRunner(
   commandParts: string[],
   runner: RunnerProps,
-  abortController: AbortController,
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
   const fullRunnerPath = join(runner.dir, runner.bin)
@@ -825,6 +828,9 @@ async function callRunner(
   if (currentPromise) {
     return currentPromise
   }
+
+  const abortId = options?.abortId || appName || Math.random().toString()
+  const abortController = createAbortController(abortId)
 
   let promise = new Promise<ExecResult>((res, rej) => {
     const child = spawn(bin, commandParts, {
@@ -942,6 +948,7 @@ async function callRunner(
     .finally(() => {
       // remove from list when done
       delete commandsRunning[key]
+      deleteAbortController(abortId)
     })
 
   // keep track of which commands are running
