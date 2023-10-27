@@ -46,9 +46,9 @@ function App() {
             <Route path="/" element={<Navigate replace to="/library" />} />
             <Route path="/library" element={<Library />} />
             <Route path="login" element={<Login />} />
-            <Route path="epicstore" element={<WebView />} />
-            <Route path="gogstore" element={<WebView />} />
-            <Route path="amazonstore" element={<WebView />} />
+            <Route path="epicstore" element={<WebView store="epic" />} />
+            <Route path="gogstore" element={<WebView store="gog" />} />
+            <Route path="amazonstore" element={<WebView store="amazon" />} />
             <Route path="wiki" element={<WebView />} />
             <Route path="/gamepage">
               <Route path=":runner">

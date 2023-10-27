@@ -16,7 +16,11 @@ import './index.css'
 import LoginWarning from '../Login/components/LoginWarning'
 import { NileLoginData } from 'common/types/nile'
 
-export default function WebView() {
+interface Props {
+  store?: 'epic' | 'gog' | 'amazon'
+}
+
+export default function WebView({ store }: Props) {
   const { i18n } = useTranslation()
   const { pathname, search } = useLocation()
   const { t } = useTranslation()
@@ -66,9 +70,9 @@ export default function WebView() {
   }
   let startUrl = urls[pathname]
 
-  // /last-page path uses the stored url for the webview
-  if (pathname === '/last-url') {
-    const lastUrl = localStorage.getItem('last-url')
+  if (store) {
+    localStorage.setItem('last-store', `/${store}store`)
+    const lastUrl = localStorage.getItem(`last-url-${store}`)
     if (lastUrl) {
       startUrl = lastUrl
     }
@@ -222,9 +226,9 @@ export default function WebView() {
 
   useEffect(() => {
     const webview = webviewRef.current
-    if (webview) {
+    if (webview && store) {
       const onNavigate = () => {
-        localStorage.setItem('last-url', webview.getURL())
+        localStorage.setItem(`last-url-${store}`, webview.getURL())
       }
 
       // this one is needed for gog/amazon
@@ -239,7 +243,7 @@ export default function WebView() {
     }
 
     return
-  }, [webviewRef.current])
+  }, [webviewRef.current, store])
 
   const [showLoginWarningFor, setShowLoginWarningFor] = useState<
     null | 'epic' | 'gog' | 'amazon'
