@@ -75,7 +75,7 @@
     "cloud_save_unsupported": "Non-supporté",
     "disabled": "Désactivé",
     "dlc": {
-        "installDlcs": "Installer tous les DLCs"
+        "installDlcs": "Installer toutes les Extensions"
     },
     "enabled": "Activé",
     "game": {
@@ -90,7 +90,7 @@
         "platform": "Sélectionner la version de la plateforme à installer",
         "requirements": "Configuration requise",
         "totalPlayed": "Temps de jeu",
-        "dlcs": "DLCs"
+        "dlcs": "DLC"
     },
     "gamecard": {
         "moving": "Déplacement",
@@ -103,8 +103,8 @@
     "hours": "Heures",
     "how-long-to-beat": {
         "completionist": "Complétionniste",
-        "main-plus-extras": "Trame principale \n+ Extras",
-        "main-story": "Histoire \nprincipale"
+        "main-plus-extras": "Trame principale + Extras",
+        "main-story": "Histoire principale"
     },
     "howLongToBeat": "Durée pour finir le jeu",
     "info": {
@@ -118,7 +118,7 @@
         "clickToOpen": "Cliquez pour ouvrir",
         "game-scores": "Scores du jeu",
         "installedInfo": "Informations sur l'installation",
-        "protondb-compatibility-info": "Niveau de compatibilité proton",
+        "protondb-compatibility-info": "Niveau de compatibilité Proton",
         "steamdeck-compatibility-info": "Compatibilité SteamDeck"
     },
     "install": {
@@ -128,7 +128,14 @@
         "path-not-writtable": "Attention : le chemin n'est peut-être pas accessible en écriture.",
         "space-after-install": "Après l'installation",
         "wineprefix": "Préfixe Wine",
-        "wineversion": "Version de Wine"
+        "wineversion": "Version de Wine",
+        "anticheat-warning": {
+            "cancel": "Non",
+            "message": "Le support pour le système d'anti-triche n'est pas fonctionnel. Le jeu ne marchera pas. Voulez-vous l'installer quand même ?",
+            "install": "Oui (mais cela risque de ne pas fonctionner)",
+            "title": "Système anti-triche non fonctionnel"
+        },
+        "flatpak-path-not-writtable": "Erreur : le chemin n'est pas accessible en mode bac-à-sable, risque de perte de données."
     },
     "label": {
         "game": {
@@ -153,7 +160,7 @@
         "gog": "Vous n'êtes pas connecté à un compte GOG dans Heroic. N'utilisez pas la page du magasin pour vous connecter, cliquez plutôt sur ce bouton :",
         "login": "Connexion",
         "title": "Vous n'êtes PAS connecté",
-        "amazon": "Vous n'êtes pas connecté à un compte Epic dans Heroic. N'utilisez pas la page du magasin pour vous connecter, cliquez plutôt sur ce bouton :"
+        "amazon": "Vous n'êtes pas connecté à un compte Amazon dans Heroic. N'utilisez pas la page du magasin pour vous connecter, cliquez plutôt sur ce bouton :"
     },
     "report_problem": "Signaler un problème de fonctionnement du jeu",
     "sdl": {
@@ -204,7 +211,7 @@
         "moving-files": "Déplacement du fichier \"{{file}}\" : {{percent}} ",
         "syncingSaves": "Synchronisation des sauvegardes",
         "launching": "Lancement",
-        "ubisoft": "Installer Ubisoft",
+        "ubisoft": "Installation d'Ubisoft",
         "downloading": "En cours de téléchargement",
         "extracting": "Extraction",
         "goodie": "Non installable",

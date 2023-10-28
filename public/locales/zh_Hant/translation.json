@@ -703,5 +703,9 @@
     },
     "amazon": "亞馬遜",
     "Amazon Games": "亞馬遜遊戲",
-    "prime-gaming": "優質遊戲"
+    "prime-gaming": "優質遊戲",
+    "winetricks": {
+        "install": "Install",
+        "loading": "Loading"
+    }
 }

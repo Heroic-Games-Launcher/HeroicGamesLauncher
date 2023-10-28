@@ -99,7 +99,6 @@ export async function listUpdateableGames(): Promise<string[]> {
 
 export async function runRunnerCommand(
   commandParts: string[],
-  abortController: AbortController,
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
   logWarning(`runRunnerCommand not implemented on Sideload Library Manager`)

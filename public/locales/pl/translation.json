@@ -703,5 +703,9 @@
     },
     "prime-gaming": "Najlepsze gry",
     "amazon": "Amazonka",
-    "Amazon Games": "Gry Amazona"
+    "Amazon Games": "Gry Amazona",
+    "winetricks": {
+        "install": "Zainstaluj",
+        "loading": "Loading"
+    }
 }

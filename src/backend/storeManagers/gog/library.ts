@@ -46,10 +46,6 @@ import {
   privateBranchesStore
 } from './electronStores'
 import { callRunner } from '../../launcher'
-import {
-  createAbortController,
-  deleteAbortController
-} from '../../utils/aborthandler/aborthandler'
 import { isOnline, runOnceWhenOnline } from '../../online_monitor'
 import i18next from 'i18next'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
@@ -93,14 +89,11 @@ async function createMissingGogdlManifest(
     return
   }
   // Pull the data, read info file from install dir if possible
-  const res = await runRunnerCommand(
-    ['import', installedData.install_path],
-    createAbortController(`${appName}-manifest-restore`),
-    {
-      logMessagePrefix: `Getting data of ${appName}`
-    }
-  )
-  deleteAbortController(`${appName}-manifest-restore`)
+  const res = await runRunnerCommand(['import', installedData.install_path], {
+    abortId: `${appName}-manifest-restore`,
+    logMessagePrefix: `Getting data of ${appName}`
+  })
+
   try {
     const importData: GOGImportData = JSON.parse(res.stdout)
     const builds = await getBuilds(
@@ -567,15 +560,10 @@ export async function getInstallInfo(
     commandParts.push('--password', privateBranchPassword)
   }
 
-  const res = await runRunnerCommand(
-    commandParts,
-    createAbortController(appName),
-    {
-      logMessagePrefix: 'Getting game metadata'
-    }
-  )
-
-  deleteAbortController(appName)
+  const res = await runRunnerCommand(commandParts, {
+    abortId: appName,
+    logMessagePrefix: 'Getting game metadata'
+  })
 
   if (!res.stdout || res.abort) {
     logError(
@@ -1336,7 +1324,6 @@ export async function getLinuxInstallerInfo(appName: string): Promise<
  */
 export async function runRunnerCommand(
   commandParts: string[],
-  abortController: AbortController,
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
   const { dir, bin } = getGOGdlBin()
@@ -1353,7 +1340,6 @@ export async function runRunnerCommand(
   return callRunner(
     ['--auth-config-path', authConfig, ...commandParts],
     { name: 'gog', logPrefix: LogPrefix.Gog, bin, dir },
-    abortController,
     {
       ...options,
       verboseLogFile: gogdlLogFile

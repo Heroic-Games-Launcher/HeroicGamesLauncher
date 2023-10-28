@@ -155,14 +155,15 @@
             },
             "sideload": {
                 "confirmExit": {
-                    "title": "Êtes-vous sûr de vouloir quitter ?"
+                    "title": "Êtes-vous sûr de vouloir quitter ?",
+                    "message": "Toute progression non sauvegardée pourrait être perdue"
                 }
             }
         },
         "wineprefix": "Choisir le dossier des préfixes Wine",
         "yes": "OUI",
         "dontShowAgain": "Ne plus afficher",
-        "choose-nile-binary": "Sélectionnez le binaire du Nil"
+        "choose-nile-binary": "Sélectionnez le binaire de Nile"
     },
     "button": {
         "cancel": "Annuler",
@@ -285,7 +286,9 @@
             "part1": "Heroic recherche des versions de Wine, Proton et CrossOver dans ces dossiers :",
             "part2": "Pour d'autres emplacements, utilisez un lien symbolique vers un de ces dossiers"
         },
-        "disable_logs": "Cochez cette case pour désactiver la plupart des écritures dans les fichiers journaux (les informations critiques sont toujours enregistrées). Assurez-vous de désactiver ce paramètre avant de signaler un problème."
+        "disable_logs": "Cochez cette case pour désactiver la plupart des écritures dans les fichiers journaux (les informations critiques sont toujours enregistrées). Assurez-vous de désactiver ce paramètre avant de signaler un problème.",
+        "dxvknvapi": "DXVK-NVAPI est une implémentation de NVAPI construite par dessus DXVK et la version native de NVAPI. Elle permet d'utiliser le DLSS sur les cartes graphiques Nvidia.",
+        "disablePlaytimeSync": "Désactive la synchronisation du temps de jeu avec les serveurs d'une boutique donnée (seul GOG est pris en charge actuellement)"
     },
     "info": {
         "heroic": {
@@ -313,7 +316,7 @@
             "message": "Wine utilise un préfixe (aussi appelé \"bouteille\" et dont le chemin est défini dans la variable WINEPREFIX) pour encapsuler les programmes Windows. Ce préfixe comporte les fichiers de configuration de Wine ainsi qu'une reproduction du système de fichiers de la partition C : (la partition principale d'un système Windows). On y trouve aussi les dépendances et les fichiers de sauvegardes des jeux installés via Winetricks."
         },
         "wine-path-invalid": "Le chemin vers Wine n'est pas valide, veuillez en sélectionner un autre.",
-        "wine-path-none-found": "Aucune version de Wine n'a été trouvée, téléchargez-en une depuis le Wine Manager"
+        "wine-path-none-found": "Aucune version de Wine n'a été trouvée, téléchargez-en une depuis l'onglet Wine"
     },
     "install": {
         "path": "Sélectionner le chemin d'installation"
@@ -341,7 +344,8 @@
         "epic": "Connexion à Epic Games",
         "gog": "Connexion à GOG",
         "message": "Connectez-vous à votre plateforme. Vous pouvez vous connecter à plus d'une plateforme à la fois.",
-        "amazon": "Connexion à Amazon"
+        "amazon": "Connexion à Amazon",
+        "old-mac": "Votre version de macOS est la {{version}}. macOS 12 ou plus récent est requis pour se connecter."
     },
     "message": {
         "sync": "Synchronisation achevée",
@@ -436,7 +440,7 @@
         "gogdl-version": "Version de GOGDL : ",
         "legendary-version": "Version de Legendary : ",
         "weblate": "Aidez à traduire Heroic.",
-        "nile-version": "Version Nil : "
+        "nile-version": "Version de Nile : "
     },
     "Other": "Autre",
     "placeholder": {
@@ -579,11 +583,15 @@
         "wineversion": "Version de Wine",
         "autoUpdateGames": "Mettre les jeux à jour automatiquement",
         "ignoreGameUpdates": "Ignorer les mises à jour du jeu",
-        "disable_logs": "Désactiver les journaux",
+        "disable_logs": "Désactiver la génération de rapports",
         "showMetalOverlay": "Afficher la superposition des statistiques",
-        "addgamestoapplications": "Ajouter automatiquement des jeux aux applications",
-        "alt-nile-bin": "Choisissez un binaire alternatif du Nil",
-        "autodxvknvapi": "Installation/Mise à jour automatique du préfix DXVK/VKD3D"
+        "addgamestoapplications": "Ajouter automatiquement des jeux aux Applications",
+        "alt-nile-bin": "Choisissez un binaire alternatif pour Nile",
+        "autodxvknvapi": "Installation/Mise à jour automatique du préfixe DXVK/VKD3D",
+        "disablePlaytimeSync": "Désactiver la synchronisation du temps de jeu",
+        "experimental_features": {
+            "enableNewDesign": "Nouveau concept"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -618,13 +626,38 @@
             "log": "Log",
             "other": "Autre",
             "sync": "Synchronisation des sauvegardes dans le Cloud",
-            "wineExt": "Extensions de Wine"
+            "wineExt": "Extensions de Wine",
+            "systemInformation": "Informations Système"
         },
         "open-config-file": "Ouvrir le fichier de configuration",
         "reset-heroic": "Reset Heroic",
         "saves": {
             "label": "Emplacement de la sauvegarde :",
             "warning": "La sauvegarde dans le Cloud est une fonctionnalité au stade Beta, veuillez faire une autre copie de vos sauvegardes avant d'initier la synchronisation (au cas où quelque chose se passerait mal)"
+        },
+        "systemInformation": {
+            "cpu": "Processeur :",
+            "gpuWithNumber": "Processeur graphique {{number}} :",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "legendaryVersion": "Legendary : {{legendaryVersion}}",
+            "systemSpecifications": "Caractéristiques du Système :",
+            "steamDeck": "Steam Deck",
+            "gpuDriver": "Pilote : {{driverVersion}}",
+            "os": "Système :",
+            "gpu": "Processeur graphique :",
+            "gogdlVersion": "Gogdl : {{gogdlVersion}}",
+            "osVersion": "Version {{versionNumber}}",
+            "osNameFlatpak": "{{osName}} (à l'intérieur de Flatpak)",
+            "software": "Logiciel :",
+            "memoryStats": "{{percentUsed}}% utilisés ({{usedGib}} / {{totalGib}}",
+            "showDetailed": "Afficher les spécifications détaillées du système",
+            "memory": "RAM :",
+            "copyToClipboard": "Copier dans le presse-papier",
+            "heroicVersion": "Heroic : {{heroicVersion}}",
+            "nileVersion": "Nile : {{nileVersion}}"
+        },
+        "experimental_features": {
+            "title": "Fonctionnalités expérimentales"
         }
     },
     "Settings": "Options",
@@ -701,12 +734,21 @@
     },
     "dlc": {
         "actions": "Actions",
-        "installDlcs": "Installer tous les DLCs",
-        "noDlcFound": "Aucun DLC trouvé",
+        "installDlcs": "Installer toutes les Extensions",
+        "noDlcFound": "Aucune Extension trouvée",
         "size": "Taille",
         "title": "Titre"
     },
     "amazon": "Amazon",
     "Amazon Games": "Jeux Amazon",
-    "prime-gaming": "Premier jeu"
+    "prime-gaming": "Prime Gaming",
+    "winetricks": {
+        "install": "Installation",
+        "loading": "Chargement",
+        "installing": "Installation en cours : {{component}}",
+        "openGUI": "Ouvrir l'interface de Winetricks",
+        "search": "Rechercher des polices de caractères ou des composants",
+        "nothingYet": "Rien n'a pour l'instant été installé avec Winetricks",
+        "installed": "Composants installés :"
+    }
 }

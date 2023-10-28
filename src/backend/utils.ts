@@ -1,8 +1,4 @@
-import {
-  createAbortController,
-  deleteAbortController,
-  callAllAbortControllers
-} from './utils/aborthandler/aborthandler'
+import { callAllAbortControllers } from './utils/aborthandler/aborthandler'
 import {
   Runner,
   WineInstallation,
@@ -370,11 +366,10 @@ function clearCache(library?: 'gog' | 'legendary' | 'nile') {
     installStore.clear()
     libraryStore.clear()
     gameInfoStore.clear()
-    const abortID = 'legendary-cleanup'
     runLegendaryCommand(
       { subcommand: 'cleanup' },
-      createAbortController(abortID)
-    ).then(() => deleteAbortController(abortID))
+      { abortId: 'legandary-cleanup' }
+    )
   }
   if (library === 'nile' || !library) {
     nileInstallStore.clear()
@@ -872,12 +867,8 @@ export async function downloadDefaultWine() {
       progress
     })
   }
-  const result = await installWineVersion(
-    release,
-    onProgress,
-    createAbortController(release.version).signal
-  )
-  deleteAbortController(release.version)
+  const result = await installWineVersion(release, onProgress)
+
   if (result === 'success') {
     let downloadedWine = null
     try {

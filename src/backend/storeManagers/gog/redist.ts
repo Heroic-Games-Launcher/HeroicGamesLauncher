@@ -17,10 +17,6 @@ import {
 } from 'common/types/gog'
 import { getGameInfo, onInstallOrUpdateOutput } from './games'
 import { runRunnerCommand as runGogdlCommand } from './library'
-import {
-  createAbortController,
-  deleteAbortController
-} from 'backend/utils/aborthandler/aborthandler'
 import { GlobalConfig } from 'backend/config'
 import {
   addToQueue,
@@ -207,18 +203,13 @@ export async function updateRedist(redistToSync: string[]): Promise<{
     prefix: LogPrefix.Gog
   })
 
-  const res = await runGogdlCommand(
-    commandParts,
-    createAbortController('gog-redist'),
-    {
-      logMessagePrefix: 'GOG REDIST:',
-      logFile: logPath,
-      onOutput: (output) =>
-        onInstallOrUpdateOutput('gog-redist', 'updating', output)
-    }
-  )
-
-  deleteAbortController('gog-redist')
+  const res = await runGogdlCommand(commandParts, {
+    abortId: 'gog-redist',
+    logMessagePrefix: 'GOG REDIST:',
+    logFile: logPath,
+    onOutput: (output) =>
+      onInstallOrUpdateOutput('gog-redist', 'updating', output)
+  })
 
   if (res.error) {
     logError(['Failed to update redist', res.error], LogPrefix.Gog)
