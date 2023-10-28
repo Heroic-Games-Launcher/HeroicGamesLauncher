@@ -8,12 +8,11 @@
   grid-template-rows: 1fr;
   column-gap: 0.5rem;
   height: 25em;
-  --buttons-width: 150px;
 
   .log-buttongroup {
     display: flex;
     flex-direction: column;
-    max-width: var(--buttons-width);
+    width: 150px;
     gap: 1rem;
     overflow-y: auto;
     overflow-x: hidden;
@@ -30,14 +29,21 @@
     padding-inline: 6px;
     overflow: auto;
     user-select: text;
-    width: calc(80vw - var(--buttons-width, 0px));
     grid-column: 2;
     height: 100%;
   }
 }
 
 dialog .logs-wrapper {
-  --buttons-width: 0px;
+  grid-template-columns: 1fr;
+  flex-grow: 1;
+  height: 15em;
+  .log-buttongroup {
+    display: none;
+  }
+  .setting.log-box {
+    grid-column: 1;
+  }
 }
 
 .log-buttons.log-choosen,
@@ -45,6 +51,7 @@ dialog .logs-wrapper {
   color: var(--accent);
   transition: all 350ms ease-out 0s;
   transform: scale(1.1);
+  text-decoration: underline;
 }
 
 .log-buttons {
