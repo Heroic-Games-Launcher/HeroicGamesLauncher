@@ -34,6 +34,8 @@ import {
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
 import { InstallModal } from './components'
+import LibraryContext from './LibraryContext'
+import { Category } from 'frontend/types'
 
 const storage = window.localStorage
 
@@ -46,26 +48,65 @@ type ModalState = {
 
 export default React.memo(function Library(): JSX.Element {
   const {
-    layout,
     libraryStatus,
     refreshing,
     refreshingInTheBackground,
-    category,
     epic,
     gog,
     amazon,
     sideloadedLibrary,
     favouriteGames,
     libraryTopSection,
-    filterText,
     platform,
-    filterPlatform,
-    hiddenGames,
-    showHidden,
-    handleCategory,
-    showFavourites: showFavouritesLibrary,
-    showNonAvailable
+    hiddenGames
   } = useContext(ContextProvider)
+
+  const [layout, setLayout] = useState(storage.getItem('layout') || 'grid')
+  const handleLayout = (layout: string) => {
+    storage.setItem('layout', layout)
+    setLayout(layout)
+  }
+
+  const [category, setCategory] = useState(
+    (storage.getItem('category') as Category) || 'legendary'
+  )
+  const handleCategory = (category: Category) => {
+    storage.setItem('category', category)
+    setCategory(category)
+  }
+
+  const [filterText, setFilterText] = useState('')
+  const [filterPlatform, setFilterPlatform] = useState(
+    storage.getItem('filterPlatform') || 'all'
+  )
+  const handlePlatformFilter = (filterPlatform: string) => {
+    storage.setItem('filterPlatform', filterPlatform)
+    setFilterPlatform(filterPlatform)
+  }
+
+  const [showHidden, setShowHidden] = useState(
+    JSON.parse(storage.getItem('show_hidden') || 'false')
+  )
+  const handleShowHidden = (value: boolean) => {
+    storage.setItem('show_hidden', JSON.stringify(value))
+    setShowHidden(value)
+  }
+
+  const [showFavouritesLibrary, setShowFavourites] = useState(
+    JSON.parse(storage.getItem('show_favorites') || 'false')
+  )
+  const handleShowFavourites = (value: boolean) => {
+    storage.setItem('show_favorites', JSON.stringify(value))
+    setShowFavourites(value)
+  }
+
+  const [showNonAvailable, setShowNonAvailable] = useState(
+    JSON.parse(storage.getItem('show_non_available') || 'true')
+  )
+  const handleShowNonAvailable = (value: boolean) => {
+    storage.setItem('show_non_available', JSON.stringify(value))
+    setShowNonAvailable(value)
+  }
 
   const [showModal, setShowModal] = useState<ModalState>({
     game: '',
@@ -76,46 +117,48 @@ export default React.memo(function Library(): JSX.Element {
   const [sortDescending, setSortDescending] = useState(
     JSON.parse(storage?.getItem('sortDescending') || 'false')
   )
+  function handleSortDescending(value: boolean) {
+    storage.setItem('sortDescending', JSON.stringify(value))
+    setSortDescending(value)
+  }
+
   const [sortInstalled, setSortInstalled] = useState(
     JSON.parse(storage?.getItem('sortInstalled') || 'true')
   )
+  function handleSortInstalled(value: boolean) {
+    storage.setItem('sortInstalled', JSON.stringify(value))
+    setSortInstalled(value)
+  }
+
   const { t } = useTranslation()
   const backToTopElement = useRef(null)
-  const listing = useRef<HTMLDivElement>(null)
 
   //Remember scroll position
   useLayoutEffect(() => {
     const scrollPosition = parseInt(storage?.getItem('scrollPosition') || '0')
 
     const storeScrollPosition = () => {
-      storage?.setItem(
-        'scrollPosition',
-        listing.current?.scrollTop.toString() || '0'
-      )
+      storage?.setItem('scrollPosition', window.scrollY.toString() || '0')
     }
 
-    listing.current?.addEventListener('scroll', storeScrollPosition)
-    listing.current?.scrollTo(0, scrollPosition || 0)
+    window.addEventListener('scroll', storeScrollPosition)
+    window.scrollTo(0, scrollPosition || 0)
 
     return () => {
-      listing.current?.removeEventListener('scroll', storeScrollPosition)
+      window.removeEventListener('scroll', storeScrollPosition)
     }
-  }, [listing.current])
+  }, [])
 
   // bind back to top button
   useEffect(() => {
     if (backToTopElement.current) {
-      const listing = document.querySelector('.listing')
-      if (listing) {
-        listing.addEventListener('scroll', () => {
-          const btn = document.getElementById('backToTopBtn')
-          const topSpan = document.getElementById('top')
-          if (btn && topSpan) {
-            btn.style.visibility =
-              listing.scrollTop > 450 ? 'visible' : 'hidden'
-          }
-        })
-      }
+      window.addEventListener('scroll', () => {
+        const btn = document.getElementById('backToTopBtn')
+        const topSpan = document.getElementById('top')
+        if (btn && topSpan) {
+          btn.style.visibility = window.scrollY > 450 ? 'visible' : 'hidden'
+        }
+      })
     }
   }, [backToTopElement])
 
@@ -232,13 +275,13 @@ export default React.memo(function Library(): JSX.Element {
       })
     }
     return tempArray
-  }, [showFavourites, favouriteGames, epic, gog])
+  }, [showFavourites, showFavouritesLibrary, favouriteGames, epic, gog])
 
   // select library
   const libraryToShow = useMemo(() => {
     let library: Array<GameInfo> = []
     if (showFavouritesLibrary) {
-      library = [...favourites].filter((game) =>
+      library = favourites.filter((game) =>
         category === 'all' ? game : game?.runner === category
       )
     } else {
@@ -336,6 +379,16 @@ export default React.memo(function Library(): JSX.Element {
     showNonAvailable
   ])
 
+  // we need this to do proper `position: sticky` of the Add Game area
+  // the height of the Header can change at runtime with different font families
+  useEffect(() => {
+    const header = document.querySelector('.Header')
+    if (header) {
+      const headerHeight = header.getBoundingClientRect().height
+      document.body.style.setProperty('--header-height', `${headerHeight}px`)
+    }
+  }, [])
+
   if (!epic && !gog && !amazon) {
     return (
       <ErrorComponent
@@ -348,10 +401,31 @@ export default React.memo(function Library(): JSX.Element {
   }
 
   return (
-    <>
+    <LibraryContext.Provider
+      value={{
+        category,
+        layout,
+        showHidden,
+        showFavourites: showFavouritesLibrary,
+        showNonAvailable,
+        filterPlatform,
+        filterText,
+        handleCategory: handleCategory,
+        handleLayout: handleLayout,
+        handlePlatformFilter: handlePlatformFilter,
+        handleSearch: setFilterText,
+        setShowHidden: handleShowHidden,
+        setShowFavourites: handleShowFavourites,
+        setShowNonAvailable: handleShowNonAvailable,
+        setSortDescending: handleSortDescending,
+        setSortInstalled: handleSortInstalled,
+        sortDescending,
+        sortInstalled
+      }}
+    >
       <Header />
 
-      <div className="listing" ref={listing}>
+      <div className="listing">
         <span id="top" />
         {showRecentGames && (
           <RecentlyPlayed
@@ -374,10 +448,6 @@ export default React.memo(function Library(): JSX.Element {
 
         <LibraryHeader
           list={libraryToShow}
-          setSortDescending={setSortDescending}
-          setSortInstalled={setSortInstalled}
-          sortDescending={sortDescending}
-          sortInstalled={sortInstalled}
           handleAddGameButtonClick={() => handleModal('', 'sideload', null)}
         />
 
@@ -411,6 +481,6 @@ export default React.memo(function Library(): JSX.Element {
           }
         />
       )}
-    </>
+    </LibraryContext.Provider>
   )
 })

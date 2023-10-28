@@ -44,8 +44,7 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
           className="iconWithText"
         >
           <CloudQueue />
-          <b>{t('info.syncsaves')}</b>
-          {': '}
+          <b>{t('info.syncsaves')}:</b>
           {autoSyncSaves ? t('enabled') : t('disabled')}
         </p>
       )}

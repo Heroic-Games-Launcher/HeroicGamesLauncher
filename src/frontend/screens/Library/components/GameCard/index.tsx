@@ -39,6 +39,7 @@ import StoreLogos from 'frontend/components/UI/StoreLogos'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 import { getCardStatus, getImageFormatting } from './constants'
 import { hasStatus } from 'frontend/hooks/hasStatus'
+import LibraryContext from '../../LibraryContext'
 
 interface Card {
   buttonClick: () => void
@@ -87,7 +88,6 @@ const GameCard = ({
   const navigate = useNavigate()
 
   const {
-    layout,
     hiddenGames,
     favouriteGames,
     allTilesInColor,
@@ -95,6 +95,8 @@ const GameCard = ({
     setIsSettingsModalOpen,
     activeController
   } = useContext(ContextProvider)
+
+  const { layout } = useContext(LibraryContext)
 
   const {
     title,
@@ -116,6 +118,8 @@ const GameCard = ({
   }
 
   const { status, folder, label } = hasStatus(appName, gameInfo, size)
+
+  const isBrowserGame = gameInfo.install.platform === 'Browser'
 
   useEffect(() => {
     setIsLaunching(false)
@@ -311,15 +315,12 @@ const GameCard = ({
       // settings
       label: t('submenu.settings', 'Settings'),
       onclick: () => setIsSettingsModalOpen(true, 'settings', gameInfo),
-      show: isInstalled && !isUninstalling
+      show: isInstalled && !isUninstalling && !isBrowserGame
     },
     {
       label: t('submenu.logs', 'Logs'),
       onclick: () => setIsSettingsModalOpen(true, 'log', gameInfo),
-      show:
-        isInstalled &&
-        !isUninstalling &&
-        gameInfo.install.platform !== 'Browser'
+      show: isInstalled && !isUninstalling && !isBrowserGame
     },
     {
       // hide
@@ -384,6 +385,8 @@ const GameCard = ({
       ></div>
     )
   }
+
+  const showSettingsButton = isInstalled && !isUninstalling && !isBrowserGame
 
   return (
     <div>
@@ -464,7 +467,7 @@ const GameCard = ({
                   <FontAwesomeIcon size={'2x'} icon={faRepeat} />
                 </SvgButton>
               )}
-              {isInstalled && !isUninstalling && (
+              {showSettingsButton && (
                 <>
                   <SvgButton
                     title={`${t('submenu.settings')} (${title})`}

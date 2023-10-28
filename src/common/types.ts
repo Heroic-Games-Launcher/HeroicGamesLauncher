@@ -44,7 +44,7 @@ export type Release = {
 }
 
 export type ExperimentalFeatures = {
-  enableNewShinyFeature: boolean // remove this when adding a real experimental feature
+  enableNewDesign: boolean
 }
 
 export interface AppSettings extends GameSettings {
@@ -64,6 +64,7 @@ export interface AppSettings extends GameSettings {
   defaultSteamPath: string
   defaultWinePrefix: string
   disableController: boolean
+  disablePlaytimeSync: boolean
   disableLogs: boolean
   discordRPC: boolean
   downloadNoHttps: boolean
@@ -108,6 +109,7 @@ export interface GameInfo {
   app_name: string
   art_cover: string
   art_logo?: string
+  art_background?: string
   art_square: string
   cloud_save_enabled?: boolean
   developer?: string
@@ -345,6 +347,7 @@ export interface CallRunnerOptions {
   env?: Record<string, string> | NodeJS.ProcessEnv
   wrappers?: string[]
   onOutput?: (output: string, child: ChildProcess) => void
+  abortId?: string
 }
 
 export interface EnviromentVariable {
