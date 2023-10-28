@@ -806,9 +806,14 @@ class GlobalState extends PureComponent<Props> {
       hiddenGames,
       settingsModalOpen,
       hideChangelogsOnStartup,
-      lastChangelogShown
+      lastChangelogShown,
+      libraryStatus
     } = this.state
     const isRTL = RTL_LANGUAGES.includes(language)
+
+    const installingEpicGame = libraryStatus.some(
+      (game) => game.status === 'installing' && game.runner === 'legendary'
+    )
 
     return (
       <ContextProvider.Provider
@@ -834,6 +839,7 @@ class GlobalState extends PureComponent<Props> {
             login: this.amazonLogin,
             logout: this.amazonLogout
           },
+          installingEpicGame,
           setLanguage: this.setLanguage,
           isRTL,
           refresh: this.refresh,

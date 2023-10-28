@@ -6,6 +6,7 @@
             "title": "Change Games Install Path"
         },
         "choose": "Choose",
+        "close": "Close",
         "importpath": "Choose Game Folder to import",
         "move": {
             "message": "This can take a long time, are you sure?",
@@ -32,6 +33,7 @@
             "title": "Stop Installation"
         },
         "uninstall": {
+            "cannotUninstallEpic": "Epic games cannot be uninstalled while another Epic game is being installed.",
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "dlc": "Do you want to Uninstall this DLC?",
             "message": "Do you want to uninstall this game?",
