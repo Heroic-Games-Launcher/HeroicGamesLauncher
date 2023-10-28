@@ -21,6 +21,8 @@
 //   }
 // }
 
+// this fixes a problem with an extra horizontal scrollbar when
+// a vertical scrollbar is displayed, don't change
 html {
   width: 100vw;
   overflow-x: hidden;
