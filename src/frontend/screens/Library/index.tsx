@@ -132,41 +132,33 @@ export default React.memo(function Library(): JSX.Element {
 
   const { t } = useTranslation()
   const backToTopElement = useRef(null)
-  const listing = useRef<HTMLDivElement>(null)
 
   //Remember scroll position
   useLayoutEffect(() => {
     const scrollPosition = parseInt(storage?.getItem('scrollPosition') || '0')
 
     const storeScrollPosition = () => {
-      storage?.setItem(
-        'scrollPosition',
-        listing.current?.scrollTop.toString() || '0'
-      )
+      storage?.setItem('scrollPosition', window.scrollY.toString() || '0')
     }
 
-    listing.current?.addEventListener('scroll', storeScrollPosition)
-    listing.current?.scrollTo(0, scrollPosition || 0)
+    window.addEventListener('scroll', storeScrollPosition)
+    window.scrollTo(0, scrollPosition || 0)
 
     return () => {
-      listing.current?.removeEventListener('scroll', storeScrollPosition)
+      window.removeEventListener('scroll', storeScrollPosition)
     }
-  }, [listing.current])
+  }, [])
 
   // bind back to top button
   useEffect(() => {
     if (backToTopElement.current) {
-      const listing = document.querySelector('.listing')
-      if (listing) {
-        listing.addEventListener('scroll', () => {
-          const btn = document.getElementById('backToTopBtn')
-          const topSpan = document.getElementById('top')
-          if (btn && topSpan) {
-            btn.style.visibility =
-              listing.scrollTop > 450 ? 'visible' : 'hidden'
-          }
-        })
-      }
+      window.addEventListener('scroll', () => {
+        const btn = document.getElementById('backToTopBtn')
+        const topSpan = document.getElementById('top')
+        if (btn && topSpan) {
+          btn.style.visibility = window.scrollY > 450 ? 'visible' : 'hidden'
+        }
+      })
     }
   }, [backToTopElement])
 
@@ -387,6 +379,16 @@ export default React.memo(function Library(): JSX.Element {
     showNonAvailable
   ])
 
+  // we need this to do proper `position: sticky` of the Add Game area
+  // the height of the Header can change at runtime with different font families
+  useEffect(() => {
+    const header = document.querySelector('.Header')
+    if (header) {
+      const headerHeight = header.getBoundingClientRect().height
+      document.body.style.setProperty('--header-height', `${headerHeight}px`)
+    }
+  }, [])
+
   if (!epic && !gog && !amazon) {
     return (
       <ErrorComponent
@@ -423,7 +425,7 @@ export default React.memo(function Library(): JSX.Element {
     >
       <Header />
 
-      <div className="listing" ref={listing}>
+      <div className="listing">
         <span id="top" />
         {showRecentGames && (
           <RecentlyPlayed
