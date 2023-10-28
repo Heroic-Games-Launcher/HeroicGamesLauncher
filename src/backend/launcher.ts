@@ -69,6 +69,7 @@ import {
   createAbortController,
   deleteAbortController
 } from './utils/aborthandler/aborthandler'
+import { download, isInstalled } from './wine/runtimes/runtimes'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
@@ -267,6 +268,14 @@ async function prepareWineLaunch(
     if (gameSettings.autoInstallVkd3d) {
       await DXVK.installRemove(gameSettings, 'vkd3d', 'backup')
     }
+  }
+
+  if (gameSettings.eacRuntime && !isInstalled('eac_runtime')) {
+    download('eac_runtime')
+  }
+
+  if (gameSettings.battlEyeRuntime && !isInstalled('battleye_runtime')) {
+    download('battleye_runtime')
   }
 
   const { folder_name: installFolderName, install } =
