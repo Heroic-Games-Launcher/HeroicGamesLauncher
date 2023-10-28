@@ -4,6 +4,8 @@ import { Winetricks, runWineCommandOnGame } from '.'
 import path from 'path'
 import { isWindows } from 'backend/constants'
 import { execAsync } from 'backend/utils'
+import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
+import { sendFrontendMessage } from 'backend/main_window'
 
 ipcMain.handle(
   'runWineCommandForGame',
@@ -47,6 +49,14 @@ ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
         })
       }
       break
+  }
+  if (runner === 'gog') {
+    // Check if game was modified by offline installer / wine uninstaller
+    await GOGLibraryManager.checkForOfflineInstallerChanges(appName)
+    sendFrontendMessage(
+      'pushGameToLibrary',
+      GOGLibraryManager.getGameInfo(appName)
+    )
   }
 })
 
