@@ -811,6 +811,7 @@ export function commandToArgsArray(command: LegendaryCommand): string[] {
     case 'info':
     case 'sync-saves':
     case 'uninstall':
+    case 'repair':
       commandParts.push(command.appName)
       break
     case 'move':
