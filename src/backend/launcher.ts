@@ -844,13 +844,17 @@ async function callRunner(
 
     child.stdout.setEncoding('utf-8')
     child.stdout.on('data', (data: string) => {
+      const stringToLog = options?.logSanitizer
+        ? options.logSanitizer(data)
+        : data
+
       if (!logsDisabled) {
         if (options?.logFile) {
-          appendFileSync(options.logFile, data)
+          appendFileSync(options.logFile, stringToLog)
         }
 
         if (options?.verboseLogFile) {
-          appendFileSync(options.verboseLogFile, data)
+          appendFileSync(options.verboseLogFile, stringToLog)
         }
       }
 
@@ -863,13 +867,17 @@ async function callRunner(
 
     child.stderr.setEncoding('utf-8')
     child.stderr.on('data', (data: string) => {
+      const stringToLog = options?.logSanitizer
+        ? options.logSanitizer(data)
+        : data
+
       if (!logsDisabled) {
         if (options?.logFile) {
-          appendFileSync(options.logFile, data)
+          appendFileSync(options.logFile, stringToLog)
         }
 
         if (options?.verboseLogFile) {
-          appendFileSync(options.verboseLogFile, data)
+          appendFileSync(options.verboseLogFile, stringToLog)
         }
       }
 

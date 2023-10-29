@@ -127,17 +127,12 @@ describeSkipOnWindows('logger/logfile.ts', () => {
   })
 
   test('getLogFile all possible values', () => {
-    // get global current logfile
-    expect(logfile.getLogFile({})).toBe('current.log')
-    // get global last logfile
-    expect(logfile.getLogFile({ defaultLast: true })).toBe('last.log')
-
+    expect(logfile.getLogFile('heroic')).toMatch(/-heroic.log$/)
+    expect(logfile.getLogFile('legendary')).toMatch(/-legendary.log$/)
+    expect(logfile.getLogFile('gogdl')).toMatch(/-gogdl.log$/)
+    expect(logfile.getLogFile('nile')).toMatch(/-nile.log$/)
     // get game log
-    expect(logfile.getLogFile({ appName: 'MyApp' })).toBe(
-      '/tmp/appData/heroic/GamesConfig/MyApp-lastPlay.log'
-    )
-    // get game log and isDefaultLast has no impact
-    expect(logfile.getLogFile({ appName: 'MyApp', defaultLast: true })).toBe(
+    expect(logfile.getLogFile('MyApp')).toBe(
       '/tmp/appData/heroic/GamesConfig/MyApp-lastPlay.log'
     )
   })
