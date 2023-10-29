@@ -25,6 +25,7 @@ const initialContext: ContextType = {
     login: async () => Promise.resolve(''),
     logout: async () => Promise.resolve()
   },
+  installingEpicGame: false,
   sideloadedLibrary: [],
   error: false,
   gameUpdates: [],
