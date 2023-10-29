@@ -703,5 +703,9 @@
     },
     "amazon": "amazon",
     "Amazon Games": "Trò chơi Amazon",
-    "prime-gaming": "Trò chơi chính"
+    "prime-gaming": "Trò chơi chính",
+    "winetricks": {
+        "install": "Install",
+        "loading": "Loading"
+    }
 }

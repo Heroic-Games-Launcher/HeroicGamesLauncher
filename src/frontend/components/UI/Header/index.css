@@ -8,7 +8,7 @@
   grid-gap: 8px;
   align-items: start;
   padding: var(--space-md);
-  background: var(--gradient-body-background);
+  background: var(--gradient-body-background, var(--body-background));
   color: var(--text-secondary);
 }
 

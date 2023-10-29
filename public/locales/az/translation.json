@@ -702,5 +702,9 @@
     },
     "amazon": "Amazon",
     "Amazon Games": "Amazon Oyunları",
-    "prime-gaming": "Baş Oyun"
+    "prime-gaming": "Baş Oyun",
+    "winetricks": {
+        "install": "Install",
+        "loading": "Loading"
+    }
 }

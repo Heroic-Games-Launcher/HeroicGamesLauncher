@@ -1,0 +1,112 @@
+{
+    "notify": {
+        "uninstalled": "Бетерү",
+        "finished": {
+            "remove": {
+                "steam": {
+                    "title": "Steam-дан бетерү"
+                }
+            },
+            "add": {
+                "steam": {
+                    "title": "Steam-га өстәү"
+                }
+            }
+        }
+    },
+    "Settings": "Көйләүләр",
+    "box": {
+        "runexe": {
+            "title": "Башкарылу өчен EXE файлын сайлау"
+        },
+        "no": "ЮК",
+        "choose": "Сайлау",
+        "yes": "ӘЙЕ",
+        "select": {
+            "button": "Сайлау"
+        },
+        "error": {
+            "generic": {
+                "title": "Башкарылу өчен EXE файлын сайлау"
+            }
+        },
+        "default-steam-path": "Steam юлы."
+    },
+    "infobox": {
+        "requirements": "Система таләпләре"
+    },
+    "status": {
+        "installing": "Урнаштырыла"
+    },
+    "dlc": {
+        "installDlcs": "Барлык DLC-ларны урнаштыру",
+        "size": "Үлчәм",
+        "title": "Исем"
+    },
+    "loading": {
+        "default": "Йөкләнә"
+    },
+    "setting": {
+        "eosOverlay": {
+            "disable": "Cүндерелгән",
+            "enable": "Кабызылган",
+            "remove": "Бетерү",
+            "install": "Урнаштыру",
+            "updateNow": "Яңарту"
+        },
+        "library_top_option": {
+            "disabled": "Cүндерелгән"
+        },
+        "winecrossoverbottle": "CrossOver шешәсе",
+        "wineversion": "Wine версиясе"
+    },
+    "queue": {
+        "label": {
+            "queued": "Чиратта",
+            "downloading": "Йөкләп ала"
+        }
+    },
+    "info": {
+        "version": "Wine версиясе"
+    },
+    "download-manager": {
+        "install-type": {
+            "update": "Яңарту",
+            "install": "Урнаштыру"
+        }
+    },
+    "controller": {
+        "hints": {
+            "select": "Сайлау"
+        }
+    },
+    "label": {
+        "loading": "Йөкләнә"
+    },
+    "button": {
+        "login": "Керү"
+    },
+    "wine": {
+        "size": "Үлчәм"
+    },
+    "accessibility": {
+        "fonts": "Шрифтлар",
+        "title": "Махсус мөмкинлекләр",
+        "zoom": "Масштаб"
+    },
+    "anticheat": {
+        "status": "Халәт",
+        "reference": "Сылтама",
+        "source": "Чыганак"
+    },
+    "All": "Барлык",
+    "amazon": "Amazon",
+    "Amazon Games": "Amazon Уеннары",
+    "game": {
+        "status": "Халәт"
+    },
+    "winetricks": {
+        "install": "Урнаштыру",
+        "loading": "Йөкләнә"
+    }
+}

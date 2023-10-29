@@ -149,6 +149,7 @@ export interface GameSettings {
   enableEsync: boolean
   enableFSR: boolean
   enableFsync: boolean
+  gamescope: GameScopeSettings
   enviromentOptions: EnviromentVariable[]
   ignoreGameUpdates: boolean
   language: string
@@ -331,6 +332,7 @@ export interface LaunchPreperationResult {
   rpcClient?: RpcClient
   mangoHudCommand?: string[]
   gameModeBin?: string
+  gameScopeCommand?: string[]
   steamRuntime?: string[]
   offlineMode?: boolean
 }
@@ -345,9 +347,11 @@ export interface CallRunnerOptions {
   logMessagePrefix?: string
   logFile?: string
   verboseLogFile?: string
+  logSanitizer?: (line: string) => string
   env?: Record<string, string> | NodeJS.ProcessEnv
   wrappers?: string[]
   onOutput?: (output: string, child: ChildProcess) => void
+  abortId?: string
 }
 
 export interface EnviromentVariable {
@@ -709,4 +713,17 @@ export interface WindowProps extends Electron.Rectangle {
   frame?: boolean
   titleBarStyle?: 'default' | 'hidden' | 'hiddenInset'
   titleBarOverlay?: TitleBarOverlay | boolean
+}
+
+interface GameScopeSettings {
+  enableUpscaling: boolean
+  enableLimiter: boolean
+  windowType: string
+  gameWidth: string
+  gameHeight: string
+  upscaleWidth: string
+  upscaleHeight: string
+  upscaleMethod: string
+  fpsLimiter: string
+  fpsLimiterNoFocus: string
 }

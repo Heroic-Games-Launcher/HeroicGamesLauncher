@@ -456,7 +456,7 @@
             "canceled": "Canceled",
             "clear": "Clear List",
             "downloading": "下載中",
-            "empty": "Nothing to download",
+            "empty": "無可下載項目",
             "finished": "已完成",
             "queued": "Queued",
             "remove": "Remove from Downloads",
@@ -703,5 +703,9 @@
     },
     "amazon": "亞馬遜",
     "Amazon Games": "亞馬遜遊戲",
-    "prime-gaming": "優質遊戲"
+    "prime-gaming": "優質遊戲",
+    "winetricks": {
+        "install": "安裝",
+        "loading": "載入中"
+    }
 }

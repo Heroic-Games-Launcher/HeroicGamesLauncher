@@ -1,7 +1,3 @@
-import {
-  createAbortController,
-  deleteAbortController
-} from '../../utils/aborthandler/aborthandler'
 import { existsSync, mkdirSync, readFileSync, readdirSync } from 'graceful-fs'
 
 import {
@@ -110,16 +106,15 @@ async function refreshLegendary(): Promise<ExecResult> {
     return { stderr: 'Epic offline, unable to update game list', stdout: '' }
   }
 
-  const abortID = 'legendary-refresh'
   const res = await runRunnerCommand(
     {
       subcommand: 'list',
       '--third-party': true
     },
-    createAbortController(abortID)
+    {
+      abortId: 'legendary-refresh'
+    }
   )
-
-  deleteAbortController(abortID)
 
   if (res.error) {
     logError(['Failed to refresh library:', res.error], LogPrefix.Legendary)
@@ -237,9 +232,7 @@ export async function getInstallInfo(
   if (await isEpicServiceOffline()) {
     command['--offline'] = true
   }
-  const res = await runRunnerCommand(command, createAbortController(appName))
-
-  deleteAbortController(appName)
+  const res = await runRunnerCommand(command, { abortId: appName })
 
   if (res.error) {
     logError(['Failed to get more details:', res.error], LogPrefix.Legendary)
@@ -273,16 +266,13 @@ export async function listUpdateableGames(): Promise<string[]> {
     return []
   }
 
-  const abortID = 'legendary-check-updates'
   const res = await runRunnerCommand(
     { subcommand: 'list', '--third-party': true },
-    createAbortController(abortID),
     {
+      abortId: 'legendary-check-updates',
       logMessagePrefix: 'Checking for game updates'
     }
   )
-
-  deleteAbortController(abortID)
 
   if (res.abort) {
     return []
@@ -436,10 +426,10 @@ export async function changeGameInstallPath(appName: string, newPath: string) {
       newBasePath: Path.parse(dirname(newPath)),
       '--skip-move': true
     },
-    createAbortController(appName)
+    {
+      abortId: appName
+    }
   )
-
-  deleteAbortController(appName)
 
   if (error) {
     logError(
@@ -653,12 +643,11 @@ export const hasGame = (appName: string) => allGames.has(appName)
 
 export async function runRunnerCommand(
   command: LegendaryCommand,
-  abortController: AbortController,
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
   const { dir, bin } = getLegendaryBin()
 
-  // Set XDG_CONFIG_HOME to a custom, Heroic-specific location so user-made
+  // Set LEGENDARY_CONFIG_PATH to a custom, Heroic-specific location so user-made
   // changes to Legendary's main config file don't affect us
   if (!options) {
     options = {}
@@ -666,14 +655,13 @@ export async function runRunnerCommand(
   if (!options.env) {
     options.env = {}
   }
-  options.env.XDG_CONFIG_HOME = dirname(legendaryConfigPath)
+  options.env.LEGENDARY_CONFIG_PATH = legendaryConfigPath
 
   const commandParts = commandToArgsArray(command)
 
   return callRunner(
     commandParts,
     { name: 'legendary', logPrefix: LogPrefix.Legendary, bin, dir },
-    abortController,
     {
       ...options,
       verboseLogFile: legendaryLogFile
@@ -778,12 +766,9 @@ export async function toggleGamesSync(path_or_action: string) {
     }
   }
 
-  const { error, stderr, stdout } = await runRunnerCommand(
-    command,
-    createAbortController('toggle-sync')
-  )
-
-  deleteAbortController('toggle-sync')
+  const { error, stderr, stdout } = await runRunnerCommand(command, {
+    abortId: 'toggle-sync'
+  })
 
   if (error) {
     logError(['Failed to toggle EGS-Sync', error], LogPrefix.Legendary)
@@ -826,6 +811,7 @@ export function commandToArgsArray(command: LegendaryCommand): string[] {
     case 'info':
     case 'sync-saves':
     case 'uninstall':
+    case 'repair':
       commandParts.push(command.appName)
       break
     case 'move':

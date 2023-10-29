@@ -7,11 +7,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ContextProvider from 'frontend/state/ContextProvider'
 import './index.css'
 import { faGlobe } from '@fortawesome/free-solid-svg-icons'
+import LibraryContext from 'frontend/screens/Library/LibraryContext'
 
 export default function PlatformFilter() {
   const { t } = useTranslation()
-  const { category, filterPlatform, handlePlatformFilter, platform } =
-    useContext(ContextProvider)
+  const { platform } = useContext(ContextProvider)
+  const { category, filterPlatform, handlePlatformFilter } =
+    useContext(LibraryContext)
 
   const isMac = platform === 'darwin'
   const isLinux = platform === 'linux'

@@ -14,7 +14,7 @@ import {
 } from '@fortawesome/free-regular-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useCallback, useContext } from 'react'
+import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import FormControl from '../FormControl'
@@ -22,47 +22,30 @@ import './index.css'
 import { Runner } from 'common/types'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import classNames from 'classnames'
+import LibraryContext from 'frontend/screens/Library/LibraryContext'
 
 interface Props {
-  sortDescending: boolean
-  sortInstalled: boolean
-  toggleSortDescending: () => void
-  toggleSortinstalled: () => void
   library: Runner | 'all'
 }
 
-export default React.memo(function ActionIcons({
-  library,
-  sortDescending,
-  toggleSortDescending,
-  sortInstalled,
-  toggleSortinstalled
-}: Props) {
+export default React.memo(function ActionIcons({ library }: Props) {
   const { t } = useTranslation()
+  const { refreshLibrary, refreshing } = useContext(ContextProvider)
+
   const {
-    refreshLibrary,
     handleLayout,
     layout,
     showHidden,
     setShowHidden,
     showFavourites,
-    refreshing,
     setShowFavourites,
     showNonAvailable,
-    setShowNonAvailable
-  } = useContext(ContextProvider)
-
-  const toggleNonAvailable = useCallback(() => {
-    setShowNonAvailable(!showNonAvailable)
-  }, [showNonAvailable])
-
-  const toggleShowHidden = useCallback(() => {
-    setShowHidden(!showHidden)
-  }, [showHidden])
-
-  const toggleShowFavourites = useCallback(() => {
-    setShowFavourites(!showFavourites)
-  }, [showFavourites])
+    setShowNonAvailable,
+    sortDescending,
+    setSortDescending,
+    sortInstalled,
+    setSortInstalled
+  } = useContext(LibraryContext)
 
   const showHiddenTitle = showHidden
     ? t('header.ignore_hidden', 'Ignore Hidden')
@@ -109,7 +92,7 @@ export default React.memo(function ActionIcons({
               ? t('library.sortDescending', 'Sort Descending')
               : t('library.sortAscending', 'Sort Ascending')
           }
-          onClick={() => toggleSortDescending()}
+          onClick={() => setSortDescending(!sortDescending)}
         >
           <FontAwesomeIcon
             className="FormControl__segmentedFaIcon"
@@ -119,7 +102,7 @@ export default React.memo(function ActionIcons({
         <button
           className="FormControl__button"
           title={t('library.sortByStatus', 'Sort by Status')}
-          onClick={() => toggleSortinstalled()}
+          onClick={() => setSortInstalled(!sortInstalled)}
         >
           <FontAwesomeIcon
             className="FormControl__segmentedFaIcon"
@@ -131,7 +114,7 @@ export default React.memo(function ActionIcons({
             active: showFavourites
           })}
           title={showFavouritesTitle}
-          onClick={toggleShowFavourites}
+          onClick={() => setShowFavourites(!showFavourites)}
         >
           <FontAwesomeIcon
             className="FormControl__segmentedFaIcon"
@@ -141,7 +124,7 @@ export default React.memo(function ActionIcons({
         <button
           className="FormControl__button"
           title={showNonAvailableTitle}
-          onClick={toggleNonAvailable}
+          onClick={() => setShowNonAvailable(!showNonAvailable)}
         >
           <FontAwesomeIcon
             className="FormControl__segmentedFaIcon"
@@ -151,7 +134,7 @@ export default React.memo(function ActionIcons({
         <button
           className="FormControl__button"
           title={showHiddenTitle}
-          onClick={toggleShowHidden}
+          onClick={() => setShowHidden(!showHidden)}
         >
           {showHidden ? <Visibility /> : <VisibilityOff />}
         </button>

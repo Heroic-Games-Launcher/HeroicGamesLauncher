@@ -1,7 +1,7 @@
 {
     "accessibility": {
         "actions_font_family_no_default": "Actions Font Family (Default: ",
-        "all_tiles_in_color": "Mostrar telhas do jogos em cor?",
+        "all_tiles_in_color": "Mostrar todas as imagens dos jogos a cores",
         "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Fonts",
         "title": "Accessibility",
@@ -11,7 +11,7 @@
     "All": "Tudo",
     "anticheat": {
         "anticheats": "Anticheats",
-        "may_not_work": "Pode não funcionar devido a anticheat negado ou não supportado",
+        "may_not_work": "Pode não funcionar devido ao suporte anticheat negado ou danificado.",
         "reference": "Referência",
         "source": "Source",
         "status": "Status",
@@ -19,7 +19,7 @@
     },
     "box": {
         "cache-cleared": {
-            "message": "Cache do Heroic foi limpo!",
+            "message": "A cache do Heroic foi limpa.",
             "title": "Cache limpo"
         },
         "choose": "Selecionar",
@@ -49,7 +49,7 @@
                 "title": "Sem Espaço"
             },
             "dxvk": {
-                "message": "Erro na instalação DXVK/VK3D! \nVerifique a sua conexão!",
+                "message": "Erro na instalação DXVK/VK3D! Verifique a sua ligação!",
                 "title": "Erro DXVK/VKD3D"
             },
             "folder-not-found": {
@@ -80,7 +80,7 @@
             },
             "moving": "Erro ao mover o jogo {{error}}",
             "ubisoft-connect": {
-                "message": "A instalação do Ubisoft Connect no prefixo do jogo falhou. Verifique nossa página wiki em https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac para instalá-lo manualmente.",
+                "message": "A instalação do Ubisoft Connect no prefixo do jogo falhou. Verifique a nossa página wiki em https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac para instalá-lo manualmente.",
                 "title": "Ubisoft Connect"
             },
             "legendary": {
@@ -110,12 +110,12 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Tens a certeza que queres fazer reset ao Heroic? Isto vai remover Settings e Caching mas nao vai desinstalar o jogos que tens instalado ou as credenciais da Epic. Versões Portáteis  (AppImage, WinPortable, ...) Heroic vai ser perciso de ser reiniciado Manualmente.",
+                "message": "Tem a certeza de que deseja redefinir o Heroic? Isto irá remover todas as definições e a cache, mas não irá remover os jogos instalados nem as suas credenciais da Epic. As versões portáteis (AppImage, WinPortable, ...) do Heroic terão de ser reiniciadas manualmente posteriormente.",
                 "title": "Reset Heroic"
             }
         },
         "runexe": {
-            "title": "Selecione o EXE"
+            "title": "Selecionar o EXE para Executar"
         },
         "select": {
             "button": "Selecionar",
@@ -138,7 +138,7 @@
                 "message": "Os links de Transferência de Visual C++ Runtimes foi aberto. Por favor instale ambas as versões de x86 e x64."
             },
             "notfound": {
-                "message": "The Microsoft Visual C++ Runtimes não estão instalados, é necessário para alguns jogos.",
+                "message": "Os Runtimes do Microsoft Visual C++ não estão instalados, sendo necessários para alguns jogos",
                 "title": "VCRuntime não está instalado"
             }
         },
@@ -152,6 +152,12 @@
             "wine-change": {
                 "message": "Não foi possível encontrar a versão do vinho selecionada para lançar este título ({{selectedWine}}). {{newline}} Encontramos outro, deseja continuar iniciando usando {{foundWine}}?",
                 "title": "Vinho não encontrado!"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "Tem a certeza que deseja sair?",
+                    "message": "Poderá haver perda de qualquer progresso não guardado"
+                }
             }
         },
         "wineprefix": "Escolha a pasta com o Prefixo Wine",
@@ -275,12 +281,14 @@
             "part3": "Sincronização Manual: Você pode utilizar essa opção para manualmente fazer download ou upload dos saves. Você pode forçar o download ou upload também, dessa forma o Heroic irá ignorar a versão salva na nuvem ou localmente, sobrescrevendo os saves.",
             "part4": "Sincronizar Saves Automaticamente: ativando essa opção, toda a vez que você iniciar uma sessão de jogos ou terminar de jogar, o Heroic irá realizar uma sincronização. Dessa forma seus saves sempre estarão atualizados."
         },
-        "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.",
+        "vkd3d": "VKD3D é uma camada translacional baseada em Vulkan para jogos DirectX 12. A ativação pode melhorar significativamente a compatibilidade. Não tem efeito em jogos mais antigos do DirectX; requer o DXVK.",
         "wine": {
             "part1": "Heroic procura versões de Wine, Proton e CrossOver nas seguintes pastas:",
             "part2": "Para outros lugares, crie um link simbólico até uma dessas pastas"
         },
-        "disable_logs": "Ative esta caixa de seleção para desativar a maioria das gravações em arquivos de log (informações críticas sempre são registradas). Certifique-se de desativar essa configuração antes de relatar qualquer problema."
+        "disable_logs": "Ative esta caixa de seleção para desativar a maioria das gravações em arquivos de log (informações críticas sempre são registradas). Certifique-se de desativar essa configuração antes de relatar qualquer problema.",
+        "dxvknvapi": "DXVK-NVAPI é uma implementação da NVAPI construída em cima do DXVK e da NVAPI nativa do Linux, permitindo a utilização do DLSS em GPUs Nvidia.",
+        "disablePlaytimeSync": "Desativa a sincronização do tempo de jogo com os servidores da loja indicada (atualmente apenas a GOG é suportada)"
     },
     "info": {
         "heroic": {
@@ -294,7 +302,7 @@
             "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "As configurações são salvas automaticamente",
-        "version": "Wine Version"
+        "version": "Versão Wine"
     },
     "infobox": {
         "help": "Ajuda",
@@ -336,7 +344,8 @@
         "epic": "Epic Games Login",
         "gog": "GOG Login",
         "message": "Login with your platform. You can login to more than one platform at the same time.",
-        "amazon": "Login da Amazon"
+        "amazon": "Login da Amazon",
+        "old-mac": "A sua versão do macOS é {{version}}. É necessária a versão macOS 12 ou mais recente para iniciar sessão."
     },
     "message": {
         "sync": "Sync Concluído",
@@ -381,7 +390,7 @@
         },
         "uninstalled": "Desinstalado",
         "update": {
-            "canceled": "Updated Cancelado",
+            "canceled": "Atualização cancelada",
             "finished": "Update Finalizado",
             "started": "Update Started",
             "failed": "Atualização falhou",
@@ -389,7 +398,7 @@
         }
     },
     "offline-message": {
-        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "hint": "Estamos a verificar a conectividade com:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com e{{newline}}cloudflare-dns.com",
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
@@ -465,7 +474,7 @@
         }
     },
     "Recent": "Played Recently",
-    "search": "Digite o nome do jogo...",
+    "search": "Pesquisar jogos",
     "setting": {
         "adddesktopshortcuts": "Adicionar atalhos à area de trabalho automaticamente",
         "addgamestostartmenu": "Adicionar atalhos ao menu automaticamente",
@@ -475,7 +484,7 @@
         "autodxvk": "Instalar/Atualizar DXVK automaticamente",
         "autosync": "Ativar Sincronização Automática",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
-        "change-target-exe": "Selecio-ne  um EXE alternativo\nSelect an alternative EXE to run",
+        "change-target-exe": "Selecionar um ficheiro EXE alternativo para executar",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover/Wine Version",
         "custom_themes_path": "Custom Themes Path",
@@ -578,7 +587,11 @@
         "addgamestoapplications": "Adicionar jogos a aplicativos automaticamente",
         "showMetalOverlay": "Mostrar sobreposição de estatísticas",
         "alt-nile-bin": "Escolha um binário alternativo do Nilo",
-        "autodxvknvapi": "Instalar/Atualizar DXVK/VKD3D automaticamente"
+        "autodxvknvapi": "Instalar/Atualizar DXVK/VKD3D automaticamente",
+        "disablePlaytimeSync": "Desativar sincronização do tempo de jogo",
+        "experimental_features": {
+            "enableNewDesign": "Novo design"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -613,13 +626,26 @@
             "log": "Log",
             "other": "Outros",
             "sync": "Sincronização de Jogos Salvos em Nuvem",
-            "wineExt": "Wine Extensions"
+            "wineExt": "Wine Extensions",
+            "systemInformation": "Informações do Sistema"
         },
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",
         "saves": {
             "label": "Save Location:",
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        },
+        "systemInformation": {
+            "cpu": "CPU:",
+            "gpuWithNumber": "GPU {{number}}:",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "gpuDriver": "Controlador: {{driverVersion}}",
+            "gpu": "GPU:",
+            "gogdlVersion": "Gogdl: {{gogdlVersion}}",
+            "copyToClipboard": "Copiar para a área de transferência"
+        },
+        "experimental_features": {
+            "title": "Funcionalidades Experimentais"
         }
     },
     "Settings": "Configurações",
@@ -628,7 +654,7 @@
         "uncollapse": "Uncollapse sidebar"
     },
     "status": {
-        "installing": "Installing",
+        "installing": "A instalar",
         "logging": "Logging In...",
         "processing": "Processing files, please wait",
         "preparing_login": "Preparando login... "
@@ -703,5 +729,9 @@
     },
     "amazon": "Amazonas",
     "Amazon Games": "Amazon Games",
-    "prime-gaming": "Prime Gaming"
+    "prime-gaming": "Prime Gaming",
+    "winetricks": {
+        "install": "Install",
+        "loading": "A Carregar"
+    }
 }

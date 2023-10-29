@@ -50,7 +50,7 @@
         "add_to_favourites": "Lägg till i Favoriter",
         "cancel": "Paus/Avbryt",
         "continue": "Fortsätt nedladdning",
-        "finish": "Avsluta",
+        "finish": "Klar",
         "force_update": "Om tillgängligt, tvinga uppdatering",
         "force-innstall": "Tvinga installation",
         "hide_game": "Dölj spel",
@@ -134,7 +134,8 @@
             "message": "Antifusk stödet är trasigt eller nekat. Spelet kommer inte att fungera. Vill du installera det ändå?",
             "install": "Ja (jag förstår att det inte kommer att fungera)",
             "title": "Antifusk trasigt/nekat"
-        }
+        },
+        "flatpak-path-not-writtable": "Fel: Sandlådeåtkomst har inte beviljats till den här sökvägen, dataförlust kommer att inträffa."
     },
     "label": {
         "game": {
@@ -177,7 +178,7 @@
             "exe": "Välj EXE-fil",
             "image": "Applikationens bild",
             "title": "Spel/Applikation titel",
-            "broser": "BrowserURL"
+            "broser": "Webbläsar-URL"
         },
         "placeholder": {
             "image": "Klistra in bildens URL här",
@@ -203,7 +204,7 @@
         "queued": "Väntar i kö",
         "reparing": "Reparerar spelet, vänligen vänta",
         "this-game-uses-third-party": "Spelet använder tredjeparts-launcher och stöds ej i nuläget",
-        "totalDownloaded": "Nedladdning",
+        "totalDownloaded": "Totalt Nerladdat",
         "uninstalling": "Avinstallerar",
         "updating": "Updaterar spelet",
         "playing": "Spelar",
