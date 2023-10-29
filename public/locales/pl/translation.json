@@ -24,9 +24,9 @@
         },
         "choose": "Wybierz",
         "choose-egs-prefix": "Wybierz prefiks, w którym jest zainstalowany EGS",
-        "choose-gogdl-binary": "Wybierz plik binarny GOGDL (wymagane ponowne uruchomienie)",
-        "choose-legendary-binary": "Wybierz plik binarny Legendary",
-        "customWine": "Wybierz plik binarny Wine lub Proton",
+        "choose-gogdl-binary": "Wybierz plik wykonywalny GOGDL (wymagane ponowne uruchomienie)",
+        "choose-legendary-binary": "Wybierz plik wykonywalny Legendary",
+        "customWine": "Wybierz plik wykonywalny Wine lub Proton",
         "default-install-path": "Wybierz domyślną ścieżkę instalacji",
         "default-steam-path": "Ścieżka Steam.",
         "downloadNow": "Pobierz teraz",
@@ -60,7 +60,7 @@
                 "title": "Wybierz EXE do uruchomienia"
             },
             "launchAborted": "Uruchamianie przerwane",
-            "title": "Bład",
+            "title": "Błąd",
             "uncaught-exception": {
                 "message": "Wystąpił niezłapany wyjątek:{{newLine}}{{error}}{{newLine}}{{newLine}} Zgłoś wyjątek w naszym repozytorium Github.",
                 "title": "Wystąpił nieoczekiwany błąd!"
@@ -152,12 +152,18 @@
             "wine-change": {
                 "title": "Nie znaleziono wina!",
                 "message": "Nie mogliśmy znaleźć wybranej wersji wina, aby uruchomić ten tytuł ({{selectedWine}}). {{newline}} Znaleźliśmy inny, czy chcesz kontynuować uruchamianie za pomocą {{foundWine}}?"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "Czy na pewno chcesz zakończyć?",
+                    "message": "Niezapisane postępy mogą zostać utracone"
+                }
             }
         },
         "wineprefix": "Wybierz folder z prefiksem Wine",
         "yes": "TAK",
         "dontShowAgain": "Nie pokazuj więcej",
-        "choose-nile-binary": "Wybierz binarny Nil"
+        "choose-nile-binary": "Wybierz plik wykonywalny Nile"
     },
     "button": {
         "cancel": "Anuluj",
@@ -275,12 +281,14 @@
             "part3": "Manualna synchronizacja: Kliknij \"Pobierz\" aby pobrać zapisy gier przechowywane w chmurze. Wybierz \"Prześlij\" aby przesłać lokalne zapisy gry do chmury. Wymuszone pbranie i wymuszone wgranie zapisów spowoduje zignorowanie wersji zapisów znajdujących się lokalnie albo w chmurze.",
             "part4": "Automatyczna synchronizacja zapisów będzie aktualizować zapisy za każdym razem kiedy uruchomisz albo zamkniesz grę."
         },
-        "vkd3d": "VKD3D to oparta o Vulkan'a warstwa tłumacząca dla gier opratych o DirectX 12, włączenie w dużym stopniu podnosi ich kompatybilność. Nie wpływa na starsze gry oparte na DirectX.",
+        "vkd3d": "VKD3D to oparta o Vulkan'a warstwa tłumacząca dla gier opartych o DirectX 12, włączenie w dużym stopniu podnosi ich kompatybilność. Nie wpływa na starsze gry oparte na DirectX, ale wymaga DXVK.",
         "wine": {
             "part1": "Heroic szuka wersji Wine, Proton oraz CrossOver w poniższych lokalizacjach:",
             "part2": "W przypadku innych lokalizacji użyj linku symbolicznego do jednego z tych folderów"
         },
-        "disable_logs": "Włącz to pole wyboru, aby wyłączyć większość zapisów w plikach dziennika (krytyczne informacje są zawsze rejestrowane). Pamiętaj, aby wyłączyć to ustawienie przed zgłoszeniem jakiegokolwiek problemu."
+        "disable_logs": "Włącz to pole wyboru, aby wyłączyć większość zapisów w plikach dziennika (krytyczne informacje są zawsze rejestrowane). Pamiętaj, aby wyłączyć to ustawienie przed zgłoszeniem jakiegokolwiek problemu.",
+        "dxvknvapi": "DXVK-NVAPI jest implementacją NVAPI zbudowaną na postawie DXVK i natywnego NVAPI Linuksa, pozwala na używanie DLSS na GPU Nvidii.",
+        "disablePlaytimeSync": "Wyłącza synchronizację czasu gry z serwerem danego sklepu (obecnie jedynie GOG jest wspierany)"
     },
     "info": {
         "heroic": {
@@ -336,7 +344,8 @@
         "epic": "Zaloguj do Epic Games",
         "gog": "Zaloguj do GOG",
         "message": "Zaloguj się do swojej platformy. Możesz zalogować się do więcej niż jednej platformy w tym samym czasie.",
-        "amazon": "Logowanie do Amazona"
+        "amazon": "Logowanie do Amazona",
+        "old-mac": "Twoja wersja macOS to {{version}}. macOS 12 lub nowszy jest wymagany, aby móc się zalogować."
     },
     "message": {
         "sync": "Synchronizacja zakończona",
@@ -527,7 +536,7 @@
         "log": {
             "copy-to-clipboard": "Skopiuj log do schowka",
             "current-log": "Ostatni Log",
-            "instructions": "Dołącz na nasz serwer Discord i poszukaj kanału, który odpowiada twojemu systemowi operacyjnemu. Udostępnij tam treść logów wraz z opisem problemu i innymi istotnymi informacjami.",
+            "instructions": "Dołącz na nasz serwer Discord i poszukaj sekcji oznaczonej \"#-support\". Przeczytaj przypięte \"Read Me First | Frequently Asked Questions\" (Przeczytaj Najpierw | Często Zadawane Pytania) i postępuj zgodnie z instrukcjami w celu udostępnienia tam treści logów wraz z opisem problemu i innymi istotnymi informacjami.",
             "instructions_title": "Jak zgłosić problem?",
             "last-log": "Poprzedni Log",
             "no-file": "Nie znaleziono pliku logu",
@@ -578,7 +587,11 @@
         "showMetalOverlay": "Pokaż nakładkę statystyk",
         "addgamestoapplications": "Automatycznie dodawaj gry do aplikacji",
         "alt-nile-bin": "Wybierz alternatywny plik binarny Nilu",
-        "autodxvknvapi": "Automatycznie instaluj/Aktualizuj DXVK w prefiksie"
+        "autodxvknvapi": "Automatycznie instaluj/Aktualizuj DXVK w prefiksie",
+        "disablePlaytimeSync": "Wyłącz synchronizację czasu gry",
+        "experimental_features": {
+            "enableNewDesign": "Nowy design"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -613,13 +626,39 @@
             "log": "Dziennik zdarzeń",
             "other": "Inne",
             "sync": "Synchronizuj zapisy w chmurze",
-            "wineExt": "Rozszerzenia Wine"
+            "wineExt": "Rozszerzenia Wine",
+            "systemInformation": "Informacje o systemie"
         },
         "open-config-file": "Otwórz plik konfiguracyjny",
         "reset-heroic": "Zresetuj Heroic",
         "saves": {
             "label": "Lokalizacja zapisów gry:",
             "warning": "Zapisy w chmurze są w fazie Beta, zrób kopię swoich zapisów przed synchronizacją (na wypadek niepowodzenia)"
+        },
+        "systemInformation": {
+            "cpu": "Procesor:",
+            "gpuWithNumber": "Karta graficzna nr {{number}}:",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "legendaryVersion": "Legendary: {{legendaryVersion}}",
+            "systemSpecifications": "Specyfikacja systemu:",
+            "steamDeck": "Steam Deck",
+            "gpuDriver": "Sterownik: {{driverVersion}}",
+            "os": "System operacyjny:",
+            "gpu": "Karta graficzna:",
+            "gogdlVersion": "Gogdl: {{gogdlVersion}}",
+            "osVersion": "Wersja {{versionNumber}}",
+            "osNameFlatpak": "{{osName}} (wewnątrz Flatpak)",
+            "software": "Oprogramowanie:",
+            "memoryStats": "{{percentUsed}}% zajęte ({{usedGib}} / {{totalGib}})",
+            "systemModel": "Model:",
+            "showDetailed": "Pokaż szczegółowe informacje o systemie",
+            "memory": "Pamięć:",
+            "copyToClipboard": "Skopiuj do schowka",
+            "heroicVersion": "Heroic: {{heroicVersion}}",
+            "nileVersion": "Nile: {{nileVersion}}"
+        },
+        "experimental_features": {
+            "title": "Funkcje eksperymentalne"
         }
     },
     "Settings": "Ustawienia",
@@ -702,10 +741,15 @@
         "title": "Title"
     },
     "prime-gaming": "Najlepsze gry",
-    "amazon": "Amazonka",
-    "Amazon Games": "Gry Amazona",
+    "amazon": "Amazon",
+    "Amazon Games": "Amazon Games",
     "winetricks": {
         "install": "Zainstaluj",
-        "loading": "Loading"
+        "loading": "Loading",
+        "installing": "Instalacja w trakcie: {{component}}",
+        "openGUI": "Otwórz interfejs Winetricks",
+        "search": "Szukaj czcionek lub bibliotek",
+        "nothingYet": "Jeszcze nic nie zostało zainstalowane za pomocą Winetricks",
+        "installed": "Zainstalowane komponenty:"
     }
 }
