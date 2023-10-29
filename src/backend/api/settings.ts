@@ -44,3 +44,6 @@ export const systemInfo = {
     ipcRenderer.invoke('getSystemInfo', cache),
   copyToClipboard: (): void => ipcRenderer.send('copySystemInfoToClipboard')
 }
+
+export const hasExecutable = async (executable: string) =>
+  ipcRenderer.invoke('hasExecutable', executable)
