@@ -390,7 +390,6 @@ export default React.memo(function Library(): JSX.Element {
 
       // adding a timeout so we don't run this for every resize event
       timer = setTimeout(() => {
-        console.log('fired')
         const header = document.querySelector('.Header')
         if (header) {
           const headerHeight = header.getBoundingClientRect().height
