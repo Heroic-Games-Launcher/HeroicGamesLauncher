@@ -40,6 +40,7 @@ const DownloadManagerItem = ({ element, current, state }: Props) => {
   const { amazon, epic, gog, showDialogModal } = useContext(ContextProvider)
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation('translation')
+  const isPaused = state && ['idle', 'paused'].includes(state)
 
   const navigate = useNavigate()
 
@@ -125,7 +126,7 @@ const DownloadManagerItem = ({ element, current, state }: Props) => {
   // using one element for the different states so it doesn't
   // lose focus from the button when using a game controller
   const handleSecondaryActionClick = () => {
-    if (state === 'paused') {
+    if (isPaused) {
       window.api.resumeCurrentDownload()
     } else if (state === 'running') {
       window.api.pauseCurrentDownload()
@@ -148,7 +149,7 @@ const DownloadManagerItem = ({ element, current, state }: Props) => {
   }
 
   const secondaryActionIcon = () => {
-    if (state === 'paused') {
+    if (isPaused) {
       return <PlayIcon className="playIcon" />
     } else if (state === 'running') {
       return <PauseIcon className="pauseIcon" />
@@ -179,7 +180,7 @@ const DownloadManagerItem = ({ element, current, state }: Props) => {
   }
 
   const secondaryIconTitle = () => {
-    if (state === 'paused') {
+    if (isPaused) {
       return t('queue.label.resume', 'Resume download')
     } else if (state === 'running') {
       return t('queue.label.pause', 'Pause download')
