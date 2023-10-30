@@ -1173,9 +1173,6 @@ interface DownloadArgs {
 
 /**
  * Downloads a file from a given URL to a specified destination path.
- * If there is cache on the CDN it will use 5 connections so the download will be faster.
- * If there is no cache on the CDN it will use 1 connection, otherwise the download might fail to start.
- *
  * @param {string} url - The URL of the file to download.
  * @param {string} dest - The destination path to save the downloaded file.
  * @param {AbortSignal} abortSignal - The AbortSignal instance to cancel the download.
