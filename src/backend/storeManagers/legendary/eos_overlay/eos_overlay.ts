@@ -1,9 +1,5 @@
 import { gameManagerMap } from '../../index'
-import {
-  callAbortController,
-  createAbortController,
-  deleteAbortController
-} from '../../../utils/aborthandler/aborthandler'
+import { callAbortController } from '../../../utils/aborthandler/aborthandler'
 import { dialog } from 'electron'
 import { existsSync, readFileSync } from 'graceful-fs'
 import { t } from 'i18next'
@@ -76,13 +72,11 @@ async function updateInfo() {
 
   await runLegendaryCommand(
     { subcommand: 'status' },
-    createAbortController(eosOverlayAppName),
     {
+      abortId: eosOverlayAppName,
       logMessagePrefix: 'Updating EOS Overlay information'
     }
   )
-
-  deleteAbortController(eosOverlayAppName)
 }
 
 /**
@@ -104,8 +98,8 @@ async function install() {
       action: 'install',
       '--path': Path.parse(defaultInstallPath)
     },
-    createAbortController(eosOverlayAppName),
     {
+      abortId: eosOverlayAppName,
       logMessagePrefix: 'Getting EOS Overlay install size',
       onOutput: (output: string) => {
         const downloadMatch = output.match(/Download size: ([\d.]+) MiB/)
@@ -119,8 +113,6 @@ async function install() {
     }
   )
 
-  deleteAbortController(eosOverlayAppName)
-
   // The EOS Overlay doesn't support Ctrl-C-pausing, so it's fine to just do this
   setCurrentDownloadSize(eosOverlayAppName, downloadSize)
 
@@ -132,8 +124,8 @@ async function install() {
       action: 'install',
       '--path': Path.parse(defaultInstallPath)
     },
-    createAbortController(eosOverlayAppName),
     {
+      abortId: eosOverlayAppName,
       logMessagePrefix: 'Installing EOS Overlay',
       onOutput: (output: string) => {
         gameManagerMap['legendary'].onInstallOrUpdateOutput(
@@ -145,8 +137,6 @@ async function install() {
       }
     }
   )
-
-  deleteAbortController(eosOverlayAppName)
 
   sendFrontendMessage('gameStatusUpdate', {
     appName: eosOverlayAppName,
@@ -179,11 +169,15 @@ async function remove(): Promise<boolean> {
   }
 
   await runLegendaryCommand(
-    { '-y': true, subcommand: 'eos-overlay', action: 'remove' },
-    createAbortController(eosOverlayAppName)
+    {
+      '-y': true,
+      subcommand: 'eos-overlay',
+      action: 'remove'
+    },
+    {
+      abortId: eosOverlayAppName
+    }
   )
-
-  deleteAbortController(eosOverlayAppName)
 
   return true
 }
@@ -218,11 +212,10 @@ async function enable(
   }
   if (prefix) command['--prefix'] = Path.parse(prefix)
 
-  await runLegendaryCommand(command, createAbortController(eosOverlayAppName), {
+  await runLegendaryCommand(command, {
+    abortId: eosOverlayAppName,
     logMessagePrefix: 'Enabling EOS Overlay'
   })
-
-  deleteAbortController(eosOverlayAppName)
 
   return { wasEnabled: true }
 }
@@ -243,11 +236,10 @@ async function disable(appName: string) {
   }
   if (prefix) command['--prefix'] = Path.parse(prefix)
 
-  await runLegendaryCommand(command, createAbortController(eosOverlayAppName), {
+  await runLegendaryCommand(command, {
+    abortId: eosOverlayAppName,
     logMessagePrefix: 'Disabling EOS Overlay'
   })
-
-  deleteAbortController(eosOverlayAppName)
 }
 
 function isInstalled() {
@@ -277,7 +269,8 @@ async function isEnabled(appName?: string) {
   }
   if (prefix) command['--prefix'] = Path.parse(prefix)
 
-  await runLegendaryCommand(command, createAbortController(eosOverlayAppName), {
+  await runLegendaryCommand(command, {
+    abortId: eosOverlayAppName,
     onOutput: (data: string) => {
       if (data.includes('Overlay enabled')) {
         enabled = data.includes('Yes')
@@ -286,8 +279,6 @@ async function isEnabled(appName?: string) {
     },
     logMessagePrefix: 'Checking if EOS Overlay is enabled'
   })
-
-  deleteAbortController(eosOverlayAppName)
   return enabled
 }
 

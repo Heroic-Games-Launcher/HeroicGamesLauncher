@@ -18,6 +18,9 @@
     "name": "Heroic Games Launcher",
     "email": "heroicgameslauncher@protonmail.com"
   },
+  "engines": {
+    "node": ">= 16"
+  },
   "build": {
     "appId": "com.heroicgameslauncher.hgl",
     "productName": "Heroic",
@@ -275,7 +278,7 @@
     "@typescript-eslint/parser": "^5.47.1",
     "@vitejs/plugin-react-swc": "^3.2.0",
     "cross-env": "^7.0.3",
-    "electron": "castlabs/electron-releases#24.4.1+wvcus",
+    "electron": "castlabs/electron-releases#27.0.0+wvcus",
     "electron-builder": "^24.6.4",
     "electron-devtools-installer": "^3.2.0",
     "electron-playwright-helpers": "^1.5.5",

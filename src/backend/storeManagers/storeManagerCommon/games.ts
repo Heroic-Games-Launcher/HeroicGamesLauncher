@@ -18,7 +18,10 @@ import {
 import { access, chmod } from 'fs/promises'
 import shlex from 'shlex'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
-import { createAbortController } from '../../utils/aborthandler/aborthandler'
+import {
+  createAbortController,
+  deleteAbortController
+} from '../../utils/aborthandler/aborthandler'
 import { BrowserWindow, dialog, Menu } from 'electron'
 import { gameManagerMap } from '../index'
 
@@ -35,7 +38,7 @@ export function logFileLocation(appName: string) {
 
 const openNewBrowserGameWindow = async (
   browserUrl: string,
-  abortController: AbortController
+  abortId: string
 ): Promise<boolean> => {
   const hostname = new URL(browserUrl).hostname
 
@@ -63,6 +66,8 @@ const openNewBrowserGameWindow = async (
     browserGame.loadURL(browserUrl)
     browserGame.on('ready-to-show', () => browserGame.show())
 
+    const abortController = createAbortController(abortId)
+
     abortController.signal.addEventListener('abort', () => {
       browserGame.close()
     })
@@ -89,6 +94,7 @@ const openNewBrowserGameWindow = async (
     })
 
     browserGame.on('closed', () => {
+      deleteAbortController(abortId)
       res(true)
     })
   })
@@ -118,7 +124,7 @@ export async function launchGame(
   }
 
   if (browserUrl) {
-    return openNewBrowserGameWindow(browserUrl, createAbortController(appName))
+    return openNewBrowserGameWindow(browserUrl, appName)
   }
 
   const gameSettings = await getAppSettings(appName)
@@ -131,6 +137,7 @@ export async function launchGame(
       failureReason: launchPrepFailReason,
       rpcClient,
       mangoHudCommand,
+      gameScopeCommand,
       gameModeBin,
       steamRuntime
     } = await prepareLaunch(gameSettings, gameInfo, isNative)
@@ -141,6 +148,7 @@ export async function launchGame(
       gameSettings,
       mangoHudCommand,
       gameModeBin,
+      gameScopeCommand,
       steamRuntime?.length ? [...steamRuntime] : undefined
     )
 
@@ -192,7 +200,6 @@ export async function launchGame(
           bin: executable,
           dir: dirname(executable)
         },
-        createAbortController(appName),
         {
           env,
           wrappers,

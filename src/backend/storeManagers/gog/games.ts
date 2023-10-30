@@ -1,8 +1,4 @@
 import {
-  createAbortController,
-  deleteAbortController
-} from '../../utils/aborthandler/aborthandler'
-import {
   importGame as importGogLibraryGame,
   refreshInstalled,
   runRunnerCommand as runGogdlCommand,
@@ -148,15 +144,10 @@ export async function importGame(
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   platform: InstallPlatform
 ): Promise<ExecResult> {
-  const res = await runGogdlCommand(
-    ['import', folderPath],
-    createAbortController(appName),
-    {
-      logMessagePrefix: `Importing ${appName}`
-    }
-  )
-
-  deleteAbortController(appName)
+  const res = await runGogdlCommand(['import', folderPath], {
+    abortId: appName,
+    logMessagePrefix: `Importing ${appName}`
+  })
 
   if (res.abort) {
     return res
@@ -314,17 +305,12 @@ export async function install(
     onInstallOrUpdateOutput(appName, 'installing', data)
   }
 
-  const res = await runGogdlCommand(
-    commandParts,
-    createAbortController(appName),
-    {
-      logFile: logPath,
-      onOutput,
-      logMessagePrefix: `Installing ${appName}`
-    }
-  )
-
-  deleteAbortController(appName)
+  const res = await runGogdlCommand(commandParts, {
+    abortId: appName,
+    logFile: logPath,
+    onOutput,
+    logMessagePrefix: `Installing ${appName}`
+  })
 
   if (res.abort) {
     return { status: 'abort' }
@@ -445,6 +431,7 @@ export async function launch(
     failureReason: launchPrepFailReason,
     rpcClient,
     mangoHudCommand,
+    gameScopeCommand,
     gameModeBin,
     steamRuntime
   } = await prepareLaunch(gameSettings, gameInfo, isNative(appName))
@@ -475,6 +462,7 @@ export async function launch(
     gameSettings,
     mangoHudCommand,
     gameModeBin,
+    gameScopeCommand,
     steamRuntime?.length ? [...steamRuntime] : undefined
   )
 
@@ -541,20 +529,15 @@ export async function launch(
     `Launch Command: ${fullCommand}\n\nGame Log:\n`
   )
 
-  const { error, abort } = await runGogdlCommand(
-    commandParts,
-    createAbortController(appName),
-    {
-      env: commandEnv,
-      wrappers,
-      logMessagePrefix: `Launching ${gameInfo.title}`,
-      onOutput: (output: string) => {
-        if (!logsDisabled) appendFileSync(logFileLocation(appName), output)
-      }
+  const { error, abort } = await runGogdlCommand(commandParts, {
+    abortId: appName,
+    env: commandEnv,
+    wrappers,
+    logMessagePrefix: `Launching ${gameInfo.title}`,
+    onOutput: (output: string) => {
+      if (!logsDisabled) appendFileSync(logFileLocation(appName), output)
     }
-  )
-
-  deleteAbortController(appName)
+  })
 
   if (abort) {
     return true
@@ -618,16 +601,11 @@ export async function repair(appName: string): Promise<ExecResult> {
     ...workers
   ]
 
-  const res = await runGogdlCommand(
-    commandParts,
-    createAbortController(appName),
-    {
-      logFile: logPath,
-      logMessagePrefix: `Repairing ${appName}`
-    }
-  )
-
-  deleteAbortController(appName)
+  const res = await runGogdlCommand(commandParts, {
+    abortId: appName,
+    logFile: logPath,
+    logMessagePrefix: `Repairing ${appName}`
+  })
 
   if (res.error) {
     logError(['Failed to repair', `${appName}:`, res.error], LogPrefix.Gog)
@@ -676,16 +654,11 @@ export async function syncSaves(
 
     logInfo([`Syncing saves for ${gameInfo.title}`], LogPrefix.Gog)
 
-    const res = await runGogdlCommand(
-      commandParts,
-      createAbortController(appName),
-      {
-        logMessagePrefix: `Syncing saves for ${gameInfo.title}`,
-        onOutput: (output) => (fullOutput += output)
-      }
-    )
-
-    deleteAbortController(appName)
+    const res = await runGogdlCommand(commandParts, {
+      abortId: appName,
+      logMessagePrefix: `Syncing saves for ${gameInfo.title}`,
+      onOutput: (output) => (fullOutput += output)
+    })
 
     if (res.error) {
       logError(
@@ -794,17 +767,12 @@ export async function update(
     onInstallOrUpdateOutput(appName, 'updating', data)
   }
 
-  const res = await runGogdlCommand(
-    commandParts,
-    createAbortController(appName),
-    {
-      logFile: logPath,
-      onOutput,
-      logMessagePrefix: `Updating ${appName}`
-    }
-  )
-
-  deleteAbortController(appName)
+  const res = await runGogdlCommand(commandParts, {
+    abortId: appName,
+    logFile: logPath,
+    onOutput,
+    logMessagePrefix: `Updating ${appName}`
+  })
 
   if (res.abort) {
     return { status: 'done' }

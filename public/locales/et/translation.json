@@ -703,5 +703,9 @@
     },
     "amazon": "Amazon",
     "Amazon Games": "Amazoni mängud",
-    "prime-gaming": "Prime Gaming"
+    "prime-gaming": "Prime Gaming",
+    "winetricks": {
+        "install": "Install",
+        "loading": "Laadimine"
+    }
 }
