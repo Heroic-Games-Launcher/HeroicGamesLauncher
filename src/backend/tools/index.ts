@@ -10,7 +10,7 @@ import {
   rm
 } from 'graceful-fs'
 import { exec, spawn } from 'child_process'
-import { execAsync, getWineFromProton } from '../utils'
+import { downloadFile, execAsync, getWineFromProton } from '../utils'
 import {
   execOptions,
   toolsPath,
@@ -38,6 +38,8 @@ import {
   get_vulkan_instance_version
 } from '../utils/graphics/vulkan'
 import { lt as semverLt } from 'semver'
+import { createAbortController } from '../utils/aborthandler/aborthandler'
+import { mkdir } from 'fs'
 import { gameManagerMap } from '../storeManagers'
 import { sendFrontendMessage } from '../main_window'
 
@@ -107,32 +109,45 @@ export const DXVK = {
         return
       }
 
-      const downloadCommand = `curl -L ${downloadUrl} -o '${latestVersion}' --create-dirs`
-      const extractCommand = `${tool.extractCommand} '${latestVersion}' -C '${toolsPath}/${tool.name}'`
+      if (!existsSync(`${toolsPath}/${tool.name}`)) {
+        mkdir(`${toolsPath}/${tool.name}`, { recursive: true }, (err) => {
+          if (err) {
+            logError(
+              [`Error creating ${tool.name} folder`, err],
+              LogPrefix.DXVKInstaller
+            )
+          }
+        })
+      }
+
+      const extractCommand = `${tool.extractCommand} ${latestVersion} -C ${toolsPath}/${tool.name}`
       const echoCommand = `echo ${pkg} > '${toolsPath}/${tool.name}/latest_${tool.name}'`
-      const cleanCommand = `rm '${latestVersion}'`
+      const cleanCommand = `rm ${toolsPath}/${tool.name}/${name}`
 
       logInfo([`Updating ${tool.name} to:`, pkg], LogPrefix.DXVKInstaller)
 
-      return execAsync(downloadCommand)
+      return downloadFile({
+        url: downloadUrl,
+        dest: latestVersion,
+        abortSignal: createAbortController(tool.name).signal
+      })
         .then(async () => {
           logInfo(`downloaded ${tool.name}`, LogPrefix.DXVKInstaller)
           logInfo(`extracting ${tool.name}`, LogPrefix.DXVKInstaller)
           exec(echoCommand)
           await execAsync(extractCommand)
-            .then(() =>
+            .then(() => {
+              exec(cleanCommand)
               logInfo(`${tool.name} updated!`, LogPrefix.DXVKInstaller)
-            )
+            })
             .catch((error) => {
               logError(
                 [`Extraction of ${tool.name} failed with:`, error],
                 LogPrefix.DXVKInstaller
               )
             })
-
-          exec(cleanCommand)
         })
-        .catch((error) => {
+        .catch((error: string) => {
           logWarning(
             [`Error when downloading ${tool.name}`, error],
             LogPrefix.DXVKInstaller
