@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Checkout repository.
         uses: actions/checkout@v3
+      - name: Install dependencies
+        run: sudo apt install snapcraft -y
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
@@ -25,7 +27,7 @@ jobs:
       - name: Install modules.
         run: yarn install --frozen-lockfile
       - name: Build artifacts.
-        run: yarn dist:linux appimage deb --publish=never
+        run: yarn dist:linux appimage snap --publish=never
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
@@ -35,9 +37,9 @@ jobs:
           name: linux-appimage
           path: dist/Heroic-*.AppImage
           retention-days: 14
-      - name: Upload deb
+      - name: Upload Snap.
         uses: actions/upload-artifact@v3
         with:
-          name: linux-deb
-          path: dist/heroic-*.deb
+          name: linux-snap
+          path: dist/*.snap
           retention-days: 14
