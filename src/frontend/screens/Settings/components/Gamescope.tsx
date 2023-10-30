@@ -82,7 +82,10 @@ const Gamescope = () => {
 
   const upscaleMethods = [
     { name: 'AMD FidelityFX™ Super Resolution 1.0 (FSR)', value: 'fsr' },
-    { name: 'NVIDIA Nearest Integer Scale (NIS)', value: 'nis' },
+    {
+      name: t('options.gamescope.nis', 'NVIDIA Image Scale (NIS)'),
+      value: 'nis'
+    },
     {
       name: t('options.gamescope.interger', 'Interger Upscale'),
       value: 'integer'
