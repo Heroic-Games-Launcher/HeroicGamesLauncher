@@ -442,10 +442,14 @@
             "title": "Game Arguments (To run after the command):"
         },
         "gamescope": {
+            "borderless": "Borderless",
             "fpsLimiter": "FPS Limiter",
             "fpsLimiterNoFocus": "FPS Limiter (No Focus)",
+            "fullscreen": "Fullscreen",
             "gameHeight": "Game Height",
             "gameWidth": "Game Width",
+            "interger": "Interger Upscale",
+            "stretch": "Stretch Image",
             "upscaleHeight": "Upscale Height",
             "upscaleWidth": "Upscale Width"
         },

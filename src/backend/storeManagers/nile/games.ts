@@ -563,11 +563,15 @@ export async function stop(appName: string, stopWine = true) {
   }
 }
 
-export function isGameAvailable(appName: string): boolean {
-  const info = getGameInfo(appName)
-  return Boolean(
-    info?.is_installed &&
-      info.install.install_path &&
-      existsSync(info.install.install_path)
-  )
+export async function isGameAvailable(appName: string): Promise<boolean> {
+  return new Promise((resolve) => {
+    const info = getGameInfo(appName)
+    resolve(
+      Boolean(
+        info?.is_installed &&
+          info.install.install_path &&
+          existsSync(info.install.install_path)
+      )
+    )
+  })
 }
