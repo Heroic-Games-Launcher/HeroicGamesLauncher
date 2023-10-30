@@ -709,5 +709,9 @@
     },
     "amazon": "Amazon",
     "prime-gaming": "Game Perdana",
-    "Amazon Games": "Game Amazon"
+    "Amazon Games": "Game Amazon",
+    "winetricks": {
+        "install": "Pasang",
+        "loading": "Loading"
+    }
 }

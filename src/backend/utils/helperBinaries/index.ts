@@ -1,19 +1,17 @@
-import {
-  createAbortController,
-  deleteAbortController
-} from '../aborthandler/aborthandler'
 import { runRunnerCommand as runLegendaryCommand } from '../../storeManagers/legendary/library'
 import { runRunnerCommand as runGogdlCommand } from '../../storeManagers/gog/library'
 import { runRunnerCommand as runNileCommand } from '../../storeManagers/nile/library'
 
 async function getLegendaryVersion(): Promise<string> {
-  const abortID = 'legendary-version'
   const { stdout, error, abort } = await runLegendaryCommand(
-    { subcommand: undefined, '--version': true },
-    createAbortController(abortID)
+    {
+      subcommand: undefined,
+      '--version': true
+    },
+    {
+      abortId: 'legendary-version'
+    }
   )
-
-  deleteAbortController(abortID)
 
   if (error ?? abort) return 'invalid'
 
@@ -28,13 +26,9 @@ async function getLegendaryVersion(): Promise<string> {
 }
 
 async function getGogdlVersion(): Promise<string> {
-  const abortID = 'gogdl-version'
-  const { stdout, error } = await runGogdlCommand(
-    ['--version'],
-    createAbortController(abortID)
-  )
-
-  deleteAbortController(abortID)
+  const { stdout, error } = await runGogdlCommand(['--version'], {
+    abortId: 'gogdl-version'
+  })
 
   if (error) return 'invalid'
 
@@ -42,12 +36,9 @@ async function getGogdlVersion(): Promise<string> {
 }
 
 async function getNileVersion(): Promise<string> {
-  const abortID = 'nile-version'
-  const { stdout, error } = await runNileCommand(
-    ['--version'],
-    createAbortController(abortID)
-  )
-  deleteAbortController(abortID)
+  const { stdout, error } = await runNileCommand(['--version'], {
+    abortId: 'nile-version'
+  })
 
   if (error) return 'invalid'
 

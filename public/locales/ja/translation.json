@@ -708,5 +708,9 @@
     },
     "Amazon Games": "アマゾンゲーム",
     "amazon": "アマゾン",
-    "prime-gaming": "プライムゲーミング"
+    "prime-gaming": "プライムゲーミング",
+    "winetricks": {
+        "install": "Install",
+        "loading": "Loading"
+    }
 }

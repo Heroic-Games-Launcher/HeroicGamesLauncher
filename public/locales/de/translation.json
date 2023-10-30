@@ -281,13 +281,14 @@
             "part3": "Manuelle Synchronisation: Wähle „Download“, um die in der Cloud gespeicherten Spielstände herunterzuladen. „Upload“, um die lokalen in die Cloud hochzuladen. „Download erzwingen“ und „Upload erzwingen“ ignorieren die Version, die sich lokal oder in der Cloud befindet.",
             "part4": "„Spielstände automatisch synchronisieren“ synchronisiert die Spielstände jedes Mal, wenn ein Spiel gestartet und nachdem ein Spiel beendet wurde."
         },
-        "vkd3d": "VKD3D ist eine Vulkan-basierte Übersetzungsschicht für DirectX 12-Spiele. Durch Aktivieren kann die Kompatibilität erheblich verbessert werden. Hat keine Auswirkung auf ältere DirectX-Spiele.",
+        "vkd3d": "VKD3D ist eine Vulkan-basierte Übersetzungsschicht für DirectX 12-Spiele. Durch Aktivieren kann die Kompatibilität erheblich verbessert werden. Hat keine Auswirkung auf ältere DirectX-Spiele und setzt DXVK vorraus.",
         "wine": {
             "part1": "Heroic sucht in den folgenden Verzeichnissen nach Versionen von Wine, Proton und CrossOver:",
             "part2": "Für andere Orte verwende einen symbolischen Link zu einem dieser Ordner"
         },
         "disable_logs": "Aktiviere dieses Kontrollkästchen, um die meisten Schreibvorgänge in Logs zu deaktivieren (kritische Informationen werden immer protokolliert). Vergewissere dich, dass diese Einstellung deaktiviert ist, bevor du ein Problem meldest.",
-        "dxvknvapi": "DXVK-NVAPI ist eine Implementation von NVAPI, welche auf DXVK und der Linux-nativen NVAPI basiert, sie erlaubt die Verwendung von DLSS auf Nvidia Grafikkarten."
+        "dxvknvapi": "DXVK-NVAPI ist eine Implementation von NVAPI, welche auf DXVK und der Linux-nativen NVAPI basiert, sie erlaubt die Verwendung von DLSS auf Nvidia Grafikkarten.",
+        "disablePlaytimeSync": "Deaktiviert Spielzeit synchronisation mit enspechendem Store server (Aktuell wird nur GOG unterstützt)"
     },
     "info": {
         "heroic": {
@@ -586,7 +587,11 @@
         "addgamestoapplications": "Spiele automatisch zu Anwendungen hinzufügen",
         "showMetalOverlay": "Statistik-Overlay anzeigen",
         "alt-nile-bin": "Wählen Sie eine alternative Nil-Binärdatei",
-        "autodxvknvapi": "Automatisches Installieren/Aktualisieren von DXVK im Präfix"
+        "autodxvknvapi": "Automatisches Installieren/Aktualisieren von DXVK im Präfix",
+        "disablePlaytimeSync": "Spielzeit synchronisation deaktivieren",
+        "experimental_features": {
+            "enableNewDesign": "Neues Design"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -621,13 +626,39 @@
             "log": "Log",
             "other": "Andere",
             "sync": "Cloud-Speichersynchronisation",
-            "wineExt": "Wine-Erweiterungen"
+            "wineExt": "Wine-Erweiterungen",
+            "systemInformation": "Systeminformationen"
         },
         "open-config-file": "Konfigurationsdatei öffnen",
         "reset-heroic": "Heroic zurücksetzen",
         "saves": {
             "label": "Speicherstand-Pfad:",
             "warning": "Die Cloudspeicher-Funktion befindet sich in der Beta-Phase. Bitte sichere deine Spielstände vor der Synchronisation (falls etwas schiefgeht)"
+        },
+        "systemInformation": {
+            "cpu": "CPU:",
+            "gpuDriver": "Treiber: {{driverVersion}}",
+            "gogdlVersion": "Gogdl: {{gogdlVersion}}",
+            "copyToClipboard": "In die Zwischenablage kopieren",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "gpu": "GPU:",
+            "gpuWithNumber": "GPU {{number}}:",
+            "heroicVersion": "Heroic: {{heroicVersion}}",
+            "legendaryVersion": "Legendary: {{legendaryVersion}}",
+            "memoryStats": "{{percentUsed}}% verwendet ({{usedGib}} / {{totalGib}}",
+            "nileVersion": "Nile: {{nileVersion}}",
+            "systemSpecifications": "Systemspezifikationen:",
+            "steamDeck": "Steam Deck",
+            "os": "Betriebssystem:",
+            "software": "Software:",
+            "showDetailed": "Detaillierte Systemspezifikationen anzeigen",
+            "osVersion": "Version {{versionNumber}}",
+            "memory": "Arbeitsspeicher:",
+            "osNameFlatpak": "{{osName}} (in Flatpak)",
+            "systemModel": "System Model:"
+        },
+        "experimental_features": {
+            "title": "Experimentelle Funktionen"
         }
     },
     "Settings": "Einstellungen",
@@ -711,5 +742,9 @@
     },
     "amazon": "Amazonas",
     "prime-gaming": "Prime Gaming",
-    "Amazon Games": "Amazon-Spiele"
+    "Amazon Games": "Amazon-Spiele",
+    "winetricks": {
+        "install": "Installieren",
+        "loading": "Ladevorgang läuft"
+    }
 }

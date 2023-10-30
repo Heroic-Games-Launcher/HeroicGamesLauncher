@@ -83,7 +83,7 @@
         "firstPlayed": "Jugado por primera vez",
         "getting-download-size": "Obteniendo tamaño de descarga",
         "getting-install-size": "Obteniendo tamaño de instalación",
-        "installSize": "Tamaño de Instalación",
+        "installSize": "Tamaño de instalación",
         "language": "Lenguaje",
         "lastPlayed": "Jugado por última vez",
         "neverPlayed": "Nunca",
@@ -131,9 +131,9 @@
         "wineversion": "Version de Wine",
         "anticheat-warning": {
             "cancel": "No",
-            "message": "El antitrampas está roto o desactivado. El juego no funcionará. ¿Quieres instalarlo de todos modos?",
+            "message": "El soporte de anticheat está roto o denegado. El juego no funcionará. ¿Quieres instalarlo de todos modos?",
             "install": "Sí (entiendo que no funcionará)",
-            "title": "Antitrampa desactivado/denegado"
+            "title": "Anticheat Roto/Denegado"
         },
         "flatpak-path-not-writtable": "Error: No se ha concedido acceso al Sandbox a esta ruta, se perderán los datos."
     },

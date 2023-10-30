@@ -287,7 +287,8 @@
             "part2": "بالنسبة للأماكن الأخرى، استخدم ارتباطًا رمزيًا لأحد هذه المجلدات"
         },
         "disable_logs": "بدّل مربع الاختيار هذا إلى «تشغيل» تعطِّل معظم الكتابة في ملفات السجل، فالمعلومات الهامة تُسجَّل دائمًا، وتأكد من تعطيل هذا الإعداد قبل أن تبلِّغ عن أي مشكلة.",
-        "dxvknvapi": "DXVK-NVAPI هو تطبيق ل‍ NVAPI على DXVK و NVAPI لينكس، وهو يتيح DLSS باستخدام معالجات رسوميات إنفيديا."
+        "dxvknvapi": "DXVK-NVAPI هو تطبيق ل‍ NVAPI على DXVK و NVAPI لينكس، وهو يتيح DLSS باستخدام معالجات رسوميات إنفيديا.",
+        "disablePlaytimeSync": "يعطِّل مزامنة وقت اللعب مع خواديم المتجر (ولا يعمل هذا الآن إلا في جي‌أو‌جي)"
     },
     "info": {
         "heroic": {
@@ -588,8 +589,10 @@
         "alt-nile-bin": "اختر ملفَّ تنفيذ بديلًا لنيل",
         "autodxvknvapi": "ثبِّت وحدِّث DXVK-NVAPI في السابقة",
         "experimental_features": {
-            "enableNewShinyFeature": "ميزة جديدة"
-        }
+            "enableNewShinyFeature": "ميزة جديدة",
+            "enableNewDesign": "تصميم جديد"
+        },
+        "disablePlaytimeSync": "يعطِّل مزامنة وقت اللعب"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -740,5 +743,14 @@
     },
     "amazon": "أمازون",
     "Amazon Games": "ألعاب أمازون",
-    "prime-gaming": "لعب برايم"
+    "prime-gaming": "لعب برايم",
+    "winetricks": {
+        "install": "ثبِّت",
+        "loading": "يحمَّل",
+        "installing": "يُثبَّت: {{component}}",
+        "openGUI": "افتح واجهة واين.تركس",
+        "search": "ابحث عن خطوط أو مكونات",
+        "nothingYet": "لم يثبِّت واين.تركس شيئًا بعد",
+        "installed": "المكونات المثبَّتة:"
+    }
 }

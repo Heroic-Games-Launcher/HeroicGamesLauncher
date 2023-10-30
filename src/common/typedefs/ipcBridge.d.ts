@@ -87,10 +87,7 @@ interface SyncIPCFunctions {
   clipboardWriteText: (text: string) => void
   processShortcut: (combination: string) => void
   addNewApp: (args: SideloadGame) => void
-  showLogFileInFolder: (args: {
-    appName: string
-    defaultLast?: boolean
-  }) => void
+  showLogFileInFolder: (appNameOrRunner: string) => void
   addShortcut: (appName: string, runner: Runner, fromMenu: boolean) => void
   removeShortcut: (appName: string, runner: Runner) => void
   removeFromDMQueue: (appName: string) => void
@@ -104,6 +101,11 @@ interface SyncIPCFunctions {
   pauseCurrentDownload: () => void
   cancelDownload: (removeDownloaded: boolean) => void
   copySystemInfoToClipboard: () => void
+  winetricksInstall: ({
+    runner: Runner,
+    appName: string,
+    component: string
+  }) => void
 }
 
 // ts-prune-ignore-next
@@ -115,6 +117,14 @@ interface AsyncIPCFunctions {
   runWineCommand: (
     args: WineCommandArgs
   ) => Promise<{ stdout: string; stderr: string }>
+  winetricksInstalled: ({
+    runner: Runner,
+    appName: string
+  }) => Promise<string[]>
+  winetricksAvailable: ({
+    runner: Runner,
+    appName: string
+  }) => Promise<string[]>
   checkGameUpdates: () => Promise<string[]>
   getEpicGamesStatus: () => Promise<boolean>
   updateAll: () => Promise<({ status: 'done' | 'error' | 'abort' } | null)[]>
@@ -200,7 +210,7 @@ interface AsyncIPCFunctions {
     runner: Runner
   }) => Promise<void>
   isNative: (args: { appName: string; runner: Runner }) => boolean
-  getLogContent: (args: { appName: string; defaultLast?: boolean }) => string
+  getLogContent: (appNameOrRunner: string) => string
   installWineVersion: (
     release: WineVersionInfo
   ) => Promise<'error' | 'abort' | 'success'>
@@ -264,6 +274,7 @@ interface AsyncIPCFunctions {
     appName: string
   ) => Promise<number | undefined>
   getAmazonLoginData: () => Promise<NileLoginData>
+  hasExecutable: (executable: string) => Promise<boolean>
 }
 
 // This is quite ugly & throws a lot of errors in a regular .ts file
