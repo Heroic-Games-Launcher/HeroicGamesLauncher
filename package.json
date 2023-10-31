@@ -1,6 +1,6 @@
 {
   "name": "heroic",
-  "version": "2.9.2",
+  "version": "2.10.0",
   "versionNames": {
     "stable": "Boa Hancock",
     "beta": "Caesar Clown"
@@ -122,24 +122,6 @@
         "build/bin/linux/*"
       ]
     },
-    "deb": {
-      "packageCategory": "games",
-      "depends": [
-        "curl"
-      ]
-    },
-    "pacman": {
-      "packageCategory": "games",
-      "depends": [
-        "curl"
-      ]
-    },
-    "rpm": {
-      "packageCategory": "games",
-      "depends": [
-        "curl"
-      ]
-    },
     "snap": {
       "allowNativeWayland": true,
       "category": "Games",
@@ -174,6 +156,7 @@
     "compare-versions": "^6.0.0-rc.1",
     "crc": "^4.3.2",
     "discord-rich-presence-typescript": "^0.0.8",
+    "easydl": "^1.1.0",
     "electron-store": "^8.0.1",
     "electron-updater": "^5.0.1",
     "filesize": "^10.0.6",

@@ -80,6 +80,30 @@ const Gamescope = () => {
     )
   }
 
+  const upscaleMethods = [
+    { name: 'AMD FidelityFX™ Super Resolution 1.0 (FSR)', value: 'fsr' },
+    {
+      name: t('options.gamescope.nis', 'NVIDIA Image Scale (NIS)'),
+      value: 'nis'
+    },
+    {
+      name: t('options.gamescope.interger', 'Interger Upscale'),
+      value: 'integer'
+    },
+    { name: t('options.gamescope.stretch', 'Stretch Image'), value: 'stretch' }
+  ]
+
+  const windowTypes = [
+    {
+      name: t('options.gamescope.fullscreen', 'Fullscreen'),
+      value: 'fullscreen'
+    },
+    {
+      name: t('options.gamescope.borderless', 'Borderless'),
+      value: 'borderless'
+    }
+  ]
+
   return (
     <div className="gamescopeSettings">
       {/* Enable Upscale */}
@@ -121,8 +145,10 @@ const Gamescope = () => {
             }
             value={gamescope.upscaleMethod}
           >
-            {['fsr', 'nis', 'integer', 'stretch'].map((opt, i) => (
-              <option key={i}>{opt}</option>
+            {upscaleMethods.map((el) => (
+              <option value={el.value} key={el.value}>
+                {el.name}
+              </option>
             ))}
           </SelectField>
           {/* Game Res */}
@@ -245,8 +271,10 @@ const Gamescope = () => {
             }
             value={gamescope.windowType}
           >
-            {['fullscreen', 'borderless'].map((opt, i) => (
-              <option key={i}>{opt}</option>
+            {windowTypes.map((el) => (
+              <option value={el.value} key={el.value}>
+                {el.name}
+              </option>
             ))}
           </SelectField>
         </>
