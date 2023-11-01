@@ -288,7 +288,16 @@
         },
         "disable_logs": "将此复选框切换为“开”可禁用对日志文件的大部分写入（始终记录关键信息）。请确保在报告任何问题之前关闭此设置。",
         "dxvknvapi": "DXVK-NVAPI 是基于 DXVK 和 linux 原生 NVAPI 构建的 NVAPI 的实现，它允许在 Nvidia GPU 上使用 DLSS。",
-        "disablePlaytimeSync": "停用与给定游戏商店服务器的游戏时间同步（当前只支持 GOG）"
+        "disablePlaytimeSync": "停用与给定游戏商店服务器的游戏时间同步（当前只支持 GOG）",
+        "gamescope": {
+            "fpsLimiterNoFocus": "如未聚焦游戏，Gamescope 每秒应限制的帧率。",
+            "upscaleMethod": "Gamescope 应使用的分辨率提升方法。",
+            "gameWidth": "游戏所用的宽度分辨率。Gamescope 假定 16:9 长宽比。",
+            "upscaleWidth": "Gamescope 所用的宽度分辨率。假定 16:9 的长宽比。",
+            "gameHeight": "游戏所用的高度分辨率。Gamescope 假定 16:9 的长宽比。",
+            "upscaleHeight": "Gamescope 所用的高度分辨率。假定 16:9 长宽比。",
+            "fpsLimiter": "Gamescope 帧数限制，比如 60"
+        }
     },
     "info": {
         "heroic": {
@@ -434,6 +443,14 @@
             "placeHolderKey": "新封装器",
             "placeHolderValue": "封装器参数",
             "title": "封装器命令："
+        },
+        "gamescope": {
+            "fpsLimiter": "FPS 限制程序",
+            "gameHeight": "游戏高度",
+            "upscaleWidth": "Upscale 宽度",
+            "gameWidth": "游戏宽度",
+            "upscaleHeight": "Upscale 高度",
+            "fpsLimiterNoFocus": "FPS 限制程序（无焦点）"
         }
     },
     "other": {
@@ -592,7 +609,12 @@
             "enableNewShinyFeature": "新功能",
             "enableNewDesign": "新设计"
         },
-        "disablePlaytimeSync": "停用游戏时间同步"
+        "disablePlaytimeSync": "停用游戏时间同步",
+        "gamescope": {
+            "enableLimiter": "启用 FPS 限制程序",
+            "enableUpscaling": "启用分辨率提升",
+            "missingMsg": "我们在 PATH 上找不到 Gamescope。请先安装它或将其添加到 PATH。"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -628,7 +650,8 @@
             "other": "其它",
             "sync": "存档-同步",
             "wineExt": "Wine 扩展",
-            "systemInformation": "系统信息"
+            "systemInformation": "系统信息",
+            "gamescope": "Gamescope"
         },
         "open-config-file": "打开配置文件",
         "reset-heroic": "重置 Heroic",
@@ -660,6 +683,9 @@
             "copyToClipboard": "复制到剪贴板",
             "heroicVersion": "Heroic: {{heroicVersion}}",
             "nileVersion": "Nile: {{nileVersion}}"
+        },
+        "gamescope": {
+            "searchMsg": "搜索 Gamescope 可执行文件。"
         }
     },
     "Settings": "设置",

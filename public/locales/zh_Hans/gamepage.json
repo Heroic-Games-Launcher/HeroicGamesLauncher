@@ -37,14 +37,16 @@
             "settingcheckbox": "擦除设置并删除日志{{newLine}}注意：此操作无法撤消。 任何修改的设置都将被遗忘，日志也将被删除。",
             "title": "卸载",
             "prefix_warning": "此游戏的 Wine 前缀是默认前缀。如果你真的想删除它，你必须手动进行。",
-            "dlc": "您要卸载此 DLC 吗？"
+            "dlc": "您要卸载此 DLC 吗？",
+            "cannotUninstallEpic": "安装 Epic 游戏时不能卸载其他 Epic 游戏。"
         },
         "update": {
             "message": "该游戏有更新，您想要现在更新吗？",
             "title": "游戏需要更新"
         },
         "wineprefix": "选择 WinePrefix 文件夹",
-        "yes": "是"
+        "yes": "是",
+        "close": "关闭"
     },
     "button": {
         "add_to_favourites": "添加到收藏",
