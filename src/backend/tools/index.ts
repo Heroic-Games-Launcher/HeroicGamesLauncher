@@ -127,6 +127,11 @@ export const DXVK = {
 
       const echoCommand = `echo ${pkg} > '${toolsPath}/${tool.name}/latest_${tool.name}'`
       const cleanCommand = `rm ${toolsPath}/${tool.name}/${name}`
+      const destination = join(
+        toolsPath,
+        tool.name,
+        tool.name === 'dxvk-nvapi' ? pkg : ''
+      )
 
       logInfo([`Updating ${tool.name} to:`, pkg], LogPrefix.DXVKInstaller)
 
@@ -139,7 +144,7 @@ export const DXVK = {
           logInfo(`downloaded ${tool.name}`, LogPrefix.DXVKInstaller)
           logInfo(`extracting ${tool.name}`, LogPrefix.DXVKInstaller)
           exec(echoCommand)
-          await decompress(latestVersion, join(toolsPath, tool.name), {
+          await decompress(latestVersion, destination, {
             plugins: [tool.extractPlugin]
           })
             .then(() => {
