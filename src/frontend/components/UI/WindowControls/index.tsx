@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { handleQuit } from 'frontend/helpers'
 import SvgButton from '../SvgButton'
 import {
   Minimize as MinimizeIcon,
@@ -28,6 +27,8 @@ export default function WindowControls() {
   const handleMaximize = () =>
     maximized ? window.api.unmaximizeWindow() : window.api.maximizeWindow()
 
+  const handleClose = () => window.api.closeWindow()
+
   return (
     <div className="windowControls">
       <SvgButton
@@ -51,7 +52,7 @@ export default function WindowControls() {
       <SvgButton
         className="close"
         title={t('window.close', 'Close')}
-        onClick={handleQuit}
+        onClick={handleClose}
       >
         <CloseIcon />
       </SvgButton>

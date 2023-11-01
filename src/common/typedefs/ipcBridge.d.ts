@@ -108,6 +108,7 @@ interface SyncIPCFunctions {
   minimizeWindow: () => void
   maximizeWindow: () => void
   unmaximizeWindow: () => void
+  closeWindow: () => void
   setTitleBarOverlay: (options: TitleBarOverlayOptions) => void
   winetricksInstall: ({
     runner: Runner,

@@ -563,6 +563,7 @@ ipcMain.handle('isMaximized', () => !!getMainWindow()?.isMaximized())
 ipcMain.on('minimizeWindow', () => getMainWindow()?.minimize())
 ipcMain.on('maximizeWindow', () => getMainWindow()?.maximize())
 ipcMain.on('unmaximizeWindow', () => getMainWindow()?.unmaximize())
+ipcMain.on('closeWindow', () => getMainWindow()?.close())
 ipcMain.on('quit', async () => handleExit())
 
 // Quit when all windows are closed, except on macOS. There, it's common

@@ -35,6 +35,7 @@ export const isMaximized = async () => ipcRenderer.invoke('isMaximized')
 export const minimizeWindow = () => ipcRenderer.send('minimizeWindow')
 export const maximizeWindow = () => ipcRenderer.send('maximizeWindow')
 export const unmaximizeWindow = () => ipcRenderer.send('unmaximizeWindow')
+export const closeWindow = () => ipcRenderer.send('closeWindow')
 export const handleMaximized = (
   callback: (e: Electron.IpcRendererEvent) => void
 ) => {
