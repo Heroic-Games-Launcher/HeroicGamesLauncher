@@ -2,11 +2,9 @@ import { isMac } from '../../../constants'
 import * as axios from 'axios'
 import { existsSync, statSync, unlinkSync } from 'graceful-fs'
 import { spawnSync } from 'child_process'
-import decompress from '@xhmikosr/decompress'
-import decompressTargz from '@xhmikosr/decompress-targz'
-import decompressTarxz from '@felipecrs/decompress-tarxz'
 
 import { ProgressInfo, State, VersionInfo, Type } from 'common/types'
+import { extractFiles } from 'backend/utils'
 
 interface fetchProps {
   url: string
@@ -152,19 +150,7 @@ async function unzipFile({
       reject(error.message)
     }
 
-    let extractPlugin
-    if (filePath.endsWith('tar.gz')) {
-      extractPlugin = decompressTargz()
-    } else if (filePath.endsWith('tar.xz')) {
-      extractPlugin = decompressTarxz()
-    } else {
-      reject(`Archive type ${filePath.split('.').pop()} not supported!`)
-    }
-
-    decompress(filePath, unzipDir, {
-      plugins: [extractPlugin],
-      strip: 1
-    })
+    extractFiles({ path: filePath, destination: unzipDir, strip: 1 })
       .then(() => {
         onProgress('idle')
         resolve(`Succesfully unzip ${filePath} to ${unzipDir}.`)

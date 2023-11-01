@@ -1,8 +1,6 @@
-import decompress from '@xhmikosr/decompress'
 import axios from 'axios'
+import { extractFiles } from 'backend/utils'
 import { existsSync, mkdirSync, writeFile } from 'graceful-fs'
-import decompressTargz from '@xhmikosr/decompress-targz'
-import decompressTarxz from '@felipecrs/decompress-tarxz'
 
 interface GithubAssetMetadata {
   url: string
@@ -93,13 +91,11 @@ async function extractTarFile(
   mkdirSync(extractedPath, { recursive: true })
 
   const strip = options?.strip
-  return decompress(filePath, extractedPath, {
-    plugins: [
-      contentType === 'application/x-gzip'
-        ? decompressTargz()
-        : decompressTarxz()
-    ],
-    strip: strip ? 1 : 0
+
+  return extractFiles({
+    path: filePath,
+    destination: extractedPath,
+    strip: strip || 0
   })
 }
 

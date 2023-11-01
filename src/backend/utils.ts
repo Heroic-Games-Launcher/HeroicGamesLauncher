@@ -76,6 +76,10 @@ import { getHeroicVersion } from './utils/systeminfo/heroicVersion'
 import { wikiGameInfoStore } from './wiki_game_info/electronStore'
 import EasyDl from 'easydl'
 
+import decompress from '@xhmikosr/decompress'
+import decompressTargz from '@xhmikosr/decompress-targz'
+import decompressTarxz from '@felipecrs/decompress-tarxz'
+
 const execAsync = promisify(exec)
 
 const { showMessageBox } = dialog
@@ -1337,6 +1341,19 @@ function calculateEta(
   return eta
 }
 
+interface ExtractOptions {
+  path: string
+  destination: string
+  strip: number
+}
+
+async function extractFiles({ path, destination, strip = 0 }: ExtractOptions) {
+  return decompress(path, destination, {
+    plugins: [decompressTargz(), decompressTarxz()],
+    strip
+  })
+}
+
 export {
   errorHandler,
   execAsync,
@@ -1368,7 +1385,8 @@ export {
   getFileSize,
   memoryLog,
   removeFolder,
-  calculateEta
+  calculateEta,
+  extractFiles
 }
 
 // Exported only for testing purpose

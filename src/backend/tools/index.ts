@@ -1,5 +1,6 @@
 import { ExecResult, GameSettings, Runner, WineCommandArgs } from 'common/types'
 import axios from 'axios'
+
 import {
   existsSync,
   readFileSync,
@@ -10,12 +11,13 @@ import {
   rm
 } from 'graceful-fs'
 
-import decompress from '@xhmikosr/decompress'
-import decompressTargz from '@xhmikosr/decompress-targz'
-import decompressTarxz from '@felipecrs/decompress-tarxz'
-
 import { exec, spawn } from 'child_process'
-import { downloadFile, execAsync, getWineFromProton } from '../utils'
+import {
+  downloadFile,
+  execAsync,
+  extractFiles,
+  getWineFromProton
+} from '../utils'
 import {
   execOptions,
   toolsPath,
@@ -65,25 +67,21 @@ export const DXVK = {
       {
         name: 'vkd3d',
         url: getVkd3dUrl(),
-        extractPlugin: decompressTarxz(),
         os: 'linux'
       },
       {
         name: 'dxvk',
         url: getDxvkUrl(),
-        extractPlugin: decompressTargz(),
         os: 'linux'
       },
       {
         name: 'dxvk-nvapi',
         url: 'https://api.github.com/repos/jp7677/dxvk-nvapi/releases/latest',
-        extractPlugin: decompressTargz(),
         os: 'linux'
       },
       {
         name: 'dxvk-macOS',
         url: 'https://api.github.com/repos/Gcenx/DXVK-macOS/releases/latest',
-        extractPlugin: decompressTargz(),
         os: 'darwin'
       }
     ]
@@ -144,8 +142,10 @@ export const DXVK = {
           logInfo(`downloaded ${tool.name}`, LogPrefix.DXVKInstaller)
           logInfo(`extracting ${tool.name}`, LogPrefix.DXVKInstaller)
           exec(echoCommand)
-          await decompress(latestVersion, destination, {
-            plugins: [tool.extractPlugin]
+          await extractFiles({
+            path: latestVersion,
+            destination,
+            strip: 0
           })
             .then(() => {
               logInfo(`${tool.name} updated!`, LogPrefix.DXVKInstaller)
