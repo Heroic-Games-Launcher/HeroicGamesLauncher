@@ -4,7 +4,7 @@ import { unzipFile } from '../../utilities'
 jest.mock('backend/logger/logger')
 jest.mock('backend/logger/logfile')
 jest.mock('@xhmikosr/decompress', () => {
-  return jest.fn().mockImplementation(() => Promise.resolve())
+  return jest.fn().mockImplementation(async () => Promise.resolve())
 })
 
 jest.mock('@xhmikosr/decompress-targz', () => {
