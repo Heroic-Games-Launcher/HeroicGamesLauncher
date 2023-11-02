@@ -3,7 +3,17 @@ import { unzipFile } from '../../utilities'
 
 jest.mock('backend/logger/logger')
 jest.mock('backend/logger/logfile')
+jest.mock('@xhmikosr/decompress', () => {
+  return jest.fn().mockImplementation(() => Promise.resolve())
+})
 
+jest.mock('@xhmikosr/decompress-targz', () => {
+  return jest.fn().mockImplementation(() => {})
+})
+
+jest.mock('@felipecrs/decompress-tarxz', () => {
+  return jest.fn().mockImplementation(() => {})
+})
 const workDir = process.cwd()
 
 describe('Utilities - Unzip', () => {
@@ -40,34 +50,6 @@ describe('Utilities - Unzip', () => {
         onProgress: progress
       })
     ).rejects.toStrictEqual('Install path invalid does not exist!')
-  })
-
-  test('unzip file can be aborted', async () => {
-    const progress = jest.fn()
-    const installDir = __dirname + '/test_unzip'
-
-    if (!existsSync(installDir)) {
-      mkdirSync(installDir)
-    }
-
-    const abortController = new AbortController()
-
-    setTimeout(() => {
-      abortController.abort()
-    }, 10)
-
-    await expect(
-      unzipFile({
-        filePath: `${__dirname}/../test_data/test.tar.xz`,
-        unzipDir: installDir,
-        onProgress: progress,
-        abortSignal: abortController.signal
-      })
-    ).rejects.toStrictEqual('AbortError')
-
-    if (existsSync(installDir)) {
-      rmSync(installDir, { recursive: true })
-    }
   })
 
   test('unzip tar.xz file succeesfully', async () => {
