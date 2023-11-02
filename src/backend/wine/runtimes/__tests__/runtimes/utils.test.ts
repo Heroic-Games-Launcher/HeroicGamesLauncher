@@ -6,6 +6,9 @@ import { getAssetDataFromDownload, downloadFile } from '../../util'
 import { test_data } from './test_data/github-api-heroic-test-data.json'
 import { describeSkipOnWindows } from 'backend/__tests__/skip'
 
+jest.mock('backend/logger/logger')
+jest.mock('backend/logger/logfile')
+
 const testUrl =
   'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/v2.3.9/Heroic-2.3.9.AppImage'
 const testTarFilePath = join(__dirname, 'test_data/TestArchive.tar.xz')
