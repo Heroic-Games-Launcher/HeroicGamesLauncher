@@ -182,6 +182,7 @@
         "info": {
             "broser": "BrowserURL",
             "exe": "Select Executable",
+            "fullscreen": "Launch Fullscreen (F11 to exit",
             "image": "App Image",
             "title": "Game/App Title",
             "useragent": "Custom User Agent"
