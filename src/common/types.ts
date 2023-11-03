@@ -135,6 +135,7 @@ export interface GameInfo {
   //used for store release versions. if remote !== local, then update
   version?: string
   dlcList?: GameMetadataInner[]
+  customUserAgent?: string
 }
 
 export interface GameSettings {

@@ -52,6 +52,7 @@ export default function SideloadDialog({
   )
   const [selectedExe, setSelectedExe] = useState('')
   const [gameUrl, setGameUrl] = useState('')
+  const [customUserAgent, setCustomUserAgent] = useState('')
   const [imageUrl, setImageUrl] = useState('')
   const [searching, setSearching] = useState(false)
   const [app_name, setApp_name] = useState(appName ?? '')
@@ -81,7 +82,8 @@ export default function SideloadDialog({
           art_square,
           install: { executable, platform },
           title,
-          browserUrl
+          browserUrl,
+          customUserAgent
         } = info
 
         if (executable && platform) {
@@ -90,6 +92,10 @@ export default function SideloadDialog({
 
         if (browserUrl) {
           setGameUrl(browserUrl)
+        }
+
+        if (customUserAgent) {
+          setCustomUserAgent(customUserAgent)
         }
 
         setTitle(title)
@@ -159,7 +165,8 @@ export default function SideloadDialog({
       is_installed: true,
       art_square: imageUrl ? imageUrl : fallbackImage,
       canRunOffline: true,
-      browserUrl: gameUrl
+      browserUrl: gameUrl,
+      customUserAgent
     })
     const gameSettings = await getGameSettings(app_name, 'sideload')
     if (!gameSettings) {
@@ -322,16 +329,28 @@ export default function SideloadDialog({
               />
             )}
             {!showSideloadExe && (
-              <TextInputField
-                label={t('sideload.info.broser', 'BrowserURL')}
-                placeholder={t(
-                  'sideload.placeholder.url',
-                  'Paste the Game URL here'
-                )}
-                onChange={(e) => handleGameUrl(e.target.value)}
-                htmlId="sideload-game-url"
-                value={gameUrl}
-              />
+              <>
+                <TextInputField
+                  label={t('sideload.info.broser', 'BrowserURL')}
+                  placeholder={t(
+                    'sideload.placeholder.url',
+                    'Paste the Game URL here'
+                  )}
+                  onChange={(e) => handleGameUrl(e.target.value)}
+                  htmlId="sideload-game-url"
+                  value={gameUrl}
+                />
+                <TextInputField
+                  label={t('sideload.info.useragent', 'Custom User Agent')}
+                  placeholder={t(
+                    'sideload.placeholder.useragent',
+                    'Write a custom user agent here to be used on this browser app/game'
+                  )}
+                  onChange={(e) => setCustomUserAgent(e.target.value)}
+                  htmlId="sideload-user-agent"
+                  value={customUserAgent}
+                />
+              </>
             )}
           </div>
         </div>

@@ -36,10 +36,17 @@ export function logFileLocation(appName: string) {
   return join(gamesConfigPath, `${appName}-lastPlay.log`)
 }
 
-const openNewBrowserGameWindow = async (
-  browserUrl: string,
+type BrowserGameOptions = {
+  browserUrl: string
   abortId: string
-): Promise<boolean> => {
+  customUserAgent?: string
+}
+
+const openNewBrowserGameWindow = async ({
+  browserUrl,
+  abortId,
+  customUserAgent
+}: BrowserGameOptions): Promise<boolean> => {
   const hostname = new URL(browserUrl).hostname
 
   return new Promise((res) => {
@@ -60,9 +67,12 @@ const openNewBrowserGameWindow = async (
         { role: 'toggleDevTools' }
       ])
     )
+
+    const defaultUserAgent =
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36'
+    browserGame.webContents.userAgent = customUserAgent ?? defaultUserAgent
+
     browserGame.menuBarVisible = false
-    browserGame.webContents.userAgent =
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'
     browserGame.loadURL(browserUrl)
     browserGame.on('ready-to-show', () => browserGame.show())
 
@@ -113,7 +123,7 @@ export async function launchGame(
     install: { executable }
   } = gameInfo
 
-  const { browserUrl } = gameInfo
+  const { browserUrl, customUserAgent } = gameInfo
 
   const gameSettingsOverrides = await GameConfig.get(appName).getSettings()
   if (
@@ -124,7 +134,11 @@ export async function launchGame(
   }
 
   if (browserUrl) {
-    return openNewBrowserGameWindow(browserUrl, appName)
+    return openNewBrowserGameWindow({
+      browserUrl,
+      abortId: appName,
+      customUserAgent
+    })
   }
 
   const gameSettings = await getAppSettings(appName)
