@@ -366,7 +366,7 @@ export default function SideloadDialog({
                   handleChange={() => setLaunchFullScreen(!launchFullScreen)}
                   title={t(
                     'sideload.info.fullscreen',
-                    'Launch Fullscreen (F11 to exit'
+                    'Launch Fullscreen (F11 to exit)'
                   )}
                 />
               </>
