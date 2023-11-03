@@ -27,7 +27,7 @@ const createLogFile = (filePath: string) => {
     openSync(filePath, 'w')
   } catch (error) {
     logError([`Open ${filePath} failed with`, error], {
-      prefix: LogPrefix.Backend,
+      prefix: LogPrefix?.Backend,
       skipLogToFile: true
     })
   }

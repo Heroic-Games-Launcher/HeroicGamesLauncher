@@ -1,5 +1,6 @@
 import { ExecResult, GameSettings, Runner, WineCommandArgs } from 'common/types'
 import axios from 'axios'
+
 import {
   existsSync,
   readFileSync,
@@ -9,8 +10,14 @@ import {
   copyFile,
   rm
 } from 'graceful-fs'
+
 import { exec, spawn } from 'child_process'
-import { downloadFile, execAsync, getWineFromProton } from '../utils'
+import {
+  downloadFile,
+  execAsync,
+  extractFiles,
+  getWineFromProton
+} from '../utils'
 import {
   execOptions,
   toolsPath,
@@ -60,25 +67,21 @@ export const DXVK = {
       {
         name: 'vkd3d',
         url: getVkd3dUrl(),
-        extractCommand: 'tar -xf',
         os: 'linux'
       },
       {
         name: 'dxvk',
         url: getDxvkUrl(),
-        extractCommand: 'tar -xf',
         os: 'linux'
       },
       {
         name: 'dxvk-nvapi',
         url: 'https://api.github.com/repos/jp7677/dxvk-nvapi/releases/latest',
-        extractCommand: 'tar --one-top-level -xf',
         os: 'linux'
       },
       {
         name: 'dxvk-macOS',
         url: 'https://api.github.com/repos/Gcenx/DXVK-macOS/releases/latest',
-        extractCommand: 'tar -xf',
         os: 'darwin'
       }
     ]
@@ -120,9 +123,13 @@ export const DXVK = {
         })
       }
 
-      const extractCommand = `${tool.extractCommand} ${latestVersion} -C ${toolsPath}/${tool.name}`
       const echoCommand = `echo ${pkg} > '${toolsPath}/${tool.name}/latest_${tool.name}'`
       const cleanCommand = `rm ${toolsPath}/${tool.name}/${name}`
+      const destination = join(
+        toolsPath,
+        tool.name,
+        tool.name === 'dxvk-nvapi' ? pkg : ''
+      )
 
       logInfo([`Updating ${tool.name} to:`, pkg], LogPrefix.DXVKInstaller)
 
@@ -135,9 +142,12 @@ export const DXVK = {
           logInfo(`downloaded ${tool.name}`, LogPrefix.DXVKInstaller)
           logInfo(`extracting ${tool.name}`, LogPrefix.DXVKInstaller)
           exec(echoCommand)
-          await execAsync(extractCommand)
+          await extractFiles({
+            path: latestVersion,
+            destination,
+            strip: 0
+          })
             .then(() => {
-              exec(cleanCommand)
               logInfo(`${tool.name} updated!`, LogPrefix.DXVKInstaller)
             })
             .catch((error) => {
@@ -145,6 +155,9 @@ export const DXVK = {
                 [`Extraction of ${tool.name} failed with:`, error],
                 LogPrefix.DXVKInstaller
               )
+            })
+            .finally(() => {
+              exec(cleanCommand)
             })
         })
         .catch((error: string) => {
