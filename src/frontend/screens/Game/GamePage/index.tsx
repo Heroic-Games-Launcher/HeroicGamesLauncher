@@ -208,6 +208,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
           info &&
           (info.applegamingwiki || info.howlongtobeat || info.pcgamingwiki)
         ) {
+          console.log({
+            date: info.pcgamingwiki?.releaseDate,
+            genre: info.pcgamingwiki?.genres
+          })
           setWikiInfo(info)
         }
       })

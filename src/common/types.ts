@@ -610,6 +610,8 @@ export interface PCGamingWikiInfo {
   opencritic: GameScoreInfo
   igdb: GameScoreInfo
   direct3DVersions: string[]
+  genres: string[]
+  releaseDate: string[]
 }
 
 export interface AppleGamingWikiInfo {
