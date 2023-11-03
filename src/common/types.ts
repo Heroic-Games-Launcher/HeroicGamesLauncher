@@ -1,6 +1,6 @@
 import { GOGCloudSavesLocation, GogInstallPlatform } from './types/gog'
 import { LegendaryInstallPlatform, GameMetadataInner } from './types/legendary'
-import { IpcRendererEvent } from 'electron'
+import { IpcRendererEvent, TitleBarOverlay } from 'electron'
 import { ChildProcess } from 'child_process'
 import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
 import { NileInstallPlatform } from './types/nile'
@@ -72,6 +72,7 @@ export interface AppSettings extends GameSettings {
   enableUpdates: boolean
   exitToTray: boolean
   experimentalFeatures: ExperimentalFeatures
+  framelessWindow: boolean
   hideChangelogsOnStartup: boolean
   libraryTopSection: LibraryTopSectionOptions
   maxRecentGames: number
@@ -709,6 +710,9 @@ export type DownloadManagerState = 'idle' | 'running' | 'paused' | 'stopped'
 
 export interface WindowProps extends Electron.Rectangle {
   maximized: boolean
+  frame?: boolean
+  titleBarStyle?: 'default' | 'hidden' | 'hiddenInset'
+  titleBarOverlay?: TitleBarOverlay | boolean
 }
 
 interface GameScopeSettings {

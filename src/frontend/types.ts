@@ -26,6 +26,8 @@ export interface ContextType {
   error: boolean
   gameUpdates: string[]
   isRTL: boolean
+  isFullscreen: boolean
+  isFrameless: boolean
   language: string
   setLanguage: (newLanguage: string) => void
   libraryStatus: GameStatus[]
@@ -146,6 +148,7 @@ declare global {
       canvas_height: number
     ) => Promise<string>
     setTheme: (themeClass: string) => void
+    isSteamDeckGameMode: boolean
   }
 
   interface WindowEventMap {

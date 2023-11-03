@@ -563,6 +563,13 @@
         "experimental_features": {
             "enableNewDesign": "New design"
         },
+        "frameless-window": {
+            "confirmation": {
+                "message": "This feature is still experimental. Please report any issues you encounter with it on GitHub.",
+                "title": "Experimental feature ahead"
+            },
+            "description": "Use frameless window (requires restart)"
+        },
         "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
@@ -747,6 +754,12 @@
             "openInBrowser": "Open in browser",
             "reload": "Reload page"
         }
+    },
+    "window": {
+        "close": "Close",
+        "maximize": "Maximize window",
+        "minimize": "Minimize window",
+        "restore": "Restore window"
     },
     "wine": {
         "actions": "Action",

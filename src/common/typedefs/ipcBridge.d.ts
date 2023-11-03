@@ -1,6 +1,10 @@
 import { DownloadManagerState } from './../types'
 import { EventEmitter } from 'node:events'
-import { IpcMainEvent, OpenDialogOptions } from 'electron'
+import {
+  IpcMainEvent,
+  OpenDialogOptions,
+  TitleBarOverlayOptions
+} from 'electron'
 
 import {
   Runner,
@@ -101,6 +105,11 @@ interface SyncIPCFunctions {
   pauseCurrentDownload: () => void
   cancelDownload: (removeDownloaded: boolean) => void
   copySystemInfoToClipboard: () => void
+  minimizeWindow: () => void
+  maximizeWindow: () => void
+  unmaximizeWindow: () => void
+  closeWindow: () => void
+  setTitleBarOverlay: (options: TitleBarOverlayOptions) => void
   winetricksInstall: ({
     runner: Runner,
     appName: string,
@@ -134,6 +143,9 @@ interface AsyncIPCFunctions {
   getGogdlVersion: () => Promise<string>
   getNileVersion: () => Promise<string>
   isFullscreen: () => boolean
+  isFrameless: () => boolean
+  isMaximized: () => boolean
+  isMinimized: () => boolean
   isFlatpak: () => boolean
   getPlatform: () => NodeJS.Platform
   showUpdateSetting: () => boolean

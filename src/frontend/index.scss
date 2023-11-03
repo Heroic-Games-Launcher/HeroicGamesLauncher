@@ -32,6 +32,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   user-select: none;
+  /* Frameless window defaults */
+  --titlebar-color: var(--body-background);
+  --titlebar-symbol-color: var(--accent);
+  --overlay-controls-height: env(titlebar-area-height, 39px);
+  --overlay-controls-width: calc(
+    100vw - env(titlebar-area-width, calc(100vw - 120px))
+  );
   // these 2 !important fix a problem when displaying the
   // context menu in the library, material ui sets values
   // that create problems, don't change
