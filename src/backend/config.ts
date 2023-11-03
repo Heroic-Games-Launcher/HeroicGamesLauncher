@@ -323,7 +323,8 @@ class GlobalConfigV0 extends GlobalConfig {
       winePrefix: isWindows ? '' : defaultWinePrefix,
       wineVersion: defaultWine,
       enableEsync: true,
-      enableFsync: true
+      enableFsync: true,
+      framelessWindow: false
     } as AppSettings
   }
 
