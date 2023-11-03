@@ -91,7 +91,8 @@ import {
   wineprefixFAQ,
   customThemesWikiLink,
   createNecessaryFolders,
-  fixAsarPath
+  fixAsarPath,
+  isSnap
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
@@ -122,6 +123,7 @@ import { initTrayIcon } from './tray_icon/tray_icon'
 import {
   createMainWindow,
   getMainWindow,
+  isFrameless,
   sendFrontendMessage
 } from './main_window'
 
@@ -197,6 +199,14 @@ async function initializeWindow(): Promise<BrowserWindow> {
   mainWindow.setIcon(icon)
   app.commandLine.appendSwitch('enable-spatial-navigation')
 
+  mainWindow.on('maximize', () => sendFrontendMessage('maximized'))
+  mainWindow.on('unmaximize', () => sendFrontendMessage('unmaximized'))
+  mainWindow.on('enter-full-screen', () =>
+    sendFrontendMessage('fullscreen', true)
+  )
+  mainWindow.on('leave-full-screen', () =>
+    sendFrontendMessage('fullscreen', false)
+  )
   mainWindow.on('close', async (e) => {
     e.preventDefault()
 
@@ -447,6 +457,35 @@ ipcMain.once('frontendReady', () => {
   logInfo('Frontend Ready', LogPrefix.Backend)
   handleProtocol([openUrlArgument, ...process.argv])
 
+  if (isSnap) {
+    const snapWarning: Electron.MessageBoxOptions = {
+      title: i18next.t('box.warning.snap.title', 'Heroic is running as a Snap'),
+      message: i18next.t('box.warning.snap.message', {
+        defaultValue:
+          'Some features are not available in the Snap version of the app for now and we are trying to fix it.{{newLine}}Current limitations are: {{newLine}}Heroic will not be able to find Proton from Steam or Wine from Lutris.{{newLine}}{{newLine}}Gamescope, GameMode and MangoHud will also not work since Heroic cannot have access to them.{{newLine}}{{newLine}}To have access to this feature please install Heroic as a Flatpak, DEB or from the AppImage.',
+        newLine: '\n'
+      }),
+      checkboxLabel: i18next.t('box.warning.snap.checkbox', {
+        defaultValue: 'Do not show this message again'
+      }),
+      checkboxChecked: false
+    }
+
+    const showSnapWarning = configStore.get('showSnapWarning', true)
+
+    if (showSnapWarning) {
+      dialog
+        .showMessageBox({
+          ...snapWarning
+        })
+        .then((result) => {
+          if (result.checkboxChecked) {
+            configStore.set('showSnapWarning', false)
+          }
+        })
+    }
+  }
+
   // skip the download queue if we are running in CLI mode
   if (isCLINoGui) {
     return
@@ -548,6 +587,13 @@ ipcMain.handle('checkDiskSpace', async (event, folder) => {
   })
 })
 
+ipcMain.handle('isFrameless', () => isFrameless())
+ipcMain.handle('isMinimized', () => !!getMainWindow()?.isMinimized())
+ipcMain.handle('isMaximized', () => !!getMainWindow()?.isMaximized())
+ipcMain.on('minimizeWindow', () => getMainWindow()?.minimize())
+ipcMain.on('maximizeWindow', () => getMainWindow()?.maximize())
+ipcMain.on('unmaximizeWindow', () => getMainWindow()?.unmaximize())
+ipcMain.on('closeWindow', () => getMainWindow()?.close())
 ipcMain.on('quit', async () => handleExit())
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -1565,6 +1611,14 @@ ipcMain.handle('getThemeCSS', async (event, theme) => {
   }
 
   return readFileSync(cssPath, 'utf-8')
+})
+
+ipcMain.on('setTitleBarOverlay', (e, args) => {
+  const mainWindow = getMainWindow()
+  if (typeof mainWindow?.['setTitleBarOverlay'] === 'function') {
+    logDebug(`Setting titlebar overlay options ${JSON.stringify(args)}`)
+    mainWindow?.setTitleBarOverlay(args)
+  }
 })
 
 ipcMain.on('addNewApp', (e, args) => addNewApp(args))

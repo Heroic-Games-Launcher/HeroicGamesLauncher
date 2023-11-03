@@ -7,6 +7,8 @@ import { Done } from '@mui/icons-material'
 import { UpdateComponent } from 'frontend/components/UI'
 import SettingsContext from '../../SettingsContext'
 import './index.css'
+import ContextProvider from 'frontend/state/ContextProvider'
+import { GameInfo } from 'common/types'
 
 interface LogBoxProps {
   logFileContent: string
@@ -61,49 +63,53 @@ const LogBox: React.FC<LogBoxProps> = ({ logFileContent }) => {
 
 export default function LogSettings() {
   const { t } = useTranslation()
+  const { appName } = useContext(SettingsContext)
+
   const [logFileContent, setLogFileContent] = useState<string>('')
   const [logFileExist, setLogFileExist] = useState<boolean>(false)
-  const [defaultLast, setDefaultLast] = useState<boolean>(false)
+  const [showLogOf, setShowLogOf] = useState<string>(
+    appName === 'default' ? 'heroic' : appName
+  )
   const [refreshing, setRefreshing] = useState<boolean>(true)
   const [copiedLog, setCopiedLog] = useState<boolean>(false)
-  const { appName, isDefault } = useContext(SettingsContext)
+
+  const { epic, gog, amazon, sideloadedLibrary } = useContext(ContextProvider)
+  const [installedGames, setInstalledGames] = useState<GameInfo[]>([])
+
+  useEffect(() => {
+    let games: GameInfo[] = []
+    games = games.concat(epic.library.filter((game) => game.is_installed))
+    games = games.concat(gog.library.filter((game) => game.is_installed))
+    games = games.concat(amazon.library.filter((game) => game.is_installed))
+    games = games.concat(sideloadedLibrary.filter((game) => game.is_installed))
+    games = games.sort((game1, game2) => game1.title.localeCompare(game2.title))
+
+    setInstalledGames(games)
+  }, [epic.library, gog.library, amazon.library, sideloadedLibrary])
 
   const getLogContent = () => {
-    window.api
-      .getLogContent({
-        appName: isDefault ? '' : appName,
-        defaultLast
-      })
-      .then((content: string) => {
-        if (!content) {
-          setLogFileContent(t('setting.log.no-file', 'No log file found.'))
-          setLogFileExist(false)
-          return setRefreshing(false)
-        }
-        setLogFileContent(content)
-        setLogFileExist(true)
-        setRefreshing(false)
-      })
+    window.api.getLogContent(showLogOf).then((content: string) => {
+      if (!content) {
+        setLogFileContent(t('setting.log.no-file', 'No log file found.'))
+        setLogFileExist(false)
+        return setRefreshing(false)
+      }
+      setLogFileContent(content)
+      setLogFileExist(true)
+      setRefreshing(false)
+    })
   }
 
   useEffect(() => {
-    if (defaultLast || !isDefault) {
+    getLogContent()
+    const interval = setInterval(() => {
       getLogContent()
-      return
-    } else {
-      getLogContent()
-      const interval = setInterval(() => {
-        getLogContent()
-      }, 1000)
-      return () => clearInterval(interval)
-    }
-  }, [isDefault, defaultLast])
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [showLogOf])
 
   function showLogFileInFolder() {
-    window.api.showLogFileInFolder({
-      appName: isDefault ? '' : appName,
-      defaultLast
-    })
+    window.api.showLogFileInFolder(showLogOf)
   }
 
   return (
@@ -115,37 +121,58 @@ export default function LogSettings() {
           'Join our Discord and look for the "#-support" section. Read the pinned "Read Me First | Frequently Asked Questions" thread and follow the instructions to share these logs and any relevant information about your problem.'
         )}
       </p>
-      {isDefault && (
+      <div className="logs-wrapper">
         <span className="log-buttongroup">
-          <a
-            className={`log-buttons ${!defaultLast ? 'log-choosen' : ''}`}
-            onClick={() => {
-              setRefreshing(true)
-              setDefaultLast(false)
-            }}
-            title={t('setting.log.current-log')}
-          >
-            {t('setting.log.current-log', 'Current log')}
-          </a>
-          <a
-            className={`log-buttons ${defaultLast ? 'log-choosen' : ''}`}
-            onClick={() => {
-              setRefreshing(true)
-              setDefaultLast(true)
-            }}
-            title={t('setting.log.last-log')}
-          >
-            {t('setting.log.last-log', 'Last Log')}
-          </a>
+          {[
+            ['Heroic', 'heroic'],
+            ['Epic/Legendary', 'legendary'],
+            ['GOG', 'gogdl'],
+            ['Amazon/Nile', 'nile']
+          ].map((log) => {
+            const [label, value] = log
+            return (
+              <a
+                key={value}
+                className={`log-buttons ${
+                  showLogOf === value ? 'log-choosen' : ''
+                }`}
+                onClick={() => {
+                  setRefreshing(true)
+                  setShowLogOf(value)
+                }}
+                title={label}
+              >
+                {label}
+              </a>
+            )
+          })}
+          {installedGames.map((game) => {
+            return (
+              <a
+                key={game.app_name}
+                className={`log-buttons ${
+                  showLogOf === game.app_name ? 'log-choosen' : ''
+                }`}
+                onClick={() => {
+                  setRefreshing(true)
+                  setShowLogOf(game.app_name)
+                }}
+                title={game.title}
+              >
+                {game.title}
+              </a>
+            )
+          })}
         </span>
-      )}
-      {refreshing ? (
-        <span className="log-box">
-          <UpdateComponent inline />
-        </span>
-      ) : (
-        <LogBox logFileContent={logFileContent} />
-      )}
+
+        {refreshing ? (
+          <span className="setting log-box">
+            <UpdateComponent inline />
+          </span>
+        ) : (
+          <LogBox logFileContent={logFileContent} />
+        )}
+      </div>
       {logFileExist && (
         <span className="footerFlex">
           <a

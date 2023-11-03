@@ -1,6 +1,10 @@
 import { DownloadManagerState } from './../types'
 import { EventEmitter } from 'node:events'
-import { IpcMainEvent, OpenDialogOptions } from 'electron'
+import {
+  IpcMainEvent,
+  OpenDialogOptions,
+  TitleBarOverlayOptions
+} from 'electron'
 
 import {
   Runner,
@@ -87,10 +91,7 @@ interface SyncIPCFunctions {
   clipboardWriteText: (text: string) => void
   processShortcut: (combination: string) => void
   addNewApp: (args: SideloadGame) => void
-  showLogFileInFolder: (args: {
-    appName: string
-    defaultLast?: boolean
-  }) => void
+  showLogFileInFolder: (appNameOrRunner: string) => void
   addShortcut: (appName: string, runner: Runner, fromMenu: boolean) => void
   removeShortcut: (appName: string, runner: Runner) => void
   removeFromDMQueue: (appName: string) => void
@@ -104,6 +105,11 @@ interface SyncIPCFunctions {
   pauseCurrentDownload: () => void
   cancelDownload: (removeDownloaded: boolean) => void
   copySystemInfoToClipboard: () => void
+  minimizeWindow: () => void
+  maximizeWindow: () => void
+  unmaximizeWindow: () => void
+  closeWindow: () => void
+  setTitleBarOverlay: (options: TitleBarOverlayOptions) => void
   winetricksInstall: ({
     runner: Runner,
     appName: string,
@@ -137,6 +143,9 @@ interface AsyncIPCFunctions {
   getGogdlVersion: () => Promise<string>
   getNileVersion: () => Promise<string>
   isFullscreen: () => boolean
+  isFrameless: () => boolean
+  isMaximized: () => boolean
+  isMinimized: () => boolean
   isFlatpak: () => boolean
   getPlatform: () => NodeJS.Platform
   showUpdateSetting: () => boolean
@@ -213,7 +222,7 @@ interface AsyncIPCFunctions {
     runner: Runner
   }) => Promise<void>
   isNative: (args: { appName: string; runner: Runner }) => boolean
-  getLogContent: (args: { appName: string; defaultLast?: boolean }) => string
+  getLogContent: (appNameOrRunner: string) => string
   installWineVersion: (
     release: WineVersionInfo
   ) => Promise<'error' | 'abort' | 'success'>
@@ -277,6 +286,7 @@ interface AsyncIPCFunctions {
     appName: string
   ) => Promise<number | undefined>
   getAmazonLoginData: () => Promise<NileLoginData>
+  hasExecutable: (executable: string) => Promise<boolean>
 }
 
 // This is quite ugly & throws a lot of errors in a regular .ts file

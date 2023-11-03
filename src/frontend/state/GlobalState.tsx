@@ -80,6 +80,8 @@ interface StateProps {
   hiddenGames: HiddenGame[]
   favouriteGames: FavouriteGame[]
   theme: string
+  isFullscreen: boolean
+  isFrameless: boolean
   zoomPercent: number
   primaryFontFamily: string
   secondaryFontFamily: string
@@ -156,6 +158,8 @@ class GlobalState extends PureComponent<Props> {
     ),
     favouriteGames: configStore.get('games.favourites', []),
     theme: configStore.get('theme', ''),
+    isFullscreen: false,
+    isFrameless: false,
     zoomPercent: configStore.get('zoomPercent', 100),
     secondaryFontFamily:
       configStore.get_nodefault('contentFontFamily') ||
@@ -720,6 +724,16 @@ class GlobalState extends PureComponent<Props> {
       }
     })
 
+    this.setState({
+      isFullscreen: await window.api.isFullscreen(),
+      isFrameless: await window.api.isFrameless()
+    })
+    window.api.handleFullscreen(
+      (e: IpcRendererEvent, isFullscreen: boolean) => {
+        this.setState({ isFullscreen })
+      }
+    )
+
     const legendaryUser = configStore.has('userInfo')
     const gogUser = gogConfigStore.has('userData')
     const amazonUser = nileConfigStore.has('userData')
@@ -806,9 +820,14 @@ class GlobalState extends PureComponent<Props> {
       hiddenGames,
       settingsModalOpen,
       hideChangelogsOnStartup,
-      lastChangelogShown
+      lastChangelogShown,
+      libraryStatus
     } = this.state
     const isRTL = RTL_LANGUAGES.includes(language)
+
+    const installingEpicGame = libraryStatus.some(
+      (game) => game.status === 'installing' && game.runner === 'legendary'
+    )
 
     return (
       <ContextProvider.Provider
@@ -834,6 +853,7 @@ class GlobalState extends PureComponent<Props> {
             login: this.amazonLogin,
             logout: this.amazonLogout
           },
+          installingEpicGame,
           setLanguage: this.setLanguage,
           isRTL,
           refresh: this.refresh,

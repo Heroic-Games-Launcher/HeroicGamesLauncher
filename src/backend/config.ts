@@ -326,7 +326,8 @@ class GlobalConfigV0 extends GlobalConfig {
       enableEsync: true,
       enableFsync: isLinux,
       eacRuntime: isLinux,
-      battlEyeRuntime: isLinux
+      battlEyeRuntime: isLinux,
+      framelessWindow: false
     } as AppSettings
   }
 

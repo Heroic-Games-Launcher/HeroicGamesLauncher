@@ -10,12 +10,28 @@ import { nileUserData } from 'backend/constants'
 import { configStore } from './electronStores'
 import { clearCache } from 'backend/utils'
 
+function authLogSanitizer(line: string) {
+  try {
+    const output = JSON.parse(line)
+    output.url = '<redacted>'
+    output.code_verifier = '<redacted>'
+    output.serial = '<redacted>'
+    output.client_id = '<redacted>'
+    return JSON.stringify(output) + '\n'
+  } catch (error) {
+    return line
+  }
+}
+
 export class NileUser {
   static async getLoginData(): Promise<NileLoginData> {
     logDebug('Getting login data from Nile', LogPrefix.Nile)
     const { stdout } = await runRunnerCommand(
       ['auth', '--login', '--non-interactive'],
-      { abortId: 'nile-auth' }
+      {
+        abortId: 'nile-auth',
+        logSanitizer: authLogSanitizer
+      }
     )
     const output: NileLoginData = JSON.parse(stdout)
 

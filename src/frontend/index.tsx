@@ -24,7 +24,6 @@ const DEFAULT_THEME = 'midnightMirage'
 
 const Backend = new HttpApi(null, {
   addPath: 'build/locales/{{lng}}/{{ns}}',
-  allowMultiLoading: false,
   loadPath: 'locales/{{lng}}/{{ns}}.json'
 })
 
@@ -134,6 +133,20 @@ window.setTheme = async (themeClass: string) => {
   }
 
   document.body.className = themeClass
+
+  if (navigator['windowControlsOverlay']?.visible) {
+    const titlebarOverlay = Object.fromEntries(
+      ['height', 'color', 'symbol-color']
+        .map((item) => [
+          item === 'symbol-color' ? 'symbolColor' : item,
+          getComputedStyle(document.body)
+            .getPropertyValue(`--titlebar-${item}`)
+            .trim()
+        ])
+        .filter(([, val]) => !!val)
+    )
+    window.api.setTitleBarOverlay(titlebarOverlay)
+  }
 }
 
 const themeClass = configStore.get('theme', DEFAULT_THEME)

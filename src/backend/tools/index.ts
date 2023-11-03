@@ -1,5 +1,6 @@
 import { ExecResult, GameSettings, Runner, WineCommandArgs } from 'common/types'
 import axios from 'axios'
+
 import {
   existsSync,
   readFileSync,
@@ -9,8 +10,14 @@ import {
   copyFile,
   rm
 } from 'graceful-fs'
+
 import { exec, spawn } from 'child_process'
-import { execAsync, getWineFromProton } from '../utils'
+import {
+  downloadFile,
+  execAsync,
+  extractFiles,
+  getWineFromProton
+} from '../utils'
 import {
   execOptions,
   toolsPath,
@@ -38,6 +45,8 @@ import {
   get_vulkan_instance_version
 } from '../utils/graphics/vulkan'
 import { lt as semverLt } from 'semver'
+import { createAbortController } from '../utils/aborthandler/aborthandler'
+import { mkdir } from 'fs'
 import { gameManagerMap } from '../storeManagers'
 import { sendFrontendMessage } from '../main_window'
 
@@ -58,25 +67,21 @@ export const DXVK = {
       {
         name: 'vkd3d',
         url: getVkd3dUrl(),
-        extractCommand: 'tar -xf',
         os: 'linux'
       },
       {
         name: 'dxvk',
         url: getDxvkUrl(),
-        extractCommand: 'tar -xf',
         os: 'linux'
       },
       {
         name: 'dxvk-nvapi',
         url: 'https://api.github.com/repos/jp7677/dxvk-nvapi/releases/latest',
-        extractCommand: 'tar --one-top-level -xf',
         os: 'linux'
       },
       {
         name: 'dxvk-macOS',
         url: 'https://api.github.com/repos/Gcenx/DXVK-macOS/releases/latest',
-        extractCommand: 'tar -xf',
         os: 'darwin'
       }
     ]
@@ -107,32 +112,55 @@ export const DXVK = {
         return
       }
 
-      const downloadCommand = `curl -L ${downloadUrl} -o '${latestVersion}' --create-dirs`
-      const extractCommand = `${tool.extractCommand} '${latestVersion}' -C '${toolsPath}/${tool.name}'`
+      if (!existsSync(`${toolsPath}/${tool.name}`)) {
+        mkdir(`${toolsPath}/${tool.name}`, { recursive: true }, (err) => {
+          if (err) {
+            logError(
+              [`Error creating ${tool.name} folder`, err],
+              LogPrefix.DXVKInstaller
+            )
+          }
+        })
+      }
+
       const echoCommand = `echo ${pkg} > '${toolsPath}/${tool.name}/latest_${tool.name}'`
-      const cleanCommand = `rm '${latestVersion}'`
+      const cleanCommand = `rm ${toolsPath}/${tool.name}/${name}`
+      const destination = join(
+        toolsPath,
+        tool.name,
+        tool.name === 'dxvk-nvapi' ? pkg : ''
+      )
 
       logInfo([`Updating ${tool.name} to:`, pkg], LogPrefix.DXVKInstaller)
 
-      return execAsync(downloadCommand)
+      return downloadFile({
+        url: downloadUrl,
+        dest: latestVersion,
+        abortSignal: createAbortController(tool.name).signal
+      })
         .then(async () => {
           logInfo(`downloaded ${tool.name}`, LogPrefix.DXVKInstaller)
           logInfo(`extracting ${tool.name}`, LogPrefix.DXVKInstaller)
           exec(echoCommand)
-          await execAsync(extractCommand)
-            .then(() =>
+          await extractFiles({
+            path: latestVersion,
+            destination,
+            strip: 0
+          })
+            .then(() => {
               logInfo(`${tool.name} updated!`, LogPrefix.DXVKInstaller)
-            )
+            })
             .catch((error) => {
               logError(
                 [`Extraction of ${tool.name} failed with:`, error],
                 LogPrefix.DXVKInstaller
               )
             })
-
-          exec(cleanCommand)
+            .finally(() => {
+              exec(cleanCommand)
+            })
         })
-        .catch((error) => {
+        .catch((error: string) => {
           logWarning(
             [`Error when downloading ${tool.name}`, error],
             LogPrefix.DXVKInstaller

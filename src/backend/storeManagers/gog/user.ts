@@ -9,6 +9,19 @@ import { runRunnerCommand } from './library'
 import { gogdlAuthConfig } from 'backend/constants'
 import { clearCache } from 'backend/utils'
 
+function authLogSanitizer(line: string) {
+  try {
+    const output = JSON.parse(line)
+    output.access_token = '<redacted>'
+    output.session_id = '<redacted>'
+    output.refresh_token = '<redacted>'
+    output.user_id = '<redacted>'
+    return JSON.stringify(output) + '\n'
+  } catch (error) {
+    return line
+  }
+}
+
 export class GOGUser {
   static async login(
     code: string
@@ -21,7 +34,8 @@ export class GOGUser {
 
     // Gets token from GOG basaed on authorization code
     const { stdout } = await runRunnerCommand(['auth', '--code', code], {
-      abortId: 'gogdl-auth'
+      abortId: 'gogdl-auth',
+      logSanitizer: authLogSanitizer
     })
 
     try {
@@ -95,7 +109,8 @@ export class GOGUser {
       return
     }
     const { stdout } = await runRunnerCommand(['auth'], {
-      abortId: 'gogdl-get-credentials'
+      abortId: 'gogdl-get-credentials',
+      logSanitizer: authLogSanitizer
     })
     return JSON.parse(stdout)
   }

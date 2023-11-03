@@ -12,6 +12,12 @@
   color: var(--text-secondary);
 }
 
+.frameless:not(.fullscreen) .Header {
+  padding-right: calc(
+    var(--overlay-controls-width) - env(titlebar-area-x, 0px)
+  );
+}
+
 @media screen and (max-width: 1000px) {
   .Header {
     grid-template-columns: 1fr min-content;

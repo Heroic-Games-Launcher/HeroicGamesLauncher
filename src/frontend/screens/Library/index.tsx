@@ -381,11 +381,36 @@ export default React.memo(function Library(): JSX.Element {
 
   // we need this to do proper `position: sticky` of the Add Game area
   // the height of the Header can change at runtime with different font families
+  // and when resizing the window
   useEffect(() => {
-    const header = document.querySelector('.Header')
-    if (header) {
-      const headerHeight = header.getBoundingClientRect().height
-      document.body.style.setProperty('--header-height', `${headerHeight}px`)
+    let timer: NodeJS.Timeout | null = null
+
+    const setHeaderHightCSS = () => {
+      if (timer) clearTimeout(timer)
+
+      // adding a timeout so we don't run this for every resize event
+      timer = setTimeout(() => {
+        const header = document.querySelector('.Header')
+        if (header) {
+          const headerHeight = header.getBoundingClientRect().height
+          const libraryHeader = document.querySelector(
+            '.libraryHeader'
+          ) as HTMLDivElement
+          libraryHeader &&
+            libraryHeader.style.setProperty(
+              '--header-height',
+              `${headerHeight}px`
+            )
+        }
+      }, 50)
+    }
+    // set when mounted
+    setHeaderHightCSS()
+    // also listen the resize event
+    window.addEventListener('resize', setHeaderHightCSS)
+
+    return () => {
+      window.removeEventListener('resize', setHeaderHightCSS)
     }
   }, [])
 
