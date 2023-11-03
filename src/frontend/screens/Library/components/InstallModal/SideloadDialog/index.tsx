@@ -6,7 +6,8 @@ import { InstallPlatform, WineInstallation, GameInfo } from 'common/types'
 import {
   CachedImage,
   TextInputField,
-  PathSelectionBox
+  PathSelectionBox,
+  ToggleSwitch
 } from 'frontend/components/UI'
 import { DialogContent, DialogFooter } from 'frontend/components/UI/Dialog'
 import {
@@ -53,6 +54,7 @@ export default function SideloadDialog({
   const [selectedExe, setSelectedExe] = useState('')
   const [gameUrl, setGameUrl] = useState('')
   const [customUserAgent, setCustomUserAgent] = useState('')
+  const [launchFullScreen, setLaunchFullScreen] = useState(false)
   const [imageUrl, setImageUrl] = useState('')
   const [searching, setSearching] = useState(false)
   const [app_name, setApp_name] = useState(appName ?? '')
@@ -83,7 +85,8 @@ export default function SideloadDialog({
           install: { executable, platform },
           title,
           browserUrl,
-          customUserAgent
+          customUserAgent,
+          launchFullScreen
         } = info
 
         if (executable && platform) {
@@ -96,6 +99,11 @@ export default function SideloadDialog({
 
         if (customUserAgent) {
           setCustomUserAgent(customUserAgent)
+        }
+
+        console.log(launchFullScreen)
+        if (launchFullScreen !== undefined) {
+          setLaunchFullScreen(launchFullScreen)
         }
 
         setTitle(title)
@@ -166,7 +174,8 @@ export default function SideloadDialog({
       art_square: imageUrl ? imageUrl : fallbackImage,
       canRunOffline: true,
       browserUrl: gameUrl,
-      customUserAgent
+      customUserAgent,
+      launchFullScreen
     })
     const gameSettings = await getGameSettings(app_name, 'sideload')
     if (!gameSettings) {
@@ -183,6 +192,7 @@ export default function SideloadDialog({
     })
 
     await refreshLibrary({
+      library: 'sideload',
       runInBackground: true,
       checkForUpdates: true
     })
@@ -349,6 +359,15 @@ export default function SideloadDialog({
                   onChange={(e) => setCustomUserAgent(e.target.value)}
                   htmlId="sideload-user-agent"
                   value={customUserAgent}
+                />
+                <ToggleSwitch
+                  htmlId="launch-fullscreen"
+                  value={launchFullScreen}
+                  handleChange={() => setLaunchFullScreen(!launchFullScreen)}
+                  title={t(
+                    'sideload.info.fullscreen',
+                    'Launch Fullscreen (F11 to exit'
+                  )}
                 />
               </>
             )}

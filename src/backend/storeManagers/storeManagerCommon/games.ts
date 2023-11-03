@@ -40,19 +40,21 @@ type BrowserGameOptions = {
   browserUrl: string
   abortId: string
   customUserAgent?: string
+  launchFullScreen?: boolean
 }
 
 const openNewBrowserGameWindow = async ({
   browserUrl,
   abortId,
-  customUserAgent
+  customUserAgent,
+  launchFullScreen
 }: BrowserGameOptions): Promise<boolean> => {
   const hostname = new URL(browserUrl).hostname
 
   return new Promise((res) => {
     const browserGame = new BrowserWindow({
       icon: icon,
-      fullscreen: true,
+      fullscreen: launchFullScreen ?? false,
       autoHideMenuBar: true,
       webPreferences: {
         partition: `persist:${hostname}`
@@ -123,7 +125,7 @@ export async function launchGame(
     install: { executable }
   } = gameInfo
 
-  const { browserUrl, customUserAgent } = gameInfo
+  const { browserUrl, customUserAgent, launchFullScreen } = gameInfo
 
   const gameSettingsOverrides = await GameConfig.get(appName).getSettings()
   if (
@@ -137,7 +139,8 @@ export async function launchGame(
     return openNewBrowserGameWindow({
       browserUrl,
       abortId: appName,
-      customUserAgent
+      customUserAgent,
+      launchFullScreen
     })
   }
 

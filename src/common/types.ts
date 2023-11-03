@@ -136,6 +136,7 @@ export interface GameInfo {
   version?: string
   dlcList?: GameMetadataInner[]
   customUserAgent?: string
+  launchFullScreen?: boolean
 }
 
 export interface GameSettings {

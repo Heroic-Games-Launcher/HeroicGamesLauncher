@@ -20,7 +20,8 @@ export function addNewApp({
   browserUrl,
   is_installed = true,
   description,
-  customUserAgent
+  customUserAgent,
+  launchFullScreen
 }: GameInfo): void {
   const game: GameInfo = {
     runner: 'sideload',
@@ -38,7 +39,8 @@ export function addNewApp({
     canRunOffline: !browserUrl,
     browserUrl,
     description,
-    customUserAgent
+    customUserAgent,
+    launchFullScreen
   }
 
   if (isMac && executable?.endsWith('.app')) {
