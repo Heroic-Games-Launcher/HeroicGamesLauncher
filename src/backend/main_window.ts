@@ -49,17 +49,17 @@ export const createMainWindow = () => {
     // make sure initial screen size is not bigger than the available screen space
     const screenInfo = screen.getPrimaryDisplay()
 
-    if (screenInfo.workAreaSize.height < windowProps.height) {
+    if (screenInfo?.workAreaSize?.height < windowProps.height) {
       windowProps.height = screenInfo.workAreaSize.height * 0.8
     }
 
-    if (screenInfo.workAreaSize.width < windowProps.width) {
+    if (screenInfo?.workAreaSize?.width < windowProps.width) {
       windowProps.width = screenInfo.workAreaSize.width * 0.8
     }
   }
   // Set up frameless window if enabled in settings
   const settings = configStore.get('settings', <AppSettings>{})
-  if (settings.framelessWindow) {
+  if (settings?.framelessWindow) {
     // use native overlay controls where supported
     if (['darwin', 'win32'].includes(process.platform)) {
       windowProps.titleBarStyle = 'hidden'
