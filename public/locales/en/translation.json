@@ -433,6 +433,10 @@
             "info": "Set environment variables to append to the command."
         },
         "gameargs": {
+            "error": {
+                "command": "The %command% syntax from Steam is not valid as game arguments.",
+                "env": "Environment variables must be configured in the table below."
+            },
             "placeholder": "Put here the Launcher Arguments",
             "title": "Game Arguments (To run after the command):"
         },
