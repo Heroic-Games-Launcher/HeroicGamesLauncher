@@ -450,7 +450,12 @@
             "upscaleWidth": "Šířka upscalingu",
             "gameWidth": "Šířka hry",
             "upscaleHeight": "Výška upscalingu",
-            "fpsLimiterNoFocus": "Omezení FPS (v pozadí)"
+            "fpsLimiterNoFocus": "Omezení FPS (v pozadí)",
+            "nis": "Škálování obrazu NVIDIA (NIS)",
+            "borderless": "Bez okrajů",
+            "fullscreen": "Celá obrazovka",
+            "interger": "Celočíselný upscaling",
+            "stretch": "Roztáhnout obraz"
         }
     },
     "other": {
@@ -778,5 +783,8 @@
         "search": "Hledat písma nebo komponenty",
         "nothingYet": "Pomocí Winetricks zatím nebylo nic nainstalováno",
         "installed": "Nainstalované komponenty:"
+    },
+    "window": {
+        "close": "Zavřít"
     }
 }
