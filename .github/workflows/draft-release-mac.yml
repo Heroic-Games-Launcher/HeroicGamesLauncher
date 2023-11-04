@@ -31,5 +31,5 @@ jobs:
         with:
           python-version: '3.10'
       - run: python3 -m pip install castlabs-evs
-      - run: yarn install --frozen-lockfile
+      - run: yarn install --force
       - run: yarn release:mac
