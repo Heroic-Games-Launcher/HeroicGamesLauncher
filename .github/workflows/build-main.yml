@@ -1,0 +1,17 @@
+name: Build on main/stable push
+
+on:
+  push:
+    branches: [main, stable]
+    tags:
+      - '!v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: ./.github/workflows/build-base.yml
+    with:
+      publish-snap: true
+    secrets:
+      snapcraftIdEdge: ${{ secrets.SNAPCRAFT_ID_EDGE }}
+      workflowToken: ${{ secrets.WORKFLOW_TOKEN }}

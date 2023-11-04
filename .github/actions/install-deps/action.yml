@@ -1,0 +1,17 @@
+name: 'Prerequisite setup'
+description: 'Installs dependencies (Node itself, node_modules, node-gyp)'
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+        cache: 'yarn'
+    - name: Install node-gyp
+      run: yarn global add node-gyp
+      shell: bash
+    - name: Install modules
+      run: yarn install --frozen-lockfile
+      shell: bash
+      env:
+        PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
