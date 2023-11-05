@@ -790,8 +790,12 @@ class GlobalState extends PureComponent<Props> {
       libraryStatus,
       sidebarCollapsed,
       hideChangelogsOnStartup,
-      lastChangelogShown
+      lastChangelogShown,
+      language
     } = this.state
+
+    const isRTL = RTL_LANGUAGES.includes(language)
+    document.body.classList.toggle('isRTL', isRTL)
 
     storage.setItem('updates', JSON.stringify(gameUpdates))
     storage.setItem('sidebar_collapsed', JSON.stringify(sidebarCollapsed))

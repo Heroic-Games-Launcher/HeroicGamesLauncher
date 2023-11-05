@@ -143,7 +143,7 @@
     }
   }
 
-  .isRTL {
+  &.isRTL {
     .gameTools {
       right: auto !important;
       left: 0px;
@@ -155,6 +155,10 @@
     .store-icon {
       left: auto !important;
       right: 1rem;
+    }
+    .backButton {
+      left: auto !important;
+      right: 12px;
     }
   }
 
