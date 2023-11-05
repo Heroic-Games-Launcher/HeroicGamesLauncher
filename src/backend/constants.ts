@@ -11,6 +11,7 @@ import { app } from 'electron'
 import { existsSync, mkdirSync, readFileSync } from 'graceful-fs'
 import { GlobalConfig } from './config'
 import { TypeCheckedStoreBackend } from './electron_store'
+import { dirSync } from 'tmp'
 
 const configStore = new TypeCheckedStoreBackend('configStore', {
   cwd: 'store'
@@ -39,7 +40,18 @@ const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
 
 const flatPakHome = env.XDG_DATA_HOME?.replace('/data', '') || homedir()
 const userHome = isSnap ? env.SNAP_REAL_HOME! : homedir()
-const configFolder = app.getPath('appData')
+let configFolder = app.getPath('appData')
+// If we're running tests, we want a config folder independent of the normal
+// user configuration
+if (process.env.CI === 'e2e') {
+  const temp_dir = dirSync({ unsafeCleanup: true })
+  logDebug(
+    `CI is set to "e2e", storing Heroic config files in ${temp_dir.name}`
+  )
+  configFolder = temp_dir.name
+  mkdirSync(join(configFolder, 'heroic'))
+}
+
 const appFolder = join(configFolder, 'heroic')
 const legendaryConfigPath = isSnap
   ? join(env.XDG_CONFIG_HOME!, 'legendary')
