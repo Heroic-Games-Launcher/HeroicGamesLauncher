@@ -59,13 +59,11 @@ function getDMElement(gameInfo: GameInfo, appName: string) {
 export function autoUpdate(runner: Runner, gamesToUpdate: string[]) {
   const logPrefix = RunnerToLogPrefixMap[runner]
   gamesToUpdate.forEach(async (appName) => {
-    const { ignoreGameUpdates } = await gameManagerMap[runner].getSettings(
-      appName
-    )
+    const { ignoreGameUpdates } =
+      await gameManagerMap[runner].getSettings(appName)
     const gameInfo = gameManagerMap[runner].getGameInfo(appName)
-    const gameIsAvailable = await gameManagerMap[runner].isGameAvailable(
-      appName
-    )
+    const gameIsAvailable =
+      await gameManagerMap[runner].isGameAvailable(appName)
     if (!ignoreGameUpdates && gameIsAvailable) {
       logInfo(`Auto-Updating ${gameInfo.title}`, logPrefix)
       const dmQueueElement: DMQueueElement = getDMElement(gameInfo, appName)
