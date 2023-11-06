@@ -37,14 +37,16 @@
             "settingcheckbox": "Wyczyść ustawienia i usuń dziennik zdarzeń{{newLine}}Uwaga: Ta operacja nie może zostać cofnięta. Wszystkie zmodyfikowane ustawienia zostaną zapomniane, a dziennik zdarzeń zostanie usunięty.",
             "title": "Odinstaluj",
             "prefix_warning": "Prefiks Wine dla tej gry jest prefiksem domyślnym. Jeśli na pewno chcesz go usunąć, musisz to zrobić ręcznie.",
-            "dlc": "Czy chcesz odinstalować to DLC?"
+            "dlc": "Czy chcesz odinstalować to DLC?",
+            "cannotUninstallEpic": "Gry pochodzące z Epic nie mogą być odinstalowane, podczas gdy inna gra ze sklepu Epic jest instalowana."
         },
         "update": {
             "message": "Ta gra ma dostępną aktualizację, czy chcesz ją teraz zainstalować?",
             "title": "Gra wymaga aktualizacji"
         },
         "wineprefix": "Wybierz folder z prefiksem Wine",
-        "yes": "TAK"
+        "yes": "TAK",
+        "close": "Zamknij"
     },
     "button": {
         "add_to_favourites": "Dodaj do ulubionych",
