@@ -180,12 +180,15 @@
             "exe": "选择可执行文件",
             "image": "App 映像",
             "title": "游戏/应用标题",
-            "broser": "浏览器网址"
+            "broser": "浏览器网址",
+            "useragent": "自定义 User Agent",
+            "fullscreen": "启动全屏（按 F11 退出）"
         },
         "placeholder": {
             "image": "在此粘贴映像 URL",
             "title": "添加标题到你的“游戏/应用”",
-            "url": "在此处粘贴游戏网址"
+            "url": "在此处粘贴游戏网址",
+            "useragent": "在这里写一个定制的 user agent，该 UA 将用于此浏览器应用/游戏"
         }
     },
     "specs": {
