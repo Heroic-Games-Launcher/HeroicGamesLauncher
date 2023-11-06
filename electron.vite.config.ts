@@ -9,10 +9,6 @@ const srcAliases = ['backend', 'frontend', 'common'].map((aliasName) => ({
   find: aliasName,
   replacement: join(__dirname, 'src', aliasName)
 }))
-srcAliases.push({
-  find: '~@fontsource',
-  replacement: join(__dirname, 'node_modules/@fontsource')
-})
 
 const dependenciesToNotExternalize = [
   '@xhmikosr/decompress',
