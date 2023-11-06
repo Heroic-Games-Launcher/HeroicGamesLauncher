@@ -6,12 +6,11 @@ runs:
     - uses: actions/setup-node@v3
       with:
         node-version: '20'
-        cache: 'yarn'
     - name: Install node-gyp
-      run: yarn global add node-gyp
+      run: npm install --global node-gyp
       shell: bash
     - name: Install modules
-      run: yarn install --frozen-lockfile
+      run: npm install --legacy-peer-deps
       shell: bash
       env:
         PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
