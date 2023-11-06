@@ -158,6 +158,9 @@
                     "message": "Todo progreso no guardado podría perderse",
                     "title": "¿Seguro que quieres salir del programa?"
                 }
+            },
+            "snap": {
+                "checkbox": "No mostrar este mensaje de nuevo"
             }
         },
         "wineprefix": "Selecciona la carpeta de prefijos de Wine",
@@ -288,7 +291,11 @@
         },
         "disable_logs": "Active esta casilla de verificación para desactivar la mayoría de las escrituras en los archivos de registro (la información crítica siempre se registra). Asegúrese de DESACTIVAR esta configuración antes de informar cualquier problema.",
         "dxvknvapi": "DXVK-NVAPI es una implementación de NVAPI construida sobre DXVK y la NVAPI nativa de Linux, que permite el uso de DLSS en GPUs Nvidia.",
-        "disablePlaytimeSync": "Desactiva la sincronización del tiempo de juego con los servidores de una tienda determinada (actualmente sólo es compatible con GOG)"
+        "disablePlaytimeSync": "Desactiva la sincronización del tiempo de juego con los servidores de una tienda determinada (actualmente sólo es compatible con GOG)",
+        "gamescope": {
+            "fpsLimiterNoFocus": "El límite de velocidad de fotogramas (fps) que debe aplicar gamescope si el juego no está en primer plano.",
+            "fpsLimiter": "El número máximo de fotogramas (fps) de gamescope, por ejemplo, es 60"
+        }
     },
     "info": {
         "heroic": {
@@ -434,6 +441,9 @@
             "placeHolderKey": "Nuevo Wrapper",
             "placeHolderValue": "Argumentos del Wrapper",
             "title": "Comando Wrapper:"
+        },
+        "gamescope": {
+            "upscaleHeight": "Altura mejorada"
         }
     },
     "other": {
@@ -628,7 +638,8 @@
             "other": "Otro",
             "sync": "Guardar-Sincronización",
             "wineExt": "Extensiones de Wine",
-            "systemInformation": "Información del sistema"
+            "systemInformation": "Información del sistema",
+            "gamescope": "Gamescope"
         },
         "open-config-file": "Abrir archivo de configuración",
         "reset-heroic": "Restablecer Heroic",
