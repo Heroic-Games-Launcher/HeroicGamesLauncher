@@ -79,7 +79,6 @@ export interface AppSettings extends GameSettings {
   maxWorkers: number
   minimizeOnLaunch: boolean
   startInTray: boolean
-  userInfo: UserInfo
 }
 
 export type LibraryTopSectionOptions =
