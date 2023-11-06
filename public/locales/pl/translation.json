@@ -158,6 +158,11 @@
                     "title": "Czy na pewno chcesz zakończyć?",
                     "message": "Niezapisane postępy mogą zostać utracone"
                 }
+            },
+            "snap": {
+                "checkbox": "Nie pokazuj tego więcej",
+                "title": "Heroic jest uruchomiony jako Snap",
+                "message": "Niektóre funkcjonalności nie są dostępne w dystrybucji Snap, pracujemy nad nimi.{{newLine}}Obecne ograniczenia to: {{newLine}}Heroic nie będzie w stanie znaleźć Proton-a należącego do Steam lub Wine należącego do Lutris.{{newLine}}{{newLine}}Gamescope, GameMode oraz MagnoHud również nie będą działać, ponieważ Heroic nie ma do nich dotępu.{{newLine}}{{newLine}}Aby uzyskać dostęp do powyższych funkcji zainstaluj Heroic za pomocą Flatpak, paczki DEB lub AppImage."
             }
         },
         "wineprefix": "Wybierz folder z prefiksem Wine",
@@ -288,7 +293,16 @@
         },
         "disable_logs": "Włącz to pole wyboru, aby wyłączyć większość zapisów w plikach dziennika (krytyczne informacje są zawsze rejestrowane). Pamiętaj, aby wyłączyć to ustawienie przed zgłoszeniem jakiegokolwiek problemu.",
         "dxvknvapi": "DXVK-NVAPI jest implementacją NVAPI zbudowaną na postawie DXVK i natywnego NVAPI Linuksa, pozwala na używanie DLSS na GPU Nvidii.",
-        "disablePlaytimeSync": "Wyłącza synchronizację czasu gry z serwerem danego sklepu (obecnie jedynie GOG jest wspierany)"
+        "disablePlaytimeSync": "Wyłącza synchronizację czasu gry z serwerem danego sklepu (obecnie jedynie GOG jest wspierany)",
+        "gamescope": {
+            "fpsLimiterNoFocus": "Limit klatek na sekundę, który gamescope powinien zastosować, jeżeli gra nie znajduje się na pierwszym planie.",
+            "upscaleMethod": "Metoda skalowania, która powinna być zastosowana przez gamescope.",
+            "gameWidth": "Szerokość w pikselach (od rozdzielczości) stosowana przez grę. Gamescope zakłada proporcje ekranu w postaci 16:9.",
+            "upscaleWidth": "Szerokość (od rozdzielczości) używana przez gamescope. Przyjmuje się proporcje 16:9.",
+            "gameHeight": "Wysokość w pikselach (od rozdzielczości) stosowana przez grę. Gamescope zakłada, proporcje ekranu w postaci 16:9.",
+            "upscaleHeight": "Wysokość (od rozdzielczości) używana przez gamescope. Przyjmuje się proporcje 16:9.",
+            "fpsLimiter": "Limit klatek na sekundę, który powinien zastosować gamescope. np. 60"
+        }
     },
     "info": {
         "heroic": {
@@ -424,7 +438,11 @@
         },
         "gameargs": {
             "placeholder": "Wstaw tutaj argumenty uruchamiania",
-            "title": "Argumenty gry (uruchamiane po komendzie):"
+            "title": "Argumenty gry (uruchamiane po komendzie):",
+            "error": {
+                "command": "Składnia %command% znana ze Steam jest niedozwolona jako argument gry.",
+                "env": "Zmienne środowiskowe muszą zostać skonfigurowane w tabelce poniżej."
+            }
         },
         "quote-args-with-spaces": "Ostrzeżenie: Upewnij się, że argumenty są od cytowane wraz ze spacją! Np. : \"ścieżka/ze spacjami/\"",
         "wrapper": {
@@ -434,6 +452,19 @@
             "placeHolderKey": "Nowy Wrapper",
             "placeHolderValue": "Argumenty Wrapper'a",
             "title": "Polecenie Wrapper'a:"
+        },
+        "gamescope": {
+            "nis": "Skalowanie NVIDIA NIS",
+            "borderless": "Bez ramki",
+            "fpsLimiter": "Ograniczenie FPS",
+            "gameHeight": "Wysokość gry",
+            "upscaleWidth": "Szerokość po przeskalowaniu",
+            "fullscreen": "Pełen ekran",
+            "gameWidth": "Szerokość gry",
+            "interger": "Skalowanie całkowitoliczbowe",
+            "upscaleHeight": "Wysokość po przeskalowaniu",
+            "fpsLimiterNoFocus": "Ograniczenie FPS (w tle)",
+            "stretch": "Rozciągnij obraz"
         }
     },
     "other": {
@@ -591,6 +622,18 @@
         "disablePlaytimeSync": "Wyłącz synchronizację czasu gry",
         "experimental_features": {
             "enableNewDesign": "Nowy design"
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "Ta funkcja jest wciąż eksperymentalna. Prosimy o zgłaszanie napotkanych problemów poprzez GitHub.",
+                "title": "Eksperymentalna funkcja"
+            },
+            "description": "Użyj okna bez ramki (wymaga restartu)"
+        },
+        "gamescope": {
+            "enableLimiter": "Włącz ograniczenie klatek na sekundę",
+            "enableUpscaling": "Włącz skalowanie",
+            "missingMsg": "Nie udało się nam znaleźć gamescope na PATH. Zainstaluj je lub/i dodaj do PATH."
         }
     },
     "settings": {
@@ -627,7 +670,8 @@
             "other": "Inne",
             "sync": "Synchronizuj zapisy w chmurze",
             "wineExt": "Rozszerzenia Wine",
-            "systemInformation": "Informacje o systemie"
+            "systemInformation": "Informacje o systemie",
+            "gamescope": "Gamescope"
         },
         "open-config-file": "Otwórz plik konfiguracyjny",
         "reset-heroic": "Zresetuj Heroic",
@@ -659,6 +703,9 @@
         },
         "experimental_features": {
             "title": "Funkcje eksperymentalne"
+        },
+        "gamescope": {
+            "searchMsg": "Wyszukiwanie pliku wykonywalnego gamescope."
         }
     },
     "Settings": "Ustawienia",
@@ -751,5 +798,11 @@
         "search": "Szukaj czcionek lub bibliotek",
         "nothingYet": "Jeszcze nic nie zostało zainstalowane za pomocą Winetricks",
         "installed": "Zainstalowane komponenty:"
+    },
+    "window": {
+        "minimize": "Minimalizuj okno",
+        "maximize": "Maksymalizuj okno",
+        "close": "Zamknij",
+        "restore": "Przywróć okno"
     }
 }

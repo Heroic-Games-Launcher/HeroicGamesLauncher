@@ -158,6 +158,11 @@
                     "title": "Opravdu chcete odejít?",
                     "message": "Neuložený postup může být ztracen"
                 }
+            },
+            "snap": {
+                "checkbox": "Tuto zprávu již nezobrazovat",
+                "title": "Heroic spuštěn jako Snap",
+                "message": "Některé funkce nejsou ve verzi aplikace Snap prozatím dostupné a snažíme se je opravit.{{newLine}}Aktuální omezení jsou: {{newLine}}Heroic nebude schopen najít Proton ze služby Steam nebo Wine z Lutrisu.{{newLine}}{{newLine}}Gamescope, GameMode a MangoHud také nebudou fungovat, protože k nim Heroic nemá přístup.{{newLine}}{{newLine}}Chcete-li mít přístup k těmto funkcím, nainstalujte si Heroic jako Flatpak, DEB nebo z AppImage."
             }
         },
         "wineprefix": "Vyberte složku WinePrefix",
@@ -433,7 +438,11 @@
         },
         "gameargs": {
             "placeholder": "Sem vložte argumenty spouštěče",
-            "title": "Herní argumenty (ke spuštění po příkazu):"
+            "title": "Herní argumenty (ke spuštění po příkazu):",
+            "error": {
+                "command": "Syntaxe příkazu %command% ze Steamu není platná jako herní argument.",
+                "env": "Proměnné prostředí musí být nastaveny v tabulce níže."
+            }
         },
         "quote-args-with-spaces": "Upozornění: Nezapomeňte uvozovat argumenty s mezerami! Např.: \"cesta/s mezerami/\"",
         "wrapper": {
@@ -619,6 +628,13 @@
             "enableLimiter": "Zapnout omezení FPS",
             "enableUpscaling": "Povolí upscaling",
             "missingMsg": "V PATH jsme nenašli gamescope. Nainstalujte jej nebo jej přidejte do PATH."
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "Tato funkce je stále experimentální. Nahlaste prosím všechny objevené problémy na GitHub.",
+                "title": "Pozor, experimentální funkce"
+            },
+            "description": "Použít okno bez okrajů (vyžaduje restart)"
         }
     },
     "settings": {
@@ -785,6 +801,9 @@
         "installed": "Nainstalované komponenty:"
     },
     "window": {
-        "close": "Zavřít"
+        "close": "Zavřít",
+        "minimize": "Minimalizovat okno",
+        "maximize": "Maximalizovat okno",
+        "restore": "Obnovit okno"
     }
 }

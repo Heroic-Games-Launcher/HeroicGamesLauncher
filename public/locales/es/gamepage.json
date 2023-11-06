@@ -180,7 +180,8 @@
             "exe": "Seleccionar ejecutable",
             "image": "Imagen de la aplicación/juego",
             "title": "Título de la aplicación/juego",
-            "broser": "Enlace web del navegador"
+            "broser": "Enlace web del navegador",
+            "fullscreen": "Iniciar a pantalla completa (F11 para salir)"
         },
         "placeholder": {
             "image": "Inserta el enlace web de una imagen aquí",
