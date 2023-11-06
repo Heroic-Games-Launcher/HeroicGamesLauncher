@@ -50,7 +50,7 @@ export async function getInfoFromPCGamingWiki(
       opencritic,
       igdb,
       direct3DVersions: direct3DVersions.replaceAll(' ', '').split(','),
-      genres: genres.split(','),
+      genres: genres.replaceAll(' ', '').split(','),
       releaseDate: releaseDates
     }
   } catch (error) {
