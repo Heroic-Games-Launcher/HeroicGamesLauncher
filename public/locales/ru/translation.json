@@ -746,6 +746,11 @@
     "prime-gaming": "Прайм Гейминг",
     "winetricks": {
         "install": "Установка",
-        "loading": "Loading"
+        "loading": "Loading",
+        "installing": "Установка в процессе: {{component}}",
+        "openGUI": "Открыть интерфейс Winetricks",
+        "search": "Поиск шрифтов или компонентов",
+        "nothingYet": "Ничего не было установлено с помощью Winetricks",
+        "installed": "Установленные компоненты:"
     }
 }

@@ -1,6 +1,6 @@
 import { GOGCloudSavesLocation, GogInstallPlatform } from './types/gog'
 import { LegendaryInstallPlatform, GameMetadataInner } from './types/legendary'
-import { IpcRendererEvent } from 'electron'
+import { IpcRendererEvent, TitleBarOverlay } from 'electron'
 import { ChildProcess } from 'child_process'
 import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
 import { NileInstallPlatform } from './types/nile'
@@ -72,13 +72,13 @@ export interface AppSettings extends GameSettings {
   enableUpdates: boolean
   exitToTray: boolean
   experimentalFeatures: ExperimentalFeatures
+  framelessWindow: boolean
   hideChangelogsOnStartup: boolean
   libraryTopSection: LibraryTopSectionOptions
   maxRecentGames: number
   maxWorkers: number
   minimizeOnLaunch: boolean
   startInTray: boolean
-  userInfo: UserInfo
 }
 
 export type LibraryTopSectionOptions =
@@ -135,6 +135,8 @@ export interface GameInfo {
   //used for store release versions. if remote !== local, then update
   version?: string
   dlcList?: GameMetadataInner[]
+  customUserAgent?: string
+  launchFullScreen?: boolean
 }
 
 export interface GameSettings {
@@ -149,6 +151,7 @@ export interface GameSettings {
   enableEsync: boolean
   enableFSR: boolean
   enableFsync: boolean
+  gamescope: GameScopeSettings
   enviromentOptions: EnviromentVariable[]
   ignoreGameUpdates: boolean
   language: string
@@ -349,6 +352,7 @@ export interface LaunchPreperationResult {
   rpcClient?: RpcClient
   mangoHudCommand?: string[]
   gameModeBin?: string
+  gameScopeCommand?: string[]
   steamRuntime?: string[]
   offlineMode?: boolean
 }
@@ -363,6 +367,7 @@ export interface CallRunnerOptions {
   logMessagePrefix?: string
   logFile?: string
   verboseLogFile?: string
+  logSanitizer?: (line: string) => string
   env?: Record<string, string> | NodeJS.ProcessEnv
   wrappers?: string[]
   onOutput?: (output: string, child: ChildProcess) => void
@@ -712,7 +717,7 @@ export type State = 'downloading' | 'unzipping' | 'idle'
 export interface ProgressInfo {
   percentage: number
   avgSpeed: number
-  eta: number
+  eta: string
 }
 
 export interface WineManagerUISettings {
@@ -725,4 +730,20 @@ export type DownloadManagerState = 'idle' | 'running' | 'paused' | 'stopped'
 
 export interface WindowProps extends Electron.Rectangle {
   maximized: boolean
+  frame?: boolean
+  titleBarStyle?: 'default' | 'hidden' | 'hiddenInset'
+  titleBarOverlay?: TitleBarOverlay | boolean
+}
+
+interface GameScopeSettings {
+  enableUpscaling: boolean
+  enableLimiter: boolean
+  windowType: string
+  gameWidth: string
+  gameHeight: string
+  upscaleWidth: string
+  upscaleHeight: string
+  upscaleMethod: string
+  fpsLimiter: string
+  fpsLimiterNoFocus: string
 }

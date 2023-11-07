@@ -26,6 +26,8 @@ export interface ContextType {
   error: boolean
   gameUpdates: string[]
   isRTL: boolean
+  isFullscreen: boolean
+  isFrameless: boolean
   language: string
   setLanguage: (newLanguage: string) => void
   libraryStatus: GameStatus[]
@@ -71,6 +73,7 @@ export interface ContextType {
     login: (data: NileRegisterData) => Promise<string>
     logout: () => Promise<void>
   }
+  installingEpicGame: boolean
   allTilesInColor: boolean
   setAllTilesInColor: (value: boolean) => void
   setSideBarCollapsed: (value: boolean) => void
@@ -145,6 +148,7 @@ declare global {
       canvas_height: number
     ) => Promise<string>
     setTheme: (themeClass: string) => void
+    isSteamDeckGameMode: boolean
   }
 
   interface WindowEventMap {

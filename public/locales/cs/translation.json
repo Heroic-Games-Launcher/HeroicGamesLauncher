@@ -158,6 +158,11 @@
                     "title": "Opravdu chcete odejít?",
                     "message": "Neuložený postup může být ztracen"
                 }
+            },
+            "snap": {
+                "checkbox": "Tuto zprávu již nezobrazovat",
+                "title": "Heroic spuštěn jako Snap",
+                "message": "Některé funkce nejsou ve verzi aplikace Snap prozatím dostupné a snažíme se je opravit.{{newLine}}Aktuální omezení jsou: {{newLine}}Heroic nebude schopen najít Proton ze služby Steam nebo Wine z Lutrisu.{{newLine}}{{newLine}}Gamescope, GameMode a MangoHud také nebudou fungovat, protože k nim Heroic nemá přístup.{{newLine}}{{newLine}}Chcete-li mít přístup k těmto funkcím, nainstalujte si Heroic jako Flatpak, DEB nebo z AppImage."
             }
         },
         "wineprefix": "Vyberte složku WinePrefix",
@@ -288,7 +293,16 @@
         },
         "disable_logs": "Zapnutím tohoto políčka zakážete většinu zápisů do souborů protokolu (kritické informace jsou vždy protokolovány). Před nahlášením jakéhokoli problému nezapomeňte toto nastavení vypnout.",
         "dxvknvapi": "DXVK-NVAPI je implementace NVAPI postavená na DXVK a nativním NVAPI Linuxu, umožňuje použití DLSS na grafických kartách Nvidia.",
-        "disablePlaytimeSync": "Zakáže synchronizaci času hraní se servery obchodu (aktualně je podporován jen GOG)"
+        "disablePlaytimeSync": "Zakáže synchronizaci času hraní se servery obchodu (aktualně je podporován jen GOG)",
+        "gamescope": {
+            "fpsLimiterNoFocus": "Počet snímků, na které by měl být omezen gamescope když není hra na popředí (zaměřená).",
+            "upscaleMethod": "Způsob upscalingu, který by měl gamescope využít.",
+            "gameWidth": "Rozlišení šířky používané hrou. Gamescope předpokládá poměr stran 16:9.",
+            "upscaleWidth": "Rozlišení šířky používané službou gamescope. Je předpokládán rozměr 16:9.",
+            "gameHeight": "Rozlišení výšky používané hrou. Gamescope předpokládá poměr stran 16:9.",
+            "upscaleHeight": "Rozlišení výšky používané službou gamescope. Je předpokládán rozměr 16:9.",
+            "fpsLimiter": "Počet snímků, na který by měl být omezen gamescope. Např. 60"
+        }
     },
     "info": {
         "heroic": {
@@ -424,7 +438,11 @@
         },
         "gameargs": {
             "placeholder": "Sem vložte argumenty spouštěče",
-            "title": "Herní argumenty (ke spuštění po příkazu):"
+            "title": "Herní argumenty (ke spuštění po příkazu):",
+            "error": {
+                "command": "Syntaxe příkazu %command% ze Steamu není platná jako herní argument.",
+                "env": "Proměnné prostředí musí být nastaveny v tabulce níže."
+            }
         },
         "quote-args-with-spaces": "Upozornění: Nezapomeňte uvozovat argumenty s mezerami! Např.: \"cesta/s mezerami/\"",
         "wrapper": {
@@ -434,6 +452,19 @@
             "placeHolderKey": "Nový Wrapper",
             "placeHolderValue": "Argumenty Wrapperu",
             "title": "Příkaz Wrapper:"
+        },
+        "gamescope": {
+            "fpsLimiter": "Omezení FPS",
+            "gameHeight": "Výška hry",
+            "upscaleWidth": "Šířka upscalingu",
+            "gameWidth": "Šířka hry",
+            "upscaleHeight": "Výška upscalingu",
+            "fpsLimiterNoFocus": "Omezení FPS (v pozadí)",
+            "nis": "Škálování obrazu NVIDIA (NIS)",
+            "borderless": "Bez okrajů",
+            "fullscreen": "Celá obrazovka",
+            "interger": "Celočíselný upscaling",
+            "stretch": "Roztáhnout obraz"
         }
     },
     "other": {
@@ -592,7 +623,19 @@
             "enableNewShinyFeature": "Nová skvělá funkce",
             "enableNewDesign": "Nový design"
         },
-        "disablePlaytimeSync": "Zakázat synchronizaci času hraní"
+        "disablePlaytimeSync": "Zakázat synchronizaci času hraní",
+        "gamescope": {
+            "enableLimiter": "Zapnout omezení FPS",
+            "enableUpscaling": "Povolí upscaling",
+            "missingMsg": "V PATH jsme nenašli gamescope. Nainstalujte jej nebo jej přidejte do PATH."
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "Tato funkce je stále experimentální. Nahlaste prosím všechny objevené problémy na GitHub.",
+                "title": "Pozor, experimentální funkce"
+            },
+            "description": "Použít okno bez okrajů (vyžaduje restart)"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -628,7 +671,8 @@
             "other": "Ostatní",
             "sync": "Synchronizace uložených souborů",
             "wineExt": "Wine rozšíření",
-            "systemInformation": "Systémové informace"
+            "systemInformation": "Systémové informace",
+            "gamescope": "Gamescope"
         },
         "open-config-file": "Otevřít soubor konfigurace",
         "reset-heroic": "Resetovat Heroic",
@@ -660,6 +704,9 @@
             "copyToClipboard": "Zkopírovat do schránky",
             "heroicVersion": "Heroic: {{heroicVersion}}",
             "nileVersion": "Nile: {{nileVersion}}"
+        },
+        "gamescope": {
+            "searchMsg": "Hledání spustitelného souboru gamescope."
         }
     },
     "Settings": "Nastavení",
@@ -752,5 +799,11 @@
         "search": "Hledat písma nebo komponenty",
         "nothingYet": "Pomocí Winetricks zatím nebylo nic nainstalováno",
         "installed": "Nainstalované komponenty:"
+    },
+    "window": {
+        "close": "Zavřít",
+        "minimize": "Minimalizovat okno",
+        "maximize": "Maximalizovat okno",
+        "restore": "Obnovit okno"
     }
 }

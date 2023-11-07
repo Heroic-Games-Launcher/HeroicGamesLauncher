@@ -647,7 +647,7 @@ export async function runRunnerCommand(
 ): Promise<ExecResult> {
   const { dir, bin } = getLegendaryBin()
 
-  // Set XDG_CONFIG_HOME to a custom, Heroic-specific location so user-made
+  // Set LEGENDARY_CONFIG_PATH to a custom, Heroic-specific location so user-made
   // changes to Legendary's main config file don't affect us
   if (!options) {
     options = {}
@@ -655,7 +655,11 @@ export async function runRunnerCommand(
   if (!options.env) {
     options.env = {}
   }
-  options.env.XDG_CONFIG_HOME = dirname(legendaryConfigPath)
+
+  // if not on a SNAP environment, set the XDG_CONFIG_HOME to the same location as the config file
+  if (!process.env.SNAP) {
+    options.env.LEGENDARY_CONFIG_PATH = legendaryConfigPath
+  }
 
   const commandParts = commandToArgsArray(command)
 
@@ -811,6 +815,7 @@ export function commandToArgsArray(command: LegendaryCommand): string[] {
     case 'info':
     case 'sync-saves':
     case 'uninstall':
+    case 'repair':
       commandParts.push(command.appName)
       break
     case 'move':

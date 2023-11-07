@@ -6,6 +6,7 @@
             "title": "Change Games Install Path"
         },
         "choose": "Choose",
+        "close": "Close",
         "importpath": "Choose Game Folder to import",
         "move": {
             "message": "This can take a long time, are you sure?",
@@ -32,6 +33,7 @@
             "title": "Stop Installation"
         },
         "uninstall": {
+            "cannotUninstallEpic": "Epic games cannot be uninstalled while another Epic game is being installed.",
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
             "dlc": "Do you want to Uninstall this DLC?",
             "message": "Do you want to uninstall this game?",
@@ -200,13 +202,16 @@
         "info": {
             "broser": "BrowserURL",
             "exe": "Select Executable",
+            "fullscreen": "Launch Fullscreen (F11 to exit)",
             "image": "App Image",
-            "title": "Game/App Title"
+            "title": "Game/App Title",
+            "useragent": "Custom User Agent"
         },
         "placeholder": {
             "image": "Paste an Image URL here",
             "title": "Add a title to your Game/App",
-            "url": "Paste the Game URL here"
+            "url": "Paste the Game URL here",
+            "useragent": "Write a custom user agent here to be used on this browser app/game"
         }
     },
     "specs": {

@@ -6,12 +6,7 @@ import {
   appendFileSync
 } from 'graceful-fs'
 
-import {
-  configStore,
-  currentLogFile,
-  gamesConfigPath,
-  lastLogFile
-} from '../constants'
+import { configStore, currentLogFile, gamesConfigPath } from '../constants'
 import { app } from 'electron'
 import { join } from 'path'
 import { logError, LogPrefix, logsDisabled } from './logger'
@@ -32,7 +27,7 @@ const createLogFile = (filePath: string) => {
     openSync(filePath, 'w')
   } catch (error) {
     logError([`Open ${filePath} failed with`, error], {
-      prefix: LogPrefix.Backend,
+      prefix: LogPrefix?.Backend,
       skipLogToFile: true
     })
   }
@@ -118,19 +113,30 @@ export function createNewLogFileAndClearOldOnes(): createLogFileReturn {
 
 /**
  * Returns according to options the fitting log file
- * @param appName     if given returns game log
- * @param defaultLast if set getting heroic default last log
+ * @param appNameOrRunner     if given returns game log
  * @returns path to log file
  */
-export function getLogFile(props: {
-  appName?: string
-  defaultLast?: boolean
-}): string {
-  return props.appName
-    ? join(gamesConfigPath, props.appName + '-lastPlay.log')
-    : props.defaultLast
-    ? lastLogFile
-    : currentLogFile
+export function getLogFile(appNameOrRunner: string): string {
+  const logs = configStore.get('general-logs', {
+    currentLogFile: '',
+    lastLogFile: '',
+    legendaryLogFile: '',
+    gogdlLogFile: '',
+    nileLogFile: ''
+  })
+
+  switch (appNameOrRunner) {
+    case 'heroic':
+      return logs.currentLogFile
+    case 'legendary':
+      return logs.legendaryLogFile
+    case 'gogdl':
+      return logs.gogdlLogFile
+    case 'nile':
+      return logs.nileLogFile
+    default:
+      return join(gamesConfigPath, appNameOrRunner + '-lastPlay.log')
+  }
 }
 
 /**

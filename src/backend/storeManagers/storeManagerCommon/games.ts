@@ -36,16 +36,25 @@ export function logFileLocation(appName: string) {
   return join(gamesConfigPath, `${appName}-lastPlay.log`)
 }
 
-const openNewBrowserGameWindow = async (
-  browserUrl: string,
+type BrowserGameOptions = {
+  browserUrl: string
   abortId: string
-): Promise<boolean> => {
+  customUserAgent?: string
+  launchFullScreen?: boolean
+}
+
+const openNewBrowserGameWindow = async ({
+  browserUrl,
+  abortId,
+  customUserAgent,
+  launchFullScreen
+}: BrowserGameOptions): Promise<boolean> => {
   const hostname = new URL(browserUrl).hostname
 
   return new Promise((res) => {
     const browserGame = new BrowserWindow({
       icon: icon,
-      fullscreen: true,
+      fullscreen: launchFullScreen ?? false,
       autoHideMenuBar: true,
       webPreferences: {
         partition: `persist:${hostname}`
@@ -60,9 +69,12 @@ const openNewBrowserGameWindow = async (
         { role: 'toggleDevTools' }
       ])
     )
+
+    const defaultUserAgent =
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36'
+    browserGame.webContents.userAgent = customUserAgent ?? defaultUserAgent
+
     browserGame.menuBarVisible = false
-    browserGame.webContents.userAgent =
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'
     browserGame.loadURL(browserUrl)
     browserGame.on('ready-to-show', () => browserGame.show())
 
@@ -113,7 +125,7 @@ export async function launchGame(
     install: { executable }
   } = gameInfo
 
-  const { browserUrl } = gameInfo
+  const { browserUrl, customUserAgent, launchFullScreen } = gameInfo
 
   const gameSettingsOverrides = await GameConfig.get(appName).getSettings()
   if (
@@ -124,7 +136,12 @@ export async function launchGame(
   }
 
   if (browserUrl) {
-    return openNewBrowserGameWindow(browserUrl, appName)
+    return openNewBrowserGameWindow({
+      browserUrl,
+      abortId: appName,
+      customUserAgent,
+      launchFullScreen
+    })
   }
 
   const gameSettings = await getAppSettings(appName)
@@ -137,6 +154,7 @@ export async function launchGame(
       failureReason: launchPrepFailReason,
       rpcClient,
       mangoHudCommand,
+      gameScopeCommand,
       gameModeBin,
       steamRuntime
     } = await prepareLaunch(gameSettings, gameInfo, isNative)
@@ -147,6 +165,7 @@ export async function launchGame(
       gameSettings,
       mangoHudCommand,
       gameModeBin,
+      gameScopeCommand,
       steamRuntime?.length ? [...steamRuntime] : undefined
     )
 

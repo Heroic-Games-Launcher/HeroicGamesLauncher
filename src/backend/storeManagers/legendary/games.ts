@@ -783,6 +783,7 @@ export async function launch(
     rpcClient,
     mangoHudCommand,
     gameModeBin,
+    gameScopeCommand,
     steamRuntime,
     offlineMode
   } = await prepareLaunch(gameSettings, gameInfo, isNative(appName))
@@ -813,6 +814,7 @@ export async function launch(
     gameSettings,
     mangoHudCommand,
     gameModeBin,
+    gameScopeCommand,
     steamRuntime?.length ? [...steamRuntime] : undefined
   )
 
@@ -959,16 +961,18 @@ export async function stop(appName: string, stopWine = true) {
   }
 }
 
-export function isGameAvailable(appName: string) {
-  const info = getGameInfo(appName)
-  if (info && info.is_installed) {
-    if (info.install.install_path && existsSync(info.install.install_path!)) {
-      return true
-    } else {
-      return false
+export async function isGameAvailable(appName: string): Promise<boolean> {
+  return new Promise((resolve) => {
+    const info = getGameInfo(appName)
+    if (info && info.is_installed) {
+      if (info.install.install_path && existsSync(info.install.install_path!)) {
+        resolve(true)
+      } else {
+        resolve(false)
+      }
     }
-  }
-  return false
+    resolve(false)
+  })
 }
 
 export async function runWineCommandOnGame(

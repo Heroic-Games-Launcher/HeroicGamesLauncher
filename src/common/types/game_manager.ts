@@ -65,7 +65,7 @@ export interface GameManager {
   ) => Promise<InstallResult>
   forceUninstall: (appName: string) => Promise<void>
   stop: (appName: string, stopWine?: boolean) => Promise<void>
-  isGameAvailable: (appName: string) => boolean
+  isGameAvailable: (appName: string) => Promise<boolean>
 }
 
 export interface LibraryManager {

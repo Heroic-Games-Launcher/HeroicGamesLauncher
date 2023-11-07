@@ -1,4 +1,4 @@
-import { WindowProps } from 'common/types'
+import { AppSettings, WindowProps } from 'common/types'
 import { BrowserWindow, screen } from 'electron'
 import path from 'path'
 import { configStore } from './constants'
@@ -7,6 +7,12 @@ let mainWindow: BrowserWindow | null = null
 
 export const getMainWindow = () => {
   return mainWindow
+}
+
+let windowProps: WindowProps | null = null
+
+export const isFrameless = () => {
+  return windowProps?.frame === false || windowProps?.titleBarStyle === 'hidden'
 }
 
 // send a message to the main window's webContents if available
@@ -29,13 +35,13 @@ export const sendFrontendMessage = (message: string, ...payload: unknown[]) => {
 
 // creates the mainWindow based on the configuration
 export const createMainWindow = () => {
-  let windowProps: WindowProps = {
+  windowProps = {
     height: 690,
     width: 1200,
     x: 0,
     y: 0,
     maximized: false
-  }
+  } as WindowProps
 
   if (configStore.has('window-props')) {
     windowProps = configStore.get('window-props', windowProps)
@@ -43,12 +49,23 @@ export const createMainWindow = () => {
     // make sure initial screen size is not bigger than the available screen space
     const screenInfo = screen.getPrimaryDisplay()
 
-    if (screenInfo.workAreaSize.height < windowProps.height) {
+    if (screenInfo?.workAreaSize?.height < windowProps.height) {
       windowProps.height = screenInfo.workAreaSize.height * 0.8
     }
 
-    if (screenInfo.workAreaSize.width < windowProps.width) {
+    if (screenInfo?.workAreaSize?.width < windowProps.width) {
       windowProps.width = screenInfo.workAreaSize.width * 0.8
+    }
+  }
+  // Set up frameless window if enabled in settings
+  const settings = configStore.get('settings', <AppSettings>{})
+  if (settings?.framelessWindow) {
+    // use native overlay controls where supported
+    if (['darwin', 'win32'].includes(process.platform)) {
+      windowProps.titleBarStyle = 'hidden'
+      windowProps.titleBarOverlay = true
+    } else {
+      windowProps.frame = false
     }
   }
   const { maximized, ...props } = windowProps

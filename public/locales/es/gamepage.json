@@ -37,14 +37,16 @@
             "settingcheckbox": "Borrar ajustes y eliminar registros{{newLine}}Nota: Este cambio no se puede deshacer. Todos los ajustes serán olvidados y el registro será borrado.",
             "title": "Desinstalar",
             "prefix_warning": "El prefijo Wine para este juego es el prefijo predeterminado. Si realmente deseas eliminarlo, debes hacerlo manualmente.",
-            "dlc": "¿Quieres desinstalar este DLC?"
+            "dlc": "¿Quieres desinstalar este DLC?",
+            "cannotUninstallEpic": "Epic Games no se puede desinstalar mientras se está instalando otro juego de Epic."
         },
         "update": {
             "message": "Este juego tiene una actualización. ¿Quieres aplicarla ahora?",
             "title": "El juego necesita una actualización"
         },
         "wineprefix": "Selecciona la carpeta de WinePrefix",
-        "yes": "SÍ"
+        "yes": "SÍ",
+        "close": "Cerrar"
     },
     "button": {
         "add_to_favourites": "Agregar a favoritos",
@@ -178,7 +180,8 @@
             "exe": "Seleccionar ejecutable",
             "image": "Imagen de la aplicación/juego",
             "title": "Título de la aplicación/juego",
-            "broser": "Enlace web del navegador"
+            "broser": "Enlace web del navegador",
+            "fullscreen": "Iniciar a pantalla completa (F11 para salir)"
         },
         "placeholder": {
             "image": "Inserta el enlace web de una imagen aquí",

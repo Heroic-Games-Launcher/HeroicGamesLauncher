@@ -19,6 +19,7 @@ import {
   Shortcuts,
   TraySettings,
   UseDarkTrayIcon,
+  UseFramelessWindow,
   WinePrefixesBasePath,
   PlaytimeSync
 } from '../../components'
@@ -55,6 +56,8 @@ export default function GeneralSettings() {
       <MinimizeOnGameLaunch />
 
       <UseDarkTrayIcon />
+
+      <UseFramelessWindow />
 
       <Shortcuts />
 

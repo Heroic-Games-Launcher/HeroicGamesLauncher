@@ -10,6 +10,12 @@
   user-select: text;
 }
 
+.frameless:not(.fullscreen) .WebviewControls {
+  padding-right: calc(
+    var(--overlay-controls-width) - env(titlebar-area-x, 0px)
+  );
+}
+
 .WebviewControls__icons {
   display: flex;
   flex: 0 1 120px;

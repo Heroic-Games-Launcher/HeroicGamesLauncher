@@ -16,17 +16,28 @@ import DownloadManager from './screens/DownloadManager'
 import DialogHandler from './components/UI/DialogHandler'
 import SettingsModal from './screens/Settings/components/SettingsModal'
 import ExternalLinkDialog from './components/UI/ExternalLinkDialog'
+import WindowControls from './components/UI/WindowControls'
 import classNames from 'classnames'
 
 function App() {
-  const { isSettingsModalOpen, isRTL, experimentalFeatures } =
-    useContext(ContextProvider)
+  const {
+    isSettingsModalOpen,
+    isRTL,
+    isFullscreen,
+    isFrameless,
+    experimentalFeatures
+  } = useContext(ContextProvider)
+
+  const hasNativeOverlayControls = navigator['windowControlsOverlay']?.visible
+  const showOverlayControls = isFrameless && !hasNativeOverlayControls
 
   return (
     <div
       id="app"
       className={classNames('App', {
         isRTL,
+        frameless: isFrameless,
+        fullscreen: isFullscreen,
         oldDesign: !experimentalFeatures.enableNewDesign
       })}
     >
@@ -76,6 +87,7 @@ function App() {
           <ControllerHints />
           <div className="simple-keyboard"></div>
         </div>
+        {showOverlayControls && <WindowControls />}
       </HashRouter>
     </div>
   )
