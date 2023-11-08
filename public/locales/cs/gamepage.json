@@ -180,12 +180,15 @@
             "exe": "Vyberte spustitelný soubor",
             "image": "Obrázek aplikace",
             "title": "Název hry/aplikace",
-            "broser": "Adresa URL prohlížeče"
+            "broser": "Adresa URL prohlížeče",
+            "useragent": "Vlastní User Agent",
+            "fullscreen": "Spustit na celé obrazovce (F11 pro opuštění)"
         },
         "placeholder": {
             "image": "Sem vložte URL obrázku",
             "title": "Přidejte název ke své hře/aplikaci",
-            "url": "Sem vložte adresu URL hry"
+            "url": "Sem vložte adresu URL hry",
+            "useragent": "Sem zadejte vlastní User Agent (uživatelský agent) pro použití v této prohlížečové aplikaci/hře"
         }
     },
     "specs": {

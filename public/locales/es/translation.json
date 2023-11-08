@@ -163,7 +163,7 @@
                 "checkbox": "No mostrar este mensaje de nuevo"
             }
         },
-        "wineprefix": "Selecciona la carpeta de prefijos de Wine",
+        "wineprefix": "Selecciona la carpeta de los prefijos para Wine",
         "yes": "SÍ",
         "dontShowAgain": "No volver a mostrar",
         "choose-nile-binary": "Seleccionar binario del Nilo"
@@ -291,7 +291,7 @@
         },
         "disable_logs": "Active esta casilla de verificación para desactivar la mayoría de las escrituras en los archivos de registro (la información crítica siempre se registra). Asegúrese de DESACTIVAR esta configuración antes de informar cualquier problema.",
         "dxvknvapi": "DXVK-NVAPI es una implementación de NVAPI construida sobre DXVK y la NVAPI nativa de Linux, que permite el uso de DLSS en GPUs Nvidia.",
-        "disablePlaytimeSync": "Desactiva la sincronización del tiempo de juego con los servidores de una tienda determinada (actualmente sólo es compatible con GOG)",
+        "disablePlaytimeSync": "Desactiva la sincronización del tiempo de juego con el servidor de la tienda correspondiente (actualmente solo se admite GOG)",
         "gamescope": {
             "fpsLimiterNoFocus": "El límite de velocidad de fotogramas (fps) que debe aplicar gamescope si el juego no está en primer plano.",
             "fpsLimiter": "El número máximo de fotogramas (fps) de gamescope, por ejemplo, es 60"
@@ -602,7 +602,7 @@
             "enableNewShinyFeature": "Una nueva función brillante",
             "enableNewDesign": "Nuevo diseño"
         },
-        "disablePlaytimeSync": "Desactivar la sincronización del tiempo de reproducción"
+        "disablePlaytimeSync": "Desactivar la sincronización del tiempo de juego"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -763,5 +763,8 @@
         "search": "Buscar fuentes o componentes",
         "nothingYet": "Winetricks aún no ha instalado nada",
         "installed": "Componentes instalados:"
+    },
+    "window": {
+        "maximize": "Maximizar la ventana"
     }
 }
