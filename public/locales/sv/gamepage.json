@@ -37,14 +37,16 @@
             "settingcheckbox": "Radera inställningar och ta bort logg{{newLine}}OBS: Denna åtgärd kan ej ångras. Alla ändrade inställningar kommer att glömmas bort och loggen kommer att raderas.",
             "title": "Avinstallera",
             "prefix_warning": "Vinprefixet för det här spelet är standardprefixet. Om du verkligen vill ta bort det måste du göra det manuellt.",
-            "dlc": "Vill du avinstallera denna DLC?"
+            "dlc": "Vill du avinstallera denna DLC?",
+            "cannotUninstallEpic": "Epic spel kan inte avinstalleras samtidigt som ett annat Epic spel installeras."
         },
         "update": {
             "message": "Det finns en speluppdatering, uppdatera nu?",
             "title": "Spelet behöver uppdateras"
         },
         "wineprefix": "Ange Wine-prefix mapp",
-        "yes": "Ja"
+        "yes": "Ja",
+        "close": "Stäng"
     },
     "button": {
         "add_to_favourites": "Lägg till i Favoriter",
@@ -178,12 +180,15 @@
             "exe": "Välj EXE-fil",
             "image": "Applikationens bild",
             "title": "Spel/Applikation titel",
-            "broser": "Webbläsar-URL"
+            "broser": "Webbläsar-URL",
+            "useragent": "Anpassad User Agent",
+            "fullscreen": "Starta helskärm (F11 för att avsluta)"
         },
         "placeholder": {
             "image": "Klistra in bildens URL här",
             "title": "Lägg till Spel/Applikation titel",
-            "url": "Klistra in spelets URL här"
+            "url": "Klistra in spelets URL här",
+            "useragent": "Skriv en anpassad user agent här som ska användas i den här webbläsarappen/spelet"
         }
     },
     "specs": {
