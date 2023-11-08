@@ -315,7 +315,7 @@ class GlobalConfigV0 extends GlobalConfig {
       enviromentOptions: [],
       wrapperOptions: [],
       showFps: false,
-      useGameMode: false,
+      useGameMode: isFlatpak,
       userInfo: {
         epicId: account_id,
         name: userName
