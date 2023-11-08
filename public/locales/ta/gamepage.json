@@ -21,10 +21,10 @@
             "title": "இயக்க EXE ஐத் தேர்ந்தெடுக்கவும்"
         },
         "select": {
-            "button": "Select"
+            "button": "தேர்ந்தெடுக்கவும்"
         },
         "sideload": {
-            "exe": "Select Executable"
+            "exe": "செயல்படுத்தக்கூடியவற்றை தேர்ந்தெடுக்கவும்"
         },
         "stopInstall": {
             "keepInstalling": "நிறுவுவதை தொடரு",
@@ -32,88 +32,90 @@
             "title": "நிறுவலை நிறுத்து"
         },
         "uninstall": {
-            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
+            "checkbox": "முன்னொட்டை அகற்று: {{prefix}}{{newLine}}குறிப்பு: இதைச் செயல்தவிர்க்க முடியாது மேலும் காப்புப் பிரதி எடுக்கப்படாத சேமிக் கோப்புகளையும் அகற்றும்.",
             "message": "இந்த விளையாட்டை நிறுவல்-நீக்க விரும்புகிறீர்களா?",
-            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+            "settingcheckbox": "அமைப்புகளை அழித்து, பதிவை அகற்றவும்{{newLine}}குறிப்பு: இதைச் செயல்தவிர்க்க முடியாது. எந்த மாற்றியமைக்கப்பட்ட அமைப்புகளும் மறந்துவிடும் மற்றும் பதிவு நீக்கப்படும்.",
             "title": "நிறுவல் நீக்கு",
             "prefix_warning": "இந்த கேமிற்கான ஒயின் முன்னொட்டு இயல்பு முன்னொட்டு ஆகும். நீங்கள் உண்மையில் அதை நீக்க விரும்பினால், நீங்கள் அதை கைமுறையாக செய்ய வேண்டும்.",
-            "dlc": "இந்த DLC ஐ நிறுவல் நீக்க வேண்டுமா?"
+            "dlc": "இந்த DLC ஐ நிறுவல் நீக்க வேண்டுமா?",
+            "cannotUninstallEpic": "மற்றொரு எபிக் கேம் நிறுவப்படும் போது எபிக் கேம்களை நிறுவல் நீக்க முடியாது."
         },
         "update": {
             "message": "இந்த விளையாட்டுக்கு ஒரு புதுப்பிப்பு உள்ளது,இப்போது புதுப்பிப்பைப் பயன்படுத்தவா?",
             "title": "விளையாட்டு புதுப்பிப்பு தேவை"
         },
-        "wineprefix": "ஒயின் முன்னொட்டு கோப்புறையைத் தேர்ந்தெடுக்கவும்",
-        "yes": "ஆம்"
+        "wineprefix": "ஒயின்முன்னொட்டு கோப்புறையைத் தேர்ந்தெடுக்கவும்",
+        "yes": "ஆம்",
+        "close": "மூடு"
     },
     "button": {
-        "add_to_favourites": "Add To Favourites",
-        "cancel": "இடைநிறுத்து/ரத்துசெய்",
-        "continue": "பதிவிறக்கத்தை தொடரு",
-        "finish": "Finish",
-        "force_update": "Force Update if Available",
-        "force-innstall": "Force Install",
-        "hide_game": "Hide Game",
+        "add_to_favourites": "விருப்ப பட்டியலில் சேர்",
+        "cancel": "நிறுத்து/ரத்துசெய்",
+        "continue": "பதிவிறக்கத்தை தொடரவும்",
+        "finish": "முடிக்கவும்",
+        "force_update": "புதுப்பிப்பு இருந்தால் கட்டாயப்படுத்தவும்",
+        "force-innstall": "கட்டாயமாக நிறுவவும்",
+        "hide_game": "விளையாட்டை மறை",
         "import": "விளையாட்டை இறக்குமதி செய்",
         "install": "நிறுவு",
-        "no-path-selected": "No path selected",
+        "no-path-selected": "பாதை எதுவும் தேர்ந்தெடுக்கப்படவில்லை",
         "queue": {
-            "remove": "Remove from Queue"
+            "remove": "வரிசையில் இருந்து அகற்று"
         },
-        "remove_from_favourites": "Remove From Favourites",
-        "remove_from_recent": "Remove From Recent",
-        "run-exe-first": "Run Installer First",
-        "running-setup": "Running Setup",
+        "remove_from_favourites": "பிடித்தவையிலிருந்து அகற்று",
+        "remove_from_recent": "சமீபத்தியவற்றிலிருந்து அகற்று",
+        "run-exe-first": "முதலில் நிறுவியை இயக்கவும்",
+        "running-setup": "அமைப்பை இயக்குகிறது",
         "sideload": {
-            "edit": "Edit App/Game"
+            "edit": "செயலி/விளையாட்டு ஐ திருத்து"
         },
-        "unhide_game": "Unhide Game",
+        "unhide_game": "விளையாட்டை மறைக்கவும்",
         "uninstall": "நிறுவல் நீக்கு",
-        "update": "Update",
+        "update": "மேம்படுத்தல்",
         "details": "விவரங்கள்"
     },
-    "cloud_save_unsupported": "Unsupported",
+    "cloud_save_unsupported": "ஆதரவற்ற",
     "disabled": "முடக்கப்பட்டது",
     "dlc": {
-        "installDlcs": "Install all DLCs"
+        "installDlcs": "பதிவிறக்கம் செய்யக்கூடிய அனைத்து உள்ளடக்கத்தையும் நிறுவவும்"
     },
-    "enabled": "இயக்கப்பட்டது",
+    "enabled": "செயல்படுத்தப்பட்டது",
     "game": {
-        "downloadSize": "Download Size",
-        "firstPlayed": "First Played",
-        "getting-download-size": "Geting download size",
-        "getting-install-size": "Geting install size",
-        "installSize": "Install Size",
-        "language": "Language",
-        "lastPlayed": "Last Played",
-        "neverPlayed": "Never",
-        "platform": "Select Platform Version to Install",
-        "requirements": "System Requirements",
-        "totalPlayed": "Time Played",
-        "dlcs": "DLCs"
+        "downloadSize": "பதிவிறக்க அளவு",
+        "firstPlayed": "முதலில் விளையாடியது",
+        "getting-download-size": "பதிவிறக்க அளவைப் பெறுகிறது",
+        "getting-install-size": "நிறுவல் அளவைப் பெறுகிறது",
+        "installSize": "நிறுவல் அளவு",
+        "language": "மொழி",
+        "lastPlayed": "கடைசியாக விளையாடியது",
+        "neverPlayed": "ஒருபோதும் இல்லை",
+        "platform": "நிறுவ இயங்குதளப் பதிப்பைத் தேர்ந்தெடுக்கவும்",
+        "requirements": "கணினி தேவைகள்",
+        "totalPlayed": "விளையாடிய நேரம்",
+        "dlcs": "தரவிறக்கம் செய்யக்கூடிய உள்ளடக்கம்"
     },
     "gamecard": {
-        "moving": "நகர்த்தப்படுகிறது",
-        "repairing": "பழுதுபார்க்கப்படுகிறது"
+        "moving": "நகரும்",
+        "repairing": "பழுதுபார்த்தல் நடைபெறுகிறது"
     },
     "generic": {
-        "error": "Unknown error",
+        "error": "அறியப்படாத பிழை",
         "noDescription": "விவரம் இல்லை"
     },
-    "hours": "Hours",
+    "hours": "மணிநேரம்",
     "how-long-to-beat": {
-        "completionist": "Completionist",
-        "main-plus-extras": "Main + Extras",
-        "main-story": "Main Story"
+        "completionist": "நிறைவு செய்பவர்",
+        "main-plus-extras": "முதன்மை + கூடுதல்",
+        "main-story": "முக்கிய கதை"
     },
-    "howLongToBeat": "How Long To Beat",
+    "howLongToBeat": "முடிக்க எவ்வளவு நேரம்",
     "info": {
-        "canRunOffline": "Online Required",
-        "installedPlatform": "Installed Platform",
+        "canRunOffline": "நிகழ்நிலை (இணையம்)தேவை",
+        "installedPlatform": "நிறுவப்பட்ட இயங்குதளம்",
         "path": "நிறுவல் பாதை",
         "size": "அளவு",
         "syncsaves": "சேமிப்புகளை ஒத்திசைவு செய்",
-        "version": "பதிப்பு",
+        "version": "பதிப்பு(version)",
         "apple-gaming-wiki": "AppleGamingWiki மதிப்பீடு",
         "clickToOpen": "திறக்க கிளிக் செய்யவும்",
         "game-scores": "விளையாட்டு மதிப்பெண்கள்",
@@ -122,17 +124,24 @@
         "steamdeck-compatibility-info": "SteamDeck இணக்கத்தன்மை"
     },
     "install": {
-        "disk-space-left": "Space Available",
-        "not-enough-disk-space": "Not enough disk space",
-        "path": "Select Install Path",
-        "path-not-writtable": "Warning: path might not be writable.",
-        "space-after-install": "After Install",
-        "wineprefix": "WinePrefix",
-        "wineversion": "ஒயின் பதிப்பு"
+        "disk-space-left": "இடம் கிடைக்கிறது",
+        "not-enough-disk-space": "நினைவகத்தின் இடம் போதாது",
+        "path": "நிறுவல் பாதையைத் தேர்ந்தெடுக்கவும்",
+        "path-not-writtable": "எச்சரிக்கை: பாதை எழுத முடியாததாக இருக்கலாம்.",
+        "space-after-install": "நிறுவிய பின்",
+        "wineprefix": "ஒயின் முன்னொட்டு",
+        "wineversion": "ஒயின் பதிப்பு",
+        "anticheat-warning": {
+            "cancel": "நிறுத்து",
+            "message": "ஏமாற்று எதிர்ப்பு ஆதரவு உடைக்கப்பட்டது அல்லது மறுக்கப்பட்டது. விளையாட்டு வேலை செய்யாது. எப்படியும் அதை நிறுவ வேண்டுமா?",
+            "install": "ஆம் (இது வேலை செய்யாது என்பதை நான் புரிந்துகொள்கிறேன்)",
+            "title": "ஏமாற்று எதிர்ப்பு உடைக்கப்பட்டது/நிராகரிக்கப்பட்டது"
+        },
+        "flatpak-path-not-writtable": "பிழை: இந்தப் பாதைக்கு சாண்ட்பாக்ஸ் அணுகல் வழங்கப்படவில்லை, தரவு இழப்பு ஏற்படும்."
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported",
+            "third-party-game": "மூன்றாம் தரப்பு விளையாட்டு ஆதரிக்கப்படவில்லை",
             "not-installable-game": "விளையாட்டு நிறுவப்படவில்லை"
         },
         "playing": {
@@ -146,37 +155,40 @@
         "ubisoft": "யுபிசாஃப்ட் இணைப்பை நிறுவுகிறது"
     },
     "launch": {
-        "options": "Launch Options..."
+        "options": "துவக்க விருப்பங்கள்..."
     },
     "not_logged_in": {
-        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
-        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
-        "login": "Log in",
-        "title": "You are NOT logged in",
-        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
+        "epic": "நீங்கள் ஹீரோயிக்கில் எபிக் கணக்கில் உள்நுழையவில்லை. உள்நுழைய ஸ்டோர் பக்கத்தைப் பயன்படுத்த வேண்டாம், அதற்குப் பதிலாக பின்வரும் பொத்தானைக் கிளிக் செய்யவும்:",
+        "gog": "நீங்கள் கிரோயிக் இல் கோக் கணக்கில் உள்நுழையவில்லை. உள்நுழைய ஸ்டோர் பக்கத்தைப் பயன்படுத்த வேண்டாம், அதற்குப் பதிலாக பின்வரும் பொத்தானைக் கிளிக் செய்யவும்:",
+        "login": "உள்நுழைய",
+        "title": "நீங்கள் உள்நுழையவில்லை",
+        "amazon": "கிரோயிக் இல் அமேசன் கணக்கில் நீங்கள் உள்நுழையவில்லை. உள்நுழைய ஸ்டோர் பக்கத்தைப் பயன்படுத்த வேண்டாம், அதற்குப் பதிலாக பின்வரும் பொத்தானைக் கிளிக் செய்யவும்:"
     },
-    "report_problem": "Report a problem running this game",
+    "report_problem": "இந்த விளையாட்டை இயக்குவதில் உள்ள சிக்கலைப் புகாரளிக்கவும்",
     "sdl": {
-        "title": "Select components to Install"
+        "title": "நிறுவுவதற்கான கூறுகளைத் தேர்ந்தெடுக்கவும்"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings",
-        "winecrossoverbottle": "CrossOver Bottle"
+        "use-default-wine-settings": "இயல்புநிலை ஒயின் அமைப்புகளைப் பயன்படுத்தவும்",
+        "winecrossoverbottle": "கிராஸ்ஓவர் பாட்டில்"
     },
     "sideload": {
         "field": {
-            "title": "Title"
+            "title": "தலைப்பு"
         },
         "info": {
-            "exe": "Select Executable",
-            "image": "App Image",
-            "title": "Game/App Title",
-            "broser": "உலாவிURL"
+            "exe": "இயங்கக்கூடியதைத் தேர்ந்தெடுக்கவும்",
+            "image": "பயன்பாட்டு படம் (ஆப் இமேஜ்)",
+            "title": "விளையாட்டு/செயலி தலைப்பு",
+            "broser": "உலாவி ஒருங்கிணைந்த வள இருப்பிடம்",
+            "useragent": "தனிப்பயன் பயனர் முகவர்",
+            "fullscreen": "முழுத்திரையை இயக்கவும் (வெளியேற F11)"
         },
         "placeholder": {
-            "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App",
-            "url": "கேம் URL ஐ இங்கே ஒட்டவும்"
+            "image": "ஒரு படத்தின் ஒருங்கிணைந்த வள இருப்பிடம் (URL) ஐ இங்கே ஒட்டவும்",
+            "title": "உங்கள் விளையாட்டு/செயலியின் தலைப்பைச் சேர்க்கவும்",
+            "url": "விளையாட்டு இன்(URL) ஐ இங்கே ஒட்டவும்",
+            "useragent": "இந்த உலாவி செயலி/விளையாட்டு பயன்படுத்த தனிப்பயன் பயனர் முகவரை இங்கே எழுதவும்"
         }
     },
     "specs": {
@@ -185,48 +197,48 @@
     },
     "status": {
         "clickToUpdate": "புதுப்பிக்க அழுத்து",
-        "gameNotAvailable": "Game not available",
+        "gameNotAvailable": "விளையாட்டு கிடைக்கவில்லை",
         "hasUpdates": "புதிய பதிப்பு உள்ளது!",
         "installed": "நிறுவப்பட்டது",
         "installing": "நிறுவப்படுகிறது",
         "moving": "நிறுவல் நகர்த்தப்படுகிறது, தயவுசெய்து காத்திருக்கவும்",
         "notinstalled": "இந்த விளையாட்டு நிறுவப்படவில்லை",
-        "notSupported": "Not supported",
-        "notSupportedGame": "Not Supported",
-        "processing": "Processing files, please wait",
-        "queued": "Queued",
+        "notSupported": "ஒத்துழைக்கவில்லை",
+        "notSupportedGame": "விளையாட்டு ஒத்துழைக்கவில்லை",
+        "processing": "கோப்புகளைச் செயலாக்குகிறது, காத்திருக்கவும்",
+        "queued": "வரிசையில் நிற்கிறது",
         "reparing": "விளையாட்டு பழுதுபார்க்கப்படுகிறது, தயவுசெய்து காத்திருக்கவும்",
-        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
-        "totalDownloaded": "மொத்த பதிவிறக்கம்",
-        "uninstalling": "Uninstalling",
+        "this-game-uses-third-party": "இந்த விளையாட்டு மூன்றாம் தரப்பு துவக்கியைப் பயன்படுத்துகிறது மேலும் இது இன்னும் ஆதரிக்கப்படவில்லை",
+        "totalDownloaded": "மொத்தம் பதிவிறக்கம் செய்யப்பட்டது",
+        "uninstalling": "நிறுவல் நீக்குகிறது",
         "updating": "விளையாட்டு புதுப்பிக்கப்படுகிறது",
         "playing": "விளையாடுகிறது",
         "moving-files": "'{{file}}' கோப்பை நகர்த்துகிறது: {{percent}} ",
         "syncingSaves": "சேமிப்புகள் ஒத்திசைவு செய்யப்படுகிறது",
         "launching": "தொடங்குதல்",
-        "ubisoft": "Ubisoft ஐ நிறுவுகிறது",
-        "downloading": "Downloading",
+        "ubisoft": "உபிசாப்ட் ஐ நிறுவுகிறது",
+        "downloading": "பதிவிறக்குகிறது",
         "extracting": "பிரித்தெடுத்தல்",
-        "gog-goodie": "இந்த கேம் நிறுவக்கூடியதாகத் தெரியவில்லை. https://gog.com/account இல் பதிவிறக்கக்கூடிய உள்ளடக்கத்தைச் சரிபார்க்கவும்",
+        "gog-goodie": "இந்த விளையாட்டு நிறுவக்கூடியதாகத் தெரியவில்லை. https://gog.com/account இல் பதிவிறக்கக்கூடிய உள்ளடக்கத்தைச் சரிபார்க்கவும்",
         "goodie": "நிறுவ முடியாது"
     },
     "submenu": {
         "addShortcut": "குறுக்குவழியை சேர்",
-        "addToSteam": "Add to Steam",
+        "addToSteam": "நீராவியில் (ஸ்டீம்)சேர்க்கவும்",
         "change": "நிறுவல் பாதையை மாற்று",
-        "disableEosOverlay": "Disable EOS Overlay",
-        "enableEosOverlay": "Enable EOS Overlay",
+        "disableEosOverlay": "EOS மேலடுக்கை முடக்கவும்",
+        "enableEosOverlay": "EOS மேலடுக்கை இயக்கவும்",
         "move": "விளையாட்டை நகர்த்து",
         "protondb": "பொருந்தக்கூடிய தன்மையை சரிபார்",
-        "removeFromSteam": "Remove from Steam",
-        "removeShortcut": "Remove shortcuts",
+        "removeFromSteam": "நீராவியில்(ஸ்டீம்) இருந்து அகற்று",
+        "removeShortcut": "குறுக்குவழிகளை அகற்று",
         "settings": "அமைப்புகள்",
         "store": "விற்பனைக்கூடம்",
-        "verify": "சரிபார்த்து சரிசெய்",
+        "verify": "சரிபார்த்து பழுதுபார்க்கவும்",
         "extraInfo": "கூடுதல் தகவல்",
         "logs": "பதிவுகள்"
     },
     "help": {
-        "cloud_save_unsupported": "இந்த கேம் கிளவுட் சேமிப்புகளை ஆதரிக்காது. இந்த தகவல் கேம் டெவலப்பர்களால் வழங்கப்படுகிறது. சில விளையாட்டுகள் தங்கள் சொந்த கிளவுட் சேவ் சிஸ்டத்தை செயல்படுத்துகின்றன"
+        "cloud_save_unsupported": "இந்த விளையாட்டு இணைய சேமிப்புகளை ஆதரிக்காது. இந்த தகவல் விளையாட்டு உருவாக்குபவர்களால் வழங்கப்பட்டது .சில விளையாட்டுகள் தங்கள் சொந்த இணைய சேமிப்பு முறையை செயல்படுத்துகின்றன"
     }
 }

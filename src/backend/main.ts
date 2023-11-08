@@ -19,7 +19,8 @@ import {
   protocol,
   screen,
   clipboard,
-  components
+  components,
+  session
 } from 'electron'
 import 'backend/updater'
 import { autoUpdater } from 'electron-updater'
@@ -298,6 +299,16 @@ if (!gotTheLock) {
     initOnlineMonitor()
     initImagesCache()
 
+    // Add User-Agent Client hints to behave like Windows
+    if (process.argv.includes('--spoof-windows')) {
+      session.defaultSession.webRequest.onBeforeSendHeaders(
+        (details, callback) => {
+          details.requestHeaders['sec-ch-ua-platform'] = 'Windows'
+          callback({ cancel: false, requestHeaders: details.requestHeaders })
+        }
+      )
+    }
+
     if (!process.env.CI) {
       await components.whenReady().catch((e) => {
         logError([
@@ -378,6 +389,7 @@ if (!gotTheLock) {
         'fi',
         'fr',
         'gl',
+        'he',
         'hr',
         'hu',
         'ja',
@@ -392,6 +404,7 @@ if (!gotTheLock) {
         'pt_BR',
         'ro',
         'ru',
+        'sr',
         'sk',
         'sv',
         'ta',
