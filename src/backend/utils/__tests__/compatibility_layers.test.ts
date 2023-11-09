@@ -8,6 +8,7 @@ import { mkdirSync } from 'graceful-fs'
 import { dirname, join } from 'path'
 import { tmpdir } from 'os'
 
+jest.mock('@xhmikosr/decompress')
 jest.mock('../../logger/logfile')
 
 describe('getDefaultWine', () => {

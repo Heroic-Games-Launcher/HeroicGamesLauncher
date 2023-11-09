@@ -13,11 +13,7 @@ import {
   LibraryTopSectionOptions,
   ExperimentalFeatures
 } from 'common/types'
-import {
-  Category,
-  DialogModalOptions,
-  ExternalLinkDialogOptions
-} from 'frontend/types'
+import { DialogModalOptions, ExternalLinkDialogOptions } from 'frontend/types'
 import { withTranslation } from 'react-i18next'
 import {
   getGameInfo,
@@ -59,7 +55,6 @@ interface Props {
 }
 
 interface StateProps {
-  category: Category
   epic: {
     library: GameInfo[]
     username?: string
@@ -75,24 +70,20 @@ interface StateProps {
   }
   wineVersions: WineVersionInfo[]
   error: boolean
-  filterText: string
-  filterPlatform: string
   gameUpdates: string[]
   language: string
-  layout: string
   libraryStatus: GameStatus[]
   libraryTopSection: string
   platform: NodeJS.Platform | 'unknown'
   refreshing: boolean
   refreshingInTheBackground: boolean
   hiddenGames: HiddenGame[]
-  showHidden: boolean
-  showFavourites: boolean
-  showNonAvailable: boolean
   favouriteGames: FavouriteGame[]
   customCategories: Record<string, string[]>
   currentCustomCategory: string | null
   theme: string
+  isFullscreen: boolean
+  isFrameless: boolean
   zoomPercent: number
   primaryFontFamily: string
   secondaryFontFamily: string
@@ -141,7 +132,6 @@ class GlobalState extends PureComponent<Props> {
     return games
   }
   state: StateProps = {
-    category: (storage.getItem('category') as Category) || 'legendary',
     epic: {
       library: libraryStore.get('library', []),
       username: configStore.get_nodefault('userInfo.displayName')
@@ -157,27 +147,23 @@ class GlobalState extends PureComponent<Props> {
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
     error: false,
-    filterText: '',
-    filterPlatform: 'all',
     gameUpdates: [],
     language: this.props.i18n.language,
-    layout: storage.getItem('layout') || 'grid',
     libraryStatus: [],
     libraryTopSection: globalSettings?.libraryTopSection || 'disabled',
     platform: 'unknown',
     refreshing: false,
     refreshingInTheBackground: true,
     hiddenGames: configStore.get('games.hidden', []),
-    showHidden: JSON.parse(storage.getItem('show_hidden') || 'false'),
-    showFavourites: JSON.parse(storage.getItem('show_favorites') || 'false'),
     currentCustomCategory: storage.getItem('current_custom_category') || null,
-    showNonAvailable: true,
     sidebarCollapsed: JSON.parse(
       storage.getItem('sidebar_collapsed') || 'false'
     ),
     favouriteGames: configStore.get('games.favourites', []),
     customCategories: configStore.get('games.customCategories', {}),
     theme: configStore.get('theme', ''),
+    isFullscreen: false,
+    isFrameless: false,
     zoomPercent: configStore.get('zoomPercent', 100),
     secondaryFontFamily:
       configStore.get_nodefault('contentFontFamily') ||
@@ -254,18 +240,6 @@ class GlobalState extends PureComponent<Props> {
   setAllTilesInColor = (value: boolean) => {
     configStore.set('allTilesInColor', value)
     this.setState({ allTilesInColor: value })
-  }
-
-  setShowHidden = (value: boolean) => {
-    this.setState({ showHidden: value })
-  }
-
-  setShowFavourites = (value: boolean) => {
-    this.setState({ showFavourites: value })
-  }
-
-  setShowNonAvailable = (value: boolean) => {
-    this.setState({ showNonAvailable: value })
   }
 
   setSideBarCollapsed = (value: boolean) => {
@@ -414,7 +388,7 @@ class GlobalState extends PureComponent<Props> {
   }
 
   handleSuccessfulLogin = (runner: Runner) => {
-    this.handleCategory('all')
+    storage.setItem('category', 'all')
     this.refreshLibrary({
       runInBackground: false,
       library: runner
@@ -651,12 +625,6 @@ class GlobalState extends PureComponent<Props> {
       })
   }
 
-  handleSearch = (input: string) => this.setState({ filterText: input })
-  handlePlatformFilter = (filterPlatform: string) =>
-    this.setState({ filterPlatform })
-  handleLayout = (layout: string) => this.setState({ layout })
-  handleCategory = (category: Category) => this.setState({ category })
-
   handleGameStatus = async ({
     appName,
     status,
@@ -731,11 +699,8 @@ class GlobalState extends PureComponent<Props> {
 
   async componentDidMount() {
     const { t } = this.props
-    const { epic, gameUpdates = [], libraryStatus, category } = this.state
-    const oldCategory: string = category
-    if (oldCategory === 'epic') {
-      this.handleCategory('all')
-    }
+    const { epic, gameUpdates = [], libraryStatus } = this.state
+
     // Deals launching from protocol. Also checks if the game is already running
     window.api.handleLaunchGame(
       async (
@@ -817,6 +782,16 @@ class GlobalState extends PureComponent<Props> {
       }
     })
 
+    this.setState({
+      isFullscreen: await window.api.isFullscreen(),
+      isFrameless: await window.api.isFrameless()
+    })
+    window.api.handleFullscreen(
+      (e: IpcRendererEvent, isFullscreen: boolean) => {
+        this.setState({ isFullscreen })
+      }
+    )
+
     const legendaryUser = configStore.has('userInfo')
     const gogUser = gogConfigStore.has('userData')
     const amazonUser = nileConfigStore.has('userData')
@@ -871,20 +846,12 @@ class GlobalState extends PureComponent<Props> {
     const {
       gameUpdates,
       libraryStatus,
-      layout,
-      category,
-      showHidden,
-      showFavourites,
       sidebarCollapsed,
       hideChangelogsOnStartup,
       lastChangelogShown
     } = this.state
 
-    storage.setItem('category', category)
-    storage.setItem('layout', layout)
     storage.setItem('updates', JSON.stringify(gameUpdates))
-    storage.setItem('show_hidden', JSON.stringify(showHidden))
-    storage.setItem('show_favorites', JSON.stringify(showFavourites))
     storage.setItem('sidebar_collapsed', JSON.stringify(sidebarCollapsed))
     storage.setItem('hide_changelogs', JSON.stringify(hideChangelogsOnStartup))
     storage.setItem('last_changelog', JSON.stringify(lastChangelogShown))
@@ -912,9 +879,14 @@ class GlobalState extends PureComponent<Props> {
       hiddenGames,
       settingsModalOpen,
       hideChangelogsOnStartup,
-      lastChangelogShown
+      lastChangelogShown,
+      libraryStatus
     } = this.state
     const isRTL = RTL_LANGUAGES.includes(language)
+
+    const installingEpicGame = libraryStatus.some(
+      (game) => game.status === 'installing' && game.runner === 'legendary'
+    )
 
     return (
       <ContextProvider.Provider
@@ -940,10 +912,7 @@ class GlobalState extends PureComponent<Props> {
             login: this.amazonLogin,
             logout: this.amazonLogout
           },
-          handleCategory: this.handleCategory,
-          handleLayout: this.handleLayout,
-          handlePlatformFilter: this.handlePlatformFilter,
-          handleSearch: this.handleSearch,
+          installingEpicGame,
           setLanguage: this.setLanguage,
           isRTL,
           refresh: this.refresh,
@@ -954,9 +923,6 @@ class GlobalState extends PureComponent<Props> {
             add: this.hideGame,
             remove: this.unhideGame
           },
-          setShowHidden: this.setShowHidden,
-          setShowFavourites: this.setShowFavourites,
-          setShowNonAvailable: this.setShowNonAvailable,
           favouriteGames: {
             list: favouriteGames,
             add: this.addGameToFavourites,

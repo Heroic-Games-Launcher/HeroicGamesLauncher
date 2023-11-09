@@ -281,13 +281,14 @@
             "part3": "Sincronització manual: Tria «Baixa» per a baixar les partides desades al núvol. «Puja» per a pujar les dades locals al núvol. «Força la baixada» i «Força la pujada» ignorarà la versió local o del núvol.",
             "part4": "«Sincronitza les partides desades automàticament» sincronitzarà les dades cada vegada que iniciïs un joc i quan acabis de jugar."
         },
-        "vkd3d": "VKD3D és una capa de traducció basada en Vulkan per a jocs que fan servir DirectX 12. Si s'activa, podria millorar significativament la compatibilitat. No té cap efecte en jocs que emprin DirectX més antics.",
+        "vkd3d": "VKD3D és una capa de traducció basada en Vulkan per a jocs que fan servir DirectX 12. Si s'activa, podria millorar significativament la compatibilitat. No té cap efecte en jocs que emprin versions DirectX més antigues, ja que requereixen DXVK.",
         "wine": {
             "part1": "L'Heroic cerca les versions del Wine, Proton i CrossOver als directoris següents:",
             "part2": "Per a altres llocs, utilitza un enllaç simbòlic (symlink) a algun d'aquests directoris"
         },
         "disable_logs": "Activeu aquesta casella de selecció per desactivar la majoria de les escriptures als fitxers de registre (la informació crítica sempre es registra). Assegureu-vos de desactivar aquesta configuració abans d'informar de qualsevol problema.",
-        "dxvknvapi": "DXVK-NVAPI és una implementació de NVAPI construïda sobre DXVK i Linux natiu NVAPI. Permet l'ús de DLSS en les GPU de Nvidia."
+        "dxvknvapi": "DXVK-NVAPI és una implementació de NVAPI construïda sobre DXVK i Linux natiu NVAPI. Permet l'ús de DLSS en les GPU de Nvidia.",
+        "disablePlaytimeSync": "Desactiva la sincronització del temps de joc amb els servidors d'una botiga determinada. Actualment, només ho suporta el GOG."
     },
     "info": {
         "heroic": {
@@ -586,7 +587,11 @@
         "showMetalOverlay": "Mostra la superposició d'estadístiques",
         "addgamestoapplications": "Afegeix jocs a Aplicacions automàticament",
         "alt-nile-bin": "Trieu un binari alternatiu del Nil",
-        "autodxvknvapi": "Instal·la/Actualitza el DXVK-NVAPI al prefix automàticament"
+        "autodxvknvapi": "Instal·la/Actualitza el DXVK-NVAPI al prefix automàticament",
+        "disablePlaytimeSync": "Desactiva la sincronització del temps de reproducció",
+        "experimental_features": {
+            "enableNewDesign": "Disseny nou"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -621,13 +626,39 @@
             "log": "Registre",
             "other": "Altres",
             "sync": "Sincronització de desades al núvol",
-            "wineExt": "Extensions del Wine"
+            "wineExt": "Extensions del Wine",
+            "systemInformation": "Informació del sistema"
         },
         "open-config-file": "Obre el fitxer de configuració",
         "reset-heroic": "Restableix l'Heroic",
         "saves": {
             "label": "Ubicació de les desades:",
             "warning": "La funció de desar al núvol està en versió beta. Fes una còpia de seguretat de les partides desades abans de sincronitzar-les, per si res sortís malament."
+        },
+        "systemInformation": {
+            "cpu": "CPU:",
+            "gpuWithNumber": "GPU {{number}}:",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "legendaryVersion": "Legendary: {{legendaryVersion}}",
+            "systemSpecifications": "Característiques del sistema:",
+            "steamDeck": "Steam Deck",
+            "gpuDriver": "Controlador: {{driverVersion}}",
+            "os": "Sistema operatiu:",
+            "gpu": "GPU:",
+            "gogdlVersion": "GOGDL: {{gogdlVersion}}",
+            "osVersion": "Versió {{versionNumber}}",
+            "osNameFlatpak": "{{osName}} (dins del Flatpak)",
+            "software": "Maquinari:",
+            "memoryStats": "{{percentUsed}} % en ús ({{usedGib}} / {{totalGib}}",
+            "systemModel": "Model del sistema:",
+            "showDetailed": "Mostra els detalls del sistema",
+            "memory": "Memòria:",
+            "copyToClipboard": "Copia al porta-retalls",
+            "heroicVersion": "Heroic: {{heroicVersion}}",
+            "nileVersion": "Nile: {{nileVersion}}"
+        },
+        "experimental_features": {
+            "title": "Funcions experimentals"
         }
     },
     "Settings": "Configuració",
@@ -711,5 +742,14 @@
     },
     "prime-gaming": "Prime Gaming",
     "amazon": "Amazon",
-    "Amazon Games": "Jocs d'Amazon"
+    "Amazon Games": "Jocs d'Amazon",
+    "winetricks": {
+        "install": "Instal·la",
+        "loading": "Es carrega",
+        "installing": "Instal·lació en curs: {{component}}",
+        "openGUI": "Obre la interfície del Winetricks",
+        "search": "Cerqueu fonts o components",
+        "nothingYet": "El Winetricks encara no ha instal·lat res",
+        "installed": "Components instal·lats:"
+    }
 }

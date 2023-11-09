@@ -703,5 +703,9 @@
     },
     "amazon": "Amazon",
     "prime-gaming": "Prime Gaming",
-    "Amazon Games": "Jocuri Amazon"
+    "Amazon Games": "Jocuri Amazon",
+    "winetricks": {
+        "install": "Install",
+        "loading": "Loading"
+    }
 }

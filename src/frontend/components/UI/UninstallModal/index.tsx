@@ -1,5 +1,5 @@
 import './index.scss'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next'
 import { Runner } from 'common/types'
 import ToggleSwitch from '../ToggleSwitch'
 import { useNavigate, useLocation } from 'react-router-dom'
+import ContextProvider from 'frontend/state/ContextProvider'
 
 interface UninstallModalProps {
   appName: string
@@ -33,6 +34,7 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
+  const { installingEpicGame } = useContext(ContextProvider)
 
   const checkIfIsNative = async () => {
     // This assumes native games are installed should be changed in the future
@@ -94,6 +96,33 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
 
   const showWineCheckbox = !isNative && !isDlc
 
+  // disallow uninstalling epic games if an epic game is being installed
+  if (installingEpicGame && runner === 'legendary') {
+    return (
+      <>
+        {showUninstallModal && (
+          <Dialog onClose={onClose} showCloseButton className="uninstall-modal">
+            <DialogHeader onClose={onClose}>
+              {t('gamepage:box.uninstall.title')}
+            </DialogHeader>
+            <DialogContent>
+              {t(
+                'gamepage:box.uninstall.cannotUninstallEpic',
+                'Epic games cannot be uninstalled while another Epic game is being installed.'
+              )}
+            </DialogContent>
+            <DialogFooter>
+              <button onClick={onClose} className={`button outline`}>
+                {t('box.close', 'Close')}
+              </button>
+            </DialogFooter>
+          </Dialog>
+        )}
+      </>
+    )
+  }
+
+  // normal dialog to uninstall a game
   return (
     <>
       {showUninstallModal && (

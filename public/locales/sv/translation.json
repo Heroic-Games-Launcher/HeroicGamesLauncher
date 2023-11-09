@@ -84,7 +84,7 @@
                 "title": "Ubisoft Connect"
             },
             "legendary": {
-                "generic": "Ett fel har uppstått! Försök att logga ut och logga in på ditt Epic-konto. {{newline}} {{error}}"
+                "generic": "Ett fel har uppstått! Försök att logga ut och in på ditt Epic-konto. {{newline}} {{error}}"
             }
         },
         "info": {
@@ -155,9 +155,14 @@
             },
             "sideload": {
                 "confirmExit": {
-                    "title": "Är du säker på att du vill sluta?",
+                    "title": "Är du säker på att du vill avsluta?",
                     "message": "Alla osparade framsteg kan gå förlorade"
                 }
+            },
+            "snap": {
+                "checkbox": "Visa inte detta meddelande igen",
+                "title": "Heroic körs som Snap",
+                "message": "Vissa funktioner är inte tillgängliga i Snap-versionen av appen för tillfället men vi försöker åtgärda dem .{{newLine}}Nuvarande begränsningar är: {{newLine}}Heroic kommer inte att kunna hitta Proton från Steam eller Wine från Lutris .{{newLine}}{{newLine}}Gamescope, GameMode och MangoHud kommer inte heller att fungera eftersom Heroic inte kan ha tillgång till dem.{{newLine}}{{newLine}}För att få tillgång till den här funktionen, installera Heroic som en Flatpak , DEB eller AppImage."
             }
         },
         "wineprefix": "Ange Wine-prefix mapp",
@@ -281,13 +286,20 @@
             "part3": "Manuell synkronisering: Ladda ner sparfiler från molnlagring. Ladda upp lokala sparfiler till molnlagring. Tvingad nedladdning och tvingad uppladdning ignorerar versionskontroll både lokalt och i molnlagring.",
             "part4": "Synkronisera sparfiler automatiskt kommer synkronisera sparfiler varje gång ett spel startas samt avslutas."
         },
-        "vkd3d": "VKD3D är ett Vulkan-baserat översättningslager för DirectX 12 spel. Aktivering kan förbättra kompatibiliteten avsevärt. Har ingen effekt på äldre DirectX spel.",
+        "vkd3d": "VKD3D är ett Vulkan-baserat översättningslager för DirectX 12 spel. Aktivering kan förbättra kompatibiliteten avsevärt. Har ingen effekt på äldre DirectX spel, det kräver DXVK.",
         "wine": {
             "part1": "Heroic söker efter Wine, Proton och CrossOver i dessa mappar:",
             "part2": "För övriga platser, använd symbolisk länk till en av dessa mappar"
         },
         "disable_logs": "Slå den här kryssrutan PÅ för att inaktivera de flesta skrivningar till loggfiler (kritisk information loggas alltid). Se till att stänga AV den här inställningen innan du rapporterar något problem.",
-        "dxvknvapi": "DXVK-NVAPI är en implementering av NVAPI byggt ovanpå DXVK och Linux-native NVAPI, det tillåter användning av DLSS på Nvidia GPU:er."
+        "dxvknvapi": "DXVK-NVAPI är en implementering av NVAPI byggt ovanpå DXVK och Linux-native NVAPI, det tillåter användning av DLSS på Nvidia GPU:er.",
+        "disablePlaytimeSync": "Inaktiverar speltidssynkronisering med givna butiksservrar (för närvarande stöds endast GOG)",
+        "gamescope": {
+            "upscaleMethod": "Uppskalningsmetod gamescope ska använda.",
+            "upscaleWidth": "Breddupplösnings som används av gamescope. Ett bildförhållande på 16:9 antas.",
+            "upscaleHeight": "Höjdupplösning som används av gamescope. Ett bildförhållande på 16:9 antas.",
+            "fpsLimiter": "Antal bildrutor som gamescope ska begränsas till exempelvis 60"
+        }
     },
     "info": {
         "heroic": {
@@ -378,7 +390,7 @@
             "finished": "Installation slutförd",
             "imported": "Spelimport slutförd",
             "startInstall": "Installation påbörjad",
-            "failed": "Installation misslyckades",
+            "failed": "Installationen misslyckades",
             "paused": "Installation pausad"
         },
         "moved": "Spelflytt slutförd",
@@ -423,7 +435,11 @@
         },
         "gameargs": {
             "placeholder": "Ange Launcher-specifika argument",
-            "title": "Spelspecifika argument (körs efter startkommandot):"
+            "title": "Spelspecifika argument (körs efter startkommandot):",
+            "error": {
+                "command": "%command% syntaxen från Steam är inte giltig som spelargument.",
+                "env": "Miljövariabler måste konfigureras i tabellen nedan."
+            }
         },
         "quote-args-with-spaces": "Varning: Argument med mellanrum kräver citattecken t.ex: \"sökväg/med mellanrum/\"",
         "wrapper": {
@@ -433,6 +449,13 @@
             "placeHolderKey": "Ny Wrapper",
             "placeHolderValue": "Wrapper Argument",
             "title": "Wrapper kommando:"
+        },
+        "gamescope": {
+            "nis": "NVIDIA Image Scale (NIS)",
+            "borderless": "Kantlöst",
+            "fpsLimiter": "FPS-begränsning",
+            "fullscreen": "Helskärm",
+            "fpsLimiterNoFocus": "FPS-begränsning (ur fokus)"
         }
     },
     "other": {
@@ -469,7 +492,7 @@
             "queued": "Köad",
             "remove": "Ta bort från nedladdningar",
             "pause": "Pausa nedladdningen",
-            "resume": "Fortsätt nedladdning"
+            "resume": "Återuppta nedladdning"
         }
     },
     "Recent": "Nyligen spelat",
@@ -586,7 +609,22 @@
         "addgamestoapplications": "Lägg till spel till applikationer automatiskt",
         "showMetalOverlay": "Visa statistiköverlägg",
         "alt-nile-bin": "Välj en alternativ Nile Binär",
-        "autodxvknvapi": "Installera/uppdatera DXVK i prefix automatiskt"
+        "autodxvknvapi": "Installera/uppdatera DXVK i prefix automatiskt",
+        "disablePlaytimeSync": "Inaktivera speltidssynkronisering",
+        "experimental_features": {
+            "enableNewDesign": "Ny design"
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "Denna funktion är fortfarande experimentell. Vänligen rapportera eventuella problem du stöter på med den på GitHub.",
+                "title": "Experimentell funktion"
+            },
+            "description": "Använd kantlöst fönster (kräver omstart)"
+        },
+        "gamescope": {
+            "enableLimiter": "Aktivera FPS-begränsning",
+            "enableUpscaling": "Aktiverar uppskalning"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -620,14 +658,44 @@
             "general": "Allmänt",
             "log": "Logg",
             "other": "Övrigt",
-            "sync": "Synkronisera sparfiler",
-            "wineExt": "Wine Extensions"
+            "sync": "Synkronisera molnsparfiler",
+            "wineExt": "Wine Extensions",
+            "systemInformation": "Systeminformation",
+            "gamescope": "Gamescope"
         },
         "open-config-file": "Öppna konfigurationsfil",
         "reset-heroic": "Grundinställ Heroic",
         "saves": {
             "label": "Plats för sparfiler:",
             "warning": "Molnlagringsfunktionen är i beta, vänligen säkerhetskopiera dina sparade filer innan du synkroniserar (ifall något går fel)"
+        },
+        "systemInformation": {
+            "cpu": "CPU:",
+            "gpuWithNumber": "GPU {{number}}:",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "legendaryVersion": "Legendary: {{legendaryVersion}}",
+            "systemSpecifications": "Systemspecifikationer:",
+            "steamDeck": "Steam Deck",
+            "gpuDriver": "Drivrutin: {{driverVersion}}",
+            "os": "Oprativsystem:",
+            "gpu": "GPU:",
+            "gogdlVersion": "Gogdl: {{gogdlVersion}}",
+            "osVersion": "Version {{versionNumber}}",
+            "osNameFlatpak": "{{osName}} (inuti Flatpak)",
+            "software": "Programvara:",
+            "memoryStats": "{{percentUsed}}% använt ({{usedGib}} / {{totalGib}}",
+            "systemModel": "Systemmodell:",
+            "showDetailed": "Visa detaljerade systemspecifikationer",
+            "memory": "Minne:",
+            "copyToClipboard": "Kopiera till urklipp",
+            "heroicVersion": "Heroic: {{heroicVersion}}",
+            "nileVersion": "Nile: {{nileVersion}}"
+        },
+        "experimental_features": {
+            "title": "Experimentella funktioner"
+        },
+        "gamescope": {
+            "searchMsg": "Söker efter gamescope exekverbar fil."
         }
     },
     "Settings": "Inställningar",
@@ -711,5 +779,20 @@
     },
     "amazon": "Amazon",
     "Amazon Games": "Amazon spel",
-    "prime-gaming": "Prime Gaming"
+    "prime-gaming": "Prime Gaming",
+    "winetricks": {
+        "install": "Installera",
+        "loading": "Läser in",
+        "installing": "Installation pågår: {{component}}",
+        "openGUI": "Öppna Winetricks GUI",
+        "search": "Sök teckensnitt eller komponenter",
+        "installed": "Installerade komponenter:",
+        "nothingYet": "Inget har installerats av Winetricks ännu"
+    },
+    "window": {
+        "minimize": "Minimera fönstret",
+        "maximize": "Maximera fönstret",
+        "close": "Stäng",
+        "restore": "Återställ fönstret"
+    }
 }

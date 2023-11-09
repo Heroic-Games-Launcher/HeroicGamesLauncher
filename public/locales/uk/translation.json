@@ -287,7 +287,8 @@
             "part2": "Для інших місць, скористайтесь символьною ланкою на одну з цих тек"
         },
         "disable_logs": "Увімкніть цей прапорець, щоб вимкнути більшість записів у файли журналу (важлива інформація завжди реєструється). Обов’язково вимкніть цей параметр, перш ніж повідомляти про будь-яку проблему.",
-        "dxvknvapi": "DXVK-NVAPI - це реалізація NVAPI, побудована на основі DXVK та власне NVAPI Linux, що дозволяє використовувати DLSS на графічних процесорах Nvidia."
+        "dxvknvapi": "DXVK-NVAPI - це реалізація NVAPI, побудована на основі DXVK та власне NVAPI Linux, що дозволяє використовувати DLSS на графічних процесорах Nvidia.",
+        "disablePlaytimeSync": "Вимкнення синхронізації часу відтворення з серверами даного магазину (наразі підтримується лише GOG)"
     },
     "info": {
         "heroic": {
@@ -588,8 +589,10 @@
         "alt-nile-bin": "Виберіть альтернативний двійковий файл Nile",
         "autodxvknvapi": "Автоматично встановлювати/оновлювати DXVK/VKD3D на префіксі",
         "experimental_features": {
-            "enableNewShinyFeature": "Нова блискуча функція"
-        }
+            "enableNewShinyFeature": "Нова блискуча функція",
+            "enableNewDesign": "Новий дизайн"
+        },
+        "disablePlaytimeSync": "Вимкнути синхронізацію часу відтворення"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -740,5 +743,14 @@
     },
     "amazon": "Amazon",
     "Amazon Games": "Ігри Amazon",
-    "prime-gaming": "Prime Gaming"
+    "prime-gaming": "Prime Gaming",
+    "winetricks": {
+        "install": "Установка",
+        "loading": "Завантаження",
+        "installing": "Триває встановлення:\n{{component}}",
+        "openGUI": "Відкрити інтерфейс Winetricks",
+        "search": "Пошук шрифтів або компонентів",
+        "nothingYet": "Winetricks ще нічого не встановив",
+        "installed": "Встановлені компоненти:"
+    }
 }

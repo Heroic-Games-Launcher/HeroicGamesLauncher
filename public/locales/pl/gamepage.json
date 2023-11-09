@@ -37,14 +37,16 @@
             "settingcheckbox": "Wyczyść ustawienia i usuń dziennik zdarzeń{{newLine}}Uwaga: Ta operacja nie może zostać cofnięta. Wszystkie zmodyfikowane ustawienia zostaną zapomniane, a dziennik zdarzeń zostanie usunięty.",
             "title": "Odinstaluj",
             "prefix_warning": "Prefiks Wine dla tej gry jest prefiksem domyślnym. Jeśli na pewno chcesz go usunąć, musisz to zrobić ręcznie.",
-            "dlc": "Czy chcesz odinstalować to DLC?"
+            "dlc": "Czy chcesz odinstalować to DLC?",
+            "cannotUninstallEpic": "Gry pochodzące z Epic nie mogą być odinstalowane, podczas gdy inna gra ze sklepu Epic jest instalowana."
         },
         "update": {
             "message": "Ta gra ma dostępną aktualizację, czy chcesz ją teraz zainstalować?",
             "title": "Gra wymaga aktualizacji"
         },
         "wineprefix": "Wybierz folder z prefiksem Wine",
-        "yes": "TAK"
+        "yes": "TAK",
+        "close": "Zamknij"
     },
     "button": {
         "add_to_favourites": "Dodaj do ulubionych",
@@ -85,7 +87,7 @@
         "getting-install-size": "Sprawdzanie rozmiaru instalacji",
         "installSize": "Rozmiar instalacji",
         "language": "Język",
-        "lastPlayed": "Ostatnio uruchamiane",
+        "lastPlayed": "Ostatnio uruchamiana",
         "neverPlayed": "Nigdy",
         "platform": "Wybierz wersję platformy do zainstalowania",
         "requirements": "Wymagania systemowe",
@@ -128,7 +130,14 @@
         "path-not-writtable": "Ostrzeżenie: ścieżka może nie być nadpisywalna.",
         "space-after-install": "Po instalacji",
         "wineprefix": "Prefiks Wine",
-        "wineversion": "Wersja Wine"
+        "wineversion": "Wersja Wine",
+        "anticheat-warning": {
+            "cancel": "Nie",
+            "message": "Wsparcie dla systemów Anticheat nie działa poprawnie lub nie istnieje. Gra nie będzie działać. Czy chcesz zainstalować ją mimo wszystko?",
+            "install": "Tak (Rozumiem, że to nie zadziała)",
+            "title": "Niewspierany Anticheat"
+        },
+        "flatpak-path-not-writtable": "Błąd: Brak dostępu do tej ścieżki, spowoduje to utratę danych."
     },
     "label": {
         "game": {
@@ -153,7 +162,7 @@
         "gog": "Nie jesteś zalogowany kontem GOG w Heroic. Nie używaj strony sklepu do logowania, zamiast tego kliknij ten przycisk:",
         "login": "Zaloguj",
         "title": "NIE jesteś zalogowany",
-        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
+        "amazon": "Nie jesteś zalogowany za pomocą konta Amazon w Heroic. Nie używaj strony sklepu do zalogowania się, zamiast tego użyj przycisku poniżej:"
     },
     "report_problem": "Zgłoś problem z uruchamianiem tej gry",
     "sdl": {

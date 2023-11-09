@@ -23,7 +23,7 @@
             "title": "Caché borrado"
         },
         "choose": "Seleccionar",
-        "choose-egs-prefix": "Elija el prefijo de Wine donde está instalado EGS",
+        "choose-egs-prefix": "Elige el prefijo de Wine donde está instalado EGS",
         "choose-gogdl-binary": "Seleccionar binario de GOGDL (requiere reiniciar)",
         "choose-legendary-binary": "Seleccione el binario de Legendary",
         "customWine": "Selecciona un binario de Wine o Proton",
@@ -38,7 +38,7 @@
                 }
             },
             "credentials": {
-                "message": "Tus credenciales han expirado, por favor, inicia sesión nuevamente."
+                "message": "Tus credenciales han expirado. Por favor, inicia sesión nuevamente."
             },
             "cx-bottle-not-found": {
                 "message": "La botella de CrossOver \"{{bottle_name}}\" no existe, no se puede ejecutar!",
@@ -53,7 +53,7 @@
                 "title": "Error de DXVK/VKD3D"
             },
             "folder-not-found": {
-                "title": "La carpeta del juego parece haber sido borrada. ¿Quieres remover el juego de la lista de instalados?"
+                "title": "La carpeta del juego parece haber sido borrada. ¿Quieres eliminar el juego de la lista de instalados?"
             },
             "generic": {
                 "message": "Mensaje de error genérico",
@@ -80,7 +80,7 @@
             },
             "moving": "Error al mover el juego {{error}}",
             "ubisoft-connect": {
-                "title": "Conectar a Ubisoft",
+                "title": "Ubisoft Connect",
                 "message": "La instalación de Ubisoft Connect en el prefijo del juego ha fallado. Consulta nuestra página wiki en https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac para instalarlo manualmente."
             },
             "legendary": {
@@ -110,7 +110,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "¿Está seguro que quiere restablecer Heroic? Esto removerá todas las configuraciones y caché pero no removerá los juegos instalados ni las credenciales. Versiones portables (AppImage, WinPortable, ...) de Heroic tienen que ser iniciadas manualmente luego de ejecutar esta acción.",
+                "message": "¿Estás seguro de que quieres restablecer Heroic? Esto eliminará todas las configuraciones y caché, pero no eliminará los juegos instalados ni las credenciales. Versiones portables (AppImage, WinPortable, ...) de Heroic tienen que ser iniciadas manualmente luego de ejecutar esta acción.",
                 "title": "Restablecer Heroic"
             }
         },
@@ -138,7 +138,7 @@
                 "message": "Los links de descarga de Visual C++ Runtimes fueron abiertos. Por favor, instale ambos versions: x86 y x64."
             },
             "notfound": {
-                "message": "Microsoft Visual C++ Runtimes no está instalado, y es requerido por algunos juegos",
+                "message": "Microsoft Visual C++ Runtimes no está instalado, y se requiere para algunos juegos",
                 "title": "VCRuntime no instalado"
             }
         },
@@ -155,14 +155,17 @@
             },
             "sideload": {
                 "confirmExit": {
-                    "message": "Cualquier progreso no guardado podría perderse",
-                    "title": "¿Seguro que quieres dejarlo?"
+                    "message": "Todo progreso no guardado podría perderse",
+                    "title": "¿Seguro que quieres salir del programa?"
                 }
+            },
+            "snap": {
+                "checkbox": "No mostrar este mensaje de nuevo"
             }
         },
-        "wineprefix": "Seleccions la carpeta de los prefijos de Wine",
+        "wineprefix": "Selecciona la carpeta de los prefijos para Wine",
         "yes": "SÍ",
-        "dontShowAgain": "no volver a mostrar",
+        "dontShowAgain": "No volver a mostrar",
         "choose-nile-binary": "Seleccionar binario del Nilo"
     },
     "button": {
@@ -287,7 +290,12 @@
             "part2": "Para otros lugares, use un enlace simbólico a una de estas carpetas"
         },
         "disable_logs": "Active esta casilla de verificación para desactivar la mayoría de las escrituras en los archivos de registro (la información crítica siempre se registra). Asegúrese de DESACTIVAR esta configuración antes de informar cualquier problema.",
-        "dxvknvapi": "DXVK-NVAPI es una implementación de NVAPI construida sobre DXVK y la NVAPI nativa de Linux, que permite el uso de DLSS en GPUs Nvidia."
+        "dxvknvapi": "DXVK-NVAPI es una implementación de NVAPI construida sobre DXVK y la NVAPI nativa de Linux, que permite el uso de DLSS en GPUs Nvidia.",
+        "disablePlaytimeSync": "Desactiva la sincronización del tiempo de juego con el servidor de la tienda correspondiente (actualmente solo se admite GOG)",
+        "gamescope": {
+            "fpsLimiterNoFocus": "El límite de velocidad de fotogramas (fps) que debe aplicar gamescope si el juego no está en primer plano.",
+            "fpsLimiter": "El número máximo de fotogramas (fps) de gamescope, por ejemplo, es 60"
+        }
     },
     "info": {
         "heroic": {
@@ -433,6 +441,9 @@
             "placeHolderKey": "Nuevo Wrapper",
             "placeHolderValue": "Argumentos del Wrapper",
             "title": "Comando Wrapper:"
+        },
+        "gamescope": {
+            "upscaleHeight": "Altura mejorada"
         }
     },
     "other": {
@@ -480,9 +491,9 @@
         "addgamestosteam": "Agregar juegos a Steam automáticamente",
         "alt-gogdl-bin": "Elige un binario de GOGDL alternativo para usar",
         "alt-legendary-bin": "Elige un binario de Legendary alternativo",
-        "autodxvk": "Autoinstalar/actualizar DXVK en el Prefix",
+        "autodxvk": "Autoinstalar/Actualizar DXVK en el Prefijo",
         "autosync": "Autosincronizar guardados",
-        "autovkd3d": "Instalación/actualización automática de VKD3D en el prefijo",
+        "autovkd3d": "Autoinstalar/Actualizar VKD3D en el Prefijo",
         "change-target-exe": "Seleccione un EXE alternativo para ejecutar",
         "checkForUpdatesOnStartup": "Comprobar actualizaciones de Heroic al iniciar",
         "crossover-version": "Versión crossover/vino",
@@ -585,11 +596,13 @@
         "disable_logs": "Deshabilitar registros",
         "addgamestoapplications": "Agregar juegos a Aplicaciones automáticamente",
         "showMetalOverlay": "Mostrar superposición de estadísticas",
-        "alt-nile-bin": "Elija un binario alternativo del Nilo",
-        "autodxvknvapi": "Autoinstalar/actualizar DXVK en el Prefix",
+        "alt-nile-bin": "Elija un binario alternativo de Nile",
+        "autodxvknvapi": "Autoinstalar/Actualizar DXVK-NVAPI en el Prefijo",
         "experimental_features": {
-            "enableNewShinyFeature": "Una nueva función brillante"
-        }
+            "enableNewShinyFeature": "Una nueva función brillante",
+            "enableNewDesign": "Nuevo diseño"
+        },
+        "disablePlaytimeSync": "Desactivar la sincronización del tiempo de juego"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -625,7 +638,8 @@
             "other": "Otro",
             "sync": "Guardar-Sincronización",
             "wineExt": "Extensiones de Wine",
-            "systemInformation": "Información del sistema"
+            "systemInformation": "Información del sistema",
+            "gamescope": "Gamescope"
         },
         "open-config-file": "Abrir archivo de configuración",
         "reset-heroic": "Restablecer Heroic",
@@ -740,5 +754,17 @@
     },
     "prime-gaming": "Prime Gaming",
     "amazon": "Amazon",
-    "Amazon Games": "Juegos de Amazon"
+    "Amazon Games": "Juegos de Amazon",
+    "winetricks": {
+        "install": "Instalar",
+        "loading": "Cargando",
+        "installing": "Instalación en curso: {{component}}",
+        "openGUI": "Abrir la GUI de Winetricks",
+        "search": "Buscar fuentes o componentes",
+        "nothingYet": "Winetricks aún no ha instalado nada",
+        "installed": "Componentes instalados:"
+    },
+    "window": {
+        "maximize": "Maximizar la ventana"
+    }
 }

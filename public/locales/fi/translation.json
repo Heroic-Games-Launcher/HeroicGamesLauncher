@@ -287,7 +287,8 @@
             "part2": "Muille sijainneille käytä symbolista linkkiä johonkin näistä kansioista"
         },
         "disable_logs": "Ota tämä valintaruutu PÄÄLLE, jos haluat poistaa suurimman osan lokitiedostoihin kirjoituksista (kriittiset tiedot kirjataan aina lokiin). Muista poistaa tämä asetus käytöstä ennen kuin ilmoitat ongelmasta.",
-        "dxvknvapi": "DXVK-NVAPI on NVAPI:n sulautus joka on rakennettu DXVK:n ja kotoperäisen Linux-NVAPI:n päälle, ja se mahdollistaa DLSS:n käytön Nvidian näytönohjaimilla."
+        "dxvknvapi": "DXVK-NVAPI on NVAPI:n sulautus joka on rakennettu DXVK:n ja kotoperäisen Linux-NVAPI:n päälle, ja se mahdollistaa DLSS:n käytön Nvidian näytönohjaimilla.",
+        "disablePlaytimeSync": "Kytkee pois päältä peliaikojen synkronisoinnin kauppojen palvelimien kanssa (tällä hetkellä vain GOG on tuettu)"
     },
     "info": {
         "heroic": {
@@ -588,8 +589,10 @@
         "alt-nile-bin": "Valitse vaihtoehtoinen Nile-binääri",
         "autodxvknvapi": "Asenna automaattisesti/päivitä DXVK/VKD3D etuasteessa",
         "experimental_features": {
-            "enableNewShinyFeature": "Tuore uutuuttakiiltävä ominaisuus"
-        }
+            "enableNewShinyFeature": "Tuore uutuuttakiiltävä ominaisuus",
+            "enableNewDesign": "Uusi malli"
+        },
+        "disablePlaytimeSync": "Kytke peliaikojen synkronointi pois päältä"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -740,5 +743,9 @@
     },
     "amazon": "Amazon",
     "Amazon Games": "Amazon-pelit",
-    "prime-gaming": "Amazon Prime Gaming"
+    "prime-gaming": "Amazon Prime Gaming",
+    "winetricks": {
+        "install": "Asenna",
+        "loading": "Ladataan"
+    }
 }

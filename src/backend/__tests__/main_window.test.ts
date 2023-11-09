@@ -1,6 +1,7 @@
 import { createMainWindow, sendFrontendMessage } from '../main_window'
 import { BrowserWindow, Display, screen } from 'electron'
 import { configStore } from '../constants'
+import { overrideProcessPlatform } from './constants.test'
 
 jest.mock('../logger/logfile')
 
@@ -104,6 +105,57 @@ describe('main_window', () => {
         expect(options.width).toBe(1024 * 0.8) // 80% of the workAreaSize.width
         expect(options.x).toBe(0)
         expect(options.y).toBe(0)
+      })
+    })
+
+    describe('with frameless window enabled', () => {
+      beforeEach(() => {
+        jest.spyOn(configStore, 'has').mockReturnValue(false)
+        jest.spyOn(configStore, 'get').mockReturnValue({
+          framelessWindow: true
+        })
+      })
+
+      it('creates a simple frameless window on Linux', () => {
+        const originalPlatform = overrideProcessPlatform('linux')
+        const window = createMainWindow()
+        const options = window['options']
+        overrideProcessPlatform(originalPlatform)
+
+        expect(options.frame).toBe(false)
+        expect(options.titleBarStyle).toBeUndefined()
+        expect(options.titleBarOverlay).toBeUndefined()
+      })
+
+      it('creates a frameless window with overlay controls on macOS and Windows', () => {
+        ;['darwin', 'win32'].forEach((platform) => {
+          const originalPlatform = overrideProcessPlatform(platform)
+          const window = createMainWindow()
+          const options = window['options']
+          overrideProcessPlatform(originalPlatform)
+
+          expect(options.frame).toBeUndefined()
+          expect(options.titleBarStyle).toBe('hidden')
+          expect(options.titleBarOverlay).toBe(true)
+        })
+      })
+    })
+
+    describe('with frameless window disabled', () => {
+      beforeAll(() => {
+        jest.spyOn(configStore, 'has').mockReturnValue(false)
+        jest.spyOn(configStore, 'get').mockReturnValue({
+          framelessWindow: false
+        })
+      })
+
+      it('creates the new window with default titlebar', () => {
+        const window = createMainWindow()
+        const options = window['options']
+
+        expect(options.frame).toBeUndefined()
+        expect(options.titleBarStyle).toBeUndefined()
+        expect(options.titleBarOverlay).toBeUndefined()
       })
     })
   })

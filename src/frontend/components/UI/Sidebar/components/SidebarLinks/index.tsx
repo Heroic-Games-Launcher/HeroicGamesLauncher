@@ -48,7 +48,9 @@ export default function SidebarLinks() {
     handleExternalLinkDialog
   } = useContext(ContextProvider)
 
-  const isStore = location.pathname.includes('store')
+  const inWebviewScreen =
+    location.pathname.includes('store') ||
+    location.pathname.includes('last-url')
   const isSettings = location.pathname.includes('settings')
   const isWin = platform === 'win32'
 
@@ -88,6 +90,12 @@ export default function SidebarLinks() {
   } else if (!epic.username && gog.username) {
     // Otherwise, if not logged in to Epic Games, open GOG Store
     defaultStore = '/gogstore'
+  }
+
+  // if we have a stored last-url, default to the `/last-url` route
+  const lastStore = localStorage.getItem('last-store')
+  if (lastStore) {
+    defaultStore = lastStore
   }
 
   return (
@@ -142,7 +150,7 @@ export default function SidebarLinks() {
             <span>{t('stores', 'Stores')}</span>
           </>
         </NavLink>
-        {isStore && (
+        {inWebviewScreen && (
           <div className="SidebarSubmenu">
             <NavLink
               data-testid="store"
@@ -213,18 +221,23 @@ export default function SidebarLinks() {
             >
               <span>{t('settings.navbar.general')}</span>
             </NavLink>
-            <NavLink
-              role="link"
-              to={`/settings/${runner}/${appName}/games_settings`}
-              state={{ ...state, runner: state?.runner }}
-              className={classNames('Sidebar__item SidebarLinks__subItem', {
-                ['active']: type === 'games_settings'
-              })}
-            >
-              <span>
-                {t('settings.navbar.games_settings_defaults', 'Game Defaults')}
-              </span>
-            </NavLink>
+            {!isWin && (
+              <NavLink
+                role="link"
+                to={`/settings/${runner}/${appName}/games_settings`}
+                state={{ ...state, runner: state?.runner }}
+                className={classNames('Sidebar__item SidebarLinks__subItem', {
+                  ['active']: type === 'games_settings'
+                })}
+              >
+                <span>
+                  {t(
+                    'settings.navbar.games_settings_defaults',
+                    'Game Defaults'
+                  )}
+                </span>
+              </NavLink>
+            )}
             <NavLink
               role="link"
               to={`/settings/${runner}/${appName}/advanced`}

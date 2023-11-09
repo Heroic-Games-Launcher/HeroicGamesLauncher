@@ -4,12 +4,11 @@ import { useTranslation } from 'react-i18next'
 import FormControl from 'frontend/components/UI/FormControl'
 import ContextProvider from 'frontend/state/ContextProvider'
 import SelectField from '../SelectField'
+import LibraryContext from 'frontend/screens/Library/LibraryContext'
 import './index.css'
 
 export default React.memo(function StoreFilter() {
   const {
-    category,
-    handleCategory,
     gog,
     epic,
     amazon,
@@ -17,6 +16,7 @@ export default React.memo(function StoreFilter() {
     currentCustomCategory,
     setCurrentCustomCategory
   } = useContext(ContextProvider)
+  const { category, handleCategory } = useContext(LibraryContext)
   const { t } = useTranslation()
 
   const isGOGLoggedin = gog.username

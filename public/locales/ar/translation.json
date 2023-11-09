@@ -287,7 +287,17 @@
             "part2": "بالنسبة للأماكن الأخرى، استخدم ارتباطًا رمزيًا لأحد هذه المجلدات"
         },
         "disable_logs": "بدّل مربع الاختيار هذا إلى «تشغيل» تعطِّل معظم الكتابة في ملفات السجل، فالمعلومات الهامة تُسجَّل دائمًا، وتأكد من تعطيل هذا الإعداد قبل أن تبلِّغ عن أي مشكلة.",
-        "dxvknvapi": "DXVK-NVAPI هو تطبيق ل‍ NVAPI على DXVK و NVAPI لينكس، وهو يتيح DLSS باستخدام معالجات رسوميات إنفيديا."
+        "dxvknvapi": "DXVK-NVAPI هو تطبيق ل‍ NVAPI على DXVK و NVAPI لينكس، وهو يتيح DLSS باستخدام معالجات رسوميات إنفيديا.",
+        "disablePlaytimeSync": "يعطِّل مزامنة وقت اللعب مع خواديم المتجر (ولا يعمل هذا الآن إلا في جي‌أو‌جي)",
+        "gamescope": {
+            "fpsLimiterNoFocus": "غاية معدَّل إطارات gamescope إن لم تُركَّز اللعبة.",
+            "upscaleMethod": "طريقة التجويد التي يستعملها gamescope.",
+            "gameWidth": "عرض نافذة اللعبة، ويفترض gamescope أن نسبة الطولَين ٩:١٦.",
+            "upscaleWidth": "عرض النافذة عند gamescope، ويُفتَرض أن نسبة الطولَين ٩:١٦.",
+            "gameHeight": "طول نافذة اللعبة، ويفترض gamescope أن نسبة الطولَين ٩:١٦.",
+            "upscaleHeight": "طول النافذة عند gamescope، ويُفتَرض أن نسبة الطولَين ٩:١٦.",
+            "fpsLimiter": "غاية عدد إطارات gamescope، فمثًلا حدها ٦٠"
+        }
     },
     "info": {
         "heroic": {
@@ -433,6 +443,19 @@
             "placeHolderKey": "غلاف جديد",
             "placeHolderValue": "معطيات الغلاف",
             "title": "أمر الغلاف:"
+        },
+        "gamescope": {
+            "nis": "تجويد الصور من إنفيديا (NIS)",
+            "borderless": "لا حدود",
+            "fpsLimiter": "حدُّ معدَّل الإطارات",
+            "gameHeight": "طول نافذة اللعبة",
+            "upscaleWidth": "عرض التجويد",
+            "fullscreen": "كامل الشاشة",
+            "gameWidth": "عرض نافذة اللعبة",
+            "interger": "التجويد بالإعداد الصحيحة",
+            "upscaleHeight": "طول التجويد",
+            "fpsLimiterNoFocus": "حدُّ معدَّل الإطارات (دون التركيز)",
+            "stretch": "مدِّد الصورة"
         }
     },
     "other": {
@@ -588,7 +611,14 @@
         "alt-nile-bin": "اختر ملفَّ تنفيذ بديلًا لنيل",
         "autodxvknvapi": "ثبِّت وحدِّث DXVK-NVAPI في السابقة",
         "experimental_features": {
-            "enableNewShinyFeature": "ميزة جديدة"
+            "enableNewShinyFeature": "ميزة جديدة",
+            "enableNewDesign": "تصميم جديد"
+        },
+        "disablePlaytimeSync": "يعطِّل مزامنة وقت اللعب",
+        "gamescope": {
+            "enableLimiter": "مكِّن حدَّ معدَّل الإطارات",
+            "enableUpscaling": "يمكِّن التجويد",
+            "missingMsg": "لم أجد"
         }
     },
     "settings": {
@@ -625,7 +655,8 @@
             "other": "آخر",
             "sync": "مزامنة ملفَّات التخزين من السحابة",
             "wineExt": "إضافات واين",
-            "systemInformation": "معلومات النظام"
+            "systemInformation": "معلومات النظام",
+            "gamescope": "Gamescope"
         },
         "open-config-file": "افتح ملف التكوين",
         "reset-heroic": "إعادة تعيين هِرُوِك",
@@ -657,6 +688,9 @@
             "copyToClipboard": "انسخه",
             "heroicVersion": "هِرُوِك: {{heroicVersion}}",
             "nileVersion": "النِّيل: {{nileVersion}}"
+        },
+        "gamescope": {
+            "searchMsg": "أَبحث عن ملفِّ تنفيذ gamescope."
         }
     },
     "Settings": "الإعدادات",
@@ -740,5 +774,14 @@
     },
     "amazon": "أمازون",
     "Amazon Games": "ألعاب أمازون",
-    "prime-gaming": "لعب برايم"
+    "prime-gaming": "لعب برايم",
+    "winetricks": {
+        "install": "ثبِّت",
+        "loading": "يحمَّل",
+        "installing": "يُثبَّت: {{component}}",
+        "openGUI": "افتح واجهة واين.تركس",
+        "search": "ابحث عن خطوط أو مكونات",
+        "nothingYet": "لم يثبِّت واين.تركس شيئًا بعد",
+        "installed": "المكونات المثبَّتة:"
+    }
 }

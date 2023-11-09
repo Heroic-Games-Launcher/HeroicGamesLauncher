@@ -1,73 +1,73 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Actions Font Family (Default: ",
-        "all_tiles_in_color": "Show all game tiles in color",
-        "content_font_family_no_default": "Content Font Family (Default: ",
-        "fonts": "Fonts",
-        "title": "Accessibility",
-        "zoom": "Zoom"
+        "actions_font_family_no_default": "செயல்கள் எழுத்துரு குடும்பம் (இயல்புநிலை: ",
+        "all_tiles_in_color": "அனைத்து விளையாட்டு ஓடுகளையும் வண்ணத்தில் காட்டு",
+        "content_font_family_no_default": "உள்ளடக்க எழுத்துரு குடும்பம் (இயல்புநிலை: ",
+        "fonts": "எழுத்துருக்கள்",
+        "title": "அணுகல்",
+        "zoom": "பெரிதாக்கு"
     },
-    "add_game": "Add Game",
+    "add_game": "விளையாட்டைச் சேர்க்கவும்",
     "All": "அனைத்தும்",
     "anticheat": {
-        "anticheats": "Anticheats",
-        "may_not_work": "It may not work due to denied or broken anticheat support.",
-        "reference": "Reference",
-        "source": "Source",
-        "status": "Status",
-        "title": "This game includes anticheat software"
+        "anticheats": "ஏமாற்று எதிர்ப்பு",
+        "may_not_work": "மறுக்கப்பட்ட அல்லது உடைந்த ஏமாற்று எதிர்ப்பு ஆதரவு காரணமாக இது வேலை செய்யாமல் போகலாம்.",
+        "reference": "குறிப்பு",
+        "source": "ஆதாரம்",
+        "status": "நிலை",
+        "title": "இந்த விளையாட்டில் ஏமாற்று எதிர்ப்பு மென்பொருள் உள்ளது"
     },
     "box": {
         "cache-cleared": {
-            "message": "ஹீராய்க் இன் தற்காலிக சேமிப்பு அழிக்கப்பட்டது",
-            "title": "கேஷ் அழிக்கப்பட்டது"
+            "message": "ஹீரோயிக் இன் தற்காலிக சேமிப்பு அழிக்கப்பட்டது.",
+            "title": "தற்காலிக சேமிப்பு அழிக்கப்பட்டது"
         },
         "choose": "தேர்வு செய்",
         "choose-egs-prefix": "EGS நிறுவப்பட்ட இடத்தின் முன்னொட்டை தேர்வுசெய்க",
-        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
+        "choose-gogdl-binary": "GOGDL பைனரியைத் தேர்ந்தெடுக்கவும் (மறுதொடக்கம் தேவை)",
         "choose-legendary-binary": "Legendary binary யைத் தேர்வு செய்",
-        "customWine": "Wine அல்லது Proton binary யைத் தேர்வு செய்",
+        "customWine": "ஒயின் அல்லது புரோட்டான் பைனரி யைத் தேர்வு செய்",
         "default-install-path": "இயல்புநிலை நிறுவல் பாதையை தேர்வு செய்",
-        "default-steam-path": "Steam path.",
-        "downloadNow": "Download now",
+        "default-steam-path": "நீராவி(ஸ்டீம்) பாதை.",
+        "downloadNow": "இப்போது பதிவிறக்கவும்",
         "error": {
             "add": {
                 "steam": {
-                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
-                    "title": "Adding Error"
+                    "body": "ஸ்டீமில் {{game}} சேர்ப்பது தோல்வியடைந்தது:{{newLine}} {{error}}",
+                    "title": "சேர்ப்பதில் பிழை"
                 }
             },
             "credentials": {
                 "message": "உங்கள் சான்றிதழ்கள் காலாவதியாகிவிட்டன, தயவுசெய்து வெளியேறி மீண்டும் உள்நுழைக."
             },
             "cx-bottle-not-found": {
-                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
-                "title": "CrossOver bottle not found"
+                "message": "கிராஸ்ஓவர் பாட்டில் \"{{bottle_name}}\" இல்லை, தொடங்க முடியாது!",
+                "title": "கிராஸ்ஓவர் பாட்டில் கிடைக்கவில்லை"
             },
             "diskspace": {
-                "message": "போதுமான இடம் இல்லை",
+                "message": "போதுமான வட்டு இடம் இல்லை",
                 "title": "இடம் இல்லை"
             },
             "dxvk": {
                 "message": "DXVK/VKD3D நிறுவும் போது பிழையாகிவிட்டது! தயவுசெய்து உங்கள் இணைப்பை சரிபார்க்கவும்!",
-                "title": "DXVK/VKD3D error"
+                "title": "DXVK/VKD3D பிழை"
             },
             "folder-not-found": {
-                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+                "title": "கேம் கோப்புறை நீக்கப்பட்டதாகத் தெரிகிறது, நிறுவப்பட்ட பட்டியலிலிருந்து கேமை அகற்ற விரும்புகிறீர்களா?"
             },
             "generic": {
                 "message": "பொதுவான பிழை செய்தி",
-                "title": "Select EXE to Run"
+                "title": "இயக்க EXE ஐத் தேர்ந்தெடுக்கவும்"
             },
-            "launchAborted": "Launch aborted",
+            "launchAborted": "துவக்கம் நிறுத்தப்பட்டது",
             "title": "பிழை",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
-                "title": "Uncaught Exception occured!"
+                "message": "பிடிபடாத விதிவிலக்கு ஏற்பட்டது:{{newLine}}{{error}}{{newLine}}{{newLine}} எங்கள் Github களஞ்சியத்தில் விதிவிலக்கைப் புகாரளிக்கவும்.",
+                "title": "பிடிபடாத விதிவிலக்கு ஏற்பட்டது!"
             },
             "update": {
-                "message": "Something went wrong with the update, please check the logs or try again later!",
-                "title": "Update Error"
+                "message": "புதுப்பிப்பில் ஏதோ தவறாகிவிட்டது, பதிவுகளைச் சரிபார்க்கவும் அல்லது பிறகு முயற்சிக்கவும்!",
+                "title": "புதுப்பித்தல் பிழை"
             },
             "wine-not-found": {
                 "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
@@ -75,13 +75,13 @@
                 "title": "Wine Not Found"
             },
             "winetricks": {
-                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
-                "title": "Winetricks error"
+                "message": "செயல்படுத்தும் போது Winetricks பின்வரும் பிழையை வழங்கியது:{{newLine}}{{error}}",
+                "title": "ஒயின்ட்ரிக்ஸ் பிழை"
             },
             "moving": "கேமை நகர்த்துவதில் பிழை {{error}}",
             "ubisoft-connect": {
                 "title": "யுபிசாஃப்ட் இணைப்பு",
-                "message": "கேம் முன்னொட்டில் Ubisoft Connect இன் நிறுவல் தோல்வியடைந்தது. எங்களின் விக்கிப் பக்கத்தை https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac இல் நிறுவ, அதைத் தானாக நிறுவவும்."
+                "message": "விளையாட்டு முன்னொட்டில் Ubisoft Connect இன் நிறுவல் தோல்வியடைந்தது. எங்களின் விக்கிப் பக்கத்தை https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac இல் நிறுவ, அதைத் தானாக நிறுவவும்."
             },
             "legendary": {
                 "generic": "தவறு நிகழ்ந்துவிட்டது! உங்கள் எபிக் கணக்கில் வெளியேறி உள்நுழைய முயற்சிக்கவும். {{newline}} {{error}}"
@@ -89,12 +89,12 @@
         },
         "info": {
             "update": {
-                "changelog": "Open changelog",
-                "detail": "Do you want to download the update in the background?",
-                "message": "There is a new Version available!",
-                "message-finished": "Do you want to restart Heroic now?",
-                "title": "Heroic Games Launcher",
-                "title-finished": "Update Finished"
+                "changelog": "மற்றத்தை திறக்கவும்",
+                "detail": "புதுப்பிப்பை பின்னணியில் பதிவிறக்க விரும்புகிறீர்களா?",
+                "message": "ஒரு புதிய பதிப்பு உள்ளது!",
+                "message-finished": "இப்போது ஹீரோயிக்கை மீண்டும் தொடங்க விரும்புகிறீர்களா?",
+                "title": "வீர விளையாட்டு துவக்கி",
+                "title-finished": "புதுப்பித்தல் முடிந்தது"
             }
         },
         "no": "இல்லை",
@@ -110,23 +110,23 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
-                "title": "Reset Heroic"
+                "message": "ஹீரோயிக்கை நிச்சயமாக மீட்டமைக்க விரும்புகிறீர்களா? இது அனைத்து அமைப்புகளையும் தற்காலிக சேமிப்பையும் அகற்றும், ஆனால் உங்கள் நிறுவப்பட்ட கேம்கள் அல்லது உங்கள் காவிய நற்சான்றிதழ்களை அகற்றாது. ஹீரோயிக்கின் போர்ட்டபிள் பதிப்புகள் (ஆப்இமேஜ், வின்போர்டபில், ...) பின்னர் கைமுறையாக மறுதொடக்கம் செய்யப்பட வேண்டும்.",
+                "title": "வீரத்தை மீட்டமை"
             }
         },
         "runexe": {
             "title": "இயக்க EXE ஐத் தேர்ந்தெடுக்கவும்"
         },
         "select": {
-            "button": "Select",
-            "exe": "Select EXE"
+            "button": "தேர்ந்தெடுக்கவும்",
+            "exe": "EXE ஐத் தேர்ந்தெடுக்கவும்"
         },
         "shortcuts": {
-            "message": "Shortcuts were created on Desktop and Start Menu",
-            "message-mac": "Shortcuts were created on the Applications folder",
-            "message-remove": "Shortcuts were removed from Desktop and Start Menu",
-            "message-remove-mac": "Shortcuts were removed from the Applications folder",
-            "title": "Shortcuts"
+            "message": "டெஸ்க்டாப் மற்றும் ஸ்டார்ட் மெனுவில் குறுக்குவழிகள் உருவாக்கப்பட்டன",
+            "message-mac": "பயன்பாடுகள் கோப்புறையில் குறுக்குவழிகள் உருவாக்கப்பட்டன",
+            "message-remove": "டெஸ்க்டாப் மற்றும் தொடக்க மெனுவிலிருந்து குறுக்குவழிகள் அகற்றப்பட்டன",
+            "message-remove-mac": "பயன்பாடுகள் கோப்புறையிலிருந்து குறுக்குவழிகள் அகற்றப்பட்டன",
+            "title": "குறுக்குவழிகள்"
         },
         "sync": {
             "button": "தேர்வு செய்",
@@ -135,177 +135,199 @@
         },
         "vcruntime": {
             "install": {
-                "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
+                "message": "விஷுவல் சி++ இயக்க நேரங்களுக்கான பதிவிறக்க இணைப்புகள் திறக்கப்பட்டுள்ளன. x86 மற்றும் x64 பதிப்புகள் இரண்டையும் நிறுவவும்."
             },
             "notfound": {
-                "message": "The Microsoft Visual C++ Runtimes are not installed, which are required by some games",
-                "title": "VCRuntime not installed"
+                "message": "மைக்ரோசாஃப்ட் விஷுவல் சி++ இயக்க நேரங்கள் நிறுவப்படவில்லை, அவை சில கேம்களுக்குத் தேவைப்படும்",
+                "title": "VC இயக்க நேரம் நிறுவப்படவில்லை"
             }
         },
         "warning": {
             "epic": {
-                "import": "Epic Servers are having major outage right now, the game cannot be imported!",
-                "install": "Epic Servers are having major outage right now, the game cannot be installed!",
-                "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+                "import": "காவிய(epic) சேவையகங்கள் தற்போது பெரும் செயலிழப்பைக் கொண்டுள்ளன, விளையாட்டை இறக்குமதி செய்ய முடியாது!",
+                "install": "காவிய (epic)சேவையகங்கள் இப்போது பெரும் செயலிழப்பைக் கொண்டுள்ளன, விளையாட்டைநிறுவ முடியாது!",
+                "update": "எபிக் சேவையகங்கள் தற்போது பெரும் செயலிழப்பைக் கொண்டுள்ளன, விளையாட்டைப் புதுப்பிக்க முடியாது!"
             },
-            "title": "Warning",
+            "title": "எச்சரிக்கை",
             "wine-change": {
-                "title": "மது கிடைக்கவில்லை!",
+                "title": "ஒயின் கிடைக்கவில்லை!",
                 "message": "இந்த தலைப்பை ({{selectedWine}}) தொடங்குவதற்கு தேர்ந்தெடுக்கப்பட்ட ஒயின் பதிப்பை எங்களால் கண்டுபிடிக்க முடியவில்லை. {{newline}} இன்னொன்றைக் கண்டறிந்துள்ளோம், {{foundWine}} ஐப் பயன்படுத்தி தொடர்ந்து தொடங்க விரும்புகிறீர்களா?"
+            },
+            "snap": {
+                "checkbox": "இச்செய்தியை மீண்டும் காட்ட வேண்டாம்",
+                "title": "ஹீரோயிக் ஸ்னாப்பாக ஓடுகிறது",
+                "message": "செயலியின் ஸ்னாப் பதிப்பில் சில அம்சங்கள் தற்போது இல்லை, அதைச் சரிசெய்ய முயற்சிக்கிறோம்.{{newLine}}தற்போதைய வரம்புகள்: {{newLine}}ஹீரோயிக் ஸ்டீமில் இருந்து புரோட்டானையோ அல்லது லூட்ரிஸிலிருந்து ஒயினையோ கண்டுபிடிக்க முடியாது. .{{newLine}}{{newLine}}கேம்ஸ்கோப், கேம்மோட் மற்றும் MangoHud ஆகியவையும் வேலை செய்யாது, ஏனெனில் Heroic ஐ அணுக முடியாது.{{newLine}}{{newLine}}இந்த அம்சத்தை அணுக, Heroic ஐ Flatpak ஆக நிறுவவும். , DEB அல்லது AppImage இலிருந்து."
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "நீங்கள் நிச்சயம் வெளியேற வேண்டுமா?",
+                    "message": "சேமிக்கப்படாத எந்த முன்னேற்றமும் இழக்கப்படலாம்"
+                }
             }
         },
-        "wineprefix": "Wine முன்னொட்டு கோப்புறையை தேர்வுசெய்",
+        "wineprefix": "ஒயின் முன்னொட்டு கோப்புறையை தேர்வுசெய்",
         "yes": "ஆம்",
         "dontShowAgain": "மீண்டும் காட்டாதே",
         "choose-nile-binary": "நைல் பைனரியைத் தேர்ந்தெடுக்கவும்"
     },
     "button": {
-        "cancel": "Cancel",
-        "go_to_library": "Go to Library",
+        "cancel": "ரத்து செய்",
+        "go_to_library": "நூலகத்திற்குச் செல்லவும்",
         "login": "உள்நுழை",
         "sync": "ஒத்திசைவு செய்",
         "syncing": "ஒத்திசைவு செய்யப்படுகிறது",
         "unsync": "ஒத்திசைவை செயல்தவிர்",
-        "continue": "Continue"
+        "continue": "தொடரவும்"
     },
     "controller": {
         "hints": {
-            "back": "Back",
-            "backspace": "Backspace",
-            "close_dialog": "Close dialog",
-            "close_keyboard": "Close keyboard",
-            "close_options": "Close Options",
-            "game_details": "Game details",
-            "game_settings": "Game settings",
-            "install_game": "Install game",
-            "move_cursor": "Move cursor",
-            "open_virtual_keyboard": "Open virtual keyboard",
-            "options": "Options",
-            "play_game": "Play game",
-            "scroll": "Scroll",
-            "select": "Select",
-            "space": "Space",
-            "update_game": "Update game"
+            "back": "பின்னே",
+            "backspace": "பேக்ஸ்பேஸ்",
+            "close_dialog": "உரையாடலை மூடு",
+            "close_keyboard": "விசைப்பலகையை மூடு",
+            "close_options": "மூடு விருப்பங்கள்",
+            "game_details": "விளையாட்டு விவரங்கள்",
+            "game_settings": "விளையாட்டு அமைப்புகள்",
+            "install_game": "விளையாட்டை நிறுவவும்",
+            "move_cursor": "கர்சரை நகர்த்தவும்",
+            "open_virtual_keyboard": "மெய்நிகர் விசைப்பலகையைத் திறக்கவும்",
+            "options": "விருப்பங்கள்",
+            "play_game": "விளையாட்டை விளையாடு",
+            "scroll": "உருட்டவும்",
+            "select": "தேர்ந்தெடு",
+            "space": "வெற்றிடம்",
+            "update_game": "விளையாட்டை புதுப்பிக்கவும்"
         }
     },
-    "docs": "Documentation",
+    "docs": "ஆவணப்படுத்தல்",
     "download-manager": {
         "install-type": {
-            "install": "Install",
-            "update": "Update"
+            "install": "நிறுவு",
+            "update": "புதுப்பிக்கவும்"
         },
         "label": {
-            "disk": "Disk",
-            "speed": "Download"
+            "disk": "வட்டு",
+            "speed": "பதிவிறக்கு"
         },
-        "link": "Downloads",
+        "link": "பதிவிறக்கங்கள்",
         "queue": {
-            "end-time": "Finished at",
-            "queue-time": "Added at",
-            "start-time": "Started at",
-            "type": "Type"
+            "end-time": "மணிக்கு முடிந்தது",
+            "queue-time": "இல் சேர்க்கப்பட்டது",
+            "start-time": "இல் தொடங்கியது",
+            "type": "வகை"
         },
-        "title": "Downloads",
+        "title": "பதிவிறக்கங்கள்",
         "ETA": "கணிக்கப்பட்ட நேரம்"
     },
     "epic": {
-        "offline-notification-body": "Epic games இன் சர்வர்கள் ஆஃப்லைனில் உள்ளதால் ஆன்லைன் சேவைகள் முழுமையாக இயங்காமல் போகலாம்!",
-        "offline-notification-title": "offline"
+        "offline-notification-body": "எபிக் கேம்ஸ் சர்வர்கள் ஆஃப்லைனில் இருப்பதால் ஆன்லைன் சேவைகள் முழுமையாக வேலை செய்யாமல் போகலாம்!",
+        "offline-notification-title": "இணைய துண்டிப்பு"
     },
-    "Epic Games": "Epic Games",
-    "error": "Error",
-    "favourites": "Favourites",
+    "Epic Games": "காவிய விளையாட்டுகள்",
+    "error": "பிழை",
+    "favourites": "பிடித்தவை",
     "game": {
         "status": "Status",
-        "store": "Store",
-        "title": "Game Title"
+        "store": "கடை",
+        "title": "விளையாட்டு தலைப்பு"
     },
     "generic": {
         "error": {
-            "component": "No Games found - Try to logout and login again or one of the options bellow"
+            "component": "விளையாட்டுகள் எதுவும் இல்லை - வெளியேறி மீண்டும் உள்நுழைய முயற்சிக்கவும் அல்லது கீழே உள்ள விருப்பங்களில் ஒன்றை முயற்சிக்கவும்"
         },
         "library": {
-            "refresh": "Refresh Library"
+            "refresh": "நூலகத்தைப் புதுப்பிக்கவும்"
         }
     },
     "globalSettings": "உலகளாவிய விருப்பத்தேர்வுகள்",
     "GOG": "GOG",
-    "gog-store": "GOG Store",
+    "gog-store": "GOG கடை",
     "header": {
-        "hide_non_available_games": "Hide non-available games",
-        "ignore_hidden": "Ignore Hidden",
+        "hide_non_available_games": "கிடைக்காத விளையாட்டுகளை மறை",
+        "ignore_hidden": "மறைக்கப்பட்டதை புறக்கணிக்கவும்",
         "platform": "தளம்",
-        "show_all_games": "Show all games",
-        "show_available_games": "Show non-Available games",
-        "show_favourites_only": "Show Favourites only",
-        "show_hidden": "Show Hidden",
-        "store": "Filter Store"
+        "show_all_games": "அனைத்து விளையாட்டுகளையும் காட்டு",
+        "show_available_games": "கிடைக்காத விளையாட்டுகளைக் காட்டு",
+        "show_favourites_only": "பிடித்தவற்றை மட்டும் காட்டு",
+        "show_hidden": "மறைக்கப்பட்டதைக் காட்டு",
+        "store": "கடை வடிகட்டி"
     },
     "help": {
-        "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
-        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
-        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
-        "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
-        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
-        "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
-        "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
+        "amdfsr": "AMD இன் FSR ஆனது முழுத்திரை பயன்முறையில் குறைந்த தெளிவுத்திறனை அதிகரிப்பதன் மூலம் ஃப்ரேம்ரேட்டை அதிகரிக்க உதவுகிறது. ஒரு சிறிய செயல்திறன் வெற்றியின் விலையில் படத்தின் தரம் 5 முதல் 1 வரை அதிகரிக்கிறது. இயக்குவது செயல்திறனை மேம்படுத்தலாம்.",
+        "custom_themes_path": "நம்பத்தகாத ஆதாரங்களில் இருந்து CSS கோப்புகளைப் பயன்படுத்த வேண்டாம். சந்தேகம் இருந்தால், எங்கள் டிஸ்கார்ட் சேனலில் மதிப்பாய்வைக் கேட்கவும்.",
+        "custom_themes_wiki": "தனிப்பயன் தீம்களைச் சேர்ப்பது பற்றிய கூடுதல் விவரங்களுக்கு விக்கியைப் பார்க்கவும். இங்கே கிளிக் செய்யவும்.",
+        "dxvk": "DXVK என்பது டைரக்ட்எக்ஸ் 9, 10 மற்றும் 11 கேம்களுக்கான வல்கன் அடிப்படையிலான மொழிபெயர்ப்பு அடுக்கு ஆகும். செயல்படுத்துவது இணக்கத்தன்மையை மேம்படுத்தலாம். குறிப்பாக பழைய டைரக்ட்எக்ஸ் கேம்களில் சிக்கல்களை ஏற்படுத்தலாம்.",
+        "dxvkfpslimit": "DXVK விளையாட்டுகளுக்கு பிரேம் வீத தடுப்பை அமைக்கிறது",
+        "esync": "Esync CPU-தீவிர விளையாட்டுகளில் ஒயின்சர்வர் மேல்நிலையைக் குறைப்பதை நோக்கமாகக் கொண்டுள்ளது. இயக்குவது செயல்திறனை மேம்படுத்தலாம்.",
+        "fsync": "CPU-தீவிர விளையாட்டுகளில் ஒயின்சர்வர் மேல்நிலையைக் குறைப்பதை Fsync நோக்கமாகக் கொண்டுள்ளது. இயக்குவது ஆதரிக்கப்படும் லினக்ஸ் கர்னல்களில் செயல்திறனை மேம்படுத்தலாம்.",
         "game_language": {
-            "fallback": "Leave blank to use Heroic's language.",
-            "in_game_config": "Not all games support this configuration, some have in-game language setting.",
-            "valid_codes": "Valid language codes are game-dependant."
+            "fallback": "வீரத்தின் (heroic)மொழியைப் பயன்படுத்த, காலியாக விடவும்.",
+            "in_game_config": "எல்லா விளையாட்டுகளும் இந்த உள்ளமைவை ஆதரிப்பதில்லை, சில விளையாட்டுகள் மொழி அமைப்பைக் கொண்டுள்ளன.",
+            "valid_codes": "செல்லுபடியாகும் மொழி குறியீடுகள் விளையாட்டைச் சார்ந்தது."
         },
-        "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
+        "gamemode": "ஃபெரல் கேம்மோட் கேம்களை இயக்கும் போது கணினியில் தானியங்கி மற்றும் தற்காலிக மாற்றங்களைப் பயன்படுத்துகிறது. இயக்குவது செயல்திறனை மேம்படுத்தலாம்.",
         "general": "நீங்கள் எபிக் கேம்ஸ் ஸ்டோரை வேறு இடத்தில் நிறுவியிருந்தால், அதை மீண்டும் பதிவிறக்குவதைத் தவிர்க்க மற்றும் உங்கள் விளையாட்டுகளை இறக்குமதி செய்ய, EGS உடன் ஒத்திசைக்கவும்.",
-        "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
+        "mangohud": "MangoHUD என்பது FPS, வெப்பநிலை, CPU/GPU சுமை மற்றும் பிற கணினி ஆதாரங்களைக் காண்பிக்கும் மற்றும் கண்காணிக்கும் மேலடுக்கு ஆகும்.",
         "other": {
             "part4": "இதைப் பயன்படுத்து ",
             "part5": "விளையாட்டு வாதங்கள்",
             "part6": " ஏவுதல் கட்டளைக்குப் பின் அழைக்கப்பட வேண்டும், உதாரணமாக: ",
-            "part7": " Launcher ஐ சில விளையாட்டுகளுக்கு தவிர்ப்பது, முதலியன."
+            "part7": " துவக்கி ஐ சில விளையாட்டுகளுக்கு தவிர்ப்பது, முதலியன."
         },
-        "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
-        "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
+        "preferSystemLibs": "தனிப்பயன் ஒயின் பதிப்புகள் (Wine-GE, Wine-Lutris) அவற்றின் நூலக சார்புகளுடன் அனுப்பப்படுகின்றன. இந்த விருப்பத்தை இயக்குவதன் மூலம், அனுப்பப்பட்ட இந்த நூலகங்கள் புறக்கணிக்கப்படும், அதற்கு பதிலாக ஒயின் கணினி நூலகங்களை ஏற்றும். எச்சரிக்கை! சார்புகள் பூர்த்தி செய்யப்படாவிட்டால் சிக்கல்கள் ஏற்படலாம்.",
+        "primerun": "மல்டி-ஜிபியு சிஸ்டங்களில் கேமை வழங்க, பிரத்யேக கிராபிக்ஸ் கார்டைப் பயன்படுத்தவும். கேமிங் மடிக்கணினிகள் அல்லது டெஸ்க்டாப்களில் மட்டுமே தேவைப்படும், அவை ரெண்டரிங் செய்வதற்கு ஹெட்லெஸ் ஜிபியுவைப் பயன்படுத்துகின்றன (NVIDIA Optimus, AMD CrossFire)",
         "steam_path": {
-            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+            "info": "ஸ்டீமில் ஸ்டீம் அல்லாத விளையாட்டுகளை சேர்ப்பதற்கு புரோட்டான் ஸ்டீமின் எந்தப் பதிப்பைப் பயன்படுத்துகிறது என்பதை ஹீரோயிக் தீர்மானிக்க இந்தப் பாதை உதவுகிறது."
         },
-        "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
+        "steamruntime": "Linux மற்றும் Windows (Proton) கேம்களை இயக்க உதவும் வகையில் Steam வழங்கும் தனிப்பயன் நூலகங்கள். செயல்படுத்துவது பொருந்தக்கூடிய தன்மையை மேம்படுத்தலாம்.",
         "sync": {
             "part1": "சரியான சேமிப்பு கோப்புறையை ஹீரோயிக் யூகிக்க முயற்சிக்கும், இது பெரும்பாலான சந்தர்ப்பங்களில் வேலை செய்யும். கோப்புறை தவறாக இருந்தால், அதை மாற்ற override பெட்டியைப் பயன்படுத்தவும்.",
             "part2": "Wine அல்லது Proton முன்னொட்டு கோப்புறையை நீங்கள் மாற்றியிருந்தால், வேறு Proton முன்னொட்டு (/pfx) மற்றும் பயனர்பெயர் (steamuser) ஆகியவற்றைப் பயன்படுத்துவதால் நீங்கள் மீண்டும் பாதையை சரிபார்க்க வேண்டும். எனவே நீங்கள் தற்போதைய பாதையை ஒத்திசைவு அமைப்புகள் பக்கத்திலிருந்து எளிமையாக அழிக்க முடியும், அதன் பிறகு இன்னும் ஒரு முறை சரியான முன்னொட்டின் கோப்புறையை யூகிக்க எபிக் க்கு மீண்டும் திரும்பவும்.",
             "part3": "கைமுறை ஒத்திசைவு: மேகக்கணியில் சேமிக்கப்பட்ட விளையாட்டு சேமிப்புகளை பதிவிறக்க பதிவிறக்கத்தை தேர்வுசெய். கணினியில் உள்ளவற்றை மேகக்கணியில் பதிவேற்ற பதிவேற்றத்தை தேர்வுசெய். கட்டாயப்படுத்தப்பட்ட பதிவிறக்கம் அல்லது கட்டாயப்படுத்தப்பட்ட பதிவேற்றத்தை பயன்படுத்தினால், கணினி அல்லது மேகக்கணி பதிப்பை புறக்கணிக்கும்.",
             "part4": "'ஒத்திசைவு சேமிப்புகள்' நீங்கள் ஒரு விளையாட்டை துவங்கும்போதும் மற்றும் விளையாட்டை முடித்தபின்னும் சேமிப்புகளை தானாக ஒத்திசைக்கும்."
         },
-        "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.",
+        "vkd3d": "VKD3D என்பது DirectX 12 விளையாட்டுகளுக்கு வல்கன் அடிப்படையிலான மொழிபெயர்ப்பு அடுக்கு ஆகும். செயல்படுத்துவது பொருந்தக்கூடிய தன்மையை கணிசமாக மேம்படுத்தலாம். பழைய டைரக்ட்எக்ஸ் விளையாட்டுகளில் எந்த விளைவையும் ஏற்படுத்தாது, இதற்கு DXVK தேவைப்படுகிறது.",
         "wine": {
             "part1": "ஹீரோயிக் பின்வரும் கோப்புறைகளில் Wine, Proton மற்றும் crossover பதிப்புகளை தேடும்:",
             "part2": "பிற இடங்களுக்கு, இவற்றில் ஒரு கோப்புறைக்கு குறியீட்டு-இணைப்பை பயன்படுத்து"
         },
-        "disable_logs": "கோப்புகளைப் பதிவு செய்வதற்கான பெரும்பாலான எழுத்துகளை முடக்க, இந்த தேர்வுப்பெட்டியை இயக்கவும் (முக்கியமான தகவல்கள் எப்போதும் பதிவுசெய்யப்பட்டிருக்கும்). ஏதேனும் சிக்கலைப் புகாரளிக்கும் முன் இந்த அமைப்பை முடக்குவதை உறுதிசெய்யவும்."
+        "disable_logs": "கோப்புகளைப் பதிவு செய்வதற்கான பெரும்பாலான எழுத்துகளை முடக்க, இந்த தேர்வுப்பெட்டியை இயக்கவும் (முக்கியமான தகவல்கள் எப்போதும் பதிவுசெய்யப்பட்டிருக்கும்). ஏதேனும் சிக்கலைப் புகாரளிக்கும் முன் இந்த அமைப்பை முடக்குவதை உறுதிசெய்யவும்.",
+        "gamescope": {
+            "fpsLimiterNoFocus": "விளையாட்டு கவனம் செலுத்தவில்லை என்றால், பிரேம் வீத வரம்பு கேம்ஸ்கோப் ஒரு வினாடிக்கு வரம்பிட வேண்டும்.",
+            "upscaleMethod": "உயர்தரம்(upscaling) முறை கேம்ஸ்கோப் பயன்படுத்த வேண்டும்.",
+            "gameWidth": "விளையாட்டு பயன்படுத்தும் அகலத் தீர்மானம். கேம்ஸ்கோப் மூலம் 16:9 விகித விகிதம் கருதப்படுகிறது.",
+            "gameHeight": "விளையாட்டு பயன்படுத்தும் உயரத் தீர்மானம். கேம்ஸ்கோப் மூலம் 16:9 விகித விகிதம் கருதப்படுகிறது.",
+            "upscaleHeight": "விளையாட்டு பயன்படுத்தும் உயர தீர்மானம். கேம்ஸ்கோப் மூலம் 16:9 விகித விகிதம் கருதப்படுகிறது.",
+            "fpsLimiter": "பிரேம்கள் கேம்ஸ்கோப்பின் அளவு வரம்பிட வேண்டும். எ.கா. 60",
+            "upscaleWidth": "விளையாட்டு பயன்படுத்தும் உயர தீர்மானம். கேம்ஸ்கோப் மூலம் 16:9 விகித விகிதம் கருதப்படுகிறது."
+        },
+        "dxvknvapi": "DXVK-NVAPI என்பது DXVK மற்றும் லினக்ஸ் நேட்டிவ் NVAPI ஆகியவற்றின் மேல் கட்டப்பட்ட NVAPI இன் செயலாக்கமாகும், இது Nvidia GPUகளில் DLSS ஐப் பயன்படுத்த அனுமதிக்கிறது.",
+        "disablePlaytimeSync": "கொடுக்கப்பட்ட ஸ்டோர் சர்வர்களுடன் பிளேடைம் ஒத்திசைவை முடக்குகிறது (தற்போது GOG மட்டுமே ஆதரிக்கப்படுகிறது)"
     },
     "info": {
         "heroic": {
             "beta": "Beta",
-            "click-to-see-changelog": "Click to see changelog",
-            "newReleases": "Update Available!",
-            "stable": "Stable",
+            "click-to-see-changelog": "சேஞ்ச்லாக் பார்க்க கிளிக் செய்யவும்",
+            "newReleases": "புதுப்பிப்பு கிடைக்கிறது!",
+            "stable": "நிலையானது",
             "version": "Heroic Version"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder (click to cancel)"
+            "searching": "சரியான சேமிப்பு கோப்புறையை கண்டறிய முயற்சிக்கிறது (ரத்து செய்ய கிளிக் செய்யவும்)"
         },
         "settings": "அமைப்புகள் தானாகவே சேமிக்கப்படும்",
-        "version": "Wine Version"
+        "version": "ஒயினின் பதிப்பு"
     },
     "infobox": {
         "help": "உதவி",
         "requirements": "கணினி தேவைப்பாடுகள்",
-        "warning": "Warning",
-        "wine-path": "Wine Path",
+        "warning": "எச்சரிக்கை",
+        "wine-path": "ஒயின் பாதை",
         "wine-prefix": {
-            "title": "Wine Prefix"
+            "title": "ஓயினின் முன்னொட்டு"
         },
         "wine-repfix": {
-            "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
+            "message": "விண்டோஸ் பயன்பாடுகளை இணைக்க ஒயின் முன்னொட்டு எனப்படும் ஒயின் பயன்படுத்துகிறது. இந்த முன்னொட்டு ஒயின் உள்ளமைவு கோப்புகள் மற்றும் C: (Windows OS இல் உள்ள முக்கிய வட்டு) கோப்பு படிநிலையின் மறுஉருவாக்கம் ஆகியவற்றைக் கொண்டுள்ளது. சி: டிரைவின் இந்த மறுஉருவாக்கத்தில், உங்கள் கேம் சேமிப்பு கோப்புகள் மற்றும் ஒயின்ட்ரிக்ஸ் மூலம் நிறுவப்பட்ட சார்புகள் சேமிக்கப்படும்."
         },
         "wine-path-invalid": "ஒயின் பாதை தவறானது, வேறொன்றைத் தேர்ந்தெடுக்கவும்.",
         "wine-path-none-found": "ஒயின் பதிப்பு எதுவும் கிடைக்கவில்லை, ஒயின் மேலாளரிடமிருந்து ஒன்றைப் பதிவிறக்கவும்"
@@ -314,52 +336,53 @@
         "path": "Select Install Path"
     },
     "label": {
-        "loading": "Loading"
+        "loading": "ஏற்றுகிறது"
     },
     "library": {
         "refresh": "புதுப்பி",
-        "sortAscending": "Sort Ascending",
-        "sortByStatus": "Sort by Status",
-        "sortDescending": "Sort Descending",
+        "sortAscending": "ஏறுவரிசையை வரிசைப்படுத்தவும்",
+        "sortByStatus": "நிலையின்படி வரிசைப்படுத்தவும்",
+        "sortDescending": "இறங்குமுறையை வரிசைப்படுத்து",
         "toggleLayout": {
-            "grid": "Toggle to a grid layout",
-            "list": "Toggle to a list layout"
+            "grid": "கட்ட தளவமைப்பிற்கு மாறவும்",
+            "list": "பட்டியல் தளவமைப்பிற்கு மாறவும்"
         }
     },
     "Library": "விளையாட்டு பட்டியல்",
     "loading": {
         "default": "ஏற்றுகிறது",
-        "website": "Loading Website"
+        "website": "இணையதளத்தை ஏற்றுகிறது"
     },
     "login": {
-        "alternative_method": "Alternative Login Method",
-        "epic": "Epic Games Login",
-        "gog": "GOG Login",
-        "message": "Login with your platform. You can login to more than one platform at the same time.",
-        "amazon": "அமேசான் உள்நுழைவு"
+        "alternative_method": "மாற்று உள்நுழைவு முறை",
+        "epic": "காவிய விளையாட்டு(எபிக் கேம்ஸ்)உள்நுழைவு",
+        "gog": "GOG உள்நுழைவு",
+        "message": "உங்கள் தளத்துடன் உள்நுழைக. நீங்கள் ஒரே நேரத்தில் ஒன்றுக்கும் மேற்பட்ட தளங்களில் உள்நுழையலாம்.",
+        "amazon": "அமேசான் உள்நுழைவு",
+        "old-mac": "உங்கள் macOS பதிப்பு {{version}}. உள்நுழைய macOS 12 அல்லது புதியது தேவை."
     },
     "message": {
-        "sync": "ஒத்திசைவு நிறைப்படைந்தது",
-        "unsync": "ஒத்திசைவு செயல்தவிர் நிறைப்படைந்தது"
+        "sync": "ஒத்திசைவு நிறைவடைந்தது",
+        "unsync": "ஒத்திசைவு செயல்தவிர் நிறைவடைந்தது"
     },
     "notify": {
         "error": {
-            "move": "Error Moving the Game",
-            "reparing": "Error Repairing"
+            "move": "விளையாட்டை நகர்த்துவதில் பிழை",
+            "reparing": "பழுதுபார்ப்பதில் பிழை"
         },
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
-                    "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
-                    "title": "Added to Steam"
+                    "corrupt": "கண்டுபிடிக்கப்பட்ட அனைத்து Steam பயனர்களிடமும் {{game}} ஐ சேர்க்க முடியவில்லை. மேலும் தகவலுக்கு பதிவுகளைப் பார்க்கவும். மாற்றங்கள் நடைமுறைக்கு வர நீராவியை மறுதொடக்கம் செய்ய வேண்டும்.",
+                    "success": "{{game}} வெற்றிகரமாக நீராவியில் சேர்க்கப்பட்டது. மாற்றங்கள் நடைமுறைக்கு வர நீராவியை மறுதொடக்கம் செய்ய வேண்டும்.",
+                    "title": "நீராவியில் சேர்க்கப்பட்டது"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
-                    "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
-                    "title": "Removed from Steam"
+                    "corrupt": "கண்டறியப்பட்ட அனைத்து Steam பயனர்களிடமிருந்தும் {{game}} ஐ அகற்ற முடியவில்லை. மேலும் தகவலுக்கு பதிவுகளைப் பார்க்கவும். மாற்றங்கள் நடைமுறைக்கு வர நீராவியை மறுதொடக்கம் செய்ய வேண்டும்.",
+                    "success": "ஸ்டீமில் இருந்து {{game}} வெற்றிகரமாக அகற்றப்பட்டது. மாற்றங்கள் நடைமுறைக்கு வர நீராவியை மறுதொடக்கம் செய்ய வேண்டும்.",
+                    "title": "நீராவியில் இருந்து அகற்றப்பட்டது"
                 }
             },
             "reparing": "பழுதுபார்ப்பு முடிவடைந்தது"
@@ -368,79 +391,96 @@
             "canceled": "நிறுவல் ரத்து செய்யப்பட்டது",
             "error": "நிறுவல் தோல்வி",
             "finished": "நிறுவல் முடிந்தது",
-            "imported": "Game Imported",
-            "startInstall": "Installation Started",
+            "imported": "விளையாட்டு இறக்குமதி செய்யப்பட்டது",
+            "startInstall": "நிறுவல் தொடங்கியது",
             "failed": "நிறுவல் தோல்வி",
             "paused": "நிறுவல் இடைநிறுத்தப்பட்டது"
         },
         "moved": "நகர்தல் முடிவடைந்தது",
-        "moving": "Moving Game",
-        "new-heroic-version": "A new Heroic version was released!",
+        "moving": "விளையாட்டு நகர்த்தப்படுகிறது",
+        "new-heroic-version": "புதிய ஹீரோயிக் பதிப்பு வெளியிடப்பட்டது!",
         "refresh": {
-            "error": "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+            "error": "கிட் ஹப் ஏபிஐ கட்டுப்பாடுகள் காரணமாக, அப்ஸ்ட்ரீமில் இருந்து வெளியீடுகளைப் பெற முடியவில்லை! பின்னர் மீண்டும் முயற்சிக்கவும்."
         },
         "uninstalled": "நிறுவல் நீக்கப்பட்டது",
         "update": {
             "canceled": "புதுப்பிப்பு ரத்து செய்யப்பட்டது",
             "finished": "புதுப்பிப்பு நிறைவடைந்தது",
-            "started": "Update Started",
+            "started": "புதுப்பிப்பு தொடங்கியது",
             "failed": "புதுப்பித்தல் தோல்வியடைந்தது",
             "paused": "புதுப்பிப்பு இடைநிறுத்தப்பட்டது"
         }
     },
     "offline-message": {
         "hint": "நாங்கள் இணைப்பைச் சரிபார்க்கிறோம்:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com மற்றும்{{newline}}cloudflare-dns.com உடன்",
-        "ignore": "Ignore",
-        "offline": "Offline",
-        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
-        "retrying": "Retrying"
+        "ignore": "புறக்கணிக்கவும்",
+        "offline": "இணையம் துண்டிக்கப்பட்டுள்ளது",
+        "offline-retry-in": "துண்டிக்கப்பட்டுள்ளது. {{seconds}} வினாடிகளில் மீண்டும் முயற்சிக்கிறது.",
+        "retrying": "மீண்டும் முயற்சிக்கிறது"
     },
-    "Open": " ",
+    "Open": "திறக்க",
     "options": {
         "advanced": {
-            "key": "Variable Name",
-            "placeHolderKey": "NAME",
-            "placeHolderValue": "E.g.: Path/To/ExtraFiles",
-            "title": "Environment Variables",
-            "value": "Value"
+            "key": "நிலையற்ற பெயர்",
+            "placeHolderKey": "பெயர்",
+            "placeHolderValue": "எ.கா.: பாதை/செல்ல/கூடுதல் கோப்புகள்",
+            "title": "சுற்றுச்சூழல் மாறிகள்",
+            "value": "மதிப்பு"
         },
         "env_variables": {
             "error": {
-                "empty_key": "Variable names can't be empty",
-                "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
-                "space_in_key": "Variable names can't contain spaces"
+                "empty_key": "மாறி பெயர்கள் காலியாக இருக்கக்கூடாது",
+                "equal_sign_in_key": "மாறி பெயர்களில் \"=\" அடையாளம் இருக்கக்கூடாது",
+                "space_in_key": "மாறி பெயர்களில் இடைவெளிகள் இருக்கக்கூடாது"
             },
-            "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
-            "info": "Set environment variables to append to the command."
+            "example": "\"=\" அடையாளத்தைச் சேர்க்க வேண்டாம், எ.கா: \"MY_FLAG=123\" போன்ற அமைப்பிற்கு, NAME இல் MY_FLAG ஐயும் VALUE இல் 123 ஐயும் அமைக்கவும்.",
+            "info": "கட்டளையுடன் இணைக்க சூழல் மாறிகளை அமைக்கவும்."
         },
         "gameargs": {
             "placeholder": "துவக்கி வாதங்களை இங்கே உள்ளிடவும்",
-            "title": "விளையாட்டு வாதங்கள் (கட்டளைக்குப் பின் இயக்க):"
+            "title": "விளையாட்டு வாதங்கள் (கட்டளைக்குப் பின் இயக்க):",
+            "error": {
+                "command": "Steam இலிருந்து %command% தொடரியல் கேம் வாதங்களாக செல்லுபடியாகாது.",
+                "env": "சுற்றுச்சூழல் மாறிகள் கீழே உள்ள அட்டவணையில் கட்டமைக்கப்பட வேண்டும்."
+            }
         },
-        "quote-args-with-spaces": "Warning: Make sure to quote args with spaces! E.g.: \"path/with spaces/\"",
+        "quote-args-with-spaces": "எச்சரிக்கை: இடைவெளிகளுடன் argsஐ மேற்கோள் காட்டுவதை உறுதிசெய்யவும்! எ.கா.: \"பாதை/இடைவெளிகளுடன்/\"",
         "wrapper": {
-            "args": "Arguments",
-            "arguments_example": "Arguments example: --arg; --extra-file=\"file-path/ with/spaces\"",
-            "exe": "Wrapper",
-            "placeHolderKey": "New Wrapper",
-            "placeHolderValue": "Wrapper Arguments",
-            "title": "Wrapper command:"
+            "args": "வாதங்கள்",
+            "arguments_example": "வாதங்கள் உதாரணம்: --arg; --extra-file=\"file-path/ with/spaces\"",
+            "exe": "போர்வை",
+            "placeHolderKey": "புதிய ரேப்பர்",
+            "placeHolderValue": "போர்வை வாதங்கள்",
+            "title": "ரேப்பர் கட்டளை:"
+        },
+        "gamescope": {
+            "nis": "என்விடியா பட அளவுகோல் (என்ஐஎஸ்)",
+            "borderless": "எல்லையற்றது",
+            "fpsLimiter": "FPS வரம்பு",
+            "gameHeight": "விளையாட்டு உயரம்",
+            "upscaleWidth": "உயர்தர அகலம்",
+            "fullscreen": "முழு திரை",
+            "gameWidth": "விளையாட்டு அகலம்",
+            "interger": "இன்டர்ஜேர் உயர்தரம்",
+            "upscaleHeight": "உயர்தர உயரம்",
+            "fpsLimiterNoFocus": "FPS லிமிட்டர் (கவனம் தேவை இல்லை)",
+            "stretch": "நீட்சி படம்"
         }
     },
     "other": {
-        "gogdl-version": "GOGDL Version: ",
-        "legendary-version": "Legendary Version: ",
+        "gogdl-version": "GOGDL பதிப்பு: ",
+        "legendary-version": "பழம்பெரும் பதிப்பு: ",
         "weblate": "ஹீரோயிக் ஐ மொழிபெயர்க்க உதவுங்கள்.",
         "nile-version": "நைல் பதிப்பு: "
     },
-    "Other": "Other",
+    "Other": "மற்றவை",
     "placeholder": {
-        "alt-gogdl-bin": "Using built-in GOGDL binary...",
-        "alt-legendary-bin": "Using built-in Legendary binary...",
-        "custom_themes_path": "Select the path to look for custom CSS files",
-        "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
+        "alt-gogdl-bin": "உள்ளமைக்கப்பட்ட GOGDL பைனரியைப் பயன்படுத்துகிறது...",
+        "alt-legendary-bin": "உள்ளமைக்கப்பட்ட லெஜண்டரி பைனரியைப் பயன்படுத்துகிறது...",
+        "custom_themes_path": "தனிப்பயன் CSS கோப்புகளைத் தேடுவதற்கான பாதையைத் தேர்ந்தெடுக்கவும்",
+        "dxvkfpsvalue": "நேர்மறை முழு எண் மதிப்பு (எ.கா. 30, 60, ...)",
         "egs-prefix": "EGS நிறுவப்பட்ட முன்னொட்டு",
-        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")",
+        "prefered_language": "2-கரி குறியீடு (அதாவது: \"en\" அல்லது \"fr\")",
         "alt-nile-bin": "உள்ளமைக்கப்பட்ட நைல் பைனரியைப் பயன்படுத்துகிறது..."
     },
     "platforms": {
@@ -449,17 +489,17 @@
         "win": "விண்டோஸ்",
         "browser": "உலாவி"
     },
-    "please-wait": "Please wait...",
-    "progress": "Progress",
+    "please-wait": "தயவுசெய்து காத்திருங்கள்...",
+    "progress": "முன்னேற்றம்",
     "queue": {
         "label": {
-            "canceled": "Canceled",
-            "clear": "Clear List",
-            "downloading": "Downloading",
-            "empty": "Nothing to download",
-            "finished": "Completed",
-            "queued": "Queued",
-            "remove": "Remove from Downloads",
+            "canceled": "ரத்து செய்யப்பட்டது",
+            "clear": "பட்டியலை அழிக்க",
+            "downloading": "பதிவிறக்குகிறது",
+            "empty": "பதிவிறக்கம் செய்ய எதுவும் இல்லை",
+            "finished": "நிறைவு செய்யப்பட்டது",
+            "queued": "வரிசையில் நிற்கிறது",
+            "remove": "பதிவிறக்கங்களிலிருந்து அகற்று",
             "pause": "பதிவிறக்கத்தை இடைநிறுத்து",
             "resume": "பதிவிறக்கத்தை மீண்டும் தொடங்கவும்"
         }
@@ -469,69 +509,69 @@
     "setting": {
         "adddesktopshortcuts": "திரைமுகப்பு குறுக்குவழிகளை தானாக சேர்",
         "addgamestostartmenu": "துவகுப்பட்டியில் விளையாட்டுகளை தானாக சேர்",
-        "addgamestosteam": "Add games to Steam automatically",
+        "addgamestosteam": "கேம்களை தானாக ஸ்டீமில் சேர்க்கவும்",
         "alt-gogdl-bin": "மாற்று GOGDL Binary ஐத் தேர்வு செய்",
         "alt-legendary-bin": "மாற்று Legendary Binary ஐத் தேர்வு செய்",
         "autodxvk": "முன்னொட்டில் DXVK ஐ தானாக நிறுவு/புதுப்பி",
         "autosync": "சேமிப்புகளை தானாக ஒத்திசைவுசெய்",
-        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
-        "change-target-exe": "Select an alternative EXE to run",
-        "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
-        "crossover-version": "Crossover/Wine Version",
-        "custom_themes_path": "Custom Themes Path",
+        "autovkd3d": "முன்னொட்டில் VKD3D தானாக நிறுவுதல்/புதுப்பித்தல்",
+        "change-target-exe": "இயக்க மாற்று EXE ஐத் தேர்ந்தெடுக்கவும்",
+        "checkForUpdatesOnStartup": "தொடக்கத்தில் ஹீரோயிக் புதுப்பிப்புகளைச் சரிபார்க்கவும்",
+        "crossover-version": "கிராஸ்ஓவர்/ஒயின் பதிப்பு",
+        "custom_themes_path": "தனிப்பயன் தீம்கள் பாதை",
         "customWineProton": "தனிப்பயன் Wine/Proton பாதைகள்",
         "darktray": "கணினி தட்டில் இருண்ட சின்னத்தை பயன்படுத்து",
         "default-install-path": "இயல்புநிலை நிறுவல் பாதை",
-        "default-steam-path": "Default Steam path",
-        "defaultWinePrefix": "Set Folder for new Wine Prefixes",
-        "disable_controller": "Disable Heroic navigation using controller",
-        "discordRPC": "Enable Discord Rich Presence",
-        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
-        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
+        "default-steam-path": "இயல்புநிலை நீராவி பாதை",
+        "defaultWinePrefix": "புதிய ஒயின் முன்னொட்டுகளுக்கான கோப்புறையை அமைக்கவும்",
+        "disable_controller": "கட்டுப்படுத்தியைப் பயன்படுத்தி வீர வழிசெலுத்தலை முடக்கவும்",
+        "discordRPC": "டிஸ்கார்ட் ரிச் இருப்பை இயக்கு",
+        "download-no-https": "HTTPS இல்லாமல் விளையாட்டுகளைப் பதிவிறக்கவும் (சிடிஎன்களுக்குப் பயன்படும் எ.கா. LanCache)",
+        "dxvkfpslimit": "வரம்பு FPS (DX9, 10 மற்றும் 11)",
         "egs-sync": "நிறுவப்பட்ட எபிக் விளையாட்டுகளுடன் ஒத்திசை",
-        "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
+        "enableFSRHack": "FSR ஹேக்கை இயக்கு (ஒயின் பதிப்பு அதை ஆதரிக்க வேண்டும்)",
         "eosOverlay": {
-            "cancelInstall": "Cancel",
-            "checkForUpdates": "Check for updates",
-            "checkingForUpdates": "Checking for updates...",
-            "currentVersion": "Current Version: {{version}}",
-            "disable": "Disable",
-            "enable": "Enable",
+            "cancelInstall": "ரத்து செய்",
+            "checkForUpdates": "புதுப்பிப்புகளைச் சரிபார்க்கவும்",
+            "checkingForUpdates": "புதுப்பிப்புகளைச் சரிபார்க்கிறது...",
+            "currentVersion": "தற்போதைய பதிப்பு: {{version}}",
+            "disable": "முடக்கு",
+            "enable": "இயக்கு",
             "install": "Install",
-            "installed": "The EOS Overlay is installed",
-            "installing": "The EOS Overlay is being installed...",
-            "latestVersion": "Latest Version: {{version}}",
-            "notInstalled": "The EOS Overlay is not installed",
-            "notInstalledMsg": "The EOS Overlay is not installed. Do you want to install it now?",
-            "notInstalledTitle": "Overlay not installed",
-            "remove": "Uninstall",
-            "removeConfirm": "Are you sure you want to uninstall the EOS Overlay?",
-            "removeConfirmTitle": "Confirm overlay removal",
+            "installed": "EOS மேலடுக்கு நிறுவப்பட்டுள்ளது",
+            "installing": "EOS மேலடுக்கு நிறுவப்படுகிறது...",
+            "latestVersion": "சமீபத்திய பதிப்பு: {{version}}",
+            "notInstalled": "EOS மேலடுக்கு நிறுவப்படவில்லை",
+            "notInstalledMsg": "EOS மேலடுக்கு நிறுவப்படவில்லை. இப்போது அதை நிறுவ வேண்டுமா?",
+            "notInstalledTitle": "மேலடுக்கு நிறுவப்படவில்லை",
+            "remove": "நிறுவல் நீக்கவும்",
+            "removeConfirm": "EOS மேலடுக்கை நிறுவல் நீக்க நிச்சயமாக விரும்புகிறீர்களா?",
+            "removeConfirmTitle": "மேலடுக்கு அகற்றத்தை உறுதிப்படுத்தவும்",
             "updateNow": "Update",
-            "updating": "Updating..."
+            "updating": "புதுப்பிக்கிறது..."
         },
-        "esync": "Enable Esync",
+        "esync": "Esync ஐ இயக்கு",
         "exit-to-tray": "கணினி தட்டிற்கு வெளியேறு",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
-        "fsync": "Enable Fsync",
+        "FsrSharpnessStrenght": "FSR கூர்மையான வலிமை",
+        "fsync": "Fsync ஐ இயக்கு",
         "gamemode": "GameMode ஐ பயன்படுது (Feral விளையாட்டு பயன்முறையை நிறுவப்பட்டிருக்க வேண்டும்)",
-        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
+        "hideChangelogsOnStartup": "தொடக்கத்தில் மாற்றங்களை காட்ட வேண்டாம்",
         "language": "பயன்பாட்டின் மொழியை தேர்வுசெய்",
         "library_top_option": {
-            "disabled": "Disabled",
-            "favourites": "Favourite Games",
-            "recently_played": "Recently Played Games",
-            "recently_played_installed": "Recently Played Games (Only Installed)"
+            "disabled": "முடக்கப்பட்டது",
+            "favourites": "பிடித்த விளையாட்டுகள்",
+            "recently_played": "சமீபத்தில் விளையாடிய விளையாட்டுகள்",
+            "recently_played_installed": "சமீபத்தில் விளையாடிய விளையாட்டுகள்(நிறுவப்பட்டவை மட்டும்)"
         },
-        "library_top_section": "Library Top Section",
+        "library_top_section": "நூலகத்தின் மேல் பகுதி",
         "log": {
-            "copy-to-clipboard": "Copy log content to clipboard",
+            "copy-to-clipboard": "பதிவு உள்ளடக்கத்தை கிளிப்போர்டுக்கு நகலெடுக்கவும்",
             "current-log": "Current Log",
-            "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",
-            "instructions_title": "How to report a problem?",
+            "instructions": "எங்கள் டிஸ்கார்டில் சேர்ந்து, \"#-ஆதரவு\" பகுதியைத் தேடுங்கள். பின் செய்யப்பட்ட \"முதலில் என்னைப் படியுங்கள் | அடிக்கடி கேட்கப்படும் கேள்விகள்\" நூலைப் படித்து, இந்தப் பதிவுகள் மற்றும் உங்கள் பிரச்சனையைப் பற்றிய ஏதேனும் தொடர்புடைய தகவலைப் பகிர, வழிமுறைகளைப் பின்பற்றவும்.",
+            "instructions_title": "சிக்கலை எவ்வாறு புகாரளிப்பது?",
             "last-log": "Last Log",
-            "no-file": "No log file found",
-            "show-in-folder": "Show log file in folder"
+            "no-file": "பதிவு கோப்பு எதுவும் கிடைக்கவில்லை",
+            "show-in-folder": "கோப்புறையில் பதிவு கோப்பைக் காட்டு"
         },
         "mangohud": "Mangohud ஐ இயக்கு (Mangohud நிறுவப்பட்டிருக்க வேண்டும்)",
         "manualsync": {
@@ -543,16 +583,16 @@
             "title": "கைமுறை ஒத்திசைவு சேமிப்புகள்",
             "upload": "பதிவேற்றம்"
         },
-        "maxRecentGames": "Played Recently to Show",
+        "maxRecentGames": "காட்ட சமீபத்தில் விளையாடியது",
         "maxworkers": "பதிவிறக்கும் போது வேலையாளிகளின் அதிகபட்ச எண்ணிக்கை",
-        "minimize-on-launch": "Minimize Heroic After Game Launch",
+        "minimize-on-launch": "கேம் துவக்கத்திற்குப் பிறகு வீரத்தை குறைக்கவும்",
         "offlinemode": "இணையத்துடன் இணையாமல் விளையாட்டை துவக்கு",
-        "prefered_language": "Prefered Language (Language Code)",
-        "preferSystemLibs": "Prefer system libraries",
+        "prefered_language": "விருப்பமான மொழி (மொழிக் குறியீடு)",
+        "preferSystemLibs": "கணினி நூலகங்களை விரும்பு",
         "primerun": {
             "confirmation": {
-                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
-                "title": "Only 1 GPU detected"
+                "message": "இந்த அமைப்பில் ஒரு கிராபிக்ஸ் அட்டை மட்டுமே கண்டறியப்பட்டது. இந்த விருப்பம் ஹெட்லெஸ் ஜிபியுக்கள் (லேப்டாப்கள் போன்றவை) கொண்ட பல-ஜிபியு சிஸ்டங்களுக்காக வடிவமைக்கப்பட்டுள்ளது என்பதை நினைவில் கொள்ளவும். ஒற்றை-GPU கணினிகளில், GPU தானாகவே பயன்படுத்தப்படும் & இந்த விருப்பத்தை இயக்குவது சிக்கல்களை ஏற்படுத்தலாம். நீங்கள் உண்மையில் இந்த விருப்பத்தை இயக்க விரும்புகிறீர்களா?",
+                "title": "1 GPU மட்டுமே கண்டறியப்பட்டது"
             },
             "description": "Dedicated Graphics Card ஐ பயன்படுத்து"
         },
@@ -561,65 +601,111 @@
             "title": "முன்னொட்டில் EXE ஐ இயக்கு"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually (click to retry)",
+            "not-found": "சேமிப்பு கோப்புறை கிடைக்கவில்லை, தயவுசெய்து அதை கைமுறையாக தேர்ந்தெடுக்கவும் (மீண்டும் முயற்சிக்க கிளிக் செய்யவும்)",
             "placeholder": "சரியான விளையாட்டுகளை சேமிக்கும் கோப்புறையை தேர்ந்தெடு",
-            "warning": "Please check twice if the path is correct (click to retry)"
+            "warning": "பாதை சரியாக உள்ளதா என இருமுறை சரிபார்க்கவும் (மீண்டும் முயற்சிக்க கிளிக் செய்யவும்)"
         },
-        "select_theme": "Select Theme",
+        "select_theme": "தீம் தேர்ந்தெடுக்கவும்",
         "showfps": "FPS ஐக் காட்டு (DX9, 10 and 11)",
-        "start-in-tray": "Start Minimized",
-        "steamruntime": "Use Steam Runtime",
-        "winecrossoverbottle": "CrossOver Bottle",
+        "start-in-tray": "தொடக்கம் குறைக்கப்பட்டது",
+        "steamruntime": "நீராவி இயக்க நேரத்தைப் பயன்படுத்தவும்",
+        "winecrossoverbottle": "கிராஸ்ஓவர் பாட்டில்",
         "wineprefix": "WinePrefix கோப்புறை",
-        "wineversion": "Wine பதிப்பு",
-        "autoUpdateGames": "கேம்களை தானாகவே புதுப்பிக்கவும்",
+        "wineversion": "ஒயினின் பதிப்பு",
+        "autoUpdateGames": "விளையாட்டுகளை தானாகவே புதுப்பிக்கவும்",
         "ignoreGameUpdates": "கேம் புதுப்பிப்புகளைப் புறக்கணிக்கவும்",
         "disable_logs": "பதிவுகளை முடக்கு",
-        "addgamestoapplications": "தானாகவே பயன்பாடுகளில் கேம்களைச் சேர்க்கவும்",
+        "addgamestoapplications": "தானாகவே பயன்பாடுகளில் விளையாட்டுகளைசேர்க்கவும்",
         "showMetalOverlay": "புள்ளிவிவர மேலடுக்கைக் காட்டு",
         "alt-nile-bin": "ஒரு மாற்று நைல் பைனரியைத் தேர்ந்தெடுக்கவும்",
-        "autodxvknvapi": "முன்னொட்டில் DXVK/VKD3D ஐ தானாக நிறுவு/புதுப்பி"
+        "autodxvknvapi": "முன்னொட்டில் DXVK/VKD3D ஐ தானாக நிறுவு/புதுப்பி",
+        "disablePlaytimeSync": "விளையாட்டு நேர ஒத்திசைவை முடக்கு",
+        "frameless-window": {
+            "confirmation": {
+                "message": "இந்த அம்சம் இன்னும் சோதனை நிலையில் உள்ளது. GitHub இல் நீங்கள் எதிர்கொள்ளும் ஏதேனும் சிக்கல்களைப் புகாரளிக்கவும்.",
+                "title": "சோதனை அம்சம் முன்னால் உள்ளது"
+            },
+            "description": "ஃப்ரேம் இல்லாத சாளரத்தைப் பயன்படுத்தவும் (மறுதொடக்கம் தேவை)"
+        },
+        "gamescope": {
+            "enableLimiter": "FPS லிமிட்டரை இயக்கவும்",
+            "enableUpscaling": "உயர்தரத்தை (upscaling)செயல்படுத்துகிறது",
+            "missingMsg": "PATH இல் கேம்ஸ்கோப்பை எங்களால் கண்டுபிடிக்க முடியவில்லை. அதை நிறுவவும் அல்லது PATH இல் சேர்க்கவும்."
+        },
+        "experimental_features": {
+            "enableNewDesign": "புதிய வடிவமைப்பு"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
-            "installing": "Installing BattlEye Runtime...",
-            "name": "BattlEye AntiCheat Runtime"
+            "installing": "பேட்டில்-ஐ இயக்க நேரத்தை நிறுவுகிறது...",
+            "name": "பேடில்-ஐ ஏமாற்று எதிர்ப்பு இயக்க முறைமை"
         },
-        "clear-cache": "Clear Heroic Cache",
-        "copiedToClipboard": "Copied to Clipboard!",
+        "clear-cache": "ஹீரோயிக் தற்காலிக சேமிப்பு நிக்கம்",
+        "copiedToClipboard": "கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது!",
         "copyToClipboard": "அனைத்து செட்டிங்ஸையும் கிளிப் போர்டில் நகல் எடு",
-        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
+        "default_hint": "விளையாட்டுகளை நிறுவும் போது இந்தப் பிரிவில் மாற்றங்கள் இயல்புநிலை மதிப்புகளாக மட்டுமே பொருந்தும். ஏற்கனவே நிறுவப்பட்ட விளையாட்டின் அமைப்புகளை மாற்ற விரும்பினால், கேம் பக்கத்தில் உள்ள அமைப்புகள் பொத்தானைப் பயன்படுத்தவும்.",
         "eacRuntime": {
             "gameModeRequired": {
-                "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
-                "title": "GameMode required"
+                "message": "Flatpak இல் EAC இயங்குவதற்கு கேம்மோட் தேவை. இப்போது அதை இயக்க விரும்புகிறீர்களா?",
+                "title": "கேம்மோட் தேவை"
             },
-            "installing": "Installing EAC Runtime...",
-            "name": "EasyAntiCheat Runtime"
+            "installing": "EAC இயக்க முறைமை ஐ நிறுவுகிறது...",
+            "name": "EasyAntiCheat இயக்க முறைமை"
         },
         "gameMode": {
             "eacRuntimeEnabled": {
-                "message": "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?",
-                "title": "EAC runtime enabled"
+                "message": "EAC இயக்க நேரம் இயக்கப்பட்டது, இது கேம்மோட் இல்லாமல் சரியாகச் செயல்படாது. EAC இயக்க நேரம் மற்றும் கேம்மோடை முடக்க விரும்புகிறீர்களா?",
+                "title": "EAC இயக்க முறைமை இயக்கப்பட்டது"
             }
         },
         "log": {
-            "long-log-hint": "Log truncated, last 1000 lines are shown!"
+            "long-log-hint": "பதிவு துண்டிக்கப்பட்டது, கடைசி 1000 வரிகள் காட்டப்பட்டுள்ளன!"
         },
         "navbar": {
-            "advanced": "Advanced",
-            "games_settings_defaults": "Game Defaults",
+            "advanced": "மேம்படுத்தபட்ட",
+            "games_settings_defaults": "விளையாட்டு இயல்புநிலை",
             "general": "பொதுவானவை",
             "log": "Log",
             "other": "மற்றவை",
             "sync": "கிளவுட் சேமிப்பு ஒத்திசைவு",
-            "wineExt": "Wine Extensions"
+            "wineExt": "Wine Extensions",
+            "gamescope": "கேம்ஸ்கோப்",
+            "systemInformation": "கணினி தகவல்"
         },
-        "open-config-file": "Open Config File",
+        "open-config-file": "கட்டமைப்பு கோப்பைத் திறக்கவும்",
         "reset-heroic": "Reset Heroic",
         "saves": {
             "label": "Save Location:",
-            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+            "warning": "இணைய சேமிப்பு அம்சம் சோதனை ஓட்டத்தில் இன்னும் உள்ளது, உங்கள் சேமிப்பை ஒத்திசைக்கும் முன் காப்புப் பிரதி எடுக்கவும் (ஏதாவது தவறு நடந்தால்)"
+        },
+        "systemInformation": {
+            "cpu": "CPU:",
+            "gpuWithNumber": "வரைகலை செயலாக்க அலகு(GPU){{number}}:",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "legendaryVersion": "பழம்பெருமை: {{legendaryVersion}}",
+            "systemSpecifications": "கணினி விவரக்குறிப்புகள்:",
+            "steamDeck": "நீராவி தளம்",
+            "gpuDriver": "இயக்கி: {{driverVersion}}",
+            "os": "இயக்க முறைமை:",
+            "gpu": "GPU:",
+            "gogdlVersion": "கோக் DL: {{gogdlVersion}}",
+            "osVersion": "பதிப்பு {{versionNumber}}",
+            "osNameFlatpak": "{{osName}} (Flatpak உள்ளே)",
+            "software": "மென்பொருள்:",
+            "memoryStats": "{{percentUsed}}% பயன்படுத்தப்பட்டது ({{usedGib}} / {{totalGib}}",
+            "systemModel": "கணினி மாதிரி:",
+            "showDetailed": "விரிவான கணினி விவரக்குறிப்புகளைக் காட்டு",
+            "memory": "நினைவு:",
+            "copyToClipboard": "கிளிப்போர்டுக்கு நகலெடுக்கவும்",
+            "heroicVersion": "வீரம்: {{heroicVersion}}",
+            "nileVersion": "நைல்: {{nileVersion}}"
+        },
+        "experimental_features": {
+            "title": "பரிசோதனை அம்சங்கள்"
+        },
+        "gamescope": {
+            "searchMsg": "இயங்கக்கூடிய கேம்ஸ்கோப்பைத் தேடுகிறது."
         }
     },
     "Settings": "அமைப்புகள்",
@@ -628,20 +714,20 @@
         "uncollapse": "Uncollapse sidebar"
     },
     "status": {
-        "installing": "Installing",
-        "logging": "Logging In...",
-        "processing": "Processing files, please wait",
+        "installing": "நிறுவப்படுகிறது",
+        "logging": "உள்நுழைதல்...",
+        "processing": "கோப்புகளைச் செயலாக்குகிறது, காத்திருக்கவும்",
         "preparing_login": "உள்நுழைவு தயாராகிறது... "
     },
     "store": "Epic விற்பனைக்கூடம்",
-    "stores": "Stores",
+    "stores": "கடைகள்",
     "title": {
-        "allGames": "All Games"
+        "allGames": "அனைத்து விளையாட்டுகள்"
     },
     "toolbox": {
         "settings": {
             "default-wineprefix": "Select the default prefix folder for new configs",
-            "wineprefix": "Select a Folder for new Wine Prefixes"
+            "wineprefix": "புதிய ஒயின் முன்னொட்டுகளுக்கான கோப்புறையைத் தேர்ந்தெடுக்கவும்"
         }
     },
     "tooltip": {
@@ -655,17 +741,17 @@
         "show": "காட்டு"
     },
     "two_col_table": {
-        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+        "save_hint": "இந்த அட்டவணையில் மாற்றங்கள் தானாகச் சேமிக்கப்படாது. + பொத்தானைக் கிளிக் செய்யவும்"
     },
-    "Update Available!": "Update Available!",
+    "Update Available!": "புதுப்பிப்பு கிடைக்கிறது!",
     "userselector": {
         "discord": "டிஸ்கார்ட் (Discord)",
-        "logging_out": "Logging out",
+        "logging_out": "வெளியேறுகிறது",
         "logout": "வெளியேறு",
         "logout_confirmation": "நீங்கள் நிச்சயமாக வெளியேற விரும்புகிறீர்களா?",
-        "manageaccounts": "Manage Accounts",
+        "manageaccounts": "கணக்குகளை நிர்வகிக்கவும்",
         "quit": "வெளியேறு",
-        "cancel": "Cancel",
+        "cancel": "ரத்து செய்",
         "quitMessage": "நீங்கள் நிச்சயம் வெளியேற வேண்டுமா?"
     },
     "webview": {
@@ -677,15 +763,15 @@
         }
     },
     "wine": {
-        "actions": "Action",
+        "actions": "செயல்",
         "manager": {
-            "link": "Wine Manager",
-            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
-            "title": "Wine Manager",
-            "unzipping": "Unzipping"
+            "link": "ஒயின் மேலாளர்",
+            "not-found": "ஒயின் பதிப்புகள் எதுவும் இல்லை. மீண்டும் முயற்சிக்க, புதுப்பிப்பு ஐகானைக் கிளிக் செய்யவும்.",
+            "title": "ஒயின் மேலாளர்",
+            "unzipping": "திறக்கிறது(அன்ஜிப்)"
         },
-        "release": "Release Date",
-        "size": "Size"
+        "release": "வெளியிட்டு தேதி",
+        "size": "அளவு"
     },
     "externalLink": {
         "dontAskAgain": "மீண்டும் கேட்காதே",
@@ -696,12 +782,27 @@
     },
     "dlc": {
         "actions": "செயல்கள்",
-        "installDlcs": "Install all DLCs",
-        "noDlcFound": "டிஎல்சிகள் எதுவும் இல்லை",
-        "size": "Size",
-        "title": "Title"
+        "installDlcs": "பதிவிறக்கம் செய்யக்கூடிய அனைத்து உள்ளடக்கத்தையும் நிறுவவும்",
+        "noDlcFound": "தரவிறக்கம் செய்யக்கூடிய உள்ளடக்கம்கள் எதுவும் இல்லை",
+        "size": "அளவு",
+        "title": "தலைப்பு"
     },
     "amazon": "அமேசான்",
     "Amazon Games": "அமேசான் கேம்ஸ்",
-    "prime-gaming": "பிரைம் கேமிங்"
+    "prime-gaming": "பிரைம் கேமிங்",
+    "winetricks": {
+        "install": "நிறுவு",
+        "loading": "ஏற்றுகிறது",
+        "installing": "நிறுவல் நடைபெறுகிறது: {{component}}",
+        "openGUI": "ஒயின்ட்ரிக்ஸ் வரைகலை பயனாளர் இடைமுகம் ஐத் திறக்கவும்",
+        "search": "எழுத்துருக்கள் அல்லது கூறுகளைத் தேடுங்கள்",
+        "nothingYet": "வைன்ட்ரிக்ஸால் இதுவரை எதுவும் நிறுவப்படவில்லை",
+        "installed": "நிறுவப்பட்ட கூறுகள்:"
+    },
+    "window": {
+        "close": "மூடு",
+        "minimize": "சாளரத்தை குறைக்கவும்",
+        "maximize": "சாளரத்தை பெரிதாக்கவும்",
+        "restore": "சாளரத்தை மீட்டமை"
+    }
 }

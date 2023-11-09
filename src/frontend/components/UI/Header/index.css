@@ -8,8 +8,14 @@
   grid-gap: 8px;
   align-items: start;
   padding: var(--space-md);
-  background: var(--gradient-body-background);
+  background: var(--gradient-body-background, var(--body-background));
   color: var(--text-secondary);
+}
+
+.frameless:not(.fullscreen) .Header {
+  padding-right: calc(
+    var(--overlay-controls-width) - env(titlebar-area-x, 0px)
+  );
 }
 
 @media screen and (max-width: 1000px) {
