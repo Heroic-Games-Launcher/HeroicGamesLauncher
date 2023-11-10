@@ -386,15 +386,21 @@ export async function refresh(): Promise<ExecResult> {
   const promises = filteredApiArray.map(async (game): Promise<GameInfo> => {
     let retries = 5
     while (retries > 0) {
-      const { data } = await getGamesdbData(
-        'gog',
-        game.external_id,
-        false,
-        game.certificate,
-        credentials.access_token
-      ).catch(() => ({
-        data: null
-      }))
+      let gdbData
+      try {
+        const { data } = await getGamesdbData(
+          'gog',
+          game.external_id,
+          false,
+          game.certificate,
+          credentials.access_token
+        )
+        gdbData = data
+      } catch {
+        await new Promise((resolve) => setTimeout(resolve, 2000))
+        retries -= 1
+        continue
+      }
 
       const product = await getProductApi(
         game.external_id,
@@ -402,12 +408,7 @@ export async function refresh(): Promise<ExecResult> {
         credentials.access_token
       ).catch(() => null)
 
-      if (!data) {
-        await new Promise((resolve) => setTimeout(resolve, 2000))
-        retries -= 1
-        continue
-      }
-      const unifiedObject = await gogToUnifiedInfo(data, product?.data)
+      const unifiedObject = await gogToUnifiedInfo(gdbData, product?.data)
       if (unifiedObject.app_name) {
         const oldData = library.get(unifiedObject.app_name)
         if (oldData) {
