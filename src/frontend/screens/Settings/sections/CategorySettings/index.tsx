@@ -1,5 +1,5 @@
 import ContextProvider from 'frontend/state/ContextProvider'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import SettingsContext from '../../SettingsContext'
 import { Box, Button, Chip, Divider, Typography } from '@mui/material'
 import { TextInputField } from 'frontend/components/UI'
@@ -11,13 +11,19 @@ import {
 } from 'frontend/components/UI/Dialog'
 
 const CategorySettings = () => {
-  const { customCategories } = useContext(ContextProvider)
-  const { appName } = useContext(SettingsContext)
+  const { customCategories, currentCustomCategory, setCurrentCustomCategory } =
+    useContext(ContextProvider)
+  const { appName, runner } = useContext(SettingsContext)
 
   const [newCategory, setNewCategory] = useState('')
   const [categoryToDelete, setCategoryToDelete] = useState('')
   const [assignedCategories, setAssignedCategories] = useState<string[]>([])
   const [availableCategories, setAvailableCategories] = useState<string[]>([])
+
+  const appNameWithRunner = useMemo(
+    () => `${appName}_${runner}`,
+    [appName, runner]
+  )
 
   const { t } = useTranslation()
 
@@ -25,13 +31,15 @@ const CategorySettings = () => {
     setAssignedCategories(
       customCategories
         .listCategories()
-        .filter((cat) => customCategories.list[cat].includes(appName))
+        .filter((cat) => customCategories.list[cat].includes(appNameWithRunner))
     )
 
     setAvailableCategories(
       customCategories
         .listCategories()
-        .filter((cat) => !customCategories.list[cat].includes(appName))
+        .filter(
+          (cat) => !customCategories.list[cat].includes(appNameWithRunner)
+        )
     )
   }
 
@@ -39,18 +47,27 @@ const CategorySettings = () => {
     updateCategories()
   }, [customCategories.list])
 
+  const isCategorySubmissionDisabled = useMemo(
+    () =>
+      newCategory.length <= 0 ||
+      newCategory.length > 33 ||
+      customCategories.listCategories().includes(newCategory.trim()),
+    [newCategory, customCategories.listCategories]
+  )
+
   const handleSubmit = () => {
-    customCategories.addCategory(newCategory)
-    updateCategories()
+    const formattedCategory = newCategory.trim()
+    customCategories.addCategory(formattedCategory)
+    handleAddGameToCategory(formattedCategory)
     setNewCategory('')
   }
 
   const handleRemoveGameFromCategory = (category: string) => {
-    customCategories.removeFromGame(category, appName)
+    customCategories.removeFromGame(category, appNameWithRunner)
   }
 
   const handleAddGameToCategory = (category: string) => {
-    customCategories.addToGame(category, appName)
+    customCategories.addToGame(category, appNameWithRunner)
     updateCategories()
   }
 
@@ -59,6 +76,7 @@ const CategorySettings = () => {
   }
 
   const handleRemoveCategory = (category: string) => {
+    if (currentCustomCategory === category) setCurrentCustomCategory('')
     customCategories.removeCategory(category)
     updateCategories()
     setCategoryToDelete('')
@@ -171,7 +189,7 @@ const CategorySettings = () => {
         <Button
           variant="contained"
           onClick={handleSubmit}
-          disabled={newCategory.length <= 0}
+          disabled={isCategorySubmissionDisabled}
           sx={{
             placeSelf: 'end',
             ':disabled': { backgroundColor: 'var(--neutral-03)' }

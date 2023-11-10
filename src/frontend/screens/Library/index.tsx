@@ -308,14 +308,15 @@ export default React.memo(function Library(): JSX.Element {
         )
 
         library = makeLibrary().filter(
-          (game) => !categorizedGames.includes(game.app_name)
+          (game) =>
+            !categorizedGames.includes(`${game.app_name}_${game.runner}`)
         )
       } else {
         const gamesInCustomCategory =
           customCategories.list[currentCustomCategory]
 
         library = makeLibrary().filter((game) =>
-          gamesInCustomCategory.includes(game.app_name)
+          gamesInCustomCategory.includes(`${game.app_name}_${game.runner}`)
         )
       }
     } else {
