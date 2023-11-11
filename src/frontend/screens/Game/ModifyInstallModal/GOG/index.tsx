@@ -1,12 +1,6 @@
 import { GameInfo } from 'common/types'
 import { BuildItem, GogInstallInfo } from 'common/types/gog'
-import {
-  InfoBox,
-  SelectField,
-  TextInputField,
-  ToggleSwitch,
-  UpdateComponent
-} from 'frontend/components/UI'
+import { InfoBox, ToggleSwitch, UpdateComponent } from 'frontend/components/UI'
 import { getInstallInfo, getPreferredInstallLanguage } from 'frontend/helpers'
 import DLCDownloadListing from 'frontend/screens/Library/components/InstallModal/DownloadDialog/DLCDownloadListing'
 import React, { useEffect, useState } from 'react'
@@ -14,12 +8,12 @@ import { Tabs, Tab } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import BuildSelector from 'frontend/screens/Library/components/InstallModal/DownloadDialog/BuildSelector'
 import GameLanguageSelector from 'frontend/screens/Library/components/InstallModal/DownloadDialog/GameLanguageSelector'
-import { Dialog, DialogContent } from 'frontend/components/UI/Dialog'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import classNames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGripLines } from '@fortawesome/free-solid-svg-icons'
 import { faXmarkCircle } from '@fortawesome/free-regular-svg-icons'
+import BranchSelector from 'frontend/screens/Library/components/InstallModal/DownloadDialog/BranchSelector'
 
 interface GOGModifyInstallModal {
   gameInfo: GameInfo
@@ -64,19 +58,13 @@ export default function GOGModifyInstallModal({
   const [branch, setBranch] = useState<string | undefined>(
     gameInfo.install.branch
   )
-  const [showBranchPasswordInput, setShowBranchPasswordInput] =
-    useState<boolean>(false)
-
   const [savedBranchPassword, setSavedBranchPassword] = useState<string>('')
-  const [branchPassword, setBranchPassword] = useState<string>('')
 
   // undefined means latest from current branch
   const [selectedBuild, setSelectedBuild] = useState<string | undefined>(
     gameInfo.install.pinnedVersion ? gameInfo.install.buildId : undefined
   )
   const [builds, setBuilds] = useState<BuildItem[]>([])
-  /*const [currentBuildNotAvailable, setCurrentBuildNotAvailable] =
-    useState<boolean>(false)*/
 
   const [installedDlcs, setInstalledDlcs] = useState<string[]>([])
 
@@ -158,7 +146,6 @@ export default function GOGModifyInstallModal({
       const branchPassword = await window.api.getPrivateBranchPassword(
         gameInfo.app_name
       )
-      setBranchPassword(branchPassword)
       setSavedBranchPassword(branchPassword)
     }
     get()
@@ -257,49 +244,6 @@ export default function GOGModifyInstallModal({
 
   return gameInstallInfo ? (
     <>
-      {showBranchPasswordInput && (
-        <Dialog
-          showCloseButton={false}
-          onClose={() => setShowBranchPasswordInput(false)}
-        >
-          <DialogContent className="ModifyInstall__branchPassword">
-            <TextInputField
-              htmlId="private-branch-password-input"
-              value={branchPassword}
-              type={'password'}
-              onChange={(e) => setBranchPassword(e.target.value)}
-              placeholder={t(
-                'game.branch.password',
-                'Set private channel password'
-              )}
-            />
-            <div className="controls">
-              <button
-                className="button is-danger"
-                onClick={() => {
-                  setShowBranchPasswordInput(false)
-                  setBranchPassword(savedBranchPassword)
-                }}
-              >
-                {tr('button.cancel', 'Cancel')}
-              </button>
-              <button
-                className="button is-success"
-                onClick={() => {
-                  setShowBranchPasswordInput(false)
-                  window.api
-                    .setPrivateBranchPassword(gameInfo.app_name, branchPassword)
-                    .finally(() => {
-                      setSavedBranchPassword(branchPassword)
-                    })
-                }}
-              >
-                {tr('box.ok', 'OK')}
-              </button>
-            </div>
-          </DialogContent>
-        </Dialog>
-      )}
       <Tabs
         value={currentTab}
         onChange={(e, newVal) => setCurrentTab(newVal)}
@@ -320,33 +264,14 @@ export default function GOGModifyInstallModal({
       </Tabs>
       <TabPanel value={currentTab} index={'updates'}>
         <div className="ModifyInstall__branch">
-          <SelectField
-            label={t('game.branch.select', 'Select beta channel')}
-            htmlId="modify-branches"
-            value={String(branch)}
-            onChange={(e) => {
-              const value = e.target.value
-              if (value === 'null') {
-                setBranch(undefined)
-              } else if (value === 'heroic-update-passwordOption') {
-                setShowBranchPasswordInput(true)
-              } else {
-                setBranch(e.target.value)
-              }
-            }}
-          >
-            {branches.map((branch) => (
-              <option value={String(branch)} key={String(branch)}>
-                {branch || t('game.branch.disabled', 'Disabled')}
-              </option>
-            ))}
-            <option value={'heroic-update-passwordOption'}>
-              {t(
-                'game.branch.setPrivateBranchPassword',
-                'Set private channel password'
-              )}
-            </option>
-          </SelectField>
+          <BranchSelector
+            appName={gameInfo.app_name}
+            branches={branches}
+            branch={branch}
+            setBranch={setBranch}
+            savedBranchPassword={savedBranchPassword}
+            onPasswordChange={(newPasswd) => setSavedBranchPassword(newPasswd)}
+          />
         </div>
 
         {installLanguages.length > 1 && (

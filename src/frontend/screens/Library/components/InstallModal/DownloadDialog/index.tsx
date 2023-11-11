@@ -55,6 +55,7 @@ import { NileInstallInfo } from 'common/types/nile'
 import BuildSelector from './BuildSelector'
 import GameLanguageSelector from './GameLanguageSelector'
 import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
+import BranchSelector from './BranchSelector'
 
 interface Props {
   backdropClick: () => void
@@ -126,6 +127,10 @@ export default function DownloadDialog({
   const [gameBuilds, setBuilds] = useState<BuildItem[]>([])
   const [selectedBuild, setSelectedBuild] = useState<string | undefined>()
 
+  const [savedBranchPassword, setSavedBranchPassword] = useState<string>('')
+  const [branches, setBranches] = useState<Array<string | null>>([])
+  const [branch, setBranch] = useState<string | undefined>()
+
   const [installPath, setInstallPath] = useState(
     previousProgress.folder || getDefaultInstallPath()
   )
@@ -170,6 +175,16 @@ export default function DownloadDialog({
     }
     return list
   }, [selectedSdls, sdls])
+
+  useEffect(() => {
+    async function get() {
+      const branchPassword = await window.api.getPrivateBranchPassword(
+        gameInfo.app_name
+      )
+      setSavedBranchPassword(branchPassword)
+    }
+    get()
+  }, [])
 
   const handleSdl = useCallback(
     (sdl: SelectiveDownload, value: boolean) => {
@@ -246,12 +261,13 @@ export default function DownloadDialog({
       installLanguage,
       platformToInstall,
       build: selectedBuild,
+      branch,
       showDialogModal: () => backdropClick()
     })
   }
 
   useEffect(() => {
-    const getIinstInfo = async () => {
+    const getInstInfo = async () => {
       try {
         const fetchedPlatform = platformToInstall
         const fetchedBuild = selectedBuild
@@ -260,7 +276,8 @@ export default function DownloadDialog({
           appName,
           runner,
           platformToInstall,
-          selectedBuild
+          selectedBuild,
+          branch
         )
         setGameInstallInfo(gameInstallInfo)
         setGettingInstallInfo(false)
@@ -285,7 +302,11 @@ export default function DownloadDialog({
             'builds' in gameInstallInfo.manifest
           ) {
             const builds = (gameInstallInfo.manifest.builds || [])
-              .filter((build) => !build.branch)
+              .filter(
+                // We either take branch when both are falsy (null | undefined)
+                // or when they are equal
+                (build) => (!branch && !build.branch) || build.branch === branch
+              )
               .sort(
                 (a, b) =>
                   new Date(b.date_published).getTime() -
@@ -308,6 +329,10 @@ export default function DownloadDialog({
               )
             }
           }
+
+          if (gameInstallInfo.manifest && 'branches' in gameInstallInfo.game) {
+            setBranches(gameInstallInfo.game.branches || [])
+          }
         }
       } catch (error) {
         showDialogModal({
@@ -320,8 +345,15 @@ export default function DownloadDialog({
         return
       }
     }
-    getIinstInfo()
-  }, [appName, i18n.languages, platformToInstall, selectedBuild])
+    getInstInfo()
+  }, [
+    appName,
+    i18n.languages,
+    platformToInstall,
+    selectedBuild,
+    branch,
+    savedBranchPassword
+  ])
 
   useEffect(() => {
     const getGameSdl = async () => {
@@ -602,6 +634,22 @@ export default function DownloadDialog({
             ) : null
           }
         />
+
+        {platformToInstall !== 'linux' && branches.length > 1 && (
+          <div>
+            <BranchSelector
+              appName={gameInfo.app_name}
+              branches={branches}
+              branch={branch}
+              setBranch={setBranch}
+              savedBranchPassword={savedBranchPassword}
+              onPasswordChange={(newPasswd) =>
+                setSavedBranchPassword(newPasswd)
+              }
+            />
+          </div>
+        )}
+
         {platformToInstall !== 'linux' && !!gameBuilds.length && (
           <div>
             <BuildSelector

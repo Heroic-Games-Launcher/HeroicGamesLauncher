@@ -279,7 +279,14 @@ export function onInstallOrUpdateOutput(
 
 export async function install(
   appName: string,
-  { path, installDlcs, platformToInstall, installLanguage, build }: InstallArgs
+  {
+    path,
+    installDlcs,
+    platformToInstall,
+    installLanguage,
+    build,
+    branch
+  }: InstallArgs
 ): Promise<{
   status: 'done' | 'error' | 'abort'
   error?: string
@@ -292,6 +299,7 @@ export async function install(
     : ['--skip-dlcs']
 
   const buildArgs = build ? ['--build', build] : []
+  const branchArgs = branch ? ['--branch', branch] : []
 
   const credentials = await GOGUser.getCredentials()
 
@@ -323,6 +331,7 @@ export async function install(
     '--lang',
     String(installLanguage),
     ...buildArgs,
+    ...branchArgs,
     ...workers
   ]
 
@@ -358,7 +367,7 @@ export async function install(
   const installInfo = await getInstallInfo(
     appName,
     installPlatform,
-    undefined,
+    branch,
     build
   )
   if (installInfo === undefined) {
