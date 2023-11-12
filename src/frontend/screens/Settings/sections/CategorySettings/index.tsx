@@ -1,14 +1,16 @@
+import './index.scss'
 import ContextProvider from 'frontend/state/ContextProvider'
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import SettingsContext from '../../SettingsContext'
-import { Box, Button, Chip, Divider, Typography } from '@mui/material'
-import { TextInputField } from 'frontend/components/UI'
+import { Box, Button, Divider, IconButton } from '@mui/material'
+import { TextInputField, ToggleSwitch } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 import {
   Dialog,
   DialogContent,
   DialogHeader
 } from 'frontend/components/UI/Dialog'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
 const CategorySettings = () => {
   const { customCategories, currentCustomCategory, setCurrentCustomCategory } =
@@ -18,7 +20,6 @@ const CategorySettings = () => {
   const [newCategory, setNewCategory] = useState('')
   const [categoryToDelete, setCategoryToDelete] = useState('')
   const [assignedCategories, setAssignedCategories] = useState<string[]>([])
-  const [availableCategories, setAvailableCategories] = useState<string[]>([])
 
   const appNameWithRunner = useMemo(
     () => `${appName}_${runner}`,
@@ -33,14 +34,6 @@ const CategorySettings = () => {
         .listCategories()
         .filter((cat) => customCategories.list[cat].includes(appNameWithRunner))
     )
-
-    setAvailableCategories(
-      customCategories
-        .listCategories()
-        .filter(
-          (cat) => !customCategories.list[cat].includes(appNameWithRunner)
-        )
-    )
   }
 
   useEffect(() => {
@@ -49,8 +42,7 @@ const CategorySettings = () => {
 
   const isCategorySubmissionDisabled = useMemo(
     () =>
-      newCategory.length <= 0 ||
-      newCategory.length > 33 ||
+      newCategory.trim().length <= 0 ||
       customCategories.listCategories().includes(newCategory.trim()),
     [newCategory, customCategories.listCategories]
   )
@@ -80,6 +72,12 @@ const CategorySettings = () => {
     customCategories.removeCategory(category)
     updateCategories()
     setCategoryToDelete('')
+  }
+
+  const handleToggleSwitchChange = (category: string) => {
+    if (!assignedCategories.includes(category))
+      handleAddGameToCategory(category)
+    else handleRemoveGameFromCategory(category)
   }
 
   return (
@@ -113,71 +111,7 @@ const CategorySettings = () => {
           </DialogContent>
         </Dialog>
       )}
-      <Typography variant="h4" sx={{ mb: 2 }}>
-        {t('category-settings.assigned-categories', 'Assigned categories')}
-      </Typography>
-      <Box
-        sx={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 2 }}
-      >
-        {assignedCategories.length <= 0 && (
-          <Typography
-            variant="body1"
-            width="max-content"
-            color="var(--text-secondary)"
-          >
-            {t(
-              'category-settings.no-assigned-categories',
-              'No categories have been assigned to this game'
-            )}
-          </Typography>
-        )}
-        {assignedCategories.map((category) => (
-          <Chip
-            label={category}
-            key={category}
-            onDelete={() => handleRemoveGameFromCategory(category)}
-            sx={{
-              backgroundColor: 'var(--brand-primary)',
-              ':hover': { backgroundColor: 'var(--primary-hover)' }
-            }}
-          />
-        ))}
-      </Box>
-      {availableCategories.length > 0 && (
-        <>
-          <Divider
-            sx={{ mt: 4, mb: 4, backgroundColor: 'var(--neutral-04)' }}
-          />
-          <Typography variant="h4" sx={{ mb: 2 }}>
-            {t(
-              'category-settings.available-categories',
-              'Available categories'
-            )}
-          </Typography>
-          <Box
-            sx={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(6, 1fr)',
-              gap: 2
-            }}
-          >
-            {availableCategories.map((category) => (
-              <Chip
-                label={category}
-                key={category}
-                onClick={() => handleAddGameToCategory(category)}
-                onDelete={() => handleShowRemoveCategoryConfirmation(category)}
-                sx={{
-                  backgroundColor: 'var(--brand-secondary)',
-                  ':hover': { backgroundColor: 'var(--secondary-hover)' }
-                }}
-              />
-            ))}
-          </Box>
-        </>
-      )}
-      <Divider sx={{ mt: 4, mb: 4, backgroundColor: 'var(--neutral-04)' }} />
-      <Box sx={{ display: 'grid' }}>
+      <Box sx={{ display: 'flex', gap: 2 }}>
         <TextInputField
           label={t('category-settings.new-category', 'New category')}
           htmlId="new-category-input"
@@ -185,9 +119,12 @@ const CategorySettings = () => {
             setNewCategory(e.target.value)
           }}
           value={newCategory}
+          maxLength={33}
+          extraClass="NewCategoryInput"
         />
         <Button
           variant="contained"
+          size="small"
           onClick={handleSubmit}
           disabled={isCategorySubmissionDisabled}
           sx={{
@@ -197,6 +134,37 @@ const CategorySettings = () => {
         >
           {t('category-settings.add-new-category', 'Add new category')}
         </Button>
+      </Box>
+      <Divider sx={{ mt: 4, mb: 4, backgroundColor: 'var(--neutral-04)' }} />
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          gap: 2,
+          paddingBottom: 4
+        }}
+      >
+        {customCategories.listCategories().map((category) => (
+          <Box key={category} sx={{ display: 'flex', gap: 2 }}>
+            <ToggleSwitch
+              title={category}
+              htmlId={`category-checkbox-${category}`}
+              value={assignedCategories.includes(category)}
+              handleChange={() => {
+                handleToggleSwitchChange(category)
+              }}
+            />
+            <IconButton
+              color="error"
+              sx={{ padding: 2 }}
+              onClick={() => {
+                handleShowRemoveCategoryConfirmation(category)
+              }}
+            >
+              <DeleteForeverIcon />
+            </IconButton>
+          </Box>
+        ))}
       </Box>
     </>
   )

@@ -175,12 +175,9 @@
     "Categories": "Categories",
     "category-settings": {
         "add-new-category": "Add New Category",
-        "assigned-categories": "Assigned Categories",
-        "available-categories": "Available Categories",
         "cancel": "Cancel",
         "delete-question": "Proceeding will permanently remove this category and unassign it from all games. Continue?",
         "new-category": "New Category",
-        "no-assigned-categories": "No categories have been assigned to this game",
         "remove-category": "Remove Category",
         "warning": "Warning"
     },
