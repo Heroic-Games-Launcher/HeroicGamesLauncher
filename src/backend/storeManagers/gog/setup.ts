@@ -10,7 +10,6 @@ import {
   gogSupportPath,
   isWindows
 } from '../../constants'
-import languages from '@cospired/i18n-iso-languages'
 import { getWinePath, runWineCommand, verifyWinePrefix } from '../../launcher'
 import { logFileLocation } from 'backend/storeManagers/storeManagerCommon/games'
 import { getGameInfo as getGogLibraryGameInfo } from 'backend/storeManagers/gog/library'
@@ -131,9 +130,8 @@ async function setup(
   const gameSupportDir = path.join(gogSupportPath, appName) // This doesn't need to exist, scriptinterpreter.exe will handle it gracefully
 
   const installLanguage = gameInfo.install.language?.split('-')[0]
-  // FIXME: When Node 20 hits LTS channel replace this with implementation Intl
-  // less dependencies = good
-  const lang: string | undefined = languages.getName(installLanguage!, 'en')
+  const languages = new Intl.DisplayNames(['en'], { type: 'language' })
+  const lang: string | undefined = languages.of(installLanguage!)
 
   const dependencies: string[] = []
   const gameDirectoryPath = await getWinePath({

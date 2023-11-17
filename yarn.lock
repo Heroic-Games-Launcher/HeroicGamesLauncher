@@ -314,11 +314,6 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@cospired/i18n-iso-languages@^4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@cospired/i18n-iso-languages/-/i18n-iso-languages-4.1.0.tgz#af47d146b1e21d47038caa028c37e0b2ce57bc4d"
-  integrity sha512-5+JK7YiO9r/FmwtlEPL1tQNt04/9AuN1t9GO/0C2yitqhKwFRa1r7VohNNUnFgB84MW5v4Lwq8ZAUZexuJh1nQ==
-
 "@develar/schema-utils@~2.6.5":
   version "2.6.5"
   resolved "https://registry.yarnpkg.com/@develar/schema-utils/-/schema-utils-2.6.5.tgz#3ece22c5838402419a6e0425f85742b961d9b6c6"

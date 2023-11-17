@@ -139,7 +139,6 @@
     }
   },
   "dependencies": {
-    "@cospired/i18n-iso-languages": "^4.1.0",
     "@emotion/react": "11.10.6",
     "@emotion/styled": "11.10.6",
     "@felipecrs/decompress-tarxz": "4.0.0",
