@@ -84,8 +84,8 @@ export default function WebView({ store }: Props) {
   let startUrl = urls[pathname]
 
   if (store) {
-    localStorage.setItem('last-store', `/${store}store`)
-    const lastUrl = localStorage.getItem(`last-url-${store}`)
+    sessionStorage.setItem('last-store', `/${store}store`)
+    const lastUrl = sessionStorage.getItem(`last-url-${store}`)
     if (lastUrl && validStoredUrl(lastUrl, store)) {
       startUrl = lastUrl
     }
@@ -243,7 +243,7 @@ export default function WebView({ store }: Props) {
       const onNavigate = () => {
         const url = webview.getURL()
         if (validStoredUrl(url, store)) {
-          localStorage.setItem(`last-url-${store}`, webview.getURL())
+          sessionStorage.setItem(`last-url-${store}`, webview.getURL())
         }
       }
 

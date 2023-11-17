@@ -93,7 +93,7 @@ export default function SidebarLinks() {
   }
 
   // if we have a stored last-url, default to the `/last-url` route
-  const lastStore = localStorage.getItem('last-store')
+  const lastStore = sessionStorage.getItem('last-store')
   if (lastStore) {
     defaultStore = lastStore
   }
