@@ -11,8 +11,6 @@ interface Point {
   disk: number
 }
 
-const sampleSize: number = 100;
-
 const roundToNearestHundredth = function (val: number | undefined) {
   if (!val) return 0
   return Math.round(val * 100) / 100
@@ -22,6 +20,7 @@ export default function ProgressHeader(props: {
   appName: string
   state: DownloadManagerState
 }) {
+  const sampleSize = 100
   const { t } = useTranslation()
   const [progress] = hasProgress(props.appName)
   const [avgSpeed, setAvgDownloadSpeed] = useState<Point[]>(
@@ -30,7 +29,9 @@ export default function ProgressHeader(props: {
 
   useEffect(() => {
     if (props.state === 'idle') {
-      setAvgDownloadSpeed(Array<Point>(sampleSize).fill({ download: 0, disk: 0 }))
+      setAvgDownloadSpeed(
+        Array<Point>(sampleSize).fill({ download: 0, disk: 0 })
+      )
       return
     }
 
