@@ -6,10 +6,17 @@ import fallbackImage from 'frontend/assets/heroic_card.jpg'
 
 interface Props extends React.ImgHTMLAttributes<HTMLImageElement> {
   art_square: string
+  logo?: string | undefined
   store: string
 }
 
-function GamePicture({ art_square, store, className, ...props }: Props) {
+function GamePicture({
+  art_square,
+  logo = undefined,
+  store,
+  className,
+  ...props
+}: Props) {
   function getImageFormatting() {
     if (art_square === 'fallback' || !art_square)
       return { src: fallbackImage, fallback: fallbackImage }
@@ -27,13 +34,22 @@ function GamePicture({ art_square, store, className, ...props }: Props) {
 
   return (
     <div className="gamePicture">
-      <CachedImage
-        alt="cover-art"
-        className={`gameImg ${className}`}
-        src={src}
-        fallback={fallback}
-        {...props}
-      />
+      {
+        <CachedImage
+          alt="cover-art"
+          className={`gameImg ${className}`}
+          src={src}
+          fallback={fallback}
+          {...props}
+        />
+      }
+      {logo && (
+        <CachedImage
+          alt="logo"
+          src={`${logo}?h=400&resize=1&w=300`}
+          className={`gameLogo`}
+        />
+      )}
     </div>
   )
 }
