@@ -158,6 +158,10 @@
                     "title": "Esteu segur que voleu deixar-ho?",
                     "message": "Tot el progrés que no s'hagi desat es perdrà"
                 }
+            },
+            "snap": {
+                "checkbox": "No mostris més aquest missatge",
+                "title": "Heroic s'executa com a Snap"
             }
         },
         "wineprefix": "Tria la carpeta del WinePrefix",
@@ -288,7 +292,10 @@
         },
         "disable_logs": "Activeu aquesta casella de selecció per desactivar la majoria de les escriptures als fitxers de registre (la informació crítica sempre es registra). Assegureu-vos de desactivar aquesta configuració abans d'informar de qualsevol problema.",
         "dxvknvapi": "DXVK-NVAPI és una implementació de NVAPI construïda sobre DXVK i Linux natiu NVAPI. Permet l'ús de DLSS en les GPU de Nvidia.",
-        "disablePlaytimeSync": "Desactiva la sincronització del temps de joc amb els servidors d'una botiga determinada. Actualment, només ho suporta el GOG."
+        "disablePlaytimeSync": "Desactiva la sincronització del temps de joc amb els servidors d'una botiga determinada. Actualment, només ho suporta el GOG.",
+        "gamescope": {
+            "fpsLimiter": "El nombre de FPS límit del gamescope, com ara 60."
+        }
     },
     "info": {
         "heroic": {
