@@ -1353,7 +1353,7 @@ async function extractFiles({ path, destination, strip = 0 }: ExtractOptions) {
     try {
       await extractNative(path, destination, strip)
     } catch (error) {
-      logError(`Error: ${error}`, LogPrefix.Backend)
+      logError(['Error:', error], LogPrefix.Backend)
     }
   } else {
     try {
