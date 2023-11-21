@@ -158,6 +158,11 @@
                     "title": "Çıkmak istediğinden emin misin?",
                     "message": "Kaydedilmemiş ilerlemeler kaybolabilir"
                 }
+            },
+            "snap": {
+                "checkbox": "Bu mesajı bir daha gösterme",
+                "title": "Heroic Snap sürümünde çalışıyor",
+                "message": "Bazı özellikler şimdilik uygulamanın Snap sürümünde mevcut değil ve bunu düzeltmeye çalışıyoruz.{{newLine}}Mevcut sınırlamalar şunlardır: {{newLine}}Heroic, Steam'den Proton veya Lutris'ten Wine'ı bulamayacak.{{newLine}}{{newLine}}Gamescope, GameMode ve MangoHud da Heroic'in bunlara erişimi olamayacağı için çalışmayacaktır.{{newLine}}{{newLine}}Bu özelliğe erişmek için lütfen Heroic'i Flatpak, DEB veya AppImage kullanarak yükleyin."
             }
         },
         "wineprefix": "Wine Prefix Klasörünü Seçin",
@@ -288,7 +293,15 @@
         },
         "disable_logs": "Günlük dosyalarına yazma işlemlerinin çoğunu devre dışı bırakmak için bu onay kutusunu AÇIK konuma getirin (kritik bilgiler her zaman günlüğe kaydedilir). Herhangi bir sorunu bildirmeden önce bu ayarı KAPALI konuma getirdiğinizden emin olun.",
         "dxvknvapi": "DXVK-NVAPI, DXVK ve linux yerel NVAPI üzerine kurulu bir NVAPI uygulamasıdır. Nvidia GPU'larda DLSS kullanımına izin verir.",
-        "disablePlaytimeSync": "Belirtilen mağazanın sunucularıyla oynatma süresi senkronizasyonunu devre dışı bırakır (şu anda yalnızca GOG desteklenmektedir)"
+        "disablePlaytimeSync": "Belirtilen mağazanın sunucularıyla oynatma süresi senkronizasyonunu devre dışı bırakır (şu anda yalnızca GOG desteklenmektedir)",
+        "gamescope": {
+            "upscaleMethod": "Gamescope'un kullanması gereken görüntü yükseltme yöntemi.",
+            "gameWidth": "Oyunun kullanacağı yatay çözünürlük. Gamescope tarafından 16:9 en boy oranı varsayılır.",
+            "upscaleWidth": "Gamescope'un kullanacağı yatay çözünürlük. 16:9 en boy oranı varsayılır.",
+            "gameHeight": "Oyunun kullanacağı dikey çözünürlük. Gamescope tarafından 16:9 en boy oranı varsayılır.",
+            "upscaleHeight": "Gamescope'un kullanacağı dikey çözünürlük. 16:9 en boy oranı varsayılır.",
+            "fpsLimiter": "Gamescope'un kaç kareye sınırlaması gerektiği. Örn. 60"
+        }
     },
     "info": {
         "heroic": {
@@ -424,7 +437,10 @@
         },
         "gameargs": {
             "placeholder": "Başlatma Parametrelerini buraya girin",
-            "title": "Oyun Parametreleri (Komutun sonunda çalıştırmak için):"
+            "title": "Oyun Parametreleri (Komutun sonunda çalıştırmak için):",
+            "error": {
+                "env": "Ortam değişkenleri aşağıdaki tabloda yapılandırılmalıdır."
+            }
         },
         "quote-args-with-spaces": "Uyarı: Argümanlardan boşluklarla alıntı yaptığınızdan emin olun! Örn.: \"boşluklu/yol örneği/\"",
         "wrapper": {
@@ -434,6 +450,13 @@
             "placeHolderKey": "Yeni Paketleyici",
             "placeHolderValue": "Sarmalayıcı Argümanları",
             "title": "Paketleyici komutu:"
+        },
+        "gamescope": {
+            "nis": "NVIDIA görüntü ölçeklendirme (NIS)",
+            "borderless": "Penceresiz",
+            "fpsLimiter": "FPS Sınırlayıcı",
+            "fullscreen": "Tam Ekran",
+            "fpsLimiterNoFocus": "FPS Sınırlayıcı (Odak dışı)"
         }
     },
     "other": {
@@ -591,6 +614,15 @@
         "disablePlaytimeSync": "Oynama süresi senkronizasyonunu devre dışı bırak",
         "experimental_features": {
             "enableNewDesign": "Yeni tasarım"
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "Bu özellik hala deneyseldir. Lütfen karşılaştığınız sorunları GitHub'da bildirin."
+            },
+            "description": "Çerçevesiz pencere kullan (yeniden başlatma gerektirir)"
+        },
+        "gamescope": {
+            "enableLimiter": "FPS Sınırlayıcıyı Etkinleştir"
         }
     },
     "settings": {
@@ -627,7 +659,8 @@
             "other": "Diğer",
             "sync": "Bulut Kayıt Senkronizasyonu",
             "wineExt": "Wine Extensions",
-            "systemInformation": "Sistem bilgisi"
+            "systemInformation": "Sistem bilgisi",
+            "gamescope": "Gamescope"
         },
         "open-config-file": "Yapılandırma Dosyasını Aç",
         "reset-heroic": "Heroic'i Sıfırla",
@@ -745,6 +778,17 @@
     "prime-gaming": "Prime Oyun",
     "winetricks": {
         "install": "Kur",
-        "loading": "Yükleniyor"
+        "loading": "Yükleniyor",
+        "installing": "Kurulum devam ediyor: {{component}}",
+        "openGUI": "Winetricks GUI’yi aç",
+        "search": "Yazı tiplerini ya da bileşenleri ara",
+        "nothingYet": "Winetricks tarafından henüz hiçbir şey yüklenmedi",
+        "installed": "Kurulu bileşenler:"
+    },
+    "window": {
+        "minimize": "Simge durumuna",
+        "maximize": "Pencereyi büyüt",
+        "close": "Kapat",
+        "restore": "Pencereyi eski boyutuna getir"
     }
 }
