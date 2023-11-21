@@ -181,12 +181,14 @@
             "image": "Imagen de la aplicación/juego",
             "title": "Título de la aplicación/juego",
             "broser": "Enlace web del navegador",
-            "fullscreen": "Iniciar a pantalla completa (F11 para salir)"
+            "fullscreen": "Iniciar a pantalla completa (F11 para salir)",
+            "useragent": "Agente de usuario personalizado"
         },
         "placeholder": {
             "image": "Inserta el enlace web de una imagen aquí",
             "title": "Añade un título a tu juego/aplicación",
-            "url": "Pega el enlace web del juego aquí"
+            "url": "Pega el enlace web del juego aquí",
+            "useragent": "Escriba aquí un agente de usuario personalizado que se utilizará en esta aplicación/juego del navegador"
         }
     },
     "specs": {
