@@ -1,10 +1,9 @@
 .InstallModal__dialog {
   width: 700px;
   min-height: fit-content;
+  max-height: 90vh;
   min-width: fit-content;
   max-width: 80vw;
-  height: 90vh;
-  max-height: 1000px;
 }
 
 .InstallModal__dialog > .anticheatInfo {
