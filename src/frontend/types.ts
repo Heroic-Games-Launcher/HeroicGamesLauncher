@@ -23,19 +23,13 @@ import { NileLoginData, NileRegisterData } from 'common/types/nile'
 export type Category = 'all' | 'legendary' | 'gog' | 'sideload' | 'nile'
 
 export interface ContextType {
-  category: Category
   error: boolean
-  filterText: string
-  filterPlatform: string
   gameUpdates: string[]
   isRTL: boolean
+  isFullscreen: boolean
+  isFrameless: boolean
   language: string
   setLanguage: (newLanguage: string) => void
-  handleCategory: (value: Category) => void
-  handlePlatformFilter: (value: string) => void
-  handleLayout: (value: string) => void
-  handleSearch: (input: string) => void
-  layout: string
   libraryStatus: GameStatus[]
   libraryTopSection: string
   handleLibraryTopSection: (value: LibraryTopSectionOptions) => void
@@ -55,12 +49,6 @@ export interface ContextType {
     add: (appNameToAdd: string, appTitle: string) => void
     remove: (appNameToRemove: string) => void
   }
-  showHidden: boolean
-  setShowHidden: (value: boolean) => void
-  showFavourites: boolean
-  setShowFavourites: (value: boolean) => void
-  showNonAvailable: boolean
-  setShowNonAvailable: (value: boolean) => void
   theme: string
   setTheme: (themeName: string) => void
   zoomPercent: number
@@ -85,6 +73,7 @@ export interface ContextType {
     login: (data: NileRegisterData) => Promise<string>
     logout: () => Promise<void>
   }
+  installingEpicGame: boolean
   allTilesInColor: boolean
   setAllTilesInColor: (value: boolean) => void
   setSideBarCollapsed: (value: boolean) => void
@@ -159,6 +148,7 @@ declare global {
       canvas_height: number
     ) => Promise<string>
     setTheme: (themeClass: string) => void
+    isSteamDeckGameMode: boolean
   }
 
   interface WindowEventMap {
@@ -183,6 +173,27 @@ export interface SettingsContextType {
   gameInfo: GameInfo | null
   isMacNative: boolean
   isLinuxNative: boolean
+}
+
+export interface LibraryContextType {
+  category: Category
+  filterText: string
+  filterPlatform: string
+  handleCategory: (value: Category) => void
+  handlePlatformFilter: (value: string) => void
+  handleLayout: (value: string) => void
+  handleSearch: (input: string) => void
+  layout: string
+  showHidden: boolean
+  setShowHidden: (value: boolean) => void
+  showFavourites: boolean
+  setShowFavourites: (value: boolean) => void
+  showNonAvailable: boolean
+  setShowNonAvailable: (value: boolean) => void
+  sortDescending: boolean
+  setSortDescending: (value: boolean) => void
+  sortInstalled: boolean
+  setSortInstalled: (valur: boolean) => void
 }
 
 export interface GameContextType {

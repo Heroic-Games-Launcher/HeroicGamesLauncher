@@ -703,5 +703,9 @@
     },
     "amazon": "Amazon",
     "Amazon Games": "Amazon Games",
-    "prime-gaming": "Prime Gaming"
+    "prime-gaming": "Prime Gaming",
+    "winetricks": {
+        "install": "Inštalácia",
+        "loading": "Loading"
+    }
 }

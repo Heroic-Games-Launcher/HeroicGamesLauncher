@@ -16,16 +16,29 @@ import DownloadManager from './screens/DownloadManager'
 import DialogHandler from './components/UI/DialogHandler'
 import SettingsModal from './screens/Settings/components/SettingsModal'
 import ExternalLinkDialog from './components/UI/ExternalLinkDialog'
+import WindowControls from './components/UI/WindowControls'
 import classNames from 'classnames'
 
 function App() {
-  const { isSettingsModalOpen, isRTL } = useContext(ContextProvider)
+  const {
+    isSettingsModalOpen,
+    isRTL,
+    isFullscreen,
+    isFrameless,
+    experimentalFeatures
+  } = useContext(ContextProvider)
+
+  const hasNativeOverlayControls = navigator['windowControlsOverlay']?.visible
+  const showOverlayControls = isFrameless && !hasNativeOverlayControls
 
   return (
     <div
       id="app"
       className={classNames('App', {
-        isRTL
+        isRTL,
+        frameless: isFrameless,
+        fullscreen: isFullscreen,
+        oldDesign: !experimentalFeatures.enableNewDesign
       })}
     >
       <HashRouter>
@@ -44,9 +57,9 @@ function App() {
             <Route path="/" element={<Navigate replace to="/library" />} />
             <Route path="/library" element={<Library />} />
             <Route path="login" element={<Login />} />
-            <Route path="epicstore" element={<WebView />} />
-            <Route path="gogstore" element={<WebView />} />
-            <Route path="amazonstore" element={<WebView />} />
+            <Route path="epicstore" element={<WebView store="epic" />} />
+            <Route path="gogstore" element={<WebView store="gog" />} />
+            <Route path="amazonstore" element={<WebView store="amazon" />} />
             <Route path="wiki" element={<WebView />} />
             <Route path="/gamepage">
               <Route path=":runner">
@@ -54,6 +67,7 @@ function App() {
               </Route>
             </Route>
             <Route path="/store-page" element={<WebView />} />
+            <Route path="/last-url" element={<WebView />} />
             <Route path="loginweb">
               <Route path=":runner" element={<WebView />} />
             </Route>
@@ -73,6 +87,7 @@ function App() {
           <ControllerHints />
           <div className="simple-keyboard"></div>
         </div>
+        {showOverlayControls && <WindowControls />}
       </HashRouter>
     </div>
   )

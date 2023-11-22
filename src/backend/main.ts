@@ -6,8 +6,6 @@ import {
   DiskSpaceData,
   StatusPromise,
   GamepadInputEvent,
-  WineCommandArgs,
-  ExecResult,
   Runner
 } from 'common/types'
 import * as path from 'path'
@@ -21,7 +19,8 @@ import {
   protocol,
   screen,
   clipboard,
-  components
+  components,
+  session
 } from 'electron'
 import 'backend/updater'
 import { autoUpdater } from 'electron-updater'
@@ -51,7 +50,6 @@ import { GOGUser } from './storeManagers/gog/user'
 import { NileUser } from './storeManagers/nile/user'
 import {
   clearCache,
-  execAsync,
   isEpicServiceOffline,
   handleExit,
   openUrlOrFile,
@@ -95,7 +93,8 @@ import {
   wineprefixFAQ,
   customThemesWikiLink,
   createNecessaryFolders,
-  fixAsarPath
+  fixAsarPath,
+  isSnap
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
@@ -110,7 +109,7 @@ import {
 } from './logger/logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
 import { getFonts } from 'font-list'
-import { prepareWineLaunch, runWineCommand } from './launcher'
+import { runWineCommand } from './launcher'
 import shlex from 'shlex'
 import { initQueue } from './downloadmanager/downloadqueue'
 import {
@@ -126,6 +125,7 @@ import { initTrayIcon } from './tray_icon/tray_icon'
 import {
   createMainWindow,
   getMainWindow,
+  isFrameless,
   sendFrontendMessage
 } from './main_window'
 
@@ -153,7 +153,6 @@ import {
 } from 'backend/storeManagers/legendary/library'
 import { formatSystemInfo, getSystemInfo } from './utils/systeminfo'
 
-app.commandLine?.appendSwitch('remote-debugging-port', '9222')
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
 const { showOpenDialog } = dialog
@@ -202,6 +201,14 @@ async function initializeWindow(): Promise<BrowserWindow> {
   mainWindow.setIcon(icon)
   app.commandLine.appendSwitch('enable-spatial-navigation')
 
+  mainWindow.on('maximize', () => sendFrontendMessage('maximized'))
+  mainWindow.on('unmaximize', () => sendFrontendMessage('unmaximized'))
+  mainWindow.on('enter-full-screen', () =>
+    sendFrontendMessage('fullscreen', true)
+  )
+  mainWindow.on('leave-full-screen', () =>
+    sendFrontendMessage('fullscreen', false)
+  )
   mainWindow.on('close', async (e) => {
     e.preventDefault()
 
@@ -293,6 +300,16 @@ if (!gotTheLock) {
     initOnlineMonitor()
     initImagesCache()
 
+    // Add User-Agent Client hints to behave like Windows
+    if (process.argv.includes('--spoof-windows')) {
+      session.defaultSession.webRequest.onBeforeSendHeaders(
+        (details, callback) => {
+          details.requestHeaders['sec-ch-ua-platform'] = 'Windows'
+          callback({ cancel: false, requestHeaders: details.requestHeaders })
+        }
+      )
+    }
+
     if (!process.env.CI) {
       await components.whenReady().catch((e) => {
         logError([
@@ -337,8 +354,13 @@ if (!gotTheLock) {
 
     // Make sure lock is not present when starting up
     playtimeSyncQueue.delete('lock')
-    runOnceWhenOnline(syncQueuedPlaytimeGOG)
-
+    if (!settings.disablePlaytimeSync) {
+      runOnceWhenOnline(syncQueuedPlaytimeGOG)
+    } else {
+      logDebug('Skipping playtime sync queue upload - playtime sync disabled', {
+        prefix: LogPrefix.Backend
+      })
+    }
     await i18next.use(Backend).init({
       backend: {
         addPath: path.join(publicDir, 'locales', '{{lng}}', '{{ns}}'),
@@ -368,6 +390,7 @@ if (!gotTheLock) {
         'fi',
         'fr',
         'gl',
+        'he',
         'hr',
         'hu',
         'ja',
@@ -382,6 +405,7 @@ if (!gotTheLock) {
         'pt_BR',
         'ro',
         'ru',
+        'sr',
         'sk',
         'sv',
         'ta',
@@ -446,6 +470,41 @@ ipcMain.once('loadingScreenReady', () => {
 ipcMain.once('frontendReady', () => {
   logInfo('Frontend Ready', LogPrefix.Backend)
   handleProtocol([openUrlArgument, ...process.argv])
+
+  if (isSnap) {
+    const snapWarning: Electron.MessageBoxOptions = {
+      title: i18next.t('box.warning.snap.title', 'Heroic is running as a Snap'),
+      message: i18next.t('box.warning.snap.message', {
+        defaultValue:
+          'Some features are not available in the Snap version of the app for now and we are trying to fix it.{{newLine}}Current limitations are: {{newLine}}Heroic will not be able to find Proton from Steam or Wine from Lutris.{{newLine}}{{newLine}}Gamescope, GameMode and MangoHud will also not work since Heroic cannot have access to them.{{newLine}}{{newLine}}To have access to this feature please install Heroic as a Flatpak, DEB or from the AppImage.',
+        newLine: '\n'
+      }),
+      checkboxLabel: i18next.t('box.warning.snap.checkbox', {
+        defaultValue: 'Do not show this message again'
+      }),
+      checkboxChecked: false
+    }
+
+    const showSnapWarning = configStore.get('showSnapWarning', true)
+
+    if (showSnapWarning) {
+      dialog
+        .showMessageBox({
+          ...snapWarning
+        })
+        .then((result) => {
+          if (result.checkboxChecked) {
+            configStore.set('showSnapWarning', false)
+          }
+        })
+    }
+  }
+
+  // skip the download queue if we are running in CLI mode
+  if (isCLINoGui) {
+    return
+  }
+
   setTimeout(() => {
     logInfo('Starting the Download Queue', LogPrefix.Backend)
     initQueue()
@@ -487,7 +546,7 @@ ipcMain.on('unlock', () => {
     unlinkSync(join(gamesConfigPath, 'lock'))
     if (powerId) {
       logInfo('Stopping Power Saver Blocker', LogPrefix.Backend)
-      return powerSaveBlocker.stop(powerId)
+      powerSaveBlocker.stop(powerId)
     }
   }
 })
@@ -542,6 +601,13 @@ ipcMain.handle('checkDiskSpace', async (event, folder) => {
   })
 })
 
+ipcMain.handle('isFrameless', () => isFrameless())
+ipcMain.handle('isMinimized', () => !!getMainWindow()?.isMinimized())
+ipcMain.handle('isMaximized', () => !!getMainWindow()?.isMaximized())
+ipcMain.on('minimizeWindow', () => getMainWindow()?.minimize())
+ipcMain.on('maximizeWindow', () => getMainWindow()?.maximize())
+ipcMain.on('unmaximizeWindow', () => getMainWindow()?.unmaximize())
+ipcMain.on('closeWindow', () => getMainWindow()?.close())
 ipcMain.on('quit', async () => handleExit())
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -590,60 +656,6 @@ ipcMain.on('showConfigFileInFolder', async (event, appName) => {
 
 ipcMain.on('removeFolder', async (e, [path, folderName]) => {
   removeFolder(path, folderName)
-})
-
-async function runWineCommandOnGame(
-  runner: Runner,
-  appName: string,
-  { commandParts, wait = false, protonVerb, startFolder }: WineCommandArgs
-): Promise<ExecResult> {
-  if (gameManagerMap[runner].isNative(appName)) {
-    logError('runWineCommand called on native game!', LogPrefix.Gog)
-    return { stdout: '', stderr: '' }
-  }
-  const { folder_name, install } = gameManagerMap[runner].getGameInfo(appName)
-  const gameSettings = await gameManagerMap[runner].getSettings(appName)
-
-  await prepareWineLaunch(runner, appName)
-
-  return runWineCommand({
-    gameSettings,
-    installFolderName: folder_name,
-    gameInstallPath: install.install_path,
-    commandParts,
-    wait,
-    protonVerb,
-    startFolder
-  })
-}
-
-// Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
-ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
-  const gameSettings = await gameManagerMap[runner].getSettings(appName)
-
-  switch (tool) {
-    case 'winetricks':
-      await Winetricks.run(runner, appName, event)
-      break
-    case 'winecfg':
-      runWineCommandOnGame(runner, appName, {
-        gameSettings,
-        commandParts: ['winecfg'],
-        wait: false
-      })
-      break
-    case 'runExe':
-      if (exe) {
-        const workingDir = path.parse(exe).dir
-        runWineCommandOnGame(runner, appName, {
-          gameSettings,
-          commandParts: [exe],
-          wait: false,
-          startFolder: workingDir
-        })
-      }
-      break
-  }
 })
 
 ipcMain.handle('runWineCommand', async (e, args) => runWineCommand(args))
@@ -1093,10 +1105,17 @@ ipcMain.handle(
       sessionPlaytime + tsStore.get(`${appName}.totalPlayed`, 0)
     tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
 
+    const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
     if (runner === 'gog') {
-      await updateGOGPlaytime(appName, startPlayingDate, finishedPlayingDate)
+      if (!disablePlaytimeSync) {
+        await updateGOGPlaytime(appName, startPlayingDate, finishedPlayingDate)
+      } else {
+        logWarning(
+          'Posting playtime session to server skipped - playtime sync disabled',
+          { prefix: LogPrefix.Backend }
+        )
+      }
     }
-
     await addRecentGame(game)
 
     if (autoSyncSaves && isOnline()) {
@@ -1578,22 +1597,6 @@ ipcMain.handle('getFonts', async (event, reload) => {
   return cachedFonts
 })
 
-ipcMain.handle(
-  'runWineCommandForGame',
-  async (event, { appName, commandParts, runner }) => {
-    if (isWindows) {
-      return execAsync(commandParts.join(' '))
-    }
-
-    // FIXME: Why are we using `runinprefix` here?
-    return runWineCommandOnGame(runner, appName, {
-      commandParts,
-      wait: false,
-      protonVerb: 'runinprefix'
-    })
-  }
-)
-
 ipcMain.handle('getShellPath', async (event, path) => getShellPath(path))
 
 ipcMain.handle('clipboardReadText', () => clipboard.readText())
@@ -1622,6 +1625,14 @@ ipcMain.handle('getThemeCSS', async (event, theme) => {
   }
 
   return readFileSync(cssPath, 'utf-8')
+})
+
+ipcMain.on('setTitleBarOverlay', (e, args) => {
+  const mainWindow = getMainWindow()
+  if (typeof mainWindow?.['setTitleBarOverlay'] === 'function') {
+    logDebug(`Setting titlebar overlay options ${JSON.stringify(args)}`)
+    mainWindow?.setTitleBarOverlay(args)
+  }
 })
 
 ipcMain.on('addNewApp', (e, args) => addNewApp(args))
@@ -1671,6 +1682,10 @@ ipcMain.on('processShortcut', async (e, combination: string) => {
 ipcMain.handle(
   'getPlaytimeFromRunner',
   async (e, runner, appName): Promise<number | undefined> => {
+    const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
+    if (disablePlaytimeSync) {
+      return
+    }
     if (runner === 'gog') {
       return getGOGPlaytime(appName)
     }
@@ -1698,4 +1713,6 @@ import './downloadmanager/ipc_handler'
 import './utils/ipc_handler'
 import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
+import './tools/ipc_handler'
 import './progress_bar'
+

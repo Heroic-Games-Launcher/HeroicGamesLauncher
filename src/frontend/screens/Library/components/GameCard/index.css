@@ -285,7 +285,9 @@
 
 .gameImg,
 .gameLogo {
-  transition: all 0.2s, opacity 0.5s;
+  transition:
+    all 0.2s,
+    opacity 0.5s;
 }
 
 .gameImg:not(.installed),

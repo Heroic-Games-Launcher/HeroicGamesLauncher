@@ -1,8 +1,4 @@
-import {
-  createAbortController,
-  deleteAbortController,
-  callAllAbortControllers
-} from './utils/aborthandler/aborthandler'
+import { callAllAbortControllers } from './utils/aborthandler/aborthandler'
 import {
   Runner,
   WineInstallation,
@@ -15,7 +11,7 @@ import {
   ProgressInfo,
   GameStatus
 } from 'common/types'
-import * as axios from 'axios'
+import axios from 'axios'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
 import {
   exec,
@@ -39,7 +35,8 @@ import {
   GITHUB_API,
   isMac,
   configStore,
-  isLinux
+  isLinux,
+  isSnap
 } from './constants'
 import {
   logError,
@@ -80,6 +77,11 @@ import {
 import { getHeroicVersion } from './utils/systeminfo/heroicVersion'
 import { backendEvents } from './backend_events'
 import { wikiGameInfoStore } from './wiki_game_info/electronStore'
+import EasyDl from 'easydl'
+
+import decompress from '@xhmikosr/decompress'
+import decompressTargz from '@xhmikosr/decompress-targz'
+import decompressTarxz from '@felipecrs/decompress-tarxz'
 
 const execAsync = promisify(exec)
 
@@ -181,7 +183,7 @@ async function isEpicServiceOffline(
   })
 
   try {
-    const { data } = await axios.default.get(epicStatusApi)
+    const { data } = await axios.get(epicStatusApi)
 
     for (const component of data.components) {
       const { name: name, status: indicator } = component
@@ -349,7 +351,10 @@ async function errorHandler({
 // If you ever modify this range of characters, please also add them to nile
 // source as this function is used to determine how game directory will be named
 function removeSpecialcharacters(text: string): string {
-  const regexp = new RegExp(/[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|'|"|®]/, 'gi')
+  const regexp = new RegExp(
+    /[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|'|"|®]/,
+    'gi'
+  )
   return text.replaceAll(regexp, '')
 }
 
@@ -371,11 +376,10 @@ function clearCache(library?: 'gog' | 'legendary' | 'nile') {
     installStore.clear()
     libraryStore.clear()
     gameInfoStore.clear()
-    const abortID = 'legendary-cleanup'
     runLegendaryCommand(
       { subcommand: 'cleanup' },
-      createAbortController(abortID)
-    ).then(() => deleteAbortController(abortID))
+      { abortId: 'legandary-cleanup' }
+    )
   }
   if (library === 'nile' || !library) {
     nileInstallStore.clear()
@@ -683,7 +687,7 @@ const getLatestReleases = async (): Promise<Release[]> => {
   logInfo('Checking for new Heroic Updates', LogPrefix.Backend)
 
   try {
-    const { data: releases } = await axios.default.get(GITHUB_API)
+    const { data: releases } = await axios.get(GITHUB_API)
     const latestStable: Release = releases.filter(
       (rel: Release) => rel.prerelease === false
     )[0]
@@ -729,9 +733,7 @@ const getCurrentChangelog = async (): Promise<Release | null> => {
   try {
     const current = app.getVersion()
 
-    const { data: release } = await axios.default.get(
-      `${GITHUB_API}/tags/v${current}`
-    )
+    const { data: release } = await axios.get(`${GITHUB_API}/tags/v${current}`)
 
     return release as Release
   } catch (error) {
@@ -873,12 +875,8 @@ export async function downloadDefaultWine() {
       progress
     })
   }
-  const result = await installWineVersion(
-    release,
-    onProgress,
-    createAbortController(release.version).signal
-  )
-  deleteAbortController(release.version)
+  const result = await installWineVersion(release, onProgress)
+
   if (result === 'success') {
     let downloadedWine = null
     try {
@@ -1177,6 +1175,248 @@ function sendProgressUpdate(payload: GameStatus) {
   backendEvents.emit(`progressUpdate-${payload.appName}`, payload)
 }
 
+interface ProgressCallback {
+  (
+    downloadedBytes: number,
+    downloadSpeed: number,
+    diskWriteSpeed: number,
+    progress: number
+  ): void
+}
+
+interface DownloadArgs {
+  url: string
+  dest: string
+  abortSignal?: AbortSignal
+  progressCallback?: ProgressCallback
+}
+
+/**
+ * Downloads a file from a given URL to a specified destination path.
+ * @param {string} url - The URL of the file to download.
+ * @param {string} dest - The destination path to save the downloaded file.
+ * @param {AbortSignal} abortSignal - The AbortSignal instance to cancel the download.
+ * @param {ProgressCallback} [progressCallback] - An optional callback function to track the download progress.
+ * @returns {Promise<void>} - A Promise that resolves when the download is complete.
+ * @throws {Error} - If the download fails or is incomplete.
+ */
+export async function downloadFile({
+  url,
+  dest,
+  abortSignal,
+  progressCallback
+}: DownloadArgs): Promise<void> {
+  let lastProgressUpdateTime = Date.now()
+  let lastBytesWritten = 0
+  let fileSize = 0
+
+  const connections = 5
+  try {
+    const response = await axios.head(url)
+    fileSize = parseInt(response.headers['content-length'], 10)
+  } catch (err) {
+    logError(
+      `Downloader: Failed to get headers for ${url}. \nError: ${err}`,
+      LogPrefix.DownloadManager
+    )
+    throw new Error('Failed to get headers')
+  }
+
+  try {
+    const dl = new EasyDl(url, dest, {
+      existBehavior: 'overwrite',
+      connections
+    }).start()
+
+    abortSignal?.addEventListener('abort', () => {
+      dl.destroy()
+    })
+
+    dl.on('error', (error) => {
+      logError(error, LogPrefix.Backend)
+    })
+
+    dl.on('retry', (retry) => {
+      logInfo(`Retrying download: ${retry}`, LogPrefix.Backend)
+    })
+
+    const throttledProgressCallback = throttle(
+      (
+        bytes: number,
+        speed: number,
+        percentage: number,
+        writingSpeed: number
+      ) => {
+        if (progressCallback) {
+          logInfo(
+            `Downloaded: ${bytesToSize(bytes)} / ${bytesToSize(
+              fileSize
+            )}  @${bytesToSize(speed)}/s (${percentage.toFixed(2)}%)`,
+            LogPrefix.Backend
+          )
+          progressCallback(bytes, speed, percentage, writingSpeed)
+        }
+      },
+      1000
+    ) // Throttle progress reporting to 1 second
+
+    dl.on('progress', ({ total }) => {
+      const { bytes = 0, speed = 0, percentage = 0 } = total
+      const currentTime = Date.now()
+      const timeElapsed = currentTime - lastProgressUpdateTime
+
+      if (timeElapsed >= 1000) {
+        const bytesWrittenSinceLastUpdate = bytes - lastBytesWritten
+        const writingSpeed = bytesWrittenSinceLastUpdate / (timeElapsed / 1000) // Bytes per second
+
+        throttledProgressCallback(bytes, speed, percentage, writingSpeed)
+
+        lastProgressUpdateTime = currentTime
+        lastBytesWritten = bytes
+      }
+    })
+
+    const downloaded = await dl.wait()
+
+    if (!downloaded) {
+      logWarning(
+        `Downloader: Download stopped or paused`,
+        LogPrefix.DownloadManager
+      )
+      throw new Error('Download stopped or paused')
+    }
+
+    logInfo(
+      `Downloader: Finished downloading ${url}`,
+      LogPrefix.DownloadManager
+    )
+    logInfo(
+      `Downloader: Finished downloading ${url}`,
+      LogPrefix.DownloadManager
+    )
+  } catch (err) {
+    logError(
+      `Downloader: Download Failed with: ${err}`,
+      LogPrefix.DownloadManager
+    )
+    throw new Error(`Download failed with ${err}`)
+  }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function throttle<T extends (...args: any[]) => any>(
+  callback: T,
+  limit: number
+): (...args: Parameters<T>) => void {
+  let lastCall = 0
+  return (...args: Parameters<T>) => {
+    const now = Date.now()
+    if (now - lastCall >= limit) {
+      lastCall = now
+      callback(...args)
+    }
+  }
+}
+
+function bytesToSize(bytes: number) {
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB']
+  if (bytes === 0) return `0 ${sizes[0]}`
+  const i = Math.floor(Math.log(bytes) / Math.log(1024))
+  return `${parseFloat((bytes / Math.pow(1024, i)).toFixed(2))} ${sizes[i]}`
+}
+
+function formatTime(seconds: number): string {
+  const hours = Math.floor(seconds / 3600)
+  const minutes = Math.floor((seconds - hours * 3600) / 60)
+  const remainingSeconds = seconds - hours * 3600 - minutes * 60
+  return `${hours.toString().padStart(2, '0')}:${minutes
+    .toString()
+    .padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`
+}
+
+function calculateEta(
+  downloadedBytes: number,
+  downloadSpeed: number,
+  downloadSize: number,
+  lastProgressTime: number = Date.now()
+): string | null {
+  // Calculate the remaining seconds
+  const remainingBytes = downloadSize - downloadedBytes
+  const elapsedSeconds = (Date.now() - lastProgressTime) / 1000
+  const remainingSeconds = remainingBytes / downloadSpeed - elapsedSeconds
+
+  // Check if the download has completed or failed
+  if (remainingSeconds <= 0) {
+    return '00:00:00'
+  } else if (!isFinite(remainingSeconds)) {
+    return null
+  }
+
+  // Format the remaining seconds as "hh:mm:ss"
+  const eta = formatTime(Math.floor(remainingSeconds))
+  return eta
+}
+
+interface ExtractOptions {
+  path: string
+  destination: string
+  strip: number
+}
+
+async function extractFiles({ path, destination, strip = 0 }: ExtractOptions) {
+  if (!isSnap && (path.endsWith('.tar.xz') || path.endsWith('.tar.gz'))) {
+    try {
+      await extractNative(path, destination, strip)
+    } catch (error) {
+      logError(['Error:', error], LogPrefix.Backend)
+    }
+  } else {
+    try {
+      await extractDecompress(path, destination, strip)
+    } catch (error) {
+      logError(['Error:', error], LogPrefix.Backend)
+    }
+  }
+}
+
+async function extractNative(path: string, destination: string, strip: number) {
+  logInfo(
+    `Extracting ${path} to ${destination} using native tar`,
+    LogPrefix.Backend
+  )
+  const { code, stderr } = await spawnAsync('tar', [
+    '-xf',
+    path,
+    '-C',
+    destination,
+    `--strip-components=${strip}`
+  ])
+  if (code !== 0) {
+    logError(`Extracting Error: ${stderr}`, LogPrefix.Backend)
+    return { status: 'error', error: stderr }
+  }
+  return { status: 'done', installPath: destination }
+}
+
+async function extractDecompress(
+  path: string,
+  destination: string,
+  strip: number
+) {
+  logInfo(
+    `Extracting ${path} to ${destination} using decompress`,
+    LogPrefix.Backend
+  )
+  try {
+    await decompress(path, destination, {
+      plugins: [decompressTargz(), decompressTarxz()],
+      strip
+    })
+  } catch (error) {
+    logError(['Error:', error], LogPrefix.Backend)
+  }
+}
+
 export {
   errorHandler,
   execAsync,
@@ -1209,7 +1449,9 @@ export {
   memoryLog,
   removeFolder,
   sendGameStatusUpdate,
-  sendProgressUpdate
+  sendProgressUpdate,
+  calculateEta,
+  extractFiles
 }
 
 // Exported only for testing purpose

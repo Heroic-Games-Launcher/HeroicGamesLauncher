@@ -704,5 +704,8 @@
     },
     "prime-gaming": "Приме Гаминг",
     "amazon": "Амазон",
-    "Amazon Games": "Амазон игре"
+    "Amazon Games": "Амазон игре",
+    "winetricks": {
+        "install": "Инсталирај"
+    }
 }

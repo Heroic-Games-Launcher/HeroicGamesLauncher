@@ -1,0 +1,26 @@
+.windowControls {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  -webkit-app-region: no-drag;
+
+  button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0;
+    background-color: var(--titlebar-color);
+    color: var(--titlebar-symbol-color);
+    height: var(--overlay-controls-height);
+    width: var(--overlay-controls-height);
+
+    &:hover {
+      background-color: var(--secondary-hover);
+    }
+
+    &.close:hover {
+      background-color: var(--status-danger-hover);
+    }
+  }
+}

@@ -3,7 +3,6 @@ import React from 'react'
 import { ContextType } from 'frontend/types'
 
 const initialContext: ContextType = {
-  category: 'all',
   epic: {
     library: [],
     login: async () => Promise.resolve(''),
@@ -26,16 +25,10 @@ const initialContext: ContextType = {
     login: async () => Promise.resolve(''),
     logout: async () => Promise.resolve()
   },
+  installingEpicGame: false,
   sideloadedLibrary: [],
   error: false,
-  filterText: '',
-  filterPlatform: 'all',
   gameUpdates: [],
-  handleCategory: () => null,
-  handleLayout: () => null,
-  handlePlatformFilter: () => null,
-  handleSearch: () => null,
-  layout: 'grid',
   libraryStatus: [],
   libraryTopSection: 'disabled',
   handleLibraryTopSection: () => null,
@@ -46,6 +39,8 @@ const initialContext: ContextType = {
   refreshing: false,
   refreshingInTheBackground: true,
   isRTL: false,
+  isFullscreen: false,
+  isFrameless: false,
   language: 'en',
   setLanguage: () => null,
   hiddenGames: {
@@ -53,12 +48,6 @@ const initialContext: ContextType = {
     add: () => null,
     remove: () => null
   },
-  showHidden: false,
-  setShowHidden: () => null,
-  showFavourites: false,
-  setShowNonAvailable: () => null,
-  showNonAvailable: false,
-  setShowFavourites: () => null,
   favouriteGames: {
     list: [],
     add: () => null,
@@ -87,7 +76,7 @@ const initialContext: ContextType = {
   setLastChangelogShown: () => null,
   isSettingsModalOpen: { value: false, type: 'settings' },
   setIsSettingsModalOpen: () => null,
-  experimentalFeatures: { enableNewShinyFeature: false }, // remove this when adding a real experimental feature
+  experimentalFeatures: { enableNewDesign: false },
   handleExperimentalFeatures: () => null
 }
 

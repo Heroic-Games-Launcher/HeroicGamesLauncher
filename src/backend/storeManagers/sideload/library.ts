@@ -19,7 +19,9 @@ export function addNewApp({
   art_square,
   browserUrl,
   is_installed = true,
-  description
+  description,
+  customUserAgent,
+  launchFullScreen
 }: GameInfo): void {
   const game: GameInfo = {
     runner: 'sideload',
@@ -36,7 +38,9 @@ export function addNewApp({
     art_square,
     canRunOffline: !browserUrl,
     browserUrl,
-    description
+    description,
+    customUserAgent,
+    launchFullScreen
   }
 
   if (isMac && executable?.endsWith('.app')) {
@@ -99,7 +103,6 @@ export async function listUpdateableGames(): Promise<string[]> {
 
 export async function runRunnerCommand(
   commandParts: string[],
-  abortController: AbortController,
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
   logWarning(`runRunnerCommand not implemented on Sideload Library Manager`)

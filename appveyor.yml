@@ -8,7 +8,7 @@ init:
 
 install:
   - pip install castlabs-evs
-  - npm i --legacy-peer-deps
+  - yarn install --force
 
 environment:
   GH_TOKEN:

@@ -16,6 +16,7 @@
   overflow-x: hidden;
   --sidebar-width: 350px;
   width: var(--sidebar-width);
+  -webkit-app-region: drag;
 
   .heroicIcon {
     grid-area: icon;
@@ -40,6 +41,7 @@
   height: fit-content;
   font-family: var(--secondary-font-family);
   flex-direction: column;
+  -webkit-app-region: no-drag;
 }
 
 .Sidebar__item {
@@ -122,6 +124,7 @@
   cursor: pointer;
   transition: 300ms;
   color: var(--brand-text-01);
+  -webkit-app-region: no-drag;
 }
 
 .heroicVersion:hover {
@@ -141,6 +144,7 @@
 .heroicNewReleases > a {
   color: var(--accent);
   transition: 300ms;
+  -webkit-app-region: no-drag;
 }
 
 .heroicNewReleases > a:hover {
@@ -181,6 +185,11 @@
   display: none;
 }
 
+.Sidebar.collapsed .SidebarItemWithSubmenu:has(.SidebarSubmenu) {
+  position: relative;
+  z-index: 2;
+}
+
 .Sidebar.collapsed .SidebarItemWithSubmenu .SidebarSubmenu {
   display: none;
 }
@@ -194,10 +203,16 @@
 .Sidebar.collapsed .SidebarItemWithSubmenu:focus-within .SidebarSubmenu {
   display: block;
   position: fixed;
-  left: 62px;
+  left: var(--sidebar-width);
   top: 66px;
   background-color: var(--navbar-background);
   padding: var(--space-2xs) 0;
+}
+
+.isRTL .Sidebar.collapsed .SidebarItemWithSubmenu:hover .SidebarSubmenu,
+.isRTL .Sidebar.collapsed .SidebarItemWithSubmenu:focus-within .SidebarSubmenu {
+  right: var(--sidebar-width);
+  left: auto;
 }
 
 .Sidebar.collapsed .SidebarItemWithSubmenu:hover .SidebarSubmenu.settings,

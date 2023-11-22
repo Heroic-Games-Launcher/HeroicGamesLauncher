@@ -51,17 +51,18 @@ export async function removeShortcuts(appName: string): Promise<void> {
   return removeShortcutsUtil(getGameInfo(appName))
 }
 
-export function isGameAvailable(appName: string): boolean {
-  const { install } = getGameInfo(appName)
+export async function isGameAvailable(appName: string): Promise<boolean> {
+  return new Promise((resolve) => {
+    const { install } = getGameInfo(appName)
 
-  if (install && install.platform === 'Browser') {
-    return true
-  }
+    if (install && install.platform === 'Browser') {
+      resolve(true)
+    }
 
-  if (install && install.executable) {
-    return existsSync(install.executable)
-  }
-  return false
+    if (install && install.executable) {
+      resolve(existsSync(install.executable))
+    }
+  })
 }
 
 export async function launch(

@@ -1,12 +1,10 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'graceful-fs'
-import { userInfo as user } from 'os'
 
 import {
   AppSettings,
   GlobalConfigVersion,
   WineInstallation
 } from 'common/types'
-import { LegendaryUser } from 'backend/storeManagers/legendary/user'
 import {
   currentGlobalConfigVersion,
   configPath,
@@ -18,7 +16,8 @@ import {
   isMac,
   isWindows,
   getSteamCompatFolder,
-  configStore
+  configStore,
+  isLinux
 } from './constants'
 
 import { logError, logInfo, LogPrefix } from './logger/logger'
@@ -284,24 +283,22 @@ class GlobalConfigV0 extends GlobalConfig {
   }
 
   public getFactoryDefaults(): AppSettings {
-    const account_id = LegendaryUser.getUserInfo()?.account_id
-    const userName = user().username
-    const defaultWine = isWindows ? {} : getDefaultWine()
+    // @ts-expect-error FIXME: Settings values don't work like this in other parts of the codebase
+    const defaultWine: WineInstallation = isWindows ? {} : getDefaultWine()
 
-    // @ts-expect-error TODO: We need to settle on *one* place to define settings defaults
-    return {
+    const settings: Partial<AppSettings> = {
       checkUpdatesInterval: 10,
       enableUpdates: false,
       addDesktopShortcuts: false,
       addStartMenuShortcuts: false,
       autoInstallDxvk: true,
-      autoInstallVkd3d: true,
+      autoInstallVkd3d: isLinux,
       autoInstallDxvkNvapi: false,
       addSteamShortcuts: false,
       preferSystemLibs: false,
       checkForUpdatesOnStartup: !isFlatpak,
       autoUpdateGames: false,
-      customWinePaths: isWindows ? null : [],
+      customWinePaths: [],
       defaultInstallPath: heroicInstallPath,
       libraryTopSection: 'disabled',
       defaultSteamPath: getSteamCompatFolder(),
@@ -314,17 +311,18 @@ class GlobalConfigV0 extends GlobalConfig {
       enviromentOptions: [],
       wrapperOptions: [],
       showFps: false,
-      useGameMode: false,
-      userInfo: {
-        epicId: account_id,
-        name: userName
-      },
+      useGameMode: isFlatpak,
       wineCrossoverBottle: 'Heroic',
       winePrefix: isWindows ? '' : defaultWinePrefix,
       wineVersion: defaultWine,
       enableEsync: true,
-      enableFsync: true
-    } as AppSettings
+      enableFsync: isLinux,
+      eacRuntime: isLinux,
+      battlEyeRuntime: isLinux,
+      framelessWindow: false
+    }
+    // @ts-expect-error TODO: We need to settle on *one* place to define settings defaults
+    return settings
   }
 
   public setSetting(key: string, value: unknown) {

@@ -158,6 +158,11 @@
                     "message": "可能会丢失任何未保存的进度",
                     "title": "你确定要退出吗？"
                 }
+            },
+            "snap": {
+                "checkbox": "不再显示本消息",
+                "title": "Heroic 正以 Snap 运行",
+                "message": "某些功能眼下在本应用的 Snap 版本中不可用，我们正尝试修复它。{{newLine}}当前限制为：{{newLine}}Heroic 无法从 Steam 找到 Proton 或从 Lutris 找到 Wine。{{newLine}}{{newLine}}Gamescope、GameMode 和 MangoHud 也无法正常工作，因为 Heroci 无法有权限访问它们。{{newLine}}{{newLine}}要访问此功能，请以 Flakpak、DEB 格式包安装 Heroic 或从 AppImage 安装。"
             }
         },
         "wineprefix": "选择 Wine Prefix 文件夹",
@@ -287,7 +292,17 @@
             "part2": "如果在其它位置，请使用软链接连接到这些中的一个文件夹"
         },
         "disable_logs": "将此复选框切换为“开”可禁用对日志文件的大部分写入（始终记录关键信息）。请确保在报告任何问题之前关闭此设置。",
-        "dxvknvapi": "DXVK-NVAPI 是基于 DXVK 和 linux 原生 NVAPI 构建的 NVAPI 的实现，它允许在 Nvidia GPU 上使用 DLSS。"
+        "dxvknvapi": "DXVK-NVAPI 是基于 DXVK 和 linux 原生 NVAPI 构建的 NVAPI 的实现，它允许在 Nvidia GPU 上使用 DLSS。",
+        "disablePlaytimeSync": "停用与给定游戏商店服务器的游戏时间同步（当前只支持 GOG）",
+        "gamescope": {
+            "fpsLimiterNoFocus": "如未聚焦游戏，Gamescope 每秒应限制的帧率。",
+            "upscaleMethod": "Gamescope 应使用的分辨率提升方法。",
+            "gameWidth": "游戏所用的宽度分辨率。Gamescope 假定 16:9 长宽比。",
+            "upscaleWidth": "Gamescope 所用的宽度分辨率。假定 16:9 的长宽比。",
+            "gameHeight": "游戏所用的高度分辨率。Gamescope 假定 16:9 的长宽比。",
+            "upscaleHeight": "Gamescope 所用的高度分辨率。假定 16:9 长宽比。",
+            "fpsLimiter": "Gamescope 帧数限制，比如 60"
+        }
     },
     "info": {
         "heroic": {
@@ -423,7 +438,11 @@
         },
         "gameargs": {
             "placeholder": "将启动器参数放在这里",
-            "title": "游戏参数（在命令后运行）："
+            "title": "游戏参数（在命令后运行）：",
+            "error": {
+                "command": "来自 Steam 的 %command% 语法不是有效的游戏变量。",
+                "env": "必须在下方表格中配置环境变量。"
+            }
         },
         "quote-args-with-spaces": "警告:请确保引用参数时使用空格！ 例：\"path/with spaces/\"",
         "wrapper": {
@@ -433,6 +452,19 @@
             "placeHolderKey": "新封装器",
             "placeHolderValue": "封装器参数",
             "title": "封装器命令："
+        },
+        "gamescope": {
+            "fpsLimiter": "FPS 限制程序",
+            "gameHeight": "游戏高度",
+            "upscaleWidth": "Upscale 宽度",
+            "gameWidth": "游戏宽度",
+            "upscaleHeight": "Upscale 高度",
+            "fpsLimiterNoFocus": "FPS 限制程序（无焦点）",
+            "nis": "NVIDIA 图形缩放（NIS）",
+            "borderless": "无边框",
+            "fullscreen": "全屏",
+            "interger": "整数型 Upscale",
+            "stretch": "拉伸图像"
         }
     },
     "other": {
@@ -588,7 +620,21 @@
         "alt-nile-bin": "选择替代尼罗河二进制",
         "autodxvknvapi": "在前置自动安装并更新 DXVK",
         "experimental_features": {
-            "enableNewShinyFeature": "新功能"
+            "enableNewShinyFeature": "新功能",
+            "enableNewDesign": "新设计"
+        },
+        "disablePlaytimeSync": "停用游戏时间同步",
+        "gamescope": {
+            "enableLimiter": "启用 FPS 限制程序",
+            "enableUpscaling": "启用分辨率提升",
+            "missingMsg": "我们在 PATH 上找不到 Gamescope。请先安装它或将其添加到 PATH。"
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "此功能仍是实验性的。请在 GitHub 上报告任何你在使用该功能时遇到的问题。",
+                "title": "实验性功能"
+            },
+            "description": "使用无框架窗口（需要重启）"
         }
     },
     "settings": {
@@ -625,7 +671,8 @@
             "other": "其它",
             "sync": "存档-同步",
             "wineExt": "Wine 扩展",
-            "systemInformation": "系统信息"
+            "systemInformation": "系统信息",
+            "gamescope": "Gamescope"
         },
         "open-config-file": "打开配置文件",
         "reset-heroic": "重置 Heroic",
@@ -657,6 +704,9 @@
             "copyToClipboard": "复制到剪贴板",
             "heroicVersion": "Heroic: {{heroicVersion}}",
             "nileVersion": "Nile: {{nileVersion}}"
+        },
+        "gamescope": {
+            "searchMsg": "搜索 Gamescope 可执行文件。"
         }
     },
     "Settings": "设置",
@@ -740,5 +790,20 @@
     },
     "amazon": "亚马逊",
     "Amazon Games": "亚马逊游戏",
-    "prime-gaming": "优质游戏"
+    "prime-gaming": "优质游戏",
+    "winetricks": {
+        "install": "安装",
+        "loading": "加载中",
+        "installing": "正在安装：{{component}}",
+        "openGUI": "打开 Winetricks 用户界面",
+        "search": "搜索字体或部件",
+        "nothingYet": "Winetricks 还没安装任何东西",
+        "installed": "已安装的部件："
+    },
+    "window": {
+        "minimize": "最小化窗口",
+        "maximize": "最大化窗口",
+        "restore": "还原窗口",
+        "close": "关闭"
+    }
 }

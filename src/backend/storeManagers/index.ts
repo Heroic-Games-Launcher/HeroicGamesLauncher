@@ -13,7 +13,6 @@ import { logInfo, RunnerToLogPrefixMap } from 'backend/logger/logger'
 
 import { addToQueue } from 'backend/downloadmanager/downloadqueue'
 import { DMQueueElement, GameInfo, Runner } from 'common/types'
-import { isGameAvailable } from 'backend/api/helpers'
 type GameManagerMap = {
   [key in Runner]: GameManager
 }
@@ -60,11 +59,12 @@ function getDMElement(gameInfo: GameInfo, appName: string) {
 export function autoUpdate(runner: Runner, gamesToUpdate: string[]) {
   const logPrefix = RunnerToLogPrefixMap[runner]
   gamesToUpdate.forEach(async (appName) => {
-    const { ignoreGameUpdates } = await gameManagerMap[runner].getSettings(
-      appName
-    )
+    const { ignoreGameUpdates } =
+      await gameManagerMap[runner].getSettings(appName)
     const gameInfo = gameManagerMap[runner].getGameInfo(appName)
-    if (!ignoreGameUpdates && (await isGameAvailable({ appName, runner }))) {
+    const gameIsAvailable =
+      await gameManagerMap[runner].isGameAvailable(appName)
+    if (!ignoreGameUpdates && gameIsAvailable) {
       logInfo(`Auto-Updating ${gameInfo.title}`, logPrefix)
       const dmQueueElement: DMQueueElement = getDMElement(gameInfo, appName)
       addToQueue(dmQueueElement)

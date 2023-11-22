@@ -152,6 +152,11 @@
                     "title": "Are you sure you want to quit?"
                 }
             },
+            "snap": {
+                "checkbox": "Do not show this message again",
+                "message": "Some features are not available in the Snap version of the app for now and we are trying to fix it.{{newLine}}Current limitations are: {{newLine}}Heroic will not be able to find Proton from Steam or Wine from Lutris.{{newLine}}{{newLine}}Gamescope, GameMode and MangoHud will also not work since Heroic cannot have access to them.{{newLine}}{{newLine}}To have access to this feature please install Heroic as a Flatpak, DEB or from the AppImage.",
+                "title": "Heroic is running as a Snap"
+            },
             "title": "Warning",
             "wine-change": {
                 "message": "We could not find the selected wine version to launch this title ({{selectedWine}}). {{newline}} We found another one, do you want to continue launching using {{foundWine}} ?",
@@ -256,6 +261,7 @@
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "disable_logs": "Toggle this checkbox ON to disable most of the writes to log files (critical information is always logged). Make sure to turn OFF this setting before reporting any issue.",
+        "disablePlaytimeSync": "Disables playtime synchronization with given store's servers (currently only GOG is supported)",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
         "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "dxvknvapi": "DXVK-NVAPI is an implementation of NVAPI built on top of DXVK and the linux native NVAPI, it allows for the usage of DLSS on Nvidia GPUs.",
@@ -267,6 +273,15 @@
             "valid_codes": "Valid language codes are game-dependant."
         },
         "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
+        "gamescope": {
+            "fpsLimiter": "The amount of frames gamescope should limit to. E.g. 60",
+            "fpsLimiterNoFocus": "The frame rate limit gamescope should limit per second if the game is not focused.",
+            "gameHeight": "The height resolution used by the game. A 16:9 aspect ratio is assumed by gamescope.",
+            "gameWidth": "The width resolution used by the game. A 16:9 aspect ratio is assumed by gamescope.",
+            "upscaleHeight": "The height resolution used by gamescope. A 16:9 aspect ratio is assumed.",
+            "upscaleMethod": "The upscaling method gamescope should use.",
+            "upscaleWidth": "The width resolution used by gamescope. A 16:9 aspect ratio is assumed."
+        },
         "general": "Sync with EGL if you have a working installation of the Epic Games Launcher elsewhere and want to import your games to avoid downloading them again.",
         "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
@@ -423,8 +438,25 @@
             "info": "Set environment variables to append to the command."
         },
         "gameargs": {
+            "error": {
+                "command": "The %command% syntax from Steam is not valid as game arguments.",
+                "env": "Environment variables must be configured in the table below."
+            },
             "placeholder": "Put here the Launcher Arguments",
             "title": "Game Arguments (To run after the command):"
+        },
+        "gamescope": {
+            "borderless": "Borderless",
+            "fpsLimiter": "FPS Limiter",
+            "fpsLimiterNoFocus": "FPS Limiter (No Focus)",
+            "fullscreen": "Fullscreen",
+            "gameHeight": "Game Height",
+            "gameWidth": "Game Width",
+            "interger": "Interger Upscale",
+            "nis": "NVIDIA Image Scale (NIS)",
+            "stretch": "Stretch Image",
+            "upscaleHeight": "Upscale Height",
+            "upscaleWidth": "Upscale Width"
         },
         "quote-args-with-spaces": "Warning: Make sure to quote args with spaces! E.g.: \"path/with spaces/\"",
         "wrapper": {
@@ -500,6 +532,7 @@
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "disable_controller": "Disable Heroic navigation using controller",
         "disable_logs": "Disable Logs",
+        "disablePlaytimeSync": "Disable playtime synchronization",
         "discordRPC": "Enable Discord Rich Presence",
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
@@ -528,11 +561,23 @@
         "esync": "Enable Esync",
         "exit-to-tray": "Exit to System Tray",
         "experimental_features": {
-            "enableNewShinyFeature": "New shiny feature"
+            "enableNewDesign": "New design"
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "This feature is still experimental. Please report any issues you encounter with it on GitHub.",
+                "title": "Experimental feature ahead"
+            },
+            "description": "Use frameless window (requires restart)"
         },
         "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
+        "gamescope": {
+            "enableLimiter": "Enable FPS Limiter",
+            "enableUpscaling": "Enables Upscaling",
+            "missingMsg": "We could not found gamescope on the PATH. Install it or add it to the PATH."
+        },
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "ignoreGameUpdates": "Ignore game updates",
         "language": "Choose App Language",
@@ -545,10 +590,8 @@
         "library_top_section": "Library Top Section",
         "log": {
             "copy-to-clipboard": "Copy log content to clipboard",
-            "current-log": "Current Log",
             "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",
             "instructions_title": "How to report a problem?",
-            "last-log": "Last Log",
             "no-file": "No log file found",
             "show-in-folder": "Show log file in folder"
         },
@@ -619,12 +662,16 @@
                 "title": "EAC runtime enabled"
             }
         },
+        "gamescope": {
+            "searchMsg": "Searching for gamescope executable."
+        },
         "log": {
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },
         "navbar": {
             "advanced": "Advanced",
             "games_settings_defaults": "Game Defaults",
+            "gamescope": "Gamescope",
             "general": "General",
             "log": "Log",
             "other": "Other",
@@ -708,6 +755,12 @@
             "reload": "Reload page"
         }
     },
+    "window": {
+        "close": "Close",
+        "maximize": "Maximize window",
+        "minimize": "Minimize window",
+        "restore": "Restore window"
+    },
     "wine": {
         "actions": "Action",
         "manager": {
@@ -718,5 +771,14 @@
         },
         "release": "Release Date",
         "size": "Size"
+    },
+    "winetricks": {
+        "install": "Install",
+        "installed": "Installed components:",
+        "installing": "Installation in progress: {{component}}",
+        "loading": "Loading",
+        "nothingYet": "Nothing was installed by Winetricks yet",
+        "openGUI": "Open Winetricks GUI",
+        "search": "Search fonts or components"
     }
 }

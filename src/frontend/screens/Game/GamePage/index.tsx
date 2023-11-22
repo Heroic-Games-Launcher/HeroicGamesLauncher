@@ -2,7 +2,13 @@ import './index.scss'
 
 import React, { useContext, useEffect, useState } from 'react'
 
-import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
+import {
+  ArrowCircleLeft,
+  ArrowBackIosNew,
+  Info,
+  Star,
+  Monitor
+} from '@mui/icons-material'
 import {
   getGameInfo,
   getInstallInfo,
@@ -13,7 +19,7 @@ import {
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { UpdateComponent } from 'frontend/components/UI'
+import { CachedImage, UpdateComponent } from 'frontend/components/UI'
 
 import {
   ExtraInfo,
@@ -79,6 +85,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
     platform,
     showDialogModal,
     isSettingsModalOpen,
+    experimentalFeatures,
     connectivity
   } = useContext(ContextProvider)
 
@@ -106,6 +113,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const isLinux = platform === 'linux'
   const isMac = platform === 'darwin'
   const isSideloaded = runner === 'sideload'
+  const isBrowserGame = gameInfo?.install.platform === 'Browser'
 
   const isInstalling = status === 'installing'
   const isPlaying = status === 'playing'
@@ -127,6 +135,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const backRoute = location.state?.fromDM ? '/download-manager' : '/library'
 
   const storage: Storage = window.localStorage
+
+  const [tab, setTab] = useState<'info' | 'extra' | 'requirements'>('info')
 
   useEffect(() => {
     const updateGameInfo = async () => {
@@ -188,7 +198,14 @@ export default React.memo(function GamePage(): JSX.Element | null {
       }
     }
     updateConfig()
-  }, [status, epic.library, gog.library, gameInfo, isSettingsModalOpen, isOffline])
+  }, [
+    status,
+    epic.library,
+    gog.library,
+    gameInfo,
+    isSettingsModalOpen,
+    isOffline
+  ])
 
   useEffect(() => {
     window.api
@@ -219,6 +236,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
       runner,
       title,
       art_square,
+      art_cover,
+      art_background,
       install: { platform: installPlatform },
       is_installed
     } = gameInfo
@@ -282,8 +301,24 @@ export default React.memo(function GamePage(): JSX.Element | null {
       wikiInfo
     }
 
+    const hasWikiInfo =
+      wikiInfo?.applegamingwiki ||
+      wikiInfo?.howlongtobeat ||
+      wikiInfo?.pcgamingwiki?.metacritic.score ||
+      wikiInfo?.pcgamingwiki?.opencritic.score ||
+      wikiInfo?.steamInfo
+
+    const hasRequirements = extraInfo ? extraInfo.reqs.length > 0 : false
+
     return (
       <div className="gameConfigContainer">
+        {!!(art_background ?? art_cover) &&
+          experimentalFeatures.enableNewDesign && (
+            <CachedImage
+              src={art_background || art_cover}
+              className="backgroundImage"
+            />
+          )}
         {gameInfo.runner !== 'sideload' && showModal.show && (
           <InstallModal
             appName={showModal.game}
@@ -294,58 +329,164 @@ export default React.memo(function GamePage(): JSX.Element | null {
         )}
         {title ? (
           <GameContext.Provider value={contextValues}>
-            <GamePicture art_square={art_square} store={runner} />
-            <NavLink
-              className="backButton"
-              to={backRoute}
-              title={t2('webview.controls.back', 'Go Back')}
-            >
-              <ArrowCircleLeftIcon />
-            </NavLink>
-            <div className="store-icon">
-              <StoreLogos runner={runner} />
-            </div>
-            <div className="gameInfo">
-              <div className="titleWrapper">
-                <h1 className="title">{title}</h1>
-                <SettingsButton gameInfo={gameInfo} />
-                <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
-              </div>
-              <div className="infoWrapper">
-                <Developer gameInfo={gameInfo} />
-                <Description />
-                <CloudSavesSync gameInfo={gameInfo} />
-                <DownloadSizeInfo gameInfo={gameInfo} />
-                <InstalledInfo gameInfo={gameInfo} />
-                <Scores gameInfo={gameInfo} />
-                <HLTB />
-                <CompatibilityInfo gameInfo={gameInfo} />
-                <AppleWikiInfo gameInfo={gameInfo} />
-                <Requirements />
-              </div>
-              {!notInstallable && (
-                <TimeContainer runner={runner} game={appName} />
-              )}
-              <GameStatus
-                gameInfo={gameInfo}
-                progress={progress}
-                handleUpdate={handleUpdate}
-                hasUpdate={hasUpdate}
-              />
-              <LaunchOptions
-                gameInfo={gameInfo}
-                launchArguments={launchArguments}
-                setLaunchArguments={setLaunchArguments}
-              />
+            {/* OLD DESIGN */}
+            {!experimentalFeatures.enableNewDesign && (
+              <>
+                <GamePicture art_square={art_square} store={runner} />
+                <NavLink
+                  className="backButton"
+                  to={backRoute}
+                  title={t2('webview.controls.back', 'Go Back')}
+                >
+                  <ArrowCircleLeft />
+                </NavLink>
+                <div className="store-icon">
+                  <StoreLogos runner={runner} />
+                </div>
+                <div className="gameInfo">
+                  <div className="titleWrapper">
+                    <h1 className="title">{title}</h1>
+                    {!isBrowserGame && <SettingsButton gameInfo={gameInfo} />}
+                    <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
+                  </div>
+                  <div className="infoWrapper">
+                    <Developer gameInfo={gameInfo} />
+                    <Description />
+                    <CloudSavesSync gameInfo={gameInfo} />
+                    <DownloadSizeInfo gameInfo={gameInfo} />
+                    <InstalledInfo gameInfo={gameInfo} />
+                    <Scores gameInfo={gameInfo} />
+                    <HLTB />
+                    <CompatibilityInfo gameInfo={gameInfo} />
+                    <AppleWikiInfo gameInfo={gameInfo} />
+                    <Requirements />
+                  </div>
+                  {!notInstallable && (
+                    <TimeContainer runner={runner} game={appName} />
+                  )}
+                  <GameStatus
+                    gameInfo={gameInfo}
+                    progress={progress}
+                    handleUpdate={handleUpdate}
+                    hasUpdate={hasUpdate}
+                  />
+                  <LaunchOptions
+                    gameInfo={gameInfo}
+                    launchArguments={launchArguments}
+                    setLaunchArguments={setLaunchArguments}
+                  />
 
-              <Anticheat anticheatInfo={anticheatInfo} />
-              <MainButton
-                gameInfo={gameInfo}
-                handlePlay={handlePlay}
-                handleInstall={handleInstall}
-              />
-              <ReportIssue gameInfo={gameInfo} />
-            </div>
+                  <Anticheat anticheatInfo={anticheatInfo} />
+                  <MainButton
+                    gameInfo={gameInfo}
+                    handlePlay={handlePlay}
+                    handleInstall={handleInstall}
+                  />
+                  <ReportIssue gameInfo={gameInfo} />
+                </div>
+              </>
+            )}
+            {/* NEW DESIGN */}
+            {experimentalFeatures.enableNewDesign && (
+              <>
+                <div className="mainInfoWrapper">
+                  <NavLink
+                    className="backButton"
+                    to={backRoute}
+                    title={t2('webview.controls.back', 'Go Back')}
+                  >
+                    <ArrowBackIosNew />
+                  </NavLink>
+
+                  <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
+                  {!isBrowserGame && <SettingsButton gameInfo={gameInfo} />}
+                  <div className="mainInfo">
+                    <GamePicture art_square={art_cover} store={runner} />
+                    <div className="store-icon">
+                      <StoreLogos runner={runner} />
+                    </div>
+                    <h1>{title}</h1>
+                    <Developer gameInfo={gameInfo} />
+                    <Description />
+                    {!notInstallable && (
+                      <TimeContainer runner={runner} game={appName} />
+                    )}
+                    <GameStatus
+                      gameInfo={gameInfo}
+                      progress={progress}
+                      handleUpdate={handleUpdate}
+                      hasUpdate={hasUpdate}
+                    />
+                    <LaunchOptions
+                      gameInfo={gameInfo}
+                      launchArguments={launchArguments}
+                      setLaunchArguments={setLaunchArguments}
+                    />
+                    <div className="buttons">
+                      <MainButton
+                        gameInfo={gameInfo}
+                        handlePlay={handlePlay}
+                        handleInstall={handleInstall}
+                      />
+                      {gameInfo.is_installed && <button>Uninstall</button>}
+                    </div>
+                  </div>
+                  <ReportIssue gameInfo={gameInfo} />
+                </div>
+                <div className="extraInfoWrapper">
+                  <div className="tabs">
+                    <button
+                      title="Install Info"
+                      className="showInfo"
+                      onClick={() => setTab('info')}
+                    >
+                      <Info />
+                    </button>
+                    {hasWikiInfo && (
+                      <button
+                        title="Extra Info"
+                        className="showExtra"
+                        onClick={() => setTab('extra')}
+                      >
+                        <Star />
+                      </button>
+                    )}
+                    {hasRequirements && (
+                      <button
+                        title="Requirements"
+                        className="showRequirements"
+                        onClick={() => setTab('requirements')}
+                      >
+                        <Monitor />
+                      </button>
+                    )}
+                  </div>
+
+                  <div className={`tabContent ${tab}Tab`}>
+                    <div>
+                      {tab === 'info' && (
+                        <>
+                          <DownloadSizeInfo gameInfo={gameInfo} />
+                          <InstalledInfo gameInfo={gameInfo} />
+                          <CloudSavesSync gameInfo={gameInfo} />
+                        </>
+                      )}
+                      {tab === 'extra' && (
+                        <>
+                          <Scores gameInfo={gameInfo} />
+                          <HLTB />
+                          <CompatibilityInfo gameInfo={gameInfo} />
+                          <AppleWikiInfo gameInfo={gameInfo} />
+                        </>
+                      )}
+                      {tab === 'requirements' && <Requirements />}
+                    </div>
+                  </div>
+
+                  <Anticheat anticheatInfo={anticheatInfo} />
+                </div>
+              </>
+            )}
           </GameContext.Provider>
         ) : (
           <UpdateComponent />

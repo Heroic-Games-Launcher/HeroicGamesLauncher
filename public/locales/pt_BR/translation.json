@@ -281,13 +281,14 @@
             "part3": "Sincronização Manual: Escolha Download para baixar os saves dos jogos salvos em nuvem; Upload para fazer upload dos saves locais para a nuvem. Forçar Download e Forçar Upload ignorarão a versão que está salva localmente ou na nuvem.",
             "part4": "Sincronizar Saves Automaticamente sincronizará os saves toda vez que você iniciar ou parar de jogar um jogo."
         },
-        "vkd3d": "VKD3D é uma camada de tradução baseada em Vulkan para jogos DirectX 12. A ativação pode melhorar significativamente a compatibilidade. Não tem efeito em jogos DirectX mais antigos.",
+        "vkd3d": "VKD3D é uma camada de tradução baseada em Vulkan para jogos DirectX 12. A ativação pode melhorar significativamente a compatibilidade. Não tem efeito em jogos DirectX mais antigos, requer DXVK.",
         "wine": {
             "part1": "O Heroic busca por versões do Wine, Proton e CrossOver nas pastas a seguir:",
             "part2": "Para outros locais, use um link simbólico para uma dessas pastas"
         },
         "disable_logs": "Ative esta caixa de seleção para desativar a maioria das gravações em arquivos de log (informações críticas sempre são registradas). Certifique-se de desativar essa configuração antes de relatar qualquer problema.",
-        "dxvknvapi": "DXVK-NVAPI é uma implementação de NVAPI construído sobre DXVK e o NVAPI nativo linux, ele permite o uso de DLSS em GPUs Nvidia."
+        "dxvknvapi": "DXVK-NVAPI é uma implementação de NVAPI construído sobre DXVK e o NVAPI nativo linux, ele permite o uso de DLSS em GPUs Nvidia.",
+        "disablePlaytimeSync": "Desativa a sincronização do tempo de jogo com determinados servidores da loja (atualmente apenas GOG é compatível)"
     },
     "info": {
         "heroic": {
@@ -314,8 +315,8 @@
         "wine-repfix": {
             "message": "O Wine usa o que é chamado de prefixo Wine para encapsular aplicativos do Windows. Este prefixo contém os arquivos de configuração do Wine e uma reprodução da hierarquia de arquivos de C: (o disco principal em um sistema operacional Windows). Nesta reprodução da unidade C:, são armazenados os arquivos salvos do jogo e as dependências instaladas via winetricks."
         },
-        "wine-path-invalid": "Wine Path é inválido, selecione outro.",
-        "wine-path-none-found": "Nenhuma versão do Wine foi encontrada, baixe uma do Wine Manager"
+        "wine-path-invalid": "Caminho do Wine é inválido, selecione outro.",
+        "wine-path-none-found": "Nenhuma versão do Wine foi encontrada, baixe uma do Gerenciador de Wine"
     },
     "install": {
         "path": "Selecione o local de instalação"
@@ -378,8 +379,8 @@
             "finished": "Instalação concluída",
             "imported": "Jogo importado",
             "startInstall": "Instalação iniciada",
-            "failed": "Erro na instalação",
-            "paused": "Instalação pausada"
+            "failed": "Instalação Falhou",
+            "paused": "Instalação Pausada"
         },
         "moved": "Movido com sucesso",
         "moving": "Movendo jogo",
@@ -392,8 +393,8 @@
             "canceled": "Atualização cancelada",
             "finished": "Atualização concluída",
             "started": "Atualização iniciada",
-            "failed": "Atualização falhou",
-            "paused": "Atualização pausada"
+            "failed": "Atualização Falhou",
+            "paused": "Atualização Pausada"
         }
     },
     "offline-message": {
@@ -469,7 +470,7 @@
             "queued": "Na fila",
             "remove": "Remover da fila",
             "pause": "Pausar download",
-            "resume": "Retomar o download"
+            "resume": "Retomar download"
         }
     },
     "Recent": "Jogados Recentemente",
@@ -582,14 +583,16 @@
         "wineversion": "Versão do Wine",
         "autoUpdateGames": "Atualizar jogos automaticamente",
         "ignoreGameUpdates": "Ignorar atualizações do jogo",
-        "disable_logs": "Desativar registros",
-        "addgamestoapplications": "Adicionar jogos a aplicativos automaticamente",
+        "disable_logs": "Desativar Registros",
+        "addgamestoapplications": "Adicione jogos aos Aplicativos automaticamente",
         "showMetalOverlay": "Mostrar sobreposição de estatísticas",
-        "alt-nile-bin": "Escolha um binário alternativo do Nilo",
+        "alt-nile-bin": "Escolha um Binário Alternativo do Nilo",
         "autodxvknvapi": "Auto Instalar/atualizar o DXVK-NVAPI automaticamente no prefixo",
         "experimental_features": {
-            "enableNewShinyFeature": "Novidade"
-        }
+            "enableNewShinyFeature": "Novidade",
+            "enableNewDesign": "Novo design"
+        },
+        "disablePlaytimeSync": "Desativar a sincronização do tempo de jogo"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -738,7 +741,11 @@
         "noDlcFound": "Nenhuma DLC encontrada",
         "size": "Tamanho"
     },
-    "amazon": "Amazonas",
+    "amazon": "Amazon",
     "Amazon Games": "Amazon Games",
-    "prime-gaming": "Prime Gaming ignore-same"
+    "prime-gaming": "Prime Gaming ignore-same",
+    "winetricks": {
+        "install": "Instalação",
+        "loading": "Loading"
+    }
 }

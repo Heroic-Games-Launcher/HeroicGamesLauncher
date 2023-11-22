@@ -82,8 +82,8 @@
         "downloadSize": "Downloadgröße",
         "firstPlayed": "Erstmals gespielt",
         "getting-download-size": "Downloadgröße wird ermittelt",
-        "getting-install-size": "Installierte Größe wird ermittelt …",
-        "installSize": "Installierte Größe",
+        "getting-install-size": "Installationsgröße wird ermittelt",
+        "installSize": "Installationsgröße",
         "language": "Sprache",
         "lastPlayed": "Zuletzt gespielt",
         "neverPlayed": "Nie",
@@ -128,7 +128,14 @@
         "path-not-writtable": "Warnung: Der Pfad ist möglicherweise nicht beschreibbar.",
         "space-after-install": "Nach der Installation",
         "wineprefix": "Wine-Präfix",
-        "wineversion": "Wine-Version"
+        "wineversion": "Wine-Version",
+        "anticheat-warning": {
+            "message": "Die Unterstützung vom Anticheat-System ist kaputt oder wurde verweigert. Das Spiel wird nicht funktionieren. Möchtest Du es trotzdem installieren?",
+            "title": "Unterstützung vom Anticheat-System kaputt oder verweigert",
+            "cancel": "Nein",
+            "install": "Ja (Ich verstehe, dass es nicht funktionieren wird)"
+        },
+        "flatpak-path-not-writtable": "Fehler: Sandbox Zugriff auf diesen Pfad nicht authorisiert. Datenverlust wird eintreten."
     },
     "label": {
         "game": {
@@ -153,7 +160,7 @@
         "gog": "Du bist mit keinem GOG-Konto in Heroic angemeldet. Verwende zum Anmelden nicht die Store-Seite, sondern klicke stattdessen auf die folgende Schaltfläche:",
         "login": "Anmelden",
         "title": "Du bist NICHT angemeldet",
-        "amazon": "Du bist mit keinem Epic-Account in Heroic angemeldet. Verwende nicht die Store-Seite, um dich anzumelden, sondern klicke stattdessen auf die folgende Schaltfläche:"
+        "amazon": "Du bist nicht mit einem Amazon-Konto in Heroic angemeldet. Verwende zum Anmelden nicht die Store-Seite, sondern klicke stattdessen auf die folgende Schaltfläche:"
     },
     "report_problem": "Ein Problem bei der Ausführung dieses Spiels melden",
     "sdl": {
@@ -195,7 +202,7 @@
         "notSupportedGame": "Nicht unterstützt",
         "processing": "Bitte warten. Dateien werden verarbeitet …",
         "queued": "In Warteschlange",
-        "reparing": "Bitte warten. Spiel wird repariert …",
+        "reparing": "Bitte warten. Spiel wird repariert",
         "this-game-uses-third-party": "Dieses Spiel verwendet einen Drittanbieter-Launcher und wird noch nicht unterstützt",
         "totalDownloaded": "Insgesamt heruntergeladen",
         "uninstalling": "Wird deinstalliert …",

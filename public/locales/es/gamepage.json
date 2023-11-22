@@ -37,14 +37,16 @@
             "settingcheckbox": "Borrar ajustes y eliminar registros{{newLine}}Nota: Este cambio no se puede deshacer. Todos los ajustes serán olvidados y el registro será borrado.",
             "title": "Desinstalar",
             "prefix_warning": "El prefijo Wine para este juego es el prefijo predeterminado. Si realmente deseas eliminarlo, debes hacerlo manualmente.",
-            "dlc": "¿Quieres desinstalar este DLC?"
+            "dlc": "¿Quieres desinstalar este DLC?",
+            "cannotUninstallEpic": "Epic Games no se puede desinstalar mientras se está instalando otro juego de Epic."
         },
         "update": {
             "message": "Este juego tiene una actualización. ¿Quieres aplicarla ahora?",
             "title": "El juego necesita una actualización"
         },
         "wineprefix": "Selecciona la carpeta de WinePrefix",
-        "yes": "SÍ"
+        "yes": "SÍ",
+        "close": "Cerrar"
     },
     "button": {
         "add_to_favourites": "Agregar a favoritos",
@@ -83,7 +85,7 @@
         "firstPlayed": "Jugado por primera vez",
         "getting-download-size": "Obteniendo tamaño de descarga",
         "getting-install-size": "Obteniendo tamaño de instalación",
-        "installSize": "Tamaño de Instalación",
+        "installSize": "Tamaño de instalación",
         "language": "Lenguaje",
         "lastPlayed": "Jugado por última vez",
         "neverPlayed": "Nunca",
@@ -131,9 +133,9 @@
         "wineversion": "Version de Wine",
         "anticheat-warning": {
             "cancel": "No",
-            "message": "El antitrampas está roto o desactivado. El juego no funcionará. ¿Quieres instalarlo de todos modos?",
+            "message": "El soporte de anticheat está roto o denegado. El juego no funcionará. ¿Quieres instalarlo de todos modos?",
             "install": "Sí (entiendo que no funcionará)",
-            "title": "Antitrampa desactivado/denegado"
+            "title": "Anticheat Roto/Denegado"
         },
         "flatpak-path-not-writtable": "Error: No se ha concedido acceso al Sandbox a esta ruta, se perderán los datos."
     },
@@ -178,12 +180,15 @@
             "exe": "Seleccionar ejecutable",
             "image": "Imagen de la aplicación/juego",
             "title": "Título de la aplicación/juego",
-            "broser": "Enlace web del navegador"
+            "broser": "Enlace web del navegador",
+            "fullscreen": "Iniciar a pantalla completa (F11 para salir)",
+            "useragent": "Agente de usuario personalizado"
         },
         "placeholder": {
             "image": "Inserta el enlace web de una imagen aquí",
             "title": "Añade un título a tu juego/aplicación",
-            "url": "Pega el enlace web del juego aquí"
+            "url": "Pega el enlace web del juego aquí",
+            "useragent": "Escriba aquí un agente de usuario personalizado que se utilizará en esta aplicación/juego del navegador"
         }
     },
     "specs": {
