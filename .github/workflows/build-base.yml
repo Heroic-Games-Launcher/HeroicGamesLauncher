@@ -40,7 +40,7 @@ jobs:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.snapcraftIdEdge }}
         if: runner.os == 'Linux' && inputs.publish-snap
       - name: Build AppImage version
-        run: yarn dist:linux AppImage
+        run: yarn dist:linux AppImage --publish=never
         if: runner.os == 'Linux'
       - name: Upload built version
         uses: actions/upload-artifact@v3
