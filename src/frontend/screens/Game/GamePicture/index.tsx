@@ -12,7 +12,7 @@ interface Props extends React.ImgHTMLAttributes<HTMLImageElement> {
 
 function GamePicture({
   art_square,
-  art_logo = undefined,
+  art_logo,
   store,
   className,
   ...props
@@ -34,15 +34,13 @@ function GamePicture({
 
   return (
     <div className="gamePicture">
-      {
-        <CachedImage
-          alt="cover-art"
-          className={`gameImg ${className}`}
-          src={src}
-          fallback={fallback}
-          {...props}
-        />
-      }
+      <CachedImage
+        alt="cover-art"
+        className={`gameImg ${className}`}
+        src={src}
+        fallback={fallback}
+        {...props}
+      />
       {art_logo && (
         <CachedImage
           alt="logo"

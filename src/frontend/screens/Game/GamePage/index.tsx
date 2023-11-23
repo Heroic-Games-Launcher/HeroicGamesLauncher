@@ -231,7 +231,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       art_square,
       art_cover,
       art_background,
-      art_logo = undefined,
+      art_logo,
       install: { platform: installPlatform },
       is_installed
     } = gameInfo
