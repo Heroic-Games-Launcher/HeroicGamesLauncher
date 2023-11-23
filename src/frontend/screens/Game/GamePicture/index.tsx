@@ -6,13 +6,13 @@ import fallbackImage from 'frontend/assets/heroic_card.jpg'
 
 interface Props extends React.ImgHTMLAttributes<HTMLImageElement> {
   art_square: string
-  logo?: string | undefined
+  art_logo?: string | undefined
   store: string
 }
 
 function GamePicture({
   art_square,
-  logo = undefined,
+  art_logo = undefined,
   store,
   className,
   ...props
@@ -43,10 +43,10 @@ function GamePicture({
           {...props}
         />
       }
-      {logo && (
+      {art_logo && (
         <CachedImage
           alt="logo"
-          src={`${logo}?h=400&resize=1&w=300`}
+          src={`${art_logo}?h=400&resize=1&w=300`}
           className={`gameLogo`}
         />
       )}

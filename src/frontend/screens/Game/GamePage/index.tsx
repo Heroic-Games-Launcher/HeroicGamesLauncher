@@ -231,7 +231,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       art_square,
       art_cover,
       art_background,
-      art_logo: logo = undefined,
+      art_logo = undefined,
       install: { platform: installPlatform },
       is_installed
     } = gameInfo
@@ -328,7 +328,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
               <>
                 <GamePicture
                   art_square={art_square}
-                  logo={logo}
+                  art_logo={art_logo}
                   store={runner}
                 />
                 <NavLink
@@ -401,7 +401,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   <div className="mainInfo">
                     <GamePicture
                       art_square={art_cover}
-                      logo={logo}
+                      art_logo={art_logo}
                       store={runner}
                     />
                     <div className="store-icon">
