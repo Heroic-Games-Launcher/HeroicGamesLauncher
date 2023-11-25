@@ -51,7 +51,6 @@ export default function LibraryFilters() {
   // t('platforms.linux', 'Linux')
   // t('platforms.mac', 'Mac')
   // t('platforms.win', 'Windows')
-  console.log(platformsFilters)
   const platformToggle = (plat: string) => {
     return (
       <ToggleSwitch
