@@ -307,7 +307,11 @@ export default React.memo(function Library(): JSX.Element {
       })
     }
     return tempArray
-  }, [showFavourites, showFavouritesLibrary, favouriteGames, epic, gog])
+  }, [showFavourites, showFavouritesLibrary, favouriteGames, epic, gog, amazon])
+
+  const favouritesIds = useMemo(() => {
+    return favourites.map((game) => `${game.app_name}_${game.runner}`)
+  }, [favourites])
 
   // select library
   const libraryToShow = useMemo(() => {
@@ -331,39 +335,39 @@ export default React.memo(function Library(): JSX.Element {
       displayedStores = Object.keys(storesFilters)
     }
 
+    const showEpic = epic.username && displayedStores.includes('legendary')
+    const showGog = gog.username && displayedStores.includes('gog')
+    const showAmazon = amazon.user_id && displayedStores.includes('nile')
+    const showSideloaded = displayedStores.includes('sideload')
+
+    const epicLibrary = showEpic ? epic.library : []
+    const gogLibrary = showGog ? gog.library : []
+    const sideloadedApps = showSideloaded ? sideloadedLibrary : []
+    const amazonLibrary = showAmazon ? amazon.library : []
+
+    library = [
+      ...sideloadedApps,
+      ...epicLibrary,
+      ...gogLibrary,
+      ...amazonLibrary
+    ]
+
     if (showFavouritesLibrary) {
-      library = favourites.filter((game) =>
-        displayedStores.includes(game?.runner)
+      library = library.filter((game) =>
+        favouritesIds.includes(`${game.app_name}_${game.runner}`)
       )
-    } else {
-      const showEpic = epic.username && displayedStores.includes('legendary')
-      const showGog = gog.username && displayedStores.includes('gog')
-      const showAmazon = amazon.user_id && displayedStores.includes('nile')
-      const showSideloaded = displayedStores.includes('sideload')
+    }
 
-      const epicLibrary = showEpic ? epic.library : []
-      const gogLibrary = showGog ? gog.library : []
-      const sideloadedApps = showSideloaded ? sideloadedLibrary : []
-      const amazonLibrary = showAmazon ? amazon.library : []
+    if (showInstalledOnly) {
+      library = library.filter((game) => game.is_installed)
+    }
 
-      library = [
-        ...sideloadedApps,
-        ...epicLibrary,
-        ...gogLibrary,
-        ...amazonLibrary
-      ]
-
-      if (showInstalledOnly) {
-        library = library.filter((game) => game.is_installed)
-      }
-
-      if (!showNonAvailable) {
-        const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
-        const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
-        library = library.filter(
-          (game) => !nonAvailbleGamesArray.includes(game.app_name)
-        )
-      }
+    if (!showNonAvailable) {
+      const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
+      const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
+      library = library.filter(
+        (game) => !nonAvailbleGamesArray.includes(game.app_name)
+      )
     }
 
     // filter

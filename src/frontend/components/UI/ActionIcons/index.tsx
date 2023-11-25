@@ -6,9 +6,7 @@ import {
   faArrowDownZA,
   faHardDrive as hardDriveSolid
 } from '@fortawesome/free-solid-svg-icons'
-import {
-  faHardDrive as hardDriveLight
-} from '@fortawesome/free-regular-svg-icons'
+import { faHardDrive as hardDriveLight } from '@fortawesome/free-regular-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useContext } from 'react'
@@ -16,15 +14,10 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import FormControl from '../FormControl'
 import './index.css'
-import { Runner } from 'common/types'
 import classNames from 'classnames'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
 
-interface Props {
-  library: Runner | 'all'
-}
-
-export default React.memo(function ActionIcons({ library }: Props) {
+export default React.memo(function ActionIcons() {
   const { t } = useTranslation()
   const { refreshLibrary, refreshing } = useContext(ContextProvider)
 
@@ -94,9 +87,7 @@ export default React.memo(function ActionIcons({ library }: Props) {
           title={t('generic.library.refresh', 'Refresh Library')}
           onClick={async () =>
             refreshLibrary({
-              checkForUpdates: true,
-              runInBackground: library === 'gog',
-              library
+              checkForUpdates: true
             })
           }
         >
