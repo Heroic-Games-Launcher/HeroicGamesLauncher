@@ -51,6 +51,7 @@ export default function LibraryFilters() {
   // t('platforms.linux', 'Linux')
   // t('platforms.mac', 'Mac')
   // t('platforms.win', 'Windows')
+  console.log(platformsFilters)
   const platformToggle = (plat: string) => {
     return (
       <ToggleSwitch
@@ -73,8 +74,8 @@ export default function LibraryFilters() {
         key={store}
         htmlId={store}
         handleChange={() => toggleStoreFilter(store as Category)}
-        value={t(storesFilters[store])}
-        title={RunnerToStore[store]}
+        value={storesFilters[store]}
+        title={t(RunnerToStore[store])}
       />
     )
   }
