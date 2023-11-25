@@ -3,7 +3,7 @@
   top: 0;
   z-index: 10;
   display: grid;
-  grid-template-columns: 1fr minmax(min-content, 350px);
+  grid-template-columns: 1fr min-content;
   grid-template-areas: 'search filters';
   grid-gap: 8px;
   align-items: start;
@@ -16,15 +16,6 @@
   padding-right: calc(
     var(--overlay-controls-width) - env(titlebar-area-x, 0px)
   );
-}
-
-@media screen and (max-width: 1000px) {
-  .Header {
-    grid-template-columns: 1fr min-content;
-    grid-template-areas:
-      'search search'
-      'filters filters';
-  }
 }
 
 .Header__filters {
