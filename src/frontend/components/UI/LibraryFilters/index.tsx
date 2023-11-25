@@ -9,7 +9,7 @@ import './index.css'
 const RunnerToStore = {
   legendary: 'Epic Games',
   gog: 'GOG',
-  nile: 'Amazon',
+  nile: 'Amazon Games',
   sideload: 'Other'
 }
 
@@ -47,6 +47,10 @@ export default function LibraryFilters() {
     setShowInstalledOnly(!showInstalledOnly)
   }
 
+  // t('platforms.browser', 'Browser')
+  // t('platforms.linux', 'Linux')
+  // t('platforms.mac', 'Mac')
+  // t('platforms.win', 'Windows')
   const platformToggle = (plat: string) => {
     return (
       <ToggleSwitch
@@ -59,13 +63,17 @@ export default function LibraryFilters() {
     )
   }
 
+  // t('Epic Games', 'Epic Games')
+  // t('GOG', 'GOG')
+  // t('Amazon Games', 'Amazon Games')
+  // t('Other', 'Other')
   const storeToggle = (store: string) => {
     return (
       <ToggleSwitch
         key={store}
         htmlId={store}
         handleChange={() => toggleStoreFilter(store as Category)}
-        value={storesFilters[store]}
+        value={t(storesFilters[store])}
         title={RunnerToStore[store]}
       />
     )
