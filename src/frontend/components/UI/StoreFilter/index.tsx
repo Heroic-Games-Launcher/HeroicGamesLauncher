@@ -3,19 +3,10 @@ import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import FormControl from 'frontend/components/UI/FormControl'
 import ContextProvider from 'frontend/state/ContextProvider'
-import SelectField from '../SelectField'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
-import './index.css'
 
 export default React.memo(function StoreFilter() {
-  const {
-    gog,
-    epic,
-    amazon,
-    customCategories,
-    currentCustomCategory,
-    setCurrentCustomCategory
-  } = useContext(ContextProvider)
+  const { gog, epic, amazon } = useContext(ContextProvider)
   const { category, handleCategory } = useContext(LibraryContext)
   const { t } = useTranslation()
 
@@ -26,25 +17,6 @@ export default React.memo(function StoreFilter() {
   return (
     <div className="storeFilter">
       <FormControl segmented small>
-        <SelectField
-          htmlId="custom-category-selector"
-          value={currentCustomCategory || ''}
-          onChange={(e) => {
-            setCurrentCustomCategory(e.target.value)
-          }}
-        >
-          <option value="">
-            {t('header.all_categories', 'All Categories')}
-          </option>
-          <option value="preset_uncategorized">
-            {t('header.uncategorized', 'Uncategorized')}
-          </option>
-          {customCategories.listCategories().map((category) => (
-            <option value={category} key={category}>
-              {category}
-            </option>
-          ))}
-        </SelectField>
         <button
           onClick={() => handleCategory('all')}
           className={classNames('FormControl__button', {

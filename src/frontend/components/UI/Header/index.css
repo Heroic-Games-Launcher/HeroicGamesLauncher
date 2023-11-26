@@ -3,8 +3,11 @@
   top: 0;
   z-index: 10;
   display: grid;
-  grid-template-columns: 1fr minmax(min-content, 350px);
-  grid-template-areas: 'search filters';
+  grid-template-columns: 1fr minmax(min-content, 324px) minmax(
+      min-content,
+      350px
+    );
+  grid-template-areas: 'search category filters';
   grid-gap: 8px;
   align-items: start;
   padding: var(--space-md);
@@ -23,6 +26,7 @@
     grid-template-columns: 1fr min-content;
     grid-template-areas:
       'search search'
+      'category category'
       'filters filters';
   }
 }
