@@ -241,10 +241,7 @@
         transition: color 300ms;
         display: flex;
         align-items: center;
-
-        svg {
-          margin-inline-end: var(--space-3xs);
-        }
+        gap: 0.3rem;
       }
     }
 
@@ -475,6 +472,10 @@
       text-align: left;
     }
 
+    & > .popover-wrapper {
+      z-index: 3;
+    }
+
     &::after {
       content: '';
       display: block;
@@ -603,7 +604,8 @@
 
       &.infoTab,
       &.extraTab {
-        & > div > * {
+        & > div > *,
+        & > div > .popover-wrapper > * {
           display: flex;
           text-align: end;
           font-size: 16px;
@@ -638,6 +640,12 @@
             overflow: visible;
             white-space: normal;
             background: var(--body-background);
+          }
+        }
+        .popover-wrapper {
+          overflow: visible;
+          .popover {
+            height: auto;
           }
         }
       }
