@@ -60,6 +60,7 @@ interface Props {
   wineVersion: WineInstallation | undefined
   children: React.ReactNode
   gameInfo: GameInfo
+  validWinePrefix: boolean
 }
 
 type DiskSpaceInfo = {
@@ -116,7 +117,8 @@ export default function DownloadDialog({
   wineVersion,
   children,
   gameInfo,
-  crossoverBottle
+  crossoverBottle,
+  validWinePrefix
 }: Props) {
   const previousProgress = JSON.parse(
     storage.getItem(appName) || '{}'
@@ -422,7 +424,8 @@ export default function DownloadDialog({
     installPath &&
     gameInstallInfo?.manifest?.download_size &&
     !gettingInstallInfo &&
-    validFlatpakPath
+    validFlatpakPath &&
+    validWinePrefix
 
   const showDlcSelector =
     runner === 'legendary' && DLCList && DLCList?.length > 0

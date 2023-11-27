@@ -34,6 +34,7 @@ type Props = {
   platformToInstall: InstallPlatform
   backdropClick: () => void
   appName?: string
+  validWinePrefix: boolean
 }
 
 export default function SideloadDialog({
@@ -45,7 +46,8 @@ export default function SideloadDialog({
   platformToInstall,
   setWinePrefix,
   children,
-  appName
+  appName,
+  validWinePrefix
 }: Props) {
   const { t } = useTranslation('gamepage')
   const [title, setTitle] = useState<string | never>(
@@ -389,7 +391,12 @@ export default function SideloadDialog({
         <button
           onClick={async () => handleInstall()}
           className={`button is-success`}
-          disabled={(!selectedExe.length && !gameUrl) || addingApp || searching}
+          disabled={
+            (!selectedExe.length && !gameUrl) ||
+            addingApp ||
+            searching ||
+            !validWinePrefix
+          }
         >
           {addingApp && <FontAwesomeIcon icon={faSpinner} spin />}
           {!addingApp && t('button.finish', 'Finish')}

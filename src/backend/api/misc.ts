@@ -103,6 +103,8 @@ export const getFonts = async (reload: boolean) =>
   ipcRenderer.invoke('getFonts', reload)
 export const checkDiskSpace = async (installPath: string) =>
   ipcRenderer.invoke('checkDiskSpace', installPath)
+export const checkWinePrefix = async (prefix: string) =>
+  ipcRenderer.invoke('checkWinePrefix', prefix)
 export const getGOGLinuxInstallersLangs = async (appName: string) =>
   ipcRenderer.invoke('getGOGLinuxInstallersLangs', appName)
 export const getAlternativeWine = async () =>

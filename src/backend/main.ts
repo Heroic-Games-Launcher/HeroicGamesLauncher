@@ -600,6 +600,16 @@ ipcMain.handle('checkDiskSpace', async (event, folder) => {
   })
 })
 
+ipcMain.handle('checkWinePrefix', async (event, prefix) => {
+  const isValidFlatpakPath = !(
+    isFlatpak && prefix.startsWith(process.env.XDG_RUNTIME_DIR || '/run/user/')
+  )
+
+  logDebug(`Checking wine prefix ${prefix}`, LogPrefix.Backend)
+
+  return isValidFlatpakPath
+})
+
 ipcMain.handle('isFrameless', () => isFrameless())
 ipcMain.handle('isMinimized', () => !!getMainWindow()?.isMinimized())
 ipcMain.handle('isMaximized', () => !!getMainWindow()?.isMaximized())

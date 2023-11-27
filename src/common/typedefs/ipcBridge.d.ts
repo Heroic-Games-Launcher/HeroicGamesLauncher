@@ -122,6 +122,7 @@ interface AsyncIPCFunctions {
   addToDMQueue: (element: DMQueueElement) => Promise<void>
   kill: (appName: string, runner: Runner) => Promise<void>
   checkDiskSpace: (folder: string) => Promise<DiskSpaceData>
+  checkWinePrefix: (prefix: string) => Promise<boolean>
   callTool: (args: Tools) => Promise<void>
   runWineCommand: (
     args: WineCommandArgs

@@ -15,11 +15,13 @@ type Props = {
   >
   setWinePrefix: React.Dispatch<React.SetStateAction<string>>
   setCrossoverBottle: React.Dispatch<React.SetStateAction<string>>
+  setValidWinePrefix: React.Dispatch<React.SetStateAction<boolean>>
   winePrefix: string
   crossoverBottle: string
   wineVersionList: WineInstallation[]
   wineVersion: WineInstallation | undefined
   title?: string
+  validWinePrefix: boolean
 }
 
 export default function WineSelector({
@@ -30,7 +32,9 @@ export default function WineSelector({
   wineVersion,
   title = 'sideload',
   crossoverBottle,
-  setCrossoverBottle
+  setCrossoverBottle,
+  setValidWinePrefix,
+  validWinePrefix
 }: Props) {
   const { t } = useTranslation('gamepage')
 
@@ -66,6 +70,8 @@ export default function WineSelector({
         setWinePrefix(sugestedWinePrefix)
         setWineVersion(wineVersion || undefined)
       }
+
+      setValidWinePrefix(await window.api.checkWinePrefix(winePrefix))
     }
     getAppSettings()
   }, [useDefaultSettings])
@@ -90,13 +96,24 @@ export default function WineSelector({
           {showPrefix && (
             <PathSelectionBox
               type="directory"
-              onPathChange={setWinePrefix}
+              onPathChange={async (path) => {
+                setWinePrefix(path)
+                setValidWinePrefix(await window.api.checkWinePrefix(path))
+              }}
               path={winePrefix}
               pathDialogTitle={t('box.wineprefix', 'Select WinePrefix Folder')}
               label={t('install.wineprefix', 'WinePrefix')}
               htmlId="setinstallpath"
               noDeleteButton
             />
+          )}
+          {!validWinePrefix && (
+            <span className="error">
+              {`${t(
+                'install.flatpak-path-not-writtable',
+                'Error: Sandbox access not granted to this path, data loss will occur.'
+              )}`}
+            </span>
           )}
           {showBottle && (
             <TextInputField
