@@ -70,8 +70,6 @@ export default function WineSelector({
         setWinePrefix(sugestedWinePrefix)
         setWineVersion(wineVersion || undefined)
       }
-
-      setValidWinePrefix(await window.api.checkWinePrefix(winePrefix))
     }
     getAppSettings()
   }, [useDefaultSettings])
