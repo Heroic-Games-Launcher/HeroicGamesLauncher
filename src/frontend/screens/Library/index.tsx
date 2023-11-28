@@ -243,13 +243,13 @@ export default React.memo(function Library(): JSX.Element {
       return []
     }
 
-    // check which platforms are turned on
+    // check which platforms are turned on if valid for current platform
     let displayedPlatforms: string[] = []
     if (platformsFilters['win']) {
-      displayedPlatforms.push('win', 'windows')
+      displayedPlatforms.push('win')
     }
     if (platformsFilters['mac'] && platform === 'darwin') {
-      displayedPlatforms.push('mac', 'osx', 'Mac')
+      displayedPlatforms.push('mac')
     }
     if (platformsFilters['linux'] && platform === 'linux') {
       displayedPlatforms.push('linux')
@@ -261,6 +261,14 @@ export default React.memo(function Library(): JSX.Element {
     // if all are turned off, display all instead
     if (!displayedPlatforms.length) {
       displayedPlatforms = Object.keys(platformsFilters)
+    }
+
+    // add platform variants to check with game info
+    if (displayedPlatforms.includes('win')) {
+      displayedPlatforms.push('windows')
+    }
+    if (displayedPlatforms.includes('mac')) {
+      displayedPlatforms.push('osx', 'Mac')
     }
 
     return library.filter((game) => {
