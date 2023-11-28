@@ -701,7 +701,7 @@
             "osVersion": "Version {{versionNumber}}",
             "showDetailed": "Show detailed system specifications",
             "software": "Software:",
-            "steamDeck": "Steam Deck",
+            "steamDeck": "Steam Deck {{model}}",
             "systemModel": "System Model:",
             "systemSpecifications": "System Specifications:"
         }
