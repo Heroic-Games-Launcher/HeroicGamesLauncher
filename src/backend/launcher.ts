@@ -1006,9 +1006,7 @@ async function callRunner(
   // On Windows: Use PowerShell's `Start-Process` to wait for the process and
   // its children to exit
   if (isWindows) {
-    const argsAsString = commandParts
-      .map((part) => (part.includes(' ') ? `"\`"${part}\`""` : `"${part}"`))
-      .join(',')
+    const argsAsString = commandParts.map((part) => `"\`"${part}\`""`).join(',')
     commandParts = [
       'Start-Process',
       `"\`"${fullRunnerPath}\`""`,
