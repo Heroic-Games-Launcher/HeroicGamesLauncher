@@ -455,7 +455,11 @@
             "borderless": "Kantlöst",
             "fpsLimiter": "FPS-begränsning",
             "fullscreen": "Helskärm",
-            "fpsLimiterNoFocus": "FPS-begränsning (ur fokus)"
+            "fpsLimiterNoFocus": "FPS-begränsning (ur fokus)",
+            "gameHeight": "Spelets höjd",
+            "upscaleWidth": "Uppskalning bredd",
+            "gameWidth": "Spelets bredd",
+            "upscaleHeight": "Uppskalning höjd"
         }
     },
     "other": {
@@ -623,7 +627,8 @@
         },
         "gamescope": {
             "enableLimiter": "Aktivera FPS-begränsning",
-            "enableUpscaling": "Aktiverar uppskalning"
+            "enableUpscaling": "Aktiverar uppskalning",
+            "missingMsg": "Gamescope hittades inte i PATH (sökväg). Installera eller lägg till den i PATH."
         }
     },
     "settings": {

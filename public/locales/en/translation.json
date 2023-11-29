@@ -8,8 +8,6 @@
         "zoom": "Zoom"
     },
     "add_game": "Add Game",
-    "All": "All",
-    "amazon": "Amazon",
     "Amazon Games": "Amazon Games",
     "anticheat": {
         "anticheats": "Anticheats",
@@ -257,15 +255,12 @@
     "gog-store": "GOG Store",
     "header": {
         "all_categories": "All Categories",
-        "hide_non_available_games": "Hide non-available games",
-        "ignore_hidden": "Ignore Hidden",
-        "platform": "Platform",
-        "show_all_games": "Show all games",
+        "uncategorized": "Uncategorized",
+        "filters": "Filters",
         "show_available_games": "Show non-Available games",
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
-        "store": "Filter Store",
-        "uncategorized": "Uncategorized"
+        "show_installed_only": "Show Installed only"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",

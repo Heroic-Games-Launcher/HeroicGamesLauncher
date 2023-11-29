@@ -37,14 +37,16 @@
             "settingcheckbox": "Esborra la configuració i suprimeix el registre{{newLine}}Avís: aquesta acció no es pot desfer. S'oblidarà qualsevol opció modificada i el registre se suprimirà.",
             "title": "Desinstal·la",
             "prefix_warning": "El prefix Wine d'aquest joc és el prefix predefinit. Si realment vols eliminar-lo, has de fer-ho manualment.",
-            "dlc": "Vols desinstal·lar aquest DLC?"
+            "dlc": "Vols desinstal·lar aquest DLC?",
+            "cannotUninstallEpic": "No es poden desinstal·lar jocs d'Epic Games mentre s'instal·la un altre joc d'Epic Games."
         },
         "update": {
             "message": "Hi ha una actualització per a aquest joc, el vols actualitzar ara?",
             "title": "Cal actualitzar el joc"
         },
         "wineprefix": "Tria la carpeta del WinePrefix",
-        "yes": "SÍ"
+        "yes": "SÍ",
+        "close": "Tanca"
     },
     "button": {
         "add_to_favourites": "Afegeix a preferits",
@@ -178,12 +180,15 @@
             "exe": "Selecciona l'executable",
             "image": "Imatge de l'aplicació",
             "title": "Títol del joc o aplicació",
-            "broser": "URL del navegador"
+            "broser": "URL del navegador",
+            "useragent": "Agent d'usuari personalitzat",
+            "fullscreen": "Inicia a pantalla completa (F11 per a sortir)"
         },
         "placeholder": {
             "image": "Enganxa-hi l'URL d'una imatge",
             "title": "Afegeix un títol al joc o aplicació",
-            "url": "Enganxeu l'URL del joc aquí"
+            "url": "Enganxeu l'URL del joc aquí",
+            "useragent": "Escriviu aquí un agent d'usuari personalitzat per a fer-lo servir en aquesta aplicació/joc de navegador."
         }
     },
     "specs": {

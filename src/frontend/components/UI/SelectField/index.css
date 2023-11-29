@@ -25,9 +25,14 @@
     ),
     linear-gradient(135deg, var(--text-secondary) 50%, transparent 50%),
     linear-gradient(to right, #ccc, #ccc);
-  background-position: calc(100% - 20px) calc(50% + 1px),
-    calc(100% - 15px) calc(50% + 1px), calc(100% - 40px) 50%;
-  background-size: 5px 5px, 5px 5px, 1px 70%;
+  background-position:
+    calc(100% - 20px) calc(50% + 1px),
+    calc(100% - 15px) calc(50% + 1px),
+    calc(100% - 40px) 50%;
+  background-size:
+    5px 5px,
+    5px 5px,
+    1px 70%;
   background-repeat: no-repeat;
   margin: 0;
   -webkit-box-sizing: border-box;
@@ -39,7 +44,9 @@
 }
 
 .selectFieldWrapper.isRTL select {
-  background-position: calc(15px) calc(50% + 1px), calc(20px) calc(50% + 1px),
+  background-position:
+    calc(15px) calc(50% + 1px),
+    calc(20px) calc(50% + 1px),
     calc(40px) 50%;
 }
 

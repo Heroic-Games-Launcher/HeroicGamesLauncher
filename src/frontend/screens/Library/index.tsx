@@ -35,7 +35,7 @@ import {
 import RecentlyPlayed from './components/RecentlyPlayed'
 import { InstallModal } from './components'
 import LibraryContext from './LibraryContext'
-import { Category } from 'frontend/types'
+import { Category, PlatformsFilters, StoresFilters } from 'frontend/types'
 
 const storage = window.localStorage
 
@@ -69,22 +69,64 @@ export default React.memo(function Library(): JSX.Element {
     setLayout(layout)
   }
 
-  const [category, setCategory] = useState(
-    (storage.getItem('category') as Category) || 'legendary'
+  let initialStoresfilters
+  const storesFiltersString = storage.getItem('storesFilters')
+  if (storesFiltersString) {
+    // If we have something stored, use that
+    initialStoresfilters = JSON.parse(storesFiltersString) as StoresFilters
+  } else {
+    // Else, use the old `category` filter
+    // TODO: we can remove this eventually after a few releases
+    const storedCategory = (storage.getItem('category') as Category) || 'all'
+    initialStoresfilters = {
+      legendary: epicCategories.includes(storedCategory),
+      gog: gogCategories.includes(storedCategory),
+      nile: amazonCategories.includes(storedCategory),
+      sideload: sideloadedCategories.includes(storedCategory)
+    }
+  }
+
+  const [storesFilters, setStoresFilters] =
+    useState<StoresFilters>(initialStoresfilters)
+
+  const toggleStoreFilter = (store: Category) => {
+    const currentValue = storesFilters[store]
+    const newFilters = { ...storesFilters, [store]: !currentValue }
+    storage.setItem('storesFilters', JSON.stringify(newFilters))
+    setStoresFilters(newFilters)
+  }
+
+  let initialPlatformsfilters
+  const plaformsFiltersString = storage.getItem('platformsFilters')
+  if (plaformsFiltersString) {
+    // If we have something stored, use that
+    initialPlatformsfilters = JSON.parse(
+      plaformsFiltersString
+    ) as PlatformsFilters
+  } else {
+    // Else, use the old `category` filter
+    // TODO: we can remove this eventually after a few releases
+    const storedCategory = storage.getItem('filterPlatform') || 'all'
+    initialPlatformsfilters = {
+      win: ['all', 'win'].includes(storedCategory),
+      linux: ['all', 'linux'].includes(storedCategory),
+      mac: ['all', 'mac'].includes(storedCategory),
+      browser: ['all', 'browser'].includes(storedCategory)
+    }
+  }
+
+  const [platformsFilters, setPlatformsFilters] = useState<PlatformsFilters>(
+    initialPlatformsfilters
   )
-  const handleCategory = (category: Category) => {
-    storage.setItem('category', category)
-    setCategory(category)
+
+  const togglePlatformFilter = (platform: string) => {
+    const currentValue = platformsFilters[platform]
+    const newFilters = { ...platformsFilters, [platform]: !currentValue }
+    storage.setItem('platformsFilters', JSON.stringify(newFilters))
+    setPlatformsFilters(newFilters)
   }
 
   const [filterText, setFilterText] = useState('')
-  const [filterPlatform, setFilterPlatform] = useState(
-    storage.getItem('filterPlatform') || 'all'
-  )
-  const handlePlatformFilter = (filterPlatform: string) => {
-    storage.setItem('filterPlatform', filterPlatform)
-    setFilterPlatform(filterPlatform)
-  }
 
   const [showHidden, setShowHidden] = useState(
     JSON.parse(storage.getItem('show_hidden') || 'false')
@@ -100,6 +142,14 @@ export default React.memo(function Library(): JSX.Element {
   const handleShowFavourites = (value: boolean) => {
     storage.setItem('show_favorites', JSON.stringify(value))
     setShowFavourites(value)
+  }
+
+  const [showInstalledOnly, setShowInstalledOnly] = useState(
+    JSON.parse(storage.getItem('show_installed_only') || 'false')
+  )
+  const handleShowInstalledOnly = (value: boolean) => {
+    storage.setItem('show_installed_only', JSON.stringify(value))
+    setShowInstalledOnly(value)
   }
 
   const [showNonAvailable, setShowNonAvailable] = useState(
@@ -190,65 +240,55 @@ export default React.memo(function Library(): JSX.Element {
     setInstalling(newInstalling)
   }, [libraryStatus])
 
-  useEffect(() => {
-    // This code avoids getting stuck on a empty library after logout of the current selected store
-    if (epicCategories.includes(category) && !epic.username) {
-      handleCategory('all')
-    }
-    if (gogCategories.includes(category) && !gog.username) {
-      handleCategory('all')
-    }
-    if (amazonCategories.includes(category) && !amazon.user_id) {
-      handleCategory('all')
-    }
-  }, [epic.username, gog.username, amazon.username])
-
-  const filterByPlatform = (library: GameInfo[], filter: string) => {
+  const filterByPlatform = (library: GameInfo[]) => {
     if (!library) {
       return []
     }
 
-    // Epic doesn't offer Linux games, so just default to showing all games there
-    if (category === 'legendary' && platform === 'linux') {
-      return library
+    // check which platforms are turned on if valid for current platform
+    let displayedPlatforms: string[] = []
+    if (platformsFilters['win']) {
+      displayedPlatforms.push('win')
+    }
+    if (platformsFilters['mac'] && platform === 'darwin') {
+      displayedPlatforms.push('mac')
+    }
+    if (platformsFilters['linux'] && platform === 'linux') {
+      displayedPlatforms.push('linux')
+    }
+    if (platformsFilters['browser']) {
+      displayedPlatforms.push('browser')
     }
 
-    // Amazon Games only offers Windows games, so just default to showing all games there
-    if (category === 'nile') {
-      return library
+    // if all are turned off, display all instead
+    if (!displayedPlatforms.length) {
+      displayedPlatforms = Object.keys(platformsFilters)
     }
 
-    const macArray = ['osx', 'Mac']
-    const isMac = platform === 'darwin'
-
-    switch (filter) {
-      case 'win':
-        return library.filter((game) => {
-          return game?.is_installed
-            ? game?.install?.platform?.toLowerCase() === 'windows'
-            : isMac
-            ? !game?.is_mac_native
-            : !game?.is_linux_native
-        })
-      case 'mac':
-        return library.filter((game) => {
-          return game?.is_installed
-            ? macArray.includes(game?.install?.platform ?? '')
-            : game?.is_mac_native
-        })
-      case 'linux':
-        return library.filter((game) => {
-          return game?.is_installed
-            ? game?.install?.platform === 'linux'
-            : game?.is_linux_native
-        })
-      case 'browser':
-        return library.filter((game) => {
-          return game?.install?.platform === 'Browser'
-        })
-      default:
-        return library
+    // add platform variants to check with game info
+    if (displayedPlatforms.includes('win')) {
+      displayedPlatforms.push('windows')
     }
+    if (displayedPlatforms.includes('mac')) {
+      displayedPlatforms.push('osx', 'Mac')
+    }
+
+    return library.filter((game) => {
+      let gamePlatforms: string[] = []
+
+      if (game?.is_installed) {
+        gamePlatforms = [game?.install?.platform?.toLowerCase() || 'windows']
+      } else {
+        if (game.is_linux_native && platform === 'linux') {
+          gamePlatforms.push('linux')
+        }
+        if (game.is_mac_native && platform === 'darwin') {
+          gamePlatforms.push('mac')
+        }
+        gamePlatforms.push('windows')
+      }
+      return gamePlatforms.some((plat) => displayedPlatforms.includes(plat))
+    })
   }
 
   // top section
@@ -277,28 +317,51 @@ export default React.memo(function Library(): JSX.Element {
       })
     }
     return tempArray
-  }, [showFavourites, showFavouritesLibrary, favouriteGames, epic, gog])
+  }, [showFavourites, showFavouritesLibrary, favouriteGames, epic, gog, amazon])
+
+  const favouritesIds = useMemo(() => {
+    return favourites.map((game) => `${game.app_name}_${game.runner}`)
+  }, [favourites])
 
   const makeLibrary = () => {
-    const isEpic = epic.username && epicCategories.includes(category)
-    const isGog = gog.username && gogCategories.includes(category)
-    const isAmazon = amazon.user_id && amazonCategories.includes(category)
-    const epicLibrary = isEpic ? epic.library : []
-    const gogLibrary = isGog ? gog.library : []
-    const sideloadedApps = sideloadedCategories.includes(category)
-      ? sideloadedLibrary
-      : []
-    const amazonLibrary = isAmazon ? amazon.library : []
+    let displayedStores: string[] = []
+    if (storesFilters['gog'] && gog.username) {
+      displayedStores.push('gog')
+    }
+    if (storesFilters['legendary'] && epic.username) {
+      displayedStores.push('legendary')
+    }
+    if (storesFilters['nile'] && amazon.username) {
+      displayedStores.push('nile')
+    }
+    if (storesFilters['sideload']) {
+      displayedStores.push('sideload')
+    }
+
+    if (!displayedStores.length) {
+      displayedStores = Object.keys(storesFilters)
+    }
+
+    const showEpic = epic.username && displayedStores.includes('legendary')
+    const showGog = gog.username && displayedStores.includes('gog')
+    const showAmazon = amazon.user_id && displayedStores.includes('nile')
+    const showSideloaded = displayedStores.includes('sideload')
+
+    const epicLibrary = showEpic ? epic.library : []
+    const gogLibrary = showGog ? gog.library : []
+    const sideloadedApps = showSideloaded ? sideloadedLibrary : []
+    const amazonLibrary = showAmazon ? amazon.library : []
 
     return [...sideloadedApps, ...epicLibrary, ...gogLibrary, ...amazonLibrary]
   }
 
   // select library
   const libraryToShow = useMemo(() => {
-    let library: Array<GameInfo> = []
+    let library: Array<GameInfo> = makeLibrary()
+
     if (showFavouritesLibrary) {
-      library = favourites.filter((game) =>
-        category === 'all' ? game : game?.runner === category
+      library = library.filter((game) =>
+        favouritesIds.includes(`${game.app_name}_${game.runner}`)
       )
     } else if (currentCustomCategory && currentCustomCategory.length > 0) {
       if (currentCustomCategory === 'preset_uncategorized') {
@@ -307,7 +370,7 @@ export default React.memo(function Library(): JSX.Element {
           new Set(Object.values(customCategories.list).flat())
         )
 
-        library = makeLibrary().filter(
+        library = library.filter(
           (game) =>
             !categorizedGames.includes(`${game.app_name}_${game.runner}`)
         )
@@ -315,12 +378,23 @@ export default React.memo(function Library(): JSX.Element {
         const gamesInCustomCategory =
           customCategories.list[currentCustomCategory]
 
-        library = makeLibrary().filter((game) =>
+        library = library.filter((game) =>
           gamesInCustomCategory.includes(`${game.app_name}_${game.runner}`)
         )
       }
     } else {
-      library = makeLibrary()
+      if (!showNonAvailable) {
+        const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
+        const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
+        library = library.filter(
+          (game) => !nonAvailbleGamesArray.includes(game.app_name)
+        )
+      }
+
+      if (showInstalledOnly) {
+        library = library.filter((game) => game.is_installed)
+      }
+
       if (!showNonAvailable) {
         const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
         const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
@@ -332,7 +406,7 @@ export default React.memo(function Library(): JSX.Element {
 
     // filter
     try {
-      const filteredLibrary = filterByPlatform(library, filterPlatform)
+      const filteredLibrary = filterByPlatform(library)
       const options = {
         minMatchCharLength: 1,
         threshold: 0.4,
@@ -384,17 +458,18 @@ export default React.memo(function Library(): JSX.Element {
 
     return [...library]
   }, [
-    category,
+    storesFilters,
+    platformsFilters,
     epic.library,
     gog.library,
     amazon.library,
     filterText,
-    filterPlatform,
     sortDescending,
     sortInstalled,
     showHidden,
     hiddenGames,
     showFavouritesLibrary,
+    showInstalledOnly,
     showNonAvailable
   ])
 
@@ -447,19 +522,21 @@ export default React.memo(function Library(): JSX.Element {
   return (
     <LibraryContext.Provider
       value={{
-        category,
+        storesFilters,
+        platformsFilters,
         layout,
         showHidden,
         showFavourites: showFavouritesLibrary,
+        showInstalledOnly,
         showNonAvailable,
-        filterPlatform,
         filterText,
-        handleCategory: handleCategory,
+        toggleStoreFilter,
         handleLayout: handleLayout,
-        handlePlatformFilter: handlePlatformFilter,
+        togglePlatformFilter,
         handleSearch: setFilterText,
         setShowHidden: handleShowHidden,
         setShowFavourites: handleShowFavourites,
+        setShowInstalledOnly: handleShowInstalledOnly,
         setShowNonAvailable: handleShowNonAvailable,
         setSortDescending: handleSortDescending,
         setSortInstalled: handleSortInstalled,

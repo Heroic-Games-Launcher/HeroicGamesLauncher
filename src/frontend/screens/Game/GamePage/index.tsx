@@ -198,7 +198,14 @@ export default React.memo(function GamePage(): JSX.Element | null {
       }
     }
     updateConfig()
-  }, [status, epic.library, gog.library, gameInfo, isSettingsModalOpen, isOffline])
+  }, [
+    status,
+    epic.library,
+    gog.library,
+    gameInfo,
+    isSettingsModalOpen,
+    isOffline
+  ])
 
   useEffect(() => {
     window.api

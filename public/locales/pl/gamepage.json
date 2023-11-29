@@ -180,12 +180,15 @@
             "exe": "Wybierz plik wykonywalny",
             "image": "Obraz aplikacji",
             "title": "Tytuł gry/aplikacji",
-            "broser": "URL przeglądarki"
+            "broser": "URL przeglądarki",
+            "useragent": "Niestandardowy Agent Użytkownika (User Agent)",
+            "fullscreen": "Uruchom w trybie pełnego ekranu (naciśnij F11, aby wyjść)"
         },
         "placeholder": {
             "image": "Wklej adres URL obrazka tutaj",
             "title": "Dodaj tytuł do swojej gry/aplikacji",
-            "url": "Wklej tutaj adres URL gry"
+            "url": "Wklej tutaj adres URL gry",
+            "useragent": "Wpisz niestandardowy agent użytkownika (user agent), który będzie wykorzystywany przez tą aplikację/grę przeglądarkową"
         }
     },
     "specs": {

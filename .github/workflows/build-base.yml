@@ -15,6 +15,7 @@ on:
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         os: [windows-2022, ubuntu-22.04, macos-12]
     runs-on: ${{ matrix.os }}
@@ -36,10 +37,10 @@ jobs:
           sudo apt-get install --no-install-recommends -y snapcraft
           yarn dist:linux Snap --publish=always
         env:
-          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.snapcraftEdgeId }}
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.snapcraftIdEdge }}
         if: runner.os == 'Linux' && inputs.publish-snap
       - name: Build AppImage version
-        run: yarn dist:linux AppImage
+        run: yarn dist:linux AppImage --publish=never
         if: runner.os == 'Linux'
       - name: Upload built version
         uses: actions/upload-artifact@v3

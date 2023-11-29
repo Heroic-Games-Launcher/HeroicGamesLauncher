@@ -21,9 +21,8 @@ const BattlEyeRuntime = () => {
 
   const handleBattlEyeRuntime = async () => {
     if (!battlEyeRuntime) {
-      const isInstalled = await window.api.isRuntimeInstalled(
-        'battleye_runtime'
-      )
+      const isInstalled =
+        await window.api.isRuntimeInstalled('battleye_runtime')
       if (!isInstalled) {
         setInstalling(true)
         const success = await window.api.downloadRuntime('battleye_runtime')

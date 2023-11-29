@@ -34,7 +34,8 @@ import {
   GITHUB_API,
   isMac,
   configStore,
-  isLinux
+  isLinux,
+  isSnap
 } from './constants'
 import {
   logError,
@@ -348,7 +349,10 @@ async function errorHandler({
 // If you ever modify this range of characters, please also add them to nile
 // source as this function is used to determine how game directory will be named
 function removeSpecialcharacters(text: string): string {
-  const regexp = new RegExp(/[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|'|"|®]/, 'gi')
+  const regexp = new RegExp(
+    /[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|'|"|®]/,
+    'gi'
+  )
   return text.replaceAll(regexp, '')
 }
 
@@ -1348,10 +1352,57 @@ interface ExtractOptions {
 }
 
 async function extractFiles({ path, destination, strip = 0 }: ExtractOptions) {
-  return decompress(path, destination, {
-    plugins: [decompressTargz(), decompressTarxz()],
-    strip
-  })
+  if (!isSnap && (path.endsWith('.tar.xz') || path.endsWith('.tar.gz'))) {
+    try {
+      await extractNative(path, destination, strip)
+    } catch (error) {
+      logError(['Error:', error], LogPrefix.Backend)
+    }
+  } else {
+    try {
+      await extractDecompress(path, destination, strip)
+    } catch (error) {
+      logError(['Error:', error], LogPrefix.Backend)
+    }
+  }
+}
+
+async function extractNative(path: string, destination: string, strip: number) {
+  logInfo(
+    `Extracting ${path} to ${destination} using native tar`,
+    LogPrefix.Backend
+  )
+  const { code, stderr } = await spawnAsync('tar', [
+    '-xf',
+    path,
+    '-C',
+    destination,
+    `--strip-components=${strip}`
+  ])
+  if (code !== 0) {
+    logError(`Extracting Error: ${stderr}`, LogPrefix.Backend)
+    return { status: 'error', error: stderr }
+  }
+  return { status: 'done', installPath: destination }
+}
+
+async function extractDecompress(
+  path: string,
+  destination: string,
+  strip: number
+) {
+  logInfo(
+    `Extracting ${path} to ${destination} using decompress`,
+    LogPrefix.Backend
+  )
+  try {
+    await decompress(path, destination, {
+      plugins: [decompressTargz(), decompressTarxz()],
+      strip
+    })
+  } catch (error) {
+    logError(['Error:', error], LogPrefix.Backend)
+  }
 }
 
 export {

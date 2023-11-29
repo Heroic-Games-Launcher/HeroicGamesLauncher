@@ -75,6 +75,11 @@ body {
   background: var(--accent);
 }
 
+::-webkit-scrollbar-corner,
+::-webkit-resizer {
+  background: var(--gradient-body-background, var(--body-background));
+}
+
 .simple-keyboard {
   position: absolute;
   z-index: 10;
