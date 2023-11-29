@@ -81,7 +81,9 @@ export default function LibraryFilters() {
 
   return (
     <div className="libraryFilters">
-      <button className="button">{t('header.filters', 'Filters')}</button>
+      <button className="button is-primary">
+        {t('header.filters', 'Filters')}
+      </button>
       <div className="dropdown">
         {epic.username && storeToggle('legendary')}
         {gog.username && storeToggle('gog')}
