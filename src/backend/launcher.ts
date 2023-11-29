@@ -493,6 +493,8 @@ function setupWineEnvVars(
       break
     case 'crossover':
       ret.CX_BOTTLE = wineCrossoverBottle
+    case 'toolkit':
+      ret.WINEPREFIX = winePrefix
   }
   if (gameSettings.showFps) {
     isMac ? (ret.MTL_HUD_ENABLED = '1') : (ret.DXVK_HUD = 'fps')
