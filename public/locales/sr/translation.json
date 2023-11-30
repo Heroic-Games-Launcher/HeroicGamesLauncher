@@ -707,5 +707,9 @@
     "Amazon Games": "Амазон игре",
     "winetricks": {
         "install": "Инсталирај"
+    },
+    "category-settings": {
+        "cancel": "Откажи",
+        "warning": "Упозорење"
     }
 }
