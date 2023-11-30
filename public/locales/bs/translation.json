@@ -152,6 +152,11 @@
             "wine-change": {
                 "title": "Vino nije pronađeno!",
                 "message": "Nismo mogli pronaći odabranu verziju vina za lansiranje ovog naslova ({{selectedWine}}). {{newline}} Pronašli smo još jedan, da li želite da nastavite sa pokretanjem koristeći {{foundWine}} ?"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "Jeste li sigurni da se želite odjaviti?"
+                }
             }
         },
         "wineprefix": "Odaberite Wine Prefix mapu",
