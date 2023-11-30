@@ -152,6 +152,11 @@
             "wine-change": {
                 "title": "Vino nije pronađeno!",
                 "message": "Nismo mogli pronaći odabranu verziju vina za pokretanje ovog naslova ({{selectedWine}}). {{newline}} Pronašli smo još jedan, želite li nastaviti s pokretanjem pomoću {{foundWine}}?"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "Jeste li sigurni da se želite odjaviti?"
+                }
             }
         },
         "wineprefix": "Odaberite WinePrefix mapu",
@@ -239,7 +244,8 @@
         "show_available_games": "Pokaži nedostupne igre",
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
-        "store": "Filter Store"
+        "store": "Filter Store",
+        "filters": "Filter"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
