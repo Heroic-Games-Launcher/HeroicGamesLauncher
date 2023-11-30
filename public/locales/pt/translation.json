@@ -734,5 +734,9 @@
     "winetricks": {
         "install": "Install",
         "loading": "A Carregar"
+    },
+    "category-settings": {
+        "cancel": "Cancel",
+        "warning": "Warning"
     }
 }
