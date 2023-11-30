@@ -340,6 +340,11 @@ const GameCard = ({
       show: !isFavouriteGame
     },
     {
+      label: t('submenu.categories', 'Categories'),
+      onclick: () => setIsSettingsModalOpen(true, 'category', gameInfo),
+      show: true
+    },
+    {
       label: t('button.remove_from_favourites', 'Remove From Favourites'),
       onclick: () => favouriteGames.remove(appName),
       show: isFavouriteGame

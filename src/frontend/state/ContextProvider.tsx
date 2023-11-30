@@ -48,10 +48,20 @@ const initialContext: ContextType = {
     add: () => null,
     remove: () => null
   },
+  currentCustomCategory: null,
+  setCurrentCustomCategory: () => null,
   favouriteGames: {
     list: [],
     add: () => null,
     remove: () => null
+  },
+  customCategories: {
+    list: {},
+    listCategories: () => [],
+    addToGame: () => null,
+    removeFromGame: () => null,
+    addCategory: () => null,
+    removeCategory: () => null
   },
   theme: 'midnightMirage',
   setTheme: () => null,

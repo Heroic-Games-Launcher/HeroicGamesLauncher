@@ -2,7 +2,7 @@ import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
 
-import { GameStatus, Runner, WikiInfo } from 'common/types'
+import { GameInfo, GameStatus, Runner, WikiInfo } from 'common/types'
 
 import { createNewWindow, repair } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
@@ -23,6 +23,7 @@ interface Props {
   disableUpdate: boolean
   onShowRequirements?: () => void
   onShowDlcs?: () => void
+  gameInfo: GameInfo
 }
 
 export default function GamesSubmenu({
@@ -34,10 +35,16 @@ export default function GamesSubmenu({
   handleUpdate,
   disableUpdate,
   onShowRequirements,
-  onShowDlcs
+  onShowDlcs,
+  gameInfo
 }: Props) {
-  const { refresh, platform, libraryStatus, showDialogModal } =
-    useContext(ContextProvider)
+  const {
+    refresh,
+    platform,
+    libraryStatus,
+    showDialogModal,
+    setIsSettingsModalOpen
+  } = useContext(ContextProvider)
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
 
@@ -314,6 +321,12 @@ export default function GamesSubmenu({
                 ))}
             </>
           )}
+          <button
+            onClick={() => setIsSettingsModalOpen(true, 'category', gameInfo)}
+            className="link button is-text is-link"
+          >
+            {t('submenu.categories', 'Categories')}
+          </button>
           {!isSideloaded && storeUrl && (
             <NavLink
               className="link button is-text is-link"

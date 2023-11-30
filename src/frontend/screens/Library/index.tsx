@@ -57,8 +57,10 @@ export default React.memo(function Library(): JSX.Element {
     sideloadedLibrary,
     favouriteGames,
     libraryTopSection,
-    hiddenGames,
-    platform
+    platform,
+    currentCustomCategory,
+    customCategories,
+    hiddenGames
   } = useContext(ContextProvider)
 
   const [layout, setLayout] = useState(storage.getItem('layout') || 'grid')
@@ -321,10 +323,7 @@ export default React.memo(function Library(): JSX.Element {
     return favourites.map((game) => `${game.app_name}_${game.runner}`)
   }, [favourites])
 
-  // select library
-  const libraryToShow = useMemo(() => {
-    let library: Array<GameInfo> = []
-
+  const makeLibrary = () => {
     let displayedStores: string[] = []
     if (storesFilters['gog'] && gog.username) {
       displayedStores.push('gog')
@@ -353,29 +352,56 @@ export default React.memo(function Library(): JSX.Element {
     const sideloadedApps = showSideloaded ? sideloadedLibrary : []
     const amazonLibrary = showAmazon ? amazon.library : []
 
-    library = [
-      ...sideloadedApps,
-      ...epicLibrary,
-      ...gogLibrary,
-      ...amazonLibrary
-    ]
+    return [...sideloadedApps, ...epicLibrary, ...gogLibrary, ...amazonLibrary]
+  }
+
+  // select library
+  const libraryToShow = useMemo(() => {
+    let library: Array<GameInfo> = makeLibrary()
 
     if (showFavouritesLibrary) {
       library = library.filter((game) =>
         favouritesIds.includes(`${game.app_name}_${game.runner}`)
       )
-    }
+    } else if (currentCustomCategory && currentCustomCategory.length > 0) {
+      if (currentCustomCategory === 'preset_uncategorized') {
+        // list of all games that have at least one category assigned to them
+        const categorizedGames = Array.from(
+          new Set(Object.values(customCategories.list).flat())
+        )
 
-    if (showInstalledOnly) {
-      library = library.filter((game) => game.is_installed)
-    }
+        library = library.filter(
+          (game) =>
+            !categorizedGames.includes(`${game.app_name}_${game.runner}`)
+        )
+      } else {
+        const gamesInCustomCategory =
+          customCategories.list[currentCustomCategory]
 
-    if (!showNonAvailable) {
-      const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
-      const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
-      library = library.filter(
-        (game) => !nonAvailbleGamesArray.includes(game.app_name)
-      )
+        library = library.filter((game) =>
+          gamesInCustomCategory.includes(`${game.app_name}_${game.runner}`)
+        )
+      }
+    } else {
+      if (!showNonAvailable) {
+        const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
+        const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
+        library = library.filter(
+          (game) => !nonAvailbleGamesArray.includes(game.app_name)
+        )
+      }
+
+      if (showInstalledOnly) {
+        library = library.filter((game) => game.is_installed)
+      }
+
+      if (!showNonAvailable) {
+        const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
+        const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
+        library = library.filter(
+          (game) => !nonAvailbleGamesArray.includes(game.app_name)
+        )
+      }
     }
 
     // filter

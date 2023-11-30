@@ -79,6 +79,8 @@ interface StateProps {
   refreshingInTheBackground: boolean
   hiddenGames: HiddenGame[]
   favouriteGames: FavouriteGame[]
+  customCategories: Record<string, string[]>
+  currentCustomCategory: string | null
   theme: string
   isFullscreen: boolean
   isFrameless: boolean
@@ -153,10 +155,12 @@ class GlobalState extends PureComponent<Props> {
     refreshing: false,
     refreshingInTheBackground: true,
     hiddenGames: configStore.get('games.hidden', []),
+    currentCustomCategory: storage.getItem('current_custom_category') || null,
     sidebarCollapsed: JSON.parse(
       storage.getItem('sidebar_collapsed') || 'false'
     ),
     favouriteGames: configStore.get('games.favourites', []),
+    customCategories: configStore.get('games.customCategories', {}),
     theme: configStore.get('theme', ''),
     isFullscreen: false,
     isFrameless: false,
@@ -189,6 +193,10 @@ class GlobalState extends PureComponent<Props> {
     experimentalFeatures: globalSettings?.experimentalFeatures || {
       enableNewDesign: false
     }
+  }
+
+  setCurrentCustomCategory = (newCustomCategory: string) => {
+    this.setState({ currentCustomCategory: newCustomCategory })
   }
 
   setLanguage = (newLanguage: string) => {
@@ -292,6 +300,56 @@ class GlobalState extends PureComponent<Props> {
       favouriteGames: newFavouriteGames
     })
     configStore.set('games.favourites', newFavouriteGames)
+  }
+
+  getCustomCategories = () =>
+    Array.from(new Set(Object.keys(this.state.customCategories)))
+
+  setCustomCategory = (newCategory: string) => {
+    const newCustomCategories = this.state.customCategories
+    newCustomCategories[newCategory] = []
+
+    this.setState({
+      customCategories: newCustomCategories
+    })
+    configStore.set('games.customCategories', newCustomCategories)
+  }
+
+  removeCustomCategory = (category: string) => {
+    if (!this.state.customCategories[category]) return
+    const newCustomCategories = this.state.customCategories
+    delete newCustomCategories[category]
+    this.setState({ customCategories: newCustomCategories })
+    configStore.set('games.customCategories', newCustomCategories)
+  }
+
+  addGameToCustomCategory = (category: string, appName: string) => {
+    const newCustomCategories = this.state.customCategories
+
+    if (!newCustomCategories[category]) newCustomCategories[category] = []
+
+    newCustomCategories[category].push(appName)
+
+    this.setState({
+      customCategories: newCustomCategories
+    })
+    configStore.set('games.customCategories', newCustomCategories)
+  }
+
+  removeGameFromCustomCategory = (category: string, appName: string) => {
+    if (!this.state.customCategories[category]) return
+
+    const newCustomCategories: Record<string, string[]> = {}
+    for (const [key, games] of Object.entries(this.state.customCategories)) {
+      if (key === category)
+        newCustomCategories[key] = games.filter((game) => game !== appName)
+      else newCustomCategories[key] = this.state.customCategories[key]
+    }
+
+    this.setState({
+      customCategories: newCustomCategories
+    })
+    configStore.set('games.customCategories', newCustomCategories)
   }
 
   handleShowDialogModal = ({
@@ -436,7 +494,7 @@ class GlobalState extends PureComponent<Props> {
 
   handleSettingsModalOpen = (
     value: boolean,
-    type?: 'settings' | 'log',
+    type?: 'settings' | 'log' | 'category',
     gameInfo?: GameInfo
   ) => {
     if (gameInfo) {
@@ -821,6 +879,7 @@ class GlobalState extends PureComponent<Props> {
       gog,
       amazon,
       favouriteGames,
+      customCategories,
       hiddenGames,
       settingsModalOpen,
       hideChangelogsOnStartup,
@@ -873,6 +932,14 @@ class GlobalState extends PureComponent<Props> {
             add: this.addGameToFavourites,
             remove: this.removeGameFromFavourites
           },
+          customCategories: {
+            list: customCategories,
+            listCategories: this.getCustomCategories,
+            addToGame: this.addGameToCustomCategory,
+            removeFromGame: this.removeGameFromCustomCategory,
+            addCategory: this.setCustomCategory,
+            removeCategory: this.removeCustomCategory
+          },
           handleLibraryTopSection: this.handleLibraryTopSection,
           handleExperimentalFeatures: this.handleExperimentalFeatures,
           setTheme: this.setTheme,
@@ -889,7 +956,8 @@ class GlobalState extends PureComponent<Props> {
           lastChangelogShown: lastChangelogShown,
           setLastChangelogShown: this.setLastChangelogShown,
           isSettingsModalOpen: settingsModalOpen,
-          setIsSettingsModalOpen: this.handleSettingsModalOpen
+          setIsSettingsModalOpen: this.handleSettingsModalOpen,
+          setCurrentCustomCategory: this.setCurrentCustomCategory
         }}
       >
         {this.props.children}

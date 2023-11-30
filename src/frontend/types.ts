@@ -49,6 +49,16 @@ export interface ContextType {
     add: (appNameToAdd: string, appTitle: string) => void
     remove: (appNameToRemove: string) => void
   }
+  customCategories: {
+    list: Record<string, string[]>
+    listCategories: () => string[]
+    addToGame: (category: string, appName: string) => void
+    removeFromGame: (category: string, appName: string) => void
+    addCategory: (newCategory: string) => void
+    removeCategory: (category: string) => void
+  }
+  currentCustomCategory: string | null
+  setCurrentCustomCategory: (newCustomCategory: string) => void
   theme: string
   setTheme: (themeName: string) => void
   zoomPercent: number
@@ -99,7 +109,7 @@ export interface ContextType {
   }
   setIsSettingsModalOpen: (
     value: boolean,
-    type?: 'settings' | 'log',
+    type?: 'settings' | 'log' | 'category',
     gameInfo?: GameInfo
   ) => void
   experimentalFeatures: ExperimentalFeatures

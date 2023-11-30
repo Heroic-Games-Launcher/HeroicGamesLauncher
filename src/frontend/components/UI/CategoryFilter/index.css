@@ -1,0 +1,9 @@
+#custom-category-selector {
+  width: 324px;
+}
+
+@media screen and (max-width: 1000px) {
+  #custom-category-selector {
+    width: auto;
+  }
+}

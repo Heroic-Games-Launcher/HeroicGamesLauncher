@@ -85,8 +85,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
     platform,
     showDialogModal,
     isSettingsModalOpen,
-    experimentalFeatures,
-    connectivity
+    connectivity,
+    experimentalFeatures
   } = useContext(ContextProvider)
 
   const [gameInfo, setGameInfo] = useState(locationGameInfo)
