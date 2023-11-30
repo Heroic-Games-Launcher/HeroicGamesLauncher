@@ -713,5 +713,9 @@
     "winetricks": {
         "install": "Install",
         "loading": "Loading"
+    },
+    "category-settings": {
+        "cancel": "Odustani",
+        "warning": "Upozorenje"
     }
 }
