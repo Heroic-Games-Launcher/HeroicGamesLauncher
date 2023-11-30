@@ -152,6 +152,11 @@
             "wine-change": {
                 "message": "Me ei leidnud selle pealkirja ({{selectedWine}}) käivitamiseks valitud veiniversiooni. {{newline}} Leidsime veel ühe. Kas soovite jätkata käivitamist, kasutades {{foundWine}}?",
                 "title": "Veini ei leitud!"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "Kas olete kindel, et soovite välja logida?"
+                }
             }
         },
         "wineprefix": "Valige Wine prefiksi kaust",
@@ -239,7 +244,8 @@
         "show_available_games": "Show non-Available games",
         "show_favourites_only": "Näita ainult lemmikuid",
         "show_hidden": "Näita peidetud",
-        "store": "Filtreeri poodi"
+        "store": "Filtreeri poodi",
+        "filters": "Filtreeri"
     },
     "help": {
         "amdfsr": "AMD FSR aitab suurendada kaadrisagedust, suurendades madalamaid resolutsioone täisekraani režiimis. Pildikvaliteet suureneb 5-st 1-le, mis toob aga kaasa kerge jõudluse vähenemise. Lubamine võib parandada jõudlust.",
