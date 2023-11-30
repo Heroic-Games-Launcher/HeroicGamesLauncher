@@ -245,7 +245,8 @@
         "show_available_games": "Näytä pelit jotka eivät saatavilla",
         "show_favourites_only": "Näytä ainoastaan suosikit",
         "show_hidden": "Näytä piilotetut",
-        "store": "Suodata kauppaa"
+        "store": "Suodata kauppaa",
+        "filters": "Suodata"
     },
     "help": {
         "amdfsr": "AMD:n FSR auttaa tehostamaan ruudunpäivitystä skaalaamalla ylös näyttötarkkuutta kokoruututilassa. Kuvalaatu paranee 5:stä 1:een pienen suorituskykyverotuksen kustannuksella. Tämän päällekytkentä saattaa parantaa suoritusta.",
@@ -747,5 +748,8 @@
     "winetricks": {
         "install": "Asenna",
         "loading": "Ladataan"
+    },
+    "window": {
+        "close": "Sulje"
     }
 }
