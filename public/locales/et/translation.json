@@ -713,5 +713,9 @@
     "winetricks": {
         "install": "Install",
         "loading": "Laadimine"
+    },
+    "category-settings": {
+        "cancel": "Tühista",
+        "warning": "Hoiatus"
     }
 }
