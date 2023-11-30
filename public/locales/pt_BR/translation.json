@@ -748,5 +748,9 @@
     "winetricks": {
         "install": "Instalação",
         "loading": "Loading"
+    },
+    "category-settings": {
+        "cancel": "Cancelar",
+        "warning": "Aviso"
     }
 }
