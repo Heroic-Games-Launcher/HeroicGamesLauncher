@@ -68,7 +68,9 @@ function SteamDeckSystemSpecifications({
             <SteamDeckLogo className="logo fillWithThemeColor" />
           </Grid>
           <Grid item xs={10}>
-            {t('settings.systemInformation.steamDeck', 'Steam Deck')}
+            {t('settings.systemInformation.steamDeck', 'Steam Deck {{model}}', {
+              model: systemInformation.steamDeckInfo.model
+            })}
           </Grid>
         </Grid>
       </Paper>
@@ -103,7 +105,7 @@ export default function SystemInfo() {
             'System Specifications:'
           )}
         </h5>
-        {systemInformation.isSteamDeck ? (
+        {systemInformation.steamDeckInfo.isDeck ? (
           <SteamDeckSystemSpecifications
             systemInformation={systemInformation}
           />
