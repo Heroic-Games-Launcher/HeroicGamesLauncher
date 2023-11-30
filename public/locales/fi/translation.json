@@ -751,5 +751,9 @@
     },
     "window": {
         "close": "Sulje"
+    },
+    "category-settings": {
+        "cancel": "Peruuta",
+        "warning": "Varoitus"
     }
 }
