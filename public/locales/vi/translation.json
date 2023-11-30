@@ -152,6 +152,11 @@
             "wine-change": {
                 "message": "Chúng tôi không thể tìm thấy phiên bản rượu đã chọn để khởi chạy tựa game này ({{selectedWine}}). {{newline}} Chúng tôi đã tìm thấy một cái khác, bạn có muốn tiếp tục khởi chạy bằng {{foundWine}} không?",
                 "title": "Rượu không tìm thấy!"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "Xác nhận đăng xuất?"
+                }
             }
         },
         "wineprefix": "Chọn thư mục Wine Prefix",
@@ -239,7 +244,8 @@
         "show_available_games": "Show non-Available games",
         "show_favourites_only": "Chỉ hiển thị mục ưa thích",
         "show_hidden": "Hiển thị mục bị ẩn",
-        "store": "Lọc cửa hàng"
+        "store": "Lọc cửa hàng",
+        "filters": "Lọc"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
