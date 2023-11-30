@@ -712,5 +712,9 @@
     "winetricks": {
         "install": "Inštalácia",
         "loading": "Loading"
+    },
+    "category-settings": {
+        "cancel": "Cancel",
+        "warning": "Warning"
     }
 }
