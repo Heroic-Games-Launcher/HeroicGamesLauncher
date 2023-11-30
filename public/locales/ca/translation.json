@@ -249,7 +249,8 @@
         "show_available_games": "Mostra els jocs no disponibles",
         "show_favourites_only": "Mostra'n només els preferits",
         "show_hidden": "Mostra'n els amagats",
-        "store": "Filtre de botigues"
+        "store": "Filtre de botigues",
+        "filters": "Filtra"
     },
     "help": {
         "amdfsr": "L'FSR d'AMD ajuda a augmentar els fotogrames per segon emprant resolucions més baixes en el mode de pantalla completa i després escalant-les. La qualitat d'imatge augmenta de 5 a 1 a costa d'un petit increment de rendiment. Si s'activa, podria millorar el rendiment.",
@@ -758,5 +759,8 @@
         "search": "Cerqueu fonts o components",
         "nothingYet": "El Winetricks encara no ha instal·lat res",
         "installed": "Components instal·lats:"
+    },
+    "window": {
+        "close": "Tanca"
     }
 }
