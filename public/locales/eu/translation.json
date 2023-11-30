@@ -239,7 +239,8 @@
         "show_available_games": "Show non-Available games",
         "show_favourites_only": "Erakutsi gogokoenak soilik",
         "show_hidden": "Erakutsi ezkutatutakoak",
-        "store": "Iragazi denda"
+        "store": "Iragazi denda",
+        "filters": "Iragazkiarekin"
     },
     "help": {
         "amdfsr": "AMD-ren FSR-k fotograma-tasa areagotzen laguntzen du pantaila osoko moduan bereizmen baxuagoak igoz. Irudiaren kalitatea 5etik 1era igotzen da errendimendu txiki baten truke. Gaitzeak errendimendua hobetu dezake.",
