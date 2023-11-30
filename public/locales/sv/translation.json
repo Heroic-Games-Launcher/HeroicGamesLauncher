@@ -250,7 +250,8 @@
         "show_available_games": "Visa icke-tillgängliga spel",
         "show_favourites_only": "Visa endast favoriter",
         "show_hidden": "Visa dolda",
-        "store": "Filtrera efter butik"
+        "store": "Filtrera efter butik",
+        "filters": "Filtrera"
     },
     "help": {
         "amdfsr": "AMD's FSR hjälper till att öka bildhastigheten genom att skala upp lägre upplösningar i helskärmsläge. Bildkvaliteten ökar från 5 mot 1 till priset av en liten påverkan av prestandan. Aktivering kan förbättra prestandan.",
@@ -296,9 +297,12 @@
         "disablePlaytimeSync": "Inaktiverar speltidssynkronisering med givna butiksservrar (för närvarande stöds endast GOG)",
         "gamescope": {
             "upscaleMethod": "Uppskalningsmetod gamescope ska använda.",
-            "upscaleWidth": "Breddupplösnings som används av gamescope. Ett bildförhållande på 16:9 antas.",
-            "upscaleHeight": "Höjdupplösning som används av gamescope. Ett bildförhållande på 16:9 antas.",
-            "fpsLimiter": "Antal bildrutor som gamescope ska begränsas till exempelvis 60"
+            "upscaleWidth": "Breddupplösningen som används av gamescope. Ett bildförhållande på 16:9 antas.",
+            "upscaleHeight": "Höjdupplösningen som används av gamescope. Ett bildförhållande på 16:9 antas.",
+            "fpsLimiter": "Antal bildrutor som gamescope ska begränsas till exempelvis 60",
+            "fpsLimiterNoFocus": "Gränsen för bildhastighet gamescope ska avgränsa per sekund om spelet inte är fokuserat.",
+            "gameWidth": "Breddupplösningen som används av spelet. Ett bildförhållande på 16:9 antas av gamescope.",
+            "gameHeight": "Höjdupplösningen som används av spelet. Ett bildförhållande på 16:9 antas av gamescope."
         }
     },
     "info": {
@@ -437,7 +441,7 @@
             "placeholder": "Ange Launcher-specifika argument",
             "title": "Spelspecifika argument (körs efter startkommandot):",
             "error": {
-                "command": "%command% syntaxen från Steam är inte giltig som spelargument.",
+                "command": "Syntaxen %command% från Steam är inte giltig som ett spelargument.",
                 "env": "Miljövariabler måste konfigureras i tabellen nedan."
             }
         },
@@ -459,7 +463,9 @@
             "gameHeight": "Spelets höjd",
             "upscaleWidth": "Uppskalning bredd",
             "gameWidth": "Spelets bredd",
-            "upscaleHeight": "Uppskalning höjd"
+            "upscaleHeight": "Uppskalning höjd",
+            "interger": "Heltal Uppskala",
+            "stretch": "Sträck bilden"
         }
     },
     "other": {
@@ -621,7 +627,7 @@
         "frameless-window": {
             "confirmation": {
                 "message": "Denna funktion är fortfarande experimentell. Vänligen rapportera eventuella problem du stöter på med den på GitHub.",
-                "title": "Experimentell funktion"
+                "title": "Experimentell funktioner framför"
             },
             "description": "Använd kantlöst fönster (kräver omstart)"
         },
