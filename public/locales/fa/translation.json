@@ -718,5 +718,9 @@
     },
     "window": {
         "close": "بستن"
+    },
+    "category-settings": {
+        "cancel": "انصراف",
+        "warning": "هشدار"
     }
 }
