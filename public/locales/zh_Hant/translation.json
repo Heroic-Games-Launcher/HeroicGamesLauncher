@@ -152,6 +152,11 @@
             "wine-change": {
                 "message": "我們找不到啟動此標題的選定 wine 版本 ({{selectedWine}})。 {{newline}} 我們找到了另一個，你想繼續使用 {{foundWine}} 啟動嗎？",
                 "title": "找不到酒！"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "您確定要登出嗎？"
+                }
             }
         },
         "wineprefix": "選擇 WinePrefix 資料夾",
