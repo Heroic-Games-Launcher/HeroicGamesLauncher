@@ -251,7 +251,10 @@
         "show_favourites_only": "Visa endast favoriter",
         "show_hidden": "Visa dolda",
         "store": "Filtrera efter butik",
-        "filters": "Filtrera"
+        "filters": "Filtrera",
+        "all_categories": "Alla kategorier",
+        "show_installed_only": "Visa endast installerade",
+        "uncategorized": "Okategoriserad"
     },
     "help": {
         "amdfsr": "AMD's FSR hjälper till att öka bildhastigheten genom att skala upp lägre upplösningar i helskärmsläge. Bildkvaliteten ökar från 5 mot 1 till priset av en liten påverkan av prestandan. Aktivering kan förbättra prestandan.",
@@ -686,7 +689,7 @@
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
             "legendaryVersion": "Legendary: {{legendaryVersion}}",
             "systemSpecifications": "Systemspecifikationer:",
-            "steamDeck": "Steam Deck",
+            "steamDeck": "Steam Deck {{model}}",
             "gpuDriver": "Drivrutin: {{driverVersion}}",
             "os": "Oprativsystem:",
             "gpu": "GPU:",
@@ -805,5 +808,13 @@
         "maximize": "Maximera fönstret",
         "close": "Stäng",
         "restore": "Återställ fönstret"
+    },
+    "category-settings": {
+        "remove-category": "Ta bort kategori",
+        "delete-question": "Om du fortsätter tar du bort den här kategorin permanent och tar bort tilldelningen från alla spel. Fortsätt?",
+        "new-category": "Ny kategori",
+        "add-new-category": "Lägg till ny kategori",
+        "cancel": "Avbryt",
+        "warning": "Varning"
     }
 }
