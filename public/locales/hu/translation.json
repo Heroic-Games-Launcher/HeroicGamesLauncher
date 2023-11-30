@@ -152,6 +152,11 @@
             "wine-change": {
                 "message": "Nem találtuk a kiválasztott borverziót a cím elindításához ({{selectedWine}}). {{newline}} Találtunk egy másikat. Folytatja az indítást az {{foundWine}} használatával?",
                 "title": "Bor nem található!"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "Logout?"
+                }
             }
         },
         "wineprefix": "Wine prefix mappa kiválasztása",
@@ -239,7 +244,8 @@
         "show_available_games": "Nem elérhető játékok mutatása",
         "show_favourites_only": "Csak kedvencek mutatása",
         "show_hidden": "Elrejtettek mutatása",
-        "store": "Áruház szűrése"
+        "store": "Áruház szűrése",
+        "filters": "Szűrő"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
