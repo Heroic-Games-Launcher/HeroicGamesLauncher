@@ -152,6 +152,11 @@
             "wine-change": {
                 "message": "ഈ ശീർഷകം ({{selectedWine}}) സമാരംഭിക്കുന്നതിന് തിരഞ്ഞെടുത്ത വൈൻ പതിപ്പ് കണ്ടെത്താൻ ഞങ്ങൾക്ക് കഴിഞ്ഞില്ല. {{newline}} ഞങ്ങൾ മറ്റൊന്ന് കണ്ടെത്തി, നിങ്ങൾക്ക് {{foundWine}} ഉപയോഗിച്ച് സമാരംഭിക്കുന്നത് തുടരണോ?",
                 "title": "വീഞ്ഞ് കണ്ടെത്തിയില്ല!"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "Logout?"
+                }
             }
         },
         "wineprefix": "വൈനിരിക്കുന്ന അറ തിരഞ്ഞെടുക്കൂ",
@@ -239,7 +244,8 @@
         "show_available_games": "Show non-Available games",
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
-        "store": "Filter Store"
+        "store": "Filter Store",
+        "filters": "അരിപ്പ"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
