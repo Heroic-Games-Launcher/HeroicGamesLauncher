@@ -18,15 +18,6 @@
   );
 }
 
-@media screen and (max-width: 1000px) {
-  .Header {
-    grid-template-columns: 1fr min-content;
-    grid-template-areas:
-      'search search'
-      'filters filters';
-  }
-}
-
 .Header__filters {
   grid-area: filters;
   display: flex;

@@ -27,7 +27,7 @@ const HLTB = () => {
           title={t('info.clickToOpen', 'Click to open')}
         >
           <Speed />
-          {t('howLongToBeat', 'How Long To Beat')}
+          <b>{t('howLongToBeat', 'How Long To Beat')}</b>
         </div>
       }
     >
