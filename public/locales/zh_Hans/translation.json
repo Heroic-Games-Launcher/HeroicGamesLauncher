@@ -252,7 +252,9 @@
         "show_hidden": "显示隐藏项",
         "store": "过滤商店",
         "filters": "筛选",
-        "show_installed_only": "只显示已安装的游戏"
+        "show_installed_only": "只显示已安装的游戏",
+        "all_categories": "所有分类",
+        "uncategorized": "未分类"
     },
     "help": {
         "amdfsr": "AMD 的 FSR 通过在全屏模式下提高较低分辨率来提高帧率。图像质量从 5 提高到 1，但代价是性能稍有下降。启用可能会提高性能。",
@@ -691,7 +693,7 @@
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
             "legendaryVersion": "Legendary: {{legendaryVersion}}",
             "systemSpecifications": "系统规格：",
-            "steamDeck": "Steam Deck",
+            "steamDeck": "Steam Deck {{model}}",
             "gpuDriver": "驱动：{{driverVersion}}",
             "os": "操作系统：",
             "gpu": "GPU：",
@@ -807,5 +809,13 @@
         "maximize": "最大化窗口",
         "restore": "还原窗口",
         "close": "关闭"
+    },
+    "category-settings": {
+        "remove-category": "删除分类",
+        "delete-question": "继续操作将永久删除此分类且所有先前该分类下的游戏将不再属于此分类。继续吗？",
+        "new-category": "新分类",
+        "add-new-category": "添加新分类",
+        "cancel": "取消",
+        "warning": "警告"
     }
 }
