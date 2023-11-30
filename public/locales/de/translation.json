@@ -747,5 +747,9 @@
     "winetricks": {
         "install": "Installieren",
         "loading": "Ladevorgang läuft"
+    },
+    "category-settings": {
+        "cancel": "Absagen",
+        "warning": "Warnung"
     }
 }
