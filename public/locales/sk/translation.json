@@ -152,6 +152,11 @@
             "wine-change": {
                 "message": "Nepodarilo sa nájsť vybranú verziu vína na spustenie tohto titulu ({{selectedWine}}). {{newline}} Našli sme ďalšiu, chcete pokračovať v spúšťaní pomocou {{foundWine}}?",
                 "title": "Víno sa nenašlo!"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "Naozaj sa chcete odhlásiť?"
+                }
             }
         },
         "wineprefix": "Vyberte Priečinok predpony vína",
