@@ -250,7 +250,8 @@
         "show_available_games": "Mevcut olmayan oyunları gizle",
         "show_favourites_only": "Yalnızca Favorileri göster",
         "show_hidden": "Gizlileri Göster",
-        "store": "Mağazayı Filtrele"
+        "store": "Mağazayı Filtrele",
+        "filters": "Filtre"
     },
     "help": {
         "amdfsr": "AMD'nin FSR özelliği, Tam Ekran Modunda daha düşük çözünürlükleri yükselterek kare hızını artırmaya yardımcı olur. Küçük bir performans artışı pahasına görüntü kalitesi 5'ten 1'e yükselir. Etkinleştirmek performansı artırabilir.",
