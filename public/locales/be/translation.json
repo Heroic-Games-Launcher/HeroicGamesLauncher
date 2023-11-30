@@ -747,5 +747,9 @@
     "winetricks": {
         "install": "Усталяваць",
         "loading": "Loading"
+    },
+    "category-settings": {
+        "cancel": "Адмяніць",
+        "warning": "Папярэджанне"
     }
 }
