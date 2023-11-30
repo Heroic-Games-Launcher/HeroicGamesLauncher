@@ -152,6 +152,11 @@
             "wine-change": {
                 "message": "We konden de geselecteerde wijnversie niet vinden om deze titel te lanceren ({{selectedWine}}). {{newline}} We hebben er nog een gevonden, wil je doorgaan met opstarten met {{foundWine}} ?",
                 "title": "Wijn niet gevonden!"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "weet u zeker dat u wil uitloggen?"
+                }
             }
         },
         "wineprefix": "Selecteer een Wine Prefix Folder",
@@ -239,7 +244,8 @@
         "show_available_games": "Show non-Available games",
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
-        "store": "Filter Store"
+        "store": "Filter Store",
+        "filters": "Filter"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
