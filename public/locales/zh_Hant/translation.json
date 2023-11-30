@@ -712,5 +712,9 @@
     "winetricks": {
         "install": "安裝",
         "loading": "載入中"
+    },
+    "category-settings": {
+        "cancel": "取消",
+        "warning": "警告"
     }
 }

@@ -236,7 +236,8 @@
         "store": "Butikssida",
         "verify": "Verifiera och reparera",
         "extraInfo": "Ytterligare information",
-        "logs": "Loggar"
+        "logs": "Loggar",
+        "categories": "Kategorier"
     },
     "help": {
         "cloud_save_unsupported": "Spelet stöder inte sparfiler i molnlagring. Denna information tillhandahålls av spelutvecklarna. Vissa spel implementerar sitt eget molnsparsystem"

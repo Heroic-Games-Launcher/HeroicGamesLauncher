@@ -714,5 +714,9 @@
     "winetricks": {
         "install": "Pasang",
         "loading": "Loading"
+    },
+    "category-settings": {
+        "cancel": "Batalkan",
+        "warning": "Peringatan"
     }
 }

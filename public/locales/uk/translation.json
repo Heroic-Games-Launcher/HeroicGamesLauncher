@@ -753,5 +753,9 @@
         "search": "Пошук шрифтів або компонентів",
         "nothingYet": "Winetricks ще нічого не встановив",
         "installed": "Встановлені компоненти:"
+    },
+    "category-settings": {
+        "cancel": "Скасувати",
+        "warning": "Warning"
     }
 }

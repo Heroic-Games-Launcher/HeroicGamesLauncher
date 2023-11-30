@@ -806,5 +806,9 @@
         "minimize": "Minimalizovat okno",
         "maximize": "Maximalizovat okno",
         "restore": "Obnovit okno"
+    },
+    "category-settings": {
+        "cancel": "Zrušit",
+        "warning": "Varování"
     }
 }

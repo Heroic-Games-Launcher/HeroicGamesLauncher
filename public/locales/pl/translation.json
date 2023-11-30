@@ -805,5 +805,9 @@
         "maximize": "Maksymalizuj okno",
         "close": "Zamknij",
         "restore": "Przywróć okno"
+    },
+    "category-settings": {
+        "cancel": "Anuluj",
+        "warning": "Ostrzeżenie"
     }
 }

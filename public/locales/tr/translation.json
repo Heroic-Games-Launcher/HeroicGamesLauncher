@@ -791,5 +791,9 @@
         "maximize": "Pencereyi büyüt",
         "close": "Kapat",
         "restore": "Pencereyi eski boyutuna getir"
+    },
+    "category-settings": {
+        "cancel": "İptal et",
+        "warning": "Uyarı"
     }
 }

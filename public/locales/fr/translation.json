@@ -246,7 +246,9 @@
         "show_favourites_only": "N'afficher que les favoris",
         "show_hidden": "Afficher les jeux cachés",
         "store": "Filtrer le magasin",
-        "filters": "Filtre"
+        "filters": "Filtre",
+        "all_categories": "Toutes les catégories",
+        "uncategorized": "Sans catégorie"
     },
     "help": {
         "amdfsr": "Le FSR d'AMD aide à améliorer le taux de rafraîchissement en agrandissant les résolutions basses en mode plein écran. La qualité d'image augmente de 5 à 1 au prix d'une légère baisse de performance. L'activer peut améliorer les performances.",
@@ -642,7 +644,7 @@
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
             "legendaryVersion": "Legendary : {{legendaryVersion}}",
             "systemSpecifications": "Caractéristiques du Système :",
-            "steamDeck": "Steam Deck",
+            "steamDeck": "Steam Deck {{model}}",
             "gpuDriver": "Pilote : {{driverVersion}}",
             "os": "Système :",
             "gpu": "Processeur graphique :",
@@ -751,5 +753,9 @@
         "search": "Rechercher des polices de caractères ou des composants",
         "nothingYet": "Rien n'a pour l'instant été installé avec Winetricks",
         "installed": "Composants installés :"
+    },
+    "category-settings": {
+        "cancel": "Annuler",
+        "warning": "Avertissement"
     }
 }

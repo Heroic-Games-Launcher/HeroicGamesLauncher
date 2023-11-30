@@ -806,5 +806,9 @@
         "maximize": "كبِّر النافذة",
         "close": "أغلق",
         "restore": "استعد النافذة"
+    },
+    "category-settings": {
+        "cancel": "ألغِ",
+        "warning": "تحذير"
     }
 }

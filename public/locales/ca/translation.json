@@ -762,5 +762,9 @@
     },
     "window": {
         "close": "Tanca"
+    },
+    "category-settings": {
+        "cancel": "Cancel·la",
+        "warning": "Avís"
     }
 }

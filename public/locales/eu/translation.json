@@ -707,5 +707,9 @@
     "winetricks": {
         "install": "Install",
         "loading": "Kargatzen"
+    },
+    "category-settings": {
+        "cancel": "Ezeztatu",
+        "warning": "Warning"
     }
 }
