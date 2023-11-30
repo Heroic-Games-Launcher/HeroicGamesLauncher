@@ -252,7 +252,9 @@
         "show_hidden": "Mostrar Ocultos",
         "store": "Filtrar tienda",
         "filters": "Filtros",
-        "show_installed_only": "Mostrar solo lo instalado"
+        "show_installed_only": "Mostrar solo lo instalado",
+        "all_categories": "Todas las categorías",
+        "uncategorized": "Sin categoría"
     },
     "help": {
         "amdfsr": "El FSR de AMD ayuda a aumentar la velocidad de los fotogramas mediante el escalado de las resoluciones más bajas en el modo de pantalla completa. La calidad de la imagen aumenta de 5 a 1 a costa de un ligero impacto en el rendimiento. Su activación puede mejorar el rendimiento.",
@@ -691,7 +693,7 @@
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
             "legendaryVersion": "Leyenda: {{legendaryVersion}}",
             "systemSpecifications": "Especificaciones del sistema:",
-            "steamDeck": "Steam Deck",
+            "steamDeck": "Steam Deck {{model}}",
             "gpuDriver": "Controlador: {{driverVersion}}",
             "os": "Sistema operativo:",
             "gpu": "GPU:",
@@ -807,5 +809,13 @@
         "minimize": "Minimizar la ventana",
         "close": "Cerrar",
         "restore": "Restaurar la ventana"
+    },
+    "category-settings": {
+        "remove-category": "Eliminar la categoría",
+        "delete-question": "Proceder eliminará permanentemente esta categoría y la desasignará de todos los juegos. ¿Continuar?",
+        "new-category": "Nueva categoría",
+        "add-new-category": "Añadir una nueva categoría",
+        "cancel": "Cancelar",
+        "warning": "Advertencia"
     }
 }
