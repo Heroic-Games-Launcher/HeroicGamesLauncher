@@ -152,6 +152,11 @@
             "wine-change": {
                 "message": "이 타이틀을 실행하기 위해 선택한 Wine 버전을 찾을 수 없습니다 ({{selectedWine}}). {{newline}} 다른 버전을 찾았습니다. {{foundWine}} 를 사용하여 계속 실행하시겠습니까?",
                 "title": "Wine을 찾을 수 없습니다!"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "정말로 로그아웃 하시겠습니까?"
+                }
             }
         },
         "wineprefix": "WinePrefix 폴더 선택",
@@ -239,7 +244,8 @@
         "show_available_games": "Show non-Available games",
         "show_favourites_only": "즐겨찾기만 표시",
         "show_hidden": "숨김 표시",
-        "store": "Filter Store"
+        "store": "Filter Store",
+        "filters": "필터"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",

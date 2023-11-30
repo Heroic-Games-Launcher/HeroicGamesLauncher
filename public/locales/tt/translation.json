@@ -33,7 +33,10 @@
         "default-steam-path": "Steam юлы."
     },
     "infobox": {
-        "requirements": "Система таләпләре"
+        "requirements": "Система таләпләре",
+        "wine-prefix": {
+            "title": "Wine префиксы"
+        }
     },
     "status": {
         "installing": "Урнаштырыла"

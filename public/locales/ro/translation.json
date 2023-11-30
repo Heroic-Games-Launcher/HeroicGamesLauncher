@@ -152,6 +152,11 @@
             "wine-change": {
                 "message": "Nu am putut găsi versiunea de vin selectată pentru a lansa acest titlu ({{selectedWine}}). {{newline}} Am găsit altul, doriți să continuați lansarea folosind {{foundWine}}?",
                 "title": "Vinul nu a fost găsit!"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "Sigur doriți să vă deconectați?"
+                }
             }
         },
         "wineprefix": "Alegeți dosarul Wine Prefix",
@@ -239,7 +244,8 @@
         "show_available_games": "Show non-Available games",
         "show_favourites_only": "Afișați numai Favoritele",
         "show_hidden": "Arata ascuns",
-        "store": "Magazin de filtre"
+        "store": "Magazin de filtre",
+        "filters": "Filtru"
     },
     "help": {
         "amdfsr": "FSR de la AMD ajută la creșterea ratei de cadre prin creșterea rezoluțiilor mai mici în modul Ecran complet. Calitatea imaginii crește de la 5 la 1 cu prețul unei ușoare atingeri de performanță. Activarea poate îmbunătăți performanța.",

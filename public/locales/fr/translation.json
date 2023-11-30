@@ -245,7 +245,8 @@
         "show_available_games": "Afficher les jeux indisponibles",
         "show_favourites_only": "N'afficher que les favoris",
         "show_hidden": "Afficher les jeux cachés",
-        "store": "Filtrer le magasin"
+        "store": "Filtrer le magasin",
+        "filters": "Filtre"
     },
     "help": {
         "amdfsr": "Le FSR d'AMD aide à améliorer le taux de rafraîchissement en agrandissant les résolutions basses en mode plein écran. La qualité d'image augmente de 5 à 1 au prix d'une légère baisse de performance. L'activer peut améliorer les performances.",

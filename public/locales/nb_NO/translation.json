@@ -239,7 +239,8 @@
         "show_available_games": "Show non-Available games",
         "show_favourites_only": "Vis kun favoritter",
         "show_hidden": "Vis skjult",
-        "store": "Filterbutikk"
+        "store": "Filterbutikk",
+        "filters": "Filtrer"
     },
     "help": {
         "amdfsr": "AMDs FSR bidrar til å øke bildefrekvensen ved å oppskalere lavere oppløsninger i fullskjermmodus. Bildekvaliteten øker fra 5 til 1 på bekostning av et lite ytelsestreff. Aktivering kan forbedre ytelsen.",

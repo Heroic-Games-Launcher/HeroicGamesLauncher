@@ -152,6 +152,11 @@
             "wine-change": {
                 "message": "Non puidemos atopar a versión de viño seleccionada para lanzar este título ({{selectedWine}}). {{newline}} Atopamos outro, queres seguir lanzando usando {{foundWine}}?",
                 "title": "Non se atopou viño!"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "Está seguro que quere pechar a sesión?"
+                }
             }
         },
         "wineprefix": "Seleccionar o cartafol de prefixo de Wine",
@@ -239,7 +244,8 @@
         "show_available_games": "Show non-Available games",
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
-        "store": "Filter Store"
+        "store": "Filter Store",
+        "filters": "Filtrar"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",

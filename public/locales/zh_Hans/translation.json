@@ -250,7 +250,9 @@
         "show_available_games": "显示不可用的游戏",
         "show_favourites_only": "仅显示最爱",
         "show_hidden": "显示隐藏项",
-        "store": "过滤商店"
+        "store": "过滤商店",
+        "filters": "筛选",
+        "show_installed_only": "只显示已安装的游戏"
     },
     "help": {
         "amdfsr": "AMD 的 FSR 通过在全屏模式下提高较低分辨率来提高帧率。图像质量从 5 提高到 1，但代价是性能稍有下降。启用可能会提高性能。",

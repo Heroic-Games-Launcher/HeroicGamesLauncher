@@ -245,7 +245,8 @@
         "show_available_games": "Tampilkan gim yang tidak tersedia",
         "show_favourites_only": "Hanya Tampilkan Gim Favorit",
         "show_hidden": "Tampilkan yang Disembunyikan",
-        "store": "Toko Filter"
+        "store": "Toko Filter",
+        "filters": "Saring"
     },
     "help": {
         "amdfsr": "FSR AMD membantu untuk meningkatkan framerate dengan meningkatkan resolusi yang lebih rendah dalam Mode Layar Penuh. Kualitas gambar meningkat dari 5 menjadi 1 dengan mengorbankan sedikit kinerja. Mengaktifkannya dapat meningkatkan kinerja.",
