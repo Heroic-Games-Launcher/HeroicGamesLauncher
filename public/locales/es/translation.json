@@ -250,7 +250,9 @@
         "show_available_games": "Mostrar juegos no disponibles",
         "show_favourites_only": "Mostrar sólo favoritos",
         "show_hidden": "Mostrar Ocultos",
-        "store": "Filtrar tienda"
+        "store": "Filtrar tienda",
+        "filters": "Filtros",
+        "show_installed_only": "Mostrar solo lo instalado"
     },
     "help": {
         "amdfsr": "El FSR de AMD ayuda a aumentar la velocidad de los fotogramas mediante el escalado de las resoluciones más bajas en el modo de pantalla completa. La calidad de la imagen aumenta de 5 a 1 a costa de un ligero impacto en el rendimiento. Su activación puede mejorar el rendimiento.",
