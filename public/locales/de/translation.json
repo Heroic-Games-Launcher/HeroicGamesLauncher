@@ -245,7 +245,8 @@
         "show_available_games": "Nicht verfügbare Spiele anzeigen",
         "show_favourites_only": "Nur Favoriten anzeigen",
         "show_hidden": "Ausgeblendete anzeigen",
-        "store": "Store filtern"
+        "store": "Store filtern",
+        "filters": "Filter"
     },
     "help": {
         "amdfsr": "AMDs FSR hilft bei der Verbesserung der Framerate durch Hochskalierung niedrigerer Auflösungen im Vollbildmodus. Die Bildqualität wird von 5 auf 1 erhöht, allerdings auf Kosten einer leichten Leistungseinbuße. Das Aktivieren kann die Leistung verbessern.",
@@ -474,7 +475,7 @@
         }
     },
     "Recent": "Zuletzt gespielte Spiele",
-    "search": "Nach spielen suchen …",
+    "search": "Nach Spielen suchen …",
     "setting": {
         "adddesktopshortcuts": "Desktop-Verknüpfungen automatisch hinzufügen",
         "addgamestostartmenu": "Spiele automatisch zum Startmenü hinzufügen",
