@@ -23,7 +23,7 @@ jobs:
           PERSONAL_ACCESS_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
         with:
           path-to-signatures: 'signatures/version1/cla.json'
-          path-to-document: 'doc/cla.md'
+          path-to-document: 'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/blob/main/doc/cla.md'
           branch: 'main'
           allowlist: bot*
           create-file-commit-message: '[CLA] Creating file for storing CLA Signatures'
