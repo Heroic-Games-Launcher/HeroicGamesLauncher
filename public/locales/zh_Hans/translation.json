@@ -168,7 +168,7 @@
         "wineprefix": "选择 Wine Prefix 文件夹",
         "yes": "是",
         "dontShowAgain": "不再显示",
-        "choose-nile-binary": "选择尼罗河二进制文件"
+        "choose-nile-binary": "选择 Nile 二进制文件"
     },
     "button": {
         "cancel": "取消",
@@ -202,21 +202,21 @@
     "docs": "文档",
     "download-manager": {
         "install-type": {
-            "install": "Install",
-            "update": "Update"
+            "install": "安装",
+            "update": "更新"
         },
         "label": {
             "disk": "磁盘",
             "speed": "下载"
         },
-        "link": "Downloads",
+        "link": "下载",
         "queue": {
             "end-time": "完成于",
             "queue-time": "添加于",
             "start-time": "启动于",
-            "type": "Type"
+            "type": "类型"
         },
-        "title": "Downloads",
+        "title": "下载",
         "ETA": "预计时间"
     },
     "epic": {
@@ -361,7 +361,7 @@
         "alternative_method": "备选登录方式",
         "epic": "Epic Games 登录",
         "gog": "GOG 登录",
-        "message": "平台登录。你可以同时登录超过一个平台。",
+        "message": "登录您的平台。您可以同时登录多个平台。",
         "amazon": "亚马逊登录",
         "old-mac": "你的 macOS 版本是 {{version}}。需要 macOS 12 或以上版本才能登录。"
     },
@@ -529,7 +529,7 @@
         "default-steam-path": "默认 Steam 路径",
         "defaultWinePrefix": "为新的 WinePrefix设置文件夹",
         "disable_controller": "使用控制器禁止 Heroic 导航",
-        "discordRPC": "启用Discord的Rich Presence（活动状态）",
+        "discordRPC": "启用 Discord 的 Rich Presence（活动状态）",
         "download-no-https": "不使用 HTTPS 下载游戏 (对 LanCache 等 CDN 有用)",
         "dxvkfpslimit": "限制 FPS (DX9、10 和 11)",
         "egs-sync": "与已安装的 Epic 游戏同步",
@@ -794,7 +794,7 @@
     },
     "amazon": "亚马逊",
     "Amazon Games": "亚马逊游戏",
-    "prime-gaming": "优质游戏",
+    "prime-gaming": "Prime Gaming",
     "winetricks": {
         "install": "安装",
         "loading": "加载中",
