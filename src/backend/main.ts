@@ -6,8 +6,7 @@ import {
   DiskSpaceData,
   StatusPromise,
   GamepadInputEvent,
-  WineCommandArgs,
-  ExecResult
+  Runner
 } from 'common/types'
 import * as path from 'path'
 import {
@@ -20,7 +19,8 @@ import {
   protocol,
   screen,
   clipboard,
-  components
+  components,
+  session
 } from 'electron'
 import 'backend/updater'
 import { autoUpdater } from 'electron-updater'
@@ -30,7 +30,6 @@ import {
   appendFileSync,
   constants,
   existsSync,
-  mkdirSync,
   rmSync,
   unlinkSync,
   watch,
@@ -49,21 +48,14 @@ import { GlobalConfig } from './config'
 import { LegendaryUser } from 'backend/storeManagers/legendary/user'
 import { GOGUser } from './storeManagers/gog/user'
 import { NileUser } from './storeManagers/nile/user'
-import setup from './storeManagers/gog/setup'
-import nileSetup from './storeManagers/nile/setup'
 import {
   clearCache,
-  execAsync,
   isEpicServiceOffline,
-  getLegendaryVersion,
-  getGogdlVersion,
-  getSystemInfo,
   handleExit,
   openUrlOrFile,
   resetHeroic,
   showAboutWindow,
   showItemInFolder,
-  getLegendaryBin,
   getFileSize,
   detectVCRedist,
   getFirstExistingParentPath,
@@ -72,8 +64,7 @@ import {
   getCurrentChangelog,
   checkWineBeforeLaunch,
   removeFolder,
-  downloadDefaultWine,
-  getNileVersion
+  downloadDefaultWine
 } from './utils'
 import {
   configStore,
@@ -101,7 +92,8 @@ import {
   wineprefixFAQ,
   customThemesWikiLink,
   createNecessaryFolders,
-  fixAsarPath
+  fixAsarPath,
+  isSnap
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
@@ -116,7 +108,7 @@ import {
 } from './logger/logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
 import { getFonts } from 'font-list'
-import { runWineCommand, verifyWinePrefix } from './launcher'
+import { runWineCommand } from './launcher'
 import shlex from 'shlex'
 import { initQueue } from './downloadmanager/downloadqueue'
 import {
@@ -128,11 +120,11 @@ import { notify, showDialogBoxModalAuto } from './dialog/dialog'
 import { addRecentGame } from './recent_games/recent_games'
 import { callAbortController } from './utils/aborthandler/aborthandler'
 import { getDefaultSavePath } from './save_sync'
-import si from 'systeminformation'
 import { initTrayIcon } from './tray_icon/tray_icon'
 import {
   createMainWindow,
   getMainWindow,
+  isFrameless,
   sendFrontendMessage
 } from './main_window'
 
@@ -150,7 +142,7 @@ import {
   initStoreManagers,
   libraryManagerMap
 } from './storeManagers'
-import { legendarySetup } from 'backend/storeManagers/legendary/setup'
+import { updateWineVersionInfos } from './wine/manager/utils'
 
 import { logFileLocation as getLogFileLocation } from './storeManagers/storeManagerCommon/games'
 import { addNewApp } from './storeManagers/sideload/library'
@@ -158,8 +150,9 @@ import {
   getGameOverride,
   getGameSdl
 } from 'backend/storeManagers/legendary/library'
+import { formatSystemInfo, getSystemInfo } from './utils/systeminfo'
 
-app.commandLine?.appendSwitch('remote-debugging-port', '9222')
+app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
 const { showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
@@ -192,17 +185,38 @@ async function initializeWindow(): Promise<BrowserWindow> {
     }
   }, 2500)
 
+  if (!isWindows && !isCLINoGui) {
+    setTimeout(async () => {
+      try {
+        await updateWineVersionInfos(true)
+      } catch (error) {
+        logError(error, LogPrefix.Backend)
+      }
+    }, 5000)
+  }
+
   GlobalConfig.get()
 
   mainWindow.setIcon(icon)
   app.commandLine.appendSwitch('enable-spatial-navigation')
 
+  mainWindow.on('maximize', () => sendFrontendMessage('maximized'))
+  mainWindow.on('unmaximize', () => sendFrontendMessage('unmaximized'))
+  mainWindow.on('enter-full-screen', () =>
+    sendFrontendMessage('fullscreen', true)
+  )
+  mainWindow.on('leave-full-screen', () =>
+    sendFrontendMessage('fullscreen', false)
+  )
   mainWindow.on('close', async (e) => {
     e.preventDefault()
 
     if (!isCLIFullscreen && !isSteamDeckGameMode) {
       // store windows properties
-      configStore.set('window-props', mainWindow.getBounds())
+      configStore.set('window-props', {
+        ...mainWindow.getBounds(),
+        maximized: mainWindow.isMaximized()
+      })
     }
 
     const { exitToTray } = GlobalConfig.get().getSettings()
@@ -285,8 +299,24 @@ if (!gotTheLock) {
     initOnlineMonitor()
     initImagesCache()
 
+    // Add User-Agent Client hints to behave like Windows
+    if (process.argv.includes('--spoof-windows')) {
+      session.defaultSession.webRequest.onBeforeSendHeaders(
+        (details, callback) => {
+          details.requestHeaders['sec-ch-ua-platform'] = 'Windows'
+          callback({ cancel: false, requestHeaders: details.requestHeaders })
+        }
+      )
+    }
+
     if (!process.env.CI) {
-      await components.whenReady()
+      await components.whenReady().catch((e) => {
+        logError([
+          'Failed to download / update DRM components.',
+          'Make sure you do not block update.googleapis.com domain if you want to use WideVine in Browser sideloaded apps',
+          e
+        ])
+      })
       logInfo(['DRM module staus', components.status()])
     }
 
@@ -323,8 +353,13 @@ if (!gotTheLock) {
 
     // Make sure lock is not present when starting up
     playtimeSyncQueue.delete('lock')
-    runOnceWhenOnline(syncQueuedPlaytimeGOG)
-
+    if (!settings.disablePlaytimeSync) {
+      runOnceWhenOnline(syncQueuedPlaytimeGOG)
+    } else {
+      logDebug('Skipping playtime sync queue upload - playtime sync disabled', {
+        prefix: LogPrefix.Backend
+      })
+    }
     await i18next.use(Backend).init({
       backend: {
         addPath: path.join(publicDir, 'locales', '{{lng}}', '{{ns}}'),
@@ -354,6 +389,7 @@ if (!gotTheLock) {
         'fi',
         'fr',
         'gl',
+        'he',
         'hr',
         'hu',
         'ja',
@@ -368,6 +404,7 @@ if (!gotTheLock) {
         'pt_BR',
         'ro',
         'ru',
+        'sr',
         'sk',
         'sv',
         'ta',
@@ -432,6 +469,41 @@ ipcMain.once('loadingScreenReady', () => {
 ipcMain.once('frontendReady', () => {
   logInfo('Frontend Ready', LogPrefix.Backend)
   handleProtocol([openUrlArgument, ...process.argv])
+
+  if (isSnap) {
+    const snapWarning: Electron.MessageBoxOptions = {
+      title: i18next.t('box.warning.snap.title', 'Heroic is running as a Snap'),
+      message: i18next.t('box.warning.snap.message', {
+        defaultValue:
+          'Some features are not available in the Snap version of the app for now and we are trying to fix it.{{newLine}}Current limitations are: {{newLine}}Heroic will not be able to find Proton from Steam or Wine from Lutris.{{newLine}}{{newLine}}Gamescope, GameMode and MangoHud will also not work since Heroic cannot have access to them.{{newLine}}{{newLine}}To have access to this feature please install Heroic as a Flatpak, DEB or from the AppImage.',
+        newLine: '\n'
+      }),
+      checkboxLabel: i18next.t('box.warning.snap.checkbox', {
+        defaultValue: 'Do not show this message again'
+      }),
+      checkboxChecked: false
+    }
+
+    const showSnapWarning = configStore.get('showSnapWarning', true)
+
+    if (showSnapWarning) {
+      dialog
+        .showMessageBox({
+          ...snapWarning
+        })
+        .then((result) => {
+          if (result.checkboxChecked) {
+            configStore.set('showSnapWarning', false)
+          }
+        })
+    }
+  }
+
+  // skip the download queue if we are running in CLI mode
+  if (isCLINoGui) {
+    return
+  }
+
   setTimeout(() => {
     logInfo('Starting the Download Queue', LogPrefix.Backend)
     initQueue()
@@ -473,7 +545,7 @@ ipcMain.on('unlock', () => {
     unlinkSync(join(gamesConfigPath, 'lock'))
     if (powerId) {
       logInfo('Stopping Power Saver Blocker', LogPrefix.Backend)
-      return powerSaveBlocker.stop(powerId)
+      powerSaveBlocker.stop(powerId)
     }
   }
 })
@@ -506,11 +578,21 @@ ipcMain.handle('checkDiskSpace', async (event, folder) => {
         )
       }
 
+      const isValidFlatpakPath = !(
+        isFlatpak &&
+        folder.startsWith(process.env.XDG_RUNTIME_DIR || '/run/user/')
+      )
+
+      if (!isValidFlatpakPath) {
+        logWarning(`Install location was not granted sandbox access!`)
+      }
+
       const ret = {
         free,
         diskSize,
         message: `${getFileSize(free)} / ${getFileSize(diskSize)}`,
-        validPath: !writeError
+        validPath: !writeError,
+        validFlatpakPath: isValidFlatpakPath
       }
       logDebug(`${JSON.stringify(ret)}`, LogPrefix.Backend)
       res(ret)
@@ -518,6 +600,13 @@ ipcMain.handle('checkDiskSpace', async (event, folder) => {
   })
 })
 
+ipcMain.handle('isFrameless', () => isFrameless())
+ipcMain.handle('isMinimized', () => !!getMainWindow()?.isMinimized())
+ipcMain.handle('isMaximized', () => !!getMainWindow()?.isMaximized())
+ipcMain.on('minimizeWindow', () => getMainWindow()?.minimize())
+ipcMain.on('maximizeWindow', () => getMainWindow()?.maximize())
+ipcMain.on('unmaximizeWindow', () => getMainWindow()?.unmaximize())
+ipcMain.on('closeWindow', () => getMainWindow()?.close())
 ipcMain.on('quit', async () => handleExit())
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -568,60 +657,6 @@ ipcMain.on('removeFolder', async (e, [path, folderName]) => {
   removeFolder(path, folderName)
 })
 
-async function runWineCommandOnGame(
-  runner: string,
-  appName: string,
-  { commandParts, wait = false, protonVerb, startFolder }: WineCommandArgs
-): Promise<ExecResult> {
-  if (gameManagerMap[runner].isNative(appName)) {
-    logError('runWineCommand called on native game!', LogPrefix.Gog)
-    return { stdout: '', stderr: '' }
-  }
-  const { folder_name, install } = gameManagerMap[runner].getGameInfo(appName)
-  const gameSettings = await gameManagerMap[runner].getSettings(appName)
-
-  return runWineCommand({
-    gameSettings,
-    installFolderName: folder_name,
-    gameInstallPath: install.install_path,
-    commandParts,
-    wait,
-    protonVerb,
-    startFolder
-  })
-}
-
-// Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
-ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
-  const gameSettings = await gameManagerMap[runner].getSettings(appName)
-  const { wineVersion, winePrefix } = gameSettings
-  await verifyWinePrefix(gameSettings)
-
-  switch (tool) {
-    case 'winetricks':
-      await Winetricks.run(wineVersion, winePrefix, event)
-      break
-    case 'winecfg':
-      runWineCommandOnGame(runner, appName, {
-        gameSettings,
-        commandParts: ['winecfg'],
-        wait: false
-      })
-      break
-    case 'runExe':
-      if (exe) {
-        const workingDir = path.parse(exe).dir
-        runWineCommandOnGame(runner, appName, {
-          gameSettings,
-          commandParts: [exe],
-          wait: false,
-          startFolder: workingDir
-        })
-      }
-      break
-  }
-})
-
 ipcMain.handle('runWineCommand', async (e, args) => runWineCommand(args))
 
 /// IPC handlers begin here.
@@ -632,7 +667,7 @@ ipcMain.handle('checkGameUpdates', async (): Promise<string[]> => {
   for (const runner in libraryManagerMap) {
     let gamesToUpdate = await libraryManagerMap[runner].listUpdateableGames()
     if (autoUpdateGames) {
-      gamesToUpdate = autoUpdate(runner, gamesToUpdate)
+      gamesToUpdate = autoUpdate(runner as Runner, gamesToUpdate)
     }
     oldGames = [...oldGames, ...gamesToUpdate]
   }
@@ -645,9 +680,6 @@ ipcMain.handle('getEpicGamesStatus', async () => isEpicServiceOffline())
 ipcMain.handle('getMaxCpus', () => cpus().length)
 
 ipcMain.handle('getHeroicVersion', app.getVersion)
-ipcMain.handle('getLegendaryVersion', getLegendaryVersion)
-ipcMain.handle('getGogdlVersion', getGogdlVersion)
-ipcMain.handle('getNileVersion', getNileVersion)
 ipcMain.handle('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
 ipcMain.handle('isFlatpak', () => isFlatpak)
 ipcMain.handle('getGameOverride', async () => getGameOverride())
@@ -656,11 +688,6 @@ ipcMain.handle('getGameSdl', async (event, appName) => getGameSdl(appName))
 ipcMain.handle('getPlatform', () => process.platform)
 
 ipcMain.handle('showUpdateSetting', () => !isFlatpak)
-
-ipcMain.handle('getNumOfGpus', async (): Promise<number> => {
-  const { controllers } = await si.graphics()
-  return controllers.length
-})
 
 ipcMain.handle('getLatestReleases', async () => {
   const { checkForUpdatesOnStartup } = GlobalConfig.get().getSettings()
@@ -845,13 +872,21 @@ ipcMain.handle('toggleDXVK', async (event, { appName, action }) =>
     )
 )
 
-ipcMain.on('toggleVKD3D', (event, { appName, action }) => {
+ipcMain.handle('toggleDXVKNVAPI', async (event, { appName, action }) =>
   GameConfig.get(appName)
     .getSettings()
-    .then((gameSettings) => {
+    .then(async (gameSettings) =>
+      DXVK.installRemove(gameSettings, 'dxvk-nvapi', action)
+    )
+)
+
+ipcMain.handle('toggleVKD3D', async (event, { appName, action }) =>
+  GameConfig.get(appName)
+    .getSettings()
+    .then(async (gameSettings) =>
       DXVK.installRemove(gameSettings, 'vkd3d', action)
-    })
-})
+    )
+)
 
 ipcMain.handle('writeConfig', (event, { appName, config }) => {
   logInfo(
@@ -998,19 +1033,21 @@ ipcMain.handle(
       powerDisplayId = powerSaveBlocker.start('prevent-display-sleep')
     }
 
-    const systemInfo = getSystemInfo()
-    const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
     const logFileLocation = getLogFileLocation(appName)
 
-    systemInfo.then((systemInfo) => {
-      if (systemInfo === '') return
-      appendFileSync(
-        logFileLocation,
-        'System Info:\n' + `${systemInfo}\n` + '\n'
-      )
-    })
+    const systemInfo = await getSystemInfo()
+      .then(formatSystemInfo)
+      .catch((error) => {
+        logError(
+          ['Failed to fetch system information', error],
+          LogPrefix.Backend
+        )
+        return 'Error, check general log'
+      })
+    writeFileSync(logFileLocation, 'System Info:\n' + `${systemInfo}\n` + '\n')
 
-    writeFileSync(
+    const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
+    appendFileSync(
       logFileLocation,
       `Game Settings: ${gameSettingsString}\n` +
         '\n' +
@@ -1084,10 +1121,17 @@ ipcMain.handle(
       sessionPlaytime + tsStore.get(`${appName}.totalPlayed`, 0)
     tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
 
+    const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
     if (runner === 'gog') {
-      await updateGOGPlaytime(appName, startPlayingDate, finishedPlayingDate)
+      if (!disablePlaytimeSync) {
+        await updateGOGPlaytime(appName, startPlayingDate, finishedPlayingDate)
+      } else {
+        logWarning(
+          'Posting playtime session to server skipped - playtime sync disabled',
+          { prefix: LogPrefix.Backend }
+        )
+      }
     }
-
     await addRecentGame(game)
 
     if (autoSyncSaves && isOnline()) {
@@ -1419,38 +1463,7 @@ ipcMain.handle(
 )
 
 ipcMain.handle('egsSync', async (event, args) => {
-  if (isWindows) {
-    const egl_manifestPath =
-      'C:\\ProgramData\\Epic\\EpicGamesLauncher\\Data\\Manifests'
-
-    if (!existsSync(egl_manifestPath)) {
-      mkdirSync(egl_manifestPath, { recursive: true })
-    }
-  }
-
-  const linkArgs = isWindows
-    ? `--enable-sync`
-    : `--enable-sync --egl-wine-prefix ${args}`
-  const unlinkArgs = `--unlink`
-  const isLink = args !== 'unlink'
-  const command = isLink ? linkArgs : unlinkArgs
-  const { bin, dir } = getLegendaryBin()
-  const legendary = path.join(dir, bin)
-
-  try {
-    const { stderr, stdout } = await execAsync(
-      `${legendary} egl-sync ${command} -y`
-    )
-    logInfo(`${stdout}`, LogPrefix.Legendary)
-    if (stderr.includes('ERROR')) {
-      logError(`${stderr}`, LogPrefix.Legendary)
-      return 'Error'
-    }
-    return `${stdout} - ${stderr}`
-  } catch (error) {
-    logError(error, LogPrefix.Legendary)
-    return 'Error'
-  }
+  return LegendaryLibraryManager.toggleGamesSync(args)
 })
 
 ipcMain.handle('syncGOGSaves', async (event, gogSaves, appName, arg) =>
@@ -1600,35 +1613,6 @@ ipcMain.handle('getFonts', async (event, reload) => {
   return cachedFonts
 })
 
-ipcMain.handle(
-  'runWineCommandForGame',
-  async (event, { appName, commandParts, runner }) => {
-    const gameSettings = await gameManagerMap[runner].getSettings(appName)
-
-    if (isWindows) {
-      return execAsync(commandParts.join(' '))
-    }
-    const { updated } = await verifyWinePrefix(gameSettings)
-
-    if (runner === 'gog' && updated) {
-      await setup(appName)
-    }
-    if (runner === 'nile' && updated) {
-      await nileSetup(appName)
-    }
-    if (runner === 'legendary' && updated) {
-      await legendarySetup(appName)
-    }
-
-    // FIXME: Why are we using `runinprefix` here?
-    return runWineCommandOnGame(runner, appName, {
-      commandParts,
-      wait: false,
-      protonVerb: 'runinprefix'
-    })
-  }
-)
-
 ipcMain.handle('getShellPath', async (event, path) => getShellPath(path))
 
 ipcMain.handle('clipboardReadText', () => clipboard.readText())
@@ -1657,6 +1641,14 @@ ipcMain.handle('getThemeCSS', async (event, theme) => {
   }
 
   return readFileSync(cssPath, 'utf-8')
+})
+
+ipcMain.on('setTitleBarOverlay', (e, args) => {
+  const mainWindow = getMainWindow()
+  if (typeof mainWindow?.['setTitleBarOverlay'] === 'function') {
+    logDebug(`Setting titlebar overlay options ${JSON.stringify(args)}`)
+    mainWindow?.setTitleBarOverlay(args)
+  }
 })
 
 ipcMain.on('addNewApp', (e, args) => addNewApp(args))
@@ -1706,6 +1698,10 @@ ipcMain.on('processShortcut', async (e, combination: string) => {
 ipcMain.handle(
   'getPlaytimeFromRunner',
   async (e, runner, appName): Promise<number | undefined> => {
+    const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
+    if (disablePlaytimeSync) {
+      return
+    }
     if (runner === 'gog') {
       return getGOGPlaytime(appName)
     }
@@ -1727,9 +1723,10 @@ import './logger/ipc_handler'
 import './wine/manager/ipc_handler'
 import './shortcuts/ipc_handler'
 import './anticheat/ipc_handler'
-import 'backend/storeManagers/legendary/eos_overlay/ipc_handler'
+import './storeManagers/legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
 import './downloadmanager/ipc_handler'
 import './utils/ipc_handler'
 import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
+import './tools/ipc_handler'

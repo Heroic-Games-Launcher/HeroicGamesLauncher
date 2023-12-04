@@ -1,5 +1,16 @@
 import { fixAsarPath } from '../constants'
 
+export function overrideProcessPlatform(os: string): string {
+  const original_os = process.platform
+
+  // override process.platform
+  Object.defineProperty(process, 'platform', {
+    value: os
+  })
+
+  return original_os
+}
+
 jest.mock('../logger/logfile')
 
 describe('Constants - fixAsarPath', () => {
@@ -15,17 +26,6 @@ describe('Constants - fixAsarPath', () => {
 })
 
 describe('Constants - getShell', () => {
-  function overrideProcessPlatform(os: string): string {
-    const original_os = process.platform
-
-    // override process.platform
-    Object.defineProperty(process, 'platform', {
-      value: os
-    })
-
-    return original_os
-  }
-
   async function getShell(): Promise<string> {
     jest.resetModules()
     return import('../constants').then((module) => {

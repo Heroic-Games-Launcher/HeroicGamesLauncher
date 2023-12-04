@@ -6,10 +6,6 @@ import {
   updateWineVersionInfos
 } from './utils'
 import { logError, LogPrefix } from '../../logger/logger'
-import {
-  createAbortController,
-  deleteAbortController
-} from '../../utils/aborthandler/aborthandler'
 import { sendFrontendMessage } from '../../main_window'
 
 ipcMain.handle('installWineVersion', async (e, release) => {
@@ -19,12 +15,7 @@ ipcMain.handle('installWineVersion', async (e, release) => {
       progress
     })
   }
-  const result = await installWineVersion(
-    release,
-    onProgress,
-    createAbortController(release.version).signal
-  )
-  deleteAbortController(release.version)
+  const result = await installWineVersion(release, onProgress)
   return result
 })
 

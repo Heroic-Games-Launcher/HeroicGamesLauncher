@@ -1,5 +1,6 @@
 import { AppSettings, GameSettings } from 'common/types'
 import { ipcRenderer } from 'electron'
+import type { SystemInformation } from '../utils/systeminfo'
 
 export const requestAppSettings = async () =>
   ipcRenderer.invoke('requestSettings', 'default') as Promise<AppSettings>
@@ -33,14 +34,16 @@ export const showUpdateSetting = async () =>
 export const egsSync = async (args: string) =>
   ipcRenderer.invoke('egsSync', args)
 
-export const showLogFileInFolder = (args: {
-  appName: string
-  defaultLast?: boolean
-}) => ipcRenderer.send('showLogFileInFolder', args)
-export const getLogContent = async (args: {
-  appName: string
-  defaultLast?: boolean
-}) => ipcRenderer.invoke('getLogContent', args)
+export const showLogFileInFolder = (appNameOrRunner: string) =>
+  ipcRenderer.send('showLogFileInFolder', appNameOrRunner)
+export const getLogContent = async (appNameOrRunner: string) =>
+  ipcRenderer.invoke('getLogContent', appNameOrRunner)
 
-export const getNumOfGpus = async (): Promise<number> =>
-  ipcRenderer.invoke('getNumOfGpus')
+export const systemInfo = {
+  get: async (cache?: boolean): Promise<SystemInformation> =>
+    ipcRenderer.invoke('getSystemInfo', cache),
+  copyToClipboard: (): void => ipcRenderer.send('copySystemInfoToClipboard')
+}
+
+export const hasExecutable = async (executable: string) =>
+  ipcRenderer.invoke('hasExecutable', executable)

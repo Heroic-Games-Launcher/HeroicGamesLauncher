@@ -29,6 +29,37 @@ export const getCurrentChangelog = async () =>
 export const openPatreonPage = () => ipcRenderer.send('openPatreonPage')
 export const openKofiPage = () => ipcRenderer.send('openKofiPage')
 export const isFullscreen = async () => ipcRenderer.invoke('isFullscreen')
+export const isFrameless = async () => ipcRenderer.invoke('isFrameless')
+export const isMinimized = async () => ipcRenderer.invoke('isMinimized')
+export const isMaximized = async () => ipcRenderer.invoke('isMaximized')
+export const minimizeWindow = () => ipcRenderer.send('minimizeWindow')
+export const maximizeWindow = () => ipcRenderer.send('maximizeWindow')
+export const unmaximizeWindow = () => ipcRenderer.send('unmaximizeWindow')
+export const closeWindow = () => ipcRenderer.send('closeWindow')
+export const handleMaximized = (
+  callback: (e: Electron.IpcRendererEvent) => void
+) => {
+  ipcRenderer.on('maximized', callback)
+  return () => {
+    ipcRenderer.removeListener('maximized', callback)
+  }
+}
+export const handleUnmaximized = (
+  callback: (e: Electron.IpcRendererEvent) => void
+) => {
+  ipcRenderer.on('unmaximized', callback)
+  return () => {
+    ipcRenderer.removeListener('unmaximized', callback)
+  }
+}
+export const handleFullscreen = (
+  callback: (e: Electron.IpcRendererEvent, status: boolean) => void
+) => {
+  ipcRenderer.on('fullscreen', callback)
+  return () => {
+    ipcRenderer.removeListener('fullscreen', callback)
+  }
+}
 
 export const openWebviewPage = (url: string) =>
   ipcRenderer.send('openWebviewPage', url)

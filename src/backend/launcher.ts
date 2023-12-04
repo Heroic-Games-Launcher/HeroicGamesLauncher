@@ -1,3 +1,18 @@
+import {
+  CallRunnerOptions,
+  GameInfo,
+  Runner,
+  EnviromentVariable,
+  WrapperEnv,
+  WrapperVariable,
+  ExecResult,
+  LaunchPreperationResult,
+  RpcClient,
+  WineInstallation,
+  WineCommandArgs,
+  SteamRuntime,
+  GameSettings
+} from 'common/types'
 // This handles launching games, prefix creation etc..
 
 import i18next from 'i18next'
@@ -14,6 +29,7 @@ import {
   flatPakHome,
   isLinux,
   isMac,
+  isSteamDeckGameMode,
   runtimePath,
   userHome
 } from './constants'
@@ -21,7 +37,6 @@ import {
   constructAndUpdateRPC,
   getSteamRuntime,
   isEpicServiceOffline,
-  searchForExecutableOnPath,
   quoteIfNecessary,
   errorHandler,
   removeQuoteIfNecessary,
@@ -40,21 +55,7 @@ import { GameConfig } from './game_config'
 import { DXVK } from './tools'
 import setup from './storeManagers/gog/setup'
 import nileSetup from './storeManagers/nile/setup'
-import {
-  CallRunnerOptions,
-  GameInfo,
-  Runner,
-  EnviromentVariable,
-  WrapperVariable,
-  ExecResult,
-  GameSettings,
-  LaunchPreperationResult,
-  RpcClient,
-  WineInstallation,
-  WineCommandArgs,
-  SteamRuntime
-} from 'common/types'
-import { spawn } from 'child_process'
+import { spawn, spawnSync } from 'child_process'
 import shlex from 'shlex'
 import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
@@ -62,6 +63,14 @@ import { legendarySetup } from './storeManagers/legendary/setup'
 import { gameManagerMap } from 'backend/storeManagers'
 import * as VDF from '@node-steam/vdf'
 import { readFileSync } from 'fs'
+import { LegendaryCommand } from './storeManagers/legendary/commands'
+import { commandToArgsArray } from './storeManagers/legendary/library'
+import { searchForExecutableOnPath } from './utils/os/path'
+import {
+  createAbortController,
+  deleteAbortController
+} from './utils/aborthandler/aborthandler'
+import { download, isInstalled } from './wine/runtimes/runtimes'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
@@ -89,12 +98,13 @@ async function prepareLaunch(
 
   // If we're not on Linux, we can return here
   if (!isLinux) {
-    return { success: true, rpcClient }
+    return { success: true, rpcClient, offlineMode }
   }
 
-  // Figure out where MangoHud/GameMode are located, if they're enabled
+  // Figure out where MangoHud/GameMode/Gamescope are located, if they're enabled
   let mangoHudCommand: string[] = []
-  let gameModeBin = ''
+  let gameModeBin: string | null = null
+  const gameScopeCommand: string[] = []
   if (gameSettings.showMangohud) {
     const mangoHudBin = await searchForExecutableOnPath('mangohud')
     if (!mangoHudBin) {
@@ -103,10 +113,11 @@ async function prepareLaunch(
         failureReason:
           'Mangohud is enabled, but `mangohud` executable could not be found on $PATH'
       }
-    } else {
-      mangoHudCommand = [mangoHudBin, '--dlsym']
     }
+
+    mangoHudCommand = [mangoHudBin, '--dlsym']
   }
+
   if (gameSettings.useGameMode) {
     gameModeBin = await searchForExecutableOnPath('gamemoderun')
     if (!gameModeBin) {
@@ -116,6 +127,92 @@ async function prepareLaunch(
           'GameMode is enabled, but `gamemoderun` executable could not be found on $PATH'
       }
     }
+  }
+
+  if (
+    (gameSettings.gamescope?.enableLimiter ||
+      gameSettings.gamescope?.enableUpscaling) &&
+    !isSteamDeckGameMode
+  ) {
+    const gameScopeBin = await searchForExecutableOnPath('gamescope')
+    if (!gameScopeBin) {
+      return {
+        success: false,
+        failureReason:
+          'Gamescope is enabled, but `gamescope` executable could not be found on $PATH'
+      }
+    }
+
+    // Gamescope does not provide a version option and they changed
+    // cli options on version 3.12. So we do what lutris does.
+    let oldVersion = true // < 3.12
+    const { stderr } = spawnSync(gameScopeBin, ['--help'], {
+      encoding: 'utf-8'
+    })
+    if (stderr && stderr.includes('-F, --filter')) {
+      oldVersion = false
+    }
+
+    gameScopeCommand.push(gameScopeBin)
+
+    if (gameSettings.gamescope.enableUpscaling) {
+      // game res
+      if (gameSettings.gamescope.gameWidth) {
+        gameScopeCommand.push('-w', gameSettings.gamescope.gameWidth)
+      }
+      if (gameSettings.gamescope.gameHeight) {
+        gameScopeCommand.push('-h', gameSettings.gamescope.gameHeight)
+      }
+
+      // gamescope res
+      if (gameSettings.gamescope.upscaleWidth) {
+        gameScopeCommand.push('-W', gameSettings.gamescope.upscaleWidth)
+      }
+      if (gameSettings.gamescope.upscaleHeight) {
+        gameScopeCommand.push('-H', gameSettings.gamescope.upscaleHeight)
+      }
+
+      // upscale method
+      if (gameSettings.gamescope.upscaleMethod === 'fsr') {
+        oldVersion
+          ? gameScopeCommand.push('-U')
+          : gameScopeCommand.push('-F', 'fsr')
+      }
+      if (gameSettings.gamescope.upscaleMethod === 'nis') {
+        oldVersion
+          ? gameScopeCommand.push('-Y')
+          : gameScopeCommand.push('-F', 'nis')
+      }
+      if (gameSettings.gamescope.upscaleMethod === 'integer') {
+        oldVersion
+          ? gameScopeCommand.push('-i')
+          : gameScopeCommand.push('-S', 'integer')
+      }
+      // didn't find stretch in old version
+      if (gameSettings.gamescope.upscaleMethod === 'stretch' && !oldVersion) {
+        gameScopeCommand.push('-S', 'stretch')
+      }
+
+      // window type
+      if (gameSettings.gamescope.windowType === 'fullscreen') {
+        gameScopeCommand.push('-f')
+      }
+      if (gameSettings.gamescope.windowType === 'borderless') {
+        gameScopeCommand.push('-b')
+      }
+    }
+
+    if (gameSettings.gamescope.enableLimiter) {
+      if (gameSettings.gamescope.fpsLimiter) {
+        gameScopeCommand.push('-r', gameSettings.gamescope.fpsLimiter)
+      }
+      if (gameSettings.gamescope.fpsLimiterNoFocus) {
+        gameScopeCommand.push('-o', gameSettings.gamescope.fpsLimiterNoFocus)
+      }
+    }
+
+    // Note: needs to be the last option
+    gameScopeCommand.push('--')
   }
 
   // If the Steam Runtime is enabled, find a valid one
@@ -171,7 +268,8 @@ async function prepareLaunch(
     success: true,
     rpcClient,
     mangoHudCommand,
-    gameModeBin,
+    gameModeBin: gameModeBin ?? undefined,
+    gameScopeCommand,
     steamRuntime,
     offlineMode
   }
@@ -254,9 +352,24 @@ async function prepareWineLaunch(
     if (gameSettings.autoInstallDxvk) {
       await DXVK.installRemove(gameSettings, 'dxvk', 'backup')
     }
+    if (gameSettings.autoInstallDxvkNvapi) {
+      await DXVK.installRemove(gameSettings, 'dxvk-nvapi', 'backup')
+    }
     if (gameSettings.autoInstallVkd3d) {
       await DXVK.installRemove(gameSettings, 'vkd3d', 'backup')
     }
+  }
+
+  if (gameSettings.eacRuntime && !isInstalled('eac_runtime') && isOnline()) {
+    await download('eac_runtime')
+  }
+
+  if (
+    gameSettings.battlEyeRuntime &&
+    !isInstalled('battleye_runtime') &&
+    isOnline()
+  ) {
+    await download('battleye_runtime')
   }
 
   const { folder_name: installFolderName, install } =
@@ -304,6 +417,35 @@ function setupEnvVars(gameSettings: GameSettings) {
 }
 
 /**
+ * Maps launcher info to environment variables for consumption by wrappers
+ * @param wrapperEnv The info to be added into the environment variables
+ * @returns Environment variables
+ */
+function setupWrapperEnvVars(wrapperEnv: WrapperEnv) {
+  const ret: Record<string, string> = {}
+
+  ret.HEROIC_APP_NAME = wrapperEnv.appName
+  ret.HEROIC_APP_RUNNER = wrapperEnv.appRunner
+
+  switch (wrapperEnv.appRunner) {
+    case 'gog':
+      ret.HEROIC_APP_SOURCE = 'gog'
+      break
+    case 'legendary':
+      ret.HEROIC_APP_SOURCE = 'epic'
+      break
+    case 'nile':
+      ret.HEROIC_APP_SOURCE = 'amazon'
+      break
+    case 'sideload':
+      ret.HEROIC_APP_SOURCE = 'sideload'
+      break
+  }
+
+  return ret
+}
+
+/**
  * Maps Wine-related settings to environment variables
  * @param gameSettings The GameSettings to get the environment variables for
  * @param gameId If Proton and the Steam Runtime are used, the SteamGameId variable will be set to `heroic-gameId`
@@ -317,6 +459,9 @@ function setupWineEnvVars(
   const { wineVersion, winePrefix, wineCrossoverBottle } = gameSettings
 
   const ret: Record<string, string> = {}
+
+  ret.DOTNET_BUNDLE_EXTRACT_BASE_DIR = ''
+  ret.DOTNET_ROOT = ''
 
   // Add WINEPREFIX / STEAM_COMPAT_DATA_PATH / CX_BOTTLE
   const steamInstallPath = join(flatPakHome, '.steam', 'steam')
@@ -348,30 +493,16 @@ function setupWineEnvVars(
       break
     case 'crossover':
       ret.CX_BOTTLE = wineCrossoverBottle
+      break
+    case 'toolkit':
+      ret.WINEPREFIX = winePrefix
+      break
   }
   if (gameSettings.showFps) {
     isMac ? (ret.MTL_HUD_ENABLED = '1') : (ret.DXVK_HUD = 'fps')
   }
   if (gameSettings.enableDXVKFpsLimit) {
     ret.DXVK_FRAME_RATE = gameSettings.DXVKFpsCap
-  }
-  if (
-    gameSettings.showMangohud &&
-    !gameSettings.enviromentOptions.find(
-      ({ key }) => key === 'MANGOHUD_CONFIGFILE'
-    )
-  ) {
-    if (!process.env.XDG_CONFIG_HOME) {
-      ret.MANGOHUD_CONFIGFILE = join(
-        flatPakHome,
-        '.config/MangoHud/MangoHud.conf'
-      )
-    } else {
-      ret.MANGOHUD_CONFIGFILE = join(
-        process.env.XDG_CONFIG_HOME,
-        'MangoHud/MangoHud.conf'
-      )
-    }
   }
   if (gameSettings.enableFSR) {
     ret.WINE_FULLSCREEN_FSR = '1'
@@ -391,6 +522,14 @@ function setupWineEnvVars(
   }
   if (!gameSettings.enableFsync && wineVersion.type === 'proton') {
     ret.PROTON_NO_FSYNC = '1'
+  }
+  if (gameSettings.autoInstallDxvkNvapi && wineVersion.type === 'proton') {
+    ret.PROTON_ENABLE_NVAPI = '1'
+    ret.DXVK_NVAPI_ALLOW_OTHER_DRIVERS = '1'
+  }
+  if (gameSettings.autoInstallDxvkNvapi && wineVersion.type === 'wine') {
+    ret.DXVK_ENABLE_NVAPI = '1'
+    ret.DXVK_NVAPI_ALLOW_OTHER_DRIVERS = '1'
   }
   if (gameSettings.eacRuntime) {
     ret.PROTON_EAC_RUNTIME = join(runtimePath, 'eac_runtime')
@@ -458,9 +597,16 @@ function setupWrappers(
   gameSettings: GameSettings,
   mangoHudCommand?: string[],
   gameModeBin?: string,
+  gameScopeCommand?: string[],
   steamRuntime?: string[]
 ): Array<string> {
   const wrappers: string[] = []
+
+  // let gamescope be first wrapper always
+  if (gameScopeCommand) {
+    wrappers.push(...gameScopeCommand)
+  }
+
   if (gameSettings.wrapperOptions) {
     gameSettings.wrapperOptions.forEach((wrapperEntry: WrapperVariable) => {
       wrappers.push(wrapperEntry.exe)
@@ -660,7 +806,6 @@ async function runWineCommand({
       }
 
       if (options?.logFile && existsSync(options.logFile)) {
-        writeFileSync(options.logFile, '')
         appendFileSync(
           options.logFile,
           `Wine Command: ${bin} ${commandParts.join(' ')}\n\nGame Log:\n`
@@ -732,7 +877,6 @@ const commandsRunning = {}
 async function callRunner(
   commandParts: string[],
   runner: RunnerProps,
-  abortController: AbortController,
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
   const fullRunnerPath = join(runner.dir, runner.bin)
@@ -781,6 +925,9 @@ async function callRunner(
     return currentPromise
   }
 
+  const abortId = options?.abortId || appName || Math.random().toString()
+  const abortController = createAbortController(abortId)
+
   let promise = new Promise<ExecResult>((res, rej) => {
     const child = spawn(bin, commandParts, {
       cwd: runner.dir,
@@ -793,13 +940,17 @@ async function callRunner(
 
     child.stdout.setEncoding('utf-8')
     child.stdout.on('data', (data: string) => {
+      const stringToLog = options?.logSanitizer
+        ? options.logSanitizer(data)
+        : data
+
       if (!logsDisabled) {
         if (options?.logFile) {
-          appendFileSync(options.logFile, data)
+          appendFileSync(options.logFile, stringToLog)
         }
 
         if (options?.verboseLogFile) {
-          appendFileSync(options.verboseLogFile, data)
+          appendFileSync(options.verboseLogFile, stringToLog)
         }
       }
 
@@ -812,13 +963,17 @@ async function callRunner(
 
     child.stderr.setEncoding('utf-8')
     child.stderr.on('data', (data: string) => {
+      const stringToLog = options?.logSanitizer
+        ? options.logSanitizer(data)
+        : data
+
       if (!logsDisabled) {
         if (options?.logFile) {
-          appendFileSync(options.logFile, data)
+          appendFileSync(options.logFile, stringToLog)
         }
 
         if (options?.verboseLogFile) {
-          appendFileSync(options.verboseLogFile, data)
+          appendFileSync(options.verboseLogFile, stringToLog)
         }
       }
 
@@ -889,6 +1044,7 @@ async function callRunner(
     .finally(() => {
       // remove from list when done
       delete commandsRunning[key]
+      deleteAbortController(abortId)
     })
 
   // keep track of which commands are running
@@ -899,7 +1055,7 @@ async function callRunner(
 
 /**
  * Generates a formatted, safe command that can be logged
- * @param commandParts The runner command that's executed, e. g. install, list, etc.
+ * @param command The runner command that's executed, e.g. install, list, etc.
  * Note that this will be modified, so pass a copy of your actual command parts
  * @param env Enviroment variables to use
  * @param wrappers Wrappers to use (gamemode, steam runtime, etc.)
@@ -907,18 +1063,20 @@ async function callRunner(
  * @returns
  */
 function getRunnerCallWithoutCredentials(
-  commandParts: string[],
+  command: string[] | LegendaryCommand,
   env: Record<string, string> | NodeJS.ProcessEnv = {},
   runnerPath: string
 ): string {
-  const modifiedCommandParts = [...commandParts]
+  if (!Array.isArray(command)) command = commandToArgsArray(command)
+
+  const modifiedCommand = [...command]
   // Redact sensitive arguments (Authorization Code for Legendary, token for GOGDL)
   for (const sensitiveArg of ['--code', '--token']) {
-    const sensitiveArgIndex = modifiedCommandParts.indexOf(sensitiveArg)
+    const sensitiveArgIndex = modifiedCommand.indexOf(sensitiveArg)
     if (sensitiveArgIndex === -1) {
       continue
     }
-    modifiedCommandParts[sensitiveArgIndex + 1] = '<redacted>'
+    modifiedCommand[sensitiveArgIndex + 1] = '<redacted>'
   }
 
   const formattedEnvVars: string[] = []
@@ -932,12 +1090,10 @@ function getRunnerCallWithoutCredentials(
     formattedEnvVars.push(`${key}=${quoteIfNecessary(value ?? '')}`)
   }
 
-  commandParts = commandParts.filter(Boolean)
-
   return [
     ...formattedEnvVars,
     quoteIfNecessary(runnerPath),
-    ...modifiedCommandParts.map(quoteIfNecessary)
+    ...modifiedCommand.map(quoteIfNecessary)
   ].join(' ')
 }
 
@@ -980,6 +1136,7 @@ export {
   launchCleanup,
   prepareWineLaunch,
   setupEnvVars,
+  setupWrapperEnvVars,
   setupWineEnvVars,
   setupWrappers,
   runWineCommand,

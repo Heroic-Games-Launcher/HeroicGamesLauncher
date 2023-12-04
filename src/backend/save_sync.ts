@@ -18,13 +18,10 @@ import {
   writeFileSync
 } from 'graceful-fs'
 import { app } from 'electron'
-import {
-  createAbortController,
-  deleteAbortController
-} from './utils/aborthandler/aborthandler'
 import { legendaryConfigPath } from './constants'
 import { join } from 'path'
 import { gameManagerMap, libraryManagerMap } from 'backend/storeManagers'
+import { LegendaryAppName } from './storeManagers/legendary/commands/base'
 
 async function getDefaultSavePath(
   appName: string,
@@ -79,17 +76,16 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
   }
 
   logInfo(['Computing default save path for', appName], LogPrefix.Legendary)
-  const abortControllerName = appName + '-savePath'
   await runLegendaryCommand(
-    [
-      'sync-saves',
-      appName,
-      '--skip-upload',
-      '--skip-download',
-      '--accept-path'
-    ],
-    createAbortController(abortControllerName),
     {
+      subcommand: 'sync-saves',
+      appName: LegendaryAppName.parse(appName),
+      '--skip-upload': true,
+      '--skip-download': true,
+      '--accept-path': true
+    },
+    {
+      abortId: appName + '-savePath',
       logMessagePrefix: 'Getting default save path',
       env: gameManagerMap['legendary'].isNative(appName)
         ? {}
@@ -98,7 +94,6 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
           )
     }
   )
-  deleteAbortController(abortControllerName)
 
   // If the save path was computed successfully, Legendary will have saved
   // this path in `installed.json` (so the GameInfo)

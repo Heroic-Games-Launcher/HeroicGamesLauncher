@@ -152,6 +152,11 @@
             "wine-change": {
                 "title": "Το κρασί δεν βρέθηκε!",
                 "message": "Δεν μπορέσαμε να βρούμε την επιλεγμένη έκδοση κρασιού για την κυκλοφορία αυτού του τίτλου ({{selectedWine}}). {{newline}} Βρήκαμε άλλο ένα, θέλετε να συνεχίσετε την εκκίνηση χρησιμοποιώντας το {{foundWine}};"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "Είστε σίγουροι πως θέλετε να αποσυνδεθείτε;"
+                }
             }
         },
         "wineprefix": "Διαλέξτε τον φάκελο Προθέματος Wine",
@@ -577,7 +582,8 @@
         "disable_logs": "Απενεργοποίηση αρχείων καταγραφής",
         "addgamestoapplications": "Προσθέστε αυτόματα παιχνίδια στις Εφαρμογές",
         "showMetalOverlay": "Εμφάνιση επικάλυψης στατιστικών",
-        "alt-nile-bin": "Επιλέξτε ένα εναλλακτικό δυαδικό αρχείο Nile"
+        "alt-nile-bin": "Επιλέξτε ένα εναλλακτικό δυαδικό αρχείο Nile",
+        "autodxvknvapi": "Αυτόματη Εγκατάσταση/Ενημέρωση DXVK με Πρόθημα"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -702,5 +708,13 @@
     },
     "amazon": "Αμαζόνα",
     "Amazon Games": "Παιχνίδια Amazon",
-    "prime-gaming": "Prime Gaming"
+    "prime-gaming": "Prime Gaming",
+    "winetricks": {
+        "install": "Εγκατάσταση",
+        "loading": "Loading"
+    },
+    "category-settings": {
+        "cancel": "Ακύρωση",
+        "warning": "Προειδοποίηση"
+    }
 }

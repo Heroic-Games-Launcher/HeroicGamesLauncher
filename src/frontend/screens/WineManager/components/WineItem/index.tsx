@@ -28,7 +28,10 @@ const WineItem = ({
   const [progress, setProgress] = useState<{
     state: State
     progress: ProgressInfo
-  }>({ state: 'idle', progress: { percentage: 0, avgSpeed: 0, eta: Infinity } })
+  }>({
+    state: 'idle',
+    progress: { percentage: 0, avgSpeed: 0, eta: '00:00:00' }
+  })
 
   useEffect(() => {
     if (version) {
@@ -60,6 +63,10 @@ const WineItem = ({
 
   async function install() {
     notify({ title: `${version}`, body: t('notify.install.startInstall') })
+    setProgress({
+      state: 'downloading',
+      progress: { percentage: 0, avgSpeed: 0, eta: '00:00:00' }
+    })
     window.api
       .installWineVersion({
         version,
@@ -118,7 +125,7 @@ const WineItem = ({
   const renderStatus = () => {
     let status
     if (isDownloading) {
-      status = getProgressElement(progress.progress, downsize)
+      status = getProgressElement(progress.progress)
     } else if (unZipping) {
       status = t('wine.manager.unzipping', 'Unzipping')
     } else if (isInstalled) {
@@ -199,28 +206,11 @@ const WineItem = ({
   )
 }
 
-function getProgressElement(progress: ProgressInfo, downsize: number) {
-  const { percentage, eta, avgSpeed } = progress
+function getProgressElement(progress: ProgressInfo) {
+  const { percentage, eta } = progress
 
-  let totalSeconds = eta
-  const hours = Math.floor(totalSeconds / 3600)
-  totalSeconds %= 3600
-  const minutes = Math.floor(totalSeconds / 60)
-  const seconds = totalSeconds % 60
-
-  // https://stackoverflow.com/a/40350003
-  const formattedTime = [
-    hours,
-    minutes > 9 ? minutes : hours ? '0' + minutes : minutes || '0',
-    seconds > 9 ? seconds : '0' + seconds
-  ]
-    .filter(Boolean)
-    .join(':')
-
-  const percentageAsString = `${percentage}%`
-  const bytesAsString = `[${size((percentage / 100) * downsize)}]`
-  const etaAsString = `| ETA: ${formattedTime}`
-  const avgSpeedAsString = `(${size(avgSpeed)}ps)`
+  const percentageAsString = `${percentage.toFixed(2)}%`
+  const etaAsString = `${eta}`
 
   return (
     <p
@@ -229,9 +219,7 @@ function getProgressElement(progress: ProgressInfo, downsize: number) {
         fontStyle: 'italic'
       }}
     >
-      {[percentageAsString, bytesAsString, avgSpeedAsString, etaAsString].join(
-        ' '
-      )}
+      {percentageAsString} ({etaAsString})
     </p>
   )
 }

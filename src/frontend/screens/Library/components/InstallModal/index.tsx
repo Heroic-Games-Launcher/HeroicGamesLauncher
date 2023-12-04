@@ -60,7 +60,7 @@ export default React.memo(function InstallModal({
     {
       name: 'Linux',
       available: isLinux && (isSideload || isLinuxNative),
-      value: 'linux',
+      value: 'Linux',
       icon: faLinux
     },
     {

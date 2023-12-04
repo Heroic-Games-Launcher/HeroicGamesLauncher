@@ -15,6 +15,8 @@ export function ProgressDialog(props: {
   progress: string[]
   showCloseButton: boolean
   onClose: () => void
+  children?: JSX.Element
+  className?: string
 }) {
   const { t } = useTranslation()
   const winetricksOutputBottomRef = useRef<HTMLDivElement>(null)
@@ -52,11 +54,12 @@ export function ProgressDialog(props: {
       <Dialog
         showCloseButton
         onClose={props.onClose}
-        className={classNames('progressDialog')}
+        className={classNames('progressDialog', props.className)}
       >
         <DialogHeader onClose={props.onClose}>
           <div>{props.title}</div>
         </DialogHeader>
+        {props.children}
         <DialogContent>
           <div className="progressDialog header">
             {t('progress', 'Progress')}:

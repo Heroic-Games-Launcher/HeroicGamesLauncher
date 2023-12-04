@@ -1,7 +1,3 @@
-import {
-  createAbortController,
-  deleteAbortController
-} from '../../utils/aborthandler/aborthandler'
 import { appendFileSync, existsSync } from 'graceful-fs'
 import axios from 'axios'
 
@@ -38,8 +34,6 @@ import {
   installed,
   configStore,
   gamesConfigPath,
-  isLinux,
-  isFlatpak,
   isCLINoGui
 } from '../../constants'
 import { logError, logInfo, LogPrefix, logsDisabled } from '../../logger/logger'
@@ -47,6 +41,7 @@ import {
   prepareLaunch,
   prepareWineLaunch,
   setupEnvVars,
+  setupWrapperEnvVars,
   setupWrappers,
   launchCleanup,
   getRunnerCallWithoutCredentials,
@@ -63,12 +58,22 @@ import shlex from 'shlex'
 import { t } from 'i18next'
 import { isOnline } from '../../online_monitor'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
-import { gameAnticheatInfo } from '../../anticheat/utils'
 import { Catalog, Product } from 'common/types/epic-graphql'
 import { sendFrontendMessage } from '../../main_window'
 import { RemoveArgs } from 'common/types/game_manager'
 import { logFileLocation } from 'backend/storeManagers/storeManagerCommon/games'
-import { getWineFlags } from 'backend/utils/compatibility_layers'
+import {
+  AllowedWineFlags,
+  getWineFlags
+} from 'backend/utils/compatibility_layers'
+import {
+  LegendaryAppName,
+  LegendaryPlatform,
+  NonEmptyString,
+  Path,
+  PositiveInteger
+} from './commands/base'
+import { LegendaryCommand } from './commands'
 
 /**
  * Alias for `LegendaryLibrary.listUpdateableGames`
@@ -482,11 +487,15 @@ export async function update(
   const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
   const installPlatform = getGameInfo(appName).install.platform!
   const info = await getInstallInfo(appName, installPlatform)
-  const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
-  const noHttps = downloadNoHttps ? ['--no-https'] : []
   const logPath = join(gamesConfigPath, appName + '.log')
 
-  const commandParts = ['update', appName, ...workers, ...noHttps, '-y']
+  const command: LegendaryCommand = {
+    subcommand: 'update',
+    appName: LegendaryAppName.parse(appName),
+    '-y': true
+  }
+  if (maxWorkers) command['--max-workers'] = PositiveInteger.parse(maxWorkers)
+  if (downloadNoHttps) command['--no-https'] = true
 
   const onOutput = (data: string) => {
     onInstallOrUpdateOutput(
@@ -497,17 +506,12 @@ export async function update(
     )
   }
 
-  const res = await runLegendaryCommand(
-    commandParts,
-    createAbortController(appName),
-    {
-      logFile: logPath,
-      onOutput,
-      logMessagePrefix: `Updating ${appName}`
-    }
-  )
-
-  deleteAbortController(appName)
+  const res = await runLegendaryCommand(command, {
+    abortId: appName,
+    logFile: logPath,
+    onOutput,
+    logMessagePrefix: `Updating ${appName}`
+  })
 
   sendFrontendMessage('gameStatusUpdate', {
     appName: appName,
@@ -545,14 +549,6 @@ export async function removeShortcuts(appName: string) {
   return removeShortcutsUtil(getGameInfo(appName))
 }
 
-function getSdlList(sdlList: Array<string>) {
-  return [
-    // Legendary needs an empty tag for it to download the other needed files
-    '--install-tag=',
-    ...sdlList.map((tag) => `--install-tag=${tag}`)
-  ]
-}
-
 /**
  * Install game.
  * Does NOT check for online connectivity.
@@ -566,25 +562,22 @@ export async function install(
 }> {
   const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
   const info = await getInstallInfo(appName, platformToInstall)
-  const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
-  const noHttps = downloadNoHttps ? ['--no-https'] : []
-  const installSdl = sdlList?.length ? getSdlList(sdlList) : ['--skip-sdl']
 
   const logPath = join(gamesConfigPath, appName + '.log')
 
-  const commandParts = [
-    'install',
-    appName,
-    '--platform',
-    platformToInstall,
-    '--base-path',
-    path,
-    '--skip-dlcs',
-    ...installSdl,
-    ...workers,
-    ...noHttps,
-    '-y'
-  ]
+  const command: LegendaryCommand = {
+    subcommand: 'install',
+    appName: LegendaryAppName.parse(appName),
+    '--platform': LegendaryPlatform.parse(platformToInstall),
+    '--base-path': Path.parse(path),
+    '--skip-dlcs': true,
+    '-y': true
+  }
+  if (maxWorkers) command['--max-workers'] = PositiveInteger.parse(maxWorkers)
+  if (downloadNoHttps) command['--no-https'] = true
+  if (sdlList?.length)
+    command.sdlList = sdlList.map((tag) => NonEmptyString.parse(tag))
+  else command['--skip-sdl'] = true
 
   const onOutput = (data: string) => {
     onInstallOrUpdateOutput(
@@ -595,30 +588,21 @@ export async function install(
     )
   }
 
-  let res = await runLegendaryCommand(
-    commandParts,
-    createAbortController(appName),
-    {
-      logFile: logPath,
-      onOutput,
-      logMessagePrefix: `Installing ${appName}`
-    }
-  )
-
-  deleteAbortController(appName)
+  let res = await runLegendaryCommand(command, {
+    abortId: appName,
+    logFile: logPath,
+    onOutput,
+    logMessagePrefix: `Installing ${appName}`
+  })
 
   // try to run the install again with higher memory limit
   if (res.stderr.includes('MemoryError:')) {
-    res = await runLegendaryCommand(
-      [...commandParts, '--max-shared-memory', '5000'],
-      createAbortController(appName),
-      {
-        logFile: logPath,
-        onOutput
-      }
-    )
-
-    deleteAbortController(appName)
+    command['--max-shared-memory'] = PositiveInteger.parse(5000)
+    res = await runLegendaryCommand(command, {
+      abortId: appName,
+      logFile: logPath,
+      onOutput
+    })
   }
 
   if (res.abort) {
@@ -636,32 +620,20 @@ export async function install(
   }
   addShortcuts(appName)
 
-  const anticheatInfo = gameAnticheatInfo(getGameInfo(appName).namespace)
-
-  if (anticheatInfo && isLinux) {
-    const gameSettings = await getSettings(appName)
-
-    gameSettings.eacRuntime =
-      anticheatInfo.anticheats.includes('Easy Anti-Cheat')
-    if (gameSettings.eacRuntime && isFlatpak) gameSettings.useGameMode = true
-    gameSettings.battlEyeRuntime = anticheatInfo.anticheats.includes('BattlEye')
-  }
-
   return { status: 'done' }
 }
 
 export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
-  const commandParts = ['uninstall', appName, '-y']
+  const command: LegendaryCommand = {
+    subcommand: 'uninstall',
+    appName: LegendaryAppName.parse(appName),
+    '-y': true
+  }
 
-  const res = await runLegendaryCommand(
-    commandParts,
-    createAbortController(appName),
-    {
-      logMessagePrefix: `Uninstalling ${appName}`
-    }
-  )
-
-  deleteAbortController(appName)
+  const res = await runLegendaryCommand(command, {
+    abortId: appName,
+    logMessagePrefix: `Uninstalling ${appName}`
+  })
 
   if (res.error) {
     logError(
@@ -684,23 +656,22 @@ export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
  */
 export async function repair(appName: string): Promise<ExecResult> {
   const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
-  const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
-  const noHttps = downloadNoHttps ? ['--no-https'] : []
 
   const logPath = join(gamesConfigPath, appName + '.log')
 
-  const commandParts = ['repair', appName, ...workers, ...noHttps, '-y']
+  const command: LegendaryCommand = {
+    subcommand: 'repair',
+    appName: LegendaryAppName.parse(appName),
+    '-y': true
+  }
+  if (maxWorkers) command['--max-workers'] = PositiveInteger.parse(maxWorkers)
+  if (downloadNoHttps) command['--no-https'] = true
 
-  const res = await runLegendaryCommand(
-    commandParts,
-    createAbortController(appName),
-    {
-      logFile: logPath,
-      logMessagePrefix: `Repairing ${appName}`
-    }
-  )
-
-  deleteAbortController(appName)
+  const res = await runLegendaryCommand(command, {
+    abortId: appName,
+    logFile: logPath,
+    logMessagePrefix: `Repairing ${appName}`
+  })
 
   if (res.error) {
     logError(
@@ -716,24 +687,18 @@ export async function importGame(
   folderPath: string,
   platform: InstallPlatform
 ): Promise<ExecResult> {
-  const commandParts = [
-    'import',
-    '--with-dlcs',
-    '--platform',
-    platform,
-    appName,
-    folderPath
-  ]
+  const command: LegendaryCommand = {
+    subcommand: 'import',
+    appName: LegendaryAppName.parse(appName),
+    installationDirectory: Path.parse(folderPath),
+    '--with-dlcs': true,
+    '--platform': LegendaryPlatform.parse(platform)
+  }
 
   logInfo(`Importing ${appName}.`, LogPrefix.Legendary)
 
-  const res = await runLegendaryCommand(
-    commandParts,
-    createAbortController(appName)
-  )
+  const res = await runLegendaryCommand(command, { abortId: appName })
   addShortcuts(appName)
-
-  deleteAbortController(appName)
 
   if (res.error) {
     logError(
@@ -761,19 +726,20 @@ export async function syncSaves(
     return 'No path provided.'
   }
 
-  const commandParts = ['sync-saves', arg, '--save-path', path, appName, '-y']
+  const command: LegendaryCommand = {
+    subcommand: 'sync-saves',
+    appName: LegendaryAppName.parse(appName),
+    [arg]: true,
+    '--save-path': Path.parse(path),
+    '-y': true
+  }
 
   let fullOutput = ''
-  const res = await runLegendaryCommand(
-    commandParts,
-    createAbortController(appName),
-    {
-      logMessagePrefix: `Syncing saves for ${getGameInfo(appName).title}`,
-      onOutput: (output) => (fullOutput += output)
-    }
-  )
-
-  deleteAbortController(appName)
+  const res = await runLegendaryCommand(command, {
+    abortId: appName,
+    logMessagePrefix: `Syncing saves for ${getGameInfo(appName).title}`,
+    onOutput: (output) => (fullOutput += output)
+  })
 
   if (res.error) {
     logError(
@@ -797,6 +763,7 @@ export async function launch(
     rpcClient,
     mangoHudCommand,
     gameModeBin,
+    gameScopeCommand,
     steamRuntime,
     offlineMode
   } = await prepareLaunch(gameSettings, gameInfo, isNative(appName))
@@ -813,28 +780,25 @@ export async function launch(
     return false
   }
 
-  const offlineFlag = offlineMode ? ['--offline'] : []
-  const exeOverrideFlag = gameSettings.targetExe
-    ? ['--override-exe', gameSettings.targetExe]
-    : []
-
   const languageCode = gameSettings.language || configStore.get('language', '')
-  const languageFlag = languageCode ? ['--language', languageCode] : []
 
-  let commandEnv = isWindows
-    ? process.env
-    : { ...process.env, ...setupEnvVars(gameSettings) }
+  let commandEnv = {
+    ...process.env,
+    ...setupWrapperEnvVars({ appName, appRunner: 'legendary' }),
+    ...(isWindows ? {} : setupEnvVars(gameSettings))
+  }
 
   const wrappers = setupWrappers(
     gameSettings,
     mangoHudCommand,
     gameModeBin,
+    gameScopeCommand,
     steamRuntime?.length ? [...steamRuntime] : undefined
   )
 
-  let wineFlag: string[] = wrappers.length
-    ? ['--wrapper', shlex.join(wrappers)]
-    : []
+  let wineFlags: AllowedWineFlags = wrappers.length
+    ? { '--wrapper': NonEmptyString.parse(shlex.join(wrappers)) }
+    : {}
 
   if (!isNative(appName)) {
     // -> We're using Wine/Proton on Linux or CX on Mac
@@ -871,23 +835,25 @@ export async function launch(
         ? wineExec.replaceAll("'", '')
         : wineExec
 
-    wineFlag = [...getWineFlags(wineBin, wineType, shlex.join(wrappers))]
+    wineFlags = getWineFlags(wineBin, wineType, shlex.join(wrappers))
   }
 
-  const commandParts = [
-    'launch',
-    appName,
-    ...languageFlag,
-    ...exeOverrideFlag,
-    ...offlineFlag,
-    ...wineFlag,
-    ...shlex.split(launchArguments ?? ''),
-    isCLINoGui ? '--skip-version-check' : '',
-    ...shlex.split(gameSettings.launcherArgs ?? '')
-  ]
+  const command: LegendaryCommand = {
+    subcommand: 'launch',
+    appName: LegendaryAppName.parse(appName),
+    extraArguments: [launchArguments, gameSettings.launcherArgs]
+      .filter(Boolean)
+      .join(' '),
+    ...wineFlags
+  }
+  if (languageCode) command['--language'] = NonEmptyString.parse(languageCode)
+  if (gameSettings.targetExe)
+    command['--override-exe'] = Path.parse(gameSettings.targetExe)
+  if (offlineMode) command['--offline'] = true
+  if (isCLINoGui) command['--skip-version-check'] = true
 
   const fullCommand = getRunnerCallWithoutCredentials(
-    commandParts,
+    command,
     commandEnv,
     join(...Object.values(getLegendaryBin()))
   )
@@ -896,20 +862,15 @@ export async function launch(
     `Launch Command: ${fullCommand}\n\nGame Log:\n`
   )
 
-  const { error } = await runLegendaryCommand(
-    commandParts,
-    createAbortController(appName),
-    {
-      env: commandEnv,
-      wrappers: wrappers,
-      logMessagePrefix: `Launching ${gameInfo.title}`,
-      onOutput: (output) => {
-        if (!logsDisabled) appendFileSync(logFileLocation(appName), output)
-      }
+  const { error } = await runLegendaryCommand(command, {
+    abortId: appName,
+    env: commandEnv,
+    wrappers: wrappers,
+    logMessagePrefix: `Launching ${gameInfo.title}`,
+    onOutput: (output) => {
+      if (!logsDisabled) appendFileSync(logFileLocation(appName), output)
     }
-  )
-
-  deleteAbortController(appName)
+  })
 
   if (error) {
     const showDialog = !`${error}`.includes('appears to be deleted')
@@ -942,11 +903,16 @@ export async function forceUninstall(appName: string) {
   // Modify Legendary installed.json file:
   try {
     await runLegendaryCommand(
-      ['uninstall', appName, '-y', '--keep-files'],
-      createAbortController(appName)
+      {
+        subcommand: 'uninstall',
+        appName: LegendaryAppName.parse(appName),
+        '-y': true,
+        '--keep-files': true
+      },
+      {
+        abortId: appName
+      }
     )
-
-    deleteAbortController(appName)
 
     sendFrontendMessage('refreshLibrary', 'legendary')
   } catch (error) {
@@ -973,16 +939,18 @@ export async function stop(appName: string, stopWine = true) {
   }
 }
 
-export function isGameAvailable(appName: string) {
-  const info = getGameInfo(appName)
-  if (info && info.is_installed) {
-    if (info.install.install_path && existsSync(info.install.install_path!)) {
-      return true
-    } else {
-      return false
+export async function isGameAvailable(appName: string): Promise<boolean> {
+  return new Promise((resolve) => {
+    const info = getGameInfo(appName)
+    if (info && info.is_installed) {
+      if (info.install.install_path && existsSync(info.install.install_path!)) {
+        resolve(true)
+      } else {
+        resolve(false)
+      }
     }
-  }
-  return false
+    resolve(false)
+  })
 }
 
 export async function runWineCommandOnGame(
@@ -996,6 +964,8 @@ export async function runWineCommandOnGame(
 
   const { folder_name, install } = getGameInfo(appName)
   const gameSettings = await getSettings(appName)
+
+  await prepareWineLaunch('legendary', appName)
 
   return runWineCommandUtil({
     gameSettings,

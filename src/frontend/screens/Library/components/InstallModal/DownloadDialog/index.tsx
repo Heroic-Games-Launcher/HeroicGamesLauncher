@@ -47,6 +47,7 @@ import { AvailablePlatforms } from '../index'
 import { configStore } from 'frontend/helpers/electronStores'
 import DLCDownloadListing from './DLCDownloadListing'
 import { NileInstallInfo } from 'common/types/nile'
+import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
 
 interface Props {
   backdropClick: () => void
@@ -65,6 +66,7 @@ type DiskSpaceInfo = {
   notEnoughDiskSpace: boolean
   message: string | `ERROR`
   validPath: boolean
+  validFlatpakPath: boolean
   spaceLeftAfter: string
 }
 
@@ -151,8 +153,11 @@ export default function DownloadDialog({
     message: '',
     notEnoughDiskSpace: false,
     validPath: true,
+    validFlatpakPath: true,
     spaceLeftAfter: ''
   })
+
+  const anticheatInfo = hasAnticheatInfo(gameInfo)
 
   const { i18n, t } = useTranslation('gamepage')
   const { t: tr } = useTranslation()
@@ -187,7 +192,40 @@ export default function DownloadDialog({
     setInstallAllDlcs(!installAllDlcs)
   }
 
-  async function handleInstall(path?: string) {
+  function confirmInstallBrokenAnticheat(path?: string) {
+    showDialogModal({
+      title: t('install.anticheat-warning.title', 'Anticheat Broken/Denied'),
+      message: t(
+        'install.anticheat-warning.message',
+        'The anticheat support is broken or denied. The game will not work. Do you want to install it anyway?'
+      ),
+      buttons: [
+        {
+          text: t(
+            'install.anticheat-warning.install',
+            'Yes (I understand it will not work)'
+          ),
+          onClick: async () => handleInstall(path, true)
+        },
+        {
+          text: t('install.anticheat-warning.cancel', 'No'),
+          onClick: () => null
+        }
+      ]
+    })
+  }
+
+  async function handleInstall(path?: string, ignoreAnticheat = false) {
+    if (
+      anticheatInfo &&
+      ['Denied', 'Broken', 'Unknown'].includes(anticheatInfo.status)
+    ) {
+      if (!ignoreAnticheat) {
+        confirmInstallBrokenAnticheat(path)
+        return
+      }
+    }
+
     backdropClick()
 
     // Write Default game config with prefix on linux
@@ -289,9 +327,8 @@ export default function DownloadDialog({
 
   useEffect(() => {
     const getSpace = async () => {
-      const { message, free, validPath } = await window.api.checkDiskSpace(
-        installPath
-      )
+      const { message, free, validPath, validFlatpakPath } =
+        await window.api.checkDiskSpace(installPath)
       if (gameInstallInfo?.manifest?.disk_size) {
         let notEnoughDiskSpace = free < gameInstallInfo.manifest.disk_size
         let spaceLeftAfter = size(
@@ -311,6 +348,7 @@ export default function DownloadDialog({
           message,
           notEnoughDiskSpace,
           validPath,
+          validFlatpakPath,
           spaceLeftAfter
         })
       }
@@ -358,7 +396,13 @@ export default function DownloadDialog({
     }
   }, [i18n.languages, platformToInstall])
 
-  const { validPath, notEnoughDiskSpace, message, spaceLeftAfter } = spaceLeft
+  const {
+    validPath,
+    validFlatpakPath,
+    notEnoughDiskSpace,
+    message,
+    spaceLeftAfter
+  } = spaceLeft
   const title = gameInfo?.title
 
   function getInstallLabel() {
@@ -377,7 +421,8 @@ export default function DownloadDialog({
   const readyToInstall =
     installPath &&
     gameInstallInfo?.manifest?.download_size &&
-    !gettingInstallInfo
+    !gettingInstallInfo &&
+    validFlatpakPath
 
   const showDlcSelector =
     runner === 'legendary' && DLCList && DLCList?.length > 0
@@ -394,7 +439,7 @@ export default function DownloadDialog({
           />
         ))}
       </DialogHeader>
-      {gameInfo && <Anticheat gameInfo={gameInfo} />}
+      <Anticheat anticheatInfo={anticheatInfo} />
       <DialogContent>
         <div className="InstallModal__sizes">
           <div className="InstallModal__size">
@@ -477,7 +522,7 @@ export default function DownloadDialog({
           afterInput={
             gameInstallInfo?.manifest?.download_size ? (
               <span className="smallInputInfo">
-                {validPath && (
+                {validPath && validFlatpakPath && (
                   <>
                     <span>
                       {`${t('install.disk-space-left', 'Space Available')}: `}
@@ -505,6 +550,14 @@ export default function DownloadDialog({
                     {`${t(
                       'install.path-not-writtable',
                       'Warning: path might not be writable.'
+                    )}`}
+                  </span>
+                )}
+                {validPath && !validFlatpakPath && (
+                  <span className="error">
+                    {`${t(
+                      'install.flatpak-path-not-writtable',
+                      'Error: Sandbox access not granted to this path, data loss will occur.'
                     )}`}
                   </span>
                 )}

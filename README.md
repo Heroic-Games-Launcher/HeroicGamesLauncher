@@ -59,7 +59,7 @@ Heroic is built with Web Technologies:
 - Play games using Wine or Proton [Linux]
 - Play games using Crossover [macOS]
 - Download custom Wine and Proton versions [Linux]
-- Access to Epic and GOG stores directly from Heroic
+- Access to Epic, GOG and Amazon Games stores directly from Heroic
 - Search for the game on ProtonDB for compatibility information [Linux]
 - Show ProtonDB and Steam Deck compatibility information [Linux]
 - Sync installed games with an existing Epic Games Store installation
@@ -67,6 +67,7 @@ Heroic is built with Web Technologies:
 - Custom Theming Support
 - Download queue
 - Add Games and Applications outside GOG, Epic Games and Amazon Games
+- Define your categories to organize your collection
 
 ## Planned features
 
@@ -109,6 +110,7 @@ Thanks to the community, Heroic was translated to almost 40 different languages 
 - French
 - German
 - Greek
+- Hebraic
 - Japanese
 - Korean
 - Hungarian
@@ -122,6 +124,7 @@ Thanks to the community, Heroic was translated to almost 40 different languages 
 - Portuguese (Brazil)
 - Romanian
 - Russian
+- Serbian
 - Spanish
 - Slovak
 - Swedish
@@ -151,12 +154,10 @@ Double-click it to open it up in your Software Manager, or run `sudo dpkg -i her
 
 #### Arch (AUR)
 
-We have two AUR packages available:
+We currently only support one AUR package: `heroic-games-launcher-bin`. Although you might find other packages there, do not ask support for them on this Github or on our Discord, ask their maintainers directly.
 
 - [![Stable version badge](https://img.shields.io/aur/version/heroic-games-launcher-bin?style=flat&label=heroic-games-launcher-bin)](https://aur.archlinux.org/packages/heroic-games-launcher-bin)  
   (stable release, recommended)
-- [![Beta version badge](https://img.shields.io/aur/version/heroic-games-launcher-beta-bin?style=flat&label=heroic-games-launcher-beta-bin)](https://aur.archlinux.org/packages/heroic-games-launcher-beta-bin)  
-  (beta release, contains newer features but might be unstable)
 
 Please see [the Arch Wiki](https://wiki.archlinux.org/title/Arch_User_Repository#Installing_and_upgrading_packages) on how to install them
 
@@ -329,13 +330,13 @@ Thanks [Signpath](https://signpath.io/?utm_source=foundation&utm_medium=github&u
 <details>
   <summary>Expand</summary>
 
-![image](https://user-images.githubusercontent.com/26871415/184140182-0b0b92b0-e388-401f-910b-ff95b22db059.png)
-![image](https://user-images.githubusercontent.com/26871415/184139791-8666bc1d-a54f-467c-8c30-ea1eb6d24458.png)
-![image](https://user-images.githubusercontent.com/26871415/184139827-ff8ae4ef-f5c3-42f4-b789-1b30595ec0b0.png)
-![image](https://user-images.githubusercontent.com/26871415/184140036-28ee0d8b-a263-4ed8-a30a-1cd19436f90a.png)
-![image](https://user-images.githubusercontent.com/26871415/184141942-937f8cc0-f148-4729-b03e-bfcc8132c233.png)
-![image](https://user-images.githubusercontent.com/26871415/184144277-699e1108-52d9-4558-b113-84db5c90922c.png)
-![image](https://user-images.githubusercontent.com/26871415/184144417-b3eb0ea5-5433-4273-ad35-15317f22588b.png)
+![image](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/assets/26871415/70c9e0f2-3fa8-4e56-9bb0-0e5f8713c968)
+![image](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/assets/26871415/95e199d5-24de-4a23-a8b8-657afd657390)
+![image](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/assets/26871415/e190ddce-b16c-40c6-a509-b1337669b65a)
+![image](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/assets/26871415/9868d9eb-c141-4b46-874d-e13f668480cb)
+![image](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/assets/26871415/07e76bdb-e794-41fd-9028-062fa22f15b6)
+![image](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/assets/26871415/8daf7035-4f30-4dcd-a7ef-412ef690a286)
+![image](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/assets/26871415/61467411-f518-4d10-b859-9c2adef3302e)
 
 </details>
 

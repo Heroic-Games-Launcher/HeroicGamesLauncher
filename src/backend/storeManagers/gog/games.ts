@@ -1,8 +1,4 @@
 import {
-  createAbortController,
-  deleteAbortController
-} from '../../utils/aborthandler/aborthandler'
-import {
   importGame as importGogLibraryGame,
   refreshInstalled,
   runRunnerCommand as runGogdlCommand,
@@ -62,6 +58,7 @@ import {
   prepareWineLaunch,
   runWineCommand as runWineCommandUtil,
   setupEnvVars,
+  setupWrapperEnvVars,
   setupWrappers
 } from '../../launcher'
 import {
@@ -82,7 +79,7 @@ import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { sendFrontendMessage } from '../../main_window'
 import { RemoveArgs } from 'common/types/game_manager'
 import { logFileLocation } from 'backend/storeManagers/storeManagerCommon/games'
-import { getWineFlags } from 'backend/utils/compatibility_layers'
+import { getWineFlagsArray } from 'backend/utils/compatibility_layers'
 import axios, { AxiosError } from 'axios'
 import { isOnline, runOnceWhenOnline } from 'backend/online_monitor'
 
@@ -147,15 +144,10 @@ export async function importGame(
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   platform: InstallPlatform
 ): Promise<ExecResult> {
-  const res = await runGogdlCommand(
-    ['import', folderPath],
-    createAbortController(appName),
-    {
-      logMessagePrefix: `Importing ${appName}`
-    }
-  )
-
-  deleteAbortController(appName)
+  const res = await runGogdlCommand(['import', folderPath], {
+    abortId: appName,
+    logMessagePrefix: `Importing ${appName}`
+  })
 
   if (res.abort) {
     return res
@@ -313,17 +305,12 @@ export async function install(
     onInstallOrUpdateOutput(appName, 'installing', data)
   }
 
-  const res = await runGogdlCommand(
-    commandParts,
-    createAbortController(appName),
-    {
-      logFile: logPath,
-      onOutput,
-      logMessagePrefix: `Installing ${appName}`
-    }
-  )
-
-  deleteAbortController(appName)
+  const res = await runGogdlCommand(commandParts, {
+    abortId: appName,
+    logFile: logPath,
+    onOutput,
+    logMessagePrefix: `Installing ${appName}`
+  })
 
   if (res.abort) {
     return { status: 'abort' }
@@ -444,6 +431,7 @@ export async function launch(
     failureReason: launchPrepFailReason,
     rpcClient,
     mangoHudCommand,
+    gameScopeCommand,
     gameModeBin,
     steamRuntime
   } = await prepareLaunch(gameSettings, gameInfo, isNative(appName))
@@ -464,14 +452,17 @@ export async function launch(
     ? ['--override-exe', gameSettings.targetExe]
     : []
 
-  let commandEnv = isWindows
-    ? process.env
-    : { ...process.env, ...setupEnvVars(gameSettings) }
+  let commandEnv = {
+    ...process.env,
+    ...setupWrapperEnvVars({ appName, appRunner: 'gog' }),
+    ...(isWindows ? {} : setupEnvVars(gameSettings))
+  }
 
   const wrappers = setupWrappers(
     gameSettings,
     mangoHudCommand,
     gameModeBin,
+    gameScopeCommand,
     steamRuntime?.length ? [...steamRuntime] : undefined
   )
 
@@ -513,7 +504,7 @@ export async function launch(
         ? wineExec.replaceAll("'", '')
         : wineExec
 
-    wineFlag = [...getWineFlags(wineBin, wineType, shlex.join(wrappers))]
+    wineFlag = getWineFlagsArray(wineBin, wineType, shlex.join(wrappers))
   }
 
   const commandParts = [
@@ -538,20 +529,15 @@ export async function launch(
     `Launch Command: ${fullCommand}\n\nGame Log:\n`
   )
 
-  const { error, abort } = await runGogdlCommand(
-    commandParts,
-    createAbortController(appName),
-    {
-      env: commandEnv,
-      wrappers,
-      logMessagePrefix: `Launching ${gameInfo.title}`,
-      onOutput: (output: string) => {
-        if (!logsDisabled) appendFileSync(logFileLocation(appName), output)
-      }
+  const { error, abort } = await runGogdlCommand(commandParts, {
+    abortId: appName,
+    env: commandEnv,
+    wrappers,
+    logMessagePrefix: `Launching ${gameInfo.title}`,
+    onOutput: (output: string) => {
+      if (!logsDisabled) appendFileSync(logFileLocation(appName), output)
     }
-  )
-
-  deleteAbortController(appName)
+  })
 
   if (abort) {
     return true
@@ -615,16 +601,11 @@ export async function repair(appName: string): Promise<ExecResult> {
     ...workers
   ]
 
-  const res = await runGogdlCommand(
-    commandParts,
-    createAbortController(appName),
-    {
-      logFile: logPath,
-      logMessagePrefix: `Repairing ${appName}`
-    }
-  )
-
-  deleteAbortController(appName)
+  const res = await runGogdlCommand(commandParts, {
+    abortId: appName,
+    logFile: logPath,
+    logMessagePrefix: `Repairing ${appName}`
+  })
 
   if (res.error) {
     logError(['Failed to repair', `${appName}:`, res.error], LogPrefix.Gog)
@@ -673,16 +654,11 @@ export async function syncSaves(
 
     logInfo([`Syncing saves for ${gameInfo.title}`], LogPrefix.Gog)
 
-    const res = await runGogdlCommand(
-      commandParts,
-      createAbortController(appName),
-      {
-        logMessagePrefix: `Syncing saves for ${gameInfo.title}`,
-        onOutput: (output) => (fullOutput += output)
-      }
-    )
-
-    deleteAbortController(appName)
+    const res = await runGogdlCommand(commandParts, {
+      abortId: appName,
+      logMessagePrefix: `Syncing saves for ${gameInfo.title}`,
+      onOutput: (output) => (fullOutput += output)
+    })
 
     if (res.error) {
       logError(
@@ -730,7 +706,7 @@ export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
     logInfo(['Executing uninstall command', command.join(' ')], LogPrefix.Gog)
 
     if (!isWindows) {
-      runWineCommandUtil({
+      await runWineCommandUtil({
         gameSettings,
         commandParts: command,
         wait: true,
@@ -791,17 +767,12 @@ export async function update(
     onInstallOrUpdateOutput(appName, 'updating', data)
   }
 
-  const res = await runGogdlCommand(
-    commandParts,
-    createAbortController(appName),
-    {
-      logFile: logPath,
-      onOutput,
-      logMessagePrefix: `Updating ${appName}`
-    }
-  )
-
-  deleteAbortController(appName)
+  const res = await runGogdlCommand(commandParts, {
+    abortId: appName,
+    logFile: logPath,
+    onOutput,
+    logMessagePrefix: `Updating ${appName}`
+  })
 
   if (res.abort) {
     return { status: 'done' }
@@ -898,16 +869,18 @@ export async function stop(appName: string, stopWine = true): Promise<void> {
   }
 }
 
-export function isGameAvailable(appName: string) {
-  const info = getGameInfo(appName)
-  if (info && info.is_installed) {
-    if (info.install.install_path && existsSync(info.install.install_path!)) {
-      return true
-    } else {
-      return false
+export async function isGameAvailable(appName: string): Promise<boolean> {
+  return new Promise((resolve) => {
+    const info = getGameInfo(appName)
+    if (info && info.is_installed) {
+      if (info.install.install_path && existsSync(info.install.install_path!)) {
+        resolve(true)
+      } else {
+        resolve(false)
+      }
     }
-  }
-  return false
+    resolve(false)
+  })
 }
 
 async function postPlaytimeSession({
@@ -989,7 +962,9 @@ export async function updateGOGPlaytime(
     return
   }
 
-  const response = await postPlaytimeSession({ ...data, appName })
+  const response = await postPlaytimeSession({ ...data, appName }).catch(
+    () => null
+  )
 
   if (!response || response.status !== 201) {
     logError('Failed to post session', { prefix: LogPrefix.Gog })

@@ -4,8 +4,7 @@ import {
   InstallPlatform,
   GameSettings,
   ExecResult,
-  InstallArgs,
-  CallRunnerOptions
+  InstallArgs
 } from 'common/types'
 import { GOGCloudSavesLocation, GogInstallInfo } from './gog'
 import { LegendaryInstallInfo } from './legendary'
@@ -57,7 +56,7 @@ export interface GameManager {
   update: (appName: string) => Promise<InstallResult>
   forceUninstall: (appName: string) => Promise<void>
   stop: (appName: string, stopWine?: boolean) => Promise<void>
-  isGameAvailable: (appName: string) => boolean
+  isGameAvailable: (appName: string) => Promise<boolean>
 }
 
 export interface LibraryManager {
@@ -73,9 +72,4 @@ export interface LibraryManager {
   listUpdateableGames: () => Promise<string[]>
   changeGameInstallPath: (appName: string, newPath: string) => Promise<void>
   installState: (appName: string, state: boolean) => void
-  runRunnerCommand: (
-    commandParts: string[],
-    abortController: AbortController,
-    options?: CallRunnerOptions
-  ) => Promise<ExecResult>
 }

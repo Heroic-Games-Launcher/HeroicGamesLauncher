@@ -149,6 +149,11 @@
   gap: var(--login-padding);
 }
 
+.runnerList .disabledMessage {
+  border: 2px solid var(--anticheat-denied);
+  padding: 1rem;
+}
+
 @media screen and (min-width: 850px) {
   .loginContentWrapper {
     width: max(500px, 75%);

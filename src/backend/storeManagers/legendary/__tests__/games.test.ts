@@ -25,18 +25,19 @@ describe('syncSaves', () => {
         return { stderr: '', stdout: '' }
       })
 
-    const paths = ['C:\\my\\path', '/home/someone/saves/path']
-    for (const path of paths) {
-      await syncSaves(appName, '', path)
-      expect(spy.mock.lastCall?.[0]).toEqual([
-        'sync-saves',
-        '',
-        '--save-path',
-        path,
-        'SomeAppName',
-        '-y'
-      ])
-    }
+    jest.spyOn(library, 'hasGame').mockReturnValue(true)
+
+    const testPath =
+      process.platform === 'win32' ? 'C:\\my\\path' : '/home/someone/saves/path'
+
+    await syncSaves(appName, '', testPath)
+    expect(spy.mock.lastCall?.[0]).toEqual({
+      subcommand: 'sync-saves',
+      appName: 'SomeAppName',
+      '': true,
+      '--save-path': testPath,
+      '-y': true
+    })
   })
 
   it('Save-sync fails with empty path', async () => {

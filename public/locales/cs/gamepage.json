@@ -37,14 +37,16 @@
             "settingcheckbox": "Vymazat nastavení a odstranit protokol{{newLine}}Poznámka: Tento krok nelze vrátit zpět. Veškerá změněná nastavení budou zapomenuta a protokol bude odstraněn.",
             "title": "Odinstalovat",
             "prefix_warning": "Předpona Wine pro tuto hru je výchozí předpona. Pokud to opravdu chcete smazat, musíte to udělat ručně.",
-            "dlc": "Chcete toto DLC odinstalovat?"
+            "dlc": "Chcete toto DLC odinstalovat?",
+            "cannotUninstallEpic": "Hry Epic nelze odinstalovat při instalaci jiné hry Epic."
         },
         "update": {
             "message": "Tato hra má aktualizaci, přejete si ji aktualizovat nyní?",
             "title": "Hra vyžaduje akualizaci"
         },
         "wineprefix": "Vyberte složku WinePrefix",
-        "yes": "ANO"
+        "yes": "ANO",
+        "close": "Zavřít"
     },
     "button": {
         "add_to_favourites": "Přidat do oblíbených",
@@ -128,7 +130,14 @@
         "path-not-writtable": "Varování: na cestu možná nelze zapisovat.",
         "space-after-install": "Po instalaci",
         "wineprefix": "WinePrefix",
-        "wineversion": "Verze Wine"
+        "wineversion": "Verze Wine",
+        "anticheat-warning": {
+            "cancel": "Ne",
+            "message": "Podpora anticheatu je rozbitá nebo zakázaná. Hra nebude fungovat. Chcete jej přesto nainstalovat?",
+            "install": "Ano (chápu, že to nebude fungovat)",
+            "title": "Rozbitý/zakázaný anticheat"
+        },
+        "flatpak-path-not-writtable": "Chyba: této cestě nebyl udělen přístup k sandboxu, vyskytne se ztráta dat."
     },
     "label": {
         "game": {
@@ -171,12 +180,15 @@
             "exe": "Vyberte spustitelný soubor",
             "image": "Obrázek aplikace",
             "title": "Název hry/aplikace",
-            "broser": "Adresa URL prohlížeče"
+            "broser": "Adresa URL prohlížeče",
+            "useragent": "Vlastní User Agent",
+            "fullscreen": "Spustit na celé obrazovce (F11 pro opuštění)"
         },
         "placeholder": {
             "image": "Sem vložte URL obrázku",
             "title": "Přidejte název ke své hře/aplikaci",
-            "url": "Sem vložte adresu URL hry"
+            "url": "Sem vložte adresu URL hry",
+            "useragent": "Sem zadejte vlastní User Agent (uživatelský agent) pro použití v této prohlížečové aplikaci/hře"
         }
     },
     "specs": {
@@ -224,7 +236,8 @@
         "store": "Stránka obchodu",
         "verify": "Zkontrolovat a opravit",
         "extraInfo": "Další informace",
-        "logs": "Protokoly"
+        "logs": "Protokoly",
+        "categories": "Kategorie"
     },
     "help": {
         "cloud_save_unsupported": "Tato hra nepodporuje ukládání do cloudu. Tyto informace poskytují vývojáři hry. Některé hry implementují svůj vlastní cloudový systém ukládání"

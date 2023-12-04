@@ -1,33 +1,21 @@
 import React, { useContext, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import ActionIcons from 'frontend/components/UI/ActionIcons'
-import { amazonCategories, epicCategories } from 'frontend/helpers/library'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { GameInfo } from 'common/types'
-import { getLibraryTitle } from '../../constants'
+import LibraryContext from '../../LibraryContext'
 import './index.css'
-
-const storage = window.localStorage
 
 type Props = {
   list: GameInfo[]
-  sortDescending: boolean
-  sortInstalled: boolean
-  setSortInstalled: (value: boolean) => void
-  setSortDescending: (value: boolean) => void
   handleAddGameButtonClick: () => void
 }
 
 export default React.memo(function LibraryHeader({
   list,
-  sortInstalled,
-  sortDescending,
-  setSortDescending,
-  setSortInstalled,
   handleAddGameButtonClick
 }: Props) {
   const { t } = useTranslation()
-  const { category, showFavourites } = useContext(ContextProvider)
+  const { showFavourites } = useContext(LibraryContext)
 
   const numberOfGames = useMemo(() => {
     if (!list) {
@@ -40,37 +28,7 @@ export default React.memo(function LibraryHeader({
 
     const total = list.length - dlcCount
     return total > 0 ? `${total}` : 0
-  }, [list, category])
-
-  function handleSortDescending() {
-    setSortDescending(!sortDescending)
-    storage.setItem('sortDescending', JSON.stringify(!sortDescending))
-  }
-
-  function handleSortInstalled() {
-    setSortInstalled(!sortInstalled)
-    storage.setItem('sortInstalled', JSON.stringify(!sortInstalled))
-  }
-
-  function getLibrary() {
-    if (category === 'all') {
-      return category
-    }
-
-    if (epicCategories.includes(category)) {
-      return 'legendary'
-    }
-
-    if (amazonCategories.includes(category)) {
-      return 'nile'
-    }
-
-    if (category === 'sideload') {
-      return 'sideload'
-    }
-
-    return 'gog'
-  }
+  }, [list])
 
   return (
     <h5 className="libraryHeader">
@@ -78,7 +36,7 @@ export default React.memo(function LibraryHeader({
         <span className="libraryTitle">
           {showFavourites
             ? t('favourites', 'Favourites')
-            : `${getLibraryTitle(category, t)}`}
+            : t('title.allGames', 'All Games')}
           <span className="numberOfgames">{numberOfGames}</span>
           <button
             className="sideloadGameButton"
@@ -87,13 +45,7 @@ export default React.memo(function LibraryHeader({
             {t('add_game', 'Add Game')}
           </button>
         </span>
-        <ActionIcons
-          sortDescending={sortDescending}
-          toggleSortDescending={() => handleSortDescending()}
-          sortInstalled={sortInstalled}
-          library={getLibrary()}
-          toggleSortinstalled={() => handleSortInstalled()}
-        />
+        <ActionIcons />
       </div>
     </h5>
   )

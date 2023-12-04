@@ -183,7 +183,7 @@ interface GamesDBDataBase {
   first_release_date: string
   title: LanguageMapper<string>
   sorting_title: LanguageMapper<string>
-  type: 'game'
+  type: 'game' | 'dlc' | 'spam'
   summary: LanguageMapper<string>
   videos: {
     provider: 'youtube'

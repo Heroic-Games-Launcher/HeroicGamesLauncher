@@ -61,6 +61,17 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
     downloadManagerStore.set('finished', [])
   }
 
+  const handleClearItem = (appName: string) => {
+    const filteredFinishedElem = finishedElem?.filter(
+      (e) => e.params.appName !== appName
+    )
+    setFinishedElem(filteredFinishedElem)
+    downloadManagerStore.set(
+      'finished',
+      filteredFinishedElem ? filteredFinishedElem : []
+    )
+  }
+
   const doneElements =
     (finishedElem?.length &&
       finishedElem.sort((a, b) => {
@@ -150,7 +161,12 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
             <div className="dmItemList">
               <DownloadManagerHeader time="finished" />
               {doneElements.map((el, key) => (
-                <DownloadManagerItem key={key} element={el} current={false} />
+                <DownloadManagerItem
+                  key={key}
+                  element={el}
+                  current={false}
+                  handleClearItem={handleClearItem}
+                />
               ))}
             </div>
           </div>

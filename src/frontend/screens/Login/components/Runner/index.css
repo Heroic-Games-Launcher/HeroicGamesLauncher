@@ -12,6 +12,15 @@
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+.runnerLogin {
+  cursor: pointer;
+}
+
+.runnerWrapper.disabled,
+.runnerWrapper.disabled * {
+  cursor: not-allowed;
+}
+
 .runnerWrapper > h1 {
   color: var(--text-default);
 }
@@ -26,15 +35,11 @@
   text-align: center;
 }
 
-.runnerLogin.alternative {
-  cursor: pointer;
-}
-
 .alternative > svg {
   fill: var(--background-lighter) !important;
 }
 
-.runnerLogin:hover {
+.runnerWrapper:not(.disabled) .runnerLogin:hover {
   color: var(--accent);
 }
 

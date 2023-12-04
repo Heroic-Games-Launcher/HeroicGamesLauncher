@@ -13,7 +13,8 @@ import {
   WineManagerUISettings,
   AppSettings,
   WikiInfo,
-  GameInfo
+  GameInfo,
+  WindowProps
 } from 'common/types'
 import { UserData } from 'common/types/gog'
 import { NileUserData } from './nile'
@@ -26,6 +27,7 @@ export interface StoreStructure {
       recent: RecentGame[]
       hidden: HiddenGame[]
       favourites: FavouriteGame[]
+      customCategories: Record<string, string[]>
     }
     theme: string
     zoomPercent: number
@@ -40,9 +42,10 @@ export interface StoreStructure {
       gogdlLogFile: string
       nileLogFile: string
     }
-    'window-props': Electron.Rectangle
+    'window-props': WindowProps
     settings: AppSettings
     skipVcRuntime: boolean
+    showSnapWarning: boolean
   }
   wineDownloaderInfoStore: {
     'wine-releases': WineVersionInfo[]

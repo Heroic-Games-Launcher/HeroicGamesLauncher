@@ -1,5 +1,5 @@
 import { sendFrontendMessage } from '../../main_window'
-import axios, { AxiosError, AxiosResponse } from 'axios'
+import axios, { AxiosError, AxiosRequestHeaders, AxiosResponse } from 'axios'
 import { GOGUser } from './user'
 import {
   GameInfo,
@@ -41,10 +41,6 @@ import {
   apiInfoCache
 } from './electronStores'
 import { callRunner } from '../../launcher'
-import {
-  createAbortController,
-  deleteAbortController
-} from '../../utils/aborthandler/aborthandler'
 import { isOnline } from '../../online_monitor'
 import i18next from 'i18next'
 
@@ -192,7 +188,13 @@ export async function refresh(): Promise<ExecResult> {
       ).catch(() => ({
         data: null
       }))
-      const product = await getProductApi(game.external_id).catch(() => null)
+
+      const product = await getProductApi(
+        game.external_id,
+        [],
+        credentials.access_token
+      ).catch(() => null)
+
       if (!data) {
         await new Promise((resolve) => setTimeout(resolve, 2000))
         retries -= 1
@@ -345,15 +347,10 @@ export async function getInstallInfo(
     installPlatform === 'linux' ? 'windows' : installPlatform
   ]
 
-  const res = await runRunnerCommand(
-    commandParts,
-    createAbortController(appName),
-    {
-      logMessagePrefix: 'Getting game metadata'
-    }
-  )
-
-  deleteAbortController(appName)
+  const res = await runRunnerCommand(commandParts, {
+    abortId: appName,
+    logMessagePrefix: 'Getting game metadata'
+  })
 
   if (!res.stdout || res.abort) {
     logError(
@@ -647,9 +644,11 @@ export async function gogToUnifiedInfo(
 ): Promise<GameInfo> {
   if (
     !info ||
-    info.type !== 'game' ||
+    info.type === 'dlc' ||
     !info.game.visible_in_library ||
-    (galaxyProductInfo && galaxyProductInfo.game_type === 'pack')
+    (galaxyProductInfo &&
+      !galaxyProductInfo.is_installable &&
+      galaxyProductInfo.game_type !== 'game')
   ) {
     // @ts-expect-error TODO: Handle this somehow
     return {}
@@ -666,6 +665,9 @@ export async function gogToUnifiedInfo(
     art_square: info.game.vertical_cover.url_format
       .replace('{formatter}', '')
       .replace('{ext}', 'jpg'),
+    art_background: info.game.background.url_format
+      .replace('{formatter}', '')
+      .replace('{ext}', 'webp'),
     cloud_save_enabled: false,
     extra: {
       about: { description: info.summary['*'], shortDescription: '' },
@@ -928,7 +930,8 @@ export async function getGamesdbData(
  */
 export async function getProductApi(
   appName: string,
-  expand?: string[]
+  expand?: string[],
+  access_token?: string
 ): Promise<AxiosResponse<ProductsEndpointData> | null> {
   expand = expand ?? []
   const language = i18next.language
@@ -937,9 +940,15 @@ export async function getProductApi(
   if (expand.length > 0) {
     url.searchParams.set('expand', expand.join(','))
   }
+
+  const headers: AxiosRequestHeaders = {}
+  if (access_token) {
+    headers.Authorization = `Bearer ${access_token}`
+  }
+
   // `https://api.gog.com/products/${appName}?locale=${language}${expandString}`
   const response = await axios
-    .get<ProductsEndpointData>(url.toString())
+    .get<ProductsEndpointData>(url.toString(), { headers })
     .catch(() => null)
 
   return response
@@ -999,15 +1008,14 @@ export async function getLinuxInstallerInfo(appName: string): Promise<
  */
 export async function runRunnerCommand(
   commandParts: string[],
-  abortController: AbortController,
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
   const { dir, bin } = getGOGdlBin()
   const authConfig = join(app.getPath('userData'), 'gog_store', 'auth.json')
+
   return callRunner(
     ['--auth-config-path', authConfig, ...commandParts],
     { name: 'gog', logPrefix: LogPrefix.Gog, bin, dir },
-    abortController,
     {
       ...options,
       verboseLogFile: gogdlLogFile

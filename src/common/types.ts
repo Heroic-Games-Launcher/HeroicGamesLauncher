@@ -1,8 +1,8 @@
 import { GOGCloudSavesLocation, GogInstallPlatform } from './types/gog'
 import { LegendaryInstallPlatform, GameMetadataInner } from './types/legendary'
-import { IpcRendererEvent } from 'electron'
+import { IpcRendererEvent, TitleBarOverlay } from 'electron'
 import { ChildProcess } from 'child_process'
-import { HowLongToBeatEntry } from 'howlongtobeat'
+import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
 import { NileInstallPlatform } from './types/nile'
 
 export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile'
@@ -43,6 +43,10 @@ export type Release = {
   body?: string
 }
 
+export type ExperimentalFeatures = {
+  enableNewDesign: boolean
+}
+
 export interface AppSettings extends GameSettings {
   addDesktopShortcuts: boolean
   addStartMenuShortcuts: boolean
@@ -61,19 +65,21 @@ export interface AppSettings extends GameSettings {
   defaultSteamPath: string
   defaultWinePrefix: string
   disableController: boolean
+  disablePlaytimeSync: boolean
   disableLogs: boolean
   discordRPC: boolean
   downloadNoHttps: boolean
   egsLinkedPath: string
   enableUpdates: boolean
   exitToTray: boolean
+  experimentalFeatures: ExperimentalFeatures
+  framelessWindow: boolean
   hideChangelogsOnStartup: boolean
   libraryTopSection: LibraryTopSectionOptions
   maxRecentGames: number
   maxWorkers: number
   minimizeOnLaunch: boolean
   startInTray: boolean
-  userInfo: UserInfo
 }
 
 export type LibraryTopSectionOptions =
@@ -104,6 +110,7 @@ export interface GameInfo {
   app_name: string
   art_cover: string
   art_logo?: string
+  art_background?: string
   art_square: string
   cloud_save_enabled?: boolean
   developer?: string
@@ -128,11 +135,14 @@ export interface GameInfo {
   //used for store release versions. if remote !== local, then update
   version?: string
   dlcList?: GameMetadataInner[]
+  customUserAgent?: string
+  launchFullScreen?: boolean
 }
 
 export interface GameSettings {
   autoInstallDxvk: boolean
   autoInstallVkd3d: boolean
+  autoInstallDxvkNvapi: boolean
   autoSyncSaves: boolean
   battlEyeRuntime: boolean
   DXVKFpsCap: string //Entered as string but used as number
@@ -141,6 +151,7 @@ export interface GameSettings {
   enableEsync: boolean
   enableFSR: boolean
   enableFsync: boolean
+  gamescope: GameScopeSettings
   enviromentOptions: EnviromentVariable[]
   ignoreGameUpdates: boolean
   language: string
@@ -323,6 +334,7 @@ export interface LaunchPreperationResult {
   rpcClient?: RpcClient
   mangoHudCommand?: string[]
   gameModeBin?: string
+  gameScopeCommand?: string[]
   steamRuntime?: string[]
   offlineMode?: boolean
 }
@@ -337,9 +349,11 @@ export interface CallRunnerOptions {
   logMessagePrefix?: string
   logFile?: string
   verboseLogFile?: string
+  logSanitizer?: (line: string) => string
   env?: Record<string, string> | NodeJS.ProcessEnv
   wrappers?: string[]
   onOutput?: (output: string, child: ChildProcess) => void
+  abortId?: string
 }
 
 export interface EnviromentVariable {
@@ -350,6 +364,11 @@ export interface EnviromentVariable {
 export interface WrapperVariable {
   exe: string
   args: string
+}
+
+export interface WrapperEnv {
+  appName: string
+  appRunner: Runner
 }
 
 type AntiCheat =
@@ -572,6 +591,7 @@ export interface DiskSpaceData {
   diskSize: number
   message: string
   validPath: boolean
+  validFlatpakPath: boolean
 }
 
 export interface ToolArgs {
@@ -618,7 +638,6 @@ export interface SteamInfo {
 }
 
 export interface WikiInfo {
-  timestampLastFetch: string
   pcgamingwiki: PCGamingWikiInfo | null
   applegamingwiki: AppleGamingWikiInfo | null
   howlongtobeat: HowLongToBeatEntry | null
@@ -680,7 +699,7 @@ export type State = 'downloading' | 'unzipping' | 'idle'
 export interface ProgressInfo {
   percentage: number
   avgSpeed: number
-  eta: number
+  eta: string
 }
 
 export interface WineManagerUISettings {
@@ -690,3 +709,23 @@ export interface WineManagerUISettings {
 }
 
 export type DownloadManagerState = 'idle' | 'running' | 'paused' | 'stopped'
+
+export interface WindowProps extends Electron.Rectangle {
+  maximized: boolean
+  frame?: boolean
+  titleBarStyle?: 'default' | 'hidden' | 'hiddenInset'
+  titleBarOverlay?: TitleBarOverlay | boolean
+}
+
+interface GameScopeSettings {
+  enableUpscaling: boolean
+  enableLimiter: boolean
+  windowType: string
+  gameWidth: string
+  gameHeight: string
+  upscaleWidth: string
+  upscaleHeight: string
+  upscaleMethod: string
+  fpsLimiter: string
+  fpsLimiterNoFocus: string
+}

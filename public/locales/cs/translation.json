@@ -84,7 +84,7 @@
                 "title": "Ubisoft Connect"
             },
             "legendary": {
-                "generic": "Došlo k chybě! Zkuste se odhlásit a přihlásit na svůj Epic účet. {{newline}} {{error}}"
+                "generic": "Došlo k chybě! Zkuste se odhlásit a znovu přihlásit ke svému účtu Epic. {{newline}}  {{error}}"
             }
         },
         "info": {
@@ -152,12 +152,23 @@
             "wine-change": {
                 "title": "Wine nenalezen!",
                 "message": "Nemohli jsme najít vybranou verzi wine pro spuštění tohoto titulu ({{selectedWine}}). {{newline}} Našli jsme jinou, chcete pokračovat ve spouštění pomocí {{foundWine}}?"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "Opravdu chcete odejít?",
+                    "message": "Neuložený postup může být ztracen"
+                }
+            },
+            "snap": {
+                "checkbox": "Tuto zprávu již nezobrazovat",
+                "title": "Heroic spuštěn jako Snap",
+                "message": "Některé funkce nejsou ve verzi aplikace Snap prozatím dostupné a snažíme se je opravit.{{newLine}}Aktuální omezení jsou: {{newLine}}Heroic nebude schopen najít Proton ze služby Steam nebo Wine z Lutrisu.{{newLine}}{{newLine}}Gamescope, GameMode a MangoHud také nebudou fungovat, protože k nim Heroic nemá přístup.{{newLine}}{{newLine}}Chcete-li mít přístup k těmto funkcím, nainstalujte si Heroic jako Flatpak, DEB nebo z AppImage."
             }
         },
         "wineprefix": "Vyberte složku WinePrefix",
         "yes": "ANO",
         "dontShowAgain": "Znovu nezobrazovat",
-        "choose-nile-binary": "Vyberte binární Nil"
+        "choose-nile-binary": "Vyberte binární soubor Nile"
     },
     "button": {
         "cancel": "Zrušit",
@@ -239,7 +250,11 @@
         "show_available_games": "Zobrazit nedostupné hry",
         "show_favourites_only": "Zobrazit pouze oblíbené",
         "show_hidden": "Zobrazit skryté",
-        "store": "Filtrovat obchod"
+        "store": "Filtrovat obchod",
+        "filters": "Filtr",
+        "all_categories": "Všechny kategorie",
+        "show_installed_only": "Zobrazit pouze nainstalované",
+        "uncategorized": "Nezařazeno"
     },
     "help": {
         "amdfsr": "Funkce AMD FSR pomáhá zvýšit snímkovou frekvenci škálováním nižšího rozlišení v režimu celé obrazovky. Kvalita obrazu se zvýší z 5 na 1 za cenu mírného snížení výkonu. Povolení může zlepšit výkon.",
@@ -275,12 +290,23 @@
             "part3": "Ruční synchronizace: Vyberte Stáhnout pro stažení uložených souborů hry z cloudu. Nahrát pro nahrání místních souborů do cloudu. Vynutit stahování a Vynutit nahrávání bude ignorovat verzi, která je místní nebo v cloudu.",
             "part4": "Automatická synchronizace uložených souborů synchronizuje uložené soubory při každém spuštění hry a po dokončení hraní."
         },
-        "vkd3d": "VKD3D je překladová vrstva založená na Vulkanu pro hry DirectX 12. Povolení může výrazně zlepšit kompatibilitu. Nemá žádný vliv na starší DirectX hry.",
+        "vkd3d": "VKD3D je překladová vrstva založená na Vulkanu pro hry DirectX 12. Povolení může výrazně zlepšit kompatibilitu. Nemá žádný vliv na starší DirectX hry, vyžaduje DXVK.",
         "wine": {
             "part1": "Heroic hledá verze Wine, Proton a CrossOver v následujících složkách:",
             "part2": "Pro jiná místa použijte symbolický odkaz na jednu z těchto složek"
         },
-        "disable_logs": "Zapnutím tohoto zaškrtávacího políčka zakážete většinu zápisů do souborů protokolu (kritické informace jsou vždy protokolovány). Před nahlášením jakéhokoli problému nezapomeňte toto nastavení VYPNOUT."
+        "disable_logs": "Zapnutím tohoto políčka zakážete většinu zápisů do souborů protokolu (kritické informace jsou vždy protokolovány). Před nahlášením jakéhokoli problému nezapomeňte toto nastavení vypnout.",
+        "dxvknvapi": "DXVK-NVAPI je implementace NVAPI postavená na DXVK a nativním NVAPI Linuxu, umožňuje použití DLSS na grafických kartách Nvidia.",
+        "disablePlaytimeSync": "Zakáže synchronizaci času hraní se servery obchodu (aktualně je podporován jen GOG)",
+        "gamescope": {
+            "fpsLimiterNoFocus": "Počet snímků, na které by měl být omezen gamescope když není hra na popředí (zaměřená).",
+            "upscaleMethod": "Způsob upscalingu, který by měl gamescope využít.",
+            "gameWidth": "Rozlišení šířky používané hrou. Gamescope předpokládá poměr stran 16:9.",
+            "upscaleWidth": "Rozlišení šířky používané službou gamescope. Je předpokládán rozměr 16:9.",
+            "gameHeight": "Rozlišení výšky používané hrou. Gamescope předpokládá poměr stran 16:9.",
+            "upscaleHeight": "Rozlišení výšky používané službou gamescope. Je předpokládán rozměr 16:9.",
+            "fpsLimiter": "Počet snímků, na který by měl být omezen gamescope. Např. 60"
+        }
     },
     "info": {
         "heroic": {
@@ -308,7 +334,7 @@
             "message": "Wine používá funkci zvanou WINEPREFIX pro zapouzdření Windows aplikací. Tento prefix obsahuje konfigurační soubory Wine a reprodukci hierarchie souborů C: (hlavní disk na OS Windows). V této reprodukci disku C: jsou ukládány vaše soubory s uloženými hrami a se závislostmi nainstalovanými pomocí Winetricks."
         },
         "wine-path-invalid": "Adresář Wine je neplatný, vyberte prosím jiný.",
-        "wine-path-none-found": "Nebyla nalezena žádná verze Wine, stáhněte si ji z Wine Manageru"
+        "wine-path-none-found": "Nebyla nalezena žádná verze Wine, stáhněte si ji ze Správce Wine"
     },
     "install": {
         "path": "Vyberte cestu instalace"
@@ -336,7 +362,8 @@
         "epic": "Přihlášení s Epic Games",
         "gog": "Přihlášení s GOG",
         "message": "Přihlaste se pomocí své platformy. Můžete se přihlásit k více platformám najednou.",
-        "amazon": "Přihlášení na Amazon"
+        "amazon": "Přihlášení s Amazonem",
+        "old-mac": "Verze vašeho systému macOS je {{version}}. Pro přihlášení je vyžadován macOS 12 nebo novější."
     },
     "message": {
         "sync": "Synchronizace dokončena",
@@ -415,7 +442,11 @@
         },
         "gameargs": {
             "placeholder": "Sem vložte argumenty spouštěče",
-            "title": "Herní argumenty (ke spuštění po příkazu):"
+            "title": "Herní argumenty (ke spuštění po příkazu):",
+            "error": {
+                "command": "Syntaxe příkazu %command% ze Steamu není platná jako herní argument.",
+                "env": "Proměnné prostředí musí být nastaveny v tabulce níže."
+            }
         },
         "quote-args-with-spaces": "Upozornění: Nezapomeňte uvozovat argumenty s mezerami! Např.: \"cesta/s mezerami/\"",
         "wrapper": {
@@ -425,6 +456,19 @@
             "placeHolderKey": "Nový Wrapper",
             "placeHolderValue": "Argumenty Wrapperu",
             "title": "Příkaz Wrapper:"
+        },
+        "gamescope": {
+            "fpsLimiter": "Omezení FPS",
+            "gameHeight": "Výška hry",
+            "upscaleWidth": "Šířka upscalingu",
+            "gameWidth": "Šířka hry",
+            "upscaleHeight": "Výška upscalingu",
+            "fpsLimiterNoFocus": "Omezení FPS (v pozadí)",
+            "nis": "Škálování obrazu NVIDIA (NIS)",
+            "borderless": "Bez okrajů",
+            "fullscreen": "Celá obrazovka",
+            "interger": "Celočíselný upscaling",
+            "stretch": "Roztáhnout obraz"
         }
     },
     "other": {
@@ -441,7 +485,7 @@
         "dxvkfpsvalue": "Kladná celočíselná hodnota (např. 30, 60, ...)",
         "egs-prefix": "Prefix kde je nainstalován EGS",
         "prefered_language": "2znakový kód (tj.: \"en\" nebo \"fr\")",
-        "alt-nile-bin": "Pomocí vestavěného nilského binárního..."
+        "alt-nile-bin": "Používání vestavěného binárního souboru Nile..."
     },
     "platforms": {
         "linux": "Linux",
@@ -464,11 +508,11 @@
             "resume": "Obnovit stahování"
         }
     },
-    "Recent": "Recently Played",
-    "search": "Vyhledat hry",
+    "Recent": "Nedávno hráno",
+    "search": "Hledat hry",
     "setting": {
         "adddesktopshortcuts": "Automaticky přidávat zástupce na plochu",
-        "addgamestostartmenu": "Přidat hry do nabídky Start automaticky",
+        "addgamestostartmenu": "Automaticky přidávat hry do nabídky Start",
         "addgamestosteam": "Automaticky přidávat hry do knihovny služby Steam",
         "alt-gogdl-bin": "Vyberte alternativní spustitelný soubor GOGDL, který chcete použít",
         "alt-legendary-bin": "Vyberte alternativní spustitelný soubor Legendary",
@@ -575,9 +619,27 @@
         "autoUpdateGames": "Automaticky aktualizovat hry",
         "ignoreGameUpdates": "Ignorovat aktualizace hry",
         "disable_logs": "Zakázat protokoly",
-        "addgamestoapplications": "Přidávejte hry do aplikací automaticky",
+        "addgamestoapplications": "Automaticky přidávat hry do Aplikací",
         "showMetalOverlay": "Zobrazit překryvnou statistiku",
-        "alt-nile-bin": "Vyberte alternativní binární soubor Nilu"
+        "alt-nile-bin": "Vyberte alternativní binární soubor Nile",
+        "autodxvknvapi": "Automaticky instalovat/aktualizovat DXVK/VKD3D na prefixu",
+        "experimental_features": {
+            "enableNewShinyFeature": "Nová skvělá funkce",
+            "enableNewDesign": "Nový design"
+        },
+        "disablePlaytimeSync": "Zakázat synchronizaci času hraní",
+        "gamescope": {
+            "enableLimiter": "Zapnout omezení FPS",
+            "enableUpscaling": "Povolí upscaling",
+            "missingMsg": "V PATH jsme nenašli gamescope. Nainstalujte jej nebo jej přidejte do PATH."
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "Tato funkce je stále experimentální. Nahlaste prosím všechny objevené problémy na GitHub.",
+                "title": "Pozor, experimentální funkce"
+            },
+            "description": "Použít okno bez okrajů (vyžaduje restart)"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -612,13 +674,43 @@
             "log": "Protokol",
             "other": "Ostatní",
             "sync": "Synchronizace uložených souborů",
-            "wineExt": "Wine rozšíření"
+            "wineExt": "Wine rozšíření",
+            "systemInformation": "Systémové informace",
+            "gamescope": "Gamescope"
         },
         "open-config-file": "Otevřít soubor konfigurace",
         "reset-heroic": "Resetovat Heroic",
         "saves": {
             "label": "Umístění pro ukládání:",
             "warning": "Funkce Cloud Saves je v Beta verzi, před synchronizací si prosím uložená data zálohujte (pro případ, že by se něco pokazilo)"
+        },
+        "experimental_features": {
+            "title": "Experimentální funkce"
+        },
+        "systemInformation": {
+            "cpu": "CPU:",
+            "gpuWithNumber": "GPU {{number}}:",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "legendaryVersion": "Legendary: {{legendaryVersion}}",
+            "systemSpecifications": "Systémové specifikace:",
+            "steamDeck": "Steam Deck {{model}}",
+            "gpuDriver": "Ovladač: {{driverVersion}}",
+            "os": "Operační systém:",
+            "gpu": "GPU:",
+            "gogdlVersion": "Gogdl: {{gogdlVersion}}",
+            "osVersion": "Verze {{versionNumber}}",
+            "osNameFlatpak": "{{osName}} (uvnitř Flatpaku)",
+            "software": "Software:",
+            "memoryStats": "Využito {{percentUsed}}% ({{usedGib}} / {{totalGib}}",
+            "systemModel": "Model systému:",
+            "showDetailed": "Zobrazit podrobné informace o systému",
+            "memory": "Paměť:",
+            "copyToClipboard": "Zkopírovat do schránky",
+            "heroicVersion": "Heroic: {{heroicVersion}}",
+            "nileVersion": "Nile: {{nileVersion}}"
+        },
+        "gamescope": {
+            "searchMsg": "Hledání spustitelného souboru gamescope."
         }
     },
     "Settings": "Nastavení",
@@ -656,7 +748,7 @@
     "two_col_table": {
         "save_hint": "Změny v této tabulce se neukládají automaticky. Klikněte na tlačítko +"
     },
-    "Update Available!": "K dispozici je nová aktualizace!",
+    "Update Available!": "K dispozici je aktualizace!",
     "userselector": {
         "discord": "Discord",
         "logging_out": "Odhlašování",
@@ -700,7 +792,30 @@
         "title": "Název",
         "actions": "Akce"
     },
-    "amazon": "Amazonka",
+    "amazon": "Amazon",
     "prime-gaming": "Prime Gaming",
-    "Amazon Games": "Amazon hry"
+    "Amazon Games": "Hry Amazon",
+    "winetricks": {
+        "install": "Instalovat",
+        "loading": "Načítání",
+        "installing": "Probíhá instalace: {{component}}",
+        "openGUI": "Otevřít rozhraní Winetricks",
+        "search": "Hledat písma nebo komponenty",
+        "nothingYet": "Pomocí Winetricks zatím nebylo nic nainstalováno",
+        "installed": "Nainstalované komponenty:"
+    },
+    "window": {
+        "close": "Zavřít",
+        "minimize": "Minimalizovat okno",
+        "maximize": "Maximalizovat okno",
+        "restore": "Obnovit okno"
+    },
+    "category-settings": {
+        "cancel": "Zrušit",
+        "warning": "Varování",
+        "remove-category": "Odstranit kategorii",
+        "delete-question": "Pokračováním nevratně odstraníte tuto kategorii a odeberete ji ze všech her. Pokračovat?",
+        "new-category": "Nová kategorie",
+        "add-new-category": "Přidat novou kategorii"
+    }
 }

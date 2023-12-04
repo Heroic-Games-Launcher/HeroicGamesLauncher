@@ -1,3 +1,4 @@
+import { NileInstallInfo } from './../common/types/nile'
 import {
   AppSettings,
   GameInfo,
@@ -8,26 +9,27 @@ import {
   ButtonOptions,
   LibraryTopSectionOptions,
   DMQueueElement,
-  DownloadManagerState
+  DownloadManagerState,
+  ExperimentalFeatures,
+  GameSettings,
+  WikiInfo,
+  ExtraInfo,
+  Status
 } from 'common/types'
+import { GogInstallInfo } from 'common/types/gog'
+import { LegendaryInstallInfo } from 'common/types/legendary'
 import { NileLoginData, NileRegisterData } from 'common/types/nile'
 
 export type Category = 'all' | 'legendary' | 'gog' | 'sideload' | 'nile'
 
 export interface ContextType {
-  category: Category
   error: boolean
-  filterText: string
-  filterPlatform: string
   gameUpdates: string[]
   isRTL: boolean
+  isFullscreen: boolean
+  isFrameless: boolean
   language: string
   setLanguage: (newLanguage: string) => void
-  handleCategory: (value: Category) => void
-  handlePlatformFilter: (value: string) => void
-  handleLayout: (value: string) => void
-  handleSearch: (input: string) => void
-  layout: string
   libraryStatus: GameStatus[]
   libraryTopSection: string
   handleLibraryTopSection: (value: LibraryTopSectionOptions) => void
@@ -47,12 +49,16 @@ export interface ContextType {
     add: (appNameToAdd: string, appTitle: string) => void
     remove: (appNameToRemove: string) => void
   }
-  showHidden: boolean
-  setShowHidden: (value: boolean) => void
-  showFavourites: boolean
-  setShowFavourites: (value: boolean) => void
-  showNonAvailable: boolean
-  setShowNonAvailable: (value: boolean) => void
+  customCategories: {
+    list: Record<string, string[]>
+    listCategories: () => string[]
+    addToGame: (category: string, appName: string) => void
+    removeFromGame: (category: string, appName: string) => void
+    addCategory: (newCategory: string) => void
+    removeCategory: (category: string) => void
+  }
+  currentCustomCategory: string | null
+  setCurrentCustomCategory: (newCustomCategory: string) => void
   theme: string
   setTheme: (themeName: string) => void
   zoomPercent: number
@@ -77,6 +83,7 @@ export interface ContextType {
     login: (data: NileRegisterData) => Promise<string>
     logout: () => Promise<void>
   }
+  installingEpicGame: boolean
   allTilesInColor: boolean
   setAllTilesInColor: (value: boolean) => void
   setSideBarCollapsed: (value: boolean) => void
@@ -102,9 +109,11 @@ export interface ContextType {
   }
   setIsSettingsModalOpen: (
     value: boolean,
-    type?: 'settings' | 'log',
+    type?: 'settings' | 'log' | 'category',
     gameInfo?: GameInfo
   ) => void
+  experimentalFeatures: ExperimentalFeatures
+  handleExperimentalFeatures: (newSetting: ExperimentalFeatures) => void
 }
 
 export type DialogModalOptions = {
@@ -149,6 +158,7 @@ declare global {
       canvas_height: number
     ) => Promise<string>
     setTheme: (themeClass: string) => void
+    isSteamDeckGameMode: boolean
   }
 
   interface WindowEventMap {
@@ -173,6 +183,80 @@ export interface SettingsContextType {
   gameInfo: GameInfo | null
   isMacNative: boolean
   isLinuxNative: boolean
+}
+
+export interface StoresFilters {
+  legendary: boolean
+  gog: boolean
+  nile: boolean
+  sideload: boolean
+}
+
+export interface PlatformsFilters {
+  win: boolean
+  linux: boolean
+  mac: boolean
+  browser: boolean
+}
+
+export interface LibraryContextType {
+  storesFilters: StoresFilters
+  platformsFilters: PlatformsFilters
+  filterText: string
+  toggleStoreFilter: (store: Category) => void
+  togglePlatformFilter: (platform: string) => void
+  handleLayout: (value: string) => void
+  handleSearch: (input: string) => void
+  layout: string
+  showHidden: boolean
+  setShowHidden: (value: boolean) => void
+  showFavourites: boolean
+  setShowFavourites: (value: boolean) => void
+  showInstalledOnly: boolean
+  setShowInstalledOnly: (value: boolean) => void
+  showNonAvailable: boolean
+  setShowNonAvailable: (value: boolean) => void
+  sortDescending: boolean
+  setSortDescending: (value: boolean) => void
+  sortInstalled: boolean
+  setSortInstalled: (valur: boolean) => void
+}
+
+export interface GameContextType {
+  appName: string
+  runner: Runner
+  gameInfo: GameInfo | null
+  gameExtraInfo: ExtraInfo | null
+  gameSettings: GameSettings | null
+  gameInstallInfo:
+    | LegendaryInstallInfo
+    | GogInstallInfo
+    | NileInstallInfo
+    | null
+  is: {
+    installing: boolean
+    installingUbisoft: boolean
+    launching: boolean
+    linux: boolean
+    linuxNative: boolean
+    mac: boolean
+    macNative: boolean
+    moving: boolean
+    native: boolean
+    notAvailable: boolean
+    notInstallable: boolean
+    notSupportedGame: boolean
+    playing: boolean
+    queued: boolean
+    reparing: boolean
+    sideloaded: boolean
+    syncing: boolean
+    uninstalling: boolean
+    updating: boolean
+    win: boolean
+  }
+  status: Status | undefined
+  wikiInfo: WikiInfo | null
 }
 
 export interface LocationState {

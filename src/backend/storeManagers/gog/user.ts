@@ -6,12 +6,21 @@ import { configStore } from './electronStores'
 import { isOnline } from '../../online_monitor'
 import { UserData } from 'common/types/gog'
 import { runRunnerCommand } from './library'
-import {
-  createAbortController,
-  deleteAbortController
-} from 'backend/utils/aborthandler/aborthandler'
 import { gogdlAuthConfig } from 'backend/constants'
 import { clearCache } from 'backend/utils'
+
+function authLogSanitizer(line: string) {
+  try {
+    const output = JSON.parse(line)
+    output.access_token = '<redacted>'
+    output.session_id = '<redacted>'
+    output.refresh_token = '<redacted>'
+    output.user_id = '<redacted>'
+    return JSON.stringify(output) + '\n'
+  } catch (error) {
+    return line
+  }
+}
 
 export class GOGUser {
   static async login(
@@ -24,10 +33,10 @@ export class GOGUser {
     logInfo('Logging using GOG credentials', LogPrefix.Gog)
 
     // Gets token from GOG basaed on authorization code
-    const { stdout } = await runRunnerCommand(
-      ['auth', '--code', code],
-      createAbortController('gogdl-auth')
-    )
+    const { stdout } = await runRunnerCommand(['auth', '--code', code], {
+      abortId: 'gogdl-auth',
+      logSanitizer: authLogSanitizer
+    })
 
     try {
       const data: GOGLoginData = JSON.parse(stdout.trim())
@@ -41,7 +50,6 @@ export class GOGUser {
       )
       return { status: 'error' }
     }
-    deleteAbortController('gogdl-auth')
     logInfo('Login Successful', LogPrefix.Gog)
     configStore.set('isLoggedIn', true)
     const userDetails = await this.getUserDetails()
@@ -100,12 +108,10 @@ export class GOGUser {
       })
       return
     }
-    const { stdout } = await runRunnerCommand(
-      ['auth'],
-      createAbortController('gogdl-get-credentials')
-    )
-
-    deleteAbortController('gogdl-get-credentials')
+    const { stdout } = await runRunnerCommand(['auth'], {
+      abortId: 'gogdl-get-credentials',
+      logSanitizer: authLogSanitizer
+    })
     return JSON.parse(stdout)
   }
 

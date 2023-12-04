@@ -11,7 +11,7 @@
   padding: 0 var(--space-md-fixed) var(--space-md-fixed);
 }
 
-.gameList.firstLane > :first-child {
+.gameList.firstLane > div:has(.justPlayed) {
   grid-column: span 2;
 }
 
@@ -40,13 +40,12 @@
 
 .libraryHeader {
   text-align: start;
-  padding: 0 var(--space-md-fixed);
-  margin: var(--space-sm) 0;
-  background: var(--background-darker);
+  padding: var(--space-md-fixed);
+  margin: 0;
+  background: var(--gradient-body-background, var(--body-background));
   position: sticky;
-  top: 0px;
+  top: var(--header-height, 82px);
   z-index: 9;
-  height: 46px;
 }
 
 .libraryHeaderWrapper {
@@ -86,9 +85,4 @@
 
 #backToTopBtn:hover {
   opacity: 1;
-}
-
-.listing {
-  overflow-y: auto;
-  flex: 100% 1 1;
 }

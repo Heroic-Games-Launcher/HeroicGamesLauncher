@@ -44,7 +44,8 @@
             "title": "Il gioco richiede un aggiornamento"
         },
         "wineprefix": "Seleziona la cartella del prefisso di Wine",
-        "yes": "SI"
+        "yes": "SI",
+        "close": "Chiudi"
     },
     "button": {
         "add_to_favourites": "Aggiungi Ai Preferiti",
@@ -90,7 +91,7 @@
         "platform": "Seleziona la versione della piattaforma da installare",
         "requirements": "Requisiti Di Sistema",
         "totalPlayed": "Tempo giocato",
-        "dlcs": "DLCs"
+        "dlcs": "DLC"
     },
     "gamecard": {
         "moving": "Spostamento in corso",
@@ -117,8 +118,8 @@
         "apple-gaming-wiki": "Valutazione di AppleGamingWiki",
         "clickToOpen": "Clicca per aprire",
         "game-scores": "Punteggi di gioco",
-        "installedInfo": "Informazioni installate",
-        "protondb-compatibility-info": "Livello di compatibilità protonica",
+        "installedInfo": "Informazioni di installazione",
+        "protondb-compatibility-info": "Livello di compatibilità Proton",
         "steamdeck-compatibility-info": "Compatibilità SteamDeck"
     },
     "install": {
@@ -128,7 +129,14 @@
         "path-not-writtable": "Attenzione: il percorso potrebbe non essere scrivibile.",
         "space-after-install": "Dopo l'installazione",
         "wineprefix": "Prefisso Wine",
-        "wineversion": "Versione di Wine"
+        "wineversion": "Versione di Wine",
+        "anticheat-warning": {
+            "cancel": "No",
+            "message": "Il supporto dell'anticheat è non funzionante o negato. Il gioco non funzionerà. Vuoi installarlo comunque?",
+            "install": "Si (Capisco che non funzionerà)",
+            "title": "Anticheat Rotto/Negato"
+        },
+        "flatpak-path-not-writtable": "Errore: accesso a Sandbox non garantito su questa posizione, i dati andranno persi."
     },
     "label": {
         "game": {
@@ -142,7 +150,7 @@
         "saves": {
             "syncing": "Sincronizzando i salvataggi"
         },
-        "launching": "Lancio",
+        "launching": "Avviando",
         "ubisoft": "Installazione di Ubisoft Connect"
     },
     "launch": {
@@ -153,7 +161,7 @@
         "gog": "Non hai effettuato l'accesso con nessun account GOG in Heroic. Non usare la pagina dello store per accede ma clicca sul seguente pulsante:",
         "login": "Accedi",
         "title": "NON hai effettuato l'accesso",
-        "amazon": "Non hai effettuato l'accesso con nessun account Epic in Heroic. Non usare la pagina dello store per accede ma clicca sul seguente pulsante:"
+        "amazon": "Non hai effettuato l'accesso con un account Amazon in Heroic. Non usare la pagina dello store per accede ma clicca sul seguente pulsante:"
     },
     "report_problem": "Segnala un problema nell'esecuzione di questo gioco",
     "sdl": {
@@ -168,10 +176,12 @@
             "title": "Titolo"
         },
         "info": {
-            "exe": "Selezione l'Eseguibile",
+            "exe": "Seleziona l'Eseguibile",
             "image": "Immagine dell'App",
             "title": "Titolo Gioco/App",
-            "broser": "URL del browser"
+            "broser": "URL del browser",
+            "useragent": "Agente Utente Personalizzato",
+            "fullscreen": "Apri schermo intero (F11 per uscire)"
         },
         "placeholder": {
             "image": "Incolla qui l'URL di un'Immagine",
@@ -203,7 +213,7 @@
         "playing": "Giocando",
         "moving-files": "Spostamento del file '{{file}}': {{percent}} ",
         "syncingSaves": "Sincronizzando i salvataggi",
-        "launching": "Lancio",
+        "launching": "Avviando",
         "ubisoft": "Installazione di Ubisoft",
         "downloading": "Scaricamento",
         "extracting": "Estrazione",
@@ -224,7 +234,8 @@
         "store": "Pagina dello store",
         "verify": "Verifica e ripara",
         "extraInfo": "Ulteriori informazioni",
-        "logs": "Registri"
+        "logs": "Registri",
+        "categories": "Categorie"
     },
     "help": {
         "cloud_save_unsupported": "Questo gioco non supporta i salvataggi nel cloud. Queste informazioni sono fornite dagli sviluppatori del gioco. Alcuni giochi implementano il proprio sistema di salvataggio nel cloud"

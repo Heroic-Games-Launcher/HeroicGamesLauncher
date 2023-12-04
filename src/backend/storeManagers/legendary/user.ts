@@ -1,7 +1,3 @@
-import {
-  createAbortController,
-  deleteAbortController
-} from '../../utils/aborthandler/aborthandler'
 import { existsSync, readFileSync } from 'graceful-fs'
 
 import { UserInfo } from 'common/types'
@@ -11,14 +7,18 @@ import { logError, LogPrefix } from '../../logger/logger'
 import { userInfo as user } from 'os'
 import { session } from 'electron'
 import { runRunnerCommand as runLegendaryCommand } from './library'
+import { LegendaryCommand } from './commands'
+import { NonEmptyString } from './commands/base'
 
 export class LegendaryUser {
   public static async login(
     authorizationCode: string
   ): Promise<{ status: 'done' | 'failed'; data: UserInfo | undefined }> {
-    const commandParts = ['auth', '--code', authorizationCode]
+    const command: LegendaryCommand = {
+      subcommand: 'auth',
+      '--code': NonEmptyString.parse(authorizationCode)
+    }
 
-    const abortID = 'legendary-login'
     const errorMessage = (
       error: string
     ): { status: 'failed'; data: undefined } => {
@@ -28,15 +28,10 @@ export class LegendaryUser {
     }
 
     try {
-      const res = await runLegendaryCommand(
-        commandParts,
-        createAbortController(abortID),
-        {
-          logMessagePrefix: 'Logging in'
-        }
-      )
-
-      deleteAbortController(abortID)
+      const res = await runLegendaryCommand(command, {
+        abortId: 'legendary-login',
+        logMessagePrefix: 'Logging in'
+      })
 
       if (res.stderr.includes('ERROR: Logging in ')) {
         return errorMessage(res.stderr)
@@ -49,24 +44,17 @@ export class LegendaryUser {
       const userInfo = this.getUserInfo()
       return { status: 'done', data: userInfo }
     } catch (error) {
-      deleteAbortController(abortID)
       return errorMessage(`${error}`)
     }
   }
 
   public static async logout() {
-    const commandParts = ['auth', '--delete']
+    const command: LegendaryCommand = { subcommand: 'auth', '--delete': true }
 
-    const abortID = 'legendary-logout'
-    const res = await runLegendaryCommand(
-      commandParts,
-      createAbortController(abortID),
-      {
-        logMessagePrefix: 'Logging out'
-      }
-    )
-
-    deleteAbortController(abortID)
+    const res = await runLegendaryCommand(command, {
+      abortId: 'legendary-logout',
+      logMessagePrefix: 'Logging out'
+    })
 
     if (res.error || res.abort) {
       logError(

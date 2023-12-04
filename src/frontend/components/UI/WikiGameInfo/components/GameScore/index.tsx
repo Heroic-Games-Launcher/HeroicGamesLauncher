@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './index.scss'
 import { PCGamingWikiInfo } from 'common/types'
 import classNames from 'classnames'
 import { createNewWindow } from 'frontend/helpers'
+import ContextProvider from 'frontend/state/ContextProvider'
 
 type Props = {
   title: string
@@ -10,6 +11,8 @@ type Props = {
 }
 
 export default function GameScore({ title, info }: Props) {
+  const { experimentalFeatures } = useContext(ContextProvider)
+
   if (!info || (!info.metacritic && !info.opencritic && !info.igdb)) {
     return null
   }
@@ -32,6 +35,63 @@ export default function GameScore({ title, info }: Props) {
 
   if (!shouldShow) {
     return null
+  }
+
+  if (experimentalFeatures.enableNewDesign) {
+    return (
+      <>
+        {metacritic.score && (
+          <a
+            onClick={() => {
+              if (metacritic.urlid) {
+                createNewWindow(
+                  `https://www.metacritic.com/game/pc/${metacritic.urlid}`
+                )
+              } else {
+                createNewWindow(
+                  `https://www.metacritic.com/search/all/${title}/results`
+                )
+              }
+            }}
+          >
+            <b>MetaCritic</b>
+            {`${metacritic.score}`}
+          </a>
+        )}
+        {opencritic.score && (
+          <a
+            className={classNames('circle', getColorClass(opencritic.score))}
+            onClick={() => {
+              if (opencritic.urlid) {
+                createNewWindow(
+                  `https://opencritic.com/game/${opencritic.urlid}`
+                )
+              }
+            }}
+          >
+            <b>OpenCritic</b>
+            {`${opencritic.score}`}
+          </a>
+        )}
+        {igdb.score && (
+          <a
+            className={classNames('circle', getColorClass(igdb.score))}
+            onClick={() => {
+              if (metacritic.urlid) {
+                createNewWindow(
+                  `https://www.igdb.com/games/${metacritic.urlid}`
+                )
+              } else {
+                createNewWindow(`https://www.igdb.com/search?type=1&q=${title}`)
+              }
+            }}
+          >
+            <b>IGDB</b>
+            {`${igdb.score}`}
+          </a>
+        )}
+      </>
+    )
   }
 
   return (

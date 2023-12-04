@@ -9,15 +9,20 @@ import {
   callRunner,
   launchCleanup,
   prepareLaunch,
+  prepareWineLaunch,
   runWineCommand,
   setupEnvVars,
+  setupWrapperEnvVars,
   setupWrappers
 } from '../../launcher'
 import { access, chmod } from 'fs/promises'
 import shlex from 'shlex'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
-import { createAbortController } from '../../utils/aborthandler/aborthandler'
-import { BrowserWindow, Menu } from 'electron'
+import {
+  createAbortController,
+  deleteAbortController
+} from '../../utils/aborthandler/aborthandler'
+import { BrowserWindow, dialog, Menu } from 'electron'
 import { gameManagerMap } from '../index'
 
 async function getAppSettings(appName: string): Promise<GameSettings> {
@@ -31,16 +36,25 @@ export function logFileLocation(appName: string) {
   return join(gamesConfigPath, `${appName}-lastPlay.log`)
 }
 
-const openNewBrowserGameWindow = async (
-  browserUrl: string,
-  abortController: AbortController
-): Promise<boolean> => {
+type BrowserGameOptions = {
+  browserUrl: string
+  abortId: string
+  customUserAgent?: string
+  launchFullScreen?: boolean
+}
+
+const openNewBrowserGameWindow = async ({
+  browserUrl,
+  abortId,
+  customUserAgent,
+  launchFullScreen
+}: BrowserGameOptions): Promise<boolean> => {
   const hostname = new URL(browserUrl).hostname
 
   return new Promise((res) => {
     const browserGame = new BrowserWindow({
       icon: icon,
-      fullscreen: true,
+      fullscreen: launchFullScreen ?? false,
       autoHideMenuBar: true,
       webPreferences: {
         partition: `persist:${hostname}`
@@ -55,17 +69,44 @@ const openNewBrowserGameWindow = async (
         { role: 'toggleDevTools' }
       ])
     )
+
+    const defaultUserAgent =
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36'
+    browserGame.webContents.userAgent = customUserAgent ?? defaultUserAgent
+
     browserGame.menuBarVisible = false
-    browserGame.webContents.userAgent =
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'
     browserGame.loadURL(browserUrl)
     browserGame.on('ready-to-show', () => browserGame.show())
+
+    const abortController = createAbortController(abortId)
 
     abortController.signal.addEventListener('abort', () => {
       browserGame.close()
     })
 
-    browserGame.on('close', () => {
+    browserGame.webContents.on('will-prevent-unload', (event) => {
+      const choice = dialog.showMessageBoxSync(browserGame, {
+        type: 'question',
+        buttons: ['Yes', 'No'],
+        title: i18next.t(
+          'box.warning.sideload.confirmExit.title',
+          'Are you sure you want to quit?'
+        ),
+        message: i18next.t(
+          'box.warning.sideload.confirmExit.message',
+          'Any unsaved progress might be lost'
+        ),
+        defaultId: 0,
+        cancelId: 1
+      })
+      const leave = choice === 0
+      if (leave) {
+        event.preventDefault()
+      }
+    })
+
+    browserGame.on('closed', () => {
+      deleteAbortController(abortId)
       res(true)
     })
   })
@@ -84,7 +125,7 @@ export async function launchGame(
     install: { executable }
   } = gameInfo
 
-  const { browserUrl } = gameInfo
+  const { browserUrl, customUserAgent, launchFullScreen } = gameInfo
 
   const gameSettingsOverrides = await GameConfig.get(appName).getSettings()
   if (
@@ -95,7 +136,12 @@ export async function launchGame(
   }
 
   if (browserUrl) {
-    return openNewBrowserGameWindow(browserUrl, createAbortController(appName))
+    return openNewBrowserGameWindow({
+      browserUrl,
+      abortId: appName,
+      customUserAgent,
+      launchFullScreen
+    })
   }
 
   const gameSettings = await getAppSettings(appName)
@@ -108,14 +154,18 @@ export async function launchGame(
       failureReason: launchPrepFailReason,
       rpcClient,
       mangoHudCommand,
+      gameScopeCommand,
       gameModeBin,
       steamRuntime
     } = await prepareLaunch(gameSettings, gameInfo, isNative)
+
+    if (!isNative) await prepareWineLaunch(runner, appName)
 
     const wrappers = setupWrappers(
       gameSettings,
       mangoHudCommand,
       gameModeBin,
+      gameScopeCommand,
       steamRuntime?.length ? [...steamRuntime] : undefined
     )
 
@@ -131,7 +181,6 @@ export async function launchGame(
       })
       return false
     }
-    const env = { ...process.env, ...setupEnvVars(gameSettings) }
 
     // Native
     if (isNative) {
@@ -154,6 +203,11 @@ export async function launchGame(
       }
 
       const commandParts = shlex.split(launcherArgs ?? '')
+      const env = {
+        ...process.env,
+        ...setupWrapperEnvVars({ appName, appRunner: runner }),
+        ...setupEnvVars(gameSettings)
+      }
 
       await callRunner(
         commandParts,
@@ -163,7 +217,6 @@ export async function launchGame(
           bin: executable,
           dir: dirname(executable)
         },
-        createAbortController(appName),
         {
           env,
           wrappers,

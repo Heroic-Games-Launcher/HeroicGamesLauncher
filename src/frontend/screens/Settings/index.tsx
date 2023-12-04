@@ -14,7 +14,8 @@ import {
   GeneralSettings,
   GamesSettings,
   SyncSaves,
-  AdvancedSettings
+  AdvancedSettings,
+  SystemInfo
 } from './sections'
 import { AppSettings, WineInstallation } from 'common/types'
 import { UpdateComponent } from 'frontend/components/UI'
@@ -43,6 +44,7 @@ function Settings() {
   const isGamesSettings = type === 'games_settings'
   const isLogSettings = type === 'log'
   const isAdvancedSetting = type === 'advanced' && isDefault
+  const isSystemInfo = type === 'systeminfo' && isDefault
 
   // Load Heroic's or game's config, only if not loaded already
   useEffect(() => {
@@ -119,10 +121,11 @@ function Settings() {
             </h1>
 
             {isGeneralSettings && <GeneralSettings />}
-            {isGamesSettings && <GamesSettings useDetails={false} />}
+            {isGamesSettings && <GamesSettings />}
             {isSyncSettings && <SyncSaves />}
             {isAdvancedSetting && <AdvancedSettings />}
             {isLogSettings && <LogSettings />}
+            {isSystemInfo && <SystemInfo />}
             <FooterInfo />
           </div>
         </div>
