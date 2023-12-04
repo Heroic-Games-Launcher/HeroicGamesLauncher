@@ -120,7 +120,7 @@
         "clickToOpen": "单击打开",
         "game-scores": "游戏分数",
         "installedInfo": "已安装信息",
-        "protondb-compatibility-info": "质子兼容性层",
+        "protondb-compatibility-info": "Proton 兼容性级别",
         "steamdeck-compatibility-info": "SteamDeck 兼容性"
     },
     "install": {
@@ -212,7 +212,7 @@
         "totalDownloaded": "下载总计",
         "uninstalling": "卸载中",
         "updating": "游戏更新中",
-        "playing": "播放中",
+        "playing": "游戏中",
         "moving-files": "正在移动文件“{{file}}”：{{percent}} ",
         "syncingSaves": "存档同步中",
         "launching": "启动中",
@@ -236,7 +236,8 @@
         "store": "商店页面",
         "verify": "验证和修复",
         "extraInfo": "额外信息",
-        "logs": "日志"
+        "logs": "日志",
+        "categories": "分类"
     },
     "help": {
         "cloud_save_unsupported": "本游戏不支持云存档。此信息由游戏开发商提供。有些游戏部署了自己的云保存系统"

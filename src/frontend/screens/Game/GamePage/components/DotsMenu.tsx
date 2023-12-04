@@ -58,6 +58,7 @@ const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
             hasRequirements ? () => setShowRequirements(true) : undefined
           }
           onShowModifyInstall={() => setShowModifyInstallModal(true)}
+          gameInfo={gameInfo}
         />
       </div>
 

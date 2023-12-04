@@ -9,7 +9,7 @@ import { filesize } from 'filesize'
 import { getGpuInfo } from './gpu'
 import { getMemoryInfo } from './memory'
 import { getOsInfo } from './osInfo'
-import { isSteamDeck } from './steamDeck'
+import { getSteamDeckInfo, type SteamDeckInfo } from './steamDeck'
 import { getHeroicVersion } from './heroicVersion'
 import {
   getGogdlVersion,
@@ -52,7 +52,7 @@ interface SystemInformation {
     name: string
     version: string
   }
-  isSteamDeck: boolean
+  steamDeckInfo: SteamDeckInfo
   isFlatpak: boolean
   softwareInUse: {
     heroicVersion: string
@@ -75,7 +75,7 @@ async function getSystemInfo(cache = true): Promise<SystemInformation> {
   const memory = await getMemoryInfo()
   const gpus = await getGpuInfo()
   const detailedOsInfo = await getOsInfo()
-  const isDeck = isSteamDeck(cpus, gpus)
+  const deckInfo = getSteamDeckInfo(cpus, gpus)
   const [legendaryVersion, gogdlVersion, nileVersion] = await Promise.all([
     getLegendaryVersion(),
     getGogdlVersion(),
@@ -101,7 +101,7 @@ async function getSystemInfo(cache = true): Promise<SystemInformation> {
       version: process.getSystemVersion(),
       ...detailedOsInfo
     },
-    isSteamDeck: isDeck,
+    steamDeckInfo: deckInfo,
     isFlatpak: !!process.env.FLATPAK_ID,
     softwareInUse: {
       heroicVersion: getHeroicVersion(),
@@ -126,7 +126,9 @@ ${info.GPUs.map(
 ).join('\n')}
 OS: ${info.OS.name} ${info.OS.version} (${info.OS.platform})
 
-The current system is${info.isSteamDeck ? '' : ' not'} a Steam Deck
+The current system is${info.steamDeckInfo.isDeck ? '' : ' not'} a Steam Deck${
+    info.steamDeckInfo.isDeck ? ` (model: ${info.steamDeckInfo.model})` : ''
+  }
 We are${info.isFlatpak ? '' : ' not'} running inside a Flatpak container
 
 Software Versions:

@@ -20,7 +20,9 @@
   color: var(--text-default);
   opacity: 0;
   transform: translateY(50px);
-  transition: opacity 500ms, transform 500ms;
+  transition:
+    opacity 500ms,
+    transform 500ms;
   max-width: min(700px, 85vw);
 }
 

@@ -1,0 +1,14 @@
+name: Build on PR
+
+on:
+  pull_request:
+    branches: [main, stable]
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: ./.github/workflows/build-base.yml
+    with:
+      publish-snap: false
+    secrets:
+      workflowToken: ${{ secrets.WORKFLOW_TOKEN }}

@@ -71,6 +71,7 @@ import {
   createAbortController,
   deleteAbortController
 } from './utils/aborthandler/aborthandler'
+import { download, isInstalled } from './wine/runtimes/runtimes'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
@@ -359,6 +360,30 @@ async function prepareWineLaunch(
     }
   }
 
+  if (gameSettings.eacRuntime && !isInstalled('eac_runtime') && isOnline()) {
+    await download('eac_runtime')
+  }
+
+  if (
+    gameSettings.battlEyeRuntime &&
+    !isInstalled('battleye_runtime') &&
+    isOnline()
+  ) {
+    await download('battleye_runtime')
+  }
+
+  if (gameSettings.eacRuntime && !isInstalled('eac_runtime') && isOnline()) {
+    await download('eac_runtime')
+  }
+
+  if (
+    gameSettings.battlEyeRuntime &&
+    !isInstalled('battleye_runtime') &&
+    isOnline()
+  ) {
+    await download('battleye_runtime')
+  }
+
   const { folder_name: installFolderName } =
     gameManagerMap[runner].getGameInfo(appName)
   const envVars = setupWineEnvVars(gameSettings, installFolderName)
@@ -474,6 +499,10 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
       break
     case 'crossover':
       ret.CX_BOTTLE = wineCrossoverBottle
+      break
+    case 'toolkit':
+      ret.WINEPREFIX = winePrefix
+      break
   }
 
   if (gameSettings.showFps) {

@@ -12,12 +12,7 @@ jobs:
     steps:
       - run: sudo apt-get install --no-install-recommends -y libarchive-tools libopenjp2-tools rpm snapcraft
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-      - name: install node-gyp
-        run: npm install -g node-gyp
-      - run: npm i --legacy-peer-deps
+      - uses: ./.github/actions/install-deps
       - run: npm run release:linux
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}

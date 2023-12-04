@@ -16,7 +16,8 @@ import {
   isMac,
   isWindows,
   getSteamCompatFolder,
-  configStore
+  configStore,
+  isLinux
 } from './constants'
 
 import { logError, logInfo, LogPrefix } from './logger/logger'
@@ -291,7 +292,7 @@ class GlobalConfigV0 extends GlobalConfig {
       addDesktopShortcuts: false,
       addStartMenuShortcuts: false,
       autoInstallDxvk: true,
-      autoInstallVkd3d: true,
+      autoInstallVkd3d: isLinux,
       autoInstallDxvkNvapi: false,
       addSteamShortcuts: false,
       preferSystemLibs: false,
@@ -310,12 +311,14 @@ class GlobalConfigV0 extends GlobalConfig {
       enviromentOptions: [],
       wrapperOptions: [],
       showFps: false,
-      useGameMode: false,
+      useGameMode: isFlatpak,
       wineCrossoverBottle: 'Heroic',
       winePrefix: isWindows ? '' : defaultWinePrefix,
       wineVersion: defaultWine,
       enableEsync: true,
-      enableFsync: true,
+      enableFsync: isLinux,
+      eacRuntime: isLinux,
+      battlEyeRuntime: isLinux,
       framelessWindow: false
     }
     // @ts-expect-error TODO: We need to settle on *one* place to define settings defaults

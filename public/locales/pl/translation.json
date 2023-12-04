@@ -11,11 +11,11 @@
     "All": "Wszystkie",
     "anticheat": {
         "anticheats": "Anticheaty",
-        "may_not_work": "Gra może nie działać z powodu braku wsparcia systemu anticheat.",
+        "may_not_work": "Gra może nie działać z powodu braku wsparcia dla systemów wykrywania oszustów.",
         "reference": "Odniesienie",
         "source": "Źródło",
         "status": "Status",
-        "title": "Ta gra wykorzystuje system anticheat"
+        "title": "Ta gra wykorzystuje system przeciwko oszustwom"
     },
     "box": {
         "cache-cleared": {
@@ -250,7 +250,8 @@
         "show_available_games": "Pokaż niedostępne gry",
         "show_favourites_only": "Pokaż tylko ulubione",
         "show_hidden": "Pokaż ukryte",
-        "store": "Filtruj"
+        "store": "Filtruj",
+        "filters": "Filtr"
     },
     "help": {
         "amdfsr": "AMD FSR pomaga podnieść ilość klatek na sekundę poprzez podniesienie niżej rozdzielczości do rozdzielczości monitora. Jakość obrazu można dostosować: od 5 do 1, z drobnym spadkiem wydajności. Włączenie może poprawić wydajność.",
@@ -787,7 +788,7 @@
         "installDlcs": "Zainstaluj wszystkie DLC",
         "title": "Title"
     },
-    "prime-gaming": "Najlepsze gry",
+    "prime-gaming": "Prime Gaming",
     "amazon": "Amazon",
     "Amazon Games": "Amazon Games",
     "winetricks": {
@@ -804,5 +805,9 @@
         "maximize": "Maksymalizuj okno",
         "close": "Zamknij",
         "restore": "Przywróć okno"
+    },
+    "category-settings": {
+        "cancel": "Anuluj",
+        "warning": "Ostrzeżenie"
     }
 }

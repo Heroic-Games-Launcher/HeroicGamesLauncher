@@ -20,6 +20,19 @@ interface Props {
   store?: 'epic' | 'gog' | 'amazon'
 }
 
+const validStoredUrl = (url: string, store: 'epic' | 'gog' | 'amazon') => {
+  switch (store) {
+    case 'epic':
+      return url.includes('epicgames.com')
+    case 'gog':
+      return url.includes('gog.com')
+    case 'amazon':
+      return url.includes('gaming.amazon.com')
+    default:
+      return false
+  }
+}
+
 export default function WebView({ store }: Props) {
   const { i18n } = useTranslation()
   const { pathname, search } = useLocation()
@@ -71,9 +84,9 @@ export default function WebView({ store }: Props) {
   let startUrl = urls[pathname]
 
   if (store) {
-    localStorage.setItem('last-store', `/${store}store`)
-    const lastUrl = localStorage.getItem(`last-url-${store}`)
-    if (lastUrl) {
+    sessionStorage.setItem('last-store', `/${store}store`)
+    const lastUrl = sessionStorage.getItem(`last-url-${store}`)
+    if (lastUrl && validStoredUrl(lastUrl, store)) {
       startUrl = lastUrl
     }
   }
@@ -228,7 +241,10 @@ export default function WebView({ store }: Props) {
     const webview = webviewRef.current
     if (webview && store) {
       const onNavigate = () => {
-        localStorage.setItem(`last-url-${store}`, webview.getURL())
+        const url = webview.getURL()
+        if (validStoredUrl(url, store)) {
+          sessionStorage.setItem(`last-url-${store}`, webview.getURL())
+        }
       }
 
       // this one is needed for gog/amazon

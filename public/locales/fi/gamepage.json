@@ -37,14 +37,16 @@
             "settingcheckbox": "Tyhjennä asetukset ja poista lokitiedosto{{newLine}}Huom: Tätä ei voi peruuttaa. Kaikki muutokset asetuksiin unohdetaan ja lokitiedosto poistetaan.",
             "title": "Poista",
             "prefix_warning": "Tämän pelin Wine-etuliite on oletusetuliite. Jos todella haluat poistaa sen, sinun on tehtävä se manuaalisesti.",
-            "dlc": "Haluatko poistaa tämän DLC:n?"
+            "dlc": "Haluatko poistaa tämän DLC:n?",
+            "cannotUninstallEpic": "Epic–peliasennusta ei voi poistaa samaan aikaan, kun toista Epic–peliä asennetaan."
         },
         "update": {
             "message": "Tälle pelille on saatavilla päivitys, haluatko asentaa sen nyt?",
             "title": "Peli tarvitsee päivityksen"
         },
         "wineprefix": "Valitse WinePrefix-kansio",
-        "yes": "KYLLÄ"
+        "yes": "KYLLÄ",
+        "close": "Sulje"
     },
     "button": {
         "add_to_favourites": "Lisää suosikkeihin",
@@ -178,12 +180,15 @@
             "exe": "Valitse suoritettava tiedosto",
             "image": "App Image",
             "title": "Pelin/sovelluksen otsikko",
-            "broser": "Selaimen URL-osoite"
+            "broser": "Selaimen URL-osoite",
+            "useragent": "Oma \"User Agent\"",
+            "fullscreen": "Vaihda täyden ruudun näkymään (F11 poistuu)"
         },
         "placeholder": {
             "image": "Liitä kuvan URL tähän",
             "title": "Lisää otsikko peliisi/sovellukseesi",
-            "url": "Liitä pelin URL-osoite tähän"
+            "url": "Liitä pelin URL-osoite tähän",
+            "useragent": "Tähän laitetaan vaihtoehtoinen selaimen tunnistetieto tälle sovellukselle/pelille"
         }
     },
     "specs": {

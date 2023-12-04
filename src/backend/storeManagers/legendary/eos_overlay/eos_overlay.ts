@@ -223,9 +223,8 @@ async function enable(
 async function disable(appName: string) {
   let prefix = ''
   if (isLinux) {
-    const { winePrefix, wineVersion } = await gameManagerMap[
-      'legendary'
-    ].getSettings(appName)
+    const { winePrefix, wineVersion } =
+      await gameManagerMap['legendary'].getSettings(appName)
     prefix =
       wineVersion.type === 'proton' ? join(winePrefix, 'pfx') : winePrefix
   }
@@ -256,9 +255,8 @@ async function isEnabled(appName?: string) {
 
   let prefix = ''
   if (isLinux && appName) {
-    const { winePrefix, wineVersion } = await gameManagerMap[
-      'legendary'
-    ].getSettings(appName)
+    const { winePrefix, wineVersion } =
+      await gameManagerMap['legendary'].getSettings(appName)
     prefix =
       wineVersion.type === 'proton' ? join(winePrefix, 'pfx') : winePrefix
   }
