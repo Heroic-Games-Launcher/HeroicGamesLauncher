@@ -27,4 +27,4 @@ jobs:
           branch: 'main'
           allowlist: bot*
           create-file-commit-message: '[CLA] Creating file for storing CLA Signatures'
-          signed-commit-message: '[CLA] $contributorName has signed the CLA'
+          signed-commit-message: '[CLA] $contributorName has signed the CLA in $pullRequestNo'
