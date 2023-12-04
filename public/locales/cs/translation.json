@@ -251,7 +251,10 @@
         "show_favourites_only": "Zobrazit pouze oblíbené",
         "show_hidden": "Zobrazit skryté",
         "store": "Filtrovat obchod",
-        "filters": "Filtr"
+        "filters": "Filtr",
+        "all_categories": "Všechny kategorie",
+        "show_installed_only": "Zobrazit pouze nainstalované",
+        "uncategorized": "Nezařazeno"
     },
     "help": {
         "amdfsr": "Funkce AMD FSR pomáhá zvýšit snímkovou frekvenci škálováním nižšího rozlišení v režimu celé obrazovky. Kvalita obrazu se zvýší z 5 na 1 za cenu mírného snížení výkonu. Povolení může zlepšit výkon.",
@@ -690,7 +693,7 @@
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
             "legendaryVersion": "Legendary: {{legendaryVersion}}",
             "systemSpecifications": "Systémové specifikace:",
-            "steamDeck": "Steam Deck",
+            "steamDeck": "Steam Deck {{model}}",
             "gpuDriver": "Ovladač: {{driverVersion}}",
             "os": "Operační systém:",
             "gpu": "GPU:",
@@ -809,6 +812,10 @@
     },
     "category-settings": {
         "cancel": "Zrušit",
-        "warning": "Varování"
+        "warning": "Varování",
+        "remove-category": "Odstranit kategorii",
+        "delete-question": "Pokračováním nevratně odstraníte tuto kategorii a odeberete ji ze všech her. Pokračovat?",
+        "new-category": "Nová kategorie",
+        "add-new-category": "Přidat novou kategorii"
     }
 }
