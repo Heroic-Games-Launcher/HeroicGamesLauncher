@@ -20,6 +20,7 @@ jobs:
         uses: contributor-assistant/github-action@v2.3.0
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          PERSONAL_ACCESS_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
         with:
           path-to-signatures: 'signatures/version1/cla.json'
           path-to-document: 'doc/cla.md'
