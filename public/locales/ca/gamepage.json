@@ -236,7 +236,8 @@
         "store": "Botiga",
         "verify": "Verifica i repara",
         "extraInfo": "Informació extra",
-        "logs": "Registres"
+        "logs": "Registres",
+        "categories": "Categories"
     },
     "help": {
         "cloud_save_unsupported": "Aquest joc no permet desar partides al núvol. Aquesta informació la proporcionen els desenvolupadors del joc. Alguns jocs implementen el seu propi sistema de desat al núvol"
