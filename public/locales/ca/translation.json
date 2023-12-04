@@ -161,7 +161,8 @@
             },
             "snap": {
                 "checkbox": "No mostris més aquest missatge",
-                "title": "Heroic s'executa com a Snap"
+                "title": "Heroic s'executa com a Snap",
+                "message": "Algunes funcions de moment no estan disponibles a la versió de Snap i ho estem mirant d'arreglar.{{newLine}}Les limitacions actuals són: {{newLine}}El Heroic no serà capaç de trobar el Proton de l'Steam o el Wine del Lutris.{{newLine}}{{newLine}}Gamescope, GameMode i MangoHud tampoc funcionaran ja que el Heroic no hi té accés.{{newLine}}{{newLine}}Per a poder fer servir aquestes funcions, instal·leu el Heroic com a Flatpak, DEB o amb una AppImage."
             }
         },
         "wineprefix": "Tria la carpeta del WinePrefix",
@@ -250,7 +251,10 @@
         "show_favourites_only": "Mostra'n només els preferits",
         "show_hidden": "Mostra'n els amagats",
         "store": "Filtre de botigues",
-        "filters": "Filtra"
+        "filters": "Filtra",
+        "all_categories": "Totes les categories",
+        "show_installed_only": "Mostra només els instal·lats",
+        "uncategorized": "Sense categoria"
     },
     "help": {
         "amdfsr": "L'FSR d'AMD ajuda a augmentar els fotogrames per segon emprant resolucions més baixes en el mode de pantalla completa i després escalant-les. La qualitat d'imatge augmenta de 5 a 1 a costa d'un petit increment de rendiment. Si s'activa, podria millorar el rendiment.",
@@ -295,7 +299,13 @@
         "dxvknvapi": "DXVK-NVAPI és una implementació de NVAPI construïda sobre DXVK i Linux natiu NVAPI. Permet l'ús de DLSS en les GPU de Nvidia.",
         "disablePlaytimeSync": "Desactiva la sincronització del temps de joc amb els servidors d'una botiga determinada. Actualment, només ho suporta el GOG.",
         "gamescope": {
-            "fpsLimiter": "El nombre de FPS límit del gamescope, com ara 60."
+            "fpsLimiter": "El nombre de FPS límit del gamescope, com ara 60.",
+            "fpsLimiterNoFocus": "El límit de FPS que ha d'aplicar gamescope si el joc no està en primer pla.",
+            "upscaleMethod": "El mètode d'escalatge que hauria de fer servir el gamescope.",
+            "gameWidth": "La resolució horitzontal del joc. El gamescope assumeix una relació 16:9.",
+            "upscaleWidth": "La resolució horitzontal que farà servir el gamescope. S'assumeix una relació d'aspecte 16:9.",
+            "gameHeight": "La resolució vertical del joc. El gamescope assumeix una relació 16:9.",
+            "upscaleHeight": "La resolució vertical que farà servir el gamescope. S'assumeix una relació d'aspecte 16:9."
         }
     },
     "info": {
@@ -432,7 +442,11 @@
         },
         "gameargs": {
             "placeholder": "Introdueix aquí els arguments del llançador",
-            "title": "Arguments del joc (s'executaran després de l'ordre):"
+            "title": "Arguments del joc (s'executaran després de l'ordre):",
+            "error": {
+                "command": "La sintaxi %command% de l'Steam no és vàlida com a argument del joc.",
+                "env": "Les variables d'entorn s’han de configurar a la taula de sota."
+            }
         },
         "quote-args-with-spaces": "Avís: posa els paràmetres que continguin espais entre cometes! Per exemple: \"ruta/amb espais/\"",
         "wrapper": {
@@ -442,6 +456,18 @@
             "placeHolderKey": "Embolcall nou",
             "placeHolderValue": "Paràmetres de l'embolcall",
             "title": "Ordre de l'embolcall:"
+        },
+        "gamescope": {
+            "nis": "Escalatge d'Imatges de NVIDIA (NIS)",
+            "borderless": "Sense vores",
+            "fpsLimiter": "Limitador de FPS",
+            "gameHeight": "Mida vertical del joc",
+            "upscaleWidth": "Mida horitzontal de l'escalatge",
+            "fullscreen": "Pantalla completa",
+            "gameWidth": "Mida horitzontal del joc",
+            "upscaleHeight": "Mida vertical de l'escalatge",
+            "fpsLimiterNoFocus": "Limitador de FPS (sense el focus)",
+            "stretch": "Estira la imatge"
         }
     },
     "other": {
@@ -599,6 +625,18 @@
         "disablePlaytimeSync": "Desactiva la sincronització del temps de reproducció",
         "experimental_features": {
             "enableNewDesign": "Disseny nou"
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "Aquesta funció és experimental. Informeu de qualsevol problema que hi trobeu a través de GitHub.",
+                "title": "Funció experimental avançada"
+            },
+            "description": "Mostra la finestra sense marc (requereix reiniciar)"
+        },
+        "gamescope": {
+            "enableLimiter": "Activa el limitador de FPS",
+            "enableUpscaling": "Activa l'escalatge",
+            "missingMsg": "No s'ha trobat el gamescope a PATH. Instal·leu-lo o afegiu-lo a PATH."
         }
     },
     "settings": {
@@ -635,7 +673,8 @@
             "other": "Altres",
             "sync": "Sincronització de desades al núvol",
             "wineExt": "Extensions del Wine",
-            "systemInformation": "Informació del sistema"
+            "systemInformation": "Informació del sistema",
+            "gamescope": "Gamescope"
         },
         "open-config-file": "Obre el fitxer de configuració",
         "reset-heroic": "Restableix l'Heroic",
@@ -649,7 +688,7 @@
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
             "legendaryVersion": "Legendary: {{legendaryVersion}}",
             "systemSpecifications": "Característiques del sistema:",
-            "steamDeck": "Steam Deck",
+            "steamDeck": "Steam Deck {{model}}",
             "gpuDriver": "Controlador: {{driverVersion}}",
             "os": "Sistema operatiu:",
             "gpu": "GPU:",
@@ -667,6 +706,9 @@
         },
         "experimental_features": {
             "title": "Funcions experimentals"
+        },
+        "gamescope": {
+            "searchMsg": "Es busca l'executable del gamescope."
         }
     },
     "Settings": "Configuració",
@@ -761,10 +803,17 @@
         "installed": "Components instal·lats:"
     },
     "window": {
-        "close": "Tanca"
+        "close": "Tanca",
+        "minimize": "Minimitza la finestra",
+        "maximize": "Maximitza la finestra",
+        "restore": "Restaura la finestra"
     },
     "category-settings": {
         "cancel": "Cancel·la",
-        "warning": "Avís"
+        "warning": "Avís",
+        "remove-category": "Trau la categoria",
+        "delete-question": "Si continueu, es traurà la categoria i les seves assignacions de jocs permanentment. Voleu continuar?",
+        "new-category": "Categoria nova",
+        "add-new-category": "Afegeix una categoria nova"
     }
 }

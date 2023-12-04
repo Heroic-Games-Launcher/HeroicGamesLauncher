@@ -37,14 +37,16 @@
             "settingcheckbox": "設定を消去し、ログを削除します{{newLine}}注意: この操作は元に戻すことができません。変更された設定はすべて失われ、ログは削除されます。",
             "title": "アンインストール",
             "prefix_warning": "このゲームが使用しているWine環境はデフォルトの環境です。本当に削除したい場合は、手動で行う必要があります。",
-            "dlc": "このDLCをアンインストールしますか?"
+            "dlc": "このDLCをアンインストールしますか?",
+            "cannotUninstallEpic": "別のEpicゲームをインストール中に、Epicゲームをアンインストールすることはできません。"
         },
         "update": {
             "message": "このゲームにはアップデートがあります。今すぐアップデートを適用しますか?",
             "title": "ゲームのアップデート"
         },
         "wineprefix": "Wine環境フォルダを選択",
-        "yes": "はい"
+        "yes": "はい",
+        "close": "閉じる"
     },
     "button": {
         "add_to_favourites": "お気に入りに追加",
@@ -75,7 +77,7 @@
     "cloud_save_unsupported": "非対応",
     "disabled": "無効",
     "dlc": {
-        "installDlcs": "すべてのDLCをインストール"
+        "installDlcs": "すべてのDLCをインストールします"
     },
     "enabled": "有効",
     "game": {
@@ -90,7 +92,7 @@
         "platform": "インストールするプラットフォームのバージョンを選択",
         "requirements": "システム要件",
         "totalPlayed": "プレイ時間",
-        "dlcs": "DLCs"
+        "dlcs": "DLC一覧"
     },
     "gamecard": {
         "moving": "移動中",
@@ -115,10 +117,10 @@
         "syncsaves": "セーブデータ同期",
         "version": "バージョン",
         "apple-gaming-wiki": "AppleGamingWikiの評価",
-        "clickToOpen": "クリックして開きます",
-        "game-scores": "ゲームのスコア",
+        "clickToOpen": "クリックして開く",
+        "game-scores": "ゲームの評価",
         "installedInfo": "インストール情報",
-        "protondb-compatibility-info": "プロトン互換性層",
+        "protondb-compatibility-info": "Proton互換性レベル",
         "steamdeck-compatibility-info": "SteamDeck の互換性"
     },
     "install": {
@@ -128,12 +130,19 @@
         "path-not-writtable": "警告: パスが書き込み可能でない可能性があります。",
         "space-after-install": "インストール後",
         "wineprefix": "Wine環境",
-        "wineversion": "Wineバージョン"
+        "wineversion": "Wineバージョン",
+        "anticheat-warning": {
+            "cancel": "いいえ",
+            "message": "アンチチートサポートは機能しないか拒否されます。ゲームは正常に動作しません。それでもインストールしますか？",
+            "install": "はい（正しく機能しないことは理解しています）",
+            "title": "アンチチート 破損/拒否"
+        },
+        "flatpak-path-not-writtable": "エラー：このパスにサンドボックスへのアクセスが許可されていないため、データの損失が発生します。"
     },
     "label": {
         "game": {
             "third-party-game": "非対応のサードパーティ製ゲーム",
-            "not-installable-game": "ゲームはインストールできません"
+            "not-installable-game": "ゲームをインストールできません"
         },
         "playing": {
             "start": "今すぐプレイ",
@@ -153,7 +162,7 @@
         "gog": "HeroicにGOGアカウントでログインしていません。ストアページを使用してログインせず、代わりに次のボタンをクリックしてください:",
         "login": "ログイン",
         "title": "ログインしていません",
-        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
+        "amazon": "HeroicのAmazonアカウントでログインしていません。 ストアページを使用してログインしないでください。代わりに次のボタンをクリックしてください:"
     },
     "report_problem": "このゲームの実行に関する問題を報告",
     "sdl": {
@@ -171,12 +180,15 @@
             "exe": "実行可能ファイルを選択",
             "image": "Appイメージ",
             "title": "ゲーム/Appタイトル",
-            "broser": "ブラウザのURL"
+            "broser": "ブラウザURL",
+            "useragent": "カスタムユーザーエージェント",
+            "fullscreen": "フルスクリーンで起動（F11で終了）"
         },
         "placeholder": {
             "image": "ここにイメージURLをペーストしてください",
             "title": "ゲーム/Appにタイトルを追加してください",
-            "url": "ゲームの URL をここに貼り付けます"
+            "url": "ゲームのURLをここに貼り付けます",
+            "useragent": "このブラウザゲーム/Appで使用するカスタムユーザーエージェントを入力します"
         }
     },
     "specs": {
@@ -206,8 +218,8 @@
         "launching": "起動中",
         "ubisoft": "Ubisoftをインストール中",
         "downloading": "ダウンロード中",
-        "extracting": "抽出中",
-        "gog-goodie": "このゲームはインストールできないようです。 https://gog.com/account でダウンロード可能なコンテンツを確認してください",
+        "extracting": "展開中",
+        "gog-goodie": "このゲームをインストールできません。https://gog.com/account でダウンロード可能なコンテンツを確認してください。",
         "goodie": "インストール不可"
     },
     "submenu": {
@@ -224,7 +236,8 @@
         "store": "ストアページ",
         "verify": "検証と修復",
         "extraInfo": "追加情報",
-        "logs": "ログ"
+        "logs": "ログ",
+        "categories": "カテゴリー"
     },
     "help": {
         "cloud_save_unsupported": "このゲームはクラウドセーブに対応していません。この情報はゲーム開発者によって提供されたものです。一部のゲームでは、独自のクラウドセーブシステムを実装しているものもあります"
