@@ -250,7 +250,11 @@
         "show_available_games": "اعرض الألعاب الغير متوفِّرة",
         "show_favourites_only": "أظهر المفضلة فقط",
         "show_hidden": "أظهر المخفي",
-        "store": "صفِّ المتجر"
+        "store": "صفِّ المتجر",
+        "filters": "التصفية",
+        "all_categories": "كلُّ الفئات",
+        "show_installed_only": "أظهر المُثبَّت فقط",
+        "uncategorized": "ليست من فئة"
     },
     "help": {
         "amdfsr": "تساعد تقنية إف.إس.آر من أي.إم.دي على رفع معدل الإطارات من خلال رفع جودة الدقة المنخفضة في وضع ملء الشاشة. تزداد جودة الصورة من 5 إلى 1 على حساب انخفاض طفيف في الأداء. قد يؤدي التمكين إلى تحسين الأداء.",
@@ -689,7 +693,7 @@
             "cpuDescription": "{{numOfCores}} x {{modelName}}",
             "legendaryVersion": "لجندري: {{legendaryVersion}}",
             "systemSpecifications": "مواصفات النظام:",
-            "steamDeck": "لوح ستيم",
+            "steamDeck": "لوح ستيم {{model}}",
             "gpuDriver": "التعريف: {{driverVersion}}",
             "os": "نظام التشغيل:",
             "gpu": "معالج الرسوميات:",
@@ -805,5 +809,13 @@
         "maximize": "كبِّر النافذة",
         "close": "أغلق",
         "restore": "استعد النافذة"
+    },
+    "category-settings": {
+        "cancel": "ألغِ",
+        "warning": "تحذير",
+        "remove-category": "أزل الفئة",
+        "delete-question": "ستُرفَع هذه الفئة وتُحذَف من كلِّ الألعاب، فهل تريد ذلك؟",
+        "new-category": "فئة جديدة",
+        "add-new-category": "أضف فئةً"
     }
 }

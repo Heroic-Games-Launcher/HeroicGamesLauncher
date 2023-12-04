@@ -44,7 +44,8 @@
             "title": "Mise à jour du jeu nécessaire"
         },
         "wineprefix": "Sélectionner le dossier WinePrefix",
-        "yes": "OUI"
+        "yes": "OUI",
+        "close": "Fermer"
     },
     "button": {
         "add_to_favourites": "Ajouter aux favoris",

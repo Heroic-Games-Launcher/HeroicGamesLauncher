@@ -155,14 +155,20 @@
             },
             "sideload": {
                 "confirmExit": {
-                    "title": "終了してもよろしいですか?"
+                    "title": "終了してもよろしいですか?",
+                    "message": "保存されていない進行状況が失われる可能性があります"
                 }
+            },
+            "snap": {
+                "checkbox": "このメッセージを二度と表示しない",
+                "title": "Heroicはスナップとして実行されます",
+                "message": "一部の機能は現在Snapバージョンのアプリで利用できません。 {{newLine}}現在の制限事項：{{newLine}}HeroicはSteamのProtonやLutrisのWineを見つけることができません。{{newLine}}{{newLine}}Gamescope、GameMode、MangoHudもアクセス権限がないため正常に動作しません。 {{newLine}}{{newLine}}この機能にアクセスするには、HeroicをFlakpak、DEBフォーマットパッケージ、またはAppImageからインストールしてください。"
             }
         },
         "wineprefix": "Wine環境フォルダを選択",
         "yes": "はい",
         "dontShowAgain": "次回から確認しない",
-        "choose-nile-binary": "ナイル川バイナリを選択"
+        "choose-nile-binary": "Nileバイナリを選択"
     },
     "button": {
         "cancel": "キャンセル",
@@ -244,7 +250,11 @@
         "show_available_games": "利用できないゲームを表示する",
         "show_favourites_only": "お気に入りのみ表示",
         "show_hidden": "非表示を表示",
-        "store": "ストアフィルタ"
+        "store": "ストアフィルタ",
+        "filters": "フィルター",
+        "all_categories": "すべてのカテゴリー",
+        "show_installed_only": "インストール済みのゲームのみ表示",
+        "uncategorized": "未分類"
     },
     "help": {
         "amdfsr": "AMDのFSRは、フルスクリーンモードで低い解像度をアップスケーリングすることでフレームレートを向上させます。パフォーマンスに若干の影響を及ぼしますが、画質は5から1に向上します。有効にするとパフォーマンスが向上する可能性があります。",
@@ -280,12 +290,23 @@
             "part3": "手動同期: クラウドに保存されているゲームのセーブデータをダウンロードするには、“ダウンロード”を選択します。ローカルのセーブデータをクラウドにアップロードするには“ダウンロード”を選択します。“強制ダウンロード”と“強制アップロード”では、ローカルまたはクラウド上のバージョンは無視されます。",
             "part4": "セーブデータを自動的に同期すると、ゲームを開始するたび、およびプレイ終了後にセーブデータが同期されます。"
         },
-        "vkd3d": "VKD3Dは、DirectX 12ゲーム用のVulkanベースの翻訳レイヤです。有効にすると、互換性が大幅に向上する可能性があります。古いDirectXゲームには影響しません。",
+        "vkd3d": "VKD3Dは、DirectX 12ゲーム用のVulkanベースの翻訳レイヤーです。有効にすると、互換性が大幅に向上する可能性があります。古いDirectXゲームには影響しません。",
         "wine": {
             "part1": "Heroicは、次のフォルダでWine、Proton、CrossOverのバージョンを検索します:",
             "part2": "その他の場所については、これらのフォルダのいずれかへのシンボリックリンクを使用してください"
         },
-        "disable_logs": "このチェックボックスをオンに切り替えると、ログ ファイルへのほとんどの書き込みが無効になります (重要な情報は常にログに記録されます)。問題を報告する前に、必ずこの設定をオフにしてください。"
+        "disable_logs": "このチェックボックスをオンに切り替えると、ログ ファイルへのほとんどの書き込みが無効になります (重要な情報は常にログに記録されます)。問題を報告する前に、必ずこの設定をオフにしてください。",
+        "gamescope": {
+            "fpsLimiterNoFocus": "ゲームが非アクティブの場合、Gamescopeが制限すべき1秒あたりのフレームレート。",
+            "upscaleMethod": "Gamescopeが使用すべきアップスケーリング方法。",
+            "gameWidth": "ゲームで使用される横解像度。Gamescopeでは16:9のアスペクト比を想定しています。",
+            "upscaleWidth": "Gamescopeで使用される横解像度。16:9のアスペクト比を想定しています。",
+            "gameHeight": "ゲームで使用される縦解像度。Gamescopeでは16:9のアスペクト比を想定しています。",
+            "upscaleHeight": "Gamescopeで使用される縦解像度。16:9のアスペクト比を想定しています。",
+            "fpsLimiter": "Gamescopeが制限するフレーム数（例:60）"
+        },
+        "dxvknvapi": "DXVK-NVAPIは、DXVKとLinuxネイティブNVAPIの上に構築されたNVAPIの実装で、Nvidia GPU上でDLSSを使用することができます。",
+        "disablePlaytimeSync": "指定したストアのサーバーとのプレイタイムの同期を無効にする（現時点ではGOGのみ対応）"
     },
     "info": {
         "heroic": {
@@ -341,7 +362,8 @@
         "epic": "Epic Gamesログイン",
         "gog": "GOGログイン",
         "message": "お使いのプラットフォームにログインします。同時に複数のプラットフォームにログインすることができます。",
-        "amazon": "アマゾンログイン"
+        "amazon": "Amazonログイン",
+        "old-mac": "このmacOSのバージョンは {{version}} です。 ログインするにはmacOS 12以降が必要です。"
     },
     "message": {
         "sync": "同期を完了しました",
@@ -420,7 +442,11 @@
         },
         "gameargs": {
             "placeholder": "ここにランチャーの引数を入力してください",
-            "title": "ゲームの引数（コマンドの後に実行）:"
+            "title": "ゲームの引数（コマンドの後に実行）:",
+            "error": {
+                "command": "Steamの %command% 構文は有効なゲーム引数ではありません。",
+                "env": "環境変数は、以下の表で設定する必要があります。"
+            }
         },
         "quote-args-with-spaces": "警告: 空白文字を含む引数は必ず引用符で囲ってください! 例: \"path/with spaces/\"",
         "wrapper": {
@@ -430,13 +456,26 @@
             "placeHolderKey": "新しいラッパー",
             "placeHolderValue": "ラッパー引数",
             "title": "ラッパーコマンド:"
+        },
+        "gamescope": {
+            "nis": "NVIDIA Image Scaling (NIS)",
+            "borderless": "ボーダーレス",
+            "fpsLimiter": "FPSリミッター",
+            "gameHeight": "縦解像度",
+            "upscaleWidth": "横解像度のアップスケール",
+            "fullscreen": "フルスクリーン",
+            "gameWidth": "横解像度",
+            "interger": "整数アップスケール",
+            "upscaleHeight": "縦解像度のアップスケール",
+            "fpsLimiterNoFocus": "FPSリミッター（非アクティブ）",
+            "stretch": "引き伸ばし"
         }
     },
     "other": {
         "gogdl-version": "GOGDLバージョン: ",
         "legendary-version": "Legendaryバージョン: ",
         "weblate": "Heroicの翻訳に協力",
-        "nile-version": "ナイルバージョン: "
+        "nile-version": "Nileバージョン: "
     },
     "Other": "その他",
     "placeholder": {
@@ -446,7 +485,7 @@
         "dxvkfpsvalue": "正の整数値（例: 30、60、…）",
         "egs-prefix": "EGSがインストールされている環境",
         "prefered_language": "2文字のコード（“en”や“fr”など）",
-        "alt-nile-bin": "組み込みの Nile バイナリを使用しています..."
+        "alt-nile-bin": "組み込みのNileバイナリを使用しています..."
     },
     "platforms": {
         "linux": "Linux",
@@ -582,8 +621,24 @@
         "disable_logs": "ログを無効にする",
         "addgamestoapplications": "ゲームをアプリケーションに自動的に追加する",
         "showMetalOverlay": "統計オーバーレイを表示",
-        "alt-nile-bin": "代替の Nile バイナリを選択する",
-        "autodxvknvapi": "プレフィックスでのDXVK/VKD3Dの自動インストール/更新"
+        "alt-nile-bin": "代替のNileバイナリを選択する",
+        "autodxvknvapi": "プレフィックスでのDXVK/VKD3Dの自動インストール/更新",
+        "frameless-window": {
+            "confirmation": {
+                "message": "この機能はまだ実験的なものです。問題があればGitHubで報告してください。",
+                "title": "実験的機能"
+            },
+            "description": "フレームレスウィンドウを使用（再起動後に適用）"
+        },
+        "gamescope": {
+            "enableLimiter": "FPSリミッターを有効",
+            "enableUpscaling": "アップスケーリングを有効",
+            "missingMsg": "PATHにGamescopeが見つかりません。インストールするか、PATHに追加してください。"
+        },
+        "disablePlaytimeSync": "プレイ時間の同期を無効",
+        "experimental_features": {
+            "enableNewDesign": "新デザイン"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -618,13 +673,43 @@
             "log": "ログ",
             "other": "その他",
             "sync": "クラウドセーブ同期",
-            "wineExt": "Wine Extensions"
+            "wineExt": "Wine Extensions",
+            "gamescope": "Gamescope",
+            "systemInformation": "システム情報"
         },
         "open-config-file": "構成ファイルを開く",
         "reset-heroic": "Heroicをリセット",
         "saves": {
             "label": "Save Location:",
             "warning": "クラウドセーブ機能は実験的な機能です。同期する前にセーブデータをバックアップしてください（何か問題が発生した場合に備えて）"
+        },
+        "systemInformation": {
+            "cpu": "CPU:",
+            "gpuWithNumber": "GPU {{number}}:",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "legendaryVersion": "Legendary: {{legendaryVersion}}",
+            "systemSpecifications": "システム仕様:",
+            "steamDeck": "Steam Deck {{model}}",
+            "gpuDriver": "ドライバー: {{driverVersion}}",
+            "os": "オペレーティングシステム:",
+            "gpu": "GPU:",
+            "gogdlVersion": "Gogdl: {{gogdlVersion}}",
+            "osVersion": "バージョン {{versionNumber}}",
+            "osNameFlatpak": "{{osName}} （Flatpak内）",
+            "software": "ソフトウェア:",
+            "memoryStats": "{{percentUsed}}% 使用中 ({{usedGib}} / {{totalGib}}",
+            "systemModel": "システムモデル:",
+            "showDetailed": "詳細なシステム仕様を表示",
+            "memory": "メモリー:",
+            "copyToClipboard": "クリップボードにコピー",
+            "heroicVersion": "Heroic: {{heroicVersion}}",
+            "nileVersion": "Nile: {{nileVersion}}"
+        },
+        "experimental_features": {
+            "title": "実験的機能"
+        },
+        "gamescope": {
+            "searchMsg": "Gamescope実行ファイルを検索しています。"
         }
     },
     "Settings": "設定",
@@ -694,23 +779,42 @@
     },
     "externalLink": {
         "dontAskAgain": "次回から確認しない",
-        "warning": "外部リンクを開こうとしています。"
+        "warning": "外部のリンクを開こうとしています。"
     },
     "wiki_info": {
         "not_found": "追加情報は見つかりませんでした。"
     },
     "dlc": {
-        "title": "Title",
-        "actions": "行動",
+        "title": "タイトル",
+        "actions": "操作",
         "installDlcs": "すべてのDLCをインストールします",
         "noDlcFound": "DLCが見つかりませんでした",
-        "size": "Size"
+        "size": "サイズ"
     },
-    "Amazon Games": "アマゾンゲーム",
+    "Amazon Games": "Amazon Games",
     "amazon": "アマゾン",
-    "prime-gaming": "プライムゲーミング",
+    "prime-gaming": "omPrime Gaming",
     "winetricks": {
-        "install": "Install",
-        "loading": "Loading"
+        "install": "インストール",
+        "loading": "読み込み中",
+        "installing": "インストール中: {{component}}",
+        "openGUI": "WinetricksのGUIを開く",
+        "search": "フォントまたはコンポーネントの検索",
+        "nothingYet": "Winetricksではまだ何もインストールされていません",
+        "installed": "インストール済みのコンポーネント:"
+    },
+    "category-settings": {
+        "cancel": "キャンセル",
+        "warning": "警告",
+        "remove-category": "カテゴリーを削除",
+        "delete-question": "続行すると、このカテゴリーは永久に削除され、すべてのゲームの割り当てが解除されます。続行しますか？",
+        "new-category": "新しいカテゴリー",
+        "add-new-category": "新しいカテゴリーを追加"
+    },
+    "window": {
+        "minimize": "ウィンドウの最小化",
+        "maximize": "ウィンドウの最大化",
+        "close": "閉じる",
+        "restore": "ウィンドウの復元"
     }
 }

@@ -1,11 +1,11 @@
 {
   "name": "heroic",
-  "version": "2.10.0",
+  "version": "2.11.0",
   "versionNames": {
-    "stable": "Jewelry Bonney",
+    "stable": "Kumachi",
     "beta": "Caesar Clown"
   },
-  "private": true,
+  "private": false,
   "main": "build/electron/main.js",
   "homepage": "./",
   "license": "GPL-3.0-only",

@@ -250,7 +250,11 @@
         "show_available_games": "Показать недоступные игры",
         "show_favourites_only": "Показать только избранное",
         "show_hidden": "Показать скрытые",
-        "store": "Магазин"
+        "store": "Магазин",
+        "filters": "Фильтр",
+        "all_categories": "Все категории",
+        "show_installed_only": "Показать только установленные",
+        "uncategorized": "Без категории"
     },
     "help": {
         "amdfsr": "AMD FSR помогает увеличить частоту кадров за счет увеличения масштаба разрешения в полноэкранном режиме. Качество изображения увеличивается с 5 до 1 за счет небольшого снижения производительности. Включение может повысить производительность.",
@@ -686,7 +690,7 @@
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
             "legendaryVersion": "Legendary: {{legendaryVersion}}",
             "systemSpecifications": "Системные характеристики:",
-            "steamDeck": "Steam Deck",
+            "steamDeck": "Steam Deck {{model}}",
             "gpuDriver": "Драйвер: {{driverVersion}}",
             "os": "Операционная система:",
             "gpu": "ГП:",
@@ -805,5 +809,13 @@
         "maximize": "Развернуть окно",
         "close": "Закрыть",
         "restore": "Восстановить окно"
+    },
+    "category-settings": {
+        "cancel": "Отмена",
+        "warning": "Предупреждение",
+        "remove-category": "Удалить категорию",
+        "delete-question": "Это приведет к окончательному удалению этой категории и отмене её назначения для всех игр. Продолжать?",
+        "new-category": "Новая категория",
+        "add-new-category": "Добавить новую категорию"
     }
 }

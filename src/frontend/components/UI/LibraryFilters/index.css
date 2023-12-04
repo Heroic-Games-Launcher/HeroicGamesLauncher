@@ -1,0 +1,56 @@
+.libraryFilters {
+  position: relative;
+
+  .button {
+    padding-inline: 2rem;
+  }
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0px;
+    display: flex;
+    flex-direction: column;
+    background: var(--body-background);
+    opacity: 0;
+    transition: all 200ms;
+    pointer-events: none;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    gap: 0.3rem;
+    padding: 1rem 0;
+    .toggleSwitchWrapper {
+      white-space: nowrap;
+      padding-inline-end: 1rem;
+      &::before {
+        width: 10px;
+        height: 10px;
+        border-radius: 2px;
+        font-size: 1rem;
+        align-items: center;
+      }
+      &:hover {
+        color: var(--accent);
+      }
+    }
+    & hr {
+      width: 80%;
+    }
+  }
+  &:focus-within,
+  &:hover,
+  &:has(.dropdown:hover),
+  &:has(.button:active) {
+    .dropdown {
+      pointer-events: all;
+      opacity: 1;
+      max-height: 100vh;
+      box-shadow: 4px 5px 5px 7px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
+body.isRTL .libraryFilters .dropdown {
+  right: auto;
+  left: 0px;
+}
