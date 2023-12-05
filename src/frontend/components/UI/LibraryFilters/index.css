@@ -59,6 +59,7 @@
       flex-grow: 1;
     }
     .only {
+      opacity: 0.01;
       background: none;
       border: none;
       color: var(--text);
@@ -67,6 +68,10 @@
       &:hover {
         color: var(--accent);
       }
+    }
+    &:hover .only,
+    &:focus-within .only {
+      opacity: 1;
     }
   }
 }
