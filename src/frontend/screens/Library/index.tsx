@@ -86,14 +86,12 @@ export default React.memo(function Library(): JSX.Element {
     }
   }
 
-  const [storesFilters, setStoresFilters] =
+  const [storesFilters, setStoresFilters_] =
     useState<StoresFilters>(initialStoresfilters)
 
-  const toggleStoreFilter = (store: Category) => {
-    const currentValue = storesFilters[store]
-    const newFilters = { ...storesFilters, [store]: !currentValue }
+  const setStoresFilters = (newFilters: StoresFilters) => {
     storage.setItem('storesFilters', JSON.stringify(newFilters))
-    setStoresFilters(newFilters)
+    setStoresFilters_(newFilters)
   }
 
   let initialPlatformsfilters
@@ -115,15 +113,13 @@ export default React.memo(function Library(): JSX.Element {
     }
   }
 
-  const [platformsFilters, setPlatformsFilters] = useState<PlatformsFilters>(
+  const [platformsFilters, setPlatformsFilters_] = useState<PlatformsFilters>(
     initialPlatformsfilters
   )
 
-  const togglePlatformFilter = (platform: string) => {
-    const currentValue = platformsFilters[platform]
-    const newFilters = { ...platformsFilters, [platform]: !currentValue }
+  const setPlatformsFilters = (newFilters: PlatformsFilters) => {
     storage.setItem('platformsFilters', JSON.stringify(newFilters))
-    setPlatformsFilters(newFilters)
+    setPlatformsFilters_(newFilters)
   }
 
   const [filterText, setFilterText] = useState('')
@@ -530,9 +526,9 @@ export default React.memo(function Library(): JSX.Element {
         showInstalledOnly,
         showNonAvailable,
         filterText,
-        toggleStoreFilter,
+        setStoresFilters,
         handleLayout: handleLayout,
-        togglePlatformFilter,
+        setPlatformsFilters,
         handleSearch: setFilterText,
         setShowHidden: handleShowHidden,
         setShowFavourites: handleShowFavourites,
