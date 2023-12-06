@@ -24,7 +24,7 @@ jobs:
         with:
           path-to-signatures: 'signatures/version1/cla.json'
           path-to-document: 'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/blob/main/doc/cla.md'
-          branch: 'main'
+          branch: 'cla_signs'
           allowlist: weblate,bot*
           create-file-commit-message: '[CLA] Creating file for storing CLA Signatures'
-          signed-commit-message: '[CLA] $contributorName has signed the CLA in $owner/$repo#$pullRequestNo'
+          signed-commit-message: '[CLA] $contributorName has signed the CLA'
