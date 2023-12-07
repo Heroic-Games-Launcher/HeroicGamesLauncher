@@ -75,6 +75,7 @@ export const createMainWindow = () => {
     minHeight: 345,
     minWidth: 600,
     show: false,
+    backgroundColor: '#070a0b', // Default background color from midnight mirage
 
     webPreferences: {
       webviewTag: true,

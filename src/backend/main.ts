@@ -419,9 +419,9 @@ if (!gotTheLock) {
     GOGUser.migrateCredentialsConfig()
     const mainWindow = await initializeWindow()
 
-    protocol.registerStringProtocol('heroic', (request, callback) => {
+    protocol.handle('heroic', (request) => {
       handleProtocol([request.url])
-      callback('Operation initiated.')
+      return new Response('Operation initiated.', { status: 201 })
     })
     if (!app.isDefaultProtocolClient('heroic')) {
       if (app.setAsDefaultProtocolClient('heroic')) {
@@ -436,7 +436,7 @@ if (!gotTheLock) {
     const { startInTray } = GlobalConfig.get().getSettings()
     const headless = isCLINoGui || startInTray
     if (!headless) {
-      ipcMain.once('loadingScreenReady', () => mainWindow.show())
+      mainWindow.webContents.once('did-finish-load', () => mainWindow.show())
     }
 
     // set initial zoom level after a moment, if set in sync the value stays as 1
@@ -461,10 +461,6 @@ if (!gotTheLock) {
 }
 
 ipcMain.on('notify', (event, args) => notify(args))
-
-ipcMain.once('loadingScreenReady', () => {
-  logInfo('Loading Screen Ready', LogPrefix.Backend)
-})
 
 ipcMain.once('frontendReady', () => {
   logInfo('Frontend Ready', LogPrefix.Backend)
