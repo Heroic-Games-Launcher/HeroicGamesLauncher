@@ -128,11 +128,28 @@ export default function LibraryFilters() {
     return toggleWithOnly(toggle, onOnlyClick)
   }
 
+  const resetFilters = () => {
+    setStoresFilters({
+      legendary: true,
+      gog: true,
+      nile: true,
+      sideload: true
+    })
+    setPlatformsFilters({
+      win: true,
+      linux: true,
+      mac: true,
+      browser: true
+    })
+    setShowHidden(true)
+    setShowNonAvailable(true)
+    setShowFavourites(false)
+    setShowInstalledOnly(false)
+  }
+
   return (
     <div className="libraryFilters">
-      <button className="button is-primary">
-        {t('header.filters', 'Filters')}
-      </button>
+      <button className="selectStyle">{t('header.filters', 'Filters')}</button>
       <div className="dropdown">
         {epic.username && storeToggle('legendary')}
         {gog.username && storeToggle('gog')}
@@ -176,6 +193,14 @@ export default function LibraryFilters() {
           value={showInstalledOnly}
           title={t('header.show_installed_only', 'Show Installed only')}
         />
+        <hr />
+        <button
+          type="reset"
+          className="button is-primary"
+          onClick={() => resetFilters()}
+        >
+          {t('header.reset', 'Reset')}
+        </button>
       </div>
     </div>
   )

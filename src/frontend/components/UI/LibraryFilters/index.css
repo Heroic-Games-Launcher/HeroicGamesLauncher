@@ -38,6 +38,12 @@
     & hr {
       width: 80%;
     }
+    & button[type='reset'] {
+      margin-inline-start: 0.5rem;
+      align-self: center;
+      font-size: 1rem;
+      padding: 0.3rem 0.8rem;
+    }
   }
 
   &:focus-within,
