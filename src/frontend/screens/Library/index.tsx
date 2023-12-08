@@ -58,7 +58,7 @@ export default React.memo(function Library(): JSX.Element {
     favouriteGames,
     libraryTopSection,
     platform,
-    currentCustomCategory,
+    currentCustomCategories,
     customCategories,
     hiddenGames
   } = useContext(ContextProvider)
@@ -359,26 +359,42 @@ export default React.memo(function Library(): JSX.Element {
       library = library.filter((game) =>
         favouritesIds.includes(`${game.app_name}_${game.runner}`)
       )
-    } else if (currentCustomCategory && currentCustomCategory.length > 0) {
-      if (currentCustomCategory === 'preset_uncategorized') {
-        // list of all games that have at least one category assigned to them
-        const categorizedGames = Array.from(
-          new Set(Object.values(customCategories.list).flat())
-        )
+    } else {
+      if (currentCustomCategories && currentCustomCategories.length > 0) {
+        const gamesInSelectedCategories = new Set<string>()
 
-        library = library.filter(
-          (game) =>
-            !categorizedGames.includes(`${game.app_name}_${game.runner}`)
-        )
-      } else {
-        const gamesInCustomCategory =
-          customCategories.list[currentCustomCategory]
+        // loop through selected categories and add all games in all those categories
+        currentCustomCategories.forEach((category) => {
+          if (category === 'preset_uncategorized') {
+            // in the case of the special "uncategorized" category, we read all
+            // the categorized games and add the others to the list to show
+            const categorizedGames = Array.from(
+              new Set(Object.values(customCategories.list).flat())
+            )
+
+            library.forEach((game) => {
+              if (
+                !categorizedGames.includes(`${game.app_name}_${game.runner}`)
+              ) {
+                gamesInSelectedCategories.add(`${game.app_name}_${game.runner}`)
+              }
+            })
+          } else {
+            const gamesInCustomCategory = customCategories.list[category]
+
+            if (gamesInCustomCategory) {
+              gamesInCustomCategory.forEach((game) => {
+                gamesInSelectedCategories.add(game)
+              })
+            }
+          }
+        })
 
         library = library.filter((game) =>
-          gamesInCustomCategory.includes(`${game.app_name}_${game.runner}`)
+          gamesInSelectedCategories.has(`${game.app_name}_${game.runner}`)
         )
       }
-    } else {
+
       if (!showNonAvailable) {
         const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
         const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)

@@ -48,8 +48,8 @@ const initialContext: ContextType = {
     add: () => null,
     remove: () => null
   },
-  currentCustomCategory: null,
-  setCurrentCustomCategory: () => null,
+  currentCustomCategories: [],
+  setCurrentCustomCategories: () => null,
   favouriteGames: {
     list: [],
     add: () => null,

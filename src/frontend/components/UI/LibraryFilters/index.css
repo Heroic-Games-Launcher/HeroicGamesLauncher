@@ -1,4 +1,5 @@
-.libraryFilters {
+.libraryFilters,
+.categoriesFilter {
   position: relative;
 
   .button {
@@ -8,6 +9,7 @@
     position: absolute;
     top: 100%;
     right: 0px;
+    min-width: 250px;
     display: flex;
     flex-direction: column;
     background: var(--body-background);

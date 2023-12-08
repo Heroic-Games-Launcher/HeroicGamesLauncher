@@ -57,8 +57,8 @@ export interface ContextType {
     addCategory: (newCategory: string) => void
     removeCategory: (category: string) => void
   }
-  currentCustomCategory: string | null
-  setCurrentCustomCategory: (newCustomCategory: string) => void
+  currentCustomCategories: string[]
+  setCurrentCustomCategories: (newCustomCategories: string[]) => void
   theme: string
   setTheme: (themeName: string) => void
   zoomPercent: number

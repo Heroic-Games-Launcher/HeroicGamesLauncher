@@ -1,31 +1,106 @@
-import SelectField from '../SelectField'
-import ContextProvider from 'frontend/state/ContextProvider'
 import React, { useContext } from 'react'
+import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
-import './index.css'
+import ToggleSwitch from '../ToggleSwitch'
 
 export default function CategoryFilter() {
-  const { customCategories, currentCustomCategory, setCurrentCustomCategory } =
-    useContext(ContextProvider)
+  const {
+    customCategories,
+    currentCustomCategories,
+    setCurrentCustomCategories
+  } = useContext(ContextProvider)
   const { t } = useTranslation()
 
+  const toggleCategory = (category: string) => {
+    if (currentCustomCategories.includes(category)) {
+      const newCategories = currentCustomCategories.filter(
+        (cat) => cat !== category
+      )
+      setCurrentCustomCategories(newCategories)
+    } else {
+      setCurrentCustomCategories([...currentCustomCategories, category])
+    }
+  }
+
+  const setCategoryOnly = (category: string) => {
+    setCurrentCustomCategories([category])
+  }
+
+  const selectAll = () => {
+    setCurrentCustomCategories(
+      ['preset_uncategorized'].concat(customCategories.listCategories())
+    )
+  }
+
+  const toggleWithOnly = (
+    toggle: JSX.Element,
+    onOnlyClicked: () => void,
+    category: string
+  ) => {
+    return (
+      <div className="toggleWithOnly" key={category}>
+        {toggle}
+        <button className="only" onClick={() => onOnlyClicked()}>
+          {t('header.only', 'only')}
+        </button>
+      </div>
+    )
+  }
+
+  const categoryToggle = (categoryName: string, categoryValue?: string) => {
+    const toggle = (
+      <ToggleSwitch
+        htmlId={categoryValue || categoryName}
+        handleChange={() => toggleCategory(categoryValue || categoryName)}
+        value={currentCustomCategories.includes(categoryValue || categoryName)}
+        title={categoryName}
+      />
+    )
+
+    const onOnlyClick = () => {
+      setCategoryOnly(categoryValue || categoryName)
+    }
+
+    return toggleWithOnly(toggle, onOnlyClick, categoryValue || categoryName)
+  }
+
+  let dropdownContent = (
+    <span>
+      {t(
+        'header.no-categories',
+        'No custom categories. Add categories using each game menu.'
+      )}
+    </span>
+  )
+  const categoriesList = customCategories.listCategories()
+
+  if (categoriesList.length > 0) {
+    dropdownContent = (
+      <>
+        {categoriesList.map((category) => categoryToggle(category))}
+        <hr />
+        {categoryToggle(
+          t('header.uncategorized', 'Uncategorized'),
+          'preset_uncategorized'
+        )}
+        <hr />
+        <button
+          type="reset"
+          className="button is-primary"
+          onClick={() => selectAll()}
+        >
+          {t('header.select_all', 'Select All')}
+        </button>
+      </>
+    )
+  }
+
   return (
-    <SelectField
-      htmlId="custom-category-selector"
-      value={currentCustomCategory || ''}
-      onChange={(e) => {
-        setCurrentCustomCategory(e.target.value)
-      }}
-    >
-      <option value="">{t('header.all_categories', 'All Categories')}</option>
-      <option value="preset_uncategorized">
-        {t('header.uncategorized', 'Uncategorized')}
-      </option>
-      {customCategories.listCategories().map((category) => (
-        <option value={category} key={category}>
-          {category}
-        </option>
-      ))}
-    </SelectField>
+    <div className="categoriesFilter">
+      <button className="selectStyle">
+        {t('header.categories', 'Categories')}
+      </button>
+      <div className="dropdown">{dropdownContent}</div>
+    </div>
   )
 }
