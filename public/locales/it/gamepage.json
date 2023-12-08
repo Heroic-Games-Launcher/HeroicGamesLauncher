@@ -44,7 +44,8 @@
             "title": "Il gioco richiede un aggiornamento"
         },
         "wineprefix": "Seleziona la cartella del prefisso di Wine",
-        "yes": "SI"
+        "yes": "SI",
+        "close": "Chiudi"
     },
     "button": {
         "add_to_favourites": "Aggiungi Ai Preferiti",
@@ -134,7 +135,8 @@
             "message": "Il supporto dell'anticheat è non funzionante o negato. Il gioco non funzionerà. Vuoi installarlo comunque?",
             "install": "Si (Capisco che non funzionerà)",
             "title": "Anticheat Rotto/Negato"
-        }
+        },
+        "flatpak-path-not-writtable": "Errore: accesso a Sandbox non garantito su questa posizione, i dati andranno persi."
     },
     "label": {
         "game": {
@@ -174,10 +176,12 @@
             "title": "Titolo"
         },
         "info": {
-            "exe": "Selezione l'Eseguibile",
+            "exe": "Seleziona l'Eseguibile",
             "image": "Immagine dell'App",
             "title": "Titolo Gioco/App",
-            "broser": "URL del browser"
+            "broser": "URL del browser",
+            "useragent": "Agente Utente Personalizzato",
+            "fullscreen": "Apri schermo intero (F11 per uscire)"
         },
         "placeholder": {
             "image": "Incolla qui l'URL di un'Immagine",
@@ -230,7 +234,8 @@
         "store": "Pagina dello store",
         "verify": "Verifica e ripara",
         "extraInfo": "Ulteriori informazioni",
-        "logs": "Registri"
+        "logs": "Registri",
+        "categories": "Categorie"
     },
     "help": {
         "cloud_save_unsupported": "Questo gioco non supporta i salvataggi nel cloud. Queste informazioni sono fornite dagli sviluppatori del gioco. Alcuni giochi implementano il proprio sistema di salvataggio nel cloud"
