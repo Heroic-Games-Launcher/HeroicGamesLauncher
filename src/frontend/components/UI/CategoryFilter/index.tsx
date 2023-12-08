@@ -67,7 +67,7 @@ export default function CategoryFilter() {
   let dropdownContent = (
     <span>
       {t(
-        'header.no-categories',
+        'header.no_categories',
         'No custom categories. Add categories using each game menu.'
       )}
     </span>
