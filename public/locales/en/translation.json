@@ -256,6 +256,7 @@
         "all_categories": "All Categories",
         "filters": "Filters",
         "only": "only",
+        "reset": "Reset",
         "show_available_games": "Show non-Available games",
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
