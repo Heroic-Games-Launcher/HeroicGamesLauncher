@@ -436,7 +436,14 @@ if (!gotTheLock) {
     const { startInTray } = GlobalConfig.get().getSettings()
     const headless = isCLINoGui || startInTray
     if (!headless) {
-      mainWindow.webContents.once('did-finish-load', () => mainWindow.show())
+      mainWindow.once('ready-to-show', () => {
+        const props = configStore.get_nodefault('window-props')
+        mainWindow.show()
+        // Apply maximize only if we show the window
+        if (props?.maximized) {
+          mainWindow.maximize()
+        }
+      })
     }
 
     // set initial zoom level after a moment, if set in sync the value stays as 1

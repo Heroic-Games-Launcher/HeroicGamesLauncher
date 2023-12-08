@@ -68,14 +68,13 @@ export const createMainWindow = () => {
       windowProps.frame = false
     }
   }
-  const { maximized, ...props } = windowProps
+
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    ...props,
+    ...windowProps,
     minHeight: 345,
     minWidth: 600,
     show: false,
-    backgroundColor: '#070a0b', // Default background color from midnight mirage
 
     webPreferences: {
       webviewTag: true,
@@ -85,10 +84,6 @@ export const createMainWindow = () => {
       preload: path.join(__dirname, 'preload.js')
     }
   })
-
-  if (maximized) {
-    mainWindow.maximize()
-  }
 
   return mainWindow
 }
