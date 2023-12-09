@@ -4,10 +4,10 @@ import CategoryFilter from '../CategoryFilter'
 import LibraryFilters from '../LibraryFilters'
 import './index.css'
 
-export default function Header() {
+const Header = React.forwardRef<HTMLDivElement, unknown>((_: unknown, ref) => {
   return (
     <>
-      <div className="Header">
+      <div ref={ref} className="Header">
         <div className="Header__search">
           <LibrarySearchBar />
         </div>
@@ -18,4 +18,8 @@ export default function Header() {
       </div>
     </>
   )
-}
+})
+
+Header.displayName = 'Header'
+
+export default Header

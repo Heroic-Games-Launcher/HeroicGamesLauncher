@@ -36,6 +36,7 @@ import RecentlyPlayed from './components/RecentlyPlayed'
 import { InstallModal } from './components'
 import LibraryContext from './LibraryContext'
 import { Category, PlatformsFilters, StoresFilters } from 'frontend/types'
+import introJs from 'intro.js'
 
 const storage = window.localStorage
 
@@ -523,6 +524,31 @@ export default React.memo(function Library(): JSX.Element {
     )
   }
 
+  const libraryHeaderRef = useRef(null)
+  const headerRef = useRef(null)
+
+  useEffect(() => {
+    introJs()
+      .setOptions({
+        steps: [
+          {
+            title: 'Home onboarding - header',
+            intro:
+              'Here, you can search your games by name and also filter using our pre-made filters or your own custom categories!',
+            element: headerRef.current
+          },
+          {
+            title: 'Home onboarding - library header',
+            intro:
+              'Here, you can sort your games, refresh your library and also sideload new games!',
+            element: libraryHeaderRef.current
+          }
+        ],
+        tooltipClass: 'onboarding'
+      })
+      .start()
+  }, [])
+
   return (
     <LibraryContext.Provider
       value={{
@@ -548,7 +574,7 @@ export default React.memo(function Library(): JSX.Element {
         sortInstalled
       }}
     >
-      <Header />
+      <Header ref={headerRef} />
 
       <div className="listing">
         <span id="top" />
@@ -572,6 +598,7 @@ export default React.memo(function Library(): JSX.Element {
         )}
 
         <LibraryHeader
+          ref={libraryHeaderRef}
           list={libraryToShow}
           handleAddGameButtonClick={() => handleModal('', 'sideload', null)}
         />

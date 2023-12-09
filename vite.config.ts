@@ -19,6 +19,10 @@ const electronViteConfig: UserConfigExport = {
         find: '~@fontsource',
         replacement: path.resolve(__dirname, 'node_modules/@fontsource')
       },
+      {
+        find: '~intro.js',
+        replacement: path.resolve(__dirname, 'node_modules/intro.js')
+      },
       ...srcAliases
     ]
   }
@@ -34,6 +38,10 @@ export default defineConfig({
       {
         find: '~@fontsource',
         replacement: path.resolve(__dirname, 'node_modules/@fontsource')
+      },
+      {
+        find: '~intro.js',
+        replacement: path.resolve(__dirname, 'node_modules/intro.js')
       },
       ...srcAliases
     ]

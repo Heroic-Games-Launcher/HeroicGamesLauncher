@@ -1,5 +1,6 @@
 @import '~@fontsource/rubik/index.css';
 @import '~@fontsource/cabin/index.css';
+@import '~intro.js/introjs.css';
 /*
   Subset of font https://github.com/googlefonts/noto-emoji
   which includes only flags emoji generated using command:
