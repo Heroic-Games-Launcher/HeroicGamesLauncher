@@ -37,11 +37,11 @@
 }
 
 .loginInstructions .epicLink {
-  color: var(--text-hover);
+  color: var(--text-hover, var(--accent));
   cursor: pointer;
 }
 .loginInstructions .epicLink:hover {
-  color: var(--link-highlight);
+  color: var(--link-highlight, var(--accent-overlay));
 }
 
 .loginInstructions .material-icons {

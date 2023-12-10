@@ -29,6 +29,37 @@ export const getCurrentChangelog = async () =>
 export const openPatreonPage = () => ipcRenderer.send('openPatreonPage')
 export const openKofiPage = () => ipcRenderer.send('openKofiPage')
 export const isFullscreen = async () => ipcRenderer.invoke('isFullscreen')
+export const isFrameless = async () => ipcRenderer.invoke('isFrameless')
+export const isMinimized = async () => ipcRenderer.invoke('isMinimized')
+export const isMaximized = async () => ipcRenderer.invoke('isMaximized')
+export const minimizeWindow = () => ipcRenderer.send('minimizeWindow')
+export const maximizeWindow = () => ipcRenderer.send('maximizeWindow')
+export const unmaximizeWindow = () => ipcRenderer.send('unmaximizeWindow')
+export const closeWindow = () => ipcRenderer.send('closeWindow')
+export const handleMaximized = (
+  callback: (e: Electron.IpcRendererEvent) => void
+) => {
+  ipcRenderer.on('maximized', callback)
+  return () => {
+    ipcRenderer.removeListener('maximized', callback)
+  }
+}
+export const handleUnmaximized = (
+  callback: (e: Electron.IpcRendererEvent) => void
+) => {
+  ipcRenderer.on('unmaximized', callback)
+  return () => {
+    ipcRenderer.removeListener('unmaximized', callback)
+  }
+}
+export const handleFullscreen = (
+  callback: (e: Electron.IpcRendererEvent, status: boolean) => void
+) => {
+  ipcRenderer.on('fullscreen', callback)
+  return () => {
+    ipcRenderer.removeListener('fullscreen', callback)
+  }
+}
 
 export const openWebviewPage = (url: string) =>
   ipcRenderer.send('openWebviewPage', url)
@@ -36,7 +67,6 @@ export const openWebviewPage = (url: string) =>
 export const setZoomFactor = (zoom: string) =>
   ipcRenderer.send('setZoomFactor', zoom)
 export const frontendReady = () => ipcRenderer.send('frontendReady')
-export const loadingScreenReady = () => ipcRenderer.send('loadingScreenReady')
 export const lock = () => ipcRenderer.send('lock')
 export const unlock = () => ipcRenderer.send('unlock')
 export const login = async (sid: string) => ipcRenderer.invoke('login', sid)
@@ -104,8 +134,6 @@ export const handleGoToScreen = (callback: any) => {
     ipcRenderer.removeListener('openScreen', callback)
   }
 }
-
-export const getOSInfo = async () => ipcRenderer.invoke('getOSInfo')
 
 export const handleShowDialog = (
   onMessage: (

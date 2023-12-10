@@ -64,7 +64,7 @@ export default function AdvancedSettings() {
       setEosOverlayVersion(version ?? '')
     }
     getEosStatus()
-  }, [eosOverlayInstalled, eosOverlayVersion])
+  }, [])
 
   useEffect(() => {
     const getLatestEosOverlayVersion = async () => {
@@ -72,7 +72,7 @@ export default function AdvancedSettings() {
       setEosOverlayLatestVersion(version)
     }
     getLatestEosOverlayVersion()
-  }, [eosOverlayLatestVersion])
+  }, [])
 
   useEffect(() => {
     const { status } =
@@ -82,7 +82,7 @@ export default function AdvancedSettings() {
     setEosOverlayInstallingOrUpdating(
       status === 'installing' || status === 'updating'
     )
-  }, [eosOverlayInstallingOrUpdating])
+  }, [])
 
   useEffect(() => {
     const enabledGlobally = async () => {
@@ -91,7 +91,7 @@ export default function AdvancedSettings() {
       }
     }
     enabledGlobally()
-  }, [eosOverlayEnabledGlobally])
+  }, [])
 
   function getMainEosText() {
     if (eosOverlayInstalled && eosOverlayInstallingOrUpdating)

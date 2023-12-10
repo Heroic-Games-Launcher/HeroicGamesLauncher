@@ -1,7 +1,3 @@
-import {
-  createAbortController,
-  deleteAbortController
-} from '../../utils/aborthandler/aborthandler'
 import { existsSync, readFileSync } from 'graceful-fs'
 
 import { UserInfo } from 'common/types'
@@ -23,7 +19,6 @@ export class LegendaryUser {
       '--code': NonEmptyString.parse(authorizationCode)
     }
 
-    const abortID = 'legendary-login'
     const errorMessage = (
       error: string
     ): { status: 'failed'; data: undefined } => {
@@ -33,15 +28,10 @@ export class LegendaryUser {
     }
 
     try {
-      const res = await runLegendaryCommand(
-        command,
-        createAbortController(abortID),
-        {
-          logMessagePrefix: 'Logging in'
-        }
-      )
-
-      deleteAbortController(abortID)
+      const res = await runLegendaryCommand(command, {
+        abortId: 'legendary-login',
+        logMessagePrefix: 'Logging in'
+      })
 
       if (res.stderr.includes('ERROR: Logging in ')) {
         return errorMessage(res.stderr)
@@ -54,7 +44,6 @@ export class LegendaryUser {
       const userInfo = this.getUserInfo()
       return { status: 'done', data: userInfo }
     } catch (error) {
-      deleteAbortController(abortID)
       return errorMessage(`${error}`)
     }
   }
@@ -62,16 +51,10 @@ export class LegendaryUser {
   public static async logout() {
     const command: LegendaryCommand = { subcommand: 'auth', '--delete': true }
 
-    const abortID = 'legendary-logout'
-    const res = await runLegendaryCommand(
-      command,
-      createAbortController(abortID),
-      {
-        logMessagePrefix: 'Logging out'
-      }
-    )
-
-    deleteAbortController(abortID)
+    const res = await runLegendaryCommand(command, {
+      abortId: 'legendary-logout',
+      logMessagePrefix: 'Logging out'
+    })
 
     if (res.error || res.abort) {
       logError(

@@ -4,6 +4,9 @@ import { gte as semverGte } from 'semver'
 
 type VulkanVersion = [maj: number, min: number, patch: number]
 
+let instance_version: ReturnType<typeof spawnSync> | null = null
+let physical_versions: ReturnType<typeof spawnSync> | null = null
+
 /**
  * @returns The version of the installed Vulkan API interface, or `false` if
  * unsupported. <br>
@@ -11,12 +14,13 @@ type VulkanVersion = [maj: number, min: number, patch: number]
  * support. For that, see {@link get_supported_vulkan_versions}
  */
 function get_vulkan_instance_version(): VulkanVersion | false {
-  const result = spawnSync(vulkanHelperBin, ['instance-version'], {
-    encoding: 'utf-8'
-  })
+  if (!instance_version)
+    instance_version = spawnSync(vulkanHelperBin, ['instance-version'], {
+      encoding: 'utf-8'
+    })
 
   try {
-    return JSON.parse(result.stdout) as VulkanVersion
+    return JSON.parse(instance_version.stdout.toString()) as VulkanVersion
   } catch {
     return false
   }
@@ -29,12 +33,12 @@ function get_supported_vulkan_versions(): [
   name: string,
   version: VulkanVersion
 ][] {
-  const result = spawnSync(vulkanHelperBin, ['physical-versions'], {
-    encoding: 'utf-8'
-  })
-
+  if (!physical_versions)
+    physical_versions = spawnSync(vulkanHelperBin, ['physical-versions'], {
+      encoding: 'utf-8'
+    })
   try {
-    const output = JSON.parse(result.stdout) as Array<{
+    const output = JSON.parse(physical_versions.stdout.toString()) as Array<{
       name: string
       major: number
       minor: number

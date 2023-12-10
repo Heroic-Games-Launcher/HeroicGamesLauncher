@@ -1,34 +1,31 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import useSetting from 'frontend/hooks/useSetting'
 import { ToggleSwitch } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
 
-// remove shiny when adding a real experimental feature
-const FEATURES = ['enableNewShinyFeature']
+const FEATURES = ['enableNewDesign']
 
 const ExperimentalFeatures = () => {
   const { t } = useTranslation()
-  const [experimentalFeatures, setExprimentalFeatures] = useSetting(
+  const [experimentalFeatures, setExperimentalFeatures] = useSetting(
     'experimentalFeatures',
-    { enableNewShinyFeature: false } // remove this when adding a real experimental feature
+    { enableNewDesign: false }
   )
   const { handleExperimentalFeatures } = useContext(ContextProvider)
 
   const toggleFeature = (feature: string) => {
-    setExprimentalFeatures({
+    const newFeatures = {
       ...experimentalFeatures,
       [feature]: !experimentalFeatures[feature]
-    })
+    }
+    setExperimentalFeatures(newFeatures) // update settings
+    handleExperimentalFeatures(newFeatures) // update global state
   }
-
-  useEffect(() => {
-    handleExperimentalFeatures(experimentalFeatures)
-  }, [experimentalFeatures])
 
   /*
     Translations:
-    t('setting.experimental_features.enableNewShinyFeature', 'New shiny feature') // remove this when adding a real experimental feature
+    t('setting.experimental_features.enableNewDesign', 'New design')
   */
 
   return (

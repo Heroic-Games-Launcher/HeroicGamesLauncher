@@ -24,7 +24,7 @@
             "button": "Seç"
         },
         "sideload": {
-            "exe": "Yürütülebiliri seçin"
+            "exe": "Yürütülebilir Dosyayı Seçin"
         },
         "stopInstall": {
             "keepInstalling": "Kuruluma Devam Et",
@@ -37,14 +37,16 @@
             "settingcheckbox": "Ayarları sil ve günlüğü kaldır{{newLine}}Not: Bu işlem geri alınamaz. Değiştirilen tüm ayarlar unutulacak ve günlük silinecektir.",
             "title": "Kaldır",
             "prefix_warning": "Bu oyun için Wine öneki varsayılan önektir. Gerçekten silmek istiyorsanız, manuel olarak yapmanız gerekir.",
-            "dlc": "Bu DLC'yi Kaldırmak istiyor musunuz?"
+            "dlc": "Bu DLC'yi Kaldırmak istiyor musunuz?",
+            "cannotUninstallEpic": "Başka bir Epic oyunu yüklenirken Epic games kaldırılamaz."
         },
         "update": {
             "message": "Bu oyunun bir güncellemesi var, güncelleme şimdi uygulansın mı?",
             "title": "Oyunun Güncellenmesi Gerekiyor"
         },
-        "wineprefix": "Wine Prefix Klasörünü Seçin",
-        "yes": "EVET"
+        "wineprefix": "WinePrefix Klasörünü Seçin",
+        "yes": "EVET",
+        "close": "Kapat"
     },
     "button": {
         "add_to_favourites": "Favorilere Ekle",
@@ -90,7 +92,7 @@
         "platform": "Kurulacak Platform Sürümünü Seç",
         "requirements": "Sistem Gereksinimleri",
         "totalPlayed": "Oynanan Zaman",
-        "dlcs": "DLCs"
+        "dlcs": "DLC'ler"
     },
     "gamecard": {
         "moving": "Taşınıyor",
@@ -128,7 +130,14 @@
         "path-not-writtable": "Uyarı: yol yazılabilir olmayabilir.",
         "space-after-install": "Kurulumdan Sonra",
         "wineprefix": "WinePrefix",
-        "wineversion": "Wine sürümü"
+        "wineversion": "Wine sürümü",
+        "anticheat-warning": {
+            "cancel": "Hayır",
+            "message": "Anti hile desteği bozuldu veya reddedildi. Oyun çalışmayacak. Yine de yüklemek istiyor musunuz?",
+            "install": "Evet (Bunun işe yaramayacağının farkındayım)",
+            "title": "Anti Hile Bozuldu/Reddedildi"
+        },
+        "flatpak-path-not-writtable": "Hata: Bu yola sandbox erişimi verilmedi, veri kaybı yaşanacak."
     },
     "label": {
         "game": {

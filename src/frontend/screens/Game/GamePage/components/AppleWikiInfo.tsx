@@ -47,7 +47,7 @@ const AppleWikiInfo = ({ gameInfo }: Props) => {
       }}
     >
       <WineBar />
-      {t('info.apple-gaming-wiki', 'AppleGamingWiki Rating')}:{' '}
+      <b>{t('info.apple-gaming-wiki', 'AppleGamingWiki Rating')}:</b>
       {applegamingwiki.crossoverRating.charAt(0).toUpperCase() +
         applegamingwiki.crossoverRating.slice(1)}
     </a>

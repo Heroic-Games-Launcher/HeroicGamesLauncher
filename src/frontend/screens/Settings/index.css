@@ -107,6 +107,15 @@
   padding-top: var(--space-3xs);
 }
 
+.error {
+  color: red;
+  font-size: var(--text-sm);
+  width: 100%;
+  max-width: 513px;
+  white-space: break-spaces;
+  padding-top: var(--space-3xs);
+}
+
 .smallLink {
   font-size: var(--text-sm);
   width: 100%;

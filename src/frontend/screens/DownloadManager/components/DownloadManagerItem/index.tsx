@@ -12,13 +12,13 @@ import { hasProgress } from 'frontend/hooks/hasProgress'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useNavigate } from 'react-router-dom'
 import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
-import { ReactComponent as DownIcon } from 'frontend/assets/down-icon.svg'
 import { ReactComponent as PauseIcon } from 'frontend/assets/pause-icon.svg'
 
 type Props = {
   element?: DMQueueElement
   current: boolean
   state?: DownloadManagerState
+  handleClearItem?: (appName: string) => void
 }
 
 const options: Intl.DateTimeFormatOptions = {
@@ -36,10 +36,16 @@ function convertToTime(time: number) {
   }
 }
 
-const DownloadManagerItem = ({ element, current, state }: Props) => {
+const DownloadManagerItem = ({
+  element,
+  current,
+  state,
+  handleClearItem
+}: Props) => {
   const { amazon, epic, gog, showDialogModal } = useContext(ContextProvider)
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation('translation')
+  const isPaused = state && ['idle', 'paused'].includes(state)
 
   const navigate = useNavigate()
 
@@ -115,8 +121,10 @@ const DownloadManagerItem = ({ element, current, state }: Props) => {
   // using one element for the different states so it doesn't
   // lose focus from the button when using a game controller
   const handleMainActionClick = () => {
-    if (finished || canceled) {
+    if (finished) {
       return goToGamePage()
+    } else if (canceled) {
+      handleClearItem && handleClearItem(appName)
     }
 
     current ? stopInstallation() : window.api.removeFromDMQueue(appName)
@@ -125,7 +133,7 @@ const DownloadManagerItem = ({ element, current, state }: Props) => {
   // using one element for the different states so it doesn't
   // lose focus from the button when using a game controller
   const handleSecondaryActionClick = () => {
-    if (state === 'paused') {
+    if (isPaused) {
       window.api.resumeCurrentDownload()
     } else if (state === 'running') {
       window.api.pauseCurrentDownload()
@@ -141,14 +149,14 @@ const DownloadManagerItem = ({ element, current, state }: Props) => {
     }
 
     if (canceled) {
-      return <DownIcon className="installIcon" />
+      return <StopIcon className="installIcon" />
     }
 
     return <StopIcon className="cancelIcon" />
   }
 
   const secondaryActionIcon = () => {
-    if (state === 'paused') {
+    if (isPaused) {
       return <PlayIcon className="playIcon" />
     } else if (state === 'running') {
       return <PauseIcon className="pauseIcon" />
@@ -179,7 +187,7 @@ const DownloadManagerItem = ({ element, current, state }: Props) => {
   }
 
   const secondaryIconTitle = () => {
-    if (state === 'paused') {
+    if (isPaused) {
       return t('queue.label.resume', 'Resume download')
     } else if (state === 'running') {
       return t('queue.label.pause', 'Pause download')

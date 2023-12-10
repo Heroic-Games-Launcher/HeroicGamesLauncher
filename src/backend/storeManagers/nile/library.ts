@@ -12,10 +12,6 @@ import {
   logInfo,
   logWarning
 } from 'backend/logger/logger'
-import {
-  createAbortController,
-  deleteAbortController
-} from 'backend/utils/aborthandler/aborthandler'
 import { CallRunnerOptions, ExecResult, GameInfo } from 'common/types'
 import {
   FuelSchema,
@@ -159,12 +155,10 @@ export async function listUpdateableGames(): Promise<string[]> {
   }
   logInfo('Looking for updates...', LogPrefix.Nile)
 
-  const abortID = 'nile-list-updates'
   const { stdout: output } = await runRunnerCommand(
     ['list-updates', '--json'],
-    createAbortController(abortID)
+    { abortId: 'nile-list-updates' }
   )
-  deleteAbortController(abortID)
 
   if (!output) {
     /*
@@ -187,13 +181,9 @@ export async function listUpdateableGames(): Promise<string[]> {
 async function refreshNile(): Promise<ExecResult> {
   logInfo('Refreshing Amazon Games...', LogPrefix.Nile)
 
-  const abortID = 'nile-refresh'
-  const res = await runRunnerCommand(
-    ['library', 'sync'],
-    createAbortController(abortID)
-  )
-
-  deleteAbortController(abortID)
+  const res = await runRunnerCommand(['library', 'sync'], {
+    abortId: 'nile-refresh'
+  })
 
   if (res.error) {
     logError(['Failed to refresh library:', res.error], LogPrefix.Nile)
@@ -328,9 +318,8 @@ export async function getInstallInfo(
     // Get size info from Nile
     const { stdout: output } = await runRunnerCommand(
       ['install', '--info', '--json', appName],
-      createAbortController(appName)
+      { abortId: appName }
     )
-    deleteAbortController(appName)
 
     const { download_size }: NileGameDownloadInfo = JSON.parse(output)
     const installInfo = {
@@ -460,25 +449,23 @@ export function installState(appName: string, state: boolean) {
 
 export async function runRunnerCommand(
   commandParts: string[],
-  abortController: AbortController,
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
   const { dir, bin } = getNileBin()
 
-  // Set XDG_CONFIG_HOME to a custom, Heroic-specific location so user-made
-  // changes to Legendary's main config file don't affect us
+  // Set NILE_CONFIG_PATH to a custom, Heroic-specific location so user-made
+  // changes to Nile's main config file don't affect us
   if (!options) {
     options = {}
   }
   if (!options.env) {
     options.env = {}
   }
-  options.env.XDG_CONFIG_HOME = dirname(nileConfigPath)
+  options.env.NILE_CONFIG_PATH = dirname(nileConfigPath)
 
   return callRunner(
     commandParts,
     { name: 'nile', logPrefix: LogPrefix.Nile, bin, dir },
-    abortController,
     {
       ...options,
       verboseLogFile: nileLogFile

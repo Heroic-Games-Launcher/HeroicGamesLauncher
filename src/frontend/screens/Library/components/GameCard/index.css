@@ -13,12 +13,16 @@
   aspect-ratio: 173/275;
 }
 
+.gameCard.gamepad {
+  aspect-ratio: 3/4;
+}
+
 .gameCard.justPlayed {
   aspect-ratio: 275/205;
 }
 
-.gameCard.gamepad {
-  aspect-ratio: 3/4;
+.gameCard.gamepad.justPlayed {
+  aspect-ratio: 328/205;
 }
 
 .gameCard:focus-within {
@@ -281,7 +285,9 @@
 
 .gameImg,
 .gameLogo {
-  transition: all 0.2s, opacity 0.5s;
+  transition:
+    all 0.2s,
+    opacity 0.5s;
 }
 
 .gameImg:not(.installed),

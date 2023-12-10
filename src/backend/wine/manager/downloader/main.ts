@@ -5,6 +5,7 @@ import {
   existsSync,
   mkdirSync,
   readFileSync,
+  renameSync,
   rmSync,
   statSync
 } from 'graceful-fs'
@@ -19,12 +20,12 @@ import {
 } from './constants'
 import { VersionInfo, Repositorys, State, ProgressInfo } from 'common/types'
 import {
-  downloadFile,
   fetchReleases,
   getFolderSize,
   unlinkFile,
   unzipFile
 } from './utilities'
+import { calculateEta, downloadFile } from 'backend/utils'
 
 interface getVersionsProps {
   repositorys?: Repositorys[]
@@ -210,7 +211,7 @@ async function installVersion({
 
   // Check if installDir exist
   if (!existsSync(installDir)) {
-    throw new Error(`Installation directory ${installDir} does not exist!`)
+    mkdirSync(installDir, { recursive: true })
   } else if (!statSync(installDir).isDirectory()) {
     throw new Error(`Installation directory ${installDir} is not a directory!`)
   }
@@ -236,15 +237,32 @@ async function installVersion({
   // remove tarFile if still exist
   unlinkFile(tarFile)
 
+  const getProgress = (
+    downloadedBytes: number,
+    downloadSpeed: number,
+    percentage: number
+  ) => {
+    const eta = calculateEta(
+      downloadedBytes,
+      downloadSpeed,
+      versionInfo.downsize
+    )
+
+    onProgress('downloading', {
+      percentage,
+      eta: eta!,
+      avgSpeed: downloadSpeed
+    })
+  }
+
   // Download
   await downloadFile({
     url: versionInfo.download,
-    downloadDir: installDir,
-    downsize: versionInfo.downsize,
-    onProgress: onProgress,
-    abortSignal: abortSignal
-  }).catch((error: string) => {
-    if (error.includes('AbortError')) {
+    dest: installDir,
+    progressCallback: getProgress,
+    abortSignal
+  }).catch((error: Error) => {
+    if (error instanceof Error && error.message.includes('Download stopped')) {
       abortHandler()
     }
 
@@ -280,6 +298,9 @@ async function installVersion({
       unlinkFile(tarFile)
       throw new Error(`Failed to make folder ${installSubDir} with:\n ${error}`)
     }
+  } else {
+    // backup old folder
+    renameSync(installSubDir, `${installSubDir}_backup`)
   }
 
   await unzipFile({
@@ -293,16 +314,24 @@ async function installVersion({
       abortHandler()
     }
 
-    if (!overwrite) {
-      rmSync(installSubDir, { recursive: true })
-    }
+    // remove artefacts
+    rmSync(installSubDir, { recursive: true })
     unlinkFile(tarFile)
+
+    // restore backup
+    if (overwrite) {
+      renameSync(`${installSubDir}_backup`, installSubDir)
+    }
+
     throw new Error(
       `Unzip of ${tarFile.split('/').slice(-1)[0]} failed with:\n ${error}`
     )
   })
 
   // clean up
+  if (overwrite) {
+    rmSync(`${installSubDir}_backup`, { recursive: true })
+  }
   unlinkFile(tarFile)
 
   // resolve with disksize

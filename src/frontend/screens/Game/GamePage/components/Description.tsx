@@ -6,14 +6,14 @@ const Description = () => {
   const { t } = useTranslation('gamepage')
   const { gameExtraInfo, runner } = useContext(GameContext)
 
-  if (runner === 'sideload') {
-    return null
-  }
+  let description = ''
 
-  const description =
-    gameExtraInfo?.about?.shortDescription ||
-    gameExtraInfo?.about?.description ||
-    t('generic.noDescription', 'No description available')
+  if (runner !== 'sideload') {
+    description =
+      gameExtraInfo?.about?.shortDescription ||
+      gameExtraInfo?.about?.description ||
+      t('generic.noDescription', 'No description available')
+  }
 
   return <div className="summary">{description}</div>
 }

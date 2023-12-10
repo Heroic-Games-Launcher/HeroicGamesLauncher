@@ -13,7 +13,7 @@ import { LanguageSelector, UpdateComponent } from '../../components/UI'
 import { FlagPosition } from '../../components/UI/LanguageSelector'
 import SIDLogin from './components/SIDLogin'
 import ContextProvider from '../../state/ContextProvider'
-import { Systeminformation } from 'systeminformation'
+import { useAwaited } from '../../hooks/useAwaited'
 
 export const epicLoginPath = '/loginweb/legendary'
 export const gogLoginPath = '/loginweb/gog'
@@ -31,24 +31,18 @@ export default React.memo(function NewLogin() {
     Boolean(amazon.user_id)
   )
 
-  const [systemInfo, setSystemInfo] = useState<Systeminformation.OsData | null>(
-    null
-  )
-
-  useEffect(() => {
-    window.api.getOSInfo().then((info) => setSystemInfo(info))
-  }, [])
+  const systemInfo = useAwaited(window.api.systemInfo.get)
 
   let oldMac = false
   let oldMacMessage = ''
-  if (systemInfo?.platform === 'darwin') {
-    const version = parseInt(systemInfo.release.split('.')[0])
+  if (systemInfo?.OS.platform === 'darwin') {
+    const version = parseInt(systemInfo.OS.version.split('.')[0])
     if (version < 12) {
       oldMac = true
       oldMacMessage = t(
         'login.old-mac',
         'Your macOS version is {{version}}. macOS 12 or newer is required to log in.',
-        { version: systemInfo.release }
+        { version: systemInfo.OS.version }
       )
     }
   }

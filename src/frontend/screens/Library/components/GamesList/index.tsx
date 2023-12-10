@@ -34,7 +34,6 @@ const GamesList = ({
   useEffect(() => {
     if (library.length) {
       const options = {
-        root: document.querySelector('.listing'),
         rootMargin: '500px',
         threshold: 0
       }
@@ -54,7 +53,7 @@ const GamesList = ({
           }
         })
 
-        // dispatch an event with the newley visible cards
+        // dispatch an event with the newly visible cards
         // check GameCard for the other side of this detection
         window.dispatchEvent(
           new CustomEvent('visible-cards', { detail: { appNames: entered } })

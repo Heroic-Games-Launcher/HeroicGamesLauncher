@@ -19,8 +19,8 @@ const UseDGPU = () => {
 
   async function toggleUseDGPU() {
     if (!useDGPU) {
-      const numOfGpus = await window.api.getNumOfGpus()
-      if (numOfGpus === 1) {
+      const { GPUs } = await window.api.systemInfo.get()
+      if (GPUs.length === 1) {
         showDialogModal({
           title: t(
             'setting.primerun.confirmation.title',

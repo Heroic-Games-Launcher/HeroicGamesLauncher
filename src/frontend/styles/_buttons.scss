@@ -191,3 +191,13 @@ button {
   color: var(--text-secondary);
   cursor: not-allowed;
 }
+
+.buttonWithIcon {
+  display: flex;
+  place-items: center;
+  justify-content: center;
+
+  & > svg {
+    height: 20px;
+  }
+}

@@ -6,7 +6,6 @@
     "sourceMap": true,
     "jsx": "react-jsx",
     "moduleResolution": "node",
-    "rootDir": "src",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -24,7 +23,7 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "./src/",
     "types": ["vite-plugin-svgr/client", "@types/jest"],
-    "typeRoots": ["./node-modules/@types", "src/common/typedefs"]
+    "typeRoots": ["./node_modules", "src/common/typedefs"]
   },
   "include": ["src"],
   "exclude": ["vite.config.ts", "**/__mocks__/**", "sign"]

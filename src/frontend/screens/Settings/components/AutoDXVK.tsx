@@ -13,6 +13,7 @@ const AutoDXVK = () => {
     'autoInstallDxvk',
     false
   )
+  const [autoInstallVkd3d] = useSetting('autoInstallVkd3d', false)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
   const { appName } = useContext(SettingsContext)
   const [installingDxvk, setInstallingDxvk] = React.useState(false)
@@ -47,7 +48,7 @@ const AutoDXVK = () => {
             : t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix')
         }
         fading={installingDxvk}
-        disabled={installingDxvk}
+        disabled={installingDxvk || autoInstallVkd3d}
       />
 
       <FontAwesomeIcon

@@ -26,6 +26,26 @@
   }
 }
 
+.MuiTabs-root {
+  padding-bottom: var(--space-xs);
+
+  .MuiTabs-scroller {
+    .MuiTabs-indicator {
+      background-color: var(--accent);
+    }
+
+    .MuiTabs-flexContainer {
+      .MuiTab-root {
+        color: var(--text-default);
+      }
+
+      .Mui-selected {
+        color: var(--accent);
+      }
+    }
+  }
+}
+
 // details, should have an hover effect and a pointer cursor and also the summary should be bold and have a background color
 details {
   cursor: pointer;
@@ -43,5 +63,26 @@ details {
     font-weight: bold;
     padding: var(--space-xs) 0;
     font-size: var(--text-xl);
+  }
+}
+
+.gamescopeSettings {
+  .selectFieldWrapper {
+    grid-template-areas:
+      'label info'
+      'select select';
+    grid-template-columns: max-content 1fr;
+  }
+
+  .textInputFieldWrapper {
+    grid-template-areas:
+      'label info'
+      'input input';
+    grid-template-columns: max-content 1fr;
+  }
+
+  .row {
+    display: flex;
+    gap: 10px;
   }
 }

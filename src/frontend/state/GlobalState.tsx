@@ -13,11 +13,7 @@ import {
   LibraryTopSectionOptions,
   ExperimentalFeatures
 } from 'common/types'
-import {
-  Category,
-  DialogModalOptions,
-  ExternalLinkDialogOptions
-} from 'frontend/types'
+import { DialogModalOptions, ExternalLinkDialogOptions } from 'frontend/types'
 import { withTranslation } from 'react-i18next'
 import {
   getGameInfo,
@@ -59,7 +55,6 @@ interface Props {
 }
 
 interface StateProps {
-  category: Category
   epic: {
     library: GameInfo[]
     username?: string
@@ -75,22 +70,20 @@ interface StateProps {
   }
   wineVersions: WineVersionInfo[]
   error: boolean
-  filterText: string
-  filterPlatform: string
   gameUpdates: string[]
   language: string
-  layout: string
   libraryStatus: GameStatus[]
   libraryTopSection: string
   platform: NodeJS.Platform | 'unknown'
   refreshing: boolean
   refreshingInTheBackground: boolean
   hiddenGames: HiddenGame[]
-  showHidden: boolean
-  showFavourites: boolean
-  showNonAvailable: boolean
   favouriteGames: FavouriteGame[]
+  customCategories: Record<string, string[]>
+  currentCustomCategories: string[]
   theme: string
+  isFullscreen: boolean
+  isFrameless: boolean
   zoomPercent: number
   primaryFontFamily: string
   secondaryFontFamily: string
@@ -117,6 +110,21 @@ interface StateProps {
   experimentalFeatures: ExperimentalFeatures
 }
 
+// function to load the new key or fallback to the old one
+const loadCurrentCategories = () => {
+  const currentCategories = storage.getItem('current_custom_categories') || null
+  if (!currentCategories) {
+    const currentCategory = storage.getItem('current_custom_category') || null
+    if (!currentCategory) {
+      return []
+    } else {
+      return [currentCategory]
+    }
+  } else {
+    return JSON.parse(currentCategories) as string[]
+  }
+}
+
 class GlobalState extends PureComponent<Props> {
   loadGOGLibrary = (): Array<GameInfo> => {
     const games = gogLibraryStore.get('games', [])
@@ -139,7 +147,6 @@ class GlobalState extends PureComponent<Props> {
     return games
   }
   state: StateProps = {
-    category: (storage.getItem('category') as Category) || 'legendary',
     epic: {
       library: libraryStore.get('library', []),
       username: configStore.get_nodefault('userInfo.displayName')
@@ -155,25 +162,23 @@ class GlobalState extends PureComponent<Props> {
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
     error: false,
-    filterText: '',
-    filterPlatform: 'all',
     gameUpdates: [],
     language: this.props.i18n.language,
-    layout: storage.getItem('layout') || 'grid',
     libraryStatus: [],
     libraryTopSection: globalSettings?.libraryTopSection || 'disabled',
     platform: 'unknown',
     refreshing: false,
     refreshingInTheBackground: true,
     hiddenGames: configStore.get('games.hidden', []),
-    showHidden: JSON.parse(storage.getItem('show_hidden') || 'false'),
-    showFavourites: JSON.parse(storage.getItem('show_favorites') || 'false'),
-    showNonAvailable: true,
+    currentCustomCategories: loadCurrentCategories(),
     sidebarCollapsed: JSON.parse(
       storage.getItem('sidebar_collapsed') || 'false'
     ),
     favouriteGames: configStore.get('games.favourites', []),
+    customCategories: configStore.get('games.customCategories', {}),
     theme: configStore.get('theme', ''),
+    isFullscreen: false,
+    isFrameless: false,
     zoomPercent: configStore.get('zoomPercent', 100),
     secondaryFontFamily:
       configStore.get_nodefault('contentFontFamily') ||
@@ -201,8 +206,16 @@ class GlobalState extends PureComponent<Props> {
     lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null'),
     settingsModalOpen: { value: false, type: 'settings', gameInfo: undefined },
     experimentalFeatures: globalSettings?.experimentalFeatures || {
-      enableNewShinyFeature: false // remove this when adding a real experimental feature
+      enableNewDesign: false
     }
+  }
+
+  setCurrentCustomCategories = (newCustomCategories: string[]) => {
+    storage.setItem(
+      'current_custom_categories',
+      JSON.stringify(newCustomCategories)
+    )
+    this.setState({ currentCustomCategories: newCustomCategories })
   }
 
   setLanguage = (newLanguage: string) => {
@@ -246,18 +259,6 @@ class GlobalState extends PureComponent<Props> {
   setAllTilesInColor = (value: boolean) => {
     configStore.set('allTilesInColor', value)
     this.setState({ allTilesInColor: value })
-  }
-
-  setShowHidden = (value: boolean) => {
-    this.setState({ showHidden: value })
-  }
-
-  setShowFavourites = (value: boolean) => {
-    this.setState({ showFavourites: value })
-  }
-
-  setShowNonAvailable = (value: boolean) => {
-    this.setState({ showNonAvailable: value })
   }
 
   setSideBarCollapsed = (value: boolean) => {
@@ -320,6 +321,64 @@ class GlobalState extends PureComponent<Props> {
     configStore.set('games.favourites', newFavouriteGames)
   }
 
+  getCustomCategories = () =>
+    Array.from(new Set(Object.keys(this.state.customCategories)))
+
+  setCustomCategory = (newCategory: string) => {
+    const newCustomCategories = this.state.customCategories
+    newCustomCategories[newCategory] = []
+
+    // when adding a new category, if there are categories selected, select the new
+    // one too so the game doesn't disappear form the library
+    let newCurrentCustomCategories = this.state.currentCustomCategories
+    if (this.state.currentCustomCategories.length > 0) {
+      newCurrentCustomCategories = [...newCurrentCustomCategories, newCategory]
+    }
+
+    this.setState({
+      customCategories: newCustomCategories,
+      currentCustomCategories: newCurrentCustomCategories
+    })
+    configStore.set('games.customCategories', newCustomCategories)
+  }
+
+  removeCustomCategory = (category: string) => {
+    if (!this.state.customCategories[category]) return
+    const newCustomCategories = this.state.customCategories
+    delete newCustomCategories[category]
+    this.setState({ customCategories: newCustomCategories })
+    configStore.set('games.customCategories', newCustomCategories)
+  }
+
+  addGameToCustomCategory = (category: string, appName: string) => {
+    const newCustomCategories = this.state.customCategories
+
+    if (!newCustomCategories[category]) newCustomCategories[category] = []
+
+    newCustomCategories[category].push(appName)
+
+    this.setState({
+      customCategories: newCustomCategories
+    })
+    configStore.set('games.customCategories', newCustomCategories)
+  }
+
+  removeGameFromCustomCategory = (category: string, appName: string) => {
+    if (!this.state.customCategories[category]) return
+
+    const newCustomCategories: Record<string, string[]> = {}
+    for (const [key, games] of Object.entries(this.state.customCategories)) {
+      if (key === category)
+        newCustomCategories[key] = games.filter((game) => game !== appName)
+      else newCustomCategories[key] = this.state.customCategories[key]
+    }
+
+    this.setState({
+      customCategories: newCustomCategories
+    })
+    configStore.set('games.customCategories', newCustomCategories)
+  }
+
   handleShowDialogModal = ({
     showDialog = true,
     ...options
@@ -356,7 +415,7 @@ class GlobalState extends PureComponent<Props> {
   }
 
   handleSuccessfulLogin = (runner: Runner) => {
-    this.handleCategory('all')
+    storage.setItem('category', 'all')
     this.refreshLibrary({
       runInBackground: false,
       library: runner
@@ -462,7 +521,7 @@ class GlobalState extends PureComponent<Props> {
 
   handleSettingsModalOpen = (
     value: boolean,
-    type?: 'settings' | 'log',
+    type?: 'settings' | 'log' | 'category',
     gameInfo?: GameInfo
   ) => {
     if (gameInfo) {
@@ -593,12 +652,6 @@ class GlobalState extends PureComponent<Props> {
       })
   }
 
-  handleSearch = (input: string) => this.setState({ filterText: input })
-  handlePlatformFilter = (filterPlatform: string) =>
-    this.setState({ filterPlatform })
-  handleLayout = (layout: string) => this.setState({ layout })
-  handleCategory = (category: Category) => this.setState({ category })
-
   handleGameStatus = async ({
     appName,
     status,
@@ -673,11 +726,8 @@ class GlobalState extends PureComponent<Props> {
 
   async componentDidMount() {
     const { t } = this.props
-    const { epic, gameUpdates = [], libraryStatus, category } = this.state
-    const oldCategory: string = category
-    if (oldCategory === 'epic') {
-      this.handleCategory('all')
-    }
+    const { epic, gameUpdates = [], libraryStatus } = this.state
+
     // Deals launching from protocol. Also checks if the game is already running
     window.api.handleLaunchGame(
       async (
@@ -759,6 +809,16 @@ class GlobalState extends PureComponent<Props> {
       }
     })
 
+    this.setState({
+      isFullscreen: await window.api.isFullscreen(),
+      isFrameless: await window.api.isFrameless()
+    })
+    window.api.handleFullscreen(
+      (e: IpcRendererEvent, isFullscreen: boolean) => {
+        this.setState({ isFullscreen })
+      }
+    )
+
     const legendaryUser = configStore.has('userInfo')
     const gogUser = gogConfigStore.has('userData')
     const amazonUser = nileConfigStore.has('userData')
@@ -813,20 +873,16 @@ class GlobalState extends PureComponent<Props> {
     const {
       gameUpdates,
       libraryStatus,
-      layout,
-      category,
-      showHidden,
-      showFavourites,
       sidebarCollapsed,
       hideChangelogsOnStartup,
-      lastChangelogShown
+      lastChangelogShown,
+      language
     } = this.state
 
-    storage.setItem('category', category)
-    storage.setItem('layout', layout)
+    const isRTL = RTL_LANGUAGES.includes(language)
+    document.body.classList.toggle('isRTL', isRTL)
+
     storage.setItem('updates', JSON.stringify(gameUpdates))
-    storage.setItem('show_hidden', JSON.stringify(showHidden))
-    storage.setItem('show_favorites', JSON.stringify(showFavourites))
     storage.setItem('sidebar_collapsed', JSON.stringify(sidebarCollapsed))
     storage.setItem('hide_changelogs', JSON.stringify(hideChangelogsOnStartup))
     storage.setItem('last_changelog', JSON.stringify(lastChangelogShown))
@@ -850,12 +906,18 @@ class GlobalState extends PureComponent<Props> {
       gog,
       amazon,
       favouriteGames,
+      customCategories,
       hiddenGames,
       settingsModalOpen,
       hideChangelogsOnStartup,
-      lastChangelogShown
+      lastChangelogShown,
+      libraryStatus
     } = this.state
     const isRTL = RTL_LANGUAGES.includes(language)
+
+    const installingEpicGame = libraryStatus.some(
+      (game) => game.status === 'installing' && game.runner === 'legendary'
+    )
 
     return (
       <ContextProvider.Provider
@@ -881,10 +943,7 @@ class GlobalState extends PureComponent<Props> {
             login: this.amazonLogin,
             logout: this.amazonLogout
           },
-          handleCategory: this.handleCategory,
-          handleLayout: this.handleLayout,
-          handlePlatformFilter: this.handlePlatformFilter,
-          handleSearch: this.handleSearch,
+          installingEpicGame,
           setLanguage: this.setLanguage,
           isRTL,
           refresh: this.refresh,
@@ -895,13 +954,18 @@ class GlobalState extends PureComponent<Props> {
             add: this.hideGame,
             remove: this.unhideGame
           },
-          setShowHidden: this.setShowHidden,
-          setShowFavourites: this.setShowFavourites,
-          setShowNonAvailable: this.setShowNonAvailable,
           favouriteGames: {
             list: favouriteGames,
             add: this.addGameToFavourites,
             remove: this.removeGameFromFavourites
+          },
+          customCategories: {
+            list: customCategories,
+            listCategories: this.getCustomCategories,
+            addToGame: this.addGameToCustomCategory,
+            removeFromGame: this.removeGameFromCustomCategory,
+            addCategory: this.setCustomCategory,
+            removeCategory: this.removeCustomCategory
           },
           handleLibraryTopSection: this.handleLibraryTopSection,
           handleExperimentalFeatures: this.handleExperimentalFeatures,
@@ -919,7 +983,8 @@ class GlobalState extends PureComponent<Props> {
           lastChangelogShown: lastChangelogShown,
           setLastChangelogShown: this.setLastChangelogShown,
           isSettingsModalOpen: settingsModalOpen,
-          setIsSettingsModalOpen: this.handleSettingsModalOpen
+          setIsSettingsModalOpen: this.handleSettingsModalOpen,
+          setCurrentCustomCategories: this.setCurrentCustomCategories
         }}
       >
         {this.props.children}

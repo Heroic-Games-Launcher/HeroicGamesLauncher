@@ -37,14 +37,16 @@
             "settingcheckbox": "Tyhjennä asetukset ja poista lokitiedosto{{newLine}}Huom: Tätä ei voi peruuttaa. Kaikki muutokset asetuksiin unohdetaan ja lokitiedosto poistetaan.",
             "title": "Poista",
             "prefix_warning": "Tämän pelin Wine-etuliite on oletusetuliite. Jos todella haluat poistaa sen, sinun on tehtävä se manuaalisesti.",
-            "dlc": "Haluatko poistaa tämän DLC:n?"
+            "dlc": "Haluatko poistaa tämän DLC:n?",
+            "cannotUninstallEpic": "Epic–peliasennusta ei voi poistaa samaan aikaan, kun toista Epic–peliä asennetaan."
         },
         "update": {
             "message": "Tälle pelille on saatavilla päivitys, haluatko asentaa sen nyt?",
             "title": "Peli tarvitsee päivityksen"
         },
         "wineprefix": "Valitse WinePrefix-kansio",
-        "yes": "KYLLÄ"
+        "yes": "KYLLÄ",
+        "close": "Sulje"
     },
     "button": {
         "add_to_favourites": "Lisää suosikkeihin",
@@ -75,7 +77,7 @@
     "cloud_save_unsupported": "Ei tuettu",
     "disabled": "Pois käytöstä",
     "dlc": {
-        "installDlcs": "Asenna kaikki ladattava sisältö"
+        "installDlcs": "Asenna kaikki lisäosat"
     },
     "enabled": "Käytössä",
     "game": {
@@ -128,7 +130,14 @@
         "path-not-writtable": "Varoitus: polkuun ei ehkä pysty kirjoittamaan.",
         "space-after-install": "Asennuksen jälkeen",
         "wineprefix": "WinePrefix",
-        "wineversion": "Wine Version"
+        "wineversion": "Wine Version",
+        "anticheat-warning": {
+            "cancel": "Ei",
+            "message": "Huijauksenesto on rikki tai evätty. Peli ei tule toimimaan. Haluatko asentaa sen tästä huolimatta?",
+            "install": "Kyllä (ymmärtäen että tämä ei tule toimimaan)",
+            "title": "Huijauksenesto rikki/evätty"
+        },
+        "flatpak-path-not-writtable": "Virhe: pääsy tähän polkuun on hiekkalaatikoinnin ulkopuolella ja evätty, tiedonmenetystä tulee tapahtumaan."
     },
     "label": {
         "game": {
@@ -171,12 +180,15 @@
             "exe": "Valitse suoritettava tiedosto",
             "image": "App Image",
             "title": "Pelin/sovelluksen otsikko",
-            "broser": "Selaimen URL-osoite"
+            "broser": "Selaimen URL-osoite",
+            "useragent": "Oma \"User Agent\"",
+            "fullscreen": "Vaihda täyden ruudun näkymään (F11 poistuu)"
         },
         "placeholder": {
             "image": "Liitä kuvan URL tähän",
             "title": "Lisää otsikko peliisi/sovellukseesi",
-            "url": "Liitä pelin URL-osoite tähän"
+            "url": "Liitä pelin URL-osoite tähän",
+            "useragent": "Tähän laitetaan vaihtoehtoinen selaimen tunnistetieto tälle sovellukselle/pelille"
         }
     },
     "specs": {

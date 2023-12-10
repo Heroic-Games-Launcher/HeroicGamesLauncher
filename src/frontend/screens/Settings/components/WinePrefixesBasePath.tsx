@@ -9,9 +9,9 @@ const WinePrefixesBasePath = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const { isDefault } = useContext(SettingsContext)
-  const isLinux = platform === 'linux'
+  const isWindows = platform === 'win32'
 
-  if (!isDefault || !isLinux) {
+  if (!isDefault || isWindows) {
     return <></>
   }
 
