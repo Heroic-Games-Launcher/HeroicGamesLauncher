@@ -156,8 +156,13 @@
             "sideload": {
                 "confirmExit": {
                     "title": "Möchtest du Heroic wirklich beenden?",
-                    "message": "Jeder nicht gespeicherte Fortschritt könnte verloren gehen"
+                    "message": "Alle nicht gespeicherten Fortschritte könnten verloren gehen."
                 }
+            },
+            "snap": {
+                "checkbox": "Diese Meldung nicht mehr anzeigen",
+                "title": "Heroic läuft als Snap",
+                "message": "Einige Funktionen sind in der Snap-Version der App noch nicht verfügbar und wir versuchen, dies zu beheben.{{newLine}}Die aktuellen Einschränkungen sind: {{newLine}}Heroic wird nicht in der Lage sein, Proton von Steam oder Wine von Lutris zu finden.{{newLine}}{{newLine}}Gamescope, GameMode und MangoHud werden ebenfalls nicht funktionieren, da Heroic keinen Zugriff darauf hat.{{newLine}}{{newLine}}Um Zugriff auf diese Funktionen zu haben, installieren Sie Heroic bitte als Flatpak, DEB oder vom AppImage."
             }
         },
         "wineprefix": "Wine-Präfix-Ordner auswählen",
@@ -246,7 +251,10 @@
         "show_favourites_only": "Nur Favoriten anzeigen",
         "show_hidden": "Ausgeblendete anzeigen",
         "store": "Store filtern",
-        "filters": "Filter"
+        "filters": "Filter",
+        "all_categories": "Alle Kategorien",
+        "show_installed_only": "Nur installierte anzeigen",
+        "uncategorized": "Unkategorisiert"
     },
     "help": {
         "amdfsr": "AMDs FSR hilft bei der Verbesserung der Framerate durch Hochskalierung niedrigerer Auflösungen im Vollbildmodus. Die Bildqualität wird von 5 auf 1 erhöht, allerdings auf Kosten einer leichten Leistungseinbuße. Das Aktivieren kann die Leistung verbessern.",
@@ -289,7 +297,16 @@
         },
         "disable_logs": "Aktiviere dieses Kontrollkästchen, um die meisten Schreibvorgänge in Logs zu deaktivieren (kritische Informationen werden immer protokolliert). Vergewissere dich, dass diese Einstellung deaktiviert ist, bevor du ein Problem meldest.",
         "dxvknvapi": "DXVK-NVAPI ist eine Implementation von NVAPI, welche auf DXVK und der Linux-nativen NVAPI basiert, sie erlaubt die Verwendung von DLSS auf Nvidia Grafikkarten.",
-        "disablePlaytimeSync": "Deaktiviert Spielzeit synchronisation mit enspechendem Store server (Aktuell wird nur GOG unterstützt)"
+        "disablePlaytimeSync": "Deaktiviert Spielzeit synchronisation mit enspechendem Store server (Aktuell wird nur GOG unterstützt)",
+        "gamescope": {
+            "fpsLimiterNoFocus": "Die Bildrate auf welche gamescope limitieren soll, wenn das Spiel den Fokus verliert",
+            "upscaleMethod": "Die Upscaling-Methode, die gamescope verwenden soll.",
+            "gameWidth": "Die vom Spiel verwendete Auflösung in der Breite. Ein Seitenverhältnis von 16:9 wird von gamescope angenommen.",
+            "upscaleWidth": "Die von gamescope verwendete Auflösung in der Breite. Es wird ein Seitenverhältnis von 16:9 angenommen.",
+            "gameHeight": "Die vom Spiel verwendete Auflösung in der Höhe. Ein Seitenverhältnis von 16:9 wird von gamescope angenommen.",
+            "upscaleHeight": "Die von gamescope verwendete Auflösung in der Höhe. Es wird ein Seitenverhältnis von 16:9 angenommen.",
+            "fpsLimiter": "Die Anzahl der Bilder pro Sekunde, auf die Gamescope begrenzt werden soll. z.B. 60"
+        }
     },
     "info": {
         "heroic": {
@@ -425,7 +442,11 @@
         },
         "gameargs": {
             "placeholder": "Lege hier die Spiel-Argumente fest",
-            "title": "Spiel-Argumente (Zur Ausführung nach dem Befehl):"
+            "title": "Spiel-Argumente (Zur Ausführung nach dem Befehl):",
+            "error": {
+                "command": "Die %command%-Syntax von Steam ist als Spiel-Argument nicht gültig.",
+                "env": "Die Umgebungsvariablen müssen in der nachstehenden Tabelle konfiguriert werden."
+            }
         },
         "quote-args-with-spaces": "Warnung: Achte darauf, dass Argumente mit Leerzeichen in Anführungsstrichen stehen müssen! Z. B.: \"Pfad/mit Leerzeichen/\"",
         "wrapper": {
@@ -435,6 +456,18 @@
             "placeHolderKey": "Neuer Wrapper",
             "placeHolderValue": "Wrapper-Argumente",
             "title": "Wrapper-Befehl:"
+        },
+        "gamescope": {
+            "nis": "NVIDIA Bildskalierung (NIS)",
+            "borderless": "Randlos",
+            "fpsLimiter": "FPS-Begrenzer",
+            "gameHeight": "Spielhöhe",
+            "upscaleWidth": "Upscale Breite",
+            "fullscreen": "Vollbild",
+            "gameWidth": "Spielbreite",
+            "upscaleHeight": "Upscale Höhe",
+            "fpsLimiterNoFocus": "FPS-Begrenzer (kein Fokus)",
+            "stretch": "Bild strecken"
         }
     },
     "other": {
@@ -592,6 +625,18 @@
         "disablePlaytimeSync": "Spielzeit synchronisation deaktivieren",
         "experimental_features": {
             "enableNewDesign": "Neues Design"
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "Diese Funktion ist noch experimentell. Bitte melden Sie alle Probleme, die Sie mit ihr haben, auf GitHub.",
+                "title": "Experimentelle Funktion voraus"
+            },
+            "description": "Rahmenloses Fenster verwenden (Neustart erforderlich)"
+        },
+        "gamescope": {
+            "enableLimiter": "FPS-Begrenzer einschalten",
+            "enableUpscaling": "Ermöglicht Hochskalierung",
+            "missingMsg": "Wir konnten gamescope nicht in der PATH-Variable finden. Installieren Sie es oder fügen Sie es der PATH-Variable hinzu."
         }
     },
     "settings": {
@@ -628,7 +673,8 @@
             "other": "Andere",
             "sync": "Cloud-Speichersynchronisation",
             "wineExt": "Wine-Erweiterungen",
-            "systemInformation": "Systeminformationen"
+            "systemInformation": "Systeminformationen",
+            "gamescope": "Gamescope"
         },
         "open-config-file": "Konfigurationsdatei öffnen",
         "reset-heroic": "Heroic zurücksetzen",
@@ -649,7 +695,7 @@
             "memoryStats": "{{percentUsed}}% verwendet ({{usedGib}} / {{totalGib}}",
             "nileVersion": "Nile: {{nileVersion}}",
             "systemSpecifications": "Systemspezifikationen:",
-            "steamDeck": "Steam Deck",
+            "steamDeck": "Steam Deck Modell {{model}}",
             "os": "Betriebssystem:",
             "software": "Software:",
             "showDetailed": "Detaillierte Systemspezifikationen anzeigen",
@@ -660,6 +706,9 @@
         },
         "experimental_features": {
             "title": "Experimentelle Funktionen"
+        },
+        "gamescope": {
+            "searchMsg": "Suche nach der ausführbaren Datei für gamescope."
         }
     },
     "Settings": "Einstellungen",
@@ -746,10 +795,25 @@
     "Amazon Games": "Amazon-Spiele",
     "winetricks": {
         "install": "Installieren",
-        "loading": "Ladevorgang läuft"
+        "loading": "Ladevorgang läuft",
+        "installing": "Installation im Gange:  {{component}}",
+        "openGUI": "Winetricks GUI öffnen",
+        "search": "Schriftarten oder Komponenten suchen",
+        "nothingYet": "Es wurde noch nichts von Winetricks installiert",
+        "installed": "Installierte Komponenten:"
     },
     "category-settings": {
         "cancel": "Absagen",
-        "warning": "Warnung"
+        "warning": "Warnung",
+        "remove-category": "Kategorie entfernen",
+        "delete-question": "Wenn Sie fortfahren, wird diese Kategorie dauerhaft entfernt und ihre Zuordnung zu allen Spielen aufgehoben. Weiter?",
+        "new-category": "Neue Kategorie",
+        "add-new-category": "Neue Kategorie hinzufügen"
+    },
+    "window": {
+        "minimize": "Fenster minimieren",
+        "maximize": "Fenster maximieren",
+        "close": "Schließen",
+        "restore": "Fenster wiederherstellen"
     }
 }
