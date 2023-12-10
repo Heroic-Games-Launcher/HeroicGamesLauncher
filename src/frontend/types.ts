@@ -203,8 +203,8 @@ export interface LibraryContextType {
   storesFilters: StoresFilters
   platformsFilters: PlatformsFilters
   filterText: string
-  toggleStoreFilter: (store: Category) => void
-  togglePlatformFilter: (platform: string) => void
+  setStoresFilters: (filters: StoresFilters) => void
+  setPlatformsFilters: (filters: PlatformsFilters) => void
   handleLayout: (value: string) => void
   handleSearch: (input: string) => void
   layout: string
