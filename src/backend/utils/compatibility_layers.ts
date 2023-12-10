@@ -376,7 +376,7 @@ export async function getGamingPortingToolkitWine(): Promise<
 
 export type AllowedWineFlags = Pick<
   LaunchCommand,
-  '--wine' | '--wrapper' | '--no-wine'
+  '--wine' | '--wrapper' | '--no-wine' | '--crossover-app'
 >
 
 /**
@@ -402,6 +402,14 @@ export function getWineFlags(
         '--no-wine': true,
         '--wrapper': NonEmptyString.parse(`${wrapper} '${wineBin}' run`)
       }
+      break
+    case 'crossover':
+      partialCommand = {
+        '--crossover-app': Path.parse(
+          wineBin.replace('/Contents/SharedSupport/CrossOver/bin/wine', '')
+        )
+      }
+      if (wrapper) partialCommand['--wrapper'] = NonEmptyString.parse(wrapper)
       break
     default:
       break
