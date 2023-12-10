@@ -312,7 +312,11 @@ export default React.memo(function Library(): JSX.Element {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
     }
-    return tempArray
+    return tempArray.sort((a, b) => {
+      const gameA = a.title.toUpperCase().replace('THE ', '')
+      const gameB = b.title.toUpperCase().replace('THE ', '')
+      return gameA.localeCompare(gameB)
+    })
   }, [showFavourites, showFavouritesLibrary, favouriteGames, epic, gog, amazon])
 
   const favouritesIds = useMemo(() => {
