@@ -253,10 +253,12 @@
     "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
-        "all_categories": "All Categories",
+        "categories": "Categories",
         "filters": "Filters",
+        "no_categories": "No custom categories. Add categories using each game menu.",
         "only": "only",
         "reset": "Reset",
+        "select_all": "Select All",
         "show_available_games": "Show non-Available games",
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
