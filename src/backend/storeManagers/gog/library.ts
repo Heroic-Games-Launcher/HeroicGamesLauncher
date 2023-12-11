@@ -953,11 +953,11 @@ export async function gogToUnifiedInfo(
       info.game?.logo?.url_format
         ?.replace('{formatter}', '')
         .replace('{ext}', 'jpg') || `https:${galaxyProductInfo?.images.logo2x}`,
-    art_square: info.game.vertical_cover.url_format
-      .replace('{formatter}', '')
+    art_square: info.game.vertical_cover?.url_format
+      ?.replace('{formatter}', '')
       .replace('{ext}', 'jpg'),
-    art_background: info.game.background.url_format
-      .replace('{formatter}', '')
+    art_background: info.game.background?.url_format
+      ?.replace('{formatter}', '')
       .replace('{ext}', 'webp'),
     cloud_save_enabled: false,
     extra: {
