@@ -819,7 +819,10 @@ export async function syncSaves(
   return fullOutput
 }
 
-export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
+export async function uninstall({
+  appName,
+  shouldRemovePrefix
+}: RemoveArgs): Promise<ExecResult> {
   const array = installedGamesStore.get('installed', [])
   const index = array.findIndex((game) => game.appName === appName)
   if (index === -1) {
@@ -853,7 +856,7 @@ export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
     logInfo(['Executing uninstall command', command.join(' ')], LogPrefix.Gog)
 
     if (!isWindows) {
-      if (existsSync(gameSettings.winePrefix)) {
+      if (existsSync(gameSettings.winePrefix) && !shouldRemovePrefix) {
         await runWineCommandUtil({
           gameSettings,
           commandParts: command,
