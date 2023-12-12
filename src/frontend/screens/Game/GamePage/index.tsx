@@ -26,11 +26,9 @@ import {
   GameInfo,
   GameSettings,
   Runner,
-  WikiInfo
+  WikiInfo,
+  InstallInfo
 } from 'common/types'
-import { LegendaryInstallInfo } from 'common/types/legendary'
-import { GogInstallInfo } from 'common/types/gog'
-import { NileInstallInfo } from 'common/types/nile'
 
 import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
@@ -98,9 +96,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [progress, previousProgress] = hasProgress(appName)
 
   const [extraInfo, setExtraInfo] = useState<ExtraInfo | null>(null)
-  const [gameInstallInfo, setGameInstallInfo] = useState<
-    LegendaryInstallInfo | GogInstallInfo | NileInstallInfo | null
-  >(null)
+  const [gameInstallInfo, setGameInstallInfo] = useState<InstallInfo | null>(
+    null
+  )
   const [launchArguments, setLaunchArguments] = useState('')
   const [hasError, setHasError] = useState<{
     error: boolean

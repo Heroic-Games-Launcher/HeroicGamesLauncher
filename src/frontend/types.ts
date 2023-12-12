@@ -1,4 +1,3 @@
-import { NileInstallInfo } from './../common/types/nile'
 import {
   AppSettings,
   GameInfo,
@@ -14,10 +13,9 @@ import {
   GameSettings,
   WikiInfo,
   ExtraInfo,
-  Status
+  Status,
+  InstallInfo
 } from 'common/types'
-import { GogInstallInfo } from 'common/types/gog'
-import { LegendaryInstallInfo } from 'common/types/legendary'
 import { NileLoginData, NileRegisterData } from 'common/types/nile'
 
 export type Category = 'all' | 'legendary' | 'gog' | 'sideload' | 'nile'
@@ -228,11 +226,7 @@ export interface GameContextType {
   gameInfo: GameInfo | null
   gameExtraInfo: ExtraInfo | null
   gameSettings: GameSettings | null
-  gameInstallInfo:
-    | LegendaryInstallInfo
-    | GogInstallInfo
-    | NileInstallInfo
-    | null
+  gameInstallInfo: InstallInfo | null
   is: {
     installing: boolean
     installingUbisoft: boolean

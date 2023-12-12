@@ -1,9 +1,17 @@
-import { GOGCloudSavesLocation, GogInstallPlatform } from './types/gog'
-import { LegendaryInstallPlatform, GameMetadataInner } from './types/legendary'
+import {
+  GOGCloudSavesLocation,
+  GogInstallInfo,
+  GogInstallPlatform
+} from './types/gog'
+import {
+  LegendaryInstallPlatform,
+  GameMetadataInner,
+  LegendaryInstallInfo
+} from './types/legendary'
 import { IpcRendererEvent, TitleBarOverlay } from 'electron'
 import { ChildProcess } from 'child_process'
 import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
-import { NileInstallPlatform } from './types/nile'
+import { NileInstallInfo, NileInstallPlatform } from './types/nile'
 
 export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile'
 
@@ -728,3 +736,8 @@ interface GameScopeSettings {
   fpsLimiter: string
   fpsLimiterNoFocus: string
 }
+
+export type InstallInfo =
+  | LegendaryInstallInfo
+  | GogInstallInfo
+  | NileInstallInfo
