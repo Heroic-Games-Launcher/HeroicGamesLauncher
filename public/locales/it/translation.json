@@ -246,7 +246,8 @@
         "show_favourites_only": "Mostra solo i preferiti",
         "show_hidden": "Mostra nascosti",
         "store": "Filtra per negozio",
-        "filters": "Filtra"
+        "filters": "Filtra",
+        "categories": "Categorie"
     },
     "help": {
         "amdfsr": "FSR di AMD aiuta a incrementare il framerate grazie all'upscaling delle risoluzioni più basse in modalità schermo intero. La qualità dell'immagine aumenta da 5 a 1 al costo di un leggero calo delle prestazioni. L'attivazione può migliorare le prestazioni.",
@@ -749,5 +750,8 @@
     "category-settings": {
         "cancel": "Annulla",
         "warning": "Attenzione"
+    },
+    "window": {
+        "close": "Chiudi"
     }
 }
