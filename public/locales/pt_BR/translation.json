@@ -254,7 +254,8 @@
         "filters": "Filtrar",
         "all_categories": "Todas as categorias",
         "show_installed_only": "Exibir apenas os instalados",
-        "uncategorized": "Sem categoria"
+        "uncategorized": "Sem categoria",
+        "categories": "Categorias"
     },
     "help": {
         "amdfsr": "O FSR da AMD ajuda a aumentar a taxa de quadros aumentando as resoluções mais baixas no modo de tela cheia. A qualidade da imagem aumenta de 5 para 1 ao custo de um pequeno impacto no desempenho. A ativação pode melhorar o desempenho.",
