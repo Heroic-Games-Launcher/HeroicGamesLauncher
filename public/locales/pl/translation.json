@@ -251,7 +251,8 @@
         "show_favourites_only": "Pokaż tylko ulubione",
         "show_hidden": "Pokaż ukryte",
         "store": "Filtruj",
-        "filters": "Filtr"
+        "filters": "Filtr",
+        "categories": "Kategorie"
     },
     "help": {
         "amdfsr": "AMD FSR pomaga podnieść ilość klatek na sekundę poprzez podniesienie niżej rozdzielczości do rozdzielczości monitora. Jakość obrazu można dostosować: od 5 do 1, z drobnym spadkiem wydajności. Włączenie może poprawić wydajność.",
