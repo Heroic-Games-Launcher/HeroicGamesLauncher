@@ -28,6 +28,7 @@ export type LaunchParams = {
   appName: string
   launchArguments: string
   runner: Runner
+  skipVersionCheck?: boolean
 }
 
 export interface LaunchOption {

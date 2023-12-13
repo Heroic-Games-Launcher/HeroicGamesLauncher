@@ -39,7 +39,11 @@ export interface GameManager {
   isNative: (appName: string) => boolean
   addShortcuts: (appName: string, fromMenu?: boolean) => Promise<void>
   removeShortcuts: (appName: string) => Promise<void>
-  launch: (appName: string, launchArguments?: string) => Promise<boolean>
+  launch: (
+    appName: string,
+    launchArguments?: string,
+    skipVersionCheck?: boolean
+  ) => Promise<boolean>
   moveInstall: (
     appName: string,
     newInstallPath: string

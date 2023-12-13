@@ -846,6 +846,7 @@ export async function launch(
       .join(' '),
     ...wineFlags
   }
+  if (skipVersionCheck) command['--skip-version-check'] = true
   if (languageCode) command['--language'] = NonEmptyString.parse(languageCode)
   if (gameSettings.targetExe)
     command['--override-exe'] = Path.parse(gameSettings.targetExe)

@@ -963,7 +963,10 @@ let powerDisplayId: number | null
 // get pid/tid on launch and inject
 ipcMain.handle(
   'launch',
-  async (event, { appName, launchArguments, runner }): StatusPromise => {
+  async (
+    event,
+    { appName, launchArguments, runner, skipVersionCheck }
+  ): StatusPromise => {
     const game = gameManagerMap[runner].getGameInfo(appName)
     const gameSettings = await gameManagerMap[runner].getSettings(appName)
     const { autoSyncSaves, savesPath, gogSaves = [] } = gameSettings
@@ -1084,7 +1087,11 @@ ipcMain.handle(
       status: 'playing'
     })
 
-    const command = gameManagerMap[runner].launch(appName, launchArguments)
+    const command = gameManagerMap[runner].launch(
+      appName,
+      launchArguments,
+      skipVersionCheck
+    )
 
     const launchResult = await command.catch((exception) => {
       logError(exception, LogPrefix.Backend)
