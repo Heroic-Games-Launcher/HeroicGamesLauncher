@@ -27,7 +27,8 @@ import {
   GameSettings,
   Runner,
   WikiInfo,
-  InstallInfo
+  InstallInfo,
+  LaunchOption
 } from 'common/types'
 
 import GamePicture from '../GamePicture'
@@ -99,7 +100,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [gameInstallInfo, setGameInstallInfo] = useState<InstallInfo | null>(
     null
   )
-  const [launchArguments, setLaunchArguments] = useState('')
+  const [launchArguments, setLaunchArguments] = useState<
+    LaunchOption | undefined
+  >(undefined)
   const [hasError, setHasError] = useState<{
     error: boolean
     message: string | unknown
@@ -375,7 +378,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   />
                   <LaunchOptions
                     gameInfo={gameInfo}
-                    launchArguments={launchArguments}
                     setLaunchArguments={setLaunchArguments}
                   />
 
@@ -426,7 +428,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     />
                     <LaunchOptions
                       gameInfo={gameInfo}
-                      launchArguments={launchArguments}
                       setLaunchArguments={setLaunchArguments}
                     />
                     <div className="buttons">

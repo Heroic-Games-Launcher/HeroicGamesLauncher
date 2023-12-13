@@ -5,7 +5,8 @@ import {
   GameSettings,
   ExecResult,
   InstallArgs,
-  InstallInfo
+  InstallInfo,
+  LaunchOption
 } from 'common/types'
 import { GOGCloudSavesLocation } from './gog'
 
@@ -41,7 +42,7 @@ export interface GameManager {
   removeShortcuts: (appName: string) => Promise<void>
   launch: (
     appName: string,
-    launchArguments?: string,
+    launchArguments?: LaunchOption,
     skipVersionCheck?: boolean
   ) => Promise<boolean>
   moveInstall: (
@@ -73,4 +74,7 @@ export interface LibraryManager {
   listUpdateableGames: () => Promise<string[]>
   changeGameInstallPath: (appName: string, newPath: string) => Promise<void>
   installState: (appName: string, state: boolean) => void
+  getLaunchOptions: (
+    appName: string
+  ) => LaunchOption[] | Promise<LaunchOption[]>
 }

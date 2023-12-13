@@ -26,14 +26,23 @@ export interface ButtonOptions {
 
 export type LaunchParams = {
   appName: string
-  launchArguments: string
+  launchArguments?: LaunchOption
   runner: Runner
   skipVersionCheck?: boolean
 }
 
-export interface LaunchOption {
+export type LaunchOption = BaseLaunchOption | DLCLaunchOption
+
+export interface BaseLaunchOption {
+  type?: 'basic'
   name: string
   parameters: string
+}
+
+interface DLCLaunchOption {
+  type: 'dlc'
+  dlcAppName: string
+  dlcTitle: string
 }
 
 interface About {

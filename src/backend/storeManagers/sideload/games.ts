@@ -4,7 +4,8 @@ import {
   GameInfo,
   GameSettings,
   InstallArgs,
-  InstallPlatform
+  InstallPlatform,
+  LaunchOption
 } from 'common/types'
 import { libraryStore } from './electronStores'
 import { GameConfig } from '../../game_config'
@@ -69,7 +70,7 @@ export async function isGameAvailable(appName: string): Promise<boolean> {
 export async function launch(
   appName: string,
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-  launchArguments?: string
+  launchArguments?: LaunchOption
 ): Promise<boolean> {
   return launchGame(appName, getGameInfo(appName), 'sideload')
 }

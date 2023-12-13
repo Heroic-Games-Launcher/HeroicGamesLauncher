@@ -31,7 +31,9 @@ import {
   InstallArgs,
   InstalledInfo,
   InstallPlatform,
-  InstallProgress
+  InstallProgress,
+  LaunchOption,
+  BaseLaunchOption
 } from 'common/types'
 import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
 import { gamesConfigPath, isWindows, isMac, isLinux } from '../../constants'
@@ -404,7 +406,7 @@ export async function removeShortcuts(appName: string) {
 
 export async function launch(
   appName: string,
-  launchArguments?: string
+  launchArguments?: LaunchOption
 ): Promise<boolean> {
   const gameSettings = await getSettings(appName)
   const gameInfo = getGameInfo(appName)
@@ -515,7 +517,9 @@ export async function launch(
     ...wineFlag,
     '--platform',
     gameInfo.install.platform.toLowerCase(),
-    ...shlex.split(launchArguments ?? ''),
+    ...shlex.split(
+      (launchArguments as BaseLaunchOption | undefined)?.parameters ?? ''
+    ),
     ...shlex.split(gameSettings.launcherArgs ?? '')
   ]
 

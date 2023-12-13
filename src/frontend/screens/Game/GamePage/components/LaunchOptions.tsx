@@ -1,46 +1,23 @@
 import React, { useContext, useEffect, useState } from 'react'
 import GameContext from '../../GameContext'
 import { GameInfo, LaunchOption } from 'common/types'
-import { getGOGLaunchOptions } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import { SelectField } from 'frontend/components/UI'
 
 interface Props {
   gameInfo: GameInfo
-  launchArguments: string
-  setLaunchArguments: (args: string) => void
+  setLaunchArguments: (selected_option: LaunchOption) => void
 }
 
-const LaunchOptions = ({
-  gameInfo,
-  launchArguments,
-  setLaunchArguments
-}: Props) => {
+const LaunchOptions = ({ gameInfo, setLaunchArguments }: Props) => {
   const { t } = useTranslation('gamepage')
-  const { appName, gameInstallInfo, runner } = useContext(GameContext)
+  const { appName, runner } = useContext(GameContext)
   const [launchOptions, setLaunchOptions] = useState<LaunchOption[]>([])
+  const [selectedLaunchOptionIndex, setSelectedLaunchOptionIndex] = useState(-1)
 
   useEffect(() => {
-    if (!gameInstallInfo) {
-      return
-    }
-
-    if (
-      runner === 'gog' &&
-      (gameInstallInfo.game?.launch_options || []).length === 0
-    ) {
-      getGOGLaunchOptions(appName)
-        .then((launchOptions) => {
-          setLaunchOptions(launchOptions)
-        })
-        .catch((error) => {
-          console.error(error)
-          window.api.logError(`${error}`)
-        })
-    } else {
-      setLaunchOptions(gameInstallInfo.game?.launch_options)
-    }
-  }, [gameInstallInfo])
+    window.api.getLaunchOptions(appName, runner).then(setLaunchOptions)
+  }, [])
 
   if (!gameInfo.is_installed) {
     return null
@@ -53,13 +30,17 @@ const LaunchOptions = ({
   return (
     <SelectField
       htmlId="launch_options"
-      onChange={(event) => setLaunchArguments(event.target.value)}
-      value={launchArguments}
+      onChange={({ target: { value } }) => {
+        const selectedIndex = Number(value)
+        setSelectedLaunchOptionIndex(selectedIndex)
+        setLaunchArguments(launchOptions[selectedIndex])
+      }}
+      value={selectedLaunchOptionIndex.toString()}
       prompt={t('launch.options', 'Launch Options...')}
     >
-      {launchOptions.map(({ name, parameters }) => (
-        <option key={parameters} value={parameters}>
-          {name}
+      {launchOptions.map((option, index) => (
+        <option key={index} value={index}>
+          {option.type === 'dlc' ? option.dlcTitle : option.name}
         </option>
       ))}
     </SelectField>

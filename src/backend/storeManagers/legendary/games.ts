@@ -8,7 +8,8 @@ import {
   InstallArgs,
   InstallPlatform,
   InstallProgress,
-  WineCommandArgs
+  WineCommandArgs,
+  LaunchOption
 } from 'common/types'
 import { GameConfig } from '../../game_config'
 import { GlobalConfig } from '../../config'
@@ -752,7 +753,8 @@ export async function syncSaves(
 
 export async function launch(
   appName: string,
-  launchArguments?: string
+  launchArguments?: LaunchOption,
+  skipVersionCheck = false
 ): Promise<boolean> {
   const gameSettings = await getSettings(appName)
   const gameInfo = getGameInfo(appName)
@@ -838,10 +840,16 @@ export async function launch(
     wineFlags = getWineFlags(wineBin, wineType, shlex.join(wrappers))
   }
 
+  const appNameToLaunch =
+    launchArguments?.type === 'dlc' ? launchArguments.dlcAppName : appName
+
   const command: LegendaryCommand = {
     subcommand: 'launch',
-    appName: LegendaryAppName.parse(appName),
-    extraArguments: [launchArguments, gameSettings.launcherArgs]
+    appName: LegendaryAppName.parse(appNameToLaunch),
+    extraArguments: [
+      launchArguments?.type !== 'dlc' ? launchArguments?.parameters : undefined,
+      gameSettings.launcherArgs
+    ]
       .filter(Boolean)
       .join(' '),
     ...wineFlags

@@ -5,7 +5,8 @@ import {
   InstalledInfo,
   CallRunnerOptions,
   ExecResult,
-  InstallPlatform
+  InstallPlatform,
+  LaunchOption
 } from 'common/types'
 import {
   InstalledJsonMetadata,
@@ -839,4 +840,59 @@ export function commandToArgsArray(command: LegendaryCommand): string[] {
   }
 
   return commandParts
+}
+
+export async function getLaunchOptions(
+  appName: string
+): Promise<LaunchOption[]> {
+  const gameInfo = getGameInfo(appName)
+  const installPlatform = gameInfo?.install.platform
+  if (!installPlatform) return []
+
+  const installInfo = await getInstallInfo(appName, installPlatform)
+  const launchOptions: LaunchOption[] = installInfo.game.launch_options
+
+  // Some DLCs are also launch-able
+  for (const dlc of installInfo.game.owned_dlc) {
+    const installedInfo = installedGames.get(dlc.app_name)
+    if (!installedInfo) continue
+
+    // If the DLC itself is executable, push it onto the list
+    if (installedInfo.executable) {
+      launchOptions.push({
+        type: 'dlc',
+        dlcAppName: dlc.app_name,
+        dlcTitle: dlc.title
+      })
+      // The one example we've found using this (Unreal Editor for Fortnite)
+      // suggests that we should not look at the AdditionalCommandLine custom
+      // attribute (below) if this is set
+      continue
+    }
+
+    // Otherwise, if it specifies additional commandline parameters to pass to
+    // the main game, add it as a basic launch option
+    let metadata
+    try {
+      metadata = loadGameMetadata(dlc.app_name)
+    } catch (e) {
+      logWarning(
+        [
+          'Failed to load DLC metadata for',
+          dlc.app_name,
+          '(base game is',
+          `${appName})`
+        ],
+        LogPrefix.Legendary
+      )
+    }
+    if (!metadata?.metadata.customAttributes?.AdditionalCommandLine) continue
+    launchOptions.push({
+      type: 'basic',
+      name: dlc.title,
+      parameters: metadata.metadata.customAttributes.AdditionalCommandLine.value
+    })
+  }
+
+  return launchOptions
 }

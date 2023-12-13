@@ -277,7 +277,7 @@ interface AsyncIPCFunctions {
   toggleVKD3D: (args: ToolArgs) => Promise<boolean>
   toggleDXVKNVAPI: (args: ToolArgs) => Promise<boolean>
   pathExists: (path: string) => Promise<boolean>
-  getGOGLaunchOptions: (appName: string) => Promise<LaunchOption[]>
+  getLaunchOptions: (appName: string, runner: Runner) => Promise<LaunchOption[]>
   getGameOverride: () => Promise<GameOverride | null>
   getGameSdl: (appName: string) => Promise<SelectiveDownload[]>
   getPlaytimeFromRunner: (
