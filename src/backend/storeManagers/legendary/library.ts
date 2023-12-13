@@ -204,7 +204,7 @@ export function getGameInfo(
   }
   // We have the game, but info wasn't loaded yet
   if (!library.has(appName) || forceReload) {
-    loadFile(appName + '.json')
+    loadFile(appName)
   }
   return library.get(appName)
 }
@@ -449,7 +449,7 @@ export function installState(appName: string, state: boolean) {
   if (state) {
     // This assumes that fileName and appName are same.
     // If that changes, this will break.
-    loadFile(`${appName}.json`)
+    loadFile(appName)
   } else {
     // @ts-expect-error TODO: Make sure game info is loaded & appName is valid here
     library.get(appName).is_installed = false
@@ -459,23 +459,24 @@ export function installState(appName: string, state: boolean) {
   }
 }
 
+function loadGameMetadata(appName: string): GameMetadata {
+  const fullPath = join(legendaryMetadata, appName + '.json')
+  return JSON.parse(readFileSync(fullPath, 'utf-8'))
+}
+
 /**
  * Load the file completely into our in-memory library.
  * Largely derived from legacy code.
  *
  * @returns True/False, whether or not the file was loaded
  */
-function loadFile(fileName: string): boolean {
-  const fullPath = join(legendaryMetadata, fileName)
-
-  let app_name: string
+function loadFile(app_name: string): boolean {
   let metadata
   try {
-    const data: GameMetadata = JSON.parse(readFileSync(fullPath, 'utf-8'))
-    app_name = data.app_name
+    const data = loadGameMetadata(app_name)
     metadata = data.metadata
   } catch (error) {
-    logError(['Failed to parse', fileName], LogPrefix.Legendary)
+    logError(['Failed to parse metadata for', app_name], LogPrefix.Legendary)
     return false
   }
   const { namespace } = metadata
@@ -503,10 +504,7 @@ function loadFile(fileName: string): boolean {
   }
 
   if (!customAttributes) {
-    logWarning(
-      ['Incomplete metadata for', fileName, app_name],
-      LogPrefix.Legendary
-    )
+    logWarning(['Incomplete metadata for', app_name], LogPrefix.Legendary)
   }
 
   const dlcs: string[] = []
@@ -559,10 +557,7 @@ function loadFile(fileName: string): boolean {
   const convertedSize = install_size ? getFileSize(Number(install_size)) : '0'
 
   if (releaseInfo && !releaseInfo[0].platform) {
-    logWarning(
-      ['No platforms info for', fileName, app_name],
-      LogPrefix.Legendary
-    )
+    logWarning(['No platforms info for', app_name], LogPrefix.Legendary)
   }
 
   let metadataPlatform: LegendaryInstallPlatform[] = []
@@ -624,7 +619,7 @@ async function loadAll(): Promise<string[]> {
   if (existsSync(legendaryMetadata)) {
     const loadedFiles: string[] = []
     allGames.forEach((appName) => {
-      const wasLoaded = loadFile(appName + '.json')
+      const wasLoaded = loadFile(appName)
       if (wasLoaded) {
         loadedFiles.push(appName)
       }
