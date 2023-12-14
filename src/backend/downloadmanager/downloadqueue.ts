@@ -139,7 +139,7 @@ async function addToQueue(element: DMQueueElement) {
 
     if (
       element.params.runner === 'gog' &&
-      element.params.platformToInstall === 'windows' &&
+      element.params.platformToInstall.toLowerCase() === 'windows' &&
       installInfo &&
       'dependencies' in installInfo.manifest
     ) {
