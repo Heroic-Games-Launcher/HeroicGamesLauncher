@@ -252,7 +252,8 @@
         "filters": "Filter",
         "all_categories": "Semua Kategori",
         "show_installed_only": "Tampilkan yang terpasang saja",
-        "uncategorized": "Tidak dikategorikan"
+        "uncategorized": "Tidak dikategorikan",
+        "categories": "Kategori"
     },
     "help": {
         "amdfsr": "FSR AMD membantu untuk meningkatkan framerate dengan meningkatkan resolusi yang lebih rendah dalam Mode Layar Penuh. Kualitas gambar meningkat dari 5 menjadi 1 dengan mengorbankan sedikit kinerja. Mengaktifkannya dapat meningkatkan kinerja.",
@@ -746,5 +747,8 @@
         "remove-category": "Hapus Kategori",
         "new-category": "Kategori Baru",
         "add-new-category": "Buat Kategori Baru"
+    },
+    "window": {
+        "close": "Tutup"
     }
 }

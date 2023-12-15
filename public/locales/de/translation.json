@@ -254,7 +254,8 @@
         "filters": "Filter",
         "all_categories": "Alle Kategorien",
         "show_installed_only": "Nur installierte anzeigen",
-        "uncategorized": "Unkategorisiert"
+        "uncategorized": "Unkategorisiert",
+        "categories": "Kategorien"
     },
     "help": {
         "amdfsr": "AMDs FSR hilft bei der Verbesserung der Framerate durch Hochskalierung niedrigerer Auflösungen im Vollbildmodus. Die Bildqualität wird von 5 auf 1 erhöht, allerdings auf Kosten einer leichten Leistungseinbuße. Das Aktivieren kann die Leistung verbessern.",
