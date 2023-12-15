@@ -524,8 +524,9 @@ export default React.memo(function Library(): JSX.Element {
     )
   }
 
-  const libraryHeaderRef = useRef(null)
-  const headerRef = useRef(null)
+  // NOTE: Requires usage of a lot of forwardRef on target components
+  // const libraryHeaderRef = useRef(null)
+  // const headerRef = useRef(null)
 
   useEffect(() => {
     introJs()
@@ -535,13 +536,13 @@ export default React.memo(function Library(): JSX.Element {
             title: 'Home onboarding - header',
             intro:
               'Here, you can search your games by name and also filter using our pre-made filters or your own custom categories!',
-            element: headerRef.current
+            element: document.querySelector('.Header') as HTMLElement //headerRef.current
           },
           {
             title: 'Home onboarding - library header',
             intro:
               'Here, you can sort your games, refresh your library and also sideload new games!',
-            element: libraryHeaderRef.current
+            element: document.querySelector('.libraryHeader') as HTMLElement //libraryHeaderRef.current
           }
         ],
         tooltipClass: 'onboarding'
@@ -574,7 +575,7 @@ export default React.memo(function Library(): JSX.Element {
         sortInstalled
       }}
     >
-      <Header ref={headerRef} />
+      <Header />
 
       <div className="listing">
         <span id="top" />
@@ -598,7 +599,6 @@ export default React.memo(function Library(): JSX.Element {
         )}
 
         <LibraryHeader
-          ref={libraryHeaderRef}
           list={libraryToShow}
           handleAddGameButtonClick={() => handleModal('', 'sideload', null)}
         />
