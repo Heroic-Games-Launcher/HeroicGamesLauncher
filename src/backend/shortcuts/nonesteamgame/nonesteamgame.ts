@@ -184,7 +184,13 @@ function checkIfShortcutObjectIsValid(
  */
 function checkIfAlreadyAdded(object: Partial<ShortcutObject>, title: string) {
   const shortcuts = object.shortcuts ?? []
-  return shortcuts.findIndex((entry) => entry.AppName === title)
+  return shortcuts.findIndex(
+    (entry) =>
+      entry[
+        Object.keys(entry).find((key) => key.toLowerCase() === 'appname') ??
+          'AppName'
+      ] === title
+  )
 }
 
 /**
