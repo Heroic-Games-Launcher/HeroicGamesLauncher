@@ -5113,6 +5113,11 @@ internal-slot@^1.0.4, internal-slot@^1.0.5:
   resolved "https://registry.yarnpkg.com/internmap/-/internmap-2.0.3.tgz#6685f23755e43c524e251d29cbc97248e3061009"
   integrity sha512-5Hh7Y1wQbvY5ooGgPbDaL5iYLAPzMTUrjMulskHLH6wnv/A+1q5rgEaiuqEjB+oxGXIVZs1FF+R/KPN3ZSQYYg==
 
+intro.js-react@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/intro.js-react/-/intro.js-react-1.0.0.tgz#28f17519f387c4e76ad0f75c2bd733440bda0a83"
+  integrity sha512-zR8pbTyX20RnCZpJMc0nuHBpsjcr1wFkj3ZookV6Ly4eE/LGpFTQwPsaA61Cryzwiy/tTFsusf4hPU9NpI9UOg==
+
 intro.js@^7.2.0:
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/intro.js/-/intro.js-7.2.0.tgz#e58e8fee4f6b43d6e0fcb264c9ca8a0f0565026d"

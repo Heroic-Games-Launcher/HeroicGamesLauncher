@@ -168,3 +168,24 @@ img.loaded {
 .isRTL {
   direction: rtl;
 }
+
+.onboarding {
+  color: var(--text-default);
+  background-color: var(--background);
+}
+
+.onboarding .introjs-button {
+  background-color: var(--primary);
+  border: none;
+  color: var(--text-tertiary);
+  text-shadow: none;
+}
+
+.onboarding .introjs-tooltipbuttons {
+  border: none;
+}
+
+.onboarding .introjs-dontShowAgain label {
+  color: var(--text-default);
+  background-color: var(--background);
+}

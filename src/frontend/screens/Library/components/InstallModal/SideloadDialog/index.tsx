@@ -16,13 +16,14 @@ import {
   removeSpecialcharacters,
   writeConfig
 } from 'frontend/helpers'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AvailablePlatforms } from '..'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
 import ContextProvider from 'frontend/state/ContextProvider'
 import classNames from 'classnames'
 import axios from 'axios'
+import SideloadHelp from 'frontend/components/HelpComponents/SideloadHelp'
 
 type Props = {
   availablePlatforms: AvailablePlatforms
@@ -72,6 +73,8 @@ export default function SideloadDialog({
 
   const appPlatform = gameInfo.install?.platform || platformToInstall
 
+  const helpRef = useRef<HTMLDivElement | null>(null)
+
   useEffect(() => {
     if (appName) {
       getGameInfo(appName, 'sideload').then((info) => {
@@ -112,6 +115,8 @@ export default function SideloadDialog({
     } else {
       setApp_name(short.generate().toString())
     }
+
+    helpRef.current!.showPopover()
   }, [])
 
   useEffect(() => {
@@ -289,6 +294,7 @@ export default function SideloadDialog({
   return (
     <>
       <DialogContent>
+        <SideloadHelp ref={helpRef} />
         <div className="sideloadGrid">
           <div className="imageIcons">
             <CachedImage
@@ -377,6 +383,7 @@ export default function SideloadDialog({
       <DialogFooter>
         {shouldShowRunExe && (
           <button
+            id="run-installer-btn"
             onClick={async () => handleRunExe()}
             className={`button is-secondary`}
             disabled={runningSetup || !title.length}
@@ -387,6 +394,7 @@ export default function SideloadDialog({
           </button>
         )}
         <button
+          id="setup-finish-btn"
           onClick={async () => handleInstall()}
           className={`button is-success`}
           disabled={(!selectedExe.length && !gameUrl) || addingApp || searching}
