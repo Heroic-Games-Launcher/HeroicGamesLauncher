@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import './index.scss'
+import './index.css'
 import { HelpItem } from 'frontend/types'
 import { useTranslation } from 'react-i18next'
 

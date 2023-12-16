@@ -13,7 +13,11 @@ import {
   LibraryTopSectionOptions,
   ExperimentalFeatures
 } from 'common/types'
-import { DialogModalOptions, ExternalLinkDialogOptions, HelpItem } from 'frontend/types'
+import {
+  DialogModalOptions,
+  ExternalLinkDialogOptions,
+  HelpItem
+} from 'frontend/types'
 import { withTranslation } from 'react-i18next'
 import {
   getGameInfo,

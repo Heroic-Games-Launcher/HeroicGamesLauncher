@@ -46,26 +46,26 @@
     transform: translateX(0);
   }
 
-  button {
+  & button {
     background: white;
     border: 0;
     border-radius: 0 0 0 50%;
     padding: 0.5rem 1rem;
   }
 
-  details:not(:last-child) {
+  & details:not(:last-child) {
     border-bottom: 1px solid var(--text-default);
   }
 
-  summary {
+  & summary {
     font-size: 1.2rem;
   }
 
-  p {
+  & p {
     font-size: 1.1rem;
   }
 
-  summary + p {
+  & summary + p {
     margin-top: 0;
   }
 }
