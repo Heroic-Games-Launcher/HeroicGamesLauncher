@@ -14,7 +14,9 @@
   font-size: 2rem;
   font-weight: bold;
   opacity: 0.5;
-  transition: opacity 100ms linear, transform 300ms ease-out;
+  transition:
+    opacity 100ms linear,
+    transform 300ms ease-out;
   cursor: pointer;
 
   &:hover,
