@@ -1,8 +1,7 @@
 import React from 'react'
-import { SearchBar } from 'frontend/components/UI'
-import StoreFilter from 'frontend/components/UI/StoreFilter'
-import PlatformFilter from '../PlatformFilter'
-
+import LibrarySearchBar from '../LibrarySearchBar'
+import CategoryFilter from '../CategoryFilter'
+import LibraryFilters from '../LibraryFilters'
 import './index.css'
 
 export default function Header() {
@@ -10,11 +9,11 @@ export default function Header() {
     <>
       <div className="Header">
         <div className="Header__search">
-          <SearchBar />
+          <LibrarySearchBar />
         </div>
         <span className="Header__filters">
-          <StoreFilter />
-          <PlatformFilter />
+          <CategoryFilter />
+          <LibraryFilters />
         </span>
       </div>
     </>

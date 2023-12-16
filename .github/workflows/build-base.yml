@@ -1,0 +1,61 @@
+name: Build Heroic, upload artifacts
+
+on:
+  workflow_call:
+    inputs:
+      publish-snap:
+        required: false
+        type: boolean
+    secrets:
+      workflowToken:
+        required: true
+      snapcraftIdEdge:
+        required: false
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2022, ubuntu-22.04, macos-12]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/install-deps
+      - name: Build Windows Portable version
+        run: yarn dist:win portable
+        if: runner.os == 'Windows'
+      - name: Build macOS x64 & arm64 versions
+        run: yarn dist:mac --x64 --arm64 --publish=never
+        env:
+          GITHUB_TOKEN: ${{ secrets.workflowToken }}
+          GH_TOKEN: ${{ secrets.workflowToken }}
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+        if: runner.os == 'macOS'
+      - name: Build and publish Snap version
+        run: |
+          sudo apt-get install --no-install-recommends -y snapcraft
+          yarn dist:linux Snap --publish=always
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.snapcraftIdEdge }}
+        if: runner.os == 'Linux' && inputs.publish-snap
+      - name: Build AppImage version
+        run: yarn dist:linux AppImage --publish=never
+        if: runner.os == 'Linux'
+      - name: Upload built version
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ (matrix.os == 'windows-2022'  && 'win-portable'  ) ||
+                    (matrix.os == 'macos-12'      && 'mac-x64'       ) ||
+                    (matrix.os == 'ubuntu-22.04'  && 'linux-AppImage') }}
+          path: ${{ (matrix.os == 'windows-2022'  && 'dist/Heroic*.exe'      ) ||
+                    (matrix.os == 'macos-12'      && 'dist/Heroic*x64.dmg'   ) ||
+                    (matrix.os == 'ubuntu-22.04'  && 'dist/Heroic-*.AppImage') }}
+          retention-days: 14
+      - name: Upload macOS ARM version
+        uses: actions/upload-artifact@v3
+        with:
+          name: mac-arm64
+          path: dist/Heroic*arm64.dmg
+          retention-days: 14
+        if: runner.os == 'macOS'

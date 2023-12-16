@@ -5,6 +5,7 @@ import {
   getLegendaryVersion,
   getNileVersion
 } from './helperBinaries'
+import { hasExecutable } from './os/path'
 import { formatSystemInfo, getSystemInfo } from './systeminfo'
 
 ipcMain.on('abort', async (event, id) => {
@@ -17,3 +18,6 @@ ipcMain.handle('getSystemInfo', async (e, cache) => getSystemInfo(cache))
 ipcMain.on('copySystemInfoToClipboard', async () =>
   getSystemInfo().then(formatSystemInfo).then(clipboard.writeText)
 )
+ipcMain.handle('hasExecutable', async (event, executable) => {
+  return hasExecutable(executable)
+})

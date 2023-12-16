@@ -1,7 +1,3 @@
-import {
-  createAbortController,
-  deleteAbortController
-} from '../../utils/aborthandler/aborthandler'
 import { appendFileSync, existsSync } from 'graceful-fs'
 import axios from 'axios'
 
@@ -38,8 +34,6 @@ import {
   installed,
   configStore,
   gamesConfigPath,
-  isLinux,
-  isFlatpak,
   isCLINoGui
 } from '../../constants'
 import { logError, logInfo, LogPrefix, logsDisabled } from '../../logger/logger'
@@ -64,7 +58,6 @@ import shlex from 'shlex'
 import { t } from 'i18next'
 import { isOnline } from '../../online_monitor'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
-import { gameAnticheatInfo } from '../../anticheat/utils'
 import { Catalog, Product } from 'common/types/epic-graphql'
 import { sendFrontendMessage } from '../../main_window'
 import { RemoveArgs } from 'common/types/game_manager'
@@ -513,17 +506,12 @@ export async function update(
     )
   }
 
-  const res = await runLegendaryCommand(
-    command,
-    createAbortController(appName),
-    {
-      logFile: logPath,
-      onOutput,
-      logMessagePrefix: `Updating ${appName}`
-    }
-  )
-
-  deleteAbortController(appName)
+  const res = await runLegendaryCommand(command, {
+    abortId: appName,
+    logFile: logPath,
+    onOutput,
+    logMessagePrefix: `Updating ${appName}`
+  })
 
   sendFrontendMessage('gameStatusUpdate', {
     appName: appName,
@@ -600,23 +588,21 @@ export async function install(
     )
   }
 
-  let res = await runLegendaryCommand(command, createAbortController(appName), {
+  let res = await runLegendaryCommand(command, {
+    abortId: appName,
     logFile: logPath,
     onOutput,
     logMessagePrefix: `Installing ${appName}`
   })
 
-  deleteAbortController(appName)
-
   // try to run the install again with higher memory limit
   if (res.stderr.includes('MemoryError:')) {
     command['--max-shared-memory'] = PositiveInteger.parse(5000)
-    res = await runLegendaryCommand(command, createAbortController(appName), {
+    res = await runLegendaryCommand(command, {
+      abortId: appName,
       logFile: logPath,
       onOutput
     })
-
-    deleteAbortController(appName)
   }
 
   if (res.abort) {
@@ -634,23 +620,6 @@ export async function install(
   }
   addShortcuts(appName)
 
-  const anticheatInfo = gameAnticheatInfo(getGameInfo(appName).namespace)
-
-  if (anticheatInfo && isLinux) {
-    const gameConfig = GameConfig.get(appName)
-
-    if (anticheatInfo.anticheats.includes('Easy Anti-Cheat')) {
-      gameConfig.setSetting('eacRuntime', true)
-      if (isFlatpak) {
-        gameConfig.setSetting('useGameMode', true)
-      }
-    }
-
-    if (anticheatInfo.anticheats.includes('BattlEye')) {
-      gameConfig.setSetting('battleyeRuntime', true)
-    }
-  }
-
   return { status: 'done' }
 }
 
@@ -661,15 +630,10 @@ export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
     '-y': true
   }
 
-  const res = await runLegendaryCommand(
-    command,
-    createAbortController(appName),
-    {
-      logMessagePrefix: `Uninstalling ${appName}`
-    }
-  )
-
-  deleteAbortController(appName)
+  const res = await runLegendaryCommand(command, {
+    abortId: appName,
+    logMessagePrefix: `Uninstalling ${appName}`
+  })
 
   if (res.error) {
     logError(
@@ -703,16 +667,11 @@ export async function repair(appName: string): Promise<ExecResult> {
   if (maxWorkers) command['--max-workers'] = PositiveInteger.parse(maxWorkers)
   if (downloadNoHttps) command['--no-https'] = true
 
-  const res = await runLegendaryCommand(
-    command,
-    createAbortController(appName),
-    {
-      logFile: logPath,
-      logMessagePrefix: `Repairing ${appName}`
-    }
-  )
-
-  deleteAbortController(appName)
+  const res = await runLegendaryCommand(command, {
+    abortId: appName,
+    logFile: logPath,
+    logMessagePrefix: `Repairing ${appName}`
+  })
 
   if (res.error) {
     logError(
@@ -738,10 +697,8 @@ export async function importGame(
 
   logInfo(`Importing ${appName}.`, LogPrefix.Legendary)
 
-  const res = await runLegendaryCommand(command, createAbortController(appName))
+  const res = await runLegendaryCommand(command, { abortId: appName })
   addShortcuts(appName)
-
-  deleteAbortController(appName)
 
   if (res.error) {
     logError(
@@ -778,16 +735,11 @@ export async function syncSaves(
   }
 
   let fullOutput = ''
-  const res = await runLegendaryCommand(
-    command,
-    createAbortController(appName),
-    {
-      logMessagePrefix: `Syncing saves for ${getGameInfo(appName).title}`,
-      onOutput: (output) => (fullOutput += output)
-    }
-  )
-
-  deleteAbortController(appName)
+  const res = await runLegendaryCommand(command, {
+    abortId: appName,
+    logMessagePrefix: `Syncing saves for ${getGameInfo(appName).title}`,
+    onOutput: (output) => (fullOutput += output)
+  })
 
   if (res.error) {
     logError(
@@ -811,6 +763,7 @@ export async function launch(
     rpcClient,
     mangoHudCommand,
     gameModeBin,
+    gameScopeCommand,
     steamRuntime,
     offlineMode
   } = await prepareLaunch(gameSettings, gameInfo, isNative(appName))
@@ -839,6 +792,7 @@ export async function launch(
     gameSettings,
     mangoHudCommand,
     gameModeBin,
+    gameScopeCommand,
     steamRuntime?.length ? [...steamRuntime] : undefined
   )
 
@@ -908,20 +862,15 @@ export async function launch(
     `Launch Command: ${fullCommand}\n\nGame Log:\n`
   )
 
-  const { error } = await runLegendaryCommand(
-    command,
-    createAbortController(appName),
-    {
-      env: commandEnv,
-      wrappers: wrappers,
-      logMessagePrefix: `Launching ${gameInfo.title}`,
-      onOutput: (output) => {
-        if (!logsDisabled) appendFileSync(logFileLocation(appName), output)
-      }
+  const { error } = await runLegendaryCommand(command, {
+    abortId: appName,
+    env: commandEnv,
+    wrappers: wrappers,
+    logMessagePrefix: `Launching ${gameInfo.title}`,
+    onOutput: (output) => {
+      if (!logsDisabled) appendFileSync(logFileLocation(appName), output)
     }
-  )
-
-  deleteAbortController(appName)
+  })
 
   if (error) {
     const showDialog = !`${error}`.includes('appears to be deleted')
@@ -960,10 +909,10 @@ export async function forceUninstall(appName: string) {
         '-y': true,
         '--keep-files': true
       },
-      createAbortController(appName)
+      {
+        abortId: appName
+      }
     )
-
-    deleteAbortController(appName)
 
     sendFrontendMessage('refreshLibrary', 'legendary')
   } catch (error) {
@@ -990,16 +939,18 @@ export async function stop(appName: string, stopWine = true) {
   }
 }
 
-export function isGameAvailable(appName: string) {
-  const info = getGameInfo(appName)
-  if (info && info.is_installed) {
-    if (info.install.install_path && existsSync(info.install.install_path!)) {
-      return true
-    } else {
-      return false
+export async function isGameAvailable(appName: string): Promise<boolean> {
+  return new Promise((resolve) => {
+    const info = getGameInfo(appName)
+    if (info && info.is_installed) {
+      if (info.install.install_path && existsSync(info.install.install_path!)) {
+        resolve(true)
+      } else {
+        resolve(false)
+      }
     }
-  }
-  return false
+    resolve(false)
+  })
 }
 
 export async function runWineCommandOnGame(

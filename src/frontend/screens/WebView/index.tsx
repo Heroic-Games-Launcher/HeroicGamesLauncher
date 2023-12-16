@@ -16,7 +16,24 @@ import './index.css'
 import LoginWarning from '../Login/components/LoginWarning'
 import { NileLoginData } from 'common/types/nile'
 
-export default function WebView() {
+interface Props {
+  store?: 'epic' | 'gog' | 'amazon'
+}
+
+const validStoredUrl = (url: string, store: 'epic' | 'gog' | 'amazon') => {
+  switch (store) {
+    case 'epic':
+      return url.includes('epicgames.com')
+    case 'gog':
+      return url.includes('gog.com')
+    case 'amazon':
+      return url.includes('gaming.amazon.com')
+    default:
+      return false
+  }
+}
+
+export default function WebView({ store }: Props) {
   const { i18n } = useTranslation()
   const { pathname, search } = useLocation()
   const { t } = useTranslation()
@@ -65,6 +82,14 @@ export default function WebView() {
     '/loginweb/nile': amazonLoginData ? amazonLoginData.url : ''
   }
   let startUrl = urls[pathname]
+
+  if (store) {
+    sessionStorage.setItem('last-store', `/${store}store`)
+    const lastUrl = sessionStorage.getItem(`last-url-${store}`)
+    if (lastUrl && validStoredUrl(lastUrl, store)) {
+      startUrl = lastUrl
+    }
+  }
 
   if (pathname.match(/store-page/)) {
     const searchParams = new URLSearchParams(search)
@@ -211,6 +236,30 @@ export default function WebView() {
     }
     return
   }, [webviewRef.current, preloadPath, amazonLoginData])
+
+  useEffect(() => {
+    const webview = webviewRef.current
+    if (webview && store) {
+      const onNavigate = () => {
+        const url = webview.getURL()
+        if (validStoredUrl(url, store)) {
+          sessionStorage.setItem(`last-url-${store}`, webview.getURL())
+        }
+      }
+
+      // this one is needed for gog/amazon
+      webview.addEventListener('did-navigate', onNavigate)
+      // this one is needed for epic
+      webview.addEventListener('did-navigate-in-page', onNavigate)
+
+      return () => {
+        webview.removeEventListener('did-navigate', onNavigate)
+        webview.removeEventListener('did-navigate-in-page', onNavigate)
+      }
+    }
+
+    return
+  }, [webviewRef.current, store])
 
   const [showLoginWarningFor, setShowLoginWarningFor] = useState<
     null | 'epic' | 'gog' | 'amazon'

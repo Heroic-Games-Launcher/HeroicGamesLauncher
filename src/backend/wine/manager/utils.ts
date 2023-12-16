@@ -17,6 +17,10 @@ import { getAvailableVersions, installVersion } from './downloader/main'
 import { toolsPath, isMac } from '../../constants'
 import { sendFrontendMessage } from '../../main_window'
 import { TypeCheckedStoreBackend } from 'backend/electron_store'
+import {
+  createAbortController,
+  deleteAbortController
+} from 'backend/utils/aborthandler/aborthandler'
 
 export const wineDownloaderInfoStore = new TypeCheckedStoreBackend(
   'wineDownloaderInfoStore',
@@ -85,8 +89,7 @@ async function updateWineVersionInfos(
 
 async function installWineVersion(
   release: WineVersionInfo,
-  onProgress: (state: State, progress?: ProgressInfo) => void,
-  abortSignal: AbortSignal
+  onProgress: (state: State, progress?: ProgressInfo) => void
 ) {
   let updatedInfo: WineVersionInfo
   const variant = release.hasUpdate ? 'update' : 'installation'
@@ -108,13 +111,15 @@ async function installWineVersion(
     ? `${toolsPath}/wine`
     : `${toolsPath}/proton`
 
+  const abortController = createAbortController(release.version)
+
   try {
     const response = await installVersion({
       versionInfo: release as VersionInfo,
       installDir,
       overwrite: release.hasUpdate,
       onProgress: onProgress,
-      abortSignal: abortSignal
+      abortSignal: abortController.signal
     })
     updatedInfo = {
       ...response.versionInfo,
@@ -124,13 +129,15 @@ async function installWineVersion(
       type: release.type
     }
   } catch (error) {
-    if (abortSignal.aborted) {
+    if (abortController.signal.aborted) {
       logWarning(error, LogPrefix.WineDownloader)
       return 'abort'
     } else {
       logError(error, LogPrefix.WineDownloader)
       return 'error'
     }
+  } finally {
+    deleteAbortController(release.version)
   }
 
   // Update stored information

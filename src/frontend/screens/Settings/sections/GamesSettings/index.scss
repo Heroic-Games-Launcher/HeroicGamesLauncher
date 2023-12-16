@@ -65,3 +65,24 @@ details {
     font-size: var(--text-xl);
   }
 }
+
+.gamescopeSettings {
+  .selectFieldWrapper {
+    grid-template-areas:
+      'label info'
+      'select select';
+    grid-template-columns: max-content 1fr;
+  }
+
+  .textInputFieldWrapper {
+    grid-template-areas:
+      'label info'
+      'input input';
+    grid-template-columns: max-content 1fr;
+  }
+
+  .row {
+    display: flex;
+    gap: 10px;
+  }
+}

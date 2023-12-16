@@ -233,42 +233,40 @@
 				</p>
 				<ul>
 					<li>
-						Auto Install UbisoftConnect when running UbisoftConnect games
+						Added a new System Information Tab to the Heroic Settings
 					</li>
 					<li>
-						UI improvements on the GamePage to make it cleaner and organized
+						Added support for installing and enabling DXVK-NVAPI
 					</li>
 					<li>
-						Library render improvements and download GOG game images in the background
+						Added user feedback when copying log to clipboard
 					</li>
 					<li>
-						Improvements on Epic Login
+						Added ExperimentalFeatures feature setting support
+
 					</li>
-					<li>
-						Show game logs from the card's context menu
-					</li>
-				</ul>
+					</ul>
 				<p>
 					BugFixes
 				</p>
 				<ul>
 					<li>
-						Fix Discord RPC for flatpak heroic
+						Fixed installation of EOS Overlay
 					</li>
 					<li>
-						Fix auto-enabling of anti-cheat runtimes
+						Fixed some issues for Amazon Games
 					</li>
 					<li>
-						Fix non-available status for games just installed
+						Fixed issues with missing games metadata for GOG
 					</li>
 					<li>
-						Kill leftover wine processes after the stop button is pressed
+						Fixed issue with egl-sync
 					</li>
 					<li>
-						Fix not being possible to change the default installation path
+						Fixed installing all DLCs not adding them to the queue
 					</li>
 					<li>
-						Inaccuracy of disk and down speed
+						Make sure the game is available before auto-updating
 					</li>
 					<li>
 						Several other fixes and improvements

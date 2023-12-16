@@ -4,7 +4,8 @@ import {
   ToolArgs,
   WineVersionInfo,
   ProgressInfo,
-  State
+  State,
+  Runner
 } from 'common/types'
 
 export const toggleDXVK = async (args: ToolArgs) =>
@@ -35,7 +36,10 @@ export const refreshWineVersionInfo = async (fetch?: boolean): Promise<void> =>
   ipcRenderer.invoke('refreshWineVersionInfo', fetch)
 
 export const handleProgressOfWinetricks = (
-  onProgress: (e: Electron.IpcRendererEvent, messages: string[]) => void
+  onProgress: (
+    e: Electron.IpcRendererEvent,
+    payload: { messages: string[]; installingComponent: '' }
+  ) => void
 ): (() => void) => {
   ipcRenderer.on('progressOfWinetricks', onProgress)
   return () => {
@@ -65,5 +69,33 @@ export const handleWineVersionsUpdated = (
   ipcRenderer.on('wineVersionsUpdated', callback)
   return () => {
     ipcRenderer.removeListener('wineVersionsUpdated', callback)
+  }
+}
+
+export const winetricksListInstalled = async (
+  runner: Runner,
+  appName: string
+): Promise<string[]> =>
+  ipcRenderer.invoke('winetricksInstalled', { runner, appName })
+
+export const winetricksListAvailable = async (
+  runner: Runner,
+  appName: string
+): Promise<string[]> =>
+  ipcRenderer.invoke('winetricksAvailable', { runner, appName })
+
+export const winetricksInstall = async (
+  runner: Runner,
+  appName: string,
+  component: string
+): Promise<void> =>
+  ipcRenderer.send('winetricksInstall', { runner, appName, component })
+
+export const handleWinetricksInstalling = (
+  callback: (e: Electron.IpcRendererEvent, component: string) => void
+): (() => void) => {
+  ipcRenderer.on('installing-winetricks-component', callback)
+  return () => {
+    ipcRenderer.removeListener('installing-winetricks-component', callback)
   }
 }

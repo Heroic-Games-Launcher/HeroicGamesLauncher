@@ -27,6 +27,7 @@ export interface StoreStructure {
       recent: RecentGame[]
       hidden: HiddenGame[]
       favourites: FavouriteGame[]
+      customCategories: Record<string, string[]>
     }
     theme: string
     zoomPercent: number
@@ -44,6 +45,7 @@ export interface StoreStructure {
     'window-props': WindowProps
     settings: AppSettings
     skipVcRuntime: boolean
+    showSnapWarning: boolean
   }
   wineDownloaderInfoStore: {
     'wine-releases': WineVersionInfo[]

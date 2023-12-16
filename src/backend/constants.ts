@@ -33,14 +33,17 @@ const isSteamDeckGameMode = process.env.XDG_CURRENT_DESKTOP === 'gamescope'
 const isCLIFullscreen = process.argv.includes('--fullscreen')
 const isCLINoGui = process.argv.includes('--no-gui')
 const isFlatpak = Boolean(env.FLATPAK_ID)
+const isSnap = Boolean(env.SNAP)
 const currentGameConfigVersion: GameConfigVersion = 'v0'
 const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
 
 const flatPakHome = env.XDG_DATA_HOME?.replace('/data', '') || homedir()
-const userHome = homedir()
+const userHome = isSnap ? env.SNAP_REAL_HOME! : homedir()
 const configFolder = app.getPath('appData')
 const appFolder = join(configFolder, 'heroic')
-const legendaryConfigPath = join(appFolder, 'legendaryConfig', 'legendary')
+const legendaryConfigPath = isSnap
+  ? join(env.XDG_CONFIG_HOME!, 'legendary')
+  : join(appFolder, 'legendaryConfig', 'legendary')
 const nileConfigPath = join(appFolder, 'nile_config', 'nile')
 const configPath = join(appFolder, 'config.json')
 const gamesConfigPath = join(appFolder, 'GamesConfig')
@@ -48,8 +51,8 @@ const toolsPath = join(appFolder, 'tools')
 const heroicIconFolder = join(appFolder, 'icons')
 const runtimePath = join(toolsPath, 'runtimes')
 const userInfo = join(legendaryConfigPath, 'user.json')
-const heroicInstallPath = join(homedir(), 'Games', 'Heroic')
-const defaultWinePrefixDir = join(homedir(), 'Games', 'Heroic', 'Prefixes')
+const heroicInstallPath = join(userHome, 'Games', 'Heroic')
+const defaultWinePrefixDir = join(userHome, 'Games', 'Heroic', 'Prefixes')
 const defaultWinePrefix = join(defaultWinePrefixDir, 'default')
 const anticheatDataPath = join(appFolder, 'areweanticheatyet.json')
 const imagesCachePath = join(appFolder, 'images-cache')
@@ -237,6 +240,7 @@ export {
   iconLight,
   installed,
   isFlatpak,
+  isSnap,
   isMac,
   isWindows,
   isLinux,

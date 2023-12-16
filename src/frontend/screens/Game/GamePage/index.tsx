@@ -86,8 +86,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
     platform,
     showDialogModal,
     isSettingsModalOpen,
-    experimentalFeatures,
-    connectivity
+    connectivity,
+    experimentalFeatures
   } = useContext(ContextProvider)
 
   hasHelp(
@@ -210,7 +210,14 @@ export default React.memo(function GamePage(): JSX.Element | null {
       }
     }
     updateConfig()
-  }, [status, epic.library, gog.library, gameInfo, isSettingsModalOpen, isOffline])
+  }, [
+    status,
+    epic.library,
+    gog.library,
+    gameInfo,
+    isSettingsModalOpen,
+    isOffline
+  ])
 
   useEffect(() => {
     window.api
@@ -243,6 +250,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       art_square,
       art_cover,
       art_background,
+      art_logo,
       install: { platform: installPlatform },
       is_installed
     } = gameInfo
@@ -337,7 +345,11 @@ export default React.memo(function GamePage(): JSX.Element | null {
             {/* OLD DESIGN */}
             {!experimentalFeatures.enableNewDesign && (
               <>
-                <GamePicture art_square={art_square} store={runner} />
+                <GamePicture
+                  art_square={art_square}
+                  art_logo={art_logo}
+                  store={runner}
+                />
                 <NavLink
                   className="backButton"
                   to={backRoute}
@@ -406,7 +418,11 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
                   {!isBrowserGame && <SettingsButton gameInfo={gameInfo} />}
                   <div className="mainInfo">
-                    <GamePicture art_square={art_cover} store={runner} />
+                    <GamePicture
+                      art_square={art_cover}
+                      art_logo={art_logo}
+                      store={runner}
+                    />
                     <div className="store-icon">
                       <StoreLogos runner={runner} />
                     </div>

@@ -28,7 +28,8 @@ import {
   WineVersionSelector,
   WrappersTable,
   EnableDXVKFpsLimit,
-  IgnoreGameUpdates
+  IgnoreGameUpdates,
+  Gamescope
 } from '../../components'
 import ContextProvider from 'frontend/state/ContextProvider'
 import Tools from '../../components/Tools'
@@ -176,6 +177,12 @@ export default function GamesSettings() {
             value="saves"
           />
         )}
+        {isLinux && (
+          <Tab
+            label={t('settings.navbar.gamescope', 'Gamescope')}
+            value="gamescope"
+          />
+        )}
       </Tabs>
 
       <TabPanel value={value} index={'wine'}>
@@ -231,6 +238,10 @@ export default function GamesSettings() {
 
       <TabPanel value={value} index={'saves'}>
         <SyncSaves />
+      </TabPanel>
+
+      <TabPanel value={value} index={'gamescope'}>
+        <Gamescope />
       </TabPanel>
 
       {!isDefault && <FooterInfo />}

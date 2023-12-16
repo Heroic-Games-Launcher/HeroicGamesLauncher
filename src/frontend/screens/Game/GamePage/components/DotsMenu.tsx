@@ -54,6 +54,7 @@ const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
             hasRequirements ? () => setShowRequirements(true) : undefined
           }
           onShowDlcs={() => setShowDlcs(true)}
+          gameInfo={gameInfo}
         />
       </div>
 

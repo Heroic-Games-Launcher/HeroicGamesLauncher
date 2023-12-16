@@ -1,0 +1,79 @@
+name: Update AUR
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  update-aur:
+    runs-on: ubuntu-latest
+
+    container:
+      image: archlinux
+
+    steps:
+      - name: Install Dependencies
+        run: |
+          pacman -Syu --noconfirm jq
+
+      - name: Download Package
+        run: |
+          set -x
+          latest_version=$(curl -s https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest | jq -r .tag_name)
+          version_without_v=$(echo $latest_version | cut -c 2-)
+          curl -L https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/${latest_version}/heroic-${version_without_v}.pacman -o heroic.pacman
+          set +x
+        if: ${{ success() }}
+
+      - name: Update PKGBUILD
+        run: |
+          set -x
+          latest_version=$(curl -s https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest | jq -r .tag_name)
+          pkgver=${latest_version#v}
+          pkgrel=1
+          url="https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/"
+          _filename=heroic-${pkgver}.pacman
+          source=("$url/releases/download/$latest_version/$_filename")
+          sha256sums=($(sha256sum heroic.pacman | cut -d' ' -f1))
+
+          cat <<EOF > PKGBUILD
+          # Maintainer: flaviofearn <flavioislima@gmail.com>
+
+          pkgname=heroic-games-launcher-bin
+          pkgver=$pkgver
+          pkgrel=$pkgrel
+          pkgdesc="An Open source Launcher for Epic, Amazon and GOG Games"
+          arch=('x86_64')
+          url="$url"
+          license=('GPL3')
+          _filename=$_filename
+          source=("$source")
+          noextract=("$_filename")
+          sha256sums=(${sha256sums[@]})
+          options=(!strip)
+          provides=(heroic-games-launcher)
+          conflicts=(heroic-games-launcher)
+
+          package() {
+            tar -xJv -C "\$pkgdir" -f "\$srcdir/\$_filename" usr opt
+            mkdir "\$pkgdir/usr/bin"
+            ln -s "/opt/Heroic/heroic" "\$pkgdir/usr/bin/heroic"
+          }
+
+          # vim:set ts=2 sw=2 et: syntax=sh
+
+          EOF
+          cat PKGBUILD
+              set +x
+        if: ${{ success() }}
+
+      - name: Publish AUR package
+        uses: KSXGitHub/github-actions-deploy-aur@v2
+        with:
+          pkgname: heroic-games-launcher-bin
+          pkgbuild: ./PKGBUILD
+          commit_username: ${{ secrets.AUR_USERNAME }}
+          commit_email: ${{ secrets.AUR_EMAIL }}
+          ssh_private_key: ${{ secrets.AUR_SSH_PRIVATE }}
+          commit_message: Update AUR package
+          ssh_keyscan_types: rsa,dsa,ecdsa,ed25519

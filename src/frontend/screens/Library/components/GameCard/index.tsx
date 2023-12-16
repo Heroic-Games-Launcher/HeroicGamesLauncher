@@ -39,6 +39,7 @@ import StoreLogos from 'frontend/components/UI/StoreLogos'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 import { getCardStatus, getImageFormatting } from './constants'
 import { hasStatus } from 'frontend/hooks/hasStatus'
+import LibraryContext from '../../LibraryContext'
 
 interface Card {
   buttonClick: () => void
@@ -87,7 +88,6 @@ const GameCard = ({
   const navigate = useNavigate()
 
   const {
-    layout,
     hiddenGames,
     favouriteGames,
     allTilesInColor,
@@ -95,6 +95,8 @@ const GameCard = ({
     setIsSettingsModalOpen,
     activeController
   } = useContext(ContextProvider)
+
+  const { layout } = useContext(LibraryContext)
 
   const {
     title,
@@ -336,6 +338,11 @@ const GameCard = ({
       label: t('button.add_to_favourites', 'Add To Favourites'),
       onclick: () => favouriteGames.add(appName, title),
       show: !isFavouriteGame
+    },
+    {
+      label: t('submenu.categories', 'Categories'),
+      onclick: () => setIsSettingsModalOpen(true, 'category', gameInfo),
+      show: true
     },
     {
       label: t('button.remove_from_favourites', 'Remove From Favourites'),

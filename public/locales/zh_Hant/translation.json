@@ -152,6 +152,11 @@
             "wine-change": {
                 "message": "我們找不到啟動此標題的選定 wine 版本 ({{selectedWine}})。 {{newline}} 我們找到了另一個，你想繼續使用 {{foundWine}} 啟動嗎？",
                 "title": "找不到酒！"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "您確定要登出嗎？"
+                }
             }
         },
         "wineprefix": "選擇 WinePrefix 資料夾",
@@ -456,7 +461,7 @@
             "canceled": "Canceled",
             "clear": "Clear List",
             "downloading": "下載中",
-            "empty": "Nothing to download",
+            "empty": "無可下載項目",
             "finished": "已完成",
             "queued": "Queued",
             "remove": "Remove from Downloads",
@@ -703,5 +708,13 @@
     },
     "amazon": "亞馬遜",
     "Amazon Games": "亞馬遜遊戲",
-    "prime-gaming": "優質遊戲"
+    "prime-gaming": "優質遊戲",
+    "winetricks": {
+        "install": "安裝",
+        "loading": "載入中"
+    },
+    "category-settings": {
+        "cancel": "取消",
+        "warning": "警告"
+    }
 }

@@ -158,6 +158,11 @@
                     "message": "Qualquer progresso não salvo pode ser perdido",
                     "title": "Tem certeza que deseja sair?"
                 }
+            },
+            "snap": {
+                "checkbox": "Não mostre esta mensagem novamente",
+                "title": "A Heroic está sendo executada como um Snap",
+                "message": "Alguns recursos não estão disponíveis na versão Snap do aplicativo no momento e estamos tentando consertar isso.{{newLine}}As limitações atuais são: {{newLine}}Heroic não será capaz de encontrar o Proton da Steam ou o Wine do Lutris .{{newLine}}{{newLine}}Gamescope, GameMode e MangoHud também não funcionarão, pois o Heroic não pode ter acesso a eles.{{newLine}}{{newLine}}Para ter acesso a estes recursos, instale Heroic no formato Flatpak , DEB ou AppImage."
             }
         },
         "wineprefix": "Selecione a pasta do prefixo Wine",
@@ -245,7 +250,12 @@
         "show_available_games": "Mostrar jogos indisponíveis",
         "show_favourites_only": "Mostrar apenas favoritos",
         "show_hidden": "Mostrar escondidos",
-        "store": "Filtrar loja"
+        "store": "Filtrar loja",
+        "filters": "Filtrar",
+        "all_categories": "Todas as categorias",
+        "show_installed_only": "Exibir apenas os instalados",
+        "uncategorized": "Sem categoria",
+        "categories": "Categorias"
     },
     "help": {
         "amdfsr": "O FSR da AMD ajuda a aumentar a taxa de quadros aumentando as resoluções mais baixas no modo de tela cheia. A qualidade da imagem aumenta de 5 para 1 ao custo de um pequeno impacto no desempenho. A ativação pode melhorar o desempenho.",
@@ -281,13 +291,23 @@
             "part3": "Sincronização Manual: Escolha Download para baixar os saves dos jogos salvos em nuvem; Upload para fazer upload dos saves locais para a nuvem. Forçar Download e Forçar Upload ignorarão a versão que está salva localmente ou na nuvem.",
             "part4": "Sincronizar Saves Automaticamente sincronizará os saves toda vez que você iniciar ou parar de jogar um jogo."
         },
-        "vkd3d": "VKD3D é uma camada de tradução baseada em Vulkan para jogos DirectX 12. A ativação pode melhorar significativamente a compatibilidade. Não tem efeito em jogos DirectX mais antigos.",
+        "vkd3d": "VKD3D é uma camada de tradução baseada em Vulkan para jogos DirectX 12. A ativação pode melhorar significativamente a compatibilidade. Não tem efeito em jogos DirectX mais antigos, requer DXVK.",
         "wine": {
             "part1": "O Heroic busca por versões do Wine, Proton e CrossOver nas pastas a seguir:",
             "part2": "Para outros locais, use um link simbólico para uma dessas pastas"
         },
         "disable_logs": "Ative esta caixa de seleção para desativar a maioria das gravações em arquivos de log (informações críticas sempre são registradas). Certifique-se de desativar essa configuração antes de relatar qualquer problema.",
-        "dxvknvapi": "DXVK-NVAPI é uma implementação de NVAPI construído sobre DXVK e o NVAPI nativo linux, ele permite o uso de DLSS em GPUs Nvidia."
+        "dxvknvapi": "DXVK-NVAPI é uma implementação de NVAPI construído sobre DXVK e o NVAPI nativo linux, ele permite o uso de DLSS em GPUs Nvidia.",
+        "disablePlaytimeSync": "Desativa a sincronização do tempo de jogo com determinados servidores da loja (atualmente apenas GOG é compatível)",
+        "gamescope": {
+            "fpsLimiterNoFocus": "O limite de FPS gamescope deve limitar por segundo se o jogo não estiver focado.",
+            "upscaleMethod": "O método de upscaling que o gamescope deve usar.",
+            "gameWidth": "A resolução de largura usada pelo jogo. Uma proporção de 16:9 é assumida pelo gamescope.",
+            "upscaleWidth": "A resolução de largura usada pelo gamescope. Uma proporção de aspecto de 16:9 é assumida.",
+            "gameHeight": "A resolução de altura usada pelo jogo. Uma proporção de 16:9 é assumida pelo gamescope.",
+            "upscaleHeight": "A resolução de altura usada pelo gamescope. Uma proporção de aspecto de 16:9 é assumida.",
+            "fpsLimiter": "A quantidade de frames que o gamescope deve limitar. Ex: 60"
+        }
     },
     "info": {
         "heroic": {
@@ -314,8 +334,8 @@
         "wine-repfix": {
             "message": "O Wine usa o que é chamado de prefixo Wine para encapsular aplicativos do Windows. Este prefixo contém os arquivos de configuração do Wine e uma reprodução da hierarquia de arquivos de C: (o disco principal em um sistema operacional Windows). Nesta reprodução da unidade C:, são armazenados os arquivos salvos do jogo e as dependências instaladas via winetricks."
         },
-        "wine-path-invalid": "Wine Path é inválido, selecione outro.",
-        "wine-path-none-found": "Nenhuma versão do Wine foi encontrada, baixe uma do Wine Manager"
+        "wine-path-invalid": "Caminho do Wine é inválido, selecione outro.",
+        "wine-path-none-found": "Nenhuma versão do Wine foi encontrada, baixe uma do Gerenciador de Wine"
     },
     "install": {
         "path": "Selecione o local de instalação"
@@ -378,8 +398,8 @@
             "finished": "Instalação concluída",
             "imported": "Jogo importado",
             "startInstall": "Instalação iniciada",
-            "failed": "Erro na instalação",
-            "paused": "Instalação pausada"
+            "failed": "Instalação Falhou",
+            "paused": "Instalação Pausada"
         },
         "moved": "Movido com sucesso",
         "moving": "Movendo jogo",
@@ -392,8 +412,8 @@
             "canceled": "Atualização cancelada",
             "finished": "Atualização concluída",
             "started": "Atualização iniciada",
-            "failed": "Atualização falhou",
-            "paused": "Atualização pausada"
+            "failed": "Atualização Falhou",
+            "paused": "Atualização Pausada"
         }
     },
     "offline-message": {
@@ -423,7 +443,11 @@
         },
         "gameargs": {
             "placeholder": "Adicione os argumentos de inicialização aqui",
-            "title": "Argumentos dos jogo (para serem utilizados após o comando):"
+            "title": "Argumentos dos jogo (para serem utilizados após o comando):",
+            "error": {
+                "command": "A sintaxe %command% do Steam não é válida como argumentos de jogo.",
+                "env": "As variáveis de ambiente devem ser configuradas na tabela abaixo."
+            }
         },
         "quote-args-with-spaces": "Atenção: Certifique-se de citar args com espaços! Por exemplo: \"caminho/com espaços/\"",
         "wrapper": {
@@ -433,6 +457,18 @@
             "placeHolderKey": "Novo Wrapper",
             "placeHolderValue": "Argumentos do Wrapper",
             "title": "Comando do Wrapper:"
+        },
+        "gamescope": {
+            "nis": "NVIDIA Image Scale (NIS)",
+            "borderless": "Sem borda",
+            "fpsLimiter": "Limitador de FPS",
+            "gameHeight": "Altura do jogo",
+            "upscaleWidth": "Aprimoramento(Upscale) de Largura",
+            "fullscreen": "Tela cheia",
+            "gameWidth": "Largura do jogo",
+            "upscaleHeight": "Aprimoramento(Upscale) de Altura",
+            "fpsLimiterNoFocus": "Limitador de FPS (Sem foco)",
+            "stretch": "Esticar imagem"
         }
     },
     "other": {
@@ -469,7 +505,7 @@
             "queued": "Na fila",
             "remove": "Remover da fila",
             "pause": "Pausar download",
-            "resume": "Retomar o download"
+            "resume": "Retomar download"
         }
     },
     "Recent": "Jogados Recentemente",
@@ -582,13 +618,27 @@
         "wineversion": "Versão do Wine",
         "autoUpdateGames": "Atualizar jogos automaticamente",
         "ignoreGameUpdates": "Ignorar atualizações do jogo",
-        "disable_logs": "Desativar registros",
-        "addgamestoapplications": "Adicionar jogos a aplicativos automaticamente",
+        "disable_logs": "Desativar Registros",
+        "addgamestoapplications": "Adicione jogos aos Aplicativos automaticamente",
         "showMetalOverlay": "Mostrar sobreposição de estatísticas",
-        "alt-nile-bin": "Escolha um binário alternativo do Nilo",
+        "alt-nile-bin": "Escolha um Binário Alternativo do Nilo",
         "autodxvknvapi": "Auto Instalar/atualizar o DXVK-NVAPI automaticamente no prefixo",
         "experimental_features": {
-            "enableNewShinyFeature": "Novidade"
+            "enableNewShinyFeature": "Novidade",
+            "enableNewDesign": "Novo design"
+        },
+        "disablePlaytimeSync": "Desativar a sincronização do tempo de jogo",
+        "frameless-window": {
+            "confirmation": {
+                "message": "Este recurso ainda é experimental. Por favor, relate quaisquer problemas que você encontrar no GitHub.",
+                "title": "Este recurso é experimental!"
+            },
+            "description": "Usar janela sem moldura (requer reinicialização)"
+        },
+        "gamescope": {
+            "enableLimiter": "Habilitar limitador de FPS",
+            "enableUpscaling": "Permite aprimoramento de escala (Upscalling)",
+            "missingMsg": "Não foi possível encontrar o gamescope. Instale-o ou adicione-o no caminho."
         }
     },
     "settings": {
@@ -625,7 +675,8 @@
             "other": "Outros",
             "sync": "Sincronização de Saves na Nuvem",
             "wineExt": "Extensões do Wine",
-            "systemInformation": "Informações do Sistema"
+            "systemInformation": "Informações do Sistema",
+            "gamescope": "Gamescope"
         },
         "open-config-file": "Abrir arquivo de configuração",
         "reset-heroic": "Redefinir Heroic",
@@ -639,7 +690,7 @@
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
             "legendaryVersion": "Legendary: {{legendaryVersion}}",
             "systemSpecifications": "Especificações do Sistema:",
-            "steamDeck": "Steam Deck",
+            "steamDeck": "Steam Deck {{model}}",
             "gpuDriver": "Driver: {{driverVersion}}",
             "os": "Sistema Operacional:",
             "gpu": "GPU:",
@@ -657,6 +708,9 @@
         },
         "experimental_features": {
             "title": "Recursos Experimentais"
+        },
+        "gamescope": {
+            "searchMsg": "Procurando pelo executável do gamescope."
         }
     },
     "Settings": "Configurações",
@@ -738,7 +792,30 @@
         "noDlcFound": "Nenhuma DLC encontrada",
         "size": "Tamanho"
     },
-    "amazon": "Amazonas",
+    "amazon": "Amazon",
     "Amazon Games": "Amazon Games",
-    "prime-gaming": "Prime Gaming ignore-same"
+    "prime-gaming": "Prime Gaming ignore-same",
+    "winetricks": {
+        "install": "Instalação",
+        "loading": "Loading",
+        "installing": "Instalando: {{component}}",
+        "openGUI": "Abrir a GUI do Winetricks",
+        "search": "Procurar fontes ou componentes",
+        "nothingYet": "Ainda não foi nada instalado pelo Winetricks",
+        "installed": "Componentes instalados:"
+    },
+    "category-settings": {
+        "cancel": "Cancelar",
+        "warning": "Aviso",
+        "remove-category": "Remover categoria",
+        "delete-question": "Continuar removerá permanentemente esta categoria e cancelará sua atribuição de todos os jogos. Deseja continuar?",
+        "new-category": "Nova categoria",
+        "add-new-category": "Adicionar nova categoria"
+    },
+    "window": {
+        "minimize": "Minimizar janela",
+        "maximize": "Maximizar janela",
+        "close": "Fechar",
+        "restore": "Restaurar janela"
+    }
 }

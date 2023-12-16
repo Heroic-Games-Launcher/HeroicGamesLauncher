@@ -1,0 +1,157 @@
+{
+    "hours": "Сәгать",
+    "box": {
+        "runexe": {
+            "title": "Башкарылу өчен EXE файлын сайлау"
+        },
+        "uninstall": {
+            "title": "Бетерү",
+            "message": "Бу уенны бетерергә телисезме?",
+            "dlc": "Бу DLC-ны бетерергә телисезме?"
+        },
+        "no": "ЮК",
+        "stopInstall": {
+            "keepInstalling": "Урнаштыруны дәвам итү",
+            "title": "Урнаштыруны туктату"
+        },
+        "choose": "Сайлау",
+        "yes": "ӘЙЕ",
+        "sideload": {
+            "exe": "Башкарыла торган файлны сайлау"
+        },
+        "select": {
+            "button": "Сайлау"
+        }
+    },
+    "game": {
+        "dlcs": "DLC-лар",
+        "language": "Тел",
+        "neverPlayed": "Беркайчан да",
+        "downloadSize": "Йөкләү зурлыгы",
+        "totalPlayed": "Уендагы вакыт",
+        "firstPlayed": "Беренче Уйнады",
+        "requirements": "Система таләпләре",
+        "platform": "Урнаштыру өчен платформа версиясен сайлагыз"
+    },
+    "not_logged_in": {
+        "login": "Керү",
+        "title": "Сез кермәгәнсез"
+    },
+    "button": {
+        "unhide_game": "Уенны күрсәтү",
+        "details": "Нечкәлекләр",
+        "sideload": {
+            "edit": "Кушымтаны/Уенны үзгәртү"
+        },
+        "install": "Урнаштыру",
+        "continue": "Йөкләүне дәвам итү",
+        "update": "Яңарту",
+        "hide_game": "Уенны яшерү",
+        "finish": "Тәмамлау",
+        "cancel": "Туктату/Баш тарту",
+        "uninstall": "Бетерү",
+        "import": "Уенны күчерү",
+        "add_to_favourites": "Сайланмаларга өстәү",
+        "force-innstall": "Мәҗбүри урнаштыру",
+        "queue": {
+            "remove": "Чираттан чыгару"
+        },
+        "remove_from_favourites": "Сайланмалардан бетерү",
+        "no-path-selected": "Сайланган юл юк"
+    },
+    "specs": {
+        "recommended": "Киңәш ителгән"
+    },
+    "status": {
+        "notSupported": "Тәэмин ителми",
+        "clickToUpdate": "Яңарту өчен басыгыз",
+        "ubisoft": "Ubisoft урнаштырыла",
+        "notinstalled": "Бу уен урнаштырылмаган",
+        "gameNotAvailable": "Уен мөмкин булмаган",
+        "moving-files": "'{{file}}' файлын күчерә: {{percent}} ",
+        "installed": "Урнаштырылды",
+        "downloading": "Йөкләп ала",
+        "extracting": "Аерып ала",
+        "notSupportedGame": "Тәэмин ителми",
+        "hasUpdates": "Яңа версия бар!",
+        "installing": "Урнаштырыла",
+        "totalDownloaded": "Барлыгы йөкләнген",
+        "queued": "Чиратта",
+        "updating": "Уенны яңартала",
+        "launching": "Эшләтеп җибәрелә"
+    },
+    "info": {
+        "version": "Версия",
+        "path": "Урнаштыру юлы",
+        "clickToOpen": "Ачу өчен басыгыз",
+        "steamdeck-compatibility-info": "SteamDeck ярашлылыгы",
+        "size": "Үлчәм",
+        "apple-gaming-wiki": "AppleGamingWiki рейтингы",
+        "syncsaves": "Саклау язмаларын синхронлау",
+        "protondb-compatibility-info": "Proton ярашлылыгы дәрәҗәсе",
+        "canRunOffline": "Онлайн кирәк",
+        "installedInfo": "Урнаштырылган мәгълүмат",
+        "game-scores": "Уен баллары",
+        "installedPlatform": "Урнаштырылган платформа"
+    },
+    "enabled": "Кабызылган",
+    "submenu": {
+        "protondb": "Ярашлылыкны тикшерү",
+        "logs": "Журналлар",
+        "store": "Кибет бите",
+        "settings": "Көйләүләр",
+        "addShortcut": "Ярлык өстәү",
+        "addToSteam": "Steam-га өстәү",
+        "removeFromSteam": "Steam-дан бетерү",
+        "removeShortcut": "Ярлыкларны бетерү",
+        "move": "Уенны күчерү",
+        "change": "Урнаштыру юлын үзгәртү"
+    },
+    "install": {
+        "anticheat-warning": {
+            "cancel": "Юк",
+            "install": "Әйе (Мин аның эшләмәячәген аңлыйм)"
+        },
+        "wineprefix": "Wine префиксы",
+        "path": "Урнаштыру юлын сайлагыз",
+        "wineversion": "Wine версиясе",
+        "space-after-install": "Урнаштырганнан соң"
+    },
+    "sideload": {
+        "info": {
+            "title": "Уен/Кушымта Исеме",
+            "image": "Кушымта үрнәге",
+            "exe": "Башкарыла торган файлны сайлау"
+        },
+        "field": {
+            "title": "Исем"
+        }
+    },
+    "generic": {
+        "error": "Билгесез хата"
+    },
+    "label": {
+        "playing": {
+            "start": "Хәзер уйнау",
+            "stop": "Уйнатыла (Туктату)"
+        },
+        "ubisoft": "Ubisoft Connect урнаштырала",
+        "launching": "Эшләтеп җибәрелә",
+        "game": {
+            "not-installable-game": "Уен УРНАШТЫРЫП БУЛМЫЙ"
+        }
+    },
+    "disabled": "Cүндерелгән",
+    "setting": {
+        "winecrossoverbottle": "CrossOver шешәсе",
+        "use-default-wine-settings": "Килешенгәнчә Wine көйләнмәләрен куллану"
+    },
+    "dlc": {
+        "installDlcs": "Барлык DLC-ларны урнаштыру"
+    },
+    "how-long-to-beat": {
+        "main-plus-extras": "Төп + Өстәмәлер",
+        "main-story": "Төп хикәя",
+        "completionist": "Тәмамланчы"
+    }
+}

@@ -1,21 +1,21 @@
 {
     "button": {
-        "login": "Entrar",
-        "open": "Link aberto",
-        "copy": "cópia de",
+        "login": "Iniciar sessão",
+        "open": "Abrir Ligação",
+        "copy": "Copiar",
         "copied": "Copiado!",
         "error": "Erro, tente um código diferente",
-        "loading": "Loading"
+        "loading": "A Carregar"
     },
     "message": {
-        "part1": "Para que você possa entrar e instalar os seus jogos, é necessário seguir os seguintes passos:",
+        "part1": "Para que possa iniciar a sessão e instalar os seus jogos, é necessário seguir os seguintes passos:",
         "part2": "Abra a",
         "part3": "Loja da Epic aqui",
-        "part4": ", entre na sua conta e copie o",
-        "part5": "\"authorization code\" exibido",
-        "part6": "Cole apenas o",
-        "part7": "código \"authorization code\"",
-        "part8": "na caixa abaixo e clique em Entrar."
+        "part4": ", inicie sessão na sua conta e copiar os seus",
+        "part5": "informação do número do código de autorização",
+        "part6": "Colar o seu",
+        "part7": "número do código de autorização",
+        "part8": "na caixa de entrada em baixo e clique no botão de iniciar sessão."
     },
     "status": {
         "error": "Erro",

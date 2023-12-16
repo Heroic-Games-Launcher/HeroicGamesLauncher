@@ -1,21 +1,20 @@
 import './index.scss'
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { getGameInfo } from 'frontend/helpers'
 
-import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
 import SettingsContext from '../../SettingsContext'
 import ContextProvider from 'frontend/state/ContextProvider'
+import { Winetricks } from 'frontend/components/UI'
 
 export default function Tools() {
   const { t } = useTranslation()
   const [winecfgRunning, setWinecfgRunning] = useState(false)
   const [winetricksRunning, setWinetricksRunning] = useState(false)
   const [runExeRunning, setRunExeRunning] = useState(false)
-  const [progress, setProgress] = useState<string[]>([])
   const { appName, runner, isDefault } = useContext(SettingsContext)
   const { platform } = useContext(ContextProvider)
   const isWindows = platform === 'win32'
@@ -24,10 +23,9 @@ export default function Tools() {
     return <></>
   }
 
-  type Tool = 'winecfg' | 'winetricks' | string
+  type Tool = 'winecfg' | string
   async function callTools(tool: Tool, exe?: string) {
     const toolStates = {
-      winetricks: setWinetricksRunning,
       winecfg: setWinecfgRunning,
       runExe: setRunExeRunning
     }
@@ -47,22 +45,6 @@ export default function Tools() {
       toolStates[tool](false)
     }
   }
-
-  useEffect(() => {
-    const onProgress = (e: Electron.IpcRendererEvent, messages: string[]) => {
-      setProgress(messages)
-    }
-
-    const removeWinetricksProgressListener =
-      window.api.handleProgressOfWinetricks(onProgress)
-
-    //useEffect unmount
-    return removeWinetricksProgressListener
-  }, [])
-
-  useEffect(() => {
-    setProgress([])
-  }, [winetricksRunning])
 
   const handleRunExe = async () => {
     let exe = ''
@@ -105,19 +87,18 @@ export default function Tools() {
     ev.preventDefault()
   }
 
+  function openWinetricksDialog() {
+    setWinetricksRunning(true)
+  }
+
+  function winetricksDialogClosed() {
+    setWinetricksRunning(false)
+  }
+
   return (
     <>
       <div data-testid="toolsSettings" className="settingsTools">
-        {winetricksRunning && (
-          <ProgressDialog
-            title={'Winetricks'}
-            progress={progress}
-            showCloseButton={false}
-            onClose={() => {
-              return
-            }}
-          />
-        )}
+        {winetricksRunning && <Winetricks onClose={winetricksDialogClosed} />}
         <div className="toolsWrapper">
           <button
             data-testid="wineCFG"
@@ -128,10 +109,8 @@ export default function Tools() {
           </button>
           <button
             data-testid="wineTricks"
-            className={classNames('button outline', {
-              active: winetricksRunning
-            })}
-            onClick={async () => callTools('winetricks')}
+            className="button outline"
+            onClick={async () => openWinetricksDialog()}
           >
             <span className="toolTitle">Winetricks</span>
           </button>
