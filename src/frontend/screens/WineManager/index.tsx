@@ -13,6 +13,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 import { WineVersionInfo, Type, WineManagerUISettings } from 'common/types'
+import { hasHelp } from 'frontend/hooks/hasHelp'
 
 const WineItem = lazy(
   async () => import('frontend/screens/WineManager/components/WineItem')
@@ -24,6 +25,18 @@ const configStore = new TypeCheckedStoreFrontend('wineManagerConfigStore', {
 
 export default React.memo(function WineManager(): JSX.Element | null {
   const { t } = useTranslation()
+
+  hasHelp(
+    'wineManager',
+    t('help.title.wineManager', 'Wine Manager'),
+    <p>
+      {t(
+        'help.content.wineManager',
+        'Install different versions of Wine, Proton, Crossover, etc.'
+      )}
+    </p>
+  )
+
   const { refreshWineVersionInfo, refreshing, platform } =
     useContext(ContextProvider)
   const isLinux = platform === 'linux'

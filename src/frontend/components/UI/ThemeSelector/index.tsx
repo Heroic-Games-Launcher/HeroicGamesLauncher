@@ -4,6 +4,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { SelectField, InfoBox, PathSelectionBox } from '..'
 import { AppSettings } from 'common/types'
 import { writeConfig } from 'frontend/helpers'
+import { hasHelp } from 'frontend/hooks/hasHelp'
 
 export const defaultThemes = {
   midnightMirage: 'Midnight Mirage',
@@ -28,6 +29,12 @@ export const ThemeSelector = () => {
   const [appConfig, setAppConfig] = useState<AppSettings | null>(null)
   const [themesPath, setThemesPath] = useState('')
   const [themes, setThemes] = useState<string[]>(Object.keys(defaultThemes))
+
+  hasHelp(
+    'customThemesPath',
+    t('setting.custom_themes_path', 'Custom Themes Path'),
+    <p>{t('help.content.customThemesPath', 'Check our wiki.')}</p>
+  )
 
   // load themes from the custom themes path
   const loadThemes = async () => {

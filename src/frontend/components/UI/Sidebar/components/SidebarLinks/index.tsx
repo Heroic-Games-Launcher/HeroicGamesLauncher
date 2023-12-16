@@ -303,7 +303,9 @@ export default function SidebarLinks() {
                 title={t('wine.manager.link', 'Wine Manager')}
               />
             </div>
-            <span>{t('wine.manager.link', 'Wine Manager')}</span>
+            <span id="manageWineBtn">
+              {t('wine.manager.link', 'Wine Manager')}
+            </span>
           </>
         </NavLink>
       )}
@@ -315,7 +317,9 @@ export default function SidebarLinks() {
               title={t('userselector.manageaccounts', 'Manage Accounts')}
             />
           </div>
-          <span>{t('userselector.manageaccounts', 'Manage Accounts')}</span>
+          <span id="manageAccountsBtn">
+            {t('userselector.manageaccounts', 'Manage Accounts')}
+          </span>
         </NavLink>
       )}
       <NavLink

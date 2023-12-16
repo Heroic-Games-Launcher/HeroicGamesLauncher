@@ -64,6 +64,21 @@ body {
   grid-area: offline;
 }
 
+.HelpButton {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+#root:has(dialog:popover-open) {
+  pointer-events: none;
+
+  .HelpButton,
+  :popover-open {
+    pointer-events: all;
+  }
+}
+
 .danger {
   font-weight: var(--bold);
   color: var(--text-danger, var(--danger));

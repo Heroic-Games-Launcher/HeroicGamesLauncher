@@ -64,6 +64,7 @@ import {
   SettingsButton
 } from './components'
 import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
+import { hasHelp } from 'frontend/hooks/hasHelp'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -88,6 +89,17 @@ export default React.memo(function GamePage(): JSX.Element | null {
     connectivity,
     experimentalFeatures
   } = useContext(ContextProvider)
+
+  hasHelp(
+    'gamePage',
+    t('help.title.gamePage', 'Game Page'),
+    <p>
+      {t(
+        'help.content.gamePage',
+        'Show all game details and actions. Use the 3 dots menu for more options.'
+      )}
+    </p>
+  )
 
   const [gameInfo, setGameInfo] = useState(locationGameInfo)
   const [gameSettings, setGameSettings] = useState<GameSettings | null>(null)

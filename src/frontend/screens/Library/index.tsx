@@ -36,7 +36,8 @@ import RecentlyPlayed from './components/RecentlyPlayed'
 import { InstallModal } from './components'
 import LibraryContext from './LibraryContext'
 import { Category, PlatformsFilters, StoresFilters } from 'frontend/types'
-import introJs from 'intro.js'
+import { hasHelp } from 'frontend/hooks/hasHelp'
+import LibraryHelp from 'frontend/components/HelpComponents/LibraryHelp'
 
 const storage = window.localStorage
 
@@ -48,6 +49,8 @@ type ModalState = {
 }
 
 export default React.memo(function Library(): JSX.Element {
+  const { t } = useTranslation()
+
   const {
     libraryStatus,
     refreshing,
@@ -161,6 +164,8 @@ export default React.memo(function Library(): JSX.Element {
     setShowNonAvailable(value)
   }
 
+  hasHelp('library', t('help.title.library', 'Library'), <LibraryHelp />)
+
   const [showModal, setShowModal] = useState<ModalState>({
     game: '',
     show: false,
@@ -183,7 +188,6 @@ export default React.memo(function Library(): JSX.Element {
     setSortInstalled(value)
   }
 
-  const { t } = useTranslation()
   const backToTopElement = useRef(null)
 
   //Remember scroll position
@@ -523,32 +527,6 @@ export default React.memo(function Library(): JSX.Element {
       />
     )
   }
-
-  // NOTE: Requires usage of a lot of forwardRef on target components
-  // const libraryHeaderRef = useRef(null)
-  // const headerRef = useRef(null)
-
-  useEffect(() => {
-    introJs()
-      .setOptions({
-        steps: [
-          {
-            title: 'Home onboarding - header',
-            intro:
-              'Here, you can search your games by name and also filter using our pre-made filters or your own custom categories!',
-            element: document.querySelector('.Header') as HTMLElement //headerRef.current
-          },
-          {
-            title: 'Home onboarding - library header',
-            intro:
-              'Here, you can sort your games, refresh your library and also sideload new games!',
-            element: document.querySelector('.libraryHeader') as HTMLElement //libraryHeaderRef.current
-          }
-        ],
-        tooltipClass: 'onboarding'
-      })
-      .start()
-  }, [])
 
   return (
     <LibraryContext.Provider

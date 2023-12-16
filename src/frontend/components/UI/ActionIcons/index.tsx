@@ -81,6 +81,7 @@ export default React.memo(function ActionIcons() {
           />
         </button>
         <button
+          id="refreshLibraryButton"
           className={classNames('FormControl__button', {
             active: refreshing
           })}

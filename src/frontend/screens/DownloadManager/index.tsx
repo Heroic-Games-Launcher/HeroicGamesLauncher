@@ -9,6 +9,7 @@ import DownloadManagerHeader from './DownloadManagerHeader'
 import { downloadManagerStore } from 'frontend/helpers/electronStores'
 import { DMQueue } from 'frontend/types'
 import DownloadManagerItem from './components/DownloadManagerItem'
+import { hasHelp } from 'frontend/hooks/hasHelp'
 
 export default React.memo(function DownloadManager(): JSX.Element | null {
   const { t } = useTranslation()
@@ -17,6 +18,14 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
   const [plannendElements, setPlannendElements] = useState<DMQueueElement[]>([])
   const [currentElement, setCurrentElement] = useState<DMQueueElement>()
   const [finishedElem, setFinishedElem] = useState<DMQueueElement[]>()
+
+  hasHelp(
+    'downloadManager',
+    t('help.title.downloadManager', 'Download Manager'),
+    <p>
+      {t('help.content.downloadManager', 'Shows current and past downloads.')}
+    </p>
+  )
 
   useEffect(() => {
     setRefreshing(true)
