@@ -250,8 +250,27 @@
       align-self: flex-start;
     }
 
+    .releaseDate {
+      margin-bottom: var(--space-md-fixed);
+    }
+
+    .genres {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+      margin-bottom: 0.5rem;
+
+      .genre {
+        background: var(--accent-overlay);
+        color: var(--text-tertiary);
+        padding: 1px 6px;
+        border-radius: 6px;
+        font-size: var(--text-sm);
+      }
+    }
+
     .developer {
-      padding: var(--space-md-fixed) 0;
+      padding: var(--space-md-fixed) 0 0 0;
       color: var(--text-default);
     }
 

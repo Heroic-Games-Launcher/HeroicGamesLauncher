@@ -64,6 +64,8 @@ import {
   SettingsButton
 } from './components'
 import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
+import Genres from './components/Genres'
+import ReleaseDate from './components/ReleaseDate'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -198,14 +200,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       }
     }
     updateConfig()
-  }, [
-    status,
-    epic.library,
-    gog.library,
-    gameInfo,
-    isSettingsModalOpen,
-    isOffline
-  ])
+  }, [status, epic.library, gog.library, gameInfo, isSettingsModalOpen, isOffline])
 
   useEffect(() => {
     window.api
@@ -215,10 +210,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
           info &&
           (info.applegamingwiki || info.howlongtobeat || info.pcgamingwiki)
         ) {
-          console.log({
-            date: info.pcgamingwiki?.releaseDate,
-            genre: info.pcgamingwiki?.genres
-          })
           setWikiInfo(info)
         }
       })
@@ -359,7 +350,13 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
                   </div>
                   <div className="infoWrapper">
+                    <Genres genres={wikiInfo?.pcgamingwiki?.genres} />
                     <Developer gameInfo={gameInfo} />
+                    <ReleaseDate
+                      date={wikiInfo?.pcgamingwiki?.releaseDate}
+                      isLinuxNative={isLinuxNative}
+                      isMacNative={isMacNative}
+                    />
                     <Description />
                     <CloudSavesSync gameInfo={gameInfo} />
                     <DownloadSizeInfo gameInfo={gameInfo} />
