@@ -233,7 +233,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
     detectVCRedist(mainWindow)
   }
 
-  if (!app.isPackaged && process.env.CI !== 'e2e') {
+  if (process.env.VITE_DEV_SERVER_URL) {
     if (!process.env.HEROIC_NO_REACT_DEVTOOLS) {
       import('electron-devtools-installer').then((devtools) => {
         const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
@@ -243,7 +243,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
         })
       })
     }
-    mainWindow.loadURL('http://localhost:5173')
+    mainWindow.loadURL(process.env.VITE_DEV_SERVER_URL)
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
   } else {
@@ -516,6 +516,10 @@ ipcMain.once('frontendReady', () => {
 // Maybe this can help with white screens
 process.on('uncaughtException', async (err) => {
   logError(`${err.name}: ${err.message}`, LogPrefix.Backend)
+  // We might get "object has been destroyed" exceptions in CI, since we start
+  // and close Heroic quickly there. Displaying an error box would lock up
+  // the test (until the timeout is reached), so let's not do that
+  if (process.env.CI === 'e2e') return
   showDialogBoxModalAuto({
     title: i18next.t(
       'box.error.uncaught-exception.title',
