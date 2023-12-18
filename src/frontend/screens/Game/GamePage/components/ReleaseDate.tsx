@@ -14,7 +14,7 @@ const ReleaseDate: React.FC<ReleaseDateProps> = ({
   isMacNative
 }) => {
   const { platform } = useContext(ContextProvider)
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   if (!date || date[0] === '' || date.length === 0) {
     return null
@@ -41,10 +41,17 @@ const ReleaseDate: React.FC<ReleaseDateProps> = ({
       }
     }
 
-    return windowsReleaseDate || t('label.unknownReleaseDate', 'Unknown Release Date')
+    return (
+      windowsReleaseDate ||
+      t('label.unknownReleaseDate', 'Unknown Release Date')
+    )
   }
 
-  return <div className="releaseDate">{t('label.releaseDate', 'Release Date: ')}:  {getReleaseDate()}</div>
+  return (
+    <div className="releaseDate">
+      {t('label.releaseDate', 'Release Date: ')}: {getReleaseDate()}
+    </div>
+  )
 }
 
 export default ReleaseDate

@@ -583,13 +583,13 @@
       .releaseDate {
         margin-bottom: var(--space-md-fixed);
       }
-  
+
       .genres {
         display: flex;
         flex-wrap: wrap;
         gap: var(--space-xs);
         margin-bottom: 0.5rem;
-  
+
         .genre {
           background: var(--accent-overlay);
           color: var(--text-tertiary);
