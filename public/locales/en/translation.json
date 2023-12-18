@@ -346,7 +346,9 @@
         }
     },
     "label": {
-        "loading": "Loading"
+        "loading": "Loading",
+        "releaseDate": "Release Date: ",
+        "unknownReleaseDate": "Unknown Release Date"
     },
     "library": {
         "refresh": "Refresh",
