@@ -44,7 +44,8 @@
             "title": "A játékot frissíteni kell"
         },
         "wineprefix": "Wine prefix mappa kiválasztása",
-        "yes": "IGEN"
+        "yes": "IGEN",
+        "close": "Bezárás"
     },
     "button": {
         "add_to_favourites": "Kedvencekhez adás",
