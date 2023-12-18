@@ -254,7 +254,12 @@
         "filters": "Filtr",
         "all_categories": "Všechny kategorie",
         "show_installed_only": "Zobrazit pouze nainstalované",
-        "uncategorized": "Nezařazeno"
+        "uncategorized": "Nezařazeno",
+        "select_all": "Vybrat vše",
+        "only": "pouze",
+        "reset": "Resetovat",
+        "no_categories": "Žádné vlastní kategorie. Přidejte je pomocí nabídky každé hry.",
+        "categories": "Kategorie"
     },
     "help": {
         "amdfsr": "Funkce AMD FSR pomáhá zvýšit snímkovou frekvenci škálováním nižšího rozlišení v režimu celé obrazovky. Kvalita obrazu se zvýší z 5 na 1 za cenu mírného snížení výkonu. Povolení může zlepšit výkon.",

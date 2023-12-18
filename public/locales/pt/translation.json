@@ -1,35 +1,35 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Actions Font Family (Default: ",
-        "all_tiles_in_color": "Mostrar todas as imagens dos jogos a cores",
-        "content_font_family_no_default": "Content Font Family (Default: ",
-        "fonts": "Fonts",
-        "title": "Accessibility",
-        "zoom": "Zoom"
+        "actions_font_family_no_default": "Família de Fontes Action (Padrão: ",
+        "all_tiles_in_color": "Mostrar todos os retângulos dos jogos a cores",
+        "content_font_family_no_default": "Família da Fonte Family (Padrão: ",
+        "fonts": "Fontes",
+        "title": "Acessibilidade",
+        "zoom": "Ampliar"
     },
-    "add_game": "Add Game",
+    "add_game": "Adicionar Jogo",
     "All": "Tudo",
     "anticheat": {
-        "anticheats": "Anticheats",
-        "may_not_work": "Pode não funcionar devido ao suporte anticheat negado ou danificado.",
+        "anticheats": "Anti-batota",
+        "may_not_work": "Pode não funcionar devido ao suporte anti-batota negado ou danificado.",
         "reference": "Referência",
-        "source": "Source",
-        "status": "Status",
-        "title": "Este jogo inclui anticheat"
+        "source": "Fonte",
+        "status": "Estado",
+        "title": "Este jogo inclui software anti-batota"
     },
     "box": {
         "cache-cleared": {
             "message": "A cache do Heroic foi limpa.",
             "title": "Cache limpo"
         },
-        "choose": "Selecionar",
+        "choose": "Escolher",
         "choose-egs-prefix": "Selecione o Prefix onde a EGS está instalada",
-        "choose-gogdl-binary": "Selecione o binário GOGDL ( Precisa reiniciar)",
+        "choose-gogdl-binary": "Selecione o binário GOGDL (Precisa de reiniciar)",
         "choose-legendary-binary": "Selecionar binário do Legendary",
         "customWine": "Selecione o binário do Wine ou Proton",
-        "default-install-path": "Selecione o Local de instalação padrão",
-        "default-steam-path": "Localização da Steam.",
-        "downloadNow": "Transferir",
+        "default-install-path": "Selecione o Caminho de Instalação Padrão",
+        "default-steam-path": "Caminho da Steam.",
+        "downloadNow": "Transferir agora",
         "error": {
             "add": {
                 "steam": {
@@ -168,7 +168,7 @@
     "button": {
         "cancel": "Cancel",
         "go_to_library": "Go to Library",
-        "login": "Entrar",
+        "login": "Iniciar sessão",
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
         "unsync": "Dessincronizar",
@@ -579,7 +579,7 @@
         "showfps": "Mostrar FPS (DX9, 10 e 11)",
         "start-in-tray": "Iniciar Minimizado",
         "steamruntime": "Use Steam Runtime",
-        "winecrossoverbottle": "CrossOver Bottle",
+        "winecrossoverbottle": "Garrafa do CrossOver",
         "wineprefix": "Prefixo Wine",
         "wineversion": "Versão do Wine",
         "autoUpdateGames": "Atualizar jogos automaticamente",
@@ -657,7 +657,7 @@
     "status": {
         "installing": "A instalar",
         "logging": "Logging In...",
-        "processing": "Processing files, please wait",
+        "processing": "A processar os arquivos, por favor aguarde",
         "preparing_login": "Preparando login... "
     },
     "store": "Loja Epic",
@@ -729,7 +729,7 @@
         "title": "Title"
     },
     "amazon": "Amazonas",
-    "Amazon Games": "Amazon Games",
+    "Amazon Games": "Jogos da Amazon",
     "prime-gaming": "Prime Gaming",
     "winetricks": {
         "install": "Install",
