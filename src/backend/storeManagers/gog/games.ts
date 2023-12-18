@@ -406,7 +406,6 @@ export async function install(
   installedGamesStore.set('installed', array)
   gameInfo.is_installed = true
   gameInfo.install = installedData
-  sendFrontendMessage('pushGameToLibrary', gameInfo)
   refreshInstalled()
   if (isWindows) {
     logInfo('Windows os, running setup instructions on install', LogPrefix.Gog)

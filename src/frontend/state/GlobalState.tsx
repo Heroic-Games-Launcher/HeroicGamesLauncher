@@ -782,11 +782,13 @@ class GlobalState extends PureComponent<Props> {
           (game) => game.app_name === args.app_name
         )
         if (index !== -1) {
-          library.splice(index, 1)
+          library[index] = args
+        } else {
+          library.push(args)
         }
         this.setState({
           gog: {
-            library: [...library, args],
+            library: [...library],
             username: this.state.gog.username
           }
         })
