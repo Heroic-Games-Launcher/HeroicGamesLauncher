@@ -72,7 +72,7 @@
         "unhide_game": "取消隐藏游戏",
         "uninstall": "卸载",
         "update": "更新",
-        "details": "细节"
+        "details": "详细内容"
     },
     "cloud_save_unsupported": "不支持",
     "disabled": "已禁用",
@@ -87,12 +87,12 @@
         "getting-install-size": "获取安装大小",
         "installSize": "安装大小",
         "language": "语言",
-        "lastPlayed": "上次玩",
+        "lastPlayed": "上次游玩",
         "neverPlayed": "从未玩过",
         "platform": "选择要安装的平台版本",
         "requirements": "系统要求",
         "totalPlayed": "游玩时间",
-        "dlcs": "DLCs"
+        "dlcs": "DLC"
     },
     "gamecard": {
         "moving": "移动中",
