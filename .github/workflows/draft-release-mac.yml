@@ -23,13 +23,9 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          cache: 'yarn'
+      - uses: ./.github/actions/install-deps
       - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
       - run: python3 -m pip install castlabs-evs
-      - run: yarn install --frozen-lockfile
-      - run: yarn release:mac
+      - run: npm run release:mac

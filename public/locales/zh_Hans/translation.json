@@ -158,12 +158,17 @@
                     "message": "可能会丢失任何未保存的进度",
                     "title": "你确定要退出吗？"
                 }
+            },
+            "snap": {
+                "checkbox": "不再显示本消息",
+                "title": "Heroic 正以 Snap 运行",
+                "message": "某些功能眼下在本应用的 Snap 版本中不可用，我们正尝试修复它。{{newLine}}当前限制为：{{newLine}}Heroic 无法从 Steam 找到 Proton 或从 Lutris 找到 Wine。{{newLine}}{{newLine}}Gamescope、GameMode 和 MangoHud 也无法正常工作，因为 Heroci 无法有权限访问它们。{{newLine}}{{newLine}}要访问此功能，请以 Flakpak、DEB 格式包安装 Heroic 或从 AppImage 安装。"
             }
         },
         "wineprefix": "选择 Wine Prefix 文件夹",
         "yes": "是",
         "dontShowAgain": "不再显示",
-        "choose-nile-binary": "选择尼罗河二进制文件"
+        "choose-nile-binary": "选择 Nile 二进制文件"
     },
     "button": {
         "cancel": "取消",
@@ -197,21 +202,21 @@
     "docs": "文档",
     "download-manager": {
         "install-type": {
-            "install": "Install",
-            "update": "Update"
+            "install": "安装",
+            "update": "更新"
         },
         "label": {
             "disk": "磁盘",
             "speed": "下载"
         },
-        "link": "Downloads",
+        "link": "下载",
         "queue": {
             "end-time": "完成于",
             "queue-time": "添加于",
             "start-time": "启动于",
-            "type": "Type"
+            "type": "类型"
         },
-        "title": "Downloads",
+        "title": "下载",
         "ETA": "预计时间"
     },
     "epic": {
@@ -245,7 +250,16 @@
         "show_available_games": "显示不可用的游戏",
         "show_favourites_only": "仅显示最爱",
         "show_hidden": "显示隐藏项",
-        "store": "过滤商店"
+        "store": "过滤商店",
+        "filters": "筛选",
+        "show_installed_only": "只显示已安装的游戏",
+        "all_categories": "所有分类",
+        "uncategorized": "未分类",
+        "select_all": "全选",
+        "only": "仅",
+        "reset": "重置",
+        "no_categories": "无自定义分类。使用每个游戏菜单添加分类。",
+        "categories": "分类"
     },
     "help": {
         "amdfsr": "AMD 的 FSR 通过在全屏模式下提高较低分辨率来提高帧率。图像质量从 5 提高到 1，但代价是性能稍有下降。启用可能会提高性能。",
@@ -352,7 +366,7 @@
         "alternative_method": "备选登录方式",
         "epic": "Epic Games 登录",
         "gog": "GOG 登录",
-        "message": "平台登录。你可以同时登录超过一个平台。",
+        "message": "登录您的平台。您可以同时登录多个平台。",
         "amazon": "亚马逊登录",
         "old-mac": "你的 macOS 版本是 {{version}}。需要 macOS 12 或以上版本才能登录。"
     },
@@ -433,7 +447,11 @@
         },
         "gameargs": {
             "placeholder": "将启动器参数放在这里",
-            "title": "游戏参数（在命令后运行）："
+            "title": "游戏参数（在命令后运行）：",
+            "error": {
+                "command": "来自 Steam 的 %command% 语法不是有效的游戏变量。",
+                "env": "必须在下方表格中配置环境变量。"
+            }
         },
         "quote-args-with-spaces": "警告:请确保引用参数时使用空格！ 例：\"path/with spaces/\"",
         "wrapper": {
@@ -450,7 +468,12 @@
             "upscaleWidth": "Upscale 宽度",
             "gameWidth": "游戏宽度",
             "upscaleHeight": "Upscale 高度",
-            "fpsLimiterNoFocus": "FPS 限制程序（无焦点）"
+            "fpsLimiterNoFocus": "FPS 限制程序（无焦点）",
+            "nis": "NVIDIA 图形缩放（NIS）",
+            "borderless": "无边框",
+            "fullscreen": "全屏",
+            "interger": "整数型 Upscale",
+            "stretch": "拉伸图像"
         }
     },
     "other": {
@@ -511,7 +534,7 @@
         "default-steam-path": "默认 Steam 路径",
         "defaultWinePrefix": "为新的 WinePrefix设置文件夹",
         "disable_controller": "使用控制器禁止 Heroic 导航",
-        "discordRPC": "启用Discord的Rich Presence（活动状态）",
+        "discordRPC": "启用 Discord 的 Rich Presence（活动状态）",
         "download-no-https": "不使用 HTTPS 下载游戏 (对 LanCache 等 CDN 有用)",
         "dxvkfpslimit": "限制 FPS (DX9、10 和 11)",
         "egs-sync": "与已安装的 Epic 游戏同步",
@@ -614,6 +637,13 @@
             "enableLimiter": "启用 FPS 限制程序",
             "enableUpscaling": "启用分辨率提升",
             "missingMsg": "我们在 PATH 上找不到 Gamescope。请先安装它或将其添加到 PATH。"
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "此功能仍是实验性的。请在 GitHub 上报告任何你在使用该功能时遇到的问题。",
+                "title": "实验性功能"
+            },
+            "description": "使用无框架窗口（需要重启）"
         }
     },
     "settings": {
@@ -668,7 +698,7 @@
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
             "legendaryVersion": "Legendary: {{legendaryVersion}}",
             "systemSpecifications": "系统规格：",
-            "steamDeck": "Steam Deck",
+            "steamDeck": "Steam Deck {{model}}",
             "gpuDriver": "驱动：{{driverVersion}}",
             "os": "操作系统：",
             "gpu": "GPU：",
@@ -769,7 +799,7 @@
     },
     "amazon": "亚马逊",
     "Amazon Games": "亚马逊游戏",
-    "prime-gaming": "优质游戏",
+    "prime-gaming": "Prime Gaming",
     "winetricks": {
         "install": "安装",
         "loading": "加载中",
@@ -778,5 +808,19 @@
         "search": "搜索字体或部件",
         "nothingYet": "Winetricks 还没安装任何东西",
         "installed": "已安装的部件："
+    },
+    "window": {
+        "minimize": "最小化窗口",
+        "maximize": "最大化窗口",
+        "restore": "还原窗口",
+        "close": "关闭"
+    },
+    "category-settings": {
+        "remove-category": "删除分类",
+        "delete-question": "继续操作将永久删除此分类且所有先前该分类下的游戏将不再属于此分类。继续吗？",
+        "new-category": "新分类",
+        "add-new-category": "添加新分类",
+        "cancel": "取消",
+        "warning": "警告"
     }
 }

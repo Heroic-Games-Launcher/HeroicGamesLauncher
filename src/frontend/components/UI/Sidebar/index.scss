@@ -209,6 +209,12 @@
   padding: var(--space-2xs) 0;
 }
 
+.isRTL .Sidebar.collapsed .SidebarItemWithSubmenu:hover .SidebarSubmenu,
+.isRTL .Sidebar.collapsed .SidebarItemWithSubmenu:focus-within .SidebarSubmenu {
+  right: var(--sidebar-width);
+  left: auto;
+}
+
 .Sidebar.collapsed .SidebarItemWithSubmenu:hover .SidebarSubmenu.settings,
 .Sidebar.collapsed
   .SidebarItemWithSubmenu:focus-within

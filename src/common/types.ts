@@ -79,7 +79,6 @@ export interface AppSettings extends GameSettings {
   maxWorkers: number
   minimizeOnLaunch: boolean
   startInTray: boolean
-  userInfo: UserInfo
 }
 
 export type LibraryTopSectionOptions =
@@ -135,6 +134,8 @@ export interface GameInfo {
   //used for store release versions. if remote !== local, then update
   version?: string
   dlcList?: GameMetadataInner[]
+  customUserAgent?: string
+  launchFullScreen?: boolean
 }
 
 export interface GameSettings {

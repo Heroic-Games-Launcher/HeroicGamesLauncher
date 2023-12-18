@@ -158,6 +158,11 @@
                     "title": "Opravdu chcete odejít?",
                     "message": "Neuložený postup může být ztracen"
                 }
+            },
+            "snap": {
+                "checkbox": "Tuto zprávu již nezobrazovat",
+                "title": "Heroic spuštěn jako Snap",
+                "message": "Některé funkce nejsou ve verzi aplikace Snap prozatím dostupné a snažíme se je opravit.{{newLine}}Aktuální omezení jsou: {{newLine}}Heroic nebude schopen najít Proton ze služby Steam nebo Wine z Lutrisu.{{newLine}}{{newLine}}Gamescope, GameMode a MangoHud také nebudou fungovat, protože k nim Heroic nemá přístup.{{newLine}}{{newLine}}Chcete-li mít přístup k těmto funkcím, nainstalujte si Heroic jako Flatpak, DEB nebo z AppImage."
             }
         },
         "wineprefix": "Vyberte složku WinePrefix",
@@ -245,7 +250,16 @@
         "show_available_games": "Zobrazit nedostupné hry",
         "show_favourites_only": "Zobrazit pouze oblíbené",
         "show_hidden": "Zobrazit skryté",
-        "store": "Filtrovat obchod"
+        "store": "Filtrovat obchod",
+        "filters": "Filtr",
+        "all_categories": "Všechny kategorie",
+        "show_installed_only": "Zobrazit pouze nainstalované",
+        "uncategorized": "Nezařazeno",
+        "select_all": "Vybrat vše",
+        "only": "pouze",
+        "reset": "Resetovat",
+        "no_categories": "Žádné vlastní kategorie. Přidejte je pomocí nabídky každé hry.",
+        "categories": "Kategorie"
     },
     "help": {
         "amdfsr": "Funkce AMD FSR pomáhá zvýšit snímkovou frekvenci škálováním nižšího rozlišení v režimu celé obrazovky. Kvalita obrazu se zvýší z 5 na 1 za cenu mírného snížení výkonu. Povolení může zlepšit výkon.",
@@ -433,7 +447,11 @@
         },
         "gameargs": {
             "placeholder": "Sem vložte argumenty spouštěče",
-            "title": "Herní argumenty (ke spuštění po příkazu):"
+            "title": "Herní argumenty (ke spuštění po příkazu):",
+            "error": {
+                "command": "Syntaxe příkazu %command% ze Steamu není platná jako herní argument.",
+                "env": "Proměnné prostředí musí být nastaveny v tabulce níže."
+            }
         },
         "quote-args-with-spaces": "Upozornění: Nezapomeňte uvozovat argumenty s mezerami! Např.: \"cesta/s mezerami/\"",
         "wrapper": {
@@ -450,7 +468,12 @@
             "upscaleWidth": "Šířka upscalingu",
             "gameWidth": "Šířka hry",
             "upscaleHeight": "Výška upscalingu",
-            "fpsLimiterNoFocus": "Omezení FPS (v pozadí)"
+            "fpsLimiterNoFocus": "Omezení FPS (v pozadí)",
+            "nis": "Škálování obrazu NVIDIA (NIS)",
+            "borderless": "Bez okrajů",
+            "fullscreen": "Celá obrazovka",
+            "interger": "Celočíselný upscaling",
+            "stretch": "Roztáhnout obraz"
         }
     },
     "other": {
@@ -614,6 +637,13 @@
             "enableLimiter": "Zapnout omezení FPS",
             "enableUpscaling": "Povolí upscaling",
             "missingMsg": "V PATH jsme nenašli gamescope. Nainstalujte jej nebo jej přidejte do PATH."
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "Tato funkce je stále experimentální. Nahlaste prosím všechny objevené problémy na GitHub.",
+                "title": "Pozor, experimentální funkce"
+            },
+            "description": "Použít okno bez okrajů (vyžaduje restart)"
         }
     },
     "settings": {
@@ -668,7 +698,7 @@
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
             "legendaryVersion": "Legendary: {{legendaryVersion}}",
             "systemSpecifications": "Systémové specifikace:",
-            "steamDeck": "Steam Deck",
+            "steamDeck": "Steam Deck {{model}}",
             "gpuDriver": "Ovladač: {{driverVersion}}",
             "os": "Operační systém:",
             "gpu": "GPU:",
@@ -778,5 +808,19 @@
         "search": "Hledat písma nebo komponenty",
         "nothingYet": "Pomocí Winetricks zatím nebylo nic nainstalováno",
         "installed": "Nainstalované komponenty:"
+    },
+    "window": {
+        "close": "Zavřít",
+        "minimize": "Minimalizovat okno",
+        "maximize": "Maximalizovat okno",
+        "restore": "Obnovit okno"
+    },
+    "category-settings": {
+        "cancel": "Zrušit",
+        "warning": "Varování",
+        "remove-category": "Odstranit kategorii",
+        "delete-question": "Pokračováním nevratně odstraníte tuto kategorii a odeberete ji ze všech her. Pokračovat?",
+        "new-category": "Nová kategorie",
+        "add-new-category": "Přidat novou kategorii"
     }
 }

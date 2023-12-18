@@ -180,12 +180,15 @@
             "exe": "Vyberte spustitelný soubor",
             "image": "Obrázek aplikace",
             "title": "Název hry/aplikace",
-            "broser": "Adresa URL prohlížeče"
+            "broser": "Adresa URL prohlížeče",
+            "useragent": "Vlastní User Agent",
+            "fullscreen": "Spustit na celé obrazovce (F11 pro opuštění)"
         },
         "placeholder": {
             "image": "Sem vložte URL obrázku",
             "title": "Přidejte název ke své hře/aplikaci",
-            "url": "Sem vložte adresu URL hry"
+            "url": "Sem vložte adresu URL hry",
+            "useragent": "Sem zadejte vlastní User Agent (uživatelský agent) pro použití v této prohlížečové aplikaci/hře"
         }
     },
     "specs": {
@@ -233,7 +236,8 @@
         "store": "Stránka obchodu",
         "verify": "Zkontrolovat a opravit",
         "extraInfo": "Další informace",
-        "logs": "Protokoly"
+        "logs": "Protokoly",
+        "categories": "Kategorie"
     },
     "help": {
         "cloud_save_unsupported": "Tato hra nepodporuje ukládání do cloudu. Tyto informace poskytují vývojáři hry. Některé hry implementují svůj vlastní cloudový systém ukládání"

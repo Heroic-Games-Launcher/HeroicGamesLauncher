@@ -3,7 +3,7 @@
   top: 0;
   z-index: 10;
   display: grid;
-  grid-template-columns: 1fr minmax(min-content, 350px);
+  grid-template-columns: 1fr min-content;
   grid-template-areas: 'search filters';
   grid-gap: 8px;
   align-items: start;
@@ -18,20 +18,12 @@
   );
 }
 
-@media screen and (max-width: 1000px) {
-  .Header {
-    grid-template-columns: 1fr min-content;
-    grid-template-areas:
-      'search search'
-      'filters filters';
-  }
-}
-
 .Header__filters {
   grid-area: filters;
   display: flex;
   align-self: center;
   justify-self: flex-end;
+  gap: 1em;
 }
 
 .Header__filters .FormControl {

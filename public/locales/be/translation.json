@@ -22,8 +22,8 @@
             "message": "Кэш Heroic ачышчаны.",
             "title": "Cache Cleared"
         },
-        "choose": "Выбіраць",
-        "choose-egs-prefix": "Выберыце прэфікс, дзе ўсталяваны EGS",
+        "choose": "Выбраць",
+        "choose-egs-prefix": "Выбраць прэфікс, у які ўсталяваны EGS",
         "choose-gogdl-binary": "Выбраць выкананы файл GOGDL (патрабуецца перазапуск)",
         "choose-legendary-binary": "Select Legendary Binary (needs restart)",
         "customWine": "Select the Wine or Proton Binary",
@@ -84,7 +84,7 @@
                 "title": "Ubisoft Connect"
             },
             "legendary": {
-                "generic": "Адбылася памылка! Паспрабуйце выйсці і ўвайсці ў свой уліковы запіс Epic. {{newline}} {{error}}"
+                "generic": "Адбылася памылка! Паспрабуйце выйсці і ўвайсці ў свой уліковы запіс Epic. {{newline}}  {{error}}"
             }
         },
         "info": {
@@ -158,6 +158,11 @@
                     "message": "Любы незахаваны прагрэс можа быць страчаны",
                     "title": "Вы ўпэўнены, што хочаце кінуць?"
                 }
+            },
+            "snap": {
+                "checkbox": "Больш не паказваць гэта паведамленне",
+                "title": "Heroic працуе як Snap пакет",
+                "message": "Некаторыя функцыі на дадзены момант недаступныя ў Snap версіі праграмы, і мы спрабуем гэта выправіць. {{newLine}} Бягучыя абмежаванні: {{newLine}} Heroic не зможа знайсці Proton у Steam або Wine у Lutris. .{{newLine}}{{newLine}}Gamescope, GameMode і MangoHud таксама не будуць працаваць, паколькі ў Heroic няма доступу да іх.{{newLine}}{{newLine}}Каб атрымаць доступ да гэтай функцыі, ўсталюйце Heroic як Flatpak, DEB ці з AppImage."
             }
         },
         "wineprefix": "Абярыце тэчку з прэфіксам Wine",
@@ -245,7 +250,12 @@
         "show_available_games": "Паказаць недаступныя гульні",
         "show_favourites_only": "Паказаць толькі абранае",
         "show_hidden": "Паказаць схаванае",
-        "store": "Адфільтраваць краму"
+        "store": "Адфільтраваць краму",
+        "filters": "Фільтры",
+        "all_categories": "Усе катэгорыі",
+        "show_installed_only": "Паказаць толькі ўсталяваныя",
+        "uncategorized": "Без катэгорыі",
+        "categories": "Катэгорыі"
     },
     "help": {
         "amdfsr": "FSR ад AMD дапамагае павысіць частату кадраў за кошт павелічэння больш нізкага дазволу ў поўнаэкранным рэжыме. Якасць выявы павялічваецца з 5 да 1 за кошт невялікага зніжэння прадукцыйнасці. Уключэнне можа палепшыць прадукцыйнасць.",
@@ -288,7 +298,16 @@
         },
         "disable_logs": "Уключыце гэты сцяжок, каб адключыць большасць запісаў у файлы журналаў (крытычная інфармацыя заўсёды рэгіструецца). Не забудзьцеся ВЫКЛЮЧЫЦЬ гэту наладу, перш чым паведамляць аб любой праблеме.",
         "dxvknvapi": "DXVK-NVAPI – гэта рэалізацыя NVAPI, пабудаваная на аснове DXVK і ўласнага NVAPI Linux, яна дазваляе выкарыстоўваць DLSS на відэакартах Nvidia.",
-        "disablePlaytimeSync": "Адключае сінхранізацыю гульнявога часу з серверамі дадзенай крамы (на дадзены момант падтрымліваецца толькі GOG)"
+        "disablePlaytimeSync": "Адключае сінхранізацыю гульнявога часу з серверамі дадзенай крамы (на дадзены момант падтрымліваецца толькі GOG)",
+        "gamescope": {
+            "fpsLimiterNoFocus": "Абмежаванне частаты кадраў gamescope павінна абмяжоўвацца ў секунду, калі гульня не сфакусаваная.",
+            "upscaleMethod": "Метад маштабавання, які будзе выкарыстоўваць gamescope.",
+            "gameWidth": "Раздзяляльнасць шырыні, якая выкарыстоўваецца гульнёй. Gamescope прадугледжвае суадносіны бакоў 16:9.",
+            "upscaleWidth": "Раздзяляльнасць па шырыні, якая выкарыстоўваецца gamescope. Прадугледжваюцца суадносіны бакоў 16:9.",
+            "gameHeight": "Раздзяляльнасць па вышыні, якая выкарыстоўваецца гульнёй. Gamescope прадугледжвае суадносіны бакоў 16:9.",
+            "upscaleHeight": "Раздзяляльнасць па вышыні, якая выкарыстоўваецца gamescope. Прадугледжваюцца суадносіны бакоў 16:9.",
+            "fpsLimiter": "Колькасць кадраў GameScope павінна быць абмежавана. напрыклад 60"
+        }
     },
     "info": {
         "heroic": {
@@ -424,7 +443,11 @@
         },
         "gameargs": {
             "placeholder": "Змесціце сюды аргументы праграмы запуску",
-            "title": "Аргументы гульні (для запуску пасля каманды):"
+            "title": "Аргументы гульні (для запуску пасля каманды):",
+            "error": {
+                "command": "Сінтаксіс %command% са Steam недапушчальны ў якасці аргументаў гульні.",
+                "env": "Пераменныя асяроддзя неабходна наладзіць у табліцы ніжэй."
+            }
         },
         "quote-args-with-spaces": "Папярэджанне: пераканайцеся, што аргументы ў цытатах з прабеламі! Напрыклад: \"шлях/з прабеламі/\"",
         "wrapper": {
@@ -434,6 +457,19 @@
             "placeHolderKey": "Новая абгортка",
             "placeHolderValue": "Аргументы абгорткі",
             "title": "Каманда абгорткі:"
+        },
+        "gamescope": {
+            "nis": "Маштабаванне NVIDIA (NIS)",
+            "borderless": "Безрамачны рэжым",
+            "fpsLimiter": "Абмежавальнік FPS",
+            "gameHeight": "Вышыня гульні",
+            "upscaleWidth": "Маштабаванне па шырыні",
+            "fullscreen": "Поўнаэкранны рэжым",
+            "gameWidth": "Шырыня гульні",
+            "interger": "Цэлыкавае маштабаванне",
+            "upscaleHeight": "Маштабаванне па вышыні",
+            "fpsLimiterNoFocus": "Абмежавальнік FPS (Па-за фокусам)",
+            "stretch": "Расцягванне выявы"
         }
     },
     "other": {
@@ -592,7 +628,19 @@
             "enableNewShinyFeature": "Новая бліскучая функцыя",
             "enableNewDesign": "Новы дызайн"
         },
-        "disablePlaytimeSync": "Адключыць сінхранізацыю часу прайгравання"
+        "disablePlaytimeSync": "Адключыць сінхранізацыю часу прайгравання",
+        "frameless-window": {
+            "confirmation": {
+                "message": "Гэтая функцыя ўсё яшчэ з'яўляецца эксперыментальнай. Калі ласка, паведамляйце аб любых праблемах, з якімі вы сутыкаецеся, на GitHub.",
+                "title": "Наперадзе эксперыментальная функцыя"
+            },
+            "description": "Выкарыстоўваць безрамачнае акно (патрабуецца перазагрузка)"
+        },
+        "gamescope": {
+            "enableLimiter": "Уключыць абмежавальнік FPS",
+            "enableUpscaling": "Уключыць маштабаванне",
+            "missingMsg": "Нам не ўдалося знайсці gamescope у PATH. Усталюйце яго ці дадайце ў PATH."
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -628,7 +676,8 @@
             "other": "Other",
             "sync": "Сінхранізацыя захаванняў з воблакам",
             "wineExt": "Wine Extensions",
-            "systemInformation": "Інфармацыя аб сістэме"
+            "systemInformation": "Інфармацыя аб сістэме",
+            "gamescope": "Gamescope"
         },
         "open-config-file": "Адкрыйце файл канфігурацыі",
         "reset-heroic": "Reset Heroic",
@@ -642,7 +691,7 @@
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
             "legendaryVersion": "Legendary: {{legendaryVersion}}",
             "systemSpecifications": "Характарыстыкі сістэмы:",
-            "steamDeck": "Steam Deck",
+            "steamDeck": "Steam Deck {{model}}",
             "gpuDriver": "Драйвер: {{driverVersion}}",
             "os": "Аперацыйная сістэма:",
             "gpu": "ГП:",
@@ -660,6 +709,9 @@
         },
         "experimental_features": {
             "title": "Эксперыментальныя асаблівасці"
+        },
+        "gamescope": {
+            "searchMsg": "Шукаем выканальны файл gamescope."
         }
     },
     "Settings": "Налады",
@@ -743,9 +795,28 @@
     },
     "amazon": "Amazon",
     "prime-gaming": "Prime Gaming",
-    "Amazon Games": "Гульні Amazon",
+    "Amazon Games": "Amazon Games",
     "winetricks": {
         "install": "Усталяваць",
-        "loading": "Loading"
+        "loading": "Loading",
+        "installing": "Усталяванне ў працэсе: {{component}}",
+        "openGUI": "Адкрыць GUI Winetricks",
+        "search": "Шукаць шрыфты ці кампаненты",
+        "nothingYet": "Нічога не было ўсталявана з дапамогай Winetricks",
+        "installed": "Усталяваныя кампаненты:"
+    },
+    "category-settings": {
+        "cancel": "Адмяніць",
+        "warning": "Папярэджанне",
+        "remove-category": "Выдаліць катэгорыю",
+        "delete-question": "Гэта назаўсёды выдаліць гэтую катэгорыю і адменіць яе прызначэнне для ўсіх гульняў. Працягнуць?",
+        "new-category": "Новая катэгорыя",
+        "add-new-category": "Дадаць новую катэгорыю"
+    },
+    "window": {
+        "minimize": "Згарнуць акно",
+        "maximize": "Разгарнуць акно",
+        "close": "Закрыць",
+        "restore": "Аднавіць акно"
     }
 }

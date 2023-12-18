@@ -37,14 +37,16 @@
             "settingcheckbox": "Hapus pengaturan dan log{{newLine}}Catatan: Tindakan ini tidak dapat diurungkan. Semua pengaturan lama dan log akan dihapus.",
             "title": "Copot Pemasangan",
             "prefix_warning": "Prefiks Wine bawaan digunakan untuk game ini. Jika Anda benar-benar ingin menghapusnya, Anda harus melakukannya secara manual.",
-            "dlc": "Apakah Anda ingin Menghapus Instalasi DLC ini?"
+            "dlc": "Apakah Anda ingin Menghapus Instalasi DLC ini?",
+            "cannotUninstallEpic": "Epic Games tidak dapat menghapus pemasangan saat gim lain sedang dipasang."
         },
         "update": {
             "message": "Gim ini memiliki pembaruan, terapkan pembaruan sekarang?",
             "title": "Gim Perlu Diperbarui"
         },
         "wineprefix": "Pilih Folder Prefiks Wine",
-        "yes": "YA"
+        "yes": "YA",
+        "close": "Tutup"
     },
     "button": {
         "add_to_favourites": "Tambahkan Ke Favorit",
@@ -128,7 +130,14 @@
         "path-not-writtable": "Peringatan: lokasi mungkin tidak dapat ditulis.",
         "space-after-install": "Setelah Instalasi",
         "wineprefix": "PrefiksWine",
-        "wineversion": "Versi Wine"
+        "wineversion": "Versi Wine",
+        "anticheat-warning": {
+            "cancel": "Tidak",
+            "message": "Anticheat tidak didukung. Gim mungkin tidak akan berfungsi. Apakah anda akan melanjutkan pemasangan?",
+            "install": "Ya (Saya mengerti aksi ini mungkin tidak berhasil)",
+            "title": "Anticheat Rusak/Ditolak"
+        },
+        "flatpak-path-not-writtable": "Kesalahan: Akses sandbox tidak diberikan ke lokasi ini, kehilangan data mungkin bisa terjadi."
     },
     "label": {
         "game": {
@@ -171,12 +180,15 @@
             "exe": "Pilih Executable",
             "image": "Gambar App",
             "title": "Gim/Judul App",
-            "broser": "URL browser"
+            "broser": "URL browser",
+            "useragent": "Kustomisasi User Agent",
+            "fullscreen": "Luncurkan Layar Penuh (F11 untuk keluar)"
         },
         "placeholder": {
             "image": "Tempel URL Gambar di sini",
             "title": "Tambahkan judul ke Gim/App Anda",
-            "url": "Rekatkan URL Game di sini"
+            "url": "Rekatkan URL Game di sini",
+            "useragent": "Tulis user agent kustom di sini untuk digunakan pada aplikasi browser/game ini"
         }
     },
     "specs": {
@@ -224,7 +236,8 @@
         "store": "Halaman Toko",
         "verify": "Verifikasi dan Perbaiki",
         "extraInfo": "Informasi tambahan",
-        "logs": "Log"
+        "logs": "Log",
+        "categories": "Kategori"
     },
     "help": {
         "cloud_save_unsupported": "Gim ini tidak mendukung penyimpanan cloud. Informasi ini disediakan oleh pengembang gim. Beberapa gim menerapkan sistem penyimpanan cloud mereka sendiri"

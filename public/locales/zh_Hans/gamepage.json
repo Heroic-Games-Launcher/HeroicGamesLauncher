@@ -120,7 +120,7 @@
         "clickToOpen": "单击打开",
         "game-scores": "游戏分数",
         "installedInfo": "已安装信息",
-        "protondb-compatibility-info": "质子兼容性层",
+        "protondb-compatibility-info": "Proton 兼容性级别",
         "steamdeck-compatibility-info": "SteamDeck 兼容性"
     },
     "install": {
@@ -180,12 +180,15 @@
             "exe": "选择可执行文件",
             "image": "App 映像",
             "title": "游戏/应用标题",
-            "broser": "浏览器网址"
+            "broser": "浏览器网址",
+            "useragent": "自定义 User Agent",
+            "fullscreen": "启动全屏（按 F11 退出）"
         },
         "placeholder": {
             "image": "在此粘贴映像 URL",
             "title": "添加标题到你的“游戏/应用”",
-            "url": "在此处粘贴游戏网址"
+            "url": "在此处粘贴游戏网址",
+            "useragent": "在这里写一个定制的 user agent，该 UA 将用于此浏览器应用/游戏"
         }
     },
     "specs": {
@@ -209,7 +212,7 @@
         "totalDownloaded": "下载总计",
         "uninstalling": "卸载中",
         "updating": "游戏更新中",
-        "playing": "播放中",
+        "playing": "游戏中",
         "moving-files": "正在移动文件“{{file}}”：{{percent}} ",
         "syncingSaves": "存档同步中",
         "launching": "启动中",
@@ -233,7 +236,8 @@
         "store": "商店页面",
         "verify": "验证和修复",
         "extraInfo": "额外信息",
-        "logs": "日志"
+        "logs": "日志",
+        "categories": "分类"
     },
     "help": {
         "cloud_save_unsupported": "本游戏不支持云存档。此信息由游戏开发商提供。有些游戏部署了自己的云保存系统"

@@ -8,11 +8,12 @@
   grid-template-rows: 1fr;
   column-gap: 0.5rem;
   height: 25em;
+  width: 100%;
 
   .log-buttongroup {
     display: flex;
     flex-direction: column;
-    width: 150px;
+    width: 180px;
     gap: 1rem;
     overflow-y: auto;
     overflow-x: hidden;

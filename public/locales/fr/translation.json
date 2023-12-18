@@ -158,6 +158,11 @@
                     "title": "Êtes-vous sûr de vouloir quitter ?",
                     "message": "Toute progression non sauvegardée pourrait être perdue"
                 }
+            },
+            "snap": {
+                "checkbox": "Ne plus afficher ce message.",
+                "title": "Heroic est exécuté en tant que Snap",
+                "message": "Certaines fonctionnalités ne sont pas disponibles pour le moment dans la version Snap de l'application et nous essayons d'y remédier.{{newLine}}Les limitations actuelles sont : {{newLine}}Heroic ne sera pas capable de détecter Proton depuis Steam ou Wine depuis Lutris.{{newLine}}{{newLine}}Gamescope, GameMode et MangoHud ne fonctionneront pas non plus puisqu'Heroic ne peut pas y avoir accès.{{newLine}}{{newLine}}Pour accéder à ces fonctionnalités, veuillez installer la version Flatpak, DEB ou AppImage d'Heroic."
             }
         },
         "wineprefix": "Choisir le dossier des préfixes Wine",
@@ -245,7 +250,11 @@
         "show_available_games": "Afficher les jeux indisponibles",
         "show_favourites_only": "N'afficher que les favoris",
         "show_hidden": "Afficher les jeux cachés",
-        "store": "Filtrer le magasin"
+        "store": "Filtrer le magasin",
+        "filters": "Filtres",
+        "all_categories": "Toutes les catégories",
+        "uncategorized": "Sans catégorie",
+        "show_installed_only": "N'afficher que les jeux installés"
     },
     "help": {
         "amdfsr": "Le FSR d'AMD aide à améliorer le taux de rafraîchissement en agrandissant les résolutions basses en mode plein écran. La qualité d'image augmente de 5 à 1 au prix d'une légère baisse de performance. L'activer peut améliorer les performances.",
@@ -591,6 +600,13 @@
         "disablePlaytimeSync": "Désactiver la synchronisation du temps de jeu",
         "experimental_features": {
             "enableNewDesign": "Nouveau concept"
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "Cette fonctionnalité est encore expérimentale. Veuillez rapporter sur GitHub les problèmes que vous rencontrez avec.",
+                "title": "Fonctionnalité expérimentale"
+            },
+            "description": "Utiliser une fenêtre sans bordure (nécessite un redémarrage)"
         }
     },
     "settings": {
@@ -641,7 +657,7 @@
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
             "legendaryVersion": "Legendary : {{legendaryVersion}}",
             "systemSpecifications": "Caractéristiques du Système :",
-            "steamDeck": "Steam Deck",
+            "steamDeck": "Steam Deck {{model}}",
             "gpuDriver": "Pilote : {{driverVersion}}",
             "os": "Système :",
             "gpu": "Processeur graphique :",
@@ -750,5 +766,19 @@
         "search": "Rechercher des polices de caractères ou des composants",
         "nothingYet": "Rien n'a pour l'instant été installé avec Winetricks",
         "installed": "Composants installés :"
+    },
+    "category-settings": {
+        "cancel": "Annuler",
+        "warning": "Avertissement",
+        "remove-category": "Retirer la catégorie",
+        "delete-question": "En faisant cela cette catégorie sera effacée de façon permanente et retirée de tous les jeux. Continuer ?",
+        "new-category": "Nouvelle catégorie",
+        "add-new-category": "Ajouter une nouvelle catégorie"
+    },
+    "window": {
+        "minimize": "Réduire la fenêtre",
+        "maximize": "Agrandir la fenêtre",
+        "close": "Fermer",
+        "restore": "Restaurer la fenêtre"
     }
 }

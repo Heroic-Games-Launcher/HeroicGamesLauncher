@@ -722,5 +722,9 @@
     "winetricks": {
         "install": "התקן",
         "loading": "טוען"
+    },
+    "category-settings": {
+        "cancel": "בטל",
+        "warning": "אזהרה"
     }
 }

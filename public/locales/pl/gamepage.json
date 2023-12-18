@@ -37,14 +37,16 @@
             "settingcheckbox": "Wyczyść ustawienia i usuń dziennik zdarzeń{{newLine}}Uwaga: Ta operacja nie może zostać cofnięta. Wszystkie zmodyfikowane ustawienia zostaną zapomniane, a dziennik zdarzeń zostanie usunięty.",
             "title": "Odinstaluj",
             "prefix_warning": "Prefiks Wine dla tej gry jest prefiksem domyślnym. Jeśli na pewno chcesz go usunąć, musisz to zrobić ręcznie.",
-            "dlc": "Czy chcesz odinstalować to DLC?"
+            "dlc": "Czy chcesz odinstalować to DLC?",
+            "cannotUninstallEpic": "Gry pochodzące z Epic nie mogą być odinstalowane, podczas gdy inna gra ze sklepu Epic jest instalowana."
         },
         "update": {
             "message": "Ta gra ma dostępną aktualizację, czy chcesz ją teraz zainstalować?",
             "title": "Gra wymaga aktualizacji"
         },
         "wineprefix": "Wybierz folder z prefiksem Wine",
-        "yes": "TAK"
+        "yes": "TAK",
+        "close": "Zamknij"
     },
     "button": {
         "add_to_favourites": "Dodaj do ulubionych",
@@ -178,12 +180,15 @@
             "exe": "Wybierz plik wykonywalny",
             "image": "Obraz aplikacji",
             "title": "Tytuł gry/aplikacji",
-            "broser": "URL przeglądarki"
+            "broser": "URL przeglądarki",
+            "useragent": "Niestandardowy Agent Użytkownika (User Agent)",
+            "fullscreen": "Uruchom w trybie pełnego ekranu (naciśnij F11, aby wyjść)"
         },
         "placeholder": {
             "image": "Wklej adres URL obrazka tutaj",
             "title": "Dodaj tytuł do swojej gry/aplikacji",
-            "url": "Wklej tutaj adres URL gry"
+            "url": "Wklej tutaj adres URL gry",
+            "useragent": "Wpisz niestandardowy agent użytkownika (user agent), który będzie wykorzystywany przez tą aplikację/grę przeglądarkową"
         }
     },
     "specs": {
@@ -231,7 +236,8 @@
         "store": "Strona sklepu",
         "verify": "Sprawdź i napraw",
         "extraInfo": "Informacje dodatkowe",
-        "logs": "Logi"
+        "logs": "Logi",
+        "categories": "Kategorie"
     },
     "help": {
         "cloud_save_unsupported": "Ta gra nie obsługuje zapisów w chmurze. Informacje te są dostarczane przez twórców gry. Niektóre gry mają własny system zapisywania w chmurze"

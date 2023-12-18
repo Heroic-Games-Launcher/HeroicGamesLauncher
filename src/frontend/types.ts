@@ -49,6 +49,16 @@ export interface ContextType {
     add: (appNameToAdd: string, appTitle: string) => void
     remove: (appNameToRemove: string) => void
   }
+  customCategories: {
+    list: Record<string, string[]>
+    listCategories: () => string[]
+    addToGame: (category: string, appName: string) => void
+    removeFromGame: (category: string, appName: string) => void
+    addCategory: (newCategory: string) => void
+    removeCategory: (category: string) => void
+  }
+  currentCustomCategories: string[]
+  setCurrentCustomCategories: (newCustomCategories: string[]) => void
   theme: string
   setTheme: (themeName: string) => void
   zoomPercent: number
@@ -99,7 +109,7 @@ export interface ContextType {
   }
   setIsSettingsModalOpen: (
     value: boolean,
-    type?: 'settings' | 'log',
+    type?: 'settings' | 'log' | 'category',
     gameInfo?: GameInfo
   ) => void
   experimentalFeatures: ExperimentalFeatures
@@ -175,12 +185,26 @@ export interface SettingsContextType {
   isLinuxNative: boolean
 }
 
+export interface StoresFilters {
+  legendary: boolean
+  gog: boolean
+  nile: boolean
+  sideload: boolean
+}
+
+export interface PlatformsFilters {
+  win: boolean
+  linux: boolean
+  mac: boolean
+  browser: boolean
+}
+
 export interface LibraryContextType {
-  category: Category
+  storesFilters: StoresFilters
+  platformsFilters: PlatformsFilters
   filterText: string
-  filterPlatform: string
-  handleCategory: (value: Category) => void
-  handlePlatformFilter: (value: string) => void
+  setStoresFilters: (filters: StoresFilters) => void
+  setPlatformsFilters: (filters: PlatformsFilters) => void
   handleLayout: (value: string) => void
   handleSearch: (input: string) => void
   layout: string
@@ -188,6 +212,8 @@ export interface LibraryContextType {
   setShowHidden: (value: boolean) => void
   showFavourites: boolean
   setShowFavourites: (value: boolean) => void
+  showInstalledOnly: boolean
+  setShowInstalledOnly: (value: boolean) => void
   showNonAvailable: boolean
   setShowNonAvailable: (value: boolean) => void
   sortDescending: boolean

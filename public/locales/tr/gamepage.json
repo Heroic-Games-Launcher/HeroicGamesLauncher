@@ -1,8 +1,8 @@
 {
     "box": {
         "change": {
-            "message": "Bu oyunun kurulum yerini değiştirecek, emin misin?",
-            "path": "Yeni kurulum yeri seçin",
+            "message": "Bu adım oyunun kurulum yerini değiştirecek, emin misin?",
+            "path": "Yeni bir kurulum yeri seçin",
             "title": "Oyun Kurulum Yerini Değiştir"
         },
         "choose": "Seç",
@@ -37,14 +37,16 @@
             "settingcheckbox": "Ayarları sil ve günlüğü kaldır{{newLine}}Not: Bu işlem geri alınamaz. Değiştirilen tüm ayarlar unutulacak ve günlük silinecektir.",
             "title": "Kaldır",
             "prefix_warning": "Bu oyun için Wine öneki varsayılan önektir. Gerçekten silmek istiyorsanız, manuel olarak yapmanız gerekir.",
-            "dlc": "Bu DLC'yi Kaldırmak istiyor musunuz?"
+            "dlc": "Bu DLC'yi kaldırmak istiyor musunuz?",
+            "cannotUninstallEpic": "Başka bir Epic oyunu yüklenirken Epic games kaldırılamaz."
         },
         "update": {
             "message": "Bu oyunun bir güncellemesi var, güncelleme şimdi uygulansın mı?",
             "title": "Oyunun Güncellenmesi Gerekiyor"
         },
         "wineprefix": "WinePrefix Klasörünü Seçin",
-        "yes": "EVET"
+        "yes": "EVET",
+        "close": "Kapat"
     },
     "button": {
         "add_to_favourites": "Favorilere Ekle",
@@ -149,8 +151,8 @@
         "saves": {
             "syncing": "Kayıtlar Eşzamanlanıyor"
         },
-        "launching": "Fırlatma",
-        "ubisoft": "Ubisoft Connect'i Yükleme"
+        "launching": "Başlatılıyor",
+        "ubisoft": "Ubisoft Connect Yükleniyor"
     },
     "launch": {
         "options": "Başlatma Seçenekleri..."
@@ -160,7 +162,7 @@
         "gog": "Heroic'te bir GOG hesabıyla oturum açmadınız. Giriş yapmak için mağaza sayfasını kullanmayın, bunun yerine aşağıdaki düğmeye tıklayın:",
         "login": "Log in",
         "title": "Giriş yapmadınız",
-        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
+        "amazon": "Heroic'te Amazon hesabıyla oturum açmadınız. Giriş yapmak için mağaza sayfasını kullanmayın. Bunun yerine aşağıdaki düğmeye tıklayın:"
     },
     "report_problem": "Bu oyunun çalışmasıyla ilgili bir sorun bildir",
     "sdl": {
@@ -178,12 +180,15 @@
             "exe": "Yürütülebilir Dosyayı Seçin",
             "image": "App Image",
             "title": "Oyun/Uygulama Adı",
-            "broser": "TarayıcıURL'si"
+            "broser": "Tarayıcı URL'si",
+            "useragent": "Özel Kullanıcı Aracısı",
+            "fullscreen": "Tam Ekran Başlat (Çıkmak için F11)"
         },
         "placeholder": {
             "image": "Buraya bir Resim URL'si yapıştırın",
             "title": "Oyununuza/Uygulamanıza bir başlık ekleyin",
-            "url": "Oyun URL'sini buraya yapıştırın"
+            "url": "Oyun URL'sini buraya yapıştırın",
+            "useragent": "Bu tarayıcı uygulamasında veya oyununda kullanılacak özel bir kullanıcı aracısını buraya yazın"
         }
     },
     "specs": {
@@ -207,15 +212,15 @@
         "totalDownloaded": "Toplam İndirilen",
         "uninstalling": "Kaldırılıyor",
         "updating": "Oyun Güncelleniyor",
-        "playing": "oynamak",
+        "playing": "Oynanıyor",
         "moving-files": "'{{file}}' dosyası taşınıyor: {{percent}} ",
         "syncingSaves": "Kayıtlar Senkronize Ediliyor",
-        "launching": "Fırlatma",
-        "ubisoft": "Ubisoft'u Kurmak",
+        "launching": "Başlatılıyor",
+        "ubisoft": "Ubisoft Kuruluyor",
         "downloading": "İndiriliyor",
         "extracting": "Ayıklanıyor",
-        "gog-goodie": "Bu oyun kurulabilir görünmüyor. İndirilebilir içeriği https://gog.com/account adresinden kontrol edin",
-        "goodie": "kurulamaz"
+        "gog-goodie": "Bu oyun yüklenebilir görünmüyor. İndirilebilir içeriği https://gog.com/account adresinden kontrol edin",
+        "goodie": "Yüklenemez"
     },
     "submenu": {
         "addShortcut": "Kısayol ekle",
@@ -231,7 +236,8 @@
         "store": "Mağaza Sayfası",
         "verify": "Doğrula ve Onar",
         "extraInfo": "Fazladan bilgi",
-        "logs": "Kütükler"
+        "logs": "Kayıtlar",
+        "categories": "Kategoriler"
     },
     "help": {
         "cloud_save_unsupported": "Bu oyun bulutta kaydetmeyi desteklemiyor. Bu bilgiler oyun geliştiricileri tarafından sağlanmaktadır. Bazı oyunlar kendi bulut kaydetme sistemlerini uygular"
