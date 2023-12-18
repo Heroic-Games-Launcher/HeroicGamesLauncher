@@ -254,7 +254,8 @@
         "filters": "Filtre",
         "all_categories": "Tüm Kategoriler",
         "show_installed_only": "Yalnızca yüklenenleri Göster",
-        "uncategorized": "Kategorize Edilmemiş"
+        "uncategorized": "Kategorize Edilmemiş",
+        "categories": "Kategoriler"
     },
     "help": {
         "amdfsr": "AMD'nin FSR özelliği, Tam Ekran Modunda daha düşük çözünürlükleri yükselterek kare hızını artırmaya yardımcı olur. Küçük bir performans artışı pahasına görüntü kalitesi 5'ten 1'e yükselir. Etkinleştirmek performansı artırabilir.",
