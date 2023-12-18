@@ -155,8 +155,14 @@
             },
             "sideload": {
                 "confirmExit": {
-                    "title": "Logout?"
+                    "title": "Logout?",
+                    "message": "സേവ് ചെയ്യാത്ത പ്രോഗ്രസ്സ് നഷ്ടപ്പെട്ടേക്കാം"
                 }
+            },
+            "snap": {
+                "checkbox": "ഈ അറിയിപ്പ് വീണ്ടും കാണിക്കരുത്",
+                "title": "ഹീറോയ്ക്ക് സ്നാപ്പായിട്ട് ഓടുകയാണ്",
+                "message": "കുറച്ച് ഫീച്ചറുകൾ തൽക്കാലം Snap-ഇൽ ലഭ്യമല്ല. നമ്മൾ അത് പരിഹരിക്കുവാൻ ശ്രമിക്കുകയാണ്.{{newLine}}ഇപ്പോഴത്തെ പരിമിതികൾ ആണ് ഇവ:{{newLine}}ഹീറോയിക്കിന് പ്രോട്ടോണിനെ സ്റ്റീമിൽനിന്നും വൈനിനെ Lutris-യിൽ നിന്നും കണ്ടെത്താൻ പറ്റുകയില്ല.{{newLine}}{{newLine}}ഗെയിംസ്‌കോപ്പും മാങ്കോഹുഡും ഹെറോയിക്കിൽ പ്രവർത്തിക്കുകയില്ല.{{newLine}}{{newLine}}ഈ ഫീച്ചറുകൾ ലഭിക്കുവാൻ ഹീറോയ്ക്കിനെ ഫ്ലാറ്പാക്കിൽനിന്നോ DEB ഇൽനിന്നോ AppImage ഇൽനിന്നോ ഇൻസ്റ്റാൾ ചെയ്യുക."
             }
         },
         "wineprefix": "വൈനിരിക്കുന്ന അറ തിരഞ്ഞെടുക്കൂ",
@@ -245,7 +251,14 @@
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
         "store": "Filter Store",
-        "filters": "അരിപ്പ"
+        "filters": "അരിപ്പ",
+        "select_all": "എല്ലാം തിരഞ്ഞെടുക്കുക",
+        "categories": "വിഭാഗങ്ങൾ",
+        "only": "മാത്രം",
+        "reset": "റീസെറ്റ് ചെയ്യുക",
+        "show_installed_only": "ഇൻസ്റ്റാൾ ചെയ്തവ മാത്രം കാണിക്കുക",
+        "no_categories": "കസ്റ്റം വിഭാഗങ്ങൾ ഇല്ല. ഗെയിം മെനു വഴി ഓരോ ഗെയിമിനും വിഭാഗങ്ങൾ ചേർക്കുക.",
+        "uncategorized": "വർഗ്ഗീകരിക്കാത്തത്"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -286,7 +299,16 @@
             "part1": "വൈനിനും പ്രോട്ടോണിനും ക്രോസ്സോവറിനുമായി ഹീറോയിക് താഴെപ്പറയുന്ന സ്ഥലങ്ങളില് തപ്പുന്നു:",
             "part2": "മറ്റിടങ്ങളെ ഈ സ്ഥലങ്ങളുമായി കോര്ക്കാന് കണ്ണികള് ഉപയോഗിക്കൂ"
         },
-        "disable_logs": "ഫയലുകൾ ലോഗ് ചെയ്യുന്നതിനുള്ള മിക്ക റൈറ്റുകളും പ്രവർത്തനരഹിതമാക്കാൻ ഈ ചെക്ക്ബോക്സ് ഓണാക്കുക (നിർണ്ണായക വിവരങ്ങൾ എല്ലായ്പ്പോഴും ലോഗ് ചെയ്തിരിക്കും). എന്തെങ്കിലും പ്രശ്‌നം റിപ്പോർട്ടുചെയ്യുന്നതിന് മുമ്പ് ഈ ക്രമീകരണം ഓഫാക്കുന്നത് ഉറപ്പാക്കുക."
+        "disable_logs": "ഫയലുകൾ ലോഗ് ചെയ്യുന്നതിനുള്ള മിക്ക റൈറ്റുകളും പ്രവർത്തനരഹിതമാക്കാൻ ഈ ചെക്ക്ബോക്സ് ഓണാക്കുക (നിർണ്ണായക വിവരങ്ങൾ എല്ലായ്പ്പോഴും ലോഗ് ചെയ്തിരിക്കും). എന്തെങ്കിലും പ്രശ്‌നം റിപ്പോർട്ടുചെയ്യുന്നതിന് മുമ്പ് ഈ ക്രമീകരണം ഓഫാക്കുന്നത് ഉറപ്പാക്കുക.",
+        "gamescope": {
+            "fpsLimiterNoFocus": "കളി ഫോക്കസിൽ അല്ലെങ്കിൽ എത്ര ഒരു സെക്കൻഡിൽ എത്ര ഫ്രെയിമുകളിലേക്ക് പരിമിതപ്പെടുത്തണം.",
+            "upscaleMethod": "ഗെയിംസ്കോപ്പ് ഉപയോഗിക്കേണ്ട അപ്സ്കേലിങ് രീതി.",
+            "gameWidth": "കളിയുടെ വീതി(വിഡ്ത്ത്) റെസൊല്യൂഷൻ. ഗെയിംസ്കോപ്പ് 16:9 ആയിട്ട് അനുമാനിക്കുന്നു.",
+            "gameHeight": "കളിയുടെ ഉയരം(ഹൈറ്റ്) റെസൊല്യൂഷൻ. ഗെയിംസ്കോപ്പ് 16:9 ആയിട്ട് അനുമാനിക്കുന്നു.",
+            "upscaleHeight": "കളിയുടെ ഉയരം(ഹൈറ്റ്‌) റെസൊല്യൂഷൻ. ഗെയിംസ്കോപ്പ് 16:9 ആയിട്ട് അനുമാനിക്കുന്നു.",
+            "fpsLimiter": "ഗെയിംസ്കോപ്പിനെ എത്ര ഫ്രെമുകളിലേക്ക് പരിമിതപ്പെടുത്തണം, ഉദാഹരണത്തിന് 60"
+        },
+        "disablePlaytimeSync": "കളിസമയം സ്റ്റോറുകളിലേക്ക് അയക്കാതിരിക്കുക (തത്കാലം GOGയിൽ മാത്രം പ്രവർത്തിക്കുന്നു)"
     },
     "info": {
         "heroic": {
@@ -342,7 +364,8 @@
         "epic": "Epic Games Login",
         "gog": "GOG Login",
         "message": "Login with your platform. You can login to more than one platform at the same time.",
-        "amazon": "ആമസോൺ ലോഗിൻ"
+        "amazon": "ആമസോൺ ലോഗിൻ",
+        "old-mac": "നിങ്ങളുടെ macOS വർഷൻ {{version}} ആണ്. macOS 12 അല്ലെങ്കിൽ പുതിയത് ലോഗിൻ ചെയ്യുവാൻ ആവശ്യമാണ്."
     },
     "message": {
         "sync": "ഒന്നിപ്പിച്ചു",
@@ -421,7 +444,10 @@
         },
         "gameargs": {
             "placeholder": "ഇവിടെ ലോഞ്ചര് വാദങ്ങള് ഇടൂ",
-            "title": "കളി വാദങ്ങള് ആജ്ഞക്കു(command) ശേഷം ഒടിക്കാന്:"
+            "title": "കളി വാദങ്ങള് ആജ്ഞക്കു(command) ശേഷം ഒടിക്കാന്:",
+            "error": {
+                "env": "എൻവൈരൺമെൻറ് വേരിയബിളുകൾ ഈ ടേബിളിൽ ക്രമീകരിക്കുക."
+            }
         },
         "quote-args-with-spaces": "Warning: Make sure to quote args with spaces! E.g.: \"path/with spaces/\"",
         "wrapper": {
@@ -431,6 +457,13 @@
             "placeHolderKey": "New Wrapper",
             "placeHolderValue": "Wrapper Arguments",
             "title": "Wrapper command:"
+        },
+        "gamescope": {
+            "borderless": "ബോർഡർലെസ്സ്",
+            "gameHeight": "കളിയുടെ ഉയരം(ഹൈറ്റ്)",
+            "fullscreen": "ഫുൾസ്‌ക്രീൻ",
+            "gameWidth": "കളിയുടെ വീതി(വിഡ്ത്)",
+            "stretch": "ഇമേജ് നീട്ടുക"
         }
     },
     "other": {
@@ -584,7 +617,20 @@
         "addgamestoapplications": "ആപ്ലിക്കേഷനുകളിലേക്ക് ഗെയിമുകൾ സ്വയമേവ ചേർക്കുക",
         "showMetalOverlay": "സ്ഥിതിവിവരക്കണക്കുകളുടെ ഓവർലേ കാണിക്കുക",
         "alt-nile-bin": "ഒരു ഇതര നൈൽ ബൈനറി തിരഞ്ഞെടുക്കുക",
-        "autodxvknvapi": "ഉപസഗ്ഗ഻ത്തില്(പ്രഫിക്സില്) DXVK തന്നത്താന് സ്ഥാപിക്കൂ/പുതുക്കൂ"
+        "autodxvknvapi": "ഉപസഗ്ഗ഻ത്തില്(പ്രഫിക്സില്) DXVK തന്നത്താന് സ്ഥാപിക്കൂ/പുതുക്കൂ",
+        "frameless-window": {
+            "confirmation": {
+                "message": "ഈ സവിശേഷത ഇപ്പോഴും പരീക്ഷണാത്മകമാണ്. പ്രശ്നങ്ങൾ ഉണ്ടായാൽ GitHub ഇൽ അറിയിക്കുക.",
+                "title": "അടുത്തത് പരീക്ഷണാത്മക ഫീച്ചറാണ്"
+            }
+        },
+        "gamescope": {
+            "missingMsg": "ഗെയിംസ്കോപ്പ് PATHഇൽ കണ്ടെത്തുവാനായില്ല. ഇൻസ്റ്റാൾ ചെയ്യുക അല്ലെങ്കിൽ PATH ഇലേക്ക് ചേർക്കുക."
+        },
+        "disablePlaytimeSync": "കളിസമയം സിൻക്രൊനൈസേഷൻ കെടുത്തുക",
+        "experimental_features": {
+            "enableNewDesign": "പുതിയ ഡിസൈൻ"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -619,13 +665,25 @@
             "log": "Log",
             "other": "മറ്റുള്ളവ",
             "sync": "ഒന്നിപ്പിക്കല് സൂക്ഷിക്കൂ",
-            "wineExt": "Wine Extensions"
+            "wineExt": "Wine Extensions",
+            "gamescope": "ഗെയിംസ്കോപ്",
+            "systemInformation": "സിസ്റ്റം വിവരങ്ങൾ"
         },
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",
         "saves": {
             "label": "Save Location:",
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        },
+        "experimental_features": {
+            "title": "പരീക്ഷണാത്മകമായ ഫീച്ചറുകൾ"
+        },
+        "gamescope": {
+            "searchMsg": "ഗെയിംസ്കോപ്പ് എക്സിക്ക്യൂടേബിളിനുവേണ്ടി തിരയുന്നു."
+        },
+        "systemInformation": {
+            "showDetailed": "സിസ്റ്റം വിവരങ്ങൾ വിശദമായി കാണിക്കുക",
+            "copyToClipboard": "ക്ലിപ്പ്ബോർഡിലേയ്ക്ക് പകർത്തുക(Copy to clipboard)"
         }
     },
     "Settings": "ക്രമീകരണങ്ങള്",
@@ -716,6 +774,14 @@
     },
     "category-settings": {
         "cancel": "Cancel",
-        "warning": "Warning"
+        "warning": "Warning",
+        "remove-category": "വിഭാഗം നീക്കം ചെയ്യുക",
+        "delete-question": "തുടരുവാണെങ്കിൽ ഈ വിഭാഗം എല്ലാം കളികളിൽനിന്നും നീക്കപ്പെടും. തുടരുക?",
+        "new-category": "പുതിയ വിഭാഗം",
+        "add-new-category": "പുതിയ വിഭാഗം സൃഷ്ടിക്കുക"
+    },
+    "window": {
+        "maximize": "മാക്സിമൈസ് ചെയ്യുക",
+        "close": "അടയ്ക്കുക"
     }
 }

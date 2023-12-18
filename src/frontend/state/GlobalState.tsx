@@ -80,7 +80,7 @@ interface StateProps {
   hiddenGames: HiddenGame[]
   favouriteGames: FavouriteGame[]
   customCategories: Record<string, string[]>
-  currentCustomCategory: string | null
+  currentCustomCategories: string[]
   theme: string
   isFullscreen: boolean
   isFrameless: boolean
@@ -108,6 +108,21 @@ interface StateProps {
     runner: Runner
   }
   experimentalFeatures: ExperimentalFeatures
+}
+
+// function to load the new key or fallback to the old one
+const loadCurrentCategories = () => {
+  const currentCategories = storage.getItem('current_custom_categories') || null
+  if (!currentCategories) {
+    const currentCategory = storage.getItem('current_custom_category') || null
+    if (!currentCategory) {
+      return []
+    } else {
+      return [currentCategory]
+    }
+  } else {
+    return JSON.parse(currentCategories) as string[]
+  }
 }
 
 class GlobalState extends PureComponent<Props> {
@@ -155,7 +170,7 @@ class GlobalState extends PureComponent<Props> {
     refreshing: false,
     refreshingInTheBackground: true,
     hiddenGames: configStore.get('games.hidden', []),
-    currentCustomCategory: storage.getItem('current_custom_category') || null,
+    currentCustomCategories: loadCurrentCategories(),
     sidebarCollapsed: JSON.parse(
       storage.getItem('sidebar_collapsed') || 'false'
     ),
@@ -195,8 +210,12 @@ class GlobalState extends PureComponent<Props> {
     }
   }
 
-  setCurrentCustomCategory = (newCustomCategory: string) => {
-    this.setState({ currentCustomCategory: newCustomCategory })
+  setCurrentCustomCategories = (newCustomCategories: string[]) => {
+    storage.setItem(
+      'current_custom_categories',
+      JSON.stringify(newCustomCategories)
+    )
+    this.setState({ currentCustomCategories: newCustomCategories })
   }
 
   setLanguage = (newLanguage: string) => {
@@ -309,8 +328,16 @@ class GlobalState extends PureComponent<Props> {
     const newCustomCategories = this.state.customCategories
     newCustomCategories[newCategory] = []
 
+    // when adding a new category, if there are categories selected, select the new
+    // one too so the game doesn't disappear form the library
+    let newCurrentCustomCategories = this.state.currentCustomCategories
+    if (this.state.currentCustomCategories.length > 0) {
+      newCurrentCustomCategories = [...newCurrentCustomCategories, newCategory]
+    }
+
     this.setState({
-      customCategories: newCustomCategories
+      customCategories: newCustomCategories,
+      currentCustomCategories: newCurrentCustomCategories
     })
     configStore.set('games.customCategories', newCustomCategories)
   }
@@ -957,7 +984,7 @@ class GlobalState extends PureComponent<Props> {
           setLastChangelogShown: this.setLastChangelogShown,
           isSettingsModalOpen: settingsModalOpen,
           setIsSettingsModalOpen: this.handleSettingsModalOpen,
-          setCurrentCustomCategory: this.setCurrentCustomCategory
+          setCurrentCustomCategories: this.setCurrentCustomCategories
         }}
       >
         {this.props.children}

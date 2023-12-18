@@ -13,8 +13,11 @@ import {
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
 const CategorySettings = () => {
-  const { customCategories, currentCustomCategory, setCurrentCustomCategory } =
-    useContext(ContextProvider)
+  const {
+    customCategories,
+    currentCustomCategories,
+    setCurrentCustomCategories
+  } = useContext(ContextProvider)
   const { appName, runner } = useContext(SettingsContext)
 
   const [newCategory, setNewCategory] = useState('')
@@ -68,7 +71,11 @@ const CategorySettings = () => {
   }
 
   const handleRemoveCategory = (category: string) => {
-    if (currentCustomCategory === category) setCurrentCustomCategory('')
+    if (
+      currentCustomCategories.length === 1 &&
+      currentCustomCategories[0] === category
+    )
+      setCurrentCustomCategories([])
     customCategories.removeCategory(category)
     updateCategories()
     setCategoryToDelete('')

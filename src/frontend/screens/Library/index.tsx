@@ -58,7 +58,7 @@ export default React.memo(function Library(): JSX.Element {
     favouriteGames,
     libraryTopSection,
     platform,
-    currentCustomCategory,
+    currentCustomCategories,
     customCategories,
     hiddenGames
   } = useContext(ContextProvider)
@@ -86,14 +86,12 @@ export default React.memo(function Library(): JSX.Element {
     }
   }
 
-  const [storesFilters, setStoresFilters] =
+  const [storesFilters, setStoresFilters_] =
     useState<StoresFilters>(initialStoresfilters)
 
-  const toggleStoreFilter = (store: Category) => {
-    const currentValue = storesFilters[store]
-    const newFilters = { ...storesFilters, [store]: !currentValue }
+  const setStoresFilters = (newFilters: StoresFilters) => {
     storage.setItem('storesFilters', JSON.stringify(newFilters))
-    setStoresFilters(newFilters)
+    setStoresFilters_(newFilters)
   }
 
   let initialPlatformsfilters
@@ -115,15 +113,13 @@ export default React.memo(function Library(): JSX.Element {
     }
   }
 
-  const [platformsFilters, setPlatformsFilters] = useState<PlatformsFilters>(
+  const [platformsFilters, setPlatformsFilters_] = useState<PlatformsFilters>(
     initialPlatformsfilters
   )
 
-  const togglePlatformFilter = (platform: string) => {
-    const currentValue = platformsFilters[platform]
-    const newFilters = { ...platformsFilters, [platform]: !currentValue }
+  const setPlatformsFilters = (newFilters: PlatformsFilters) => {
     storage.setItem('platformsFilters', JSON.stringify(newFilters))
-    setPlatformsFilters(newFilters)
+    setPlatformsFilters_(newFilters)
   }
 
   const [filterText, setFilterText] = useState('')
@@ -316,7 +312,11 @@ export default React.memo(function Library(): JSX.Element {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
     }
-    return tempArray
+    return tempArray.sort((a, b) => {
+      const gameA = a.title.toUpperCase().replace('THE ', '')
+      const gameB = b.title.toUpperCase().replace('THE ', '')
+      return gameA.localeCompare(gameB)
+    })
   }, [showFavourites, showFavouritesLibrary, favouriteGames, epic, gog, amazon])
 
   const favouritesIds = useMemo(() => {
@@ -363,26 +363,42 @@ export default React.memo(function Library(): JSX.Element {
       library = library.filter((game) =>
         favouritesIds.includes(`${game.app_name}_${game.runner}`)
       )
-    } else if (currentCustomCategory && currentCustomCategory.length > 0) {
-      if (currentCustomCategory === 'preset_uncategorized') {
-        // list of all games that have at least one category assigned to them
-        const categorizedGames = Array.from(
-          new Set(Object.values(customCategories.list).flat())
-        )
+    } else {
+      if (currentCustomCategories && currentCustomCategories.length > 0) {
+        const gamesInSelectedCategories = new Set<string>()
 
-        library = library.filter(
-          (game) =>
-            !categorizedGames.includes(`${game.app_name}_${game.runner}`)
-        )
-      } else {
-        const gamesInCustomCategory =
-          customCategories.list[currentCustomCategory]
+        // loop through selected categories and add all games in all those categories
+        currentCustomCategories.forEach((category) => {
+          if (category === 'preset_uncategorized') {
+            // in the case of the special "uncategorized" category, we read all
+            // the categorized games and add the others to the list to show
+            const categorizedGames = Array.from(
+              new Set(Object.values(customCategories.list).flat())
+            )
+
+            library.forEach((game) => {
+              if (
+                !categorizedGames.includes(`${game.app_name}_${game.runner}`)
+              ) {
+                gamesInSelectedCategories.add(`${game.app_name}_${game.runner}`)
+              }
+            })
+          } else {
+            const gamesInCustomCategory = customCategories.list[category]
+
+            if (gamesInCustomCategory) {
+              gamesInCustomCategory.forEach((game) => {
+                gamesInSelectedCategories.add(game)
+              })
+            }
+          }
+        })
 
         library = library.filter((game) =>
-          gamesInCustomCategory.includes(`${game.app_name}_${game.runner}`)
+          gamesInSelectedCategories.has(`${game.app_name}_${game.runner}`)
         )
       }
-    } else {
+
       if (!showNonAvailable) {
         const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
         const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
@@ -530,9 +546,9 @@ export default React.memo(function Library(): JSX.Element {
         showInstalledOnly,
         showNonAvailable,
         filterText,
-        toggleStoreFilter,
+        setStoresFilters,
         handleLayout: handleLayout,
-        togglePlatformFilter,
+        setPlatformsFilters,
         handleSearch: setFilterText,
         setShowHidden: handleShowHidden,
         setShowFavourites: handleShowFavourites,

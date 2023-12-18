@@ -234,7 +234,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
     detectVCRedist(mainWindow)
   }
 
-  if (!app.isPackaged && process.env.CI !== 'e2e') {
+  if (process.env.VITE_DEV_SERVER_URL) {
     if (!process.env.HEROIC_NO_REACT_DEVTOOLS) {
       import('electron-devtools-installer').then((devtools) => {
         const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
@@ -244,7 +244,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
         })
       })
     }
-    mainWindow.loadURL('http://localhost:5173')
+    mainWindow.loadURL(process.env.VITE_DEV_SERVER_URL)
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
   } else {
@@ -420,9 +420,9 @@ if (!gotTheLock) {
     GOGUser.migrateCredentialsConfig()
     const mainWindow = await initializeWindow()
 
-    protocol.registerStringProtocol('heroic', (request, callback) => {
+    protocol.handle('heroic', (request) => {
       handleProtocol([request.url])
-      callback('Operation initiated.')
+      return new Response('Operation initiated.', { status: 201 })
     })
     if (!app.isDefaultProtocolClient('heroic')) {
       if (app.setAsDefaultProtocolClient('heroic')) {
@@ -437,7 +437,14 @@ if (!gotTheLock) {
     const { startInTray } = GlobalConfig.get().getSettings()
     const headless = isCLINoGui || startInTray
     if (!headless) {
-      ipcMain.once('loadingScreenReady', () => mainWindow.show())
+      mainWindow.once('ready-to-show', () => {
+        const props = configStore.get_nodefault('window-props')
+        mainWindow.show()
+        // Apply maximize only if we show the window
+        if (props?.maximized) {
+          mainWindow.maximize()
+        }
+      })
     }
 
     // set initial zoom level after a moment, if set in sync the value stays as 1
@@ -462,10 +469,6 @@ if (!gotTheLock) {
 }
 
 ipcMain.on('notify', (event, args) => notify(args))
-
-ipcMain.once('loadingScreenReady', () => {
-  logInfo('Loading Screen Ready', LogPrefix.Backend)
-})
 
 ipcMain.once('frontendReady', () => {
   logInfo('Frontend Ready', LogPrefix.Backend)
@@ -514,6 +517,10 @@ ipcMain.once('frontendReady', () => {
 // Maybe this can help with white screens
 process.on('uncaughtException', async (err) => {
   logError(`${err.name}: ${err.message}`, LogPrefix.Backend)
+  // We might get "object has been destroyed" exceptions in CI, since we start
+  // and close Heroic quickly there. Displaying an error box would lock up
+  // the test (until the timeout is reached), so let's not do that
+  if (process.env.CI === 'e2e') return
   showDialogBoxModalAuto({
     title: i18next.t(
       'box.error.uncaught-exception.title',

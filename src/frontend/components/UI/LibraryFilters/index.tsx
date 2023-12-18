@@ -26,9 +26,9 @@ export default function LibraryFilters() {
     showInstalledOnly,
     showNonAvailable,
     storesFilters,
-    toggleStoreFilter,
+    setStoresFilters,
     platformsFilters,
-    togglePlatformFilter
+    setPlatformsFilters
   } = useContext(LibraryContext)
 
   const toggleShowHidden = () => {
@@ -47,12 +47,51 @@ export default function LibraryFilters() {
     setShowInstalledOnly(!showInstalledOnly)
   }
 
+  const toggleStoreFilter = (store: Category) => {
+    const currentValue = storesFilters[store]
+    const newFilters = { ...storesFilters, [store]: !currentValue }
+    setStoresFilters(newFilters)
+  }
+
+  const togglePlatformFilter = (plat: string) => {
+    const currentValue = platformsFilters[plat]
+    const newFilters = { ...platformsFilters, [plat]: !currentValue }
+    setPlatformsFilters(newFilters)
+  }
+
+  const setPlatformOnly = (plat: string) => {
+    let newFilters = { win: false, linux: false, mac: false, browser: false }
+    newFilters = { ...newFilters, [plat]: true }
+    setPlatformsFilters(newFilters)
+  }
+  const setStoreOnly = (store: Category) => {
+    let newFilters = {
+      legendary: false,
+      gog: false,
+      nile: false,
+      sideload: false
+    }
+    newFilters = { ...newFilters, [store]: true }
+    setStoresFilters(newFilters)
+  }
+
+  const toggleWithOnly = (toggle: JSX.Element, onOnlyClicked: () => void) => {
+    return (
+      <div className="toggleWithOnly">
+        {toggle}
+        <button className="only" onClick={() => onOnlyClicked()}>
+          {t('header.only', 'only')}
+        </button>
+      </div>
+    )
+  }
+
   // t('platforms.browser', 'Browser')
   // t('platforms.linux', 'Linux')
   // t('platforms.mac', 'Mac')
   // t('platforms.win', 'Windows')
   const platformToggle = (plat: string) => {
-    return (
+    const toggle = (
       <ToggleSwitch
         key={plat}
         htmlId={plat}
@@ -61,14 +100,20 @@ export default function LibraryFilters() {
         title={t(`platforms.${plat}`)}
       />
     )
+
+    const onOnlyClick = () => {
+      setPlatformOnly(plat)
+    }
+
+    return toggleWithOnly(toggle, onOnlyClick)
   }
 
   // t('Epic Games', 'Epic Games')
   // t('GOG', 'GOG')
   // t('Amazon Games', 'Amazon Games')
   // t('Other', 'Other')
-  const storeToggle = (store: string) => {
-    return (
+  const storeToggle = (store: Category) => {
+    const toggle = (
       <ToggleSwitch
         key={store}
         htmlId={store}
@@ -77,13 +122,34 @@ export default function LibraryFilters() {
         title={t(RunnerToStore[store])}
       />
     )
+    const onOnlyClick = () => {
+      setStoreOnly(store)
+    }
+    return toggleWithOnly(toggle, onOnlyClick)
+  }
+
+  const resetFilters = () => {
+    setStoresFilters({
+      legendary: true,
+      gog: true,
+      nile: true,
+      sideload: true
+    })
+    setPlatformsFilters({
+      win: true,
+      linux: true,
+      mac: true,
+      browser: true
+    })
+    setShowHidden(true)
+    setShowNonAvailable(true)
+    setShowFavourites(false)
+    setShowInstalledOnly(false)
   }
 
   return (
     <div className="libraryFilters">
-      <button className="button is-primary">
-        {t('header.filters', 'Filters')}
-      </button>
+      <button className="selectStyle">{t('header.filters', 'Filters')}</button>
       <div className="dropdown">
         {epic.username && storeToggle('legendary')}
         {gog.username && storeToggle('gog')}
@@ -127,6 +193,14 @@ export default function LibraryFilters() {
           value={showInstalledOnly}
           title={t('header.show_installed_only', 'Show Installed only')}
         />
+        <hr />
+        <button
+          type="reset"
+          className="button is-primary"
+          onClick={() => resetFilters()}
+        >
+          {t('header.reset', 'Reset')}
+        </button>
       </div>
     </div>
   )
