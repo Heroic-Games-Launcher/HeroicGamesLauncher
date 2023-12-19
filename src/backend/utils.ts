@@ -8,7 +8,8 @@ import {
   GameInfo,
   GameSettings,
   State,
-  ProgressInfo
+  ProgressInfo,
+  GameStatus
 } from 'common/types'
 import axios from 'axios'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
@@ -74,6 +75,7 @@ import {
   wineDownloaderInfoStore
 } from './wine/manager/utils'
 import { getHeroicVersion } from './utils/systeminfo/heroicVersion'
+import { backendEvents } from './backend_events'
 import { wikiGameInfoStore } from './wiki_game_info/electronStore'
 import EasyDl from 'easydl'
 
@@ -1163,6 +1165,16 @@ function removeFolder(path: string, folderName: string) {
   return
 }
 
+function sendGameStatusUpdate(payload: GameStatus) {
+  sendFrontendMessage('gameStatusUpdate', payload)
+  backendEvents.emit('gameStatusUpdate', payload)
+}
+
+function sendProgressUpdate(payload: GameStatus) {
+  sendFrontendMessage(`progressUpdate-${payload.appName}`, payload)
+  backendEvents.emit(`progressUpdate-${payload.appName}`, payload)
+}
+
 interface ProgressCallback {
   (
     downloadedBytes: number,
@@ -1436,6 +1448,8 @@ export {
   getFileSize,
   memoryLog,
   removeFolder,
+  sendGameStatusUpdate,
+  sendProgressUpdate,
   calculateEta,
   extractFiles
 }

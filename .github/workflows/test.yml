@@ -6,11 +6,19 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  ci:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository.
         uses: actions/checkout@v3
       - uses: ./.github/actions/install-deps
-      - name: Test
+      - name: Test CI
         run: yarn test:ci
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository.
+        uses: actions/checkout@v3
+      - uses: ./.github/actions/install-deps
+      - name: Test E2E
+        run: yarn test:e2e
