@@ -198,7 +198,11 @@ const WineItem = ({
           </SvgButton>
         )}
 
-        <SvgButton onClick={handleMainActionClick} title={mainIconTitle()}>
+        <SvgButton
+          className="mainActionBtn"
+          onClick={handleMainActionClick}
+          title={mainIconTitle()}
+        >
           {mainActionIcon()}
         </SvgButton>
       </span>

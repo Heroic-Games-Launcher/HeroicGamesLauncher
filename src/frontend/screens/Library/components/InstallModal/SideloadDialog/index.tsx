@@ -16,7 +16,7 @@ import {
   removeSpecialcharacters,
   writeConfig
 } from 'frontend/helpers'
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AvailablePlatforms } from '..'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
@@ -73,8 +73,6 @@ export default function SideloadDialog({
 
   const appPlatform = gameInfo.install?.platform || platformToInstall
 
-  const helpRef = useRef<HTMLDivElement | null>(null)
-
   useEffect(() => {
     if (appName) {
       getGameInfo(appName, 'sideload').then((info) => {
@@ -115,8 +113,6 @@ export default function SideloadDialog({
     } else {
       setApp_name(short.generate().toString())
     }
-
-    helpRef.current!.showPopover()
   }, [])
 
   useEffect(() => {
@@ -294,7 +290,7 @@ export default function SideloadDialog({
   return (
     <>
       <DialogContent>
-        <SideloadHelp ref={helpRef} />
+        <SideloadHelp />
         <div className="sideloadGrid">
           <div className="imageIcons">
             <CachedImage

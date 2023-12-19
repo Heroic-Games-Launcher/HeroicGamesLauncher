@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 import { WineVersionInfo, Type, WineManagerUISettings } from 'common/types'
 import { hasHelp } from 'frontend/hooks/hasHelp'
+import WineManagerHelp from 'frontend/components/HelpComponents/WineManagerHelp'
 
 const WineItem = lazy(
   async () => import('frontend/screens/WineManager/components/WineItem')
@@ -29,12 +30,7 @@ export default React.memo(function WineManager(): JSX.Element | null {
   hasHelp(
     'wineManager',
     t('help.title.wineManager', 'Wine Manager'),
-    <p>
-      {t(
-        'help.content.wineManager',
-        'Install different versions of Wine, Proton, Crossover, etc.'
-      )}
-    </p>
+    <WineManagerHelp />
   )
 
   const { refreshWineVersionInfo, refreshing, platform } =
@@ -127,6 +123,7 @@ export default React.memo(function WineManager(): JSX.Element | null {
             })}
           </Tabs>
           <button
+            id="refreshLibraryBtn"
             className={'FormControl__button'}
             title={t('generic.library.refresh', 'Refresh Library')}
             onClick={async () => refreshWineVersionInfo(true)}
