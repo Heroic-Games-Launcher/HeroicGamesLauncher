@@ -23,7 +23,7 @@ const configStore = new TypeCheckedStoreFrontend('wineManagerConfigStore', {
   cwd: 'store'
 })
 
-export default React.memo(function WineManager(): JSX.Element | null {
+export default function WineManager(): JSX.Element | null {
   const { t } = useTranslation()
 
   hasHelp(
@@ -59,14 +59,25 @@ export default React.memo(function WineManager(): JSX.Element | null {
     WineManagerUISettings[]
   >([
     { type: 'Wine-GE', value: 'winege', enabled: isLinux },
+    { type: 'Wine-GE-LoL', value: 'winege-lol', enabled: isLinux },
     { type: 'Proton-GE', value: 'protonge', enabled: isLinux },
     { type: 'Wine-Crossover', value: 'winecrossover', enabled: !isLinux },
     { type: 'Wine-Staging-macOS', value: 'winestagingmacos', enabled: !isLinux }
   ])
 
   const getWineVersions = (repo: Type) => {
-    const versions = wineDownloaderInfoStore.get('wine-releases', [])
-    return versions.filter((version) => version.type === repo)
+    let versions = wineDownloaderInfoStore.get('wine-releases', [])
+
+    if (repo.startsWith('Wine-GE')) {
+      versions = versions.filter((version) => version.type === 'Wine-GE')
+      if (repo.endsWith('LoL')) {
+        return versions.filter((version) => version.version.endsWith('LoL'))
+      } else {
+        return versions.filter((version) => !version.version.endsWith('LoL'))
+      }
+    } else {
+      return versions.filter((version) => version.type === repo)
+    }
   }
 
   const [wineVersions, setWineVersions] = useState<WineVersionInfo[]>(
@@ -168,4 +179,4 @@ export default React.memo(function WineManager(): JSX.Element | null {
       </div>
     </>
   )
-})
+}

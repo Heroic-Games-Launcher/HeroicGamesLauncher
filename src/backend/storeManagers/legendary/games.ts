@@ -26,6 +26,8 @@ import {
   killPattern,
   moveOnUnix,
   moveOnWindows,
+  sendGameStatusUpdate,
+  sendProgressUpdate,
   shutdownWine
 } from '../../utils'
 import {
@@ -460,7 +462,7 @@ export function onInstallOrUpdateOutput(
       LogPrefix.Legendary
     )
 
-    sendFrontendMessage(`progressUpdate-${appName}`, {
+    sendProgressUpdate({
       appName: appName,
       runner: 'legendary',
       status: action,
@@ -479,7 +481,7 @@ export function onInstallOrUpdateOutput(
 export async function update(
   appName: string
 ): Promise<{ status: 'done' | 'error' }> {
-  sendFrontendMessage('gameStatusUpdate', {
+  sendGameStatusUpdate({
     appName: appName,
     runner: 'legendary',
     status: 'updating'
@@ -513,7 +515,7 @@ export async function update(
     logMessagePrefix: `Updating ${appName}`
   })
 
-  sendFrontendMessage('gameStatusUpdate', {
+  sendGameStatusUpdate({
     appName: appName,
     runner: 'legendary',
     status: 'done'

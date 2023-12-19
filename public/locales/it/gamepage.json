@@ -37,7 +37,8 @@
             "settingcheckbox": "Elimina le impostazioni e rimuovi il log{{newLine}}Nota: questa operazione non è reversibile. Tutte le impostazioni modificate saranno dimenticate e il log verrà eliminato.",
             "title": "Disinstalla",
             "prefix_warning": "Il prefisso Wine per questo gioco è il prefisso predefinito. Se vuoi davvero eliminarlo, devi farlo manualmente.",
-            "dlc": "Vuoi disinstallare questo DLC?"
+            "dlc": "Vuoi disinstallare questo DLC?",
+            "cannotUninstallEpic": "I giochi Epic non possono essere disinstallati mentre si installa un altro gioco Epic."
         },
         "update": {
             "message": "Questo gioco ha un aggiornamento, desideri aggiornarlo ora?",
