@@ -8,12 +8,25 @@ type ReleaseDateProps = {
 
 // convert date to current locale using Intl module
 function convertDate(date: string) {
+  // Extract only the date part if the string contains extra information
+  const match = date.match(/(\w+ \d{1,2}, \d{4})/)
+  if (match) {
+    date = match[1]
+  }
+
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   }
+
   const dateObj = new Date(date)
+
+  // Check if dateObj is a valid date
+  if (isNaN(dateObj.getTime())) {
+    return null
+  }
+
   return dateObj.toLocaleDateString(undefined, options)
 }
 
@@ -48,9 +61,12 @@ const ReleaseDate: React.FC<ReleaseDateProps> = ({
     }
 
     return (
-      convertDate(windowsReleaseDate) ||
-      t('label.unknownReleaseDate', 'Unknown Release Date')
+      convertDate(windowsReleaseDate)
     )
+  }
+
+  if (!getReleaseDate()) {
+    return null
   }
 
   return (
