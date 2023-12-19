@@ -649,6 +649,7 @@ export interface WikiInfo {
  */
 export type Type =
   | 'Wine-GE'
+  | 'Wine-GE-LoL'
   | 'Proton-GE'
   | 'Proton'
   | 'Wine-Lutris'

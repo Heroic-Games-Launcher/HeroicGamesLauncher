@@ -259,9 +259,9 @@ async function initializeWindow(): Promise<BrowserWindow> {
   })
 
   ipcMain.on('setZoomFactor', async (event, zoomFactor) => {
-    mainWindow.webContents.setZoomFactor(
-      processZoomForScreen(parseFloat(zoomFactor))
-    )
+    const factor = processZoomForScreen(parseFloat(zoomFactor))
+    mainWindow.webContents.setZoomLevel(factor)
+    mainWindow.webContents.setVisualZoomLevelLimits(1, 1)
   })
 
   return mainWindow
@@ -277,9 +277,9 @@ const processZoomForScreen = (zoomFactor: number) => {
   const screenSize = screen.getPrimaryDisplay().workAreaSize.width
   if (screenSize < 1200) {
     const extraDPIZoomIn = screenSize / 1200
-    return zoomFactor * extraDPIZoomIn
+    return (zoomFactor * extraDPIZoomIn - 1) / 0.2
   } else {
-    return zoomFactor
+    return (zoomFactor - 1) / 0.2
   }
 }
 
@@ -449,9 +449,12 @@ if (!gotTheLock) {
 
     // set initial zoom level after a moment, if set in sync the value stays as 1
     setTimeout(() => {
-      const zoomFactor = configStore.get('zoomPercent', 100) / 100
+      const zoomFactor = processZoomForScreen(
+        configStore.get('zoomPercent', 100) / 100
+      )
 
-      mainWindow.webContents.setZoomFactor(processZoomForScreen(zoomFactor))
+      mainWindow.webContents.setZoomLevel(zoomFactor)
+      mainWindow.webContents.setVisualZoomLevelLimits(1, 1)
     }, 200)
 
     ipcMain.on('changeLanguage', async (event, language) => {
