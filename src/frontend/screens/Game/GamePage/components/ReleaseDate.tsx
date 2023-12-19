@@ -17,7 +17,7 @@ function convertDate(date: string) {
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'long',
-    day: 'numeric',
+    day: 'numeric'
   }
 
   const dateObj = new Date(date)
@@ -30,10 +30,7 @@ function convertDate(date: string) {
   return dateObj.toLocaleDateString(undefined, options)
 }
 
-
-const ReleaseDate: React.FC<ReleaseDateProps> = ({
-  date
-}) => {
+const ReleaseDate: React.FC<ReleaseDateProps> = ({ date }) => {
   const { is } = useContext(GameContext)
 
   const { t } = useTranslation()
@@ -60,9 +57,7 @@ const ReleaseDate: React.FC<ReleaseDateProps> = ({
       }
     }
 
-    return (
-      convertDate(windowsReleaseDate)
-    )
+    return convertDate(windowsReleaseDate)
   }
 
   if (!getReleaseDate()) {
