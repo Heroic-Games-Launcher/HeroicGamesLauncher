@@ -46,6 +46,8 @@ import {
   killPattern,
   moveOnUnix,
   moveOnWindows,
+  sendGameStatusUpdate,
+  sendProgressUpdate,
   shutdownWine
 } from 'backend/utils'
 import { GlobalConfig } from 'backend/config'
@@ -221,7 +223,7 @@ export function onInstallOrUpdateOutput(
       LogPrefix.Nile
     )
 
-    sendFrontendMessage(`progressUpdate-${appName}`, {
+    sendProgressUpdate({
       appName,
       runner: 'nile',
       status: action,
@@ -540,7 +542,7 @@ export async function update(appName: string): Promise<InstallResult> {
     return { status: 'error', error: res.error }
   }
 
-  sendFrontendMessage('gameStatusUpdate', {
+  sendGameStatusUpdate({
     appName,
     runner: 'nile',
     status: 'done'
