@@ -357,12 +357,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
                   </div>
                   <div className="infoWrapper">
-                    <Genres genres={wikiInfo?.pcgamingwiki?.genres} />
+                    <Genres genres={wikiInfo?.pcgamingwiki?.genres || []} />
                     <Developer gameInfo={gameInfo} />
                     <ReleaseDate
                       date={wikiInfo?.pcgamingwiki?.releaseDate}
-                      isLinuxNative={isLinuxNative}
-                      isMacNative={isMacNative}
                     />
                     <Description />
                     <CloudSavesSync gameInfo={gameInfo} />
@@ -423,12 +421,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       <StoreLogos runner={runner} />
                     </div>
                     <h1>{title}</h1>
-                    <Genres genres={wikiInfo?.pcgamingwiki?.genres} />
+                    <Genres genres={wikiInfo?.pcgamingwiki?.genres || []} />
                     <Developer gameInfo={gameInfo} />
                     <ReleaseDate
                       date={wikiInfo?.pcgamingwiki?.releaseDate}
-                      isLinuxNative={isLinuxNative}
-                      isMacNative={isMacNative}
                     />
                     <Description />
                     {!notInstallable && (

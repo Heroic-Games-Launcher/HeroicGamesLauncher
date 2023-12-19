@@ -1,11 +1,11 @@
 import React from 'react'
 
 type GenresProps = {
-  genres: string[] | undefined
+  genres: string[]
 }
 
 const Genres: React.FC<GenresProps> = ({ genres }) => {
-  if (!genres || genres[0] === '' || genres.length === 0) {
+  if (genres[0] === '' || genres.length === 0) {
     return null
   }
 

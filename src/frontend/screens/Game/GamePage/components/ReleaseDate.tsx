@@ -1,27 +1,33 @@
 import React, { useContext } from 'react'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
+import GameContext from '../../GameContext'
 
 type ReleaseDateProps = {
   date: string[] | undefined
-  isLinuxNative: boolean
-  isMacNative: boolean
 }
 
+// convert date to current locale using Intl module
+function convertDate(date: string) {
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }
+  const dateObj = new Date(date)
+  return dateObj.toLocaleDateString(undefined, options)
+}
+
+
 const ReleaseDate: React.FC<ReleaseDateProps> = ({
-  date,
-  isLinuxNative,
-  isMacNative
+  date
 }) => {
-  const { platform } = useContext(ContextProvider)
+  const { is } = useContext(GameContext)
+
   const { t } = useTranslation()
 
   if (!date || date[0] === '' || date.length === 0) {
     return null
   }
-
-  const isLinux = platform === 'linux'
-  const isMac = platform === 'darwin'
 
   const getReleaseDate = () => {
     let windowsReleaseDate = ''
@@ -34,22 +40,22 @@ const ReleaseDate: React.FC<ReleaseDateProps> = ({
       }
 
       if (
-        (platformName === 'Linux' && isLinuxNative && isLinux) ||
-        (platformName === 'OS X' && isMacNative && isMac)
+        (platformName === 'Linux' && is.linuxNative && is.linux) ||
+        (platformName === 'OS X' && is.macNative && is.mac)
       ) {
-        return releaseDate
+        return convertDate(releaseDate)
       }
     }
 
     return (
-      windowsReleaseDate ||
+      convertDate(windowsReleaseDate) ||
       t('label.unknownReleaseDate', 'Unknown Release Date')
     )
   }
 
   return (
     <div className="releaseDate">
-      {t('label.releaseDate', 'Release Date: ')}: {getReleaseDate()}
+      {t('label.releaseDate', 'Release Date')}: {getReleaseDate()}
     </div>
   )
 }
