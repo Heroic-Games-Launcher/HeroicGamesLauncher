@@ -86,7 +86,10 @@ const initialContext: ContextType = {
   setLastChangelogShown: () => null,
   isSettingsModalOpen: { value: false, type: 'settings' },
   setIsSettingsModalOpen: () => null,
-  experimentalFeatures: { enableNewDesign: false },
+  experimentalFeatures: {
+    enableNewDesign: false,
+    automaticWinetricksFixes: false
+  },
   handleExperimentalFeatures: () => null
 }
 

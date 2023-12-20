@@ -570,6 +570,7 @@
         "esync": "Enable Esync",
         "exit-to-tray": "Exit to System Tray",
         "experimental_features": {
+            "automaticWinetricksFixes": "Apply known Winetricks fixes automatically",
             "enableNewDesign": "New design"
         },
         "frameless-window": {

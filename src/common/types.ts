@@ -45,6 +45,7 @@ export type Release = {
 
 export type ExperimentalFeatures = {
   enableNewDesign: boolean
+  automaticWinetricksFixes: boolean
 }
 
 export interface AppSettings extends GameSettings {

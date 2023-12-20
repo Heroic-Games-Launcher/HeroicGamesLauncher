@@ -206,7 +206,8 @@ class GlobalState extends PureComponent<Props> {
     lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null'),
     settingsModalOpen: { value: false, type: 'settings', gameInfo: undefined },
     experimentalFeatures: globalSettings?.experimentalFeatures || {
-      enableNewDesign: false
+      enableNewDesign: false,
+      automaticWinetricksFixes: false
     }
   }
 
