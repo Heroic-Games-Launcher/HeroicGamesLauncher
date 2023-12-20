@@ -25,6 +25,11 @@ const LibraryHelp = () => {
             hintPosition: 'top-right'
           },
           {
+            hint: 'Click here to login into any of your platform accounts',
+            element: '#loginBtn',
+            hintPosition: 'top-right'
+          },
+          {
             hint: 'Click here to manage your installed Wine and Proton versions',
             element: '#manageWineBtn',
             hintPosition: 'top-right'

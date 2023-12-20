@@ -189,3 +189,15 @@ img.loaded {
   color: var(--text-default);
   background-color: var(--background);
 }
+
+.introjs-hint-pulse {
+  background-color: color-mix(
+    in srgb,
+    var(--secondary, var(--brand-secondary)) 50%,
+    transparent
+  );
+}
+
+.introjs-hint:hover > .introjs-hint-pulse {
+  background-color: var(--secondary, var(--brand-secondary));
+}

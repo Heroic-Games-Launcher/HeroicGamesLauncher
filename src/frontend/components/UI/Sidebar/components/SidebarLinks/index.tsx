@@ -114,7 +114,7 @@ export default function SidebarLinks() {
                 title={t('button.login', 'Login')}
               />
             </div>
-            <span>{t('button.login', 'Login')}</span>
+            <span id="loginBtn">{t('button.login', 'Login')}</span>
           </>
         </NavLink>
       )}
