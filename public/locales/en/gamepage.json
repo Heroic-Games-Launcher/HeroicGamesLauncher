@@ -155,7 +155,8 @@
         "saves": {
             "syncing": "Syncing Saves"
         },
-        "ubisoft": "Installing Ubisoft Connect"
+        "ubisoft": "Installing Ubisoft Connect",
+        "winetricks": "Installing Winetricks Packages"
     },
     "launch": {
         "options": "Launch Options..."
@@ -223,7 +224,8 @@
         "totalDownloaded": "Total Downloaded",
         "ubisoft": "Installing Ubisoft",
         "uninstalling": "Uninstalling",
-        "updating": "Updating Game"
+        "updating": "Updating Game",
+        "winetricks": "Applying Winetricks fixes"
     },
     "submenu": {
         "addShortcut": "Add shortcut",
