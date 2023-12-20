@@ -192,6 +192,7 @@ export type Status =
   | 'installed'
   | 'ubisoft'
   | 'extracting'
+  | 'winetricks'
 
 export interface GameStatus {
   appName: string

@@ -227,7 +227,9 @@ const GameCard = ({
     if (isInstalled) {
       const disabled =
         isLaunching ||
-        ['syncing-saves', 'launching', 'ubisoft'].includes(status!)
+        ['syncing-saves', 'launching', 'ubisoft', 'winetricks'].includes(
+          status!
+        )
       return (
         <SvgButton
           className={!notAvailable ? 'playIcon' : 'notAvailableIcon'}

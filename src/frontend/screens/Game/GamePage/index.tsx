@@ -125,6 +125,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const isSyncing = status === 'syncing-saves'
   const isLaunching = status === 'launching'
   const isInstallingUbisoft = status === 'ubisoft'
+  const isInstallingWinetricksPackages = status === 'winetricks'
   const notAvailable = !gameAvailable && gameInfo.is_installed
   const notInstallable =
     gameInfo.installable !== undefined && !gameInfo.installable
@@ -279,6 +280,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       is: {
         installing: isInstalling,
         installingUbisoft: isInstallingUbisoft,
+        installingWinetricksPackages: isInstallingWinetricksPackages,
         launching: isLaunching,
         linux: isLinux,
         linuxNative: isLinuxNative,

@@ -1085,7 +1085,7 @@ ipcMain.handle(
     sendGameStatusUpdate({
       appName,
       runner,
-      status: 'playing'
+      status: 'launching'
     })
 
     const command = gameManagerMap[runner].launch(appName, launchArguments)

@@ -236,6 +236,7 @@ export interface GameContextType {
   is: {
     installing: boolean
     installingUbisoft: boolean
+    installingWinetricksPackages: boolean
     launching: boolean
     linux: boolean
     linuxNative: boolean

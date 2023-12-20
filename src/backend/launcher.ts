@@ -22,10 +22,11 @@ import {
   appendFileSync,
   writeFileSync
 } from 'graceful-fs'
-import { join, normalize } from 'path'
+import path, { join, normalize } from 'path'
 
 import {
   defaultWinePrefix,
+  fixesPath,
   flatPakHome,
   isLinux,
   isMac,
@@ -40,7 +41,8 @@ import {
   quoteIfNecessary,
   errorHandler,
   removeQuoteIfNecessary,
-  memoryLog
+  memoryLog,
+  sendGameStatusUpdate
 } from './utils'
 import {
   logDebug,
@@ -52,7 +54,7 @@ import {
 } from './logger/logger'
 import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
-import { DXVK } from './tools'
+import { DXVK, Winetricks } from './tools'
 import setup from './storeManagers/gog/setup'
 import nileSetup from './storeManagers/nile/setup'
 import { spawn, spawnSync } from 'child_process'
@@ -345,6 +347,7 @@ async function prepareWineLaunch(
     if (runner === 'legendary') {
       await legendarySetup(appName)
     }
+    await installFix(appName, runner)
   }
 
   // If DXVK/VKD3D installation is enabled, install it
@@ -381,6 +384,33 @@ async function prepareWineLaunch(
   )
 
   return { success: true, envVars: envVars }
+}
+
+const runnerToStore = {
+  legendary: 'epic',
+  gog: 'gog',
+  nile: 'amazon'
+}
+
+async function installFix(appName: string, runner: Runner) {
+  const fixPath = path.join(
+    fixesPath,
+    `${appName}-${runnerToStore[runner]}.json`
+  )
+
+  if (!existsSync(fixPath)) return
+
+  const fixesContent = JSON.parse(readFileSync(fixPath).toString())
+
+  sendGameStatusUpdate({
+    appName,
+    runner: runner,
+    status: 'winetricks'
+  })
+
+  for (const winetricksPackage of fixesContent.winetricks) {
+    await Winetricks.install(runner, appName, winetricksPackage)
+  }
 }
 
 /**

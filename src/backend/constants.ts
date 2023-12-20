@@ -73,6 +73,7 @@ const cachedUbisoftInstallerPath = join(
   'tools',
   'UbisoftConnectInstaller.exe'
 )
+const fixesPath = join(appFolder, 'fixes')
 
 const {
   currentLogFile,
@@ -282,5 +283,6 @@ export {
   nileConfigPath,
   nileInstalled,
   nileLibrary,
-  nileUserData
+  nileUserData,
+  fixesPath
 }

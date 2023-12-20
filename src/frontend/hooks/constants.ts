@@ -35,7 +35,8 @@ export function getStatusLabel({
     }`,
     notInstalled: t('gamepage:status.notinstalled'),
     launching: t('gamepage:status.launching', 'Launching'),
-    ubisoft: t('gamepage:status.ubisoft', 'Installing Ubisoft')
+    ubisoft: t('gamepage:status.ubisoft', 'Installing Ubisoft'),
+    winetricks: t('gamepage:status.winetricks', 'Applying Winetricks fixes')
   }
 
   return statusMap[status] || t('gamepage:status.notinstalled')

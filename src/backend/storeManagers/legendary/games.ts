@@ -864,6 +864,12 @@ export async function launch(
     `Launch Command: ${fullCommand}\n\nGame Log:\n`
   )
 
+  sendGameStatusUpdate({
+    appName,
+    runner: 'legendary',
+    status: 'playing'
+  })
+
   const { error } = await runLegendaryCommand(command, {
     abortId: appName,
     env: commandEnv,
