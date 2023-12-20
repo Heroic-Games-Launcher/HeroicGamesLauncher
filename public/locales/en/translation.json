@@ -347,7 +347,7 @@
     },
     "label": {
         "loading": "Loading",
-        "releaseDate": "Release Date: "
+        "releaseDate": "Release Date"
     },
     "library": {
         "refresh": "Refresh",
