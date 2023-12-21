@@ -254,7 +254,8 @@
         "filters": "Filtra",
         "all_categories": "Totes les categories",
         "show_installed_only": "Mostra només els instal·lats",
-        "uncategorized": "Sense categoria"
+        "uncategorized": "Sense categoria",
+        "categories": "Categories"
     },
     "help": {
         "amdfsr": "L'FSR d'AMD ajuda a augmentar els fotogrames per segon emprant resolucions més baixes en el mode de pantalla completa i després escalant-les. La qualitat d'imatge augmenta de 5 a 1 a costa d'un petit increment de rendiment. Si s'activa, podria millorar el rendiment.",

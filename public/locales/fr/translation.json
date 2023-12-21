@@ -162,7 +162,7 @@
             "snap": {
                 "checkbox": "Ne plus afficher ce message.",
                 "title": "Heroic est exécuté en tant que Snap",
-                "message": "Certaines fonctionnalités ne sont pas disponibles pour le moment dans la version Snap de l'application et nous essayons d'y remédier.{{newLine}}Les limitations actuelles sont : {{newLine}}Heroic ne sera pas capable de détecter Proton depuis Steam ou Wine depuis Lutris.{{newLine}}{{newLine}}Gamescope, GameMode et MangoHud ne fonctionneront pas non plus puisqu'Heroic ne peut pas y avoir accès.{{newLine}}{{newLine}}Pour accéder à ces fonctionnalités, veuillez installer la version Flatpak, DEB ou AppImage d'Heroic."
+                "message": "Certaines fonctionnalités ne sont pas disponibles pour le moment dans la version Snap de l'application et nous essayons d'y remédier.{{newLine}}Les limitations actuelles sont : {{newLine}}Heroic ne sera pas capable de détecter Proton depuis Steam ou Wine depuis Lutris.{{newLine}}{{newLine}}Gamescope, GameMode et MangoHud ne fonctionneront pas non plus puisqu'Heroic ne peut pas y avoir accès.{{newLine}}{{newLine}}Pour accéder à ces fonctionnalités, veuillez installer la version Flatpak, DEB ou AppImage d'Heroic."
             }
         },
         "wineprefix": "Choisir le dossier des préfixes Wine",
@@ -254,7 +254,12 @@
         "filters": "Filtres",
         "all_categories": "Toutes les catégories",
         "uncategorized": "Sans catégorie",
-        "show_installed_only": "N'afficher que les jeux installés"
+        "show_installed_only": "N'afficher que les jeux installés",
+        "select_all": "Tout sélectionner",
+        "categories": "Catégories",
+        "only": "seulement",
+        "reset": "Réinitialiser",
+        "no_categories": "Aucune catégorie personnalisée. Ajoutez des catégories en utilisant le menu de chaque jeu."
     },
     "help": {
         "amdfsr": "Le FSR d'AMD aide à améliorer le taux de rafraîchissement en agrandissant les résolutions basses en mode plein écran. La qualité d'image augmente de 5 à 1 au prix d'une légère baisse de performance. L'activer peut améliorer les performances.",
@@ -297,7 +302,14 @@
         },
         "disable_logs": "Cochez cette case pour désactiver la plupart des écritures dans les fichiers journaux (les informations critiques sont toujours enregistrées). Assurez-vous de désactiver ce paramètre avant de signaler un problème.",
         "dxvknvapi": "DXVK-NVAPI est une implémentation de NVAPI construite par dessus DXVK et la version native de NVAPI. Elle permet d'utiliser le DLSS sur les cartes graphiques Nvidia.",
-        "disablePlaytimeSync": "Désactive la synchronisation du temps de jeu avec les serveurs d'une boutique donnée (seul GOG est pris en charge actuellement)"
+        "disablePlaytimeSync": "Désactive la synchronisation du temps de jeu avec les serveurs d'une boutique donnée (seul GOG est pris en charge actuellement)",
+        "gamescope": {
+            "upscaleMethod": "La méthode d'amélioration que Gamescope devrait utiliser.",
+            "gameWidth": "La largeur de résolution utilisée par le jeu. Un ratio d'aspect 16 :9 est présumé par Gamescope.",
+            "upscaleWidth": "La largeur de résolution utilisée par Gamescope. Un ratio d'aspect 16 :9 est présumé.",
+            "gameHeight": "La hauteur de résolution utilisée par le jeu. Un ratio d'aspect 16 :9 est présumé par Gamescope.",
+            "upscaleHeight": "La hauteur de résolution utilisée Gamescope. Un ratio d'aspect 16 :9 est présumé."
+        }
     },
     "info": {
         "heroic": {
@@ -433,7 +445,10 @@
         },
         "gameargs": {
             "placeholder": "Insérez ici les arguments de lancement",
-            "title": "Arguments de jeu (à exécuter après la commande) :"
+            "title": "Arguments de jeu (à exécuter après la commande) :",
+            "error": {
+                "env": "Les variables d'environnement doivent être configurées dans le tableau ci-dessous."
+            }
         },
         "quote-args-with-spaces": "Attention : Assurez-vous de citer les args avec des espaces ! E.g. : \"chemin/avec espaces/\"",
         "wrapper": {
@@ -443,6 +458,18 @@
             "placeHolderKey": "Nouveau Wrapper",
             "placeHolderValue": "Arguments du Wrapper",
             "title": "Commande du Wrapper :"
+        },
+        "gamescope": {
+            "nis": "NVIDIA Image Scale (NIS)",
+            "borderless": "Sans bordure",
+            "fpsLimiter": "Limiteur de FPS",
+            "gameHeight": "Hauteur du jeu",
+            "upscaleWidth": "Améliorer selon la largeur",
+            "fullscreen": "Plein-écran",
+            "gameWidth": "Largeur du jeu",
+            "upscaleHeight": "Améliorer selon la hauteur",
+            "fpsLimiterNoFocus": "Limiteur de FPS (sans focus)",
+            "stretch": "Étirer l'image"
         }
     },
     "other": {
@@ -607,6 +634,11 @@
                 "title": "Fonctionnalité expérimentale"
             },
             "description": "Utiliser une fenêtre sans bordure (nécessite un redémarrage)"
+        },
+        "gamescope": {
+            "enableLimiter": "Activer le limiteur de FPS",
+            "enableUpscaling": "Activer la mise à l'échelle",
+            "missingMsg": "Nous n'avons pas pu trouver Gamescope sur le CHEMIN. Installez-le ou ajoutez-le au CHEMIN."
         }
     },
     "settings": {
@@ -643,7 +675,8 @@
             "other": "Autre",
             "sync": "Synchronisation des sauvegardes dans le Cloud",
             "wineExt": "Extensions de Wine",
-            "systemInformation": "Informations Système"
+            "systemInformation": "Informations Système",
+            "gamescope": "Gamescope"
         },
         "open-config-file": "Ouvrir le fichier de configuration",
         "reset-heroic": "Reset Heroic",
@@ -670,10 +703,14 @@
             "memory": "RAM :",
             "copyToClipboard": "Copier dans le presse-papier",
             "heroicVersion": "Heroic : {{heroicVersion}}",
-            "nileVersion": "Nile : {{nileVersion}}"
+            "nileVersion": "Nile : {{nileVersion}}",
+            "systemModel": "Modèle de système :"
         },
         "experimental_features": {
             "title": "Fonctionnalités expérimentales"
+        },
+        "gamescope": {
+            "searchMsg": "Recherche de l'exécutable Gamescope."
         }
     },
     "Settings": "Options",
@@ -684,7 +721,7 @@
     "status": {
         "installing": "Installation en cours",
         "logging": "Connexion en cours...",
-        "processing": "Traitement des fichiers, veuillez patienter",
+        "processing": "Préparation des fichiers, veuillez patienter",
         "preparing_login": "Préparation de la connexion... "
     },
     "store": "Boutique Epic",

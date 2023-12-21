@@ -254,7 +254,12 @@
         "filters": "筛选",
         "show_installed_only": "只显示已安装的游戏",
         "all_categories": "所有分类",
-        "uncategorized": "未分类"
+        "uncategorized": "未分类",
+        "select_all": "全选",
+        "only": "仅",
+        "reset": "重置",
+        "no_categories": "无自定义分类。使用每个游戏菜单添加分类。",
+        "categories": "分类"
     },
     "help": {
         "amdfsr": "AMD 的 FSR 通过在全屏模式下提高较低分辨率来提高帧率。图像质量从 5 提高到 1，但代价是性能稍有下降。启用可能会提高性能。",
