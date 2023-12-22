@@ -158,12 +158,15 @@
                     "title": "Apakah Anda yakin ingin keluar?",
                     "message": "Kemajuan yang belum disimpan mungkin akan hilang"
                 }
+            },
+            "snap": {
+                "checkbox": "Jangan munculkan pesan ini lagi"
             }
         },
         "wineprefix": "Pilih Folder Prefiks Wine",
         "yes": "YA",
         "dontShowAgain": "Jangan tampilkan lagi",
-        "choose-nile-binary": "Pilih biner Nil"
+        "choose-nile-binary": "Pilih Nile binary"
     },
     "button": {
         "cancel": "Batalkan",
@@ -246,7 +249,11 @@
         "show_favourites_only": "Hanya Tampilkan Gim Favorit",
         "show_hidden": "Tampilkan yang Disembunyikan",
         "store": "Toko Filter",
-        "filters": "Saring"
+        "filters": "Filter",
+        "all_categories": "Semua Kategori",
+        "show_installed_only": "Tampilkan yang terpasang saja",
+        "uncategorized": "Tidak dikategorikan",
+        "categories": "Kategori"
     },
     "help": {
         "amdfsr": "FSR AMD membantu untuk meningkatkan framerate dengan meningkatkan resolusi yang lebih rendah dalam Mode Layar Penuh. Kualitas gambar meningkat dari 5 menjadi 1 dengan mengorbankan sedikit kinerja. Mengaktifkannya dapat meningkatkan kinerja.",
@@ -339,11 +346,12 @@
         "website": "Memuat Situs Web"
     },
     "login": {
-        "alternative_method": "Metode Masuk Alternatif",
-        "epic": "Masuk Epic Games",
-        "gog": "Masuk GOG",
-        "message": "Masuk dengan platform anda. Anda dapat masuk ke lebih dari satu platform secara bersamaan.",
-        "amazon": "Login Amazon"
+        "alternative_method": "Metode Masuk Akun Alternatif",
+        "epic": "Masuk ke Epic Games",
+        "gog": "Masuk ke GOG",
+        "message": "Masuk dengan platform akun anda. Anda dapat masuk ke lebih dari satu platform akun secara bersamaan.",
+        "amazon": "Masuk ke Amazon",
+        "old-mac": "Versi macOS anda adalah {{version}}. macOS 12 atau lebih diperlukan untuk masuk."
     },
     "message": {
         "sync": "Sinkronisasi Selesai",
@@ -432,13 +440,19 @@
             "placeHolderKey": "Wrapper baru",
             "placeHolderValue": "Argumen Wrapper",
             "title": "Perintah Wrapper:"
+        },
+        "gamescope": {
+            "fpsLimiter": "Pembatas FPS",
+            "fullscreen": "Layar Penuh",
+            "fpsLimiterNoFocus": "Pembatas FPS (Tidak Fokus)",
+            "stretch": "Lebarkan Gambar"
         }
     },
     "other": {
         "gogdl-version": "Versi GOGDL: ",
         "legendary-version": "Versi Legendary: ",
         "weblate": "Bantu kami untuk menerjemahkan Heroic.",
-        "nile-version": "Versi Nil: "
+        "nile-version": "Versi Nile: "
     },
     "Other": "Lainnya",
     "placeholder": {
@@ -448,7 +462,7 @@
         "dxvkfpsvalue": "Nilai bilangan bulat positif (contohnya 30, 60, ...)",
         "egs-prefix": "Prefiks di mana EGS dipasang",
         "prefered_language": "Kode 2 karakter (contohnya: \"en\" atau \"fr\")",
-        "alt-nile-bin": "Menggunakan biner Nil bawaan ..."
+        "alt-nile-bin": "Menggunakan Nile binary bawaan ..."
     },
     "platforms": {
         "linux": "Linux",
@@ -498,7 +512,7 @@
         "egs-sync": "Sinkronkan dengan Epic Games yang Terpasang",
         "enableFSRHack": "Aktifkan Peretasan FSR (perlu versi Wine yang mendukung)",
         "eosOverlay": {
-            "cancelInstall": "Batal",
+            "cancelInstall": "Batalkan",
             "checkForUpdates": "Periksa pembaruan",
             "checkingForUpdates": "Memeriksa pembaruan...",
             "currentVersion": "Versi Saat Ini: {{version}}",
@@ -583,9 +597,18 @@
         "ignoreGameUpdates": "Abaikan pembaruan gim",
         "disable_logs": "Nonaktifkan Log",
         "addgamestoapplications": "Tambahkan gim ke Aplikasi secara otomatis",
-        "showMetalOverlay": "Tampilkan Hamparan Statistik",
-        "alt-nile-bin": "Pilih Biner Nil Alternatif",
-        "autodxvknvapi": "Pasang/ Perbarui Otomatis DXVK di Prefiks"
+        "showMetalOverlay": "Tampilkan Overlay Statistik",
+        "alt-nile-bin": "Pilih Nile Binary Alternatif",
+        "autodxvknvapi": "Pasang/ Perbarui Otomatis DXVK-NVAPI sesuai Prefiks",
+        "gamescope": {
+            "enableLimiter": "Hidupkan Pembatas FPS"
+        },
+        "experimental_features": {
+            "enableNewDesign": "Desain baru"
+        },
+        "frameless-window": {
+            "description": "Gunakan frameless window (perlu restart)"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -627,6 +650,9 @@
         "saves": {
             "label": "Lokasi Penyimpanan:",
             "warning": "Fitur Cloud Saves masih dalam versi Beta, harap buat rekam cadang penyimpanan Anda sebelum menyinkronkan (jaga-jaga bila terjadi kesalahan)"
+        },
+        "experimental_features": {
+            "title": "Fitur Eksperimental"
         }
     },
     "Settings": "Pengaturan",
@@ -638,7 +664,7 @@
         "installing": "Memasang",
         "logging": "Log Masuk...",
         "processing": "Memproses berkas, harap tunggu",
-        "preparing_login": "Mempersiapkan Masuk... "
+        "preparing_login": "Persiapan Masuk Akun... "
     },
     "store": "Epic Store",
     "stores": "Toko",
@@ -709,14 +735,20 @@
         "noDlcFound": "Tidak ada DLC yang ditemukan"
     },
     "amazon": "Amazon",
-    "prime-gaming": "Game Perdana",
-    "Amazon Games": "Game Amazon",
+    "prime-gaming": "Prime Gaming",
+    "Amazon Games": "Amazon Games",
     "winetricks": {
         "install": "Pasang",
-        "loading": "Loading"
+        "loading": "Memuat"
     },
     "category-settings": {
         "cancel": "Batalkan",
-        "warning": "Peringatan"
+        "warning": "Peringatan",
+        "remove-category": "Hapus Kategori",
+        "new-category": "Kategori Baru",
+        "add-new-category": "Buat Kategori Baru"
+    },
+    "window": {
+        "close": "Tutup"
     }
 }

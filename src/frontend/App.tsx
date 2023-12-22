@@ -89,8 +89,7 @@ function App() {
           <div className="simple-keyboard"></div>
         </div>
         {showOverlayControls && <WindowControls />}
-        {experimentalFeatures.enableHelp ||
-          (true && <Help items={help.items} />)}
+        {experimentalFeatures.enableHelp && <Help items={help.items} />}
       </HashRouter>
     </div>
   )

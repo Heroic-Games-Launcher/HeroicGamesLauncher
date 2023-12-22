@@ -64,7 +64,8 @@ import {
   getCurrentChangelog,
   checkWineBeforeLaunch,
   removeFolder,
-  downloadDefaultWine
+  downloadDefaultWine,
+  sendGameStatusUpdate
 } from './utils'
 import {
   configStore,
@@ -233,7 +234,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
     detectVCRedist(mainWindow)
   }
 
-  if (!app.isPackaged && process.env.CI !== 'e2e') {
+  if (process.env.VITE_DEV_SERVER_URL) {
     if (!process.env.HEROIC_NO_REACT_DEVTOOLS) {
       import('electron-devtools-installer').then((devtools) => {
         const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
@@ -243,7 +244,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
         })
       })
     }
-    mainWindow.loadURL('http://localhost:5173')
+    mainWindow.loadURL(process.env.VITE_DEV_SERVER_URL)
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
   } else {
@@ -258,9 +259,9 @@ async function initializeWindow(): Promise<BrowserWindow> {
   })
 
   ipcMain.on('setZoomFactor', async (event, zoomFactor) => {
-    mainWindow.webContents.setZoomFactor(
-      processZoomForScreen(parseFloat(zoomFactor))
-    )
+    const factor = processZoomForScreen(parseFloat(zoomFactor))
+    mainWindow.webContents.setZoomLevel(factor)
+    mainWindow.webContents.setVisualZoomLevelLimits(1, 1)
   })
 
   return mainWindow
@@ -276,9 +277,9 @@ const processZoomForScreen = (zoomFactor: number) => {
   const screenSize = screen.getPrimaryDisplay().workAreaSize.width
   if (screenSize < 1200) {
     const extraDPIZoomIn = screenSize / 1200
-    return zoomFactor * extraDPIZoomIn
+    return (zoomFactor * extraDPIZoomIn - 1) / 0.2
   } else {
-    return zoomFactor
+    return (zoomFactor - 1) / 0.2
   }
 }
 
@@ -419,9 +420,9 @@ if (!gotTheLock) {
     GOGUser.migrateCredentialsConfig()
     const mainWindow = await initializeWindow()
 
-    protocol.registerStringProtocol('heroic', (request, callback) => {
+    protocol.handle('heroic', (request) => {
       handleProtocol([request.url])
-      callback('Operation initiated.')
+      return new Response('Operation initiated.', { status: 201 })
     })
     if (!app.isDefaultProtocolClient('heroic')) {
       if (app.setAsDefaultProtocolClient('heroic')) {
@@ -436,14 +437,24 @@ if (!gotTheLock) {
     const { startInTray } = GlobalConfig.get().getSettings()
     const headless = isCLINoGui || startInTray
     if (!headless) {
-      ipcMain.once('loadingScreenReady', () => mainWindow.show())
+      mainWindow.once('ready-to-show', () => {
+        const props = configStore.get_nodefault('window-props')
+        mainWindow.show()
+        // Apply maximize only if we show the window
+        if (props?.maximized) {
+          mainWindow.maximize()
+        }
+      })
     }
 
     // set initial zoom level after a moment, if set in sync the value stays as 1
     setTimeout(() => {
-      const zoomFactor = configStore.get('zoomPercent', 100) / 100
+      const zoomFactor = processZoomForScreen(
+        configStore.get('zoomPercent', 100) / 100
+      )
 
-      mainWindow.webContents.setZoomFactor(processZoomForScreen(zoomFactor))
+      mainWindow.webContents.setZoomLevel(zoomFactor)
+      mainWindow.webContents.setVisualZoomLevelLimits(1, 1)
     }, 200)
 
     ipcMain.on('changeLanguage', async (event, language) => {
@@ -461,10 +472,6 @@ if (!gotTheLock) {
 }
 
 ipcMain.on('notify', (event, args) => notify(args))
-
-ipcMain.once('loadingScreenReady', () => {
-  logInfo('Loading Screen Ready', LogPrefix.Backend)
-})
 
 ipcMain.once('frontendReady', () => {
   logInfo('Frontend Ready', LogPrefix.Backend)
@@ -513,6 +520,10 @@ ipcMain.once('frontendReady', () => {
 // Maybe this can help with white screens
 process.on('uncaughtException', async (err) => {
   logError(`${err.name}: ${err.message}`, LogPrefix.Backend)
+  // We might get "object has been destroyed" exceptions in CI, since we start
+  // and close Heroic quickly there. Displaying an error box would lock up
+  // the test (until the timeout is reached), so let's not do that
+  if (process.env.CI === 'e2e') return
   showDialogBoxModalAuto({
     title: i18next.t(
       'box.error.uncaught-exception.title',
@@ -977,7 +988,7 @@ ipcMain.handle(
     logInfo(`Launching ${title} (${game.app_name})`, LogPrefix.Backend)
 
     if (autoSyncSaves && isOnline()) {
-      sendFrontendMessage('gameStatusUpdate', {
+      sendGameStatusUpdate({
         appName,
         runner,
         status: 'syncing-saves'
@@ -999,7 +1010,7 @@ ipcMain.handle(
       }
     }
 
-    sendFrontendMessage('gameStatusUpdate', {
+    sendGameStatusUpdate({
       appName,
       runner,
       status: 'launching'
@@ -1061,7 +1072,7 @@ ipcMain.handle(
           LogPrefix.Backend
         )
 
-        sendFrontendMessage('gameStatusUpdate', {
+        sendGameStatusUpdate({
           appName,
           runner,
           status: 'done'
@@ -1071,7 +1082,7 @@ ipcMain.handle(
       }
     }
 
-    sendFrontendMessage('gameStatusUpdate', {
+    sendGameStatusUpdate({
       appName,
       runner,
       status: 'playing'
@@ -1118,13 +1129,13 @@ ipcMain.handle(
     await addRecentGame(game)
 
     if (autoSyncSaves && isOnline()) {
-      sendFrontendMessage('gameStatusUpdate', {
+      sendGameStatusUpdate({
         appName,
         runner,
         status: 'done'
       })
 
-      sendFrontendMessage('gameStatusUpdate', {
+      sendGameStatusUpdate({
         appName,
         runner,
         status: 'syncing-saves'
@@ -1147,7 +1158,7 @@ ipcMain.handle(
       }
     }
 
-    sendFrontendMessage('gameStatusUpdate', {
+    sendGameStatusUpdate({
       appName,
       runner,
       status: 'done'
@@ -1180,7 +1191,7 @@ ipcMain.on('showItemInFolder', async (e, item) => showItemInFolder(item))
 ipcMain.handle(
   'uninstall',
   async (event, appName, runner, shouldRemovePrefix, shouldRemoveSetting) => {
-    sendFrontendMessage('gameStatusUpdate', {
+    sendGameStatusUpdate({
       appName,
       runner,
       status: 'uninstalling'
@@ -1228,7 +1239,7 @@ ipcMain.handle(
       logInfo('Finished uninstalling', LogPrefix.Backend)
     }
 
-    sendFrontendMessage('gameStatusUpdate', {
+    sendGameStatusUpdate({
       appName,
       runner,
       status: 'done'
@@ -1245,7 +1256,7 @@ ipcMain.handle('repair', async (event, appName, runner) => {
     return
   }
 
-  sendFrontendMessage('gameStatusUpdate', {
+  sendGameStatusUpdate({
     appName,
     runner,
     status: 'repairing'
@@ -1265,7 +1276,7 @@ ipcMain.handle('repair', async (event, appName, runner) => {
   notify({ title, body: i18next.t('notify.finished.reparing') })
   logInfo('Finished repairing', LogPrefix.Backend)
 
-  sendFrontendMessage('gameStatusUpdate', {
+  sendGameStatusUpdate({
     appName,
     runner,
     status: 'done'
@@ -1275,7 +1286,7 @@ ipcMain.handle('repair', async (event, appName, runner) => {
 ipcMain.handle(
   'moveInstall',
   async (event, { appName, path, runner }): Promise<void> => {
-    sendFrontendMessage('gameStatusUpdate', {
+    sendGameStatusUpdate({
       appName,
       runner,
       status: 'moving'
@@ -1310,7 +1321,7 @@ ipcMain.handle(
       logInfo(`Finished moving ${appName} to ${path}.`, LogPrefix.Backend)
     }
 
-    sendFrontendMessage('gameStatusUpdate', {
+    sendGameStatusUpdate({
       appName,
       runner,
       status: 'done'
@@ -1336,7 +1347,7 @@ ipcMain.handle(
     }
 
     const title = gameManagerMap[runner].getGameInfo(appName).title
-    sendFrontendMessage('gameStatusUpdate', {
+    sendGameStatusUpdate({
       appName,
       runner,
       status: 'installing'
@@ -1344,7 +1355,7 @@ ipcMain.handle(
 
     const abortMessage = () => {
       notify({ title, body: i18next.t('notify.install.canceled') })
-      sendFrontendMessage('gameStatusUpdate', {
+      sendGameStatusUpdate({
         appName,
         runner,
         status: 'done'
@@ -1371,7 +1382,7 @@ ipcMain.handle(
       title,
       body: i18next.t('notify.install.imported', 'Game Imported')
     })
-    sendFrontendMessage('gameStatusUpdate', {
+    sendGameStatusUpdate({
       appName,
       runner,
       status: 'done'
@@ -1713,3 +1724,4 @@ import './utils/ipc_handler'
 import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
 import './tools/ipc_handler'
+import './progress_bar'

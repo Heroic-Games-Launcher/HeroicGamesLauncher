@@ -68,10 +68,10 @@ export const createMainWindow = () => {
       windowProps.frame = false
     }
   }
-  const { maximized, ...props } = windowProps
+
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    ...props,
+    ...windowProps,
     minHeight: 345,
     minWidth: 600,
     show: false,
@@ -84,10 +84,6 @@ export const createMainWindow = () => {
       preload: path.join(__dirname, 'preload.js')
     }
   })
-
-  if (maximized) {
-    mainWindow.maximize()
-  }
 
   return mainWindow
 }

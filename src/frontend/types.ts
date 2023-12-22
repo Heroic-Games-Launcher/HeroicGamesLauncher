@@ -57,8 +57,8 @@ export interface ContextType {
     addCategory: (newCategory: string) => void
     removeCategory: (category: string) => void
   }
-  currentCustomCategory: string | null
-  setCurrentCustomCategory: (newCustomCategory: string) => void
+  currentCustomCategories: string[]
+  setCurrentCustomCategories: (newCustomCategories: string[]) => void
   theme: string
   setTheme: (themeName: string) => void
   zoomPercent: number
@@ -208,8 +208,8 @@ export interface LibraryContextType {
   storesFilters: StoresFilters
   platformsFilters: PlatformsFilters
   filterText: string
-  toggleStoreFilter: (store: Category) => void
-  togglePlatformFilter: (platform: string) => void
+  setStoresFilters: (filters: StoresFilters) => void
+  setPlatformsFilters: (filters: PlatformsFilters) => void
   handleLayout: (value: string) => void
   handleSearch: (input: string) => void
   layout: string

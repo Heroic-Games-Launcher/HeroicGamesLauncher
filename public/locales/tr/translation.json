@@ -251,7 +251,11 @@
         "show_favourites_only": "Yalnızca Favorileri göster",
         "show_hidden": "Gizlileri Göster",
         "store": "Mağazayı Filtrele",
-        "filters": "Filtre"
+        "filters": "Filtre",
+        "all_categories": "Tüm Kategoriler",
+        "show_installed_only": "Yalnızca yüklenenleri Göster",
+        "uncategorized": "Kategorize Edilmemiş",
+        "categories": "Kategoriler"
     },
     "help": {
         "amdfsr": "AMD'nin FSR özelliği, Tam Ekran Modunda daha düşük çözünürlükleri yükselterek kare hızını artırmaya yardımcı olur. Küçük bir performans artışı pahasına görüntü kalitesi 5'ten 1'e yükselir. Etkinleştirmek performansı artırabilir.",
@@ -301,7 +305,8 @@
             "upscaleWidth": "Gamescope'un kullanacağı yatay çözünürlük. 16:9 en boy oranı varsayılır.",
             "gameHeight": "Oyunun kullanacağı dikey çözünürlük. Gamescope tarafından 16:9 en boy oranı varsayılır.",
             "upscaleHeight": "Gamescope'un kullanacağı dikey çözünürlük. 16:9 en boy oranı varsayılır.",
-            "fpsLimiter": "Gamescope'un kaç kareye sınırlaması gerektiği. Örn. 60"
+            "fpsLimiter": "Gamescope'un kaç kareye sınırlaması gerektiği. Örn. 60",
+            "fpsLimiterNoFocus": "Oyuna odaklanılmamışsa gamescope kare hızı sınırı saniye başına sınırlandırılmalıdır."
         }
     },
     "info": {
@@ -330,7 +335,7 @@
             "message": "Wine, Windows uygulamalarını kapsüllemek için WINEPREFIX adı verilen şeyi kullanır. Bu önek, Wine yapılandırma dosyalarını ve C: (Windows işletim sistemindeki ana disk) dosya hiyerarşisinin bir kopyasını içerir. C: sürücüsünün bu kopyasında, oyun kayıt dosyalarınız ve winetricks aracılığıyla yüklenen bağımlılıklar depolanır."
         },
         "wine-path-invalid": "Wine Yolu geçersiz, lütfen başka bir yol seçin.",
-        "wine-path-none-found": "Şarap sürümü bulunamadı, Şarap Yöneticisinden bir tane indirin"
+        "wine-path-none-found": "Wine sürümü bulunamadı, Wine Yöneticisinden bir tane indirin"
     },
     "install": {
         "path": "Kurulum Yolunu Seçin"
@@ -440,7 +445,8 @@
             "placeholder": "Başlatma Parametrelerini buraya girin",
             "title": "Oyun Parametreleri (Komutun sonunda çalıştırmak için):",
             "error": {
-                "env": "Ortam değişkenleri aşağıdaki tabloda yapılandırılmalıdır."
+                "env": "Ortam değişkenleri aşağıdaki tabloda yapılandırılmalıdır.",
+                "command": "Steam'in %command% sözdizimi oyun argümanları olarak geçerli değil."
             }
         },
         "quote-args-with-spaces": "Uyarı: Argümanlardan boşluklarla alıntı yaptığınızdan emin olun! Örn.: \"boşluklu/yol örneği/\"",
@@ -457,7 +463,12 @@
             "borderless": "Penceresiz",
             "fpsLimiter": "FPS Sınırlayıcı",
             "fullscreen": "Tam Ekran",
-            "fpsLimiterNoFocus": "FPS Sınırlayıcı (Odak dışı)"
+            "fpsLimiterNoFocus": "FPS Sınırlayıcı (Odak dışı)",
+            "gameHeight": "Oyun Yüksekliği",
+            "upscaleWidth": "Genişliği Artır",
+            "gameWidth": "Oyun Genişliği",
+            "upscaleHeight": "Yüksekliği Artır",
+            "stretch": "Görüntüyü Uzat"
         }
     },
     "other": {
@@ -608,7 +619,7 @@
         "autoUpdateGames": "Oyunları otomatik olarak güncelle",
         "ignoreGameUpdates": "Oyun güncellemelerini yoksay",
         "disable_logs": "Günlükleri Devre Dışı Bırak",
-        "showMetalOverlay": "İstatistik Yer Paylaşımını Göster",
+        "showMetalOverlay": "İstatistik Tablosunu Göster",
         "addgamestoapplications": "Oyunları Uygulamalara otomatik olarak ekleyin",
         "alt-nile-bin": "Alternatif Bir Nil İkilisi Seçin",
         "autodxvknvapi": "DXVK/VKD3D'yı otomatik kur/güncelle",
@@ -618,12 +629,15 @@
         },
         "frameless-window": {
             "confirmation": {
-                "message": "Bu özellik hala deneyseldir. Lütfen karşılaştığınız sorunları GitHub'da bildirin."
+                "message": "Bu özellik hala deneyseldir. Lütfen karşılaştığınız sorunları GitHub'da bildirin.",
+                "title": "Deneysel özellik önde"
             },
             "description": "Çerçevesiz pencere kullan (yeniden başlatma gerektirir)"
         },
         "gamescope": {
-            "enableLimiter": "FPS Sınırlayıcıyı Etkinleştir"
+            "enableLimiter": "FPS Sınırlayıcıyı Etkinleştir",
+            "enableUpscaling": "Çözünürlük Artırmayı Etkinleştirir",
+            "missingMsg": "PATH konumunda gamescope'u bulamadık. Yükleyin veya PATH konumuna ekleyin."
         }
     },
     "settings": {
@@ -675,7 +689,7 @@
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
             "legendaryVersion": "Legendary: {{legendaryVersion}}",
             "systemSpecifications": "Sistem Özellikleri:",
-            "steamDeck": "Steam Deck",
+            "steamDeck": "Steam Deck {{model}}",
             "gpuDriver": "Sürücü: {{driverVersion}}",
             "os": "İşletim sistemi:",
             "gpu": "GPU:",
@@ -693,6 +707,9 @@
         },
         "experimental_features": {
             "title": "Deneysel Özellikler"
+        },
+        "gamescope": {
+            "searchMsg": "Gamescope çalıştırılabilir dosyası aranıyor."
         }
     },
     "Settings": "Ayarlar",
@@ -775,8 +792,8 @@
         "title": "Başlık"
     },
     "amazon": "Amazon",
-    "Amazon Games": "amazon oyunları",
-    "prime-gaming": "Prime Oyun",
+    "Amazon Games": "Amazon Games",
+    "prime-gaming": "Prime Gaming",
     "winetricks": {
         "install": "Kur",
         "loading": "Yükleniyor",
@@ -794,6 +811,10 @@
     },
     "category-settings": {
         "cancel": "İptal et",
-        "warning": "Uyarı"
+        "warning": "Uyarı",
+        "remove-category": "Kategoriyi Kaldır",
+        "delete-question": "Devam ederseniz bu kategori kalıcı olarak kaldırılacak ve tüm oyunlardan ataması kaldırılacaktır. Devam edecek misiniz?",
+        "new-category": "Yeni kategori",
+        "add-new-category": "Yeni Kategori Ekle"
     }
 }

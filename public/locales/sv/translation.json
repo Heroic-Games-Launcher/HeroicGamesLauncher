@@ -254,7 +254,12 @@
         "filters": "Filtrera",
         "all_categories": "Alla kategorier",
         "show_installed_only": "Visa endast installerade",
-        "uncategorized": "Okategoriserad"
+        "uncategorized": "Okategoriserad",
+        "select_all": "Välj alla",
+        "only": "endast",
+        "reset": "Återställ",
+        "no_categories": "Inga anpassade kategorier. Lägg till kategorier genom att använda varje spelmeny.",
+        "categories": "Kategorier"
     },
     "help": {
         "amdfsr": "AMD's FSR hjälper till att öka bildhastigheten genom att skala upp lägre upplösningar i helskärmsläge. Bildkvaliteten ökar från 5 mot 1 till priset av en liten påverkan av prestandan. Aktivering kan förbättra prestandan.",
