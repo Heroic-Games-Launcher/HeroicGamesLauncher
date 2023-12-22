@@ -10,20 +10,32 @@ export default function WineManagerHelp() {
       <HelpWrapper
         hintList={[
           {
-            hint: 'This is the Wine Manager screen, you should see a list of available Wine versions below, if the list is empty, you can click this button to refresh it',
+            hint: t(
+              'help.tutorials.wine-manager.refresh-button-hint',
+              'This is the Wine Manager screen, you should see a list of available Wine versions below, if the list is empty, you can click this button to refresh it'
+            ),
             element: '#refreshLibraryBtn'
           },
           {
-            hint: "Let's install your first Wine version, you can click this button to install this Wine version, which should be the latest one",
+            hint: t(
+              'help.tutorials.wine-manager.install-wine-hint',
+              "Let's install your first Wine version, you can click this button to install this Wine version, which should be the latest one"
+            ),
             element: '.mainActionBtn'
           },
           {
-            hint: 'You can select between managing Wine or Proton version by clicking on these tabs',
+            hint: t(
+              'help.tutorials.wine-manager.wine-tabs-hint',
+              'You can select between managing Wine or Proton version by clicking on these tabs'
+            ),
             element: '.tabs',
             hintPosition: 'top-left'
           },
           {
-            hint: 'Below is the list with all available wine/proton versions. Showing version, release date, size and available actions',
+            hint: t(
+              'help.tutorials.wine-manager.wine-list-hint',
+              'Below is the list with all available wine/proton versions. Showing version, release date, size and available actions'
+            ),
             element: '.gameListHeader',
             hintPosition: 'top-left'
           }

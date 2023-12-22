@@ -22,19 +22,19 @@ export default function LoginHelp() {
           {
             intro: 'Here you can select your preferred language',
             element: '#languageSelector',
-            position: 'top-left'
+            position: 'top-left-aligned'
           },
           {
             intro:
               'You can pick any of the login options listed below, you can also be logged in into multiple platforms at the same time',
             element: '.runnerGroup',
-            position: 'top-left'
+            position: 'top-left-aligned'
           },
           {
             intro:
               "After you're logged in, your games should show up in the library screen, you can click here to go back to the library",
             element: '.goToLibrary',
-            position: 'top-left'
+            position: 'top-left-aligned'
           }
         ]}
       >

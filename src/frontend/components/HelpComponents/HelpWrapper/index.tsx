@@ -1,5 +1,6 @@
 import React, { useEffect, useState, type ReactNode } from 'react'
 import { type Hint, Hints, type Step, Steps } from 'intro.js-react'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   hintList?: Hint[]
@@ -16,6 +17,7 @@ export default function HelpWrapper({
   onClickCallback,
   children
 }: Props) {
+  const { t } = useTranslation()
   const [showHelp, setShowHelp] = useState(false)
 
   const toggleHelp = () => {
@@ -49,8 +51,9 @@ export default function HelpWrapper({
       )}
       {children}
       <button className="button is-primary" onClick={toggleHelp}>
-        {showHelp ? 'Hide' : 'Show'} {stepList && 'tutorial'}{' '}
-        {hintList && 'hints'}
+        {showHelp ? t('hide', 'Hide') : t('show', 'Show')}{' '}
+        {stepList && t('tutorial', 'tutorial')}{' '}
+        {hintList && t('hints', 'hints')}
       </button>
     </>
   )
