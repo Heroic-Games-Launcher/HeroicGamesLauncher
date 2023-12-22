@@ -425,7 +425,12 @@ async function removeNonSteamGame(props: {
     const shortcutObj = content.shortcuts.at(index)!
 
     const exe = shortcutObj.Exe
-    const appName = shortcutObj.AppName
+    const appName =
+      shortcutObj[
+        Object.keys(shortcutObj).find(
+          (key) => key.toLowerCase() === 'appname'
+        ) ?? 'AppName'
+      ]
 
     // remove
     content.shortcuts.splice(index, 1)
