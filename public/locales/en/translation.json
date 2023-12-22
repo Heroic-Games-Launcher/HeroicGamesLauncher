@@ -262,38 +262,6 @@
         "uncategorized": "Uncategorized"
     },
     "help": {
-        "tutorials": {
-            "tutorial-button": {
-                "show": "Show",
-                "hide": "Hide",
-                "tutorial": "tutorial",
-                "hints": "hints"
-            },
-            "wine-manager":{
-                "refresh-button-hint": "This is the Wine Manager screen, you should see a list of available Wine versions below, if the list is empty, you can click this button to refresh it",
-                "install-wine-hint": "Let's install your first Wine version, you can click this button to install this Wine version, which should be the latest one",
-                "wine-tabs-hint": "You can select between managing Wine or Proton version by clicking on these tabs",
-                "wine-list-hint": "Below is the list with all available wine/proton versions. Showing version, release date, size and available actions"
-            },
-            "library": {
-                "library-refresh-hint": "Click this button when you want to refresh your library",
-                "side-load-hint": "If you own a physical copy of a game, you can click here to side load it",
-                "manage-accounts-hint": "Click here to manage your accounts",
-                "login-button-hint": "Click here to login into any of your platform accounts",
-                "wine-manager-hint": "Click here to manage your installed Wine and Proton versions"
-            },
-            "sideload": {
-                "game-title-step": "Type the game title here",
-                "image-path-step": "Depending on the title typed above, we can fetch it already from the internet, but you can also set it manually here",
-                "image-preview-step": "Here you can preview the game's image",
-                "native-platform-step": "You can pick the game's native platform here",
-                "wine-prefix-step": "If you want to change the path for this game's wine prefix, you can do so here",
-                "wine-version-step": "Here you can select your desired version of wine/proton",
-                "executable-path-step": "Click here to give Heroic the path for this game's executable",
-                "run-installer-step": "If you want to run the game's installer first, click here",
-                "finish-button-step": "Finally, click here to finish this game's setup"
-            }
-        },
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
         "button": {
             "close": "Close Help",
@@ -362,12 +330,40 @@
             "settings": "Settings",
             "wineManager": "Wine Manager"
         },
+        "tutorials": {
+            "library": {
+                "library-refresh-hint": "Click this button when you want to refresh your library",
+                "login-button-hint": "Click here to login into any of your platform accounts",
+                "manage-accounts-hint": "Click here to manage your accounts",
+                "side-load-hint": "If you own a physical copy of a game, you can click here to side load it",
+                "wine-manager-hint": "Click here to manage your installed Wine and Proton versions"
+            },
+            "sideload": {
+                "executable-path-step": "Click here to give Heroic the path for this game's executable",
+                "finish-button-step": "Finally, click here to finish this game's setup",
+                "game-title-step": "Type the game title here",
+                "image-path-step": "Depending on the title typed above, we can fetch it already from the internet, but you can also set it manually here",
+                "image-preview-step": "Here you can preview the game's image",
+                "native-platform-step": "You can pick the game's native platform here",
+                "run-installer-step": "If you want to run the game's installer first, click here",
+                "wine-prefix-step": "If you want to change the path for this game's wine prefix, you can do so here",
+                "wine-version-step": "Here you can select your desired version of wine/proton"
+            },
+            "wine-manager": {
+                "install-wine-hint": "Let's install your first Wine version, you can click this button to install this Wine version, which should be the latest one",
+                "refresh-button-hint": "This is the Wine Manager screen, you should see a list of available Wine versions below, if the list is empty, you can click this button to refresh it",
+                "wine-list-hint": "Below is the list with all available wine/proton versions. Showing version, release date, size and available actions",
+                "wine-tabs-hint": "You can select between managing Wine or Proton version by clicking on these tabs"
+            }
+        },
         "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games, it requires DXVK.",
         "wine": {
             "part1": "Heroic searches for versions of Wine, Proton, and CrossOver in the following folders:",
             "part2": "For other places, use a symbolic link to one of these folders"
         }
     },
+    "hide": "Hide",
+    "hints": "hints",
     "info": {
         "heroic": {
             "beta": "Beta",
@@ -768,6 +764,7 @@
         }
     },
     "Settings": "Settings",
+    "show": "Show",
     "status": {
         "installing": "Installing",
         "logging": "Logging In...",
@@ -794,6 +791,7 @@
         "reload": "Reload",
         "show": "Show"
     },
+    "tutorial": "tutorial",
     "two_col_table": {
         "save_hint": "Changes in this table are not saved automatically. Click the + button"
     },
