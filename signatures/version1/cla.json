@@ -79,6 +79,14 @@
       "created_at": "2023-12-21T09:22:41Z",
       "repoId": 325550081,
       "pullRequestNo": 3339
+    },
+    {
+      "name": "lgcavalheiro",
+      "id": 10094385,
+      "comment_id": 1868127235,
+      "created_at": "2023-12-22T23:24:46Z",
+      "repoId": 325550081,
+      "pullRequestNo": 3346
     }
   ]
 }
