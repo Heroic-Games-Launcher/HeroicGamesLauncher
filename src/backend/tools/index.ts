@@ -55,6 +55,7 @@ interface Tool {
   name: string
   url: string
   os: string
+  strip?: number
 }
 
 async function installOrUpdateTool(tool: Tool) {
@@ -109,16 +110,13 @@ async function installOrUpdateTool(tool: Tool) {
 
   logInfo(`Downloaded ${tool.name}, extracting...`, LogPrefix.DXVKInstaller)
 
-  const extractDestination = join(
-    toolsPath,
-    tool.name,
-    tool.name === 'dxvk-nvapi' ? latestVersion : ''
-  )
+  const extractDestination = join(toolsPath, tool.name, latestVersion)
+  mkdirSync(extractDestination, { recursive: true })
   try {
     await extractFiles({
       path: latestVersionArchivePath,
       destination: extractDestination,
-      strip: 0
+      strip: tool.strip ?? 1
     })
   } catch (error) {
     logError(
@@ -161,7 +159,8 @@ export const DXVK = {
       {
         name: 'dxvk-nvapi',
         url: 'https://api.github.com/repos/jp7677/dxvk-nvapi/releases/latest',
-        os: 'linux'
+        os: 'linux',
+        strip: 0
       },
       {
         name: 'dxvk-macOS',
