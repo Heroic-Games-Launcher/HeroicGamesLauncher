@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { GameInfo, Runner } from 'common/types'
 import cx from 'classnames'
 import GameCard from '../GameCard'
@@ -19,6 +19,24 @@ interface Props {
   isFavourite?: boolean
 }
 
+// When a card is focused in the library,
+const scrollCardIntoView = (ev: FocusEvent) => {
+  const windowHeight = window.innerHeight
+  const trgt = ev.target as HTMLElement
+  const rect = trgt.getBoundingClientRect()
+
+  if (rect.top < 100) {
+    // if it's too close to the top, scroll a bit down
+    window.scrollTo(0, trgt.parentElement!.offsetTop - 200)
+  } else if (rect.bottom > windowHeight - 100) {
+    // if it's too close to the bottom, scroll a bit up
+    window.scrollTo(
+      0,
+      trgt.parentElement!.offsetTop - windowHeight + rect.height + 150
+    )
+  }
+}
+
 const GamesList = ({
   library = [],
   layout = 'grid',
@@ -30,6 +48,8 @@ const GamesList = ({
 }: Props): JSX.Element => {
   const { gameUpdates } = useContext(ContextProvider)
   const { t } = useTranslation()
+  const listRef = useRef<HTMLDivElement | null>(null)
+  const { activeController } = useContext(ContextProvider)
 
   useEffect(() => {
     if (library.length) {
@@ -73,6 +93,22 @@ const GamesList = ({
     return () => ({})
   }, [library])
 
+  useEffect(() => {
+    if (listRef.current && activeController) {
+      listRef.current.addEventListener('focus', scrollCardIntoView, {
+        capture: true
+      })
+
+      return () => {
+        listRef.current?.removeEventListener('focus', scrollCardIntoView, {
+          capture: true
+        })
+      }
+    }
+
+    return () => ({})
+  }, [listRef.current, activeController])
+
   return (
     <div
       style={!library.length ? { backgroundColor: 'transparent' } : {}}
@@ -81,6 +117,7 @@ const GamesList = ({
         gameListLayout: layout === 'list',
         firstLane: isFirstLane
       })}
+      ref={listRef}
     >
       {layout === 'list' && (
         <div className="gameListHeader">
