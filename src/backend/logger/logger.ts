@@ -12,6 +12,8 @@ import { GlobalConfig } from 'backend/config'
 import { getGOGdlBin, getLegendaryBin } from 'backend/utils'
 import { join } from 'path'
 import { formatSystemInfo, getSystemInfo } from '../utils/systeminfo'
+import { appendFileSync, writeFileSync } from 'graceful-fs'
+import { gamesConfigPath } from 'backend/constants'
 
 export enum LogPrefix {
   General = '',
@@ -343,4 +345,20 @@ export function logChangedSetting(
       LogPrefix.Backend
     )
   })
+}
+
+export function lastPlayLogFileLocation(appName: string) {
+  return join(gamesConfigPath, `${appName}-lastPlay.log`)
+}
+
+export function logFileLocation(appName: string) {
+  return join(gamesConfigPath, `${appName}.log`)
+}
+
+export function appendGameLog(appName: string, message: string) {
+  appendFileSync(lastPlayLogFileLocation(appName), message)
+}
+
+export function initGameLog(appName: string, message: string) {
+  writeFileSync(lastPlayLogFileLocation(appName), message)
 }

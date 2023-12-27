@@ -1,9 +1,15 @@
 import { GameInfo, GameSettings, Runner } from 'common/types'
 import { GameConfig } from '../../game_config'
-import { isMac, isLinux, gamesConfigPath, icon } from '../../constants'
-import { logInfo, LogPrefix, logWarning } from '../../logger/logger'
-import { dirname, join } from 'path'
-import { appendFileSync, constants as FS_CONSTANTS } from 'graceful-fs'
+import { isMac, isLinux, icon } from '../../constants'
+import {
+  appendGameLog,
+  lastPlayLogFileLocation,
+  logInfo,
+  LogPrefix,
+  logWarning
+} from '../../logger/logger'
+import { dirname } from 'path'
+import { constants as FS_CONSTANTS } from 'graceful-fs'
 import i18next from 'i18next'
 import {
   callRunner,
@@ -30,10 +36,6 @@ async function getAppSettings(appName: string): Promise<GameSettings> {
     GameConfig.get(appName).config ||
     (await GameConfig.get(appName).getSettings())
   )
-}
-
-export function logFileLocation(appName: string) {
-  return join(gamesConfigPath, `${appName}-lastPlay.log`)
 }
 
 type BrowserGameOptions = {
@@ -170,10 +172,7 @@ export async function launchGame(
     )
 
     if (!launchPrepSuccess) {
-      appendFileSync(
-        logFileLocation(appName),
-        `Launch aborted: ${launchPrepFailReason}`
-      )
+      appendGameLog(appName, `Launch aborted: ${launchPrepFailReason}`)
       showDialogBoxModalAuto({
         title: i18next.t('box.error.launchAborted', 'Launch aborted'),
         message: launchPrepFailReason!,
@@ -220,7 +219,7 @@ export async function launchGame(
         {
           env,
           wrappers,
-          logFile: logFileLocation(appName),
+          logFile: lastPlayLogFileLocation(appName),
           logMessagePrefix: LogPrefix.Backend
         }
       )
@@ -245,7 +244,7 @@ export async function launchGame(
       startFolder: dirname(executable),
       options: {
         wrappers,
-        logFile: logFileLocation(appName),
+        logFile: lastPlayLogFileLocation(appName),
         logMessagePrefix: LogPrefix.Backend
       }
     })
