@@ -27,13 +27,16 @@ const scrollCardIntoView = (ev: FocusEvent) => {
 
   if (rect.top < 100) {
     // if it's too close to the top, scroll a bit down
-    window.scrollTo(0, trgt.parentElement!.offsetTop - 200)
+    window.scrollTo({
+      top: trgt.parentElement!.offsetTop - 200,
+      behavior: 'smooth'
+    })
   } else if (rect.bottom > windowHeight - 100) {
     // if it's too close to the bottom, scroll a bit up
-    window.scrollTo(
-      0,
-      trgt.parentElement!.offsetTop - windowHeight + rect.height + 150
-    )
+    window.scrollTo({
+      top: trgt.parentElement!.offsetTop - windowHeight + rect.height + 150,
+      behavior: 'smooth'
+    })
   }
 }
 
