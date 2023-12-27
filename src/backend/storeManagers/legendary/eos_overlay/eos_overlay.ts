@@ -285,6 +285,7 @@ export {
   getLatestVersion,
   updateInfo,
   install,
+  isInstalled,
   remove,
   enable,
   disable,
