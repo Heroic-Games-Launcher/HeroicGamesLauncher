@@ -8,7 +8,7 @@ import i18next from 'i18next'
 import { getWinePath } from 'backend/launcher'
 import { getGameInfo, getSettings, runWineCommandOnGame } from './games'
 import { sendGameStatusUpdate } from 'backend/utils'
-import { enable, getStatus } from './eos_overlay/eos_overlay'
+import { enable, getStatus, isEnabled } from './eos_overlay/eos_overlay'
 
 const UBISOFT_INSTALLER_URL =
   'https://ubistatic3-a.akamaihd.net/orbit/launcher_installer/UbisoftConnectInstaller.exe'
@@ -31,7 +31,9 @@ export const legendarySetup = async (appName: string) => {
     protonVerb: 'waitforexitandrun'
   })
 
-  if (getStatus().isInstalled) {
+  const isOverlayEnabled = await isEnabled(appName)
+
+  if (getStatus().isInstalled && !isOverlayEnabled) {
     await enable(appName)
   }
 
