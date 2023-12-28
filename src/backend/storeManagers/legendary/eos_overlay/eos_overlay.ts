@@ -14,10 +14,18 @@ import { Path } from '../commands/base'
 import { LegendaryCommand } from '../commands'
 import { sendGameStatusUpdate } from 'backend/utils'
 
-const currentVersionPath = join(legendaryConfigPath, 'overlay_version.json')
-const installedVersionPath = join(legendaryConfigPath, 'overlay_install.json')
-const defaultInstallPath = join(toolsPath, 'eos_overlay')
 const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
+
+function getConstants(): {
+  currentVersionPath: string
+  installedVersionPath: string
+  defaultInstallPath: string
+} {
+  const currentVersionPath = join(legendaryConfigPath, 'overlay_version.json')
+  const installedVersionPath = join(legendaryConfigPath, 'overlay_install.json')
+  const defaultInstallPath = join(toolsPath, 'eos_overlay')
+  return { currentVersionPath, installedVersionPath, defaultInstallPath }
+}
 
 function getStatus(): {
   isInstalled: boolean
@@ -27,6 +35,8 @@ function getStatus(): {
   if (!isInstalled()) {
     return { isInstalled: false }
   }
+
+  const { installedVersionPath, defaultInstallPath } = getConstants()
 
   const { version, install_path } = JSON.parse(
     readFileSync(installedVersionPath, 'utf-8')
@@ -43,6 +53,8 @@ function getStatus(): {
 }
 
 async function getLatestVersion(): Promise<string> {
+  const { currentVersionPath } = getConstants()
+
   if (!existsSync(currentVersionPath)) {
     // HACK: `overlay_version.json` isn't created when the overlay isn't installed
     if (!isInstalled()) {
@@ -90,6 +102,7 @@ async function install() {
     status: isInstalled() ? 'updating' : 'installing'
   })
 
+  const { defaultInstallPath } = getConstants()
   let downloadSize = 0
   // Run download without -y to get the install size
   await runLegendaryCommand(
@@ -242,7 +255,7 @@ async function disable(appName: string) {
 }
 
 function isInstalled() {
-  return existsSync(installedVersionPath)
+  return existsSync(getConstants().installedVersionPath)
 }
 
 /**

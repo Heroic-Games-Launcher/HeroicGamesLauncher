@@ -32,7 +32,7 @@ export const legendarySetup = async (appName: string) => {
   })
 
   if (getStatus().isInstalled) {
-    enable(appName)
+    await enable(appName)
   }
 
   // if not a ubisoft game, do nothing
