@@ -91,6 +91,7 @@ export default function GamesSettings() {
   const [isNative, setIsNative] = useState(false)
   const isLinux = platform === 'linux'
   const isWin = platform === 'win32'
+  const isMac = platform === 'darwin'
   const isCrossover = wineVersion?.type === 'crossover'
   const hasCloudSaves =
     gameInfo?.cloud_save_enabled && gameInfo.install.platform !== 'linux'
@@ -105,12 +106,12 @@ export default function GamesSettings() {
       return true
     }
 
-    if (isLinux) {
+    // Other tab show on linux and mac
+    if (isLinux || isMac && tab === 'other') {
       return true
     }
     return false
   }
-
   // Get the latest used tab index for the current game
   const localStorageKey = gameInfo
     ? `${gameInfo!.app_name}-setting_tab`
@@ -211,7 +212,7 @@ export default function GamesSettings() {
         {!isNative && <ShowFPS />}
         <Mangohud />
         <GameMode />
-        <PreferSystemLibs />
+        {isLinux && <PreferSystemLibs />}
         <SteamRuntime />
         <UseDGPU />
         {!isNative && (
