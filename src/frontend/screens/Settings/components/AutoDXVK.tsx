@@ -18,7 +18,7 @@ const AutoDXVK = () => {
   const isLinux = platform === 'linux'
   const [autoInstallVkd3d] = useSetting('autoInstallVkd3d', false)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
-  const { appName,  } = useContext(SettingsContext)
+  const { appName } = useContext(SettingsContext)
   const [installingDxvk, setInstallingDxvk] = React.useState(false)
 
   if (wineVersion.type !== 'wine' || wineVersion.bin.includes('toolkit')) {

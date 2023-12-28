@@ -374,12 +374,12 @@ export async function getGamingPortingToolkitWine(): Promise<
   return gamingPortingToolkitWine
 }
 
- /**
-   * Detects Whisky installs on Mac
-   *
-   * @returns Promise<Set<WineInstallation>>
-   */
-  export async function getWhisky(): Promise<Set<WineInstallation>> {
+/**
+ * Detects Whisky installs on Mac
+ *
+ * @returns Promise<Set<WineInstallation>>
+ */
+export async function getWhisky(): Promise<Set<WineInstallation>> {
   const whisky = new Set<WineInstallation>()
 
   if (!isMac) {
@@ -397,7 +397,7 @@ export async function getGamingPortingToolkitWine(): Promise<
         ) as PlistObject
         const version = info['CFBundleShortVersionString'] || ''
         const whiskyWineBin = `${userHome}/Library/Application Support/com.isaacmarovitz.Whisky/Libraries/Wine/bin/wine64`
-        
+
         whisky.add({
           bin: whiskyWineBin,
           name: `Whisky - ${version}`,
@@ -406,7 +406,6 @@ export async function getGamingPortingToolkitWine(): Promise<
           lib32: `${dirname(whiskyWineBin)}/../lib`,
           ...getWineExecs(whiskyWineBin)
         })
-
       }
     })
   })
