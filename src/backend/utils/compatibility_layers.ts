@@ -374,6 +374,46 @@ export async function getGamingPortingToolkitWine(): Promise<
   return gamingPortingToolkitWine
 }
 
+ /**
+   * Detects Whisky installs on Mac
+   *
+   * @returns Promise<Set<WineInstallation>>
+   */
+  export async function getWhisky(): Promise<Set<WineInstallation>> {
+  const whisky = new Set<WineInstallation>()
+
+  if (!isMac) {
+    return whisky
+  }
+
+  await execAsync(
+    'mdfind kMDItemCFBundleIdentifier = "com.isaacmarovitz.Whisky"'
+  ).then(async ({ stdout }) => {
+    stdout.split('\n').forEach((whiskyMacPath) => {
+      const infoFilePath = join(whiskyMacPath, 'Contents/Info.plist')
+      if (whiskyMacPath && existsSync(infoFilePath)) {
+        const info = plistParse(
+          readFileSync(infoFilePath, 'utf-8')
+        ) as PlistObject
+        const version = info['CFBundleShortVersionString'] || ''
+        const whiskyWineBin = `${userHome}/Library/Application Support/com.isaacmarovitz.Whisky/Libraries/Wine/bin/wine64`
+        
+        whisky.add({
+          bin: whiskyWineBin,
+          name: `Whisky - ${version}`,
+          type: `toolkit`,
+          lib: `${dirname(whiskyWineBin)}/../lib`,
+          lib32: `${dirname(whiskyWineBin)}/../lib`,
+          ...getWineExecs(whiskyWineBin)
+        })
+
+      }
+    })
+  })
+
+  return whisky
+}
+
 export type AllowedWineFlags = Pick<
   LaunchCommand,
   '--wine' | '--wrapper' | '--no-wine'
