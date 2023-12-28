@@ -64,6 +64,8 @@ import {
   SettingsButton
 } from './components'
 import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
+import Genres from './components/Genres'
+import ReleaseDate from './components/ReleaseDate'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -355,7 +357,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
                   </div>
                   <div className="infoWrapper">
+                    <Genres genres={wikiInfo?.pcgamingwiki?.genres || []} />
                     <Developer gameInfo={gameInfo} />
+                    <ReleaseDate date={wikiInfo?.pcgamingwiki?.releaseDate} />
                     <Description />
                     <CloudSavesSync gameInfo={gameInfo} />
                     <DownloadSizeInfo gameInfo={gameInfo} />
@@ -415,7 +419,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       <StoreLogos runner={runner} />
                     </div>
                     <h1>{title}</h1>
+                    <Genres genres={wikiInfo?.pcgamingwiki?.genres || []} />
                     <Developer gameInfo={gameInfo} />
+                    <ReleaseDate date={wikiInfo?.pcgamingwiki?.releaseDate} />
                     <Description />
                     {!notInstallable && (
                       <TimeContainer runner={runner} game={appName} />
