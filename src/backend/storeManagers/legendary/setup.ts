@@ -28,12 +28,13 @@ export const legendarySetup = async (appName: string) => {
 
   if (
     gameInfo.install?.platform === 'Windows' ||
-    gameInfo.install?.platform === 'Win32'
+    gameInfo.install?.platform === 'Win32' ||
+    gameInfo.install?.platform === 'windows'
   ) {
     const info = await getInstallInfo(appName, gameInfo.install.platform)
     if (
       info.manifest.prerequisites &&
-      info.manifest.prerequisites.name.length > 0
+      info.manifest.prerequisites.path.length > 0
     ) {
       await runWineCommandOnGame(appName, {
         commandParts: [
