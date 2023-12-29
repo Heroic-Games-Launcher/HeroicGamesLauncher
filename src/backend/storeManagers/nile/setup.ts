@@ -8,7 +8,11 @@ import {
 import { fetchFuelJSON, getGameInfo } from './library'
 import { GameConfig } from 'backend/game_config'
 import { isWindows } from 'backend/constants'
-import { checkWineBeforeLaunch, spawnAsync } from 'backend/utils'
+import {
+  checkWineBeforeLaunch,
+  sendGameStatusUpdate,
+  spawnAsync
+} from 'backend/utils'
 import { logFileLocation } from '../storeManagerCommon/games'
 import { runWineCommand, verifyWinePrefix } from 'backend/launcher'
 
@@ -55,6 +59,7 @@ export default async function setup(
     'Running setup instructions, if you notice issues with launching a game, please report it on our Discord server',
     LogPrefix.Nile
   )
+  sendGameStatusUpdate({ appName, runner: 'nile', status: 'prerequisites' })
 
   const gameSettings = GameConfig.get(appName).config
   if (!isWindows) {

@@ -190,7 +190,7 @@ export type Status =
   | 'notSupportedGame'
   | 'notInstalled'
   | 'installed'
-  | 'ubisoft'
+  | 'prerequisites'
   | 'extracting'
 
 export interface GameStatus {

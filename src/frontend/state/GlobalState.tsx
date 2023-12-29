@@ -690,7 +690,7 @@ class GlobalState extends PureComponent<Props> {
         'playing',
         'extracting',
         'launching',
-        'ubisoft',
+        'prerequisites',
         'queued'
       ].includes(status)
     ) {

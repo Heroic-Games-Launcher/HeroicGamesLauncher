@@ -30,7 +30,7 @@ export function getCardStatus(
   const notSupportedGame = status === 'notSupportedGame'
   const syncingSaves = status === 'syncing-saves'
   const isLaunching = status === 'launching'
-  const isInstallingUbisoft = status === 'ubisoft'
+  const isInstallingPrerequisites = status === 'prerequisites'
 
   const haveStatus =
     isMoving ||
@@ -44,7 +44,7 @@ export function getCardStatus(
     isPlaying ||
     syncingSaves ||
     isLaunching ||
-    isInstallingUbisoft ||
+    isInstallingPrerequisites ||
     (isInstalled && layout !== 'grid')
   return {
     isInstalling,
@@ -55,7 +55,7 @@ export function getCardStatus(
     notAvailable,
     isUpdating,
     isLaunching,
-    isInstallingUbisoft,
+    isInstallingPrerequisites,
     haveStatus
   }
 }

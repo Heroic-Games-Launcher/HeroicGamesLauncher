@@ -152,10 +152,10 @@
             "start": "Play Now",
             "stop": "Playing (Stop)"
         },
+        "prerequisites": "Installing Prerequisites",
         "saves": {
             "syncing": "Syncing Saves"
-        },
-        "ubisoft": "Installing Ubisoft Connect"
+        }
     },
     "launch": {
         "options": "Launch Options..."
@@ -215,13 +215,13 @@
         "notSupported": "Not supported",
         "notSupportedGame": "Not Supported",
         "playing": "Playing",
+        "prerequisites": "Installing Prerequisites",
         "processing": "Processing files, please wait",
         "queued": "Queued",
         "reparing": "Repairing Game, please wait",
         "syncingSaves": "Syncing Saves",
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Total Downloaded",
-        "ubisoft": "Installing Ubisoft",
         "uninstalling": "Uninstalling",
         "updating": "Updating Game"
     },
