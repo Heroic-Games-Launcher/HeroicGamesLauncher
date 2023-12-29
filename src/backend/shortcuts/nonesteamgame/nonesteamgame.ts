@@ -145,6 +145,17 @@ function hasParameterCaseInsensitive(object: ShortcutEntry, key: string) {
   return Object.keys(object).some((k) => k.toLowerCase() === keyAsLowercase)
 }
 
+/** Return AppName property case insensitive
+ *  @param {Object} object
+ *  @returns Title of Shortcut Entry
+ */
+function getAppName(object: ShortcutEntry) {
+  const foundkey =
+    Object.keys(object).find((key) => key.toLowerCase() === 'appname') ??
+    'AppName'
+  return object[foundkey]
+}
+
 /**
  * Check if the parsed object of a shortcuts.vdf is valid.
  * @param object @see Partial<ShortcutObject>
@@ -184,13 +195,7 @@ function checkIfShortcutObjectIsValid(
  */
 function checkIfAlreadyAdded(object: Partial<ShortcutObject>, title: string) {
   const shortcuts = object.shortcuts ?? []
-  return shortcuts.findIndex(
-    (entry) =>
-      entry[
-        Object.keys(entry).find((key) => key.toLowerCase() === 'appname') ??
-          'AppName'
-      ] === title
-  )
+  return shortcuts.findIndex((entry) => getAppName(entry) === title)
 }
 
 /**
@@ -425,12 +430,7 @@ async function removeNonSteamGame(props: {
     const shortcutObj = content.shortcuts.at(index)!
 
     const exe = shortcutObj.Exe
-    const appName =
-      shortcutObj[
-        Object.keys(shortcutObj).find(
-          (key) => key.toLowerCase() === 'appname'
-        ) ?? 'AppName'
-      ]
+    const appName = getAppName(shortcutObj)
 
     // remove
     content.shortcuts.splice(index, 1)
