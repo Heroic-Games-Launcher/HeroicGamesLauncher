@@ -1093,6 +1093,12 @@ ipcMain.handle(
       return false
     })
 
+    // Stop display sleep blocker
+    if (powerDisplayId !== null) {
+      logInfo('Stopping Display Power Saver Blocker', LogPrefix.Backend)
+      powerSaveBlocker.stop(powerDisplayId)
+    }
+
     // Update playtime and last played date
     const finishedPlayingDate = new Date()
     tsStore.set(`${appName}.lastPlayed`, finishedPlayingDate.toISOString())
