@@ -2,6 +2,7 @@ import { join } from 'path'
 import { getGameInfo, runWineCommandOnGame } from './games'
 import { getInstallInfo } from './library'
 import { sendGameStatusUpdate } from 'backend/utils'
+import { split } from 'shlex'
 
 export const legendarySetup = async (appName: string) => {
   const gameInfo = getGameInfo(appName)
@@ -43,7 +44,7 @@ export const legendarySetup = async (appName: string) => {
             gameInfo.install.install_path ?? '',
             info.manifest.prerequisites.path
           ),
-          info.manifest.prerequisites.args
+          ...split(info.manifest.prerequisites.args)
         ],
         wait: true,
         protonVerb: 'waitforexitandrun'
