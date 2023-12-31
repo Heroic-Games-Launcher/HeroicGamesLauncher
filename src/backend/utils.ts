@@ -1290,10 +1290,6 @@ export async function downloadFile({
       `Downloader: Finished downloading ${url}`,
       LogPrefix.DownloadManager
     )
-    logInfo(
-      `Downloader: Finished downloading ${url}`,
-      LogPrefix.DownloadManager
-    )
   } catch (err) {
     logError(
       `Downloader: Download Failed with: ${err}`,
