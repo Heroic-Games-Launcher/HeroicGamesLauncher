@@ -29,7 +29,10 @@ const CompatibilityInfo = ({ gameInfo }: Props) => {
     return null
   }
 
-  const hasProtonDB = steamInfo?.compatibilityLevel
+  const hasProtonDB =
+    steamInfo?.compatibilityLevel &&
+    !gameInfo.is_linux_native &&
+    !gameInfo.is_mac_native
 
   // check if we got a number. zero is also valid.
   const hasSteamDeckCompat = Number.isFinite(steamInfo?.steamDeckCatagory)
