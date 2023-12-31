@@ -598,6 +598,7 @@
             "copy-to-clipboard": "Copy log content to clipboard",
             "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",
             "instructions_title": "How to report a problem?",
+            "join-heroic-discord": "Join our Discord",
             "no-file": "No log file found",
             "show-in-folder": "Show log file in folder"
         },
