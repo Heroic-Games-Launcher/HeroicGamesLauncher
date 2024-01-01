@@ -138,7 +138,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const isUninstalling = status === 'uninstalling'
   const isSyncing = status === 'syncing-saves'
   const isLaunching = status === 'launching'
-  const isInstallingUbisoft = status === 'ubisoft'
+  const isInstallingPrerequisites = status === 'prerequisites'
   const notAvailable = !gameAvailable && gameInfo.is_installed
   const notInstallable =
     gameInfo.installable !== undefined && !gameInfo.installable
@@ -292,7 +292,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       gameExtraInfo: extraInfo,
       is: {
         installing: isInstalling,
-        installingUbisoft: isInstallingUbisoft,
+        installingPrerequisites: isInstallingPrerequisites,
         launching: isLaunching,
         linux: isLinux,
         linuxNative: isLinuxNative,

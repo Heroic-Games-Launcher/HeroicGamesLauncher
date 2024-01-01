@@ -30,6 +30,7 @@ import {
 } from '../../utils/aborthandler/aborthandler'
 import { BrowserWindow, dialog, Menu } from 'electron'
 import { gameManagerMap } from '../index'
+import { sendGameStatusUpdate } from 'backend/utils'
 
 async function getAppSettings(appName: string): Promise<GameSettings> {
   return (
@@ -180,6 +181,12 @@ export async function launchGame(
       })
       return false
     }
+
+    sendGameStatusUpdate({
+      appName,
+      runner,
+      status: 'playing'
+    })
 
     // Native
     if (isNative) {

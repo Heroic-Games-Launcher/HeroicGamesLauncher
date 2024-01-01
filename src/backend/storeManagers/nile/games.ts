@@ -402,6 +402,8 @@ export async function launch(
   )
   appendGameLog(appName, `Launch Command: ${fullCommand}\n\nGame Log:\n`)
 
+  sendGameStatusUpdate({ appName, runner: 'nile', status: 'playing' })
+
   const { error } = await runNileCommand(commandParts, {
     abortId: appName,
     env: commandEnv,

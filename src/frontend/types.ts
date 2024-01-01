@@ -242,7 +242,7 @@ export interface GameContextType {
     | null
   is: {
     installing: boolean
-    installingUbisoft: boolean
+    installingPrerequisites: boolean
     launching: boolean
     linux: boolean
     linuxNative: boolean
