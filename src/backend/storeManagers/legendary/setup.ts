@@ -29,10 +29,10 @@ export const legendarySetup = async (appName: string) => {
     protonVerb: 'waitforexitandrun'
   })
 
+  const winPlatforms = ['Windows', 'Win32', 'windows']
   if (
-    gameInfo.install?.platform === 'Windows' ||
-    gameInfo.install?.platform === 'Win32' ||
-    gameInfo.install?.platform === 'windows'
+    gameInfo.install.platform &&
+    winPlatforms.includes(gameInfo.install.platform)
   ) {
     try {
       const info = await getInstallInfo(appName, gameInfo.install.platform)
