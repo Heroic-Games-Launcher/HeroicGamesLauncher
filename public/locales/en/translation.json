@@ -263,6 +263,7 @@
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
         "show_installed_only": "Show Installed only",
+        "show_support_offline_only": "Show offline-supported only",
         "uncategorized": "Uncategorized"
     },
     "help": {

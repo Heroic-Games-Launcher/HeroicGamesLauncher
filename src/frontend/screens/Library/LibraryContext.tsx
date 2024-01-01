@@ -22,7 +22,9 @@ const initialContext: LibraryContextType = {
   sortDescending: true,
   setSortDescending: () => null,
   sortInstalled: true,
-  setSortInstalled: () => null
+  setSortInstalled: () => null,
+  showSupportOfflineOnly: false,
+  setShowSupportOfflineOnly: () => null
 }
 
 export default React.createContext(initialContext)
