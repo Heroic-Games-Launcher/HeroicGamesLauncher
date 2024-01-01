@@ -227,7 +227,7 @@ const GameCard = ({
     if (isInstalled) {
       const disabled =
         isLaunching ||
-        ['syncing-saves', 'launching', 'ubisoft', 'winetricks'].includes(
+        ['syncing-saves', 'launching', 'prerequisites', 'winetricks'].includes(
           status!
         )
       return (

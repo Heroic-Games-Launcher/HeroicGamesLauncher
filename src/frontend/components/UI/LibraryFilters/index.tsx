@@ -28,7 +28,9 @@ export default function LibraryFilters() {
     storesFilters,
     setStoresFilters,
     platformsFilters,
-    setPlatformsFilters
+    setPlatformsFilters,
+    showSupportOfflineOnly,
+    setShowSupportOfflineOnly
   } = useContext(LibraryContext)
 
   const toggleShowHidden = () => {
@@ -45,6 +47,10 @@ export default function LibraryFilters() {
 
   const toggleOnlyInstalled = () => {
     setShowInstalledOnly(!showInstalledOnly)
+  }
+
+  const toggleOnlySupportOffline = () => {
+    setShowSupportOfflineOnly(!showSupportOfflineOnly)
   }
 
   const toggleStoreFilter = (store: Category) => {
@@ -192,6 +198,16 @@ export default function LibraryFilters() {
           handleChange={() => toggleOnlyInstalled()}
           value={showInstalledOnly}
           title={t('header.show_installed_only', 'Show Installed only')}
+        />
+        <ToggleSwitch
+          key="only-support-offline"
+          htmlId="only-support-offline"
+          handleChange={() => toggleOnlySupportOffline()}
+          value={showSupportOfflineOnly}
+          title={t(
+            'header.show_support_offline_only',
+            'Show offline-supported only'
+          )}
         />
         <hr />
         <button

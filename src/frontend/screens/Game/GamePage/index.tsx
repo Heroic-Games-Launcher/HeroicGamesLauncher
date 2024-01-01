@@ -64,6 +64,9 @@ import {
   SettingsButton
 } from './components'
 import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
+import { hasHelp } from 'frontend/hooks/hasHelp'
+import Genres from './components/Genres'
+import ReleaseDate from './components/ReleaseDate'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -88,6 +91,17 @@ export default React.memo(function GamePage(): JSX.Element | null {
     connectivity,
     experimentalFeatures
   } = useContext(ContextProvider)
+
+  hasHelp(
+    'gamePage',
+    t('help.title.gamePage', 'Game Page'),
+    <p>
+      {t(
+        'help.content.gamePage',
+        'Show all game details and actions. Use the 3 dots menu for more options.'
+      )}
+    </p>
+  )
 
   const [gameInfo, setGameInfo] = useState(locationGameInfo)
   const [gameSettings, setGameSettings] = useState<GameSettings | null>(null)
@@ -124,8 +138,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const isUninstalling = status === 'uninstalling'
   const isSyncing = status === 'syncing-saves'
   const isLaunching = status === 'launching'
-  const isInstallingUbisoft = status === 'ubisoft'
   const isInstallingWinetricksPackages = status === 'winetricks'
+  const isInstallingPrerequisites = status === 'prerequisites'
   const notAvailable = !gameAvailable && gameInfo.is_installed
   const notInstallable =
     gameInfo.installable !== undefined && !gameInfo.installable
@@ -279,8 +293,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
       gameExtraInfo: extraInfo,
       is: {
         installing: isInstalling,
-        installingUbisoft: isInstallingUbisoft,
         installingWinetricksPackages: isInstallingWinetricksPackages,
+        installingPrerequisites: isInstallingPrerequisites,
         launching: isLaunching,
         linux: isLinux,
         linuxNative: isLinuxNative,
@@ -357,7 +371,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
                   </div>
                   <div className="infoWrapper">
+                    <Genres genres={wikiInfo?.pcgamingwiki?.genres || []} />
                     <Developer gameInfo={gameInfo} />
+                    <ReleaseDate date={wikiInfo?.pcgamingwiki?.releaseDate} />
                     <Description />
                     <CloudSavesSync gameInfo={gameInfo} />
                     <DownloadSizeInfo gameInfo={gameInfo} />
@@ -417,7 +433,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       <StoreLogos runner={runner} />
                     </div>
                     <h1>{title}</h1>
+                    <Genres genres={wikiInfo?.pcgamingwiki?.genres || []} />
                     <Developer gameInfo={gameInfo} />
+                    <ReleaseDate date={wikiInfo?.pcgamingwiki?.releaseDate} />
                     <Description />
                     {!notInstallable && (
                       <TimeContainer runner={runner} game={appName} />

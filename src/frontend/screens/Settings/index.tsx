@@ -21,6 +21,7 @@ import { AppSettings, WineInstallation } from 'common/types'
 import { UpdateComponent } from 'frontend/components/UI'
 import { LocationState, SettingsContextType } from 'frontend/types'
 import useSettingsContext from 'frontend/hooks/useSettingsContext'
+import { hasHelp } from 'frontend/hooks/hasHelp'
 
 export const defaultWineVersion: WineInstallation = {
   bin: '/usr/bin/wine',
@@ -45,6 +46,24 @@ function Settings() {
   const isLogSettings = type === 'log'
   const isAdvancedSetting = type === 'advanced' && isDefault
   const isSystemInfo = type === 'systeminfo' && isDefault
+
+  let helpContent = t(
+    'help.content.settingsDefault',
+    'Shows all settings of Heroic and defaults for games.'
+  )
+
+  if (!isDefault) {
+    helpContent = t(
+      'help.content.settingsGame',
+      'Show all settings for a game.'
+    )
+  }
+
+  hasHelp(
+    'settings',
+    t('help.title.settings', 'Settings'),
+    <p>{helpContent}</p>
+  )
 
   // Load Heroic's or game's config, only if not loaded already
   useEffect(() => {

@@ -45,6 +45,7 @@ export type Release = {
 
 export type ExperimentalFeatures = {
   enableNewDesign: boolean
+  enableHelp: boolean
 }
 
 export interface AppSettings extends GameSettings {
@@ -190,7 +191,7 @@ export type Status =
   | 'notSupportedGame'
   | 'notInstalled'
   | 'installed'
-  | 'ubisoft'
+  | 'prerequisites'
   | 'extracting'
   | 'winetricks'
 
@@ -612,6 +613,8 @@ export interface PCGamingWikiInfo {
   opencritic: GameScoreInfo
   igdb: GameScoreInfo
   direct3DVersions: string[]
+  genres: string[]
+  releaseDate: string[]
 }
 
 export interface AppleGamingWikiInfo {
