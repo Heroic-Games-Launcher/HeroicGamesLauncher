@@ -403,16 +403,24 @@ async function installFixes(appName: string, runner: Runner) {
 
   if (!existsSync(fixPath)) return
 
-  const fixesContent = JSON.parse(readFileSync(fixPath).toString())
+  try {
+    const fixesContent = JSON.parse(readFileSync(fixPath).toString())
 
-  sendGameStatusUpdate({
-    appName,
-    runner: runner,
-    status: 'winetricks'
-  })
+    sendGameStatusUpdate({
+      appName,
+      runner: runner,
+      status: 'winetricks'
+    })
 
-  for (const winetricksPackage of fixesContent.winetricks) {
-    await Winetricks.install(runner, appName, winetricksPackage)
+    for (const winetricksPackage of fixesContent.winetricks) {
+      await Winetricks.install(runner, appName, winetricksPackage)
+    }
+  } catch (error) {
+    // if we fail to download the json file, it can be malformed causing
+    // JSON.parse to throw an exception
+    logWarning(
+      `Known winetricks fixes could not be applied, ignoring.\n${error}`
+    )
   }
 }
 
