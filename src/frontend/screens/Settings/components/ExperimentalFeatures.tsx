@@ -4,9 +4,15 @@ import useSetting from 'frontend/hooks/useSetting'
 import { ToggleSwitch } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
 
-const FEATURES = ['enableNewDesign', 'enableHelp', 'automaticWinetricksFixes']
-
 const ExperimentalFeatures = () => {
+  const { platform } = useContext(ContextProvider)
+
+  const FEATURES = ['enableNewDesign', 'enableHelp']
+
+  if (platform !== 'win32') {
+    FEATURES.push('automaticWinetricksFixes')
+  }
+
   const { t } = useTranslation()
   const [experimentalFeatures, setExperimentalFeatures] = useSetting(
     'experimentalFeatures',
