@@ -176,7 +176,7 @@ const runnerToStore = {
 }
 
 async function downloadFixesFor(appName: string, runner: Runner) {
-  const url = `https://raw.githubusercontent.com/arielj/test-appname-winetricks/main/${appName}-${runnerToStore[runner]}.json`
+  const url = `https://raw.githubusercontent.com/Heroic-Games-Launcher/known-fixes/main/${appName}-${runnerToStore[runner]}.json`
   const dest = path.join(fixesPath, `${appName}-${runnerToStore[runner]}.json`)
   if (!existsSync(fixesPath)) {
     mkdirSync(fixesPath, { recursive: true })
