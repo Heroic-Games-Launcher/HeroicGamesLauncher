@@ -20,7 +20,7 @@ import {
   SpawnOptions,
   spawnSync
 } from 'child_process'
-import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
+import { existsSync, rmSync } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
 
@@ -39,6 +39,7 @@ import {
   isSnap
 } from './constants'
 import {
+  appendGameLog,
   logError,
   logInfo,
   LogPrefix,
@@ -898,8 +899,7 @@ export async function downloadDefaultWine() {
 
 export async function checkWineBeforeLaunch(
   appName: string,
-  gameSettings: GameSettings,
-  logFileLocation: string
+  gameSettings: GameSettings
 ): Promise<boolean> {
   const wineIsValid = await validWine(gameSettings.wineVersion)
 
@@ -912,8 +912,8 @@ export async function checkWineBeforeLaunch(
         LogPrefix.Backend
       )
 
-      appendFileSync(
-        logFileLocation,
+      appendGameLog(
+        appName,
         `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`
       )
     }

@@ -13,7 +13,11 @@ import {
   LibraryTopSectionOptions,
   ExperimentalFeatures
 } from 'common/types'
-import { DialogModalOptions, ExternalLinkDialogOptions } from 'frontend/types'
+import {
+  DialogModalOptions,
+  ExternalLinkDialogOptions,
+  HelpItem
+} from 'frontend/types'
 import { withTranslation } from 'react-i18next'
 import {
   getGameInfo,
@@ -107,6 +111,7 @@ interface StateProps {
     appName: string
     runner: Runner
   }
+  helpItems: { [key: string]: HelpItem }
   experimentalFeatures: ExperimentalFeatures
 }
 
@@ -205,8 +210,10 @@ class GlobalState extends PureComponent<Props> {
     hideChangelogsOnStartup: globalSettings?.hideChangelogsOnStartup || false,
     lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null'),
     settingsModalOpen: { value: false, type: 'settings', gameInfo: undefined },
+    helpItems: {},
     experimentalFeatures: globalSettings?.experimentalFeatures || {
-      enableNewDesign: false
+      enableNewDesign: false,
+      enableHelp: false
     }
   }
 
@@ -898,6 +905,21 @@ class GlobalState extends PureComponent<Props> {
     }
   }
 
+  addHelpItem = (helpItemId: string, helpItem: HelpItem) => {
+    this.setState((previous: StateProps) => {
+      const newItems = { ...previous.helpItems }
+      newItems[helpItemId] = helpItem
+      return { helpItems: newItems }
+    })
+  }
+
+  removeHelpItem = (helpItemId: string) => {
+    this.setState((previous: StateProps) => {
+      delete previous.helpItems[helpItemId]
+      return { helpItems: { ...previous.helpItems } }
+    })
+  }
+
   render() {
     const {
       showInstallModal,
@@ -984,7 +1006,12 @@ class GlobalState extends PureComponent<Props> {
           setLastChangelogShown: this.setLastChangelogShown,
           isSettingsModalOpen: settingsModalOpen,
           setIsSettingsModalOpen: this.handleSettingsModalOpen,
-          setCurrentCustomCategories: this.setCurrentCustomCategories
+          setCurrentCustomCategories: this.setCurrentCustomCategories,
+          help: {
+            items: this.state.helpItems,
+            addHelpItem: this.addHelpItem,
+            removeHelpItem: this.removeHelpItem
+          }
         }}
       >
         {this.props.children}

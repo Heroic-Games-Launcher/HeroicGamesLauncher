@@ -112,6 +112,11 @@ export interface ContextType {
     type?: 'settings' | 'log' | 'category',
     gameInfo?: GameInfo
   ) => void
+  help: {
+    items: { [key: string]: HelpItem }
+    addHelpItem: (helpItemId: string, helpItem: HelpItem) => void
+    removeHelpItem: (helpItemId: string) => void
+  }
   experimentalFeatures: ExperimentalFeatures
   handleExperimentalFeatures: (newSetting: ExperimentalFeatures) => void
 }
@@ -219,7 +224,9 @@ export interface LibraryContextType {
   sortDescending: boolean
   setSortDescending: (value: boolean) => void
   sortInstalled: boolean
-  setSortInstalled: (valur: boolean) => void
+  setSortInstalled: (value: boolean) => void
+  showSupportOfflineOnly: boolean
+  setShowSupportOfflineOnly: (value: boolean) => void
 }
 
 export interface GameContextType {
@@ -271,4 +278,9 @@ export type DMQueue = {
   elements: DMQueueElement[]
   finished: DMQueueElement[]
   state: DownloadManagerState
+}
+
+export interface HelpItem {
+  title: string
+  content: JSX.Element
 }
