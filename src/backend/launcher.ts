@@ -345,7 +345,12 @@ async function prepareWineLaunch(
     if (runner === 'legendary') {
       await legendarySetup(appName)
     }
-    await installFix(appName, runner)
+    if (
+      GlobalConfig.get().getSettings().experimentalFeatures
+        .automaticWinetricksFixes
+    ) {
+      await installFixes(appName, runner)
+    }
   }
 
   // If DXVK/VKD3D installation is enabled, install it
@@ -390,7 +395,7 @@ const runnerToStore = {
   nile: 'amazon'
 }
 
-async function installFix(appName: string, runner: Runner) {
+async function installFixes(appName: string, runner: Runner) {
   const fixPath = path.join(
     fixesPath,
     `${appName}-${runnerToStore[runner]}.json`
