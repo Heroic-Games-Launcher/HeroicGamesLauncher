@@ -161,7 +161,8 @@
         "prerequisites": "Installing Prerequisites",
         "saves": {
             "syncing": "Syncing Saves"
-        }
+        },
+        "winetricks": "Installing Winetricks Packages"
     },
     "launch": {
         "options": "Launch Options..."

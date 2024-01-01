@@ -591,8 +591,8 @@
         "esync": "Enable Esync",
         "exit-to-tray": "Exit to System Tray",
         "experimental_features": {
-            "enableHelp": "Help component",
             "automaticWinetricksFixes": "Apply known Winetricks fixes automatically",
+            "enableHelp": "Help component",
             "enableNewDesign": "New design"
         },
         "frameless-window": {
