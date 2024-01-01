@@ -36,6 +36,7 @@ import RecentlyPlayed from './components/RecentlyPlayed'
 import { InstallModal } from './components'
 import LibraryContext from './LibraryContext'
 import { Category, PlatformsFilters, StoresFilters } from 'frontend/types'
+import { hasHelp } from 'frontend/hooks/hasHelp'
 
 const storage = window.localStorage
 
@@ -47,6 +48,8 @@ type ModalState = {
 }
 
 export default React.memo(function Library(): JSX.Element {
+  const { t } = useTranslation()
+
   const {
     libraryStatus,
     refreshing,
@@ -62,6 +65,12 @@ export default React.memo(function Library(): JSX.Element {
     customCategories,
     hiddenGames
   } = useContext(ContextProvider)
+
+  hasHelp(
+    'library',
+    t('help.title.library', 'Library'),
+    <p>{t('help.content.library', 'Shows all owned games.')}</p>
+  )
 
   const [layout, setLayout] = useState(storage.getItem('layout') || 'grid')
   const handleLayout = (layout: string) => {
@@ -186,7 +195,6 @@ export default React.memo(function Library(): JSX.Element {
     setSortInstalled(value)
   }
 
-  const { t } = useTranslation()
   const backToTopElement = useRef(null)
 
   //Remember scroll position

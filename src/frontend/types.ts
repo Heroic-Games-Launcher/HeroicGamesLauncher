@@ -112,6 +112,11 @@ export interface ContextType {
     type?: 'settings' | 'log' | 'category',
     gameInfo?: GameInfo
   ) => void
+  help: {
+    items: { [key: string]: HelpItem }
+    addHelpItem: (helpItemId: string, helpItem: HelpItem) => void
+    removeHelpItem: (helpItemId: string) => void
+  }
   experimentalFeatures: ExperimentalFeatures
   handleExperimentalFeatures: (newSetting: ExperimentalFeatures) => void
 }
@@ -273,4 +278,9 @@ export type DMQueue = {
   elements: DMQueueElement[]
   finished: DMQueueElement[]
   state: DownloadManagerState
+}
+
+export interface HelpItem {
+  title: string
+  content: JSX.Element
 }
