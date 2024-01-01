@@ -22,7 +22,7 @@ import {
   appendFileSync,
   writeFileSync
 } from 'graceful-fs'
-import path, { join, normalize } from 'path'
+import { join, normalize } from 'path'
 
 import {
   defaultWinePrefix,
@@ -396,10 +396,7 @@ const runnerToStore = {
 }
 
 async function installFixes(appName: string, runner: Runner) {
-  const fixPath = path.join(
-    fixesPath,
-    `${appName}-${runnerToStore[runner]}.json`
-  )
+  const fixPath = join(fixesPath, `${appName}-${runnerToStore[runner]}.json`)
 
   if (!existsSync(fixPath)) return
 
