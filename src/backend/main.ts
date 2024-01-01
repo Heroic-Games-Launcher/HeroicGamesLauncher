@@ -27,7 +27,6 @@ import { autoUpdater } from 'electron-updater'
 import { cpus, platform } from 'os'
 import {
   access,
-  appendFileSync,
   constants,
   existsSync,
   rmSync,
@@ -98,6 +97,8 @@ import {
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
+  appendGameLog,
+  initGameLog,
   initLogger,
   logChangedSetting,
   logDebug,
@@ -144,8 +145,6 @@ import {
   libraryManagerMap
 } from './storeManagers'
 import { updateWineVersionInfos } from './wine/manager/utils'
-
-import { logFileLocation as getLogFileLocation } from './storeManagers/storeManagerCommon/games'
 import { addNewApp } from './storeManagers/sideload/library'
 import {
   getGameOverride,
@@ -1027,8 +1026,6 @@ ipcMain.handle(
       powerDisplayId = powerSaveBlocker.start('prevent-display-sleep')
     }
 
-    const logFileLocation = getLogFileLocation(appName)
-
     const systemInfo = await getSystemInfo()
       .then(formatSystemInfo)
       .catch((error) => {
@@ -1038,11 +1035,12 @@ ipcMain.handle(
         )
         return 'Error, check general log'
       })
-    writeFileSync(logFileLocation, 'System Info:\n' + `${systemInfo}\n` + '\n')
+
+    initGameLog(appName, 'System Info:\n' + `${systemInfo}\n` + '\n')
 
     const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
-    appendFileSync(
-      logFileLocation,
+    appendGameLog(
+      appName,
       `Game Settings: ${gameSettingsString}\n` +
         '\n' +
         `Game launched at: ${startPlayingDate}\n` +
@@ -1050,8 +1048,8 @@ ipcMain.handle(
     )
 
     if (logsDisabled) {
-      appendFileSync(
-        logFileLocation,
+      appendGameLog(
+        appName,
         'IMPORTANT: Logs are disabled. Enable logs before reporting an issue.'
       )
     }
@@ -1062,8 +1060,7 @@ ipcMain.handle(
     if (!isNative) {
       const isWineOkToLaunch = await checkWineBeforeLaunch(
         appName,
-        gameSettings,
-        logFileLocation
+        gameSettings
       )
 
       if (!isWineOkToLaunch) {
@@ -1092,8 +1089,8 @@ ipcMain.handle(
 
     const launchResult = await command.catch((exception) => {
       logError(exception, LogPrefix.Backend)
-      appendFileSync(
-        logFileLocation,
+      appendGameLog(
+        appName,
         `An exception occurred when launching the game:\n${exception.stack}`
       )
       return false
