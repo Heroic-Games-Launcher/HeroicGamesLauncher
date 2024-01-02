@@ -404,6 +404,12 @@ export async function launch(
 
   sendGameStatusUpdate({ appName, runner: 'nile', status: 'playing' })
 
+  sendGameStatusUpdate({
+    appName,
+    runner: 'nile',
+    status: 'playing'
+  })
+
   const { error } = await runNileCommand(commandParts, {
     abortId: appName,
     env: commandEnv,

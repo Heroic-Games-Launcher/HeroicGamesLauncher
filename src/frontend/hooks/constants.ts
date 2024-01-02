@@ -35,6 +35,7 @@ export function getStatusLabel({
     }`,
     notInstalled: t('gamepage:status.notinstalled'),
     launching: t('gamepage:status.launching', 'Launching'),
+    winetricks: t('gamepage:status.winetricks', 'Applying Winetricks fixes'),
     prerequisites: t(
       'gamepage:status.prerequisites',
       'Installing Prerequisites'

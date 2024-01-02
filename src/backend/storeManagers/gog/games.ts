@@ -523,6 +523,12 @@ export async function launch(
 
   sendGameStatusUpdate({ appName, runner: 'gog', status: 'playing' })
 
+  sendGameStatusUpdate({
+    appName,
+    runner: 'gog',
+    status: 'playing'
+  })
+
   const { error, abort } = await runGogdlCommand(commandParts, {
     abortId: appName,
     env: commandEnv,

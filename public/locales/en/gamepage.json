@@ -161,7 +161,8 @@
         "prerequisites": "Installing Prerequisites",
         "saves": {
             "syncing": "Syncing Saves"
-        }
+        },
+        "winetricks": "Installing Winetricks Packages"
     },
     "launch": {
         "options": "Launch Options..."
@@ -229,7 +230,8 @@
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "Total Downloaded",
         "uninstalling": "Uninstalling",
-        "updating": "Updating Game"
+        "updating": "Updating Game",
+        "winetricks": "Applying Winetricks fixes"
     },
     "submenu": {
         "addShortcut": "Add shortcut",

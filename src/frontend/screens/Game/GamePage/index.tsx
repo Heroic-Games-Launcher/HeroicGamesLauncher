@@ -138,6 +138,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const isUninstalling = status === 'uninstalling'
   const isSyncing = status === 'syncing-saves'
   const isLaunching = status === 'launching'
+  const isInstallingWinetricksPackages = status === 'winetricks'
   const isInstallingPrerequisites = status === 'prerequisites'
   const notAvailable = !gameAvailable && gameInfo.is_installed
   const notInstallable =
@@ -292,6 +293,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       gameExtraInfo: extraInfo,
       is: {
         installing: isInstalling,
+        installingWinetricksPackages: isInstallingWinetricksPackages,
         installingPrerequisites: isInstallingPrerequisites,
         launching: isLaunching,
         linux: isLinux,

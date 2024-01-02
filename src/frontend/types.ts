@@ -242,6 +242,7 @@ export interface GameContextType {
     | null
   is: {
     installing: boolean
+    installingWinetricksPackages: boolean
     installingPrerequisites: boolean
     launching: boolean
     linux: boolean

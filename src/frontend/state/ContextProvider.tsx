@@ -91,7 +91,11 @@ const initialContext: ContextType = {
     addHelpItem: () => null,
     removeHelpItem: () => null
   },
-  experimentalFeatures: { enableNewDesign: false, enableHelp: false },
+  experimentalFeatures: {
+    enableNewDesign: false,
+    enableHelp: false,
+    automaticWinetricksFixes: false
+  },
   handleExperimentalFeatures: () => null
 }
 

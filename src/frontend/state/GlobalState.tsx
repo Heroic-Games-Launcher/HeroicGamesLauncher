@@ -213,7 +213,8 @@ class GlobalState extends PureComponent<Props> {
     helpItems: {},
     experimentalFeatures: globalSettings?.experimentalFeatures || {
       enableNewDesign: false,
-      enableHelp: false
+      enableHelp: false,
+      automaticWinetricksFixes: false
     }
   }
 
@@ -697,6 +698,7 @@ class GlobalState extends PureComponent<Props> {
         'playing',
         'extracting',
         'launching',
+        'winetricks',
         'prerequisites',
         'queued'
       ].includes(status)

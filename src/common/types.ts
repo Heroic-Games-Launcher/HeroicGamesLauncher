@@ -46,6 +46,7 @@ export type Release = {
 export type ExperimentalFeatures = {
   enableNewDesign: boolean
   enableHelp: boolean
+  automaticWinetricksFixes: boolean
 }
 
 export interface AppSettings extends GameSettings {
@@ -193,6 +194,7 @@ export type Status =
   | 'installed'
   | 'prerequisites'
   | 'extracting'
+  | 'winetricks'
 
 export interface GameStatus {
   appName: string
