@@ -301,7 +301,16 @@
         },
         "disable_logs": "Ative esta caixa de seleção para desativar a maioria das gravações em ficheiros de registo (informações críticas sempre são registadas). Certifique-se que desativa esta definição antes de relatar qualquer problema.",
         "dxvknvapi": "O DXVK-NVAPI é uma implementação da NVAPI construída em cima do DXVK e da NVAPI nativa do Linux, permitindo a utilização do DLSS em GPUs da Nvidia.",
-        "disablePlaytimeSync": "Desativa a sincronização do tempo de jogo com os servidores da loja indicada (atualmente apenas a GOG é suportada)"
+        "disablePlaytimeSync": "Desativa a sincronização do tempo de jogo com os servidores da loja indicada (atualmente apenas a GOG é suportada)",
+        "gamescope": {
+            "fpsLimiterNoFocus": "O limite de FPS gamescope deve limitar por segundo se o jogo não estiver focado.",
+            "upscaleMethod": "O método de upscaling que o gamescope deve usar.",
+            "gameWidth": "A resolução de largura usada pelo jogo. Uma proporção de 16:9 é assumida pelo gamescope.",
+            "upscaleWidth": "A resolução de largura usada pelo gamescope. Uma proporção de aspeto de 16:9 é assumida.",
+            "gameHeight": "A resolução de altura usada pelo jogo. Uma proporção de 16:9 é assumida pelo gamescope.",
+            "upscaleHeight": "A resolução de altura usada pelo gamescope. Uma proporção de aspeto de 16:9 é assumida.",
+            "fpsLimiter": "A quantidade de frames que o gamescope deve limitar. Ex: 60"
+        }
     },
     "info": {
         "heroic": {
@@ -437,7 +446,11 @@
         },
         "gameargs": {
             "placeholder": "Coloque aqui os argumentos do jogo",
-            "title": "Argumentos do Jogo:"
+            "title": "Argumentos do Jogo:",
+            "error": {
+                "command": "A sintaxe %command% do Steam não é válida como argumentos de jogo.",
+                "env": "As variáveis de ambiente devem ser configuradas na tabela abaixo."
+            }
         },
         "quote-args-with-spaces": "Warning: Make sure to quote args with spaces! E.g.: \"path/with spaces/\"",
         "wrapper": {
@@ -447,6 +460,17 @@
             "placeHolderKey": "New Wrapper",
             "placeHolderValue": "Wrapper Arguments",
             "title": "Wrapper command:"
+        },
+        "gamescope": {
+            "borderless": "Sem borda",
+            "fpsLimiter": "Limitador de FPS",
+            "gameHeight": "Altura do jogo",
+            "upscaleWidth": "Aprimoramento(Upscale) de Largura",
+            "fullscreen": "Ecrã inteiro",
+            "gameWidth": "Largura do jogo",
+            "upscaleHeight": "Aprimoramento(Upscale) de Altura",
+            "fpsLimiterNoFocus": "Limitador de FPS (Sem foco)",
+            "stretch": "Esticar imagem"
         }
     },
     "other": {
@@ -604,6 +628,17 @@
         "disablePlaytimeSync": "Desativar sincronização do tempo de jogo",
         "experimental_features": {
             "enableNewDesign": "Novo design"
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "Este recurso ainda é experimental. Por favor, relate quaisquer problemas que encontrar no GitHub.",
+                "title": "Este recurso é experimental"
+            },
+            "description": "Usar janela sem moldura (requer reinicialização)"
+        },
+        "gamescope": {
+            "enableLimiter": "Ativar limitador de FPS",
+            "enableUpscaling": "Permite aprimoramento de escala (Upscalling)"
         }
     },
     "settings": {
@@ -640,7 +675,8 @@
             "other": "Outros",
             "sync": "Sincronização de Jogos Salvos em Nuvem",
             "wineExt": "Wine Extensions",
-            "systemInformation": "Informações do Sistema"
+            "systemInformation": "Informações do Sistema",
+            "gamescope": "Gamescope"
         },
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",
@@ -655,10 +691,26 @@
             "gpuDriver": "Controlador: {{driverVersion}}",
             "gpu": "GPU:",
             "gogdlVersion": "Gogdl: {{gogdlVersion}}",
-            "copyToClipboard": "Copiar para a área de transferência"
+            "copyToClipboard": "Copiar para a área de transferência",
+            "legendaryVersion": "Legendary: {{legendaryVersion}}",
+            "systemSpecifications": "Especificações do Sistema:",
+            "steamDeck": "Steam Deck {{model}}",
+            "os": "Sistema Operacional:",
+            "osVersion": "Versão {{versionNumber}}",
+            "osNameFlatpak": "{{osName}} (dentro do Flatpak)",
+            "software": "Software:",
+            "memoryStats": "{{percentUsed}}% usada ({{usedGib}} / {{totalGib}}",
+            "systemModel": "Modelo do Sistema:",
+            "showDetailed": "Mostrar especificações detalhadas do sistema",
+            "memory": "Memória:",
+            "heroicVersion": "Heroic: {{heroicVersion}}",
+            "nileVersion": "Nile: {{nileVersion}}"
         },
         "experimental_features": {
             "title": "Funcionalidades Experimentais"
+        },
+        "gamescope": {
+            "searchMsg": "À procura do executável do gamescope."
         }
     },
     "Settings": "Configurações",
@@ -745,7 +797,12 @@
     "prime-gaming": "Prime Gaming",
     "winetricks": {
         "install": "Install",
-        "loading": "A Carregar"
+        "loading": "A Carregar",
+        "installing": "A instalar: {{component}}",
+        "openGUI": "Abrir Winetricks GUI",
+        "search": "Procurar fontes ou componentes",
+        "nothingYet": "Ainda não foi nada instalado pelo Winetricks",
+        "installed": "Componentes instalados:"
     },
     "category-settings": {
         "cancel": "Cancelar",
@@ -754,5 +811,11 @@
         "delete-question": "Ao proceder irá remover permanentemente esta categoria e a sua associação a todos os jogos. Continuar?",
         "new-category": "Nova Categoria",
         "add-new-category": "Adicionar Nova Categoria"
+    },
+    "window": {
+        "minimize": "Minimizar janela",
+        "maximize": "Maximizar janela",
+        "close": "Fechar",
+        "restore": "Restaurar janela"
     }
 }
