@@ -1,11 +1,13 @@
 import {
+  BaseLaunchOption,
   ExecResult,
   ExtraInfo,
   GameInfo,
   GameSettings,
   InstallArgs,
   InstallPlatform,
-  InstallProgress
+  InstallProgress,
+  LaunchOption
 } from 'common/types'
 import { InstallResult, RemoveArgs } from 'common/types/game_manager'
 import {
@@ -302,7 +304,7 @@ export async function removeShortcuts(appName: string) {
 
 export async function launch(
   appName: string,
-  launchArguments?: string
+  launchArguments?: LaunchOption
 ): Promise<boolean> {
   const gameSettings = await getSettings(appName)
   const gameInfo = getGameInfo(appName)
@@ -391,7 +393,9 @@ export async function launch(
     'launch',
     ...exeOverrideFlag, // Check if this works
     ...wineFlag,
-    ...shlex.split(launchArguments ?? ''),
+    ...shlex.split(
+      (launchArguments as BaseLaunchOption | undefined)?.parameters ?? ''
+    ),
     ...shlex.split(gameSettings.launcherArgs ?? ''),
     appName
   ]

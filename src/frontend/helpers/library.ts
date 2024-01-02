@@ -4,7 +4,8 @@ import {
   GameInfo,
   InstallProgress,
   Runner,
-  UpdateParams
+  UpdateParams,
+  LaunchOption
 } from 'common/types'
 
 import { TFunction } from 'i18next'
@@ -157,7 +158,7 @@ const repair = async (appName: string, runner: Runner): Promise<void> =>
 type LaunchOptions = {
   appName: string
   t: TFunction<'gamepage'>
-  launchArguments?: string
+  launchArguments?: LaunchOption
   runner: Runner
   hasUpdate: boolean
   showDialogModal: (options: DialogModalOptions) => void
@@ -166,7 +167,7 @@ type LaunchOptions = {
 const launch = async ({
   appName,
   t,
-  launchArguments = '',
+  launchArguments,
   runner,
   hasUpdate,
   showDialogModal
@@ -178,10 +179,8 @@ const launch = async ({
       return window.api.launch({
         appName,
         runner,
-        launchArguments:
-          launchArguments +
-          ' ' +
-          (runner === 'legendary' ? '--skip-version-check' : '')
+        launchArguments,
+        skipVersionCheck: true
       })
     }
 
@@ -210,10 +209,8 @@ const launch = async ({
                   window.api.launch({
                     appName,
                     runner,
-                    launchArguments:
-                      launchArguments +
-                      ' ' +
-                      (runner === 'legendary' ? '--skip-version-check' : '')
+                    launchArguments,
+                    skipVersionCheck: true
                   })
                 )
               }
