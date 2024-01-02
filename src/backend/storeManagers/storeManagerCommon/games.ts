@@ -149,6 +149,7 @@ export async function launchGame(
 
   const gameSettings = await getAppSettings(appName)
   const { launcherArgs } = gameSettings
+  const extraArgs = shlex.split(launcherArgs ?? '')
 
   if (executable) {
     const isNative = gameManagerMap[runner].isNative(appName)
@@ -191,7 +192,9 @@ export async function launchGame(
     // Native
     if (isNative) {
       logInfo(
-        `launching native sideloaded game: ${executable} ${launcherArgs ?? ''}`,
+        `launching native sideloaded game: ${executable} ${extraArgs.join(
+          ' '
+        )}`,
         LogPrefix.Backend
       )
 
@@ -199,7 +202,7 @@ export async function launchGame(
         await access(executable, FS_CONSTANTS.X_OK)
       } catch (error) {
         logWarning(
-          'File not executable, changing permissions temporarilly',
+          'File not executable, changing permissions temporarily',
           LogPrefix.Backend
         )
         // On Mac, it gives an error when changing the permissions of the file inside the app bundle. But we need it for other executables like scripts.
@@ -208,7 +211,6 @@ export async function launchGame(
         }
       }
 
-      const commandParts = shlex.split(launcherArgs ?? '')
       const env = {
         ...process.env,
         ...setupWrapperEnvVars({ appName, appRunner: runner }),
@@ -216,7 +218,7 @@ export async function launchGame(
       }
 
       await callRunner(
-        commandParts,
+        extraArgs,
         {
           name: runner,
           logPrefix: LogPrefix.Backend,
@@ -240,12 +242,12 @@ export async function launchGame(
     }
 
     logInfo(
-      `launching non-native sideloaded: ${executable}}`,
+      `launching non-native sideloaded: ${executable} ${extraArgs.join(' ')}`,
       LogPrefix.Backend
     )
 
     await runWineCommand({
-      commandParts: [executable, launcherArgs ?? ''],
+      commandParts: [executable, ...extraArgs],
       gameSettings,
       wait: false,
       startFolder: dirname(executable),
