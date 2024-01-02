@@ -653,19 +653,23 @@ export async function gogToUnifiedInfo(
     // @ts-expect-error TODO: Handle this somehow
     return {}
   }
+
+  const art_cover =
+    info.game?.logo?.url_format
+      ?.replace('{formatter}', '')
+      .replace('{ext}', 'jpg') || `https:${galaxyProductInfo?.images.logo2x}`
+
   const object: GameInfo = {
     runner: 'gog',
     store_url: galaxyProductInfo?.links.product_card,
     developer: info.game.developers.map((dev) => dev.name).join(', '),
     app_name: String(info.external_id),
-    art_cover:
-      info.game?.logo?.url_format
-        ?.replace('{formatter}', '')
-        .replace('{ext}', 'jpg') || `https:${galaxyProductInfo?.images.logo2x}`,
-    art_square: info.game.vertical_cover.url_format
-      .replace('{formatter}', '')
-      .replace('{ext}', 'jpg'),
-    art_background: info.game.background.url_format
+    art_cover,
+    art_square:
+      info.game.vertical_cover?.url_format
+        .replace('{formatter}', '')
+        .replace('{ext}', 'jpg') || art_cover, // fallback to art_cover if undefined
+    art_background: info.game.background?.url_format
       .replace('{formatter}', '')
       .replace('{ext}', 'webp'),
     cloud_save_enabled: false,
