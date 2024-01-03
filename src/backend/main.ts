@@ -154,6 +154,12 @@ import { formatSystemInfo, getSystemInfo } from './utils/systeminfo'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
+if (app.commandLine.hasSwitch('disable-gpu')) {
+  console.log('gpu disabled')
+} else {
+  console.log('gpu enabled')
+}
+
 const { showOpenDialog } = dialog
 const isWindows = platform() === 'win32'
 
