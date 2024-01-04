@@ -289,7 +289,15 @@
         },
         "disable_logs": "Ota tämä valintaruutu PÄÄLLE, jos haluat poistaa suurimman osan lokitiedostoihin kirjoituksista (kriittiset tiedot kirjataan aina lokiin). Muista poistaa tämä asetus käytöstä ennen kuin ilmoitat ongelmasta.",
         "dxvknvapi": "DXVK-NVAPI on NVAPI:n sulautus joka on rakennettu DXVK:n ja kotoperäisen Linux-NVAPI:n päälle, ja se mahdollistaa DLSS:n käytön Nvidian näytönohjaimilla.",
-        "disablePlaytimeSync": "Kytkee pois päältä peliaikojen synkronisoinnin kauppojen palvelimien kanssa (tällä hetkellä vain GOG on tuettu)"
+        "disablePlaytimeSync": "Kytkee pois päältä peliaikojen synkronisoinnin kauppojen palvelimien kanssa (tällä hetkellä vain GOG on tuettu)",
+        "title": {
+            "accessibility": "Käytettävyys",
+            "login": "Login",
+            "settings": "Asetukset",
+            "downloadManager": "Download Manager",
+            "wineManager": "Wine-hallinta",
+            "library": "Kirjasto"
+        }
     },
     "info": {
         "heroic": {
@@ -323,7 +331,8 @@
         "path": "Valitse asennuspolku"
     },
     "label": {
-        "loading": "Ladataan"
+        "loading": "Ladataan",
+        "releaseDate": "Julkaisupäivä"
     },
     "library": {
         "refresh": "Virkistä",
