@@ -151,7 +151,6 @@ import {
   getGameOverride,
   getGameSdl
 } from 'backend/storeManagers/legendary/library'
-import { formatSystemInfo, getSystemInfo } from './utils/systeminfo'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
@@ -1030,18 +1029,7 @@ ipcMain.handle(
       powerDisplayId = powerSaveBlocker.start('prevent-display-sleep')
     }
 
-    getSystemInfo()
-      .then(async (info) => {
-        const systemInfo = await formatSystemInfo(info)
-        initGameLog(appName, 'System Info:\n' + `${systemInfo}\n` + '\n')
-      })
-      .catch((error) => {
-        logError(
-          ['Failed to fetch system information', error],
-          LogPrefix.Backend
-        )
-        return 'Error, check general log'
-      })
+    initGameLog(appName)
 
     const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
     appendGameLog(
@@ -1080,6 +1068,8 @@ ipcMain.handle(
           status: 'done'
         })
 
+        stopLogger(appName)
+
         return { status: 'error' }
       }
     }
@@ -1096,16 +1086,17 @@ ipcMain.handle(
       skipVersionCheck
     )
 
-    const launchResult = await command.catch((exception) => {
-      logError(exception, LogPrefix.Backend)
-      appendGameLog(
-        appName,
-        `An exception occurred when launching the game:\n${exception.stack}`
-      )
-      return false
-    })
+    const launchResult = await command
+      .catch((exception) => {
+        logError(exception, LogPrefix.Backend)
+        appendGameLog(
+          appName,
+          `An exception occurred when launching the game:\n${exception.stack}`
+        )
 
-    stopLogger(appName)
+        return false
+      })
+      .finally(() => stopLogger(appName))
 
     // Stop display sleep blocker
     if (powerDisplayId !== null) {

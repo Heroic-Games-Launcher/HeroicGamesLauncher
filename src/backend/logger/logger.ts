@@ -377,16 +377,31 @@ class LogWriter {
     // push messages to append to the log
     this.queue.push(message)
 
-    // if we don't have a timeout, append the message and start a timeout
+    // if the logger is initialized and we don't have a timeout,
+    // append the message and start a timeout
+    //
+    // otherwise it means there's a timeout already running that will
+    // write the elements in the queue in a second
     if (this.initialized && !this.timeoutId) this.appendMessages()
   }
 
-  initLog(message: string) {
-    // init log file and then append message if any
-    writeFile(this.filePath, message, () => {
-      this.initialized = true
-      this.appendMessages()
-    })
+  async initLog() {
+    try {
+      const info = await getSystemInfo()
+      const systemInfo = await formatSystemInfo(info)
+
+      // init log file and then append message if any
+      writeFile(
+        this.filePath,
+        'System Info:\n' + `${systemInfo}\n` + '\n',
+        () => {
+          this.initialized = true
+          this.appendMessages()
+        }
+      )
+    } catch (error) {
+      logError(['Failed to fetch system information', error], LogPrefix.Backend)
+    }
   }
 
   appendMessages() {
@@ -418,9 +433,9 @@ export function appendGameLog(appName: string, message: string) {
   logsWriters[appName].logMessage(message)
 }
 
-export function initGameLog(appName: string, message: string) {
+export function initGameLog(appName: string) {
   if (!logsWriters[appName]) logsWriters[appName] = new LogWriter(appName)
-  logsWriters[appName].initLog(message)
+  logsWriters[appName].initLog()
 }
 
 export function stopLogger(appName: string) {
