@@ -86,10 +86,9 @@ async function prepareLaunch(
 
   // Check if the game needs an internet connection
   if (!gameInfo.canRunOffline && offlineMode) {
-    return {
-      success: false,
-      failureReason: 'Offline mode not supported'
-    }
+    logWarning(
+      'Offline Mode is on but the game does not allow offline mode explicitly.'
+    )
   }
 
   // Update Discord RPC if enabled

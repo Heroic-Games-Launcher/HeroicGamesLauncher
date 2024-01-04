@@ -4,6 +4,8 @@ import { ToggleSwitch } from 'frontend/components/UI'
 import { getGameInfo } from 'frontend/helpers'
 import useSetting from 'frontend/hooks/useSetting'
 import SettingsContext from '../SettingsContext'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 
 const OfflineMode = () => {
   const { t } = useTranslation()
@@ -26,17 +28,28 @@ const OfflineMode = () => {
 
   const [offlineMode, setOfflineMode] = useSetting('offlineMode', false)
 
-  if (isDefault || !canRunOffline) {
+  if (isDefault) {
     return <></>
   }
 
   return (
-    <ToggleSwitch
-      htmlId="offlinemode"
-      value={offlineMode}
-      handleChange={() => setOfflineMode(!offlineMode)}
-      title={t('setting.offlinemode')}
-    />
+    <>
+      <ToggleSwitch
+        htmlId="offlinemode"
+        value={offlineMode}
+        handleChange={() => setOfflineMode(!offlineMode)}
+        title={t('setting.offlinemode')}
+      />
+      {!canRunOffline && offlineMode && (
+        <div className="infoBox saves-warning">
+          <FontAwesomeIcon icon={faExclamationTriangle} color={'yellow'} />
+          {t(
+            'settings.offline.warning',
+            'This game does not explicitly allow offline mode, turn this on at your own risk. The game may not work.'
+          )}
+        </div>
+      )}
+    </>
   )
 }
 
