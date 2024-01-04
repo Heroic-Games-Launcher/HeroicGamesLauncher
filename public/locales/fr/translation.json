@@ -295,7 +295,7 @@
             "part3": "Synchronisation manuelle : Choisissez « Télécharger » pour télécharger les sauvegardes des jeux enregistrées dans le Cloud et « Téléverser » pour transférer les fichiers locaux vers le Cloud. « Forcer le téléchargement » et « Forcer le téléversement » ignoreront la version locale ou celle du Cloud.",
             "part4": "« Synchroniser automatiquement » active la synchronisation de vos sauvegardes à chaque fois que vous lancez un jeu et que vous l'arrêtez."
         },
-        "vkd3d": "VKD3D est une interface de compatibilité basée sur Vulkan pour les jeux nécessitant DirectX 12. L'activer pourrait grandement améliorer la compatibilité. N'a aucun effet sur les jeux utilisant des versions de DirectX plus anciennes.",
+        "vkd3d": "VKD3D est une interface de compatibilité basée sur Vulkan pour les jeux nécessitant DirectX 12. L'activer pourrait grandement améliorer la compatibilité. N'a aucun effet sur les jeux utilisant des versions de DirectX plus anciennes, requiert DXVK.",
         "wine": {
             "part1": "Heroic recherche des versions de Wine, Proton et CrossOver dans ces dossiers :",
             "part2": "Pour d'autres emplacements, utilisez un lien symbolique vers un de ces dossiers"
@@ -308,7 +308,32 @@
             "gameWidth": "La largeur de résolution utilisée par le jeu. Un ratio d'aspect 16 :9 est présumé par Gamescope.",
             "upscaleWidth": "La largeur de résolution utilisée par Gamescope. Un ratio d'aspect 16 :9 est présumé.",
             "gameHeight": "La hauteur de résolution utilisée par le jeu. Un ratio d'aspect 16 :9 est présumé par Gamescope.",
-            "upscaleHeight": "La hauteur de résolution utilisée Gamescope. Un ratio d'aspect 16 :9 est présumé."
+            "upscaleHeight": "La hauteur de résolution utilisée Gamescope. Un ratio d'aspect 16 :9 est présumé.",
+            "fpsLimiterNoFocus": "Le ratio d'images par seconde auquel gamescope doit se limiter si le jeu est en arrière-plan.",
+            "fpsLimiter": "Le nombre d'images par seconde auquel gamescope devrait se limiter. Par ex : 60"
+        },
+        "title": {
+            "accessibility": "Accessibilité",
+            "login": "Connexion",
+            "settings": "Options",
+            "downloadManager": "Gestionnaire de téléchargements",
+            "wineManager": "Gestion de Wine",
+            "library": "Bibliothèque"
+        },
+        "content": {
+            "defaultInstallPath": "C'est le chemin par défaut présélectionné lors de l'installation des jeux.",
+            "settingsDefault": "Affiche tous les paramètres d'Heroic et les configurations par défaut des jeux.",
+            "settingsGame": "Affiche tous les paramètres d'un jeu.",
+            "downloadManager": "Affiche les téléchargement actuels et passés.",
+            "wineManager": "Installe différentes versions de Wine, Proton, Crossover, etc...",
+            "library": "Affiche tous les jeux possédés.",
+            "customThemesPath": "Consultez notre wiki.",
+            "accessibility": "Affiche les paramètres d'accessibilité.",
+            "login": "Permet de se connecter aux différentes plateformes."
+        },
+        "button": {
+            "open": "Afficher l'aide",
+            "close": "Fermer l'aide"
         }
     },
     "info": {
@@ -343,7 +368,8 @@
         "path": "Sélectionner le chemin d'installation"
     },
     "label": {
-        "loading": "Chargement"
+        "loading": "Chargement",
+        "releaseDate": "Date de publication"
     },
     "library": {
         "refresh": "Actualiser",
@@ -447,7 +473,8 @@
             "placeholder": "Insérez ici les arguments de lancement",
             "title": "Arguments de jeu (à exécuter après la commande) :",
             "error": {
-                "env": "Les variables d'environnement doivent être configurées dans le tableau ci-dessous."
+                "env": "Les variables d'environnement doivent être configurées dans le tableau ci-dessous.",
+                "command": "La syntaxe de Steam %command% n'est pas valide comme arguments pour un jeu."
             }
         },
         "quote-args-with-spaces": "Attention : Assurez-vous de citer les args avec des espaces ! E.g. : \"chemin/avec espaces/\"",
@@ -576,7 +603,8 @@
             "instructions_title": "Comment signaler un problème ?",
             "last-log": "Dernier log",
             "no-file": "Aucun fichier log trouvé",
-            "show-in-folder": "Montrer le fichier log dans le dossier"
+            "show-in-folder": "Montrer le fichier log dans le dossier",
+            "join-heroic-discord": "Rejoignez notre serveur Discord"
         },
         "mangohud": "Activer Mangohud (Mangohud doit être installé)",
         "manualsync": {
@@ -620,13 +648,15 @@
         "autoUpdateGames": "Mettre les jeux à jour automatiquement",
         "ignoreGameUpdates": "Ignorer les mises à jour du jeu",
         "disable_logs": "Désactiver la génération de rapports",
-        "showMetalOverlay": "Afficher la superposition des statistiques",
+        "showMetalOverlay": "Afficher l'interface des statistiques",
         "addgamestoapplications": "Ajouter automatiquement des jeux aux Applications",
         "alt-nile-bin": "Choisissez un binaire alternatif pour Nile",
         "autodxvknvapi": "Installation/Mise à jour automatique du préfixe DXVK/VKD3D",
         "disablePlaytimeSync": "Désactiver la synchronisation du temps de jeu",
         "experimental_features": {
-            "enableNewDesign": "Nouveau concept"
+            "enableNewDesign": "Nouveau concept",
+            "enableHelp": "Composant d'Aide",
+            "automaticWinetricksFixes": "Appliquer les corrections Winetricks connues automatiquement"
         },
         "frameless-window": {
             "confirmation": {
