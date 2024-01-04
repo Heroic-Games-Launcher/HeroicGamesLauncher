@@ -33,11 +33,11 @@
         },
         "uninstall": {
             "checkbox": "Odebrat prefix: {{prefix}}{{newLine}}Upozornění: tato akce je nevratná a také odstraní nezálohované soubory uložení.",
-            "message": "Chcete odinstalovat tuto hru?",
+            "message": "Chcete odinstalovat „{{title}}“?",
             "settingcheckbox": "Vymazat nastavení a odstranit protokol{{newLine}}Poznámka: Tento krok nelze vrátit zpět. Veškerá změněná nastavení budou zapomenuta a protokol bude odstraněn.",
             "title": "Odinstalovat",
             "prefix_warning": "Předpona Wine pro tuto hru je výchozí předpona. Pokud to opravdu chcete smazat, musíte to udělat ručně.",
-            "dlc": "Chcete toto DLC odinstalovat?",
+            "dlc": "Chcete odinstalovat „{{title}}“ (DLC)?",
             "cannotUninstallEpic": "Hry Epic nelze odinstalovat při instalaci jiné hry Epic."
         },
         "update": {
@@ -152,7 +152,9 @@
             "syncing": "Synchronizuji uložené soubory"
         },
         "launching": "Spouštění",
-        "ubisoft": "Instalace Ubisoft Connect"
+        "ubisoft": "Instalace Ubisoft Connect",
+        "winetricks": "Instalace balíčků Winetricks",
+        "prerequisites": "Instalace závislostí"
     },
     "launch": {
         "options": "Možnosti spuštění..."
@@ -220,7 +222,9 @@
         "downloading": "Stahování",
         "extracting": "Extrakce",
         "gog-goodie": "Zdá se, že tuto hru nelze nainstalovat. Zkontrolujte obsah ke stažení na https://gog.com/account",
-        "goodie": "Nelze nainstalovat"
+        "goodie": "Nelze nainstalovat",
+        "prerequisites": "Instalace závislostí",
+        "winetricks": "Aplikace oprav Winetricks"
     },
     "submenu": {
         "addShortcut": "Přidat zástupce",
@@ -240,6 +244,12 @@
         "categories": "Kategorie"
     },
     "help": {
-        "cloud_save_unsupported": "Tato hra nepodporuje ukládání do cloudu. Tyto informace poskytují vývojáři hry. Některé hry implementují svůj vlastní cloudový systém ukládání"
+        "cloud_save_unsupported": "Tato hra nepodporuje ukládání do cloudu. Tyto informace poskytují vývojáři hry. Některé hry implementují svůj vlastní cloudový systém ukládání",
+        "content": {
+            "gamePage": "Zobrazit všechny herní podrobnosti a akce. Pro více možností použijte 3-tečkovou nabídku."
+        },
+        "title": {
+            "gamePage": "Herní stránka"
+        }
     }
 }
