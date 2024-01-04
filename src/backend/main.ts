@@ -106,7 +106,8 @@ import {
   logInfo,
   LogPrefix,
   logsDisabled,
-  logWarning
+  logWarning,
+  stopLogger
 } from './logger/logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
 import { getFonts } from 'font-list'
@@ -1029,8 +1030,11 @@ ipcMain.handle(
       powerDisplayId = powerSaveBlocker.start('prevent-display-sleep')
     }
 
-    const systemInfo = await getSystemInfo()
-      .then(formatSystemInfo)
+    getSystemInfo()
+      .then(async (info) => {
+        const systemInfo = await formatSystemInfo(info)
+        initGameLog(appName, 'System Info:\n' + `${systemInfo}\n` + '\n')
+      })
       .catch((error) => {
         logError(
           ['Failed to fetch system information', error],
@@ -1038,8 +1042,6 @@ ipcMain.handle(
         )
         return 'Error, check general log'
       })
-
-    initGameLog(appName, 'System Info:\n' + `${systemInfo}\n` + '\n')
 
     const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
     appendGameLog(
@@ -1102,6 +1104,8 @@ ipcMain.handle(
       )
       return false
     })
+
+    stopLogger(appName)
 
     // Stop display sleep blocker
     if (powerDisplayId !== null) {

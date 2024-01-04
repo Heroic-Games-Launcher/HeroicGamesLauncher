@@ -12,7 +12,7 @@ import { GlobalConfig } from 'backend/config'
 import { getGOGdlBin, getLegendaryBin } from 'backend/utils'
 import { join } from 'path'
 import { formatSystemInfo, getSystemInfo } from '../utils/systeminfo'
-import { appendFileSync, writeFileSync } from 'graceful-fs'
+import { appendFileSync, writeFile } from 'graceful-fs'
 import { gamesConfigPath } from 'backend/constants'
 
 export enum LogPrefix {
@@ -355,10 +355,74 @@ export function logFileLocation(appName: string) {
   return join(gamesConfigPath, `${appName}.log`)
 }
 
+const logsWriters: { [appName: string]: LogWriter } = {}
+
+class LogWriter {
+  appName: string
+  queue: string[] | undefined
+  initialized: boolean
+  timeoutId: NodeJS.Timeout | undefined
+  filePath: string
+
+  constructor(appName: string) {
+    this.appName = appName
+    this.initialized = false
+    this.filePath = lastPlayLogFileLocation(appName)
+  }
+
+  logMessage(message: string) {
+    // initialize the value if undefined
+    if (this.queue === undefined) this.queue = []
+
+    // push messages to append to the log
+    this.queue.push(message)
+
+    // if we don't have a timeout, append the message and start a timeout
+    if (this.initialized && !this.timeoutId) this.appendMessages()
+  }
+
+  initLog(message: string) {
+    // init log file and then append message if any
+    writeFile(this.filePath, message, () => {
+      this.initialized = true
+      this.appendMessages()
+    })
+  }
+
+  appendMessages() {
+    const messagesToWrite = this.queue
+
+    // clear pending message if any
+    this.queue = []
+
+    // clear timeout if any
+    delete this.timeoutId
+
+    if (!messagesToWrite || !messagesToWrite.length) return
+
+    // if we have messages, write them and check again in 1 second
+    // we start the timeout before writing so we don't wait until
+    // the disk write
+    this.timeoutId = setTimeout(() => this.appendMessages(), 1000)
+
+    try {
+      appendFileSync(this.filePath, messagesToWrite.join(''))
+    } catch (error) {
+      // ignore failures if messages could not be written
+    }
+  }
+}
+
 export function appendGameLog(appName: string, message: string) {
-  appendFileSync(lastPlayLogFileLocation(appName), message)
+  if (!logsWriters[appName]) logsWriters[appName] = new LogWriter(appName)
+  logsWriters[appName].logMessage(message)
 }
 
 export function initGameLog(appName: string, message: string) {
-  writeFileSync(lastPlayLogFileLocation(appName), message)
+  if (!logsWriters[appName]) logsWriters[appName] = new LogWriter(appName)
+  logsWriters[appName].initLog(message)
+}
+
+export function stopLogger(appName: string) {
+  delete logsWriters[appName]
 }
