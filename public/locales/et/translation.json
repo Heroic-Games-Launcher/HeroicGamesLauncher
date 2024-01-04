@@ -286,7 +286,15 @@
             "part1": "Heroic otsib Wine'i, Proton'i ja CrossOveri versioone järgmistes kaustades:",
             "part2": "Muude kohtade puhul kasutage sümboolset linki ühele neist kaustadest"
         },
-        "disable_logs": "Lülitage see märkeruut sisse, et keelata suurem osa logifailidesse kirjutamisest (oluline teave logitakse alati sisse). Enne probleemist teatamist lülitage see seade kindlasti VÄLJA."
+        "disable_logs": "Lülitage see märkeruut sisse, et keelata suurem osa logifailidesse kirjutamisest (oluline teave logitakse alati sisse). Enne probleemist teatamist lülitage see seade kindlasti VÄLJA.",
+        "title": {
+            "accessibility": "Kättesaadavus",
+            "login": "Login",
+            "settings": "Seaded",
+            "downloadManager": "Download Manager",
+            "wineManager": "Wine'i haldur",
+            "library": "Varamu"
+        }
     },
     "info": {
         "heroic": {
@@ -320,7 +328,8 @@
         "path": "Valige paigaldustee"
     },
     "label": {
-        "loading": "Loading"
+        "loading": "Loading",
+        "releaseDate": "Release Date"
     },
     "library": {
         "refresh": "Värskenda",
