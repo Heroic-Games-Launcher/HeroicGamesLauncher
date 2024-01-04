@@ -9,6 +9,8 @@ import SettingsContext from '../../SettingsContext'
 import './index.css'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { GameInfo } from 'common/types'
+import { openDiscordLink } from 'frontend/helpers'
+import { faDiscord } from '@fortawesome/free-brands-svg-icons'
 
 interface LogBoxProps {
   logFileContent: string
@@ -212,6 +214,20 @@ export default function LogSettings() {
                   'setting.log.copy-to-clipboard',
                   'Copy log content to clipboard.'
                 )}
+              </span>
+            </div>
+          </a>
+          <a
+            onClick={openDiscordLink}
+            title={t('setting.log.join-heroic-discord', 'Join our Discord')}
+            className="button is-footer"
+          >
+            <div className="button-icontext-flex">
+              <div className="button-icon-flex">
+                <FontAwesomeIcon icon={faDiscord} />
+              </div>
+              <span className="button-icon-text">
+                {t('setting.log.join-heroic-discord', 'Join our Discord')}
               </span>
             </div>
           </a>

@@ -33,10 +33,12 @@ import {
   InstallArgs,
   InstalledInfo,
   InstallPlatform,
-  InstallProgress
+  InstallProgress,
+  LaunchOption,
+  BaseLaunchOption
 } from 'common/types'
-import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
-import { gamesConfigPath, isWindows, isMac, isLinux } from '../../constants'
+import { existsSync, rmSync } from 'graceful-fs'
+import { isWindows, isMac, isLinux } from '../../constants'
 import {
   configStore,
   installedGamesStore,
@@ -44,8 +46,10 @@ import {
   syncStore
 } from './electronStores'
 import {
+  appendGameLog,
   logDebug,
   logError,
+  logFileLocation,
   logInfo,
   LogPrefix,
   logsDisabled,
@@ -80,7 +84,6 @@ import { t } from 'i18next'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { sendFrontendMessage } from '../../main_window'
 import { RemoveArgs } from 'common/types/game_manager'
-import { logFileLocation } from 'backend/storeManagers/storeManagerCommon/games'
 import { getWineFlagsArray } from 'backend/utils/compatibility_layers'
 import axios, { AxiosError } from 'axios'
 import { isOnline, runOnceWhenOnline } from 'backend/online_monitor'
@@ -288,8 +291,6 @@ export async function install(
       ? 'osx'
       : (platformToInstall.toLowerCase() as GogInstallPlatform)
 
-  const logPath = join(gamesConfigPath, appName + '.log')
-
   const commandParts: string[] = [
     'download',
     appName,
@@ -309,7 +310,7 @@ export async function install(
 
   const res = await runGogdlCommand(commandParts, {
     abortId: appName,
-    logFile: logPath,
+    logFile: logFileLocation(appName),
     onOutput,
     logMessagePrefix: `Installing ${appName}`
   })
@@ -406,7 +407,7 @@ export async function removeShortcuts(appName: string) {
 
 export async function launch(
   appName: string,
-  launchArguments?: string
+  launchArguments?: LaunchOption
 ): Promise<boolean> {
   const gameSettings = await getSettings(appName)
   const gameInfo = getGameInfo(appName)
@@ -438,10 +439,7 @@ export async function launch(
     steamRuntime
   } = await prepareLaunch(gameSettings, gameInfo, isNative(appName))
   if (!launchPrepSuccess) {
-    appendFileSync(
-      logFileLocation(appName),
-      `Launch aborted: ${launchPrepFailReason}`
-    )
+    appendGameLog(appName, `Launch aborted: ${launchPrepFailReason}`)
     showDialogBoxModalAuto({
       title: t('box.error.launchAborted', 'Launch aborted'),
       message: launchPrepFailReason!,
@@ -479,10 +477,7 @@ export async function launch(
       envVars: wineEnvVars
     } = await prepareWineLaunch('gog', appName)
     if (!wineLaunchPrepSuccess) {
-      appendFileSync(
-        logFileLocation(appName),
-        `Launch aborted: ${wineLaunchPrepFailReason}`
-      )
+      appendGameLog(appName, `Launch aborted: ${wineLaunchPrepFailReason}`)
       if (wineLaunchPrepFailReason) {
         showDialogBoxModalAuto({
           title: t('box.error.launchAborted', 'Launch aborted'),
@@ -517,7 +512,9 @@ export async function launch(
     ...wineFlag,
     '--platform',
     gameInfo.install.platform.toLowerCase(),
-    ...shlex.split(launchArguments ?? ''),
+    ...shlex.split(
+      (launchArguments as BaseLaunchOption | undefined)?.parameters ?? ''
+    ),
     ...shlex.split(gameSettings.launcherArgs ?? '')
   ]
 
@@ -526,10 +523,15 @@ export async function launch(
     commandEnv,
     join(...Object.values(getGOGdlBin()))
   )
-  appendFileSync(
-    logFileLocation(appName),
-    `Launch Command: ${fullCommand}\n\nGame Log:\n`
-  )
+  appendGameLog(appName, `Launch Command: ${fullCommand}\n\nGame Log:\n`)
+
+  sendGameStatusUpdate({ appName, runner: 'gog', status: 'playing' })
+
+  sendGameStatusUpdate({
+    appName,
+    runner: 'gog',
+    status: 'playing'
+  })
 
   const { error, abort } = await runGogdlCommand(commandParts, {
     abortId: appName,
@@ -537,7 +539,7 @@ export async function launch(
     wrappers,
     logMessagePrefix: `Launching ${gameInfo.title}`,
     onOutput: (output: string) => {
-      if (!logsDisabled) appendFileSync(logFileLocation(appName), output)
+      if (!logsDisabled) appendGameLog(appName, output)
     }
   })
 
@@ -833,7 +835,7 @@ async function getCommandParameters(appName: string) {
   const { maxWorkers } = GlobalConfig.get().getSettings()
   const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
   const gameData = getGameInfo(appName)
-  const logPath = join(gamesConfigPath, appName + '.log')
+  const logPath = logFileLocation(appName)
   const credentials = await GOGUser.getCredentials()
 
   const withDlcs = gameData.install.installedWithDLCs

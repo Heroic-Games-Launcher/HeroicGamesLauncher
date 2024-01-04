@@ -39,8 +39,11 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
         </span>
       )
     }
-    if (is.installingUbisoft) {
-      return t('label.ubisoft', 'Installing Ubisoft Connect')
+    if (is.installingPrerequisites) {
+      return t('label.prerequisites', 'Installing Prerequisites')
+    }
+    if (is.installingWinetricksPackages) {
+      return t('label.winetricks', 'Installing Winetricks Packages')
     }
     if (is.launching) {
       return t('label.launching', 'Launching')
@@ -136,7 +139,8 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
             is.uninstalling ||
             is.syncing ||
             is.launching ||
-            is.installingUbisoft
+            is.installingWinetricksPackages ||
+            is.installingPrerequisites
           }
           autoFocus={true}
           onClick={async () => handlePlay(gameInfo)}

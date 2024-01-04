@@ -26,11 +26,10 @@ import {
   GameInfo,
   GameSettings,
   Runner,
-  WikiInfo
+  WikiInfo,
+  InstallInfo,
+  LaunchOption
 } from 'common/types'
-import { LegendaryInstallInfo } from 'common/types/legendary'
-import { GogInstallInfo } from 'common/types/gog'
-import { NileInstallInfo } from 'common/types/nile'
 
 import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
@@ -64,6 +63,7 @@ import {
   SettingsButton
 } from './components'
 import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
+import { hasHelp } from 'frontend/hooks/hasHelp'
 import Genres from './components/Genres'
 import ReleaseDate from './components/ReleaseDate'
 
@@ -91,6 +91,17 @@ export default React.memo(function GamePage(): JSX.Element | null {
     experimentalFeatures
   } = useContext(ContextProvider)
 
+  hasHelp(
+    'gamePage',
+    t('help.title.gamePage', 'Game Page'),
+    <p>
+      {t(
+        'help.content.gamePage',
+        'Show all game details and actions. Use the 3 dots menu for more options.'
+      )}
+    </p>
+  )
+
   const [gameInfo, setGameInfo] = useState(locationGameInfo)
   const [gameSettings, setGameSettings] = useState<GameSettings | null>(null)
 
@@ -100,10 +111,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [progress, previousProgress] = hasProgress(appName)
 
   const [extraInfo, setExtraInfo] = useState<ExtraInfo | null>(null)
-  const [gameInstallInfo, setGameInstallInfo] = useState<
-    LegendaryInstallInfo | GogInstallInfo | NileInstallInfo | null
-  >(null)
-  const [launchArguments, setLaunchArguments] = useState('')
+  const [gameInstallInfo, setGameInstallInfo] = useState<InstallInfo | null>(
+    null
+  )
+  const [launchArguments, setLaunchArguments] = useState<
+    LaunchOption | undefined
+  >(undefined)
   const [hasError, setHasError] = useState<{
     error: boolean
     message: string | unknown
@@ -126,7 +139,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const isUninstalling = status === 'uninstalling'
   const isSyncing = status === 'syncing-saves'
   const isLaunching = status === 'launching'
-  const isInstallingUbisoft = status === 'ubisoft'
+  const isInstallingWinetricksPackages = status === 'winetricks'
+  const isInstallingPrerequisites = status === 'prerequisites'
   const notAvailable = !gameAvailable && gameInfo.is_installed
   const notInstallable =
     gameInfo.installable !== undefined && !gameInfo.installable
@@ -280,7 +294,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
       gameExtraInfo: extraInfo,
       is: {
         installing: isInstalling,
-        installingUbisoft: isInstallingUbisoft,
+        installingWinetricksPackages: isInstallingWinetricksPackages,
+        installingPrerequisites: isInstallingPrerequisites,
         launching: isLaunching,
         linux: isLinux,
         linuxNative: isLinuxNative,
@@ -381,7 +396,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   />
                   <LaunchOptions
                     gameInfo={gameInfo}
-                    launchArguments={launchArguments}
                     setLaunchArguments={setLaunchArguments}
                   />
 
@@ -434,7 +448,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     />
                     <LaunchOptions
                       gameInfo={gameInfo}
-                      launchArguments={launchArguments}
                       setLaunchArguments={setLaunchArguments}
                     />
                     <div className="buttons">

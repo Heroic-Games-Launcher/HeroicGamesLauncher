@@ -232,7 +232,8 @@
         "store": "Page du magasin",
         "verify": "Vérifier et Réparer",
         "extraInfo": "Informations supplémentaires",
-        "logs": "Journaux d'événements"
+        "logs": "Journaux d'événements",
+        "categories": "Catégories"
     },
     "help": {
         "cloud_save_unsupported": "Ce jeu ne prend pas en charge les sauvegardes dans le Cloud. Cette information est fournie par les développeurs du jeu. Certains jeux implémentent leur propre système de sauvegarde dans le Cloud"

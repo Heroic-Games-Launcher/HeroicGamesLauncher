@@ -126,3 +126,5 @@ export async function getInstallInfo(
   logWarning(`getInstallInfo not implemented on Sideload Library Manager`)
   return undefined
 }
+
+export const getLaunchOptions = () => []

@@ -94,6 +94,11 @@ const WineItem = ({
           default:
             break
         }
+
+        setProgress({
+          state: 'idle',
+          progress: { percentage: 0, avgSpeed: 0, eta: '00:00:00' }
+        })
       })
   }
 
@@ -211,15 +216,10 @@ function getProgressElement(progress: ProgressInfo) {
 
   const percentageAsString = `${percentage.toFixed(2)}%`
   const etaAsString = `${eta}`
-
   return (
-    <p
-      style={{
-        color: '#0BD58C',
-        fontStyle: 'italic'
-      }}
-    >
-      {percentageAsString} ({etaAsString})
+    <p className="progress">
+      {percentageAsString}
+      <br />({etaAsString})
     </p>
   )
 }
