@@ -27,7 +27,7 @@ export default function WinetricksSearchBar({
       setSearchResults([])
     } else {
       let filtered = allComponents.filter((component) =>
-        component.match(search)
+        component.includes(search)
       )
       filtered = filtered.filter((component) => !installed?.includes(component))
       setSearchResults(filtered)
