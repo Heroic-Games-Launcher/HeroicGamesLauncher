@@ -58,7 +58,6 @@ export default async function setup(
     'Running setup instructions, if you notice issues with launching a game, please report it on our Discord server',
     LogPrefix.Nile
   )
-  sendGameStatusUpdate({ appName, runner: 'nile', status: 'prerequisites' })
 
   const gameSettings = GameConfig.get(appName).config
   if (!isWindows) {
@@ -76,6 +75,9 @@ export default async function setup(
   }
 
   logDebug(['PostInstall:', fuel.PostInstall], LogPrefix.Nile)
+
+  sendGameStatusUpdate({ appName, runner: 'nile', status: 'prerequisites' })
+
   // Actual setup logic
   for (const action of fuel.PostInstall) {
     const exeArguments = action.Args ?? []
