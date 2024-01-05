@@ -209,14 +209,14 @@
             "disk": "Disk",
             "speed": "Download"
         },
-        "link": "Downloads",
+        "link": "Stahování",
         "queue": {
             "end-time": "Dokončeno",
             "queue-time": "Přidáno",
             "start-time": "Spuštěno",
             "type": "Type"
         },
-        "title": "Downloads",
+        "title": "Stahování",
         "ETA": "Předpokládaný čas"
     },
     "epic": {
@@ -653,7 +653,7 @@
         "addgamestoapplications": "Automaticky přidávat hry do Aplikací",
         "showMetalOverlay": "Zobrazit překryvnou statistiku",
         "alt-nile-bin": "Vyberte alternativní binární soubor Nile",
-        "autodxvknvapi": "Automaticky instalovat/aktualizovat DXVK/VKD3D na prefixu",
+        "autodxvknvapi": "Automaticky instalovat/aktualizovat DXVK-NVAPI na prefixu",
         "experimental_features": {
             "enableNewShinyFeature": "Nová skvělá funkce",
             "enableNewDesign": "Nový design",
