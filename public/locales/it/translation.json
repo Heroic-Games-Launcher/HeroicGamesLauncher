@@ -289,7 +289,15 @@
             "part2": "Per altre posizioni, utilizza un link simbolico ad una di queste cartelle"
         },
         "disable_logs": "Attiva questa casella di controllo per disabilitare la maggior parte delle scritture sui file di registro (le informazioni critiche vengono sempre registrate). Assicurati di disattivare questa impostazione prima di segnalare qualsiasi problema.",
-        "dxvknvapi": "DXVK-NVAPI è un'implementazione di NVAPI che utilizza DXVK e la versione linux di NVAPI, permette l'utilizzo del DLSS sulle GPU Nvidia."
+        "dxvknvapi": "DXVK-NVAPI è un'implementazione di NVAPI che utilizza DXVK e la versione linux di NVAPI, permette l'utilizzo del DLSS sulle GPU Nvidia.",
+        "title": {
+            "accessibility": "Accessibilità",
+            "login": "Login",
+            "settings": "Impostazioni",
+            "downloadManager": "Download Manager",
+            "wineManager": "Gestore di Wine",
+            "library": "Libreria"
+        }
     },
     "info": {
         "heroic": {
@@ -323,7 +331,8 @@
         "path": "Seleziona percorso di installazione"
     },
     "label": {
-        "loading": "Caricamento"
+        "loading": "Caricamento",
+        "releaseDate": "Release Date"
     },
     "library": {
         "refresh": "Aggiorna",

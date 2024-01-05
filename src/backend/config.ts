@@ -26,6 +26,7 @@ import {
   getDefaultWine,
   getGamingPortingToolkitWine,
   getLinuxWineSet,
+  getWhisky,
   getWineOnMac,
   getWineskinWine
 } from './utils/compatibility_layers'
@@ -137,12 +138,14 @@ abstract class GlobalConfig {
     const wineOnMac = await getWineOnMac()
     const wineskinWine = await getWineskinWine()
     const gamingPortingToolkitWine = await getGamingPortingToolkitWine()
+    const whiskyWine = await getWhisky()
 
     return new Set([
       ...gamingPortingToolkitWine,
       ...crossover,
       ...wineOnMac,
-      ...wineskinWine
+      ...wineskinWine,
+      ...whiskyWine
     ])
   }
 
@@ -291,7 +294,7 @@ class GlobalConfigV0 extends GlobalConfig {
       enableUpdates: false,
       addDesktopShortcuts: false,
       addStartMenuShortcuts: false,
-      autoInstallDxvk: true,
+      autoInstallDxvk: isLinux,
       autoInstallVkd3d: isLinux,
       autoInstallDxvkNvapi: false,
       addSteamShortcuts: false,

@@ -306,10 +306,19 @@
             "gameWidth": "A szélességi felbontást használja a játék. A gamescope 16:9-es képarányt feltételez.",
             "upscaleWidth": "A szélességi felbontást használja a gamescope. 16:9-es képarányt feltételez.",
             "gameHeight": "A magasság felbontását a játék használja. A 16:9-es képarányt feltételezi a gamescope.",
-            "fpsLimiter": "A képek száma, amennyire a gamescope limitálódik. Pl. 60"
+            "fpsLimiter": "A képek száma, amennyire a gamescope limitálódik. Pl. 60",
+            "upscaleHeight": "A szélességi felbontást használja a gamescope. 16:9-es képarányt feltételez."
         },
         "dxvknvapi": "DXVK-NVAPI a NVAPI egy implementációja, ami a DXVK-ra és a Linux eredeti NVAPI-jára épül, és lehetővé teszi a DLSS használatát az Nvidia videókártyákon.",
-        "disablePlaytimeSync": "Letiltja a játék közbeni szinkronizációt az adott áruház szervereivel (jelenleg csak a GOG támogatott)"
+        "disablePlaytimeSync": "Letiltja a játék közbeni szinkronizációt az adott áruház szervereivel (jelenleg csak a GOG támogatott)",
+        "title": {
+            "accessibility": "Hozzáférhetőség",
+            "login": "Login",
+            "settings": "Beállítások",
+            "downloadManager": "Download Manager",
+            "wineManager": "Wine kezelő",
+            "library": "Könyvtár"
+        }
     },
     "info": {
         "heroic": {
@@ -343,7 +352,8 @@
         "path": "Telepítési útvonal kiválasztása"
     },
     "label": {
-        "loading": "Loading"
+        "loading": "Loading",
+        "releaseDate": "Release Date"
     },
     "library": {
         "refresh": "Frissítés",
@@ -809,6 +819,7 @@
     "window": {
         "maximize": "Ablak nagyítása",
         "close": "Bezárás",
-        "restore": "Ablak visszaállítása"
+        "restore": "Ablak visszaállítása",
+        "minimize": "Ablak nagyítása"
     }
 }

@@ -21,7 +21,7 @@
             "title": "Selecione o EXE para executar"
         },
         "select": {
-            "button": "Selecionar ignore-reused"
+            "button": "Selecionar"
         },
         "sideload": {
             "exe": "Selecionar executável"

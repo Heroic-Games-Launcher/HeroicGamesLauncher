@@ -33,11 +33,11 @@
         },
         "uninstall": {
             "checkbox": "Radera prefix: {{prefix}}{{newLine}}OBS: Denna åtgärd kan ej ångras och kommer även radera sparfiler.",
-            "message": "Vill du avinstallera spelet?",
+            "message": "Vill du avinstallera \"{{title}}\"?",
             "settingcheckbox": "Radera inställningar och ta bort logg{{newLine}}OBS: Denna åtgärd kan ej ångras. Alla ändrade inställningar kommer att glömmas bort och loggen kommer att raderas.",
             "title": "Avinstallera",
             "prefix_warning": "Vinprefixet för det här spelet är standardprefixet. Om du verkligen vill ta bort det måste du göra det manuellt.",
-            "dlc": "Vill du avinstallera denna DLC?",
+            "dlc": "Vill du avinstallera \"{{title}}\" (DLC)?",
             "cannotUninstallEpic": "Epic spel kan inte avinstalleras samtidigt som ett annat Epic spel installeras."
         },
         "update": {
@@ -152,7 +152,9 @@
             "syncing": "Synkroniserar sparfiler"
         },
         "launching": "Startar",
-        "ubisoft": "Installera Ubisoft Connect"
+        "ubisoft": "Installera Ubisoft Connect",
+        "winetricks": "Installerar Winetricks paket",
+        "prerequisites": "Installerar krav"
     },
     "launch": {
         "options": "Startalternativ..."
@@ -220,7 +222,9 @@
         "downloading": "Nerladdning",
         "extracting": "Extrahera",
         "gog-goodie": "Det här spelet verkar inte gå att installera. Kontrollera nedladdningsbart innehåll på https://gog.com/account",
-        "goodie": "Ej installationsbar"
+        "goodie": "Ej installationsbar",
+        "prerequisites": "Installerar krav",
+        "winetricks": "Verkställer Winetricks fixar"
     },
     "submenu": {
         "addShortcut": "Skapa genväg",
@@ -240,6 +244,12 @@
         "categories": "Kategorier"
     },
     "help": {
-        "cloud_save_unsupported": "Spelet stöder inte sparfiler i molnlagring. Denna information tillhandahålls av spelutvecklarna. Vissa spel implementerar sitt eget molnsparsystem"
+        "cloud_save_unsupported": "Spelet stöder inte sparfiler i molnlagring. Denna information tillhandahålls av spelutvecklarna. Vissa spel implementerar sitt eget molnsparsystem",
+        "content": {
+            "gamePage": "Visa alla speldetaljer och åtgärder. Använd menyn med tre punkter för fler alternativ."
+        },
+        "title": {
+            "gamePage": "Spelsida"
+        }
     }
 }

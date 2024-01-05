@@ -186,6 +186,10 @@ export const DXVK = {
       return true
     }
 
+    if (isMac && tool !== 'dxvk') {
+      return true
+    }
+
     const prefix = gameSettings.winePrefix
     const winePrefix = prefix.replace('~', userHome)
     const isValidPrefix = existsSync(`${winePrefix}/.update-timestamp`)
