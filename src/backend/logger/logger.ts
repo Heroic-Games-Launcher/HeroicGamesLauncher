@@ -12,8 +12,9 @@ import { GlobalConfig } from 'backend/config'
 import { getGOGdlBin, getLegendaryBin } from 'backend/utils'
 import { join } from 'path'
 import { formatSystemInfo, getSystemInfo } from '../utils/systeminfo'
-import { appendFileSync, writeFile } from 'graceful-fs'
+import { appendFileSync } from 'graceful-fs'
 import { gamesConfigPath } from 'backend/constants'
+import { writeFile } from 'fs/promises'
 
 export enum LogPrefix {
   General = '',
@@ -355,7 +356,7 @@ export function logFileLocation(appName: string) {
   return join(gamesConfigPath, `${appName}.log`)
 }
 
-const logsWriters: { [appName: string]: LogWriter } = {}
+const logsWriters: Record<string, LogWriter> = {}
 
 class LogWriter {
   appName: string
@@ -371,8 +372,7 @@ class LogWriter {
   }
 
   logMessage(message: string) {
-    // initialize the value if undefined
-    if (this.queue === undefined) this.queue = []
+    this.queue ??= []
 
     // push messages to append to the log
     this.queue.push(message)
@@ -391,14 +391,20 @@ class LogWriter {
       const systemInfo = await formatSystemInfo(info)
 
       // init log file and then append message if any
-      writeFile(
-        this.filePath,
-        'System Info:\n' + `${systemInfo}\n` + '\n',
-        () => {
-          this.initialized = true
-          this.appendMessages()
-        }
-      )
+      try {
+        await writeFile(
+          this.filePath,
+          'System Info:\n' + `${systemInfo}\n` + '\n'
+        )
+
+        this.initialized = true
+        this.appendMessages()
+      } catch (error) {
+        logError(
+          [`Failed to initialize log ${this.filePath}:`, error],
+          LogPrefix.Backend
+        )
+      }
     } catch (error) {
       logError(['Failed to fetch system information', error], LogPrefix.Backend)
     }
@@ -413,7 +419,7 @@ class LogWriter {
     // clear timeout if any
     delete this.timeoutId
 
-    if (!messagesToWrite || !messagesToWrite.length) return
+    if (!messagesToWrite?.length) return
 
     // if we have messages, write them and check again in 1 second
     // we start the timeout before writing so we don't wait until
@@ -429,12 +435,12 @@ class LogWriter {
 }
 
 export function appendGameLog(appName: string, message: string) {
-  if (!logsWriters[appName]) logsWriters[appName] = new LogWriter(appName)
+  logsWriters[appName] ??= new LogWriter(appName)
   logsWriters[appName].logMessage(message)
 }
 
 export function initGameLog(appName: string) {
-  if (!logsWriters[appName]) logsWriters[appName] = new LogWriter(appName)
+  logsWriters[appName] ??= new LogWriter(appName)
   logsWriters[appName].initLog()
 }
 
