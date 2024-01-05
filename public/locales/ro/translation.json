@@ -286,7 +286,13 @@
             "part1": "Heroic caută pentru versiuni de Wine, Proton și CrossOver în următoarele foldere:",
             "part2": "Pentru alte locuri, utilizați un link simbolic către unul dintre aceste dosare"
         },
-        "disable_logs": "Activați această casetă de selectare pentru a dezactiva majoritatea scrierilor în fișierele jurnal (informațiile critice sunt întotdeauna înregistrate). Asigurați-vă că dezactivați această setare înainte de a raporta orice problemă."
+        "disable_logs": "Activați această casetă de selectare pentru a dezactiva majoritatea scrierilor în fișierele jurnal (informațiile critice sunt întotdeauna înregistrate). Asigurați-vă că dezactivați această setare înainte de a raporta orice problemă.",
+        "title": {
+            "login": "Autentificare",
+            "settings": "Setări",
+            "downloadManager": "Download Manager",
+            "library": "Bibliotecă"
+        }
     },
     "info": {
         "heroic": {

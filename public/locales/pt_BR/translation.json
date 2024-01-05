@@ -307,6 +307,14 @@
             "gameHeight": "A resolução de altura usada pelo jogo. Uma proporção de 16:9 é assumida pelo gamescope.",
             "upscaleHeight": "A resolução de altura usada pelo gamescope. Uma proporção de aspecto de 16:9 é assumida.",
             "fpsLimiter": "A quantidade de frames que o gamescope deve limitar. Ex: 60"
+        },
+        "title": {
+            "accessibility": "Acessibilidade",
+            "login": "Login",
+            "settings": "Configurações",
+            "downloadManager": "Download Manager",
+            "wineManager": "Versões do Wine",
+            "library": "Biblioteca"
         }
     },
     "info": {
@@ -341,7 +349,8 @@
         "path": "Selecione o local de instalação"
     },
     "label": {
-        "loading": "Carregando"
+        "loading": "Carregando",
+        "releaseDate": "Data de lançamento"
     },
     "library": {
         "refresh": "Atualizar",

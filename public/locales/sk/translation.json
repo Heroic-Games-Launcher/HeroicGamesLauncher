@@ -285,7 +285,14 @@
             "part1": "Heroic hľadá verzie Wine, Proton a CrossOver v nasledujúcich priečinkoch:",
             "part2": "Pre ostatné miesta použite symbolický odkaz na jeden z týchto priečinkov"
         },
-        "disable_logs": "Zapnite toto začiarkavacie políčko, ak chcete zakázať väčšinu zápisov do protokolových súborov (kritické informácie sú vždy protokolované). Pred nahlásením akéhokoľvek problému nezabudnite toto nastavenie VYPNÚŤ."
+        "disable_logs": "Zapnite toto začiarkavacie políčko, ak chcete zakázať väčšinu zápisov do protokolových súborov (kritické informácie sú vždy protokolované). Pred nahlásením akéhokoľvek problému nezabudnite toto nastavenie VYPNÚŤ.",
+        "title": {
+            "accessibility": "Accessibility",
+            "settings": "nastavenie",
+            "downloadManager": "Download Manager",
+            "wineManager": "Wine Manager (Beta)",
+            "library": "Knižnica"
+        }
     },
     "info": {
         "heroic": {
@@ -319,7 +326,8 @@
         "path": "Select Install Path"
     },
     "label": {
-        "loading": "Loading"
+        "loading": "Loading",
+        "releaseDate": "Release Date"
     },
     "library": {
         "refresh": "Refresh Library",

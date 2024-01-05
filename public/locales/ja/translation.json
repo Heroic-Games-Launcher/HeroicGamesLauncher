@@ -307,7 +307,15 @@
             "fpsLimiter": "Gamescopeが制限するフレーム数（例:60）"
         },
         "dxvknvapi": "DXVK-NVAPIは、DXVKとLinuxネイティブNVAPIの上に構築されたNVAPIの実装で、Nvidia GPU上でDLSSを使用することができます。",
-        "disablePlaytimeSync": "指定したストアのサーバーとのプレイタイムの同期を無効にする（現時点ではGOGのみ対応）"
+        "disablePlaytimeSync": "指定したストアのサーバーとのプレイタイムの同期を無効にする（現時点ではGOGのみ対応）",
+        "title": {
+            "accessibility": "Accessibility",
+            "login": "Login",
+            "settings": "設定",
+            "downloadManager": "Download Manager",
+            "wineManager": "Wine Manager",
+            "library": "ライブラリ"
+        }
     },
     "info": {
         "heroic": {
@@ -341,7 +349,8 @@
         "path": "Select Install Path"
     },
     "label": {
-        "loading": "読み込み中"
+        "loading": "読み込み中",
+        "releaseDate": "Release Date"
     },
     "library": {
         "refresh": "更新",

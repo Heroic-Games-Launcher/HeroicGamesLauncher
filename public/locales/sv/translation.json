@@ -259,7 +259,8 @@
         "only": "endast",
         "reset": "Återställ",
         "no_categories": "Inga anpassade kategorier. Lägg till kategorier genom att använda varje spelmeny.",
-        "categories": "Kategorier"
+        "categories": "Kategorier",
+        "show_support_offline_only": "Visa spel med offline stöd endast"
     },
     "help": {
         "amdfsr": "AMD's FSR hjälper till att öka bildhastigheten genom att skala upp lägre upplösningar i helskärmsläge. Bildkvaliteten ökar från 5 mot 1 till priset av en liten påverkan av prestandan. Aktivering kan förbättra prestandan.",
@@ -311,6 +312,29 @@
             "fpsLimiterNoFocus": "Gränsen för bildhastighet gamescope ska avgränsa per sekund om spelet inte är fokuserat.",
             "gameWidth": "Breddupplösningen som används av spelet. Ett bildförhållande på 16:9 antas av gamescope.",
             "gameHeight": "Höjdupplösningen som används av spelet. Ett bildförhållande på 16:9 antas av gamescope."
+        },
+        "title": {
+            "accessibility": "Handikappsanpassning",
+            "login": "Login",
+            "settings": "Inställningar",
+            "downloadManager": "Download Manager",
+            "wineManager": "Wine Manager",
+            "library": "Bibliotek"
+        },
+        "content": {
+            "defaultInstallPath": "Detta är den sökvägen som är förvald när du installerar spel.",
+            "settingsDefault": "Visar alla inställningar för Heroic och standardinställningar för spel.",
+            "settingsGame": "Visar alla inställningar för ett spel.",
+            "downloadManager": "Visar nuvarande och tidigare nedladdningar.",
+            "wineManager": "Installera olika versioner av Wine, Proton, Crossover, etc.",
+            "library": "Visar alla ägda spel.",
+            "customThemesPath": "Kolla vår wiki.",
+            "accessibility": "Visar tillgänglighetsinställningar.",
+            "login": "Logga in i olika butiker."
+        },
+        "button": {
+            "open": "Öppna hjälp",
+            "close": "Stäng hjälp"
         }
     },
     "info": {
@@ -345,7 +369,8 @@
         "path": "Ange installationssökväg"
     },
     "label": {
-        "loading": "Läser in"
+        "loading": "Läser in",
+        "releaseDate": "Utgivningsdatum"
     },
     "library": {
         "refresh": "Uppdatera",
@@ -580,7 +605,8 @@
             "instructions_title": "Hur rapporterar jag problem?",
             "last-log": "Senaste logg",
             "no-file": "Ingen loggfil hittades",
-            "show-in-folder": "Visa loggfiler i mapp"
+            "show-in-folder": "Visa loggfiler i mapp",
+            "join-heroic-discord": "Gå med i vår Discord"
         },
         "mangohud": "Aktivera Mangohud (Mangohud måste vara installerat)",
         "manualsync": {
@@ -630,7 +656,9 @@
         "autodxvknvapi": "Installera/uppdatera DXVK i prefix automatiskt",
         "disablePlaytimeSync": "Inaktivera speltidssynkronisering",
         "experimental_features": {
-            "enableNewDesign": "Ny design"
+            "enableNewDesign": "Ny design",
+            "enableHelp": "Hjälp komponent",
+            "automaticWinetricksFixes": "Tillämpa kända Winetricks-fixar automatiskt"
         },
         "frameless-window": {
             "confirmation": {
