@@ -118,7 +118,7 @@
             "title": "Selecione o EXE para executar"
         },
         "select": {
-            "button": "Selecionar ignore-reused",
+            "button": "Selecionar",
             "exe": "Selecionar EXE"
         },
         "shortcuts": {
@@ -181,7 +181,7 @@
     },
     "controller": {
         "hints": {
-            "back": "Voltar ignore-reused",
+            "back": "Voltar",
             "backspace": "Backspace",
             "close_dialog": "Fechar caixa de diálogo",
             "close_keyboard": "Fechar teclado",
@@ -194,7 +194,7 @@
             "options": "Opções",
             "play_game": "Jogar um jogo",
             "scroll": "Scroll",
-            "select": "Selecionar ignore-reused",
+            "select": "Selecionar",
             "space": "Espaço",
             "update_game": "Atualizar jogo"
         }
@@ -770,7 +770,7 @@
     },
     "webview": {
         "controls": {
-            "back": "Voltar ignore-reused",
+            "back": "Voltar",
             "forward": "Avançar",
             "openInBrowser": "Abrir no navegador",
             "reload": "Recarregar página"
