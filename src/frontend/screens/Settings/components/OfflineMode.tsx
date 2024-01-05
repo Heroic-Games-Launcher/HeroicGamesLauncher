@@ -28,7 +28,7 @@ const OfflineMode = () => {
 
   const [offlineMode, setOfflineMode] = useSetting('offlineMode', false)
 
-  if (isDefault) {
+  if (isDefault || runner !== 'legendary') {
     return <></>
   }
 
