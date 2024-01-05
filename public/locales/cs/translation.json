@@ -209,14 +209,14 @@
             "disk": "Disk",
             "speed": "Download"
         },
-        "link": "Downloads",
+        "link": "Stahování",
         "queue": {
             "end-time": "Dokončeno",
             "queue-time": "Přidáno",
             "start-time": "Spuštěno",
             "type": "Type"
         },
-        "title": "Downloads",
+        "title": "Stahování",
         "ETA": "Předpokládaný čas"
     },
     "epic": {
@@ -254,7 +254,13 @@
         "filters": "Filtr",
         "all_categories": "Všechny kategorie",
         "show_installed_only": "Zobrazit pouze nainstalované",
-        "uncategorized": "Nezařazeno"
+        "uncategorized": "Nezařazeno",
+        "select_all": "Vybrat vše",
+        "only": "pouze",
+        "reset": "Resetovat",
+        "no_categories": "Žádné vlastní kategorie. Přidejte je pomocí nabídky každé hry.",
+        "categories": "Kategorie",
+        "show_support_offline_only": "Zobrazit pouze s podporovaným režimem offline"
     },
     "help": {
         "amdfsr": "Funkce AMD FSR pomáhá zvýšit snímkovou frekvenci škálováním nižšího rozlišení v režimu celé obrazovky. Kvalita obrazu se zvýší z 5 na 1 za cenu mírného snížení výkonu. Povolení může zlepšit výkon.",
@@ -306,6 +312,29 @@
             "gameHeight": "Rozlišení výšky používané hrou. Gamescope předpokládá poměr stran 16:9.",
             "upscaleHeight": "Rozlišení výšky používané službou gamescope. Je předpokládán rozměr 16:9.",
             "fpsLimiter": "Počet snímků, na který by měl být omezen gamescope. Např. 60"
+        },
+        "title": {
+            "accessibility": "Přístupnost",
+            "login": "Login",
+            "settings": "Nastavení",
+            "downloadManager": "Download Manager",
+            "wineManager": "Správce Wine",
+            "library": "Knihovna"
+        },
+        "content": {
+            "defaultInstallPath": "Toto je výchozí cesta předem zvolená při instalaci her.",
+            "settingsDefault": "Zobrazí všechna nastavení Heroicu a výchozí nastavení pro hry.",
+            "settingsGame": "Zobrazit všechna nastavení hry.",
+            "downloadManager": "Zobrazí aktuální a dokončená stahování.",
+            "wineManager": "Instalace různých verzí služeb Wine, Proton, Crossover atd.",
+            "library": "Zobrazí všechny vlastněné hry.",
+            "customThemesPath": "Podívejte se na naši wiki.",
+            "accessibility": "Zobrazit nastavení přístupnosti.",
+            "login": "Přihlášení do různých obchodů."
+        },
+        "button": {
+            "open": "Otevřít nápovědu",
+            "close": "Zavřít nápovědu"
         }
     },
     "info": {
@@ -340,7 +369,8 @@
         "path": "Vyberte cestu instalace"
     },
     "label": {
-        "loading": "Načítání"
+        "loading": "Načítání",
+        "releaseDate": "Release Date"
     },
     "library": {
         "refresh": "Obnovit",
@@ -575,7 +605,8 @@
             "instructions_title": "Jak nahlásit problém?",
             "last-log": "Poslední protokol",
             "no-file": "Nebyl nalezen žádný soubor protokolu",
-            "show-in-folder": "Zobrazit soubor protokolu ve složce"
+            "show-in-folder": "Zobrazit soubor protokolu ve složce",
+            "join-heroic-discord": "Připojte se k našemu Discordu"
         },
         "mangohud": "Použít Mangohud (Mangohud musí být nainstalován)",
         "manualsync": {
@@ -622,10 +653,12 @@
         "addgamestoapplications": "Automaticky přidávat hry do Aplikací",
         "showMetalOverlay": "Zobrazit překryvnou statistiku",
         "alt-nile-bin": "Vyberte alternativní binární soubor Nile",
-        "autodxvknvapi": "Automaticky instalovat/aktualizovat DXVK/VKD3D na prefixu",
+        "autodxvknvapi": "Automaticky instalovat/aktualizovat DXVK-NVAPI na prefixu",
         "experimental_features": {
             "enableNewShinyFeature": "Nová skvělá funkce",
-            "enableNewDesign": "Nový design"
+            "enableNewDesign": "Nový design",
+            "enableHelp": "Komponenta nápovědy",
+            "automaticWinetricksFixes": "Automaticky použít známé opravy Winetricks"
         },
         "disablePlaytimeSync": "Zakázat synchronizaci času hraní",
         "gamescope": {

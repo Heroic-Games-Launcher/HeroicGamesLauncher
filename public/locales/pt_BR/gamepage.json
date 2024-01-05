@@ -21,7 +21,7 @@
             "title": "Selecione o EXE para executar"
         },
         "select": {
-            "button": "Selecionar ignore-reused"
+            "button": "Selecionar"
         },
         "sideload": {
             "exe": "Selecionar executável"
@@ -37,14 +37,16 @@
             "settingcheckbox": "Apagar configurações e remover logs{{newLine}}Obs: Isto não pode ser desfeito. Qualquer configuração modificada será esquecida e o log será deletado.",
             "title": "Desinstalar",
             "prefix_warning": "O prefixo Wine para este jogo é o prefixo padrão. Se você realmente deseja excluí-lo, deve fazê-lo manualmente.",
-            "dlc": "Deseja desinstalar esta DLC?"
+            "dlc": "Deseja desinstalar esta DLC?",
+            "cannotUninstallEpic": "A Epic games não pode ser desinstalada enquanto outra está sendo instalada."
         },
         "update": {
             "message": "Este jogo tem uma atualização, aplicar atualização agora?",
             "title": "Atualização Disponível"
         },
         "wineprefix": "Selecione a pasta do prefixo Wine",
-        "yes": "SIM"
+        "yes": "SIM",
+        "close": "Fechar"
     },
     "button": {
         "add_to_favourites": "Adicionar aos favoritos",
@@ -178,12 +180,15 @@
             "exe": "Selecionar executável",
             "image": "Imagem do Aplicativo",
             "title": "Título do Jogo/App",
-            "broser": "URL do navegador"
+            "broser": "URL do navegador",
+            "useragent": "\"User Agent\" personalizado",
+            "fullscreen": "Inicie em tela cheia (F11 para sair)"
         },
         "placeholder": {
             "image": "Cole um link de uma imagem aqui",
             "title": "Adicione um título ao seu Jogo/App",
-            "url": "Cole o URL do jogo aqui"
+            "url": "Cole o URL do jogo aqui",
+            "useragent": "Escreva aqui um \"user agent\" personalizado para ser usado neste app/jogo de navegador"
         }
     },
     "specs": {
@@ -231,7 +236,8 @@
         "store": "Página na Loja",
         "verify": "Verificar e Reparar",
         "extraInfo": "Informação extra",
-        "logs": "Registros"
+        "logs": "Registros",
+        "categories": "Categorias"
     },
     "help": {
         "cloud_save_unsupported": "Este jogo não suporta salvamentos na nuvem. Esta informação é fornecida pelos desenvolvedores do jogo. Alguns jogos implementam seu próprio sistema de salvamento na nuvem"

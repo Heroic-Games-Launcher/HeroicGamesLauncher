@@ -26,6 +26,7 @@ import { join, normalize } from 'path'
 
 import {
   defaultWinePrefix,
+  fixesPath,
   flatPakHome,
   isLinux,
   isMac,
@@ -40,7 +41,8 @@ import {
   quoteIfNecessary,
   errorHandler,
   removeQuoteIfNecessary,
-  memoryLog
+  memoryLog,
+  sendGameStatusUpdate
 } from './utils'
 import {
   logDebug,
@@ -52,7 +54,7 @@ import {
 } from './logger/logger'
 import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
-import { DXVK } from './tools'
+import { DXVK, Winetricks } from './tools'
 import gogSetup from './storeManagers/gog/setup'
 import nileSetup from './storeManagers/nile/setup'
 import { spawn, spawnSync } from 'child_process'
@@ -137,83 +139,81 @@ async function prepareLaunch(
   ) {
     const gameScopeBin = await searchForExecutableOnPath('gamescope')
     if (!gameScopeBin) {
-      return {
-        success: false,
-        failureReason:
-          'Gamescope is enabled, but `gamescope` executable could not be found on $PATH'
+      logWarning(
+        'Gamescope is enabled, but `gamescope` executable could not be found on $PATH'
+      )
+    } else {
+      // Gamescope does not provide a version option and they changed
+      // cli options on version 3.12. So we do what lutris does.
+      let oldVersion = true // < 3.12
+      const { stderr } = spawnSync(gameScopeBin, ['--help'], {
+        encoding: 'utf-8'
+      })
+      if (stderr && stderr.includes('-F, --filter')) {
+        oldVersion = false
       }
+
+      gameScopeCommand.push(gameScopeBin)
+
+      if (gameSettings.gamescope.enableUpscaling) {
+        // game res
+        if (gameSettings.gamescope.gameWidth) {
+          gameScopeCommand.push('-w', gameSettings.gamescope.gameWidth)
+        }
+        if (gameSettings.gamescope.gameHeight) {
+          gameScopeCommand.push('-h', gameSettings.gamescope.gameHeight)
+        }
+
+        // gamescope res
+        if (gameSettings.gamescope.upscaleWidth) {
+          gameScopeCommand.push('-W', gameSettings.gamescope.upscaleWidth)
+        }
+        if (gameSettings.gamescope.upscaleHeight) {
+          gameScopeCommand.push('-H', gameSettings.gamescope.upscaleHeight)
+        }
+
+        // upscale method
+        if (gameSettings.gamescope.upscaleMethod === 'fsr') {
+          oldVersion
+            ? gameScopeCommand.push('-U')
+            : gameScopeCommand.push('-F', 'fsr')
+        }
+        if (gameSettings.gamescope.upscaleMethod === 'nis') {
+          oldVersion
+            ? gameScopeCommand.push('-Y')
+            : gameScopeCommand.push('-F', 'nis')
+        }
+        if (gameSettings.gamescope.upscaleMethod === 'integer') {
+          oldVersion
+            ? gameScopeCommand.push('-i')
+            : gameScopeCommand.push('-S', 'integer')
+        }
+        // didn't find stretch in old version
+        if (gameSettings.gamescope.upscaleMethod === 'stretch' && !oldVersion) {
+          gameScopeCommand.push('-S', 'stretch')
+        }
+
+        // window type
+        if (gameSettings.gamescope.windowType === 'fullscreen') {
+          gameScopeCommand.push('-f')
+        }
+        if (gameSettings.gamescope.windowType === 'borderless') {
+          gameScopeCommand.push('-b')
+        }
+      }
+
+      if (gameSettings.gamescope.enableLimiter) {
+        if (gameSettings.gamescope.fpsLimiter) {
+          gameScopeCommand.push('-r', gameSettings.gamescope.fpsLimiter)
+        }
+        if (gameSettings.gamescope.fpsLimiterNoFocus) {
+          gameScopeCommand.push('-o', gameSettings.gamescope.fpsLimiterNoFocus)
+        }
+      }
+
+      // Note: needs to be the last option
+      gameScopeCommand.push('--')
     }
-
-    // Gamescope does not provide a version option and they changed
-    // cli options on version 3.12. So we do what lutris does.
-    let oldVersion = true // < 3.12
-    const { stderr } = spawnSync(gameScopeBin, ['--help'], {
-      encoding: 'utf-8'
-    })
-    if (stderr && stderr.includes('-F, --filter')) {
-      oldVersion = false
-    }
-
-    gameScopeCommand.push(gameScopeBin)
-
-    if (gameSettings.gamescope.enableUpscaling) {
-      // game res
-      if (gameSettings.gamescope.gameWidth) {
-        gameScopeCommand.push('-w', gameSettings.gamescope.gameWidth)
-      }
-      if (gameSettings.gamescope.gameHeight) {
-        gameScopeCommand.push('-h', gameSettings.gamescope.gameHeight)
-      }
-
-      // gamescope res
-      if (gameSettings.gamescope.upscaleWidth) {
-        gameScopeCommand.push('-W', gameSettings.gamescope.upscaleWidth)
-      }
-      if (gameSettings.gamescope.upscaleHeight) {
-        gameScopeCommand.push('-H', gameSettings.gamescope.upscaleHeight)
-      }
-
-      // upscale method
-      if (gameSettings.gamescope.upscaleMethod === 'fsr') {
-        oldVersion
-          ? gameScopeCommand.push('-U')
-          : gameScopeCommand.push('-F', 'fsr')
-      }
-      if (gameSettings.gamescope.upscaleMethod === 'nis') {
-        oldVersion
-          ? gameScopeCommand.push('-Y')
-          : gameScopeCommand.push('-F', 'nis')
-      }
-      if (gameSettings.gamescope.upscaleMethod === 'integer') {
-        oldVersion
-          ? gameScopeCommand.push('-i')
-          : gameScopeCommand.push('-S', 'integer')
-      }
-      // didn't find stretch in old version
-      if (gameSettings.gamescope.upscaleMethod === 'stretch' && !oldVersion) {
-        gameScopeCommand.push('-S', 'stretch')
-      }
-
-      // window type
-      if (gameSettings.gamescope.windowType === 'fullscreen') {
-        gameScopeCommand.push('-f')
-      }
-      if (gameSettings.gamescope.windowType === 'borderless') {
-        gameScopeCommand.push('-b')
-      }
-    }
-
-    if (gameSettings.gamescope.enableLimiter) {
-      if (gameSettings.gamescope.fpsLimiter) {
-        gameScopeCommand.push('-r', gameSettings.gamescope.fpsLimiter)
-      }
-      if (gameSettings.gamescope.fpsLimiterNoFocus) {
-        gameScopeCommand.push('-o', gameSettings.gamescope.fpsLimiterNoFocus)
-      }
-    }
-
-    // Note: needs to be the last option
-    gameScopeCommand.push('--')
   }
 
   // If the Steam Runtime is enabled, find a valid one
@@ -345,6 +345,12 @@ async function prepareWineLaunch(
     if (runner === 'legendary') {
       await legendarySetup(appName)
     }
+    if (
+      GlobalConfig.get().getSettings().experimentalFeatures
+        .automaticWinetricksFixes
+    ) {
+      await installFixes(appName, runner)
+    }
   }
 
   // If DXVK/VKD3D installation is enabled, install it
@@ -352,10 +358,10 @@ async function prepareWineLaunch(
     if (gameSettings.autoInstallDxvk) {
       await DXVK.installRemove(gameSettings, 'dxvk', 'backup')
     }
-    if (gameSettings.autoInstallDxvkNvapi) {
+    if (isLinux && gameSettings.autoInstallDxvkNvapi) {
       await DXVK.installRemove(gameSettings, 'dxvk-nvapi', 'backup')
     }
-    if (gameSettings.autoInstallVkd3d) {
+    if (isLinux && gameSettings.autoInstallVkd3d) {
       await DXVK.installRemove(gameSettings, 'vkd3d', 'backup')
     }
   }
@@ -389,6 +395,38 @@ async function prepareWineLaunch(
   const envVars = setupWineEnvVars(gameSettings, installFolderName)
 
   return { success: true, envVars: envVars }
+}
+
+const runnerToStore = {
+  legendary: 'epic',
+  gog: 'gog',
+  nile: 'amazon'
+}
+
+async function installFixes(appName: string, runner: Runner) {
+  const fixPath = join(fixesPath, `${appName}-${runnerToStore[runner]}.json`)
+
+  if (!existsSync(fixPath)) return
+
+  try {
+    const fixesContent = JSON.parse(readFileSync(fixPath).toString())
+
+    sendGameStatusUpdate({
+      appName,
+      runner: runner,
+      status: 'winetricks'
+    })
+
+    for (const winetricksPackage of fixesContent.winetricks) {
+      await Winetricks.install(runner, appName, winetricksPackage)
+    }
+  } catch (error) {
+    // if we fail to download the json file, it can be malformed causing
+    // JSON.parse to throw an exception
+    logWarning(
+      `Known winetricks fixes could not be applied, ignoring.\n${error}`
+    )
+  }
 }
 
 /**

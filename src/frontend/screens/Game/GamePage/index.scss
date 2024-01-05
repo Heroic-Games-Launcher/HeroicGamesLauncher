@@ -250,8 +250,23 @@
       align-self: flex-start;
     }
 
+    .genres {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+      margin-bottom: 0.5rem;
+
+      .genre {
+        background: var(--accent-overlay);
+        color: var(--text-tertiary);
+        padding: 1px 6px;
+        border-radius: 6px;
+        font-size: var(--text-sm);
+      }
+    }
+
     .developer {
-      padding: var(--space-md-fixed) 0;
+      padding: var(--space-md-fixed) 0 0 0;
       color: var(--text-default);
     }
 
@@ -275,6 +290,7 @@
       overflow: auto;
       height: 150px;
       line-height: 1.5;
+      padding-top: var(--space-md-fixed);
       b {
         font-weight: 700;
       }
@@ -559,6 +575,21 @@
         line-height: 34px;
         text-align: left;
         flex-grow: 1;
+      }
+
+      .genres {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-xs);
+        margin-bottom: 0.5rem;
+
+        .genre {
+          background: var(--accent-overlay);
+          color: var(--text-tertiary);
+          padding: 1px 6px;
+          border-radius: 6px;
+          font-size: var(--text-sm);
+        }
       }
 
       .gameStatus {

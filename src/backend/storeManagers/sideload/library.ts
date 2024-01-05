@@ -127,6 +127,8 @@ export async function getInstallInfo(
   return undefined
 }
 
+export const getLaunchOptions = () => []
+
 export function changeVersionPinnedStatus(appName: string, status: boolean) {
   logWarning(
     'changeVersionPinnedStatus not implemented on Sideload Library Manager'

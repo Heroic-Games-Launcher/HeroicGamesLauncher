@@ -37,7 +37,7 @@ export function getStatusLabel({
     }`,
     notInstalled: t('gamepage:status.notinstalled'),
     launching: t('gamepage:status.launching', 'Launching'),
-    ubisoft: t('gamepage:status.ubisoft', 'Installing Ubisoft'),
+    winetricks: t('gamepage:status.winetricks', 'Applying Winetricks fixes'),
     redist: t(
       'gamepage:status.redist',
       'Installing Redistributables ({{redist}})',

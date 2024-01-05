@@ -233,7 +233,8 @@
         }
     },
     "label": {
-        "loading": "טוען"
+        "loading": "טוען",
+        "releaseDate": "תאריך יציאה"
     },
     "loading": {
         "default": "טוען",
@@ -503,7 +504,13 @@
             "info": "המיקום הזה נותן לHeroic לקבוע באיזה גרסת Proton משתמשת Steam, על מנת להוסיף משחקים שאינם מSteam לSteam."
         },
         "steamruntime": "ספריות מותאמות אישית המסופקות על ידי Steam כדי לסייע בהפעלת משחקי Linux ו-Windows (Proton). הפעלה עשויה לשפר את התאימות.",
-        "vkd3d": "VKD3D הוא שכבת תרגום מבוססת Vulkan עבור משחקי DirectX 12. הפעלה יכולה לשפר תאימות באופן משמעותי. אין השפעה על משחקי DirectX ישנים יותר."
+        "vkd3d": "VKD3D הוא שכבת תרגום מבוססת Vulkan עבור משחקי DirectX 12. הפעלה יכולה לשפר תאימות באופן משמעותי. אין השפעה על משחקי DirectX ישנים יותר.",
+        "title": {
+            "accessibility": "נגישות",
+            "settings": "הגדרות",
+            "wineManager": "מנהל גרסאות Wine",
+            "library": "ספריה"
+        }
     },
     "Library": "ספריה",
     "message": {

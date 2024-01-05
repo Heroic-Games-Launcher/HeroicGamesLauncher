@@ -11,7 +11,7 @@ const initialContext: GameContextType = {
   gameInstallInfo: null,
   is: {
     installing: false,
-    installingUbisoft: false,
+    installingWinetricksPackages: false,
     installingRedist: false,
     launching: false,
     linux: false,

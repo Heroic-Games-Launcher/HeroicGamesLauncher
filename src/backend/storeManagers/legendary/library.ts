@@ -5,7 +5,8 @@ import {
   InstalledInfo,
   CallRunnerOptions,
   ExecResult,
-  InstallPlatform
+  InstallPlatform,
+  LaunchOption
 } from 'common/types'
 import {
   InstalledJsonMetadata,
@@ -204,7 +205,7 @@ export function getGameInfo(
   }
   // We have the game, but info wasn't loaded yet
   if (!library.has(appName) || forceReload) {
-    loadFile(appName + '.json')
+    loadFile(appName)
   }
   return library.get(appName)
 }
@@ -449,7 +450,7 @@ export function installState(appName: string, state: boolean) {
   if (state) {
     // This assumes that fileName and appName are same.
     // If that changes, this will break.
-    loadFile(`${appName}.json`)
+    loadFile(appName)
   } else {
     // @ts-expect-error TODO: Make sure game info is loaded & appName is valid here
     library.get(appName).is_installed = false
@@ -459,23 +460,24 @@ export function installState(appName: string, state: boolean) {
   }
 }
 
+function loadGameMetadata(appName: string): GameMetadata {
+  const fullPath = join(legendaryMetadata, appName + '.json')
+  return JSON.parse(readFileSync(fullPath, 'utf-8'))
+}
+
 /**
  * Load the file completely into our in-memory library.
  * Largely derived from legacy code.
  *
  * @returns True/False, whether or not the file was loaded
  */
-function loadFile(fileName: string): boolean {
-  const fullPath = join(legendaryMetadata, fileName)
-
-  let app_name: string
+function loadFile(app_name: string): boolean {
   let metadata
   try {
-    const data: GameMetadata = JSON.parse(readFileSync(fullPath, 'utf-8'))
-    app_name = data.app_name
+    const data = loadGameMetadata(app_name)
     metadata = data.metadata
   } catch (error) {
-    logError(['Failed to parse', fileName], LogPrefix.Legendary)
+    logError(['Failed to parse metadata for', app_name], LogPrefix.Legendary)
     return false
   }
   const { namespace } = metadata
@@ -503,10 +505,7 @@ function loadFile(fileName: string): boolean {
   }
 
   if (!customAttributes) {
-    logWarning(
-      ['Incomplete metadata for', fileName, app_name],
-      LogPrefix.Legendary
-    )
+    logWarning(['Incomplete metadata for', app_name], LogPrefix.Legendary)
   }
 
   const dlcs: string[] = []
@@ -559,10 +558,7 @@ function loadFile(fileName: string): boolean {
   const convertedSize = install_size ? getFileSize(Number(install_size)) : '0'
 
   if (releaseInfo && !releaseInfo[0].platform) {
-    logWarning(
-      ['No platforms info for', fileName, app_name],
-      LogPrefix.Legendary
-    )
+    logWarning(['No platforms info for', app_name], LogPrefix.Legendary)
   }
 
   let metadataPlatform: LegendaryInstallPlatform[] = []
@@ -624,7 +620,7 @@ async function loadAll(): Promise<string[]> {
   if (existsSync(legendaryMetadata)) {
     const loadedFiles: string[] = []
     allGames.forEach((appName) => {
-      const wasLoaded = loadFile(appName + '.json')
+      const wasLoaded = loadFile(appName)
       if (wasLoaded) {
         loadedFiles.push(appName)
       }
@@ -844,6 +840,61 @@ export function commandToArgsArray(command: LegendaryCommand): string[] {
   }
 
   return commandParts
+}
+
+export async function getLaunchOptions(
+  appName: string
+): Promise<LaunchOption[]> {
+  const gameInfo = getGameInfo(appName)
+  const installPlatform = gameInfo?.install.platform
+  if (!installPlatform) return []
+
+  const installInfo = await getInstallInfo(appName, installPlatform)
+  const launchOptions: LaunchOption[] = installInfo.game.launch_options
+
+  // Some DLCs are also launch-able
+  for (const dlc of installInfo.game.owned_dlc) {
+    const installedInfo = installedGames.get(dlc.app_name)
+    if (!installedInfo) continue
+
+    // If the DLC itself is executable, push it onto the list
+    if (installedInfo.executable) {
+      launchOptions.push({
+        type: 'dlc',
+        dlcAppName: dlc.app_name,
+        dlcTitle: dlc.title
+      })
+      // The one example we've found using this (Unreal Editor for Fortnite)
+      // suggests that we should not look at the AdditionalCommandLine custom
+      // attribute (below) if this is set
+      continue
+    }
+
+    // Otherwise, if it specifies additional commandline parameters to pass to
+    // the main game, add it as a basic launch option
+    let metadata
+    try {
+      metadata = loadGameMetadata(dlc.app_name)
+    } catch (e) {
+      logWarning(
+        [
+          'Failed to load DLC metadata for',
+          dlc.app_name,
+          '(base game is',
+          `${appName})`
+        ],
+        LogPrefix.Legendary
+      )
+    }
+    if (!metadata?.metadata.customAttributes?.AdditionalCommandLine) continue
+    launchOptions.push({
+      type: 'basic',
+      name: dlc.title,
+      parameters: metadata.metadata.customAttributes.AdditionalCommandLine.value
+    })
+  }
+
+  return launchOptions
 }
 
 /* eslint-disable-next-line @typescript-eslint/no-unused-vars */

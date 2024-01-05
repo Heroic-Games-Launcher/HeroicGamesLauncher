@@ -1,9 +1,17 @@
-import { GOGCloudSavesLocation, GogInstallPlatform } from './types/gog'
-import { LegendaryInstallPlatform, GameMetadataInner } from './types/legendary'
+import {
+  GOGCloudSavesLocation,
+  GogInstallInfo,
+  GogInstallPlatform
+} from './types/gog'
+import {
+  LegendaryInstallPlatform,
+  GameMetadataInner,
+  LegendaryInstallInfo
+} from './types/legendary'
 import { IpcRendererEvent, TitleBarOverlay } from 'electron'
 import { ChildProcess } from 'child_process'
 import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
-import { NileInstallPlatform } from './types/nile'
+import { NileInstallInfo, NileInstallPlatform } from './types/nile'
 
 export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile'
 
@@ -18,13 +26,23 @@ export interface ButtonOptions {
 
 export type LaunchParams = {
   appName: string
-  launchArguments: string
+  launchArguments?: LaunchOption
   runner: Runner
+  skipVersionCheck?: boolean
 }
 
-export interface LaunchOption {
+export type LaunchOption = BaseLaunchOption | DLCLaunchOption
+
+export interface BaseLaunchOption {
+  type?: 'basic'
   name: string
   parameters: string
+}
+
+interface DLCLaunchOption {
+  type: 'dlc'
+  dlcAppName: string
+  dlcTitle: string
 }
 
 interface About {
@@ -45,6 +63,8 @@ export type Release = {
 
 export type ExperimentalFeatures = {
   enableNewDesign: boolean
+  enableHelp: boolean
+  automaticWinetricksFixes: boolean
 }
 
 export interface AppSettings extends GameSettings {
@@ -191,9 +211,9 @@ export type Status =
   | 'notSupportedGame'
   | 'notInstalled'
   | 'installed'
-  | 'ubisoft'
   | 'redist'
   | 'extracting'
+  | 'winetricks'
 
 export interface GameStatus {
   appName: string
@@ -630,6 +650,8 @@ export interface PCGamingWikiInfo {
   opencritic: GameScoreInfo
   igdb: GameScoreInfo
   direct3DVersions: string[]
+  genres: string[]
+  releaseDate: string[]
 }
 
 export interface AppleGamingWikiInfo {
@@ -668,6 +690,7 @@ export interface WikiInfo {
  */
 export type Type =
   | 'Wine-GE'
+  | 'Wine-GE-LoL'
   | 'Proton-GE'
   | 'Proton'
   | 'Wine-Lutris'
@@ -747,3 +770,8 @@ interface GameScopeSettings {
   fpsLimiter: string
   fpsLimiterNoFocus: string
 }
+
+export type InstallInfo =
+  | LegendaryInstallInfo
+  | GogInstallInfo
+  | NileInstallInfo

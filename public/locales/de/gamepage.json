@@ -37,14 +37,16 @@
             "settingcheckbox": "Einstellungen löschen und Log entfernen{{newLine}}Hinweis: Dies kann nicht rückgängig gemacht werden! Alle geänderten Einstellungen werden verworfen und das Log wird gelöscht.",
             "title": "Deinstallieren",
             "prefix_warning": "Das Wine-Präfix für dieses Spiel ist das Standardpräfix. Wenn du es wirklich löschen möchtest, dann musst du das manuell tun.",
-            "dlc": "Möchtest du dieses DLC deinstallieren?"
+            "dlc": "Möchtest du dieses DLC deinstallieren?",
+            "cannotUninstallEpic": "Spiele von Epic Games können nicht deinstalliert werden, während ein anderes Epic Spiel installiert wird."
         },
         "update": {
             "message": "Für dieses Spiel ist eine Aktualisierung verfügbar. Jetzt installieren?",
             "title": "Spiel benötigt eine Aktualisierung"
         },
         "wineprefix": "Wine-Präfix-Ordner auswählen",
-        "yes": "JA"
+        "yes": "JA",
+        "close": "Schließen"
     },
     "button": {
         "add_to_favourites": "Zu Favoriten hinzufügen",
@@ -178,12 +180,15 @@
             "exe": "Ausführbare Datei auswählen",
             "image": "Bild der Anwendung",
             "title": "Titel des Spiels / der Anwendung",
-            "broser": "Browser-URL"
+            "broser": "Browser-URL",
+            "fullscreen": "Im Vollbild öffnen (F11 zum schließen)",
+            "useragent": "Benutzerdefinierter Agent"
         },
         "placeholder": {
             "image": "Hier die URL eines Bildes einfügen",
             "title": "Einen Titel zum Spiel / zur Anwendung hinzufügen",
-            "url": "Hier die URL des Spiels einfügen"
+            "url": "Hier die URL des Spiels einfügen",
+            "useragent": "Schreiben Sie hier einen benutzerdefinierten User-Agent, der für diese Browser-Anwendung/dieses Spiel verwendet werden soll"
         }
     },
     "specs": {
@@ -231,7 +236,8 @@
         "store": "Store-Seite",
         "verify": "Auf Fehler überprüfen und Reparieren",
         "extraInfo": "Zusatzinformation",
-        "logs": "Logs"
+        "logs": "Logs",
+        "categories": "Kategorien"
     },
     "help": {
         "cloud_save_unsupported": "Dieses Spiel unterstützt keinen Cloud-Speicher. Diese Informationen werden von den Spieleentwicklern bereitgestellt. Einige Spiele implementieren ihr eigenes Cloud-Speichersystem"

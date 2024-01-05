@@ -5,7 +5,8 @@ import React, {
   SyntheticEvent,
   useCallback,
   useEffect,
-  useRef
+  useRef,
+  useState
 } from 'react'
 
 interface DialogProps {
@@ -24,18 +25,31 @@ export const Dialog: React.FC<DialogProps> = ({
   const dialogRef = useRef<HTMLDialogElement | null>(null)
   const onCloseRef = useRef(onClose)
   onCloseRef.current = onClose
+  const [focusOnClose, setFocusOnClose] = useState<HTMLElement | null>(null)
+
+  useEffect(() => {
+    setFocusOnClose(document.querySelector('*:focus') as HTMLElement)
+  }, [])
+
+  const close = () => {
+    onCloseRef.current()
+    if (focusOnClose) {
+      setTimeout(() => focusOnClose.focus(), 200)
+    }
+  }
 
   useEffect(() => {
     const dialog = dialogRef.current
     if (dialog) {
       const cancel = () => {
-        onCloseRef.current()
+        close()
       }
       dialog.addEventListener('cancel', cancel)
-      dialog['showModal']()
+      dialog['showPopover']()
+
       return () => {
         dialog.removeEventListener('cancel', cancel)
-        dialog['close']()
+        dialog['hidePopover']()
       }
     }
     return
@@ -52,7 +66,7 @@ export const Dialog: React.FC<DialogProps> = ({
           ev.offsetY < 0 ||
           ev.offsetY > tg.offsetHeight
         ) {
-          onClose()
+          close()
         }
       }
     },
@@ -65,10 +79,13 @@ export const Dialog: React.FC<DialogProps> = ({
         className={`Dialog__element ${className}`}
         ref={dialogRef}
         onClick={onDialogClick}
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore, this feature is new and not yet typed
+        popover="manual"
       >
         {showCloseButton && (
           <div className="Dialog__Close">
-            <button className="Dialog__CloseButton" onClick={onClose}>
+            <button className="Dialog__CloseButton" onClick={close}>
               <FontAwesomeIcon className="Dialog__CloseIcon" icon={faXmark} />
             </button>
           </div>

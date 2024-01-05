@@ -48,8 +48,8 @@ const initialContext: ContextType = {
     add: () => null,
     remove: () => null
   },
-  currentCustomCategory: null,
-  setCurrentCustomCategory: () => null,
+  currentCustomCategories: [],
+  setCurrentCustomCategories: () => null,
   favouriteGames: {
     list: [],
     add: () => null,
@@ -86,7 +86,16 @@ const initialContext: ContextType = {
   setLastChangelogShown: () => null,
   isSettingsModalOpen: { value: false, type: 'settings' },
   setIsSettingsModalOpen: () => null,
-  experimentalFeatures: { enableNewDesign: false },
+  help: {
+    items: {},
+    addHelpItem: () => null,
+    removeHelpItem: () => null
+  },
+  experimentalFeatures: {
+    enableNewDesign: false,
+    enableHelp: false,
+    automaticWinetricksFixes: false
+  },
   handleExperimentalFeatures: () => null
 }
 

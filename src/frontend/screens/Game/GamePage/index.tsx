@@ -26,11 +26,10 @@ import {
   GameInfo,
   GameSettings,
   Runner,
-  WikiInfo
+  WikiInfo,
+  InstallInfo,
+  LaunchOption
 } from 'common/types'
-import { LegendaryInstallInfo } from 'common/types/legendary'
-import { GogInstallInfo } from 'common/types/gog'
-import { NileInstallInfo } from 'common/types/nile'
 
 import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
@@ -64,6 +63,9 @@ import {
   SettingsButton
 } from './components'
 import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
+import { hasHelp } from 'frontend/hooks/hasHelp'
+import Genres from './components/Genres'
+import ReleaseDate from './components/ReleaseDate'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -89,6 +91,17 @@ export default React.memo(function GamePage(): JSX.Element | null {
     experimentalFeatures
   } = useContext(ContextProvider)
 
+  hasHelp(
+    'gamePage',
+    t('help.title.gamePage', 'Game Page'),
+    <p>
+      {t(
+        'help.content.gamePage',
+        'Show all game details and actions. Use the 3 dots menu for more options.'
+      )}
+    </p>
+  )
+
   const [gameInfo, setGameInfo] = useState(locationGameInfo)
   const [gameSettings, setGameSettings] = useState<GameSettings | null>(null)
 
@@ -98,10 +111,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [progress, previousProgress] = hasProgress(appName)
 
   const [extraInfo, setExtraInfo] = useState<ExtraInfo | null>(null)
-  const [gameInstallInfo, setGameInstallInfo] = useState<
-    LegendaryInstallInfo | GogInstallInfo | NileInstallInfo | null
-  >(null)
-  const [launchArguments, setLaunchArguments] = useState('')
+  const [gameInstallInfo, setGameInstallInfo] = useState<InstallInfo | null>(
+    null
+  )
+  const [launchArguments, setLaunchArguments] = useState<
+    LaunchOption | undefined
+  >(undefined)
   const [hasError, setHasError] = useState<{
     error: boolean
     message: string | unknown
@@ -124,7 +139,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const isUninstalling = status === 'uninstalling'
   const isSyncing = status === 'syncing-saves'
   const isLaunching = status === 'launching'
-  const isInstallingUbisoft = status === 'ubisoft'
+  const isInstallingWinetricksPackages = status === 'winetricks'
   const isInstallingRedist = status === 'redist'
   const notAvailable = !gameAvailable && gameInfo.is_installed
   const notInstallable =
@@ -279,7 +294,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       gameExtraInfo: extraInfo,
       is: {
         installing: isInstalling,
-        installingUbisoft: isInstallingUbisoft,
+        installingWinetricksPackages: isInstallingWinetricksPackages,
         installingRedist: isInstallingRedist,
         launching: isLaunching,
         linux: isLinux,
@@ -358,7 +373,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
                   </div>
                   <div className="infoWrapper">
+                    <Genres genres={wikiInfo?.pcgamingwiki?.genres || []} />
                     <Developer gameInfo={gameInfo} />
+                    <ReleaseDate date={wikiInfo?.pcgamingwiki?.releaseDate} />
                     <Description />
                     <CloudSavesSync gameInfo={gameInfo} />
                     <DownloadSizeInfo gameInfo={gameInfo} />
@@ -380,7 +397,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   />
                   <LaunchOptions
                     gameInfo={gameInfo}
-                    launchArguments={launchArguments}
                     setLaunchArguments={setLaunchArguments}
                   />
 
@@ -418,7 +434,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       <StoreLogos runner={runner} />
                     </div>
                     <h1>{title}</h1>
+                    <Genres genres={wikiInfo?.pcgamingwiki?.genres || []} />
                     <Developer gameInfo={gameInfo} />
+                    <ReleaseDate date={wikiInfo?.pcgamingwiki?.releaseDate} />
                     <Description />
                     {!notInstallable && (
                       <TimeContainer runner={runner} game={appName} />
@@ -431,7 +449,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     />
                     <LaunchOptions
                       gameInfo={gameInfo}
-                      launchArguments={launchArguments}
                       setLaunchArguments={setLaunchArguments}
                     />
                     <div className="buttons">

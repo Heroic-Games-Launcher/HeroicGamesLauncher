@@ -11,7 +11,7 @@ import Sidebar from './components/UI/Sidebar'
 import Settings from './screens/Settings'
 import Accessibility from './screens/Accessibility'
 import ContextProvider from './state/ContextProvider'
-import { ControllerHints, OfflineMessage } from './components/UI'
+import { ControllerHints, Help, OfflineMessage } from './components/UI'
 import DownloadManager from './screens/DownloadManager'
 import DialogHandler from './components/UI/DialogHandler'
 import SettingsModal from './screens/Settings/components/SettingsModal'
@@ -25,7 +25,8 @@ function App() {
     isRTL,
     isFullscreen,
     isFrameless,
-    experimentalFeatures
+    experimentalFeatures,
+    help
   } = useContext(ContextProvider)
 
   const hasNativeOverlayControls = navigator['windowControlsOverlay']?.visible
@@ -88,6 +89,7 @@ function App() {
           <div className="simple-keyboard"></div>
         </div>
         {showOverlayControls && <WindowControls />}
+        {experimentalFeatures.enableHelp && <Help items={help.items} />}
       </HashRouter>
     </div>
   )

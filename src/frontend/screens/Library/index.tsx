@@ -36,6 +36,7 @@ import RecentlyPlayed from './components/RecentlyPlayed'
 import { InstallModal } from './components'
 import LibraryContext from './LibraryContext'
 import { Category, PlatformsFilters, StoresFilters } from 'frontend/types'
+import { hasHelp } from 'frontend/hooks/hasHelp'
 
 const storage = window.localStorage
 
@@ -47,6 +48,8 @@ type ModalState = {
 }
 
 export default React.memo(function Library(): JSX.Element {
+  const { t } = useTranslation()
+
   const {
     libraryStatus,
     refreshing,
@@ -58,10 +61,16 @@ export default React.memo(function Library(): JSX.Element {
     favouriteGames,
     libraryTopSection,
     platform,
-    currentCustomCategory,
+    currentCustomCategories,
     customCategories,
     hiddenGames
   } = useContext(ContextProvider)
+
+  hasHelp(
+    'library',
+    t('help.title.library', 'Library'),
+    <p>{t('help.content.library', 'Shows all owned games.')}</p>
+  )
 
   const [layout, setLayout] = useState(storage.getItem('layout') || 'grid')
   const handleLayout = (layout: string) => {
@@ -86,14 +95,12 @@ export default React.memo(function Library(): JSX.Element {
     }
   }
 
-  const [storesFilters, setStoresFilters] =
+  const [storesFilters, setStoresFilters_] =
     useState<StoresFilters>(initialStoresfilters)
 
-  const toggleStoreFilter = (store: Category) => {
-    const currentValue = storesFilters[store]
-    const newFilters = { ...storesFilters, [store]: !currentValue }
+  const setStoresFilters = (newFilters: StoresFilters) => {
     storage.setItem('storesFilters', JSON.stringify(newFilters))
-    setStoresFilters(newFilters)
+    setStoresFilters_(newFilters)
   }
 
   let initialPlatformsfilters
@@ -115,15 +122,13 @@ export default React.memo(function Library(): JSX.Element {
     }
   }
 
-  const [platformsFilters, setPlatformsFilters] = useState<PlatformsFilters>(
+  const [platformsFilters, setPlatformsFilters_] = useState<PlatformsFilters>(
     initialPlatformsfilters
   )
 
-  const togglePlatformFilter = (platform: string) => {
-    const currentValue = platformsFilters[platform]
-    const newFilters = { ...platformsFilters, [platform]: !currentValue }
+  const setPlatformsFilters = (newFilters: PlatformsFilters) => {
     storage.setItem('platformsFilters', JSON.stringify(newFilters))
-    setPlatformsFilters(newFilters)
+    setPlatformsFilters_(newFilters)
   }
 
   const [filterText, setFilterText] = useState('')
@@ -160,6 +165,14 @@ export default React.memo(function Library(): JSX.Element {
     setShowNonAvailable(value)
   }
 
+  const [showSupportOfflineOnly, setSupportOfflineOnly] = useState(
+    JSON.parse(storage.getItem('show_support_offline_only') || 'false')
+  )
+  const handleShowSupportOfflineOnly = (value: boolean) => {
+    storage.setItem('show_support_offline_only', JSON.stringify(value))
+    setSupportOfflineOnly(value)
+  }
+
   const [showModal, setShowModal] = useState<ModalState>({
     game: '',
     show: false,
@@ -182,7 +195,6 @@ export default React.memo(function Library(): JSX.Element {
     setSortInstalled(value)
   }
 
-  const { t } = useTranslation()
   const backToTopElement = useRef(null)
 
   //Remember scroll position
@@ -316,7 +328,11 @@ export default React.memo(function Library(): JSX.Element {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
     }
-    return tempArray
+    return tempArray.sort((a, b) => {
+      const gameA = a.title.toUpperCase().replace('THE ', '')
+      const gameB = b.title.toUpperCase().replace('THE ', '')
+      return gameA.localeCompare(gameB)
+    })
   }, [showFavourites, showFavouritesLibrary, favouriteGames, epic, gog, amazon])
 
   const favouritesIds = useMemo(() => {
@@ -363,26 +379,46 @@ export default React.memo(function Library(): JSX.Element {
       library = library.filter((game) =>
         favouritesIds.includes(`${game.app_name}_${game.runner}`)
       )
-    } else if (currentCustomCategory && currentCustomCategory.length > 0) {
-      if (currentCustomCategory === 'preset_uncategorized') {
-        // list of all games that have at least one category assigned to them
-        const categorizedGames = Array.from(
-          new Set(Object.values(customCategories.list).flat())
-        )
+    } else {
+      if (currentCustomCategories && currentCustomCategories.length > 0) {
+        const gamesInSelectedCategories = new Set<string>()
 
-        library = library.filter(
-          (game) =>
-            !categorizedGames.includes(`${game.app_name}_${game.runner}`)
-        )
-      } else {
-        const gamesInCustomCategory =
-          customCategories.list[currentCustomCategory]
+        // loop through selected categories and add all games in all those categories
+        currentCustomCategories.forEach((category) => {
+          if (category === 'preset_uncategorized') {
+            // in the case of the special "uncategorized" category, we read all
+            // the categorized games and add the others to the list to show
+            const categorizedGames = Array.from(
+              new Set(Object.values(customCategories.list).flat())
+            )
+
+            library.forEach((game) => {
+              if (
+                !categorizedGames.includes(`${game.app_name}_${game.runner}`)
+              ) {
+                gamesInSelectedCategories.add(`${game.app_name}_${game.runner}`)
+              }
+            })
+          } else {
+            const gamesInCustomCategory = customCategories.list[category]
+
+            if (gamesInCustomCategory) {
+              gamesInCustomCategory.forEach((game) => {
+                gamesInSelectedCategories.add(game)
+              })
+            }
+          }
+        })
 
         library = library.filter((game) =>
-          gamesInCustomCategory.includes(`${game.app_name}_${game.runner}`)
+          gamesInSelectedCategories.has(`${game.app_name}_${game.runner}`)
         )
       }
-    } else {
+
+      if (showSupportOfflineOnly) {
+        library = library.filter((game) => game.canRunOffline)
+      }
+
       if (!showNonAvailable) {
         const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
         const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
@@ -470,7 +506,8 @@ export default React.memo(function Library(): JSX.Element {
     hiddenGames,
     showFavouritesLibrary,
     showInstalledOnly,
-    showNonAvailable
+    showNonAvailable,
+    showSupportOfflineOnly
   ])
 
   // we need this to do proper `position: sticky` of the Add Game area
@@ -530,9 +567,9 @@ export default React.memo(function Library(): JSX.Element {
         showInstalledOnly,
         showNonAvailable,
         filterText,
-        toggleStoreFilter,
+        setStoresFilters,
         handleLayout: handleLayout,
-        togglePlatformFilter,
+        setPlatformsFilters,
         handleSearch: setFilterText,
         setShowHidden: handleShowHidden,
         setShowFavourites: handleShowFavourites,
@@ -540,6 +577,8 @@ export default React.memo(function Library(): JSX.Element {
         setShowNonAvailable: handleShowNonAvailable,
         setSortDescending: handleSortDescending,
         setSortInstalled: handleSortInstalled,
+        showSupportOfflineOnly,
+        setShowSupportOfflineOnly: handleShowSupportOfflineOnly,
         sortDescending,
         sortInstalled
       }}

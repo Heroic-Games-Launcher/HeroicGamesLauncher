@@ -6,9 +6,9 @@ const initialContext: LibraryContextType = {
   storesFilters: { legendary: true, gog: true, nile: true, sideload: true },
   platformsFilters: { win: true, linux: true, mac: true, browser: true },
   filterText: '',
-  toggleStoreFilter: () => null,
+  setStoresFilters: () => null,
   handleLayout: () => null,
-  togglePlatformFilter: () => null,
+  setPlatformsFilters: () => null,
   handleSearch: () => null,
   layout: 'grid',
   showHidden: false,
@@ -22,7 +22,9 @@ const initialContext: LibraryContextType = {
   sortDescending: true,
   setSortDescending: () => null,
   sortInstalled: true,
-  setSortInstalled: () => null
+  setSortInstalled: () => null,
+  showSupportOfflineOnly: false,
+  setShowSupportOfflineOnly: () => null
 }
 
 export default React.createContext(initialContext)

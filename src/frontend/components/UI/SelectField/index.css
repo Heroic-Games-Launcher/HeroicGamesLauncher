@@ -3,7 +3,8 @@
   grid-template-areas: 'label' 'select';
 }
 
-.selectFieldWrapper select {
+.selectFieldWrapper select,
+.selectStyle {
   border-radius: var(--space-3xs);
   grid-area: select;
   width: 100%;
@@ -41,6 +42,10 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   min-width: 100px;
+}
+
+.selectStyle {
+  padding-inline-end: 4rem;
 }
 
 .selectFieldWrapper.isRTL select {

@@ -162,7 +162,7 @@
             "snap": {
                 "checkbox": "Ne plus afficher ce message.",
                 "title": "Heroic est exécuté en tant que Snap",
-                "message": "Certaines fonctionnalités ne sont pas disponibles pour le moment dans la version Snap de l'application et nous essayons d'y remédier.{{newLine}}Les limitations actuelles sont : {{newLine}}Heroic ne sera pas capable de détecter Proton depuis Steam ou Wine depuis Lutris.{{newLine}}{{newLine}}Gamescope, GameMode et MangoHud ne fonctionneront pas non plus puisqu'Heroic ne peut pas y avoir accès.{{newLine}}{{newLine}}Pour accéder à ces fonctionnalités, veuillez installer la version Flatpak, DEB ou AppImage d'Heroic."
+                "message": "Certaines fonctionnalités ne sont pas disponibles pour le moment dans la version Snap de l'application et nous essayons d'y remédier.{{newLine}}Les limitations actuelles sont : {{newLine}}Heroic ne sera pas capable de détecter Proton depuis Steam ou Wine depuis Lutris.{{newLine}}{{newLine}}Gamescope, GameMode et MangoHud ne fonctionneront pas non plus puisqu'Heroic ne peut pas y avoir accès.{{newLine}}{{newLine}}Pour accéder à ces fonctionnalités, veuillez installer la version Flatpak, DEB ou AppImage d'Heroic."
             }
         },
         "wineprefix": "Choisir le dossier des préfixes Wine",
@@ -254,7 +254,12 @@
         "filters": "Filtres",
         "all_categories": "Toutes les catégories",
         "uncategorized": "Sans catégorie",
-        "show_installed_only": "N'afficher que les jeux installés"
+        "show_installed_only": "N'afficher que les jeux installés",
+        "select_all": "Tout sélectionner",
+        "categories": "Catégories",
+        "only": "seulement",
+        "reset": "Réinitialiser",
+        "no_categories": "Aucune catégorie personnalisée. Ajoutez des catégories en utilisant le menu de chaque jeu."
     },
     "help": {
         "amdfsr": "Le FSR d'AMD aide à améliorer le taux de rafraîchissement en agrandissant les résolutions basses en mode plein écran. La qualité d'image augmente de 5 à 1 au prix d'une légère baisse de performance. L'activer peut améliorer les performances.",
@@ -290,14 +295,46 @@
             "part3": "Synchronisation manuelle : Choisissez « Télécharger » pour télécharger les sauvegardes des jeux enregistrées dans le Cloud et « Téléverser » pour transférer les fichiers locaux vers le Cloud. « Forcer le téléchargement » et « Forcer le téléversement » ignoreront la version locale ou celle du Cloud.",
             "part4": "« Synchroniser automatiquement » active la synchronisation de vos sauvegardes à chaque fois que vous lancez un jeu et que vous l'arrêtez."
         },
-        "vkd3d": "VKD3D est une interface de compatibilité basée sur Vulkan pour les jeux nécessitant DirectX 12. L'activer pourrait grandement améliorer la compatibilité. N'a aucun effet sur les jeux utilisant des versions de DirectX plus anciennes.",
+        "vkd3d": "VKD3D est une interface de compatibilité basée sur Vulkan pour les jeux nécessitant DirectX 12. L'activer pourrait grandement améliorer la compatibilité. N'a aucun effet sur les jeux utilisant des versions de DirectX plus anciennes, requiert DXVK.",
         "wine": {
             "part1": "Heroic recherche des versions de Wine, Proton et CrossOver dans ces dossiers :",
             "part2": "Pour d'autres emplacements, utilisez un lien symbolique vers un de ces dossiers"
         },
         "disable_logs": "Cochez cette case pour désactiver la plupart des écritures dans les fichiers journaux (les informations critiques sont toujours enregistrées). Assurez-vous de désactiver ce paramètre avant de signaler un problème.",
         "dxvknvapi": "DXVK-NVAPI est une implémentation de NVAPI construite par dessus DXVK et la version native de NVAPI. Elle permet d'utiliser le DLSS sur les cartes graphiques Nvidia.",
-        "disablePlaytimeSync": "Désactive la synchronisation du temps de jeu avec les serveurs d'une boutique donnée (seul GOG est pris en charge actuellement)"
+        "disablePlaytimeSync": "Désactive la synchronisation du temps de jeu avec les serveurs d'une boutique donnée (seul GOG est pris en charge actuellement)",
+        "gamescope": {
+            "upscaleMethod": "La méthode d'amélioration que Gamescope devrait utiliser.",
+            "gameWidth": "La largeur de résolution utilisée par le jeu. Un ratio d'aspect 16 :9 est présumé par Gamescope.",
+            "upscaleWidth": "La largeur de résolution utilisée par Gamescope. Un ratio d'aspect 16 :9 est présumé.",
+            "gameHeight": "La hauteur de résolution utilisée par le jeu. Un ratio d'aspect 16 :9 est présumé par Gamescope.",
+            "upscaleHeight": "La hauteur de résolution utilisée Gamescope. Un ratio d'aspect 16 :9 est présumé.",
+            "fpsLimiterNoFocus": "Le ratio d'images par seconde auquel gamescope doit se limiter si le jeu est en arrière-plan.",
+            "fpsLimiter": "Le nombre d'images par seconde auquel gamescope devrait se limiter. Par ex : 60"
+        },
+        "title": {
+            "accessibility": "Accessibilité",
+            "login": "Connexion",
+            "settings": "Options",
+            "downloadManager": "Gestionnaire de téléchargements",
+            "wineManager": "Gestion de Wine",
+            "library": "Bibliothèque"
+        },
+        "content": {
+            "defaultInstallPath": "C'est le chemin par défaut présélectionné lors de l'installation des jeux.",
+            "settingsDefault": "Affiche tous les paramètres d'Heroic et les configurations par défaut des jeux.",
+            "settingsGame": "Affiche tous les paramètres d'un jeu.",
+            "downloadManager": "Affiche les téléchargement actuels et passés.",
+            "wineManager": "Installe différentes versions de Wine, Proton, Crossover, etc...",
+            "library": "Affiche tous les jeux possédés.",
+            "customThemesPath": "Consultez notre wiki.",
+            "accessibility": "Affiche les paramètres d'accessibilité.",
+            "login": "Permet de se connecter aux différentes plateformes."
+        },
+        "button": {
+            "open": "Afficher l'aide",
+            "close": "Fermer l'aide"
+        }
     },
     "info": {
         "heroic": {
@@ -331,7 +368,8 @@
         "path": "Sélectionner le chemin d'installation"
     },
     "label": {
-        "loading": "Chargement"
+        "loading": "Chargement",
+        "releaseDate": "Date de publication"
     },
     "library": {
         "refresh": "Actualiser",
@@ -433,7 +471,11 @@
         },
         "gameargs": {
             "placeholder": "Insérez ici les arguments de lancement",
-            "title": "Arguments de jeu (à exécuter après la commande) :"
+            "title": "Arguments de jeu (à exécuter après la commande) :",
+            "error": {
+                "env": "Les variables d'environnement doivent être configurées dans le tableau ci-dessous.",
+                "command": "La syntaxe de Steam %command% n'est pas valide comme arguments pour un jeu."
+            }
         },
         "quote-args-with-spaces": "Attention : Assurez-vous de citer les args avec des espaces ! E.g. : \"chemin/avec espaces/\"",
         "wrapper": {
@@ -443,6 +485,18 @@
             "placeHolderKey": "Nouveau Wrapper",
             "placeHolderValue": "Arguments du Wrapper",
             "title": "Commande du Wrapper :"
+        },
+        "gamescope": {
+            "nis": "NVIDIA Image Scale (NIS)",
+            "borderless": "Sans bordure",
+            "fpsLimiter": "Limiteur de FPS",
+            "gameHeight": "Hauteur du jeu",
+            "upscaleWidth": "Améliorer selon la largeur",
+            "fullscreen": "Plein-écran",
+            "gameWidth": "Largeur du jeu",
+            "upscaleHeight": "Améliorer selon la hauteur",
+            "fpsLimiterNoFocus": "Limiteur de FPS (sans focus)",
+            "stretch": "Étirer l'image"
         }
     },
     "other": {
@@ -549,7 +603,8 @@
             "instructions_title": "Comment signaler un problème ?",
             "last-log": "Dernier log",
             "no-file": "Aucun fichier log trouvé",
-            "show-in-folder": "Montrer le fichier log dans le dossier"
+            "show-in-folder": "Montrer le fichier log dans le dossier",
+            "join-heroic-discord": "Rejoignez notre serveur Discord"
         },
         "mangohud": "Activer Mangohud (Mangohud doit être installé)",
         "manualsync": {
@@ -593,13 +648,15 @@
         "autoUpdateGames": "Mettre les jeux à jour automatiquement",
         "ignoreGameUpdates": "Ignorer les mises à jour du jeu",
         "disable_logs": "Désactiver la génération de rapports",
-        "showMetalOverlay": "Afficher la superposition des statistiques",
+        "showMetalOverlay": "Afficher l'interface des statistiques",
         "addgamestoapplications": "Ajouter automatiquement des jeux aux Applications",
         "alt-nile-bin": "Choisissez un binaire alternatif pour Nile",
         "autodxvknvapi": "Installation/Mise à jour automatique du préfixe DXVK/VKD3D",
         "disablePlaytimeSync": "Désactiver la synchronisation du temps de jeu",
         "experimental_features": {
-            "enableNewDesign": "Nouveau concept"
+            "enableNewDesign": "Nouveau concept",
+            "enableHelp": "Composant d'Aide",
+            "automaticWinetricksFixes": "Appliquer les corrections Winetricks connues automatiquement"
         },
         "frameless-window": {
             "confirmation": {
@@ -607,6 +664,11 @@
                 "title": "Fonctionnalité expérimentale"
             },
             "description": "Utiliser une fenêtre sans bordure (nécessite un redémarrage)"
+        },
+        "gamescope": {
+            "enableLimiter": "Activer le limiteur de FPS",
+            "enableUpscaling": "Activer la mise à l'échelle",
+            "missingMsg": "Nous n'avons pas pu trouver Gamescope sur le CHEMIN. Installez-le ou ajoutez-le au CHEMIN."
         }
     },
     "settings": {
@@ -643,7 +705,8 @@
             "other": "Autre",
             "sync": "Synchronisation des sauvegardes dans le Cloud",
             "wineExt": "Extensions de Wine",
-            "systemInformation": "Informations Système"
+            "systemInformation": "Informations Système",
+            "gamescope": "Gamescope"
         },
         "open-config-file": "Ouvrir le fichier de configuration",
         "reset-heroic": "Reset Heroic",
@@ -670,10 +733,14 @@
             "memory": "RAM :",
             "copyToClipboard": "Copier dans le presse-papier",
             "heroicVersion": "Heroic : {{heroicVersion}}",
-            "nileVersion": "Nile : {{nileVersion}}"
+            "nileVersion": "Nile : {{nileVersion}}",
+            "systemModel": "Modèle de système :"
         },
         "experimental_features": {
             "title": "Fonctionnalités expérimentales"
+        },
+        "gamescope": {
+            "searchMsg": "Recherche de l'exécutable Gamescope."
         }
     },
     "Settings": "Options",
@@ -684,7 +751,7 @@
     "status": {
         "installing": "Installation en cours",
         "logging": "Connexion en cours...",
-        "processing": "Traitement des fichiers, veuillez patienter",
+        "processing": "Préparation des fichiers, veuillez patienter",
         "preparing_login": "Préparation de la connexion... "
     },
     "store": "Boutique Epic",

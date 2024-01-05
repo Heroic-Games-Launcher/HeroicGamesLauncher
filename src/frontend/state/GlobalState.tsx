@@ -13,7 +13,11 @@ import {
   LibraryTopSectionOptions,
   ExperimentalFeatures
 } from 'common/types'
-import { DialogModalOptions, ExternalLinkDialogOptions } from 'frontend/types'
+import {
+  DialogModalOptions,
+  ExternalLinkDialogOptions,
+  HelpItem
+} from 'frontend/types'
 import { withTranslation } from 'react-i18next'
 import {
   getGameInfo,
@@ -80,7 +84,7 @@ interface StateProps {
   hiddenGames: HiddenGame[]
   favouriteGames: FavouriteGame[]
   customCategories: Record<string, string[]>
-  currentCustomCategory: string | null
+  currentCustomCategories: string[]
   theme: string
   isFullscreen: boolean
   isFrameless: boolean
@@ -107,7 +111,23 @@ interface StateProps {
     appName: string
     runner: Runner
   }
+  helpItems: { [key: string]: HelpItem }
   experimentalFeatures: ExperimentalFeatures
+}
+
+// function to load the new key or fallback to the old one
+const loadCurrentCategories = () => {
+  const currentCategories = storage.getItem('current_custom_categories') || null
+  if (!currentCategories) {
+    const currentCategory = storage.getItem('current_custom_category') || null
+    if (!currentCategory) {
+      return []
+    } else {
+      return [currentCategory]
+    }
+  } else {
+    return JSON.parse(currentCategories) as string[]
+  }
 }
 
 class GlobalState extends PureComponent<Props> {
@@ -155,7 +175,7 @@ class GlobalState extends PureComponent<Props> {
     refreshing: false,
     refreshingInTheBackground: true,
     hiddenGames: configStore.get('games.hidden', []),
-    currentCustomCategory: storage.getItem('current_custom_category') || null,
+    currentCustomCategories: loadCurrentCategories(),
     sidebarCollapsed: JSON.parse(
       storage.getItem('sidebar_collapsed') || 'false'
     ),
@@ -190,13 +210,20 @@ class GlobalState extends PureComponent<Props> {
     hideChangelogsOnStartup: globalSettings?.hideChangelogsOnStartup || false,
     lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null'),
     settingsModalOpen: { value: false, type: 'settings', gameInfo: undefined },
+    helpItems: {},
     experimentalFeatures: globalSettings?.experimentalFeatures || {
-      enableNewDesign: false
+      enableNewDesign: false,
+      enableHelp: false,
+      automaticWinetricksFixes: false
     }
   }
 
-  setCurrentCustomCategory = (newCustomCategory: string) => {
-    this.setState({ currentCustomCategory: newCustomCategory })
+  setCurrentCustomCategories = (newCustomCategories: string[]) => {
+    storage.setItem(
+      'current_custom_categories',
+      JSON.stringify(newCustomCategories)
+    )
+    this.setState({ currentCustomCategories: newCustomCategories })
   }
 
   setLanguage = (newLanguage: string) => {
@@ -309,8 +336,16 @@ class GlobalState extends PureComponent<Props> {
     const newCustomCategories = this.state.customCategories
     newCustomCategories[newCategory] = []
 
+    // when adding a new category, if there are categories selected, select the new
+    // one too so the game doesn't disappear form the library
+    let newCurrentCustomCategories = this.state.currentCustomCategories
+    if (this.state.currentCustomCategories.length > 0) {
+      newCurrentCustomCategories = [...newCurrentCustomCategories, newCategory]
+    }
+
     this.setState({
-      customCategories: newCustomCategories
+      customCategories: newCustomCategories,
+      currentCustomCategories: newCurrentCustomCategories
     })
     configStore.set('games.customCategories', newCustomCategories)
   }
@@ -664,7 +699,7 @@ class GlobalState extends PureComponent<Props> {
         'playing',
         'extracting',
         'launching',
-        'ubisoft',
+        'winetricks',
         'redist',
         'queued'
       ].includes(status)
@@ -884,6 +919,21 @@ class GlobalState extends PureComponent<Props> {
     }
   }
 
+  addHelpItem = (helpItemId: string, helpItem: HelpItem) => {
+    this.setState((previous: StateProps) => {
+      const newItems = { ...previous.helpItems }
+      newItems[helpItemId] = helpItem
+      return { helpItems: newItems }
+    })
+  }
+
+  removeHelpItem = (helpItemId: string) => {
+    this.setState((previous: StateProps) => {
+      delete previous.helpItems[helpItemId]
+      return { helpItems: { ...previous.helpItems } }
+    })
+  }
+
   render() {
     const {
       showInstallModal,
@@ -970,7 +1020,12 @@ class GlobalState extends PureComponent<Props> {
           setLastChangelogShown: this.setLastChangelogShown,
           isSettingsModalOpen: settingsModalOpen,
           setIsSettingsModalOpen: this.handleSettingsModalOpen,
-          setCurrentCustomCategory: this.setCurrentCustomCategory
+          setCurrentCustomCategories: this.setCurrentCustomCategories,
+          help: {
+            items: this.state.helpItems,
+            addHelpItem: this.addHelpItem,
+            removeHelpItem: this.removeHelpItem
+          }
         }}
       >
         {this.props.children}

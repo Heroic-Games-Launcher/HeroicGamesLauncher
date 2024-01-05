@@ -1,7 +1,11 @@
 import { existsSync } from 'graceful-fs'
 import path from 'node:path'
 import { InstalledInfo, WineCommandArgs } from 'common/types'
-import { checkWineBeforeLaunch, spawnAsync } from '../../utils'
+import {
+  checkWineBeforeLaunch,
+  sendGameStatusUpdate,
+  spawnAsync
+} from '../../utils'
 import { GameConfig } from '../../game_config'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import {
@@ -11,7 +15,6 @@ import {
   isWindows
 } from '../../constants'
 import { getWinePath, runWineCommand, verifyWinePrefix } from '../../launcher'
-import { logFileLocation } from 'backend/storeManagers/storeManagerCommon/games'
 import { getGameInfo as getGogLibraryGameInfo } from 'backend/storeManagers/gog/library'
 import { readFile } from 'node:fs/promises'
 import shlex from 'shlex'
@@ -20,7 +23,6 @@ import {
   GOGv1Manifest,
   GOGv2Manifest
 } from 'common/types/gog'
-import { sendFrontendMessage } from 'backend/main_window'
 
 /*
  * Automatially executes command properly according to operating system
@@ -83,11 +85,7 @@ async function setup(
 
   const gameSettings = GameConfig.get(appName).config
   if (!isWindows) {
-    const isWineOkToLaunch = await checkWineBeforeLaunch(
-      appName,
-      gameSettings,
-      logFileLocation(appName)
-    )
+    const isWineOkToLaunch = await checkWineBeforeLaunch(appName, gameSettings)
 
     if (!isWineOkToLaunch) {
       logError(
@@ -140,7 +138,7 @@ async function setup(
     gameSettings
   })
 
-  sendFrontendMessage('gameStatusUpdate', {
+  sendGameStatusUpdate({
     appName,
     runner: 'gog',
     status: 'redist',
@@ -352,7 +350,7 @@ async function setup(
         prefix: LogPrefix.Gog
       })
 
-      sendFrontendMessage('gameStatusUpdate', {
+      sendGameStatusUpdate({
         appName,
         runner: 'gog',
         status: 'redist',

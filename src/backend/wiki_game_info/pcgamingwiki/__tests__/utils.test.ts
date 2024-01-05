@@ -116,10 +116,12 @@ const testPCGamingWikiInfo = {
     score: '10',
     urlid: 'the-witcher-3-wild-hunt'
   },
+  genres: [''],
   opencritic: {
     score: '22',
     urlid: '463/the-witcher-3-wild-hunt'
   },
+  releaseDate: [],
   igdb: {
     score: '40',
     urlid: 'the-witcher-3-wild-hunt'

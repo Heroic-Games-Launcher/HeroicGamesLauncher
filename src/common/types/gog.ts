@@ -264,10 +264,10 @@ interface GamesDBDataInner extends GamesDBDataBase {
   horizontal_artwork: {
     url_format: string
   }
-  background: {
+  background?: {
     url_format: string
   }
-  vertical_cover: {
+  vertical_cover?: {
     url_format: string
   }
   cover: {

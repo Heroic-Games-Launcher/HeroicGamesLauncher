@@ -44,7 +44,8 @@
             "title": "A játékot frissíteni kell"
         },
         "wineprefix": "Wine prefix mappa kiválasztása",
-        "yes": "IGEN"
+        "yes": "IGEN",
+        "close": "Bezárás"
     },
     "button": {
         "add_to_favourites": "Kedvencekhez adás",
@@ -224,7 +225,8 @@
         "store": "Áruházi oldal",
         "verify": "Ellenőrzés és javítás",
         "extraInfo": "Extra Info",
-        "logs": "Naplók"
+        "logs": "Naplók",
+        "categories": "Kategóriák"
     },
     "help": {
         "cloud_save_unsupported": "Ez a játék nem támogatja a felhőalapú mentést. Ezt az információt a játékfejlesztők biztosítják. Egyes játékok saját felhőalapú mentési rendszert alkalmaznak"

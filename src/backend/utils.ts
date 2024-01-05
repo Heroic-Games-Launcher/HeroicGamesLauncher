@@ -8,7 +8,8 @@ import {
   GameInfo,
   GameSettings,
   State,
-  ProgressInfo
+  ProgressInfo,
+  GameStatus
 } from 'common/types'
 import axios from 'axios'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
@@ -19,7 +20,7 @@ import {
   SpawnOptions,
   spawnSync
 } from 'child_process'
-import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
+import { existsSync, rmSync } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
 
@@ -38,6 +39,7 @@ import {
   isSnap
 } from './constants'
 import {
+  appendGameLog,
   logError,
   logInfo,
   LogPrefix,
@@ -75,6 +77,7 @@ import {
 } from './wine/manager/utils'
 import { readdir, stat } from 'fs/promises'
 import { getHeroicVersion } from './utils/systeminfo/heroicVersion'
+import { backendEvents } from './backend_events'
 import { wikiGameInfoStore } from './wiki_game_info/electronStore'
 import EasyDl from 'easydl'
 
@@ -897,8 +900,7 @@ export async function downloadDefaultWine() {
 
 export async function checkWineBeforeLaunch(
   appName: string,
-  gameSettings: GameSettings,
-  logFileLocation: string
+  gameSettings: GameSettings
 ): Promise<boolean> {
   const wineIsValid = await validWine(gameSettings.wineVersion)
 
@@ -911,8 +913,8 @@ export async function checkWineBeforeLaunch(
         LogPrefix.Backend
       )
 
-      appendFileSync(
-        logFileLocation,
+      appendGameLog(
+        appName,
         `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`
       )
     }
@@ -1180,6 +1182,16 @@ async function getPathDiskSize(path: string): Promise<number> {
   return statData.size
 }
 
+function sendGameStatusUpdate(payload: GameStatus) {
+  sendFrontendMessage('gameStatusUpdate', payload)
+  backendEvents.emit('gameStatusUpdate', payload)
+}
+
+function sendProgressUpdate(payload: GameStatus) {
+  sendFrontendMessage(`progressUpdate-${payload.appName}`, payload)
+  backendEvents.emit(`progressUpdate-${payload.appName}`, payload)
+}
+
 interface ProgressCallback {
   (
     downloadedBytes: number,
@@ -1291,10 +1303,6 @@ export async function downloadFile({
       throw new Error('Download stopped or paused')
     }
 
-    logInfo(
-      `Downloader: Finished downloading ${url}`,
-      LogPrefix.DownloadManager
-    )
     logInfo(
       `Downloader: Finished downloading ${url}`,
       LogPrefix.DownloadManager
@@ -1454,6 +1462,8 @@ export {
   memoryLog,
   removeFolder,
   getPathDiskSize,
+  sendGameStatusUpdate,
+  sendProgressUpdate,
   calculateEta,
   extractFiles
 }

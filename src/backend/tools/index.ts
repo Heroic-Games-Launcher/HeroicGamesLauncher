@@ -8,10 +8,12 @@ import {
   writeFileSync,
   readdirSync,
   copyFile,
-  rm
+  rm,
+  mkdirSync,
+  rmSync
 } from 'graceful-fs'
 
-import { exec, spawn } from 'child_process'
+import { spawn } from 'child_process'
 import {
   downloadFile,
   execAsync,
@@ -46,9 +48,89 @@ import {
 } from '../utils/graphics/vulkan'
 import { lt as semverLt } from 'semver'
 import { createAbortController } from '../utils/aborthandler/aborthandler'
-import { mkdir } from 'fs'
 import { gameManagerMap } from '../storeManagers'
 import { sendFrontendMessage } from '../main_window'
+
+interface Tool {
+  name: string
+  url: string
+  os: string
+  strip?: number
+}
+
+async function installOrUpdateTool(tool: Tool) {
+  if (tool.os !== process.platform) return
+
+  const {
+    data: { assets }
+  } = await axios.get(tool.url)
+
+  const { name, browser_download_url: downloadUrl } = assets[0]
+  const latestVersion = name.replace('.tar.gz', '').replace('.tar.xz', '')
+  const latestVersionArchivePath = `${toolsPath}/${tool.name}/${name}`
+
+  const installedVersionStorage = `${toolsPath}/${tool.name}/latest_${tool.name}`
+  let installedVersion = ''
+  if (existsSync(installedVersionStorage)) {
+    installedVersion = readFileSync(installedVersionStorage)
+      .toString()
+      .split('\n')[0]
+  }
+
+  const alreadyUpToDate =
+    installedVersion === latestVersion &&
+    existsSync(join(toolsPath, tool.name, installedVersion))
+  if (alreadyUpToDate) return
+
+  mkdirSync(join(toolsPath, tool.name), { recursive: true })
+
+  logInfo([`Updating ${tool.name} to:`, latestVersion], LogPrefix.DXVKInstaller)
+
+  try {
+    await downloadFile({
+      url: downloadUrl,
+      dest: latestVersionArchivePath,
+      abortSignal: createAbortController(tool.name).signal
+    })
+  } catch (error) {
+    logWarning(
+      [`Error when downloading ${tool.name}`, error],
+      LogPrefix.DXVKInstaller
+    )
+    showDialogBoxModalAuto({
+      title: i18next.t('box.error.dxvk.title', 'DXVK/VKD3D error'),
+      message: i18next.t(
+        'box.error.dxvk.message',
+        'Error installing DXVK/VKD3D! Check your connection!'
+      ),
+      type: 'ERROR'
+    })
+    return
+  }
+
+  logInfo(`Downloaded ${tool.name}, extracting...`, LogPrefix.DXVKInstaller)
+
+  const extractDestination = join(toolsPath, tool.name, latestVersion)
+  mkdirSync(extractDestination, { recursive: true })
+  try {
+    await extractFiles({
+      path: latestVersionArchivePath,
+      destination: extractDestination,
+      strip: tool.strip ?? 1
+    })
+  } catch (error) {
+    logError(
+      [`Extraction of ${tool.name} failed with:`, error],
+      LogPrefix.DXVKInstaller
+    )
+    return
+  } finally {
+    rmSync(latestVersionArchivePath)
+  }
+
+  writeFileSync(installedVersionStorage, latestVersion)
+  logInfo(`${tool.name} updated!`, LogPrefix.DXVKInstaller)
+}
 
 export const DXVK = {
   getLatest: async () => {
@@ -63,7 +145,7 @@ export const DXVK = {
       return
     }
 
-    const tools = [
+    const tools: Tool[] = [
       {
         name: 'vkd3d',
         url: getVkd3dUrl(),
@@ -77,7 +159,8 @@ export const DXVK = {
       {
         name: 'dxvk-nvapi',
         url: 'https://api.github.com/repos/jp7677/dxvk-nvapi/releases/latest',
-        os: 'linux'
+        os: 'linux',
+        strip: 0
       },
       {
         name: 'dxvk-macOS',
@@ -86,95 +169,7 @@ export const DXVK = {
       }
     ]
 
-    tools.forEach(async (tool) => {
-      if (tool.os !== process.platform) {
-        return
-      }
-
-      const {
-        data: { assets }
-      } = await axios.get(tool.url)
-
-      const { name, browser_download_url: downloadUrl } = assets[0]
-      const pkg = name.replace('.tar.gz', '').replace('.tar.xz', '')
-
-      const latestVersion = `${toolsPath}/${tool.name}/${name}`
-      const pastVersionCheck = `${toolsPath}/${tool.name}/latest_${tool.name}`
-      let pastVersion = ''
-      if (existsSync(pastVersionCheck)) {
-        pastVersion = readFileSync(pastVersionCheck).toString().split('\n')[0]
-      }
-
-      if (
-        pastVersion === pkg &&
-        existsSync(`${toolsPath}/${tool.name}/${pkg}`)
-      ) {
-        return
-      }
-
-      if (!existsSync(`${toolsPath}/${tool.name}`)) {
-        mkdir(`${toolsPath}/${tool.name}`, { recursive: true }, (err) => {
-          if (err) {
-            logError(
-              [`Error creating ${tool.name} folder`, err],
-              LogPrefix.DXVKInstaller
-            )
-          }
-        })
-      }
-
-      const echoCommand = `echo ${pkg} > '${toolsPath}/${tool.name}/latest_${tool.name}'`
-      const cleanCommand = `rm ${toolsPath}/${tool.name}/${name}`
-      const destination = join(
-        toolsPath,
-        tool.name,
-        tool.name === 'dxvk-nvapi' ? pkg : ''
-      )
-
-      logInfo([`Updating ${tool.name} to:`, pkg], LogPrefix.DXVKInstaller)
-
-      return downloadFile({
-        url: downloadUrl,
-        dest: latestVersion,
-        abortSignal: createAbortController(tool.name).signal
-      })
-        .then(async () => {
-          logInfo(`downloaded ${tool.name}`, LogPrefix.DXVKInstaller)
-          logInfo(`extracting ${tool.name}`, LogPrefix.DXVKInstaller)
-          exec(echoCommand)
-          await extractFiles({
-            path: latestVersion,
-            destination,
-            strip: 0
-          })
-            .then(() => {
-              logInfo(`${tool.name} updated!`, LogPrefix.DXVKInstaller)
-            })
-            .catch((error) => {
-              logError(
-                [`Extraction of ${tool.name} failed with:`, error],
-                LogPrefix.DXVKInstaller
-              )
-            })
-            .finally(() => {
-              exec(cleanCommand)
-            })
-        })
-        .catch((error: string) => {
-          logWarning(
-            [`Error when downloading ${tool.name}`, error],
-            LogPrefix.DXVKInstaller
-          )
-          showDialogBoxModalAuto({
-            title: i18next.t('box.error.dxvk.title', 'DXVK/VKD3D error'),
-            message: i18next.t(
-              'box.error.dxvk.message',
-              'Error installing DXVK/VKD3D! Check your connection!'
-            ),
-            type: 'ERROR'
-          })
-        })
-    })
+    tools.forEach(installOrUpdateTool)
   },
 
   installRemove: async (
@@ -188,6 +183,10 @@ export const DXVK = {
         'Skipping DXVK install on Game Porting Toolkit prefix!',
         LogPrefix.DXVKInstaller
       )
+      return true
+    }
+
+    if (isMac && tool !== 'dxvk') {
       return true
     }
 

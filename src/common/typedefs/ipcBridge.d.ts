@@ -1,4 +1,3 @@
-import { DownloadManagerState } from './../types'
 import { EventEmitter } from 'node:events'
 import {
   IpcMainEvent,
@@ -34,12 +33,13 @@ import {
   ConnectivityStatus,
   GamepadActionArgs,
   ExtraInfo,
-  LaunchOption
+  LaunchOption,
+  DownloadManagerState,
+  InstallInfo
 } from 'common/types'
-import { LegendaryInstallInfo, SelectiveDownload } from 'common/types/legendary'
-import { GOGCloudSavesLocation, GogInstallInfo } from 'common/types/gog'
+import { SelectiveDownload } from 'common/types/legendary'
+import { GOGCloudSavesLocation } from 'common/types/gog'
 import {
-  NileInstallInfo,
   NileLoginData,
   NileRegisterData,
   NileUserData
@@ -60,7 +60,6 @@ interface SyncIPCFunctions {
   changeLanguage: (language: string) => void
   notify: (args: { title: string; body: string }) => void
   frontendReady: () => void
-  loadingScreenReady: () => void
   lock: () => void
   unlock: () => void
   quit: () => void
@@ -169,7 +168,7 @@ interface AsyncIPCFunctions {
     installPlatform: InstallPlatform,
     branch?: string,
     build?: string
-  ) => Promise<LegendaryInstallInfo | GogInstallInfo | NileInstallInfo | null>
+  ) => Promise<InstallInfo | null>
   getUserInfo: () => Promise<UserInfo | undefined>
   getAmazonUserInfo: () => Promise<NileUserData | undefined>
   isLoggedIn: () => boolean
@@ -285,7 +284,7 @@ interface AsyncIPCFunctions {
   toggleVKD3D: (args: ToolArgs) => Promise<boolean>
   toggleDXVKNVAPI: (args: ToolArgs) => Promise<boolean>
   pathExists: (path: string) => Promise<boolean>
-  getGOGLaunchOptions: (appName: string) => Promise<LaunchOption[]>
+  getLaunchOptions: (appName: string, runner: Runner) => Promise<LaunchOption[]>
   getGameOverride: () => Promise<GameOverride | null>
   getGameSdl: (appName: string) => Promise<SelectiveDownload[]>
   getPlaytimeFromRunner: (

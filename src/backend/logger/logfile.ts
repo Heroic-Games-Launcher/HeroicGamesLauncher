@@ -6,10 +6,15 @@ import {
   appendFileSync
 } from 'graceful-fs'
 
-import { configStore, currentLogFile, gamesConfigPath } from '../constants'
+import { configStore, currentLogFile } from '../constants'
 import { app } from 'electron'
 import { join } from 'path'
-import { logError, LogPrefix, logsDisabled } from './logger'
+import {
+  lastPlayLogFileLocation,
+  logError,
+  LogPrefix,
+  logsDisabled
+} from './logger'
 
 interface createLogFileReturn {
   currentLogFile: string
@@ -135,7 +140,7 @@ export function getLogFile(appNameOrRunner: string): string {
     case 'nile':
       return logs.nileLogFile
     default:
-      return join(gamesConfigPath, appNameOrRunner + '-lastPlay.log')
+      return lastPlayLogFileLocation(appNameOrRunner)
   }
 }
 

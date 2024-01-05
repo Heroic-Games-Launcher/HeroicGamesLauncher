@@ -132,8 +132,9 @@ export const initGamepad = () => {
             // closes the keyboard if present
             VirtualKeyboardController.destroy()
             return
-          } else if (insideInstallDialog()) {
-            closeInstallDialog()
+          } else if (insideDialog()) {
+            closeDialog()
+            return
           } else if (isSelect()) {
             // closes the select dropdown and re-focus element
             const el = currentElement()
@@ -261,18 +262,18 @@ export const initGamepad = () => {
     return true
   }
 
-  function insideInstallDialog() {
+  function insideDialog() {
     const el = currentElement()
     if (!el) return false
 
-    return !!el.closest('.InstallModal__dialog')
+    return !!el.closest('.Dialog__element')
   }
 
-  function closeInstallDialog() {
+  function closeDialog() {
     const el = currentElement()
     if (!el) return false
 
-    const dialog = el.closest('.InstallModal__dialog')
+    const dialog = el.closest('.Dialog__element')
     if (!dialog) return false
 
     const closeButton = dialog.querySelector<HTMLButtonElement>(

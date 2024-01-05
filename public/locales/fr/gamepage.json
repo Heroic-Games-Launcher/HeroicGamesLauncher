@@ -201,7 +201,7 @@
         "notinstalled": "Ce jeu n'est pas installé",
         "notSupported": "non compatible",
         "notSupportedGame": "non compatible",
-        "processing": "Traitement des fichiers, veuillez patienter",
+        "processing": "Préparation des fichiers, veuillez patienter",
         "queued": "En file d'attente",
         "reparing": "Réparation du jeu en cours, veuillez patienter",
         "this-game-uses-third-party": "Ce jeu nécessite un lanceur tiers et n'est donc pas supporté pour le moment",
@@ -232,7 +232,8 @@
         "store": "Page du magasin",
         "verify": "Vérifier et Réparer",
         "extraInfo": "Informations supplémentaires",
-        "logs": "Journaux d'événements"
+        "logs": "Journaux d'événements",
+        "categories": "Catégories"
     },
     "help": {
         "cloud_save_unsupported": "Ce jeu ne prend pas en charge les sauvegardes dans le Cloud. Cette information est fournie par les développeurs du jeu. Certains jeux implémentent leur propre système de sauvegarde dans le Cloud"

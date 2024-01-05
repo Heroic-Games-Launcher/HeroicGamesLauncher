@@ -9,20 +9,16 @@ import classNames from 'classnames'
 import {
   GameInfo,
   GameStatus,
+  InstallInfo,
   InstallPlatform,
   Runner,
   WineInstallation
 } from 'common/types'
 import {
-  BuildItem,
-  GogInstallInfo,
-  DLCInfo as GOGDLCInfo
-} from 'common/types/gog'
-import {
-  DLCInfo as LegendaryDLCInfo,
-  LegendaryInstallInfo,
-  SelectiveDownload
+  SelectiveDownload,
+  DLCInfo as LegendaryDLCInfo
 } from 'common/types/legendary'
+import { BuildItem, DLCInfo as GOGDLCInfo } from 'common/types/gog'
 import { PathSelectionBox, ToggleSwitch } from 'frontend/components/UI'
 import Anticheat from 'frontend/components/UI/Anticheat'
 import {
@@ -51,7 +47,6 @@ import { useTranslation } from 'react-i18next'
 import { AvailablePlatforms } from '../index'
 import { configStore } from 'frontend/helpers/electronStores'
 import DLCDownloadListing from './DLCDownloadListing'
-import { NileInstallInfo } from 'common/types/nile'
 import BuildSelector from './BuildSelector'
 import GameLanguageSelector from './GameLanguageSelector'
 import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
@@ -116,9 +111,9 @@ export default function DownloadDialog({
 
   const isWin = platform === 'win32'
 
-  const [gameInstallInfo, setGameInstallInfo] = useState<
-    LegendaryInstallInfo | GogInstallInfo | NileInstallInfo | null
-  >(null)
+  const [gameInstallInfo, setGameInstallInfo] = useState<InstallInfo | null>(
+    null
+  )
   const [installLanguages, setInstallLanguages] = useState(Array<string>())
   const [installLanguage, setInstallLanguage] = useState('')
 

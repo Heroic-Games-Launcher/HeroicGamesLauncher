@@ -13,6 +13,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 import { WineVersionInfo, Type, WineManagerUISettings } from 'common/types'
+import { hasHelp } from 'frontend/hooks/hasHelp'
 
 const WineItem = lazy(
   async () => import('frontend/screens/WineManager/components/WineItem')
@@ -22,8 +23,20 @@ const configStore = new TypeCheckedStoreFrontend('wineManagerConfigStore', {
   cwd: 'store'
 })
 
-export default React.memo(function WineManager(): JSX.Element | null {
+export default function WineManager(): JSX.Element | null {
   const { t } = useTranslation()
+
+  hasHelp(
+    'wineManager',
+    t('help.title.wineManager', 'Wine Manager'),
+    <p>
+      {t(
+        'help.content.wineManager',
+        'Install different versions of Wine, Proton, Crossover, etc.'
+      )}
+    </p>
+  )
+
   const { refreshWineVersionInfo, refreshing, platform } =
     useContext(ContextProvider)
   const isLinux = platform === 'linux'
@@ -46,14 +59,25 @@ export default React.memo(function WineManager(): JSX.Element | null {
     WineManagerUISettings[]
   >([
     { type: 'Wine-GE', value: 'winege', enabled: isLinux },
+    { type: 'Wine-GE-LoL', value: 'winege-lol', enabled: isLinux },
     { type: 'Proton-GE', value: 'protonge', enabled: isLinux },
     { type: 'Wine-Crossover', value: 'winecrossover', enabled: !isLinux },
     { type: 'Wine-Staging-macOS', value: 'winestagingmacos', enabled: !isLinux }
   ])
 
   const getWineVersions = (repo: Type) => {
-    const versions = wineDownloaderInfoStore.get('wine-releases', [])
-    return versions.filter((version) => version.type === repo)
+    let versions = wineDownloaderInfoStore.get('wine-releases', [])
+
+    if (repo.startsWith('Wine-GE')) {
+      versions = versions.filter((version) => version.type === 'Wine-GE')
+      if (repo.endsWith('LoL')) {
+        return versions.filter((version) => version.version.endsWith('LoL'))
+      } else {
+        return versions.filter((version) => !version.version.endsWith('LoL'))
+      }
+    } else {
+      return versions.filter((version) => version.type === repo)
+    }
   }
 
   const [wineVersions, setWineVersions] = useState<WineVersionInfo[]>(
@@ -155,4 +179,4 @@ export default React.memo(function WineManager(): JSX.Element | null {
       </div>
     </>
   )
-})
+}

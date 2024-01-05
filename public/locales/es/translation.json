@@ -254,7 +254,13 @@
         "filters": "Filtros",
         "show_installed_only": "Mostrar solo lo instalado",
         "all_categories": "Todas las categorías",
-        "uncategorized": "Sin categoría"
+        "uncategorized": "Sin categoría",
+        "select_all": "Seleccionar todo",
+        "only": "solo",
+        "reset": "Restablecer",
+        "no_categories": "No hay categorías personalizadas. Añade categorías utilizando el menú de cada juego.",
+        "categories": "Categorías",
+        "show_support_offline_only": "Mostrar solo compatible sin conexión"
     },
     "help": {
         "amdfsr": "El FSR de AMD ayuda a aumentar la velocidad de los fotogramas mediante el escalado de las resoluciones más bajas en el modo de pantalla completa. La calidad de la imagen aumenta de 5 a 1 a costa de un ligero impacto en el rendimiento. Su activación puede mejorar el rendimiento.",
@@ -306,6 +312,29 @@
             "upscaleWidth": "La resolución del ancho utilizada por gamescope. Se asume una relación 16:9.",
             "gameHeight": "La resolución utilizada por el juego. Una relación de aspecto 16:9 es asumida por gamescope.",
             "upscaleHeight": "La resolución de altura utilizada por gamescope. Se asume una relación de aspecto 16:9."
+        },
+        "title": {
+            "accessibility": "Accesibilidad",
+            "login": "Iniciar Sesión",
+            "settings": "Ajustes",
+            "downloadManager": "Administrador de Descargas",
+            "wineManager": "Gestor de Wine",
+            "library": "Biblioteca"
+        },
+        "content": {
+            "defaultInstallPath": "Esta es la ruta preseleccionada por defecto al instalar juegos.",
+            "settingsDefault": "Muestra todos los ajustes de Heroic y los predeterminados para los juegos.",
+            "settingsGame": "Mostrar todos los ajustes de un juego.",
+            "downloadManager": "Muestra las descargas actuales y pasadas.",
+            "wineManager": "Instala diferentes versiones de Wine, Proton, Crossover, etc.",
+            "library": "Muestra todos tus juegos.",
+            "customThemesPath": "Consulte nuestra wiki.",
+            "accessibility": "Muestra los ajustes de accesibilidad.",
+            "login": "Entra en las diferentes tiendas."
+        },
+        "button": {
+            "open": "Abrir la ayuda",
+            "close": "Cerrar ayuda"
         }
     },
     "info": {
@@ -340,7 +369,8 @@
         "path": "Seleccione la ruta de instalación"
     },
     "label": {
-        "loading": "Cargando"
+        "loading": "Cargando",
+        "releaseDate": "Fecha de lanzamiento"
     },
     "library": {
         "refresh": "Renovar",
@@ -575,7 +605,8 @@
             "instructions_title": "¿Cómo reportar un problema?",
             "last-log": "Último registro",
             "no-file": "No se ha encontrado ningún archivo de registro",
-            "show-in-folder": "Mostrar el archivo de registro en la carpeta"
+            "show-in-folder": "Mostrar el archivo de registro en la carpeta",
+            "join-heroic-discord": "Únase a nuestro Discord"
         },
         "mangohud": "Habilitar Mangohud (es necesario instalar Mangohud)",
         "manualsync": {
@@ -625,7 +656,9 @@
         "autodxvknvapi": "Autoinstalar/Actualizar DXVK-NVAPI en el Prefijo",
         "experimental_features": {
             "enableNewShinyFeature": "Una nueva función brillante",
-            "enableNewDesign": "Nuevo diseño"
+            "enableNewDesign": "Nuevo diseño",
+            "enableHelp": "Componente de ayuda",
+            "automaticWinetricksFixes": "Aplicar automáticamente las correcciones conocidas de Winetricks"
         },
         "disablePlaytimeSync": "Desactivar la sincronización del tiempo de juego",
         "frameless-window": {

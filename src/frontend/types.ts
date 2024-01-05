@@ -1,4 +1,3 @@
-import { NileInstallInfo } from './../common/types/nile'
 import {
   AppSettings,
   GameInfo,
@@ -14,10 +13,9 @@ import {
   GameSettings,
   WikiInfo,
   ExtraInfo,
-  Status
+  Status,
+  InstallInfo
 } from 'common/types'
-import { GogInstallInfo } from 'common/types/gog'
-import { LegendaryInstallInfo } from 'common/types/legendary'
 import { NileLoginData, NileRegisterData } from 'common/types/nile'
 
 export type Category = 'all' | 'legendary' | 'gog' | 'sideload' | 'nile'
@@ -57,8 +55,8 @@ export interface ContextType {
     addCategory: (newCategory: string) => void
     removeCategory: (category: string) => void
   }
-  currentCustomCategory: string | null
-  setCurrentCustomCategory: (newCustomCategory: string) => void
+  currentCustomCategories: string[]
+  setCurrentCustomCategories: (newCustomCategories: string[]) => void
   theme: string
   setTheme: (themeName: string) => void
   zoomPercent: number
@@ -112,6 +110,11 @@ export interface ContextType {
     type?: 'settings' | 'log' | 'category',
     gameInfo?: GameInfo
   ) => void
+  help: {
+    items: { [key: string]: HelpItem }
+    addHelpItem: (helpItemId: string, helpItem: HelpItem) => void
+    removeHelpItem: (helpItemId: string) => void
+  }
   experimentalFeatures: ExperimentalFeatures
   handleExperimentalFeatures: (newSetting: ExperimentalFeatures) => void
 }
@@ -203,8 +206,8 @@ export interface LibraryContextType {
   storesFilters: StoresFilters
   platformsFilters: PlatformsFilters
   filterText: string
-  toggleStoreFilter: (store: Category) => void
-  togglePlatformFilter: (platform: string) => void
+  setStoresFilters: (filters: StoresFilters) => void
+  setPlatformsFilters: (filters: PlatformsFilters) => void
   handleLayout: (value: string) => void
   handleSearch: (input: string) => void
   layout: string
@@ -219,7 +222,9 @@ export interface LibraryContextType {
   sortDescending: boolean
   setSortDescending: (value: boolean) => void
   sortInstalled: boolean
-  setSortInstalled: (valur: boolean) => void
+  setSortInstalled: (value: boolean) => void
+  showSupportOfflineOnly: boolean
+  setShowSupportOfflineOnly: (value: boolean) => void
 }
 
 export interface GameContextType {
@@ -228,14 +233,10 @@ export interface GameContextType {
   gameInfo: GameInfo | null
   gameExtraInfo: ExtraInfo | null
   gameSettings: GameSettings | null
-  gameInstallInfo:
-    | LegendaryInstallInfo
-    | GogInstallInfo
-    | NileInstallInfo
-    | null
+  gameInstallInfo: InstallInfo | null
   is: {
     installing: boolean
-    installingUbisoft: boolean
+    installingWinetricksPackages: boolean
     installingRedist: boolean
     launching: boolean
     linux: boolean
@@ -273,4 +274,9 @@ export type DMQueue = {
   elements: DMQueueElement[]
   finished: DMQueueElement[]
   state: DownloadManagerState
+}
+
+export interface HelpItem {
+  title: string
+  content: JSX.Element
 }

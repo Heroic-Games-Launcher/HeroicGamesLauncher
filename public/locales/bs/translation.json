@@ -285,7 +285,14 @@
             "part1": "Heroic traži verzije Wine, Proton i CrossOver u sljedećim mapama:",
             "part2": "Za druga mjesta koristite simboličku vezu do jednog od ovih mapa"
         },
-        "disable_logs": "Uključite ovaj okvir za potvrdu kako biste onemogućili većinu upisivanja u datoteke dnevnika (kritične informacije se uvijek evidentiraju). Obavezno ISKLJUČITE ovu postavku prije nego što prijavite bilo kakav problem."
+        "disable_logs": "Uključite ovaj okvir za potvrdu kako biste onemogućili većinu upisivanja u datoteke dnevnika (kritične informacije se uvijek evidentiraju). Obavezno ISKLJUČITE ovu postavku prije nego što prijavite bilo kakav problem.",
+        "title": {
+            "accessibility": "Pristupačnost",
+            "settings": "Postavke",
+            "downloadManager": "Download Manager",
+            "wineManager": "Wine menadžer",
+            "library": "Biblioteka"
+        }
     },
     "info": {
         "heroic": {
@@ -319,7 +326,8 @@
         "path": "Izaberi put instalacije"
     },
     "label": {
-        "loading": "Loading"
+        "loading": "Loading",
+        "releaseDate": "Datum izlaska"
     },
     "library": {
         "refresh": "Osvježi",

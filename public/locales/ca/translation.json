@@ -254,7 +254,8 @@
         "filters": "Filtra",
         "all_categories": "Totes les categories",
         "show_installed_only": "Mostra només els instal·lats",
-        "uncategorized": "Sense categoria"
+        "uncategorized": "Sense categoria",
+        "categories": "Categories"
     },
     "help": {
         "amdfsr": "L'FSR d'AMD ajuda a augmentar els fotogrames per segon emprant resolucions més baixes en el mode de pantalla completa i després escalant-les. La qualitat d'imatge augmenta de 5 a 1 a costa d'un petit increment de rendiment. Si s'activa, podria millorar el rendiment.",
@@ -306,6 +307,14 @@
             "upscaleWidth": "La resolució horitzontal que farà servir el gamescope. S'assumeix una relació d'aspecte 16:9.",
             "gameHeight": "La resolució vertical del joc. El gamescope assumeix una relació 16:9.",
             "upscaleHeight": "La resolució vertical que farà servir el gamescope. S'assumeix una relació d'aspecte 16:9."
+        },
+        "title": {
+            "accessibility": "Accessibilitat",
+            "login": "Login",
+            "settings": "Configuració",
+            "downloadManager": "Download Manager",
+            "wineManager": "Gestor del Wine",
+            "library": "Biblioteca"
         }
     },
     "info": {
@@ -340,7 +349,8 @@
         "path": "Selecciona la ruta d'instal·lació"
     },
     "label": {
-        "loading": "Es carrega"
+        "loading": "Es carrega",
+        "releaseDate": "Release Date"
     },
     "library": {
         "refresh": "Actualitza",
