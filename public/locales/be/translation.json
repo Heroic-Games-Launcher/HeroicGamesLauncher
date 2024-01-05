@@ -311,6 +311,13 @@
             "gameHeight": "Раздзяляльнасць па вышыні, якая выкарыстоўваецца гульнёй. Gamescope прадугледжвае суадносіны бакоў 16:9.",
             "upscaleHeight": "Раздзяляльнасць па вышыні, якая выкарыстоўваецца gamescope. Прадугледжваюцца суадносіны бакоў 16:9.",
             "fpsLimiter": "Колькасць кадраў GameScope павінна быць абмежавана. напрыклад 60"
+        },
+        "title": {
+            "accessibility": "Даступнасць",
+            "settings": "Налады",
+            "downloadManager": "Download Manager",
+            "wineManager": "Менеджэр Wine",
+            "library": "Бібліятэка"
         }
     },
     "info": {
@@ -345,7 +352,8 @@
         "path": "Выберыце шлях усталявання"
     },
     "label": {
-        "loading": "Загрузка"
+        "loading": "Загрузка",
+        "releaseDate": "Release Date"
     },
     "library": {
         "refresh": "Refresh Library",

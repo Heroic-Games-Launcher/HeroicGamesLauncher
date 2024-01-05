@@ -286,7 +286,15 @@
             "part1": "Búsquedas de versións de Wine, Proton e CrossOver nos seguintes cartafoles:",
             "part2": "Para outros lugares, use unha ligazón simbólica a un destos cartafoles"
         },
-        "disable_logs": "Activa esta caixa de verificación para desactivar a maioría das escrituras nos ficheiros de rexistro (a información crítica sempre se rexistra). Asegúrate de desactivar esta configuración antes de informar de calquera problema."
+        "disable_logs": "Activa esta caixa de verificación para desactivar a maioría das escrituras nos ficheiros de rexistro (a información crítica sempre se rexistra). Asegúrate de desactivar esta configuración antes de informar de calquera problema.",
+        "title": {
+            "accessibility": "Accessibility",
+            "login": "Iniciar sesión",
+            "settings": "Preferencias",
+            "downloadManager": "Download Manager",
+            "wineManager": "Wine Manager",
+            "library": "Biblioteca"
+        }
     },
     "info": {
         "heroic": {
@@ -320,7 +328,8 @@
         "path": "Seleccionar a ruta de instalación"
     },
     "label": {
-        "loading": "Loading"
+        "loading": "Loading",
+        "releaseDate": "Release Date"
     },
     "library": {
         "refresh": "Actualizar",
