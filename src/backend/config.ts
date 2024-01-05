@@ -138,14 +138,14 @@ abstract class GlobalConfig {
     const wineOnMac = await getWineOnMac()
     const wineskinWine = await getWineskinWine()
     const gamingPortingToolkitWine = await getGamingPortingToolkitWine()
-    const getWhysky = await getWhisky()
+    const whiskyWine = await getWhisky()
 
     return new Set([
       ...gamingPortingToolkitWine,
       ...crossover,
       ...wineOnMac,
       ...wineskinWine,
-      ...getWhysky
+      ...whiskyWine
     ])
   }
 
