@@ -24,6 +24,11 @@
     opacity 500ms,
     transform 500ms;
   max-width: min(700px, 85vw);
+  max-height: 95vh;
+
+  & img {
+    max-width: 100%;
+  }
 }
 .Dialog__element::backdrop {
   background: rgba(0, 0, 0, 0.4);
