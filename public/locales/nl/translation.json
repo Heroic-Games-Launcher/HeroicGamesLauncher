@@ -286,7 +286,15 @@
             "part1": "Heroic zoekt naar versies van Wine, Proton en CrossOver op de volgende mappen:",
             "part2": "Voor andere locaties moet je een symbolische link begruiken naar een van deze mappen"
         },
-        "disable_logs": "Schakel dit selectievakje in om de meeste schrijfbewerkingen naar logbestanden uit te schakelen (kritieke informatie wordt altijd geregistreerd). Zorg ervoor dat u deze instelling uitschakelt voordat u een probleem meldt."
+        "disable_logs": "Schakel dit selectievakje in om de meeste schrijfbewerkingen naar logbestanden uit te schakelen (kritieke informatie wordt altijd geregistreerd). Zorg ervoor dat u deze instelling uitschakelt voordat u een probleem meldt.",
+        "title": {
+            "accessibility": "Accessibility",
+            "login": "Login",
+            "settings": "Instellingen",
+            "downloadManager": "Download Manager",
+            "wineManager": "Wine Manager",
+            "library": "Bibliotheek"
+        }
     },
     "info": {
         "heroic": {
@@ -320,7 +328,8 @@
         "path": "Select Install Path"
     },
     "label": {
-        "loading": "Loading"
+        "loading": "Loading",
+        "releaseDate": "Release Date"
     },
     "library": {
         "refresh": "Vernieuwen",

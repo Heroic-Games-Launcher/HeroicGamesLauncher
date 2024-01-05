@@ -80,7 +80,7 @@
             },
             "moving": "Erro ao mover o jogo {{error}}",
             "ubisoft-connect": {
-                "title": "Ubisoft Connect ignore-same",
+                "title": "Ubisoft Connect",
                 "message": "A instalação do Ubisoft Connect no prefixo do jogo falhou. Verifique nossa página wiki em https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac para instalá-lo manualmente."
             },
             "legendary": {
@@ -118,7 +118,7 @@
             "title": "Selecione o EXE para executar"
         },
         "select": {
-            "button": "Selecionar ignore-reused",
+            "button": "Selecionar",
             "exe": "Selecionar EXE"
         },
         "shortcuts": {
@@ -181,7 +181,7 @@
     },
     "controller": {
         "hints": {
-            "back": "Voltar ignore-reused",
+            "back": "Voltar",
             "backspace": "Backspace",
             "close_dialog": "Fechar caixa de diálogo",
             "close_keyboard": "Fechar teclado",
@@ -194,7 +194,7 @@
             "options": "Opções",
             "play_game": "Jogar um jogo",
             "scroll": "Scroll",
-            "select": "Selecionar ignore-reused",
+            "select": "Selecionar",
             "space": "Espaço",
             "update_game": "Atualizar jogo"
         }
@@ -223,7 +223,7 @@
         "offline-notification-body": "Serviços online podem não funcionar totalmente, os servidores da Epic Games estão offline!",
         "offline-notification-title": "offline"
     },
-    "Epic Games": "Epic Games ignore-same",
+    "Epic Games": "Epic Games",
     "error": "Error",
     "favourites": "Favoritos",
     "game": {
@@ -307,6 +307,14 @@
             "gameHeight": "A resolução de altura usada pelo jogo. Uma proporção de 16:9 é assumida pelo gamescope.",
             "upscaleHeight": "A resolução de altura usada pelo gamescope. Uma proporção de aspecto de 16:9 é assumida.",
             "fpsLimiter": "A quantidade de frames que o gamescope deve limitar. Ex: 60"
+        },
+        "title": {
+            "accessibility": "Acessibilidade",
+            "login": "Login",
+            "settings": "Configurações",
+            "downloadManager": "Download Manager",
+            "wineManager": "Versões do Wine",
+            "library": "Biblioteca"
         }
     },
     "info": {
@@ -341,7 +349,8 @@
         "path": "Selecione o local de instalação"
     },
     "label": {
-        "loading": "Carregando"
+        "loading": "Carregando",
+        "releaseDate": "Data de lançamento"
     },
     "library": {
         "refresh": "Atualizar",
@@ -453,7 +462,7 @@
         "wrapper": {
             "args": "Argumentos",
             "arguments_example": "Exemplo de argumentos: --arg; -extra-file=\"caminho-arquivo/ com/espaços\"",
-            "exe": "Wrapper ignore-same",
+            "exe": "Wrapper",
             "placeHolderKey": "Novo Wrapper",
             "placeHolderValue": "Argumentos do Wrapper",
             "title": "Comando do Wrapper:"
@@ -761,7 +770,7 @@
     },
     "webview": {
         "controls": {
-            "back": "Voltar ignore-reused",
+            "back": "Voltar",
             "forward": "Avançar",
             "openInBrowser": "Abrir no navegador",
             "reload": "Recarregar página"
@@ -794,7 +803,7 @@
     },
     "amazon": "Amazon",
     "Amazon Games": "Amazon Games",
-    "prime-gaming": "Prime Gaming ignore-same",
+    "prime-gaming": "Prime Gaming",
     "winetricks": {
         "install": "Instalação",
         "loading": "Loading",

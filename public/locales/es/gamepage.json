@@ -33,11 +33,11 @@
         },
         "uninstall": {
             "checkbox": "Eliminar prefijo: {{prefix}}{{newLine}}Nota: Esta acción no se puede revertir y eliminará también los archivos de guardado sin copia de seguridad.",
-            "message": "¿Quieres desinstalar este juego?",
+            "message": "¿Quieres desinstalar \"{{title}}\"?",
             "settingcheckbox": "Borrar ajustes y eliminar registros{{newLine}}Nota: Este cambio no se puede deshacer. Todos los ajustes serán olvidados y el registro será borrado.",
             "title": "Desinstalar",
             "prefix_warning": "El prefijo Wine para este juego es el prefijo predeterminado. Si realmente deseas eliminarlo, debes hacerlo manualmente.",
-            "dlc": "¿Quieres desinstalar este DLC?",
+            "dlc": "¿Quieres desinstalar \"{{title}}\" (DLC)?",
             "cannotUninstallEpic": "Epic Games no se puede desinstalar mientras se está instalando otro juego de Epic."
         },
         "update": {
@@ -152,7 +152,9 @@
             "syncing": "Sincronizando guardados"
         },
         "launching": "Ejecutando",
-        "ubisoft": "Instalando Ubisoft Connect"
+        "ubisoft": "Instalando Ubisoft Connect",
+        "winetricks": "Instalar paquetes Winetricks",
+        "prerequisites": "Instalación de los equisitos previos"
     },
     "launch": {
         "options": "Opciones de arranque..."
@@ -220,7 +222,9 @@
         "downloading": "Descargando",
         "extracting": "Extrayendo",
         "gog-goodie": "Este juego no parece ser instalable. Consulta el contenido descargable en https://gog.com/account",
-        "goodie": "No instalable"
+        "goodie": "No instalable",
+        "prerequisites": "Instalación de los equisitos previos",
+        "winetricks": "Aplicación de las correcciones de Winetricks"
     },
     "submenu": {
         "addShortcut": "Añadir acceso directo",
@@ -240,6 +244,12 @@
         "categories": "Categorías"
     },
     "help": {
-        "cloud_save_unsupported": "Este juego no admite guardados en la nube. Esta información es proporcionada por los desarrolladores del juego. Algunos juegos implementan su propio sistema de guardado en la nube"
+        "cloud_save_unsupported": "Este juego no admite guardados en la nube. Esta información es proporcionada por los desarrolladores del juego. Algunos juegos implementan su propio sistema de guardado en la nube",
+        "content": {
+            "gamePage": "Mostrar todos los detalles y acciones del juego. Utilice el menú de 3 puntos para más opciones."
+        },
+        "title": {
+            "gamePage": "Página del juego"
+        }
     }
 }

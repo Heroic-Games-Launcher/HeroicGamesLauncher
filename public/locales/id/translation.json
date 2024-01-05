@@ -294,7 +294,15 @@
             "part1": "Heroic mencari versi Wine, Proton, dan CrossOver di folder berikut ini:",
             "part2": "Untuk tempat lain, gunakan tautan simbolis ke salah satu folder ini"
         },
-        "disable_logs": "Aktifkan kotak centang ini untuk menonaktifkan sebagian besar penulisan ke berkas log (informasi penting selalu dicatat). Pastikan untuk MENONAKTIFKAN setelan ini sebelum melaporkan masalah apa pun."
+        "disable_logs": "Aktifkan kotak centang ini untuk menonaktifkan sebagian besar penulisan ke berkas log (informasi penting selalu dicatat). Pastikan untuk MENONAKTIFKAN setelan ini sebelum melaporkan masalah apa pun.",
+        "title": {
+            "accessibility": "Aksesibilitas",
+            "login": "Login",
+            "settings": "Pengaturan",
+            "downloadManager": "Download Manager",
+            "wineManager": "Manajer Wine",
+            "library": "Pustaka"
+        }
     },
     "info": {
         "heroic": {
@@ -328,7 +336,8 @@
         "path": "Pilih Lokasi Pemasangan"
     },
     "label": {
-        "loading": "Memuat"
+        "loading": "Memuat",
+        "releaseDate": "Release Date"
     },
     "library": {
         "refresh": "Segarkan",

@@ -304,6 +304,14 @@
             "gameHeight": "Wysokość w pikselach (od rozdzielczości) stosowana przez grę. Gamescope zakłada, proporcje ekranu w postaci 16:9.",
             "upscaleHeight": "Wysokość (od rozdzielczości) używana przez gamescope. Przyjmuje się proporcje 16:9.",
             "fpsLimiter": "Limit klatek na sekundę, który powinien zastosować gamescope. np. 60"
+        },
+        "title": {
+            "accessibility": "Ułatwienia dostępu",
+            "login": "Login",
+            "settings": "Ustawienia",
+            "downloadManager": "Download Manager",
+            "wineManager": "Menedżer Wine",
+            "library": "Biblioteka"
         }
     },
     "info": {
@@ -338,7 +346,8 @@
         "path": "Wybierz ścieżkę instalacji"
     },
     "label": {
-        "loading": "Ładowanie"
+        "loading": "Ładowanie",
+        "releaseDate": "Data wydania"
     },
     "library": {
         "refresh": "Odśwież",

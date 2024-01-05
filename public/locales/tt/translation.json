@@ -111,5 +111,11 @@
     "winetricks": {
         "install": "Урнаштыру",
         "loading": "Йөкләнә"
+    },
+    "help": {
+        "title": {
+            "accessibility": "Махсус мөмкинлекләр",
+            "settings": "Көйләүләр"
+        }
     }
 }
