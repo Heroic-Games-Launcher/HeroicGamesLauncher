@@ -30,6 +30,10 @@ export const initTrayIcon = async (mainWindow: BrowserWindow) => {
     mainWindow.show()
   })
 
+  appIcon.on('click', () => {
+    mainWindow.show()
+  })
+
   ipcMain.on('changeLanguage', async () => {
     await loadContextMenu()
   })
