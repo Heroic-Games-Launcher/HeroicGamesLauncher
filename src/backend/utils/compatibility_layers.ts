@@ -442,6 +442,12 @@ export function getWineFlags(
         '--wrapper': NonEmptyString.parse(`${wrapper} '${wineBin}' run`)
       }
       break
+    case 'crossover':
+      partialCommand = {
+        '--wine': Path.parse(wineBin)
+      }
+      if (wrapper) partialCommand['--wrapper'] = NonEmptyString.parse(wrapper)
+      break
     default:
       break
   }
