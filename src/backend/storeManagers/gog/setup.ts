@@ -16,7 +16,6 @@ import { isWindows } from '../../constants'
 import ini from 'ini'
 import { isOnline } from '../../online_monitor'
 import { getWinePath, runWineCommand, verifyWinePrefix } from '../../launcher'
-import { logFileLocation } from 'backend/storeManagers/storeManagerCommon/games'
 import { getGameInfo as getGogLibraryGameInfo } from 'backend/storeManagers/gog/library'
 const nonNativePathSeparator = path.sep === '/' ? '\\' : '/'
 
@@ -50,11 +49,7 @@ async function setup(
 
   const gameSettings = GameConfig.get(appName).config
   if (!isWindows) {
-    const isWineOkToLaunch = await checkWineBeforeLaunch(
-      appName,
-      gameSettings,
-      logFileLocation(appName)
-    )
+    const isWineOkToLaunch = await checkWineBeforeLaunch(appName, gameSettings)
 
     if (!isWineOkToLaunch) {
       logError(

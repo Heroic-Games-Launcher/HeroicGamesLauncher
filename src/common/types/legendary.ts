@@ -100,6 +100,7 @@ type CustomAttributeType =
   | 'extraLaunchOption_001_Args'
   | 'extraLaunchOption_001_Name'
   | 'ThirdPartyManagedApp'
+  | 'AdditionalCommandLine'
 
 interface CustomAttributeValue {
   type: 'STRING'

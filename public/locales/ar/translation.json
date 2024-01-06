@@ -311,6 +311,13 @@
             "gameHeight": "طول نافذة اللعبة، ويفترض gamescope أن نسبة الطولَين ٩:١٦.",
             "upscaleHeight": "طول النافذة عند gamescope، ويُفتَرض أن نسبة الطولَين ٩:١٦.",
             "fpsLimiter": "غاية عدد إطارات gamescope، فمثًلا حدها ٦٠"
+        },
+        "title": {
+            "accessibility": "إمكانية الوصول",
+            "login": "لِج",
+            "settings": "الإعدادات",
+            "wineManager": "مدير واين",
+            "library": "المكتبة"
         }
     },
     "info": {
@@ -345,7 +352,8 @@
         "path": "اختر مسار التثبيت"
     },
     "label": {
-        "loading": "قيد التحميل"
+        "loading": "قيد التحميل",
+        "releaseDate": "تاريخ الإصدار"
     },
     "library": {
         "refresh": "تحديث",

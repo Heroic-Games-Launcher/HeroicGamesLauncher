@@ -4,13 +4,23 @@ import useSetting from 'frontend/hooks/useSetting'
 import { ToggleSwitch } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
 
-const FEATURES = ['enableNewDesign']
-
 const ExperimentalFeatures = () => {
+  const { platform } = useContext(ContextProvider)
+
+  const FEATURES = ['enableNewDesign', 'enableHelp']
+
+  if (platform !== 'win32') {
+    FEATURES.push('automaticWinetricksFixes')
+  }
+
   const { t } = useTranslation()
   const [experimentalFeatures, setExperimentalFeatures] = useSetting(
     'experimentalFeatures',
-    { enableNewDesign: false }
+    {
+      enableNewDesign: false,
+      enableHelp: false,
+      automaticWinetricksFixes: false
+    }
   )
   const { handleExperimentalFeatures } = useContext(ContextProvider)
 
@@ -26,6 +36,8 @@ const ExperimentalFeatures = () => {
   /*
     Translations:
     t('setting.experimental_features.enableNewDesign', 'New design')
+    t('setting.experimental_features.enableHelp', 'Help component')
+    t('setting.experimental_features.automaticWinetricksFixes', 'Apply known Winetricks fixes automatically')
   */
 
   return (

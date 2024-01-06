@@ -307,6 +307,14 @@
             "gameHeight": "Die vom Spiel verwendete Auflösung in der Höhe. Ein Seitenverhältnis von 16:9 wird von gamescope angenommen.",
             "upscaleHeight": "Die von gamescope verwendete Auflösung in der Höhe. Es wird ein Seitenverhältnis von 16:9 angenommen.",
             "fpsLimiter": "Die Anzahl der Bilder pro Sekunde, auf die Gamescope begrenzt werden soll. z.B. 60"
+        },
+        "title": {
+            "accessibility": "Barrierefreiheit",
+            "login": "Login",
+            "settings": "Einstellungen",
+            "downloadManager": "Download-Manager",
+            "wineManager": "Wine-Manager",
+            "library": "Bibliothek"
         }
     },
     "info": {
@@ -341,7 +349,8 @@
         "path": "Installationspfad auswählen"
     },
     "label": {
-        "loading": "Wird geladen …"
+        "loading": "Wird geladen …",
+        "releaseDate": "Veröffentlicht"
     },
     "library": {
         "refresh": "Aktualisieren",

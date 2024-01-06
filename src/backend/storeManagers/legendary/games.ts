@@ -1,4 +1,4 @@
-import { appendFileSync, existsSync } from 'graceful-fs'
+import { existsSync } from 'graceful-fs'
 import axios from 'axios'
 
 import {
@@ -8,7 +8,8 @@ import {
   InstallArgs,
   InstallPlatform,
   InstallProgress,
-  WineCommandArgs
+  WineCommandArgs,
+  LaunchOption
 } from 'common/types'
 import { GameConfig } from '../../game_config'
 import { GlobalConfig } from '../../config'
@@ -35,10 +36,16 @@ import {
   isWindows,
   installed,
   configStore,
-  gamesConfigPath,
   isCLINoGui
 } from '../../constants'
-import { logError, logInfo, LogPrefix, logsDisabled } from '../../logger/logger'
+import {
+  appendGameLog,
+  logError,
+  logFileLocation,
+  logInfo,
+  LogPrefix,
+  logsDisabled
+} from '../../logger/logger'
 import {
   prepareLaunch,
   prepareWineLaunch,
@@ -63,7 +70,6 @@ import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { Catalog, Product } from 'common/types/epic-graphql'
 import { sendFrontendMessage } from '../../main_window'
 import { RemoveArgs } from 'common/types/game_manager'
-import { logFileLocation } from 'backend/storeManagers/storeManagerCommon/games'
 import {
   AllowedWineFlags,
   getWineFlags
@@ -489,7 +495,6 @@ export async function update(
   const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
   const installPlatform = getGameInfo(appName).install.platform!
   const info = await getInstallInfo(appName, installPlatform)
-  const logPath = join(gamesConfigPath, appName + '.log')
 
   const command: LegendaryCommand = {
     subcommand: 'update',
@@ -510,7 +515,7 @@ export async function update(
 
   const res = await runLegendaryCommand(command, {
     abortId: appName,
-    logFile: logPath,
+    logFile: logFileLocation(appName),
     onOutput,
     logMessagePrefix: `Updating ${appName}`
   })
@@ -565,7 +570,7 @@ export async function install(
   const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
   const info = await getInstallInfo(appName, platformToInstall)
 
-  const logPath = join(gamesConfigPath, appName + '.log')
+  const logPath = logFileLocation(appName)
 
   const command: LegendaryCommand = {
     subcommand: 'install',
@@ -659,8 +664,6 @@ export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
 export async function repair(appName: string): Promise<ExecResult> {
   const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
 
-  const logPath = join(gamesConfigPath, appName + '.log')
-
   const command: LegendaryCommand = {
     subcommand: 'repair',
     appName: LegendaryAppName.parse(appName),
@@ -671,7 +674,7 @@ export async function repair(appName: string): Promise<ExecResult> {
 
   const res = await runLegendaryCommand(command, {
     abortId: appName,
-    logFile: logPath,
+    logFile: logFileLocation(appName),
     logMessagePrefix: `Repairing ${appName}`
   })
 
@@ -754,7 +757,8 @@ export async function syncSaves(
 
 export async function launch(
   appName: string,
-  launchArguments?: string
+  launchArguments?: LaunchOption,
+  skipVersionCheck = false
 ): Promise<boolean> {
   const gameSettings = await getSettings(appName)
   const gameInfo = getGameInfo(appName)
@@ -770,10 +774,7 @@ export async function launch(
     offlineMode
   } = await prepareLaunch(gameSettings, gameInfo, isNative(appName))
   if (!launchPrepSuccess) {
-    appendFileSync(
-      logFileLocation(appName),
-      `Launch aborted: ${launchPrepFailReason}`
-    )
+    appendGameLog(appName, `Launch aborted: ${launchPrepFailReason}`)
     showDialogBoxModalAuto({
       title: t('box.error.launchAborted', 'Launch aborted'),
       message: launchPrepFailReason!,
@@ -810,10 +811,7 @@ export async function launch(
       envVars: wineEnvVars
     } = await prepareWineLaunch('legendary', appName)
     if (!wineLaunchPrepSuccess) {
-      appendFileSync(
-        logFileLocation(appName),
-        `Launch aborted: ${wineLaunchPrepFailReason}`
-      )
+      appendGameLog(appName, `Launch aborted: ${wineLaunchPrepFailReason}`)
       if (wineLaunchPrepFailReason) {
         showDialogBoxModalAuto({
           title: t('box.error.launchAborted', 'Launch aborted'),
@@ -840,14 +838,21 @@ export async function launch(
     wineFlags = getWineFlags(wineBin, wineType, shlex.join(wrappers))
   }
 
+  const appNameToLaunch =
+    launchArguments?.type === 'dlc' ? launchArguments.dlcAppName : appName
+
   const command: LegendaryCommand = {
     subcommand: 'launch',
-    appName: LegendaryAppName.parse(appName),
-    extraArguments: [launchArguments, gameSettings.launcherArgs]
+    appName: LegendaryAppName.parse(appNameToLaunch),
+    extraArguments: [
+      launchArguments?.type !== 'dlc' ? launchArguments?.parameters : undefined,
+      gameSettings.launcherArgs
+    ]
       .filter(Boolean)
       .join(' '),
     ...wineFlags
   }
+  if (skipVersionCheck) command['--skip-version-check'] = true
   if (languageCode) command['--language'] = NonEmptyString.parse(languageCode)
   if (gameSettings.targetExe)
     command['--override-exe'] = Path.parse(gameSettings.targetExe)
@@ -859,10 +864,15 @@ export async function launch(
     commandEnv,
     join(...Object.values(getLegendaryBin()))
   )
-  appendFileSync(
-    logFileLocation(appName),
-    `Launch Command: ${fullCommand}\n\nGame Log:\n`
-  )
+  appendGameLog(appName, `Launch Command: ${fullCommand}\n\nGame Log:\n`)
+
+  sendGameStatusUpdate({ appName, runner: 'legendary', status: 'playing' })
+
+  sendGameStatusUpdate({
+    appName,
+    runner: 'legendary',
+    status: 'playing'
+  })
 
   const { error } = await runLegendaryCommand(command, {
     abortId: appName,
@@ -870,7 +880,7 @@ export async function launch(
     wrappers: wrappers,
     logMessagePrefix: `Launching ${gameInfo.title}`,
     onOutput: (output) => {
-      if (!logsDisabled) appendFileSync(logFileLocation(appName), output)
+      if (!logsDisabled) appendGameLog(appName, output)
     }
   })
 

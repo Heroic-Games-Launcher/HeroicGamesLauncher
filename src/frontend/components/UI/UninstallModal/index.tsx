@@ -35,6 +35,7 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
   const navigate = useNavigate()
   const location = useLocation()
   const { installingEpicGame } = useContext(ContextProvider)
+  const [gameTitle, setGameTitle] = useState('')
 
   const checkIfIsNative = async () => {
     // This assumes native games are installed should be changed in the future
@@ -57,6 +58,8 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
     if (!gameInfo) {
       return
     }
+
+    setGameTitle(gameInfo.title)
 
     const { install } = gameInfo
     if (install.platform?.toLowerCase() !== 'windows') {
@@ -133,11 +136,14 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
           <DialogContent>
             <div className="uninstallModalMessage">
               {isDlc
-                ? t(
-                    'gamepage:box.uninstall.dlc',
-                    'Do you want to Uninstall this DLC?'
-                  )
-                : t('gamepage:box.uninstall.message')}
+                ? t('gamepage:box.uninstall.dlc', {
+                    defaultValue: 'Do you want to uninstall "{{title}}" (DLC)?',
+                    title: gameTitle
+                  })
+                : t('gamepage:box.uninstall.message', {
+                    defaultValue: 'Do you want to uninstall "{{title}}"?',
+                    title: gameTitle
+                  })}
             </div>
             {showWineCheckbox && (
               <ToggleSwitch

@@ -15,6 +15,7 @@ import ToggleSwitch from 'frontend/components/UI/ToggleSwitch'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 import './index.css'
+import { hasHelp } from 'frontend/hooks/hasHelp'
 
 export default React.memo(function Accessibility() {
   const { t } = useTranslation()
@@ -27,6 +28,12 @@ export default React.memo(function Accessibility() {
     setPrimaryFontFamily,
     setSecondaryFontFamily
   } = useContext(ContextProvider)
+
+  hasHelp(
+    'accessibility',
+    t('help.title.accessibility', 'Accessibility'),
+    <p>{t('help.content.accessibility', 'Shows accessibility settings.')}</p>
+  )
 
   const [fonts, setFonts] = useState<string[]>([])
   const [refreshing, setRefreshing] = useState(false)

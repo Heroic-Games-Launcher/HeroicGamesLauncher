@@ -3,11 +3,9 @@ import {
   InstallProgress,
   Runner,
   GameSettings,
-  InstallPlatform
+  InstallPlatform,
+  InstallInfo
 } from 'common/types'
-import { LegendaryInstallInfo } from 'common/types/legendary'
-import { GogInstallInfo } from 'common/types/gog'
-import { NileInstallInfo } from 'common/types/nile'
 
 import { install, launch, repair, updateGame } from './library'
 import * as fileSize from 'filesize'
@@ -77,7 +75,7 @@ const getInstallInfo = async (
   appName: string,
   runner: Runner,
   installPlatform: InstallPlatform
-): Promise<LegendaryInstallInfo | GogInstallInfo | NileInstallInfo | null> => {
+): Promise<InstallInfo | null> => {
   return window.api.getInstallInfo(
     appName,
     runner,
@@ -118,8 +116,6 @@ function getProgress(progress: InstallProgress): number {
   }
   return 0
 }
-
-const getGOGLaunchOptions = window.api.getGOGLaunchOptions
 
 function removeSpecialcharacters(text: string): string {
   const regexp = new RegExp(
@@ -163,6 +159,5 @@ export {
   updateGame,
   writeConfig,
   removeSpecialcharacters,
-  getStoreName,
-  getGOGLaunchOptions
+  getStoreName
 }

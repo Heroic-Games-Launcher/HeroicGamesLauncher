@@ -293,4 +293,57 @@ modules:
         url: https://github.com/aria2/aria2/releases/download/release-1.36.0/aria2-1.36.0.tar.xz
       - type: patch
         path: patches/aria2/working-build.patch
+
+  - name: libcaca
+    config-opts: &libcaca_config_opts
+      - --disable-doc
+      - --disable-python
+      - --disable-ruby
+      - --disable-static
+    sources: &libcaca_sources
+      - type: archive
+        url: http://caca.zoy.org/files/libcaca/libcaca-0.99.beta19.tar.gz
+        sha256: 128b467c4ed03264c187405172a4e83049342cc8cc2f655f53a2d0ee9d3772f4
+
+  - name: libcaca-32bit
+    build-options:
+      arch:
+        x86_64: *compat_i386_opts
+    config-opts: *libcaca_config_opts
+    sources: *libcaca_sources
+
+  - name: libbsd
+    sources: &libbsd_sources
+      - type: archive
+        url: https://libbsd.freedesktop.org/releases/libbsd-0.10.0.tar.xz
+        sha256: 34b8adc726883d0e85b3118fa13605e179a62b31ba51f676136ecb2d0bc1a887
+
+  - name: libbsd-32bit
+    build-options:
+      arch:
+        x86_64: *compat_i386_opts
+    sources: *libbsd_sources
+
+  - name: libjpeg # with libjpeg.so.8
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DCMAKE_SKIP_RPATH:BOOL=YES
+      - -DENABLE_STATIC:BOOL=NO
+      - -DWITH_JPEG8:BOOL=YES
+      - -DCMAKE_INSTALL_LIBDIR=/app/lib # uses lib64 by default
+    sources: &libjpeg_sources
+      - type: archive
+        url: https://github.com/libjpeg-turbo/libjpeg-turbo/archive/refs/tags/2.1.3.tar.gz
+        sha256: dbda0c685942aa3ea908496592491e5ec8160d2cf1ec9d5fd5470e50768e7859
+
+  - name: libjpeg-32bit # with libjpeg.so.8
+    buildsystem: cmake-ninja
+    build-options:
+      arch:
+        x86_64: *compat_i386_opts
+    config-opts:
+      - -DCMAKE_SKIP_RPATH:BOOL=YES
+      - -DENABLE_STATIC:BOOL=NO
+      - -DWITH_JPEG8:BOOL=YES
+    sources: *libjpeg_sources
   #END --- Winetricks Deps --

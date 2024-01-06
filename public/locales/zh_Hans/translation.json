@@ -259,7 +259,8 @@
         "only": "仅",
         "reset": "重置",
         "no_categories": "无自定义分类。使用每个游戏菜单添加分类。",
-        "categories": "分类"
+        "categories": "分类",
+        "show_support_offline_only": "只显示支持离线玩的游戏"
     },
     "help": {
         "amdfsr": "AMD 的 FSR 通过在全屏模式下提高较低分辨率来提高帧率。图像质量从 5 提高到 1，但代价是性能稍有下降。启用可能会提高性能。",
@@ -311,6 +312,29 @@
             "gameHeight": "游戏所用的高度分辨率。Gamescope 假定 16:9 的长宽比。",
             "upscaleHeight": "Gamescope 所用的高度分辨率。假定 16:9 长宽比。",
             "fpsLimiter": "Gamescope 帧数限制，比如 60"
+        },
+        "content": {
+            "defaultInstallPath": "这是安装游戏时预先选择的默认路径。",
+            "settingsDefault": "显示 Heroic 的所有设置及游戏的默认值。",
+            "settingsGame": "显示游戏的全部设置。",
+            "downloadManager": "显示当前和过往下载。",
+            "wineManager": "安装不同版本的 Wine、Proton、Crossover 等。",
+            "library": "显示拥有的全部游戏。",
+            "customThemesPath": "查看我们的维基。",
+            "accessibility": "显示无障碍设置。",
+            "login": "登录到不同商店。"
+        },
+        "title": {
+            "accessibility": "无障碍",
+            "login": "登录",
+            "settings": "设置",
+            "downloadManager": "下载管理器",
+            "wineManager": "Wine 管理器",
+            "library": "库"
+        },
+        "button": {
+            "open": "打开帮助",
+            "close": "关闭帮助"
         }
     },
     "info": {
@@ -345,7 +369,8 @@
         "path": "选择安装路径"
     },
     "label": {
-        "loading": "加载中"
+        "loading": "加载中",
+        "releaseDate": "发行日期"
     },
     "library": {
         "refresh": "刷新",
@@ -580,7 +605,8 @@
             "instructions_title": "如何报告问题？",
             "last-log": "上一日志",
             "no-file": "未找到日志文件",
-            "show-in-folder": "显示文件夹中的日志文件"
+            "show-in-folder": "显示文件夹中的日志文件",
+            "join-heroic-discord": "加入我们的 Discord"
         },
         "mangohud": "启用 MangoHud（需要已安装 Mangohud）",
         "manualsync": {
@@ -630,7 +656,9 @@
         "autodxvknvapi": "在前置自动安装并更新 DXVK",
         "experimental_features": {
             "enableNewShinyFeature": "新功能",
-            "enableNewDesign": "新设计"
+            "enableNewDesign": "新设计",
+            "enableHelp": "帮助组件",
+            "automaticWinetricksFixes": "自动应用已知的 Winetricks 修复"
         },
         "disablePlaytimeSync": "停用游戏时间同步",
         "gamescope": {

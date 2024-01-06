@@ -286,7 +286,14 @@
             "part1": "Heroic tìm kiếm các phiên bản Wine, Proton và CrossOver trong các thư mục sau:",
             "part2": "Đối với vị trí khác, sử dụng biểu tượng liên kết với một trong những thư mục này"
         },
-        "disable_logs": "BẬT hộp kiểm này để vô hiệu hóa hầu hết các thao tác ghi vào tệp nhật ký (thông tin quan trọng luôn được ghi lại). Đảm bảo TẮT cài đặt này trước khi báo cáo bất kỳ sự cố nào."
+        "disable_logs": "BẬT hộp kiểm này để vô hiệu hóa hầu hết các thao tác ghi vào tệp nhật ký (thông tin quan trọng luôn được ghi lại). Đảm bảo TẮT cài đặt này trước khi báo cáo bất kỳ sự cố nào.",
+        "title": {
+            "accessibility": "Khả năng tiếp cận",
+            "settings": "Cài đặt",
+            "downloadManager": "Download Manager",
+            "wineManager": "Quản lý Wine (thử nghiệm)",
+            "library": "Thư viện"
+        }
     },
     "info": {
         "heroic": {
@@ -320,7 +327,8 @@
         "path": "Chọn đường dẫn cài"
     },
     "label": {
-        "loading": "Loading"
+        "loading": "Loading",
+        "releaseDate": "Release Date"
     },
     "library": {
         "refresh": "Tải lại",

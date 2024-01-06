@@ -1,16 +1,16 @@
 {
     "box": {
         "change": {
-            "message": "Bu adım oyunun kurulum yerini değiştirecek, emin misin?",
-            "path": "Yeni bir kurulum yeri seçin",
-            "title": "Oyun Kurulum Yerini Değiştir"
+            "message": "Bu, oyunun kurulum konumunu değiştirecek, emin misiniz?",
+            "path": "Yeni kurulum yolu seç",
+            "title": "Oyun Kurulum Yolunu Değiştir"
         },
         "choose": "Seç",
-        "importpath": "İçeri Aktarılacak Oyun Klasörünü Seçin",
+        "importpath": "İçe Aktarılacak Oyun Klasörünü Seç",
         "move": {
             "message": "Bu uzun sürebilir, emin misin?",
             "path": "Nereye taşımak istediğinizi seçin",
-            "title": "Oyun kurulumunu taşı"
+            "title": "Oyun Kurulumunu Taşı"
         },
         "no": "HAYIR",
         "repair": {
@@ -33,12 +33,12 @@
         },
         "uninstall": {
             "checkbox": "Ön eki kaldır: {{prefix}}{{newLine}}Not: Bu işlem geri alınamaz ve yedeklenmemiş kayıtlı dosyaları da kaldırır.",
-            "message": "Oyunu kaldırmak istiyor musunuz?",
+            "message": "{{title}} kaldırmak istiyor musunuz?",
             "settingcheckbox": "Ayarları sil ve günlüğü kaldır{{newLine}}Not: Bu işlem geri alınamaz. Değiştirilen tüm ayarlar unutulacak ve günlük silinecektir.",
             "title": "Kaldır",
-            "prefix_warning": "Bu oyun için Wine öneki varsayılan önektir. Gerçekten silmek istiyorsanız, manuel olarak yapmanız gerekir.",
-            "dlc": "Bu DLC'yi kaldırmak istiyor musunuz?",
-            "cannotUninstallEpic": "Başka bir Epic oyunu yüklenirken Epic games kaldırılamaz."
+            "prefix_warning": "Bu oyun için Wine ön eki öntanımlı ön ektir. Gerçekten silmek istiyorsanız, elle yapmanız gerekir.",
+            "dlc": "{{title}} DLC'si kaldırmak istiyor musunuz?",
+            "cannotUninstallEpic": "Başka Epic oyunu kurulurken Epic oyunları kaldırılamaz."
         },
         "update": {
             "message": "Bu oyunun bir güncellemesi var, güncelleme şimdi uygulansın mı?",
@@ -54,7 +54,7 @@
         "continue": "İndirmeye Devam Et",
         "finish": "Bitir",
         "force_update": "Varsa Güncellemeyi Zorunlu Kur",
-        "force-innstall": "Yüklemeye Zorla",
+        "force-innstall": "Kuruluma Zorla",
         "hide_game": "Oyunu Gizle",
         "import": "Oyunu İçe Aktar",
         "install": "Kur",
@@ -64,7 +64,7 @@
         },
         "remove_from_favourites": "Favorilerden Kaldır",
         "remove_from_recent": "Son Kullanılanlardan Kaldır",
-        "run-exe-first": "Önce Yükleyiciyi Çalıştırın",
+        "run-exe-first": "Önce Kurucuyu Çalıştırın",
         "running-setup": "Kurulum Çalıştırılıyor",
         "sideload": {
             "edit": "Uygulamayı/Oyunu Düzenle"
@@ -112,28 +112,28 @@
     "info": {
         "canRunOffline": "Çevrim İçi Gerekli",
         "installedPlatform": "Kurulu Platform",
-        "path": "Kurulum Yeri",
+        "path": "Kurulum Yolu",
         "size": "Boyut",
         "syncsaves": "Kayıtları Eşzamanla",
         "version": "Sürüm",
         "apple-gaming-wiki": "AppleGamingWiki Derecelendirmesi",
         "clickToOpen": "açmak için tıklayın",
         "game-scores": "Oyun Skorları",
-        "installedInfo": "Yüklü Bilgiler",
+        "installedInfo": "Kurulu Bilgiler",
         "protondb-compatibility-info": "Proton Uyumluluk Katmanı",
         "steamdeck-compatibility-info": "SteamDeck Uyumluluğu"
     },
     "install": {
         "disk-space-left": "Kullanılabilir Alan",
         "not-enough-disk-space": "Yeterli disk alanı yok",
-        "path": "Kurulum Yolunu Seçin",
+        "path": "Kurulum Yolunu Seç",
         "path-not-writtable": "Uyarı: yol yazılabilir olmayabilir.",
         "space-after-install": "Kurulumdan Sonra",
         "wineprefix": "WinePrefix",
         "wineversion": "Wine sürümü",
         "anticheat-warning": {
             "cancel": "Hayır",
-            "message": "Anti hile desteği bozuldu veya reddedildi. Oyun çalışmayacak. Yine de yüklemek istiyor musunuz?",
+            "message": "Anti hile desteği bozuldu ya da reddedildi. Oyun çalışmayacak. Yine de kurmak istiyor musunuz?",
             "install": "Evet (Bunun işe yaramayacağının farkındayım)",
             "title": "Anti Hile Bozuldu/Reddedildi"
         },
@@ -142,7 +142,7 @@
     "label": {
         "game": {
             "third-party-game": "Üçüncü Parti Oyun Desteklenmiyor",
-            "not-installable-game": "Oyun Yüklenemez"
+            "not-installable-game": "Oyun Kurulamıyor"
         },
         "playing": {
             "start": "Şimdi Oyna",
@@ -152,14 +152,16 @@
             "syncing": "Kayıtlar Eşzamanlanıyor"
         },
         "launching": "Başlatılıyor",
-        "ubisoft": "Ubisoft Connect Yükleniyor"
+        "ubisoft": "Ubisoft Connect Yükleniyor",
+        "winetricks": "Winetricks Paketleri Kuruluyor",
+        "prerequisites": "Gereksinimler Kuruluyor"
     },
     "launch": {
         "options": "Başlatma Seçenekleri..."
     },
     "not_logged_in": {
-        "epic": "Heroic'te bir Epic hesabıyla oturum açmadın. Giriş yapmak için mağaza sayfasını kullanma, bunun yerine aşağıdaki düğmeye tıklayın:",
-        "gog": "Heroic'te bir GOG hesabıyla oturum açmadınız. Giriş yapmak için mağaza sayfasını kullanmayın, bunun yerine aşağıdaki düğmeye tıklayın:",
+        "epic": "Heroic'te Epic hesabıyla giriş yapmadınız. Giriş yapmak için mağaza sayfasını kullanmayın, bunun yerine aşağıdaki düğmeye tıklayın:",
+        "gog": "Heroic'te GOG hesabıyla giriş yapmadınız. Giriş yapmak için mağaza sayfasını kullanmayın, bunun yerine aşağıdaki düğmeye tıklayın:",
         "login": "Log in",
         "title": "Giriş yapmadınız",
         "amazon": "Heroic'te Amazon hesabıyla oturum açmadınız. Giriş yapmak için mağaza sayfasını kullanmayın. Bunun yerine aşağıdaki düğmeye tıklayın:"
@@ -219,13 +221,15 @@
         "ubisoft": "Ubisoft Kuruluyor",
         "downloading": "İndiriliyor",
         "extracting": "Ayıklanıyor",
-        "gog-goodie": "Bu oyun yüklenebilir görünmüyor. İndirilebilir içeriği https://gog.com/account adresinden kontrol edin",
-        "goodie": "Yüklenemez"
+        "gog-goodie": "Bu oyun kurulabilir görünmüyor. İndirilebilir içeriği https://gog.com/account adresinden kontrol edin",
+        "goodie": "Kurulamaz",
+        "prerequisites": "Gereklilikler Kuruluyor",
+        "winetricks": "Winetricks düzeltmeleri uygulanıyor"
     },
     "submenu": {
         "addShortcut": "Kısayol ekle",
         "addToSteam": "Steam'e Ekle",
-        "change": "Kurulum yerini değiştir",
+        "change": "Kurulum yolunu değiştir",
         "disableEosOverlay": "EOS Arayüzünü Devre Dışı Bırak",
         "enableEosOverlay": "EOS Arayüzünü Etkinleştir",
         "move": "Oyunu Taşı",
@@ -240,6 +244,12 @@
         "categories": "Kategoriler"
     },
     "help": {
-        "cloud_save_unsupported": "Bu oyun bulutta kaydetmeyi desteklemiyor. Bu bilgiler oyun geliştiricileri tarafından sağlanmaktadır. Bazı oyunlar kendi bulut kaydetme sistemlerini uygular"
+        "cloud_save_unsupported": "Bu oyun bulutta kaydetmeyi desteklemiyor. Bu bilgiler oyun geliştiricileri tarafından sağlanmaktadır. Bazı oyunlar kendi bulut kaydetme sistemlerini uygular",
+        "content": {
+            "gamePage": "Tüm oyun ayrıntılarını ve eylemleri göster. Daha fazla seçenek için 3 nokta menüsünü kullanın."
+        },
+        "title": {
+            "gamePage": "Oyun Sayfası"
+        }
     }
 }

@@ -36,6 +36,7 @@ import RecentlyPlayed from './components/RecentlyPlayed'
 import { InstallModal } from './components'
 import LibraryContext from './LibraryContext'
 import { Category, PlatformsFilters, StoresFilters } from 'frontend/types'
+import { hasHelp } from 'frontend/hooks/hasHelp'
 
 const storage = window.localStorage
 
@@ -47,6 +48,8 @@ type ModalState = {
 }
 
 export default React.memo(function Library(): JSX.Element {
+  const { t } = useTranslation()
+
   const {
     libraryStatus,
     refreshing,
@@ -62,6 +65,12 @@ export default React.memo(function Library(): JSX.Element {
     customCategories,
     hiddenGames
   } = useContext(ContextProvider)
+
+  hasHelp(
+    'library',
+    t('help.title.library', 'Library'),
+    <p>{t('help.content.library', 'Shows all owned games.')}</p>
+  )
 
   const [layout, setLayout] = useState(storage.getItem('layout') || 'grid')
   const handleLayout = (layout: string) => {
@@ -156,6 +165,14 @@ export default React.memo(function Library(): JSX.Element {
     setShowNonAvailable(value)
   }
 
+  const [showSupportOfflineOnly, setSupportOfflineOnly] = useState(
+    JSON.parse(storage.getItem('show_support_offline_only') || 'false')
+  )
+  const handleShowSupportOfflineOnly = (value: boolean) => {
+    storage.setItem('show_support_offline_only', JSON.stringify(value))
+    setSupportOfflineOnly(value)
+  }
+
   const [showModal, setShowModal] = useState<ModalState>({
     game: '',
     show: false,
@@ -178,7 +195,6 @@ export default React.memo(function Library(): JSX.Element {
     setSortInstalled(value)
   }
 
-  const { t } = useTranslation()
   const backToTopElement = useRef(null)
 
   //Remember scroll position
@@ -399,6 +415,10 @@ export default React.memo(function Library(): JSX.Element {
         )
       }
 
+      if (showSupportOfflineOnly) {
+        library = library.filter((game) => game.canRunOffline)
+      }
+
       if (!showNonAvailable) {
         const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
         const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
@@ -486,7 +506,8 @@ export default React.memo(function Library(): JSX.Element {
     hiddenGames,
     showFavouritesLibrary,
     showInstalledOnly,
-    showNonAvailable
+    showNonAvailable,
+    showSupportOfflineOnly
   ])
 
   // we need this to do proper `position: sticky` of the Add Game area
@@ -556,6 +577,8 @@ export default React.memo(function Library(): JSX.Element {
         setShowNonAvailable: handleShowNonAvailable,
         setSortDescending: handleSortDescending,
         setSortInstalled: handleSortInstalled,
+        showSupportOfflineOnly,
+        setShowSupportOfflineOnly: handleShowSupportOfflineOnly,
         sortDescending,
         sortInstalled
       }}

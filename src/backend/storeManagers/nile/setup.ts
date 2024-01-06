@@ -8,8 +8,11 @@ import {
 import { fetchFuelJSON, getGameInfo } from './library'
 import { GameConfig } from 'backend/game_config'
 import { isWindows } from 'backend/constants'
-import { checkWineBeforeLaunch, spawnAsync } from 'backend/utils'
-import { logFileLocation } from '../storeManagerCommon/games'
+import {
+  checkWineBeforeLaunch,
+  sendGameStatusUpdate,
+  spawnAsync
+} from 'backend/utils'
 import { runWineCommand, verifyWinePrefix } from 'backend/launcher'
 
 /**
@@ -58,11 +61,7 @@ export default async function setup(
 
   const gameSettings = GameConfig.get(appName).config
   if (!isWindows) {
-    const isWineOkToLaunch = await checkWineBeforeLaunch(
-      appName,
-      gameSettings,
-      logFileLocation(appName)
-    )
+    const isWineOkToLaunch = await checkWineBeforeLaunch(appName, gameSettings)
 
     if (!isWineOkToLaunch) {
       logError(
@@ -76,6 +75,9 @@ export default async function setup(
   }
 
   logDebug(['PostInstall:', fuel.PostInstall], LogPrefix.Nile)
+
+  sendGameStatusUpdate({ appName, runner: 'nile', status: 'prerequisites' })
+
   // Actual setup logic
   for (const action of fuel.PostInstall) {
     const exeArguments = action.Args ?? []
