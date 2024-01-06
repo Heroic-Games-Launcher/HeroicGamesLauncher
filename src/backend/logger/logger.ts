@@ -4,7 +4,7 @@
  *        Note that with console.log and console.warn everything will be saved too.
  *        error equals console.error
  */
-import { AppSettings, GameSettings } from 'common/types'
+import { AppSettings, GameInfo, GameSettings } from 'common/types'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
 import { appendMessageToLogFile, getLongestPrefix } from './logfile'
 import { backendEvents } from 'backend/backend_events'
@@ -12,9 +12,12 @@ import { GlobalConfig } from 'backend/config'
 import { getGOGdlBin, getLegendaryBin } from 'backend/utils'
 import { join } from 'path'
 import { formatSystemInfo, getSystemInfo } from '../utils/systeminfo'
-import { appendFileSync } from 'graceful-fs'
+import { appendFileSync, writeFileSync } from 'graceful-fs'
 import { gamesConfigPath } from 'backend/constants'
-import { writeFile } from 'fs/promises'
+import { gameManagerMap } from 'backend/storeManagers'
+import { isEnabled } from 'backend/storeManagers/legendary/eos_overlay/eos_overlay'
+import { Winetricks } from 'backend/tools'
+import { platform } from 'os'
 
 export enum LogPrefix {
   General = '',
@@ -359,16 +362,16 @@ export function logFileLocation(appName: string) {
 const logsWriters: Record<string, LogWriter> = {}
 
 class LogWriter {
-  appName: string
+  gameInfo: GameInfo
   queue: string[] | undefined
   initialized: boolean
   timeoutId: NodeJS.Timeout | undefined
   filePath: string
 
-  constructor(appName: string) {
-    this.appName = appName
+  constructor(gameInfo: GameInfo) {
+    this.gameInfo = gameInfo
     this.initialized = false
-    this.filePath = lastPlayLogFileLocation(appName)
+    this.filePath = lastPlayLogFileLocation(gameInfo.app_name)
   }
 
   logMessage(message: string) {
@@ -386,27 +389,82 @@ class LogWriter {
   }
 
   async initLog() {
-    try {
-      const info = await getSystemInfo()
-      const systemInfo = await formatSystemInfo(info)
+    const { app_name, runner } = this.gameInfo
 
-      // init log file and then append message if any
+    const notNative =
+      ['windows', 'Windows', 'Win32'].includes(
+        this.gameInfo.install.platform || ''
+      ) && platform() !== 'win32'
+
+    // init log file and then append message if any
+    try {
+      // log game title and install directory
+      writeFileSync(
+        this.filePath,
+        `Launching "${this.gameInfo.title}" (${runner})\n` +
+          `Native? ${notNative ? 'No' : 'Yes'}\n` +
+          `Installed in: ${this.gameInfo.install.install_path}\n\n`
+      )
+
       try {
-        await writeFile(
+        // log system information
+        const info = await getSystemInfo()
+        const systemInfo = await formatSystemInfo(info)
+
+        appendFileSync(this.filePath, `System Info:\n${systemInfo}\n\n`)
+
+        // log game settings
+        const gameSettings = await gameManagerMap[runner].getSettings(app_name)
+        const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
+        const startPlayingDate = new Date()
+
+        appendFileSync(
           this.filePath,
-          'System Info:\n' + `${systemInfo}\n` + '\n'
+          `Game Settings: ${gameSettingsString}\n\n`
+        )
+
+        // log if EOS overlay is enabled for Epic games
+        if (runner === 'legendary') {
+          const enabled = await isEnabled(app_name)
+
+          appendFileSync(
+            this.filePath,
+            `EOS Overlay enabled? ${enabled ? 'Yes' : 'No'}\n`
+          )
+        }
+
+        // log winetricks packages if not native
+        if (notNative) {
+          const winetricksPackages = await Winetricks.listInstalled(
+            runner,
+            app_name
+          )
+
+          appendFileSync(
+            this.filePath,
+            `Winetricks packages installed: ${
+              winetricksPackages?.join(', ') || 'None'
+            }\n\n`
+          )
+        }
+
+        appendFileSync(
+          this.filePath,
+          `Game launched at: ${startPlayingDate}\n\n`
         )
 
         this.initialized = true
-        this.appendMessages()
       } catch (error) {
         logError(
-          [`Failed to initialize log ${this.filePath}:`, error],
+          ['Failed to fetch system information', error],
           LogPrefix.Backend
         )
       }
     } catch (error) {
-      logError(['Failed to fetch system information', error], LogPrefix.Backend)
+      logError(
+        [`Failed to initialize log ${this.filePath}:`, error],
+        LogPrefix.Backend
+      )
     }
   }
 
@@ -434,14 +492,14 @@ class LogWriter {
   }
 }
 
-export function appendGameLog(appName: string, message: string) {
-  logsWriters[appName] ??= new LogWriter(appName)
-  logsWriters[appName].logMessage(message)
+export function appendGameLog(gameInfo: GameInfo, message: string) {
+  logsWriters[gameInfo.app_name] ??= new LogWriter(gameInfo)
+  logsWriters[gameInfo.app_name].logMessage(message)
 }
 
-export function initGameLog(appName: string) {
-  logsWriters[appName] ??= new LogWriter(appName)
-  logsWriters[appName].initLog()
+export function initGameLog(gameInfo: GameInfo) {
+  logsWriters[gameInfo.app_name] ??= new LogWriter(gameInfo)
+  logsWriters[gameInfo.app_name].initLog()
 }
 
 export function stopLogger(appName: string) {

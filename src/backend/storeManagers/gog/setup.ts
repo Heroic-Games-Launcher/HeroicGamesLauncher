@@ -56,7 +56,7 @@ async function setup(
 
   const gameSettings = GameConfig.get(appName).config
   if (!isWindows) {
-    const isWineOkToLaunch = await checkWineBeforeLaunch(appName, gameSettings)
+    const isWineOkToLaunch = await checkWineBeforeLaunch(gameInfo, gameSettings)
 
     if (!isWineOkToLaunch) {
       logError(
