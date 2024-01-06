@@ -30,6 +30,34 @@ export const legendarySetup = async (appName: string) => {
     protonVerb: 'waitforexitandrun'
   })
 
+  const winPlatforms = ['Windows', 'Win32', 'windows']
+  if (
+    gameInfo.install.platform &&
+    winPlatforms.includes(gameInfo.install.platform)
+  ) {
+    try {
+      const info = await getInstallInfo(appName, gameInfo.install.platform)
+      if (
+        info.manifest.prerequisites &&
+        info.manifest.prerequisites.path.length > 0
+      ) {
+        await runWineCommandOnGame(appName, {
+          commandParts: [
+            join(
+              gameInfo.install.install_path ?? '',
+              info.manifest.prerequisites.path
+            ),
+            ...split(info.manifest.prerequisites.args)
+          ],
+          wait: true,
+          protonVerb: 'waitforexitandrun'
+        })
+      }
+    } catch (error) {
+      logError(`getInstallInfo failed with ${error}`)
+    }
+  }
+
   const isOverlayEnabled = await isEnabled(appName)
 
   if (getStatus().isInstalled && !isOverlayEnabled) {

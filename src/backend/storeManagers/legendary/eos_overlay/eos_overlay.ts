@@ -16,15 +16,16 @@ import { sendGameStatusUpdate } from 'backend/utils'
 
 const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
 
-function getConstants(): {
-  currentVersionPath: string
-  installedVersionPath: string
-  defaultInstallPath: string
-} {
-  const currentVersionPath = join(legendaryConfigPath, 'overlay_version.json')
-  const installedVersionPath = join(legendaryConfigPath, 'overlay_install.json')
-  const defaultInstallPath = join(toolsPath, 'eos_overlay')
-  return { currentVersionPath, installedVersionPath, defaultInstallPath }
+function getCurrentVersionPath(): string {
+  return join(legendaryConfigPath, 'overlay_version.json')
+}
+
+function getInstalledVersionPath(): string {
+  return join(legendaryConfigPath, 'overlay_install.json')
+}
+
+function getDefaultInstallPath(): string {
+  return join(toolsPath, 'eos_overlay')
 }
 
 function getStatus(): {
@@ -36,7 +37,8 @@ function getStatus(): {
     return { isInstalled: false }
   }
 
-  const { installedVersionPath, defaultInstallPath } = getConstants()
+  const installedVersionPath = getInstalledVersionPath()
+  const defaultInstallPath = getDefaultInstallPath()
 
   const { version, install_path } = JSON.parse(
     readFileSync(installedVersionPath, 'utf-8')
@@ -53,7 +55,7 @@ function getStatus(): {
 }
 
 async function getLatestVersion(): Promise<string> {
-  const { currentVersionPath } = getConstants()
+  const currentVersionPath = getCurrentVersionPath()
 
   if (!existsSync(currentVersionPath)) {
     // HACK: `overlay_version.json` isn't created when the overlay isn't installed
@@ -102,7 +104,7 @@ async function install() {
     status: isInstalled() ? 'updating' : 'installing'
   })
 
-  const { defaultInstallPath } = getConstants()
+  const defaultInstallPath = getDefaultInstallPath()
   let downloadSize = 0
   // Run download without -y to get the install size
   await runLegendaryCommand(
@@ -255,7 +257,7 @@ async function disable(appName: string) {
 }
 
 function isInstalled() {
-  return existsSync(getConstants().installedVersionPath)
+  return existsSync(getInstalledVersionPath())
 }
 
 /**
