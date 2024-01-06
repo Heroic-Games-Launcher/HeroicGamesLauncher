@@ -711,6 +711,9 @@
             "sync": "Cloud Saves Sync",
             "systemInformation": "System Information"
         },
+        "offline": {
+            "warning": "This game does not explicitly allow offline mode, turn this on at your own risk. The game may not work."
+        },
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",
         "saves": {

@@ -93,7 +93,8 @@ import {
   customThemesWikiLink,
   createNecessaryFolders,
   fixAsarPath,
-  isSnap
+  isSnap,
+  fixesPath
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
@@ -151,6 +152,7 @@ import {
   getGameSdl
 } from 'backend/storeManagers/legendary/library'
 import { formatSystemInfo, getSystemInfo } from './utils/systeminfo'
+import { storeMap } from 'common/utils'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
@@ -1237,6 +1239,14 @@ ipcMain.handle(
         removeIfExists(appName.concat('.json'))
         removeIfExists(appName.concat('.log'))
         removeIfExists(appName.concat('-lastPlay.log'))
+      }
+
+      const fixFilePath = path.join(
+        fixesPath,
+        `${appName}-${storeMap[runner]}.json`
+      )
+      if (existsSync(fixFilePath)) {
+        rmSync(fixFilePath)
       }
 
       notify({ title, body: i18next.t('notify.uninstalled') })
