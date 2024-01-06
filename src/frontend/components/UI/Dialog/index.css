@@ -24,6 +24,11 @@
     opacity 500ms,
     transform 500ms;
   max-width: min(700px, 85vw);
+  max-height: 95vh;
+
+  & img {
+    max-width: 100%;
+  }
 }
 .Dialog__element::backdrop {
   background: rgba(0, 0, 0, 0.4);
@@ -37,6 +42,8 @@
 
 .Dialog__header {
   display: flex;
+  z-index: 1;
+  padding-bottom: var(--dialog-gap);
 }
 
 .Dialog__headerTitle {
@@ -49,6 +56,14 @@
 
 .Dialog__Close {
   padding: 0 var(--dialog-margin-horizontal) 0 0;
+  z-index: 2;
+}
+
+.Dialog__Close,
+.Dialog__header {
+  position: sticky;
+  top: 0px;
+  background: var(--modal-background);
 }
 
 .Dialog__CloseButton {
@@ -83,7 +98,7 @@
 }
 
 .Dialog__content {
-  padding: var(--dialog-gap) var(--dialog-margin-horizontal);
+  padding: 0 var(--dialog-margin-horizontal) var(--dialog-gap);
 }
 
 .Dialog__footer {
