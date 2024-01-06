@@ -26,10 +26,6 @@ export const initTrayIcon = async (mainWindow: BrowserWindow) => {
   appIcon.setToolTip('Heroic')
 
   // event listeners
-  appIcon.on('double-click', () => {
-    mainWindow.show()
-  })
-
   appIcon.on('click', () => {
     mainWindow.show()
   })
