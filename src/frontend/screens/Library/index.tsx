@@ -307,14 +307,17 @@ export default React.memo(function Library(): JSX.Element {
   const showRecentGames = libraryTopSection.startsWith('recently_played')
 
   const favouriteGamesList = useMemo(() => {
-    return showHidden
-      ? favouriteGames.list
-      : favouriteGames.list.filter(
-          (game) =>
-            !hiddenGames.list
-              .map((hidden: HiddenGame) => hidden?.appName)
-              .includes(game.appName)
-        )
+    if (showHidden) {
+      return favouriteGames.list
+    }
+
+    const hiddenAppNames = hiddenGames.list.map(
+      (hidden: HiddenGame) => hidden.appName
+    )
+
+    return favouriteGames.list.filter(
+      (game) => !hiddenAppNames.includes(game.appName)
+    )
   }, [favouriteGames, showHidden, hiddenGames])
 
   const showFavourites =
