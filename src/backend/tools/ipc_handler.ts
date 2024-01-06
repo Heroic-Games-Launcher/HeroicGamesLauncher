@@ -3,7 +3,7 @@ import { ipcMain } from 'electron'
 import { Winetricks, runWineCommandOnGame } from '.'
 import path from 'path'
 import { isWindows } from 'backend/constants'
-import { execAsync } from 'backend/utils'
+import { execAsync, sendGameStatusUpdate } from 'backend/utils'
 
 ipcMain.handle(
   'runWineCommandForGame',
@@ -48,6 +48,8 @@ ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
       }
       break
   }
+
+  sendGameStatusUpdate({ appName, runner, status: 'done' })
 })
 
 ipcMain.on('winetricksInstall', async (event, { runner, appName, component }) =>
