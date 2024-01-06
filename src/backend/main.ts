@@ -1029,20 +1029,11 @@ ipcMain.handle(
       powerDisplayId = powerSaveBlocker.start('prevent-display-sleep')
     }
 
-    initGameLog(appName)
-
-    const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
-    appendGameLog(
-      appName,
-      `Game Settings: ${gameSettingsString}\n` +
-        '\n' +
-        `Game launched at: ${startPlayingDate}\n` +
-        '\n'
-    )
+    initGameLog(game)
 
     if (logsDisabled) {
       appendGameLog(
-        appName,
+        game,
         'IMPORTANT: Logs are disabled. Enable logs before reporting an issue.'
       )
     }
@@ -1051,10 +1042,7 @@ ipcMain.handle(
 
     // check if isNative, if not, check if wine is valid
     if (!isNative) {
-      const isWineOkToLaunch = await checkWineBeforeLaunch(
-        appName,
-        gameSettings
-      )
+      const isWineOkToLaunch = await checkWineBeforeLaunch(game, gameSettings)
 
       if (!isWineOkToLaunch) {
         logError(
@@ -1090,7 +1078,7 @@ ipcMain.handle(
       .catch((exception) => {
         logError(exception, LogPrefix.Backend)
         appendGameLog(
-          appName,
+          game,
           `An exception occurred when launching the game:\n${exception.stack}`
         )
 

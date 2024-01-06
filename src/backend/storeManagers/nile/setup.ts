@@ -23,6 +23,11 @@ export default async function setup(
   installedPath?: string
 ): Promise<void> {
   const gameInfo = getGameInfo(appName)
+  if (!gameInfo) {
+    logError([`Could not find game info for ${appName}. Skipping setup`])
+    return
+  }
+
   const basePath = installedPath ?? gameInfo?.install.install_path
   if (!basePath) {
     logError([
@@ -62,7 +67,7 @@ export default async function setup(
 
   const gameSettings = GameConfig.get(appName).config
   if (!isWindows) {
-    const isWineOkToLaunch = await checkWineBeforeLaunch(appName, gameSettings)
+    const isWineOkToLaunch = await checkWineBeforeLaunch(gameInfo, gameSettings)
 
     if (!isWineOkToLaunch) {
       logError(
