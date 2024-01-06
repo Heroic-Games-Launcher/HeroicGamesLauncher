@@ -412,54 +412,48 @@ class LogWriter {
         const systemInfo = await formatSystemInfo(info)
 
         appendFileSync(this.filePath, `System Info:\n${systemInfo}\n\n`)
-
-        // log game settings
-        const gameSettings = await gameManagerMap[runner].getSettings(app_name)
-        const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
-        const startPlayingDate = new Date()
-
-        appendFileSync(
-          this.filePath,
-          `Game Settings: ${gameSettingsString}\n\n`
-        )
-
-        // log if EOS overlay is enabled for Epic games
-        if (runner === 'legendary') {
-          const enabled = await isEnabled(app_name)
-
-          appendFileSync(
-            this.filePath,
-            `EOS Overlay enabled? ${enabled ? 'Yes' : 'No'}\n`
-          )
-        }
-
-        // log winetricks packages if not native
-        if (notNative) {
-          const winetricksPackages = await Winetricks.listInstalled(
-            runner,
-            app_name
-          )
-
-          appendFileSync(
-            this.filePath,
-            `Winetricks packages installed: ${
-              winetricksPackages?.join(', ') || 'None'
-            }\n\n`
-          )
-        }
-
-        appendFileSync(
-          this.filePath,
-          `Game launched at: ${startPlayingDate}\n\n`
-        )
-
-        this.initialized = true
       } catch (error) {
         logError(
           ['Failed to fetch system information', error],
           LogPrefix.Backend
         )
       }
+
+      // log game settings
+      const gameSettings = await gameManagerMap[runner].getSettings(app_name)
+      const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
+      const startPlayingDate = new Date()
+
+      appendFileSync(this.filePath, `Game Settings: ${gameSettingsString}\n\n`)
+
+      // log if EOS overlay is enabled for Epic games
+      if (runner === 'legendary') {
+        const enabled = await isEnabled(app_name)
+
+        appendFileSync(
+          this.filePath,
+          `EOS Overlay enabled? ${enabled ? 'Yes' : 'No'}\n`
+        )
+      }
+
+      // log winetricks packages if not native
+      if (notNative) {
+        const winetricksPackages = await Winetricks.listInstalled(
+          runner,
+          app_name
+        )
+
+        appendFileSync(
+          this.filePath,
+          `Winetricks packages installed: ${
+            winetricksPackages?.join(', ') || 'None'
+          }\n\n`
+        )
+      }
+
+      appendFileSync(this.filePath, `Game launched at: ${startPlayingDate}\n\n`)
+
+      this.initialized = true
     } catch (error) {
       logError(
         [`Failed to initialize log ${this.filePath}:`, error],
@@ -503,5 +497,8 @@ export function initGameLog(gameInfo: GameInfo) {
 }
 
 export function stopLogger(appName: string) {
+  logsWriters[appName].logMessage(
+    '============= End of game logs ============='
+  )
   delete logsWriters[appName]
 }
