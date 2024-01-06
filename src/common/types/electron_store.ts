@@ -34,6 +34,7 @@ export interface StoreStructure {
     contentFontFamily: string
     actionsFontFamily: string
     allTilesInColor: boolean
+    disableDialogBackdropClose: boolean
     language: string
     'general-logs': {
       currentLogFile: string

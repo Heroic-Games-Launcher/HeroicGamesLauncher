@@ -26,7 +26,9 @@ export default React.memo(function Accessibility() {
     allTilesInColor,
     setAllTilesInColor,
     setPrimaryFontFamily,
-    setSecondaryFontFamily
+    setSecondaryFontFamily,
+    disableDialogBackdropClose,
+    setDisableDialogBackdropClose
   } = useContext(ContextProvider)
 
   hasHelp(
@@ -188,6 +190,7 @@ export default React.memo(function Accessibility() {
         </SelectField>
 
         <ThemeSelector />
+
         <span className="setting">
           <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
             <ToggleSwitch
@@ -199,6 +202,22 @@ export default React.memo(function Accessibility() {
               title={t(
                 'accessibility.all_tiles_in_color',
                 'Show all game tiles in color'
+              )}
+            />
+          </label>
+        </span>
+
+        <span className="setting">
+          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
+            <ToggleSwitch
+              htmlId="disableDialogBackdropClose"
+              value={disableDialogBackdropClose}
+              handleChange={() => {
+                setDisableDialogBackdropClose(!disableDialogBackdropClose)
+              }}
+              title={t(
+                'accessibility.disable_dialog_backdrop_close',
+                'Disable closing dialogs by clicking outside'
               )}
             />
           </label>
