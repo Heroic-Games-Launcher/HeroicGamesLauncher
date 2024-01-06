@@ -2,6 +2,7 @@ import { GamesDBInfo, Runner } from 'common/types'
 import { logInfo, LogPrefix } from 'backend/logger/logger'
 import { GamesDBData } from 'common/types/gog'
 import { getGamesdbData } from 'backend/storeManagers/gog/library'
+import { storeMap } from 'common/utils'
 
 export async function getInfoFromGamesDB(
   title: string,
@@ -10,12 +11,6 @@ export async function getInfoFromGamesDB(
 ): Promise<GamesDBInfo | null> {
   logInfo(`Getting GamesDB data for ${title}`, LogPrefix.ExtraGameInfo)
 
-  const storeMap: { [key in Runner]: string | undefined } = {
-    legendary: 'epic',
-    gog: 'gog',
-    nile: 'amazon',
-    sideload: undefined
-  }
   const storeName = storeMap[runner]
   if (!storeName) {
     return { steamID: '' }
