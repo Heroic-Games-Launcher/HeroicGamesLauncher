@@ -12,7 +12,7 @@ import { GlobalConfig } from 'backend/config'
 import { getGOGdlBin, getLegendaryBin } from 'backend/utils'
 import { join } from 'path'
 import { formatSystemInfo, getSystemInfo } from '../utils/systeminfo'
-import { appendFileSync, writeFileSync } from 'graceful-fs'
+import { appendFile, writeFile } from 'fs/promises'
 import { gamesConfigPath } from 'backend/constants'
 import { gameManagerMap } from 'backend/storeManagers'
 import { isEnabled } from 'backend/storeManagers/legendary/eos_overlay/eos_overlay'
@@ -399,7 +399,7 @@ class LogWriter {
     // init log file and then append message if any
     try {
       // log game title and install directory
-      writeFileSync(
+      await writeFile(
         this.filePath,
         `Launching "${this.gameInfo.title}" (${runner})\n` +
           `Native? ${notNative ? 'No' : 'Yes'}\n` +
@@ -411,7 +411,7 @@ class LogWriter {
         const info = await getSystemInfo()
         const systemInfo = await formatSystemInfo(info)
 
-        appendFileSync(this.filePath, `System Info:\n${systemInfo}\n\n`)
+        await appendFile(this.filePath, `System Info:\n${systemInfo}\n\n`)
       } catch (error) {
         logError(
           ['Failed to fetch system information', error],
@@ -424,13 +424,16 @@ class LogWriter {
       const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
       const startPlayingDate = new Date()
 
-      appendFileSync(this.filePath, `Game Settings: ${gameSettingsString}\n\n`)
+      await appendFile(
+        this.filePath,
+        `Game Settings: ${gameSettingsString}\n\n`
+      )
 
       // log if EOS overlay is enabled for Epic games
       if (runner === 'legendary') {
         const enabled = await isEnabled(app_name)
 
-        appendFileSync(
+        await appendFile(
           this.filePath,
           `EOS Overlay enabled? ${enabled ? 'Yes' : 'No'}\n`
         )
@@ -443,7 +446,7 @@ class LogWriter {
           app_name
         )
 
-        appendFileSync(
+        await appendFile(
           this.filePath,
           `Winetricks packages installed: ${
             winetricksPackages?.join(', ') || 'None'
@@ -451,7 +454,10 @@ class LogWriter {
         )
       }
 
-      appendFileSync(this.filePath, `Game launched at: ${startPlayingDate}\n\n`)
+      await appendFile(
+        this.filePath,
+        `Game launched at: ${startPlayingDate}\n\n`
+      )
 
       this.initialized = true
     } catch (error) {
@@ -462,7 +468,7 @@ class LogWriter {
     }
   }
 
-  appendMessages() {
+  async appendMessages() {
     const messagesToWrite = this.queue
 
     // clear pending message if any
@@ -476,10 +482,10 @@ class LogWriter {
     // if we have messages, write them and check again in 1 second
     // we start the timeout before writing so we don't wait until
     // the disk write
-    this.timeoutId = setTimeout(() => this.appendMessages(), 1000)
+    this.timeoutId = setTimeout(async () => this.appendMessages(), 1000)
 
     try {
-      appendFileSync(this.filePath, messagesToWrite.join(''))
+      await appendFile(this.filePath, messagesToWrite.join(''))
     } catch (error) {
       // ignore failures if messages could not be written
     }
