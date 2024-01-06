@@ -612,6 +612,7 @@ export default React.memo(function Library(): JSX.Element {
           <RecentlyPlayed
             handleModal={handleModal}
             onlyInstalled={libraryTopSection.endsWith('installed')}
+            showHidden={showHidden}
           />
         )}
 

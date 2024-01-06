@@ -8,6 +8,7 @@ import { configStore } from 'frontend/helpers/electronStores'
 interface Props {
   handleModal: (appName: string, runner: Runner, gameInfo: GameInfo) => void
   onlyInstalled: boolean
+  showHidden: boolean
 }
 
 function getRecentGames(
@@ -34,15 +35,19 @@ function getRecentGames(
 
 export default React.memo(function RecentlyPlayed({
   handleModal,
-  onlyInstalled
+  onlyInstalled,
+  showHidden
 }: Props) {
   const { t } = useTranslation()
   const { epic, gog, sideloadedLibrary, amazon } = useContext(ContextProvider)
   const [recentGames, setRecentGames] = useState<GameInfo[]>([])
 
+  const hiddenGames = useContext(ContextProvider).hiddenGames
+
   const loadRecentGames = async () => {
+    const hiddenAppNames = hiddenGames.list.map((game) => game.appName)
     const { maxRecentGames } = await window.api.requestAppSettings()
-    const newRecentGames = getRecentGames(
+    let newRecentGames = getRecentGames(
       [
         ...epic.library,
         ...gog.library,
@@ -52,7 +57,11 @@ export default React.memo(function RecentlyPlayed({
       maxRecentGames,
       onlyInstalled
     )
-
+    if (!showHidden) {
+      newRecentGames = newRecentGames.filter(
+        (game: GameInfo) => !hiddenAppNames.includes(game.app_name)
+      )
+    }
     setRecentGames(newRecentGames)
   }
 
@@ -69,7 +78,14 @@ export default React.memo(function RecentlyPlayed({
     return () => {
       recentGamesChangedRemoveListener()
     }
-  }, [epic.library, gog.library, amazon.library, sideloadedLibrary])
+  }, [
+    epic.library,
+    gog.library,
+    amazon.library,
+    sideloadedLibrary,
+    hiddenGames,
+    showHidden
+  ])
 
   if (!recentGames.length) {
     return null
