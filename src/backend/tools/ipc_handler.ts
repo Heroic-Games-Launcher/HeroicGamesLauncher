@@ -3,7 +3,7 @@ import { ipcMain } from 'electron'
 import { Winetricks, runWineCommandOnGame } from '.'
 import path from 'path'
 import { isWindows } from 'backend/constants'
-import { execAsync } from 'backend/utils'
+import { execAsync, sendGameStatusUpdate } from 'backend/utils'
 import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
 import { sendFrontendMessage } from 'backend/main_window'
 
@@ -58,6 +58,8 @@ ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
       GOGLibraryManager.getGameInfo(appName)
     )
   }
+
+  sendGameStatusUpdate({ appName, runner, status: 'done' })
 })
 
 ipcMain.on('winetricksInstall', async (event, { runner, appName, component }) =>
