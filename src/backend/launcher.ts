@@ -348,7 +348,7 @@ async function prepareWineLaunch(
     }
     if (
       GlobalConfig.get().getSettings().experimentalFeatures
-        .automaticWinetricksFixes
+        ?.automaticWinetricksFixes
     ) {
       await installFixes(appName, runner)
     }
