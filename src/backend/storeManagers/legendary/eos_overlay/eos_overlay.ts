@@ -34,7 +34,7 @@ function getStatus(): {
     readFileSync(installedVersionPath(), 'utf-8')
   )
 
-  if (install_path !== defaultInstallPath) {
+  if (install_path !== defaultInstallPath()) {
     logWarning(
       'EOS Overlay is not installed in default location, permission issues might arise',
       LogPrefix.Legendary
@@ -98,7 +98,7 @@ async function install() {
     {
       subcommand: 'eos-overlay',
       action: 'install',
-      '--path': Path.parse(defaultInstallPath)
+      '--path': Path.parse(defaultInstallPath())
     },
     {
       abortId: eosOverlayAppName,
@@ -124,7 +124,7 @@ async function install() {
       '-y': true,
       subcommand: 'eos-overlay',
       action: 'install',
-      '--path': Path.parse(defaultInstallPath)
+      '--path': Path.parse(defaultInstallPath())
     },
     {
       abortId: eosOverlayAppName,
