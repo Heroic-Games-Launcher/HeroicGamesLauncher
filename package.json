@@ -101,12 +101,6 @@
     "prettier": "prettier --check .",
     "prettier-fix": "prettier --write ."
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
   "devDependencies": {
     "@electron/notarize": "^2.1.0",
     "@playwright/test": "1.39.0",
