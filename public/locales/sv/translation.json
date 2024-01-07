@@ -5,7 +5,8 @@
         "content_font_family_no_default": "Typsnitt för innehåll (Standard: ",
         "fonts": "Typsnitt",
         "title": "Handikappsanpassning",
-        "zoom": "Zoom"
+        "zoom": "Zoom",
+        "disable_dialog_backdrop_close": "Inaktivera stängning av dialogrutor genom att klicka utanför"
     },
     "add_game": "Lägg till spel",
     "All": "Alla",
@@ -743,6 +744,9 @@
         },
         "gamescope": {
             "searchMsg": "Söker efter gamescope exekverbar fil."
+        },
+        "offline": {
+            "warning": "Det här spelet tillåter inte uttryckligen offlineläge, aktivera detta på egen risk. Spelet kanske inte fungerar."
         }
     },
     "Settings": "Inställningar",

@@ -5,7 +5,8 @@
         "content_font_family_no_default": "Police d'écriture pour les contenus (Par défaut : ",
         "fonts": "Polices d'écriture",
         "title": "Accessibilité",
-        "zoom": "Agrandir"
+        "zoom": "Agrandir",
+        "disable_dialog_backdrop_close": "Désactiver la fermeture de fenêtres par un clic en dehors"
     },
     "add_game": "Ajouter un jeu",
     "All": "Tout",
@@ -160,12 +161,12 @@
                 }
             },
             "snap": {
-                "checkbox": "Ne plus afficher ce message.",
+                "checkbox": "Ne plus afficher ce message",
                 "title": "Heroic est exécuté en tant que Snap",
                 "message": "Certaines fonctionnalités ne sont pas disponibles pour le moment dans la version Snap de l'application et nous essayons d'y remédier.{{newLine}}Les limitations actuelles sont : {{newLine}}Heroic ne sera pas capable de détecter Proton depuis Steam ou Wine depuis Lutris.{{newLine}}{{newLine}}Gamescope, GameMode et MangoHud ne fonctionneront pas non plus puisqu'Heroic ne peut pas y avoir accès.{{newLine}}{{newLine}}Pour accéder à ces fonctionnalités, veuillez installer la version Flatpak, DEB ou AppImage d'Heroic."
             }
         },
-        "wineprefix": "Choisir le dossier des préfixes Wine",
+        "wineprefix": "Choisir le dossier Wine Prefix",
         "yes": "OUI",
         "dontShowAgain": "Ne plus afficher",
         "choose-nile-binary": "Sélectionnez le binaire de Nile"
@@ -173,7 +174,7 @@
     "button": {
         "cancel": "Annuler",
         "go_to_library": "Aller vers la Bibliothèque",
-        "login": "Connexion",
+        "login": "Se connecter",
         "sync": "Synchroniser",
         "syncing": "Synchronisation en cours",
         "unsync": "Désynchroniser",
@@ -259,11 +260,12 @@
         "categories": "Catégories",
         "only": "seulement",
         "reset": "Réinitialiser",
-        "no_categories": "Aucune catégorie personnalisée. Ajoutez des catégories en utilisant le menu de chaque jeu."
+        "no_categories": "Aucune catégorie personnalisée. Ajoutez des catégories en utilisant le menu de chaque jeu.",
+        "show_support_offline_only": "N'afficher que les jeux hors-ligne"
     },
     "help": {
         "amdfsr": "Le FSR d'AMD aide à améliorer le taux de rafraîchissement en agrandissant les résolutions basses en mode plein écran. La qualité d'image augmente de 5 à 1 au prix d'une légère baisse de performance. L'activer peut améliorer les performances.",
-        "custom_themes_path": "N'utilisez pas de fichiers CSS venant de sources inconnues. En cas de doute, demandez un avis sur notre canal Discord.",
+        "custom_themes_path": "N'utilisez pas de fichiers CSS provenant de sources inconnues. En cas de doute, demandez un avis sur notre canal Discord.",
         "custom_themes_wiki": "Visitez le Wiki pour plus d'informations concernant les thèmes personnalisés. Cliquez ici.",
         "dxvk": "DXVK est une interface de compatibilité basée sur Vulkan pour les jeux nécessitant DirectX 9, 10 et 11. L'activer pourrait améliorer la compatibilité. Peut causer des problèmes, en particulier pour des jeux utilisant des versions de DirectX plus anciennes.",
         "dxvkfpslimit": "Définir un plafond de fréquences d'images pour les jeux DXVK",
@@ -329,7 +331,7 @@
             "library": "Affiche tous les jeux possédés.",
             "customThemesPath": "Consultez notre wiki.",
             "accessibility": "Affiche les paramètres d'accessibilité.",
-            "login": "Permet de se connecter aux différentes plateformes."
+            "login": "Se connecter aux différentes plateformes."
         },
         "button": {
             "open": "Afficher l'aide",
@@ -474,7 +476,7 @@
             "title": "Arguments de jeu (à exécuter après la commande) :",
             "error": {
                 "env": "Les variables d'environnement doivent être configurées dans le tableau ci-dessous.",
-                "command": "La syntaxe de Steam %command% n'est pas valide comme arguments pour un jeu."
+                "command": "La syntaxe %command% de Steam n'est pas valide comme arguments pour un jeu."
             }
         },
         "quote-args-with-spaces": "Attention : Assurez-vous de citer les args avec des espaces ! E.g. : \"chemin/avec espaces/\"",
@@ -543,10 +545,10 @@
         "addgamestostartmenu": "Ajouter automatiquement les jeux au menu Démarrer",
         "addgamestosteam": "Ajouter automatiquement les jeux dans Steam",
         "alt-gogdl-bin": "Choisir un binaire GOGDL alternatif à utiliser",
-        "alt-legendary-bin": "Choisir un autre exécutable Legendary (redémarrage d'Heroic nécessaire)",
-        "autodxvk": "Installation/Mise à jour automatique du préfix DXVK",
+        "alt-legendary-bin": "Choisir un binaire Legendary alternatif à utiliser",
+        "autodxvk": "Installation/Mise à jour automatique de DXVK dans le prefixe",
         "autosync": "Synchroniser automatiquement les sauvegardes",
-        "autovkd3d": "Installer et mettre à jour automatiquement VKD3D dans le préfixe",
+        "autovkd3d": "Installation/Mise à jour automatique de VKD3D dans le prefixe",
         "change-target-exe": "Choisir un fichier .exe alternatif à lancer",
         "checkForUpdatesOnStartup": "Vérifier au démarrage si une version plus récente d'Heroic est disponible",
         "crossover-version": "Version de Crossover/Wine",
@@ -584,7 +586,7 @@
         },
         "esync": "Activer Esync",
         "exit-to-tray": "Minimiser dans la barre des tâches",
-        "FsrSharpnessStrenght": "Niveau de netteté pour FSR (FSR Sharpness Strength)",
+        "FsrSharpnessStrenght": "Niveau de netteté pour FSR",
         "fsync": "Activer Fsync",
         "gamemode": "Utiliser GameMode (Feral Game Mode doit être installé)",
         "hideChangelogsOnStartup": "Ne pas afficher le journal de modifications au démarrage",
@@ -651,7 +653,7 @@
         "showMetalOverlay": "Afficher l'interface des statistiques",
         "addgamestoapplications": "Ajouter automatiquement des jeux aux Applications",
         "alt-nile-bin": "Choisissez un binaire alternatif pour Nile",
-        "autodxvknvapi": "Installation/Mise à jour automatique du préfixe DXVK/VKD3D",
+        "autodxvknvapi": "Installation/Mise à jour automatique de DXVK-NVAPI dans le prefixe",
         "disablePlaytimeSync": "Désactiver la synchronisation du temps de jeu",
         "experimental_features": {
             "enableNewDesign": "Nouveau concept",
@@ -741,6 +743,9 @@
         },
         "gamescope": {
             "searchMsg": "Recherche de l'exécutable Gamescope."
+        },
+        "offline": {
+            "warning": "Ce jeu ne permet pas explicitement d'utiliser le mode hors-ligne, activez cette option à vos risques et périls. Le jeu pourrait ne pas fonctionner."
         }
     },
     "Settings": "Options",

@@ -144,9 +144,9 @@
         },
         "warning": {
             "epic": {
-                "import": "Los servidores de Epic están teniendo una gran interrupción en este momento. ¡El juego no puede ser importado!",
-                "install": "Los servidores de Epic están teniendo una gran interrupción en este momento. ¡El juego no se puede instalar!",
-                "update": "Los servidores de Epic están teniendo una gran interrupción en este momento. ¡El juego no se puede actualizar!"
+                "import": "Los servidores de Epic Games están experimentando una gran interrupción en este momento. ¡El juego no puede ser importado!",
+                "install": "Los servidores de Epic Games están experimentando una gran interrupción en este momento. ¡El juego no se puede instalar!",
+                "update": "Los servidores de Epic Games están experimentando una gran interrupción en este momento. ¡El juego no se puede actualizar!"
             },
             "title": "Advertencia",
             "wine-change": {
@@ -168,7 +168,7 @@
         "wineprefix": "Selecciona la carpeta de los prefijos para Wine",
         "yes": "SÍ",
         "dontShowAgain": "No volver a mostrar",
-        "choose-nile-binary": "Seleccionar binario del Nilo"
+        "choose-nile-binary": "Seleccionar binario del Nile"
     },
     "button": {
         "cancel": "Cancelar",
@@ -308,10 +308,10 @@
             "fpsLimiterNoFocus": "El límite de velocidad de fotogramas (fps) que debe aplicar gamescope si el juego no está en primer plano.",
             "fpsLimiter": "El número máximo de fotogramas (fps) de gamescope, por ejemplo, es 60",
             "upscaleMethod": "El método de escalado que Gamescope debe utilizar.",
-            "gameWidth": "La resolución del ancho utilizada por el juego. Gamescope asume una relación de aspecto 16:9.",
-            "upscaleWidth": "La resolución del ancho utilizada por gamescope. Se asume una relación 16:9.",
-            "gameHeight": "La resolución utilizada por el juego. Una relación de aspecto 16:9 es asumida por gamescope.",
-            "upscaleHeight": "La resolución de altura utilizada por gamescope. Se asume una relación de aspecto 16:9."
+            "gameWidth": "La resolución para el ancho utilizada por el juego. Gamescope asume una relación del aspecto de 16:9.",
+            "upscaleWidth": "La resolución utilizada para el ancho por gamescope. Se asume una relación del aspecto de 16:9.",
+            "gameHeight": "La resolución para la altura utilizada por el juego. Gamescope asume una relación del aspecto de 16:9.",
+            "upscaleHeight": "La resolución para la altura utilizada por gamescope. Se asume una relación del aspecto de 16:9."
         },
         "title": {
             "accessibility": "Accesibilidad",
@@ -489,7 +489,7 @@
         },
         "gamescope": {
             "upscaleHeight": "Altura mejorada",
-            "nis": "Optimización de imagen NVIDIA (NIS)",
+            "nis": "NVIDIA Image Scale (NIS)",
             "borderless": "Sin bordes",
             "fpsLimiter": "Limitador de FPS",
             "gameHeight": "Altura del juego",
@@ -827,7 +827,7 @@
     },
     "prime-gaming": "Prime Gaming",
     "amazon": "Amazon",
-    "Amazon Games": "Juegos de Amazon",
+    "Amazon Games": "Amazon Games",
     "winetricks": {
         "install": "Instalar",
         "loading": "Cargando",
