@@ -126,6 +126,10 @@
   grid-template-areas: 'update gap settings play';
 }
 
+.gameCard.justPlayed.hidden .justPlayedImg {
+  opacity: 0.2;
+}
+
 .gameCard.gamepad > .icons {
   display: none;
 }
