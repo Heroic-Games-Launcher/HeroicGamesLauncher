@@ -9,12 +9,7 @@ import {
 import { copySync } from 'fs-extra'
 import path from 'node:path'
 import { GameInfo, InstalledInfo } from 'common/types'
-import {
-  checkWineBeforeLaunch,
-  getShellPath,
-  sendGameStatusUpdate,
-  spawnAsync
-} from '../../utils'
+import { checkWineBeforeLaunch, getShellPath, spawnAsync } from '../../utils'
 import { GameConfig } from '../../game_config'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import { isWindows } from '../../constants'
@@ -52,11 +47,9 @@ async function setup(
     LogPrefix.Gog
   )
 
-  sendGameStatusUpdate({ appName, runner: 'gog', status: 'prerequisites' })
-
   const gameSettings = GameConfig.get(appName).config
   if (!isWindows) {
-    const isWineOkToLaunch = await checkWineBeforeLaunch(appName, gameSettings)
+    const isWineOkToLaunch = await checkWineBeforeLaunch(gameInfo, gameSettings)
 
     if (!isWineOkToLaunch) {
       logError(

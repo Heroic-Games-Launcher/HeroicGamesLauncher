@@ -4,7 +4,7 @@
  *        Note that with console.log and console.warn everything will be saved too.
  *        error equals console.error
  */
-import { AppSettings, GameSettings } from 'common/types'
+import { AppSettings, GameInfo, GameSettings } from 'common/types'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
 import { appendMessageToLogFile, getLongestPrefix } from './logfile'
 import { backendEvents } from 'backend/backend_events'
@@ -12,8 +12,10 @@ import { GlobalConfig } from 'backend/config'
 import { getGOGdlBin, getLegendaryBin } from 'backend/utils'
 import { join } from 'path'
 import { formatSystemInfo, getSystemInfo } from '../utils/systeminfo'
-import { appendFileSync, writeFileSync } from 'graceful-fs'
+import { appendFile, writeFile } from 'fs/promises'
 import { gamesConfigPath } from 'backend/constants'
+import { gameManagerMap } from 'backend/storeManagers'
+import { platform } from 'os'
 
 export enum LogPrefix {
   General = '',
@@ -355,10 +357,127 @@ export function logFileLocation(appName: string) {
   return join(gamesConfigPath, `${appName}.log`)
 }
 
-export function appendGameLog(appName: string, message: string) {
-  appendFileSync(lastPlayLogFileLocation(appName), message)
+const logsWriters: Record<string, LogWriter> = {}
+
+class LogWriter {
+  gameInfo: GameInfo
+  queue: string[] | undefined
+  initialized: boolean
+  timeoutId: NodeJS.Timeout | undefined
+  filePath: string
+
+  constructor(gameInfo: GameInfo) {
+    this.gameInfo = gameInfo
+    this.initialized = false
+    this.filePath = lastPlayLogFileLocation(gameInfo.app_name)
+  }
+
+  logMessage(message: string) {
+    this.queue ??= []
+
+    // push messages to append to the log
+    this.queue.push(message)
+
+    // if the logger is initialized and we don't have a timeout,
+    // append the message and start a timeout
+    //
+    // otherwise it means there's a timeout already running that will
+    // write the elements in the queue in a second
+    if (this.initialized && !this.timeoutId) this.appendMessages()
+  }
+
+  async initLog() {
+    const { app_name, runner } = this.gameInfo
+
+    const notNative =
+      ['windows', 'Windows', 'Win32'].includes(
+        this.gameInfo.install.platform || ''
+      ) && platform() !== 'win32'
+
+    // init log file and then append message if any
+    try {
+      // log game title and install directory
+      await writeFile(
+        this.filePath,
+        `Launching "${this.gameInfo.title}" (${runner})\n` +
+          `Native? ${notNative ? 'No' : 'Yes'}\n` +
+          `Installed in: ${this.gameInfo.install.install_path}\n\n`
+      )
+
+      try {
+        // log system information
+        const info = await getSystemInfo()
+        const systemInfo = await formatSystemInfo(info)
+
+        await appendFile(this.filePath, `System Info:\n${systemInfo}\n\n`)
+      } catch (error) {
+        logError(
+          ['Failed to fetch system information', error],
+          LogPrefix.Backend
+        )
+      }
+
+      // log game settings
+      const gameSettings = await gameManagerMap[runner].getSettings(app_name)
+      const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
+      const startPlayingDate = new Date()
+
+      await appendFile(
+        this.filePath,
+        `Game Settings: ${gameSettingsString}\n\n`
+      )
+
+      await appendFile(
+        this.filePath,
+        `Game launched at: ${startPlayingDate}\n\n`
+      )
+
+      this.initialized = true
+    } catch (error) {
+      logError(
+        [`Failed to initialize log ${this.filePath}:`, error],
+        LogPrefix.Backend
+      )
+    }
+  }
+
+  async appendMessages() {
+    const messagesToWrite = this.queue
+
+    // clear pending message if any
+    this.queue = []
+
+    // clear timeout if any
+    delete this.timeoutId
+
+    if (!messagesToWrite?.length) return
+
+    // if we have messages, write them and check again in 1 second
+    // we start the timeout before writing so we don't wait until
+    // the disk write
+    this.timeoutId = setTimeout(async () => this.appendMessages(), 1000)
+
+    try {
+      await appendFile(this.filePath, messagesToWrite.join(''))
+    } catch (error) {
+      // ignore failures if messages could not be written
+    }
+  }
 }
 
-export function initGameLog(appName: string, message: string) {
-  writeFileSync(lastPlayLogFileLocation(appName), message)
+export function appendGameLog(gameInfo: GameInfo, message: string) {
+  logsWriters[gameInfo.app_name] ??= new LogWriter(gameInfo)
+  logsWriters[gameInfo.app_name].logMessage(message)
+}
+
+export function initGameLog(gameInfo: GameInfo) {
+  logsWriters[gameInfo.app_name] ??= new LogWriter(gameInfo)
+  logsWriters[gameInfo.app_name].initLog()
+}
+
+export function stopLogger(appName: string) {
+  logsWriters[appName].logMessage(
+    '============= End of game logs ============='
+  )
+  delete logsWriters[appName]
 }

@@ -93,7 +93,8 @@ import {
   customThemesWikiLink,
   createNecessaryFolders,
   fixAsarPath,
-  isSnap
+  isSnap,
+  fixesPath
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
@@ -106,7 +107,8 @@ import {
   logInfo,
   LogPrefix,
   logsDisabled,
-  logWarning
+  logWarning,
+  stopLogger
 } from './logger/logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
 import { getFonts } from 'font-list'
@@ -150,7 +152,7 @@ import {
   getGameOverride,
   getGameSdl
 } from 'backend/storeManagers/legendary/library'
-import { formatSystemInfo, getSystemInfo } from './utils/systeminfo'
+import { storeMap } from 'common/utils'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
@@ -1029,30 +1031,11 @@ ipcMain.handle(
       powerDisplayId = powerSaveBlocker.start('prevent-display-sleep')
     }
 
-    const systemInfo = await getSystemInfo()
-      .then(formatSystemInfo)
-      .catch((error) => {
-        logError(
-          ['Failed to fetch system information', error],
-          LogPrefix.Backend
-        )
-        return 'Error, check general log'
-      })
-
-    initGameLog(appName, 'System Info:\n' + `${systemInfo}\n` + '\n')
-
-    const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
-    appendGameLog(
-      appName,
-      `Game Settings: ${gameSettingsString}\n` +
-        '\n' +
-        `Game launched at: ${startPlayingDate}\n` +
-        '\n'
-    )
+    initGameLog(game)
 
     if (logsDisabled) {
       appendGameLog(
-        appName,
+        game,
         'IMPORTANT: Logs are disabled. Enable logs before reporting an issue.'
       )
     }
@@ -1061,10 +1044,7 @@ ipcMain.handle(
 
     // check if isNative, if not, check if wine is valid
     if (!isNative) {
-      const isWineOkToLaunch = await checkWineBeforeLaunch(
-        appName,
-        gameSettings
-      )
+      const isWineOkToLaunch = await checkWineBeforeLaunch(game, gameSettings)
 
       if (!isWineOkToLaunch) {
         logError(
@@ -1077,6 +1057,8 @@ ipcMain.handle(
           runner,
           status: 'done'
         })
+
+        stopLogger(appName)
 
         return { status: 'error' }
       }
@@ -1094,14 +1076,17 @@ ipcMain.handle(
       skipVersionCheck
     )
 
-    const launchResult = await command.catch((exception) => {
-      logError(exception, LogPrefix.Backend)
-      appendGameLog(
-        appName,
-        `An exception occurred when launching the game:\n${exception.stack}`
-      )
-      return false
-    })
+    const launchResult = await command
+      .catch((exception) => {
+        logError(exception, LogPrefix.Backend)
+        appendGameLog(
+          game,
+          `An exception occurred when launching the game:\n${exception.stack}`
+        )
+
+        return false
+      })
+      .finally(() => stopLogger(appName))
 
     // Stop display sleep blocker
     if (powerDisplayId !== null) {
@@ -1237,6 +1222,14 @@ ipcMain.handle(
         removeIfExists(appName.concat('.json'))
         removeIfExists(appName.concat('.log'))
         removeIfExists(appName.concat('-lastPlay.log'))
+      }
+
+      const fixFilePath = path.join(
+        fixesPath,
+        `${appName}-${storeMap[runner]}.json`
+      )
+      if (existsSync(fixFilePath)) {
+        rmSync(fixFilePath)
       }
 
       notify({ title, body: i18next.t('notify.uninstalled') })

@@ -2,6 +2,7 @@ import { join } from 'path'
 import { getGameInfo, runWineCommandOnGame } from './games'
 import { getInstallInfo } from './library'
 import { sendGameStatusUpdate } from 'backend/utils'
+import { enable, getStatus, isEnabled } from './eos_overlay/eos_overlay'
 import { split } from 'shlex'
 import { logError } from 'backend/logger/logger'
 
@@ -55,5 +56,11 @@ export const legendarySetup = async (appName: string) => {
     } catch (error) {
       logError(`getInstallInfo failed with ${error}`)
     }
+  }
+
+  const isOverlayEnabled = await isEnabled(appName)
+
+  if (getStatus().isInstalled && !isOverlayEnabled) {
+    await enable(appName)
   }
 }

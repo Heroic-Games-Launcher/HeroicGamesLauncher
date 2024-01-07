@@ -14,9 +14,11 @@ import { Path } from '../commands/base'
 import { LegendaryCommand } from '../commands'
 import { sendGameStatusUpdate } from 'backend/utils'
 
-const currentVersionPath = join(legendaryConfigPath, 'overlay_version.json')
-const installedVersionPath = join(legendaryConfigPath, 'overlay_install.json')
-const defaultInstallPath = join(toolsPath, 'eos_overlay')
+const currentVersionPath = () =>
+  join(legendaryConfigPath, 'overlay_version.json')
+const installedVersionPath = () =>
+  join(legendaryConfigPath, 'overlay_install.json')
+const defaultInstallPath = () => join(toolsPath, 'eos_overlay')
 const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
 
 function getStatus(): {
@@ -29,10 +31,10 @@ function getStatus(): {
   }
 
   const { version, install_path } = JSON.parse(
-    readFileSync(installedVersionPath, 'utf-8')
+    readFileSync(installedVersionPath(), 'utf-8')
   )
 
-  if (install_path !== defaultInstallPath) {
+  if (install_path !== defaultInstallPath()) {
     logWarning(
       'EOS Overlay is not installed in default location, permission issues might arise',
       LogPrefix.Legendary
@@ -43,13 +45,13 @@ function getStatus(): {
 }
 
 async function getLatestVersion(): Promise<string> {
-  if (!existsSync(currentVersionPath)) {
+  if (!existsSync(currentVersionPath())) {
     // HACK: `overlay_version.json` isn't created when the overlay isn't installed
     if (!isInstalled()) {
       return ''
     }
     await updateInfo()
-    if (!existsSync(currentVersionPath)) {
+    if (!existsSync(currentVersionPath())) {
       logError(
         'EOS Overlay information not found after manual update. User is probably not logged in anymore',
         LogPrefix.Legendary
@@ -58,7 +60,7 @@ async function getLatestVersion(): Promise<string> {
     }
   }
   const { buildVersion }: { buildVersion: string } = JSON.parse(
-    readFileSync(currentVersionPath, 'utf-8')
+    readFileSync(currentVersionPath(), 'utf-8')
   ).data
   return buildVersion
 }
@@ -96,7 +98,7 @@ async function install() {
     {
       subcommand: 'eos-overlay',
       action: 'install',
-      '--path': Path.parse(defaultInstallPath)
+      '--path': Path.parse(defaultInstallPath())
     },
     {
       abortId: eosOverlayAppName,
@@ -122,7 +124,7 @@ async function install() {
       '-y': true,
       subcommand: 'eos-overlay',
       action: 'install',
-      '--path': Path.parse(defaultInstallPath)
+      '--path': Path.parse(defaultInstallPath())
     },
     {
       abortId: eosOverlayAppName,
@@ -242,7 +244,7 @@ async function disable(appName: string) {
 }
 
 function isInstalled() {
-  return existsSync(installedVersionPath)
+  return existsSync(installedVersionPath())
 }
 
 /**
