@@ -5,7 +5,8 @@
         "content_font_family_no_default": "内容字族 （默认： ",
         "fonts": "字体",
         "title": "辅助功能",
-        "zoom": "缩放"
+        "zoom": "缩放",
+        "disable_dialog_backdrop_close": "在对话框外单击禁用关闭对话框"
     },
     "add_game": "添加游戏",
     "All": "全部",
@@ -744,6 +745,9 @@
         },
         "gamescope": {
             "searchMsg": "搜索 Gamescope 可执行文件。"
+        },
+        "offline": {
+            "warning": "此游戏未明确允许离线模式，你可以开启本选项，但后果自负。开启后，游戏可能无法正常运作。"
         }
     },
     "Settings": "设置",
