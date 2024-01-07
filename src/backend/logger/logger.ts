@@ -15,7 +15,6 @@ import { formatSystemInfo, getSystemInfo } from '../utils/systeminfo'
 import { appendFile, writeFile } from 'fs/promises'
 import { gamesConfigPath } from 'backend/constants'
 import { gameManagerMap } from 'backend/storeManagers'
-import { isEnabled } from 'backend/storeManagers/legendary/eos_overlay/eos_overlay'
 import { Winetricks } from 'backend/tools'
 import { platform } from 'os'
 
@@ -428,16 +427,6 @@ class LogWriter {
         this.filePath,
         `Game Settings: ${gameSettingsString}\n\n`
       )
-
-      // log if EOS overlay is enabled for Epic games
-      if (runner === 'legendary') {
-        const enabled = await isEnabled(app_name)
-
-        await appendFile(
-          this.filePath,
-          `EOS Overlay enabled? ${enabled ? 'Yes' : 'No'}\n`
-        )
-      }
 
       // log winetricks packages if not native
       if (notNative) {
