@@ -34,7 +34,7 @@
         "uninstall": {
             "checkbox": "Eliminar prefijo: {{prefix}}{{newLine}}Nota: Esta acción no se puede revertir y eliminará también los archivos de guardado sin copia de seguridad.",
             "message": "¿Quieres desinstalar \"{{title}}\"?",
-            "settingcheckbox": "Borrar ajustes y eliminar registros{{newLine}}Nota: Este cambio no se puede deshacer. Todos los ajustes serán olvidados y el registro será borrado.",
+            "settingcheckbox": "Borrar ajustes y eliminar registros{{newLine}}Nota: Este cambio no se puede deshacer. Todos los ajustes se olvidarán y el registro se eliminará.",
             "title": "Desinstalar",
             "prefix_warning": "El prefijo Wine para este juego es el prefijo predeterminado. Si realmente deseas eliminarlo, debes hacerlo manualmente.",
             "dlc": "¿Quieres desinstalar \"{{title}}\" (DLC)?",
