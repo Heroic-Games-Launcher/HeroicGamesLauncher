@@ -103,14 +103,23 @@ const CategorySettings = () => {
             <Box sx={{ display: 'flex', gap: 2, placeContent: 'end', mt: 4 }}>
               <Button
                 variant="contained"
-                color="error"
+                className="button is-tertiary"
                 onClick={() => handleRemoveCategory(categoryToDelete)}
+                sx={{
+                  fontFamily: 'var(--seccondary-font-family)',
+                  fontWeight: 'var(--medium)'
+                }}
               >
                 {t('category-settings.remove-category', 'Remove Category')}
               </Button>
               <Button
                 variant="contained"
+                className="button is-secondary"
                 onClick={() => setCategoryToDelete('')}
+                sx={{
+                  fontFamily: 'var(--secondary-font-family)',
+                  fontWeight: 'var(--medium)'
+                }}
               >
                 {t('category-settings.cancel', 'Cancel')}
               </Button>
@@ -132,11 +141,13 @@ const CategorySettings = () => {
         <Button
           variant="contained"
           size="small"
+          className="button is-secondary"
           onClick={handleSubmit}
           disabled={isCategorySubmissionDisabled}
           sx={{
             placeSelf: 'end',
-            ':disabled': { backgroundColor: 'var(--neutral-03)' }
+            fontFamily: 'var(--secondary-font-family)',
+            fontWeight: 'var(--medium)'
           }}
         >
           {t('category-settings.add-new-category', 'Add new category')}
