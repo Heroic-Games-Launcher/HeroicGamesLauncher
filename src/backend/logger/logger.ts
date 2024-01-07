@@ -15,7 +15,6 @@ import { formatSystemInfo, getSystemInfo } from '../utils/systeminfo'
 import { appendFile, writeFile } from 'fs/promises'
 import { gamesConfigPath } from 'backend/constants'
 import { gameManagerMap } from 'backend/storeManagers'
-import { Winetricks } from 'backend/tools'
 import { platform } from 'os'
 
 export enum LogPrefix {
@@ -427,21 +426,6 @@ class LogWriter {
         this.filePath,
         `Game Settings: ${gameSettingsString}\n\n`
       )
-
-      // log winetricks packages if not native
-      if (notNative) {
-        const winetricksPackages = await Winetricks.listInstalled(
-          runner,
-          app_name
-        )
-
-        await appendFile(
-          this.filePath,
-          `Winetricks packages installed: ${
-            winetricksPackages?.join(', ') || 'None'
-          }\n\n`
-        )
-      }
 
       await appendFile(
         this.filePath,
