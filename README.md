@@ -149,7 +149,7 @@ Heroic is available on Flathub, so you should be able to easily install it on mo
 
 #### Debian, Ubuntu and Derivatives
 
-Download the file ending in .deb from the [latest release](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest).  
+Download the file ending in .deb from the [latest release](../../releases/latest).
 Double-click it to open it up in your Software Manager, or run `sudo dpkg -i heroic_*_amd64.deb` to install it directly:
 
 #### Arch (AUR)
@@ -170,7 +170,7 @@ Enable it with `sudo dnf copr enable atim/heroic-games-launcher`, then install H
 
 ##### Binary package from the releases page
 
-You can alternatively download the file ending in .rpm from the [latest release](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest) and install it with `sudo dnf install ./heroic-*.x86_64.rpm`
+You can alternatively download the file ending in .rpm from the [latest release](../../releases/latest) and install it with `sudo dnf install ./heroic-*.x86_64.rpm`
 
 #### Other Distributions (AppImage and TAR.XZ)
 
@@ -178,13 +178,13 @@ Since these two distribution formats don't have a form of dependency management,
 
 ##### AppImage
 
-- Download the file ending in .AppImage from the [latest release](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest)
+- Download the file ending in .AppImage from the [latest release](../../releases/latest)
 - Make it executable (`chmod +x Heroic*.AppImage`)
 - Run it (double-click in most file managers, or run `./Heroic*.AppImage`)
 
 ##### .tar.xz
 
-- Download the file ending in .tar.xz from the [latest release](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest)
+- Download the file ending in .tar.xz from the [latest release](../../releases/latest)
 - Extract it anywhere
 - Run the `heroic` file in the folder you extracted it to (double-click in most file managers, or run `./heroic`)
 
@@ -196,13 +196,13 @@ If you use WinGet (installed by default on Windows 11 and modern versions of 10)
 
 #### Manual installl
 
-Download the Heroic Installer (`Heroic-x.x.x-Setup.exe`) or the portable version (`Heroic-x.x.x-Portable.exe`) from the [latest release](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest). Run the executable you downloaded to install/run Heroic.  
+Download the Heroic Installer (`Heroic-x.x.x-Setup.exe`) or the portable version (`Heroic-x.x.x-Portable.exe`) from the [latest release](../../releases/latest). Run the executable you downloaded to install/run Heroic.
 The Setup will create shortcuts to Heroic on your Desktop and in your Start Menu.
 
 ### macOS
 
 If you use Homebrew, you can run `brew install --cask --no-quarantine heroic` to install Heroic.  
-Otherwise, download the file ending in .dmg from the [latest release](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest), double-click it to mount it, and drag the "Heroic" application into the "Applications" folder.
+Otherwise, download the file ending in .dmg from the [latest release](../../releases/latest), double-click it to mount it, and drag the "Heroic" application into the "Applications" folder.
 
 ## Development environment
 
