@@ -714,19 +714,9 @@ export enum Repositorys {
   WINESTAGINGMACOS
 }
 
-/**
- * Type for the progress callback state
- */
-export type State = 'downloading' | 'unzipping' | 'idle'
-
-/**
- * Interface for the information that progress callback returns
- */
-export interface ProgressInfo {
-  percentage: number
-  avgSpeed: number
-  eta: string
-}
+export type WineManagerStatus =
+  | { status: 'idle' | 'unzipping' }
+  | { status: 'downloading'; percentage: number; avgSpeed: number; eta: string }
 
 export interface WineManagerUISettings {
   value: string
