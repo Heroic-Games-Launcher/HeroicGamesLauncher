@@ -66,10 +66,10 @@ export default function WebviewControls({
           return webview?.reload()
         }
         if (event === 'back') {
-          if (!webviewGoBack) {
-            return history.back()
-          } else {
+          if (webviewGoBack) {
             return webview?.goBack()
+          } else {
+            return history.back()
           }
         }
         if (event === 'forward') {
