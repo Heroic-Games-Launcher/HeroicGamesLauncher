@@ -1,4 +1,5 @@
-import { LegendaryAppName, NonEmptyString, Path } from './base'
+import type { Path } from 'backend/schemas'
+import type { LegendaryAppName, NonEmptyString } from './base'
 
 interface LaunchCommand {
   subcommand: 'launch'

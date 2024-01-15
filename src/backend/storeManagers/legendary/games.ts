@@ -79,10 +79,10 @@ import {
   LegendaryAppName,
   LegendaryPlatform,
   NonEmptyString,
-  Path,
   PositiveInteger
 } from './commands/base'
 import { LegendaryCommand } from './commands'
+import { Path } from 'backend/schemas'
 
 /**
  * Alias for `LegendaryLibrary.listUpdateableGames`
