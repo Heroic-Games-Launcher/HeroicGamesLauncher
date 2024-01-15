@@ -54,7 +54,6 @@ import {
   showItemInFolder,
   getFileSize,
   detectVCRedist,
-  getFirstExistingParentPath,
   getLatestReleases,
   getShellPath,
   getCurrentChangelog,
@@ -562,9 +561,11 @@ ipcMain.on('unlock', () => {
 })
 
 ipcMain.handle('checkDiskSpace', async (_e, folder): Promise<DiskSpaceData> => {
-  const parent = getFirstExistingParentPath(folder)
+  // We only need to look at the root directory here (since that's what dictates
+  // the used/free space)
+  const { root } = path.parse(folder)
   // FIXME: Propagate errors
-  const parsedPath = Path.parse(parent)
+  const parsedPath = Path.parse(root)
   const { freeSpace, totalSpace } = await getDiskInfo(parsedPath)
   const pathIsWritable = await isWritable(parsedPath)
   const pathIsFlatpakAccessible = isAccessibleWithinFlatpakSandbox(parsedPath)
