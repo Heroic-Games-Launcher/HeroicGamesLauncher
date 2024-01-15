@@ -15,6 +15,7 @@ import { VirtualKeyboardController } from './virtualKeyboard'
 const KEY_REPEAT_DELAY = 500
 const STICK_REPEAT_DELAY = 250
 const SCROLL_REPEAT_DELAY = 50
+const MIN_TIME_BETWEEN_ACTIONS = 50
 
 /*
  * For more documentation, check here https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/Gamepad-Navigation
@@ -22,6 +23,7 @@ const SCROLL_REPEAT_DELAY = 50
 
 let controllerIsDisabled = false
 let currentController = -1
+let lastActionAt: false | number = false
 
 export const initGamepad = () => {
   window.api.requestAppSettings().then(({ disableController }: AppSettings) => {
@@ -86,6 +88,13 @@ export const initGamepad = () => {
     }
 
     const now = new Date().getTime()
+
+    // avoid multiple actions firing too soon
+    // prevents the SteamDeck double actions
+    if (lastActionAt && now - lastActionAt > MIN_TIME_BETWEEN_ACTIONS) {
+      return
+    }
+    lastActionAt = triggeredAt
 
     // check if the action was already active or not
     const wasActive = triggeredAt !== 0
