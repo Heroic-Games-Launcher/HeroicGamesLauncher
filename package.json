@@ -156,7 +156,6 @@
     "@xhmikosr/decompress": "9.0.1",
     "@xhmikosr/decompress-targz": "7.0.0",
     "axios": "0.26.1",
-    "check-disk-space": "3.3.1",
     "classnames": "2.3.1",
     "compare-versions": "6.1.0",
     "crc": "4.3.2",
