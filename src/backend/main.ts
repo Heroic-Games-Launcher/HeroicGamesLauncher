@@ -1220,7 +1220,7 @@ ipcMain.handle(
     let uninstalled = false
 
     try {
-      await gameManagerMap[runner].uninstall({ appName })
+      await gameManagerMap[runner].uninstall({ appName, shouldRemovePrefix })
       uninstalled = true
     } catch (error) {
       notify({
