@@ -59,7 +59,7 @@ export default function WebView({ store }: Props) {
   const epicLoginUrl = 'https://legendary.gl/epiclogin'
 
   const epicStore = `https://www.epicgames.com/store/${lang}/`
-  const gogStore = `https://gog.com`
+  const gogStore = `https://af.gog.com?as=1838482841`
   const amazonStore = `https://gaming.amazon.com`
   const wikiURL =
     'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
