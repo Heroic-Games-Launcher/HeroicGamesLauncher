@@ -101,11 +101,17 @@ export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   }
 
   const reqs = await createReqsArray(appName, targetPlatform)
-  const storeUrl = (await getGamesData(appName))?._links.store.href
+  const data = await getGamesData(appName)
+  const storeUrl = data?._links.store.href
+  const releaseDate = data?._embedded.product?.globalReleaseDate?.substring(
+    0,
+    19
+  )
 
   const extra: ExtraInfo = {
     about: gameInfo.extra?.about,
     reqs,
+    releaseDate,
     storeUrl
   }
   return extra
