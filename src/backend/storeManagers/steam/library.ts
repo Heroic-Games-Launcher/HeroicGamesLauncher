@@ -191,6 +191,6 @@ export async function runRunnerCommand() {
 }
 
 export async function changeVersionPinnedStatus() {}
-export async function getLaunchOptions(): Promise<LaunchOption[]> {
+export function getLaunchOptions(): LaunchOption[] {
   return []
 }

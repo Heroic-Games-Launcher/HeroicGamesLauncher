@@ -28,6 +28,7 @@ const initialContext: GameContextType = {
     queued: false,
     reparing: false,
     sideloaded: false,
+    steam: false,
     syncing: false,
     uninstalling: false,
     updating: false,
