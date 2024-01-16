@@ -26,6 +26,7 @@ export type Category =
   | 'sideload'
   | 'nile'
   | 'zoom'
+  | 'steam'
 
 export interface ContextType {
   error: boolean
