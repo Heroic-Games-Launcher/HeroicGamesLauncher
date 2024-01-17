@@ -11,6 +11,7 @@ import type {
   Runner,
   State
 } from 'common/types'
+import type { GameConfig, GlobalConfig } from 'backend/config/schemas'
 
 type FrontendMessages = {
   gameStatusUpdate: (status: GameStatus) => void
@@ -43,6 +44,17 @@ type FrontendMessages = {
     installingComponent: string
   }) => void
   'installing-winetricks-component': (component: string) => void
+
+  globalConfigChanged: <Key extends keyof GlobalConfig>(
+    key: Key,
+    value: GlobalConfig[Key]
+  ) => void
+  gameConfigChanged: <Key extends keyof GameConfig>(
+    appName: string,
+    runner: Runner,
+    key: Key,
+    value: GameConfig[Key]
+  ) => void
 
   [key: `progressUpdate${string}`]: (progress: GameStatus) => void
   [key: `progressOfWineManager${string}`]: (progress: {
