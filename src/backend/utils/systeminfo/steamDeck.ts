@@ -7,7 +7,11 @@ type SteamDeckInfo =
   | { isDeck: false; model?: undefined }
 
 function getSteamDeckInfo(cpus: CpuInfo[], gpus: GPUInfo[]): SteamDeckInfo {
-  if (cpus[0]?.model !== 'AMD Custom APU 0405') return { isDeck: false }
+  if (
+    cpus[0]?.model !== 'AMD Custom APU 0405' &&
+    cpus[0]?.model !== 'AMD Custom APU 0932'
+  )
+    return { isDeck: false }
 
   const primaryGpu = gpus.at(0)
   if (!primaryGpu || primaryGpu.vendorId !== '1002') return { isDeck: false }
