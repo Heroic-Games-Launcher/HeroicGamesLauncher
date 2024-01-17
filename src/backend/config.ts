@@ -22,13 +22,9 @@ import {
 
 import { logError, logInfo, LogPrefix } from './logger/logger'
 import {
-  getCrossover,
   getDefaultWine,
-  getGamingPortingToolkitWine,
   getLinuxWineSet,
-  getWhisky,
-  getWineOnMac,
-  getWineskinWine
+  getMacOsWineSet
 } from './utils/compatibility_layers'
 import { backendEvents } from './backend_events'
 
@@ -125,31 +121,6 @@ abstract class GlobalConfig {
   }
 
   /**
-   * Detects Wine on Mac
-   * @returns Promise<Set<WineInstallation>>
-   * @memberof GlobalConfig
-   **/
-  public async getMacOsWineSet(): Promise<Set<WineInstallation>> {
-    if (!isMac) {
-      return new Set<WineInstallation>()
-    }
-
-    const crossover = await getCrossover()
-    const wineOnMac = await getWineOnMac()
-    const wineskinWine = await getWineskinWine()
-    const gamingPortingToolkitWine = await getGamingPortingToolkitWine()
-    const whiskyWine = await getWhisky()
-
-    return new Set([
-      ...gamingPortingToolkitWine,
-      ...crossover,
-      ...wineOnMac,
-      ...wineskinWine,
-      ...whiskyWine
-    ])
-  }
-
-  /**
    * Detects Wine/Proton on the user's system.
    *
    * @returns An Array of Wine/Proton installations.
@@ -158,7 +129,7 @@ abstract class GlobalConfig {
     scanCustom = true
   ): Promise<WineInstallation[]> {
     if (isMac) {
-      const macOsWineSet = await this.getMacOsWineSet()
+      const macOsWineSet = await getMacOsWineSet()
       return [...macOsWineSet]
     }
 

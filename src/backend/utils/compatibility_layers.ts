@@ -195,12 +195,32 @@ export async function getLinuxWineSet(
 
 /// --------------- MACOS ------------------
 
+export async function getMacOsWineSet(): Promise<Set<WineInstallation>> {
+  if (!isMac) {
+    return new Set<WineInstallation>()
+  }
+
+  const crossover = await getCrossover()
+  const wineOnMac = await getWineOnMac()
+  const wineskinWine = await getWineskinWine()
+  const gamingPortingToolkitWine = await getGamingPortingToolkitWine()
+  const whiskyWine = await getWhisky()
+
+  return new Set([
+    ...gamingPortingToolkitWine,
+    ...crossover,
+    ...wineOnMac,
+    ...wineskinWine,
+    ...whiskyWine
+  ])
+}
+
 /**
  * Detects Wine installed on home application folder on Mac
  *
  * @returns Promise<Set<WineInstallation>>
  */
-export async function getWineOnMac(): Promise<Set<WineInstallation>> {
+async function getWineOnMac(): Promise<Set<WineInstallation>> {
   const wineSet = new Set<WineInstallation>()
   if (!isMac) {
     return wineSet
@@ -251,7 +271,7 @@ export async function getWineOnMac(): Promise<Set<WineInstallation>> {
   return wineSet
 }
 
-export async function getWineskinWine(): Promise<Set<WineInstallation>> {
+async function getWineskinWine(): Promise<Set<WineInstallation>> {
   const wineSet = new Set<WineInstallation>()
   if (!isMac) {
     return wineSet
@@ -292,7 +312,7 @@ export async function getWineskinWine(): Promise<Set<WineInstallation>> {
  *
  * @returns Promise<Set<WineInstallation>>
  */
-export async function getCrossover(): Promise<Set<WineInstallation>> {
+async function getCrossover(): Promise<Set<WineInstallation>> {
   const crossover = new Set<WineInstallation>()
 
   if (!isMac) {
@@ -333,9 +353,7 @@ export async function getCrossover(): Promise<Set<WineInstallation>> {
  * Detects Gaming Porting Toolkit Wine installs on Mac
  * @returns Promise<Set<WineInstallation>>
  **/
-export async function getGamingPortingToolkitWine(): Promise<
-  Set<WineInstallation>
-> {
+async function getGamingPortingToolkitWine(): Promise<Set<WineInstallation>> {
   const gamingPortingToolkitWine = new Set<WineInstallation>()
   if (!isMac) {
     return gamingPortingToolkitWine
@@ -379,7 +397,7 @@ export async function getGamingPortingToolkitWine(): Promise<
  *
  * @returns Promise<Set<WineInstallation>>
  */
-export async function getWhisky(): Promise<Set<WineInstallation>> {
+async function getWhisky(): Promise<Set<WineInstallation>> {
   const whisky = new Set<WineInstallation>()
 
   if (!isMac) {
