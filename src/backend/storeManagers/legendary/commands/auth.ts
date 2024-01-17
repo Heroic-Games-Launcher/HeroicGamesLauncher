@@ -1,4 +1,4 @@
-import { NonEmptyString } from './base'
+import type { NonEmptyString } from 'backend/schemas'
 
 interface AuthCommand {
   subcommand: 'auth'

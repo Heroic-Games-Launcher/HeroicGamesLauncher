@@ -15,8 +15,7 @@ import { homedir } from 'os'
 import { dirname, join } from 'path'
 import { PlistObject, parse as plistParse } from 'plist'
 import LaunchCommand from '../storeManagers/legendary/commands/launch'
-import { NonEmptyString } from '../storeManagers/legendary/commands/base'
-import { Path } from 'backend/schemas'
+import { NonEmptyString, Path } from 'backend/schemas'
 
 /**
  * Loads the default wine installation path and version.

@@ -1,4 +1,4 @@
-import { PositiveInteger } from './base'
+import type { PositiveInteger } from 'backend/schemas'
 
 import InstallCommand from './install'
 import LaunchCommand from './launch'

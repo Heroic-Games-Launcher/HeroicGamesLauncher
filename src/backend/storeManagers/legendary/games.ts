@@ -76,14 +76,9 @@ import {
   AllowedWineFlags,
   getWineFlags
 } from 'backend/utils/compatibility_layers'
-import {
-  LegendaryAppName,
-  LegendaryPlatform,
-  NonEmptyString,
-  PositiveInteger
-} from './commands/base'
+import { LegendaryAppName, LegendaryPlatform } from './commands/base'
 import { LegendaryCommand } from './commands'
-import { Path } from 'backend/schemas'
+import { Path, NonEmptyString, PositiveInteger } from 'backend/schemas'
 
 /**
  * Alias for `LegendaryLibrary.listUpdateableGames`
