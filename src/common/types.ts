@@ -757,3 +757,10 @@ export type InstallInfo =
   | LegendaryInstallInfo
   | GogInstallInfo
   | NileInstallInfo
+
+export interface KnowFixesInfo {
+  title: string
+  notes?: Record<string, string>
+  winetricks?: string[]
+  runInPrefix?: string[]
+}
