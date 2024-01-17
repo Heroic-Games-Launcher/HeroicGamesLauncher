@@ -37,7 +37,7 @@ const ExperimentalFeatures = () => {
     Translations:
     t('setting.experimental_features.enableNewDesign', 'New design')
     t('setting.experimental_features.enableHelp', 'Help component')
-    t('setting.experimental_features.automaticWinetricksFixes', 'Apply known Winetricks fixes automatically')
+    t('setting.experimental_features.automaticWinetricksFixes', 'Apply known fixes automatically')
   */
 
   return (
