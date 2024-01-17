@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import path from 'path'
 import { hasGame } from '../library'
+import { existsSync } from 'graceful-fs'
 
 export const LegendaryAppName = z
   .string()
@@ -35,3 +36,8 @@ export type URL = z.infer<typeof URL>
 // FIXME: This doesn't feel right
 export const URI = z.union([Path, URL])
 export type URI = z.infer<typeof URI>
+
+export const ValidWinePrefix = Path.refine((potPath) =>
+  existsSync(path.join(potPath, 'user.reg'))
+).brand('ValidWinePrefix')
+export type ValidWinePrefix = z.infer<typeof ValidWinePrefix>

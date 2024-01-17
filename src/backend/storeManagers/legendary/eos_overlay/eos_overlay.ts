@@ -1,22 +1,25 @@
-import { gameManagerMap } from '../../index'
-import { callAbortController } from '../../../utils/aborthandler/aborthandler'
 import { dialog } from 'electron'
 import { existsSync, readFileSync } from 'graceful-fs'
 import { t } from 'i18next'
 import { join } from 'path'
 
-import { toolsPath, isLinux, legendaryConfigPath } from '../../../constants'
-import { logError, LogPrefix, logWarning } from '../../../logger/logger'
-import { runRunnerCommand as runLegendaryCommand } from '../library'
-import { verifyWinePrefix } from '../../../launcher'
-import { setCurrentDownloadSize } from '../games'
-import { Path } from '../commands/base'
-import { LegendaryCommand } from '../commands'
+import { toolsPath, isLinux, legendaryConfigPath } from 'backend/constants'
+import { logError, LogPrefix, logWarning } from 'backend/logger/logger'
+import { callAbortController } from 'backend/utils/aborthandler/aborthandler'
 import { sendGameStatusUpdate } from 'backend/utils'
+import { gameManagerMap } from '../..'
+import { LegendaryCommand } from '../commands'
+import { Path, ValidWinePrefix } from '../commands/base'
+import { setCurrentDownloadSize } from '../games'
+import { runRunnerCommand as runLegendaryCommand } from '../library'
 
-const currentVersionPath = join(legendaryConfigPath, 'overlay_version.json')
-const installedVersionPath = join(legendaryConfigPath, 'overlay_install.json')
-const defaultInstallPath = join(toolsPath, 'eos_overlay')
+import type { Runner } from 'common/types'
+
+const currentVersionPath = () =>
+  join(legendaryConfigPath, 'overlay_version.json')
+const installedVersionPath = () =>
+  join(legendaryConfigPath, 'overlay_install.json')
+const defaultInstallPath = () => join(toolsPath, 'eos_overlay')
 const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
 
 function getStatus(): {
@@ -29,10 +32,10 @@ function getStatus(): {
   }
 
   const { version, install_path } = JSON.parse(
-    readFileSync(installedVersionPath, 'utf-8')
+    readFileSync(installedVersionPath(), 'utf-8')
   )
 
-  if (install_path !== defaultInstallPath) {
+  if (install_path !== defaultInstallPath()) {
     logWarning(
       'EOS Overlay is not installed in default location, permission issues might arise',
       LogPrefix.Legendary
@@ -43,13 +46,13 @@ function getStatus(): {
 }
 
 async function getLatestVersion(): Promise<string> {
-  if (!existsSync(currentVersionPath)) {
+  if (!existsSync(currentVersionPath())) {
     // HACK: `overlay_version.json` isn't created when the overlay isn't installed
     if (!isInstalled()) {
       return ''
     }
     await updateInfo()
-    if (!existsSync(currentVersionPath)) {
+    if (!existsSync(currentVersionPath())) {
       logError(
         'EOS Overlay information not found after manual update. User is probably not logged in anymore',
         LogPrefix.Legendary
@@ -58,7 +61,7 @@ async function getLatestVersion(): Promise<string> {
     }
   }
   const { buildVersion }: { buildVersion: string } = JSON.parse(
-    readFileSync(currentVersionPath, 'utf-8')
+    readFileSync(currentVersionPath(), 'utf-8')
   ).data
   return buildVersion
 }
@@ -96,7 +99,7 @@ async function install() {
     {
       subcommand: 'eos-overlay',
       action: 'install',
-      '--path': Path.parse(defaultInstallPath)
+      '--path': Path.parse(defaultInstallPath())
     },
     {
       abortId: eosOverlayAppName,
@@ -122,7 +125,7 @@ async function install() {
       '-y': true,
       subcommand: 'eos-overlay',
       action: 'install',
-      '--path': Path.parse(defaultInstallPath)
+      '--path': Path.parse(defaultInstallPath())
     },
     {
       abortId: eosOverlayAppName,
@@ -185,14 +188,6 @@ async function remove(): Promise<boolean> {
 async function enable(
   appName: string
 ): Promise<{ wasEnabled: boolean; installNow?: boolean }> {
-  let prefix = ''
-  if (isLinux) {
-    const gameSettings = await gameManagerMap['legendary'].getSettings(appName)
-    await verifyWinePrefix(gameSettings)
-    const { winePrefix, wineVersion } = gameSettings
-    prefix =
-      wineVersion.type === 'proton' ? join(winePrefix, 'pfx') : winePrefix
-  }
   if (!isInstalled()) {
     const { response } = await dialog.showMessageBox({
       title: t('setting.eosOverlay.notInstalledTitle', 'Overlay not installed'),
@@ -206,11 +201,16 @@ async function enable(
     return { wasEnabled: false, installNow: response === 0 }
   }
 
+  const prefix = await getWinePrefixFolder(appName)
+  // Can't install the overlay if we don't have a valid prefix
+  // FIXME: Notify the user about this
+  if (prefix === false) return { wasEnabled: false }
+
   const command: LegendaryCommand = {
     subcommand: 'eos-overlay',
     action: 'enable'
   }
-  if (prefix) command['--prefix'] = Path.parse(prefix)
+  if (prefix) command['--prefix'] = prefix
 
   await runLegendaryCommand(command, {
     abortId: eosOverlayAppName,
@@ -221,19 +221,15 @@ async function enable(
 }
 
 async function disable(appName: string) {
-  let prefix = ''
-  if (isLinux) {
-    const { winePrefix, wineVersion } =
-      await gameManagerMap['legendary'].getSettings(appName)
-    prefix =
-      wineVersion.type === 'proton' ? join(winePrefix, 'pfx') : winePrefix
-  }
+  const prefix = await getWinePrefixFolder(appName)
+  // If we don't have a valid prefix anymore, we have nothing to disable
+  if (prefix === false) return
 
   const command: LegendaryCommand = {
     subcommand: 'eos-overlay',
     action: 'disable'
   }
-  if (prefix) command['--prefix'] = Path.parse(prefix)
+  if (prefix) command['--prefix'] = prefix
 
   await runLegendaryCommand(command, {
     abortId: eosOverlayAppName,
@@ -242,7 +238,7 @@ async function disable(appName: string) {
 }
 
 function isInstalled() {
-  return existsSync(installedVersionPath)
+  return existsSync(installedVersionPath())
 }
 
 /**
@@ -250,22 +246,17 @@ function isInstalled() {
  * @param appName required on Linux, does nothing on Windows
  * @returns Enabled = True; Disabled = False
  */
-async function isEnabled(appName?: string) {
+async function isEnabled(appName?: string): Promise<boolean> {
   let enabled = false
 
-  let prefix = ''
-  if (isLinux && appName) {
-    const { winePrefix, wineVersion } =
-      await gameManagerMap['legendary'].getSettings(appName)
-    prefix =
-      wineVersion.type === 'proton' ? join(winePrefix, 'pfx') : winePrefix
-  }
+  const prefix = await getWinePrefixFolder(appName)
+  if (prefix === false) return false
 
   const command: LegendaryCommand = {
     subcommand: 'eos-overlay',
     action: 'info'
   }
-  if (prefix) command['--prefix'] = Path.parse(prefix)
+  if (prefix) command['--prefix'] = prefix
 
   await runLegendaryCommand(command, {
     abortId: eosOverlayAppName,
@@ -278,6 +269,26 @@ async function isEnabled(appName?: string) {
     logMessagePrefix: 'Checking if EOS Overlay is enabled'
   })
   return enabled
+}
+
+/**
+ * Returns the path to the "real" Wineprefix folder (where "drive_c" and "user.reg" is) for a game
+ * @returns null if a prefix can't be returned (we're not on Linux / don't have an AppName)
+ * @returns false if parsing the prefix path failed (in other words there is a prefix path set, but it doesn't contain a valid prefix)
+ * @returns ValidWinePrefix (a folder that is verified to contain a Wineprefix) otherwise
+ */
+async function getWinePrefixFolder(
+  appName?: string,
+  runner: Runner = 'legendary'
+): Promise<ValidWinePrefix | null | false> {
+  if (!isLinux || !appName) return null
+
+  const { winePrefix, wineVersion } =
+    await gameManagerMap[runner].getSettings(appName)
+  const prefixPath =
+    wineVersion.type === 'proton' ? join(winePrefix, 'pfx') : winePrefix
+  const maybePrefix = ValidWinePrefix.safeParse(prefixPath)
+  return maybePrefix.success ? maybePrefix.data : false
 }
 
 export {

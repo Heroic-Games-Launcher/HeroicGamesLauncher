@@ -113,6 +113,7 @@ interface StateProps {
   }
   helpItems: { [key: string]: HelpItem }
   experimentalFeatures: ExperimentalFeatures
+  disableDialogBackdropClose: boolean
 }
 
 // function to load the new key or fallback to the old one
@@ -215,7 +216,11 @@ class GlobalState extends PureComponent<Props> {
       enableNewDesign: false,
       enableHelp: false,
       automaticWinetricksFixes: false
-    }
+    },
+    disableDialogBackdropClose: configStore.get(
+      'disableDialogBackdropClose',
+      false
+    )
   }
 
   setCurrentCustomCategories = (newCustomCategories: string[]) => {
@@ -267,6 +272,11 @@ class GlobalState extends PureComponent<Props> {
   setAllTilesInColor = (value: boolean) => {
     configStore.set('allTilesInColor', value)
     this.setState({ allTilesInColor: value })
+  }
+
+  setDisableDialogBackdropClose = (value: boolean) => {
+    configStore.set('disableDialogBackdropClose', value)
+    this.setState({ disableDialogBackdropClose: value })
   }
 
   setSideBarCollapsed = (value: boolean) => {
@@ -1025,7 +1035,8 @@ class GlobalState extends PureComponent<Props> {
             items: this.state.helpItems,
             addHelpItem: this.addHelpItem,
             removeHelpItem: this.removeHelpItem
-          }
+          },
+          setDisableDialogBackdropClose: this.setDisableDialogBackdropClose
         }}
       >
         {this.props.children}

@@ -13,6 +13,7 @@ import { fixesPath } from 'backend/constants'
 import path from 'path'
 import { existsSync, mkdirSync } from 'graceful-fs'
 import { platform } from 'os'
+import { storeMap } from 'common/utils'
 
 async function installQueueElement(params: InstallParams): Promise<{
   status: DMStatus
@@ -179,15 +180,9 @@ async function updateQueueElement(params: InstallParams): Promise<{
   }
 }
 
-const runnerToStore = {
-  legendary: 'epic',
-  gog: 'gog',
-  nile: 'amazon'
-}
-
 async function downloadFixesFor(appName: string, runner: Runner) {
-  const url = `https://raw.githubusercontent.com/Heroic-Games-Launcher/known-fixes/main/${appName}-${runnerToStore[runner]}.json`
-  const dest = path.join(fixesPath, `${appName}-${runnerToStore[runner]}.json`)
+  const url = `https://raw.githubusercontent.com/Heroic-Games-Launcher/known-fixes/main/${appName}-${storeMap[runner]}.json`
+  const dest = path.join(fixesPath, `${appName}-${storeMap[runner]}.json`)
   if (!existsSync(fixesPath)) {
     mkdirSync(fixesPath, { recursive: true })
   }

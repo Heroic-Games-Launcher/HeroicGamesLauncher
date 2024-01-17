@@ -899,7 +899,7 @@ export async function downloadDefaultWine() {
 }
 
 export async function checkWineBeforeLaunch(
-  appName: string,
+  gameInfo: GameInfo,
   gameSettings: GameSettings
 ): Promise<boolean> {
   const wineIsValid = await validWine(gameSettings.wineVersion)
@@ -914,7 +914,7 @@ export async function checkWineBeforeLaunch(
       )
 
       appendGameLog(
-        appName,
+        gameInfo,
         `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`
       )
     }
@@ -931,7 +931,7 @@ export async function checkWineBeforeLaunch(
       if (response === 0) {
         logInfo(`Changing wine version to ${defaultwine.name}`)
         gameSettings.wineVersion = defaultwine
-        GameConfig.get(appName).setSetting('wineVersion', defaultwine)
+        GameConfig.get(gameInfo.app_name).setSetting('wineVersion', defaultwine)
         return true
       } else {
         logInfo('User canceled the launch', LogPrefix.Backend)
@@ -948,7 +948,10 @@ export async function checkWineBeforeLaunch(
         if (firstFoundWine) {
           logInfo(`Changing wine version to ${firstFoundWine.name}`)
           gameSettings.wineVersion = firstFoundWine
-          GameConfig.get(appName).setSetting('wineVersion', firstFoundWine)
+          GameConfig.get(gameInfo.app_name).setSetting(
+            'wineVersion',
+            firstFoundWine
+          )
           return true
         }
       }
@@ -962,7 +965,10 @@ export async function checkWineBeforeLaunch(
         if (response === 0) {
           logInfo(`Changing wine version to ${firstFoundWine.name}`)
           gameSettings.wineVersion = firstFoundWine
-          GameConfig.get(appName).setSetting('wineVersion', firstFoundWine)
+          GameConfig.get(gameInfo.app_name).setSetting(
+            'wineVersion',
+            firstFoundWine
+          )
           return true
         } else {
           logInfo('User canceled the launch', LogPrefix.Backend)

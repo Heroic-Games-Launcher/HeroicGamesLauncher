@@ -1,9 +1,12 @@
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import ContextProvider from 'frontend/state/ContextProvider'
 import React, {
+  KeyboardEvent,
   ReactNode,
   SyntheticEvent,
   useCallback,
+  useContext,
   useEffect,
   useRef,
   useState
@@ -26,6 +29,7 @@ export const Dialog: React.FC<DialogProps> = ({
   const onCloseRef = useRef(onClose)
   onCloseRef.current = onClose
   const [focusOnClose, setFocusOnClose] = useState<HTMLElement | null>(null)
+  const { disableDialogBackdropClose } = useContext(ContextProvider)
 
   useEffect(() => {
     setFocusOnClose(document.querySelector('*:focus') as HTMLElement)
@@ -45,15 +49,25 @@ export const Dialog: React.FC<DialogProps> = ({
         close()
       }
       dialog.addEventListener('cancel', cancel)
-      dialog['showPopover']()
 
-      return () => {
-        dialog.removeEventListener('cancel', cancel)
-        dialog['hidePopover']()
+      if (disableDialogBackdropClose) {
+        dialog['showPopover']()
+
+        return () => {
+          dialog.removeEventListener('cancel', cancel)
+          dialog['hidePopover']()
+        }
+      } else {
+        dialog.showModal()
+
+        return () => {
+          dialog.removeEventListener('cancel', cancel)
+          dialog.close()
+        }
       }
     }
     return
-  }, [dialogRef.current])
+  }, [dialogRef.current, disableDialogBackdropClose])
 
   const onDialogClick = useCallback(
     (e: SyntheticEvent) => {
@@ -73,6 +87,12 @@ export const Dialog: React.FC<DialogProps> = ({
     [onClose]
   )
 
+  const closeIfEsc = (event: KeyboardEvent<HTMLDialogElement>) => {
+    if (event.key === 'Escape') {
+      close()
+    }
+  }
+
   return (
     <div className="Dialog">
       <dialog
@@ -82,6 +102,7 @@ export const Dialog: React.FC<DialogProps> = ({
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore, this feature is new and not yet typed
         popover="manual"
+        onKeyUp={closeIfEsc}
       >
         {showCloseButton && (
           <div className="Dialog__Close">

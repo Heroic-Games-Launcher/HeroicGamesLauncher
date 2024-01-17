@@ -306,13 +306,27 @@ export default React.memo(function Library(): JSX.Element {
   // top section
   const showRecentGames = libraryTopSection.startsWith('recently_played')
 
+  const favouriteGamesList = useMemo(() => {
+    if (showHidden) {
+      return favouriteGames.list
+    }
+
+    const hiddenAppNames = hiddenGames.list.map(
+      (hidden: HiddenGame) => hidden.appName
+    )
+
+    return favouriteGames.list.filter(
+      (game) => !hiddenAppNames.includes(game.appName)
+    )
+  }, [favouriteGames, showHidden, hiddenGames])
+
   const showFavourites =
-    libraryTopSection === 'favourites' && !!favouriteGames.list.length
+    libraryTopSection === 'favourites' && !!favouriteGamesList.length
 
   const favourites = useMemo(() => {
     const tempArray: GameInfo[] = []
     if (showFavourites || showFavouritesLibrary) {
-      const favouriteAppNames = favouriteGames.list.map(
+      const favouriteAppNames = favouriteGamesList.map(
         (favourite: FavouriteGame) => favourite.appName
       )
       epic.library.forEach((game) => {
@@ -333,7 +347,14 @@ export default React.memo(function Library(): JSX.Element {
       const gameB = b.title.toUpperCase().replace('THE ', '')
       return gameA.localeCompare(gameB)
     })
-  }, [showFavourites, showFavouritesLibrary, favouriteGames, epic, gog, amazon])
+  }, [
+    showFavourites,
+    showFavouritesLibrary,
+    favouriteGamesList,
+    epic,
+    gog,
+    amazon
+  ])
 
   const favouritesIds = useMemo(() => {
     return favourites.map((game) => `${game.app_name}_${game.runner}`)
@@ -591,6 +612,7 @@ export default React.memo(function Library(): JSX.Element {
           <RecentlyPlayed
             handleModal={handleModal}
             onlyInstalled={libraryTopSection.endsWith('installed')}
+            showHidden={showHidden}
           />
         )}
 

@@ -774,7 +774,7 @@ export async function launch(
     offlineMode
   } = await prepareLaunch(gameSettings, gameInfo, isNative(appName))
   if (!launchPrepSuccess) {
-    appendGameLog(appName, `Launch aborted: ${launchPrepFailReason}`)
+    appendGameLog(gameInfo, `Launch aborted: ${launchPrepFailReason}`)
     showDialogBoxModalAuto({
       title: t('box.error.launchAborted', 'Launch aborted'),
       message: launchPrepFailReason!,
@@ -813,7 +813,7 @@ export async function launch(
       envVars: wineEnvVars
     } = await prepareWineLaunch('legendary', appName)
     if (!wineLaunchPrepSuccess) {
-      appendGameLog(appName, `Launch aborted: ${wineLaunchPrepFailReason}`)
+      appendGameLog(gameInfo, `Launch aborted: ${wineLaunchPrepFailReason}`)
       if (wineLaunchPrepFailReason) {
         showDialogBoxModalAuto({
           title: t('box.error.launchAborted', 'Launch aborted'),
@@ -866,7 +866,7 @@ export async function launch(
     commandEnv,
     join(...Object.values(getLegendaryBin()))
   )
-  appendGameLog(appName, `Launch Command: ${fullCommand}\n\nGame Log:\n`)
+  appendGameLog(gameInfo, `Launch Command: ${fullCommand}\n\nGame Log:\n`)
 
   sendGameStatusUpdate({ appName, runner: 'legendary', status: 'playing' })
 
@@ -882,7 +882,7 @@ export async function launch(
     wrappers: wrappers,
     logMessagePrefix: `Launching ${gameInfo.title}`,
     onOutput: (output) => {
-      if (!logsDisabled) appendGameLog(appName, output)
+      if (!logsDisabled) appendGameLog(gameInfo, output)
     }
   })
 

@@ -74,6 +74,7 @@ import {
   deleteAbortController
 } from './utils/aborthandler/aborthandler'
 import { download, isInstalled } from './wine/runtimes/runtimes'
+import { storeMap } from 'common/utils'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
@@ -87,10 +88,9 @@ async function prepareLaunch(
 
   // Check if the game needs an internet connection
   if (!gameInfo.canRunOffline && offlineMode) {
-    return {
-      success: false,
-      failureReason: 'Offline mode not supported'
-    }
+    logWarning(
+      'Offline Mode is on but the game does not allow offline mode explicitly.'
+    )
   }
 
   // Update Discord RPC if enabled
@@ -347,7 +347,7 @@ async function prepareWineLaunch(
     }
     if (
       GlobalConfig.get().getSettings().experimentalFeatures
-        .automaticWinetricksFixes
+        ?.automaticWinetricksFixes
     ) {
       await installFixes(appName, runner)
     }
@@ -397,14 +397,8 @@ async function prepareWineLaunch(
   return { success: true, envVars: envVars }
 }
 
-const runnerToStore = {
-  legendary: 'epic',
-  gog: 'gog',
-  nile: 'amazon'
-}
-
 async function installFixes(appName: string, runner: Runner) {
-  const fixPath = join(fixesPath, `${appName}-${runnerToStore[runner]}.json`)
+  const fixPath = join(fixesPath, `${appName}-${storeMap[runner]}.json`)
 
   if (!existsSync(fixPath)) return
 

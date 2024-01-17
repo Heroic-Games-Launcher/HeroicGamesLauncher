@@ -91,7 +91,7 @@ export interface AppSettings extends GameSettings {
   egsLinkedPath: string
   enableUpdates: boolean
   exitToTray: boolean
-  experimentalFeatures: ExperimentalFeatures
+  experimentalFeatures?: ExperimentalFeatures
   framelessWindow: boolean
   hideChangelogsOnStartup: boolean
   libraryTopSection: LibraryTopSectionOptions
