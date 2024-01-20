@@ -476,8 +476,10 @@ export function initGameLog(gameInfo: GameInfo) {
 }
 
 export function stopLogger(appName: string) {
-  logsWriters[appName].logMessage(
-    '============= End of game logs ============='
-  )
-  delete logsWriters[appName]
+  setTimeout(() => {
+    logsWriters[appName].logMessage(
+      '============= End of game logs ============='
+    )
+    delete logsWriters[appName]
+  }, 100)
 }
