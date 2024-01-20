@@ -361,7 +361,7 @@ const logsWriters: Record<string, LogWriter> = {}
 
 class LogWriter {
   gameInfo: GameInfo
-  queue: string[] | undefined
+  queue: string[]
   initialized: boolean
   timeoutId: NodeJS.Timeout | undefined
   filePath: string
@@ -370,11 +370,10 @@ class LogWriter {
     this.gameInfo = gameInfo
     this.initialized = false
     this.filePath = lastPlayLogFileLocation(gameInfo.app_name)
+    this.queue = []
   }
 
   logMessage(message: string) {
-    this.queue ??= []
-
     // push messages to append to the log
     this.queue.push(message)
 
@@ -466,8 +465,7 @@ class LogWriter {
 }
 
 export function appendGameLog(gameInfo: GameInfo, message: string) {
-  logsWriters[gameInfo.app_name] ??= new LogWriter(gameInfo)
-  logsWriters[gameInfo.app_name].logMessage(message)
+  logsWriters[gameInfo.app_name]?.logMessage(message)
 }
 
 export function initGameLog(gameInfo: GameInfo) {
@@ -476,10 +474,8 @@ export function initGameLog(gameInfo: GameInfo) {
 }
 
 export function stopLogger(appName: string) {
-  setTimeout(() => {
-    logsWriters[appName].logMessage(
-      '============= End of game logs ============='
-    )
-    delete logsWriters[appName]
-  }, 100)
+  logsWriters[appName].logMessage(
+    '============= End of game logs ============='
+  )
+  delete logsWriters[appName]
 }
