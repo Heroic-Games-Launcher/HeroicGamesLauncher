@@ -1,1 +1,4 @@
 yarn.lock linguist-generated=true
+
+# Prettier enforces LF endings; ensure Windows users do not see false positives.
+* text=auto eol=lf
