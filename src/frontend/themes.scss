@@ -362,6 +362,10 @@ body.nord-light {
   .progressDialog.log-box {
     background-color: #dde1e7;
   }
+
+  .gameCard > .gameCardStatus {
+    color: var(--navbar-active);
+  }
 }
 
 body.nord-light .alternative > svg {
