@@ -3,7 +3,7 @@ import './index.css'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { UpdateComponent } from 'frontend/components/UI'
 
-import React, { lazy, useContext, useEffect, useState } from 'react'
+import React, { lazy, useContext, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Tab, Tabs } from '@mui/material'
 import {
@@ -114,42 +114,42 @@ export default function WineManager(): JSX.Element | null {
     }
   }, [repository])
 
-  let wineVersionExplanation = <></>
-  switch (repository.type) {
-    case 'Wine-GE':
-      wineVersionExplanation = (
-        <div className="infoBox">
-          <FontAwesomeIcon icon={faCheck} color={'green'} />
-          {t(
-            'wineExplanation.wine-ge',
-            'Wine-GE-Proton is a Wine variant created by Glorious Eggroll. It is the recommended Wine to be used outside Steam. This provides useful logs when troubleshooting.'
-          )}
-        </div>
-      )
-      break
-    case 'Wine-GE-LoL':
-      wineVersionExplanation = (
-        <div className="infoBox">
-          <FontAwesomeIcon icon={faWarning} color={'red'} />
-          {t(
-            'wineExplanation.wine-ge-lol',
-            'Wine-GE-Proton...-LoL builds are meant to be used ONLY for League of Legends. These buils should NOT be used for any other game since they can cause problems.'
-          )}
-        </div>
-      )
-      break
-    case 'Proton-GE':
-      wineVersionExplanation = (
-        <div className="infoBox">
-          <FontAwesomeIcon icon={faWarning} color={'orange'} />
-          {t(
-            'wineExplanation.proton-ge',
-            'Proton-GE-Proton is a Proton variant created by Glorious Eggroll. It is meant to be used in Steam, but some games outside Steam may work better with this variant. It provides mostly useless logs for troubleshooting.'
-          )}
-        </div>
-      )
-      break
-  }
+  const wineVersionExplanation = useMemo(() => {
+    switch (repository.type) {
+      case 'Wine-GE':
+        return (
+          <div className="infoBox">
+            <FontAwesomeIcon icon={faCheck} color={'green'} />
+            {t(
+              'wineExplanation.wine-ge',
+              'Wine-GE-Proton is a Wine variant created by Glorious Eggroll. It is the recommended Wine to be used outside Steam. This provides useful logs when troubleshooting.'
+            )}
+          </div>
+        )
+      case 'Wine-GE-LoL':
+        return (
+          <div className="infoBox">
+            <FontAwesomeIcon icon={faWarning} color={'red'} />
+            {t(
+              'wineExplanation.wine-ge-lol',
+              'Wine-GE-Proton...-LoL builds are meant to be used ONLY for League of Legends. These buils should NOT be used for any other game since they can cause problems.'
+            )}
+          </div>
+        )
+      case 'Proton-GE':
+        return (
+          <div className="infoBox">
+            <FontAwesomeIcon icon={faWarning} color={'orange'} />
+            {t(
+              'wineExplanation.proton-ge',
+              'Proton-GE-Proton is a Proton variant created by Glorious Eggroll. It is meant to be used in Steam, but some games outside Steam may work better with this variant. It provides mostly useless logs for troubleshooting.'
+            )}
+          </div>
+        )
+      default:
+        return <></>
+    }
+  }, [repository])
 
   return (
     <>
