@@ -26,7 +26,7 @@ const SteamAppId = () => {
     <TextInputField
       label={t('setting.steam_appid', 'Override Steam AppId')}
       htmlId="steam-appid"
-      placeholder={t('placeholder.steam_appid', 'App Id (e.g.: 123456)')}
+      placeholder={t('placeholder.steam_appid', 'AppId (e.g.: 123456)')}
       value={steamAppId}
       onChange={(event) => setSteamAppId(event.target.value)}
       afterInput={infobox}

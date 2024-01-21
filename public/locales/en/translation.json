@@ -518,7 +518,7 @@
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix where EGS is installed",
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")",
-        "steam_appid": "App Id (e.g.: 123456)"
+        "steam_appid": "AppId (e.g.: 123456)"
     },
     "platforms": {
         "browser": "Browser",
