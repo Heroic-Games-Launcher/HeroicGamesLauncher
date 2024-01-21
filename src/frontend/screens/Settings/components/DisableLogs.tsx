@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import useSetting from 'frontend/hooks/useSetting'
-import { toggleControllerIsDisabled } from 'frontend/helpers/gamepad'
 import { ToggleSwitch } from 'frontend/components/UI'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
@@ -9,10 +8,6 @@ import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 const DisableLogs = () => {
   const { t } = useTranslation()
   const [disableLogs, setDisableLogs] = useSetting('disableLogs', false)
-
-  useEffect(() => {
-    toggleControllerIsDisabled(disableLogs)
-  }, [disableLogs])
 
   return (
     <div className="toggleRow">

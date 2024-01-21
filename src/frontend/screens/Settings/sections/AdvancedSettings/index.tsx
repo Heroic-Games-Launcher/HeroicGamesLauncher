@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
-  CleaningServicesOutlined,
   ContentCopyOutlined,
   DeleteOutline,
   CachedOutlined,
@@ -19,12 +18,14 @@ import {
   AltGOGdlBin,
   AltLegendaryBin,
   AltNileBin,
+  ClearCache,
   DisableLogs,
   DownloadNoHTTPS,
-  ExperimentalFeatures
+  ExperimentalFeatures,
+  ResetHeroic
 } from '../../components'
 
-export default function AdvancedSettings() {
+export default function AdvancedSetting() {
   const { config } = useContext(SettingsContext)
 
   const [isCopiedToClipboard, setCopiedToClipboard] = useState(false)
@@ -40,8 +41,7 @@ export default function AdvancedSettings() {
     useState(false)
   const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
 
-  const { libraryStatus, platform, refreshLibrary, showResetDialog } =
-    useContext(ContextProvider)
+  const { libraryStatus, platform } = useContext(ContextProvider)
   const { t } = useTranslation()
   const isWindows = platform === 'win32'
 
@@ -161,13 +161,6 @@ export default function AdvancedSettings() {
     setEosOverlayCheckingForUpdates(false)
   }
 
-  async function clearHeroicCache() {
-    const storage: Storage = window.localStorage
-    storage.removeItem('updates')
-    window.api.clearCache(true)
-    return refreshLibrary({ runInBackground: true })
-  }
-
   return (
     <div>
       <h3 className="settingSubheader">{t('settings.navbar.advanced')}</h3>
@@ -184,7 +177,7 @@ export default function AdvancedSettings() {
 
       <hr />
 
-      <div className="eosSettings">
+      <div className="advancedSetting">
         <h3>EOS Overlay</h3>
         <div>{getMainEosText()}</div>
         <br />
@@ -295,11 +288,24 @@ export default function AdvancedSettings() {
             </button>
           )}
         </div>
-        <br />
         <hr />
+      </div>
+
+      <div className="advancedSetting">
         <ExperimentalFeatures />
         <hr />
       </div>
+
+      <div className="advancedSetting">
+        <ClearCache />
+        <hr />
+      </div>
+
+      <div className="advancedSetting">
+        <ResetHeroic />
+        <hr />
+      </div>
+
       <div className="footerFlex">
         <button
           className={classNames('button', 'is-footer', {
@@ -323,33 +329,6 @@ export default function AdvancedSettings() {
                     'settings.copyToClipboard',
                     'Copy All Settings to Clipboard'
                   )}
-            </span>
-          </div>
-        </button>
-        <button
-          className="button is-footer is-danger"
-          onClick={async () => clearHeroicCache()}
-        >
-          <div className="button-icontext-flex">
-            <div className="button-icon-flex">
-              <CleaningServicesOutlined />
-            </div>
-            <span className="button-icon-text">
-              {t('settings.clear-cache', 'Clear Heroic Cache')}
-            </span>
-          </div>
-        </button>
-
-        <button
-          className="button is-footer is-danger"
-          onClick={showResetDialog}
-        >
-          <div className="button-icontext-flex">
-            <div className="button-icon-flex">
-              <DeleteOutline />
-            </div>
-            <span className="button-icon-text">
-              {t('settings.reset-heroic', 'Reset Heroic')}
             </span>
           </div>
         </button>
