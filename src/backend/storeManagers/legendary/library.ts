@@ -163,7 +163,7 @@ export async function refresh(): Promise<ExecResult | null> {
     return defaultExecResult
   }
 
-  refreshLegendary()
+  await refreshLegendary()
   loadGamesInAccount()
   refreshInstalled()
 

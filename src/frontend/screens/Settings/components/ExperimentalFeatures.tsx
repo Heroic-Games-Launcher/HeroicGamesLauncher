@@ -19,7 +19,7 @@ const ExperimentalFeatures = () => {
     {
       enableNewDesign: false,
       enableHelp: false,
-      automaticWinetricksFixes: false
+      automaticWinetricksFixes: true
     }
   )
   const { handleExperimentalFeatures } = useContext(ContextProvider)

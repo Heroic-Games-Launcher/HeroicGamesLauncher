@@ -677,6 +677,28 @@
         "wineversion": "Wine Version"
     },
     "settings": {
+        "advanced": {
+            "clearCache": {
+                "help1": "This action will clear the following caches:",
+                "help10": "Heroic configuration",
+                "help2": "Third-party game info (scores, steam compatibility, howlongtobeat, pcgamingwiki, applegamingwiki)",
+                "help3": "Legendary library info (list of games, install dialog info, game info)",
+                "help4": "GOG library info (list of games, install dialog info, api info -i.e: requirements-)",
+                "help5": "Amazon library info (list of games, install dialog info)",
+                "help6": "This will NOT delete:",
+                "help7": "Store login",
+                "help8": "Installed games",
+                "help9": "Games settings"
+            },
+            "details": "Details",
+            "resetHeroic": {
+                "help": "This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards."
+            },
+            "title": {
+                "clearCache": "Clear Cache",
+                "resetHeroic": "Reset Heroic"
+            }
+        },
         "battlEyeRuntime": {
             "installing": "Installing BattlEye Runtime...",
             "name": "BattlEye AntiCheat Runtime"
