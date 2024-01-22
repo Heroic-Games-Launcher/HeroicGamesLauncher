@@ -1,4 +1,5 @@
 import { existsSync, writeFileSync } from 'graceful-fs'
+import path from 'path'
 import { getFolderSize, unlinkFile } from '../../utilities'
 import { testSkipOnWindows } from 'backend/__tests__/skip'
 
@@ -29,7 +30,7 @@ describe('Utilities - Rest', () => {
     expect(() => {
       unlinkFile(__dirname)
     }).toThrowError(
-      `Couldn't remove ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities!`
+      `Couldn't remove ${workDir}${path.sep}src${path.sep}backend${path.sep}wine${path.sep}manager${path.sep}downloader${path.sep}__tests__${path.sep}utilities!`
     )
   })
 

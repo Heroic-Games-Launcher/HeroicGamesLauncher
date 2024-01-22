@@ -1,4 +1,5 @@
 import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
+import path from 'path'
 import { unzipFile } from '../../utilities'
 
 jest.mock('backend/logger/logger')
@@ -37,7 +38,7 @@ describe('Utilities - Unzip', () => {
         onProgress: progress
       })
     ).rejects.toStrictEqual(
-      `Archive path ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities is not a file!`
+      `Archive path ${workDir}${path.sep}src${path.sep}backend${path.sep}wine${path.sep}manager${path.sep}downloader${path.sep}__tests__${path.sep}utilities is not a file!`
     )
   })
 
@@ -45,7 +46,7 @@ describe('Utilities - Unzip', () => {
     const progress = jest.fn()
     await expect(
       unzipFile({
-        filePath: `${__dirname}/../test_data/test.tar.xz`,
+        filePath: `${__dirname}${path.sep}..${path.sep}test_data${path.sep}test.tar.xz`,
         unzipDir: 'invalid',
         onProgress: progress
       })
@@ -54,7 +55,7 @@ describe('Utilities - Unzip', () => {
 
   test('unzip tar.xz file succeesfully', async () => {
     const progress = jest.fn()
-    const installDir = __dirname + '/test_unzip'
+    const installDir = __dirname + path.sep + 'test_unzip'
 
     if (!existsSync(installDir)) {
       mkdirSync(installDir)
@@ -62,12 +63,12 @@ describe('Utilities - Unzip', () => {
 
     await expect(
       unzipFile({
-        filePath: `${__dirname}/../test_data/test.tar.xz`,
+        filePath: `${__dirname}${path.sep}..${path.sep}test_data${path.sep}test.tar.xz`,
         unzipDir: installDir,
         onProgress: progress
       })
     ).resolves.toStrictEqual(
-      `Succesfully unzip ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.xz to ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip.`
+      `Succesfully unzip ${workDir}${path.sep}src${path.sep}backend${path.sep}wine${path.sep}manager${path.sep}downloader${path.sep}__tests__${path.sep}utilities${path.sep}..${path.sep}test_data${path.sep}test.tar.xz to ${workDir}${path.sep}src${path.sep}backend${path.sep}wine${path.sep}manager${path.sep}downloader${path.sep}__tests__${path.sep}utilities${path.sep}test_unzip.`
     )
 
     if (existsSync(installDir)) {
@@ -77,7 +78,7 @@ describe('Utilities - Unzip', () => {
 
   test('unzip tar.gz file succeesfully', async () => {
     const progress = jest.fn()
-    const installDir = __dirname + '/test_unzip'
+    const installDir = __dirname + path.sep + 'test_unzip'
 
     if (!existsSync(installDir)) {
       mkdirSync(installDir)
@@ -85,12 +86,12 @@ describe('Utilities - Unzip', () => {
 
     await expect(
       unzipFile({
-        filePath: `${__dirname}/../test_data/test.tar.gz`,
+        filePath: `${__dirname}${path.sep}..${path.sep}test_data${path.sep}test.tar.gz`,
         unzipDir: installDir,
         onProgress: progress
       })
     ).resolves.toStrictEqual(
-      `Succesfully unzip ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.gz to ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip.`
+      `Succesfully unzip ${workDir}${path.sep}src${path.sep}backend${path.sep}wine${path.sep}manager${path.sep}downloader${path.sep}__tests__${path.sep}utilities${path.sep}..${path.sep}test_data${path.sep}test.tar.gz to ${workDir}${path.sep}src${path.sep}backend${path.sep}wine${path.sep}manager${path.sep}downloader${path.sep}__tests__${path.sep}utilities${path.sep}test_unzip.`
     )
 
     if (existsSync(installDir)) {
@@ -100,7 +101,7 @@ describe('Utilities - Unzip', () => {
 
   test('unzip tar.gz file twice to the same direction succeesfully', async () => {
     const progress = jest.fn()
-    const installDir = __dirname + '/test_unzip'
+    const installDir = __dirname + path.sep + 'test_unzip'
 
     if (!existsSync(installDir)) {
       mkdirSync(installDir)
@@ -108,23 +109,23 @@ describe('Utilities - Unzip', () => {
 
     await expect(
       unzipFile({
-        filePath: `${__dirname}/../test_data/test.tar.gz`,
+        filePath: `${__dirname}${path.sep}..${path.sep}test_data${path.sep}test.tar.gz`,
         unzipDir: installDir,
         onProgress: progress
       })
     ).resolves.toStrictEqual(
-      `Succesfully unzip ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.gz to ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip.`
+      `Succesfully unzip ${workDir}${path.sep}src${path.sep}backend${path.sep}wine${path.sep}manager${path.sep}downloader${path.sep}__tests__${path.sep}utilities${path.sep}..${path.sep}test_data${path.sep}test.tar.gz to ${workDir}${path.sep}src${path.sep}backend${path.sep}wine${path.sep}manager${path.sep}downloader${path.sep}__tests__${path.sep}utilities${path.sep}test_unzip.`
     )
 
     await expect(
       unzipFile({
-        filePath: `${__dirname}/../test_data/test.tar.gz`,
+        filePath: `${__dirname}${path.sep}..${path.sep}test_data${path.sep}test.tar.gz`,
         unzipDir: installDir,
         overwrite: true,
         onProgress: progress
       })
     ).resolves.toStrictEqual(
-      `Succesfully unzip ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.gz to ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip.`
+      `Succesfully unzip ${workDir}${path.sep}src${path.sep}backend${path.sep}wine${path.sep}manager${path.sep}downloader${path.sep}__tests__${path.sep}utilities${path.sep}..${path.sep}test_data${path.sep}test.tar.gz to ${workDir}${path.sep}src${path.sep}backend${path.sep}wine${path.sep}manager${path.sep}downloader${path.sep}__tests__${path.sep}utilities${path.sep}test_unzip.`
     )
 
     if (existsSync(installDir)) {
