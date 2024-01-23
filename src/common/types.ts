@@ -61,52 +61,6 @@ export type Release = {
   body?: string
 }
 
-export type ExperimentalFeatures = {
-  enableNewDesign: boolean
-  enableHelp: boolean
-  automaticWinetricksFixes: boolean
-}
-
-export interface AppSettings extends GameSettings {
-  addDesktopShortcuts: boolean
-  addStartMenuShortcuts: boolean
-  addSteamShortcuts: boolean
-  altGogdlBin: string
-  altLegendaryBin: string
-  altNileBin: string
-  autoUpdateGames: boolean
-  checkForUpdatesOnStartup: boolean
-  checkUpdatesInterval: number
-  customThemesPath: string
-  customWinePaths: string[]
-  darkTrayIcon: boolean
-  defaultInstallPath: string
-  defaultSteamPath: string
-  defaultWinePrefix: string
-  disableController: boolean
-  disablePlaytimeSync: boolean
-  disableLogs: boolean
-  discordRPC: boolean
-  downloadNoHttps: boolean
-  egsLinkedPath: string
-  enableUpdates: boolean
-  exitToTray: boolean
-  experimentalFeatures?: ExperimentalFeatures
-  framelessWindow: boolean
-  hideChangelogsOnStartup: boolean
-  libraryTopSection: LibraryTopSectionOptions
-  maxRecentGames: number
-  maxWorkers: number
-  minimizeOnLaunch: boolean
-  startInTray: boolean
-}
-
-export type LibraryTopSectionOptions =
-  | 'disabled'
-  | 'recently_played'
-  | 'recently_played_installed'
-  | 'favourites'
-
 export type ExecResult = {
   stderr: string
   stdout: string
@@ -158,42 +112,6 @@ export interface GameInfo {
   dlcList?: GameMetadataInner[]
   customUserAgent?: string
   launchFullScreen?: boolean
-}
-
-export interface GameSettings {
-  autoInstallDxvk: boolean
-  autoInstallVkd3d: boolean
-  autoInstallDxvkNvapi: boolean
-  autoSyncSaves: boolean
-  battlEyeRuntime: boolean
-  DXVKFpsCap: string //Entered as string but used as number
-  eacRuntime: boolean
-  enableDXVKFpsLimit: boolean
-  enableEsync: boolean
-  enableFSR: boolean
-  enableMsync: boolean
-  enableFsync: boolean
-  gamescope: GameScopeSettings
-  enviromentOptions: EnviromentVariable[]
-  ignoreGameUpdates: boolean
-  language: string
-  launcherArgs: string
-  maxSharpness?: number
-  nvidiaPrime: boolean
-  offlineMode: boolean
-  otherOptions?: string //deprecated
-  preferSystemLibs: boolean
-  showFps: boolean
-  showMangohud: boolean
-  targetExe: string
-  useGameMode: boolean
-  useSteamRuntime: boolean
-  wineCrossoverBottle: string
-  winePrefix: string
-  wineVersion: WineInstallation
-  wrapperOptions: WrapperVariable[]
-  savesPath: string
-  gogSaves?: GOGCloudSavesLocation[]
 }
 
 export type Status =
@@ -264,8 +182,6 @@ export interface Reqs {
   recommended: string
   title: string
 }
-
-export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
 
 export type UserInfo = {
   account_id: string
@@ -399,11 +315,6 @@ export interface CallRunnerOptions {
 export interface EnviromentVariable {
   key: string
   value: string
-}
-
-export interface WrapperVariable {
-  exe: string
-  args: string
 }
 
 export interface WrapperEnv {
@@ -738,19 +649,6 @@ export interface WindowProps extends Electron.Rectangle {
   frame?: boolean
   titleBarStyle?: 'default' | 'hidden' | 'hiddenInset'
   titleBarOverlay?: TitleBarOverlay | boolean
-}
-
-interface GameScopeSettings {
-  enableUpscaling: boolean
-  enableLimiter: boolean
-  windowType: string
-  gameWidth: string
-  gameHeight: string
-  upscaleWidth: string
-  upscaleHeight: string
-  upscaleMethod: string
-  fpsLimiter: string
-  fpsLimiterNoFocus: string
 }
 
 export type InstallInfo =
