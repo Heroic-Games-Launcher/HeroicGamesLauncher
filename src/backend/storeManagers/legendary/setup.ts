@@ -6,7 +6,7 @@ import { enable, getStatus, isEnabled } from './eos_overlay/eos_overlay'
 import { split } from 'shlex'
 import { logError } from 'backend/logger/logger'
 import { runWineCommand } from 'backend/launcher'
-import { GameConfig } from 'backend/game_config'
+import { getGameConfig } from '../../config/game'
 
 export const legendarySetup = async (appName: string) => {
   const gameInfo = getGameInfo(appName)
@@ -21,11 +21,8 @@ export const legendarySetup = async (appName: string) => {
     context: 'EPIC'
   })
 
-  const gameSettings = GameConfig.get(appName).config
-
   // Fixes games like Fallout New Vegas and Dishonored: Death of the Outsider
   await runWineCommand({
-    gameSettings,
     commandParts: [
       'reg',
       'add',
@@ -33,7 +30,8 @@ export const legendarySetup = async (appName: string) => {
       '/f'
     ],
     wait: true,
-    protonVerb: 'run'
+    protonVerb: 'run',
+    gameConfig: getGameConfig(appName, 'legendary')
   })
 
   const winPlatforms = ['Windows', 'Win32', 'windows']
@@ -48,7 +46,6 @@ export const legendarySetup = async (appName: string) => {
         info.manifest.prerequisites.path.length > 0
       ) {
         await runWineCommand({
-          gameSettings,
           commandParts: [
             join(
               gameInfo.install.install_path ?? '',
@@ -57,7 +54,8 @@ export const legendarySetup = async (appName: string) => {
             ...split(info.manifest.prerequisites.args)
           ],
           wait: true,
-          protonVerb: 'run'
+          protonVerb: 'run',
+          gameConfig: getGameConfig(appName, 'legendary')
         })
       }
     } catch (error) {

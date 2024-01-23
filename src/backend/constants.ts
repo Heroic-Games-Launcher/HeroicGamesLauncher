@@ -9,9 +9,9 @@ import { createNewLogFileAndClearOldOnes } from './logger/logfile'
 import { env } from 'process'
 import { app } from 'electron'
 import { existsSync, mkdirSync, readFileSync } from 'graceful-fs'
-import { GlobalConfig } from './config'
 import { TypeCheckedStoreBackend } from './electron_store'
 import { dirSync } from 'tmp'
+import { getGlobalConfig } from './config/global'
 
 const configStore = new TypeCheckedStoreBackend('configStore', {
   cwd: 'store'
@@ -174,8 +174,8 @@ export function getSteamCompatFolder() {
 }
 
 export async function getSteamLibraries(): Promise<string[]> {
-  const { defaultSteamPath } = GlobalConfig.get().getSettings()
-  const path = defaultSteamPath.replaceAll("'", '')
+  const { steamPath } = getGlobalConfig()
+  const path = steamPath.replaceAll("'", '')
   const vdfFile = join(path, 'steamapps', 'libraryfolders.vdf')
   const libraries = ['/usr/share/steam']
 

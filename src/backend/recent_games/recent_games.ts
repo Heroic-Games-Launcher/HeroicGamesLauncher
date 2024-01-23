@@ -1,18 +1,14 @@
 import { GameInfo, RecentGame } from 'common/types'
 import { backendEvents } from '../backend_events'
 import { sendFrontendMessage } from '../main_window'
-import { GlobalConfig } from '../config'
 import { configStore } from '../constants'
-
-const maxRecentGames = async () => {
-  const { maxRecentGames } = GlobalConfig.get().getSettings()
-  return maxRecentGames || 5
-}
+import { getGlobalConfig } from '../config/global'
 
 const getRecentGames = async (options?: { limited: boolean }) => {
   const games = configStore.get('games.recent', [])
+  const { maxRecentGames } = getGlobalConfig()
   if (options?.limited) {
-    return games.slice(0, await maxRecentGames())
+    return games.slice(0, maxRecentGames)
   } else {
     return games
   }
@@ -47,7 +43,7 @@ const removeRecentGame = async (appName: string) => {
   }
 }
 
-export { getRecentGames, addRecentGame, removeRecentGame, maxRecentGames }
+export { getRecentGames, addRecentGame, removeRecentGame }
 
 // Exported only for testing purpose
 // ts-prune-ignore-next

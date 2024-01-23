@@ -6,7 +6,6 @@ import {
   logWarning
 } from 'backend/logger/logger'
 import { fetchFuelJSON, getGameInfo } from './library'
-import { GameConfig } from 'backend/game_config'
 import { isWindows } from 'backend/constants'
 import {
   checkWineBeforeLaunch,
@@ -14,6 +13,7 @@ import {
   spawnAsync
 } from 'backend/utils'
 import { runWineCommand, verifyWinePrefix } from 'backend/launcher'
+import { getGameConfig } from '../../config/game'
 
 /**
  * Handles installing dependencies for games that include PostInstall scripts
@@ -64,19 +64,19 @@ export default async function setup(
     LogPrefix.Nile
   )
 
-  const gameSettings = GameConfig.get(appName).config
+  const gameConfig = getGameConfig(appName, 'nile')
   if (!isWindows) {
-    const isWineOkToLaunch = await checkWineBeforeLaunch(gameInfo, gameSettings)
+    const isWineOkToLaunch = await checkWineBeforeLaunch(gameInfo, gameConfig)
 
     if (!isWineOkToLaunch) {
       logError(
-        ['Was not possible to run setup using', gameSettings.wineVersion.name],
+        ['Was not possible to run setup using', gameConfig.wineVersion.name],
         LogPrefix.Nile
       )
       return
     }
     // Make sure prefix is initialized correctly
-    await verifyWinePrefix(gameSettings)
+    await verifyWinePrefix(gameConfig)
   }
 
   logDebug(['PostInstall:', fuel.PostInstall], LogPrefix.Nile)
@@ -110,7 +110,7 @@ export default async function setup(
     )
 
     await runWineCommand({
-      gameSettings,
+      gameConfig,
       gameInstallPath: basePath,
       commandParts: [action.Command, ...exeArguments],
       wait: true,

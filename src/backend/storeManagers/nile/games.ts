@@ -3,7 +3,6 @@ import {
   ExecResult,
   ExtraInfo,
   GameInfo,
-  GameSettings,
   InstallArgs,
   InstallPlatform,
   InstallProgress,
@@ -29,7 +28,6 @@ import {
   logsDisabled
 } from 'backend/logger/logger'
 import { isLinux, isWindows } from 'backend/constants'
-import { GameConfig } from 'backend/game_config'
 import {
   getRunnerCallWithoutCredentials,
   launchCleanup,
@@ -54,7 +52,6 @@ import {
   sendProgressUpdate,
   shutdownWine
 } from 'backend/utils'
-import { GlobalConfig } from 'backend/config'
 import {
   addShortcuts as addShortcutsUtil,
   removeShortcuts as removeShortcutsUtil
@@ -62,11 +59,8 @@ import {
 import { removeNonSteamGame } from 'backend/shortcuts/nonesteamgame/nonesteamgame'
 import { sendFrontendMessage } from 'backend/main_window'
 import setup from './setup'
-
-export async function getSettings(appName: string): Promise<GameSettings> {
-  const gameConfig = GameConfig.get(appName)
-  return gameConfig.config || (await gameConfig.getSettings())
-}
+import { getGlobalConfig } from '../../config/global'
+import { getGameConfig } from '../../config/game'
 
 export function getGameInfo(appName: string): GameInfo {
   const info = nileLibraryGetGameInfo(appName)
@@ -242,8 +236,10 @@ export async function install(
   appName: string,
   { path }: InstallArgs
 ): Promise<InstallResult> {
-  const { maxWorkers } = GlobalConfig.get().getSettings()
-  const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
+  const { maxDownloadWorkers } = getGlobalConfig()
+  const workers = maxDownloadWorkers
+    ? ['--max-workers', `${maxDownloadWorkers}`]
+    : []
 
   const commandParts = ['install', '--base-path', path, ...workers, appName]
 
@@ -307,7 +303,7 @@ export async function launch(
   appName: string,
   launchArguments?: LaunchOption
 ): Promise<boolean> {
-  const gameSettings = await getSettings(appName)
+  const gameConfig = getGameConfig(appName, 'nile')
   const gameInfo = getGameInfo(appName)
 
   const {
@@ -318,7 +314,7 @@ export async function launch(
     gameModeBin,
     gameScopeCommand,
     steamRuntime
-  } = await prepareLaunch(gameSettings, gameInfo, isNative())
+  } = await prepareLaunch(gameConfig, gameInfo, isNative())
 
   if (!launchPrepSuccess) {
     appendGamePlayLog(gameInfo, `Launch aborted: ${launchPrepFailReason}`)
@@ -329,8 +325,8 @@ export async function launch(
     })
     return false
   }
-  const exeOverrideFlag = gameSettings.targetExe
-    ? ['--override-exe', gameSettings.targetExe]
+  const exeOverrideFlag = gameConfig.targetExe
+    ? ['--override-exe', gameConfig.targetExe]
     : []
 
   let commandEnv = {
@@ -338,11 +334,11 @@ export async function launch(
     ...setupWrapperEnvVars({ appName, appRunner: 'nile' }),
     ...(isWindows
       ? {}
-      : setupEnvVars(gameSettings, gameInfo.install.install_path))
+      : setupEnvVars(gameConfig, gameInfo.install.install_path))
   }
 
   const wrappers = setupWrappers(
-    gameSettings,
+    gameConfig,
     mangoHudCommand,
     gameModeBin,
     gameScopeCommand,
@@ -379,7 +375,7 @@ export async function launch(
       ...wineEnvVars
     }
 
-    const { bin: wineExec, type: wineType } = gameSettings.wineVersion
+    const { bin: wineExec, type: wineType } = gameConfig.wineVersion
 
     // Fix for people with old config
     const wineBin =
@@ -390,7 +386,7 @@ export async function launch(
     wineFlag = [
       ...getWineFlagsArray(wineBin, wineType, shlex.join(wrappers)),
       '--wine-prefix',
-      gameSettings.winePrefix
+      gameConfig.winePrefix
     ]
   }
 
@@ -401,7 +397,7 @@ export async function launch(
     ...shlex.split(
       (launchArguments as BaseLaunchOption | undefined)?.parameters ?? ''
     ),
-    ...shlex.split(gameSettings.launcherArgs ?? ''),
+    ...shlex.split(gameConfig.launcherArgs ?? ''),
     appName
   ]
   const fullCommand = getRunnerCallWithoutCredentials(
@@ -518,8 +514,10 @@ export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
 }
 
 export async function update(appName: string): Promise<InstallResult> {
-  const { maxWorkers } = GlobalConfig.get().getSettings()
-  const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
+  const { maxDownloadWorkers } = getGlobalConfig()
+  const workers = maxDownloadWorkers
+    ? ['--max-workers', `${maxDownloadWorkers}`]
+    : []
 
   const commandParts = ['update', ...workers, appName]
 
@@ -563,8 +561,8 @@ export async function stop(appName: string, stopWine = true) {
   killPattern(pattern)
 
   if (stopWine && !isNative()) {
-    const gameSettings = await getSettings(appName)
-    await shutdownWine(gameSettings)
+    const gameConfig = getGameConfig(appName, 'nile')
+    await shutdownWine(gameConfig)
   }
 }
 

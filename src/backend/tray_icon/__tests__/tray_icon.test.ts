@@ -1,12 +1,14 @@
 import { BrowserWindow } from 'electron'
 import { initTrayIcon, testingExportsTrayIcon } from '../tray_icon'
 import { backendEvents } from '../../backend_events'
-import { GlobalConfig } from '../../config'
 import { RecentGame } from 'common/types'
 import { configStore } from '../../constants'
+import { resetGlobalConfigKey, setGlobalConfig } from '../../config/global'
+import { PositiveInteger } from '../../schemas'
 
 jest.mock('../../logger/logfile')
-jest.mock('../../config')
+jest.mock('../../config/global')
+jest.mock('../../config/shared')
 
 const wait = async (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms))
@@ -92,7 +94,7 @@ describe('TrayIcon', () => {
 
         it('limits the games based on config', async () => {
           // limits to maxRecentGames config
-          GlobalConfig['setConfigValue']('maxRecentGames', 3)
+          setGlobalConfig('maxRecentGames', PositiveInteger.parse(3))
 
           setRecentGames([])
 
@@ -153,7 +155,7 @@ describe('TrayIcon', () => {
       setRecentGames(recentGames)
 
       // defaults to 5
-      GlobalConfig['setConfigValue']('maxRecentGames', undefined)
+      resetGlobalConfigKey('maxRecentGames')
 
       const appIcon = await initTrayIcon(mainWindow)
 
@@ -201,12 +203,12 @@ describe('TrayIcon', () => {
     })
 
     it('can show dark or light icon', () => {
-      GlobalConfig['setConfigValue']('darkTrayIcon', true)
+      setGlobalConfig('darkTrayIcon', true)
 
       let icon = testingExportsTrayIcon.getIcon()
       expect(icon).toMatch(/.*icon-dark.png/)
 
-      GlobalConfig['setConfigValue']('darkTrayIcon', false)
+      setGlobalConfig('darkTrayIcon', false)
 
       icon = testingExportsTrayIcon.getIcon()
       expect(icon).toMatch(/.*icon-light.png/)

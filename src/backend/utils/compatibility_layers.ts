@@ -1,4 +1,3 @@
-import { GlobalConfig } from 'backend/config'
 import {
   configPath,
   getSteamLibraries,
@@ -16,6 +15,7 @@ import { dirname, join } from 'path'
 import { PlistObject, parse as plistParse } from 'plist'
 import LaunchCommand from '../storeManagers/legendary/commands/launch'
 import { NonEmptyString, Path } from 'backend/schemas'
+import { getGlobalConfig } from '../config/global'
 
 /**
  * Loads the default wine installation path and version.
@@ -51,7 +51,7 @@ function getCustomWinePaths(): Set<WineInstallation> {
   const customPaths = new Set<WineInstallation>()
   // skips this on new installations to avoid infinite loops
   if (existsSync(configPath)) {
-    const { customWinePaths = [] } = GlobalConfig.get().getSettings()
+    const { customWinePaths } = getGlobalConfig()
     customWinePaths.forEach((path: string) => {
       if (path.endsWith('proton')) {
         return customPaths.add({

@@ -1,4 +1,4 @@
-import { ExecResult, GameSettings, Runner, WineCommandArgs } from 'common/types'
+import { ExecResult, Runner, WineCommandArgs } from 'common/types'
 import axios from 'axios'
 
 import {
@@ -54,6 +54,8 @@ import {
   DAYS,
   downloadFile as downloadFileInet
 } from '../utils/inet/downloader'
+import { getGameConfig } from '../config/game'
+import type { GameConfig } from '../config/schemas'
 
 interface Tool {
   name: string
@@ -177,11 +179,11 @@ export const DXVK = {
   },
 
   installRemove: async (
-    gameSettings: GameSettings,
+    gameConfig: GameConfig,
     tool: 'dxvk' | 'dxvk-nvapi' | 'vkd3d' | 'dxvk-macOS',
     action: 'backup' | 'restore'
   ): Promise<boolean> => {
-    if (gameSettings.wineVersion.bin.includes('toolkit')) {
+    if (gameConfig.wineVersion.bin.includes('toolkit')) {
       // we don't want to install dxvk on the toolkit prefix since it breaks Apple's implementation
       logWarning(
         'Skipping DXVK install on Game Porting Toolkit prefix!',
@@ -194,7 +196,7 @@ export const DXVK = {
       return true
     }
 
-    const prefix = gameSettings.winePrefix
+    const prefix = gameConfig.winePrefix
     const winePrefix = prefix.replace('~', userHome)
     const isValidPrefix = existsSync(`${winePrefix}/.update-timestamp`)
 
@@ -260,7 +262,7 @@ export const DXVK = {
           '/f'
         ]
         await runWineCommand({
-          gameSettings,
+          gameConfig,
           commandParts: unregisterDll,
           wait: true,
           protonVerb: 'run'
@@ -277,7 +279,7 @@ export const DXVK = {
           '/f'
         ]
         await runWineCommand({
-          gameSettings,
+          gameConfig,
           commandParts: unregisterDll,
           wait: true,
           protonVerb: 'run'
@@ -340,7 +342,7 @@ export const DXVK = {
         '/f'
       ]
       await runWineCommand({
-        gameSettings,
+        gameConfig,
         commandParts: registerDll,
         wait: true,
         protonVerb: 'run'
@@ -360,7 +362,7 @@ export const DXVK = {
         '/f'
       ]
       await runWineCommand({
-        gameSettings,
+        gameConfig,
         commandParts: registerDll,
         wait: true,
         protonVerb: 'run'
@@ -399,7 +401,7 @@ export const DXVK = {
             '/f'
           ]
           await runWineCommand({
-            gameSettings,
+            gameConfig,
             commandParts: regModNvngx,
             wait: true,
             protonVerb: 'run'
@@ -467,7 +469,7 @@ export const Winetricks = {
     args: string[],
     returnOutput = false
   ) => {
-    const gameSettings = await gameManagerMap[runner].getSettings(appName)
+    const gameSettings = getGameConfig(appName, runner)
 
     const { wineVersion } = gameSettings
     const baseWinePrefix = gameSettings.winePrefix
@@ -765,12 +767,12 @@ export async function runWineCommandOnGame(
     return { stdout: '', stderr: '' }
   }
   const { folder_name, install } = gameManagerMap[runner].getGameInfo(appName)
-  const gameSettings = await gameManagerMap[runner].getSettings(appName)
+  const gameConfig = getGameConfig(appName, runner)
 
   await prepareWineLaunch(runner, appName)
 
   return runWineCommand({
-    gameSettings,
+    gameConfig,
     installFolderName: folder_name,
     gameInstallPath: install.install_path,
     commandParts,

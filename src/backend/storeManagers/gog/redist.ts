@@ -17,7 +17,6 @@ import {
 } from 'common/types/gog'
 import { getGameInfo, onInstallOrUpdateOutput } from './games'
 import { runRunnerCommand as runGogdlCommand } from './library'
-import { GlobalConfig } from 'backend/config'
 import {
   addToQueue,
   getQueueInformation
@@ -26,6 +25,7 @@ import { DMQueueElement } from 'common/types'
 import axios from 'axios'
 import { GOGUser } from './user'
 import { isOnline } from 'backend/online_monitor'
+import { getGlobalConfig } from '../../config/global'
 
 export async function checkForRedistUpdates() {
   if (!GOGUser.isLoggedIn() || !isOnline()) {
@@ -186,8 +186,10 @@ export async function getRequiredRedistList(): Promise<string[]> {
 export async function updateRedist(redistToSync: string[]): Promise<{
   status: 'done' | 'error'
 }> {
-  const { maxWorkers } = GlobalConfig.get().getSettings()
-  const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
+  const { maxDownloadWorkers } = getGlobalConfig()
+  const workers = maxDownloadWorkers
+    ? ['--max-workers', `${maxDownloadWorkers}`]
+    : []
   const logPath = path.join(gamesConfigPath, 'gog-redist.log')
 
   const commandParts = [

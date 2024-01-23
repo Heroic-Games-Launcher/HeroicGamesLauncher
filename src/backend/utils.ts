@@ -6,7 +6,6 @@ import {
   SteamRuntime,
   Release,
   GameInfo,
-  GameSettings,
   State,
   ProgressInfo,
   GameStatus
@@ -66,8 +65,6 @@ import * as fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
 import { getMainWindow, sendFrontendMessage } from './main_window'
-import { GlobalConfig } from './config'
-import { GameConfig } from './game_config'
 import { validWine, runWineCommand } from './launcher'
 import { gameManagerMap } from 'backend/storeManagers'
 import {
@@ -88,6 +85,10 @@ import {
   deviceNameCache,
   vendorNameCache
 } from './utils/systeminfo/gpu/pci_ids'
+import { getGlobalConfig, resetGlobalConfigKey } from './config/global'
+import { setGameConfig } from './config/game'
+import { availableWineVersions } from './config/shared'
+import type { GameConfig } from './config/schemas'
 
 const execAsync = promisify(exec)
 
@@ -435,32 +436,26 @@ function splitPathAndName(fullPath: string): { dir: string; bin: string } {
 }
 
 function getLegendaryBin(): { dir: string; bin: string } {
-  const settings = GlobalConfig.get().getSettings()
-  if (settings?.altLegendaryBin) {
-    return splitPathAndName(settings.altLegendaryBin)
-  }
+  const { alternativeLegendaryBinary } = getGlobalConfig()
   return splitPathAndName(
-    fixAsarPath(join(publicDir, 'bin', process.platform, 'legendary'))
+    alternativeLegendaryBinary ??
+      fixAsarPath(join(publicDir, 'bin', process.platform, 'legendary'))
   )
 }
 
 function getGOGdlBin(): { dir: string; bin: string } {
-  const settings = GlobalConfig.get().getSettings()
-  if (settings?.altGogdlBin) {
-    return splitPathAndName(settings.altGogdlBin)
-  }
+  const { alternativeGogdlBinary } = getGlobalConfig()
   return splitPathAndName(
-    fixAsarPath(join(publicDir, 'bin', process.platform, 'gogdl'))
+    alternativeGogdlBinary ??
+      fixAsarPath(join(publicDir, 'bin', process.platform, 'gogdl'))
   )
 }
 
 function getNileBin(): { dir: string; bin: string } {
-  const settings = GlobalConfig.get().getSettings()
-  if (settings?.altNileBin) {
-    return splitPathAndName(settings.altNileBin)
-  }
+  const { alternativeNileBinary } = getGlobalConfig()
   return splitPathAndName(
-    fixAsarPath(join(publicDir, 'bin', process.platform, 'nile'))
+    alternativeNileBinary ??
+      fixAsarPath(join(publicDir, 'bin', process.platform, 'nile'))
   )
 }
 
@@ -762,14 +757,14 @@ function killPattern(pattern: string) {
   return ret
 }
 
-async function shutdownWine(gameSettings: GameSettings) {
-  if (gameSettings.wineVersion.wineserver) {
-    spawnSync(gameSettings.wineVersion.wineserver, ['-k'], {
-      env: { WINEPREFIX: gameSettings.winePrefix }
+async function shutdownWine(gameConfig: GameConfig) {
+  if (gameConfig.wineVersion.wineserver) {
+    spawnSync(gameConfig.wineVersion.wineserver, ['-k'], {
+      env: { WINEPREFIX: gameConfig.winePrefix }
     })
   } else {
     await runWineCommand({
-      gameSettings,
+      gameConfig,
       commandParts: ['wineboot', '-k'],
       wait: true,
       protonVerb: 'waitforexitandrun'
@@ -880,11 +875,10 @@ export async function downloadDefaultWine() {
   if (result === 'success') {
     let downloadedWine = null
     try {
-      const wineList = await GlobalConfig.get().getAlternativeWine()
       // update the game config to use that wine
-      downloadedWine = wineList[0]
+      downloadedWine = availableWineVersions[0]
       logInfo(`Changing wine version to ${downloadedWine.name}`)
-      GlobalConfig.get().setSetting('wineVersion', downloadedWine)
+      resetGlobalConfigKey('wineVersion')
     } catch (error) {
       logError(
         ['Error when changing wine version to default', error],
@@ -898,55 +892,59 @@ export async function downloadDefaultWine() {
 
 export async function checkWineBeforeLaunch(
   gameInfo: GameInfo,
-  gameSettings: GameSettings
+  gameConfig: GameConfig
 ): Promise<boolean> {
-  const wineIsValid = await validWine(gameSettings.wineVersion)
+  const wineIsValid = await validWine(gameConfig.wineVersion)
 
   if (wineIsValid) {
     return true
   } else {
     if (!logsDisabled) {
       logError(
-        `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`,
+        `Wine version ${gameConfig.wineVersion.name} is not valid, trying another one.`,
         LogPrefix.Backend
       )
 
       appendGamePlayLog(
         gameInfo,
-        `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`
+        `Wine version ${gameConfig.wineVersion.name} is not valid, trying another one.`
       )
     }
 
     // check if the default wine is valid now
-    const { wineVersion: defaultwine } = GlobalConfig.get().getSettings()
+    const { wineVersion: defaultwine } = getGlobalConfig()
     const defaultWineIsValid = await validWine(defaultwine)
     if (defaultWineIsValid) {
       const { response } = await ContinueWithFoundWine(
-        gameSettings.wineVersion.name,
+        gameConfig.wineVersion.name,
         defaultwine.name
       )
 
       if (response === 0) {
         logInfo(`Changing wine version to ${defaultwine.name}`)
-        gameSettings.wineVersion = defaultwine
-        GameConfig.get(gameInfo.app_name).setSetting('wineVersion', defaultwine)
+        setGameConfig(
+          gameInfo.app_name,
+          gameInfo.runner,
+          'wineVersion',
+          defaultwine
+        )
         return true
       } else {
         logInfo('User canceled the launch', LogPrefix.Backend)
         return false
       }
     } else {
-      const wineList = await GlobalConfig.get().getAlternativeWine()
-      const firstFoundWine = wineList[0]
+      const firstFoundWine = availableWineVersions.at(0)
 
       const isValidWine = await validWine(firstFoundWine)
 
-      if (!wineList.length || !firstFoundWine || !isValidWine) {
+      if (!firstFoundWine || !isValidWine) {
         const firstFoundWine = await downloadDefaultWine()
         if (firstFoundWine) {
           logInfo(`Changing wine version to ${firstFoundWine.name}`)
-          gameSettings.wineVersion = firstFoundWine
-          GameConfig.get(gameInfo.app_name).setSetting(
+          setGameConfig(
+            gameInfo.app_name,
+            gameInfo.runner,
             'wineVersion',
             firstFoundWine
           )
@@ -956,14 +954,15 @@ export async function checkWineBeforeLaunch(
 
       if (firstFoundWine && isValidWine) {
         const { response } = await ContinueWithFoundWine(
-          gameSettings.wineVersion.name,
+          gameConfig.wineVersion.name,
           firstFoundWine.name
         )
 
         if (response === 0) {
-          logInfo(`Changing wine version to ${firstFoundWine.name}`)
-          gameSettings.wineVersion = firstFoundWine
-          GameConfig.get(gameInfo.app_name).setSetting(
+          logInfo(`Changing wine version to default`)
+          setGameConfig(
+            gameInfo.app_name,
+            gameInfo.runner,
             'wineVersion',
             firstFoundWine
           )
@@ -1175,9 +1174,8 @@ const memoryLog = (limit = 50) => {
 
 function removeFolder(path: string, folderName: string) {
   if (path === 'default') {
-    const { defaultInstallPath } = GlobalConfig.get().getSettings()
-    const path = defaultInstallPath.replaceAll("'", '')
-    const folderToDelete = `${path}/${folderName}`
+    const { defaultInstallPath } = getGlobalConfig()
+    const folderToDelete = `${defaultInstallPath}/${folderName}`
     if (existsSync(folderToDelete)) {
       return setTimeout(() => {
         rmSync(folderToDelete, { recursive: true })

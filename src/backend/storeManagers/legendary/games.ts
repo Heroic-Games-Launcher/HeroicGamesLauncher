@@ -11,8 +11,6 @@ import {
   WineCommandArgs,
   LaunchOption
 } from 'common/types'
-import { GameConfig } from '../../game_config'
-import { GlobalConfig } from '../../config'
 import {
   runRunnerCommand as runLegendaryCommand,
   getInstallInfo,
@@ -78,7 +76,14 @@ import {
 } from 'backend/utils/compatibility_layers'
 import { LegendaryAppName, LegendaryPlatform } from './commands/base'
 import { LegendaryCommand } from './commands'
-import { Path, NonEmptyString, PositiveInteger } from 'backend/schemas'
+import {
+  Path,
+  KeyValuePair,
+  NonEmptyString,
+  PositiveInteger
+} from 'backend/schemas'
+import { getGlobalConfig } from '../../config/global'
+import { getGameConfig } from '../../config/game'
 
 /**
  * Alias for `LegendaryLibrary.listUpdateableGames`
@@ -320,19 +325,6 @@ export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
 }
 
 /**
- * Alias for `GameConfig.get(appName).config`
- * If it doesn't exist, uses getSettings() instead.
- *
- * @returns GameConfig
- */
-export async function getSettings(appName: string) {
-  return (
-    GameConfig.get(appName).config ||
-    (await GameConfig.get(appName).getSettings())
-  )
-}
-
-/**
  * Parent folder to move app to.
  * Amends install path by adding the appropriate folder name.
  */
@@ -490,7 +482,7 @@ export async function update(
     runner: 'legendary',
     status: 'updating'
   })
-  const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
+  const { maxDownloadWorkers, downloadNoHttps } = getGlobalConfig()
   const installPlatform = getGameInfo(appName).install.platform!
   const info = await getInstallInfo(appName, installPlatform)
 
@@ -500,7 +492,7 @@ export async function update(
     '-y': true,
     '--skip-sdl': true
   }
-  if (maxWorkers) command['--max-workers'] = PositiveInteger.parse(maxWorkers)
+  if (maxDownloadWorkers) command['--max-workers'] = maxDownloadWorkers
   if (downloadNoHttps) command['--no-https'] = true
 
   const onOutput = (data: string) => {
@@ -566,7 +558,7 @@ export async function install(
   status: 'done' | 'error' | 'abort'
   error?: string
 }> {
-  const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
+  const { maxDownloadWorkers, downloadNoHttps } = getGlobalConfig()
   const info = await getInstallInfo(appName, platformToInstall)
 
   const logPath = logFileLocation(appName)
@@ -579,7 +571,7 @@ export async function install(
     '--skip-dlcs': true,
     '-y': true
   }
-  if (maxWorkers) command['--max-workers'] = PositiveInteger.parse(maxWorkers)
+  if (maxDownloadWorkers) command['--max-workers'] = maxDownloadWorkers
   if (downloadNoHttps) command['--no-https'] = true
   if (sdlList?.length)
     command.sdlList = sdlList.map((tag) => NonEmptyString.parse(tag))
@@ -661,7 +653,7 @@ export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
  * Does NOT check for online connectivity.
  */
 export async function repair(appName: string): Promise<ExecResult> {
-  const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
+  const { maxDownloadWorkers, downloadNoHttps } = getGlobalConfig()
 
   const command: LegendaryCommand = {
     subcommand: 'repair',
@@ -669,7 +661,7 @@ export async function repair(appName: string): Promise<ExecResult> {
     '-y': true,
     '--skip-sdl': true
   }
-  if (maxWorkers) command['--max-workers'] = PositiveInteger.parse(maxWorkers)
+  if (maxDownloadWorkers) command['--max-workers'] = maxDownloadWorkers
   if (downloadNoHttps) command['--no-https'] = true
 
   const res = await runLegendaryCommand(command, {
@@ -760,7 +752,7 @@ export async function launch(
   launchArguments?: LaunchOption,
   skipVersionCheck = false
 ): Promise<boolean> {
-  const gameSettings = await getSettings(appName)
+  const gameConfig = getGameConfig(appName, 'legendary')
   const gameInfo = getGameInfo(appName)
 
   const {
@@ -772,7 +764,7 @@ export async function launch(
     gameScopeCommand,
     steamRuntime,
     offlineMode
-  } = await prepareLaunch(gameSettings, gameInfo, isNative(appName))
+  } = await prepareLaunch(gameConfig, gameInfo, isNative(appName))
   if (!launchPrepSuccess) {
     appendGamePlayLog(gameInfo, `Launch aborted: ${launchPrepFailReason}`)
     showDialogBoxModalAuto({
@@ -783,18 +775,18 @@ export async function launch(
     return false
   }
 
-  const languageCode = gameSettings.language || configStore.get('language', '')
+  const languageCode = gameConfig.gameLanguage
 
   let commandEnv = {
     ...process.env,
     ...setupWrapperEnvVars({ appName, appRunner: 'legendary' }),
     ...(isWindows
       ? {}
-      : setupEnvVars(gameSettings, gameInfo.install.install_path))
+      : setupEnvVars(gameConfig, gameInfo.install.install_path))
   }
 
   const wrappers = setupWrappers(
-    gameSettings,
+    gameConfig,
     mangoHudCommand,
     gameModeBin,
     gameScopeCommand,
@@ -831,7 +823,7 @@ export async function launch(
       ...wineEnvVars
     }
 
-    const { bin: wineExec, type: wineType } = gameSettings.wineVersion
+    const { bin: wineExec, type: wineType } = gameConfig.wineVersion
 
     // Fix for people with old config
     const wineBin =
@@ -850,7 +842,7 @@ export async function launch(
     appName: LegendaryAppName.parse(appNameToLaunch),
     extraArguments: [
       launchArguments?.type !== 'dlc' ? launchArguments?.parameters : undefined,
-      gameSettings.launcherArgs
+      gameConfig.launcherArgs
     ]
       .filter(Boolean)
       .join(' '),
@@ -858,8 +850,8 @@ export async function launch(
   }
   if (skipVersionCheck) command['--skip-version-check'] = true
   if (languageCode) command['--language'] = NonEmptyString.parse(languageCode)
-  if (gameSettings.targetExe)
-    command['--override-exe'] = Path.parse(gameSettings.targetExe)
+  if (gameConfig.targetExe)
+    command['--override-exe'] = Path.parse(gameConfig.targetExe)
   if (offlineMode) command['--offline'] = true
   if (isCLINoGui) command['--skip-version-check'] = true
 
@@ -950,8 +942,7 @@ export async function stop(appName: string, stopWine = true) {
   killPattern(pattern)
 
   if (stopWine && !isNative(appName)) {
-    const gameSettings = await getSettings(appName)
-    await shutdownWine(gameSettings)
+    await shutdownWine(getGameConfig(appName, 'legendary'))
   }
 }
 
@@ -979,12 +970,12 @@ export async function runWineCommandOnGame(
   }
 
   const { folder_name, install } = getGameInfo(appName)
-  const gameSettings = await getSettings(appName)
+  const gameConfig = getGameConfig(appName, 'legendary')
 
   await prepareWineLaunch('legendary', appName)
 
   return runWineCommandUtil({
-    gameSettings,
+    gameConfig,
     gameInstallPath: install.install_path,
     installFolderName: folder_name,
     commandParts,

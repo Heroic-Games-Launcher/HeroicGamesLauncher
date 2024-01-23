@@ -4,17 +4,17 @@
  *        Note that with console.log and console.warn everything will be saved too.
  *        error equals console.error
  */
-import { AppSettings, GameInfo, GameSettings, Runner } from 'common/types'
+import { GameInfo, Runner } from 'common/types'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
 import { appendMessageToLogFile, getLongestPrefix } from './logfile'
 import { backendEvents } from 'backend/backend_events'
-import { GlobalConfig } from 'backend/config'
 import { getGOGdlBin, getLegendaryBin } from 'backend/utils'
 import { dirname, join } from 'path'
 import { formatSystemInfo, getSystemInfo } from '../utils/systeminfo'
 import { appendFile, writeFile } from 'fs/promises'
 import { gamesConfigPath, isWindows } from 'backend/constants'
-import { gameManagerMap } from 'backend/storeManagers'
+import { getGlobalConfig } from '../config/global'
+import { getGameConfig } from '../config/game'
 import { existsSync, mkdirSync, openSync } from 'graceful-fs'
 import { Winetricks } from 'backend/tools'
 
@@ -77,7 +77,7 @@ export function initLogger() {
   }
 
   // check `disableLogs` setting
-  const { disableLogs } = GlobalConfig.get().getSettings()
+  const { disableLogs } = getGlobalConfig()
 
   logsDisabled = disableLogs
 
@@ -305,51 +305,6 @@ export function logWarning(
   logBase(input, 'WARNING', options_or_prefix)
 }
 
-export function logChangedSetting(
-  config: Partial<AppSettings>,
-  oldConfig: GameSettings
-) {
-  const changedSettings = Object.keys(config).filter(
-    (key) => config[key] !== oldConfig[key]
-  )
-
-  changedSettings.forEach((changedSetting) => {
-    // check if both are empty arrays
-    if (
-      Array.isArray(config[changedSetting]) &&
-      Array.isArray(oldConfig[changedSetting]) &&
-      config[changedSetting].length === 0 &&
-      oldConfig[changedSetting].length === 0
-    ) {
-      return
-    }
-
-    // check if both are objects and have different values
-    if (
-      typeof config[changedSetting] === 'object' &&
-      typeof oldConfig[changedSetting] === 'object' &&
-      JSON.stringify(config[changedSetting]) ===
-        JSON.stringify(oldConfig[changedSetting])
-    ) {
-      return
-    }
-
-    const oldSetting =
-      typeof oldConfig[changedSetting] === 'object'
-        ? JSON.stringify(oldConfig[changedSetting])
-        : oldConfig[changedSetting]
-    const newSetting =
-      typeof config[changedSetting] === 'object'
-        ? JSON.stringify(config[changedSetting])
-        : config[changedSetting]
-
-    logInfo(
-      `Changed config: ${changedSetting} from ${oldSetting} to ${newSetting}`,
-      LogPrefix.Backend
-    )
-  })
-}
-
 export function lastPlayLogFileLocation(appName: string) {
   return join(gamesConfigPath, `${appName}-lastPlay.log`)
 }
@@ -506,8 +461,8 @@ class GameLogWriter extends LogWriter {
       }
 
       // log game settings
-      const gameSettings = await gameManagerMap[runner].getSettings(app_name)
-      const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
+      const gameConfig = getGameConfig(app_name, runner)
+      const gameSettingsString = JSON.stringify(gameConfig, null, '\t')
       const startPlayingDate = new Date()
 
       await appendFile(

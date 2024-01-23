@@ -6,7 +6,6 @@ import {
   sendGameStatusUpdate,
   spawnAsync
 } from '../../utils'
-import { GameConfig } from '../../game_config'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import {
   gogdlConfigPath,
@@ -23,6 +22,7 @@ import {
   GOGv1Manifest,
   GOGv2Manifest
 } from 'common/types/gog'
+import { getGameConfig } from '../../config/game'
 
 /*
  * Automatially executes command properly according to operating system
@@ -83,19 +83,19 @@ async function setup(
     return
   }
 
-  const gameSettings = GameConfig.get(appName).config
+  const gameConfig = getGameConfig(appName, 'gog')
   if (!isWindows) {
-    const isWineOkToLaunch = await checkWineBeforeLaunch(gameInfo, gameSettings)
+    const isWineOkToLaunch = await checkWineBeforeLaunch(gameInfo, gameConfig)
 
     if (!isWineOkToLaunch) {
       logError(
-        `Was not possible to run setup using ${gameSettings.wineVersion.name}`,
+        `Was not possible to run setup using ${gameConfig.wineVersion.name}`,
         LogPrefix.Backend
       )
       return
     }
     // Make sure prefix is initalized correctly
-    await verifyWinePrefix(gameSettings)
+    await verifyWinePrefix(gameConfig)
   }
 
   // Read game manifest
@@ -134,11 +134,7 @@ async function setup(
   const dependencies: string[] = []
   const gameDirectoryPath = isWindows
     ? gameInfo.install.install_path!
-    : await getWinePath({
-        path: gameInfo.install.install_path!,
-        variant: 'win',
-        gameSettings
-      })
+    : await getWinePath(gameInfo.install.install_path!, gameConfig, 'win')
 
   sendGameStatusUpdate({
     appName,
@@ -177,7 +173,7 @@ async function setup(
           ]
           await runSetupCommand({
             commandParts: [absPath, ...exeArgs],
-            gameSettings,
+            gameConfig,
             wait: false,
             protonVerb: 'run',
             skipPrefixCheckIKnowWhatImDoing: true,
@@ -197,11 +193,7 @@ async function setup(
     if (manifestData.scriptInterpreter) {
       const wineGameSupportDir = isWindows
         ? gameSupportDir
-        : await getWinePath({
-            path: gameSupportDir,
-            variant: 'win',
-            gameSettings
-          })
+        : await getWinePath(gameSupportDir, gameConfig, 'win')
       const isiPath = path.join(
         gogRedistPath,
         '__redist/ISI/scriptinterpreter.exe'
@@ -247,7 +239,7 @@ async function setup(
 
           await runSetupCommand({
             commandParts: [isiPath, ...exeArgs],
-            gameSettings,
+            gameConfig,
             wait: false,
             protonVerb: 'run',
             skipPrefixCheckIKnowWhatImDoing: true,
@@ -291,7 +283,7 @@ async function setup(
         ]
         await runSetupCommand({
           commandParts: [absPath, ...exeArgs],
-          gameSettings,
+          gameConfig,
           wait: false,
           protonVerb: 'run',
           skipPrefixCheckIKnowWhatImDoing: true,
@@ -371,7 +363,7 @@ async function setup(
 
       await runSetupCommand({
         commandParts,
-        gameSettings,
+        gameConfig,
         startFolder: gogRedistPath,
         wait: false,
         protonVerb: 'run',
