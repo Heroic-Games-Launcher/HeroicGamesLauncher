@@ -95,7 +95,6 @@ interface SyncIPCFunctions {
   'connectivity-changed': (newStatus: ConnectivityStatus) => void
   'set-connectivity-online': () => void
   changeTrayColor: () => void
-  setSetting: (args: { appName: string; key: string; value: unknown }) => void
   resumeCurrentDownload: () => void
   pauseCurrentDownload: () => void
   cancelDownload: (removeDownloaded: boolean) => void
@@ -181,11 +180,9 @@ interface AsyncIPCFunctions {
   }>
   logoutLegendary: () => Promise<void>
   logoutAmazon: () => Promise<void>
-  getAlternativeWine: () => Promise<WineInstallation[]>
+  getAlternativeWine: () => WineInstallation[]
   getLocalPeloadPath: () => Promise<string>
   readConfig: (config_class: 'library' | 'user') => Promise<GameInfo[] | string>
-  requestSettings: (appName: string) => Promise<AppSettings | GameSettings>
-  writeConfig: (args: { appName: string; config: Partial<AppSettings> }) => void
   refreshLibrary: (library?: Runner | 'all') => Promise<void>
   launch: (args: LaunchParams) => StatusPromise
   openDialog: (args: OpenDialogOptions) => Promise<string | false>
@@ -297,6 +294,30 @@ interface AsyncIPCFunctions {
     enabled: boolean
     modsToLoad: string[]
   }) => Promise<void>
+
+  getGlobalConfig: () => GlobalConfig
+  setGlobalConfig: <Key extends keyof GlobalConfig>(
+    key: Key,
+    value: GlobalConfig[Key]
+  ) => void
+  resetGlobalConfigKey: (key: keyof GlobalConfig) => void
+  getUserConfiguredGlobalConfigKeys: () => (keyof GlobalConfig)[]
+  getGameConfig: (appName: string, runner: Runner) => GameConfig
+  setGameConfig: <Key extends keyof GameConfig>(
+    appName: string,
+    runner: Runner,
+    key: Key,
+    value: GameConfig[Key]
+  ) => void
+  resetGameConfigKey: (
+    appName: string,
+    runner: Runner,
+    key: keyof GameConfig
+  ) => void
+  getUserConfiguredGameConfigKeys: (
+    appName: string,
+    runner: Runner
+  ) => (keyof GameConfig)[]
 }
 
 // This is quite ugly & throws a lot of errors in a regular .ts file

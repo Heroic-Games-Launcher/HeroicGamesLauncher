@@ -1,18 +1,7 @@
-import { AppSettings, GameSettings } from 'common/types'
 import { ipcRenderer } from 'electron'
+import type { Runner } from 'common/types'
 import type { SystemInformation } from '../utils/systeminfo'
-
-export const requestAppSettings = async () =>
-  ipcRenderer.invoke('requestSettings', 'default') as Promise<AppSettings>
-
-export const requestGameSettings = async (appName: string) =>
-  ipcRenderer.invoke('requestSettings', appName) as Promise<GameSettings>
-
-export const setSetting = (args: {
-  appName: string
-  key: string
-  value: unknown
-}) => ipcRenderer.send('setSetting', args)
+import type { GameConfig, GlobalConfig } from '../config/schemas'
 
 export const getLegendaryVersion = async () =>
   ipcRenderer.invoke('getLegendaryVersion')
@@ -47,3 +36,67 @@ export const systemInfo = {
 
 export const hasExecutable = async (executable: string) =>
   ipcRenderer.invoke('hasExecutable', executable)
+
+export const copySettingsToClipboard = (appName: string, runner: Runner) =>
+  ipcRenderer.send('copySettingsToClipboard', appName, runner)
+
+export const config = {
+  global: {
+    get: async (): Promise<GlobalConfig> =>
+      ipcRenderer.invoke('getGlobalConfig'),
+    set: async <Key extends keyof GlobalConfig>(
+      key: Key,
+      value: GlobalConfig[Key]
+    ): Promise<void> => ipcRenderer.invoke('setGlobalConfig', key, value),
+    reset: async (key: keyof GlobalConfig): Promise<void> =>
+      ipcRenderer.invoke('resetGlobalConfigKey', key),
+    getUserConfiguredKeys: async (): Promise<(keyof GlobalConfig)[]> =>
+      ipcRenderer.invoke('getUserConfiguredGlobalConfigKeys')
+  },
+  game: {
+    get: async (appName: string, runner: Runner): Promise<GameConfig> =>
+      ipcRenderer.invoke('getGameConfig', appName, runner),
+    set: async <Key extends keyof GameConfig>(
+      appName: string,
+      runner: Runner,
+      key: Key,
+      value: GameConfig[Key]
+    ): Promise<void> =>
+      ipcRenderer.invoke('setGameConfig', appName, runner, key, value),
+    reset: async (
+      appName: string,
+      runner: Runner,
+      key: keyof GameConfig
+    ): Promise<void> =>
+      ipcRenderer.invoke('resetGameConfigKey', appName, runner, key),
+    getUserConfiguredKeys: async (
+      appName: string,
+      runner: Runner
+    ): Promise<(keyof GameConfig)[]> =>
+      ipcRenderer.invoke('getUserConfiguredGameConfigKeys', appName, runner)
+  },
+  messages: {
+    globalConfigChanged: (
+      callback: <Key extends keyof GlobalConfig>(
+        key: Key,
+        value: GlobalConfig[Key]
+      ) => void
+    ): void => {
+      ipcRenderer.on('globalConfigChanged', (_e, key, value) =>
+        callback(key, value)
+      )
+    },
+    gameConfigChanged: (
+      callback: <Key extends keyof GameConfig>(
+        appName: string,
+        runner: Runner,
+        key: Key,
+        value: GameConfig[Key]
+      ) => void
+    ): void => {
+      ipcRenderer.on('gameConfigChanged', (_e, appName, runner, key, value) =>
+        callback(appName, runner, key, value)
+      )
+    }
+  }
+}

@@ -733,15 +733,6 @@ ipcMain.handle('getExtraInfo', async (event, appName, runner) => {
   return gameManagerMap[runner].getExtraInfo(appName)
 })
 
-ipcMain.handle('getGameSettings', async (event, appName, runner) => {
-  try {
-    return await gameManagerMap[runner].getSettings(appName)
-  } catch (error) {
-    logError(error, LogPrefix.Backend)
-    return null
-  }
-})
-
 ipcMain.handle('getGOGLinuxInstallersLangs', async (event, appName) =>
   GOGLibraryManager.getLinuxInstallersLanguages(appName)
 )
@@ -802,56 +793,6 @@ ipcMain.handle('readConfig', async (event, configClass) => {
   return userInfo?.displayName ?? ''
 })
 
-ipcMain.handle('requestSettings', async (event, appName) => {
-  // To the changes how we handle env and wrappers
-  // otherOptions is deprectaed and needs to be mapped
-  // to new approach.
-  // Can be removed if otherOptions is removed aswell
-  const mapOtherSettings = (config: AppSettings | GameSettings) => {
-    if (config.otherOptions) {
-      if (config.enviromentOptions.length <= 0) {
-        config.otherOptions
-          .split(' ')
-          .filter((val) => val.indexOf('=') !== -1)
-          .forEach((envKeyAndVar) => {
-            const keyAndValueSplit = envKeyAndVar.split('=')
-            const key = keyAndValueSplit.shift()!
-            const value = keyAndValueSplit.join('=')
-            config.enviromentOptions.push({ key, value })
-          })
-      }
-
-      if (config.wrapperOptions.length <= 0) {
-        const args: string[] = []
-        config.otherOptions
-          .split(' ')
-          .filter((val) => val.indexOf('=') === -1)
-          .forEach((val, index) => {
-            if (index === 0) {
-              config.wrapperOptions.push({ exe: val, args: '' })
-            } else {
-              args.push(val)
-            }
-          })
-
-        if (config.wrapperOptions.at(0)) {
-          config.wrapperOptions.at(0)!.args = shlex.join(args)
-        }
-      }
-
-      delete config.otherOptions
-    }
-    return config
-  }
-
-  if (appName === 'default') {
-    return mapOtherSettings(GlobalConfig.get().getSettings())
-  }
-
-  const config = await GameConfig.get(appName).getSettings()
-  return mapOtherSettings(config)
-})
-
 ipcMain.handle('toggleDXVK', async (event, { appName, runner, action }) =>
   DXVK.installRemove(getGameConfig(appName, runner), 'dxvk', action)
 )
@@ -863,40 +804,6 @@ ipcMain.handle('toggleDXVKNVAPI', async (event, { appName, runner, action }) =>
 ipcMain.handle('toggleVKD3D', async (event, { appName, runner, action }) =>
   DXVK.installRemove(getGameConfig(appName, runner), 'vkd3d', action)
 )
-
-ipcMain.handle('writeConfig', (event, { appName, config }) => {
-  logInfo(
-    `Writing config for ${appName === 'default' ? 'Heroic' : appName}`,
-    LogPrefix.Backend
-  )
-  const oldConfig =
-    appName === 'default'
-      ? GlobalConfig.get().getSettings()
-      : GameConfig.get(appName).config
-
-  // log only the changed setting
-  logChangedSetting(config, oldConfig)
-
-  if (appName === 'default') {
-    GlobalConfig.get().set(config as AppSettings)
-    GlobalConfig.get().flush()
-    const currentConfigStore = configStore.get_nodefault('settings')
-    if (currentConfigStore) {
-      configStore.set('settings', { ...currentConfigStore, ...config })
-    }
-  } else {
-    GameConfig.get(appName).config = config as GameSettings
-    GameConfig.get(appName).flush()
-  }
-})
-
-ipcMain.on('setSetting', (event, { appName, key, value }) => {
-  if (appName === 'default') {
-    GlobalConfig.get().setSetting(key, value)
-  } else {
-    GameConfig.get(appName).setSetting(key, value)
-  }
-})
 
 // Watch the installed games file and trigger a refresh on the installed games if something changes
 if (existsSync(installed)) {
