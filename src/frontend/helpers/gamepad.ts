@@ -301,7 +301,7 @@ export const initGamepad = () => {
   }
 
   function isValveGamepad(gamepad: Gamepad | null) {
-    return gamepad && gamepad.id.includes("Vendor: 28de");
+    return gamepad && gamepad.id.includes('Vendor: 28de');
   }
 
   function filterValveGamepads(gamepads: (Gamepad | null)[]) {
