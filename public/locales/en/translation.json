@@ -1,6 +1,6 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Actions Font Family (Default: ",
+        "actions_font_family_no_default": "Actions Font Family (Default):",
         "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family_no_default": "Content Font Family (Default: ",
         "disable_dialog_backdrop_close": "Disable closing dialogs by clicking outside",
@@ -483,7 +483,7 @@
             "fullscreen": "Fullscreen",
             "gameHeight": "Game Height",
             "gameWidth": "Game Width",
-            "interger": "Interger Upscale",
+            "interger": "Integer Upscale",
             "nis": "NVIDIA Image Scale (NIS)",
             "stretch": "Stretch Image",
             "upscaleHeight": "Upscale Height",
