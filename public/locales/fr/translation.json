@@ -20,8 +20,8 @@
     },
     "box": {
         "cache-cleared": {
-            "message": "Le cache d'Heroic a été effacé.",
-            "title": "Cache effacé"
+            "message": "Le cache d'Heroic a été nettoyé.",
+            "title": "Cache nettoyé"
         },
         "choose": "Choisir",
         "choose-egs-prefix": "Choisir où le préfixe EGS est installé",
@@ -746,6 +746,15 @@
         },
         "offline": {
             "warning": "Ce jeu ne permet pas explicitement d'utiliser le mode hors-ligne, activez cette option à vos risques et périls. Le jeu pourrait ne pas fonctionner."
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Jeux installés",
+                "help1": "Cette action effacera les caches suivants :"
+            },
+            "title": {
+                "resetHeroic": "Réinitialiser Heroic"
+            }
         }
     },
     "Settings": "Options",
