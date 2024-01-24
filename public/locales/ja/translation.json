@@ -5,7 +5,8 @@
         "content_font_family_no_default": "コンテンツに使用するフォントファミリー (デフォルト: ",
         "fonts": "フォント",
         "title": "アクセシビリティ",
-        "zoom": "拡大/縮小"
+        "zoom": "拡大/縮小",
+        "disable_dialog_backdrop_close": "枠外をクリックしてもダイアログを閉じないようにする"
     },
     "add_game": "ゲームを追加",
     "All": "すべて",
@@ -115,7 +116,7 @@
             }
         },
         "runexe": {
-            "title": "実行するEXEを選択"
+            "title": "実行するEXEを選択してください"
         },
         "select": {
             "button": "選択",
@@ -248,14 +249,19 @@
         "platform": "プラットホーム",
         "show_all_games": "すべてのゲームを表示",
         "show_available_games": "利用できないゲームを表示する",
-        "show_favourites_only": "お気に入りのみ表示",
-        "show_hidden": "非表示を表示",
+        "show_favourites_only": "お気に入りのみ表示する",
+        "show_hidden": "非表示のゲームを表示",
         "store": "ストアフィルタ",
         "filters": "フィルター",
         "all_categories": "すべてのカテゴリー",
-        "show_installed_only": "インストール済みのゲームのみ表示",
+        "show_installed_only": "インストール済みのゲームのみ表示する",
         "uncategorized": "未分類",
-        "categories": "カテゴリー"
+        "categories": "カテゴリー",
+        "select_all": "すべて選択",
+        "reset": "リセット",
+        "only": "単独表示",
+        "no_categories": "カスタムカテゴリーがありません。各ゲームメニューからカテゴリーを追加してください。",
+        "show_support_offline_only": "オフライン対応のゲームのみ表示する"
     },
     "help": {
         "amdfsr": "AMDのFSRは、フルスクリーンモードで低い解像度をアップスケーリングすることでフレームレートを向上させます。パフォーマンスに若干の影響を及ぼしますが、画質は5から1に向上します。有効にするとパフォーマンスが向上する可能性があります。",
@@ -291,7 +297,7 @@
             "part3": "手動同期: クラウドに保存されているゲームのセーブデータをダウンロードするには、“ダウンロード”を選択します。ローカルのセーブデータをクラウドにアップロードするには“ダウンロード”を選択します。“強制ダウンロード”と“強制アップロード”では、ローカルまたはクラウド上のバージョンは無視されます。",
             "part4": "セーブデータを自動的に同期すると、ゲームを開始するたび、およびプレイ終了後にセーブデータが同期されます。"
         },
-        "vkd3d": "VKD3Dは、DirectX 12ゲーム用のVulkanベースの翻訳レイヤーです。有効にすると、互換性が大幅に向上する可能性があります。古いDirectXゲームには影響しません。",
+        "vkd3d": "VKD3Dは、DirectX 12ゲーム用のVulkanベースの翻訳レイヤーです。有効にすると、互換性が大幅に向上する可能性があります。古いDirectXゲームには効果がなく、DXVKが必要です。",
         "wine": {
             "part1": "Heroicは、次のフォルダでWine、Proton、CrossOverのバージョンを検索します:",
             "part2": "その他の場所については、これらのフォルダのいずれかへのシンボリックリンクを使用してください"
@@ -309,12 +315,27 @@
         "dxvknvapi": "DXVK-NVAPIは、DXVKとLinuxネイティブNVAPIの上に構築されたNVAPIの実装で、Nvidia GPU上でDLSSを使用することができます。",
         "disablePlaytimeSync": "指定したストアのサーバーとのプレイタイムの同期を無効にする（現時点ではGOGのみ対応）",
         "title": {
-            "accessibility": "Accessibility",
-            "login": "Login",
+            "accessibility": "アクセシビリティ",
+            "login": "ログイン",
             "settings": "設定",
-            "downloadManager": "Download Manager",
-            "wineManager": "Wine Manager",
+            "downloadManager": "ダウンロードマネージャー",
+            "wineManager": "Wineマネージャー",
             "library": "ライブラリ"
+        },
+        "button": {
+            "open": "ヘルプを開く",
+            "close": "ヘルプを閉じる"
+        },
+        "content": {
+            "downloadManager": "現在および過去のダウンロードを表示します。",
+            "library": "所有しているすべてのゲームを表示します。",
+            "settingsDefault": "Heroicのすべての設定とゲームのデフォルト設定を表示します。",
+            "accessibility": "アクセシビリティの設定を表示します。",
+            "customThemesPath": "Wikiをご覧ください。",
+            "defaultInstallPath": "これは、ゲームのインストール時にあらかじめ選択されているデフォルトのパスです。",
+            "settingsGame": "ゲームのすべての設定を表示します。",
+            "login": "それぞれのストアにログインします。",
+            "wineManager": "各バージョンのWine、Proton、Crossoverなどをインストールします。"
         }
     },
     "info": {
@@ -581,11 +602,12 @@
         "log": {
             "copy-to-clipboard": "ログの内容をクリップボードにコピー",
             "current-log": "現在のログ",
-            "instructions": "Discordに参加し、お使いのオペレーティングシステムに一致するチャンネルを探してください。ここに表示されるログの内容を共有し、問題の明確な説明と関連情報および詳細を含めてください。",
+            "instructions": "Discordに参加し、\"#-support \"セクションを探してください。ピン留めされている \"Read Me First | Frequently Asked Questions \"スレッドを読み、指示に従ってこれらのログと問題についての関連情報を共有してください。",
             "instructions_title": "問題を報告する方法",
             "last-log": "最後のログ",
             "no-file": "ログファイルが見つかりません",
-            "show-in-folder": "ログファイルをフォルダに表示"
+            "show-in-folder": "ログファイルをフォルダに表示",
+            "join-heroic-discord": "Discordに参加する"
         },
         "mangohud": "Mangohudを有効にする（Mangohudがインストールされている必要があります）",
         "manualsync": {
@@ -647,7 +669,9 @@
         },
         "disablePlaytimeSync": "プレイ時間の同期を無効",
         "experimental_features": {
-            "enableNewDesign": "新デザイン"
+            "enableNewDesign": "新デザイン",
+            "enableHelp": "ヘルプコンポーネント",
+            "automaticWinetricksFixes": "Winetricksの既存の修正を自動的に適用"
         }
     },
     "settings": {
@@ -720,6 +744,18 @@
         },
         "gamescope": {
             "searchMsg": "Gamescope実行ファイルを検索しています。"
+        },
+        "offline": {
+            "warning": "このゲームは明確にオフラインモードを許可していません。ゲームが動作しない場合があります。"
+        },
+        "advanced": {
+            "details": "詳細",
+            "title": {
+                "resetHeroic": "Reset Heroic"
+            },
+            "clearCache": {
+                "help8": "Installed Games"
+            }
         }
     },
     "Settings": "設定",
@@ -779,9 +815,9 @@
     "wine": {
         "actions": "アクション",
         "manager": {
-            "link": "Wineマネージャ",
+            "link": "Wineマネージャー",
             "not-found": "Wineバージョンが見つかりません。再試行するには、更新アイコンをクリックしてください。",
-            "title": "Wineマネージャ",
+            "title": "Wineマネージャー",
             "unzipping": "展開中"
         },
         "release": "リリース日",
