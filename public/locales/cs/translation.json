@@ -1,11 +1,12 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Rodina písem akcí (výchozí: ",
+        "actions_font_family_no_default": "Rodina písem akcí (výchozí):",
         "all_tiles_in_color": "Zobrazit všechny dlaždice her barevně",
         "content_font_family_no_default": "Rodina písem obsahu (výchozí: ",
         "fonts": "Písma",
         "title": "Přístupnost",
-        "zoom": "Přiblížení"
+        "zoom": "Přiblížení",
+        "disable_dialog_backdrop_close": "Zakázat zavření dialogů kliknutím pryč"
     },
     "add_game": "Přidat hru",
     "All": "Vše",
@@ -744,6 +745,31 @@
         },
         "gamescope": {
             "searchMsg": "Hledání spustitelného souboru gamescope."
+        },
+        "offline": {
+            "warning": "Tato hra explicitně nepovoluje režim offline, tuto možnost zapněte na vlastní nebezpečí. Hra nemusí fungovat."
+        },
+        "advanced": {
+            "details": "Podrobnosti",
+            "title": {
+                "resetHeroic": "Resetovat Heroic",
+                "clearCache": "Vymazat mezipaměť"
+            },
+            "clearCache": {
+                "help8": "Installed Games",
+                "help1": "Tato akce vymaže následující mezipaměti:",
+                "help2": "Informace o hrách od třetí strany (skóre, kompatibilita se službou Steam, howlongtobeat, pcgamingwiki, applegamingwiki)",
+                "help4": "Informace o knihovně GOG (seznam her, informace v instalačním dialogu, informace o api -např.: požadavky-)",
+                "help5": "Informace o knihovně Amazon (seznam her, informace v instalačním dialogu)",
+                "help9": "Nastavení her",
+                "help10": "Nastavení programu Heroic",
+                "help3": "Informace o knihovně Legendary (seznam her, informace v instalačním dialogu, informace o hrách)",
+                "help6": "Tato akce NEodstraní:",
+                "help7": "Přihlášení do obchodu"
+            },
+            "resetHeroic": {
+                "help": "Tato akce odstraní všechna nastavení a mezipaměť, ale neodstraní vaše nainstalované hry nebo přihlašovací údaje do služby Epic. Přenosné verze programu Heroic (AppImage, WinPortable, ...) musí být po této akci ručně restartovány."
+            }
         }
     },
     "Settings": "Nastavení",
