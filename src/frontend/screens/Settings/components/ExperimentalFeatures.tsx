@@ -1,37 +1,39 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import useSetting from 'frontend/hooks/useSetting'
+import { useGlobalConfig } from 'frontend/hooks/config'
 import { ToggleSwitch } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
+import type { GlobalConfig } from 'backend/config/schemas'
+
+interface FeatureToggleProps {
+  feature: keyof GlobalConfig
+}
+function FeatureToggle({ feature }: FeatureToggleProps) {
+  const { t } = useTranslation()
+  const [value, setValue, valueFetched] = useGlobalConfig(feature)
+
+  if (!valueFetched) return <></>
+
+  return (
+    <ToggleSwitch
+      htmlId={feature}
+      value={value}
+      handleChange={async () => setValue(!value)}
+      title={t(`setting.experimental_features.${feature}`, feature)}
+    />
+  )
+}
 
 const ExperimentalFeatures = () => {
   const { platform } = useContext(ContextProvider)
 
-  const FEATURES = ['enableNewDesign', 'enableHelp']
+  const FEATURES: (keyof GlobalConfig)[] = ['enableNewDesign', 'enableHelp']
 
   if (platform !== 'win32') {
     FEATURES.push('automaticWinetricksFixes')
   }
 
   const { t } = useTranslation()
-  const [experimentalFeatures, setExperimentalFeatures] = useSetting(
-    'experimentalFeatures',
-    {
-      enableNewDesign: false,
-      enableHelp: false,
-      automaticWinetricksFixes: true
-    }
-  )
-  const { handleExperimentalFeatures } = useContext(ContextProvider)
-
-  const toggleFeature = (feature: string) => {
-    const newFeatures = {
-      ...experimentalFeatures,
-      [feature]: !experimentalFeatures[feature]
-    }
-    setExperimentalFeatures(newFeatures) // update settings
-    handleExperimentalFeatures(newFeatures) // update global state
-  }
 
   /*
     Translations:
@@ -48,12 +50,7 @@ const ExperimentalFeatures = () => {
       {FEATURES.map((feature) => {
         return (
           <div key={feature}>
-            <ToggleSwitch
-              htmlId={feature}
-              value={experimentalFeatures[feature]}
-              handleChange={() => toggleFeature(feature)}
-              title={t(`setting.experimental_features.${feature}`, feature)}
-            />
+            <FeatureToggle feature={feature} />
           </div>
         )
       })}
