@@ -5,7 +5,8 @@
         "content_font_family_no_default": "Tipografía de contenido (Por Defecto: ",
         "fonts": "Tipografías",
         "title": "Accesibilidad",
-        "zoom": "Zoom"
+        "zoom": "Zoom",
+        "disable_dialog_backdrop_close": "Desactivar el cierre de diálogos pulsando fuera"
     },
     "add_game": "Añadir juego",
     "All": "Todos",
@@ -744,6 +745,17 @@
         },
         "gamescope": {
             "searchMsg": "Buscando el ejecutable de gamescope."
+        },
+        "offline": {
+            "warning": "Este juego no permite explícitamente el modo offline, actívalo bajo tu propia responsabilidad. Es posible que el juego no funcione."
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Juegos Instalados"
+            },
+            "title": {
+                "resetHeroic": "Reset Heroic"
+            }
         }
     },
     "Settings": "Ajustes",
