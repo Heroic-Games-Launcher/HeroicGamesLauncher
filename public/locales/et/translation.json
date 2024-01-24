@@ -635,6 +635,14 @@
         "saves": {
             "label": "Salvestuste asukoht:",
             "warning": "Pilvesalvestuse funktsioon on beetaversioonis, enne sünkroonimist varundage oma salvestused (juhuks, kui midagi läheb valesti)"
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Installitud mängud"
+            },
+            "title": {
+                "resetHeroic": "Lähtesta Heroic"
+            }
         }
     },
     "Settings": "Seaded",
