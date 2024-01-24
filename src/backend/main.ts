@@ -1476,6 +1476,13 @@ ipcMain.handle('clipboardReadText', () => clipboard.readText())
 
 ipcMain.on('clipboardWriteText', (e, text) => clipboard.writeText(text))
 
+ipcMain.on('copySettingsToClipboard', (e, appName, runner) => {
+  const gameConfig =
+    appName === 'default' ? getGameConfig(appName, runner) : getGlobalConfig()
+  const gameConfigStr = JSON.stringify(gameConfig, null, 2)
+  clipboard.writeText(gameConfigStr)
+})
+
 ipcMain.handle('getCustomThemes', async () => {
   const { customThemesPath } = getGlobalConfig()
 

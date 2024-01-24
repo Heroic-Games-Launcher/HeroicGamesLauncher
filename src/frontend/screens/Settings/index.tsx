@@ -94,9 +94,7 @@ function Settings() {
             'Copy All Settings to Clipboard'
           ),
           onclick: async () =>
-            window.api.clipboardWriteText(
-              JSON.stringify({ appName, title, ...currentConfig })
-            ),
+            window.api.copySettingsToClipboard(appName, runner),
           show: !isLogSettings
         },
         {

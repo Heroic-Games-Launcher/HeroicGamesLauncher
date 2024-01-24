@@ -26,8 +26,6 @@ import {
 } from '../../components'
 
 export default function AdvancedSetting() {
-  const { config } = useContext(SettingsContext)
-
   const [isCopiedToClipboard, setCopiedToClipboard] = useState(false)
 
   const [eosOverlayInstalled, setEosOverlayInstalled] = useState(false)
@@ -42,6 +40,7 @@ export default function AdvancedSetting() {
   const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
 
   const { libraryStatus, platform } = useContext(ContextProvider)
+  const { appName, runner } = useContext(SettingsContext)
   const { t } = useTranslation()
   const isWindows = platform === 'win32'
 
@@ -312,9 +311,7 @@ export default function AdvancedSetting() {
             isSuccess: isCopiedToClipboard
           })}
           onClick={() => {
-            window.api.clipboardWriteText(
-              JSON.stringify({ ...config }, null, 2)
-            )
+            window.api.copySettingsToClipboard(appName, runner)
             setCopiedToClipboard(true)
           }}
         >
