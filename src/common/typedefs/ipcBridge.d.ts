@@ -139,7 +139,7 @@ interface AsyncIPCFunctions {
   checkGameUpdates: () => Promise<string[]>
   getEpicGamesStatus: () => Promise<boolean>
   updateAll: () => Promise<({ status: 'done' | 'error' | 'abort' } | null)[]>
-  getMaxCpus: () => number
+  getMaxCpus: () => PositiveInteger
   getHeroicVersion: () => string
   getLegendaryVersion: () => Promise<string>
   getGogdlVersion: () => Promise<string>

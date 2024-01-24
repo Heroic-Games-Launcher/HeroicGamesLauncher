@@ -666,7 +666,7 @@ ipcMain.handle('checkGameUpdates', async (): Promise<string[]> => {
 
 ipcMain.handle('getEpicGamesStatus', async () => isEpicServiceOffline())
 
-ipcMain.handle('getMaxCpus', () => cpus().length)
+ipcMain.handle('getMaxCpus', () => PositiveInteger.parse(cpus().length))
 
 ipcMain.handle('getHeroicVersion', app.getVersion)
 ipcMain.handle('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
