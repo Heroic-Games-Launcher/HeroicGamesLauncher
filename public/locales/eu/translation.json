@@ -624,6 +624,12 @@
         "saves": {
             "label": "Gorde kokapena:",
             "warning": "Hodeiko Gordeen eginbidea beta-n dago. Sinkronizatu aurretik gordetako babeskopiak egin behar dira (zerbait gaizki gertatzen bada)"
+        },
+        "advanced": {
+            "details": "Xehetasunak",
+            "title": {
+                "resetHeroic": "Berrezarri Heroic"
+            }
         }
     },
     "Settings": "Ezarpenak",
