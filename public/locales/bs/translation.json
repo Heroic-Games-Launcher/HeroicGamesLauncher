@@ -633,6 +633,11 @@
         "saves": {
             "label": "Sačuvaj lokaciju:",
             "warning": "Funkcija čuvanja u oblaku je u beta verziji, napravite sigurnosnu kopiju vaših sačuvanih podataka prije sinhronizacije (u slučaju da nešto krene po zlu)"
+        },
+        "advanced": {
+            "title": {
+                "resetHeroic": "Resetujte Heroic"
+            }
         }
     },
     "Settings": "Postavke",
