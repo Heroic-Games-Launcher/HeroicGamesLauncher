@@ -717,6 +717,15 @@
         },
         "gamescope": {
             "searchMsg": "Търсене на изпълнимия файл на gamescope."
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Installed Games"
+            },
+            "details": "Подробности",
+            "title": {
+                "resetHeroic": "Reset Heroic"
+            }
         }
     },
     "Settings": "Настройки",
