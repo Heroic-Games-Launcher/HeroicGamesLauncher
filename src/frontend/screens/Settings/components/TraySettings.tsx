@@ -1,19 +1,19 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
-import useSetting from 'frontend/hooks/useSetting'
+import { useGlobalConfig } from 'frontend/hooks/config'
 
 const TraySettings = () => {
   const { t } = useTranslation()
-  const [exitToTray, setExitToTray] = useSetting('exitToTray', false)
-  const [startInTray, setStartInTray] = useSetting('startInTray', false)
+  const [exitToTray, setExitToTray] = useGlobalConfig('exitToTray')
+  const [startInTray, setStartInTray] = useGlobalConfig('startMinimizedToTray')
 
   return (
     <>
       <ToggleSwitch
         htmlId="exitToTray"
         value={exitToTray}
-        handleChange={() => setExitToTray(!exitToTray)}
+        handleChange={async () => setExitToTray(!exitToTray)}
         title={t('setting.exit-to-tray', 'Exit to System Tray')}
       />
 
@@ -21,7 +21,7 @@ const TraySettings = () => {
         <ToggleSwitch
           htmlId="startInTray"
           value={startInTray}
-          handleChange={() => setStartInTray(!startInTray)}
+          handleChange={async () => setStartInTray(!startInTray)}
           title={t('setting.start-in-tray', 'Start Minimized')}
         />
       )}

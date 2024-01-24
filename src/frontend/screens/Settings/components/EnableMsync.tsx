@@ -2,17 +2,19 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import SettingsContext from '../SettingsContext'
-import useSetting from 'frontend/hooks/useSetting'
+import { useSharedConfig } from 'frontend/hooks/config'
 import { ToggleSwitch } from 'frontend/components/UI'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const EnableMsync = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const { isMacNative } = useContext(SettingsContext)
   const isMac = platform === 'darwin'
-  const [enableMsync, setEnableMsync] = useSetting('enableMsync', false)
+  const [enableMsync, setEnableMsync, , isSetToDefault, resetToDefaultValue] =
+    useSharedConfig('mSync')
 
   if (!isMac || isMacNative) {
     return <></>
@@ -23,8 +25,14 @@ const EnableMsync = () => {
       <ToggleSwitch
         htmlId="msyncToggle"
         value={enableMsync || false}
-        handleChange={() => setEnableMsync(!enableMsync)}
+        handleChange={async () => setEnableMsync(!enableMsync)}
         title={t('setting.msync', 'Enable Msync')}
+        inlineElement={
+          <ResetToDefaultButton
+            resetToDefault={resetToDefaultValue}
+            isSetToDefault={isSetToDefault}
+          />
+        }
       />
 
       <FontAwesomeIcon

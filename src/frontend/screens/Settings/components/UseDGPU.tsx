@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
-import useSetting from 'frontend/hooks/useSetting'
+import { useSharedConfig } from 'frontend/hooks/config'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
@@ -11,7 +11,7 @@ const UseDGPU = () => {
   const { platform, showDialogModal } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
 
-  const [useDGPU, setUseDGPU] = useSetting('nvidiaPrime', false)
+  const [useDGPU, setUseDGPU] = useSharedConfig('useDedicatedGpu')
 
   if (!isLinux) {
     return <></>
@@ -31,7 +31,7 @@ const UseDGPU = () => {
             'Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?'
           ),
           buttons: [
-            { text: t('box.yes'), onClick: () => setUseDGPU(true) },
+            { text: t('box.yes'), onClick: async () => setUseDGPU(true) },
             { text: t('box.no') }
           ],
           type: 'MESSAGE'

@@ -1,30 +1,23 @@
-import React, { ChangeEvent, useContext } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { SelectField } from 'frontend/components/UI'
-import useSetting from 'frontend/hooks/useSetting'
-import ContextProvider from 'frontend/state/ContextProvider'
-import { LibraryTopSectionOptions } from 'common/types'
+import { useGlobalConfig } from 'frontend/hooks/config'
+import type { LibraryTopSectionOptions } from 'backend/config/schemas'
 
 const LibraryTopSection = () => {
   const { t } = useTranslation()
-  const { handleLibraryTopSection } = useContext(ContextProvider)
-  const [libraryTopSection, setLibraryTopSection] = useSetting(
-    'libraryTopSection',
-    'disabled'
-  )
+  const [libraryTopSection, setLibraryTopSection, topSectionConfigFetched] =
+    useGlobalConfig('libraryTopSection')
 
-  const onSectionChange = (event: ChangeEvent) => {
-    const newValue = (event.target as HTMLSelectElement)
-      .value as LibraryTopSectionOptions
-    handleLibraryTopSection(newValue)
-    setLibraryTopSection(newValue)
-  }
+  if (!topSectionConfigFetched) return <></>
 
   return (
     <SelectField
       label={t('setting.library_top_section', 'Library Top Section')}
       htmlId="library_top_section_selector"
-      onChange={onSectionChange}
+      onChange={async (event) =>
+        setLibraryTopSection(event.target.value as LibraryTopSectionOptions)
+      }
       value={libraryTopSection}
     >
       <option value="recently_played">

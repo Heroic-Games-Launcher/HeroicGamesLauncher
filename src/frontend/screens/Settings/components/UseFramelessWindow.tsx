@@ -1,16 +1,14 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
-import useSetting from 'frontend/hooks/useSetting'
+import { useGlobalConfig } from 'frontend/hooks/config'
 import ContextProvider from 'frontend/state/ContextProvider'
 
 const UseFramelessWindow = () => {
   const { t } = useTranslation()
   const { showDialogModal } = useContext(ContextProvider)
-  const [framelessWindow, setFramelessWindow] = useSetting(
-    'framelessWindow',
-    false
-  )
+  const [framelessWindow, setFramelessWindow] =
+    useGlobalConfig('framelessWindow')
 
   if (window.isSteamDeckGameMode) {
     return <></>
@@ -30,7 +28,7 @@ const UseFramelessWindow = () => {
         buttons: [
           {
             text: t('box.ok'),
-            onClick: () => setFramelessWindow(true)
+            onClick: async () => setFramelessWindow(true)
           },
           {
             text: t('button.cancel')

@@ -1,27 +1,28 @@
-import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { InfoBox, TextInputField } from 'frontend/components/UI'
-import useSetting from 'frontend/hooks/useSetting'
-import SettingsContext from '../SettingsContext'
+import { useGameConfig } from 'frontend/hooks/config'
 
 const LauncherArgs = () => {
   const { t } = useTranslation()
-  const { isDefault } = useContext(SettingsContext)
-  const [launcherArgs, setLauncherArgs] = useSetting('launcherArgs', '')
+  const [launcherArgs, setLauncherArgs, launcherArgsFetched] =
+    useGameConfig('launcherArgs')
   const [error, setError] = useState('')
 
-  const handleLauncherArgs = (event: ChangeEvent<HTMLInputElement>) =>
+  if (!launcherArgsFetched) return <></>
+
+  const handleLauncherArgs = async (event: ChangeEvent<HTMLInputElement>) =>
     setLauncherArgs(event.currentTarget.value)
 
   useEffect(() => {
-    if (launcherArgs.match(/%command/)) {
+    if (launcherArgs?.match(/%command/)) {
       setError(
         t(
           'options.gameargs.error.command',
           'The %command% syntax from Steam is not valid as game arguments.'
         )
       )
-    } else if (launcherArgs.match(/[A-Z_]+=\S/)) {
+    } else if (launcherArgs?.match(/[A-Z_]+=\S/)) {
       setError(
         t(
           'options.gameargs.error.env',
@@ -32,10 +33,6 @@ const LauncherArgs = () => {
       setError('')
     }
   }, [launcherArgs])
-
-  if (isDefault) {
-    return <></>
-  }
 
   const launcherArgsInfo = (
     <InfoBox text="infobox.help">
@@ -59,7 +56,7 @@ const LauncherArgs = () => {
       label={t('options.gameargs.title')}
       htmlId="launcherArgs"
       placeholder={t('options.gameargs.placeholder')}
-      value={launcherArgs}
+      value={launcherArgs ?? ''}
       onChange={handleLauncherArgs}
       afterInput={
         <>

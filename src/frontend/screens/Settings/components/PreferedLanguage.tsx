@@ -1,13 +1,16 @@
 import React, { ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { InfoBox, TextInputField } from 'frontend/components/UI'
-import useSetting from 'frontend/hooks/useSetting'
+import { useGameConfig } from 'frontend/hooks/config'
 
 const PreferedLanguage = () => {
   const { t } = useTranslation()
-  const [languageCode, setLanguageCode] = useSetting('language', '')
+  const [languageCode, setLanguageCode, gameLanguageConfigFetched] =
+    useGameConfig('gameLanguage')
 
-  const handleLanguageCode = (event: ChangeEvent<HTMLInputElement>) =>
+  if (!gameLanguageConfigFetched) return <></>
+
+  const handleLanguageCode = async (event: ChangeEvent<HTMLInputElement>) =>
     setLanguageCode(event.currentTarget.value)
 
   const languageInfo = (

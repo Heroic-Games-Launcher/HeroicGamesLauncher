@@ -10,12 +10,7 @@ import {
   ToggleSwitch
 } from 'frontend/components/UI'
 import { DialogContent, DialogFooter } from 'frontend/components/UI/Dialog'
-import {
-  getGameInfo,
-  getGameSettings,
-  removeSpecialcharacters,
-  writeConfig
-} from 'frontend/helpers'
+import { getGameInfo, removeSpecialcharacters } from 'frontend/helpers'
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AvailablePlatforms } from '..'
@@ -117,17 +112,14 @@ export default function SideloadDialog({
   useEffect(() => {
     const setWine = async () => {
       if (editMode && appName) {
-        const appSettings = await window.api.getGameSettings(
+        const { winePrefix } = await window.api.config.game.get(
           appName,
           'sideload'
         )
-        if (appSettings?.winePrefix) {
-          setWinePrefix(appSettings.winePrefix)
-        }
-        return
+        setWinePrefix(winePrefix)
       } else {
-        const { defaultWinePrefix } = await window.api.requestAppSettings()
-        const sugestedWinePrefix = `${defaultWinePrefix}/${title}`
+        const { winePrefixBasePath } = await window.api.config.global.get()
+        const sugestedWinePrefix = `${winePrefixBasePath}/${title}`
         setWinePrefix(sugestedWinePrefix)
       }
     }
@@ -177,19 +169,29 @@ export default function SideloadDialog({
       customUserAgent,
       launchFullScreen
     })
-    const gameSettings = await getGameSettings(app_name, 'sideload')
-    if (!gameSettings) {
-      return
+
+    if (wineVersion) {
+      window.api.config.game.set(
+        app_name,
+        'sideload',
+        'wineVersion',
+        wineVersion
+      )
+      if (wineVersion.type === 'crossover')
+        window.api.config.game.set(
+          app_name,
+          'sideload',
+          'crossoverBottle',
+          crossoverBottle
+        )
+      else
+        window.api.config.game.set(
+          app_name,
+          'sideload',
+          'winePrefix',
+          winePrefix
+        )
     }
-    await writeConfig({
-      appName: app_name,
-      config: {
-        ...gameSettings,
-        winePrefix,
-        wineVersion,
-        wineCrossoverBottle: crossoverBottle
-      }
-    })
 
     await refreshLibrary({
       library: 'sideload',
@@ -228,31 +230,26 @@ export default function SideloadDialog({
     })
     if (path) {
       exeToRun = path
-      try {
-        setRunningSetup(true)
-        const gameSettings = await getGameSettings(app_name, 'sideload')
-        if (!gameSettings) {
-          return
-        }
-        await writeConfig({
-          appName: app_name,
-          config: { ...gameSettings, winePrefix, wineVersion }
-        })
-        await window.api.runWineCommand({
-          commandParts: [exeToRun],
-          wait: true,
-          protonVerb: 'runinprefix',
-          gameSettings: {
-            ...gameSettings,
-            winePrefix,
-            wineVersion: wineVersion || gameSettings.wineVersion
-          }
-        })
-        setRunningSetup(false)
-      } catch (error) {
-        console.log('finished with error', error)
-        setRunningSetup(false)
-      }
+      setRunningSetup(true)
+      await window.api.config.game.set(
+        app_name,
+        'sideload',
+        'winePrefix',
+        winePrefix
+      )
+      if (wineVersion)
+        await window.api.config.game.set(
+          app_name,
+          'sideload',
+          'wineVersion',
+          wineVersion
+        )
+      await window.api.runWineCommand(app_name, 'sideload', {
+        commandParts: [exeToRun],
+        wait: true,
+        protonVerb: 'runinprefix'
+      })
+      setRunningSetup(false)
     }
     return
   }

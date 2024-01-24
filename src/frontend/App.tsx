@@ -15,16 +15,14 @@ import SettingsModal from './screens/Settings/components/SettingsModal'
 import ExternalLinkDialog from './components/UI/ExternalLinkDialog'
 import WindowControls from './components/UI/WindowControls'
 import classNames from 'classnames'
+import { useGlobalConfig } from './hooks/config'
 
 function Root() {
-  const {
-    isSettingsModalOpen,
-    isRTL,
-    isFullscreen,
-    isFrameless,
-    experimentalFeatures,
-    help
-  } = useContext(ContextProvider)
+  const { isSettingsModalOpen, isRTL, isFullscreen, isFrameless, help } =
+    useContext(ContextProvider)
+
+  const [enableNewDesign] = useGlobalConfig('enableNewDesign')
+  const [enableHelp] = useGlobalConfig('enableHelp')
 
   const hasNativeOverlayControls = navigator['windowControlsOverlay']?.visible
   const showOverlayControls = isFrameless && !hasNativeOverlayControls
@@ -36,7 +34,7 @@ function Root() {
         isRTL,
         frameless: isFrameless,
         fullscreen: isFullscreen,
-        oldDesign: !experimentalFeatures.enableNewDesign
+        oldDesign: !enableNewDesign
       })}
       // disable dragging for all elements by default
       onDragStart={(e) => e.preventDefault()}
@@ -59,7 +57,7 @@ function Root() {
         <div className="simple-keyboard"></div>
       </div>
       {showOverlayControls && <WindowControls />}
-      {experimentalFeatures.enableHelp && <Help items={help.items} />}
+      {enableHelp && <Help items={help.items} />}
     </div>
   )
 }

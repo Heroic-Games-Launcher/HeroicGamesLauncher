@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
-import useSetting from 'frontend/hooks/useSetting'
+import { useGlobalConfig } from 'frontend/hooks/config'
 import SettingsContext from '../SettingsContext'
 
 const Shortcuts = () => {
@@ -13,18 +13,14 @@ const Shortcuts = () => {
   const isLinux = platform === 'linux'
   const supportsDesktopShortcut = isWin || isLinux
 
-  const [addDesktopShortcuts, setAddDesktopShortcuts] = useSetting(
-    'addDesktopShortcuts',
-    false
+  const [addDesktopShortcuts, setAddDesktopShortcuts] = useGlobalConfig(
+    'addDesktopShortcuts'
   )
-  const [addStartMenuShortcuts, setAddStartMenuShortcuts] = useSetting(
-    'addStartMenuShortcuts',
-    false
+  const [addStartMenuShortcuts, setAddStartMenuShortcuts] = useGlobalConfig(
+    'addStartMenuShortcuts'
   )
-  const [addSteamShortcuts, setAddSteamShortcuts] = useSetting(
-    'addSteamShortcuts',
-    false
-  )
+  const [addSteamShortcuts, setAddSteamShortcuts] =
+    useGlobalConfig('addSteamShortcuts')
 
   if (!isDefault) {
     return <></>
@@ -47,7 +43,9 @@ const Shortcuts = () => {
         <ToggleSwitch
           htmlId="shortcutsToDesktop"
           value={addDesktopShortcuts}
-          handleChange={() => setAddDesktopShortcuts(!addDesktopShortcuts)}
+          handleChange={async () =>
+            setAddDesktopShortcuts(!addDesktopShortcuts)
+          }
           title={t(
             'setting.adddesktopshortcuts',
             'Add desktop shortcuts automatically'
@@ -58,14 +56,16 @@ const Shortcuts = () => {
       <ToggleSwitch
         htmlId="shortcutsToMenu"
         value={addStartMenuShortcuts}
-        handleChange={() => setAddStartMenuShortcuts(!addStartMenuShortcuts)}
+        handleChange={async () =>
+          setAddStartMenuShortcuts(!addStartMenuShortcuts)
+        }
         title={menuShortcutsLabel}
       />
 
       <ToggleSwitch
         htmlId="shortcutsToSteam"
         value={addSteamShortcuts}
-        handleChange={() => setAddSteamShortcuts(!addSteamShortcuts)}
+        handleChange={async () => setAddSteamShortcuts(!addSteamShortcuts)}
         title={t('setting.addgamestosteam', 'Add games to Steam automatically')}
       />
     </>

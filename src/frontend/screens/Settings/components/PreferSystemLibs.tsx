@@ -1,22 +1,20 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
-import useSetting from 'frontend/hooks/useSetting'
+import { useSharedConfig } from 'frontend/hooks/config'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
-import { defaultWineVersion } from '..'
 
 const PreferSystemLibs = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
-  const [preferSystemLibs, setPreferSystemLibs] = useSetting(
-    'preferSystemLibs',
-    false
-  )
+  const [preferSystemLibs, setPreferSystemLibs, systemLibsConfigFetched] =
+    useSharedConfig('preferSystemLibraries')
+  const [wineVersion, , wineVersionFetched] = useSharedConfig('wineVersion')
 
-  const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
+  if (!systemLibsConfigFetched || !wineVersionFetched) return <></>
 
   const isSystemWine = wineVersion.bin.startsWith('/usr')
   const isProton = wineVersion.type === 'proton'
@@ -32,7 +30,7 @@ const PreferSystemLibs = () => {
       <ToggleSwitch
         htmlId="systemLibsToggle"
         value={preferSystemLibs || false}
-        handleChange={() => setPreferSystemLibs(!preferSystemLibs)}
+        handleChange={async () => setPreferSystemLibs(!preferSystemLibs)}
         title={t('setting.preferSystemLibs', 'Prefer system libraries')}
       />
 

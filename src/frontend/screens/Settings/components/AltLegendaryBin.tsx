@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import useSetting from 'frontend/hooks/useSetting'
+import { useGlobalConfig } from 'frontend/hooks/config'
 import { PathSelectionBox } from 'frontend/components/UI'
 
 const AltLegendaryBin = () => {
   const { t } = useTranslation()
   const [legendaryVersion, setLegendaryVersion] = useState('')
-  const [altLegendaryBin, setAltLegendaryBin] = useSetting(
-    'altLegendaryBin',
-    ''
+  const [altLegendaryBin, setAltLegendaryBin] = useGlobalConfig(
+    'alternativeLegendaryBinary'
   )
 
   useEffect(() => {
@@ -35,7 +34,7 @@ const AltLegendaryBin = () => {
       )}
       type="file"
       onPathChange={setAltLegendaryBin}
-      path={altLegendaryBin}
+      path={altLegendaryBin ?? ''}
       placeholder={t(
         'placeholder.alt-legendary-bin',
         'Using built-in Legendary binary...'

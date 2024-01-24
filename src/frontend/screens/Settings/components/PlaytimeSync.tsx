@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
-import useSetting from 'frontend/hooks/useSetting'
+import { useGlobalConfig } from 'frontend/hooks/config'
 import SettingsContext from '../SettingsContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
@@ -9,9 +9,8 @@ import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 const PlaytimeSync = () => {
   const { t } = useTranslation()
   const { isDefault } = useContext(SettingsContext)
-  const [disablePlaytimeSync, setDisablePlaytimeSync] = useSetting(
-    'disablePlaytimeSync',
-    false
+  const [disablePlaytimeSync, setDisablePlaytimeSync] = useGlobalConfig(
+    'disablePlaytimeSync'
   )
 
   if (!isDefault) {
@@ -23,7 +22,7 @@ const PlaytimeSync = () => {
       <ToggleSwitch
         htmlId="disablePlaytimeSync"
         value={disablePlaytimeSync}
-        handleChange={() => setDisablePlaytimeSync(!disablePlaytimeSync)}
+        handleChange={async () => setDisablePlaytimeSync(!disablePlaytimeSync)}
         title={t(
           'setting.disablePlaytimeSync',
           'Disable playtime synchronization'

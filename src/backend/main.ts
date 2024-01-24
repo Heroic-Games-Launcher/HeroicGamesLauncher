@@ -63,7 +63,6 @@ import {
   discordLink,
   gamesConfigPath,
   heroicGithubURL,
-  userHome,
   icon,
   installed,
   kofiPage,
@@ -164,7 +163,6 @@ const { showOpenDialog } = dialog
 
 async function initializeWindow(): Promise<BrowserWindow> {
   createNecessaryFolders()
-  configStore.set('userHome', userHome)
   const mainWindow = createMainWindow()
 
   if ((isSteamDeckGameMode || isCLIFullscreen) && !isCLINoGui) {

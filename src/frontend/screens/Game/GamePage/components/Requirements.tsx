@@ -4,12 +4,12 @@ import GameContext from '../../GameContext'
 import { Hardware } from '@mui/icons-material'
 import PopoverComponent from 'frontend/components/UI/PopoverComponent'
 import GameRequirements from '../../GameRequirements'
-import ContextProvider from 'frontend/state/ContextProvider'
+import { useGlobalConfig } from 'frontend/hooks/config'
 
 const Requirements = () => {
   const { t } = useTranslation('gamepage')
   const { gameExtraInfo } = useContext(GameContext)
-  const { experimentalFeatures } = useContext(ContextProvider)
+  const [enableNewDesign] = useGlobalConfig('enableNewDesign')
 
   if (!gameExtraInfo) {
     return null
@@ -21,7 +21,7 @@ const Requirements = () => {
     return null
   }
 
-  if (experimentalFeatures.enableNewDesign) {
+  if (enableNewDesign) {
     return <GameRequirements reqs={gameExtraInfo.reqs} />
   }
 

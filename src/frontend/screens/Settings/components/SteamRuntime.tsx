@@ -2,10 +2,9 @@ import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
-import useSetting from 'frontend/hooks/useSetting'
+import { useSharedConfig } from 'frontend/hooks/config'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
-import { defaultWineVersion } from '..'
 import SettingsContext from '../SettingsContext'
 
 const SteamRuntime = () => {
@@ -14,11 +13,8 @@ const SteamRuntime = () => {
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
   const isWin = platform === 'win32'
-  const [useSteamRuntime, setUseSteamRuntime] = useSetting(
-    'useSteamRuntime',
-    false
-  )
-  const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
+  const [useSteamRuntime, setUseSteamRuntime] = useSharedConfig('steamRuntime')
+  const [wineVersion] = useSharedConfig('wineVersion')
 
   const isProton = !isWin && wineVersion?.type === 'proton'
 
@@ -33,7 +29,7 @@ const SteamRuntime = () => {
       <ToggleSwitch
         htmlId="steamruntime"
         value={useSteamRuntime}
-        handleChange={() => setUseSteamRuntime(!useSteamRuntime)}
+        handleChange={async () => setUseSteamRuntime(!useSteamRuntime)}
         title={t('setting.steamruntime', 'Use Steam Runtime')}
       />
 

@@ -1,21 +1,15 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { InfoBox, PathSelectionBox } from 'frontend/components/UI'
-import useSetting from 'frontend/hooks/useSetting'
 import SettingsContext from '../SettingsContext'
 import { hasHelp } from 'frontend/hooks/hasHelp'
+import { useGlobalConfig } from 'frontend/hooks/config'
 
 const DefaultSteamPath = () => {
   const { t } = useTranslation()
   const { isDefault } = useContext(SettingsContext)
-  const [defaultSteamPath, setDefaultSteamPath] = useSetting(
-    'defaultSteamPath',
-    ''
-  )
-
-  if (!isDefault) {
-    return <></>
-  }
+  const [defaultSteamPath, setDefaultSteamPath, steamPathFetched] =
+    useGlobalConfig('steamPath')
 
   const helpContent = t(
     'help.steam_path.info',
@@ -27,6 +21,10 @@ const DefaultSteamPath = () => {
     t('setting.default-steam-path', 'Default Steam path'),
     <p>{helpContent}</p>
   )
+
+  if (!isDefault || !steamPathFetched) {
+    return <></>
+  }
 
   const steamPathInfo = <InfoBox text="infobox.help">{helpContent}</InfoBox>
 

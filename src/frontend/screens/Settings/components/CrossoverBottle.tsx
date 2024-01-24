@@ -1,18 +1,20 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { TextInputField } from 'frontend/components/UI'
-import useSetting from 'frontend/hooks/useSetting'
-import { defaultWineVersion } from '..'
+import { useSharedConfig } from 'frontend/hooks/config'
 
 export default function CrossoverBottle() {
   const { t } = useTranslation()
-  const [wineCrossoverBottle, setWineCrossoverBottle] = useSetting(
-    'wineCrossoverBottle',
-    'Heroic'
-  )
-  const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
+  const [crossoverBottle, setCrossoverBottle, crossoverBottleConfigFetched] =
+    useSharedConfig('crossoverBottle')
+  const [wineVersion, , wineVersionConfigFetched] =
+    useSharedConfig('wineVersion')
 
-  if (wineVersion.type !== 'crossover') {
+  if (
+    !crossoverBottleConfigFetched ||
+    !wineVersionConfigFetched ||
+    wineVersion.type !== 'crossover'
+  ) {
     return <></>
   }
 
@@ -20,8 +22,8 @@ export default function CrossoverBottle() {
     <TextInputField
       label={t('setting.winecrossoverbottle', 'CrossOver Bottle')}
       htmlId="crossoverBottle"
-      value={wineCrossoverBottle}
-      onChange={(event) => setWineCrossoverBottle(event.target.value)}
+      value={crossoverBottle}
+      onChange={async (event) => setCrossoverBottle(event.target.value)}
     />
   )
 }

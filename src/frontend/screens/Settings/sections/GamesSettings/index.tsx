@@ -37,12 +37,11 @@ import Tools from '../../components/Tools'
 import SettingsContext from '../../SettingsContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
-import useSetting from 'frontend/hooks/useSetting'
-import { defaultWineVersion } from '../..'
 import SyncSaves from '../SyncSaves'
 import FooterInfo from '../FooterInfo'
 import { Tabs, Tab } from '@mui/material'
 import { GameInfo } from 'common/types'
+import { useSharedConfig } from 'frontend/hooks/config'
 
 type TabPanelProps = {
   children?: React.ReactNode
@@ -88,7 +87,7 @@ export default function GamesSettings() {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const { isDefault, gameInfo } = useContext(SettingsContext)
-  const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
+  const [wineVersion] = useSharedConfig('wineVersion')
   const [isNative, setIsNative] = useState(false)
   const isLinux = platform === 'linux'
   const isWin = platform === 'win32'
@@ -226,17 +225,17 @@ export default function GamesSettings() {
       </TabPanel>
 
       <TabPanel value={value} index={'advanced'}>
-        {!isSideloaded && (
+        {!isDefault && !isSideloaded && (
           <>
             <IgnoreGameUpdates />
             <OfflineMode />
           </>
         )}
-        <AlternativeExe />
-        <LauncherArgs />
+        {!isDefault && !isSideloaded && <AlternativeExe />}
+        {!isDefault && <LauncherArgs />}
         <WrappersTable />
         <EnvVariablesTable />
-        {!isSideloaded && <PreferedLanguage />}
+        {!isDefault && !isSideloaded && <PreferedLanguage />}
       </TabPanel>
 
       <TabPanel value={value} index={'saves'}>

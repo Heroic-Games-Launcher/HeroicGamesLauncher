@@ -1,17 +1,17 @@
 import React, { ChangeEvent, useContext, useState } from 'react'
-
 import { useTranslation } from 'react-i18next'
-
 import ContextProvider from 'frontend/state/ContextProvider'
-import useSetting from 'frontend/hooks/useSetting'
 import { InfoBox, ToggleSwitch, PathSelectionBox } from 'frontend/components/UI'
+import { useGlobalConfig } from 'frontend/hooks/config'
 
 const EgsSettings = () => {
   const { t } = useTranslation()
   const [isSyncing, setIsSyncing] = useState(false)
   const { platform, refreshLibrary, showDialogModal } =
     useContext(ContextProvider)
-  const [egsPath, setEgsPath] = useSetting('egsLinkedPath', '')
+  const [egsPath, setEgsPath, egsPathFetched] = useGlobalConfig('egsLinkedPath')
+
+  if (!egsPathFetched) return <></>
 
   function handleSync(
     path_or_change_event: string | ChangeEvent<HTMLInputElement>
@@ -70,7 +70,7 @@ const EgsSettings = () => {
       <PathSelectionBox
         type={'directory'}
         onPathChange={handleSync}
-        path={egsPath}
+        path={egsPath ?? ''}
         placeholder={t('placeholder.egs-prefix')}
         pathDialogTitle={t('box.choose-egs-prefix')}
         canEditPath={isSyncing}

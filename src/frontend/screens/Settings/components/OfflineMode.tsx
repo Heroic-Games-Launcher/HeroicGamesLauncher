@@ -2,14 +2,14 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
 import { getGameInfo } from 'frontend/helpers'
-import useSetting from 'frontend/hooks/useSetting'
+import { useGameConfig } from 'frontend/hooks/config'
 import SettingsContext from '../SettingsContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 
 const OfflineMode = () => {
   const { t } = useTranslation()
-  const { isDefault, appName, runner } = useContext(SettingsContext)
+  const { appName, runner } = useContext(SettingsContext)
   const [canRunOffline, setCanRunOffline] = useState(true)
 
   useEffect(() => {
@@ -21,14 +21,12 @@ const OfflineMode = () => {
       }
     }
 
-    if (!isDefault) {
-      getInfo()
-    }
+    getInfo()
   }, [])
 
-  const [offlineMode, setOfflineMode] = useSetting('offlineMode', false)
+  const [offlineMode, setOfflineMode] = useGameConfig('runGameOffline')
 
-  if (isDefault || runner !== 'legendary') {
+  if (runner !== 'legendary') {
     return <></>
   }
 
@@ -37,7 +35,7 @@ const OfflineMode = () => {
       <ToggleSwitch
         htmlId="offlinemode"
         value={offlineMode}
-        handleChange={() => setOfflineMode(!offlineMode)}
+        handleChange={async () => setOfflineMode(!offlineMode)}
         title={t('setting.offlinemode')}
       />
       {!canRunOffline && offlineMode && (

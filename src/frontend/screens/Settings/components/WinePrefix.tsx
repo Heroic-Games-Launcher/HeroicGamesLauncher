@@ -1,24 +1,20 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import useSetting from 'frontend/hooks/useSetting'
+import { useSharedConfig } from 'frontend/hooks/config'
 import { InfoBox, PathSelectionBox } from 'frontend/components/UI'
-import SettingsContext from '../SettingsContext'
-import { defaultWineVersion } from '..'
 
 const WinePrefix = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
-  const { getSetting } = useContext(SettingsContext)
-  const wineVersion = getSetting('wineVersion', defaultWineVersion)
 
   const isWin = platform === 'win32'
 
-  const [defaultWinePrefix] = useSetting('defaultWinePrefix', '')
-  const [winePrefix, setWinePrefix] = useSetting(
-    'winePrefix',
-    defaultWinePrefix + '/default'
-  )
+  const [winePrefix, setWinePrefix, winePrefixFetched] =
+    useSharedConfig('winePrefix')
+  const [wineVersion, , wineVersionFetched] = useSharedConfig('wineVersion')
+
+  if (!winePrefixFetched || !wineVersionFetched) return <></>
 
   if (isWin || wineVersion.type === 'crossover') {
     return <></>

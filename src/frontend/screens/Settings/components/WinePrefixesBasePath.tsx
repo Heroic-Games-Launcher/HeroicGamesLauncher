@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import useSetting from 'frontend/hooks/useSetting'
+import { useGlobalConfig } from 'frontend/hooks/config'
 import { PathSelectionBox } from 'frontend/components/UI'
 import SettingsContext from 'frontend/screens/Settings/SettingsContext'
 
@@ -15,10 +15,10 @@ const WinePrefixesBasePath = () => {
     return <></>
   }
 
-  const [defaultWinePrefix, setDefaultWinePrefix] = useSetting(
-    'defaultWinePrefix',
-    ''
-  )
+  const [defaultWinePrefix, setDefaultWinePrefix, defaultPrefixPathFetched] =
+    useGlobalConfig('winePrefixBasePath')
+
+  if (!defaultPrefixPathFetched) return <></>
 
   return (
     <PathSelectionBox

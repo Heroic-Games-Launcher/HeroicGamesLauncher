@@ -46,7 +46,7 @@ export default React.memo(function RecentlyPlayed({
 
   const loadRecentGames = async () => {
     const hiddenAppNames = hiddenGames.list.map((game) => game.appName)
-    const { maxRecentGames } = await window.api.requestAppSettings()
+    const { maxRecentGames } = await window.api.config.global.get()
     let newRecentGames = getRecentGames(
       [
         ...epic.library,

@@ -1,21 +1,21 @@
 import React, { useContext } from 'react'
 import { ToggleSwitch } from 'frontend/components/UI'
-import useSetting from 'frontend/hooks/useSetting'
 import { useTranslation } from 'react-i18next'
-import { defaultWineVersion } from '..'
 import SettingsContext from '../SettingsContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import { useSharedConfig } from 'frontend/hooks/config'
 
 const AutoDXVKNVAPI = () => {
   const { t } = useTranslation()
-  const [autoInstallDXVKNVAPI, setAutoInstallDXVKNVAPI] = useSetting(
-    'autoInstallDxvkNvapi',
-    false
+  const [autoInstallDXVKNVAPI, setAutoInstallDXVKNVAPI] = useSharedConfig(
+    'autoInstallDxvkNvapi'
   )
-  const { appName } = useContext(SettingsContext)
-  const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
+  const { appName, runner } = useContext(SettingsContext)
+  const [wineVersion, , wineVersionFetched] = useSharedConfig('wineVersion')
   const [installingDxvkNvapi, setInstallingDxvkNvapi] = React.useState(false)
+
+  if (!wineVersionFetched) return <></>
 
   const handleAutoInstallDxvkNvapi = async () => {
     let res = true
@@ -26,6 +26,7 @@ const AutoDXVKNVAPI = () => {
       const action = autoInstallDXVKNVAPI ? 'restore' : 'backup'
       res = await window.api.toggleDXVKNVAPI({
         appName,
+        runner,
         action
       })
     }

@@ -1,27 +1,19 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { ToggleSwitch } from 'frontend/components/UI'
-import useSetting from 'frontend/hooks/useSetting'
+import { useGameConfig } from 'frontend/hooks/config'
 import { useTranslation } from 'react-i18next'
-import SettingsContext from '../SettingsContext'
 
 const IgnoreGameUpdates = () => {
   const { t } = useTranslation()
-  const { isDefault } = useContext(SettingsContext)
 
-  const [ignoreGameUpdates, setIgnoreGameUpdates] = useSetting(
-    'ignoreGameUpdates',
-    false
-  )
-
-  if (isDefault) {
-    return <></>
-  }
+  const [ignoreGameUpdates, setIgnoreGameUpdates] =
+    useGameConfig('ignoreGameUpdates')
 
   return (
     <ToggleSwitch
       htmlId="ignoreGameUpdates"
       value={ignoreGameUpdates}
-      handleChange={() => setIgnoreGameUpdates(!ignoreGameUpdates)}
+      handleChange={async () => setIgnoreGameUpdates(!ignoreGameUpdates)}
       title={t('setting.ignoreGameUpdates', 'Ignore game updates')}
     />
   )

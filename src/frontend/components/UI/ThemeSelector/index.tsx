@@ -2,9 +2,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { SelectField, InfoBox, PathSelectionBox } from '..'
-import { AppSettings } from 'common/types'
-import { writeConfig } from 'frontend/helpers'
 import { hasHelp } from 'frontend/hooks/hasHelp'
+import { useGlobalConfig } from 'frontend/hooks/config'
 
 export const defaultThemes = {
   midnightMirage: 'Midnight Mirage',
@@ -26,8 +25,7 @@ export const defaultThemes = {
 export const ThemeSelector = () => {
   const { theme, setTheme } = useContext(ContextProvider)
   const { t } = useTranslation()
-  const [appConfig, setAppConfig] = useState<AppSettings | null>(null)
-  const [themesPath, setThemesPath] = useState('')
+  const [themesPath, setThemesPath] = useGlobalConfig('customThemesPath')
   const [themes, setThemes] = useState<string[]>(Object.keys(defaultThemes))
 
   hasHelp(
@@ -37,34 +35,11 @@ export const ThemeSelector = () => {
   )
 
   // load themes from the custom themes path
-  const loadThemes = async () => {
-    const themes = await window.api.getCustomThemes()
-    setThemes([...Object.keys(defaultThemes), ...themes])
-  }
-
-  // update config, update component state, reload themes
-  const updatePath = async (path: string) => {
-    if (!appConfig) {
-      return
-    }
-
-    const newAppConfig = { ...appConfig, customThemesPath: path }
-    setThemesPath(path)
-    await writeConfig({ appName: 'default', config: newAppConfig })
-    setAppConfig(newAppConfig)
-    loadThemes()
-  }
-
   useEffect(() => {
-    const getPath = async () => {
-      const config = await window.api.requestAppSettings()
-      setAppConfig(config)
-      setThemesPath(config.customThemesPath || '')
-      loadThemes()
-    }
-
-    getPath()
-  }, [])
+    window.api.getCustomThemes().then((themes) => {
+      setThemes([...Object.keys(defaultThemes), ...themes])
+    })
+  }, [themesPath])
 
   return (
     <>
@@ -88,8 +63,8 @@ export const ThemeSelector = () => {
           'placeholder.custom_themes_path',
           'Select the path to look for custom CSS files'
         )}
-        path={themesPath}
-        onPathChange={updatePath}
+        path={themesPath ?? ''}
+        onPathChange={async (path) => setThemesPath(path)}
         pathDialogTitle={t('box.default-install-path')}
         type="directory"
         afterInput={

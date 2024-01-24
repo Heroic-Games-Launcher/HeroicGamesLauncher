@@ -17,17 +17,10 @@ import {
   AdvancedSettings,
   SystemInfo
 } from './sections'
-import { AppSettings, WineInstallation } from 'common/types'
 import { UpdateComponent } from 'frontend/components/UI'
 import { LocationState, SettingsContextType } from 'frontend/types'
 import useSettingsContext from 'frontend/hooks/useSettingsContext'
 import { hasHelp } from 'frontend/hooks/hasHelp'
-
-export const defaultWineVersion: WineInstallation = {
-  bin: '/usr/bin/wine',
-  name: 'Wine Default',
-  type: 'wine'
-}
 
 function Settings() {
   const { t, i18n } = useTranslation()
@@ -35,8 +28,6 @@ function Settings() {
     state: { fromGameCard, runner, gameInfo }
   } = useLocation() as { state: LocationState }
   const [title, setTitle] = useState('')
-
-  const [currentConfig, setCurrentConfig] = useState<Partial<AppSettings>>({})
 
   const { appName = '', type = '' } = useParams()
   const isDefault = appName === 'default'
@@ -65,21 +56,12 @@ function Settings() {
     <p>{helpContent}</p>
   )
 
-  // Load Heroic's or game's config, only if not loaded already
   useEffect(() => {
-    const getSettings = async () => {
-      const config = isDefault
-        ? await window.api.requestAppSettings()
-        : await window.api.requestGameSettings(appName)
-      setCurrentConfig(config)
-
-      if (!isDefault) {
-        setTitle(gameInfo?.title ?? appName)
-      } else {
-        setTitle(t('globalSettings', 'Global Settings'))
-      }
+    if (!isDefault) {
+      setTitle(gameInfo?.title ?? appName)
+    } else {
+      setTitle(t('globalSettings', 'Global Settings'))
     }
-    getSettings()
   }, [appName, isDefault, i18n.language])
 
   // generate return path

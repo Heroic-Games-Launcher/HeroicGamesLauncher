@@ -1,25 +1,25 @@
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import useSetting from 'frontend/hooks/useSetting'
 import { toggleControllerIsDisabled } from 'frontend/helpers/gamepad'
 import { ToggleSwitch } from 'frontend/components/UI'
+import { useGlobalConfig } from 'frontend/hooks/config'
 
 const DisableController = () => {
   const { t } = useTranslation()
-  const [disableController, setDisableController] = useSetting(
-    'disableController',
-    false
-  )
+  const [disableController, setDisableController, controllerConfigFetched] =
+    useGlobalConfig('disableController')
 
   useEffect(() => {
     toggleControllerIsDisabled(disableController)
   }, [disableController])
 
+  if (!controllerConfigFetched) return <></>
+
   return (
     <ToggleSwitch
       htmlId="disableController"
       value={disableController}
-      handleChange={() => setDisableController(!disableController)}
+      handleChange={async () => setDisableController(!disableController)}
       title={t(
         'setting.disable_controller',
         'Disable Heroic navigation using controller'

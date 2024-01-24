@@ -1,20 +1,18 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
-import useSetting from 'frontend/hooks/useSetting'
+import { useGlobalConfig } from 'frontend/hooks/config'
 
 const DownloadNoHTTPS = () => {
   const { t } = useTranslation()
-  const [downloadNoHttps, setDownloadNoHttps] = useSetting(
-    'downloadNoHttps',
-    false
-  )
+  const [downloadNoHttps, setDownloadNoHttps] =
+    useGlobalConfig('downloadNoHttps')
 
   return (
     <ToggleSwitch
       htmlId="downloadNoHttps"
       value={downloadNoHttps}
-      handleChange={() => setDownloadNoHttps(!downloadNoHttps)}
+      handleChange={async () => setDownloadNoHttps(!downloadNoHttps)}
       title={t(
         'setting.download-no-https',
         'Download games without HTTPS (useful for CDNs e.g. LanCache)'

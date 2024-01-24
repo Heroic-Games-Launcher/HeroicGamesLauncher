@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import useSetting from 'frontend/hooks/useSetting'
+import { useGlobalConfig } from 'frontend/hooks/config'
 import { PathSelectionBox } from 'frontend/components/UI'
 
 const AltGOGdlBin = () => {
   const { t } = useTranslation()
   const [gogdlVersion, setGogdlVersion] = useState('')
-  const [altGogdlBin, setAltGogdlBin] = useSetting('altGogdlBin', '')
+  const [altGogdlBin, setAltGogdlBin] = useGlobalConfig(
+    'alternativeGogdlBinary'
+  )
 
   useEffect(() => {
     const getGogdlVersion = async () => {
@@ -14,8 +16,8 @@ const AltGOGdlBin = () => {
       if (gogdlVersion === 'invalid') {
         setGogdlVersion('Invalid')
         setTimeout(() => {
-          setAltGogdlBin('')
-          return setGogdlVersion('')
+          setAltGogdlBin(null)
+          setGogdlVersion('')
         }, 3000)
       }
       return setGogdlVersion(gogdlVersion)
@@ -33,7 +35,7 @@ const AltGOGdlBin = () => {
       htmlId="setting-alt-gogdl"
       type="file"
       onPathChange={setAltGogdlBin}
-      path={altGogdlBin}
+      path={altGogdlBin ?? ''}
       placeholder={t(
         'placeholder.alt-gogdl-bin',
         'Using built-in GOGDL binary...'

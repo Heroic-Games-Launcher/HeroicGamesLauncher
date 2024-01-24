@@ -66,15 +66,11 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
       return
     }
 
-    const gameSettings = await window.api.getGameSettings(appName, runner)
-    if (!gameSettings) {
-      return
-    }
-
-    const defaultSettings = await window.api.requestGameSettings('default')
+    const gameSettings = await window.api.config.game.get(appName, runner)
+    const { winePrefix: defaultPrefix } = await window.api.config.global.get()
 
     setWinePrefix(gameSettings.winePrefix)
-    setDisableDeleteWine(gameSettings.winePrefix === defaultSettings.winePrefix)
+    setDisableDeleteWine(gameSettings.winePrefix === defaultPrefix)
   }
 
   useEffect(() => {
