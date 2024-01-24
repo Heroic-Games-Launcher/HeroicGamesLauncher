@@ -1,14 +1,14 @@
 {
     "box": {
         "change": {
-            "message": "Das wird den Installationsort dieses Spiels ändern. Möchtest du fortfahren?",
-            "path": "Wähle einen neuen Installationspfad",
+            "message": "Dies wird den Installationsort dieses Spiels ändern, sind sie sicher?",
+            "path": "Wählen sie einen neuen Installationspfad",
             "title": "Spiele-Installationspfad ändern"
         },
         "choose": "Auswählen",
         "importpath": "Zu importierenden Spieleordner auswählen",
         "move": {
-            "message": "Das kann einige Zeit in Anspruch nehmen. Möchtest du fortfahren?",
+            "message": "Dies kann einige Zeit in Anspruch nehmen, trotzdem fortfahren?",
             "path": "Wähle, wohin du verschieben möchtest",
             "title": "Spielinstallation verschieben"
         },
@@ -33,11 +33,11 @@
         },
         "uninstall": {
             "checkbox": "Präfix entfernen: {{prefix}}{{newLine}}Hinweis: Dies kann nicht rückgängig gemacht werden und löscht auch nicht gesicherte Spielstände.",
-            "message": "Möchtest du dieses Spiel deinstallieren?",
+            "message": "Möchtest du das Spiel \"{{title}}\" deinstallieren?",
             "settingcheckbox": "Einstellungen löschen und Log entfernen{{newLine}}Hinweis: Dies kann nicht rückgängig gemacht werden! Alle geänderten Einstellungen werden verworfen und das Log wird gelöscht.",
             "title": "Deinstallieren",
             "prefix_warning": "Das Wine-Präfix für dieses Spiel ist das Standardpräfix. Wenn du es wirklich löschen möchtest, dann musst du das manuell tun.",
-            "dlc": "Möchtest du dieses DLC deinstallieren?",
+            "dlc": "Möchtest du das DLC \"{{title}}\" deinstallieren?",
             "cannotUninstallEpic": "Spiele von Epic Games können nicht deinstalliert werden, während ein anderes Epic Spiel installiert wird."
         },
         "update": {
@@ -152,7 +152,9 @@
             "syncing": "Spielstände werden synchronisiert …"
         },
         "launching": "Wird gestartet …",
-        "ubisoft": "Ubisoft Connect wird installiert …"
+        "ubisoft": "Ubisoft Connect wird installiert …",
+        "prerequisites": "Installiere Voraussetzungen",
+        "winetricks": "Installiere Winetricks Pakete"
     },
     "launch": {
         "options": "Startoptionen …"
@@ -220,7 +222,9 @@
         "downloading": "Wird heruntergeladen …",
         "extracting": "Wird extrahiert …",
         "gog-goodie": "Dieses Spiel scheint nicht installiert werden zu können. Überprüfe herunterladbare Inhalte auf https://gog.com/account",
-        "goodie": "Kann nicht installiert werden"
+        "goodie": "Kann nicht installiert werden",
+        "prerequisites": "Installiere Voraussetzungen",
+        "winetricks": "Winetrick Fehlerkorrekturen anwenden"
     },
     "submenu": {
         "addShortcut": "Verknüpfung hinzufügen",
@@ -240,6 +244,12 @@
         "categories": "Kategorien"
     },
     "help": {
-        "cloud_save_unsupported": "Dieses Spiel unterstützt keinen Cloud-Speicher. Diese Informationen werden von den Spieleentwicklern bereitgestellt. Einige Spiele implementieren ihr eigenes Cloud-Speichersystem"
+        "cloud_save_unsupported": "Dieses Spiel unterstützt keinen Cloud-Speicher. Diese Informationen werden von den Spieleentwicklern bereitgestellt. Einige Spiele implementieren ihr eigenes Cloud-Speichersystem",
+        "content": {
+            "gamePage": "Zeige alle Spieldetails und Aktionen. Benutze das Dreipunktmenü für mehr Optionen."
+        },
+        "title": {
+            "gamePage": "Spieleseite"
+        }
     }
 }

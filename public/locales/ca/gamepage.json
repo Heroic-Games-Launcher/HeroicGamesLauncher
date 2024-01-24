@@ -33,11 +33,11 @@
         },
         "uninstall": {
             "checkbox": "Suprimeix el prefix: {{prefix}}{{newLine}}Avís: No es pot desfer i també suprimirà les partides desades de les quals no s'hagin fet còpies de seguretat.",
-            "message": "Vols desinstal·lar aquest joc?",
+            "message": "Vols desinstal·lar el «{{title}}»?",
             "settingcheckbox": "Esborra la configuració i suprimeix el registre{{newLine}}Avís: aquesta acció no es pot desfer. S'oblidarà qualsevol opció modificada i el registre se suprimirà.",
             "title": "Desinstal·la",
             "prefix_warning": "El prefix Wine d'aquest joc és el prefix predefinit. Si realment vols eliminar-lo, has de fer-ho manualment.",
-            "dlc": "Vols desinstal·lar aquest DLC?",
+            "dlc": "Vols desinstal·lar el «{{title}}» (DLC)?",
             "cannotUninstallEpic": "No es poden desinstal·lar jocs d'Epic Games mentre s'instal·la un altre joc d'Epic Games."
         },
         "update": {
@@ -152,7 +152,9 @@
             "syncing": "S'estan sincronitzant les partides"
         },
         "launching": "S'inicia",
-        "ubisoft": "S'instal·la l'Ubisoft Connect"
+        "ubisoft": "S'instal·la l'Ubisoft Connect",
+        "winetricks": "S'estan instal·lant els paquets del Winetricks",
+        "prerequisites": "S'estan instal·lant els prerequisits"
     },
     "launch": {
         "options": "Opcions d'execució..."
@@ -220,7 +222,9 @@
         "downloading": "Es baixa",
         "extracting": "Extracció",
         "gog-goodie": "Sembla que aquest joc no es pot instal·lar. Comproveu el contingut baixable a https://gog.com/account",
-        "goodie": "No instal·lable"
+        "goodie": "No instal·lable",
+        "prerequisites": "S'estan instal·lant els prerequisits",
+        "winetricks": "S'estan aplicant les correccions del Winetricks"
     },
     "submenu": {
         "addShortcut": "Afegeix una drecera",
@@ -240,6 +244,12 @@
         "categories": "Categories"
     },
     "help": {
-        "cloud_save_unsupported": "Aquest joc no permet desar partides al núvol. Aquesta informació la proporcionen els desenvolupadors del joc. Alguns jocs implementen el seu propi sistema de desat al núvol"
+        "cloud_save_unsupported": "Aquest joc no permet desar partides al núvol. Aquesta informació la proporcionen els desenvolupadors del joc. Alguns jocs implementen el seu propi sistema de desat al núvol",
+        "content": {
+            "gamePage": "Mostra tots els detalls i accions del joc. Utilitza el menú dels 3 punts per a més opcions."
+        },
+        "title": {
+            "gamePage": "Pàgina del joc"
+        }
     }
 }
