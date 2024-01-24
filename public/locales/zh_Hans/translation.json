@@ -1,6 +1,6 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "操作菜单字族 （默认： ",
+        "actions_font_family_no_default": "操作菜单字族 （默认)：",
         "all_tiles_in_color": "对所有游戏磁贴着色",
         "content_font_family_no_default": "内容字族 （默认： ",
         "fonts": "字体",
@@ -748,6 +748,28 @@
         },
         "offline": {
             "warning": "此游戏未明确允许离线模式，你可以开启本选项，但后果自负。开启后，游戏可能无法正常运作。"
+        },
+        "advanced": {
+            "clearCache": {
+                "help10": "Heroic 配置",
+                "help3": "Legendary 库信息（游戏列表、安装对话框信息、游戏信息）",
+                "help4": "GOG 库信息（游戏列表、安装对话框信息、api 信息，-i.e: requirements-）",
+                "help1": "此操作将清除下列缓存：",
+                "help2": "第三方游戏信息（得分、 steam 兼容性、howlongtobeat、pcgamingwiki、applegamingwiki）",
+                "help7": "存储登录信息",
+                "help5": "Amazon 库信息（游戏列表、安装对话框信息）",
+                "help6": "这不会删除：",
+                "help9": "游戏设置",
+                "help8": "已安装的游戏"
+            },
+            "resetHeroic": {
+                "help": "这会删除所有设置和环迅但不会删除你已安装的游戏或 Epic 凭据。在此之后，需要手动重启 Heroic 便携版本（AppImage、WinPortable, ...）。"
+            },
+            "title": {
+                "clearCache": "清除缓存",
+                "resetHeroic": "重置 Heroic"
+            },
+            "details": "详细内容"
         }
     },
     "Settings": "设置",
