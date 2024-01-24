@@ -301,23 +301,26 @@ export const initGamepad = () => {
   }
 
   function isValveGamepad(gamepad: Gamepad | null) {
-    return gamepad && gamepad.id.includes('Vendor: 28de');
+    return gamepad && gamepad.id.includes('Vendor: 28de')
   }
 
   function filterValveGamepads(gamepads: (Gamepad | null)[]) {
-    return gamepads.filter(isValveGamepad);
+    return gamepads.filter(isValveGamepad)
   }
 
-  function isMaskedGamepad(valveGamepads: (Gamepad | null)[], gamepad: Gamepad) {
+  function isMaskedGamepad(
+    valveGamepads: (Gamepad | null)[],
+    gamepad: Gamepad
+  ) {
     return valveGamepads.find(
       (valveGamepad) =>
         valveGamepad &&
-        Math.abs(valveGamepad.timestamp - gamepad.timestamp) <= 10,
-    );
+        Math.abs(valveGamepad.timestamp - gamepad.timestamp) <= 10
+    )
   }
 
   function isValidGamepad(gamepads: (Gamepad | null)[], gamepad: Gamepad) {
-    const valveGamepads = filterValveGamepads(gamepads);
+    const valveGamepads = filterValveGamepads(gamepads)
     return isValveGamepad(gamepad) || !isMaskedGamepad(valveGamepads, gamepad)
   }
 
