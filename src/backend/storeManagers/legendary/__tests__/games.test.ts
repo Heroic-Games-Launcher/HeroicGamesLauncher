@@ -9,7 +9,7 @@ describe('syncSaves', () => {
   test("returns 'No path provided.' if path parameter is falsy", async () => {
     const appName = 'test'
     const arg = ''
-    const path = ''
+    const path = null
 
     const result = await syncSaves(appName, arg, path)
 
@@ -30,7 +30,7 @@ describe('syncSaves', () => {
     const testPath =
       process.platform === 'win32' ? 'C:\\my\\path' : '/home/someone/saves/path'
 
-    await syncSaves(appName, '', testPath)
+    await syncSaves(appName, '', [{ key: 'Saves', value: testPath }])
     expect(spy.mock.lastCall?.[0]).toEqual({
       subcommand: 'sync-saves',
       appName: 'SomeAppName',
@@ -42,6 +42,6 @@ describe('syncSaves', () => {
 
   it('Save-sync fails with empty path', async () => {
     jest.spyOn(library, 'runRunnerCommand')
-    expect(await syncSaves('SomeAppName', '', '')).toBe('No path provided.')
+    expect(await syncSaves('SomeAppName', '', null)).toBe('No path provided.')
   })
 })

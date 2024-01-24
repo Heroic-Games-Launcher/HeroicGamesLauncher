@@ -34,13 +34,14 @@ import {
   InstallInfo
 } from 'common/types'
 import { SelectiveDownload } from 'common/types/legendary'
-import { GOGCloudSavesLocation } from 'common/types/gog'
 import {
   NileLoginData,
   NileRegisterData,
   NileUserData
 } from 'common/types/nile'
 import type { SystemInformation } from 'backend/utils/systeminfo'
+import type { GameConfig, GlobalConfig } from 'backend/config/schemas'
+import type { KeyValuePair, PositiveInteger } from 'backend/schemas'
 
 /**
  * Some notes here:
@@ -201,11 +202,6 @@ interface AsyncIPCFunctions {
   updateGame: (appName: string, runner: Runner) => StatusPromise
   changeInstallPath: (args: MoveGameArgs) => Promise<void>
   egsSync: (arg: string) => Promise<string>
-  syncGOGSaves: (
-    gogSaves: GOGCloudSavesLocation[],
-    appname: string,
-    arg: string
-  ) => Promise<string>
   syncSaves: (args: SaveSyncArgs) => Promise<string>
   gamepadAction: (args: GamepadActionArgs) => Promise<void>
   getFonts: (reload: boolean) => Promise<string[]>
@@ -266,8 +262,8 @@ interface AsyncIPCFunctions {
   getDefaultSavePath: (
     appName: string,
     runner: Runner,
-    alreadyDefinedGogSaves: GOGCloudSavesLocation[]
-  ) => Promise<string | GOGCloudSavesLocation[]>
+    alreadyDefinedGogSaves: KeyValuePair[]
+  ) => Promise<KeyValuePair[]>
   isGameAvailable: (args: {
     appName: string
     runner: Runner

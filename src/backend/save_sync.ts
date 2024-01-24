@@ -29,16 +29,18 @@ async function getDefaultSavePath(
   appName: string,
   runner: Runner,
   alreadyDefinedGogSaves: KeyValuePair[]
-): Promise<string | KeyValuePair[]> {
+): Promise<KeyValuePair[]> {
   switch (runner) {
     case 'legendary':
-      return getDefaultLegendarySavePath(appName)
+      return [
+        { key: 'Saves', value: await getDefaultLegendarySavePath(appName) }
+      ]
     case 'gog':
       return getDefaultGogSavePaths(appName, alreadyDefinedGogSaves)
     case 'nile':
-      return ''
+      return []
     case 'sideload':
-      return ''
+      return []
   }
 }
 

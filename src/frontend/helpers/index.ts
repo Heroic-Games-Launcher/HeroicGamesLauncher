@@ -25,21 +25,6 @@ export const size = fileSize.partial({ base: 2 }) as (arg: unknown) => string
 
 const sendKill = window.api.kill
 
-const syncSaves = async (
-  savesPath: string,
-  appName: string,
-  runner: Runner,
-  arg?: string
-): Promise<string> => {
-  const response: string = await window.api.syncSaves({
-    arg,
-    path: savesPath,
-    appName,
-    runner
-  })
-  return response
-}
-
 const getLegendaryConfig = async (): Promise<{
   library: GameInfo[]
   user: string
@@ -160,7 +145,6 @@ export {
   repair,
   sendKill,
   sidInfoPage,
-  syncSaves,
   updateGame,
   removeSpecialcharacters,
   getStoreName,

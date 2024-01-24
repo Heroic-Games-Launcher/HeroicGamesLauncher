@@ -871,8 +871,7 @@ ipcMain.handle(
         await gameManagerMap[runner].syncSaves(
           appName,
           '--skip-upload',
-          savesPath,
-          gogSaves
+          savePaths
         )
         logInfo(`Saves for ${title} downloaded`, LogPrefix.Backend)
       } catch (error) {
@@ -1004,8 +1003,7 @@ ipcMain.handle(
         await gameManagerMap[runner].syncSaves(
           appName,
           '--skip-download',
-          savesPath,
-          gogSaves
+          savePaths
         )
         logInfo(`Saves uploaded for ${title}`, LogPrefix.Backend)
       } catch (error) {
@@ -1326,17 +1324,13 @@ ipcMain.handle('egsSync', async (event, args) => {
   return LegendaryLibraryManager.toggleGamesSync(args)
 })
 
-ipcMain.handle('syncGOGSaves', async (event, gogSaves, appName, arg) =>
-  gameManagerMap['gog'].syncSaves(appName, arg, '', gogSaves)
-)
-
 ipcMain.handle('getLaunchOptions', async (event, appName, runner) =>
   libraryManagerMap[runner].getLaunchOptions(appName)
 )
 
 ipcMain.handle(
   'syncSaves',
-  async (event, { arg = '', path, appName, runner }) => {
+  async (event, { arg = '', paths, appName, runner }) => {
     if (runner === 'legendary') {
       const epicOffline = await isEpicServiceOffline()
       if (epicOffline) {
@@ -1352,7 +1346,7 @@ ipcMain.handle(
       return 'App is offline, cannot sync saves!'
     }
 
-    const output = await gameManagerMap[runner].syncSaves(appName, arg, path)
+    const output = await gameManagerMap[runner].syncSaves(appName, arg, paths)
     logInfo(output, LogPrefix.Backend)
     return output
   }

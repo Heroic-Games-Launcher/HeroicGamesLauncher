@@ -2,12 +2,12 @@ import {
   ExtraInfo,
   GameInfo,
   InstallPlatform,
-  GameSettings,
   ExecResult,
   InstallArgs,
   InstallInfo,
   LaunchOption
 } from 'common/types'
+import type { KeyValuePair } from 'backend/schemas'
 import { GOGCloudSavesLocation } from './gog'
 
 export interface InstallResult {
@@ -22,7 +22,6 @@ export type RemoveArgs = {
 }
 
 export interface GameManager {
-  getSettings: (appName: string) => Promise<GameSettings>
   getGameInfo: (appName: string) => GameInfo
   getExtraInfo: (appName: string) => Promise<ExtraInfo>
   importGame: (
@@ -53,7 +52,7 @@ export interface GameManager {
   syncSaves: (
     appName: string,
     arg: string,
-    path: string,
+    paths: KeyValuePair[] | null,
     gogSaves?: GOGCloudSavesLocation[]
   ) => Promise<string>
   uninstall: (args: RemoveArgs) => Promise<ExecResult>

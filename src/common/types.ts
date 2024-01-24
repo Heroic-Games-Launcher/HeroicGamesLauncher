@@ -12,6 +12,7 @@ import { TitleBarOverlay } from 'electron'
 import { ChildProcess } from 'child_process'
 import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
 import { NileInstallInfo, NileInstallPlatform } from './types/nile'
+import type { KeyValuePair } from 'backend/schemas'
 
 export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile'
 
@@ -493,7 +494,7 @@ export type WineCommandArgs = {
 
 export interface SaveSyncArgs {
   arg: string | undefined
-  path: string
+  paths: KeyValuePair[] | null
   appName: string
   runner: Runner
 }

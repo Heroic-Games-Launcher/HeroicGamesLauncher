@@ -713,9 +713,9 @@ export async function importGame(
 export async function syncSaves(
   appName: string,
   arg: string,
-  path: string
+  paths: KeyValuePair[] | null
 ): Promise<string> {
-  if (!path) {
+  if (!paths || !paths.length) {
     logError(
       'No path provided for SavesSync, check your settings!',
       LogPrefix.Legendary
@@ -727,7 +727,7 @@ export async function syncSaves(
     subcommand: 'sync-saves',
     appName: LegendaryAppName.parse(appName),
     [arg]: true,
-    '--save-path': Path.parse(path),
+    '--save-path': Path.parse(paths[0].value),
     '-y': true
   }
 

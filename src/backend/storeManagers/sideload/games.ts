@@ -200,12 +200,7 @@ export async function repair(appName: string): Promise<ExecResult> {
   return { stderr: '', stdout: '' }
 }
 
-export async function syncSaves(
-  appName: string,
-  arg: string,
-  path: string,
-  gogSaves?: GOGCloudSavesLocation[]
-): Promise<string> {
+export async function syncSaves(appName: string): Promise<string> {
   logWarning(
     `syncSaves not implemented on Sideload Game Manager. called for appName = ${appName}`
   )
