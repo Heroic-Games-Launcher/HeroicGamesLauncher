@@ -300,13 +300,34 @@ export const initGamepad = () => {
     }
   }
 
+  function isValveGamepad(gamepad: Gamepad | null) {
+    return gamepad && gamepad.id.includes("Vendor: 28de");
+  }
+
+  function filterValveGamepads(gamepads: (Gamepad | null)[]) {
+    return gamepads.filter(isValveGamepad);
+  }
+
+  function isMaskedGamepad(valveGamepads: (Gamepad | null)[], gamepad: Gamepad) {
+    return valveGamepads.find(
+      (valveGamepad) =>
+        valveGamepad &&
+        Math.abs(valveGamepad.timestamp - gamepad.timestamp) <= 10,
+    );
+  }
+
+  function isValidGamepad(gamepads: (Gamepad | null)[], gamepad: Gamepad) {
+    const valveGamepads = filterValveGamepads(gamepads);
+    return isValveGamepad(gamepad) || !isMaskedGamepad(valveGamepads, gamepad)
+  }
+
   // check all the buttons and axes every frame
   function updateStatus() {
     const gamepads = navigator.getGamepads()
 
     controllers.forEach((index) => {
       const controller = gamepads[index]
-      if (!controller) return
+      if (!controller || !isValidGamepad(gamepads, controller)) return
 
       // logState(index)
 
