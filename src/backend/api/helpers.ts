@@ -91,8 +91,11 @@ export const getInstallInfo = async (
     branch
   )
 
-export const runWineCommand = async (args: WineCommandArgs) =>
-  ipcRenderer.invoke('runWineCommand', args)
+export const runWineCommand = async (
+  appName: string,
+  runner: Runner,
+  args: Omit<WineCommandArgs, 'gameConfig'>
+) => ipcRenderer.invoke('runWineCommand', appName, runner, args)
 
 export const runWineCommandForGame = async (args: RunWineCommandArgs) =>
   ipcRenderer.invoke('runWineCommandForGame', args)

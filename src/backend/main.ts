@@ -643,7 +643,10 @@ ipcMain.on('removeFolder', async (e, [path, folderName]) => {
   removeFolder(path, folderName)
 })
 
-ipcMain.handle('runWineCommand', async (e, args) => runWineCommand(args))
+ipcMain.handle('runWineCommand', async (e, appName, runner, args) => {
+  const gameConfig = getGameConfig(appName, runner)
+  return runWineCommand({ ...args, gameConfig })
+})
 
 /// IPC handlers begin here.
 

@@ -124,7 +124,9 @@ interface AsyncIPCFunctions {
   checkDiskSpace: (folder: string) => Promise<DiskSpaceData>
   callTool: (args: Tools) => Promise<void>
   runWineCommand: (
-    args: WineCommandArgs
+    appName: string,
+    runner: Runner,
+    args: Omit<WineCommandArgs, 'gameConfig'>
   ) => Promise<{ stdout: string; stderr: string }>
   winetricksInstalled: ({
     runner: Runner,

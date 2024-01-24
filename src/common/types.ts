@@ -13,6 +13,7 @@ import { ChildProcess } from 'child_process'
 import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
 import { NileInstallInfo, NileInstallPlatform } from './types/nile'
 import type { KeyValuePair } from 'backend/schemas'
+import { GameConfig } from '../backend/config/schemas'
 
 export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile'
 
@@ -484,7 +485,7 @@ export type WineCommandArgs = {
   commandParts: string[]
   wait?: boolean
   protonVerb?: ProtonVerb
-  gameSettings?: GameSettings
+  gameConfig: GameConfig
   gameInstallPath?: string
   installFolderName?: string
   options?: CallRunnerOptions
