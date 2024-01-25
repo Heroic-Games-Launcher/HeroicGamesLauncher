@@ -5,11 +5,14 @@ import { useGameConfig } from 'frontend/hooks/config'
 
 const LauncherArgs = () => {
   const { t } = useTranslation()
-  const [launcherArgs, setLauncherArgs, launcherArgsFetched] =
-    useGameConfig('launcherArgs')
+  const [
+    launcherArgs,
+    setLauncherArgs,
+    launcherArgsFetched,
+    isSetToDefault,
+    resetToDefault
+  ] = useGameConfig('launcherArgs')
   const [error, setError] = useState('')
-
-  if (!launcherArgsFetched) return <></>
 
   const handleLauncherArgs = async (event: ChangeEvent<HTMLInputElement>) =>
     setLauncherArgs(event.currentTarget.value)
@@ -33,6 +36,8 @@ const LauncherArgs = () => {
       setError('')
     }
   }, [launcherArgs])
+
+  if (!launcherArgsFetched) return <></>
 
   const launcherArgsInfo = (
     <InfoBox text="infobox.help">
@@ -64,6 +69,8 @@ const LauncherArgs = () => {
           {launcherArgsInfo}
         </>
       }
+      isSetToDefaultValue={isSetToDefault}
+      resetToDefaultValue={resetToDefault}
     />
   )
 }

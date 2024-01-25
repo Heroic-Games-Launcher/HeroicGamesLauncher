@@ -8,10 +8,14 @@ import { useSharedConfig } from 'frontend/hooks/config'
 
 const AutoDXVKNVAPI = () => {
   const { t } = useTranslation()
-  const [autoInstallDXVKNVAPI, setAutoInstallDXVKNVAPI] = useSharedConfig(
-    'autoInstallDxvkNvapi'
-  )
-  const { appName, runner } = useContext(SettingsContext)
+  const [
+    autoInstallDXVKNVAPI,
+    setAutoInstallDXVKNVAPI,
+    ,
+    dxvkNvapiSetToDefault,
+    resetDxvkNvapiConfig
+  ] = useSharedConfig('autoInstallDxvkNvapi')
+  const { appName, runner, isDefault } = useContext(SettingsContext)
   const [wineVersion, , wineVersionFetched] = useSharedConfig('wineVersion')
   const [installingDxvkNvapi, setInstallingDxvkNvapi] = React.useState(false)
 
@@ -22,7 +26,7 @@ const AutoDXVKNVAPI = () => {
     const isProton = wineVersion.type === 'proton'
     setInstallingDxvkNvapi(true)
 
-    if (!isProton) {
+    if (!isDefault && !isProton) {
       const action = autoInstallDXVKNVAPI ? 'restore' : 'backup'
       res = await window.api.toggleDXVKNVAPI({
         appName,
@@ -53,6 +57,8 @@ const AutoDXVKNVAPI = () => {
         }
         fading={installingDxvkNvapi}
         disabled={installingDxvkNvapi}
+        isSetToDefaultValue={dxvkNvapiSetToDefault}
+        resetToDefaultValue={resetDxvkNvapiConfig}
       />
 
       <FontAwesomeIcon

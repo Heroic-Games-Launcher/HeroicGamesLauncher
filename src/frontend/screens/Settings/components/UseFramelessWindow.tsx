@@ -7,8 +7,13 @@ import ContextProvider from 'frontend/state/ContextProvider'
 const UseFramelessWindow = () => {
   const { t } = useTranslation()
   const { showDialogModal } = useContext(ContextProvider)
-  const [framelessWindow, setFramelessWindow] =
-    useGlobalConfig('framelessWindow')
+  const [
+    framelessWindow,
+    setFramelessWindow,
+    ,
+    isSetToDefaultValue,
+    resetToDefaultValue
+  ] = useGlobalConfig('framelessWindow')
 
   if (window.isSteamDeckGameMode) {
     return <></>
@@ -50,6 +55,8 @@ const UseFramelessWindow = () => {
         'setting.frameless-window.description',
         'Use frameless window (requires restart)'
       )}
+      isSetToDefaultValue={isSetToDefaultValue}
+      resetToDefaultValue={resetToDefaultValue}
     />
   )
 }

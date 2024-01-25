@@ -6,8 +6,13 @@ import { useGlobalConfig } from 'frontend/hooks/config'
 
 const DisableController = () => {
   const { t } = useTranslation()
-  const [disableController, setDisableController, controllerConfigFetched] =
-    useGlobalConfig('disableController')
+  const [
+    disableController,
+    setDisableController,
+    controllerConfigFetched,
+    isSetToDefault,
+    resetToDefaultValue
+  ] = useGlobalConfig('disableController')
 
   useEffect(() => {
     toggleControllerIsDisabled(disableController)
@@ -24,6 +29,8 @@ const DisableController = () => {
         'setting.disable_controller',
         'Disable Heroic navigation using controller'
       )}
+      isSetToDefaultValue={isSetToDefault}
+      resetToDefaultValue={resetToDefaultValue}
     />
   )
 }

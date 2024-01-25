@@ -12,8 +12,13 @@ const EnableDXVKFpsLimit = () => {
   const { platform } = useContext(ContextProvider)
   const { isLinuxNative, isMacNative } = useContext(SettingsContext)
   const isWin = platform === 'win32'
-  const [DXVKFpsLimit, setDXVKFpsLimit, fpsLimitFetched] =
-    useSharedConfig('dxvkFpsLimit')
+  const [
+    DXVKFpsLimit,
+    setDXVKFpsLimit,
+    fpsLimitFetched,
+    isSetToDefault,
+    resetToDefaultValue
+  ] = useSharedConfig('dxvkFpsLimit')
   const [wineVersion, , wineVersionFetched] = useSharedConfig('wineVersion')
 
   if (!fpsLimitFetched || !wineVersionFetched) return <></>
@@ -37,6 +42,8 @@ const EnableDXVKFpsLimit = () => {
             setDXVKFpsLimit({ enabled: !DXVKFpsLimit.enabled, limit: 60 })
           }
           title={t('setting.dxvkfpslimit', 'Limit FPS (DX9, 10 and 11)')}
+          isSetToDefaultValue={isSetToDefault}
+          resetToDefaultValue={resetToDefaultValue}
         />
 
         <FontAwesomeIcon

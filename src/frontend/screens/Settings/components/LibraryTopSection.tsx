@@ -6,8 +6,13 @@ import type { LibraryTopSectionOptions } from 'backend/config/schemas'
 
 const LibraryTopSection = () => {
   const { t } = useTranslation()
-  const [libraryTopSection, setLibraryTopSection, topSectionConfigFetched] =
-    useGlobalConfig('libraryTopSection')
+  const [
+    libraryTopSection,
+    setLibraryTopSection,
+    topSectionConfigFetched,
+    isSetToDefaultValue,
+    resetToDefaultValue
+  ] = useGlobalConfig('libraryTopSection')
 
   if (!topSectionConfigFetched) return <></>
 
@@ -19,6 +24,8 @@ const LibraryTopSection = () => {
         setLibraryTopSection(event.target.value as LibraryTopSectionOptions)
       }
       value={libraryTopSection}
+      isSetToDefaultValue={isSetToDefaultValue}
+      resetToDefaultValue={resetToDefaultValue}
     >
       <option value="recently_played">
         {t(

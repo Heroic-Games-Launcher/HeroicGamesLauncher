@@ -11,7 +11,8 @@ const UseDGPU = () => {
   const { platform, showDialogModal } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
 
-  const [useDGPU, setUseDGPU] = useSharedConfig('useDedicatedGpu')
+  const [useDGPU, setUseDGPU, , isSetToDefaultValue, resetToDefaultValue] =
+    useSharedConfig('useDedicatedGpu')
 
   if (!isLinux) {
     return <></>
@@ -49,6 +50,8 @@ const UseDGPU = () => {
         value={useDGPU}
         handleChange={toggleUseDGPU}
         title={t('setting.primerun.description', 'Use Dedicated Graphics Card')}
+        isSetToDefaultValue={isSetToDefaultValue}
+        resetToDefaultValue={resetToDefaultValue}
       />
 
       <FontAwesomeIcon

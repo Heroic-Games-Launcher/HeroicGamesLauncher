@@ -5,8 +5,13 @@ import { useSharedConfig } from 'frontend/hooks/config'
 
 export default function CrossoverBottle() {
   const { t } = useTranslation()
-  const [crossoverBottle, setCrossoverBottle, crossoverBottleConfigFetched] =
-    useSharedConfig('crossoverBottle')
+  const [
+    crossoverBottle,
+    setCrossoverBottle,
+    crossoverBottleConfigFetched,
+    isSetToDefaultValue,
+    resetToDefaultValue
+  ] = useSharedConfig('crossoverBottle')
   const [wineVersion, , wineVersionConfigFetched] =
     useSharedConfig('wineVersion')
 
@@ -24,6 +29,8 @@ export default function CrossoverBottle() {
       htmlId="crossoverBottle"
       value={crossoverBottle}
       onChange={async (event) => setCrossoverBottle(event.target.value)}
+      isSetToDefaultValue={isSetToDefaultValue}
+      resetToDefaultValue={resetToDefaultValue}
     />
   )
 }

@@ -8,9 +8,14 @@ import { useSharedConfig } from 'frontend/hooks/config'
 
 const AutoVKD3D = () => {
   const { t } = useTranslation()
-  const [autoInstallVkd3d, setAutoInstallVkd3d, vkd3dConfigFetched] =
-    useSharedConfig('autoInstallVkd3d')
-  const { appName, runner } = useContext(SettingsContext)
+  const [
+    autoInstallVkd3d,
+    setAutoInstallVkd3d,
+    vkd3dConfigFetched,
+    vkd3dSetToDefault,
+    resetVkd3dToDefault
+  ] = useSharedConfig('autoInstallVkd3d')
+  const { appName, runner, isDefault } = useContext(SettingsContext)
   const [wineVersion, , wineVersionConfigFetched] =
     useSharedConfig('wineVersion')
   const [autoInstallDxvk, , dxvkConfigFetched] =
@@ -30,11 +35,13 @@ const AutoVKD3D = () => {
   const handleAutoInstallVkd3d = async () => {
     const action = autoInstallVkd3d ? 'restore' : 'backup'
     setInstallingVKD3D(true)
-    const res = await window.api.toggleVKD3D({
-      appName,
-      runner,
-      action
-    })
+    let res = true
+    if (!isDefault)
+      res = await window.api.toggleVKD3D({
+        appName,
+        runner,
+        action
+      })
 
     setInstallingVKD3D(false)
     if (res) {
@@ -55,6 +62,8 @@ const AutoVKD3D = () => {
         }
         fading={installingVKD3D}
         disabled={!autoInstallDxvk || installingVKD3D}
+        isSetToDefaultValue={vkd3dSetToDefault}
+        resetToDefaultValue={resetVkd3dToDefault}
       />
 
       <FontAwesomeIcon

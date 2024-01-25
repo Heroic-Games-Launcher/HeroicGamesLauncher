@@ -2,6 +2,9 @@ import React, { ChangeEvent, ReactNode, useContext } from 'react'
 import classnames from 'classnames'
 import ContextProvider from 'frontend/state/ContextProvider'
 import './index.css'
+import { Stack, IconButton } from '@mui/material'
+import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore'
+import { useTranslation } from 'react-i18next'
 
 interface SelectFieldProps {
   htmlId: string
@@ -13,6 +16,8 @@ interface SelectFieldProps {
   prompt?: string
   disabled?: boolean
   extraClass?: string
+  resetToDefaultValue?: () => void
+  isSetToDefaultValue?: boolean
 }
 
 const SelectField = ({
@@ -24,9 +29,12 @@ const SelectField = ({
   disabled = false,
   extraClass = '',
   afterSelect,
-  children
+  children,
+  resetToDefaultValue,
+  isSetToDefaultValue
 }: SelectFieldProps) => {
   const { isRTL } = useContext(ContextProvider)
+  const { t } = useTranslation()
 
   return (
     <div
@@ -35,10 +43,26 @@ const SelectField = ({
       })}
     >
       {label && <label htmlFor={htmlId}>{label}</label>}
-      <select id={htmlId} value={value} onChange={onChange} disabled={disabled}>
-        {prompt && <option value="">{prompt}</option>}
-        {children}
-      </select>
+      <Stack direction="row">
+        <select
+          id={htmlId}
+          value={value}
+          onChange={onChange}
+          disabled={disabled}
+        >
+          {prompt && <option value="">{prompt}</option>}
+          {children}
+        </select>
+        {resetToDefaultValue && !isSetToDefaultValue && (
+          <IconButton
+            color={'primary'}
+            onClick={resetToDefaultValue}
+            title={t('button.reset-to-default', 'Reset to default')}
+          >
+            <SettingsBackupRestoreIcon />
+          </IconButton>
+        )}
+      </Stack>
       {afterSelect}
     </div>
   )

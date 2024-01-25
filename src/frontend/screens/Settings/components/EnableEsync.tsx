@@ -8,7 +8,8 @@ import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 const EnableEsync = () => {
   const { t } = useTranslation()
 
-  const [enableEsync, setEnableEsync] = useSharedConfig('eSync')
+  const [enableEsync, setEnableEsync, , isSetToDefault, resetToDefaultValue] =
+    useSharedConfig('eSync')
 
   return (
     <div className="toggleRow">
@@ -17,6 +18,8 @@ const EnableEsync = () => {
         value={enableEsync || false}
         handleChange={async () => setEnableEsync(!enableEsync)}
         title={t('setting.esync', 'Enable Esync')}
+        isSetToDefaultValue={isSetToDefault}
+        resetToDefaultValue={resetToDefaultValue}
       />
 
       <FontAwesomeIcon

@@ -5,8 +5,13 @@ import { useGlobalConfig } from 'frontend/hooks/config'
 
 const DownloadNoHTTPS = () => {
   const { t } = useTranslation()
-  const [downloadNoHttps, setDownloadNoHttps] =
-    useGlobalConfig('downloadNoHttps')
+  const [
+    downloadNoHttps,
+    setDownloadNoHttps,
+    ,
+    isSetToDefault,
+    resetToDefaultValue
+  ] = useGlobalConfig('downloadNoHttps')
 
   return (
     <ToggleSwitch
@@ -17,6 +22,8 @@ const DownloadNoHTTPS = () => {
         'setting.download-no-https',
         'Download games without HTTPS (useful for CDNs e.g. LanCache)'
       )}
+      isSetToDefaultValue={isSetToDefault}
+      resetToDefaultValue={resetToDefaultValue}
     />
   )
 }

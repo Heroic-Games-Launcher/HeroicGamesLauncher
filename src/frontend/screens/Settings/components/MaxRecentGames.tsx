@@ -9,8 +9,13 @@ const MaxRecentGames = () => {
   const { t } = useTranslation()
   const { isDefault } = useContext(SettingsContext)
 
-  const [maxRecentGames, setMaxRecentGames, maxRecentGamesFetched] =
-    useGlobalConfig('maxRecentGames')
+  const [
+    maxRecentGames,
+    setMaxRecentGames,
+    maxRecentGamesFetched,
+    isSetToDefaultValue,
+    resetToDefaultValue
+  ] = useGlobalConfig('maxRecentGames')
 
   if (!isDefault || !maxRecentGamesFetched) {
     return <></>
@@ -25,6 +30,8 @@ const MaxRecentGames = () => {
         setMaxRecentGames(Number(event.target.value) as PositiveInteger)
       }
       value={maxRecentGames.toString()}
+      isSetToDefaultValue={isSetToDefaultValue}
+      resetToDefaultValue={resetToDefaultValue}
     >
       {Array.from(Array(10).keys()).map((n) => (
         <option key={n + 1}>{n + 1}</option>

@@ -9,8 +9,13 @@ import { useSharedConfig } from 'frontend/hooks/config'
 const EacRuntime = () => {
   const { t } = useTranslation()
   const [installing, setInstalling] = useState(false)
-  const [eacRuntime, setEacRuntime, eacConfigFetched] =
-    useSharedConfig('eacRuntime')
+  const [
+    eacRuntime,
+    setEacRuntime,
+    eacConfigFetched,
+    isSetToDefault,
+    resetToDefaultValue
+  ] = useSharedConfig('eacRuntime')
   const [useGameMode, setUseGameMode, gameModeConfigFetched] =
     useSharedConfig('gameMode')
   const { showDialogModal, platform } = useContext(ContextProvider)
@@ -65,6 +70,8 @@ const EacRuntime = () => {
         value={eacRuntime}
         handleChange={handleEacRuntime}
         title={t('settings.eacRuntime.name', 'EasyAntiCheat Runtime')}
+        isSetToDefaultValue={isSetToDefault}
+        resetToDefaultValue={resetToDefaultValue}
       />
       {installing && (
         <span>

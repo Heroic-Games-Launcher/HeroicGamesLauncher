@@ -14,6 +14,8 @@ interface TextInputWithIconFieldProps {
   disabled?: boolean
   extraClass?: string
   onBlur?: (event: FocusEvent<HTMLInputElement>) => void
+  resetToDefaultCallback?: () => void
+  isSetToDefaultValue?: boolean
 }
 
 const TextInputWithIconField = ({

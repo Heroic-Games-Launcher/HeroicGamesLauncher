@@ -10,8 +10,13 @@ const GameMode = () => {
   const { t } = useTranslation()
   const { platform, showDialogModal } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
-  const [useGameMode, setUseGameMode, gameModeConfigFetched] =
-    useSharedConfig('gameMode')
+  const [
+    useGameMode,
+    setUseGameMode,
+    gameModeConfigFetched,
+    isSetToDefault,
+    resetToDefaultValue
+  ] = useSharedConfig('gameMode')
   const [eacRuntime, setEacRuntime, eacConfigFetched] =
     useSharedConfig('eacRuntime')
 
@@ -55,6 +60,8 @@ const GameMode = () => {
         value={useGameMode}
         handleChange={handleGameMode}
         title={t('setting.gamemode')}
+        isSetToDefaultValue={isSetToDefault}
+        resetToDefaultValue={resetToDefaultValue}
       />
 
       <FontAwesomeIcon

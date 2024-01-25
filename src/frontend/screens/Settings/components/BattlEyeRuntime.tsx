@@ -9,8 +9,13 @@ import { useSharedConfig } from 'frontend/hooks/config'
 const BattlEyeRuntime = () => {
   const { t } = useTranslation()
   const [installing, setInstalling] = useState(false)
-  const [battlEyeRuntime, setBattlEyeRuntime] =
-    useSharedConfig('battlEyeRuntime')
+  const [
+    battlEyeRuntime,
+    setBattlEyeRuntime,
+    ,
+    isSetToDefault,
+    resetToDefaultValue
+  ] = useSharedConfig('battlEyeRuntime')
   const { platform } = useContext(ContextProvider)
 
   if (platform !== 'linux') {
@@ -40,6 +45,8 @@ const BattlEyeRuntime = () => {
         value={battlEyeRuntime}
         handleChange={handleBattlEyeRuntime}
         title={t('settings.battlEyeRuntime.name', 'BattlEye AntiCheat Runtime')}
+        isSetToDefaultValue={isSetToDefault}
+        resetToDefaultValue={resetToDefaultValue}
       />
       {installing && (
         <span>

@@ -7,7 +7,8 @@ import { useGlobalConfig } from 'frontend/hooks/config'
 
 const DisableLogs = () => {
   const { t } = useTranslation()
-  const [disableLogs, setDisableLogs] = useGlobalConfig('disableLogs')
+  const [disableLogs, setDisableLogs, , isSetToDefault, resetToDefaultValue] =
+    useGlobalConfig('disableLogs')
 
   return (
     <div className="toggleRow">
@@ -16,6 +17,8 @@ const DisableLogs = () => {
         value={disableLogs}
         handleChange={async () => setDisableLogs(!disableLogs)}
         title={t('setting.disable_logs', 'Disable Logs')}
+        isSetToDefaultValue={isSetToDefault}
+        resetToDefaultValue={resetToDefaultValue}
       />
 
       <FontAwesomeIcon

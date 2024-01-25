@@ -11,8 +11,13 @@ export default function WineVersionSelector() {
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
 
-  const [wineVersion, setWineVersion, wineVersionFetched] =
-    useSharedConfig('wineVersion')
+  const [
+    wineVersion,
+    setWineVersion,
+    wineVersionFetched,
+    isSetToDefaultValue,
+    resetToDefaultValue
+  ] = useSharedConfig('wineVersion')
   const [altWine, setAltWine] = useState<WineInstallation[]>([])
   const [validWine, setValidWine] = useState(true)
   const [refreshing, setRefreshing] = useState(true)
@@ -94,6 +99,8 @@ export default function WineVersionSelector() {
           )}
         </>
       }
+      isSetToDefaultValue={isSetToDefaultValue}
+      resetToDefaultValue={resetToDefaultValue}
     >
       {altWine.map(({ name }, i) => (
         <option key={i}>{name}</option>

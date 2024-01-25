@@ -5,9 +5,13 @@ import { useGlobalConfig } from 'frontend/hooks/config'
 
 const MinimizeOnGameLaunch = () => {
   const { t } = useTranslation()
-  const [minimizeOnLaunch, setMinimizeOnLaunch] = useGlobalConfig(
-    'minimizeOnGameLaunch'
-  )
+  const [
+    minimizeOnLaunch,
+    setMinimizeOnLaunch,
+    ,
+    isSetToDefaultValue,
+    resetToDefaultValue
+  ] = useGlobalConfig('minimizeOnGameLaunch')
 
   return (
     <ToggleSwitch
@@ -18,6 +22,8 @@ const MinimizeOnGameLaunch = () => {
         'setting.minimize-on-launch',
         'Minimize Heroic After Game Launch'
       )}
+      isSetToDefaultValue={isSetToDefaultValue}
+      resetToDefaultValue={resetToDefaultValue}
     />
   )
 }

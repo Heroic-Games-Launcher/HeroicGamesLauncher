@@ -12,6 +12,8 @@ interface TextInputFieldProps
   placeholder?: string
   extraClass?: string
   warning?: ReactNode
+  resetToDefaultValue?: () => void
+  isSetToDefaultValue?: boolean
 }
 
 const TextInputField = ({
@@ -22,9 +24,15 @@ const TextInputField = ({
   afterInput,
   warning,
   value,
+  resetToDefaultValue,
+  isSetToDefaultValue,
   ...inputProps
 }: TextInputFieldProps) => {
   const { isRTL } = useContext(ContextProvider)
+
+  // FIXME: Handle `resetToDefaultValue` and `isSetToDefaultValue` props
+  void resetToDefaultValue
+  void isSetToDefaultValue
 
   return (
     <div

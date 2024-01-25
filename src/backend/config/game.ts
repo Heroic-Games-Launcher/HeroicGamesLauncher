@@ -11,7 +11,7 @@ import {
   type GlobalConfigV1,
   type LatestGameConfigJson,
   latestGameConfigJson,
-  type GameConfig
+  GameConfig
 } from './schemas'
 import { LegacyGameConfigJson } from './schemas/legacy'
 import { writeFileSync } from 'graceful-fs'
@@ -89,8 +89,10 @@ function resetGameConfigKey(
     loadGameConfig(appName, runner)
   delete gameConfig[key]
 
+  const defaultValue = getDefaultGameConfig(appName, runner)[key]
+
   logInfo(
-    [`${appName}_${runner}: Resetting`, key, 'to default'],
+    [`${appName}_${runner}: Resetting`, key, 'to default value:', defaultValue],
     LogPrefix.Backend
   )
 
@@ -103,16 +105,20 @@ function resetGameConfigKey(
     gameConfigFilePath,
     JSON.stringify(fullGameConfigObject, null, 2)
   )
+
+  sendFrontendMessage('gameConfigKeyReset', appName, runner, key, defaultValue)
 }
 
 function getUserConfiguredGameConfigKeys(
   appName: string,
   runner: Runner
-): (keyof GameConfig)[] {
-  return Object.keys(
+): Record<keyof GameConfig, boolean> {
+  const gameConfig =
     gameConfigRecord.get(`${appName}_${runner}`) ??
-      loadGameConfig(appName, runner)
-  ) as (keyof GameConfig)[]
+    loadGameConfig(appName, runner)
+  return Object.fromEntries(
+    GameConfig.keyof().options.map((key) => [key, key in gameConfig])
+  ) as Record<keyof GameConfig, boolean>
 }
 
 function loadGameConfig(appName: string, runner: Runner): Partial<GameConfig> {

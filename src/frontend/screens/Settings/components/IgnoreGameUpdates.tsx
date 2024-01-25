@@ -6,8 +6,13 @@ import { useTranslation } from 'react-i18next'
 const IgnoreGameUpdates = () => {
   const { t } = useTranslation()
 
-  const [ignoreGameUpdates, setIgnoreGameUpdates] =
-    useGameConfig('ignoreGameUpdates')
+  const [
+    ignoreGameUpdates,
+    setIgnoreGameUpdates,
+    ,
+    isSetToDefaultValue,
+    resetToDefaultValue
+  ] = useGameConfig('ignoreGameUpdates')
 
   return (
     <ToggleSwitch
@@ -15,6 +20,8 @@ const IgnoreGameUpdates = () => {
       value={ignoreGameUpdates}
       handleChange={async () => setIgnoreGameUpdates(!ignoreGameUpdates)}
       title={t('setting.ignoreGameUpdates', 'Ignore game updates')}
+      isSetToDefaultValue={isSetToDefaultValue}
+      resetToDefaultValue={resetToDefaultValue}
     />
   )
 }

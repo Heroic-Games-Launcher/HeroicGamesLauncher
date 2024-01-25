@@ -12,7 +12,6 @@ import {
   InstallPlatform,
   UserInfo,
   WineInstallation,
-  AppSettings,
   ToolArgs,
   LaunchParams,
   InstallParams,
@@ -300,7 +299,7 @@ interface AsyncIPCFunctions {
     value: GlobalConfig[Key]
   ) => void
   resetGlobalConfigKey: (key: keyof GlobalConfig) => void
-  getUserConfiguredGlobalConfigKeys: () => (keyof GlobalConfig)[]
+  getUserConfiguredGlobalConfigKeys: () => Record<keyof GlobalConfig, boolean>
   getGameConfig: (appName: string, runner: Runner) => GameConfig
   setGameConfig: <Key extends keyof GameConfig>(
     appName: string,
@@ -316,7 +315,7 @@ interface AsyncIPCFunctions {
   getUserConfiguredGameConfigKeys: (
     appName: string,
     runner: Runner
-  ) => (keyof GameConfig)[]
+  ) => Record<keyof GameConfig, boolean>
 }
 
 // This is quite ugly & throws a lot of errors in a regular .ts file

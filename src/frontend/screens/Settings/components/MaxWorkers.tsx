@@ -6,8 +6,13 @@ import type { PositiveInteger } from 'backend/schemas'
 
 const MaxWorkers = () => {
   const { t } = useTranslation()
-  const [maxWorkers, setMaxWorkers, maxWorkersFetched] =
-    useGlobalConfig('maxDownloadWorkers')
+  const [
+    maxWorkers,
+    setMaxWorkers,
+    maxWorkersFetched,
+    isSetToDefaultValue,
+    resetToDefaultValue
+  ] = useGlobalConfig('maxDownloadWorkers')
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
 
   useEffect(() => {
@@ -33,6 +38,8 @@ const MaxWorkers = () => {
       }
       value={(maxWorkers ?? 0).toString()}
       extraClass="smaller"
+      isSetToDefaultValue={isSetToDefaultValue}
+      resetToDefaultValue={resetToDefaultValue}
     >
       {Array.from(Array(maxCpus).keys()).map((n) => (
         <option key={n + 1}>{n + 1}</option>

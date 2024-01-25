@@ -12,8 +12,13 @@ const EnableFsync = () => {
   const { platform } = useContext(ContextProvider)
   const { isLinuxNative } = useContext(SettingsContext)
   const isLinux = platform === 'linux'
-  const [enableFsync, setEnableFsync, fsyncConfigFetched] =
-    useSharedConfig('fSync')
+  const [
+    enableFsync,
+    setEnableFsync,
+    fsyncConfigFetched,
+    isSetToDefault,
+    resetToDefaultValue
+  ] = useSharedConfig('fSync')
 
   if (!isLinux || isLinuxNative || !fsyncConfigFetched) {
     return <></>
@@ -26,6 +31,8 @@ const EnableFsync = () => {
         value={enableFsync || false}
         handleChange={async () => setEnableFsync(!enableFsync)}
         title={t('setting.fsync', 'Enable Fsync')}
+        isSetToDefaultValue={isSetToDefault}
+        resetToDefaultValue={resetToDefaultValue}
       />
 
       <FontAwesomeIcon

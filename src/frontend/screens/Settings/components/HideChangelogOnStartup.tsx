@@ -5,9 +5,13 @@ import { useTranslation } from 'react-i18next'
 
 const HideChangelogOnStartup = () => {
   const { t } = useTranslation()
-  const [hideChangelogsOnStartup, setHideChangelogsOnStartup] = useGlobalConfig(
-    'hideChangelogsOnStartup'
-  )
+  const [
+    hideChangelogsOnStartup,
+    setHideChangelogsOnStartup,
+    ,
+    isSetToDefaultValue,
+    resetToDefaultValue
+  ] = useGlobalConfig('hideChangelogsOnStartup')
 
   return (
     <ToggleSwitch
@@ -20,6 +24,8 @@ const HideChangelogOnStartup = () => {
         'setting.hideChangelogsOnStartup',
         "Don't show changelogs on Startup"
       )}
+      isSetToDefaultValue={isSetToDefaultValue}
+      resetToDefaultValue={resetToDefaultValue}
     />
   )
 }

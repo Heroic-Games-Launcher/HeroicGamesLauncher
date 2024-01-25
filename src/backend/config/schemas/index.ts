@@ -154,8 +154,10 @@ const GlobalConfigV1Json = z.object({
 })
 
 // These types are what's returned from the config API
-type GameConfig = GameConfigV1
-type GlobalConfig = GlobalConfigV1
+const GameConfig = GameConfigV1
+type GameConfig = z.infer<typeof GameConfig>
+const GlobalConfig = GlobalConfigV1
+type GlobalConfig = z.infer<typeof GlobalConfig>
 
 // These constants/types are what's read out from and stored to disk
 const latestGameConfigJson = GameConfigV1Json
@@ -166,8 +168,8 @@ type LatestGlobalConfigJson = z.infer<typeof latestGlobalConfigJson>
 export {
   GameConfigV1,
   GlobalConfigV1,
-  type GameConfig,
-  type GlobalConfig,
+  GameConfig,
+  GlobalConfig,
   latestGameConfigJson,
   type LatestGameConfigJson,
   latestGlobalConfigJson,

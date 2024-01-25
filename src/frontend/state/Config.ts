@@ -7,18 +7,65 @@ const useGameConfigState = create<Record<`${string}_${Runner}`, GameConfig>>(
   () => ({})
 )
 
-window.api.config.messages.globalConfigChanged((key, value) =>
-  useGlobalConfigState.setState((config) => ({
+const useUserConfiguredGlobalConfigKeys = create<Record<
+  keyof GlobalConfig,
+  boolean
+> | null>(() => null)
+const useUserConfiguredGameConfigKeys = create<
+  Record<`${string}_${Runner}`, Record<keyof GameConfig, boolean>>
+>(() => ({}))
+
+window.api.config.messages.globalConfigChanged((key, value) => {
+  useGlobalConfigState.setState({
     [key]: value
-  }))
-)
-window.api.config.messages.gameConfigChanged((appName, runner, key, value) =>
+  })
+  useUserConfiguredGlobalConfigKeys.setState({
+    [key]: true
+  })
+})
+window.api.config.messages.globalConfigKeyReset((key, defaultValue) => {
+  useGlobalConfigState.setState({
+    [key]: defaultValue
+  })
+  useUserConfiguredGlobalConfigKeys.setState({
+    [key]: false
+  })
+})
+
+window.api.config.messages.gameConfigChanged((appName, runner, key, value) => {
   useGameConfigState.setState((all_configs) => ({
     [`${appName}_${runner}`]: {
       ...all_configs[`${appName}_${runner}`],
       [key]: value
     }
   }))
+  useUserConfiguredGameConfigKeys.setState((all_keys) => ({
+    [`${appName}_${runner}`]: {
+      ...all_keys[`${appName}_${runner}`],
+      [key]: true
+    }
+  }))
+})
+window.api.config.messages.gameConfigKeyReset(
+  (appName, runner, key, defaultValue) => {
+    useGameConfigState.setState((all_configs) => ({
+      [`${appName}_${runner}`]: {
+        ...all_configs[`${appName}_${runner}`],
+        [key]: defaultValue
+      }
+    }))
+    useUserConfiguredGameConfigKeys.setState((all_configs) => ({
+      [`${appName}_${runner}`]: {
+        ...all_configs[`${appName}_${runner}`],
+        [key]: false
+      }
+    }))
+  }
 )
 
-export { useGlobalConfigState, useGameConfigState }
+export {
+  useGlobalConfigState,
+  useGameConfigState,
+  useUserConfiguredGlobalConfigKeys,
+  useUserConfiguredGameConfigKeys
+}

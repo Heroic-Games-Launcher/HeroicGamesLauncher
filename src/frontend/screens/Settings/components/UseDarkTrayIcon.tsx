@@ -5,7 +5,13 @@ import { useGlobalConfig } from 'frontend/hooks/config'
 
 const UseDarkTrayIcon = () => {
   const { t } = useTranslation()
-  const [darkTrayIcon, setDarkTrayIcon] = useGlobalConfig('darkTrayIcon')
+  const [
+    darkTrayIcon,
+    setDarkTrayIcon,
+    ,
+    isSetToDefaultValue,
+    resetToDefaultValue
+  ] = useGlobalConfig('darkTrayIcon')
 
   const toggleDarkTrayIcon = () => {
     setDarkTrayIcon(!darkTrayIcon)
@@ -18,6 +24,8 @@ const UseDarkTrayIcon = () => {
       value={darkTrayIcon}
       handleChange={toggleDarkTrayIcon}
       title={t('setting.darktray', 'Use Dark Tray Icon (needs restart)')}
+      isSetToDefaultValue={isSetToDefaultValue}
+      resetToDefaultValue={resetToDefaultValue}
     />
   )
 }

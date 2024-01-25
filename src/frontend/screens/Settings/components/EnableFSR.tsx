@@ -12,7 +12,8 @@ const EnableFSR = () => {
   const { platform } = useContext(ContextProvider)
   const { isLinuxNative } = useContext(SettingsContext)
   const isLinux = platform === 'linux'
-  const [FSR, setFSR, FSRConfigFetched] = useSharedConfig('fsr')
+  const [FSR, setFSR, FSRConfigFetched, isSetToDefault, resetToDefaultValue] =
+    useSharedConfig('fsr')
 
   if (!isLinux || isLinuxNative || !FSRConfigFetched) {
     return <></>
@@ -31,6 +32,8 @@ const EnableFSR = () => {
             'setting.enableFSRHack',
             'Enable FSR Hack (Wine version needs to support it)'
           )}
+          isSetToDefaultValue={isSetToDefault}
+          resetToDefaultValue={resetToDefaultValue}
         />
 
         <FontAwesomeIcon

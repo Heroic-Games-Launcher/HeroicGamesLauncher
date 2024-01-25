@@ -7,7 +7,8 @@ import SettingsContext from '../SettingsContext'
 
 const ShowFPS = () => {
   const { t } = useTranslation()
-  const [showFps, setShowFps] = useSharedConfig('showFps')
+  const [showFps, setShowFps, , isSetToDefaultValue, resetToDefaultValue] =
+    useSharedConfig('showFps')
   const { platform } = useContext(ContextProvider)
   const { isLinuxNative } = useContext(SettingsContext)
   const isWin = platform === 'win32'
@@ -28,6 +29,8 @@ const ShowFPS = () => {
           ? t('setting.showfps')
           : t('setting.showMetalOverlay', 'Show Stats Overlay')
       }
+      isSetToDefaultValue={isSetToDefaultValue}
+      resetToDefaultValue={resetToDefaultValue}
     />
   )
 }

@@ -16,13 +16,20 @@ import { useSharedConfig } from 'frontend/hooks/config'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import { Button } from '@mui/material'
+import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore'
 
 const Gamescope = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
-  const [gamescope, setGamescope, gamescopeConfigFetched] =
-    useSharedConfig('gamescope')
+  const [
+    gamescope,
+    setGamescope,
+    gamescopeConfigFetched,
+    isSetToDefault,
+    resetToDefault
+  ] = useSharedConfig('gamescope')
   const [fetching, setFetching] = useState(true)
   const [isInstalled, setIsInstalled] = useState(false)
 
@@ -104,6 +111,14 @@ const Gamescope = () => {
 
   return (
     <div className="gamescopeSettings">
+      {!isSetToDefault && (
+        <Button
+          onClick={resetToDefault}
+          startIcon={<SettingsBackupRestoreIcon />}
+        >
+          {t('button.reset-to-default', 'Reset to default')}
+        </Button>
+      )}
       {/* Enable Upscale */}
       <div className="toggleRow">
         <ToggleSwitch

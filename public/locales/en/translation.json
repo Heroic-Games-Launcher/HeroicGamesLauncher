@@ -172,7 +172,8 @@
         "cancel": "Cancel",
         "continue": "Continue",
         "go_to_library": "Go to Library",
-        "login": "Log in"
+        "login": "Log in",
+        "reset-to-default": "Reset to default"
     },
     "category-settings": {
         "add-new-category": "Add New Category",

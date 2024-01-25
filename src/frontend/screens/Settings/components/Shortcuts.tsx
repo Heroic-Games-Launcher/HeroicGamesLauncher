@@ -13,14 +13,27 @@ const Shortcuts = () => {
   const isLinux = platform === 'linux'
   const supportsDesktopShortcut = isWin || isLinux
 
-  const [addDesktopShortcuts, setAddDesktopShortcuts] = useGlobalConfig(
-    'addDesktopShortcuts'
-  )
-  const [addStartMenuShortcuts, setAddStartMenuShortcuts] = useGlobalConfig(
-    'addStartMenuShortcuts'
-  )
-  const [addSteamShortcuts, setAddSteamShortcuts] =
-    useGlobalConfig('addSteamShortcuts')
+  const [
+    addDesktopShortcuts,
+    setAddDesktopShortcuts,
+    ,
+    desktopShortcutsSetToDefault,
+    desktopShortcutsResetToDefault
+  ] = useGlobalConfig('addDesktopShortcuts')
+  const [
+    addStartMenuShortcuts,
+    setAddStartMenuShortcuts,
+    ,
+    startMenuShortcutsSetToDefault,
+    startMenuShortctusResetToDefault
+  ] = useGlobalConfig('addStartMenuShortcuts')
+  const [
+    addSteamShortcuts,
+    setAddSteamShortcuts,
+    ,
+    steamShortcutsSetToDefault,
+    steamShortctusResetToDefault
+  ] = useGlobalConfig('addSteamShortcuts')
 
   if (!isDefault) {
     return <></>
@@ -50,6 +63,8 @@ const Shortcuts = () => {
             'setting.adddesktopshortcuts',
             'Add desktop shortcuts automatically'
           )}
+          isSetToDefaultValue={desktopShortcutsSetToDefault}
+          resetToDefaultValue={desktopShortcutsResetToDefault}
         />
       )}
 
@@ -60,6 +75,8 @@ const Shortcuts = () => {
           setAddStartMenuShortcuts(!addStartMenuShortcuts)
         }
         title={menuShortcutsLabel}
+        isSetToDefaultValue={startMenuShortcutsSetToDefault}
+        resetToDefaultValue={startMenuShortctusResetToDefault}
       />
 
       <ToggleSwitch
@@ -67,6 +84,8 @@ const Shortcuts = () => {
         value={addSteamShortcuts}
         handleChange={async () => setAddSteamShortcuts(!addSteamShortcuts)}
         title={t('setting.addgamestosteam', 'Add games to Steam automatically')}
+        isSetToDefaultValue={steamShortcutsSetToDefault}
+        resetToDefaultValue={steamShortctusResetToDefault}
       />
     </>
   )

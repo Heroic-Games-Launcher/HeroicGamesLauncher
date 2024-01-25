@@ -24,7 +24,8 @@ const OfflineMode = () => {
     getInfo()
   }, [])
 
-  const [offlineMode, setOfflineMode] = useGameConfig('runGameOffline')
+  const [offlineMode, setOfflineMode, , isSetToDefault, resetToDefaultValue] =
+    useGameConfig('runGameOffline')
 
   if (runner !== 'legendary') {
     return <></>
@@ -37,6 +38,8 @@ const OfflineMode = () => {
         value={offlineMode}
         handleChange={async () => setOfflineMode(!offlineMode)}
         title={t('setting.offlinemode')}
+        isSetToDefaultValue={isSetToDefault}
+        resetToDefaultValue={resetToDefaultValue}
       />
       {!canRunOffline && offlineMode && (
         <div className="infoBox saves-warning">

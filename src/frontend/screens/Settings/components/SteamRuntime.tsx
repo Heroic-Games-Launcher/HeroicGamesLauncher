@@ -13,7 +13,13 @@ const SteamRuntime = () => {
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
   const isWin = platform === 'win32'
-  const [useSteamRuntime, setUseSteamRuntime] = useSharedConfig('steamRuntime')
+  const [
+    useSteamRuntime,
+    setUseSteamRuntime,
+    ,
+    isSetToDefaultValue,
+    resetToDefaultValue
+  ] = useSharedConfig('steamRuntime')
   const [wineVersion] = useSharedConfig('wineVersion')
 
   const isProton = !isWin && wineVersion?.type === 'proton'
@@ -31,6 +37,8 @@ const SteamRuntime = () => {
         value={useSteamRuntime}
         handleChange={async () => setUseSteamRuntime(!useSteamRuntime)}
         title={t('setting.steamruntime', 'Use Steam Runtime')}
+        isSetToDefaultValue={isSetToDefaultValue}
+        resetToDefaultValue={resetToDefaultValue}
       />
 
       <FontAwesomeIcon

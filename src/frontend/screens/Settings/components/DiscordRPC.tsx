@@ -7,9 +7,13 @@ import { useGlobalConfig } from 'frontend/hooks/config'
 const DiscordRPC = () => {
   const { t } = useTranslation()
   const { isDefault } = useContext(SettingsContext)
-  const [discordRPC, setDiscordRPC, rpcFetched] = useGlobalConfig(
-    'discordRichPresence'
-  )
+  const [
+    discordRPC,
+    setDiscordRPC,
+    rpcFetched,
+    isSetToDefault,
+    resetToDefaultValue
+  ] = useGlobalConfig('discordRichPresence')
 
   if (!isDefault || !rpcFetched) return <></>
 
@@ -19,6 +23,8 @@ const DiscordRPC = () => {
       value={discordRPC}
       handleChange={async () => setDiscordRPC(!discordRPC)}
       title={t('setting.discordRPC', 'Enable Discord Rich Presence')}
+      isSetToDefaultValue={isSetToDefault}
+      resetToDefaultValue={resetToDefaultValue}
     />
   )
 }

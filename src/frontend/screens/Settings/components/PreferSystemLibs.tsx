@@ -10,8 +10,13 @@ const PreferSystemLibs = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
-  const [preferSystemLibs, setPreferSystemLibs, systemLibsConfigFetched] =
-    useSharedConfig('preferSystemLibraries')
+  const [
+    preferSystemLibs,
+    setPreferSystemLibs,
+    systemLibsConfigFetched,
+    isSetToDefault,
+    resetToDefaultValue
+  ] = useSharedConfig('preferSystemLibraries')
   const [wineVersion, , wineVersionFetched] = useSharedConfig('wineVersion')
 
   if (!systemLibsConfigFetched || !wineVersionFetched) return <></>
@@ -32,6 +37,8 @@ const PreferSystemLibs = () => {
         value={preferSystemLibs || false}
         handleChange={async () => setPreferSystemLibs(!preferSystemLibs)}
         title={t('setting.preferSystemLibs', 'Prefer system libraries')}
+        isSetToDefaultValue={isSetToDefault}
+        resetToDefaultValue={resetToDefaultValue}
       />
 
       <FontAwesomeIcon

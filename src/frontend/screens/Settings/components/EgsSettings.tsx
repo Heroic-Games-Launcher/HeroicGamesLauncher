@@ -9,7 +9,13 @@ const EgsSettings = () => {
   const [isSyncing, setIsSyncing] = useState(false)
   const { platform, refreshLibrary, showDialogModal } =
     useContext(ContextProvider)
-  const [egsPath, setEgsPath, egsPathFetched] = useGlobalConfig('egsLinkedPath')
+  const [
+    egsPath,
+    setEgsPath,
+    egsPathFetched,
+    egsConfigIsDefault,
+    resetEgsConfig
+  ] = useGlobalConfig('egsLinkedPath')
 
   if (!egsPathFetched) return <></>
 
@@ -59,6 +65,8 @@ const EgsSettings = () => {
         handleChange={handleSync}
         title={t('setting.egs-sync')}
         disabled={isSyncing}
+        isSetToDefaultValue={egsConfigIsDefault}
+        resetToDefaultValue={resetEgsConfig}
       />
     )
   }

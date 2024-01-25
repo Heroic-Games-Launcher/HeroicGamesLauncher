@@ -10,7 +10,13 @@ const Mangohud = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
-  const [showMangohud, setShowMangohud] = useSharedConfig('showMangohud')
+  const [
+    showMangohud,
+    setShowMangohud,
+    ,
+    isSetToDefaultValue,
+    resetToDefaultValue
+  ] = useSharedConfig('showMangohud')
 
   if (!isLinux) {
     return <></>
@@ -23,6 +29,8 @@ const Mangohud = () => {
         value={showMangohud}
         handleChange={async () => setShowMangohud(!showMangohud)}
         title={t('setting.mangohud')}
+        isSetToDefaultValue={isSetToDefaultValue}
+        resetToDefaultValue={resetToDefaultValue}
       />
 
       <FontAwesomeIcon

@@ -9,9 +9,13 @@ import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 const PlaytimeSync = () => {
   const { t } = useTranslation()
   const { isDefault } = useContext(SettingsContext)
-  const [disablePlaytimeSync, setDisablePlaytimeSync] = useGlobalConfig(
-    'disablePlaytimeSync'
-  )
+  const [
+    disablePlaytimeSync,
+    setDisablePlaytimeSync,
+    ,
+    isSetToDefault,
+    resetToDefaultValue
+  ] = useGlobalConfig('disablePlaytimeSync')
 
   if (!isDefault) {
     return <></>
@@ -27,6 +31,8 @@ const PlaytimeSync = () => {
           'setting.disablePlaytimeSync',
           'Disable playtime synchronization'
         )}
+        isSetToDefaultValue={isSetToDefault}
+        resetToDefaultValue={resetToDefaultValue}
       />
       <FontAwesomeIcon
         className="helpIcon"

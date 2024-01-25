@@ -5,8 +5,13 @@ import { useGameConfig } from 'frontend/hooks/config'
 
 const PreferedLanguage = () => {
   const { t } = useTranslation()
-  const [languageCode, setLanguageCode, gameLanguageConfigFetched] =
-    useGameConfig('gameLanguage')
+  const [
+    languageCode,
+    setLanguageCode,
+    gameLanguageConfigFetched,
+    isSetToDefault,
+    resetToDefault
+  ] = useGameConfig('gameLanguage')
 
   if (!gameLanguageConfigFetched) return <></>
 
@@ -46,6 +51,8 @@ const PreferedLanguage = () => {
       value={languageCode}
       onChange={handleLanguageCode}
       afterInput={languageInfo}
+      isSetToDefaultValue={isSetToDefault}
+      resetToDefaultValue={resetToDefault}
     />
   )
 }

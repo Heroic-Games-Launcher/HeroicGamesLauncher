@@ -25,7 +25,8 @@ export const defaultThemes = {
 export const ThemeSelector = () => {
   const { theme, setTheme } = useContext(ContextProvider)
   const { t } = useTranslation()
-  const [themesPath, setThemesPath] = useGlobalConfig('customThemesPath')
+  const [themesPath, setThemesPath, , themesPathIsDefault, resetThemesPath] =
+    useGlobalConfig('customThemesPath')
   const [themes, setThemes] = useState<string[]>(Object.keys(defaultThemes))
 
   hasHelp(
@@ -48,6 +49,8 @@ export const ThemeSelector = () => {
         label={t('setting.select_theme', 'Select Theme')}
         onChange={(event) => setTheme(event.target.value)}
         value={theme}
+        isSetToDefaultValue={theme === 'midnightMirage'}
+        resetToDefaultValue={() => setTheme('midnightMirage')}
       >
         {themes.map((key) => (
           <option key={key} value={key}>
@@ -67,6 +70,8 @@ export const ThemeSelector = () => {
         onPathChange={async (path) => setThemesPath(path)}
         pathDialogTitle={t('box.default-install-path')}
         type="directory"
+        resetToDefaultCallback={resetThemesPath}
+        isSetToDefaultValue={themesPathIsDefault}
         afterInput={
           <>
             <InfoBox text="infobox.help">

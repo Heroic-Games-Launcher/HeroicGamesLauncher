@@ -5,8 +5,13 @@ import { useTranslation } from 'react-i18next'
 
 const AutoUpdateGames = () => {
   const { t } = useTranslation()
-  const [autoUpdateGames, setAutoUpdateGames] =
-    useGlobalConfig('autoUpdateGames')
+  const [
+    autoUpdateGames,
+    setAutoUpdateGames,
+    ,
+    isSetToDefault,
+    resetToDefaultValue
+  ] = useGlobalConfig('autoUpdateGames')
 
   return (
     <ToggleSwitch
@@ -14,6 +19,8 @@ const AutoUpdateGames = () => {
       value={autoUpdateGames}
       handleChange={async () => setAutoUpdateGames(!autoUpdateGames)}
       title={t('setting.autoUpdateGames', 'Automatically update games')}
+      isSetToDefaultValue={isSetToDefault}
+      resetToDefaultValue={resetToDefaultValue}
     />
   )
 }

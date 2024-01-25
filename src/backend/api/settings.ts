@@ -50,8 +50,9 @@ export const config = {
     ): Promise<void> => ipcRenderer.invoke('setGlobalConfig', key, value),
     reset: async (key: keyof GlobalConfig): Promise<void> =>
       ipcRenderer.invoke('resetGlobalConfigKey', key),
-    getUserConfiguredKeys: async (): Promise<(keyof GlobalConfig)[]> =>
-      ipcRenderer.invoke('getUserConfiguredGlobalConfigKeys')
+    getUserConfiguredKeys: async (): Promise<
+      Record<keyof GlobalConfig, boolean>
+    > => ipcRenderer.invoke('getUserConfiguredGlobalConfigKeys')
   },
   game: {
     get: async (appName: string, runner: Runner): Promise<GameConfig> =>
@@ -72,7 +73,7 @@ export const config = {
     getUserConfiguredKeys: async (
       appName: string,
       runner: Runner
-    ): Promise<(keyof GameConfig)[]> =>
+    ): Promise<Record<keyof GameConfig, boolean>> =>
       ipcRenderer.invoke('getUserConfiguredGameConfigKeys', appName, runner)
   },
   messages: {
@@ -86,6 +87,16 @@ export const config = {
         callback(key, value)
       )
     },
+    globalConfigKeyReset: (
+      callback: <Key extends keyof GlobalConfig>(
+        key: Key,
+        defaultValue: GlobalConfig[Key]
+      ) => void
+    ): void => {
+      ipcRenderer.on('globalConfigKeyReset', (_e, key, defaultValue) =>
+        callback(key, defaultValue)
+      )
+    },
     gameConfigChanged: (
       callback: <Key extends keyof GameConfig>(
         appName: string,
@@ -96,6 +107,20 @@ export const config = {
     ): void => {
       ipcRenderer.on('gameConfigChanged', (_e, appName, runner, key, value) =>
         callback(appName, runner, key, value)
+      )
+    },
+    gameConfigKeyReset: (
+      callback: <Key extends keyof GameConfig>(
+        appName: string,
+        runner: Runner,
+        key: Key,
+        defaultValue: GameConfig[Key]
+      ) => void
+    ): void => {
+      ipcRenderer.on(
+        'gameConfigKeyReset',
+        (_e, appName, runner, key, defaultValue) =>
+          callback(appName, runner, key, defaultValue)
       )
     }
   }

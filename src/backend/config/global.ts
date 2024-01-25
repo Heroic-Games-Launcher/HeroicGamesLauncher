@@ -62,7 +62,11 @@ function setGlobalConfig<Key extends keyof GlobalConfig>(
 }
 
 function resetGlobalConfigKey(key: keyof GlobalConfig): void {
-  logInfo(['Resetting', key, 'to default'], LogPrefix.GlobalConfig)
+  const defaultValue = getDefaultGlobalConfig()[key]
+  logInfo(
+    ['Resetting', key, 'to default value', defaultValue],
+    LogPrefix.GlobalConfig
+  )
 
   delete globalConfig[key]
 
@@ -75,10 +79,17 @@ function resetGlobalConfigKey(key: keyof GlobalConfig): void {
     globalConfigFilePath,
     JSON.stringify(fullGlobalConfigObject, null, 2)
   )
+
+  sendFrontendMessage('globalConfigKeyReset', key, defaultValue)
 }
 
-function getUserConfiguredGlobalConfigKeys(): (keyof GlobalConfig)[] {
-  return Object.keys(globalConfig) as (keyof GlobalConfig)[]
+function getUserConfiguredGlobalConfigKeys(): Record<
+  keyof GlobalConfig,
+  boolean
+> {
+  return Object.fromEntries(
+    GlobalConfig.keyof().options.map((key) => [key, key in globalConfig])
+  ) as Record<keyof GlobalConfig, boolean>
 }
 
 function loadGlobalConfig(): void {

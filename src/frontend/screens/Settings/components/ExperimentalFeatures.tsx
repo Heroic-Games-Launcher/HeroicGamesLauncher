@@ -10,7 +10,8 @@ interface FeatureToggleProps {
 }
 function FeatureToggle({ feature }: FeatureToggleProps) {
   const { t } = useTranslation()
-  const [value, setValue, valueFetched] = useGlobalConfig(feature)
+  const [value, setValue, valueFetched, isDefaultValue, resetValue] =
+    useGlobalConfig(feature)
 
   if (!valueFetched) return <></>
 
@@ -20,6 +21,8 @@ function FeatureToggle({ feature }: FeatureToggleProps) {
       value={value}
       handleChange={async () => setValue(!value)}
       title={t(`setting.experimental_features.${feature}`, feature)}
+      resetToDefaultValue={resetValue}
+      isSetToDefaultValue={isDefaultValue}
     />
   )
 }

@@ -5,8 +5,13 @@ import { useTranslation } from 'react-i18next'
 
 const CheckUpdatesOnStartup = () => {
   const { t } = useTranslation()
-  const [checkForUpdatesOnStartup, setCheckForUpdatesOnStartup] =
-    useGlobalConfig('checkForUpdatesOnStartup')
+  const [
+    checkForUpdatesOnStartup,
+    setCheckForUpdatesOnStartup,
+    ,
+    isSetToDefault,
+    resetToDefaultValue
+  ] = useGlobalConfig('checkForUpdatesOnStartup')
 
   const [show, setShow] = useState(checkForUpdatesOnStartup)
 
@@ -29,6 +34,8 @@ const CheckUpdatesOnStartup = () => {
         'setting.checkForUpdatesOnStartup',
         'Check for Heroic Updates on Startup'
       )}
+      isSetToDefaultValue={isSetToDefault}
+      resetToDefaultValue={resetToDefaultValue}
     />
   )
 }

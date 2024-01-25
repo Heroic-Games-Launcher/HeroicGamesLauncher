@@ -9,15 +9,20 @@ import { useSharedConfig } from 'frontend/hooks/config'
 
 const AutoDXVK = () => {
   const { t } = useTranslation()
-  const [autoInstallDxvk, setAutoInstallDxvk, dxvkConfigFetched] =
-    useSharedConfig('autoInstallDxvk')
+  const [
+    autoInstallDxvk,
+    setAutoInstallDxvk,
+    dxvkConfigFetched,
+    dxvkConfigIsDefault,
+    resetDxvkConfig
+  ] = useSharedConfig('autoInstallDxvk')
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
   const [autoInstallVkd3d, , vkd3dConfigFetched] =
     useSharedConfig('autoInstallVkd3d')
   const [wineVersion, , wineVersionConfigFetched] =
     useSharedConfig('wineVersion')
-  const { appName, runner } = useContext(SettingsContext)
+  const { appName, runner, isDefault } = useContext(SettingsContext)
   const [installingDxvk, setInstallingDxvk] = React.useState(false)
 
   if (!dxvkConfigFetched || !vkd3dConfigFetched || !wineVersionConfigFetched) {
@@ -31,11 +36,13 @@ const AutoDXVK = () => {
   const handleAutoInstallDxvk = async () => {
     const action = autoInstallDxvk ? 'restore' : 'backup'
     setInstallingDxvk(true)
-    const res = await window.api.toggleDXVK({
-      appName,
-      runner,
-      action
-    })
+    let res = true
+    if (!isDefault)
+      res = await window.api.toggleDXVK({
+        appName,
+        runner,
+        action
+      })
 
     setInstallingDxvk(false)
     if (res) {
@@ -56,6 +63,8 @@ const AutoDXVK = () => {
         }
         fading={installingDxvk}
         disabled={installingDxvk || (isLinux && autoInstallVkd3d)}
+        isSetToDefaultValue={dxvkConfigIsDefault}
+        resetToDefaultValue={resetDxvkConfig}
       />
 
       <FontAwesomeIcon
