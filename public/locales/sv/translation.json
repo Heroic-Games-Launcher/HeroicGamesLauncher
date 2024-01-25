@@ -1,6 +1,6 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Typsnitt för kommandon (Standard: ",
+        "actions_font_family_no_default": "Typsnitt för kommandon (Standard):",
         "all_tiles_in_color": "Visa alla spel rutor i färg",
         "content_font_family_no_default": "Typsnitt för innehåll (Standard: ",
         "fonts": "Typsnitt",
@@ -203,8 +203,8 @@
     "docs": "Dokumentation",
     "download-manager": {
         "install-type": {
-            "install": "Installera",
-            "update": "Uppdatera"
+            "install": "Installation",
+            "update": "Uppdatering"
         },
         "label": {
             "disk": "Disk",
@@ -747,6 +747,28 @@
         },
         "offline": {
             "warning": "Det här spelet tillåter inte uttryckligen offlineläge, aktivera detta på egen risk. Spelet kanske inte fungerar."
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Installerade spel",
+                "help2": "Tredjepartsspelinformation (poäng, steam-kompatibilitet, howlongtobeat, pcgamingwiki, applegamingwiki)",
+                "help6": "Detta kommer INTE att ta bort:",
+                "help7": "Butik inloggning",
+                "help5": "Amazon biblioteksinformation (lista över spel, installationsdialoginformation)",
+                "help1": "Denna åtgärd rensar följande cacheminne:",
+                "help10": "Heroic konfiguration",
+                "help3": "Legendary biblioteksinformation (lista över spel, installationsdialoginformation, spelinformation)",
+                "help4": "GOG-biblioteksinformation (lista över spel, installationsdialoginformation, api-information -dvs: krav-)",
+                "help9": "Spel inställningar"
+            },
+            "title": {
+                "resetHeroic": "Grundåterställ Heroic",
+                "clearCache": "Rensa cache"
+            },
+            "details": "Detaljer",
+            "resetHeroic": {
+                "help": "Detta tar bort alla inställningar och cachelagring men tar inte bort dina installerade spel eller dina Epic-uppgifter. Portabla versioner (AppImage, WinPortable, ...) av heroic måste startas om manuellt efteråt."
+            }
         }
     },
     "Settings": "Inställningar",

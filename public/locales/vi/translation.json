@@ -634,6 +634,15 @@
         "saves": {
             "label": "Save Location:",
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Game đã cài"
+            },
+            "details": "Chi tiết",
+            "title": {
+                "resetHeroic": "Đặt lại Heroic"
+            }
         }
     },
     "Settings": "Cài đặt",

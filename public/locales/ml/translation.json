@@ -694,6 +694,14 @@
         "systemInformation": {
             "showDetailed": "സിസ്റ്റം വിവരങ്ങൾ വിശദമായി കാണിക്കുക",
             "copyToClipboard": "ക്ലിപ്പ്ബോർഡിലേയ്ക്ക് പകർത്തുക(Copy to clipboard)"
+        },
+        "advanced": {
+            "title": {
+                "resetHeroic": "Reset Heroic"
+            },
+            "clearCache": {
+                "help8": "നട്ട കളികള്‍"
+            }
         }
     },
     "Settings": "ക്രമീകരണങ്ങള്",

@@ -439,6 +439,11 @@
             "placeHolderKey": "新的包裝容器",
             "placeHolderValue": "包裝容器參數",
             "title": "包裝容器命令："
+        },
+        "gamescope": {
+            "borderless": "無邊框",
+            "fullscreen": "全螢幕",
+            "fpsLimiter": "FPS 限制器"
         }
     },
     "other": {
@@ -634,6 +639,15 @@
         "saves": {
             "label": "Save Location:",
             "warning": "雲端存檔功能處於測試階段，請在同步前備份你的存檔（以防出現問題）"
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Installed Games"
+            },
+            "details": "細節",
+            "title": {
+                "resetHeroic": "重置 Heroic"
+            }
         }
     },
     "Settings": "設定",

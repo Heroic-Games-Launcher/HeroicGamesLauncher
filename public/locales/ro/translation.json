@@ -632,6 +632,12 @@
         "saves": {
             "label": "Salveaza locatia:",
             "warning": "Funcția Cloud Saves este în versiune beta, vă rugăm să faceți backup înainte de sincronizare (în cazul în care ceva nu merge bine)"
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Jocuri instalate"
+            },
+            "details": "Detalii"
         }
     },
     "Settings": "Setări",
