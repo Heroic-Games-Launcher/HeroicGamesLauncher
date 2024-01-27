@@ -2,6 +2,8 @@ import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { InfoBox, TextInputField } from 'frontend/components/UI'
 import { useGameConfig } from 'frontend/hooks/config'
+import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore'
+import { IconButton } from '@mui/material'
 
 const LauncherArgs = () => {
   const { t } = useTranslation()
@@ -56,6 +58,19 @@ const LauncherArgs = () => {
     errorDiv = <p className="error">{error}</p>
   }
 
+  let resetButton = <></>
+  if (!isSetToDefault) {
+    resetButton = (
+      <IconButton
+        color={'primary'}
+        onClick={resetToDefault}
+        title={t('button.reset-to-default', 'Reset to default')}
+      >
+        <SettingsBackupRestoreIcon />
+      </IconButton>
+    )
+  }
+
   return (
     <TextInputField
       label={t('options.gameargs.title')}
@@ -69,8 +84,7 @@ const LauncherArgs = () => {
           {launcherArgsInfo}
         </>
       }
-      isSetToDefaultValue={isSetToDefault}
-      resetToDefaultValue={resetToDefault}
+      inlineElement={resetButton}
     />
   )
 }
