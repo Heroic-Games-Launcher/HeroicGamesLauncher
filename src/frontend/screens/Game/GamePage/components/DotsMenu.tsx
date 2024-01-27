@@ -11,8 +11,8 @@ import {
 } from 'frontend/components/UI/Dialog'
 import GameRequirements from '../../GameRequirements'
 import { useTranslation } from 'react-i18next'
-import DLCList from 'frontend/components/UI/DLCList'
-import { UpdateComponent } from 'frontend/components/UI'
+import GameChangeLog from '../../GameChangeLog'
+import ModifyInstallModal from '../../ModifyInstallModal'
 
 interface Props {
   gameInfo: GameInfo
@@ -21,12 +21,13 @@ interface Props {
 
 const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
   const { t } = useTranslation('gamepage')
-  const { appName, gameExtraInfo, gameInstallInfo, runner, is } =
+  const { appName, gameExtraInfo, gameInstallInfo, is } =
     useContext(GameContext)
   const [showRequirements, setShowRequirements] = useState(false)
-  const [showDlcs, setShowDlcs] = useState(false)
+  const [showChangelog, setShowChangelog] = useState(false)
+  const [showModifyInstallModal, setShowModifyInstallModal] = useState(false)
 
-  const { is_installed, title } = gameInfo
+  const { is_installed, title, install } = gameInfo
 
   const hasRequirements = (gameExtraInfo?.reqs || []).length > 0
 
@@ -47,13 +48,16 @@ const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
               ? gameInfo.store_url
               : '')
           }
+          changelog={gameExtraInfo?.changelog}
           runner={gameInfo.runner}
+          installPlatform={install.platform}
           handleUpdate={handleUpdate}
+          handleChangeLog={() => setShowChangelog(true)}
           disableUpdate={is.installing || is.updating}
           onShowRequirements={
             hasRequirements ? () => setShowRequirements(true) : undefined
           }
-          onShowDlcs={() => setShowDlcs(true)}
+          onShowModifyInstall={() => setShowModifyInstallModal(true)}
           gameInfo={gameInfo}
         />
       </div>
@@ -69,24 +73,22 @@ const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
         </Dialog>
       )}
 
-      {showDlcs && (
-        <Dialog showCloseButton onClose={() => setShowDlcs(false)}>
-          <DialogHeader onClose={() => setShowDlcs(false)}>
-            <div>{t('game.dlcs', 'DLCs')}</div>
-          </DialogHeader>
-          <DialogContent>
-            {gameInstallInfo ? (
-              <DLCList
-                dlcs={gameInstallInfo?.game.owned_dlc}
-                runner={runner}
-                mainAppInfo={gameInfo}
-                onClose={() => setShowDlcs(false)}
-              />
-            ) : (
-              <UpdateComponent inline />
-            )}
-          </DialogContent>
-        </Dialog>
+      {showModifyInstallModal && (
+        <ModifyInstallModal
+          gameInfo={gameInfo}
+          gameInstallInfo={gameInstallInfo}
+          onClose={() => setShowModifyInstallModal(false)}
+        />
+      )}
+
+      {gameExtraInfo?.changelog && showChangelog && (
+        <GameChangeLog
+          title={gameInfo.title}
+          changelog={gameExtraInfo.changelog}
+          backdropClick={() => {
+            setShowChangelog(false)
+          }}
+        />
       )}
     </>
   )

@@ -896,3 +896,10 @@ export async function getLaunchOptions(
 
   return launchOptions
 }
+
+/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+export function changeVersionPinnedStatus(appName: string, status: boolean) {
+  logWarning(
+    'changeVersionPinnedStatus not implemented on Legendary Library Manager'
+  )
+}

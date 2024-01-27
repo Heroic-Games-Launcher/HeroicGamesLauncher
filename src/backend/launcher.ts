@@ -55,7 +55,7 @@ import {
 import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
 import { DXVK, Winetricks } from './tools'
-import setup from './storeManagers/gog/setup'
+import gogSetup from './storeManagers/gog/setup'
 import nileSetup from './storeManagers/nile/setup'
 import { spawn, spawnSync } from 'child_process'
 import shlex from 'shlex'
@@ -68,6 +68,7 @@ import { readFileSync } from 'fs'
 import { LegendaryCommand } from './storeManagers/legendary/commands'
 import { commandToArgsArray } from './storeManagers/legendary/library'
 import { searchForExecutableOnPath } from './utils/os/path'
+import { sendFrontendMessage } from './main_window'
 import {
   createAbortController,
   deleteAbortController
@@ -238,7 +239,7 @@ async function prepareLaunch(
       }
     }
     // for native games lets use scout for now
-    const runtimeType = isNative ? 'scout' : nonNativeRuntime
+    const runtimeType = isNative ? 'sniper' : nonNativeRuntime
     const { path, args } = await getSteamRuntime(runtimeType)
     if (!path) {
       return {
@@ -255,13 +256,7 @@ async function prepareLaunch(
       }
     }
 
-    steamRuntime = [
-      path,
-      isNative || !gameInfo.install['install_path']
-        ? ''
-        : `--filesystem=${gameInfo.install['install_path']}`,
-      ...args
-    ]
+    steamRuntime = [path, ...args]
   }
 
   return {
@@ -337,7 +332,12 @@ async function prepareWineLaunch(
       LogPrefix.Backend
     )
     if (runner === 'gog') {
-      await setup(appName)
+      await gogSetup(appName)
+      sendFrontendMessage('gameStatusUpdate', {
+        appName,
+        runner: 'gog',
+        status: 'playing'
+      })
     }
     if (runner === 'nile') {
       await nileSetup(appName)
@@ -378,13 +378,21 @@ async function prepareWineLaunch(
     await download('battleye_runtime')
   }
 
-  const { folder_name: installFolderName, install } =
+  if (gameSettings.eacRuntime && !isInstalled('eac_runtime') && isOnline()) {
+    await download('eac_runtime')
+  }
+
+  if (
+    gameSettings.battlEyeRuntime &&
+    !isInstalled('battleye_runtime') &&
+    isOnline()
+  ) {
+    await download('battleye_runtime')
+  }
+
+  const { folder_name: installFolderName } =
     gameManagerMap[runner].getGameInfo(appName)
-  const envVars = setupWineEnvVars(
-    gameSettings,
-    installFolderName,
-    install.install_path
-  )
+  const envVars = setupWineEnvVars(gameSettings, installFolderName)
 
   return { success: true, envVars: envVars }
 }
@@ -420,7 +428,7 @@ async function installFixes(appName: string, runner: Runner) {
  * @param gameSettings The GameSettings to get the environment variables for
  * @returns A big string of environment variables, structured key=value
  */
-function setupEnvVars(gameSettings: GameSettings) {
+function setupEnvVars(gameSettings: GameSettings, installPath?: string) {
   const ret: Record<string, string> = {}
   if (gameSettings.nvidiaPrime) {
     ret.DRI_PRIME = '1'
@@ -430,6 +438,11 @@ function setupEnvVars(gameSettings: GameSettings) {
 
   if (isMac && gameSettings.showFps) {
     ret.MTL_HUD_ENABLED = '1'
+  }
+
+  if (isLinux && installPath) {
+    // Used by steam runtime to mount the game directory to the container
+    ret.STEAM_COMPAT_INSTALL_PATH = installPath
   }
 
   if (gameSettings.enviromentOptions) {
@@ -483,11 +496,7 @@ function setupWrapperEnvVars(wrapperEnv: WrapperEnv) {
  * @param gameId If Proton and the Steam Runtime are used, the SteamGameId variable will be set to `heroic-gameId`
  * @returns A Record that can be passed to execAsync/spawn
  */
-function setupWineEnvVars(
-  gameSettings: GameSettings,
-  gameId = '0',
-  installPath?: string
-) {
+function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   const { wineVersion, winePrefix, wineCrossoverBottle } = gameSettings
 
   const ret: Record<string, string> = {}
@@ -519,9 +528,6 @@ function setupWineEnvVars(
     case 'proton':
       ret.STEAM_COMPAT_CLIENT_INSTALL_PATH = steamInstallPath
       ret.STEAM_COMPAT_DATA_PATH = winePrefix
-      if (installPath) {
-        ret.STEAM_COMPAT_INSTALL_PATH = installPath
-      }
       break
     case 'crossover':
       ret.CX_BOTTLE = wineCrossoverBottle
@@ -530,6 +536,7 @@ function setupWineEnvVars(
       ret.WINEPREFIX = winePrefix
       break
   }
+
   if (gameSettings.showFps) {
     isMac ? (ret.MTL_HUD_ENABLED = '1') : (ret.DXVK_HUD = 'fps')
   }
@@ -758,7 +765,11 @@ async function runWineCommand({
   options,
   startFolder,
   skipPrefixCheckIKnowWhatImDoing = false
-}: WineCommandArgs): Promise<{ stderr: string; stdout: string }> {
+}: WineCommandArgs): Promise<{
+  stderr: string
+  stdout: string
+  code?: number
+}> {
   const settings = gameSettings
     ? gameSettings
     : GlobalConfig.get().getSettings()
@@ -802,8 +813,8 @@ async function runWineCommand({
 
   const env_vars = {
     ...process.env,
-    ...setupEnvVars(settings),
-    ...setupWineEnvVars(settings, installFolderName, gameInstallPath)
+    ...setupEnvVars(settings, gameInstallPath),
+    ...setupWineEnvVars(settings, installFolderName)
   }
 
   const isProton = wineVersion.type === 'proton'
@@ -872,8 +883,12 @@ async function runWineCommand({
       stderr.push(data.trim())
     })
 
-    child.on('close', async () => {
-      const response = { stderr: stderr.join(''), stdout: stdout.join('') }
+    child.on('close', async (code) => {
+      const response = {
+        stderr: stderr.join(''),
+        stdout: stdout.join(''),
+        code
+      }
 
       if (wait && wineVersion.wineserver) {
         await new Promise<void>((res_wait) => {

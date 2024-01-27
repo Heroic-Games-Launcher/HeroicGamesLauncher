@@ -212,7 +212,7 @@ export async function launchGame(
       const env = {
         ...process.env,
         ...setupWrapperEnvVars({ appName, appRunner: runner }),
-        ...setupEnvVars(gameSettings)
+        ...setupEnvVars(gameSettings, gameInfo.install.install_path)
       }
 
       await callRunner(
@@ -247,7 +247,8 @@ export async function launchGame(
     await runWineCommand({
       commandParts: [executable, launcherArgs ?? ''],
       gameSettings,
-      wait: false,
+      wait: true,
+      protonVerb: 'waitforexitandrun',
       startFolder: dirname(executable),
       options: {
         wrappers,

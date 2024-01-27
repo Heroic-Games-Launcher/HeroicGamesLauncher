@@ -14,7 +14,6 @@ import { IconIcns } from '@shockpkg/icon-encoder'
 import { join } from 'path'
 import { logError, logInfo, LogPrefix } from '../../logger/logger'
 import { GlobalConfig } from '../../config'
-import { removeSpecialcharacters } from '../../utils'
 import { GameInfo } from 'common/types'
 import { isMac, userHome } from '../../constants'
 import { getIcon } from '../utils'
@@ -52,7 +51,7 @@ async function addShortcuts(gameInfo: GameInfo, fromMenu?: boolean) {
     case 'linux': {
       const icon = await getIcon(gameInfo.app_name, gameInfo)
       const shortcut = `[Desktop Entry]
-Name=${removeSpecialcharacters(gameInfo.title)}
+Name=${gameInfo.title}
 Exec=xdg-open ${launchWithProtocol}
 Terminal=false
 Type=Application

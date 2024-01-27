@@ -239,7 +239,7 @@ export interface GameContextType {
   is: {
     installing: boolean
     installingWinetricksPackages: boolean
-    installingPrerequisites: boolean
+    installingRedist: boolean
     launching: boolean
     linux: boolean
     linuxNative: boolean
@@ -259,6 +259,7 @@ export interface GameContextType {
     updating: boolean
     win: boolean
   }
+  statusContext?: string
   status: Status | undefined
   wikiInfo: WikiInfo | null
 }

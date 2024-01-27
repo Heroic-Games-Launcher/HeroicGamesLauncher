@@ -234,6 +234,7 @@
     },
     "favourites": "Favourites",
     "game": {
+        "modify": "Modify Installation",
         "status": "Status",
         "store": "Store",
         "title": "Game Title"

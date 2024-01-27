@@ -134,6 +134,9 @@ import {
 
 import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
 import {
+  getCyberpunkMods,
+  getBranchPassword,
+  setBranchPassword,
   getGOGPlaytime,
   syncQueuedPlaytimeGOG,
   updateGOGPlaytime
@@ -254,6 +257,15 @@ async function initializeWindow(): Promise<BrowserWindow> {
     autoUpdater.checkForUpdates()
   }
 
+  // Changelog links workaround
+  mainWindow.webContents.on('will-navigate', (event, url) => {
+    const pattern = app.isPackaged ? publicDir : 'localhost:5173'
+    if (!url.match(pattern)) {
+      event.preventDefault()
+      openUrlOrFile(url)
+    }
+  })
+
   mainWindow.webContents.setWindowOpenHandler((details) => {
     const pattern = app.isPackaged ? publicDir : 'localhost:5173'
     return { action: !details.url.match(pattern) ? 'allow' : 'deny' }
@@ -297,8 +309,8 @@ if (!gotTheLock) {
   })
   app.whenReady().then(async () => {
     initLogger()
-    initStoreManagers()
     initOnlineMonitor()
+    initStoreManagers()
     initImagesCache()
 
     // Add User-Agent Client hints to behave like Windows
@@ -774,11 +786,13 @@ ipcMain.handle('getGOGLinuxInstallersLangs', async (event, appName) =>
 
 ipcMain.handle(
   'getInstallInfo',
-  async (event, appName, runner, installPlatform) => {
+  async (event, appName, runner, installPlatform, build, branch) => {
     try {
       const info = await libraryManagerMap[runner].getInstallInfo(
         appName,
-        installPlatform
+        installPlatform,
+        branch,
+        build
       )
       if (info === undefined) return null
       return info
@@ -1191,7 +1205,7 @@ ipcMain.handle(
     let uninstalled = false
 
     try {
-      await gameManagerMap[runner].uninstall({ appName })
+      await gameManagerMap[runner].uninstall({ appName, shouldRemovePrefix })
       uninstalled = true
     } catch (error) {
       notify({
@@ -1700,6 +1714,22 @@ ipcMain.handle(
     return
   }
 )
+
+ipcMain.handle('getPrivateBranchPassword', (e, appName) =>
+  getBranchPassword(appName)
+)
+ipcMain.handle('setPrivateBranchPassword', (e, appName, password) =>
+  setBranchPassword(appName, password)
+)
+
+ipcMain.handle('getAvailableCyberpunkMods', async () => getCyberpunkMods())
+ipcMain.handle('setCyberpunkModConfig', async (e, props) =>
+  GOGLibraryManager.setCyberpunkModConfig(props)
+)
+
+ipcMain.on('changeGameVersionPinnedStatus', (e, appName, runner, status) => {
+  libraryManagerMap[runner].changeVersionPinnedStatus(appName, status)
+})
 
 /*
   Other Keys that should go into translation files:

@@ -674,6 +674,7 @@ class GlobalState extends PureComponent<Props> {
     appName,
     status,
     folder,
+    context,
     progress,
     runner
   }: GameStatus) => {
@@ -685,13 +686,13 @@ class GlobalState extends PureComponent<Props> {
       return this.setState({
         libraryStatus: [
           ...libraryStatus,
-          { appName, status, folder, progress, runner }
+          { appName, status, folder, context, progress, runner }
         ]
       })
     }
 
     // if the app's status didn't change, do nothing
-    if (currentApp.status === status) {
+    if (currentApp.status === status && currentApp.context === context) {
       return
     }
 
@@ -709,11 +710,18 @@ class GlobalState extends PureComponent<Props> {
         'extracting',
         'launching',
         'winetricks',
-        'prerequisites',
+        'redist',
         'queued'
       ].includes(status)
     ) {
-      newLibraryStatus.push({ appName, status, folder, progress, runner })
+      newLibraryStatus.push({
+        appName,
+        status,
+        folder,
+        context,
+        progress,
+        runner
+      })
       this.setState({ libraryStatus: newLibraryStatus })
     }
 
@@ -738,7 +746,9 @@ class GlobalState extends PureComponent<Props> {
         })
       }
 
-      this.refreshLibrary({ runInBackground: true, library: runner })
+      if (runner !== 'gog') {
+        this.refreshLibrary({ runInBackground: true, library: runner })
+      }
       this.setState({ libraryStatus: newLibraryStatus })
     }
   }
@@ -817,11 +827,13 @@ class GlobalState extends PureComponent<Props> {
           (game) => game.app_name === args.app_name
         )
         if (index !== -1) {
-          library.splice(index, 1)
+          library[index] = args
+        } else {
+          library.push(args)
         }
         this.setState({
           gog: {
-            library: [...library, args],
+            library: [...library],
             username: this.state.gog.username
           }
         })

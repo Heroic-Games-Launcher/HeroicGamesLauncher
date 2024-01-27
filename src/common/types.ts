@@ -120,6 +120,7 @@ export interface ExtraInfo {
   reqs: Reqs[]
   releaseDate?: string
   storeUrl?: string
+  changelog?: string
 }
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
@@ -211,7 +212,7 @@ export type Status =
   | 'notSupportedGame'
   | 'notInstalled'
   | 'installed'
-  | 'prerequisites'
+  | 'redist'
   | 'extracting'
   | 'winetricks'
 
@@ -219,6 +220,7 @@ export interface GameStatus {
   appName: string
   progress?: InstallProgress
   folder?: string
+  context?: string // Additional context e.g current step
   runner?: Runner
   status: Status
 }
@@ -241,10 +243,19 @@ export interface InstalledInfo {
   version: string
   platform: InstallPlatform
   appName?: string
-  installedWithDLCs?: boolean // For verifing GOG games
-  language?: string // For verifing GOG games
+  installedWithDLCs?: boolean // OLD DLC boolean (all dlcs installed)
+  installedDLCs?: string[] // New installed GOG DLCs array
+  language?: string // For GOG games
   versionEtag?: string // Checksum for checking GOG updates
-  buildId?: string // For verifing GOG games
+  buildId?: string // For verifing and version pinning of GOG games
+  branch?: string // GOG beta channels
+  // Whether to skip update check for this title (currently only used for GOG as it is the only platform actively supporting version rollback)
+  pinnedVersion?: boolean
+  cyberpunk?: {
+    // Cyberpunk compatibility options
+    modsEnabled: boolean
+    modsToLoad: string[] // If this is empty redmod will load mods in alphabetic order
+  }
 }
 
 export interface Reqs {
@@ -272,9 +283,12 @@ export interface WineInstallation {
 export interface InstallArgs {
   path: string
   platformToInstall: InstallPlatform
-  installDlcs?: Array<string> | boolean
+  installDlcs?: Array<string>
   sdlList?: string[]
   installLanguage?: string
+  branch?: string
+  build?: string
+  dependencies?: string[]
 }
 
 export interface InstallParams extends InstallArgs {
@@ -286,8 +300,12 @@ export interface InstallParams extends InstallArgs {
 
 export interface UpdateParams {
   appName: string
-  gameInfo: GameInfo
   runner: Runner
+  gameInfo: GameInfo
+  installDlcs?: Array<string>
+  installLanguage?: string
+  build?: string
+  branch?: string
 }
 
 export interface GOGLoginData {
@@ -316,7 +334,7 @@ export interface GOGImportData {
   installedLanguage: string
   platform: GogInstallPlatform
   versionName: string
-  installedWithDlcs: boolean
+  dlcs: string[]
 }
 
 export type GamepadInputEvent =

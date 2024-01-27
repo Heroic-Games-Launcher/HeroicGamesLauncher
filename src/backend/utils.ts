@@ -75,6 +75,7 @@ import {
   updateWineVersionInfos,
   wineDownloaderInfoStore
 } from './wine/manager/utils'
+import { readdir, stat } from 'fs/promises'
 import { getHeroicVersion } from './utils/systeminfo/heroicVersion'
 import { backendEvents } from './backend_events'
 import { wikiGameInfoStore } from './wiki_game_info/electronStore'
@@ -475,12 +476,12 @@ async function getSteamRuntime(
   const steamLibraries = await getSteamLibraries()
   const runtimeTypes: SteamRuntime[] = [
     {
-      path: 'steamapps/common/SteamLinuxRuntime_sniper/run',
+      path: 'steamapps/common/SteamLinuxRuntime_sniper/_v2-entry-point',
       type: 'sniper',
       args: ['--']
     },
     {
-      path: 'steamapps/common/SteamLinuxRuntime_soldier/run',
+      path: 'steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point',
       type: 'soldier',
       args: ['--']
     },
@@ -1171,6 +1172,22 @@ function removeFolder(path: string, folderName: string) {
   return
 }
 
+async function getPathDiskSize(path: string): Promise<number> {
+  const statData = await stat(path)
+  let size = 0
+  if (statData.isDirectory()) {
+    const contents = await readdir(path)
+
+    for (const item of contents) {
+      const itemPath = join(path, item)
+      size += await getPathDiskSize(itemPath)
+    }
+    return size
+  }
+
+  return statData.size
+}
+
 function sendGameStatusUpdate(payload: GameStatus) {
   sendFrontendMessage('gameStatusUpdate', payload)
   backendEvents.emit('gameStatusUpdate', payload)
@@ -1450,6 +1467,7 @@ export {
   getFileSize,
   memoryLog,
   removeFolder,
+  getPathDiskSize,
   sendGameStatusUpdate,
   sendProgressUpdate,
   calculateEta,

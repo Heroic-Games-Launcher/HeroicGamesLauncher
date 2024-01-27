@@ -114,6 +114,11 @@ interface SyncIPCFunctions {
     appName: string,
     component: string
   }) => void
+  changeGameVersionPinnedStatus: (
+    appName: string,
+    runner: Runner,
+    status: boolean
+  ) => void
 }
 
 // ts-prune-ignore-next
@@ -160,7 +165,9 @@ interface AsyncIPCFunctions {
   getInstallInfo: (
     appName: string,
     runner: Runner,
-    installPlatform: InstallPlatform
+    installPlatform: InstallPlatform,
+    branch?: string,
+    build?: string
   ) => Promise<InstallInfo | null>
   getUserInfo: () => Promise<UserInfo | undefined>
   getAmazonUserInfo: () => Promise<NileUserData | undefined>
@@ -286,6 +293,15 @@ interface AsyncIPCFunctions {
   ) => Promise<number | undefined>
   getAmazonLoginData: () => Promise<NileLoginData>
   hasExecutable: (executable: string) => Promise<boolean>
+
+  setPrivateBranchPassword: (appName: string, password: string) => void
+  getPrivateBranchPassword: (appName: string) => string
+
+  getAvailableCyberpunkMods: () => Promise<string[]>
+  setCyberpunkModConfig: (props: {
+    enabled: boolean
+    modsToLoad: string[]
+  }) => Promise<void>
 }
 
 // This is quite ugly & throws a lot of errors in a regular .ts file

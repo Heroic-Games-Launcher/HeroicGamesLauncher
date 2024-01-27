@@ -3,7 +3,8 @@
   grid-template-areas: 'label' 'input';
 }
 
-.textInputFieldWrapper input[type='text'] {
+.textInputFieldWrapper input[type='text'],
+.textInputFieldWrapper input[type='password'] {
   border-radius: var(--space-3xs);
   grid-area: input;
   width: 100%;

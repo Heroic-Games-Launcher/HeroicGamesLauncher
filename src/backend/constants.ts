@@ -56,10 +56,13 @@ const appFolder = join(configFolder, 'heroic')
 const legendaryConfigPath = isSnap
   ? join(env.XDG_CONFIG_HOME!, 'legendary')
   : join(appFolder, 'legendaryConfig', 'legendary')
+const gogdlConfigPath = join(appFolder, 'gogdlConfig', 'heroic_gogdl')
+const gogSupportPath = join(gogdlConfigPath, 'gog-support')
 const nileConfigPath = join(appFolder, 'nile_config', 'nile')
 const configPath = join(appFolder, 'config.json')
 const gamesConfigPath = join(appFolder, 'GamesConfig')
 const toolsPath = join(appFolder, 'tools')
+const gogRedistPath = join(toolsPath, 'redist', 'gog')
 const heroicIconFolder = join(appFolder, 'icons')
 const runtimePath = join(toolsPath, 'runtimes')
 const userInfo = join(legendaryConfigPath, 'user.json')
@@ -273,6 +276,9 @@ export {
   wineprefixFAQ,
   customThemesWikiLink,
   gogdlAuthConfig,
+  gogdlConfigPath,
+  gogSupportPath,
+  gogRedistPath,
   vulkanHelperBin,
   nileConfigPath,
   nileInstalled,

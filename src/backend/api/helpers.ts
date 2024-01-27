@@ -73,6 +73,21 @@ export const getExtraInfo = async (appName: string, runner: Runner) =>
 export const getLaunchOptions = async (appName: string, runner: Runner) =>
   ipcRenderer.invoke('getLaunchOptions', appName, runner)
 
+export const getPrivateBranchPassword = async (appName: string) =>
+  ipcRenderer.invoke('getPrivateBranchPassword', appName)
+export const setPrivateBranchPassword = async (
+  appName: string,
+  password: string
+) => ipcRenderer.invoke('setPrivateBranchPassword', appName, password)
+
+// REDmod integration
+export const getAvailableCyberpunkMods = async () =>
+  ipcRenderer.invoke('getAvailableCyberpunkMods')
+export const setCyberpunModConfig = async (props: {
+  enabled: boolean
+  modsToLoad: string[]
+}) => ipcRenderer.invoke('setCyberpunkModConfig', props)
+
 export const getGameSettings = async (
   appName: string,
   runner: Runner
@@ -82,8 +97,18 @@ export const getGameSettings = async (
 export const getInstallInfo = async (
   appName: string,
   runner: Runner,
-  installPlatform: InstallPlatform
-) => ipcRenderer.invoke('getInstallInfo', appName, runner, installPlatform)
+  installPlatform: InstallPlatform,
+  build?: string,
+  branch?: string
+) =>
+  ipcRenderer.invoke(
+    'getInstallInfo',
+    appName,
+    runner,
+    installPlatform,
+    build,
+    branch
+  )
 
 export const runWineCommand = async (args: WineCommandArgs) =>
   ipcRenderer.invoke('runWineCommand', args)

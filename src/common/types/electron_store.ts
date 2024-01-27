@@ -86,6 +86,9 @@ export interface StoreStructure {
       [saveName: string]: string
     }
   }
+  gogPrivateBranches: {
+    [appName: string]: string
+  }
   wineManagerConfigStore: {
     'wine-manager-settings': WineManagerUISettings[]
     'wine-releases': WineVersionInfo[]

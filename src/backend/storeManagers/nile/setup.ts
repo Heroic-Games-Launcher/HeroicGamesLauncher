@@ -81,7 +81,12 @@ export default async function setup(
 
   logDebug(['PostInstall:', fuel.PostInstall], LogPrefix.Nile)
 
-  sendGameStatusUpdate({ appName, runner: 'nile', status: 'prerequisites' })
+  sendGameStatusUpdate({
+    appName,
+    runner: 'nile',
+    status: 'redist',
+    context: 'AMAZON'
+  })
 
   // Actual setup logic
   for (const action of fuel.PostInstall) {

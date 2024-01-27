@@ -74,12 +74,16 @@ const getGameSettings = async (
 const getInstallInfo = async (
   appName: string,
   runner: Runner,
-  installPlatform: InstallPlatform
+  installPlatform: InstallPlatform,
+  build?: string,
+  branch?: string
 ): Promise<InstallInfo | null> => {
   return window.api.getInstallInfo(
     appName,
     runner,
-    handleRunnersPlatforms(installPlatform, runner)
+    handleRunnersPlatforms(installPlatform, runner),
+    build,
+    branch
   )
 }
 
@@ -94,9 +98,6 @@ function handleRunnersPlatforms(
     case 'Mac':
       return 'osx'
     case 'Windows':
-      return 'windows'
-    // GOG doesn't have a linux platform, so we need to get the information as windows
-    case 'linux':
       return 'windows'
     default:
       return platform
@@ -138,6 +139,24 @@ const getStoreName = (runner: Runner, other: string) => {
   }
 }
 
+function getPreferredInstallLanguage(
+  availableLanguages: string[],
+  preferredLanguages: readonly string[]
+) {
+  const foundPreffered = preferredLanguages.find((plang) =>
+    availableLanguages.some((alang) => alang.startsWith(plang))
+  )
+  if (foundPreffered) {
+    const foundAvailable = availableLanguages.find((alang) =>
+      alang.startsWith(foundPreffered)
+    )
+    if (foundAvailable) {
+      return foundAvailable
+    }
+  }
+  return availableLanguages[0]
+}
+
 export {
   createNewWindow,
   getGameInfo,
@@ -159,5 +178,6 @@ export {
   updateGame,
   writeConfig,
   removeSpecialcharacters,
-  getStoreName
+  getStoreName,
+  getPreferredInstallLanguage
 }

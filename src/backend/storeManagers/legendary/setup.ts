@@ -15,7 +15,8 @@ export const legendarySetup = async (appName: string) => {
   sendGameStatusUpdate({
     appName,
     runner: 'legendary',
-    status: 'prerequisites'
+    status: 'redist',
+    context: 'EPIC'
   })
 
   // Fixes games like Fallout New Vegas and Dishonored: Death of the Outsider

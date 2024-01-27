@@ -1,36 +1,28 @@
-import React, { ChangeEvent, FocusEvent, ReactNode, useContext } from 'react'
+import React, { ReactNode, useContext } from 'react'
 import classnames from 'classnames'
 import ContextProvider from 'frontend/state/ContextProvider'
 import './index.css'
 
-interface TextInputFieldProps {
+interface TextInputFieldProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   htmlId: string
-  value: string
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void
   inputIcon?: ReactNode
   afterInput?: ReactNode
   label?: string
   placeholder?: string
-  disabled?: boolean
   extraClass?: string
   warning?: ReactNode
-  onBlur?: (event: FocusEvent<HTMLInputElement>) => void
-  maxLength?: number
 }
 
 const TextInputField = ({
   htmlId,
-  value,
-  onChange,
   label,
-  placeholder,
-  disabled = false,
   extraClass = '',
   inputIcon,
   afterInput,
   warning,
-  onBlur,
-  maxLength
+  value,
+  ...inputProps
 }: TextInputFieldProps) => {
   const { isRTL } = useContext(ContextProvider)
 
@@ -42,16 +34,7 @@ const TextInputField = ({
     >
       {label && <label htmlFor={htmlId}>{label}</label>}
       {inputIcon}
-      <input
-        type="text"
-        id={htmlId}
-        value={value}
-        onChange={onChange}
-        disabled={disabled}
-        placeholder={placeholder}
-        onBlur={onBlur}
-        maxLength={maxLength}
-      />
+      <input type="text" id={htmlId} value={value} {...inputProps} />
       {value && warning}
       {afterInput}
     </div>
