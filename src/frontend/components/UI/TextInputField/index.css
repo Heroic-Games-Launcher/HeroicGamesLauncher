@@ -1,12 +1,22 @@
 .textInputFieldWrapper {
   display: grid;
-  grid-template-areas: 'label' 'input';
+  grid-template-areas: 'label label' 'input inline';
+  grid-template-columns: 1fr min-content;
+
+  .inputWrapper {
+    grid-area: input;
+    display: grid;
+  }
+  .popover-wrapper {
+    grid-column: 1 / -1;
+  }
 }
 
 .textInputFieldWrapper input[type='text'],
 .textInputFieldWrapper input[type='password'] {
+  grid-column: 1;
+  grid-row: 1;
   border-radius: var(--space-3xs);
-  grid-area: input;
   width: 100%;
   height: 40px;
   background: var(--input-background);
@@ -37,7 +47,8 @@
 }
 
 .textInputFieldWrapper .inputIcon {
-  grid-area: input;
+  grid-column: 1;
+  grid-row: 1;
   align-self: center;
   justify-self: flex-end;
   margin-inline-end: 1rem;

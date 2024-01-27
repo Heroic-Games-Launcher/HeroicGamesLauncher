@@ -8,12 +8,11 @@ interface TextInputFieldProps
   htmlId: string
   inputIcon?: ReactNode
   afterInput?: ReactNode
+  inlineElement?: ReactNode
   label?: string
   placeholder?: string
   extraClass?: string
   warning?: ReactNode
-  resetToDefaultValue?: () => void
-  isSetToDefaultValue?: boolean
 }
 
 const TextInputField = ({
@@ -24,15 +23,10 @@ const TextInputField = ({
   afterInput,
   warning,
   value,
-  resetToDefaultValue,
-  isSetToDefaultValue,
+  inlineElement,
   ...inputProps
 }: TextInputFieldProps) => {
   const { isRTL } = useContext(ContextProvider)
-
-  // FIXME: Handle `resetToDefaultValue` and `isSetToDefaultValue` props
-  void resetToDefaultValue
-  void isSetToDefaultValue
 
   return (
     <div
@@ -41,8 +35,11 @@ const TextInputField = ({
       })}
     >
       {label && <label htmlFor={htmlId}>{label}</label>}
-      {inputIcon}
-      <input type="text" id={htmlId} value={value} {...inputProps} />
+      <div className="inputWrapper">
+        {inputIcon}
+        <input type="text" id={htmlId} value={value} {...inputProps} />
+      </div>
+      <div className="inlineElement">{inlineElement}</div>
       {value && warning}
       {afterInput}
     </div>

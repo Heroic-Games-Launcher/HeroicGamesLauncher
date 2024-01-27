@@ -28,8 +28,7 @@ interface Props {
   label?: string
   afterInput?: ReactNode
   disabled?: boolean
-  resetToDefaultCallback?: () => void
-  isSetToDefaultValue?: boolean
+  inlineElement?: ReactNode
 }
 
 const PathSelectionBox = ({
@@ -46,8 +45,7 @@ const PathSelectionBox = ({
   label,
   afterInput,
   disabled = false,
-  resetToDefaultCallback,
-  isSetToDefaultValue
+  inlineElement
 }: Props) => {
   const { t } = useTranslation()
   // We only send `onPathChange` updates when the user is done editing, so we
@@ -93,8 +91,7 @@ const PathSelectionBox = ({
       htmlId={htmlId}
       label={label}
       afterInput={afterInput}
-      resetToDefaultCallback={resetToDefaultCallback}
-      isSetToDefaultValue={isSetToDefaultValue}
+      inlineElement={inlineElement}
     />
   )
 }
