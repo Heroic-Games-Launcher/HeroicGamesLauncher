@@ -6,6 +6,9 @@
   background: var(--navbar-background);
   color: var(--accent);
   border-radius: 10px;
+}
+
+.contextMenu > .MuiPaper-root > .MuiMenu-list > .MuiMenuItem-root {
   font-family: var(--primary-font-family);
 }
 

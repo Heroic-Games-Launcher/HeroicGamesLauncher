@@ -118,6 +118,7 @@ export type ExecResult = {
 export interface ExtraInfo {
   about?: About
   reqs: Reqs[]
+  releaseDate?: string
   storeUrl?: string
   changelog?: string
 }

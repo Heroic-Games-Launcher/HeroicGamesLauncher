@@ -622,6 +622,9 @@
         "saves": {
             "label": "Məkanı Saxla:",
             "warning": "Bulud Saxlama funksiyası Beta-dadır, lütfən, sinxronizasiya etməzdən əvvəl yaddaşı ehtiyat nüsxəsini çıxarın (nəsə səhv olarsa)"
+        },
+        "advanced": {
+            "details": "Təfərrüatlar"
         }
     },
     "Settings": "Parametrlər",

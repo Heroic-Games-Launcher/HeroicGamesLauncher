@@ -723,6 +723,14 @@
         },
         "gamescope": {
             "searchMsg": "இயங்கக்கூடிய கேம்ஸ்கோப்பைத் தேடுகிறது."
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Installed Games"
+            },
+            "title": {
+                "resetHeroic": "வீரத்தை மீட்டமை"
+            }
         }
     },
     "Settings": "அமைப்புகள்",

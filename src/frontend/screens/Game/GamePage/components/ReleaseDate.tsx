@@ -4,6 +4,7 @@ import GameContext from '../../GameContext'
 
 type ReleaseDateProps = {
   date: string[] | undefined
+  runnerDate: string | undefined
 }
 
 // convert date to current locale using Intl module
@@ -16,7 +17,7 @@ function convertDate(date: string) {
 
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
-    month: 'long',
+    month: 'numeric',
     day: 'numeric'
   }
 
@@ -30,7 +31,7 @@ function convertDate(date: string) {
   return dateObj.toLocaleDateString(undefined, options)
 }
 
-const ReleaseDate: React.FC<ReleaseDateProps> = ({ date }) => {
+const ReleaseDate: React.FC<ReleaseDateProps> = ({ date, runnerDate }) => {
   const { is } = useContext(GameContext)
 
   const { t } = useTranslation()
@@ -40,24 +41,26 @@ const ReleaseDate: React.FC<ReleaseDateProps> = ({ date }) => {
   }
 
   const getReleaseDate = () => {
-    let windowsReleaseDate = ''
+    let windowsReleaseDate = runnerDate
 
-    for (let i = 0; i < date.length; i++) {
-      const [platformName, releaseDate] = date[i].split(': ')
+    if (!windowsReleaseDate) {
+      for (let i = 0; i < date.length; i++) {
+        const [platformName, releaseDate] = date[i].split(': ')
 
-      if (platformName === 'Windows') {
-        windowsReleaseDate = releaseDate
-      }
+        if (platformName === 'Windows') {
+          windowsReleaseDate = releaseDate
+        }
 
-      if (
-        (platformName === 'Linux' && is.linuxNative && is.linux) ||
-        (platformName === 'OS X' && is.macNative && is.mac)
-      ) {
-        return convertDate(releaseDate)
+        if (
+          (platformName === 'Linux' && is.linuxNative && is.linux) ||
+          (platformName === 'OS X' && is.macNative && is.mac)
+        ) {
+          return convertDate(releaseDate)
+        }
       }
     }
 
-    return convertDate(windowsReleaseDate)
+    return convertDate(windowsReleaseDate || '')
   }
 
   if (!getReleaseDate()) {

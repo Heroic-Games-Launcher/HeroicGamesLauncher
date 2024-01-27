@@ -1,11 +1,12 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Família de Fonte Actions (Padrão: ",
-        "all_tiles_in_color": "Mostrar todos os quadrados dos jogos coloridos",
+        "actions_font_family_no_default": "Família de Fontes Action (Padrão: ",
+        "all_tiles_in_color": "Mostrar todos os quadrados de jogos com cores",
         "content_font_family_no_default": "Família de Fontes Content (Padrão: ",
         "fonts": "Fontes",
         "title": "Accessibilidade",
-        "zoom": "Zoom"
+        "zoom": "Zoom",
+        "disable_dialog_backdrop_close": "Desative o fechamento de caixas de diálogo ao clicar fora"
     },
     "add_game": "Adicionar Jogo",
     "All": "Todos",
@@ -255,7 +256,12 @@
         "all_categories": "Todas as categorias",
         "show_installed_only": "Exibir apenas os instalados",
         "uncategorized": "Sem categoria",
-        "categories": "Categorias"
+        "categories": "Categorias",
+        "no_categories": "Nenhuma categoria personalizada. Adicione categorias usando o menu de cada jogo.",
+        "only": "apenas",
+        "reset": "Reiniciar",
+        "select_all": "Selecionar Todos",
+        "show_support_offline_only": "Mostrar somente suportados offline"
     },
     "help": {
         "amdfsr": "O FSR da AMD ajuda a aumentar a taxa de quadros aumentando as resoluções mais baixas no modo de tela cheia. A qualidade da imagem aumenta de 5 para 1 ao custo de um pequeno impacto no desempenho. A ativação pode melhorar o desempenho.",
@@ -315,6 +321,21 @@
             "downloadManager": "Download Manager",
             "wineManager": "Versões do Wine",
             "library": "Biblioteca"
+        },
+        "button": {
+            "close": "Fechar Ajuda",
+            "open": "Abrir Ajuda"
+        },
+        "content": {
+            "downloadManager": "Mostra downloads atuais e passados.",
+            "library": "Mostra todos os jogos possuídos.",
+            "accessibility": "Mostra configurações de acessibilidade.",
+            "customThemesPath": "Confira nossa Wiki.",
+            "defaultInstallPath": "Este é o caminho padrão pré-selecionado quando jogos são instalados.",
+            "wineManager": "Instalar diferentes versões do Wine, Proton, Crossover, etc.",
+            "settingsGame": "Mostrar todas as configurações para um jogo.",
+            "login": "Fazer login em diferentes lojas.",
+            "settingsDefault": "Mostra todas as configurações da Heroic e padrões para jogos."
         }
     },
     "info": {
@@ -584,7 +605,8 @@
             "instructions_title": "Como reportar um problema?",
             "last-log": "Último log",
             "no-file": "Arquivo de log não encontrado",
-            "show-in-folder": "Mostrar arquivo de log na pasta"
+            "show-in-folder": "Mostrar arquivo de log na pasta",
+            "join-heroic-discord": "Junte-se ao nosso Discord"
         },
         "mangohud": "Habilitar o MangoHud (precisa do mangohud instalado)",
         "manualsync": {
@@ -634,7 +656,9 @@
         "autodxvknvapi": "Auto Instalar/atualizar o DXVK-NVAPI automaticamente no prefixo",
         "experimental_features": {
             "enableNewShinyFeature": "Novidade",
-            "enableNewDesign": "Novo design"
+            "enableNewDesign": "Novo design",
+            "automaticWinetricksFixes": "Aplicar correções conhecidas do Winetricks automaticamente",
+            "enableHelp": "Componente de ajuda"
         },
         "disablePlaytimeSync": "Desativar a sincronização do tempo de jogo",
         "frameless-window": {
@@ -647,7 +671,7 @@
         "gamescope": {
             "enableLimiter": "Habilitar limitador de FPS",
             "enableUpscaling": "Permite aprimoramento de escala (Upscalling)",
-            "missingMsg": "Não foi possível encontrar o gamescope. Instale-o ou adicione-o no caminho."
+            "missingMsg": "Não foi possível encontrar o gamescope no PATH. Instale-o ou adicione-o no PATH."
         }
     },
     "settings": {
@@ -720,6 +744,17 @@
         },
         "gamescope": {
             "searchMsg": "Procurando pelo executável do gamescope."
+        },
+        "offline": {
+            "warning": "Este jogo não permite explicitamente o modo offline, ative-o por sua conta e risco. O jogo pode não funcionar."
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Jogos Instalados"
+            },
+            "title": {
+                "resetHeroic": "Redefinir o Heroic"
+            }
         }
     },
     "Settings": "Configurações",

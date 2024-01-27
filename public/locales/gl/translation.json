@@ -635,6 +635,14 @@
         "saves": {
             "label": "Save Location:",
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Xogos instalados"
+            },
+            "title": {
+                "resetHeroic": "Restabelecer Heroic"
+            }
         }
     },
     "Settings": "Preferencias",

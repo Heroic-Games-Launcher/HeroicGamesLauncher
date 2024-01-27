@@ -375,7 +375,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   <div className="infoWrapper">
                     <Genres genres={wikiInfo?.pcgamingwiki?.genres || []} />
                     <Developer gameInfo={gameInfo} />
-                    <ReleaseDate date={wikiInfo?.pcgamingwiki?.releaseDate} />
+                    <ReleaseDate
+                      runnerDate={extraInfo?.releaseDate}
+                      date={wikiInfo?.pcgamingwiki?.releaseDate}
+                    />
                     <Description />
                     <CloudSavesSync gameInfo={gameInfo} />
                     <DownloadSizeInfo gameInfo={gameInfo} />
@@ -436,7 +439,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     <h1>{title}</h1>
                     <Genres genres={wikiInfo?.pcgamingwiki?.genres || []} />
                     <Developer gameInfo={gameInfo} />
-                    <ReleaseDate date={wikiInfo?.pcgamingwiki?.releaseDate} />
+                    <ReleaseDate
+                      runnerDate={extraInfo?.releaseDate}
+                      date={wikiInfo?.pcgamingwiki?.releaseDate}
+                    />
                     <Description />
                     {!notInstallable && (
                       <TimeContainer runner={runner} game={appName} />

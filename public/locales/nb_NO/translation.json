@@ -624,6 +624,12 @@
         "saves": {
             "label": "Lagre plassering:",
             "warning": "Cloud Saves-funksjonen er i beta, vennligst ta sikkerhetskopi av lagrene dine før synkronisering (i tilfelle noe går galt)"
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Installerte spill"
+            },
+            "details": "Detaljer"
         }
     },
     "Settings": "Innstillinger",

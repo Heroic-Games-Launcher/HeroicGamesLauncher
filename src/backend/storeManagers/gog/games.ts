@@ -116,7 +116,11 @@ export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   const reqs = await createReqsArray(appName, targetPlatform)
   const productInfo = await getProductApi(appName, ['changelog'])
 
-  const gogStoreUrl = (await getGamesData(appName))?._links?.store.href
+  const gamesData = await getGamesData(appName)
+
+  const gogStoreUrl = gamesData?._links?.store.href
+  const releaseDate =
+    gamesData?._embedded.product?.globalReleaseDate?.substring(0, 19)
 
   const storeUrl = new URL(gogStoreUrl)
   storeUrl.hostname = 'af.gog.com'
@@ -125,6 +129,7 @@ export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   const extra: ExtraInfo = {
     about: gameInfo.extra?.about,
     reqs,
+    releaseDate,
     storeUrl: storeUrl.toString(),
     changelog: productInfo?.data.changelog
   }

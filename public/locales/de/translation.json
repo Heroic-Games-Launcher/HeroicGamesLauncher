@@ -1,11 +1,12 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Schriftfamilie Aktionen (Standard: ",
+        "actions_font_family_no_default": "Schriftfamilie Aktionen (Standard):",
         "all_tiles_in_color": "Alle Spielkacheln in Farbe anzeigen",
         "content_font_family_no_default": "Schriftfamilie Inhalt (Standard: ",
         "fonts": "Schriftarten",
         "title": "Barrierefreiheit",
-        "zoom": "Vergrößerung"
+        "zoom": "Vergrößerung",
+        "disable_dialog_backdrop_close": "Deaktiviere schließen der Dialoge bei Klick außerhalb"
     },
     "add_game": "Spiel hinzufügen",
     "All": "Alle",
@@ -155,8 +156,8 @@
             },
             "sideload": {
                 "confirmExit": {
-                    "title": "Möchtest du Heroic wirklich beenden?",
-                    "message": "Alle nicht gespeicherten Fortschritte könnten verloren gehen."
+                    "title": "Möchtest du den Heroic Launcher wirklich beenden?",
+                    "message": "Alle nicht gespeicherten Fortschritte könnten verloren gehen"
                 }
             },
             "snap": {
@@ -168,7 +169,7 @@
         "wineprefix": "Wine-Präfix-Ordner auswählen",
         "yes": "JA",
         "dontShowAgain": "Nicht erneut anzeigen",
-        "choose-nile-binary": "Wählen Sie Nile-Binärdatei aus"
+        "choose-nile-binary": "Wähle eine Nile-Binärdatei aus"
     },
     "button": {
         "cancel": "Abbrechen",
@@ -255,7 +256,12 @@
         "all_categories": "Alle Kategorien",
         "show_installed_only": "Nur installierte anzeigen",
         "uncategorized": "Unkategorisiert",
-        "categories": "Kategorien"
+        "categories": "Kategorien",
+        "no_categories": "Keine eigenen Kategorien vorhanden. Diese können über das jeweilige Spielmenü hinzugefügt werden.",
+        "only": "auswählen",
+        "reset": "Zurücksetzen",
+        "select_all": "Alle auswählen",
+        "show_support_offline_only": "Keine aktive Internetverbindung notwendig"
     },
     "help": {
         "amdfsr": "AMDs FSR hilft bei der Verbesserung der Framerate durch Hochskalierung niedrigerer Auflösungen im Vollbildmodus. Die Bildqualität wird von 5 auf 1 erhöht, allerdings auf Kosten einer leichten Leistungseinbuße. Das Aktivieren kann die Leistung verbessern.",
@@ -298,9 +304,9 @@
         },
         "disable_logs": "Aktiviere dieses Kontrollkästchen, um die meisten Schreibvorgänge in Logs zu deaktivieren (kritische Informationen werden immer protokolliert). Vergewissere dich, dass diese Einstellung deaktiviert ist, bevor du ein Problem meldest.",
         "dxvknvapi": "DXVK-NVAPI ist eine Implementation von NVAPI, welche auf DXVK und der Linux-nativen NVAPI basiert, sie erlaubt die Verwendung von DLSS auf Nvidia Grafikkarten.",
-        "disablePlaytimeSync": "Deaktiviert Spielzeit synchronisation mit enspechendem Store server (Aktuell wird nur GOG unterstützt)",
+        "disablePlaytimeSync": "Deaktiviert Spielzeit-Synchronisation mit entsprechendem Store-Server (Aktuell wird nur GOG unterstützt)",
         "gamescope": {
-            "fpsLimiterNoFocus": "Die Bildrate auf welche gamescope limitieren soll, wenn das Spiel den Fokus verliert",
+            "fpsLimiterNoFocus": "Die Bildrate auf welche gamescope limitieren soll, wenn das Spiel den Fokus verliert.",
             "upscaleMethod": "Die Upscaling-Methode, die gamescope verwenden soll.",
             "gameWidth": "Die vom Spiel verwendete Auflösung in der Breite. Ein Seitenverhältnis von 16:9 wird von gamescope angenommen.",
             "upscaleWidth": "Die von gamescope verwendete Auflösung in der Breite. Es wird ein Seitenverhältnis von 16:9 angenommen.",
@@ -315,6 +321,21 @@
             "downloadManager": "Download-Manager",
             "wineManager": "Wine-Manager",
             "library": "Bibliothek"
+        },
+        "content": {
+            "customThemesPath": "Schaut im Wiki vorbei.",
+            "defaultInstallPath": "Der Standardpfad für die Installation von Spielen.",
+            "downloadManager": "Zeigt aktuelle und vergangene Downloads.",
+            "library": "Zeigt alle Spiele im Besitz.",
+            "login": "An verschiedenen Plattformen anmelden.",
+            "settingsDefault": "Zeigt alle Einstellungen des Heroic Launchers und Standardwerte für Spiele.",
+            "settingsGame": "Zeigt alle Einstellungen für ein Spiel.",
+            "wineManager": "Verschiedene Versionen für Wine, Proton, Crossover, usw... installieren.",
+            "accessibility": "Zeigt Einstellungen zur Barrierefreiheit."
+        },
+        "button": {
+            "close": "Hilfe schließen",
+            "open": "Hilfe öffnen"
         }
     },
     "info": {
@@ -350,7 +371,7 @@
     },
     "label": {
         "loading": "Wird geladen …",
-        "releaseDate": "Veröffentlicht"
+        "releaseDate": "Veröffentlichungsdatum"
     },
     "library": {
         "refresh": "Aktualisieren",
@@ -372,7 +393,7 @@
         "epic": "Epic Games-Anmeldung",
         "gog": "GOG-Anmeldung",
         "message": "Melde dich bei deiner Plattform an. Du kannst auch bei mehreren gleichzeitig angemeldet sein.",
-        "amazon": "Amazon-Login",
+        "amazon": "Amazon-Anmeldung",
         "old-mac": "Deine macOS Version ist {{version}}. Um sich anzumelden wird mindestens macOS 12 benötigt."
     },
     "message": {
@@ -408,7 +429,7 @@
             "imported": "Spiel importiert",
             "startInstall": "Installation gestartet",
             "failed": "Installation fehlgeschlagen",
-            "paused": "Installation angehalten"
+            "paused": "Installation pausiert"
         },
         "moved": "Verschieben abgeschlossen",
         "moving": "Spiel wird verschoben",
@@ -422,7 +443,7 @@
             "finished": "Aktualisierung abgeschlossen",
             "started": "Update gestartet",
             "failed": "Aktualisierung fehlgeschlagen",
-            "paused": "Aktualisierung angehalten"
+            "paused": "Aktualisierung pausiert"
         }
     },
     "offline-message": {
@@ -477,14 +498,15 @@
             "gameWidth": "Spielbreite",
             "upscaleHeight": "Upscale Höhe",
             "fpsLimiterNoFocus": "FPS-Begrenzer (kein Fokus)",
-            "stretch": "Bild strecken"
+            "stretch": "Bild strecken",
+            "interger": "Integer Hochskalierung"
         }
     },
     "other": {
         "gogdl-version": "GOGDL-Version: ",
         "legendary-version": "Legendary-Version: ",
         "weblate": "Hilf bei der Übersetzung von Heroic.",
-        "nile-version": "Nil-Version: "
+        "nile-version": "Nile-Version: "
     },
     "Other": "Andere",
     "placeholder": {
@@ -584,7 +606,8 @@
             "instructions_title": "Wie melde ich ein Problem?",
             "last-log": "Letztes Log",
             "no-file": "Keine Log-Datei gefunden",
-            "show-in-folder": "Log-Datei im Ordner anzeigen"
+            "show-in-folder": "Log-Datei im Ordner anzeigen",
+            "join-heroic-discord": "Komm auf unseren Discord-Server"
         },
         "mangohud": "Mangohud aktivieren (Mangohud muss installiert sein)",
         "manualsync": {
@@ -628,13 +651,15 @@
         "autoUpdateGames": "Spiele automatisch aktualisieren",
         "ignoreGameUpdates": "Spielaktualisierungen ignorieren",
         "disable_logs": "Logs deaktivieren",
-        "addgamestoapplications": "Spiele automatisch zu Anwendungen hinzufügen",
+        "addgamestoapplications": "Spiele automatisch zu \"Programme\" hinzufügen",
         "showMetalOverlay": "Statistik-Overlay anzeigen",
-        "alt-nile-bin": "Wählen Sie eine alternative Nil-Binärdatei",
-        "autodxvknvapi": "Automatisches Installieren/Aktualisieren von DXVK im Präfix",
-        "disablePlaytimeSync": "Spielzeit synchronisation deaktivieren",
+        "alt-nile-bin": "Wählen Sie eine alternative Nile-Binärdatei",
+        "autodxvknvapi": "Automatisches Installieren/Aktualisieren von DXVK-NVAPI im Präfix",
+        "disablePlaytimeSync": "Spielzeit-Synchronisation deaktivieren",
         "experimental_features": {
-            "enableNewDesign": "Neues Design"
+            "enableNewDesign": "Neues Design",
+            "automaticWinetricksFixes": "Bekannte Winetricks Hilfsskripte automatisch anwenden",
+            "enableHelp": "Hilfe aktivieren"
         },
         "frameless-window": {
             "confirmation": {
@@ -719,6 +744,18 @@
         },
         "gamescope": {
             "searchMsg": "Suche nach der ausführbaren Datei für gamescope."
+        },
+        "offline": {
+            "warning": "Dieses Spiel erlaubt nicht explizit eine deaktivierte Internetverbindung. Aktiviere dies auf eigene Gefahr! Das Spiel könnte nicht ordnungsgemäß funktionieren."
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Installierte Spiele"
+            },
+            "details": "Einzelheiten",
+            "title": {
+                "resetHeroic": "Reset Heroic"
+            }
         }
     },
     "Settings": "Einstellungen",
@@ -730,7 +767,7 @@
         "installing": "Wird installiert …",
         "logging": "Anmelden …",
         "processing": "Bitte warten. Dateien werden verarbeitet …",
-        "preparing_login": "Anmeldung wird vorbereitet... "
+        "preparing_login": "Anmeldung wird vorbereitet ... "
     },
     "store": "Epic Store",
     "stores": "Shops",
@@ -802,18 +839,18 @@
     },
     "amazon": "Amazonas",
     "prime-gaming": "Prime Gaming",
-    "Amazon Games": "Amazon-Spiele",
+    "Amazon Games": "Amazon Spiele",
     "winetricks": {
         "install": "Installieren",
         "loading": "Ladevorgang läuft",
-        "installing": "Installation im Gange:  {{component}}",
+        "installing": "Installation im Gange: {{component}}",
         "openGUI": "Winetricks GUI öffnen",
         "search": "Schriftarten oder Komponenten suchen",
         "nothingYet": "Es wurde noch nichts von Winetricks installiert",
         "installed": "Installierte Komponenten:"
     },
     "category-settings": {
-        "cancel": "Absagen",
+        "cancel": "Abbrechen",
         "warning": "Warnung",
         "remove-category": "Kategorie entfernen",
         "delete-question": "Wenn Sie fortfahren, wird diese Kategorie dauerhaft entfernt und ihre Zuordnung zu allen Spielen aufgehoben. Weiter?",

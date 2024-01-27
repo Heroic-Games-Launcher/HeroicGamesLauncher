@@ -662,6 +662,14 @@
         },
         "experimental_features": {
             "title": "Fitur Eksperimental"
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Gim Terpasang"
+            },
+            "title": {
+                "resetHeroic": "Reset Heroic"
+            }
         }
     },
     "Settings": "Pengaturan",

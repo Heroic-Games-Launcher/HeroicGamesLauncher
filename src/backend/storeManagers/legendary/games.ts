@@ -187,6 +187,7 @@ async function getExtraFromAPI(slug: string): Promise<ExtraInfo | null> {
       return {
         about: about.data.about,
         reqs: about.data.requirements.systems[0].details,
+        releaseDate: about.data.meta.releaseDate?.substring(0, 19),
         storeUrl: `https://www.epicgames.com/store/product/${slug}`
       }
     } else {

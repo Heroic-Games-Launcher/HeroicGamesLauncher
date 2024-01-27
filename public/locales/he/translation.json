@@ -630,6 +630,12 @@
         },
         "experimental_features": {
             "title": "תכונות ניסיוניות"
+        },
+        "advanced": {
+            "title": {
+                "resetHeroic": "אפס את Heroic"
+            },
+            "details": "פרטים"
         }
     },
     "Settings": "הגדרות",

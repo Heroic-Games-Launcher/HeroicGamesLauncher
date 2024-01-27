@@ -715,6 +715,14 @@
         },
         "gamescope": {
             "searchMsg": "A gamescope futtatható fájl keresése."
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Installed Games"
+            },
+            "title": {
+                "resetHeroic": "Reset Heroic"
+            }
         }
     },
     "Settings": "Beállítások",

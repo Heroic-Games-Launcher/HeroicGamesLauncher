@@ -670,6 +670,14 @@
         },
         "experimental_features": {
             "title": "Kokeelliset ominaisuudet"
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Asennetut pelit"
+            },
+            "title": {
+                "resetHeroic": "Nollaa Heroic"
+            }
         }
     },
     "Settings": "Asetukset",

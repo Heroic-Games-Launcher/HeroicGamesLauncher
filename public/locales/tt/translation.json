@@ -117,5 +117,10 @@
             "accessibility": "Махсус мөмкинлекләр",
             "settings": "Көйләүләр"
         }
+    },
+    "settings": {
+        "advanced": {
+            "details": "Нечкәлекләр"
+        }
     }
 }

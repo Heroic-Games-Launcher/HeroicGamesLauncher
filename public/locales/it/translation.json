@@ -5,7 +5,8 @@
         "content_font_family_no_default": "Famiglia Font Contenuto(Predefinito: ",
         "fonts": "Caratteri",
         "title": "Accessibilità",
-        "zoom": "Zoom"
+        "zoom": "Zoom",
+        "disable_dialog_backdrop_close": "Disattiva la chiusura delle finestre di dialogo facendo clic all'esterno"
     },
     "add_game": "Aggiungi Un Gioco",
     "All": "Tutto",
@@ -158,6 +159,11 @@
                     "title": "Sei sicuro di voler uscire?",
                     "message": "I progressi non salvati potrebbero essere persi"
                 }
+            },
+            "snap": {
+                "checkbox": "Non mostrare più questo messaggio",
+                "title": "Heroic sta girando come Snap",
+                "message": "Alcune funzionalità non sono disponibili nella versione Snap dell'app per ora e stiamo cercando di risolvere la cosa.{{newLine}}Le limitazioni attuali sono: {{newLine}}Heroic non sarà in grado di trovare Proton da Steam o Wine da Lutris .{{newLine}}{{newLine}}Anche Gamescope, GameMode e MangoHud non funzioneranno poiché Heroic non può accedervi.{{newLine}}{{newLine}}Per avere accesso a questa funzione, installa Heroic come Flatpak , DEB o da AppImage."
             }
         },
         "wineprefix": "Seleziona la cartella del prefisso di Wine",
@@ -247,7 +253,14 @@
         "show_hidden": "Mostra nascosti",
         "store": "Filtra per negozio",
         "filters": "Filtra",
-        "categories": "Categorie"
+        "categories": "Categorie",
+        "reset": "Reset",
+        "show_installed_only": "Visualizza Solo Installati",
+        "show_support_offline_only": "Mostra solo giochi che supportano offline",
+        "uncategorized": "Senza Categoria",
+        "only": "solo",
+        "select_all": "Seleziona Tutto",
+        "no_categories": "Nessuna categoria personalizzata. Aggiungi categorie utilizzando il menu di ogni gioco."
     },
     "help": {
         "amdfsr": "FSR di AMD aiuta a incrementare il framerate grazie all'upscaling delle risoluzioni più basse in modalità schermo intero. La qualità dell'immagine aumenta da 5 a 1 al costo di un leggero calo delle prestazioni. L'attivazione può migliorare le prestazioni.",
@@ -297,6 +310,25 @@
             "downloadManager": "Download Manager",
             "wineManager": "Gestore di Wine",
             "library": "Libreria"
+        },
+        "disablePlaytimeSync": "Disabilita la sincronizzazione della riproduzione con i server di un determinato negozio (attualmente è supportato solo GOG)",
+        "button": {
+            "close": "Chiudi Aiuto",
+            "open": "Apri Aiuto"
+        },
+        "content": {
+            "accessibility": "Mostra le impostazioni di accessibilità.",
+            "customThemesPath": "Controlla il nostro wiki.",
+            "downloadManager": "Mostra i download attuali e passati.",
+            "library": "Mostra tutti i giochi posseduti.",
+            "login": "Accedi ai diversi negozi.",
+            "settingsDefault": "Mostra tutte le impostazioni di Heroic e quelle predefinite per i giochi.",
+            "settingsGame": "Mostra tutte le impostazioni per un gioco.",
+            "wineManager": "Installa diverse versioni di Wine, Proton, Crossover, ecc.",
+            "defaultInstallPath": "Questo è il percorso predefinito preselezionato durante l'installazione dei giochi."
+        },
+        "gamescope": {
+            "fpsLimiter": "La quantità di fotogrammi a cui gamescope dovrebbe limitarsi. Per esempio. 60"
         }
     },
     "info": {
@@ -650,7 +682,7 @@
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
             "legendaryVersion": "Legendary: {{legendaryVersion}}",
             "systemSpecifications": "Specifiche del Sistema:",
-            "steamDeck": "Steam Deck",
+            "steamDeck": "Steam Deck {{model}}",
             "gpuDriver": "Driver: {{driverVersion}}",
             "os": "Sistema Operativo:",
             "gpu": "GPU:",
@@ -668,6 +700,15 @@
         },
         "experimental_features": {
             "title": "Funzioni Sperimentali"
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Giochi installati"
+            },
+            "details": "Dettagli",
+            "title": {
+                "resetHeroic": "Reset Heroic"
+            }
         }
     },
     "Settings": "Impostazioni",
@@ -758,7 +799,11 @@
     },
     "category-settings": {
         "cancel": "Annulla",
-        "warning": "Attenzione"
+        "warning": "Attenzione",
+        "add-new-category": "Aggiungi una Nuova Categoria",
+        "new-category": "Nuova Categoria",
+        "delete-question": "Se procedi, questa categoria verrà rimossa definitivamente e l'assegnazione verrà annullata da tutti i giochi. Continuare?",
+        "remove-category": "Rimuovi Categoria"
     },
     "window": {
         "close": "Chiudi"

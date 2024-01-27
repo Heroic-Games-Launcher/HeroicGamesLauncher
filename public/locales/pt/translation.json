@@ -720,6 +720,15 @@
         },
         "gamescope": {
             "searchMsg": "À procura do executável do gamescope."
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Installed Games"
+            },
+            "details": "Detalhes",
+            "title": {
+                "resetHeroic": "Restaurar Heroic"
+            }
         }
     },
     "Settings": "Configurações",
