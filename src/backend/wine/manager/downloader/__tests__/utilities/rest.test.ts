@@ -30,7 +30,16 @@ describe('Utilities - Rest', () => {
     expect(() => {
       unlinkFile(__dirname)
     }).toThrowError(
-      `Couldn't remove ${workDir}${path.sep}src${path.sep}backend${path.sep}wine${path.sep}manager${path.sep}downloader${path.sep}__tests__${path.sep}utilities!`
+      `Couldn't remove ${path.join(
+        workDir,
+        'src',
+        'backend',
+        'wine',
+        'manager',
+        'downloader',
+        '__tests__',
+        'utilities'
+      )}!`
     )
   })
 
