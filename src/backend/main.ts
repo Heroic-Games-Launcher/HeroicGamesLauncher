@@ -830,12 +830,12 @@ ipcMain.handle('getAlternativeWine', async () =>
   GlobalConfig.get().getAlternativeWine()
 )
 
-ipcMain.handle('readConfig', async (event, config_class) => {
-  if (config_class === 'library') {
+ipcMain.handle('readConfig', async (event, configClass) => {
+  if (configClass === 'library') {
     await libraryManagerMap['legendary'].refresh()
     return LegendaryLibraryManager.getListOfGames()
   }
-  const userInfo = await LegendaryUser.getUserInfo()
+  const userInfo = LegendaryUser.getUserInfo()
   return userInfo?.displayName ?? ''
 })
 
