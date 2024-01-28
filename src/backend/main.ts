@@ -707,8 +707,6 @@ ipcMain.handle('isFlatpak', () => isFlatpak)
 ipcMain.handle('getGameOverride', async () => getGameOverride())
 ipcMain.handle('getGameSdl', async (event, appName) => getGameSdl(appName))
 
-ipcMain.handle('getPlatform', () => process.platform)
-
 ipcMain.handle('showUpdateSetting', () => !isFlatpak)
 
 ipcMain.handle('getLatestReleases', async () => {

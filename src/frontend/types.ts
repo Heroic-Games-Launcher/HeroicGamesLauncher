@@ -164,6 +164,7 @@ declare global {
     ) => Promise<string>
     setTheme: (themeClass: string) => void
     isSteamDeckGameMode: boolean
+    platform: NodeJS.Platform
   }
 
   interface WindowEventMap {

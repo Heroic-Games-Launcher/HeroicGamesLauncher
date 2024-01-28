@@ -28,8 +28,6 @@ export const createNewWindow = (url: string) =>
 export const readConfig = async (file: 'library' | 'user') =>
   ipcRenderer.invoke('readConfig', file)
 
-export const getPlatform = async () => ipcRenderer.invoke('getPlatform')
-
 export const isLoggedIn = async () => ipcRenderer.invoke('isLoggedIn')
 
 export const writeConfig = async (data: {

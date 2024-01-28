@@ -18,8 +18,6 @@ const notify = (args: { title: string; body: string }) =>
 
 const loginPage = window.api.openLoginPage
 
-const getPlatform = window.api.getPlatform
-
 const sidInfoPage = window.api.openSidInfoPage
 
 const handleQuit = window.api.quit
@@ -163,7 +161,6 @@ export {
   getGameSettings,
   getInstallInfo,
   getLegendaryConfig,
-  getPlatform,
   getProgress,
   handleQuit,
   install,

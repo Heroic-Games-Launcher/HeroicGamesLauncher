@@ -36,7 +36,8 @@ import {
   isWindows,
   installed,
   configStore,
-  isCLINoGui
+  isCLINoGui,
+  isLinux
 } from '../../constants'
 import {
   appendGameLog,
@@ -945,7 +946,7 @@ export async function stop(appName: string, stopWine = true) {
   // not a perfect solution but it's the only choice for now
 
   // @adityaruplaha: this is kinda arbitary and I don't understand it.
-  const pattern = process.platform === 'linux' ? appName : 'legendary'
+  const pattern = isLinux ? appName : 'legendary'
   killPattern(pattern)
 
   if (stopWine && !isNative(appName)) {
