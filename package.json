@@ -268,7 +268,7 @@
     "type-fest": "3.6.1",
     "typescript": "4.9.4",
     "unimported": "1.26.0",
-    "vite": "3.2.7",
+    "vite": "3.2.8",
     "vite-plugin-electron": "0.10.2",
     "vite-plugin-svgr": "2.4.0",
     "xml-js": "1.6.11"
