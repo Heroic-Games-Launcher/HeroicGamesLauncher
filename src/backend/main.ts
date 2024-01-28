@@ -24,7 +24,7 @@ import {
 } from 'electron'
 import 'backend/updater'
 import { autoUpdater } from 'electron-updater'
-import { cpus, platform } from 'os'
+import { cpus } from 'os'
 import {
   access,
   constants,
@@ -94,7 +94,9 @@ import {
   createNecessaryFolders,
   fixAsarPath,
   isSnap,
-  fixesPath
+  fixesPath,
+  isWindows,
+  isMac
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
@@ -160,7 +162,6 @@ import { storeMap } from 'common/utils'
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
 const { showOpenDialog } = dialog
-const isWindows = platform() === 'win32'
 
 async function initializeWindow(): Promise<BrowserWindow> {
   createNecessaryFolders()
@@ -234,9 +235,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
     handleExit()
   })
 
-  if (isWindows) {
-    detectVCRedist(mainWindow)
-  }
+  detectVCRedist(mainWindow)
 
   if (process.env.VITE_DEV_SERVER_URL) {
     if (!process.env.HEROIC_NO_REACT_DEVTOOLS) {
@@ -637,7 +636,7 @@ ipcMain.on('quit', async () => handleExit())
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
+  if (!isMac) {
     app.quit()
   }
 })
