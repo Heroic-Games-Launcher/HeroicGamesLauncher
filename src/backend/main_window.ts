@@ -1,7 +1,7 @@
 import { AppSettings, WindowProps } from 'common/types'
 import { BrowserWindow, screen } from 'electron'
 import path from 'path'
-import { configStore, isLinux } from './constants'
+import { configStore } from './constants'
 
 let mainWindow: BrowserWindow | null = null
 
@@ -61,11 +61,11 @@ export const createMainWindow = () => {
   const settings = configStore.get('settings', <AppSettings>{})
   if (settings?.framelessWindow) {
     // use native overlay controls where supported
-    if (isLinux) {
-      windowProps.frame = false
-    } else {
+    if (['darwin', 'win32'].includes(process.platform)) {
       windowProps.titleBarStyle = 'hidden'
       windowProps.titleBarOverlay = true
+    } else {
+      windowProps.frame = false
     }
   }
 
