@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { writeFileSync, existsSync, unlinkSync } from 'graceful-fs'
+import { existsSync, unlinkSync } from 'graceful-fs'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import { GOGLoginData } from 'common/types'
 import { configStore } from './electronStores'
@@ -113,26 +113,6 @@ export class GOGUser {
       logSanitizer: authLogSanitizer
     })
     return JSON.parse(stdout)
-  }
-
-  /**
-   * Migrates existing authorization config to one supported by gogdl
-   */
-  public static migrateCredentialsConfig() {
-    if (!configStore.has('credentials')) {
-      return
-    }
-
-    const credentials = configStore.get_nodefault('credentials')
-    if (credentials?.loginTime)
-      credentials.loginTime = credentials?.loginTime / 1000
-
-    writeFileSync(
-      gogdlAuthConfig,
-      JSON.stringify({ '46899977096215655': credentials })
-    )
-    configStore.delete('credentials')
-    configStore.set('isLoggedIn', true)
   }
 
   public static logout() {
