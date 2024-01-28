@@ -61,6 +61,7 @@ function App() {
             <Route path="epicstore" element={<WebView store="epic" />} />
             <Route path="gogstore" element={<WebView store="gog" />} />
             <Route path="amazonstore" element={<WebView store="amazon" />} />
+            <Route path="indiegalastore" element={<WebView store="indieGala" />} />
             <Route path="wiki" element={<WebView />} />
             <Route path="/gamepage">
               <Route path=":runner">

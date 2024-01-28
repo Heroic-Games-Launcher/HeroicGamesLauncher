@@ -25,6 +25,16 @@ const initialContext: ContextType = {
     login: async () => Promise.resolve(''),
     logout: async () => Promise.resolve()
   },
+  indieGala: {
+    getIndieGalaUserData: async () => Promise.resolve(),
+    library: [],
+    login: function (token: string): Promise<string> {
+      throw new Error('Function not implemented.')
+    },
+    logout: function (): Promise<void> {
+      throw new Error('Function not implemented.')
+    }
+  },
   installingEpicGame: false,
   sideloadedLibrary: [],
   error: false,

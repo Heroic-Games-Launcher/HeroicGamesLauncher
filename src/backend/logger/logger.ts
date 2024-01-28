@@ -22,6 +22,7 @@ export enum LogPrefix {
   Legendary = 'Legendary',
   Gog = 'Gog',
   Nile = 'Nile',
+  Carnival = 'Carnival',
   WineDownloader = 'WineDownloader',
   DXVKInstaller = 'DXVKInstaller',
   GlobalConfig = 'GlobalConfig',

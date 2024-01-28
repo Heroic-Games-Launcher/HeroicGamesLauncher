@@ -45,6 +45,7 @@ import {
   NileUserData
 } from 'common/types/nile'
 import type { SystemInformation } from 'backend/utils/systeminfo'
+import { CarnivalUserData } from 'common/types/carnival'
 
 /**
  * Some notes here:
@@ -170,6 +171,7 @@ interface AsyncIPCFunctions {
     build?: string
   ) => Promise<InstallInfo | null>
   getUserInfo: () => Promise<UserInfo | undefined>
+  getIndieGalaUserInfo: () => Promise<CarnivalUserData | undefined>
   getAmazonUserInfo: () => Promise<NileUserData | undefined>
   isLoggedIn: () => boolean
   login: (sid: string) => Promise<{

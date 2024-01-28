@@ -32,6 +32,8 @@ import ContextProvider from './ContextProvider'
 import { InstallModal } from 'frontend/screens/Library/components'
 
 import {
+  carnivalConfigStore,
+  carnivalLibraryStore,
   configStore,
   gogConfigStore,
   gogInstalledGamesStore,
@@ -71,6 +73,9 @@ interface StateProps {
     library: GameInfo[]
     user_id?: string
     username?: string
+  }
+  indieGala: {
+    library: GameInfo[]
   }
   wineVersions: WineVersionInfo[]
   error: boolean
@@ -152,6 +157,12 @@ class GlobalState extends PureComponent<Props> {
 
     return games
   }
+
+  loaIndieGalaLibrary = (): Array<GameInfo> => {
+    const games = carnivalLibraryStore.get('library', [])
+
+    return games
+  }
   state: StateProps = {
     epic: {
       library: libraryStore.get('library', []),
@@ -165,6 +176,9 @@ class GlobalState extends PureComponent<Props> {
       library: this.loadAmazonLibrary(),
       user_id: nileConfigStore.get_nodefault('userData.user_id'),
       username: nileConfigStore.get_nodefault('userData.name')
+    },
+    indieGala: {
+      library: this.loaIndieGalaLibrary()
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
     error: false,
@@ -537,6 +551,8 @@ class GlobalState extends PureComponent<Props> {
 
   getAmazonLoginData = async () => window.api.getAmazonLoginData()
 
+  getIndieGalaUserInfo = async () => window.api.getIndieGalaUserInfo()
+
   handleSettingsModalOpen = (
     value: boolean,
     type?: 'settings' | 'log' | 'category',
@@ -593,6 +609,8 @@ class GlobalState extends PureComponent<Props> {
       amazonLibrary = this.loadAmazonLibrary()
     }
 
+    let carnivalLibrary = carnivalLibraryStore.get('library', [])
+
     const updatedSideload = sideloadLibrary.get('games', [])
 
     this.setState({
@@ -608,6 +626,9 @@ class GlobalState extends PureComponent<Props> {
         library: amazonLibrary,
         user_id: amazon.user_id,
         username: amazon.username
+      },
+      indieGala: {
+        library: carnivalLibrary
       },
       gameUpdates: updates,
       refreshing: false,
@@ -863,6 +884,9 @@ class GlobalState extends PureComponent<Props> {
       await window.api.getAmazonUserInfo()
     }
 
+    await window.api.getIndieGalaUserInfo()
+    const indieGalaUser = carnivalConfigStore.has('userData')
+
     if (!gameUpdates.length) {
       const storedGameUpdates = JSON.parse(storage.getItem('updates') || '[]')
       this.setState({ gameUpdates: storedGameUpdates })
@@ -951,6 +975,7 @@ class GlobalState extends PureComponent<Props> {
       epic,
       gog,
       amazon,
+      indieGala,
       favouriteGames,
       customCategories,
       hiddenGames,
@@ -988,6 +1013,16 @@ class GlobalState extends PureComponent<Props> {
             getLoginData: this.getAmazonLoginData,
             login: this.amazonLogin,
             logout: this.amazonLogout
+          },
+          indieGala: {
+            getIndieGalaUserData: this.getIndieGalaUserInfo,
+            library: indieGala.library,
+            login: function (token: string): Promise<string> {
+              throw new Error('Function not implemented.')
+            },
+            logout: function (): Promise<void> {
+              throw new Error('Function not implemented.')
+            }
           },
           installingEpicGame,
           setLanguage: this.setLanguage,

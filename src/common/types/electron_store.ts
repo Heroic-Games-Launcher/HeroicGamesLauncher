@@ -18,6 +18,7 @@ import {
 } from 'common/types'
 import { UserData } from 'common/types/gog'
 import { NileUserData } from './nile'
+import { CarnivalUserData } from './carnival'
 
 export interface StoreStructure {
   configStore: {
@@ -71,6 +72,9 @@ export interface StoreStructure {
   }
   nileConfigStore: {
     userData?: NileUserData
+  }
+  carnivalConfigStore: {
+    userData?: CarnivalUserData
   }
   sideloadedStore: {
     games: GameInfo[]

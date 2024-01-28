@@ -30,6 +30,7 @@ import {
   amazonCategories,
   epicCategories,
   gogCategories,
+  indieGalaCatagories,
   sideloadedCategories
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
@@ -57,6 +58,7 @@ export default React.memo(function Library(): JSX.Element {
     epic,
     gog,
     amazon,
+    indieGala,
     sideloadedLibrary,
     favouriteGames,
     libraryTopSection,
@@ -91,6 +93,7 @@ export default React.memo(function Library(): JSX.Element {
       legendary: epicCategories.includes(storedCategory),
       gog: gogCategories.includes(storedCategory),
       nile: amazonCategories.includes(storedCategory),
+      carnival: indieGalaCatagories.includes(storedCategory),
       sideload: sideloadedCategories.includes(storedCategory)
     }
   }
@@ -371,6 +374,9 @@ export default React.memo(function Library(): JSX.Element {
     if (storesFilters['nile'] && amazon.username) {
       displayedStores.push('nile')
     }
+    if (storesFilters['carnival']) { // TODO: check logged in
+      displayedStores.push('carnival')
+    }
     if (storesFilters['sideload']) {
       displayedStores.push('sideload')
     }
@@ -382,14 +388,17 @@ export default React.memo(function Library(): JSX.Element {
     const showEpic = epic.username && displayedStores.includes('legendary')
     const showGog = gog.username && displayedStores.includes('gog')
     const showAmazon = amazon.user_id && displayedStores.includes('nile')
+    const showIndieGala = displayedStores.includes('carnival')  // TODO: check logged in
     const showSideloaded = displayedStores.includes('sideload')
 
     const epicLibrary = showEpic ? epic.library : []
     const gogLibrary = showGog ? gog.library : []
     const sideloadedApps = showSideloaded ? sideloadedLibrary : []
     const amazonLibrary = showAmazon ? amazon.library : []
+    const indieGalaLibrary = showIndieGala ? indieGala.library : []
 
-    return [...sideloadedApps, ...epicLibrary, ...gogLibrary, ...amazonLibrary]
+
+    return [...sideloadedApps, ...epicLibrary, ...gogLibrary, ...amazonLibrary, ...indieGalaLibrary]
   }
 
   // select library
@@ -520,6 +529,7 @@ export default React.memo(function Library(): JSX.Element {
     epic.library,
     gog.library,
     amazon.library,
+    indieGala.library,
     filterText,
     sortDescending,
     sortInstalled,

@@ -1,3 +1,4 @@
+import { getIndieGalaUserInfo } from 'backend/api/helpers';
 import {
   AppSettings,
   GameInfo,
@@ -18,7 +19,7 @@ import {
 } from 'common/types'
 import { NileLoginData, NileRegisterData } from 'common/types/nile'
 
-export type Category = 'all' | 'legendary' | 'gog' | 'sideload' | 'nile'
+export type Category = 'all' | 'legendary' | 'gog' | 'sideload' | 'nile' | 'carnival'
 
 export interface ContextType {
   error: boolean
@@ -80,6 +81,13 @@ export interface ContextType {
     getLoginData: () => Promise<NileLoginData>
     login: (data: NileRegisterData) => Promise<string>
     logout: () => Promise<void>
+  }
+  indieGala: {
+    library: GameInfo[]
+    username?: string
+    login: (token: string) => Promise<string>
+    logout: () => Promise<void>
+    getIndieGalaUserData: () => Promise<void>
   }
   installingEpicGame: boolean
   allTilesInColor: boolean
@@ -194,6 +202,7 @@ export interface StoresFilters {
   legendary: boolean
   gog: boolean
   nile: boolean
+  carnival: boolean
   sideload: boolean
 }
 

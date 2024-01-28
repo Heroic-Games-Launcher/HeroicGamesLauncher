@@ -47,6 +47,9 @@ export const getUserInfo = async () => ipcRenderer.invoke('getUserInfo')
 export const getAmazonUserInfo = async () =>
   ipcRenderer.invoke('getAmazonUserInfo')
 
+export const getIndieGalaUserInfo = async () =>
+  ipcRenderer.invoke('getIndieGalaUserInfo')
+  
 export const syncSaves = async (args: {
   arg: string | undefined
   path: string

@@ -13,7 +13,7 @@ import { ChildProcess } from 'child_process'
 import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
 import { NileInstallInfo, NileInstallPlatform } from './types/nile'
 
-export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile'
+export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile' | 'carnival'
 
 // NOTE: Do not put enum's in this module or it will break imports
 
@@ -74,6 +74,7 @@ export interface AppSettings extends GameSettings {
   altGogdlBin: string
   altLegendaryBin: string
   altNileBin: string
+  altCarnivalBin: string
   autoUpdateGames: boolean
   checkForUpdatesOnStartup: boolean
   checkUpdatesInterval: number
@@ -126,7 +127,7 @@ export interface ExtraInfo {
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
 
 export interface GameInfo {
-  runner: 'legendary' | 'gog' | 'sideload' | 'nile'
+  runner: 'legendary' | 'gog' | 'sideload' | 'nile' | 'carnival'
   store_url?: string
   app_name: string
   art_cover: string
@@ -141,6 +142,7 @@ export interface GameInfo {
   installable?: boolean
   is_installed: boolean
   namespace?: string
+  unique_name?: string
   // NOTE: This is the save folder without any variables filled in...
   save_folder?: string
   // ...and this is the folder with them filled in

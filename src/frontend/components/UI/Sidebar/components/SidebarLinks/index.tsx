@@ -185,6 +185,17 @@ export default function SidebarLinks() {
             >
               <span>{t('prime-gaming', 'Prime Gaming')}</span>
             </NavLink>
+            <NavLink
+              data-testid="store"
+              className={({ isActive }) =>
+                classNames('Sidebar__item', 'SidebarLinks__subItem', {
+                  active: isActive
+                })
+              }
+              to="/indiegalastore"
+            >
+              <span>{t('indie-gala', 'IndieGala')}</span>
+            </NavLink>
           </div>
         )}
       </div>

@@ -6,11 +6,11 @@ import {
   DialogHeader
 } from 'frontend/components/UI/Dialog'
 import { useTranslation } from 'react-i18next'
-import { amazonLoginPath, epicLoginPath, gogLoginPath } from '../..'
+import { amazonLoginPath, epicLoginPath, gogLoginPath, indieGalaLoginPath } from '../..'
 import { NavLink } from 'react-router-dom'
 
 interface LoginWarningProps {
-  warnLoginForStore: null | 'epic' | 'gog' | 'amazon'
+  warnLoginForStore: null | 'epic' | 'gog' | 'amazon' | 'indieGala'
   onClose: () => void
 }
 
@@ -44,6 +44,12 @@ const LoginWarning = function ({
       "You are not logged in with an Amazon account in Heroic. Don't use the store page to login, click the following button instead:"
     )
     loginPath = amazonLoginPath
+  }  else if (warnLoginForStore === 'indieGala') {
+    textContent = t(
+      'not_logged_in.indieGala',
+      "You are not logged in with an indieGala account in Heroic. Don't use the store page to login, click the following button instead:"
+    )
+    loginPath = indieGalaLoginPath
   }
 
   return (

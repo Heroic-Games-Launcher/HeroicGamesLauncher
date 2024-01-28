@@ -62,6 +62,10 @@ import {
   installStore as nileInstallStore,
   libraryStore as nileLibraryStore
 } from './storeManagers/nile/electronStores'
+import {
+  installStore as carnivalInstallStore,
+  libraryStore as carnivalLibraryStore
+} from './storeManagers/carnival/electronStores'
 import * as fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
@@ -367,7 +371,7 @@ async function openUrlOrFile(url: string): Promise<string | void> {
   return shell.openPath(url)
 }
 
-function clearCache(library?: 'gog' | 'legendary' | 'nile') {
+function clearCache(library?: 'gog' | 'legendary' | 'nile' | 'carnival') {
   wikiGameInfoStore.clear()
   if (library === 'gog' || !library) {
     GOGapiInfoCache.clear()
@@ -454,6 +458,16 @@ function getNileBin(): { dir: string; bin: string } {
   }
   return splitPathAndName(
     fixAsarPath(join(publicDir, 'bin', process.platform, 'nile'))
+  )
+}
+
+function getCarnivalBin(): { dir: string; bin: string } {
+  const settings = GlobalConfig.get().getSettings()
+  if (settings?.altCarnivalBin) {
+    return splitPathAndName(settings.altCarnivalBin)
+  }
+  return splitPathAndName(
+    fixAsarPath(join(publicDir, 'bin', process.platform, 'freecarnival'))
   )
 }
 
@@ -1451,6 +1465,7 @@ export {
   getLegendaryBin,
   getGOGdlBin,
   getNileBin,
+  getCarnivalBin,
   formatEpicStoreUrl,
   getSteamRuntime,
   constructAndUpdateRPC,

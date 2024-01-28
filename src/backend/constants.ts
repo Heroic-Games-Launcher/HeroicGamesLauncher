@@ -73,6 +73,12 @@ const anticheatDataPath = join(appFolder, 'areweanticheatyet.json')
 const imagesCachePath = join(appFolder, 'images-cache')
 const fixesPath = join(appFolder, 'fixes')
 
+const carnivalConfigPath = join(userHome, '.config', 'freecarnival') //join(appFolder, 'carnival_config', 'carnival')
+const carnivalInstalled = join(carnivalConfigPath, 'installed.yml')
+const carnivalLibrary = join(carnivalConfigPath, 'library.yml')
+const carnivalLogFile = ""
+const carnivalUserData = join(carnivalConfigPath, 'user.yml')
+
 const {
   currentLogFile,
   lastLogFile,
@@ -86,6 +92,7 @@ const gogdlAuthConfig = join(app.getPath('userData'), 'gog_store', 'auth.json')
 const vulkanHelperBin = fixAsarPath(
   join(publicDir, 'bin', process.platform, 'vulkan-helper')
 )
+
 const icon = fixAsarPath(join(publicDir, 'icon.png'))
 const iconDark = fixAsarPath(join(publicDir, 'icon-dark.png'))
 const iconLight = fixAsarPath(join(publicDir, 'icon-light.png'))
@@ -284,5 +291,10 @@ export {
   nileInstalled,
   nileLibrary,
   nileUserData,
+  carnivalConfigPath,
+  carnivalInstalled,
+  carnivalLibrary,
+  carnivalLogFile,
+  carnivalUserData,
   fixesPath
 }

@@ -2,6 +2,7 @@ import * as SideloadGameManager from 'backend/storeManagers/sideload/games'
 import * as GOGGameManager from 'backend/storeManagers/gog/games'
 import * as LegendaryGameManager from 'backend/storeManagers/legendary/games'
 import * as NileGameManager from 'backend/storeManagers/nile/games'
+import * as CarnivalGameManager from 'backend/storeManagers/carnival/games' 
 
 import * as SideloadLibraryManager from 'backend/storeManagers/sideload/library'
 import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
@@ -13,6 +14,7 @@ import { logInfo, RunnerToLogPrefixMap } from 'backend/logger/logger'
 
 import { addToQueue } from 'backend/downloadmanager/downloadqueue'
 import { DMQueueElement, GameInfo, Runner } from 'common/types'
+import * as CarnivalLibraryManager from 'backend/storeManagers/carnival/library'
 type GameManagerMap = {
   [key in Runner]: GameManager
 }
@@ -21,6 +23,7 @@ export const gameManagerMap: GameManagerMap = {
   sideload: SideloadGameManager,
   gog: GOGGameManager,
   legendary: LegendaryGameManager,
+  carnival: CarnivalGameManager,
   nile: NileGameManager
 }
 
@@ -32,6 +35,7 @@ export const libraryManagerMap: LibraryManagerMap = {
   sideload: SideloadLibraryManager,
   gog: GOGLibraryManager,
   legendary: LegendaryLibraryManager,
+  carnival: CarnivalLibraryManager,
   nile: NileLibraryManager
 }
 
@@ -81,4 +85,5 @@ export async function initStoreManagers() {
   await LegendaryLibraryManager.initLegendaryLibraryManager()
   await GOGLibraryManager.initGOGLibraryManager()
   await NileLibraryManager.initNileLibraryManager()
+  await CarnivalLibraryManager.initCarnivalLibraryManager()
 }

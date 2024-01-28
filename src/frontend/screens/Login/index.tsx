@@ -19,9 +19,10 @@ import { hasHelp } from 'frontend/hooks/hasHelp'
 export const epicLoginPath = '/loginweb/legendary'
 export const gogLoginPath = '/loginweb/gog'
 export const amazonLoginPath = '/loginweb/nile'
+export const indieGalaLoginPath = '/loginweb/carnival'
 
 export default React.memo(function NewLogin() {
-  const { epic, gog, amazon, refreshLibrary } = useContext(ContextProvider)
+  const { epic, gog, amazon, indieGala, refreshLibrary } = useContext(ContextProvider)
   const { t } = useTranslation()
 
   hasHelp(
@@ -38,6 +39,7 @@ export default React.memo(function NewLogin() {
   const [isAmazonLoggedIn, setIsAmazonLoggedIn] = useState(
     Boolean(amazon.user_id)
   )
+  const [isIndieGalaLoggedIn, setIsindieGalaLoggedIn] = useState(Boolean(indieGala?.username))
 
   const systemInfo = useAwaited(window.api.systemInfo.get)
 
@@ -143,6 +145,16 @@ export default React.memo(function NewLogin() {
               isLoggedIn={isAmazonLoggedIn}
               user={amazon.username || 'Unknown'}
               logoutAction={amazon.logout}
+              disabled={oldMac}
+            />
+            <Runner
+              class="carnival"
+              buttonText={t('login.indiegala', 'IndieGala Login')}
+              icon={() => ""}
+              loginUrl={indieGalaLoginPath}
+              isLoggedIn={isIndieGalaLoggedIn}
+              user={indieGala?.username || 'Unknown'}
+              logoutAction={indieGala?.logout}
               disabled={oldMac}
             />
           </div>

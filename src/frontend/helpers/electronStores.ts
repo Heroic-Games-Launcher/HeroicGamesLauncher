@@ -148,6 +148,16 @@ const nileConfigStore = new TypeCheckedStoreFrontend('nileConfigStore', {
   cwd: 'nile_store'
 })
 
+
+const carnivalConfigStore = new TypeCheckedStoreFrontend('carnivalConfigStore', {
+  cwd: 'carnival_store'
+})
+
+const carnivalLibraryStore = new CacheStore<GameInfo[], 'library'>(
+  'carnival_library',
+  null
+)
+
 const timestampStore = new TypeCheckedStoreFrontend('timestampStore', {
   cwd: 'store',
   name: 'timestamp'
@@ -173,6 +183,8 @@ export {
   sideloadLibrary,
   wineDownloaderInfoStore,
   downloadManagerStore,
+  carnivalConfigStore,
+  carnivalLibraryStore,
   nileLibraryStore,
   nileConfigStore
 }

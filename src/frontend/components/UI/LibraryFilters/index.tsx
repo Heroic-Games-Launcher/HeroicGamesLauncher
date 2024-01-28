@@ -10,6 +10,7 @@ const RunnerToStore = {
   legendary: 'Epic Games',
   gog: 'GOG',
   nile: 'Amazon Games',
+  carnival: 'indieGala',
   sideload: 'Other'
 }
 
@@ -75,6 +76,7 @@ export default function LibraryFilters() {
       legendary: false,
       gog: false,
       nile: false,
+      carnival: false,
       sideload: false
     }
     newFilters = { ...newFilters, [store]: true }
@@ -139,6 +141,7 @@ export default function LibraryFilters() {
       legendary: true,
       gog: true,
       nile: true,
+      carnival: true,
       sideload: true
     })
     setPlatformsFilters({
@@ -160,6 +163,7 @@ export default function LibraryFilters() {
         {epic.username && storeToggle('legendary')}
         {gog.username && storeToggle('gog')}
         {amazon.username && storeToggle('nile')}
+        {storeToggle('carnival')}
         {storeToggle('sideload')}
 
         <hr />

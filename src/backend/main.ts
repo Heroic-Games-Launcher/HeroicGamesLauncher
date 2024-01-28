@@ -156,6 +156,7 @@ import {
   getGameSdl
 } from 'backend/storeManagers/legendary/library'
 import { storeMap } from 'common/utils'
+import { CarnivalUser } from './storeManagers/carnival/user'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
@@ -811,6 +812,8 @@ ipcMain.handle('getUserInfo', async () => {
 })
 
 ipcMain.handle('getAmazonUserInfo', async () => NileUser.getUserData())
+
+ipcMain.handle('getIndieGalaUserInfo', async () => CarnivalUser.getUserData())
 
 // Checks if the user have logged in with Legendary already
 ipcMain.handle('isLoggedIn', LegendaryUser.isLoggedIn)
@@ -1752,3 +1755,4 @@ import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
 import './tools/ipc_handler'
 import './progress_bar'
+
