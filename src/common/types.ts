@@ -770,6 +770,7 @@ interface GameScopeSettings {
   upscaleMethod: string
   fpsLimiter: string
   fpsLimiterNoFocus: string
+  additionalOptions: string
 }
 
 export type InstallInfo =

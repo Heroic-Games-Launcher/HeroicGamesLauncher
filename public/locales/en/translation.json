@@ -297,6 +297,7 @@
         },
         "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
         "gamescope": {
+            "additionalOptions": "Additional commandline flags to pass into gamescope.",
             "fpsLimiter": "The amount of frames gamescope should limit to. E.g. 60",
             "fpsLimiterNoFocus": "The frame rate limit gamescope should limit per second if the game is not focused.",
             "gameHeight": "The height resolution used by the game. A 16:9 aspect ratio is assumed by gamescope.",
@@ -478,6 +479,7 @@
             "title": "Game Arguments (To run after the command):"
         },
         "gamescope": {
+            "additionalOptions": "Additional Options",
             "borderless": "Borderless",
             "fpsLimiter": "FPS Limiter",
             "fpsLimiterNoFocus": "FPS Limiter (No Focus)",
