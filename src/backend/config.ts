@@ -275,13 +275,6 @@ class GlobalConfigV0 extends GlobalConfig {
       winePrefix
     } as AppSettings
 
-    // TODO: Remove this after a couple of stable releases
-    // Get settings only from config-store
-    const currentConfigStore = configStore.get_nodefault('settings')
-    if (!currentConfigStore?.defaultInstallPath) {
-      configStore.set('settings', settings)
-    }
-
     return settings
   }
 

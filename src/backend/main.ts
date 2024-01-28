@@ -338,15 +338,6 @@ if (!gotTheLock) {
       app.setAppUserModelId('Heroic Games Launcher')
     }
 
-    // TODO: Remove this after a couple of stable releases
-    // Affects only current users, not new installs
-    const settings = GlobalConfig.get().getSettings()
-    const { language } = settings
-    const currentConfigStore = configStore.get_nodefault('settings')
-    if (!currentConfigStore?.defaultInstallPath) {
-      configStore.set('settings', settings)
-    }
-
     runOnceWhenOnline(async () => {
       const isLoggedIn = LegendaryUser.isLoggedIn()
 
@@ -363,6 +354,8 @@ if (!gotTheLock) {
         GOGUser.getUserDetails()
       }
     })
+
+    const settings = GlobalConfig.get().getSettings()
 
     // Make sure lock is not present when starting up
     playtimeSyncQueue.delete('lock')
@@ -383,7 +376,7 @@ if (!gotTheLock) {
       returnEmptyString: false,
       returnNull: false,
       fallbackLng: 'en',
-      lng: language,
+      lng: settings.language,
       supportedLngs: [
         'ar',
         'az',
@@ -445,8 +438,7 @@ if (!gotTheLock) {
       logWarning('Protocol already registered.', LogPrefix.Backend)
     }
 
-    const { startInTray } = GlobalConfig.get().getSettings()
-    const headless = isCLINoGui || startInTray
+    const headless = isCLINoGui || settings.startInTray
     if (!headless) {
       mainWindow.once('ready-to-show', () => {
         const props = configStore.get_nodefault('window-props')
