@@ -593,7 +593,7 @@
         "esync": "Enable Esync",
         "exit-to-tray": "Exit to System Tray",
         "experimental_features": {
-            "automaticWinetricksFixes": "Apply known Winetricks fixes automatically",
+            "automaticWinetricksFixes": "Apply known fixes automatically",
             "enableHelp": "Help component",
             "enableNewDesign": "New design"
         },

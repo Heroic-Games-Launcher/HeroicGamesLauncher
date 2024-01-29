@@ -11,7 +11,8 @@ import {
   WineInstallation,
   WineCommandArgs,
   SteamRuntime,
-  GameSettings
+  GameSettings,
+  KnowFixesInfo
 } from 'common/types'
 // This handles launching games, prefix creation etc..
 
@@ -75,6 +76,7 @@ import {
 } from './utils/aborthandler/aborthandler'
 import { download, isInstalled } from './wine/runtimes/runtimes'
 import { storeMap } from 'common/utils'
+import { runWineCommandOnGame } from './storeManagers/legendary/games'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
@@ -403,23 +405,44 @@ async function installFixes(appName: string, runner: Runner) {
   if (!existsSync(fixPath)) return
 
   try {
-    const fixesContent = JSON.parse(readFileSync(fixPath).toString())
+    const fixesContent = JSON.parse(
+      readFileSync(fixPath).toString()
+    ) as KnowFixesInfo
 
-    sendGameStatusUpdate({
-      appName,
-      runner: runner,
-      status: 'winetricks'
-    })
+    if (fixesContent.winetricks) {
+      sendGameStatusUpdate({
+        appName,
+        runner: runner,
+        status: 'winetricks'
+      })
 
-    for (const winetricksPackage of fixesContent.winetricks) {
-      await Winetricks.install(runner, appName, winetricksPackage)
+      for (const winetricksPackage of fixesContent.winetricks) {
+        await Winetricks.install(runner, appName, winetricksPackage)
+      }
+    }
+
+    if (fixesContent.runInPrefix) {
+      const gameInfo = gameManagerMap[runner].getGameInfo(appName)
+
+      sendGameStatusUpdate({
+        appName,
+        runner: runner,
+        status: 'prerequisites'
+      })
+
+      for (const filePath of fixesContent.runInPrefix) {
+        const fullPath = join(gameInfo.install.install_path!, filePath)
+        await runWineCommandOnGame(appName, {
+          commandParts: [fullPath],
+          wait: true,
+          protonVerb: 'waitforexitandrun'
+        })
+      }
     }
   } catch (error) {
     // if we fail to download the json file, it can be malformed causing
     // JSON.parse to throw an exception
-    logWarning(
-      `Known winetricks fixes could not be applied, ignoring.\n${error}`
-    )
+    logWarning(`Known fixes could not be applied, ignoring.\n${error}`)
   }
 }
 
