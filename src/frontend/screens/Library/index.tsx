@@ -85,7 +85,7 @@ export default React.memo(function Library(): JSX.Element {
     initialStoresfilters = JSON.parse(storesFiltersString) as StoresFilters
   } else {
     // Else, use the old `category` filter
-    // TODO: we can remove this eventually after a few releases
+    // TODO: we can remove this eventually after a few releases and just use the code of the if
     const storedCategory = (storage.getItem('category') as Category) || 'all'
     initialStoresfilters = {
       legendary: epicCategories.includes(storedCategory),
@@ -112,7 +112,7 @@ export default React.memo(function Library(): JSX.Element {
     ) as PlatformsFilters
   } else {
     // Else, use the old `category` filter
-    // TODO: we can remove this eventually after a few releases
+    // TODO: we can remove this eventually after a few releases and just use the code of the if
     const storedCategory = storage.getItem('filterPlatform') || 'all'
     initialPlatformsfilters = {
       win: ['all', 'win'].includes(storedCategory),

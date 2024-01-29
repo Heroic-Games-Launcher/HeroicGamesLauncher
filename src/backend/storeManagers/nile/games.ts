@@ -27,7 +27,7 @@ import {
   logInfo,
   logsDisabled
 } from 'backend/logger/logger'
-import { isWindows } from 'backend/constants'
+import { isLinux, isWindows } from 'backend/constants'
 import { GameConfig } from 'backend/game_config'
 import {
   getRunnerCallWithoutCredentials,
@@ -556,7 +556,7 @@ export async function forceUninstall(appName: string) {
 }
 
 export async function stop(appName: string, stopWine = true) {
-  const pattern = process.platform === 'linux' ? appName : 'nile'
+  const pattern = isLinux ? appName : 'nile'
   killPattern(pattern)
 
   if (stopWine && !isNative()) {

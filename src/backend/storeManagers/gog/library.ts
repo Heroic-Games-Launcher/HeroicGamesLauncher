@@ -696,19 +696,6 @@ export async function getInstallInfo(
     }
   }
   installInfoStore.set(installInfoStoreKey, info)
-  if (!info) {
-    logWarning(
-      [
-        'Failed to get Install Info for',
-        `${appName}`,
-        `using ${installPlatform} as platform,`,
-        'returning empty object'
-      ],
-      LogPrefix.Gog
-    )
-    // @ts-expect-error TODO: Handle this better
-    return {}
-  }
   return info
 }
 

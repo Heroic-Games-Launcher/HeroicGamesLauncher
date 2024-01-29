@@ -40,10 +40,3 @@ electronTest('gets heroic, legendary, and gog versions', async (app) => {
     expect(compareVersions(gogdlVersion, '0.7.1')).toBeGreaterThanOrEqual(0)
   })
 })
-
-electronTest('test ipcMainInvokeHandler', async (app) => {
-  const page = await app.firstWindow()
-  const platform = await page.evaluate(async () => window.api.getPlatform())
-  console.log('Platform: ', platform)
-  expect(platform).toEqual(process.platform)
-})

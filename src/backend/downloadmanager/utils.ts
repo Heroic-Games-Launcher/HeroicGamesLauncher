@@ -9,10 +9,9 @@ import { DMStatus, InstallParams, Runner } from 'common/types'
 import i18next from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
 import { isOnline } from '../online_monitor'
-import { fixesPath } from 'backend/constants'
+import { fixesPath, isWindows } from 'backend/constants'
 import path from 'path'
 import { existsSync, mkdirSync } from 'graceful-fs'
-import { platform } from 'os'
 import { storeMap } from 'common/utils'
 
 async function installQueueElement(params: InstallParams): Promise<{
@@ -75,7 +74,7 @@ async function installQueueElement(params: InstallParams): Promise<{
   }
 
   try {
-    if (platform() !== 'win32') {
+    if (!isWindows) {
       downloadFixesFor(appName, runner)
     }
 

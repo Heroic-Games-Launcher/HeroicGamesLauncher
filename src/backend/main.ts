@@ -24,7 +24,7 @@ import {
 } from 'electron'
 import 'backend/updater'
 import { autoUpdater } from 'electron-updater'
-import { cpus, platform } from 'os'
+import { cpus } from 'os'
 import {
   access,
   constants,
@@ -94,7 +94,9 @@ import {
   createNecessaryFolders,
   fixAsarPath,
   isSnap,
-  fixesPath
+  fixesPath,
+  isWindows,
+  isMac
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
@@ -160,7 +162,6 @@ import { storeMap } from 'common/utils'
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
 const { showOpenDialog } = dialog
-const isWindows = platform() === 'win32'
 
 async function initializeWindow(): Promise<BrowserWindow> {
   createNecessaryFolders()
@@ -234,9 +235,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
     handleExit()
   })
 
-  if (isWindows) {
-    detectVCRedist(mainWindow)
-  }
+  detectVCRedist(mainWindow)
 
   if (process.env.VITE_DEV_SERVER_URL) {
     if (!process.env.HEROIC_NO_REACT_DEVTOOLS) {
@@ -339,15 +338,6 @@ if (!gotTheLock) {
       app.setAppUserModelId('Heroic Games Launcher')
     }
 
-    // TODO: Remove this after a couple of stable releases
-    // Affects only current users, not new installs
-    const settings = GlobalConfig.get().getSettings()
-    const { language } = settings
-    const currentConfigStore = configStore.get_nodefault('settings')
-    if (!currentConfigStore?.defaultInstallPath) {
-      configStore.set('settings', settings)
-    }
-
     runOnceWhenOnline(async () => {
       const isLoggedIn = LegendaryUser.isLoggedIn()
 
@@ -364,6 +354,8 @@ if (!gotTheLock) {
         GOGUser.getUserDetails()
       }
     })
+
+    const settings = GlobalConfig.get().getSettings()
 
     // Make sure lock is not present when starting up
     playtimeSyncQueue.delete('lock')
@@ -384,7 +376,7 @@ if (!gotTheLock) {
       returnEmptyString: false,
       returnNull: false,
       fallbackLng: 'en',
-      lng: language,
+      lng: settings.language,
       supportedLngs: [
         'ar',
         'az',
@@ -430,7 +422,6 @@ if (!gotTheLock) {
       ]
     })
 
-    GOGUser.migrateCredentialsConfig()
     const mainWindow = await initializeWindow()
 
     protocol.handle('heroic', (request) => {
@@ -447,8 +438,7 @@ if (!gotTheLock) {
       logWarning('Protocol already registered.', LogPrefix.Backend)
     }
 
-    const { startInTray } = GlobalConfig.get().getSettings()
-    const headless = isCLINoGui || startInTray
+    const headless = isCLINoGui || settings.startInTray
     if (!headless) {
       mainWindow.once('ready-to-show', () => {
         const props = configStore.get_nodefault('window-props')
@@ -637,7 +627,7 @@ ipcMain.on('quit', async () => handleExit())
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
+  if (!isMac) {
     app.quit()
   }
 })
@@ -708,8 +698,6 @@ ipcMain.handle('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
 ipcMain.handle('isFlatpak', () => isFlatpak)
 ipcMain.handle('getGameOverride', async () => getGameOverride())
 ipcMain.handle('getGameSdl', async (event, appName) => getGameSdl(appName))
-
-ipcMain.handle('getPlatform', () => process.platform)
 
 ipcMain.handle('showUpdateSetting', () => !isFlatpak)
 
@@ -831,12 +819,12 @@ ipcMain.handle('getAlternativeWine', async () =>
   GlobalConfig.get().getAlternativeWine()
 )
 
-ipcMain.handle('readConfig', async (event, config_class) => {
-  if (config_class === 'library') {
+ipcMain.handle('readConfig', async (event, configClass) => {
+  if (configClass === 'library') {
     await libraryManagerMap['legendary'].refresh()
     return LegendaryLibraryManager.getListOfGames()
   }
-  const userInfo = await LegendaryUser.getUserInfo()
+  const userInfo = LegendaryUser.getUserInfo()
   return userInfo?.displayName ?? ''
 })
 

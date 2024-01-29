@@ -151,7 +151,6 @@ interface AsyncIPCFunctions {
   isMaximized: () => boolean
   isMinimized: () => boolean
   isFlatpak: () => boolean
-  getPlatform: () => NodeJS.Platform
   showUpdateSetting: () => boolean
   getLatestReleases: () => Promise<Release[]>
   getCurrentChangelog: () => Promise<Release | null>

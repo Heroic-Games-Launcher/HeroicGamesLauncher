@@ -13,9 +13,8 @@ import { getGOGdlBin, getLegendaryBin } from 'backend/utils'
 import { join } from 'path'
 import { formatSystemInfo, getSystemInfo } from '../utils/systeminfo'
 import { appendFile, writeFile } from 'fs/promises'
-import { gamesConfigPath } from 'backend/constants'
+import { gamesConfigPath, isWindows } from 'backend/constants'
 import { gameManagerMap } from 'backend/storeManagers'
-import { platform } from 'os'
 
 export enum LogPrefix {
   General = '',
@@ -392,7 +391,7 @@ class LogWriter {
     const notNative =
       ['windows', 'Windows', 'Win32'].includes(
         this.gameInfo.install.platform || ''
-      ) && platform() !== 'win32'
+      ) && !isWindows
 
     // init log file and then append message if any
     try {

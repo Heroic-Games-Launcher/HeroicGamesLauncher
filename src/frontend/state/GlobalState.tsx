@@ -19,13 +19,7 @@ import {
   HelpItem
 } from 'frontend/types'
 import { withTranslation } from 'react-i18next'
-import {
-  getGameInfo,
-  getLegendaryConfig,
-  getPlatform,
-  launch,
-  notify
-} from '../helpers'
+import { getGameInfo, getLegendaryConfig, launch, notify } from '../helpers'
 import { i18n, t, TFunction } from 'i18next'
 
 import ContextProvider from './ContextProvider'
@@ -78,7 +72,7 @@ interface StateProps {
   language: string
   libraryStatus: GameStatus[]
   libraryTopSection: string
-  platform: NodeJS.Platform | 'unknown'
+  platform: NodeJS.Platform
   refreshing: boolean
   refreshingInTheBackground: boolean
   hiddenGames: HiddenGame[]
@@ -172,7 +166,7 @@ class GlobalState extends PureComponent<Props> {
     language: this.props.i18n.language,
     libraryStatus: [],
     libraryTopSection: globalSettings?.libraryTopSection || 'disabled',
-    platform: 'unknown',
+    platform: window.platform,
     refreshing: false,
     refreshingInTheBackground: true,
     hiddenGames: configStore.get('games.hidden', []),
@@ -853,7 +847,6 @@ class GlobalState extends PureComponent<Props> {
     const legendaryUser = configStore.has('userInfo')
     const gogUser = gogConfigStore.has('userData')
     const amazonUser = nileConfigStore.has('userData')
-    const platform = await getPlatform()
 
     if (legendaryUser) {
       await window.api.getUserInfo()
@@ -867,8 +860,6 @@ class GlobalState extends PureComponent<Props> {
       const storedGameUpdates = JSON.parse(storage.getItem('updates') || '[]')
       this.setState({ gameUpdates: storedGameUpdates })
     }
-
-    this.setState({ platform })
 
     if (legendaryUser || gogUser || amazonUser) {
       this.refreshLibrary({
