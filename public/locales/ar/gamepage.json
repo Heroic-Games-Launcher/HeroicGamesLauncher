@@ -93,7 +93,13 @@
         "platform": "حدد إصدار المنصة لتثبيته",
         "requirements": "متطلبات النظام",
         "totalPlayed": "مدة اللعب",
-        "dlcs": "DLCs"
+        "dlcs": "DLCs",
+        "builds": {
+            "version": "النسخة"
+        },
+        "branch": {
+            "disabled": "متوقف"
+        }
     },
     "gamecard": {
         "moving": "قيد النقل",
