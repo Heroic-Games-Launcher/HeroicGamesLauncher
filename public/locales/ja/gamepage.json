@@ -92,7 +92,13 @@
         "platform": "インストールするプラットフォームのバージョンを選択",
         "requirements": "システム要件",
         "totalPlayed": "プレイ時間",
-        "dlcs": "DLC一覧"
+        "dlcs": "DLC一覧",
+        "branch": {
+            "disabled": "Disabled"
+        },
+        "builds": {
+            "version": "バージョン"
+        }
     },
     "gamecard": {
         "moving": "移動中",
