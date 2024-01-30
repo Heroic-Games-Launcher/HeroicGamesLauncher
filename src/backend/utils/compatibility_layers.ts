@@ -3,6 +3,7 @@ import {
   configPath,
   getSteamLibraries,
   isMac,
+  runtimePath,
   toolsPath,
   userHome
 } from 'backend/constants'
@@ -430,6 +431,11 @@ export function getWineFlags(
   wrapper: string
 ): AllowedWineFlags {
   let partialCommand: AllowedWineFlags = {}
+  const ulwglSupported =
+    wineType === 'proton' &&
+    GlobalConfig.get().getSettings().experimentalFeatures?.ulwglSupport !==
+      false &&
+    existsSync(join(runtimePath, 'ulwgl'))
   switch (wineType) {
     case 'wine':
     case 'toolkit':
@@ -439,7 +445,14 @@ export function getWineFlags(
     case 'proton':
       partialCommand = {
         '--no-wine': true,
-        '--wrapper': NonEmptyString.parse(`${wrapper} '${wineBin}' run`)
+        '--wrapper': NonEmptyString.parse(
+          `${wrapper} "${wineBin}" waitforexitandrun`
+        )
+      }
+      if (ulwglSupported) {
+        partialCommand['--wrapper'] = NonEmptyString.parse(
+          `${wrapper} "${join(runtimePath, 'ulwgl', 'gamelauncher.sh')}"`
+        )
       }
       break
     case 'crossover':

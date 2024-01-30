@@ -94,7 +94,8 @@ const initialContext: ContextType = {
   experimentalFeatures: {
     enableNewDesign: false,
     enableHelp: false,
-    automaticWinetricksFixes: true
+    automaticWinetricksFixes: true,
+    ulwglSupport: true
   },
   handleExperimentalFeatures: () => null,
   disableDialogBackdropClose: false,

@@ -100,6 +100,7 @@ import { readdir, readFile } from 'fs/promises'
 import { statSync } from 'fs'
 import ini from 'ini'
 import { getRequiredRedistList, updateRedist } from './redist'
+import { getWikiGameInfo } from 'backend/wiki_game_info/wiki_game_info'
 
 export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   const gameInfo = getGameInfo(appName)
@@ -553,6 +554,17 @@ export async function launch(
     }
 
     const { bin: wineExec, type: wineType } = gameSettings.wineVersion
+
+    if (wineType === 'proton') {
+      const wikiInfo = await getWikiGameInfo(
+        gameInfo.title,
+        gameInfo.app_name,
+        gameInfo.runner
+      ).catch(() => null)
+      if (wikiInfo?.ulwglId && wikiInfo.ulwglId.length > 0) {
+        commandEnv['GAMEID'] = wikiInfo.ulwglId
+      }
+    }
 
     // Fix for people with old config
     const wineBin =

@@ -83,6 +83,7 @@ import {
   PositiveInteger
 } from './commands/base'
 import { LegendaryCommand } from './commands'
+import { getWikiGameInfo } from 'backend/wiki_game_info/wiki_game_info'
 
 /**
  * Alias for `LegendaryLibrary.listUpdateableGames`
@@ -833,6 +834,16 @@ export async function launch(
 
     const { bin: wineExec, type: wineType } = gameSettings.wineVersion
 
+    if (wineType === 'proton') {
+      const wikiInfo = await getWikiGameInfo(
+        gameInfo.title,
+        gameInfo.app_name,
+        gameInfo.runner
+      ).catch(() => null)
+      if (wikiInfo?.ulwglId && wikiInfo.ulwglId.length > 0) {
+        commandEnv['GAMEID'] = wikiInfo.ulwglId
+      }
+    }
     // Fix for people with old config
     const wineBin =
       wineExec.startsWith("'") && wineExec.endsWith("'")

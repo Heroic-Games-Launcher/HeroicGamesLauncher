@@ -65,6 +65,7 @@ export type ExperimentalFeatures = {
   enableNewDesign: boolean
   enableHelp: boolean
   automaticWinetricksFixes: boolean
+  ulwglSupport: boolean
 }
 
 export interface AppSettings extends GameSettings {
@@ -684,6 +685,7 @@ export interface WikiInfo {
   howlongtobeat: HowLongToBeatEntry | null
   gamesdb: GamesDBInfo | null
   steamInfo: SteamInfo | null
+  ulwglId: string | null
 }
 
 /**
