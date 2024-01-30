@@ -90,7 +90,13 @@
         "platform": "Chọn phiên bản nền tảng để cài đặt",
         "requirements": "Yêu cầu hệ thống",
         "totalPlayed": "Thời gian chơi",
-        "dlcs": "Bản mở rộng"
+        "dlcs": "Bản mở rộng",
+        "branch": {
+            "disabled": "Tắt"
+        },
+        "builds": {
+            "version": "Phiên bản"
+        }
     },
     "gamecard": {
         "moving": "Đang chuyển",
