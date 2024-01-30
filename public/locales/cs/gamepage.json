@@ -72,7 +72,8 @@
         "unhide_game": "Odkrýt hru",
         "uninstall": "Odinstalovat",
         "update": "Update",
-        "details": "Podrobnosti"
+        "details": "Podrobnosti",
+        "changelog": "Zobrazit seznam změn"
     },
     "cloud_save_unsupported": "Nepodporováno",
     "disabled": "Zakázáno",
@@ -92,7 +93,20 @@
         "platform": "Vyberte verzi platformy, kterou chcete nainstalovat",
         "requirements": "Systémové požadavky",
         "totalPlayed": "Odehraný čas",
-        "dlcs": "DLC"
+        "dlcs": "DLC",
+        "builds": {
+            "version": "Verze",
+            "toggle": "Ponechat hru na určité verzi",
+            "buildsSelector": "Zvolit verzi hry"
+        },
+        "branch": {
+            "disabled": "Zakázáno",
+            "password": "Nastavit heslo soukromého kanálu",
+            "select": "Zvolit beta kanál",
+            "setPrivateBranchPassword": "Nastavit heslo soukromého kanálu"
+        },
+        "changelogFor": "Seznam změn hry {{gameTitle}}",
+        "modify": "Upravit instalaci"
     },
     "gamecard": {
         "moving": "Přesouvám",
@@ -154,7 +168,8 @@
         "launching": "Spouštění",
         "ubisoft": "Instalace Ubisoft Connect",
         "winetricks": "Instalace balíčků Winetricks",
-        "prerequisites": "Instalace závislostí"
+        "prerequisites": "Instalace závislostí",
+        "redist": "Instalace Redistributables"
     },
     "launch": {
         "options": "Možnosti spuštění..."
@@ -224,7 +239,8 @@
         "gog-goodie": "Zdá se, že tuto hru nelze nainstalovat. Zkontrolujte obsah ke stažení na https://gog.com/account",
         "goodie": "Nelze nainstalovat",
         "prerequisites": "Instalace závislostí",
-        "winetricks": "Aplikace oprav Winetricks"
+        "winetricks": "Aplikace oprav Winetricks",
+        "redist": "Instalace Redistributables ({{redist}})"
     },
     "submenu": {
         "addShortcut": "Přidat zástupce",
@@ -251,5 +267,14 @@
         "title": {
             "gamePage": "Herní stránka"
         }
+    },
+    "modifyInstall": {
+        "dlcsCollapsible": "DLC",
+        "redMod": {
+            "enable": "Povolit mody",
+            "collapsible": "Integrace REDmod"
+        },
+        "versionCollapsable": "Verze hry",
+        "nodlcs": "Není dostupné žádné DLC"
     }
 }
