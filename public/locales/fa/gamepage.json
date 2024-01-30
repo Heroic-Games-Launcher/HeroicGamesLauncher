@@ -92,7 +92,13 @@
         "platform": "انتخاب نسخه پلتفرم برای نصب",
         "requirements": "نیازهای سیستم",
         "totalPlayed": "زمان بازی",
-        "dlcs": "DLCها"
+        "dlcs": "DLCها",
+        "branch": {
+            "disabled": "غیر فعال"
+        },
+        "builds": {
+            "version": "نسخه"
+        }
     },
     "gamecard": {
         "moving": "در حال انتقال",
