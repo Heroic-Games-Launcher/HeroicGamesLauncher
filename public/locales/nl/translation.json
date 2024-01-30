@@ -3,19 +3,19 @@
         "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family_no_default": "Content Font Family (Default: ",
-        "fonts": "Fonts",
-        "title": "Accessibility",
+        "fonts": "Lettertypen",
+        "title": "Toegankelijkheid",
         "zoom": "Zoom"
     },
-    "add_game": "Add Game",
+    "add_game": "Voeg game toe",
     "All": "Allemaal",
     "anticheat": {
         "anticheats": "Anticheats",
         "may_not_work": "It may not work due to denied or broken anticheat support.",
-        "reference": "Reference",
+        "reference": "Referentie",
         "source": "Source",
         "status": "Status",
-        "title": "This game includes anticheat software"
+        "title": "Deze game bevat anticheat software"
     },
     "box": {
         "cache-cleared": {
@@ -245,7 +245,8 @@
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
         "store": "Filter Store",
-        "filters": "Filter"
+        "filters": "Filter",
+        "categories": "Categorieën"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -734,5 +735,8 @@
     "category-settings": {
         "cancel": "Cancel",
         "warning": "Warning"
+    },
+    "window": {
+        "close": "sluit"
     }
 }
