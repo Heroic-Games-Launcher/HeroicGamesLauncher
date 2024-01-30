@@ -37,7 +37,7 @@ export async function getWikiGameInfo(
         getHowLongToBeat(title),
         getInfoFromGamesDB(title, appName, runner),
         isMac ? getInfoFromAppleGamingWiki(title) : null,
-        getUlwglId(appName, runner)
+        isLinux ? getUlwglId(appName, runner) : null
       ])
 
     let steamInfo = null
