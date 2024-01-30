@@ -92,7 +92,13 @@
         "platform": "Valitse alustaversio asentaaksesi",
         "requirements": "Järjestelmävaatimukset",
         "totalPlayed": "Pelattu aika",
-        "dlcs": "DLCs"
+        "dlcs": "DLCs",
+        "branch": {
+            "disabled": "Kytketty pois"
+        },
+        "builds": {
+            "version": "Versio"
+        }
     },
     "gamecard": {
         "moving": "Siirretään",
