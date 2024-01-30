@@ -11,6 +11,7 @@ const ExperimentalFeatures = () => {
 
   if (platform !== 'win32') {
     FEATURES.push('automaticWinetricksFixes')
+    FEATURES.push('ulwglSupport')
   }
 
   const { t } = useTranslation()
@@ -19,7 +20,8 @@ const ExperimentalFeatures = () => {
     {
       enableNewDesign: false,
       enableHelp: false,
-      automaticWinetricksFixes: true
+      automaticWinetricksFixes: true,
+      ulwglSupport: true
     }
   )
   const { handleExperimentalFeatures } = useContext(ContextProvider)
@@ -38,6 +40,7 @@ const ExperimentalFeatures = () => {
     t('setting.experimental_features.enableNewDesign', 'New design')
     t('setting.experimental_features.enableHelp', 'Help component')
     t('setting.experimental_features.automaticWinetricksFixes', 'Apply known fixes automatically')
+    t('setting.experimental_features.ulwglSupport', 'Use ULWGL as Proton runtime')
   */
 
   return (
