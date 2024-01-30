@@ -483,6 +483,7 @@ function setupWrapperEnvVars(wrapperEnv: WrapperEnv) {
 
   ret.HEROIC_APP_NAME = wrapperEnv.appName
   ret.HEROIC_APP_RUNNER = wrapperEnv.appRunner
+  ret.GAMEID = 'ulwgl-0'
 
   switch (wrapperEnv.appRunner) {
     case 'gog':
@@ -847,7 +848,7 @@ async function runWineCommand({
 
   const env_vars = {
     ...process.env,
-    GAMEID: '0',
+    GAMEID: 'ulwgl-0',
     ...setupEnvVars(settings),
     ...setupWineEnvVars(settings, installFolderName),
     PROTON_VERB: protonVerb
