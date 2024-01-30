@@ -91,7 +91,10 @@
         "platform": "Instalatzeko plataformaren bertsioa hautatu",
         "requirements": "Sistemaren betekizunak",
         "totalPlayed": "Denbora jokatua",
-        "dlcs": "DLCak"
+        "dlcs": "DLCak",
+        "builds": {
+            "version": "Bertsioa"
+        }
     },
     "gamecard": {
         "moving": "Mugitzen",
