@@ -427,7 +427,8 @@ async function installFixes(appName: string, runner: Runner) {
       sendGameStatusUpdate({
         appName,
         runner: runner,
-        status: 'prerequisites'
+        status: 'redist',
+        context: 'FIXES'
       })
 
       for (const filePath of fixesContent.runInPrefix) {
