@@ -33,7 +33,7 @@ async function getPicIds(): Promise<typeof pciIdsMap | null> {
       responseType: 'text'
     },
     writeToFile: path.join(toolsPath, 'pci.ids'),
-    maxCache: 7 * DAYS
+    maxCache: 30 * DAYS
   }).catch((error) => error as AxiosError)
   if (axios.isAxiosError(pciIdsFile)) return null
 
