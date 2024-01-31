@@ -51,8 +51,7 @@ async function downloadFile(
   if (options.maxCache && options.writeToFile) {
     const stats = await stat(options.writeToFile).catch(() => null)
     if (stats) {
-      if (stats.birthtime.valueOf() + options.maxCache * 1000 >= Date.now()) {
-        console.log('Returning cached value for', url)
+      if (stats.mtimeMs + options.maxCache * 1000 >= Date.now()) {
         switch (options.axiosConfig?.responseType) {
           case 'text':
             return readFile(options.writeToFile, 'utf-8')
