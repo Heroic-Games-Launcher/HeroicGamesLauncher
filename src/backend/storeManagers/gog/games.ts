@@ -100,7 +100,7 @@ import { readdir, readFile } from 'fs/promises'
 import { statSync } from 'fs'
 import ini from 'ini'
 import { getRequiredRedistList, updateRedist } from './redist'
-import { getWikiGameInfo } from 'backend/wiki_game_info/wiki_game_info'
+import { getUlwglId } from 'backend/wiki_game_info/ulwgl/utils'
 
 export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   const gameInfo = getGameInfo(appName)
@@ -556,13 +556,9 @@ export async function launch(
     const { bin: wineExec, type: wineType } = gameSettings.wineVersion
 
     if (wineType === 'proton') {
-      const wikiInfo = await getWikiGameInfo(
-        gameInfo.title,
-        gameInfo.app_name,
-        gameInfo.runner
-      ).catch(() => null)
-      if (wikiInfo?.ulwglId && wikiInfo.ulwglId.length > 0) {
-        commandEnv['GAMEID'] = wikiInfo.ulwglId
+      const ulwglId = await getUlwglId(gameInfo.app_name, gameInfo.runner)
+      if (ulwglId) {
+        commandEnv['GAMEID'] = ulwglId
       }
     }
 

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { Runner } from 'common/types'
+import { ulwglStore } from '../electronStore'
 
 interface GameObject {
   title: string
@@ -19,12 +20,25 @@ export async function getUlwglId(
   if (!store) {
     return null
   }
-  const response = await axios.get<GameObject[]>(
-    'https://ulwgl.openwinecomponents.org/ulwgl_api.php',
-    { params: { codename: appName.toLowerCase(), store } }
-  )
-  if (response.data.length === 0) {
+  const key = `${runner}_${appName}`
+  const cachedValue = ulwglStore.get(key)
+  if (cachedValue) {
+    return cachedValue
+  }
+  const response = await axios
+    .get<GameObject[]>('https://ulwgl.openwinecomponents.org/ulwgl_api.php', {
+      params: { codename: appName.toLowerCase(), store }
+    })
+    .catch(() => null)
+
+  if (!response || response.status !== 200) {
     return null
   }
-  return response.data[0].ulwgl_id
+  if (response.data.length === 0) {
+    ulwglStore.set(key, null)
+    return null
+  }
+  const ulwglId = response.data[0].ulwgl_id
+  ulwglStore.set(key, ulwglId)
+  return ulwglId
 }
