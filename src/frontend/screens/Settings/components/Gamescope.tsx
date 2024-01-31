@@ -369,7 +369,7 @@ const Gamescope = () => {
             )}
           />
         }
-        onChange={(event: ChangeEvent<HTMLInputElement>) =>
+        onBlur={(event: ChangeEvent<HTMLInputElement>) =>
           setGamescope({
             ...gamescope,
             additionalOptions: event.currentTarget.value
