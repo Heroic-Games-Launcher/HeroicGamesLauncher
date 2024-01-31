@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { userInfo } from 'os'
 
 import type { Path } from 'backend/schemas'
 import { genericSpawnWrapper } from '../os/processes'
@@ -10,6 +11,16 @@ const Win32_LogicalDisk = z.object({
   Size: z.number().nullable()
 })
 type Win32_LogicalDisk = z.infer<typeof Win32_LogicalDisk>
+
+const AccessControlEntry = z.object({
+  FileSystemRights: z.number(),
+  IdentityReference: z
+    .object({ Value: z.string() })
+    .transform((obj) => obj.Value)
+})
+type AccessControlEntry = z.infer<typeof AccessControlEntry>
+// Taken from https://learn.microsoft.com/en-us/dotnet/api/system.security.accesscontrol.filesystemrights
+const FileSystemRightModify = 197055
 
 async function getDiskInfo_windows(path: Path): Promise<DiskInfo> {
   const { stdout } = await genericSpawnWrapper('powershell', [
@@ -45,4 +56,36 @@ async function getDiskInfo_windows(path: Path): Promise<DiskInfo> {
   return { freeSpace: 0, totalSpace: 0 }
 }
 
-export { getDiskInfo_windows }
+async function isWritable_windows(path: Path): Promise<boolean> {
+  const { stdout } = await genericSpawnWrapper('powershell', [
+    '(Get-Acl',
+    `${path}).Access`,
+    '|',
+    'Select-Object',
+    'FileSystemRights,IdentityReference',
+    '|',
+    'ConvertTo-Json',
+    '-Compress'
+  ])
+
+  let parsedAccess: AccessControlEntry[]
+  try {
+    parsedAccess = AccessControlEntry.array().parse(JSON.parse(stdout))
+  } catch {
+    return false
+  }
+
+  const userName = userInfo().username
+  const userAccess = parsedAccess.find((entry) =>
+    entry.IdentityReference.endsWith(userName)
+  )
+  if (!userAccess) return false
+
+  // "Modify" should include everything we need
+  return (
+    (userAccess.FileSystemRights & FileSystemRightModify) ===
+    FileSystemRightModify
+  )
+}
+
+export { getDiskInfo_windows, isWritable_windows }

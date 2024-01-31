@@ -1,5 +1,3 @@
-import { access } from 'fs/promises'
-
 import type { Path } from 'backend/schemas'
 import { isFlatpak } from 'backend/constants'
 
@@ -25,10 +23,19 @@ async function getDiskInfo(path: Path): Promise<DiskInfo> {
 }
 
 async function isWritable(path: Path): Promise<boolean> {
-  return access(path).then(
-    () => true,
-    () => false
-  )
+  switch (process.platform) {
+    case 'linux':
+    case 'darwin': {
+      const { isWritable_unix } = await import('./unix')
+      return isWritable_unix(path)
+    }
+    case 'win32': {
+      const { isWritable_windows } = await import('./windows')
+      return isWritable_windows(path)
+    }
+    default:
+      return false
+  }
 }
 
 const isAccessibleWithinFlatpakSandbox = (path: Path): boolean =>

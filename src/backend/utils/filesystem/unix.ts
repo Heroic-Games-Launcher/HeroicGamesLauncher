@@ -1,4 +1,5 @@
 import { genericSpawnWrapper } from '../os/processes'
+import { access } from 'fs/promises'
 
 import type { Path } from 'backend/schemas'
 import type { DiskInfo } from './index'
@@ -13,4 +14,11 @@ async function getDiskInfo_unix(path: Path): Promise<DiskInfo> {
   }
 }
 
-export { getDiskInfo_unix }
+async function isWritable_unix(path: Path): Promise<boolean> {
+  return access(path).then(
+    () => true,
+    () => false
+  )
+}
+
+export { getDiskInfo_unix, isWritable_unix }
