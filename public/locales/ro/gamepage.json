@@ -91,7 +91,13 @@
         "platform": "Selectați versiunea platformei de instalat",
         "requirements": "Cerințe de sistem",
         "totalPlayed": "Timp Jucat",
-        "dlcs": "DLC-uri"
+        "dlcs": "DLC-uri",
+        "branch": {
+            "disabled": "Dezactivat"
+        },
+        "builds": {
+            "version": "Versiune"
+        }
     },
     "gamecard": {
         "moving": "Mutare",

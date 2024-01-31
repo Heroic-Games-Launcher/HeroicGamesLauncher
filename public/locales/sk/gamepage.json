@@ -90,7 +90,13 @@
         "platform": "Vyberte Verzia platformy na inštaláciu",
         "requirements": "Požiadavky na systém",
         "totalPlayed": "Hraný čas",
-        "dlcs": "DLC"
+        "dlcs": "DLC",
+        "branch": {
+            "disabled": "Zakázané"
+        },
+        "builds": {
+            "version": "Verzia"
+        }
     },
     "gamecard": {
         "moving": "Sťahovanie",

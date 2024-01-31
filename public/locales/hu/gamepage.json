@@ -33,11 +33,12 @@
         },
         "uninstall": {
             "checkbox": "Prefix eltávolítása: {{prefix}}{{newLine}}Megjegyzés: Ez nem vonható vissza, és külön nem tárolt mentéseket is törli.",
-            "message": "El akarod távolítani ezt a játékot?",
+            "message": "El akarod távolítani a(z) \"{{title}}\" című játékot?",
             "settingcheckbox": "Beállítások és a log{{newLine}}törlése. Megjegyzés: Ez nem vonható vissza. Minden módosított beállítás visszaáll és a log fájl törlődik.",
             "title": "Eltávolítás",
             "prefix_warning": "A játék Wine előtagja az alapértelmezett előtag. Ha valóban törölni szeretné, manuálisan kell megtennie.",
-            "dlc": "El szeretné távolítani ezt a DLC-t?"
+            "dlc": "El szeretné távolítani a \"{{title}}\" DLC-t?",
+            "cannotUninstallEpic": "Az Epic games-t nem lehet eltávolítani, amíg egy Epic játék telepítés alatt áll."
         },
         "update": {
             "message": "Ennek a játéknak van egy frissítése, alkalmazzuk a frissítést most?",
@@ -71,7 +72,8 @@
         "unhide_game": "Játék felfedése",
         "uninstall": "Eltávolítás",
         "update": "Frissítés",
-        "details": "Részletek"
+        "details": "Részletek",
+        "changelog": "Változásjegyzék mutatása"
     },
     "cloud_save_unsupported": "Nem támogatott",
     "disabled": "Letiltva",
@@ -91,7 +93,20 @@
         "platform": "Telepítendő platform változat kiválasztása",
         "requirements": "Rendszerkövetelmények",
         "totalPlayed": "Játszott idő",
-        "dlcs": "DLC-k"
+        "dlcs": "DLC-k",
+        "branch": {
+            "disabled": "Letiltva",
+            "password": "Privát csatorna jelszavának beállítása",
+            "setPrivateBranchPassword": "Privát csatorna jelszavának beállítása",
+            "select": "Béta csatorna választása"
+        },
+        "builds": {
+            "version": "Verzió",
+            "buildsSelector": "Játékverzió kiválasztása",
+            "toggle": "Hagyja a játékot egy bizonyos verzión"
+        },
+        "changelogFor": "Változásjegyzék a {{gameTitle}}-hoz/hez",
+        "modify": "Telepítés Módosítása"
     },
     "gamecard": {
         "moving": "Áthelyezés",
@@ -129,7 +144,14 @@
         "path-not-writtable": "Figyelmeztetés: Lehet, hogy a célmappa nem írható.",
         "space-after-install": "Telepítés után",
         "wineprefix": "Wine prefix",
-        "wineversion": "Wine verzió"
+        "wineversion": "Wine verzió",
+        "anticheat-warning": {
+            "cancel": "Nem",
+            "install": "Igen (Megértettem, hogy nem fog működni)",
+            "message": "A csalás elleni védelem (anticheat) támogatása hibás vagy le van tiltva. A játék nem fog működni. Így is fel szeretné telepíteni?",
+            "title": "Anticheat Hibás/El lett utasítva"
+        },
+        "flatpak-path-not-writtable": "Hiba: Nem lett megadva a Sandbox hozzáférés erre az útra, adatvesztés fog történni."
     },
     "label": {
         "game": {
@@ -144,7 +166,9 @@
             "syncing": "Mentések szinkronizálása"
         },
         "launching": "Indítás",
-        "ubisoft": "A Ubisoft Connect telepítése"
+        "ubisoft": "A Ubisoft Connect telepítése",
+        "winetricks": "Winetricks Csomagok Telepítése",
+        "redist": "Terjeszthető Csomagok Telepítése"
     },
     "launch": {
         "options": "Indítási opciók..."
@@ -154,7 +178,7 @@
         "gog": "Nem vagy bejelentkezve egy GOG fiókkal a Heroicba. Ne az áruházi oldalon jelentkezz be, kattints erre a gombra helyette:",
         "login": "Log in",
         "title": "NEM vagy bejelentkezve",
-        "amazon": "Nem vagy bejelentkezve egy Epic fiókkal a Heroicba. Ne az áruházi oldalon jelentkezz be, kattints erre a gombra helyette:"
+        "amazon": "Nem vagy bejelentkezve egy Amazon fiókkal a Heroicba. Ne az áruházi oldalon jelentkezz be, kattints erre a gombra helyette:"
     },
     "report_problem": "Játék futtatásával kapcsolatos hiba jelentése",
     "sdl": {
@@ -172,7 +196,8 @@
             "exe": "Indítófájl kiválasztása",
             "image": "Alkalmazás képfájl",
             "title": "Játék/Alkalmazás címe",
-            "broser": "Böngésző URL"
+            "broser": "Böngésző URL",
+            "fullscreen": "Indítás teljes képernyőben (F11 a kilépéshez)"
         },
         "placeholder": {
             "image": "Ide másold be a kép URL címét",
@@ -206,10 +231,12 @@
         "syncingSaves": "Mentések szinkronizálása",
         "launching": "Indítás",
         "ubisoft": "Ubisoft telepítése",
-        "downloading": "Downloading",
-        "extracting": "Kivonás",
+        "downloading": "Letöltés folyamatban",
+        "extracting": "Kicsomagolás",
         "gog-goodie": "Úgy tűnik, hogy ez a játék nem telepíthető. Ellenőrizze a letölthető tartalmat a https://gog.com/account oldalon",
-        "goodie": "Nem telepíthető"
+        "goodie": "Nem telepíthető",
+        "winetricks": "Winetricks javítások alkalmazása",
+        "redist": "{{redist}} Terjeszhető Csomag Telepítése"
     },
     "submenu": {
         "addShortcut": "Parancsikon hozzáadása",
@@ -229,6 +256,21 @@
         "categories": "Kategóriák"
     },
     "help": {
-        "cloud_save_unsupported": "Ez a játék nem támogatja a felhőalapú mentést. Ezt az információt a játékfejlesztők biztosítják. Egyes játékok saját felhőalapú mentési rendszert alkalmaznak"
+        "cloud_save_unsupported": "Ez a játék nem támogatja a felhőalapú mentést. Ezt az információt a játékfejlesztők biztosítják. Egyes játékok saját felhőalapú mentési rendszert alkalmaznak",
+        "title": {
+            "gamePage": "Játékoldal"
+        },
+        "content": {
+            "gamePage": "Mutasson minden játékrészletet és -műveletet. Használd a 3 pontos menüt további lehetőségekért."
+        }
+    },
+    "modifyInstall": {
+        "redMod": {
+            "enable": "Modok engedélyezése",
+            "collapsible": "REDmod Integráció"
+        },
+        "dlcsCollapsible": "DLC",
+        "nodlcs": "Nem érhető el DLC",
+        "versionCollapsable": "Játékverzió"
     }
 }

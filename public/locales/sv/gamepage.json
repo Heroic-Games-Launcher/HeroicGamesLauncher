@@ -92,7 +92,13 @@
         "platform": "Välj plattform för installation",
         "requirements": "Systemkrav",
         "totalPlayed": "Speltid",
-        "dlcs": "DLC"
+        "dlcs": "DLC",
+        "branch": {
+            "disabled": "Deaktiverad"
+        },
+        "builds": {
+            "version": "Version"
+        }
     },
     "gamecard": {
         "moving": "Flyttar",

@@ -92,7 +92,13 @@
         "platform": "Kurulacak Platform Sürümünü Seç",
         "requirements": "Sistem Gereksinimleri",
         "totalPlayed": "Oynanan Zaman",
-        "dlcs": "DLC'ler"
+        "dlcs": "DLC'ler",
+        "branch": {
+            "disabled": "Devre dışı"
+        },
+        "builds": {
+            "version": "Sürüm"
+        }
     },
     "gamecard": {
         "moving": "Taşınıyor",

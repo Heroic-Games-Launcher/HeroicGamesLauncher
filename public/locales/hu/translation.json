@@ -229,7 +229,8 @@
     "game": {
         "status": "Status",
         "store": "Áruház",
-        "title": "Játék címe"
+        "title": "Játék címe",
+        "modify": "Telepítés Módosítása"
     },
     "generic": {
         "error": {
