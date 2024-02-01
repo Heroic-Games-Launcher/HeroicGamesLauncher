@@ -43,6 +43,7 @@ import {
   NileUserData
 } from 'common/types/nile'
 import type { SystemInformation } from 'backend/utils/systeminfo'
+import { runLegendaryCommandStubFunction } from 'backend/storeManagers/legendary/e2eMock'
 
 /**
  * Some notes here:
@@ -117,6 +118,17 @@ interface SyncIPCFunctions {
     runner: Runner,
     status: boolean
   ) => void
+}
+
+/*
+ * These events should only be used during tests to stub/mock
+ *
+ * We have to handle them in another interface because these
+ * events don't have an IpcMainEvent first argument when handled
+ */
+interface TestSyncIPCFunctions {
+  setRunLegendaryCommandStub: (fun: runLegendaryCommandStubFunction) => void
+  resetRunLegendaryCommandStub: () => void
 }
 
 // ts-prune-ignore-next
@@ -312,13 +324,20 @@ interface AsyncIPCFunctions {
 // ts-prune-ignore-next
 declare namespace Electron {
   class IpcMain extends EventEmitter {
-    public on: <
+    public on: (<
       Name extends keyof SyncIPCFunctions,
       Definition extends SyncIPCFunctions[Name]
     >(
       name: Name,
       callback: (e: IpcMainEvent, ...args: Parameters<Definition>) => void
-    ) => void
+    ) => void) &
+      (<
+        Name extends keyof TestSyncIPCFunctions,
+        Definition extends TestSyncIPCFunctions[Name]
+      >(
+        name: Name,
+        callback: (...args: Parameters<Definition>) => void
+      ) => void)
 
     public handle: <
       Name extends keyof AsyncIPCFunctions,

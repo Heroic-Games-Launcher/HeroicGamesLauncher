@@ -4,14 +4,11 @@ import { electronTest } from './helpers'
 
 declare const window: { api: typeof import('../src/backend/api').default }
 
-electronTest('renders the first page', async (app) => {
-  const page = await app.firstWindow()
+electronTest('renders the first page', async (app, page) => {
   await expect(page).toHaveTitle('Heroic Games Launcher')
 })
 
-electronTest('gets heroic, legendary, and gog versions', async (app) => {
-  const page = await app.firstWindow()
-
+electronTest('gets heroic, legendary, and gog versions', async (app, page) => {
   await test.step('get heroic version', async () => {
     const heroicVersion = await page.evaluate(async () =>
       window.api.getHeroicVersion()
