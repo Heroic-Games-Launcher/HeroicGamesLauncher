@@ -593,7 +593,7 @@
         "showMetalOverlay": "Mostrar superposición de estatísticas",
         "addgamestoapplications": "Engade xogos a Aplicacións automaticamente",
         "alt-nile-bin": "Escolla un binario alternativo do Nilo",
-        "autodxvknvapi": "Autoinstalar/actualizar DXVK no prefixo"
+        "autodxvknvapi": "Autoinstalar/actualizar DXVK-NVAPI no prefixo"
     },
     "settings": {
         "battlEyeRuntime": {

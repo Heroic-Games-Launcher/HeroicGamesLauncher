@@ -493,7 +493,7 @@
         "alt-legendary-bin": "選擇備選的 Legendary 二進制文件",
         "autodxvk": "在PREFIX自動安裝並更新DXVK",
         "autosync": "自動同步存檔",
-        "autovkd3d": "自動在 Prefix 中安裝/更新 VKD3D",
+        "autovkd3d": "在PREFIX自動安裝並更新VKD3D",
         "change-target-exe": "選擇要執行的替代 EXE",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover/Wine Version",
@@ -597,7 +597,7 @@
         "addgamestoapplications": "自動將遊戲新增到應用程式",
         "showMetalOverlay": "顯示統計數據疊加",
         "alt-nile-bin": "選擇替代尼羅河二進制",
-        "autodxvknvapi": "在PREFIX自動安裝並更新DXVK"
+        "autodxvknvapi": "在PREFIX自動安裝並更新DXVK-NVAPI"
     },
     "settings": {
         "battlEyeRuntime": {

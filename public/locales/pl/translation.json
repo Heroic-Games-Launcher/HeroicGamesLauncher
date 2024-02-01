@@ -653,7 +653,7 @@
         "showMetalOverlay": "Pokaż nakładkę statystyk",
         "addgamestoapplications": "Automatycznie dodawaj gry do aplikacji",
         "alt-nile-bin": "Wybierz alternatywny plik binarny Nilu",
-        "autodxvknvapi": "Automatycznie instaluj/Aktualizuj DXVK w prefiksie",
+        "autodxvknvapi": "Automatycznie instaluj/Aktualizuj DXVK-NVAPI w prefiksie",
         "disablePlaytimeSync": "Wyłącz synchronizację czasu gry",
         "experimental_features": {
             "enableNewDesign": "Nowy design",
