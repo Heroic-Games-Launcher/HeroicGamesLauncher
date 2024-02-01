@@ -879,12 +879,6 @@ export async function launch(
 
   sendGameStatusUpdate({ appName, runner: 'legendary', status: 'playing' })
 
-  sendGameStatusUpdate({
-    appName,
-    runner: 'legendary',
-    status: 'playing'
-  })
-
   const { error } = await runLegendaryCommand(command, {
     abortId: appName,
     env: commandEnv,

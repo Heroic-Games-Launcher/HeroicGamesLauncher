@@ -69,7 +69,6 @@ import { readFileSync } from 'fs'
 import { LegendaryCommand } from './storeManagers/legendary/commands'
 import { commandToArgsArray } from './storeManagers/legendary/library'
 import { searchForExecutableOnPath } from './utils/os/path'
-import { sendFrontendMessage } from './main_window'
 import {
   createAbortController,
   deleteAbortController
@@ -224,7 +223,8 @@ async function prepareLaunch(
     gameSettings.useSteamRuntime &&
     (isNative ||
       (gameSettings.wineVersion.type === 'proton' &&
-        globalSettings.experimentalFeatures?.ulwglSupport === false))
+        (globalSettings.experimentalFeatures?.ulwglSupport === false ||
+          !existsSync(join(runtimePath, 'ulwgl')))))
   if (shouldUseRuntime) {
     // Determine which runtime to use based on toolmanifest.vdf which is shipped with proton
     let nonNativeRuntime: SteamRuntime['type'] = 'soldier'
@@ -329,11 +329,6 @@ async function prepareWineLaunch(
     )
     if (runner === 'gog') {
       await gogSetup(appName)
-      sendFrontendMessage('gameStatusUpdate', {
-        appName,
-        runner: 'gog',
-        status: 'playing'
-      })
     }
     if (runner === 'nile') {
       await nileSetup(appName)
@@ -750,7 +745,12 @@ export async function verifyWinePrefix(
   const haveToWait = !existsSync(systemRegPath)
 
   const command = runWineCommand({
-    commandParts: ['wineboot', '--init'],
+    commandParts:
+      wineVersion.type === 'proton' &&
+      GlobalConfig.get().getSettings().experimentalFeatures?.ulwglSupport !==
+        false
+        ? ['createprefix']
+        : ['wineboot', '--init'],
     wait: haveToWait,
     gameSettings: settings,
     protonVerb: 'run',
@@ -858,10 +858,11 @@ async function runWineCommand({
 
     if (wrappers.length) {
       bin = wrappers.shift()!
-      commandParts.unshift(...wrappers, wineBin)
       if (ulwglSupported) {
-        commandParts.unshift(bin)
-        bin = join(runtimePath, 'ulwgl', 'gamelauncher.sh')
+        const ulwglBin = join(runtimePath, 'ulwgl', 'gamelauncher.sh')
+        commandParts.unshift(...wrappers, ulwglBin)
+      } else {
+        commandParts.unshift(...wrappers, wineBin)
       }
     } else {
       bin = wineBin
