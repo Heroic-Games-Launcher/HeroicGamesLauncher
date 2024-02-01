@@ -493,7 +493,7 @@
         "alt-legendary-bin": "Valitse vaihtoehtoinen Legendary-binääritiedosto (uudelleenkäynnistys vaaditaan)",
         "autodxvk": "Asenna automaattisesti/päivitä DXVK etuasteessa",
         "autosync": "Synkronoi tallennukset automaattisesti",
-        "autovkd3d": "VKD3D:n automaattinen asennus/päivitys etuasteeseen",
+        "autovkd3d": "Asenna automaattisesti/päivitä VKD3D etuasteessa",
         "change-target-exe": "Valitse vaihtoehtoinen EXE-tiedosto joka ajetaan",
         "checkForUpdatesOnStartup": "Tarkista Heroic:in päivitykset käynnistyksen yhteydessä",
         "crossover-version": "Crossover/Wine-julkaisu",
@@ -597,7 +597,7 @@
         "addgamestoapplications": "Lisää pelejä automaattisesti sovelluksiin",
         "showMetalOverlay": "Näytä tilastopäällinen",
         "alt-nile-bin": "Valitse vaihtoehtoinen Nile-binääri",
-        "autodxvknvapi": "Asenna automaattisesti/päivitä DXVK/VKD3D etuasteessa",
+        "autodxvknvapi": "Asenna automaattisesti/päivitä DXVK-NVAPI etuasteessa",
         "experimental_features": {
             "enableNewShinyFeature": "Tuore uutuuttakiiltävä ominaisuus",
             "enableNewDesign": "Uusi malli"
