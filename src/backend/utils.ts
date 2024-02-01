@@ -791,6 +791,9 @@ function killPattern(pattern: string) {
 }
 
 async function shutdownWine(gameSettings: GameSettings) {
+  if (gameSettings.wineVersion.type === 'proton') {
+    return
+  }
   if (gameSettings.wineVersion.wineserver) {
     spawnSync(gameSettings.wineVersion.wineserver, ['-k'], {
       env: { WINEPREFIX: gameSettings.winePrefix }
