@@ -338,7 +338,7 @@ async function prepareWineLaunch(
       sendFrontendMessage('gameStatusUpdate', {
         appName,
         runner: 'gog',
-        status: 'playing'
+        status: 'launching'
       })
     }
     if (runner === 'nile') {
@@ -436,7 +436,7 @@ async function installFixes(appName: string, runner: Runner) {
         await runWineCommandOnGame(appName, {
           commandParts: [fullPath],
           wait: true,
-          protonVerb: 'waitforexitandrun'
+          protonVerb: 'run'
         })
       }
     }

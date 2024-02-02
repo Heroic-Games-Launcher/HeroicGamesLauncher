@@ -259,7 +259,7 @@ export const DXVK = {
           gameSettings,
           commandParts: unregisterDll,
           wait: true,
-          protonVerb: 'waitforexitandrun'
+          protonVerb: 'run'
         })
       })
       dlls32.forEach(async (dll) => {
@@ -276,7 +276,7 @@ export const DXVK = {
           gameSettings,
           commandParts: unregisterDll,
           wait: true,
-          protonVerb: 'waitforexitandrun'
+          protonVerb: 'run'
         })
       })
       return true
@@ -339,7 +339,7 @@ export const DXVK = {
         gameSettings,
         commandParts: registerDll,
         wait: true,
-        protonVerb: 'waitforexitandrun'
+        protonVerb: 'run'
       })
     })
     dlls32.forEach(async (dll) => {
@@ -359,7 +359,7 @@ export const DXVK = {
         gameSettings,
         commandParts: registerDll,
         wait: true,
-        protonVerb: 'waitforexitandrun'
+        protonVerb: 'run'
       })
     })
 
@@ -398,7 +398,7 @@ export const DXVK = {
             gameSettings,
             commandParts: regModNvngx,
             wait: true,
-            protonVerb: 'waitforexitandrun'
+            protonVerb: 'run'
           })
         } else {
           logWarning(
