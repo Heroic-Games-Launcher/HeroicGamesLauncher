@@ -92,7 +92,13 @@
         "platform": "Выберите версию платформы для установки",
         "requirements": "Системные требования",
         "totalPlayed": "Проведено в игре",
-        "dlcs": "DLC"
+        "dlcs": "DLC",
+        "branch": {
+            "disabled": "Отключить"
+        },
+        "builds": {
+            "version": "Версия"
+        }
     },
     "gamecard": {
         "moving": "Перемещение",

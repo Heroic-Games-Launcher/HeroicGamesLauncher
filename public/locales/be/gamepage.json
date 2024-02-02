@@ -72,7 +72,8 @@
         "unhide_game": "Гульня Unhide",
         "uninstall": "Выдаліць",
         "update": "Абнаўленне",
-        "details": "Дэталі"
+        "details": "Дэталі",
+        "changelog": "Паказаць спіс змен"
     },
     "cloud_save_unsupported": "Не падтрымліваецца",
     "disabled": "Інваліды",
@@ -92,7 +93,20 @@
         "platform": "Выберыце версію платформы для ўстаноўкі",
         "requirements": "Сістэмныя патрабаванні",
         "totalPlayed": "Згуляны час",
-        "dlcs": "DLC"
+        "dlcs": "DLC",
+        "branch": {
+            "disabled": "Адключана",
+            "password": "Задаць пароль для прыватнага канала",
+            "select": "Выбраць бэта-выпускі",
+            "setPrivateBranchPassword": "Задаць пароль прыватнага канала"
+        },
+        "builds": {
+            "version": "Версія",
+            "buildsSelector": "Выберыце версію гульні",
+            "toggle": "Захаваць гульню ў пэўнай версіі"
+        },
+        "changelogFor": "Журнал змен для {{gameTitle}}",
+        "modify": "Змяніць усталёўку"
     },
     "gamecard": {
         "moving": "Пераезд",
@@ -154,7 +168,8 @@
         "launching": "Запуск",
         "ubisoft": "Ўстаноўка Ubisoft Connect",
         "winetricks": "Усталяванне пакетаў Winetricks",
-        "prerequisites": "Усталяванне патрэбных кампанентаў"
+        "prerequisites": "Усталяванне патрэбных кампанентаў",
+        "redist": "Усталяванне распаўсюджваемых файлаў"
     },
     "launch": {
         "options": "Параметры запуску..."
@@ -224,7 +239,8 @@
         "gog-goodie": "Гэтую гульню, здаецца, нельга ўсталяваць. Праверце змесціва для загрузкі на https://gog.com/account",
         "goodie": "Не ўсталёўваецца",
         "winetricks": "Прымяненне выпраўленняў Winetricks",
-        "prerequisites": "Усталяванне патрэбных кампанентаў"
+        "prerequisites": "Усталяванне патрэбных кампанентаў",
+        "redist": "Усталяванне распаўсюджваемых матэрыялаў ({{redist}})"
     },
     "submenu": {
         "addShortcut": "Дадаць ярлык",
@@ -251,5 +267,14 @@
         "title": {
             "gamePage": "Старонка гульні"
         }
+    },
+    "modifyInstall": {
+        "dlcsCollapsible": "DLC",
+        "redMod": {
+            "collapsible": "Інтэграцыя REDmod",
+            "enable": "Уключыць моды"
+        },
+        "versionCollapsable": "Версія гульні",
+        "nodlcs": "Няма даступных DLC"
     }
 }

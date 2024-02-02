@@ -92,7 +92,13 @@
         "platform": "Seleccione a versão da plataforma para instalar",
         "requirements": "Requisitos",
         "totalPlayed": "Tempo de jogo",
-        "dlcs": "DLCs"
+        "dlcs": "DLCs",
+        "branch": {
+            "disabled": "Desabilitada"
+        },
+        "builds": {
+            "version": "Versão"
+        }
     },
     "gamecard": {
         "moving": "Movendo",

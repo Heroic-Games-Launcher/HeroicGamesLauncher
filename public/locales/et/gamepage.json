@@ -90,7 +90,13 @@
         "platform": "Valige paigaldatava platvormi versioon",
         "requirements": "Süsteeminõuded",
         "totalPlayed": "Mängitud aeg",
-        "dlcs": "DLC'd"
+        "dlcs": "DLC'd",
+        "branch": {
+            "disabled": "Keelatud"
+        },
+        "builds": {
+            "version": "Versioon"
+        }
     },
     "gamecard": {
         "moving": "Liigutamine",

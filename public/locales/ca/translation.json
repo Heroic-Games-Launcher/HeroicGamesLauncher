@@ -259,9 +259,9 @@
         "categories": "Categories",
         "only": "només",
         "reset": "Restableix",
-        "show_support_offline_only": "Mostra només els fora de línia",
+        "show_support_offline_only": "Mostra només els disponibles sense connexió",
         "select_all": "Selecciona-ho tot",
-        "no_categories": "No hi ha categories personalitzades. Afegeix-ne anant al menú de cada joc."
+        "no_categories": "No existeixen categories personalitzades. Afegiu-ne des del menú de cada joc."
     },
     "help": {
         "amdfsr": "L'FSR d'AMD ajuda a augmentar els fotogrames per segon emprant resolucions més baixes en el mode de pantalla completa i després escalant-les. La qualitat d'imatge augmenta de 5 a 1 a costa d'un petit increment de rendiment. Si s'activa, podria millorar el rendiment.",
@@ -331,7 +331,7 @@
             "settingsGame": "Mostra tots els paràmetres d'un joc.",
             "accessibility": "Mostra la configuració d'accessibilitat.",
             "customThemesPath": "Consulta la nostra wiki.",
-            "defaultInstallPath": "Aquesta és la ruta predefinida per a instal·lar jocs.",
+            "defaultInstallPath": "Aquesta és la ruta predeterminada per a instal·lar jocs.",
             "downloadManager": "Mostra les baixades actuals i antigues.",
             "wineManager": "Instal·la diverses versions del Wine, Proton, Crossover, etc.",
             "library": "Mostra tots els jocs que tens.",
@@ -361,7 +361,7 @@
             "title": "Prefix del Wine"
         },
         "wine-repfix": {
-            "message": "El Wine fa servir el que s'anomena WINEPREFIX per encapsular les aplicacions de Windows. El prefix conté els fitxers de la configuració del Wine i una reproducció de la jerarquia de fitxers a la unitat C: (el disc principal del SO Windows). En aquesta reproducció del disc és on es desen les partides i s'instal·len les dependències a través del winetricks."
+            "message": "El Wine fa servir el que s'anomena WINEPREFIX per a encapsular les aplicacions de Windows. El prefix conté els fitxers de la configuració del Wine i una reproducció de la jerarquia de fitxers a la unitat C: (el disc principal del SO Windows). En aquesta reproducció del disc és on es desen les partides i s'instal·len les dependències a través del winetricks."
         },
         "wine-path-invalid": "La ruta del Wine no és vàlida, selecciona'n una altra.",
         "wine-path-none-found": "No s'ha trobat cap versió de Wine, descarregueu-ne una des del Wine Manager"
@@ -750,10 +750,24 @@
         },
         "advanced": {
             "title": {
-                "resetHeroic": "Restableix l'Heroic"
+                "resetHeroic": "Restableix l'Heroic",
+                "clearCache": "Buida la memòria cau"
             },
             "clearCache": {
-                "help8": "Jocs instal·lats"
+                "help8": "Jocs instal·lats",
+                "help1": "Aquesta acció buidarà les memòries cau següents:",
+                "help3": "Informació de la biblioteca del Legendary (llista de jocs i informació dels jocs i dels diàlegs d'instal·lació)",
+                "help5": "Informació de la biblioteca d'Amazon (llista de jocs i informació dels diàlegs d'instal·lació)",
+                "help6": "Això NO esborrarà:",
+                "help7": "Inici de sessió a la botiga",
+                "help4": "Informació de la biblioteca GOG (llista de jocs, informació dels diàlegs d'instal·lació i de l'api, com ara requisits)",
+                "help10": "Configuració del Heroic",
+                "help9": "Configuració dels jocs",
+                "help2": "Informació del joc de tercers (puntuació, compatibilitat amb l'Steam, howlongtobeat, pcgamingwiki, applegamingwiki)"
+            },
+            "details": "Detalls",
+            "resetHeroic": {
+                "help": "S'eliminaran tots els ajustos i els continguts de la memòria cau, però no s'eliminarà els jocs instal·lats de l'Epic o les seves credencials. Les versions portables (AppImage, WinPortable, ...) que necessita el Heroic es reiniciaran manualment."
             }
         }
     },

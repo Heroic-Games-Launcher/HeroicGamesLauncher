@@ -163,7 +163,13 @@
         "lastPlayed": "נפתח לאחרונה",
         "neverPlayed": "מעולם לא",
         "platform": "בחר גרסת פלטפורמה להתקין",
-        "totalPlayed": "זמן במשחק"
+        "totalPlayed": "זמן במשחק",
+        "branch": {
+            "disabled": "מושבת"
+        },
+        "builds": {
+            "version": "גרסה"
+        }
     },
     "dlc": {
         "installDlcs": "התקן את כל הDLCים"

@@ -91,7 +91,13 @@
         "platform": "Select Platform Version to Install",
         "requirements": "System Requirements",
         "totalPlayed": "കളിച്ച നേരം",
-        "dlcs": "DLCs"
+        "dlcs": "DLCs",
+        "branch": {
+            "disabled": "Disabled"
+        },
+        "builds": {
+            "version": "പതിപ്പ്"
+        }
     },
     "gamecard": {
         "moving": "മാറ്റുന്നു",

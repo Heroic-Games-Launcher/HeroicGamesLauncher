@@ -90,7 +90,13 @@
         "platform": "Odaberi verziju platforme za instalirati",
         "requirements": "Zahtjevi sustava",
         "totalPlayed": "Vrijeme igranja",
-        "dlcs": "DLCs"
+        "dlcs": "DLCs",
+        "branch": {
+            "disabled": "Disabled"
+        },
+        "builds": {
+            "version": "Verzija"
+        }
     },
     "gamecard": {
         "moving": "Premještanje",

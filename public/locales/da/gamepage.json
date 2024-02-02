@@ -93,7 +93,13 @@
         "tools": "Værktøjer",
         "getting-download-size": "Henter downloadstørrelse",
         "getting-install-size": "Får installationsstørrelse",
-        "dlcs": "DLC'er"
+        "dlcs": "DLC'er",
+        "branch": {
+            "disabled": "Slå Fra"
+        },
+        "builds": {
+            "version": "Version"
+        }
     },
     "gamecard": {
         "moving": "Flytter",

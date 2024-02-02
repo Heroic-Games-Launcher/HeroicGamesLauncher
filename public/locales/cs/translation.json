@@ -230,7 +230,8 @@
     "game": {
         "status": "Status",
         "store": "Obchod",
-        "title": "Název hry"
+        "title": "Název hry",
+        "modify": "Upravit instalaci"
     },
     "generic": {
         "error": {
@@ -659,7 +660,7 @@
             "enableNewShinyFeature": "Nová skvělá funkce",
             "enableNewDesign": "Nový design",
             "enableHelp": "Komponenta nápovědy",
-            "automaticWinetricksFixes": "Automaticky použít známé opravy Winetricks"
+            "automaticWinetricksFixes": "Automaticky použít známé opravy"
         },
         "disablePlaytimeSync": "Zakázat synchronizaci času hraní",
         "gamescope": {
@@ -876,5 +877,10 @@
         "delete-question": "Pokračováním nevratně odstraníte tuto kategorii a odeberete ji ze všech her. Pokračovat?",
         "new-category": "Nová kategorie",
         "add-new-category": "Přidat novou kategorii"
+    },
+    "wineExplanation": {
+        "proton-ge": "Proton-GE-Proton je verze Protonu, kterou vytvořil Glorious Eggroll. Je vytvořena k použití ve službě Steam, některé hry mimo síť služby Steam ale mohou s touto verzí lépe fungovat. Poskytuje převážně zbytečné protokoly pro ladění chyb.",
+        "wine-ge": "Wine-GE-Proton je verze Wine, kterou vytvořil Glorious Eggroll. Jedná se o doporučenou verzi Wine k použití mimo službu Steam. Poskytuje užitečné protokoly pro ladění chyb.",
+        "wine-ge-lol": "Sestavení Wine-GE-Proton...-LoL jsou vytvořeny pro použití POUZE ve hře League of Legends. Tato sestavení by NEMĚLA být použita pro jiné hry, jelikož mohou způsobit problémy."
     }
 }

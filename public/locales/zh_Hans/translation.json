@@ -230,7 +230,8 @@
     "game": {
         "status": "状态",
         "store": "商店",
-        "title": "游戏标题"
+        "title": "游戏标题",
+        "modify": "修改安装"
     },
     "generic": {
         "error": {
@@ -659,7 +660,7 @@
             "enableNewShinyFeature": "新功能",
             "enableNewDesign": "新设计",
             "enableHelp": "帮助组件",
-            "automaticWinetricksFixes": "自动应用已知的 Winetricks 修复"
+            "automaticWinetricksFixes": "自动应用已知的修复"
         },
         "disablePlaytimeSync": "停用游戏时间同步",
         "gamescope": {
@@ -876,5 +877,10 @@
         "add-new-category": "添加新分类",
         "cancel": "取消",
         "warning": "警告"
+    },
+    "wineExplanation": {
+        "wine-ge": "Wine-GE-Protonis 是 Glorious Eggroll 创建的 Wine 变体。它是建议用于 Steam 之外的 Wine 版本，提供对故障排除有用的日志。",
+        "wine-ge-lol": "Wine-GE-Proton...-LoL 构建是专为 League of Legends 打造的。由于会造成问题，它们不应被用于任何其他游戏。",
+        "proton-ge": "Proton-GE-Proton 是 Glorious Eggroll 创建的 Proton 变体。该变体意在用于 Steam 中，但某些 Steam 之外的游戏也许可以和它更好地配合。它提供大多是用于故障排除的无用日志。"
     }
 }
