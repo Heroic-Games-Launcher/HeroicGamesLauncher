@@ -58,8 +58,6 @@ electronTest('Settings', async (app, page) => {
     await expect(page.getByText('Nile Version: 1.1.1 JoJo')).toBeVisible()
   })
 
-  // TODO: add stubs for nile
-
   await test.step('shows the default experimental features', async () => {
     await expect(page.getByLabel('New design')).not.toBeChecked()
     await expect(page.getByLabel('Help component')).not.toBeChecked()
