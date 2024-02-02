@@ -2,7 +2,7 @@ import { join } from 'path'
 import {
   test,
   _electron as electron,
-  type ElectronApplication,
+  ElectronApplication,
   Page
 } from '@playwright/test'
 
@@ -42,12 +42,31 @@ function electronTest(
 
 async function resetAllStubs(app: ElectronApplication) {
   await resetLegendaryCommandStub(app)
+  await resetGogdlCommandStub(app)
+  await resetNileCommandStub(app)
 }
 
-export async function resetLegendaryCommandStub(app: ElectronApplication) {
+async function resetLegendaryCommandStub(app: ElectronApplication) {
   await app.evaluate(({ ipcMain }) => {
     ipcMain.emit('resetLegendaryCommandStub')
   })
 }
 
-export { electronTest }
+async function resetGogdlCommandStub(app: ElectronApplication) {
+  await app.evaluate(({ ipcMain }) => {
+    ipcMain.emit('resetGogdlCommandStub')
+  })
+}
+
+async function resetNileCommandStub(app: ElectronApplication) {
+  await app.evaluate(({ ipcMain }) => {
+    ipcMain.emit('resetNileCommandStub')
+  })
+}
+
+export {
+  electronTest,
+  resetLegendaryCommandStub,
+  resetGogdlCommandStub,
+  resetNileCommandStub
+}
