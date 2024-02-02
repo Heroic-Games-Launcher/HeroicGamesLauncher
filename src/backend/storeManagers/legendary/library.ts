@@ -681,7 +681,7 @@ export async function runRunnerCommand(
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
   if (process.env.CI === 'e2e') {
-    return runLegendaryCommandStub(command, options)
+    return runLegendaryCommandStub(command)
   }
 
   const { dir, bin } = getLegendaryBin()

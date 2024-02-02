@@ -52,6 +52,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { unzipSync } from 'node:zlib'
 import { readdirSync, rmSync, writeFileSync } from 'node:fs'
 import { checkForRedistUpdates } from './redist'
+import { runGogdlCommandStub } from './e2eMock'
 
 const library: Map<string, GameInfo> = new Map()
 const installedGames: Map<string, InstalledInfo> = new Map()
@@ -1319,6 +1320,10 @@ export async function runRunnerCommand(
   commandParts: string[],
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
+  if (process.env.CI === 'e2e') {
+    return runGogdlCommandStub(commandParts)
+  }
+
   const { dir, bin } = getGOGdlBin()
   const authConfig = join(app.getPath('userData'), 'gog_store', 'auth.json')
 

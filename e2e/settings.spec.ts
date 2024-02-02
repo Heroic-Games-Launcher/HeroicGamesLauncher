@@ -4,10 +4,30 @@ import { electronTest } from './helpers'
 electronTest('Settings', async (app, page) => {
   // stub `legendary --version`
   await app.evaluate(({ ipcMain }) => {
-    ipcMain.emit('setRunLegendaryCommandStub', [
+    ipcMain.emit('setLegendaryCommandStub', [
       {
-        command: '--version',
+        commandParts: ['--version'],
         stdout: 'legendary version "1.2.3", codename "Some Name"'
+      }
+    ])
+  })
+
+  // stub `gogdl --version`
+  await app.evaluate(({ ipcMain }) => {
+    ipcMain.emit('setGogdlCommandStub', [
+      {
+        commandParts: ['--version'],
+        stdout: '2.3.4'
+      }
+    ])
+  })
+
+  // stub `nile --version`
+  await app.evaluate(({ ipcMain }) => {
+    ipcMain.emit('setNileCommandStub', [
+      {
+        commandParts: ['--version'],
+        stdout: '1.1.1 JoJo'
       }
     ])
   })
@@ -30,15 +50,15 @@ electronTest('Settings', async (app, page) => {
     ).toBeVisible()
   })
 
-  await test.step('shows the legendary version from the legendary command', async () => {
-    expect(page.getByText('Legendary Version: 1.2.3 Some Name')).toBeVisible({
-      timeout: 10000
-    })
+  await test.step('shows the binaries versions from the binaries', async () => {
+    await expect(
+      page.getByText('Legendary Version: 1.2.3 Some Name')
+    ).toBeVisible()
+    await expect(page.getByText('GOGDL Version: 2.3.4')).toBeVisible()
+    await expect(page.getByText('Nile Version: 1.1.1 JoJo')).toBeVisible()
   })
 
-  // TODO: add stubs for gogdl and nile
-  // expect(page.getByText('GOGDL Version: 1.0.0')).toBeVisible()
-  // expect(page.getByText('Nile Version: 1.0.0 Jonathan Joestar')).toBeVisible()
+  // TODO: add stubs for nile
 
   await test.step('shows the default experimental features', async () => {
     await expect(page.getByLabel('New design')).not.toBeChecked()

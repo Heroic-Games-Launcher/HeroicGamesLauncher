@@ -46,7 +46,7 @@ async function resetAllStubs(app: ElectronApplication) {
 
 export async function resetLegendaryCommandStub(app: ElectronApplication) {
   await app.evaluate(({ ipcMain }) => {
-    ipcMain.emit('resetRunLegendaryCommandStub')
+    ipcMain.emit('resetLegendaryCommandStub')
   })
 }
 

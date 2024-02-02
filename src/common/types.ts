@@ -776,8 +776,8 @@ export interface UploadedLogData {
   uploadedAt: number
 }
 
-export interface LegendaryStub {
-  command: string
+export interface RunnerCommandStub {
+  commandParts: string[]
   stdout: string
   stderr?: string
 }

@@ -13,7 +13,6 @@ electronTest('gets heroic, legendary, and gog versions', async (app, page) => {
     const heroicVersion = await page.evaluate(async () =>
       window.api.getHeroicVersion()
     )
-    console.log('Heroic Version: ', heroicVersion)
     // check that heroic version is newer or equal to 2.6.3
     expect(compareVersions(heroicVersion, '2.6.3')).toBeGreaterThanOrEqual(0)
   })
@@ -23,7 +22,6 @@ electronTest('gets heroic, legendary, and gog versions', async (app, page) => {
       window.api.getLegendaryVersion()
     )
     legendaryVersion = legendaryVersion.trim().split(' ')[0]
-    console.log('Legendary Version: ', legendaryVersion)
     expect(compareVersions(legendaryVersion, '0.20.32')).toBeGreaterThanOrEqual(
       0
     )
@@ -33,7 +31,6 @@ electronTest('gets heroic, legendary, and gog versions', async (app, page) => {
     const gogdlVersion = await page.evaluate(async () =>
       window.api.getGogdlVersion()
     )
-    console.log('Gogdl Version: ', gogdlVersion)
     expect(compareVersions(gogdlVersion, '0.7.1')).toBeGreaterThanOrEqual(0)
   })
 })

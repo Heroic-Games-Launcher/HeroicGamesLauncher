@@ -1,6 +1,5 @@
 import { ipcMain } from 'electron'
 import { RunnerCommandStub } from 'common/types'
-import { LegendaryCommand } from './commands'
 
 /*
  * Multiple parts of a command can be set for the stub to be able to stub
@@ -13,15 +12,15 @@ import { LegendaryCommand } from './commands'
 const defaultStubs: RunnerCommandStub[] = [
   {
     commandParts: ['--version'],
-    stdout: 'legendary version "0.20.33", codename "Undue Alarm"'
+    stdout: '0.7.1'
   }
 ]
 
 let currentStubs = [...defaultStubs]
 
-export const runLegendaryCommandStub = (command: LegendaryCommand) => {
+export const runGogdlCommandStub = (command: string[]) => {
   const stub = currentStubs.find((stub) =>
-    stub.commandParts.every((part) => command[part])
+    stub.commandParts.every((part) => command.includes(part))
   )
 
   return {
@@ -30,11 +29,8 @@ export const runLegendaryCommandStub = (command: LegendaryCommand) => {
   }
 }
 
-// Add listeners to be called from e2e tests to stub the legendary command calls
+// Add listeners to be called from e2e tests to stub the gogdl command calls
 if (process.env.CI === 'e2e') {
-  ipcMain.on('setLegendaryCommandStub', (stubs) => (currentStubs = [...stubs]))
-  ipcMain.on(
-    'resetLegendaryCommandStub',
-    () => (currentStubs = [...defaultStubs])
-  )
+  ipcMain.on('setGogdlCommandStub', (stubs) => (currentStubs = [...stubs]))
+  ipcMain.on('resetGogdlCommandStub', () => (currentStubs = [...defaultStubs]))
 }
