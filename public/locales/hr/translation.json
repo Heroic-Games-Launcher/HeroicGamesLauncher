@@ -593,7 +593,7 @@
         "addgamestoapplications": "Automatski dodajte igre u aplikacije",
         "showMetalOverlay": "Prikaži preklapanje statistike",
         "alt-nile-bin": "Odaberite alternativni Nile Binary",
-        "autodxvknvapi": "Auto Install/Update DXVK on Prefix"
+        "autodxvknvapi": "Auto Install/Update DXVK-NVAPI on Prefix"
     },
     "settings": {
         "battlEyeRuntime": {
