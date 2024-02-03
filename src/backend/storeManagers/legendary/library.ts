@@ -215,10 +215,11 @@ export function getGameInfo(
  */
 export async function getInstallInfo(
   appName: string,
-  installPlatform: InstallPlatform
+  installPlatform: InstallPlatform,
+  retries = 3
 ): Promise<LegendaryInstallInfo> {
   const cache = installStore.get(appName)
-  if (cache) {
+  if (cache && cache.manifest) {
     logDebug('Using cached install info', LogPrefix.Legendary)
     return cache
   }
@@ -240,8 +241,21 @@ export async function getInstallInfo(
   }
   try {
     const info: LegendaryInstallInfo = JSON.parse(res.stdout)
-    installStore.set(appName, info)
-    return info
+    if (info.manifest) {
+      installStore.set(appName, info)
+      return info
+    } else {
+      if (retries > 0) {
+        logWarning(
+          `Install info for ${appName} does not include manifest data. Retrying.`
+        )
+        return await getInstallInfo(appName, installPlatform, retries - 1)
+      } else {
+        throw Error(
+          `Install info for ${appName} does not include manifest data after 3 retries.`
+        )
+      }
+    }
   } catch (error) {
     throw Error(`Failed to parse install info for ${appName} with: ${error}`)
   }
