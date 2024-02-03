@@ -2,7 +2,7 @@ import { join } from 'path'
 import type { Runner } from 'common/types'
 import { removeSpecialcharacters } from '../utils'
 import { gameManagerMap } from '../storeManagers'
-import { logInfo, LogPrefix } from '../logger/logger'
+import { logInfo, logWarning, LogPrefix } from '../logger/logger'
 
 import { migrateLegacyGameConfig } from './legacy'
 import { getConfigPath, loadConfigFile } from './shared'
@@ -14,7 +14,7 @@ import {
   GameConfig
 } from './schemas'
 import { LegacyGameConfigJson } from './schemas/legacy'
-import { writeFileSync } from 'graceful-fs'
+import { rmSync, writeFileSync } from 'graceful-fs'
 import { getGlobalConfig } from './global'
 import { sendFrontendMessage } from '../main_window'
 import type { z } from 'zod'
@@ -109,6 +109,23 @@ function resetGameConfigKey(
   sendFrontendMessage('gameConfigKeyReset', appName, runner, key, defaultValue)
 }
 
+function clearGameConfig(appName: string, runner: Runner) {
+  const configPath = getConfigPath(appName, runner)
+  try {
+    rmSync(configPath)
+  } catch (e) {
+    logWarning(
+      ['Failed to delete config file for', appName, runner, e],
+      LogPrefix.GameConfig
+    )
+  }
+  gameConfigRecord.delete(`${appName}_${runner}`)
+
+  logInfo([`${appName}_${runner}: Cleared config`], LogPrefix.GameConfig)
+
+  sendFrontendMessage('gameConfigCleared', appName, runner)
+}
+
 function getUserConfiguredGameConfigKeys(
   appName: string,
   runner: Runner
@@ -191,5 +208,6 @@ export {
   getGameConfig,
   setGameConfig,
   resetGameConfigKey,
+  clearGameConfig,
   getUserConfiguredGameConfigKeys
 }

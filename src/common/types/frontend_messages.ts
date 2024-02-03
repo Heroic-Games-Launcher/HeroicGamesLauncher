@@ -65,6 +65,7 @@ type FrontendMessages = {
     key: Key,
     value: GameConfig[Key]
   ) => void
+  gameConfigCleared: (appName: string, runner: Runner) => void
 
   [key: `progressUpdate${string}`]: (progress: GameStatus) => void
   [key: `progressOfWineManager${string}`]: (progress: {

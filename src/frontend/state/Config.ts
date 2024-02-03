@@ -62,6 +62,15 @@ window.api.config.messages.gameConfigKeyReset(
     }))
   }
 )
+window.api.config.messages.gameConfigCleared((appName, runner) => {
+  const old_configs = useGameConfigState.getState()
+  delete old_configs[`${appName}_${runner}`]
+  useGameConfigState.setState(old_configs, true)
+
+  const old_keys = useUserConfiguredGameConfigKeys.getState()
+  delete old_keys[`${appName}_${runner}`]
+  useUserConfiguredGameConfigKeys.setState(old_keys, true)
+})
 
 export {
   useGlobalConfigState,

@@ -122,6 +122,13 @@ export const config = {
         (_e, appName, runner, key, defaultValue) =>
           callback(appName, runner, key, defaultValue)
       )
+    },
+    gameConfigCleared: (
+      callback: (appName: string, runner: Runner) => void
+    ): void => {
+      ipcRenderer.on('gameConfigCleared', (_e, appName, runner) =>
+        callback(appName, runner)
+      )
     }
   }
 }
