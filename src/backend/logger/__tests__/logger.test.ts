@@ -43,43 +43,43 @@ function getStringPassedToLogFile(type: logLevel, skipMessagePrefix = false) {
 describeSkipOnWindows('logger/logger.ts', () => {
   afterEach(jest.restoreAllMocks)
 
-  // test('log invokes console', () => {
-  //   const spyConsoleError = jest
-  //     .spyOn(global.console, 'error')
-  //     .mockImplementation()
-  //   const spyConsoleLog = jest.spyOn(global.console, 'log').mockImplementation()
-  //   const spyConsoleWarn = jest
-  //     .spyOn(global.console, 'warn')
-  //     .mockImplementation()
+  test('log invokes console', async () => {
+    const spyConsoleError = jest
+      .spyOn(global.console, 'error')
+      .mockImplementation()
+    const spyConsoleLog = jest.spyOn(global.console, 'log').mockImplementation()
+    const spyConsoleWarn = jest
+      .spyOn(global.console, 'warn')
+      .mockImplementation()
 
-  //   interface TestCaseProps {
-  //     function: typeof logger.logError
-  //     spyConsole: jest.SpyInstance
-  //   }
+    interface TestCaseProps {
+      function: typeof logger.logError
+      spyConsole: jest.SpyInstance
+    }
 
-  //   const testCases = new Map<logLevel, TestCaseProps>([
-  //     ['ERROR', { function: logger.logError, spyConsole: spyConsoleError }],
-  //     ['INFO', { function: logger.logInfo, spyConsole: spyConsoleLog }],
-  //     ['WARNING', { function: logger.logWarning, spyConsole: spyConsoleWarn }],
-  //     ['DEBUG', { function: logger.logDebug, spyConsole: spyConsoleLog }]
-  //   ])
+    const testCases = new Map<logLevel, TestCaseProps>([
+      ['ERROR', { function: logger.logError, spyConsole: spyConsoleError }],
+      ['INFO', { function: logger.logInfo, spyConsole: spyConsoleLog }],
+      ['WARNING', { function: logger.logWarning, spyConsole: spyConsoleWarn }],
+      ['DEBUG', { function: logger.logDebug, spyConsole: spyConsoleLog }]
+    ])
 
-  //   testCases.forEach((props, level) => {
-  //     props.function(testData, {
-  //       prefix: logger.LogPrefix.Backend,
-  //       skipLogToFile: true
-  //     })
+    testCases.forEach((props, level) => {
+      props.function(testData, {
+        prefix: logger.LogPrefix.Backend,
+        skipLogToFile: true
+      })
 
-  //     expect(props.spyConsole).toBeCalledWith(
-  //       expect.stringContaining(
-  //         `${level}:${' '.repeat(7 - level.length)} [${
-  //           logger.LogPrefix.Backend
-  //         }]`
-  //       ),
-  //       ...testData
-  //     )
-  //   })
-  // })
+      expect(props.spyConsole).toBeCalledWith(
+        expect.stringContaining(
+          `${level}:${' '.repeat(7 - level.length)} [${
+            logger.LogPrefix.Backend
+          }]`
+        ),
+        ...testData
+      )
+    })
+  })
 
   test('log appends to log file', () => {
     jest.spyOn(global.console, 'error').mockImplementation()
