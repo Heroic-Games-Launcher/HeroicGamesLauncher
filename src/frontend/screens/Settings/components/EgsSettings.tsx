@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { InfoBox, ToggleSwitch, PathSelectionBox } from 'frontend/components/UI'
 import { useGlobalConfig } from 'frontend/hooks/config'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const EgsSettings = () => {
   const { t } = useTranslation()
@@ -65,8 +66,12 @@ const EgsSettings = () => {
         handleChange={handleSync}
         title={t('setting.egs-sync')}
         disabled={isSyncing}
-        isSetToDefaultValue={egsConfigIsDefault}
-        resetToDefaultValue={resetEgsConfig}
+        inlineElement={
+          <ResetToDefaultButton
+            resetToDefault={resetEgsConfig}
+            isSetToDefault={egsConfigIsDefault}
+          />
+        }
       />
     )
   }

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { SelectField } from 'frontend/components/UI'
 import { useGlobalConfig } from 'frontend/hooks/config'
 import type { PositiveInteger } from 'backend/schemas'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const MaxWorkers = () => {
   const { t } = useTranslation()
@@ -38,8 +39,12 @@ const MaxWorkers = () => {
       }
       value={(maxWorkers ?? 0).toString()}
       extraClass="smaller"
-      isSetToDefaultValue={isSetToDefaultValue}
-      resetToDefaultValue={resetToDefaultValue}
+      inlineElement={
+        <ResetToDefaultButton
+          resetToDefault={resetToDefaultValue}
+          isSetToDefault={isSetToDefaultValue}
+        />
+      }
     >
       {Array.from(Array(maxCpus).keys()).map((n) => (
         <option key={n + 1}>{n + 1}</option>

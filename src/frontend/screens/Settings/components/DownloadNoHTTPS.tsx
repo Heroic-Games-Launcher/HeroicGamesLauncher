@@ -2,6 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
 import { useGlobalConfig } from 'frontend/hooks/config'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const DownloadNoHTTPS = () => {
   const { t } = useTranslation()
@@ -22,8 +23,12 @@ const DownloadNoHTTPS = () => {
         'setting.download-no-https',
         'Download games without HTTPS (useful for CDNs e.g. LanCache)'
       )}
-      isSetToDefaultValue={isSetToDefault}
-      resetToDefaultValue={resetToDefaultValue}
+      inlineElement={
+        <ResetToDefaultButton
+          resetToDefault={resetToDefaultValue}
+          isSetToDefault={isSetToDefault}
+        />
+      }
     />
   )
 }

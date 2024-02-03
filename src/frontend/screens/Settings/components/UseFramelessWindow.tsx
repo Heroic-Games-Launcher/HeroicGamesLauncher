@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
 import { useGlobalConfig } from 'frontend/hooks/config'
 import ContextProvider from 'frontend/state/ContextProvider'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const UseFramelessWindow = () => {
   const { t } = useTranslation()
@@ -55,8 +56,12 @@ const UseFramelessWindow = () => {
         'setting.frameless-window.description',
         'Use frameless window (requires restart)'
       )}
-      isSetToDefaultValue={isSetToDefaultValue}
-      resetToDefaultValue={resetToDefaultValue}
+      inlineElement={
+        <ResetToDefaultButton
+          isSetToDefault={isSetToDefaultValue}
+          resetToDefault={resetToDefaultValue}
+        />
+      }
     />
   )
 }

@@ -6,6 +6,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import SettingsContext from '../SettingsContext'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const EnableFsync = () => {
   const { t } = useTranslation()
@@ -31,8 +32,12 @@ const EnableFsync = () => {
         value={enableFsync || false}
         handleChange={async () => setEnableFsync(!enableFsync)}
         title={t('setting.fsync', 'Enable Fsync')}
-        isSetToDefaultValue={isSetToDefault}
-        resetToDefaultValue={resetToDefaultValue}
+        inlineElement={
+          <ResetToDefaultButton
+            resetToDefault={resetToDefaultValue}
+            isSetToDefault={isSetToDefault}
+          />
+        }
       />
 
       <FontAwesomeIcon

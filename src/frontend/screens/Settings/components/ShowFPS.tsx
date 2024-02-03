@@ -4,6 +4,7 @@ import { ToggleSwitch } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useSharedConfig } from 'frontend/hooks/config'
 import SettingsContext from '../SettingsContext'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const ShowFPS = () => {
   const { t } = useTranslation()
@@ -29,8 +30,12 @@ const ShowFPS = () => {
           ? t('setting.showfps')
           : t('setting.showMetalOverlay', 'Show Stats Overlay')
       }
-      isSetToDefaultValue={isSetToDefaultValue}
-      resetToDefaultValue={resetToDefaultValue}
+      inlineElement={
+        <ResetToDefaultButton
+          resetToDefault={resetToDefaultValue}
+          isSetToDefault={isSetToDefaultValue}
+        />
+      }
     />
   )
 }

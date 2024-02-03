@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
 import SettingsContext from '../SettingsContext'
 import { useGlobalConfig } from 'frontend/hooks/config'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const DiscordRPC = () => {
   const { t } = useTranslation()
@@ -23,8 +24,12 @@ const DiscordRPC = () => {
       value={discordRPC}
       handleChange={async () => setDiscordRPC(!discordRPC)}
       title={t('setting.discordRPC', 'Enable Discord Rich Presence')}
-      isSetToDefaultValue={isSetToDefault}
-      resetToDefaultValue={resetToDefaultValue}
+      inlineElement={
+        <ResetToDefaultButton
+          resetToDefault={resetToDefaultValue}
+          isSetToDefault={isSetToDefault}
+        />
+      }
     />
   )
 }

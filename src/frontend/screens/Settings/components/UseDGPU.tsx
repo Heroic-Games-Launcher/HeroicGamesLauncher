@@ -5,6 +5,7 @@ import { useSharedConfig } from 'frontend/hooks/config'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const UseDGPU = () => {
   const { t } = useTranslation()
@@ -50,8 +51,12 @@ const UseDGPU = () => {
         value={useDGPU}
         handleChange={toggleUseDGPU}
         title={t('setting.primerun.description', 'Use Dedicated Graphics Card')}
-        isSetToDefaultValue={isSetToDefaultValue}
-        resetToDefaultValue={resetToDefaultValue}
+        inlineElement={
+          <ResetToDefaultButton
+            resetToDefault={resetToDefaultValue}
+            isSetToDefault={isSetToDefaultValue}
+          />
+        }
       />
 
       <FontAwesomeIcon

@@ -5,6 +5,7 @@ import { useSharedConfig } from 'frontend/hooks/config'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const Mangohud = () => {
   const { t } = useTranslation()
@@ -29,8 +30,12 @@ const Mangohud = () => {
         value={showMangohud}
         handleChange={async () => setShowMangohud(!showMangohud)}
         title={t('setting.mangohud')}
-        isSetToDefaultValue={isSetToDefaultValue}
-        resetToDefaultValue={resetToDefaultValue}
+        inlineElement={
+          <ResetToDefaultButton
+            resetToDefault={resetToDefaultValue}
+            isSetToDefault={isSetToDefaultValue}
+          />
+        }
       />
 
       <FontAwesomeIcon

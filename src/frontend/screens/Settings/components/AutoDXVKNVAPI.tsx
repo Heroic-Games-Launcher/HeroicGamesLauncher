@@ -5,6 +5,7 @@ import SettingsContext from '../SettingsContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { useSharedConfig } from 'frontend/hooks/config'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const AutoDXVKNVAPI = () => {
   const { t } = useTranslation()
@@ -57,8 +58,12 @@ const AutoDXVKNVAPI = () => {
         }
         fading={installingDxvkNvapi}
         disabled={installingDxvkNvapi}
-        isSetToDefaultValue={dxvkNvapiSetToDefault}
-        resetToDefaultValue={resetDxvkNvapiConfig}
+        inlineElement={
+          <ResetToDefaultButton
+            resetToDefault={resetDxvkNvapiConfig}
+            isSetToDefault={dxvkNvapiSetToDefault}
+          />
+        }
       />
 
       <FontAwesomeIcon

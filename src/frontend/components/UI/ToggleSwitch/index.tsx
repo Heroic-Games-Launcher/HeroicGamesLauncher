@@ -1,10 +1,8 @@
 import classNames from 'classnames'
-import React, { ChangeEventHandler, useContext } from 'react'
+import React, { ChangeEventHandler, ReactNode, useContext } from 'react'
 import ContextProvider from 'frontend/state/ContextProvider'
 import './index.css'
-import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore'
-import { Stack, IconButton } from '@mui/material'
-import { useTranslation } from 'react-i18next'
+import { Stack } from '@mui/material'
 
 interface Props {
   htmlId: string
@@ -15,12 +13,10 @@ interface Props {
   extraClass?: string
   description?: string
   fading?: boolean
-  resetToDefaultValue?: () => void
-  isSetToDefaultValue?: boolean
+  inlineElement?: ReactNode
 }
 
 export default function ToggleSwitch(props: Props) {
-  const { t } = useTranslation()
   const {
     handleChange,
     value,
@@ -30,8 +26,7 @@ export default function ToggleSwitch(props: Props) {
     extraClass,
     description = '',
     fading,
-    resetToDefaultValue,
-    isSetToDefaultValue
+    inlineElement
   } = props
   const { isRTL } = useContext(ContextProvider)
 
@@ -56,15 +51,7 @@ export default function ToggleSwitch(props: Props) {
       >
         {title}
       </label>
-      {resetToDefaultValue && !isSetToDefaultValue && (
-        <IconButton
-          color={'primary'}
-          onClick={resetToDefaultValue}
-          title={t('button.reset-to-default', 'Reset to default')}
-        >
-          <SettingsBackupRestoreIcon />
-        </IconButton>
-      )}
+      {inlineElement}
     </Stack>
   )
 }

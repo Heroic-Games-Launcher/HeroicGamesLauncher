@@ -4,8 +4,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { SelectField, InfoBox, PathSelectionBox } from '..'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 import { useGlobalConfig } from 'frontend/hooks/config'
-import { IconButton } from '@mui/material'
-import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore'
+import ResetToDefaultButton from '../ResetToDefaultButton'
 
 export const defaultThemes = {
   midnightMirage: 'Midnight Mirage',
@@ -44,19 +43,6 @@ export const ThemeSelector = () => {
     })
   }, [themesPath])
 
-  let resetButton = <></>
-  if (!themesPathIsDefault) {
-    resetButton = (
-      <IconButton
-        color={'primary'}
-        onClick={resetThemesPath}
-        title={t('button.reset-to-default', 'Reset to default')}
-      >
-        <SettingsBackupRestoreIcon />
-      </IconButton>
-    )
-  }
-
   return (
     <>
       <SelectField
@@ -64,8 +50,12 @@ export const ThemeSelector = () => {
         label={t('setting.select_theme', 'Select Theme')}
         onChange={(event) => setTheme(event.target.value)}
         value={theme}
-        isSetToDefaultValue={theme === 'midnightMirage'}
-        resetToDefaultValue={() => setTheme('midnightMirage')}
+        inlineElement={
+          <ResetToDefaultButton
+            resetToDefault={() => setTheme('midnightMirage')}
+            isSetToDefault={theme === 'midnightMirage'}
+          />
+        }
       >
         {themes.map((key) => (
           <option key={key} value={key}>
@@ -85,7 +75,12 @@ export const ThemeSelector = () => {
         onPathChange={async (path) => setThemesPath(path)}
         pathDialogTitle={t('box.default-install-path')}
         type="directory"
-        inlineElement={resetButton}
+        inlineElement={
+          <ResetToDefaultButton
+            resetToDefault={resetThemesPath}
+            isSetToDefault={themesPathIsDefault}
+          />
+        }
         afterInput={
           <>
             <InfoBox text="infobox.help">

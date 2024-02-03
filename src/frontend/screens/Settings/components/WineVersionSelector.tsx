@@ -5,6 +5,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { WineInstallation } from 'common/types'
 import { useSharedConfig } from 'frontend/hooks/config'
 import { Link } from 'react-router-dom'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 export default function WineVersionSelector() {
   const { t } = useTranslation()
@@ -99,8 +100,12 @@ export default function WineVersionSelector() {
           )}
         </>
       }
-      isSetToDefaultValue={isSetToDefaultValue}
-      resetToDefaultValue={resetToDefaultValue}
+      inlineElement={
+        <ResetToDefaultButton
+          resetToDefault={resetToDefaultValue}
+          isSetToDefault={isSetToDefaultValue}
+        />
+      }
     >
       {altWine.map(({ name }, i) => (
         <option key={i}>{name}</option>

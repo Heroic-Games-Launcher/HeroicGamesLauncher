@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import SettingsContext from '../SettingsContext'
 import { useSharedConfig } from 'frontend/hooks/config'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const AutoVKD3D = () => {
   const { t } = useTranslation()
@@ -62,8 +63,12 @@ const AutoVKD3D = () => {
         }
         fading={installingVKD3D}
         disabled={!autoInstallDxvk || installingVKD3D}
-        isSetToDefaultValue={vkd3dSetToDefault}
-        resetToDefaultValue={resetVkd3dToDefault}
+        inlineElement={
+          <ResetToDefaultButton
+            resetToDefault={resetVkd3dToDefault}
+            isSetToDefault={vkd3dSetToDefault}
+          />
+        }
       />
 
       <FontAwesomeIcon

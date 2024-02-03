@@ -5,6 +5,7 @@ import { useSharedConfig } from 'frontend/hooks/config'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const PreferSystemLibs = () => {
   const { t } = useTranslation()
@@ -37,8 +38,12 @@ const PreferSystemLibs = () => {
         value={preferSystemLibs || false}
         handleChange={async () => setPreferSystemLibs(!preferSystemLibs)}
         title={t('setting.preferSystemLibs', 'Prefer system libraries')}
-        isSetToDefaultValue={isSetToDefault}
-        resetToDefaultValue={resetToDefaultValue}
+        inlineElement={
+          <ResetToDefaultButton
+            resetToDefault={resetToDefaultValue}
+            isSetToDefault={isSetToDefault}
+          />
+        }
       />
 
       <FontAwesomeIcon

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useSharedConfig } from 'frontend/hooks/config'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const EacRuntime = () => {
   const { t } = useTranslation()
@@ -70,8 +71,12 @@ const EacRuntime = () => {
         value={eacRuntime}
         handleChange={handleEacRuntime}
         title={t('settings.eacRuntime.name', 'EasyAntiCheat Runtime')}
-        isSetToDefaultValue={isSetToDefault}
-        resetToDefaultValue={resetToDefaultValue}
+        inlineElement={
+          <ResetToDefaultButton
+            resetToDefault={resetToDefaultValue}
+            isSetToDefault={isSetToDefault}
+          />
+        }
       />
       {installing && (
         <span>

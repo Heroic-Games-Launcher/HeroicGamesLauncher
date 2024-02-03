@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { toggleControllerIsDisabled } from 'frontend/helpers/gamepad'
 import { ToggleSwitch } from 'frontend/components/UI'
 import { useGlobalConfig } from 'frontend/hooks/config'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const DisableController = () => {
   const { t } = useTranslation()
@@ -29,8 +30,12 @@ const DisableController = () => {
         'setting.disable_controller',
         'Disable Heroic navigation using controller'
       )}
-      isSetToDefaultValue={isSetToDefault}
-      resetToDefaultValue={resetToDefaultValue}
+      inlineElement={
+        <ResetToDefaultButton
+          resetToDefault={resetToDefaultValue}
+          isSetToDefault={isSetToDefault}
+        />
+      }
     />
   )
 }

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useSharedConfig } from 'frontend/hooks/config'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const BattlEyeRuntime = () => {
   const { t } = useTranslation()
@@ -45,8 +46,12 @@ const BattlEyeRuntime = () => {
         value={battlEyeRuntime}
         handleChange={handleBattlEyeRuntime}
         title={t('settings.battlEyeRuntime.name', 'BattlEye AntiCheat Runtime')}
-        isSetToDefaultValue={isSetToDefault}
-        resetToDefaultValue={resetToDefaultValue}
+        inlineElement={
+          <ResetToDefaultButton
+            resetToDefault={resetToDefaultValue}
+            isSetToDefault={isSetToDefault}
+          />
+        }
       />
       {installing && (
         <span>

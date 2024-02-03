@@ -4,6 +4,7 @@ import { useGlobalConfig } from 'frontend/hooks/config'
 import { ToggleSwitch } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
 import type { GlobalConfig } from 'backend/config/schemas'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 interface FeatureToggleProps {
   feature: keyof GlobalConfig
@@ -21,8 +22,12 @@ function FeatureToggle({ feature }: FeatureToggleProps) {
       value={value}
       handleChange={async () => setValue(!value)}
       title={t(`setting.experimental_features.${feature}`, feature)}
-      resetToDefaultValue={resetValue}
-      isSetToDefaultValue={isDefaultValue}
+      inlineElement={
+        <ResetToDefaultButton
+          resetToDefault={resetValue}
+          isSetToDefault={isDefaultValue}
+        />
+      }
     />
   )
 }

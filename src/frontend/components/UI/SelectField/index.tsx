@@ -2,9 +2,7 @@ import React, { ChangeEvent, ReactNode, useContext } from 'react'
 import classnames from 'classnames'
 import ContextProvider from 'frontend/state/ContextProvider'
 import './index.css'
-import { Stack, IconButton } from '@mui/material'
-import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore'
-import { useTranslation } from 'react-i18next'
+import { Stack } from '@mui/material'
 
 interface SelectFieldProps {
   htmlId: string
@@ -16,8 +14,7 @@ interface SelectFieldProps {
   prompt?: string
   disabled?: boolean
   extraClass?: string
-  resetToDefaultValue?: () => void
-  isSetToDefaultValue?: boolean
+  inlineElement?: ReactNode
 }
 
 const SelectField = ({
@@ -30,11 +27,9 @@ const SelectField = ({
   extraClass = '',
   afterSelect,
   children,
-  resetToDefaultValue,
-  isSetToDefaultValue
+  inlineElement
 }: SelectFieldProps) => {
   const { isRTL } = useContext(ContextProvider)
-  const { t } = useTranslation()
 
   return (
     <div
@@ -53,15 +48,7 @@ const SelectField = ({
           {prompt && <option value="">{prompt}</option>}
           {children}
         </select>
-        {resetToDefaultValue && !isSetToDefaultValue && (
-          <IconButton
-            color={'primary'}
-            onClick={resetToDefaultValue}
-            title={t('button.reset-to-default', 'Reset to default')}
-          >
-            <SettingsBackupRestoreIcon />
-          </IconButton>
-        )}
+        {inlineElement}
       </Stack>
       {afterSelect}
     </div>

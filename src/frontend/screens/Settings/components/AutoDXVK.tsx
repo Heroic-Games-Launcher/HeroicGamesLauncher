@@ -6,6 +6,7 @@ import { ToggleSwitch } from 'frontend/components/UI'
 import SettingsContext from '../SettingsContext'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useSharedConfig } from 'frontend/hooks/config'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const AutoDXVK = () => {
   const { t } = useTranslation()
@@ -63,8 +64,12 @@ const AutoDXVK = () => {
         }
         fading={installingDxvk}
         disabled={installingDxvk || (isLinux && autoInstallVkd3d)}
-        isSetToDefaultValue={dxvkConfigIsDefault}
-        resetToDefaultValue={resetDxvkConfig}
+        inlineElement={
+          <ResetToDefaultButton
+            resetToDefault={resetDxvkConfig}
+            isSetToDefault={dxvkConfigIsDefault}
+          />
+        }
       />
 
       <FontAwesomeIcon

@@ -6,6 +6,7 @@ import { useSharedConfig } from 'frontend/hooks/config'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import SettingsContext from '../SettingsContext'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const SteamRuntime = () => {
   const { t } = useTranslation()
@@ -37,8 +38,12 @@ const SteamRuntime = () => {
         value={useSteamRuntime}
         handleChange={async () => setUseSteamRuntime(!useSteamRuntime)}
         title={t('setting.steamruntime', 'Use Steam Runtime')}
-        isSetToDefaultValue={isSetToDefaultValue}
-        resetToDefaultValue={resetToDefaultValue}
+        inlineElement={
+          <ResetToDefaultButton
+            resetToDefault={resetToDefaultValue}
+            isSetToDefault={isSetToDefaultValue}
+          />
+        }
       />
 
       <FontAwesomeIcon

@@ -2,6 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
 import { useGlobalConfig } from 'frontend/hooks/config'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const TraySettings = () => {
   const { t } = useTranslation()
@@ -27,8 +28,12 @@ const TraySettings = () => {
         value={exitToTray}
         handleChange={async () => setExitToTray(!exitToTray)}
         title={t('setting.exit-to-tray', 'Exit to System Tray')}
-        isSetToDefaultValue={exitToTraySetToDefault}
-        resetToDefaultValue={exitToTrayResetToDefault}
+        inlineElement={
+          <ResetToDefaultButton
+            resetToDefault={exitToTrayResetToDefault}
+            isSetToDefault={exitToTraySetToDefault}
+          />
+        }
       />
 
       {exitToTray && (
@@ -37,8 +42,12 @@ const TraySettings = () => {
           value={startInTray}
           handleChange={async () => setStartInTray(!startInTray)}
           title={t('setting.start-in-tray', 'Start Minimized')}
-          isSetToDefaultValue={startInTraySetToDefault}
-          resetToDefaultValue={startInTrayResetToDefault}
+          inlineElement={
+            <ResetToDefaultButton
+              resetToDefault={startInTrayResetToDefault}
+              isSetToDefault={startInTraySetToDefault}
+            />
+          }
         />
       )}
     </>

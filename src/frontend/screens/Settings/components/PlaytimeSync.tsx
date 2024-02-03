@@ -5,6 +5,7 @@ import { useGlobalConfig } from 'frontend/hooks/config'
 import SettingsContext from '../SettingsContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const PlaytimeSync = () => {
   const { t } = useTranslation()
@@ -31,8 +32,12 @@ const PlaytimeSync = () => {
           'setting.disablePlaytimeSync',
           'Disable playtime synchronization'
         )}
-        isSetToDefaultValue={isSetToDefault}
-        resetToDefaultValue={resetToDefaultValue}
+        inlineElement={
+          <ResetToDefaultButton
+            resetToDefault={resetToDefaultValue}
+            isSetToDefault={isSetToDefault}
+          />
+        }
       />
       <FontAwesomeIcon
         className="helpIcon"

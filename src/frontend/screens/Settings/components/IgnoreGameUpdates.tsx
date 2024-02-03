@@ -2,6 +2,7 @@ import React from 'react'
 import { ToggleSwitch } from 'frontend/components/UI'
 import { useGameConfig } from 'frontend/hooks/config'
 import { useTranslation } from 'react-i18next'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const IgnoreGameUpdates = () => {
   const { t } = useTranslation()
@@ -20,8 +21,12 @@ const IgnoreGameUpdates = () => {
       value={ignoreGameUpdates}
       handleChange={async () => setIgnoreGameUpdates(!ignoreGameUpdates)}
       title={t('setting.ignoreGameUpdates', 'Ignore game updates')}
-      isSetToDefaultValue={isSetToDefaultValue}
-      resetToDefaultValue={resetToDefaultValue}
+      inlineElement={
+        <ResetToDefaultButton
+          resetToDefault={resetToDefaultValue}
+          isSetToDefault={isSetToDefaultValue}
+        />
+      }
     />
   )
 }

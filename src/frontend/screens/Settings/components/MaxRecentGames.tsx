@@ -4,6 +4,7 @@ import { SelectField } from 'frontend/components/UI'
 import { useGlobalConfig } from 'frontend/hooks/config'
 import SettingsContext from '../SettingsContext'
 import type { PositiveInteger } from 'backend/schemas'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const MaxRecentGames = () => {
   const { t } = useTranslation()
@@ -30,8 +31,12 @@ const MaxRecentGames = () => {
         setMaxRecentGames(Number(event.target.value) as PositiveInteger)
       }
       value={maxRecentGames.toString()}
-      isSetToDefaultValue={isSetToDefaultValue}
-      resetToDefaultValue={resetToDefaultValue}
+      inlineElement={
+        <ResetToDefaultButton
+          resetToDefault={resetToDefaultValue}
+          isSetToDefault={isSetToDefaultValue}
+        />
+      }
     >
       {Array.from(Array(10).keys()).map((n) => (
         <option key={n + 1}>{n + 1}</option>

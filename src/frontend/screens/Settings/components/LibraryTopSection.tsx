@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { SelectField } from 'frontend/components/UI'
 import { useGlobalConfig } from 'frontend/hooks/config'
 import type { LibraryTopSectionOptions } from 'backend/config/schemas'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const LibraryTopSection = () => {
   const { t } = useTranslation()
@@ -24,8 +25,12 @@ const LibraryTopSection = () => {
         setLibraryTopSection(event.target.value as LibraryTopSectionOptions)
       }
       value={libraryTopSection}
-      isSetToDefaultValue={isSetToDefaultValue}
-      resetToDefaultValue={resetToDefaultValue}
+      inlineElement={
+        <ResetToDefaultButton
+          resetToDefault={resetToDefaultValue}
+          isSetToDefault={isSetToDefaultValue}
+        />
+      }
     >
       <option value="recently_played">
         {t(

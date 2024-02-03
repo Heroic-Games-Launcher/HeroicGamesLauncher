@@ -6,6 +6,7 @@ import { useGameConfig } from 'frontend/hooks/config'
 import SettingsContext from '../SettingsContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const OfflineMode = () => {
   const { t } = useTranslation()
@@ -38,8 +39,12 @@ const OfflineMode = () => {
         value={offlineMode}
         handleChange={async () => setOfflineMode(!offlineMode)}
         title={t('setting.offlinemode')}
-        isSetToDefaultValue={isSetToDefault}
-        resetToDefaultValue={resetToDefaultValue}
+        inlineElement={
+          <ResetToDefaultButton
+            resetToDefault={resetToDefaultValue}
+            isSetToDefault={isSetToDefault}
+          />
+        }
       />
       {!canRunOffline && offlineMode && (
         <div className="infoBox saves-warning">

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { ToggleSwitch } from 'frontend/components/UI'
 import { useGlobalConfig } from 'frontend/hooks/config'
 import { useTranslation } from 'react-i18next'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const CheckUpdatesOnStartup = () => {
   const { t } = useTranslation()
@@ -34,8 +35,12 @@ const CheckUpdatesOnStartup = () => {
         'setting.checkForUpdatesOnStartup',
         'Check for Heroic Updates on Startup'
       )}
-      isSetToDefaultValue={isSetToDefault}
-      resetToDefaultValue={resetToDefaultValue}
+      inlineElement={
+        <ResetToDefaultButton
+          resetToDefault={resetToDefaultValue}
+          isSetToDefault={isSetToDefault}
+        />
+      }
     />
   )
 }

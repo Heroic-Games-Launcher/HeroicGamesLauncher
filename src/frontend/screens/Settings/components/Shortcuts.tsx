@@ -4,6 +4,7 @@ import { ToggleSwitch } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useGlobalConfig } from 'frontend/hooks/config'
 import SettingsContext from '../SettingsContext'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const Shortcuts = () => {
   const { t } = useTranslation()
@@ -63,8 +64,12 @@ const Shortcuts = () => {
             'setting.adddesktopshortcuts',
             'Add desktop shortcuts automatically'
           )}
-          isSetToDefaultValue={desktopShortcutsSetToDefault}
-          resetToDefaultValue={desktopShortcutsResetToDefault}
+          inlineElement={
+            <ResetToDefaultButton
+              resetToDefault={desktopShortcutsResetToDefault}
+              isSetToDefault={desktopShortcutsSetToDefault}
+            />
+          }
         />
       )}
 
@@ -75,8 +80,12 @@ const Shortcuts = () => {
           setAddStartMenuShortcuts(!addStartMenuShortcuts)
         }
         title={menuShortcutsLabel}
-        isSetToDefaultValue={startMenuShortcutsSetToDefault}
-        resetToDefaultValue={startMenuShortctusResetToDefault}
+        inlineElement={
+          <ResetToDefaultButton
+            resetToDefault={startMenuShortctusResetToDefault}
+            isSetToDefault={startMenuShortcutsSetToDefault}
+          />
+        }
       />
 
       <ToggleSwitch
@@ -84,8 +93,12 @@ const Shortcuts = () => {
         value={addSteamShortcuts}
         handleChange={async () => setAddSteamShortcuts(!addSteamShortcuts)}
         title={t('setting.addgamestosteam', 'Add games to Steam automatically')}
-        isSetToDefaultValue={steamShortcutsSetToDefault}
-        resetToDefaultValue={steamShortctusResetToDefault}
+        inlineElement={
+          <ResetToDefaultButton
+            resetToDefault={steamShortctusResetToDefault}
+            isSetToDefault={steamShortcutsSetToDefault}
+          />
+        }
       />
     </>
   )

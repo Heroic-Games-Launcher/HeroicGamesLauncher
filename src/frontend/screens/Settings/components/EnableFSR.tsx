@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import SettingsContext from '../SettingsContext'
 import { useSharedConfig } from 'frontend/hooks/config'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const EnableFSR = () => {
   const { t } = useTranslation()
@@ -32,8 +33,12 @@ const EnableFSR = () => {
             'setting.enableFSRHack',
             'Enable FSR Hack (Wine version needs to support it)'
           )}
-          isSetToDefaultValue={isSetToDefault}
-          resetToDefaultValue={resetToDefaultValue}
+          inlineElement={
+            <ResetToDefaultButton
+              resetToDefault={resetToDefaultValue}
+              isSetToDefault={isSetToDefault}
+            />
+          }
         />
 
         <FontAwesomeIcon

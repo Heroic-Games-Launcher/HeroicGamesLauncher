@@ -4,6 +4,7 @@ import { ToggleSwitch } from 'frontend/components/UI'
 import { useSharedConfig } from 'frontend/hooks/config'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const EnableEsync = () => {
   const { t } = useTranslation()
@@ -18,8 +19,12 @@ const EnableEsync = () => {
         value={enableEsync || false}
         handleChange={async () => setEnableEsync(!enableEsync)}
         title={t('setting.esync', 'Enable Esync')}
-        isSetToDefaultValue={isSetToDefault}
-        resetToDefaultValue={resetToDefaultValue}
+        inlineElement={
+          <ResetToDefaultButton
+            resetToDefault={resetToDefaultValue}
+            isSetToDefault={isSetToDefault}
+          />
+        }
       />
 
       <FontAwesomeIcon
