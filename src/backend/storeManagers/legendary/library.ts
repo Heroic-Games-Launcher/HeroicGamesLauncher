@@ -216,8 +216,10 @@ export function getGameInfo(
 export async function getInstallInfo(
   appName: string,
   installPlatform: InstallPlatform,
-  retries = 3
+  options?: { retries?: number }
 ): Promise<LegendaryInstallInfo> {
+  const retries = options?.retries
+
   const cache = installStore.get(appName)
   if (cache && cache.manifest) {
     logDebug('Using cached install info', LogPrefix.Legendary)
@@ -245,11 +247,15 @@ export async function getInstallInfo(
       installStore.set(appName, info)
       return info
     } else {
-      if (retries > 0) {
+      const nextRetry = retries !== undefined ? retries - 1 : 3
+      if (nextRetry > 0) {
         logWarning(
           `Install info for ${appName} does not include manifest data. Retrying.`
         )
-        return await getInstallInfo(appName, installPlatform, retries - 1)
+        const retriedInfo = await getInstallInfo(appName, installPlatform, {
+          retries: nextRetry
+        })
+        return retriedInfo
       } else {
         throw Error(
           `Install info for ${appName} does not include manifest data after 3 retries.`
