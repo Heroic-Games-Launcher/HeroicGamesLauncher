@@ -100,8 +100,8 @@ import {
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
-  appendGameLog,
-  initGameLog,
+  appendGamePlayLog,
+  initGamePlayLog,
   initLogger,
   logChangedSetting,
   logDebug,
@@ -1033,10 +1033,10 @@ ipcMain.handle(
       powerDisplayId = powerSaveBlocker.start('prevent-display-sleep')
     }
 
-    initGameLog(game)
+    initGamePlayLog(game)
 
     if (logsDisabled) {
-      appendGameLog(
+      appendGamePlayLog(
         game,
         'IMPORTANT: Logs are disabled. Enable logs before reporting an issue.'
       )
@@ -1081,7 +1081,7 @@ ipcMain.handle(
     const launchResult = await command
       .catch((exception) => {
         logError(exception, LogPrefix.Backend)
-        appendGameLog(
+        appendGamePlayLog(
           game,
           `An exception occurred when launching the game:\n${exception.stack}`
         )

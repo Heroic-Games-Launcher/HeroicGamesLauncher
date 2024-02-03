@@ -1,15 +1,12 @@
-import {
-  existsSync,
-  openSync,
-  readdirSync,
-  unlinkSync,
-  appendFileSync
-} from 'graceful-fs'
+import { existsSync, readdirSync, unlinkSync } from 'graceful-fs'
 
-import { configStore, currentLogFile } from '../constants'
+import { configStore } from '../constants'
 import { app } from 'electron'
 import { join } from 'path'
 import {
+  appendHeroicLog,
+  initHeroicLog,
+  initRunnerLog,
   lastPlayLogFileLocation,
   logError,
   LogPrefix,
@@ -26,17 +23,6 @@ interface createLogFileReturn {
 
 let longestPrefix = 0
 export const getLongestPrefix = (): number => longestPrefix
-
-const createLogFile = (filePath: string) => {
-  try {
-    openSync(filePath, 'w')
-  } catch (error) {
-    logError([`Open ${filePath} failed with`, error], {
-      prefix: LogPrefix?.Backend,
-      skipLogToFile: true
-    })
-  }
-}
 
 /**
  * Creates a new log file in heroic config path under folder Logs.
@@ -55,10 +41,10 @@ export function createNewLogFileAndClearOldOnes(): createLogFileReturn {
   const newGogdlLogFile = join(logDir, `${fmtDate}-gogdl.log`)
   const newNileLogFile = join(logDir, `${fmtDate}-nile.log`)
 
-  createLogFile(newLogFile)
-  createLogFile(newLegendaryLogFile)
-  createLogFile(newGogdlLogFile)
-  createLogFile(newNileLogFile)
+  initHeroicLog(newLogFile)
+  initRunnerLog('legendary', newLegendaryLogFile)
+  initRunnerLog('gog', newGogdlLogFile)
+  initRunnerLog('nile', newNileLogFile)
 
   const logs = configStore.get('general-logs', {
     currentLogFile: '',
@@ -150,8 +136,8 @@ export function getLogFile(appNameOrRunner: string): string {
  */
 export function appendMessageToLogFile(message: string) {
   try {
-    if (!logsDisabled && currentLogFile) {
-      appendFileSync(currentLogFile, `${message}\n`)
+    if (!logsDisabled) {
+      appendHeroicLog(`${message}\n`)
     }
   } catch (error) {
     logError(['Writing log file failed with', error], {

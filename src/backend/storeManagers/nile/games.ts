@@ -20,7 +20,7 @@ import {
 } from './library'
 import {
   LogPrefix,
-  appendGameLog,
+  appendGamePlayLog,
   logDebug,
   logError,
   logFileLocation,
@@ -320,7 +320,7 @@ export async function launch(
   } = await prepareLaunch(gameSettings, gameInfo, isNative())
 
   if (!launchPrepSuccess) {
-    appendGameLog(gameInfo, `Launch aborted: ${launchPrepFailReason}`)
+    appendGamePlayLog(gameInfo, `Launch aborted: ${launchPrepFailReason}`)
     showDialogBoxModalAuto({
       title: t('box.error.launchAborted', 'Launch aborted'),
       message: launchPrepFailReason!,
@@ -360,7 +360,7 @@ export async function launch(
       envVars: wineEnvVars
     } = await prepareWineLaunch('nile', appName)
     if (!wineLaunchPrepSuccess) {
-      appendGameLog(gameInfo, `Launch aborted: ${wineLaunchPrepFailReason}`)
+      appendGamePlayLog(gameInfo, `Launch aborted: ${wineLaunchPrepFailReason}`)
       if (wineLaunchPrepFailReason) {
         showDialogBoxModalAuto({
           title: t('box.error.launchAborted', 'Launch aborted'),
@@ -406,7 +406,7 @@ export async function launch(
     commandEnv,
     join(...Object.values(getNileBin()))
   )
-  appendGameLog(gameInfo, `Launch Command: ${fullCommand}\n\nGame Log:\n`)
+  appendGamePlayLog(gameInfo, `Launch Command: ${fullCommand}\n\nGame Log:\n`)
 
   sendGameStatusUpdate({ appName, runner: 'nile', status: 'playing' })
 
@@ -422,7 +422,7 @@ export async function launch(
     wrappers,
     logMessagePrefix: `Launching ${gameInfo.title}`,
     onOutput(output) {
-      if (!logsDisabled) appendGameLog(gameInfo, output)
+      if (!logsDisabled) appendGamePlayLog(gameInfo, output)
     }
   })
 

@@ -39,7 +39,7 @@ import {
   isSnap
 } from './constants'
 import {
-  appendGameLog,
+  appendGamePlayLog,
   logError,
   logInfo,
   LogPrefix,
@@ -913,7 +913,7 @@ export async function checkWineBeforeLaunch(
         LogPrefix.Backend
       )
 
-      appendGameLog(
+      appendGamePlayLog(
         gameInfo,
         `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`
       )
