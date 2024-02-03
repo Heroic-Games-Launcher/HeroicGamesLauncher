@@ -778,6 +778,7 @@ export interface UploadedLogData {
 
 export interface RunnerCommandStub {
   commandParts: string[]
-  stdout: string
+  response?: Promise<ExecResult>
+  stdout?: string
   stderr?: string
 }
