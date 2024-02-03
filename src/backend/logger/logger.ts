@@ -10,12 +10,12 @@ import { appendMessageToLogFile, getLongestPrefix } from './logfile'
 import { backendEvents } from 'backend/backend_events'
 import { GlobalConfig } from 'backend/config'
 import { getGOGdlBin, getLegendaryBin } from 'backend/utils'
-import { join } from 'path'
+import { dirname, join } from 'path'
 import { formatSystemInfo, getSystemInfo } from '../utils/systeminfo'
 import { appendFile, writeFile } from 'fs/promises'
 import { gamesConfigPath, isWindows } from 'backend/constants'
 import { gameManagerMap } from 'backend/storeManagers'
-import { openSync } from 'graceful-fs'
+import { existsSync, mkdirSync, openSync } from 'graceful-fs'
 
 export enum LogPrefix {
   General = '',
@@ -414,6 +414,10 @@ class LogWriter {
   async initLog() {
     if (this.filePath) {
       try {
+        const dir = dirname(this.filePath)
+        if (dir && !existsSync(dir)) {
+          mkdirSync(dir)
+        }
         openSync(this.filePath, 'w')
         this.initialized = true
       } catch (error) {
@@ -495,9 +499,9 @@ export function appendGamePlayLog(gameInfo: GameInfo, message: string) {
   logsWriters[`${gameInfo.app_name}-lastPlay`]?.logMessage(message)
 }
 
-export function initGamePlayLog(gameInfo: GameInfo) {
+export async function initGamePlayLog(gameInfo: GameInfo) {
   logsWriters[`${gameInfo.app_name}-lastPlay`] ??= new GameLogWriter(gameInfo)
-  logsWriters[`${gameInfo.app_name}-lastPlay`].initLog()
+  return logsWriters[`${gameInfo.app_name}-lastPlay`].initLog()
 }
 
 export function stopLogger(appName: string) {
@@ -522,9 +526,9 @@ export function appendRunnerLog(runner: Runner, message: string) {
   logsWriters[runner]?.logMessage(message)
 }
 
-export function initRunnerLog(runner: Runner, filePath: string) {
+export async function initRunnerLog(runner: Runner, filePath: string) {
   logsWriters[runner] ??= new RunnerLogWriter(runner, filePath)
-  logsWriters[runner].initLog()
+  return logsWriters[runner].initLog()
 }
 
 // LogWriter subclass to write general Heroic logs
@@ -539,9 +543,9 @@ export function appendHeroicLog(message: string) {
   logsWriters['heroic']?.logMessage(message)
 }
 
-export function initHeroicLog(filePath: string) {
+export async function initHeroicLog(filePath: string) {
   logsWriters['heroic'] ??= new HeroicLogWriter(filePath)
-  logsWriters['heroic'].initLog()
+  return logsWriters['heroic'].initLog()
 }
 
 // LogWriter subclass to log install/update for a given game
@@ -556,9 +560,9 @@ export function appendGameLog(appName: string, message: string) {
   logsWriters[appName]?.logMessage(message)
 }
 
-export function initGameLog(appName: string) {
+export async function initGameLog(appName: string) {
   logsWriters[appName] ??= new GameInstallLogWriter(appName)
-  logsWriters[appName].initLog()
+  return logsWriters[appName].initLog()
 }
 
 // LogWriter subclass to log to an explicit logFile
@@ -574,7 +578,7 @@ export function appendFileLog(filePath: string, message: string) {
   logsWriters[filePath]?.logMessage(message)
 }
 
-export function initFileLog(filePath: string) {
+export async function initFileLog(filePath: string) {
   logsWriters[filePath] ??= new FileLogWriter(filePath)
-  logsWriters[filePath].initLog()
+  return logsWriters[filePath].initLog()
 }
