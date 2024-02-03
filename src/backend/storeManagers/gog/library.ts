@@ -495,7 +495,7 @@ export function getInstallAndGameInfo(slug: string): GameInfo | undefined {
  * Contains data like download size
  * @param appName
  * @param installPlatform
- * @param options
+ * @param options object with a `branch` ('null' if undefined) and `build` properties
  * @returns InstallInfo object
  */
 export async function getInstallInfo(
