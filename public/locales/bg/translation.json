@@ -628,7 +628,7 @@
         "addgamestoapplications": "Автоматично добавяне на игрите към приложенията",
         "showMetalOverlay": "Показване на слой със статистики",
         "alt-nile-bin": "Избиране на алтернативен изпълним файл на Nile",
-        "autodxvknvapi": "Автоматично инсталиране/обновяване на DXVK/VKD3D в префикса",
+        "autodxvknvapi": "Автоматично инсталиране/обновяване на DXVK-NVAPI в префикса",
         "experimental_features": {
             "enableNewShinyFeature": "Нова функционалност",
             "enableNewDesign": "Нов дизайн"
