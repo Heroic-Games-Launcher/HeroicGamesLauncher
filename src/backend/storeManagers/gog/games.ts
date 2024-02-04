@@ -375,12 +375,10 @@ export async function install(
 
   // Installation succeded
   // Save new game info to installed games store
-  const installInfo = await getInstallInfo(
-    appName,
-    installPlatform,
+  const installInfo = await getInstallInfo(appName, installPlatform, {
     branch,
     build
-  )
+  })
   if (installInfo === undefined) {
     logError('install info is undefined in GOG install', LogPrefix.Gog)
     return { status: 'error' }
@@ -1096,8 +1094,10 @@ export async function update(
     const installInfo = await getInstallInfo(
       appName,
       gameData.install.platform ?? 'windows',
-      updateOverwrites?.branch,
-      updateOverwrites?.build
+      {
+        branch: updateOverwrites?.branch,
+        build: updateOverwrites?.build
+      }
     )
     // TODO: use installInfo.game.builds
     const { etag } = await getMetaResponse(

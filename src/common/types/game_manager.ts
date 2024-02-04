@@ -78,8 +78,12 @@ export interface LibraryManager {
   getInstallInfo: (
     appName: string,
     installPlatform: InstallPlatform,
-    branch?: string,
-    build?: string
+    options: {
+      branch?: string
+      build?: string
+      lang?: string
+      retries?: number
+    }
   ) => Promise<InstallInfo | undefined>
   listUpdateableGames: () => Promise<string[]>
   changeGameInstallPath: (appName: string, newPath: string) => Promise<void>
