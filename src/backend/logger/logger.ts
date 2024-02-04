@@ -384,7 +384,7 @@ class LogWriter {
     if (this.initialized && !this.timeoutId) this.appendMessages()
   }
 
-  async initLog() {
+  async initLog(afterInit: Promise<string> | null) {
     const { app_name, runner } = this.gameInfo
 
     const notNative =
@@ -430,6 +430,10 @@ class LogWriter {
         `Game launched at: ${startPlayingDate}\n\n`
       )
 
+      if (afterInit) {
+        await appendFile(this.filePath, await afterInit)
+      }
+
       this.initialized = true
     } catch (error) {
       logError(
@@ -467,9 +471,12 @@ export function appendGameLog(gameInfo: GameInfo, message: string) {
   logsWriters[gameInfo.app_name]?.logMessage(message)
 }
 
-export function initGameLog(gameInfo: GameInfo) {
+export function initGameLog(
+  gameInfo: GameInfo,
+  afterInit: Promise<string> | null
+) {
   logsWriters[gameInfo.app_name] ??= new LogWriter(gameInfo)
-  logsWriters[gameInfo.app_name].initLog()
+  logsWriters[gameInfo.app_name].initLog(afterInit)
 }
 
 export function stopLogger(appName: string) {

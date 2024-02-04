@@ -1033,15 +1033,6 @@ ipcMain.handle(
       powerDisplayId = powerSaveBlocker.start('prevent-display-sleep')
     }
 
-    initGameLog(game)
-
-    if (logsDisabled) {
-      appendGameLog(
-        game,
-        'IMPORTANT: Logs are disabled. Enable logs before reporting an issue.'
-      )
-    }
-
     const isNative = gameManagerMap[runner].isNative(appName)
 
     // check if isNative, if not, check if wine is valid
@@ -1064,6 +1055,25 @@ ipcMain.handle(
 
         return { status: 'error' }
       }
+    }
+
+    // log installed winetricks packages if non Native
+    const afterLogInit = !isNative
+      ? Winetricks.listInstalled(runner, appName).then((installedPackages) => {
+          const packagesString = installedPackages
+            ? installedPackages.join(', ')
+            : 'none'
+          return `Winetricks packages: ${packagesString}\n\n`
+        })
+      : null
+
+    initGameLog(game, afterLogInit)
+
+    if (logsDisabled) {
+      appendGameLog(
+        game,
+        'IMPORTANT: Logs are disabled. Enable logs before reporting an issue.'
+      )
     }
 
     sendGameStatusUpdate({
