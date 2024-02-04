@@ -655,7 +655,7 @@
         "addgamestoapplications": "自动将游戏添加到应用程序",
         "showMetalOverlay": "显示统计数据叠加",
         "alt-nile-bin": "选择替代尼罗河二进制",
-        "autodxvknvapi": "在前置自动安装并更新 DXVK",
+        "autodxvknvapi": "在前置自动安装并更新 DXVK-NVAPI",
         "experimental_features": {
             "enableNewShinyFeature": "新功能",
             "enableNewDesign": "新设计",

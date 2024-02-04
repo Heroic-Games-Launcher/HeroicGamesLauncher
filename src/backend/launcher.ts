@@ -17,12 +17,7 @@ import {
 // This handles launching games, prefix creation etc..
 
 import i18next from 'i18next'
-import {
-  existsSync,
-  mkdirSync,
-  appendFileSync,
-  writeFileSync
-} from 'graceful-fs'
+import { existsSync, mkdirSync } from 'graceful-fs'
 import { join, normalize } from 'path'
 
 import {
@@ -46,6 +41,11 @@ import {
   sendGameStatusUpdate
 } from './utils'
 import {
+  appendFileLog,
+  appendGameLog,
+  appendRunnerLog,
+  initFileLog,
+  initGameLog,
   logDebug,
   logError,
   logInfo,
@@ -894,7 +894,7 @@ async function runWineCommand({
       }
 
       if (options?.logFile && existsSync(options.logFile)) {
-        appendFileSync(
+        appendFileLog(
           options.logFile,
           `Wine Command: ${bin} ${commandParts.join(' ')}\n\nGame Log:\n`
         )
@@ -906,7 +906,7 @@ async function runWineCommand({
 
     child.stdout.on('data', (data: string) => {
       if (!logsDisabled && options?.logFile) {
-        appendFileSync(options.logFile, data)
+        appendFileLog(options.logFile, data)
       }
 
       if (options?.onOutput) {
@@ -918,7 +918,7 @@ async function runWineCommand({
 
     child.stderr.on('data', (data: string) => {
       if (!logsDisabled && options?.logFile) {
-        appendFileSync(options.logFile, data)
+        appendFileLog(options.logFile, data)
       }
 
       if (options?.onOutput) {
@@ -995,14 +995,18 @@ async function callRunner(
     }
 
     if (options?.verboseLogFile) {
-      appendFileSync(
-        options.verboseLogFile,
+      appendRunnerLog(
+        runner.name,
         `[${new Date().toLocaleString()}] ${safeCommand}\n`
       )
     }
 
-    if (options?.logFile && existsSync(options.logFile)) {
-      writeFileSync(options.logFile, '')
+    if (options?.logFile) {
+      if (appName) {
+        initGameLog(appName)
+      } else {
+        initFileLog(options.logFile)
+      }
     }
   }
 
@@ -1038,11 +1042,15 @@ async function callRunner(
 
       if (!logsDisabled) {
         if (options?.logFile) {
-          appendFileSync(options.logFile, stringToLog)
+          if (appName) {
+            appendGameLog(appName, stringToLog)
+          } else {
+            appendFileLog(options.logFile, stringToLog)
+          }
         }
 
         if (options?.verboseLogFile) {
-          appendFileSync(options.verboseLogFile, stringToLog)
+          appendRunnerLog(runner.name, stringToLog)
         }
       }
 
@@ -1061,11 +1069,15 @@ async function callRunner(
 
       if (!logsDisabled) {
         if (options?.logFile) {
-          appendFileSync(options.logFile, stringToLog)
+          if (appName) {
+            appendGameLog(appName, stringToLog)
+          } else {
+            appendFileLog(options.logFile, stringToLog)
+          }
         }
 
         if (options?.verboseLogFile) {
-          appendFileSync(options.verboseLogFile, stringToLog)
+          appendRunnerLog(runner.name, stringToLog)
         }
       }
 

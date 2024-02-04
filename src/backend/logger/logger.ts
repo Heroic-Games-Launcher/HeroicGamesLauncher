@@ -4,17 +4,18 @@
  *        Note that with console.log and console.warn everything will be saved too.
  *        error equals console.error
  */
-import { AppSettings, GameInfo, GameSettings } from 'common/types'
+import { AppSettings, GameInfo, GameSettings, Runner } from 'common/types'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
 import { appendMessageToLogFile, getLongestPrefix } from './logfile'
 import { backendEvents } from 'backend/backend_events'
 import { GlobalConfig } from 'backend/config'
 import { getGOGdlBin, getLegendaryBin } from 'backend/utils'
-import { join } from 'path'
+import { dirname, join } from 'path'
 import { formatSystemInfo, getSystemInfo } from '../utils/systeminfo'
 import { appendFile, writeFile } from 'fs/promises'
 import { gamesConfigPath, isWindows } from 'backend/constants'
 import { gameManagerMap } from 'backend/storeManagers'
+import { existsSync, mkdirSync, openSync } from 'graceful-fs'
 
 export enum LogPrefix {
   General = '',
@@ -358,18 +359,21 @@ export function logFileLocation(appName: string) {
 
 const logsWriters: Record<string, LogWriter> = {}
 
+// Base abstract class for all LogWriters
 class LogWriter {
-  gameInfo: GameInfo
   queue: string[]
   initialized: boolean
-  timeoutId: NodeJS.Timeout | undefined
   filePath: string
+  timeoutId: NodeJS.Timeout | undefined
 
-  constructor(gameInfo: GameInfo) {
-    this.gameInfo = gameInfo
+  constructor() {
     this.initialized = false
-    this.filePath = lastPlayLogFileLocation(gameInfo.app_name)
     this.queue = []
+    this.filePath = ''
+
+    if (new.target === LogWriter) {
+      throw new Error('LogWriter is an abstract class')
+    }
   }
 
   logMessage(message: string) {
@@ -382,6 +386,57 @@ class LogWriter {
     // otherwise it means there's a timeout already running that will
     // write the elements in the queue in a second
     if (this.initialized && !this.timeoutId) this.appendMessages()
+  }
+
+  async appendMessages() {
+    const messagesToWrite = this.queue
+
+    // clear pending message if any
+    this.queue = []
+
+    // clear timeout if any
+    delete this.timeoutId
+
+    if (!messagesToWrite?.length) return
+
+    // if we have messages, write them and check again in 1 second
+    // we start the timeout before writing so we don't wait until
+    // the disk write
+    this.timeoutId = setTimeout(async () => this.appendMessages(), 1000)
+
+    try {
+      await appendFile(this.filePath, messagesToWrite.join(''))
+    } catch (error) {
+      // ignore failures if messages could not be written
+    }
+  }
+
+  async initLog() {
+    if (this.filePath) {
+      try {
+        const dir = dirname(this.filePath)
+        if (dir && !existsSync(dir)) {
+          mkdirSync(dir)
+        }
+        openSync(this.filePath, 'w')
+        this.initialized = true
+      } catch (error) {
+        logError([`Open ${this.filePath} failed with`, error], {
+          prefix: LogPrefix?.Backend,
+          skipLogToFile: true
+        })
+      }
+    }
+  }
+}
+
+class GameLogWriter extends LogWriter {
+  gameInfo: GameInfo
+
+  constructor(gameInfo: GameInfo) {
+    super()
+    this.gameInfo = gameInfo
+    this.filePath = lastPlayLogFileLocation(gameInfo.app_name)
   }
 
   async initLog() {
@@ -438,43 +493,92 @@ class LogWriter {
       )
     }
   }
-
-  async appendMessages() {
-    const messagesToWrite = this.queue
-
-    // clear pending message if any
-    this.queue = []
-
-    // clear timeout if any
-    delete this.timeoutId
-
-    if (!messagesToWrite?.length) return
-
-    // if we have messages, write them and check again in 1 second
-    // we start the timeout before writing so we don't wait until
-    // the disk write
-    this.timeoutId = setTimeout(async () => this.appendMessages(), 1000)
-
-    try {
-      await appendFile(this.filePath, messagesToWrite.join(''))
-    } catch (error) {
-      // ignore failures if messages could not be written
-    }
-  }
 }
 
-export function appendGameLog(gameInfo: GameInfo, message: string) {
-  logsWriters[gameInfo.app_name]?.logMessage(message)
+export function appendGamePlayLog(gameInfo: GameInfo, message: string) {
+  logsWriters[`${gameInfo.app_name}-lastPlay`]?.logMessage(message)
 }
 
-export function initGameLog(gameInfo: GameInfo) {
-  logsWriters[gameInfo.app_name] ??= new LogWriter(gameInfo)
-  logsWriters[gameInfo.app_name].initLog()
+export async function initGamePlayLog(gameInfo: GameInfo) {
+  logsWriters[`${gameInfo.app_name}-lastPlay`] ??= new GameLogWriter(gameInfo)
+  return logsWriters[`${gameInfo.app_name}-lastPlay`].initLog()
 }
 
 export function stopLogger(appName: string) {
-  logsWriters[appName].logMessage(
-    '============= End of game logs ============='
+  logsWriters[`${appName}-lastPlay`]?.logMessage(
+    '============= End of log ============='
   )
-  delete logsWriters[appName]
+  delete logsWriters[`${appName}-lastPlay`]
+}
+
+// LogWriter subclass to log to latest runner logs
+class RunnerLogWriter extends LogWriter {
+  runner: Runner
+
+  constructor(runner: Runner, filePath: string) {
+    super()
+    this.filePath = filePath
+    this.runner = runner
+  }
+}
+
+export function appendRunnerLog(runner: Runner, message: string) {
+  logsWriters[runner]?.logMessage(message)
+}
+
+export async function initRunnerLog(runner: Runner, filePath: string) {
+  logsWriters[runner] ??= new RunnerLogWriter(runner, filePath)
+  return logsWriters[runner].initLog()
+}
+
+// LogWriter subclass to write general Heroic logs
+class HeroicLogWriter extends LogWriter {
+  constructor(filePath: string) {
+    super()
+    this.filePath = filePath
+  }
+}
+
+export function appendHeroicLog(message: string) {
+  logsWriters['heroic']?.logMessage(message)
+}
+
+export async function initHeroicLog(filePath: string) {
+  logsWriters['heroic'] ??= new HeroicLogWriter(filePath)
+  return logsWriters['heroic'].initLog()
+}
+
+// LogWriter subclass to log install/update for a given game
+class GameInstallLogWriter extends LogWriter {
+  constructor(appName: string) {
+    super()
+    this.filePath = logFileLocation(appName)
+  }
+}
+
+export function appendGameLog(appName: string, message: string) {
+  logsWriters[appName]?.logMessage(message)
+}
+
+export async function initGameLog(appName: string) {
+  logsWriters[appName] ??= new GameInstallLogWriter(appName)
+  return logsWriters[appName].initLog()
+}
+
+// LogWriter subclass to log to an explicit logFile
+// Useful to log anything that is not specific
+class FileLogWriter extends LogWriter {
+  constructor(filePath: string) {
+    super()
+    this.filePath = filePath
+  }
+}
+
+export function appendFileLog(filePath: string, message: string) {
+  logsWriters[filePath]?.logMessage(message)
+}
+
+export async function initFileLog(filePath: string) {
+  logsWriters[filePath] ??= new FileLogWriter(filePath)
+  return logsWriters[filePath].initLog()
 }
