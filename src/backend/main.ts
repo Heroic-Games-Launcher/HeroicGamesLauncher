@@ -1045,6 +1045,14 @@ ipcMain.handle(
           LogPrefix.Backend
         )
 
+        // init game log and show error message
+        initGameLog(
+          game,
+          Promise.resolve(
+            `Was not possible to launch using ${gameSettings.wineVersion.name}`
+          )
+        )
+
         sendGameStatusUpdate({
           appName,
           runner,
@@ -1055,19 +1063,22 @@ ipcMain.handle(
 
         return { status: 'error' }
       }
-    }
 
-    // log installed winetricks packages if non Native
-    const afterLogInit = !isNative
-      ? Winetricks.listInstalled(runner, appName).then((installedPackages) => {
+      // init game log and log winetricks packages if non-native
+      const afterLogInit = Winetricks.listInstalled(runner, appName).then(
+        (installedPackages) => {
           const packagesString = installedPackages
             ? installedPackages.join(', ')
             : 'none'
           return `Winetricks packages: ${packagesString}\n\n`
-        })
-      : null
+        }
+      )
 
-    initGameLog(game, afterLogInit)
+      initGameLog(game, afterLogInit)
+    } else {
+      // init game log without winetricks packages if native
+      initGameLog(game, null)
+    }
 
     if (logsDisabled) {
       appendGameLog(
