@@ -779,8 +779,10 @@ ipcMain.handle(
       const info = await libraryManagerMap[runner].getInstallInfo(
         appName,
         installPlatform,
-        branch,
-        build
+        {
+          branch,
+          build
+        }
       )
       if (info === undefined) return null
       return info

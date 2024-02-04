@@ -654,7 +654,7 @@
         "addgamestoapplications": "ゲームをアプリケーションに自動的に追加する",
         "showMetalOverlay": "統計オーバーレイを表示",
         "alt-nile-bin": "代替のNileバイナリを選択する",
-        "autodxvknvapi": "プレフィックスでのDXVK/VKD3Dの自動インストール/更新",
+        "autodxvknvapi": "プレフィックスでのDXVK-NVAPIの自動インストール/更新",
         "frameless-window": {
             "confirmation": {
                 "message": "この機能はまだ実験的なものです。問題があればGitHubで報告してください。",

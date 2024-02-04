@@ -1,0 +1,94 @@
+appId: com.heroicgameslauncher.hgl
+productName: Heroic
+afterSign: sign/afterSign.js
+afterPack: sign/afterPack.js
+files:
+  - build/**/*
+  - node_modules/**/*
+  - '!build/bin/*'
+  - build/bin/legendary.LICENSE
+
+asarUnpack:
+  - build/icon.png
+  - build/icon.icns
+  - build/win_icon.ico
+  - build/icon-dark.png
+  - build/icon-light.png
+  - build/webviewPreload.js
+
+electronDownload:
+  mirror: https://github.com/castlabs/electron-releases/releases/download/v
+
+protocols:
+  - name: heroic
+    schemes:
+      - heroic
+
+win:
+  artifactName: ${productName}-${version}-Setup-${arch}.${ext}
+  icon: build/win_icon.ico
+  asarUnpack:
+    - build/bin/win32/legendary.exe
+    - build/bin/win32/gogdl.exe
+    - build/bin/win32/nile.exe
+  files: build/bin/win32/*
+
+portable:
+  artifactName: ${productName}-${version}-Portable-${arch}.${ext}
+
+mac:
+  artifactName: ${productName}-${version}-macOS-${arch}.${ext}
+  category: public.app-category.games
+  icon: build/icon.icns
+  entitlements: build/entitlements.mac.plist
+  entitlementsInherit: build/entitlements.mac.plist
+  extendInfo:
+    com.apple.security.cs.allow-jit: true
+  asarUnpack:
+    - build/bin/darwin/legendary
+    - build/bin/darwin/gogdl
+    - build/bin/darwin/nile
+  files:
+    - build/bin/darwin/*
+
+dmg:
+  background: public/dmg.png
+  window:
+    width: 600
+    height: 500
+  contents:
+    - x: 10
+      y: 215
+      type: file
+    - x: 420
+      y: 215
+      type: link
+      path: /Applications
+
+linux:
+  category: Game
+  icon: build/icon.icns
+  description: An Open Source Launcher for GOG and Epic Games
+  desktop:
+    Name: Heroic Games Launcher
+    Comment[de]: Ein Open Source Spielelauncher for GOG und Epic Games
+  asarUnpack:
+    - build/bin/linux/legendary
+    - build/bin/linux/gogdl
+    - build/bin/linux/nile
+    - build/bin/linux/vulkan-helper
+  files:
+    - build/bin/linux/*
+
+snap:
+  base: core20
+  confinement: strict
+  grade: stable
+  category: Games
+  synopsis: An Open Source Launcher for GOG Amazon and Epic Games
+  description: Heroic is an Open Source Games Launcher. Right now it supports launching games from the Epic Games Store using Legendary Amazon Games using Nile and GOG Games using our custom implementations Nile and gogdl.
+  publish:
+    provider: snapStore
+    channels:
+      - edge
+    repo: heroic

@@ -595,7 +595,7 @@
         "addgamestoapplications": "بازی ها را به طور خودکار به برنامه ها اضافه کنید",
         "showMetalOverlay": "نمایش همپوشانی آمار",
         "alt-nile-bin": "یک باینری جایگزین نیل را انتخاب کنید",
-        "autodxvknvapi": "نصب/بهروزرسانی خودکار DXVK در Prefix"
+        "autodxvknvapi": "نصب/بهروزرسانی خودکار DXVK-NVAPI در Prefix"
     },
     "settings": {
         "battlEyeRuntime": {

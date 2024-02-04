@@ -72,7 +72,8 @@
         "unhide_game": "Visa dolt spel igen",
         "uninstall": "Avinstallera",
         "update": "Uppdatera",
-        "details": "Detaljer"
+        "details": "Detaljer",
+        "changelog": "Visa ändringslogg"
     },
     "cloud_save_unsupported": "Stöds ej",
     "disabled": "Inaktiverad",
@@ -94,11 +95,18 @@
         "totalPlayed": "Speltid",
         "dlcs": "DLC",
         "branch": {
-            "disabled": "Deaktiverad"
+            "disabled": "Deaktiverad",
+            "password": "Ställ in lösenord för privat kanal",
+            "select": "Välj beta kanal",
+            "setPrivateBranchPassword": "Ställ in lösenord för privat kanal"
         },
         "builds": {
-            "version": "Version"
-        }
+            "version": "Version",
+            "buildsSelector": "Välj spelversion",
+            "toggle": "Behåll spelet i en viss version"
+        },
+        "changelogFor": "Ändringslogg för {{gameTitle}}",
+        "modify": "Modifiera installation"
     },
     "gamecard": {
         "moving": "Flyttar",
@@ -160,7 +168,8 @@
         "launching": "Startar",
         "ubisoft": "Installera Ubisoft Connect",
         "winetricks": "Installerar Winetricks paket",
-        "prerequisites": "Installerar krav"
+        "prerequisites": "Installerar krav",
+        "redist": "Installerar Redistributables"
     },
     "launch": {
         "options": "Startalternativ..."
@@ -230,7 +239,8 @@
         "gog-goodie": "Det här spelet verkar inte gå att installera. Kontrollera nedladdningsbart innehåll på https://gog.com/account",
         "goodie": "Ej installationsbar",
         "prerequisites": "Installerar krav",
-        "winetricks": "Verkställer Winetricks fixar"
+        "winetricks": "Verkställer Winetricks fixar",
+        "redist": "Installerar Redistributables ({{redist}})"
     },
     "submenu": {
         "addShortcut": "Skapa genväg",
@@ -257,5 +267,14 @@
         "title": {
             "gamePage": "Spelsida"
         }
+    },
+    "modifyInstall": {
+        "redMod": {
+            "collapsible": "REDmod Integration",
+            "enable": "Aktivera moddar"
+        },
+        "dlcsCollapsible": "DLC",
+        "versionCollapsable": "Spelversion",
+        "nodlcs": "Ingen DLC tillgänglig"
     }
 }
