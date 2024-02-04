@@ -956,8 +956,10 @@ function appNameFromCommandParts(commandParts: string[], runner: Runner) {
         // for GOGdl, between `launch` and the app name there's another element
         appNameIndex = idx + 2
       } else {
-        // for the `download` command it's right after
-        idx = commandParts.findIndex((value) => value === 'download')
+        // for the `download`, `repair` and `update` command it's right after
+        idx = commandParts.findIndex((value) =>
+          ['download', 'repair', 'update'].includes(value)
+        )
         if (idx > -1) {
           appNameIndex = idx + 1
         }
@@ -966,7 +968,7 @@ function appNameFromCommandParts(commandParts: string[], runner: Runner) {
     case 'legendary':
       // for legendary, the appName comes right after the commands
       idx = commandParts.findIndex((value) =>
-        ['launch', 'install'].includes(value)
+        ['launch', 'install', 'repair', 'update'].includes(value)
       )
       if (idx > -1) {
         appNameIndex = idx + 1
@@ -975,7 +977,7 @@ function appNameFromCommandParts(commandParts: string[], runner: Runner) {
     case 'nile':
       // for nile, we pass the appName as the last command part
       idx = commandParts.findIndex((value) =>
-        ['launch', 'install'].includes(value)
+        ['launch', 'install', 'update', 'verify'].includes(value)
       )
       if (idx > -1) {
         appNameIndex = commandParts.length - 1
