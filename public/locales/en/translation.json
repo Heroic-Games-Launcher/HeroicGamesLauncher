@@ -76,6 +76,10 @@
                 "message": "Something went wrong with the update, please check the logs or try again later!",
                 "title": "Update Error"
             },
+            "wine-lol-not-lol": {
+                "message": "Wine-GE-Proton-LoL is being used for a game that is not \"League of Legends\". Please install a Wine-GE-Proton version that does not end in -LoL using the Wine Manager section and configure it in the game's settings.",
+                "title": "Incompatible Wine Version"
+            },
             "winetricks": {
                 "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
                 "title": "Winetricks error"

@@ -78,6 +78,8 @@ import { download, isInstalled } from './wine/runtimes/runtimes'
 import { storeMap } from 'common/utils'
 import { runWineCommandOnGame } from './storeManagers/legendary/games'
 
+const leagueOfLegendsAppId = '64b0c77d07f644e6a2326a1fd7ab9926'
+
 async function prepareLaunch(
   gameSettings: GameSettings,
   gameInfo: GameInfo,
@@ -283,6 +285,25 @@ async function prepareWineLaunch(
   const gameSettings =
     GameConfig.get(appName).config ||
     (await GameConfig.get(appName).getSettings())
+
+  // warn about using Wine-GE-LoL when the game is not League Of Legends
+  if (
+    appName !== leagueOfLegendsAppId &&
+    gameSettings.wineVersion.name.endsWith('-LoL')
+  ) {
+    showDialogBoxModalAuto({
+      title: i18next.t(
+        'box.error.wine-lol-not-lol.title',
+        'Incompatible Wine Version'
+      ),
+      message: i18next.t(
+        'box.error.wine-lol-not-lol.message',
+        `Wine-GE-Proton-LoL is being used for a game that is not "League of Legends". Please install a Wine-GE-Proton version that does not end in -LoL using the Wine Manager section and configure it in the game's settings.`
+      ),
+      type: 'ERROR'
+    })
+    return { success: false }
+  }
 
   if (!(await validWine(gameSettings.wineVersion))) {
     const defaultWine = GlobalConfig.get().getSettings().wineVersion
