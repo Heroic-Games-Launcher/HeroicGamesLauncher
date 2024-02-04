@@ -77,6 +77,7 @@
                 "title": "Update Error"
             },
             "wine-lol-not-lol": {
+                "continue": "Continue anyway",
                 "message": "Wine-GE-Proton-LoL is being used for a game that is not \"League of Legends\". Please install a Wine-GE-Proton version that does not end in -LoL using the Wine Manager section and configure it in the game's settings.",
                 "title": "Incompatible Wine Version"
             },
