@@ -924,9 +924,13 @@ class GlobalState extends PureComponent<Props> {
       (game) => game.status !== 'playing' && game.status !== 'done'
     ).length
 
+    const isPlaying = libraryStatus.filter(
+      (game) => game.status === 'playing'
+    ).length
+
     if (pendingOps) {
       window.api.lock()
-    } else {
+    } else if (!isPlaying) {
       window.api.unlock()
     }
   }
