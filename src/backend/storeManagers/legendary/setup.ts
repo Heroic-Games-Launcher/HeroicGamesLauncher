@@ -28,7 +28,7 @@ export const legendarySetup = async (appName: string) => {
       '/f'
     ],
     wait: true,
-    protonVerb: 'waitforexitandrun'
+    protonVerb: 'run'
   })
 
   const winPlatforms = ['Windows', 'Win32', 'windows']
@@ -51,7 +51,7 @@ export const legendarySetup = async (appName: string) => {
             ...split(info.manifest.prerequisites.args)
           ],
           wait: true,
-          protonVerb: 'waitforexitandrun'
+          protonVerb: 'run'
         })
       }
     } catch (error) {
