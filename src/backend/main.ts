@@ -1077,7 +1077,7 @@ ipcMain.handle(
       initGameLog(game, afterLogInit)
     } else {
       // init game log without winetricks packages if native
-      initGameLog(game, null)
+      initGameLog(game)
     }
 
     if (logsDisabled) {
