@@ -25,33 +25,23 @@ describeSkipOnWindows('logger/logfile.ts', () => {
     tmpDir.removeCallback()
   })
 
-  // FIXME: this test for some reason is correct in CI but `app.getPath` returning 'invalid'
-  // is not really an invalid path locally, it just creates the path as a subdirectory of
-  // the root folder
-  //
-  // test('createNewLogFileAndClearOldOnes fails because logDir does not exist', () => {
-  //   const spyAppGetPath = jest.spyOn(app, 'getPath').mockReturnValue('invalid')
-  //   const spyOpenSync = jest.spyOn(graceful_fs, 'openSync')
+  test('createNewLogFileAndClearOldOnes fails because logDir does not exist', () => {
+    jest.spyOn(app, 'getPath').mockImplementation(() => {
+      throw Error('Some error message from getPath')
+    })
+    const consoleSpy = jest.spyOn(console, 'log')
 
-  //   logfile.createNewLogFileAndClearOldOnes()
+    const logs = logfile.createNewLogFileAndClearOldOnes()
 
-  //   const year = `${new Date().getFullYear()}`
-
-  //   expect(spyOpenSync).toBeCalledWith(
-  //     expect.stringContaining(`invalid/${year}-`),
-  //     'w'
-  //   )
-  //   expect(spyAppGetPath).toBeCalledWith('logs')
-  //   expect(logError).toBeCalledWith(
-  //     [
-  //       expect.stringContaining(`Open invalid/${year}-`),
-  //       expect.objectContaining(
-  //         Error(`ENOENT: no such file or directory, open 'invalid/${year}-`)
-  //       )
-  //     ],
-  //     { prefix: 'Backend', skipLogToFile: true }
-  //   )
-  // })
+    expect(logs.currentLogFile).toBe('')
+    expect(logs.gogdlLogFile).toBe('')
+    expect(logs.lastLogFile).toBe('')
+    expect(logs.legendaryLogFile).toBe('')
+    expect(logs.nileLogFile).toBe('')
+    expect(consoleSpy).toBeCalledWith(
+      "Could not get 'logs' directory. Error: Some error message from getPath"
+    )
+  })
 
   test('createNewLogFileAndClearOldOnes success', () => {
     jest.spyOn(app, 'getPath').mockReturnValue(tmpDir.name)

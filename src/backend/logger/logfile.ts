@@ -31,7 +31,20 @@ export const getLongestPrefix = (): number => longestPrefix
  */
 export function createNewLogFileAndClearOldOnes(): createLogFileReturn {
   const date = new Date()
-  const logDir = app.getPath('logs')
+  let logDir = ''
+  try {
+    logDir = app.getPath('logs')
+  } catch (error) {
+    console.log(`Could not get 'logs' directory. ${error}`)
+    return {
+      currentLogFile: '',
+      lastLogFile: '',
+      legendaryLogFile: '',
+      gogdlLogFile: '',
+      nileLogFile: ''
+    }
+  }
+
   const fmtDate = date
     .toISOString()
     .replaceAll(':', '_')
