@@ -945,13 +945,56 @@ interface RunnerProps {
 
 const commandsRunning = {}
 
+function appNameFromCommandParts(commandParts: string[], runner: Runner) {
+  let appNameIndex = -1
+  let idx = -1
+
+  switch (runner) {
+    case 'gog':
+      idx = commandParts.findIndex((value) => value === 'launch')
+      if (idx > -1) {
+        // for GOGdl, between `launch` and the app name there's another element
+        appNameIndex = idx + 2
+      } else {
+        // for the `download`, `repair` and `update` command it's right after
+        idx = commandParts.findIndex((value) =>
+          ['download', 'repair', 'update'].includes(value)
+        )
+        if (idx > -1) {
+          appNameIndex = idx + 1
+        }
+      }
+      break
+    case 'legendary':
+      // for legendary, the appName comes right after the commands
+      idx = commandParts.findIndex((value) =>
+        ['launch', 'install', 'repair', 'update'].includes(value)
+      )
+      if (idx > -1) {
+        appNameIndex = idx + 1
+      }
+      break
+    case 'nile':
+      // for nile, we pass the appName as the last command part
+      idx = commandParts.findIndex((value) =>
+        ['launch', 'install', 'update', 'verify'].includes(value)
+      )
+      if (idx > -1) {
+        appNameIndex = commandParts.length - 1
+      }
+      break
+  }
+
+  return appNameIndex > -1 ? commandParts[appNameIndex] : ''
+}
+
 async function callRunner(
   commandParts: string[],
   runner: RunnerProps,
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
   const fullRunnerPath = join(runner.dir, runner.bin)
-  const appName = commandParts[commandParts.findIndex(() => 'launch') + 1]
+  const appName = appNameFromCommandParts(commandParts, runner.name)
 
   // Necessary to get rid of possible undefined or null entries, else
   // TypeError is triggered
