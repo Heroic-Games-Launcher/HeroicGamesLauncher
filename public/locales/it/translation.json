@@ -629,7 +629,7 @@
         "addgamestoapplications": "Aggiungi giochi alla lista applicazioni automaticamente",
         "showMetalOverlay": "Mostra Overlay Statistiche",
         "alt-nile-bin": "Scegli un binario Nile alternativo",
-        "autodxvknvapi": "Installa/Aggiorna automaticamente DXVK/VKD3D sul Prefix",
+        "autodxvknvapi": "Installa/Aggiorna automaticamente DXVK-NVAPI sul Prefix",
         "experimental_features": {
             "enableNewShinyFeature": "Nuova funzione bellissima"
         }

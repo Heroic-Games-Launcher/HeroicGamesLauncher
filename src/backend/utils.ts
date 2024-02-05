@@ -39,7 +39,7 @@ import {
   isSnap
 } from './constants'
 import {
-  appendGameLog,
+  appendGamePlayLog,
   logError,
   logInfo,
   LogPrefix,
@@ -858,7 +858,10 @@ export async function downloadDefaultWine() {
   // use Wine-GE type if on Linux and Wine-Crossover if on Mac
   const release = availableWine.filter((version) => {
     if (isLinux) {
-      return version.version.includes('Wine-GE-Proton')
+      return (
+        version.version.includes('Wine-GE-Proton') &&
+        !version.version.endsWith('-LoL')
+      )
     } else if (isMac) {
       return version.version.includes('Wine-Crossover')
     }
@@ -913,7 +916,7 @@ export async function checkWineBeforeLaunch(
         LogPrefix.Backend
       )
 
-      appendGameLog(
+      appendGamePlayLog(
         gameInfo,
         `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`
       )

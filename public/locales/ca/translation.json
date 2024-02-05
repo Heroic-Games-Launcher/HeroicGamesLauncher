@@ -230,7 +230,8 @@
     "game": {
         "status": "Estat",
         "store": "Botiga",
-        "title": "Títol del joc"
+        "title": "Títol del joc",
+        "modify": "Modifica la instal·lació"
     },
     "generic": {
         "error": {
@@ -658,7 +659,7 @@
         "disablePlaytimeSync": "Desactiva la sincronització del temps de reproducció",
         "experimental_features": {
             "enableNewDesign": "Disseny nou",
-            "automaticWinetricksFixes": "Aplica les correccions conegudes de Winetricks de manera automàtica",
+            "automaticWinetricksFixes": "Aplica les correccions conegudes de manera automàtica",
             "enableHelp": "Component d'ajuda"
         },
         "frameless-window": {
@@ -875,5 +876,10 @@
         "delete-question": "Si continueu, es traurà la categoria i les seves assignacions de jocs permanentment. Voleu continuar?",
         "new-category": "Categoria nova",
         "add-new-category": "Afegeix una categoria nova"
+    },
+    "wineExplanation": {
+        "proton-ge": "Proton-GE-Proton és una variant del Proton creada per Glorious Eggroll. S'ha de fer servir amb l'Steam, però alguns jocs de fora de l'Steam també poden funcionar millor amb el Proton-GE-Proton. Proporciona registres generalment poc útils per a la solució de problemes.",
+        "wine-ge-lol": "El Wine-GE-Proton...-LoL estan dissenyats per a fer-los servir només amb el League of Legends. No s'han d'utilitzar aquests per a qualsevol altre joc, ja que pot causar problemes.",
+        "wine-ge": "Wine-GE-Proton és una variant del Wine creada per Glorious Eggroll. És el Wine recomanat per a fer servir fora d'Steam. Proporciona registres útils per a la solució de problemes."
     }
 }

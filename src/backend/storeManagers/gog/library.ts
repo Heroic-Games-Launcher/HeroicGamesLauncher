@@ -495,15 +495,17 @@ export function getInstallAndGameInfo(slug: string): GameInfo | undefined {
  * Contains data like download size
  * @param appName
  * @param installPlatform
- * @param lang
+ * @param options object with a `branch` ('null' if undefined) and `build` properties
  * @returns InstallInfo object
  */
 export async function getInstallInfo(
   appName: string,
   installPlatform = 'windows',
-  branch = 'null',
-  build?: string
+  options?: { branch?: string; build?: string }
 ): Promise<GogInstallInfo | undefined> {
+  const branch = options?.branch || 'null'
+  const build = options?.build
+
   installPlatform = installPlatform.toLowerCase()
   if (installPlatform === 'mac') {
     installPlatform = 'osx'
