@@ -9,8 +9,8 @@ import {
 } from 'common/types'
 import { NileRegisterData } from 'common/types/nile'
 
-export const clearCache = (showDialog?: boolean) =>
-  ipcRenderer.send('clearCache', showDialog)
+export const clearCache = (showDialog?: boolean, fromVersionChange?: boolean) =>
+  ipcRenderer.send('clearCache', showDialog, fromVersionChange)
 export const resetHeroic = () => ipcRenderer.send('resetHeroic')
 
 export const openWeblate = () => ipcRenderer.send('openWeblate')

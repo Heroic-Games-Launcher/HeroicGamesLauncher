@@ -14,11 +14,11 @@ const resolveTxtAsync = promisify(resolveTxt)
 type DeviceNameCacheKey =
   | `${string}_${string}_${string}_${string}` // DeviceSubID_VendorSubID_DeviceID_VendorID
   | `${string}_${string}` // DeviceID_VendorID
-const deviceNameCache = new CacheStore<string, DeviceNameCacheKey>(
+export const deviceNameCache = new CacheStore<string, DeviceNameCacheKey>(
   'pci_ids_device',
   60 * 24 * 7 // 7 days
 )
-const vendorNameCache = new CacheStore<string, string>(
+export const vendorNameCache = new CacheStore<string, string>(
   'pci_ids_vendor',
   60 * 24 * 7
 )

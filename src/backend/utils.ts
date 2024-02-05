@@ -84,6 +84,10 @@ import EasyDl from 'easydl'
 import decompress from '@xhmikosr/decompress'
 import decompressTargz from '@xhmikosr/decompress-targz'
 import decompressTarxz from '@felipecrs/decompress-tarxz'
+import {
+  deviceNameCache,
+  vendorNameCache
+} from './utils/systeminfo/gpu/pci_ids'
 
 const execAsync = promisify(exec)
 
@@ -367,7 +371,10 @@ async function openUrlOrFile(url: string): Promise<string | void> {
   return shell.openPath(url)
 }
 
-function clearCache(library?: 'gog' | 'legendary' | 'nile') {
+function clearCache(
+  library?: 'gog' | 'legendary' | 'nile',
+  fromVersionChange = false
+) {
   wikiGameInfoStore.clear()
   if (library === 'gog' || !library) {
     GOGapiInfoCache.clear()
@@ -386,6 +393,11 @@ function clearCache(library?: 'gog' | 'legendary' | 'nile') {
   if (library === 'nile' || !library) {
     nileInstallStore.clear()
     nileLibraryStore.clear()
+  }
+
+  if (!fromVersionChange) {
+    deviceNameCache.clear()
+    vendorNameCache.clear()
   }
 }
 

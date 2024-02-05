@@ -714,8 +714,8 @@ ipcMain.handle('getCurrentChangelog', async () => {
   return getCurrentChangelog()
 })
 
-ipcMain.on('clearCache', (event, showDialog?: boolean) => {
-  clearCache()
+ipcMain.on('clearCache', (event, showDialog, fromVersionChange = false) => {
+  clearCache(undefined, fromVersionChange)
   sendFrontendMessage('refreshLibrary')
 
   if (showDialog) {
