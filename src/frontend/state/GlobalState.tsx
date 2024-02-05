@@ -749,7 +749,7 @@ class GlobalState extends PureComponent<Props> {
 
   async componentDidMount() {
     const { t } = this.props
-    const { epic, gameUpdates = [], libraryStatus } = this.state
+    const { epic, gog, amazon, gameUpdates = [], libraryStatus } = this.state
 
     // Deals launching from protocol. Also checks if the game is already running
     window.api.handleLaunchGame(
@@ -864,7 +864,10 @@ class GlobalState extends PureComponent<Props> {
     if (legendaryUser || gogUser || amazonUser) {
       this.refreshLibrary({
         checkForUpdates: true,
-        runInBackground: Boolean(epic.library?.length)
+        runInBackground:
+          epic.library.length !== 0 ||
+          gog.library.length !== 0 ||
+          amazon.library.length !== 0
       })
     }
 
