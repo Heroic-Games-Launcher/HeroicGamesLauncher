@@ -31,6 +31,8 @@ const Gamescope = () => {
   const [fetching, setFetching] = useState(true)
   const [isInstalled, setIsInstalled] = useState(false)
 
+  const [additionalOptions, setAdditionalOptions] = useState(gamescope.additionalOptions)
+
   useEffect(() => {
     setFetching(true)
     window.api
@@ -358,7 +360,7 @@ const Gamescope = () => {
         label={t('options.gamescope.additionalOptions', 'Additional Options')}
         htmlId="additionalOptions"
         placeholder=""
-        value={gamescope.additionalOptions}
+        value={additionalOptions}
         afterInput={
           <FontAwesomeIcon
             className="helpIcon"
@@ -369,7 +371,10 @@ const Gamescope = () => {
             )}
           />
         }
-        onChange={(event: ChangeEvent<HTMLInputElement>) =>
+        onChange={(event: ChangeEvent<HTMLInputElement>) => {
+          setAdditionalOptions(event.currentTarget.value)
+        }}
+        onBlur={(event: ChangeEvent<HTMLInputElement>) =>
           setGamescope({
             ...gamescope,
             additionalOptions: event.currentTarget.value
