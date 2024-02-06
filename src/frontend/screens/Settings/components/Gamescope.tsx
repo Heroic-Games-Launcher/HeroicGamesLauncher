@@ -31,7 +31,9 @@ const Gamescope = () => {
   const [fetching, setFetching] = useState(true)
   const [isInstalled, setIsInstalled] = useState(false)
 
-  const [additionalOptions, setAdditionalOptions] = useState(gamescope.additionalOptions)
+  const [additionalOptions, setAdditionalOptions] = useState(
+    gamescope.additionalOptions
+  )
 
   useEffect(() => {
     setFetching(true)
