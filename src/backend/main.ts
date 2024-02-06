@@ -201,7 +201,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
     }, 5000)
   }
 
-  GlobalConfig.get()
+  const globalConf = GlobalConfig.get().getSettings()
 
   mainWindow.setIcon(icon)
   app.commandLine.appendSwitch('enable-spatial-navigation')
@@ -253,7 +253,9 @@ async function initializeWindow(): Promise<BrowserWindow> {
   } else {
     Menu.setApplicationMenu(null)
     mainWindow.loadURL(`file://${path.join(publicDir, '../build/index.html')}`)
-    autoUpdater.checkForUpdates()
+    if (globalConf.checkForUpdatesOnStartup) {
+      autoUpdater.checkForUpdates()
+    }
   }
 
   // Changelog links workaround
