@@ -740,9 +740,8 @@ class GlobalState extends PureComponent<Props> {
         })
       }
 
-      if (runner !== 'gog') {
-        this.refreshLibrary({ runInBackground: true, library: runner })
-      }
+      this.refreshLibrary({ runInBackground: true, library: runner })
+
       this.setState({ libraryStatus: newLibraryStatus })
     }
   }
