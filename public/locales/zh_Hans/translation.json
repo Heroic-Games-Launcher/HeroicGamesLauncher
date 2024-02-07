@@ -1,6 +1,6 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "操作菜单字族 （默认： ",
+        "actions_font_family_no_default": "操作菜单字族 （默认)：",
         "all_tiles_in_color": "对所有游戏磁贴着色",
         "content_font_family_no_default": "内容字族 （默认： ",
         "fonts": "字体",
@@ -230,7 +230,8 @@
     "game": {
         "status": "状态",
         "store": "商店",
-        "title": "游戏标题"
+        "title": "游戏标题",
+        "modify": "修改安装"
     },
     "generic": {
         "error": {
@@ -654,12 +655,12 @@
         "addgamestoapplications": "自动将游戏添加到应用程序",
         "showMetalOverlay": "显示统计数据叠加",
         "alt-nile-bin": "选择替代尼罗河二进制",
-        "autodxvknvapi": "在前置自动安装并更新 DXVK",
+        "autodxvknvapi": "在前置自动安装并更新 DXVK-NVAPI",
         "experimental_features": {
             "enableNewShinyFeature": "新功能",
             "enableNewDesign": "新设计",
             "enableHelp": "帮助组件",
-            "automaticWinetricksFixes": "自动应用已知的 Winetricks 修复"
+            "automaticWinetricksFixes": "自动应用已知的修复"
         },
         "disablePlaytimeSync": "停用游戏时间同步",
         "gamescope": {
@@ -748,6 +749,28 @@
         },
         "offline": {
             "warning": "此游戏未明确允许离线模式，你可以开启本选项，但后果自负。开启后，游戏可能无法正常运作。"
+        },
+        "advanced": {
+            "clearCache": {
+                "help10": "Heroic 配置",
+                "help3": "Legendary 库信息（游戏列表、安装对话框信息、游戏信息）",
+                "help4": "GOG 库信息（游戏列表、安装对话框信息、api 信息，-i.e: requirements-）",
+                "help1": "此操作将清除下列缓存：",
+                "help2": "第三方游戏信息（得分、 steam 兼容性、howlongtobeat、pcgamingwiki、applegamingwiki）",
+                "help7": "存储登录信息",
+                "help5": "Amazon 库信息（游戏列表、安装对话框信息）",
+                "help6": "这不会删除：",
+                "help9": "游戏设置",
+                "help8": "已安装的游戏"
+            },
+            "resetHeroic": {
+                "help": "这会删除所有设置和环迅但不会删除你已安装的游戏或 Epic 凭据。在此之后，需要手动重启 Heroic 便携版本（AppImage、WinPortable, ...）。"
+            },
+            "title": {
+                "clearCache": "清除缓存",
+                "resetHeroic": "重置 Heroic"
+            },
+            "details": "详细内容"
         }
     },
     "Settings": "设置",
@@ -854,5 +877,10 @@
         "add-new-category": "添加新分类",
         "cancel": "取消",
         "warning": "警告"
+    },
+    "wineExplanation": {
+        "wine-ge": "Wine-GE-Protonis 是 Glorious Eggroll 创建的 Wine 变体。它是建议用于 Steam 之外的 Wine 版本，提供对故障排除有用的日志。",
+        "wine-ge-lol": "Wine-GE-Proton...-LoL 构建是专为 League of Legends 打造的。由于会造成问题，它们不应被用于任何其他游戏。",
+        "proton-ge": "Proton-GE-Proton 是 Glorious Eggroll 创建的 Proton 变体。该变体意在用于 Steam 中，但某些 Steam 之外的游戏也许可以和它更好地配合。它提供大多是用于故障排除的无用日志。"
     }
 }

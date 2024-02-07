@@ -593,7 +593,7 @@
         "addgamestoapplications": "Lisage mänge rakendustesse automaatselt",
         "showMetalOverlay": "Kuva statistika ülekate",
         "alt-nile-bin": "Valige alternatiivne Niiluse binaar",
-        "autodxvknvapi": "DXVK/VKD3D automaatne paigaldamine/uuendamine prefiksile"
+        "autodxvknvapi": "DXVK-NVAPI automaatne paigaldamine/uuendamine prefiksile"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -635,6 +635,14 @@
         "saves": {
             "label": "Salvestuste asukoht:",
             "warning": "Pilvesalvestuse funktsioon on beetaversioonis, enne sünkroonimist varundage oma salvestused (juhuks, kui midagi läheb valesti)"
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Installitud mängud"
+            },
+            "title": {
+                "resetHeroic": "Lähtesta Heroic"
+            }
         }
     },
     "Settings": "Seaded",

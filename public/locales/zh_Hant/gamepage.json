@@ -90,7 +90,13 @@
         "platform": "選擇要安裝的平台版本",
         "requirements": "系統需求",
         "totalPlayed": "遊玩時間",
-        "dlcs": "DLCs"
+        "dlcs": "DLCs",
+        "branch": {
+            "disabled": "已關閉"
+        },
+        "builds": {
+            "version": "版本號"
+        }
     },
     "gamecard": {
         "moving": "移動中",

@@ -92,7 +92,13 @@
         "platform": "Pilih Versi Platform yang Akan Dipasang",
         "requirements": "Persyaratan Sistem",
         "totalPlayed": "Lama Dimainkan",
-        "dlcs": "DLC"
+        "dlcs": "DLC",
+        "branch": {
+            "disabled": "Disabled"
+        },
+        "builds": {
+            "version": "Versi"
+        }
     },
     "gamecard": {
         "moving": "Memindahkan",

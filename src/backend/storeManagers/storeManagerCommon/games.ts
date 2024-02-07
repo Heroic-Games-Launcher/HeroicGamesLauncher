@@ -2,7 +2,7 @@ import { GameInfo, GameSettings, Runner } from 'common/types'
 import { GameConfig } from '../../game_config'
 import { isMac, isLinux, icon } from '../../constants'
 import {
-  appendGameLog,
+  appendGamePlayLog,
   lastPlayLogFileLocation,
   logInfo,
   LogPrefix,
@@ -173,7 +173,7 @@ export async function launchGame(
     )
 
     if (!launchPrepSuccess) {
-      appendGameLog(gameInfo, `Launch aborted: ${launchPrepFailReason}`)
+      appendGamePlayLog(gameInfo, `Launch aborted: ${launchPrepFailReason}`)
       showDialogBoxModalAuto({
         title: i18next.t('box.error.launchAborted', 'Launch aborted'),
         message: launchPrepFailReason!,
@@ -212,7 +212,7 @@ export async function launchGame(
       const env = {
         ...process.env,
         ...setupWrapperEnvVars({ appName, appRunner: runner }),
-        ...setupEnvVars(gameSettings)
+        ...setupEnvVars(gameSettings, gameInfo.install.install_path)
       }
 
       await callRunner(
@@ -247,7 +247,8 @@ export async function launchGame(
     await runWineCommand({
       commandParts: [executable, launcherArgs ?? ''],
       gameSettings,
-      wait: false,
+      wait: true,
+      protonVerb: 'waitforexitandrun',
       startFolder: dirname(executable),
       options: {
         wrappers,

@@ -39,8 +39,8 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
         </span>
       )
     }
-    if (is.installingPrerequisites) {
-      return t('label.prerequisites', 'Installing Prerequisites')
+    if (is.installingRedist) {
+      return t('label.redist', 'Installing Redistributables')
     }
     if (is.installingWinetricksPackages) {
       return t('label.winetricks', 'Installing Winetricks Packages')
@@ -140,7 +140,7 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
             is.syncing ||
             is.launching ||
             is.installingWinetricksPackages ||
-            is.installingPrerequisites
+            is.installingRedist
           }
           autoFocus={true}
           onClick={async () => handlePlay(gameInfo)}

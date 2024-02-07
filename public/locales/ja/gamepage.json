@@ -18,7 +18,7 @@
             "title": "検証と修復"
         },
         "runexe": {
-            "title": "実行するEXEを選択"
+            "title": "実行するEXEを選択してください"
         },
         "select": {
             "button": "選択"
@@ -32,16 +32,16 @@
             "title": "インストールを中止"
         },
         "uninstall": {
-            "checkbox": "環境を削除します: {{prefix}}{{newLine}}注意: この操作は元に戻すことができず、バックアップされていない保存ファイルも削除されます。",
-            "message": "このゲームをアンインストールしますか?",
+            "checkbox": "プレフィックスを削除: {{prefix}}{{newLine}}注意: これは元に戻すことができず、バックアップされていない保存ファイルも削除されます。",
+            "message": "\"{{title}}\"をアンインストールしますか?",
             "settingcheckbox": "設定を消去し、ログを削除します{{newLine}}注意: この操作は元に戻すことができません。変更された設定はすべて失われ、ログは削除されます。",
             "title": "アンインストール",
             "prefix_warning": "このゲームが使用しているWine環境はデフォルトの環境です。本当に削除したい場合は、手動で行う必要があります。",
-            "dlc": "このDLCをアンインストールしますか?",
+            "dlc": "\"{{title}}\"のDLCをアンインストールしますか?",
             "cannotUninstallEpic": "別のEpicゲームをインストール中に、Epicゲームをアンインストールすることはできません。"
         },
         "update": {
-            "message": "このゲームにはアップデートがあります。今すぐアップデートを適用しますか?",
+            "message": "このゲームにはアップデートがありますが、今すぐアップデートしますか？",
             "title": "ゲームのアップデート"
         },
         "wineprefix": "Wine環境フォルダを選択",
@@ -53,10 +53,10 @@
         "cancel": "一時停止/キャンセル",
         "continue": "ダウンロードを続ける",
         "finish": "終了",
-        "force_update": "強制アップデート（利用可能な場合）",
+        "force_update": "利用可能な場合は更新を強制する",
         "force-innstall": "強制インストール",
-        "hide_game": "ゲームを非表示",
-        "import": "ゲームをインポート",
+        "hide_game": "ゲームを非表示にする",
+        "import": "ゲームをインポートする",
         "install": "インストール",
         "no-path-selected": "パスが選択されていません",
         "queue": {
@@ -92,7 +92,13 @@
         "platform": "インストールするプラットフォームのバージョンを選択",
         "requirements": "システム要件",
         "totalPlayed": "プレイ時間",
-        "dlcs": "DLC一覧"
+        "dlcs": "DLC一覧",
+        "branch": {
+            "disabled": "Disabled"
+        },
+        "builds": {
+            "version": "バージョン"
+        }
     },
     "gamecard": {
         "moving": "移動中",
@@ -152,7 +158,9 @@
             "syncing": "セーブデータを同期中"
         },
         "launching": "起動中",
-        "ubisoft": "Ubisoft Connectをインストール中"
+        "ubisoft": "Ubisoft Connectをインストール中",
+        "prerequisites": "前提条件のインストール",
+        "winetricks": "Winetricksパッケージのインストール"
     },
     "launch": {
         "options": "起動オプション…"
@@ -220,7 +228,9 @@
         "downloading": "ダウンロード中",
         "extracting": "展開中",
         "gog-goodie": "このゲームをインストールできません。https://gog.com/account でダウンロード可能なコンテンツを確認してください。",
-        "goodie": "インストール不可"
+        "goodie": "インストール不可",
+        "prerequisites": "前提条件のインストール",
+        "winetricks": "Winetricksの修正を適用する"
     },
     "submenu": {
         "addShortcut": "ショートカットを追加",
@@ -240,6 +250,12 @@
         "categories": "カテゴリー"
     },
     "help": {
-        "cloud_save_unsupported": "このゲームはクラウドセーブに対応していません。この情報はゲーム開発者によって提供されたものです。一部のゲームでは、独自のクラウドセーブシステムを実装しているものもあります"
+        "cloud_save_unsupported": "このゲームはクラウドセーブに対応していません。この情報はゲーム開発者によって提供されたものです。一部のゲームでは、独自のクラウドセーブシステムを実装しているものもあります",
+        "content": {
+            "gamePage": "すべてのゲームの詳細とアクションを表示します。より多くのオプションを表示するには、3つのドットメニューを使用します。"
+        },
+        "title": {
+            "gamePage": "ゲームページ"
+        }
     }
 }

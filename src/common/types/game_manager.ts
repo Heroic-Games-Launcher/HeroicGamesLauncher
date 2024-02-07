@@ -57,7 +57,16 @@ export interface GameManager {
     gogSaves?: GOGCloudSavesLocation[]
   ) => Promise<string>
   uninstall: (args: RemoveArgs) => Promise<ExecResult>
-  update: (appName: string) => Promise<InstallResult>
+  update: (
+    appName: string,
+    updateOverwrites?: {
+      build?: string
+      branch?: string
+      language?: string
+      dlcs?: string[]
+      dependencies?: string[]
+    }
+  ) => Promise<InstallResult>
   forceUninstall: (appName: string) => Promise<void>
   stop: (appName: string, stopWine?: boolean) => Promise<void>
   isGameAvailable: (appName: string) => Promise<boolean>
@@ -69,10 +78,16 @@ export interface LibraryManager {
   getInstallInfo: (
     appName: string,
     installPlatform: InstallPlatform,
-    lang?: string
+    options: {
+      branch?: string
+      build?: string
+      lang?: string
+      retries?: number
+    }
   ) => Promise<InstallInfo | undefined>
   listUpdateableGames: () => Promise<string[]>
   changeGameInstallPath: (appName: string, newPath: string) => Promise<void>
+  changeVersionPinnedStatus: (appName: string, status: boolean) => void
   installState: (appName: string, state: boolean) => void
   getLaunchOptions: (
     appName: string

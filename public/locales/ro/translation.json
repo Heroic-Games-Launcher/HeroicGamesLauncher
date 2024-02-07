@@ -590,7 +590,7 @@
         "addgamestoapplications": "Adăugați automat jocuri la Aplicații",
         "showMetalOverlay": "Afișați statistici suprapuse",
         "alt-nile-bin": "Alegeți un binar alternativ pentru Nil",
-        "autodxvknvapi": "Instalare/Actualizare automată DXVK în Prefix"
+        "autodxvknvapi": "Instalare/Actualizare automată DXVK-NVAPI în Prefix"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -632,6 +632,12 @@
         "saves": {
             "label": "Salveaza locatia:",
             "warning": "Funcția Cloud Saves este în versiune beta, vă rugăm să faceți backup înainte de sincronizare (în cazul în care ceva nu merge bine)"
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Jocuri instalate"
+            },
+            "details": "Detalii"
         }
     },
     "Settings": "Setări",

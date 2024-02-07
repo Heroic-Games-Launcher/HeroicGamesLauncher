@@ -36,10 +36,11 @@ import {
   isWindows,
   installed,
   configStore,
-  isCLINoGui
+  isCLINoGui,
+  isLinux
 } from '../../constants'
 import {
-  appendGameLog,
+  appendGamePlayLog,
   logError,
   logFileLocation,
   logInfo,
@@ -775,7 +776,7 @@ export async function launch(
     offlineMode
   } = await prepareLaunch(gameSettings, gameInfo, isNative(appName))
   if (!launchPrepSuccess) {
-    appendGameLog(gameInfo, `Launch aborted: ${launchPrepFailReason}`)
+    appendGamePlayLog(gameInfo, `Launch aborted: ${launchPrepFailReason}`)
     showDialogBoxModalAuto({
       title: t('box.error.launchAborted', 'Launch aborted'),
       message: launchPrepFailReason!,
@@ -789,7 +790,9 @@ export async function launch(
   let commandEnv = {
     ...process.env,
     ...setupWrapperEnvVars({ appName, appRunner: 'legendary' }),
-    ...(isWindows ? {} : setupEnvVars(gameSettings))
+    ...(isWindows
+      ? {}
+      : setupEnvVars(gameSettings, gameInfo.install.install_path))
   }
 
   const wrappers = setupWrappers(
@@ -812,7 +815,7 @@ export async function launch(
       envVars: wineEnvVars
     } = await prepareWineLaunch('legendary', appName)
     if (!wineLaunchPrepSuccess) {
-      appendGameLog(gameInfo, `Launch aborted: ${wineLaunchPrepFailReason}`)
+      appendGamePlayLog(gameInfo, `Launch aborted: ${wineLaunchPrepFailReason}`)
       if (wineLaunchPrepFailReason) {
         showDialogBoxModalAuto({
           title: t('box.error.launchAborted', 'Launch aborted'),
@@ -865,7 +868,7 @@ export async function launch(
     commandEnv,
     join(...Object.values(getLegendaryBin()))
   )
-  appendGameLog(gameInfo, `Launch Command: ${fullCommand}\n\nGame Log:\n`)
+  appendGamePlayLog(gameInfo, `Launch Command: ${fullCommand}\n\nGame Log:\n`)
 
   sendGameStatusUpdate({ appName, runner: 'legendary', status: 'playing' })
 
@@ -881,7 +884,7 @@ export async function launch(
     wrappers: wrappers,
     logMessagePrefix: `Launching ${gameInfo.title}`,
     onOutput: (output) => {
-      if (!logsDisabled) appendGameLog(gameInfo, output)
+      if (!logsDisabled) appendGamePlayLog(gameInfo, output)
     }
   })
 
@@ -943,7 +946,7 @@ export async function stop(appName: string, stopWine = true) {
   // not a perfect solution but it's the only choice for now
 
   // @adityaruplaha: this is kinda arbitary and I don't understand it.
-  const pattern = process.platform === 'linux' ? appName : 'legendary'
+  const pattern = isLinux ? appName : 'legendary'
   killPattern(pattern)
 
   if (stopWine && !isNative(appName)) {

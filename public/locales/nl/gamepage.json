@@ -33,18 +33,20 @@
         },
         "uninstall": {
             "checkbox": "Verwijder prefix: {{prefix}}{{newLine}}Note: DIt kan niet ongedaan gemaakt worden, en zal ook niet geback-upte opslagbestanden verwijderen.",
-            "message": "Wilt u dit spel verwijderen?",
+            "message": "Wilt u {{title}} verwijderen?",
             "settingcheckbox": "Herstel instellingen en verwijder log{{newLine}}Let op: Dit kan niet ongedaan gemaakt worden. Elke aangepaste instelling wordt vergeten en logboek zal verwijderd worden.",
             "title": "Verwijderen",
             "prefix_warning": "Het Wine-voorvoegsel voor dit spel is het standaardvoorvoegsel. Als u het echt wilt verwijderen, moet u dit handmatig doen.",
-            "dlc": "Wilt u deze DLC verwijderen?"
+            "dlc": "Wilt u deze \"{{title}}\" DLC verwijderen?",
+            "cannotUninstallEpic": "Epic Games kan niet verwijderd worden wanneer een ander Epic spel wordt geïnstalleerd."
         },
         "update": {
             "message": "Dit spel heeft een update, update nu toepassen?",
             "title": "Het spel heeft een update nodig"
         },
         "wineprefix": "Selecteer WinePrefix Map",
-        "yes": "JA"
+        "yes": "JA",
+        "close": "sluit"
     },
     "button": {
         "add_to_favourites": "Voeg toe aan favorieten",
@@ -90,7 +92,13 @@
         "platform": "Selecteer platformversie om te installeren",
         "requirements": "Systeembenodigdheden",
         "totalPlayed": "Tijd gespeeld",
-        "dlcs": "DLCs"
+        "dlcs": "DLCs",
+        "branch": {
+            "disabled": "Disabled"
+        },
+        "builds": {
+            "version": "Versie"
+        }
     },
     "gamecard": {
         "moving": "Aan het verplaatsen",
@@ -128,7 +136,13 @@
         "path-not-writtable": "Waarschuwing: pad mogelijk niet schrijfbaar",
         "space-after-install": "Na installatie",
         "wineprefix": "WinePrefix",
-        "wineversion": "Wine Versie"
+        "wineversion": "Wine Versie",
+        "anticheat-warning": {
+            "install": "Ja (Ik begrijp dat dit niet zal werken)",
+            "cancel": "Nee",
+            "title": "Anticheat geblokkeerd/stuk",
+            "message": "De anticheat-ondersteuning is stuk of is geblokkeerd. Deze game zal niet werken. Wil je het toch installeren?"
+        }
     },
     "label": {
         "game": {
@@ -171,12 +185,15 @@
             "exe": "Selecteer uitvoerbaar bestand",
             "image": "App Image",
             "title": "Game/App Titel",
-            "broser": "BrowserURL"
+            "broser": "BrowserURL",
+            "fullscreen": "Start volledig scherm (F11 om af te sluiten)",
+            "useragent": "Aangepaste User Agent"
         },
         "placeholder": {
             "image": "Plak een foto URL hier",
             "title": "Voeg een titel toe aan jouw Game/App",
-            "url": "Plak hier de game-URL"
+            "url": "Plak hier de game-URL",
+            "useragent": "Schrijf een aangepaste user agent hier om te gebruiken in deze browser applicatie/game"
         }
     },
     "specs": {
@@ -224,9 +241,16 @@
         "store": "Winkel",
         "verify": "Verifiëren en repareren",
         "extraInfo": "Extra info",
-        "logs": "Logboeken"
+        "logs": "Logboeken",
+        "categories": "Categorieën"
     },
     "help": {
-        "cloud_save_unsupported": "Deze game ondersteunt geen opslag in de cloud. Deze informatie wordt verstrekt door de game-ontwikkelaars. Sommige games implementeren hun eigen cloudopslagsysteem"
+        "cloud_save_unsupported": "Deze game ondersteunt geen opslag in de cloud. Deze informatie wordt verstrekt door de game-ontwikkelaars. Sommige games implementeren hun eigen cloudopslagsysteem",
+        "content": {
+            "gamePage": "Toon alle game details en acties. Gebruik het \"3 dot\" menu voor meer opties."
+        },
+        "title": {
+            "gamePage": "Gamepagina"
+        }
     }
 }

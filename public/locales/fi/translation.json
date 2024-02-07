@@ -597,7 +597,7 @@
         "addgamestoapplications": "Lisää pelejä automaattisesti sovelluksiin",
         "showMetalOverlay": "Näytä tilastopäällinen",
         "alt-nile-bin": "Valitse vaihtoehtoinen Nile-binääri",
-        "autodxvknvapi": "Asenna automaattisesti/päivitä DXVK/VKD3D etuasteessa",
+        "autodxvknvapi": "Asenna automaattisesti/päivitä DXVK-NVAPI etuasteessa",
         "experimental_features": {
             "enableNewShinyFeature": "Tuore uutuuttakiiltävä ominaisuus",
             "enableNewDesign": "Uusi malli"
@@ -670,6 +670,14 @@
         },
         "experimental_features": {
             "title": "Kokeelliset ominaisuudet"
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Asennetut pelit"
+            },
+            "title": {
+                "resetHeroic": "Nollaa Heroic"
+            }
         }
     },
     "Settings": "Asetukset",

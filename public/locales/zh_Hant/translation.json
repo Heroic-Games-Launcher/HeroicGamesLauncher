@@ -439,6 +439,11 @@
             "placeHolderKey": "新的包裝容器",
             "placeHolderValue": "包裝容器參數",
             "title": "包裝容器命令："
+        },
+        "gamescope": {
+            "borderless": "無邊框",
+            "fullscreen": "全螢幕",
+            "fpsLimiter": "FPS 限制器"
         }
     },
     "other": {
@@ -592,7 +597,7 @@
         "addgamestoapplications": "自動將遊戲新增到應用程式",
         "showMetalOverlay": "顯示統計數據疊加",
         "alt-nile-bin": "選擇替代尼羅河二進制",
-        "autodxvknvapi": "在PREFIX自動安裝並更新DXVK"
+        "autodxvknvapi": "在PREFIX自動安裝並更新DXVK-NVAPI"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -634,6 +639,15 @@
         "saves": {
             "label": "Save Location:",
             "warning": "雲端存檔功能處於測試階段，請在同步前備份你的存檔（以防出現問題）"
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Installed Games"
+            },
+            "details": "細節",
+            "title": {
+                "resetHeroic": "重置 Heroic"
+            }
         }
     },
     "Settings": "設定",

@@ -11,17 +11,13 @@ import {
   WineInstallation,
   WineCommandArgs,
   SteamRuntime,
-  GameSettings
+  GameSettings,
+  KnowFixesInfo
 } from 'common/types'
 // This handles launching games, prefix creation etc..
 
 import i18next from 'i18next'
-import {
-  existsSync,
-  mkdirSync,
-  appendFileSync,
-  writeFileSync
-} from 'graceful-fs'
+import { existsSync, mkdirSync } from 'graceful-fs'
 import { join, normalize } from 'path'
 
 import {
@@ -30,6 +26,7 @@ import {
   flatPakHome,
   isLinux,
   isMac,
+  isWindows,
   isSteamDeckGameMode,
   runtimePath,
   userHome
@@ -45,6 +42,11 @@ import {
   sendGameStatusUpdate
 } from './utils'
 import {
+  appendFileLog,
+  appendGameLog,
+  appendRunnerLog,
+  initFileLog,
+  initGameLog,
   logDebug,
   logError,
   logInfo,
@@ -55,7 +57,7 @@ import {
 import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
 import { DXVK, Winetricks } from './tools'
-import setup from './storeManagers/gog/setup'
+import gogSetup from './storeManagers/gog/setup'
 import nileSetup from './storeManagers/nile/setup'
 import { spawn, spawnSync } from 'child_process'
 import shlex from 'shlex'
@@ -68,12 +70,14 @@ import { readFileSync } from 'fs'
 import { LegendaryCommand } from './storeManagers/legendary/commands'
 import { commandToArgsArray } from './storeManagers/legendary/library'
 import { searchForExecutableOnPath } from './utils/os/path'
+import { sendFrontendMessage } from './main_window'
 import {
   createAbortController,
   deleteAbortController
 } from './utils/aborthandler/aborthandler'
 import { download, isInstalled } from './wine/runtimes/runtimes'
 import { storeMap } from 'common/utils'
+import { runWineCommandOnGame } from './storeManagers/legendary/games'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
@@ -238,7 +242,7 @@ async function prepareLaunch(
       }
     }
     // for native games lets use scout for now
-    const runtimeType = isNative ? 'scout' : nonNativeRuntime
+    const runtimeType = isNative ? 'sniper' : nonNativeRuntime
     const { path, args } = await getSteamRuntime(runtimeType)
     if (!path) {
       return {
@@ -255,13 +259,7 @@ async function prepareLaunch(
       }
     }
 
-    steamRuntime = [
-      path,
-      isNative || !gameInfo.install['install_path']
-        ? ''
-        : `--filesystem=${gameInfo.install['install_path']}`,
-      ...args
-    ]
+    steamRuntime = [path, ...args]
   }
 
   return {
@@ -337,7 +335,12 @@ async function prepareWineLaunch(
       LogPrefix.Backend
     )
     if (runner === 'gog') {
-      await setup(appName)
+      await gogSetup(appName)
+      sendFrontendMessage('gameStatusUpdate', {
+        appName,
+        runner: 'gog',
+        status: 'launching'
+      })
     }
     if (runner === 'nile') {
       await nileSetup(appName)
@@ -378,13 +381,21 @@ async function prepareWineLaunch(
     await download('battleye_runtime')
   }
 
-  const { folder_name: installFolderName, install } =
+  if (gameSettings.eacRuntime && !isInstalled('eac_runtime') && isOnline()) {
+    await download('eac_runtime')
+  }
+
+  if (
+    gameSettings.battlEyeRuntime &&
+    !isInstalled('battleye_runtime') &&
+    isOnline()
+  ) {
+    await download('battleye_runtime')
+  }
+
+  const { folder_name: installFolderName } =
     gameManagerMap[runner].getGameInfo(appName)
-  const envVars = setupWineEnvVars(
-    gameSettings,
-    installFolderName,
-    install.install_path
-  )
+  const envVars = setupWineEnvVars(gameSettings, installFolderName)
 
   return { success: true, envVars: envVars }
 }
@@ -395,23 +406,45 @@ async function installFixes(appName: string, runner: Runner) {
   if (!existsSync(fixPath)) return
 
   try {
-    const fixesContent = JSON.parse(readFileSync(fixPath).toString())
+    const fixesContent = JSON.parse(
+      readFileSync(fixPath).toString()
+    ) as KnowFixesInfo
 
-    sendGameStatusUpdate({
-      appName,
-      runner: runner,
-      status: 'winetricks'
-    })
+    if (fixesContent.winetricks) {
+      sendGameStatusUpdate({
+        appName,
+        runner: runner,
+        status: 'winetricks'
+      })
 
-    for (const winetricksPackage of fixesContent.winetricks) {
-      await Winetricks.install(runner, appName, winetricksPackage)
+      for (const winetricksPackage of fixesContent.winetricks) {
+        await Winetricks.install(runner, appName, winetricksPackage)
+      }
+    }
+
+    if (fixesContent.runInPrefix) {
+      const gameInfo = gameManagerMap[runner].getGameInfo(appName)
+
+      sendGameStatusUpdate({
+        appName,
+        runner: runner,
+        status: 'redist',
+        context: 'FIXES'
+      })
+
+      for (const filePath of fixesContent.runInPrefix) {
+        const fullPath = join(gameInfo.install.install_path!, filePath)
+        await runWineCommandOnGame(appName, {
+          commandParts: [fullPath],
+          wait: true,
+          protonVerb: 'run'
+        })
+      }
     }
   } catch (error) {
     // if we fail to download the json file, it can be malformed causing
     // JSON.parse to throw an exception
-    logWarning(
-      `Known winetricks fixes could not be applied, ignoring.\n${error}`
-    )
+    logWarning(`Known fixes could not be applied, ignoring.\n${error}`)
   }
 }
 
@@ -420,7 +453,7 @@ async function installFixes(appName: string, runner: Runner) {
  * @param gameSettings The GameSettings to get the environment variables for
  * @returns A big string of environment variables, structured key=value
  */
-function setupEnvVars(gameSettings: GameSettings) {
+function setupEnvVars(gameSettings: GameSettings, installPath?: string) {
   const ret: Record<string, string> = {}
   if (gameSettings.nvidiaPrime) {
     ret.DRI_PRIME = '1'
@@ -430,6 +463,11 @@ function setupEnvVars(gameSettings: GameSettings) {
 
   if (isMac && gameSettings.showFps) {
     ret.MTL_HUD_ENABLED = '1'
+  }
+
+  if (isLinux && installPath) {
+    // Used by steam runtime to mount the game directory to the container
+    ret.STEAM_COMPAT_INSTALL_PATH = installPath
   }
 
   if (gameSettings.enviromentOptions) {
@@ -483,11 +521,7 @@ function setupWrapperEnvVars(wrapperEnv: WrapperEnv) {
  * @param gameId If Proton and the Steam Runtime are used, the SteamGameId variable will be set to `heroic-gameId`
  * @returns A Record that can be passed to execAsync/spawn
  */
-function setupWineEnvVars(
-  gameSettings: GameSettings,
-  gameId = '0',
-  installPath?: string
-) {
+function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   const { wineVersion, winePrefix, wineCrossoverBottle } = gameSettings
 
   const ret: Record<string, string> = {}
@@ -519,9 +553,6 @@ function setupWineEnvVars(
     case 'proton':
       ret.STEAM_COMPAT_CLIENT_INSTALL_PATH = steamInstallPath
       ret.STEAM_COMPAT_DATA_PATH = winePrefix
-      if (installPath) {
-        ret.STEAM_COMPAT_INSTALL_PATH = installPath
-      }
       break
     case 'crossover':
       ret.CX_BOTTLE = wineCrossoverBottle
@@ -530,6 +561,7 @@ function setupWineEnvVars(
       ret.WINEPREFIX = winePrefix
       break
   }
+
   if (gameSettings.showFps) {
     isMac ? (ret.MTL_HUD_ENABLED = '1') : (ret.DXVK_HUD = 'fps')
   }
@@ -758,7 +790,11 @@ async function runWineCommand({
   options,
   startFolder,
   skipPrefixCheckIKnowWhatImDoing = false
-}: WineCommandArgs): Promise<{ stderr: string; stdout: string }> {
+}: WineCommandArgs): Promise<{
+  stderr: string
+  stdout: string
+  code?: number
+}> {
   const settings = gameSettings
     ? gameSettings
     : GlobalConfig.get().getSettings()
@@ -802,8 +838,8 @@ async function runWineCommand({
 
   const env_vars = {
     ...process.env,
-    ...setupEnvVars(settings),
-    ...setupWineEnvVars(settings, installFolderName, gameInstallPath)
+    ...setupEnvVars(settings, gameInstallPath),
+    ...setupWineEnvVars(settings, installFolderName)
   }
 
   const isProton = wineVersion.type === 'proton'
@@ -838,7 +874,7 @@ async function runWineCommand({
       }
 
       if (options?.logFile && existsSync(options.logFile)) {
-        appendFileSync(
+        appendFileLog(
           options.logFile,
           `Wine Command: ${bin} ${commandParts.join(' ')}\n\nGame Log:\n`
         )
@@ -850,7 +886,7 @@ async function runWineCommand({
 
     child.stdout.on('data', (data: string) => {
       if (!logsDisabled && options?.logFile) {
-        appendFileSync(options.logFile, data)
+        appendFileLog(options.logFile, data)
       }
 
       if (options?.onOutput) {
@@ -862,7 +898,7 @@ async function runWineCommand({
 
     child.stderr.on('data', (data: string) => {
       if (!logsDisabled && options?.logFile) {
-        appendFileSync(options.logFile, data)
+        appendFileLog(options.logFile, data)
       }
 
       if (options?.onOutput) {
@@ -872,8 +908,12 @@ async function runWineCommand({
       stderr.push(data.trim())
     })
 
-    child.on('close', async () => {
-      const response = { stderr: stderr.join(''), stdout: stdout.join('') }
+    child.on('close', async (code) => {
+      const response = {
+        stderr: stderr.join(''),
+        stdout: stdout.join(''),
+        code
+      }
 
       if (wait && wineVersion.wineserver) {
         await new Promise<void>((res_wait) => {
@@ -906,17 +946,83 @@ interface RunnerProps {
 
 const commandsRunning = {}
 
+let shouldUsePowerShell: boolean | null = null
+
+function appNameFromCommandParts(commandParts: string[], runner: Runner) {
+  let appNameIndex = -1
+  let idx = -1
+
+  switch (runner) {
+    case 'gog':
+      idx = commandParts.findIndex((value) => value === 'launch')
+      if (idx > -1) {
+        // for GOGdl, between `launch` and the app name there's another element
+        appNameIndex = idx + 2
+      } else {
+        // for the `download`, `repair` and `update` command it's right after
+        idx = commandParts.findIndex((value) =>
+          ['download', 'repair', 'update'].includes(value)
+        )
+        if (idx > -1) {
+          appNameIndex = idx + 1
+        }
+      }
+      break
+    case 'legendary':
+      // for legendary, the appName comes right after the commands
+      idx = commandParts.findIndex((value) =>
+        ['launch', 'install', 'repair', 'update'].includes(value)
+      )
+      if (idx > -1) {
+        appNameIndex = idx + 1
+      }
+      break
+    case 'nile':
+      // for nile, we pass the appName as the last command part
+      idx = commandParts.findIndex((value) =>
+        ['launch', 'install', 'update', 'verify'].includes(value)
+      )
+      if (idx > -1) {
+        appNameIndex = commandParts.length - 1
+      }
+      break
+  }
+
+  return appNameIndex > -1 ? commandParts[appNameIndex] : ''
+}
+
 async function callRunner(
   commandParts: string[],
   runner: RunnerProps,
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
-  const fullRunnerPath = join(runner.dir, runner.bin)
-  const appName = commandParts[commandParts.findIndex(() => 'launch') + 1]
+  const appName = appNameFromCommandParts(commandParts, runner.name)
 
   // Necessary to get rid of possible undefined or null entries, else
   // TypeError is triggered
   commandParts = commandParts.filter(Boolean)
+
+  let bin = runner.bin
+  let fullRunnerPath = join(runner.dir, bin)
+
+  // On Windows: Use PowerShell's `Start-Process` to wait for the process and
+  // its children to exit, provided PowerShell is available
+  if (shouldUsePowerShell === null)
+    shouldUsePowerShell =
+      isWindows && !!(await searchForExecutableOnPath('powershell'))
+
+  if (shouldUsePowerShell) {
+    const argsAsString = commandParts.map((part) => `"\`"${part}\`""`).join(',')
+    commandParts = [
+      'Start-Process',
+      `"\`"${fullRunnerPath}\`""`,
+      '-Wait',
+      '-ArgumentList',
+      argsAsString,
+      '-NoNewWindow'
+    ]
+    bin = fullRunnerPath = 'powershell'
+  }
 
   const safeCommand = getRunnerCallWithoutCredentials(
     [...commandParts],
@@ -935,18 +1041,20 @@ async function callRunner(
     }
 
     if (options?.verboseLogFile) {
-      appendFileSync(
-        options.verboseLogFile,
+      appendRunnerLog(
+        runner.name,
         `[${new Date().toLocaleString()}] ${safeCommand}\n`
       )
     }
 
-    if (options?.logFile && existsSync(options.logFile)) {
-      writeFileSync(options.logFile, '')
+    if (options?.logFile) {
+      if (appName) {
+        initGameLog(appName)
+      } else {
+        initFileLog(options.logFile)
+      }
     }
   }
-
-  const bin = runner.bin
 
   // check if the same command is currently running
   // if so, return the same promise instead of running it again
@@ -978,11 +1086,15 @@ async function callRunner(
 
       if (!logsDisabled) {
         if (options?.logFile) {
-          appendFileSync(options.logFile, stringToLog)
+          if (appName) {
+            appendGameLog(appName, stringToLog)
+          } else {
+            appendFileLog(options.logFile, stringToLog)
+          }
         }
 
         if (options?.verboseLogFile) {
-          appendFileSync(options.verboseLogFile, stringToLog)
+          appendRunnerLog(runner.name, stringToLog)
         }
       }
 
@@ -1001,11 +1113,15 @@ async function callRunner(
 
       if (!logsDisabled) {
         if (options?.logFile) {
-          appendFileSync(options.logFile, stringToLog)
+          if (appName) {
+            appendGameLog(appName, stringToLog)
+          } else {
+            appendFileLog(options.logFile, stringToLog)
+          }
         }
 
         if (options?.verboseLogFile) {
-          appendFileSync(options.verboseLogFile, stringToLog)
+          appendRunnerLog(runner.name, stringToLog)
         }
       }
 
@@ -1104,11 +1220,25 @@ function getRunnerCallWithoutCredentials(
   const modifiedCommand = [...command]
   // Redact sensitive arguments (Authorization Code for Legendary, token for GOGDL)
   for (const sensitiveArg of ['--code', '--token']) {
-    const sensitiveArgIndex = modifiedCommand.indexOf(sensitiveArg)
-    if (sensitiveArgIndex === -1) {
-      continue
+    // PowerShell's argument formatting is quite different, instead of having
+    // arguments as members of `command`, they're all in one specific member
+    // (the one after "-ArgumentList")
+    if (runnerPath === 'powershell') {
+      const argumentListIndex = modifiedCommand.indexOf('-ArgumentList') + 1
+      if (!argumentListIndex) continue
+      modifiedCommand[argumentListIndex] = modifiedCommand[
+        argumentListIndex
+      ].replace(
+        new RegExp(`"${sensitiveArg}","(.*?)"`),
+        `"${sensitiveArg}","<redacted>"`
+      )
+    } else {
+      const sensitiveArgIndex = modifiedCommand.indexOf(sensitiveArg)
+      if (sensitiveArgIndex === -1) {
+        continue
+      }
+      modifiedCommand[sensitiveArgIndex + 1] = '<redacted>'
     }
-    modifiedCommand[sensitiveArgIndex + 1] = '<redacted>'
   }
 
   const formattedEnvVars: string[] = []

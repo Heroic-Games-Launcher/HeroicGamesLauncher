@@ -592,7 +592,7 @@
         "addgamestoapplications": "Tự động thêm trò chơi vào Ứng dụng",
         "showMetalOverlay": "Hiển thị lớp phủ thống kê",
         "alt-nile-bin": "Chọn một nhị phân Nile thay thế",
-        "autodxvknvapi": "Tự động cài đặt/cập nhật DXVK trên prefix"
+        "autodxvknvapi": "Tự động cài đặt/cập nhật DXVK-NVAPI trên prefix"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -634,6 +634,15 @@
         "saves": {
             "label": "Save Location:",
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Game đã cài"
+            },
+            "details": "Chi tiết",
+            "title": {
+                "resetHeroic": "Đặt lại Heroic"
+            }
         }
     },
     "Settings": "Cài đặt",

@@ -593,7 +593,7 @@
         "addgamestoapplications": "Automatski dodajte igre u aplikacije",
         "showMetalOverlay": "Prikaži preklapanje statistike",
         "alt-nile-bin": "Odaberite alternativni Nile Binary",
-        "autodxvknvapi": "Auto Install/Update DXVK on Prefix"
+        "autodxvknvapi": "Auto Install/Update DXVK-NVAPI on Prefix"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -635,6 +635,15 @@
         "saves": {
             "label": "Save Location:",
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Installed Games"
+            },
+            "details": "Pojedinosti",
+            "title": {
+                "resetHeroic": "Reset Heroic"
+            }
         }
     },
     "Settings": "Postavke",

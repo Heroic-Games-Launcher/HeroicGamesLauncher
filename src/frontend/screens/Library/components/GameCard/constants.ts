@@ -31,7 +31,7 @@ export function getCardStatus(
   const syncingSaves = status === 'syncing-saves'
   const isLaunching = status === 'launching'
   const isInstallingWinetricksPackages = status === 'winetricks'
-  const isInstallingPrerequisites = status === 'prerequisites'
+  const isInstallingRedist = status === 'redist'
 
   const haveStatus =
     isMoving ||
@@ -46,7 +46,7 @@ export function getCardStatus(
     syncingSaves ||
     isLaunching ||
     isInstallingWinetricksPackages ||
-    isInstallingPrerequisites ||
+    isInstallingRedist ||
     (isInstalled && layout !== 'grid')
   return {
     isInstalling,
@@ -58,7 +58,7 @@ export function getCardStatus(
     isUpdating,
     isLaunching,
     isInstallingWinetricksPackages,
-    isInstallingPrerequisites,
+    isInstallingRedist,
     haveStatus
   }
 }

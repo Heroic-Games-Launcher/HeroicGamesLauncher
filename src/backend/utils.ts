@@ -39,7 +39,7 @@ import {
   isSnap
 } from './constants'
 import {
-  appendGameLog,
+  appendGamePlayLog,
   logError,
   logInfo,
   LogPrefix,
@@ -75,6 +75,7 @@ import {
   updateWineVersionInfos,
   wineDownloaderInfoStore
 } from './wine/manager/utils'
+import { readdir, stat } from 'fs/promises'
 import { getHeroicVersion } from './utils/systeminfo/heroicVersion'
 import { backendEvents } from './backend_events'
 import { wikiGameInfoStore } from './wiki_game_info/electronStore'
@@ -83,6 +84,10 @@ import EasyDl from 'easydl'
 import decompress from '@xhmikosr/decompress'
 import decompressTargz from '@xhmikosr/decompress-targz'
 import decompressTarxz from '@felipecrs/decompress-tarxz'
+import {
+  deviceNameCache,
+  vendorNameCache
+} from './utils/systeminfo/gpu/pci_ids'
 
 const execAsync = promisify(exec)
 
@@ -366,7 +371,10 @@ async function openUrlOrFile(url: string): Promise<string | void> {
   return shell.openPath(url)
 }
 
-function clearCache(library?: 'gog' | 'legendary' | 'nile') {
+function clearCache(
+  library?: 'gog' | 'legendary' | 'nile',
+  fromVersionChange = false
+) {
   wikiGameInfoStore.clear()
   if (library === 'gog' || !library) {
     GOGapiInfoCache.clear()
@@ -385,6 +393,11 @@ function clearCache(library?: 'gog' | 'legendary' | 'nile') {
   if (library === 'nile' || !library) {
     nileInstallStore.clear()
     nileLibraryStore.clear()
+  }
+
+  if (!fromVersionChange) {
+    deviceNameCache.clear()
+    vendorNameCache.clear()
   }
 }
 
@@ -475,12 +488,12 @@ async function getSteamRuntime(
   const steamLibraries = await getSteamLibraries()
   const runtimeTypes: SteamRuntime[] = [
     {
-      path: 'steamapps/common/SteamLinuxRuntime_sniper/run',
+      path: 'steamapps/common/SteamLinuxRuntime_sniper/_v2-entry-point',
       type: 'sniper',
       args: ['--']
     },
     {
-      path: 'steamapps/common/SteamLinuxRuntime_soldier/run',
+      path: 'steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point',
       type: 'soldier',
       args: ['--']
     },
@@ -857,7 +870,10 @@ export async function downloadDefaultWine() {
   // use Wine-GE type if on Linux and Wine-Crossover if on Mac
   const release = availableWine.filter((version) => {
     if (isLinux) {
-      return version.version.includes('Wine-GE-Proton')
+      return (
+        version.version.includes('Wine-GE-Proton') &&
+        !version.version.endsWith('-LoL')
+      )
     } else if (isMac) {
       return version.version.includes('Wine-Crossover')
     }
@@ -912,7 +928,7 @@ export async function checkWineBeforeLaunch(
         LogPrefix.Backend
       )
 
-      appendGameLog(
+      appendGamePlayLog(
         gameInfo,
         `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`
       )
@@ -1169,6 +1185,22 @@ function removeFolder(path: string, folderName: string) {
     }, 2000)
   }
   return
+}
+
+async function getPathDiskSize(path: string): Promise<number> {
+  const statData = await stat(path)
+  let size = 0
+  if (statData.isDirectory()) {
+    const contents = await readdir(path)
+
+    for (const item of contents) {
+      const itemPath = join(path, item)
+      size += await getPathDiskSize(itemPath)
+    }
+    return size
+  }
+
+  return statData.size
 }
 
 function sendGameStatusUpdate(payload: GameStatus) {
@@ -1450,6 +1482,7 @@ export {
   getFileSize,
   memoryLog,
   removeFolder,
+  getPathDiskSize,
   sendGameStatusUpdate,
   sendProgressUpdate,
   calculateEta,

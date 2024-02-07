@@ -229,7 +229,8 @@
     "game": {
         "status": "Status",
         "store": "Áruház",
-        "title": "Játék címe"
+        "title": "Játék címe",
+        "modify": "Telepítés Módosítása"
     },
     "generic": {
         "error": {
@@ -633,7 +634,7 @@
         "showMetalOverlay": "Statisztika fedvény megjelenítése",
         "addgamestoapplications": "Adjon hozzá játékokat automatikusan az Alkalmazásokhoz",
         "alt-nile-bin": "Válasszon egy alternatív nílusi binárist",
-        "autodxvknvapi": "A DXVK automatikus telepítése/frissítése a prefixen",
+        "autodxvknvapi": "A DXVK-NVAPI automatikus telepítése/frissítése a prefixen",
         "frameless-window": {
             "confirmation": {
                 "message": "Ez még egy kísérleti funkció. Kérjük, jelentse az esetleges hibákat GitHub-on.",
@@ -715,6 +716,14 @@
         },
         "gamescope": {
             "searchMsg": "A gamescope futtatható fájl keresése."
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Installed Games"
+            },
+            "title": {
+                "resetHeroic": "Reset Heroic"
+            }
         }
     },
     "Settings": "Beállítások",

@@ -593,7 +593,7 @@
         "addgamestoapplications": "응용 프로그램에 자동으로 게임 추가",
         "showMetalOverlay": "통계 오버레이 표시",
         "alt-nile-bin": "대체 Nile 바이너리 선택",
-        "autodxvknvapi": "설치 경로에서 DXVK 자동 설치/업데이트"
+        "autodxvknvapi": "설치 경로에서 DXVK-NVAPI 자동 설치/업데이트"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -635,6 +635,15 @@
         "saves": {
             "label": "Save Location:",
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "설치된 게임"
+            },
+            "details": "세부",
+            "title": {
+                "resetHeroic": "Reset Heroic"
+            }
         }
     },
     "Settings": "설정",

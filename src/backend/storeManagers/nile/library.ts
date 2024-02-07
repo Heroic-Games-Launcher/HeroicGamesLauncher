@@ -474,3 +474,10 @@ export async function runRunnerCommand(
 }
 
 export const getLaunchOptions = () => []
+
+/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+export function changeVersionPinnedStatus(appName: string, status: boolean) {
+  logWarning(
+    'changeVersionPinnedStatus not implemented on Nile Library Manager'
+  )
+}

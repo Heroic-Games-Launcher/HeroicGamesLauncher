@@ -51,6 +51,7 @@
     "button": {
         "add_to_favourites": "Add To Favourites",
         "cancel": "Pause/Cancel",
+        "changelog": "Show Changelog",
         "continue": "Continue Download",
         "details": "Details",
         "finish": "Finish",
@@ -76,12 +77,20 @@
     },
     "cloud_save_unsupported": "Unsupported",
     "disabled": "Disabled",
-    "dlc": {
-        "installDlcs": "Install all DLCs"
-    },
     "enabled": "Enabled",
     "game": {
-        "dlcs": "DLCs",
+        "branch": {
+            "disabled": "Disabled",
+            "password": "Set private channel password",
+            "select": "Select beta channel",
+            "setPrivateBranchPassword": "Set private channel password"
+        },
+        "builds": {
+            "buildsSelector": "Select game version",
+            "toggle": "Keep the game at specific version",
+            "version": "Version"
+        },
+        "changelogFor": "Changelog for {{gameTitle}}",
         "downloadSize": "Download Size",
         "firstPlayed": "First Played",
         "getting-download-size": "Getting download size",
@@ -89,6 +98,7 @@
         "installSize": "Install Size",
         "language": "Language",
         "lastPlayed": "Last Played",
+        "modify": "Modify Installation",
         "neverPlayed": "Never",
         "platform": "Select Platform Version to Install",
         "requirements": "System Requirements",
@@ -158,7 +168,7 @@
             "start": "Play Now",
             "stop": "Playing (Stop)"
         },
-        "prerequisites": "Installing Prerequisites",
+        "redist": "Installing Redistributables",
         "saves": {
             "syncing": "Syncing Saves"
         },
@@ -166,6 +176,15 @@
     },
     "launch": {
         "options": "Launch Options..."
+    },
+    "modifyInstall": {
+        "dlcsCollapsible": "DLC",
+        "nodlcs": "No DLC available",
+        "redMod": {
+            "collapsible": "REDmod Integration",
+            "enable": "Enable mods"
+        },
+        "versionCollapsable": "Game Version"
     },
     "not_logged_in": {
         "amazon": "You are not logged in with an Amazon account in Heroic. Don't use the store page to login, click the following button instead:",
@@ -222,9 +241,9 @@
         "notSupported": "Not supported",
         "notSupportedGame": "Not Supported",
         "playing": "Playing",
-        "prerequisites": "Installing Prerequisites",
         "processing": "Processing files, please wait",
         "queued": "Queued",
+        "redist": "Installing Redistributables ({{redist}})",
         "reparing": "Repairing Game, please wait",
         "syncingSaves": "Syncing Saves",
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",

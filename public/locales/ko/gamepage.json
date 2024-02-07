@@ -90,7 +90,13 @@
         "platform": "설치할 플랫폼 버전 선택",
         "requirements": "시스템 요구 사항",
         "totalPlayed": "플레이 시간",
-        "dlcs": "DLCs"
+        "dlcs": "DLCs",
+        "branch": {
+            "disabled": "비활성화"
+        },
+        "builds": {
+            "version": "버전"
+        }
     },
     "gamecard": {
         "moving": "옮기는 중",

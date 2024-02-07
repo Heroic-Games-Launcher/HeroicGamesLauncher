@@ -1,6 +1,6 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Typsnitt för kommandon (Standard: ",
+        "actions_font_family_no_default": "Typsnitt för kommandon (Standard):",
         "all_tiles_in_color": "Visa alla spel rutor i färg",
         "content_font_family_no_default": "Typsnitt för innehåll (Standard: ",
         "fonts": "Typsnitt",
@@ -203,8 +203,8 @@
     "docs": "Dokumentation",
     "download-manager": {
         "install-type": {
-            "install": "Installera",
-            "update": "Uppdatera"
+            "install": "Installation",
+            "update": "Uppdatering"
         },
         "label": {
             "disk": "Disk",
@@ -230,7 +230,8 @@
     "game": {
         "status": "Status",
         "store": "Butik",
-        "title": "Speltitel"
+        "title": "Speltitel",
+        "modify": "Modifiera installation"
     },
     "generic": {
         "error": {
@@ -654,12 +655,12 @@
         "addgamestoapplications": "Lägg till spel till applikationer automatiskt",
         "showMetalOverlay": "Visa statistiköverlägg",
         "alt-nile-bin": "Välj en alternativ Nile Binär",
-        "autodxvknvapi": "Installera/uppdatera DXVK i prefix automatiskt",
+        "autodxvknvapi": "Installera/uppdatera DXVK-NVAPI i prefix automatiskt",
         "disablePlaytimeSync": "Inaktivera speltidssynkronisering",
         "experimental_features": {
             "enableNewDesign": "Ny design",
             "enableHelp": "Hjälp komponent",
-            "automaticWinetricksFixes": "Tillämpa kända Winetricks-fixar automatiskt"
+            "automaticWinetricksFixes": "Tillämpa kända fixar automatiskt"
         },
         "frameless-window": {
             "confirmation": {
@@ -747,6 +748,28 @@
         },
         "offline": {
             "warning": "Det här spelet tillåter inte uttryckligen offlineläge, aktivera detta på egen risk. Spelet kanske inte fungerar."
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Installerade spel",
+                "help2": "Tredjepartsspelinformation (poäng, steam-kompatibilitet, howlongtobeat, pcgamingwiki, applegamingwiki)",
+                "help6": "Detta kommer INTE att ta bort:",
+                "help7": "Butik inloggning",
+                "help5": "Amazon biblioteksinformation (lista över spel, installationsdialoginformation)",
+                "help1": "Denna åtgärd rensar följande cacheminne:",
+                "help10": "Heroic konfiguration",
+                "help3": "Legendary biblioteksinformation (lista över spel, installationsdialoginformation, spelinformation)",
+                "help4": "GOG-biblioteksinformation (lista över spel, installationsdialoginformation, api-information -dvs: krav-)",
+                "help9": "Spel inställningar"
+            },
+            "title": {
+                "resetHeroic": "Grundåterställ Heroic",
+                "clearCache": "Rensa cache"
+            },
+            "details": "Detaljer",
+            "resetHeroic": {
+                "help": "Detta tar bort alla inställningar och cachelagring men tar inte bort dina installerade spel eller dina Epic-uppgifter. Portabla versioner (AppImage, WinPortable, ...) av heroic måste startas om manuellt efteråt."
+            }
         }
     },
     "Settings": "Inställningar",
@@ -853,5 +876,10 @@
         "add-new-category": "Lägg till ny kategori",
         "cancel": "Avbryt",
         "warning": "Varning"
+    },
+    "wineExplanation": {
+        "wine-ge-lol": "Wine-GE-Proton...-LoL-byggen är avsedda att ENDAST användas för League of Legends. Dessa byggen bör INTE användas för något annat spel eftersom de kan orsaka problem.",
+        "proton-ge": "Proton-GE-Proton är en Proton-variant skapad av Glorious Eggroll. Den är tänkt att användas för Steam, men vissa spel utanför Steam kan fungera bättre med denna variant. Den ger mestadels värdelösa loggar för felsökning.",
+        "wine-ge": "Wine-GE-Proton är en Wine variant skapad av Glorious Eggroll. Det är den rekommenderade wine som ska användas utanför Steam. Detta ger användbara loggar vid felsökning."
     }
 }

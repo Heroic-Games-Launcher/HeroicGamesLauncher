@@ -1,10 +1,10 @@
 import axios from 'axios'
-import { writeFileSync, existsSync, unlinkSync } from 'graceful-fs'
+import { existsSync, unlinkSync } from 'graceful-fs'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import { GOGLoginData } from 'common/types'
 import { configStore } from './electronStores'
 import { isOnline } from '../../online_monitor'
-import { UserData } from 'common/types/gog'
+import { GOGCredentials, UserData } from 'common/types/gog'
 import { runRunnerCommand } from './library'
 import { gogdlAuthConfig } from 'backend/constants'
 import { clearCache } from 'backend/utils'
@@ -101,7 +101,7 @@ export class GOGUser {
    * if needed refreshes token and returns new credentials
    * @returns user credentials
    */
-  public static async getCredentials() {
+  public static async getCredentials(): Promise<GOGCredentials | undefined> {
     if (!isOnline()) {
       logWarning('Unable to get credentials - app is offline', {
         prefix: LogPrefix.Gog
@@ -113,26 +113,6 @@ export class GOGUser {
       logSanitizer: authLogSanitizer
     })
     return JSON.parse(stdout)
-  }
-
-  /**
-   * Migrates existing authorization config to one supported by gogdl
-   */
-  public static migrateCredentialsConfig() {
-    if (!configStore.has('credentials')) {
-      return
-    }
-
-    const credentials = configStore.get_nodefault('credentials')
-    if (credentials?.loginTime)
-      credentials.loginTime = credentials?.loginTime / 1000
-
-    writeFileSync(
-      gogdlAuthConfig,
-      JSON.stringify({ '46899977096215655': credentials })
-    )
-    configStore.delete('credentials')
-    configStore.set('isLoggedIn', true)
   }
 
   public static logout() {

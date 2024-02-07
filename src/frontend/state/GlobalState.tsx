@@ -19,13 +19,7 @@ import {
   HelpItem
 } from 'frontend/types'
 import { withTranslation } from 'react-i18next'
-import {
-  getGameInfo,
-  getLegendaryConfig,
-  getPlatform,
-  launch,
-  notify
-} from '../helpers'
+import { getGameInfo, getLegendaryConfig, launch, notify } from '../helpers'
 import { i18n, t, TFunction } from 'i18next'
 
 import ContextProvider from './ContextProvider'
@@ -78,7 +72,7 @@ interface StateProps {
   language: string
   libraryStatus: GameStatus[]
   libraryTopSection: string
-  platform: NodeJS.Platform | 'unknown'
+  platform: NodeJS.Platform
   refreshing: boolean
   refreshingInTheBackground: boolean
   hiddenGames: HiddenGame[]
@@ -172,7 +166,7 @@ class GlobalState extends PureComponent<Props> {
     language: this.props.i18n.language,
     libraryStatus: [],
     libraryTopSection: globalSettings?.libraryTopSection || 'disabled',
-    platform: 'unknown',
+    platform: window.platform,
     refreshing: false,
     refreshingInTheBackground: true,
     hiddenGames: configStore.get('games.hidden', []),
@@ -674,6 +668,7 @@ class GlobalState extends PureComponent<Props> {
     appName,
     status,
     folder,
+    context,
     progress,
     runner
   }: GameStatus) => {
@@ -685,13 +680,13 @@ class GlobalState extends PureComponent<Props> {
       return this.setState({
         libraryStatus: [
           ...libraryStatus,
-          { appName, status, folder, progress, runner }
+          { appName, status, folder, context, progress, runner }
         ]
       })
     }
 
     // if the app's status didn't change, do nothing
-    if (currentApp.status === status) {
+    if (currentApp.status === status && currentApp.context === context) {
       return
     }
 
@@ -709,11 +704,18 @@ class GlobalState extends PureComponent<Props> {
         'extracting',
         'launching',
         'winetricks',
-        'prerequisites',
+        'redist',
         'queued'
       ].includes(status)
     ) {
-      newLibraryStatus.push({ appName, status, folder, progress, runner })
+      newLibraryStatus.push({
+        appName,
+        status,
+        folder,
+        context,
+        progress,
+        runner
+      })
       this.setState({ libraryStatus: newLibraryStatus })
     }
 
@@ -739,13 +741,14 @@ class GlobalState extends PureComponent<Props> {
       }
 
       this.refreshLibrary({ runInBackground: true, library: runner })
+
       this.setState({ libraryStatus: newLibraryStatus })
     }
   }
 
   async componentDidMount() {
     const { t } = this.props
-    const { epic, gameUpdates = [], libraryStatus } = this.state
+    const { epic, gog, amazon, gameUpdates = [], libraryStatus } = this.state
 
     // Deals launching from protocol. Also checks if the game is already running
     window.api.handleLaunchGame(
@@ -817,11 +820,13 @@ class GlobalState extends PureComponent<Props> {
           (game) => game.app_name === args.app_name
         )
         if (index !== -1) {
-          library.splice(index, 1)
+          library[index] = args
+        } else {
+          library.push(args)
         }
         this.setState({
           gog: {
-            library: [...library, args],
+            library: [...library],
             username: this.state.gog.username
           }
         })
@@ -841,7 +846,6 @@ class GlobalState extends PureComponent<Props> {
     const legendaryUser = configStore.has('userInfo')
     const gogUser = gogConfigStore.has('userData')
     const amazonUser = nileConfigStore.has('userData')
-    const platform = await getPlatform()
 
     if (legendaryUser) {
       await window.api.getUserInfo()
@@ -856,12 +860,13 @@ class GlobalState extends PureComponent<Props> {
       this.setState({ gameUpdates: storedGameUpdates })
     }
 
-    this.setState({ platform })
-
     if (legendaryUser || gogUser || amazonUser) {
       this.refreshLibrary({
         checkForUpdates: true,
-        runInBackground: Boolean(epic.library?.length)
+        runInBackground:
+          epic.library.length !== 0 ||
+          gog.library.length !== 0 ||
+          amazon.library.length !== 0
       })
     }
 

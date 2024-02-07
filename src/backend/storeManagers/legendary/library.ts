@@ -215,10 +215,13 @@ export function getGameInfo(
  */
 export async function getInstallInfo(
   appName: string,
-  installPlatform: InstallPlatform
+  installPlatform: InstallPlatform,
+  options?: { retries?: number }
 ): Promise<LegendaryInstallInfo> {
+  const retries = options?.retries
+
   const cache = installStore.get(appName)
-  if (cache) {
+  if (cache && cache.manifest) {
     logDebug('Using cached install info', LogPrefix.Legendary)
     return cache
   }
@@ -240,8 +243,25 @@ export async function getInstallInfo(
   }
   try {
     const info: LegendaryInstallInfo = JSON.parse(res.stdout)
-    installStore.set(appName, info)
-    return info
+    if (info.manifest) {
+      installStore.set(appName, info)
+      return info
+    } else {
+      const nextRetry = retries !== undefined ? retries - 1 : 3
+      if (nextRetry > 0) {
+        logWarning(
+          `Install info for ${appName} does not include manifest data. Retrying.`
+        )
+        const retriedInfo = await getInstallInfo(appName, installPlatform, {
+          retries: nextRetry
+        })
+        return retriedInfo
+      } else {
+        throw Error(
+          `Install info for ${appName} does not include manifest data after 3 retries.`
+        )
+      }
+    }
   } catch (error) {
     throw Error(`Failed to parse install info for ${appName} with: ${error}`)
   }
@@ -895,4 +915,11 @@ export async function getLaunchOptions(
   }
 
   return launchOptions
+}
+
+/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+export function changeVersionPinnedStatus(appName: string, status: boolean) {
+  logWarning(
+    'changeVersionPinnedStatus not implemented on Legendary Library Manager'
+  )
 }

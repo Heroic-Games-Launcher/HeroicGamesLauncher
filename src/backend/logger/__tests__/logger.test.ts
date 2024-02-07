@@ -43,7 +43,7 @@ function getStringPassedToLogFile(type: logLevel, skipMessagePrefix = false) {
 describeSkipOnWindows('logger/logger.ts', () => {
   afterEach(jest.restoreAllMocks)
 
-  test('log invokes console', () => {
+  test('log invokes console', async () => {
     const spyConsoleError = jest
       .spyOn(global.console, 'error')
       .mockImplementation()

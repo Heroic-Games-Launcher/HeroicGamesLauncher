@@ -1,5 +1,5 @@
 import { spawnSync } from 'child_process'
-import { homedir, platform } from 'os'
+import { homedir } from 'os'
 import { join, resolve } from 'path'
 import { parse } from '@node-steam/vdf'
 
@@ -27,9 +27,9 @@ const fontsStore = new TypeCheckedStoreBackend('fontsStore', {
   name: 'fonts'
 })
 
-const isMac = platform() === 'darwin'
-const isWindows = platform() === 'win32'
-const isLinux = platform() === 'linux'
+const isMac = process.platform === 'darwin'
+const isWindows = process.platform === 'win32'
+const isLinux = process.platform === 'linux'
 const isSteamDeckGameMode = process.env.XDG_CURRENT_DESKTOP === 'gamescope'
 const isCLIFullscreen = process.argv.includes('--fullscreen')
 const isCLINoGui = process.argv.includes('--no-gui')
@@ -56,10 +56,13 @@ const appFolder = join(configFolder, 'heroic')
 const legendaryConfigPath = isSnap
   ? join(env.XDG_CONFIG_HOME!, 'legendary')
   : join(appFolder, 'legendaryConfig', 'legendary')
+const gogdlConfigPath = join(appFolder, 'gogdlConfig', 'heroic_gogdl')
+const gogSupportPath = join(gogdlConfigPath, 'gog-support')
 const nileConfigPath = join(appFolder, 'nile_config', 'nile')
 const configPath = join(appFolder, 'config.json')
 const gamesConfigPath = join(appFolder, 'GamesConfig')
 const toolsPath = join(appFolder, 'tools')
+const gogRedistPath = join(toolsPath, 'redist', 'gog')
 const heroicIconFolder = join(appFolder, 'icons')
 const runtimePath = join(toolsPath, 'runtimes')
 const userInfo = join(legendaryConfigPath, 'user.json')
@@ -211,7 +214,7 @@ const necessaryFoldersByPlatform = {
 }
 
 export function createNecessaryFolders() {
-  necessaryFoldersByPlatform[platform()].forEach((folder: string) => {
+  necessaryFoldersByPlatform[process.platform].forEach((folder: string) => {
     if (!existsSync(folder)) {
       mkdirSync(folder)
     }
@@ -273,6 +276,9 @@ export {
   wineprefixFAQ,
   customThemesWikiLink,
   gogdlAuthConfig,
+  gogdlConfigPath,
+  gogSupportPath,
+  gogRedistPath,
   vulkanHelperBin,
   nileConfigPath,
   nileInstalled,

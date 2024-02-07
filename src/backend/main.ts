@@ -24,7 +24,7 @@ import {
 } from 'electron'
 import 'backend/updater'
 import { autoUpdater } from 'electron-updater'
-import { cpus, platform } from 'os'
+import { cpus } from 'os'
 import {
   access,
   constants,
@@ -94,12 +94,14 @@ import {
   createNecessaryFolders,
   fixAsarPath,
   isSnap,
-  fixesPath
+  fixesPath,
+  isWindows,
+  isMac
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
-  appendGameLog,
-  initGameLog,
+  appendGamePlayLog,
+  initGamePlayLog,
   initLogger,
   logChangedSetting,
   logDebug,
@@ -134,6 +136,9 @@ import {
 
 import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
 import {
+  getCyberpunkMods,
+  getBranchPassword,
+  setBranchPassword,
   getGOGPlaytime,
   syncQueuedPlaytimeGOG,
   updateGOGPlaytime
@@ -157,7 +162,6 @@ import { storeMap } from 'common/utils'
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
 const { showOpenDialog } = dialog
-const isWindows = platform() === 'win32'
 
 async function initializeWindow(): Promise<BrowserWindow> {
   createNecessaryFolders()
@@ -231,9 +235,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
     handleExit()
   })
 
-  if (isWindows) {
-    detectVCRedist(mainWindow)
-  }
+  detectVCRedist(mainWindow)
 
   if (process.env.VITE_DEV_SERVER_URL) {
     if (!process.env.HEROIC_NO_REACT_DEVTOOLS) {
@@ -253,6 +255,15 @@ async function initializeWindow(): Promise<BrowserWindow> {
     mainWindow.loadURL(`file://${path.join(publicDir, '../build/index.html')}`)
     autoUpdater.checkForUpdates()
   }
+
+  // Changelog links workaround
+  mainWindow.webContents.on('will-navigate', (event, url) => {
+    const pattern = app.isPackaged ? publicDir : 'localhost:5173'
+    if (!url.match(pattern)) {
+      event.preventDefault()
+      openUrlOrFile(url)
+    }
+  })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
     const pattern = app.isPackaged ? publicDir : 'localhost:5173'
@@ -297,8 +308,8 @@ if (!gotTheLock) {
   })
   app.whenReady().then(async () => {
     initLogger()
-    initStoreManagers()
     initOnlineMonitor()
+    initStoreManagers()
     initImagesCache()
 
     // Add User-Agent Client hints to behave like Windows
@@ -327,15 +338,6 @@ if (!gotTheLock) {
       app.setAppUserModelId('Heroic Games Launcher')
     }
 
-    // TODO: Remove this after a couple of stable releases
-    // Affects only current users, not new installs
-    const settings = GlobalConfig.get().getSettings()
-    const { language } = settings
-    const currentConfigStore = configStore.get_nodefault('settings')
-    if (!currentConfigStore?.defaultInstallPath) {
-      configStore.set('settings', settings)
-    }
-
     runOnceWhenOnline(async () => {
       const isLoggedIn = LegendaryUser.isLoggedIn()
 
@@ -352,6 +354,8 @@ if (!gotTheLock) {
         GOGUser.getUserDetails()
       }
     })
+
+    const settings = GlobalConfig.get().getSettings()
 
     // Make sure lock is not present when starting up
     playtimeSyncQueue.delete('lock')
@@ -372,7 +376,7 @@ if (!gotTheLock) {
       returnEmptyString: false,
       returnNull: false,
       fallbackLng: 'en',
-      lng: language,
+      lng: settings.language,
       supportedLngs: [
         'ar',
         'az',
@@ -418,7 +422,6 @@ if (!gotTheLock) {
       ]
     })
 
-    GOGUser.migrateCredentialsConfig()
     const mainWindow = await initializeWindow()
 
     protocol.handle('heroic', (request) => {
@@ -435,8 +438,7 @@ if (!gotTheLock) {
       logWarning('Protocol already registered.', LogPrefix.Backend)
     }
 
-    const { startInTray } = GlobalConfig.get().getSettings()
-    const headless = isCLINoGui || startInTray
+    const headless = isCLINoGui || settings.startInTray
     if (!headless) {
       mainWindow.once('ready-to-show', () => {
         const props = configStore.get_nodefault('window-props')
@@ -625,7 +627,7 @@ ipcMain.on('quit', async () => handleExit())
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
+  if (!isMac) {
     app.quit()
   }
 })
@@ -697,8 +699,6 @@ ipcMain.handle('isFlatpak', () => isFlatpak)
 ipcMain.handle('getGameOverride', async () => getGameOverride())
 ipcMain.handle('getGameSdl', async (event, appName) => getGameSdl(appName))
 
-ipcMain.handle('getPlatform', () => process.platform)
-
 ipcMain.handle('showUpdateSetting', () => !isFlatpak)
 
 ipcMain.handle('getLatestReleases', async () => {
@@ -714,8 +714,8 @@ ipcMain.handle('getCurrentChangelog', async () => {
   return getCurrentChangelog()
 })
 
-ipcMain.on('clearCache', (event, showDialog?: boolean) => {
-  clearCache()
+ipcMain.on('clearCache', (event, showDialog, fromVersionChange = false) => {
+  clearCache(undefined, fromVersionChange)
   sendFrontendMessage('refreshLibrary')
 
   if (showDialog) {
@@ -774,11 +774,15 @@ ipcMain.handle('getGOGLinuxInstallersLangs', async (event, appName) =>
 
 ipcMain.handle(
   'getInstallInfo',
-  async (event, appName, runner, installPlatform) => {
+  async (event, appName, runner, installPlatform, build, branch) => {
     try {
       const info = await libraryManagerMap[runner].getInstallInfo(
         appName,
-        installPlatform
+        installPlatform,
+        {
+          branch,
+          build
+        }
       )
       if (info === undefined) return null
       return info
@@ -817,12 +821,12 @@ ipcMain.handle('getAlternativeWine', async () =>
   GlobalConfig.get().getAlternativeWine()
 )
 
-ipcMain.handle('readConfig', async (event, config_class) => {
-  if (config_class === 'library') {
+ipcMain.handle('readConfig', async (event, configClass) => {
+  if (configClass === 'library') {
     await libraryManagerMap['legendary'].refresh()
     return LegendaryLibraryManager.getListOfGames()
   }
-  const userInfo = await LegendaryUser.getUserInfo()
+  const userInfo = LegendaryUser.getUserInfo()
   return userInfo?.displayName ?? ''
 })
 
@@ -1031,10 +1035,10 @@ ipcMain.handle(
       powerDisplayId = powerSaveBlocker.start('prevent-display-sleep')
     }
 
-    initGameLog(game)
+    initGamePlayLog(game)
 
     if (logsDisabled) {
-      appendGameLog(
+      appendGamePlayLog(
         game,
         'IMPORTANT: Logs are disabled. Enable logs before reporting an issue.'
       )
@@ -1079,7 +1083,7 @@ ipcMain.handle(
     const launchResult = await command
       .catch((exception) => {
         logError(exception, LogPrefix.Backend)
-        appendGameLog(
+        appendGamePlayLog(
           game,
           `An exception occurred when launching the game:\n${exception.stack}`
         )
@@ -1191,7 +1195,7 @@ ipcMain.handle(
     let uninstalled = false
 
     try {
-      await gameManagerMap[runner].uninstall({ appName })
+      await gameManagerMap[runner].uninstall({ appName, shouldRemovePrefix })
       uninstalled = true
     } catch (error) {
       notify({
@@ -1700,6 +1704,22 @@ ipcMain.handle(
     return
   }
 )
+
+ipcMain.handle('getPrivateBranchPassword', (e, appName) =>
+  getBranchPassword(appName)
+)
+ipcMain.handle('setPrivateBranchPassword', (e, appName, password) =>
+  setBranchPassword(appName, password)
+)
+
+ipcMain.handle('getAvailableCyberpunkMods', async () => getCyberpunkMods())
+ipcMain.handle('setCyberpunkModConfig', async (e, props) =>
+  GOGLibraryManager.setCyberpunkModConfig(props)
+)
+
+ipcMain.on('changeGameVersionPinnedStatus', (e, appName, runner, status) => {
+  libraryManagerMap[runner].changeVersionPinnedStatus(appName, status)
+})
 
 /*
   Other Keys that should go into translation files:

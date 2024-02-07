@@ -1,11 +1,12 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Actions Font Family (Default: ",
+        "actions_font_family_no_default": "Rodzaj czcionki menu akcji (Default: ",
         "all_tiles_in_color": "Pokaż wszystkie tytuły gier w kolorze",
-        "content_font_family_no_default": "Content Font Family (Default: ",
+        "content_font_family_no_default": "Rodzaj czcionki zawartości (Default: ",
         "fonts": "Czcionki",
         "title": "Ułatwienia dostępu",
-        "zoom": "Przybliż"
+        "zoom": "Przybliż",
+        "disable_dialog_backdrop_close": "Wyłącz zamykanie okieniek poprzez kliknięcie poza nimi"
     },
     "add_game": "Dodaj Grę",
     "All": "Wszystkie",
@@ -155,8 +156,8 @@
             },
             "sideload": {
                 "confirmExit": {
-                    "title": "Czy na pewno chcesz zakończyć?",
-                    "message": "Niezapisane postępy mogą zostać utracone"
+                    "title": "Czy na pewno chcesz opuścić program?",
+                    "message": "Niezapisany postęp może zostać utracony"
                 }
             },
             "snap": {
@@ -207,16 +208,16 @@
         },
         "label": {
             "disk": "Dysk",
-            "speed": "Pobieranie"
+            "speed": "Prędkość pobierania"
         },
-        "link": "Pobieranie",
+        "link": "Do pobrania",
         "queue": {
             "end-time": "Zakończono o",
-            "queue-time": "Dodano o",
+            "queue-time": "Rozpoczęto o",
             "start-time": "Rozpoczęto o",
             "type": "Typ"
         },
-        "title": "Pobieranie",
+        "title": "Pobrane",
         "ETA": "Szacowany czas"
     },
     "epic": {
@@ -252,7 +253,14 @@
         "show_hidden": "Pokaż ukryte",
         "store": "Filtruj",
         "filters": "Filtr",
-        "categories": "Kategorie"
+        "categories": "Kategorie",
+        "no_categories": "Brak własnych kategorii. Dodaj kategorie używając menu każdej gry.",
+        "only": "tylko",
+        "reset": "Resetuj",
+        "show_installed_only": "Pokaż tylko zainstalowane",
+        "show_support_offline_only": "Pokaż tylko obsługiwane bez internetu",
+        "uncategorized": "Nieskategoryzowane",
+        "select_all": "Zaznacz Wszystkie"
     },
     "help": {
         "amdfsr": "AMD FSR pomaga podnieść ilość klatek na sekundę poprzez podniesienie niżej rozdzielczości do rozdzielczości monitora. Jakość obrazu można dostosować: od 5 do 1, z drobnym spadkiem wydajności. Włączenie może poprawić wydajność.",
@@ -312,6 +320,21 @@
             "downloadManager": "Download Manager",
             "wineManager": "Menedżer Wine",
             "library": "Biblioteka"
+        },
+        "button": {
+            "open": "Otwórz Pomoc",
+            "close": "Zamknij Pomoc"
+        },
+        "content": {
+            "library": "Pokazuje wszystkie posiadane gry.",
+            "login": "Zaloguj się do innych sklepów.",
+            "settingsGame": "Pokaż wszystkie ustawienia dla gry.",
+            "accessibility": "Wyświetla ustawienia dostępności.",
+            "customThemesPath": "Sprawdź naszą wiki.",
+            "defaultInstallPath": "To jest domyślna ścieżka wybrana podczas instalowania gier.",
+            "downloadManager": "Pokazuje obecne i przeszłe pobrania.",
+            "settingsDefault": "Pokazuje wszystkie opcje Heroic i domyślne opcje gier.",
+            "wineManager": "Zainstaluj inne wersje Wine, Protona, Crossover, itp."
         }
     },
     "info": {
@@ -582,7 +605,8 @@
             "instructions_title": "Jak zgłosić problem?",
             "last-log": "Poprzedni Log",
             "no-file": "Nie znaleziono pliku logu",
-            "show-in-folder": "Pokaż plik logu w folderze"
+            "show-in-folder": "Pokaż plik logu w folderze",
+            "join-heroic-discord": "Dołącz do naszego Discorda"
         },
         "mangohud": "Włącz Mangohud (Wymagany zainstalowany Mangohud)",
         "manualsync": {
@@ -629,10 +653,12 @@
         "showMetalOverlay": "Pokaż nakładkę statystyk",
         "addgamestoapplications": "Automatycznie dodawaj gry do aplikacji",
         "alt-nile-bin": "Wybierz alternatywny plik binarny Nilu",
-        "autodxvknvapi": "Automatycznie instaluj/Aktualizuj DXVK w prefiksie",
+        "autodxvknvapi": "Automatycznie instaluj/Aktualizuj DXVK-NVAPI w prefiksie",
         "disablePlaytimeSync": "Wyłącz synchronizację czasu gry",
         "experimental_features": {
-            "enableNewDesign": "Nowy design"
+            "enableNewDesign": "Nowy design",
+            "automaticWinetricksFixes": "Zastosuj znane poprawki Winetricks automatycznie",
+            "enableHelp": "Element pomocy"
         },
         "frameless-window": {
             "confirmation": {
@@ -696,7 +722,7 @@
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
             "legendaryVersion": "Legendary: {{legendaryVersion}}",
             "systemSpecifications": "Specyfikacja systemu:",
-            "steamDeck": "Steam Deck",
+            "steamDeck": "Steam Deck {{model}}",
             "gpuDriver": "Sterownik: {{driverVersion}}",
             "os": "System operacyjny:",
             "gpu": "Karta graficzna:",
@@ -717,6 +743,18 @@
         },
         "gamescope": {
             "searchMsg": "Wyszukiwanie pliku wykonywalnego gamescope."
+        },
+        "offline": {
+            "warning": "Ta gra nie wspiera domyślnie trybu bez internetu, włącz to na własną odpowiedzialność. Gra może nie działać."
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Zainstalowane Gry"
+            },
+            "details": "Detale",
+            "title": {
+                "resetHeroic": "Zresetuj Heroic"
+            }
         }
     },
     "Settings": "Ustawienia",
@@ -796,14 +834,14 @@
         "noDlcFound": "Nie znaleziono DLC",
         "size": "Rozmiar",
         "installDlcs": "Zainstaluj wszystkie DLC",
-        "title": "Title"
+        "title": "Tytuł"
     },
     "prime-gaming": "Prime Gaming",
     "amazon": "Amazon",
     "Amazon Games": "Amazon Games",
     "winetricks": {
         "install": "Zainstaluj",
-        "loading": "Loading",
+        "loading": "Wczytywanie",
         "installing": "Instalacja w trakcie: {{component}}",
         "openGUI": "Otwórz interfejs Winetricks",
         "search": "Szukaj czcionek lub bibliotek",
@@ -818,6 +856,10 @@
     },
     "category-settings": {
         "cancel": "Anuluj",
-        "warning": "Ostrzeżenie"
+        "warning": "Ostrzeżenie",
+        "delete-question": "Kontynuowanie permamentnie usunie tą kategorię i odznaczy ją ze wszystkich gier. Kontynuować?",
+        "remove-category": "Usuń Kategorię",
+        "add-new-category": "Dodaj Nową Kategorię",
+        "new-category": "Nowa Kategoria"
     }
 }

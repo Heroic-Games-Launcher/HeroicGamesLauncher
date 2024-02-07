@@ -8,6 +8,7 @@ contextBridge.exposeInMainWorld(
   'isSteamDeckGameMode',
   process.env.XDG_CURRENT_DESKTOP === 'gamescope'
 )
+contextBridge.exposeInMainWorld('platform', process.platform)
 
 if (navigator.userAgent.includes('Windows')) {
   Object.defineProperty(navigator, 'platform', {

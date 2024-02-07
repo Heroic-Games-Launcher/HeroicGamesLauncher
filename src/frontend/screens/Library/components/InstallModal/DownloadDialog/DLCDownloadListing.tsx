@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ToggleSwitch from 'frontend/components/UI/ToggleSwitch'
 import { useTranslation } from 'react-i18next'
 import { DLCInfo } from 'common/types/legendary'
@@ -21,6 +21,10 @@ const DLCDownloadListing: React.FC<Props> = ({
     return null
   }
 
+  useEffect(() => {
+    setInstallAllDlcs(dlcsToInstall.length === DLCList.length)
+  }, [dlcsToInstall])
+
   const handleAllDlcs = () => {
     setInstallAllDlcs(!installAllDlcs)
     if (!installAllDlcs) {
@@ -28,7 +32,7 @@ const DLCDownloadListing: React.FC<Props> = ({
     }
 
     if (installAllDlcs) {
-      setDlcsToInstall([...DLCList.map(({ app_name }) => app_name)])
+      setDlcsToInstall([])
     }
   }
 
@@ -41,14 +45,16 @@ const DLCDownloadListing: React.FC<Props> = ({
       newDlcsToInstall.push(app_name)
     }
     setDlcsToInstall(newDlcsToInstall)
-    setInstallAllDlcs(newDlcsToInstall.length === DLCList.length)
   }
 
   return (
     <div className="InstallModal__dlcs">
-      <label className="InstallModal__toggle toggleWrapper">
+      <label
+        className="InstallModal__toggle toggleWrapper"
+        htmlFor="allDlcsSwitch"
+      >
         <ToggleSwitch
-          htmlId="dlcs"
+          htmlId="allDlcsSwitch"
           value={installAllDlcs}
           handleChange={() => handleAllDlcs()}
           title={t('dlc.installDlcs', 'Install all DLCs')}
@@ -60,9 +66,10 @@ const DLCDownloadListing: React.FC<Props> = ({
             key={title}
             className="InstallModal__toggle toggleWrapper"
             title={title}
+            htmlFor={`dlcSelector-${index}`}
           >
             <ToggleSwitch
-              htmlId={`dlc-${index}`}
+              htmlId={`dlcSelector-${index}`}
               value={dlcsToInstall.includes(app_name)}
               title={title}
               extraClass="InstallModal__toggle--sdl"

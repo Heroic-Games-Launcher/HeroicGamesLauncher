@@ -12,7 +12,7 @@ const initialContext: GameContextType = {
   is: {
     installing: false,
     installingWinetricksPackages: false,
-    installingPrerequisites: false,
+    installingRedist: false,
     launching: false,
     linux: false,
     linuxNative: false,

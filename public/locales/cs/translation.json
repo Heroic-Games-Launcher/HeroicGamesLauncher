@@ -1,11 +1,12 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Rodina písem akcí (výchozí: ",
+        "actions_font_family_no_default": "Rodina písem akcí (výchozí):",
         "all_tiles_in_color": "Zobrazit všechny dlaždice her barevně",
         "content_font_family_no_default": "Rodina písem obsahu (výchozí: ",
         "fonts": "Písma",
         "title": "Přístupnost",
-        "zoom": "Přiblížení"
+        "zoom": "Přiblížení",
+        "disable_dialog_backdrop_close": "Zakázat zavření dialogů kliknutím pryč"
     },
     "add_game": "Přidat hru",
     "All": "Vše",
@@ -229,7 +230,8 @@
     "game": {
         "status": "Status",
         "store": "Obchod",
-        "title": "Název hry"
+        "title": "Název hry",
+        "modify": "Upravit instalaci"
     },
     "generic": {
         "error": {
@@ -658,7 +660,7 @@
             "enableNewShinyFeature": "Nová skvělá funkce",
             "enableNewDesign": "Nový design",
             "enableHelp": "Komponenta nápovědy",
-            "automaticWinetricksFixes": "Automaticky použít známé opravy Winetricks"
+            "automaticWinetricksFixes": "Automaticky použít známé opravy"
         },
         "disablePlaytimeSync": "Zakázat synchronizaci času hraní",
         "gamescope": {
@@ -744,6 +746,31 @@
         },
         "gamescope": {
             "searchMsg": "Hledání spustitelného souboru gamescope."
+        },
+        "offline": {
+            "warning": "Tato hra explicitně nepovoluje režim offline, tuto možnost zapněte na vlastní nebezpečí. Hra nemusí fungovat."
+        },
+        "advanced": {
+            "details": "Podrobnosti",
+            "title": {
+                "resetHeroic": "Resetovat Heroic",
+                "clearCache": "Vymazat mezipaměť"
+            },
+            "clearCache": {
+                "help8": "Installed Games",
+                "help1": "Tato akce vymaže následující mezipaměti:",
+                "help2": "Informace o hrách od třetí strany (skóre, kompatibilita se službou Steam, howlongtobeat, pcgamingwiki, applegamingwiki)",
+                "help4": "Informace o knihovně GOG (seznam her, informace v instalačním dialogu, informace o api -např.: požadavky-)",
+                "help5": "Informace o knihovně Amazon (seznam her, informace v instalačním dialogu)",
+                "help9": "Nastavení her",
+                "help10": "Nastavení programu Heroic",
+                "help3": "Informace o knihovně Legendary (seznam her, informace v instalačním dialogu, informace o hrách)",
+                "help6": "Tato akce NEodstraní:",
+                "help7": "Přihlášení do obchodu"
+            },
+            "resetHeroic": {
+                "help": "Tato akce odstraní všechna nastavení a mezipaměť, ale neodstraní vaše nainstalované hry nebo přihlašovací údaje do služby Epic. Přenosné verze programu Heroic (AppImage, WinPortable, ...) musí být po této akci ručně restartovány."
+            }
         }
     },
     "Settings": "Nastavení",
@@ -850,5 +877,10 @@
         "delete-question": "Pokračováním nevratně odstraníte tuto kategorii a odeberete ji ze všech her. Pokračovat?",
         "new-category": "Nová kategorie",
         "add-new-category": "Přidat novou kategorii"
+    },
+    "wineExplanation": {
+        "proton-ge": "Proton-GE-Proton je verze Protonu, kterou vytvořil Glorious Eggroll. Je vytvořena k použití ve službě Steam, některé hry mimo síť služby Steam ale mohou s touto verzí lépe fungovat. Poskytuje převážně zbytečné protokoly pro ladění chyb.",
+        "wine-ge": "Wine-GE-Proton je verze Wine, kterou vytvořil Glorious Eggroll. Jedná se o doporučenou verzi Wine k použití mimo službu Steam. Poskytuje užitečné protokoly pro ladění chyb.",
+        "wine-ge-lol": "Sestavení Wine-GE-Proton...-LoL jsou vytvořeny pro použití POUZE ve hře League of Legends. Tato sestavení by NEMĚLA být použita pro jiné hry, jelikož mohou způsobit problémy."
     }
 }

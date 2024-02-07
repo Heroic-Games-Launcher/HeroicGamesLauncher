@@ -33,11 +33,11 @@
         },
         "uninstall": {
             "checkbox": "Usuń prefiks: {{prefix}}{{newLine}} Notka: Operacja nie może zostać cofnięta, zostaną usunięte również zapisy gry.",
-            "message": "Czy chcesz odinstalować tę grę?",
+            "message": "Czy chcesz odinstalować \"{{title}}\"?",
             "settingcheckbox": "Wyczyść ustawienia i usuń dziennik zdarzeń{{newLine}}Uwaga: Ta operacja nie może zostać cofnięta. Wszystkie zmodyfikowane ustawienia zostaną zapomniane, a dziennik zdarzeń zostanie usunięty.",
             "title": "Odinstaluj",
             "prefix_warning": "Prefiks Wine dla tej gry jest prefiksem domyślnym. Jeśli na pewno chcesz go usunąć, musisz to zrobić ręcznie.",
-            "dlc": "Czy chcesz odinstalować to DLC?",
+            "dlc": "Czy chcesz odinstalować DLC \"{{title}}\"?",
             "cannotUninstallEpic": "Gry pochodzące z Epic nie mogą być odinstalowane, podczas gdy inna gra ze sklepu Epic jest instalowana."
         },
         "update": {
@@ -92,7 +92,13 @@
         "platform": "Wybierz wersję platformy do zainstalowania",
         "requirements": "Wymagania systemowe",
         "totalPlayed": "Czas Gry",
-        "dlcs": "DLC"
+        "dlcs": "DLC",
+        "branch": {
+            "disabled": "Wyłączone"
+        },
+        "builds": {
+            "version": "Wersja"
+        }
     },
     "gamecard": {
         "moving": "Przenoszenie",
@@ -152,7 +158,9 @@
             "syncing": "Synchronizowanie zapisów"
         },
         "launching": "Uruchamianie",
-        "ubisoft": "Instalowanie Ubisoft Connect"
+        "ubisoft": "Instalowanie Ubisoft Connect",
+        "prerequisites": "Instalowanie Wstępnych Wymagań",
+        "winetricks": "Instalowanie pakietów Winetricks"
     },
     "launch": {
         "options": "Opcje Uruchamiania..."
@@ -220,7 +228,9 @@
         "downloading": "Pobieranie",
         "extracting": "Wypakowywanie",
         "gog-goodie": "Wygląda na to, że tej gry nie da się zainstalować. Sprawdź zawartość do pobrania na https://gog.com/account",
-        "goodie": "Nie do zainstalowania"
+        "goodie": "Nie do zainstalowania",
+        "prerequisites": "Status instalacji wstępnych wymagań",
+        "winetricks": "Zastosowywanie poprawek Winetricks"
     },
     "submenu": {
         "addShortcut": "Dodaj skrót",
@@ -240,6 +250,12 @@
         "categories": "Kategorie"
     },
     "help": {
-        "cloud_save_unsupported": "Ta gra nie obsługuje zapisów w chmurze. Informacje te są dostarczane przez twórców gry. Niektóre gry mają własny system zapisywania w chmurze"
+        "cloud_save_unsupported": "Ta gra nie obsługuje zapisów w chmurze. Informacje te są dostarczane przez twórców gry. Niektóre gry mają własny system zapisywania w chmurze",
+        "title": {
+            "gamePage": "Strona Gry"
+        },
+        "content": {
+            "gamePage": "Pokaż wszystkie szczegóły i akcje dla gry. Użyj menu 3 kropek aby zobaczyć więcej opcji."
+        }
     }
 }

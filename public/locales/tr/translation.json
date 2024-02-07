@@ -5,7 +5,8 @@
         "content_font_family_no_default": "Yazı Tipi Ailesi İçeriği (Varsayılan: ",
         "fonts": "Yazı Tipleri",
         "title": "Erişilebilirlik",
-        "zoom": "Yakınlaştır"
+        "zoom": "Yakınlaştır",
+        "disable_dialog_backdrop_close": "Kutucuğın dışına tıklayarak kapanış diyaloglarını devre dışı bırakın"
     },
     "add_game": "Oyun Ekle",
     "All": "Tümü",
@@ -165,7 +166,7 @@
                 "message": "Bazı özellikler şimdilik uygulamanın Snap sürümünde yok ve bunu düzeltmeye çalışıyoruz.{{newLine}}Mevcut sınırlamalar şunlardır: {{newLine}}Heroic, Steam'den Proton ya da Lutris'ten Wine'ı bulamayacak.{{newLine}}{{newLine}}Gamescope, GameMode ve MangoHud da Heroic'in bunlara erişimi olamayacağı için çalışmayacaktır.{{newLine}}{{newLine}}Bu özelliğe erişmek için lütfen Heroic'i Flatpak, DEB ya da AppImage kullanarak kurun."
             }
         },
-        "wineprefix": "Wine Ön Ek Klasörünü Seçin",
+        "wineprefix": "Wine Prefix Klasörünü Seçin",
         "yes": "EVET",
         "dontShowAgain": "Tekrar gösterme",
         "choose-nile-binary": "Nil ikili dosyasını seçin"
@@ -497,12 +498,13 @@
             "upscaleWidth": "Genişliği Artır",
             "gameWidth": "Oyun Genişliği",
             "upscaleHeight": "Yüksekliği Artır",
-            "stretch": "Görüntüyü Uzat"
+            "stretch": "Görüntüyü Uzat",
+            "interger": "Tamsayı Artırma"
         }
     },
     "other": {
         "gogdl-version": "GOGDL Sürümü: ",
-        "legendary-version": "Legendary Sürüm: ",
+        "legendary-version": "Legendary Sürümü: ",
         "weblate": "Heroic'i çevirmeye yardımcı ol.",
         "nile-version": "Nil Sürümü: "
     },
@@ -652,7 +654,7 @@
         "showMetalOverlay": "İstatistik Tablosunu Göster",
         "addgamestoapplications": "Oyunları Uygulamalara otomatik ekle",
         "alt-nile-bin": "Alternatif Bir Nil İkilisi Seçin",
-        "autodxvknvapi": "DXVK/NVAPI'yı Ön Eke kendiliğinden Kur/Güncelle",
+        "autodxvknvapi": "DXVK-NVAPI'yı Ön Eke kendiliğinden Kur/Güncelle",
         "disablePlaytimeSync": "Oynama süresi senkronizasyonunu devre dışı bırak",
         "experimental_features": {
             "enableNewDesign": "Yeni tasarım",
@@ -742,6 +744,17 @@
         },
         "gamescope": {
             "searchMsg": "Gamescope çalıştırılabilir dosyası aranıyor."
+        },
+        "offline": {
+            "warning": "Bu oyun açıkça çevrimdışı moda izin vermiyor. Oyunu açarsanız oluşacak risklerin sorumluluğu size aittir. Oyun çalışmayabilir."
+        },
+        "advanced": {
+            "clearCache": {
+                "help8": "Installed Games"
+            },
+            "title": {
+                "resetHeroic": "Heroic'i Sıfırla"
+            }
         }
     },
     "Settings": "Ayarlar",

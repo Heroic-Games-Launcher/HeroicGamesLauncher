@@ -486,7 +486,13 @@
             "installing": "Installerer BattlEye Runtime...",
             "name": "BattlEye AntiCheat Runtime"
         },
-        "default_hint": "Ændringer i dette afsnit gælder kun som standardværdier ved installation af spil. Hvis du vil ændre indstillingerne for et allerede installeret spil, skal du bruge knappen Indstillinger på spilsiden."
+        "default_hint": "Ændringer i dette afsnit gælder kun som standardværdier ved installation af spil. Hvis du vil ændre indstillingerne for et allerede installeret spil, skal du bruge knappen Indstillinger på spilsiden.",
+        "advanced": {
+            "details": "detaljer",
+            "title": {
+                "resetHeroic": "Nulstil Heroic"
+            }
+        }
     },
     "title": {
         "allUnreal": "Uvirkeligt - Alt",

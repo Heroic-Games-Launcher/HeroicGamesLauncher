@@ -21,122 +21,32 @@
   "engines": {
     "node": ">= 16"
   },
-  "build": {
-    "appId": "com.heroicgameslauncher.hgl",
-    "productName": "Heroic",
-    "afterSign": "sign/afterSign.js",
-    "afterPack": "sign/afterPack.js",
-    "files": [
-      "build/**/*",
-      "node_modules/**/*",
-      "!build/bin/*",
-      "build/bin/legendary.LICENSE"
-    ],
-    "asarUnpack": [
-      "build/icon.png",
-      "build/icon.icns",
-      "build/win_icon.ico",
-      "build/icon-dark.png",
-      "build/icon-light.png",
-      "build/webviewPreload.js"
-    ],
-    "electronDownload": {
-      "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
-    },
-    "protocols": [
-      {
-        "name": "heroic",
-        "schemes": [
-          "heroic"
-        ]
-      }
-    ],
-    "win": {
-      "artifactName": "${productName}-${version}-Setup-${arch}.${ext}",
-      "icon": "build/win_icon.ico",
-      "asarUnpack": [
-        "build/bin/win32/legendary.exe",
-        "build/bin/win32/gogdl.exe",
-        "build/bin/win32/nile.exe"
-      ],
-      "files": [
-        "build/bin/win32/*"
-      ]
-    },
-    "portable": {
-      "artifactName": "${productName}-${version}-Portable-${arch}.${ext}"
-    },
-    "mac": {
-      "artifactName": "${productName}-${version}-macOS-${arch}.${ext}",
-      "category": "public.app-category.games",
-      "icon": "build/icon.icns",
-      "entitlements": "build/entitlements.mac.plist",
-      "entitlementsInherit": "build/entitlements.mac.plist",
-      "extendInfo": {
-        "com.apple.security.cs.allow-jit": true
-      },
-      "asarUnpack": [
-        "build/bin/darwin/legendary",
-        "build/bin/darwin/gogdl",
-        "build/bin/darwin/nile"
-      ],
-      "files": [
-        "build/bin/darwin/*"
-      ]
-    },
-    "dmg": {
-      "background": "public/dmg.png",
-      "window": {
-        "width": "600",
-        "height": "500"
-      },
-      "contents": [
-        {
-          "x": 10,
-          "y": 215,
-          "type": "file"
-        },
-        {
-          "x": 420,
-          "y": 215,
-          "type": "link",
-          "path": "/Applications"
-        }
-      ]
-    },
-    "linux": {
-      "category": "Game",
-      "icon": "build/icon.icns",
-      "description": "An Open Source Launcher for GOG and Epic Games",
-      "desktop": {
-        "Name": "Heroic Games Launcher",
-        "Comment[de]": "Ein Open Source Spielelauncher for GOG und Epic Games"
-      },
-      "asarUnpack": [
-        "build/bin/linux/legendary",
-        "build/bin/linux/gogdl",
-        "build/bin/linux/nile",
-        "build/bin/linux/vulkan-helper"
-      ],
-      "files": [
-        "build/bin/linux/*"
-      ]
-    },
-    "snap": {
-      "base": "core20",
-      "confinement": "strict",
-      "grade": "stable",
-      "category": "Games",
-      "synopsis": "An Open Source Launcher for GOG, Amazon and Epic Games",
-      "description": "Heroic is an Open Source Games Launcher. Right now it supports launching games from the Epic Games Store using Legendary, Amazon Games using Nile and GOG Games using our custom implementations Nile and gogdl.",
-      "publish": {
-        "provider": "snapStore",
-        "channels": [
-          "edge"
-        ],
-        "repo": "heroic"
-      }
-    }
+  "scripts": {
+    "start": "vite",
+    "codecheck": "tsc --noEmit",
+    "find-deadcode": "ts-prune --error",
+    "test": "jest",
+    "test-watch": "jest --watch --maxWorkers=25%",
+    "test:ci": "jest --runInBand --silent",
+    "test:e2e": "vite build && cross-env CI=e2e xvfb-maybe -- playwright test",
+    "release:linux": "vite build && electron-builder -p always --linux deb AppImage rpm pacman tar.xz snap",
+    "release:mac": "vite build && electron-builder -p always --mac --x64 --arm64",
+    "release:win": "vite build && electron-builder -p always --win portable --x64",
+    "release:updateFlathub:ci": "tsc flathub/update-flathub.ts --skipLibCheck --target es2015 --moduleResolution node --module commonjs && node flathub/update-flathub.js",
+    "sign:win": "vite build && electron-builder -p never --win nsis --x64",
+    "dist:linux": "vite build && electron-builder --linux",
+    "dist:mac": "export CSC_IDENTITY_AUTO_DISCOVERY=false && vite build && electron-builder --mac",
+    "dist:win": "vite build && electron-builder --win",
+    "dist:flatpak": "yarn dist:linux appimage && yarn flatpak:prepare && yarn flatpak:build",
+    "lint": "eslint --cache --ext .tsx,ts .",
+    "lint-fix": "eslint --fix --ext .tsx,ts ./src",
+    "flatpak:build": "cd flatpak-build && flatpak-builder build com.heroicgameslauncher.hgl.yml --install --force-clean --user",
+    "flatpak:prepare": "node ./flatpak/prepareFlatpak.js",
+    "flatpak:prepare-release": "node ./flatpak/prepareFlatpak.js release",
+    "i18n": "i18next --silent",
+    "prepare": "husky install",
+    "prettier": "prettier --check .",
+    "prettier-fix": "prettier --write ."
   },
   "dependencies": {
     "@emotion/react": "11.10.6",
@@ -176,12 +86,14 @@
     "json5": "2.2.3",
     "plist": "3.0.5",
     "react": "18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
     "react-dom": "18.2.0",
     "react-i18next": "12.2.0",
     "react-markdown": "8.0.5",
     "react-router-dom": "6.9.0",
     "recharts": "2.4.3",
     "sanitize-filename": "1.6.3",
+    "sanitize-html": "^2.11.0",
     "semver": "7.5.2",
     "shlex": "2.1.2",
     "short-uuid": "4.2.2",
@@ -190,39 +102,6 @@
     "tslib": "2.5.0",
     "xvfb-maybe": "^0.2.1",
     "zod": "3.22.3"
-  },
-  "scripts": {
-    "start": "vite",
-    "codecheck": "tsc --noEmit",
-    "find-deadcode": "ts-prune --error",
-    "test": "jest",
-    "test-watch": "jest --watch --maxWorkers=25%",
-    "test:ci": "jest --runInBand --silent",
-    "test:e2e": "vite build && cross-env CI=e2e xvfb-maybe -- playwright test",
-    "release:linux": "vite build && electron-builder -p always --linux deb AppImage rpm pacman tar.xz snap",
-    "release:mac": "vite build && electron-builder -p always --mac --x64 --arm64",
-    "release:win": "vite build && electron-builder -p always --win portable --x64",
-    "release:updateFlathub:ci": "tsc flathub/update-flathub.ts --skipLibCheck --target es2015 --moduleResolution node --module commonjs && node flathub/update-flathub.js",
-    "sign:win": "vite build && electron-builder -p never --win nsis --x64",
-    "dist:linux": "vite build && electron-builder --linux",
-    "dist:mac": "export CSC_IDENTITY_AUTO_DISCOVERY=false && vite build && electron-builder --mac",
-    "dist:win": "vite build && electron-builder --win",
-    "dist:flatpak": "yarn dist:linux appimage && yarn flatpak:prepare && yarn flatpak:build",
-    "lint": "eslint --cache -c .eslintrc --ext .tsx,ts .",
-    "lint-fix": "eslint --fix -c .eslintrc --ext .tsx,ts ./src",
-    "flatpak:build": "cd flatpak-build && flatpak-builder build com.heroicgameslauncher.hgl.yml --install --force-clean --user",
-    "flatpak:prepare": "node ./flatpak/prepareFlatpak.js",
-    "flatpak:prepare-release": "node ./flatpak/prepareFlatpak.js release",
-    "i18n": "i18next --silent",
-    "prepare": "husky install",
-    "prettier": "prettier --check .",
-    "prettier-fix": "prettier --write ."
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "devDependencies": {
     "@electron/notarize": "^2.1.0",
@@ -237,8 +116,10 @@
     "@types/node": "18.15.0",
     "@types/plist": "3.0.2",
     "@types/react": "18.2.34",
+    "@types/react-beautiful-dnd": "13.1.4",
     "@types/react-dom": "18.2.14",
     "@types/react-router-dom": "5.3.3",
+    "@types/sanitize-html": "2.9.0",
     "@types/tmp": "0.2.3",
     "@typescript-eslint/eslint-plugin": "5.47.1",
     "@typescript-eslint/parser": "5.47.1",
@@ -264,7 +145,7 @@
     "type-fest": "3.6.1",
     "typescript": "4.9.4",
     "unimported": "1.26.0",
-    "vite": "3.2.7",
+    "vite": "3.2.8",
     "vite-plugin-electron": "0.10.2",
     "vite-plugin-svgr": "2.4.0",
     "xml-js": "1.6.11"

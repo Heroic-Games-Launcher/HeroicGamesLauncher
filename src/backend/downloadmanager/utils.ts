@@ -9,10 +9,9 @@ import { DMStatus, InstallParams, Runner } from 'common/types'
 import i18next from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
 import { isOnline } from '../online_monitor'
-import { fixesPath } from 'backend/constants'
+import { fixesPath, isWindows } from 'backend/constants'
 import path from 'path'
 import { existsSync, mkdirSync } from 'graceful-fs'
-import { platform } from 'os'
 import { storeMap } from 'common/utils'
 
 async function installQueueElement(params: InstallParams): Promise<{
@@ -26,7 +25,9 @@ async function installQueueElement(params: InstallParams): Promise<{
     sdlList = [],
     runner,
     installLanguage,
-    platformToInstall
+    platformToInstall,
+    build,
+    branch
   } = params
   const { title } = gameManagerMap[runner].getGameInfo(appName)
 
@@ -73,7 +74,7 @@ async function installQueueElement(params: InstallParams): Promise<{
   }
 
   try {
-    if (platform() !== 'win32') {
+    if (!isWindows) {
       downloadFixesFor(appName, runner)
     }
 
@@ -82,7 +83,9 @@ async function installQueueElement(params: InstallParams): Promise<{
       installDlcs,
       sdlList: sdlList.filter((el) => el !== ''),
       platformToInstall,
-      installLanguage
+      installLanguage,
+      build,
+      branch
     })
 
     if (status === 'error') {
@@ -151,7 +154,13 @@ async function updateQueueElement(params: InstallParams): Promise<{
   }
 
   try {
-    const { status } = await gameManagerMap[runner].update(appName)
+    const { status } = await gameManagerMap[runner].update(appName, {
+      build: params.build,
+      branch: params.branch,
+      language: params.installLanguage,
+      dlcs: params.installDlcs,
+      dependencies: params.dependencies
+    })
 
     if (status === 'error') {
       errorMessage('')
@@ -171,7 +180,7 @@ async function updateQueueElement(params: InstallParams): Promise<{
 }
 
 async function downloadFixesFor(appName: string, runner: Runner) {
-  const url = `https://raw.githubusercontent.com/Heroic-Games-Launcher/known-fixes/main/${appName}-${storeMap[runner]}.json`
+  const url = `https://raw.githubusercontent.com/Heroic-Games-Launcher/known-fixes/main/${storeMap[runner]}/${appName}-${storeMap[runner]}.json`
   const dest = path.join(fixesPath, `${appName}-${storeMap[runner]}.json`)
   if (!existsSync(fixesPath)) {
     mkdirSync(fixesPath, { recursive: true })

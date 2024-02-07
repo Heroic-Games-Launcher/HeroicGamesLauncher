@@ -359,8 +359,13 @@ body.nord-light {
       }
     }
   }
-  .progressDialog.log-box {
+  .progressDialog.log-box,
+  .errorDialog.error-box {
     background-color: #dde1e7;
+  }
+
+  .gameCard > .gameCardStatus {
+    color: var(--navbar-active);
   }
 }
 

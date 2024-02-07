@@ -90,7 +90,10 @@
         "platform": "Επιλέξτε Έκδοση Πλατφόρμας για εγκατάσταση",
         "requirements": "Απαιτήσεις Συστήματος",
         "totalPlayed": "Συνολικός Χρόνος Παιχνιδιού",
-        "dlcs": "DLCs"
+        "dlcs": "DLCs",
+        "branch": {
+            "disabled": "Disabled"
+        }
     },
     "gamecard": {
         "moving": "Μετακίνηση",
