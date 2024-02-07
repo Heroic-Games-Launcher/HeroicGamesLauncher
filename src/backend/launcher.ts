@@ -76,6 +76,7 @@ import {
 import { download, isInstalled } from './wine/runtimes/runtimes'
 import { storeMap } from 'common/utils'
 import { runWineCommandOnGame } from './storeManagers/legendary/games'
+import { isUlwglSupported } from './utils/compatibility_layers'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
@@ -221,10 +222,8 @@ async function prepareLaunch(
   let steamRuntime: string[] = []
   const shouldUseRuntime =
     gameSettings.useSteamRuntime &&
-    (isNative ||
-      (gameSettings.wineVersion.type === 'proton' &&
-        (globalSettings.experimentalFeatures?.ulwglSupport === false ||
-          !existsSync(join(runtimePath, 'ulwgl')))))
+    (isNative || !isUlwglSupported(gameSettings.wineVersion.type))
+
   if (shouldUseRuntime) {
     // Determine which runtime to use based on toolmanifest.vdf which is shipped with proton
     let nonNativeRuntime: SteamRuntime['type'] = 'soldier'
@@ -850,16 +849,12 @@ async function runWineCommand({
   return new Promise<{ stderr: string; stdout: string }>((res) => {
     const wrappers = options?.wrappers || []
     let bin = ''
-    const ulwglSupported =
-      settings.wineVersion.type === 'proton' &&
-      GlobalConfig.get().getSettings().experimentalFeatures?.ulwglSupport !==
-        false &&
-      existsSync(join(runtimePath, 'ulwgl'))
+    const ulwglSupported = isUlwglSupported(wineVersion.type)
 
     if (wrappers.length) {
       bin = wrappers.shift()!
       if (ulwglSupported) {
-        const ulwglBin = join(runtimePath, 'ulwgl', 'gamelauncher.sh')
+        const ulwglBin = join(runtimePath, 'ulwgl', 'ulwgl-run')
         commandParts.unshift(...wrappers, ulwglBin)
       } else {
         commandParts.unshift(...wrappers, wineBin)
@@ -867,7 +862,7 @@ async function runWineCommand({
     } else {
       bin = wineBin
       if (ulwglSupported) {
-        bin = join(runtimePath, 'ulwgl', 'gamelauncher.sh')
+        bin = join(runtimePath, 'ulwgl', 'ulwgl-run')
       }
     }
 

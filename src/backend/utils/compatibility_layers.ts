@@ -10,7 +10,7 @@ import {
 import { logError, LogPrefix, logInfo } from 'backend/logger/logger'
 import { execAsync } from 'backend/utils'
 import { execSync } from 'child_process'
-import { WineInstallation } from 'common/types'
+import { GameSettings, WineInstallation } from 'common/types'
 import { existsSync, mkdirSync, readFileSync, readdirSync } from 'graceful-fs'
 import { homedir } from 'os'
 import { dirname, join } from 'path'
@@ -431,11 +431,7 @@ export function getWineFlags(
   wrapper: string
 ): AllowedWineFlags {
   let partialCommand: AllowedWineFlags = {}
-  const ulwglSupported =
-    wineType === 'proton' &&
-    GlobalConfig.get().getSettings().experimentalFeatures?.ulwglSupport !==
-      false &&
-    existsSync(join(runtimePath, 'ulwgl'))
+  const ulwglSupported = isUlwglSupported(wineType)
   switch (wineType) {
     case 'wine':
     case 'toolkit':
@@ -451,7 +447,7 @@ export function getWineFlags(
       }
       if (ulwglSupported) {
         partialCommand['--wrapper'] = NonEmptyString.parse(
-          `${wrapper} "${join(runtimePath, 'ulwgl', 'gamelauncher.sh')}"`
+          `${wrapper} "${join(runtimePath, 'ulwgl', 'ulwgl-run')}"`
         )
       }
       break
@@ -483,4 +479,13 @@ export function getWineFlagsArray(
     else commandArray.push(key, value)
   }
   return commandArray
+}
+
+export function isUlwglSupported(wineType: WineInstallation['type']): boolean {
+  return (
+    wineType === 'proton' &&
+    GlobalConfig.get().getSettings().experimentalFeatures?.ulwglSupport !==
+      false &&
+    existsSync(join(runtimePath, 'ulwgl', 'ulwgl-run'))
+  )
 }
