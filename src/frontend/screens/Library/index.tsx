@@ -17,13 +17,7 @@ import Fuse from 'fuse.js'
 import ContextProvider from 'frontend/state/ContextProvider'
 
 import GamesList from './components/GamesList'
-import {
-  FavouriteGame,
-  GameInfo,
-  GameStatus,
-  HiddenGame,
-  Runner
-} from 'common/types'
+import { FavouriteGame, GameInfo, HiddenGame, Runner } from 'common/types'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import LibraryHeader from './components/LibraryHeader'
 import {
@@ -242,15 +236,13 @@ export default React.memo(function Library(): JSX.Element {
   }
 
   // cache list of games being installed
-  const [installing, setInstalling] = useState<string[]>([])
-
-  useEffect(() => {
-    const newInstalling = libraryStatus
-      .filter((st: GameStatus) => st.status === 'installing')
-      .map((st: GameStatus) => st.appName)
-
-    setInstalling(newInstalling)
-  }, [libraryStatus])
+  const installing = useMemo(
+    () =>
+      libraryStatus
+        .filter((st) => st.status === 'installing')
+        .map((st) => st.appName),
+    [libraryStatus]
+  )
 
   const filterByPlatform = (library: GameInfo[]) => {
     if (!library) {
@@ -521,6 +513,7 @@ export default React.memo(function Library(): JSX.Element {
     gog.library,
     amazon.library,
     filterText,
+    installing,
     sortDescending,
     sortInstalled,
     showHidden,

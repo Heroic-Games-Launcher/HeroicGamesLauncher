@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SelectField, TextInputField } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 import { Dialog, DialogContent } from 'frontend/components/UI/Dialog'
@@ -25,7 +25,12 @@ export default function BranchSelector({
 
   const [showBranchPasswordInput, setShowBranchPasswordInput] =
     useState<boolean>(false)
-  const [branchPassword, setBranchPassword] = useState<string>('')
+  const [branchPassword, setBranchPassword] =
+    useState<string>(savedBranchPassword)
+
+  useEffect(() => {
+    setBranchPassword(savedBranchPassword)
+  }, [savedBranchPassword])
 
   return (
     <div>
