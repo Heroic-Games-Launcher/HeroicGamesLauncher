@@ -300,13 +300,59 @@ export const initGamepad = () => {
     }
   }
 
+  /**
+   * Returns true, if the vendor ID is from valve, else false.
+   *
+   * @param gamepad
+   */
+  function isValveGamepad(gamepad: Gamepad | null) {
+    return gamepad && gamepad.id.includes('Vendor: 28de')
+  }
+
+  /**
+   * Returns gamepads that are from valve
+   * - virtual gamepads through Steam Input
+   * - real gamepads like Steam Deck or Steam Controller
+   *
+   * @param gamepads
+   */
+  function filterValveGamepads(gamepads: (Gamepad | null)[]) {
+    return gamepads.filter(isValveGamepad)
+  }
+
+  /**
+   * Returns true, if the gamepad is masked through Steam Input.
+   * Checks if the timestamp of the gamepad is nearly identical of one of the valve gamepads.
+   * There is a threshold of 10, because the timestamps differ from time to time.
+   *
+   * Attention: Without filtering masked gamepads, you have 2 button presses at the same time.
+   *
+   * @param valveGamepads
+   * @param gamepad
+   */
+  function isMaskedGamepad(
+    valveGamepads: (Gamepad | null)[],
+    gamepad: Gamepad
+  ) {
+    return valveGamepads.find(
+      (valveGamepad) =>
+        valveGamepad &&
+        Math.abs(valveGamepad.timestamp - gamepad.timestamp) <= 10
+    )
+  }
+
+  function isValidGamepad(gamepads: (Gamepad | null)[], gamepad: Gamepad) {
+    const valveGamepads = filterValveGamepads(gamepads)
+    return isValveGamepad(gamepad) || !isMaskedGamepad(valveGamepads, gamepad)
+  }
+
   // check all the buttons and axes every frame
   function updateStatus() {
     const gamepads = navigator.getGamepads()
 
     controllers.forEach((index) => {
       const controller = gamepads[index]
-      if (!controller) return
+      if (!controller || !isValidGamepad(gamepads, controller)) return
 
       // logState(index)
 
