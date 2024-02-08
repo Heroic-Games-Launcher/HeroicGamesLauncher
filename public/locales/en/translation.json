@@ -222,6 +222,10 @@
         },
         "title": "Downloads"
     },
+    "emptyLibrary": {
+        "noGames": "Your library is empty. You can <1>log in</1> using a store or click <3></3> to add one manually.",
+        "noResults": "The current filters produced no results."
+    },
     "epic": {
         "offline-notification-body": "Online services may not work fully as Epic Games servers are offline!",
         "offline-notification-title": "offline"
