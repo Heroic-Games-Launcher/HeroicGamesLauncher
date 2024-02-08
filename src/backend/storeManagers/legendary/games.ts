@@ -501,7 +501,8 @@ export async function update(
   const command: LegendaryCommand = {
     subcommand: 'update',
     appName: LegendaryAppName.parse(appName),
-    '-y': true
+    '-y': true,
+    '--skip-sdl': true
   }
   if (maxWorkers) command['--max-workers'] = PositiveInteger.parse(maxWorkers)
   if (downloadNoHttps) command['--no-https'] = true
@@ -669,7 +670,8 @@ export async function repair(appName: string): Promise<ExecResult> {
   const command: LegendaryCommand = {
     subcommand: 'repair',
     appName: LegendaryAppName.parse(appName),
-    '-y': true
+    '-y': true,
+    '--skip-sdl': true
   }
   if (maxWorkers) command['--max-workers'] = PositiveInteger.parse(maxWorkers)
   if (downloadNoHttps) command['--no-https'] = true
