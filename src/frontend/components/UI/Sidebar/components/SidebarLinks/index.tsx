@@ -83,13 +83,13 @@ export default function SidebarLinks() {
   }
 
   // By default, open Epic Store
-  let defaultStore = '/epicstore'
+  let defaultStore = 'epic'
   if (!epic.username && !gog.username && amazon.user_id) {
     // If only logged in to Amazon Games, open Amazon Gaming
-    defaultStore = '/amazonstore'
+    defaultStore = 'amazon'
   } else if (!epic.username && gog.username) {
     // Otherwise, if not logged in to Epic Games, open GOG Store
-    defaultStore = '/gogstore'
+    defaultStore = 'gog'
   }
 
   // if we have a stored last-url, default to the `/last-url` route
@@ -141,7 +141,7 @@ export default function SidebarLinks() {
               active: isActive || location.pathname.includes('store')
             })
           }
-          to={defaultStore}
+          to={`/store/${defaultStore}`}
         >
           <>
             <div className="Sidebar__itemIcon">
@@ -159,7 +159,7 @@ export default function SidebarLinks() {
                   active: isActive
                 })
               }
-              to="/epicstore"
+              to="/store/epic"
             >
               <span>{t('store', 'Epic Store')}</span>
             </NavLink>
@@ -170,7 +170,7 @@ export default function SidebarLinks() {
                   active: isActive
                 })
               }
-              to="/gogstore"
+              to="/store/gog"
             >
               <span>{t('gog-store', 'GOG Store')}</span>
             </NavLink>
@@ -181,7 +181,7 @@ export default function SidebarLinks() {
                   active: isActive
                 })
               }
-              to="/amazonstore"
+              to="/store/amazon"
             >
               <span>{t('prime-gaming', 'Prime Gaming')}</span>
             </NavLink>

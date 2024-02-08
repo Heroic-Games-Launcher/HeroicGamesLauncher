@@ -86,16 +86,8 @@ const router = createHashRouter([
         Component: Login
       },
       {
-        path: 'epicstore',
-        element: <WebView store="epic" />
-      },
-      {
-        path: 'gogstore',
-        element: <WebView store="gog" />
-      },
-      {
-        path: 'amazonstore',
-        element: <WebView store="amazon" />
+        path: 'store/:store',
+        Component: WebView
       },
       {
         path: 'wiki',
