@@ -124,7 +124,7 @@ export default function SidebarLinks() {
             active: isActive || location.pathname.includes('gamepage')
           })
         }
-        to={'/library'}
+        to={'/'}
         onClick={async () => handleRefresh()}
       >
         <>

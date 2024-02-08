@@ -72,7 +72,7 @@ export default React.memo(function NewLogin() {
 
   async function handleLibraryClick() {
     await refreshLibrary({ runInBackground: false })
-    navigate('/library')
+    navigate('/')
   }
 
   return (

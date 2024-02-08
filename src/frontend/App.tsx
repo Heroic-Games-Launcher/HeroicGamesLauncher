@@ -78,7 +78,7 @@ const router = createHashRouter([
     element: <Root />,
     children: [
       {
-        path: 'library',
+        index: true,
         Component: Library
       },
       {
@@ -131,7 +131,7 @@ const router = createHashRouter([
       },
       {
         path: '*',
-        element: <Navigate replace to="/library" />
+        element: <Navigate replace to="/" />
       }
     ]
   }
