@@ -7,17 +7,9 @@ import {
   Outlet,
   RouterProvider
 } from 'react-router-dom'
-import Login from './screens/Login'
-import WebView from './screens/WebView'
-import { GamePage } from './screens/Game'
-import Library from './screens/Library'
-import WineManager from './screens/WineManager'
 import Sidebar from './components/UI/Sidebar'
-import Settings from './screens/Settings'
-import Accessibility from './screens/Accessibility'
 import ContextProvider from './state/ContextProvider'
 import { ControllerHints, Help, OfflineMessage } from './components/UI'
-import DownloadManager from './screens/DownloadManager'
 import DialogHandler from './components/UI/DialogHandler'
 import SettingsModal from './screens/Settings/components/SettingsModal'
 import ExternalLinkDialog from './components/UI/ExternalLinkDialog'
@@ -72,6 +64,15 @@ function Root() {
   )
 }
 
+function makeLazyFunc(
+  importedFile: Promise<Record<'default', React.ComponentType>>
+) {
+  return async () => {
+    const component = await importedFile
+    return { Component: component.default }
+  }
+}
+
 const router = createHashRouter([
   {
     path: '/',
@@ -79,47 +80,47 @@ const router = createHashRouter([
     children: [
       {
         index: true,
-        Component: Library
+        lazy: makeLazyFunc(import('./screens/Library'))
       },
       {
         path: 'login',
-        Component: Login
+        lazy: makeLazyFunc(import('./screens/Login'))
       },
       {
         path: 'store/:store',
-        Component: WebView
+        lazy: makeLazyFunc(import('./screens/WebView'))
       },
       {
         path: 'wiki',
-        Component: WebView
+        lazy: makeLazyFunc(import('./screens/WebView'))
       },
       {
         path: 'gamepage/:runner/:appName',
-        Component: GamePage
+        lazy: makeLazyFunc(import('./screens/Game/GamePage'))
       },
       {
         path: 'store-page',
-        Component: WebView
+        lazy: makeLazyFunc(import('./screens/WebView'))
       },
       {
         path: 'loginweb/:runner',
-        Component: WebView
+        lazy: makeLazyFunc(import('./screens/WebView'))
       },
       {
         path: 'settings/:runner/:appName/:type',
-        Component: Settings
+        lazy: makeLazyFunc(import('./screens/Settings'))
       },
       {
         path: 'wine-manager',
-        Component: WineManager
+        lazy: makeLazyFunc(import('./screens/WineManager'))
       },
       {
         path: 'download-manager',
-        Component: DownloadManager
+        lazy: makeLazyFunc(import('./screens/DownloadManager'))
       },
       {
         path: 'accessibility',
-        Component: Accessibility
+        lazy: makeLazyFunc(import('./screens/Accessibility'))
       },
       {
         path: '*',
