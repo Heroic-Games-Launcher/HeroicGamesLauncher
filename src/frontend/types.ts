@@ -188,8 +188,8 @@ export interface SettingsContextType {
   config: Partial<AppSettings>
   isDefault: boolean
   appName: string
-  runner: Runner
-  gameInfo: GameInfo | null
+  runner?: Runner
+  gameInfo?: GameInfo
   isMacNative: boolean
   isLinuxNative: boolean
 }
