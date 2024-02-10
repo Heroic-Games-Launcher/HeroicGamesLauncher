@@ -21,7 +21,7 @@ export default function Winetricks({ onClose }: Props) {
     setLoading(true)
     try {
       const components = await window.api.winetricksListInstalled(
-        runner,
+        runner!,
         appName
       )
       setInstalled(components)
@@ -39,7 +39,7 @@ export default function Winetricks({ onClose }: Props) {
     async function listComponents() {
       try {
         const components = await window.api.winetricksListAvailable(
-          runner,
+          runner!,
           appName
         )
         setAllComponents(components)
@@ -55,7 +55,7 @@ export default function Winetricks({ onClose }: Props) {
   const [installingComponent, setInstallingComponent] = useState('')
   const [logs, setLogs] = useState<string[]>([])
   function install(component: string) {
-    window.api.winetricksInstall(runner, appName, component)
+    window.api.winetricksInstall(runner!, appName, component)
   }
 
   useEffect(() => {
@@ -100,7 +100,7 @@ export default function Winetricks({ onClose }: Props) {
     window.api.callTool({
       tool: 'winetricks',
       appName,
-      runner
+      runner: runner!
     })
   }
 

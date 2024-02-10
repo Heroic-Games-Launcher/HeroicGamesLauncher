@@ -14,7 +14,7 @@ const OfflineMode = () => {
 
   useEffect(() => {
     const getInfo = async () => {
-      const info = await getGameInfo(appName, runner)
+      const info = await getGameInfo(appName, runner!)
       if (info) {
         const { canRunOffline: can_run_offline } = info
         setCanRunOffline(can_run_offline)
