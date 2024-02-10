@@ -4,6 +4,7 @@ import React, {
   useLayoutEffect,
   useRef,
   useState
+
 } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useLocation, useParams } from 'react-router'
@@ -16,6 +17,7 @@ import './index.css'
 import LoginWarning from '../Login/components/LoginWarning'
 import { NileLoginData } from 'common/types/nile'
 import { indieGalaLoginPath } from '../Login'
+import { run } from 'node:test'
 
 interface Props {
   store?: 'epic' | 'gog' | 'amazon' | 'indieGala'
@@ -29,6 +31,8 @@ const validStoredUrl = (url: string, store: 'epic' | 'gog' | 'amazon' | 'indieGa
       return url.includes('gog.com')
     case 'amazon':
       return url.includes('gaming.amazon.com')
+    case 'indieGala':
+      return url.includes('indiegala.com')
     default:
       return false
   }
@@ -219,6 +223,16 @@ export default function WebView({ store }: Props) {
           if (code) {
             handleAmazonLogin(code)
           }
+        } else if (runner == 'carnival') {
+          // const prevURL = sessionStorage.getItem('last-url-indieGala')
+          // const pageURL = webview.getURL()
+          // const parsedURL = new URL(pageURL)
+          // const parsedPrevURL = new URL(prevURL? prevURL : 'https://example.com/example')
+          // window.api.logInfo(pageURL)
+          // window.api.logInfo(parsedPrevURL.toString())
+          // if (parsedPrevURL.pathname == '/login' && parsedURL.pathname == '/') {
+          //   window.api.logInfo('indieGala login detected')
+          // }
         }
       }
 

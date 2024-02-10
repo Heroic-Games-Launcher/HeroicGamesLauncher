@@ -15,6 +15,7 @@ import { carnivalUserData } from 'backend/constants'
 import { configStore } from './electronStores'
 import { clearCache } from 'backend/utils'
 import { load } from 'js-yaml'
+import  { session } from 'electron'
 
 export class CarnivalUser {
   static async getLoginData(): Promise<CarnivalLoginData> {
@@ -111,6 +112,14 @@ export class CarnivalUser {
       configStore.set('userData', user.user_info)
       logInfo('Saved user data to global config', LogPrefix.Carnival)
       logDebug(["username: ",user.user_info.username], LogPrefix.Carnival)
+
+      const mySession = session.fromPartition('persist:epicstore')
+      mySession.cookies.get({domain: '.indiegala.com'})
+        .then((cookies) => {
+          logDebug(cookies, LogPrefix.Carnival)
+      }).catch((error) => {
+        logError(error, LogPrefix.Carnival)
+      })
       return user.user_info
     } catch (error) {
       logInfo('user.json is empty', LogPrefix.Carnival)

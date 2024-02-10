@@ -188,6 +188,7 @@ interface AsyncIPCFunctions {
   }>
   logoutLegendary: () => Promise<void>
   logoutAmazon: () => Promise<void>
+  logoutCarnival: () => Promise<void>
   getAlternativeWine: () => Promise<WineInstallation[]>
   getLocalPeloadPath: () => Promise<string>
   readConfig: (config_class: 'library' | 'user') => Promise<GameInfo[] | string>

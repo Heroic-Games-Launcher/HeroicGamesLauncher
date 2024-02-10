@@ -71,7 +71,8 @@ export default React.memo(function NewLogin() {
     setIsEpicLoggedIn(Boolean(epic.username))
     setIsGogLoggedIn(Boolean(gog.username))
     setIsAmazonLoggedIn(Boolean(amazon.user_id))
-  }, [epic.username, gog.username, amazon.user_id, t])
+    setIsindieGalaLoggedIn(Boolean(indieGala.username))
+  }, [epic.username, gog.username, amazon.user_id, indieGala.username, t])
 
   async function handleLibraryClick() {
     await refreshLibrary({ runInBackground: false })
@@ -154,7 +155,7 @@ export default React.memo(function NewLogin() {
               icon={() => <IndieGalaLogo />}
               loginUrl={indieGalaLoginPath}
               isLoggedIn={isIndieGalaLoggedIn}
-              user={indieGala.username || 'Unknown'}
+              user={indieGala?.username || 'Unknown'}
               logoutAction={indieGala.logout}
               disabled={oldMac}
             />

@@ -1,3 +1,4 @@
+import { install } from 'frontend/helpers';
 import JSON5 from 'json5'
 import {
   carnivalConfigPath,
@@ -80,6 +81,7 @@ async function loadGamesInAccount() {
     }
 
     const safeFolderName = removeSpecialcharacters(game.slugged_name ?? '')
+    const install_data = installStore.get(game.slugged_name)
     library.set(game.name, {
       app_name: game.name,
       art_cover: meta?.data?.game?.cover ? meta?.data?.game?.cover.url_format.replace("{formatter}.{ext}",".png") : "",
@@ -90,7 +92,7 @@ async function loadGamesInAccount() {
             install_path: info.install_path,
             // For some time size was undefined in installed.json, that's why we
             // need to keep this fallback to 0
-            install_size: getFileSize(info.size ?? 0),
+            install_size: getFileSize(install_data?.manifest.download_size ?? 0),
             version: info.version,
             platform: 'Windows' // indieGala only supports Windows
           }

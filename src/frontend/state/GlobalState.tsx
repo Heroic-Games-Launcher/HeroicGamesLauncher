@@ -554,6 +554,16 @@ class GlobalState extends PureComponent<Props> {
   getAmazonLoginData = async () => window.api.getAmazonLoginData()
 
   getIndieGalaUserInfo = async () => window.api.getIndieGalaUserInfo()
+  carnivalLogout = async () => {
+    await window.api.logoutCarnival()
+    this.setState({
+      indieGala: {
+        library: [],
+        username: null
+      }
+    })
+  }
+
 
   handleSettingsModalOpen = (
     value: boolean,
@@ -577,7 +587,7 @@ class GlobalState extends PureComponent<Props> {
   ): Promise<void> => {
     console.log('refreshing')
 
-    const { epic, gog, amazon, gameUpdates } = this.state
+    const { epic, gog, amazon, indieGala, gameUpdates } = this.state
 
     let updates = gameUpdates
     if (checkUpdates) {
@@ -612,6 +622,11 @@ class GlobalState extends PureComponent<Props> {
     }
 
     let carnivalLibrary = carnivalLibraryStore.get('library', [])
+    if (indieGala.username && (!carnivalLibrary.length || !indieGala.library.length)) {
+      window.api.logInfo('No cache found, getting data from freecarival...')
+      await window.api.refreshLibrary('carnival')
+      carnivalLibrary = this.loaIndieGalaLibrary()
+    }
 
     const updatedSideload = sideloadLibrary.get('games', [])
 
@@ -630,7 +645,8 @@ class GlobalState extends PureComponent<Props> {
         username: amazon.username
       },
       indieGala: {
-        library: carnivalLibrary
+        library: carnivalLibrary,
+        username: indieGala.username
       },
       gameUpdates: updates,
       refreshing: false,
@@ -1023,9 +1039,7 @@ class GlobalState extends PureComponent<Props> {
             login: function (token: string): Promise<string> {
               throw new Error('Function not implemented.')
             },
-            logout: function (): Promise<void> {
-              throw new Error('Function not implemented.')
-            }
+            logout: this.carnivalLogout,
           },
           installingEpicGame,
           setLanguage: this.setLanguage,
