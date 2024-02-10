@@ -6,7 +6,8 @@ import {
 import {
   CarnivalLoginData,
   CarnivalRegisterData,
-  CarnivalUserData
+  CarnivalUserData,
+  CarnivalUserDataFile
 } from 'common/types/carnival'
 import { runRunnerCommand } from './library'
 import { existsSync, readFileSync } from 'graceful-fs'
@@ -77,7 +78,7 @@ export class CarnivalUser {
   }
 
   static async logout() {
-    const commandParts = ['auth', '--logout']
+    const commandParts = ['logout']
 
     const abortID = 'carnival-logout'
     const res = await runRunnerCommand(
@@ -96,26 +97,26 @@ export class CarnivalUser {
   }
 
   static async getUserData(): Promise<CarnivalUserData | undefined> {
+    logInfo('Getting user data', LogPrefix.Carnival)
     if (!existsSync(carnivalUserData)) {
       logError('user.yml does not exist', LogPrefix.Carnival)
       configStore.delete('userData')
       return
     }
-
-    logInfo('Getting user data', LogPrefix.Carnival)
-    const user: { user_info: CarnivalUserData } = load(
-      readFileSync(carnivalUserData, 'utf-8')
-    )
-    if (!Object.keys(user).length) {
+    try {
+      const user: CarnivalUserDataFile = load(
+        readFileSync(carnivalUserData, 'utf-8')
+      ) as CarnivalUserDataFile
+  
+      configStore.set('userData', user.user_info)
+      logInfo('Saved user data to global config', LogPrefix.Carnival)
+      logDebug(["username: ",user.user_info.username], LogPrefix.Carnival)
+      return user.user_info
+    } catch (error) {
       logInfo('user.json is empty', LogPrefix.Carnival)
       configStore.delete('userData')
       return
     }
-
-    configStore.set('userData', user.user_info)
-    logInfo('Saved user data to global config', LogPrefix.Carnival)
-
-    return user.user_info
   }
 
   public static isLoggedIn() {

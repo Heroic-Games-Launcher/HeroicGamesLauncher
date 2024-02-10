@@ -8,6 +8,7 @@ import { ReactComponent as EpicLogo } from 'frontend/assets/epic-logo.svg'
 import { ReactComponent as GOGLogo } from 'frontend/assets/gog-logo.svg'
 import { ReactComponent as HeroicLogo } from 'frontend/assets/heroic-icon.svg'
 import { ReactComponent as AmazonLogo } from 'frontend/assets/amazon-logo.svg'
+import { ReactComponent as IndieGalaLogo } from 'frontend/assets/indiegala-logo.svg'
 
 import { LanguageSelector, UpdateComponent } from '../../components/UI'
 import { FlagPosition } from '../../components/UI/LanguageSelector'
@@ -149,12 +150,12 @@ export default React.memo(function NewLogin() {
             />
             <Runner
               class="carnival"
-              buttonText={t('login.indiegala', 'IndieGala Login')}
-              icon={() => ""}
+              buttonText={t('login.indiegala', 'indieGala Login')}
+              icon={() => <IndieGalaLogo />}
               loginUrl={indieGalaLoginPath}
               isLoggedIn={isIndieGalaLoggedIn}
-              user={indieGala?.username || 'Unknown'}
-              logoutAction={indieGala?.logout}
+              user={indieGala.username || 'Unknown'}
+              logoutAction={indieGala.logout}
               disabled={oldMac}
             />
           </div>

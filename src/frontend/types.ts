@@ -17,6 +17,7 @@ import {
   Status,
   InstallInfo
 } from 'common/types'
+import { CarnivalUserData } from 'common/types/carnival';
 import { NileLoginData, NileRegisterData } from 'common/types/nile'
 
 export type Category = 'all' | 'legendary' | 'gog' | 'sideload' | 'nile' | 'carnival'
@@ -87,7 +88,7 @@ export interface ContextType {
     username?: string
     login: (token: string) => Promise<string>
     logout: () => Promise<void>
-    getIndieGalaUserData: () => Promise<void>
+    getIndieGalaUserData: () => Promise<CarnivalUserData | undefined>
   }
   installingEpicGame: boolean
   allTilesInColor: boolean

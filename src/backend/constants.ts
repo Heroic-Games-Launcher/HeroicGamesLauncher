@@ -73,7 +73,7 @@ const anticheatDataPath = join(appFolder, 'areweanticheatyet.json')
 const imagesCachePath = join(appFolder, 'images-cache')
 const fixesPath = join(appFolder, 'fixes')
 
-const carnivalConfigPath = join(userHome, '.config', 'freecarnival') //join(appFolder, 'carnival_config', 'carnival')
+const carnivalConfigPath = join(appFolder, 'carnival_config')
 const carnivalInstalled = join(carnivalConfigPath, 'installed.yml')
 const carnivalLibrary = join(carnivalConfigPath, 'library.yml')
 const carnivalLogFile = ""

@@ -401,9 +401,8 @@ export async function launch(
         ? wineExec.replaceAll("'", '')
         : wineExec
 
-    const wine_carnival_flag = getWineFlagsArray(wineBin, wineType, shlex.join(wrappers)).map((str_part) => {return str_part.replace('--wine', '--wine-bin')})
     wineFlag = [
-      ...wine_carnival_flag,
+      ...getWineFlagsArray(wineBin, wineType, shlex.join(wrappers)),
       '--wine-prefix',
       gameSettings.winePrefix
     ]

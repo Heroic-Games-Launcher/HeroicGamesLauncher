@@ -69,7 +69,7 @@ export default function WebView({ store }: Props) {
   const gogLoginUrl =
     'https://auth.gog.com/auth?client_id=46899977096215655&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code&layout=galaxy'
 
-  const indieGalaLoginUrl = '/Library'
+  const indieGalaLoginUrl = 'https://www.indiegala.com/login'
   const trueAsStr = 'true' as unknown as boolean | undefined
   const { runner } = useParams() as { runner: Runner }
 
@@ -281,8 +281,6 @@ export default function WebView({ store }: Props) {
       setShowLoginWarningFor('gog')
     } else if (startUrl.match(/gaming\.amazon\.com/) && !amazon.user_id) {
       setShowLoginWarningFor('amazon')
-    } else if (startUrl.match(/indiegala\.com/)) {
-      setShowLoginWarningFor('indieGala')
     }
   }, [startUrl])
 

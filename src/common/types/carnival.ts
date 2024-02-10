@@ -114,6 +114,10 @@ export interface CarnivalUserData {
   email: string
 }
 
+export interface CarnivalUserDataFile {
+  user_info: CarnivalUserData
+}
+
 export interface CarnivalLoginData {
   url: string
   code_verifier: string

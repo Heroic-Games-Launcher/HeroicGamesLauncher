@@ -76,6 +76,7 @@ interface StateProps {
   }
   indieGala: {
     library: GameInfo[]
+    username?: string
   }
   wineVersions: WineVersionInfo[]
   error: boolean
@@ -178,7 +179,8 @@ class GlobalState extends PureComponent<Props> {
       username: nileConfigStore.get_nodefault('userData.name')
     },
     indieGala: {
-      library: this.loaIndieGalaLibrary()
+      library: this.loaIndieGalaLibrary(),
+      username: carnivalConfigStore.get_nodefault('userData.username')
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
     error: false,
@@ -1016,6 +1018,7 @@ class GlobalState extends PureComponent<Props> {
           },
           indieGala: {
             getIndieGalaUserData: this.getIndieGalaUserInfo,
+            username: indieGala.username,
             library: indieGala.library,
             login: function (token: string): Promise<string> {
               throw new Error('Function not implemented.')
