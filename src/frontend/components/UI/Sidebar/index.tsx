@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import CurrentDownload from './components/CurrentDownload'
 import SidebarLinks from './components/SidebarLinks'
-import './index.scss'
+import './index.css'
 import HeroicVersion from './components/HeroicVersion'
 import { DMQueueElement } from 'common/types'
 

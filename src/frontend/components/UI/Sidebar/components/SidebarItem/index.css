@@ -1,0 +1,111 @@
+.Sidebar {
+  .Sidebar__item {
+    --sidebar-item-inactive-text-color: var(
+      --navbar-inactive,
+      var(--navbar-accent)
+    );
+    --sidebar-hover-text-color: var(--text-hover);
+    --sidebar-item-active-text-color: var(
+      --navbar-active,
+      var(--accent-overlay, var(--accent))
+    );
+    --sidebar-active-item-background: var(--navbar-active-background);
+
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    padding: var(--space-xs) var(--sidebar-horizontal-padding);
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: var(--text-md);
+    color: var(--sidebar-item-inactive-text-color);
+    transition: color 250ms;
+    text-align: start;
+    font-family: var(--primary-font-family);
+
+    .Sidebar__itemIcon {
+      width: 24px;
+      display: inline-flex;
+      justify-content: center;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--sidebar-hover-text-color);
+      outline-offset: -2px;
+    }
+
+    &.active {
+      color: var(--sidebar-item-active-text-color);
+
+      .Sidebar__itemIcon {
+        color: currentColor;
+      }
+
+      &.SidebarLinks__subItem {
+        font-weight: var(--bold);
+      }
+    }
+    &.active:not(.SidebarLinks__subItem) {
+      background-color: var(--sidebar-active-item-background);
+    }
+
+    &.SidebarLinks__subItem {
+      &,
+      &:hover {
+        padding-block: var(--space-3xs);
+        padding-inline: var(--space-xl) var(--sidebar-horizontal-padding);
+        font-size: var(--text-sm);
+        line-height: 20px;
+        white-space: break-spaces;
+      }
+      &::before {
+        content: '• ';
+      }
+      & + .Sidebar__item:not(.SidebarLinks__subItem) {
+        margin-top: 4px;
+      }
+    }
+
+    &:hover {
+      background-color: var(--navbar-active-background);
+      transition: 0.1s;
+      padding-inline-start: 12px;
+    }
+
+    @media screen and (max-width: 730px) {
+      &,
+      &:hover {
+        padding: var(--space-3xs) var(--sidebar-horizontal-padding)
+          var(--space-3xs) var(--space-lg);
+      }
+    }
+  }
+
+  &.collapsed {
+    .Sidebar__item {
+      padding: var(--space-xs) 0;
+
+      & > span {
+        display: none;
+      }
+
+      &.SidebarLinks__subItem {
+        padding: var(--space-xs) var(--sidebar-horizontal-padding);
+        &::before {
+          display: none;
+        }
+      }
+
+      &.active svg,
+      & svg {
+        transform: scale(1.2);
+        padding: var(--space-2xs) 0;
+      }
+
+      .Sidebar__itemIcon {
+        margin: 0 auto;
+      }
+    }
+  }
+}
