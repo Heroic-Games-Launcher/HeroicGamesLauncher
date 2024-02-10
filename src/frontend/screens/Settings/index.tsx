@@ -43,7 +43,7 @@ function Settings() {
   const isAdvancedSetting = type === 'advanced'
   const isSystemInfo = type === 'systeminfo'
 
-  let helpContent = t(
+  const helpContent = t(
     'help.content.settingsDefault',
     'Shows all settings of Heroic and defaults for games.'
   )
