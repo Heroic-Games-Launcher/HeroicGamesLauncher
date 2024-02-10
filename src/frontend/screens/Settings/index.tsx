@@ -43,6 +43,11 @@ function Settings() {
   const isAdvancedSetting = type === 'advanced'
   const isSystemInfo = type === 'systeminfo'
 
+  // TODO: Adding this comment translation here for now to not lose the
+  // translation. This should be removed from here when the help is added
+  // to the SettingsModal component
+  // t('help.content.settingsGame', 'Show all settings for a game.')
+
   const helpContent = t(
     'help.content.settingsDefault',
     'Shows all settings of Heroic and defaults for games.'
