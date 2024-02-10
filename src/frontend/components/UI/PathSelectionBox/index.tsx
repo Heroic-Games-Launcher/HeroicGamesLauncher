@@ -27,6 +27,7 @@ interface Props {
   noDeleteButton?: boolean
   label?: string
   afterInput?: ReactNode
+  disabled?: boolean
 }
 
 const PathSelectionBox = ({
@@ -41,7 +42,8 @@ const PathSelectionBox = ({
   noDeleteButton = false,
   htmlId,
   label,
-  afterInput
+  afterInput,
+  disabled = false
 }: Props) => {
   const { t } = useTranslation()
   // We only send `onPathChange` updates when the user is done editing, so we
@@ -83,7 +85,7 @@ const PathSelectionBox = ({
       onIconClick={handleIconClick}
       placeholder={placeholder}
       icon={!noDeleteButton && path ? <Backspace /> : <Folder />}
-      disabled={!canEditPath}
+      disabled={!canEditPath || disabled}
       htmlId={htmlId}
       label={label}
       afterInput={afterInput}

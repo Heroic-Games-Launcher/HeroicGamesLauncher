@@ -6,8 +6,10 @@ import {
 } from 'frontend/components/UI'
 import React from 'react'
 import { WineInstallation } from 'common/types'
-import { useTranslation } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import { removeSpecialcharacters } from 'frontend/helpers'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faWarning } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
   setWineVersion: React.Dispatch<
@@ -32,10 +34,11 @@ export default function WineSelector({
   crossoverBottle,
   setCrossoverBottle
 }: Props) {
-  const { t } = useTranslation('gamepage')
+  const { t, i18n } = useTranslation('gamepage')
 
   const [useDefaultSettings, setUseDefaultSettings] = React.useState(false)
   const [description, setDescription] = React.useState('')
+  const [configureWine, setConfigureWine] = React.useState(false)
 
   React.useEffect(() => {
     const getAppSettings = async () => {
@@ -75,18 +78,43 @@ export default function WineSelector({
 
   return (
     <>
-      <ToggleSwitch
-        htmlId="use-wine-defaults"
-        title={t(
-          'setting.use-default-wine-settings',
-          'Use Default Wine Settings'
-        )}
-        value={useDefaultSettings}
-        handleChange={() => setUseDefaultSettings(!useDefaultSettings)}
-        description={description}
-      />
-      {!useDefaultSettings && (
+      {!configureWine && (
+        <ToggleSwitch
+          htmlId="show-advanced"
+          title={t('setting.show-wine-settings', 'Show Wine settings')}
+          value={configureWine}
+          handleChange={() => setConfigureWine(!configureWine)}
+        />
+      )}
+
+      {configureWine && (
         <>
+          <ToggleSwitch
+            htmlId="use-wine-defaults"
+            title={t(
+              'setting.use-default-wine-settings',
+              'Use Default Wine Settings'
+            )}
+            value={useDefaultSettings}
+            handleChange={() => setUseDefaultSettings(!useDefaultSettings)}
+            description={description}
+          />
+          {useDefaultSettings && (
+            <div className="infoBox">
+              <FontAwesomeIcon icon={faWarning} />
+              <Trans
+                i18n={i18n}
+                i18nKey="setting.warn-use-default-wine-settings"
+                ns="gamepage"
+              >
+                Only use this option if you know what you are doing.
+                <br />
+                Sharing the same prefix for multiple games can create problems
+                <br />
+                if their dependencies are incompatible.
+              </Trans>
+            </div>
+          )}
           {showPrefix && (
             <PathSelectionBox
               type="directory"
@@ -96,6 +124,7 @@ export default function WineSelector({
               label={t('install.wineprefix', 'WinePrefix')}
               htmlId="setinstallpath"
               noDeleteButton
+              disabled={useDefaultSettings}
             />
           )}
           {showBottle && (
@@ -104,6 +133,7 @@ export default function WineSelector({
               htmlId="crossoverBottle"
               value={crossoverBottle}
               onChange={(event) => setCrossoverBottle(event.target.value)}
+              disabled={useDefaultSettings}
             />
           )}
 
@@ -111,6 +141,7 @@ export default function WineSelector({
             label={`${t('install.wineversion')}:`}
             htmlId="wineVersion"
             value={wineVersion?.name || ''}
+            disabled={useDefaultSettings}
             onChange={(e) =>
               setWineVersion(
                 wineVersionList.find(

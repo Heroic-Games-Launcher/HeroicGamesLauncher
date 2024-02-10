@@ -19,13 +19,19 @@ interface TextInputWithIconFieldProps {
 const TextInputWithIconField = ({
   icon,
   onIconClick,
+  disabled = false,
   ...props
 }: TextInputWithIconFieldProps) => {
   return (
     <TextInputField
       {...props}
+      disabled={disabled}
       inputIcon={
-        <SvgButton onClick={onIconClick} className="inputIcon">
+        <SvgButton
+          disabled={disabled}
+          onClick={onIconClick}
+          className="inputIcon"
+        >
           {icon}
         </SvgButton>
       }

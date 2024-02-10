@@ -4,6 +4,10 @@
   max-height: 90vh;
   min-width: fit-content;
   max-width: 80vw;
+
+  .infoBox svg {
+    margin-inline-end: 0.5rem;
+  }
 }
 
 .InstallModal__dialog > .anticheatInfo {
