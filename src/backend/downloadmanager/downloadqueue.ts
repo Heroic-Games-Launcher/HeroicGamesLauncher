@@ -143,7 +143,7 @@ async function addToQueue(element: DMQueueElement) {
       installInfo &&
       'dependencies' in installInfo.manifest
     ) {
-      const newDependencies = installInfo.manifest.dependencies
+      const newDependencies = installInfo.manifest.dependencies || []
       if (newDependencies?.length || !existsSync(gogRedistPath)) {
         // create redist element
         const redistElement = createRedistDMQueueElement()
