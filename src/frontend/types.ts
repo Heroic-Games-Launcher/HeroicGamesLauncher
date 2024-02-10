@@ -272,14 +272,6 @@ export interface GameContextType {
   wikiInfo: WikiInfo | null
 }
 
-export interface LocationState {
-  fromGameCard: boolean
-  runner: Runner
-  isLinuxNative: boolean
-  isMacNative: boolean
-  gameInfo: GameInfo
-}
-
 export type DMQueue = {
   elements: DMQueueElement[]
   finished: DMQueueElement[]
