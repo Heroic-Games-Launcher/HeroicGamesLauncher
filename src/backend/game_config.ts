@@ -207,6 +207,7 @@ class GameConfigV0 extends GameConfig {
 
     const {
       autoInstallDxvk,
+      autoInstallDxvkNvapi,
       autoInstallVkd3d,
       preferSystemLibs,
       autoSyncSaves,
@@ -227,13 +228,16 @@ class GameConfigV0 extends GameConfig {
       winePrefix,
       wineCrossoverBottle,
       wineVersion,
-      useSteamRuntime
+      useSteamRuntime,
+      eacRuntime,
+      battlEyeRuntime
     } = GlobalConfig.get().getSettings()
 
     // initialize generic defaults
     // TODO: I know more values can be moved that are not used in windows
     const defaultSettings = {
       autoInstallDxvk,
+      autoInstallDxvkNvapi,
       autoInstallVkd3d,
       preferSystemLibs,
       autoSyncSaves,
@@ -252,6 +256,8 @@ class GameConfigV0 extends GameConfig {
       targetExe,
       useGameMode,
       useSteamRuntime,
+      battlEyeRuntime,
+      eacRuntime,
       language: '' // we want to fallback to '' always here, fallback lang for games should be ''
     } as GameSettings
 

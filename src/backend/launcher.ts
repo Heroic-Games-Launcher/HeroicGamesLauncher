@@ -381,18 +381,6 @@ async function prepareWineLaunch(
     await download('battleye_runtime')
   }
 
-  if (gameSettings.eacRuntime && !isInstalled('eac_runtime') && isOnline()) {
-    await download('eac_runtime')
-  }
-
-  if (
-    gameSettings.battlEyeRuntime &&
-    !isInstalled('battleye_runtime') &&
-    isOnline()
-  ) {
-    await download('battleye_runtime')
-  }
-
   const { folder_name: installFolderName } =
     gameManagerMap[runner].getGameInfo(appName)
   const envVars = setupWineEnvVars(gameSettings, installFolderName)
