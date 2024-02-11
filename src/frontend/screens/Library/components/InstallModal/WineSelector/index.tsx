@@ -110,7 +110,6 @@ export default function WineSelector({
                 Only use this option if you know what you are doing.
                 <br />
                 Sharing the same prefix for multiple games can create problems
-                <br />
                 if their dependencies are incompatible.
               </Trans>
             </div>
