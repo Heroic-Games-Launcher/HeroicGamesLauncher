@@ -506,7 +506,7 @@
         "gogdl-version": "Versión de GOGDL: ",
         "legendary-version": "Versión de Legendary: ",
         "weblate": "Ayuda a traducir Heroic.",
-        "nile-version": "Versión del Nilo: "
+        "nile-version": "Versión del Nile: "
     },
     "Other": "Otros",
     "placeholder": {
@@ -754,7 +754,7 @@
                 "help8": "Juegos Instalados"
             },
             "title": {
-                "resetHeroic": "Reset Heroic"
+                "resetHeroic": "Resetear Heroic"
             }
         }
     },
