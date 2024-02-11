@@ -970,7 +970,7 @@ export async function gogToUnifiedInfo(
     is_installed: false,
     namespace: galaxyProductInfo?.slug,
     save_folder: '',
-    title: galaxyProductInfo?.title ?? info.game.title['en-US'] ?? '',
+    title: (galaxyProductInfo?.title ?? info.game.title['en-US'] ?? '').trim(),
     canRunOffline: true,
     is_mac_native: Boolean(
       info.supported_operating_systems.find((os) => os.slug === 'osx')
