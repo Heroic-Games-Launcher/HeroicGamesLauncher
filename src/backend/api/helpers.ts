@@ -49,7 +49,7 @@ export const getAmazonUserInfo = async () =>
 
 export const getIndieGalaUserInfo = async () =>
   ipcRenderer.invoke('getIndieGalaUserInfo')
-  
+
 export const syncSaves = async (args: {
   arg: string | undefined
   path: string

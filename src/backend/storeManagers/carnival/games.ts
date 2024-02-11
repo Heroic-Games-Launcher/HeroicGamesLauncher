@@ -250,7 +250,13 @@ export async function install(
   const logPath = join(gamesConfigPath, `${appName}.log`)
 
   const game = getGameFromLibrary(appName)
-  const commandParts = ['install', '--base-path', path, ...workers, game?.folder_name]
+  const commandParts = [
+    'install',
+    '--base-path',
+    path,
+    ...workers,
+    game?.folder_name
+  ]
 
   const onOutput = (data: string) => {
     onInstallOrUpdateOutput(appName, 'installing', data)
@@ -313,9 +319,7 @@ export async function removeShortcuts(appName: string) {
   return removeShortcutsUtil(getGameInfo(appName))
 }
 
-export async function launch(
-  appName: string
-): Promise<boolean> {
+export async function launch(appName: string): Promise<boolean> {
   const gameSettings = await getSettings(appName)
   const gameInfo = getGameInfo(appName)
 

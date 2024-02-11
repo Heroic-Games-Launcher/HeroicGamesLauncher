@@ -4,7 +4,6 @@ import React, {
   useLayoutEffect,
   useRef,
   useState
-
 } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useLocation, useParams } from 'react-router'
@@ -21,7 +20,10 @@ interface Props {
   store?: 'epic' | 'gog' | 'amazon' | 'indieGala'
 }
 
-const validStoredUrl = (url: string, store: 'epic' | 'gog' | 'amazon' | 'indieGala') => {
+const validStoredUrl = (
+  url: string,
+  store: 'epic' | 'gog' | 'amazon' | 'indieGala'
+) => {
   switch (store) {
     case 'epic':
       return url.includes('epicgames.com')
@@ -79,7 +81,7 @@ export default function WebView({ store }: Props) {
     '/epicstore': epicStore,
     '/gogstore': gogStore,
     '/amazonstore': amazonStore,
-    '/indiegalastore': indieGalaStore, 
+    '/indiegalastore': indieGalaStore,
     '/wiki': wikiURL,
     '/loginEpic': epicLoginUrl,
     '/loginGOG': gogLoginUrl,
@@ -222,7 +224,7 @@ export default function WebView({ store }: Props) {
           if (code) {
             handleAmazonLogin(code)
           }
-        } 
+        }
       }
 
       webview.addEventListener('dom-ready', loadstop)
@@ -255,8 +257,13 @@ export default function WebView({ store }: Props) {
             const prevURL = sessionStorage.getItem('last-url-indieGala')
             const pageURL = webview.getURL()
             const parsedURL = new URL(pageURL)
-            const parsedPrevURL = new URL(prevURL? prevURL : 'https://example.com/example')
-            if (parsedPrevURL.pathname === '/login' && parsedURL.pathname === '/') {
+            const parsedPrevURL = new URL(
+              prevURL ? prevURL : 'https://example.com/example'
+            )
+            if (
+              parsedPrevURL.pathname === '/login' &&
+              parsedURL.pathname === '/'
+            ) {
               window.api.authCarnival()
             }
           }

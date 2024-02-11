@@ -2,7 +2,7 @@ import * as SideloadGameManager from 'backend/storeManagers/sideload/games'
 import * as GOGGameManager from 'backend/storeManagers/gog/games'
 import * as LegendaryGameManager from 'backend/storeManagers/legendary/games'
 import * as NileGameManager from 'backend/storeManagers/nile/games'
-import * as CarnivalGameManager from 'backend/storeManagers/carnival/games' 
+import * as CarnivalGameManager from 'backend/storeManagers/carnival/games'
 
 import * as SideloadLibraryManager from 'backend/storeManagers/sideload/library'
 import * as GOGLibraryManager from 'backend/storeManagers/gog/library'

@@ -57,7 +57,8 @@ export default function SidebarLinks() {
 
   const settingsPath = '/settings/app/default/general'
 
-  const loggedIn = epic.username || gog.username || amazon.user_id || indieGala.username
+  const loggedIn =
+    epic.username || gog.username || amazon.user_id || indieGala.username
 
   async function handleRefresh() {
     localStorage.setItem('scrollPosition', '0')
@@ -86,10 +87,20 @@ export default function SidebarLinks() {
 
   // By default, open Epic Store
   let defaultStore = '/epicstore'
-  if (!epic.username && !gog.username && !indieGala.username && amazon.user_id) {
+  if (
+    !epic.username &&
+    !gog.username &&
+    !indieGala.username &&
+    amazon.user_id
+  ) {
     // If only logged in to Amazon Games, open Amazon Gaming
     defaultStore = '/amazonstore'
-  } else if (indieGala.username && !epic.username && !gog.username && !amazon.user_id) {
+  } else if (
+    indieGala.username &&
+    !epic.username &&
+    !gog.username &&
+    !amazon.user_id
+  ) {
     // If only logged in to indieGala, open that
     defaultStore = '/indiegalastore'
   } else if (!epic.username && gog.username) {

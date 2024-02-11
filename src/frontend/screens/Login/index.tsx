@@ -23,7 +23,8 @@ export const amazonLoginPath = '/loginweb/nile'
 export const indieGalaLoginPath = '/loginweb/carnival'
 
 export default React.memo(function NewLogin() {
-  const { epic, gog, amazon, indieGala, refreshLibrary } = useContext(ContextProvider)
+  const { epic, gog, amazon, indieGala, refreshLibrary } =
+    useContext(ContextProvider)
   const { t } = useTranslation()
 
   hasHelp(
@@ -40,7 +41,9 @@ export default React.memo(function NewLogin() {
   const [isAmazonLoggedIn, setIsAmazonLoggedIn] = useState(
     Boolean(amazon.user_id)
   )
-  const [isIndieGalaLoggedIn, setIsindieGalaLoggedIn] = useState(Boolean(indieGala?.username))
+  const [isIndieGalaLoggedIn, setIsindieGalaLoggedIn] = useState(
+    Boolean(indieGala?.username)
+  )
 
   const systemInfo = useAwaited(window.api.systemInfo.get)
 

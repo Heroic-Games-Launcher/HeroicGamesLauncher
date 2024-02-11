@@ -16,10 +16,16 @@ import {
   Status,
   InstallInfo
 } from 'common/types'
-import { CarnivalUserData } from 'common/types/carnival';
+import { CarnivalUserData } from 'common/types/carnival'
 import { NileLoginData, NileRegisterData } from 'common/types/nile'
 
-export type Category = 'all' | 'legendary' | 'gog' | 'sideload' | 'nile' | 'carnival'
+export type Category =
+  | 'all'
+  | 'legendary'
+  | 'gog'
+  | 'sideload'
+  | 'nile'
+  | 'carnival'
 
 export interface ContextType {
   error: boolean

@@ -3,7 +3,13 @@ import React from 'react'
 import { LibraryContextType } from 'frontend/types'
 
 const initialContext: LibraryContextType = {
-  storesFilters: { legendary: true, gog: true, nile: true, carnival: true, sideload: true },
+  storesFilters: {
+    legendary: true,
+    gog: true,
+    nile: true,
+    carnival: true,
+    sideload: true
+  },
   platformsFilters: { win: true, linux: true, mac: true, browser: true },
   filterText: '',
   setStoresFilters: () => null,

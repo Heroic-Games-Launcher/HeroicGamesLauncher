@@ -25,7 +25,11 @@ import {
 } from 'common/types/carnival'
 import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
 import { installStore, libraryStore } from './electronStores'
-import { getFileSize, getCarnivalBin, removeSpecialcharacters } from 'backend/utils'
+import {
+  getFileSize,
+  getCarnivalBin,
+  removeSpecialcharacters
+} from 'backend/utils'
 import { callRunner } from 'backend/launcher'
 import { join } from 'path'
 import { app } from 'electron'
@@ -59,18 +63,17 @@ async function loadGamesInAccount() {
   if (!existsSync(carnivalLibrary)) {
     return
   }
-  const libraryYAML = load(
-    readFileSync(carnivalLibrary, 'utf-8'),{schema: JSON_SCHEMA}
-  ) as libraryYAMLInterface
+  const libraryYAML = load(readFileSync(carnivalLibrary, 'utf-8'), {
+    schema: JSON_SCHEMA
+  }) as libraryYAMLInterface
 
   const libraryJSON = libraryYAML.collection
   libraryJSON.forEach(async (game) => {
-
     const info = installedGames.get(game.slugged_name)
     // Create save folder name like carnival
     const meta = await getGamesdbData('indiegala', game.slugged_name, false)
 
-    const developers_list : string[] = []
+    const developers_list: string[] = []
     if (meta?.data?.game?.developers) {
       meta?.data?.game?.developers.forEach((dev) => {
         developers_list.push(dev.name)
@@ -81,15 +84,27 @@ async function loadGamesInAccount() {
     const install_data = installStore.get(game.slugged_name)
     library.set(game.name, {
       app_name: game.name,
-      art_cover: meta?.data?.game?.cover ? meta?.data?.game?.cover.url_format.replace('{formatter}.{ext}','.png') : '',
-      art_square: meta?.data?.game?.square_icon ? meta?.data?.game?.square_icon.url_format.replace('{formatter}.{ext}','.png') : '',
+      art_cover: meta?.data?.game?.cover
+        ? meta?.data?.game?.cover.url_format.replace(
+            '{formatter}.{ext}',
+            '.png'
+          )
+        : '',
+      art_square: meta?.data?.game?.square_icon
+        ? meta?.data?.game?.square_icon.url_format.replace(
+            '{formatter}.{ext}',
+            '.png'
+          )
+        : '',
       canRunOffline: true, // indieGala only has offline games
       install: info
         ? {
             install_path: info.install_path,
             // For some time size was undefined in installed.json, that's why we
             // need to keep this fallback to 0
-            install_size: getFileSize(install_data?.manifest.download_size ?? 0),
+            install_size: getFileSize(
+              install_data?.manifest.download_size ?? 0
+            ),
             version: info.version,
             platform: 'Windows' // indieGala only supports Windows
           }
@@ -99,7 +114,9 @@ async function loadGamesInAccount() {
       is_installed: info !== undefined,
       runner: 'carnival',
       title: game.name,
-      description: meta?.data?.game?.summary ? meta?.data?.game?.summary['*'] : '',
+      description: meta?.data?.game?.summary
+        ? meta?.data?.game?.summary['*']
+        : '',
       developer: developers_list ? developers_list.join(', ') : '',
       is_linux_native: false,
       is_mac_native: false
@@ -117,9 +134,9 @@ export function removeFromInstalledConfig(appName: string) {
   if (existsSync(carnivalInstalled)) {
     try {
       logDebug(appName, LogPrefix.Carnival)
- //     const _installed = load(
-   //     readFileSync(carnivalInstalled, 'utf-8')
-     // )
+      //     const _installed = load(
+      //     readFileSync(carnivalInstalled, 'utf-8')
+      // )
       // const newInstalled = installed.filter((game) => game.id !== appName)
       // writeFileSync(carnivalInstalled, JSON.stringify(newInstalled), 'utf-8')
     } catch (error) {
@@ -189,7 +206,10 @@ export async function listUpdateableGames(): Promise<string[]> {
 
   const updates: string[] = JSON.parse(output)
   if (updates.length) {
-    logInfo(['Found', `${updates.length}`, 'games to update'], LogPrefix.Carnival)
+    logInfo(
+      ['Found', `${updates.length}`, 'games to update'],
+      LogPrefix.Carnival
+    )
   }
   return updates
 }
@@ -225,13 +245,12 @@ export function getInstallMetadata(
   }
 
   try {
-    const installed = load(
-      readFileSync(carnivalInstalled, 'utf-8')
-    ) as object
+    const installed = load(readFileSync(carnivalInstalled, 'utf-8')) as object
     const game = getGameFromLibrary(appName)
 
-    return (game && game.unique_name && installed[game.unique_name]) ? installed[game.unique_name] : undefined
-
+    return game && game.unique_name && installed[game.unique_name]
+      ? installed[game.unique_name]
+      : undefined
   } catch (error) {
     logError(
       ['Corrupted installed.json file, cannot load installed games', error],
@@ -248,12 +267,13 @@ export function refreshInstalled() {
   installedGames.clear()
   if (existsSync(carnivalInstalled)) {
     try {
-      const installed = load(
-        readFileSync(carnivalInstalled, 'utf-8')
-      ) as object
+      const installed = load(readFileSync(carnivalInstalled, 'utf-8')) as object
 
       Object.getOwnPropertyNames(installed).forEach((unique_name) => {
-        installedGames.set(unique_name, installed[unique_name] as CarnivalInstallMetadataInfo)
+        installedGames.set(
+          unique_name,
+          installed[unique_name] as CarnivalInstallMetadataInfo
+        )
       })
     } catch (error) {
       logError(
@@ -286,7 +306,10 @@ export async function refresh(): Promise<ExecResult | null> {
 
   const arr = Array.from(library.values())
   libraryStore.set('library', arr)
-  logInfo(['Game list updated, got', `${arr.length}`, 'games'], LogPrefix.Carnival)
+  logInfo(
+    ['Game list updated, got', `${arr.length}`, 'games'],
+    LogPrefix.Carnival
+  )
 
   return defaultExecResult
 }
@@ -344,14 +367,22 @@ export async function getInstallInfo(
     const metadata = installedGames.get(appName)
     // Get size info from Carnival
     const { stdout: output } = await runRunnerCommand(
-      ['install','--info', game.unique_name ? game.unique_name : appName],
+      ['install', '--info', game.unique_name ? game.unique_name : appName],
       createAbortController(appName)
     )
     deleteAbortController(appName)
-    
+
     const ds_regex = /Download Size: ([0-9]+\.*[0-9]*) ([MKGT])B/
-    const human_to_factor = {K: 1024, M: 1024 * 1024, G: 1024 * 1024 * 1024, T: 1024 * 1024 * 1024 * 1024}
-    const download_size = ds_regex.test(output) ? (ds_regex!.exec(output)![1] as unknown as number) * human_to_factor[ds_regex!.exec(output)![2]] : 0
+    const human_to_factor = {
+      K: 1024,
+      M: 1024 * 1024,
+      G: 1024 * 1024 * 1024,
+      T: 1024 * 1024 * 1024 * 1024
+    }
+    const download_size = ds_regex.test(output)
+      ? (ds_regex!.exec(output)![1] as unknown as number) *
+        human_to_factor[ds_regex!.exec(output)![2]]
+      : 0
     const installInfo = {
       game: {
         id: appName,
@@ -471,7 +502,10 @@ export function installState(appName: string, state: boolean) {
 
   const metadata = getInstallMetadata(appName)
   if (!metadata) {
-    logError(['Could not find install metadata for', appName], LogPrefix.Carnival)
+    logError(
+      ['Could not find install metadata for', appName],
+      LogPrefix.Carnival
+    )
     return
   }
   installedGames.set(appName, metadata)
@@ -495,8 +529,8 @@ export async function runRunnerCommand(
   options.env.CARNIVAL_CONFIG_PATH = carnivalConfigPath
   const cleanCommandParts: string[] = []
   for (const part in commandParts) {
-    if (part) {
-      cleanCommandParts.push(part)
+    if (commandParts[part]?.length) {
+      cleanCommandParts.push(commandParts[part] as string)
     }
   }
 
@@ -510,10 +544,9 @@ export async function runRunnerCommand(
   )
 }
 
-export function getGameFromLibrary(gameName: string) : GameInfo | undefined {
+export function getGameFromLibrary(gameName: string): GameInfo | undefined {
   for (const game of libraryStore.get('library', [])) {
-    if (game.app_name === gameName)
-      return game
+    if (game.app_name === gameName) return game
   }
   return undefined
 }

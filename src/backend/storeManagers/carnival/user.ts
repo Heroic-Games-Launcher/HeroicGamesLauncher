@@ -15,7 +15,7 @@ import { carnivalUserData, carnivalCookieData } from 'backend/constants'
 import { configStore } from './electronStores'
 import { clearCache } from 'backend/utils'
 import { load, dump } from 'js-yaml'
-import  { session } from 'electron'
+import { session } from 'electron'
 import { writeFileSync } from 'fs'
 
 export class CarnivalUser {
@@ -32,42 +32,57 @@ export class CarnivalUser {
     return output
   }
 
-  static async login(): Promise<{ status: 'done' | 'failed'; user: CarnivalUserData | undefined }> {
+  static async login(): Promise<{
+    status: 'done' | 'failed'
+    user: CarnivalUserData | undefined
+  }> {
     const mySession = session.fromPartition('persist:epicstore')
     if (CarnivalUser.isLoggedIn()) {
       const user = await this.getUserData()
       if (user) {
         return {
-        status: 'done',
-        user
+          status: 'done',
+          user
         }
       }
     }
     try {
-      const auth_cookie = await mySession.cookies.get({domain: '.indiegala.com', name: 'auth'})  
+      const auth_cookie = await mySession.cookies.get({
+        domain: '.indiegala.com',
+        name: 'auth'
+      })
       if (auth_cookie.length !== 1) {
-        throw new Error("Too many auth cookies or none, this doesn't make sense")
+        throw new Error(
+          "Too many auth cookies or none, this doesn't make sense"
+        )
       }
-      
+
       const replaceRegEx = /^\./
-      const expiry_date = new Date(Number(auth_cookie[0].expirationDate)*1000)
-      const cookie : CarnivalCookieData = {raw_cookie: `${auth_cookie[0].name}=${
-          auth_cookie[0].value}; Path=${auth_cookie[0].path}; Domain=${
-          auth_cookie[0].domain}; Expires=${expiry_date.toUTCString()}`,
-          domain: {Suffix: auth_cookie[0].domain ? auth_cookie[0].domain.replace(replaceRegEx,'')  : ''},
-          path: [auth_cookie[0].path? auth_cookie[0].path:'', true],
-          expires: {AtUtc: expiry_date.toISOString()}
-        }
+      const expiry_date = new Date(Number(auth_cookie[0].expirationDate) * 1000)
+      const cookie: CarnivalCookieData = {
+        raw_cookie: `${auth_cookie[0].name}=${auth_cookie[0].value}; Path=${
+          auth_cookie[0].path
+        }; Domain=${
+          auth_cookie[0].domain
+        }; Expires=${expiry_date.toUTCString()}`,
+        domain: {
+          Suffix: auth_cookie[0].domain
+            ? auth_cookie[0].domain.replace(replaceRegEx, '')
+            : ''
+        },
+        path: [auth_cookie[0].path ? auth_cookie[0].path : '', true],
+        expires: { AtUtc: expiry_date.toISOString() }
+      }
       logDebug(`Cookies: ${JSON.stringify(cookie)}`)
-      writeFileSync(carnivalCookieData,dump([cookie])) 
+      writeFileSync(carnivalCookieData, dump([cookie]))
       logInfo('Authentication successful', LogPrefix.Carnival)
     } catch (error) {
       logError(`Error getting cookies: ${error}`, LogPrefix.Carnival)
     }
-    
+
     try {
       await refresh()
-    
+
       const user = await CarnivalUser.getUserData()
       if (!user) {
         return {
@@ -85,7 +100,6 @@ export class CarnivalUser {
         user: undefined
       }
     }
-
   }
 
   static async logout() {
@@ -118,10 +132,10 @@ export class CarnivalUser {
       const user: CarnivalUserDataFile = load(
         readFileSync(carnivalUserData, 'utf-8')
       ) as CarnivalUserDataFile
-  
+
       configStore.set('userData', user.user_info)
       logInfo('Saved user data to global config', LogPrefix.Carnival)
-      logDebug(['username: ',user.user_info.username], LogPrefix.Carnival)
+      logDebug(['username: ', user.user_info.username], LogPrefix.Carnival)
 
       return user.user_info
     } catch (error) {

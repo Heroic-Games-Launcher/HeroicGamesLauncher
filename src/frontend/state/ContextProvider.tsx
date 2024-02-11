@@ -26,13 +26,14 @@ const initialContext: ContextType = {
     logout: async () => Promise.resolve()
   },
   indieGala: {
-    getIndieGalaUserData: async () => Promise.resolve({
-      status: '',
-      user_id: '',
-      user_found: false,
-      username:  '',
-      email:  '',
-    }),
+    getIndieGalaUserData: async () =>
+      Promise.resolve({
+        status: '',
+        user_id: '',
+        user_found: false,
+        username: '',
+        email: ''
+      }),
     library: [],
     login: async function (): Promise<string> {
       throw new Error('Function not implemented.')

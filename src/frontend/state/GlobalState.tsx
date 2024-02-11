@@ -564,7 +564,6 @@ class GlobalState extends PureComponent<Props> {
     })
   }
 
-
   handleSettingsModalOpen = (
     value: boolean,
     type?: 'settings' | 'log' | 'category',
@@ -622,7 +621,10 @@ class GlobalState extends PureComponent<Props> {
     }
 
     let carnivalLibrary = carnivalLibraryStore.get('library', [])
-    if (indieGala.username && (!carnivalLibrary.length || !indieGala.library.length)) {
+    if (
+      indieGala.username &&
+      (!carnivalLibrary.length || !indieGala.library.length)
+    ) {
       window.api.logInfo('No cache found, getting data from freecarival...')
       await window.api.refreshLibrary('carnival')
       carnivalLibrary = this.loaIndieGalaLibrary()
@@ -1042,7 +1044,7 @@ class GlobalState extends PureComponent<Props> {
             login: async function (): Promise<string> {
               throw new Error('Function not implemented.')
             },
-            logout: this.carnivalLogout,
+            logout: this.carnivalLogout
           },
           installingEpicGame,
           setLanguage: this.setLanguage,

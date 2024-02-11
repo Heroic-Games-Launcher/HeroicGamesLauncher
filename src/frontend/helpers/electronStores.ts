@@ -148,10 +148,12 @@ const nileConfigStore = new TypeCheckedStoreFrontend('nileConfigStore', {
   cwd: 'nile_store'
 })
 
-
-const carnivalConfigStore = new TypeCheckedStoreFrontend('carnivalConfigStore', {
-  cwd: 'carnival_store'
-})
+const carnivalConfigStore = new TypeCheckedStoreFrontend(
+  'carnivalConfigStore',
+  {
+    cwd: 'carnival_store'
+  }
+)
 
 const carnivalLibraryStore = new CacheStore<GameInfo[], 'library'>(
   'carnival_library',

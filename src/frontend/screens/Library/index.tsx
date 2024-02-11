@@ -388,7 +388,8 @@ export default React.memo(function Library(): JSX.Element {
     const showEpic = epic.username && displayedStores.includes('legendary')
     const showGog = gog.username && displayedStores.includes('gog')
     const showAmazon = amazon.user_id && displayedStores.includes('nile')
-    const showIndieGala = indieGala.username && displayedStores.includes('carnival')
+    const showIndieGala =
+      indieGala.username && displayedStores.includes('carnival')
     const showSideloaded = displayedStores.includes('sideload')
 
     const epicLibrary = showEpic ? epic.library : []
@@ -397,8 +398,13 @@ export default React.memo(function Library(): JSX.Element {
     const amazonLibrary = showAmazon ? amazon.library : []
     const indieGalaLibrary = showIndieGala ? indieGala.library : []
 
-
-    return [...sideloadedApps, ...epicLibrary, ...gogLibrary, ...amazonLibrary, ...indieGalaLibrary]
+    return [
+      ...sideloadedApps,
+      ...epicLibrary,
+      ...gogLibrary,
+      ...amazonLibrary,
+      ...indieGalaLibrary
+    ]
   }
 
   // select library
