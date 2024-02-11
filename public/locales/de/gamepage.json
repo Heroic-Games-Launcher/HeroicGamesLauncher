@@ -72,7 +72,8 @@
         "unhide_game": "Spiel einblenden",
         "uninstall": "Deinstallieren",
         "update": "Aktualisieren",
-        "details": "Informationen"
+        "details": "Informationen",
+        "changelog": "Änderungskatalog Anzeigen"
     },
     "cloud_save_unsupported": "Nicht unterstützt",
     "disabled": "Deaktiviert",
@@ -94,11 +95,18 @@
         "totalPlayed": "Spielzeit",
         "dlcs": "DLCs",
         "branch": {
-            "disabled": "Deaktiviert"
+            "disabled": "Deaktiviert",
+            "password": "Setze Passwort für privaten Kanal",
+            "setPrivateBranchPassword": "Setze Passwort für privaten Kanal",
+            "select": "Beta-Kanal auswählen"
         },
         "builds": {
-            "version": "Version"
-        }
+            "version": "Version",
+            "buildsSelector": "Spielversion auswählen",
+            "toggle": "Behalte das Spiel in einer spezifischen Version"
+        },
+        "changelogFor": "Änderungskatalog für {{gameTitle}}",
+        "modify": "Installation modifizieren"
     },
     "gamecard": {
         "moving": "Wird verschoben …",
@@ -160,7 +168,8 @@
         "launching": "Wird gestartet …",
         "ubisoft": "Ubisoft Connect wird installiert …",
         "prerequisites": "Installiere Voraussetzungen",
-        "winetricks": "Installiere Winetricks Pakete"
+        "winetricks": "Installiere Winetricks Pakete",
+        "redist": "Installiere weiterverbreitbare Komponenten"
     },
     "launch": {
         "options": "Startoptionen …"
@@ -230,7 +239,8 @@
         "gog-goodie": "Dieses Spiel scheint nicht installiert werden zu können. Überprüfe herunterladbare Inhalte auf https://gog.com/account",
         "goodie": "Kann nicht installiert werden",
         "prerequisites": "Installiere Voraussetzungen",
-        "winetricks": "Winetrick Fehlerkorrekturen anwenden"
+        "winetricks": "Winetrick Fehlerkorrekturen anwenden",
+        "redist": "Installiere weiterverteilbare Komponenten ({{redist}})"
     },
     "submenu": {
         "addShortcut": "Verknüpfung hinzufügen",
@@ -256,6 +266,15 @@
         },
         "title": {
             "gamePage": "Spieleseite"
+        }
+    },
+    "modifyInstall": {
+        "nodlcs": "Keine Spieleerweiterungen verfügbar",
+        "versionCollapsable": "Spielversion",
+        "dlcsCollapsible": "Spieleerweiterung",
+        "redMod": {
+            "collapsible": "REDmod Integration",
+            "enable": "Mods aktivieren"
         }
     }
 }
