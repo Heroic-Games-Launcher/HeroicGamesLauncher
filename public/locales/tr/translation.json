@@ -230,7 +230,8 @@
     "game": {
         "status": "Durum",
         "store": "Mağaza",
-        "title": "Oyun Adı"
+        "title": "Oyun Adı",
+        "modify": "Kurulumu Düzenle"
     },
     "generic": {
         "error": {
