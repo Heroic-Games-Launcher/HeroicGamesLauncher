@@ -31,7 +31,11 @@ export default function ExternalLinkDialog() {
   }
 
   return externalLinkDialogOptions.showDialog ? (
-    <Dialog onClose={onClose} showCloseButton={false}>
+    <Dialog
+      onClose={onClose}
+      showCloseButton={false}
+      className="ExternalLinkWarning__dialog"
+    >
       <DialogContent>
         {t('externalLink.warning', 'You are about to open an external link.')}
         <br></br>

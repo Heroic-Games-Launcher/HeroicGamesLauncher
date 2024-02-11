@@ -13,7 +13,6 @@
   display: flex;
   flex-direction: column;
   padding: 0;
-  padding-top: 20px;
   overflow: auto;
   border: solid 1px var(--modal-border);
   border-radius: 10px;
@@ -26,6 +25,10 @@
     transform 500ms;
   max-width: min(700px, 85vw);
   max-height: 95vh;
+
+  &.ExternalLinkWarning__dialog {
+    padding-top: var(--dialog-margin-vertical);
+  }
 
   & img {
     max-width: 100%;
