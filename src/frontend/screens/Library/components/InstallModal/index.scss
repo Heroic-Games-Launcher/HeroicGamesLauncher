@@ -11,6 +11,10 @@
       margin-inline-end: 0.5rem;
     }
   }
+
+  & summary {
+    font-size: var(--text-lg);
+  }
 }
 
 .InstallModal__dialog > .anticheatInfo {

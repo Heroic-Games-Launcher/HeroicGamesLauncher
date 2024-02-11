@@ -38,7 +38,6 @@ export default function WineSelector({
 
   const [useDefaultSettings, setUseDefaultSettings] = React.useState(false)
   const [description, setDescription] = React.useState('')
-  const [configureWine, setConfigureWine] = React.useState(false)
 
   React.useEffect(() => {
     const getAppSettings = async () => {
@@ -78,16 +77,10 @@ export default function WineSelector({
 
   return (
     <>
-      {!configureWine && (
-        <ToggleSwitch
-          htmlId="show-advanced"
-          title={t('setting.show-wine-settings', 'Show Wine settings')}
-          value={configureWine}
-          handleChange={() => setConfigureWine(!configureWine)}
-        />
-      )}
-
-      {configureWine && (
+      <details>
+        <summary>
+          {t('setting.show-wine-settings', 'Show Wine settings')}
+        </summary>
         <>
           <ToggleSwitch
             htmlId="use-wine-defaults"
@@ -157,7 +150,7 @@ export default function WineSelector({
               ))}
           </SelectField>
         </>
-      )}
+      </details>
     </>
   )
 }
