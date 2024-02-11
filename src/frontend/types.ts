@@ -1,4 +1,3 @@
-import { getIndieGalaUserInfo } from 'backend/api/helpers';
 import {
   AppSettings,
   GameInfo,

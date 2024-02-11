@@ -34,10 +34,10 @@ const initialContext: ContextType = {
       email:  '',
     }),
     library: [],
-    login: function (token: string): Promise<string> {
+    login: async function (): Promise<string> {
       throw new Error('Function not implemented.')
     },
-    logout: function (): Promise<void> {
+    logout: async function (): Promise<void> {
       throw new Error('Function not implemented.')
     }
   },

@@ -1,4 +1,3 @@
-import { install } from 'frontend/helpers';
 import JSON5 from 'json5'
 import {
   carnivalConfigPath,
@@ -20,7 +19,6 @@ import {
 import { CallRunnerOptions, ExecResult, GameInfo } from 'common/types'
 import {
   FuelSchema,
-  CarnivalGameDownloadInfo,
   CarnivalGameInfo,
   CarnivalInstallInfo,
   CarnivalInstallMetadataInfo
@@ -29,13 +27,12 @@ import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
 import { installStore, libraryStore } from './electronStores'
 import { getFileSize, getCarnivalBin, removeSpecialcharacters } from 'backend/utils'
 import { callRunner } from 'backend/launcher'
-import { dirname, join } from 'path'
+import { join } from 'path'
 import { app } from 'electron'
 import { copySync } from 'fs-extra'
 import { CarnivalUser } from './user'
 import { JSON_SCHEMA, load } from 'js-yaml'
 import { getGamesdbData } from '../gog/library'
-import { login } from 'backend/api/misc'
 
 const installedGames: Map<string, CarnivalInstallMetadataInfo> = new Map()
 const library: Map<string, GameInfo> = new Map()
@@ -84,8 +81,8 @@ async function loadGamesInAccount() {
     const install_data = installStore.get(game.slugged_name)
     library.set(game.name, {
       app_name: game.name,
-      art_cover: meta?.data?.game?.cover ? meta?.data?.game?.cover.url_format.replace("{formatter}.{ext}",".png") : "",
-      art_square: meta?.data?.game?.square_icon ? meta?.data?.game?.square_icon.url_format.replace("{formatter}.{ext}",".png") : "",
+      art_cover: meta?.data?.game?.cover ? meta?.data?.game?.cover.url_format.replace('{formatter}.{ext}','.png') : '',
+      art_square: meta?.data?.game?.square_icon ? meta?.data?.game?.square_icon.url_format.replace('{formatter}.{ext}','.png') : '',
       canRunOffline: true, // indieGala only has offline games
       install: info
         ? {
@@ -102,8 +99,8 @@ async function loadGamesInAccount() {
       is_installed: info !== undefined,
       runner: 'carnival',
       title: game.name,
-      description: meta?.data?.game?.summary ? meta?.data?.game?.summary['*'] : "",
-      developer: developers_list ? developers_list.join(", ") : "",
+      description: meta?.data?.game?.summary ? meta?.data?.game?.summary['*'] : '',
+      developer: developers_list ? developers_list.join(', ') : '',
       is_linux_native: false,
       is_mac_native: false
     })
@@ -119,9 +116,10 @@ export function removeFromInstalledConfig(appName: string) {
   installedGames.clear()
   if (existsSync(carnivalInstalled)) {
     try {
-      const installed = load(
-        readFileSync(carnivalInstalled, 'utf-8')
-      )
+      logDebug(appName, LogPrefix.Carnival)
+ //     const _installed = load(
+   //     readFileSync(carnivalInstalled, 'utf-8')
+     // )
       // const newInstalled = installed.filter((game) => game.id !== appName)
       // writeFileSync(carnivalInstalled, JSON.stringify(newInstalled), 'utf-8')
     } catch (error) {
@@ -480,7 +478,7 @@ export function installState(appName: string, state: boolean) {
 }
 
 export async function runRunnerCommand(
-  commandParts: string[],
+  commandParts: (string | undefined)[],
   abortController: AbortController,
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
@@ -495,9 +493,15 @@ export async function runRunnerCommand(
     options.env = {}
   }
   options.env.CARNIVAL_CONFIG_PATH = carnivalConfigPath
+  const cleanCommandParts: string[] = []
+  for (const part in commandParts) {
+    if (part) {
+      cleanCommandParts.push(part)
+    }
+  }
 
   return callRunner(
-    commandParts,
+    cleanCommandParts,
     { name: 'carnival', logPrefix: LogPrefix.Carnival, bin, dir },
     {
       ...options,

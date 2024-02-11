@@ -1,4 +1,3 @@
-import { logError, logDebug } from 'backend/logger/logger';
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import { ipcRenderer } from 'electron'
 import {

@@ -5,7 +5,6 @@ import {
   GameSettings,
   InstallArgs,
   InstallPlatform,
-  LaunchOption,
   InstallProgress
 } from 'common/types'
 import { InstallResult, RemoveArgs } from 'common/types/game_manager'
@@ -20,7 +19,6 @@ import {
 } from './library'
 import {
   LogPrefix,
-  appendGameLog,
   logDebug,
   logError,
   logFileLocation,
@@ -34,7 +32,6 @@ import {
   deleteAbortController
 } from 'backend/utils/aborthandler/aborthandler'
 import {
-  getRunnerCallWithoutCredentials,
   launchCleanup,
   prepareLaunch,
   prepareWineLaunch,
@@ -49,7 +46,6 @@ import { getWineFlagsArray } from 'backend/utils/compatibility_layers'
 import shlex from 'shlex'
 import { join } from 'path'
 import {
-  getNileBin,
   killPattern,
   moveOnUnix,
   moveOnWindows,
@@ -318,8 +314,7 @@ export async function removeShortcuts(appName: string) {
 }
 
 export async function launch(
-  appName: string,
-  launchArguments?: LaunchOption
+  appName: string
 ): Promise<boolean> {
   const gameSettings = await getSettings(appName)
   const gameInfo = getGameInfo(appName)
@@ -412,19 +407,9 @@ export async function launch(
     'launch',
     ...exeOverrideFlag, // Check if this works
     ...wineFlag,
-    ...shlex.split(launchArguments ?? ''),
     ...shlex.split(gameSettings.launcherArgs ?? ''),
     gameInfo.unique_name
   ]
-  const fullCommand = getRunnerCallWithoutCredentials(
-    commandParts,
-    commandEnv,
-    join(...Object.values(getNileBin()))
-  )
-  appendFileSync(
-    logFileLocation(appName),
-    `Launch Command: ${fullCommand}\n\nGame Log:\n`
-  )
 
   const { error } = await runCarnivalCommand(
     commandParts,

@@ -902,8 +902,11 @@ class GlobalState extends PureComponent<Props> {
       await window.api.getAmazonUserInfo()
     }
 
-    await window.api.getIndieGalaUserInfo()
     const indieGalaUser = carnivalConfigStore.has('userData')
+
+    if (indieGalaUser) {
+      await window.api.getIndieGalaUserInfo()
+    }
 
     if (!gameUpdates.length) {
       const storedGameUpdates = JSON.parse(storage.getItem('updates') || '[]')
@@ -912,7 +915,7 @@ class GlobalState extends PureComponent<Props> {
 
     this.setState({ platform })
 
-    if (legendaryUser || gogUser || amazonUser) {
+    if (legendaryUser || gogUser || amazonUser || indieGalaUser) {
       this.refreshLibrary({
         checkForUpdates: true,
         runInBackground: Boolean(epic.library?.length)
@@ -1036,7 +1039,7 @@ class GlobalState extends PureComponent<Props> {
             getIndieGalaUserData: this.getIndieGalaUserInfo,
             username: indieGala.username,
             library: indieGala.library,
-            login: function (token: string): Promise<string> {
+            login: async function (): Promise<string> {
               throw new Error('Function not implemented.')
             },
             logout: this.carnivalLogout,

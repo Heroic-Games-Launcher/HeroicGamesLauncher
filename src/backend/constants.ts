@@ -76,7 +76,7 @@ const fixesPath = join(appFolder, 'fixes')
 const carnivalConfigPath = join(appFolder, 'carnival_config')
 const carnivalInstalled = join(carnivalConfigPath, 'installed.yml')
 const carnivalLibrary = join(carnivalConfigPath, 'library.yml')
-const carnivalLogFile = ""
+const carnivalLogFile = ''
 const carnivalCookieData = join(carnivalConfigPath, 'cookies.yml')
 const carnivalUserData = join(carnivalConfigPath, 'user.yml')
 

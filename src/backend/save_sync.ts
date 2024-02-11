@@ -35,6 +35,8 @@ async function getDefaultSavePath(
       return getDefaultGogSavePaths(appName, alreadyDefinedGogSaves)
     case 'nile':
       return ''
+    case 'carnival':
+      return ''
     case 'sideload':
       return ''
   }

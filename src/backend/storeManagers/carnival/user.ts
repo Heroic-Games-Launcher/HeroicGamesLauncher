@@ -45,7 +45,7 @@ export class CarnivalUser {
     }
     try {
       const auth_cookie = await mySession.cookies.get({domain: '.indiegala.com', name: 'auth'})  
-      if (auth_cookie.length != 1) {
+      if (auth_cookie.length !== 1) {
         throw new Error("Too many auth cookies or none, this doesn't make sense")
       }
       
@@ -121,7 +121,7 @@ export class CarnivalUser {
   
       configStore.set('userData', user.user_info)
       logInfo('Saved user data to global config', LogPrefix.Carnival)
-      logDebug(["username: ",user.user_info.username], LogPrefix.Carnival)
+      logDebug(['username: ',user.user_info.username], LogPrefix.Carnival)
 
       return user.user_info
     } catch (error) {

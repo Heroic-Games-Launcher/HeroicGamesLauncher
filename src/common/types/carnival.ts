@@ -58,36 +58,36 @@ interface CarnivalGameVersion {
   text: string
 }
 
-interface CarnivalGameProductDetails {
-  iconUrl: string
-  details: {
-    backgroundUrl1: string
-    backgroundUrl2: string
-    developer: string
-    esrbRatins: string
-    gameModes: string[]
-    genres: string[]
-    keywords: string[]
-    legacyProductIds: string[]
-    logoUrl: string
-    otherDevelopers: string[]
-    pegiRating: string
-    pgCrownImageUrl: string
-    publisher: string
-    releaseDate: string
-    screenshots: string[]
-    shortDescription: string
-    trailerImageUrl: string
-    uskRating: string
-    videos: string[]
-    websites: {
-      official: string | null
-      steam: string | null
-      support: string | null
-      gog: string | null
-    }
-  }
-}
+// interface CarnivalGameProductDetails {
+//   iconUrl: string
+//   details: {
+//     backgroundUrl1: string
+//     backgroundUrl2: string
+//     developer: string
+//     esrbRatins: string
+//     gameModes: string[]
+//     genres: string[]
+//     keywords: string[]
+//     legacyProductIds: string[]
+//     logoUrl: string
+//     otherDevelopers: string[]
+//     pegiRating: string
+//     pgCrownImageUrl: string
+//     publisher: string
+//     releaseDate: string
+//     screenshots: string[]
+//     shortDescription: string
+//     trailerImageUrl: string
+//     uskRating: string
+//     videos: string[]
+//     websites: {
+//       official: string | null
+//       steam: string | null
+//       support: string | null
+//       gog: string | null
+//     }
+//   }
+// }
 
 interface FuelPostInstall {
   Command: string

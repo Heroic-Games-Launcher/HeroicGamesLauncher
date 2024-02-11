@@ -391,6 +391,10 @@ function clearCache(library?: 'gog' | 'legendary' | 'nile' | 'carnival') {
     nileInstallStore.clear()
     nileLibraryStore.clear()
   }
+  if (library === 'carnival' || !library) {
+    carnivalInstallStore.clear()
+    carnivalLibraryStore.clear()
+  }
 }
 
 function resetHeroic() {

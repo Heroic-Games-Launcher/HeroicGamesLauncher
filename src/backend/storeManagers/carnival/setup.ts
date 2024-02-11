@@ -58,7 +58,7 @@ export default async function setup(
   const gameSettings = GameConfig.get(appName).config
   if (!isWindows) {
     const isWineOkToLaunch = await checkWineBeforeLaunch(
-      appName,
+      {runner: 'carnival', app_name: appName, art_cover: '', art_square: '', is_installed: true, title: appName, canRunOffline: true, install: {}},
       gameSettings,
      // logFileLocation(appName)
     )
