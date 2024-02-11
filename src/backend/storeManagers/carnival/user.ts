@@ -5,17 +5,18 @@ import {
 } from 'backend/utils/aborthandler/aborthandler'
 import {
   CarnivalLoginData,
-  CarnivalRegisterData,
+  CarnivalCookieData,
   CarnivalUserData,
   CarnivalUserDataFile
 } from 'common/types/carnival'
-import { runRunnerCommand } from './library'
+import { runRunnerCommand, refresh } from './library'
 import { existsSync, readFileSync } from 'graceful-fs'
-import { carnivalUserData } from 'backend/constants'
+import { carnivalUserData, carnivalCookieData } from 'backend/constants'
 import { configStore } from './electronStores'
 import { clearCache } from 'backend/utils'
-import { load } from 'js-yaml'
+import { load, dump } from 'js-yaml'
 import  { session } from 'electron'
+import { writeFileSync } from 'fs'
 
 export class CarnivalUser {
   static async getLoginData(): Promise<CarnivalLoginData> {
@@ -31,51 +32,60 @@ export class CarnivalUser {
     return output
   }
 
-  static async login(
-    data: CarnivalRegisterData
-  ): Promise<{ status: 'done' | 'failed'; user: CarnivalUserData | undefined }> {
-    logDebug(['Got register data:', data], LogPrefix.Carnival)
-    const { code, code_verifier, serial, client_id } = data
-    // Carnival prints output to stderr
-    const { stderr: output } = await runRunnerCommand(
-      [
-        'register',
-        '--code',
-        code,
-        '--code-verifier',
-        code_verifier,
-        '--serial',
-        serial,
-        '--client-id',
-        client_id
-      ],
-      createAbortController('carnival-login')
-    )
-    deleteAbortController('carnival-login')
-
-    const successRegex = /\[AUTH_MANAGER]:.*Succesfully registered a device/
-    if (!successRegex.test(output)) {
-      // Authentication failed
-      logError(['Authentication failed:', output], LogPrefix.Carnival)
+  static async login(): Promise<{ status: 'done' | 'failed'; user: CarnivalUserData | undefined }> {
+    const mySession = session.fromPartition('persist:epicstore')
+    if (CarnivalUser.isLoggedIn()) {
+      const user = await this.getUserData()
+      if (user) {
+        return {
+        status: 'done',
+        user
+        }
+      }
+    }
+    try {
+      const auth_cookie = await mySession.cookies.get({domain: '.indiegala.com', name: 'auth'})  
+      if (auth_cookie.length != 1) {
+        throw new Error("Too many auth cookies or none, this doesn't make sense")
+      }
+      
+      const replaceRegEx = /^\./
+      const expiry_date = new Date(Number(auth_cookie[0].expirationDate)*1000)
+      const cookie : CarnivalCookieData = {raw_cookie: `${auth_cookie[0].name}=${
+          auth_cookie[0].value}; Path=${auth_cookie[0].path}; Domain=${
+          auth_cookie[0].domain}; Expires=${expiry_date.toUTCString()}`,
+          domain: {Suffix: auth_cookie[0].domain ? auth_cookie[0].domain.replace(replaceRegEx,'')  : ''},
+          path: [auth_cookie[0].path? auth_cookie[0].path:'', true],
+          expires: {AtUtc: expiry_date.toISOString()}
+        }
+      logDebug(`Cookies: ${JSON.stringify(cookie)}`)
+      writeFileSync(carnivalCookieData,dump([cookie])) 
+      logInfo('Authentication successful', LogPrefix.Carnival)
+    } catch (error) {
+      logError(`Error getting cookies: ${error}`, LogPrefix.Carnival)
+    }
+    
+    try {
+      await refresh()
+    
+      const user = await CarnivalUser.getUserData()
+      if (!user) {
+        return {
+          status: 'failed',
+          user: undefined
+        }
+      }
+      return {
+        status: 'done',
+        user
+      }
+    } catch (error) {
       return {
         status: 'failed',
         user: undefined
       }
     }
 
-    logInfo('Authentication successful', LogPrefix.Carnival)
-    const user = await this.getUserData()
-    if (!user) {
-      return {
-        status: 'failed',
-        user: undefined
-      }
-    }
-
-    return {
-      status: 'done',
-      user
-    }
   }
 
   static async logout() {
@@ -113,13 +123,6 @@ export class CarnivalUser {
       logInfo('Saved user data to global config', LogPrefix.Carnival)
       logDebug(["username: ",user.user_info.username], LogPrefix.Carnival)
 
-      const mySession = session.fromPartition('persist:epicstore')
-      mySession.cookies.get({domain: '.indiegala.com'})
-        .then((cookies) => {
-          logDebug(cookies, LogPrefix.Carnival)
-      }).catch((error) => {
-        logError(error, LogPrefix.Carnival)
-      })
       return user.user_info
     } catch (error) {
       logInfo('user.json is empty', LogPrefix.Carnival)

@@ -66,7 +66,7 @@ export default function WebView({ store }: Props) {
   const epicStore = `https://www.epicgames.com/store/${lang}/`
   const gogStore = `https://af.gog.com?as=1838482841`
   const amazonStore = `https://gaming.amazon.com`
-  const indieGalaStore = `https://www.indiegala.com`
+  const indieGalaStore = `https://www.indiegala.com/`
   const wikiURL =
     'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
   const gogEmbedRegExp = new RegExp('https://embed.gog.com/on_login_success?')
@@ -95,7 +95,8 @@ export default function WebView({ store }: Props) {
   if (store) {
     sessionStorage.setItem('last-store', `/${store}store`)
     const lastUrl = sessionStorage.getItem(`last-url-${store}`)
-    if (lastUrl && validStoredUrl(lastUrl, store)) {
+    if (lastUrl && validStoredUrl(lastUrl, store) && lastUrl != startUrl) {
+      window.api.logDebug(`lastUrl: ${lastUrl}, startUrl: ${startUrl}`)
       startUrl = lastUrl
     }
   }
@@ -223,17 +224,7 @@ export default function WebView({ store }: Props) {
           if (code) {
             handleAmazonLogin(code)
           }
-        } else if (runner == 'carnival') {
-          // const prevURL = sessionStorage.getItem('last-url-indieGala')
-          // const pageURL = webview.getURL()
-          // const parsedURL = new URL(pageURL)
-          // const parsedPrevURL = new URL(prevURL? prevURL : 'https://example.com/example')
-          // window.api.logInfo(pageURL)
-          // window.api.logInfo(parsedPrevURL.toString())
-          // if (parsedPrevURL.pathname == '/login' && parsedURL.pathname == '/') {
-          //   window.api.logInfo('indieGala login detected')
-          // }
-        }
+        } 
       }
 
       webview.addEventListener('dom-ready', loadstop)
@@ -262,6 +253,15 @@ export default function WebView({ store }: Props) {
       const onNavigate = () => {
         const url = webview.getURL()
         if (validStoredUrl(url, store)) {
+          if (store == 'indieGala') {
+            const prevURL = sessionStorage.getItem('last-url-indieGala')
+            const pageURL = webview.getURL()
+            const parsedURL = new URL(pageURL)
+            const parsedPrevURL = new URL(prevURL? prevURL : 'https://example.com/example')
+            if (parsedPrevURL.pathname == '/login' && parsedURL.pathname == '/') {
+              window.api.authCarnival()
+            }
+          }
           sessionStorage.setItem(`last-url-${store}`, webview.getURL())
         }
       }

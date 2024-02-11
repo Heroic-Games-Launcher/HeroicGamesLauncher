@@ -77,6 +77,7 @@ const carnivalConfigPath = join(appFolder, 'carnival_config')
 const carnivalInstalled = join(carnivalConfigPath, 'installed.yml')
 const carnivalLibrary = join(carnivalConfigPath, 'library.yml')
 const carnivalLogFile = ""
+const carnivalCookieData = join(carnivalConfigPath, 'cookies.yml')
 const carnivalUserData = join(carnivalConfigPath, 'user.yml')
 
 const {
@@ -296,5 +297,6 @@ export {
   carnivalLibrary,
   carnivalLogFile,
   carnivalUserData,
+  carnivalCookieData,
   fixesPath
 }

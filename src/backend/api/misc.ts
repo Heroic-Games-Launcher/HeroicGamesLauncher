@@ -1,3 +1,4 @@
+import { logError, logDebug } from 'backend/logger/logger';
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import { ipcRenderer } from 'electron'
 import {
@@ -80,6 +81,7 @@ export const authAmazon = async (data: NileRegisterData) =>
   ipcRenderer.invoke('authAmazon', data)
 export const logoutAmazon = async () => ipcRenderer.invoke('logoutAmazon')
 export const logoutCarnival = async () => ipcRenderer.invoke('logoutCarnival')
+export const authCarnival = async () => ipcRenderer.invoke('authCarnival')
 export const checkGameUpdates = async () =>
   ipcRenderer.invoke('checkGameUpdates')
 export const refreshLibrary = async (library?: Runner | 'all') =>
@@ -90,6 +92,7 @@ export const gamepadAction = async (args: GamepadActionArgs) =>
 
 export const logError = (error: string) => ipcRenderer.send('logError', error)
 export const logInfo = (info: string) => ipcRenderer.send('logInfo', info)
+export const logDebug = (debug: string) => ipcRenderer.send('logDebug', debug)
 export const showConfigFileInFolder = (appName: string) =>
   ipcRenderer.send('showConfigFileInFolder', appName)
 export const openFolder = (installPath: string) =>

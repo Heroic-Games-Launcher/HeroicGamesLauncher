@@ -823,6 +823,8 @@ ipcMain.handle('authGOG', async (event, code) => GOGUser.login(code))
 ipcMain.handle('logoutLegendary', LegendaryUser.logout)
 ipcMain.on('logoutGOG', GOGUser.logout)
 ipcMain.handle('logoutCarnival', CarnivalUser.logout)
+ipcMain.handle('authCarnival', CarnivalUser.login)
+
 ipcMain.handle('getLocalPeloadPath', async () => {
   return fixAsarPath(join('file://', publicDir, 'webviewPreload.js'))
 })
@@ -978,7 +980,7 @@ ipcMain.handle('refreshLibrary', async (e, library?) => {
 })
 
 ipcMain.on('logError', (e, err) => logError(err, LogPrefix.Frontend))
-
+ipcMain.on('logDebug', (e, debug) => logDebug(debug, LogPrefix.Frontend))
 ipcMain.on('logInfo', (e, info) => logInfo(info, LogPrefix.Frontend))
 
 let powerDisplayId: number | null

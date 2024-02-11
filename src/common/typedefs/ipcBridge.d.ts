@@ -87,6 +87,7 @@ interface SyncIPCFunctions {
   logoutGOG: () => void
   logError: (message: unknown) => void
   logInfo: (message: unknown) => void
+  logDebug: (message: unknown) => void
   showItemInFolder: (item: string) => void
   clipboardWriteText: (text: string) => void
   processShortcut: (combination: string) => void
@@ -185,6 +186,10 @@ interface AsyncIPCFunctions {
   authAmazon: (data: NileRegisterData) => Promise<{
     status: 'done' | 'failed'
     user: NileUserData | undefined
+  }>
+  authCarnival: () => Promise<{
+    status: 'done' | 'failed'
+    user: CarnivalUserData | undefined
   }>
   logoutLegendary: () => Promise<void>
   logoutAmazon: () => Promise<void>

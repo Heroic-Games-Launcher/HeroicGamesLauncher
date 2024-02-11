@@ -125,11 +125,15 @@ export interface CarnivalLoginData {
   client_id: string
 }
 
-export interface CarnivalRegisterData {
-  code: string
-  code_verifier: string
-  serial: string
-  client_id: string
+export interface CarnivalCookieData {
+  raw_cookie: string
+  path: [string, boolean]
+  domain: {
+    Suffix: string
+  }
+  expires: {
+    AtUtc: string
+  }
 }
 
 export interface CarnivalGameDownloadInfo {
