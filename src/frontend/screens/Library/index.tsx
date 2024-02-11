@@ -31,6 +31,7 @@ import { InstallModal } from './components'
 import LibraryContext from './LibraryContext'
 import { Category, PlatformsFilters, StoresFilters } from 'frontend/types'
 import { hasHelp } from 'frontend/hooks/hasHelp'
+import EmptyLibraryMessage from './components/EmptyLibrary'
 
 const storage = window.localStorage
 
@@ -594,7 +595,8 @@ export default React.memo(function Library(): JSX.Element {
         showSupportOfflineOnly,
         setShowSupportOfflineOnly: handleShowSupportOfflineOnly,
         sortDescending,
-        sortInstalled
+        sortInstalled,
+        handleAddGameButtonClick: () => handleModal('', 'sideload', null)
       }}
     >
       <Header />
@@ -621,20 +623,20 @@ export default React.memo(function Library(): JSX.Element {
           </>
         )}
 
-        <LibraryHeader
-          list={libraryToShow}
-          handleAddGameButtonClick={() => handleModal('', 'sideload', null)}
-        />
+        <LibraryHeader list={libraryToShow} />
 
         {refreshing && !refreshingInTheBackground && <UpdateComponent inline />}
 
-        {(!refreshing || refreshingInTheBackground) && (
-          <GamesList
-            library={libraryToShow}
-            layout={layout}
-            handleGameCardClick={handleModal}
-          />
-        )}
+        {libraryToShow.length === 0 && <EmptyLibraryMessage />}
+
+        {libraryToShow.length > 0 &&
+          (!refreshing || refreshingInTheBackground) && (
+            <GamesList
+              library={libraryToShow}
+              layout={layout}
+              handleGameCardClick={handleModal}
+            />
+          )}
       </div>
 
       <button id="backToTopBtn" onClick={backToTop} ref={backToTopElement}>
