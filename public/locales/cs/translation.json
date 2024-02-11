@@ -882,5 +882,8 @@
         "proton-ge": "Proton-GE-Proton je verze Protonu, kterou vytvořil Glorious Eggroll. Je vytvořena k použití ve službě Steam, některé hry mimo síť služby Steam ale mohou s touto verzí lépe fungovat. Poskytuje převážně zbytečné protokoly pro ladění chyb.",
         "wine-ge": "Wine-GE-Proton je verze Wine, kterou vytvořil Glorious Eggroll. Jedná se o doporučenou verzi Wine k použití mimo službu Steam. Poskytuje užitečné protokoly pro ladění chyb.",
         "wine-ge-lol": "Sestavení Wine-GE-Proton...-LoL jsou vytvořeny pro použití POUZE ve hře League of Legends. Tato sestavení by NEMĚLA být použita pro jiné hry, jelikož mohou způsobit problémy."
+    },
+    "emptyLibrary": {
+        "noGames": "Vaše knihovna je prázdná. Můžete se <1>přihlásit</1> prostřednictvím obchodu nebo kliknout na <3></3> pro jeho ruční přidání."
     }
 }
