@@ -14,6 +14,7 @@
   flex-direction: column;
   padding: 0;
   overflow: auto;
+  padding-top: var(--dialog-margin-vertical);
   border: solid 1px var(--modal-border);
   border-radius: 10px;
   background: var(--modal-background);
@@ -26,8 +27,9 @@
   max-width: min(700px, 85vw);
   max-height: 95vh;
 
-  &.ExternalLinkWarning__dialog {
-    padding-top: var(--dialog-margin-vertical);
+  /* remove padding top when there's a header element, it has its own padding */
+  &:has(.Dialog__header) {
+    padding-top: 0px;
   }
 
   & img {
