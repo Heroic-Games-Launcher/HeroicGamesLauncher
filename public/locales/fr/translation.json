@@ -230,7 +230,8 @@
     "game": {
         "status": "État",
         "store": "Boutique",
-        "title": "Titre du jeu"
+        "title": "Titre du jeu",
+        "modify": "Modifier l'installation"
     },
     "generic": {
         "error": {
@@ -750,10 +751,23 @@
         "advanced": {
             "clearCache": {
                 "help8": "Jeux installés",
-                "help1": "Cette action effacera les caches suivants :"
+                "help1": "Cette action effacera les caches suivants :",
+                "help2": "Informations de jeu tierces (scores, compatibilité Steam, howlongtobeat, pcgamingwiki, applegamingwiki)",
+                "help6": "Cela ne supprimera PAS :",
+                "help9": "Paramètres de jeux",
+                "help10": "Configuration d'Heroic",
+                "help3": "Informations de la bibliothèque Legendary (liste des jeux, informations de la fenêtre d'installation, informations sur le jeu)",
+                "help4": "Informations de la bibliothèque GOG (liste des jeux, informations de la fenêtre d'installation, infos de l'api -i.e : configuration requise-)",
+                "help5": "Informations de la bibliothèque Amazon (liste des jeux, informations de la fenêtre d'installation)",
+                "help7": "Connexion à la boutique"
             },
             "title": {
-                "resetHeroic": "Réinitialiser Heroic"
+                "resetHeroic": "Réinitialiser Heroic",
+                "clearCache": "Effacer le cache"
+            },
+            "details": "Détails",
+            "resetHeroic": {
+                "help": "Cette action supprimera tous les paramètres et les données en cache mais ne supprimera ni vos jeux installés, ni vos identifiants Epic. La version portable (AppImage, WinPortable, ...) d'Heroic devra ensuite être redémarrée manuellement."
             }
         }
     },
@@ -861,5 +875,10 @@
         "maximize": "Agrandir la fenêtre",
         "close": "Fermer",
         "restore": "Restaurer la fenêtre"
+    },
+    "wineExplanation": {
+        "proton-ge": "Proton-GE-Proton est une variante de Proton créée par Glorious Eggroll. Il est destiné à être utilisé par Steam, mais certains jeux extérieurs à Steam pourraient mieux fonctionner avec cette version. Il propose des rapports pour la plupart inutiles à la résolution des problèmes.",
+        "wine-ge-lol": "Les versions de Wine-GE-Proton...-LoL sont faites pour être utiisées UNIQUEMENT pour League of Legends. Ces versions ne devraient PAS être employées pour d'autres jeux car elles peuvent causer des problèmes.",
+        "wine-ge": "Wine-GE-Proton est une variante de Wine créée par Glorious Eggroll. C'est la version de Wine recommandée pour un usage en dehors de Steam."
     }
 }

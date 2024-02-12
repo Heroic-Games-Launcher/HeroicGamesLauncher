@@ -1,6 +1,6 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Rodzaj czcionki menu akcji (Default: ",
+        "actions_font_family_no_default": "Rodzaj czcionki menu akcji (Domyślna):",
         "all_tiles_in_color": "Pokaż wszystkie tytuły gier w kolorze",
         "content_font_family_no_default": "Rodzaj czcionki zawartości (Default: ",
         "fonts": "Czcionki",
@@ -151,8 +151,8 @@
             },
             "title": "Ostrzeżenie",
             "wine-change": {
-                "title": "Nie znaleziono wina!",
-                "message": "Nie mogliśmy znaleźć wybranej wersji wina, aby uruchomić ten tytuł ({{selectedWine}}). {{newline}} Znaleźliśmy inny, czy chcesz kontynuować uruchamianie za pomocą {{foundWine}}?"
+                "title": "Nie znaleziono Wine!",
+                "message": "Nie mogliśmy znaleźć wybranej wersji Wine, aby uruchomić ten tytuł ({{selectedWine}}). {{newline}} Znaleźliśmy inny, czy chcesz kontynuować uruchamianie za pomocą {{foundWine}}?"
             },
             "sideload": {
                 "confirmExit": {
@@ -230,7 +230,8 @@
     "game": {
         "status": "Status",
         "store": "Sklep",
-        "title": "Tytuł Gry"
+        "title": "Tytuł Gry",
+        "modify": "Modyfikuj Instalację"
     },
     "generic": {
         "error": {
@@ -252,7 +253,7 @@
         "show_favourites_only": "Pokaż tylko ulubione",
         "show_hidden": "Pokaż ukryte",
         "store": "Filtruj",
-        "filters": "Filtr",
+        "filters": "Filtry",
         "categories": "Kategorie",
         "no_categories": "Brak własnych kategorii. Dodaj kategorie używając menu każdej gry.",
         "only": "tylko",
@@ -317,7 +318,7 @@
             "accessibility": "Ułatwienia dostępu",
             "login": "Login",
             "settings": "Ustawienia",
-            "downloadManager": "Download Manager",
+            "downloadManager": "Menedżer Pobierania",
             "wineManager": "Menedżer Wine",
             "library": "Biblioteka"
         },
@@ -362,7 +363,7 @@
         "wine-repfix": {
             "message": "Wine wykorzystuje tzw. Prefiks w celu przechowywania aplikacji Windowsowych. Prefiks ten zawiera pliki konfiguracyjne Wine oraz dokładne odwzorowanie hierarchii dysku C:// (głównego dysku w systemie Windows). Tam przechowywane są zapisy gier oraz pliki potrzebne do uruchomienia gry zainstalowane przez winetricks."
         },
-        "wine-path-invalid": "Ścieżka wina jest nieprawidłowa, wybierz inną.",
+        "wine-path-invalid": "Ścieżka Wine jest nieprawidłowa, wybierz inną.",
         "wine-path-none-found": "Nie znaleziono wersji Wine, pobierz ją z Wine Managera"
     },
     "install": {
@@ -392,7 +393,7 @@
         "epic": "Zaloguj do Epic Games",
         "gog": "Zaloguj do GOG",
         "message": "Zaloguj się do swojej platformy. Możesz zalogować się do więcej niż jednej platformy w tym samym czasie.",
-        "amazon": "Logowanie do Amazona",
+        "amazon": "Logowanie do Amazon",
         "old-mac": "Twoja wersja macOS to {{version}}. macOS 12 lub nowszy jest wymagany, aby móc się zalogować."
     },
     "message": {
@@ -495,7 +496,7 @@
             "upscaleWidth": "Szerokość po przeskalowaniu",
             "fullscreen": "Pełen ekran",
             "gameWidth": "Szerokość gry",
-            "interger": "Skalowanie całkowitoliczbowe",
+            "interger": "Integer Upscale",
             "upscaleHeight": "Wysokość po przeskalowaniu",
             "fpsLimiterNoFocus": "Ograniczenie FPS (w tle)",
             "stretch": "Rozciągnij obraz"
@@ -505,7 +506,7 @@
         "gogdl-version": "Wersja GOGDL: ",
         "legendary-version": "Wersja Legendary: ",
         "weblate": "Pomóż przetłumaczyć Heroic.",
-        "nile-version": "Wersja Nilu: "
+        "nile-version": "Wersja Nile: "
     },
     "Other": "Other",
     "placeholder": {
@@ -652,12 +653,12 @@
         "disable_logs": "Wyłącz dzienniki",
         "showMetalOverlay": "Pokaż nakładkę statystyk",
         "addgamestoapplications": "Automatycznie dodawaj gry do aplikacji",
-        "alt-nile-bin": "Wybierz alternatywny plik binarny Nilu",
+        "alt-nile-bin": "Wybierz alternatywny plik binarny Nile",
         "autodxvknvapi": "Automatycznie instaluj/Aktualizuj DXVK-NVAPI w prefiksie",
         "disablePlaytimeSync": "Wyłącz synchronizację czasu gry",
         "experimental_features": {
             "enableNewDesign": "Nowy design",
-            "automaticWinetricksFixes": "Zastosuj znane poprawki Winetricks automatycznie",
+            "automaticWinetricksFixes": "Zastosuj znane poprawki automatycznie",
             "enableHelp": "Element pomocy"
         },
         "frameless-window": {
@@ -749,11 +750,24 @@
         },
         "advanced": {
             "clearCache": {
-                "help8": "Zainstalowane Gry"
+                "help8": "Zainstalowane Gry",
+                "help1": "Ta akcja wyczyści następujące pamięci cache:",
+                "help10": "Konfiguracja Heroic",
+                "help7": "Dane logowania skepu",
+                "help9": "Ustawienia gier",
+                "help2": "Informacje stron trzecich (wyniki, kompatybilność steam, howlongtobeat, pcgaminwiki, applegamingwiki)",
+                "help3": "Informacje biblioteki Legendary (lista gier, informacje dialogu instalacji, informacje o grach)",
+                "help4": "Informacje biblioteki GOG (lista gier, informacje dialogu instalacji, metadane np. wymagania)",
+                "help5": "Informacje biblioteki Amazon (lista gier, informacje dialogu instalacji)",
+                "help6": "To NIE usunie:"
             },
-            "details": "Detale",
+            "details": "Szczegóły",
             "title": {
-                "resetHeroic": "Zresetuj Heroic"
+                "resetHeroic": "Zresetuj Heroic",
+                "clearCache": "Wyczyść Cache"
+            },
+            "resetHeroic": {
+                "help": "Ta akcja usunie wszystkie Ustawienia i pamięci Cache, ale nie usunie twoich Zainstalowanych gier czy informacji logowania Epic. Wersje przenośnie (AppImage, WinPortable, ...) Heroic będą musiały zostać uruchomione ponownie ręcznie."
             }
         }
     },
@@ -830,7 +844,7 @@
         "not_found": "Nie mogliśmy znaleźć dodatkowych informacji."
     },
     "dlc": {
-        "actions": "działania",
+        "actions": "Działania",
         "noDlcFound": "Nie znaleziono DLC",
         "size": "Rozmiar",
         "installDlcs": "Zainstaluj wszystkie DLC",
@@ -861,5 +875,13 @@
         "remove-category": "Usuń Kategorię",
         "add-new-category": "Dodaj Nową Kategorię",
         "new-category": "Nowa Kategoria"
+    },
+    "wineExplanation": {
+        "proton-ge": "Proton-GE-Proton to wersja Proton stworzona przez Glorious Eggroll. Jest przeznaczona do użytku w Steam, lecz niektóre gry spoza Steam mogą działać lepiej przy użyciu tej wersji. W większości zapewnia bezużyteczne dzienniki do rozwiązywania problemów.",
+        "wine-ge": "Wine-GE-Proton to wersja Wine stworzona przez Glorious Eggroll. Jest to rekomendowana wersja Wine do użytku poza Steam. Zapewnia użyteczne dzienniki do rozwiązywania problemów."
+    },
+    "emptyLibrary": {
+        "noResults": "Wybrane filtry nie zwróciły wyników.",
+        "noGames": "Twoja biblioteka jest pusta. Możesz <1>zalogować się</1> przy użyciu sklepu lub kliknąć <3></3> by dodać grę ręcznie."
     }
 }

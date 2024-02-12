@@ -230,7 +230,8 @@
     "game": {
         "status": "Status",
         "store": "Store",
-        "title": "Spieltitel"
+        "title": "Spieltitel",
+        "modify": "Installation modifizieren"
     },
     "generic": {
         "error": {
@@ -750,11 +751,24 @@
         },
         "advanced": {
             "clearCache": {
-                "help8": "Installierte Spiele"
+                "help8": "Installierte Spiele",
+                "help7": "Login Informationen speichern",
+                "help3": "Legendary Bibliotheksinformationen (Spieleliste, Installationsdiagloginfos, Spieleinfos)",
+                "help4": "GOG Bibliotheksinformationen (Spieleliste, Installationsdialoginfos, API-Informationen -d.h: Mindestvoraussetzungen-)",
+                "help10": "Heroic Konfiguration",
+                "help5": "Amazon Bibliotheksinformationen (Spieleliste, Installationsdialoginfos)",
+                "help6": "Das folgende wird NICHT gelöscht:",
+                "help9": "Spieleinformationen",
+                "help1": "Diese Aktion wird die folgenden Caches leeren:",
+                "help2": "Informationen über externe Spiele (Scores, Steam Kompatibilität, howlongtobeat, pcgamingwiki, applegamingwiki)"
             },
             "details": "Einzelheiten",
             "title": {
-                "resetHeroic": "Reset Heroic"
+                "resetHeroic": "Heroic zurücksetzen",
+                "clearCache": "Cache löschen"
+            },
+            "resetHeroic": {
+                "help": "Dies wird alle Einstellungen und Caches löschen, jedoch weder deine installieren Spiele, noch deine Epic Logindaten entfernen. Bewegbare Versionen (AppImage, WinPortable, ...) von Heroic müssen nachher manuell neugestartet werden."
             }
         }
     },
@@ -862,5 +876,14 @@
         "maximize": "Fenster maximieren",
         "close": "Schließen",
         "restore": "Fenster wiederherstellen"
+    },
+    "wineExplanation": {
+        "wine-ge": "Wine-GE-Proton ist eine Wine-Variation erstellt von Glorious Eggroll. Es ist gedacht zur Verwendung außerhalb von Steam. Zudem stellt es nützliche Fehlerprotokolle bereit.",
+        "proton-ge": "Proton-GE-Proton ist eine Variante von Proton, geschaffen von Glorious Eggroll. Obwohl diese Variante für Steam gedacht ist funktionieren einige Spiele außerhalb Steams trotzdem besser mit dieser. Es stellt jedoch größtenteils nutzlose Fehlerprotokolle bereit.",
+        "wine-ge-lol": "Wine-GE-Proton...-LoL Builds sind NUR für den Gebrauch mit League of Legends gedacht. Diese Builds sollten NICHT mit anderen Spielen verwendet werden, da sie Probleme verursachen können."
+    },
+    "emptyLibrary": {
+        "noGames": "Ihre Bibliothek ist leer. Sie können sich durch/bei einen Store <1>einloggen</1> oder auf <3></3> klicken, um manuell ein Spiel hinzuzufügen.",
+        "noResults": "Die aktuellen Filter haben keine Suchergebnisse hervorgebracht."
     }
 }

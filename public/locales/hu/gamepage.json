@@ -44,7 +44,7 @@
             "message": "Ennek a játéknak van egy frissítése, alkalmazzuk a frissítést most?",
             "title": "A játékot frissíteni kell"
         },
-        "wineprefix": "Wine prefix mappa kiválasztása",
+        "wineprefix": "WinePrefix mappa kiválasztása",
         "yes": "IGEN",
         "close": "Bezárás"
     },
@@ -105,7 +105,7 @@
             "buildsSelector": "Játékverzió kiválasztása",
             "toggle": "Hagyja a játékot egy bizonyos verzión"
         },
-        "changelogFor": "Változásjegyzék a {{gameTitle}}-hoz/hez",
+        "changelogFor": "Változásjegyzék a {{gameTitle}} című játékhoz",
         "modify": "Telepítés Módosítása"
     },
     "gamecard": {
@@ -130,12 +130,12 @@
         "size": "Méret",
         "syncsaves": "Mentések szinkronizálása",
         "version": "Verzió",
-        "apple-gaming-wiki": "AppleGamingWiki értékelés",
+        "apple-gaming-wiki": "AppleGamingWiki Értékelés",
         "clickToOpen": "Kattintson a megnyitáshoz",
         "game-scores": "Játékpontszámok",
         "installedInfo": "Telepített információk",
-        "protondb-compatibility-info": "Proton kompatibilitási szint",
-        "steamdeck-compatibility-info": "SteamDeck kompatibilitás"
+        "protondb-compatibility-info": "Proton Kompatibilitási Szint",
+        "steamdeck-compatibility-info": "SteamDeck Kompatibilitás"
     },
     "install": {
         "disk-space-left": "Elérhető tárhely",
@@ -176,7 +176,7 @@
     "not_logged_in": {
         "epic": "Nem vagy bejelentkezve egy Epic fiókkal a Heroicba. Ne az áruházi oldalon jelentkezz be, kattints erre a gombra helyette:",
         "gog": "Nem vagy bejelentkezve egy GOG fiókkal a Heroicba. Ne az áruházi oldalon jelentkezz be, kattints erre a gombra helyette:",
-        "login": "Log in",
+        "login": "Bejelentkezés",
         "title": "NEM vagy bejelentkezve",
         "amazon": "Nem vagy bejelentkezve egy Amazon fiókkal a Heroicba. Ne az áruházi oldalon jelentkezz be, kattints erre a gombra helyette:"
     },
@@ -228,7 +228,7 @@
         "updating": "Játék frissítése",
         "playing": "Játék",
         "moving-files": "„{{file}}” fájl áthelyezése: {{percent}} ",
-        "syncingSaves": "Mentések szinkronizálása",
+        "syncingSaves": "Mentések Szinkronizálása",
         "launching": "Indítás",
         "ubisoft": "Ubisoft telepítése",
         "downloading": "Letöltés folyamatban",

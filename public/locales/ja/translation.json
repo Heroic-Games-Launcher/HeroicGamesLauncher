@@ -1,6 +1,6 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "アクションに使用するフォントファミリー (デフォルト: ",
+        "actions_font_family_no_default": "アクションに使用するフォントファミリー (デフォルト:",
         "all_tiles_in_color": "すべてのゲームタイルをカラーで表示",
         "content_font_family_no_default": "コンテンツに使用するフォントファミリー (デフォルト: ",
         "fonts": "フォント",
@@ -230,7 +230,8 @@
     "game": {
         "status": "状態",
         "store": "ストア",
-        "title": "ゲームタイトル"
+        "title": "ゲームタイトル",
+        "modify": "インストールの変更"
     },
     "generic": {
         "error": {
@@ -671,7 +672,7 @@
         "experimental_features": {
             "enableNewDesign": "新デザイン",
             "enableHelp": "ヘルプコンポーネント",
-            "automaticWinetricksFixes": "Winetricksの既存の修正を自動的に適用"
+            "automaticWinetricksFixes": "既存の修正を自動的に適用"
         }
     },
     "settings": {
@@ -751,10 +752,23 @@
         "advanced": {
             "details": "詳細",
             "title": {
-                "resetHeroic": "Reset Heroic"
+                "resetHeroic": "Reset Heroic",
+                "clearCache": "キャッシュクリア"
             },
             "clearCache": {
-                "help8": "Installed Games"
+                "help8": "Installed Games",
+                "help9": "ゲーム設定",
+                "help1": "このアクションは以下のキャッシュをクリアします:",
+                "help10": "Heroic 設定",
+                "help2": "サードパーティのゲーム情報 (scores, steam compatibility, howlongtobeat, pcgamingwiki, applegamingwiki)",
+                "help3": "Legendaryライブラリ情報 (ゲームリスト、インストールダイアログ情報、ゲーム情報)",
+                "help4": "GOGライブラリ情報 (ゲームリスト、インストールダイアログ情報、api 情報 - 要件など)",
+                "help5": "Amazonライブラリ情報 (ゲームのリスト、インストールダイアログ情報)",
+                "help6": "以下は削除されません:",
+                "help7": "ログイン情報の保存"
+            },
+            "resetHeroic": {
+                "help": "これにより、すべての設定とキャッシュが削除されますが、インストール済みのゲームやEpicの認証情報は削除されません。また、Heroicのポータブル版（AppImage、WinPortable、...）を手動で再起動する必要があります。"
             }
         }
     },
@@ -862,5 +876,9 @@
         "maximize": "ウィンドウの最大化",
         "close": "閉じる",
         "restore": "ウィンドウの復元"
+    },
+    "wineExplanation": {
+        "proton-ge": "Proton-GE-ProtonはGlorious Eggrollによって作成されたProtonの亜種です。Steamで使うことを想定していますが、Steam以外のゲームではこの亜種の方がうまく動くかもしれません。トラブルシューティングのためにほとんど役に立たないログを提供します。",
+        "wine-ge": "Wine-GE-ProtonはGlorious Eggrollによって作成されたWineの亜種です。Steam以外での使用を推奨するWineです。トラブルシューティング時に便利なログを提供します。"
     }
 }
