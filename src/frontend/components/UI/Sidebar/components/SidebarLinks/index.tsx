@@ -17,23 +17,16 @@ import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons'
 import { openDiscordLink } from 'frontend/helpers'
 
 import ContextProvider from 'frontend/state/ContextProvider'
-import { Runner } from 'common/types'
 import QuitButton from '../QuitButton'
 import { SHOW_EXTERNAL_LINK_DIALOG_STORAGE_KEY } from 'frontend/components/UI/ExternalLinkDialog'
 import SidebarItem from '../SidebarItem'
 
-type PathSplit = [
-  a: undefined,
-  b: undefined,
-  runner: Runner | 'app',
-  appName: string,
-  type: string
-]
+type PathSplit = [a: undefined, b: undefined, type: string]
 
 export default function SidebarLinks() {
   const { t } = useTranslation()
   const location = useLocation() as { pathname: string }
-  const [, , , , type] = location.pathname.split('/') as PathSplit
+  const [, , type] = location.pathname.split('/') as PathSplit
 
   const {
     amazon,
