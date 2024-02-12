@@ -30,12 +30,13 @@ export const defaultWineVersion: WineInstallation = {
 }
 
 function Settings() {
-  const { t, i18n } = useTranslation()
-  const [title, setTitle] = useState('')
+  const { t } = useTranslation()
 
-  const [currentConfig, setCurrentConfig] = useState<Partial<AppSettings>>({})
+  const [currentConfig, setCurrentConfig] =
+    useState<Partial<AppSettings> | null>(null)
 
-  const { appName = '', type = '' } = useParams()
+  const { type = 'general' } = useParams()
+  const appName = 'default'
   const isGeneralSettings = type === 'general'
   const isSyncSettings = type === 'sync'
   const isGamesSettings = type === 'games_settings'
@@ -64,11 +65,9 @@ function Settings() {
     const getSettings = async () => {
       const config = await window.api.requestAppSettings()
       setCurrentConfig(config)
-
-      setTitle(t('globalSettings', 'Global Settings'))
     }
     getSettings()
-  }, [appName, i18n.language])
+  }, [])
 
   // create setting context functions
   const contextValues: SettingsContextType | null = useSettingsContext({
@@ -76,9 +75,11 @@ function Settings() {
   })
 
   // render `loading` while we fetch the settings
-  if (!title || !contextValues) {
+  if (!currentConfig || !contextValues) {
     return <UpdateComponent />
   }
+
+  const title = t('globalSettings', 'Global Settings')
 
   return (
     <ContextMenu

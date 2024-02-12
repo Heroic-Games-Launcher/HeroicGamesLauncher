@@ -142,12 +142,12 @@ export default function SidebarLinks() {
           isActiveFallback={location.pathname.includes('settings')}
           icon={faSlidersH}
           label={t('Settings', 'Settings')}
-          url="/settings/app/default/general"
+          url="/settings/general"
         />
         {isSettings && (
           <div className="SidebarSubmenu settings">
             <SidebarItem
-              url="/settings/app/default/general"
+              url="/settings/general"
               isActiveFallback={type === 'general'}
               className="SidebarLinks__subItem"
               label={t('settings.navbar.general')}
@@ -155,7 +155,7 @@ export default function SidebarLinks() {
 
             {!isWin && (
               <SidebarItem
-                url="/settings/app/default/games_settings"
+                url="/settings/games_settings"
                 isActiveFallback={type === 'games_settings'}
                 className="SidebarLinks__subItem"
                 label={t(
@@ -166,14 +166,14 @@ export default function SidebarLinks() {
             )}
 
             <SidebarItem
-              url="/settings/app/default/advanced"
+              url="/settings/advanced"
               isActiveFallback={type === 'advanced'}
               className="SidebarLinks__subItem"
               label={t('settings.navbar.advanced', 'Advanced')}
             />
 
             <SidebarItem
-              url="/settings/app/default/systeminfo"
+              url="/settings/systeminfo"
               isActiveFallback={type === 'systeminfo'}
               className="SidebarLinks__subItem"
               label={t(
@@ -183,7 +183,7 @@ export default function SidebarLinks() {
             />
 
             <SidebarItem
-              url="/settings/app/default/log"
+              url="/settings/log"
               isActiveFallback={type === 'log'}
               className="SidebarLinks__subItem"
               label={t('settings.navbar.log', 'Log')}
