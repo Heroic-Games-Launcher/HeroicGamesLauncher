@@ -1005,10 +1005,10 @@ async function callRunner(
       'Start-Process',
       `"\`"${fullRunnerPath}\`""`,
       '-Wait',
-      '-ArgumentList',
-      argsAsString,
       '-NoNewWindow'
     ]
+    if (argsAsString) commandParts.push('-ArgumentList', argsAsString)
+
     bin = fullRunnerPath = 'powershell'
   }
 
