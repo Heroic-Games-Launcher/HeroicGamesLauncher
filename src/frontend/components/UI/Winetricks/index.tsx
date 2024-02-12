@@ -4,13 +4,15 @@ import { ProgressDialog } from '../ProgressDialog'
 import WinetricksSearchBar from './WinetricksSearch'
 import { useTranslation } from 'react-i18next'
 import SettingsContext from 'frontend/screens/Settings/SettingsContext'
+import { Runner } from 'common/types'
 
 interface Props {
   onClose: () => void
+  runner: Runner
 }
 
-export default function Winetricks({ onClose }: Props) {
-  const { appName, runner } = useContext(SettingsContext)
+export default function Winetricks({ onClose, runner }: Props) {
+  const { appName } = useContext(SettingsContext)
   const { t } = useTranslation()
 
   const [loading, setLoading] = useState(true)
@@ -21,7 +23,7 @@ export default function Winetricks({ onClose }: Props) {
     setLoading(true)
     try {
       const components = await window.api.winetricksListInstalled(
-        runner!,
+        runner,
         appName
       )
       setInstalled(components)
@@ -39,7 +41,7 @@ export default function Winetricks({ onClose }: Props) {
     async function listComponents() {
       try {
         const components = await window.api.winetricksListAvailable(
-          runner!,
+          runner,
           appName
         )
         setAllComponents(components)
@@ -55,7 +57,7 @@ export default function Winetricks({ onClose }: Props) {
   const [installingComponent, setInstallingComponent] = useState('')
   const [logs, setLogs] = useState<string[]>([])
   function install(component: string) {
-    window.api.winetricksInstall(runner!, appName, component)
+    window.api.winetricksInstall(runner, appName, component)
   }
 
   useEffect(() => {
@@ -100,7 +102,7 @@ export default function Winetricks({ onClose }: Props) {
     window.api.callTool({
       tool: 'winetricks',
       appName,
-      runner: runner!
+      runner
     })
   }
 

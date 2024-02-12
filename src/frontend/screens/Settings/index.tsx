@@ -104,7 +104,7 @@ function Settings() {
       <SettingsContext.Provider value={contextValues}>
         <div className={`Settings ${type}`}>
           <div role="list" className="settingsWrapper">
-            <NavLink to="/" role="link" className="backButton">
+            <NavLink to="/library" role="link" className="backButton">
               <ArrowCircleLeftIcon />
             </NavLink>
             <h1 className="headerTitle" data-testid="headerTitle">

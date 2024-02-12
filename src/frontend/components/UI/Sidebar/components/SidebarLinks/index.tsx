@@ -155,7 +155,7 @@ export default function SidebarLinks() {
 
             {!isWin && (
               <SidebarItem
-                url="/settings/app/default/general"
+                url="/settings/app/default/games_settings"
                 isActiveFallback={type === 'games_settings'}
                 className="SidebarLinks__subItem"
                 label={t(
