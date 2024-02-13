@@ -428,12 +428,7 @@ function showItemInFolder(item: string) {
 
 function splitPathAndName(fullPath: string): { dir: string; bin: string } {
   const dir = dirname(fullPath)
-  let bin = basename(fullPath)
-  // On Windows, you can just launch executables that are in the current working directory
-  // On Linux, you have to add a ./
-  if (!isWindows) {
-    bin = './' + bin
-  }
+  const bin = basename(fullPath)
   // Make sure to always return this as `dir, bin` to not break path
   // resolution when using `join(...Object.values(...))`
   return { dir, bin }
