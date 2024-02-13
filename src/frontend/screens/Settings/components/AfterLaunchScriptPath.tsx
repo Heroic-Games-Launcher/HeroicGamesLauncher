@@ -24,7 +24,7 @@ const AfterLaunchScriptPath = () => {
       placeholder={scriptPath || t('box.select.exe', 'Select script ...')}
       label={t(
         'setting.after-launch-script-path',
-        'Select a script to run after the game is launched'
+        'Select a script to run after the game exits'
       )}
       htmlId="after-launch-script-path"
     />
