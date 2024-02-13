@@ -29,7 +29,9 @@ import {
   WrappersTable,
   EnableDXVKFpsLimit,
   IgnoreGameUpdates,
-  Gamescope
+  Gamescope,
+  BeforeLaunchScriptPath,
+  AfterLaunchScriptPath
 } from '../../components'
 import ContextProvider from 'frontend/state/ContextProvider'
 import Tools from '../../components/Tools'
@@ -230,7 +232,9 @@ export default function GamesSettings() {
             <OfflineMode />
           </>
         )}
+        <BeforeLaunchScriptPath />
         <AlternativeExe />
+        <AfterLaunchScriptPath />
         <LauncherArgs />
         <WrappersTable />
         <EnvVariablesTable />

@@ -6,7 +6,8 @@ import {
   DiskSpaceData,
   StatusPromise,
   GamepadInputEvent,
-  Runner
+  Runner,
+  GameInfo
 } from 'common/types'
 import * as path from 'path'
 import {
@@ -96,7 +97,8 @@ import {
   isSnap,
   fixesPath,
   isWindows,
-  isMac
+  isMac,
+  execOptions
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
@@ -158,6 +160,7 @@ import {
   getGameSdl
 } from 'backend/storeManagers/legendary/library'
 import { storeMap } from 'common/utils'
+import { execSync, spawn } from 'child_process'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
@@ -1070,6 +1073,8 @@ ipcMain.handle(
       }
     }
 
+    await runBeforeLaunchScript(game, gameSettings)
+
     sendGameStatusUpdate({
       appName,
       runner,
@@ -1092,7 +1097,10 @@ ipcMain.handle(
 
         return false
       })
-      .finally(() => stopLogger(appName))
+      .finally(() => {
+        runAfterLaunchScript(game, gameSettings)
+        stopLogger(appName)
+      })
 
     // Stop display sleep blocker
     if (powerDisplayId !== null) {
@@ -1167,6 +1175,67 @@ ipcMain.handle(
     return { status: launchResult ? 'done' : 'error' }
   }
 )
+
+async function runBeforeLaunchScript(
+  gameInfo: GameInfo,
+  gameSettings: GameSettings
+) {
+  if (gameSettings.beforeLaunchScriptPath) {
+    return new Promise((resolve, reject) => {
+      logInfo(
+        [
+          'Running script before',
+          gameInfo.title,
+          `(${gameSettings.beforeLaunchScriptPath})`
+        ],
+        LogPrefix.Backend
+      )
+
+      // Execute script before launch, wait until the script
+      // exits to continue
+      //
+      // The script can start sub-processes with `bash another-command &`
+      // if `another-command` can run async
+      const child = spawn(gameSettings.beforeLaunchScriptPath, {
+        cwd: gameInfo.install.install_path,
+        ...execOptions
+      })
+
+      child.on('exit', () => {
+        logInfo(child.stdout.toString(), LogPrefix.Backend)
+        resolve(true)
+      })
+      child.on('error', (err: Error) => {
+        logError(
+          ['Error running before script: ', err.message],
+          LogPrefix.Backend
+        )
+        if (err.stack) logError(err.stack, LogPrefix.Backend)
+        reject(err.message)
+      })
+    })
+  } else {
+    return Promise.resolve(true)
+  }
+}
+
+function runAfterLaunchScript(gameInfo: GameInfo, gameSettings: GameSettings) {
+  if (gameSettings.afterLaunchScriptPath) {
+    logInfo(
+      [
+        'Running script after',
+        gameInfo.title,
+        `(${gameSettings.afterLaunchScriptPath})`
+      ],
+      LogPrefix.Backend
+    )
+    const output = execSync(gameSettings.afterLaunchScriptPath, {
+      cwd: gameInfo.install.install_path,
+      ...execOptions
+    })
+    logInfo(output.toString(), LogPrefix.Backend)
+  }
+}
 
 ipcMain.handle('openDialog', async (e, args) => {
   const mainWindow = getMainWindow()
