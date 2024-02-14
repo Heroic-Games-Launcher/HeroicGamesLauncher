@@ -75,7 +75,7 @@ import {
   updateWineVersionInfos,
   wineDownloaderInfoStore
 } from './wine/manager/utils'
-import { readdir, stat } from 'fs/promises'
+import { readdir, lstat } from 'fs/promises'
 import { getHeroicVersion } from './utils/systeminfo/heroicVersion'
 import { backendEvents } from './backend_events'
 import { wikiGameInfoStore } from './wiki_game_info/electronStore'
@@ -1188,8 +1188,11 @@ function removeFolder(path: string, folderName: string) {
 }
 
 async function getPathDiskSize(path: string): Promise<number> {
-  const statData = await stat(path)
+  const statData = await lstat(path)
   let size = 0
+  if (statData.isSymbolicLink()) {
+    return 0
+  }
   if (statData.isDirectory()) {
     const contents = await readdir(path)
 
