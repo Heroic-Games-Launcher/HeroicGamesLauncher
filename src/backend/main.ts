@@ -1201,10 +1201,18 @@ async function runBeforeLaunchScript(
         ...execOptions
       })
 
+      child.stdout.on('data', (data) => {
+        logInfo(data.toString(), LogPrefix.Backend)
+      })
+
+      child.stderr.on('data', (data) => {
+        logInfo(data.toString(), LogPrefix.Backend)
+      })
+
       child.on('exit', () => {
-        logInfo(child.stdout.toString(), LogPrefix.Backend)
         resolve(true)
       })
+
       child.on('error', (err: Error) => {
         logError(
           ['Error running before script: ', err.message],
