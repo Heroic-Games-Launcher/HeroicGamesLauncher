@@ -11,7 +11,7 @@ import { useNavigate, useLocation, useParams } from 'react-router'
 import { UpdateComponent } from 'frontend/components/UI'
 import WebviewControls from 'frontend/components/UI/WebviewControls'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { Runner, WebviewType } from 'common/types'
+import { Runner } from 'common/types'
 import './index.css'
 import LoginWarning from '../Login/components/LoginWarning'
 import { NileLoginData } from 'common/types/nile'
@@ -49,7 +49,7 @@ export default function WebView({ store }: Props) {
     null
   )
   const navigate = useNavigate()
-  const webviewRef = useRef<WebviewType>(null)
+  const webviewRef = useRef<Electron.WebviewTag>(null)
 
   let lang = i18n.language
   if (i18n.language === 'pt') {
@@ -217,7 +217,7 @@ export default function WebView({ store }: Props) {
         }
       }
 
-      const onerror = (error: any) => {
+      const onerror = (error: Electron.DidFailLoadEvent) => {
         const { errorCode, validatedURL } = error
         // Connection refused
         if (

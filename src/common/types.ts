@@ -8,12 +8,7 @@ import {
   GameMetadataInner,
   LegendaryInstallInfo
 } from './types/legendary'
-import {
-  IpcRendererEvent,
-  TitleBarOverlay,
-  UploadFile,
-  UploadRawData
-} from 'electron'
+import { IpcRendererEvent, TitleBarOverlay } from 'electron'
 import { ChildProcess } from 'child_process'
 import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
 import { NileInstallInfo, NileInstallPlatform } from './types/nile'
@@ -538,31 +533,6 @@ interface GamepadActionArgsWithoutMetadata {
     | 'esc'
   metadata?: undefined
 }
-
-type ElWebview = {
-  canGoBack: () => boolean
-  canGoForward: () => boolean
-  goBack: () => void
-  goForward: () => void
-  reload: () => void
-  isLoading: () => boolean
-  getURL: () => string
-  loadURL: (
-    url: string,
-    options?: {
-      httpReferer?: string
-      userAgent?: string
-      extraHeaders?: string
-      postData?: (UploadRawData | UploadFile)[]
-      baseURLForDataURL?: string
-    }
-  ) => Promise<void>
-  copy: () => string
-  selectAll: () => void
-  findInPage: (text: string | RegExp) => void
-}
-
-export type WebviewType = HTMLWebViewElement & ElWebview
 
 export type InstallPlatform =
   | LegendaryInstallPlatform
