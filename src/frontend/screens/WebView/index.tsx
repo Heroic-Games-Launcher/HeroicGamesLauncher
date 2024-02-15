@@ -217,8 +217,24 @@ export default function WebView({ store }: Props) {
         }
       }
 
-      webview.addEventListener('dom-ready', loadstop)
+      const onerror = (error: any) => {
+        const { errorCode, validatedURL } = error
+        // Connection refused
+        if (
+          errorCode === -102 &&
+          validatedURL &&
+          validatedURL.match(/track\.adtraction\.com/)
+        ) {
+          const parsedUrl = new URL(validatedURL)
+          const redirectUrl = parsedUrl.searchParams.get('url')
+          if (redirectUrl) {
+            webview.loadURL(redirectUrl)
+          }
+        }
+      }
 
+      webview.addEventListener('dom-ready', loadstop)
+      webview.addEventListener('did-fail-load', onerror)
       // if the page title changed it's because the store loaded so there's
       // connectivity, we can update the status without waiting for the checks
       const updateConnectivity = () => {
@@ -231,6 +247,7 @@ export default function WebView({ store }: Props) {
       return () => {
         webview.removeEventListener('ipc-message', onIpcMessage)
         webview.removeEventListener('dom-ready', loadstop)
+        webview.removeEventListener('did-fail-load', onerror)
         webview.removeEventListener('page-title-updated', updateConnectivity)
       }
     }
