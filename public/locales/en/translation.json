@@ -169,6 +169,7 @@
     },
     "categories-manager": {
         "add": "Add",
+        "add-placeholder": "Add new category",
         "cancel-remove": "Cancel removal",
         "cancel-rename": "Cancel rename",
         "confirm-remove": "Confirm removal",

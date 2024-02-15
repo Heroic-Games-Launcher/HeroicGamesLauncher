@@ -176,6 +176,10 @@ function CategoriesManager() {
           htmlId="new-category-name"
           value={newCategoryName}
           onChange={(e) => setNewCategoryName(e.target.value)}
+          placeholder={t(
+            'categories-manager.add-placeholder',
+            'Add new category'
+          )}
           afterInput={
             <button
               className="button"
