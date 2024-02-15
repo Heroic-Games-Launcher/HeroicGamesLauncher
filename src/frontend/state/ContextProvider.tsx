@@ -61,7 +61,8 @@ const initialContext: ContextType = {
     addToGame: () => null,
     removeFromGame: () => null,
     addCategory: () => null,
-    removeCategory: () => null
+    removeCategory: () => null,
+    renameCategory: () => null
   },
   theme: 'midnightMirage',
   setTheme: () => null,

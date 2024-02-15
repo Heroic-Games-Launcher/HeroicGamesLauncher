@@ -167,6 +167,16 @@
         "go_to_library": "Go to Library",
         "login": "Log in"
     },
+    "categories-manager": {
+        "add": "Add",
+        "cancel-remove": "Cancel removal",
+        "cancel-rename": "Cancel rename",
+        "confirm-remove": "Confirm removal",
+        "remove": "Remove",
+        "rename": "Rename",
+        "save-rename": "Save rename",
+        "title": "Manage Categories"
+    },
     "category-settings": {
         "add-new-category": "Add New Category",
         "cancel": "Cancel",

@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 import ToggleSwitch from '../ToggleSwitch'
+import LibraryContext from 'frontend/screens/Library/LibraryContext'
 
 export default function CategoryFilter() {
   const {
@@ -9,6 +10,7 @@ export default function CategoryFilter() {
     currentCustomCategories,
     setCurrentCustomCategories
   } = useContext(ContextProvider)
+  const { setShowCategories } = useContext(LibraryContext)
   const { t } = useTranslation()
 
   const toggleCategory = (category: string) => {
@@ -64,20 +66,32 @@ export default function CategoryFilter() {
     return toggleWithOnly(toggle, onOnlyClick, categoryValue || categoryName)
   }
 
-  let dropdownContent = (
-    <span>
-      {t(
-        'header.no_categories',
-        'No custom categories. Add categories using each game menu.'
-      )}
-    </span>
-  )
   const categoriesList = customCategories.listCategories()
 
-  if (categoriesList.length > 0) {
-    dropdownContent = (
-      <>
+  return (
+    <div className="categoriesFilter">
+      <button className="selectStyle">
+        {t('header.categories', 'Categories')}
+      </button>
+      <div className="dropdown">
+        {categoriesList.length === 0 && (
+          <>
+            <span>
+              {t(
+                'header.no_categories',
+                'No custom categories. Add categories using each game menu.'
+              )}
+            </span>
+            <hr />
+          </>
+        )}
         {categoriesList.map((category) => categoryToggle(category))}
+        <button
+          className="button is-secondary is-small"
+          onClick={() => setShowCategories(true)}
+        >
+          {t('categories-manager.title', 'Manage Categories')}
+        </button>
         <hr />
         {categoryToggle(
           t('header.uncategorized', 'Uncategorized'),
@@ -91,16 +105,7 @@ export default function CategoryFilter() {
         >
           {t('header.select_all', 'Select All')}
         </button>
-      </>
-    )
-  }
-
-  return (
-    <div className="categoriesFilter">
-      <button className="selectStyle">
-        {t('header.categories', 'Categories')}
-      </button>
-      <div className="dropdown">{dropdownContent}</div>
+      </div>
     </div>
   )
 }
