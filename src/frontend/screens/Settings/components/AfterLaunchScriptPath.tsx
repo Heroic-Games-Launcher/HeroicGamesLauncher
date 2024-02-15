@@ -19,7 +19,7 @@ const AfterLaunchScriptPath = () => {
       type="file"
       onPathChange={setScriptPath}
       path={scriptPath}
-      pathDialogTitle={t('box.select.exe', 'Select EXE')}
+      pathDialogTitle={t('box.select.script', 'Select script ...')}
       pathDialogDefaultPath={gameInfo?.install.install_path}
       placeholder={scriptPath || t('box.select.script', 'Select script ...')}
       label={t(

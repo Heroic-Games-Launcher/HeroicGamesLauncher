@@ -1304,7 +1304,7 @@ async function runAfterLaunchScript(
   gameSettings: GameSettings
 ) {
   if (!gameSettings.afterLaunchScriptPath) {
-    return
+    return true
   }
 
   appendGamePlayLog(
@@ -1336,7 +1336,10 @@ async function runAfterLaunchScript(
  * - Make sure any async process is not stuck running in the background forever,
  *   use the after script to kill any running process if that's the case
  */
-async function runScriptForGame(gameInfo: GameInfo, scriptPath: string) {
+async function runScriptForGame(
+  gameInfo: GameInfo,
+  scriptPath: string
+): Promise<boolean | string> {
   return new Promise((resolve, reject) => {
     const child = spawn(scriptPath, {
       cwd: gameInfo.install.install_path,
