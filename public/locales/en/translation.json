@@ -113,7 +113,8 @@
         },
         "select": {
             "button": "Select",
-            "exe": "Select EXE"
+            "exe": "Select EXE",
+            "script": "Select script ..."
         },
         "shortcuts": {
             "message": "Shortcuts were created on Desktop and Start Menu",

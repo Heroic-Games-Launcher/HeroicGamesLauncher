@@ -21,7 +21,7 @@ const AfterLaunchScriptPath = () => {
       path={scriptPath}
       pathDialogTitle={t('box.select.exe', 'Select EXE')}
       pathDialogDefaultPath={gameInfo?.install.install_path}
-      placeholder={scriptPath || t('box.select.exe', 'Select script ...')}
+      placeholder={scriptPath || t('box.select.script', 'Select script ...')}
       label={t(
         'setting.after-launch-script-path',
         'Select a script to run after the game exits'
