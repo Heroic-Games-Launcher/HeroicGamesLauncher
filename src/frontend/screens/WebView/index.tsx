@@ -217,14 +217,9 @@ export default function WebView({ store }: Props) {
         }
       }
 
-      const onerror = (error: Electron.DidFailLoadEvent) => {
-        const { errorCode, validatedURL } = error
+      const onerror = ({ validatedURL }: Electron.DidFailLoadEvent) => {
         // Connection refused
-        if (
-          errorCode === -102 &&
-          validatedURL &&
-          validatedURL.match(/track\.adtraction\.com/)
-        ) {
+        if (validatedURL && validatedURL.match(/track\.adtraction\.com/)) {
           const parsedUrl = new URL(validatedURL)
           const redirectUrl = parsedUrl.searchParams.get('url')
           if (redirectUrl) {
