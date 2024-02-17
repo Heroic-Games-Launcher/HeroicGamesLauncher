@@ -222,9 +222,7 @@ export default function WebView({ store }: Props) {
         if (validatedURL && validatedURL.match(/track\.adtraction\.com/)) {
           const parsedUrl = new URL(validatedURL)
           const redirectUrl = parsedUrl.searchParams.get('url')
-          if (redirectUrl) {
-            webview.loadURL(redirectUrl)
-          }
+          webview.loadURL(redirectUrl || 'https://gog.com')
         }
       }
 
