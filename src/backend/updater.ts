@@ -18,7 +18,11 @@ autoUpdater.on('update-available', async () => {
       'Do you want to download the update in the background?'
     ),
     icon: nativeImage.createFromPath(icon),
-    buttons: [t('box.update', 'Update'), t('box.postpone', 'Postpone'), t('box.changelog', 'Changelog')]
+    buttons: [
+      t('box.update', 'Update'),
+      t('box.postpone', 'Postpone'),
+      t('box.changelog', 'Changelog')
+    ]
   })
   if (response === 0) {
     autoUpdater.downloadUpdate()
