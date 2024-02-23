@@ -10,7 +10,14 @@
       display: flex;
       gap: 0.5rem;
       padding: 0.1rem;
-      padding-inline-start: 0.5rem;
+
+      & label {
+        display: none;
+      }
+
+      & span {
+        padding-inline-start: 0.5rem;
+      }
 
       & span,
       & .textInputFieldWrapper {

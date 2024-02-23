@@ -52,7 +52,11 @@ function CategoryItem({
         <button
           className="button is-primary"
           onClick={() => rename()}
-          title={t('categories-manager.save-rename', 'Save rename')}
+          title={t(
+            'categories-manager.confirm-rename',
+            'Confirm rename of "{{oldName}}" as "{{newName}}"',
+            { oldName: name, newName }
+          )}
         >
           <FontAwesomeIcon icon={faCheck} />
         </button>
@@ -62,7 +66,11 @@ function CategoryItem({
         <button
           className="button is-danger"
           onClick={() => remove()}
-          title={t('categories-manager.confirm-remove', 'Confirm removal')}
+          title={t(
+            'categories-manager.confirm-remove',
+            'Confirm removal of "{{name}}"',
+            { name }
+          )}
         >
           <FontAwesomeIcon icon={faCheck} />
         </button>
@@ -72,7 +80,7 @@ function CategoryItem({
         <button
           className="button is-danger"
           onClick={() => setRemoveMode(true)}
-          title={t('categories-manager.remove', 'Remove')}
+          title={t('categories-manager.remove', 'Remove "{{name}}"', { name })}
         >
           <FontAwesomeIcon icon={faTrash} />
         </button>
@@ -86,7 +94,11 @@ function CategoryItem({
         <button
           className="button is-secondary"
           onClick={() => cancelEdit()}
-          title={t('categories-manager.cancel-rename', 'Cancel rename')}
+          title={t(
+            'categories-manager.cancel-rename',
+            'Cancel rename of "{{name}}"',
+            { name }
+          )}
         >
           <FontAwesomeIcon icon={faCancel} />
         </button>
@@ -96,7 +108,11 @@ function CategoryItem({
         <button
           className="button is-secondary"
           onClick={() => setRemoveMode(false)}
-          title={t('categories-manager.cancel-remove', 'Cancel removal')}
+          title={t(
+            'categories-manager.cancel-remove',
+            'Cancel removal of "{{name}}"',
+            { name }
+          )}
         >
           <FontAwesomeIcon icon={faCancel} />
         </button>
@@ -106,7 +122,7 @@ function CategoryItem({
         <button
           className="button is-secondary"
           onClick={() => setRenameMode(true)}
-          title={t('categories-manager.rename', 'Rename')}
+          title={t('categories-manager.rename', 'Rename "{{name}}"', { name })}
         >
           <FontAwesomeIcon icon={faPencil} />
         </button>
@@ -120,9 +136,10 @@ function CategoryItem({
 
       {renameMode && (
         <TextInputField
-          htmlId={`edit-${name}`}
+          htmlId={`edit-${name.replace(' ', '-')}`}
           value={newName}
           onChange={(e) => setNewName(e.target.value)}
+          label={t('categories-manager.rename', 'Rename "{{name}}"', { name })}
         />
       )}
 
@@ -153,6 +170,8 @@ function CategoriesManager() {
     customCategories.renameCategory(oldName, newName)
   }
 
+  const categories = customCategories.listCategories()
+
   return (
     <Dialog
       showCloseButton
@@ -163,7 +182,7 @@ function CategoriesManager() {
         <div>{t('categories-manager.title', 'Manage Categories')}</div>
       </DialogHeader>
       <DialogContent>
-        {customCategories.listCategories().map((cat) => (
+        {categories.map((cat) => (
           <CategoryItem
             key={cat}
             name={cat}
@@ -171,6 +190,8 @@ function CategoriesManager() {
             renameFunction={renameCategory}
           />
         ))}
+        {categories.length === 0 &&
+          t('categories-manager.no-categories', 'No categories yet.')}
         <hr />
         <TextInputField
           htmlId="new-category-name"
