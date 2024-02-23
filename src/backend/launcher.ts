@@ -1293,7 +1293,7 @@ async function runBeforeLaunchScript(
 
   appendGamePlayLog(
     gameInfo,
-    `Running script before ${gameInfo.title} (${gameSettings.afterLaunchScriptPath})\n`
+    `Running script before ${gameInfo.title} (${gameSettings.beforeLaunchScriptPath})\n`
   )
 
   return runScriptForGame(gameInfo, gameSettings.beforeLaunchScriptPath)
