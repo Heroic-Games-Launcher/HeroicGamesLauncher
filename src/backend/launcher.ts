@@ -29,8 +29,7 @@ import {
   isWindows,
   isSteamDeckGameMode,
   runtimePath,
-  userHome,
-  execOptions
+  userHome
 } from './constants'
 import {
   constructAndUpdateRPC,
@@ -1341,10 +1340,7 @@ async function runScriptForGame(
   scriptPath: string
 ): Promise<boolean | string> {
   return new Promise((resolve, reject) => {
-    const child = spawn(scriptPath, {
-      cwd: gameInfo.install.install_path,
-      ...execOptions
-    })
+    const child = spawn(scriptPath, { cwd: gameInfo.install.install_path })
 
     child.stdout.on('data', (data) => {
       appendGamePlayLog(gameInfo, data.toString())
