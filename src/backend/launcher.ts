@@ -575,13 +575,15 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   if (!gameSettings.enableFsync && wineVersion.type === 'proton') {
     ret.PROTON_NO_FSYNC = '1'
   }
-  if (gameSettings.autoInstallDxvkNvapi && wineVersion.type === 'proton') {
-    ret.PROTON_ENABLE_NVAPI = '1'
-    ret.DXVK_NVAPI_ALLOW_OTHER_DRIVERS = '1'
-  }
-  // proton 9 enabled NVAPI by default
-  else {
-    ret.PROTON_ENABLE_NVAPI = '0'
+  if (wineVersion.type === 'proton') {
+    if (gameSettings.autoInstallDxvkNvapi) {
+      ret.PROTON_ENABLE_NVAPI = '1'
+      ret.DXVK_NVAPI_ALLOW_OTHER_DRIVERS = '1'
+    }
+    // proton 9 enabled NVAPI by default
+    else {
+      ret.PROTON_DISABLE_NVAPI = '1'
+    }
   }
   if (gameSettings.autoInstallDxvkNvapi && wineVersion.type === 'wine') {
     ret.DXVK_ENABLE_NVAPI = '1'
