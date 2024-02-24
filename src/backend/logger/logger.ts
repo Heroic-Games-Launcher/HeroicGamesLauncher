@@ -450,11 +450,17 @@ class GameLogWriter extends LogWriter {
     // init log file and then append message if any
     try {
       // log game title and install directory
+
+      const installPath =
+        this.gameInfo.runner === 'sideload'
+          ? this.gameInfo.folder_name
+          : this.gameInfo.install.install_path
+
       await writeFile(
         this.filePath,
         `Launching "${this.gameInfo.title}" (${runner})\n` +
           `Native? ${notNative ? 'No' : 'Yes'}\n` +
-          `Installed in: ${this.gameInfo.install.install_path}\n\n`
+          `Installed in: ${installPath}\n\n`
       )
 
       try {
