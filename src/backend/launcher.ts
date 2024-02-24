@@ -579,6 +579,10 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     ret.PROTON_ENABLE_NVAPI = '1'
     ret.DXVK_NVAPI_ALLOW_OTHER_DRIVERS = '1'
   }
+  // proton 9 enabled NVAPI by default
+  else {
+    ret.PROTON_ENABLE_NVAPI = '0'
+  }
   if (gameSettings.autoInstallDxvkNvapi && wineVersion.type === 'wine') {
     ret.DXVK_ENABLE_NVAPI = '1'
     ret.DXVK_NVAPI_ALLOW_OTHER_DRIVERS = '1'
