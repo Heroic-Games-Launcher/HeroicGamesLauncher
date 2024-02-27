@@ -431,6 +431,8 @@ class LogWriter {
       }
     }
 
+    this.processing = false
+
     // if we have messages, write them and check again in 1 second
     // we start the timeout before writing so we don't wait until
     // the disk write
