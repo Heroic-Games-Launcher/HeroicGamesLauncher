@@ -93,7 +93,7 @@
     "react-router-dom": "6.9.0",
     "recharts": "2.4.3",
     "sanitize-filename": "1.6.3",
-    "sanitize-html": "^2.11.0",
+    "sanitize-html": "^2.12.1",
     "semver": "7.5.2",
     "shlex": "2.1.2",
     "short-uuid": "4.2.2",
