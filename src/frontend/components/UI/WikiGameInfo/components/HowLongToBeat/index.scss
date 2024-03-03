@@ -38,6 +38,9 @@
     }
   }
   .circle {
+    flex-basis: 33.3%;
+    aspect-ratio: 1 / 1;
+    height: auto;
     width: fit-content;
     min-width: 100px;
     justify-content: center;

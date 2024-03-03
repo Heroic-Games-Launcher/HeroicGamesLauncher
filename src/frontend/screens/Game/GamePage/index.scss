@@ -428,12 +428,28 @@
 }
 
 .App:not(.oldDesign) .gameConfigContainer {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr min-content;
+  row-gap: 20px;
+  column-gap: min(3vw, 50px);
+  grid-template-areas:
+    'main extra'
+    'report report';
+
   padding: 2vh 2vw;
   height: 100%;
-  gap: min(3vw, 50px);
   align-items: flex-start;
   max-height: 1100px;
+
+  /*
+  ** Adding icons to the MUI tabs makes them at least 72px high
+  ** min-height is guaranteed by the min height of the tab parent element itself
+  ** which is 44px
+  */
+  .MuiTab-labelIcon {
+    min-height: unset;
+  }
 
   .backButton,
   .showInfo,
@@ -463,14 +479,13 @@
 
   .mainInfoWrapper,
   .extraInfoWrapper {
-    flex-basis: 50%;
     display: grid;
     grid-template-rows: min-content 1fr;
     row-gap: 20px;
   }
 
   .mainInfo,
-  .tabContent {
+  .extraInfo {
     outline: 3px solid #8a8a8a;
     outline-offset: -3px;
     border-radius: 15px;
@@ -507,19 +522,9 @@
   }
 
   .mainInfoWrapper {
-    grid-template-columns: 1fr min-content min-content;
-    grid-template-areas: 'back settings menu' 'main main main' 'report report report';
+    grid-area: main;
     column-gap: 15px;
     min-width: 300px;
-    width: 50%;
-
-    .backButton {
-      grid-area: back;
-    }
-
-    .game-actions {
-      grid-area: menu;
-    }
 
     .settings-icon {
       grid-area: settings;
@@ -527,7 +532,6 @@
     }
 
     .mainInfo {
-      grid-area: main;
       padding: min(25vh, 300px) min(4vw, 70px) min(5vh, 25px);
       background-color: var(--body-background);
 
@@ -597,51 +601,55 @@
       }
 
       .buttons {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        column-gap: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        row-gap: 10px;
         margin-top: 15px;
+        width: auto;
 
-        // hiding the `uninstall` button temporarily until
-        // properly implemented
-        button:nth-child(2) {
-          display: none;
+        & > button {
+          align-self: center;
+          max-height: unset;
         }
-      }
-    }
 
-    .reportProblem {
-      grid-area: report;
-      svg {
-        margin-inline-end: 0.5rem;
+        & .mainBtn {
+          min-width: 200px;
+        }
+
+        & .delBtn {
+          font-size: var(--text-sm);
+          padding: var(--space-xs);
+        }
       }
     }
   }
 
   .extraInfoWrapper {
-    .tabs {
+    grid-area: extra;
+
+    .buttons {
       display: flex;
-      gap: 15px;
+      gap: 5px;
       justify-content: flex-end;
     }
 
-    .tabContent {
+    .extraInfo {
       padding: 4vh 1.5vw;
 
       & > div {
         overflow: auto;
-        padding: 10px;
+        padding: 5px 10px;
       }
 
-      &.infoTab,
-      &.extraTab {
-        & > div > *,
-        & > div > .popover-wrapper > * {
+      & div.infoTab,
+      & div.extraTab {
+        & > div > * {
           display: flex;
           text-align: end;
           font-size: 16px;
           line-height: 24px;
-          height: 56px;
+          min-height: 56px;
           gap: 10px;
           padding: 10px 0;
           align-items: center;
@@ -673,10 +681,25 @@
             background: var(--body-background);
           }
         }
-        .popover-wrapper {
-          overflow: visible;
-          .popover {
-            height: auto;
+        & > div > .hltbWrapper > .MuiAccordion-root {
+          background-color: unset;
+          box-shadow: none;
+          color: var(--text-default);
+          flex-grow: 1;
+
+          & > .MuiAccordionSummary-root {
+            padding: 0;
+            min-height: unset;
+
+            & > .MuiAccordionSummary-content {
+              margin: 0;
+              display: flex;
+              gap: 10px;
+            }
+
+            & .MuiAccordionSummary-expandIconWrapper {
+              color: inherit;
+            }
           }
         }
       }
@@ -687,13 +710,20 @@
     }
   }
 
+  .reportProblem {
+    grid-area: report;
+    svg {
+      margin-inline-end: 0.5rem;
+    }
+  }
+
   .mainInfoWrapper,
   .extraInfoWrapper {
     max-width: 800px;
     height: 100%;
   }
   .mainInfo,
-  .tabContent {
+  .extraInfo {
     max-height: 900px;
   }
 

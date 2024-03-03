@@ -7,8 +7,12 @@ import {
   ArrowBackIosNew,
   Info,
   Star,
-  Monitor
+  Monitor,
+  DeleteOutline
 } from '@mui/icons-material'
+
+import { Tab, Tabs } from '@mui/material'
+
 import {
   getGameInfo,
   getInstallInfo,
@@ -19,7 +23,7 @@ import {
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { CachedImage, UpdateComponent } from 'frontend/components/UI'
+import { CachedImage, UpdateComponent, TabPanel } from 'frontend/components/UI'
 
 import {
   ExtraInfo,
@@ -54,6 +58,7 @@ import {
   DownloadSizeInfo,
   GameStatus,
   HLTB,
+  HLTBInline,
   InstalledInfo,
   LaunchOptions,
   MainButton,
@@ -152,7 +157,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   const storage: Storage = window.localStorage
 
-  const [tab, setTab] = useState<'info' | 'extra' | 'requirements'>('info')
+  const [currentTab, setCurrentTab] = useState<
+    'info' | 'extra' | 'requirements'
+  >('info')
 
   useEffect(() => {
     const updateGameInfo = async () => {
@@ -425,8 +432,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     <ArrowBackIosNew />
                   </NavLink>
 
-                  <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
-                  {!isBrowserGame && <SettingsButton gameInfo={gameInfo} />}
                   <div className="mainInfo">
                     <GamePicture
                       art_square={art_cover}
@@ -462,64 +467,86 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         gameInfo={gameInfo}
                         handlePlay={handlePlay}
                         handleInstall={handleInstall}
+                        className="mainBtn"
                       />
-                      {gameInfo.is_installed && <button>Uninstall</button>}
+                      {gameInfo.is_installed && (
+                        <button className="button is-danger delBtn">
+                          <span className="buttonWithIcon">
+                            <DeleteOutline />
+                            {t('button.uninstall', 'Uninstall')}
+                          </span>
+                        </button>
+                      )}
                     </div>
                   </div>
-                  <ReportIssue gameInfo={gameInfo} />
                 </div>
                 <div className="extraInfoWrapper">
-                  <div className="tabs">
-                    <button
-                      title="Install Info"
-                      className="showInfo"
-                      onClick={() => setTab('info')}
-                    >
-                      <Info />
-                    </button>
-                    {hasWikiInfo && (
-                      <button
-                        title="Extra Info"
-                        className="showExtra"
-                        onClick={() => setTab('extra')}
-                      >
-                        <Star />
-                      </button>
-                    )}
-                    {hasRequirements && (
-                      <button
-                        title="Requirements"
-                        className="showRequirements"
-                        onClick={() => setTab('requirements')}
-                      >
-                        <Monitor />
-                      </button>
-                    )}
+                  <div className="buttons">
+                    {!isBrowserGame && <SettingsButton gameInfo={gameInfo} />}
+                    <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
                   </div>
 
-                  <div className={`tabContent ${tab}Tab`}>
+                  <div className="extraInfo">
+                    <Tabs
+                      value={currentTab}
+                      onChange={(e, newVal) => setCurrentTab(newVal)}
+                      aria-label="gameinfo tabs"
+                      variant="scrollable"
+                    >
+                      <Tab
+                        value={'info'}
+                        label={t('game.install_info', 'Install info')}
+                        iconPosition="start"
+                        icon={<Info />}
+                      />
+                      {hasWikiInfo && (
+                        <Tab
+                          value={'extra'}
+                          label={t('game.extra_info', 'Extra info')}
+                          iconPosition="start"
+                          icon={<Star />}
+                        />
+                      )}
+                      {hasRequirements && (
+                        <Tab
+                          value={'requirements'}
+                          label={t('game.requirements', 'Requirements')}
+                          iconPosition="start"
+                          icon={<Monitor />}
+                        />
+                      )}
+                    </Tabs>
                     <div>
-                      {tab === 'info' && (
-                        <>
-                          <DownloadSizeInfo gameInfo={gameInfo} />
-                          <InstalledInfo gameInfo={gameInfo} />
-                          <CloudSavesSync gameInfo={gameInfo} />
-                        </>
-                      )}
-                      {tab === 'extra' && (
-                        <>
-                          <Scores gameInfo={gameInfo} />
-                          <HLTB />
-                          <CompatibilityInfo gameInfo={gameInfo} />
-                          <AppleWikiInfo gameInfo={gameInfo} />
-                        </>
-                      )}
-                      {tab === 'requirements' && <Requirements />}
+                      <TabPanel
+                        value={currentTab}
+                        index="info"
+                        className="infoTab"
+                      >
+                        <DownloadSizeInfo gameInfo={gameInfo} />
+                        <InstalledInfo gameInfo={gameInfo} />
+                        <CloudSavesSync gameInfo={gameInfo} />
+                      </TabPanel>
+
+                      <TabPanel
+                        value={currentTab}
+                        index="extra"
+                        className="extraTab"
+                      >
+                        <Scores gameInfo={gameInfo} />
+                        <HLTBInline/>
+                        <CompatibilityInfo gameInfo={gameInfo} />
+                        <AppleWikiInfo gameInfo={gameInfo} />
+                      </TabPanel>
+
+                      <TabPanel value={currentTab} index="requirements">
+                        <Requirements />
+                      </TabPanel>
                     </div>
                   </div>
 
                   <Anticheat anticheatInfo={anticheatInfo} />
                 </div>
+                <ReportIssue gameInfo={gameInfo} />
               </>
             )}
           </GameContext.Provider>

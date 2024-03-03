@@ -1,6 +1,6 @@
 import { GameInfo } from 'common/types'
 import { BuildItem, GogInstallInfo } from 'common/types/gog'
-import { InfoBox, ToggleSwitch, UpdateComponent } from 'frontend/components/UI'
+import { InfoBox, ToggleSwitch, UpdateComponent, TabPanel } from 'frontend/components/UI'
 import { getInstallInfo, getPreferredInstallLanguage } from 'frontend/helpers'
 import DLCDownloadListing from 'frontend/screens/Library/components/InstallModal/DownloadDialog/DLCDownloadListing'
 import React, { useEffect, useState } from 'react'
@@ -18,27 +18,6 @@ import BranchSelector from 'frontend/screens/Library/components/InstallModal/Dow
 interface GOGModifyInstallModal {
   gameInfo: GameInfo
   onClose: () => void
-}
-
-type TabPanelProps = {
-  children?: React.ReactNode
-  index: string
-  value: string
-}
-
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props
-
-  return (
-    <div
-      role="tabpanel"
-      id={`tabpanel-${index}`}
-      aria-labelledby={`tab-${index}`}
-      {...other}
-    >
-      {value === index && <div>{children}</div>}
-    </div>
-  )
 }
 
 export default function GOGModifyInstallModal({
