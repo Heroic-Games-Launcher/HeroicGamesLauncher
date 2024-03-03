@@ -1,6 +1,11 @@
 import { GameInfo } from 'common/types'
 import { BuildItem, GogInstallInfo } from 'common/types/gog'
-import { InfoBox, ToggleSwitch, UpdateComponent, TabPanel } from 'frontend/components/UI'
+import {
+  InfoBox,
+  ToggleSwitch,
+  UpdateComponent,
+  TabPanel
+} from 'frontend/components/UI'
 import { getInstallInfo, getPreferredInstallLanguage } from 'frontend/helpers'
 import DLCDownloadListing from 'frontend/screens/Library/components/InstallModal/DownloadDialog/DLCDownloadListing'
 import React, { useEffect, useState } from 'react'

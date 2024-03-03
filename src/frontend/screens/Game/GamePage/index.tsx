@@ -533,7 +533,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         className="extraTab"
                       >
                         <Scores gameInfo={gameInfo} />
-                        <HLTBInline/>
+                        <HLTBInline />
                         <CompatibilityInfo gameInfo={gameInfo} />
                         <AppleWikiInfo gameInfo={gameInfo} />
                       </TabPanel>
