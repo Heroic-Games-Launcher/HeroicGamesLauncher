@@ -635,7 +635,7 @@
         "addgamestoapplications": "தானாகவே பயன்பாடுகளில் விளையாட்டுகளைசேர்க்கவும்",
         "showMetalOverlay": "புள்ளிவிவர மேலடுக்கைக் காட்டு",
         "alt-nile-bin": "ஒரு மாற்று நைல் பைனரியைத் தேர்ந்தெடுக்கவும்",
-        "autodxvknvapi": "முன்னொட்டில் DXVK/VKD3D ஐ தானாக நிறுவு/புதுப்பி",
+        "autodxvknvapi": "முன்னொட்டில் DXVK-NVAPI ஐ தானாக நிறுவு/புதுப்பி",
         "disablePlaytimeSync": "விளையாட்டு நேர ஒத்திசைவை முடக்கு",
         "frameless-window": {
             "confirmation": {

@@ -597,7 +597,7 @@
         "addgamestoapplications": "自動將遊戲新增到應用程式",
         "showMetalOverlay": "顯示統計數據疊加",
         "alt-nile-bin": "選擇替代尼羅河二進制",
-        "autodxvknvapi": "在PREFIX自動安裝並更新DXVK"
+        "autodxvknvapi": "在PREFIX自動安裝並更新DXVK-NVAPI"
     },
     "settings": {
         "battlEyeRuntime": {

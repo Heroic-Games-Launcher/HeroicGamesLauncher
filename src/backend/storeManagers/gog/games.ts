@@ -35,7 +35,7 @@ import {
   LaunchOption,
   BaseLaunchOption
 } from 'common/types'
-import { appendFileSync, existsSync, rmSync } from 'graceful-fs'
+import { existsSync, rmSync } from 'graceful-fs'
 import {
   gogSupportPath,
   gogdlConfigPath,
@@ -51,7 +51,7 @@ import {
   syncStore
 } from './electronStores'
 import {
-  appendGameLog,
+  appendGamePlayLog,
   logDebug,
   logError,
   logFileLocation,
@@ -369,12 +369,10 @@ export async function install(
 
   // Installation succeded
   // Save new game info to installed games store
-  const installInfo = await getInstallInfo(
-    appName,
-    installPlatform,
+  const installInfo = await getInstallInfo(appName, installPlatform, {
     branch,
     build
-  )
+  })
   if (installInfo === undefined) {
     logError('install info is undefined in GOG install', LogPrefix.Gog)
     return { status: 'error' }
@@ -490,7 +488,7 @@ export async function launch(
     steamRuntime
   } = await prepareLaunch(gameConfig, gameInfo, isNative(appName))
   if (!launchPrepSuccess) {
-    appendGameLog(gameInfo, `Launch aborted: ${launchPrepFailReason}`)
+    appendGamePlayLog(gameInfo, `Launch aborted: ${launchPrepFailReason}`)
     showDialogBoxModalAuto({
       title: t('box.error.launchAborted', 'Launch aborted'),
       message: launchPrepFailReason!,
@@ -530,7 +528,7 @@ export async function launch(
       envVars: wineEnvVars
     } = await prepareWineLaunch('gog', appName)
     if (!wineLaunchPrepSuccess) {
-      appendGameLog(gameInfo, `Launch aborted: ${wineLaunchPrepFailReason}`)
+      appendGamePlayLog(gameInfo, `Launch aborted: ${wineLaunchPrepFailReason}`)
       if (wineLaunchPrepFailReason) {
         showDialogBoxModalAuto({
           title: t('box.error.launchAborted', 'Launch aborted'),
@@ -628,8 +626,8 @@ export async function launch(
         })
       }
       logInfo(result.stdout, { prefix: LogPrefix.Gog })
-      appendFileSync(
-        logFileLocation(appName),
+      appendGamePlayLog(
+        gameInfo,
         `\nMods deploy log:\n${result.stdout}\n\n${result.stderr}\n\n\n`
       )
       if (result.stderr.includes('deploy has succeeded')) {
@@ -651,7 +649,7 @@ export async function launch(
     commandEnv,
     join(...Object.values(getGOGdlBin()))
   )
-  appendGameLog(gameInfo, `Launch Command: ${fullCommand}\n\nGame Log:\n`)
+  appendGamePlayLog(gameInfo, `Launch Command: ${fullCommand}\n\nGame Log:\n`)
 
   sendGameStatusUpdate({ appName, runner: 'gog', status: 'playing' })
 
@@ -667,7 +665,7 @@ export async function launch(
     wrappers,
     logMessagePrefix: `Launching ${gameInfo.title}`,
     onOutput: (output: string) => {
-      if (!logsDisabled) appendGameLog(gameInfo, output)
+      if (!logsDisabled) appendGamePlayLog(gameInfo, output)
     }
   })
 
@@ -1082,8 +1080,10 @@ export async function update(
     const installInfo = await getInstallInfo(
       appName,
       gameData.install.platform ?? 'windows',
-      updateOverwrites?.branch,
-      updateOverwrites?.build
+      {
+        branch: updateOverwrites?.branch,
+        build: updateOverwrites?.build
+      }
     )
     // TODO: use installInfo.game.builds
     const { etag } = await getMetaResponse(

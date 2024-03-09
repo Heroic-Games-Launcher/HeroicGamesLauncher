@@ -4,6 +4,17 @@
   max-height: 90vh;
   min-width: fit-content;
   max-width: 80vw;
+
+  .infoBox {
+    max-width: 630px; // kidna magic number, TODO: find a better way to limit this width
+    svg {
+      margin-inline-end: 0.5rem;
+    }
+  }
+
+  & summary {
+    font-size: var(--text-lg);
+  }
 }
 
 .InstallModal__dialog > .anticheatInfo {

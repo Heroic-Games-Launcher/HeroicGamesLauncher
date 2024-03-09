@@ -50,6 +50,10 @@ import { lt as semverLt } from 'semver'
 import { createAbortController } from '../utils/aborthandler/aborthandler'
 import { gameManagerMap } from '../storeManagers'
 import { sendFrontendMessage } from '../main_window'
+import {
+  DAYS,
+  downloadFile as downloadFileInet
+} from '../utils/inet/downloader'
 import { getGameConfig } from '../config/game'
 import type { GameConfig } from '../config/schemas'
 
@@ -261,7 +265,7 @@ export const DXVK = {
           gameConfig,
           commandParts: unregisterDll,
           wait: true,
-          protonVerb: 'waitforexitandrun'
+          protonVerb: 'run'
         })
       })
       dlls32.forEach(async (dll) => {
@@ -278,7 +282,7 @@ export const DXVK = {
           gameConfig,
           commandParts: unregisterDll,
           wait: true,
-          protonVerb: 'waitforexitandrun'
+          protonVerb: 'run'
         })
       })
       return true
@@ -341,7 +345,7 @@ export const DXVK = {
         gameConfig,
         commandParts: registerDll,
         wait: true,
-        protonVerb: 'waitforexitandrun'
+        protonVerb: 'run'
       })
     })
     dlls32.forEach(async (dll) => {
@@ -361,7 +365,7 @@ export const DXVK = {
         gameConfig,
         commandParts: registerDll,
         wait: true,
-        protonVerb: 'waitforexitandrun'
+        protonVerb: 'run'
       })
     })
 
@@ -400,7 +404,7 @@ export const DXVK = {
             gameConfig,
             commandParts: regModNvngx,
             wait: true,
-            protonVerb: 'waitforexitandrun'
+            protonVerb: 'run'
           })
         } else {
           logWarning(
@@ -445,9 +449,11 @@ export const Winetricks = {
 
     try {
       logInfo('Downloading Winetricks', LogPrefix.WineTricks)
-      const res = await axios.get(url, { timeout: 1000 })
-      const file = res.data
-      writeFileSync(path, file)
+      await downloadFileInet(url, {
+        writeToFile: path,
+        maxCache: 7 * DAYS,
+        axiosConfig: { responseType: 'text' }
+      })
       await chmod(path, 0o755)
       return
     } catch (error) {

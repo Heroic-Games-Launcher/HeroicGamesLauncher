@@ -114,7 +114,7 @@ export default async function setup(
       gameInstallPath: basePath,
       commandParts: [action.Command, ...exeArguments],
       wait: true,
-      protonVerb: 'waitforexitandrun',
+      protonVerb: 'run',
       startFolder: basePath
     })
   }

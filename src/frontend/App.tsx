@@ -39,6 +39,8 @@ function App() {
         fullscreen: isFullscreen,
         oldDesign: !enableNewDesign
       })}
+      // disable dragging for all elements by default
+      onDragStart={(e) => e.preventDefault()}
     >
       <HashRouter>
         <OfflineMessage />

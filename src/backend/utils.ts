@@ -38,7 +38,7 @@ import {
   isSnap
 } from './constants'
 import {
-  appendGameLog,
+  appendGamePlayLog,
   logError,
   logInfo,
   LogPrefix,
@@ -72,7 +72,7 @@ import {
   updateWineVersionInfos,
   wineDownloaderInfoStore
 } from './wine/manager/utils'
-import { readdir, stat } from 'fs/promises'
+import { readdir, lstat } from 'fs/promises'
 import { getHeroicVersion } from './utils/systeminfo/heroicVersion'
 import { backendEvents } from './backend_events'
 import { wikiGameInfoStore } from './wiki_game_info/electronStore'
@@ -81,6 +81,10 @@ import EasyDl from 'easydl'
 import decompress from '@xhmikosr/decompress'
 import decompressTargz from '@xhmikosr/decompress-targz'
 import decompressTarxz from '@felipecrs/decompress-tarxz'
+import {
+  deviceNameCache,
+  vendorNameCache
+} from './utils/systeminfo/gpu/pci_ids'
 import { getGlobalConfig, resetGlobalConfigKey } from './config/global'
 import { setGameConfig } from './config/game'
 import { availableWineVersions } from './config/shared'
@@ -368,7 +372,10 @@ async function openUrlOrFile(url: string): Promise<string | void> {
   return shell.openPath(url)
 }
 
-function clearCache(library?: 'gog' | 'legendary' | 'nile') {
+function clearCache(
+  library?: 'gog' | 'legendary' | 'nile',
+  fromVersionChange = false
+) {
   wikiGameInfoStore.clear()
   if (library === 'gog' || !library) {
     GOGapiInfoCache.clear()
@@ -387,6 +394,11 @@ function clearCache(library?: 'gog' | 'legendary' | 'nile') {
   if (library === 'nile' || !library) {
     nileInstallStore.clear()
     nileLibraryStore.clear()
+  }
+
+  if (!fromVersionChange) {
+    deviceNameCache.clear()
+    vendorNameCache.clear()
   }
 }
 
@@ -910,7 +922,7 @@ export async function checkWineBeforeLaunch(
         LogPrefix.Backend
       )
 
-      appendGameLog(
+      appendGamePlayLog(
         gameInfo,
         `Wine version ${gameConfig.wineVersion.name} is not valid, trying another one.`
       )
@@ -1174,8 +1186,11 @@ function removeFolder(path: string, folderName: string) {
 }
 
 async function getPathDiskSize(path: string): Promise<number> {
-  const statData = await stat(path)
+  const statData = await lstat(path)
   let size = 0
+  if (statData.isSymbolicLink()) {
+    return 0
+  }
   if (statData.isDirectory()) {
     const contents = await readdir(path)
 

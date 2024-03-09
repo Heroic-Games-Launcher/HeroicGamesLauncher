@@ -16,7 +16,7 @@ function CPUCard({ cpu }: { cpu: SystemInformation['CPU'] }) {
       <Typography variant="h6">
         {t('settings.systemInformation.cpu', 'CPU:')}
       </Typography>
-      <Grid container>
+      <Grid container spacing={1}>
         <Grid item xs={2}>
           <VendorLogo model={model} />
         </Grid>

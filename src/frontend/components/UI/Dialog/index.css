@@ -14,6 +14,7 @@
   flex-direction: column;
   padding: 0;
   overflow: auto;
+  padding-top: var(--dialog-margin-vertical);
   border: solid 1px var(--modal-border);
   border-radius: 10px;
   background: var(--modal-background);
@@ -25,6 +26,11 @@
     transform 500ms;
   max-width: min(700px, 85vw);
   max-height: 95vh;
+
+  /* remove padding top when there's a header element, it has its own padding */
+  &:has(.Dialog__header) {
+    padding-top: 0px;
+  }
 
   & img {
     max-width: 100%;
@@ -43,7 +49,7 @@
 
 .Dialog__header {
   display: flex;
-  z-index: 1;
+  z-index: 2;
   padding-bottom: var(--dialog-gap);
 }
 
@@ -57,7 +63,7 @@
 
 .Dialog__Close {
   padding: 0 var(--dialog-margin-horizontal) 0 0;
-  z-index: 2;
+  z-index: 3;
 }
 
 .Dialog__Close,

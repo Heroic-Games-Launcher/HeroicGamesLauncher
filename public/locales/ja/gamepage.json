@@ -72,7 +72,8 @@
         "unhide_game": "ゲームを再表示",
         "uninstall": "アンインストール",
         "update": "アップデート",
-        "details": "詳細"
+        "details": "詳細",
+        "changelog": "変更履歴を確認"
     },
     "cloud_save_unsupported": "非対応",
     "disabled": "無効",
@@ -94,11 +95,18 @@
         "totalPlayed": "プレイ時間",
         "dlcs": "DLC一覧",
         "branch": {
-            "disabled": "Disabled"
+            "disabled": "無効",
+            "select": "ベータチャンネルを選択",
+            "setPrivateBranchPassword": "プライベートチャンネルのパスワード設定",
+            "password": "プライベートチャンネルのパスワード設定"
         },
         "builds": {
-            "version": "バージョン"
-        }
+            "version": "バージョン",
+            "buildsSelector": "ゲームバージョンを選択",
+            "toggle": "ゲームを特定のバージョンに保つ"
+        },
+        "changelogFor": "{{gameTitle}}の変更履歴",
+        "modify": "インストールの変更"
     },
     "gamecard": {
         "moving": "移動中",
@@ -160,7 +168,8 @@
         "launching": "起動中",
         "ubisoft": "Ubisoft Connectをインストール中",
         "prerequisites": "前提条件のインストール",
-        "winetricks": "Winetricksパッケージのインストール"
+        "winetricks": "Winetricksパッケージのインストール",
+        "redist": "再頒布可能ファイルのインストール"
     },
     "launch": {
         "options": "起動オプション…"
@@ -230,7 +239,8 @@
         "gog-goodie": "このゲームをインストールできません。https://gog.com/account でダウンロード可能なコンテンツを確認してください。",
         "goodie": "インストール不可",
         "prerequisites": "前提条件のインストール",
-        "winetricks": "Winetricksの修正を適用する"
+        "winetricks": "Winetricksの修正を適用する",
+        "redist": "再頒布可能ファイルのインストール ({{redist}})"
     },
     "submenu": {
         "addShortcut": "ショートカットを追加",
@@ -257,5 +267,14 @@
         "title": {
             "gamePage": "ゲームページ"
         }
+    },
+    "modifyInstall": {
+        "dlcsCollapsible": "DLC",
+        "nodlcs": "DLCはありません",
+        "redMod": {
+            "enable": "MODを有効化",
+            "collapsible": "REDmodの統合"
+        },
+        "versionCollapsable": "ゲームバージョン"
     }
 }

@@ -1,7 +1,7 @@
 import { GameInfo, Runner } from 'common/types'
 import { isMac, isLinux, icon } from '../../constants'
 import {
-  appendGameLog,
+  appendGamePlayLog,
   lastPlayLogFileLocation,
   logInfo,
   LogPrefix,
@@ -161,7 +161,7 @@ export async function launchGame(
     )
 
     if (!launchPrepSuccess) {
-      appendGameLog(gameInfo, `Launch aborted: ${launchPrepFailReason}`)
+      appendGamePlayLog(gameInfo, `Launch aborted: ${launchPrepFailReason}`)
       showDialogBoxModalAuto({
         title: i18next.t('box.error.launchAborted', 'Launch aborted'),
         message: launchPrepFailReason!,

@@ -209,6 +209,7 @@ export interface LibraryContextType {
   setSortInstalled: (value: boolean) => void
   showSupportOfflineOnly: boolean
   setShowSupportOfflineOnly: (value: boolean) => void
+  handleAddGameButtonClick: () => void
 }
 
 export interface GameContextType {

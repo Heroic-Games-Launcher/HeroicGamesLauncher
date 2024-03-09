@@ -590,7 +590,7 @@
         "addgamestoapplications": "Adăugați automat jocuri la Aplicații",
         "showMetalOverlay": "Afișați statistici suprapuse",
         "alt-nile-bin": "Alegeți un binar alternativ pentru Nil",
-        "autodxvknvapi": "Instalare/Actualizare automată DXVK în Prefix"
+        "autodxvknvapi": "Instalare/Actualizare automată DXVK-NVAPI în Prefix"
     },
     "settings": {
         "battlEyeRuntime": {

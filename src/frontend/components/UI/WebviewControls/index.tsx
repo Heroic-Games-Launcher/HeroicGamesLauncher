@@ -79,7 +79,7 @@ export default function WebviewControls({
         console.error(error)
       }
     },
-    [webview]
+    [webview, webviewGoBack]
   )
 
   return (

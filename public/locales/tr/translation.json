@@ -230,7 +230,8 @@
     "game": {
         "status": "Durum",
         "store": "Mağaza",
-        "title": "Oyun Adı"
+        "title": "Oyun Adı",
+        "modify": "Kurulumu Düzenle"
     },
     "generic": {
         "error": {
@@ -654,7 +655,7 @@
         "showMetalOverlay": "İstatistik Tablosunu Göster",
         "addgamestoapplications": "Oyunları Uygulamalara otomatik ekle",
         "alt-nile-bin": "Alternatif Bir Nil İkilisi Seçin",
-        "autodxvknvapi": "DXVK/NVAPI'yı Ön Eke kendiliğinden Kur/Güncelle",
+        "autodxvknvapi": "DXVK-NVAPI'yı Ön Eke kendiliğinden Kur/Güncelle",
         "disablePlaytimeSync": "Oynama süresi senkronizasyonunu devre dışı bırak",
         "experimental_features": {
             "enableNewDesign": "Yeni tasarım",

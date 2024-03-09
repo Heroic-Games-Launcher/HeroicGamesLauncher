@@ -495,15 +495,17 @@ export function getInstallAndGameInfo(slug: string): GameInfo | undefined {
  * Contains data like download size
  * @param appName
  * @param installPlatform
- * @param lang
+ * @param options object with a `branch` ('null' if undefined) and `build` properties
  * @returns InstallInfo object
  */
 export async function getInstallInfo(
   appName: string,
   installPlatform = 'windows',
-  branch = 'null',
-  build?: string
+  options?: { branch?: string; build?: string }
 ): Promise<GogInstallInfo | undefined> {
+  const branch = options?.branch || 'null'
+  const build = options?.build
+
   installPlatform = installPlatform.toLowerCase()
   if (installPlatform === 'mac') {
     installPlatform = 'osx'
@@ -968,7 +970,7 @@ export async function gogToUnifiedInfo(
     is_installed: false,
     namespace: galaxyProductInfo?.slug,
     save_folder: '',
-    title: galaxyProductInfo?.title ?? info.game.title['en-US'] ?? '',
+    title: (galaxyProductInfo?.title ?? info.game.title['en-US'] ?? '').trim(),
     canRunOffline: true,
     is_mac_native: Boolean(
       info.supported_operating_systems.find((os) => os.slug === 'osx')

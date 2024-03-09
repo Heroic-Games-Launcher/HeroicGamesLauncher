@@ -646,7 +646,6 @@ export default function DownloadDialog({
             />
           </div>
         )}
-        {children}
         {(haveDLCs || haveSDL) && (
           <div className="InstallModal__sectionHeader">
             {t('sdl.title', 'Select components to Install')}:
@@ -678,6 +677,7 @@ export default function DownloadDialog({
             setDlcsToInstall={setDlcsToInstall}
           />
         )}
+        {children}
       </DialogContent>
       <DialogFooter>
         <button

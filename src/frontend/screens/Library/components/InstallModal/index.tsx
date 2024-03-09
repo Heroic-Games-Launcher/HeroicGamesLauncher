@@ -158,7 +158,7 @@ export default React.memo(function InstallModal({
       <Dialog
         onClose={backdropClick}
         showCloseButton
-        className={'InstallModal__dialog'}
+        className="InstallModal__dialog"
       >
         {showDownloadDialog ? (
           <DownloadDialog

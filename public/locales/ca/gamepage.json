@@ -33,11 +33,11 @@
         },
         "uninstall": {
             "checkbox": "Suprimeix el prefix: {{prefix}}{{newLine}}Avís: No es pot desfer i també suprimirà les partides desades de les quals no s'hagin fet còpies de seguretat.",
-            "message": "Vols desinstal·lar el «{{title}}»?",
+            "message": "Vols desinstal·lar «{{title}}» (DLC)?",
             "settingcheckbox": "Esborra la configuració i suprimeix el registre{{newLine}}Avís: aquesta acció no es pot desfer. S'oblidarà qualsevol opció modificada i el registre se suprimirà.",
             "title": "Desinstal·la",
             "prefix_warning": "El prefix Wine d'aquest joc és el prefix predefinit. Si realment vols eliminar-lo, has de fer-ho manualment.",
-            "dlc": "Vols desinstal·lar el «{{title}}» (DLC)?",
+            "dlc": "Vols desinstal·lar \"{{title}}\" (DLC)?",
             "cannotUninstallEpic": "No es poden desinstal·lar jocs d'Epic Games mentre s'instal·la un altre joc d'Epic Games."
         },
         "update": {
@@ -72,7 +72,8 @@
         "unhide_game": "Torna a mostrar el joc",
         "uninstall": "Desinstal·la",
         "update": "Actualitza",
-        "details": "Detalls"
+        "details": "Detalls",
+        "changelog": "Mostra el registre"
     },
     "cloud_save_unsupported": "No compatible",
     "disabled": "Desactivat",
@@ -94,8 +95,18 @@
         "totalPlayed": "Temps jugat",
         "dlcs": "DLCs",
         "branch": {
-            "disabled": "Desactivat"
-        }
+            "disabled": "Desactivat",
+            "password": "Estableix una contrasenya per al canal privat",
+            "select": "Tria un canal beta",
+            "setPrivateBranchPassword": "Estableix una contrasenya per al canal privat"
+        },
+        "builds": {
+            "toggle": "Mantén el joc a una versió específica",
+            "version": "Versió",
+            "buildsSelector": "Tria la versió del joc"
+        },
+        "changelogFor": "Registre de {{gameTitle}}",
+        "modify": "Modifica la instal·lació"
     },
     "gamecard": {
         "moving": "S'està movent",
@@ -157,7 +168,8 @@
         "launching": "S'inicia",
         "ubisoft": "S'instal·la l'Ubisoft Connect",
         "winetricks": "S'estan instal·lant els paquets del Winetricks",
-        "prerequisites": "S'estan instal·lant els prerequisits"
+        "prerequisites": "S'estan instal·lant els prerequisits",
+        "redist": "Instal·la redistribuïbles"
     },
     "launch": {
         "options": "Opcions d'execució..."
@@ -227,7 +239,8 @@
         "gog-goodie": "Sembla que aquest joc no es pot instal·lar. Comproveu el contingut baixable a https://gog.com/account",
         "goodie": "No instal·lable",
         "prerequisites": "S'estan instal·lant els prerequisits",
-        "winetricks": "S'estan aplicant les correccions del Winetricks"
+        "winetricks": "S'estan aplicant les correccions del Winetricks",
+        "redist": "S'instal·len els redistribuïbles ({{redist}})"
     },
     "submenu": {
         "addShortcut": "Afegeix una drecera",
@@ -254,5 +267,14 @@
         "title": {
             "gamePage": "Pàgina del joc"
         }
+    },
+    "modifyInstall": {
+        "dlcsCollapsible": "DLC",
+        "nodlcs": "No hi ha DLC disponibles",
+        "redMod": {
+            "collapsible": "Integració REDmod",
+            "enable": "Activa mods"
+        },
+        "versionCollapsable": "Versió del joc"
     }
 }

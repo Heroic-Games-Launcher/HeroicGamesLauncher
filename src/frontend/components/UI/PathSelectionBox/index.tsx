@@ -27,6 +27,7 @@ interface Props {
   noDeleteButton?: boolean
   label?: string
   afterInput?: ReactNode
+  disabled?: boolean
   inlineElement?: ReactNode
 }
 
@@ -43,6 +44,7 @@ const PathSelectionBox = ({
   htmlId,
   label,
   afterInput,
+  disabled = false,
   inlineElement
 }: Props) => {
   const { t } = useTranslation()
@@ -85,7 +87,7 @@ const PathSelectionBox = ({
       onIconClick={handleIconClick}
       placeholder={placeholder}
       icon={!noDeleteButton && path ? <Backspace /> : <Folder />}
-      disabled={!canEditPath}
+      disabled={!canEditPath || disabled}
       htmlId={htmlId}
       label={label}
       afterInput={afterInput}

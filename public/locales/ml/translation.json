@@ -523,7 +523,7 @@
         "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)",
         "autodxvk": "ഉപസഗ്ഗ഻ത്തില്(പ്രഫിക്സില്) DXVK തന്നത്താന് സ്ഥാപിക്കൂ/പുതുക്കൂ",
         "autosync": "താനേസൂക്ഷിക്കപ്പെട്ട ഒന്നിപ്പിക്കലുകള്",
-        "autovkd3d": "Auto Install/Update VKD3D on Prefix",
+        "autovkd3d": "ഉപസഗ്ഗ഻ത്തില്(പ്രഫിക്സില്) VKD3D തന്നത്താന് സ്ഥാപിക്കൂ/പുതുക്കൂ",
         "change-target-exe": "ഓടിക്കുവാനായി പകരംവയ്ക്കാവുന്ന ഒരു EXE തിരഞ്ഞെടുക്കൂ",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover/Wine Version",
@@ -627,7 +627,7 @@
         "addgamestoapplications": "ആപ്ലിക്കേഷനുകളിലേക്ക് ഗെയിമുകൾ സ്വയമേവ ചേർക്കുക",
         "showMetalOverlay": "സ്ഥിതിവിവരക്കണക്കുകളുടെ ഓവർലേ കാണിക്കുക",
         "alt-nile-bin": "ഒരു ഇതര നൈൽ ബൈനറി തിരഞ്ഞെടുക്കുക",
-        "autodxvknvapi": "ഉപസഗ്ഗ഻ത്തില്(പ്രഫിക്സില്) DXVK തന്നത്താന് സ്ഥാപിക്കൂ/പുതുക്കൂ",
+        "autodxvknvapi": "ഉപസഗ്ഗ഻ത്തില്(പ്രഫിക്സില്) DXVK-NVAPI തന്നത്താന് സ്ഥാപിക്കൂ/പുതുക്കൂ",
         "frameless-window": {
             "confirmation": {
                 "message": "ഈ സവിശേഷത ഇപ്പോഴും പരീക്ഷണാത്മകമാണ്. പ്രശ്നങ്ങൾ ഉണ്ടായാൽ GitHub ഇൽ അറിയിക്കുക.",

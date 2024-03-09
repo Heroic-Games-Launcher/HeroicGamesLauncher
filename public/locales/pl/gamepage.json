@@ -72,7 +72,8 @@
         "unhide_game": "Odkryj Grę",
         "uninstall": "Odinstaluj",
         "update": "Aktualizuj",
-        "details": "Szczegóły"
+        "details": "Szczegóły",
+        "changelog": "Pokaż dziennik zmian"
     },
     "cloud_save_unsupported": "Niewspierana",
     "disabled": "Wyłączono",
@@ -94,11 +95,18 @@
         "totalPlayed": "Czas Gry",
         "dlcs": "DLC",
         "branch": {
-            "disabled": "Wyłączone"
+            "disabled": "Wyłączone",
+            "password": "Ustaw hasło prywatnego kanału",
+            "select": "Wybierz kanał beta",
+            "setPrivateBranchPassword": "Ustaw hasło prywatnego kanału"
         },
         "builds": {
-            "version": "Wersja"
-        }
+            "version": "Wersja",
+            "buildsSelector": "Wybierz wersję gry",
+            "toggle": "Utrzymuj grę na konkretnej wersji"
+        },
+        "changelogFor": "Dziennik zmian dla {{gameTitle}}",
+        "modify": "Modyfikuj Instalację"
     },
     "gamecard": {
         "moving": "Przenoszenie",
@@ -160,7 +168,8 @@
         "launching": "Uruchamianie",
         "ubisoft": "Instalowanie Ubisoft Connect",
         "prerequisites": "Instalowanie Wstępnych Wymagań",
-        "winetricks": "Instalowanie pakietów Winetricks"
+        "winetricks": "Instalowanie pakietów Winetricks",
+        "redist": "Instalowanie pakietów redystrybucyjnych"
     },
     "launch": {
         "options": "Opcje Uruchamiania..."
@@ -189,14 +198,14 @@
             "image": "Obraz aplikacji",
             "title": "Tytuł gry/aplikacji",
             "broser": "URL przeglądarki",
-            "useragent": "Niestandardowy Agent Użytkownika (User Agent)",
+            "useragent": "Niestandardowy User Agent",
             "fullscreen": "Uruchom w trybie pełnego ekranu (naciśnij F11, aby wyjść)"
         },
         "placeholder": {
             "image": "Wklej adres URL obrazka tutaj",
             "title": "Dodaj tytuł do swojej gry/aplikacji",
             "url": "Wklej tutaj adres URL gry",
-            "useragent": "Wpisz niestandardowy agent użytkownika (user agent), który będzie wykorzystywany przez tą aplikację/grę przeglądarkową"
+            "useragent": "Wpisz niestandardowy User Agent, który będzie używany w tej aplikacji/grze przeglądarkowej"
         }
     },
     "specs": {
@@ -230,7 +239,8 @@
         "gog-goodie": "Wygląda na to, że tej gry nie da się zainstalować. Sprawdź zawartość do pobrania na https://gog.com/account",
         "goodie": "Nie do zainstalowania",
         "prerequisites": "Status instalacji wstępnych wymagań",
-        "winetricks": "Zastosowywanie poprawek Winetricks"
+        "winetricks": "Zastosowywanie poprawek Winetricks",
+        "redist": "Instalowanie pakietów redystrybucyjnych ({{redist}})"
     },
     "submenu": {
         "addShortcut": "Dodaj skrót",
@@ -257,5 +267,14 @@
         "content": {
             "gamePage": "Pokaż wszystkie szczegóły i akcje dla gry. Użyj menu 3 kropek aby zobaczyć więcej opcji."
         }
+    },
+    "modifyInstall": {
+        "dlcsCollapsible": "DLC",
+        "nodlcs": "Brak dostępnych DLC",
+        "redMod": {
+            "collapsible": "Integracja REDmod",
+            "enable": "Włącz mody"
+        },
+        "versionCollapsable": "Wersja Gry"
     }
 }

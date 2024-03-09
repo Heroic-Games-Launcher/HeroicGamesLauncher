@@ -9,28 +9,34 @@ import { logError, LogPrefix } from './logger/logger'
 autoUpdater.autoDownload = false
 autoUpdater.autoInstallOnAppQuit = false
 
-autoUpdater.on('update-available', async () => {
-  const { response, checkboxChecked } = await dialog.showMessageBox({
+async function showAutoupdateDialog() {
+  const { response } = await dialog.showMessageBox({
     title: t('box.info.update.title', 'Heroic Games Launcher'),
     message: t('box.info.update.message', 'There is a new Version available!'),
     detail: t(
       'box.info.update.detail',
       'Do you want to download the update in the background?'
     ),
-    checkboxLabel: t('box.info.update.changelog', 'Open changelog'),
-    checkboxChecked: false,
+
     icon: nativeImage.createFromPath(icon),
-    buttons: [t('box.no'), t('box.yes')]
+    buttons: [
+      t('box.update', 'Update'),
+      t('box.postpone', 'Postpone'),
+      t('box.changelog', 'Changelog')
+    ]
   })
-  if (checkboxChecked) {
+  if (response === 0) {
+    autoUpdater.downloadUpdate()
+  }
+  if (response === 2) {
     shell.openExternal(
       'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases'
     )
+    showAutoupdateDialog()
   }
-  if (response === 1) {
-    autoUpdater.downloadUpdate()
-  }
-})
+}
+
+autoUpdater.on('update-available', showAutoupdateDialog)
 autoUpdater.on('update-downloaded', async () => {
   const { response } = await dialog.showMessageBox({
     title: t('box.info.update.title-finished', 'Update Finished'),

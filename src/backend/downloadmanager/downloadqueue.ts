@@ -9,6 +9,8 @@ import { callAbortController } from 'backend/utils/aborthandler/aborthandler'
 import { notify } from '../dialog/dialog'
 import i18next from 'i18next'
 import { createRedistDMQueueElement } from 'backend/storeManagers/gog/redist'
+import { existsSync } from 'fs'
+import { gogRedistPath } from 'backend/constants'
 
 const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
   cwd: 'store',
@@ -126,12 +128,10 @@ async function addToQueue(element: DMQueueElement) {
   } else {
     const installInfo = await libraryManagerMap[
       element.params.runner
-    ].getInstallInfo(
-      element.params.appName,
-      element.params.platformToInstall,
-      element.params.branch,
-      element.params.build
-    )
+    ].getInstallInfo(element.params.appName, element.params.platformToInstall, {
+      branch: element.params.branch,
+      build: element.params.build
+    })
 
     element.params.size = installInfo?.manifest?.download_size
       ? getFileSize(installInfo?.manifest?.download_size)
@@ -143,8 +143,8 @@ async function addToQueue(element: DMQueueElement) {
       installInfo &&
       'dependencies' in installInfo.manifest
     ) {
-      const newDependencies = installInfo.manifest.dependencies
-      if (newDependencies?.length) {
+      const newDependencies = installInfo.manifest.dependencies || []
+      if (newDependencies?.length || !existsSync(gogRedistPath)) {
         // create redist element
         const redistElement = createRedistDMQueueElement()
         redistElement.params.dependencies = newDependencies

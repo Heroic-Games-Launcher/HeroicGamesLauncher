@@ -2,112 +2,102 @@
  * Contains helper functions to work with the `pci.ids` file
  * ({@link https://pci-ids.ucw.cz})
  */
-import axios, { AxiosError } from 'axios'
-import path from 'path'
-
-import { downloadFile, DAYS } from '../../inet/downloader'
-import { toolsPath } from 'backend/constants'
+import { resolveTxt } from 'dns'
+import { promisify } from 'util'
+import CacheStore from 'backend/cache'
 
 import type { PartialGpuInfo } from './index'
 import type { GPUInfo } from '../index'
 
-const pciIdsMap: Record<
-  string,
-  {
-    vendorName: string
-    devices: Record<
-      string,
-      {
-        deviceName: string
-        subsystems: Record<`${string} ${string}`, string>
-      }
-    >
-  }
-> = {}
+const resolveTxtAsync = promisify(resolveTxt)
 
-async function getPicIds(): Promise<typeof pciIdsMap | null> {
-  if (Object.keys(pciIdsMap).length !== 0) return pciIdsMap
+type DeviceNameCacheKey =
+  | `${string}_${string}_${string}_${string}` // DeviceSubID_VendorSubID_DeviceID_VendorID
+  | `${string}_${string}` // DeviceID_VendorID
+export const deviceNameCache = new CacheStore<string, DeviceNameCacheKey>(
+  'pci_ids_device',
+  60 * 24 * 7 // 7 days
+)
+export const vendorNameCache = new CacheStore<string, string>(
+  'pci_ids_vendor',
+  60 * 24 * 7
+)
 
-  const pciIdsFile = await downloadFile('https://pci-ids.ucw.cz/v2.2/pci.ids', {
-    axiosConfig: {
-      responseType: 'text'
-    },
-    writeToFile: path.join(toolsPath, 'pci.ids'),
-    maxCache: 30 * DAYS
-  }).catch((error) => error as AxiosError)
-  if (axios.isAxiosError(pciIdsFile)) return null
+async function pciIdDnsQuery(pre: string): Promise<string | false> {
+  const records: string[][] = await resolveTxtAsync(
+    `${pre}.pci.id.ucw.cz`
+  ).catch(() => [])
+  return records[0]?.[0]?.replace(/^i=/, '') ?? false
+}
 
-  let currentVendor: string | null = null
-  let currentDevice: string | null = null
-  for (const line of pciIdsFile.split('\n')) {
-    // Skip comments and empty lines
-    if (line.startsWith('#')) continue
-    if (line === '') continue
+async function lookupDeviceString(
+  vendorId: string,
+  deviceId: string,
+  subvendorId?: string,
+  subdeviceId?: string
+): Promise<string | false> {
+  async function lookupKey(key: DeviceNameCacheKey): Promise<string | false> {
+    const cached = deviceNameCache.get(key)
+    if (cached) return cached
 
-    // Case 1: Line describes a new vendor
-    const vendorMatch = line.match(/^(.{4}) {2}(.*)$/)
-    const vendorId = vendorMatch?.[1]
-    const vendorName = vendorMatch?.[2]
-    if (vendorId && vendorName) {
-      pciIdsMap[vendorId] = { vendorName, devices: {} }
-      currentVendor = vendorId
-      continue
-    }
-
-    // Case 2: Line describes a new device
-    const deviceMatch = line.match(/^\t(.{4}) {2}(.*)$/)
-    const deviceId = deviceMatch?.[1]
-    const deviceName = deviceMatch?.[2]
-    if (deviceId && deviceName && currentVendor) {
-      const vendorObj = pciIdsMap[currentVendor]
-      if (!vendorObj) continue
-      vendorObj.devices[deviceId] = { deviceName, subsystems: {} }
-      currentDevice = deviceId
-      continue
-    }
-
-    // Case 3: Line describes a new subsystem
-    const subsystemMatch = line.match(/\t\t(.{4}) (.{4}) {2}(.*)$/)
-    if (!subsystemMatch) continue
-    const [, subvendor, subdevice, subsystemName] = subsystemMatch
-    if (
-      subvendor &&
-      subdevice &&
-      subsystemName &&
-      currentVendor &&
-      currentDevice
-    ) {
-      const deviceObj = pciIdsMap[currentVendor]?.devices[currentDevice]
-      if (!deviceObj) continue
-      deviceObj.subsystems[`${subvendor} ${subdevice}`] = subsystemName
-    }
+    const result = await pciIdDnsQuery(key.replaceAll('_', '.'))
+    if (result) deviceNameCache.set(key, result)
+    return result
   }
 
-  return pciIdsMap
+  if (!subvendorId || !subdeviceId) return lookupKey(`${deviceId}_${vendorId}`)
+
+  // If we have a subdevice and subvendor ID, try getting a name with them first
+  const resultWithSubIDs = await lookupKey(
+    `${subdeviceId}_${subvendorId}_${deviceId}_${vendorId}`
+  )
+  if (resultWithSubIDs) return resultWithSubIDs
+
+  // If there's no name for this specific subdevice and subvendor ID, try
+  // with just the device and vendor ID
+  const resultWithoutSubIDs = await lookupKey(`${deviceId}_${vendorId}`)
+  // Update the cache entry with subIDs, to avoid re-requesting them all the
+  // time
+  if (resultWithoutSubIDs)
+    deviceNameCache.set(
+      `${subdeviceId}_${subvendorId}_${deviceId}_${vendorId}`,
+      resultWithoutSubIDs
+    )
+  return resultWithoutSubIDs
+}
+
+async function lookupVendorString(vendorId: string): Promise<string | false> {
+  const cached = vendorNameCache.get(vendorId)
+  if (cached) return cached
+
+  const result = await pciIdDnsQuery(vendorId.replaceAll('_', '.'))
+  if (result) vendorNameCache.set(vendorId, result)
+  return result
 }
 
 async function populateDeviceAndVendorName(
   partialGpus: PartialGpuInfo[]
 ): Promise<GPUInfo[]> {
-  const pciIds = await getPicIds()
-  if (pciIds === null) return partialGpus
-
   const fullGpuInfo: GPUInfo[] = []
   for (const gpu of partialGpus) {
     const vendorId = gpu.vendorId.toLowerCase()
     const deviceId = gpu.deviceId.toLowerCase()
     const subvendorId = gpu.subvendorId?.toLowerCase()
     const subdeviceId = gpu.subdeviceId?.toLowerCase()
-    const vendor = pciIds[vendorId]
-    const device = pciIds[vendorId]?.devices[deviceId]
-    const subsystem =
-      pciIds[vendorId]?.devices[deviceId]?.subsystems[
-        `${subvendorId} ${subdeviceId}`
-      ]
+
+    const deviceString = await lookupDeviceString(
+      vendorId,
+      deviceId,
+      subvendorId,
+      subdeviceId
+    )
+    const vendorString = await lookupVendorString(vendorId)
+    if (!deviceString || !vendorString) continue
+
     fullGpuInfo.push({
       ...gpu,
-      deviceString: subsystem ?? device?.deviceName,
-      vendorString: vendor?.vendorName
+      deviceString,
+      vendorString
     })
   }
   return fullGpuInfo

@@ -132,11 +132,9 @@ async function setup(
   const lang: string | undefined = languages.of(installLanguage!)
 
   const dependencies: string[] = []
-  const gameDirectoryPath = await getWinePath(
-    gameInfo.install.install_path!,
-    gameConfig,
-    'win'
-  )
+  const gameDirectoryPath = isWindows
+    ? gameInfo.install.install_path!
+    : await getWinePath(gameInfo.install.install_path!, gameConfig, 'win')
 
   sendGameStatusUpdate({
     appName,
@@ -193,11 +191,9 @@ async function setup(
   } else {
     // check if scriptinterpreter is required based on manifest
     if (manifestData.scriptInterpreter) {
-      const wineGameSupportDir = await getWinePath(
-        gameSupportDir,
-        gameConfig,
-        'win'
-      )
+      const wineGameSupportDir = isWindows
+        ? gameSupportDir
+        : await getWinePath(gameSupportDir, gameConfig, 'win')
       const isiPath = path.join(
         gogRedistPath,
         '__redist/ISI/scriptinterpreter.exe'
@@ -345,6 +341,14 @@ async function setup(
         : []
 
       const commandParts = [exePath, ...exeArguments]
+
+      // HACKS zone
+
+      // Force hands-free setup for PHYSXLEGACY
+      if (dep === 'PHYSXLEGACY') {
+        commandParts.unshift('msiexec', '/i')
+        commandParts.push('/qb')
+      }
 
       logInfo(['SETUP: Installing redist', foundDep.readableName], {
         prefix: LogPrefix.Gog
