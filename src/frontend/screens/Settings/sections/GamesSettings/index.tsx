@@ -35,8 +35,6 @@ import {
 import ContextProvider from 'frontend/state/ContextProvider'
 import Tools from '../../components/Tools'
 import SettingsContext from '../../SettingsContext'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import SyncSaves from '../SyncSaves'
 import FooterInfo from '../FooterInfo'
 import { Tabs, Tab } from '@mui/material'
@@ -147,16 +145,6 @@ export default function GamesSettings() {
 
   return (
     <>
-      {isDefault && (
-        <p className="defaults-hint">
-          <FontAwesomeIcon icon={faInfoCircle} />
-          {t(
-            'settings.default_hint',
-            'Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.'
-          )}
-        </p>
-      )}
-
       <Tabs
         value={value}
         onChange={handleChange}
