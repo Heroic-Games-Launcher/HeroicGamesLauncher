@@ -22,6 +22,12 @@ window.api.config.messages.globalConfigChanged((key, value) => {
   useUserConfiguredGlobalConfigKeys.setState({
     [key]: true
   })
+
+  // Throw away all "cached" game configs, as they might be incorrect now
+  // FIXME: This could be smarter, only taking action if `key` is
+  //        `keyof GameConfig` & updating the value instead of throwing the
+  //        whole object away
+  useGameConfigState.setState({}, true)
 })
 window.api.config.messages.globalConfigKeyReset((key, defaultValue) => {
   useGlobalConfigState.setState({
@@ -30,6 +36,8 @@ window.api.config.messages.globalConfigKeyReset((key, defaultValue) => {
   useUserConfiguredGlobalConfigKeys.setState({
     [key]: false
   })
+
+  useGameConfigState.setState({}, true)
 })
 
 window.api.config.messages.gameConfigChanged((appName, runner, key, value) => {
