@@ -993,6 +993,10 @@ async function callRunner(
   let bin = runner.bin
   let fullRunnerPath = join(runner.dir, bin)
 
+  // macOS/Linux: `spawn`ing an executable in the current working directory
+  // requires a "./"
+  if (!isWindows) bin = './' + bin
+
   // On Windows: Use PowerShell's `Start-Process` to wait for the process and
   // its children to exit, provided PowerShell is available
   if (shouldUsePowerShell === null)
@@ -1005,10 +1009,10 @@ async function callRunner(
       'Start-Process',
       `"\`"${fullRunnerPath}\`""`,
       '-Wait',
-      '-ArgumentList',
-      argsAsString,
       '-NoNewWindow'
     ]
+    if (argsAsString) commandParts.push('-ArgumentList', argsAsString)
+
     bin = fullRunnerPath = 'powershell'
   }
 
