@@ -157,7 +157,8 @@
         "wineprefix": "Aukeratu Wine Prefix karpeta",
         "yes": "BAI",
         "dontShowAgain": "Ez erakutsi berriro",
-        "choose-nile-binary": "Hautatu Nile bitarra"
+        "choose-nile-binary": "Hautatu Nile bitarra",
+        "update": "Update"
     },
     "button": {
         "cancel": "Ezeztatu",
