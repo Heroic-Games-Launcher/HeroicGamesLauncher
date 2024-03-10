@@ -12,7 +12,7 @@
             "path": "Velg hvor du ønsker å flytte filene",
             "title": "Flytt spill-installasjon"
         },
-        "no": "Nei",
+        "no": "NEI",
         "repair": {
             "message": "Reparer spillet, noe som kan ta lang tid?",
             "title": "Bekreft og reparer"
@@ -21,10 +21,10 @@
             "title": "Select EXE to Run"
         },
         "select": {
-            "button": "Select"
+            "button": "Velg"
         },
         "sideload": {
-            "exe": "Select Executable"
+            "exe": "Velg kjørbar fil"
         },
         "stopInstall": {
             "keepInstalling": "Fortsett å installere",
@@ -34,56 +34,59 @@
         "uninstall": {
             "checkbox": "Vil du fjerne prefikset også? Dette kan ikke angres.",
             "checkbox_prefix": "Prefiks",
-            "message": "Avinstaller dette spillet?",
+            "message": "Vil du avinstallere \"{{title}}\"?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Avinstaller",
             "prefix_warning": "Vinprefikset for dette spillet er standardprefikset. Hvis du virkelig vil slette det, må du gjøre det manuelt.",
-            "dlc": "Vil du avinstallere denne DLC?"
+            "dlc": "Vil du avinstallere \"{{title}}\" (DLC)?",
+            "cannotUninstallEpic": "Epic spill kan ikke avinstalleres når et annet Epic spill installeres."
         },
         "update": {
-            "message": "Dette spillet har en oppdatering. Vil du bruke oppdatering nå?",
+            "message": "Dette spillet har en oppdatering. Vil du installere oppdatering nå?",
             "title": "Spillet trenger oppdatering"
         },
         "wineprefix": "Velg WinePrefix-mappe",
-        "yes": "Ja"
+        "yes": "Ja",
+        "close": "Lukk"
     },
     "button": {
         "add_to_favourites": "Legg til i favoritter",
         "cancel": "Pause/avbryt",
         "continue": "Fortsett nedlasting",
-        "finish": "Finish",
+        "finish": "Fullfør",
         "force_update": "Tving oppdatering hvis tilgjengelig",
-        "force-innstall": "Force Install",
+        "force-innstall": "Tving installasjon",
         "hide_game": "Skjul spillet",
         "import": "Importer spill",
-        "install": "Installere",
-        "no-path-selected": "No path selected",
+        "install": "Installer",
+        "no-path-selected": "Ingen sti valgt",
         "queue": {
-            "remove": "Remove from Queue"
+            "remove": "Fjern fra køen"
         },
         "remove_from_favourites": "Fjern fra favoritter",
-        "remove_from_recent": "Remove From Recent",
-        "run-exe-first": "Run Installer First",
-        "running-setup": "Running Setup",
+        "remove_from_recent": "Fjern fra nylige",
+        "run-exe-first": "Kjør installasjon først",
+        "running-setup": "Kjører oppsett",
         "sideload": {
-            "edit": "Edit App/Game"
+            "edit": "Rediger app/spill"
         },
         "unhide_game": "Vis spill",
         "uninstall": "Avinstaller",
         "update": "Oppdater",
-        "details": "Detaljer"
+        "details": "Detaljer",
+        "changelog": "Vis endringslogg"
     },
     "cloud_save_unsupported": "Ustøttet",
-    "disabled": "Funksjonshemmet",
+    "disabled": "Deaktivert",
     "dlc": {
         "installDlcs": "Installer alle DLC-er"
     },
     "enabled": "Aktivert",
     "game": {
-        "downloadSize": "Last ned størrelse",
+        "downloadSize": "Nedlastningsstørrelse",
         "firstPlayed": "Først spilt",
-        "getting-download-size": "Geting download size",
-        "getting-install-size": "Geting install size",
+        "getting-download-size": "Henter nedlastningsstørrelse",
+        "getting-install-size": "Henter installasjonsstørrelse",
         "installSize": "Installasjonsstørrelse",
         "language": "Språk",
         "lastPlayed": "Sist spilt",
@@ -91,21 +94,29 @@
         "platform": "Velg plattformversjon som skal installeres",
         "requirements": "Systemkrav",
         "totalPlayed": "Spilletid",
-        "dlcs": "DLC-er"
+        "dlcs": "DLC-er",
+        "builds": {
+            "version": "Versjon"
+        },
+        "branch": {
+            "disabled": "Deaktivert"
+        },
+        "modify": "Endre installasjonen",
+        "changelogFor": "Endringslogg for {{gameTitle}}"
     },
     "gamecard": {
-        "moving": "Flytte",
+        "moving": "Flytter",
         "repairing": "Reparerer"
     },
     "generic": {
         "error": "Ukjent feil",
         "noDescription": "Ingen beskrivelse tilgjengelig"
     },
-    "hours": "Hours",
+    "hours": "Timer",
     "how-long-to-beat": {
         "completionist": "Completionist",
-        "main-plus-extras": "Main + Extras",
-        "main-story": "Main Story"
+        "main-plus-extras": "Hoved + Ekstra",
+        "main-story": "Hovedhistorie"
     },
     "howLongToBeat": "How Long To Beat",
     "info": {
@@ -137,13 +148,13 @@
             "not-installable-game": "Spillet kan IKKE installeres"
         },
         "playing": {
-            "start": "Leke nå",
+            "start": "Spill nå",
             "stop": "Spiller (Stopp)"
         },
         "saves": {
-            "syncing": "Synkroniserer lagrer"
+            "syncing": "Synkroniserer spill-lagringer"
         },
-        "launching": "Lansering",
+        "launching": "Starter",
         "ubisoft": "Installerer Ubisoft Connect"
     },
     "launch": {
@@ -152,8 +163,8 @@
     "not_logged_in": {
         "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
         "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
-        "login": "Log in",
-        "title": "You are NOT logged in",
+        "login": "Logg inn",
+        "title": "Du er IKKE logget inn",
         "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "report_problem": "Rapporter et problem med å kjøre dette spillet",
@@ -169,10 +180,11 @@
             "title": "Title"
         },
         "info": {
-            "exe": "Select Executable",
+            "exe": "Velg kjørbar fil",
             "image": "App Image",
-            "title": "Game/App Title",
-            "broser": "NettleserURL"
+            "title": "Spill/app tittel",
+            "broser": "NettleserURL",
+            "fullscreen": "Start fullskjerm (F11 for å avslutte)"
         },
         "placeholder": {
             "image": "Paste an Image URL here",
@@ -186,14 +198,14 @@
     },
     "status": {
         "clickToUpdate": "Klikk for å oppdatere",
-        "gameNotAvailable": "Game not available",
+        "gameNotAvailable": "Spill ikke tilgjengelig",
         "hasUpdates": "Ny versjon tilgjengelig!",
         "installed": "Installert",
         "installing": "Installerer",
         "moving": "Flytting Installasjon, vennligst vent",
         "notinstalled": "Dette spillet er ikke installert",
-        "notSupported": "Not supported",
-        "notSupportedGame": "Not Supported",
+        "notSupported": "Ikke støttet",
+        "notSupportedGame": "Ikke støttet",
         "processing": "Behandler filer, vennligst vent",
         "queued": "Queued",
         "reparing": "Reparerer spillet, vennligst vent",
@@ -204,7 +216,7 @@
         "playing": "Spiller",
         "moving-files": "Flytter filen «{{file}}»: {{percent}} ",
         "syncingSaves": "Synkroniserer lagrer",
-        "launching": "Lansering",
+        "launching": "Starter",
         "ubisoft": "Installerer Ubisoft",
         "downloading": "Downloading",
         "extracting": "Trekker ut",
@@ -225,7 +237,8 @@
         "store": "Butikkside",
         "verify": "Bekreft og reparer",
         "extraInfo": "Ekstra info",
-        "logs": "Tømmerstokker"
+        "logs": "Tømmerstokker",
+        "categories": "Kategorier"
     },
     "help": {
         "cloud_save_unsupported": "Dette spillet støtter ikke skylagring. Denne informasjonen er gitt av spillutviklerne. Noen spill implementerer sitt eget skylagringssystem"
