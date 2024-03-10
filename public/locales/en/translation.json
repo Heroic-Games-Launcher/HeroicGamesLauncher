@@ -9,6 +9,11 @@
         "zoom": "Zoom"
     },
     "add_game": "Add Game",
+    "adtraction-locked": {
+        "description": "It seems the track.adtraction.com domain was unable to load or is blocked. With adtraction, any purchase you make in the GOG store supports Heroic financially. Consider removing the block if you wish to contribute.",
+        "dont-show-again": "Don't show this warning again",
+        "title": "Adtraction is blocked"
+    },
     "Amazon Games": "Amazon Games",
     "anticheat": {
         "anticheats": "Anticheats",
