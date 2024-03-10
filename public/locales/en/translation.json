@@ -488,6 +488,7 @@
             "fpsLimiter": "FPS Limiter",
             "fpsLimiterNoFocus": "FPS Limiter (No Focus)",
             "fullscreen": "Fullscreen",
+            "windowed": "Windowed",
             "gameHeight": "Game Height",
             "gameWidth": "Game Width",
             "interger": "Integer Upscale",
