@@ -170,7 +170,6 @@ function getDefaultGlobalConfig(): GlobalConfig {
       return join(this.defaultInstallPath, 'Prefixes')
     },
     get wineVersion() {
-      // FIXME: This might be undefined
       return availableWineVersions[0]
     },
     wrappers: []

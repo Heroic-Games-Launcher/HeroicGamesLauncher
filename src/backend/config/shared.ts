@@ -105,6 +105,16 @@ const availableWineVersions: WineInstallation[] = []
 async function detectWineVersions(): Promise<void> {
   if (isMac) availableWineVersions.push(...(await getMacOsWineSet()))
   else if (isLinux) availableWineVersions.push(...(await getLinuxWineSet()))
+
+  // FIXME: Ideally we wouldn't need this "fake" version, but a lot of code
+  //        assumes that there will always be at least one Wine version
+  //        available
+  if (!availableWineVersions.length)
+    availableWineVersions.push({
+      name: 'No Wine Versions found',
+      bin: '',
+      type: 'wine'
+    })
 }
 
 export { initConfig, getConfigPath, loadConfigFile, availableWineVersions }
