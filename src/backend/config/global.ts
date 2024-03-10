@@ -6,7 +6,14 @@ import {
 } from './schemas'
 import { writeFileSync } from 'graceful-fs'
 import { join } from 'path'
-import { getSteamCompatFolder, isFlatpak, isMac, userHome } from '../constants'
+import {
+  getSteamCompatFolder,
+  isFlatpak,
+  isLinux,
+  isMac,
+  isWindows,
+  userHome
+} from '../constants'
 import { PositiveInteger } from '../schemas'
 import { logInfo, LogPrefix } from '../logger/logger'
 import { migrateLegacyGlobalConfig } from './legacy'
@@ -112,13 +119,13 @@ function getDefaultGlobalConfig(): GlobalConfig {
     alternativeGogdlBinary: null,
     alternativeLegendaryBinary: null,
     alternativeNileBinary: null,
-    autoInstallDxvk: true,
+    autoInstallDxvk: isLinux,
     autoInstallDxvkNvapi: false,
-    autoInstallVkd3d: true,
+    autoInstallVkd3d: isLinux,
     autoSyncSaves: false,
     autoUpdateGames: false,
     automaticWinetricksFixes: true,
-    battlEyeRuntime: true,
+    battlEyeRuntime: isLinux,
     checkForUpdatesOnStartup: true,
     crossoverBottle: 'Heroic',
     customThemesPath: null,
@@ -131,14 +138,14 @@ function getDefaultGlobalConfig(): GlobalConfig {
     discordRichPresence: true,
     downloadNoHttps: false,
     dxvkFpsLimit: { enabled: false },
-    eSync: true,
-    eacRuntime: true,
+    eSync: !isWindows,
+    eacRuntime: isLinux,
     egsLinkedPath: null,
     enableHelp: false,
     enableNewDesign: false,
     environmentVariables: [],
     exitToTray: false,
-    fSync: true,
+    fSync: isLinux,
     framelessWindow: false,
     fsr: { enabled: false },
     gameMode: isFlatpak,
