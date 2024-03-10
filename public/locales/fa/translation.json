@@ -163,7 +163,8 @@
         "wineprefix": "انتخاب پوشه Wine Prefix",
         "yes": "بله",
         "dontShowAgain": "عدم نمایش",
-        "choose-nile-binary": "باینری Nile را انتخاب کنید"
+        "choose-nile-binary": "باینری Nile را انتخاب کنید",
+        "update": "Update"
     },
     "button": {
         "cancel": "انصراف",
