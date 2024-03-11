@@ -18,7 +18,7 @@ import {
 
 import i18next from 'i18next'
 import { existsSync, mkdirSync } from 'graceful-fs'
-import { join, normalize } from 'path'
+import { join, dirname } from 'path'
 
 import {
   defaultWinePrefix,
@@ -70,7 +70,6 @@ import { readFileSync } from 'fs'
 import { LegendaryCommand } from './storeManagers/legendary/commands'
 import { commandToArgsArray } from './storeManagers/legendary/library'
 import { searchForExecutableOnPath } from './utils/os/path'
-import { sendFrontendMessage } from './main_window'
 import {
   createAbortController,
   deleteAbortController
@@ -78,6 +77,7 @@ import {
 import { download, isInstalled } from './wine/runtimes/runtimes'
 import { storeMap } from 'common/utils'
 import { runWineCommandOnGame } from './storeManagers/legendary/games'
+import { isUlwglSupported } from './utils/compatibility_layers'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
@@ -223,13 +223,14 @@ async function prepareLaunch(
   let steamRuntime: string[] = []
   const shouldUseRuntime =
     gameSettings.useSteamRuntime &&
-    (isNative || gameSettings.wineVersion.type === 'proton')
+    (isNative || !isUlwglSupported(gameSettings.wineVersion.type))
+
   if (shouldUseRuntime) {
     // Determine which runtime to use based on toolmanifest.vdf which is shipped with proton
     let nonNativeRuntime: SteamRuntime['type'] = 'soldier'
     if (!isNative) {
       try {
-        const parentPath = normalize(join(gameSettings.wineVersion.bin, '..'))
+        const parentPath = dirname(gameSettings.wineVersion.bin)
         const requiredAppId = VDF.parse(
           readFileSync(join(parentPath, 'toolmanifest.vdf'), 'utf-8')
         ).manifest?.require_tool_appid
@@ -241,8 +242,8 @@ async function prepareLaunch(
         )
       }
     }
-    // for native games lets use scout for now
-    const runtimeType = isNative ? 'sniper' : nonNativeRuntime
+
+    const runtimeType = isNative ? 'scout' : nonNativeRuntime
     const { path, args } = await getSteamRuntime(runtimeType)
     if (!path) {
       return {
@@ -293,14 +294,6 @@ async function prepareWineLaunch(
     }
   }
 
-  // Log warning about Proton
-  if (gameSettings.wineVersion.type === 'proton') {
-    logWarning(
-      'You are using Proton, this can lead to some bugs. Please do not open issues with bugs related to games',
-      LogPrefix.Backend
-    )
-  }
-
   // Verify that the CrossOver bottle exists
   if (isMac && gameSettings.wineVersion.type === 'crossover') {
     const bottleExists = existsSync(
@@ -336,11 +329,6 @@ async function prepareWineLaunch(
     )
     if (runner === 'gog') {
       await gogSetup(appName)
-      sendFrontendMessage('gameStatusUpdate', {
-        appName,
-        runner: 'gog',
-        status: 'launching'
-      })
     }
     if (runner === 'nile') {
       await nileSetup(appName)
@@ -484,16 +472,20 @@ function setupWrapperEnvVars(wrapperEnv: WrapperEnv) {
 
   ret.HEROIC_APP_NAME = wrapperEnv.appName
   ret.HEROIC_APP_RUNNER = wrapperEnv.appRunner
+  ret.GAMEID = 'ulwgl-0'
 
   switch (wrapperEnv.appRunner) {
     case 'gog':
       ret.HEROIC_APP_SOURCE = 'gog'
+      ret.STORE = 'gog'
       break
     case 'legendary':
       ret.HEROIC_APP_SOURCE = 'epic'
+      ret.STORE = 'egs'
       break
     case 'nile':
       ret.HEROIC_APP_SOURCE = 'amazon'
+      ret.STORE = 'amazon'
       break
     case 'sideload':
       ret.HEROIC_APP_SOURCE = 'sideload'
@@ -540,7 +532,9 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     }
     case 'proton':
       ret.STEAM_COMPAT_CLIENT_INSTALL_PATH = steamInstallPath
+      ret.WINEPREFIX = winePrefix
       ret.STEAM_COMPAT_DATA_PATH = winePrefix
+      ret.PROTONPATH = dirname(gameSettings.wineVersion.bin)
       break
     case 'crossover':
       ret.CX_BOTTLE = wineCrossoverBottle
@@ -733,7 +727,7 @@ export async function verifyWinePrefix(
     return { res: { stdout: '', stderr: '' }, updated: false }
   }
 
-  if (!existsSync(winePrefix)) {
+  if (!existsSync(winePrefix) && wineVersion.type !== 'proton') {
     mkdirSync(winePrefix, { recursive: true })
   }
 
@@ -745,9 +739,15 @@ export async function verifyWinePrefix(
   const haveToWait = !existsSync(systemRegPath)
 
   const command = runWineCommand({
-    commandParts: ['wineboot', '--init'],
+    commandParts:
+      wineVersion.type === 'proton' &&
+      GlobalConfig.get().getSettings().experimentalFeatures?.ulwglSupport !==
+        false
+        ? ['createprefix']
+        : ['wineboot', '--init'],
     wait: haveToWait,
     gameSettings: settings,
+    protonVerb: 'run',
     skipPrefixCheckIKnowWhatImDoing: true
   })
 
@@ -777,7 +777,6 @@ function launchCleanup(rpcClient?: RpcClient) {
 async function runWineCommand({
   gameSettings,
   commandParts,
-  gameInstallPath,
   wait,
   protonVerb = 'run',
   installFolderName,
@@ -832,13 +831,10 @@ async function runWineCommand({
 
   const env_vars = {
     ...process.env,
-    ...setupEnvVars(settings, gameInstallPath),
-    ...setupWineEnvVars(settings, installFolderName)
-  }
-
-  const isProton = wineVersion.type === 'proton'
-  if (isProton) {
-    commandParts.unshift(protonVerb)
+    GAMEID: 'ulwgl-0',
+    ...setupEnvVars(settings),
+    ...setupWineEnvVars(settings, installFolderName),
+    PROTON_VERB: protonVerb
   }
 
   const wineBin = wineVersion.bin.replaceAll("'", '')
@@ -848,11 +844,21 @@ async function runWineCommand({
   return new Promise<{ stderr: string; stdout: string }>((res) => {
     const wrappers = options?.wrappers || []
     let bin = ''
+    const ulwglSupported = isUlwglSupported(wineVersion.type)
+
     if (wrappers.length) {
       bin = wrappers.shift()!
-      commandParts.unshift(...wrappers, wineBin)
+      if (ulwglSupported) {
+        const ulwglBin = join(runtimePath, 'ulwgl', 'ulwgl-run')
+        commandParts.unshift(...wrappers, ulwglBin)
+      } else {
+        commandParts.unshift(...wrappers, wineBin)
+      }
     } else {
       bin = wineBin
+      if (ulwglSupported) {
+        bin = join(runtimePath, 'ulwgl', 'ulwgl-run')
+      }
     }
 
     const child = spawn(bin, commandParts, {

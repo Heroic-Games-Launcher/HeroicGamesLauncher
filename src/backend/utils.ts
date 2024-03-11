@@ -784,7 +784,7 @@ async function shutdownWine(gameSettings: GameSettings) {
       gameSettings,
       commandParts: ['wineboot', '-k'],
       wait: true,
-      protonVerb: 'waitforexitandrun'
+      protonVerb: 'run'
     })
   }
 }
