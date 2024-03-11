@@ -162,7 +162,8 @@
         "wineprefix": "Διαλέξτε τον φάκελο Προθέματος Wine",
         "yes": "ΝΑΙ",
         "dontShowAgain": "Μην εμφανιστείτε ξανά",
-        "choose-nile-binary": "Επιλέξτε Nile binary"
+        "choose-nile-binary": "Επιλέξτε Nile binary",
+        "update": "Ενημέρωση"
     },
     "button": {
         "cancel": "Cancel",

@@ -1,6 +1,6 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Actions -kirjasinperhe (vakio: ",
+        "actions_font_family_no_default": "Actions -kirjasinperhe (vakio):",
         "all_tiles_in_color": "Näytä kaikki pelilaatat väritettynä",
         "content_font_family_no_default": "Content -kirjasinperhe (vakio: ",
         "fonts": "Kirjasimet",
@@ -163,7 +163,8 @@
         "wineprefix": "Valitse Wine Prefix kansio",
         "yes": "KYLLÄ",
         "dontShowAgain": "Älä näytä uudelleen",
-        "choose-nile-binary": "Valitse Nile-ajotiedosto"
+        "choose-nile-binary": "Valitse Nile-ajotiedosto",
+        "update": "Päivitä"
     },
     "button": {
         "cancel": "Keskeytä",
@@ -224,7 +225,8 @@
     "game": {
         "status": "Tila",
         "store": "Kauppa",
-        "title": "Pelinimike"
+        "title": "Pelinimike",
+        "modify": "Muokkaa Asennusta"
     },
     "generic": {
         "error": {
@@ -246,7 +248,8 @@
         "show_favourites_only": "Näytä ainoastaan suosikit",
         "show_hidden": "Näytä piilotetut",
         "store": "Suodata kauppaa",
-        "filters": "Suodata"
+        "filters": "Suodata",
+        "categories": "Kategoria"
     },
     "help": {
         "amdfsr": "AMD:n FSR auttaa tehostamaan ruudunpäivitystä skaalaamalla ylös näyttötarkkuutta kokoruututilassa. Kuvalaatu paranee 5:stä 1:een pienen suorituskykyverotuksen kustannuksella. Tämän päällekytkentä saattaa parantaa suoritusta.",

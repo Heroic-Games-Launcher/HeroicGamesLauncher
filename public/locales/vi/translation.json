@@ -162,7 +162,8 @@
         "wineprefix": "Chọn thư mục Wine Prefix",
         "yes": "Có",
         "dontShowAgain": "Không hiển thị lại",
-        "choose-nile-binary": "Chọn nhị phân sông Nile"
+        "choose-nile-binary": "Chọn nhị phân sông Nile",
+        "update": "Update"
     },
     "button": {
         "cancel": "Cancel",

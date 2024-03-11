@@ -169,7 +169,8 @@
         "wineprefix": "Wine環境フォルダを選択",
         "yes": "はい",
         "dontShowAgain": "次回から確認しない",
-        "choose-nile-binary": "Nileバイナリを選択"
+        "choose-nile-binary": "Nileバイナリを選択",
+        "update": "Update"
     },
     "button": {
         "cancel": "キャンセル",

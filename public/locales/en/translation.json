@@ -846,7 +846,7 @@
     "wineExplanation": {
         "proton-ge": "Proton-GE-Proton is a Proton variant created by Glorious Eggroll. It is meant to be used in Steam, but some games outside Steam may work better with this variant. It provides mostly useless logs for troubleshooting.",
         "wine-ge": "Wine-GE-Proton is a Wine variant created by Glorious Eggroll. It is the recommended Wine to be used outside Steam. This provides useful logs when troubleshooting.",
-        "wine-ge-lol": "Wine-GE-Proton...-LoL builds are meant to be used ONLY for League of Legends. These buils should NOT be used for any other game since they can cause problems."
+        "wine-ge-lol": "Wine-GE-Proton...-LoL builds are meant to be used ONLY for League of Legends. These builds should NOT be used for any other game since they can cause problems."
     },
     "winetricks": {
         "install": "Install",

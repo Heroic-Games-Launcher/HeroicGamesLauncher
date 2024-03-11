@@ -97,8 +97,11 @@
             "disabled": "Отключить"
         },
         "builds": {
-            "version": "Версия"
-        }
+            "version": "Версия",
+            "buildsSelector": "Выбрать версию игры"
+        },
+        "changelogFor": "Список изменений для {{gameTitle}}",
+        "modify": "Модифицировать установку"
     },
     "gamecard": {
         "moving": "Перемещение",

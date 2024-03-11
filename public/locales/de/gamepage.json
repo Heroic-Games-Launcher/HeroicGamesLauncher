@@ -187,7 +187,9 @@
     },
     "setting": {
         "use-default-wine-settings": "Standardeinstellungen für Wine verwenden",
-        "winecrossoverbottle": "CrossOver Bottle"
+        "winecrossoverbottle": "CrossOver Bottle",
+        "show-wine-settings": "Wine-Einstellungen anzeigen",
+        "warn-use-default-wine-settings": "Verwenden Sie diese Einstellung nur, wenn Sie wissen, was Sie damit tun.<br/>Einen Wine-Prefix für mehrere Spiele zu verwenden kann zu Problemen führen, wenn deren Abhängigkeiten zueinander inkompatibel sind."
     },
     "sideload": {
         "field": {

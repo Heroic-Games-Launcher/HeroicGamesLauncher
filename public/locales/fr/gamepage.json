@@ -186,7 +186,9 @@
     },
     "setting": {
         "use-default-wine-settings": "Utiliser les paramètres de Wine par défaut",
-        "winecrossoverbottle": "Pont-Bouteille"
+        "winecrossoverbottle": "Pont-Bouteille",
+        "show-wine-settings": "Afficher les paramètres de Wine",
+        "warn-use-default-wine-settings": "Utiliser uniquement si vous savez ce que vous faites.<br/>Utiliser le même préfixe pour plusieurs jeux peut causer des problèmes si leurs dépendances sont incompatibles."
     },
     "sideload": {
         "field": {

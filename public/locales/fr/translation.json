@@ -67,7 +67,7 @@
                 "title": "Une exception inattendue s'est produite !"
             },
             "update": {
-                "message": "Quelque chose s'est mal passé lors de la mise à jour, veuillez vérifier les journaux d'événements ou réessayez plus tard !",
+                "message": "Quelque chose s'est mal passé lors de la mise à jour, veuillez vérifier les rapports d'événements ou réessayez plus tard !",
                 "title": "Erreur durant la mise à jour"
             },
             "wine-not-found": {
@@ -90,7 +90,7 @@
         },
         "info": {
             "update": {
-                "changelog": "Ouvrir le changelog",
+                "changelog": "Afficher la description des changements",
                 "detail": "Voulez-vous télécharger la mise à jour en arrière-plan ?",
                 "message": "Il y a une nouvelle version disponible !",
                 "message-finished": "Voulez-vous redémarrer Heroic maintenant ?",
@@ -169,7 +169,8 @@
         "wineprefix": "Choisir le dossier Wine Prefix",
         "yes": "OUI",
         "dontShowAgain": "Ne plus afficher",
-        "choose-nile-binary": "Sélectionnez le binaire de Nile"
+        "choose-nile-binary": "Sélectionnez le binaire de Nile",
+        "update": "Mise-à-jour"
     },
     "button": {
         "cancel": "Annuler",
@@ -235,7 +236,7 @@
     },
     "generic": {
         "error": {
-            "component": "Aucun jeu trouvé - Essayez de vous déconnecter et de vous reconnecter ou l'une des options ci-dessous"
+            "component": "Aucun jeu trouvé - Essayez de vous déconnecter puis de vous reconnecter ou l'une des options ci-dessous"
         },
         "library": {
             "refresh": "Rafraîchir la Bibliothèque"
@@ -303,7 +304,7 @@
             "part1": "Heroic recherche des versions de Wine, Proton et CrossOver dans ces dossiers :",
             "part2": "Pour d'autres emplacements, utilisez un lien symbolique vers un de ces dossiers"
         },
-        "disable_logs": "Cochez cette case pour désactiver la plupart des écritures dans les fichiers journaux (les informations critiques sont toujours enregistrées). Assurez-vous de désactiver ce paramètre avant de signaler un problème.",
+        "disable_logs": "Cochez cette case pour ne pas faire apparaitre la plupart des événements dans les rapports de fonctionnement (les informations critiques sont toujours enregistrées). Assurez-vous de désactiver ce paramètre avant de signaler un problème.",
         "dxvknvapi": "DXVK-NVAPI est une implémentation de NVAPI construite par dessus DXVK et la version native de NVAPI. Elle permet d'utiliser le DLSS sur les cartes graphiques Nvidia.",
         "disablePlaytimeSync": "Désactive la synchronisation du temps de jeu avec les serveurs d'une boutique donnée (seul GOG est pris en charge actuellement)",
         "gamescope": {
@@ -342,7 +343,7 @@
     "info": {
         "heroic": {
             "beta": "Beta",
-            "click-to-see-changelog": "Cliquez pour voir le journal des modifications",
+            "click-to-see-changelog": "Cliquez pour voir les changements",
             "newReleases": "Mise à jour disponible !",
             "stable": "Stable",
             "version": "Version d'Heroic"
@@ -409,14 +410,14 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} n'a pas pu être ajouté à tous les utilisateurs de Steam détectés. Vérifiez les logs pour plus d'informations. Steam doit être redémarré pour prendre en compte ces changements.",
+                    "corrupt": "{{game}} n'a pas pu être ajouté à tous les utilisateurs de Steam détectés. Vérifiez les rapports d'événements pour plus d'informations. Steam doit être redémarré pour prendre en compte ces changements.",
                     "success": "{{game}} a bien été ajouté à Steam. Un redémarrage de Steam est nécessaire pour que ces changements soient effectués.",
                     "title": "Ajouté à Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} n'a pas pu être retiré de tous les utilisateurs de Steam trouvés. Voir les logs pour plus d'informations. Steam doit être redémarré pour que les changements soient pris en compte.",
+                    "corrupt": "{{game}} n'a pas pu être retiré de tous les utilisateurs de Steam trouvés. Consultez les rapports d'événements pour plus d'informations. Steam doit être redémarré pour que les changements soient pris en compte.",
                     "success": "{{game}} a bien été retiré de Steam. Un redémarrage de Steam est nécessaire pour prendre en compte ces changements.",
                     "title": "Retiré de Steam"
                 }
@@ -590,7 +591,7 @@
         "FsrSharpnessStrenght": "Niveau de netteté pour FSR",
         "fsync": "Activer Fsync",
         "gamemode": "Utiliser GameMode (Feral Game Mode doit être installé)",
-        "hideChangelogsOnStartup": "Ne pas afficher le journal de modifications au démarrage",
+        "hideChangelogsOnStartup": "Ne pas afficher le journal des modifications au démarrage",
         "language": "Choix de la langue",
         "library_top_option": {
             "disabled": "Désactivé",
@@ -600,13 +601,13 @@
         },
         "library_top_section": "Section en haut de la Bibliothèque",
         "log": {
-            "copy-to-clipboard": "Copier le contenu du log dans le presse-papier",
+            "copy-to-clipboard": "Copier le contenu du rapport dans le presse-papier",
             "current-log": "Log actuel",
-            "instructions": "Rejoignez notre Discord et recherchez la section \"#-support\". Lisez le fil épinglé \"Read Me First | Frequently Asked Questions\" et suivez les instructions pour partager le contenu de ces journaux, ainsi que toute information pertinente concernant votre problème.",
+            "instructions": "Rejoignez notre Discord et recherchez la section \"#-support\". Lisez le fil épinglé \"Read Me First | Frequently Asked Questions\" et suivez les instructions pour partager le contenu de ces rapports d'événements, ainsi que toute information pertinente concernant votre problème.",
             "instructions_title": "Comment signaler un problème ?",
             "last-log": "Dernier log",
-            "no-file": "Aucun fichier log trouvé",
-            "show-in-folder": "Montrer le fichier log dans le dossier",
+            "no-file": "Aucun rapport de fonctionnement n'a été trouvé",
+            "show-in-folder": "Montrer le rapport de fonctionnement dans le dossier",
             "join-heroic-discord": "Rejoignez notre serveur Discord"
         },
         "mangohud": "Activer Mangohud (Mangohud doit être installé)",
@@ -698,13 +699,13 @@
             }
         },
         "log": {
-            "long-log-hint": "Log tronqué, les 1000 dernières lignes sont affichées !"
+            "long-log-hint": "Rapport tronqué, seules les 1000 dernières lignes sont affichées !"
         },
         "navbar": {
             "advanced": "Avancé",
             "games_settings_defaults": "Paramètres de jeu par défaut",
             "general": "Général",
-            "log": "Log",
+            "log": "Rapport",
             "other": "Autre",
             "sync": "Synchronisation des sauvegardes dans le Cloud",
             "wineExt": "Extensions de Wine",
@@ -880,5 +881,9 @@
         "proton-ge": "Proton-GE-Proton est une variante de Proton créée par Glorious Eggroll. Il est destiné à être utilisé par Steam, mais certains jeux extérieurs à Steam pourraient mieux fonctionner avec cette version. Il propose des rapports pour la plupart inutiles à la résolution des problèmes.",
         "wine-ge-lol": "Les versions de Wine-GE-Proton...-LoL sont faites pour être utiisées UNIQUEMENT pour League of Legends. Ces versions ne devraient PAS être employées pour d'autres jeux car elles peuvent causer des problèmes.",
         "wine-ge": "Wine-GE-Proton est une variante de Wine créée par Glorious Eggroll. C'est la version de Wine recommandée pour un usage en dehors de Steam."
+    },
+    "emptyLibrary": {
+        "noResults": "Les filtres actuels n'ont retourné aucun résultat.",
+        "noGames": "Votre bibliothèque est vide. Vous pouvez <1>vous connecter</1> dans une boutique ou cliquer sur <3></3> pour en ajouter un manuellement."
     }
 }
