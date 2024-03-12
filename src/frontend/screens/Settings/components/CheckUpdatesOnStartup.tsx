@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { ToggleSwitch } from 'frontend/components/UI'
-import useSetting from 'frontend/hooks/useSetting'
+import { useGlobalConfig } from 'frontend/hooks/config'
 import { useTranslation } from 'react-i18next'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const CheckUpdatesOnStartup = () => {
   const { t } = useTranslation()
-  const [checkForUpdatesOnStartup, setCheckForUpdatesOnStartup] = useSetting(
-    'checkForUpdatesOnStartup',
-    true
-  )
+  const [
+    checkForUpdatesOnStartup,
+    setCheckForUpdatesOnStartup,
+    ,
+    isSetToDefault,
+    resetToDefaultValue
+  ] = useGlobalConfig('checkForUpdatesOnStartup')
 
   const [show, setShow] = useState(checkForUpdatesOnStartup)
 
@@ -24,13 +28,19 @@ const CheckUpdatesOnStartup = () => {
     <ToggleSwitch
       htmlId="checkForUpdatesOnStartup"
       value={checkForUpdatesOnStartup}
-      handleChange={() =>
+      handleChange={async () =>
         setCheckForUpdatesOnStartup(!checkForUpdatesOnStartup)
       }
       title={t(
         'setting.checkForUpdatesOnStartup',
         'Check for Heroic Updates on Startup'
       )}
+      inlineElement={
+        <ResetToDefaultButton
+          resetToDefault={resetToDefaultValue}
+          isSetToDefault={isSetToDefault}
+        />
+      }
     />
   )
 }

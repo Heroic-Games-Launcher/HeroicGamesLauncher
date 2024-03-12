@@ -1,4 +1,3 @@
-import { GOGCloudSavesLocation } from 'common/types/gog'
 import { ipcRenderer } from 'electron'
 import {
   Runner,
@@ -93,11 +92,6 @@ export const showConfigFileInFolder = (appName: string) =>
   ipcRenderer.send('showConfigFileInFolder', appName)
 export const openFolder = (installPath: string) =>
   ipcRenderer.send('openFolder', installPath)
-export const syncGOGSaves = async (
-  gogSaves: GOGCloudSavesLocation[],
-  appName: string,
-  arg: string
-) => ipcRenderer.invoke('syncGOGSaves', gogSaves, appName, arg)
 export const getFonts = async (reload: boolean) =>
   ipcRenderer.invoke('getFonts', reload)
 export const checkDiskSpace = async (installPath: string) =>

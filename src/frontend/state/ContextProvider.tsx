@@ -30,8 +30,6 @@ const initialContext: ContextType = {
   error: false,
   gameUpdates: [],
   libraryStatus: [],
-  libraryTopSection: 'disabled',
-  handleLibraryTopSection: () => null,
   platform: 'unknown',
   refresh: async () => Promise.resolve(),
   refreshLibrary: async () => Promise.resolve(),
@@ -80,8 +78,6 @@ const initialContext: ContextType = {
   showResetDialog: () => null,
   externalLinkDialogOptions: { showDialog: false },
   handleExternalLinkDialog: () => null,
-  hideChangelogsOnStartup: false,
-  setHideChangelogsOnStartup: () => null,
   lastChangelogShown: null,
   setLastChangelogShown: () => null,
   isSettingsModalOpen: { value: false, type: 'settings' },
@@ -91,12 +87,6 @@ const initialContext: ContextType = {
     addHelpItem: () => null,
     removeHelpItem: () => null
   },
-  experimentalFeatures: {
-    enableNewDesign: false,
-    enableHelp: false,
-    automaticWinetricksFixes: true
-  },
-  handleExperimentalFeatures: () => null,
   disableDialogBackdropClose: false,
   setDisableDialogBackdropClose: () => null
 }

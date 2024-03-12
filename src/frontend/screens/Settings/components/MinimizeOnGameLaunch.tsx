@@ -1,24 +1,34 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
-import useSetting from 'frontend/hooks/useSetting'
+import { useGlobalConfig } from 'frontend/hooks/config'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const MinimizeOnGameLaunch = () => {
   const { t } = useTranslation()
-  const [minimizeOnLaunch, setMinimizeOnLaunch] = useSetting(
-    'minimizeOnLaunch',
-    false
-  )
+  const [
+    minimizeOnLaunch,
+    setMinimizeOnLaunch,
+    ,
+    isSetToDefaultValue,
+    resetToDefaultValue
+  ] = useGlobalConfig('minimizeOnGameLaunch')
 
   return (
     <ToggleSwitch
       htmlId="minimizeOnLaunch"
       value={minimizeOnLaunch}
-      handleChange={() => setMinimizeOnLaunch(!minimizeOnLaunch)}
+      handleChange={async () => setMinimizeOnLaunch(!minimizeOnLaunch)}
       title={t(
         'setting.minimize-on-launch',
         'Minimize Heroic After Game Launch'
       )}
+      inlineElement={
+        <ResetToDefaultButton
+          resetToDefault={resetToDefaultValue}
+          isSetToDefault={isSetToDefaultValue}
+        />
+      }
     />
   )
 }

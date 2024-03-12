@@ -2,8 +2,11 @@ import { createMainWindow, sendFrontendMessage } from '../main_window'
 import { BrowserWindow, Display, screen } from 'electron'
 import { configStore } from '../constants'
 import { overrideProcessPlatform } from './constants.test'
+import { setGlobalConfig } from '../config/global'
 
 jest.mock('../logger/logfile')
+jest.mock('../config/global')
+jest.mock('../config/shared')
 
 describe('main_window', () => {
   describe('sendFrontendMessage', () => {
@@ -111,9 +114,7 @@ describe('main_window', () => {
     describe('with frameless window enabled', () => {
       beforeEach(() => {
         jest.spyOn(configStore, 'has').mockReturnValue(false)
-        jest.spyOn(configStore, 'get').mockReturnValue({
-          framelessWindow: true
-        })
+        setGlobalConfig('framelessWindow', true)
       })
 
       it('creates a simple frameless window on Linux', () => {
@@ -144,9 +145,7 @@ describe('main_window', () => {
     describe('with frameless window disabled', () => {
       beforeAll(() => {
         jest.spyOn(configStore, 'has').mockReturnValue(false)
-        jest.spyOn(configStore, 'get').mockReturnValue({
-          framelessWindow: false
-        })
+        setGlobalConfig('framelessWindow', false)
       })
 
       it('creates the new window with default titlebar', () => {

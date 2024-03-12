@@ -2,6 +2,7 @@ import React, { ChangeEvent, ReactNode, useContext } from 'react'
 import classnames from 'classnames'
 import ContextProvider from 'frontend/state/ContextProvider'
 import './index.css'
+import { Stack } from '@mui/material'
 
 interface SelectFieldProps {
   htmlId: string
@@ -13,6 +14,7 @@ interface SelectFieldProps {
   prompt?: string
   disabled?: boolean
   extraClass?: string
+  inlineElement?: ReactNode
 }
 
 const SelectField = ({
@@ -24,7 +26,8 @@ const SelectField = ({
   disabled = false,
   extraClass = '',
   afterSelect,
-  children
+  children,
+  inlineElement
 }: SelectFieldProps) => {
   const { isRTL } = useContext(ContextProvider)
 
@@ -35,10 +38,18 @@ const SelectField = ({
       })}
     >
       {label && <label htmlFor={htmlId}>{label}</label>}
-      <select id={htmlId} value={value} onChange={onChange} disabled={disabled}>
-        {prompt && <option value="">{prompt}</option>}
-        {children}
-      </select>
+      <Stack direction="row">
+        <select
+          id={htmlId}
+          value={value}
+          onChange={onChange}
+          disabled={disabled}
+        >
+          {prompt && <option value="">{prompt}</option>}
+          {children}
+        </select>
+        {inlineElement}
+      </Stack>
       {afterSelect}
     </div>
   )

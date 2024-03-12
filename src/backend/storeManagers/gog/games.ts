@@ -12,8 +12,6 @@ import {
   getGamesData
 } from './library'
 import { join } from 'path'
-import { GameConfig } from '../../game_config'
-import { GlobalConfig } from '../../config'
 import {
   errorHandler,
   getFileSize,
@@ -29,7 +27,6 @@ import {
 import {
   ExtraInfo,
   GameInfo,
-  GameSettings,
   ExecResult,
   InstallArgs,
   InstalledInfo,
@@ -84,7 +81,6 @@ import setup from './setup'
 import { removeNonSteamGame } from '../../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
 import {
-  GOGCloudSavesLocation,
   GOGSessionSyncQueueItem,
   GogInstallPlatform,
   UserData
@@ -96,6 +92,9 @@ import { RemoveArgs } from 'common/types/game_manager'
 import { getWineFlagsArray } from 'backend/utils/compatibility_layers'
 import axios, { AxiosError } from 'axios'
 import { isOnline, runOnceWhenOnline } from 'backend/online_monitor'
+import { getGlobalConfig } from '../../config/global'
+import { getGameConfig } from '../../config/game'
+import type { KeyValuePair } from '../../schemas'
 import { readdir, readFile } from 'fs/promises'
 import { statSync } from 'fs'
 import ini from 'ini'
@@ -159,13 +158,6 @@ export function getGameInfo(appName: string): GameInfo {
     }
   }
   return info
-}
-
-export async function getSettings(appName: string): Promise<GameSettings> {
-  return (
-    GameConfig.get(appName).config ||
-    (await GameConfig.get(appName).getSettings())
-  )
 }
 
 export async function importGame(
@@ -304,8 +296,10 @@ export async function install(
   status: 'done' | 'error' | 'abort'
   error?: string
 }> {
-  const { maxWorkers } = GlobalConfig.get().getSettings()
-  const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
+  const { maxDownloadWorkers } = getGlobalConfig()
+  const workers = maxDownloadWorkers
+    ? ['--max-workers', `${maxDownloadWorkers}`]
+    : []
   const privateBranchPassword = privateBranchesStore.get(appName, '')
   const withDlcs = installDlcs?.length
     ? ['--with-dlcs', '--dlcs', installDlcs.join(',')]
@@ -464,7 +458,7 @@ export async function launch(
   appName: string,
   launchArguments?: LaunchOption
 ): Promise<boolean> {
-  const gameSettings = await getSettings(appName)
+  const gameConfig = getGameConfig(appName, 'gog')
   const gameInfo = getGameInfo(appName)
 
   if (
@@ -492,7 +486,7 @@ export async function launch(
     gameScopeCommand,
     gameModeBin,
     steamRuntime
-  } = await prepareLaunch(gameSettings, gameInfo, isNative(appName))
+  } = await prepareLaunch(gameConfig, gameInfo, isNative(appName))
   if (!launchPrepSuccess) {
     appendGamePlayLog(gameInfo, `Launch aborted: ${launchPrepFailReason}`)
     showDialogBoxModalAuto({
@@ -503,8 +497,8 @@ export async function launch(
     return false
   }
 
-  const exeOverrideFlag = gameSettings.targetExe
-    ? ['--override-exe', gameSettings.targetExe]
+  const exeOverrideFlag = gameConfig.targetExe
+    ? ['--override-exe', gameConfig.targetExe]
     : []
 
   let commandEnv = {
@@ -512,11 +506,11 @@ export async function launch(
     ...setupWrapperEnvVars({ appName, appRunner: 'gog' }),
     ...(isWindows
       ? {}
-      : setupEnvVars(gameSettings, gameInfo.install.install_path))
+      : setupEnvVars(gameConfig, gameInfo.install.install_path))
   }
 
   const wrappers = setupWrappers(
-    gameSettings,
+    gameConfig,
     mangoHudCommand,
     gameModeBin,
     gameScopeCommand,
@@ -550,7 +544,7 @@ export async function launch(
       ...wineEnvVars
     }
 
-    const { bin: wineExec, type: wineType } = gameSettings.wineVersion
+    const { bin: wineExec, type: wineType } = gameConfig.wineVersion
 
     // Fix for people with old config
     const wineBin =
@@ -575,7 +569,7 @@ export async function launch(
     ...shlex.split(
       (launchArguments as BaseLaunchOption | undefined)?.parameters ?? ''
     ),
-    ...shlex.split(gameSettings.launcherArgs ?? '')
+    ...shlex.split(gameConfig.launcherArgs ?? '')
   ]
 
   if (gameInfo.install.cyberpunk?.modsEnabled) {
@@ -589,11 +583,7 @@ export async function launch(
     if (existsSync(startFolder)) {
       const installDirectory = isWindows
         ? gameInfo.install.install_path
-        : await getWinePath({
-            path: gameInfo.install.install_path,
-            variant: 'win',
-            gameSettings
-          })
+        : await getWinePath(gameInfo.install.install_path, gameConfig, 'win')
 
       const availableMods = await getCyberpunkMods()
       const modsEnabledToLoad = gameInfo.install.cyberpunk.modsToLoad
@@ -630,7 +620,7 @@ export async function launch(
         result = await runWineCommandUtil({
           commandParts: redModCommand,
           wait: true,
-          gameSettings,
+          gameConfig,
           gameInstallPath: gameInfo.install.install_path,
           startFolder
         })
@@ -697,7 +687,7 @@ export async function moveInstall(
   newInstallPath: string
 ): Promise<{ status: 'done' } | { status: 'error'; error: string }> {
   const gameInfo = getGameInfo(appName)
-  const gameConfig = GameConfig.get(appName).config
+  const gameConfig = getGameConfig(appName, 'gog')
   logInfo(`Moving ${gameInfo.title} to ${newInstallPath}`, LogPrefix.Gog)
 
   const moveImpl = isWindows ? moveOnWindows : moveOnUnix
@@ -773,10 +763,9 @@ export async function repair(appName: string): Promise<ExecResult> {
 export async function syncSaves(
   appName: string,
   arg: string,
-  path: string,
-  gogSaves?: GOGCloudSavesLocation[]
+  paths: KeyValuePair[] | null
 ): Promise<string> {
-  if (!gogSaves) {
+  if (!paths) {
     return 'Unable to sync saves, gogSaves is undefined'
   }
 
@@ -792,17 +781,17 @@ export async function syncSaves(
 
   let fullOutput = ''
 
-  for (const location of gogSaves) {
+  for (const location of paths) {
     const commandParts = [
       'save-sync',
-      location.location,
+      location.value,
       appName,
       '--os',
       gameInfo.install.platform,
       '--ts',
-      syncStore.get(`${appName}.${location.name}`, '0'),
+      syncStore.get(`${appName}.${location.key}`, '0'),
       '--name',
-      location.name,
+      location.key,
       arg
     ]
 
@@ -821,7 +810,7 @@ export async function syncSaves(
       )
     }
     if (res.stdout) {
-      syncStore.set(`${appName}.${location.name}`, res.stdout.trim())
+      syncStore.set(`${appName}.${location.key}`, res.stdout.trim())
     }
   }
 
@@ -845,14 +834,11 @@ export async function uninstall({
 
   const res: ExecResult = { stdout: '', stderr: '' }
   if (existsSync(uninstallerPath)) {
-    const gameSettings = GameConfig.get(appName).config
+    const gameConfig = getGameConfig(appName, 'gog')
 
     const installDirectory = isWindows
       ? object.install_path
-      : await getWinePath({
-          path: object.install_path,
-          gameSettings
-        })
+      : await getWinePath(object.install_path, gameConfig)
 
     const command = [
       uninstallerPath,
@@ -865,9 +851,9 @@ export async function uninstall({
     logInfo(['Executing uninstall command', command.join(' ')], LogPrefix.Gog)
 
     if (!isWindows) {
-      if (existsSync(gameSettings.winePrefix) && !shouldRemovePrefix) {
+      if (existsSync(gameConfig.winePrefix) && !shouldRemovePrefix) {
         await runWineCommandUtil({
-          gameSettings,
+          gameConfig,
           commandParts: command,
           wait: true
         })
@@ -948,7 +934,7 @@ export async function update(
     return { status: 'error' }
   }
 
-  const gameConfig = GameConfig.get(appName).config
+  const gameConfig = getGameConfig(appName, 'gog')
   const installedDlcs = gameData.install.installedDLCs || []
 
   if (updateOverwrites?.dlcs) {
@@ -998,7 +984,7 @@ export async function update(
             )
           } else {
             await runWineCommand({
-              gameSettings: gameConfig,
+              gameConfig,
               protonVerb: 'run',
               commandParts: [
                 uninstallExeFile,
@@ -1125,12 +1111,11 @@ export async function update(
   gameObject.install_size = getFileSize(sizeOnDisk)
   installedGamesStore.set('installed', installedArray)
   refreshInstalled()
-  const gameSettings = GameConfig.get(appName).config
   // Simple check if wine prefix exists and setup can be performed because of an
   // update
   if (
     gameObject.platform === 'windows' &&
-    (isWindows || existsSync(gameSettings.winePrefix))
+    (isWindows || existsSync(gameConfig.winePrefix))
   ) {
     await setup(appName, gameObject, false)
   }
@@ -1149,8 +1134,10 @@ export async function update(
  * Useful for Update and Repair
  */
 async function getCommandParameters(appName: string) {
-  const { maxWorkers } = GlobalConfig.get().getSettings()
-  const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
+  const { maxDownloadWorkers } = getGlobalConfig()
+  const workers = maxDownloadWorkers
+    ? ['--max-workers', `${maxDownloadWorkers}`]
+    : []
   const gameData = getGameInfo(appName)
   const logPath = logFileLocation(appName)
   const credentials = await GOGUser.getCredentials()
@@ -1196,8 +1183,8 @@ export async function forceUninstall(appName: string): Promise<void> {
 // GOGDL now handles the signal, this is no longer needed
 export async function stop(appName: string, stopWine = true): Promise<void> {
   if (stopWine && !isNative(appName)) {
-    const gameSettings = await getSettings(appName)
-    await shutdownWine(gameSettings)
+    const gameConfig = getGameConfig(appName, 'gog')
+    await shutdownWine(gameConfig)
   }
 }
 

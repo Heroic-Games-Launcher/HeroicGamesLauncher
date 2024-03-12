@@ -1,21 +1,29 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import useSetting from 'frontend/hooks/useSetting'
 import { ToggleSwitch } from 'frontend/components/UI'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import { useGlobalConfig } from 'frontend/hooks/config'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const DisableLogs = () => {
   const { t } = useTranslation()
-  const [disableLogs, setDisableLogs] = useSetting('disableLogs', false)
+  const [disableLogs, setDisableLogs, , isSetToDefault, resetToDefaultValue] =
+    useGlobalConfig('disableLogs')
 
   return (
     <div className="toggleRow">
       <ToggleSwitch
         htmlId="disableLogs"
         value={disableLogs}
-        handleChange={() => setDisableLogs(!disableLogs)}
+        handleChange={async () => setDisableLogs(!disableLogs)}
         title={t('setting.disable_logs', 'Disable Logs')}
+        inlineElement={
+          <ResetToDefaultButton
+            resetToDefault={resetToDefaultValue}
+            isSetToDefault={isSetToDefault}
+          />
+        }
       />
 
       <FontAwesomeIcon

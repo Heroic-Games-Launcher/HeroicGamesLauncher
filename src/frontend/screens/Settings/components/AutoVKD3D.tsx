@@ -1,22 +1,31 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
-import useSetting from 'frontend/hooks/useSetting'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
-import { defaultWineVersion } from '..'
 import SettingsContext from '../SettingsContext'
+import { useSharedConfig } from 'frontend/hooks/config'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const AutoVKD3D = () => {
   const { t } = useTranslation()
-  const [autoInstallVkd3d, setAutoInstallVkd3d] = useSetting(
-    'autoInstallVkd3d',
-    false
-  )
-  const { appName } = useContext(SettingsContext)
-  const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
-  const [autoInstallDxvk] = useSetting('autoInstallDxvk', false)
+  const [
+    autoInstallVkd3d,
+    setAutoInstallVkd3d,
+    vkd3dConfigFetched,
+    vkd3dSetToDefault,
+    resetVkd3dToDefault
+  ] = useSharedConfig('autoInstallVkd3d')
+  const { appName, runner, isDefault } = useContext(SettingsContext)
+  const [wineVersion, , wineVersionConfigFetched] =
+    useSharedConfig('wineVersion')
+  const [autoInstallDxvk, , dxvkConfigFetched] =
+    useSharedConfig('autoInstallDxvk')
   const [installingVKD3D, setInstallingVKD3D] = React.useState(false)
+
+  if (!vkd3dConfigFetched || !wineVersionConfigFetched || !dxvkConfigFetched) {
+    return <></>
+  }
 
   const isProton = wineVersion.type === 'proton'
 
@@ -27,10 +36,13 @@ const AutoVKD3D = () => {
   const handleAutoInstallVkd3d = async () => {
     const action = autoInstallVkd3d ? 'restore' : 'backup'
     setInstallingVKD3D(true)
-    const res = await window.api.toggleVKD3D({
-      appName,
-      action
-    })
+    let res = true
+    if (!isDefault)
+      res = await window.api.toggleVKD3D({
+        appName,
+        runner,
+        action
+      })
 
     setInstallingVKD3D(false)
     if (res) {
@@ -51,6 +63,12 @@ const AutoVKD3D = () => {
         }
         fading={installingVKD3D}
         disabled={!autoInstallDxvk || installingVKD3D}
+        inlineElement={
+          <ResetToDefaultButton
+            resetToDefault={resetVkd3dToDefault}
+            isSetToDefault={vkd3dSetToDefault}
+          />
+        }
       />
 
       <FontAwesomeIcon

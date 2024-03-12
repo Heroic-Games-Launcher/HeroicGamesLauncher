@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SelectField, SvgButton } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
-import useSetting from 'frontend/hooks/useSetting'
 import SettingsContext from '../SettingsContext'
 import { Tooltip } from '@mui/material'
 import AddBoxIcon from '@mui/icons-material/AddBox'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
+import { useGlobalConfig } from 'frontend/hooks/config'
 
 export default function CustomWineProton() {
   const { t } = useTranslation()
@@ -14,18 +14,17 @@ export default function CustomWineProton() {
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
 
-  const [customWinePaths, setCustomWinePaths] = useSetting(
-    'customWinePaths',
-    []
-  )
+  const [customWinePaths, setCustomWinePaths, winePathsFetched] =
+    useGlobalConfig('customWinePaths')
 
   const [selectedPath, setSelectedPath] = useState('')
 
   useEffect(() => {
-    setSelectedPath(customWinePaths.length ? customWinePaths[0] : '')
+    const firstAvailableCustomPath = customWinePaths?.[0]
+    if (firstAvailableCustomPath) setSelectedPath(firstAvailableCustomPath)
   }, [customWinePaths])
 
-  function selectCustomPath() {
+  const selectCustomPath = useCallback(() => {
     window.api
       .openDialog({
         buttonLabel: t('box.choose'),
@@ -33,16 +32,21 @@ export default function CustomWineProton() {
         title: t('box.customWine', 'Select the Wine or Proton Binary')
       })
       .then((path) => {
-        if (path && !customWinePaths.includes(path)) {
-          setCustomWinePaths([...customWinePaths, path])
+        if (path && !customWinePaths?.includes(path)) {
+          setCustomWinePaths([...(customWinePaths ?? []), path])
         }
       })
-  }
+  }, [customWinePaths])
 
-  function removeCustomPath() {
-    const newPaths = customWinePaths.filter((path) => path !== selectedPath)
+  const removeCustomPath = useCallback(() => {
+    const newPaths =
+      customWinePaths?.filter((path) => path !== selectedPath) || []
     setCustomWinePaths(newPaths)
-    return setSelectedPath(customWinePaths.length ? customWinePaths[0] : '')
+    setSelectedPath(customWinePaths?.[0] ?? '')
+  }, [customWinePaths, selectedPath])
+
+  if (!winePathsFetched) {
+    return <></>
   }
 
   if (!isDefault || isWin) {

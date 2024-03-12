@@ -1,24 +1,28 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch, TextInputField } from 'frontend/components/UI'
-import useSetting from 'frontend/hooks/useSetting'
+import { useSharedConfig } from 'frontend/hooks/config'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import SettingsContext from '../SettingsContext'
-import { defaultWineVersion } from '..'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const EnableDXVKFpsLimit = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const { isLinuxNative, isMacNative } = useContext(SettingsContext)
   const isWin = platform === 'win32'
-  const [enableDXVKFpsLimit, setDXVKFpsLimit] = useSetting(
-    'enableDXVKFpsLimit',
-    false
-  )
-  const [DXVKFpsCap, setDXVKFpsCap] = useSetting('DXVKFpsCap', '')
-  const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
+  const [
+    DXVKFpsLimit,
+    setDXVKFpsLimit,
+    fpsLimitFetched,
+    isSetToDefault,
+    resetToDefaultValue
+  ] = useSharedConfig('dxvkFpsLimit')
+  const [wineVersion, , wineVersionFetched] = useSharedConfig('wineVersion')
+
+  if (!fpsLimitFetched || !wineVersionFetched) return <></>
 
   if (
     isWin ||
@@ -34,9 +38,17 @@ const EnableDXVKFpsLimit = () => {
       <div className="toggleRow">
         <ToggleSwitch
           htmlId="enableDXVKFpsLimit"
-          value={enableDXVKFpsLimit || false}
-          handleChange={() => setDXVKFpsLimit(!enableDXVKFpsLimit)}
+          value={DXVKFpsLimit.enabled}
+          handleChange={async () =>
+            setDXVKFpsLimit({ enabled: !DXVKFpsLimit.enabled, limit: 60 })
+          }
           title={t('setting.dxvkfpslimit', 'Limit FPS (DX9, 10 and 11)')}
+          inlineElement={
+            <ResetToDefaultButton
+              resetToDefault={resetToDefaultValue}
+              isSetToDefault={isSetToDefault}
+            />
+          }
         />
 
         <FontAwesomeIcon
@@ -46,15 +58,20 @@ const EnableDXVKFpsLimit = () => {
         />
       </div>
 
-      {enableDXVKFpsLimit && (
+      {DXVKFpsLimit.enabled && (
         <TextInputField
           htmlId="DXVKFpsLimitValue"
           placeholder={t(
             'placeholder.dxvkfpsvalue',
             'Positive integer value (e.g. 30, 60, ...)'
           )}
-          value={DXVKFpsCap}
-          onChange={(event) => setDXVKFpsCap(event.target.value)}
+          value={DXVKFpsLimit.limit.toString()}
+          onChange={async (event) =>
+            setDXVKFpsLimit({
+              enabled: true,
+              limit: Number(event.target.value)
+            })
+          }
         />
       )}
     </>

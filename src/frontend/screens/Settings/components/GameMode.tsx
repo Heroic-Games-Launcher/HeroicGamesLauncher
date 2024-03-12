@@ -1,19 +1,27 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
-import useSetting from 'frontend/hooks/useSetting'
+import { useSharedConfig } from 'frontend/hooks/config'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const GameMode = () => {
   const { t } = useTranslation()
   const { platform, showDialogModal } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
-  const [useGameMode, setUseGameMode] = useSetting('useGameMode', false)
-  const [eacRuntime, setEacRuntime] = useSetting('eacRuntime', false)
+  const [
+    useGameMode,
+    setUseGameMode,
+    gameModeConfigFetched,
+    isSetToDefault,
+    resetToDefaultValue
+  ] = useSharedConfig('gameMode')
+  const [eacRuntime, setEacRuntime, eacConfigFetched] =
+    useSharedConfig('eacRuntime')
 
-  if (!isLinux) {
+  if (!isLinux || !gameModeConfigFetched || !eacConfigFetched) {
     return <></>
   }
 
@@ -53,6 +61,12 @@ const GameMode = () => {
         value={useGameMode}
         handleChange={handleGameMode}
         title={t('setting.gamemode')}
+        inlineElement={
+          <ResetToDefaultButton
+            resetToDefault={resetToDefaultValue}
+            isSetToDefault={isSetToDefault}
+          />
+        }
       />
 
       <FontAwesomeIcon

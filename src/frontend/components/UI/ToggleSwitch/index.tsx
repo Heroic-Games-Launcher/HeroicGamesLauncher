@@ -1,7 +1,8 @@
 import classNames from 'classnames'
-import React, { ChangeEventHandler, useContext } from 'react'
+import React, { ChangeEventHandler, ReactNode, useContext } from 'react'
 import ContextProvider from 'frontend/state/ContextProvider'
 import './index.css'
+import { Stack } from '@mui/material'
 
 interface Props {
   htmlId: string
@@ -12,6 +13,7 @@ interface Props {
   extraClass?: string
   description?: string
   fading?: boolean
+  inlineElement?: ReactNode
 }
 
 export default function ToggleSwitch(props: Props) {
@@ -23,12 +25,13 @@ export default function ToggleSwitch(props: Props) {
     htmlId,
     extraClass,
     description = '',
-    fading
+    fading,
+    inlineElement
   } = props
   const { isRTL } = useContext(ContextProvider)
 
   return (
-    <>
+    <Stack direction={'row'}>
       <input
         id={htmlId}
         disabled={disabled}
@@ -48,6 +51,7 @@ export default function ToggleSwitch(props: Props) {
       >
         {title}
       </label>
-    </>
+      {inlineElement}
+    </Stack>
   )
 }

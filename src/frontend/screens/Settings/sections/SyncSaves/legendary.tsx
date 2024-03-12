@@ -8,26 +8,26 @@ import {
   SelectField,
   ToggleSwitch
 } from 'frontend/components/UI'
-import { syncSaves } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { SyncType } from 'frontend/types'
 import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
 import SettingsContext from '../../SettingsContext'
 import TextWithProgress from 'frontend/components/UI/TextWithProgress'
+import type { KeyValuePair } from 'backend/schemas'
 
 interface Props {
   autoSyncSaves: boolean
   isProton?: boolean
-  savesPath: string
+  savePaths: KeyValuePair[] | null
   setAutoSyncSaves: (value: boolean) => void
-  setSavesPath: (value: string) => void
+  setSavePaths: (value: KeyValuePair[]) => void
   winePrefix?: string
   syncCommands: { name: string; value: string }[]
 }
 
 export default function LegendarySyncSaves({
-  savesPath,
-  setSavesPath,
+  savePaths,
+  setSavePaths,
   autoSyncSaves,
   setAutoSyncSaves,
   isProton,
@@ -43,36 +43,38 @@ export default function LegendarySyncSaves({
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
-  const { appName } = useContext(SettingsContext)
+  const { appName, runner } = useContext(SettingsContext)
 
   useEffect(() => {
     const setDefaultSaveFolder = async () => {
-      if (savesPath.length && !retry) {
+      if (savePaths && !retry) {
         return
       }
       setLoading(true)
-      const newSavePath = (await window.api.getDefaultSavePath(
-        appName,
-        'legendary'
-      )) as string
+      const newSavePaths = await window.api.getDefaultSavePath(appName, runner)
 
-      setSavesPath(newSavePath)
+      setSavePaths(newSavePaths)
       setLoading(false)
       setRetry(false)
     }
     setDefaultSaveFolder()
   }, [winePrefix, isProton, retry])
 
-  async function handleSync() {
+  function handleSync() {
     setIsSyncing(true)
 
-    await syncSaves(savesPath, appName, 'legendary', syncType).then(
-      (response: string) => {
+    window.api
+      .syncSaves({
+        paths: savePaths,
+        appName,
+        runner,
+        arg: syncType
+      })
+      .then((response) => {
         setManuallyOutput(response.split('\n'))
         setManuallyOutputShow(true)
-      }
-    )
-    setIsSyncing(false)
+        setIsSyncing(false)
+      })
   }
 
   return (
@@ -104,46 +106,55 @@ export default function LegendarySyncSaves({
         />
       ) : (
         <>
-          <PathSelectionBox
-            htmlId="inputSavePath"
-            type="directory"
-            onPathChange={setSavesPath}
-            path={savesPath}
-            placeholder={t('setting.savefolder.placeholder')}
-            pathDialogTitle={t('box.sync.title')}
-            canEditPath={isSyncing}
-            afterInput={
-              <span
-                role={'button'}
-                onClick={() => setRetry(true)}
-                className="smallMessage"
-              >
-                {savesPath
-                  ? t(
-                      'setting.savefolder.warning',
-                      'Please check twice if the path is correct (click to retry)'
-                    )
-                  : t(
-                      'setting.savefolder.not-found',
-                      'Save folder not found, please select it manually (click to retry)'
-                    )}
-              </span>
-            }
-          />
+          {savePaths &&
+            savePaths.map((path, index) => (
+              <div key={`saves-${path.key}`} style={{ width: '100%' }}>
+                <PathSelectionBox
+                  type="directory"
+                  htmlId="inputSavePath"
+                  placeholder={t('setting.savefolder.placeholder')}
+                  path={path.value}
+                  canEditPath={isSyncing}
+                  onPathChange={(newPath) => {
+                    const saves = [...savePaths]
+                    saves[index].value = newPath
+                    setSavePaths(saves)
+                  }}
+                  pathDialogTitle={t('box.sync.title')}
+                  afterInput={
+                    <span
+                      role={'button'}
+                      className="smallMessage"
+                      onClick={() => setRetry(true)}
+                    >
+                      {path.value.length
+                        ? t(
+                            'setting.savefolder.warning',
+                            'Please check twice if the path is correct (click to retry)'
+                          )
+                        : t(
+                            'setting.savefolder.not-found',
+                            'Save folder not found, please select it manually (click to retry)'
+                          )}
+                    </span>
+                  }
+                />
+              </div>
+            ))}
 
           <SelectField
             label={t('setting.manualsync.title')}
             htmlId="selectSyncType"
             onChange={(event) => setSyncType(event.target.value as SyncType)}
             value={syncType}
-            disabled={!savesPath.length}
+            disabled={!savePaths}
             extraClass="rightButtons"
             // style={{ marginRight: '12px' }}
             afterSelect={
               <button
                 data-testid="setSync"
                 onClick={async () => handleSync()}
-                disabled={isSyncing || !savesPath.length}
+                disabled={isSyncing || !savePaths}
                 className={`button is-small ${
                   isSyncing ? 'is-primary' : 'settings'
                 }`}
@@ -165,7 +176,7 @@ export default function LegendarySyncSaves({
           <ToggleSwitch
             htmlId="autosync"
             value={autoSyncSaves}
-            disabled={!savesPath.length}
+            disabled={!savePaths}
             handleChange={() => setAutoSyncSaves(!autoSyncSaves)}
             title={t('setting.autosync')}
           />

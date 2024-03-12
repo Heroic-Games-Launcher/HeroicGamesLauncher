@@ -5,6 +5,7 @@ import { CloudOff, CloudQueue } from '@mui/icons-material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { GameInfo } from 'common/types'
+import { useGameConfig } from 'frontend/hooks/config'
 
 interface Props {
   gameInfo: GameInfo
@@ -12,11 +13,7 @@ interface Props {
 
 const CloudSavesSync = ({ gameInfo }: Props) => {
   const { t } = useTranslation('gamepage')
-  const { gameSettings, is } = useContext(GameContext)
-
-  if (!gameSettings) {
-    return null
-  }
+  const { is } = useContext(GameContext)
 
   if (!gameInfo.is_installed) {
     return null
@@ -32,7 +29,7 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
 
   const cloud_save_enabled = gameInfo.cloud_save_enabled || false
   const showCloudSaveInfo = cloud_save_enabled && !is.linuxNative
-  const { autoSyncSaves } = gameSettings
+  const [autoSyncSaves] = useGameConfig('autoSyncSaves')
 
   return (
     <>

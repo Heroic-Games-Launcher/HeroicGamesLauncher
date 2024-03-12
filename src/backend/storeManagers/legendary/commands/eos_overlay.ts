@@ -1,5 +1,6 @@
 import { z } from 'zod'
-import { LegendaryAppName, NonEmptyString, Path, ValidWinePrefix } from './base'
+import type { LegendaryAppName, Path, ValidWinePrefix } from './base'
+import type { NonEmptyString } from 'backend/schemas'
 
 const EosOverlayAction = z.enum([
   'install',

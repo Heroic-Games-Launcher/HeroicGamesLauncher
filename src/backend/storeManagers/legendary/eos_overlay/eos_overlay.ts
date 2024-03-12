@@ -14,6 +14,7 @@ import { setCurrentDownloadSize } from '../games'
 import { runRunnerCommand as runLegendaryCommand } from '../library'
 
 import type { Runner } from 'common/types'
+import { getGameConfig } from 'backend/config/game'
 
 const currentVersionPath = () =>
   join(legendaryConfigPath, 'overlay_version.json')
@@ -283,8 +284,7 @@ async function getWinePrefixFolder(
 ): Promise<ValidWinePrefix | null | false> {
   if (!isLinux || !appName) return null
 
-  const { winePrefix, wineVersion } =
-    await gameManagerMap[runner].getSettings(appName)
+  const { winePrefix, wineVersion } = getGameConfig(appName, runner)
   const prefixPath =
     wineVersion.type === 'proton' ? join(winePrefix, 'pfx') : winePrefix
   const maybePrefix = ValidWinePrefix.safeParse(prefixPath)

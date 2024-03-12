@@ -13,13 +13,13 @@ import {
 import { IconIcns } from '@shockpkg/icon-encoder'
 import { join } from 'path'
 import { logError, logInfo, LogPrefix } from '../../logger/logger'
-import { GlobalConfig } from '../../config'
 import { GameInfo } from 'common/types'
 import { isMac, userHome } from '../../constants'
 import { getIcon } from '../utils'
 import { addNonSteamGame } from '../nonesteamgame/nonesteamgame'
 import sanitize from 'sanitize-filename'
 import * as GogLibraryManager from '../../storeManagers/gog/library'
+import { getGlobalConfig } from '../../config/global'
 
 /**
  * Adds a desktop shortcut to $HOME/Desktop and to /usr/share/applications
@@ -35,7 +35,7 @@ async function addShortcuts(gameInfo: GameInfo, fromMenu?: boolean) {
 
   logInfo(`Adding shortcuts for ${title}`, LogPrefix.Backend)
   const { addDesktopShortcuts, addStartMenuShortcuts, addSteamShortcuts } =
-    GlobalConfig.get().getSettings()
+    getGlobalConfig()
 
   if (addSteamShortcuts) {
     addNonSteamGame({ gameInfo })

@@ -1,20 +1,27 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
-import useSetting from 'frontend/hooks/useSetting'
+import { useSharedConfig } from 'frontend/hooks/config'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import SettingsContext from '../SettingsContext'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const EnableFsync = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const { isLinuxNative } = useContext(SettingsContext)
   const isLinux = platform === 'linux'
-  const [enableFsync, setEnableFsync] = useSetting('enableFsync', false)
+  const [
+    enableFsync,
+    setEnableFsync,
+    fsyncConfigFetched,
+    isSetToDefault,
+    resetToDefaultValue
+  ] = useSharedConfig('fSync')
 
-  if (!isLinux || isLinuxNative) {
+  if (!isLinux || isLinuxNative || !fsyncConfigFetched) {
     return <></>
   }
 
@@ -23,8 +30,14 @@ const EnableFsync = () => {
       <ToggleSwitch
         htmlId="fsyncToggle"
         value={enableFsync || false}
-        handleChange={() => setEnableFsync(!enableFsync)}
+        handleChange={async () => setEnableFsync(!enableFsync)}
         title={t('setting.fsync', 'Enable Fsync')}
+        inlineElement={
+          <ResetToDefaultButton
+            resetToDefault={resetToDefaultValue}
+            isSetToDefault={isSetToDefault}
+          />
+        }
       />
 
       <FontAwesomeIcon

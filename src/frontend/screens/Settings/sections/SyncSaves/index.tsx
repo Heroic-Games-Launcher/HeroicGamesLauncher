@@ -1,26 +1,20 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
-import SettingsContext from '../../SettingsContext'
-import { defaultWineVersion } from '../..'
-import GOGSyncSaves from './gog'
 import LegendarySyncSaves from './legendary'
+import { useGameConfig } from 'frontend/hooks/config'
 
 const SyncSaves = () => {
   const { t } = useTranslation()
-  const { runner } = useContext(SettingsContext)
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
 
-  const [autoSyncSaves, setAutoSyncSaves] = useSetting('autoSyncSaves', false)
-  const [savesPath, setSavesPath] = useSetting('savesPath', '')
-  const [gogSavesLocations, setGogSavesLocations] = useSetting('gogSaves', [])
+  const [autoSyncSaves, setAutoSyncSaves] = useGameConfig('autoSyncSaves')
+  const [savePaths, setSavePaths, savePathsFetched] = useGameConfig('savePaths')
 
-  const [defaultWinePrefix] = useSetting('defaultWinePrefix', '')
-  const [winePrefix] = useSetting('winePrefix', defaultWinePrefix + '/default')
+  const [winePrefix] = useGameConfig('winePrefix')
 
-  const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
+  const [wineVersion, , wineVersionFetched] = useGameConfig('wineVersion')
 
   const syncCommands = [
     { name: t('setting.manualsync.download'), value: '--skip-upload' },
@@ -29,33 +23,20 @@ const SyncSaves = () => {
     { name: t('setting.manualsync.forceupload'), value: '--force-upload' }
   ]
 
-  if (runner === 'legendary') {
-    return (
-      <LegendarySyncSaves
-        savesPath={savesPath}
-        setSavesPath={setSavesPath}
-        autoSyncSaves={autoSyncSaves}
-        setAutoSyncSaves={setAutoSyncSaves}
-        isProton={!isWin && wineVersion.type === 'proton'}
-        winePrefix={winePrefix}
-        syncCommands={syncCommands}
-      />
-    )
-  }
+  if (!savePathsFetched || !wineVersionFetched) return <></>
 
-  if (runner === 'gog') {
-    return (
-      <GOGSyncSaves
-        gogSaves={gogSavesLocations}
-        setGogSaves={setGogSavesLocations}
-        autoSyncSaves={autoSyncSaves}
-        setAutoSyncSaves={setAutoSyncSaves}
-        syncCommands={syncCommands}
-      />
-    )
-  }
-
-  return <></>
+  return (
+    // TODO: Inline this now that we have one component for this again
+    <LegendarySyncSaves
+      savePaths={savePaths}
+      setSavePaths={setSavePaths}
+      autoSyncSaves={autoSyncSaves ?? false}
+      setAutoSyncSaves={setAutoSyncSaves}
+      isProton={!isWin && wineVersion.type === 'proton'}
+      winePrefix={winePrefix}
+      syncCommands={syncCommands}
+    />
+  )
 }
 
 export default SyncSaves

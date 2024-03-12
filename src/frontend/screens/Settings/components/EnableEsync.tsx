@@ -1,22 +1,30 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
-import useSetting from 'frontend/hooks/useSetting'
+import { useSharedConfig } from 'frontend/hooks/config'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const EnableEsync = () => {
   const { t } = useTranslation()
 
-  const [enableEsync, setEnableEsync] = useSetting('enableEsync', false)
+  const [enableEsync, setEnableEsync, , isSetToDefault, resetToDefaultValue] =
+    useSharedConfig('eSync')
 
   return (
     <div className="toggleRow">
       <ToggleSwitch
         htmlId="esyncToggle"
         value={enableEsync || false}
-        handleChange={() => setEnableEsync(!enableEsync)}
+        handleChange={async () => setEnableEsync(!enableEsync)}
         title={t('setting.esync', 'Enable Esync')}
+        inlineElement={
+          <ResetToDefaultButton
+            resetToDefault={resetToDefaultValue}
+            isSetToDefault={isSetToDefault}
+          />
+        }
       />
 
       <FontAwesomeIcon

@@ -4,14 +4,14 @@ import { join } from 'path'
 import { DirResult, dirSync } from 'tmp'
 import { addNonSteamGame, removeNonSteamGame } from '../nonesteamgame'
 import { showDialogBoxModalAuto } from 'backend/dialog/dialog'
-import { GlobalConfig } from 'backend/config'
 import { logInfo, logError, logWarning } from '../../../logger/logger'
+import { setGlobalConfig } from 'backend/config/global'
 
 jest.mock('backend/logger/logfile')
 jest.mock('backend/logger/logger')
 jest.mock('backend/dialog/dialog')
 jest.mock('backend/utils')
-jest.mock('backend/config')
+jest.mock('backend/config/global')
 jest.mock('backend/wiki_game_info/wiki_game_info')
 
 let tmpDir = {} as DirResult
@@ -28,7 +28,7 @@ function copyTestFile(file: string, alternativeUserPath = '') {
 describe('NonSteamGame', () => {
   beforeEach(() => {
     tmpDir = dirSync({ unsafeCleanup: true })
-    GlobalConfig['setConfigValue']('defaultSteamPath', tmpDir.name + "'")
+    setGlobalConfig('steamPath', tmpDir.name)
     tmpSteamUserConfigDir = join(
       tmpDir.name,
       'userdata',

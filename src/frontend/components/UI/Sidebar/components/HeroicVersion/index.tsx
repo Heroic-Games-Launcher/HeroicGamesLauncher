@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { ChangelogModal } from '../../../ChangelogModal'
+import { useGlobalConfig } from 'frontend/hooks/config'
 
 type Release = {
   html_url: string
@@ -24,7 +25,11 @@ export default React.memo(function HeroicVersion() {
   const [showChangelogModalOnClick, setShowChangelogModalOnClick] =
     useState(false)
 
-  const { hideChangelogsOnStartup, lastChangelogShown, setLastChangelogShown } =
+  const [hideChangelogsOnStartup, , changelogConfigFetched] = useGlobalConfig(
+    'hideChangelogsOnStartup'
+  )
+
+  const { lastChangelogShown, setLastChangelogShown } =
     useContext(ContextProvider)
 
   useEffect(() => {
@@ -51,6 +56,8 @@ export default React.memo(function HeroicVersion() {
   const shouldShowUpdates = newBeta || newStable
 
   const version = heroicVersion
+
+  if (!changelogConfigFetched) return <></>
 
   return (
     <>

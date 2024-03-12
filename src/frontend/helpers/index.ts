@@ -2,7 +2,6 @@ import {
   GameInfo,
   InstallProgress,
   Runner,
-  GameSettings,
   InstallPlatform,
   InstallInfo
 } from 'common/types'
@@ -10,8 +9,6 @@ import {
 import { install, launch, repair, updateGame } from './library'
 import * as fileSize from 'filesize'
 const readFile = window.api.readConfig
-
-const writeConfig = window.api.writeConfig
 
 const notify = (args: { title: string; body: string }) =>
   window.api.notify(args)
@@ -27,21 +24,6 @@ const openDiscordLink = window.api.openDiscordLink
 export const size = fileSize.partial({ base: 2 }) as (arg: unknown) => string
 
 const sendKill = window.api.kill
-
-const syncSaves = async (
-  savesPath: string,
-  appName: string,
-  runner: Runner,
-  arg?: string
-): Promise<string> => {
-  const response: string = await window.api.syncSaves({
-    arg,
-    path: savesPath,
-    appName,
-    runner
-  })
-  return response
-}
 
 const getLegendaryConfig = async (): Promise<{
   library: GameInfo[]
@@ -60,13 +42,6 @@ const getLegendaryConfig = async (): Promise<{
 
 const getGameInfo = async (appName: string, runner: Runner) => {
   return window.api.getGameInfo(appName, runner)
-}
-
-const getGameSettings = async (
-  appName: string,
-  runner: Runner
-): Promise<GameSettings | null> => {
-  return window.api.getGameSettings(appName, runner)
 }
 
 const getInstallInfo = async (
@@ -158,7 +133,6 @@ function getPreferredInstallLanguage(
 export {
   createNewWindow,
   getGameInfo,
-  getGameSettings,
   getInstallInfo,
   getLegendaryConfig,
   getProgress,
@@ -171,9 +145,7 @@ export {
   repair,
   sendKill,
   sidInfoPage,
-  syncSaves,
   updateGame,
-  writeConfig,
   removeSpecialcharacters,
   getStoreName,
   getPreferredInstallLanguage

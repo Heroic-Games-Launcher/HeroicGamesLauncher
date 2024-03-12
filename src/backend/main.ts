@@ -1,8 +1,6 @@
 import { initImagesCache } from './images_cache'
 import { downloadAntiCheatData } from './anticheat/utils'
 import {
-  AppSettings,
-  GameSettings,
   DiskSpaceData,
   StatusPromise,
   GamepadInputEvent,
@@ -42,8 +40,6 @@ import i18next from 'i18next'
 import { join } from 'path'
 import checkDiskSpace from 'check-disk-space'
 import { DXVK, Winetricks } from './tools'
-import { GameConfig } from './game_config'
-import { GlobalConfig } from './config'
 import { LegendaryUser } from 'backend/storeManagers/legendary/user'
 import { GOGUser } from './storeManagers/gog/user'
 import { NileUser } from './storeManagers/nile/user'
@@ -71,7 +67,6 @@ import {
   discordLink,
   gamesConfigPath,
   heroicGithubURL,
-  userHome,
   icon,
   installed,
   kofiPage,
@@ -103,7 +98,6 @@ import {
   appendGamePlayLog,
   initGamePlayLog,
   initLogger,
-  logChangedSetting,
   logDebug,
   logError,
   logInfo,
@@ -115,7 +109,6 @@ import {
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
 import { getFonts } from 'font-list'
 import { runWineCommand } from './launcher'
-import shlex from 'shlex'
 import { initQueue } from './downloadmanager/downloadqueue'
 import {
   initOnlineMonitor,
@@ -158,6 +151,10 @@ import {
   getGameSdl
 } from 'backend/storeManagers/legendary/library'
 import { storeMap } from 'common/utils'
+import { availableWineVersions, initConfig } from './config/shared'
+import { getGlobalConfig } from './config/global'
+import { clearGameConfig, getGameConfig } from './config/game'
+import { PositiveInteger } from './schemas'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
@@ -165,7 +162,6 @@ const { showOpenDialog } = dialog
 
 async function initializeWindow(): Promise<BrowserWindow> {
   createNecessaryFolders()
-  configStore.set('userHome', userHome)
   const mainWindow = createMainWindow()
 
   if ((isSteamDeckGameMode || isCLIFullscreen) && !isCLINoGui) {
@@ -182,11 +178,10 @@ async function initializeWindow(): Promise<BrowserWindow> {
   }
 
   setTimeout(async () => {
-    // Will download Wine if none was found
-    const availableWine = await GlobalConfig.get().getAlternativeWine()
     DXVK.getLatest()
     Winetricks.download()
-    if (!availableWine.length) {
+    // Will download Wine if none was found
+    if (!availableWineVersions.length) {
       downloadDefaultWine()
     }
   }, 2500)
@@ -201,7 +196,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
     }, 5000)
   }
 
-  const globalConf = GlobalConfig.get().getSettings()
+  const globalConf = getGlobalConfig()
 
   mainWindow.setIcon(icon)
   app.commandLine.appendSwitch('enable-spatial-navigation')
@@ -225,7 +220,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
       })
     }
 
-    const { exitToTray } = GlobalConfig.get().getSettings()
+    const { exitToTray } = getGlobalConfig()
 
     if (exitToTray) {
       logInfo('Exitting to tray instead of quitting', LogPrefix.Backend)
@@ -313,6 +308,7 @@ if (!gotTheLock) {
     initOnlineMonitor()
     initStoreManagers()
     initImagesCache()
+    initConfig()
 
     // Add User-Agent Client hints to behave like Windows
     if (process.argv.includes('--spoof-windows')) {
@@ -357,11 +353,11 @@ if (!gotTheLock) {
       }
     })
 
-    const settings = GlobalConfig.get().getSettings()
+    const globalConfig = getGlobalConfig()
 
     // Make sure lock is not present when starting up
     playtimeSyncQueue.delete('lock')
-    if (!settings.disablePlaytimeSync) {
+    if (!globalConfig.disablePlaytimeSync) {
       runOnceWhenOnline(syncQueuedPlaytimeGOG)
     } else {
       logDebug('Skipping playtime sync queue upload - playtime sync disabled', {
@@ -378,7 +374,7 @@ if (!gotTheLock) {
       returnEmptyString: false,
       returnNull: false,
       fallbackLng: 'en',
-      lng: settings.language,
+      lng: globalConfig.language,
       supportedLngs: [
         'ar',
         'az',
@@ -440,7 +436,7 @@ if (!gotTheLock) {
       logWarning('Protocol already registered.', LogPrefix.Backend)
     }
 
-    const headless = isCLINoGui || settings.startInTray
+    const headless = isCLINoGui || globalConfig.startMinimizedToTray
     if (!headless) {
       mainWindow.once('ready-to-show', () => {
         const props = configStore.get_nodefault('window-props')
@@ -673,13 +669,16 @@ ipcMain.on('removeFolder', async (e, [path, folderName]) => {
   removeFolder(path, folderName)
 })
 
-ipcMain.handle('runWineCommand', async (e, args) => runWineCommand(args))
+ipcMain.handle('runWineCommand', async (e, appName, runner, args) => {
+  const gameConfig = getGameConfig(appName, runner)
+  return runWineCommand({ ...args, gameConfig })
+})
 
 /// IPC handlers begin here.
 
 ipcMain.handle('checkGameUpdates', async (): Promise<string[]> => {
   let oldGames: string[] = []
-  const { autoUpdateGames } = GlobalConfig.get().getSettings()
+  const { autoUpdateGames } = getGlobalConfig()
   for (const runner in libraryManagerMap) {
     let gamesToUpdate = await libraryManagerMap[runner].listUpdateableGames()
     if (autoUpdateGames) {
@@ -693,7 +692,7 @@ ipcMain.handle('checkGameUpdates', async (): Promise<string[]> => {
 
 ipcMain.handle('getEpicGamesStatus', async () => isEpicServiceOffline())
 
-ipcMain.handle('getMaxCpus', () => cpus().length)
+ipcMain.handle('getMaxCpus', () => PositiveInteger.parse(cpus().length))
 
 ipcMain.handle('getHeroicVersion', app.getVersion)
 ipcMain.handle('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
@@ -704,7 +703,7 @@ ipcMain.handle('getGameSdl', async (event, appName) => getGameSdl(appName))
 ipcMain.handle('showUpdateSetting', () => !isFlatpak)
 
 ipcMain.handle('getLatestReleases', async () => {
-  const { checkForUpdatesOnStartup } = GlobalConfig.get().getSettings()
+  const { checkForUpdatesOnStartup } = getGlobalConfig()
   if (checkForUpdatesOnStartup) {
     return getLatestReleases()
   } else {
@@ -761,15 +760,6 @@ ipcMain.handle('getExtraInfo', async (event, appName, runner) => {
   return gameManagerMap[runner].getExtraInfo(appName)
 })
 
-ipcMain.handle('getGameSettings', async (event, appName, runner) => {
-  try {
-    return await gameManagerMap[runner].getSettings(appName)
-  } catch (error) {
-    logError(error, LogPrefix.Backend)
-    return null
-  }
-})
-
 ipcMain.handle('getGOGLinuxInstallersLangs', async (event, appName) =>
   GOGLibraryManager.getLinuxInstallersLanguages(appName)
 )
@@ -819,9 +809,7 @@ ipcMain.handle('getAmazonLoginData', NileUser.getLoginData)
 ipcMain.handle('authAmazon', async (event, data) => NileUser.login(data))
 ipcMain.handle('logoutAmazon', NileUser.logout)
 
-ipcMain.handle('getAlternativeWine', async () =>
-  GlobalConfig.get().getAlternativeWine()
-)
+ipcMain.handle('getAlternativeWine', () => availableWineVersions)
 
 ipcMain.handle('readConfig', async (event, configClass) => {
   if (configClass === 'library') {
@@ -832,113 +820,17 @@ ipcMain.handle('readConfig', async (event, configClass) => {
   return userInfo?.displayName ?? ''
 })
 
-ipcMain.handle('requestSettings', async (event, appName) => {
-  // To the changes how we handle env and wrappers
-  // otherOptions is deprectaed and needs to be mapped
-  // to new approach.
-  // Can be removed if otherOptions is removed aswell
-  const mapOtherSettings = (config: AppSettings | GameSettings) => {
-    if (config.otherOptions) {
-      if (config.enviromentOptions.length <= 0) {
-        config.otherOptions
-          .split(' ')
-          .filter((val) => val.indexOf('=') !== -1)
-          .forEach((envKeyAndVar) => {
-            const keyAndValueSplit = envKeyAndVar.split('=')
-            const key = keyAndValueSplit.shift()!
-            const value = keyAndValueSplit.join('=')
-            config.enviromentOptions.push({ key, value })
-          })
-      }
-
-      if (config.wrapperOptions.length <= 0) {
-        const args: string[] = []
-        config.otherOptions
-          .split(' ')
-          .filter((val) => val.indexOf('=') === -1)
-          .forEach((val, index) => {
-            if (index === 0) {
-              config.wrapperOptions.push({ exe: val, args: '' })
-            } else {
-              args.push(val)
-            }
-          })
-
-        if (config.wrapperOptions.at(0)) {
-          config.wrapperOptions.at(0)!.args = shlex.join(args)
-        }
-      }
-
-      delete config.otherOptions
-    }
-    return config
-  }
-
-  if (appName === 'default') {
-    return mapOtherSettings(GlobalConfig.get().getSettings())
-  }
-
-  const config = await GameConfig.get(appName).getSettings()
-  return mapOtherSettings(config)
-})
-
-ipcMain.handle('toggleDXVK', async (event, { appName, action }) =>
-  GameConfig.get(appName)
-    .getSettings()
-    .then(async (gameSettings) =>
-      DXVK.installRemove(gameSettings, 'dxvk', action)
-    )
+ipcMain.handle('toggleDXVK', async (event, { appName, runner, action }) =>
+  DXVK.installRemove(getGameConfig(appName, runner), 'dxvk', action)
 )
 
-ipcMain.handle('toggleDXVKNVAPI', async (event, { appName, action }) =>
-  GameConfig.get(appName)
-    .getSettings()
-    .then(async (gameSettings) =>
-      DXVK.installRemove(gameSettings, 'dxvk-nvapi', action)
-    )
+ipcMain.handle('toggleDXVKNVAPI', async (event, { appName, runner, action }) =>
+  DXVK.installRemove(getGameConfig(appName, runner), 'dxvk-nvapi', action)
 )
 
-ipcMain.handle('toggleVKD3D', async (event, { appName, action }) =>
-  GameConfig.get(appName)
-    .getSettings()
-    .then(async (gameSettings) =>
-      DXVK.installRemove(gameSettings, 'vkd3d', action)
-    )
+ipcMain.handle('toggleVKD3D', async (event, { appName, runner, action }) =>
+  DXVK.installRemove(getGameConfig(appName, runner), 'vkd3d', action)
 )
-
-ipcMain.handle('writeConfig', (event, { appName, config }) => {
-  logInfo(
-    `Writing config for ${appName === 'default' ? 'Heroic' : appName}`,
-    LogPrefix.Backend
-  )
-  const oldConfig =
-    appName === 'default'
-      ? GlobalConfig.get().getSettings()
-      : GameConfig.get(appName).config
-
-  // log only the changed setting
-  logChangedSetting(config, oldConfig)
-
-  if (appName === 'default') {
-    GlobalConfig.get().set(config as AppSettings)
-    GlobalConfig.get().flush()
-    const currentConfigStore = configStore.get_nodefault('settings')
-    if (currentConfigStore) {
-      configStore.set('settings', { ...currentConfigStore, ...config })
-    }
-  } else {
-    GameConfig.get(appName).config = config as GameSettings
-    GameConfig.get(appName).flush()
-  }
-})
-
-ipcMain.on('setSetting', (event, { appName, key, value }) => {
-  if (appName === 'default') {
-    GlobalConfig.get().setSetting(key, value)
-  } else {
-    GameConfig.get(appName).setSetting(key, value)
-  }
-})
 
 // Watch the installed games file and trigger a refresh on the installed games if something changes
 if (existsSync(installed)) {
@@ -979,12 +871,12 @@ ipcMain.handle(
     { appName, launchArguments, runner, skipVersionCheck }
   ): StatusPromise => {
     const game = gameManagerMap[runner].getGameInfo(appName)
-    const gameSettings = await gameManagerMap[runner].getSettings(appName)
-    const { autoSyncSaves, savesPath, gogSaves = [] } = gameSettings
+    const gameConfig = getGameConfig(appName, runner)
+    const { savePaths, autoSyncSaves } = gameConfig
 
     const { title } = game
 
-    const { minimizeOnLaunch } = GlobalConfig.get().getSettings()
+    const { minimizeOnGameLaunch } = getGlobalConfig()
 
     const startPlayingDate = new Date()
 
@@ -1008,8 +900,7 @@ ipcMain.handle(
         await gameManagerMap[runner].syncSaves(
           appName,
           '--skip-upload',
-          savesPath,
-          gogSaves
+          savePaths
         )
         logInfo(`Saves for ${title} downloaded`, LogPrefix.Backend)
       } catch (error) {
@@ -1027,7 +918,7 @@ ipcMain.handle(
     })
 
     const mainWindow = getMainWindow()
-    if (minimizeOnLaunch) {
+    if (minimizeOnGameLaunch) {
       mainWindow?.hide()
     }
 
@@ -1050,11 +941,11 @@ ipcMain.handle(
 
     // check if isNative, if not, check if wine is valid
     if (!isNative) {
-      const isWineOkToLaunch = await checkWineBeforeLaunch(game, gameSettings)
+      const isWineOkToLaunch = await checkWineBeforeLaunch(game, gameConfig)
 
       if (!isWineOkToLaunch) {
         logError(
-          `Was not possible to launch using ${gameSettings.wineVersion.name}`,
+          `Was not possible to launch using ${gameConfig.wineVersion.name}`,
           LogPrefix.Backend
         )
 
@@ -1110,7 +1001,7 @@ ipcMain.handle(
       sessionPlaytime + tsStore.get(`${appName}.totalPlayed`, 0)
     tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
 
-    const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
+    const { disablePlaytimeSync } = getGlobalConfig()
     if (runner === 'gog') {
       if (!disablePlaytimeSync) {
         await updateGOGPlaytime(appName, startPlayingDate, finishedPlayingDate)
@@ -1141,8 +1032,7 @@ ipcMain.handle(
         await gameManagerMap[runner].syncSaves(
           appName,
           '--skip-download',
-          savesPath,
-          gogSaves
+          savePaths
         )
         logInfo(`Saves uploaded for ${title}`, LogPrefix.Backend)
       } catch (error) {
@@ -1209,7 +1099,7 @@ ipcMain.handle(
 
     if (uninstalled) {
       if (shouldRemovePrefix) {
-        const { winePrefix } = await gameManagerMap[runner].getSettings(appName)
+        const { winePrefix } = getGameConfig(appName, runner)
         logInfo(`Removing prefix ${winePrefix}`, LogPrefix.Backend)
         // remove prefix if exists
         if (existsSync(winePrefix)) {
@@ -1225,7 +1115,7 @@ ipcMain.handle(
           }
         }
 
-        removeIfExists(appName.concat('.json'))
+        clearGameConfig(appName, runner)
         removeIfExists(appName.concat('.log'))
         removeIfExists(appName.concat('-lastPlay.log'))
       }
@@ -1463,17 +1353,13 @@ ipcMain.handle('egsSync', async (event, args) => {
   return LegendaryLibraryManager.toggleGamesSync(args)
 })
 
-ipcMain.handle('syncGOGSaves', async (event, gogSaves, appName, arg) =>
-  gameManagerMap['gog'].syncSaves(appName, arg, '', gogSaves)
-)
-
 ipcMain.handle('getLaunchOptions', async (event, appName, runner) =>
   libraryManagerMap[runner].getLaunchOptions(appName)
 )
 
 ipcMain.handle(
   'syncSaves',
-  async (event, { arg = '', path, appName, runner }) => {
+  async (event, { arg = '', paths, appName, runner }) => {
     if (runner === 'legendary') {
       const epicOffline = await isEpicServiceOffline()
       if (epicOffline) {
@@ -1489,7 +1375,7 @@ ipcMain.handle(
       return 'App is offline, cannot sync saves!'
     }
 
-    const output = await gameManagerMap[runner].syncSaves(appName, arg, path)
+    const output = await gameManagerMap[runner].syncSaves(appName, arg, paths)
     logInfo(output, LogPrefix.Backend)
     return output
   }
@@ -1616,10 +1502,17 @@ ipcMain.handle('clipboardReadText', () => clipboard.readText())
 
 ipcMain.on('clipboardWriteText', (e, text) => clipboard.writeText(text))
 
-ipcMain.handle('getCustomThemes', async () => {
-  const { customThemesPath } = GlobalConfig.get().getSettings()
+ipcMain.on('copySettingsToClipboard', (e, appName, runner) => {
+  const gameConfig =
+    appName === 'default' ? getGameConfig(appName, runner) : getGlobalConfig()
+  const gameConfigStr = JSON.stringify(gameConfig, null, 2)
+  clipboard.writeText(gameConfigStr)
+})
 
-  if (!existsSync(customThemesPath)) {
+ipcMain.handle('getCustomThemes', async () => {
+  const { customThemesPath } = getGlobalConfig()
+
+  if (!customThemesPath || !existsSync(customThemesPath)) {
     return []
   }
 
@@ -1629,7 +1522,8 @@ ipcMain.handle('getCustomThemes', async () => {
 })
 
 ipcMain.handle('getThemeCSS', async (event, theme) => {
-  const { customThemesPath = '' } = GlobalConfig.get().getSettings()
+  const { customThemesPath } = getGlobalConfig()
+  if (!customThemesPath) return ''
 
   const cssPath = path.join(customThemesPath, theme)
 
@@ -1695,7 +1589,7 @@ ipcMain.on('processShortcut', async (e, combination: string) => {
 ipcMain.handle(
   'getPlaytimeFromRunner',
   async (e, runner, appName): Promise<number | undefined> => {
-    const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
+    const { disablePlaytimeSync } = getGlobalConfig()
     if (disablePlaytimeSync) {
       return
     }
@@ -1744,3 +1638,4 @@ import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
 import './tools/ipc_handler'
 import './progress_bar'
+import './config/ipc_handler'

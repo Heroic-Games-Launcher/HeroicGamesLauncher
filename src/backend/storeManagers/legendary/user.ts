@@ -8,7 +8,7 @@ import { userInfo as user } from 'os'
 import { session } from 'electron'
 import { runRunnerCommand as runLegendaryCommand } from './library'
 import { LegendaryCommand } from './commands'
-import { NonEmptyString } from './commands/base'
+import { NonEmptyString } from 'backend/schemas'
 
 export class LegendaryUser {
   public static async login(

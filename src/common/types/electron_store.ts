@@ -11,7 +11,6 @@ import {
   DMQueueElement,
   GOGLoginData,
   WineManagerUISettings,
-  AppSettings,
   WikiInfo,
   GameInfo,
   WindowProps
@@ -21,7 +20,6 @@ import { NileUserData } from './nile'
 
 export interface StoreStructure {
   configStore: {
-    userHome: string
     userInfo: UserInfo
     games: {
       recent: RecentGame[]
@@ -44,7 +42,6 @@ export interface StoreStructure {
       nileLogFile: string
     }
     'window-props': WindowProps
-    settings: AppSettings
     skipVcRuntime: boolean
     showSnapWarning: boolean
   }

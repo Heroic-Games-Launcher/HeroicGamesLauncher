@@ -2,24 +2,33 @@ import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
-import { defaultWineVersion } from '..'
-import useSetting from 'frontend/hooks/useSetting'
 import { ToggleSwitch } from 'frontend/components/UI'
 import SettingsContext from '../SettingsContext'
 import ContextProvider from 'frontend/state/ContextProvider'
+import { useSharedConfig } from 'frontend/hooks/config'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const AutoDXVK = () => {
   const { t } = useTranslation()
-  const [autoInstallDxvk, setAutoInstallDxvk] = useSetting(
-    'autoInstallDxvk',
-    false
-  )
+  const [
+    autoInstallDxvk,
+    setAutoInstallDxvk,
+    dxvkConfigFetched,
+    dxvkConfigIsDefault,
+    resetDxvkConfig
+  ] = useSharedConfig('autoInstallDxvk')
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
-  const [autoInstallVkd3d] = useSetting('autoInstallVkd3d', false)
-  const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
-  const { appName } = useContext(SettingsContext)
+  const [autoInstallVkd3d, , vkd3dConfigFetched] =
+    useSharedConfig('autoInstallVkd3d')
+  const [wineVersion, , wineVersionConfigFetched] =
+    useSharedConfig('wineVersion')
+  const { appName, runner, isDefault } = useContext(SettingsContext)
   const [installingDxvk, setInstallingDxvk] = React.useState(false)
+
+  if (!dxvkConfigFetched || !vkd3dConfigFetched || !wineVersionConfigFetched) {
+    return <></>
+  }
 
   if (wineVersion.type !== 'wine' || wineVersion.bin.includes('toolkit')) {
     return <></>
@@ -28,10 +37,13 @@ const AutoDXVK = () => {
   const handleAutoInstallDxvk = async () => {
     const action = autoInstallDxvk ? 'restore' : 'backup'
     setInstallingDxvk(true)
-    const res = await window.api.toggleDXVK({
-      appName,
-      action
-    })
+    let res = true
+    if (!isDefault)
+      res = await window.api.toggleDXVK({
+        appName,
+        runner,
+        action
+      })
 
     setInstallingDxvk(false)
     if (res) {
@@ -52,6 +64,12 @@ const AutoDXVK = () => {
         }
         fading={installingDxvk}
         disabled={installingDxvk || (isLinux && autoInstallVkd3d)}
+        inlineElement={
+          <ResetToDefaultButton
+            resetToDefault={resetDxvkConfig}
+            isSetToDefault={dxvkConfigIsDefault}
+          />
+        }
       />
 
       <FontAwesomeIcon

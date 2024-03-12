@@ -1,17 +1,27 @@
 import React, { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
-import useSetting from 'frontend/hooks/useSetting'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 import ContextProvider from 'frontend/state/ContextProvider'
+import { useSharedConfig } from 'frontend/hooks/config'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const EacRuntime = () => {
   const { t } = useTranslation()
   const [installing, setInstalling] = useState(false)
-  const [eacRuntime, setEacRuntime] = useSetting('eacRuntime', false)
-  const [useGameMode, setUseGameMode] = useSetting('useGameMode', false)
+  const [
+    eacRuntime,
+    setEacRuntime,
+    eacConfigFetched,
+    isSetToDefault,
+    resetToDefaultValue
+  ] = useSharedConfig('eacRuntime')
+  const [useGameMode, setUseGameMode, gameModeConfigFetched] =
+    useSharedConfig('gameMode')
   const { showDialogModal, platform } = useContext(ContextProvider)
+
+  if (!eacConfigFetched || !gameModeConfigFetched) return <></>
 
   if (platform !== 'linux') {
     return null
@@ -35,7 +45,7 @@ const EacRuntime = () => {
             buttons: [
               {
                 text: t('box.yes'),
-                onClick: () => setUseGameMode(!useGameMode)
+                onClick: async () => setUseGameMode(!useGameMode)
               },
               { text: t('box.no') }
             ]
@@ -61,6 +71,12 @@ const EacRuntime = () => {
         value={eacRuntime}
         handleChange={handleEacRuntime}
         title={t('settings.eacRuntime.name', 'EasyAntiCheat Runtime')}
+        inlineElement={
+          <ResetToDefaultButton
+            resetToDefault={resetToDefaultValue}
+            isSetToDefault={isSetToDefault}
+          />
+        }
       />
       {installing && (
         <span>

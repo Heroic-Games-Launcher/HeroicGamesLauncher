@@ -14,6 +14,7 @@ interface TextInputWithIconFieldProps {
   disabled?: boolean
   extraClass?: string
   onBlur?: (event: FocusEvent<HTMLInputElement>) => void
+  inlineElement?: ReactNode
 }
 
 const TextInputWithIconField = ({

@@ -2,13 +2,11 @@ import {
   ExecResult,
   ExtraInfo,
   GameInfo,
-  GameSettings,
   InstallArgs,
   InstallPlatform,
   LaunchOption
 } from 'common/types'
 import { libraryStore } from './electronStores'
-import { GameConfig } from '../../game_config'
 import { isWindows, isMac, isLinux } from '../../constants'
 import { killPattern, sendGameStatusUpdate, shutdownWine } from '../../utils'
 import { logInfo, LogPrefix, logWarning } from '../../logger/logger'
@@ -21,8 +19,8 @@ import {
 } from '../../shortcuts/shortcuts/shortcuts'
 import { notify } from '../../dialog/dialog'
 import { launchGame } from 'backend/storeManagers/storeManagerCommon/games'
-import { GOGCloudSavesLocation } from 'common/types/gog'
 import { InstallResult, RemoveArgs } from 'common/types/game_manager'
+import { getGameConfig } from '../../config/game'
 
 export function getGameInfo(appName: string): GameInfo {
   const store = libraryStore.get('games', [])
@@ -32,13 +30,6 @@ export function getGameInfo(appName: string): GameInfo {
     return {}
   }
   return info
-}
-
-export async function getSettings(appName: string): Promise<GameSettings> {
-  return (
-    GameConfig.get(appName).config ||
-    (await GameConfig.get(appName).getSettings())
-  )
 }
 
 export async function addShortcuts(
@@ -85,8 +76,8 @@ export async function stop(appName: string): Promise<void> {
     killPattern(exe)
 
     if (!isNative(appName)) {
-      const gameSettings = await getSettings(appName)
-      shutdownWine(gameSettings)
+      const gameConfig = getGameConfig(appName, 'sideload')
+      shutdownWine(gameConfig)
     }
   }
 }
@@ -110,7 +101,7 @@ export async function uninstall({
     title,
     install: { executable }
   } = gameInfo
-  const { winePrefix } = await getSettings(appName)
+  const { winePrefix } = getGameConfig(appName, 'sideload')
 
   if (shouldRemovePrefix) {
     logInfo(`Removing prefix ${winePrefix}`, LogPrefix.Backend)
@@ -209,12 +200,7 @@ export async function repair(appName: string): Promise<ExecResult> {
   return { stderr: '', stdout: '' }
 }
 
-export async function syncSaves(
-  appName: string,
-  arg: string,
-  path: string,
-  gogSaves?: GOGCloudSavesLocation[]
-): Promise<string> {
+export async function syncSaves(appName: string): Promise<string> {
   logWarning(
     `syncSaves not implemented on Sideload Game Manager. called for appName = ${appName}`
   )

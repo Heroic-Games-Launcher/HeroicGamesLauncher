@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import useSetting from 'frontend/hooks/useSetting'
+import { useGlobalConfig } from 'frontend/hooks/config'
 import { PathSelectionBox } from 'frontend/components/UI'
 
 const AltNileBin = () => {
   const { t } = useTranslation()
   const [nileVersion, setNileVersion] = useState('')
-  const [altNileBin, setAltNileBin] = useSetting('altNileBin', '')
+  const [altNileBin, setAltNileBin] = useGlobalConfig('alternativeNileBinary')
 
   useEffect(() => {
     const getMoreInfo = async () => {
@@ -32,7 +32,7 @@ const AltNileBin = () => {
       )}
       type="file"
       onPathChange={setAltNileBin}
-      path={altNileBin}
+      path={altNileBin ?? ''}
       placeholder={t(
         'placeholder.alt-nile-bin',
         'Using built-in Nile binary...'

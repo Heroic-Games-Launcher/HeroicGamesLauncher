@@ -1,5 +1,4 @@
-import { GameInfo, GameSettings, Runner } from 'common/types'
-import { GameConfig } from '../../game_config'
+import { GameInfo, Runner } from 'common/types'
 import { isMac, isLinux, icon } from '../../constants'
 import {
   appendGamePlayLog,
@@ -31,13 +30,7 @@ import {
 import { BrowserWindow, dialog, Menu } from 'electron'
 import { gameManagerMap } from '../index'
 import { sendGameStatusUpdate } from 'backend/utils'
-
-async function getAppSettings(appName: string): Promise<GameSettings> {
-  return (
-    GameConfig.get(appName).config ||
-    (await GameConfig.get(appName).getSettings())
-  )
-}
+import { getGameConfig } from '../../config/game'
 
 type BrowserGameOptions = {
   browserUrl: string
@@ -124,17 +117,12 @@ export async function launchGame(
     return false
   }
 
-  let {
-    install: { executable }
-  } = gameInfo
+  let executable: string | undefined | null = gameInfo.install.executable
 
   const { browserUrl, customUserAgent, launchFullScreen } = gameInfo
 
-  const gameSettingsOverrides = await GameConfig.get(appName).getSettings()
-  if (
-    gameSettingsOverrides.targetExe !== undefined &&
-    gameSettingsOverrides.targetExe !== ''
-  ) {
+  const gameSettingsOverrides = getGameConfig(appName, 'sideload')
+  if (gameSettingsOverrides.targetExe) {
     executable = gameSettingsOverrides.targetExe
   }
 
@@ -147,8 +135,8 @@ export async function launchGame(
     })
   }
 
-  const gameSettings = await getAppSettings(appName)
-  const { launcherArgs } = gameSettings
+  const gameConfig = getGameConfig(appName, runner)
+  const { launcherArgs } = gameConfig
 
   if (executable) {
     const isNative = gameManagerMap[runner].isNative(appName)
@@ -160,12 +148,12 @@ export async function launchGame(
       gameScopeCommand,
       gameModeBin,
       steamRuntime
-    } = await prepareLaunch(gameSettings, gameInfo, isNative)
+    } = await prepareLaunch(gameConfig, gameInfo, isNative)
 
     if (!isNative) await prepareWineLaunch(runner, appName)
 
     const wrappers = setupWrappers(
-      gameSettings,
+      gameConfig,
       mangoHudCommand,
       gameModeBin,
       gameScopeCommand,
@@ -212,7 +200,7 @@ export async function launchGame(
       const env = {
         ...process.env,
         ...setupWrapperEnvVars({ appName, appRunner: runner }),
-        ...setupEnvVars(gameSettings, gameInfo.install.install_path)
+        ...setupEnvVars(gameConfig, gameInfo.install.install_path)
       }
 
       await callRunner(
@@ -246,7 +234,7 @@ export async function launchGame(
 
     await runWineCommand({
       commandParts: [executable, launcherArgs ?? ''],
-      gameSettings,
+      gameConfig,
       wait: true,
       protonVerb: 'waitforexitandrun',
       startFolder: dirname(executable),

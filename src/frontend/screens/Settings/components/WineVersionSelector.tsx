@@ -3,19 +3,22 @@ import { useTranslation } from 'react-i18next'
 import { InfoBox, SelectField } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { WineInstallation } from 'common/types'
-import useSetting from 'frontend/hooks/useSetting'
-import { defaultWineVersion } from '..'
+import { useSharedConfig } from 'frontend/hooks/config'
 import { Link } from 'react-router-dom'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 export default function WineVersionSelector() {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
 
-  const [wineVersion, setWineVersion] = useSetting(
-    'wineVersion',
-    defaultWineVersion
-  )
+  const [
+    wineVersion,
+    setWineVersion,
+    wineVersionFetched,
+    isSetToDefaultValue,
+    resetToDefaultValue
+  ] = useSharedConfig('wineVersion')
   const [altWine, setAltWine] = useState<WineInstallation[]>([])
   const [validWine, setValidWine] = useState(true)
   const [refreshing, setRefreshing] = useState(true)
@@ -35,15 +38,11 @@ export default function WineVersionSelector() {
   }, [])
 
   useEffect(() => {
-    const updateWine = async () => {
-      const winePathExists = await window.api.pathExists(wineVersion.bin)
-      if (!winePathExists) {
-        return setValidWine(false)
-      }
-      return setValidWine(true)
-    }
-    updateWine()
+    if (!wineVersion) return
+    window.api.pathExists(wineVersion.bin).then(setValidWine)
   }, [wineVersion])
+
+  if (!wineVersionFetched) return <></>
 
   return (
     <SelectField
@@ -53,7 +52,7 @@ export default function WineVersionSelector() {
           : t('setting.crossover-version', 'Crossover/Wine Version')
       }
       htmlId="setWineVersion"
-      onChange={(event) =>
+      onChange={async (event) =>
         setWineVersion(
           altWine.filter(({ name }) => name === event.target.value)[0]
         )
@@ -100,6 +99,12 @@ export default function WineVersionSelector() {
             </InfoBox>
           )}
         </>
+      }
+      inlineElement={
+        <ResetToDefaultButton
+          resetToDefault={resetToDefaultValue}
+          isSetToDefault={isSetToDefaultValue}
+        />
       }
     >
       {altWine.map(({ name }, i) => (

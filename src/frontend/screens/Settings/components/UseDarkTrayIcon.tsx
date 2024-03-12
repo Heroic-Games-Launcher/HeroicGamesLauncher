@@ -1,11 +1,18 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
-import useSetting from 'frontend/hooks/useSetting'
+import { useGlobalConfig } from 'frontend/hooks/config'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const UseDarkTrayIcon = () => {
   const { t } = useTranslation()
-  const [darkTrayIcon, setDarkTrayIcon] = useSetting('darkTrayIcon', false)
+  const [
+    darkTrayIcon,
+    setDarkTrayIcon,
+    ,
+    isSetToDefaultValue,
+    resetToDefaultValue
+  ] = useGlobalConfig('darkTrayIcon')
 
   const toggleDarkTrayIcon = () => {
     setDarkTrayIcon(!darkTrayIcon)
@@ -18,6 +25,12 @@ const UseDarkTrayIcon = () => {
       value={darkTrayIcon}
       handleChange={toggleDarkTrayIcon}
       title={t('setting.darktray', 'Use Dark Tray Icon (needs restart)')}
+      inlineElement={
+        <ResetToDefaultButton
+          resetToDefault={resetToDefaultValue}
+          isSetToDefault={isSetToDefaultValue}
+        />
+      }
     />
   )
 }

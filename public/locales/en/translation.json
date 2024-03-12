@@ -172,7 +172,8 @@
         "cancel": "Cancel",
         "continue": "Continue",
         "go_to_library": "Go to Library",
-        "login": "Log in"
+        "login": "Log in",
+        "reset-to-default": "Reset to default"
     },
     "category-settings": {
         "add-new-category": "Add New Category",
@@ -712,7 +713,6 @@
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Settings to Clipboard",
-        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",

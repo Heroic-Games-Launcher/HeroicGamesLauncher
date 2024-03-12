@@ -8,6 +8,7 @@ interface TextInputFieldProps
   htmlId: string
   inputIcon?: ReactNode
   afterInput?: ReactNode
+  inlineElement?: ReactNode
   label?: string
   placeholder?: string
   extraClass?: string
@@ -22,6 +23,7 @@ const TextInputField = ({
   afterInput,
   warning,
   value,
+  inlineElement,
   ...inputProps
 }: TextInputFieldProps) => {
   const { isRTL } = useContext(ContextProvider)
@@ -33,8 +35,11 @@ const TextInputField = ({
       })}
     >
       {label && <label htmlFor={htmlId}>{label}</label>}
-      {inputIcon}
-      <input type="text" id={htmlId} value={value} {...inputProps} />
+      <div className="inputWrapper">
+        {inputIcon}
+        <input type="text" id={htmlId} value={value} {...inputProps} />
+      </div>
+      <div className="inlineElement">{inlineElement}</div>
       {value && warning}
       {afterInput}
     </div>

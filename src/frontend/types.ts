@@ -1,16 +1,12 @@
 import {
-  AppSettings,
   GameInfo,
   GameStatus,
   Runner,
   ConnectivityStatus,
   DialogType,
   ButtonOptions,
-  LibraryTopSectionOptions,
   DMQueueElement,
   DownloadManagerState,
-  ExperimentalFeatures,
-  GameSettings,
   WikiInfo,
   ExtraInfo,
   Status,
@@ -29,8 +25,6 @@ export interface ContextType {
   language: string
   setLanguage: (newLanguage: string) => void
   libraryStatus: GameStatus[]
-  libraryTopSection: string
-  handleLibraryTopSection: (value: LibraryTopSectionOptions) => void
   platform: NodeJS.Platform | 'unknown'
   refresh: (library: Runner, checkUpdates?: boolean) => Promise<void>
   refreshLibrary: (options: RefreshOptions) => Promise<void>
@@ -96,8 +90,6 @@ export interface ContextType {
   externalLinkDialogOptions: ExternalLinkDialogOptions
   handleExternalLinkDialog: (options: ExternalLinkDialogOptions) => void
   sideloadedLibrary: GameInfo[]
-  hideChangelogsOnStartup: boolean
-  setHideChangelogsOnStartup: (value: boolean) => void
   lastChangelogShown: string | null
   setLastChangelogShown: (value: string) => void
   isSettingsModalOpen: {
@@ -115,8 +107,6 @@ export interface ContextType {
     addHelpItem: (helpItemId: string, helpItem: HelpItem) => void
     removeHelpItem: (helpItemId: string) => void
   }
-  experimentalFeatures: ExperimentalFeatures
-  handleExperimentalFeatures: (newSetting: ExperimentalFeatures) => void
   disableDialogBackdropClose: boolean
   setDisableDialogBackdropClose: (value: boolean) => void
 }
@@ -174,15 +164,6 @@ declare global {
 }
 
 export interface SettingsContextType {
-  getSetting: <T extends keyof AppSettings>(
-    key: T,
-    fallback: NonNullable<AppSettings[T]>
-  ) => NonNullable<AppSettings[T]>
-  setSetting: <T extends keyof AppSettings>(
-    key: T,
-    value: AppSettings[T]
-  ) => void
-  config: Partial<AppSettings>
   isDefault: boolean
   appName: string
   runner: Runner
@@ -236,7 +217,6 @@ export interface GameContextType {
   runner: Runner
   gameInfo: GameInfo | null
   gameExtraInfo: ExtraInfo | null
-  gameSettings: GameSettings | null
   gameInstallInfo: InstallInfo | null
   is: {
     installing: boolean

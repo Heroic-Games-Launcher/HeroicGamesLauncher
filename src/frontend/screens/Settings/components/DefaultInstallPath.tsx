@@ -1,8 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import useSetting from 'frontend/hooks/useSetting'
 import { PathSelectionBox } from 'frontend/components/UI'
 import { hasHelp } from 'frontend/hooks/hasHelp'
+import { useGlobalConfig } from 'frontend/hooks/config'
 
 const DefaultInstallPath = () => {
   const { t } = useTranslation()
@@ -17,10 +17,9 @@ const DefaultInstallPath = () => {
       )}
     </p>
   )
-  const [defaultInstallPath, setDefaultInstallPath] = useSetting(
-    'defaultInstallPath',
-    ''
-  )
+  const [defaultInstallPath, setDefaultInstallPath, defaultInstallPathFetched] =
+    useGlobalConfig('defaultInstallPath')
+  if (!defaultInstallPathFetched) return <></>
 
   return (
     <PathSelectionBox

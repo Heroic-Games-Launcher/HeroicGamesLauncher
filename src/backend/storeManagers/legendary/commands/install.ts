@@ -1,12 +1,11 @@
-import {
-  PositiveInteger,
+import type {
   LegendaryAppName,
-  NonEmptyString,
   Path,
   URL,
   URI,
   LegendaryPlatform
 } from './base'
+import type { NonEmptyString, PositiveInteger } from 'backend/schemas'
 
 interface InstallCommand {
   subcommand: 'install' | 'download' | 'update' | 'repair'

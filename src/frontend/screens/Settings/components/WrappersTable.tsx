@@ -6,32 +6,33 @@ import {
   TableInput
 } from 'frontend/components/UI/TwoColTableInput'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { WrapperVariable } from 'common/types'
-import useSetting from 'frontend/hooks/useSetting'
+import { useSharedConfig } from 'frontend/hooks/config'
+import type { WrapperOption } from 'backend/config/schemas'
 
 const WrappersTable = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isWindow = platform === 'win32'
 
-  const [wrapperOptions, setWrapperOptions] = useSetting('wrapperOptions', [])
+  const [wrapperOptions, setWrapperOptions, wrappersFetched] =
+    useSharedConfig('wrappers')
 
-  if (isWindow) {
+  if (isWindow || !wrappersFetched) {
     return <></>
   }
 
   const getWrapperVariables = () => {
     const columns: ColumnProps[] = []
     wrapperOptions.forEach((opt) =>
-      columns.push({ key: opt.exe, value: opt.args })
+      columns.push({ key: opt.executable, value: opt.arguments })
     )
     return columns
   }
 
   const onWrappersChange = (cols: ColumnProps[]) => {
-    const wrappers: WrapperVariable[] = []
+    const wrappers: WrapperOption[] = []
     cols.forEach((col) =>
-      wrappers.push({ exe: col.key.trim(), args: col.value.trim() })
+      wrappers.push({ executable: col.key.trim(), arguments: col.value.trim() })
     )
     setWrapperOptions(wrappers)
   }

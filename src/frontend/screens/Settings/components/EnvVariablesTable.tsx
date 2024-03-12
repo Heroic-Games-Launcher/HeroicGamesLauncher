@@ -7,19 +7,17 @@ import {
 } from 'frontend/components/UI/TwoColTableInput'
 import { EnviromentVariable } from 'common/types'
 import ContextProvider from 'frontend/state/ContextProvider'
-import useSetting from 'frontend/hooks/useSetting'
+import { useSharedConfig } from 'frontend/hooks/config'
 
 const EnvVariablesTable = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isWindows = platform === 'win32'
 
-  const [environmentOptions, setEnvironmentOptions] = useSetting(
-    'enviromentOptions',
-    []
-  )
+  const [environmentOptions, setEnvironmentOptions, envVarsFetched] =
+    useSharedConfig('environmentVariables')
 
-  if (isWindows) {
+  if (isWindows || !envVarsFetched) {
     return <></>
   }
 

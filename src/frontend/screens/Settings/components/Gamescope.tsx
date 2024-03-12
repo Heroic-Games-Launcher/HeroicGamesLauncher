@@ -1,4 +1,10 @@
-import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
+import React, {
+  ChangeEvent,
+  useCallback,
+  useContext,
+  useEffect,
+  useState
+} from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   SelectField,
@@ -6,27 +12,24 @@ import {
   ToggleSwitch,
   UpdateComponent
 } from 'frontend/components/UI'
-import useSetting from 'frontend/hooks/useSetting'
+import { useSharedConfig } from 'frontend/hooks/config'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import { Button } from '@mui/material'
+import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore'
 
 const Gamescope = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
-  const [gamescope, setGamescope] = useSetting('gamescope', {
-    enableUpscaling: false,
-    enableLimiter: false,
-    windowType: 'fullscreen',
-    gameWidth: '',
-    gameHeight: '',
-    upscaleHeight: '',
-    upscaleWidth: '',
-    upscaleMethod: 'fsr',
-    fpsLimiter: '',
-    fpsLimiterNoFocus: ''
-  })
+  const [
+    gamescope,
+    setGamescope,
+    gamescopeConfigFetched,
+    isSetToDefault,
+    resetToDefault
+  ] = useSharedConfig('gamescope')
   const [fetching, setFetching] = useState(true)
   const [isInstalled, setIsInstalled] = useState(false)
 
@@ -44,15 +47,13 @@ const Gamescope = () => {
       })
   }, [])
 
-  function setResolution(value: string): string | undefined {
-    const re = /^[0-9\b]+$/
+  const parseInputString = useCallback(
+    (value: string): number | null =>
+      isFinite(Number(value)) ? Number(value) : null,
+    []
+  )
 
-    if (value === '' || re.test(value)) {
-      return value
-    }
-
-    return undefined
-  }
+  if (!gamescopeConfigFetched) return <></>
 
   if (!isLinux) {
     return <></>
@@ -91,7 +92,7 @@ const Gamescope = () => {
       value: 'integer'
     },
     { name: t('options.gamescope.stretch', 'Stretch Image'), value: 'stretch' }
-  ]
+  ] as const
 
   const windowTypes = [
     {
@@ -102,19 +103,32 @@ const Gamescope = () => {
       name: t('options.gamescope.borderless', 'Borderless'),
       value: 'borderless'
     }
-  ]
+  ] as const
 
   return (
     <div className="gamescopeSettings">
+      {!isSetToDefault && (
+        <Button
+          onClick={resetToDefault}
+          startIcon={<SettingsBackupRestoreIcon />}
+        >
+          {t('button.reset-to-default', 'Reset to default')}
+        </Button>
+      )}
       {/* Enable Upscale */}
       <div className="toggleRow">
         <ToggleSwitch
           htmlId="gamescopeUpscaleToggle"
-          value={gamescope.enableUpscaling || false}
-          handleChange={() =>
+          value={gamescope.enableUpscaling}
+          handleChange={async () =>
             setGamescope({
               ...gamescope,
-              enableUpscaling: !gamescope.enableUpscaling
+              enableUpscaling: !gamescope.enableUpscaling,
+              gameWidth: null,
+              gameHeight: null,
+              upscaleWidth: null,
+              upscaleHeight: null,
+              upscaleMethod: null
             })
           }
           title={t('setting.gamescope.enableUpscaling', 'Enables Upscaling')}
@@ -137,13 +151,14 @@ const Gamescope = () => {
                 )}
               />
             }
-            onChange={(event: ChangeEvent<HTMLSelectElement>) =>
+            onChange={async (event: ChangeEvent<HTMLSelectElement>) =>
               setGamescope({
                 ...gamescope,
-                upscaleMethod: event.currentTarget.value
+                upscaleMethod: event.currentTarget
+                  .value as (typeof upscaleMethods)[number]['value']
               })
             }
-            value={gamescope.upscaleMethod}
+            value={gamescope.upscaleMethod ?? ''}
           >
             {upscaleMethods.map((el) => (
               <option value={el.value} key={el.value}>
@@ -158,7 +173,7 @@ const Gamescope = () => {
               htmlId="gameWidth"
               placeholder=""
               maxLength={4}
-              value={gamescope.gameWidth}
+              value={(gamescope.gameWidth ?? '').toString()}
               afterInput={
                 <FontAwesomeIcon
                   className="helpIcon"
@@ -172,9 +187,7 @@ const Gamescope = () => {
               onChange={(event: ChangeEvent<HTMLInputElement>) => {
                 setGamescope({
                   ...gamescope,
-                  gameWidth:
-                    setResolution(event.currentTarget.value) ??
-                    gamescope.gameWidth
+                  gameWidth: parseInputString(event.target.value)
                 })
               }}
             />
@@ -184,7 +197,7 @@ const Gamescope = () => {
               htmlId="gameHeight"
               placeholder=""
               maxLength={4}
-              value={gamescope.gameHeight}
+              value={(gamescope.gameHeight ?? '').toString()}
               afterInput={
                 <FontAwesomeIcon
                   className="helpIcon"
@@ -198,9 +211,7 @@ const Gamescope = () => {
               onChange={(event: ChangeEvent<HTMLInputElement>) => {
                 setGamescope({
                   ...gamescope,
-                  gameHeight:
-                    setResolution(event.currentTarget.value) ??
-                    gamescope.gameHeight
+                  gameHeight: parseInputString(event.target.value)
                 })
               }}
             />
@@ -212,7 +223,7 @@ const Gamescope = () => {
               htmlId="upscaleWidth"
               placeholder=""
               maxLength={4}
-              value={gamescope.upscaleWidth}
+              value={(gamescope.upscaleWidth ?? '').toString()}
               afterInput={
                 <FontAwesomeIcon
                   className="helpIcon"
@@ -226,9 +237,7 @@ const Gamescope = () => {
               onChange={(event: ChangeEvent<HTMLInputElement>) => {
                 setGamescope({
                   ...gamescope,
-                  upscaleWidth:
-                    setResolution(event.currentTarget.value) ??
-                    gamescope.upscaleWidth
+                  upscaleWidth: parseInputString(event.target.value)
                 })
               }}
             />
@@ -238,7 +247,7 @@ const Gamescope = () => {
               htmlId="upscaleHeight"
               placeholder=""
               maxLength={4}
-              value={gamescope.upscaleHeight}
+              value={(gamescope.upscaleHeight ?? '').toString()}
               afterInput={
                 <FontAwesomeIcon
                   className="helpIcon"
@@ -252,9 +261,7 @@ const Gamescope = () => {
               onChange={(event: ChangeEvent<HTMLInputElement>) => {
                 setGamescope({
                   ...gamescope,
-                  upscaleHeight:
-                    setResolution(event.currentTarget.value) ??
-                    gamescope.upscaleHeight
+                  upscaleHeight: parseInputString(event.target.value)
                 })
               }}
             />
@@ -263,13 +270,14 @@ const Gamescope = () => {
           <SelectField
             label={'Window Type'}
             htmlId="windowType"
-            onChange={(event: ChangeEvent<HTMLSelectElement>) =>
+            onChange={async (event: ChangeEvent<HTMLSelectElement>) =>
               setGamescope({
                 ...gamescope,
-                windowType: event.currentTarget.value
+                windowType: event.currentTarget
+                  .value as (typeof windowTypes)[number]['value']
               })
             }
-            value={gamescope.windowType}
+            value={gamescope.windowType ?? ''}
           >
             {windowTypes.map((el) => (
               <option value={el.value} key={el.value}>
@@ -284,10 +292,12 @@ const Gamescope = () => {
         <ToggleSwitch
           htmlId="gamescopeLimiterToggle"
           value={gamescope.enableLimiter || false}
-          handleChange={() =>
+          handleChange={async () =>
             setGamescope({
               ...gamescope,
-              enableLimiter: !gamescope.enableLimiter
+              enableLimiter: !gamescope.enableLimiter,
+              fpsLimiter: null,
+              fpsLimiterNoFocus: null
             })
           }
           title={t('setting.gamescope.enableLimiter', 'Enable FPS Limiter')}
@@ -301,7 +311,7 @@ const Gamescope = () => {
             htmlId="fpsLimiter"
             placeholder=""
             maxLength={3}
-            value={gamescope.fpsLimiter}
+            value={(gamescope.fpsLimiter ?? '').toString()}
             afterInput={
               <FontAwesomeIcon
                 className="helpIcon"
@@ -315,9 +325,7 @@ const Gamescope = () => {
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
               setGamescope({
                 ...gamescope,
-                fpsLimiter:
-                  setResolution(event.currentTarget.value) ??
-                  gamescope.fpsLimiter
+                fpsLimiter: parseInputString(event.target.value)
               })
             }}
           />
@@ -330,7 +338,7 @@ const Gamescope = () => {
             htmlId="fpsLimiterNoFocus"
             placeholder=""
             maxLength={3}
-            value={gamescope.fpsLimiterNoFocus}
+            value={(gamescope.fpsLimiterNoFocus ?? '').toString()}
             afterInput={
               <FontAwesomeIcon
                 className="helpIcon"
@@ -344,9 +352,7 @@ const Gamescope = () => {
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
               setGamescope({
                 ...gamescope,
-                fpsLimiterNoFocus:
-                  setResolution(event.currentTarget.value) ??
-                  gamescope.fpsLimiterNoFocus
+                fpsLimiterNoFocus: parseInputString(event.target.value)
               })
             }}
           />

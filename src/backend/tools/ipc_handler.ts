@@ -1,4 +1,3 @@
-import { gameManagerMap } from 'backend/storeManagers'
 import { ipcMain } from 'electron'
 import { Winetricks, runWineCommandOnGame } from '.'
 import path from 'path'
@@ -6,6 +5,7 @@ import { isWindows } from 'backend/constants'
 import { execAsync, sendGameStatusUpdate } from 'backend/utils'
 import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
 import { sendFrontendMessage } from 'backend/main_window'
+import { getGameConfig } from '../config/game'
 
 ipcMain.handle(
   'runWineCommandForGame',
@@ -18,14 +18,15 @@ ipcMain.handle(
     return runWineCommandOnGame(runner, appName, {
       commandParts,
       wait: false,
-      protonVerb: 'runinprefix'
+      protonVerb: 'runinprefix',
+      gameConfig: getGameConfig(appName, runner)
     })
   }
 )
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
 ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
-  const gameSettings = await gameManagerMap[runner].getSettings(appName)
+  const gameConfig = getGameConfig(appName, runner)
 
   switch (tool) {
     case 'winetricks':
@@ -33,7 +34,7 @@ ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
       break
     case 'winecfg':
       await runWineCommandOnGame(runner, appName, {
-        gameSettings,
+        gameConfig,
         commandParts: ['winecfg'],
         wait: false
       })
@@ -42,7 +43,7 @@ ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
       if (exe) {
         const workingDir = path.parse(exe).dir
         await runWineCommandOnGame(runner, appName, {
-          gameSettings,
+          gameConfig,
           commandParts: [exe],
           wait: false,
           startFolder: workingDir

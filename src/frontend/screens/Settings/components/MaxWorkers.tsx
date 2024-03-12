@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SelectField } from 'frontend/components/UI'
-import useSetting from 'frontend/hooks/useSetting'
+import { useGlobalConfig } from 'frontend/hooks/config'
+import type { PositiveInteger } from 'backend/schemas'
+import ResetToDefaultButton from 'frontend/components/UI/ResetToDefaultButton'
 
 const MaxWorkers = () => {
   const { t } = useTranslation()
-  const [maxWorkers, setMaxWorkers] = useSetting('maxWorkers', 0)
+  const [
+    maxWorkers,
+    setMaxWorkers,
+    maxWorkersFetched,
+    isSetToDefaultValue,
+    resetToDefaultValue
+  ] = useGlobalConfig('maxDownloadWorkers')
   const [maxCpus, setMaxCpus] = useState(maxWorkers)
 
   useEffect(() => {
@@ -16,13 +24,27 @@ const MaxWorkers = () => {
     getMoreInfo()
   }, [maxWorkers])
 
+  if (!maxWorkersFetched) return <></>
+
   return (
     <SelectField
       htmlId="max_workers"
       label={t('setting.maxworkers')}
-      onChange={(event) => setMaxWorkers(Number(event.target.value))}
-      value={maxWorkers.toString()}
+      onChange={async (event) =>
+        setMaxWorkers(
+          Number(event.target.value) > 0
+            ? (Number(event.target.value) as PositiveInteger)
+            : null
+        )
+      }
+      value={(maxWorkers ?? 0).toString()}
       extraClass="smaller"
+      inlineElement={
+        <ResetToDefaultButton
+          resetToDefault={resetToDefaultValue}
+          isSetToDefault={isSetToDefaultValue}
+        />
+      }
     >
       {Array.from(Array(maxCpus).keys()).map((n) => (
         <option key={n + 1}>{n + 1}</option>

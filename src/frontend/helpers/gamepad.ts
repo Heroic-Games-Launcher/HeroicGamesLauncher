@@ -1,8 +1,4 @@
-import {
-  AppSettings,
-  GamepadActionStatus,
-  ValidGamepadAction
-} from 'common/types'
+import { GamepadActionStatus, ValidGamepadAction } from 'common/types'
 import {
   checkGameCube,
   checkPS3Clone1,
@@ -24,8 +20,8 @@ let controllerIsDisabled = false
 let currentController = -1
 
 export const initGamepad = () => {
-  window.api.requestAppSettings().then(({ disableController }: AppSettings) => {
-    controllerIsDisabled = disableController || false
+  window.api.config.global.get().then(({ disableController }) => {
+    controllerIsDisabled = disableController
   })
 
   // store the current controllers

@@ -4,7 +4,7 @@ import GameContext from '../../GameContext'
 import { DownloadDone } from '@mui/icons-material'
 import PopoverComponent from 'frontend/components/UI/PopoverComponent'
 import { GameInfo } from 'common/types'
-import ContextProvider from 'frontend/state/ContextProvider'
+import { useGameConfig, useGlobalConfig } from 'frontend/hooks/config'
 
 interface Props {
   gameInfo: GameInfo
@@ -13,14 +13,18 @@ interface Props {
 const InstalledInfo = ({ gameInfo }: Props) => {
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
-  const { gameSettings, runner, is } = useContext(GameContext)
-  const { experimentalFeatures } = useContext(ContextProvider)
+  const { runner, is } = useContext(GameContext)
+
+  const [enableNewDesign] = useGlobalConfig('enableNewDesign')
+  const [wineVersion, , wineVersionFetched] = useGameConfig('wineVersion')
+  const [winePrefix, , winePrefixFetched] = useGameConfig('winePrefix')
+  const [crossoverBottle, , crossoverBottleFetched] =
+    useGameConfig('crossoverBottle')
+
+  if (!wineVersionFetched || !winePrefixFetched || !crossoverBottleFetched)
+    return <></>
 
   if (!gameInfo.is_installed) {
-    return null
-  }
-
-  if (!gameSettings) {
     return null
   }
 
@@ -53,8 +57,6 @@ const InstalledInfo = ({ gameInfo }: Props) => {
 
   const appLocation = install_path || folder_name
 
-  const { wineVersion, winePrefix, wineCrossoverBottle } = gameSettings
-
   let wineName = ''
   let wineType = ''
 
@@ -64,8 +66,7 @@ const InstalledInfo = ({ gameInfo }: Props) => {
       wine = wine.split('-')[0]
     }
     wineName = wine
-    wineType =
-      wineVersion.type === 'crossover' ? wineCrossoverBottle : winePrefix
+    wineType = wineVersion.type === 'crossover' ? crossoverBottle : winePrefix
   }
 
   const info = (
@@ -122,7 +123,7 @@ const InstalledInfo = ({ gameInfo }: Props) => {
     </>
   )
 
-  if (experimentalFeatures.enableNewDesign) {
+  if (enableNewDesign) {
     return info
   }
 

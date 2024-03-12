@@ -3,11 +3,11 @@ import i18next from 'i18next'
 import { RecentGame } from 'common/types'
 import { logInfo, LogPrefix } from '../logger/logger'
 import { handleProtocol } from '../protocol'
-import { getRecentGames, maxRecentGames } from '../recent_games/recent_games'
+import { getRecentGames } from '../recent_games/recent_games'
 import { handleExit, showAboutWindow } from '../utils'
-import { GlobalConfig } from '../config'
 import { iconDark, iconLight } from '../constants'
 import { backendEvents } from '../backend_events'
+import { getGlobalConfig } from '../config/global'
 
 export const initTrayIcon = async (mainWindow: BrowserWindow) => {
   // create icon
@@ -43,9 +43,9 @@ export const initTrayIcon = async (mainWindow: BrowserWindow) => {
   })
 
   backendEvents.on('recentGamesChanged', async (recentGames: RecentGame[]) => {
-    const limit = await maxRecentGames()
-    if (recentGames.length > limit) {
-      recentGames = recentGames.slice(0, limit)
+    const { maxRecentGames } = getGlobalConfig()
+    if (recentGames.length > maxRecentGames) {
+      recentGames = recentGames.slice(0, maxRecentGames)
     }
     await loadContextMenu(recentGames)
   })
@@ -70,8 +70,7 @@ const iconSizesByPlatform = {
 
 // get the icon path based on platform and settings
 const getIcon = (platform = process.platform) => {
-  const settings = GlobalConfig.get().getSettings()
-  const { darkTrayIcon } = settings
+  const { darkTrayIcon } = getGlobalConfig()
 
   return nativeImage
     .createFromPath(darkTrayIcon ? iconDark : iconLight)

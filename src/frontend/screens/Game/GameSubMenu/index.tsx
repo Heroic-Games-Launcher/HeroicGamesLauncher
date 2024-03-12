@@ -69,7 +69,7 @@ export default function GamesSubmenu({
   const isSideloaded = runner === 'sideload'
 
   async function onMoveInstallYesClick() {
-    const { defaultInstallPath } = await window.api.requestAppSettings()
+    const { defaultInstallPath } = await window.api.config.global.get()
     const path = await window.api.openDialog({
       buttonLabel: t('box.choose'),
       properties: ['openDirectory'],
@@ -94,7 +94,7 @@ export default function GamesSubmenu({
   }
 
   async function onChangeInstallYesClick() {
-    const { defaultInstallPath } = await window.api.requestAppSettings()
+    const { defaultInstallPath } = await window.api.config.global.get()
     const path = await window.api.openDialog({
       buttonLabel: t('box.choose'),
       properties: ['openDirectory'],

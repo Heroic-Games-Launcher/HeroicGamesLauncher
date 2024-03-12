@@ -24,7 +24,6 @@ import { CachedImage, UpdateComponent } from 'frontend/components/UI'
 import {
   ExtraInfo,
   GameInfo,
-  GameSettings,
   Runner,
   WikiInfo,
   InstallInfo,
@@ -66,6 +65,7 @@ import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 import Genres from './components/Genres'
 import ReleaseDate from './components/ReleaseDate'
+import { useGlobalConfig } from 'frontend/hooks/config'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -87,9 +87,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
     platform,
     showDialogModal,
     isSettingsModalOpen,
-    connectivity,
-    experimentalFeatures
+    connectivity
   } = useContext(ContextProvider)
+  const [enableNewDesign] = useGlobalConfig('enableNewDesign')
 
   hasHelp(
     'gamePage',
@@ -103,7 +103,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
   )
 
   const [gameInfo, setGameInfo] = useState(locationGameInfo)
-  const [gameSettings, setGameSettings] = useState<GameSettings | null>(null)
 
   const { status, folder, statusContext } = hasStatus(appName, gameInfo)
   const gameAvailable = gameInfo.is_installed && status !== 'notAvailable'
@@ -203,14 +202,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
               setHasError({ error: true, message: `${error}` })
             })
         }
-
-        try {
-          const gameSettings = await window.api.requestGameSettings(appName)
-          setGameSettings(gameSettings)
-        } catch (error) {
-          setHasError({ error: true, message: error })
-          window.api.logError(`${error}`)
-        }
       }
     }
     updateConfig()
@@ -289,7 +280,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
       appName,
       gameInfo,
       runner,
-      gameSettings,
       gameInstallInfo,
       gameExtraInfo: extraInfo,
       is: {
@@ -331,13 +321,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
     return (
       <div className="gameConfigContainer">
-        {!!(art_background ?? art_cover) &&
-          experimentalFeatures.enableNewDesign && (
-            <CachedImage
-              src={art_background || art_cover}
-              className="backgroundImage"
-            />
-          )}
+        {!!(art_background ?? art_cover) && enableNewDesign && (
+          <CachedImage
+            src={art_background || art_cover}
+            className="backgroundImage"
+          />
+        )}
         {gameInfo.runner !== 'sideload' && showModal.show && (
           <InstallModal
             appName={showModal.game}
@@ -349,7 +338,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
         {title ? (
           <GameContext.Provider value={contextValues}>
             {/* OLD DESIGN */}
-            {!experimentalFeatures.enableNewDesign && (
+            {!enableNewDesign && (
               <>
                 <GamePicture
                   art_square={art_square}
@@ -414,7 +403,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
               </>
             )}
             {/* NEW DESIGN */}
-            {experimentalFeatures.enableNewDesign && (
+            {enableNewDesign && (
               <>
                 <div className="mainInfoWrapper">
                   <NavLink
