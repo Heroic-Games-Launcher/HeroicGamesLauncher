@@ -1223,7 +1223,6 @@ export async function getGamesdbData(
       logError(
         [
           `Was not able to get GamesDB data for ${game_id}`,
-          error,
           error.response?.data.error_description
         ],
         LogPrefix.ExtraGameInfo
