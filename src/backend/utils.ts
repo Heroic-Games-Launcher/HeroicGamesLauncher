@@ -679,18 +679,6 @@ function detectVCRedist(mainWindow: BrowserWindow) {
   })
 }
 
-function getFirstExistingParentPath(directoryPath: string): string {
-  let parentDirectoryPath = directoryPath
-  let parentDirectoryFound = existsSync(parentDirectoryPath)
-
-  while (!parentDirectoryFound) {
-    parentDirectoryPath = normalize(parentDirectoryPath + '/..')
-    parentDirectoryFound = existsSync(parentDirectoryPath)
-  }
-
-  return parentDirectoryPath !== '.' ? parentDirectoryPath : ''
-}
-
 const getLatestReleases = async (): Promise<Release[]> => {
   const newReleases: Release[] = []
   logInfo('Checking for new Heroic Updates', LogPrefix.Backend)
@@ -1474,7 +1462,6 @@ export {
   shutdownWine,
   getInfo,
   getShellPath,
-  getFirstExistingParentPath,
   getLatestReleases,
   getWineFromProton,
   getFileSize,
