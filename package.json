@@ -105,7 +105,7 @@
   },
   "devDependencies": {
     "@electron/notarize": "^2.1.0",
-    "@playwright/test": "1.39.0",
+    "@playwright/test": "1.42.1",
     "@testing-library/dom": "9.0.1",
     "@testing-library/jest-dom": "5.16.4",
     "@testing-library/react": "14.0.0",
