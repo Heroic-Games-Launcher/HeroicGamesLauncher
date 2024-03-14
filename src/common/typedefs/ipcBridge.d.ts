@@ -1,9 +1,5 @@
 import { EventEmitter } from 'node:events'
-import {
-  IpcMainEvent,
-  OpenDialogOptions,
-  TitleBarOverlay
-} from 'electron'
+import { IpcMainEvent, OpenDialogOptions, TitleBarOverlay } from 'electron'
 
 import {
   Runner,
