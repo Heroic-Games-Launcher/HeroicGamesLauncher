@@ -1692,10 +1692,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.15.0.tgz#286a65e3fdffd691e170541e6ecb0410b16a38be"
   integrity sha512-z6nr0TTEOBGkzLGmbypWOGnpSpSIBorEhC4L+4HeQ2iezKCi4f77kyslRwvHeNitymGQ+oFyIWGP96l/DPSV9w==
 
-"@types/node@^18.11.18":
-  version "18.18.8"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.18.8.tgz#2b285361f2357c8c8578ec86b5d097c7f464cfd6"
-  integrity sha512-OLGBaaK5V3VRBS1bAkMVP2/W9B+H8meUfl866OrMNQqt7wDgdpWPp5o6gmIc9pB+lIQHSq4ZL8ypeH1vPxcPaQ==
+"@types/node@^20.9.0":
+  version "20.11.27"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.27.tgz#debe5cfc8a507dd60fe2a3b4875b1604f215c2ac"
+  integrity sha512-qyUZfMnCg1KEz57r7pzFtSGt49f6RPkPBis3Vo4PbS7roQEDn22hiHzl/Lo1q4i4hDEgBJmBF/NTNg2XR0HbFg==
   dependencies:
     undici-types "~5.26.4"
 
@@ -3659,12 +3659,12 @@ electron-updater@5.0.1:
     lodash.isequal "^4.5.0"
     semver "^7.3.5"
 
-electron@castlabs/electron-releases#27.0.0+wvcus:
-  version "27.0.0"
-  resolved "https://codeload.github.com/castlabs/electron-releases/tar.gz/6963e958f91aa07eca5409e0ab49446c5cd01247"
+electron@castlabs/electron-releases#29.1.3+wvcus:
+  version "29.1.3"
+  resolved "https://codeload.github.com/castlabs/electron-releases/tar.gz/11c396ff7aa05e8fd8049193b58684f119cc0b8d"
   dependencies:
     "@electron/get" "^2.0.0"
-    "@types/node" "^18.11.18"
+    "@types/node" "^20.9.0"
     extract-zip "^2.0.1"
 
 emittery@^0.13.1:

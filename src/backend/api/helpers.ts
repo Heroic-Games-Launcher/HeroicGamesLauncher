@@ -1,4 +1,4 @@
-import { ipcRenderer, TitleBarOverlayOptions } from 'electron'
+import { ipcRenderer, TitleBarOverlay } from 'electron'
 import {
   Runner,
   InstallPlatform,
@@ -135,7 +135,7 @@ export const getThemeCSS = async (theme: string) =>
 
 export const getCustomThemes = async () => ipcRenderer.invoke('getCustomThemes')
 
-export const setTitleBarOverlay = (options: TitleBarOverlayOptions) =>
+export const setTitleBarOverlay = (options: TitleBarOverlay) =>
   ipcRenderer.send('setTitleBarOverlay', options)
 
 export const isGameAvailable = async (args: {
