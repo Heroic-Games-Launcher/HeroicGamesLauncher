@@ -30,7 +30,7 @@ const HLTBInline = () => {
       <Accordion expanded={isExpanded} onChange={handleChange}>
         <AccordionSummary
           expandIcon={<ExpandMore />}
-          aria-control="hltb-content"
+          aria-controls="hltb-content"
           id="hltb-header"
           title={t('info.clickToOpen', 'Click to open')}
         >
