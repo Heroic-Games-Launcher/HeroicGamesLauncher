@@ -435,7 +435,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
             {experimentalFeatures.enableNewDesign && (
               <>
                 <div className="topRowWrapper">
-                  <div className="opts opts-left">
+                  <div className="opts">
                     <NavLink
                       className="backButton"
                       to={backRoute}
@@ -444,7 +444,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       <ArrowBackIosNew />
                     </NavLink>
                   </div>
-                  <div className="opts opts-right">
+                  <div className="opts">
                     {!isBrowserGame && <SettingsButton gameInfo={gameInfo} />}
                     <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
                   </div>

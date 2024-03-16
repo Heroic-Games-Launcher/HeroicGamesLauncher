@@ -482,8 +482,6 @@
 
   .topRowWrapper {
     display: flex;
-    flex-direction: row;
-    gap: min(var(--space-lg), 50px);
     position: sticky;
     top: var(--space-lg);
     grid-area: top;
@@ -496,14 +494,6 @@
       > * {
         box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);
       }
-    }
-
-    .opts-left {
-      justify-content: flex-start;
-    }
-
-    .opts-right {
-      justify-content: flex-end;
     }
   }
 
