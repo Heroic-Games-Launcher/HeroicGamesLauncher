@@ -414,20 +414,15 @@ class LogWriter {
     // for them so we can write them in the right order
     let messagesToWrite: string[] = []
     for (const item of itemsInQueue) {
-      if (typeof item === 'string') {
-        messagesToWrite.push(item)
-      } else {
-        try {
-          let result = await item
+      try {
+        let result = await item
 
-          // support a promise returning a string or an array of strings
-          if (typeof result === 'string') {
-            result = [result]
-          }
-          messagesToWrite = messagesToWrite.concat(result)
-        } catch (error) {
-          logError(error, LogPrefix.Backend)
-        }
+        // support promises returning a string or an array of strings
+        result = Array.isArray(result) ? result : [result]
+
+        messagesToWrite = messagesToWrite.concat(result)
+      } catch (error) {
+        logError(error, LogPrefix.Backend)
       }
     }
 
