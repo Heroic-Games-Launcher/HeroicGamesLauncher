@@ -169,7 +169,10 @@
         "wineprefix": "Vyberte složku WinePrefix",
         "yes": "ANO",
         "dontShowAgain": "Znovu nezobrazovat",
-        "choose-nile-binary": "Vyberte binární soubor Nile"
+        "choose-nile-binary": "Vyberte binární soubor Nile",
+        "update": "Aktualizovat",
+        "changelog": "Seznam změn",
+        "postpone": "Odložit"
     },
     "button": {
         "cancel": "Zrušit",
@@ -884,6 +887,12 @@
         "wine-ge-lol": "Sestavení Wine-GE-Proton...-LoL jsou vytvořeny pro použití POUZE ve hře League of Legends. Tato sestavení by NEMĚLA být použita pro jiné hry, jelikož mohou způsobit problémy."
     },
     "emptyLibrary": {
-        "noGames": "Vaše knihovna je prázdná. Můžete se <1>přihlásit</1> prostřednictvím obchodu nebo kliknout na <3></3> pro jeho ruční přidání."
+        "noGames": "Vaše knihovna je prázdná. Můžete se <1>přihlásit</1> prostřednictvím obchodu nebo kliknout na <3></3> pro jeho ruční přidání.",
+        "noResults": "S nastavenými filtry nebyl nalezen žádný výsledek."
+    },
+    "adtraction-locked": {
+        "title": "Služba adtraction je blokována",
+        "description": "Vypadá to, že doména track.adtraction.com je blokovaná. Se službou adtraction finančně podpoříte Heroic každým nákupem provedeným v obchodě GOG. Zvažte prosím odstranění blokování, pokud si přejete přispět projektu.",
+        "dont-show-again": "Toto varování již nezobrazovat"
     }
 }

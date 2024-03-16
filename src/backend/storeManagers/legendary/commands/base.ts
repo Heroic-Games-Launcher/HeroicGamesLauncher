@@ -1,7 +1,9 @@
 import { z } from 'zod'
 import path from 'path'
-import { hasGame } from '../library'
 import { existsSync } from 'graceful-fs'
+
+import { Path } from 'backend/schemas'
+import { hasGame } from '../library'
 
 export const LegendaryAppName = z
   .string()
@@ -16,12 +18,6 @@ export type LegendaryPlatform = z.infer<typeof LegendaryPlatform>
 
 export const NonEmptyString = z.string().min(1).brand('NonEmptyString')
 export type NonEmptyString = z.infer<typeof NonEmptyString>
-
-export const Path = z
-  .string()
-  .refine((val) => path.parse(val).root, 'Path is not valid')
-  .brand('Path')
-export type Path = z.infer<typeof Path>
 
 export const PositiveInteger = z
   .number()

@@ -159,7 +159,7 @@ export default function LibraryFilters() {
       <div className="dropdown">
         {epic.username && storeToggle('legendary')}
         {gog.username && storeToggle('gog')}
-        {amazon.username && storeToggle('nile')}
+        {amazon.user_id && storeToggle('nile')}
         {storeToggle('sideload')}
 
         <hr />

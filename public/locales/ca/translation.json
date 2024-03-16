@@ -169,7 +169,10 @@
         "wineprefix": "Tria la carpeta del WinePrefix",
         "yes": "SÍ",
         "dontShowAgain": "No tornis a mostrar",
-        "choose-nile-binary": "Seleccioneu el binari del Nil"
+        "choose-nile-binary": "Seleccioneu el binari del Nil",
+        "update": "Actualitza",
+        "changelog": "Registre de canvis",
+        "postpone": "Posposa"
     },
     "button": {
         "cancel": "Cancel·la",
@@ -879,7 +882,11 @@
     },
     "wineExplanation": {
         "proton-ge": "Proton-GE-Proton és una variant del Proton creada per Glorious Eggroll. S'ha de fer servir amb l'Steam, però alguns jocs de fora de l'Steam també poden funcionar millor amb el Proton-GE-Proton. Proporciona registres generalment poc útils per a la solució de problemes.",
-        "wine-ge-lol": "El Wine-GE-Proton...-LoL estan dissenyats per a fer-los servir només amb el League of Legends. No s'han d'utilitzar aquests per a qualsevol altre joc, ja que pot causar problemes.",
+        "wine-ge-lol": "Els Wine-GE-Proton...-LoL estan dissenyats per a fer-los servir només amb el League of Legends. No s'han de fer servir per a altres jocs, ja que poden causar problemes.",
         "wine-ge": "Wine-GE-Proton és una variant del Wine creada per Glorious Eggroll. És el Wine recomanat per a fer servir fora d'Steam. Proporciona registres útils per a la solució de problemes."
+    },
+    "emptyLibrary": {
+        "noGames": "La vostra biblioteca està buida. Podeu <1>iniciar sessió</1> en alguna botiga o fer clic <3></3> per a afegir-ne una manualment.",
+        "noResults": "Els filtres actuals no han produït cap resultat."
     }
 }

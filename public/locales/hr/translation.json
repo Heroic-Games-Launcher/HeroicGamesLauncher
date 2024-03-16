@@ -162,7 +162,8 @@
         "wineprefix": "Odaberite WinePrefix mapu",
         "yes": "DA",
         "dontShowAgain": "Ne prikazuj više",
-        "choose-nile-binary": "Odaberite Nile binary"
+        "choose-nile-binary": "Odaberite Nile binary",
+        "update": "Update"
     },
     "button": {
         "cancel": "Cancel",

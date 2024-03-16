@@ -187,7 +187,9 @@
     },
     "setting": {
         "use-default-wine-settings": "Fes servir la configuració predefinida del Wine",
-        "winecrossoverbottle": "Ampolla CrossOver"
+        "winecrossoverbottle": "Ampolla CrossOver",
+        "warn-use-default-wine-settings": "Feu servir aquesta opció només si sabeu què feu.<br/>Si es comparteix el mateix prefix per a diversos jocs, poden produir-se alguns problemes si les seves dependències no són compatibles.",
+        "show-wine-settings": "Mostra la configuració del Wine"
     },
     "sideload": {
         "field": {

@@ -1,4 +1,4 @@
-import { Path } from './base'
+import type { Path } from 'backend/schemas'
 
 interface EglSyncCommand {
   subcommand: 'egl-sync'

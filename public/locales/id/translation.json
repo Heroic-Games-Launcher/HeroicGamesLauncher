@@ -166,7 +166,8 @@
         "wineprefix": "Pilih Folder Prefiks Wine",
         "yes": "YA",
         "dontShowAgain": "Jangan tampilkan lagi",
-        "choose-nile-binary": "Pilih Nile binary"
+        "choose-nile-binary": "Pilih Nile binary",
+        "update": "Perbarui"
     },
     "button": {
         "cancel": "Batalkan",

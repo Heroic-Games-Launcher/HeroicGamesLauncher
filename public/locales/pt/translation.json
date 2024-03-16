@@ -168,7 +168,8 @@
         "wineprefix": "Escolha a Pasta com o Prefixo Wine",
         "yes": "SIM",
         "dontShowAgain": "Não mostrar novamente",
-        "choose-nile-binary": "Selecione o binário do Nilo"
+        "choose-nile-binary": "Selecione o binário do Nilo",
+        "update": "Atualizar"
     },
     "button": {
         "cancel": "Cancelar",

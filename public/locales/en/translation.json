@@ -9,6 +9,11 @@
         "zoom": "Zoom"
     },
     "add_game": "Add Game",
+    "adtraction-locked": {
+        "description": "It seems the track.adtraction.com domain was unable to load or is blocked. With adtraction, any purchase you make in the GOG store supports Heroic financially. Consider removing the block if you wish to contribute.",
+        "dont-show-again": "Don't show this warning again",
+        "title": "Adtraction is blocked"
+    },
     "Amazon Games": "Amazon Games",
     "anticheat": {
         "anticheats": "Anticheats",
@@ -23,6 +28,7 @@
             "message": "Heroic cache cleared.",
             "title": "Cache cleared"
         },
+        "changelog": "Changelog",
         "choose": "Choose",
         "choose-egs-prefix": "Choose Prefix where EGS is installed",
         "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
@@ -83,7 +89,6 @@
         },
         "info": {
             "update": {
-                "changelog": "Open changelog",
                 "detail": "Do you want to download the update in the background?",
                 "message": "There is a new Version available!",
                 "message-finished": "Do you want to restart Heroic now?",
@@ -93,6 +98,7 @@
         },
         "no": "NO",
         "ok": "OK",
+        "postpone": "Postpone",
         "protocol": {
             "install": {
                 "not_installed": "Currently not installed. Install it?"
@@ -126,6 +132,7 @@
             "error": "Invalid Path",
             "title": "Choose the saves directory"
         },
+        "update": "Update",
         "vcruntime": {
             "install": {
                 "message": "The download links for the Visual C++ Runtimes have been opened. Please install both the x86 and x64 versions."
@@ -851,7 +858,7 @@
     "wineExplanation": {
         "proton-ge": "Proton-GE-Proton is a Proton variant created by Glorious Eggroll. It is meant to be used in Steam, but some games outside Steam may work better with this variant. It provides mostly useless logs for troubleshooting.",
         "wine-ge": "Wine-GE-Proton is a Wine variant created by Glorious Eggroll. It is the recommended Wine to be used outside Steam. This provides useful logs when troubleshooting.",
-        "wine-ge-lol": "Wine-GE-Proton...-LoL builds are meant to be used ONLY for League of Legends. These buils should NOT be used for any other game since they can cause problems."
+        "wine-ge-lol": "Wine-GE-Proton...-LoL builds are meant to be used ONLY for League of Legends. These builds should NOT be used for any other game since they can cause problems."
     },
     "winetricks": {
         "install": "Install",

@@ -575,9 +575,15 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   if (!gameSettings.enableFsync && wineVersion.type === 'proton') {
     ret.PROTON_NO_FSYNC = '1'
   }
-  if (gameSettings.autoInstallDxvkNvapi && wineVersion.type === 'proton') {
-    ret.PROTON_ENABLE_NVAPI = '1'
-    ret.DXVK_NVAPI_ALLOW_OTHER_DRIVERS = '1'
+  if (wineVersion.type === 'proton') {
+    if (gameSettings.autoInstallDxvkNvapi) {
+      ret.PROTON_ENABLE_NVAPI = '1'
+      ret.DXVK_NVAPI_ALLOW_OTHER_DRIVERS = '1'
+    }
+    // proton 9 enabled NVAPI by default
+    else {
+      ret.PROTON_DISABLE_NVAPI = '1'
+    }
   }
   if (gameSettings.autoInstallDxvkNvapi && wineVersion.type === 'wine') {
     ret.DXVK_ENABLE_NVAPI = '1'
@@ -993,6 +999,10 @@ async function callRunner(
   let bin = runner.bin
   let fullRunnerPath = join(runner.dir, bin)
 
+  // macOS/Linux: `spawn`ing an executable in the current working directory
+  // requires a "./"
+  if (!isWindows) bin = './' + bin
+
   // On Windows: Use PowerShell's `Start-Process` to wait for the process and
   // its children to exit, provided PowerShell is available
   if (shouldUsePowerShell === null)
@@ -1005,10 +1015,10 @@ async function callRunner(
       'Start-Process',
       `"\`"${fullRunnerPath}\`""`,
       '-Wait',
-      '-ArgumentList',
-      argsAsString,
       '-NoNewWindow'
     ]
+    if (argsAsString) commandParts.push('-ArgumentList', argsAsString)
+
     bin = fullRunnerPath = 'powershell'
   }
 
