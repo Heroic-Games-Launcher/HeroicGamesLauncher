@@ -485,15 +485,15 @@
     position: sticky;
     top: var(--space-lg);
     grid-area: top;
-    justify-content: space-between;
+    gap: var(--space-sm);
     z-index: 30;
 
-    .opts {
-      display: flex;
-      gap: var(--space-xs);
-      > * {
-        box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);
-      }
+    & > * {
+      box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);
+    }
+
+    .backButton {
+      margin-inline-end: auto;
     }
   }
 
@@ -772,7 +772,6 @@
     width: 44px;
     position: relative;
     padding: 6px;
-    right: 6px;
     background: var(--neutral-03);
     border-radius: 10px;
     display: grid;

@@ -435,19 +435,15 @@ export default React.memo(function GamePage(): JSX.Element | null {
             {experimentalFeatures.enableNewDesign && (
               <>
                 <div className="topRowWrapper">
-                  <div className="opts">
-                    <NavLink
-                      className="backButton"
-                      to={backRoute}
-                      title={t2('webview.controls.back', 'Go Back')}
-                    >
-                      <ArrowBackIosNew />
-                    </NavLink>
-                  </div>
-                  <div className="opts">
-                    {!isBrowserGame && <SettingsButton gameInfo={gameInfo} />}
-                    <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
-                  </div>
+                  <NavLink
+                    className="backButton"
+                    to={backRoute}
+                    title={t2('webview.controls.back', 'Go Back')}
+                  >
+                    <ArrowBackIosNew />
+                  </NavLink>
+                  {!isBrowserGame && <SettingsButton gameInfo={gameInfo} />}
+                  <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
                 </div>
                 <div className="mainInfoWrapper">
                   <div className="mainInfo">
