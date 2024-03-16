@@ -14,6 +14,7 @@ import {
   EnableEsync,
   EnableFSR,
   EnableFsync,
+  EnableMsync,
   EnvVariablesTable,
   GameMode,
   LauncherArgs,
@@ -42,7 +43,6 @@ import SyncSaves from '../SyncSaves'
 import FooterInfo from '../FooterInfo'
 import { Tabs, Tab } from '@mui/material'
 import { GameInfo } from 'common/types'
-import EnableMsync from '../../components/EnableMsync'
 
 type TabPanelProps = {
   children?: React.ReactNode
