@@ -1,9 +1,5 @@
 import { sendFrontendMessage } from '../../main_window'
-import axios, {
-  AxiosError,
-  AxiosRequestHeaders,
-  AxiosResponse
-} from 'axios'
+import axios, { AxiosError, AxiosRequestHeaders, AxiosResponse } from 'axios'
 import { GOGUser } from './user'
 import {
   GameInfo,
