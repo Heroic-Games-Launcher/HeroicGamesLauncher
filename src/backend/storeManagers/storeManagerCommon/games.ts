@@ -8,7 +8,7 @@ import {
   LogPrefix,
   logWarning
 } from '../../logger/logger'
-import { dirname } from 'path'
+import { basename, dirname } from 'path'
 import { constants as FS_CONSTANTS } from 'graceful-fs'
 import i18next from 'i18next'
 import {
@@ -220,7 +220,7 @@ export async function launchGame(
         {
           name: runner,
           logPrefix: LogPrefix.Backend,
-          bin: executable,
+          bin: basename(executable),
           dir: dirname(executable)
         },
         {

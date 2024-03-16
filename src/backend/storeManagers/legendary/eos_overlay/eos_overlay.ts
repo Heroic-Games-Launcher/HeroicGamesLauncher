@@ -9,9 +9,10 @@ import { callAbortController } from 'backend/utils/aborthandler/aborthandler'
 import { sendGameStatusUpdate } from 'backend/utils'
 import { gameManagerMap } from '../..'
 import { LegendaryCommand } from '../commands'
-import { Path, ValidWinePrefix } from '../commands/base'
+import { ValidWinePrefix } from '../commands/base'
 import { setCurrentDownloadSize } from '../games'
 import { runRunnerCommand as runLegendaryCommand } from '../library'
+import { Path } from 'backend/schemas'
 
 import type { Runner } from 'common/types'
 

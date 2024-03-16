@@ -169,7 +169,8 @@
         "wineprefix": "Wine-Präfix-Ordner auswählen",
         "yes": "JA",
         "dontShowAgain": "Nicht erneut anzeigen",
-        "choose-nile-binary": "Wähle eine Nile-Binärdatei aus"
+        "choose-nile-binary": "Wähle eine Nile-Binärdatei aus",
+        "update": "Update"
     },
     "button": {
         "cancel": "Abbrechen",

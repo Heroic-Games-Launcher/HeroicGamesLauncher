@@ -162,7 +162,8 @@
         "wineprefix": "Valige Wine prefiksi kaust",
         "yes": "JAH",
         "dontShowAgain": "Ära näita enam",
-        "choose-nile-binary": "Valige Niiluse kahendkood"
+        "choose-nile-binary": "Valige Niiluse kahendkood",
+        "update": "Update"
     },
     "button": {
         "cancel": "Cancel",

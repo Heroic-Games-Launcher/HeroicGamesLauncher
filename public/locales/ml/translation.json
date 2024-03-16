@@ -168,7 +168,8 @@
         "wineprefix": "വൈനിരിക്കുന്ന അറ തിരഞ്ഞെടുക്കൂ",
         "yes": "ശരി",
         "dontShowAgain": "വീണ്ടും കാണിക്കരുത്",
-        "choose-nile-binary": "നൈൽ ബൈനറി തിരഞ്ഞെടുക്കുക"
+        "choose-nile-binary": "നൈൽ ബൈനറി തിരഞ്ഞെടുക്കുക",
+        "update": "Update"
     },
     "button": {
         "cancel": "Cancel",

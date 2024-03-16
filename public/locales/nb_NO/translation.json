@@ -1,13 +1,13 @@
 {
     "accessibility": {
         "actions_font_family_no_default": "Actions Font Family (Default: ",
-        "all_tiles_in_color": "Vis alle spillbrikker i farger",
+        "all_tiles_in_color": "Vis alle spillfliser i farger",
         "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Skrifter",
-        "title": "tilgjengelighet",
+        "title": "Tilgjengelighet",
         "zoom": "Zoom"
     },
-    "add_game": "Add Game",
+    "add_game": "Legg til spill",
     "All": "Alle",
     "anticheat": {
         "anticheats": "Anticheats",
@@ -28,13 +28,13 @@
         "choose-legendary-binary": "Velg kjørbar Legendary-fil",
         "customWine": "Velg kjørbar Wine- eller Proton-fil",
         "default-install-path": "Velg forvalgt installasjonssted",
-        "default-steam-path": "Dampbane.",
+        "default-steam-path": "Steam sti.",
         "downloadNow": "Last ned nå",
         "error": {
             "add": {
                 "steam": {
                     "body": "Å legge til {{game}} til Steam mislyktes med:{{newLine}} {{error}}",
-                    "title": "Legge til feil"
+                    "title": "Feil ved å legge til"
                 }
             },
             "credentials": {
@@ -59,7 +59,7 @@
                 "message": "En ukjent feil oppstod",
                 "title": "Ukjent feil"
             },
-            "launchAborted": "Launch aborted",
+            "launchAborted": "Oppstart avbrutt",
             "title": "Feil",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
@@ -97,7 +97,7 @@
                 "title-finished": "Oppgradering fullført"
             }
         },
-        "no": "Nei",
+        "no": "NEI",
         "ok": "OK",
         "protocol": {
             "install": {
@@ -157,7 +157,8 @@
         "wineprefix": "Velg mappe for Wine-prefiks",
         "yes": "Ja",
         "dontShowAgain": "Ikke vis igjen",
-        "choose-nile-binary": "Velg Nile binær"
+        "choose-nile-binary": "Velg Nile binær",
+        "update": "Update"
     },
     "button": {
         "cancel": "Cancel",
@@ -198,14 +199,14 @@
             "disk": "Disk",
             "speed": "Download"
         },
-        "link": "Downloads",
+        "link": "Nedlastninger",
         "queue": {
-            "end-time": "Finished at",
-            "queue-time": "Added at",
-            "start-time": "Started at",
+            "end-time": "Fullført",
+            "queue-time": "Lagt til",
+            "start-time": "Startet",
             "type": "Type"
         },
-        "title": "Downloads",
+        "title": "Nedlastninger",
         "ETA": "Beregnet tid"
     },
     "epic": {
@@ -217,8 +218,9 @@
     "favourites": "Favoritter",
     "game": {
         "status": "Status",
-        "store": "butikk",
-        "title": "Spilltittel"
+        "store": "Butikk",
+        "title": "Spilltittel",
+        "modify": "Endre installasjonen"
     },
     "generic": {
         "error": {
@@ -240,7 +242,15 @@
         "show_favourites_only": "Vis kun favoritter",
         "show_hidden": "Vis skjult",
         "store": "Filterbutikk",
-        "filters": "Filtrer"
+        "filters": "Filtrer",
+        "show_installed_only": "Vis bare installerte",
+        "categories": "Kategorier",
+        "no_categories": "Ingen egendefinerte kategorier. Legg til kategorier ved hjelp av hver enkelt spillmeny.",
+        "only": "bare",
+        "select_all": "Velg alt",
+        "reset": "Tilbakestill",
+        "show_support_offline_only": "Vis kun støttet uten nett",
+        "uncategorized": "Ukategorisert"
     },
     "help": {
         "amdfsr": "AMDs FSR bidrar til å øke bildefrekvensen ved å oppskalere lavere oppløsninger i fullskjermmodus. Bildekvaliteten øker fra 5 til 1 på bekostning av et lite ytelsestreff. Aktivering kan forbedre ytelsen.",
@@ -284,7 +294,27 @@
         "disable_logs": "Slå denne avmerkingsboksen PÅ for å deaktivere de fleste skrivingene til loggfiler (kritisk informasjon logges alltid). Sørg for å slå AV denne innstillingen før du rapporterer problemer.",
         "title": {
             "login": "Logg inn",
-            "downloadManager": "Download Manager"
+            "downloadManager": "Download Manager",
+            "library": "Bibliotek",
+            "settings": "Innstillinger",
+            "accessibility": "Tilgjengelighet",
+            "wineManager": "Wine-administrering"
+        },
+        "content": {
+            "downloadManager": "Viser nåværende og tidligere nedlastinger.",
+            "accessibility": "Viser tilgjengelighetsinnstillinger.",
+            "customThemesPath": "Sjekk wikien vår.",
+            "library": "Viser alle eide spill.",
+            "login": "Logg inn i de forskjellige butikkene.",
+            "settingsDefault": "Viser alle innstillinger for Heroic og standardinnstillinger for spill.",
+            "defaultInstallPath": "Dette er standardstien som er forhåndsvalgt når du installerer spill.",
+            "settingsGame": "Vis alle innstillinger for et spill.",
+            "wineManager": "Installer forskjellige versjoner av Wine, Proton, Crossover, osv."
+        },
+        "disablePlaytimeSync": "Deaktiverer spilletidsynkronisering med gitte butikkservere (for øyeblikket støttes kun GOG)",
+        "button": {
+            "close": "Lukk hjelp",
+            "open": "Åpne hjelp"
         }
     },
     "info": {
@@ -299,7 +329,7 @@
             "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "Innstillinger lagres automatisk",
-        "version": "Vinversjon"
+        "version": "Wine-versjon"
     },
     "infobox": {
         "help": "Hjelp",
@@ -319,10 +349,11 @@
         "path": "Velg Installer bane"
     },
     "label": {
-        "loading": "Loading"
+        "loading": "Loading",
+        "releaseDate": "Utgivelsesdato"
     },
     "library": {
-        "refresh": "Forfriske",
+        "refresh": "Oppfrisk",
         "sortAscending": "Sorter stigende",
         "sortByStatus": "Sorter etter status",
         "sortDescending": "Sorter synkende",
@@ -341,7 +372,8 @@
         "epic": "Epic Games Login",
         "gog": "GOG Login",
         "message": "Login with your platform. You can login to more than one platform at the same time.",
-        "amazon": "Amazon-pålogging"
+        "amazon": "Amazon-pålogging",
+        "old-mac": "MacOS-versjonen din er {{version}}. macOS 12 eller nyere kreves for å logge på."
     },
     "message": {
         "sync": "Synkronisering fullført",
@@ -458,18 +490,18 @@
     "progress": "Framgang",
     "queue": {
         "label": {
-            "canceled": "Canceled",
-            "clear": "Clear List",
-            "downloading": "Downloading",
-            "empty": "Nothing to download",
-            "finished": "Completed",
-            "queued": "Queued",
-            "remove": "Remove from Downloads",
+            "canceled": "Avbrutt",
+            "clear": "Tøm liste",
+            "downloading": "Laster ned",
+            "empty": "Ingenting å laste ned",
+            "finished": "Fullført",
+            "queued": "I kø",
+            "remove": "Fjern fra Nedlastninger",
             "pause": "Pause nedlasting",
             "resume": "Fortsett nedlastingen"
         }
     },
-    "Recent": "Spillt nylig",
+    "Recent": "Nylig spilt",
     "search": "Skriv inn spillnavnet her …",
     "setting": {
         "adddesktopshortcuts": "Legg til skrivebordssnarveier automatisk",
@@ -483,8 +515,8 @@
         "change-target-exe": "Velg en alternativ EXE å kjøre",
         "checkForUpdatesOnStartup": "Se etter heroiske oppdateringer ved oppstart",
         "crossover-version": "Crossover-versjon",
-        "custom_themes_path": "Custom Themes Path",
-        "customWineProton": "Egendefinerte vin-/protonbaner",
+        "custom_themes_path": "Stil til egendefinerte temaer",
+        "customWineProton": "Egendefinerte wine-/proton stier",
         "darktray": "Bruk mørkt skuff-ikon",
         "default-install-path": "Standard installasjonsbane",
         "default-steam-path": "Standard Steam-bane",
@@ -576,7 +608,7 @@
         "steamruntime": "Bruk Steam Runtime",
         "winecrossoverbottle": "CrossOver flaske",
         "wineprefix": "WinePrefix-mappen",
-        "wineversion": "Vinversjon",
+        "wineversion": "Wine-versjon",
         "autoUpdateGames": "Oppdater spill automatisk",
         "ignoreGameUpdates": "Ignorer spilloppdateringer",
         "disable_logs": "Deaktiver logger",
@@ -589,7 +621,7 @@
             "installing": "Installerer BattlEye Runtime...",
             "name": "BattlEye AntiCheat Runtime"
         },
-        "clear-cache": "Tøm heroisk cache",
+        "clear-cache": "Tøm Heroic hurtigbuffer",
         "copiedToClipboard": "Kopiert til utklippstavlen!",
         "copyToClipboard": "Kopier alle innstillinger til utklippstavlen",
         "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
@@ -627,9 +659,28 @@
         },
         "advanced": {
             "clearCache": {
-                "help8": "Installerte spill"
+                "help8": "Installerte spill",
+                "help5": "Amazon-bibliotekinformasjon (liste over spill, installeringsdialoginformasjon)",
+                "help4": "GOG-bibliotekinformasjon (liste over spill, installeringsdialoginformasjon, api-informasjon - dvs. krav-)",
+                "help7": "Butikkpålogging",
+                "help9": "Spillinnstillinger",
+                "help1": "Denne handlingen vil tømme følgende hurtigbuffre:",
+                "help10": "Heroic konfigurering",
+                "help2": "Tredjeparts spillinformasjon (score, steam-kompatibilitet, howlongtobeat, pcgamingwiki, applegamingwiki)",
+                "help6": "Dette vil IKKE slette:",
+                "help3": "Legendarisk bibliotekinformasjon (liste over spill, installeringsdialoginformasjon, spillinformasjon)"
             },
-            "details": "Detaljer"
+            "details": "Detaljer",
+            "title": {
+                "clearCache": "Tøm hurtigbufferen",
+                "resetHeroic": "Tilbakestill Heroic"
+            },
+            "resetHeroic": {
+                "help": "Dette vil fjerne alle innstillinger og hurtigbufring, men vil ikke fjerne de installerte spillene dine eller Epic-legitimasjonen din. Bærbare versjoner (AppImage, WinPortable, ...) av Heroic må startes på nytt manuelt etterpå."
+            }
+        },
+        "experimental_features": {
+            "title": "Eksperimentelle funksjoner"
         }
     },
     "Settings": "Innstillinger",
@@ -643,7 +694,7 @@
         "processing": "Behandler filer, vennligst vent",
         "preparing_login": "Forbereder pålogging... "
     },
-    "store": "Episk butikk",
+    "store": "Epic butikken",
     "stores": "Butikker",
     "title": {
         "allGames": "Alle spill"
@@ -720,6 +771,15 @@
     },
     "category-settings": {
         "cancel": "Cancel",
-        "warning": "Warning"
+        "warning": "Warning",
+        "new-category": "Ny kategori",
+        "remove-category": "Fjern kategori"
+    },
+    "emptyLibrary": {
+        "noGames": "Biblioteket ditt er tomt. Du kan <1>logge inn</1> ved å bruke en butikk eller klikke <3></3> for å legge til manuelt.",
+        "noResults": "De nåværende filtrene ga ingen resultater."
+    },
+    "window": {
+        "close": "Lukk"
     }
 }

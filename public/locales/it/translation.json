@@ -169,7 +169,8 @@
         "wineprefix": "Seleziona la cartella del prefisso di Wine",
         "yes": "SI",
         "dontShowAgain": "Non mostrare più",
-        "choose-nile-binary": "Seleziona binario di Nile"
+        "choose-nile-binary": "Seleziona binario di Nile",
+        "update": "Aggiorna"
     },
     "button": {
         "cancel": "Annulla",

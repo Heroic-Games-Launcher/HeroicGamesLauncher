@@ -1,6 +1,6 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Yazı Tipi Ailesi Eylemleri (Varsayılan: ",
+        "actions_font_family_no_default": "Actions Yazı Tipi Ailesi (Öntanımlı):",
         "all_tiles_in_color": "Tüm oyun karolarını renkli göster",
         "content_font_family_no_default": "Yazı Tipi Ailesi İçeriği (Varsayılan: ",
         "fonts": "Yazı Tipleri",
@@ -169,7 +169,8 @@
         "wineprefix": "Wine Prefix Klasörünü Seçin",
         "yes": "EVET",
         "dontShowAgain": "Tekrar gösterme",
-        "choose-nile-binary": "Nil ikili dosyasını seçin"
+        "choose-nile-binary": "Nil ikili dosyasını seçin",
+        "update": "Update"
     },
     "button": {
         "cancel": "İptal et",
@@ -660,7 +661,7 @@
         "experimental_features": {
             "enableNewDesign": "Yeni tasarım",
             "enableHelp": "Yardım bileşeni",
-            "automaticWinetricksFixes": "Bilinen Winetricks düzeltmelerini kendiliğinden uygula"
+            "automaticWinetricksFixes": "Bilinen düzeltmeleri kendiliğinden uygula"
         },
         "frameless-window": {
             "confirmation": {
@@ -751,11 +752,18 @@
         },
         "advanced": {
             "clearCache": {
-                "help8": "Installed Games"
+                "help8": "Installed Games",
+                "help1": "Bu eylem aşağıdaki ön bellekleri temizleyecek:",
+                "help10": "Heroic yapılandırma",
+                "help7": "Mağaza oturum açma",
+                "help9": "Oyun ayarları",
+                "help6": "Bu işlem aşağıdakileri SİLMEYECEK:"
             },
             "title": {
-                "resetHeroic": "Heroic'i Sıfırla"
-            }
+                "resetHeroic": "Heroic'i Sıfırla",
+                "clearCache": "Ön Belleği Temizle"
+            },
+            "details": "Ayrıntılar"
         }
     },
     "Settings": "Ayarlar",
@@ -862,5 +870,8 @@
         "delete-question": "Devam ederseniz bu kategori tüm oyunlardan ataması kalıcı olarak kaldırılacak. Devam edelim mi?",
         "new-category": "Yeni Kategori",
         "add-new-category": "Yeni Kategori Ekle"
+    },
+    "emptyLibrary": {
+        "noResults": "Geçerli süzgeç hiçbir sonuç üretmedi."
     }
 }

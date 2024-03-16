@@ -169,7 +169,8 @@
         "wineprefix": "Ange Wine-prefix mapp",
         "yes": "Ja",
         "dontShowAgain": "Visa inte igen",
-        "choose-nile-binary": "Välj Nile binär"
+        "choose-nile-binary": "Välj Nile binär",
+        "update": "Uppdatering"
     },
     "button": {
         "cancel": "Avbryt",
@@ -881,5 +882,9 @@
         "wine-ge-lol": "Wine-GE-Proton...-LoL-byggen är avsedda att ENDAST användas för League of Legends. Dessa byggen bör INTE användas för något annat spel eftersom de kan orsaka problem.",
         "proton-ge": "Proton-GE-Proton är en Proton-variant skapad av Glorious Eggroll. Den är tänkt att användas för Steam, men vissa spel utanför Steam kan fungera bättre med denna variant. Den ger mestadels värdelösa loggar för felsökning.",
         "wine-ge": "Wine-GE-Proton är en Wine variant skapad av Glorious Eggroll. Det är den rekommenderade wine som ska användas utanför Steam. Detta ger användbara loggar vid felsökning."
+    },
+    "emptyLibrary": {
+        "noGames": "Ditt bibliotek är tomt. Du kan <1>logga in</1> med en butik eller klicka på <3></3> för att lägga till en manuellt.",
+        "noResults": "De nuvarande filtren gav inga resultat."
     }
 }

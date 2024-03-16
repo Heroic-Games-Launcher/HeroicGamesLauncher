@@ -33,58 +33,60 @@
         },
         "uninstall": {
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
-            "message": "이 게임을 제거하시겠습니까?",
-            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+            "message": "{{title}}을 제거하시겠습니까?",
+            "settingcheckbox": "설정을 제거하고 로그를 제거합니다. {{newLine}}Note: 이것은 필수입니다. 모든 변경된 설정은 초기화되고 로그는 제거됩니다.",
             "title": "설치 제거",
             "prefix_warning": "이 게임의 Wine 설치 경로는 기본 설치 경로입니다. 정말로 삭제하고 싶다면 수동으로 삭제해야 합니다.",
-            "dlc": "이 DLC를 제거하시겠습니까?"
+            "dlc": "{{title}}의 DLC를 제거하시겠습니까?"
         },
         "update": {
-            "message": "이 게임에 업데이트가 있습니다, 지금 업데이트하시겠습니까?",
+            "message": "새로운 업데이트가 있습니다, 업데이트 하시겠습니까?",
             "title": "게임 업데이트 필요"
         },
         "wineprefix": "WinePrefix 폴더 선택",
-        "yes": "예"
+        "yes": "네",
+        "close": "닫기"
     },
     "button": {
         "add_to_favourites": "즐겨찾기에 추가",
         "cancel": "일시정지/취소",
-        "continue": "계속 다운로드",
-        "finish": "Finish",
+        "continue": "다운로드 계속",
+        "finish": "완료",
         "force_update": "사용 가능한 경우 강제 업데이트",
-        "force-innstall": "Force Install",
-        "hide_game": "게임 숨김",
-        "import": "게임 들여오기",
+        "force-innstall": "강제 다운로드",
+        "hide_game": "게임 숨기기",
+        "import": "게임 가져오기",
         "install": "설치",
-        "no-path-selected": "No path selected",
+        "no-path-selected": "경로가 선택되지 않음",
         "queue": {
-            "remove": "Remove from Queue"
+            "remove": "대기열에서 제거"
         },
         "remove_from_favourites": "즐겨찾기에서 제거",
-        "remove_from_recent": "Remove From Recent",
-        "run-exe-first": "Run Installer First",
-        "running-setup": "Running Setup",
+        "remove_from_recent": "최근 기록에서 제거",
+        "run-exe-first": "Installer 먼저 실행",
+        "running-setup": "설치 실행",
         "sideload": {
-            "edit": "Edit App/Game"
+            "edit": "앱 수정/게임"
         },
         "unhide_game": "게임 숨기기 해제",
         "uninstall": "설치 제거",
         "update": "업데이트",
-        "details": "세부 정보"
+        "details": "세부 정보",
+        "changelog": "변경로그 보기"
     },
-    "cloud_save_unsupported": "Unsupported",
-    "disabled": "비활성화",
+    "cloud_save_unsupported": "지원되지 않음",
+    "disabled": "비활성화됨",
     "dlc": {
         "installDlcs": "모든 DLC를 설치합니다"
     },
-    "enabled": "활성화",
+    "enabled": "활성화됨",
     "game": {
-        "downloadSize": "다운로드 크기",
+        "downloadSize": "설치 크기",
         "firstPlayed": "처음 플레이",
-        "getting-download-size": "Geting download size",
-        "getting-install-size": "Geting install size",
+        "getting-download-size": "다운로드 크기 불러오기",
+        "getting-install-size": "설치 크기 불러오기",
         "installSize": "설치 크기",
-        "language": "Language",
+        "language": "언어",
         "lastPlayed": "마지막 플레이",
         "neverPlayed": "플레이 한 적 없음",
         "platform": "설치할 플랫폼 버전 선택",
@@ -92,40 +94,47 @@
         "totalPlayed": "플레이 시간",
         "dlcs": "DLCs",
         "branch": {
-            "disabled": "비활성화"
+            "disabled": "비활성화됨",
+            "password": "개인 채널 비밀번호 설정",
+            "select": "베타 채널 선택",
+            "setPrivateBranchPassword": "개인 채널 비밀번호 설정"
         },
         "builds": {
-            "version": "버전"
-        }
+            "version": "버전",
+            "buildsSelector": "게임 버전 선택",
+            "toggle": "게임을 특정 버전으로 유지"
+        },
+        "changelogFor": "{{gameTitle}} 변경로그 확인",
+        "modify": "설치 수정"
     },
     "gamecard": {
         "moving": "옮기는 중",
         "repairing": "복구 중"
     },
     "generic": {
-        "error": "알 수 없는 오류",
+        "error": "알수 없는 오류",
         "noDescription": "가능한 설명이 없습니다"
     },
-    "hours": "Hours",
+    "hours": "시간",
     "how-long-to-beat": {
-        "completionist": "Completionist",
-        "main-plus-extras": "Main + Extras",
-        "main-story": "Main Story"
+        "completionist": "Completionist(완료까지 걸리는 시간?)",
+        "main-plus-extras": "메인 + 추가 요소",
+        "main-story": "메인 스토리"
     },
-    "howLongToBeat": "How Long To Beat",
+    "howLongToBeat": "클리어 하는데 걸리는 시간(걸린 시간)",
     "info": {
-        "canRunOffline": "네트워크 연결이 필요합니다",
+        "canRunOffline": "네트워크 연결 필요",
         "installedPlatform": "설치된 플랫폼",
         "path": "설치 경로",
         "size": "크기",
-        "syncsaves": "세이브 동기화",
+        "syncsaves": "저장 동기화",
         "version": "버전",
         "apple-gaming-wiki": "AppleGamingWiki 등급",
         "clickToOpen": "클릭하여 열기",
         "game-scores": "게임 점수",
-        "installedInfo": "설치된 정보",
+        "installedInfo": "설치 정보",
         "protondb-compatibility-info": "양성자 호환성 계층",
-        "steamdeck-compatibility-info": "SteamDeck 호환성"
+        "steamdeck-compatibility-info": "스팀덱 호환성"
     },
     "install": {
         "disk-space-left": "사용 가능한 공간",
@@ -134,7 +143,11 @@
         "path-not-writtable": "경고: 경로가 쓰기가 불가능할 수 있습니다.",
         "space-after-install": "설치 후",
         "wineprefix": "WinePrefix",
-        "wineversion": "Wine 버전"
+        "wineversion": "Wine 버전",
+        "anticheat-warning": {
+            "cancel": "아니오",
+            "install": "예(프로그램이 정상적으로 작동하지 않을 것을 확인했습니다)"
+        }
     },
     "label": {
         "game": {
@@ -233,6 +246,12 @@
         "logs": "로그"
     },
     "help": {
-        "cloud_save_unsupported": "이 게임은 클라우드 저장을 지원하지 않습니다. 이 정보는 게임 개발자가 제공합니다. 일부 게임은 자체 클라우드 저장 시스템을 구현합니다"
+        "cloud_save_unsupported": "이 게임은 클라우드 저장을 지원하지 않습니다. 이 정보는 게임 개발자에 의해 제공됩니다. 일부 게임은 자체 클라우드 저장 시스템을 지원합니다",
+        "content": {
+            "gamePage": "게임의 모든 세부사항과 활동(action)을 보여줍니다. 더 많은 옵션을 위해서는 점 세개 메뉴를 사용하시오."
+        },
+        "title": {
+            "gamePage": "게임 페이지"
+        }
     }
 }
