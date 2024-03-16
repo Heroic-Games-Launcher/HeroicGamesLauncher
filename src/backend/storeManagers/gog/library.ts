@@ -1,11 +1,9 @@
 import { sendFrontendMessage } from '../../main_window'
 import axios, {
   AxiosError,
-  AxiosInstance,
   AxiosRequestHeaders,
   AxiosResponse
 } from 'axios'
-import https from 'node:https'
 import { GOGUser } from './user'
 import {
   GameInfo,
