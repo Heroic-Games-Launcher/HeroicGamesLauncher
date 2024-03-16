@@ -232,10 +232,13 @@ export default function GamesSettings() {
             <OfflineMode />
           </>
         )}
-        <BeforeLaunchScriptPath />
         <AlternativeExe />
-        <AfterLaunchScriptPath />
         <LauncherArgs />
+        <div className="Field">
+          <label>Scripts:</label>
+          <BeforeLaunchScriptPath />
+          <AfterLaunchScriptPath />
+        </div>
         <WrappersTable />
         <EnvVariablesTable />
         {!isSideloaded && <PreferedLanguage />}
