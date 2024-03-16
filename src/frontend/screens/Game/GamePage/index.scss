@@ -663,7 +663,8 @@
           align-items: center;
           border-bottom: 1px solid var(--base-06);
 
-          &:focus-visible, &:focus-within {
+          &:focus-visible,
+          &:focus-within {
             outline: 2px auto -webkit-focus-ring-color;
           }
 
