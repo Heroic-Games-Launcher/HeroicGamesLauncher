@@ -24,6 +24,7 @@ import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { CachedImage, UpdateComponent, TabPanel } from 'frontend/components/UI'
+import UninstallModal from 'frontend/components/UI/UninstallModal'
 
 import {
   ExtraInfo,
@@ -83,6 +84,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const { gameInfo: locationGameInfo } = location.state
 
   const [showModal, setShowModal] = useState({ game: '', show: false })
+  const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [wikiInfo, setWikiInfo] = useState<WikiInfo | null>(null)
 
   const {
@@ -353,6 +355,15 @@ export default React.memo(function GamePage(): JSX.Element | null {
             gameInfo={gameInfo}
           />
         )}
+        {showUninstallModal && (
+          <UninstallModal
+            appName={appName}
+            runner={runner}
+            onClose={() => setShowUninstallModal(false)}
+            isDlc={false}
+          />
+        )}
+
         {title ? (
           <GameContext.Provider value={contextValues}>
             {/* OLD DESIGN */}
@@ -477,10 +488,15 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         className="mainBtn"
                       />
                       {gameInfo.is_installed && (
-                        <button className="button is-danger delBtn">
+                        <button
+                          className="button is-danger delBtn"
+                          onClick={() => {
+                            setShowUninstallModal(true)
+                          }}
+                        >
                           <span className="buttonWithIcon">
-                            <DeleteOutline />
                             {t('button.uninstall', 'Uninstall')}
+                            <DeleteOutline />
                           </span>
                         </button>
                       )}
