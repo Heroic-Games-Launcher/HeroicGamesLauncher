@@ -45,6 +45,7 @@ electronTest('webview', async (app) => {
       'value',
       'https://www.google.com/'
     )
+    await page.waitForTimeout(200)
 
     // go back twice to end up in the library
     await page.getByTitle('Go back').click()
