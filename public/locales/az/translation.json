@@ -157,7 +157,8 @@
         "wineprefix": "Şərab Prefiks Qovluğu seçin",
         "yes": "HƏ",
         "dontShowAgain": "Bir daha göstərmə",
-        "choose-nile-binary": "Nil binarını seçin"
+        "choose-nile-binary": "Nil binarını seçin",
+        "update": "Update"
     },
     "button": {
         "cancel": "Cancel",

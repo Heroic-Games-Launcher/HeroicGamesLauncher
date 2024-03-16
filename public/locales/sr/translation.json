@@ -139,7 +139,8 @@
         "wineprefix": "Изаберите Wine префикс фасциклу",
         "yes": "ДА",
         "dontShowAgain": "Не приказуј поново",
-        "choose-nile-binary": "Изаберите бинарни Нил"
+        "choose-nile-binary": "Изаберите бинарни Нил",
+        "update": "Ажурирај"
     },
     "anticheat": {
         "status": "Статус",

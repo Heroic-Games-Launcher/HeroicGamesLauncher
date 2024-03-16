@@ -162,7 +162,8 @@
         "wineprefix": "Alegeți dosarul Wine Prefix",
         "yes": "DA",
         "dontShowAgain": "Nu mai arăta",
-        "choose-nile-binary": "Selectați binarul Nil"
+        "choose-nile-binary": "Selectați binarul Nil",
+        "update": "Update"
     },
     "button": {
         "cancel": "Cancel",
@@ -729,5 +730,8 @@
     "category-settings": {
         "cancel": "Cancel",
         "warning": "Warning"
+    },
+    "window": {
+        "close": "Închide"
     }
 }

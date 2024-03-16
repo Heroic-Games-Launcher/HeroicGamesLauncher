@@ -162,7 +162,8 @@
         "wineprefix": "Selecteer een Wine Prefix Folder",
         "yes": "JA",
         "dontShowAgain": "Niet meer laten zien",
-        "choose-nile-binary": "Selecteer Nijl binair"
+        "choose-nile-binary": "Selecteer Nijl binair",
+        "update": "Update"
     },
     "button": {
         "cancel": "Cancel",

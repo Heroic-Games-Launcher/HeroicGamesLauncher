@@ -1,4 +1,5 @@
-import { LegendaryAppName, LegendaryPlatform, Path } from './base'
+import type { Path } from 'backend/schemas'
+import type { LegendaryAppName, LegendaryPlatform } from './base'
 
 interface ImportCommand {
   subcommand: 'import'

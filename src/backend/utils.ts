@@ -428,12 +428,7 @@ function showItemInFolder(item: string) {
 
 function splitPathAndName(fullPath: string): { dir: string; bin: string } {
   const dir = dirname(fullPath)
-  let bin = basename(fullPath)
-  // On Windows, you can just launch executables that are in the current working directory
-  // On Linux, you have to add a ./
-  if (!isWindows) {
-    bin = './' + bin
-  }
+  const bin = basename(fullPath)
   // Make sure to always return this as `dir, bin` to not break path
   // resolution when using `join(...Object.values(...))`
   return { dir, bin }
@@ -682,18 +677,6 @@ function detectVCRedist(mainWindow: BrowserWindow) {
       logInfo('VCRuntime is installed', LogPrefix.Backend)
     }
   })
-}
-
-function getFirstExistingParentPath(directoryPath: string): string {
-  let parentDirectoryPath = directoryPath
-  let parentDirectoryFound = existsSync(parentDirectoryPath)
-
-  while (!parentDirectoryFound) {
-    parentDirectoryPath = normalize(parentDirectoryPath + '/..')
-    parentDirectoryFound = existsSync(parentDirectoryPath)
-  }
-
-  return parentDirectoryPath !== '.' ? parentDirectoryPath : ''
 }
 
 const getLatestReleases = async (): Promise<Release[]> => {
@@ -1479,7 +1462,6 @@ export {
   shutdownWine,
   getInfo,
   getShellPath,
-  getFirstExistingParentPath,
   getLatestReleases,
   getWineFromProton,
   getFileSize,

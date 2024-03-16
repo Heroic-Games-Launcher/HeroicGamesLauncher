@@ -350,6 +350,14 @@ async function setup(
 
       const commandParts = [exePath, ...exeArguments]
 
+      // HACKS zone
+
+      // Force hands-free setup for PHYSXLEGACY
+      if (dep === 'PHYSXLEGACY') {
+        commandParts.unshift('msiexec', '/i')
+        commandParts.push('/qb')
+      }
+
       logInfo(['SETUP: Installing redist', foundDep.readableName], {
         prefix: LogPrefix.Gog
       })

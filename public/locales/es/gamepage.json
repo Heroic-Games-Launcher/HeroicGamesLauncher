@@ -72,7 +72,8 @@
         "unhide_game": "Mostrar juego",
         "uninstall": "Desinstalar",
         "update": "Actualizar",
-        "details": "Detalles"
+        "details": "Detalles",
+        "changelog": "Mostrar registro de cambios"
     },
     "cloud_save_unsupported": "No compatible",
     "disabled": "Deshabilitado",
@@ -94,11 +95,18 @@
         "totalPlayed": "Tiempo jugado",
         "dlcs": "DLCs",
         "branch": {
-            "disabled": "Desactivada"
+            "disabled": "Desactivada",
+            "select": "Seleccionar canal beta",
+            "setPrivateBranchPassword": "Establecer contraseña de canal privado",
+            "password": "Establecer contraseña de canal privado"
         },
         "builds": {
-            "version": "Versión"
-        }
+            "version": "Versión",
+            "buildsSelector": "Selecciona la versión del juego",
+            "toggle": "Mantener el juego en una versión específica"
+        },
+        "modify": "Modificar instalación",
+        "changelogFor": "Registro de cambios de {{gameTitle}}"
     },
     "gamecard": {
         "moving": "Moviendo",
@@ -160,7 +168,8 @@
         "launching": "Ejecutando",
         "ubisoft": "Instalando Ubisoft Connect",
         "winetricks": "Instalar paquetes Winetricks",
-        "prerequisites": "Instalación de los equisitos previos"
+        "prerequisites": "Instalación de los equisitos previos",
+        "redist": "Instalación de redistribuibles"
     },
     "launch": {
         "options": "Opciones de arranque..."
@@ -178,7 +187,9 @@
     },
     "setting": {
         "use-default-wine-settings": "Utilizar la configuración predeterminada de Wine",
-        "winecrossoverbottle": "Botella de CrossOver"
+        "winecrossoverbottle": "Botella de CrossOver",
+        "show-wine-settings": "Mostrar la configuración de Wine",
+        "warn-use-default-wine-settings": "Utiliza esta opción solo si sabes lo que estás haciendo.<br/>Compartir el mismo prefijo para varios juegos puede crear problemas si sus dependencias son incompatibles."
     },
     "sideload": {
         "field": {
@@ -230,7 +241,8 @@
         "gog-goodie": "Este juego no parece ser instalable. Consulta el contenido descargable en https://gog.com/account",
         "goodie": "No instalable",
         "prerequisites": "Instalación de los equisitos previos",
-        "winetricks": "Aplicación de las correcciones de Winetricks"
+        "winetricks": "Aplicación de las correcciones de Winetricks",
+        "redist": "Instalación de redistribuibles ({{redist}})"
     },
     "submenu": {
         "addShortcut": "Añadir acceso directo",
@@ -257,5 +269,14 @@
         "title": {
             "gamePage": "Página del juego"
         }
+    },
+    "modifyInstall": {
+        "nodlcs": "Ningún DLC disponible",
+        "redMod": {
+            "collapsible": "Integración de REDmod",
+            "enable": "Activar mods"
+        },
+        "versionCollapsable": "Versión del juego",
+        "dlcsCollapsible": "DLC"
     }
 }

@@ -1,6 +1,6 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Família de Fontes Action (Padrão: ",
+        "actions_font_family_no_default": "Família de Fontes (Padrão):",
         "all_tiles_in_color": "Mostrar todos os quadrados de jogos com cores",
         "content_font_family_no_default": "Família de Fontes Content (Padrão: ",
         "fonts": "Fontes",
@@ -169,7 +169,9 @@
         "wineprefix": "Selecione a pasta do prefixo Wine",
         "yes": "SIM",
         "dontShowAgain": "Não mostrar novamente",
-        "choose-nile-binary": "Selecione o binário do Nilo"
+        "choose-nile-binary": "Selecione o binário do Nilo",
+        "update": "Atualização",
+        "changelog": "Registro de Alterações"
     },
     "button": {
         "cancel": "Cancelar",
@@ -230,7 +232,8 @@
     "game": {
         "status": "Status",
         "store": "Loja",
-        "title": "Título do jogo"
+        "title": "Título do jogo",
+        "modify": "Modificar instalação"
     },
     "generic": {
         "error": {
@@ -657,7 +660,7 @@
         "experimental_features": {
             "enableNewShinyFeature": "Novidade",
             "enableNewDesign": "Novo design",
-            "automaticWinetricksFixes": "Aplicar correções conhecidas do Winetricks automaticamente",
+            "automaticWinetricksFixes": "Aplicar correções conhecidas automaticamente",
             "enableHelp": "Componente de ajuda"
         },
         "disablePlaytimeSync": "Desativar a sincronização do tempo de jogo",
@@ -750,10 +753,24 @@
         },
         "advanced": {
             "clearCache": {
-                "help8": "Jogos Instalados"
+                "help8": "Jogos Instalados",
+                "help10": "Configuração do Heroic",
+                "help1": "Essa ação vai limpar os seguintes caches:",
+                "help9": "Configurações dos jogos",
+                "help2": "Informações de terceiros (notas, compatibilidade steam, howlongtobeat, pcgamingwiki, applegamingwiki)",
+                "help7": "Login na Loja",
+                "help3": "Informações da Biblioteca do Legendary (lista de jogos, diálogo de informações de instalação, informação do jogo)",
+                "help6": "Isto NÃO apagará:",
+                "help4": "Informações da Biblioteca do GOG (lista de jogos, diálogo de informações de instalação, informação da api -ex: requisitos-)",
+                "help5": "Informações da Biblioteca da Amazon (lista de jogos, diálogo de informações de instalação)"
             },
             "title": {
-                "resetHeroic": "Redefinir o Heroic"
+                "resetHeroic": "Redefinir o Heroic",
+                "clearCache": "Limpar Cache"
+            },
+            "details": "Detalhes",
+            "resetHeroic": {
+                "help": "Isso irá remover todas as Configurações e Caching, mas não removerá seus jogos Instalados ou suas credenciais Epic. Versões portáteis (AppImage, WinPortable, ...) do heroic precisam ser reiniciadas manualmente logo depois."
             }
         }
     },
@@ -861,5 +878,13 @@
         "maximize": "Maximizar janela",
         "close": "Fechar",
         "restore": "Restaurar janela"
+    },
+    "emptyLibrary": {
+        "noResults": "Os filtros atuais não geraram resultados.",
+        "noGames": "Sua biblioteca está vazia. Você pode <1>log in</1> usando a loja ou clicar <3></3> para adicionar um manualmente."
+    },
+    "wineExplanation": {
+        "proton-ge": "Proton-GE-Proton é uma variante Proton criada por Glorious Eggroll. É feita para ser usada na Steam, mas alguns jogos fora da Steam podem trabalhar melhor com essa variante. Ela fornece logs majoritariamente inúteis para solução de problemas.",
+        "wine-ge": "Wine-GE-Proton é uma variante Wine criada por Glorious Eggroll. É o Wine recomendado para ser usado fora da Steam. Ele fornece logs úteis para solução de problemas."
     }
 }

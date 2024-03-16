@@ -162,7 +162,8 @@
         "wineprefix": "Vyberte Priečinok predpony vína",
         "yes": "ÁNO",
         "dontShowAgain": "Už nezobrazovať",
-        "choose-nile-binary": "Vyberte binárny Níl"
+        "choose-nile-binary": "Vyberte binárny Níl",
+        "update": "Aktualizovať"
     },
     "button": {
         "cancel": "Cancel",

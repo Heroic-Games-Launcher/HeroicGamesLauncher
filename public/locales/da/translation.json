@@ -152,7 +152,8 @@
         },
         "default-steam-path": "Dampvej.",
         "dontShowAgain": "Vis ikke igen",
-        "choose-nile-binary": "Vælg Nile binær"
+        "choose-nile-binary": "Vælg Nile binær",
+        "update": "Opdater"
     },
     "All": "Alle",
     "accessibility": {

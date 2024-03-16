@@ -1,4 +1,5 @@
-import { LegendaryAppName, Path } from './base'
+import type { Path } from 'backend/schemas'
+import type { LegendaryAppName } from './base'
 
 interface MoveCommand {
   subcommand: 'move'

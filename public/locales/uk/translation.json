@@ -169,7 +169,8 @@
         "wineprefix": "Вибрати папку префікса Wine",
         "yes": "ТАК",
         "dontShowAgain": "Не показувати більше",
-        "choose-nile-binary": "Вибрати двійковий файл Nile"
+        "choose-nile-binary": "Вибрати двійковий файл Nile",
+        "update": "Оновлення"
     },
     "button": {
         "cancel": "Скасувати",

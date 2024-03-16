@@ -30,7 +30,8 @@
                 "title": "Башкарылу өчен EXE файлын сайлау"
             }
         },
-        "default-steam-path": "Steam юлы."
+        "default-steam-path": "Steam юлы.",
+        "update": "Яңарту"
     },
     "infobox": {
         "requirements": "Система таләпләре",
