@@ -169,7 +169,8 @@
         "wineprefix": "Wybierz folder z prefiksem Wine",
         "yes": "TAK",
         "dontShowAgain": "Nie pokazuj więcej",
-        "choose-nile-binary": "Wybierz plik wykonywalny Nile"
+        "choose-nile-binary": "Wybierz plik wykonywalny Nile",
+        "update": "Aktualizuj"
     },
     "button": {
         "cancel": "Anuluj",

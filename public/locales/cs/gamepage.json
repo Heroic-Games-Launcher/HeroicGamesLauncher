@@ -187,7 +187,9 @@
     },
     "setting": {
         "use-default-wine-settings": "Použít výchozí nastavení Wine",
-        "winecrossoverbottle": "CrossOver Bottle"
+        "winecrossoverbottle": "CrossOver Bottle",
+        "warn-use-default-wine-settings": "Tuto možnost použijte pouze pokud víte, co děláte.<br/>Sdílení stejného prefixu pro více her může způsobit problémy, pokud jsou jejich závislosti nekompatibilní.",
+        "show-wine-settings": "Zobrazit nastavení Wine"
     },
     "sideload": {
         "field": {

@@ -169,7 +169,8 @@
         "wineprefix": "Selecciona la carpeta de los prefijos para Wine",
         "yes": "SÍ",
         "dontShowAgain": "No volver a mostrar",
-        "choose-nile-binary": "Seleccionar binario del Nile"
+        "choose-nile-binary": "Seleccionar binario del Nile",
+        "update": "Actualizar"
     },
     "button": {
         "cancel": "Cancelar",
@@ -230,7 +231,8 @@
     "game": {
         "status": "Estado",
         "store": "Tienda",
-        "title": "Título del juego"
+        "title": "Título del juego",
+        "modify": "Modificar instalación"
     },
     "generic": {
         "error": {

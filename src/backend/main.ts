@@ -26,8 +26,6 @@ import 'backend/updater'
 import { autoUpdater } from 'electron-updater'
 import { cpus } from 'os'
 import {
-  access,
-  constants,
   existsSync,
   rmSync,
   unlinkSync,
@@ -40,7 +38,6 @@ import {
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
 import { join } from 'path'
-import checkDiskSpace from 'check-disk-space'
 import { DXVK, Winetricks } from './tools'
 import { GameConfig } from './game_config'
 import { GlobalConfig } from './config'
@@ -57,7 +54,6 @@ import {
   showItemInFolder,
   getFileSize,
   detectVCRedist,
-  getFirstExistingParentPath,
   getLatestReleases,
   getShellPath,
   getCurrentChangelog,
@@ -570,54 +566,27 @@ ipcMain.on('unlock', () => {
   }
 })
 
-ipcMain.handle('checkDiskSpace', async (event, folder) => {
-  const parent = getFirstExistingParentPath(folder)
-  return new Promise<DiskSpaceData>((res) => {
-    access(parent, constants.W_OK, async (writeError) => {
-      const { free, size: diskSize } = await checkDiskSpace(folder).catch(
-        (checkSpaceError) => {
-          logError(
-            [
-              'Failed to check disk space for',
-              `"${folder}":`,
-              checkSpaceError.stack ?? `${checkSpaceError}`
-            ],
-            LogPrefix.Backend
-          )
-          return { free: 0, size: 0 }
-        }
-      )
-      if (writeError) {
-        logWarning(
-          [
-            'Cannot write to',
-            `"${folder}":`,
-            writeError.stack ?? `${writeError}`
-          ],
-          LogPrefix.Backend
-        )
-      }
+ipcMain.handle('checkDiskSpace', async (_e, folder): Promise<DiskSpaceData> => {
+  // We only need to look at the root directory for used/free space
+  // Trying to query this for a directory that doesn't exist (which `folder`
+  // might be) will not work
+  const { root } = path.parse(folder)
 
-      const isValidFlatpakPath = !(
-        isFlatpak &&
-        folder.startsWith(process.env.XDG_RUNTIME_DIR || '/run/user/')
-      )
+  // FIXME: Propagate errors
+  const parsedPath = Path.parse(folder)
+  const parsedRootPath = Path.parse(root)
 
-      if (!isValidFlatpakPath) {
-        logWarning(`Install location was not granted sandbox access!`)
-      }
+  const { freeSpace, totalSpace } = await getDiskInfo(parsedRootPath)
+  const pathIsWritable = await isWritable(parsedPath)
+  const pathIsFlatpakAccessible = isAccessibleWithinFlatpakSandbox(parsedPath)
 
-      const ret = {
-        free,
-        diskSize,
-        message: `${getFileSize(free)} / ${getFileSize(diskSize)}`,
-        validPath: !writeError,
-        validFlatpakPath: isValidFlatpakPath
-      }
-      logDebug(`${JSON.stringify(ret)}`, LogPrefix.Backend)
-      res(ret)
-    })
-  })
+  return {
+    free: freeSpace,
+    diskSize: totalSpace,
+    validPath: pathIsWritable,
+    validFlatpakPath: pathIsFlatpakAccessible,
+    message: `${getFileSize(freeSpace)} / ${getFileSize(totalSpace)}`
+  }
 })
 
 ipcMain.handle('isFrameless', () => isFrameless())
@@ -1753,3 +1722,9 @@ import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
 import './tools/ipc_handler'
 import './progress_bar'
+import {
+  getDiskInfo,
+  isAccessibleWithinFlatpakSandbox,
+  isWritable
+} from './utils/filesystem'
+import { Path } from './schemas'

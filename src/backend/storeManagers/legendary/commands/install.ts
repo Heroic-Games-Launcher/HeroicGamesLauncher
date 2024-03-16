@@ -1,8 +1,8 @@
-import {
+import type { Path } from 'backend/schemas'
+import type {
   PositiveInteger,
   LegendaryAppName,
   NonEmptyString,
-  Path,
   URL,
   URI,
   LegendaryPlatform

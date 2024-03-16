@@ -34,18 +34,20 @@
         "uninstall": {
             "checkbox": "Eliminarea prefixului: {{prefix}}{{newLine}}Notă: Acest lucru nu poate fi anulat și se vor șterge fișierele de salvare fără backup.",
             "checkbox_prefix": "Prefix",
-            "message": "Doriți să dezinstalați acest joc?",
+            "message": "Doriți să dezinstalați {{title}}?",
             "settingcheckbox": "Șterge setările și elimină jurnalul{{newLine}}Notă: Această acțiune nu poate fi anulată. Orice setări modificate vor fi uitate și jurnalul va fi șters.",
             "title": "Dezinstalează",
             "prefix_warning": "Prefixul Wine pentru acest joc este prefixul implicit. Dacă vrei cu adevărat să-l ștergi, trebuie să o faci manual.",
-            "dlc": "Doriți să dezinstalați acest DLC?"
+            "dlc": "Doriți să dezinstalați acest {{title}} DLC?",
+            "cannotUninstallEpic": "Epic games nu poate fi dezinstalat în timp ce alt joc Epic este în curs de instalare."
         },
         "update": {
             "message": "Acest joc are o actualizare, vrei să actualizezi acum?",
             "title": "Jocul necesită actualizare"
         },
         "wineprefix": "Selectați folderul WinePrefix",
-        "yes": "DA"
+        "yes": "DA",
+        "close": "Închide"
     },
     "button": {
         "add_to_favourites": "Adaugă la favorite",
