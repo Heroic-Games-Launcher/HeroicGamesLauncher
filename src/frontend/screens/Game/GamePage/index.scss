@@ -429,7 +429,10 @@
 
 .App:not(.oldDesign) .gameConfigContainer {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr)); /* assure that the columns are always the same width */
+  grid-template-columns: repeat(
+    2,
+    minmax(0, 1fr)
+  ); /* assure that the columns are always the same width */
   grid-template-rows: min-content 1fr min-content;
   row-gap: var(--space-md);
   column-gap: min(var(--space-lg), 50px);
