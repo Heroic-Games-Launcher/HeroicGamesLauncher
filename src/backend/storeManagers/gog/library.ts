@@ -42,7 +42,7 @@ import {
   LogPrefix,
   logWarning
 } from '../../logger/logger'
-import { getGOGdlBin, getFileSize } from '../../utils'
+import { getGOGdlBin, getFileSize, axiosClient } from '../../utils'
 import { gogdlConfigPath, gogdlLogFile } from '../../constants'
 import {
   libraryStore,
@@ -124,7 +124,9 @@ async function createMissingGogdlManifest(
     // Get meta
     const url = currentBuild.urls[0]
 
-    const response = await axios.get(url.url, { responseType: 'arraybuffer' })
+    const response = await axiosClient.get(url.url, {
+      responseType: 'arraybuffer'
+    })
     let manifestDataRaw = response.data.toString()
     if (currentBuild.generation === 2) {
       manifestDataRaw = unzipSync(response.data)
@@ -192,7 +194,7 @@ export async function getSaveSyncLocation(
   let response: GOGClientsResponse | undefined
   try {
     response = (
-      await axios.get(
+      await axiosClient.get(
         `https://remote-config.gog.com/components/galaxy_client/clients/${clientId}?component_version=2.0.45`
       )
     ).data
@@ -389,10 +391,6 @@ export async function refresh(): Promise<ExecResult> {
 
   const gamesObjects: GameInfo[] = [redistGameInfo]
   apiInfoCache.use_in_memory() // Prevent blocking operations
-  const axiosClient = axios.create({
-    timeout: 5 * 1000,
-    httpsAgent: new https.Agent({ keepAlive: true })
-  })
   const promises = filteredApiArray.map(async (game): Promise<GameInfo> => {
     let retries = 5
     while (retries > 0) {
@@ -403,8 +401,7 @@ export async function refresh(): Promise<ExecResult> {
           game.external_id,
           false,
           game.certificate,
-          credentials.access_token,
-          axiosClient
+          credentials.access_token
         )
         gdbData = data
       } catch {
@@ -416,8 +413,7 @@ export async function refresh(): Promise<ExecResult> {
       const product = await getProductApi(
         game.external_id,
         [],
-        credentials.access_token,
-        axiosClient
+        credentials.access_token
       ).catch(() => null)
 
       const unifiedObject = await gogToUnifiedInfo(gdbData, product?.data)
@@ -868,7 +864,7 @@ export async function getBuilds(
     headers.Authorization = `Bearer ${access_token}`
   }
 
-  return axios.get(url.toString(), { headers })
+  return axiosClient.get(url.toString(), { headers })
 }
 
 export async function getMetaResponse(
@@ -890,7 +886,7 @@ export async function getMetaResponse(
 
   for (const metaUrl of metaUrls) {
     try {
-      const metaResponse = await axios.get(metaUrl.url, {
+      const metaResponse = await axiosClient.get(metaUrl.url, {
         headers,
         validateStatus: (status) => status === 200 || status === 304
       })
@@ -1007,9 +1003,11 @@ export async function getGamesData(appName: string, lang?: string) {
     lang || 'en-US'
   }`
 
-  const response: AxiosResponse | null = await axios.get(url).catch(() => {
-    return null
-  })
+  const response: AxiosResponse | null = await axiosClient
+    .get(url)
+    .catch(() => {
+      return null
+    })
   if (!response) {
     return null
   }
@@ -1192,7 +1190,6 @@ export function getExecutable(appName: string): string {
  * @param forceUpdate (optional) force data update check
  * @param certificate (optional) Galaxy library certificate
  * @param accessToken (optional) GOG Galaxy access token
- * @param axiosInstance (optional) Axios session to use (useful when requesting
  * multiple entries)
  * @returns object {isUpdated, data}, where isUpdated is true when Etags match
  */
@@ -1201,11 +1198,9 @@ export async function getGamesdbData(
   game_id: string,
   forceUpdate?: boolean,
   certificate?: string,
-  accessToken?: string,
-  axiosInstance?: AxiosInstance
+  accessToken?: string
 ): Promise<{ isUpdated: boolean; data?: GamesDBData | undefined }> {
   const pieceId = `${store}_${game_id}`
-  const axiosClient = axiosInstance ?? axios
   const cachedData = !forceUpdate ? apiInfoCache.get(pieceId) : null
   if (cachedData && cachedData?.id && !forceUpdate) {
     return { isUpdated: false, data: apiInfoCache.get(pieceId) }
@@ -1257,11 +1252,9 @@ export async function getGamesdbData(
 export async function getProductApi(
   appName: string,
   expand?: string[],
-  accessToken?: string,
-  axiosInstance?: AxiosInstance
+  accessToken?: string
 ): Promise<AxiosResponse<ProductsEndpointData> | null> {
   expand = expand ?? []
-  const axiosClient = axiosInstance ?? axios
   const language = i18next.language
   const url = new URL(`https://api.gog.com/products/${appName}`)
   url.searchParams.set('locale', language)

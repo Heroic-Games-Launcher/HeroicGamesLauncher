@@ -12,6 +12,7 @@ import {
   GameStatus
 } from 'common/types'
 import axios from 'axios'
+import https from 'node:https'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
 import {
   exec,
@@ -189,7 +190,7 @@ async function isEpicServiceOffline(
   })
 
   try {
-    const { data } = await axios.get(epicStatusApi)
+    const { data } = await axiosClient.get(epicStatusApi)
 
     for (const component of data.components) {
       const { name: name, status: indicator } = component
@@ -696,7 +697,7 @@ const getLatestReleases = async (): Promise<Release[]> => {
   logInfo('Checking for new Heroic Updates', LogPrefix.Backend)
 
   try {
-    const { data: releases } = await axios.get(GITHUB_API)
+    const { data: releases } = await axiosClient.get(GITHUB_API)
     const latestStable: Release = releases.filter(
       (rel: Release) => rel.prerelease === false
     )[0]
@@ -742,7 +743,9 @@ const getCurrentChangelog = async (): Promise<Release | null> => {
   try {
     const current = app.getVersion()
 
-    const { data: release } = await axios.get(`${GITHUB_API}/tags/v${current}`)
+    const { data: release } = await axiosClient.get(
+      `${GITHUB_API}/tags/v${current}`
+    )
 
     return release as Release
   } catch (error) {
@@ -1248,7 +1251,7 @@ export async function downloadFile({
 
   const connections = 5
   try {
-    const response = await axios.head(url)
+    const response = await axiosClient.head(url)
     fileSize = parseInt(response.headers['content-length'], 10)
   } catch (err) {
     logError(
@@ -1449,6 +1452,11 @@ async function extractDecompress(
   }
 }
 
+const axiosClient = axios.create({
+  timeout: 10 * 1000,
+  httpsAgent: new https.Agent({ keepAlive: true })
+})
+
 export {
   errorHandler,
   execAsync,
@@ -1484,7 +1492,8 @@ export {
   sendGameStatusUpdate,
   sendProgressUpdate,
   calculateEta,
-  extractFiles
+  extractFiles,
+  axiosClient
 }
 
 // Exported only for testing purpose
