@@ -663,6 +663,10 @@
           align-items: center;
           border-bottom: 1px solid var(--base-06);
 
+          &:focus-visible, &:focus-within {
+            outline: 2px auto -webkit-focus-ring-color;
+          }
+
           &:last-child {
             border-bottom: 0px;
           }
@@ -694,6 +698,10 @@
           box-shadow: none;
           color: var(--text-default);
           flex-grow: 1;
+
+          & > .MuiAccordionSummary-root:focus-visible {
+            background: unset; /* no more darker background */
+          }
 
           & > .MuiAccordionSummary-root {
             padding: 0;
