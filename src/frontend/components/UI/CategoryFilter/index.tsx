@@ -86,13 +86,6 @@ export default function CategoryFilter() {
           </>
         )}
         {categoriesList.map((category) => categoryToggle(category))}
-        <button
-          className="button is-secondary is-small"
-          onClick={() => setShowCategories(true)}
-        >
-          {t('categories-manager.title', 'Manage Categories')}
-        </button>
-        <hr />
         {categoryToggle(
           t('header.uncategorized', 'Uncategorized'),
           'preset_uncategorized'
@@ -104,6 +97,12 @@ export default function CategoryFilter() {
           onClick={() => selectAll()}
         >
           {t('header.select_all', 'Select All')}
+        </button>
+        <button
+          className="button is-secondary is-small"
+          onClick={() => setShowCategories(true)}
+        >
+          {t('categories-manager.title', 'Manage Categories')}
         </button>
       </div>
     </div>
