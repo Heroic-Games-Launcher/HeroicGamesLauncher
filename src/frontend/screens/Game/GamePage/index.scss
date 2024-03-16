@@ -429,18 +429,18 @@
 
 .App:not(.oldDesign) .gameConfigContainer {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr min-content;
-  row-gap: 20px;
-  column-gap: min(3vw, 50px);
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* assure that the columns are always the same width */
+  grid-template-rows: min-content 1fr min-content;
+  row-gap: var(--space-md);
+  column-gap: min(var(--space-lg), 50px);
   grid-template-areas:
+    'top top'
     'main extra'
     'report report';
 
-  padding: 2vh 2vw;
+  padding: var(--space-lg);
   height: 100%;
   align-items: flex-start;
-  max-height: 1100px;
 
   /*
   ** Adding icons to the MUI tabs makes them at least 72px high
@@ -477,11 +477,38 @@
     }
   }
 
+  .topRowWrapper {
+    display: flex;
+    flex-direction: row;
+    gap: min(var(--space-lg), 50px);
+    position: sticky;
+    top: var(--space-lg);
+    grid-area: top;
+    justify-content: space-between;
+    z-index: 30;
+
+    .opts {
+      display: flex;
+      gap: var(--space-xs);
+      > * {
+        box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);
+      }
+    }
+
+    .opts-left {
+      justify-content: flex-start;
+    }
+
+    .opts-right {
+      justify-content: flex-end;
+    }
+  }
+
   .mainInfoWrapper,
   .extraInfoWrapper {
-    display: grid;
-    grid-template-rows: min-content 1fr;
-    row-gap: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
   }
 
   .mainInfo,
@@ -496,6 +523,7 @@
     justify-self: stretch;
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
 
     & > * {
       position: relative;
@@ -523,13 +551,7 @@
 
   .mainInfoWrapper {
     grid-area: main;
-    column-gap: 15px;
     min-width: 300px;
-
-    .settings-icon {
-      grid-area: settings;
-      right: unset;
-    }
 
     .mainInfo {
       padding: min(25vh, 300px) min(4vw, 70px) min(5vh, 25px);
@@ -628,12 +650,6 @@
   .extraInfoWrapper {
     grid-area: extra;
 
-    .buttons {
-      display: flex;
-      gap: 5px;
-      justify-content: flex-end;
-    }
-
     .extraInfo {
       padding: 4vh 1.5vw;
 
@@ -647,11 +663,10 @@
         & > div > * {
           display: flex;
           text-align: end;
-          font-size: 16px;
+          font-size: var(--space-unit-fixed);
           line-height: 24px;
-          min-height: 56px;
-          gap: 10px;
-          padding: 10px 0;
+          gap: var(--space-sm-fixed);
+          padding: var(--space-unit-fixed) 0;
           align-items: center;
           border-bottom: 1px solid var(--base-06);
 
@@ -707,6 +722,7 @@
 
     .anticheatInfo {
       max-width: none;
+      margin: 0;
     }
   }
 

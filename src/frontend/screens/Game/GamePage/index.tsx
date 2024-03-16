@@ -423,15 +423,22 @@ export default React.memo(function GamePage(): JSX.Element | null {
             {/* NEW DESIGN */}
             {experimentalFeatures.enableNewDesign && (
               <>
+                <div className="topRowWrapper">
+                  <div className="opts opts-left">
+                    <NavLink
+                      className="backButton"
+                      to={backRoute}
+                      title={t2('webview.controls.back', 'Go Back')}
+                    >
+                      <ArrowBackIosNew />
+                    </NavLink>
+                  </div>
+                  <div className="opts opts-right">
+                    {!isBrowserGame && <SettingsButton gameInfo={gameInfo} />}
+                    <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
+                  </div>
+                </div>
                 <div className="mainInfoWrapper">
-                  <NavLink
-                    className="backButton"
-                    to={backRoute}
-                    title={t2('webview.controls.back', 'Go Back')}
-                  >
-                    <ArrowBackIosNew />
-                  </NavLink>
-
                   <div className="mainInfo">
                     <GamePicture
                       art_square={art_cover}
@@ -481,11 +488,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   </div>
                 </div>
                 <div className="extraInfoWrapper">
-                  <div className="buttons">
-                    {!isBrowserGame && <SettingsButton gameInfo={gameInfo} />}
-                    <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
-                  </div>
-
                   <div className="extraInfo">
                     <Tabs
                       value={currentTab}
