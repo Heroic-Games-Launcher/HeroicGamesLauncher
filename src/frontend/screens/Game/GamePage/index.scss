@@ -429,6 +429,7 @@
 
 .App:not(.oldDesign) .gameConfigContainer {
   display: grid;
+  position: relative;
   grid-template-columns: repeat(
     2,
     minmax(0, 1fr)
@@ -442,7 +443,9 @@
     'report report';
 
   padding: var(--space-lg);
-  height: 100%;
+  height: 100vh;
+  min-height: 600px;
+  overflow: hidden;
   align-items: flex-start;
 
   /*
@@ -452,6 +455,15 @@
   */
   .MuiTab-labelIcon {
     min-height: unset;
+  }
+
+  p {
+    margin-block-start: var(--space-xs);
+    margin-block-end: var(--space-xs);
+  }
+
+  ::-webkit-scrollbar {
+    background: none;
   }
 
   .backButton,
@@ -482,8 +494,6 @@
 
   .topRowWrapper {
     display: flex;
-    position: sticky;
-    top: var(--space-lg);
     grid-area: top;
     gap: var(--space-sm);
     z-index: 30;
@@ -502,6 +512,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-lg);
+    overflow-y: auto;
   }
 
   .mainInfo,
@@ -547,7 +558,7 @@
     min-width: 300px;
 
     .mainInfo {
-      padding: min(25vh, 300px) min(4vw, 70px) min(5vh, 25px);
+      padding: max(20vh, 125px) min(4vw, 70px) min(5vh, 25px);
       background-color: var(--body-background);
 
       .store-icon {
@@ -590,10 +601,11 @@
 
       .summary {
         overflow: auto;
-        font-size: 18px;
-        line-height: 34px;
+        font-size: var(--text-lg);
+        line-height: 1.5em;
         text-align: left;
         flex-grow: 1;
+        margin-top: var(--space-xs);
       }
 
       .genres {
@@ -647,8 +659,9 @@
       padding: 4vh 1.5vw;
 
       & > div {
-        overflow: auto;
+        overflow-y: auto;
         padding: 5px 10px;
+        max-width: 100%;
       }
 
       & div.infoTab,
@@ -686,6 +699,7 @@
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
+            word-break: break-all;
           }
 
           &:hover .truncatedPath,
@@ -744,10 +758,6 @@
   .extraInfoWrapper {
     max-width: 800px;
     height: 100%;
-  }
-  .mainInfo,
-  .extraInfo {
-    max-height: 900px;
   }
 
   .store-icon {
