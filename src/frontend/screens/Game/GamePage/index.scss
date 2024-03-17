@@ -664,7 +664,8 @@
           border-bottom: 1px solid var(--base-06);
 
           &:focus-visible,
-          &:focus-within {
+          &:has(:focus-visible) {
+            /* do not use :focus-within to prevent outline form appearing when using a mouse */
             outline: 2px auto -webkit-focus-ring-color;
           }
 
