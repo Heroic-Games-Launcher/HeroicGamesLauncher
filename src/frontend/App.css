@@ -80,6 +80,12 @@ body {
   }
 }
 
+/* Remove outline on the root element since it's not clickable anyway and it's partially hidden away by sidebar */
+
+#root:focus-visible {
+  outline: none;
+}
+
 /* disable links when the help is open, so users cannot navigate
 to another page but still use the elements of the current page */
 #root:has(.HelpContent.open) {
