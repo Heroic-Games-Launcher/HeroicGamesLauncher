@@ -59,7 +59,6 @@ import {
   DownloadSizeInfo,
   GameStatus,
   HLTB,
-  HLTBInline,
   InstalledInfo,
   LaunchOptions,
   MainButton,
@@ -546,7 +545,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         className="extraTab"
                       >
                         <Scores gameInfo={gameInfo} />
-                        <HLTBInline />
+                        <HLTB />
                         <CompatibilityInfo gameInfo={gameInfo} />
                         <AppleWikiInfo gameInfo={gameInfo} />
                       </TabPanel>
