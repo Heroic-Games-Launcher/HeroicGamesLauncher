@@ -1,8 +1,4 @@
-import React, {
-  useContext,
-  DetailedHTMLProps,
-  ButtonHTMLAttributes
-} from 'react'
+import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import GameContext from '../../GameContext'
 import {
@@ -18,12 +14,7 @@ import {
 import classNames from 'classnames'
 import { GameInfo } from 'common/types'
 
-// we can't just use HTMLProps because of inconsistency in button's "type" attribute
-interface Props
-  extends DetailedHTMLProps<
-    ButtonHTMLAttributes<HTMLButtonElement>,
-    HTMLButtonElement
-  > {
+interface Props {
   gameInfo: GameInfo
   handlePlay: (gameInfo: GameInfo) => Promise<void>
   handleInstall: (
@@ -31,12 +22,7 @@ interface Props
   ) => Promise<void | { status: 'done' | 'error' | 'abort' }>
 }
 
-const MainButton = ({
-  gameInfo,
-  handlePlay,
-  handleInstall,
-  ...other
-}: Props) => {
+const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
   const { t } = useTranslation('gamepage')
   const { is } = useContext(GameContext)
 
@@ -142,13 +128,6 @@ const MainButton = ({
 
   const is_installed = gameInfo.is_installed
 
-  const extraClassName = other.className
-
-  if (extraClassName) {
-    // do not override internal classNames
-    delete other.className
-  }
-
   return (
     <>
       {is_installed && !is.queued && (
@@ -181,9 +160,8 @@ const MainButton = ({
                 (is_installed && is.notAvailable),
               'is-disabled': is.updating
             },
-            extraClassName
+            'mainBtn'
           )}
-          {...other}
         >
           {getPlayLabel()}
         </button>
@@ -212,9 +190,8 @@ const MainButton = ({
                 is.notInstallable,
               'is-secondary': !is_installed && !is.queued
             },
-            extraClassName
+            'mainBtn'
           )}
-          {...other}
         >
           {getButtonLabel()}
         </button>

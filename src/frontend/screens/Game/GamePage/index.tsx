@@ -481,7 +481,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         gameInfo={gameInfo}
                         handlePlay={handlePlay}
                         handleInstall={handleInstall}
-                        className="mainBtn"
                       />
                       {gameInfo.is_installed && (
                         <button
