@@ -101,6 +101,10 @@ const Gamescope = () => {
     {
       name: t('options.gamescope.borderless', 'Borderless'),
       value: 'borderless'
+    },
+    {
+      name: t('options.gamescope.windowed', 'Windowed'),
+      value: 'windowed'
     }
   ]
 

@@ -499,7 +499,8 @@
             "nis": "NVIDIA Image Scale (NIS)",
             "stretch": "Stretch Image",
             "upscaleHeight": "Upscale Height",
-            "upscaleWidth": "Upscale Width"
+            "upscaleWidth": "Upscale Width",
+            "windowed": "Windowed"
         },
         "quote-args-with-spaces": "Warning: Make sure to quote args with spaces! E.g.: \"path/with spaces/\"",
         "wrapper": {
