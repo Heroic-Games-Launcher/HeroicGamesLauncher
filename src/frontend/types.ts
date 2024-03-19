@@ -54,6 +54,7 @@ export interface ContextType {
     removeFromGame: (category: string, appName: string) => void
     addCategory: (newCategory: string) => void
     removeCategory: (category: string) => void
+    renameCategory: (oldName: string, newName: string) => void
   }
   currentCustomCategories: string[]
   setCurrentCustomCategories: (newCustomCategories: string[]) => void
@@ -229,6 +230,7 @@ export interface LibraryContextType {
   showSupportOfflineOnly: boolean
   setShowSupportOfflineOnly: (value: boolean) => void
   handleAddGameButtonClick: () => void
+  setShowCategories: (value: boolean) => void
 }
 
 export interface GameContextType {

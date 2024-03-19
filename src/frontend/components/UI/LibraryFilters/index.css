@@ -40,7 +40,7 @@
     & hr {
       width: 80%;
     }
-    & button[type='reset'] {
+    & button {
       margin-inline-start: 0.5rem;
       align-self: center;
       font-size: 1rem;

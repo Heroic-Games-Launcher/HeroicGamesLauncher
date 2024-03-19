@@ -25,7 +25,8 @@ const initialContext: LibraryContextType = {
   setSortInstalled: () => null,
   showSupportOfflineOnly: false,
   setShowSupportOfflineOnly: () => null,
-  handleAddGameButtonClick: () => null
+  handleAddGameButtonClick: () => null,
+  setShowCategories: () => null
 }
 
 export default React.createContext(initialContext)
