@@ -6,6 +6,7 @@ import { AntiCheatInfo } from 'common/types'
 import { runOnceWhenOnline } from '../online_monitor'
 
 async function downloadAntiCheatData() {
+  if (process.env.CI === 'e2e') return
   if (isWindows) return
 
   runOnceWhenOnline(async () => {

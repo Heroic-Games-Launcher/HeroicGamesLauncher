@@ -28,6 +28,7 @@ import { dirname, join } from 'path'
 import { app } from 'electron'
 import { copySync } from 'fs-extra'
 import { NileUser } from './user'
+import { runNileCommandStub } from './e2eMock'
 
 const installedGames: Map<string, NileInstallMetadataInfo> = new Map()
 const library: Map<string, GameInfo> = new Map()
@@ -451,6 +452,10 @@ export async function runRunnerCommand(
   commandParts: string[],
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
+  if (process.env.CI === 'e2e') {
+    return runNileCommandStub(commandParts)
+  }
+
   const { dir, bin } = getNileBin()
 
   // Set NILE_CONFIG_PATH to a custom, Heroic-specific location so user-made
