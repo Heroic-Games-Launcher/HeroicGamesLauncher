@@ -75,11 +75,7 @@ function App() {
               <Route path=":runner" element={<WebView />} />
             </Route>
             <Route path="settings">
-              <Route path=":runner">
-                <Route path=":appName">
-                  <Route path=":type" element={<Settings />} />
-                </Route>
-              </Route>
+              <Route path=":type" element={<Settings />} />
             </Route>
             <Route path="/wine-manager" element={<WineManager />} />
             <Route path="/download-manager" element={<DownloadManager />} />
