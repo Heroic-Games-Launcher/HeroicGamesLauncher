@@ -14,6 +14,7 @@ import {
   EnableEsync,
   EnableFSR,
   EnableFsync,
+  EnableMsync,
   EnvVariablesTable,
   GameMode,
   LauncherArgs,
@@ -201,6 +202,7 @@ export default function GamesSettings() {
             )}
             <EnableEsync />
             <EnableFsync />
+            <EnableMsync />
             <EnableFSR />
             <EnableDXVKFpsLimit />
             <Tools />

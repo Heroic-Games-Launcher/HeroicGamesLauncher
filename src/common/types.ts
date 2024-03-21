@@ -171,6 +171,7 @@ export interface GameSettings {
   enableDXVKFpsLimit: boolean
   enableEsync: boolean
   enableFSR: boolean
+  enableMsync: boolean
   enableFsync: boolean
   gamescope: GameScopeSettings
   enviromentOptions: EnviromentVariable[]
