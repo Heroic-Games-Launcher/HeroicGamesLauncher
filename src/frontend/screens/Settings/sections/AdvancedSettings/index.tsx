@@ -161,6 +161,10 @@ export default function AdvancedSetting() {
     setEosOverlayCheckingForUpdates(false)
   }
 
+  async function carnivalLogin() {
+    await window.api.authCarnival()
+    await window.api.getIndieGalaUserInfo()
+  }
   return (
     <div>
       <h3 className="settingSubheader">{t('settings.navbar.advanced')}</h3>
@@ -174,6 +178,10 @@ export default function AdvancedSetting() {
       <DownloadNoHTTPS />
 
       <DisableLogs />
+
+      <button className="button is-primary" onClick={carnivalLogin}>
+        Force Carnival login
+      </button>
 
       <hr />
 

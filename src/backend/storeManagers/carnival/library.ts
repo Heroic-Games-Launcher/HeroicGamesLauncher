@@ -294,14 +294,14 @@ const defaultExecResult = {
  *
  * @returns Array of objects.
  */
-export async function refresh(): Promise<ExecResult | null> {
-  if (!CarnivalUser.isLoggedIn()) {
+export async function refresh(force = false): Promise<ExecResult | null> {
+  if (!force && !CarnivalUser.isLoggedIn()) {
     return defaultExecResult
   }
   logInfo('Refreshing library...', LogPrefix.Carnival)
 
-  refreshCarnival()
-  refreshInstalled()
+  await refreshCarnival()
+  await refreshInstalled()
   await loadGamesInAccount()
 
   const arr = Array.from(library.values())

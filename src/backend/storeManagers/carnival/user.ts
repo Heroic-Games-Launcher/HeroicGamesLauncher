@@ -10,8 +10,12 @@ import {
   CarnivalUserDataFile
 } from 'common/types/carnival'
 import { runRunnerCommand, refresh } from './library'
-import { existsSync, readFileSync } from 'graceful-fs'
-import { carnivalUserData, carnivalCookieData } from 'backend/constants'
+import { existsSync, readFileSync, mkdirSync } from 'graceful-fs'
+import {
+  carnivalUserData,
+  carnivalCookieData,
+  carnivalConfigPath
+} from 'backend/constants'
 import { configStore } from './electronStores'
 import { clearCache } from 'backend/utils'
 import { load, dump } from 'js-yaml'
@@ -38,6 +42,7 @@ export class CarnivalUser {
   }> {
     const mySession = session.fromPartition('persist:epicstore')
     if (CarnivalUser.isLoggedIn()) {
+      logDebug('Getting user data', LogPrefix.Carnival)
       const user = await this.getUserData()
       if (user) {
         return {
@@ -47,6 +52,7 @@ export class CarnivalUser {
       }
     }
     try {
+      logDebug('Using cookie', LogPrefix.Carnival)
       const auth_cookie = await mySession.cookies.get({
         domain: '.indiegala.com',
         name: 'auth'
@@ -55,6 +61,9 @@ export class CarnivalUser {
         throw new Error(
           "Too many auth cookies or none, this doesn't make sense"
         )
+      }
+      if (!existsSync(carnivalConfigPath)) {
+        mkdirSync(carnivalConfigPath, { recursive: true })
       }
 
       const replaceRegEx = /^\./
@@ -81,7 +90,8 @@ export class CarnivalUser {
     }
 
     try {
-      await refresh()
+      logDebug('Refreshing', LogPrefix.Carnival)
+      await refresh(true)
 
       const user = await CarnivalUser.getUserData()
       if (!user) {
@@ -146,6 +156,8 @@ export class CarnivalUser {
   }
 
   public static isLoggedIn() {
-    return configStore.get_nodefault('userData') || false
+    const userData = configStore.get_nodefault('userData')
+    logDebug(['userData:', userData], LogPrefix.Carnival)
+    return userData ? userData.user_id : false
   }
 }
