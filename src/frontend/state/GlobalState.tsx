@@ -564,6 +564,20 @@ class GlobalState extends PureComponent<Props> {
     })
   }
 
+  carnivalLogin = async () => {
+    await window.api.authCarnival()
+    const userInfo = await window.api.getIndieGalaUserInfo()
+    if (userInfo && userInfo.username) {
+      this.setState({
+        indieGala: {
+          library: this.loaIndieGalaLibrary(),
+          username: userInfo.username
+        }
+      })
+      return userInfo.username
+    }
+    return ''
+  }
   handleSettingsModalOpen = (
     value: boolean,
     type?: 'settings' | 'log' | 'category',
@@ -1041,9 +1055,7 @@ class GlobalState extends PureComponent<Props> {
             getIndieGalaUserData: this.getIndieGalaUserInfo,
             username: indieGala.username,
             library: indieGala.library,
-            login: async function (): Promise<string> {
-              throw new Error('Function not implemented.')
-            },
+            login: this.carnivalLogin,
             logout: this.carnivalLogout
           },
           installingEpicGame,

@@ -91,7 +91,7 @@ export interface ContextType {
   indieGala: {
     library: GameInfo[]
     username?: string
-    login: (token: string) => Promise<string>
+    login: () => Promise<string>
     logout: () => Promise<void>
     getIndieGalaUserData: () => Promise<CarnivalUserData | undefined>
   }

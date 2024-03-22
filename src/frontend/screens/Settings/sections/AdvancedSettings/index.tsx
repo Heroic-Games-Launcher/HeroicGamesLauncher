@@ -41,6 +41,8 @@ export default function AdvancedSetting() {
     useState(false)
   const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
 
+  const { indieGala } = useContext(ContextProvider)
+
   const { libraryStatus, platform } = useContext(ContextProvider)
   const { t } = useTranslation()
   const isWindows = platform === 'win32'
@@ -162,8 +164,7 @@ export default function AdvancedSetting() {
   }
 
   async function carnivalLogin() {
-    await window.api.authCarnival()
-    await window.api.getIndieGalaUserInfo()
+    await indieGala.login()
   }
   return (
     <div>

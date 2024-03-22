@@ -74,7 +74,7 @@ export function getGameInfo(appName: string): GameInfo {
         `${appName},`,
         'returning empty object. Something is probably gonna go wrong soon'
       ],
-      LogPrefix.Nile
+      LogPrefix.Carnival
     )
     return {
       app_name: '',
@@ -125,13 +125,16 @@ export async function importGame(
   }
 
   if (res.error) {
-    logError(['Failed to import', `${appName}:`, res.error], LogPrefix.Nile)
+    logError(['Failed to import', `${appName}:`, res.error], LogPrefix.Carnival)
     return res
   }
 
   const errorMatch = res.stderr.match(/ERROR \[IMPORT]:\t(.*)/)
   if (errorMatch) {
-    logError(['Failed to import', `${appName}:`, errorMatch[1]], LogPrefix.Nile)
+    logError(
+      ['Failed to import', `${appName}:`, errorMatch[1]],
+      LogPrefix.Carnival
+    )
     return {
       ...res,
       error: errorMatch[1]
@@ -142,7 +145,7 @@ export async function importGame(
     addShortcuts(appName)
     installState(appName, true)
   } catch (error) {
-    logError(['Failed to import', `${appName}:`, error], LogPrefix.Nile)
+    logError(['Failed to import', `${appName}:`, error], LogPrefix.Carnival)
   }
 
   return res
@@ -225,7 +228,7 @@ export function onInstallOrUpdateOutput(
         `${progress.percent}%/${progress.bytes}/${progress.eta}`.trim(),
         `Down: ${progress.downSpeed}MB/s / Disk: ${progress.diskSpeed}MB/s`
       ],
-      LogPrefix.Nile
+      LogPrefix.Carnival
     )
 
     sendFrontendMessage(`progressUpdate-${appName}`, {
@@ -280,7 +283,7 @@ export async function install(
 
   if (res.error) {
     if (!res.error.includes('signal')) {
-      logError(['Failed to install', appName, res.error], LogPrefix.Nile)
+      logError(['Failed to install', appName, res.error], LogPrefix.Carnival)
     }
     return { status: 'error', error: res.error }
   }
@@ -444,7 +447,7 @@ export async function moveInstall(
   newInstallPath: string
 ): Promise<InstallResult> {
   const gameInfo = getGameInfo(appName)
-  logInfo(`Moving ${gameInfo.title} to ${newInstallPath}`, LogPrefix.Nile)
+  logInfo(`Moving ${gameInfo.title} to ${newInstallPath}`, LogPrefix.Carnival)
 
   const moveImpl = isWindows ? moveOnWindows : moveOnUnix
   const moveResult = await moveImpl(newInstallPath, gameInfo)
@@ -453,7 +456,7 @@ export async function moveInstall(
     const { error } = moveResult
     logError(
       ['Error moving', gameInfo.title, 'to', newInstallPath, error],
-      LogPrefix.Nile
+      LogPrefix.Carnival
     )
     return { status: 'error', error }
   }
@@ -468,7 +471,7 @@ export async function repair(appName: string): Promise<ExecResult> {
 
   if (!install_path) {
     const error = `Could not find install path for ${appName}`
-    logError(error, LogPrefix.Nile)
+    logError(error, LogPrefix.Carnival)
     return {
       stderr: '',
       stdout: '',
@@ -476,7 +479,7 @@ export async function repair(appName: string): Promise<ExecResult> {
     }
   }
 
-  logDebug([appName, 'is installed at', install_path], LogPrefix.Nile)
+  logDebug([appName, 'is installed at', install_path], LogPrefix.Carnival)
   const logPath = join(gamesConfigPath, `${appName}.log`)
   const res = await runCarnivalCommand(
     ['verify', '--path', install_path, appName],
@@ -489,7 +492,7 @@ export async function repair(appName: string): Promise<ExecResult> {
   deleteAbortController(appName)
 
   if (res.error) {
-    logError(['Failed to repair', `${appName}:`, res.error], LogPrefix.Nile)
+    logError(['Failed to repair', `${appName}:`, res.error], LogPrefix.Carnival)
   }
 
   return res
@@ -513,7 +516,10 @@ export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
   deleteAbortController(appName)
 
   if (res.error) {
-    logError(['Failed to uninstall', `${appName}:`, res.error], LogPrefix.Nile)
+    logError(
+      ['Failed to uninstall', `${appName}:`, res.error],
+      LogPrefix.Carnival
+    )
   } else if (!res.abort) {
     const gameInfo = getGameInfo(appName)
     await removeShortcutsUtil(gameInfo)
@@ -554,7 +560,7 @@ export async function update(appName: string): Promise<InstallResult> {
 
   if (res.error) {
     if (!res.error.includes('signal')) {
-      logError(['Failed to update', appName, res.error], LogPrefix.Nile)
+      logError(['Failed to update', appName, res.error], LogPrefix.Carnival)
     }
     return { status: 'error', error: res.error }
   }
