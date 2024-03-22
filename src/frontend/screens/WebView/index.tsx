@@ -11,7 +11,6 @@ import { useNavigate, useLocation, useParams } from 'react-router'
 import { ToggleSwitch, UpdateComponent } from 'frontend/components/UI'
 import WebviewControls from 'frontend/components/UI/WebviewControls'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { Runner } from 'common/types'
 import './index.css'
 import LoginWarning from '../Login/components/LoginWarning'
 import { NileLoginData } from 'common/types/nile'
@@ -21,11 +20,7 @@ import {
   DialogHeader
 } from 'frontend/components/UI/Dialog'
 
-interface Props {
-  store?: 'epic' | 'gog' | 'amazon'
-}
-
-const validStoredUrl = (url: string, store: 'epic' | 'gog' | 'amazon') => {
+const validStoredUrl = (url: string, store: string) => {
   switch (store) {
     case 'epic':
       return url.includes('epicgames.com')
@@ -38,7 +33,7 @@ const validStoredUrl = (url: string, store: 'epic' | 'gog' | 'amazon') => {
   }
 }
 
-export default function WebView({ store }: Props) {
+export default function WebView() {
   const { i18n } = useTranslation()
   const { pathname, search } = useLocation()
   const { t } = useTranslation()
@@ -55,6 +50,11 @@ export default function WebView({ store }: Props) {
   )
   const navigate = useNavigate()
   const webviewRef = useRef<Electron.WebviewTag>(null)
+
+  // `store` is set to epic/gog/amazon depending on which storefront we're
+  // supposed to show, `runner` is set to a runner if we're supposed to show its
+  // login prompt
+  const { store, runner } = useParams()
 
   let lang = i18n.language
   if (i18n.language === 'pt') {
@@ -73,12 +73,11 @@ export default function WebView({ store }: Props) {
     'https://auth.gog.com/auth?client_id=46899977096215655&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code&layout=galaxy'
 
   const trueAsStr = 'true' as unknown as boolean | undefined
-  const { runner } = useParams() as { runner: Runner }
 
   const urls: { [pathname: string]: string } = {
-    '/epicstore': epicStore,
-    '/gogstore': gogStore,
-    '/amazonstore': amazonStore,
+    '/store/epic': epicStore,
+    '/store/gog': gogStore,
+    '/store/amazon': amazonStore,
     '/wiki': wikiURL,
     '/loginEpic': epicLoginUrl,
     '/loginGOG': gogLoginUrl,
@@ -89,7 +88,7 @@ export default function WebView({ store }: Props) {
   let startUrl = urls[pathname]
 
   if (store) {
-    sessionStorage.setItem('last-store', `/${store}store`)
+    sessionStorage.setItem('last-store', store)
     const lastUrl = sessionStorage.getItem(`last-url-${store}`)
     if (lastUrl && validStoredUrl(lastUrl, store)) {
       startUrl = lastUrl
