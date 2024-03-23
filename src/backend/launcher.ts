@@ -569,10 +569,17 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   if (!gameSettings.enableEsync && wineVersion.type === 'proton') {
     ret.PROTON_NO_ESYNC = '1'
   }
-  if (gameSettings.enableFsync && wineVersion.type !== 'proton') {
+  if (gameSettings.enableMsync && isMac) {
+    ret.WINEMSYNC = '1'
+    // This is to solve a problem with d3dmetal
+    if (wineVersion.type === 'toolkit') {
+      ret.WINEESYNC = '1'
+    }
+  }
+  if (isLinux && gameSettings.enableFsync && wineVersion.type !== 'proton') {
     ret.WINEFSYNC = '1'
   }
-  if (!gameSettings.enableFsync && wineVersion.type === 'proton') {
+  if (isLinux && !gameSettings.enableFsync && wineVersion.type === 'proton') {
     ret.PROTON_NO_FSYNC = '1'
   }
   if (wineVersion.type === 'proton') {
@@ -585,14 +592,18 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
       ret.PROTON_DISABLE_NVAPI = '1'
     }
   }
-  if (gameSettings.autoInstallDxvkNvapi && wineVersion.type === 'wine') {
+  if (
+    isLinux &&
+    gameSettings.autoInstallDxvkNvapi &&
+    wineVersion.type === 'wine'
+  ) {
     ret.DXVK_ENABLE_NVAPI = '1'
     ret.DXVK_NVAPI_ALLOW_OTHER_DRIVERS = '1'
   }
-  if (gameSettings.eacRuntime) {
+  if (isLinux && gameSettings.eacRuntime) {
     ret.PROTON_EAC_RUNTIME = join(runtimePath, 'eac_runtime')
   }
-  if (gameSettings.battlEyeRuntime) {
+  if (isLinux && gameSettings.battlEyeRuntime) {
     ret.PROTON_BATTLEYE_RUNTIME = join(runtimePath, 'battleye_runtime')
   }
   if (wineVersion.type === 'proton') {

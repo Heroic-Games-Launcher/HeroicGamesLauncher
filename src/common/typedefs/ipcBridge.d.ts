@@ -1,9 +1,5 @@
 import { EventEmitter } from 'node:events'
-import {
-  IpcMainEvent,
-  OpenDialogOptions,
-  TitleBarOverlayOptions
-} from 'electron'
+import { IpcMainEvent, OpenDialogOptions, TitleBarOverlay } from 'electron'
 
 import {
   Runner,
@@ -108,7 +104,7 @@ interface SyncIPCFunctions {
   maximizeWindow: () => void
   unmaximizeWindow: () => void
   closeWindow: () => void
-  setTitleBarOverlay: (options: TitleBarOverlayOptions) => void
+  setTitleBarOverlay: (options: TitleBarOverlay) => void
   winetricksInstall: ({
     runner: Runner,
     appName: string,

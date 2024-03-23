@@ -87,7 +87,7 @@ function Settings() {
   if (!fromGameCard) {
     returnPath = `/gamepage/${runner}/${appName}`
     if (returnPath.includes('default')) {
-      returnPath = '/library'
+      returnPath = '/'
     }
   }
 

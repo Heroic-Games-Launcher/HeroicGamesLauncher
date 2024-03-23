@@ -318,6 +318,7 @@
         },
         "general": "Sync with EGL if you have a working installation of the Epic Games Launcher elsewhere and want to import your games to avoid downloading them again.",
         "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
+        "msync": "Msync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "other": {
             "part4": "Use the ",
             "part5": "Game Arguments",
@@ -499,7 +500,8 @@
             "nis": "NVIDIA Image Scale (NIS)",
             "stretch": "Stretch Image",
             "upscaleHeight": "Upscale Height",
-            "upscaleWidth": "Upscale Width"
+            "upscaleWidth": "Upscale Width",
+            "windowed": "Windowed"
         },
         "quote-args-with-spaces": "Warning: Make sure to quote args with spaces! E.g.: \"path/with spaces/\"",
         "wrapper": {
@@ -654,6 +656,7 @@
         "maxRecentGames": "Played Recently to Show",
         "maxworkers": "Maximum Number of Workers when downloading",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
+        "msync": "Enable Msync",
         "offlinemode": "Run Game Offline",
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",

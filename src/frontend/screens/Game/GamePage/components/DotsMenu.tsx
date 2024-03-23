@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import GameContext from '../../GameContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { GameSubMenu } from '../..'
+import GameSubMenu from '../../GameSubMenu'
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import { GameInfo } from 'common/types'
 import {

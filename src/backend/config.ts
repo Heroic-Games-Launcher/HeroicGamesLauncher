@@ -313,6 +313,7 @@ class GlobalConfigV0 extends GlobalConfig {
       wineVersion: defaultWine,
       enableEsync: true,
       enableFsync: isLinux,
+      enableMsync: isMac,
       eacRuntime: isLinux,
       battlEyeRuntime: isLinux,
       framelessWindow: false
