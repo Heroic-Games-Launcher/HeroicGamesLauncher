@@ -14,7 +14,7 @@ interface Props {
 
 const GameStatus = ({ gameInfo, progress, handleUpdate, hasUpdate }: Props) => {
   const { t } = useTranslation('gamepage')
-  const { runner, is, statusContext } = useContext(GameContext)
+  const { is, statusContext } = useContext(GameContext)
 
   function getInstallLabel(
     is_installed: boolean,
@@ -23,17 +23,10 @@ const GameStatus = ({ gameInfo, progress, handleUpdate, hasUpdate }: Props) => {
   ): React.ReactNode {
     const { eta, bytes, percent, file } = progress
 
-    if (runner === 'gog' && is.notInstallable) {
+    if (is.notInstallable) {
       return t(
         'status.gog-goodie',
-        "This game doesn't appear to be installable. Check downloadable content on https://gog.com/account"
-      )
-    }
-
-    if (is.notSupportedGame) {
-      return t(
-        'status.this-game-uses-third-party',
-        'This game uses third party launcher and it is not supported yet'
+        "This game doesn't appear to be installable."
       )
     }
 
@@ -61,7 +54,7 @@ const GameStatus = ({ gameInfo, progress, handleUpdate, hasUpdate }: Props) => {
           'status.moving-files',
           `Moving file '{{file}}': {{percent}} `,
           { file, percent }
-        )}  
+        )}
         `
       }
 

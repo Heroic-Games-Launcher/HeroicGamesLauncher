@@ -22,7 +22,6 @@ export function hasStatus(
   }>({ label: '' })
 
   const {
-    thirdPartyManagedApp = undefined,
     is_installed,
     runner
   } = { ...gameInfo }
@@ -46,19 +45,6 @@ export function hasStatus(
           percent: progress.percent
         })
         return setGameStatus({ status, folder, label, statusContext })
-      }
-
-      if (thirdPartyManagedApp === 'Origin') {
-        const label = getStatusLabel({
-          status: 'notSupportedGame',
-          t,
-          runner
-        })
-        return setGameStatus({
-          status: 'notSupportedGame',
-          label,
-          statusContext
-        })
       }
 
       if (is_installed) {

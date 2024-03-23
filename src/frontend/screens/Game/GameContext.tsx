@@ -22,7 +22,6 @@ const initialContext: GameContextType = {
     moving: false,
     notAvailable: false,
     notInstallable: false,
-    notSupportedGame: false,
     playing: false,
     queued: false,
     reparing: false,

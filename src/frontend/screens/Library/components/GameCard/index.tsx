@@ -141,7 +141,6 @@ const GameCard = ({
 
   const {
     isInstalling,
-    notSupportedGame,
     isUninstalling,
     isQueued,
     isPlaying,
@@ -172,18 +171,6 @@ const GameCard = ({
       )
     }
 
-    if (notSupportedGame) {
-      return (
-        <FontAwesomeIcon
-          title={t(
-            'label.game.third-party-game',
-            'Third-Party Game NOT Supported'
-          )}
-          className="downIcon"
-          icon={faBan}
-        />
-      )
-    }
     if (isUninstalling) {
       return (
         <button className="svg-button iconDisabled">

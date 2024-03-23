@@ -75,19 +75,6 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
         </span>
       )
     }
-    if (is.notSupportedGame) {
-      return (
-        <span className="buttonWithIcon">
-          {t('status.notSupported', 'Not supported')}
-          <Warning
-            style={{
-              marginLeft: '5px',
-              cursor: 'not-allowed'
-            }}
-          />
-        </span>
-      )
-    }
 
     if (is.queued) {
       return (
@@ -168,7 +155,6 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
             is.reparing ||
             is.moving ||
             is.uninstalling ||
-            is.notSupportedGame ||
             is.notInstallable
           }
           autoFocus={true}

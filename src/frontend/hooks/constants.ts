@@ -19,7 +19,6 @@ export function getStatusLabel({
   percent
 }: StatusArgs): string {
   const statusMap: Partial<Record<Status, string>> = {
-    notSupportedGame: t('gamepage:status.notSupportedGame', 'Not Supported'),
     notAvailable: t('gamepage:status.gameNotAvailable', 'Game not available'),
     playing: t('gamepage:status.playing', 'Playing'),
     queued: `${t('gamepage:status.queued', 'Queued')}`,

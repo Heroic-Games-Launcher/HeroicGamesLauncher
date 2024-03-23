@@ -27,7 +27,6 @@ export function getCardStatus(
   const isQueued = status === 'queued'
   const isUninstalling = status === 'uninstalling'
   const notAvailable = status === 'notAvailable'
-  const notSupportedGame = status === 'notSupportedGame'
   const syncingSaves = status === 'syncing-saves'
   const isLaunching = status === 'launching'
   const isInstallingWinetricksPackages = status === 'winetricks'
@@ -41,7 +40,6 @@ export function getCardStatus(
     isQueued ||
     isUninstalling ||
     notAvailable ||
-    notSupportedGame ||
     isPlaying ||
     syncingSaves ||
     isLaunching ||
@@ -50,7 +48,6 @@ export function getCardStatus(
     (isInstalled && layout !== 'grid')
   return {
     isInstalling,
-    notSupportedGame,
     isUninstalling,
     isQueued,
     isPlaying,

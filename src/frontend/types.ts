@@ -251,7 +251,6 @@ export interface GameContextType {
     native: boolean
     notAvailable: boolean
     notInstallable: boolean
-    notSupportedGame: boolean
     playing: boolean
     queued: boolean
     reparing: boolean

@@ -210,7 +210,6 @@ export type Status =
   | 'error'
   | 'syncing-saves'
   | 'notAvailable'
-  | 'notSupportedGame'
   | 'notInstalled'
   | 'installed'
   | 'redist'

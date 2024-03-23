@@ -608,6 +608,7 @@ function loadFile(app_name: string): boolean {
     },
     dlcList: dlcItemList,
     folder_name: installFolder,
+    installable: thirdPartyManagedApp !== 'Origin',
     install: {
       executable,
       install_path,
