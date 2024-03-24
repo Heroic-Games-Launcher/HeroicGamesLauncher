@@ -996,41 +996,33 @@ export async function moveOnWindows(
   newInstallPath = join(newInstallPath, basename(install_path))
 
   let currentFile = ''
-  let currentPercent = ''
 
   // move using robocopy and show progress of the current file being copied
   const { code, stderr } = await spawnAsync(
     'robocopy',
-    [install_path, newInstallPath, '/MOVE', '/MIR'],
+    [install_path, newInstallPath, '/MOVE', '/MIR', '/NJH', '/NJS', '/NDL'],
     { stdio: 'pipe' },
     (data) => {
-      data = data.replaceAll(/\s/g, ' ')
+      let percent = 0
+      const percentMatch = data.match(/(\d+)(?:\.\d+)?%/)?.[1]
+      if (percentMatch) percent = Number(percentMatch)
 
-      const match = data.split(' ').filter(Boolean)
-      // current percentage
-      const percent = match.filter((m) => m.includes('%'))[0]
-      // current file
-      const file = match[match.length - 1]
-      if (percent) {
-        currentPercent = percent
-      }
+      const filenameMatch = data.match(/([\w.:\\]+)$/)?.[1]
+      if (filenameMatch) currentFile = filenameMatch
 
-      if (file && file.includes('.') && !file.includes('%')) {
-        currentPercent = '0%'
-        currentFile = file
-      }
-
-      if (match) {
-        sendFrontendMessage(`progressUpdate-${gameInfo.app_name}`, {
-          appName: gameInfo.app_name,
-          runner: gameInfo.runner,
-          status: 'moving',
-          progress: {
-            percent: currentPercent,
-            file: currentFile
-          }
-        })
-      }
+      sendFrontendMessage(`progressUpdate-${gameInfo.app_name}`, {
+        appName: gameInfo.app_name,
+        runner: gameInfo.runner,
+        status: 'moving',
+        progress: {
+          percent,
+          file: currentFile,
+          // FIXME: Robocopy does not report bytes moved / an ETA, so we have to
+          //        leave these blank for now
+          bytes: '',
+          eta: ''
+        }
+      })
     }
   )
   if (code !== 0) {
@@ -1058,7 +1050,6 @@ export async function moveOnUnix(
   const destination = join(newInstallPath, basename(install_path))
 
   let currentFile = ''
-  let currentPercent = ''
 
   let rsyncExists = false
   try {
@@ -1070,38 +1061,63 @@ export async function moveOnUnix(
   if (rsyncExists) {
     const origin = install_path + '/'
     logInfo(
-      `moving command: rsync -az --progress ${origin} ${destination} `,
+      `moving command: rsync --archive --compress --no-human-readable --remove-source-files --info=name,progress ${origin} ${destination} `,
       LogPrefix.Backend
     )
     const { code, stderr } = await spawnAsync(
       'rsync',
-      ['-az', '--progress', origin, destination],
+      [
+        '--archive',
+        '--compress',
+        '--no-human-readable',
+        '--remove-source-files',
+        '--info=name,progress',
+        origin,
+        destination
+      ],
       { stdio: 'pipe' },
       (data) => {
-        const split =
-          data
-            .split('\n')
-            .find((d) => d.includes('/') && !d.includes('%'))
-            ?.split('/') || []
-        const file = split.at(-1) || ''
+        let percent = 0
+        let eta = ''
+        let bytes = '0'
+        // Rsync outputs either the file currently being transferred or a
+        // progress report. To know which one of those `data` is, we check if
+        // it includes a %, :, and starts with a space
+        // If all of these aren't the case, it's *most likely* a filename
+        // FIXME: This is pretty hacky, but I don't see an obvious way to
+        //        "divide" the two output types other than that
+        const isFilenameOutput =
+          !data.includes('%') && !data.includes(':') && !data.startsWith(' ')
 
-        if (file) {
-          currentFile = file
+        if (isFilenameOutput) {
+          // If we have a filename output, we've started copying a new
+          // file (we thus start at 0%, with 0 bytes moved, and with no ETA)
+
+          // Data will be a multiline string, potentially with directory names,
+          // finally the file name, and ending with an empty line
+          currentFile = data.trim().split('\n').at(-1)!
+        } else {
+          // If we got the progress update, try to read out the bytes, ETA and
+          // percent
+          const bytesMatch = data.match(/^\s*(\d+)/)?.[1]
+          const etaMatch = data.match(/(\d+:\d+:\d+)/)?.[1]
+          const percentMatch = data.match(/(\d+)%/)?.[1]
+          if (bytesMatch) bytes = getFileSize(Number(bytesMatch))
+          if (etaMatch) eta = etaMatch
+          if (percentMatch) percent = Number(percentMatch)
         }
 
-        const percent = data.match(/(\d+)%/)
-        if (percent) {
-          currentPercent = percent[0]
-          sendFrontendMessage(`progressUpdate-${gameInfo.app_name}`, {
-            appName: gameInfo.app_name,
-            runner: gameInfo.runner,
-            status: 'moving',
-            progress: {
-              percent: currentPercent,
-              file: currentFile
-            }
-          })
-        }
+        sendFrontendMessage(`progressUpdate-${gameInfo.app_name}`, {
+          appName: gameInfo.app_name,
+          runner: gameInfo.runner,
+          status: 'moving',
+          progress: {
+            percent,
+            eta,
+            bytes,
+            file: currentFile
+          }
+        })
       }
     )
     if (code !== 1) {
