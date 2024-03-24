@@ -9,7 +9,6 @@ import {
   RefreshOptions,
   Runner,
   WineVersionInfo,
-  InstallParams,
   LibraryTopSectionOptions,
   ExperimentalFeatures
 } from 'common/types'
@@ -773,44 +772,37 @@ class GlobalState extends PureComponent<Props> {
       }
     )
 
-    window.api.handleInstallGame(
-      async (e: IpcRendererEvent, args: InstallParams) => {
-        const currentApp = libraryStatus.filter(
-          (game) => game.appName === appName
-        )[0]
-        const { appName, runner } = args
-        if (!currentApp || (currentApp && currentApp.status !== 'installing')) {
-          const gameInfo = await getGameInfo(appName, runner)
-          if (!gameInfo || gameInfo.runner === 'sideload') {
-            return
-          }
-          return this.setState({
-            showInstallModal: {
-              show: true,
-              appName,
-              runner,
-              gameInfo
-            }
-          })
+    window.api.handleInstallGame(async (e, appName, runner) => {
+      const currentApp = libraryStatus.filter(
+        (game) => game.appName === appName
+      )[0]
+      if (!currentApp || (currentApp && currentApp.status !== 'installing')) {
+        const gameInfo = await getGameInfo(appName, runner)
+        if (!gameInfo || gameInfo.runner === 'sideload') {
+          return
         }
-      }
-    )
-
-    window.api.handleGameStatus(
-      async (e: IpcRendererEvent, args: GameStatus) => {
-        return this.handleGameStatus({ ...args })
-      }
-    )
-
-    window.api.handleRefreshLibrary(
-      async (e: IpcRendererEvent, runner: Runner) => {
-        this.refreshLibrary({
-          checkForUpdates: false,
-          runInBackground: true,
-          library: runner
+        return this.setState({
+          showInstallModal: {
+            show: true,
+            appName,
+            runner,
+            gameInfo
+          }
         })
       }
-    )
+    })
+
+    window.api.handleGameStatus((e, args) => {
+      this.handleGameStatus({ ...args })
+    })
+
+    window.api.handleRefreshLibrary((e, runner) => {
+      this.refreshLibrary({
+        checkForUpdates: false,
+        runInBackground: true,
+        library: runner
+      })
+    })
 
     window.api.handleGamePush((e: IpcRendererEvent, args: GameInfo) => {
       if (!args.app_name) return

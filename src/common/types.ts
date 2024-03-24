@@ -8,7 +8,7 @@ import {
   GameMetadataInner,
   LegendaryInstallInfo
 } from './types/legendary'
-import { IpcRendererEvent, TitleBarOverlay } from 'electron'
+import { TitleBarOverlay } from 'electron'
 import { ChildProcess } from 'child_process'
 import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
 import { NileInstallInfo, NileInstallPlatform } from './types/nile'
@@ -540,11 +540,6 @@ export type InstallPlatform =
   | GogInstallPlatform
   | NileInstallPlatform
   | 'Browser'
-
-export type ConnectivityChangedCallback = (
-  event: IpcRendererEvent,
-  status: ConnectivityStatus
-) => void
 
 export type ConnectivityStatus = 'offline' | 'check-online' | 'online'
 

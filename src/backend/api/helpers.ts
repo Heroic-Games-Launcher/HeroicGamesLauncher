@@ -3,7 +3,6 @@ import {
   Runner,
   InstallPlatform,
   WineCommandArgs,
-  ConnectivityChangedCallback,
   ConnectivityStatus,
   AppSettings,
   GameSettings,
@@ -115,7 +114,13 @@ export const runWineCommandForGame = async (args: RunWineCommandArgs) =>
   ipcRenderer.invoke('runWineCommandForGame', args)
 
 export const onConnectivityChanged = async (
-  callback: ConnectivityChangedCallback
+  callback: (
+    event: Electron.IpcRendererEvent,
+    status: {
+      status: ConnectivityStatus
+      retryIn: number
+    }
+  ) => void
 ) => ipcRenderer.on('connectivity-changed', callback)
 
 export const getConnectivityStatus = async () =>

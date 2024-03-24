@@ -127,8 +127,9 @@ export const pathExists = async (path: string) =>
 export const processShortcut = async (combination: string) =>
   ipcRenderer.send('processShortcut', combination)
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const handleGoToScreen = (callback: any) => {
+export const handleGoToScreen = (
+  callback: (e: Electron.IpcRendererEvent, screen: string) => void
+) => {
   ipcRenderer.on('openScreen', callback)
   return () => {
     ipcRenderer.removeListener('openScreen', callback)

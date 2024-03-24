@@ -135,10 +135,7 @@ async function handleLaunch(
       icon: icon
     })
     if (response === 0) {
-      return sendFrontendMessage('installGame', {
-        appName: app_name,
-        runner: gameRunner
-      })
+      return sendFrontendMessage('installGame', app_name, gameRunner)
     }
     if (response === 1) {
       return logInfo('Not installing game', LogPrefix.ProtocolHandler)
@@ -146,7 +143,7 @@ async function handleLaunch(
   }
 
   mainWindow?.hide()
-  sendFrontendMessage('launchGame', arg, gameRunner)
+  sendFrontendMessage('launchGame', app_name, gameRunner)
 }
 
 /**
