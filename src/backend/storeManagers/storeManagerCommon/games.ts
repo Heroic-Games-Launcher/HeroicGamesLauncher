@@ -3,6 +3,7 @@ import { GameConfig } from '../../game_config'
 import { isMac, isLinux, icon } from '../../constants'
 import {
   appendGamePlayLog,
+  appendWinetricksGamePlayLog,
   lastPlayLogFileLocation,
   logInfo,
   LogPrefix,
@@ -162,7 +163,10 @@ export async function launchGame(
       steamRuntime
     } = await prepareLaunch(gameSettings, gameInfo, isNative)
 
-    if (!isNative) await prepareWineLaunch(runner, appName)
+    if (!isNative) {
+      await prepareWineLaunch(runner, appName)
+      appendWinetricksGamePlayLog(gameInfo)
+    }
 
     const wrappers = setupWrappers(
       gameSettings,

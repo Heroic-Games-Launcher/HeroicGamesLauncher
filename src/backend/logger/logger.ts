@@ -16,6 +16,7 @@ import { appendFile, writeFile } from 'fs/promises'
 import { gamesConfigPath, isWindows } from 'backend/constants'
 import { gameManagerMap } from 'backend/storeManagers'
 import { existsSync, mkdirSync, openSync } from 'graceful-fs'
+import { Winetricks } from 'backend/tools'
 
 export enum LogPrefix {
   General = '',
@@ -361,35 +362,43 @@ const logsWriters: Record<string, LogWriter> = {}
 
 // Base abstract class for all LogWriters
 class LogWriter {
-  queue: string[]
+  queue: (string | Promise<string | string[]>)[]
   initialized: boolean
   filePath: string
   timeoutId: NodeJS.Timeout | undefined
+  processing: boolean
 
   constructor() {
     this.initialized = false
     this.queue = []
     this.filePath = ''
+    this.processing = false
 
     if (new.target === LogWriter) {
       throw new Error('LogWriter is an abstract class')
     }
   }
 
-  logMessage(message: string) {
+  /**
+   * Append a message to the queue
+   * @param message string or promise that returns a string or string[]
+   */
+  logMessage(message: string | Promise<string | string[]>) {
     // push messages to append to the log
     this.queue.push(message)
 
-    // if the logger is initialized and we don't have a timeout,
-    // append the message and start a timeout
+    // if the logger is initialized and we don't have a timeout
+    // and we are not proccesing the previous batch, write a new batch
     //
     // otherwise it means there's a timeout already running that will
-    // write the elements in the queue in a second
-    if (this.initialized && !this.timeoutId) this.appendMessages()
+    // write the elements in the queue in a second or that we are processing
+    // promises
+    if (this.initialized && !this.processing && !this.timeoutId)
+      this.appendMessages()
   }
 
   async appendMessages() {
-    const messagesToWrite = this.queue
+    const itemsInQueue = this.queue
 
     // clear pending message if any
     this.queue = []
@@ -397,7 +406,27 @@ class LogWriter {
     // clear timeout if any
     delete this.timeoutId
 
-    if (!messagesToWrite?.length) return
+    if (!itemsInQueue?.length) return
+
+    this.processing = true
+
+    // process items in queue, if they are promises we wait
+    // for them so we can write them in the right order
+    let messagesToWrite: string[] = []
+    for (const item of itemsInQueue) {
+      try {
+        let result = await item
+
+        // support promises returning a string or an array of strings
+        result = Array.isArray(result) ? result : [result]
+
+        messagesToWrite = messagesToWrite.concat(result)
+      } catch (error) {
+        logError(error, LogPrefix.Backend)
+      }
+    }
+
+    this.processing = false
 
     // if we have messages, write them and check again in 1 second
     // we start the timeout before writing so we don't wait until
@@ -508,6 +537,28 @@ export function appendGamePlayLog(gameInfo: GameInfo, message: string) {
 export async function initGamePlayLog(gameInfo: GameInfo) {
   logsWriters[`${gameInfo.app_name}-lastPlay`] ??= new GameLogWriter(gameInfo)
   return logsWriters[`${gameInfo.app_name}-lastPlay`].initLog()
+}
+
+export async function appendWinetricksGamePlayLog(gameInfo: GameInfo) {
+  const logWriter = logsWriters[`${gameInfo.app_name}-lastPlay`]
+  if (logWriter) {
+    // append a promise to the queue
+    logWriter.logMessage(
+      new Promise((resolve, reject) => {
+        Winetricks.listInstalled(gameInfo.runner, gameInfo.app_name)
+          .then((installedPackages) => {
+            const packagesString = installedPackages
+              ? installedPackages.join(', ')
+              : 'none'
+
+            resolve(`Winetricks packages: ${packagesString}\n\n`)
+          })
+          .catch((error) => {
+            reject(error)
+          })
+      })
+    )
+  }
 }
 
 export function stopLogger(appName: string) {

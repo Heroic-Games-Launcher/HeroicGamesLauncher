@@ -41,6 +41,7 @@ import {
 } from '../../constants'
 import {
   appendGamePlayLog,
+  appendWinetricksGamePlayLog,
   logError,
   logFileLocation,
   logInfo,
@@ -827,6 +828,8 @@ export async function launch(
       }
       return false
     }
+
+    appendWinetricksGamePlayLog(gameInfo)
 
     commandEnv = {
       ...commandEnv,

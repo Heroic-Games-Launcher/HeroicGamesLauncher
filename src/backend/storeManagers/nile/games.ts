@@ -21,6 +21,7 @@ import {
 import {
   LogPrefix,
   appendGamePlayLog,
+  appendWinetricksGamePlayLog,
   logDebug,
   logError,
   logFileLocation,
@@ -370,6 +371,8 @@ export async function launch(
       }
       return false
     }
+
+    appendWinetricksGamePlayLog(gameInfo)
 
     commandEnv = {
       ...commandEnv,
