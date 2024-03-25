@@ -23,6 +23,7 @@ import {
   PreferedLanguage,
   PreferSystemLibs,
   ShowFPS,
+  SteamAppId,
   SteamRuntime,
   UseDGPU,
   WinePrefix,
@@ -237,6 +238,7 @@ export default function GamesSettings() {
         <WrappersTable />
         <EnvVariablesTable />
         {!isSideloaded && <PreferedLanguage />}
+        <SteamAppId />
       </TabPanel>
 
       <TabPanel value={value} index={'saves'}>
