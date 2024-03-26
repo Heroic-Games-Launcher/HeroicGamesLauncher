@@ -1080,31 +1080,40 @@ export async function moveOnUnix(
         let percent = 0
         let eta = ''
         let bytes = '0'
-        // Rsync outputs either the file currently being transferred or a
-        // progress report. To know which one of those `data` is, we check if
-        // it includes a %, :, and starts with a space
-        // If all of these aren't the case, it's *most likely* a filename
-        // FIXME: This is pretty hacky, but I don't see an obvious way to
-        //        "divide" the two output types other than that
-        const isFilenameOutput =
-          !data.includes('%') && !data.includes(':') && !data.startsWith(' ')
 
-        if (isFilenameOutput) {
-          // If we have a filename output, we've started copying a new
-          // file (we thus start at 0%, with 0 bytes moved, and with no ETA)
+        // Multiple output lines might be buffered into a single `data`, so
+        // we have to iterate over every line (we can't just look at the last
+        // one since that might skip new files)
+        for (const outLine of data.trim().split('\n')) {
+          // Rsync outputs either the file currently being transferred or a
+          // progress report. To know which one of those `outLine` is, we check
+          // if it includes a %, :, and starts with a space
+          // If all of these aren't the case, it's *most likely* a filename
+          // FIXME: This is pretty hacky, but I don't see an obvious way to
+          //        "divide" the two output types other than that
+          const isFilenameOutput =
+            !outLine.includes('%') &&
+            !outLine.includes(':') &&
+            !outLine.startsWith(' ')
 
-          // Data will be a multiline string, potentially with directory names,
-          // finally the file name, and ending with an empty line
-          currentFile = data.trim().split('\n').at(-1)!
-        } else {
-          // If we got the progress update, try to read out the bytes, ETA and
-          // percent
-          const bytesMatch = data.match(/^\s*(\d+)/)?.[1]
-          const etaMatch = data.match(/(\d+:\d+:\d+)/)?.[1]
-          const percentMatch = data.match(/(\d+)%/)?.[1]
-          if (bytesMatch) bytes = getFileSize(Number(bytesMatch))
-          if (etaMatch) eta = etaMatch
-          if (percentMatch) percent = Number(percentMatch)
+          if (isFilenameOutput) {
+            // If we have a filename output, set `lastFile` and reset all
+            // other metrics. Either there'll be a progress update in the next
+            // line of `data`, or we've just started copying and thus start at 0
+            currentFile = outLine
+            percent = 0
+            eta = ''
+            bytes = '0'
+          } else {
+            // If we got the progress update, try to read out the bytes, ETA and
+            // percent
+            const bytesMatch = outLine.match(/^\s+(\d+)/)?.[1]
+            const etaMatch = outLine.match(/(\d+:\d{2}:\d{2})/)?.[1]
+            const percentMatch = outLine.match(/(\d+)%/)?.[1]
+            if (bytesMatch) bytes = getFileSize(Number(bytesMatch))
+            if (etaMatch) eta = etaMatch
+            if (percentMatch) percent = Number(percentMatch)
+          }
         }
 
         sendFrontendMessage(`progressUpdate-${gameInfo.app_name}`, {
