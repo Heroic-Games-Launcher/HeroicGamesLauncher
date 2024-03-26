@@ -870,7 +870,7 @@ export async function downloadDefaultWine() {
 
   // download the latest version
   const onProgress = (state: State, progress?: ProgressInfo) => {
-    sendFrontendMessage('progressOfWineManager' + release.version, {
+    sendFrontendMessage(`progressOfWineManager${release.version}`, {
       state,
       progress
     })

@@ -1,7 +1,6 @@
 import { ipcRenderer } from 'electron'
 import {
   Runner,
-  InstallParams,
   LaunchParams,
   ImportGameArgs,
   GameStatus,
@@ -74,11 +73,15 @@ export const handleLaunchGame = (
 ) => ipcRenderer.on('launchGame', callback)
 
 export const handleInstallGame = (
-  callback: (event: Electron.IpcRendererEvent, args: InstallParams) => void
+  callback: (
+    event: Electron.IpcRendererEvent,
+    appName: string,
+    runner: Runner
+  ) => void
 ) => ipcRenderer.on('installGame', callback)
 
 export const handleRefreshLibrary = (
-  callback: (event: Electron.IpcRendererEvent, runner: Runner) => void
+  callback: (event: Electron.IpcRendererEvent, runner?: Runner) => void
 ) => ipcRenderer.on('refreshLibrary', callback)
 
 export const handleGamePush = (

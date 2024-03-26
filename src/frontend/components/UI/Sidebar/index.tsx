@@ -49,7 +49,7 @@ export default React.memo(function Sidebar() {
   }, [sidebarEl])
 
   useEffect(() => {
-    window.api.handleGoToScreen((e: Event, screen: string) => {
+    window.api.handleGoToScreen((e, screen) => {
       // handle navigate to screen
       navigate(screen, { state: { fromGameCard: false } })
     })

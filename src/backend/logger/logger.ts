@@ -121,7 +121,7 @@ export function initLogger() {
     )
 
     if (key === 'disableLogs') {
-      logsDisabled = newValue
+      logsDisabled = newValue as boolean
     }
   })
 }

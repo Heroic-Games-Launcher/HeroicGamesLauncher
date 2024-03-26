@@ -2,6 +2,7 @@ import { AppSettings, WindowProps } from 'common/types'
 import { BrowserWindow, screen } from 'electron'
 import path from 'path'
 import { configStore } from './constants'
+import type { FrontendMessages } from 'common/types/frontend_messages'
 
 let mainWindow: BrowserWindow | null = null
 
@@ -18,7 +19,10 @@ export const isFrameless = () => {
 // send a message to the main window's webContents if available
 // returns `false` if no mainWindow or no webContents
 // returns `true` if the message was sent to the webContents
-export const sendFrontendMessage = (message: string, ...payload: unknown[]) => {
+export const sendFrontendMessage = <MessageName extends keyof FrontendMessages>(
+  message: MessageName,
+  ...payload: Parameters<FrontendMessages[MessageName]>
+) => {
   // get the first BrowserWindow if for some reason we don't have a webContents
   if (!mainWindow?.webContents) {
     mainWindow = BrowserWindow.getAllWindows()[0]

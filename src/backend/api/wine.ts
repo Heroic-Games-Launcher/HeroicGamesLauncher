@@ -38,7 +38,7 @@ export const refreshWineVersionInfo = async (fetch?: boolean): Promise<void> =>
 export const handleProgressOfWinetricks = (
   onProgress: (
     e: Electron.IpcRendererEvent,
-    payload: { messages: string[]; installingComponent: '' }
+    payload: { messages: string[]; installingComponent: string }
   ) => void
 ): (() => void) => {
   ipcRenderer.on('progressOfWinetricks', onProgress)

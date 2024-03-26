@@ -10,7 +10,7 @@ import { sendFrontendMessage } from '../../main_window'
 
 ipcMain.handle('installWineVersion', async (e, release) => {
   const onProgress = (state: State, progress?: ProgressInfo) => {
-    sendFrontendMessage('progressOfWineManager' + release.version, {
+    sendFrontendMessage(`progressOfWineManager${release.version}`, {
       state,
       progress
     })
