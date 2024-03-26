@@ -1,4 +1,4 @@
-import { defineConfig, UserConfigExport } from 'vite'
+import { defineConfig, type Plugin, type UserConfigExport } from 'vite'
 import electron from 'vite-plugin-electron'
 import react from '@vitejs/plugin-react-swc'
 import svgr from 'vite-plugin-svgr'
@@ -24,7 +24,20 @@ const electronViteConfig: UserConfigExport = {
   }
 }
 
-export default defineConfig({
+// FIXME: Potentially publish this as a dedicated plugin, if other projects
+//        run into the same issue
+const vite_plugin_react_dev_tools: Plugin = {
+  name: 'react-dev-tools-replace',
+  transformIndexHtml: {
+    transform: (html) =>
+      html.replace(
+        '<!-- REACT_DEVTOOLS_SCRIPT -->',
+        '<script src="http://localhost:8097"></script>'
+      )
+  }
+}
+
+export default defineConfig(({ mode }) => ({
   build: {
     target: 'esnext',
     outDir: 'build'
@@ -51,6 +64,7 @@ export default defineConfig({
         onstart: ({ reload }) => reload()
       }
     ]),
-    svgr()
+    svgr(),
+    mode !== 'production' && vite_plugin_react_dev_tools
   ]
-})
+}))
