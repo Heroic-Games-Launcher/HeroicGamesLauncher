@@ -11,7 +11,7 @@ jobs:
   build:
     uses: ./.github/workflows/build-base.yml
     with:
-      publish-snap: true
+      publish-snap: false
     secrets:
       snapcraftIdEdge: ${{ secrets.SNAPCRAFT_ID_EDGE }}
       workflowToken: ${{ secrets.WORKFLOW_TOKEN }}
