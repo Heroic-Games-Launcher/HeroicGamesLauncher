@@ -883,3 +883,8 @@
     filter: blur(15px) brightness(30%);
   }
 }
+
+.App:not(.oldDesign).isRTL .gameConfigContainer .game-actions .gameTools {
+  left: 0;
+  right: unset;
+}
