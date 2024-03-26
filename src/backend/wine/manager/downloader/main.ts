@@ -18,7 +18,7 @@ import {
   WINECROSSOVER_URL,
   WINESTAGINGMACOS_URL
 } from './constants'
-import { VersionInfo, Repositorys, State, ProgressInfo } from 'common/types'
+import { VersionInfo, Repositorys } from 'common/types'
 import {
   fetchReleases,
   getFolderSize,
@@ -26,6 +26,7 @@ import {
   unzipFile
 } from './utilities'
 import { calculateEta, downloadFile } from 'backend/utils'
+import type { WineManagerStatus } from 'common/types'
 
 interface getVersionsProps {
   repositorys?: Repositorys[]
@@ -151,7 +152,7 @@ interface installProps {
   versionInfo: VersionInfo
   installDir: string
   overwrite?: boolean
-  onProgress?: (state: State, progress?: ProgressInfo) => void
+  onProgress?: (state: WineManagerStatus) => void
   abortSignal?: AbortSignal
 }
 
@@ -248,7 +249,8 @@ async function installVersion({
       versionInfo.downsize
     )
 
-    onProgress('downloading', {
+    onProgress({
+      status: 'downloading',
       percentage,
       eta: eta!,
       avgSpeed: downloadSpeed

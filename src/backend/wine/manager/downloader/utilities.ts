@@ -3,7 +3,7 @@ import * as axios from 'axios'
 import { existsSync, statSync, unlinkSync } from 'graceful-fs'
 import { spawnSync } from 'child_process'
 
-import { ProgressInfo, State, VersionInfo, Type } from 'common/types'
+import { VersionInfo, Type, type WineManagerStatus } from 'common/types'
 import { extractFiles } from 'backend/utils'
 
 interface fetchProps {
@@ -117,7 +117,7 @@ interface unzipProps {
   filePath: string
   unzipDir: string
   overwrite?: boolean
-  onProgress: (state: State, progress?: ProgressInfo) => void
+  onProgress: (state: WineManagerStatus) => void
   abortSignal?: AbortSignal
 }
 
@@ -152,15 +152,15 @@ async function unzipFile({
 
     extractFiles({ path: filePath, destination: unzipDir, strip: 1 })
       .then(() => {
-        onProgress('idle')
+        onProgress({ status: 'idle' })
         resolve(`Succesfully unzip ${filePath} to ${unzipDir}.`)
       })
       .catch((error) => {
-        onProgress('idle')
+        onProgress({ status: 'idle' })
         reject(`Unzip of ${filePath} failed with:\n ${error}!`)
       })
 
-    onProgress('unzipping')
+    onProgress({ status: 'unzipping' })
   })
 }
 

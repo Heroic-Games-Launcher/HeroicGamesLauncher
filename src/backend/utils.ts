@@ -7,8 +7,6 @@ import {
   Release,
   GameInfo,
   GameSettings,
-  State,
-  ProgressInfo,
   GameStatus
 } from 'common/types'
 import axios from 'axios'
@@ -88,6 +86,7 @@ import {
   deviceNameCache,
   vendorNameCache
 } from './utils/systeminfo/gpu/pci_ids'
+import type { WineManagerStatus } from 'common/types'
 
 const execAsync = promisify(exec)
 
@@ -869,11 +868,8 @@ export async function downloadDefaultWine() {
   }
 
   // download the latest version
-  const onProgress = (state: State, progress?: ProgressInfo) => {
-    sendFrontendMessage('progressOfWineManager' + release.version, {
-      state,
-      progress
-    })
+  const onProgress = (state: WineManagerStatus) => {
+    sendFrontendMessage('progressOfWineManager', release.version, state)
   }
   const result = await installWineVersion(release, onProgress)
 

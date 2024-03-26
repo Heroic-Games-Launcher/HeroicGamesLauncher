@@ -3,9 +3,8 @@ import {
   RuntimeName,
   ToolArgs,
   WineVersionInfo,
-  ProgressInfo,
-  State,
-  Runner
+  Runner,
+  type WineManagerStatus
 } from 'common/types'
 
 export const toggleDXVK = async (args: ToolArgs) =>
@@ -27,11 +26,10 @@ export const showItemInFolder = (installDir: string) =>
   ipcRenderer.send('showItemInFolder', installDir)
 export const installWineVersion = async (
   release: WineVersionInfo
-): Promise<'error' | 'abort' | 'success'> =>
-  ipcRenderer.invoke('installWineVersion', release)
+): Promise<void> => ipcRenderer.invoke('installWineVersion', release)
 export const removeWineVersion = async (
   release: WineVersionInfo
-): Promise<boolean> => ipcRenderer.invoke('removeWineVersion', release)
+): Promise<void> => ipcRenderer.invoke('removeWineVersion', release)
 export const refreshWineVersionInfo = async (fetch?: boolean): Promise<void> =>
   ipcRenderer.invoke('refreshWineVersionInfo', fetch)
 
@@ -48,18 +46,15 @@ export const handleProgressOfWinetricks = (
 }
 
 export const handleProgressOfWineManager = (
-  version: string,
   callback: (
     e: Electron.IpcRendererEvent,
-    progress: {
-      state: State
-      progress: ProgressInfo
-    }
+    version: string,
+    progress: WineManagerStatus
   ) => void
 ): (() => void) => {
-  ipcRenderer.on('progressOfWineManager' + version, callback)
+  ipcRenderer.on('progressOfWineManager', callback)
   return () => {
-    ipcRenderer.removeListener('progressOfWineManager' + version, callback)
+    ipcRenderer.removeListener('progressOfWineManager', callback)
   }
 }
 

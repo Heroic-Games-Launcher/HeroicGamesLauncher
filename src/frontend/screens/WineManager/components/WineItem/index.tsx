@@ -1,16 +1,18 @@
 import './index.css'
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
-import { WineVersionInfo, ProgressInfo, State } from 'common/types'
+import { WineVersionInfo } from 'common/types'
 import { ReactComponent as DownIcon } from 'frontend/assets/down-icon.svg'
 import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
 import { faRepeat, faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { SvgButton } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 
-import { notify, size } from 'frontend/helpers'
+import { size } from 'frontend/helpers'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import useWineManagerState from '../../state'
+import { useShallow } from 'zustand/react/shallow'
 
 const WineItem = ({
   version,
@@ -25,102 +27,43 @@ const WineItem = ({
   type
 }: WineVersionInfo) => {
   const { t } = useTranslation()
-  const [progress, setProgress] = useState<{
-    state: State
-    progress: ProgressInfo
-  }>({
-    state: 'idle',
-    progress: { percentage: 0, avgSpeed: 0, eta: '00:00:00' }
-  })
-
-  useEffect(() => {
-    if (version) {
-      const removeWineManagerDownloadListener =
-        window.api.handleProgressOfWineManager(
-          version,
-          (
-            e: Electron.IpcRendererEvent,
-            progress: {
-              state: State
-              progress: ProgressInfo
-            }
-          ) => {
-            setProgress(progress)
-          }
-        )
-      return removeWineManagerDownloadListener
-    }
-    /* eslint-disable @typescript-eslint/no-empty-function */
-    return () => {}
-  }, [])
+  const state = useWineManagerState(useShallow((state) => state[version]))
 
   if (!version || !downsize) {
     return null
   }
 
-  const isDownloading = progress.state === 'downloading'
-  const unZipping = progress.state === 'unzipping'
+  const isDownloading = state?.status === 'downloading'
+  const unZipping = state?.status === 'unzipping'
 
   async function install() {
-    notify({ title: `${version}`, body: t('notify.install.startInstall') })
-    setProgress({
-      state: 'downloading',
-      progress: { percentage: 0, avgSpeed: 0, eta: '00:00:00' }
+    return window.api.installWineVersion({
+      version,
+      date,
+      downsize,
+      disksize,
+      download,
+      checksum,
+      isInstalled,
+      hasUpdate,
+      type,
+      installDir
     })
-    window.api
-      .installWineVersion({
-        version,
-        date,
-        downsize,
-        disksize,
-        download,
-        checksum,
-        isInstalled,
-        hasUpdate,
-        type,
-        installDir
-      })
-      .then((response) => {
-        switch (response) {
-          case 'error':
-            notify({ title: `${version}`, body: t('notify.install.error') })
-            break
-          case 'abort':
-            notify({ title: `${version}`, body: t('notify.install.canceled') })
-            break
-          case 'success':
-            notify({ title: `${version}`, body: t('notify.install.finished') })
-            break
-          default:
-            break
-        }
-
-        setProgress({
-          state: 'idle',
-          progress: { percentage: 0, avgSpeed: 0, eta: '00:00:00' }
-        })
-      })
   }
 
   async function remove() {
-    window.api
-      .removeWineVersion({
-        version,
-        date,
-        downsize,
-        disksize,
-        download,
-        checksum,
-        isInstalled,
-        hasUpdate,
-        installDir,
-        type
-      })
-      .then((response) => {
-        if (response) {
-          notify({ title: `${version}`, body: t('notify.uninstalled') })
-        }
-      })
+    window.api.removeWineVersion({
+      version,
+      date,
+      downsize,
+      disksize,
+      download,
+      checksum,
+      isInstalled,
+      hasUpdate,
+      installDir,
+      type
+    })
   }
 
   function openInstallDir() {
@@ -130,7 +73,14 @@ const WineItem = ({
   const renderStatus = () => {
     let status
     if (isDownloading) {
-      status = getProgressElement(progress.progress)
+      const percentStringified = `${state.percentage.toFixed(2)}%`
+
+      status = (
+        <p className="progress">
+          {percentStringified}
+          <br />({state.eta})
+        </p>
+      )
     } else if (unZipping) {
       status = t('wine.manager.unzipping', 'Unzipping')
     } else if (isInstalled) {
@@ -208,19 +158,6 @@ const WineItem = ({
         </SvgButton>
       </span>
     </div>
-  )
-}
-
-function getProgressElement(progress: ProgressInfo) {
-  const { percentage, eta } = progress
-
-  const percentageAsString = `${percentage.toFixed(2)}%`
-  const etaAsString = `${eta}`
-  return (
-    <p className="progress">
-      {percentageAsString}
-      <br />({etaAsString})
-    </p>
   )
 }
 
