@@ -37,7 +37,7 @@
     "dist:linux": "vite build && electron-builder --linux",
     "dist:mac": "export CSC_IDENTITY_AUTO_DISCOVERY=false && vite build && electron-builder --mac",
     "dist:win": "vite build && electron-builder --win",
-    "dist:flatpak": "yarn dist:linux appimage && yarn flatpak:prepare && yarn flatpak:build",
+    "dist:flatpak": "pnpm dist:linux appimage && pnpm flatpak:prepare && pnpm flatpak:build",
     "lint": "eslint --cache --ext .tsx,ts .",
     "lint-fix": "eslint --fix --ext .tsx,ts ./src",
     "flatpak:build": "cd flatpak-build && flatpak-builder build com.heroicgameslauncher.hgl.yml --install --force-clean --user",
