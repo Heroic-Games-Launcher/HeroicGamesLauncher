@@ -1,5 +1,15 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["**/*.ts", "**/*.tsx", "**/*.js"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.js",
+    "e2e/**/*.ts",
+    "e2e/**/*.tsx",
+    "e2e/**/*.js",
+    "flathub/**/*.ts",
+    "playwright.config.ts",
+    "vite.config.ts"
+  ],
   "exclude": []
 }
