@@ -28,4 +28,4 @@ jobs:
         with:
           python-version: '3.10'
       - run: python3 -m pip install castlabs-evs
-      - run: npm run release:mac
+      - run: pnpm release:mac

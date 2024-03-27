@@ -19,19 +19,14 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
-      - name: Setup NodeJS
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-      - name: Install modules.
-        run: npm i --legacy-peer-deps
+      - uses: ./.github/actions/install-deps
       - name: Build artifacts.
-        run: npm run dist:linux appimage --publish=never
+        run: pnpm dist:linux appimage --publish=never
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       - name: Prepare Flatpak
-        run: npm run flatpak:prepare
+        run: pnpm flatpak:prepare
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}

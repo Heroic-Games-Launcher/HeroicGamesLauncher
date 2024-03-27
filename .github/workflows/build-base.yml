@@ -23,10 +23,10 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/install-deps
       - name: Build Windows Portable version
-        run: yarn dist:win portable
+        run: pnpm dist:win portable
         if: runner.os == 'Windows'
       - name: Build macOS x64 & arm64 versions
-        run: yarn dist:mac --x64 --arm64 --publish=never
+        run: pnpm dist:mac --x64 --arm64 --publish=never
         env:
           GITHUB_TOKEN: ${{ secrets.workflowToken }}
           GH_TOKEN: ${{ secrets.workflowToken }}
@@ -35,12 +35,12 @@ jobs:
       - name: Build and publish Snap version
         run: |
           sudo apt-get install --no-install-recommends -y snapcraft
-          yarn dist:linux Snap --publish=always
+          pnpm dist:linux Snap --publish=always
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.snapcraftIdEdge }}
         if: runner.os == 'Linux' && inputs.publish-snap
       - name: Build AppImage version
-        run: yarn dist:linux AppImage --publish=never
+        run: pnpm dist:linux AppImage --publish=never
         if: runner.os == 'Linux'
       - name: Upload built version
         uses: actions/upload-artifact@v3

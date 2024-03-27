@@ -12,8 +12,8 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/install-deps
       - name: Lint code.
-        run: yarn lint
+        run: pnpm lint
       - name: Prettier code.
-        run: yarn prettier
+        run: pnpm prettier
       - name: Find dead code
-        run: yarn find-deadcode
+        run: pnpm find-deadcode
