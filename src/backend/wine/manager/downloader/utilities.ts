@@ -1,10 +1,9 @@
 import { isMac } from '../../../constants'
-import * as axios from 'axios'
 import { existsSync, statSync, unlinkSync } from 'graceful-fs'
 import { spawnSync } from 'child_process'
 
 import { ProgressInfo, State, VersionInfo, Type } from 'common/types'
-import { extractFiles } from 'backend/utils'
+import { axiosClient, extractFiles } from 'backend/utils'
 
 interface fetchProps {
   url: string
@@ -28,7 +27,7 @@ async function fetchReleases({
 }: fetchProps): Promise<VersionInfo[]> {
   const releases: Array<VersionInfo> = []
   return new Promise((resolve, reject) => {
-    axios.default
+    axiosClient
       .get(url + '?per_page=' + count)
       .then((data) => {
         for (const release of data.data) {

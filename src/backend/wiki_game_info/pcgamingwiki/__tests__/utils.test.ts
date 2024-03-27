@@ -1,13 +1,13 @@
 import { logError } from 'backend/logger/logger'
 import { getInfoFromPCGamingWiki } from '../utils'
-import axios from 'axios'
+import { axiosClient } from 'backend/utils'
 
 jest.mock('backend/logger/logfile')
 jest.mock('backend/logger/logger')
 
 describe('getInfoFromPCGamingWiki', () => {
   test('fetches successfully via title', async () => {
-    const mockAxios = jest.spyOn(axios, 'get').mockResolvedValueOnce({
+    const mockAxios = jest.spyOn(axiosClient, 'get').mockResolvedValueOnce({
       data: { query: { search: [{ pageid: 1 }] } }
     })
     mockAxios.mockResolvedValueOnce({
@@ -31,7 +31,7 @@ describe('getInfoFromPCGamingWiki', () => {
   })
 
   test('fetches successfully via id', async () => {
-    const mockAxios = jest.spyOn(axios, 'get').mockResolvedValueOnce({
+    const mockAxios = jest.spyOn(axiosClient, 'get').mockResolvedValueOnce({
       data: { cargoquery: [{ title: { pageID: 1 } }] }
     })
     mockAxios.mockResolvedValueOnce({
@@ -55,7 +55,7 @@ describe('getInfoFromPCGamingWiki', () => {
   })
 
   test('does not find page id', async () => {
-    jest.spyOn(axios, 'get').mockResolvedValueOnce({
+    jest.spyOn(axiosClient, 'get').mockResolvedValueOnce({
       data: { query: { search: [{ pageid: undefined }] } }
     })
 
@@ -64,7 +64,7 @@ describe('getInfoFromPCGamingWiki', () => {
   })
 
   test('does not find wikitext', async () => {
-    const mockAxios = jest.spyOn(axios, 'get').mockResolvedValueOnce({
+    const mockAxios = jest.spyOn(axiosClient, 'get').mockResolvedValueOnce({
       data: { query: { search: [{ pageid: 1 }] } }
     })
     mockAxios.mockResolvedValueOnce({
@@ -80,7 +80,7 @@ describe('getInfoFromPCGamingWiki', () => {
   })
 
   test('wikitext empty', async () => {
-    const mockAxios = jest.spyOn(axios, 'get').mockResolvedValueOnce({
+    const mockAxios = jest.spyOn(axiosClient, 'get').mockResolvedValueOnce({
       data: { query: { search: [{ pageid: 1 }] } }
     })
     mockAxios.mockResolvedValueOnce({
@@ -96,7 +96,7 @@ describe('getInfoFromPCGamingWiki', () => {
   })
 
   test('catches axios throws', async () => {
-    jest.spyOn(axios, 'get').mockRejectedValueOnce(new Error('Failed'))
+    jest.spyOn(axiosClient, 'get').mockRejectedValueOnce(new Error('Failed'))
 
     const result = await getInfoFromPCGamingWiki('The Witcher 3')
     expect(result).toBeNull()

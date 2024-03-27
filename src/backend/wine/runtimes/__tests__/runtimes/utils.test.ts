@@ -1,7 +1,7 @@
 import { join } from 'path'
 import { readFileSync } from 'graceful-fs'
 import graceful_fs from 'graceful-fs'
-import axios from 'axios'
+import { axiosClient } from 'backend/utils'
 import { getAssetDataFromDownload, downloadFile } from '../../util'
 import { test_data } from './test_data/github-api-heroic-test-data.json'
 import { describeSkipOnWindows } from 'backend/__tests__/skip'
@@ -18,13 +18,13 @@ afterEach(jest.restoreAllMocks)
 describeSkipOnWindows('getAssetDataFromDownload', () => {
   it('Success', async () => {
     // https://stackoverflow.com/a/43047378
-    jest.spyOn(axios, 'get').mockResolvedValue(test_data)
+    jest.spyOn(axiosClient, 'get').mockResolvedValue(test_data)
 
     await expect(getAssetDataFromDownload(testUrl)).resolves.toMatchObject({
       name: 'Heroic-2.3.9.AppImage',
       url: 'https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases/assets/68579064'
     })
-    expect(axios.get).toBeCalledWith(
+    expect(axiosClient.get).toBeCalledWith(
       'https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases/tags/v2.3.9'
     )
   })
@@ -40,7 +40,7 @@ describeSkipOnWindows('getAssetDataFromDownload', () => {
   it('Empty data', async () => {
     expect.assertions(1)
 
-    jest.spyOn(axios, 'get').mockResolvedValue({ data: {}, status: 200 })
+    jest.spyOn(axiosClient, 'get').mockResolvedValue({ data: {}, status: 200 })
     await expect(getAssetDataFromDownload(testUrl)).rejects.toEqual(
       Error('Asset metadata could not be found')
     )
@@ -49,7 +49,7 @@ describeSkipOnWindows('getAssetDataFromDownload', () => {
   it('HTTP error code', async () => {
     expect.assertions(1)
 
-    jest.spyOn(axios, 'get').mockResolvedValue({ data: {}, status: 404 })
+    jest.spyOn(axiosClient, 'get').mockResolvedValue({ data: {}, status: 404 })
     await expect(getAssetDataFromDownload(testUrl)).rejects.toEqual(
       Error('Got HTTP error code 404')
     )
@@ -59,7 +59,7 @@ describeSkipOnWindows('getAssetDataFromDownload', () => {
   it('Axios error', async () => {
     expect.assertions(1)
 
-    jest.spyOn(axios, 'get').mockRejectedValue({
+    jest.spyOn(axiosClient, 'get').mockRejectedValue({
       toJSON: () => '{ "message": "Some error message" }'
     })
     await expect(getAssetDataFromDownload(testUrl)).rejects.toEqual(
@@ -72,7 +72,7 @@ describeSkipOnWindows('downloadFile', () => {
   it('Success', async () => {
     const expectedData = readFileSync(testTarFilePath)
 
-    jest.spyOn(axios, 'get').mockResolvedValue({
+    jest.spyOn(axiosClient, 'get').mockResolvedValue({
       status: 200,
       data: expectedData
     })
@@ -100,7 +100,7 @@ describeSkipOnWindows('downloadFile', () => {
   it('Axios error', async () => {
     expect.assertions(1)
 
-    jest.spyOn(axios, 'get').mockRejectedValue({
+    jest.spyOn(axiosClient, 'get').mockRejectedValue({
       toJSON: () => '{ "message": "Some error message" }'
     })
 
@@ -114,7 +114,7 @@ describeSkipOnWindows('downloadFile', () => {
   it('HTTP error', async () => {
     expect.assertions(1)
 
-    jest.spyOn(axios, 'get').mockResolvedValue({
+    jest.spyOn(axiosClient, 'get').mockResolvedValue({
       status: 404,
       data: {}
     })
@@ -128,7 +128,7 @@ describeSkipOnWindows('downloadFile', () => {
       join(__dirname, 'test_data/TestArchive.tar.xz')
     )
 
-    jest.spyOn(axios, 'get').mockResolvedValue({
+    jest.spyOn(axiosClient, 'get').mockResolvedValue({
       status: 200,
       data: expectedData
     })

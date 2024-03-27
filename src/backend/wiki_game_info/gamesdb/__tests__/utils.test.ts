@@ -1,5 +1,5 @@
 import { GamesDBInfo } from 'common/types'
-import axios from 'axios'
+import { axiosClient } from 'backend/utils'
 import testData from './test-data.json'
 import { getInfoFromGamesDB } from '../utils'
 import { logError } from '../../../logger/logger'
@@ -10,7 +10,7 @@ jest.mock('electron-store')
 
 describe('getInfoFromGamesDB', () => {
   test('fetches successfully', async () => {
-    jest.spyOn(axios, 'get').mockResolvedValue({
+    jest.spyOn(axiosClient, 'get').mockResolvedValue({
       data: testData
     })
 
@@ -19,7 +19,7 @@ describe('getInfoFromGamesDB', () => {
   })
 
   test('skip not supported runner', async () => {
-    jest.spyOn(axios, 'get').mockResolvedValue({
+    jest.spyOn(axiosClient, 'get').mockResolvedValue({
       data: testData
     })
 
@@ -28,7 +28,7 @@ describe('getInfoFromGamesDB', () => {
   })
 
   test('catches axios throws', async () => {
-    jest.spyOn(axios, 'get').mockRejectedValueOnce({
+    jest.spyOn(axiosClient, 'get').mockRejectedValueOnce({
       response: {
         data: {
           error_description: 'Failed'

@@ -1,5 +1,4 @@
-import axios from 'axios'
-import { extractFiles } from 'backend/utils'
+import { axiosClient, extractFiles } from 'backend/utils'
 import { existsSync, mkdirSync, writeFile } from 'graceful-fs'
 
 interface GithubAssetMetadata {
@@ -31,7 +30,7 @@ async function getAssetDataFromDownload(
   }
 
   const [, , author, repo, , , tag, assetName] = splitUrl
-  const response = await axios
+  const response = await axiosClient
     .get(`https://api.github.com/repos/${author}/${repo}/releases/tags/${tag}`)
     .catch((error) => {
       throw new Error(`Failed to access GitHub API: ${error.toJSON()}`)
@@ -53,7 +52,7 @@ async function getAssetDataFromDownload(
 }
 
 async function downloadFile(url: string, filePath: string) {
-  const response = await axios
+  const response = await axiosClient
     .get(url, { responseType: 'arraybuffer' })
     .catch((error) => {
       throw new Error(`Failed to download ${url}: ${error.toJSON()}`)

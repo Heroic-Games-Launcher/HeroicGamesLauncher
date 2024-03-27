@@ -1,4 +1,4 @@
-import axios from 'axios'
+import { axiosClient } from 'backend/utils'
 import { app } from 'electron'
 import { logError } from '../logger/logger'
 import * as utils from '../utils'
@@ -61,7 +61,7 @@ describe('backend/utils.ts', () => {
 
   describe('getLatestReleases', () => {
     test('Simple version', async () => {
-      jest.spyOn(axios, 'get').mockResolvedValue(test_data)
+      jest.spyOn(axiosClient, 'get').mockResolvedValue(test_data)
       jest.spyOn(app, 'getVersion').mockReturnValueOnce('2.4.0')
 
       const releases = await utils.getLatestReleases()
@@ -92,7 +92,7 @@ describe('backend/utils.ts', () => {
     })
 
     test('Complex version', async () => {
-      jest.spyOn(axios, 'get').mockResolvedValue(test_data)
+      jest.spyOn(axiosClient, 'get').mockResolvedValue(test_data)
       jest.spyOn(app, 'getVersion').mockReturnValueOnce('2.5.5-beta.3')
 
       const releases = await utils.getLatestReleases()
@@ -113,7 +113,7 @@ describe('backend/utils.ts', () => {
     })
 
     test('Empty version', async () => {
-      jest.spyOn(axios, 'get').mockResolvedValue(test_data)
+      jest.spyOn(axiosClient, 'get').mockResolvedValue(test_data)
       jest.spyOn(app, 'getVersion').mockReturnValueOnce('')
 
       const releases = await utils.getLatestReleases()
@@ -121,7 +121,7 @@ describe('backend/utils.ts', () => {
     })
 
     test('Fetching available releases fails', async () => {
-      jest.spyOn(axios, 'get').mockRejectedValue('Failed to fetch!')
+      jest.spyOn(axiosClient, 'get').mockRejectedValue('Failed to fetch!')
 
       const releases = await utils.getLatestReleases()
       expect(logError).toBeCalledWith(

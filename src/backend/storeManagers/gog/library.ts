@@ -36,7 +36,7 @@ import {
   LogPrefix,
   logWarning
 } from '../../logger/logger'
-import { getGOGdlBin, getFileSize } from '../../utils'
+import { getGOGdlBin, getFileSize, axiosClient } from '../../utils'
 import { gogdlConfigPath, gogdlLogFile } from '../../constants'
 import {
   libraryStore,
@@ -118,7 +118,9 @@ async function createMissingGogdlManifest(
     // Get meta
     const url = currentBuild.urls[0]
 
-    const response = await axios.get(url.url, { responseType: 'arraybuffer' })
+    const response = await axiosClient.get(url.url, {
+      responseType: 'arraybuffer'
+    })
     let manifestDataRaw = response.data.toString()
     if (currentBuild.generation === 2) {
       manifestDataRaw = unzipSync(response.data)
@@ -186,7 +188,7 @@ export async function getSaveSyncLocation(
   let response: GOGClientsResponse | undefined
   try {
     response = (
-      await axios.get(
+      await axiosClient.get(
         `https://remote-config.gog.com/components/galaxy_client/clients/${clientId}?component_version=2.0.45`
       )
     ).data
@@ -856,7 +858,7 @@ export async function getBuilds(
     headers.Authorization = `Bearer ${access_token}`
   }
 
-  return axios.get(url.toString(), { headers })
+  return axiosClient.get(url.toString(), { headers })
 }
 
 export async function getMetaResponse(
@@ -878,7 +880,7 @@ export async function getMetaResponse(
 
   for (const metaUrl of metaUrls) {
     try {
-      const metaResponse = await axios.get(metaUrl.url, {
+      const metaResponse = await axiosClient.get(metaUrl.url, {
         headers,
         validateStatus: (status) => status === 200 || status === 304
       })
@@ -995,9 +997,11 @@ export async function getGamesData(appName: string, lang?: string) {
     lang || 'en-US'
   }`
 
-  const response: AxiosResponse | null = await axios.get(url).catch(() => {
-    return null
-  })
+  const response: AxiosResponse | null = await axiosClient
+    .get(url)
+    .catch(() => {
+      return null
+    })
   if (!response) {
     return null
   }
@@ -1179,7 +1183,8 @@ export function getExecutable(appName: string): string {
  * @param game_id ID of a game
  * @param forceUpdate (optional) force data update check
  * @param certificate (optional) Galaxy library certificate
- * @param access_token (optional) GOG Galaxy access token
+ * @param accessToken (optional) GOG Galaxy access token
+ * multiple entries)
  * @returns object {isUpdated, data}, where isUpdated is true when Etags match
  */
 export async function getGamesdbData(
@@ -1187,7 +1192,7 @@ export async function getGamesdbData(
   game_id: string,
   forceUpdate?: boolean,
   certificate?: string,
-  access_token?: string
+  accessToken?: string
 ): Promise<{ isUpdated: boolean; data?: GamesDBData | undefined }> {
   const pieceId = `${store}_${game_id}`
   const cachedData = !forceUpdate ? apiInfoCache.get(pieceId) : null
@@ -1198,10 +1203,10 @@ export async function getGamesdbData(
   const headers = {
     ...(cachedData?.etag ? { 'If-None-Match': cachedData.etag } : {}),
     ...(certificate ? { 'X-GOG-Library-Cert': certificate } : {}),
-    ...(access_token ? { Authorization: `Bearer ${access_token}` } : {})
+    ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {})
   }
 
-  const response = await axios
+  const response = await axiosClient
     .get<GamesDBData>(url, { headers: headers })
     .catch((error: AxiosError) => {
       logError(
@@ -1241,7 +1246,7 @@ export async function getGamesdbData(
 export async function getProductApi(
   appName: string,
   expand?: string[],
-  access_token?: string
+  accessToken?: string
 ): Promise<AxiosResponse<ProductsEndpointData> | null> {
   expand = expand ?? []
   const language = i18next.language
@@ -1252,12 +1257,12 @@ export async function getProductApi(
   }
 
   const headers: AxiosRequestHeaders = {}
-  if (access_token) {
-    headers.Authorization = `Bearer ${access_token}`
+  if (accessToken) {
+    headers.Authorization = `Bearer ${accessToken}`
   }
 
   // `https://api.gog.com/products/${appName}?locale=${language}${expandString}`
-  const response = await axios
+  const response = await axiosClient
     .get<ProductsEndpointData>(url.toString(), { headers })
     .catch(() => null)
 

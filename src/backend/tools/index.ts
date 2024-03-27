@@ -1,5 +1,4 @@
 import { ExecResult, GameSettings, Runner, WineCommandArgs } from 'common/types'
-import axios from 'axios'
 
 import {
   existsSync,
@@ -15,6 +14,7 @@ import {
 
 import { spawn } from 'child_process'
 import {
+  axiosClient,
   downloadFile,
   execAsync,
   extractFiles,
@@ -67,7 +67,7 @@ async function installOrUpdateTool(tool: Tool) {
 
   const {
     data: { assets }
-  } = await axios.get(tool.url)
+  } = await axiosClient.get(tool.url)
 
   const { name, browser_download_url: downloadUrl } = assets[0]
   const latestVersion = name.replace('.tar.gz', '').replace('.tar.xz', '')
