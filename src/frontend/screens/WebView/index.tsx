@@ -6,7 +6,7 @@ import React, {
   useState
 } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate, useLocation, useParams } from 'react-router'
+import { useNavigate, useLocation, useParams } from 'react-router-dom'
 
 import { ToggleSwitch, UpdateComponent } from 'frontend/components/UI'
 import WebviewControls from 'frontend/components/UI/WebviewControls'
