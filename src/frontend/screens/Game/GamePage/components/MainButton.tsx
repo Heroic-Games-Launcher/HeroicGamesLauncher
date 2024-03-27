@@ -144,17 +144,24 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
           }
           autoFocus={true}
           onClick={async () => handlePlay(gameInfo)}
-          className={classNames('button', {
-            'is-secondary': !is_installed && !is.queued,
-            'is-success':
-              is.syncing ||
-              (!is.updating && !is.playing && is_installed && !is.notAvailable),
-            'is-tertiary':
-              is.playing ||
-              (!is_installed && is.queued) ||
-              (is_installed && is.notAvailable),
-            'is-disabled': is.updating
-          })}
+          className={classNames(
+            'button',
+            {
+              'is-secondary': !is_installed && !is.queued,
+              'is-success':
+                is.syncing ||
+                (!is.updating &&
+                  !is.playing &&
+                  is_installed &&
+                  !is.notAvailable),
+              'is-tertiary':
+                is.playing ||
+                (!is_installed && is.queued) ||
+                (is_installed && is.notAvailable),
+              'is-disabled': is.updating
+            },
+            'mainBtn'
+          )}
         >
           {getPlayLabel()}
         </button>
@@ -172,15 +179,19 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
             is.notInstallable
           }
           autoFocus={true}
-          className={classNames('button', {
-            'is-primary': is_installed,
-            'is-tertiary':
-              is.notAvailable ||
-              is.installing ||
-              is.queued ||
-              is.notInstallable,
-            'is-secondary': !is_installed && !is.queued
-          })}
+          className={classNames(
+            'button',
+            {
+              'is-primary': is_installed,
+              'is-tertiary':
+                is.notAvailable ||
+                is.installing ||
+                is.queued ||
+                is.notInstallable,
+              'is-secondary': !is_installed && !is.queued
+            },
+            'mainBtn'
+          )}
         >
           {getButtonLabel()}
         </button>

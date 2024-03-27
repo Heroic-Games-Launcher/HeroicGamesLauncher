@@ -1,5 +1,7 @@
 .howLongToBeat {
   display: flex;
+  justify-content: space-around;
+  gap: var(--space-sm-fixed);
 
   .circle {
     width: 100px;
@@ -11,10 +13,10 @@
     border-radius: 50%; /* change to a circle */
     border: 2px solid; /* add a border */
     color: var(--text-secondary);
-    margin-inline-end: 10px;
     padding: 0 var(--space-xs);
     background-color: transparent;
     cursor: pointer;
+    position: relative;
 
     &.green {
       border: 3px solid green;
@@ -30,14 +32,20 @@
 
     .circle__title {
       font-size: 0.8rem;
+      white-space: nowrap;
+      text-align: center;
     }
 
     .circle__value {
       font-size: 1.2rem;
+      white-space: nowrap;
       font-weight: var(--bold);
     }
   }
   .circle {
+    flex-basis: 33.3%;
+    aspect-ratio: 1 / 1;
+    height: auto;
     width: fit-content;
     min-width: 100px;
     justify-content: center;
