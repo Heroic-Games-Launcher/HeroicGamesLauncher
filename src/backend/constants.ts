@@ -81,7 +81,11 @@ const {
   nileLogFile
 } = createNewLogFileAndClearOldOnes()
 
-const publicDir = resolve(__dirname, '..', app.isPackaged ? '' : '../public')
+const publicDir = resolve(
+  __dirname,
+  '..',
+  app.isPackaged || process.env.CI === 'e2e' ? '' : '../public'
+)
 const gogdlAuthConfig = join(app.getPath('userData'), 'gog_store', 'auth.json')
 const vulkanHelperBin = fixAsarPath(
   join(publicDir, 'bin', process.platform, 'vulkan-helper')

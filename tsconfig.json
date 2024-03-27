@@ -22,7 +22,7 @@
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "./src/",
-    "types": ["vite-plugin-svgr/client", "@types/jest"],
+    "types": ["@types/jest"],
     "typeRoots": ["./node_modules", "src/common/typedefs"]
   },
   "include": ["src"],

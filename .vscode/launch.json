@@ -6,10 +6,8 @@
       "type": "node",
       "request": "launch",
       "cwd": "${workspaceFolder}",
-      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/vite",
-      "windows": {
-        "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/vite.cmd"
-      }
+      "runtimeExecutable": "yarn",
+      "args": ["start"]
     }
   ]
 }

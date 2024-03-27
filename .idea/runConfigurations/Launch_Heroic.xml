@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Launch Heroic" type="ShConfigurationType">
-    <option name="SCRIPT_TEXT" value="$PROJECT_DIR$/node_modules/.bin/vite" />
+    <option name="SCRIPT_TEXT" value="yarn start" />
     <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
     <option name="SCRIPT_PATH" value="" />
     <option name="SCRIPT_OPTIONS" value="" />
