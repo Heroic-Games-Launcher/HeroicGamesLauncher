@@ -232,7 +232,7 @@
         "uninstalling": "Odinstalace",
         "updating": "Aktualizuji hru",
         "playing": "Hraní",
-        "moving-files": "Přesouvání souboru '{{file}}': {{percent}} ",
+        "moving-files": "Přesouvání souboru „{{file}}“: {{percent}} %",
         "syncingSaves": "Synchronizuji uložené soubory",
         "launching": "Spouštění",
         "ubisoft": "Instalace Ubisoftu",
