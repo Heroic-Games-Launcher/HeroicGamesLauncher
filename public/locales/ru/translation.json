@@ -24,11 +24,11 @@
             "title": "Кэш очищен"
         },
         "choose": "Выбрать",
-        "choose-egs-prefix": "Выбрать префикс, в который установлен EGS",
-        "choose-gogdl-binary": "Выбрать исполняемый файл GOGDL (требуется перезапуск)",
-        "choose-legendary-binary": "Выбрать исполняемый файл Legendary",
-        "customWine": "Выбрать исполняемый файл Wine или Proton",
-        "default-install-path": "Выбрать стандартный путь установки",
+        "choose-egs-prefix": "Выбрать префикс, в котором установлен EGS",
+        "choose-gogdl-binary": "Выберете исполняемый файл GOGDL (требуется перезапуск)",
+        "choose-legendary-binary": "Выберете исполняемый файл Legendary",
+        "customWine": "Выберите исполняемый файл Wine или Proton",
+        "default-install-path": "Выберите стандартный путь установки",
         "default-steam-path": "Путь к Steam.",
         "downloadNow": "Скачать сейчас",
         "error": {
@@ -43,7 +43,7 @@
             },
             "cx-bottle-not-found": {
                 "message": "Бутылка CrossOver \"{{bottle_name}}\" не существует, не может запуститься!",
-                "title": "Бутылка CrossOver не найдена"
+                "title": "CrossOver не найден"
             },
             "diskspace": {
                 "message": "Недостаточно свободного места на диске",
@@ -880,6 +880,8 @@
         "noResults": "Текущие фильтры не дали результатов."
     },
     "adtraction-locked": {
-        "dont-show-again": "Не показывать это предупреждение снова"
+        "dont-show-again": "Не показывать это предупреждение снова",
+        "title": "Adtraction заблокирован",
+        "description": "Похоже, домен track.adtraction.com не смог загрузиться или заблокирован. С помощью adtraction любая ваша покупка в магазине GOG оказывает финансовую поддержку Heroic. Подумайте о снятии блокировки, если вы хотите внести свой вклад."
     }
 }

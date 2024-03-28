@@ -38,7 +38,7 @@
             "title": "Désinstaller",
             "prefix_warning": "Le préfixe Wine pour ce jeu est le préfixe par défaut. Si vous voulez vraiment le supprimer, vous devez le faire manuellement.",
             "dlc": "Voulez-vous désinstaller l'extension « {{title}} » ?",
-            "cannotUninstallEpic": "Les jeux Epic ne peuvent pas être désinstallés lorsqu'un autre jeu Epic est en cours d'installation."
+            "cannotUninstallEpic": "Les jeux Epic Games ne peuvent pas être désinstallés lorsqu'un autre jeu Epic Games est en cours d'installation."
         },
         "update": {
             "message": "Une mise à jour est disponible pour ce jeu. Souhaitez-vous le mettre à jour maintenant ?",
@@ -73,7 +73,7 @@
         "uninstall": "Désinstaller",
         "update": "Mise à jour",
         "details": "Détails",
-        "changelog": "Afficher le journal des changements"
+        "changelog": "Afficher l'historique des changements"
     },
     "cloud_save_unsupported": "Non-supporté",
     "disabled": "Désactivé",
@@ -97,7 +97,7 @@
         "branch": {
             "disabled": "Désactivé",
             "password": "Définir le mot de passe du canal privé",
-            "select": "Utiliser le canal beta",
+            "select": "Sélectionner un canal beta",
             "setPrivateBranchPassword": "Définir le mot de passe du canal privé"
         },
         "builds": {
@@ -188,7 +188,7 @@
         "use-default-wine-settings": "Utiliser les paramètres de Wine par défaut",
         "winecrossoverbottle": "Pont-Bouteille",
         "show-wine-settings": "Afficher les paramètres de Wine",
-        "warn-use-default-wine-settings": "Utiliser uniquement si vous savez ce que vous faites.<br/>Utiliser le même préfixe pour plusieurs jeux peut causer des problèmes si leurs dépendances sont incompatibles."
+        "warn-use-default-wine-settings": "Utiliser cette option uniquement si vous savez ce que vous faites.<br/>Partager le même préfixe avec plusieurs jeux peut causer des problèmes si leurs dépendances sont incompatibles."
     },
     "sideload": {
         "field": {
@@ -199,14 +199,14 @@
             "image": "Vignette de l'application",
             "title": "Titre du Jeu/de l'Application",
             "broser": "URL du navigateur",
-            "useragent": "Agent Utilisateur Personnalisé",
+            "useragent": "Compte Utilisateur Personnalisé",
             "fullscreen": "Exécuter en plein écran (F11 pour quitter)"
         },
         "placeholder": {
             "image": "Collez ici l'URL d'une image",
             "title": "Ajouter un titre à votre Jeu/Application",
             "url": "Collez l'URL du jeu ici",
-            "useragent": "Créer un agent utilisateur personnalisé qui sera utilisé dans ce navigateur d'application/jeu"
+            "useragent": "Créer un compte utilisateur personnalisé qui sera utilisé dans ce navigateur d'application/jeu"
         }
     },
     "specs": {
@@ -239,7 +239,7 @@
         "extracting": "Extraction",
         "goodie": "Non installable",
         "gog-goodie": "Ce jeu ne semble pas être installable. Vérifiez le contenu téléchargeable sur https://gog.com/account",
-        "winetricks": "Application des remèdes Winetricks",
+        "winetricks": "Application des modifications Winetricks",
         "redist": "Installation du paquet redistribuable {{redist}}"
     },
     "submenu": {
@@ -265,7 +265,7 @@
             "gamePage": "Page du jeu"
         },
         "content": {
-            "gamePage": "Afficher tous les détails et actions du jeu. Utilisez le menu \"trois points\" pour plus d'options."
+            "gamePage": "Afficher toutes les actions possibles et détails du jeu. Ouvrez le menu à débordement pour plus d'options."
         }
     },
     "modifyInstall": {
