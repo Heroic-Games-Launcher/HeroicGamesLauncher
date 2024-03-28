@@ -62,7 +62,7 @@ async function updateWineVersionInfos(
             releases[index].installDir = old.installDir
             releases[index].isInstalled = old.isInstalled
             releases[index].disksize = old.disksize
-            if (releases[index].checksum !== old.checksum) {
+            if (releases[index].checksum !== old.checksum || old.hasUpdate) {
               releases[index].hasUpdate = true
             }
           } else {
