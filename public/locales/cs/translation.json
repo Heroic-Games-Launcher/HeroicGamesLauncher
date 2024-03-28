@@ -340,7 +340,8 @@
         "button": {
             "open": "Otevřít nápovědu",
             "close": "Zavřít nápovědu"
-        }
+        },
+        "msync": "Msync má za cíl snížit režii wineserveru ve hrách náročných na výkon procesoru. Povolení může na podporovaných jádrech Linuxu zlepšit výkon."
     },
     "info": {
         "heroic": {
@@ -503,7 +504,8 @@
             "borderless": "Bez okrajů",
             "fullscreen": "Celá obrazovka",
             "interger": "Celočíselný upscaling",
-            "stretch": "Roztáhnout obraz"
+            "stretch": "Roztáhnout obraz",
+            "windowed": "V okně"
         }
     },
     "other": {
@@ -677,7 +679,8 @@
                 "title": "Pozor, experimentální funkce"
             },
             "description": "Použít okno bez okrajů (vyžaduje restart)"
-        }
+        },
+        "msync": "Povolit Msync"
     },
     "settings": {
         "battlEyeRuntime": {

@@ -340,7 +340,8 @@
         "button": {
             "open": "打开帮助",
             "close": "关闭帮助"
-        }
+        },
+        "msync": "Msync 旨在减少 wineserver 在 CPU 消耗巨大的游戏中的开销。开启它可能会改善受支持的 Linux 内核上的性能。"
     },
     "info": {
         "heroic": {
@@ -503,7 +504,8 @@
             "borderless": "无边框",
             "fullscreen": "全屏",
             "interger": "整数型 Upscale",
-            "stretch": "拉伸图像"
+            "stretch": "拉伸图像",
+            "windowed": "已窗口化"
         }
     },
     "other": {
@@ -677,7 +679,8 @@
                 "title": "实验性功能"
             },
             "description": "使用无框架窗口（需要重启）"
-        }
+        },
+        "msync": "启用 Msync"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -889,5 +892,10 @@
     "emptyLibrary": {
         "noResults": "使用当前筛选器找不到结果。",
         "noGames": "你的库是空的。要<1>登录</1>你可以使用商店或单击 <3></3>来手动添加一个。"
+    },
+    "adtraction-locked": {
+        "dont-show-again": "不再显示此警告",
+        "title": "Adtraction 被封禁",
+        "description": "track.adtraction.com 域名似乎无法加载或者被封禁。通过 adtraction，你在 GOG 商店的任意购买都会在经济上支持 Heroic。如果希望作贡献，请考虑解除对此站点的封禁。"
     }
 }

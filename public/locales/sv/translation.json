@@ -170,7 +170,9 @@
         "yes": "Ja",
         "dontShowAgain": "Visa inte igen",
         "choose-nile-binary": "Välj Nile binär",
-        "update": "Uppdatering"
+        "update": "Uppdatering",
+        "changelog": "Ändringslogg",
+        "postpone": "Skjut upp"
     },
     "button": {
         "cancel": "Avbryt",
@@ -501,7 +503,8 @@
             "gameWidth": "Spelets bredd",
             "upscaleHeight": "Uppskalning höjd",
             "interger": "Heltal Uppskala",
-            "stretch": "Sträck bilden"
+            "stretch": "Sträck bilden",
+            "windowed": "I fönster"
         }
     },
     "other": {
@@ -817,7 +820,7 @@
         "manageaccounts": "Hantera konton",
         "quit": "Avsluta",
         "cancel": "Avbryt",
-        "quitMessage": "Är du säker på att du vill sluta?"
+        "quitMessage": "Är du säker på att du vill avsluta?"
     },
     "webview": {
         "controls": {
@@ -886,5 +889,10 @@
     "emptyLibrary": {
         "noGames": "Ditt bibliotek är tomt. Du kan <1>logga in</1> med en butik eller klicka på <3></3> för att lägga till en manuellt.",
         "noResults": "De nuvarande filtren gav inga resultat."
+    },
+    "adtraction-locked": {
+        "description": "Det verkar som om domänen track.adtraction.com inte kunde laddas eller är blockerad. Med adtraction stöder alla köp du gör via Heroic på GOGs butik ekonomiskt. Överväg att ta bort spärren om du vill bidra.",
+        "dont-show-again": "Visa inte denna varning igen",
+        "title": "Adtraction är blockerat"
     }
 }
