@@ -232,7 +232,7 @@
         "uninstalling": "卸载中",
         "updating": "游戏更新中",
         "playing": "游戏中",
-        "moving-files": "正在移动文件“{{file}}”：{{percent}} ",
+        "moving-files": "正在移动文件 '{{file}}': {{percent}}%",
         "syncingSaves": "存档同步中",
         "launching": "启动中",
         "ubisoft": "安装 Ubisoft",
