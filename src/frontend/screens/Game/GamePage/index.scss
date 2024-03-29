@@ -627,6 +627,24 @@
         text-align: left;
       }
 
+      .installProgress[value] {
+        /* display block affects margin-block-end */
+        display: block;
+        appearance: none;
+        width: 100%;
+        height: var(--text-xs);
+        overflow: hidden;
+        border-radius: 2px;
+
+        &::-webkit-progress-bar {
+          background-color: var(--neutral-05);
+        }
+
+        &::-webkit-progress-value {
+          background-color: var(--success);
+        }
+      }
+
       .buttons {
         display: flex;
         flex-direction: column;
