@@ -56,13 +56,12 @@ const GameStatus = ({ gameInfo, progress, handleUpdate, hasUpdate }: Props) => {
     }
 
     if (is.moving) {
-      if (file && percent) {
-        return `${t(
+      if (file && percent !== undefined) {
+        return t(
           'status.moving-files',
-          `Moving file '{{file}}': {{percent}} `,
-          { file, percent }
-        )}  
-        `
+          `Moving file '{{file}}': {{percent}}%`,
+          { file, percent: percent.toFixed(0) }
+        )
       }
 
       return `${t('status.moving', 'Moving Installation, please wait')} ...`
