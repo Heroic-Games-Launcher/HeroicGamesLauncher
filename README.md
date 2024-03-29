@@ -207,7 +207,9 @@ Otherwise, download the file ending in .dmg from the [latest release](https://gi
 
 This part will walk you through setting up a development environment so you can build Heroic binaries yourself or make changes to the code.
 
-1. Make sure Git, NodeJS, and PNPM are installed
+1. Make sure Git, NodeJS, and PNPM are installed  
+   **NOTE**: On Windows, due to an issue with electron-builder, you'll need the standalone version of pnpm (`@pnpm/exe`)
+   to build packages
 2. Clone the repo and enter the cloned folder, for example with these commands:
 
    ```bash
@@ -215,7 +217,7 @@ This part will walk you through setting up a development environment so you can 
    cd HeroicGamesLauncher
    ```
 
-3. Make sure all dependencies are installed by running `pnpm`
+3. Make sure all dependencies are installed by running `pnpm install`
 
 ### Building Heroic Binaries
 
