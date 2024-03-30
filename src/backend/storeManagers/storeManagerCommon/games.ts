@@ -7,6 +7,7 @@ import {
   lastPlayLogFileLocation,
   logInfo,
   LogPrefix,
+  logsDisabled,
   logWarning
 } from '../../logger/logger'
 import { basename, dirname } from 'path'
@@ -257,7 +258,10 @@ export async function launchGame(
       options: {
         wrappers,
         logFile: lastPlayLogFileLocation(appName),
-        logMessagePrefix: LogPrefix.Backend
+        logMessagePrefix: LogPrefix.Backend,
+        onOutput: (output) => {
+          if (!logsDisabled) appendGamePlayLog(gameInfo, output)
+        }
       }
     })
 
