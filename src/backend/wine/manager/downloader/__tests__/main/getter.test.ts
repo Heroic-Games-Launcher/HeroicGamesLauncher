@@ -1,7 +1,7 @@
 import { Repositorys, VersionInfo } from 'common/types'
 import { getAvailableVersions } from '../../main'
 import { test_data_release_list } from '../test_data/github-api-test-data.json'
-import * as axios from 'axios'
+import { axiosClient } from 'backend/utils'
 import { logError, logWarning } from 'backend/logger/logger'
 
 jest.mock('backend/logger/logger')
@@ -9,7 +9,7 @@ jest.mock('backend/logger/logfile')
 
 describe('Main - GetAvailableVersions', () => {
   test('fetch releases succesfully', async () => {
-    axios.default.get = jest.fn().mockResolvedValue(test_data_release_list)
+    axiosClient.get = jest.fn().mockResolvedValue(test_data_release_list)
 
     await getAvailableVersions({}).then((releases: VersionInfo[]) => {
       expect(releases).not.toBe([])
@@ -17,14 +17,14 @@ describe('Main - GetAvailableVersions', () => {
       expect(releases[3].version).toContain('6.16-GE-1')
     })
 
-    expect(axios.default.get).toBeCalledWith(
+    expect(axiosClient.get).toBeCalledWith(
       'https://api.github.com/repos/GloriousEggroll/wine-ge-custom/releases?per_page=100'
     )
     expect(logError).not.toBeCalled()
   })
 
   test('fetch releases succesfully independent', async () => {
-    axios.default.get = jest.fn().mockResolvedValue(test_data_release_list)
+    axiosClient.get = jest.fn().mockResolvedValue(test_data_release_list)
 
     for (let key = 0; key < Object.keys(Repositorys).length / 2; key++) {
       await getAvailableVersions({
@@ -35,7 +35,7 @@ describe('Main - GetAvailableVersions', () => {
         expect(releases[3].version).toContain('6.16-GE-1')
       })
 
-      expect(axios.default.get).toBeCalledWith(
+      expect(axiosClient.get).toBeCalledWith(
         'https://api.github.com/repos/GloriousEggroll/wine-ge-custom/releases?per_page=100'
       )
       expect(logError).not.toBeCalled()
@@ -43,14 +43,14 @@ describe('Main - GetAvailableVersions', () => {
   })
 
   test('fetch releases failed because of 404', async () => {
-    axios.default.get = jest.fn().mockRejectedValue('Could not fetch tag 404')
+    axiosClient.get = jest.fn().mockRejectedValue('Could not fetch tag 404')
 
     for (let key = 0; key < Object.keys(Repositorys).length / 2; key++) {
       await expect(
         getAvailableVersions({ repositorys: [key] })
       ).resolves.toStrictEqual([])
 
-      expect(axios.default.get).toBeCalledWith(
+      expect(axiosClient.get).toBeCalledWith(
         expect.stringContaining('https://api.github.com/repos/')
       )
       expect(logError).toBeCalledWith(
@@ -64,13 +64,13 @@ describe('Main - GetAvailableVersions', () => {
   })
 
   test('Invalid repository key returns nothing', async () => {
-    axios.default.get = jest.fn()
+    axiosClient.get = jest.fn()
 
     await expect(
       getAvailableVersions({ repositorys: [-1] })
     ).resolves.toStrictEqual([])
 
-    expect(axios.default.get).not.toBeCalled()
+    expect(axiosClient.get).not.toBeCalled()
     expect(logWarning).toBeCalledWith(
       'Unknown and not supported repository key passed! Skip fetch for -1',
       'WineDownloader'

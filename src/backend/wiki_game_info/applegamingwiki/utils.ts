@@ -4,8 +4,8 @@ import {
   wineRatingRegEx
 } from './constants'
 import { logError, logInfo, LogPrefix } from '../../logger/logger'
-import axios from 'axios'
 import { AppleGamingWikiInfo } from 'common/types'
+import { axiosClient } from 'backend/utils'
 
 export async function getInfoFromAppleGamingWiki(
   title: string
@@ -42,7 +42,7 @@ export async function getInfoFromAppleGamingWiki(
 }
 
 async function getPageID(title: string): Promise<string> {
-  const { data } = await axios.get(
+  const { data } = await axiosClient.get(
     `https://www.applegamingwiki.com/w/api.php?action=query&list=search&srsearch=${title.replaceAll(
       ' ',
       '%20'
@@ -53,7 +53,7 @@ async function getPageID(title: string): Promise<string> {
 }
 
 async function getWikiText(id: string): Promise<string | null> {
-  const { data } = await axios.get(
+  const { data } = await axiosClient.get(
     `https://www.applegamingwiki.com/w/api.php?action=parse&format=json&pageid=${id}&redirects=true&prop=wikitext`
   )
 

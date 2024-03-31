@@ -23,9 +23,9 @@ import {
   getQueueInformation
 } from 'backend/downloadmanager/downloadqueue'
 import { DMQueueElement } from 'common/types'
-import axios from 'axios'
 import { GOGUser } from './user'
 import { isOnline } from 'backend/online_monitor'
+import { axiosClient } from 'backend/utils'
 
 export async function checkForRedistUpdates() {
   if (!GOGUser.isLoggedIn() || !isOnline()) {
@@ -73,7 +73,7 @@ export async function checkForRedistUpdates() {
       // Check if manifest itself changed
       if (!shouldUpdate) {
         const buildId = manifest?.build_id
-        const response = await axios.get(
+        const response = await axiosClient.get(
           'https://content-system.gog.com/dependencies/repository?generation=2'
         )
         const newBuildId = response.data.build_id
