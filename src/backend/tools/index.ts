@@ -17,7 +17,6 @@ import {
   axiosClient,
   downloadFile,
   execAsync,
-  extractFiles,
   getWineFromProton
 } from '../utils'
 import {
@@ -59,6 +58,7 @@ interface Tool {
   name: string
   url: string
   os: string
+  extractCommand: string
   strip?: number
 }
 
@@ -116,24 +116,29 @@ async function installOrUpdateTool(tool: Tool) {
 
   const extractDestination = join(toolsPath, tool.name, latestVersion)
   mkdirSync(extractDestination, { recursive: true })
-  try {
-    await extractFiles({
-      path: latestVersionArchivePath,
-      destination: extractDestination,
-      strip: tool.strip ?? 1
+  const extractCommand = `${tool.extractCommand} ${latestVersion} -C ${toolsPath}/${tool.name}`
+  await execAsync(extractCommand)
+    .then(() => {
+      writeFileSync(installedVersionStorage, latestVersion)
+      logInfo(`${tool.name} updated!`, LogPrefix.DXVKInstaller)
     })
-  } catch (error) {
-    logError(
-      [`Extraction of ${tool.name} failed with:`, error],
-      LogPrefix.DXVKInstaller
-    )
-    return
-  } finally {
-    rmSync(latestVersionArchivePath)
-  }
-
-  writeFileSync(installedVersionStorage, latestVersion)
-  logInfo(`${tool.name} updated!`, LogPrefix.DXVKInstaller)
+    .catch((error) => {
+      logWarning(
+        [`Error when extracting ${tool.name}`, error],
+        LogPrefix.DXVKInstaller
+      )
+      showDialogBoxModalAuto({
+        title: i18next.t('box.error.dxvk.title', 'DXVK/VKD3D error'),
+        message: i18next.t(
+          'box.error.dxvk.message',
+          'Error installing DXVK/VKD3D! Check your connection!'
+        ),
+        type: 'ERROR'
+      })
+    })
+    .finally(() => {
+      rmSync(latestVersionArchivePath)
+    })
 }
 
 export const DXVK = {
@@ -153,23 +158,27 @@ export const DXVK = {
       {
         name: 'vkd3d',
         url: getVkd3dUrl(),
-        os: 'linux'
+        os: 'linux',
+        extractCommand: 'tar -xf'
       },
       {
         name: 'dxvk',
         url: getDxvkUrl(),
-        os: 'linux'
+        os: 'linux',
+        extractCommand: 'tar -xf'
       },
       {
         name: 'dxvk-nvapi',
         url: 'https://api.github.com/repos/jp7677/dxvk-nvapi/releases/latest',
         os: 'linux',
+        extractCommand: 'tar --one-top-level -xf',
         strip: 0
       },
       {
         name: 'dxvk-macOS',
         url: 'https://api.github.com/repos/Gcenx/DXVK-macOS/releases/latest',
-        os: 'darwin'
+        os: 'darwin',
+        extractCommand: 'tar -xf'
       }
     ]
 

@@ -36,8 +36,7 @@ import {
   GITHUB_API,
   isMac,
   configStore,
-  isLinux,
-  isSnap
+  isLinux
 } from './constants'
 import {
   appendGamePlayLog,
@@ -82,9 +81,6 @@ import { backendEvents } from './backend_events'
 import { wikiGameInfoStore } from './wiki_game_info/electronStore'
 import EasyDl from 'easydl'
 
-import decompress from '@xhmikosr/decompress'
-import decompressTargz from '@xhmikosr/decompress-targz'
-import decompressTarxz from '@felipecrs/decompress-tarxz'
 import {
   deviceNameCache,
   vendorNameCache
@@ -1405,66 +1401,6 @@ function calculateEta(
   return eta
 }
 
-interface ExtractOptions {
-  path: string
-  destination: string
-  strip: number
-}
-
-async function extractFiles({ path, destination, strip = 0 }: ExtractOptions) {
-  if (!isSnap && (path.endsWith('.tar.xz') || path.endsWith('.tar.gz'))) {
-    try {
-      await extractNative(path, destination, strip)
-    } catch (error) {
-      logError(['Error:', error], LogPrefix.Backend)
-    }
-  } else {
-    try {
-      await extractDecompress(path, destination, strip)
-    } catch (error) {
-      logError(['Error:', error], LogPrefix.Backend)
-    }
-  }
-}
-
-async function extractNative(path: string, destination: string, strip: number) {
-  logInfo(
-    `Extracting ${path} to ${destination} using native tar`,
-    LogPrefix.Backend
-  )
-  const { code, stderr } = await spawnAsync('tar', [
-    '-xf',
-    path,
-    '-C',
-    destination,
-    `--strip-components=${strip}`
-  ])
-  if (code !== 0) {
-    logError(`Extracting Error: ${stderr}`, LogPrefix.Backend)
-    return { status: 'error', error: stderr }
-  }
-  return { status: 'done', installPath: destination }
-}
-
-async function extractDecompress(
-  path: string,
-  destination: string,
-  strip: number
-) {
-  logInfo(
-    `Extracting ${path} to ${destination} using decompress`,
-    LogPrefix.Backend
-  )
-  try {
-    await decompress(path, destination, {
-      plugins: [decompressTargz(), decompressTarxz()],
-      strip
-    })
-  } catch (error) {
-    logError(['Error:', error], LogPrefix.Backend)
-  }
-}
-
 const axiosClient = axios.create({
   timeout: 10 * 1000,
   httpsAgent: new https.Agent({ keepAlive: true })
@@ -1504,7 +1440,6 @@ export {
   sendGameStatusUpdate,
   sendProgressUpdate,
   calculateEta,
-  extractFiles,
   axiosClient
 }
 

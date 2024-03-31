@@ -1,5 +1,6 @@
-import { axiosClient, extractFiles } from 'backend/utils'
+import { axiosClient } from 'backend/utils'
 import { existsSync, mkdirSync, writeFile } from 'graceful-fs'
+import { spawn } from 'child_process'
 
 interface GithubAssetMetadata {
   url: string
@@ -88,13 +89,27 @@ async function extractTarFile(
     extractedPath = splitPath.join('.tar')
   }
   mkdirSync(extractedPath, { recursive: true })
+  let tarflags = ''
+  switch (contentType) {
+    case 'application/x-xz':
+      tarflags = '-Jxf'
+      break
+    default:
+      throw new Error('Unrecognized content_type: ' + contentType)
+  }
 
   const strip = options?.strip
 
-  return extractFiles({
-    path: filePath,
-    destination: extractedPath,
-    strip: strip || 0
+  return new Promise((res, rej) => {
+    const child = spawn('tar', [
+      '--directory',
+      extractedPath,
+      ...(strip ? ['--strip-components', `${strip}`] : []),
+      tarflags,
+      filePath
+    ])
+    child.on('close', res)
+    child.on('error', rej)
   })
 }
 
