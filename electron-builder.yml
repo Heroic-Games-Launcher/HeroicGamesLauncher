@@ -42,8 +42,6 @@ mac:
   icon: build/icon.icns
   entitlements: build/entitlements.mac.plist
   entitlementsInherit: build/entitlements.mac.plist
-  notarize:
-    tool: notarytool
   extendInfo:
     com.apple.security.cs.allow-jit: true
   asarUnpack:
