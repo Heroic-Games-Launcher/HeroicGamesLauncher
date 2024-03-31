@@ -367,6 +367,17 @@ body.nord-light {
   .gameCard > .gameCardStatus {
     color: var(--navbar-active);
   }
+
+  .CategoriesManager__Dialog {
+    .MuiDialogContent-root {
+      .Category {
+        &:hover,
+        &:focus-within {
+          background-color: rgba(0, 0, 0, 0.05);
+        }
+      }
+    }
+  }
 }
 
 body.nord-light .alternative > svg {
