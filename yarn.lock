@@ -3600,9 +3600,10 @@ electron-updater@5.0.1:
     lodash.isequal "^4.5.0"
     semver "^7.3.5"
 
-electron@castlabs/electron-releases#29.1.3+wvcus:
+electron@29.1.3:
   version "29.1.3"
-  resolved "https://codeload.github.com/castlabs/electron-releases/tar.gz/11c396ff7aa05e8fd8049193b58684f119cc0b8d"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-29.1.3.tgz#bd127c6c5bef03ca2cf4595480b8db7e4f111dbe"
+  integrity sha512-E+ZDRlrVQp4lRxVpK8uTaiHZ8CgjpZEs3gvhFOfbnUGHRHQ6FpPOBZQpQUx84JimOFSaz/KP6Jm2x4TFgoN56A==
   dependencies:
     "@electron/get" "^2.0.0"
     "@types/node" "^20.9.0"
