@@ -25,10 +25,15 @@ const Gamescope = () => {
     upscaleWidth: '',
     upscaleMethod: 'fsr',
     fpsLimiter: '',
-    fpsLimiterNoFocus: ''
+    fpsLimiterNoFocus: '',
+    additionalOptions: ''
   })
   const [fetching, setFetching] = useState(true)
   const [isInstalled, setIsInstalled] = useState(false)
+
+  const [additionalOptions, setAdditionalOptions] = useState(
+    gamescope.additionalOptions
+  )
 
   useEffect(() => {
     setFetching(true)
@@ -356,6 +361,32 @@ const Gamescope = () => {
           />
         </div>
       )}
+      {/* Additional Options */}
+      <TextInputField
+        label={t('options.gamescope.additionalOptions', 'Additional Options')}
+        htmlId="additionalOptions"
+        placeholder=""
+        value={additionalOptions}
+        afterInput={
+          <FontAwesomeIcon
+            className="helpIcon"
+            icon={faCircleInfo}
+            title={t(
+              'help.gamescope.additionalOptions',
+              'Additional commandline flags to pass into gamescope.'
+            )}
+          />
+        }
+        onChange={(event: ChangeEvent<HTMLInputElement>) => {
+          setAdditionalOptions(event.currentTarget.value)
+        }}
+        onBlur={(event: ChangeEvent<HTMLInputElement>) =>
+          setGamescope({
+            ...gamescope,
+            additionalOptions: event.currentTarget.value
+          })
+        }
+      />
     </div>
   )
 }
