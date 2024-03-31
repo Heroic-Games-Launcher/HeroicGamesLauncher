@@ -1,6 +1,6 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Police d'écriture pour les actions (par défaut : ",
+        "actions_font_family_no_default": "Police d'écriture pour les actions (par défaut) :",
         "all_tiles_in_color": "Afficher les vignettes de tous les jeux en couleur",
         "content_font_family_no_default": "Police d'écriture pour les contenus (Par défaut : ",
         "fonts": "Polices d'écriture",
@@ -170,7 +170,9 @@
         "yes": "OUI",
         "dontShowAgain": "Ne plus afficher",
         "choose-nile-binary": "Sélectionnez le binaire de Nile",
-        "update": "Mise-à-jour"
+        "update": "Mise à jour",
+        "changelog": "Journal des changements",
+        "postpone": "Différer"
     },
     "button": {
         "cancel": "Annuler",
@@ -321,7 +323,7 @@
             "login": "Connexion",
             "settings": "Options",
             "downloadManager": "Gestionnaire de téléchargements",
-            "wineManager": "Gestion de Wine",
+            "wineManager": "Gestionnaire Wine",
             "library": "Bibliothèque"
         },
         "content": {
@@ -338,7 +340,8 @@
         "button": {
             "open": "Afficher l'aide",
             "close": "Fermer l'aide"
-        }
+        },
+        "msync": "Msync a pour but de réduire la charge wineserver pour les jeux qui sollicitent beaucoup le CPU. L'activer peut améliorer les performances sur les kernels Linux compatibles."
     },
     "info": {
         "heroic": {
@@ -500,7 +503,9 @@
             "gameWidth": "Largeur du jeu",
             "upscaleHeight": "Améliorer selon la hauteur",
             "fpsLimiterNoFocus": "Limiteur de FPS (sans focus)",
-            "stretch": "Étirer l'image"
+            "stretch": "Étirer l'image",
+            "interger": "Échelle supérieure selon un nombre entier",
+            "windowed": "Fenêtré"
         }
     },
     "other": {
@@ -673,7 +678,8 @@
             "enableLimiter": "Activer le limiteur de FPS",
             "enableUpscaling": "Activer la mise à l'échelle",
             "missingMsg": "Nous n'avons pas pu trouver Gamescope sur le CHEMIN. Installez-le ou ajoutez-le au CHEMIN."
-        }
+        },
+        "msync": "Activer Msync"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -763,7 +769,7 @@
                 "help7": "Connexion à la boutique"
             },
             "title": {
-                "resetHeroic": "Réinitialiser Heroic",
+                "resetHeroic": "Redémarrer Heroic",
                 "clearCache": "Effacer le cache"
             },
             "details": "Détails",
@@ -781,7 +787,7 @@
         "installing": "Installation en cours",
         "logging": "Connexion en cours...",
         "processing": "Préparation des fichiers, veuillez patienter",
-        "preparing_login": "Préparation de la connexion... "
+        "preparing_login": "Préparation de la connexion.... "
     },
     "store": "Boutique Epic",
     "stores": "Boutiques",
@@ -885,5 +891,10 @@
     "emptyLibrary": {
         "noResults": "Les filtres actuels n'ont retourné aucun résultat.",
         "noGames": "Votre bibliothèque est vide. Vous pouvez <1>vous connecter</1> dans une boutique ou cliquer sur <3></3> pour en ajouter un manuellement."
+    },
+    "adtraction-locked": {
+        "description": "Il semble que le domaine track.adtraction.com n'ait pas pu être chargé ou soit bloqué. Avec adtraction, chaque achat fait dans la boutique GOG soutient Heroic financièrement. Songez à enlever ce blocage si vous voulez contribuer.",
+        "dont-show-again": "Ne plus afficher cet avertissement à l'avenir",
+        "title": "Adtraction a été bloqué"
     }
 }

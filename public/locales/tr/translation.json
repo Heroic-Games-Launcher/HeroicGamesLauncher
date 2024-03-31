@@ -170,7 +170,9 @@
         "yes": "EVET",
         "dontShowAgain": "Tekrar gösterme",
         "choose-nile-binary": "Nil ikili dosyasını seçin",
-        "update": "Update"
+        "update": "Update",
+        "postpone": "Ertele",
+        "changelog": "Değişiklikler"
     },
     "button": {
         "cancel": "İptal et",
@@ -757,13 +759,20 @@
                 "help10": "Heroic yapılandırma",
                 "help7": "Mağaza oturum açma",
                 "help9": "Oyun ayarları",
-                "help6": "Bu işlem aşağıdakileri SİLMEYECEK:"
+                "help6": "Bu işlem aşağıdakileri SİLMEYECEK:",
+                "help4": "GOG kütüphane bilgisi (oyunların listesi, indirme diyalogu bilgisi, API bilgisi -yani gereksinimler-)",
+                "help3": "Legendary kütüphane bilgisi (oyunların listesi, yükleme iletişim kutusu bilgisi, oyun bilgisi)",
+                "help2": "Üçüncü parti oyun bilgileri (skorlar, steam uyumluluğu, howlongtobeat, pcgamingwiki, applegamingwiki)",
+                "help5": "Amazon kütüphane bilgisi (oyunların listesi, indirme kutusu bilgisi)"
             },
             "title": {
                 "resetHeroic": "Heroic'i Sıfırla",
                 "clearCache": "Ön Belleği Temizle"
             },
-            "details": "Ayrıntılar"
+            "details": "Ayrıntılar",
+            "resetHeroic": {
+                "help": "Bu, Tüm Ayarları ve Önbelleği kaldıracak ancak Yüklenmiş oyunlarınızı veya Epic kimlik bilgilerinizi kaldırmayacak. Heroic'in taşınabilir sürümleri (AppImage, WinPortable, ...) daha sonra manuel olarak yeniden başlatılmalıdır."
+            }
         }
     },
     "Settings": "Ayarlar",
@@ -872,6 +881,16 @@
         "add-new-category": "Yeni Kategori Ekle"
     },
     "emptyLibrary": {
-        "noResults": "Geçerli süzgeç hiçbir sonuç üretmedi."
+        "noResults": "Geçerli süzgeç hiçbir sonuç üretmedi.",
+        "noGames": "Kütüphaneniz boş. Bir mağaza kullanarak <1>giriş yapabilirsiniz</1> veya manuel olarak bir tane eklemek için <3>tıklayabilirsiniz</3>."
+    },
+    "adtraction-locked": {
+        "description": "track.adtraction.com alan adı yüklenemedi veya engellenmiş gibi görünüyor. Adtraction ile GOG mağazasında yaptığınız her satın alma, Heroic'i maddi olarak destekliyor. Katkıda bulunmak istiyorsanız engeli kaldırmayı düşünebilirsiniz.",
+        "dont-show-again": "Bu uyarıyı bir daha gösterme"
+    },
+    "wineExplanation": {
+        "wine-ge-lol": "Wine-GE-Proton...-LoL sürümleri sadece League of Legends ile kullanılması amaçlanmıştır. Bu sürümler, başka herhangi bir oyun için kullanılmamalıdır çünkü sorunlara neden olabilirler.",
+        "wine-ge": "Wine-GE-Proton Glorious Eggroll tarafından yapılmış bir Wine varyasyonudur. Steam dışında kullanılması önerilen Wine'dır. Sorun giderme sırasında kullanışlı hata günlükleri sağlar.",
+        "proton-ge": "Proton-GE-Proton Glorious Eggroll tarafından yapılmış bir Proton varyasyonudur. Steam'de kullanılmak üzere tasarlanmış olsa da, bazı Steam dışı oyunlar bu varyant ile daha iyi çalışabilir. Sorun giderme için genellikle işe yaramaz hata günlükleri sağlar."
     }
 }

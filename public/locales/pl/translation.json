@@ -211,7 +211,7 @@
             "disk": "Dysk",
             "speed": "Prędkość pobierania"
         },
-        "link": "Do pobrania",
+        "link": "Pobieranie",
         "queue": {
             "end-time": "Zakończono o",
             "queue-time": "Rozpoczęto o",
