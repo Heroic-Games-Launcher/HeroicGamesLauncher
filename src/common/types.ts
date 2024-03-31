@@ -194,6 +194,8 @@ export interface GameSettings {
   wrapperOptions: WrapperVariable[]
   savesPath: string
   gogSaves?: GOGCloudSavesLocation[]
+  beforeLaunchScriptPath: string
+  afterLaunchScriptPath: string
 }
 
 export type Status =

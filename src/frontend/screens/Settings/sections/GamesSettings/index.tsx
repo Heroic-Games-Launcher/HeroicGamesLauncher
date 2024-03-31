@@ -30,7 +30,9 @@ import {
   WrappersTable,
   EnableDXVKFpsLimit,
   IgnoreGameUpdates,
-  Gamescope
+  Gamescope,
+  BeforeLaunchScriptPath,
+  AfterLaunchScriptPath
 } from '../../components'
 import ContextProvider from 'frontend/state/ContextProvider'
 import Tools from '../../components/Tools'
@@ -234,6 +236,11 @@ export default function GamesSettings() {
         )}
         <AlternativeExe />
         <LauncherArgs />
+        <div className="Field">
+          <label>Scripts:</label>
+          <BeforeLaunchScriptPath />
+          <AfterLaunchScriptPath />
+        </div>
         <WrappersTable />
         <EnvVariablesTable />
         {!isSideloaded && <PreferedLanguage />}
