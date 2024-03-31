@@ -1021,7 +1021,10 @@ async function callRunner(
       isWindows && !!(await searchForExecutableOnPath('powershell'))
 
   if (shouldUsePowerShell) {
-    const argsAsString = commandParts.map((part) => `"\`"${part}\`""`).join(',')
+    const argsAsString = commandParts
+      .map((part) => part.replaceAll('\\', '\\\\'))
+      .map((part) => `"\`"${part}\`""`)
+      .join(',')
     commandParts = [
       'Start-Process',
       `"\`"${fullRunnerPath}\`""`,
