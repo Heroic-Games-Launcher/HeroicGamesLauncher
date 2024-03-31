@@ -1,9 +1,9 @@
 import { isMac } from '../../../constants'
 import { existsSync, statSync, unlinkSync } from 'graceful-fs'
-import { spawnSync } from 'child_process'
+import { spawnSync, spawn } from 'child_process'
 
 import { ProgressInfo, State, VersionInfo, Type } from 'common/types'
-import { axiosClient, extractFiles } from 'backend/utils'
+import { axiosClient } from 'backend/utils'
 
 interface fetchProps {
   url: string
@@ -132,7 +132,8 @@ interface unzipProps {
 async function unzipFile({
   filePath,
   unzipDir,
-  onProgress
+  onProgress,
+  abortSignal
 }: unzipProps): Promise<string> {
   return new Promise((resolve, reject) => {
     try {
@@ -149,17 +150,52 @@ async function unzipFile({
       reject(error.message)
     }
 
-    extractFiles({ path: filePath, destination: unzipDir, strip: 1 })
-      .then(() => {
-        onProgress('idle')
-        resolve(`Succesfully unzip ${filePath} to ${unzipDir}.`)
-      })
-      .catch((error) => {
-        onProgress('idle')
-        reject(`Unzip of ${filePath} failed with:\n ${error}!`)
-      })
+    let extension_options = ''
+    if (filePath.endsWith('tar.gz')) {
+      extension_options = '-zxf'
+    } else if (filePath.endsWith('tar.xz')) {
+      extension_options = '-Jxf'
+    } else {
+      reject(`Archive type ${filePath.split('.').pop()} not supported!`)
+    }
+
+    const args = [
+      '--directory',
+      unzipDir,
+      '--strip-components=1',
+      extension_options,
+      filePath
+    ]
+
+    const unzip = spawn('tar', args, { signal: abortSignal })
 
     onProgress('unzipping')
+
+    unzip.stdout.on('data', function () {
+      onProgress('unzipping')
+    })
+
+    unzip.stderr.on('data', function (stderr: string) {
+      onProgress('idle')
+      reject(`Unzip of ${filePath} failed with:\n ${stderr}!`)
+    })
+
+    unzip.on('close', function (exitcode: number) {
+      onProgress('idle')
+      if (exitcode !== 0) {
+        reject(`Unzip of ${filePath} failed with exit code:\n ${exitcode}!`)
+      }
+
+      resolve(`Succesfully unzip ${filePath} to ${unzipDir}.`)
+    })
+
+    unzip.on('error', (error: Error) => {
+      if (error.name.includes('AbortError')) {
+        reject(error.name)
+      } else {
+        reject(`Unzip of ${filePath} failed with:\n ${error.message}!`)
+      }
+    })
   })
 }
 
