@@ -563,16 +563,10 @@ ipcMain.on('unlock', () => {
 })
 
 ipcMain.handle('checkDiskSpace', async (_e, folder): Promise<DiskSpaceData> => {
-  // We only need to look at the root directory for used/free space
-  // Trying to query this for a directory that doesn't exist (which `folder`
-  // might be) will not work
-  const { root } = path.parse(folder)
-
   // FIXME: Propagate errors
   const parsedPath = Path.parse(folder)
-  const parsedRootPath = Path.parse(root)
 
-  const { freeSpace, totalSpace } = await getDiskInfo(parsedRootPath)
+  const { freeSpace, totalSpace } = await getDiskInfo(parsedPath)
   const pathIsWritable = await isWritable(parsedPath)
   const pathIsFlatpakAccessible = isAccessibleWithinFlatpakSandbox(parsedPath)
 
