@@ -29,7 +29,7 @@
     "test-watch": "jest --watch --maxWorkers=25%",
     "test:ci": "jest --runInBand --silent",
     "test:e2e": "vite build && cross-env CI=e2e xvfb-maybe -- playwright test",
-    "release:linux": "vite build && electron-builder -p always --linux deb AppImage rpm pacman tar.xz snap",
+    "release:linux": "vite build && electron-builder -p always --linux deb AppImage rpm pacman tar.xz",
     "release:mac": "vite build && electron-builder -p always --mac --x64 --arm64",
     "release:win": "vite build && electron-builder -p always --win portable --x64",
     "release:updateFlathub:ci": "tsc flathub/update-flathub.ts --skipLibCheck --target es2015 --moduleResolution node --module commonjs && node flathub/update-flathub.js",
