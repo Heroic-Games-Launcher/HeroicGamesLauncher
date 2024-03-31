@@ -289,19 +289,19 @@ async function installVersion({
     )
   }
 
-  if (!overwrite) {
-    // Unzip
-    try {
-      mkdirSync(installSubDir)
-    } catch (error) {
-      unlinkFile(tarFile)
-      throw new Error(`Failed to make folder ${installSubDir} with:\n ${error}`)
-    }
-  } else {
-    // backup old folder
+  // backup old folder
+  if (overwrite) {
     renameSync(installSubDir, `${installSubDir}_backup`)
   }
 
+  try {
+    mkdirSync(installSubDir)
+  } catch (error) {
+    unlinkFile(tarFile)
+    throw new Error(`Failed to make folder ${installSubDir} with:\n ${error}`)
+  }
+
+  // Unzip
   await unzipFile({
     filePath: tarFile,
     unzipDir: installSubDir,
