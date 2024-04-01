@@ -71,6 +71,7 @@ export default function ExtraLinks() {
           active: isDonateExpanded
         })}
         data-tooltip-content={t('donate', 'Donate')}
+        tabIndex={-1}
       >
         <Accordion
           expanded={isDonateExpanded}

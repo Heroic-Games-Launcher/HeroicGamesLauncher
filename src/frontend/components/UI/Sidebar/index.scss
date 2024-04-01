@@ -258,7 +258,7 @@
     overflow-y: auto;
 
     .Sidebar__item {
-      padding: var(--space-xs) 0;
+      padding: var(--space-3xs) 0;
 
       &[data-tooltip-content] {
         position: static;
@@ -315,7 +315,7 @@
       }
 
       &.SidebarLinks__subItem {
-        padding: var(--space-xs) 0;
+        padding: var(--space-2xs) 0;
       }
 
       & > span,
@@ -333,7 +333,7 @@
       }
 
       svg {
-        transform: scale(1.4);
+        transform: scale(1.3);
         padding: var(--space-2xs) 0;
       }
     }
@@ -366,10 +366,6 @@
         display: none;
       }
     }
-
-    .divider {
-      margin: var(--space-3xs) 0;
-    }
   }
 }
 
@@ -394,4 +390,13 @@
 .isRTL .resizer {
   left: 0;
   right: auto;
+}
+
+.isRTL .Sidebar.collapsed .Sidebar__item[data-tooltip-content]:not(.active) {
+  &:hover::after,
+  &:has(:focus-visible)::after,
+  &:focus-visible::after {
+    left: unset;
+    right: 0;
+  }
 }
