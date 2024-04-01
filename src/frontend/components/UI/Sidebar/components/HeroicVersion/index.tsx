@@ -64,7 +64,10 @@ export default React.memo(function HeroicVersion() {
           className="Sidebar__item"
           title={releaseInfo.tag_name}
           onClick={() => window.api.openExternalUrl(releaseInfo.html_url)}
-          data-tooltip-content={t('info.heroic.newReleases', 'Update Available!')}
+          data-tooltip-content={t(
+            'info.heroic.newReleases',
+            'Update Available!'
+          )}
         >
           <div className="Sidebar__itemIcon">
             <FontAwesomeIcon
@@ -74,7 +77,7 @@ export default React.memo(function HeroicVersion() {
           </div>
           <div className="heroicNewReleases">
             <span>{t('info.heroic.newReleases', 'Update Available!')}</span>
-            <span className="highlighted" >
+            <span className="highlighted">
               {releaseType} ({releaseInfo.tag_name})
             </span>
           </div>

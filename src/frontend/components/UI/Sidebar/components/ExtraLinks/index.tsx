@@ -88,7 +88,7 @@ export default function ExtraLinks() {
               <button
                 className="Sidebar__item SidebarLinks__subItem"
                 onClick={() => handleExternalLink(window.api.openPatreonPage)}
-                data-tooltip-content='Patreon'
+                data-tooltip-content="Patreon"
               >
                 <div className="Sidebar__itemIcon">
                   <FontAwesomeIcon icon={faPatreon} title="Patreon" />
@@ -98,7 +98,7 @@ export default function ExtraLinks() {
               <button
                 className="Sidebar__item SidebarLinks__subItem"
                 onClick={() => handleExternalLink(window.api.openKofiPage)}
-                data-tooltip-content='Ko-fi'
+                data-tooltip-content="Ko-fi"
               >
                 <div className="Sidebar__itemIcon">
                   <FontAwesomeIcon icon={faCoffee} title="Ko-fi" />

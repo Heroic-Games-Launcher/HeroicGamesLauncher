@@ -38,11 +38,13 @@ export default React.memo(function Sidebar() {
     })
   }, [])
 
-  const handleScroll = (e: React.UIEvent<HTMLElement>) => {
-
+  const handleScroll = () => {
     if (!sidebarEl.current) return
 
-    sidebarEl.current.style.setProperty('--scroll-offset', `${sidebarEl.current.scrollTop}px`)
+    sidebarEl.current.style.setProperty(
+      '--scroll-offset',
+      `${sidebarEl.current.scrollTop}px`
+    )
   }
 
   const handleDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
