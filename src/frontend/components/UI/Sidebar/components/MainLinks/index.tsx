@@ -36,6 +36,9 @@ export default function MainLinks() {
   const [currentDMElement, setCurrentDMElement] = useState<DMQueueElement>()
   const [lastDMElement, setLastDMElement] = useState<DMQueueElement>()
 
+  const [isStore, setIsStore] = useState(false)
+  const [isSettings, setIsSettings] = useState(false)
+
   const { amazon, epic, gog, platform, refreshLibrary } =
     useContext(ContextProvider)
 
@@ -126,62 +129,77 @@ export default function MainLinks() {
         </div>
         <span>{t('Library')}</span>
       </NavLink>
-      <NavLink
-        className={({ isActive }) =>
-          classNames('Sidebar__item', 'large', {
-            active: isActive || location.pathname.includes('store')
-          })
-        }
-        to={`/store/${defaultStore}`}
+      <div
+        className={classNames('Sidebar__item', 'large', {
+          active: isStore
+        })}
+        tabIndex={-1}
       >
-        {({ isActive }) => (
-          <Accordion expanded={isActive || location.pathname.includes('store')}>
-            <AccordionSummary tabIndex={-1}>
-              <div className="Sidebar__itemIcon">
-                <FontAwesomeIcon icon={faStore} title={t('stores', 'Stores')} />
-              </div>
-              <span>{t('stores', 'Stores')}</span>
-            </AccordionSummary>
-            <AccordionDetails>
-              <div className="SidebarSubmenu">
-                <NavLink
-                  data-testid="store"
-                  className={({ isActive }) =>
-                    classNames('Sidebar__item', 'SidebarLinks__subItem', {
-                      active: isActive
-                    })
-                  }
-                  to="/store/epic"
-                >
-                  <span>{t('store', 'Epic Store')}</span>
-                </NavLink>
-                <NavLink
-                  data-testid="store"
-                  className={({ isActive }) =>
-                    classNames('Sidebar__item', 'SidebarLinks__subItem', {
-                      active: isActive
-                    })
-                  }
-                  to="/store/gog"
-                >
-                  <span>{t('gog-store', 'GOG Store')}</span>
-                </NavLink>
-                <NavLink
-                  data-testid="store"
-                  className={({ isActive }) =>
-                    classNames('Sidebar__item', 'SidebarLinks__subItem', {
-                      active: isActive
-                    })
-                  }
-                  to="/store/amazon"
-                >
-                  <span>{t('prime-gaming', 'Prime Gaming')}</span>
-                </NavLink>
-              </div>
-            </AccordionDetails>
-          </Accordion>
-        )}
-      </NavLink>
+        <Accordion expanded={isStore}>
+          <AccordionSummary tabIndex={-1}>
+            <NavLink
+              className={({ isActive }) =>
+                classNames({
+                  active: isActive || location.pathname.includes('store')
+                })
+              }
+              to={`/store/${defaultStore}`}
+            >
+              {({ isActive }) => {
+                setIsStore(isActive || location.pathname.includes('store'))
+                return (
+                  <>
+                    <div className="Sidebar__itemIcon">
+                      <FontAwesomeIcon
+                        icon={faStore}
+                        title={t('stores', 'Stores')}
+                      />
+                    </div>
+                    <span>{t('stores', 'Stores')}</span>
+                  </>
+                )
+              }}
+            </NavLink>
+          </AccordionSummary>
+          <AccordionDetails>
+            <div className="SidebarSubmenu">
+              <NavLink
+                data-testid="store"
+                className={({ isActive }) =>
+                  classNames('Sidebar__item', 'SidebarLinks__subItem', {
+                    active: isActive
+                  })
+                }
+                to="/store/epic"
+              >
+                <span>{t('store', 'Epic Store')}</span>
+              </NavLink>
+              <NavLink
+                data-testid="store"
+                className={({ isActive }) =>
+                  classNames('Sidebar__item', 'SidebarLinks__subItem', {
+                    active: isActive
+                  })
+                }
+                to="/store/gog"
+              >
+                <span>{t('gog-store', 'GOG Store')}</span>
+              </NavLink>
+              <NavLink
+                data-testid="store"
+                className={({ isActive }) =>
+                  classNames('Sidebar__item', 'SidebarLinks__subItem', {
+                    active: isActive
+                  })
+                }
+                to="/store/amazon"
+              >
+                <span>{t('prime-gaming', 'Prime Gaming')}</span>
+              </NavLink>
+            </div>
+          </AccordionDetails>
+        </Accordion>
+      </div>
       <NavLink
         className={({ isActive }) =>
           classNames('Sidebar__item', 'large', { active: isActive })
@@ -210,100 +228,111 @@ export default function MainLinks() {
         </Accordion>
       </NavLink>
       <div className="divider" />
-      <NavLink
-        data-testid="settings"
-        className={({ isActive }) =>
-          classNames('Sidebar__item', {
-            active: isActive || location.pathname.includes('settings')
-          })
-        }
-        to={{ pathname: settingsPath }}
-        state={{
-          fromGameCard: false
-        }}
+      <div
+        className={classNames('Sidebar__item', {
+          active: isSettings
+        })}
+        tabIndex={-1}
       >
-        {({ isActive }) => (
-          <Accordion
-            expanded={isActive || location.pathname.includes('settings')}
-          >
-            <AccordionSummary tabIndex={-1}>
-              <div className="Sidebar__itemIcon">
-                <FontAwesomeIcon icon={faSlidersH} title={t('Settings')} />
-              </div>
-              <span>{t('Settings', 'Settings')}</span>
-            </AccordionSummary>
-            <AccordionDetails>
-              <div className="SidebarSubmenu settings">
+        <Accordion
+          expanded={isSettings}
+        >
+          <AccordionSummary tabIndex={-1}>
+            <NavLink
+              data-testid="settings"
+              className={({ isActive }) =>
+                classNames({
+                  active: isActive || location.pathname.includes('settings')
+                })
+              }
+              to={{ pathname: settingsPath }}
+              state={{
+                fromGameCard: false
+              }}
+            >
+              {({ isActive }) => {
+                setIsSettings(
+                  isActive || location.pathname.includes('settings')
+                )
+                return (
+                  <>
+                    <div className="Sidebar__itemIcon">
+                      <FontAwesomeIcon
+                        icon={faSlidersH}
+                        title={t('Settings')}
+                      />
+                    </div>
+                    <span>{t('Settings', 'Settings')}</span>
+                  </>
+                )
+              }}
+            </NavLink>
+          </AccordionSummary>
+          <AccordionDetails>
+            <div className="SidebarSubmenu settings">
+              <NavLink
+                role="link"
+                to={{ pathname: '/settings/app/default/general' }}
+                state={{ fromGameCard: false }}
+                className={classNames('Sidebar__item SidebarLinks__subItem', {
+                  ['active']: type === 'general'
+                })}
+              >
+                <span>{t('settings.navbar.general')}</span>
+              </NavLink>
+              {!isWin && (
                 <NavLink
                   role="link"
-                  to={{ pathname: '/settings/app/default/general' }}
-                  state={{ fromGameCard: false }}
-                  className={classNames('Sidebar__item SidebarLinks__subItem', {
-                    ['active']: type === 'general'
-                  })}
-                >
-                  <span>{t('settings.navbar.general')}</span>
-                </NavLink>
-                {!isWin && (
-                  <NavLink
-                    role="link"
-                    to={`/settings/${runner}/${appName}/games_settings`}
-                    state={{ ...state, runner: state?.runner }}
-                    className={classNames(
-                      'Sidebar__item SidebarLinks__subItem',
-                      {
-                        ['active']: type === 'games_settings'
-                      }
-                    )}
-                  >
-                    <span>
-                      {t(
-                        'settings.navbar.games_settings_defaults',
-                        'Game Defaults'
-                      )}
-                    </span>
-                  </NavLink>
-                )}
-                <NavLink
-                  role="link"
-                  to={`/settings/${runner}/${appName}/advanced`}
+                  to={`/settings/${runner}/${appName}/games_settings`}
                   state={{ ...state, runner: state?.runner }}
                   className={classNames('Sidebar__item SidebarLinks__subItem', {
-                    ['active']: type === 'advanced'
-                  })}
-                >
-                  <span>{t('settings.navbar.advanced', 'Advanced')}</span>
-                </NavLink>
-                <NavLink
-                  role="link"
-                  to={`/settings/${runner}/${appName}/systeminfo`}
-                  state={{ ...state, runner: state?.runner }}
-                  className={classNames('Sidebar__item SidebarLinks__subItem', {
-                    ['active']: type === 'systeminfo'
+                    ['active']: type === 'games_settings'
                   })}
                 >
                   <span>
                     {t(
-                      'settings.navbar.systemInformation',
-                      'System Information'
+                      'settings.navbar.games_settings_defaults',
+                      'Game Defaults'
                     )}
                   </span>
                 </NavLink>
-                <NavLink
-                  role="link"
-                  to={`/settings/${runner}/${appName}/log`}
-                  state={{ ...state, runner: state?.runner }}
-                  className={classNames('Sidebar__item SidebarLinks__subItem', {
-                    ['active']: type === 'log'
-                  })}
-                >
-                  <span>{t('settings.navbar.log', 'Log')}</span>
-                </NavLink>
-              </div>
-            </AccordionDetails>
-          </Accordion>
-        )}
-      </NavLink>
+              )}
+              <NavLink
+                role="link"
+                to={`/settings/${runner}/${appName}/advanced`}
+                state={{ ...state, runner: state?.runner }}
+                className={classNames('Sidebar__item SidebarLinks__subItem', {
+                  ['active']: type === 'advanced'
+                })}
+              >
+                <span>{t('settings.navbar.advanced', 'Advanced')}</span>
+              </NavLink>
+              <NavLink
+                role="link"
+                to={`/settings/${runner}/${appName}/systeminfo`}
+                state={{ ...state, runner: state?.runner }}
+                className={classNames('Sidebar__item SidebarLinks__subItem', {
+                  ['active']: type === 'systeminfo'
+                })}
+              >
+                <span>
+                  {t('settings.navbar.systemInformation', 'System Information')}
+                </span>
+              </NavLink>
+              <NavLink
+                role="link"
+                to={`/settings/${runner}/${appName}/log`}
+                state={{ ...state, runner: state?.runner }}
+                className={classNames('Sidebar__item SidebarLinks__subItem', {
+                  ['active']: type === 'log'
+                })}
+              >
+                <span>{t('settings.navbar.log', 'Log')}</span>
+              </NavLink>
+            </div>
+          </AccordionDetails>
+        </Accordion>
+      </div>
       {!isWin && (
         <NavLink
           className={({ isActive }) =>

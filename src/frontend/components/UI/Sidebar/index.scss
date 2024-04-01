@@ -70,7 +70,8 @@
     }
 
     &:focus-visible,
-    &:has(.MuiAccordionSummary-root:focus-visible) {
+    &:has(.MuiAccordionSummary-root:focus-visible),
+    &:has(.MuiAccordionSummary-root a:focus-visible) {
       outline: 2px solid var(--text-hover);
       outline-offset: -2px;
     }
@@ -163,7 +164,20 @@
         }
 
         .MuiAccordionSummary-content {
+          display: block;
           margin: 0;
+          flex-grow: 1;
+
+          a {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            color: inherit;
+
+            &:focus-visible {
+              outline: none;
+            }
+          }
         }
       }
 
