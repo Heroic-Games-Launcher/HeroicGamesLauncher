@@ -334,14 +334,13 @@
     }
   }
 
-  .installProgress[value] {
-    appearance: none;
+  .MuiLinearProgress-root {
     width: 169px;
     height: 5px;
+    background-color: var(--neutral-05);
 
-    &::-webkit-progress-value {
-      color: var(--success);
-      animation: animate-stripes 5s linear infinite;
+    .MuiLinearProgress-bar {
+      background-color: var(--success);
     }
   }
 
@@ -624,20 +623,11 @@
         text-align: left;
       }
 
-      .installProgress[value] {
-        /* display block affects margin-block-end */
+      .MuiLinearProgress-root {
         display: block;
-        appearance: none;
-        width: 100%;
-        height: var(--text-xs);
-        overflow: hidden;
-        border-radius: 2px;
+        background-color: var(--neutral-05);
 
-        &::-webkit-progress-bar {
-          background-color: var(--neutral-05);
-        }
-
-        &::-webkit-progress-value {
+        .MuiLinearProgress-bar {
           background-color: var(--success);
         }
       }
