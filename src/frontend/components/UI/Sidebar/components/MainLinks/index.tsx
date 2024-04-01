@@ -19,30 +19,31 @@ import classNames from 'classnames'
 import React, { useContext, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material'
+import { ExpandMore } from '@mui/icons-material'
 
 import ContextProvider from 'frontend/state/ContextProvider'
-import { Runner, DMQueueElement } from 'common/types'
+import { DMQueueElement } from 'common/types'
 import { LocationState } from 'frontend/types'
 import CurrentDownload from '../CurrentDownload'
 
-type PathSplit = [
-  a: undefined,
-  b: undefined,
-  runner: Runner | 'app',
-  appName: string,
-  type: string
-]
+const SUB_SETTINGS_PATHS = {
+  general: '/settings/app/default/general',
+  accessibility: '/accessibility',
+  gameDefaults: '/settings/app/default/games_settings',
+  advanced: '/settings/app/default/advanced',
+  systemInfo: '/settings/app/default/systeminfo',
+  log: '/settings/app/default/log'
+}
 
 export default function MainLinks() {
   const { t } = useTranslation()
   const { state } = useLocation() as { state: LocationState }
   const location = useLocation() as { pathname: string }
-  const [, , runner = 'app', appName = 'default', type] = location.pathname.split('/') as PathSplit
   const [currentDMElement, setCurrentDMElement] = useState<DMQueueElement>()
   const [lastDMElement, setLastDMElement] = useState<DMQueueElement>()
 
   const isStore = location.pathname.startsWith('/store')
-  const isSettings = location.pathname.startsWith('/settings') || location.pathname === '/accessibility'
+  const isSettings = Object.values(SUB_SETTINGS_PATHS).includes(location.pathname)
 
   const { amazon, epic, gog, platform, refreshLibrary } =
     useContext(ContextProvider)
@@ -72,7 +73,7 @@ export default function MainLinks() {
 
   const isWin = platform === 'win32'
 
-  const settingsPath = '/settings/app/default/general'
+  const mainPath = SUB_SETTINGS_PATHS.general
 
   const loggedIn = epic.username || gog.username || amazon.user_id
 
@@ -141,7 +142,7 @@ export default function MainLinks() {
         tabIndex={-1}
       >
         <Accordion expanded={isStore}>
-          <AccordionSummary tabIndex={-1}>
+          <AccordionSummary tabIndex={-1} expandIcon={<ExpandMore />}>
             <NavLink
               className={({ isActive }) =>
                 classNames({
@@ -230,7 +231,7 @@ export default function MainLinks() {
         tabIndex={-1}
       >
         <Accordion expanded={isSettings}>
-          <AccordionSummary tabIndex={-1}>
+          <AccordionSummary tabIndex={-1} expandIcon={<ExpandMore />}>
             <NavLink
               data-testid="settings"
               className={({ isActive }) =>
@@ -238,7 +239,7 @@ export default function MainLinks() {
                   active: isActive || isSettings
                 })
               }
-              to={{ pathname: settingsPath }}
+              to={{ pathname: mainPath }}
               state={{
                 fromGameCard: false
               }}
@@ -253,11 +254,13 @@ export default function MainLinks() {
             <div className="SidebarSubmenu settings">
               <NavLink
                 role="link"
-                to={{ pathname: '/settings/app/default/general' }}
+                to={SUB_SETTINGS_PATHS.general}
                 state={{ fromGameCard: false }}
-                className={classNames('Sidebar__item SidebarLinks__subItem', {
-                  ['active']: type === 'general'
-                })}
+                className={({ isActive }) =>
+                  classNames('Sidebar__item SidebarLinks__subItem', {
+                    active: isActive
+                  })
+                }
               >
                 <div className="Sidebar__itemIcon">
                   <FontAwesomeIcon
@@ -270,11 +273,13 @@ export default function MainLinks() {
               {!isWin && (
                 <NavLink
                   role="link"
-                  to={`/settings/${runner}/${appName}/games_settings`}
+                  to={SUB_SETTINGS_PATHS.gameDefaults}
                   state={{ ...state, runner: state?.runner }}
-                  className={classNames('Sidebar__item SidebarLinks__subItem', {
-                    ['active']: type === 'games_settings'
-                  })}
+                  className={({ isActive }) =>
+                    classNames('Sidebar__item SidebarLinks__subItem', {
+                      active: isActive
+                    })
+                  }
                 >
                   <div className="Sidebar__itemIcon">
                     <FontAwesomeIcon
@@ -295,11 +300,13 @@ export default function MainLinks() {
               )}
               <NavLink
                 role="link"
-                to={`/settings/${runner}/${appName}/advanced`}
+                to={SUB_SETTINGS_PATHS.advanced}
                 state={{ ...state, runner: state?.runner }}
-                className={classNames('Sidebar__item SidebarLinks__subItem', {
-                  ['active']: type === 'advanced'
-                })}
+                className={({ isActive }) =>
+                  classNames('Sidebar__item SidebarLinks__subItem', {
+                    active: isActive
+                  })
+                }
               >
                 <div className="Sidebar__itemIcon">
                   <FontAwesomeIcon
@@ -311,11 +318,13 @@ export default function MainLinks() {
               </NavLink>
               <NavLink
                 role="link"
-                to={`/settings/${runner}/${appName}/systeminfo`}
+                to={SUB_SETTINGS_PATHS.systemInfo}
                 state={{ ...state, runner: state?.runner }}
-                className={classNames('Sidebar__item SidebarLinks__subItem', {
-                  ['active']: type === 'systeminfo'
-                })}
+                className={({ isActive }) =>
+                  classNames('Sidebar__item SidebarLinks__subItem', {
+                    active: isActive
+                  })
+                }
               >
                 <div className="Sidebar__itemIcon">
                   <FontAwesomeIcon
@@ -337,7 +346,7 @@ export default function MainLinks() {
                     active: isActive
                   })
                 }
-                to={{ pathname: '/accessibility' }}
+                to={SUB_SETTINGS_PATHS.accessibility}
               >
                 <div className="Sidebar__itemIcon">
                   <FontAwesomeIcon
@@ -349,11 +358,13 @@ export default function MainLinks() {
               </NavLink>
               <NavLink
                 role="link"
-                to={`/settings/${runner}/${appName}/log`}
+                to={SUB_SETTINGS_PATHS.log}
                 state={{ ...state, runner: state?.runner }}
-                className={classNames('Sidebar__item SidebarLinks__subItem', {
-                  ['active']: type === 'log'
-                })}
+                className={({ isActive }) =>
+                  classNames('Sidebar__item SidebarLinks__subItem', {
+                    active: isActive
+                  })
+                }
               >
                 <div className="Sidebar__itemIcon">
                   <FontAwesomeIcon
