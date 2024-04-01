@@ -29,7 +29,6 @@ import CurrentDownload from '../CurrentDownload'
 
 const SUB_SETTINGS_PATHS = {
   general: '/settings/app/default/general',
-  accessibility: '/accessibility',
   gameDefaults: '/settings/app/default/games_settings',
   advanced: '/settings/app/default/advanced',
   systemInfo: '/settings/app/default/systeminfo',
@@ -176,7 +175,7 @@ export default function MainLinks() {
                 to="/store/epic"
               >
                 <div className="Sidebar__itemIcon">
-                  <StoreLogos runner='legendary' className=''/>
+                  <StoreLogos runner="legendary" className="" />
                 </div>
                 <span>{t('store', 'Epic Store')}</span>
               </NavLink>
@@ -191,7 +190,7 @@ export default function MainLinks() {
                 to="/store/gog"
               >
                 <div className="Sidebar__itemIcon">
-                  <StoreLogos runner='gog' className=''/>
+                  <StoreLogos runner="gog" className="" />
                 </div>
                 <span>{t('gog-store', 'GOG Store')}</span>
               </NavLink>
@@ -206,7 +205,7 @@ export default function MainLinks() {
                 to="/store/amazon"
               >
                 <div className="Sidebar__itemIcon">
-                  <StoreLogos runner='nile' className=''/>
+                  <StoreLogos runner="nile" className="" />
                 </div>
                 <span>{t('prime-gaming', 'Prime Gaming')}</span>
               </NavLink>
@@ -370,24 +369,6 @@ export default function MainLinks() {
                 </span>
               </NavLink>
               <NavLink
-                data-testid="accessibility"
-                className={({ isActive }) =>
-                  classNames('Sidebar__item SidebarLinks__subItem', {
-                    active: isActive
-                  })
-                }
-                to={SUB_SETTINGS_PATHS.accessibility}
-                data-tooltip-content={t('accessibility.title', 'Accessibility')}
-              >
-                <div className="Sidebar__itemIcon">
-                  <FontAwesomeIcon
-                    icon={faUniversalAccess}
-                    title={t('accessibility.title', 'Accessibility')}
-                  />
-                </div>
-                <span>{t('accessibility.title', 'Accessibility')}</span>
-              </NavLink>
-              <NavLink
                 role="link"
                 to={SUB_SETTINGS_PATHS.log}
                 state={{ ...state, runner: state?.runner }}
@@ -410,6 +391,24 @@ export default function MainLinks() {
           </AccordionDetails>
         </Accordion>
       </div>
+      <NavLink
+        data-testid="accessibility"
+        className={({ isActive }) =>
+          classNames('Sidebar__item', {
+            active: isActive
+          })
+        }
+        to="/accessibility"
+        data-tooltip-content={t('accessibility.title', 'Accessibility')}
+      >
+        <div className="Sidebar__itemIcon">
+          <FontAwesomeIcon
+            icon={faUniversalAccess}
+            title={t('accessibility.title', 'Accessibility')}
+          />
+        </div>
+        <span>{t('accessibility.title', 'Accessibility')}</span>
+      </NavLink>
       {!isWin && (
         <NavLink
           className={({ isActive }) =>
