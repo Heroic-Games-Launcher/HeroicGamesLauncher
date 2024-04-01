@@ -6,7 +6,12 @@ import {
   faUniversalAccess,
   faUserAlt,
   faWineGlass,
-  faDownload
+  faDownload,
+  faScroll,
+  faCircleInfo,
+  faCog,
+  faWrench,
+  faChessKnight
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { NavLink, useLocation } from 'react-router-dom'
@@ -32,12 +37,12 @@ export default function MainLinks() {
   const { t } = useTranslation()
   const { state } = useLocation() as { state: LocationState }
   const location = useLocation() as { pathname: string }
-  const [, , runner, appName, type] = location.pathname.split('/') as PathSplit
+  const [, , runner = 'app', appName = 'default', type] = location.pathname.split('/') as PathSplit
   const [currentDMElement, setCurrentDMElement] = useState<DMQueueElement>()
   const [lastDMElement, setLastDMElement] = useState<DMQueueElement>()
 
   const isStore = location.pathname.startsWith('/store')
-  const isSettings = location.pathname.startsWith('/settings')
+  const isSettings = location.pathname.startsWith('/settings') || location.pathname === '/accessibility'
 
   const { amazon, epic, gog, platform, refreshLibrary } =
     useContext(ContextProvider)
@@ -105,7 +110,7 @@ export default function MainLinks() {
       {!loggedIn && (
         <NavLink
           className={({ isActive }) =>
-            classNames('Sidebar__item', 'large', { active: isActive })
+            classNames('Sidebar__item', { active: isActive })
           }
           to={'/login'}
         >
@@ -117,7 +122,7 @@ export default function MainLinks() {
       )}
       <NavLink
         className={({ isActive }) =>
-          classNames('Sidebar__item', 'large', {
+          classNames('Sidebar__item', {
             active: isActive || location.pathname.includes('gamepage')
           })
         }
@@ -130,7 +135,7 @@ export default function MainLinks() {
         <span>{t('Library')}</span>
       </NavLink>
       <div
-        className={classNames('Sidebar__item', 'large', {
+        className={classNames('Sidebar__item', {
           active: isStore
         })}
         tabIndex={-1}
@@ -192,7 +197,7 @@ export default function MainLinks() {
       </div>
       <NavLink
         className={({ isActive }) =>
-          classNames('Sidebar__item', 'large', { active: isActive })
+          classNames('Sidebar__item', { active: isActive })
         }
         to={{ pathname: '/download-manager' }}
       >
@@ -254,6 +259,12 @@ export default function MainLinks() {
                   ['active']: type === 'general'
                 })}
               >
+                <div className="Sidebar__itemIcon">
+                  <FontAwesomeIcon
+                    icon={faCog}
+                    title={t('settings.navbar.general')}
+                  />
+                </div>
                 <span>{t('settings.navbar.general')}</span>
               </NavLink>
               {!isWin && (
@@ -265,6 +276,15 @@ export default function MainLinks() {
                     ['active']: type === 'games_settings'
                   })}
                 >
+                  <div className="Sidebar__itemIcon">
+                    <FontAwesomeIcon
+                      icon={faChessKnight}
+                      title={t(
+                        'settings.navbar.games_settings_defaults',
+                        'Game Defaults'
+                      )}
+                    />
+                  </div>
                   <span>
                     {t(
                       'settings.navbar.games_settings_defaults',
@@ -281,6 +301,12 @@ export default function MainLinks() {
                   ['active']: type === 'advanced'
                 })}
               >
+                <div className="Sidebar__itemIcon">
+                  <FontAwesomeIcon
+                    icon={faWrench}
+                    title={t('settings.navbar.advanced', 'Advanced')}
+                  />
+                </div>
                 <span>{t('settings.navbar.advanced', 'Advanced')}</span>
               </NavLink>
               <NavLink
@@ -291,9 +317,35 @@ export default function MainLinks() {
                   ['active']: type === 'systeminfo'
                 })}
               >
+                <div className="Sidebar__itemIcon">
+                  <FontAwesomeIcon
+                    icon={faCircleInfo}
+                    title={t(
+                      'settings.navbar.systemInformation',
+                      'System Information'
+                    )}
+                  />
+                </div>
                 <span>
                   {t('settings.navbar.systemInformation', 'System Information')}
                 </span>
+              </NavLink>
+              <NavLink
+                data-testid="accessibility"
+                className={({ isActive }) =>
+                  classNames('Sidebar__item SidebarLinks__subItem', {
+                    active: isActive
+                  })
+                }
+                to={{ pathname: '/accessibility' }}
+              >
+                <div className="Sidebar__itemIcon">
+                  <FontAwesomeIcon
+                    icon={faUniversalAccess}
+                    title={t('accessibility.title', 'Accessibility')}
+                  />
+                </div>
+                <span>{t('accessibility.title', 'Accessibility')}</span>
               </NavLink>
               <NavLink
                 role="link"
@@ -303,6 +355,12 @@ export default function MainLinks() {
                   ['active']: type === 'log'
                 })}
               >
+                <div className="Sidebar__itemIcon">
+                  <FontAwesomeIcon
+                    icon={faScroll}
+                    title={t('settings.navbar.log', 'Log')}
+                  />
+                </div>
                 <span>{t('settings.navbar.log', 'Log')}</span>
               </NavLink>
             </div>
@@ -336,21 +394,6 @@ export default function MainLinks() {
           <span>{t('userselector.manageaccounts', 'Manage Accounts')}</span>
         </NavLink>
       )}
-      <NavLink
-        data-testid="accessibility"
-        className={({ isActive }) =>
-          classNames('Sidebar__item', { active: isActive })
-        }
-        to={{ pathname: '/accessibility' }}
-      >
-        <div className="Sidebar__itemIcon">
-          <FontAwesomeIcon
-            icon={faUniversalAccess}
-            title={t('accessibility.title', 'Accessibility')}
-          />
-        </div>
-        <span>{t('accessibility.title', 'Accessibility')}</span>
-      </NavLink>
     </div>
   )
 }

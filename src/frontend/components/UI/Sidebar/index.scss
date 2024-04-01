@@ -78,7 +78,7 @@
 
     &.SidebarLinks__subItem {
       padding-block: var(--space-3xs);
-      padding-inline: var(--space-md) var(--sidebar-horizontal-padding);
+      padding-inline: var(--space-sm) var(--sidebar-horizontal-padding);
       font-size: var(--text-sm);
       line-height: 1.3em;
       white-space: break-spaces;
@@ -164,7 +164,8 @@
         }
 
         .MuiAccordionSummary-content {
-          display: block;
+          display: flex;
+          align-items: center;
           margin: 0;
           flex-grow: 1;
 
@@ -199,11 +200,15 @@
 
   .Sidebar__itemIcon {
     box-sizing: border-box;
-    width: 1.5em;
-    margin-inline-end: var(--space-2xs);
+    width: 1.2em;
+    margin-inline-end: var(--space-xs);
     display: inline-flex;
     justify-content: center;
     color: currentColor;
+  }
+
+  .SidebarLinks__subItem .Sidebar__itemIcon {
+    margin-inline-end: var(--space-3xs);
   }
 
   .filler {

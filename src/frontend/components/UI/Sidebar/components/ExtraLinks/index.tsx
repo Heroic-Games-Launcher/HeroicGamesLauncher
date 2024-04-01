@@ -1,7 +1,7 @@
 import {
   faBookOpen,
   faCoffee,
-  faHandshake
+  faHeart
 } from '@fortawesome/free-solid-svg-icons'
 import { ExpandMore } from '@mui/icons-material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -75,10 +75,7 @@ export default function ExtraLinks() {
         >
           <AccordionSummary expandIcon={<ExpandMore />}>
             <div className="Sidebar__itemIcon">
-              <FontAwesomeIcon
-                icon={faHandshake}
-                title={t('donate', 'Donate')}
-              />
+              <FontAwesomeIcon icon={faHeart} title={t('donate', 'Donate')} />
             </div>
             <span>{t('donate', 'Donate')}</span>
           </AccordionSummary>
