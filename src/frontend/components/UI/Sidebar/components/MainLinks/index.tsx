@@ -36,8 +36,8 @@ export default function MainLinks() {
   const [currentDMElement, setCurrentDMElement] = useState<DMQueueElement>()
   const [lastDMElement, setLastDMElement] = useState<DMQueueElement>()
 
-  const [isStore, setIsStore] = useState(false)
-  const [isSettings, setIsSettings] = useState(false)
+  const isStore = location.pathname.startsWith('/store')
+  const isSettings = location.pathname.startsWith('/settings')
 
   const { amazon, epic, gog, platform, refreshLibrary } =
     useContext(ContextProvider)
@@ -140,25 +140,15 @@ export default function MainLinks() {
             <NavLink
               className={({ isActive }) =>
                 classNames({
-                  active: isActive || location.pathname.includes('store')
+                  active: isActive || isStore
                 })
               }
               to={`/store/${defaultStore}`}
             >
-              {({ isActive }) => {
-                setIsStore(isActive || location.pathname.includes('store'))
-                return (
-                  <>
-                    <div className="Sidebar__itemIcon">
-                      <FontAwesomeIcon
-                        icon={faStore}
-                        title={t('stores', 'Stores')}
-                      />
-                    </div>
-                    <span>{t('stores', 'Stores')}</span>
-                  </>
-                )
-              }}
+              <div className="Sidebar__itemIcon">
+                <FontAwesomeIcon icon={faStore} title={t('stores', 'Stores')} />
+              </div>
+              <span>{t('stores', 'Stores')}</span>
             </NavLink>
           </AccordionSummary>
           <AccordionDetails>
@@ -234,15 +224,13 @@ export default function MainLinks() {
         })}
         tabIndex={-1}
       >
-        <Accordion
-          expanded={isSettings}
-        >
+        <Accordion expanded={isSettings}>
           <AccordionSummary tabIndex={-1}>
             <NavLink
               data-testid="settings"
               className={({ isActive }) =>
                 classNames({
-                  active: isActive || location.pathname.includes('settings')
+                  active: isActive || isSettings
                 })
               }
               to={{ pathname: settingsPath }}
@@ -250,22 +238,10 @@ export default function MainLinks() {
                 fromGameCard: false
               }}
             >
-              {({ isActive }) => {
-                setIsSettings(
-                  isActive || location.pathname.includes('settings')
-                )
-                return (
-                  <>
-                    <div className="Sidebar__itemIcon">
-                      <FontAwesomeIcon
-                        icon={faSlidersH}
-                        title={t('Settings')}
-                      />
-                    </div>
-                    <span>{t('Settings', 'Settings')}</span>
-                  </>
-                )
-              }}
+              <div className="Sidebar__itemIcon">
+                <FontAwesomeIcon icon={faSlidersH} title={t('Settings')} />
+              </div>
+              <span>{t('Settings', 'Settings')}</span>
             </NavLink>
           </AccordionSummary>
           <AccordionDetails>
