@@ -489,8 +489,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
                           }}
                         >
                           <span className="buttonWithIcon">
-                            {t('button.uninstall', 'Uninstall')}
                             <DeleteOutline />
+                            {t('button.uninstall', 'Uninstall')}
                           </span>
                         </button>
                       )}

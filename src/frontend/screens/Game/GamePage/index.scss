@@ -640,18 +640,41 @@
         margin-top: 15px;
         width: auto;
 
+        .buttonWithIcon > svg {
+          display: flex;
+          place-items: center;
+          justify-content: center;
+          margin-inline-end: var(--space-2xs);
+          width: auto;
+          max-height: 1em;
+        }
+
         & > button {
           align-self: center;
           max-height: unset;
+          padding: var(--space-sm) var(--space-md);
         }
 
         & .mainBtn {
           min-width: 200px;
+          font-size: var(--text-md);
+
+          & svg {
+            transform: scale(1.2);
+
+            &[data-icon='play'] {
+              /* For some reason Play icon is much smaller the rest */
+              transform: scale(1.6);
+            }
+          }
         }
 
         & .delBtn {
           font-size: var(--text-sm);
-          padding: var(--space-xs) var(--space-sm);
+          padding: var(--space-2xs) var(--space-xs);
+          & svg {
+            margin-inline-end: 0;
+          }
         }
       }
     }

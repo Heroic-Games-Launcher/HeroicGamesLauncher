@@ -30,12 +30,8 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
     if (is.syncing) {
       return (
         <span className="buttonWithIcon">
+          <CloudQueue/>
           {t('label.saves.syncing')}
-          <CloudQueue
-            style={{
-              marginLeft: '5px'
-            }}
-          />
         </span>
       )
     }
@@ -52,16 +48,16 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
     if (is.playing) {
       return (
         <span className="buttonWithIcon">
-          {t('label.playing.stop')}
           <Stop />
+          {t('label.playing.stop')}
         </span>
       )
     }
 
     return (
       <span className="buttonWithIcon">
+        <PlayArrow data-icon="play" />
         {t('label.playing.start')}
-        <PlayArrow />
       </span>
     )
   }
@@ -70,21 +66,20 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
     if (is.notInstallable) {
       return (
         <span className="buttonWithIcon">
+          <Error style={{ cursor: 'not-allowed' }} />
           {t('status.goodie', 'Not installable')}
-          <Error style={{ marginLeft: '5px', cursor: 'not-allowed' }} />
         </span>
       )
     }
     if (is.notSupportedGame) {
       return (
         <span className="buttonWithIcon">
-          {t('status.notSupported', 'Not supported')}
           <Warning
             style={{
-              marginLeft: '5px',
               cursor: 'not-allowed'
             }}
           />
+          {t('status.notSupported', 'Not supported')}
         </span>
       )
     }
@@ -92,12 +87,8 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
     if (is.queued) {
       return (
         <span className="buttonWithIcon">
+          <Cancel/>
           {t('button.queue.remove', 'Remove from Queue')}
-          <Cancel
-            style={{
-              marginLeft: '5px'
-            }}
-          />
         </span>
       )
     }
@@ -105,23 +96,15 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
     if (is.installing) {
       return (
         <span className="buttonWithIcon">
+          <Pause/>
           {t('button.cancel')}
-          <Pause
-            style={{
-              marginLeft: '5px'
-            }}
-          />
         </span>
       )
     }
     return (
       <span className="buttonWithIcon">
         {t('button.install')}
-        <Download
-          style={{
-            marginLeft: '5px'
-          }}
-        />
+        <Download/>
       </span>
     )
   }
