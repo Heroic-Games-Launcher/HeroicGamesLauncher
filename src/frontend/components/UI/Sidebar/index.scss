@@ -108,6 +108,10 @@
         background-color: var(--navbar-active-background);
         color: var(--text-hover);
 
+        .heroicNewReleases .highlighted {
+          color: var(--accent-overlay);
+        }
+
         & > * {
           transform: translateX(calc(-1 * var(--space-3xs)));
         }
@@ -120,6 +124,18 @@
       &.SidebarLinks__subItem:hover {
         transform: translateX(calc(-1 * var(--space-4xs)));
         background-color: transparent;
+      }
+    }
+
+    .heroicNewReleases {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      font-size: var(--text-sm);
+
+      .highlighted {
+        transition: color 0.2s ease;
+        color: var(--accent);
       }
     }
 
@@ -210,25 +226,6 @@
 
     &:hover {
       color: var(--accent);
-    }
-  }
-
-  .heroicNewReleases {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    margin-block: 0 var(--space-sm);
-    margin-inline: var(--space-3xs) var(--sidebar-horizontal-padding);
-    font-size: var(--text-sm);
-
-    & > a {
-      color: var(--accent);
-      transition: 300ms;
-      -webkit-app-region: no-drag;
-
-      &:hover {
-        color: var(--accent-overlay);
-      }
     }
   }
 
