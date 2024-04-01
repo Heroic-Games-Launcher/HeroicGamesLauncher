@@ -30,7 +30,7 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
     if (is.syncing) {
       return (
         <span className="buttonWithIcon">
-          <CloudQueue/>
+          <CloudQueue />
           {t('label.saves.syncing')}
         </span>
       )
@@ -87,7 +87,7 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
     if (is.queued) {
       return (
         <span className="buttonWithIcon">
-          <Cancel/>
+          <Cancel />
           {t('button.queue.remove', 'Remove from Queue')}
         </span>
       )
@@ -96,7 +96,7 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
     if (is.installing) {
       return (
         <span className="buttonWithIcon">
-          <Pause/>
+          <Pause />
           {t('button.cancel')}
         </span>
       )
@@ -104,7 +104,7 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
     return (
       <span className="buttonWithIcon">
         {t('button.install')}
-        <Download/>
+        <Download />
       </span>
     )
   }
