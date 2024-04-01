@@ -115,9 +115,9 @@ export default React.memo(function Sidebar() {
   return (
     <aside ref={sidebarEl} className="Sidebar">
       <HeroicIcon className="heroicIcon" />
-      <MainLinks/>
-      <div className="filler"/>
-      <ExtraLinks/>
+      <MainLinks />
+      <div className="filler" />
+      <ExtraLinks />
       <div className="divider" />
       <HeroicVersion />
       <div className="resizer" onMouseDown={handleDragStart} />

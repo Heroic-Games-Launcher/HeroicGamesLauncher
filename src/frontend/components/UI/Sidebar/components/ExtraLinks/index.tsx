@@ -64,11 +64,16 @@ export default function ExtraLinks() {
         </div>
         <span>{t('userselector.discord', 'Discord')}</span>
       </button>
-      <div className={classNames('Sidebar__item', {
-        active: isDonateExpanded
-      })}>
-        <Accordion expanded={isDonateExpanded} onChange={() => setIsDonateExpanded(!isDonateExpanded)}>
-          <AccordionSummary expandIcon={<ExpandMore/>}>
+      <div
+        className={classNames('Sidebar__item', {
+          active: isDonateExpanded
+        })}
+      >
+        <Accordion
+          expanded={isDonateExpanded}
+          onChange={() => setIsDonateExpanded(!isDonateExpanded)}
+        >
+          <AccordionSummary expandIcon={<ExpandMore />}>
             <div className="Sidebar__itemIcon">
               <FontAwesomeIcon
                 icon={faHandshake}
