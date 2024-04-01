@@ -48,7 +48,7 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
     if (is.playing) {
       return (
         <span className="buttonWithIcon">
-          <Stop />
+          <Stop data-icon="stop" />
           {t('label.playing.stop')}
         </span>
       )

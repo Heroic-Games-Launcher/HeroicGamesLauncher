@@ -416,6 +416,7 @@
 
     & > svg {
       height: 20px;
+      margin-inline-end: 5px; /* for compatibility, before was hardcoded in JS*/
     }
   }
 
@@ -662,8 +663,9 @@
           & svg {
             transform: scale(1.2);
 
-            &[data-icon='play'] {
-              /* For some reason Play icon is much smaller the rest */
+            &[data-icon='play'],
+            &[data-icon='stop'] {
+              /* For some reason Play/Stop icons are much smaller the rest */
               transform: scale(1.6);
             }
           }
