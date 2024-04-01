@@ -466,28 +466,25 @@
     background: none;
   }
 
-  .backButton,
-  .showInfo,
-  .showExtra,
-  .showRequirements {
+  .backButton {
     justify-self: flex-start;
     width: 44px;
     height: 44px;
     padding: 6px;
-    background: var(--neutral-03);
+    background-color: var(--background-lighter, var(--navbar-background));
     border-radius: 10px;
     display: grid;
     place-items: center;
     border: none;
 
     svg path {
-      fill: var(--neutral-06);
+      fill: var(--text-default);
       transition: fill 0.2s;
     }
 
     &:hover {
       svg path {
-        fill: var(--neutral-05);
+        fill: var(--accent);
       }
     }
   }
@@ -801,20 +798,20 @@
     width: 44px;
     position: relative;
     padding: 6px;
-    background: var(--neutral-03);
+    background-color: var(--background-lighter, var(--navbar-background));
     border-radius: 10px;
     display: grid;
     place-items: center;
     height: 44px;
 
     svg path {
-      fill: var(--neutral-06);
+      fill: var(--text-default);
       transition: fill 0.2s;
     }
 
     &:hover {
       svg path {
-        fill: var(--neutral-05);
+        fill: var(--accent);
       }
     }
   }
@@ -827,7 +824,7 @@
     .toggle {
       align-self: flex-end;
       border: none;
-      color: var(--neutral-06);
+      color: var(--text-default);
       font-size: var(--text-2xl);
       padding: var(--space-xs-fixed);
       cursor: pointer;
@@ -837,14 +834,14 @@
       justify-content: center;
       width: 44px;
       height: 44px;
-      background: var(--neutral-03);
+      background-color: var(--background-lighter, var(--navbar-background));
       border-radius: 10px;
     }
 
     &:focus-within .toggle,
     &:hover .toggle,
     .toggle:hover {
-      color: var(--neutral-05);
+      color: var(--accent);
     }
 
     .gameTools {
@@ -852,7 +849,7 @@
       opacity: 1;
       pointer-events: all;
       transition: all 0.2s;
-      background: var(--navbar-background);
+      background-color: var(--background-lighter, var(--navbar-background));
       border-radius: 5px;
       z-index: 2;
       padding: 0;
@@ -868,7 +865,7 @@
       text-align: start;
       white-space: nowrap;
       font-size: 1rem;
-      background: var(--navbar-background);
+      background: none;
 
       &:hover {
         color: var(--accent-overlay);
