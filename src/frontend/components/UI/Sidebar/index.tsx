@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 import MainLinks from './components/MainLinks'
 import ExtraLinks from './components/ExtraLinks'
