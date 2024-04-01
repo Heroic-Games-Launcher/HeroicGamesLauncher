@@ -1,13 +1,14 @@
 import { logError } from 'backend/logger/logger'
 import { getSteamDeckComp } from '../utils'
-import axios, { AxiosError } from 'axios'
+import { AxiosError } from 'axios'
+import { axiosClient } from 'backend/utils'
 
 jest.mock('backend/logger/logfile')
 jest.mock('backend/logger/logger')
 
 describe('getSteamDeckComp', () => {
   test('fetches successfully via steamid', async () => {
-    const mockAxios = jest.spyOn(axios, 'get').mockResolvedValue({
+    const mockAxios = jest.spyOn(axiosClient, 'get').mockResolvedValue({
       data: { results: { resolved_category: 1 } }
     })
 
@@ -16,7 +17,7 @@ describe('getSteamDeckComp', () => {
     expect(mockAxios).toBeCalled()
   })
   test('api change', async () => {
-    const mockAxios = jest.spyOn(axios, 'get').mockResolvedValue({
+    const mockAxios = jest.spyOn(axiosClient, 'get').mockResolvedValue({
       data: { results: { tierLevel: 'gold' } }
     })
 
@@ -26,7 +27,7 @@ describe('getSteamDeckComp', () => {
   })
   test('does not find game', async () => {
     const mockAxios = jest
-      .spyOn(axios, 'get')
+      .spyOn(axiosClient, 'get')
       .mockRejectedValue(<AxiosError>new Error('not found'))
 
     const result = await getSteamDeckComp('1234')
@@ -39,7 +40,7 @@ describe('getSteamDeckComp', () => {
   })
 
   test('no SteamID', async () => {
-    const mockAxios = jest.spyOn(axios, 'get')
+    const mockAxios = jest.spyOn(axiosClient, 'get')
 
     const result = await getSteamDeckComp('')
     expect(result).toBeNull()

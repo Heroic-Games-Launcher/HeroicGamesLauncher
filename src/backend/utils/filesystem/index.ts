@@ -6,6 +6,10 @@ interface DiskInfo {
   totalSpace: number
 }
 
+/**
+ * Gathers information about the disk `path` is on.
+ * `path` does not have to exist.
+ */
 async function getDiskInfo(path: Path): Promise<DiskInfo> {
   switch (process.platform) {
     case 'linux':
