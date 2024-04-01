@@ -1,8 +1,5 @@
 .currentDownload {
   font-size: var(--text-sm);
-  padding: var(--space-md) 0;
-  transition: 300ms;
-  margin-top: var(--space-sm);
 
   & > .gameTitle {
     font-size: var(--text-md);
