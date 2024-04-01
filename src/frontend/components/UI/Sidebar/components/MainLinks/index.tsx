@@ -11,9 +11,9 @@ import {
   faCircleInfo,
   faCog,
   faWrench,
-  faChessKnight,
-  faCircle
+  faChessKnight
 } from '@fortawesome/free-solid-svg-icons'
+import StoreLogos from 'frontend/components/UI/StoreLogos'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { NavLink, useLocation } from 'react-router-dom'
 import classNames from 'classnames'
@@ -175,6 +175,9 @@ export default function MainLinks() {
                 data-tooltip-content={t('store', 'Epic Store')}
                 to="/store/epic"
               >
+                <div className="Sidebar__itemIcon">
+                  <StoreLogos runner='legendary' className=''/>
+                </div>
                 <span>{t('store', 'Epic Store')}</span>
               </NavLink>
               <NavLink
@@ -187,6 +190,9 @@ export default function MainLinks() {
                 data-tooltip-content={t('gog-store', 'GOG Store')}
                 to="/store/gog"
               >
+                <div className="Sidebar__itemIcon">
+                  <StoreLogos runner='gog' className=''/>
+                </div>
                 <span>{t('gog-store', 'GOG Store')}</span>
               </NavLink>
               <NavLink
@@ -199,6 +205,9 @@ export default function MainLinks() {
                 data-tooltip-content={t('prime-gaming', 'Prime Gaming')}
                 to="/store/amazon"
               >
+                <div className="Sidebar__itemIcon">
+                  <StoreLogos runner='nile' className=''/>
+                </div>
                 <span>{t('prime-gaming', 'Prime Gaming')}</span>
               </NavLink>
             </div>
@@ -419,7 +428,14 @@ export default function MainLinks() {
         </NavLink>
       )}
       {loggedIn && (
-        <NavLink className="Sidebar__item" to={'/login'} data-tooltip-content={t('userselector.manageaccounts', 'Manage Accounts')}>
+        <NavLink
+          className="Sidebar__item"
+          to={'/login'}
+          data-tooltip-content={t(
+            'userselector.manageaccounts',
+            'Manage Accounts'
+          )}
+        >
           <div className="Sidebar__itemIcon">
             <FontAwesomeIcon
               icon={faUserAlt}

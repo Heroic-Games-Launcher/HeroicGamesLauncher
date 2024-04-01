@@ -203,11 +203,16 @@
 
   .Sidebar__itemIcon {
     box-sizing: border-box;
-    width: 1.2em;
+    width: 1.1em;
     margin-inline-end: var(--space-xs);
     display: inline-flex;
     justify-content: center;
     color: currentColor;
+    min-height: vat(--text-md);
+    svg {
+      fill: currentColor;
+      height: 1em;
+    }
   }
 
   .SidebarLinks__subItem .Sidebar__itemIcon {
@@ -334,7 +339,7 @@
 
       svg {
         transform: scale(1.3);
-        padding: var(--space-2xs) 0;
+        margin: var(--space-3xs) 0;
       }
     }
 
