@@ -102,7 +102,7 @@ export default function MainLinks() {
       {!loggedIn && (
         <NavLink
           className={({ isActive }) =>
-            classNames('Sidebar__item', { active: isActive })
+            classNames('Sidebar__item', 'large', { active: isActive })
           }
           to={'/login'}
         >
@@ -114,7 +114,7 @@ export default function MainLinks() {
       )}
       <NavLink
         className={({ isActive }) =>
-          classNames('Sidebar__item', {
+          classNames('Sidebar__item', 'large', {
             active: isActive || location.pathname.includes('gamepage')
           })
         }
@@ -128,7 +128,7 @@ export default function MainLinks() {
       </NavLink>
       <NavLink
         className={({ isActive }) =>
-          classNames('Sidebar__item', {
+          classNames('Sidebar__item', 'large', {
             active: isActive || location.pathname.includes('store')
           })
         }
@@ -184,7 +184,7 @@ export default function MainLinks() {
       </NavLink>
       <NavLink
         className={({ isActive }) =>
-          classNames('Sidebar__item', { active: isActive })
+          classNames('Sidebar__item', 'large', { active: isActive })
         }
         to={{ pathname: '/download-manager' }}
       >

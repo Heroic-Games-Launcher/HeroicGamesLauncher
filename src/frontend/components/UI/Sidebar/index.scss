@@ -38,8 +38,11 @@
 
   .Sidebar__item {
     display: flex;
-    width: 100%;
+    align-self: stretch;
+    align-items: center;
     padding: var(--space-xs) var(--sidebar-horizontal-padding);
+    margin: 0 var(--space-2xs);
+    box-sizing: border-box;
     border: none;
     background: none;
     cursor: pointer;
@@ -48,7 +51,7 @@
     color: var(--navbar-inactive, var(--navbar-accent));
     text-align: start;
     font-family: var(--primary-font-family);
-    border-radius: 0;
+    border-radius: 4px;
     transition:
       transform 0.2s ease,
       color 0.2s ease,
@@ -56,6 +59,14 @@
 
     & > * {
       transition: transform 0.2s ease;
+    }
+
+    &.large {
+      padding: var(--space-sm) var(--sidebar-horizontal-padding);
+    }
+
+    & + .Sidebar__item {
+      margin-top: var(--space-3xs);
     }
 
     &:focus-visible,
@@ -71,6 +82,7 @@
       line-height: 1.3em;
       white-space: break-spaces;
       background-color: transparent;
+      margin: 0;
     }
 
     &.Sidebar__quit {
@@ -123,6 +135,8 @@
       .MuiAccordionSummary-root {
         min-height: unset;
         padding: 0;
+        display: flex;
+        align-items: center;
 
         &:focus {
           background-color: unset;
@@ -143,7 +157,7 @@
 
         &:has(.SidebarLinks__subItem) {
           margin-left: var(--space-md);
-          border-left: 0.5px solid var(--neutral-03);
+          border-inline-start: 0.5px solid var(--neutral-03);
         }
 
         &:not(:has(.SidebarLinks__subItem)) {
@@ -165,6 +179,7 @@
   .filler {
     display: block;
     flex-grow: 1;
+    min-height: var(--space-md);
   }
 
   .currentDownloads {
@@ -173,10 +188,11 @@
   }
 
   .divider {
+    min-height: 1px;
     height: 1px;
     opacity: 0.5;
-    margin: var(--space-xs) var(--space-xs);
-    background-color: var(--divider);
+    margin: var(--space-sm) var(--space-xs);
+    background-color: var(--neutral-05);
     align-self: stretch;
   }
 
@@ -184,7 +200,7 @@
     display: flex;
     gap: 5px;
     grid-area: version;
-    margin-top: var(--space-sm);
+    margin-top: var(--space-xs);
     margin-bottom: var(--sidebar-vertical-padding);
     font-size: var(--text-sm);
     cursor: pointer;
