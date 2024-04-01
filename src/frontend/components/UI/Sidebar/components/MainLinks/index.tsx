@@ -11,7 +11,8 @@ import {
   faCircleInfo,
   faCog,
   faWrench,
-  faChessKnight
+  faChessKnight,
+  faCircle
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { NavLink, useLocation } from 'react-router-dom'
@@ -43,7 +44,9 @@ export default function MainLinks() {
   const [lastDMElement, setLastDMElement] = useState<DMQueueElement>()
 
   const isStore = location.pathname.startsWith('/store')
-  const isSettings = Object.values(SUB_SETTINGS_PATHS).includes(location.pathname)
+  const isSettings = Object.values(SUB_SETTINGS_PATHS).includes(
+    location.pathname
+  )
 
   const { amazon, epic, gog, platform, refreshLibrary } =
     useContext(ContextProvider)
@@ -113,6 +116,7 @@ export default function MainLinks() {
           className={({ isActive }) =>
             classNames('Sidebar__item', { active: isActive })
           }
+          data-tooltip-content={t('button.login', 'Login')}
           to={'/login'}
         >
           <div className="Sidebar__itemIcon">
@@ -127,6 +131,7 @@ export default function MainLinks() {
             active: isActive || location.pathname.includes('gamepage')
           })
         }
+        data-tooltip-content={t('Library')}
         to={'/'}
         onClick={async () => handleRefresh()}
       >
@@ -139,6 +144,7 @@ export default function MainLinks() {
         className={classNames('Sidebar__item', {
           active: isStore
         })}
+        data-tooltip-content={t('stores', 'Stores')}
         tabIndex={-1}
       >
         <Accordion expanded={isStore}>
@@ -166,6 +172,7 @@ export default function MainLinks() {
                     active: isActive
                   })
                 }
+                data-tooltip-content={t('store', 'Epic Store')}
                 to="/store/epic"
               >
                 <span>{t('store', 'Epic Store')}</span>
@@ -177,6 +184,7 @@ export default function MainLinks() {
                     active: isActive
                   })
                 }
+                data-tooltip-content={t('gog-store', 'GOG Store')}
                 to="/store/gog"
               >
                 <span>{t('gog-store', 'GOG Store')}</span>
@@ -188,6 +196,7 @@ export default function MainLinks() {
                     active: isActive
                   })
                 }
+                data-tooltip-content={t('prime-gaming', 'Prime Gaming')}
                 to="/store/amazon"
               >
                 <span>{t('prime-gaming', 'Prime Gaming')}</span>
@@ -200,6 +209,7 @@ export default function MainLinks() {
         className={({ isActive }) =>
           classNames('Sidebar__item', { active: isActive })
         }
+        data-tooltip-content={t('download-manager.link', 'Downloads')}
         to={{ pathname: '/download-manager' }}
       >
         <Accordion expanded={!!currentDMElement}>
@@ -228,6 +238,7 @@ export default function MainLinks() {
         className={classNames('Sidebar__item', {
           active: isSettings
         })}
+        data-tooltip-content={t('Settings')}
         tabIndex={-1}
       >
         <Accordion expanded={isSettings}>
@@ -261,6 +272,7 @@ export default function MainLinks() {
                     active: isActive
                   })
                 }
+                data-tooltip-content={t('settings.navbar.general')}
               >
                 <div className="Sidebar__itemIcon">
                   <FontAwesomeIcon
@@ -280,6 +292,10 @@ export default function MainLinks() {
                       active: isActive
                     })
                   }
+                  data-tooltip-content={t(
+                    'settings.navbar.games_settings_defaults',
+                    'Game Defaults'
+                  )}
                 >
                   <div className="Sidebar__itemIcon">
                     <FontAwesomeIcon
@@ -307,6 +323,7 @@ export default function MainLinks() {
                     active: isActive
                   })
                 }
+                data-tooltip-content={t('settings.navbar.advanced', 'Advanced')}
               >
                 <div className="Sidebar__itemIcon">
                   <FontAwesomeIcon
@@ -325,6 +342,10 @@ export default function MainLinks() {
                     active: isActive
                   })
                 }
+                data-tooltip-content={t(
+                  'settings.navbar.systemInformation',
+                  'System Information'
+                )}
               >
                 <div className="Sidebar__itemIcon">
                   <FontAwesomeIcon
@@ -347,6 +368,7 @@ export default function MainLinks() {
                   })
                 }
                 to={SUB_SETTINGS_PATHS.accessibility}
+                data-tooltip-content={t('accessibility.title', 'Accessibility')}
               >
                 <div className="Sidebar__itemIcon">
                   <FontAwesomeIcon
@@ -365,6 +387,7 @@ export default function MainLinks() {
                     active: isActive
                   })
                 }
+                data-tooltip-content={t('settings.navbar.log', 'Log')}
               >
                 <div className="Sidebar__itemIcon">
                   <FontAwesomeIcon
@@ -384,6 +407,7 @@ export default function MainLinks() {
             classNames('Sidebar__item', { active: isActive })
           }
           to={{ pathname: '/wine-manager' }}
+          data-tooltip-content={t('wine.manager.link', 'Wine Manager')}
         >
           <div className="Sidebar__itemIcon">
             <FontAwesomeIcon
@@ -395,7 +419,7 @@ export default function MainLinks() {
         </NavLink>
       )}
       {loggedIn && (
-        <NavLink className="Sidebar__item" to={'/login'}>
+        <NavLink className="Sidebar__item" to={'/login'} data-tooltip-content={t('userselector.manageaccounts', 'Manage Accounts')}>
           <div className="Sidebar__itemIcon">
             <FontAwesomeIcon
               icon={faUserAlt}

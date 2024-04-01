@@ -30,6 +30,7 @@ const QuitButton: React.FC = () => {
     <button
       className="Sidebar__item Sidebar__quit"
       onClick={() => handleQuitButton()}
+      data-tooltip-content={t('userselector.quit', 'Quit')}
     >
       <div className="Sidebar__itemIcon">
         <FontAwesomeIcon

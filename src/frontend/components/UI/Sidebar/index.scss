@@ -57,6 +57,12 @@
       color 0.2s ease,
       background-color 0.2s ease;
 
+    .SidebarSubmenu {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
     & > * {
       transition: transform 0.2s ease;
     }
@@ -185,11 +191,8 @@
       .MuiAccordionDetails-root {
         padding: 0;
         margin-block-start: var(--space-xs);
-
-        &:has(.SidebarLinks__subItem) {
-          margin-left: var(--space-md);
-          border-inline-start: 0.5px solid var(--neutral-03);
-        }
+        margin-left: var(--space-md);
+        border-inline-start: 0.5px solid var(--neutral-03);
 
         &:not(:has(.SidebarLinks__subItem)) {
           margin-left: var(--space-xs);
@@ -251,27 +254,87 @@
   &.collapsed {
     --sidebar-vertical-padding: var(--space-xs);
     --sidebar-horizontal-padding: var(--space-lg);
-    overflow-x: hidden;
+    overflow-x: visible;
     overflow-y: auto;
 
     .Sidebar__item {
       padding: var(--space-xs) 0;
 
-      &.SidebarLinks__subItem {
-        padding: var(--space-xs) var(--sidebar-horizontal-padding);
+      &[data-tooltip-content] {
+        position: static;
       }
 
-      & > span {
+      &:not(:has(.Sidebar__itemIcon)) {
+        &:not(.active):hover::before {
+          transform: translateX(calc(-0.25 * var(--space-3xs)));
+        }
+        &::before {
+          content: '•';
+          display: block;
+          margin: auto;
+          font-size: 4em;
+          color: currentColor;
+          transition: transform 0.2s ease;
+        }
+      }
+
+      @keyframes tooltip-in {
+        from {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      &[data-tooltip-content]:not(.active) {
+        &:hover::after,
+        &:has(:focus-visible)::after,
+        &:focus-visible::after {
+          content: attr(data-tooltip-content);
+          position: fixed;
+          display: block;
+          padding: var(--space-xs);
+          color: var(--text-default);
+          border-radius: 4px;
+          overflow: hidden;
+          background-color: var(--background-lighter, var(--navbar-background));
+          margin-inline-start: calc(var(--sidebar-width) + var(--space-3xs));
+          margin-bottom: calc(var(--scroll-offset) * 2);
+          left: 0;
+          box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.6);
+          pointer-events: none;
+          user-select: none;
+          font-size: var(--text-md);
+          font-weight: normal;
+          text-decoration: none;
+          animation: tooltip-in 0.2s ease;
+        }
+      }
+
+      &.SidebarLinks__subItem {
+        padding: var(--space-xs) 0;
+      }
+
+      & > span,
+      a > span,
+      .MuiAccordionSummary-content > span {
         display: none;
+      }
+
+      .MuiAccordionSummary-expandIconWrapper {
+        display: none;
+      }
+
+      .MuiAccordionDetails-root {
+        margin-left: var(--space-xs);
       }
 
       svg {
-        transform: scale(1.2);
+        transform: scale(1.4);
         padding: var(--space-2xs) 0;
-      }
-
-      &.active span {
-        display: none;
       }
     }
 

@@ -64,6 +64,7 @@ export default React.memo(function HeroicVersion() {
           className="Sidebar__item"
           title={releaseInfo.tag_name}
           onClick={() => window.api.openExternalUrl(releaseInfo.html_url)}
+          data-tooltip-content={t('info.heroic.newReleases', 'Update Available!')}
         >
           <div className="Sidebar__itemIcon">
             <FontAwesomeIcon

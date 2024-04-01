@@ -43,6 +43,7 @@ export default function ExtraLinks() {
           classNames('Sidebar__item', { active: isActive })
         }
         to={{ pathname: '/wiki' }}
+        data-tooltip-content={t('docs', 'Documentation')}
       >
         <div className="Sidebar__itemIcon">
           <FontAwesomeIcon
@@ -55,6 +56,7 @@ export default function ExtraLinks() {
       <button
         className="Sidebar__item"
         onClick={() => handleExternalLink(openDiscordLink)}
+        data-tooltip-content={t('userselector.discord', 'Discord')}
       >
         <div className="Sidebar__itemIcon">
           <FontAwesomeIcon
@@ -68,6 +70,7 @@ export default function ExtraLinks() {
         className={classNames('Sidebar__item', {
           active: isDonateExpanded
         })}
+        data-tooltip-content={t('donate', 'Donate')}
       >
         <Accordion
           expanded={isDonateExpanded}
@@ -80,24 +83,28 @@ export default function ExtraLinks() {
             <span>{t('donate', 'Donate')}</span>
           </AccordionSummary>
           <AccordionDetails>
-            <button
-              className="Sidebar__item SidebarLinks__subItem"
-              onClick={() => handleExternalLink(window.api.openPatreonPage)}
-            >
-              <div className="Sidebar__itemIcon">
-                <FontAwesomeIcon icon={faPatreon} title="Patreon" />
-              </div>
-              <span>Patreon</span>
-            </button>
-            <button
-              className="Sidebar__item SidebarLinks__subItem"
-              onClick={() => handleExternalLink(window.api.openKofiPage)}
-            >
-              <div className="Sidebar__itemIcon">
-                <FontAwesomeIcon icon={faCoffee} title="Ko-fi" />
-              </div>
-              <span>Ko-fi</span>
-            </button>
+            <div className="SidebarSubmenu">
+              <button
+                className="Sidebar__item SidebarLinks__subItem"
+                onClick={() => handleExternalLink(window.api.openPatreonPage)}
+                data-tooltip-content='Patreon'
+              >
+                <div className="Sidebar__itemIcon">
+                  <FontAwesomeIcon icon={faPatreon} title="Patreon" />
+                </div>
+                <span>Patreon</span>
+              </button>
+              <button
+                className="Sidebar__item SidebarLinks__subItem"
+                onClick={() => handleExternalLink(window.api.openKofiPage)}
+                data-tooltip-content='Ko-fi'
+              >
+                <div className="Sidebar__itemIcon">
+                  <FontAwesomeIcon icon={faCoffee} title="Ko-fi" />
+                </div>
+                <span>Ko-fi</span>
+              </button>
+            </div>
           </AccordionDetails>
         </Accordion>
       </div>

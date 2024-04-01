@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import MainLinks from './components/MainLinks'
 import ExtraLinks from './components/ExtraLinks'
@@ -8,10 +8,10 @@ import HeroicVersion from './components/HeroicVersion'
 import { ReactComponent as HeroicIcon } from 'frontend/assets/heroic-icon.svg'
 import { useNavigate } from 'react-router-dom'
 
-let sidebarSize = localStorage.getItem('sidebar-width') || 240
+let sidebarSize = localStorage.getItem('sidebar-width') || 250
 const minWidth = 60
 const maxWidth = 400
-const collapsedWidth = 120
+const collapsedWidth = 175
 
 export default React.memo(function Sidebar() {
   const sidebarEl = useRef<HTMLDivElement | null>(null)
@@ -27,6 +27,7 @@ export default React.memo(function Sidebar() {
       sidebarEl.current.classList.remove('collapsed')
     }
 
+    sidebarEl.current.style.setProperty('--scroll-offset', '0px')
     sidebarEl.current.style.setProperty('--sidebar-width', `${sidebarSize}px`)
   }, [sidebarEl])
 
@@ -36,6 +37,13 @@ export default React.memo(function Sidebar() {
       navigate(screen, { state: { fromGameCard: false } })
     })
   }, [])
+
+  const handleScroll = (e: React.UIEvent<HTMLElement>) => {
+
+    if (!sidebarEl.current) return
+
+    sidebarEl.current.style.setProperty('--scroll-offset', `${sidebarEl.current.scrollTop}px`)
+  }
 
   const handleDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
     const isRTL = document.getElementById('app')?.classList.contains('isRTL')
@@ -113,7 +121,7 @@ export default React.memo(function Sidebar() {
   }
 
   return (
-    <aside ref={sidebarEl} className="Sidebar">
+    <aside ref={sidebarEl} className="Sidebar" onScroll={handleScroll}>
       <HeroicIcon className="heroicIcon" />
       <MainLinks />
       <div className="filler" />
