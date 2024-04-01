@@ -19,7 +19,12 @@ import { NavLink, useLocation } from 'react-router-dom'
 import classNames from 'classnames'
 import React, { useContext, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material'
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Badge
+} from '@mui/material'
 import { ExpandMore } from '@mui/icons-material'
 
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -223,10 +228,19 @@ export default function MainLinks() {
         <Accordion expanded={!!currentDMElement}>
           <AccordionSummary tabIndex={-1}>
             <div className="Sidebar__itemIcon">
-              <FontAwesomeIcon
-                icon={faDownload}
-                title={t('download-manager.link', 'Downloads')}
-              />
+              <Badge
+                invisible={!currentDMElement}
+                variant="dot"
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right'
+                }}
+              >
+                <FontAwesomeIcon
+                  icon={faDownload}
+                  title={t('download-manager.link', 'Downloads')}
+                />
+              </Badge>
             </div>
             <span>{t('download-manager.link', 'Downloads')}</span>
           </AccordionSummary>

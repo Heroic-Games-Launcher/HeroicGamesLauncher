@@ -146,6 +146,11 @@
       }
     }
 
+    .MuiBadge-badge {
+      background-color: var(--accent-overlay);
+      transform: scale(0) translate(50%, 50%);
+    }
+
     .MuiAccordion-root {
       border-radius: 0;
       background-color: unset;
@@ -196,6 +201,7 @@
 
         &:not(:has(.SidebarLinks__subItem)) {
           margin-left: var(--space-xs);
+          border-inline-start: 0;
         }
       }
     }
@@ -329,6 +335,10 @@
         display: none;
       }
 
+      .MuiBadge-badge:not(.MuiBadge-invisible) {
+        transform: scale(1) translate(50%, 50%);
+      }
+
       .MuiAccordionSummary-expandIconWrapper {
         display: none;
       }
@@ -360,16 +370,12 @@
       display: none;
     }
 
-    .currentDownloads {
-      margin-inline: auto;
+    .MuiAccordionDetails-root:has(.currentDownload) {
+      display: none;
+    }
 
-      .statusIcon {
-        display: block;
-      }
-
-      .full-size {
-        display: none;
-      }
+    .currentDownload {
+      display: none;
     }
   }
 }
