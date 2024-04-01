@@ -194,6 +194,8 @@ export interface GameSettings {
   wrapperOptions: WrapperVariable[]
   savesPath: string
   gogSaves?: GOGCloudSavesLocation[]
+  beforeLaunchScriptPath: string
+  afterLaunchScriptPath: string
 }
 
 export type Status =
@@ -751,6 +753,7 @@ interface GameScopeSettings {
   upscaleMethod: string
   fpsLimiter: string
   fpsLimiterNoFocus: string
+  additionalOptions: string
 }
 
 export type InstallInfo =

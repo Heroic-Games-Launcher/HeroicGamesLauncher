@@ -1,0 +1,51 @@
+.CategoriesManager__Dialog {
+  width: 400px;
+
+  .MuiDialogContent-root {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .Category {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.1rem;
+
+      & label {
+        display: none;
+      }
+
+      & span {
+        padding-inline-start: 0.5rem;
+      }
+
+      & span,
+      & .textInputFieldWrapper {
+        flex-grow: 1;
+        align-self: center;
+      }
+
+      & button {
+        opacity: 0.5;
+      }
+
+      &:hover,
+      &:focus-within {
+        background-color: rgba(255, 255, 255, 0.05);
+
+        & button {
+          opacity: 1;
+        }
+      }
+    }
+
+    & hr {
+      width: 100%;
+    }
+
+    .textInputFieldWrapper {
+      display: flex;
+      gap: 0.5rem;
+    }
+  }
+}

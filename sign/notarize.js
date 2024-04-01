@@ -13,7 +13,6 @@ exports.default = async function notarizing(context) {
   const appName = context.packager.appInfo.productFilename
 
   return await notarize({
-    tool: 'notarytool',
     appBundleId: 'com.heroicgameslauncher.hgl',
     appPath: `${appOutDir}/${appName}.app`,
     teamId: process.env.TEAMID,

@@ -42,6 +42,8 @@ mac:
   icon: build/icon.icns
   entitlements: build/entitlements.mac.plist
   entitlementsInherit: build/entitlements.mac.plist
+  notarize:
+    teamId: DLB2RYLUDX
   extendInfo:
     com.apple.security.cs.allow-jit: true
   asarUnpack:

@@ -110,7 +110,11 @@ import {
 } from './logger/logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
 import { getFonts } from 'font-list'
-import { runWineCommand } from './launcher'
+import {
+  runAfterLaunchScript,
+  runBeforeLaunchScript,
+  runWineCommand
+} from './launcher'
 import shlex from 'shlex'
 import { initQueue } from './downloadmanager/downloadqueue'
 import {
@@ -1033,6 +1037,8 @@ ipcMain.handle(
       }
     }
 
+    await runBeforeLaunchScript(game, gameSettings)
+
     sendGameStatusUpdate({
       appName,
       runner,
@@ -1055,7 +1061,10 @@ ipcMain.handle(
 
         return false
       })
-      .finally(() => stopLogger(appName))
+      .finally(async () => {
+        await runAfterLaunchScript(game, gameSettings)
+        stopLogger(appName)
+      })
 
     // Stop display sleep blocker
     if (powerDisplayId !== null) {

@@ -232,7 +232,7 @@
         "uninstalling": "Выдаленне",
         "updating": "Абнаўленне гульні",
         "playing": "Гуляючы",
-        "moving-files": "Перамяшчэнне файла \"{{file}}\": {{percent}} ",
+        "moving-files": "Перамяшчэнне файла \"{{file}}\": {{percent}}%",
         "syncingSaves": "Сінхранізацыя захаванняў",
         "launching": "Запуск",
         "ubisoft": "Ўстаноўка Ubisoft",
@@ -242,7 +242,7 @@
         "goodie": "Не ўсталёўваецца",
         "winetricks": "Прымяненне выпраўленняў Winetricks",
         "prerequisites": "Усталяванне патрэбных кампанентаў",
-        "redist": "Усталяванне распаўсюджваемых матэрыялаў ({{redist}})"
+        "redist": "Усталяванне распаўсюджваемых файлаў ({{redist}})"
     },
     "submenu": {
         "addShortcut": "Дадаць ярлык",
