@@ -115,7 +115,7 @@ export default function MainLinks() {
 
   // use currentDMElement by default
   // if not, use last cached value for the sake of collapse animation
-  const frozenDMQeueElement = currentDMElement || lastDMElement.current
+  const frozenDMQueueElement = currentDMElement || lastDMElement.current
 
   return (
     <div className="SidebarLinks Sidebar__section">
@@ -249,11 +249,11 @@ export default function MainLinks() {
             <span>{t('download-manager.link', 'Downloads')}</span>
           </AccordionSummary>
           <AccordionDetails>
-            {frozenDMQeueElement && (
+            {frozenDMQueueElement && (
               <CurrentDownload
-                key={frozenDMQeueElement.params.appName}
-                appName={frozenDMQeueElement.params.appName}
-                runner={frozenDMQeueElement.params.runner}
+                key={frozenDMQueueElement.params.appName}
+                appName={frozenDMQueueElement.params.appName}
+                runner={frozenDMQueueElement.params.runner}
               />
             )}
           </AccordionDetails>
