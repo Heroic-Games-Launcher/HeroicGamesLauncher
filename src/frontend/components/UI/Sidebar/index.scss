@@ -313,7 +313,7 @@
           position: fixed;
           display: block;
           padding: var(--space-xs);
-          color: var(--text-default);
+          color: var(--navbar-inactive);
           border-radius: 4px;
           overflow: hidden;
           background-color: var(--background-lighter, var(--navbar-background));
@@ -327,6 +327,7 @@
           font-weight: normal;
           text-decoration: none;
           animation: tooltip-in 0.2s ease;
+          transform-origin: 0% 50%;
         }
       }
 
@@ -414,5 +415,20 @@
   &:focus-visible::after {
     left: unset;
     right: 0;
+    transform-origin: 100% 50%;
   }
+}
+
+.isRTL
+  .Sidebar.collapsed
+  .Sidebar__item:not(:has(.Sidebar__itemIcon)):not(.active):hover::before {
+  transform: translateX(calc(0.25 * var(--space-3xs)));
+}
+
+.isRTL .Sidebar .Sidebar__item:not(.active):hover > * {
+  transform: translateX(calc(1 * var(--space-3xs)));
+}
+
+.isRTL .Sidebar.collapsed .Sidebar__item:not(.active):hover > * {
+  transform: translateX(calc(0.6 * var(--space-3xs)));
 }
