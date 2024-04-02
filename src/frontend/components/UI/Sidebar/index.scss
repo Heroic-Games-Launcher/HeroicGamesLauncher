@@ -129,7 +129,6 @@
       }
 
       &.SidebarLinks__subItem:hover {
-        transform: translateX(calc(-1 * var(--space-4xs)));
         background-color: transparent;
       }
     }
@@ -286,6 +285,12 @@
           font-size: 4em;
           color: currentColor;
           transition: transform 0.2s ease;
+        }
+      }
+
+      &:not(.active) {
+        &:hover > * {
+          transform: translateX(calc(-0.6 * var(--space-3xs)));
         }
       }
 
