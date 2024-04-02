@@ -471,21 +471,20 @@
     width: 44px;
     height: 44px;
     padding: 6px;
-    background-color: var(--background-lighter, var(--navbar-background));
+    color: var(--navbar-inactive);
+    background-color: var(--navbar-background);
     border-radius: 10px;
     display: grid;
     place-items: center;
     border: none;
 
     svg path {
-      fill: var(--text-default);
+      fill: currentColor;
       transition: fill 0.2s;
     }
 
     &:hover {
-      svg path {
-        fill: var(--accent);
-      }
+      color: var(--navbar-active);
     }
   }
 
@@ -813,21 +812,20 @@
     width: 44px;
     position: relative;
     padding: 6px;
-    background-color: var(--background-lighter, var(--navbar-background));
+    color: var(--navbar-inactive);
+    background-color: var(--navbar-background);
     border-radius: 10px;
     display: grid;
     place-items: center;
     height: 44px;
 
     svg path {
-      fill: var(--text-default);
+      fill: currentColor;
       transition: fill 0.2s;
     }
 
     &:hover {
-      svg path {
-        fill: var(--accent);
-      }
+      color: var(--navbar-active);
     }
   }
 
@@ -839,7 +837,7 @@
     .toggle {
       align-self: flex-end;
       border: none;
-      color: var(--text-default);
+      color: var(--navbar-inactive);
       font-size: var(--text-2xl);
       padding: var(--space-xs-fixed);
       cursor: pointer;
@@ -849,14 +847,14 @@
       justify-content: center;
       width: 44px;
       height: 44px;
-      background-color: var(--background-lighter, var(--navbar-background));
+      background-color: var(--navbar-background);
       border-radius: 10px;
     }
 
     &:focus-within .toggle,
     &:hover .toggle,
     .toggle:hover {
-      color: var(--accent);
+      color: var(--navbar-active);
     }
 
     .gameTools {
@@ -864,7 +862,7 @@
       opacity: 1;
       pointer-events: all;
       transition: all 0.2s;
-      background-color: var(--background-lighter, var(--navbar-background));
+      background-color: var(--navbar-background);
       border-radius: 5px;
       z-index: 2;
       padding: 0;
@@ -881,9 +879,10 @@
       white-space: nowrap;
       font-size: 1rem;
       background: none;
+      color: var(--navbar-inactive);
 
       &:hover {
-        color: var(--accent-overlay);
+        color: var(--navbar-active);
       }
 
       &:last-child {
@@ -910,7 +909,10 @@
     height: 100%;
     overflow: hidden;
     object-fit: cover;
-    filter: blur(15px) brightness(30%);
+    filter: blur(15px);
+    opacity: 0.7;
+    /* scale is so there will be no ugly edges because of the blur */
+    transform: scale(1.1);
   }
 }
 
