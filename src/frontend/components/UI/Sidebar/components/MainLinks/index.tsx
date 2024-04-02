@@ -17,7 +17,7 @@ import StoreLogos from 'frontend/components/UI/StoreLogos'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { NavLink, useLocation } from 'react-router-dom'
 import classNames from 'classnames'
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   Accordion,
@@ -45,7 +45,7 @@ export default function MainLinks() {
   const { state } = useLocation() as { state: LocationState }
   const location = useLocation() as { pathname: string }
   const [currentDMElement, setCurrentDMElement] = useState<DMQueueElement>()
-  const [lastDMElement, setLastDMElement] = useState<DMQueueElement>()
+  const lastDMElement = useRef<DMQueueElement>()
 
   const isStore = location.pathname.startsWith('/store')
   const isSettings = Object.values(SUB_SETTINGS_PATHS).includes(
@@ -74,7 +74,7 @@ export default function MainLinks() {
   //guard lastDMElement from null values
   useEffect(() => {
     if (currentDMElement) {
-      setLastDMElement(currentDMElement)
+      lastDMElement.current = currentDMElement
     }
   }, [currentDMElement])
 
@@ -112,6 +112,10 @@ export default function MainLinks() {
   if (lastStore) {
     defaultStore = lastStore
   }
+
+  // use currentDMElement by default
+  // if not, use last cached value for the sake of collapse animation
+  const frozenDMQeueElement = currentDMElement || lastDMElement.current
 
   return (
     <div className="SidebarLinks Sidebar__section">
@@ -245,11 +249,11 @@ export default function MainLinks() {
             <span>{t('download-manager.link', 'Downloads')}</span>
           </AccordionSummary>
           <AccordionDetails>
-            {lastDMElement && (
+            {frozenDMQeueElement && (
               <CurrentDownload
-                key={lastDMElement.params.appName}
-                appName={lastDMElement.params.appName}
-                runner={lastDMElement.params.runner}
+                key={frozenDMQeueElement.params.appName}
+                appName={frozenDMQeueElement.params.appName}
+                runner={frozenDMQeueElement.params.runner}
               />
             )}
           </AccordionDetails>
