@@ -103,8 +103,8 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
     }
     return (
       <span className="buttonWithIcon">
-        {t('button.install')}
         <Download />
+        {t('button.install')}
       </span>
     )
   }
