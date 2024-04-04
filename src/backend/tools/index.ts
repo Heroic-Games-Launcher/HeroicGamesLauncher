@@ -499,24 +499,24 @@ export const Winetricks = {
 
       const linuxEnvs = {
         ...process.env,
-        WINEPREFIX: winePrefix,
-        PATH: `${winepath}:${process.env.PATH}`,
         ...setupEnvVars(settingsWithWineVersion),
-        ...setupWineEnvVars(settingsWithWineVersion, appName)
+        ...setupWineEnvVars(settingsWithWineVersion, appName),
+        WINEPREFIX: winePrefix,
+        PATH: `${winepath}:${process.env.PATH}`
       }
 
       const wineServer = join(winepath, 'wineserver')
 
       const macEnvs = {
         ...process.env,
+        // FIXME: Do we want to use `settingsWithWineVersion` here?
+        ...setupEnvVars(gameSettings),
+        ...setupWineEnvVars(gameSettings, appName),
         WINEPREFIX: winePrefix,
         WINESERVER: wineServer,
         WINE: wineBin,
         WINE64: wineBin,
-        PATH: `/opt/homebrew/bin:${process.env.PATH}`,
-        // FIXME: Do we want to use `settingsWithWineVersion` here?
-        ...setupEnvVars(gameSettings),
-        ...setupWineEnvVars(gameSettings, appName)
+        PATH: `/opt/homebrew/bin:${process.env.PATH}`
       }
 
       const envs = isMac ? macEnvs : linuxEnvs
