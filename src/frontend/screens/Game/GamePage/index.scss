@@ -910,7 +910,7 @@
     overflow: hidden;
     object-fit: cover;
     filter: blur(15px);
-    opacity: 0.7;
+    opacity: 0.3;
     /* scale is so there will be no ugly edges because of the blur */
     transform: scale(1.1);
   }
