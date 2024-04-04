@@ -40,7 +40,7 @@ import {
   setupWineEnvVars,
   validWine
 } from '../launcher'
-import { chmod } from 'fs/promises'
+import { chmod, readFile } from 'fs/promises'
 import {
   any_gpu_supports_version,
   get_nvngx_path,
@@ -654,28 +654,15 @@ export const Winetricks = {
     }
   },
   listInstalled: async (runner: Runner, appName: string) => {
+    const gameSettings = await gameManagerMap[runner].getSettings(appName)
+    const { winePrefix } = getWineFromProton(
+      gameSettings.wineVersion,
+      gameSettings.winePrefix
+    )
+    const winetricksLogPath = join(winePrefix, 'winetricks.log')
     try {
-      const output = await Winetricks.runWithArgs(
-        runner,
-        appName,
-        ['list-installed'],
-        true
-      )
-      if (!output) {
-        return []
-      } else {
-        // the last element of the result is a new-line separated list of installed components
-        // it can also be a message saying nothing was installed yet
-        const last = output.pop() || ''
-        if (
-          last === '' ||
-          last.match('winetricks has not installed anything')
-        ) {
-          return []
-        } else {
-          return last.split('\n').filter((component) => component.trim() !== '')
-        }
-      }
+      const winetricksLog = await readFile(winetricksLogPath, 'utf8')
+      return winetricksLog.split('\n').filter(Boolean)
     } catch {
       return []
     }
