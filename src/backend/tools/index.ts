@@ -482,10 +482,18 @@ export const Winetricks = {
     }
 
     return new Promise<string[] | null>((resolve) => {
-      const { winePrefix, wineBin } = getWineFromProton(
-        wineVersion,
-        baseWinePrefix
-      )
+      const { winePrefix, wineVersion: alwaysWine_wineVersion } =
+        getWineFromProton(wineVersion, baseWinePrefix)
+      const wineBin = alwaysWine_wineVersion.bin
+      // We have to run Winetricks with an actual `wine` binary, meaning we
+      // might need to set some environment variables differently than normal
+      // (e.g. `WINEESYNC=1` vs `PROTON_NO_ESYNC=0`).
+      // These settings will be a copy of the normal game settings, but with
+      // their wineVersion set to one always of the tyoe `wine`
+      const settingsWithWineVersion = {
+        ...gameSettings,
+        wineVersion: alwaysWine_wineVersion
+      }
 
       const winepath = dirname(wineBin)
 
@@ -493,8 +501,8 @@ export const Winetricks = {
         ...process.env,
         WINEPREFIX: winePrefix,
         PATH: `${winepath}:${process.env.PATH}`,
-        ...setupEnvVars(gameSettings),
-        ...setupWineEnvVars(gameSettings, appName)
+        ...setupEnvVars(settingsWithWineVersion),
+        ...setupWineEnvVars(settingsWithWineVersion, appName)
       }
 
       const wineServer = join(winepath, 'wineserver')
@@ -506,6 +514,7 @@ export const Winetricks = {
         WINE: wineBin,
         WINE64: wineBin,
         PATH: `/opt/homebrew/bin:${process.env.PATH}`,
+        // FIXME: Do we want to use `settingsWithWineVersion` here?
         ...setupEnvVars(gameSettings),
         ...setupWineEnvVars(gameSettings, appName)
       }

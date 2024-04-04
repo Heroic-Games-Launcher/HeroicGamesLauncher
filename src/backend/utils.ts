@@ -146,9 +146,9 @@ const getFileSize = fileSize.partial({ base: 2 }) as (arg: unknown) => string
 function getWineFromProton(
   wineVersion: WineInstallation,
   winePrefix: string
-): { winePrefix: string; wineBin: string } {
+): { winePrefix: string; wineVersion: WineInstallation } {
   if (wineVersion.type !== 'proton') {
-    return { winePrefix, wineBin: wineVersion.bin }
+    return { winePrefix, wineVersion }
   }
 
   winePrefix = join(winePrefix, 'pfx')
@@ -157,8 +157,17 @@ function getWineFromProton(
   for (const distPath of ['dist', 'files']) {
     const protonBaseDir = dirname(wineVersion.bin)
     const wineBin = join(protonBaseDir, distPath, 'bin', 'wine')
-    if (existsSync(wineBin)) {
-      return { wineBin, winePrefix }
+    if (!existsSync(wineBin)) continue
+
+    const wineserverBin = join(protonBaseDir, distPath, 'bin', 'wineserver')
+    return {
+      winePrefix,
+      wineVersion: {
+        ...wineVersion,
+        type: 'wine',
+        bin: wineBin,
+        wineserver: existsSync(wineserverBin) ? wineserverBin : undefined
+      }
     }
   }
 
@@ -171,7 +180,7 @@ function getWineFromProton(
     LogPrefix.Backend
   )
 
-  return { wineBin: '', winePrefix }
+  return { wineVersion, winePrefix }
 }
 
 async function isEpicServiceOffline(
