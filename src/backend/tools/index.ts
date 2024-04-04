@@ -489,7 +489,7 @@ export const Winetricks = {
       // might need to set some environment variables differently than normal
       // (e.g. `WINEESYNC=1` vs `PROTON_NO_ESYNC=0`).
       // These settings will be a copy of the normal game settings, but with
-      // their wineVersion set to one always of the tyoe `wine`
+      // their wineVersion set to one always of the type `wine`
       const settingsWithWineVersion = {
         ...gameSettings,
         wineVersion: alwaysWine_wineVersion
