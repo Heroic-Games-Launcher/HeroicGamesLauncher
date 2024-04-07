@@ -17,7 +17,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { InstallProgress } from 'frontend/types'
 import React, { useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ReactComponent as AllowedIcon } from 'frontend/assets/rounded_checkmark_icon.svg'
+import AllowedIcon from 'frontend/assets/rounded_checkmark_icon.svg?react'
 import { AvailablePlatforms } from '..'
 import './index.css'
 

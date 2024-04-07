@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { GameInfo } from 'common/types'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { SvgButton } from 'frontend/components/UI'
-import { ReactComponent as SettingsIcoAlt } from 'frontend/assets/settings_icon_alt.svg'
+import SettingsIcoAlt from 'frontend/assets/settings_icon_alt.svg?react'
 
 interface Props {
   gameInfo: GameInfo

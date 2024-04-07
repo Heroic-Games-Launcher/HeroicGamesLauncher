@@ -11,13 +11,13 @@ import React, {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRepeat, faBan } from '@fortawesome/free-solid-svg-icons'
 
-import { ReactComponent as DownIcon } from 'frontend/assets/down-icon.svg'
+import DownIcon from 'frontend/assets/down-icon.svg?react'
 import { FavouriteGame, GameInfo, HiddenGame, Runner } from 'common/types'
 import { Link, useNavigate } from 'react-router-dom'
-import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
-import { ReactComponent as SettingsIcon } from 'frontend/assets/settings_icon_alt.svg'
-import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
-import { ReactComponent as StopIconAlt } from 'frontend/assets/stop-icon-alt.svg'
+import PlayIcon from 'frontend/assets/play-icon.svg?react'
+import SettingsIcon from 'frontend/assets/settings_icon_alt.svg?react'
+import StopIcon from 'frontend/assets/stop-icon.svg?react'
+import StopIconAlt from 'frontend/assets/stop-icon-alt.svg?react'
 import {
   getGameInfo,
   getProgress,

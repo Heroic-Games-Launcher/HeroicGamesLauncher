@@ -2,9 +2,9 @@ import React, { MouseEvent, useContext } from 'react'
 import { AntiCheatInfo } from 'common/types'
 import { createNewWindow } from 'frontend/helpers'
 
-import { ReactComponent as InfoIcon } from 'frontend/assets/info_icon.svg'
-import { ReactComponent as DeniedIcon } from 'frontend/assets/denied_icon.svg'
-import { ReactComponent as AllowedIcon } from 'frontend/assets/rounded_checkmark_icon.svg'
+import InfoIcon from 'frontend/assets/info_icon.svg?react'
+import DeniedIcon from 'frontend/assets/denied_icon.svg?react'
+import AllowedIcon from 'frontend/assets/rounded_checkmark_icon.svg?react'
 
 import './index.scss'
 import { useTranslation } from 'react-i18next'
