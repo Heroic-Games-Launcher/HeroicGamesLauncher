@@ -109,9 +109,9 @@ export default function WebView() {
   useEffect(() => {
     let mounted = true
     const fetchLocalPreloadPath = async () => {
-      const path = (await window.api.getLocalPeloadPath()) as unknown
+      const path = await window.api.getLocalPeloadPath()
       if (mounted) {
-        setPreloadPath(path as string)
+        setPreloadPath(path)
       }
     }
 
