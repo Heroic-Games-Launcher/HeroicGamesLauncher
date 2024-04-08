@@ -122,7 +122,7 @@ export default function WebView() {
     return () => {
       mounted = false
     }
-  }, [])
+  }, [isEpicLogin])
 
   useEffect(() => {
     if (pathname !== '/loginweb/nile') return
