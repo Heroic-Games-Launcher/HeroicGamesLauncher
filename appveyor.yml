@@ -8,6 +8,8 @@ init:
 
 install:
   - pip install castlabs-evs
+  - corepack enable
+  - corepack prepare pnpm@latest-8 --activate
   - pnpm install
 
 environment:
