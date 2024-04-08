@@ -58,7 +58,7 @@ export default defineConfig(({ mode }) => ({
     root: '.',
     build: {
       rollupOptions: {
-        input: 'index.html'
+        input: '/index.html'
       },
       target: 'esnext',
       outDir: 'build',
