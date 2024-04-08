@@ -146,6 +146,10 @@ Thanks to the community, Heroic was translated to almost 40 different languages 
 
 Heroic is available on Flathub, so you should be able to easily install it on most distros with Software Centers (Pop!\_Shop, Discover, etc.)
 
+#### Non-Flatpak Installations 
+
+If you're not using the Flatpak version, make sure you have all Wine dependencies installed ([guide](https://github.com/lutris/docs/blob/master/WineDependencies.md)).
+
 #### Debian, Ubuntu and Derivatives
 
 Download the file ending in .deb from the [latest release](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest).  
