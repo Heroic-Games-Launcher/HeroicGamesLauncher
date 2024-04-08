@@ -298,6 +298,8 @@ export default function WebView() {
       setShowLoginWarningFor('gog')
     } else if (startUrl.match(/gaming\.amazon\.com/) && !amazon.user_id) {
       setShowLoginWarningFor('amazon')
+    } else {
+      setShowLoginWarningFor(null)
     }
   }, [startUrl])
 
