@@ -119,7 +119,8 @@
         },
         "select": {
             "button": "Select",
-            "exe": "Select EXE"
+            "exe": "Select EXE",
+            "script": "Select script ..."
         },
         "shortcuts": {
             "message": "Shortcuts were created on Desktop and Start Menu",
@@ -173,6 +174,18 @@
         "continue": "Continue",
         "go_to_library": "Go to Library",
         "login": "Log in"
+    },
+    "categories-manager": {
+        "add": "Add",
+        "add-placeholder": "Add new category",
+        "cancel-remove": "Cancel removal of \"{{name}}\"",
+        "cancel-rename": "Cancel rename of \"{{name}}\"",
+        "confirm-remove": "Confirm removal of \"{{name}}\"",
+        "confirm-rename": "Confirm rename of \"{{oldName}}\" as \"{{newName}}\"",
+        "no-categories": "No categories yet.",
+        "remove": "Remove \"{{name}}\"",
+        "rename": "Rename \"{{name}}\"",
+        "title": "Manage Categories"
     },
     "category-settings": {
         "add-new-category": "Add New Category",
@@ -308,6 +321,7 @@
         },
         "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
         "gamescope": {
+            "additionalOptions": "Additional commandline flags to pass into gamescope.",
             "fpsLimiter": "The amount of frames gamescope should limit to. E.g. 60",
             "fpsLimiterNoFocus": "The frame rate limit gamescope should limit per second if the game is not focused.",
             "gameHeight": "The height resolution used by the game. A 16:9 aspect ratio is assumed by gamescope.",
@@ -490,6 +504,7 @@
             "title": "Game Arguments (To run after the command):"
         },
         "gamescope": {
+            "additionalOptions": "Additional Options",
             "borderless": "Borderless",
             "fpsLimiter": "FPS Limiter",
             "fpsLimiterNoFocus": "FPS Limiter (No Focus)",
@@ -558,6 +573,7 @@
         "addgamestoapplications": "Add games to Applications automatically",
         "addgamestostartmenu": "Add games to start menu automatically",
         "addgamestosteam": "Add games to Steam automatically",
+        "after-launch-script-path": "Select a script to run after the game exits",
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary",
         "alt-nile-bin": "Choose an Alternative Nile Binary",
@@ -566,6 +582,7 @@
         "autosync": "Autosync Saves",
         "autoUpdateGames": "Automatically update games",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
+        "before-launch-script-path": "Select a script to run before the game is launched",
         "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover/Wine Version",

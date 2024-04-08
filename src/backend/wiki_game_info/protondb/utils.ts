@@ -1,5 +1,6 @@
 import { ProtonDBCompatibilityInfo } from 'common/types'
-import axios, { AxiosError } from 'axios'
+import { AxiosError } from 'axios'
+import { axiosClient } from 'backend/utils'
 import { logDebug, logError, LogPrefix } from 'backend/logger/logger'
 
 export async function getInfoFromProtonDB(
@@ -12,7 +13,7 @@ export async function getInfoFromProtonDB(
 
   const url = `https://www.protondb.com/api/v1/reports/summaries/${steamID}.json`
 
-  const response = await axios
+  const response = await axiosClient
     .get(url, { headers: {} })
     .catch((error: AxiosError) => {
       logError(

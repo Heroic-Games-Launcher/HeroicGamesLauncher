@@ -110,7 +110,11 @@ import {
 } from './logger/logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
 import { getFonts } from 'font-list'
-import { runWineCommand } from './launcher'
+import {
+  runAfterLaunchScript,
+  runBeforeLaunchScript,
+  runWineCommand
+} from './launcher'
 import shlex from 'shlex'
 import { initQueue } from './downloadmanager/downloadqueue'
 import {
@@ -563,16 +567,10 @@ ipcMain.on('unlock', () => {
 })
 
 ipcMain.handle('checkDiskSpace', async (_e, folder): Promise<DiskSpaceData> => {
-  // We only need to look at the root directory for used/free space
-  // Trying to query this for a directory that doesn't exist (which `folder`
-  // might be) will not work
-  const { root } = path.parse(folder)
-
   // FIXME: Propagate errors
   const parsedPath = Path.parse(folder)
-  const parsedRootPath = Path.parse(root)
 
-  const { freeSpace, totalSpace } = await getDiskInfo(parsedRootPath)
+  const { freeSpace, totalSpace } = await getDiskInfo(parsedPath)
   const pathIsWritable = await isWritable(parsedPath)
   const pathIsFlatpakAccessible = isAccessibleWithinFlatpakSandbox(parsedPath)
 
@@ -1039,6 +1037,8 @@ ipcMain.handle(
       }
     }
 
+    await runBeforeLaunchScript(game, gameSettings)
+
     sendGameStatusUpdate({
       appName,
       runner,
@@ -1061,7 +1061,10 @@ ipcMain.handle(
 
         return false
       })
-      .finally(() => stopLogger(appName))
+      .finally(async () => {
+        await runAfterLaunchScript(game, gameSettings)
+        stopLogger(appName)
+      })
 
     // Stop display sleep blocker
     if (powerDisplayId !== null) {

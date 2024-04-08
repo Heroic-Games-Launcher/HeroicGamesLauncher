@@ -9,8 +9,8 @@ import {
   steamIDRegEx
 } from './constants'
 import { logError, logInfo, LogPrefix } from '../../logger/logger'
-import axios from 'axios'
 import { GameScoreInfo, PCGamingWikiInfo } from 'common/types'
+import { axiosClient } from 'backend/utils'
 
 export async function getInfoFromPCGamingWiki(
   title: string,
@@ -73,7 +73,7 @@ function getReleaseDates(wikitext: string) {
 
 async function getPageID(title: string, id?: string): Promise<string | null> {
   if (id) {
-    const { data } = await axios.get(
+    const { data } = await axiosClient.get(
       `https://www.pcgamingwiki.com/w/api.php?action=cargoquery&tables=Infobox_game&fields=Infobox_game._pageID%3DpageID%2C&where=Infobox_game.GOGcom_ID%20HOLDS%20${id}&format=json`
     )
 
@@ -84,7 +84,7 @@ async function getPageID(title: string, id?: string): Promise<string | null> {
     }
   }
 
-  const { data } = await axios.get(
+  const { data } = await axiosClient.get(
     `https://www.pcgamingwiki.com/w/api.php?action=query&list=search&srsearch=${title.replaceAll(
       ' ',
       '%20'
@@ -95,7 +95,7 @@ async function getPageID(title: string, id?: string): Promise<string | null> {
 }
 
 async function getWikiText(id: string): Promise<string | null> {
-  const { data } = await axios.get(
+  const { data } = await axiosClient.get(
     `https://www.pcgamingwiki.com/w/api.php?action=parse&format=json&pageid=${id}&redirects=true&prop=wikitext`
   )
 

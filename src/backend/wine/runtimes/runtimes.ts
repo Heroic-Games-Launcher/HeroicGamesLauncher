@@ -1,14 +1,14 @@
-import axios from 'axios'
 import { existsSync, mkdirSync, unlinkSync } from 'graceful-fs'
 import { join } from 'path'
 import { runtimePath } from './../../constants'
 import { logError, logInfo, LogPrefix } from './../../logger/logger'
 import { Runtime, RuntimeName } from 'common/types'
 import { downloadFile, extractTarFile, getAssetDataFromDownload } from './util'
+import { axiosClient } from 'backend/utils'
 
 async function _get(): Promise<Runtime[]> {
   mkdirSync(runtimePath, { recursive: true })
-  const allRuntimes = await axios.get('https://lutris.net/api/runtimes')
+  const allRuntimes = await axiosClient.get('https://lutris.net/api/runtimes')
   if (!allRuntimes.data) {
     logError('Failed to fetch runtime list', LogPrefix.Runtime)
   }

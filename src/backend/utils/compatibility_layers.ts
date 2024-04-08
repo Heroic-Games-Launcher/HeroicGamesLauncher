@@ -440,7 +440,9 @@ export function getWineFlags(
     case 'proton':
       partialCommand = {
         '--no-wine': true,
-        '--wrapper': NonEmptyString.parse(`${wrapper} '${wineBin}' run`)
+        '--wrapper': NonEmptyString.parse(
+          `${wrapper} '${wineBin}' waitforexitandrun`
+        )
       }
       break
     case 'crossover':

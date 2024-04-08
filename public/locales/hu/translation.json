@@ -339,7 +339,8 @@
             "downloadManager": "Megjeleníti a jelenlegi és múltbéli letöltéseket.",
             "library": "Megjeleníti az összes birtokolt játékot.",
             "login": "Bejelentkezés a különböző boltokba."
-        }
+        },
+        "msync": "Az Msync célja, hogy csökkentse a wineserver többletterhelését a CPU-igényes játékokban. Az engedélyezése javíthatja a teljesítményt a támogatott Linux kerneleken."
     },
     "info": {
         "heroic": {
@@ -502,7 +503,8 @@
             "upscaleHeight": "Magasság felskálázása",
             "fpsLimiterNoFocus": "FPS korlátozó (mikor nincs fókuszban)",
             "interger": "Egészértékű felskálázás",
-            "stretch": "Kép nyújtása"
+            "stretch": "Kép nyújtása",
+            "windowed": "Ablakos mód"
         }
     },
     "other": {
@@ -675,7 +677,8 @@
             "enableNewDesign": "Új dizájn",
             "automaticWinetricksFixes": "Ismert javítások automatikus alkalmazása",
             "enableHelp": "Súgó összetevő"
-        }
+        },
+        "msync": "Az Msync engedélyezése"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -887,5 +890,10 @@
         "wine-ge-lol": "A Wine-GE-Proton…-LoL összeállítások CSAK a League of Legendshez készülnek. Ezeket az összesállításokat NEM szabad más játékokhoz használni, mert problémákat okozhatnak.",
         "proton-ge": "A Proton-GE-Proton egy olyan Proton változat, melyet Glorious Eggroll készít. Steam melletti használathoz készült, de egyes nem steames játékok is jobban működhetnek ezzel a változattal. Hibakereséshez többnyire haszontalan naplófájlokat biztosít.",
         "wine-ge": "A Wine-GE-Proton egy olyan Wine változat, melyet Glorious Eggroll készít. Ez az ajánlott Wine verzió a nem steames játékokhoz. Hasznos naplókat biztosít a hibakereséshez."
+    },
+    "adtraction-locked": {
+        "dont-show-again": "Ne jelenítse meg újra ezt a figyelmeztetést",
+        "title": "A reklámkövetés le van tiltva",
+        "description": "Úgy néz ki, hogy a track.adtraction.com domaint nem lehetett betölteni, vagy le van tiltva. A reklámkövetéssel az összes, a GOG áruházban történő vásárlás pénzügyileg támogatja a Heroicot. Fontolja meg a tiltás eltávolítását, ha szeretne támogatni."
     }
 }

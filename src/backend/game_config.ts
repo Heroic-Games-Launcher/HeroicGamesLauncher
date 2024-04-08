@@ -231,7 +231,9 @@ class GameConfigV0 extends GameConfig {
       wineVersion,
       useSteamRuntime,
       eacRuntime,
-      battlEyeRuntime
+      battlEyeRuntime,
+      beforeLaunchScriptPath,
+      afterLaunchScriptPath
     } = GlobalConfig.get().getSettings()
 
     // initialize generic defaults
@@ -260,7 +262,9 @@ class GameConfigV0 extends GameConfig {
       useSteamRuntime,
       battlEyeRuntime,
       eacRuntime,
-      language: '' // we want to fallback to '' always here, fallback lang for games should be ''
+      language: '', // we want to fallback to '' always here, fallback lang for games should be ''
+      beforeLaunchScriptPath,
+      afterLaunchScriptPath
     } as GameSettings
 
     let gameSettings = {} as GameSettings

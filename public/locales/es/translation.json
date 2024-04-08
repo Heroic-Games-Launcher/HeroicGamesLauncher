@@ -1,6 +1,6 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Tipografía de acciones (Por Defecto: ",
+        "actions_font_family_no_default": "Tipografía de acciones (Por Defecto):",
         "all_tiles_in_color": "Mostrar todos los juegos a color en la biblioteca",
         "content_font_family_no_default": "Tipografía de contenido (Por Defecto: ",
         "fonts": "Tipografías",
@@ -864,5 +864,14 @@
         "add-new-category": "Añadir una nueva categoría",
         "cancel": "Cancelar",
         "warning": "Advertencia"
+    },
+    "adtraction-locked": {
+        "dont-show-again": "No volver a mostrar este aviso",
+        "title": "Adtraction está bloqueado",
+        "description": "Parece que el dominio track.adtraction.com no pudo cargar o está bloqueado. Con adtraction, cualquier compra que haga en la tienda GOG apoya Heroic financieramente. Considere eliminar el bloqueo si desea contribuir."
+    },
+    "emptyLibrary": {
+        "noResults": "Los filtros actuales no produjeron resultados.",
+        "noGames": "Tu biblioteca está vacía. Puedes <1>iniciar sesión</1> usando una tienda o hacer clic en <3></3> para añadir una manualmente."
     }
 }

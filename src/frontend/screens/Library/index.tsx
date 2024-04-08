@@ -32,6 +32,7 @@ import LibraryContext from './LibraryContext'
 import { Category, PlatformsFilters, StoresFilters } from 'frontend/types'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 import EmptyLibraryMessage from './components/EmptyLibrary'
+import CategoriesManager from './components/CategoriesManager'
 
 const storage = window.localStorage
 
@@ -167,6 +168,8 @@ export default React.memo(function Library(): JSX.Element {
     storage.setItem('show_support_offline_only', JSON.stringify(value))
     setSupportOfflineOnly(value)
   }
+
+  const [showCategories, setShowCategories] = useState(false)
 
   const [showModal, setShowModal] = useState<ModalState>({
     game: '',
@@ -596,7 +599,8 @@ export default React.memo(function Library(): JSX.Element {
         setShowSupportOfflineOnly: handleShowSupportOfflineOnly,
         sortDescending,
         sortInstalled,
-        handleAddGameButtonClick: () => handleModal('', 'sideload', null)
+        handleAddGameButtonClick: () => handleModal('', 'sideload', null),
+        setShowCategories
       }}
     >
       <Header />
@@ -658,6 +662,8 @@ export default React.memo(function Library(): JSX.Element {
           }
         />
       )}
+
+      {showCategories && <CategoriesManager />}
     </LibraryContext.Provider>
   )
 })

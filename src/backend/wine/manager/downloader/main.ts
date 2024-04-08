@@ -1,5 +1,4 @@
 import { logWarning, LogPrefix, logError } from 'backend/logger/logger'
-import * as axios from 'axios'
 import * as crypto from 'crypto'
 import {
   existsSync,
@@ -25,7 +24,7 @@ import {
   unlinkFile,
   unzipFile
 } from './utilities'
-import { calculateEta, downloadFile } from 'backend/utils'
+import { axiosClient, calculateEta, downloadFile } from 'backend/utils'
 
 interface getVersionsProps {
   repositorys?: Repositorys[]
@@ -186,7 +185,7 @@ async function installVersion({
   const installSubDir = installDir + '/' + versionInfo.version
   const sourceChecksum = versionInfo.checksum
     ? (
-        await axios.default.get(versionInfo.checksum, {
+        await axiosClient.get(versionInfo.checksum, {
           responseType: 'text'
         })
       ).data
@@ -290,19 +289,19 @@ async function installVersion({
     )
   }
 
-  if (!overwrite) {
-    // Unzip
-    try {
-      mkdirSync(installSubDir)
-    } catch (error) {
-      unlinkFile(tarFile)
-      throw new Error(`Failed to make folder ${installSubDir} with:\n ${error}`)
-    }
-  } else {
-    // backup old folder
+  // backup old folder
+  if (overwrite) {
     renameSync(installSubDir, `${installSubDir}_backup`)
   }
 
+  try {
+    mkdirSync(installSubDir)
+  } catch (error) {
+    unlinkFile(tarFile)
+    throw new Error(`Failed to make folder ${installSubDir} with:\n ${error}`)
+  }
+
+  // Unzip
   await unzipFile({
     filePath: tarFile,
     unzipDir: installSubDir,

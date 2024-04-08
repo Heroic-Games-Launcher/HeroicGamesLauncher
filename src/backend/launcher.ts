@@ -44,6 +44,7 @@ import {
 import {
   appendFileLog,
   appendGameLog,
+  appendGamePlayLog,
   appendRunnerLog,
   initFileLog,
   initGameLog,
@@ -213,6 +214,10 @@ async function prepareLaunch(
           gameScopeCommand.push('-o', gameSettings.gamescope.fpsLimiterNoFocus)
         }
       }
+
+      gameScopeCommand.push(
+        ...shlex.split(gameSettings.gamescope.additionalOptions ?? '')
+      )
 
       // Note: needs to be the last option
       gameScopeCommand.push('--')
@@ -1302,6 +1307,86 @@ async function getWinePath({
   return stdout.trim()
 }
 
+async function runBeforeLaunchScript(
+  gameInfo: GameInfo,
+  gameSettings: GameSettings
+) {
+  if (!gameSettings.beforeLaunchScriptPath) {
+    return true
+  }
+
+  appendGamePlayLog(
+    gameInfo,
+    `Running script before ${gameInfo.title} (${gameSettings.beforeLaunchScriptPath})\n`
+  )
+
+  return runScriptForGame(gameInfo, gameSettings.beforeLaunchScriptPath)
+}
+
+async function runAfterLaunchScript(
+  gameInfo: GameInfo,
+  gameSettings: GameSettings
+) {
+  if (!gameSettings.afterLaunchScriptPath) {
+    return true
+  }
+
+  appendGamePlayLog(
+    gameInfo,
+    `Running script after ${gameInfo.title} (${gameSettings.afterLaunchScriptPath})\n`
+  )
+  return runScriptForGame(gameInfo, gameSettings.afterLaunchScriptPath)
+}
+
+/* Execute script before launch/after exit, wait until the script
+ * exits to continue
+ *
+ * The script can start sub-processes with `bash another-command &`
+ * if `another-command` should run asynchronously
+ *
+ * For example:
+ *
+ * ```
+ * #!/bin/bash
+ *
+ * echo "this runs before/after the game"
+ * bash ./another.bash & # this is launched before/after the game but is not waited
+ * echo "this also runs before/after the game too" > someoutput.txt
+ * ```
+ *
+ * Notes:
+ * - Output and logs are printed in the game's log
+ * - Make sure the script is executable
+ * - Make sure any async process is not stuck running in the background forever,
+ *   use the after script to kill any running process if that's the case
+ */
+async function runScriptForGame(
+  gameInfo: GameInfo,
+  scriptPath: string
+): Promise<boolean | string> {
+  return new Promise((resolve, reject) => {
+    const child = spawn(scriptPath, { cwd: gameInfo.install.install_path })
+
+    child.stdout.on('data', (data) => {
+      appendGamePlayLog(gameInfo, data.toString())
+    })
+
+    child.stderr.on('data', (data) => {
+      appendGamePlayLog(gameInfo, data.toString())
+    })
+
+    child.on('exit', () => {
+      resolve(true)
+    })
+
+    child.on('error', (err: Error) => {
+      appendGamePlayLog(gameInfo, err.message)
+      if (err.stack) appendGamePlayLog(gameInfo, err.stack)
+      reject(err.message)
+    })
+  })
+}
+
 export {
   prepareLaunch,
   launchCleanup,
@@ -1313,5 +1398,7 @@ export {
   runWineCommand,
   callRunner,
   getRunnerCallWithoutCredentials,
-  getWinePath
+  getWinePath,
+  runAfterLaunchScript,
+  runBeforeLaunchScript
 }

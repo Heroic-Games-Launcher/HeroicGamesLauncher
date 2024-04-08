@@ -1,6 +1,6 @@
 import { logError } from 'backend/logger/logger'
 import { getInfoFromAppleGamingWiki } from '../utils'
-import axios from 'axios'
+import { axiosClient } from 'backend/utils'
 import { AppleGamingWikiInfo } from 'common/types'
 
 jest.mock('backend/logger/logfile')
@@ -9,7 +9,7 @@ jest.mock('electron-store')
 
 describe('getInfoFromAppleGamingWiki', () => {
   test('fetches successfully', async () => {
-    const mockAxios = jest.spyOn(axios, 'get').mockResolvedValueOnce({
+    const mockAxios = jest.spyOn(axiosClient, 'get').mockResolvedValueOnce({
       data: { query: { search: [{ pageid: 1 }] } }
     })
     mockAxios.mockResolvedValueOnce({
@@ -31,7 +31,7 @@ describe('getInfoFromAppleGamingWiki', () => {
   })
 
   test('does not find page id', async () => {
-    jest.spyOn(axios, 'get').mockResolvedValueOnce({
+    jest.spyOn(axiosClient, 'get').mockResolvedValueOnce({
       data: { query: { search: [{ pageid: undefined }] } }
     })
 
@@ -40,7 +40,7 @@ describe('getInfoFromAppleGamingWiki', () => {
   })
 
   test('does not find wikitext', async () => {
-    const mockAxios = jest.spyOn(axios, 'get').mockResolvedValueOnce({
+    const mockAxios = jest.spyOn(axiosClient, 'get').mockResolvedValueOnce({
       data: { query: { search: [{ pageid: 1 }] } }
     })
     mockAxios.mockResolvedValueOnce({
@@ -60,7 +60,7 @@ describe('getInfoFromAppleGamingWiki', () => {
   })
 
   test('wikitext empty', async () => {
-    const mockAxios = jest.spyOn(axios, 'get').mockResolvedValueOnce({
+    const mockAxios = jest.spyOn(axiosClient, 'get').mockResolvedValueOnce({
       data: { query: { search: [{ pageid: 1 }] } }
     })
     mockAxios.mockResolvedValueOnce({
@@ -80,7 +80,7 @@ describe('getInfoFromAppleGamingWiki', () => {
   })
 
   test('catches axios throws', async () => {
-    jest.spyOn(axios, 'get').mockRejectedValueOnce(new Error('Failed'))
+    jest.spyOn(axiosClient, 'get').mockRejectedValueOnce(new Error('Failed'))
 
     const result = await getInfoFromAppleGamingWiki('The Witcher 3')
     expect(result).toBeNull()
