@@ -2,14 +2,20 @@ import { ipcMain } from 'electron'
 import {
   addToQueue,
   cancelCurrentDownload,
+  getAutoShutdown,
   getQueueInformation,
   pauseCurrentDownload,
   removeFromQueue,
-  resumeCurrentDownload
+  resumeCurrentDownload,
+  setAutoShutdown
 } from './downloadqueue'
 
 ipcMain.handle('addToDMQueue', async (e, element) => {
   await addToQueue(element)
+})
+
+ipcMain.on('setAutoShutdown', (e, value: boolean) => {
+  setAutoShutdown(value)
 })
 
 ipcMain.on('removeFromDMQueue', (e, appName) => {
@@ -29,3 +35,5 @@ ipcMain.on('cancelDownload', (e, removeDownloaded) => {
 })
 
 ipcMain.handle('getDMQueueInformation', getQueueInformation)
+
+ipcMain.handle('getAutoShutdownValue', getAutoShutdown)
