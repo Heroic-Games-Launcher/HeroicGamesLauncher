@@ -207,7 +207,9 @@ Otherwise, download the file ending in .dmg from the [latest release](https://gi
 
 This part will walk you through setting up a development environment so you can build Heroic binaries yourself or make changes to the code.
 
-1. Make sure Git, NodeJS, and Yarn are installed
+1. Make sure Git, NodeJS, and PNPM are installed  
+   **NOTE**: On Windows, due to an issue with electron-builder, you'll need the standalone version of pnpm (`@pnpm/exe`)
+   to build packages
 2. Clone the repo and enter the cloned folder, for example with these commands:
 
    ```bash
@@ -215,7 +217,7 @@ This part will walk you through setting up a development environment so you can 
    cd HeroicGamesLauncher
    ```
 
-3. Make sure all dependencies are installed by running `yarn`
+3. Make sure all dependencies are installed by running `pnpm install`
 
 ### Building Heroic Binaries
 
@@ -224,18 +226,18 @@ Run the appropriate command for your OS:
 - Build for Linux:
 
   ```bash
-  yarn dist:linux # Optionally specify a package to create (eg: deb, pacman, tar.xz, rpm, AppImage); default: AppImage
+  pnpm dist:linux # Optionally specify a package to create (eg: deb, pacman, tar.xz, rpm, AppImage); default: AppImage
   ```
 
 - Build for Windows:
 
   ```bash
-  yarn dist:win
+  pnpm dist:win
   ```
 
 - Build for Mac:
   ```bash
-  yarn dist:mac
+  pnpm dist:mac
   ```
 
 ### Building with VS Code
@@ -246,9 +248,9 @@ To do that, open up the command palette (Ctrl + P), type in "task" and press Spa
 ### Quickly testing/debugging Heroic on your own system
 
 If you want to quickly test a change, or you're implementing features that require a lot of restarts, you can use Vite's development server to speed up the process:  
-Go to the "Run and Debug" tab of VSCode and start the "Launch Heroic (HMR & HR)" task (alternatively, if you're not using VSCode or just prefer the terminal, run `yarn start`). Heroic will start up after a short while, and once you make any change to the code, it'll reload/restart.
+Go to the "Run and Debug" tab of VSCode and start the "Launch Heroic (HMR & HR)" task (alternatively, if you're not using VSCode or just prefer the terminal, run `pnpm start`). Heroic will start up after a short while, and once you make any change to the code, it'll reload/restart.
 
-Note: If you do not need the React developer tools while testing changes, you can skip their install by setting the `HEROIC_NO_REACT_DEVTOOLS` environment variable before running `yarn start` (for example with `HEROIC_NO_REACT_DEVTOOLS=1 yarn start`).
+Note: If you do not need the React developer tools while testing changes, you can skip their install by setting the `HEROIC_NO_REACT_DEVTOOLS` environment variable before running `pnpm start` (for example with `HEROIC_NO_REACT_DEVTOOLS=1 pnpm start`).
 
 ## Sponsors
 

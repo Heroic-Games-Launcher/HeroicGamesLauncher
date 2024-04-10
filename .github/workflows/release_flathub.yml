@@ -30,7 +30,7 @@ jobs:
       - name: Checkout flathub repository.
         run: git clone https://github.com/flathub/com.heroicgameslauncher.hgl.git
       - name: Update flathub release
-        run: export RELEASE_VERSION=${{ github.ref_name }} && yarn release:updateFlathub:ci
+        run: export RELEASE_VERSION=${{ github.ref_name }} && pnpm release:updateFlathub:ci
       - name: Branch flathub repo
         run: git checkout -b "${{ github.ref_name }}"
         working-directory: ./com.heroicgameslauncher.hgl
