@@ -17,7 +17,7 @@
     "Amazon Games": "Amazon Games",
     "anticheat": {
         "anticheats": "Anticheats",
-        "may_not_work": "It may not work due to denied or broken anticheat support.",
+        "multiplayer_may_not_work": "Multiplayer features may not work due to denied or broken anticheat support.",
         "reference": "Reference",
         "source": "Source",
         "status": "Status",

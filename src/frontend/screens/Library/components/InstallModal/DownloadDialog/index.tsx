@@ -195,14 +195,14 @@ export default function DownloadDialog({
     showDialogModal({
       title: t('install.anticheat-warning.title', 'Anticheat Broken/Denied'),
       message: t(
-        'install.anticheat-warning.message',
-        'The anticheat support is broken or denied. The game will not work. Do you want to install it anyway?'
+        'install.anticheat-warning.multiplayer_message',
+        'The anticheat support is broken or denied. The game may open but the multiplayer features will not work. Do you want to install it anyway?'
       ),
       buttons: [
         {
           text: t(
-            'install.anticheat-warning.install',
-            'Yes (I understand it will not work)'
+            'install.anticheat-warning.install_anyway',
+            'Yes (I understand the multiplayer features will not work)'
           ),
           onClick: async () => handleInstall(path, true)
         },
