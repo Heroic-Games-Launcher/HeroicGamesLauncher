@@ -408,7 +408,7 @@ export async function refresh(): Promise<ExecResult> {
         game.external_id,
         [],
         credentials.access_token
-      ).catch(() => null)
+      )
 
       const unifiedObject = await gogToUnifiedInfo(gdbData, product?.data)
       if (unifiedObject.app_name) {
@@ -1261,10 +1261,22 @@ export async function getProductApi(
     headers.Authorization = `Bearer ${accessToken}`
   }
 
-  // `https://api.gog.com/products/${appName}?locale=${language}${expandString}`
-  const response = await axiosClient
-    .get<ProductsEndpointData>(url.toString(), { headers })
-    .catch(() => null)
+  let response = null
+  let retries = 3
+  while (response === null && retries > 0) {
+    // `https://api.gog.com/products/${appName}?locale=${language}${expandString}`
+    try {
+      response = await axiosClient.get<ProductsEndpointData>(url.toString(), {
+        headers
+      })
+    } catch (error) {
+      logError(
+        [`Failed to fetch product data for ${appName}, retrying`],
+        LogPrefix.Gog
+      )
+      retries = retries - 1
+    }
+  }
 
   return response
 }
