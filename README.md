@@ -148,7 +148,7 @@ Heroic is available on Flathub, so you should be able to easily install it on mo
 
 #### Non-Flatpak Installations 
 
-If you're not using the Flatpak version, make sure you have all Wine dependencies installed ([guide](https://github.com/lutris/docs/blob/master/WineDependencies.md)).
+If you're not using the Flatpak version, make sure you have all Wine dependencies installed according to this [guide](https://github.com/lutris/docs/blob/master/WineDependencies.md).
 
 #### Debian, Ubuntu and Derivatives
 
