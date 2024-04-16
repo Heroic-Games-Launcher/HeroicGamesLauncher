@@ -1250,6 +1250,7 @@ interface DownloadArgs {
   dest: string
   abortSignal?: AbortSignal
   progressCallback?: ProgressCallback
+  ignoreFailure?: boolean
 }
 
 /**
@@ -1258,6 +1259,7 @@ interface DownloadArgs {
  * @param {string} dest - The destination path to save the downloaded file.
  * @param {AbortSignal} abortSignal - The AbortSignal instance to cancel the download.
  * @param {ProgressCallback} [progressCallback] - An optional callback function to track the download progress.
+ * @param {boolean} ignoreFailure - When "true", failure to download the file is ignore (no log and no thrown error).
  * @returns {Promise<void>} - A Promise that resolves when the download is complete.
  * @throws {Error} - If the download fails or is incomplete.
  */
@@ -1265,7 +1267,8 @@ export async function downloadFile({
   url,
   dest,
   abortSignal,
-  progressCallback
+  progressCallback,
+  ignoreFailure
 }: DownloadArgs): Promise<void> {
   let lastProgressUpdateTime = Date.now()
   let lastBytesWritten = 0
@@ -1276,11 +1279,15 @@ export async function downloadFile({
     const response = await axiosClient.head(url)
     fileSize = parseInt(response.headers['content-length'], 10)
   } catch (err) {
-    logError(
-      `Downloader: Failed to get headers for ${url}. \nError: ${err}`,
-      LogPrefix.DownloadManager
-    )
-    throw new Error('Failed to get headers')
+    if (!ignoreFailure) {
+      logError(
+        `Downloader: Failed to get headers for ${url}. \nError: ${err}`,
+        LogPrefix.DownloadManager
+      )
+      throw new Error('Failed to get headers')
+    } else {
+      return
+    }
   }
 
   try {
@@ -1352,11 +1359,15 @@ export async function downloadFile({
       LogPrefix.DownloadManager
     )
   } catch (err) {
-    logError(
-      `Downloader: Download Failed with: ${err}`,
-      LogPrefix.DownloadManager
-    )
-    throw new Error(`Download failed with ${err}`)
+    if (!ignoreFailure) {
+      logError(
+        `Downloader: Download Failed with: ${err}`,
+        LogPrefix.DownloadManager
+      )
+      throw new Error(`Download failed with ${err}`)
+    } else {
+      return
+    }
   }
 }
 
