@@ -70,6 +70,8 @@ const initialContext: ContextType = {
   setZoomPercent: () => null,
   allTilesInColor: false,
   setAllTilesInColor: () => null,
+  titlesAlwaysVisible: false,
+  setTitlesAlwaysVisible: () => null,
   sidebarCollapsed: false,
   setSideBarCollapsed: () => null,
   activeController: '',
