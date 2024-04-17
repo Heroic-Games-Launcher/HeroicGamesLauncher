@@ -90,7 +90,6 @@ const GameCard = ({
   const {
     hiddenGames,
     favouriteGames,
-    allTilesInColor,
     showDialogModal,
     setIsSettingsModalOpen,
     activeController
@@ -367,12 +366,8 @@ const GameCard = ({
   const notAvailableClass = notAvailable ? 'notAvailable' : ''
   const gamepadClass = activeController ? 'gamepad' : ''
   const justPlayedClass = justPlayed ? 'justPlayed' : ''
-  const imgClasses = `gameImg ${isInstalled ? 'installed' : ''} ${
-    allTilesInColor ? 'allTilesInColor' : ''
-  }`
-  const logoClasses = `gameLogo ${isInstalled ? 'installed' : ''} ${
-    allTilesInColor && 'allTilesInColor'
-  }`
+  const imgClasses = `gameImg ${isInstalled ? 'installed' : ''}`
+  const logoClasses = `gameLogo ${isInstalled ? 'installed' : ''}`
 
   const wrapperClasses = `${
     grid ? 'gameCard' : 'gameListItem'
