@@ -482,7 +482,7 @@ export async function repair(appName: string): Promise<ExecResult> {
   logDebug([appName, 'is installed at', install_path], LogPrefix.Carnival)
   const logPath = join(gamesConfigPath, `${appName}.log`)
   const res = await runCarnivalCommand(
-    ['verify', '--path', install_path, appName],
+    ['verify', installInfo.unique_name],
     createAbortController(appName),
     {
       logFile: logPath,
@@ -499,7 +499,7 @@ export async function repair(appName: string): Promise<ExecResult> {
 }
 
 export async function syncSaves(): Promise<string> {
-  // Amazon Games doesn't support cloud saves
+  // indieGala doesn't support cloud saves
   return ''
 }
 

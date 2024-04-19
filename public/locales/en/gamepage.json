@@ -128,6 +128,9 @@
         "main-story": "Main Story"
     },
     "howLongToBeat": "How Long To Beat",
+    "import": {
+        "indiegala": "Import is not supported on IndieGala"
+    },
     "info": {
         "apple-gaming-wiki": "AppleGamingWiki Rating",
         "canRunOffline": "Online Required",

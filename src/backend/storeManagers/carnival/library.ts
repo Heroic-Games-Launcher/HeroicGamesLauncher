@@ -35,7 +35,7 @@ import { join } from 'path'
 import { app } from 'electron'
 import { copySync } from 'fs-extra'
 import { CarnivalUser } from './user'
-import { JSON_SCHEMA, load } from 'js-yaml'
+import { JSON_SCHEMA, load, dump } from 'js-yaml'
 import { getGamesdbData } from '../gog/library'
 
 const installedGames: Map<string, CarnivalInstallMetadataInfo> = new Map()
@@ -253,7 +253,7 @@ export function getInstallMetadata(
       : undefined
   } catch (error) {
     logError(
-      ['Corrupted installed.json file, cannot load installed games', error],
+      ['Corrupted installed.yml file, cannot load installed games', error],
       LogPrefix.Carnival
     )
   }
@@ -301,7 +301,7 @@ export async function refresh(force = false): Promise<ExecResult | null> {
   logInfo('Refreshing library...', LogPrefix.Carnival)
 
   await refreshCarnival()
-  await refreshInstalled()
+  refreshInstalled()
   await loadGamesInAccount()
 
   const arr = Array.from(library.values())
@@ -444,26 +444,26 @@ export async function changeGameInstallPath(
   newAppPath: string
 ) {
   const libraryGameInfo = library.get(appName)
-  if (libraryGameInfo) libraryGameInfo.install.install_path = newAppPath
-  else {
+  if (libraryGameInfo && libraryGameInfo.unique_name) {
+    libraryGameInfo.install.install_path = newAppPath
+    updateInstalledPathInJSON(libraryGameInfo.unique_name, newAppPath)
+  } else {
     logWarning(
       `library game info not found in changeGameInstallPath for ${appName}`,
       LogPrefix.Carnival
     )
   }
-
-  updateInstalledPathInJSON(appName, newAppPath)
 }
 
-function updateInstalledPathInJSON(appName: string, newAppPath: string) {
+function updateInstalledPathInJSON(appUniqueName: string, newAppPath: string) {
   // Make sure we get the latest installed info
   refreshInstalled()
 
-  const installedGameInfo = installedGames.get(appName)
+  const installedGameInfo = installedGames.get(appUniqueName)
   if (installedGameInfo) installedGameInfo.install_path = newAppPath
   else {
     logWarning(
-      `installed game info not found in changeGameInstallPath for ${appName}`,
+      `installed game info not found in updateInstalledPathInJSON for ${appUniqueName}`,
       LogPrefix.Carnival
     )
   }
@@ -478,11 +478,11 @@ function updateInstalledPathInJSON(appName: string, newAppPath: string) {
 
   writeFileSync(
     carnivalInstalled,
-    JSON.stringify(Array.from(installedGames.values())),
+    dump(Object.fromEntries(installedGames.entries())),
     'utf-8'
   )
   logInfo(
-    ['Updated install path for', appName, 'in', carnivalInstalled],
+    ['Updated install path for', appUniqueName, 'in', carnivalInstalled],
     LogPrefix.Carnival
   )
 }

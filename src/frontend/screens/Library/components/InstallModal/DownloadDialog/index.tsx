@@ -690,7 +690,13 @@ export default function DownloadDialog({
       <DialogFooter>
         <button
           onClick={async () => handleInstall('import')}
+          disabled={runner === 'carnival'}
           className={`button is-secondary outline`}
+          title={
+            runner === 'carnival'
+              ? t('import.indiegala', 'Import is not supported on IndieGala')
+              : ''
+          }
         >
           {t('button.import')}
         </button>
