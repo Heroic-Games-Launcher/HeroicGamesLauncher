@@ -120,7 +120,8 @@
         },
         "select": {
             "button": "选择",
-            "exe": "选择 EXE"
+            "exe": "选择 EXE",
+            "script": "选择脚本…"
         },
         "shortcuts": {
             "message": "桌面与开始菜单快捷方式已创建",
@@ -316,7 +317,8 @@
             "upscaleWidth": "Gamescope 所用的宽度分辨率。假定 16:9 的长宽比。",
             "gameHeight": "游戏所用的高度分辨率。Gamescope 假定 16:9 的长宽比。",
             "upscaleHeight": "Gamescope 所用的高度分辨率。假定 16:9 长宽比。",
-            "fpsLimiter": "Gamescope 帧数限制，比如 60"
+            "fpsLimiter": "Gamescope 帧数限制，比如 60",
+            "additionalOptions": "要传递给 gamescope 的额外命令行标记。"
         },
         "content": {
             "defaultInstallPath": "这是安装游戏时预先选择的默认路径。",
@@ -505,7 +507,8 @@
             "fullscreen": "全屏",
             "interger": "整数型 Upscale",
             "stretch": "拉伸图像",
-            "windowed": "已窗口化"
+            "windowed": "已窗口化",
+            "additionalOptions": "额外选项"
         }
     },
     "other": {
@@ -680,7 +683,9 @@
             },
             "description": "使用无框架窗口（需要重启）"
         },
-        "msync": "启用 Msync"
+        "msync": "启用 Msync",
+        "after-launch-script-path": "选择在游戏退出后要运行的脚本",
+        "before-launch-script-path": "选择游戏启动前要运行的脚本"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -897,5 +902,17 @@
         "dont-show-again": "不再显示此警告",
         "title": "Adtraction 被封禁",
         "description": "track.adtraction.com 域名似乎无法加载或者被封禁。通过 adtraction，你在 GOG 商店的任意购买都会在经济上支持 Heroic。如果希望作贡献，请考虑解除对此站点的封禁。"
+    },
+    "categories-manager": {
+        "confirm-rename": "确认将“{{oldName}}“重命名为“{{newName}}”",
+        "add": "添加",
+        "no-categories": "尚无分类。",
+        "remove": "删除“{{name}}”",
+        "cancel-remove": "取消删除“{{name}}”",
+        "rename": "重命名“{{name}}”",
+        "cancel-rename": "取消重命名“{{name}}”",
+        "confirm-remove": "确认删除“{{name}}”",
+        "title": "管理分类",
+        "add-placeholder": "添加新分类"
     }
 }
