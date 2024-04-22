@@ -170,7 +170,9 @@
         "yes": "SÍ",
         "dontShowAgain": "No volver a mostrar",
         "choose-nile-binary": "Seleccionar binario del Nile",
-        "update": "Actualizar"
+        "update": "Actualizar",
+        "postpone": "Posponer",
+        "changelog": "Registro de cambios"
     },
     "button": {
         "cancel": "Cancelar",
@@ -873,5 +875,13 @@
     "emptyLibrary": {
         "noResults": "Los filtros actuales no produjeron resultados.",
         "noGames": "Tu biblioteca está vacía. Puedes <1>iniciar sesión</1> usando una tienda o hacer clic en <3></3> para añadir una manualmente."
+    },
+    "categories-manager": {
+        "add-placeholder": "Añadir una nueva categoría",
+        "cancel-remove": "Cancelar la eliminación de \"{{name}}\"",
+        "cancel-rename": "Cancelar el cambio de nombre de \"{{name}}\"",
+        "no-categories": "Aún no hay categorías.",
+        "remove": "Remover \"{{name}}\"",
+        "add": "Añadir"
     }
 }
