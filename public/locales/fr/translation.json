@@ -120,7 +120,8 @@
         },
         "select": {
             "button": "Sélectionner",
-            "exe": "Choisir le fichier .exe"
+            "exe": "Choisir le fichier .exe",
+            "script": "Sélectionner un script..."
         },
         "shortcuts": {
             "message": "Des raccourcis ont été créés sur le Bureau et dans le menu Démarrer",
@@ -316,7 +317,8 @@
             "gameHeight": "La hauteur de résolution utilisée par le jeu. Un ratio d'aspect 16 :9 est présumé par Gamescope.",
             "upscaleHeight": "La hauteur de résolution utilisée Gamescope. Un ratio d'aspect 16 :9 est présumé.",
             "fpsLimiterNoFocus": "Le ratio d'images par seconde auquel gamescope doit se limiter si le jeu est en arrière-plan.",
-            "fpsLimiter": "Le nombre d'images par seconde auquel gamescope devrait se limiter. Par ex : 60"
+            "fpsLimiter": "Le nombre d'images par seconde auquel gamescope devrait se limiter. Par ex : 60",
+            "additionalOptions": "Indicateurs de ligne de commande supplémentaires à transmettre à gamescope."
         },
         "title": {
             "accessibility": "Accessibilité",
@@ -339,7 +341,7 @@
         },
         "button": {
             "open": "Afficher l'aide",
-            "close": "Fermer l'aide"
+            "close": "Fermer la fenêtre d'aide"
         },
         "msync": "Msync a pour but de réduire la charge wineserver pour les jeux qui sollicitent beaucoup le CPU. L'activer peut améliorer les performances sur les kernels Linux compatibles."
     },
@@ -505,7 +507,8 @@
             "fpsLimiterNoFocus": "Limiteur de FPS (sans focus)",
             "stretch": "Étirer l'image",
             "interger": "Échelle supérieure selon un nombre entier",
-            "windowed": "Fenêtré"
+            "windowed": "Fenêtré",
+            "additionalOptions": "Options supplémentaires"
         }
     },
     "other": {
@@ -665,7 +668,7 @@
         "experimental_features": {
             "enableNewDesign": "Nouveau concept",
             "enableHelp": "Composant d'Aide",
-            "automaticWinetricksFixes": "Appliquer les corrections Winetricks connues automatiquement"
+            "automaticWinetricksFixes": "Appliquer les corrections connues automatiquement"
         },
         "frameless-window": {
             "confirmation": {
@@ -679,7 +682,9 @@
             "enableUpscaling": "Activer la mise à l'échelle",
             "missingMsg": "Nous n'avons pas pu trouver Gamescope sur le CHEMIN. Installez-le ou ajoutez-le au CHEMIN."
         },
-        "msync": "Activer Msync"
+        "msync": "Activer Msync",
+        "before-launch-script-path": "Sélectionnez un script à exécuter avant le lancement du jeu",
+        "after-launch-script-path": "Sélectionnez un script à exécuter après l'arrêt du jeu"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -764,7 +769,7 @@
                 "help9": "Paramètres de jeux",
                 "help10": "Configuration d'Heroic",
                 "help3": "Informations de la bibliothèque Legendary (liste des jeux, informations de la fenêtre d'installation, informations sur le jeu)",
-                "help4": "Informations de la bibliothèque GOG (liste des jeux, informations de la fenêtre d'installation, infos de l'api -i.e : configuration requise-)",
+                "help4": "Informations de la bibliothèque GOG (liste des jeux, informations de la fenêtre d'installation, informations de l'api -i.e : configuration requise-)",
                 "help5": "Informations de la bibliothèque Amazon (liste des jeux, informations de la fenêtre d'installation)",
                 "help7": "Connexion à la boutique"
             },
@@ -828,7 +833,7 @@
         "controls": {
             "back": "Retour",
             "forward": "Avancer",
-            "openInBrowser": "Ouvrir dans le navigateur",
+            "openInBrowser": "Ouvrir dans un navigateur",
             "reload": "Recharger la page"
         }
     },
@@ -885,7 +890,7 @@
     },
     "wineExplanation": {
         "proton-ge": "Proton-GE-Proton est une variante de Proton créée par Glorious Eggroll. Il est destiné à être utilisé par Steam, mais certains jeux extérieurs à Steam pourraient mieux fonctionner avec cette version. Il propose des rapports pour la plupart inutiles à la résolution des problèmes.",
-        "wine-ge-lol": "Les versions de Wine-GE-Proton...-LoL sont faites pour être utiisées UNIQUEMENT pour League of Legends. Ces versions ne devraient PAS être employées pour d'autres jeux car elles peuvent causer des problèmes.",
+        "wine-ge-lol": "Les versions de Wine-GE-Proton...-LoL sont codées pour être utilisées UNIQUEMENT pour League of Legends. Ces versions ne doivent PAS être employées pour d'autres jeux car elles peuvent causer des problèmes.",
         "wine-ge": "Wine-GE-Proton est une variante de Wine créée par Glorious Eggroll. C'est la version de Wine recommandée pour un usage en dehors de Steam."
     },
     "emptyLibrary": {
@@ -896,5 +901,17 @@
         "description": "Il semble que le domaine track.adtraction.com n'ait pas pu être chargé ou soit bloqué. Avec adtraction, chaque achat fait dans la boutique GOG soutient Heroic financièrement. Songez à enlever ce blocage si vous voulez contribuer.",
         "dont-show-again": "Ne plus afficher cet avertissement à l'avenir",
         "title": "Adtraction a été bloqué"
+    },
+    "categories-manager": {
+        "add-placeholder": "Ajouter une nouvelle catégorie",
+        "confirm-rename": "Confirmer que « {{oldName}} » sera renommé « {{newName}} »",
+        "no-categories": "Aucune catégorie.",
+        "remove": "Supprimer « {{name}} »",
+        "cancel-rename": "Annuler le renommage de « {{name}} »",
+        "add": "Ajouter",
+        "cancel-remove": "Annuler la suppression de « {{name}} »",
+        "confirm-remove": "Confirmer la suppression de « {{name}} »",
+        "rename": "Renommer « {{name}} »",
+        "title": "Organiser les catégories"
     }
 }
