@@ -886,5 +886,8 @@
     "wineExplanation": {
         "proton-ge": "Proton-GE-Proton é uma variante Proton criada por Glorious Eggroll. É feita para ser usada na Steam, mas alguns jogos fora da Steam podem trabalhar melhor com essa variante. Ela fornece logs majoritariamente inúteis para solução de problemas.",
         "wine-ge": "Wine-GE-Proton é uma variante Wine criada por Glorious Eggroll. É o Wine recomendado para ser usado fora da Steam. Ele fornece logs úteis para solução de problemas."
+    },
+    "categories-manager": {
+        "add-placeholder": "Adicionar nova categoria"
     }
 }
