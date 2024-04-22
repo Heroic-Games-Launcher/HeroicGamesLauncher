@@ -219,7 +219,8 @@
     "game": {
         "status": "Egoera",
         "store": "Denda",
-        "title": "Jokoaren izenburua"
+        "title": "Jokoaren izenburua",
+        "modify": "Aldatu Instalazioa"
     },
     "generic": {
         "error": {
@@ -722,5 +723,8 @@
     "category-settings": {
         "cancel": "Ezeztatu",
         "warning": "Warning"
+    },
+    "window": {
+        "close": "Itxi"
     }
 }
