@@ -120,7 +120,8 @@
         },
         "select": {
             "button": "Wybierz",
-            "exe": "Wybierz plik EXE"
+            "exe": "Wybierz plik EXE",
+            "script": "Wybierz skrypt ..."
         },
         "shortcuts": {
             "message": "Skróty zostały stworzone na Pulpicie i w Menu Start",
@@ -170,7 +171,9 @@
         "yes": "TAK",
         "dontShowAgain": "Nie pokazuj więcej",
         "choose-nile-binary": "Wybierz plik wykonywalny Nile",
-        "update": "Aktualizuj"
+        "update": "Aktualizuj",
+        "postpone": "Odłóż",
+        "changelog": "Dziennik zmian"
     },
     "button": {
         "cancel": "Anuluj",
@@ -271,7 +274,7 @@
         "dxvk": "DXVK to oparta o Vulkan'a warstwa tłumacząca dla gier opratych o DirectX 9, 10 i 11, włączenie DXVK podnosi ich kompatybilność, lecz może powodować problemy szczególnie w starszych grach.",
         "dxvkfpslimit": "Ustala limit klatek na sekundę dla gier DXVK",
         "esync": "Zadaniem Esync'u jest zmniejszenie bottleneck'a spowodowanego przez Wine, w grach intensywnie wykorzystujących CPU. Włączenie może podnieść wydajność.",
-        "fsync": "Zadaniem Esync'u jest zmniejszenie bottleneck'a spowodowanego przez Wine, w grach intensywnie wykorzystujących CPU. Włączenie może podnieść wydajność, lecz wymaga odpowiedniego wsparcia w kernelu.",
+        "fsync": "Zadaniem Fsync'u jest zmniejszenie bottleneck'a spowodowanego przez Wine, w grach intensywnie wykorzystujących CPU. Włączenie może podnieść wydajność, lecz wymaga odpowiedniego wsparcia w kernelu.",
         "game_language": {
             "fallback": "Zostaw puste, aby używać języka Heroic.",
             "in_game_config": "Nie wszystkie gry wspierają taką konfigurację, niektóre mają wbudowane ustawienia językowe.",
@@ -313,7 +316,8 @@
             "upscaleWidth": "Szerokość (od rozdzielczości) używana przez gamescope. Przyjmuje się proporcje 16:9.",
             "gameHeight": "Wysokość w pikselach (od rozdzielczości) stosowana przez grę. Gamescope zakłada, proporcje ekranu w postaci 16:9.",
             "upscaleHeight": "Wysokość (od rozdzielczości) używana przez gamescope. Przyjmuje się proporcje 16:9.",
-            "fpsLimiter": "Limit klatek na sekundę, który powinien zastosować gamescope. np. 60"
+            "fpsLimiter": "Limit klatek na sekundę, który powinien zastosować gamescope. np. 60",
+            "additionalOptions": "Dodatkowe argumenty polecenia dla gamescope."
         },
         "title": {
             "accessibility": "Ułatwienia dostępu",
@@ -337,7 +341,8 @@
             "downloadManager": "Pokazuje obecne i przeszłe pobrania.",
             "settingsDefault": "Pokazuje wszystkie opcje Heroic i domyślne opcje gier.",
             "wineManager": "Zainstaluj inne wersje Wine, Protona, Crossover, itp."
-        }
+        },
+        "msync": "Zadaniem Msync'u jest zmniejszenie bottleneck'a spowodowanego przez Wine, w grach intensywnie wykorzystujących CPU. Włączenie może podnieść wydajność, lecz wymaga odpowiedniego wsparcia w kernelu."
     },
     "info": {
         "heroic": {
@@ -500,7 +505,9 @@
             "interger": "Integer Upscale",
             "upscaleHeight": "Wysokość po przeskalowaniu",
             "fpsLimiterNoFocus": "Ograniczenie FPS (w tle)",
-            "stretch": "Rozciągnij obraz"
+            "stretch": "Rozciągnij obraz",
+            "additionalOptions": "Dodatkowe Opcje",
+            "windowed": "W oknie"
         }
     },
     "other": {
@@ -673,7 +680,10 @@
             "enableLimiter": "Włącz ograniczenie klatek na sekundę",
             "enableUpscaling": "Włącz skalowanie",
             "missingMsg": "Nie udało się nam znaleźć gamescope na PATH. Zainstaluj je lub/i dodaj do PATH."
-        }
+        },
+        "after-launch-script-path": "Wybierz skrypt do uruchomienia po zakończeniu gry",
+        "before-launch-script-path": "Wybierz skrypt do uruchomienia przed rozpoczęciem gry",
+        "msync": "Włącz Msync"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -879,10 +889,28 @@
     },
     "wineExplanation": {
         "proton-ge": "Proton-GE-Proton to wersja Proton stworzona przez Glorious Eggroll. Jest przeznaczona do użytku w Steam, lecz niektóre gry spoza Steam mogą działać lepiej przy użyciu tej wersji. W większości zapewnia bezużyteczne dzienniki do rozwiązywania problemów.",
-        "wine-ge": "Wine-GE-Proton to wersja Wine stworzona przez Glorious Eggroll. Jest to rekomendowana wersja Wine do użytku poza Steam. Zapewnia użyteczne dzienniki do rozwiązywania problemów."
+        "wine-ge": "Wine-GE-Proton to wersja Wine stworzona przez Glorious Eggroll. Jest to rekomendowana wersja Wine do użytku poza Steam. Zapewnia użyteczne dzienniki do rozwiązywania problemów.",
+        "wine-ge-lol": "Wersje Wine-GE-Proton...-LoL są przeznaczone do użytku tylko i wyłącznie z grą League of Legends. Nie powinny być używane przez inne gry, ponieważ mogą sprawiać problemy."
     },
     "emptyLibrary": {
         "noResults": "Wybrane filtry nie zwróciły wyników.",
         "noGames": "Twoja biblioteka jest pusta. Możesz <1>zalogować się</1> przy użyciu sklepu lub kliknąć <3></3> by dodać grę ręcznie."
+    },
+    "categories-manager": {
+        "add-placeholder": "Dodaj Nową Kategorię",
+        "add": "Dodaj",
+        "confirm-rename": "Potwierdź zmianę nazwy \"{{oldName}}\" na \"{{newName}}\"",
+        "cancel-remove": "Anuluj usuwanie \"{{name}}\"",
+        "cancel-rename": "Anuluj zmianę nazwy \"{{name}}\"",
+        "confirm-remove": "Potwierdź usunięcie \"{{name}}\"",
+        "no-categories": "Jeszcze nie ma kategorii.",
+        "remove": "Usuń \"{{name}}\"",
+        "rename": "Zmień nazwę \"{{name}}\"",
+        "title": "Zarządzaj Kategoriami"
+    },
+    "adtraction-locked": {
+        "description": "Wygląda na to, że nie udało się załadować domeny track.adtraction.com lub jest ona zablokowana. Z adtraction, każdy zakup, który wykonujesz za pomocą sklepu GOG wspiera Heroic finansowo. Rozważ odblokowanie, jeżeli chcesz wesprzeć Heroic.",
+        "dont-show-again": "Nie pokazuj więcej tego ostrzeżenia",
+        "title": "Adtraction jest zablokowane"
     }
 }
