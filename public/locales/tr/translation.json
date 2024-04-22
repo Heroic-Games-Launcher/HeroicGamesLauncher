@@ -120,7 +120,8 @@
         },
         "select": {
             "button": "Seç",
-            "exe": "EXE'yi seç"
+            "exe": "EXE'yi seç",
+            "script": "Виберіть скрипт..."
         },
         "shortcuts": {
             "message": "Kısayol Masaüstüne ve Başlat Menüsüne eklendi",
@@ -316,7 +317,8 @@
             "gameHeight": "Oyunun kullanacağı dikey çözünürlük. Gamescope tarafından 16:9 en boy oranı varsayılır.",
             "upscaleHeight": "Gamescope'un kullanacağı dikey çözünürlük. 16:9 en boy oranı varsayılır.",
             "fpsLimiter": "Gamescope'un kaç kareye sınırlaması gerektiği. Örn. 60",
-            "fpsLimiterNoFocus": "Oyuna odaklanılmamışsa gamescope kare hızı sınırı saniye başına sınırlandırılmalıdır."
+            "fpsLimiterNoFocus": "Oyuna odaklanılmamışsa gamescope kare hızı sınırı saniye başına sınırlandırılmalıdır.",
+            "additionalOptions": "Gamescope'a aktarılacak ek komut satırı bayrakları."
         },
         "content": {
             "defaultInstallPath": "Bu, oyunlar kurulurken ön seçili gelen öntanımlı yoldur.",
@@ -340,7 +342,8 @@
             "downloadManager": "Download Manager",
             "wineManager": "Wine Yöneticisi",
             "library": "Kütüphane"
-        }
+        },
+        "msync": "Msync, İşlemci yoğun oyunlarda wine sunucu yükünü azaltmayı amaçlar. Etkinleştirmek, desteklenen Linux çekirdeklerinde başarımı artırabilir."
     },
     "info": {
         "heroic": {
@@ -503,7 +506,9 @@
             "gameWidth": "Oyun Genişliği",
             "upscaleHeight": "Yüksekliği Artır",
             "stretch": "Görüntüyü Uzat",
-            "interger": "Tamsayı Artırma"
+            "interger": "Tamsayı Artırma",
+            "additionalOptions": "Ek Seçenekler",
+            "windowed": "Pencereli"
         }
     },
     "other": {
@@ -676,7 +681,10 @@
             "enableLimiter": "FPS Sınırlayıcıyı Etkinleştir",
             "enableUpscaling": "Çözünürlük Artırmayı Etkinleştirir",
             "missingMsg": "PATH yolunda gamescope'u bulamadık. Kurun ya da PATH yoluna ekleyin."
-        }
+        },
+        "after-launch-script-path": "Oyun çıktıktan sonra çalıştırılacak betiği seç",
+        "before-launch-script-path": "Oyun başlatılmadan önce başlatılacak betiği seç",
+        "msync": "Msync Etkinleştir"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -886,11 +894,24 @@
     },
     "adtraction-locked": {
         "description": "track.adtraction.com alan adı yüklenemedi veya engellenmiş gibi görünüyor. Adtraction ile GOG mağazasında yaptığınız her satın alma, Heroic'i maddi olarak destekliyor. Katkıda bulunmak istiyorsanız engeli kaldırmayı düşünebilirsiniz.",
-        "dont-show-again": "Bu uyarıyı bir daha gösterme"
+        "dont-show-again": "Bu uyarıyı bir daha gösterme",
+        "title": "Adtraction заблоковано"
     },
     "wineExplanation": {
         "wine-ge-lol": "Wine-GE-Proton...-LoL sürümleri sadece League of Legends ile kullanılması amaçlanmıştır. Bu sürümler, başka herhangi bir oyun için kullanılmamalıdır çünkü sorunlara neden olabilirler.",
         "wine-ge": "Wine-GE-Proton Glorious Eggroll tarafından yapılmış bir Wine varyasyonudur. Steam dışında kullanılması önerilen Wine'dır. Sorun giderme sırasında kullanışlı hata günlükleri sağlar.",
         "proton-ge": "Proton-GE-Proton Glorious Eggroll tarafından yapılmış bir Proton varyasyonudur. Steam'de kullanılmak üzere tasarlanmış olsa da, bazı Steam dışı oyunlar bu varyant ile daha iyi çalışabilir. Sorun giderme için genellikle işe yaramaz hata günlükleri sağlar."
+    },
+    "categories-manager": {
+        "add-placeholder": "Yeni Kategori Ekle",
+        "add": "Додати",
+        "cancel-rename": "Скасувати перейменування \"{{name}}\"",
+        "no-categories": "Категорій поки що немає.",
+        "cancel-remove": "Скасувати видалення \"{{name}}\"",
+        "confirm-remove": "Підтвердити видалення \"{{name}}\"",
+        "confirm-rename": "Підтвердіть перейменування \"{{oldName}}\" на \"{{newName}}\"",
+        "rename": "\"{{name}}\" yeniden adlandır",
+        "title": "Kategorileri Yönet",
+        "remove": "\"{{name}}\" kaldır"
     }
 }
