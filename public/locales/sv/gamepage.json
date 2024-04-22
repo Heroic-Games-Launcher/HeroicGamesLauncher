@@ -232,7 +232,7 @@
         "uninstalling": "Avinstallerar",
         "updating": "Updaterar spelet",
         "playing": "Spelar",
-        "moving-files": "Flyttar filen '{{file}}': {{percent}} ",
+        "moving-files": "Flyttar fil '{{file}}': {{percent}}%",
         "syncingSaves": "Synkroniserar sparfiler",
         "launching": "Startar",
         "ubisoft": "Installerar Ubisoft",

@@ -33,7 +33,7 @@
         },
         "uninstall": {
             "checkbox": "Rimuovi prefisso: {{prefix}}{{newLine}}Nota: Questa operazione è irreversibile e verranno rimossi anche i salvataggi di cui non si è effettuato il backup.",
-            "message": "Vuoi disinstallare questo gioco?",
+            "message": "Vuoi disinstallare \"{{title}}\"?",
             "settingcheckbox": "Elimina le impostazioni e rimuovi il log{{newLine}}Nota: questa operazione non è reversibile. Tutte le impostazioni modificate saranno dimenticate e il log verrà eliminato.",
             "title": "Disinstalla",
             "prefix_warning": "Il prefisso Wine per questo gioco è il prefisso predefinito. Se vuoi davvero eliminarlo, devi farlo manualmente.",

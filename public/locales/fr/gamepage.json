@@ -103,7 +103,7 @@
         "builds": {
             "version": "Version",
             "buildsSelector": "Choisir la version du jeu",
-            "toggle": "Maintenir le jeu dans une version spécifique"
+            "toggle": "garder le jeu dans une version spécifique"
         },
         "changelogFor": "Changements effectués dans {{gameTitle}}",
         "modify": "Modifier l'installation"
@@ -231,7 +231,7 @@
         "uninstalling": "Désinstallation",
         "updating": "Mise à jour du jeu",
         "playing": "Jeu en cours d'exécution",
-        "moving-files": "Déplacement du fichier \"{{file}}\" : {{percent}} ",
+        "moving-files": "Déplacement du fichier \"{{file}}\" : {{percent}}",
         "syncingSaves": "Synchronisation des sauvegardes",
         "launching": "Lancement",
         "ubisoft": "Installation d'Ubisoft",
