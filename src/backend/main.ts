@@ -553,7 +553,10 @@ ipcMain.on('lock', (e, playing: boolean) => {
     powerId = powerSaveBlocker.start('prevent-app-suspension')
   }
 
-  if (playing && (!displaySleepId || !powerSaveBlocker.isStarted(displaySleepId))) {
+  if (
+    playing &&
+    (!displaySleepId || !powerSaveBlocker.isStarted(displaySleepId))
+  ) {
     logInfo('Preventing display to sleep', LogPrefix.Backend)
     displaySleepId = powerSaveBlocker.start('prevent-display-sleep')
   }
