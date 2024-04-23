@@ -197,8 +197,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 throw 'Cannot get game info'
               }
               if (
-                info.manifest.disk_size == 0 &&
-                info.manifest.download_size == 0
+                info.manifest.disk_size === 0 &&
+                info.manifest.download_size === 0
               ) {
                 setNotInstallable(true)
                 return

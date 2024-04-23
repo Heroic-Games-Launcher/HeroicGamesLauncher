@@ -52,7 +52,6 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { unzipSync } from 'node:zlib'
 import { readdirSync, rmSync, writeFileSync } from 'node:fs'
 import { checkForRedistUpdates } from './redist'
-import { version } from 'node:os'
 
 const library: Map<string, GameInfo> = new Map()
 const installedGames: Map<string, InstalledInfo> = new Map()
