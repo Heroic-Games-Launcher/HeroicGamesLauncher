@@ -52,6 +52,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { unzipSync } from 'node:zlib'
 import { readdirSync, rmSync, writeFileSync } from 'node:fs'
 import { checkForRedistUpdates } from './redist'
+import { version } from 'node:os'
 
 const library: Map<string, GameInfo> = new Map()
 const installedGames: Map<string, InstalledInfo> = new Map()
@@ -575,6 +576,28 @@ export async function getInstallInfo(
       `stdout = ${!!res.stdout} and res.abort = ${!!res.abort} in getInstallInfo`,
       LogPrefix.Gog
     )
+    if (res.stderr.includes("Game doesn't support content system api")) {
+      return {
+        game: {
+          app_name: appName,
+          title: gameData.title,
+          launch_options: [],
+          owned_dlc: [],
+          version: '',
+          branches: [],
+          buildId: ''
+        },
+        manifest: {
+          app_name: appName,
+          disk_size: 0,
+          download_size: 0,
+          languages: [],
+          versionEtag: '',
+          dependencies: [],
+          perLangSize: { '*': { download_size: 0, disk_size: 0 } }
+        }
+      }
+    }
     return
   }
 
@@ -964,11 +987,6 @@ export async function gogToUnifiedInfo(
     install: {
       is_dlc: false
     },
-    installable:
-      (galaxyProductInfo?.content_system_compatibility.osx ||
-        galaxyProductInfo?.content_system_compatibility.windows ||
-        galaxyProductInfo?.content_system_compatibility.linux) ??
-      false,
     is_installed: false,
     namespace: galaxyProductInfo?.slug,
     save_folder: '',

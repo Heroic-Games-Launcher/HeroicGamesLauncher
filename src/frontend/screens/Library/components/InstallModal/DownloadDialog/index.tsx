@@ -274,6 +274,32 @@ export default function DownloadDialog({
           selectedBuild,
           branch
         )
+
+        if (
+          gameInstallInfo?.manifest.disk_size === 0 &&
+          gameInstallInfo.manifest.download_size === 0
+        ) {
+          showDialogModal({
+            showDialog: true,
+            title: t(
+              'label.game.not-installable-game',
+              'Game is NOT Installable'
+            ),
+            message: t(
+              'status.gog-goodie',
+              "This game doesn't appear to be installable. Check downloadable content on https://gog.com/account"
+            ),
+            buttons: [
+              {
+                text: tr('box.ok')
+              }
+            ],
+            type: 'MESSAGE'
+          })
+          backdropClick()
+          return
+        }
+
         setGameInstallInfo(gameInstallInfo)
         setGettingInstallInfo(false)
 
