@@ -28,9 +28,7 @@ import { cpus } from 'os'
 import {
   existsSync,
   rmSync,
-  unlinkSync,
   watch,
-  writeFileSync,
   readdirSync,
   readFileSync
 } from 'graceful-fs'
