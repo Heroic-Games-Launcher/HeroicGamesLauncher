@@ -56,7 +56,7 @@ interface SyncIPCFunctions {
   changeLanguage: (language: string) => void
   notify: (args: { title: string; body: string }) => void
   frontendReady: () => void
-  lock: () => void
+  lock: (playing: boolean) => void
   unlock: () => void
   quit: () => void
   openExternalUrl: (url: string) => void

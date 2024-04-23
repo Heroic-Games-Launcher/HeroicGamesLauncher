@@ -545,24 +545,28 @@ process.on('uncaughtException', async (err) => {
 })
 
 let powerId: number | null
+let displaySleepId: number | null
 
-ipcMain.on('lock', () => {
-  if (!existsSync(join(gamesConfigPath, 'lock'))) {
-    writeFileSync(join(gamesConfigPath, 'lock'), '')
-    if (!powerId) {
-      logInfo('Preventing machine to sleep', LogPrefix.Backend)
-      powerId = powerSaveBlocker.start('prevent-app-suspension')
-    }
+ipcMain.on('lock', (e, playing: boolean) => {
+  if (!playing && (!powerId || !powerSaveBlocker.isStarted(powerId))) {
+    logInfo('Preventing machine to sleep', LogPrefix.Backend)
+    powerId = powerSaveBlocker.start('prevent-app-suspension')
+  }
+
+  if (playing && (!displaySleepId || !powerSaveBlocker.isStarted(displaySleepId))) {
+    logInfo('Preventing display to sleep', LogPrefix.Backend)
+    displaySleepId = powerSaveBlocker.start('prevent-display-sleep')
   }
 })
 
 ipcMain.on('unlock', () => {
-  if (existsSync(join(gamesConfigPath, 'lock'))) {
-    unlinkSync(join(gamesConfigPath, 'lock'))
-    if (powerId) {
-      logInfo('Stopping Power Saver Blocker', LogPrefix.Backend)
-      powerSaveBlocker.stop(powerId)
-    }
+  if (powerId && powerSaveBlocker.isStarted(powerId)) {
+    logInfo('Stopping Power Saver Blocker', LogPrefix.Backend)
+    powerSaveBlocker.stop(powerId)
+  }
+  if (displaySleepId && powerSaveBlocker.isStarted(displaySleepId)) {
+    logInfo('Stopping Display Sleep Blocker', LogPrefix.Backend)
+    powerSaveBlocker.stop(displaySleepId)
   }
 })
 
