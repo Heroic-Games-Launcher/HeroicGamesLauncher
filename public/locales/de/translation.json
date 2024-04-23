@@ -886,5 +886,8 @@
     "emptyLibrary": {
         "noGames": "Ihre Bibliothek ist leer. Sie können sich durch/bei einen Store <1>einloggen</1> oder auf <3></3> klicken, um manuell ein Spiel hinzuzufügen.",
         "noResults": "Die aktuellen Filter haben keine Suchergebnisse hervorgebracht."
+    },
+    "categories-manager": {
+        "add-placeholder": "Neue Kategorie hinzufügen"
     }
 }

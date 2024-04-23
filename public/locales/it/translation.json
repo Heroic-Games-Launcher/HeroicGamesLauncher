@@ -808,5 +808,8 @@
     },
     "window": {
         "close": "Chiudi"
+    },
+    "categories-manager": {
+        "add-placeholder": "Aggiungi una Nuova Categoria"
     }
 }

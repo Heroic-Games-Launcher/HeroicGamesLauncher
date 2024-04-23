@@ -768,5 +768,8 @@
     },
     "window": {
         "close": "Tutup"
+    },
+    "categories-manager": {
+        "add-placeholder": "Buat Kategori Baru"
     }
 }

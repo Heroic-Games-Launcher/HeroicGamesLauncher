@@ -803,5 +803,8 @@
         "maximize": "മാക്സിമൈസ് ചെയ്യുക",
         "close": "അടയ്ക്കുക",
         "minimize": "മാക്സിമൈസ് ചെയ്യുക"
+    },
+    "categories-manager": {
+        "add-placeholder": "പുതിയ വിഭാഗം സൃഷ്ടിക്കുക"
     }
 }

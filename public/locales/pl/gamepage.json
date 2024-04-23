@@ -187,7 +187,9 @@
     },
     "setting": {
         "use-default-wine-settings": "Użyj domyślnych ustawień Wine",
-        "winecrossoverbottle": "Butelka CrossOver"
+        "winecrossoverbottle": "Butelka CrossOver",
+        "show-wine-settings": "Pokaż ustawienia Wine",
+        "warn-use-default-wine-settings": "Używaj tylko, jeżeli wiesz co robisz.<br/>Współdzielenie tego samego prefiksu przez wiele gier może powodować problemy, jeżeli ich zależności nie są kompatybilne."
     },
     "sideload": {
         "field": {
@@ -230,7 +232,7 @@
         "uninstalling": "Odinstalowywanie",
         "updating": "Aktualizowanie gry",
         "playing": "W grze",
-        "moving-files": "Przenoszenie pliku „{{file}}”: {{percent}} ",
+        "moving-files": "Przenoszenie pliku „{{file}}”: {{percent}}%",
         "syncingSaves": "Synchronizowanie zapisów",
         "launching": "Uruchamianie",
         "ubisoft": "Instalowanie Ubisoft",

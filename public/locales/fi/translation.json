@@ -56,7 +56,7 @@
                 "title": "Pelikansio vaikuttaa olevan poistettu, haluatko poistaa tämän pelin asennettujen luettelosta?"
             },
             "generic": {
-                "message": "yleinen virheilmoitus",
+                "message": "yleinen virhesanoma",
                 "title": "Valitse ajettava EXE -tiedosto"
             },
             "launchAborted": "Käynnistys keskeytettiin",
@@ -290,12 +290,12 @@
             "part1": "Heroic etsii Wine, Proton- ja CrossOver -versioita seuraavista kansioista:",
             "part2": "Muille sijainneille käytä symbolista linkkiä johonkin näistä kansioista"
         },
-        "disable_logs": "Ota tämä valintaruutu PÄÄLLE, jos haluat poistaa suurimman osan lokitiedostoihin kirjoituksista (kriittiset tiedot kirjataan aina lokiin). Muista poistaa tämä asetus käytöstä ennen kuin ilmoitat ongelmasta.",
+        "disable_logs": "Ota tämä valintaruutu PÄÄLLE, jos haluat poistaa suurimman osan kirjoituksista lokitiedostoihin (kriittiset tiedot kirjataan aina). Muista poistaa tämä asetus käytöstä ennen kuin ilmoitat ongelmasta.",
         "dxvknvapi": "DXVK-NVAPI on NVAPI:n sulautus joka on rakennettu DXVK:n ja kotoperäisen Linux-NVAPI:n päälle, ja se mahdollistaa DLSS:n käytön Nvidian näytönohjaimilla.",
         "disablePlaytimeSync": "Kytkee pois päältä peliaikojen synkronisoinnin kauppojen palvelimien kanssa (tällä hetkellä vain GOG on tuettu)",
         "title": {
             "accessibility": "Käytettävyys",
-            "login": "Login",
+            "login": "Kirjaudu",
             "settings": "Asetukset",
             "downloadManager": "Download Manager",
             "wineManager": "Wine-hallinta",
@@ -749,7 +749,7 @@
         "size": "Koko"
     },
     "externalLink": {
-        "dontAskAgain": "Älä kysy uudelleen",
+        "dontAskAgain": "Älä kysy uudestaan",
         "warning": "Olet avaamassa ulkoista linkkiä."
     },
     "wiki_info": {

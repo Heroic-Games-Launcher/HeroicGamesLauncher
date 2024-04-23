@@ -836,5 +836,8 @@
         "maximize": "Maximizar janela",
         "close": "Fechar",
         "restore": "Restaurar janela"
+    },
+    "categories-manager": {
+        "add-placeholder": "Adicionar Nova Categoria"
     }
 }
