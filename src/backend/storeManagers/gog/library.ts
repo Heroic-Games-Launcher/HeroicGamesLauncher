@@ -404,13 +404,7 @@ export async function refresh(): Promise<ExecResult> {
         continue
       }
 
-      const product = await getProductApi(
-        game.external_id,
-        [],
-        credentials.access_token
-      ).catch(() => null)
-
-      const unifiedObject = await gogToUnifiedInfo(gdbData, product?.data)
+      const unifiedObject = await gogToUnifiedInfo(gdbData)
       if (unifiedObject.app_name) {
         const oldData = library.get(unifiedObject.app_name)
         if (oldData) {
@@ -943,29 +937,19 @@ export async function checkForGameUpdate(
  * That way it will be easly accessible on frontend
  */
 export async function gogToUnifiedInfo(
-  info: GamesDBData | undefined,
-  galaxyProductInfo: ProductsEndpointData | undefined
+  info: GamesDBData | undefined
 ): Promise<GameInfo> {
-  if (
-    !info ||
-    info.type === 'dlc' ||
-    !info.game.visible_in_library ||
-    (galaxyProductInfo &&
-      !galaxyProductInfo.is_installable &&
-      galaxyProductInfo.game_type !== 'game')
-  ) {
+  if (!info || info.type !== 'game' || !info.game.visible_in_library) {
     // @ts-expect-error TODO: Handle this somehow
     return {}
   }
 
-  const art_cover =
-    info.game?.logo?.url_format
-      ?.replace('{formatter}', '')
-      .replace('{ext}', 'jpg') || `https:${galaxyProductInfo?.images.logo2x}`
+  const art_cover = info.game?.logo?.url_format
+    ?.replace('{formatter}', '')
+    .replace('{ext}', 'jpg')
 
   const object: GameInfo = {
     runner: 'gog',
-    store_url: galaxyProductInfo?.links.product_card,
     developer: info.game.developers.map((dev) => dev.name).join(', '),
     app_name: String(info.external_id),
     art_cover,
@@ -979,17 +963,15 @@ export async function gogToUnifiedInfo(
     cloud_save_enabled: false,
     extra: {
       about: { description: info.summary['*'], shortDescription: '' },
-      reqs: [],
-      storeUrl: galaxyProductInfo?.links.product_card
+      reqs: []
     },
     folder_name: '',
     install: {
       is_dlc: false
     },
     is_installed: false,
-    namespace: galaxyProductInfo?.slug,
     save_folder: '',
-    title: (galaxyProductInfo?.title ?? info.game.title['en-US'] ?? '').trim(),
+    title: (info.game.title['en-US'] ?? '').trim(),
     canRunOffline: true,
     is_mac_native: Boolean(
       info.supported_operating_systems.find((os) => os.slug === 'osx')
