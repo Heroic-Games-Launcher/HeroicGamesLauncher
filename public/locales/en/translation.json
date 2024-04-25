@@ -6,6 +6,7 @@
         "disable_dialog_backdrop_close": "Disable closing dialogs by clicking outside",
         "fonts": "Fonts",
         "title": "Accessibility",
+        "titles_always_visible": "Always show titles in library",
         "zoom": "Zoom"
     },
     "add_game": "Add Game",
