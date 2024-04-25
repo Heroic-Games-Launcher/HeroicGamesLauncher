@@ -109,9 +109,9 @@ export default function WebView() {
   useEffect(() => {
     let mounted = true
     const fetchLocalPreloadPath = async () => {
-      const path = (await window.api.getLocalPeloadPath()) as unknown
+      const path = await window.api.getLocalPeloadPath()
       if (mounted) {
-        setPreloadPath(path as string)
+        setPreloadPath(path)
       }
     }
 
@@ -122,7 +122,7 @@ export default function WebView() {
     return () => {
       mounted = false
     }
-  }, [])
+  }, [isEpicLogin])
 
   useEffect(() => {
     if (pathname !== '/loginweb/nile') return
@@ -298,6 +298,8 @@ export default function WebView() {
       setShowLoginWarningFor('gog')
     } else if (startUrl.match(/gaming\.amazon\.com/) && !amazon.user_id) {
       setShowLoginWarningFor('amazon')
+    } else {
+      setShowLoginWarningFor(null)
     }
   }, [startUrl])
 
