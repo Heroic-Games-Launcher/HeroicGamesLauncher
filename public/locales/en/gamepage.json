@@ -145,8 +145,10 @@
     "install": {
         "anticheat-warning": {
             "cancel": "No",
+            "disabled_installation": "The anticheat support is broken or denied and the multiplayer features will not work. The game cannot be installed. To install this game, disable this check in the advanced settings.",
             "install_anyway": "Yes (I understand the multiplayer features will not work)",
             "multiplayer_message": "The anticheat support is broken or denied. The game may open but the multiplayer features will not work. Do you want to install it anyway?",
+            "ok": "Ok",
             "title": "Anticheat Broken/Denied"
         },
         "disk-space-left": "Space Available",
