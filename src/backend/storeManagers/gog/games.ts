@@ -119,19 +119,22 @@ export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
 
   const gamesData = await getGamesData(appName)
 
-  const gogStoreUrl = gamesData?._links?.store.href
+  let gogStoreUrl = gamesData?._links?.store.href
   const releaseDate =
     gamesData?._embedded.product?.globalReleaseDate?.substring(0, 19)
 
-  const storeUrl = new URL(gogStoreUrl)
-  storeUrl.hostname = 'af.gog.com'
-  storeUrl.searchParams.set('as', '1838482841')
+  if (gogStoreUrl) {
+    const storeUrl = new URL(gogStoreUrl)
+    storeUrl.hostname = 'af.gog.com'
+    storeUrl.searchParams.set('as', '1838482841')
+    gogStoreUrl = storeUrl.toString()
+  }
 
   const extra: ExtraInfo = {
     about: gameInfo.extra?.about,
     reqs,
     releaseDate,
-    storeUrl: storeUrl.toString(),
+    storeUrl: gogStoreUrl,
     changelog: productInfo?.data.changelog
   }
   return extra
