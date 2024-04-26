@@ -971,7 +971,7 @@ export async function gogToUnifiedInfo(
     },
     is_installed: false,
     save_folder: '',
-    title: (info.game.title['en-US'] ?? '').trim(),
+    title: ((info.title['*'] || info.game.title['*']) ?? '').trim(),
     canRunOffline: true,
     is_mac_native: Boolean(
       info.supported_operating_systems.find((os) => os.slug === 'osx')
