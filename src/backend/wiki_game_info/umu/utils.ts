@@ -1,10 +1,10 @@
 import axios from 'axios'
 import { Runner } from 'common/types'
-import { ulwglStore } from '../electronStore'
+import { umuStore } from '../electronStore'
 
 interface GameObject {
   title: string
-  ulwgl_id: string
+  umu_id: string
 }
 const storeMapping: { [key in Runner]?: string } = {
   gog: 'gog',
@@ -12,7 +12,7 @@ const storeMapping: { [key in Runner]?: string } = {
   nile: 'amazon'
 }
 
-export async function getUlwglId(
+export async function getUmuId(
   appName: string,
   runner: Runner
 ): Promise<string | null> {
@@ -21,12 +21,12 @@ export async function getUlwglId(
     return null
   }
   const key = `${runner}_${appName}`
-  const cachedValue = ulwglStore.get(key)
+  const cachedValue = umuStore.get(key)
   if (cachedValue) {
     return cachedValue
   }
   const response = await axios
-    .get<GameObject[]>('https://ulwgl.openwinecomponents.org/ulwgl_api.php', {
+    .get<GameObject[]>('https://umu.openwinecomponents.org/umu_api.php', {
       params: { codename: appName.toLowerCase(), store }
     })
     .catch(() => null)
@@ -35,10 +35,10 @@ export async function getUlwglId(
     return null
   }
   if (response.data.length === 0) {
-    ulwglStore.set(key, null)
+    umuStore.set(key, null)
     return null
   }
-  const ulwglId = response.data[0].ulwgl_id
-  ulwglStore.set(key, ulwglId)
-  return ulwglId
+  const umuId = response.data[0].umu_id
+  umuStore.set(key, umuId)
+  return umuId
 }

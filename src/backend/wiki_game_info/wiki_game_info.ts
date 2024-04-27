@@ -9,7 +9,7 @@ import { getInfoFromAppleGamingWiki } from './applegamingwiki/utils'
 import { getHowLongToBeat } from './howlongtobeat/utils'
 import { getInfoFromPCGamingWiki } from './pcgamingwiki/utils'
 import { isMac, isLinux } from '../constants'
-import { getUlwglId } from './ulwgl/utils'
+import { getUmuId } from './umu/utils'
 
 export async function getWikiGameInfo(
   title: string,
@@ -31,13 +31,13 @@ export async function getWikiGameInfo(
 
     logInfo(`Getting ExtraGameInfo data for ${title}`, LogPrefix.ExtraGameInfo)
 
-    const [pcgamingwiki, howlongtobeat, gamesdb, applegamingwiki, ulwglId] =
+    const [pcgamingwiki, howlongtobeat, gamesdb, applegamingwiki, umuId] =
       await Promise.all([
         getInfoFromPCGamingWiki(title, runner === 'gog' ? appName : undefined),
         getHowLongToBeat(title),
         getInfoFromGamesDB(title, appName, runner),
         isMac ? getInfoFromAppleGamingWiki(title) : null,
-        isLinux ? getUlwglId(appName, runner) : null
+        isLinux ? getUmuId(appName, runner) : null
       ])
 
     let steamInfo = null
@@ -64,7 +64,7 @@ export async function getWikiGameInfo(
       howlongtobeat,
       gamesdb,
       steamInfo,
-      ulwglId
+      umuId
     }
 
     wikiGameInfoStore.set(title, wikiGameInfo)

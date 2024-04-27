@@ -83,8 +83,8 @@ import {
   PositiveInteger
 } from './commands/base'
 import { LegendaryCommand } from './commands'
+import { getUmuId } from 'backend/wiki_game_info/umu/utils'
 import { Path } from 'backend/schemas'
-import { getUlwglId } from 'backend/wiki_game_info/ulwgl/utils'
 
 /**
  * Alias for `LegendaryLibrary.listUpdateableGames`
@@ -840,9 +840,9 @@ export async function launch(
     const { bin: wineExec, type: wineType } = gameSettings.wineVersion
 
     if (wineType === 'proton') {
-      const ulwglId = await getUlwglId(gameInfo.app_name, gameInfo.runner)
-      if (ulwglId) {
-        commandEnv['GAMEID'] = ulwglId
+      const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
+      if (umuId) {
+        commandEnv['GAMEID'] = umuId
       }
     }
     // Fix for people with old config

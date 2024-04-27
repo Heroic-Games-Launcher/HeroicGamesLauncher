@@ -6,6 +6,6 @@ export const wikiGameInfoStore = new CacheStore<WikiInfo>(
   60 * 24 * 30
 )
 
-export const ulwglStore = new CacheStore<string | null>('ulwgl', 60 * 6, {
+export const umuStore = new CacheStore<string | null>('umu', 60 * 6, {
   invalidateCheck: (data) => !data
 })

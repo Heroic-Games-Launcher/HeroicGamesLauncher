@@ -432,7 +432,7 @@ export function getWineFlags(
   wrapper: string
 ): AllowedWineFlags {
   let partialCommand: AllowedWineFlags = {}
-  const ulwglSupported = isUlwglSupported(wineType)
+  const umuSupported = isUmuSupported(wineType)
   switch (wineType) {
     case 'wine':
     case 'toolkit':
@@ -446,9 +446,9 @@ export function getWineFlags(
           `${wrapper} "${wineBin}" waitforexitandrun`
         )
       }
-      if (ulwglSupported) {
+      if (umuSupported) {
         partialCommand['--wrapper'] = NonEmptyString.parse(
-          `${wrapper} "${join(runtimePath, 'ulwgl', 'ulwgl-run')}"`
+          `${wrapper} "${join(runtimePath, 'umu', 'umu-run')}"`
         )
       }
       break
@@ -482,11 +482,11 @@ export function getWineFlagsArray(
   return commandArray
 }
 
-export function isUlwglSupported(wineType: WineInstallation['type']): boolean {
+export function isUmuSupported(wineType: WineInstallation['type']): boolean {
   return (
     wineType === 'proton' &&
-    GlobalConfig.get().getSettings().experimentalFeatures?.ulwglSupport !==
+    GlobalConfig.get().getSettings().experimentalFeatures?.umuSupport !==
       false &&
-    existsSync(join(runtimePath, 'ulwgl', 'ulwgl-run'))
+    existsSync(join(runtimePath, 'umu', 'umu-run'))
   )
 }

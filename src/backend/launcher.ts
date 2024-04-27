@@ -79,7 +79,7 @@ import { download, isInstalled } from './wine/runtimes/runtimes'
 import { storeMap } from 'common/utils'
 import { runWineCommandOnGame } from './storeManagers/legendary/games'
 import { sendFrontendMessage } from './main_window'
-import { isUlwglSupported } from './utils/compatibility_layers'
+import { isUmuSupported } from './utils/compatibility_layers'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
@@ -229,7 +229,7 @@ async function prepareLaunch(
   let steamRuntime: string[] = []
   const shouldUseRuntime =
     gameSettings.useSteamRuntime &&
-    (isNative || !isUlwglSupported(gameSettings.wineVersion.type))
+    (isNative || !isUmuSupported(gameSettings.wineVersion.type))
 
   if (shouldUseRuntime) {
     // Determine which runtime to use based on toolmanifest.vdf which is shipped with proton
@@ -483,7 +483,7 @@ function setupWrapperEnvVars(wrapperEnv: WrapperEnv) {
 
   ret.HEROIC_APP_NAME = wrapperEnv.appName
   ret.HEROIC_APP_RUNNER = wrapperEnv.appRunner
-  ret.GAMEID = 'ulwgl-0'
+  ret.GAMEID = 'umu-0'
 
   switch (wrapperEnv.appRunner) {
     case 'gog':
@@ -763,7 +763,7 @@ export async function verifyWinePrefix(
   const command = runWineCommand({
     commandParts:
       wineVersion.type === 'proton' &&
-      GlobalConfig.get().getSettings().experimentalFeatures?.ulwglSupport !==
+      GlobalConfig.get().getSettings().experimentalFeatures?.umuSupport !==
         false
         ? ['createprefix']
         : ['wineboot', '--init'],
@@ -853,7 +853,7 @@ async function runWineCommand({
 
   const env_vars = {
     ...process.env,
-    GAMEID: 'ulwgl-0',
+    GAMEID: 'umu-0',
     ...setupEnvVars(settings),
     ...setupWineEnvVars(settings, installFolderName),
     PROTON_VERB: protonVerb
@@ -866,20 +866,20 @@ async function runWineCommand({
   return new Promise<{ stderr: string; stdout: string }>((res) => {
     const wrappers = options?.wrappers || []
     let bin = ''
-    const ulwglSupported = isUlwglSupported(wineVersion.type)
+    const umuSupported = isUmuSupported(wineVersion.type)
 
     if (wrappers.length) {
       bin = wrappers.shift()!
-      if (ulwglSupported) {
-        const ulwglBin = join(runtimePath, 'ulwgl', 'ulwgl-run')
-        commandParts.unshift(...wrappers, ulwglBin)
+      if (umuSupported) {
+        const umuBin = join(runtimePath, 'umu', 'umu-run')
+        commandParts.unshift(...wrappers, umuBin)
       } else {
         commandParts.unshift(...wrappers, wineBin)
       }
     } else {
       bin = wineBin
-      if (ulwglSupported) {
-        bin = join(runtimePath, 'ulwgl', 'ulwgl-run')
+      if (umuSupported) {
+        bin = join(runtimePath, 'umu', 'umu-run')
       }
     }
 
