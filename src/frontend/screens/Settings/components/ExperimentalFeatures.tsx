@@ -13,7 +13,7 @@ const ExperimentalFeatures = () => {
     FEATURES.push('automaticWinetricksFixes')
   }
 
-  if(platform === 'linux') {
+  if (platform === 'linux') {
     FEATURES.push('umuSupport')
   }
 
