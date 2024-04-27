@@ -111,6 +111,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [progress, previousProgress] = hasProgress(appName)
 
   const [extraInfo, setExtraInfo] = useState<ExtraInfo | null>(null)
+  const [notInstallable, setNotInstallable] = useState<boolean>(false)
   const [gameInstallInfo, setGameInstallInfo] = useState<InstallInfo | null>(
     null
   )
@@ -142,8 +143,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const isInstallingWinetricksPackages = status === 'winetricks'
   const isInstallingRedist = status === 'redist'
   const notAvailable = !gameAvailable && gameInfo.is_installed
-  const notInstallable =
-    gameInfo.installable !== undefined && !gameInfo.installable
   const notSupportedGame =
     gameInfo.runner !== 'sideload' && gameInfo.thirdPartyManagedApp === 'Origin'
   const isOffline = connectivity.status !== 'online'
@@ -172,6 +171,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       if (gameInfo && status) {
         const {
           install,
+          is_installed,
           is_linux_native = undefined,
           is_mac_native = undefined
         } = { ...gameInfo }
@@ -186,6 +186,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
         if (
           runner !== 'sideload' &&
+          !is_installed &&
           !notSupportedGame &&
           !notInstallable &&
           !isOffline
@@ -194,6 +195,13 @@ export default React.memo(function GamePage(): JSX.Element | null {
             .then((info) => {
               if (!info) {
                 throw 'Cannot get game info'
+              }
+              if (
+                info.manifest.disk_size === 0 &&
+                info.manifest.download_size === 0
+              ) {
+                setNotInstallable(true)
+                return
               }
               setGameInstallInfo(info)
             })
@@ -381,7 +389,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     />
                     <Description />
                     <CloudSavesSync gameInfo={gameInfo} />
-                    <DownloadSizeInfo gameInfo={gameInfo} />
+                    {!notInstallable && (
+                      <DownloadSizeInfo gameInfo={gameInfo} />
+                    )}
                     <InstalledInfo gameInfo={gameInfo} />
                     <Scores gameInfo={gameInfo} />
                     <HLTB />

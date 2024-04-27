@@ -39,6 +39,7 @@ import StoreLogos from 'frontend/components/UI/StoreLogos'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 import { getCardStatus, getImageFormatting } from './constants'
 import { hasStatus } from 'frontend/hooks/hasStatus'
+import fallBackImage from 'frontend/assets/heroic_card.jpg'
 import LibraryContext from '../../LibraryContext'
 
 interface Card {
@@ -411,7 +412,7 @@ const GameCard = ({
             <StoreLogos runner={runner} />
             {justPlayed ? (
               <CachedImage
-                src={art_cover}
+                src={art_cover || fallBackImage}
                 className="justPlayedImg"
                 alt={title}
               />

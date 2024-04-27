@@ -31,10 +31,6 @@ const DownloadSizeInfo = ({ gameInfo }: Props) => {
     return null
   }
 
-  if (gameInfo.installable !== undefined && !gameInfo.installable) {
-    return null
-  }
-
   const downloadSize =
     gameInstallInfo?.manifest?.download_size &&
     size(Number(gameInstallInfo?.manifest?.download_size))
