@@ -234,7 +234,7 @@ devDependencies:
     version: 5.47.1(eslint@8.36.0)(typescript@4.9.4)
   '@vitejs/plugin-react-swc':
     specifier: 3.2.0
-    version: 3.2.0(vite@3.2.8)
+    version: 3.2.0(vite@3.2.10)
   cross-env:
     specifier: 7.0.3
     version: 7.0.3
@@ -305,14 +305,14 @@ devDependencies:
     specifier: 1.26.0
     version: 1.26.0(eslint@8.36.0)
   vite:
-    specifier: 3.2.8
-    version: 3.2.8(@types/node@18.15.0)(sass@1.59.2)
+    specifier: 3.2.10
+    version: 3.2.10(@types/node@18.15.0)(sass@1.59.2)
   vite-plugin-electron:
     specifier: 0.10.2
     version: 0.10.2
   vite-plugin-svgr:
     specifier: 2.4.0
-    version: 2.4.0(vite@3.2.8)
+    version: 2.4.0(vite@3.2.10)
 
 packages:
 
@@ -2636,13 +2636,13 @@ packages:
       eslint-visitor-keys: 3.4.3
     dev: true
 
-  /@vitejs/plugin-react-swc@3.2.0(vite@3.2.8):
+  /@vitejs/plugin-react-swc@3.2.0(vite@3.2.10):
     resolution: {integrity: sha512-IcBoXL/mcH7JdQr/nfDlDwTdIaH8Rg7LpfQDF4nAht+juHWIuv6WhpKPCSfY4+zztAaB07qdBoFz1XCZsgo3pQ==}
     peerDependencies:
       vite: ^4
     dependencies:
       '@swc/core': 1.4.11
-      vite: 3.2.8(@types/node@18.15.0)(sass@1.59.2)
+      vite: 3.2.10(@types/node@18.15.0)(sass@1.59.2)
     transitivePeerDependencies:
       - '@swc/helpers'
     dev: true
@@ -4160,7 +4160,7 @@ packages:
   /discord-rich-presence-typescript@0.0.8:
     resolution: {integrity: sha512-X4q/v4AVRbxCMcfWL4ESCAtbG+GzuKL997BkZtVjDKS/B8foyE1iUWx0BpRZKiFQJS0OQXFesyWSrLjZJDBaog==}
     dependencies:
-      discord-rpc: github.com/discordjs/rpc/9e7de2a6d917591f10a66389e62e1dc053c04fec
+      discord-rpc: git/github.com+discordjs/rpc/9e7de2a6d917591f10a66389e62e1dc053c04fec
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -4385,6 +4385,7 @@ packages:
 
   /emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
+    requiresBuild: true
     dev: true
 
   /emoji-regex@9.2.2:
@@ -6051,6 +6052,7 @@ packages:
   /is-fullwidth-code-point@3.0.0:
     resolution: {integrity: sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg==}
     engines: {node: '>=8'}
+    requiresBuild: true
     dev: true
 
   /is-generator-fn@2.1.0:
@@ -9889,21 +9891,21 @@ packages:
     resolution: {integrity: sha512-sPGHDvIsMqmk/C2ZJue2JoZkO9L1cEum3J4hUUkeUPNHh0fg4EOfQiDoY//h2Cd8aCpoUiRpa1vHEYmypjBkgg==}
     dev: true
 
-  /vite-plugin-svgr@2.4.0(vite@3.2.8):
+  /vite-plugin-svgr@2.4.0(vite@3.2.10):
     resolution: {integrity: sha512-q+mJJol6ThvqkkJvvVFEndI4EaKIjSI0I3jNFgSoC9fXAz1M7kYTVUin8fhUsFojFDKZ9VHKtX6NXNaOLpbsHA==}
     peerDependencies:
       vite: ^2.6.0 || 3 || 4
     dependencies:
       '@rollup/pluginutils': 5.1.0
       '@svgr/core': 6.5.1
-      vite: 3.2.8(@types/node@18.15.0)(sass@1.59.2)
+      vite: 3.2.10(@types/node@18.15.0)(sass@1.59.2)
     transitivePeerDependencies:
       - rollup
       - supports-color
     dev: true
 
-  /vite@3.2.8(@types/node@18.15.0)(sass@1.59.2):
-    resolution: {integrity: sha512-EtQU16PLIJpAZol2cTLttNP1mX6L0SyI0pgQB1VOoWeQnMSvtiwovV3D6NcjN8CZQWWyESD2v5NGnpz5RvgOZA==}
+  /vite@3.2.10(@types/node@18.15.0)(sass@1.59.2):
+    resolution: {integrity: sha512-Dx3olBo/ODNiMVk/cA5Yft9Ws+snLOXrhLtrI3F4XLt4syz2Yg8fayZMWScPKoz12v5BUv7VEmQHnsfpY80fYw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -10175,6 +10177,32 @@ packages:
     resolution: {integrity: sha512-EjIevzuJRiRPbVH4mGc8nApb/lVLKVpmUhAaR5R5doKGfAnGJ6Gr3CViAVjP+4FWSxCsybeWQdcgCtbX+7oZug==}
     dev: false
 
+  git/github.com+devsnek/node-register-scheme/e7cc9a63a1f512565da44cb57316d9fb10750e17:
+    resolution: {commit: e7cc9a63a1f512565da44cb57316d9fb10750e17, repo: git@github.com:devsnek/node-register-scheme.git, type: git}
+    name: register-scheme
+    version: 0.0.2
+    requiresBuild: true
+    dependencies:
+      bindings: 1.5.0
+      node-addon-api: 1.7.2
+    dev: false
+    optional: true
+
+  git/github.com+discordjs/rpc/9e7de2a6d917591f10a66389e62e1dc053c04fec:
+    resolution: {commit: 9e7de2a6d917591f10a66389e62e1dc053c04fec, repo: git@github.com:discordjs/rpc.git, type: git}
+    name: discord-rpc
+    version: 4.0.1
+    dependencies:
+      node-fetch: 2.7.0
+      ws: 7.5.9
+    optionalDependencies:
+      register-scheme: git/github.com+devsnek/node-register-scheme/e7cc9a63a1f512565da44cb57316d9fb10750e17
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - utf-8-validate
+    dev: false
+
   github.com/castlabs/electron-releases/11c396ff7aa05e8fd8049193b58684f119cc0b8d:
     resolution: {tarball: https://codeload.github.com/castlabs/electron-releases/tar.gz/11c396ff7aa05e8fd8049193b58684f119cc0b8d}
     name: electron
@@ -10189,29 +10217,3 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
-
-  github.com/devsnek/node-register-scheme/e7cc9a63a1f512565da44cb57316d9fb10750e17:
-    resolution: {tarball: https://codeload.github.com/devsnek/node-register-scheme/tar.gz/e7cc9a63a1f512565da44cb57316d9fb10750e17}
-    name: register-scheme
-    version: 0.0.2
-    requiresBuild: true
-    dependencies:
-      bindings: 1.5.0
-      node-addon-api: 1.7.2
-    dev: false
-    optional: true
-
-  github.com/discordjs/rpc/9e7de2a6d917591f10a66389e62e1dc053c04fec:
-    resolution: {tarball: https://codeload.github.com/discordjs/rpc/tar.gz/9e7de2a6d917591f10a66389e62e1dc053c04fec}
-    name: discord-rpc
-    version: 4.0.1
-    dependencies:
-      node-fetch: 2.7.0
-      ws: 7.5.9
-    optionalDependencies:
-      register-scheme: github.com/devsnek/node-register-scheme/e7cc9a63a1f512565da44cb57316d9fb10750e17
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - utf-8-validate
-    dev: false
