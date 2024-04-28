@@ -24,7 +24,8 @@ import {
   shutdownWine,
   sendProgressUpdate,
   sendGameStatusUpdate,
-  getPathDiskSize
+  getPathDiskSize,
+  getCometBin
 } from '../../utils'
 import {
   ExtraInfo,
@@ -101,6 +102,7 @@ import { readdir, readFile } from 'fs/promises'
 import { statSync } from 'fs'
 import ini from 'ini'
 import { getRequiredRedistList, updateRedist } from './redist'
+import { spawn } from 'child_process'
 
 export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   const gameInfo = getGameInfo(appName)
@@ -667,13 +669,21 @@ export async function launch(
   )
   appendGamePlayLog(gameInfo, `Launch Command: ${fullCommand}\n\nGame Log:\n`)
 
+  const userData: UserData | undefined = configStore.get_nodefault('userData')
+
   sendGameStatusUpdate({ appName, runner: 'gog', status: 'playing' })
 
-  sendGameStatusUpdate({
-    appName,
-    runner: 'gog',
-    status: 'playing'
-  })
+  let child = undefined
+
+  if (userData && userData.username) {
+    const path = getCometBin()
+    child = spawn(join(path.dir, path.bin), [
+      '--from-heroic',
+      '--username',
+      userData.username
+    ])
+    logInfo(`Launching Comet!`, LogPrefix.Gog)
+  }
 
   const { error, abort } = await runGogdlCommand(commandParts, {
     abortId: appName,
@@ -684,6 +694,11 @@ export async function launch(
       if (!logsDisabled) appendGamePlayLog(gameInfo, output)
     }
   })
+
+  if (child) {
+    logInfo(`Killing Comet!`, LogPrefix.Gog)
+    child.kill()
+  }
 
   if (abort) {
     return true
