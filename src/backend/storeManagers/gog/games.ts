@@ -673,14 +673,13 @@ export async function launch(
 
   sendGameStatusUpdate({ appName, runner: 'gog', status: 'playing' })
 
-  let child = undefined
-
   if (userData && userData.username) {
     const path = getCometBin()
-    child = spawn(join(path.dir, path.bin), [
+    spawn(join(path.dir, path.bin), [
       '--from-heroic',
       '--username',
-      userData.username
+      userData.username,
+      '--quit'
     ])
     logInfo(`Launching Comet!`, LogPrefix.Gog)
   }
@@ -694,11 +693,6 @@ export async function launch(
       if (!logsDisabled) appendGamePlayLog(gameInfo, output)
     }
   })
-
-  if (child) {
-    logInfo(`Killing Comet!`, LogPrefix.Gog)
-    child.kill()
-  }
 
   if (abort) {
     return true
