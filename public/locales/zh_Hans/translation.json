@@ -6,7 +6,8 @@
         "fonts": "字体",
         "title": "辅助功能",
         "zoom": "缩放",
-        "disable_dialog_backdrop_close": "在对话框外单击禁用关闭对话框"
+        "disable_dialog_backdrop_close": "在对话框外单击禁用关闭对话框",
+        "titles_always_visible": "始终在游戏库中显示标题"
     },
     "add_game": "添加游戏",
     "All": "全部",
