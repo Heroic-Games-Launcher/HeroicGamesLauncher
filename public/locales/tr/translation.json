@@ -6,7 +6,8 @@
         "fonts": "Yazı Tipleri",
         "title": "Erişilebilirlik",
         "zoom": "Yakınlaştır",
-        "disable_dialog_backdrop_close": "Kutucuğın dışına tıklayarak kapanış diyaloglarını devre dışı bırakın"
+        "disable_dialog_backdrop_close": "Kutucuğın dışına tıklayarak kapanış diyaloglarını devre dışı bırakın",
+        "titles_always_visible": "Kütüphanede her zaman başlıkları göster"
     },
     "add_game": "Oyun Ekle",
     "All": "Tümü",
