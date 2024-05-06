@@ -6,7 +6,8 @@
         "fonts": "Polices d'écriture",
         "title": "Accessibilité",
         "zoom": "Agrandir",
-        "disable_dialog_backdrop_close": "Désactiver la fermeture de fenêtres par un clic en dehors"
+        "disable_dialog_backdrop_close": "Désactiver la fermeture de fenêtres par un clic en dehors",
+        "titles_always_visible": "Toujours afficher les titres dans la bibliothèque"
     },
     "add_game": "Ajouter un jeu",
     "All": "Tout",
