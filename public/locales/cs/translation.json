@@ -6,7 +6,8 @@
         "fonts": "Písma",
         "title": "Přístupnost",
         "zoom": "Přiblížení",
-        "disable_dialog_backdrop_close": "Zakázat zavření dialogů kliknutím pryč"
+        "disable_dialog_backdrop_close": "Zakázat zavření dialogů kliknutím pryč",
+        "titles_always_visible": "Vždy zobrazovat názvy v knihovně"
     },
     "add_game": "Přidat hru",
     "All": "Vše",
