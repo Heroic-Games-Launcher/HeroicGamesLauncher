@@ -6,7 +6,8 @@
         "fonts": "Typsnitt",
         "title": "Handikappsanpassning",
         "zoom": "Zoom",
-        "disable_dialog_backdrop_close": "Inaktivera stängning av dialogrutor genom att klicka utanför"
+        "disable_dialog_backdrop_close": "Inaktivera stängning av dialogrutor genom att klicka utanför",
+        "titles_always_visible": "Visa alltid titlar i bibliotek"
     },
     "add_game": "Lägg till spel",
     "All": "Alla",

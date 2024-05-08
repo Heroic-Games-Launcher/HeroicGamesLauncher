@@ -149,7 +149,9 @@
             "cancel": "Hayır",
             "message": "Anti hile desteği bozuldu ya da reddedildi. Oyun çalışmayacak. Yine de kurmak istiyor musunuz?",
             "install": "Evet (Bunun işe yaramayacağının farkındayım)",
-            "title": "Anti Hile Bozuldu/Reddedildi"
+            "title": "Anti Hile Bozuldu/Reddedildi",
+            "install_anyway": "Evet (çoklu oyuncu özelliklerinin çalışmayabileceğini anlıyorum)",
+            "multiplayer_message": "Hile önleyici desteği hatalı veya red edildi. Oyun açılabilir fakat çoklu oyuncu özellikleri çalışmayabilir. Yinede yüklemek istiyor musun?"
         },
         "flatpak-path-not-writtable": "Hata: Bu yola sandbox erişimi verilmedi, veri kaybı yaşanacak."
     },
@@ -232,7 +234,7 @@
         "uninstalling": "Kaldırılıyor",
         "updating": "Oyun Güncelleniyor",
         "playing": "Oynanıyor",
-        "moving-files": "'{{file}}' dosyası taşınıyor: {{percent}} ",
+        "moving-files": "'{{file}}' dosyası taşınıyor: % {{percent}}",
         "syncingSaves": "Kayıtlar Senkronize Ediliyor",
         "launching": "Başlatılıyor",
         "ubisoft": "Ubisoft Kuruluyor",

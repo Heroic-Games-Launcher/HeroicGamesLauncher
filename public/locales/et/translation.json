@@ -167,7 +167,7 @@
                 "message": "Mõningaid võimalusi ei ole äpi Snap versioonis saadaval ning me üritame seda parandada.{{newLine}}Praeguste piirangute hulgas on: {{newLine}}Heroic ei leia Protonit üles Steamist või Lutrisest.{{newLine}}{{newLine}}Gamescope, GameMode ja MangoHud ei toimi, sest Heroicul ei ole neile ligipääsu.{{newLine}}{{newLine}}Et sellest mööda pääseda, installeerige Heroic kasutades Flatpaki, DEB-i või AppImage'it."
             }
         },
-        "wineprefix": "Valige Wine prefiksi kaust",
+        "wineprefix": "Valige WinePrefiksi kaust",
         "yes": "JAH",
         "dontShowAgain": "Ära enam näita",
         "choose-nile-binary": "Valige Nile programm",

@@ -7,7 +7,7 @@
         "title": "Προσβασιμότητα",
         "zoom": "Zoom"
     },
-    "add_game": "Add Game",
+    "add_game": "Προσθήκη παιχνιδιού",
     "All": "Όλα",
     "anticheat": {
         "anticheats": "Προστασία από cheats",
@@ -155,13 +155,13 @@
             },
             "sideload": {
                 "confirmExit": {
-                    "title": "Είστε σίγουροι πως θέλετε να αποσυνδεθείτε;"
+                    "title": "Είστε σίγουροι πως θέλετε να κλείσετε;"
                 }
             }
         },
         "wineprefix": "Διαλέξτε τον φάκελο Προθέματος Wine",
         "yes": "ΝΑΙ",
-        "dontShowAgain": "Μην εμφανιστείτε ξανά",
+        "dontShowAgain": "Μην εμφανιστεί ξανά",
         "choose-nile-binary": "Επιλέξτε Nile binary",
         "update": "Ενημέρωση"
     },
@@ -734,5 +734,10 @@
     "category-settings": {
         "cancel": "Ακύρωση",
         "warning": "Προειδοποίηση"
+    },
+    "adtraction-locked": {
+        "description": "Φαίνεται οτί το track.adtrastion.com domain δεν μπορούσε να φορτώσει ή είναι μπλοκαρισμένο. Με το adtraction, ότι αγορές κανετε στο GOG Store υποστειρίζεται το Heroic οικονομικά. Σκεφτείτε να αφερέσετε το block εάν θέλετε να υποστειρίξεται.",
+        "dont-show-again": "Μην δείξετε την προειδοποίηση ξανά",
+        "title": "Adtraction είναι μπλοκαρισμένο"
     }
 }
