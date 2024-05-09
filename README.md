@@ -207,7 +207,7 @@ Otherwise, download the file ending in .dmg from the [latest release](https://gi
 
 This part will walk you through setting up a development environment so you can build Heroic binaries yourself or make changes to the code.
 
-1. Make sure Git, NodeJS, and PNPM are installed  
+1. Make sure Git, NodeJS, and pnpm 9 are installed  
    **NOTE**: On Windows, due to an issue with electron-builder, you'll need the standalone version of pnpm (`@pnpm/exe`)
    to build packages
 2. Clone the repo and enter the cloned folder, for example with these commands:
