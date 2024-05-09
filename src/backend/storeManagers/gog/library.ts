@@ -970,7 +970,8 @@ export async function gogToUnifiedInfo(
     art_icon: icon,
     extra: {
       about: { description: info.summary['*'], shortDescription: '' },
-      reqs: []
+      reqs: [],
+      genres: info.game.genres.map((genre) => genre.name['*'])
     },
     folder_name: '',
     install: {

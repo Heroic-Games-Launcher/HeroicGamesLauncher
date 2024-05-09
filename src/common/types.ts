@@ -121,6 +121,7 @@ export interface ExtraInfo {
   releaseDate?: string
   storeUrl?: string
   changelog?: string
+  genres?: string[]
 }
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'

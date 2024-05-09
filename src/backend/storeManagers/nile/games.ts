@@ -102,7 +102,8 @@ export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
           description: info.description,
           shortDescription: info.description
         }
-      : undefined
+      : undefined,
+    releaseDate: info?.extra?.releaseDate
   }
 }
 

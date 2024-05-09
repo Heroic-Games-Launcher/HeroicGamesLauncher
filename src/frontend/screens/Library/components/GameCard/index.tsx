@@ -423,7 +423,7 @@ const GameCard = ({
                 alt="cover"
               />
             )}
-            {logo && (
+            {runner !== 'nile' && logo && (
               <CachedImage
                 alt="logo"
                 src={`${logo}?h=400&resize=1&w=300`}
