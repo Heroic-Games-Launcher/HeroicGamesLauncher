@@ -943,10 +943,14 @@ export async function gogToUnifiedInfo(
     // @ts-expect-error TODO: Handle this somehow
     return {}
   }
+  const background = info.game.background?.url_format
+    .replace('{formatter}', '')
+    .replace('{ext}', 'webp')
 
-  const art_cover = info.game?.logo?.url_format
-    ?.replace('{formatter}', '')
-    .replace('{ext}', 'jpg')
+  const art_cover =
+    info.game?.logo?.url_format
+      ?.replace('{formatter}', '')
+      .replace('{ext}', 'jpg') ?? background
 
   const icon = (
     info.game?.square_icon.url_format || info.game?.icon?.url_format
@@ -963,9 +967,7 @@ export async function gogToUnifiedInfo(
       info.game.vertical_cover?.url_format
         .replace('{formatter}', '')
         .replace('{ext}', 'jpg') || art_cover, // fallback to art_cover if undefined
-    art_background: info.game.background?.url_format
-      .replace('{formatter}', '')
-      .replace('{ext}', 'webp'),
+    art_background: background,
     cloud_save_enabled: false,
     art_icon: icon,
     extra: {
