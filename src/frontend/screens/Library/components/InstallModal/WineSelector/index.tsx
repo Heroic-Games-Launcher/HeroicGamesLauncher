@@ -66,8 +66,8 @@ export default function WineSelector({
       } else {
         const dirName =
           removeSpecialcharacters(title) || removeSpecialcharacters(appName)
-        const sugestedWinePrefix = `${prefixFolder}/${dirName}`
-        setWinePrefix(sugestedWinePrefix)
+        const suggestedWinePrefix = `${prefixFolder}/${dirName}`
+        setWinePrefix(suggestedWinePrefix)
         setWineVersion(wineVersion || undefined)
       }
     }
