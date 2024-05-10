@@ -948,13 +948,11 @@ export async function gogToUnifiedInfo(
     ?.replace('{formatter}', '')
     .replace('{ext}', 'jpg')
 
-  const icon =
-    info.game?.square_icon.url_format
-      ?.replace('{formatter}', '')
-      .replace('{ext}', 'jpg') ||
-    info.game?.icon?.url_format
-      ?.replace('{formatter}', '')
-      .replace('{ext}', 'jpg')
+  const icon = (
+    info.game?.square_icon.url_format || info.game?.icon?.url_format
+  )
+    ?.replace('{formatter}', '')
+    .replace('{ext}', 'jpg')
 
   const object: GameInfo = {
     runner: 'gog',
