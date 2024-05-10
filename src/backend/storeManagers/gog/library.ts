@@ -948,6 +948,14 @@ export async function gogToUnifiedInfo(
     ?.replace('{formatter}', '')
     .replace('{ext}', 'jpg')
 
+  const icon =
+    info.game?.square_icon.url_format
+      ?.replace('{formatter}', '')
+      .replace('{ext}', 'jpg') ||
+    info.game?.icon?.url_format
+      ?.replace('{formatter}', '')
+      .replace('{ext}', 'jpg')
+
   const object: GameInfo = {
     runner: 'gog',
     developer: info.game.developers.map((dev) => dev.name).join(', '),
@@ -961,6 +969,7 @@ export async function gogToUnifiedInfo(
       .replace('{formatter}', '')
       .replace('{ext}', 'webp'),
     cloud_save_enabled: false,
+    art_icon: icon,
     extra: {
       about: { description: info.summary['*'], shortDescription: '' },
       reqs: []
