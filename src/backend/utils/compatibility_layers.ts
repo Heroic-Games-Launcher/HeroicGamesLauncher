@@ -302,11 +302,16 @@ export async function getCrossover(): Promise<Set<WineInstallation>> {
 
   const crossoverMacPath = new Set<string>()
 
-  // search for crossover installed on /Applications/CrossOver.app
-  const crossoverAppPath = '/Applications/CrossOver.app'
-  if (existsSync(crossoverAppPath)) {
-    crossoverMacPath.add(crossoverAppPath)
-  }
+  // search for crossover installed on default path
+  const crossoverDefaultPath = [
+    '/Applications/CrossOver.app',
+    '/Applications/CrossOver Preview.app'
+  ]
+  crossoverDefaultPath.forEach((crossoverAppPath) => {
+    if (existsSync(crossoverAppPath)) {
+      crossoverMacPath.add(crossoverAppPath)
+    }
+  })
 
   // search for crossover installed around the system
   await execAsync(
