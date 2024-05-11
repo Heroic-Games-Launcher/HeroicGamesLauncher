@@ -536,15 +536,32 @@ async function getSteamRuntime(
   return allAvailableRuntimes.pop()!
 }
 
-function constructAndUpdateRPC(gameName: string): RpcClient {
+function constructAndUpdateRPC(gameInfo: GameInfo): RpcClient {
   const client = makeClient('852942976564723722')
+  const versionText = `Heroic ${app.getVersion()}`
+
+  const image = gameInfo.art_icon || gameInfo.art_square
+  const title = gameInfo.title
+
+  const overrides = image.startsWith('http')
+    ? {
+        largeImageKey: image,
+        smallImageKey: 'icon_new',
+        largeImageText: title,
+        smallImageText: versionText
+      }
+    : {
+        largeImageKey: 'icon_new',
+        largeImageText: versionText
+      }
+
   client.updatePresence({
-    details: gameName,
+    details: title,
     instance: true,
-    largeImageKey: 'icon_new',
-    large_text: gameName,
+    large_text: title,
     startTimestamp: Date.now(),
-    state: 'via Heroic on ' + getFormattedOsName()
+    state: 'via Heroic on ' + getFormattedOsName(),
+    ...overrides
   })
   logInfo('Started Discord Rich Presence', LogPrefix.Backend)
   return client

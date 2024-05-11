@@ -132,6 +132,7 @@ export interface GameInfo {
   art_cover: string
   art_logo?: string
   art_background?: string
+  art_icon?: string
   art_square: string
   cloud_save_enabled?: boolean
   developer?: string
