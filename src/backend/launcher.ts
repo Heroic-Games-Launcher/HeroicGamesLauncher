@@ -1368,7 +1368,9 @@ async function runScriptForGame(
   scriptPath: string
 ): Promise<boolean | string> {
   return new Promise((resolve, reject) => {
-    const child = spawn(scriptPath, { cwd: gameInfo.install.install_path })
+    var scriptEnv = { GAMEINFO_TITLE: gameInfo.title , GAMEINFO_EXEC: gameInfo.install.executable };
+    Object.assign(scriptEnv, process.env);
+    const child = spawn(scriptPath, { cwd: gameInfo.install.install_path , env: scriptEnv })
 
     child.stdout.on('data', (data) => {
       appendGamePlayLog(gameInfo, data.toString())
