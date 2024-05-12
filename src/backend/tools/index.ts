@@ -209,6 +209,12 @@ export const DXVK = {
 
     tool = isMac ? 'dxvk-macOS' : tool
 
+    const is64bitPrefix = existsSync(`${winePrefix}/drive_c/windows/syswow64`)
+
+    if (!is64bitPrefix) {
+      logWarning('Installing DXVK on a 32-bit prefix!', LogPrefix.DXVKInstaller)
+    }
+
     if (!existsSync(`${toolsPath}/${tool}/latest_${tool}`)) {
       logWarning('dxvk not found!', LogPrefix.DXVKInstaller)
       await DXVK.getLatest()
@@ -249,23 +255,25 @@ export const DXVK = {
       logInfo('Removing DLL overrides', LogPrefix.DXVKInstaller)
 
       // unregister the dlls on the wine prefix
-      dlls64.forEach(async (dll) => {
-        dll = dll.replace('.dll', '')
-        const unregisterDll = [
-          'reg',
-          'delete',
-          'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides',
-          '/v',
-          dll,
-          '/f'
-        ]
-        await runWineCommand({
-          gameSettings,
-          commandParts: unregisterDll,
-          wait: true,
-          protonVerb: 'run'
+      if (is64bitPrefix) {
+        dlls64.forEach(async (dll) => {
+          dll = dll.replace('.dll', '')
+          const unregisterDll = [
+            'reg',
+            'delete',
+            'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides',
+            '/v',
+            dll,
+            '/f'
+          ]
+          await runWineCommand({
+            gameSettings,
+            commandParts: unregisterDll,
+            wait: true,
+            protonVerb: 'run'
+          })
         })
-      })
+      }
       dlls32.forEach(async (dll) => {
         dll = dll.replace('.dll', '')
         const unregisterDll = [
@@ -294,11 +302,27 @@ export const DXVK = {
     }
 
     // copy the new dlls to the prefix
-    dlls32.forEach((dll) => {
-      if (!isMac) {
+    if (is64bitPrefix) {
+      dlls32.forEach((dll) => {
+        if (!isMac) {
+          copyFile(
+            `${toolPathx32}/${dll}`,
+            `${winePrefix}/drive_c/windows/syswow64/${dll}`,
+            (err) => {
+              if (err) {
+                logError(
+                  [`Error when copying ${dll}`, err],
+                  LogPrefix.DXVKInstaller
+                )
+              }
+            }
+          )
+        }
+      })
+      dlls64.forEach((dll) => {
         copyFile(
-          `${toolPathx32}/${dll}`,
-          `${winePrefix}/drive_c/windows/syswow64/${dll}`,
+          `${toolPathx64}/${dll}`,
+          `${winePrefix}/drive_c/windows/system32/${dll}`,
           (err) => {
             if (err) {
               logError(
@@ -308,44 +332,49 @@ export const DXVK = {
             }
           }
         )
-      }
-    })
-    dlls64.forEach((dll) => {
-      copyFile(
-        `${toolPathx64}/${dll}`,
-        `${winePrefix}/drive_c/windows/system32/${dll}`,
-        (err) => {
-          if (err) {
-            logError(
-              [`Error when copying ${dll}`, err],
-              LogPrefix.DXVKInstaller
-            )
-          }
+      })
+    } else {
+      dlls32.forEach((dll) => {
+        if (!isMac) {
+          copyFile(
+            `${toolPathx32}/${dll}`,
+            `${winePrefix}/drive_c/windows/system32/${dll}`,
+            (err) => {
+              if (err) {
+                logError(
+                  [`Error when copying ${dll}`, err],
+                  LogPrefix.DXVKInstaller
+                )
+              }
+            }
+          )
         }
-      )
-    })
+      })
+    }
 
     // register dlls on the wine prefix
-    dlls64.forEach(async (dll) => {
-      // remove the .dll extension otherwise will fail
-      dll = dll.replace('.dll', '')
-      const registerDll = [
-        'reg',
-        'add',
-        'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides',
-        '/v',
-        dll,
-        '/d',
-        'native,builtin',
-        '/f'
-      ]
-      await runWineCommand({
-        gameSettings,
-        commandParts: registerDll,
-        wait: true,
-        protonVerb: 'run'
+    if (is64bitPrefix) {
+      dlls64.forEach(async (dll) => {
+        // remove the .dll extension otherwise will fail
+        dll = dll.replace('.dll', '')
+        const registerDll = [
+          'reg',
+          'add',
+          'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides',
+          '/v',
+          dll,
+          '/d',
+          'native,builtin',
+          '/f'
+        ]
+        await runWineCommand({
+          gameSettings,
+          commandParts: registerDll,
+          wait: true,
+          protonVerb: 'run'
+        })
       })
-    })
+    }
     dlls32.forEach(async (dll) => {
       // remove the .dll extension otherwise will fail
       dll = dll.replace('.dll', '')
