@@ -1369,8 +1369,8 @@ async function runScriptForGame(
 ): Promise<boolean | string> {
   return new Promise((resolve, reject) => {
     const scriptEnv = {
-      GAMEINFO_TITLE: gameInfo.title,
-      GAMEINFO_EXEC: gameInfo.install.executable
+      HEROIC_GAMEINFO_EXEC: gameInfo.install.executable,
+      HEROIC_GAMEINFO_TITLE: gameInfo.title
     }
     Object.assign(scriptEnv, process.env)
     const child = spawn(scriptPath, {
