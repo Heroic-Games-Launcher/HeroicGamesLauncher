@@ -1370,6 +1370,7 @@ async function runScriptForGame(
   return new Promise((resolve, reject) => {
     const scriptEnv = {
       HEROIC_GAMEINFO_EXEC: gameInfo.install.executable,
+      HEROIC_GAMEINFO_RUNNER: gameInfo.runner,
       HEROIC_GAMEINFO_TITLE: gameInfo.title
     }
     Object.assign(scriptEnv, process.env)
