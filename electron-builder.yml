@@ -1,7 +1,6 @@
 appId: com.heroicgameslauncher.hgl
 productName: Heroic
 afterSign: sign/afterSign.js
-afterPack: sign/afterPack.js
 files:
   - build/**/*
   - node_modules/**/*
@@ -15,9 +14,6 @@ asarUnpack:
   - build/icon-dark.png
   - build/icon-light.png
   - build/webviewPreload.js
-
-electronDownload:
-  mirror: https://github.com/castlabs/electron-releases/releases/download/v
 
 protocols:
   - name: heroic
@@ -42,8 +38,6 @@ mac:
   icon: build/icon.icns
   entitlements: build/entitlements.mac.plist
   entitlementsInherit: build/entitlements.mac.plist
-  notarize:
-    appBundleId: com.heroicgameslauncher.hgl
   extendInfo:
     com.apple.security.cs.allow-jit: true
   asarUnpack:

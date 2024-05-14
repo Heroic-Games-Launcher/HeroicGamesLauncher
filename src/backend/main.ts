@@ -19,7 +19,6 @@ import {
   protocol,
   screen,
   clipboard,
-  components,
   session
 } from 'electron'
 import 'backend/updater'
@@ -322,17 +321,6 @@ if (!gotTheLock) {
           callback({ cancel: false, requestHeaders: details.requestHeaders })
         }
       )
-    }
-
-    if (!process.env.CI) {
-      await components.whenReady().catch((e) => {
-        logError([
-          'Failed to download / update DRM components.',
-          'Make sure you do not block update.googleapis.com domain if you want to use WideVine in Browser sideloaded apps',
-          e
-        ])
-      })
-      logInfo(['DRM module staus', components.status()])
     }
 
     // try to fix notification app name on windows
