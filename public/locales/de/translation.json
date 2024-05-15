@@ -891,8 +891,7 @@
     },
     "wineExplanation": {
         "wine-ge": "Wine-GE-Proton ist eine Wine-Variation erstellt von Glorious Eggroll. Es ist gedacht zur Verwendung außerhalb von Steam. Zudem stellt es nützliche Fehlerprotokolle bereit.",
-        "proton-ge": "Proton-GE-Proton ist eine Variante von Proton, geschaffen von Glorious Eggroll. Obwohl diese Variante für Steam gedacht ist funktionieren einige Spiele außerhalb Steams trotzdem besser mit dieser. Es stellt jedoch größtenteils nutzlose Fehlerprotokolle bereit.",
-        "wine-ge-lol": "Wine-GE-Proton...-LoL Builds sind NUR für den Gebrauch mit League of Legends gedacht. Diese Builds sollten NICHT mit anderen Spielen verwendet werden, da sie Probleme verursachen können."
+        "proton-ge": "Proton-GE-Proton ist eine Variante von Proton, geschaffen von Glorious Eggroll. Obwohl diese Variante für Steam gedacht ist funktionieren einige Spiele außerhalb Steams trotzdem besser mit dieser. Es stellt jedoch größtenteils nutzlose Fehlerprotokolle bereit."
     },
     "emptyLibrary": {
         "noGames": "Ihre Bibliothek ist leer. Sie können sich durch/bei einen Store <1>einloggen</1> oder auf <3></3> klicken, um manuell ein Spiel hinzuzufügen.",

@@ -890,7 +890,6 @@
     },
     "wineExplanation": {
         "proton-ge": "Proton-GE-Proton és una variant del Proton creada per Glorious Eggroll. S'ha de fer servir amb l'Steam, però alguns jocs de fora de l'Steam també poden funcionar millor amb el Proton-GE-Proton. Proporciona registres generalment poc útils per a la solució de problemes.",
-        "wine-ge-lol": "Els Wine-GE-Proton...-LoL estan dissenyats per a fer-los servir només amb el League of Legends. No s'han de fer servir per a altres jocs, ja que poden causar problemes.",
         "wine-ge": "Wine-GE-Proton és una variant del Wine creada per Glorious Eggroll. És el Wine recomanat per a fer servir fora d'Steam. Proporciona registres útils per a la solució de problemes."
     },
     "emptyLibrary": {
