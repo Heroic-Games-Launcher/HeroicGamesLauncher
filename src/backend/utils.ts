@@ -942,7 +942,7 @@ export async function checkWineBeforeLaunch(
 
       appendGamePlayLog(
         gameInfo,
-        `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`
+        `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.\n`
       )
     }
 
