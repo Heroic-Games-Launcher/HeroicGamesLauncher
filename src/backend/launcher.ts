@@ -1323,7 +1323,7 @@ async function runBeforeLaunchScript(
     `Running script before ${gameInfo.title} (${gameSettings.beforeLaunchScriptPath})\n`
   )
 
-  return runScriptForGame(gameInfo, gameSettings.beforeLaunchScriptPath)
+  return runScriptForGame(gameInfo, gameSettings, 'before')
 }
 
 async function runAfterLaunchScript(
@@ -1338,7 +1338,7 @@ async function runAfterLaunchScript(
     gameInfo,
     `Running script after ${gameInfo.title} (${gameSettings.afterLaunchScriptPath})\n`
   )
-  return runScriptForGame(gameInfo, gameSettings.afterLaunchScriptPath)
+  return runScriptForGame(gameInfo, gameSettings, 'after')
 }
 
 /* Execute script before launch/after exit, wait until the script
@@ -1365,13 +1365,21 @@ async function runAfterLaunchScript(
  */
 async function runScriptForGame(
   gameInfo: GameInfo,
-  scriptPath: string
+  gameSettings: GameSettings,
+  scriptStage: string
 ): Promise<boolean | string> {
   return new Promise((resolve, reject) => {
+    const scriptPath =
+      scriptStage === 'before'
+        ? gameSettings.beforeLaunchScriptPath
+        : gameSettings.afterLaunchScriptPath
     const scriptEnv = {
-      HEROIC_GAMEINFO_EXEC: gameInfo.install.executable,
-      HEROIC_GAMEINFO_RUNNER: gameInfo.runner,
-      HEROIC_GAMEINFO_TITLE: gameInfo.title
+      HEROIC_GAME_APP_NAME: gameInfo.app_name,
+      HEROIC_GAME_EXEC: gameInfo.install.executable,
+      HEROIC_GAME_PREFIX: gameSettings.winePrefix,
+      HEROIC_GAME_RUNNER: gameInfo.runner,
+      HEROIC_GAME_SCRIPT_STAGE: scriptStage,
+      HEROIC_GAME_TITLE: gameInfo.title
     }
     Object.assign(scriptEnv, process.env)
     const child = spawn(scriptPath, {
