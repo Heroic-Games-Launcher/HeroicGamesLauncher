@@ -15,6 +15,7 @@ import SettingsContext from '../../SettingsContext'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { GameStatus } from 'common/types'
 import {
+  AllowInstallationBrokenAnticheat,
   AltGOGdlBin,
   AltLegendaryBin,
   AltNileBin,
@@ -174,6 +175,8 @@ export default function AdvancedSetting() {
       <DownloadNoHTTPS />
 
       <DisableLogs />
+
+      <AllowInstallationBrokenAnticheat />
 
       <hr />
 

@@ -99,6 +99,7 @@ export interface AppSettings extends GameSettings {
   maxWorkers: number
   minimizeOnLaunch: boolean
   startInTray: boolean
+  allowInstallationBrokenAnticheat: boolean
 }
 
 export type LibraryTopSectionOptions =
