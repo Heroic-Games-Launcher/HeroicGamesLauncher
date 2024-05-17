@@ -383,7 +383,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   <div className="infoWrapper">
                     <Genres
                       genres={
-                        gameInfo.extra?.genres ||
+                        extraInfo?.genres ||
                         wikiInfo?.pcgamingwiki?.genres ||
                         []
                       }
