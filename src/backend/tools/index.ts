@@ -212,7 +212,7 @@ export const DXVK = {
     const is64bitPrefix = existsSync(`${winePrefix}/drive_c/windows/syswow64`)
 
     if (!is64bitPrefix) {
-      logWarning('Installing DXVK on a 32-bit prefix!', LogPrefix.DXVKInstaller)
+      logWarning('32-bit prefix detected!', LogPrefix.DXVKInstaller)
     }
 
     if (!existsSync(`${toolsPath}/${tool}/latest_${tool}`)) {
@@ -292,9 +292,9 @@ export const DXVK = {
         })
       })
 
-      logInfo('Restoring Wine DLLs', LogPrefix.DXVKInstaller)
+      logInfo('removing DXVK DLLs', LogPrefix.DXVKInstaller)
 
-      // restore wine dlls
+      // removing DXVK dlls
       const lib32 = gameSettings.wineVersion.lib32
       const wineLib32 = lib32.replace('~', userHome)
       if (is64bitPrefix) {
