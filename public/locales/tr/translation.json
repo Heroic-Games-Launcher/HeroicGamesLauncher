@@ -899,7 +899,6 @@
         "title": "Adtraction заблоковано"
     },
     "wineExplanation": {
-        "wine-ge-lol": "Wine-GE-Proton...-LoL sürümleri sadece League of Legends ile kullanılması amaçlanmıştır. Bu sürümler, başka herhangi bir oyun için kullanılmamalıdır çünkü sorunlara neden olabilirler.",
         "wine-ge": "Wine-GE-Proton Glorious Eggroll tarafından yapılmış bir Wine varyasyonudur. Steam dışında kullanılması önerilen Wine'dır. Sorun giderme sırasında kullanışlı hata günlükleri sağlar.",
         "proton-ge": "Proton-GE-Proton Glorious Eggroll tarafından yapılmış bir Proton varyasyonudur. Steam'de kullanılmak üzere tasarlanmış olsa da, bazı Steam dışı oyunlar bu varyant ile daha iyi çalışabilir. Sorun giderme için genellikle işe yaramaz hata günlükleri sağlar."
     },

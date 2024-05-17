@@ -894,8 +894,7 @@
     },
     "wineExplanation": {
         "proton-ge": "Proton-GE-Proton on Protoni variant, mille lõi Glorious Eggroll. See on mõeldud Steami jaoks kasutamiseks, aga mõned Steami-välised mängud võivad sellega paremini töötada. Selle tõrkeotsingu logid on enamasti kasutud.",
-        "wine-ge": "Wine-GE-Proton on Wine'i variant, mille lõi Glorious Eggroll. See on soovitatav Wine'i versioon, mida kasutada väljaspool Steami. Selle tõrkeotsingu logid on kasulikud ja asjakohased.",
-        "wine-ge-lol": "Wine-GE-Proton...-LoL versioone tuleks kasutada AINULT League of Legendsi jaoks. Neid versioone EI TOHIKS kasutada ühegi teise mänguga, sest nad võivad tekitada probleeme."
+        "wine-ge": "Wine-GE-Proton on Wine'i variant, mille lõi Glorious Eggroll. See on soovitatav Wine'i versioon, mida kasutada väljaspool Steami. Selle tõrkeotsingu logid on kasulikud ja asjakohased."
     },
     "adtraction-locked": {
         "description": "Näib, et track.adtraction.com domeeni ei olnud võimalik laadida või on keelatud. Tänu adtractionile, iga ost, mida GOG poes teete, toetab rahaliselt Heroicut. Kui soovite aidata, palun eemaldage keeld.",

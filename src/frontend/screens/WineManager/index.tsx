@@ -63,7 +63,6 @@ export default function WineManager(): JSX.Element | null {
     WineManagerUISettings[]
   >([
     { type: 'Wine-GE', value: 'winege', enabled: isLinux },
-    { type: 'Wine-GE-LoL', value: 'winege-lol', enabled: isLinux },
     { type: 'Proton-GE', value: 'protonge', enabled: isLinux },
     { type: 'Wine-Crossover', value: 'winecrossover', enabled: !isLinux },
     { type: 'Wine-Staging-macOS', value: 'winestagingmacos', enabled: !isLinux }
@@ -74,11 +73,7 @@ export default function WineManager(): JSX.Element | null {
 
     if (repo.startsWith('Wine-GE')) {
       versions = versions.filter((version) => version.type === 'Wine-GE')
-      if (repo.endsWith('LoL')) {
-        return versions.filter((version) => version.version.endsWith('LoL'))
-      } else {
-        return versions.filter((version) => !version.version.endsWith('LoL'))
-      }
+      return versions.filter((version) => !version.version.endsWith('LoL'))
     } else {
       return versions.filter((version) => version.type === repo)
     }
@@ -123,16 +118,6 @@ export default function WineManager(): JSX.Element | null {
             {t(
               'wineExplanation.wine-ge',
               'Wine-GE-Proton is a Wine variant created by Glorious Eggroll. It is the recommended Wine to be used outside Steam. This provides useful logs when troubleshooting.'
-            )}
-          </div>
-        )
-      case 'Wine-GE-LoL':
-        return (
-          <div className="infoBox">
-            <FontAwesomeIcon icon={faWarning} color={'red'} />
-            {t(
-              'wineExplanation.wine-ge-lol',
-              'Wine-GE-Proton...-LoL builds are meant to be used ONLY for League of Legends. These buils should NOT be used for any other game since they can cause problems.'
             )}
           </div>
         )
