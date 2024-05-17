@@ -7,10 +7,9 @@ import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import {
   WineVersionInfo,
-  ProgressInfo,
   Repositorys,
-  State,
-  VersionInfo
+  VersionInfo,
+  WineManagerStatus
 } from 'common/types'
 
 import { getAvailableVersions, installVersion } from './downloader/main'
@@ -89,7 +88,7 @@ async function updateWineVersionInfos(
 
 async function installWineVersion(
   release: WineVersionInfo,
-  onProgress: (state: State, progress?: ProgressInfo) => void
+  onProgress: (status: WineManagerStatus) => void
 ) {
   let updatedInfo: WineVersionInfo
   const variant = release.hasUpdate ? 'update' : 'installation'
