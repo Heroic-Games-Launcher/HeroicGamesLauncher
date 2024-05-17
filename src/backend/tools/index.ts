@@ -292,7 +292,7 @@ export const DXVK = {
         })
       })
 
-      logInfo('removing DXVK DLLs', LogPrefix.DXVKInstaller)
+      logInfo('Removing DXVK DLLs', LogPrefix.DXVKInstaller)
 
       // removing DXVK dlls
       const lib32Path =
