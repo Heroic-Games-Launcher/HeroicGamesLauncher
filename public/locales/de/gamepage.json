@@ -149,7 +149,8 @@
             "message": "Die Unterstützung vom Anticheat-System ist kaputt oder wurde verweigert. Das Spiel wird nicht funktionieren. Möchtest Du es trotzdem installieren?",
             "title": "Unterstützung vom Anticheat-System kaputt oder verweigert",
             "cancel": "Nein",
-            "install": "Ja (Ich verstehe, dass es nicht funktionieren wird)"
+            "install": "Ja (Ich verstehe, dass es nicht funktionieren wird)",
+            "ok": "Ok"
         },
         "flatpak-path-not-writtable": "Fehler: Sandbox Zugriff auf diesen Pfad nicht authorisiert. Datenverlust wird eintreten."
     },
