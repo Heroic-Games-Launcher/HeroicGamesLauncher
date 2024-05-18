@@ -151,7 +151,9 @@
             "install": "Oui (mais cela risque de ne pas fonctionner)",
             "title": "Système anti-triche non fonctionnel",
             "install_anyway": "Oui (je comprends que les éléments multijoueurs ne fonctionneront pas)",
-            "multiplayer_message": "La compatibilité avec l'anti-triche est cassée ou refusée. Le jeu peut être exécuté mais les éléments multijoueurs ne fonctionneront pas. Voulez-vous l'installer quand même ?"
+            "multiplayer_message": "La compatibilité avec l'anti-triche est cassée ou refusée. Le jeu peut être exécuté mais les éléments multijoueurs ne fonctionneront pas. Voulez-vous l'installer quand même ?",
+            "ok": "Ok",
+            "disabled_installation": "La compatibilité avec les systèmes anti-triche est interrompue ou déniée ; les éléments multijoueur ne fonctionneront donc pas. Le jeu ne peut pas être installé. Pour installer ce jeu quand même, désactivez cette vérification dans les paramètres avancés."
         },
         "flatpak-path-not-writtable": "Erreur : le chemin n'est pas accessible en mode bac-à-sable, risque de perte de données."
     },
