@@ -149,7 +149,10 @@
             "cancel": "No",
             "message": "La compatibilitat amb el sistema antitrampes s'ha trencat o rebutjat. El joc no funcionarà. Segur que el voleu instal·lar de totes maneres?",
             "install": "Sí (entenc que no funcionarà)",
-            "title": "Antitrampes trencat/rebutjat"
+            "title": "Antitrampes trencat/rebutjat",
+            "multiplayer_message": "El suport antitrampes està trencat o s'ha blocat. El joc pot executar-se però les característiques multijugador no funcionaran. Voleu instal·lar-lo igualment?",
+            "install_anyway": "Sí (entenc que les funcions multijugador no funcionen)",
+            "ok": "Ok"
         },
         "flatpak-path-not-writtable": "Error: L'accés lliure a aquest camí no està garantit. Potser es perden dades."
     },
