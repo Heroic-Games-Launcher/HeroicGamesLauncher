@@ -140,6 +140,7 @@
         "size": "Size",
         "steamdeck-compatibility-info": "SteamDeck Compatibility",
         "syncsaves": "Sync Saves",
+        "third-party-app": "Third-Party Manager",
         "version": "Version"
     },
     "install": {
@@ -271,5 +272,10 @@
         "settings": "Settings",
         "store": "Store Page",
         "verify": "Verify and Repair"
+    },
+    "third-party-managed": {
+        "header": "This game is managed by a third-party application",
+        "notice1": "This game is managed by a third-party application: \"{{application_name}}\"",
+        "notice2": "After clicking Install, Heroic will run the application in order to complete the installation process"
     }
 }
