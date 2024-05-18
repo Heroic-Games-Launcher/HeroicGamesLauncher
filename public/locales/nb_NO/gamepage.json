@@ -140,7 +140,10 @@
         "path-not-writtable": "Advarsel: banen er kanskje ikke skrivbar.",
         "space-after-install": "Etter installasjon",
         "wineprefix": "WinePrefix",
-        "wineversion": "Vinversjon"
+        "wineversion": "Vinversjon",
+        "anticheat-warning": {
+            "ok": "OK"
+        }
     },
     "label": {
         "game": {
