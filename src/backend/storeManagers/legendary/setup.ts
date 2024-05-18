@@ -4,9 +4,10 @@ import { getInstallInfo } from './library'
 import { sendGameStatusUpdate } from 'backend/utils'
 import { enable, getStatus, isEnabled } from './eos_overlay/eos_overlay'
 import { split } from 'shlex'
-import { logError } from 'backend/logger/logger'
+import { logError, logInfo, LogPrefix } from 'backend/logger/logger'
 import { runWineCommand } from 'backend/launcher'
 import { GameConfig } from 'backend/game_config'
+import { epicRedistPath } from 'backend/constants'
 
 export const legendarySetup = async (appName: string) => {
   const gameInfo = getGameInfo(appName)
@@ -37,9 +38,15 @@ export const legendarySetup = async (appName: string) => {
   })
 
   const winPlatforms = ['Windows', 'Win32', 'windows']
+  const isEAManaged =
+    gameInfo.thirdPartyManagedApp &&
+    ['origin', 'the ea app'].includes(
+      gameInfo.thirdPartyManagedApp.toLowerCase()
+    )
   if (
     gameInfo.install.platform &&
-    winPlatforms.includes(gameInfo.install.platform)
+    winPlatforms.includes(gameInfo.install.platform) &&
+    !isEAManaged
   ) {
     try {
       const info = await getInstallInfo(appName, gameInfo.install.platform)
@@ -62,6 +69,24 @@ export const legendarySetup = async (appName: string) => {
       }
     } catch (error) {
       logError(`getInstallInfo failed with ${error}`)
+    }
+  }
+
+  if (isEAManaged) {
+    const installerPath = join(epicRedistPath, 'EAappInstaller.exe')
+    try {
+      await runWineCommand({
+        gameSettings,
+        commandParts: [
+          installerPath,
+          'EAX_LAUNCH_CLIENT=0',
+          'IGNORE_INSTALLED=1'
+        ],
+        wait: true,
+        protonVerb: 'run'
+      })
+    } catch (e) {
+      logError(`Failed to run EA App installer ${e}`, LogPrefix.Legendary)
     }
   }
 

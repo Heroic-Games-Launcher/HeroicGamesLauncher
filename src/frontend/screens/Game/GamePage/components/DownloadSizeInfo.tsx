@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import GameContext from '../../GameContext'
-import { CloudDownload, Storage } from '@mui/icons-material'
+import { CloudDownload, Storage, Assignment } from '@mui/icons-material'
 import { size } from 'frontend/helpers'
 import { GameInfo } from 'common/types'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -28,7 +28,13 @@ const DownloadSizeInfo = ({ gameInfo }: Props) => {
   }
 
   if (gameInfo.thirdPartyManagedApp) {
-    return null
+    return (
+      <div className="iconWithText">
+        <Assignment />
+        <b>{t('info.third-party-app', 'Third-Party Manager')}</b>
+        {gameInfo.thirdPartyManagedApp}
+      </div>
+    )
   }
 
   const downloadSize =

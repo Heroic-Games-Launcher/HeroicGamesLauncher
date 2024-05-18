@@ -56,6 +56,7 @@ import { LegendaryCommand } from './commands'
 import { LegendaryAppName, LegendaryPlatform } from './commands/base'
 import { Path } from 'backend/schemas'
 import shlex from 'shlex'
+import thirdParty from './thirdParty'
 import { Entries } from 'type-fest'
 
 const allGames: Set<string> = new Set()
@@ -129,22 +130,29 @@ async function refreshLegendary(): Promise<ExecResult> {
  */
 export function refreshInstalled() {
   const installedJSON = join(legendaryConfigPath, 'installed.json')
+
+  let installedCache: [string, InstalledJsonMetadata][] = []
   if (existsSync(installedJSON)) {
     try {
-      installedGames = new Map(
-        Object.entries(JSON.parse(readFileSync(installedJSON, 'utf-8')))
-      )
+      installedCache = Object.entries(
+        JSON.parse(readFileSync(installedJSON, 'utf-8'))
+      ) as [string, InstalledJsonMetadata][]
     } catch (error) {
       // disabling log here because its giving false positives on import command
       logError(
         ['Corrupted installed.json file, cannot load installed games', error],
         LogPrefix.Legendary
       )
-      installedGames = new Map()
+      installedCache = []
     }
   } else {
-    installedGames = new Map()
+    installedCache = []
   }
+
+  const thirdPartyGames = thirdParty.getInstalledGames()
+  installedCache.push(...thirdPartyGames)
+
+  installedGames = new Map(installedCache)
 }
 
 const defaultExecResult = {
@@ -867,7 +875,7 @@ export async function getLaunchOptions(
 ): Promise<LaunchOption[]> {
   const gameInfo = getGameInfo(appName)
   const installPlatform = gameInfo?.install.platform
-  if (!installPlatform) return []
+  if (!installPlatform || gameInfo.thirdPartyManagedApp) return []
 
   const installInfo = await getInstallInfo(appName, installPlatform)
   const launchOptions: LaunchOption[] = installInfo.game.launch_options

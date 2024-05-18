@@ -48,7 +48,10 @@ export function hasStatus(
         return setGameStatus({ status, folder, label, statusContext })
       }
 
-      if (thirdPartyManagedApp === 'Origin') {
+      if (
+        thirdPartyManagedApp &&
+        !['origin', 'the ea app'].includes(thirdPartyManagedApp.toLowerCase())
+      ) {
         const label = getStatusLabel({
           status: 'notSupportedGame',
           t,
@@ -61,7 +64,7 @@ export function hasStatus(
         })
       }
 
-      if (is_installed) {
+      if (is_installed && !thirdPartyManagedApp) {
         const gameAvailable = await handleNonAvailableGames(appName, runner)
         if (!gameAvailable) {
           const label = getStatusLabel({

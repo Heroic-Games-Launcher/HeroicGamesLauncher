@@ -144,7 +144,11 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const isInstallingRedist = status === 'redist'
   const notAvailable = !gameAvailable && gameInfo.is_installed
   const notSupportedGame =
-    gameInfo.runner !== 'sideload' && gameInfo.thirdPartyManagedApp === 'Origin'
+    gameInfo.runner !== 'sideload' &&
+    !!gameInfo.thirdPartyManagedApp &&
+    !['origin', 'the ea app'].includes(
+      gameInfo.thirdPartyManagedApp.toLowerCase()
+    )
   const isOffline = connectivity.status !== 'online'
 
   const backRoute = location.state?.fromDM ? '/download-manager' : '/library'
@@ -172,6 +176,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
         const {
           install,
           is_installed,
+          thirdPartyManagedApp,
           is_linux_native = undefined,
           is_mac_native = undefined
         } = { ...gameInfo }
@@ -189,6 +194,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
           !is_installed &&
           !notSupportedGame &&
           !notInstallable &&
+          !thirdPartyManagedApp &&
           !isOffline
         ) {
           getInstallInfo(appName, runner, installPlatform)
