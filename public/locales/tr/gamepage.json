@@ -151,7 +151,8 @@
             "install": "Evet (Bunun işe yaramayacağının farkındayım)",
             "title": "Anti Hile Bozuldu/Reddedildi",
             "install_anyway": "Evet (çoklu oyuncu özelliklerinin çalışmayabileceğini anlıyorum)",
-            "multiplayer_message": "Hile önleyici desteği hatalı veya red edildi. Oyun açılabilir fakat çoklu oyuncu özellikleri çalışmayabilir. Yinede yüklemek istiyor musun?"
+            "multiplayer_message": "Hile önleyici desteği hatalı veya red edildi. Oyun açılabilir fakat çoklu oyuncu özellikleri çalışmayabilir. Yinede yüklemek istiyor musun?",
+            "ok": "Tamam"
         },
         "flatpak-path-not-writtable": "Hata: Bu yola sandbox erişimi verilmedi, veri kaybı yaşanacak."
     },
