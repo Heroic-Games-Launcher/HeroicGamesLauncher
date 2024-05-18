@@ -17,7 +17,8 @@
         "reference": "引用",
         "source": "来源",
         "status": "状态",
-        "title": "此游戏包含反作弊软件"
+        "title": "此游戏包含反作弊软件",
+        "multiplayer_may_not_work": "由于被拒绝或损坏的反作弊支持，多玩家功能可能不会正常工作。"
     },
     "box": {
         "cache-cleared": {
@@ -686,7 +687,15 @@
         },
         "msync": "启用 Msync",
         "after-launch-script-path": "选择在游戏退出后要运行的脚本",
-        "before-launch-script-path": "选择游戏启动前要运行的脚本"
+        "before-launch-script-path": "选择游戏启动前要运行的脚本",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "title": "你确定吗？",
+                "understand": "我理解",
+                "message": "反作弊损坏或被拒绝的游戏可以运行，但多玩家功能不会正常运作。如果你知晓这一点但仍安装了这样的游戏，请不要寻求支持。"
+            },
+            "label": "允许安装反作弊损坏或被拒绝的游戏"
+        }
     },
     "settings": {
         "battlEyeRuntime": {

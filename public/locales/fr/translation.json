@@ -17,7 +17,8 @@
         "reference": "Référence",
         "source": "Source",
         "status": "État",
-        "title": "Ce jeu inclut un logiciel anti-triche"
+        "title": "Ce jeu inclut un logiciel anti-triche",
+        "multiplayer_may_not_work": "Les éléments multijoueur pourraient ne pas fonctionner en raison d'une incompatibilité avec les systèmes anti-triche."
     },
     "box": {
         "cache-cleared": {
@@ -685,7 +686,15 @@
         },
         "msync": "Activer Msync",
         "before-launch-script-path": "Sélectionnez un script à exécuter avant le lancement du jeu",
-        "after-launch-script-path": "Sélectionnez un script à exécuter après l'arrêt du jeu"
+        "after-launch-script-path": "Sélectionnez un script à exécuter après l'arrêt du jeu",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "message": "Les jeux comportant un système anti-triche incompatible peuvent être lancés, mais les éléments multijoueur ne fonctionneront pas. Sachant cela, ne sollicitez pas de l'aide s'ils ne fonctionnent pas après les avoir malgré tout installés.",
+                "title": "Êtes-vous sûr(e) ?",
+                "understand": "Je comprends"
+            },
+            "label": "Permettre l'installation de jeux dont les systèmes anti-triche seront inopérants"
+        }
     },
     "settings": {
         "battlEyeRuntime": {

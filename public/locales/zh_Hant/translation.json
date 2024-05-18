@@ -294,7 +294,8 @@
             "downloadManager": "Download Manager",
             "wineManager": "Wine 管理員",
             "library": "遊戲庫"
-        }
+        },
+        "msync": "Fsync 的目標是在 CPU 開銷很大的遊戲中減少 wineserver 的開銷。啟用可能會提高受支持的 Linux 內核的性能。"
     },
     "info": {
         "heroic": {
@@ -598,7 +599,8 @@
         "addgamestoapplications": "自動將遊戲新增到應用程式",
         "showMetalOverlay": "顯示統計數據疊加",
         "alt-nile-bin": "選擇替代尼羅河二進制",
-        "autodxvknvapi": "在PREFIX自動安裝並更新DXVK-NVAPI"
+        "autodxvknvapi": "在PREFIX自動安裝並更新DXVK-NVAPI",
+        "msync": "啟用 Esync"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -643,11 +645,15 @@
         },
         "advanced": {
             "clearCache": {
-                "help8": "Installed Games"
+                "help8": "Installed Games",
+                "help9": "Game settings"
             },
             "details": "細節",
             "title": {
                 "resetHeroic": "重置 Heroic"
+            },
+            "resetHeroic": {
+                "help": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards."
             }
         }
     },

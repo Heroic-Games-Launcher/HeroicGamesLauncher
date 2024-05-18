@@ -297,7 +297,8 @@
             "downloadManager": "Download Manager",
             "wineManager": "مدیریت کننده Wine",
             "library": "کتابخانه"
-        }
+        },
+        "msync": "Fsync در بازی های متمرکز بر CPU سبب کاهش سربار wineserver میشود. فعال کردن ممکن است در لینوکس کرنل های پشتیبانی شده باعث افزایش کارایی شود."
     },
     "info": {
         "heroic": {
@@ -596,7 +597,8 @@
         "addgamestoapplications": "بازی ها را به طور خودکار به برنامه ها اضافه کنید",
         "showMetalOverlay": "نمایش همپوشانی آمار",
         "alt-nile-bin": "یک باینری جایگزین نیل را انتخاب کنید",
-        "autodxvknvapi": "نصب/بهروزرسانی خودکار DXVK-NVAPI در Prefix"
+        "autodxvknvapi": "نصب/بهروزرسانی خودکار DXVK-NVAPI در Prefix",
+        "msync": "فعالسازی Esync"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -641,10 +643,14 @@
         },
         "advanced": {
             "clearCache": {
-                "help8": "بازی‌های نصب شده"
+                "help8": "بازی‌های نصب شده",
+                "help9": "تنظیمات بازی"
             },
             "title": {
                 "resetHeroic": "Reset Heroic"
+            },
+            "resetHeroic": {
+                "help": "آیا از بازنشانی Heroic مطمئن هستید؟ این کار تمام تنظیمات و کش ها را پاک می کند اما بازی های نصب شده شما یا اعتبارهای Epic شما را پاک نمی کند. نسخه های پورتابل (AppImage, WinPortable, ...) نیازمند راه اندازی مجدد دستی پس از آن هستند."
             }
         }
     },

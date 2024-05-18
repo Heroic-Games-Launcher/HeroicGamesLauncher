@@ -1,12 +1,13 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Famiglia Font Azioni (Predefinito: ",
+        "actions_font_family_no_default": "Famiglia Font Azioni (Predefinito):",
         "all_tiles_in_color": "Mostra tutte le tessere dei giochi a colori",
         "content_font_family_no_default": "Famiglia Font Contenuto(Predefinito: ",
         "fonts": "Caratteri",
         "title": "Accessibilità",
         "zoom": "Zoom",
-        "disable_dialog_backdrop_close": "Disattiva la chiusura delle finestre di dialogo facendo clic all'esterno"
+        "disable_dialog_backdrop_close": "Disattiva la chiusura delle finestre di dialogo facendo clic all'esterno",
+        "titles_always_visible": "Mostra sempre i titoli in libreria"
     },
     "add_game": "Aggiungi Un Gioco",
     "All": "Tutto",
@@ -16,7 +17,8 @@
         "reference": "Riferimento",
         "source": "Source",
         "status": "Status",
-        "title": "Questo gioco include software anticheat"
+        "title": "Questo gioco include software anticheat",
+        "multiplayer_may_not_work": "Le funzionalità multiplayer potrebbero non funzionare poiché il supporto anticheat potrebbe essere bloccato o non funzionare."
     },
     "box": {
         "cache-cleared": {
@@ -120,7 +122,8 @@
         },
         "select": {
             "button": "Seleziona",
-            "exe": "Seleziona l'EXE"
+            "exe": "Seleziona l'EXE",
+            "script": "Seleziona lo script ..."
         },
         "shortcuts": {
             "message": "Sono stati creati i collegamenti sul Desktop e nel menu Start",
@@ -170,7 +173,9 @@
         "yes": "SI",
         "dontShowAgain": "Non mostrare più",
         "choose-nile-binary": "Seleziona binario di Nile",
-        "update": "Aggiorna"
+        "update": "Aggiorna",
+        "changelog": "Changelog",
+        "postpone": "Posponi"
     },
     "button": {
         "cancel": "Annulla",
@@ -231,7 +236,8 @@
     "game": {
         "status": "Stato",
         "store": "Negozio",
-        "title": "Titolo del gioco"
+        "title": "Titolo del gioco",
+        "modify": "Modifica Installazione"
     },
     "generic": {
         "error": {
@@ -253,7 +259,7 @@
         "show_favourites_only": "Mostra solo i preferiti",
         "show_hidden": "Mostra nascosti",
         "store": "Filtra per negozio",
-        "filters": "Filtra",
+        "filters": "Filtri",
         "categories": "Categorie",
         "reset": "Reset",
         "show_installed_only": "Visualizza Solo Installati",
@@ -297,7 +303,7 @@
             "part3": "Sincronizzazione manuale: Seleziona Download per scaricare i salvataggi dei giochi presenti sul cloud. Upload per caricare quelli locali sul cloud. Forza Download e Forza Upload ignoreranno la versione che è presente localmente o sul cloud.",
             "part4": "Sincronizza i salvataggi automaticamente sincronizzerà i salvataggi ogni volta che andrai ad avviare un gioco e dopo che avrai finito di giocarci."
         },
-        "vkd3d": "VKD3D è uno strato di traduzione basato su Vulkan per i giochi DirectX 12. L'attivazione può significativamente migliorare la compatibilità. Non ha effetto sui vecchi giochi DirectX.",
+        "vkd3d": "VKD3D è uno strato di traduzione basato su Vulkan per i giochi DirectX 12. L'attivazione può significativamente migliorare la compatibilità. Non ha effetto sui vecchi giochi DirectX, richiede DXVK.",
         "wine": {
             "part1": "Heroic cercherà possibili versioni di Wine, Proton, e CrossOver nelle seguenti cartelle:",
             "part2": "Per altre posizioni, utilizza un link simbolico ad una di queste cartelle"
@@ -308,7 +314,7 @@
             "accessibility": "Accessibilità",
             "login": "Login",
             "settings": "Impostazioni",
-            "downloadManager": "Download Manager",
+            "downloadManager": "Gestore Download",
             "wineManager": "Gestore di Wine",
             "library": "Libreria"
         },
@@ -329,8 +335,16 @@
             "defaultInstallPath": "Questo è il percorso predefinito preselezionato durante l'installazione dei giochi."
         },
         "gamescope": {
-            "fpsLimiter": "La quantità di fotogrammi a cui gamescope dovrebbe limitarsi. Per esempio. 60"
-        }
+            "fpsLimiter": "La quantità di fotogrammi a cui gamescope dovrebbe limitarsi. Per esempio. 60",
+            "gameHeight": "L'altezza della risoluzione usata dal gioco. L'aspetto 16:9 è predefinito da Gamescope.",
+            "gameWidth": "La larghezza della risoluzione usata dal gioco. L'aspetto 16:9 è predefinito da Gamescope.",
+            "additionalOptions": "Flag addizionali a riga di comando da specificare.",
+            "fpsLimiterNoFocus": "Il limite di frame rate Gamescope dovrebbe limitare al secondo se il gioco non è in primo piano.",
+            "upscaleHeight": "L'altezza della risoluzione usata dal gioco. 16:9 è l'aspetto predefinito.",
+            "upscaleMethod": "Il metodo di upscaling che Gamescope dovrebbe utilizzare.",
+            "upscaleWidth": "La larghezza della risoluzione usata dal gioco. 16:9 è l'aspetto predefinito."
+        },
+        "msync": "Msync mira a ridurre l'overhead del wineserver nei giochi ad alta intensità di CPU. L'abilitazione può migliorare le prestazioni sui kernel Linux supportati."
     },
     "info": {
         "heroic": {
@@ -365,7 +379,7 @@
     },
     "label": {
         "loading": "Caricamento",
-        "releaseDate": "Release Date"
+        "releaseDate": "Data Rilascio"
     },
     "library": {
         "refresh": "Aggiorna",
@@ -467,7 +481,11 @@
         },
         "gameargs": {
             "placeholder": "Inserisci qui le opzioni del Launcher",
-            "title": "Opzioni di gioco (da eseguire dopo il comando):"
+            "title": "Opzioni di gioco (da eseguire dopo il comando):",
+            "error": {
+                "command": "La sintassi %command% di Steam non è valida come argomento per il gioco.",
+                "env": "Le variabili d'ambiente devono essere configurate nella tabella di seguito."
+            }
         },
         "quote-args-with-spaces": "Attenzione: Assicurati di citare i parametri con gli spazi! Es.: \"percorso/con spazi/\"",
         "wrapper": {
@@ -477,6 +495,21 @@
             "placeHolderKey": "Nuovo Wrapper",
             "placeHolderValue": "Parametri del Wrapper",
             "title": "Comando del Wrapper:"
+        },
+        "gamescope": {
+            "borderless": "Senza bordi",
+            "gameWidth": "Larghezza del gioco",
+            "fpsLimiter": "Limitatore FPS",
+            "nis": "NVIDIA Image Scale (NIS)",
+            "fpsLimiterNoFocus": "Limitatore FPS (Senza focus)",
+            "stretch": "Allunga immagine",
+            "fullscreen": "Schermo intero",
+            "gameHeight": "Altezza del gioco",
+            "additionalOptions": "Opzioni aggiuntive",
+            "windowed": "Finestra",
+            "upscaleHeight": "Altezza Upscale",
+            "upscaleWidth": "Larghezza Upscale",
+            "interger": "Upscale Intero"
         }
     },
     "other": {
@@ -521,7 +554,7 @@
     "setting": {
         "adddesktopshortcuts": "Aggiungere automaticamente i collegamenti desktop",
         "addgamestostartmenu": "Aggiungere automaticamente giochi al menu start",
-        "addgamestosteam": "Agiungi automaticamente i giochi a Steam",
+        "addgamestosteam": "Aggiungi automaticamente i giochi a Steam",
         "alt-gogdl-bin": "Scegli un binario GOGDL alternativo da utilizzare",
         "alt-legendary-bin": "Scegli un binario Legendary alternativo",
         "autodxvk": "Installa/Aggiorna automaticamente DXVK sul prefix",
@@ -583,7 +616,8 @@
             "instructions_title": "Come segnalare un problema?",
             "last-log": "Ultimo accesso",
             "no-file": "Nessun log file trovato",
-            "show-in-folder": "Mostra il log file nella cartella"
+            "show-in-folder": "Mostra il log file nella cartella",
+            "join-heroic-discord": "Unisciti al nostro Discord"
         },
         "mangohud": "Abilita Mangohud (Mangohud necessita di essere installato)",
         "manualsync": {
@@ -632,8 +666,35 @@
         "alt-nile-bin": "Scegli un binario Nile alternativo",
         "autodxvknvapi": "Installa/Aggiorna automaticamente DXVK-NVAPI sul Prefix",
         "experimental_features": {
-            "enableNewShinyFeature": "Nuova funzione bellissima"
-        }
+            "enableNewShinyFeature": "Nuova funzione bellissima",
+            "enableNewDesign": "Nuovo design",
+            "automaticWinetricksFixes": "Applica correzioni note automaticamente",
+            "enableHelp": "Componente aiuto"
+        },
+        "allow_installation_broken_anticheat": {
+            "label": "Permetti l'installazione dei giochi con l'anticheat bloccato o non funzionante",
+            "confirmation": {
+                "message": "I giochi con l'anticheat bloccato o non funzionante potrebbero funzionare, ma le funzionalità multiplayer non saranno disponibili. Non chiedere supporto se le installi e sei a conoscenza di questo.",
+                "title": "Sei sicuro?",
+                "understand": "Capisco"
+            }
+        },
+        "frameless-window": {
+            "description": "Utilizza finestra senza bordi (richiesto riavvio)",
+            "confirmation": {
+                "message": "Questa feature è ancora sperimentale. Per favore segnala qualsiasi problematica che riscontri su GitHub.",
+                "title": "Funzionalità sperimentale di seguito"
+            }
+        },
+        "gamescope": {
+            "enableLimiter": "Abilita Limitatore FPS",
+            "enableUpscaling": "Abilita Upscaling",
+            "missingMsg": "Non troviamo Gamescope sul PATH. Installalo o aggiungilo al PATH."
+        },
+        "before-launch-script-path": "Seleziona uno script da eseguire prima che il gioco venga avviato",
+        "disablePlaytimeSync": "Disabilita la sincronizzazione del tempo di gioco",
+        "after-launch-script-path": "Seleziona uno script da eseguire all'uscita del gioco",
+        "msync": "Abilita Msync"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -669,7 +730,8 @@
             "other": "Altro",
             "sync": "Sincronizzazione salvataggi in cloud",
             "wineExt": "Estensioni di Wine",
-            "systemInformation": "Informazioni di Sistema"
+            "systemInformation": "Informazioni di Sistema",
+            "gamescope": "Gamescope"
         },
         "open-config-file": "Apri File di Configurazione",
         "reset-heroic": "Reset Heroic",
@@ -704,12 +766,31 @@
         },
         "advanced": {
             "clearCache": {
-                "help8": "Giochi installati"
+                "help8": "Giochi installati",
+                "help7": "Memorizza login",
+                "help2": "Informazioni di gioco di terze parti (punteggi, compatibilità steam, howlongtobeat, pcgamingwiki, applegamingwiki)",
+                "help5": "Informazioni libreria Amazon (lista giochi, informazioni finestra d'installazione)",
+                "help1": "Questa azione pulirà le seguenti caches:",
+                "help10": "Configurazione di Heroic",
+                "help3": "Informazioni di libreria Legendary (lista giochi, informazioni della finestra di installazione, informazioni di gioco)",
+                "help4": "Informazioni di libreria GOG (lista giochi, informazioni di finestra di installazione, info API requisiti)",
+                "help6": "Questo NON cancellerà:",
+                "help9": "Impostazioni giochi"
             },
             "details": "Dettagli",
             "title": {
-                "resetHeroic": "Reset Heroic"
+                "resetHeroic": "Reset Heroic",
+                "clearCache": "Pulisci cache"
+            },
+            "resetHeroic": {
+                "help": "Sei sicuro di voler resettare Heroic? Saranno rimosse tutte le Impostazioni e la Cache ma non saranno rimossi i giochi installati e le credenziali di Epic. Le versioni portatili (AppImage, WinPortable, ...) di Heroic devono essere riavviate manualmente in seguito."
             }
+        },
+        "gamescope": {
+            "searchMsg": "Ricerca dell'eseguibile di Gamescope."
+        },
+        "offline": {
+            "warning": "Questo gioco non consente esplicitamente la modalità offline, attivala a tuo rischio e pericolo. Il gioco potrebbe non funzionare."
         }
     },
     "Settings": "Impostazioni",
@@ -795,21 +876,51 @@
     "Amazon Games": "Giochi Amazon",
     "prime-gaming": "Prime Gaming",
     "winetricks": {
-        "install": "Install",
-        "loading": "Caricamento"
+        "install": "Installa",
+        "loading": "Caricamento",
+        "nothingYet": "Ancora nulla installato da Winetricks",
+        "search": "Cerca fonts o componenti",
+        "installing": "Installazione in corso: {{component}}",
+        "installed": "Componenti installate:",
+        "openGUI": "Apri GUI Winetricks"
     },
     "category-settings": {
         "cancel": "Annulla",
-        "warning": "Attenzione",
+        "warning": "Avviso",
         "add-new-category": "Aggiungi una Nuova Categoria",
         "new-category": "Nuova Categoria",
         "delete-question": "Se procedi, questa categoria verrà rimossa definitivamente e l'assegnazione verrà annullata da tutti i giochi. Continuare?",
         "remove-category": "Rimuovi Categoria"
     },
     "window": {
-        "close": "Chiudi"
+        "close": "Chiudi",
+        "maximize": "Massimizza finestra",
+        "restore": "Ripristina finestra",
+        "minimize": "Minimizza finestra"
     },
     "categories-manager": {
-        "add-placeholder": "Aggiungi una Nuova Categoria"
+        "add-placeholder": "Aggiungi nuova categoria",
+        "cancel-rename": "Annulla la rinominazione di \"{{name}}\"",
+        "confirm-remove": "Conferma la rimozione di \"{{name}}\"",
+        "confirm-rename": "Conferma il cambio nome da \"{{oldName}}\" a \"{{newName}}\"",
+        "add": "Aggiungi",
+        "cancel-remove": "Annulla la rimozione di \"{{name}}\"",
+        "remove": "Rimuovi \"{{name}}\"",
+        "rename": "Rinomina \"{{name}}\"",
+        "title": "Gestisci Categorie",
+        "no-categories": "Ancora nessuna categoria."
+    },
+    "wineExplanation": {
+        "wine-ge": "Wine-GE-Proton è una variante Wine creata da Glorious Eggroll. È il Wine consigliato da utilizzare al di fuori di Steam. Fornisce logs utili per la risoluzione dei problemi.",
+        "proton-ge": "Proton-GE-Proton è una variante di Proton creata da Glorious Eggroll. È pensato per essere utilizzato su Steam, ma alcuni giochi esterni a Steam potrebbero funzionare meglio con questa variante. Fornisce logs per lo più inutili per la risoluzione dei problemi."
+    },
+    "adtraction-locked": {
+        "description": "Sembra che il dominio track.adtraction.com non si sia caricato o sia bloccato. Con adtraction, ogni acquisto che fai nel GOG store supporta finanziariamente Heroic. Valuta di rimuovere il blocco se hai voglia di contribuire.",
+        "dont-show-again": "Non mostrare nuovamente questo avviso",
+        "title": "Adtraction è bloccato"
+    },
+    "emptyLibrary": {
+        "noGames": "La tua libreria è vuota. Puoi <1>collegarti</1> utilizzando uno store o cliccare <3></3> per aggiungerne uno manualmente.",
+        "noResults": "I filtri attuali non hanno prodotto risultati."
     }
 }
