@@ -32,7 +32,7 @@ const DownloadSizeInfo = ({ gameInfo }: Props) => {
       <div className="iconWithText">
         <Assignment />
         <b>{t('info.third-party-app', 'Third-Party Manager')}</b>
-        {gameInfo.thirdPartyManagedApp}
+        {gameInfo.isEAManaged ? 'EA app' : gameInfo.thirdPartyManagedApp}
       </div>
     )
   }

@@ -631,6 +631,9 @@ function loadFile(app_name: string): boolean {
     title,
     canRunOffline,
     thirdPartyManagedApp,
+    isEAManaged:
+      !!thirdPartyManagedApp &&
+      ['origin', 'the ea app'].includes(thirdPartyManagedApp.toLowerCase()),
     is_linux_native: false,
     runner: 'legendary',
     store_url: formatEpicStoreUrl(title)

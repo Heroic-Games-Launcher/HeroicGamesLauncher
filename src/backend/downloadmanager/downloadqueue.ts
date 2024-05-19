@@ -129,12 +129,7 @@ async function addToQueue(element: DMQueueElement) {
     const gameInfo = libraryManagerMap[element.params.runner].getGameInfo(
       element.params.appName
     )
-    if (
-      !gameInfo?.thirdPartyManagedApp ||
-      !['origin', 'the ea app'].includes(
-        gameInfo.thirdPartyManagedApp.toLowerCase()
-      )
-    ) {
+    if (!gameInfo?.isEAManaged) {
       const installInfo = await libraryManagerMap[
         element.params.runner
       ].getInstallInfo(

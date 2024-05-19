@@ -587,11 +587,7 @@ export async function install(
 }> {
   const gameInfo = getGameInfo(appName)
   if (gameInfo.thirdPartyManagedApp) {
-    if (
-      !['origin', 'the ea app'].includes(
-        gameInfo.thirdPartyManagedApp.toLowerCase()
-      )
-    ) {
+    if (!gameInfo.isEAManaged) {
       logError(
         ['Third party app', gameInfo.thirdPartyManagedApp, 'not supported'],
         LogPrefix.Legendary
@@ -944,13 +940,7 @@ export async function launch(
     command['--override-exe'] = Path.parse(gameSettings.targetExe)
   if (offlineMode) command['--offline'] = true
   if (isCLINoGui) command['--skip-version-check'] = true
-  if (
-    gameInfo.thirdPartyManagedApp &&
-    ['origin', 'the ea app'].includes(
-      gameInfo.thirdPartyManagedApp.toLowerCase()
-    )
-  )
-    command['--origin'] = true
+  if (gameInfo.isEAManaged) command['--origin'] = true
 
   const fullCommand = getRunnerCallWithoutCredentials(
     command,

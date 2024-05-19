@@ -92,7 +92,7 @@ const InstalledInfo = ({ gameInfo }: Props) => {
       {isThirdParty && (
         <div>
           <b>{t('info.third-party-app', 'Third-Party Manager')}</b>{' '}
-          {gameInfo.thirdPartyManagedApp}
+          {gameInfo.isEAManaged ? 'EA app' : gameInfo.thirdPartyManagedApp}
         </div>
       )}
       {!isThirdParty && (

@@ -146,9 +146,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const notSupportedGame =
     gameInfo.runner !== 'sideload' &&
     !!gameInfo.thirdPartyManagedApp &&
-    !['origin', 'the ea app'].includes(
-      gameInfo.thirdPartyManagedApp.toLowerCase()
-    )
+    !gameInfo.isEAManaged
   const isOffline = connectivity.status !== 'online'
 
   const backRoute = location.state?.fromDM ? '/download-manager' : '/library'

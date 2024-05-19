@@ -19,7 +19,7 @@ import React, { useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ReactComponent as AllowedIcon } from 'frontend/assets/rounded_checkmark_icon.svg'
 import { AvailablePlatforms } from '..'
-import './index.scss'
+import './index.css'
 
 interface Props {
   backdropClick: () => void
@@ -113,7 +113,11 @@ export default function ThirdPartyDialog({
               {t(
                 'third-party-managed.notice1',
                 'This game is managed by a third-party application: "{{application_name}}"',
-                { application_name: gameInfo.thirdPartyManagedApp }
+                {
+                  application_name: gameInfo.isEAManaged
+                    ? 'EA app'
+                    : gameInfo.thirdPartyManagedApp
+                }
               )}
             </p>
             <p>
