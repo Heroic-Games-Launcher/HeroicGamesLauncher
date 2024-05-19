@@ -625,7 +625,10 @@
             "warning": "Bulud Saxlama funksiyası Beta-dadır, lütfən, sinxronizasiya etməzdən əvvəl yaddaşı ehtiyat nüsxəsini çıxarın (nəsə səhv olarsa)"
         },
         "advanced": {
-            "details": "Təfərrüatlar"
+            "details": "Təfərrüatlar",
+            "clearCache": {
+                "help9": "Game Settings"
+            }
         }
     },
     "Settings": "Parametrlər",

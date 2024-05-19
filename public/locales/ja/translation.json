@@ -338,7 +338,8 @@
             "settingsGame": "ゲームのすべての設定を表示します。",
             "login": "それぞれのストアにログインします。",
             "wineManager": "各バージョンのWine、Proton、Crossoverなどをインストールします。"
-        }
+        },
+        "msync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels."
     },
     "info": {
         "heroic": {
@@ -674,7 +675,8 @@
             "enableNewDesign": "新デザイン",
             "enableHelp": "ヘルプコンポーネント",
             "automaticWinetricksFixes": "既存の修正を自動的に適用"
-        }
+        },
+        "msync": "Esyncを有効にする"
     },
     "settings": {
         "battlEyeRuntime": {

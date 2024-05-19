@@ -631,6 +631,12 @@
             "details": "Xehetasunak",
             "title": {
                 "resetHeroic": "Berrezarri Heroic"
+            },
+            "resetHeroic": {
+                "help": "Ziur zaude Heroic berrabiarazi nahi duzula? Horrek ezarpen guztiak eta cacheko biltegiratzea ezabatuko ditu, baina ez ditu zure instalatutako jokoak edo Epic-eko kredentzialak ezabatuko. Heroic-en bertsio eramangarriak (AppImage, WinPortable, ...) berrabiarazi egin behar dira."
+            },
+            "clearCache": {
+                "help9": "Game Settings"
             }
         }
     },

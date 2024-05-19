@@ -339,7 +339,8 @@
             "settingsGame": "Mostrar todas as configurações para um jogo.",
             "login": "Fazer login em diferentes lojas.",
             "settingsDefault": "Mostra todas as configurações da Heroic e padrões para jogos."
-        }
+        },
+        "msync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels."
     },
     "info": {
         "heroic": {
@@ -675,7 +676,8 @@
             "enableLimiter": "Habilitar limitador de FPS",
             "enableUpscaling": "Permite aprimoramento de escala (Upscalling)",
             "missingMsg": "Não foi possível encontrar o gamescope no PATH. Instale-o ou adicione-o no PATH."
-        }
+        },
+        "msync": "Habilitar Esync"
     },
     "settings": {
         "battlEyeRuntime": {

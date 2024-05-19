@@ -340,7 +340,8 @@
         "button": {
             "open": "Abrir la ayuda",
             "close": "Cerrar ayuda"
-        }
+        },
+        "msync": "Fsync intenta reducir la sobrecarga de wineserver en juegos con uso intensivo de CPU. Activarlo puede mejorar el rendimiento en kernels de Linux que lo soporten."
     },
     "info": {
         "heroic": {
@@ -677,7 +678,8 @@
             "enableLimiter": "Activar el limitador de FPS",
             "enableUpscaling": "Permite la ampliación",
             "missingMsg": "No podemos encontrar Gamescope en PATH. Instálelo primero o agréguelo a PATH."
-        }
+        },
+        "msync": "Habilitar Esync"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -755,10 +757,14 @@
         },
         "advanced": {
             "clearCache": {
-                "help8": "Juegos Instalados"
+                "help8": "Juegos Instalados",
+                "help9": "Configuración del juego"
             },
             "title": {
                 "resetHeroic": "Resetear Heroic"
+            },
+            "resetHeroic": {
+                "help": "¿Estás seguro de que quieres restablecer Heroic? Esto eliminará todas las configuraciones y caché, pero no eliminará los juegos instalados ni las credenciales. Versiones portables (AppImage, WinPortable, ...) de Heroic tienen que ser iniciadas manualmente luego de ejecutar esta acción."
             }
         }
     },

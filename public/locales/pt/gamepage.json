@@ -151,7 +151,8 @@
             "install": "Sim (Eu entendo que não irá funcionar)",
             "title": "Anti-batota Danificado/Recusado",
             "install_anyway": "Sim (eu entendo que os recursos multiplayer do jogo não vão funcionar.)",
-            "multiplayer_message": "O suporte anticheat esta com algum problema ou não iniciado. O jogo deve abrir mas os recursos multiplayer não vão funcionar. Voce deseja instalar mesmo assim?"
+            "multiplayer_message": "O suporte anticheat esta com algum problema ou não iniciado. O jogo deve abrir mas os recursos multiplayer não vão funcionar. Voce deseja instalar mesmo assim?",
+            "ok": "Ok"
         },
         "flatpak-path-not-writtable": "Erro: Acesso à área restrita não concedido a este caminho, ocorrerá perda de dados."
     },

@@ -149,7 +149,8 @@
             "cancel": "Nie",
             "message": "Wsparcie dla systemów Anticheat nie działa poprawnie lub nie istnieje. Gra nie będzie działać. Czy chcesz zainstalować ją mimo wszystko?",
             "install": "Tak (Rozumiem, że to nie zadziała)",
-            "title": "Niewspierany Anticheat"
+            "title": "Niewspierany Anticheat",
+            "ok": "Ok"
         },
         "flatpak-path-not-writtable": "Błąd: Brak dostępu do tej ścieżki, spowoduje to utratę danych."
     },

@@ -141,7 +141,8 @@
             "cancel": "Tidak",
             "message": "Anticheat tidak didukung. Gim mungkin tidak akan berfungsi. Apakah anda akan melanjutkan pemasangan?",
             "install": "Ya (Saya mengerti aksi ini mungkin tidak berhasil)",
-            "title": "Anticheat Rusak/Ditolak"
+            "title": "Anticheat Rusak/Ditolak",
+            "ok": "Ok"
         },
         "flatpak-path-not-writtable": "Kesalahan: Akses sandbox tidak diberikan ke lokasi ini, kehilangan data mungkin bisa terjadi."
     },

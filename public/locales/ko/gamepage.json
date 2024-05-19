@@ -146,7 +146,8 @@
         "wineversion": "Wine 버전",
         "anticheat-warning": {
             "cancel": "아니오",
-            "install": "예(프로그램이 정상적으로 작동하지 않을 것을 확인했습니다)"
+            "install": "예(프로그램이 정상적으로 작동하지 않을 것을 확인했습니다)",
+            "ok": "Ok"
         }
     },
     "label": {

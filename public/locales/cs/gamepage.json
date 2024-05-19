@@ -151,7 +151,8 @@
             "install": "Ano (chápu, že to nebude fungovat)",
             "title": "Rozbitý/zakázaný anticheat",
             "install_anyway": "Ano (rozumím, že funkce hry více hráčů nebudou fungovat)",
-            "multiplayer_message": "Podpora anticheatu je rozbitá nebo odmítnutá. Hra se může otevřít, ale nebudou fungovat funkce hry více hráčů. Chcete ji přesto nainstalovat?"
+            "multiplayer_message": "Podpora anticheatu je rozbitá nebo odmítnutá. Hra se může otevřít, ale nebudou fungovat funkce hry více hráčů. Chcete ji přesto nainstalovat?",
+            "ok": "Ok"
         },
         "flatpak-path-not-writtable": "Chyba: této cestě nebyl udělen přístup k sandboxu, vyskytne se ztráta dat."
     },

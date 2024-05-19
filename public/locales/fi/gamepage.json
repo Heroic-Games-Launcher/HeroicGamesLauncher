@@ -149,7 +149,8 @@
             "cancel": "Ei",
             "message": "Huijauksenesto on rikki tai evätty. Peli ei tule toimimaan. Haluatko asentaa sen tästä huolimatta?",
             "install": "Kyllä (ymmärtäen että tämä ei tule toimimaan)",
-            "title": "Huijauksenesto rikki/evätty"
+            "title": "Huijauksenesto rikki/evätty",
+            "ok": "Ok"
         },
         "flatpak-path-not-writtable": "Virhe: pääsy tähän polkuun on hiekkalaatikoinnin ulkopuolella ja evätty, tiedonmenetystä tulee tapahtumaan."
     },
