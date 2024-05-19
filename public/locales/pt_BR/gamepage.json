@@ -149,7 +149,11 @@
             "cancel": "Não",
             "message": "O suporte antitrapaça está quebrado ou foi negado. O jogo não vai funcionar. Você quer instalá-lo de qualquer maneira?",
             "install": "Sim (eu entendo que não vai funcionar)",
-            "title": "Antitrapaça Quebrado/Negado"
+            "title": "Antitrapaça Quebrado/Negado",
+            "ok": "Ok",
+            "install_anyway": "Sim (Eu entendo que a função multijogador não funcionará)",
+            "multiplayer_message": "Suporte ao sistema antitrapaça foi negado ou comprometido. O jogo pode rodar mas a função multijogador não funcionará. Quer instalá-lo mesmo assim?",
+            "disabled_installation": "Suporte ao sistema antitrapaça foi negado ou comprometido, portanto a função multijogador não funcionará. O jogo não pode ser instalado. Para instalar este jogo, desabilite essa verificação nas configurações avançadas."
         },
         "flatpak-path-not-writtable": "Erro: Acesso ao sandbox não concedido a este caminho, ocorrerá perda de dados."
     },
@@ -232,7 +236,7 @@
         "uninstalling": "Desinstalando",
         "updating": "Atualizando Jogo",
         "playing": "Jogando",
-        "moving-files": "Movendo arquivo '{{file}}': {{percent}} ",
+        "moving-files": "Movendo arquivo '{{file}}': {{percent}}%",
         "syncingSaves": "Sincronizando Salvamentos",
         "launching": "Iniciando",
         "ubisoft": "Instalando Ubisoft",

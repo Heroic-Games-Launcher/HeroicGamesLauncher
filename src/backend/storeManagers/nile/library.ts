@@ -57,7 +57,15 @@ function loadGamesInAccount() {
     const { product } = game
     const { title, productDetail } = product
     const {
-      details: { shortDescription, developer },
+      details: {
+        shortDescription,
+        developer,
+        genres,
+        releaseDate,
+        backgroundUrl1,
+        backgroundUrl2,
+        logoUrl
+      },
       iconUrl
     } = productDetail
 
@@ -66,7 +74,9 @@ function loadGamesInAccount() {
     const safeFolderName = removeSpecialcharacters(title ?? '')
     library.set(product.id, {
       app_name: product.id,
-      art_cover: iconUrl,
+      art_cover: backgroundUrl2 || iconUrl,
+      art_logo: logoUrl,
+      art_background: backgroundUrl1 || backgroundUrl2,
       art_square: iconUrl,
       canRunOffline: true, // Amazon Games only has offline games
       install: info
@@ -85,6 +95,11 @@ function loadGamesInAccount() {
       title: title ?? '???',
       description: shortDescription,
       developer,
+      extra: {
+        reqs: [],
+        genres,
+        releaseDate
+      },
       is_linux_native: false,
       is_mac_native: false
     })

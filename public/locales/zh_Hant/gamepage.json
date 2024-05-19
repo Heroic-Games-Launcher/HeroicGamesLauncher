@@ -134,7 +134,10 @@
         "path-not-writtable": "警告：路徑可能不可寫入。",
         "space-after-install": "安裝後",
         "wineprefix": "WinePrefix容器",
-        "wineversion": "Wine版本"
+        "wineversion": "Wine版本",
+        "anticheat-warning": {
+            "ok": "Ok"
+        }
     },
     "label": {
         "game": {

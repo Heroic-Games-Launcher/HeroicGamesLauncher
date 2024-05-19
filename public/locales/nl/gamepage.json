@@ -141,7 +141,8 @@
             "install": "Ja (Ik begrijp dat dit niet zal werken)",
             "cancel": "Nee",
             "title": "Anticheat geblokkeerd/stuk",
-            "message": "De anticheat-ondersteuning is stuk of is geblokkeerd. Deze game zal niet werken. Wil je het toch installeren?"
+            "message": "De anticheat-ondersteuning is stuk of is geblokkeerd. Deze game zal niet werken. Wil je het toch installeren?",
+            "ok": "Ok"
         }
     },
     "label": {

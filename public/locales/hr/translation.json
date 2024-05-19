@@ -295,7 +295,8 @@
             "downloadManager": "Download Manager",
             "wineManager": "Wine Manager",
             "library": "Biblioteka"
-        }
+        },
+        "msync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels."
     },
     "info": {
         "heroic": {
@@ -594,7 +595,8 @@
         "addgamestoapplications": "Automatski dodajte igre u aplikacije",
         "showMetalOverlay": "Prikaži preklapanje statistike",
         "alt-nile-bin": "Odaberite alternativni Nile Binary",
-        "autodxvknvapi": "Auto Install/Update DXVK-NVAPI on Prefix"
+        "autodxvknvapi": "Auto Install/Update DXVK-NVAPI on Prefix",
+        "msync": "Omoguči Esync"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -639,11 +641,15 @@
         },
         "advanced": {
             "clearCache": {
-                "help8": "Installed Games"
+                "help8": "Installed Games",
+                "help9": "Game settings"
             },
             "details": "Pojedinosti",
             "title": {
                 "resetHeroic": "Reset Heroic"
+            },
+            "resetHeroic": {
+                "help": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards."
             }
         }
     },

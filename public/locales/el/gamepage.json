@@ -33,18 +33,20 @@
         },
         "uninstall": {
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
-            "message": "Θέλετε να απεγκαταστήσετε αυτό το παιχνίδι;",
+            "message": "Θέλετε να απεγκαταστήσετε το \"{{title}}\";",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Απεγκατάσταση",
             "prefix_warning": "Το πρόθεμα Wine για αυτό το παιχνίδι είναι το προεπιλεγμένο πρόθεμα. Εάν θέλετε πραγματικά να το διαγράψετε, πρέπει να το κάνετε χειροκίνητα.",
-            "dlc": "Θέλετε να απεγκαταστήσετε αυτό το DLC;"
+            "dlc": "Θέλετε να απεγκαταστήσετε το \"{{title}} \" (DLC);",
+            "cannotUninstallEpic": "Epic games δεν μπορεί να απεγκατασταθεί ενώ εγκαθίσταται ένα άλλο παιχνίδι Epic."
         },
         "update": {
             "message": "Το παιχνίδι έχει μια ενημέρωση, εφαρμογή ενημερώσεως τώρα;",
             "title": "Το παιχνίδι χρειάζεται ενημέρωση"
         },
         "wineprefix": "Επιλέξτε φάκελο προθεμάτων Wine",
-        "yes": "ΝΑΙ"
+        "yes": "ΝΑΙ",
+        "close": "Kλείσιμο"
     },
     "button": {
         "add_to_favourites": "Προσθήκη στα Αγαπημένα",
@@ -70,7 +72,8 @@
         "unhide_game": "Φανέρωση Παιχνιδιού",
         "uninstall": "Απεγκατάσταση",
         "update": "Ενημέρωση",
-        "details": "Λεπτομέριες"
+        "details": "Λεπτομέριες",
+        "changelog": "Εμφάνιση αρχείου αλλαγών"
     },
     "cloud_save_unsupported": "Unsupported",
     "disabled": "Απενεργοποιημένο",
@@ -92,8 +95,18 @@
         "totalPlayed": "Συνολικός Χρόνος Παιχνιδιού",
         "dlcs": "DLCs",
         "branch": {
-            "disabled": "Disabled"
-        }
+            "disabled": "Disabled",
+            "password": "Ορισμός κωδικού πρόσβασης ιδιωτικού καναλιού",
+            "setPrivateBranchPassword": "Ορισμός κωδικού πρόσβασης ιδιωτικού καναλιού",
+            "select": "Επιλέξτε beta κανάλι"
+        },
+        "builds": {
+            "version": "Έκδοση",
+            "buildsSelector": "Επιλέξτε έκδοση παιχνιδιού",
+            "toggle": "Κρατήστε το παιχνίδι σε συγκεκριμένη έκδοση"
+        },
+        "changelogFor": "Αρχείο αλλαγών για {{gameTitle}}",
+        "modify": "Τροποποίηση Εγκατάστασης"
     },
     "gamecard": {
         "moving": "Μετακίνηση",
@@ -131,7 +144,15 @@
         "path-not-writtable": "Προειδοποίηση: μπορεί να μην είναι δυνατή η εγγραγή στη συγκεκριμένη διαδρομή.",
         "space-after-install": "Μετά την Εγκατάσταση",
         "wineprefix": "Πρόθεμα Wine",
-        "wineversion": "Έκδοση Wine"
+        "wineversion": "Έκδοση Wine",
+        "anticheat-warning": {
+            "install_anyway": "Ναι (καταλαβαίνω ότι οι λειτουργίες για πολλούς παίκτες δεν θα λειτουργήσουν)",
+            "multiplayer_message": "Η υποστήριξη anticheat είναι κατεστραμμένη ή απορριφθείσα. Το παιχνίδι μπορεί να ανοίξει, αλλά οι λειτουργίες πολλαπλών παικτών δεν θα λειτουργήσουν. Θέλετε να το εγκαταστήσετε ούτως ή άλλως;",
+            "cancel": "Όχι",
+            "title": "Anticheat Κατεστραμμένο/Απορριφτεί",
+            "ok": "Ok"
+        },
+        "flatpak-path-not-writtable": "Σφάλμα: Δεν έχει χορηγηθεί πρόσβαση στο Sandbox, Θα προκληθεί απώλεια δεδομένων."
     },
     "label": {
         "game": {
@@ -146,7 +167,9 @@
             "syncing": "Συγχρονισμός save"
         },
         "launching": "Εκκίνηση",
-        "ubisoft": "Εγκατάσταση του Ubisoft Connect"
+        "ubisoft": "Εγκατάσταση του Ubisoft Connect",
+        "redist": "Εγκατάσταση Αναδιανεμητών",
+        "winetricks": "Εγκατάσταση πακέτων Winetricks"
     },
     "launch": {
         "options": "Ρυθμίσεις εκκίνησης..."
@@ -164,7 +187,9 @@
     },
     "setting": {
         "use-default-wine-settings": "Use Default Wine Settings",
-        "winecrossoverbottle": "CrossOver Περιβάλλον"
+        "winecrossoverbottle": "CrossOver Περιβάλλον",
+        "show-wine-settings": "Εμφάνιση ρυθμίσεων Wine",
+        "warn-use-default-wine-settings": "Χρησιμοποιήστε αυτή την επιλογή μόνο αν ξέρετε τι κάνετε.<br/>Η κοινή χρήση του ίδιου προθέματος για πολλά παιχνίδια μπορεί να δημιουργήσει προβλήματα αν οι εξαρτήσεις τους είναι ασύμβατες."
     },
     "sideload": {
         "field": {
@@ -174,12 +199,15 @@
             "exe": "Select Executable",
             "image": "App Image",
             "title": "Game/App Title",
-            "broser": "BrowserURL"
+            "broser": "BrowserURL",
+            "useragent": "Προσαρμοσμένος πράκτορας χρήστη",
+            "fullscreen": "Εκκίνηση πλήρους οθόνης (F11 για έξοδο)"
         },
         "placeholder": {
             "image": "Paste an Image URL here",
             "title": "Add a title to your Game/App",
-            "url": "Επικολλήστε τη διεύθυνση URL του παιχνιδιού εδώ"
+            "url": "Επικολλήστε τη διεύθυνση URL του παιχνιδιού εδώ",
+            "useragent": "Γράψτε εδώ έναν προσαρμοσμένο πράκτορα χρήστη που θα χρησιμοποιείται σε αυτό το πρόγραμμα περιήγησης/παιχνίδι"
         }
     },
     "specs": {
@@ -204,14 +232,16 @@
         "uninstalling": "Uninstalling",
         "updating": "Ενημέρωση παιχνιδιού",
         "playing": "Παιχνίδι",
-        "moving-files": "Μετακίνηση αρχείου '{{file}}': {{percent}} ",
+        "moving-files": "Μετακίνηση αρχείου '{{file}}': {{percent}}%",
         "syncingSaves": "Συγχρονισμός Αποθηκεύσεων",
         "launching": "Εκκίνηση",
         "ubisoft": "Εγκατάσταση της Ubisoft",
         "downloading": "Γίνεται λήψη",
         "extracting": "Εξαγωγή",
         "gog-goodie": "Αυτό το παιχνίδι δεν φαίνεται να μπορεί να εγκατασταθεί. Ελέγξτε το περιεχόμενο με δυνατότητα λήψης στη διεύθυνση https://gog.com/account",
-        "goodie": "Δεν μπορεί να εγκατασταθεί"
+        "goodie": "Δεν μπορεί να εγκατασταθεί",
+        "winetricks": "Εφαρμογή των διορθώσεων του Winetricks",
+        "redist": "Εγκατάσταση Αναδιανεμητών ({{redist}})"
     },
     "submenu": {
         "addShortcut": "Προσθήκη συντόμευσης",
@@ -227,9 +257,25 @@
         "store": "Κατάστημα",
         "verify": "Επαλήθευση και Επιδιόρθωση",
         "extraInfo": "Extra Πληροφορίες",
-        "logs": "κούτσουρα"
+        "logs": "κούτσουρα",
+        "categories": "Κατηγορίες"
     },
     "help": {
-        "cloud_save_unsupported": "Αυτό το παιχνίδι δεν υποστηρίζει αποθήκευση στο cloud. Αυτές οι πληροφορίες παρέχονται από τους προγραμματιστές παιχνιδιών. Ορισμένα παιχνίδια εφαρμόζουν το δικό τους σύστημα αποθήκευσης cloud"
+        "cloud_save_unsupported": "Αυτό το παιχνίδι δεν υποστηρίζει αποθήκευση στο cloud. Αυτές οι πληροφορίες παρέχονται από τους προγραμματιστές παιχνιδιών. Ορισμένα παιχνίδια εφαρμόζουν το δικό τους σύστημα αποθήκευσης cloud",
+        "content": {
+            "gamePage": "Εμφάνιση όλων των λεπτομερειών και ενεργειών του παιχνιδιού. Χρησιμοποιήστε το μενού με τις 3 τελείες για περισσότερες επιλογές."
+        },
+        "title": {
+            "gamePage": "Σελίδα Παιχνιδιού"
+        }
+    },
+    "modifyInstall": {
+        "nodlcs": "Δεν υπάρχει διαθέσιμο DLC",
+        "redMod": {
+            "collapsible": "Ενσωμάτωση REDmod",
+            "enable": "Ενεργοποίηση mods"
+        },
+        "versionCollapsable": "Έκδοση Παιχνιδιού",
+        "dlcsCollapsible": "DLC"
     }
 }

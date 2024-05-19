@@ -134,7 +134,10 @@
         "path-not-writtable": "Upozorenje: u stazu se možda ne može pisati.",
         "space-after-install": "Nakon Instalacije",
         "wineprefix": "WinePrefix",
-        "wineversion": "Wine verzija"
+        "wineversion": "Wine verzija",
+        "anticheat-warning": {
+            "ok": "Ok"
+        }
     },
     "label": {
         "game": {

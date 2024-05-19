@@ -300,7 +300,8 @@
             "downloadManager": "Download Manager",
             "wineManager": "Wine-hallinta",
             "library": "Kirjasto"
-        }
+        },
+        "msync": "Fsync pyrkii vähentämään Wine-palvelimen taakkaa suoritinta kuormittavissa peleissä. Päällekytkentä voi parantaa suorituskykyä tuettujen Linux-ydinten kohdalla."
     },
     "info": {
         "heroic": {
@@ -605,7 +606,8 @@
             "enableNewShinyFeature": "Tuore uutuuttakiiltävä ominaisuus",
             "enableNewDesign": "Uusi malli"
         },
-        "disablePlaytimeSync": "Kytke peliaikojen synkronointi pois päältä"
+        "disablePlaytimeSync": "Kytke peliaikojen synkronointi pois päältä",
+        "msync": "Ota Esync käyttöön"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -676,10 +678,14 @@
         },
         "advanced": {
             "clearCache": {
-                "help8": "Asennetut pelit"
+                "help8": "Asennetut pelit",
+                "help9": "Peliasetukset"
             },
             "title": {
                 "resetHeroic": "Nollaa Heroic"
+            },
+            "resetHeroic": {
+                "help": "Haluatko varmasti nollata Heroic:in? Tämä poistaa kaikki asetukset sekä välimuistin, mutta ei asentamiasi pelejä eikä Epic-tietojasi. Portattavat julkaisut (AppImage, WinPortable, ...) Heroic:istä pitää uudelleenkäynnistää manuaalisesti jälkeenpäin."
             }
         }
     },

@@ -149,7 +149,8 @@
             "cancel": "Ei",
             "install": "Jah (ma mõistan, et see ei tööta)",
             "title": "Sohivastased meetmed katkised/keelatud",
-            "message": "Sohivastaste meetmete tugi on katkine või keelatud. Mäng ei hakka tööle. Kas soovite seda siiski installeerida?"
+            "message": "Sohivastaste meetmete tugi on katkine või keelatud. Mäng ei hakka tööle. Kas soovite seda siiski installeerida?",
+            "ok": "Ok"
         },
         "flatpak-path-not-writtable": "Viga: Liivakasti ligipääsu ei ole antud sellele asukohale, jätkates esineb andmete kadumine."
     },
