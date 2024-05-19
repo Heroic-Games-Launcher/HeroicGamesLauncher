@@ -110,7 +110,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   const [progress, previousProgress] = hasProgress(appName)
 
-  const [extraInfo, setExtraInfo] = useState<ExtraInfo | null>(null)
+  const [extraInfo, setExtraInfo] = useState<ExtraInfo | null>(
+    gameInfo.extra || null
+  )
   const [notInstallable, setNotInstallable] = useState<boolean>(false)
   const [gameInstallInfo, setGameInstallInfo] = useState<InstallInfo | null>(
     null
@@ -171,7 +173,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
       if (gameInfo && status) {
         const {
           install,
-          is_installed,
           is_linux_native = undefined,
           is_mac_native = undefined
         } = { ...gameInfo }
@@ -186,7 +187,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
         if (
           runner !== 'sideload' &&
-          !is_installed &&
           !notSupportedGame &&
           !notInstallable &&
           !isOffline
@@ -361,7 +361,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
               <>
                 <GamePicture
                   art_square={art_square}
-                  art_logo={art_logo}
+                  art_logo={runner === 'nile' ? undefined : art_logo}
                   store={runner}
                 />
                 <NavLink
@@ -381,7 +381,13 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
                   </div>
                   <div className="infoWrapper">
-                    <Genres genres={wikiInfo?.pcgamingwiki?.genres || []} />
+                    <Genres
+                      genres={
+                        extraInfo?.genres ||
+                        wikiInfo?.pcgamingwiki?.genres ||
+                        []
+                      }
+                    />
                     <Developer gameInfo={gameInfo} />
                     <ReleaseDate
                       runnerDate={extraInfo?.releaseDate}
@@ -446,8 +452,14 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     <div className="store-icon">
                       <StoreLogos runner={runner} />
                     </div>
-                    <h1>{title}</h1>
-                    <Genres genres={wikiInfo?.pcgamingwiki?.genres || []} />
+                    <h1 style={{ opacity: art_logo ? 0 : 1 }}>{title}</h1>
+                    <Genres
+                      genres={
+                        gameInfo.extra?.genres ||
+                        wikiInfo?.pcgamingwiki?.genres ||
+                        []
+                      }
+                    />
                     <Developer gameInfo={gameInfo} />
                     <ReleaseDate
                       runnerDate={extraInfo?.releaseDate}
