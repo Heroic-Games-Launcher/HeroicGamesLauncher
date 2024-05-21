@@ -1366,13 +1366,10 @@ async function runAfterLaunchScript(
 async function runScriptForGame(
   gameInfo: GameInfo,
   gameSettings: GameSettings,
-  scriptStage: string
+  scriptStage: 'before' | 'after'
 ): Promise<boolean | string> {
   return new Promise((resolve, reject) => {
-    const scriptPath =
-      scriptStage === 'before'
-        ? gameSettings.beforeLaunchScriptPath
-        : gameSettings.afterLaunchScriptPath
+    const scriptPath = gameSettings[`${scriptStage}LaunchScriptPath`]
     const scriptEnv = {
       HEROIC_GAME_APP_NAME: gameInfo.app_name,
       HEROIC_GAME_EXEC: gameInfo.install.executable,
