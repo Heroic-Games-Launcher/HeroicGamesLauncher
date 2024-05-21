@@ -387,9 +387,12 @@ export async function getWhisky(): Promise<Set<WineInstallation>> {
     return whisky
   }
 
-  const whiskyWinePath = `${userHome}/Library/Application Support/com.isaacmarovitz.Whisky/Libraries`
-  const whiskyVersionPlist = `${whiskyWinePath}/WhiskyWineVersion.plist`
-  const whiskyWineBin = `${whiskyWinePath}/Wine/bin/wine64`
+  const whiskyWinePath = join(
+    userHome,
+    'Library/Application Support/com.isaacmarovitz.Whisky/Libraries'
+  )
+  const whiskyVersionPlist = join(whiskyWinePath, 'WhiskyWineVersion.plist')
+  const whiskyWineBin = join(whiskyWinePath, 'Wine/bin/wine64')
 
   if (existsSync(whiskyVersionPlist) && existsSync(whiskyWineBin)) {
     try {
@@ -401,9 +404,9 @@ export async function getWhisky(): Promise<Set<WineInstallation>> {
       whisky.add({
         bin: whiskyWineBin,
         name: `Whisky - ${versionString}`,
-        type: `toolkit`,
-        lib: `${dirname(whiskyWineBin)}/../lib`,
-        lib32: `${dirname(whiskyWineBin)}/../lib`,
+        type: 'toolkit',
+        lib: join(whiskyWinePath, 'Wine/lib'),
+        lib32: join(whiskyWinePath, 'Wine/lib'),
         ...getWineExecs(whiskyWineBin)
       })
     } catch (error) {
