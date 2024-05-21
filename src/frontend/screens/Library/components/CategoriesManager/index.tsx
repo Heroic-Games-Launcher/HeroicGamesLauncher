@@ -31,7 +31,7 @@ function CategoryItem({
   const [newName, setNewName] = useState(name)
   const [removeMode, setRemoveMode] = useState(false)
   const isNewNameEmptyOrEqualsOldName =
-    newName?.trim() === '' || newName === name
+    newName.trim() === '' || newName === name
 
   const rename = () => {
     renameFunction(name, newName)
@@ -160,7 +160,7 @@ function CategoriesManager() {
 
   const [newCategoryName, setNewCategoryName] = useState('')
 
-  const isCategoryNameEmpty = newCategoryName?.trim() === ''
+  const isCategoryNameEmpty = newCategoryName.trim() === ''
 
   const removeCategory = (cat: string) => {
     customCategories.removeCategory(cat)
