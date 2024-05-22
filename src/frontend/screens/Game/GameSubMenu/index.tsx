@@ -53,6 +53,9 @@ export default function GamesSubmenu({
   } = useContext(ContextProvider)
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
+  const gameStatus = libraryStatus.find(
+    (st) => st.appName === appName && st.runner === runner
+  )
 
   const [steamRefresh, setSteamRefresh] = useState<boolean>(false)
   const [addedToSteam, setAddedToSteam] = useState<boolean>(false)
@@ -281,6 +284,7 @@ export default function GamesSubmenu({
               <button
                 onClick={async () => setShowUninstallModal(true)}
                 className="link button is-text is-link"
+                disabled={gameStatus?.status === 'playing'}
               >
                 {t('button.uninstall', 'Uninstall')}
               </button>{' '}
