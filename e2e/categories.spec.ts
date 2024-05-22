@@ -15,6 +15,9 @@ electronTest('categories', async (app) => {
 
     await expect(dialog.getByText('No categories yet.')).toBeInViewport()
 
+    // add button should be disabled without a name
+    await expect(dialog.getByTitle('Add', { exact: true })).toBeDisabled()
+
     // add new category
     await dialog.getByPlaceholder('Add new category').fill('Great games')
     await dialog.getByTitle('Add', { exact: true }).click()
@@ -23,8 +26,20 @@ electronTest('categories', async (app) => {
       dialog.locator('span', { hasText: 'Great games' })
     ).toBeInViewport()
 
-    // rename category
+    // add button should be disable if trying to rename category to empty name
     await dialog.getByTitle('Rename "Great games"').click()
+    await dialog.getByLabel('Rename "Great games"').fill('Great games')
+    await expect(dialog.getByTitle('Add', { exact: true })).toBeDisabled()
+
+    // add button should be disabled if trying to rename category to empty string
+    await dialog.getByLabel('Rename "Great games"').fill('')
+    await expect(dialog.getByTitle('Add', { exact: true })).toBeDisabled()
+
+    // add button should be disabled if trying to rename category to empty spaces
+    await dialog.getByLabel('Rename "Great games"').fill('   ')
+    await expect(dialog.getByTitle('Add', { exact: true })).toBeDisabled()
+
+    // rename category
     await dialog.getByLabel('Rename "Great games"').fill('Amazing games')
     await dialog
       .getByTitle('Confirm rename of "Great games" as "Amazing games"')
