@@ -26,7 +26,7 @@ electronTest('categories', async (app) => {
       dialog.locator('span', { hasText: 'Great games' })
     ).toBeInViewport()
 
-    // add button should be disable if trying to rename category to empty name
+    // add button should be disable if trying to rename category to same name
     await dialog.getByTitle('Rename "Great games"').click()
     await dialog.getByLabel('Rename "Great games"').fill('Great games')
     await expect(dialog.getByTitle('Add', { exact: true })).toBeDisabled()
