@@ -1376,9 +1376,9 @@ async function runScriptForGame(
       HEROIC_GAME_PREFIX: gameSettings.winePrefix,
       HEROIC_GAME_RUNNER: gameInfo.runner,
       HEROIC_GAME_SCRIPT_STAGE: scriptStage,
-      HEROIC_GAME_TITLE: gameInfo.title
+      HEROIC_GAME_TITLE: gameInfo.title,
+      ...process.env
     }
-    Object.assign(scriptEnv, process.env)
     const child = spawn(scriptPath, {
       cwd: gameInfo.install.install_path,
       env: scriptEnv
