@@ -3,7 +3,7 @@ import { join } from 'path'
 import { runtimePath } from './../../constants'
 import { logError, logInfo, LogPrefix } from './../../logger/logger'
 import { Runtime, RuntimeName } from 'common/types'
-import { downloadFile, extractTarFile, getAssetDataFromDownload } from './util'
+import { downloadFile, extractTarFile } from './util'
 import { axiosClient } from 'backend/utils'
 
 async function _get(): Promise<Runtime[]> {
@@ -29,14 +29,12 @@ async function download(name: RuntimeName): Promise<boolean> {
       LogPrefix.Runtime
     )
 
-    const { name: tarFileName, content_type } = await getAssetDataFromDownload(
-      runtime.url
-    )
+    const tarFileName = runtime.url.split('/').pop()!
     const tarFilePath = join(runtimePath, tarFileName)
     await downloadFile(runtime.url, tarFilePath)
 
     const extractedFolderPath = join(runtimePath, name)
-    await extractTarFile(tarFilePath, content_type, {
+    await extractTarFile(tarFilePath, {
       extractedPath: extractedFolderPath,
       strip: 1
     })

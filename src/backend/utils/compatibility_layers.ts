@@ -448,7 +448,7 @@ export function getWineFlags(
       }
       if (umuSupported) {
         partialCommand['--wrapper'] = NonEmptyString.parse(
-          `${wrapper} "${join(runtimePath, 'umu', 'umu-run')}"`
+          `${wrapper} "${join(runtimePath, 'umu', 'umu_run.py')}"`
         )
       }
       break
@@ -487,6 +487,6 @@ export function isUmuSupported(wineType: WineInstallation['type']): boolean {
     wineType === 'proton' &&
     GlobalConfig.get().getSettings().experimentalFeatures?.umuSupport !==
       false &&
-    existsSync(join(runtimePath, 'umu', 'umu-run'))
+    existsSync(join(runtimePath, 'umu', 'umu_run.py'))
   )
 }

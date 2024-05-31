@@ -473,7 +473,7 @@ export interface Runtime {
   url: string
 }
 
-export type RuntimeName = 'eac_runtime' | 'battleye_runtime'
+export type RuntimeName = 'eac_runtime' | 'battleye_runtime' | 'umu'
 
 export type RecentGame = {
   appName: string

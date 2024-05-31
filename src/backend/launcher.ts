@@ -225,6 +225,15 @@ async function prepareLaunch(
     }
   }
 
+  if (
+    GlobalConfig.get().getSettings().experimentalFeatures?.umuSupport !==
+      false &&
+    !isInstalled('umu') &&
+    isOnline()
+  ) {
+    await download('umu')
+  }
+
   // If the Steam Runtime is enabled, find a valid one
   let steamRuntime: string[] = []
   const shouldUseRuntime =
@@ -871,7 +880,7 @@ async function runWineCommand({
     if (wrappers.length) {
       bin = wrappers.shift()!
       if (umuSupported) {
-        const umuBin = join(runtimePath, 'umu', 'umu-run')
+        const umuBin = join(runtimePath, 'umu', 'umu_run.py')
         commandParts.unshift(...wrappers, umuBin)
       } else {
         commandParts.unshift(...wrappers, wineBin)
@@ -879,7 +888,7 @@ async function runWineCommand({
     } else {
       bin = wineBin
       if (umuSupported) {
-        bin = join(runtimePath, 'umu', 'umu-run')
+        bin = join(runtimePath, 'umu', 'umu_run.py')
       }
     }
 
