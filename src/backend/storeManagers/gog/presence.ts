@@ -23,9 +23,7 @@ async function setPresence() {
   try {
     if (!GOGUser.isLoggedIn() || !isOnline) return
     const credentials = await GOGUser.getCredentials()
-    if (!credentials) {
-      return
-    }
+    if (!credentials) return
 
     if (!interval) {
       interval = setInterval(setPresence, 5 * 60 * 1000)
@@ -39,7 +37,7 @@ async function setPresence() {
       game_id: undefined
     }
 
-    if (CURRENT_GAME.length > 0) {
+    if (CURRENT_GAME !== '') {
       payload.game_id = CURRENT_GAME
     }
 
