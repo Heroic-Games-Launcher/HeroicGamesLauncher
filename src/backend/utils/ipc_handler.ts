@@ -1,6 +1,7 @@
 import { clipboard, ipcMain } from 'electron'
 import { callAbortController } from './aborthandler/aborthandler'
 import {
+  getCometVersion,
   getGogdlVersion,
   getLegendaryVersion,
   getNileVersion
@@ -13,6 +14,7 @@ ipcMain.on('abort', async (event, id) => {
 })
 ipcMain.handle('getLegendaryVersion', getLegendaryVersion)
 ipcMain.handle('getGogdlVersion', getGogdlVersion)
+ipcMain.handle('getCometVersion', getCometVersion)
 ipcMain.handle('getNileVersion', getNileVersion)
 ipcMain.handle('getSystemInfo', async (e, cache) => getSystemInfo(cache))
 ipcMain.on('copySystemInfoToClipboard', async () =>

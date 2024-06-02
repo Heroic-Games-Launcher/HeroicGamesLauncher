@@ -31,6 +31,7 @@ win:
     - build/bin/win32/legendary.exe
     - build/bin/win32/gogdl.exe
     - build/bin/win32/nile.exe
+    - build/bin/win32/comet.exe
   files: build/bin/win32/*
 
 portable:
@@ -50,6 +51,7 @@ mac:
     - build/bin/darwin/legendary
     - build/bin/darwin/gogdl
     - build/bin/darwin/nile
+    - build/bin/darwin/comet
   files:
     - build/bin/darwin/*
 
@@ -79,6 +81,7 @@ linux:
     - build/bin/linux/gogdl
     - build/bin/linux/nile
     - build/bin/linux/vulkan-helper
+    - build/bin/linux/comet
   files:
     - build/bin/linux/*
 

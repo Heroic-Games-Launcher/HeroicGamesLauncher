@@ -141,6 +141,7 @@ interface AsyncIPCFunctions {
   getHeroicVersion: () => string
   getLegendaryVersion: () => Promise<string>
   getGogdlVersion: () => Promise<string>
+  getCometVersion: () => Promise<string>
   getNileVersion: () => Promise<string>
   isFullscreen: () => boolean
   isFrameless: () => boolean
