@@ -42,7 +42,10 @@ import {
 import { existsSync } from 'graceful-fs'
 import { showDialogBoxModalAuto } from 'backend/dialog/dialog'
 import { t } from 'i18next'
-import { getWineFlagsArray } from 'backend/utils/compatibility_layers'
+import {
+  getWineFlagsArray,
+  isUmuSupported
+} from 'backend/utils/compatibility_layers'
 import shlex from 'shlex'
 import { join } from 'path'
 import {
@@ -383,7 +386,7 @@ export async function launch(
 
     const { bin: wineExec, type: wineType } = gameSettings.wineVersion
 
-    if (wineType === 'proton') {
+    if (isUmuSupported(wineType)) {
       const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
       if (umuId) {
         commandEnv['GAMEID'] = umuId

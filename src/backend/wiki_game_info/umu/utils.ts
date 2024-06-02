@@ -9,7 +9,8 @@ interface GameObject {
 const storeMapping: Record<Runner, string> = {
   gog: 'gog',
   legendary: 'egs',
-  nile: 'amazon'
+  nile: 'amazon',
+  sideload: 'sideload'
 }
 
 export async function getUmuId(

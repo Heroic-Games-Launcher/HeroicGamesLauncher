@@ -74,7 +74,8 @@ import { sendFrontendMessage } from '../../main_window'
 import { RemoveArgs } from 'common/types/game_manager'
 import {
   AllowedWineFlags,
-  getWineFlags
+  getWineFlags,
+  isUmuSupported
 } from 'backend/utils/compatibility_layers'
 import {
   LegendaryAppName,
@@ -839,7 +840,7 @@ export async function launch(
 
     const { bin: wineExec, type: wineType } = gameSettings.wineVersion
 
-    if (wineType === 'proton') {
+    if (isUmuSupported(wineType)) {
       const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
       if (umuId) {
         commandEnv['GAMEID'] = umuId
