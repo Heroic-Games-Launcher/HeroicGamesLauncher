@@ -6,7 +6,7 @@ interface GameObject {
   title: string
   umu_id: string
 }
-const storeMapping: { [key in Runner]?: string } = {
+const storeMapping: Record<Runner, string> = {
   gog: 'gog',
   legendary: 'egs',
   nile: 'amazon'
