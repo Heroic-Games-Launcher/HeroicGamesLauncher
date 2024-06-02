@@ -275,7 +275,7 @@ async function prepareLaunch(
       }
     }
 
-    logInfo(`Using ${runtimeType} Runtime`, LogPrefix.Backend)
+    logInfo(`Using Steam ${runtimeType} Runtime`, LogPrefix.Backend)
 
     steamRuntime = [path, ...args]
   }
