@@ -5,7 +5,9 @@
         "content_font_family_no_default": "Keluarga Font Konten (Default: ",
         "fonts": "Fon",
         "title": "Aksesibilitas",
-        "zoom": "Perbesar"
+        "zoom": "Perbesar",
+        "disable_dialog_backdrop_close": "Nonaktifkan dialog penutup dengan mengeklik bagian luar",
+        "titles_always_visible": "Selalu tampilkan judul di perpustakaan"
     },
     "add_game": "Tambahkan Gim",
     "All": "Semua",
@@ -119,7 +121,8 @@
         },
         "select": {
             "button": "Pilih",
-            "exe": "Pilih EXE"
+            "exe": "Pilih EXE",
+            "script": "Pilih skrip ..."
         },
         "shortcuts": {
             "message": "Pintasan dibuat di Desktop dan Start Menu",
@@ -167,7 +170,9 @@
         "yes": "YA",
         "dontShowAgain": "Jangan tampilkan lagi",
         "choose-nile-binary": "Pilih Nile binary",
-        "update": "Perbarui"
+        "update": "Perbarui",
+        "changelog": "Log Perubahan",
+        "postpone": "Tunda"
     },
     "button": {
         "cancel": "Batalkan",
@@ -303,7 +308,8 @@
             "downloadManager": "Download Manager",
             "wineManager": "Manajer Wine",
             "library": "Pustaka"
-        }
+        },
+        "msync": "Fsync bertujuan untuk mengurangi overhead server Wine di gim dengan CPU intensif. Mengaktifkannya dapat meningkatkan kinerja pada kernel Linux yang didukung."
     },
     "info": {
         "heroic": {
@@ -618,7 +624,8 @@
         },
         "frameless-window": {
             "description": "Gunakan frameless window (perlu restart)"
-        }
+        },
+        "msync": "Aktifkan Esync"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -666,10 +673,14 @@
         },
         "advanced": {
             "clearCache": {
-                "help8": "Gim Terpasang"
+                "help8": "Gim Terpasang",
+                "help9": "Pengaturan gim"
             },
             "title": {
                 "resetHeroic": "Reset Heroic"
+            },
+            "resetHeroic": {
+                "help": "Anda yakin ingin menyetel ulang Heroic? Ini akan menghapus semua Pengaturan dan Tembolok tetapi tidak akan menghapus gim yang Terinstal atau kredensial Epic Anda. Versi portable (AppImage, WinPortable, ...) dari Heroic perlu dijalankan ulang secara manual setelah melakukan proses ini."
             }
         }
     },
@@ -768,5 +779,13 @@
     },
     "window": {
         "close": "Tutup"
+    },
+    "categories-manager": {
+        "add-placeholder": "Buat Kategori Baru"
+    },
+    "adtraction-locked": {
+        "dont-show-again": "Jangan tampilkan peringatan ini lagi",
+        "title": "Adtraction diblokir",
+        "description": "Sepertinya domain track.adtraction.com gagal dimuat atau diblokir. Dengan adtraction, pembelian apa pun yang Anda lakukan di toko GOG akan mendukung Heroic secara finansial. Pertimbangkanlah untuk menghapus blokiran jika Anda ingin berkontribusi."
     }
 }

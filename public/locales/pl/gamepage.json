@@ -149,7 +149,8 @@
             "cancel": "Nie",
             "message": "Wsparcie dla systemów Anticheat nie działa poprawnie lub nie istnieje. Gra nie będzie działać. Czy chcesz zainstalować ją mimo wszystko?",
             "install": "Tak (Rozumiem, że to nie zadziała)",
-            "title": "Niewspierany Anticheat"
+            "title": "Niewspierany Anticheat",
+            "ok": "Ok"
         },
         "flatpak-path-not-writtable": "Błąd: Brak dostępu do tej ścieżki, spowoduje to utratę danych."
     },
@@ -187,7 +188,9 @@
     },
     "setting": {
         "use-default-wine-settings": "Użyj domyślnych ustawień Wine",
-        "winecrossoverbottle": "Butelka CrossOver"
+        "winecrossoverbottle": "Butelka CrossOver",
+        "show-wine-settings": "Pokaż ustawienia Wine",
+        "warn-use-default-wine-settings": "Używaj tylko, jeżeli wiesz co robisz.<br/>Współdzielenie tego samego prefiksu przez wiele gier może powodować problemy, jeżeli ich zależności nie są kompatybilne."
     },
     "sideload": {
         "field": {
@@ -230,7 +233,7 @@
         "uninstalling": "Odinstalowywanie",
         "updating": "Aktualizowanie gry",
         "playing": "W grze",
-        "moving-files": "Przenoszenie pliku „{{file}}”: {{percent}} ",
+        "moving-files": "Przenoszenie pliku „{{file}}”: {{percent}}%",
         "syncingSaves": "Synchronizowanie zapisów",
         "launching": "Uruchamianie",
         "ubisoft": "Instalowanie Ubisoft",

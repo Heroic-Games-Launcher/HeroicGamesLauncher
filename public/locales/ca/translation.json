@@ -120,7 +120,8 @@
         },
         "select": {
             "button": "Tria",
-            "exe": "Selecciona l'EXE"
+            "exe": "Selecciona l'EXE",
+            "script": "Trieu un script..."
         },
         "shortcuts": {
             "message": "S'han creat dreceres a l'escriptori i al menú d'inici",
@@ -316,7 +317,8 @@
             "gameWidth": "La resolució horitzontal del joc. El gamescope assumeix una relació 16:9.",
             "upscaleWidth": "La resolució horitzontal que farà servir el gamescope. S'assumeix una relació d'aspecte 16:9.",
             "gameHeight": "La resolució vertical del joc. El gamescope assumeix una relació 16:9.",
-            "upscaleHeight": "La resolució vertical que farà servir el gamescope. S'assumeix una relació d'aspecte 16:9."
+            "upscaleHeight": "La resolució vertical que farà servir el gamescope. S'assumeix una relació d'aspecte 16:9.",
+            "additionalOptions": "Opcions d'ordre de comandes addicionals per al gamescope"
         },
         "title": {
             "accessibility": "Accessibilitat",
@@ -340,7 +342,8 @@
             "wineManager": "Instal·la diverses versions del Wine, Proton, Crossover, etc.",
             "library": "Mostra tots els jocs que tens.",
             "login": "Inicia la sessió en diverses botigues."
-        }
+        },
+        "msync": "L'Msync vol reduir la sobrecàrrega del wineserver en jocs intensius de CPU. Si s'habilita, pot millorar el rendiment en nuclis Linux compatibles."
     },
     "info": {
         "heroic": {
@@ -503,7 +506,9 @@
             "upscaleHeight": "Mida vertical de l'escalatge",
             "fpsLimiterNoFocus": "Limitador de FPS (sense el focus)",
             "stretch": "Estira la imatge",
-            "interger": "Escalatge enter"
+            "interger": "Escalatge enter",
+            "additionalOptions": "Opcions addicionals",
+            "windowed": "En finestra"
         }
     },
     "other": {
@@ -676,7 +681,10 @@
             "enableLimiter": "Activa el limitador de FPS",
             "enableUpscaling": "Activa l'escalatge",
             "missingMsg": "No s'ha trobat el gamescope a PATH. Instal·leu-lo o afegiu-lo a PATH."
-        }
+        },
+        "after-launch-script-path": "Seleccioneu un script que s'executarà després de sortir del joc",
+        "msync": "Activa l'Msync",
+        "before-launch-script-path": "Seleccioneu un script que s'executarà abans que s'iniciï joc"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -882,11 +890,27 @@
     },
     "wineExplanation": {
         "proton-ge": "Proton-GE-Proton és una variant del Proton creada per Glorious Eggroll. S'ha de fer servir amb l'Steam, però alguns jocs de fora de l'Steam també poden funcionar millor amb el Proton-GE-Proton. Proporciona registres generalment poc útils per a la solució de problemes.",
-        "wine-ge-lol": "Els Wine-GE-Proton...-LoL estan dissenyats per a fer-los servir només amb el League of Legends. No s'han de fer servir per a altres jocs, ja que poden causar problemes.",
         "wine-ge": "Wine-GE-Proton és una variant del Wine creada per Glorious Eggroll. És el Wine recomanat per a fer servir fora d'Steam. Proporciona registres útils per a la solució de problemes."
     },
     "emptyLibrary": {
         "noGames": "La vostra biblioteca està buida. Podeu <1>iniciar sessió</1> en alguna botiga o fer clic <3></3> per a afegir-ne una manualment.",
         "noResults": "Els filtres actuals no han produït cap resultat."
+    },
+    "categories-manager": {
+        "add": "Afegeix",
+        "confirm-remove": "Confirma l'eliminació de «{{name}}»",
+        "no-categories": "No hi ha categories.",
+        "cancel-remove": "Cancel·la l'eliminació de «{{name}}»",
+        "cancel-rename": "Cancel·la el canvi de nom de «{{name}}»",
+        "confirm-rename": "Confirma el canvi de nom «{{oldName}}» a «{{newName}}»",
+        "remove": "Elimina «{{name}}»",
+        "rename": "Reanomena «{{name}}»",
+        "title": "Administra les categories",
+        "add-placeholder": "Afegeix una categoria nova"
+    },
+    "adtraction-locked": {
+        "dont-show-again": "No mostris més aquest avís",
+        "description": "El domini track.adtraction.com no es pot carregar o està blocat. Amb adtraction, qualsevol compra que realitzeu a la botiga GOG ajuda econòmicament el Heroic. Considereu si voleu treure el bloqueig per a col·laborar-hi.",
+        "title": "Adtraction està blocat"
     }
 }

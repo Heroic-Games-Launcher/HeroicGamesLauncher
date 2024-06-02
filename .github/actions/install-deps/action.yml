@@ -6,11 +6,15 @@ runs:
     - uses: actions/setup-node@v3
       with:
         node-version: '20'
+    - uses: pnpm/action-setup@v3
+      with:
+        version: 9
+        standalone: ${{ runner.os == 'Windows' }}
     - name: Install node-gyp
-      run: npm install --global node-gyp
+      run: pnpm add --global node-gyp
       shell: bash
     - name: Install modules
-      run: npm install --legacy-peer-deps
+      run: pnpm install
       shell: bash
       env:
         PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'

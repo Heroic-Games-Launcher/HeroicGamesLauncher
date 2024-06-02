@@ -224,11 +224,9 @@ interface AsyncIPCFunctions {
   }) => Promise<void>
   isNative: (args: { appName: string; runner: Runner }) => boolean
   getLogContent: (appNameOrRunner: string) => string
-  installWineVersion: (
-    release: WineVersionInfo
-  ) => Promise<'error' | 'abort' | 'success'>
+  installWineVersion: (release: WineVersionInfo) => Promise<void>
   refreshWineVersionInfo: (fetch?: boolean) => Promise<void>
-  removeWineVersion: (release: WineVersionInfo) => Promise<boolean>
+  removeWineVersion: (release: WineVersionInfo) => Promise<void>
   shortcutsExists: (appName: string, runner: Runner) => boolean
   addToSteam: (appName: string, runner: Runner) => Promise<boolean>
   removeFromSteam: (appName: string, runner: Runner) => Promise<void>

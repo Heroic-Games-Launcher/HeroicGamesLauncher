@@ -37,7 +37,7 @@
             "settingcheckbox": "Apaga as definições e remove o registo{{newLine}}Nota: Isto não pode ser desfeito. Quaisquer definições alteradas vão ser esquecidas e o registo vai ser apagado.",
             "title": "Desinstalar",
             "prefix_warning": "O prefixo Wine para este jogo é o prefixo padrão. Se quer realmente apagá-lo, deverá fazê-lo manualmente.",
-            "dlc": "Você quer desinstalar este DLC?",
+            "dlc": "Você quer desinstalar essa DLC?",
             "cannotUninstallEpic": "O Epic games não pode ser desinstalado enquanto tem um jogo a ser descarregado a partir do mesmo."
         },
         "update": {
@@ -72,7 +72,8 @@
         "unhide_game": "Exibir Jogo",
         "uninstall": "Desinstalar",
         "update": "Atualizar",
-        "details": "Detalhes"
+        "details": "Detalhes",
+        "changelog": "Mostrar Log"
     },
     "cloud_save_unsupported": "Não é suportado",
     "disabled": "Desligado",
@@ -94,11 +95,18 @@
         "totalPlayed": "Tempo Jogado",
         "dlcs": "DLCs",
         "branch": {
-            "disabled": "Desligado"
+            "disabled": "Desligado",
+            "password": "defina alguma senha para um canal privado",
+            "select": "Selecionar canal beta",
+            "setPrivateBranchPassword": "Defina alguma senha para o canal privado"
         },
         "builds": {
-            "version": "Versão"
-        }
+            "version": "Versão",
+            "buildsSelector": "Selecione a versão do jogo",
+            "toggle": "Deixe o jogo em uma versão especifica"
+        },
+        "changelogFor": "Log para {{gameTitle}}",
+        "modify": "Modificar instalação"
     },
     "gamecard": {
         "moving": "A mover",
@@ -136,32 +144,37 @@
         "path-not-writtable": "Aviso: o caminho pode não permitir que possa gravar.",
         "space-after-install": "Depois da Instalação",
         "wineprefix": "Prefixo do Wine",
-        "wineversion": "Versão do Wine",
+        "wineversion": "Versão Wine.",
         "anticheat-warning": {
             "cancel": "Não",
             "message": "O suporte anti-batota está danificado ou foi recusado. O jogo não irá funcionar. Deseja instalá-lo mesmo assim?",
             "install": "Sim (Eu entendo que não irá funcionar)",
-            "title": "Anti-batota Danificado/Recusado"
+            "title": "Anti-batota Danificado/Recusado",
+            "install_anyway": "Sim (eu entendo que os recursos multiplayer do jogo não vão funcionar.)",
+            "multiplayer_message": "O suporte anticheat esta com algum problema ou não iniciado. O jogo deve abrir mas os recursos multiplayer não vão funcionar. Voce deseja instalar mesmo assim?",
+            "ok": "Ok"
         },
         "flatpak-path-not-writtable": "Erro: Acesso à área restrita não concedido a este caminho, ocorrerá perda de dados."
     },
     "label": {
         "game": {
-            "third-party-game": "Jogo de Terceiros NÂO Suportado",
-            "not-installable-game": "O Jogo NÃO é Instalável"
+            "third-party-game": "Jogo de Terceiros NÂO são Suportado",
+            "not-installable-game": "Este Jogo NÃO é Instalável"
         },
         "playing": {
             "start": "Jogar Agora",
-            "stop": "A Jogar (Parar)"
+            "stop": "Jogando (Parar)"
         },
         "saves": {
-            "syncing": "A sincronizar Jogos Salvos"
+            "syncing": "Sincronizando Jogos Salvos"
         },
-        "launching": "A Iniciar",
-        "ubisoft": "A instalar Ubisoft Connect"
+        "launching": "Iniciando",
+        "ubisoft": "A instalar Ubisoft Connect",
+        "winetricks": "Instalando Winetricks Packages",
+        "redist": "Instalando Redistributables"
     },
     "launch": {
-        "options": "Opções de Inicio..."
+        "options": "opções do launcher..."
     },
     "not_logged_in": {
         "epic": "Não tem a sessão iniciada com uma conta da Epic no Heroic. Não use a página da loja para iniciar a sessão, em vez disso clique no botão seguinte:",
@@ -176,7 +189,9 @@
     },
     "setting": {
         "use-default-wine-settings": "Usar as Definições Padrão do Wine",
-        "winecrossoverbottle": "Garrafa do CrossOver"
+        "winecrossoverbottle": "Garrafa do CrossOver",
+        "show-wine-settings": "Mostrar configurações wine",
+        "warn-use-default-wine-settings": "Use essa opções SÓ se você sabe o que esta fazendo.<br/>Compartilhar o mesmo prefixo para varios jogos pode gerar problemas se as dependências forem incompativeis."
     },
     "sideload": {
         "field": {
@@ -184,7 +199,7 @@
         },
         "info": {
             "exe": "Selecionar Executável",
-            "image": "App Image",
+            "image": "Imagem do app",
             "title": "Jogo/Título da Aplicação",
             "broser": "URL do Navegador",
             "useragent": "Agente de Utilizador Personalizado",
@@ -219,14 +234,16 @@
         "uninstalling": "A Desinstalar",
         "updating": "A Atualizar Jogo",
         "playing": "A Jogar",
-        "moving-files": "A mover arquivo '{{file}}': {{percent}} ",
+        "moving-files": "Movendo o arquivo '{{file}}': {{percent}} %",
         "syncingSaves": "A Sincronizar os Jogos Salvos",
         "launching": "A Iniciar",
         "ubisoft": "A Instalar Ubisoft",
         "downloading": "A Descarregar",
         "extracting": "A Extrair",
         "gog-goodie": "Parece que este jogo não é instalável. Verifique o conteúdo descarregável em https://gog.com/account",
-        "goodie": "Não instalável"
+        "goodie": "Não instalável",
+        "redist": "Instalando Redistributables ({{redist}})",
+        "winetricks": "Aplicando opções do Winetricks"
     },
     "submenu": {
         "addShortcut": "Adicionar Atalho",
@@ -246,6 +263,21 @@
         "categories": "Categorias"
     },
     "help": {
-        "cloud_save_unsupported": "Este jogo não suporta a cópia de jogos salvos na nuvem. Esta informação é fornecida pelos desenvolvedores do jogo. Alguns jogos implementam o seu próprio sistema de cópia de jogos salvos na nuvem"
+        "cloud_save_unsupported": "Este jogo não suporta a cópia de jogos salvos na nuvem. Esta informação é fornecida pelos desenvolvedores do jogo. Alguns jogos implementam o seu próprio sistema de cópia de jogos salvos na nuvem",
+        "title": {
+            "gamePage": "Pagina do jogo"
+        },
+        "content": {
+            "gamePage": "Mostrar todos os detalhes e ações. Use os 3 pontinhos para mais coisas."
+        }
+    },
+    "modifyInstall": {
+        "dlcsCollapsible": "DLC",
+        "nodlcs": "DLC não disponível",
+        "redMod": {
+            "enable": "Ativar mods",
+            "collapsible": "REDmod Integração."
+        },
+        "versionCollapsable": "Versão do jogo"
     }
 }

@@ -149,7 +149,8 @@
             "cancel": "Nem",
             "install": "Igen (megértettem, hogy nem fog működni)",
             "message": "A csalás elleni védelem támogatása hibás vagy le van tiltva. A játék nem fog működni. Mindenképp telepíti?",
-            "title": "A csalás elleni védelem hibás/elutasítva"
+            "title": "A csalás elleni védelem hibás/elutasítva",
+            "ok": "Ok"
         },
         "flatpak-path-not-writtable": "Hiba: nem lett hozzáférés adva a homokozóhoz ennél az elérési útnál, adatvesztés fog történni."
     },
@@ -216,9 +217,9 @@
     "status": {
         "clickToUpdate": "Kattintson a frissítéshez",
         "gameNotAvailable": "A játék nem érhető el",
-        "hasUpdates": "Új verzió érhető el.",
+        "hasUpdates": "Új verzió érhető el!",
         "installed": "Telepítve",
-        "installing": "Telepítés…",
+        "installing": "Telepítés",
         "moving": "Telepítés áthelyezése, kis türelmet",
         "notinstalled": "Ez a játék nincs telepítve",
         "notSupported": "Nem támogatott",
@@ -236,7 +237,7 @@
         "launching": "Indítás…",
         "ubisoft": "Ubisoft telepítése",
         "downloading": "Letöltés folyamatban",
-        "extracting": "Kibontás…",
+        "extracting": "Kicsomagolás",
         "gog-goodie": "Úgy tűnik, hogy ez a játék nem telepíthető. Ellenőrizze a letölthető tartalmat a https://gog.com/account oldalon",
         "goodie": "Nem telepíthető",
         "winetricks": "Winetricks javítások alkalmazása",
@@ -260,7 +261,7 @@
         "categories": "Kategóriák"
     },
     "help": {
-        "cloud_save_unsupported": "Ez a játék nem támogatja a felhőalapú mentést. Ezt az információt a játékfejlesztők biztosítják. Egyes játékok saját felhőalapú mentési rendszert alkalmaznak.",
+        "cloud_save_unsupported": "Ez a játék nem támogatja a felhőalapú mentést. Ezt az információt a játékfejlesztők biztosítják. Egyes játékok saját felhőalapú mentési rendszert alkalmaznak",
         "title": {
             "gamePage": "Játékoldal"
         },

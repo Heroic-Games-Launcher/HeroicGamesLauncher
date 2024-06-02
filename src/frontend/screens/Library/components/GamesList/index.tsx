@@ -49,7 +49,8 @@ const GamesList = ({
   isRecent = false,
   isFavourite = false
 }: Props): JSX.Element => {
-  const { gameUpdates } = useContext(ContextProvider)
+  const { gameUpdates, allTilesInColor, titlesAlwaysVisible } =
+    useContext(ContextProvider)
   const { t } = useTranslation()
   const listRef = useRef<HTMLDivElement | null>(null)
   const { activeController } = useContext(ContextProvider)
@@ -118,7 +119,9 @@ const GamesList = ({
       className={cx({
         gameList: layout === 'grid',
         gameListLayout: layout === 'list',
-        firstLane: isFirstLane
+        firstLane: isFirstLane,
+        allTilesInColor,
+        titlesAlwaysVisible
       })}
       ref={listRef}
     >

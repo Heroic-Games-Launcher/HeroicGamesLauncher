@@ -39,6 +39,7 @@ import StoreLogos from 'frontend/components/UI/StoreLogos'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 import { getCardStatus, getImageFormatting } from './constants'
 import { hasStatus } from 'frontend/hooks/hasStatus'
+import fallBackImage from 'frontend/assets/heroic_card.jpg'
 import LibraryContext from '../../LibraryContext'
 
 interface Card {
@@ -90,7 +91,6 @@ const GameCard = ({
   const {
     hiddenGames,
     favouriteGames,
-    allTilesInColor,
     showDialogModal,
     setIsSettingsModalOpen,
     activeController
@@ -367,12 +367,8 @@ const GameCard = ({
   const notAvailableClass = notAvailable ? 'notAvailable' : ''
   const gamepadClass = activeController ? 'gamepad' : ''
   const justPlayedClass = justPlayed ? 'justPlayed' : ''
-  const imgClasses = `gameImg ${isInstalled ? 'installed' : ''} ${
-    allTilesInColor ? 'allTilesInColor' : ''
-  }`
-  const logoClasses = `gameLogo ${isInstalled ? 'installed' : ''} ${
-    allTilesInColor && 'allTilesInColor'
-  }`
+  const imgClasses = `gameImg ${isInstalled ? 'installed' : ''}`
+  const logoClasses = `gameLogo ${isInstalled ? 'installed' : ''}`
 
   const wrapperClasses = `${
     grid ? 'gameCard' : 'gameListItem'
@@ -416,7 +412,7 @@ const GameCard = ({
             <StoreLogos runner={runner} />
             {justPlayed ? (
               <CachedImage
-                src={art_cover}
+                src={art_cover || fallBackImage}
                 className="justPlayedImg"
                 alt={title}
               />
@@ -427,7 +423,7 @@ const GameCard = ({
                 alt="cover"
               />
             )}
-            {logo && (
+            {(justPlayed || runner !== 'nile') && logo && (
               <CachedImage
                 alt="logo"
                 src={`${logo}?h=400&resize=1&w=300`}

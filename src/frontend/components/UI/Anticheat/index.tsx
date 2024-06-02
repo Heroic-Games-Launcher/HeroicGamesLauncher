@@ -65,8 +65,8 @@ export default function Anticheat({ anticheatInfo }: Props) {
         {mayNotWork && (
           <p>
             {t(
-              'anticheat.may_not_work',
-              'It may not work due to denied or broken anticheat support.'
+              'anticheat.multiplayer_may_not_work',
+              'Multiplayer features may not work due to denied or broken anticheat support.'
             )}
           </p>
         )}

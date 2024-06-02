@@ -238,15 +238,6 @@ async function initializeWindow(): Promise<BrowserWindow> {
   detectVCRedist(mainWindow)
 
   if (process.env.VITE_DEV_SERVER_URL) {
-    if (!process.env.HEROIC_NO_REACT_DEVTOOLS) {
-      import('electron-devtools-installer').then((devtools) => {
-        const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
-
-        installExtension(REACT_DEVELOPER_TOOLS).catch((err: string) => {
-          logWarning(['An error occurred: ', err], LogPrefix.Backend)
-        })
-      })
-    }
     mainWindow.loadURL(process.env.VITE_DEV_SERVER_URL)
     // Open the DevTools.
     mainWindow.webContents.openDevTools()

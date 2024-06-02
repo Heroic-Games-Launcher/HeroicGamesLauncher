@@ -887,7 +887,6 @@
         "noResults": "A jelenlegi szűrők nem adtak találatokat."
     },
     "wineExplanation": {
-        "wine-ge-lol": "A Wine-GE-Proton…-LoL összeállítások CSAK a League of Legendshez készülnek. Ezeket az összesállításokat NEM szabad más játékokhoz használni, mert problémákat okozhatnak.",
         "proton-ge": "A Proton-GE-Proton egy olyan Proton változat, melyet Glorious Eggroll készít. Steam melletti használathoz készült, de egyes nem steames játékok is jobban működhetnek ezzel a változattal. Hibakereséshez többnyire haszontalan naplófájlokat biztosít.",
         "wine-ge": "A Wine-GE-Proton egy olyan Wine változat, melyet Glorious Eggroll készít. Ez az ajánlott Wine verzió a nem steames játékokhoz. Hasznos naplókat biztosít a hibakereséshez."
     },
@@ -895,5 +894,8 @@
         "dont-show-again": "Ne jelenítse meg újra ezt a figyelmeztetést",
         "title": "A reklámkövetés le van tiltva",
         "description": "Úgy néz ki, hogy a track.adtraction.com domaint nem lehetett betölteni, vagy le van tiltva. A reklámkövetéssel az összes, a GOG áruházban történő vásárlás pénzügyileg támogatja a Heroicot. Fontolja meg a tiltás eltávolítását, ha szeretne támogatni."
+    },
+    "categories-manager": {
+        "add-placeholder": "Új kategória hozzáadása"
     }
 }

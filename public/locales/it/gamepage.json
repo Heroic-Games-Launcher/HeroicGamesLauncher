@@ -33,12 +33,12 @@
         },
         "uninstall": {
             "checkbox": "Rimuovi prefisso: {{prefix}}{{newLine}}Nota: Questa operazione è irreversibile e verranno rimossi anche i salvataggi di cui non si è effettuato il backup.",
-            "message": "Vuoi disinstallare questo gioco?",
+            "message": "Vuoi disinstallare \"{{title}}\"?",
             "settingcheckbox": "Elimina le impostazioni e rimuovi il log{{newLine}}Nota: questa operazione non è reversibile. Tutte le impostazioni modificate saranno dimenticate e il log verrà eliminato.",
             "title": "Disinstalla",
             "prefix_warning": "Il prefisso Wine per questo gioco è il prefisso predefinito. Se vuoi davvero eliminarlo, devi farlo manualmente.",
-            "dlc": "Vuoi disinstallare questo DLC?",
-            "cannotUninstallEpic": "I giochi Epic non possono essere disinstallati mentre si installa un altro gioco Epic."
+            "dlc": "Vuoi disinstallare \"{{title}}\" (DLC)?",
+            "cannotUninstallEpic": "I giochi Epic non possono essere disinstallati mentre è in corso l'installazione di un altro gioco Epic."
         },
         "update": {
             "message": "Questo gioco ha un aggiornamento, desideri aggiornarlo ora?",
@@ -72,7 +72,8 @@
         "unhide_game": "Mostra gioco",
         "uninstall": "Disinstalla",
         "update": "Aggiorna",
-        "details": "Dettagli"
+        "details": "Dettagli",
+        "changelog": "Mostra Changelog"
     },
     "cloud_save_unsupported": "Non supportato",
     "disabled": "Disattivato",
@@ -94,11 +95,18 @@
         "totalPlayed": "Tempo giocato",
         "dlcs": "DLC",
         "branch": {
-            "disabled": "Disabilitato"
+            "disabled": "Disabilitato",
+            "password": "Imposta password del canale privato",
+            "select": "Seleziona canale beta",
+            "setPrivateBranchPassword": "Imposta password del canale privato"
         },
         "builds": {
-            "version": "Versione"
-        }
+            "version": "Versione",
+            "buildsSelector": "Seleziona versione del gioco",
+            "toggle": "Mantieni il gioco alla versione specifica"
+        },
+        "changelogFor": "Changelog di {{gameTitle}}",
+        "modify": "Modifica Installazione"
     },
     "gamecard": {
         "moving": "Spostamento in corso",
@@ -110,7 +118,7 @@
     },
     "hours": "Ore",
     "how-long-to-beat": {
-        "completionist": "Completamento",
+        "completionist": "Completista",
         "main-plus-extras": "Principale + Extra",
         "main-story": "Storia Principale"
     },
@@ -141,7 +149,11 @@
             "cancel": "No",
             "message": "Il supporto dell'anticheat è non funzionante o negato. Il gioco non funzionerà. Vuoi installarlo comunque?",
             "install": "Si (Capisco che non funzionerà)",
-            "title": "Anticheat Rotto/Negato"
+            "title": "Anticheat Rotto/Negato",
+            "ok": "Ok",
+            "install_anyway": "Sì (comprendo che le funzionalità multiplayer non funzioneranno)",
+            "disabled_installation": "Il supporto anticheat è bloccato o non funzionante e le funzionalità multiplayer non funzioneranno. Il gioco non può essere installato. Per installare questo gioco, disabilita questo controllo nelle impostazioni avanzate.",
+            "multiplayer_message": "Il supporto dell'anticheat è bloccato o non funzionante. Il gioco potrebbe aprirsi ma le funzionalità multiplayer non funzioneranno. Vuoi installarlo comunque?"
         },
         "flatpak-path-not-writtable": "Errore: accesso a Sandbox non garantito su questa posizione, i dati andranno persi."
     },
@@ -158,7 +170,9 @@
             "syncing": "Sincronizzando i salvataggi"
         },
         "launching": "Avviando",
-        "ubisoft": "Installazione di Ubisoft Connect"
+        "ubisoft": "Installazione di Ubisoft Connect",
+        "redist": "Installazione componenti ridistribuibili",
+        "winetricks": "Installazione pacchetti Winetricks"
     },
     "launch": {
         "options": "Opzioni di avvio..."
@@ -176,7 +190,9 @@
     },
     "setting": {
         "use-default-wine-settings": "Usa le impostazioni predefinite di Wine",
-        "winecrossoverbottle": "Bottiglia di CrossOver"
+        "winecrossoverbottle": "Bottiglia di CrossOver",
+        "show-wine-settings": "Mostra impostazioni Wine",
+        "warn-use-default-wine-settings": "Utilizza questa opzione solo se sai ciò che stai facendo.<br/> Condividere lo stesso prefisso per giochi differenti potrebbe creare problemi se le loro dipendenze sono incompatibili."
     },
     "sideload": {
         "field": {
@@ -193,7 +209,8 @@
         "placeholder": {
             "image": "Incolla qui l'URL di un'Immagine",
             "title": "Aggiungi un Titolo per il tuo Gioco/App",
-            "url": "Incolla qui l'URL del gioco"
+            "url": "Incolla qui l'URL del gioco",
+            "useragent": "Scrivi un user agent personalizzato qui da utilizzare su questa applicazione/gioco su browser"
         }
     },
     "specs": {
@@ -218,14 +235,16 @@
         "uninstalling": "Disinstallando",
         "updating": "Aggiornamento in corso",
         "playing": "Giocando",
-        "moving-files": "Spostamento del file '{{file}}': {{percent}} ",
+        "moving-files": "Spostamento del file '{{file}}': {{percent}}%",
         "syncingSaves": "Sincronizzando i salvataggi",
         "launching": "Avviando",
         "ubisoft": "Installazione di Ubisoft",
         "downloading": "Scaricamento",
         "extracting": "Estrazione",
         "gog-goodie": "Questo gioco non sembra essere installabile. Controlla i contenuti scaricabili su https://gog.com/account",
-        "goodie": "Non installabile"
+        "goodie": "Non installabile",
+        "redist": "Installazione ridistribuibili ({{redist}})",
+        "winetricks": "Applicazione correzioni Winetricks"
     },
     "submenu": {
         "addShortcut": "Aggiungi scorciatoia",
@@ -245,6 +264,21 @@
         "categories": "Categorie"
     },
     "help": {
-        "cloud_save_unsupported": "Questo gioco non supporta i salvataggi nel cloud. Queste informazioni sono fornite dagli sviluppatori del gioco. Alcuni giochi implementano il proprio sistema di salvataggio nel cloud"
+        "cloud_save_unsupported": "Questo gioco non supporta i salvataggi nel cloud. Queste informazioni sono fornite dagli sviluppatori del gioco. Alcuni giochi implementano il proprio sistema di salvataggio nel cloud",
+        "content": {
+            "gamePage": "Mostra tutti dettagli e le azioni del gioco. Utilizza il menù a 3 punti per altre opzioni."
+        },
+        "title": {
+            "gamePage": "Pagina del gioco"
+        }
+    },
+    "modifyInstall": {
+        "dlcsCollapsible": "DLC",
+        "nodlcs": "Nessun DLC disponibile",
+        "redMod": {
+            "collapsible": "Integrazione REDmod",
+            "enable": "Abilita mods"
+        },
+        "versionCollapsable": "Versione Gioco"
     }
 }

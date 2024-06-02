@@ -4,15 +4,15 @@
     {
       "type": "shell",
       "label": "Run tests",
-      "command": "yarn test",
-      "detail": "yarn test",
+      "command": "pnpm test",
+      "detail": "pnpm test",
       "group": "test"
     },
     {
       "type": "shell",
       "label": "Build for Linux",
-      "command": "yarn dist:linux",
-      "detail": "yarn dist:linux",
+      "command": "pnpm dist:linux",
+      "detail": "pnpm dist:linux",
       "group": {
         "kind": "build",
         "isDefault": true
@@ -21,22 +21,22 @@
     {
       "type": "shell",
       "label": "Build for Windows",
-      "command": "yarn dist:win",
-      "detail": "yarn dist:win",
+      "command": "pnpm dist:win",
+      "detail": "pnpm dist:win",
       "group": "build"
     },
     {
       "type": "shell",
       "label": "Build for MacOS",
-      "command": "yarn dist:mac",
-      "detail": "yarn dist:mac",
+      "command": "pnpm dist:mac",
+      "detail": "pnpm dist:mac",
       "group": "build"
     },
     {
       "type": "shell",
       "label": "Check code for errors",
-      "command": "yarn codecheck",
-      "detail": "yarn codecheck",
+      "command": "pnpm codecheck",
+      "detail": "pnpm codecheck",
       "group": "test"
     }
   ]

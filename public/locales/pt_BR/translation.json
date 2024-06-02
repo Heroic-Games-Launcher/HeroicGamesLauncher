@@ -339,7 +339,8 @@
             "settingsGame": "Mostrar todas as configurações para um jogo.",
             "login": "Fazer login em diferentes lojas.",
             "settingsDefault": "Mostra todas as configurações da Heroic e padrões para jogos."
-        }
+        },
+        "msync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels."
     },
     "info": {
         "heroic": {
@@ -675,7 +676,8 @@
             "enableLimiter": "Habilitar limitador de FPS",
             "enableUpscaling": "Permite aprimoramento de escala (Upscalling)",
             "missingMsg": "Não foi possível encontrar o gamescope no PATH. Instale-o ou adicione-o no PATH."
-        }
+        },
+        "msync": "Habilitar Esync"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -886,5 +888,8 @@
     "wineExplanation": {
         "proton-ge": "Proton-GE-Proton é uma variante Proton criada por Glorious Eggroll. É feita para ser usada na Steam, mas alguns jogos fora da Steam podem trabalhar melhor com essa variante. Ela fornece logs majoritariamente inúteis para solução de problemas.",
         "wine-ge": "Wine-GE-Proton é uma variante Wine criada por Glorious Eggroll. É o Wine recomendado para ser usado fora da Steam. Ele fornece logs úteis para solução de problemas."
+    },
+    "categories-manager": {
+        "add-placeholder": "Adicionar nova categoria"
     }
 }

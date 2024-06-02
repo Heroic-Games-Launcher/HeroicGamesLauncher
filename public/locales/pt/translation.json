@@ -1,11 +1,13 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Família de Fontes Action (Padrão: ",
-        "all_tiles_in_color": "Mostrar todos os retângulos dos jogos a cores",
-        "content_font_family_no_default": "Família da Fonte Family (Padrão: ",
+        "actions_font_family_no_default": "Ações de familia fonte (Default):",
+        "all_tiles_in_color": "Mostrar todas as partes do jogo em cores",
+        "content_font_family_no_default": "Família da Fonte Family (Default): ",
         "fonts": "Fontes",
         "title": "Acessibilidade",
-        "zoom": "Ampliar"
+        "zoom": "Ampliar",
+        "disable_dialog_backdrop_close": "Desativar Fechar dialogos por click fora",
+        "titles_always_visible": "Sempre mostrar titulos na Biblioteca"
     },
     "add_game": "Adicionar Jogo",
     "All": "Tudo",
@@ -25,7 +27,7 @@
         "choose": "Escolher",
         "choose-egs-prefix": "Selecione o Prefix onde a EGS está instalada",
         "choose-gogdl-binary": "Selecione o binário GOGDL (Precisa de reiniciar)",
-        "choose-legendary-binary": "Selecionar binário do Legendary",
+        "choose-legendary-binary": "Selecione o Legendary binário",
         "customWine": "Selecione o binário do Wine ou Proton",
         "default-install-path": "Selecione o Caminho de Instalação Padrão",
         "default-steam-path": "Caminho da Steam.",
@@ -119,7 +121,8 @@
         },
         "select": {
             "button": "Selecionar",
-            "exe": "Selecionar EXE"
+            "exe": "Selecionar EXE",
+            "script": "Selecionar script..."
         },
         "shortcuts": {
             "message": "Os atalhos foram criados no Ambiente de trabalho e no Menu Inicial",
@@ -169,7 +172,9 @@
         "yes": "SIM",
         "dontShowAgain": "Não mostrar novamente",
         "choose-nile-binary": "Selecione o binário do Nilo",
-        "update": "Atualizar"
+        "update": "Atualizar",
+        "changelog": "log",
+        "postpone": "Adiar"
     },
     "button": {
         "cancel": "Cancelar",
@@ -230,7 +235,8 @@
     "game": {
         "status": "Estado",
         "store": "Loja",
-        "title": "Título do Jogo"
+        "title": "Título do Jogo",
+        "modify": "Modificar instalação"
     },
     "generic": {
         "error": {
@@ -259,7 +265,8 @@
         "reset": "Reiniciar",
         "show_installed_only": "Mostrar só Instalados",
         "no_categories": "Nenhuma categoria personalizada. Adicionar categorias usando o menu de cada jogo.",
-        "uncategorized": "Sem Categoria"
+        "uncategorized": "Sem Categoria",
+        "show_support_offline_only": "Mostrar apenas suportados offline"
     },
     "help": {
         "amdfsr": "O FSR da AMD ajuda a impulsionar os fotogramas por segundo (FPS) ao aumentar a escala de resoluções mais baixas no modo de Ecrã Inteiro. A qualidade da imagem aumenta de 5 a 1 com um custo pequeno do desempenho. Ao ligar pode melhorar o desempenho.",
@@ -310,7 +317,8 @@
             "upscaleWidth": "A resolução de largura usada pelo gamescope. Uma proporção de aspeto de 16:9 é assumida.",
             "gameHeight": "A resolução de altura usada pelo jogo. Uma proporção de 16:9 é assumida pelo gamescope.",
             "upscaleHeight": "A resolução de altura usada pelo gamescope. Uma proporção de aspeto de 16:9 é assumida.",
-            "fpsLimiter": "A quantidade de frames que o gamescope deve limitar. Ex: 60"
+            "fpsLimiter": "A quantidade de frames que o gamescope deve limitar. Ex: 60",
+            "additionalOptions": "Configurações adicionais de linha de comando para o gamescope."
         },
         "title": {
             "accessibility": "Acessibilidade",
@@ -319,6 +327,22 @@
             "downloadManager": "Download Manager",
             "wineManager": "Wine Manager",
             "library": "Biblioteca"
+        },
+        "content": {
+            "settingsDefault": "Mostrar todas as configurações da Heroic e seu padrões para jogos.",
+            "customThemesPath": "Confira nossa wiki.",
+            "defaultInstallPath": "Este é o caminho padrão pré-selecionado ao instalar jogos.",
+            "library": "Mostrar todos os próprios.",
+            "login": "Logar em lojas diferentes.",
+            "wineManager": "Instalar versões diferentes do Wine, Proton, Crossover, etc.",
+            "accessibility": "Mostrar opções de acessibilidade.",
+            "downloadManager": "Mostrar downloads atuais e passados.",
+            "settingsGame": "Mostrar todas as configurações para um jogo."
+        },
+        "msync": "Mysnc tem por objetivos reduzir a sobrecarga do servidor wine em jogos de uso intenso de CPU. Ativando-o pode melhorar a performance em kernels Linux suportados.",
+        "button": {
+            "close": "Fechar Ajuda",
+            "open": "Abrir Ajuda"
         }
     },
     "info": {
@@ -480,7 +504,10 @@
             "gameWidth": "Largura do jogo",
             "upscaleHeight": "Aprimoramento(Upscale) de Altura",
             "fpsLimiterNoFocus": "Limitador de FPS (Sem foco)",
-            "stretch": "Esticar imagem"
+            "stretch": "Esticar imagem",
+            "windowed": "Modo janela",
+            "additionalOptions": "Opções adicionais",
+            "interger": "Integer Upscale"
         }
     },
     "other": {
@@ -637,7 +664,9 @@
         "autodxvknvapi": "Instalar/Atualizar DXVK-NVAPI automaticamente",
         "disablePlaytimeSync": "Desativar sincronização do tempo de jogo",
         "experimental_features": {
-            "enableNewDesign": "Novo design"
+            "enableNewDesign": "Novo design",
+            "enableHelp": "Ajuda de componente",
+            "automaticWinetricksFixes": "Aplicar correções conhecidas automaticamente"
         },
         "frameless-window": {
             "confirmation": {
@@ -649,7 +678,10 @@
         "gamescope": {
             "enableLimiter": "Ativar limitador de FPS",
             "enableUpscaling": "Permite aprimoramento de escala (Upscalling)"
-        }
+        },
+        "after-launch-script-path": "Selecione um script para rodar após o fechamento do jogo",
+        "before-launch-script-path": "Selecionar um script para rodar antes do lançamento do jogo",
+        "msync": "Enable Esync"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -724,11 +756,15 @@
         },
         "advanced": {
             "clearCache": {
-                "help8": "Installed Games"
+                "help8": "Installed Games",
+                "help9": "Configurações do jogo"
             },
             "details": "Detalhes",
             "title": {
                 "resetHeroic": "Restaurar Heroic"
+            },
+            "resetHeroic": {
+                "help": "Tem a certeza de que deseja restaurar o Heroic? Isto irá remover todas as definições e o cache, mas não irá remover os jogos instalados nem as suas credenciais da Epic. As versões portáteis (AppImage, WinPortable, ...) do Heroic terão de ser reiniciadas manualmente posteriormente."
             }
         }
     },
@@ -836,5 +872,26 @@
         "maximize": "Maximizar janela",
         "close": "Fechar",
         "restore": "Restaurar janela"
+    },
+    "categories-manager": {
+        "add-placeholder": "Adicionar Nova Categoria",
+        "cancel-remove": "Cancelar remoção de \"{{name}}\"",
+        "remove": "Remover \"{{name}}\"",
+        "cancel-rename": "Cancelar renomeação de \"{{name}}\"",
+        "confirm-remove": "Confirmar remoção de \"{{name}}\"",
+        "confirm-rename": "Confirmar renomeação de \"{{oldName}}\" para \"{{newName}}\"",
+        "no-categories": "Sem categorias ainda.",
+        "rename": "Renomear \"{{name}}\"",
+        "title": "Gerenciar categorias",
+        "add": "Adicionar"
+    },
+    "adtraction-locked": {
+        "description": "Parece que o dominío track.adtraction.com foi desativado para iniciar ou está bloqueado. Com atração, Qualquer compra que você fizer na GOG store ajuadará o Projeto Heroic. Considere remover o bloqueio se você contribuir.",
+        "dont-show-again": "Não mostrar esse aviso outra vez",
+        "title": "Atração esta bloqueada"
+    },
+    "emptyLibrary": {
+        "noGames": "Sua biblioteca está vazia. Você pode <1>log in</1> usando a loja ou clicar <3></3> para adicionar uma manualmente.",
+        "noResults": "Os filtros atuais não produziram resultados."
     }
 }

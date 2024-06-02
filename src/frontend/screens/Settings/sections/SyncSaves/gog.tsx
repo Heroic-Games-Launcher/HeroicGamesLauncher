@@ -124,7 +124,7 @@ export default function GOGSyncSaves({
                 htmlId="inputSavePath"
                 placeholder={t('setting.savefolder.placeholder')}
                 path={value.location}
-                canEditPath={isSyncing}
+                canEditPath={!isSyncing}
                 onPathChange={(path) => {
                   const saves = [...gogSaves]
                   saves[index] = {

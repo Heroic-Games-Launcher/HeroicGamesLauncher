@@ -6,7 +6,8 @@
         "fonts": "Schriftarten",
         "title": "Barrierefreiheit",
         "zoom": "Vergrößerung",
-        "disable_dialog_backdrop_close": "Deaktiviere schließen der Dialoge bei Klick außerhalb"
+        "disable_dialog_backdrop_close": "Deaktiviere schließen der Dialoge bei Klick außerhalb",
+        "titles_always_visible": "Immer Spieltitel in Bibliothek anzeigen"
     },
     "add_game": "Spiel hinzufügen",
     "All": "Alle",
@@ -120,7 +121,8 @@
         },
         "select": {
             "button": "Auswählen",
-            "exe": "EXE auswählen"
+            "exe": "EXE auswählen",
+            "script": "Script auswählen..."
         },
         "shortcuts": {
             "message": "Verknüpfungen wurden auf dem Desktop und im Startmenü erstellt",
@@ -170,7 +172,9 @@
         "yes": "JA",
         "dontShowAgain": "Nicht erneut anzeigen",
         "choose-nile-binary": "Wähle eine Nile-Binärdatei aus",
-        "update": "Update"
+        "update": "Update",
+        "postpone": "Später",
+        "changelog": "Änderungsprotokoll"
     },
     "button": {
         "cancel": "Abbrechen",
@@ -314,7 +318,8 @@
             "upscaleWidth": "Die von gamescope verwendete Auflösung in der Breite. Es wird ein Seitenverhältnis von 16:9 angenommen.",
             "gameHeight": "Die vom Spiel verwendete Auflösung in der Höhe. Ein Seitenverhältnis von 16:9 wird von gamescope angenommen.",
             "upscaleHeight": "Die von gamescope verwendete Auflösung in der Höhe. Es wird ein Seitenverhältnis von 16:9 angenommen.",
-            "fpsLimiter": "Die Anzahl der Bilder pro Sekunde, auf die Gamescope begrenzt werden soll. z.B. 60"
+            "fpsLimiter": "Die Anzahl der Bilder pro Sekunde, auf die Gamescope begrenzt werden soll. z.B. 60",
+            "additionalOptions": "Weitere Befehlszeilenflags zur Weiterleitung an Gamescope."
         },
         "title": {
             "accessibility": "Barrierefreiheit",
@@ -338,7 +343,8 @@
         "button": {
             "close": "Hilfe schließen",
             "open": "Hilfe öffnen"
-        }
+        },
+        "msync": "Msync zielt darauf ab, Winserver Overhead in CPU-intensiven Spielen zu reduzieren. Aktivieren kann die Leistung auf unterstützten Linux-Kernels verbessern."
     },
     "info": {
         "heroic": {
@@ -501,7 +507,9 @@
             "upscaleHeight": "Upscale Höhe",
             "fpsLimiterNoFocus": "FPS-Begrenzer (kein Fokus)",
             "stretch": "Bild strecken",
-            "interger": "Integer Hochskalierung"
+            "interger": "Integer Hochskalierung",
+            "additionalOptions": "Weitere Optionen",
+            "windowed": "Fenstermodus"
         }
     },
     "other": {
@@ -674,7 +682,10 @@
             "enableLimiter": "FPS-Begrenzer einschalten",
             "enableUpscaling": "Ermöglicht Hochskalierung",
             "missingMsg": "Wir konnten gamescope nicht in der PATH-Variable finden. Installieren Sie es oder fügen Sie es der PATH-Variable hinzu."
-        }
+        },
+        "after-launch-script-path": "Wähle ein Skript aus, das ausgeführt wird nachdem du das Spiel schließt",
+        "before-launch-script-path": "Wähle ein Script aus, das ausgeführt wird bevor das Spiel gestartet wird",
+        "msync": "Msync Aktivieren"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -880,11 +891,27 @@
     },
     "wineExplanation": {
         "wine-ge": "Wine-GE-Proton ist eine Wine-Variation erstellt von Glorious Eggroll. Es ist gedacht zur Verwendung außerhalb von Steam. Zudem stellt es nützliche Fehlerprotokolle bereit.",
-        "proton-ge": "Proton-GE-Proton ist eine Variante von Proton, geschaffen von Glorious Eggroll. Obwohl diese Variante für Steam gedacht ist funktionieren einige Spiele außerhalb Steams trotzdem besser mit dieser. Es stellt jedoch größtenteils nutzlose Fehlerprotokolle bereit.",
-        "wine-ge-lol": "Wine-GE-Proton...-LoL Builds sind NUR für den Gebrauch mit League of Legends gedacht. Diese Builds sollten NICHT mit anderen Spielen verwendet werden, da sie Probleme verursachen können."
+        "proton-ge": "Proton-GE-Proton ist eine Variante von Proton, geschaffen von Glorious Eggroll. Obwohl diese Variante für Steam gedacht ist funktionieren einige Spiele außerhalb Steams trotzdem besser mit dieser. Es stellt jedoch größtenteils nutzlose Fehlerprotokolle bereit."
     },
     "emptyLibrary": {
         "noGames": "Ihre Bibliothek ist leer. Sie können sich durch/bei einen Store <1>einloggen</1> oder auf <3></3> klicken, um manuell ein Spiel hinzuzufügen.",
         "noResults": "Die aktuellen Filter haben keine Suchergebnisse hervorgebracht."
+    },
+    "categories-manager": {
+        "add-placeholder": "Neue Kategorie hinzufügen",
+        "rename": "\"{{name}}\" Umbenennen",
+        "confirm-rename": "Umbenennen von \"{{oldName}}\" zu \"{{newName}}\" bestätigen",
+        "cancel-rename": "Umbenennen von \"{{name}}\" abbrechen",
+        "confirm-remove": "Entfernen von \"{{name}}\" bestätigen",
+        "no-categories": "Noch keine Kategorien.",
+        "title": "Kategorien Verwalten",
+        "remove": "\"{{name}}\" Entfernen",
+        "add": "Hinzufügen",
+        "cancel-remove": "Entfernen von \"{{name}}\" abbrechen"
+    },
+    "adtraction-locked": {
+        "description": "Es scheint die Domäne track.adtraction.com konnte nicht geladen werden oder ist blockiert. Mit Adtraction unterstützt jeder Kauf den du auf GOG tätigst Heroic finanziell. Ziehe in Erwägung den Block aufzuheben wenn du Heroic unterstützen willst.",
+        "dont-show-again": "Diese Warnung nicht mehr anzeigen",
+        "title": "Adtraction ist blockiert"
     }
 }

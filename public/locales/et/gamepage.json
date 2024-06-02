@@ -18,7 +18,7 @@
             "title": "Kontrolli ja paranda"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "Valige EXE, mida käivitada"
         },
         "select": {
             "button": "Select"
@@ -27,24 +27,26 @@
             "exe": "Select Executable"
         },
         "stopInstall": {
-            "keepInstalling": "Jätka installimist",
+            "keepInstalling": "Jätka paigaldamist",
             "message": "Kas soovite allalaaditud faile alles hoida?",
             "title": "Peata paigaldamine"
         },
         "uninstall": {
             "checkbox": "Eemalda prefiks: {{prefix}}{{newLine}}Märkus: seda ei saa tagasi võtta ja see eemaldab ka varundamata salvestusfailid.",
-            "message": "Kas soovite selle mängu eemaldada?",
+            "message": "Kas soovite desinstallida \"{{title}}\"?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Eemalda",
-            "prefix_warning": "Selle mängu eesliide Wine on vaikeprefiks. Kui soovite seda tõesti kustutada, peate seda käsitsi tegema.",
-            "dlc": "Kas soovite selle DLC desinstallida?"
+            "prefix_warning": "Selle mängu WinePrefiks on vaikimisi prefiks. Kui soovite seda tõesti kustutada, peate seda käsitsi tegema.",
+            "dlc": "Kas soovite desinstallida \"{{title}}\" (DLC)?",
+            "cannotUninstallEpic": "Epicu mänge ei saa desinstallida samal ajal kui teist Epicu mängu installeeritakse."
         },
         "update": {
             "message": "Sellele mängule on saadaval uuendus, rakenda uuendus kohe?",
             "title": "Mäng vajab uuendust"
         },
-        "wineprefix": "Valige Wine prefiksi kaust",
-        "yes": "JAH"
+        "wineprefix": "Valige WinePrefiksi kaust",
+        "yes": "JAH",
+        "close": "Sulge"
     },
     "button": {
         "add_to_favourites": "Lisa lemmikute hulka",
@@ -70,7 +72,8 @@
         "unhide_game": "Näita mäng",
         "uninstall": "Eemalda",
         "update": "Uuenda",
-        "details": "Üksikasjad"
+        "details": "Üksikasjad",
+        "changelog": "Näita muutuste nimekirja"
     },
     "cloud_save_unsupported": "Mitte toetatud",
     "disabled": "Keelatud",
@@ -81,8 +84,8 @@
     "game": {
         "downloadSize": "Allalaadimise suurus",
         "firstPlayed": "Esimest korda mängitud",
-        "getting-download-size": "Geting download size",
-        "getting-install-size": "Geting install size",
+        "getting-download-size": "Allalaadimise suuruse pärimine",
+        "getting-install-size": "Installatsiooni suuruse pärimine",
         "installSize": "Paigaldamise suurus",
         "language": "Keel",
         "lastPlayed": "Viimati mängitud",
@@ -92,11 +95,18 @@
         "totalPlayed": "Mängitud aeg",
         "dlcs": "DLC'd",
         "branch": {
-            "disabled": "Keelatud"
+            "disabled": "Keelatud",
+            "select": "Vali beetakanal",
+            "password": "Määra privaatse kanali parool",
+            "setPrivateBranchPassword": "Määra privaatse kanali parool"
         },
         "builds": {
-            "version": "Versioon"
-        }
+            "version": "Versioon",
+            "buildsSelector": "Vali mängu versioon",
+            "toggle": "Hoia mäng konkreetsel versioonil"
+        },
+        "changelogFor": "Muutuste nimekiri mängule {{gameTitle}}",
+        "modify": "Muuda installatsiooni"
     },
     "gamecard": {
         "moving": "Liigutamine",
@@ -120,11 +130,11 @@
         "size": "Suurus",
         "syncsaves": "Sünkrooni salvestised",
         "version": "Versioon",
-        "apple-gaming-wiki": "AppleGamingWiki hinnang",
+        "apple-gaming-wiki": "AppleGamingWiki hinne",
         "clickToOpen": "Avamiseks klõpsake",
-        "game-scores": "Mängutulemused",
+        "game-scores": "Mängu skoorid",
         "installedInfo": "Installitud teave",
-        "protondb-compatibility-info": "Prootoni ühilduvusaste",
+        "protondb-compatibility-info": "Protoni ühilduvustase",
         "steamdeck-compatibility-info": "SteamDecki ühilduvus"
     },
     "install": {
@@ -134,7 +144,15 @@
         "path-not-writtable": "Hoiatus: tee ei pruugi olla kirjutatav.",
         "space-after-install": "Pärast paigaldamist",
         "wineprefix": "WinePrefiks",
-        "wineversion": "Wine'i versioon"
+        "wineversion": "Wine'i versioon",
+        "anticheat-warning": {
+            "cancel": "Ei",
+            "install": "Jah (ma mõistan, et see ei tööta)",
+            "title": "Sohivastased meetmed katkised/keelatud",
+            "message": "Sohivastaste meetmete tugi on katkine või keelatud. Mäng ei hakka tööle. Kas soovite seda siiski installeerida?",
+            "ok": "Ok"
+        },
+        "flatpak-path-not-writtable": "Viga: Liivakasti ligipääsu ei ole antud sellele asukohale, jätkates esineb andmete kadumine."
     },
     "label": {
         "game": {
@@ -149,7 +167,9 @@
             "syncing": "Salvestuste sünkroonimine"
         },
         "launching": "Käivitamine",
-        "ubisoft": "Ubisoft Connecti installimine"
+        "ubisoft": "Ubisoft Connecti installimine",
+        "redist": "Vajalike pakkide installeerimine",
+        "winetricks": "Winetricksi pakkide installeerimine"
     },
     "launch": {
         "options": "Käivitusvalikud..."
@@ -159,7 +179,7 @@
         "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
         "login": "Log in",
         "title": "You are NOT logged in",
-        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
+        "amazon": "Te ei ole Heroicus Amazoni kontoga sisse logitud. Ärge kasutage sisselogimiseks poelehekülge. Klikkige selle asemel seda nuppu:"
     },
     "report_problem": "Teatage selle mängu käivitamise probleemist",
     "sdl": {
@@ -167,7 +187,9 @@
     },
     "setting": {
         "use-default-wine-settings": "Use Default Wine Settings",
-        "winecrossoverbottle": "CrossOveri pudel"
+        "winecrossoverbottle": "CrossOveri pudel",
+        "warn-use-default-wine-settings": "Kasutage seda valikut ainult siis, kui teate, mida teete.<br/>Sama prefiksi jagamine mitme mängu puhul võib luua probleeme, kui pakid, millel need mängud sõltuvad, ei sobi kokku.",
+        "show-wine-settings": "Näita Wine'i seadeid"
     },
     "sideload": {
         "field": {
@@ -177,12 +199,15 @@
             "exe": "Select Executable",
             "image": "App Image",
             "title": "Game/App Title",
-            "broser": "Brauseri URL"
+            "broser": "BrowserURL",
+            "fullscreen": "Käivita täisekraanis (sulge klahviga F11)",
+            "useragent": "Kohandatud User Agent"
         },
         "placeholder": {
             "image": "Paste an Image URL here",
             "title": "Add a title to your Game/App",
-            "url": "Kleepige mängu URL siia"
+            "url": "Asetage mängu URL siia",
+            "useragent": "Kirjuta käsitsi User Agent siia, et kasutada seda selle brauseri äpi/mänguga"
         }
     },
     "specs": {
@@ -207,14 +232,16 @@
         "uninstalling": "Uninstalling",
         "updating": "Mängu uuendamine",
         "playing": "Mängib",
-        "moving-files": "Faili „{{file}}” teisaldamine: {{percent}} ",
+        "moving-files": "Faili „{{file}}” teisaldamine: {{percent}}%",
         "syncingSaves": "Salvestuste sünkroonimine",
         "launching": "Käivitamine",
         "ubisoft": "Ubisofti installimine",
-        "downloading": "Downloading",
-        "extracting": "Ekstraheerimine",
-        "gog-goodie": "See mäng ei tundu olevat installitav. Kontrollige allalaaditavat sisu aadressil https://gog.com/account",
-        "goodie": "Pole paigaldatav"
+        "downloading": "Allalaadimine",
+        "extracting": "Lahtipakkimine",
+        "gog-goodie": "See mäng ei paista olevat installitav. Kontrollige allalaaditavat sisu (DLC) aadressil https://gog.com/account",
+        "goodie": "Ei ole paigaldatav",
+        "redist": "Vajalike pakkide installeerimine ({{redist}})",
+        "winetricks": "Winetricksi paranduste rakendamine"
     },
     "submenu": {
         "addShortcut": "Lisa otsetee",
@@ -230,9 +257,25 @@
         "store": "Poe lehekülg",
         "verify": "Kontrolli ja paranda",
         "extraInfo": "Lisainfo",
-        "logs": "Palgid"
+        "logs": "Logid",
+        "categories": "Kategooriad"
     },
     "help": {
-        "cloud_save_unsupported": "See mäng ei toeta pilvesalvestust. Seda teavet pakuvad mängu arendajad. Mõned mängud rakendavad oma pilvesalvestussüsteemi"
+        "cloud_save_unsupported": "See mäng ei toeta pilvesalvestust. Seda teavet pakuvad mängu arendajad. Mõned mängud rakendavad omaenda pilvesalvestussüsteemi",
+        "title": {
+            "gamePage": "Mängu lehekülg"
+        },
+        "content": {
+            "gamePage": "Näita kõiki mängude üksikasju ja toiminguid. Kasuta kolme punkti menüüd, et näha rohkem valikuid."
+        }
+    },
+    "modifyInstall": {
+        "dlcsCollapsible": "DLC",
+        "nodlcs": "DLC ei ole saadaval",
+        "redMod": {
+            "collapsible": "REDmod integratsioon",
+            "enable": "Luba modifikatsioonid"
+        },
+        "versionCollapsable": "Mängu versioon"
     }
 }

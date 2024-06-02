@@ -22,6 +22,7 @@ type Props = {
   wineVersionList: WineInstallation[]
   wineVersion: WineInstallation | undefined
   title?: string
+  appName: string
 }
 
 export default function WineSelector({
@@ -32,7 +33,8 @@ export default function WineSelector({
   wineVersion,
   title = 'sideload',
   crossoverBottle,
-  setCrossoverBottle
+  setCrossoverBottle,
+  appName
 }: Props) {
   const { t, i18n } = useTranslation('gamepage')
 
@@ -62,10 +64,10 @@ export default function WineSelector({
         setWineVersion(wineVersion)
         setCrossoverBottle(defaultBottle)
       } else {
-        const sugestedWinePrefix = `${prefixFolder}/${removeSpecialcharacters(
-          title
-        )}`
-        setWinePrefix(sugestedWinePrefix)
+        const dirName =
+          removeSpecialcharacters(title) || removeSpecialcharacters(appName)
+        const suggestedWinePrefix = `${prefixFolder}/${dirName}`
+        setWinePrefix(suggestedWinePrefix)
         setWineVersion(wineVersion || undefined)
       }
     }

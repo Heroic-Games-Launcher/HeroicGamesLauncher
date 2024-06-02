@@ -56,7 +56,7 @@
                 "title": "Pelikansio vaikuttaa olevan poistettu, haluatko poistaa tämän pelin asennettujen luettelosta?"
             },
             "generic": {
-                "message": "yleinen virheilmoitus",
+                "message": "yleinen virhesanoma",
                 "title": "Valitse ajettava EXE -tiedosto"
             },
             "launchAborted": "Käynnistys keskeytettiin",
@@ -290,17 +290,18 @@
             "part1": "Heroic etsii Wine, Proton- ja CrossOver -versioita seuraavista kansioista:",
             "part2": "Muille sijainneille käytä symbolista linkkiä johonkin näistä kansioista"
         },
-        "disable_logs": "Ota tämä valintaruutu PÄÄLLE, jos haluat poistaa suurimman osan lokitiedostoihin kirjoituksista (kriittiset tiedot kirjataan aina lokiin). Muista poistaa tämä asetus käytöstä ennen kuin ilmoitat ongelmasta.",
+        "disable_logs": "Ota tämä valintaruutu PÄÄLLE, jos haluat poistaa suurimman osan kirjoituksista lokitiedostoihin (kriittiset tiedot kirjataan aina). Muista poistaa tämä asetus käytöstä ennen kuin ilmoitat ongelmasta.",
         "dxvknvapi": "DXVK-NVAPI on NVAPI:n sulautus joka on rakennettu DXVK:n ja kotoperäisen Linux-NVAPI:n päälle, ja se mahdollistaa DLSS:n käytön Nvidian näytönohjaimilla.",
         "disablePlaytimeSync": "Kytkee pois päältä peliaikojen synkronisoinnin kauppojen palvelimien kanssa (tällä hetkellä vain GOG on tuettu)",
         "title": {
             "accessibility": "Käytettävyys",
-            "login": "Login",
+            "login": "Kirjaudu",
             "settings": "Asetukset",
             "downloadManager": "Download Manager",
             "wineManager": "Wine-hallinta",
             "library": "Kirjasto"
-        }
+        },
+        "msync": "Fsync pyrkii vähentämään Wine-palvelimen taakkaa suoritinta kuormittavissa peleissä. Päällekytkentä voi parantaa suorituskykyä tuettujen Linux-ydinten kohdalla."
     },
     "info": {
         "heroic": {
@@ -605,7 +606,8 @@
             "enableNewShinyFeature": "Tuore uutuuttakiiltävä ominaisuus",
             "enableNewDesign": "Uusi malli"
         },
-        "disablePlaytimeSync": "Kytke peliaikojen synkronointi pois päältä"
+        "disablePlaytimeSync": "Kytke peliaikojen synkronointi pois päältä",
+        "msync": "Ota Esync käyttöön"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -676,10 +678,14 @@
         },
         "advanced": {
             "clearCache": {
-                "help8": "Asennetut pelit"
+                "help8": "Asennetut pelit",
+                "help9": "Peliasetukset"
             },
             "title": {
                 "resetHeroic": "Nollaa Heroic"
+            },
+            "resetHeroic": {
+                "help": "Haluatko varmasti nollata Heroic:in? Tämä poistaa kaikki asetukset sekä välimuistin, mutta ei asentamiasi pelejä eikä Epic-tietojasi. Portattavat julkaisut (AppImage, WinPortable, ...) Heroic:istä pitää uudelleenkäynnistää manuaalisesti jälkeenpäin."
             }
         }
     },
@@ -749,7 +755,7 @@
         "size": "Koko"
     },
     "externalLink": {
-        "dontAskAgain": "Älä kysy uudelleen",
+        "dontAskAgain": "Älä kysy uudestaan",
         "warning": "Olet avaamassa ulkoista linkkiä."
     },
     "wiki_info": {

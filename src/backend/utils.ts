@@ -7,8 +7,6 @@ import {
   Release,
   GameInfo,
   GameSettings,
-  State,
-  ProgressInfo,
   GameStatus
 } from 'common/types'
 import axios from 'axios'
@@ -89,6 +87,7 @@ import {
   deviceNameCache,
   vendorNameCache
 } from './utils/systeminfo/gpu/pci_ids'
+import type { WineManagerStatus } from 'common/types'
 
 const execAsync = promisify(exec)
 
@@ -536,15 +535,32 @@ async function getSteamRuntime(
   return allAvailableRuntimes.pop()!
 }
 
-function constructAndUpdateRPC(gameName: string): RpcClient {
+function constructAndUpdateRPC(gameInfo: GameInfo): RpcClient {
   const client = makeClient('852942976564723722')
+  const versionText = `Heroic ${app.getVersion()}`
+
+  const image = gameInfo.art_icon || gameInfo.art_square
+  const title = gameInfo.title
+
+  const overrides = image.startsWith('http')
+    ? {
+        largeImageKey: image,
+        smallImageKey: 'icon_new',
+        largeImageText: title,
+        smallImageText: versionText
+      }
+    : {
+        largeImageKey: 'icon_new',
+        largeImageText: versionText
+      }
+
   client.updatePresence({
-    details: gameName,
+    details: title,
     instance: true,
-    largeImageKey: 'icon_new',
-    large_text: gameName,
+    large_text: title,
     startTimestamp: Date.now(),
-    state: 'via Heroic on ' + getFormattedOsName()
+    state: 'via Heroic on ' + getFormattedOsName(),
+    ...overrides
   })
   logInfo('Started Discord Rich Presence', LogPrefix.Backend)
   return client
@@ -881,11 +897,8 @@ export async function downloadDefaultWine() {
   }
 
   // download the latest version
-  const onProgress = (state: State, progress?: ProgressInfo) => {
-    sendFrontendMessage(`progressOfWineManager${release.version}`, {
-      state,
-      progress
-    })
+  const onProgress = (state: WineManagerStatus) => {
+    sendFrontendMessage('progressOfWineManager', release.version, state)
   }
   const result = await installWineVersion(release, onProgress)
 
@@ -925,7 +938,7 @@ export async function checkWineBeforeLaunch(
 
       appendGamePlayLog(
         gameInfo,
-        `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`
+        `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.\n`
       )
     }
 
@@ -940,6 +953,10 @@ export async function checkWineBeforeLaunch(
 
       if (response === 0) {
         logInfo(`Changing wine version to ${defaultwine.name}`)
+        appendGamePlayLog(
+          gameInfo,
+          `Changing wine version to ${defaultwine.name}\n`
+        )
         gameSettings.wineVersion = defaultwine
         GameConfig.get(gameInfo.app_name).setSetting('wineVersion', defaultwine)
         return true
@@ -1250,6 +1267,7 @@ interface DownloadArgs {
   dest: string
   abortSignal?: AbortSignal
   progressCallback?: ProgressCallback
+  ignoreFailure?: boolean
 }
 
 /**
@@ -1258,6 +1276,7 @@ interface DownloadArgs {
  * @param {string} dest - The destination path to save the downloaded file.
  * @param {AbortSignal} abortSignal - The AbortSignal instance to cancel the download.
  * @param {ProgressCallback} [progressCallback] - An optional callback function to track the download progress.
+ * @param {boolean} ignoreFailure - When "true", failure to download the file is ignore (no log and no thrown error).
  * @returns {Promise<void>} - A Promise that resolves when the download is complete.
  * @throws {Error} - If the download fails or is incomplete.
  */
@@ -1265,7 +1284,8 @@ export async function downloadFile({
   url,
   dest,
   abortSignal,
-  progressCallback
+  progressCallback,
+  ignoreFailure
 }: DownloadArgs): Promise<void> {
   let lastProgressUpdateTime = Date.now()
   let lastBytesWritten = 0
@@ -1276,11 +1296,15 @@ export async function downloadFile({
     const response = await axiosClient.head(url)
     fileSize = parseInt(response.headers['content-length'], 10)
   } catch (err) {
-    logError(
-      `Downloader: Failed to get headers for ${url}. \nError: ${err}`,
-      LogPrefix.DownloadManager
-    )
-    throw new Error('Failed to get headers')
+    if (!ignoreFailure) {
+      logError(
+        `Downloader: Failed to get headers for ${url}. \nError: ${err}`,
+        LogPrefix.DownloadManager
+      )
+      throw new Error('Failed to get headers')
+    } else {
+      return
+    }
   }
 
   try {
@@ -1352,11 +1376,15 @@ export async function downloadFile({
       LogPrefix.DownloadManager
     )
   } catch (err) {
-    logError(
-      `Downloader: Download Failed with: ${err}`,
-      LogPrefix.DownloadManager
-    )
-    throw new Error(`Download failed with ${err}`)
+    if (!ignoreFailure) {
+      logError(
+        `Downloader: Download Failed with: ${err}`,
+        LogPrefix.DownloadManager
+      )
+      throw new Error(`Download failed with ${err}`)
+    } else {
+      return
+    }
   }
 }
 

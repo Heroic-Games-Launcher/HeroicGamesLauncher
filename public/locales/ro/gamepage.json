@@ -137,7 +137,10 @@
         "path-not-writtable": "Atenție: este posibil ca calea să nu poată fi scrisă.",
         "space-after-install": "După instalare",
         "wineprefix": "WinePrefix",
-        "wineversion": "Versiune Wine"
+        "wineversion": "Versiune Wine",
+        "anticheat-warning": {
+            "ok": "Ok"
+        }
     },
     "label": {
         "game": {
