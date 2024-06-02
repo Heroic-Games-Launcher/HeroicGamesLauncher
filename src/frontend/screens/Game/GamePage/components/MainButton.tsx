@@ -30,12 +30,8 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
     if (is.syncing) {
       return (
         <span className="buttonWithIcon">
+          <CloudQueue />
           {t('label.saves.syncing')}
-          <CloudQueue
-            style={{
-              marginLeft: '5px'
-            }}
-          />
         </span>
       )
     }
@@ -52,16 +48,16 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
     if (is.playing) {
       return (
         <span className="buttonWithIcon">
+          <Stop data-icon="stop" />
           {t('label.playing.stop')}
-          <Stop />
         </span>
       )
     }
 
     return (
       <span className="buttonWithIcon">
+        <PlayArrow data-icon="play" />
         {t('label.playing.start')}
-        <PlayArrow />
       </span>
     )
   }
@@ -70,21 +66,20 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
     if (is.notInstallable) {
       return (
         <span className="buttonWithIcon">
+          <Error style={{ cursor: 'not-allowed' }} />
           {t('status.goodie', 'Not installable')}
-          <Error style={{ marginLeft: '5px', cursor: 'not-allowed' }} />
         </span>
       )
     }
     if (is.notSupportedGame) {
       return (
         <span className="buttonWithIcon">
-          {t('status.notSupported', 'Not supported')}
           <Warning
             style={{
-              marginLeft: '5px',
               cursor: 'not-allowed'
             }}
           />
+          {t('status.notSupported', 'Not supported')}
         </span>
       )
     }
@@ -92,12 +87,8 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
     if (is.queued) {
       return (
         <span className="buttonWithIcon">
+          <Cancel />
           {t('button.queue.remove', 'Remove from Queue')}
-          <Cancel
-            style={{
-              marginLeft: '5px'
-            }}
-          />
         </span>
       )
     }
@@ -105,23 +96,15 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
     if (is.installing) {
       return (
         <span className="buttonWithIcon">
+          <Pause />
           {t('button.cancel')}
-          <Pause
-            style={{
-              marginLeft: '5px'
-            }}
-          />
         </span>
       )
     }
     return (
       <span className="buttonWithIcon">
+        <Download />
         {t('button.install')}
-        <Download
-          style={{
-            marginLeft: '5px'
-          }}
-        />
       </span>
     )
   }
@@ -144,17 +127,24 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
           }
           autoFocus={true}
           onClick={async () => handlePlay(gameInfo)}
-          className={classNames('button', {
-            'is-secondary': !is_installed && !is.queued,
-            'is-success':
-              is.syncing ||
-              (!is.updating && !is.playing && is_installed && !is.notAvailable),
-            'is-tertiary':
-              is.playing ||
-              (!is_installed && is.queued) ||
-              (is_installed && is.notAvailable),
-            'is-disabled': is.updating
-          })}
+          className={classNames(
+            'button',
+            {
+              'is-secondary': !is_installed && !is.queued,
+              'is-success':
+                is.syncing ||
+                (!is.updating &&
+                  !is.playing &&
+                  is_installed &&
+                  !is.notAvailable),
+              'is-tertiary':
+                is.playing ||
+                (!is_installed && is.queued) ||
+                (is_installed && is.notAvailable),
+              'is-disabled': is.updating
+            },
+            'mainBtn'
+          )}
         >
           {getPlayLabel()}
         </button>
@@ -172,15 +162,19 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
             is.notInstallable
           }
           autoFocus={true}
-          className={classNames('button', {
-            'is-primary': is_installed,
-            'is-tertiary':
-              is.notAvailable ||
-              is.installing ||
-              is.queued ||
-              is.notInstallable,
-            'is-secondary': !is_installed && !is.queued
-          })}
+          className={classNames(
+            'button',
+            {
+              'is-primary': is_installed,
+              'is-tertiary':
+                is.notAvailable ||
+                is.installing ||
+                is.queued ||
+                is.notInstallable,
+              'is-secondary': !is_installed && !is.queued
+            },
+            'mainBtn'
+          )}
         >
           {getButtonLabel()}
         </button>
