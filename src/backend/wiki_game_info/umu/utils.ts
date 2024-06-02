@@ -17,10 +17,12 @@ export async function getUmuId(
   appName: string,
   runner: Runner
 ): Promise<string | null> {
-  const store = storeMapping[runner]
-  if (!store) {
+  // if it's a sideload, there won't be any umu id
+  if (runner === 'sideload') {
     return null
   }
+
+  const store = storeMapping[runner]
   const key = `${runner}_${appName}`
   const cachedValue = umuStore.get(key)
   if (cachedValue) {
