@@ -29,7 +29,8 @@ import {
   isWindows,
   isSteamDeckGameMode,
   runtimePath,
-  userHome
+  userHome,
+  umuPath as umuBin
 } from './constants'
 import {
   constructAndUpdateRPC,
@@ -528,9 +529,6 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
 
   const ret: Record<string, string> = {}
 
-  ret.DOTNET_BUNDLE_EXTRACT_BASE_DIR = ''
-  ret.DOTNET_ROOT = ''
-
   // Add WINEPREFIX / STEAM_COMPAT_DATA_PATH / CX_BOTTLE
   const steamInstallPath = join(flatPakHome, '.steam', 'steam')
   switch (wineVersion.type) {
@@ -545,7 +543,7 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
       )
       if (dllOverridesVar) {
         ret[dllOverridesVar.key] =
-          dllOverridesVar.value + ',' + wmbDisableString
+          dllOverridesVar.value + ';' + wmbDisableString
       } else {
         ret.WINEDLLOVERRIDES = wmbDisableString
       }
@@ -876,22 +874,13 @@ async function runWineCommand({
 
   return new Promise<{ stderr: string; stdout: string }>((res) => {
     const wrappers = options?.wrappers || []
-    let bin = ''
     const umuSupported = isUmuSupported(wineVersion.type)
+    const runnerBin = umuSupported ? umuBin : wineBin
+    let bin = runnerBin
 
     if (wrappers.length) {
       bin = wrappers.shift()!
-      if (umuSupported) {
-        const umuBin = join(runtimePath, 'umu', 'umu_run.py')
-        commandParts.unshift(...wrappers, umuBin)
-      } else {
-        commandParts.unshift(...wrappers, wineBin)
-      }
-    } else {
-      bin = wineBin
-      if (umuSupported) {
-        bin = join(runtimePath, 'umu', 'umu_run.py')
-      }
+      commandParts.unshift(...wrappers, runnerBin)
     }
 
     const child = spawn(bin, commandParts, {

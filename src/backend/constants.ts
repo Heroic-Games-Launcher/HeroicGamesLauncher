@@ -65,6 +65,7 @@ const toolsPath = join(appFolder, 'tools')
 const gogRedistPath = join(toolsPath, 'redist', 'gog')
 const heroicIconFolder = join(appFolder, 'icons')
 const runtimePath = join(toolsPath, 'runtimes')
+const umuPath = join(runtimePath, 'umu', 'umu_run.py')
 const userInfo = join(legendaryConfigPath, 'user.json')
 const heroicInstallPath = join(userHome, 'Games', 'Heroic')
 const defaultWinePrefixDir = join(userHome, 'Games', 'Heroic', 'Prefixes')
@@ -269,6 +270,7 @@ export {
   fontsStore,
   isSteamDeckGameMode,
   runtimePath,
+  umuPath,
   isCLIFullscreen,
   isCLINoGui,
   publicDir,
