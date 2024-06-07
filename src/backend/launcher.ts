@@ -758,7 +758,7 @@ export async function verifyWinePrefix(
     return { res: { stdout: '', stderr: '' }, updated: false }
   }
 
-  if (!existsSync(winePrefix) && wineVersion.type !== 'proton') {
+  if (!existsSync(winePrefix) && !umuSupported(wineVersion.type)) {
     mkdirSync(winePrefix, { recursive: true })
   }
 
