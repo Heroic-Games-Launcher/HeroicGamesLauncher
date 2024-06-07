@@ -691,7 +691,7 @@ function setupWrappers(
       wrappers.push(...shlex.split(wrapperEntry.args ?? ''))
     })
   }
-  if (mangoHudCommand && !gameScopeCommand) {
+  if (mangoHudCommand && (!gameScopeCommand || gameScopeCommand.length === 0)) {
     wrappers.push(...mangoHudCommand)
   }
   if (gameModeBin) {
