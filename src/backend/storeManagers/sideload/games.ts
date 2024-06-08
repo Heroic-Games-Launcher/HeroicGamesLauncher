@@ -232,7 +232,7 @@ export async function install(
   args: InstallArgs
 ): Promise<InstallResult> {
   logWarning(
-    `install not implemented on Sideload Game Manager. called for appName = ${appName}`
+    `forceUninstall not implemented on Sideload Game Manager. called for appName = ${appName}`
   )
   return { status: 'error' }
 }

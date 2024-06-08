@@ -3,7 +3,8 @@ import {
   mkdirSync,
   readFileSync,
   unlinkSync,
-  writeFileSync
+  writeFileSync,
+  rmSync
 } from 'graceful-fs'
 import { join } from 'path'
 import { runtimePath } from './../../constants'
@@ -11,7 +12,6 @@ import { logError, logInfo, LogPrefix } from './../../logger/logger'
 import { Runtime, RuntimeName } from 'common/types'
 import { downloadFile, extractTarFile, getAssetDataFromDownload } from './util'
 import { axiosClient } from 'backend/utils'
-import { rmSync } from 'fs'
 
 async function _get(): Promise<Runtime[]> {
   mkdirSync(runtimePath, { recursive: true })
@@ -74,9 +74,7 @@ async function isInstalled(name: RuntimeName) {
   if (!existsSync(join(runtimePath, name))) return false
 
   const runtimes = await _get()
-  const runtime = runtimes.find((inst) => {
-    return inst.name === name
-  })
+  const runtime = runtimes.find((inst) => inst.name === name)
 
   // this should be impossible, so prevent redownload by faking it's installed
   if (!runtime) {
