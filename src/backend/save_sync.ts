@@ -212,7 +212,6 @@ async function getDefaultGogSavePaths(
           )
         }
       }
-      absolutePath = absolutePath.replaceAll('"', '')
     }
 
     resolvedLocations.push({
