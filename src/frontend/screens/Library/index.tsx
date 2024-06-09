@@ -169,6 +169,15 @@ export default React.memo(function Library(): JSX.Element {
     setSupportOfflineOnly(value)
   }
 
+  const [showThirdPartyManagedOnly, setShowThirdPartyManagedOnly] = useState(
+    JSON.parse(storage.getItem('show_third_party_managed_only') || 'false')
+  )
+
+  const handleShowThirdPartyOnly = (value: boolean) => {
+    storage.setItem('show_third_party_managed_only', JSON.stringify(value))
+    setShowThirdPartyManagedOnly(value)
+  }
+
   const [showCategories, setShowCategories] = useState(false)
 
   const [showModal, setShowModal] = useState<ModalState>({
@@ -436,6 +445,10 @@ export default React.memo(function Library(): JSX.Element {
         library = library.filter((game) => game.canRunOffline)
       }
 
+      if (showThirdPartyManagedOnly) {
+        library = library.filter((game) => !!game.thirdPartyManagedApp)
+      }
+
       if (!showNonAvailable) {
         const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
         const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
@@ -525,7 +538,8 @@ export default React.memo(function Library(): JSX.Element {
     showFavouritesLibrary,
     showInstalledOnly,
     showNonAvailable,
-    showSupportOfflineOnly
+    showSupportOfflineOnly,
+    showThirdPartyManagedOnly
   ])
 
   // we need this to do proper `position: sticky` of the Add Game area
@@ -597,6 +611,8 @@ export default React.memo(function Library(): JSX.Element {
         setSortInstalled: handleSortInstalled,
         showSupportOfflineOnly,
         setShowSupportOfflineOnly: handleShowSupportOfflineOnly,
+        showThirdPartyManagedOnly,
+        setShowThirdPartyManagedOnly: handleShowThirdPartyOnly,
         sortDescending,
         sortInstalled,
         handleAddGameButtonClick: () => handleModal('', 'sideload', null),
