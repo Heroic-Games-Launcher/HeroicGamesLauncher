@@ -215,6 +215,10 @@ async function prepareLaunch(
         }
       }
 
+      if (gameSettings.showMangohud) {
+        gameScopeCommand.push('--mangoapp')
+      }
+
       gameScopeCommand.push(
         ...shlex.split(gameSettings.gamescope.additionalOptions ?? '')
       )
@@ -687,7 +691,7 @@ function setupWrappers(
       wrappers.push(...shlex.split(wrapperEntry.args ?? ''))
     })
   }
-  if (mangoHudCommand) {
+  if (mangoHudCommand && gameScopeCommand?.length === 0) {
     wrappers.push(...mangoHudCommand)
   }
   if (gameModeBin) {
