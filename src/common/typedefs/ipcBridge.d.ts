@@ -247,7 +247,7 @@ interface AsyncIPCFunctions {
   disableEosOverlay: (appName: string) => Promise<void>
   isEosOverlayEnabled: (appName?: string) => Promise<boolean>
   downloadRuntime: (runtime_name: RuntimeName) => Promise<boolean>
-  isRuntimeInstalled: (runtime_name: RuntimeName) => boolean
+  isRuntimeInstalled: (runtime_name: RuntimeName) => Promise<boolean>
   getDMQueueInformation: () => {
     elements: DMQueueElement[]
     finished: DMQueueElement[]
