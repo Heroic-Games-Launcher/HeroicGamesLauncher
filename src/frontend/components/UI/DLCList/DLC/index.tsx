@@ -9,9 +9,9 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { hasProgress } from 'frontend/hooks/hasProgress'
-import { ReactComponent as DownIcon } from 'frontend/assets/down-icon.svg'
-import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
-import { ReactComponent as StopIconAlt } from 'frontend/assets/stop-icon-alt.svg'
+import DownIcon from 'frontend/assets/down-icon.svg?react'
+import StopIcon from 'frontend/assets/stop-icon.svg?react'
+import StopIconAlt from 'frontend/assets/stop-icon-alt.svg?react'
 import SvgButton from '../../SvgButton'
 
 type Props = {
