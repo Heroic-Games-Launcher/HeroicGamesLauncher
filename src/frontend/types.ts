@@ -21,7 +21,6 @@ import { NileLoginData, NileRegisterData } from 'common/types/nile'
 export type Category = 'all' | 'legendary' | 'gog' | 'sideload' | 'nile'
 
 export interface ContextType {
-  error: boolean
   gameUpdates: string[]
   isRTL: boolean
   isFullscreen: boolean

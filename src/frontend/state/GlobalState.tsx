@@ -66,7 +66,6 @@ interface StateProps {
     username?: string
   }
   wineVersions: WineVersionInfo[]
-  error: boolean
   gameUpdates: string[]
   language: string
   libraryStatus: GameStatus[]
@@ -161,7 +160,6 @@ class GlobalState extends PureComponent<Props> {
       username: nileConfigStore.get_nodefault('userData.name')
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
-    error: false,
     gameUpdates: [],
     language: this.props.i18n.language,
     libraryStatus: [],
