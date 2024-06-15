@@ -36,9 +36,6 @@ const initialContext: ContextType = {
   refreshWineVersionInfo: async () => Promise.resolve(),
   refreshing: false,
   refreshingInTheBackground: true,
-  isRTL: false,
-  language: 'en',
-  setLanguage: () => null,
   hiddenGames: {
     list: [],
     add: () => null,

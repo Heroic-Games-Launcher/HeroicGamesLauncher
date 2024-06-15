@@ -19,11 +19,12 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { useShallowGlobalState } from './state/GlobalStateV2'
 
 function Root() {
-  const { isSettingsModalOpen, isRTL, experimentalFeatures, help } =
+  const { isSettingsModalOpen, experimentalFeatures, help } =
     useContext(ContextProvider)
-  const { isFullscreen, isFrameless } = useShallowGlobalState(
+  const { isFullscreen, isFrameless, isRTL } = useShallowGlobalState(
     'isFullscreen',
-    'isFrameless'
+    'isFrameless',
+    'isRTL'
   )
 
   const hasNativeOverlayControls = navigator['windowControlsOverlay']?.visible

@@ -1,6 +1,6 @@
-import React, { ReactNode, useContext } from 'react'
+import React, { ReactNode } from 'react'
 import classnames from 'classnames'
-import ContextProvider from 'frontend/state/ContextProvider'
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 import './index.css'
 
 interface TextInputFieldProps
@@ -24,7 +24,7 @@ const TextInputField = ({
   value,
   ...inputProps
 }: TextInputFieldProps) => {
-  const { isRTL } = useContext(ContextProvider)
+  const { isRTL } = useShallowGlobalState('isRTL')
 
   return (
     <div

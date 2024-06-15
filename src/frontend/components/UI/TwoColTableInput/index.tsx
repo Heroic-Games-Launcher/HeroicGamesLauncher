@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext, useEffect, useState } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import SvgButton from '../SvgButton'
 import TextInputField from '../TextInputField'
 import AddBoxIcon from '@mui/icons-material/AddBox'
@@ -6,10 +6,10 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons'
 import EditIcon from '@mui/icons-material/Edit'
 import classnames from 'classnames'
-import ContextProvider from 'frontend/state/ContextProvider'
 import './index.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useTranslation } from 'react-i18next'
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
 export interface ColumnProps {
   key: string
@@ -50,7 +50,7 @@ export function TableInput({
   validation,
   connector = ''
 }: Props) {
-  const { isRTL } = useContext(ContextProvider)
+  const { isRTL } = useShallowGlobalState('isRTL')
   const { t } = useTranslation()
   const [rowData, setRowData] = useState<ColumnProps[]>(rows)
   const [valueInputs, setValueInputs] = useState<ColumnProps>(EMPTY_INPUTS)

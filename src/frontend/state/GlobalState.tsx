@@ -41,8 +41,6 @@ import { NileRegisterData } from 'common/types/nile'
 const storage: Storage = window.localStorage
 const globalSettings = configStore.get_nodefault('settings')
 
-const RTL_LANGUAGES = ['fa', 'ar']
-
 type T = TFunction<'gamepage'> & TFunction<'translations'>
 
 interface Props {
@@ -67,7 +65,6 @@ interface StateProps {
   }
   wineVersions: WineVersionInfo[]
   gameUpdates: string[]
-  language: string
   libraryStatus: GameStatus[]
   libraryTopSection: string
   refreshing: boolean
@@ -158,7 +155,6 @@ class GlobalState extends PureComponent<Props> {
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
     gameUpdates: [],
-    language: this.props.i18n.language,
     libraryStatus: [],
     libraryTopSection: globalSettings?.libraryTopSection || 'disabled',
     refreshing: false,
@@ -216,10 +212,6 @@ class GlobalState extends PureComponent<Props> {
       JSON.stringify(newCustomCategories)
     )
     this.setState({ currentCustomCategories: newCustomCategories })
-  }
-
-  setLanguage = (newLanguage: string) => {
-    this.setState({ language: newLanguage })
   }
 
   setTheme = (newThemeName: string) => {
@@ -897,12 +889,8 @@ class GlobalState extends PureComponent<Props> {
       libraryStatus,
       sidebarCollapsed,
       hideChangelogsOnStartup,
-      lastChangelogShown,
-      language
+      lastChangelogShown
     } = this.state
-
-    const isRTL = RTL_LANGUAGES.includes(language)
-    document.body.classList.toggle('isRTL', isRTL)
 
     storage.setItem('updates', JSON.stringify(gameUpdates))
     storage.setItem('sidebar_collapsed', JSON.stringify(sidebarCollapsed))
@@ -938,7 +926,6 @@ class GlobalState extends PureComponent<Props> {
   render() {
     const {
       showInstallModal,
-      language,
       epic,
       gog,
       amazon,
@@ -950,7 +937,6 @@ class GlobalState extends PureComponent<Props> {
       lastChangelogShown,
       libraryStatus
     } = this.state
-    const isRTL = RTL_LANGUAGES.includes(language)
 
     const installingEpicGame = libraryStatus.some(
       (game) => game.status === 'installing' && game.runner === 'legendary'
@@ -981,8 +967,6 @@ class GlobalState extends PureComponent<Props> {
             logout: this.amazonLogout
           },
           installingEpicGame,
-          setLanguage: this.setLanguage,
-          isRTL,
           refresh: this.refresh,
           refreshLibrary: this.refreshLibrary,
           refreshWineVersionInfo: this.refreshWineVersionInfo,

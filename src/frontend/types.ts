@@ -22,9 +22,6 @@ export type Category = 'all' | 'legendary' | 'gog' | 'sideload' | 'nile'
 
 export interface ContextType {
   gameUpdates: string[]
-  isRTL: boolean
-  language: string
-  setLanguage: (newLanguage: string) => void
   libraryStatus: GameStatus[]
   libraryTopSection: string
   handleLibraryTopSection: (value: LibraryTopSectionOptions) => void

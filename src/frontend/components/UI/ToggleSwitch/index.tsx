@@ -1,7 +1,7 @@
 import classNames from 'classnames'
-import React, { ChangeEventHandler, useContext } from 'react'
-import ContextProvider from 'frontend/state/ContextProvider'
+import React, { ChangeEventHandler } from 'react'
 import './index.css'
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
 interface Props {
   htmlId: string
@@ -25,7 +25,7 @@ export default function ToggleSwitch(props: Props) {
     description = '',
     fading
   } = props
-  const { isRTL } = useContext(ContextProvider)
+  const { isRTL } = useShallowGlobalState('isRTL')
 
   return (
     <>

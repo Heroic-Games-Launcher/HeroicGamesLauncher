@@ -1,14 +1,35 @@
 import { create } from 'zustand'
 import { useShallow } from 'zustand/react/shallow'
+import i18next from 'i18next'
+import { configStore } from '../helpers/electronStores'
+
+const RTL_LANGUAGES = ['fa', 'ar']
 
 interface GlobalStateV2 {
   isFullscreen: boolean
   isFrameless: boolean
+
+  language: string
+  isRTL: boolean
+  setLanguage: (language: string) => void
 }
 
-const useGlobalState = create<GlobalStateV2>()(() => ({
+const useGlobalState = create<GlobalStateV2>()((set) => ({
   isFullscreen: false,
-  isFrameless: false
+  isFrameless: false,
+
+  language: configStore.get('language', 'en'),
+  isRTL: RTL_LANGUAGES.includes(configStore.get('language', 'en')),
+  setLanguage: (language) => {
+    window.api.changeLanguage(language)
+    configStore.set('language', language)
+    i18next.changeLanguage(language)
+
+    const isRTL = RTL_LANGUAGES.includes(language)
+    document.body.classList.toggle('isRTL', isRTL)
+
+    set({ language, isRTL })
+  }
 }))
 
 // Picks out properties described by `keys` from GlobalStateV2. Only causes

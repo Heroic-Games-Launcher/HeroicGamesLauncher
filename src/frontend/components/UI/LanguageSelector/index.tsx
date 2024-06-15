@@ -1,10 +1,7 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { configStore } from 'frontend/helpers/electronStores'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { SelectField } from '..'
-
-const storage: Storage = window.localStorage
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
 export enum FlagPosition {
   NONE = 'none',
@@ -110,16 +107,11 @@ export default function LanguageSelector({
   showWeblateLink = false
 }: Props) {
   const { t, i18n } = useTranslation()
-  const { language, setLanguage } = useContext(ContextProvider)
+  const { language, setLanguage } = useShallowGlobalState(
+    'language',
+    'setLanguage'
+  )
   const currentLanguage = language || i18n.language || 'en'
-
-  const handleChangeLanguage = (newLanguage: string) => {
-    window.api.changeLanguage(newLanguage)
-    storage.setItem('language', newLanguage)
-    configStore.set('language', newLanguage)
-    i18n.changeLanguage(newLanguage)
-    setLanguage(newLanguage)
-  }
 
   function handleWeblate() {
     return window.api.openWeblate()
@@ -155,7 +147,7 @@ export default function LanguageSelector({
     <>
       <SelectField
         htmlId="languageSelector"
-        onChange={(event) => handleChangeLanguage(event.target.value)}
+        onChange={(event) => setLanguage(event.target.value)}
         value={currentLanguage}
         label={t('setting.language', 'Choose App Language')}
         extraClass="languageSelector"

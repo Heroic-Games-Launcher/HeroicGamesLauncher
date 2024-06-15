@@ -16,11 +16,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 import './index.css'
 import { hasHelp } from 'frontend/hooks/hasHelp'
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
 export default React.memo(function Accessibility() {
   const { t } = useTranslation()
   const {
-    isRTL,
     zoomPercent,
     setZoomPercent,
     allTilesInColor,
@@ -32,6 +32,7 @@ export default React.memo(function Accessibility() {
     disableDialogBackdropClose,
     setDisableDialogBackdropClose
   } = useContext(ContextProvider)
+  const { isRTL } = useShallowGlobalState('isRTL')
 
   hasHelp(
     'accessibility',
