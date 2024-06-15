@@ -106,8 +106,7 @@ export default function DownloadDialog({
   const previousProgress = JSON.parse(
     storage.getItem(appName) || '{}'
   ) as InstallProgress
-  const { libraryStatus, platform, showDialogModal } =
-    useContext(ContextProvider)
+  const { libraryStatus, showDialogModal } = useContext(ContextProvider)
 
   const isWin = platform === 'win32'
 

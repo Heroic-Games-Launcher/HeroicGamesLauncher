@@ -39,14 +39,8 @@ export default function SidebarLinks() {
   const location = useLocation() as { pathname: string }
   const [, , runner, appName, type] = location.pathname.split('/') as PathSplit
 
-  const {
-    amazon,
-    epic,
-    gog,
-    platform,
-    refreshLibrary,
-    handleExternalLinkDialog
-  } = useContext(ContextProvider)
+  const { amazon, epic, gog, refreshLibrary, handleExternalLinkDialog } =
+    useContext(ContextProvider)
 
   const inWebviewScreen =
     location.pathname.includes('store') ||

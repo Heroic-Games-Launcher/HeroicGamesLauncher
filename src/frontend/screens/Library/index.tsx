@@ -56,7 +56,7 @@ export default React.memo(function Library(): JSX.Element {
     sideloadedLibrary,
     favouriteGames,
     libraryTopSection,
-    platform,
+
     currentCustomCategories,
     customCategories,
     hiddenGames

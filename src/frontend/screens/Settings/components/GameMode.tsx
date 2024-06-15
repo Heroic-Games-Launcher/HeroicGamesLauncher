@@ -8,7 +8,7 @@ import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 
 const GameMode = () => {
   const { t } = useTranslation()
-  const { platform, showDialogModal } = useContext(ContextProvider)
+  const { showDialogModal } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
   const [useGameMode, setUseGameMode] = useSetting('useGameMode', false)
   const [eacRuntime, setEacRuntime] = useSetting('eacRuntime', false)

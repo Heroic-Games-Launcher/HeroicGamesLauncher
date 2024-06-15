@@ -1,9 +1,8 @@
 import { faApple, faLinux, faWindows } from '@fortawesome/free-brands-svg-icons'
 import { IconDefinition, faGlobe } from '@fortawesome/free-solid-svg-icons'
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import ContextProvider from 'frontend/state/ContextProvider'
 import {
   GameInfo,
   InstallPlatform,
@@ -41,7 +40,6 @@ export default React.memo(function InstallModal({
   runner,
   gameInfo = null
 }: Props) {
-  const { platform } = useContext(ContextProvider)
   const { t } = useTranslation('gamepage')
 
   const [winePrefix, setWinePrefix] = useState('...')

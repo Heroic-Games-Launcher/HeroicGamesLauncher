@@ -5,8 +5,6 @@ import { ToggleSwitch } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
 
 const ExperimentalFeatures = () => {
-  const { platform } = useContext(ContextProvider)
-
   const FEATURES = ['enableNewDesign', 'enableHelp']
 
   if (platform !== 'win32') {

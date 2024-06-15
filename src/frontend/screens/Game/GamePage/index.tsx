@@ -90,7 +90,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
     epic,
     gog,
     gameUpdates,
-    platform,
     showDialogModal,
     isSettingsModalOpen,
     connectivity,

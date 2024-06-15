@@ -30,7 +30,6 @@ export interface ContextType {
   libraryStatus: GameStatus[]
   libraryTopSection: string
   handleLibraryTopSection: (value: LibraryTopSectionOptions) => void
-  platform: NodeJS.Platform | 'unknown'
   refresh: (library: Runner, checkUpdates?: boolean) => Promise<void>
   refreshLibrary: (options: RefreshOptions) => Promise<void>
   refreshWineVersionInfo: (fetch: boolean) => void
@@ -158,6 +157,8 @@ type RefreshOptions = {
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
 
 declare global {
+  const platform: NodeJS.Platform
+
   interface Window {
     imageData: (
       src: string,

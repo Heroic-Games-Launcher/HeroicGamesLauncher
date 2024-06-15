@@ -70,7 +70,6 @@ interface StateProps {
   language: string
   libraryStatus: GameStatus[]
   libraryTopSection: string
-  platform: NodeJS.Platform
   refreshing: boolean
   refreshingInTheBackground: boolean
   hiddenGames: HiddenGame[]
@@ -164,7 +163,6 @@ class GlobalState extends PureComponent<Props> {
     language: this.props.i18n.language,
     libraryStatus: [],
     libraryTopSection: globalSettings?.libraryTopSection || 'disabled',
-    platform: window.platform,
     refreshing: false,
     refreshingInTheBackground: true,
     hiddenGames: configStore.get('games.hidden', []),
@@ -657,7 +655,7 @@ class GlobalState extends PureComponent<Props> {
   }
 
   refreshWineVersionInfo = async (fetch: boolean): Promise<void> => {
-    if (this.state.platform === 'win32') {
+    if (platform === 'win32') {
       return
     }
     window.api.logInfo('Refreshing wine downloader releases')

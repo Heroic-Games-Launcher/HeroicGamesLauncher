@@ -9,8 +9,7 @@ import { InfoBox, ToggleSwitch, PathSelectionBox } from 'frontend/components/UI'
 const EgsSettings = () => {
   const { t } = useTranslation()
   const [isSyncing, setIsSyncing] = useState(false)
-  const { platform, refreshLibrary, showDialogModal } =
-    useContext(ContextProvider)
+  const { refreshLibrary, showDialogModal } = useContext(ContextProvider)
   const [egsPath, setEgsPath] = useSetting('egsLinkedPath', '')
 
   function handleSync(

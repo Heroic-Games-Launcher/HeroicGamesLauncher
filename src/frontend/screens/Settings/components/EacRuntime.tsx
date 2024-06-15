@@ -11,7 +11,7 @@ const EacRuntime = () => {
   const [installing, setInstalling] = useState(false)
   const [eacRuntime, setEacRuntime] = useSetting('eacRuntime', false)
   const [useGameMode, setUseGameMode] = useSetting('useGameMode', false)
-  const { showDialogModal, platform } = useContext(ContextProvider)
+  const { showDialogModal } = useContext(ContextProvider)
 
   if (platform !== 'linux') {
     return null

@@ -15,7 +15,7 @@ const RunnerToStore = {
 
 export default function LibraryFilters() {
   const { t } = useTranslation()
-  const { platform, epic, gog, amazon } = useContext(ContextProvider)
+  const { epic, gog, amazon } = useContext(ContextProvider)
   const {
     setShowFavourites,
     setShowHidden,

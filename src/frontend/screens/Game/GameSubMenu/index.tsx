@@ -44,13 +44,8 @@ export default function GamesSubmenu({
   onShowModifyInstall,
   gameInfo
 }: Props) {
-  const {
-    refresh,
-    platform,
-    libraryStatus,
-    showDialogModal,
-    setIsSettingsModalOpen
-  } = useContext(ContextProvider)
+  const { refresh, libraryStatus, showDialogModal, setIsSettingsModalOpen } =
+    useContext(ContextProvider)
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
 
