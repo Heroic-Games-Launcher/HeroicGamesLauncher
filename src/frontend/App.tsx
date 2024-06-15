@@ -16,14 +16,15 @@ import ExternalLinkDialog from './components/UI/ExternalLinkDialog'
 import WindowControls from './components/UI/WindowControls'
 import classNames from 'classnames'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
-import { useGlobalState } from './state/GlobalStateV2'
-import { useShallow } from 'zustand/react/shallow'
+import { useShallowGlobalState } from './state/GlobalStateV2'
 
 function Root() {
   const { isSettingsModalOpen, isRTL, experimentalFeatures, help } =
     useContext(ContextProvider)
-  const isFullscreen = useGlobalState(useShallow((state) => state.isFullscreen))
-  const isFrameless = useGlobalState(useShallow((state) => state.isFrameless))
+  const { isFullscreen, isFrameless } = useShallowGlobalState(
+    'isFullscreen',
+    'isFrameless'
+  )
 
   const hasNativeOverlayControls = navigator['windowControlsOverlay']?.visible
   const showOverlayControls = isFrameless && !hasNativeOverlayControls
