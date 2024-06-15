@@ -77,7 +77,6 @@ interface StateProps {
   customCategories: Record<string, string[]>
   currentCustomCategories: string[]
   theme: string
-  isFrameless: boolean
   zoomPercent: number
   primaryFontFamily: string
   secondaryFontFamily: string
@@ -172,7 +171,6 @@ class GlobalState extends PureComponent<Props> {
     favouriteGames: configStore.get('games.favourites', []),
     customCategories: configStore.get('games.customCategories', {}),
     theme: configStore.get('theme', ''),
-    isFrameless: false,
     zoomPercent: configStore.get('zoomPercent', 100),
     secondaryFontFamily:
       configStore.get_nodefault('contentFontFamily') ||
@@ -841,10 +839,6 @@ class GlobalState extends PureComponent<Props> {
           }
         })
       }
-    })
-
-    this.setState({
-      isFrameless: await window.api.isFrameless()
     })
 
     const legendaryUser = configStore.has('userInfo')

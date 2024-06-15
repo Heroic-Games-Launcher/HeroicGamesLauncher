@@ -20,14 +20,10 @@ import { useGlobalState } from './state/GlobalStateV2'
 import { useShallow } from 'zustand/react/shallow'
 
 function Root() {
-  const {
-    isSettingsModalOpen,
-    isRTL,
-    isFrameless,
-    experimentalFeatures,
-    help
-  } = useContext(ContextProvider)
+  const { isSettingsModalOpen, isRTL, experimentalFeatures, help } =
+    useContext(ContextProvider)
   const isFullscreen = useGlobalState(useShallow((state) => state.isFullscreen))
+  const isFrameless = useGlobalState(useShallow((state) => state.isFrameless))
 
   const hasNativeOverlayControls = navigator['windowControlsOverlay']?.visible
   const showOverlayControls = isFrameless && !hasNativeOverlayControls

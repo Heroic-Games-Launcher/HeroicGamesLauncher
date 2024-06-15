@@ -37,7 +37,6 @@ const initialContext: ContextType = {
   refreshing: false,
   refreshingInTheBackground: true,
   isRTL: false,
-  isFrameless: false,
   language: 'en',
   setLanguage: () => null,
   hiddenGames: {
