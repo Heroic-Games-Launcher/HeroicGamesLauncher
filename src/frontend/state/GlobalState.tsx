@@ -37,6 +37,7 @@ import {
 import { sideloadLibrary } from 'frontend/helpers/electronStores'
 import { IpcRendererEvent } from 'electron'
 import { NileRegisterData } from 'common/types/nile'
+import { useGlobalState } from './GlobalStateV2'
 
 const storage: Storage = window.localStorage
 const globalSettings = configStore.get_nodefault('settings')
@@ -64,7 +65,6 @@ interface StateProps {
     username?: string
   }
   wineVersions: WineVersionInfo[]
-  gameUpdates: string[]
   libraryStatus: GameStatus[]
   libraryTopSection: string
   refreshing: boolean
@@ -154,7 +154,6 @@ class GlobalState extends PureComponent<Props> {
       username: nileConfigStore.get_nodefault('userData.name')
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
-    gameUpdates: [],
     libraryStatus: [],
     libraryTopSection: globalSettings?.libraryTopSection || 'disabled',
     refreshing: false,
@@ -560,16 +559,9 @@ class GlobalState extends PureComponent<Props> {
   ): Promise<void> => {
     console.log('refreshing')
 
-    const { epic, gog, amazon, gameUpdates } = this.state
+    await useGlobalState.getState().refresh(checkUpdates)
 
-    let updates = gameUpdates
-    if (checkUpdates) {
-      try {
-        updates = await window.api.checkGameUpdates()
-      } catch (error) {
-        window.api.logError(`${error}`)
-      }
-    }
+    const { epic, gog, amazon } = this.state
 
     const currentLibraryLength = epic.library?.length
 
@@ -610,7 +602,6 @@ class GlobalState extends PureComponent<Props> {
         user_id: amazon.user_id,
         username: amazon.username
       },
-      gameUpdates: updates,
       refreshing: false,
       refreshingInTheBackground: true,
       sideloadedLibrary: updatedSideload
@@ -679,7 +670,7 @@ class GlobalState extends PureComponent<Props> {
     progress,
     runner
   }: GameStatus) => {
-    const { libraryStatus, gameUpdates } = this.state
+    const { libraryStatus } = this.state
     const currentApp = libraryStatus.find((game) => game.appName === appName)
 
     // add app to libraryStatus if it was not present
@@ -730,9 +721,10 @@ class GlobalState extends PureComponent<Props> {
     if (['error', 'done'].includes(status)) {
       // also remove from updates if it was updating
       if (currentApp.status === 'updating') {
-        const updatedGamesUpdates = gameUpdates.filter(
-          (game) => game !== appName
-        )
+        const updatedGamesUpdates = useGlobalState
+          .getState()
+          .gameUpdates.filter((game) => game !== appName)
+        useGlobalState.setState({ gameUpdates: updatedGamesUpdates })
         // This avoids calling legendary again before the previous process is killed when canceling
         this.refreshLibrary({
           checkForUpdates: true,
@@ -740,9 +732,7 @@ class GlobalState extends PureComponent<Props> {
           library: runner
         })
 
-        storage.setItem('updates', JSON.stringify(updatedGamesUpdates))
         return this.setState({
-          gameUpdates: updatedGamesUpdates,
           libraryStatus: newLibraryStatus
         })
       }
@@ -755,7 +745,7 @@ class GlobalState extends PureComponent<Props> {
 
   async componentDidMount() {
     const { t } = this.props
-    const { epic, gog, amazon, gameUpdates = [], libraryStatus } = this.state
+    const { epic, gog, amazon, libraryStatus } = this.state
 
     // Deals launching from protocol. Also checks if the game is already running
     window.api.handleLaunchGame(
@@ -845,11 +835,6 @@ class GlobalState extends PureComponent<Props> {
       await window.api.getAmazonUserInfo()
     }
 
-    if (!gameUpdates.length) {
-      const storedGameUpdates = JSON.parse(storage.getItem('updates') || '[]')
-      this.setState({ gameUpdates: storedGameUpdates })
-    }
-
     if (legendaryUser || gogUser || amazonUser) {
       this.refreshLibrary({
         checkForUpdates: true,
@@ -885,14 +870,12 @@ class GlobalState extends PureComponent<Props> {
 
   componentDidUpdate() {
     const {
-      gameUpdates,
       libraryStatus,
       sidebarCollapsed,
       hideChangelogsOnStartup,
       lastChangelogShown
     } = this.state
 
-    storage.setItem('updates', JSON.stringify(gameUpdates))
     storage.setItem('sidebar_collapsed', JSON.stringify(sidebarCollapsed))
     storage.setItem('hide_changelogs', JSON.stringify(hideChangelogsOnStartup))
     storage.setItem('last_changelog', JSON.stringify(lastChangelogShown))

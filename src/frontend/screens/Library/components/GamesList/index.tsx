@@ -49,8 +49,7 @@ const GamesList = ({
   isRecent = false,
   isFavourite = false
 }: Props): JSX.Element => {
-  const { gameUpdates, allTilesInColor, titlesAlwaysVisible } =
-    useContext(ContextProvider)
+  const { allTilesInColor, titlesAlwaysVisible } = useContext(ContextProvider)
   const { t } = useTranslation()
   const listRef = useRef<HTMLDivElement | null>(null)
   const { activeController } = useContext(ContextProvider)
@@ -148,12 +147,9 @@ const GamesList = ({
           if (!is_installed && onlyInstalled) {
             return null
           }
-
-          const hasUpdate = is_installed && gameUpdates?.includes(app_name)
           return (
             <GameCard
               key={`${runner}_${app_name}${isFirstLane ? '_firstlane' : ''}`}
-              hasUpdate={hasUpdate}
               buttonClick={() => {
                 if (gameInfo.runner !== 'sideload')
                   handleGameCardClick(app_name, runner, gameInfo)

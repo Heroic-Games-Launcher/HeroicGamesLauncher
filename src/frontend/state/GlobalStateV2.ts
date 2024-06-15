@@ -12,6 +12,9 @@ interface GlobalStateV2 {
   language: string
   isRTL: boolean
   setLanguage: (language: string) => void
+
+  gameUpdates: string[]
+  refresh: (checkUpdates?: boolean) => Promise<void>
 }
 
 const useGlobalState = create<GlobalStateV2>()((set) => ({
@@ -29,6 +32,22 @@ const useGlobalState = create<GlobalStateV2>()((set) => ({
     document.body.classList.toggle('isRTL', isRTL)
 
     set({ language, isRTL })
+  },
+
+  gameUpdates: [],
+  refresh: async (checkUpdates = false) => {
+    const promises: Promise<unknown>[] = []
+
+    if (checkUpdates) {
+      const updateCheckPromise = window.api
+        .checkGameUpdates()
+        .then((updates) => {
+          set({ gameUpdates: updates })
+        })
+      promises.push(updateCheckPromise)
+    }
+
+    await Promise.all(promises)
   }
 }))
 

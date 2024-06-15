@@ -21,7 +21,6 @@ import { NileLoginData, NileRegisterData } from 'common/types/nile'
 export type Category = 'all' | 'legendary' | 'gog' | 'sideload' | 'nile'
 
 export interface ContextType {
-  gameUpdates: string[]
   libraryStatus: GameStatus[]
   libraryTopSection: string
   handleLibraryTopSection: (value: LibraryTopSectionOptions) => void

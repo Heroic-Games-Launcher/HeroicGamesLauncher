@@ -41,10 +41,11 @@ import { getCardStatus, getImageFormatting } from './constants'
 import { hasStatus } from 'frontend/hooks/hasStatus'
 import fallBackImage from 'frontend/assets/heroic_card.jpg'
 import LibraryContext from '../../LibraryContext'
+import { useGlobalState } from 'frontend/state/GlobalStateV2'
+import { useShallow } from 'zustand/react/shallow'
 
 interface Card {
   buttonClick: () => void
-  hasUpdate: boolean
   isRecent: boolean
   justPlayed: boolean
   gameInfo: GameInfo
@@ -54,7 +55,6 @@ interface Card {
 const storage: Storage = window.localStorage
 
 const GameCard = ({
-  hasUpdate,
   buttonClick,
   forceCard,
   isRecent = false,
@@ -82,6 +82,10 @@ const GameCard = ({
   const [gameInfo, setGameInfo] = useState<GameInfo>(gameInfoFromProps)
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [isLaunching, setIsLaunching] = useState(false)
+
+  const hasUpdate = useGlobalState(
+    useShallow((state) => state.gameUpdates.includes(gameInfo.app_name))
+  )
 
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
