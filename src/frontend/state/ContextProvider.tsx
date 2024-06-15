@@ -37,7 +37,6 @@ const initialContext: ContextType = {
   refreshing: false,
   refreshingInTheBackground: true,
   isRTL: false,
-  isFullscreen: false,
   isFrameless: false,
   language: 'en',
   setLanguage: () => null,

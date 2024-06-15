@@ -23,7 +23,6 @@ export type Category = 'all' | 'legendary' | 'gog' | 'sideload' | 'nile'
 export interface ContextType {
   gameUpdates: string[]
   isRTL: boolean
-  isFullscreen: boolean
   isFrameless: boolean
   language: string
   setLanguage: (newLanguage: string) => void
