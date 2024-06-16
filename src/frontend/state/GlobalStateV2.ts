@@ -4,6 +4,7 @@ import { persist } from 'zustand/middleware'
 import { useShallow } from 'zustand/react/shallow'
 
 import { configStore } from '../helpers/electronStores'
+import type { HelpItem } from '../types'
 
 const RTL_LANGUAGES = ['fa', 'ar']
 
@@ -17,11 +18,15 @@ interface GlobalStateV2 {
 
   gameUpdates: string[]
   refresh: (checkUpdates?: boolean) => Promise<void>
+
+  helpItems: Record<string, HelpItem>
+  addHelpItem: (key: string, item: HelpItem) => void
+  removeHelpItem: (key: string) => void
 }
 
 const useGlobalState = create<GlobalStateV2>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       isFullscreen: false,
       isFrameless: false,
 
@@ -52,6 +57,16 @@ const useGlobalState = create<GlobalStateV2>()(
         }
 
         await Promise.all(promises)
+      },
+
+      helpItems: {},
+      addHelpItem: (key, item) => {
+        set({ helpItems: { ...get().helpItems, [key]: item } })
+      },
+      removeHelpItem: (key) => {
+        const updatedHelpItems = get().helpItems
+        delete updatedHelpItems[key]
+        set({ helpItems: updatedHelpItems })
       }
     }),
     {

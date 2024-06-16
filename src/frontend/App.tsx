@@ -19,7 +19,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { useShallowGlobalState } from './state/GlobalStateV2'
 
 function Root() {
-  const { isSettingsModalOpen, experimentalFeatures, help } =
+  const { isSettingsModalOpen, experimentalFeatures } =
     useContext(ContextProvider)
   const { isFullscreen, isFrameless, isRTL } = useShallowGlobalState(
     'isFullscreen',
@@ -65,7 +65,7 @@ function Root() {
           <div className="simple-keyboard"></div>
         </div>
         {showOverlayControls && <WindowControls />}
-        {experimentalFeatures.enableHelp && <Help items={help.items} />}
+        {experimentalFeatures.enableHelp && <Help />}
       </ThemeProvider>
     </div>
   )

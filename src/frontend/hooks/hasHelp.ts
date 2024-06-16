@@ -1,21 +1,22 @@
-import ContextProvider from 'frontend/state/ContextProvider'
-import { useEffect, useContext } from 'react'
+import { useEffect } from 'react'
+import { useShallowGlobalState } from '../state/GlobalStateV2'
 
 export const hasHelp = (
   helpItemId: string,
   title: string,
   content: JSX.Element
 ) => {
-  const { help } = useContext(ContextProvider)
+  const { addHelpItem, removeHelpItem } = useShallowGlobalState(
+    'addHelpItem',
+    'removeHelpItem'
+  )
 
   useEffect(() => {
-    help.addHelpItem(helpItemId, {
+    addHelpItem(helpItemId, {
       title,
       content
     })
 
-    return () => {
-      help.removeHelpItem(helpItemId)
-    }
+    return () => removeHelpItem(helpItemId)
   }, [])
 }
