@@ -8,7 +8,6 @@ import {
   HiddenGame,
   RefreshOptions,
   Runner,
-  WineVersionInfo,
   LibraryTopSectionOptions,
   ExperimentalFeatures
 } from 'common/types'
@@ -31,8 +30,7 @@ import {
   gogLibraryStore,
   libraryStore,
   nileConfigStore,
-  nileLibraryStore,
-  wineDownloaderInfoStore
+  nileLibraryStore
 } from '../helpers/electronStores'
 import { sideloadLibrary } from 'frontend/helpers/electronStores'
 import { IpcRendererEvent } from 'electron'
@@ -64,7 +62,6 @@ interface StateProps {
     user_id?: string
     username?: string
   }
-  wineVersions: WineVersionInfo[]
   libraryStatus: GameStatus[]
   libraryTopSection: string
   refreshing: boolean
@@ -153,7 +150,6 @@ class GlobalState extends PureComponent<Props> {
       user_id: nileConfigStore.get_nodefault('userData.user_id'),
       username: nileConfigStore.get_nodefault('userData.name')
     },
-    wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
     libraryStatus: [],
     libraryTopSection: globalSettings?.libraryTopSection || 'disabled',
     refreshing: false,
