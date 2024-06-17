@@ -19,8 +19,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { useShallowGlobalState } from './state/GlobalStateV2'
 
 function Root() {
-  const { isSettingsModalOpen, experimentalFeatures } =
-    useContext(ContextProvider)
+  const { experimentalFeatures } = useContext(ContextProvider)
   const { isFullscreen, isFrameless, isRTL } = useShallowGlobalState(
     'isFullscreen',
     'isFrameless',
@@ -51,12 +50,7 @@ function Root() {
         <Sidebar />
         <main className="content">
           <DialogHandler />
-          {isSettingsModalOpen.gameInfo && (
-            <SettingsModal
-              gameInfo={isSettingsModalOpen.gameInfo}
-              type={isSettingsModalOpen.type}
-            />
-          )}
+          <SettingsModal />
           <ExternalLinkDialog />
           <Outlet />
         </main>

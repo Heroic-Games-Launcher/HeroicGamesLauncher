@@ -4,7 +4,8 @@ import { persist } from 'zustand/middleware'
 import { useShallow } from 'zustand/react/shallow'
 
 import { configStore } from '../helpers/electronStores'
-import type { HelpItem } from '../types'
+import type { HelpItem, SettingsModalType } from '../types'
+import type { GameInfo } from 'common/types'
 
 const RTL_LANGUAGES = ['fa', 'ar']
 
@@ -22,6 +23,13 @@ interface GlobalStateV2 {
   helpItems: Record<string, HelpItem>
   addHelpItem: (key: string, item: HelpItem) => void
   removeHelpItem: (key: string) => void
+
+  isSettingsModalOpen:
+    | { value: false; type?: undefined; gameInfo?: undefined }
+    | { value: true; type: SettingsModalType; gameInfo: GameInfo }
+  setIsSettingsModalOpen: (
+    newState: GlobalStateV2['isSettingsModalOpen'] | false
+  ) => void
 }
 
 const useGlobalState = create<GlobalStateV2>()(
@@ -67,6 +75,13 @@ const useGlobalState = create<GlobalStateV2>()(
         const updatedHelpItems = get().helpItems
         delete updatedHelpItems[key]
         set({ helpItems: updatedHelpItems })
+      },
+
+      isSettingsModalOpen: { value: false },
+      setIsSettingsModalOpen: (value) => {
+        if (typeof value === 'boolean')
+          set({ isSettingsModalOpen: { value: false } })
+        else set({ isSettingsModalOpen: value })
       }
     }),
     {

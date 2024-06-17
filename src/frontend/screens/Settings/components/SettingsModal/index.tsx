@@ -1,11 +1,10 @@
-import React, { useContext, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { GameInfo } from 'common/types'
 import {
   Dialog,
   DialogContent,
   DialogHeader
 } from 'frontend/components/UI/Dialog'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { GamesSettings } from '../../sections'
 import SettingsContext from '../../SettingsContext'
 import useSettingsContext from 'frontend/hooks/useSettingsContext'
@@ -14,6 +13,7 @@ import './index.scss'
 import { useTranslation } from 'react-i18next'
 import { SettingsContextType } from 'frontend/types'
 import CategorySettings from '../../sections/CategorySettings'
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
 type Props = {
   gameInfo: GameInfo
@@ -21,7 +21,9 @@ type Props = {
 }
 
 function SettingsModal({ gameInfo, type }: Props) {
-  const { setIsSettingsModalOpen } = useContext(ContextProvider)
+  const { setIsSettingsModalOpen } = useShallowGlobalState(
+    'setIsSettingsModalOpen'
+  )
   const { t } = useTranslation()
 
   const { app_name: appName, runner, title } = gameInfo
@@ -67,4 +69,16 @@ function SettingsModal({ gameInfo, type }: Props) {
   )
 }
 
-export default SettingsModal
+// Wraps around SettingsModal to only render it if the modal should be open
+// while avoiding re-renders in more complex top-level components
+function SettingsModalWrapper() {
+  const { isSettingsModalOpen } = useShallowGlobalState('isSettingsModalOpen')
+
+  if (!isSettingsModalOpen.value) return null
+
+  const { gameInfo, type } = isSettingsModalOpen
+
+  return <SettingsModal gameInfo={gameInfo} type={type} />
+}
+
+export default SettingsModalWrapper

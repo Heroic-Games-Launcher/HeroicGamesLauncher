@@ -71,7 +71,10 @@ import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 import Genres from './components/Genres'
 import ReleaseDate from './components/ReleaseDate'
-import { useGlobalState } from 'frontend/state/GlobalStateV2'
+import {
+  useGlobalState,
+  useShallowGlobalState
+} from 'frontend/state/GlobalStateV2'
 import { useShallow } from 'zustand/react/shallow'
 
 export default React.memo(function GamePage(): JSX.Element | null {
@@ -88,17 +91,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [wikiInfo, setWikiInfo] = useState<WikiInfo | null>(null)
 
-  const {
-    epic,
-    gog,
-    showDialogModal,
-    isSettingsModalOpen,
-    connectivity,
-    experimentalFeatures
-  } = useContext(ContextProvider)
+  const { epic, gog, showDialogModal, connectivity, experimentalFeatures } =
+    useContext(ContextProvider)
   const gameUpdatesIncludesThis = useGlobalState(
     useShallow((state) => state.gameUpdates.includes(appName))
   )
+  const { isSettingsModalOpen } = useShallowGlobalState('isSettingsModalOpen')
 
   hasHelp(
     'gamePage',

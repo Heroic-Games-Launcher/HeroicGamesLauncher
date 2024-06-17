@@ -12,6 +12,7 @@ import { NavLink } from 'react-router-dom'
 import { InstallModal } from 'frontend/screens/Library/components'
 import { CircularProgress } from '@mui/material'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
+import { useShallowGlobalState } from '../../../state/GlobalStateV2'
 
 interface Props {
   appName: string
@@ -44,8 +45,11 @@ export default function GamesSubmenu({
   onShowModifyInstall,
   gameInfo
 }: Props) {
-  const { refresh, libraryStatus, showDialogModal, setIsSettingsModalOpen } =
+  const { refresh, libraryStatus, showDialogModal } =
     useContext(ContextProvider)
+  const { setIsSettingsModalOpen } = useShallowGlobalState(
+    'setIsSettingsModalOpen'
+  )
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
 
@@ -329,7 +333,13 @@ export default function GamesSubmenu({
             </>
           )}
           <button
-            onClick={() => setIsSettingsModalOpen(true, 'category', gameInfo)}
+            onClick={() =>
+              setIsSettingsModalOpen({
+                value: true,
+                type: 'category',
+                gameInfo
+              })
+            }
             className="link button is-text is-link"
           >
             {t('submenu.categories', 'Categories')}

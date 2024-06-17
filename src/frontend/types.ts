@@ -95,16 +95,6 @@ export interface ContextType {
   setHideChangelogsOnStartup: (value: boolean) => void
   lastChangelogShown: string | null
   setLastChangelogShown: (value: string) => void
-  isSettingsModalOpen: {
-    value: boolean
-    gameInfo?: GameInfo | null
-    type: 'settings' | 'log'
-  }
-  setIsSettingsModalOpen: (
-    value: boolean,
-    type?: 'settings' | 'log' | 'category',
-    gameInfo?: GameInfo
-  ) => void
   experimentalFeatures: ExperimentalFeatures
   handleExperimentalFeatures: (newSetting: ExperimentalFeatures) => void
   disableDialogBackdropClose: boolean
@@ -279,3 +269,5 @@ export interface HelpItem {
   title: string
   content: JSX.Element
 }
+
+export type SettingsModalType = 'settings' | 'log' | 'category'
