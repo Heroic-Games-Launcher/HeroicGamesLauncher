@@ -34,8 +34,6 @@ export interface ContextType {
   }
   currentCustomCategories: string[]
   setCurrentCustomCategories: (newCustomCategories: string[]) => void
-  theme: string
-  setTheme: (themeName: string) => void
   zoomPercent: number
   setZoomPercent: (newZoomPercent: number) => void
   epic: {
@@ -116,7 +114,6 @@ declare global {
       canvas_width: number,
       canvas_height: number
     ) => Promise<string>
-    setTheme: (themeClass: string) => void
     isSteamDeckGameMode: boolean
     platform: NodeJS.Platform
   }

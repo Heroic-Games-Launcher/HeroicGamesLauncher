@@ -57,7 +57,6 @@ interface StateProps {
   refreshingInTheBackground: boolean
   customCategories: Record<string, string[]>
   currentCustomCategories: string[]
-  theme: string
   zoomPercent: number
   primaryFontFamily: string
   secondaryFontFamily: string
@@ -132,7 +131,6 @@ class GlobalState extends PureComponent<Props> {
     refreshingInTheBackground: true,
     currentCustomCategories: loadCurrentCategories(),
     customCategories: configStore.get('games.customCategories', {}),
-    theme: configStore.get('theme', ''),
     zoomPercent: configStore.get('zoomPercent', 100),
     secondaryFontFamily:
       configStore.get_nodefault('contentFontFamily') ||
@@ -170,12 +168,6 @@ class GlobalState extends PureComponent<Props> {
       JSON.stringify(newCustomCategories)
     )
     this.setState({ currentCustomCategories: newCustomCategories })
-  }
-
-  setTheme = (newThemeName: string) => {
-    configStore.set('theme', newThemeName)
-    this.setState({ theme: newThemeName })
-    window.setTheme(newThemeName)
   }
 
   zoomTimer: NodeJS.Timeout | undefined = undefined
@@ -714,7 +706,6 @@ class GlobalState extends PureComponent<Props> {
             removeCategory: this.removeCustomCategory,
             renameCategory: this.renameCustomCategory
           },
-          setTheme: this.setTheme,
           setZoomPercent: this.setZoomPercent,
           setAllTilesInColor: this.setAllTilesInColor,
           setTitlesAlwaysVisible: this.setTitlesAlwaysVisible,

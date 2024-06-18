@@ -18,8 +18,10 @@ import type {
   LibraryTopSectionOptions,
   Runner
 } from 'common/types'
+import { defaultThemes } from '../components/UI/ThemeSelector'
 
 const RTL_LANGUAGES = ['fa', 'ar']
+const DEFAULT_THEME = 'midnightMirage'
 
 interface GlobalStateV2 extends ExperimentalFeatures {
   isFullscreen: boolean
@@ -56,6 +58,8 @@ interface GlobalStateV2 extends ExperimentalFeatures {
   favouriteGames: FavouriteGame[]
   addFavouriteGame: (gameToAdd: FavouriteGame) => void
   removeFavouriteGame: (appName: string) => void
+
+  theme: string
 }
 
 const useGlobalState = create<GlobalStateV2>()(
@@ -142,7 +146,9 @@ const useGlobalState = create<GlobalStateV2>()(
         set({
           favouriteGames: updatedFavouriteGames
         })
-      }
+      },
+
+      theme: configStore.get('theme', DEFAULT_THEME)
     }),
     {
       name: 'globalState',
@@ -150,7 +156,8 @@ const useGlobalState = create<GlobalStateV2>()(
         gameUpdates: state.gameUpdates,
         language: state.language,
         hiddenGames: state.hiddenGames,
-        favouriteGames: state.favouriteGames
+        favouriteGames: state.favouriteGames,
+        theme: state.theme
       })
     }
   )
@@ -241,5 +248,46 @@ window.api.requestAppSettings().then((settings) => {
   if (settings.libraryTopSection)
     useGlobalState.setState({ libraryTopSection: settings.libraryTopSection })
 })
+
+async function setTheme(themeClass: string) {
+  document.querySelector('style.customTheme')?.remove()
+
+  if (
+    themeClass !== DEFAULT_THEME &&
+    !Object.keys(defaultThemes).includes(themeClass)
+  ) {
+    const cssContent = await window.api.getThemeCSS(themeClass)
+    themeClass = themeClass
+      .replace('.css', '') // remove extension
+      .replace(/[\s.]/, '_') // remove dots and empty spaces
+    const style = document.createElement('style')
+    style.classList.add('customTheme')
+    style.innerHTML = cssContent
+    document.body.insertAdjacentElement('afterbegin', style)
+  }
+
+  document.body.className = themeClass
+
+  if (navigator['windowControlsOverlay']?.visible) {
+    const titlebarOverlay = Object.fromEntries(
+      ['height', 'color', 'symbol-color']
+        .map((item) => [
+          item === 'symbol-color' ? 'symbolColor' : item,
+          getComputedStyle(document.body)
+            .getPropertyValue(`--titlebar-${item}`)
+            .trim()
+        ])
+        .filter(([, val]) => !!val)
+    )
+    window.api.setTitleBarOverlay(titlebarOverlay)
+  }
+}
+
+useGlobalState.subscribe(async (state, prev) => {
+  if (state.theme === prev.theme) return
+
+  return setTheme(state.theme)
+})
+void setTheme(useGlobalState.getState().theme)
 
 export { useGlobalState, useShallowGlobalState }
