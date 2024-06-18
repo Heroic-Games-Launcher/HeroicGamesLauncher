@@ -26,8 +26,6 @@ const initialContext: ContextType = {
     logout: async () => Promise.resolve()
   },
   sideloadedLibrary: [],
-  libraryTopSection: 'disabled',
-  handleLibraryTopSection: () => null,
   refresh: async () => Promise.resolve(),
   refreshLibrary: async () => Promise.resolve(),
   refreshWineVersionInfo: async () => Promise.resolve(),

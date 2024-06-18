@@ -13,6 +13,7 @@ import type {
   ExperimentalFeatures,
   GameInfo,
   GameStatus,
+  LibraryTopSectionOptions,
   Runner
 } from 'common/types'
 
@@ -43,6 +44,8 @@ interface GlobalStateV2 extends ExperimentalFeatures {
   libraryStatus: Record<`${string}_${Runner}`, GameStatus>
 
   externalLinkDialogOptions: ExternalLinkDialogOptions
+
+  libraryTopSection: LibraryTopSectionOptions
 }
 
 const useGlobalState = create<GlobalStateV2>()(
@@ -103,7 +106,9 @@ const useGlobalState = create<GlobalStateV2>()(
       enableHelp: false,
       automaticWinetricksFixes: true,
 
-      externalLinkDialogOptions: { showDialog: false }
+      externalLinkDialogOptions: { showDialog: false },
+
+      libraryTopSection: 'disabled'
     }),
     {
       name: 'globalState',
@@ -196,6 +201,9 @@ window.api.requestAppSettings().then((settings) => {
     useGlobalState.setState({
       ...settings.experimentalFeatures
     })
+
+  if (settings.libraryTopSection)
+    useGlobalState.setState({ libraryTopSection: settings.libraryTopSection })
 })
 
 export { useGlobalState, useShallowGlobalState }

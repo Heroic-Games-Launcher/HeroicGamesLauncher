@@ -6,8 +6,7 @@ import {
   GameInfo,
   HiddenGame,
   RefreshOptions,
-  Runner,
-  LibraryTopSectionOptions
+  Runner
 } from 'common/types'
 import { DialogModalOptions } from 'frontend/types'
 import { withTranslation } from 'react-i18next'
@@ -56,7 +55,6 @@ interface StateProps {
     user_id?: string
     username?: string
   }
-  libraryTopSection: string
   refreshing: boolean
   refreshingInTheBackground: boolean
   hiddenGames: HiddenGame[]
@@ -134,7 +132,6 @@ class GlobalState extends PureComponent<Props> {
       user_id: nileConfigStore.get_nodefault('userData.user_id'),
       username: nileConfigStore.get_nodefault('userData.name')
     },
-    libraryTopSection: globalSettings?.libraryTopSection || 'disabled',
     refreshing: false,
     refreshingInTheBackground: true,
     hiddenGames: configStore.get('games.hidden', []),
@@ -383,10 +380,6 @@ class GlobalState extends PureComponent<Props> {
       ]
     })
   }).bind(this)
-
-  handleLibraryTopSection = (value: LibraryTopSectionOptions) => {
-    this.setState({ libraryTopSection: value })
-  }
 
   handleSuccessfulLogin = (runner: Runner) => {
     storage.setItem('category', 'all')
@@ -787,7 +780,6 @@ class GlobalState extends PureComponent<Props> {
             removeCategory: this.removeCustomCategory,
             renameCategory: this.renameCustomCategory
           },
-          handleLibraryTopSection: this.handleLibraryTopSection,
           setTheme: this.setTheme,
           setZoomPercent: this.setZoomPercent,
           setAllTilesInColor: this.setAllTilesInColor,

@@ -33,7 +33,10 @@ import { Category, PlatformsFilters, StoresFilters } from 'frontend/types'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 import EmptyLibraryMessage from './components/EmptyLibrary'
 import CategoriesManager from './components/CategoriesManager'
-import { useGlobalState } from '../../state/GlobalStateV2'
+import {
+  useGlobalState,
+  useShallowGlobalState
+} from 'frontend/state/GlobalStateV2'
 import { useShallow } from 'zustand/react/shallow'
 
 const storage = window.localStorage
@@ -56,12 +59,11 @@ export default React.memo(function Library(): JSX.Element {
     amazon,
     sideloadedLibrary,
     favouriteGames,
-    libraryTopSection,
-
     currentCustomCategories,
     customCategories,
     hiddenGames
   } = useContext(ContextProvider)
+  const { libraryTopSection } = useShallowGlobalState('libraryTopSection')
 
   hasHelp(
     'library',
