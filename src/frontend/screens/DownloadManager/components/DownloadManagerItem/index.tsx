@@ -42,7 +42,7 @@ const DownloadManagerItem = ({
   state,
   handleClearItem
 }: Props) => {
-  const { amazon, epic, gog, showDialogModal } = useContext(ContextProvider)
+  const { amazon, epic, gog } = useContext(ContextProvider)
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation('translation')
   const isPaused = state && ['idle', 'paused'].includes(state)
@@ -99,14 +99,7 @@ const DownloadManagerItem = ({
     const folder_name = gameInfo.folder_name
     if (!folder_name) return
 
-    return handleStopInstallation(
-      appName,
-      path,
-      t,
-      progress,
-      runner,
-      showDialogModal
-    )
+    return handleStopInstallation(appName, path, progress)
   }
 
   const goToGamePage = () => {

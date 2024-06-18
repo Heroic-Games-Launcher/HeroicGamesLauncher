@@ -6,10 +6,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { CleaningServicesOutlined, DeleteOutline } from '@mui/icons-material'
 import './index.css'
 import ContextProvider from 'frontend/state/ContextProvider'
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
 export default function ErrorComponent({ message }: { message: string }) {
   const { t } = useTranslation()
-  const { refreshLibrary, showResetDialog } = useContext(ContextProvider)
+  const { refreshLibrary } = useContext(ContextProvider)
+  const { showResetDialog } = useShallowGlobalState('showResetDialog')
 
   return (
     <div className="errorComponent">

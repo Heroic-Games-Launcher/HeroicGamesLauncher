@@ -1,29 +1,12 @@
-import { ButtonOptions, DialogType } from 'common/types'
-import ContextProvider from 'frontend/state/ContextProvider'
-import React, { useEffect, useContext } from 'react'
+import React from 'react'
 import MessageBoxModal from './components/MessageBoxModal'
+import {
+  useGlobalState,
+  useShallowGlobalState
+} from 'frontend/state/GlobalStateV2'
+
 export default function DialogHandler() {
-  const { dialogModalOptions, showDialogModal } = useContext(ContextProvider)
-
-  useEffect(() => {
-    const onMessage = (
-      e: Electron.IpcRendererEvent,
-      title: string,
-      message: string,
-      type: DialogType,
-      buttons?: Array<ButtonOptions>
-    ) => {
-      showDialogModal({ title, message, type, buttons })
-    }
-
-    const removeHandleShowDialogListener =
-      window.api.handleShowDialog(onMessage)
-
-    //useEffect unmount
-    return () => {
-      removeHandleShowDialogListener()
-    }
-  }, [])
+  const { dialogModalOptions } = useShallowGlobalState('dialogModalOptions')
 
   return (
     <>
@@ -33,7 +16,11 @@ export default function DialogHandler() {
           title={dialogModalOptions.title ? dialogModalOptions.title : ''}
           message={dialogModalOptions.message ? dialogModalOptions.message : ''}
           buttons={dialogModalOptions.buttons ? dialogModalOptions.buttons : []}
-          onClose={() => showDialogModal({ showDialog: false })}
+          onClose={() =>
+            useGlobalState.setState({
+              dialogModalOptions: { showDialog: false }
+            })
+          }
         />
       )}
     </>

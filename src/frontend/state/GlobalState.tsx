@@ -1,10 +1,8 @@
 import React, { PureComponent } from 'react'
 
 import { GameInfo, RefreshOptions, Runner } from 'common/types'
-import { DialogModalOptions } from 'frontend/types'
-import { withTranslation } from 'react-i18next'
 import { getGameInfo, getLegendaryConfig, launch, notify } from '../helpers'
-import { i18n, t, TFunction } from 'i18next'
+import { t } from 'i18next'
 
 import ContextProvider from './ContextProvider'
 import { InstallModal } from 'frontend/screens/Library/components'
@@ -26,12 +24,8 @@ import { useGlobalState } from './GlobalStateV2'
 const storage: Storage = window.localStorage
 const globalSettings = configStore.get_nodefault('settings')
 
-type T = TFunction<'gamepage'> & TFunction<'translations'>
-
 interface Props {
   children: React.ReactNode
-  i18n: i18n
-  t: T
 }
 
 interface StateProps {
@@ -58,7 +52,6 @@ interface StateProps {
   allTilesInColor: boolean
   titlesAlwaysVisible: boolean
   activeController: string
-  dialogModalOptions: DialogModalOptions
   sideloadedLibrary: GameInfo[]
   hideChangelogsOnStartup: boolean
   lastChangelogShown: string | null
@@ -146,7 +139,6 @@ class GlobalState extends PureComponent<Props> {
       gameInfo: null
     },
     sideloadedLibrary: sideloadLibrary.get('games', []),
-    dialogModalOptions: { showDialog: false },
     hideChangelogsOnStartup: globalSettings?.hideChangelogsOnStartup || false,
     lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null'),
     disableDialogBackdropClose: configStore.get(
@@ -288,29 +280,6 @@ class GlobalState extends PureComponent<Props> {
     })
     configStore.set('games.customCategories', newCustomCategories)
   }
-
-  handleShowDialogModal = ({
-    showDialog = true,
-    ...options
-  }: DialogModalOptions) => {
-    this.setState({
-      dialogModalOptions: { showDialog, ...options }
-    })
-  }
-
-  showResetDialog = (() => {
-    this.handleShowDialogModal({
-      title: t('box.reset-heroic.question.title', 'Reset Heroic'),
-      message: t(
-        'box.reset-heroic.question.message',
-        "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards."
-      ),
-      buttons: [
-        { text: t('box.yes'), onClick: window.api.resetHeroic },
-        { text: t('box.no') }
-      ]
-    })
-  }).bind(this)
 
   handleSuccessfulLogin = (runner: Runner) => {
     storage.setItem('category', 'all')
@@ -527,7 +496,6 @@ class GlobalState extends PureComponent<Props> {
   }
 
   async componentDidMount() {
-    const { t } = this.props
     const { epic, gog, amazon } = this.state
 
     // Deals launching from protocol. Also checks if the game is already running
@@ -542,10 +510,8 @@ class GlobalState extends PureComponent<Props> {
         if (!currentApp) {
           return launch({
             appName,
-            t,
             runner,
-            hasUpdate: false,
-            showDialogModal: this.handleShowDialogModal
+            hasUpdate: false
           })
         }
         return { status: 'error' }
@@ -694,8 +660,6 @@ class GlobalState extends PureComponent<Props> {
           setTitlesAlwaysVisible: this.setTitlesAlwaysVisible,
           setPrimaryFontFamily: this.setPrimaryFontFamily,
           setSecondaryFontFamily: this.setSecondaryFontFamily,
-          showDialogModal: this.handleShowDialogModal,
-          showResetDialog: this.showResetDialog,
           hideChangelogsOnStartup: hideChangelogsOnStartup,
           setHideChangelogsOnStartup: this.setHideChangelogsOnStartup,
           lastChangelogShown: lastChangelogShown,
@@ -722,4 +686,4 @@ class GlobalState extends PureComponent<Props> {
   }
 }
 
-export default withTranslation()(GlobalState)
+export default GlobalState

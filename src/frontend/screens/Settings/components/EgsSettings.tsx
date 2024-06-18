@@ -5,11 +5,13 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
 import { InfoBox, ToggleSwitch, PathSelectionBox } from 'frontend/components/UI'
+import { useGlobalState } from 'frontend/state/GlobalStateV2'
+import { DialogModalOptions } from 'frontend/types'
 
 const EgsSettings = () => {
   const { t } = useTranslation()
   const [isSyncing, setIsSyncing] = useState(false)
-  const { refreshLibrary, showDialogModal } = useContext(ContextProvider)
+  const { refreshLibrary } = useContext(ContextProvider)
   const [egsPath, setEgsPath] = useSetting('egsLinkedPath', '')
 
   function handleSync(
@@ -28,20 +30,22 @@ const EgsSettings = () => {
     }
     window.api.egsSync(newPath).then((res) => {
       if (res === 'Error') {
-        showDialogModal({
+        const errorDialog: DialogModalOptions = {
           showDialog: true,
           type: 'ERROR',
           message: t('box.sync.error'),
           title: t('box.error.title', 'Error')
-        })
+        }
+        useGlobalState.setState({ dialogModalOptions: errorDialog })
         setEgsPath('')
       } else {
-        showDialogModal({
+        const successDialog = {
           showDialog: true,
           message:
             newPath === 'unlink' ? t('message.unsync') : t('message.sync'),
           title: 'EGS Sync'
-        })
+        }
+        useGlobalState.setState({ dialogModalOptions: successDialog })
         setEgsPath(newPath === 'unlink' ? '' : newPath)
         refreshLibrary({ fullRefresh: true, runInBackground: false })
       }

@@ -1,16 +1,16 @@
 import { faPowerOff } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useContext } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { handleQuit } from 'frontend/helpers'
-import ContextProvider from 'frontend/state/ContextProvider'
+import { useGlobalState } from 'frontend/state/GlobalStateV2'
 
 const QuitButton: React.FC = () => {
   const { t } = useTranslation()
-  const { showDialogModal } = useContext(ContextProvider)
 
   const handleQuitButton = () => {
-    showDialogModal({
+    const quitDialog = {
+      showDialog: true,
       title: t('userselector.quit', 'Quit'),
       message: t('userselector.quitMessage', 'Are you sure you want to quit?'),
       buttons: [
@@ -23,7 +23,8 @@ const QuitButton: React.FC = () => {
           onClick: () => null
         }
       ]
-    })
+    }
+    useGlobalState.setState({ dialogModalOptions: quitDialog })
   }
 
   return (

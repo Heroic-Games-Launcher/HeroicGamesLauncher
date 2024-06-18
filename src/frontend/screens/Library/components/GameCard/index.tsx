@@ -95,7 +95,7 @@ const GameCard = ({
 
   const navigate = useNavigate()
 
-  const { showDialogModal, activeController } = useContext(ContextProvider)
+  const { activeController } = useContext(ContextProvider)
   const {
     setIsSettingsModalOpen,
     favouriteGames,
@@ -521,9 +521,7 @@ const GameCard = ({
         installPath: folder || 'default',
         isInstalling,
         previousProgress,
-        progress,
-        t,
-        showDialogModal
+        progress
       })
     }
 
@@ -540,10 +538,8 @@ const GameCard = ({
       setIsLaunching(true)
       return launch({
         appName,
-        t,
         runner,
-        hasUpdate,
-        showDialogModal
+        hasUpdate
       })
     }
     return

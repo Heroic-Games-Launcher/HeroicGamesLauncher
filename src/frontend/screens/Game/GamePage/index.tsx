@@ -91,7 +91,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [wikiInfo, setWikiInfo] = useState<WikiInfo | null>(null)
 
-  const { epic, gog, showDialogModal } = useContext(ContextProvider)
+  const { epic, gog } = useContext(ContextProvider)
   const gameUpdatesIncludesThis = useGlobalState(
     useShallow((state) => state.gameUpdates.includes(appName))
   )
@@ -607,11 +607,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
     await launch({
       appName,
-      t,
       launchArguments,
       runner: gameInfo.runner,
-      hasUpdate,
-      showDialogModal
+      hasUpdate
     })
   }
 
@@ -636,9 +634,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       installPath: folder,
       isInstalling,
       previousProgress,
-      progress,
-      t,
-      showDialogModal: showDialogModal
+      progress
     })
   }
 })

@@ -77,9 +77,7 @@ export default function ThirdPartyDialog({
       progress,
       installPath: 'thirdParty',
       isInstalling: false,
-      t,
-      platformToInstall,
-      showDialogModal: () => backdropClick()
+      platformToInstall
     })
   }, [appName, t, winePrefix, wineVersion, crossoverBottle, platformToInstall])
 

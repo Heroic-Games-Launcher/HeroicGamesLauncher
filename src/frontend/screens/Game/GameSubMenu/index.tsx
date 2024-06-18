@@ -51,7 +51,7 @@ export default function GamesSubmenu({
   onShowModifyInstall,
   gameInfo
 }: Props) {
-  const { refresh, showDialogModal } = useContext(ContextProvider)
+  const { refresh } = useContext(ContextProvider)
   const eosOverlayStatus = useGlobalState(
     useShallow((state) => state.libraryStatus[`${eosOverlayAppName}_legendary`])
   )
@@ -89,7 +89,7 @@ export default function GamesSubmenu({
   }
 
   function handleMoveInstall() {
-    showDialogModal({
+    const moveDialog = {
       showDialog: true,
       message: t('box.move.message'),
       title: t('box.move.title'),
@@ -97,7 +97,8 @@ export default function GamesSubmenu({
         { text: t('box.yes'), onClick: onMoveInstallYesClick },
         { text: t('box.no') }
       ]
-    })
+    }
+    useGlobalState.setState({ dialogModalOptions: moveDialog })
   }
 
   async function onChangeInstallYesClick() {
@@ -115,7 +116,7 @@ export default function GamesSubmenu({
   }
 
   function handleChangeInstall() {
-    showDialogModal({
+    const changeInstallDialog = {
       showDialog: true,
       message: t('box.change.message'),
       title: t('box.change.title'),
@@ -123,7 +124,8 @@ export default function GamesSubmenu({
         { text: t('box.yes'), onClick: onChangeInstallYesClick },
         { text: t('box.no') }
       ]
-    })
+    }
+    useGlobalState.setState({ dialogModalOptions: changeInstallDialog })
   }
 
   async function onRepairYesClick(appName: string) {
@@ -131,7 +133,7 @@ export default function GamesSubmenu({
   }
 
   function handleRepair(appName: string) {
-    showDialogModal({
+    const repairDialog = {
       showDialog: true,
       message: t('box.repair.message'),
       title: t('box.repair.title'),
@@ -139,7 +141,8 @@ export default function GamesSubmenu({
         { text: t('box.yes'), onClick: async () => onRepairYesClick(appName) },
         { text: t('box.no') }
       ]
-    })
+    }
+    useGlobalState.setState({ dialogModalOptions: repairDialog })
   }
 
   function handleShortcuts() {

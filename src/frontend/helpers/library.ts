@@ -8,9 +8,9 @@ import {
   LaunchOption
 } from 'common/types'
 
-import { TFunction } from 'i18next'
+import { t } from 'i18next'
 import { getGameInfo } from './index'
-import { DialogModalOptions } from 'frontend/types'
+import { useGlobalState } from '../state/GlobalStateV2'
 
 const storage: Storage = window.localStorage
 
@@ -21,8 +21,6 @@ type InstallArgs = {
   previousProgress: InstallProgress | null
   progress: InstallProgress
   installDlcs?: Array<string>
-  t: TFunction<'gamepage'>
-  showDialogModal: (options: DialogModalOptions) => void
   setInstallPath?: (path: string) => void
   platformToInstall?: InstallPlatform
   sdlList?: Array<string>
@@ -34,7 +32,6 @@ type InstallArgs = {
 async function install({
   gameInfo,
   installPath,
-  t,
   progress,
   isInstalling,
   previousProgress,
@@ -44,8 +41,7 @@ async function install({
   installLanguage = 'en-US',
   platformToInstall = 'Windows',
   build,
-  branch,
-  showDialogModal
+  branch
 }: InstallArgs) {
   if (!installPath) {
     return
@@ -56,14 +52,7 @@ async function install({
     // NOTE: This can't really happen, since `folder_name` can only be undefined if we got a
     //       SideloadGame from getGameInfo, but we can't "install" sideloaded games
     if (!folder_name) return
-    return handleStopInstallation(
-      appName,
-      installPath,
-      t,
-      progress,
-      runner,
-      showDialogModal
-    )
+    return handleStopInstallation(appName, installPath, progress)
   }
 
   if (is_installed) {
@@ -127,12 +116,10 @@ async function install({
 async function handleStopInstallation(
   appName: string,
   path: string,
-  t: TFunction<'gamepage'>,
-  progress: InstallProgress,
-  runner: Runner,
-  showDialogModal: (options: DialogModalOptions) => void
+  progress: InstallProgress
 ) {
-  showDialogModal({
+  const stopDialog = {
+    showDialog: true,
     title: t('gamepage:box.stopInstall.title'),
     message: t('gamepage:box.stopInstall.message'),
     buttons: [
@@ -155,6 +142,9 @@ async function handleStopInstallation(
         }
       }
     ]
+  }
+  useGlobalState.setState({
+    dialogModalOptions: stopDialog
   })
 }
 
@@ -163,20 +153,16 @@ const repair = async (appName: string, runner: Runner): Promise<void> =>
 
 type LaunchOptions = {
   appName: string
-  t: TFunction<'gamepage'>
   launchArguments?: LaunchOption
   runner: Runner
   hasUpdate: boolean
-  showDialogModal: (options: DialogModalOptions) => void
 }
 
 const launch = async ({
   appName,
-  t,
   launchArguments,
   runner,
-  hasUpdate,
-  showDialogModal
+  hasUpdate
 }: LaunchOptions): Promise<{ status: 'done' | 'error' | 'abort' }> => {
   if (hasUpdate) {
     const { ignoreGameUpdates } = await window.api.requestGameSettings(appName)
@@ -193,7 +179,8 @@ const launch = async ({
     // promisifies the showDialogModal button click callbacks
     const launchFinished = new Promise<{ status: 'done' | 'error' | 'abort' }>(
       (res) => {
-        showDialogModal({
+        const updateDialog = {
+          showDialog: true,
           message: t('gamepage:box.update.message'),
           title: t('gamepage:box.update.title'),
           buttons: [
@@ -222,7 +209,8 @@ const launch = async ({
               }
             }
           ]
-        })
+        }
+        useGlobalState.setState({ dialogModalOptions: updateDialog })
       }
     )
 

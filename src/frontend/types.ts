@@ -62,9 +62,6 @@ export interface ContextType {
   activeController: string
   setSecondaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
   setPrimaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
-  dialogModalOptions: DialogModalOptions
-  showDialogModal: (options: DialogModalOptions) => void
-  showResetDialog: () => void
   sideloadedLibrary: GameInfo[]
   hideChangelogsOnStartup: boolean
   setHideChangelogsOnStartup: (value: boolean) => void
@@ -75,7 +72,7 @@ export interface ContextType {
 }
 
 export type DialogModalOptions = {
-  showDialog?: boolean
+  showDialog: boolean
   title?: string
   message?: string
   buttons?: Array<ButtonOptions>

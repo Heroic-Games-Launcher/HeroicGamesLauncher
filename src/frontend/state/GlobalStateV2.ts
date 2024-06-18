@@ -1,10 +1,11 @@
-import i18next from 'i18next'
+import i18next, { t } from 'i18next'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { useShallow } from 'zustand/react/shallow'
 
 import { configStore } from '../helpers/electronStores'
 import type {
+  DialogModalOptions,
   ExternalLinkDialogOptions,
   HelpItem,
   SettingsModalType
@@ -63,6 +64,9 @@ interface GlobalStateV2 extends ExperimentalFeatures {
   theme: string
 
   connectivity: { status: ConnectivityStatus; retryIn: number }
+
+  dialogModalOptions: DialogModalOptions
+  showResetDialog: () => void
 }
 
 const useGlobalState = create<GlobalStateV2>()(
@@ -153,7 +157,24 @@ const useGlobalState = create<GlobalStateV2>()(
 
       theme: configStore.get('theme', DEFAULT_THEME),
 
-      connectivity: { status: 'online', retryIn: 0 }
+      connectivity: { status: 'online', retryIn: 0 },
+
+      dialogModalOptions: { showDialog: false },
+      showResetDialog: () => {
+        const resetDialog: DialogModalOptions = {
+          showDialog: true,
+          title: t('box.reset-heroic.question.title', 'Reset Heroic'),
+          message: t(
+            'box.reset-heroic.question.message',
+            "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards."
+          ),
+          buttons: [
+            { text: t('box.yes'), onClick: window.api.resetHeroic },
+            { text: t('box.no') }
+          ]
+        }
+        set({ dialogModalOptions: resetDialog })
+      }
     }),
     {
       name: 'globalState',
@@ -304,5 +325,11 @@ window.api.onConnectivityChanged((_, connectivity) => {
 window.api
   .getConnectivityStatus()
   .then((connectivity) => useGlobalState.setState({ connectivity }))
+
+window.api.handleShowDialog((_e, title, message, type, buttons) =>
+  useGlobalState.setState({
+    dialogModalOptions: { showDialog: true, title, message, type, buttons }
+  })
+)
 
 export { useGlobalState, useShallowGlobalState }

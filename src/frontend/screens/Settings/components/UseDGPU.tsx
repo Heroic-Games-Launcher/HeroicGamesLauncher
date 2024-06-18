@@ -1,14 +1,14 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import { useGlobalState } from 'frontend/state/GlobalStateV2'
+import { DialogModalOptions } from 'frontend/types'
 
 const UseDGPU = () => {
   const { t } = useTranslation()
-  const { showDialogModal } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
 
   const [useDGPU, setUseDGPU] = useSetting('nvidiaPrime', false)
@@ -21,7 +21,8 @@ const UseDGPU = () => {
     if (!useDGPU) {
       const { GPUs } = await window.api.systemInfo.get()
       if (GPUs.length === 1) {
-        showDialogModal({
+        const gpuWarning: DialogModalOptions = {
+          showDialog: true,
           title: t(
             'setting.primerun.confirmation.title',
             'Only 1 GPU detected'
@@ -35,7 +36,8 @@ const UseDGPU = () => {
             { text: t('box.no') }
           ],
           type: 'MESSAGE'
-        })
+        }
+        useGlobalState.setState({ dialogModalOptions: gpuWarning })
         return
       }
     }
