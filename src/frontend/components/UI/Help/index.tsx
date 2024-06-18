@@ -7,7 +7,12 @@ import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 export default function Help() {
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
-  const { helpItems: items } = useShallowGlobalState('helpItems')
+  const { enableHelp, helpItems: items } = useShallowGlobalState(
+    'enableHelp',
+    'helpItems'
+  )
+
+  if (!enableHelp) return null
 
   const toggleOpen = () => {
     setOpen(!open)

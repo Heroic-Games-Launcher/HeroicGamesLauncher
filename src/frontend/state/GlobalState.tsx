@@ -7,8 +7,7 @@ import {
   HiddenGame,
   RefreshOptions,
   Runner,
-  LibraryTopSectionOptions,
-  ExperimentalFeatures
+  LibraryTopSectionOptions
 } from 'common/types'
 import { DialogModalOptions, ExternalLinkDialogOptions } from 'frontend/types'
 import { withTranslation } from 'react-i18next'
@@ -84,7 +83,6 @@ interface StateProps {
     appName: string
     runner: Runner
   }
-  experimentalFeatures: ExperimentalFeatures
   disableDialogBackdropClose: boolean
 }
 
@@ -175,11 +173,6 @@ class GlobalState extends PureComponent<Props> {
     externalLinkDialogOptions: { showDialog: false },
     hideChangelogsOnStartup: globalSettings?.hideChangelogsOnStartup || false,
     lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null'),
-    experimentalFeatures: globalSettings?.experimentalFeatures || {
-      enableNewDesign: false,
-      enableHelp: false,
-      automaticWinetricksFixes: true
-    },
     disableDialogBackdropClose: configStore.get(
       'disableDialogBackdropClose',
       false
@@ -407,10 +400,6 @@ class GlobalState extends PureComponent<Props> {
 
   handleLibraryTopSection = (value: LibraryTopSectionOptions) => {
     this.setState({ libraryTopSection: value })
-  }
-
-  handleExperimentalFeatures = (value: ExperimentalFeatures) => {
-    this.setState({ experimentalFeatures: value })
   }
 
   handleSuccessfulLogin = (runner: Runner) => {
@@ -815,7 +804,6 @@ class GlobalState extends PureComponent<Props> {
             renameCategory: this.renameCustomCategory
           },
           handleLibraryTopSection: this.handleLibraryTopSection,
-          handleExperimentalFeatures: this.handleExperimentalFeatures,
           setTheme: this.setTheme,
           setZoomPercent: this.setZoomPercent,
           setAllTilesInColor: this.setAllTilesInColor,

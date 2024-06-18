@@ -5,11 +5,16 @@ import { useShallow } from 'zustand/react/shallow'
 
 import { configStore } from '../helpers/electronStores'
 import type { HelpItem, SettingsModalType } from '../types'
-import type { GameInfo, GameStatus, Runner } from 'common/types'
+import type {
+  ExperimentalFeatures,
+  GameInfo,
+  GameStatus,
+  Runner
+} from 'common/types'
 
 const RTL_LANGUAGES = ['fa', 'ar']
 
-interface GlobalStateV2 {
+interface GlobalStateV2 extends ExperimentalFeatures {
   isFullscreen: boolean
   isFrameless: boolean
 
@@ -86,7 +91,11 @@ const useGlobalState = create<GlobalStateV2>()(
         else set({ isSettingsModalOpen: value })
       },
 
-      libraryStatus: {}
+      libraryStatus: {},
+
+      enableNewDesign: false,
+      enableHelp: false,
+      automaticWinetricksFixes: true
     }),
     {
       name: 'globalState',
@@ -172,6 +181,13 @@ useGlobalState.subscribe((state, prev) => {
 
   if (pendingOps) window.api.lock()
   else window.api.unlock()
+})
+
+window.api.requestAppSettings().then((settings) => {
+  if (settings.experimentalFeatures)
+    useGlobalState.setState({
+      ...settings.experimentalFeatures
+    })
 })
 
 export { useGlobalState, useShallowGlobalState }

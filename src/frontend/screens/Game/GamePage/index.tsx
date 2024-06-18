@@ -91,12 +91,15 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [wikiInfo, setWikiInfo] = useState<WikiInfo | null>(null)
 
-  const { epic, gog, showDialogModal, connectivity, experimentalFeatures } =
+  const { epic, gog, showDialogModal, connectivity } =
     useContext(ContextProvider)
   const gameUpdatesIncludesThis = useGlobalState(
     useShallow((state) => state.gameUpdates.includes(appName))
   )
-  const { isSettingsModalOpen } = useShallowGlobalState('isSettingsModalOpen')
+  const { isSettingsModalOpen, enableNewDesign } = useShallowGlobalState(
+    'isSettingsModalOpen',
+    'enableNewDesign'
+  )
 
   hasHelp(
     'gamePage',
@@ -352,13 +355,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
     return (
       <div className="gameConfigContainer">
-        {!!(art_background ?? art_cover) &&
-          experimentalFeatures.enableNewDesign && (
-            <CachedImage
-              src={art_background || art_cover}
-              className="backgroundImage"
-            />
-          )}
+        {!!(art_background ?? art_cover) && enableNewDesign && (
+          <CachedImage
+            src={art_background || art_cover}
+            className="backgroundImage"
+          />
+        )}
         {gameInfo.runner !== 'sideload' && showModal.show && (
           <InstallModal
             appName={showModal.game}
@@ -379,7 +381,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
         {title ? (
           <GameContext.Provider value={contextValues}>
             {/* OLD DESIGN */}
-            {!experimentalFeatures.enableNewDesign && (
+            {!enableNewDesign && (
               <>
                 <GamePicture
                   art_square={art_square}
@@ -452,7 +454,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
               </>
             )}
             {/* NEW DESIGN */}
-            {experimentalFeatures.enableNewDesign && (
+            {enableNewDesign && (
               <>
                 <div className="topRowWrapper">
                   <NavLink

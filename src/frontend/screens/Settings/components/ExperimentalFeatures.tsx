@@ -1,8 +1,8 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import useSetting from 'frontend/hooks/useSetting'
 import { ToggleSwitch } from 'frontend/components/UI'
-import ContextProvider from 'frontend/state/ContextProvider'
+import { useGlobalState } from 'frontend/state/GlobalStateV2'
 
 const ExperimentalFeatures = () => {
   const FEATURES = ['enableNewDesign', 'enableHelp']
@@ -20,7 +20,6 @@ const ExperimentalFeatures = () => {
       automaticWinetricksFixes: true
     }
   )
-  const { handleExperimentalFeatures } = useContext(ContextProvider)
 
   const toggleFeature = (feature: string) => {
     const newFeatures = {
@@ -28,7 +27,7 @@ const ExperimentalFeatures = () => {
       [feature]: !experimentalFeatures[feature]
     }
     setExperimentalFeatures(newFeatures) // update settings
-    handleExperimentalFeatures(newFeatures) // update global state
+    useGlobalState.setState({ ...newFeatures }) // update global state
   }
 
   /*

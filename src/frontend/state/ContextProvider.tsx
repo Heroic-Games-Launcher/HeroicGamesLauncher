@@ -77,12 +77,6 @@ const initialContext: ContextType = {
   setHideChangelogsOnStartup: () => null,
   lastChangelogShown: null,
   setLastChangelogShown: () => null,
-  experimentalFeatures: {
-    enableNewDesign: false,
-    enableHelp: false,
-    automaticWinetricksFixes: true
-  },
-  handleExperimentalFeatures: () => null,
   disableDialogBackdropClose: false,
   setDisableDialogBackdropClose: () => null
 }

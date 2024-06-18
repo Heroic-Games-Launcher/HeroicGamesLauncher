@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 
 import './App.css'
 import {
@@ -8,7 +8,6 @@ import {
   RouterProvider
 } from 'react-router-dom'
 import Sidebar from './components/UI/Sidebar'
-import ContextProvider from './state/ContextProvider'
 import { ControllerHints, Help, OfflineMessage } from './components/UI'
 import DialogHandler from './components/UI/DialogHandler'
 import SettingsModal from './screens/Settings/components/SettingsModal'
@@ -19,12 +18,13 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { useShallowGlobalState } from './state/GlobalStateV2'
 
 function Root() {
-  const { experimentalFeatures } = useContext(ContextProvider)
-  const { isFullscreen, isFrameless, isRTL } = useShallowGlobalState(
-    'isFullscreen',
-    'isFrameless',
-    'isRTL'
-  )
+  const { isFullscreen, isFrameless, isRTL, enableNewDesign } =
+    useShallowGlobalState(
+      'isFullscreen',
+      'isFrameless',
+      'isRTL',
+      'enableNewDesign'
+    )
 
   const hasNativeOverlayControls = navigator['windowControlsOverlay']?.visible
   const showOverlayControls = isFrameless && !hasNativeOverlayControls
@@ -40,7 +40,7 @@ function Root() {
         isRTL,
         frameless: isFrameless,
         fullscreen: isFullscreen,
-        oldDesign: !experimentalFeatures.enableNewDesign
+        oldDesign: !enableNewDesign
       })}
       // disable dragging for all elements by default
       onDragStart={(e) => e.preventDefault()}
@@ -59,7 +59,7 @@ function Root() {
           <div className="simple-keyboard"></div>
         </div>
         {showOverlayControls && <WindowControls />}
-        {experimentalFeatures.enableHelp && <Help />}
+        {<Help />}
       </ThemeProvider>
     </div>
   )

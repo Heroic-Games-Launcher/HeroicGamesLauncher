@@ -8,7 +8,6 @@ import {
   LibraryTopSectionOptions,
   DMQueueElement,
   DownloadManagerState,
-  ExperimentalFeatures,
   GameSettings,
   WikiInfo,
   ExtraInfo,
@@ -92,8 +91,6 @@ export interface ContextType {
   setHideChangelogsOnStartup: (value: boolean) => void
   lastChangelogShown: string | null
   setLastChangelogShown: (value: string) => void
-  experimentalFeatures: ExperimentalFeatures
-  handleExperimentalFeatures: (newSetting: ExperimentalFeatures) => void
   disableDialogBackdropClose: boolean
   setDisableDialogBackdropClose: (value: boolean) => void
 }
