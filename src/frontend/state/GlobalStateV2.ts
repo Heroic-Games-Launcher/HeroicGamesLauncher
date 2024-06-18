@@ -4,7 +4,11 @@ import { persist } from 'zustand/middleware'
 import { useShallow } from 'zustand/react/shallow'
 
 import { configStore } from '../helpers/electronStores'
-import type { HelpItem, SettingsModalType } from '../types'
+import type {
+  ExternalLinkDialogOptions,
+  HelpItem,
+  SettingsModalType
+} from '../types'
 import type {
   ExperimentalFeatures,
   GameInfo,
@@ -37,6 +41,8 @@ interface GlobalStateV2 extends ExperimentalFeatures {
   ) => void
 
   libraryStatus: Record<`${string}_${Runner}`, GameStatus>
+
+  externalLinkDialogOptions: ExternalLinkDialogOptions
 }
 
 const useGlobalState = create<GlobalStateV2>()(
@@ -95,7 +101,9 @@ const useGlobalState = create<GlobalStateV2>()(
 
       enableNewDesign: false,
       enableHelp: false,
-      automaticWinetricksFixes: true
+      automaticWinetricksFixes: true,
+
+      externalLinkDialogOptions: { showDialog: false }
     }),
     {
       name: 'globalState',

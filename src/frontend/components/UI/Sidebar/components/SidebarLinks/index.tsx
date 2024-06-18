@@ -24,6 +24,7 @@ import './index.css'
 import QuitButton from '../QuitButton'
 import { LocationState } from 'frontend/types'
 import { SHOW_EXTERNAL_LINK_DIALOG_STORAGE_KEY } from 'frontend/components/UI/ExternalLinkDialog'
+import { useGlobalState } from 'frontend/state/GlobalStateV2'
 
 type PathSplit = [
   a: undefined,
@@ -39,8 +40,7 @@ export default function SidebarLinks() {
   const location = useLocation() as { pathname: string }
   const [, , runner, appName, type] = location.pathname.split('/') as PathSplit
 
-  const { amazon, epic, gog, refreshLibrary, handleExternalLinkDialog } =
-    useContext(ContextProvider)
+  const { amazon, epic, gog, refreshLibrary } = useContext(ContextProvider)
 
   const inWebviewScreen =
     location.pathname.includes('store') ||
@@ -70,7 +70,9 @@ export default function SidebarLinks() {
       localStorage.getItem(SHOW_EXTERNAL_LINK_DIALOG_STORAGE_KEY) ?? 'true'
     )
     if (showExternalLinkDialog) {
-      handleExternalLinkDialog({ showDialog: true, linkCallback })
+      useGlobalState.setState({
+        externalLinkDialogOptions: { showDialog: true, linkCallback }
+      })
     } else {
       linkCallback()
     }

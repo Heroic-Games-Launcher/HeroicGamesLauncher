@@ -9,7 +9,7 @@ import {
   Runner,
   LibraryTopSectionOptions
 } from 'common/types'
-import { DialogModalOptions, ExternalLinkDialogOptions } from 'frontend/types'
+import { DialogModalOptions } from 'frontend/types'
 import { withTranslation } from 'react-i18next'
 import { getGameInfo, getLegendaryConfig, launch, notify } from '../helpers'
 import { i18n, t, TFunction } from 'i18next'
@@ -72,7 +72,6 @@ interface StateProps {
   activeController: string
   connectivity: { status: ConnectivityStatus; retryIn: number }
   dialogModalOptions: DialogModalOptions
-  externalLinkDialogOptions: ExternalLinkDialogOptions
   sideloadedLibrary: GameInfo[]
   hideChangelogsOnStartup: boolean
   lastChangelogShown: string | null
@@ -166,7 +165,6 @@ class GlobalState extends PureComponent<Props> {
     },
     sideloadedLibrary: sideloadLibrary.get('games', []),
     dialogModalOptions: { showDialog: false },
-    externalLinkDialogOptions: { showDialog: false },
     hideChangelogsOnStartup: globalSettings?.hideChangelogsOnStartup || false,
     lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null'),
     disableDialogBackdropClose: configStore.get(
@@ -385,10 +383,6 @@ class GlobalState extends PureComponent<Props> {
       ]
     })
   }).bind(this)
-
-  handleExternalLinkDialog = (value: ExternalLinkDialogOptions) => {
-    this.setState({ externalLinkDialogOptions: value })
-  }
 
   handleLibraryTopSection = (value: LibraryTopSectionOptions) => {
     this.setState({ libraryTopSection: value })
@@ -802,7 +796,6 @@ class GlobalState extends PureComponent<Props> {
           setSecondaryFontFamily: this.setSecondaryFontFamily,
           showDialogModal: this.handleShowDialogModal,
           showResetDialog: this.showResetDialog,
-          handleExternalLinkDialog: this.handleExternalLinkDialog,
           hideChangelogsOnStartup: hideChangelogsOnStartup,
           setHideChangelogsOnStartup: this.setHideChangelogsOnStartup,
           lastChangelogShown: lastChangelogShown,
