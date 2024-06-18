@@ -59,7 +59,6 @@ interface StateProps {
     appName: string
     runner: Runner
   }
-  disableDialogBackdropClose: boolean
 }
 
 // function to load the new key or fallback to the old one
@@ -128,11 +127,7 @@ class GlobalState extends PureComponent<Props> {
     },
     sideloadedLibrary: sideloadLibrary.get('games', []),
     hideChangelogsOnStartup: globalSettings?.hideChangelogsOnStartup || false,
-    lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null'),
-    disableDialogBackdropClose: configStore.get(
-      'disableDialogBackdropClose',
-      false
-    )
+    lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null')
   }
 
   setCurrentCustomCategories = (newCustomCategories: string[]) => {
@@ -163,11 +158,6 @@ class GlobalState extends PureComponent<Props> {
   setTitlesAlwaysVisible = (value: boolean) => {
     configStore.set('titlesAlwaysVisible', value)
     this.setState({ titlesAlwaysVisible: value })
-  }
-
-  setDisableDialogBackdropClose = (value: boolean) => {
-    configStore.set('disableDialogBackdropClose', value)
-    this.setState({ disableDialogBackdropClose: value })
   }
 
   setHideChangelogsOnStartup = (value: boolean) => {
@@ -631,8 +621,7 @@ class GlobalState extends PureComponent<Props> {
           setHideChangelogsOnStartup: this.setHideChangelogsOnStartup,
           lastChangelogShown: lastChangelogShown,
           setLastChangelogShown: this.setLastChangelogShown,
-          setCurrentCustomCategories: this.setCurrentCustomCategories,
-          setDisableDialogBackdropClose: this.setDisableDialogBackdropClose
+          setCurrentCustomCategories: this.setCurrentCustomCategories
         }}
       >
         {this.props.children}

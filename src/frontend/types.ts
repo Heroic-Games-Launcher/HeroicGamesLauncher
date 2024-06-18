@@ -65,8 +65,6 @@ export interface ContextType {
   setHideChangelogsOnStartup: (value: boolean) => void
   lastChangelogShown: string | null
   setLastChangelogShown: (value: string) => void
-  disableDialogBackdropClose: boolean
-  setDisableDialogBackdropClose: (value: boolean) => void
 }
 
 export type DialogModalOptions = {

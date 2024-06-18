@@ -72,6 +72,8 @@ interface GlobalStateV2 extends ExperimentalFeatures {
   secondaryFontFamily: string
   setPrimaryFontFamily: (family: string, save?: boolean) => void
   setSecondaryFontFamily: (family: string, save?: boolean) => void
+
+  disableDialogBackdropClose: boolean
 }
 
 const useGlobalState = create<GlobalStateV2>()(
@@ -208,7 +210,12 @@ const useGlobalState = create<GlobalStateV2>()(
           '--secondary-font-family',
           family
         )
-      }
+      },
+
+      disableDialogBackdropClose: configStore.get(
+        'disableDialogBackdropClose',
+        false
+      )
     }),
     {
       name: 'globalState',
@@ -219,7 +226,8 @@ const useGlobalState = create<GlobalStateV2>()(
         favouriteGames: state.favouriteGames,
         theme: state.theme,
         primaryFontFamily: state.primaryFontFamily,
-        secondaryFontFamily: state.secondaryFontFamily
+        secondaryFontFamily: state.secondaryFontFamily,
+        disableDialogBackdropClose: state.disableDialogBackdropClose
       })
     }
   )

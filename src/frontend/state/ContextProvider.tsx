@@ -52,9 +52,7 @@ const initialContext: ContextType = {
   hideChangelogsOnStartup: false,
   setHideChangelogsOnStartup: () => null,
   lastChangelogShown: null,
-  setLastChangelogShown: () => null,
-  disableDialogBackdropClose: false,
-  setDisableDialogBackdropClose: () => null
+  setLastChangelogShown: () => null
 }
 
 export default React.createContext(initialContext)

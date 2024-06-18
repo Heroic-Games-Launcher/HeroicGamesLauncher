@@ -29,16 +29,19 @@ export default React.memo(function Accessibility() {
     allTilesInColor,
     setAllTilesInColor,
     titlesAlwaysVisible,
-    setTitlesAlwaysVisible,
-    disableDialogBackdropClose,
-    setDisableDialogBackdropClose
+    setTitlesAlwaysVisible
   } = useContext(ContextProvider)
-  const { isRTL, setPrimaryFontFamily, setSecondaryFontFamily } =
-    useShallowGlobalState(
-      'isRTL',
-      'setPrimaryFontFamily',
-      'setSecondaryFontFamily'
-    )
+  const {
+    isRTL,
+    setPrimaryFontFamily,
+    setSecondaryFontFamily,
+    disableDialogBackdropClose
+  } = useShallowGlobalState(
+    'isRTL',
+    'setPrimaryFontFamily',
+    'setSecondaryFontFamily',
+    'disableDialogBackdropClose'
+  )
 
   hasHelp(
     'accessibility',
@@ -232,7 +235,9 @@ export default React.memo(function Accessibility() {
               htmlId="disableDialogBackdropClose"
               value={disableDialogBackdropClose}
               handleChange={() => {
-                setDisableDialogBackdropClose(!disableDialogBackdropClose)
+                useGlobalState.setState({
+                  disableDialogBackdropClose: !disableDialogBackdropClose
+                })
               }}
               title={t(
                 'accessibility.disable_dialog_backdrop_close',
