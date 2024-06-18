@@ -2,7 +2,6 @@ import {
   AppSettings,
   GameInfo,
   Runner,
-  ConnectivityStatus,
   DialogType,
   ButtonOptions,
   DMQueueElement,
@@ -61,7 +60,6 @@ export interface ContextType {
   titlesAlwaysVisible: boolean
   setTitlesAlwaysVisible: (value: boolean) => void
   activeController: string
-  connectivity: { status: ConnectivityStatus; retryIn: number }
   setSecondaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
   setPrimaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
   dialogModalOptions: DialogModalOptions

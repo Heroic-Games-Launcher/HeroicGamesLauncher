@@ -91,15 +91,16 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [wikiInfo, setWikiInfo] = useState<WikiInfo | null>(null)
 
-  const { epic, gog, showDialogModal, connectivity } =
-    useContext(ContextProvider)
+  const { epic, gog, showDialogModal } = useContext(ContextProvider)
   const gameUpdatesIncludesThis = useGlobalState(
     useShallow((state) => state.gameUpdates.includes(appName))
   )
-  const { isSettingsModalOpen, enableNewDesign } = useShallowGlobalState(
-    'isSettingsModalOpen',
-    'enableNewDesign'
-  )
+  const { isSettingsModalOpen, enableNewDesign, connectivity } =
+    useShallowGlobalState(
+      'isSettingsModalOpen',
+      'enableNewDesign',
+      'connectivity'
+    )
 
   hasHelp(
     'gamePage',

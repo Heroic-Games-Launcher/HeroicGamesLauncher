@@ -10,6 +10,7 @@ import type {
   SettingsModalType
 } from '../types'
 import type {
+  ConnectivityStatus,
   ExperimentalFeatures,
   FavouriteGame,
   GameInfo,
@@ -60,6 +61,8 @@ interface GlobalStateV2 extends ExperimentalFeatures {
   removeFavouriteGame: (appName: string) => void
 
   theme: string
+
+  connectivity: { status: ConnectivityStatus; retryIn: number }
 }
 
 const useGlobalState = create<GlobalStateV2>()(
@@ -148,7 +151,9 @@ const useGlobalState = create<GlobalStateV2>()(
         })
       },
 
-      theme: configStore.get('theme', DEFAULT_THEME)
+      theme: configStore.get('theme', DEFAULT_THEME),
+
+      connectivity: { status: 'online', retryIn: 0 }
     }),
     {
       name: 'globalState',
@@ -289,5 +294,15 @@ useGlobalState.subscribe(async (state, prev) => {
   return setTheme(state.theme)
 })
 void setTheme(useGlobalState.getState().theme)
+
+// listen to custom connectivity-changed event to update state
+window.api.onConnectivityChanged((_, connectivity) => {
+  useGlobalState.setState({ connectivity })
+})
+
+// get the current status
+window.api
+  .getConnectivityStatus()
+  .then((connectivity) => useGlobalState.setState({ connectivity }))
 
 export { useGlobalState, useShallowGlobalState }

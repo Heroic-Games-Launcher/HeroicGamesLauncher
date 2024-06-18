@@ -49,7 +49,6 @@ const initialContext: ContextType = {
   titlesAlwaysVisible: false,
   setTitlesAlwaysVisible: () => null,
   activeController: '',
-  connectivity: { status: 'online', retryIn: 0 },
   setPrimaryFontFamily: () => null,
   setSecondaryFontFamily: () => null,
   dialogModalOptions: { showDialog: false },

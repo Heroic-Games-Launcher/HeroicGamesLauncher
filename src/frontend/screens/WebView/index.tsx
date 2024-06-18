@@ -19,6 +19,7 @@ import {
   DialogContent,
   DialogHeader
 } from 'frontend/components/UI/Dialog'
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
 const validStoredUrl = (url: string, store: string) => {
   switch (store) {
@@ -37,7 +38,8 @@ export default function WebView() {
   const { i18n } = useTranslation()
   const { pathname, search } = useLocation()
   const { t } = useTranslation()
-  const { epic, gog, amazon, connectivity } = useContext(ContextProvider)
+  const { epic, gog, amazon } = useContext(ContextProvider)
+  const { connectivity } = useShallowGlobalState('connectivity')
   const [loading, setLoading] = useState<{
     refresh: boolean
     message: string

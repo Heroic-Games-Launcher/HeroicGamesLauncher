@@ -4,7 +4,7 @@ import GameContext from '../../GameContext'
 import { CloudDownload, Storage, Assignment } from '@mui/icons-material'
 import { size } from 'frontend/helpers'
 import { GameInfo } from 'common/types'
-import ContextProvider from 'frontend/state/ContextProvider'
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
 interface Props {
   gameInfo: GameInfo
@@ -13,7 +13,7 @@ interface Props {
 const DownloadSizeInfo = ({ gameInfo }: Props) => {
   const { t } = useTranslation('gamepage')
   const { gameInstallInfo, runner } = useContext(GameContext)
-  const { connectivity } = useContext(ContextProvider)
+  const { connectivity } = useShallowGlobalState('connectivity')
 
   if (connectivity.status !== 'online') {
     return null

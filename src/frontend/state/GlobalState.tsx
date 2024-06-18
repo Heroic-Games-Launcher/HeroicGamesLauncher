@@ -1,11 +1,6 @@
 import React, { PureComponent } from 'react'
 
-import {
-  ConnectivityStatus,
-  GameInfo,
-  RefreshOptions,
-  Runner
-} from 'common/types'
+import { GameInfo, RefreshOptions, Runner } from 'common/types'
 import { DialogModalOptions } from 'frontend/types'
 import { withTranslation } from 'react-i18next'
 import { getGameInfo, getLegendaryConfig, launch, notify } from '../helpers'
@@ -63,7 +58,6 @@ interface StateProps {
   allTilesInColor: boolean
   titlesAlwaysVisible: boolean
   activeController: string
-  connectivity: { status: ConnectivityStatus; retryIn: number }
   dialogModalOptions: DialogModalOptions
   sideloadedLibrary: GameInfo[]
   hideChangelogsOnStartup: boolean
@@ -145,7 +139,6 @@ class GlobalState extends PureComponent<Props> {
     allTilesInColor: configStore.get('allTilesInColor', false),
     titlesAlwaysVisible: configStore.get('titlesAlwaysVisible', false),
     activeController: '',
-    connectivity: { status: 'offline', retryIn: 0 },
     showInstallModal: {
       show: false,
       appName: '',
@@ -635,16 +628,6 @@ class GlobalState extends PureComponent<Props> {
         this.setState({ activeController: e.detail.controllerId })
       }
     )
-
-    // listen to custom connectivity-changed event to update state
-    window.api.onConnectivityChanged((_, connectivity) => {
-      this.setState({ connectivity })
-    })
-
-    // get the current status
-    window.api
-      .getConnectivityStatus()
-      .then((connectivity) => this.setState({ connectivity }))
 
     this.setPrimaryFontFamily(this.state.primaryFontFamily, false)
     this.setSecondaryFontFamily(this.state.secondaryFontFamily, false)
