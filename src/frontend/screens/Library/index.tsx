@@ -58,12 +58,11 @@ export default React.memo(function Library(): JSX.Element {
     gog,
     amazon,
     sideloadedLibrary,
-    favouriteGames,
     currentCustomCategories,
-    customCategories,
-    hiddenGames
+    customCategories
   } = useContext(ContextProvider)
-  const { libraryTopSection } = useShallowGlobalState('libraryTopSection')
+  const { libraryTopSection, favouriteGames, hiddenGames } =
+    useShallowGlobalState('libraryTopSection', 'favouriteGames', 'hiddenGames')
 
   hasHelp(
     'library',
@@ -316,14 +315,14 @@ export default React.memo(function Library(): JSX.Element {
 
   const favouriteGamesList = useMemo(() => {
     if (showHidden) {
-      return favouriteGames.list
+      return favouriteGames
     }
 
-    const hiddenAppNames = hiddenGames.list.map(
+    const hiddenAppNames = hiddenGames.map(
       (hidden: HiddenGame) => hidden.appName
     )
 
-    return favouriteGames.list.filter(
+    return favouriteGames.filter(
       (game) => !hiddenAppNames.includes(game.appName)
     )
   }, [favouriteGames, showHidden, hiddenGames])
@@ -495,9 +494,7 @@ export default React.memo(function Library(): JSX.Element {
     }
 
     // hide hidden
-    const hiddenGamesAppNames = hiddenGames.list.map(
-      (hidden: HiddenGame) => hidden?.appName
-    )
+    const hiddenGamesAppNames = hiddenGames.map((hidden) => hidden?.appName)
 
     if (!showHidden) {
       library = library.filter(

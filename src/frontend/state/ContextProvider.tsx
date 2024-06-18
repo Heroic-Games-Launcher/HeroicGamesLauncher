@@ -31,18 +31,8 @@ const initialContext: ContextType = {
   refreshWineVersionInfo: async () => Promise.resolve(),
   refreshing: false,
   refreshingInTheBackground: true,
-  hiddenGames: {
-    list: [],
-    add: () => null,
-    remove: () => null
-  },
   currentCustomCategories: [],
   setCurrentCustomCategories: () => null,
-  favouriteGames: {
-    list: [],
-    add: () => null,
-    remove: () => null
-  },
   customCategories: {
     list: {},
     listCategories: () => [],

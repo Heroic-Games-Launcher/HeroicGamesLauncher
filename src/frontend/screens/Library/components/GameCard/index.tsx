@@ -95,10 +95,23 @@ const GameCard = ({
 
   const navigate = useNavigate()
 
-  const { hiddenGames, favouriteGames, showDialogModal, activeController } =
-    useContext(ContextProvider)
-  const { setIsSettingsModalOpen } = useShallowGlobalState(
-    'setIsSettingsModalOpen'
+  const { showDialogModal, activeController } = useContext(ContextProvider)
+  const {
+    setIsSettingsModalOpen,
+    favouriteGames,
+    addFavouriteGame,
+    removeFavouriteGame,
+    hiddenGames,
+    addHiddenGame,
+    removeHiddenGame
+  } = useShallowGlobalState(
+    'setIsSettingsModalOpen',
+    'favouriteGames',
+    'addFavouriteGame',
+    'removeFavouriteGame',
+    'hiddenGames',
+    'addHiddenGame',
+    'removeHiddenGame'
   )
 
   const { layout } = useContext(LibraryContext)
@@ -257,13 +270,13 @@ const GameCard = ({
   }
 
   const isHiddenGame = useMemo(() => {
-    return !!hiddenGames.list.find(
+    return !!hiddenGames.find(
       (hiddenGame: HiddenGame) => hiddenGame.appName === appName
     )
   }, [hiddenGames, appName])
 
   const isFavouriteGame = useMemo(() => {
-    return !!favouriteGames.list.find(
+    return !!favouriteGames.find(
       (favouriteGame: FavouriteGame) => favouriteGame.appName === appName
     )
   }, [favouriteGames, appName])
@@ -332,18 +345,18 @@ const GameCard = ({
     {
       // hide
       label: t('button.hide_game', 'Hide Game'),
-      onclick: () => hiddenGames.add(appName, title),
+      onclick: () => addHiddenGame({ appName, title }),
       show: !isHiddenGame
     },
     {
       // unhide
       label: t('button.unhide_game', 'Unhide Game'),
-      onclick: () => hiddenGames.remove(appName),
+      onclick: () => removeHiddenGame(appName),
       show: isHiddenGame
     },
     {
       label: t('button.add_to_favourites', 'Add To Favourites'),
-      onclick: () => favouriteGames.add(appName, title),
+      onclick: () => addFavouriteGame({ appName, title }),
       show: !isFavouriteGame
     },
     {
@@ -354,7 +367,7 @@ const GameCard = ({
     },
     {
       label: t('button.remove_from_favourites', 'Remove From Favourites'),
-      onclick: () => favouriteGames.remove(appName),
+      onclick: () => removeFavouriteGame(appName),
       show: isFavouriteGame
     },
     {

@@ -2,9 +2,7 @@ import React, { PureComponent } from 'react'
 
 import {
   ConnectivityStatus,
-  FavouriteGame,
   GameInfo,
-  HiddenGame,
   RefreshOptions,
   Runner
 } from 'common/types'
@@ -57,8 +55,6 @@ interface StateProps {
   }
   refreshing: boolean
   refreshingInTheBackground: boolean
-  hiddenGames: HiddenGame[]
-  favouriteGames: FavouriteGame[]
   customCategories: Record<string, string[]>
   currentCustomCategories: string[]
   theme: string
@@ -134,9 +130,7 @@ class GlobalState extends PureComponent<Props> {
     },
     refreshing: false,
     refreshingInTheBackground: true,
-    hiddenGames: configStore.get('games.hidden', []),
     currentCustomCategories: loadCurrentCategories(),
-    favouriteGames: configStore.get('games.favourites', []),
     customCategories: configStore.get('games.customCategories', {}),
     theme: configStore.get('theme', ''),
     zoomPercent: configStore.get('zoomPercent', 100),
@@ -233,54 +227,6 @@ class GlobalState extends PureComponent<Props> {
 
   setLastChangelogShown = (value: string) => {
     this.setState({ lastChangelogShown: value })
-  }
-
-  hideGame = (appNameToHide: string, appTitle: string) => {
-    const newHiddenGames = [
-      ...this.state.hiddenGames,
-      { appName: appNameToHide, title: appTitle }
-    ]
-
-    this.setState({
-      hiddenGames: newHiddenGames
-    })
-    configStore.set('games.hidden', newHiddenGames)
-  }
-
-  unhideGame = (appNameToUnhide: string) => {
-    const newHiddenGames = this.state.hiddenGames.filter(
-      ({ appName }) => appName !== appNameToUnhide
-    )
-
-    this.setState({
-      hiddenGames: newHiddenGames
-    })
-    configStore.set('games.hidden', newHiddenGames)
-  }
-
-  addGameToFavourites = (appNameToAdd: string, appTitle: string) => {
-    const newFavouriteGames = [
-      ...this.state.favouriteGames.filter(
-        (fav) => fav.appName !== appNameToAdd
-      ),
-      { appName: appNameToAdd, title: appTitle }
-    ]
-
-    this.setState({
-      favouriteGames: newFavouriteGames
-    })
-    configStore.set('games.favourites', newFavouriteGames)
-  }
-
-  removeGameFromFavourites = (appNameToRemove: string) => {
-    const newFavouriteGames = this.state.favouriteGames.filter(
-      ({ appName }) => appName !== appNameToRemove
-    )
-
-    this.setState({
-      favouriteGames: newFavouriteGames
-    })
-    configStore.set('games.favourites', newFavouriteGames)
   }
 
   getCustomCategories = () =>
@@ -727,9 +673,7 @@ class GlobalState extends PureComponent<Props> {
       epic,
       gog,
       amazon,
-      favouriteGames,
       customCategories,
-      hiddenGames,
       hideChangelogsOnStartup,
       lastChangelogShown
     } = this.state
@@ -761,16 +705,6 @@ class GlobalState extends PureComponent<Props> {
           refresh: this.refresh,
           refreshLibrary: this.refreshLibrary,
           refreshWineVersionInfo: this.refreshWineVersionInfo,
-          hiddenGames: {
-            list: hiddenGames,
-            add: this.hideGame,
-            remove: this.unhideGame
-          },
-          favouriteGames: {
-            list: favouriteGames,
-            add: this.addGameToFavourites,
-            remove: this.removeGameFromFavourites
-          },
           customCategories: {
             list: customCategories,
             listCategories: this.getCustomCategories,

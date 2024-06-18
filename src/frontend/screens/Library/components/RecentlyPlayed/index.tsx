@@ -4,6 +4,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { GameInfo, Runner } from 'common/types'
 import GamesList from '../GamesList'
 import { configStore } from 'frontend/helpers/electronStores'
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
 interface Props {
   handleModal: (appName: string, runner: Runner, gameInfo: GameInfo) => void
@@ -42,10 +43,10 @@ export default React.memo(function RecentlyPlayed({
   const { epic, gog, sideloadedLibrary, amazon } = useContext(ContextProvider)
   const [recentGames, setRecentGames] = useState<GameInfo[]>([])
 
-  const hiddenGames = useContext(ContextProvider).hiddenGames
+  const { hiddenGames } = useShallowGlobalState('hiddenGames')
 
   const loadRecentGames = async () => {
-    const hiddenAppNames = hiddenGames.list.map((game) => game.appName)
+    const hiddenAppNames = hiddenGames.map((game) => game.appName)
     const { maxRecentGames } = await window.api.requestAppSettings()
     let newRecentGames = getRecentGames(
       [

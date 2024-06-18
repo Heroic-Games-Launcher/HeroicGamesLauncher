@@ -11,8 +11,10 @@ import type {
 } from '../types'
 import type {
   ExperimentalFeatures,
+  FavouriteGame,
   GameInfo,
   GameStatus,
+  HiddenGame,
   LibraryTopSectionOptions,
   Runner
 } from 'common/types'
@@ -46,6 +48,14 @@ interface GlobalStateV2 extends ExperimentalFeatures {
   externalLinkDialogOptions: ExternalLinkDialogOptions
 
   libraryTopSection: LibraryTopSectionOptions
+
+  hiddenGames: HiddenGame[]
+  addHiddenGame: (gameToAdd: HiddenGame) => void
+  removeHiddenGame: (appName: string) => void
+
+  favouriteGames: FavouriteGame[]
+  addFavouriteGame: (gameToAdd: FavouriteGame) => void
+  removeFavouriteGame: (appName: string) => void
 }
 
 const useGlobalState = create<GlobalStateV2>()(
@@ -108,13 +118,39 @@ const useGlobalState = create<GlobalStateV2>()(
 
       externalLinkDialogOptions: { showDialog: false },
 
-      libraryTopSection: 'disabled'
+      libraryTopSection: 'disabled',
+
+      hiddenGames: configStore.get('games.hidden', []),
+      addHiddenGame: (game) =>
+        set({ hiddenGames: [...get().hiddenGames, game] }),
+      removeHiddenGame: (game) => {
+        const updatedHiddenGames = get().hiddenGames.filter(
+          ({ appName }) => appName !== game
+        )
+        set({
+          hiddenGames: updatedHiddenGames
+        })
+      },
+
+      favouriteGames: configStore.get('games.favourites', []),
+      addFavouriteGame: (game) =>
+        set({ favouriteGames: [...get().favouriteGames, game] }),
+      removeFavouriteGame: (game) => {
+        const updatedFavouriteGames = get().favouriteGames.filter(
+          ({ appName }) => appName !== game
+        )
+        set({
+          favouriteGames: updatedFavouriteGames
+        })
+      }
     }),
     {
       name: 'globalState',
       partialize: (state) => ({
         gameUpdates: state.gameUpdates,
-        language: state.language
+        language: state.language,
+        hiddenGames: state.hiddenGames,
+        favouriteGames: state.favouriteGames
       })
     }
   )

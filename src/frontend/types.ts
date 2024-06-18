@@ -23,16 +23,6 @@ export interface ContextType {
   refreshWineVersionInfo: (fetch: boolean) => void
   refreshing: boolean
   refreshingInTheBackground: boolean
-  hiddenGames: {
-    list: HiddenGame[]
-    add: (appNameToHide: string, appTitle: string) => void
-    remove: (appNameToUnhide: string) => void
-  }
-  favouriteGames: {
-    list: HiddenGame[]
-    add: (appNameToAdd: string, appTitle: string) => void
-    remove: (appNameToRemove: string) => void
-  }
   customCategories: {
     list: Record<string, string[]>
     listCategories: () => string[]
@@ -99,11 +89,6 @@ export type DialogModalOptions = {
 export interface ExternalLinkDialogOptions {
   showDialog: boolean
   linkCallback?: () => void
-}
-
-interface HiddenGame {
-  appName: string
-  title: string
 }
 
 export interface InstallProgress {
