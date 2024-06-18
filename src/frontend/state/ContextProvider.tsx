@@ -62,8 +62,6 @@ const initialContext: ContextType = {
   setAllTilesInColor: () => null,
   titlesAlwaysVisible: false,
   setTitlesAlwaysVisible: () => null,
-  sidebarCollapsed: false,
-  setSideBarCollapsed: () => null,
   activeController: '',
   connectivity: { status: 'online', retryIn: 0 },
   setPrimaryFontFamily: () => null,

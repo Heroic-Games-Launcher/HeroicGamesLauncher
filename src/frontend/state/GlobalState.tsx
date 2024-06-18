@@ -69,7 +69,6 @@ interface StateProps {
   secondaryFontFamily: string
   allTilesInColor: boolean
   titlesAlwaysVisible: boolean
-  sidebarCollapsed: boolean
   activeController: string
   connectivity: { status: ConnectivityStatus; retryIn: number }
   dialogModalOptions: DialogModalOptions
@@ -141,9 +140,6 @@ class GlobalState extends PureComponent<Props> {
     refreshingInTheBackground: true,
     hiddenGames: configStore.get('games.hidden', []),
     currentCustomCategories: loadCurrentCategories(),
-    sidebarCollapsed: JSON.parse(
-      storage.getItem('sidebar_collapsed') || 'false'
-    ),
     favouriteGames: configStore.get('games.favourites', []),
     customCategories: configStore.get('games.customCategories', {}),
     theme: configStore.get('theme', ''),
@@ -234,10 +230,6 @@ class GlobalState extends PureComponent<Props> {
   setDisableDialogBackdropClose = (value: boolean) => {
     configStore.set('disableDialogBackdropClose', value)
     this.setState({ disableDialogBackdropClose: value })
-  }
-
-  setSideBarCollapsed = (value: boolean) => {
-    this.setState({ sidebarCollapsed: value })
   }
 
   setHideChangelogsOnStartup = (value: boolean) => {
@@ -736,10 +728,8 @@ class GlobalState extends PureComponent<Props> {
   }
 
   componentDidUpdate() {
-    const { sidebarCollapsed, hideChangelogsOnStartup, lastChangelogShown } =
-      this.state
+    const { hideChangelogsOnStartup, lastChangelogShown } = this.state
 
-    storage.setItem('sidebar_collapsed', JSON.stringify(sidebarCollapsed))
     storage.setItem('hide_changelogs', JSON.stringify(hideChangelogsOnStartup))
     storage.setItem('last_changelog', JSON.stringify(lastChangelogShown))
   }
@@ -808,7 +798,6 @@ class GlobalState extends PureComponent<Props> {
           setZoomPercent: this.setZoomPercent,
           setAllTilesInColor: this.setAllTilesInColor,
           setTitlesAlwaysVisible: this.setTitlesAlwaysVisible,
-          setSideBarCollapsed: this.setSideBarCollapsed,
           setPrimaryFontFamily: this.setPrimaryFontFamily,
           setSecondaryFontFamily: this.setSecondaryFontFamily,
           showDialogModal: this.handleShowDialogModal,
