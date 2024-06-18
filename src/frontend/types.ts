@@ -60,8 +60,6 @@ export interface ContextType {
   titlesAlwaysVisible: boolean
   setTitlesAlwaysVisible: (value: boolean) => void
   activeController: string
-  setSecondaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
-  setPrimaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
   sideloadedLibrary: GameInfo[]
   hideChangelogsOnStartup: boolean
   setHideChangelogsOnStartup: (value: boolean) => void

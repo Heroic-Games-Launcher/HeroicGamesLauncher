@@ -49,8 +49,6 @@ const initialContext: ContextType = {
   titlesAlwaysVisible: false,
   setTitlesAlwaysVisible: () => null,
   activeController: '',
-  setPrimaryFontFamily: () => null,
-  setSecondaryFontFamily: () => null,
   hideChangelogsOnStartup: false,
   setHideChangelogsOnStartup: () => null,
   lastChangelogShown: null,

@@ -16,7 +16,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 import './index.css'
 import { hasHelp } from 'frontend/hooks/hasHelp'
-import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
+import {
+  useGlobalState,
+  useShallowGlobalState
+} from 'frontend/state/GlobalStateV2'
 
 export default React.memo(function Accessibility() {
   const { t } = useTranslation()
@@ -27,12 +30,15 @@ export default React.memo(function Accessibility() {
     setAllTilesInColor,
     titlesAlwaysVisible,
     setTitlesAlwaysVisible,
-    setPrimaryFontFamily,
-    setSecondaryFontFamily,
     disableDialogBackdropClose,
     setDisableDialogBackdropClose
   } = useContext(ContextProvider)
-  const { isRTL } = useShallowGlobalState('isRTL')
+  const { isRTL, setPrimaryFontFamily, setSecondaryFontFamily } =
+    useShallowGlobalState(
+      'isRTL',
+      'setPrimaryFontFamily',
+      'setSecondaryFontFamily'
+    )
 
   hasHelp(
     'accessibility',
@@ -73,15 +79,9 @@ export default React.memo(function Accessibility() {
 
   useEffect(() => {
     getFonts()
-    const primaryFont = getComputedStyle(
-      document.documentElement
-    ).getPropertyValue('--primary-font-family')
-    setActionFont(primaryFont.trim())
-
-    const secondaryFont = getComputedStyle(
-      document.documentElement
-    ).getPropertyValue('--secondary-font-family')
-    setContentFont(secondaryFont.trim())
+    const { primaryFontFamily, secondaryFontFamily } = useGlobalState.getState()
+    setActionFont(primaryFontFamily)
+    setContentFont(secondaryFontFamily)
   }, [])
 
   const handleZoomLevel = (event: ChangeEvent<HTMLInputElement>) => {

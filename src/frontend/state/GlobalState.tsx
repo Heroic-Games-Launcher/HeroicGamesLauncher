@@ -47,8 +47,6 @@ interface StateProps {
   customCategories: Record<string, string[]>
   currentCustomCategories: string[]
   zoomPercent: number
-  primaryFontFamily: string
-  secondaryFontFamily: string
   allTilesInColor: boolean
   titlesAlwaysVisible: boolean
   activeController: string
@@ -119,16 +117,6 @@ class GlobalState extends PureComponent<Props> {
     currentCustomCategories: loadCurrentCategories(),
     customCategories: configStore.get('games.customCategories', {}),
     zoomPercent: configStore.get('zoomPercent', 100),
-    secondaryFontFamily:
-      configStore.get_nodefault('contentFontFamily') ||
-      getComputedStyle(document.documentElement).getPropertyValue(
-        '--default-secondary-font-family'
-      ),
-    primaryFontFamily:
-      configStore.get_nodefault('actionsFontFamily') ||
-      getComputedStyle(document.documentElement).getPropertyValue(
-        '--default-primary-font-family'
-      ),
     allTilesInColor: configStore.get('allTilesInColor', false),
     titlesAlwaysVisible: configStore.get('titlesAlwaysVisible', false),
     activeController: '',
@@ -165,22 +153,6 @@ class GlobalState extends PureComponent<Props> {
     this.zoomTimer = setTimeout(() => {
       window.api.setZoomFactor((newZoomPercent / 100).toString())
     }, 500)
-  }
-
-  setPrimaryFontFamily = (newFontFamily: string, saveToFile = true) => {
-    if (saveToFile) configStore.set('actionsFontFamily', newFontFamily)
-    document.documentElement.style.setProperty(
-      '--primary-font-family',
-      newFontFamily
-    )
-  }
-
-  setSecondaryFontFamily = (newFontFamily: string, saveToFile = true) => {
-    if (saveToFile) configStore.set('contentFontFamily', newFontFamily)
-    document.documentElement.style.setProperty(
-      '--secondary-font-family',
-      newFontFamily
-    )
   }
 
   setAllTilesInColor = (value: boolean) => {
@@ -595,9 +567,6 @@ class GlobalState extends PureComponent<Props> {
       }
     )
 
-    this.setPrimaryFontFamily(this.state.primaryFontFamily, false)
-    this.setSecondaryFontFamily(this.state.secondaryFontFamily, false)
-
     window.api.frontendReady()
   }
 
@@ -658,8 +627,6 @@ class GlobalState extends PureComponent<Props> {
           setZoomPercent: this.setZoomPercent,
           setAllTilesInColor: this.setAllTilesInColor,
           setTitlesAlwaysVisible: this.setTitlesAlwaysVisible,
-          setPrimaryFontFamily: this.setPrimaryFontFamily,
-          setSecondaryFontFamily: this.setSecondaryFontFamily,
           hideChangelogsOnStartup: hideChangelogsOnStartup,
           setHideChangelogsOnStartup: this.setHideChangelogsOnStartup,
           lastChangelogShown: lastChangelogShown,

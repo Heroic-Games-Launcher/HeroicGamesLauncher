@@ -67,6 +67,11 @@ interface GlobalStateV2 extends ExperimentalFeatures {
 
   dialogModalOptions: DialogModalOptions
   showResetDialog: () => void
+
+  primaryFontFamily: string
+  secondaryFontFamily: string
+  setPrimaryFontFamily: (family: string, save?: boolean) => void
+  setSecondaryFontFamily: (family: string, save?: boolean) => void
 }
 
 const useGlobalState = create<GlobalStateV2>()(
@@ -174,6 +179,35 @@ const useGlobalState = create<GlobalStateV2>()(
           ]
         }
         set({ dialogModalOptions: resetDialog })
+      },
+
+      primaryFontFamily: configStore.get(
+        'actionsFontFamily',
+        getComputedStyle(document.documentElement).getPropertyValue(
+          '--default-primary-font-family'
+        )
+      ),
+      secondaryFontFamily: configStore.get(
+        'contentFontFamily',
+        getComputedStyle(document.documentElement).getPropertyValue(
+          '--default-secondary-font-family'
+        )
+      ),
+      setPrimaryFontFamily: (family, save = true) => {
+        if (save) set({ primaryFontFamily: family })
+
+        document.documentElement.style.setProperty(
+          '--primary-font-family',
+          family
+        )
+      },
+      setSecondaryFontFamily: (family, save = true) => {
+        if (save) set({ secondaryFontFamily: family })
+
+        document.documentElement.style.setProperty(
+          '--secondary-font-family',
+          family
+        )
       }
     }),
     {
@@ -183,7 +217,9 @@ const useGlobalState = create<GlobalStateV2>()(
         language: state.language,
         hiddenGames: state.hiddenGames,
         favouriteGames: state.favouriteGames,
-        theme: state.theme
+        theme: state.theme,
+        primaryFontFamily: state.primaryFontFamily,
+        secondaryFontFamily: state.secondaryFontFamily
       })
     }
   )
@@ -331,5 +367,12 @@ window.api.handleShowDialog((_e, title, message, type, buttons) =>
     dialogModalOptions: { showDialog: true, title, message, type, buttons }
   })
 )
+
+useGlobalState
+  .getState()
+  .setPrimaryFontFamily(useGlobalState.getState().primaryFontFamily, false)
+useGlobalState
+  .getState()
+  .setSecondaryFontFamily(useGlobalState.getState().secondaryFontFamily, false)
 
 export { useGlobalState, useShallowGlobalState }
