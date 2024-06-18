@@ -1,5 +1,5 @@
 import './index.scss'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -10,7 +10,8 @@ import { useTranslation } from 'react-i18next'
 import { Runner } from 'common/types'
 import ToggleSwitch from '../ToggleSwitch'
 import { useNavigate, useLocation } from 'react-router-dom'
-import ContextProvider from 'frontend/state/ContextProvider'
+import { useGlobalState } from 'frontend/state/GlobalStateV2'
+import { useShallow } from 'zustand/react/shallow'
 
 interface UninstallModalProps {
   appName: string
@@ -34,7 +35,14 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
-  const { installingEpicGame } = useContext(ContextProvider)
+  const installingEpicGame = useGlobalState(
+    useShallow((state) =>
+      Object.values(state.libraryStatus).some(
+        (status) =>
+          status.runner === 'legendary' && status.status === 'installing'
+      )
+    )
+  )
   const [gameTitle, setGameTitle] = useState('')
 
   const checkIfIsNative = async () => {

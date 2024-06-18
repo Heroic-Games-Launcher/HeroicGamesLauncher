@@ -127,7 +127,7 @@ const DownloadManagerItem = ({
       handleClearItem && handleClearItem(appName)
     }
 
-    current ? stopInstallation() : window.api.removeFromDMQueue(appName)
+    current ? stopInstallation() : window.api.removeFromDMQueue(appName, runner)
   }
 
   // using one element for the different states so it doesn't

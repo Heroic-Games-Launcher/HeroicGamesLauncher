@@ -615,7 +615,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   async function handleInstall(is_installed: boolean) {
     if (isQueued) {
       storage.removeItem(appName)
-      return window.api.removeFromDMQueue(appName)
+      return window.api.removeFromDMQueue(appName, runner)
     }
 
     if (!is_installed && !isInstalling) {

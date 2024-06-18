@@ -1,6 +1,11 @@
-import { DownloadManagerState } from './../../common/types'
+import {
+  DownloadManagerState,
+  Runner,
+  DMQueueElement,
+  InstallParams,
+  UpdateParams
+} from 'common/types'
 import { ipcRenderer } from 'electron'
-import { DMQueueElement, InstallParams, UpdateParams } from 'common/types'
 
 export const install = async (args: InstallParams) => {
   const dmQueueElement: DMQueueElement = {
@@ -57,8 +62,8 @@ export const updateGame = (args: UpdateParams) => {
 export const getDMQueueInformation = async () =>
   ipcRenderer.invoke('getDMQueueInformation')
 
-export const removeFromDMQueue = (appName: string) =>
-  ipcRenderer.send('removeFromDMQueue', appName)
+export const removeFromDMQueue = (appName: string, runner: Runner) =>
+  ipcRenderer.send('removeFromDMQueue', appName, runner)
 
 export const handleDMQueueInformation = (
   onChange: (

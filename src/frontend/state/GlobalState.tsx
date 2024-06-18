@@ -4,7 +4,6 @@ import {
   ConnectivityStatus,
   FavouriteGame,
   GameInfo,
-  GameStatus,
   HiddenGame,
   RefreshOptions,
   Runner,
@@ -58,7 +57,6 @@ interface StateProps {
     user_id?: string
     username?: string
   }
-  libraryStatus: GameStatus[]
   libraryTopSection: string
   refreshing: boolean
   refreshingInTheBackground: boolean
@@ -140,7 +138,6 @@ class GlobalState extends PureComponent<Props> {
       user_id: nileConfigStore.get_nodefault('userData.user_id'),
       username: nileConfigStore.get_nodefault('userData.name')
     },
-    libraryStatus: [],
     libraryTopSection: globalSettings?.libraryTopSection || 'disabled',
     refreshing: false,
     refreshingInTheBackground: true,
@@ -630,90 +627,9 @@ class GlobalState extends PureComponent<Props> {
       })
   }
 
-  handleGameStatus = async ({
-    appName,
-    status,
-    folder,
-    context,
-    progress,
-    runner
-  }: GameStatus) => {
-    const { libraryStatus } = this.state
-    const currentApp = libraryStatus.find((game) => game.appName === appName)
-
-    // add app to libraryStatus if it was not present
-    if (!currentApp) {
-      return this.setState({
-        libraryStatus: [
-          ...libraryStatus,
-          { appName, status, folder, context, progress, runner }
-        ]
-      })
-    }
-
-    // if the app's status didn't change, do nothing
-    if (currentApp.status === status && currentApp.context === context) {
-      return
-    }
-
-    // if the app's status did change, remove it from the current list and then handle the new status
-    const newLibraryStatus = libraryStatus.filter(
-      (game) => game.appName !== appName
-    )
-
-    // in these cases we just add the new status
-    if (
-      [
-        'installing',
-        'updating',
-        'playing',
-        'extracting',
-        'launching',
-        'winetricks',
-        'redist',
-        'queued'
-      ].includes(status)
-    ) {
-      newLibraryStatus.push({
-        appName,
-        status,
-        folder,
-        context,
-        progress,
-        runner
-      })
-      this.setState({ libraryStatus: newLibraryStatus })
-    }
-
-    // when error or done we remove it from the status info
-    if (['error', 'done'].includes(status)) {
-      // also remove from updates if it was updating
-      if (currentApp.status === 'updating') {
-        const updatedGamesUpdates = useGlobalState
-          .getState()
-          .gameUpdates.filter((game) => game !== appName)
-        useGlobalState.setState({ gameUpdates: updatedGamesUpdates })
-        // This avoids calling legendary again before the previous process is killed when canceling
-        this.refreshLibrary({
-          checkForUpdates: true,
-          runInBackground: true,
-          library: runner
-        })
-
-        return this.setState({
-          libraryStatus: newLibraryStatus
-        })
-      }
-
-      this.refreshLibrary({ runInBackground: true, library: runner })
-
-      this.setState({ libraryStatus: newLibraryStatus })
-    }
-  }
-
   async componentDidMount() {
     const { t } = this.props
-    const { epic, gog, amazon, libraryStatus } = this.state
+    const { epic, gog, amazon } = this.state
 
     // Deals launching from protocol. Also checks if the game is already running
     window.api.handleLaunchGame(
@@ -722,9 +638,8 @@ class GlobalState extends PureComponent<Props> {
         appName: string,
         runner: Runner
       ): Promise<{ status: 'done' | 'error' | 'abort' }> => {
-        const currentApp = libraryStatus.filter(
-          (game) => game.appName === appName
-        )[0]
+        const currentApp =
+          useGlobalState.getState().libraryStatus[`${appName}_${runner}`]
         if (!currentApp) {
           return launch({
             appName,
@@ -739,9 +654,8 @@ class GlobalState extends PureComponent<Props> {
     )
 
     window.api.handleInstallGame(async (e, appName, runner) => {
-      const currentApp = libraryStatus.filter(
-        (game) => game.appName === appName
-      )[0]
+      const currentApp =
+        useGlobalState.getState().libraryStatus[`${appName}_${runner}`]
       if (!currentApp || (currentApp && currentApp.status !== 'installing')) {
         const gameInfo = await getGameInfo(appName, runner)
         if (!gameInfo || gameInfo.runner === 'sideload') {
@@ -756,10 +670,6 @@ class GlobalState extends PureComponent<Props> {
           }
         })
       }
-    })
-
-    window.api.handleGameStatus((e, args) => {
-      this.handleGameStatus({ ...args })
     })
 
     window.api.handleRefreshLibrary((e, runner) => {
@@ -837,26 +747,12 @@ class GlobalState extends PureComponent<Props> {
   }
 
   componentDidUpdate() {
-    const {
-      libraryStatus,
-      sidebarCollapsed,
-      hideChangelogsOnStartup,
-      lastChangelogShown
-    } = this.state
+    const { sidebarCollapsed, hideChangelogsOnStartup, lastChangelogShown } =
+      this.state
 
     storage.setItem('sidebar_collapsed', JSON.stringify(sidebarCollapsed))
     storage.setItem('hide_changelogs', JSON.stringify(hideChangelogsOnStartup))
     storage.setItem('last_changelog', JSON.stringify(lastChangelogShown))
-
-    const pendingOps = libraryStatus.filter(
-      (game) => game.status !== 'playing' && game.status !== 'done'
-    ).length
-
-    if (pendingOps) {
-      window.api.lock()
-    } else {
-      window.api.unlock()
-    }
   }
 
   render() {
@@ -869,13 +765,8 @@ class GlobalState extends PureComponent<Props> {
       customCategories,
       hiddenGames,
       hideChangelogsOnStartup,
-      lastChangelogShown,
-      libraryStatus
+      lastChangelogShown
     } = this.state
-
-    const installingEpicGame = libraryStatus.some(
-      (game) => game.status === 'installing' && game.runner === 'legendary'
-    )
 
     return (
       <ContextProvider.Provider
@@ -901,7 +792,6 @@ class GlobalState extends PureComponent<Props> {
             login: this.amazonLogin,
             logout: this.amazonLogout
           },
-          installingEpicGame,
           refresh: this.refresh,
           refreshLibrary: this.refreshLibrary,
           refreshWineVersionInfo: this.refreshWineVersionInfo,

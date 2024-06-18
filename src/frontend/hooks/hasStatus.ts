@@ -1,20 +1,25 @@
-import React from 'react'
+import { useContext, useEffect, useState } from 'react'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { GameInfo, GameStatus, Status } from 'common/types'
+import { GameInfo, Status } from 'common/types'
 import { hasProgress } from './hasProgress'
 import { useTranslation } from 'react-i18next'
 import { getStatusLabel, handleNonAvailableGames } from './constants'
+import { useGlobalState } from '../state/GlobalStateV2'
+import { useShallow } from 'zustand/react/shallow'
 
 export function hasStatus(
   appName: string,
   gameInfo: GameInfo,
   gameSize?: string
 ) {
-  const { libraryStatus, epic, gog } = React.useContext(ContextProvider)
+  const { epic, gog } = useContext(ContextProvider)
+  const thisStatus = useGlobalState(
+    useShallow((state) => state.libraryStatus[`${appName}_${gameInfo.runner}`])
+  )
   const [progress] = hasProgress(appName)
   const { t } = useTranslation('gamepage')
 
-  const [gameStatus, setGameStatus] = React.useState<{
+  const [gameStatus, setGameStatus] = useState<{
     status?: Status
     statusContext?: string
     folder?: string
@@ -28,14 +33,9 @@ export function hasStatus(
     isEAManaged
   } = { ...gameInfo }
 
-  React.useEffect(() => {
+  useEffect(() => {
     const checkGameStatus = async () => {
-      const {
-        status,
-        folder,
-        context: statusContext
-      } = libraryStatus.find((game: GameStatus) => game.appName === appName) ||
-      {}
+      const { status, folder, context: statusContext } = thisStatus ?? {}
 
       if (status && status !== 'done') {
         const label = getStatusLabel({
@@ -90,7 +90,7 @@ export function hasStatus(
     }
     checkGameStatus()
   }, [
-    libraryStatus,
+    thisStatus,
     appName,
     epic.library,
     gog.library,

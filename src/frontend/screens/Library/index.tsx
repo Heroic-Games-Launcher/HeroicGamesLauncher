@@ -33,6 +33,8 @@ import { Category, PlatformsFilters, StoresFilters } from 'frontend/types'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 import EmptyLibraryMessage from './components/EmptyLibrary'
 import CategoriesManager from './components/CategoriesManager'
+import { useGlobalState } from '../../state/GlobalStateV2'
+import { useShallow } from 'zustand/react/shallow'
 
 const storage = window.localStorage
 
@@ -47,7 +49,6 @@ export default React.memo(function Library(): JSX.Element {
   const { t } = useTranslation()
 
   const {
-    libraryStatus,
     refreshing,
     refreshingInTheBackground,
     epic,
@@ -249,12 +250,12 @@ export default React.memo(function Library(): JSX.Element {
   }
 
   // cache list of games being installed
-  const installing = useMemo(
-    () =>
-      libraryStatus
+  const installing = useGlobalState(
+    useShallow((state) =>
+      Object.values(state.libraryStatus)
         .filter((st) => st.status === 'installing')
-        .map((st) => st.appName),
-    [libraryStatus]
+        .map((st) => st.appName)
+    )
   )
 
   const filterByPlatform = (library: GameInfo[]) => {

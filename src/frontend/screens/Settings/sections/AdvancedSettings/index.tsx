@@ -12,8 +12,6 @@ import {
 } from '@mui/icons-material'
 import classNames from 'classnames'
 import SettingsContext from '../../SettingsContext'
-import ContextProvider from 'frontend/state/ContextProvider'
-import { GameStatus } from 'common/types'
 import {
   AllowInstallationBrokenAnticheat,
   AltGOGdlBin,
@@ -25,6 +23,8 @@ import {
   ExperimentalFeatures,
   ResetHeroic
 } from '../../components'
+import { useGlobalState } from '../../../../state/GlobalStateV2'
+import { useShallow } from 'zustand/react/shallow'
 
 export default function AdvancedSetting() {
   const { config } = useContext(SettingsContext)
@@ -41,8 +41,10 @@ export default function AdvancedSetting() {
   const [eosOverlayEnabledGlobally, setEosOverlayEnabledGlobally] =
     useState(false)
   const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
+  const eosOverlayStatus = useGlobalState(
+    useShallow((state) => state.libraryStatus[`${eosOverlayAppName}_legendary`])
+  )
 
-  const { libraryStatus } = useContext(ContextProvider)
   const { t } = useTranslation()
   const isWindows = platform === 'win32'
 
@@ -76,10 +78,7 @@ export default function AdvancedSetting() {
   }, [])
 
   useEffect(() => {
-    const { status } =
-      libraryStatus.filter(
-        (game: GameStatus) => game.appName === eosOverlayAppName
-      )[0] || {}
+    const { status } = eosOverlayStatus || {}
     setEosOverlayInstallingOrUpdating(
       status === 'installing' || status === 'updating'
     )

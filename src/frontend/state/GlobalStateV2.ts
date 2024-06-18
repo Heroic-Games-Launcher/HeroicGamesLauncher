@@ -5,7 +5,7 @@ import { useShallow } from 'zustand/react/shallow'
 
 import { configStore } from '../helpers/electronStores'
 import type { HelpItem, SettingsModalType } from '../types'
-import type { GameInfo } from 'common/types'
+import type { GameInfo, GameStatus, Runner } from 'common/types'
 
 const RTL_LANGUAGES = ['fa', 'ar']
 
@@ -30,6 +30,8 @@ interface GlobalStateV2 {
   setIsSettingsModalOpen: (
     newState: GlobalStateV2['isSettingsModalOpen'] | false
   ) => void
+
+  libraryStatus: Record<`${string}_${Runner}`, GameStatus>
 }
 
 const useGlobalState = create<GlobalStateV2>()(
@@ -82,7 +84,9 @@ const useGlobalState = create<GlobalStateV2>()(
         if (typeof value === 'boolean')
           set({ isSettingsModalOpen: { value: false } })
         else set({ isSettingsModalOpen: value })
-      }
+      },
+
+      libraryStatus: {}
     }),
     {
       name: 'globalState',
@@ -120,5 +124,54 @@ window.api.handleFullscreen((e, isFullscreen) => setIsFullscreen(isFullscreen))
 const setIsFrameless = (isFrameless: boolean) =>
   useGlobalState.setState({ isFrameless })
 window.api.isFrameless().then(setIsFrameless)
+
+window.api.handleGameStatus((_e, newStatus) => {
+  const key = `${newStatus.appName}_${newStatus.runner}`
+  const oldStatus: GameStatus | undefined =
+    useGlobalState.getState().libraryStatus[key]
+
+  if (
+    oldStatus?.status === newStatus.status &&
+    oldStatus.context === newStatus.context
+  )
+    return
+
+  if (!oldStatus || !['error', 'done'].includes(newStatus.status)) {
+    useGlobalState.setState({
+      libraryStatus: {
+        ...useGlobalState.getState().libraryStatus,
+        [key]: newStatus
+      }
+    })
+    return
+  }
+
+  // FIXME: Do we really just want to throw away the new status now?
+  const libraryStatusWithoutThisApp = useGlobalState.getState().libraryStatus
+  delete libraryStatusWithoutThisApp[key]
+  useGlobalState.setState({ libraryStatus: libraryStatusWithoutThisApp })
+
+  // If the game was updating before, assume the update is now done
+  if (oldStatus.status === 'updating') {
+    useGlobalState.setState({
+      gameUpdates: useGlobalState
+        .getState()
+        .gameUpdates.filter((appName) => appName !== newStatus.appName)
+    })
+  }
+
+  // TODO: Refresh the library
+})
+
+useGlobalState.subscribe((state, prev) => {
+  if (state.libraryStatus === prev.libraryStatus) return
+
+  const pendingOps = Object.values(state.libraryStatus).some(
+    ({ status }) => status !== 'playing' && status !== 'done'
+  )
+
+  if (pendingOps) window.api.lock()
+  else window.api.unlock()
+})
 
 export { useGlobalState, useShallowGlobalState }

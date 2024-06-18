@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 import {
   GameInfo,
-  GameStatus,
   InstallInfo,
   InstallPlatform,
   Runner,
@@ -51,6 +50,8 @@ import BuildSelector from './BuildSelector'
 import GameLanguageSelector from './GameLanguageSelector'
 import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
 import BranchSelector from './BranchSelector'
+import { useGlobalState } from '../../../../../state/GlobalStateV2'
+import { useShallow } from 'zustand/react/shallow'
 
 interface Props {
   backdropClick: () => void
@@ -106,7 +107,7 @@ export default function DownloadDialog({
   const previousProgress = JSON.parse(
     storage.getItem(appName) || '{}'
   ) as InstallProgress
-  const { libraryStatus, showDialogModal } = useContext(ContextProvider)
+  const { showDialogModal } = useContext(ContextProvider)
 
   const isWin = platform === 'win32'
 
@@ -128,9 +129,9 @@ export default function DownloadDialog({
   const [installPath, setInstallPath] = useState(
     previousProgress.folder || getDefaultInstallPath()
   )
-  const gameStatus: GameStatus = libraryStatus.filter(
-    (game: GameStatus) => game.appName === appName
-  )[0]
+  const gameStatus = useGlobalState(
+    useShallow((state) => state.libraryStatus[`${appName}_${runner}`])
+  )
 
   const [dlcsToInstall, setDlcsToInstall] = useState<string[]>([])
   const [sdls, setSdls] = useState<SelectiveDownload[]>([])

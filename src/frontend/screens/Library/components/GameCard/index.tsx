@@ -160,7 +160,7 @@ const GameCard = ({
     : '100%'
 
   const handleRemoveFromQueue = () => {
-    window.api.removeFromDMQueue(appName)
+    window.api.removeFromDMQueue(appName, runner)
   }
 
   const renderIcon = () => {
@@ -520,7 +520,7 @@ const GameCard = ({
 
     if (isQueued) {
       storage.removeItem(appName)
-      return window.api.removeFromDMQueue(appName)
+      return window.api.removeFromDMQueue(appName, runner)
     }
 
     if (isInstalled) {

@@ -1,7 +1,6 @@
 import {
   AppSettings,
   GameInfo,
-  GameStatus,
   Runner,
   ConnectivityStatus,
   DialogType,
@@ -21,7 +20,6 @@ import { NileLoginData, NileRegisterData } from 'common/types/nile'
 export type Category = 'all' | 'legendary' | 'gog' | 'sideload' | 'nile'
 
 export interface ContextType {
-  libraryStatus: GameStatus[]
   libraryTopSection: string
   handleLibraryTopSection: (value: LibraryTopSectionOptions) => void
   refresh: (library: Runner, checkUpdates?: boolean) => Promise<void>
@@ -74,7 +72,6 @@ export interface ContextType {
     login: (data: NileRegisterData) => Promise<string>
     logout: () => Promise<void>
   }
-  installingEpicGame: boolean
   allTilesInColor: boolean
   setAllTilesInColor: (value: boolean) => void
   titlesAlwaysVisible: boolean

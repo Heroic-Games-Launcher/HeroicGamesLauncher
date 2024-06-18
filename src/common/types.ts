@@ -225,11 +225,11 @@ export type Status =
 
 export interface GameStatus {
   appName: string
+  runner: Runner
+  status: Status
   progress?: InstallProgress
   folder?: string
   context?: string // Additional context e.g current step
-  runner?: Runner
-  status: Status
 }
 
 export type GlobalConfigVersion = 'auto' | 'v0'

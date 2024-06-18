@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import LinearProgress from '@mui/material/LinearProgress'
 import Typography from '@mui/material/Typography'
@@ -10,7 +10,6 @@ import { hasProgress } from 'frontend/hooks/hasProgress'
 import { Runner } from 'common/types'
 import './index.scss'
 import { useTranslation } from 'react-i18next'
-import ContextProvider from 'frontend/state/ContextProvider'
 import Badge from '@mui/material/Badge'
 
 type Props = {
@@ -21,7 +20,6 @@ type Props = {
 export default React.memo(function CurrentDownload({ appName, runner }: Props) {
   const [progress] = hasProgress(appName)
   const [gameTitle, setGameTitle] = useState('')
-  const { libraryStatus } = useContext(ContextProvider)
   const { t } = useTranslation()
 
   useEffect(() => {
@@ -45,10 +43,6 @@ export default React.memo(function CurrentDownload({ appName, runner }: Props) {
     return progress.percent && progress.percent > 98
       ? t('status.processing', 'Processing files, please wait')
       : t('status.installing', 'Installing')
-  }
-
-  if (!libraryStatus.length) {
-    return null
   }
 
   return (
