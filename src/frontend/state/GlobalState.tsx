@@ -5,7 +5,6 @@ import { getGameInfo, getLegendaryConfig, launch, notify } from '../helpers'
 import { t } from 'i18next'
 
 import ContextProvider from './ContextProvider'
-import { InstallModal } from 'frontend/screens/Library/components'
 
 import {
   configStore,
@@ -52,12 +51,6 @@ interface StateProps {
   sideloadedLibrary: GameInfo[]
   hideChangelogsOnStartup: boolean
   lastChangelogShown: string | null
-  showInstallModal: {
-    show: boolean
-    gameInfo: GameInfo | null
-    appName: string
-    runner: Runner
-  }
 }
 
 // function to load the new key or fallback to the old one
@@ -117,12 +110,6 @@ class GlobalState extends PureComponent<Props> {
     zoomPercent: configStore.get('zoomPercent', 100),
     allTilesInColor: configStore.get('allTilesInColor', false),
     titlesAlwaysVisible: configStore.get('titlesAlwaysVisible', false),
-    showInstallModal: {
-      show: false,
-      appName: '',
-      runner: 'legendary',
-      gameInfo: null
-    },
     sideloadedLibrary: sideloadLibrary.get('games', []),
     hideChangelogsOnStartup: globalSettings?.hideChangelogsOnStartup || false,
     lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null')
@@ -560,7 +547,6 @@ class GlobalState extends PureComponent<Props> {
 
   render() {
     const {
-      showInstallModal,
       epic,
       gog,
       amazon,
@@ -616,18 +602,6 @@ class GlobalState extends PureComponent<Props> {
         }}
       >
         {this.props.children}
-        {showInstallModal.show && (
-          <InstallModal
-            appName={showInstallModal.appName}
-            runner={showInstallModal.runner}
-            gameInfo={showInstallModal.gameInfo}
-            backdropClick={() =>
-              this.setState({
-                showInstallModal: { ...showInstallModal, show: false }
-              })
-            }
-          />
-        )}
       </ContextProvider.Provider>
     )
   }

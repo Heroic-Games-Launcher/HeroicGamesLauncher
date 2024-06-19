@@ -16,6 +16,7 @@ import WindowControls from './components/UI/WindowControls'
 import classNames from 'classnames'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { useShallowGlobalState } from './state/GlobalStateV2'
+import InstallModal from './screens/Library/components/InstallModal'
 
 function Root() {
   const { isFullscreen, isFrameless, isRTL, enableNewDesign } =
@@ -50,6 +51,7 @@ function Root() {
         <Sidebar />
         <main className="content">
           <DialogHandler />
+          <InstallModal />
           <SettingsModal />
           <ExternalLinkDialog />
           <Outlet />

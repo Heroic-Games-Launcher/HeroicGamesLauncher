@@ -9,7 +9,6 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { NavLink } from 'react-router-dom'
 
-import { InstallModal } from 'frontend/screens/Library/components'
 import { CircularProgress } from '@mui/material'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 import {
@@ -66,7 +65,6 @@ export default function GamesSubmenu({
   const [hasShortcuts, setHasShortcuts] = useState(false)
   const [eosOverlayEnabled, setEosOverlayEnabled] = useState<boolean>(false)
   const [eosOverlayRefresh, setEosOverlayRefresh] = useState<boolean>(false)
-  const [showModal, setShowModal] = useState(false)
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [protonDBurl, setProtonDBurl] = useState(
     `https://www.protondb.com/search?q=${title}`
@@ -156,7 +154,14 @@ export default function GamesSubmenu({
   }
 
   function handleEdit() {
-    setShowModal(true)
+    useGlobalState.setState({
+      installModalOptions: {
+        show: true,
+        gameInfo,
+        appName,
+        runner
+      }
+    })
   }
 
   async function handleEosOverlay() {
@@ -393,13 +398,6 @@ export default function GamesSubmenu({
           )}
         </div>
       </div>
-      {showModal && (
-        <InstallModal
-          appName={appName}
-          runner={runner}
-          backdropClick={() => setShowModal(false)}
-        />
-      )}
     </>
   )
 }
