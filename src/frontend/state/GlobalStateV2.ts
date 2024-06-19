@@ -84,6 +84,9 @@ interface GlobalStateV2 extends ExperimentalFeatures {
 
   allTilesInColor: boolean
   titlesAlwaysVisible: boolean
+
+  hideChangelogsOnStartup: boolean
+  lastChangelogShown: string | null
 }
 
 const useGlobalState = create<GlobalStateV2>()(
@@ -234,7 +237,12 @@ const useGlobalState = create<GlobalStateV2>()(
       zoomPercent: configStore.get('zoomPercent', 100),
 
       allTilesInColor: configStore.get('allTilesInColor', false),
-      titlesAlwaysVisible: configStore.get('titlesAlwaysVisible', false)
+      titlesAlwaysVisible: configStore.get('titlesAlwaysVisible', false),
+
+      hideChangelogsOnStartup: false,
+      lastChangelogShown: JSON.parse(
+        localStorage.getItem('last_changelog') ?? 'null'
+      )
     }),
     {
       name: 'globalState',
@@ -249,7 +257,8 @@ const useGlobalState = create<GlobalStateV2>()(
         disableDialogBackdropClose: state.disableDialogBackdropClose,
         zoomPercent: state.zoomPercent,
         allTilesInColor: state.allTilesInColor,
-        titlesAlwaysVisible: state.titlesAlwaysVisible
+        titlesAlwaysVisible: state.titlesAlwaysVisible,
+        lastChangelogShown: state.lastChangelogShown
       })
     }
   )
@@ -339,6 +348,11 @@ window.api.requestAppSettings().then((settings) => {
 
   if (settings.libraryTopSection)
     useGlobalState.setState({ libraryTopSection: settings.libraryTopSection })
+
+  if (settings.hideChangelogsOnStartup)
+    useGlobalState.setState({
+      hideChangelogsOnStartup: settings.hideChangelogsOnStartup
+    })
 })
 
 async function setTheme(themeClass: string) {

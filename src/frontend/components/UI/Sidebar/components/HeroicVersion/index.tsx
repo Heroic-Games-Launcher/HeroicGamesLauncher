@@ -1,7 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { ChangelogModal } from '../../../ChangelogModal'
+import {
+  useGlobalState,
+  useShallowGlobalState
+} from 'frontend/state/GlobalStateV2'
 
 type Release = {
   html_url: string
@@ -24,8 +27,10 @@ export default React.memo(function HeroicVersion() {
   const [showChangelogModalOnClick, setShowChangelogModalOnClick] =
     useState(false)
 
-  const { hideChangelogsOnStartup, lastChangelogShown, setLastChangelogShown } =
-    useContext(ContextProvider)
+  const { hideChangelogsOnStartup, lastChangelogShown } = useShallowGlobalState(
+    'hideChangelogsOnStartup',
+    'lastChangelogShown'
+  )
 
   useEffect(() => {
     window.api.getHeroicVersion().then((version) => {
@@ -63,7 +68,7 @@ export default React.memo(function HeroicVersion() {
           onClose={() => {
             setShowChangelogModal(false)
             setShowChangelogModalOnClick(false)
-            setLastChangelogShown(heroicVersion)
+            useGlobalState.setState({ lastChangelogShown: heroicVersion })
           }}
         />
       )}

@@ -54,10 +54,6 @@ export interface ContextType {
     logout: () => Promise<void>
   }
   sideloadedLibrary: GameInfo[]
-  hideChangelogsOnStartup: boolean
-  setHideChangelogsOnStartup: (value: boolean) => void
-  lastChangelogShown: string | null
-  setLastChangelogShown: (value: string) => void
 }
 
 export type DialogModalOptions = {

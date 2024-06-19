@@ -21,7 +21,6 @@ import { NileRegisterData } from 'common/types/nile'
 import { useGlobalState } from './GlobalStateV2'
 
 const storage: Storage = window.localStorage
-const globalSettings = configStore.get_nodefault('settings')
 
 interface Props {
   children: React.ReactNode
@@ -46,8 +45,6 @@ interface StateProps {
   customCategories: Record<string, string[]>
   currentCustomCategories: string[]
   sideloadedLibrary: GameInfo[]
-  hideChangelogsOnStartup: boolean
-  lastChangelogShown: string | null
 }
 
 // function to load the new key or fallback to the old one
@@ -104,9 +101,7 @@ class GlobalState extends PureComponent<Props> {
     refreshingInTheBackground: true,
     currentCustomCategories: loadCurrentCategories(),
     customCategories: configStore.get('games.customCategories', {}),
-    sideloadedLibrary: sideloadLibrary.get('games', []),
-    hideChangelogsOnStartup: globalSettings?.hideChangelogsOnStartup || false,
-    lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null')
+    sideloadedLibrary: sideloadLibrary.get('games', [])
   }
 
   setCurrentCustomCategories = (newCustomCategories: string[]) => {
@@ -115,14 +110,6 @@ class GlobalState extends PureComponent<Props> {
       JSON.stringify(newCustomCategories)
     )
     this.setState({ currentCustomCategories: newCustomCategories })
-  }
-
-  setHideChangelogsOnStartup = (value: boolean) => {
-    this.setState({ hideChangelogsOnStartup: value })
-  }
-
-  setLastChangelogShown = (value: string) => {
-    this.setState({ lastChangelogShown: value })
   }
 
   getCustomCategories = () =>
@@ -510,22 +497,8 @@ class GlobalState extends PureComponent<Props> {
     window.api.frontendReady()
   }
 
-  componentDidUpdate() {
-    const { hideChangelogsOnStartup, lastChangelogShown } = this.state
-
-    storage.setItem('hide_changelogs', JSON.stringify(hideChangelogsOnStartup))
-    storage.setItem('last_changelog', JSON.stringify(lastChangelogShown))
-  }
-
   render() {
-    const {
-      epic,
-      gog,
-      amazon,
-      customCategories,
-      hideChangelogsOnStartup,
-      lastChangelogShown
-    } = this.state
+    const { epic, gog, amazon, customCategories } = this.state
 
     return (
       <ContextProvider.Provider
@@ -563,10 +536,6 @@ class GlobalState extends PureComponent<Props> {
             removeCategory: this.removeCustomCategory,
             renameCategory: this.renameCustomCategory
           },
-          hideChangelogsOnStartup: hideChangelogsOnStartup,
-          setHideChangelogsOnStartup: this.setHideChangelogsOnStartup,
-          lastChangelogShown: lastChangelogShown,
-          setLastChangelogShown: this.setLastChangelogShown,
           setCurrentCustomCategories: this.setCurrentCustomCategories
         }}
       >

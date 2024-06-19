@@ -41,11 +41,7 @@ const initialContext: ContextType = {
     addCategory: () => null,
     removeCategory: () => null,
     renameCategory: () => null
-  },
-  hideChangelogsOnStartup: false,
-  setHideChangelogsOnStartup: () => null,
-  lastChangelogShown: null,
-  setLastChangelogShown: () => null
+  }
 }
 
 export default React.createContext(initialContext)
