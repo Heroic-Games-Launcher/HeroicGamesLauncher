@@ -24,8 +24,6 @@ import {
 export default React.memo(function Accessibility() {
   const { t } = useTranslation()
   const {
-    zoomPercent,
-    setZoomPercent,
     allTilesInColor,
     setAllTilesInColor,
     titlesAlwaysVisible,
@@ -35,12 +33,14 @@ export default React.memo(function Accessibility() {
     isRTL,
     setPrimaryFontFamily,
     setSecondaryFontFamily,
-    disableDialogBackdropClose
+    disableDialogBackdropClose,
+    zoomPercent
   } = useShallowGlobalState(
     'isRTL',
     'setPrimaryFontFamily',
     'setSecondaryFontFamily',
-    'disableDialogBackdropClose'
+    'disableDialogBackdropClose',
+    'zoomPercent'
   )
 
   hasHelp(
@@ -88,7 +88,7 @@ export default React.memo(function Accessibility() {
   }, [])
 
   const handleZoomLevel = (event: ChangeEvent<HTMLInputElement>) => {
-    setZoomPercent(parseInt(event.target.value))
+    useGlobalState.setState({ zoomPercent: parseInt(event.target.value) })
   }
 
   const handleContentFontFamily = (event: ChangeEvent<HTMLSelectElement>) => {

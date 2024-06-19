@@ -79,6 +79,8 @@ interface GlobalStateV2 extends ExperimentalFeatures {
   activeController: string
 
   installModalOptions: InstallModalOptions
+
+  zoomPercent: number
 }
 
 const useGlobalState = create<GlobalStateV2>()(
@@ -224,7 +226,9 @@ const useGlobalState = create<GlobalStateV2>()(
 
       activeController: '',
 
-      installModalOptions: { show: false }
+      installModalOptions: { show: false },
+
+      zoomPercent: configStore.get('zoomPercent', 100)
     }),
     {
       name: 'globalState',
@@ -236,7 +240,8 @@ const useGlobalState = create<GlobalStateV2>()(
         theme: state.theme,
         primaryFontFamily: state.primaryFontFamily,
         secondaryFontFamily: state.secondaryFontFamily,
-        disableDialogBackdropClose: state.disableDialogBackdropClose
+        disableDialogBackdropClose: state.disableDialogBackdropClose,
+        zoomPercent: state.zoomPercent
       })
     }
   )
@@ -395,5 +400,15 @@ useGlobalState
 window.addEventListener('controller-changed', (e) =>
   useGlobalState.setState({ activeController: e.detail.controllerId })
 )
+
+let zoomTimer: ReturnType<typeof setTimeout> | undefined = undefined
+useGlobalState.subscribe((state, prev) => {
+  if (state.zoomPercent === prev.zoomPercent) return
+
+  if (zoomTimer) clearTimeout(zoomTimer)
+  zoomTimer = setTimeout(() => {
+    window.api.setZoomFactor((state.zoomPercent / 100).toString())
+  }, 500)
+})
 
 export { useGlobalState, useShallowGlobalState }

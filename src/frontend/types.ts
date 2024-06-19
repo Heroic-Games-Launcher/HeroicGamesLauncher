@@ -33,8 +33,6 @@ export interface ContextType {
   }
   currentCustomCategories: string[]
   setCurrentCustomCategories: (newCustomCategories: string[]) => void
-  zoomPercent: number
-  setZoomPercent: (newZoomPercent: number) => void
   epic: {
     library: GameInfo[]
     username?: string

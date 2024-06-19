@@ -45,7 +45,6 @@ interface StateProps {
   refreshingInTheBackground: boolean
   customCategories: Record<string, string[]>
   currentCustomCategories: string[]
-  zoomPercent: number
   allTilesInColor: boolean
   titlesAlwaysVisible: boolean
   sideloadedLibrary: GameInfo[]
@@ -107,7 +106,6 @@ class GlobalState extends PureComponent<Props> {
     refreshingInTheBackground: true,
     currentCustomCategories: loadCurrentCategories(),
     customCategories: configStore.get('games.customCategories', {}),
-    zoomPercent: configStore.get('zoomPercent', 100),
     allTilesInColor: configStore.get('allTilesInColor', false),
     titlesAlwaysVisible: configStore.get('titlesAlwaysVisible', false),
     sideloadedLibrary: sideloadLibrary.get('games', []),
@@ -121,18 +119,6 @@ class GlobalState extends PureComponent<Props> {
       JSON.stringify(newCustomCategories)
     )
     this.setState({ currentCustomCategories: newCustomCategories })
-  }
-
-  zoomTimer: NodeJS.Timeout | undefined = undefined
-  setZoomPercent = (newZoomPercent: number) => {
-    if (this.zoomTimer) clearTimeout(this.zoomTimer)
-
-    configStore.set('zoomPercent', newZoomPercent)
-    this.setState({ zoomPercent: newZoomPercent })
-
-    this.zoomTimer = setTimeout(() => {
-      window.api.setZoomFactor((newZoomPercent / 100).toString())
-    }, 500)
   }
 
   setAllTilesInColor = (value: boolean) => {
@@ -591,7 +577,6 @@ class GlobalState extends PureComponent<Props> {
             removeCategory: this.removeCustomCategory,
             renameCategory: this.renameCustomCategory
           },
-          setZoomPercent: this.setZoomPercent,
           setAllTilesInColor: this.setAllTilesInColor,
           setTitlesAlwaysVisible: this.setTitlesAlwaysVisible,
           hideChangelogsOnStartup: hideChangelogsOnStartup,

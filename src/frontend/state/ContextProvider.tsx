@@ -42,8 +42,6 @@ const initialContext: ContextType = {
     removeCategory: () => null,
     renameCategory: () => null
   },
-  zoomPercent: 100,
-  setZoomPercent: () => null,
   allTilesInColor: false,
   setAllTilesInColor: () => null,
   titlesAlwaysVisible: false,
