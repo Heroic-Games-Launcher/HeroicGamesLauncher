@@ -74,6 +74,8 @@ interface GlobalStateV2 extends ExperimentalFeatures {
   setSecondaryFontFamily: (family: string, save?: boolean) => void
 
   disableDialogBackdropClose: boolean
+
+  activeController: string
 }
 
 const useGlobalState = create<GlobalStateV2>()(
@@ -215,7 +217,9 @@ const useGlobalState = create<GlobalStateV2>()(
       disableDialogBackdropClose: configStore.get(
         'disableDialogBackdropClose',
         false
-      )
+      ),
+
+      activeController: ''
     }),
     {
       name: 'globalState',
@@ -382,5 +386,9 @@ useGlobalState
 useGlobalState
   .getState()
   .setSecondaryFontFamily(useGlobalState.getState().secondaryFontFamily, false)
+
+window.addEventListener('controller-changed', (e) =>
+  useGlobalState.setState({ activeController: e.detail.controllerId })
+)
 
 export { useGlobalState, useShallowGlobalState }

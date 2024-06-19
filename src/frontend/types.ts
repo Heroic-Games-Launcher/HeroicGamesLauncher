@@ -59,7 +59,6 @@ export interface ContextType {
   setAllTilesInColor: (value: boolean) => void
   titlesAlwaysVisible: boolean
   setTitlesAlwaysVisible: (value: boolean) => void
-  activeController: string
   sideloadedLibrary: GameInfo[]
   hideChangelogsOnStartup: boolean
   setHideChangelogsOnStartup: (value: boolean) => void

@@ -4,6 +4,7 @@ import cx from 'classnames'
 import GameCard from '../GameCard'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
 interface Props {
   library: GameInfo[]
@@ -52,7 +53,7 @@ const GamesList = ({
   const { allTilesInColor, titlesAlwaysVisible } = useContext(ContextProvider)
   const { t } = useTranslation()
   const listRef = useRef<HTMLDivElement | null>(null)
-  const { activeController } = useContext(ContextProvider)
+  const { activeController } = useShallowGlobalState('activeController')
 
   useEffect(() => {
     if (library.length) {

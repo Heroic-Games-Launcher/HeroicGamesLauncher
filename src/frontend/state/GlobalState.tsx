@@ -49,7 +49,6 @@ interface StateProps {
   zoomPercent: number
   allTilesInColor: boolean
   titlesAlwaysVisible: boolean
-  activeController: string
   sideloadedLibrary: GameInfo[]
   hideChangelogsOnStartup: boolean
   lastChangelogShown: string | null
@@ -118,7 +117,6 @@ class GlobalState extends PureComponent<Props> {
     zoomPercent: configStore.get('zoomPercent', 100),
     allTilesInColor: configStore.get('allTilesInColor', false),
     titlesAlwaysVisible: configStore.get('titlesAlwaysVisible', false),
-    activeController: '',
     showInstallModal: {
       show: false,
       appName: '',
@@ -549,13 +547,6 @@ class GlobalState extends PureComponent<Props> {
           amazon.library.length !== 0
       })
     }
-
-    window.addEventListener(
-      'controller-changed',
-      (e: CustomEvent<{ controllerId: string }>) => {
-        this.setState({ activeController: e.detail.controllerId })
-      }
-    )
 
     window.api.frontendReady()
   }

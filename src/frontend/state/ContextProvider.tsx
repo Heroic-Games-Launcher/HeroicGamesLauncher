@@ -48,7 +48,6 @@ const initialContext: ContextType = {
   setAllTilesInColor: () => null,
   titlesAlwaysVisible: false,
   setTitlesAlwaysVisible: () => null,
-  activeController: '',
   hideChangelogsOnStartup: false,
   setHideChangelogsOnStartup: () => null,
   lastChangelogShown: null,

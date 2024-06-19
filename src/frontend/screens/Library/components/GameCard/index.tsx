@@ -27,7 +27,6 @@ import {
   sendKill
 } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { updateGame } from 'frontend/helpers/library'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
 import ContextMenu, { Item } from '../ContextMenu'
@@ -95,7 +94,6 @@ const GameCard = ({
 
   const navigate = useNavigate()
 
-  const { activeController } = useContext(ContextProvider)
   const {
     setIsSettingsModalOpen,
     favouriteGames,
@@ -103,7 +101,8 @@ const GameCard = ({
     removeFavouriteGame,
     hiddenGames,
     addHiddenGame,
-    removeHiddenGame
+    removeHiddenGame,
+    activeController
   } = useShallowGlobalState(
     'setIsSettingsModalOpen',
     'favouriteGames',
@@ -111,7 +110,8 @@ const GameCard = ({
     'removeFavouriteGame',
     'hiddenGames',
     'addHiddenGame',
-    'removeHiddenGame'
+    'removeHiddenGame',
+    'activeController'
   )
 
   const { layout } = useContext(LibraryContext)
