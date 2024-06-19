@@ -81,6 +81,9 @@ interface GlobalStateV2 extends ExperimentalFeatures {
   installModalOptions: InstallModalOptions
 
   zoomPercent: number
+
+  allTilesInColor: boolean
+  titlesAlwaysVisible: boolean
 }
 
 const useGlobalState = create<GlobalStateV2>()(
@@ -228,7 +231,10 @@ const useGlobalState = create<GlobalStateV2>()(
 
       installModalOptions: { show: false },
 
-      zoomPercent: configStore.get('zoomPercent', 100)
+      zoomPercent: configStore.get('zoomPercent', 100),
+
+      allTilesInColor: configStore.get('allTilesInColor', false),
+      titlesAlwaysVisible: configStore.get('titlesAlwaysVisible', false)
     }),
     {
       name: 'globalState',
@@ -241,7 +247,9 @@ const useGlobalState = create<GlobalStateV2>()(
         primaryFontFamily: state.primaryFontFamily,
         secondaryFontFamily: state.secondaryFontFamily,
         disableDialogBackdropClose: state.disableDialogBackdropClose,
-        zoomPercent: state.zoomPercent
+        zoomPercent: state.zoomPercent,
+        allTilesInColor: state.allTilesInColor,
+        titlesAlwaysVisible: state.titlesAlwaysVisible
       })
     }
   )

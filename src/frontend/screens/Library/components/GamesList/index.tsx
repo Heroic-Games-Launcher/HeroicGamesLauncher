@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { GameInfo, Runner } from 'common/types'
 import cx from 'classnames'
 import GameCard from '../GameCard'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
@@ -50,10 +49,14 @@ const GamesList = ({
   isRecent = false,
   isFavourite = false
 }: Props): JSX.Element => {
-  const { allTilesInColor, titlesAlwaysVisible } = useContext(ContextProvider)
   const { t } = useTranslation()
   const listRef = useRef<HTMLDivElement | null>(null)
-  const { activeController } = useShallowGlobalState('activeController')
+  const { activeController, allTilesInColor, titlesAlwaysVisible } =
+    useShallowGlobalState(
+      'activeController',
+      'allTilesInColor',
+      'titlesAlwaysVisible'
+    )
 
   useEffect(() => {
     if (library.length) {

@@ -53,10 +53,6 @@ export interface ContextType {
     login: (data: NileRegisterData) => Promise<string>
     logout: () => Promise<void>
   }
-  allTilesInColor: boolean
-  setAllTilesInColor: (value: boolean) => void
-  titlesAlwaysVisible: boolean
-  setTitlesAlwaysVisible: (value: boolean) => void
   sideloadedLibrary: GameInfo[]
   hideChangelogsOnStartup: boolean
   setHideChangelogsOnStartup: (value: boolean) => void

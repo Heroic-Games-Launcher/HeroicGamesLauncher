@@ -42,10 +42,6 @@ const initialContext: ContextType = {
     removeCategory: () => null,
     renameCategory: () => null
   },
-  allTilesInColor: false,
-  setAllTilesInColor: () => null,
-  titlesAlwaysVisible: false,
-  setTitlesAlwaysVisible: () => null,
   hideChangelogsOnStartup: false,
   setHideChangelogsOnStartup: () => null,
   lastChangelogShown: null,

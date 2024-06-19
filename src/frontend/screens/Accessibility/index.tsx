@@ -1,13 +1,11 @@
 import React, {
   ChangeEvent,
   CSSProperties,
-  useContext,
   useEffect,
   useMemo,
   useState
 } from 'react'
 import { useTranslation } from 'react-i18next'
-import ContextProvider from 'frontend/state/ContextProvider'
 import classNames from 'classnames'
 import { SelectField } from 'frontend/components/UI'
 import { ThemeSelector } from 'frontend/components/UI/ThemeSelector'
@@ -24,23 +22,21 @@ import {
 export default React.memo(function Accessibility() {
   const { t } = useTranslation()
   const {
-    allTilesInColor,
-    setAllTilesInColor,
-    titlesAlwaysVisible,
-    setTitlesAlwaysVisible
-  } = useContext(ContextProvider)
-  const {
     isRTL,
     setPrimaryFontFamily,
     setSecondaryFontFamily,
     disableDialogBackdropClose,
-    zoomPercent
+    zoomPercent,
+    allTilesInColor,
+    titlesAlwaysVisible
   } = useShallowGlobalState(
     'isRTL',
     'setPrimaryFontFamily',
     'setSecondaryFontFamily',
     'disableDialogBackdropClose',
-    'zoomPercent'
+    'zoomPercent',
+    'allTilesInColor',
+    'titlesAlwaysVisible'
   )
 
   hasHelp(
@@ -203,7 +199,7 @@ export default React.memo(function Accessibility() {
               htmlId="setAllTitlesInColor"
               value={allTilesInColor}
               handleChange={() => {
-                setAllTilesInColor(!allTilesInColor)
+                useGlobalState.setState({ allTilesInColor: !allTilesInColor })
               }}
               title={t(
                 'accessibility.all_tiles_in_color',
@@ -219,7 +215,9 @@ export default React.memo(function Accessibility() {
               htmlId="setTitlesAlwaysVisible"
               value={titlesAlwaysVisible}
               handleChange={() => {
-                setTitlesAlwaysVisible(!titlesAlwaysVisible)
+                useGlobalState.setState({
+                  titlesAlwaysVisible: !titlesAlwaysVisible
+                })
               }}
               title={t(
                 'accessibility.titles_always_visible',

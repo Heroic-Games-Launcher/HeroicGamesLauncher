@@ -45,8 +45,6 @@ interface StateProps {
   refreshingInTheBackground: boolean
   customCategories: Record<string, string[]>
   currentCustomCategories: string[]
-  allTilesInColor: boolean
-  titlesAlwaysVisible: boolean
   sideloadedLibrary: GameInfo[]
   hideChangelogsOnStartup: boolean
   lastChangelogShown: string | null
@@ -106,8 +104,6 @@ class GlobalState extends PureComponent<Props> {
     refreshingInTheBackground: true,
     currentCustomCategories: loadCurrentCategories(),
     customCategories: configStore.get('games.customCategories', {}),
-    allTilesInColor: configStore.get('allTilesInColor', false),
-    titlesAlwaysVisible: configStore.get('titlesAlwaysVisible', false),
     sideloadedLibrary: sideloadLibrary.get('games', []),
     hideChangelogsOnStartup: globalSettings?.hideChangelogsOnStartup || false,
     lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null')
@@ -119,16 +115,6 @@ class GlobalState extends PureComponent<Props> {
       JSON.stringify(newCustomCategories)
     )
     this.setState({ currentCustomCategories: newCustomCategories })
-  }
-
-  setAllTilesInColor = (value: boolean) => {
-    configStore.set('allTilesInColor', value)
-    this.setState({ allTilesInColor: value })
-  }
-
-  setTitlesAlwaysVisible = (value: boolean) => {
-    configStore.set('titlesAlwaysVisible', value)
-    this.setState({ titlesAlwaysVisible: value })
   }
 
   setHideChangelogsOnStartup = (value: boolean) => {
@@ -577,8 +563,6 @@ class GlobalState extends PureComponent<Props> {
             removeCategory: this.removeCustomCategory,
             renameCategory: this.renameCustomCategory
           },
-          setAllTilesInColor: this.setAllTilesInColor,
-          setTitlesAlwaysVisible: this.setTitlesAlwaysVisible,
           hideChangelogsOnStartup: hideChangelogsOnStartup,
           setHideChangelogsOnStartup: this.setHideChangelogsOnStartup,
           lastChangelogShown: lastChangelogShown,
