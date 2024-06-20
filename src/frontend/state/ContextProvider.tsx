@@ -30,18 +30,7 @@ const initialContext: ContextType = {
   refreshLibrary: async () => Promise.resolve(),
   refreshWineVersionInfo: async () => Promise.resolve(),
   refreshing: false,
-  refreshingInTheBackground: true,
-  currentCustomCategories: [],
-  setCurrentCustomCategories: () => null,
-  customCategories: {
-    list: {},
-    listCategories: () => [],
-    addToGame: () => null,
-    removeFromGame: () => null,
-    addCategory: () => null,
-    removeCategory: () => null,
-    renameCategory: () => null
-  }
+  refreshingInTheBackground: true
 }
 
 export default React.createContext(initialContext)

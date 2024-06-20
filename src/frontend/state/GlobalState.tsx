@@ -42,24 +42,7 @@ interface StateProps {
   }
   refreshing: boolean
   refreshingInTheBackground: boolean
-  customCategories: Record<string, string[]>
-  currentCustomCategories: string[]
   sideloadedLibrary: GameInfo[]
-}
-
-// function to load the new key or fallback to the old one
-const loadCurrentCategories = () => {
-  const currentCategories = storage.getItem('current_custom_categories') || null
-  if (!currentCategories) {
-    const currentCategory = storage.getItem('current_custom_category') || null
-    if (!currentCategory) {
-      return []
-    } else {
-      return [currentCategory]
-    }
-  } else {
-    return JSON.parse(currentCategories) as string[]
-  }
 }
 
 class GlobalState extends PureComponent<Props> {
@@ -99,92 +82,7 @@ class GlobalState extends PureComponent<Props> {
     },
     refreshing: false,
     refreshingInTheBackground: true,
-    currentCustomCategories: loadCurrentCategories(),
-    customCategories: configStore.get('games.customCategories', {}),
     sideloadedLibrary: sideloadLibrary.get('games', [])
-  }
-
-  setCurrentCustomCategories = (newCustomCategories: string[]) => {
-    storage.setItem(
-      'current_custom_categories',
-      JSON.stringify(newCustomCategories)
-    )
-    this.setState({ currentCustomCategories: newCustomCategories })
-  }
-
-  getCustomCategories = () =>
-    Array.from(new Set(Object.keys(this.state.customCategories))).sort()
-
-  setCustomCategory = (newCategory: string) => {
-    const newCustomCategories = this.state.customCategories
-    newCustomCategories[newCategory] = []
-
-    // when adding a new category, if there are categories selected, select the new
-    // one too so the game doesn't disappear form the library
-    let newCurrentCustomCategories = this.state.currentCustomCategories
-    if (this.state.currentCustomCategories.length > 0) {
-      newCurrentCustomCategories = [...newCurrentCustomCategories, newCategory]
-    }
-
-    this.setState({
-      customCategories: newCustomCategories,
-      currentCustomCategories: newCurrentCustomCategories
-    })
-    configStore.set('games.customCategories', newCustomCategories)
-  }
-
-  removeCustomCategory = (category: string) => {
-    if (!this.state.customCategories[category]) return
-
-    const newCustomCategories = this.state.customCategories
-    delete newCustomCategories[category]
-
-    this.setState({ customCategories: { ...newCustomCategories } })
-    configStore.set('games.customCategories', newCustomCategories)
-  }
-
-  renameCustomCategory = (oldName: string, newName: string) => {
-    if (!this.state.customCategories[oldName]) return
-
-    const newCustomCategories = this.state.customCategories
-    newCustomCategories[newName] = newCustomCategories[oldName]
-    delete newCustomCategories[oldName]
-
-    this.setState({ customCategories: { ...newCustomCategories } })
-    configStore.set('games.customCategories', newCustomCategories)
-
-    const newCurrentCustomCategories =
-      this.state.currentCustomCategories.filter((cat) => cat !== oldName)
-    this.setCurrentCustomCategories([...newCurrentCustomCategories, newName])
-  }
-
-  addGameToCustomCategory = (category: string, appName: string) => {
-    const newCustomCategories = this.state.customCategories
-
-    if (!newCustomCategories[category]) newCustomCategories[category] = []
-
-    newCustomCategories[category].push(appName)
-
-    this.setState({
-      customCategories: newCustomCategories
-    })
-    configStore.set('games.customCategories', newCustomCategories)
-  }
-
-  removeGameFromCustomCategory = (category: string, appName: string) => {
-    if (!this.state.customCategories[category]) return
-
-    const newCustomCategories: Record<string, string[]> = {}
-    for (const [key, games] of Object.entries(this.state.customCategories)) {
-      if (key === category)
-        newCustomCategories[key] = games.filter((game) => game !== appName)
-      else newCustomCategories[key] = this.state.customCategories[key]
-    }
-
-    this.setState({
-      customCategories: newCustomCategories
-    })
-    configStore.set('games.customCategories', newCustomCategories)
   }
 
   handleSuccessfulLogin = (runner: Runner) => {
@@ -498,7 +396,7 @@ class GlobalState extends PureComponent<Props> {
   }
 
   render() {
-    const { epic, gog, amazon, customCategories } = this.state
+    const { epic, gog, amazon } = this.state
 
     return (
       <ContextProvider.Provider
@@ -526,17 +424,7 @@ class GlobalState extends PureComponent<Props> {
           },
           refresh: this.refresh,
           refreshLibrary: this.refreshLibrary,
-          refreshWineVersionInfo: this.refreshWineVersionInfo,
-          customCategories: {
-            list: customCategories,
-            listCategories: this.getCustomCategories,
-            addToGame: this.addGameToCustomCategory,
-            removeFromGame: this.removeGameFromCustomCategory,
-            addCategory: this.setCustomCategory,
-            removeCategory: this.removeCustomCategory,
-            renameCategory: this.renameCustomCategory
-          },
-          setCurrentCustomCategories: this.setCurrentCustomCategories
+          refreshWineVersionInfo: this.refreshWineVersionInfo
         }}
       >
         {this.props.children}

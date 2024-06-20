@@ -22,17 +22,6 @@ export interface ContextType {
   refreshWineVersionInfo: (fetch: boolean) => void
   refreshing: boolean
   refreshingInTheBackground: boolean
-  customCategories: {
-    list: Record<string, string[]>
-    listCategories: () => string[]
-    addToGame: (category: string, appName: string) => void
-    removeFromGame: (category: string, appName: string) => void
-    addCategory: (newCategory: string) => void
-    removeCategory: (category: string) => void
-    renameCategory: (oldName: string, newName: string) => void
-  }
-  currentCustomCategories: string[]
-  setCurrentCustomCategories: (newCustomCategories: string[]) => void
   epic: {
     library: GameInfo[]
     username?: string

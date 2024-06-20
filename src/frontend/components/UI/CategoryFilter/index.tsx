@@ -1,37 +1,41 @@
 import React, { useContext } from 'react'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 import ToggleSwitch from '../ToggleSwitch'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
+import {
+  useGlobalState,
+  useShallowGlobalState
+} from 'frontend/state/GlobalStateV2'
+import { useShallow } from 'zustand/react/shallow'
 
 export default function CategoryFilter() {
-  const {
-    customCategories,
-    currentCustomCategories,
-    setCurrentCustomCategories
-  } = useContext(ContextProvider)
+  const { currentCustomCategories } = useShallowGlobalState(
+    'currentCustomCategories'
+  )
+  const categoriesList = useGlobalState(
+    useShallow((state) => Object.keys(state.customCategories))
+  )
   const { setShowCategories } = useContext(LibraryContext)
   const { t } = useTranslation()
 
   const toggleCategory = (category: string) => {
+    let newCategories: string[]
     if (currentCustomCategories.includes(category)) {
-      const newCategories = currentCustomCategories.filter(
-        (cat) => cat !== category
-      )
-      setCurrentCustomCategories(newCategories)
+      newCategories = currentCustomCategories.filter((cat) => cat !== category)
     } else {
-      setCurrentCustomCategories([...currentCustomCategories, category])
+      newCategories = [...currentCustomCategories, category]
     }
+    useGlobalState.setState({ currentCustomCategories: newCategories })
   }
 
   const setCategoryOnly = (category: string) => {
-    setCurrentCustomCategories([category])
+    useGlobalState.setState({ currentCustomCategories: [category] })
   }
 
   const selectAll = () => {
-    setCurrentCustomCategories(
-      ['preset_uncategorized'].concat(customCategories.listCategories())
-    )
+    useGlobalState.setState({
+      currentCustomCategories: ['preset_uncategorized'].concat(categoriesList)
+    })
   }
 
   const toggleWithOnly = (
@@ -65,8 +69,6 @@ export default function CategoryFilter() {
 
     return toggleWithOnly(toggle, onOnlyClick, categoryValue || categoryName)
   }
-
-  const categoriesList = customCategories.listCategories()
 
   return (
     <div className="categoriesFilter">

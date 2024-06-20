@@ -49,12 +49,21 @@ export default React.memo(function Library(): JSX.Element {
     epic,
     gog,
     amazon,
-    sideloadedLibrary,
+    sideloadedLibrary
+  } = useContext(ContextProvider)
+  const {
+    libraryTopSection,
+    favouriteGames,
+    hiddenGames,
     currentCustomCategories,
     customCategories
-  } = useContext(ContextProvider)
-  const { libraryTopSection, favouriteGames, hiddenGames } =
-    useShallowGlobalState('libraryTopSection', 'favouriteGames', 'hiddenGames')
+  } = useShallowGlobalState(
+    'libraryTopSection',
+    'favouriteGames',
+    'hiddenGames',
+    'currentCustomCategories',
+    'customCategories'
+  )
 
   hasHelp(
     'library',
@@ -410,7 +419,7 @@ export default React.memo(function Library(): JSX.Element {
             // in the case of the special "uncategorized" category, we read all
             // the categorized games and add the others to the list to show
             const categorizedGames = Array.from(
-              new Set(Object.values(customCategories.list).flat())
+              new Set(Object.values(customCategories).flat())
             )
 
             library.forEach((game) => {
@@ -421,7 +430,7 @@ export default React.memo(function Library(): JSX.Element {
               }
             })
           } else {
-            const gamesInCustomCategory = customCategories.list[category]
+            const gamesInCustomCategory = customCategories[category]
 
             if (gamesInCustomCategory) {
               gamesInCustomCategory.forEach((game) => {
@@ -532,7 +541,9 @@ export default React.memo(function Library(): JSX.Element {
     showInstalledOnly,
     showNonAvailable,
     showSupportOfflineOnly,
-    showThirdPartyManagedOnly
+    showThirdPartyManagedOnly,
+    currentCustomCategories,
+    customCategories
   ])
 
   // we need this to do proper `position: sticky` of the Add Game area

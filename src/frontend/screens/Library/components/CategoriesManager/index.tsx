@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import LibraryContext from '../../LibraryContext'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { Dialog, DialogHeader } from 'frontend/components/UI/Dialog'
 import { DialogContent } from '@mui/material'
 import { TextInputField } from 'frontend/components/UI'
@@ -14,6 +13,11 @@ import {
   faPencil,
   faTrash
 } from '@fortawesome/free-solid-svg-icons'
+import {
+  useGlobalState,
+  useShallowGlobalState
+} from 'frontend/state/GlobalStateV2'
+import { useShallow } from 'zustand/react/shallow'
 
 interface CategoryItemProps {
   name: string
@@ -154,7 +158,15 @@ function CategoryItem({
 
 function CategoriesManager() {
   const { t } = useTranslation()
-  const { customCategories } = useContext(ContextProvider)
+  const { addCustomCategory, removeCustomCategory, renameCustomCategory } =
+    useShallowGlobalState(
+      'addCustomCategory',
+      'removeCustomCategory',
+      'renameCustomCategory'
+    )
+  const categories = useGlobalState(
+    useShallow((state) => Object.keys(state.customCategories))
+  )
 
   const { setShowCategories } = useContext(LibraryContext)
 
@@ -163,19 +175,17 @@ function CategoriesManager() {
   const isCategoryNameEmpty = newCategoryName.trim() === ''
 
   const removeCategory = (cat: string) => {
-    customCategories.removeCategory(cat)
+    removeCustomCategory(cat)
   }
 
   const addCategory = () => {
     setNewCategoryName('')
-    customCategories.addCategory(newCategoryName)
+    addCustomCategory(newCategoryName)
   }
 
   const renameCategory = (oldName: string, newName: string) => {
-    customCategories.renameCategory(oldName, newName)
+    renameCustomCategory(oldName, newName)
   }
-
-  const categories = customCategories.listCategories()
 
   return (
     <Dialog
