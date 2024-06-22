@@ -1,9 +1,8 @@
 import './index.css'
 
-import ContextProvider from 'frontend/state/ContextProvider'
 import { UpdateComponent } from 'frontend/components/UI'
 
-import React, { lazy, useContext, useEffect, useMemo, useState } from 'react'
+import React, { lazy, useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Tab, Tabs } from '@mui/material'
 import {
@@ -29,6 +28,7 @@ const configStore = new TypeCheckedStoreFrontend('wineManagerConfigStore', {
 
 export default function WineManager(): JSX.Element | null {
   const { t } = useTranslation()
+  const [refreshing, setRefreshing] = useState(false)
 
   hasHelp(
     'wineManager',
@@ -41,7 +41,6 @@ export default function WineManager(): JSX.Element | null {
     </p>
   )
 
-  const { refreshWineVersionInfo, refreshing } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
 
   const winege: WineManagerUISettings = {
@@ -135,6 +134,11 @@ export default function WineManager(): JSX.Element | null {
     }
   }, [repository])
 
+  const handleRefresh = useCallback(() => {
+    setRefreshing(true)
+    window.api.refreshWineVersionInfo(true).then(() => setRefreshing(false))
+  }, [])
+
   return (
     <>
       <h4 style={{ paddingTop: 'var(--space-md)' }}>
@@ -165,7 +169,7 @@ export default function WineManager(): JSX.Element | null {
           <button
             className={'FormControl__button'}
             title={t('generic.library.refresh', 'Refresh Library')}
-            onClick={async () => refreshWineVersionInfo(true)}
+            onClick={handleRefresh}
           >
             <FontAwesomeIcon
               className={'FormControl__segmentedFaIcon'}

@@ -13,9 +13,6 @@ const readFile = window.api.readConfig
 
 const writeConfig = window.api.writeConfig
 
-const notify = (args: { title: string; body: string }) =>
-  window.api.notify(args)
-
 const loginPage = window.api.openLoginPage
 
 const sidInfoPage = window.api.openSidInfoPage
@@ -166,7 +163,6 @@ export {
   install,
   launch,
   loginPage,
-  notify,
   openDiscordLink,
   repair,
   sendKill,

@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react'
 
 import { GameInfo, RefreshOptions, Runner } from 'common/types'
-import { getGameInfo, getLegendaryConfig, launch, notify } from '../helpers'
-import { t } from 'i18next'
+import { getGameInfo, getLegendaryConfig, launch } from '../helpers'
 
 import ContextProvider from './ContextProvider'
 
@@ -270,35 +269,6 @@ class GlobalState extends PureComponent<Props> {
     }
   }
 
-  refreshWineVersionInfo = async (fetch: boolean): Promise<void> => {
-    if (platform === 'win32') {
-      return
-    }
-    window.api.logInfo('Refreshing wine downloader releases')
-    this.setState({ refreshing: true })
-    await window.api
-      .refreshWineVersionInfo(fetch)
-      .then(() => {
-        this.setState({
-          refreshing: false
-        })
-        return
-      })
-      .catch(async () => {
-        this.setState({ refreshing: false })
-        window.api.logError('Sync with upstream releases failed')
-
-        notify({
-          title: 'Wine-Manager',
-          body: t(
-            'notify.refresh.error',
-            "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
-          )
-        })
-        return
-      })
-  }
-
   async componentDidMount() {
     const { epic, gog, amazon } = this.state
 
@@ -423,8 +393,7 @@ class GlobalState extends PureComponent<Props> {
             logout: this.amazonLogout
           },
           refresh: this.refresh,
-          refreshLibrary: this.refreshLibrary,
-          refreshWineVersionInfo: this.refreshWineVersionInfo
+          refreshLibrary: this.refreshLibrary
         }}
       >
         {this.props.children}

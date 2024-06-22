@@ -28,7 +28,6 @@ const initialContext: ContextType = {
   sideloadedLibrary: [],
   refresh: async () => Promise.resolve(),
   refreshLibrary: async () => Promise.resolve(),
-  refreshWineVersionInfo: async () => Promise.resolve(),
   refreshing: false,
   refreshingInTheBackground: true
 }

@@ -19,7 +19,6 @@ export type Category = 'all' | 'legendary' | 'gog' | 'sideload' | 'nile'
 export interface ContextType {
   refresh: (library: Runner, checkUpdates?: boolean) => Promise<void>
   refreshLibrary: (options: RefreshOptions) => Promise<void>
-  refreshWineVersionInfo: (fetch: boolean) => void
   refreshing: boolean
   refreshingInTheBackground: boolean
   epic: {
