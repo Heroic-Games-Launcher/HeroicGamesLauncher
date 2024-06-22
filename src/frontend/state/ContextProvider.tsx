@@ -27,8 +27,7 @@ const initialContext: ContextType = {
   },
   sideloadedLibrary: [],
   refresh: async () => Promise.resolve(),
-  refreshLibrary: async () => Promise.resolve(),
-  refreshing: false
+  refreshLibrary: async () => Promise.resolve()
 }
 
 export default React.createContext(initialContext)

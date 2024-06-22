@@ -39,7 +39,6 @@ interface StateProps {
     user_id?: string
     username?: string
   }
-  refreshing: boolean
   sideloadedLibrary: GameInfo[]
 }
 
@@ -78,7 +77,6 @@ class GlobalState extends PureComponent<Props> {
       user_id: nileConfigStore.get_nodefault('userData.user_id'),
       username: nileConfigStore.get_nodefault('userData.name')
     },
-    refreshing: false,
     sideloadedLibrary: sideloadLibrary.get('games', [])
   }
 
@@ -109,7 +107,6 @@ class GlobalState extends PureComponent<Props> {
   }
 
   epicLogout = async () => {
-    this.setState({ refreshing: true })
     await window.api.logoutLegendary().finally(() => {
       this.setState({
         epic: {
@@ -119,7 +116,6 @@ class GlobalState extends PureComponent<Props> {
       })
     })
     console.log('Logging out from epic')
-    this.setState({ refreshing: false })
     window.location.reload()
   }
 
@@ -197,8 +193,6 @@ class GlobalState extends PureComponent<Props> {
 
     const { epic, gog, amazon } = this.state
 
-    const currentLibraryLength = epic.library?.length
-
     let epicLibrary = libraryStore.get('library', [])
     if (epic.username && (!epicLibrary.length || !epic.library.length)) {
       window.api.logInfo('No cache found, getting data from legendary...')
@@ -236,15 +230,12 @@ class GlobalState extends PureComponent<Props> {
         user_id: amazon.user_id,
         username: amazon.username
       },
-      refreshing: false,
       sideloadedLibrary: updatedSideload
     })
-    useGlobalState.setState({ refreshingInTheBackground: true })
-
-    if (currentLibraryLength !== epicLibrary.length) {
-      window.api.logInfo('Force Update')
-      this.forceUpdate()
-    }
+    useGlobalState.setState({
+      refreshing: false,
+      refreshingInTheBackground: true
+    })
   }
 
   refreshLibrary = async ({
@@ -252,9 +243,9 @@ class GlobalState extends PureComponent<Props> {
     runInBackground = true,
     library = undefined
   }: RefreshOptions): Promise<void> => {
-    if (this.state.refreshing) return
+    if (useGlobalState.getState().refreshing) return
 
-    this.setState({
+    useGlobalState.setState({
       refreshing: true
     })
     useGlobalState.setState({ refreshingInTheBackground: runInBackground })

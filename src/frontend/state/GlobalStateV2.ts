@@ -117,6 +117,7 @@ interface GlobalStateV2 extends ExperimentalFeatures {
   addGameToCustomCategory: (categoryName: string, appName: string) => void
   removeGameFromCustomCategory: (categoryName: string, appName: string) => void
 
+  refreshing: boolean
   refreshingInTheBackground: boolean
 }
 
@@ -332,6 +333,7 @@ const useGlobalState = create<GlobalStateV2>()(
         set({ customCategories })
       },
 
+      refreshing: false,
       refreshingInTheBackground: true
     }),
     {

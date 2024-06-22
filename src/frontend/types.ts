@@ -19,7 +19,6 @@ export type Category = 'all' | 'legendary' | 'gog' | 'sideload' | 'nile'
 export interface ContextType {
   refresh: (library: Runner, checkUpdates?: boolean) => Promise<void>
   refreshLibrary: (options: RefreshOptions) => Promise<void>
-  refreshing: boolean
   epic: {
     library: GameInfo[]
     username?: string

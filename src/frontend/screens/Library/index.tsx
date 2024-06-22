@@ -43,22 +43,23 @@ const storage = window.localStorage
 export default React.memo(function Library(): JSX.Element {
   const { t } = useTranslation()
 
-  const { refreshing, epic, gog, amazon, sideloadedLibrary } =
-    useContext(ContextProvider)
+  const { epic, gog, amazon, sideloadedLibrary } = useContext(ContextProvider)
   const {
     libraryTopSection,
     favouriteGames,
     hiddenGames,
     currentCustomCategories,
     customCategories,
-    refreshingInTheBackground
+    refreshingInTheBackground,
+    refreshing
   } = useShallowGlobalState(
     'libraryTopSection',
     'favouriteGames',
     'hiddenGames',
     'currentCustomCategories',
     'customCategories',
-    'refreshingInTheBackground'
+    'refreshingInTheBackground',
+    'refreshing'
   )
 
   hasHelp(

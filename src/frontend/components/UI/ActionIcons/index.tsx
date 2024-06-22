@@ -16,10 +16,12 @@ import FormControl from '../FormControl'
 import './index.css'
 import classNames from 'classnames'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
 export default React.memo(function ActionIcons() {
   const { t } = useTranslation()
-  const { refreshLibrary, refreshing } = useContext(ContextProvider)
+  const { refreshLibrary } = useContext(ContextProvider)
+  const { refreshing } = useShallowGlobalState('refreshing')
 
   const {
     handleLayout,
