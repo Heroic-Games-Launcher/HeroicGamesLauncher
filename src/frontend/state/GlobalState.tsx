@@ -40,7 +40,6 @@ interface StateProps {
     username?: string
   }
   refreshing: boolean
-  refreshingInTheBackground: boolean
   sideloadedLibrary: GameInfo[]
 }
 
@@ -80,7 +79,6 @@ class GlobalState extends PureComponent<Props> {
       username: nileConfigStore.get_nodefault('userData.name')
     },
     refreshing: false,
-    refreshingInTheBackground: true,
     sideloadedLibrary: sideloadLibrary.get('games', [])
   }
 
@@ -239,9 +237,9 @@ class GlobalState extends PureComponent<Props> {
         username: amazon.username
       },
       refreshing: false,
-      refreshingInTheBackground: true,
       sideloadedLibrary: updatedSideload
     })
+    useGlobalState.setState({ refreshingInTheBackground: true })
 
     if (currentLibraryLength !== epicLibrary.length) {
       window.api.logInfo('Force Update')
@@ -257,9 +255,9 @@ class GlobalState extends PureComponent<Props> {
     if (this.state.refreshing) return
 
     this.setState({
-      refreshing: true,
-      refreshingInTheBackground: runInBackground
+      refreshing: true
     })
+    useGlobalState.setState({ refreshingInTheBackground: runInBackground })
     window.api.logInfo(`Refreshing ${library} Library`)
     try {
       await window.api.refreshLibrary(library)

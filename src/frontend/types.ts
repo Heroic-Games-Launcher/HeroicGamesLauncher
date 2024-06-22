@@ -20,7 +20,6 @@ export interface ContextType {
   refresh: (library: Runner, checkUpdates?: boolean) => Promise<void>
   refreshLibrary: (options: RefreshOptions) => Promise<void>
   refreshing: boolean
-  refreshingInTheBackground: boolean
   epic: {
     library: GameInfo[]
     username?: string

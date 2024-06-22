@@ -115,6 +115,8 @@ interface GlobalStateV2 extends ExperimentalFeatures {
   renameCustomCategory: (oldName: string, newName: string) => void
   addGameToCustomCategory: (categoryName: string, appName: string) => void
   removeGameFromCustomCategory: (categoryName: string, appName: string) => void
+
+  refreshingInTheBackground: boolean
 }
 
 const useGlobalState = create<GlobalStateV2>()(
@@ -327,7 +329,9 @@ const useGlobalState = create<GlobalStateV2>()(
           (name) => name !== appName
         )
         set({ customCategories })
-      }
+      },
+
+      refreshingInTheBackground: true
     }),
     {
       name: 'globalState',
