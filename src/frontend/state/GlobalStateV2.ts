@@ -22,6 +22,7 @@ import type {
   Runner
 } from 'common/types'
 import { defaultThemes } from '../components/UI/ThemeSelector'
+import { launch } from '../helpers'
 
 const RTL_LANGUAGES = ['fa', 'ar']
 const DEFAULT_THEME = 'midnightMirage'
@@ -522,6 +523,22 @@ useGlobalState.subscribe((state, prev) => {
   zoomTimer = setTimeout(() => {
     window.api.setZoomFactor((state.zoomPercent / 100).toString())
   }, 500)
+})
+
+// Deals launching from protocol. Also checks if the game is already running
+window.api.handleLaunchGame(async (e, appName, runner) => {
+  const currentApp =
+    useGlobalState.getState().libraryStatus[`${appName}_${runner}`]
+
+  // Don't launch if the game is either already running or is currently being
+  // modified in some other way
+  if (currentApp) return { status: 'error' }
+
+  return launch({
+    appName,
+    runner,
+    hasUpdate: false
+  })
 })
 
 export { useGlobalState, useShallowGlobalState }

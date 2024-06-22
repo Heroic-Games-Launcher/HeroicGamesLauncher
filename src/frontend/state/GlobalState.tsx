@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 
 import { GameInfo, RefreshOptions, Runner } from 'common/types'
-import { getGameInfo, getLegendaryConfig, launch } from '../helpers'
+import { getGameInfo, getLegendaryConfig } from '../helpers'
 
 import ContextProvider from './ContextProvider'
 
@@ -269,26 +269,6 @@ class GlobalState extends PureComponent<Props> {
 
   async componentDidMount() {
     const { epic, gog, amazon } = this.state
-
-    // Deals launching from protocol. Also checks if the game is already running
-    window.api.handleLaunchGame(
-      async (
-        e: IpcRendererEvent,
-        appName: string,
-        runner: Runner
-      ): Promise<{ status: 'done' | 'error' | 'abort' }> => {
-        const currentApp =
-          useGlobalState.getState().libraryStatus[`${appName}_${runner}`]
-        if (!currentApp) {
-          return launch({
-            appName,
-            runner,
-            hasUpdate: false
-          })
-        }
-        return { status: 'error' }
-      }
-    )
 
     window.api.handleInstallGame(async (e, appName, runner) => {
       const currentApp =
