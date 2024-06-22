@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 
 import { GameInfo, RefreshOptions, Runner } from 'common/types'
-import { getGameInfo, getLegendaryConfig } from '../helpers'
+import { getLegendaryConfig } from '../helpers'
 
 import ContextProvider from './ContextProvider'
 
@@ -269,25 +269,6 @@ class GlobalState extends PureComponent<Props> {
 
   async componentDidMount() {
     const { epic, gog, amazon } = this.state
-
-    window.api.handleInstallGame(async (e, appName, runner) => {
-      const currentApp =
-        useGlobalState.getState().libraryStatus[`${appName}_${runner}`]
-      if (!currentApp || (currentApp && currentApp.status !== 'installing')) {
-        const gameInfo = await getGameInfo(appName, runner)
-        if (!gameInfo || gameInfo.runner === 'sideload') {
-          return
-        }
-        return this.setState({
-          showInstallModal: {
-            show: true,
-            appName,
-            runner,
-            gameInfo
-          }
-        })
-      }
-    })
 
     window.api.handleRefreshLibrary((e, runner) => {
       this.refreshLibrary({

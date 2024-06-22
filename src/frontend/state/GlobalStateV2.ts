@@ -22,7 +22,7 @@ import type {
   Runner
 } from 'common/types'
 import { defaultThemes } from '../components/UI/ThemeSelector'
-import { launch } from '../helpers'
+import { getGameInfo, launch } from '../helpers'
 
 const RTL_LANGUAGES = ['fa', 'ar']
 const DEFAULT_THEME = 'midnightMirage'
@@ -523,6 +523,25 @@ useGlobalState.subscribe((state, prev) => {
   zoomTimer = setTimeout(() => {
     window.api.setZoomFactor((state.zoomPercent / 100).toString())
   }, 500)
+})
+
+window.api.handleInstallGame(async (e, appName, runner) => {
+  const currentApp =
+    useGlobalState.getState().libraryStatus[`${appName}_${runner}`]
+
+  if (currentApp?.status === 'installing') return
+
+  const gameInfo = await getGameInfo(appName, runner)
+  if (!gameInfo || gameInfo.runner === 'sideload') return
+
+  useGlobalState.setState({
+    installModalOptions: {
+      show: true,
+      appName,
+      runner,
+      gameInfo
+    }
+  })
 })
 
 // Deals launching from protocol. Also checks if the game is already running
