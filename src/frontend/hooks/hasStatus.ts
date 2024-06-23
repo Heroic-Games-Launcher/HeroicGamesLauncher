@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
-import ContextProvider from 'frontend/state/ContextProvider'
+import { useEffect, useState } from 'react'
 import { GameInfo, Status } from 'common/types'
 import { hasProgress } from './hasProgress'
 import { useTranslation } from 'react-i18next'
@@ -12,7 +11,6 @@ export function hasStatus(
   gameInfo: GameInfo,
   gameSize?: string
 ) {
-  const { epic, gog } = useContext(ContextProvider)
   const thisStatus = useGlobalState(
     useShallow((state) => state.libraryStatus[`${appName}_${gameInfo.runner}`])
   )
@@ -89,14 +87,7 @@ export function hasStatus(
       return setGameStatus({ status: 'notInstalled', label, statusContext })
     }
     checkGameStatus()
-  }, [
-    thisStatus,
-    appName,
-    epic.library,
-    gog.library,
-    is_installed,
-    progress.percent
-  ])
+  }, [thisStatus, appName, is_installed, progress.percent])
 
   return gameStatus
 }

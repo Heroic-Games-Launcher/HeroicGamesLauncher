@@ -1,6 +1,6 @@
 import './index.scss'
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import {
   ArrowCircleLeft,
@@ -22,7 +22,6 @@ import {
 } from 'frontend/helpers'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { CachedImage, UpdateComponent, TabPanel } from 'frontend/components/UI'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 
@@ -89,7 +88,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [wikiInfo, setWikiInfo] = useState<WikiInfo | null>(null)
 
-  const { epic, gog } = useContext(ContextProvider)
   const gameUpdatesIncludesThis = useGlobalState(
     useShallow((state) => state.gameUpdates.includes(appName))
   )
@@ -179,7 +177,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       }
     }
     updateGameInfo()
-  }, [status, gog.library, epic.library, isMoving])
+  }, [status, isMoving])
 
   useEffect(() => {
     const updateConfig = async () => {
@@ -237,14 +235,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       }
     }
     updateConfig()
-  }, [
-    status,
-    epic.library,
-    gog.library,
-    gameInfo,
-    isSettingsModalOpen,
-    isOffline
-  ])
+  }, [status, gameInfo, isSettingsModalOpen, isOffline])
 
   useEffect(() => {
     window.api

@@ -1,17 +1,19 @@
-import React, { ChangeEvent, useContext, useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 
 import { useTranslation } from 'react-i18next'
 
-import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
 import { InfoBox, ToggleSwitch, PathSelectionBox } from 'frontend/components/UI'
-import { useGlobalState } from 'frontend/state/GlobalStateV2'
+import {
+  useGlobalState,
+  useShallowGlobalState
+} from 'frontend/state/GlobalStateV2'
 import { DialogModalOptions } from 'frontend/types'
 
 const EgsSettings = () => {
   const { t } = useTranslation()
   const [isSyncing, setIsSyncing] = useState(false)
-  const { refreshLibrary } = useContext(ContextProvider)
+  const { refreshLibrary } = useShallowGlobalState('refreshLibrary')
   const [egsPath, setEgsPath] = useSetting('egsLinkedPath', '')
 
   function handleSync(
@@ -47,7 +49,7 @@ const EgsSettings = () => {
         }
         useGlobalState.setState({ dialogModalOptions: successDialog })
         setEgsPath(newPath === 'unlink' ? '' : newPath)
-        refreshLibrary({ fullRefresh: true, runInBackground: false })
+        refreshLibrary({ runInBackground: false })
       }
       setIsSyncing(false)
     })

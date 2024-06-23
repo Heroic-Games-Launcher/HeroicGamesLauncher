@@ -484,13 +484,6 @@ export type HiddenGame = RecentGame
 
 export type FavouriteGame = HiddenGame
 
-export type RefreshOptions = {
-  checkForUpdates?: boolean
-  fullRefresh?: boolean
-  library?: Runner | 'all'
-  runInBackground?: boolean
-}
-
 export interface WineVersionInfo extends VersionInfo {
   isInstalled: boolean
   hasUpdate: boolean

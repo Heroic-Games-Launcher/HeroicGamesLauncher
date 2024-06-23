@@ -1,17 +1,18 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { faHeartCrack, faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { CleaningServicesOutlined, DeleteOutline } from '@mui/icons-material'
 import './index.css'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
 export default function ErrorComponent({ message }: { message: string }) {
   const { t } = useTranslation()
-  const { refreshLibrary } = useContext(ContextProvider)
-  const { showResetDialog } = useShallowGlobalState('showResetDialog')
+  const { showResetDialog, refreshLibrary } = useShallowGlobalState(
+    'showResetDialog',
+    'refreshLibrary'
+  )
 
   return (
     <div className="errorComponent">

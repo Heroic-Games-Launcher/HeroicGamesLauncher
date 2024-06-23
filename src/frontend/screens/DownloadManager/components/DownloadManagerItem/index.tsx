@@ -1,6 +1,6 @@
 import './index.css'
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { DMQueueElement, DownloadManagerState } from 'common/types'
 import StopIcon from 'frontend/assets/stop-icon.svg?react'
@@ -9,7 +9,6 @@ import { handleStopInstallation } from 'frontend/helpers/library'
 import { getGameInfo, getStoreName } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import { hasProgress } from 'frontend/hooks/hasProgress'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { useNavigate } from 'react-router-dom'
 import PlayIcon from 'frontend/assets/play-icon.svg?react'
 import PauseIcon from 'frontend/assets/pause-icon.svg?react'
@@ -42,7 +41,6 @@ const DownloadManagerItem = ({
   state,
   handleClearItem
 }: Props) => {
-  const { amazon, epic, gog } = useContext(ContextProvider)
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation('translation')
   const isPaused = state && ['idle', 'paused'].includes(state)
@@ -56,8 +54,6 @@ const DownloadManagerItem = ({
       </h5>
     )
   }
-
-  const library = [...epic.library, ...gog.library, ...amazon.library]
 
   const { params, addToQueueTime, endTime, type, startTime } = element
   const {
@@ -84,7 +80,8 @@ const DownloadManagerItem = ({
   const {
     art_cover,
     art_square,
-    install: { is_dlc }
+    install: { is_dlc },
+    title
   } = gameInfo || {}
 
   const [progress] = hasProgress(appName)
@@ -200,16 +197,6 @@ const DownloadManagerItem = ({
 
     return current ? 'var(--text-default)' : 'var(--accent)'
   }
-
-  const currentApp = library.find(
-    (val) => val.app_name === appName && val.runner === runner
-  )
-
-  if (!currentApp) {
-    return null
-  }
-
-  const { title } = currentApp
   const cover = art_cover || art_square
 
   const translatedTypes = {

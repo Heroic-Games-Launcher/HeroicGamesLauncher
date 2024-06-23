@@ -3,7 +3,16 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { useShallow } from 'zustand/react/shallow'
 
-import { configStore } from '../helpers/electronStores'
+import {
+  configStore,
+  gogConfigStore,
+  gogInstalledGamesStore,
+  gogLibraryStore,
+  libraryStore,
+  nileConfigStore,
+  nileLibraryStore,
+  sideloadLibrary
+} from '../helpers/electronStores'
 import type {
   DialogModalOptions,
   ExternalLinkDialogOptions,
@@ -23,6 +32,7 @@ import type {
 } from 'common/types'
 import { defaultThemes } from '../components/UI/ThemeSelector'
 import { getGameInfo, launch } from '../helpers'
+import { NileRegisterData } from '../../common/types/nile'
 
 const RTL_LANGUAGES = ['fa', 'ar']
 const DEFAULT_THEME = 'midnightMirage'
@@ -44,6 +54,21 @@ const loadCurrentCategories = () => {
   }
 }
 
+function loadGogLibrary() {
+  const gamesRecord: Record<string, GameInfo> = Object.fromEntries(
+    gogLibraryStore.get('games', []).map((game) => [game.app_name, game])
+  )
+
+  const installedGames = gogInstalledGamesStore.get('installed', [])
+  for (const igame of installedGames) {
+    if (!igame.appName || !(igame.appName in gamesRecord)) continue
+
+    gamesRecord[igame.appName].install = igame
+    gamesRecord[igame.appName].is_installed = true
+  }
+  return gamesRecord
+}
+
 interface GlobalStateV2 extends ExperimentalFeatures {
   isFullscreen: boolean
   isFrameless: boolean
@@ -53,7 +78,6 @@ interface GlobalStateV2 extends ExperimentalFeatures {
   setLanguage: (language: string) => void
 
   gameUpdates: string[]
-  refresh: (checkUpdates?: boolean) => Promise<void>
 
   helpItems: Record<string, HelpItem>
   addHelpItem: (key: string, item: HelpItem) => void
@@ -119,6 +143,30 @@ interface GlobalStateV2 extends ExperimentalFeatures {
 
   refreshing: boolean
   refreshingInTheBackground: boolean
+  refresh: (library?: Runner, checkUpdates?: boolean) => Promise<void>
+  refreshLibrary: (args: {
+    library?: Runner
+    checkForUpdates?: boolean
+    runInBackground?: boolean
+  }) => Promise<void>
+
+  epicUsername?: string
+  epicLibrary: GameInfo[]
+  epicLogin: (authorizationCode: string) => Promise<'done' | 'failed'>
+  epicLogout: () => Promise<void>
+
+  gogUsername?: string
+  gogLibrary: Record<string, GameInfo>
+  gogLogin: (token: string) => Promise<'done' | 'error'>
+  gogLogout: () => void
+
+  amazonUserId?: string
+  amazonUsername?: string
+  amazonLibrary: GameInfo[]
+  amazonLogin: (data: NileRegisterData) => Promise<'done' | 'failed'>
+  amazonLogout: () => Promise<void>
+
+  sideloadedLibrary: GameInfo[]
 }
 
 const useGlobalState = create<GlobalStateV2>()(
@@ -141,8 +189,38 @@ const useGlobalState = create<GlobalStateV2>()(
       },
 
       gameUpdates: [],
-      refresh: async (checkUpdates = false) => {
+      refresh: async (library, checkUpdates = false) => {
+        window.api.logInfo('Refreshing')
         const promises: Promise<unknown>[] = []
+
+        if (!library || library === 'legendary') {
+          const legendaryRefreshPromise = window.api
+            .readConfig('library')
+            .then((library) => {
+              set({ epicLibrary: library as GameInfo[] })
+            })
+          promises.push(legendaryRefreshPromise)
+        }
+        if (!library || library === 'gog') {
+          const gogRefreshPromise = window.api
+            .refreshLibrary('gog')
+            .then(() => {
+              const library = loadGogLibrary()
+              set({ gogLibrary: library })
+            })
+          promises.push(gogRefreshPromise)
+        }
+        if (!library || library === 'nile') {
+          const nileRefreshPromise = window.api
+            .refreshLibrary('nile')
+            .then(() => {
+              set({ amazonLibrary: nileLibraryStore.get('library', []) })
+            })
+          promises.push(nileRefreshPromise)
+        }
+        if (!library || library === 'sideload') {
+          set({ sideloadedLibrary: sideloadLibrary.get('games', []) })
+        }
 
         if (checkUpdates) {
           const updateCheckPromise = window.api
@@ -334,7 +412,88 @@ const useGlobalState = create<GlobalStateV2>()(
       },
 
       refreshing: false,
-      refreshingInTheBackground: true
+      refreshingInTheBackground: true,
+
+      refreshLibrary: async ({
+        library,
+        checkForUpdates = false,
+        runInBackground = true
+      }) => {
+        if (get().refreshing) return
+
+        set({ refreshing: true, refreshingInTheBackground: runInBackground })
+        window.api.logInfo(
+          library ? `Refreshing ${library} Library` : 'Refreshing all libraries'
+        )
+        await window.api.refreshLibrary(library)
+        await get().refresh(library, checkForUpdates)
+        set({ refreshing: false, refreshingInTheBackground: true })
+      },
+
+      epicLibrary: libraryStore.get('library', []),
+      epicUsername: configStore.get_nodefault('userInfo.displayName'),
+      epicLogin: async (authorizationCode) => {
+        const response = await window.api.login(authorizationCode)
+
+        if (response.status === 'done') {
+          set({
+            epicUsername: response.data?.displayName
+          })
+          get().refreshLibrary({ library: 'legendary' })
+        }
+        return response.status
+      },
+      epicLogout: async () =>
+        window.api
+          .logoutLegendary()
+          .then(() => set({ epicLibrary: [], epicUsername: undefined })),
+
+      gogLibrary: loadGogLibrary(),
+      gogUsername: gogConfigStore.get_nodefault('userData.username'),
+      gogLogin: async (token) => {
+        const response = await window.api.authGOG(token)
+
+        if (response.status === 'done') {
+          set({
+            gogUsername: response.data?.username
+          })
+          get().refreshLibrary({ library: 'gog' })
+        }
+        return response.status
+      },
+      gogLogout: () => {
+        window.api.logoutGOG()
+        set({
+          gogLibrary: {},
+          gogUsername: undefined
+        })
+      },
+
+      amazonLibrary: [],
+      amazonUserId: nileConfigStore.get_nodefault('userData.user_id'),
+      amazonUsername: nileConfigStore.get_nodefault('userData.name'),
+      amazonLogin: async (data) => {
+        const response = await window.api.authAmazon(data)
+
+        if (response.status === 'done') {
+          set({
+            amazonUserId: response.user?.user_id,
+            amazonUsername: response.user?.name
+          })
+          get().refreshLibrary({ library: 'nile' })
+        }
+        return response.status
+      },
+      amazonLogout: async () =>
+        window.api.logoutAmazon().then(() =>
+          set({
+            amazonLibrary: [],
+            amazonUserId: undefined,
+            amazonUsername: undefined
+          })
+        ),
+
+      sideloadedLibrary: sideloadLibrary.get('games', [])
     }),
     {
       name: 'globalState',
@@ -420,7 +579,11 @@ window.api.handleGameStatus((_e, newStatus) => {
     })
   }
 
-  // TODO: Refresh the library
+  useGlobalState.getState().refreshLibrary({
+    checkForUpdates: true,
+    runInBackground: true,
+    library: newStatus.runner
+  })
 })
 
 useGlobalState.subscribe((state, prev) => {
@@ -560,6 +723,17 @@ window.api.handleLaunchGame(async (e, appName, runner) => {
     runner,
     hasUpdate: false
   })
+})
+
+window.api.handleRefreshLibrary(async (_e, library) =>
+  useGlobalState.getState().refreshLibrary({ library })
+)
+
+window.api.handleGamePush((_e, game) => {
+  if (game.runner !== 'gog') return
+  const gogLibrary = useGlobalState.getState().gogLibrary
+  gogLibrary[game.app_name] = game
+  useGlobalState.setState({ gogLibrary })
 })
 
 export { useGlobalState, useShallowGlobalState }

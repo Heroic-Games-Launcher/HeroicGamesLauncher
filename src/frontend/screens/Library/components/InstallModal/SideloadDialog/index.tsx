@@ -16,13 +16,13 @@ import {
   removeSpecialcharacters,
   writeConfig
 } from 'frontend/helpers'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AvailablePlatforms } from '..'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
-import ContextProvider from 'frontend/state/ContextProvider'
 import classNames from 'classnames'
 import axios from 'axios'
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
 type Props = {
   availablePlatforms: AvailablePlatforms
@@ -62,8 +62,7 @@ export default function SideloadDialog({
   const [gameInfo, setGameInfo] = useState<Partial<GameInfo>>({})
   const [addingApp, setAddingApp] = useState(false)
   const editMode = Boolean(appName)
-
-  const { refreshLibrary } = useContext(ContextProvider)
+  const { refreshLibrary } = useShallowGlobalState('refreshLibrary')
 
   function handleTitle(value: string) {
     value = removeSpecialcharacters(value)

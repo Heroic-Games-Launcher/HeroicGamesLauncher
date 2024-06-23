@@ -13,18 +13,20 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { NavLink, useLocation } from 'react-router-dom'
 import classNames from 'classnames'
-import React, { useContext } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons'
 import { openDiscordLink } from 'frontend/helpers'
 
-import ContextProvider from 'frontend/state/ContextProvider'
 import { Runner } from 'common/types'
 import './index.css'
 import QuitButton from '../QuitButton'
 import { LocationState } from 'frontend/types'
 import { SHOW_EXTERNAL_LINK_DIALOG_STORAGE_KEY } from 'frontend/components/UI/ExternalLinkDialog'
-import { useGlobalState } from 'frontend/state/GlobalStateV2'
+import {
+  useGlobalState,
+  useShallowGlobalState
+} from 'frontend/state/GlobalStateV2'
 
 type PathSplit = [
   a: undefined,
@@ -40,7 +42,23 @@ export default function SidebarLinks() {
   const location = useLocation() as { pathname: string }
   const [, , runner, appName, type] = location.pathname.split('/') as PathSplit
 
-  const { amazon, epic, gog, refreshLibrary } = useContext(ContextProvider)
+  const {
+    refreshLibrary,
+    epicLibrary,
+    epicUsername,
+    gogLibrary,
+    gogUsername,
+    amazonLibrary,
+    amazonUserId
+  } = useShallowGlobalState(
+    'refreshLibrary',
+    'epicLibrary',
+    'epicUsername',
+    'gogLibrary',
+    'gogUsername',
+    'amazonLibrary',
+    'amazonUserId'
+  )
 
   const inWebviewScreen =
     location.pathname.includes('store') ||
@@ -50,15 +68,15 @@ export default function SidebarLinks() {
 
   const settingsPath = '/settings/app/default/general'
 
-  const loggedIn = epic.username || gog.username || amazon.user_id
+  const loggedIn = epicUsername || gogUsername || amazonUserId
 
   async function handleRefresh() {
     localStorage.setItem('scrollPosition', '0')
 
     const shouldRefresh =
-      (epic.username && !epic.library.length) ||
-      (gog.username && !gog.library.length) ||
-      (amazon.user_id && !amazon.library.length)
+      (epicUsername && !epicLibrary.length) ||
+      (gogUsername && !Object.keys(gogLibrary).length) ||
+      (amazonUserId && !amazonLibrary.length)
     if (shouldRefresh) {
       return refreshLibrary({ runInBackground: true })
     }
@@ -80,10 +98,10 @@ export default function SidebarLinks() {
 
   // By default, open Epic Store
   let defaultStore = 'epic'
-  if (!epic.username && !gog.username && amazon.user_id) {
+  if (!epicUsername && !gogUsername && amazonUserId) {
     // If only logged in to Amazon Games, open Amazon Gaming
     defaultStore = 'amazon'
-  } else if (!epic.username && gog.username) {
+  } else if (!epicUsername && gogUsername) {
     // Otherwise, if not logged in to Epic Games, open GOG Store
     defaultStore = 'gog'
   }

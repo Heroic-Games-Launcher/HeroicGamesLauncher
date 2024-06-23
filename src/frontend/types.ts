@@ -12,35 +12,8 @@ import {
   Status,
   InstallInfo
 } from 'common/types'
-import { NileLoginData, NileRegisterData } from 'common/types/nile'
 
 export type Category = 'all' | 'legendary' | 'gog' | 'sideload' | 'nile'
-
-export interface ContextType {
-  refresh: (library: Runner, checkUpdates?: boolean) => Promise<void>
-  refreshLibrary: (options: RefreshOptions) => Promise<void>
-  epic: {
-    library: GameInfo[]
-    username?: string
-    login: (sid: string) => Promise<string>
-    logout: () => Promise<void>
-  }
-  gog: {
-    library: GameInfo[]
-    username?: string
-    login: (token: string) => Promise<string>
-    logout: () => Promise<void>
-  }
-  amazon: {
-    library: GameInfo[]
-    user_id?: string
-    username?: string
-    getLoginData: () => Promise<NileLoginData>
-    login: (data: NileRegisterData) => Promise<string>
-    logout: () => Promise<void>
-  }
-  sideloadedLibrary: GameInfo[]
-}
 
 export type DialogModalOptions = {
   showDialog: boolean
@@ -60,13 +33,6 @@ export interface InstallProgress {
   eta: string
   folder?: string
   percent: number
-}
-
-type RefreshOptions = {
-  checkForUpdates?: boolean
-  fullRefresh?: boolean
-  library?: Runner | 'all'
-  runInBackground?: boolean
 }
 
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'

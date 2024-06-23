@@ -1,12 +1,11 @@
 import './index.css'
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { GameInfo, Runner, WikiInfo } from 'common/types'
 
 import { createNewWindow, repair } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { NavLink } from 'react-router-dom'
 
 import { CircularProgress } from '@mui/material'
@@ -50,12 +49,12 @@ export default function GamesSubmenu({
   onShowModifyInstall,
   gameInfo
 }: Props) {
-  const { refresh } = useContext(ContextProvider)
   const eosOverlayStatus = useGlobalState(
     useShallow((state) => state.libraryStatus[`${eosOverlayAppName}_legendary`])
   )
-  const { setIsSettingsModalOpen } = useShallowGlobalState(
-    'setIsSettingsModalOpen'
+  const { setIsSettingsModalOpen, refresh } = useShallowGlobalState(
+    'setIsSettingsModalOpen',
+    'refresh'
   )
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'

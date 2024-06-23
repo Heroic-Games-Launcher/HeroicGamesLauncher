@@ -1,7 +1,6 @@
 import './index.css'
 
 import React, {
-  useContext,
   useEffect,
   useMemo,
   useRef,
@@ -14,11 +13,8 @@ import { Header, UpdateComponent } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 import Fuse from 'fuse.js'
 
-import ContextProvider from 'frontend/state/ContextProvider'
-
 import GamesList from './components/GamesList'
 import { FavouriteGame, GameInfo, HiddenGame, Runner } from 'common/types'
-import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import LibraryHeader from './components/LibraryHeader'
 import {
   amazonCategories,
@@ -43,7 +39,6 @@ const storage = window.localStorage
 export default React.memo(function Library(): JSX.Element {
   const { t } = useTranslation()
 
-  const { epic, gog, amazon, sideloadedLibrary } = useContext(ContextProvider)
   const {
     libraryTopSection,
     favouriteGames,
@@ -51,7 +46,14 @@ export default React.memo(function Library(): JSX.Element {
     currentCustomCategories,
     customCategories,
     refreshingInTheBackground,
-    refreshing
+    refreshing,
+    epicLibrary,
+    epicUsername,
+    gogLibrary,
+    gogUsername,
+    amazonLibrary,
+    amazonUserId,
+    sideloadedLibrary
   } = useShallowGlobalState(
     'libraryTopSection',
     'favouriteGames',
@@ -59,7 +61,14 @@ export default React.memo(function Library(): JSX.Element {
     'currentCustomCategories',
     'customCategories',
     'refreshingInTheBackground',
-    'refreshing'
+    'refreshing',
+    'epicLibrary',
+    'epicUsername',
+    'gogLibrary',
+    'gogUsername',
+    'amazonLibrary',
+    'amazonUserId',
+    'sideloadedLibrary'
   )
 
   hasHelp(
@@ -335,16 +344,16 @@ export default React.memo(function Library(): JSX.Element {
       const favouriteAppNames = favouriteGamesList.map(
         (favourite: FavouriteGame) => favourite.appName
       )
-      epic.library.forEach((game) => {
+      epicLibrary.forEach((game) => {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
-      gog.library.forEach((game) => {
+      Object.values(gogLibrary).forEach((game) => {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
       sideloadedLibrary.forEach((game) => {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
-      amazon.library.forEach((game) => {
+      amazonLibrary.forEach((game) => {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
     }
@@ -357,9 +366,10 @@ export default React.memo(function Library(): JSX.Element {
     showFavourites,
     showFavouritesLibrary,
     favouriteGamesList,
-    epic,
-    gog,
-    amazon
+    epicLibrary,
+    gogLibrary,
+    amazonLibrary,
+    sideloadedLibrary
   ])
 
   const favouritesIds = useMemo(() => {
@@ -368,13 +378,13 @@ export default React.memo(function Library(): JSX.Element {
 
   const makeLibrary = () => {
     let displayedStores: string[] = []
-    if (storesFilters['gog'] && gog.username) {
+    if (storesFilters['gog'] && gogUsername) {
       displayedStores.push('gog')
     }
-    if (storesFilters['legendary'] && epic.username) {
+    if (storesFilters['legendary'] && epicUsername) {
       displayedStores.push('legendary')
     }
-    if (storesFilters['nile'] && amazon.username) {
+    if (storesFilters['nile'] && amazonUserId) {
       displayedStores.push('nile')
     }
     if (storesFilters['sideload']) {
@@ -385,17 +395,12 @@ export default React.memo(function Library(): JSX.Element {
       displayedStores = Object.keys(storesFilters)
     }
 
-    const showEpic = epic.username && displayedStores.includes('legendary')
-    const showGog = gog.username && displayedStores.includes('gog')
-    const showAmazon = amazon.user_id && displayedStores.includes('nile')
-    const showSideloaded = displayedStores.includes('sideload')
-
-    const epicLibrary = showEpic ? epic.library : []
-    const gogLibrary = showGog ? gog.library : []
-    const sideloadedApps = showSideloaded ? sideloadedLibrary : []
-    const amazonLibrary = showAmazon ? amazon.library : []
-
-    return [...sideloadedApps, ...epicLibrary, ...gogLibrary, ...amazonLibrary]
+    return [
+      ...epicLibrary,
+      ...Object.values(gogLibrary),
+      ...amazonLibrary,
+      ...sideloadedLibrary
+    ].filter(({ runner }) => displayedStores.includes(runner))
   }
 
   // select library
@@ -525,9 +530,9 @@ export default React.memo(function Library(): JSX.Element {
   }, [
     storesFilters,
     platformsFilters,
-    epic.library,
-    gog.library,
-    amazon.library,
+    epicLibrary,
+    gogLibrary,
+    amazonLibrary,
     filterText,
     installing,
     sortDescending,
@@ -577,17 +582,6 @@ export default React.memo(function Library(): JSX.Element {
       window.removeEventListener('resize', setHeaderHightCSS)
     }
   }, [])
-
-  if (!epic && !gog && !amazon) {
-    return (
-      <ErrorComponent
-        message={t(
-          'generic.error.component',
-          'No Games found - Try to logout and login again or one of the options bellow'
-        )}
-      />
-    )
-  }
 
   return (
     <LibraryContext.Provider
