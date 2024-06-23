@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import './App.css'
 import {
@@ -26,6 +26,8 @@ function Root() {
       'isRTL',
       'enableNewDesign'
     )
+
+  useEffect(window.api.frontendReady, [])
 
   const hasNativeOverlayControls = navigator['windowControlsOverlay']?.visible
   const showOverlayControls = isFrameless && !hasNativeOverlayControls

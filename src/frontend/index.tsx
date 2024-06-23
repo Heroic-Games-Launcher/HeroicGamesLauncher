@@ -7,11 +7,11 @@ import { initGamepad } from './helpers/gamepad'
 
 import './index.scss'
 import './themes.scss'
-import GlobalState from './state/GlobalState'
 import { initShortcuts } from './helpers/shortcuts'
 import { configStore } from './helpers/electronStores'
 import { initOnlineMonitor } from './helpers/onlineMonitor'
 import Loading from './screens/Loading'
+import './state/GlobalStateV2'
 
 initOnlineMonitor()
 
@@ -103,13 +103,11 @@ const App = lazy(async () => import('./App'))
 
 root.render(
   // <React.StrictMode>
-  <GlobalState>
-    <I18nextProvider i18n={i18next}>
-      <Suspense fallback={<Loading />}>
-        <App />
-      </Suspense>
-    </I18nextProvider>
-  </GlobalState>
+  <I18nextProvider i18n={i18next}>
+    <Suspense fallback={<Loading />}>
+      <App />
+    </Suspense>
+  </I18nextProvider>
   // </React.StrictMode>
 )
 
