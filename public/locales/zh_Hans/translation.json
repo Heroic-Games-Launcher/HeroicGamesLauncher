@@ -268,7 +268,8 @@
         "reset": "重置",
         "no_categories": "无自定义分类。使用每个游戏菜单添加分类。",
         "categories": "分类",
-        "show_support_offline_only": "只显示支持离线玩的游戏"
+        "show_support_offline_only": "只显示支持离线玩的游戏",
+        "show_third_party_managed_only": "只显示受第三方管理的游戏"
     },
     "help": {
         "amdfsr": "AMD 的 FSR 通过在全屏模式下提高较低分辨率来提高帧率。图像质量从 5 提高到 1，但代价是性能稍有下降。启用可能会提高性能。",
