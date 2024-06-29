@@ -237,13 +237,13 @@ async function initializeWindow(): Promise<BrowserWindow> {
 
   detectVCRedist(mainWindow)
 
-  if (process.env.VITE_DEV_SERVER_URL) {
-    mainWindow.loadURL(process.env.VITE_DEV_SERVER_URL)
+  if (process.env.ELECTRON_RENDERER_URL) {
+    mainWindow.loadURL(process.env.ELECTRON_RENDERER_URL)
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
   } else {
     Menu.setApplicationMenu(null)
-    mainWindow.loadURL(`file://${path.join(publicDir, '../build/index.html')}`)
+    mainWindow.loadFile(join(publicDir, 'index.html'))
     if (globalConf.checkForUpdatesOnStartup) {
       autoUpdater.checkForUpdates()
     }
@@ -708,7 +708,14 @@ ipcMain.handle('getGameInfo', async (event, appName, runner) => {
   if (runner === 'legendary' && !LegendaryLibraryManager.hasGame(appName)) {
     return null
   }
-  return gameManagerMap[runner].getGameInfo(appName)
+  const tempGameInfo = gameManagerMap[runner].getGameInfo(appName)
+  // The game managers return an empty object if they couldn't fetch the game
+  // info, since most of the backend assumes getting it can never fail (and
+  // an empty object is a little easier to work with than `null`)
+  // The frontend can however handle being passed an explicit `null` value, so
+  // we return that here instead if the game info is empty
+  if (!Object.keys(tempGameInfo).length) return null
+  return tempGameInfo
 })
 
 ipcMain.handle('getExtraInfo', async (event, appName, runner) => {

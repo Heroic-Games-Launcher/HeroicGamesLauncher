@@ -6,7 +6,7 @@ import './index.scss'
 import HeroicVersion from './components/HeroicVersion'
 import { DMQueueElement } from 'common/types'
 
-import { ReactComponent as HeroicIcon } from 'frontend/assets/heroic-icon.svg'
+import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 import { useNavigate } from 'react-router-dom'
 
 let sidebarSize = localStorage.getItem('sidebar-width') || 240

@@ -126,30 +126,41 @@ async function addToQueue(element: DMQueueElement) {
   if (elementIndex >= 0) {
     elements[elementIndex] = element
   } else {
-    const installInfo = await libraryManagerMap[
-      element.params.runner
-    ].getInstallInfo(element.params.appName, element.params.platformToInstall, {
-      branch: element.params.branch,
-      build: element.params.build
-    })
+    const gameInfo = libraryManagerMap[element.params.runner].getGameInfo(
+      element.params.appName
+    )
+    if (!gameInfo?.isEAManaged) {
+      const installInfo = await libraryManagerMap[
+        element.params.runner
+      ].getInstallInfo(
+        element.params.appName,
+        element.params.platformToInstall,
+        {
+          branch: element.params.branch,
+          build: element.params.build
+        }
+      )
 
-    element.params.size = installInfo?.manifest?.download_size
-      ? getFileSize(installInfo?.manifest?.download_size)
-      : '?? MB'
+      element.params.size = installInfo?.manifest?.download_size
+        ? getFileSize(installInfo?.manifest?.download_size)
+        : '?? MB'
 
-    if (
-      element.params.runner === 'gog' &&
-      element.params.platformToInstall.toLowerCase() === 'windows' &&
-      installInfo &&
-      'dependencies' in installInfo.manifest
-    ) {
-      const newDependencies = installInfo.manifest.dependencies || []
-      if (newDependencies?.length || !existsSync(gogRedistPath)) {
-        // create redist element
-        const redistElement = createRedistDMQueueElement()
-        redistElement.params.dependencies = newDependencies
-        elements.push(redistElement)
+      if (
+        element.params.runner === 'gog' &&
+        element.params.platformToInstall.toLowerCase() === 'windows' &&
+        installInfo &&
+        'dependencies' in installInfo.manifest
+      ) {
+        const newDependencies = installInfo.manifest.dependencies || []
+        if (newDependencies?.length || !existsSync(gogRedistPath)) {
+          // create redist element
+          const redistElement = createRedistDMQueueElement()
+          redistElement.params.dependencies = newDependencies
+          elements.push(redistElement)
+        }
       }
+    } else {
+      element.params.size = '?? MB'
     }
     elements.push(element)
   }

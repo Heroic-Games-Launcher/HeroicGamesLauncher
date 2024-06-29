@@ -231,6 +231,8 @@ export interface LibraryContextType {
   setSortInstalled: (value: boolean) => void
   showSupportOfflineOnly: boolean
   setShowSupportOfflineOnly: (value: boolean) => void
+  showThirdPartyManagedOnly: boolean
+  setShowThirdPartyManagedOnly: (value: boolean) => void
   handleAddGameButtonClick: () => void
   setShowCategories: (value: boolean) => void
 }

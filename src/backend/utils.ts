@@ -806,7 +806,7 @@ async function shutdownWine(gameSettings: GameSettings) {
 }
 
 const getShellPath = async (path: string): Promise<string> =>
-  normalize((await execAsync(`echo "${path}"`)).stdout.trim())
+  normalize((await execAsync(`echo ${path}`)).stdout.trim())
 
 export const spawnAsync = async (
   command: string,

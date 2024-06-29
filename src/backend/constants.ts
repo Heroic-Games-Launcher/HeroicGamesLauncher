@@ -62,6 +62,7 @@ const nileConfigPath = join(appFolder, 'nile_config', 'nile')
 const configPath = join(appFolder, 'config.json')
 const gamesConfigPath = join(appFolder, 'GamesConfig')
 const toolsPath = join(appFolder, 'tools')
+const epicRedistPath = join(toolsPath, 'redist', 'legendary')
 const gogRedistPath = join(toolsPath, 'redist', 'gog')
 const heroicIconFolder = join(appFolder, 'icons')
 const runtimePath = join(toolsPath, 'runtimes')
@@ -82,7 +83,11 @@ const {
   nileLogFile
 } = createNewLogFileAndClearOldOnes()
 
-const publicDir = resolve(__dirname, '..', app.isPackaged ? '' : '../public')
+const publicDir = resolve(
+  __dirname,
+  '..',
+  app.isPackaged || process.env.CI === 'e2e' ? '' : '../public'
+)
 const gogdlAuthConfig = join(app.getPath('userData'), 'gog_store', 'auth.json')
 const vulkanHelperBin = fixAsarPath(
   join(publicDir, 'bin', process.platform, 'vulkan-helper')
@@ -91,6 +96,10 @@ const icon = fixAsarPath(join(publicDir, 'icon.png'))
 const iconDark = fixAsarPath(join(publicDir, 'icon-dark.png'))
 const iconLight = fixAsarPath(join(publicDir, 'icon-light.png'))
 const installed = join(legendaryConfigPath, 'installed.json')
+const thirdPartyInstalled = join(
+  legendaryConfigPath,
+  'third-party-installed.json'
+)
 const legendaryMetadata = join(legendaryConfigPath, 'metadata')
 const nileInstalled = join(nileConfigPath, 'installed.json')
 const nileLibrary = join(nileConfigPath, 'library.json')
@@ -281,10 +290,12 @@ export {
   gogdlConfigPath,
   gogSupportPath,
   gogRedistPath,
+  epicRedistPath,
   vulkanHelperBin,
   nileConfigPath,
   nileInstalled,
   nileLibrary,
   nileUserData,
-  fixesPath
+  fixesPath,
+  thirdPartyInstalled
 }

@@ -217,6 +217,10 @@ async function prepareLaunch(
         }
       }
 
+      if (gameSettings.showMangohud) {
+        gameScopeCommand.push('--mangoapp')
+      }
+
       gameScopeCommand.push(
         ...shlex.split(gameSettings.gamescope.additionalOptions ?? '')
       )
@@ -380,14 +384,18 @@ async function prepareWineLaunch(
     }
   }
 
-  if (gameSettings.eacRuntime && !isInstalled('eac_runtime') && isOnline()) {
+  if (
+    gameSettings.eacRuntime &&
+    isOnline() &&
+    !(await isInstalled('eac_runtime'))
+  ) {
     await download('eac_runtime')
   }
 
   if (
     gameSettings.battlEyeRuntime &&
-    !isInstalled('battleye_runtime') &&
-    isOnline()
+    isOnline() &&
+    !(await isInstalled('battleye_runtime'))
   ) {
     await download('battleye_runtime')
   }
@@ -696,7 +704,7 @@ function setupWrappers(
       wrappers.push(...shlex.split(wrapperEntry.args ?? ''))
     })
   }
-  if (mangoHudCommand) {
+  if (mangoHudCommand && gameScopeCommand?.length === 0) {
     wrappers.push(...mangoHudCommand)
   }
   if (gameModeBin) {
