@@ -17,7 +17,8 @@
         "reference": "Reference",
         "source": "Source",
         "status": "Status",
-        "title": "Tato hra obsahuje anticheatový software"
+        "title": "Tato hra obsahuje anticheatový software",
+        "multiplayer_may_not_work": "Funkce hry více hráčů nemusí fungovat kvůli rozbité nebo zakázané podpoře anticheatu."
     },
     "box": {
         "cache-cleared": {
@@ -267,7 +268,8 @@
         "reset": "Resetovat",
         "no_categories": "Žádné vlastní kategorie. Přidejte je pomocí nabídky každé hry.",
         "categories": "Kategorie",
-        "show_support_offline_only": "Zobrazit pouze s podporovaným režimem offline"
+        "show_support_offline_only": "Zobrazit pouze s podporovaným režimem offline",
+        "show_third_party_managed_only": "Zobrazit pouze hry spravované třetí stranou"
     },
     "help": {
         "amdfsr": "Funkce AMD FSR pomáhá zvýšit snímkovou frekvenci škálováním nižšího rozlišení v režimu celé obrazovky. Kvalita obrazu se zvýší z 5 na 1 za cenu mírného snížení výkonu. Povolení může zlepšit výkon.",
@@ -686,7 +688,15 @@
         },
         "msync": "Povolit Msync",
         "after-launch-script-path": "Vybrat skript ke spuštění po ukončení hry",
-        "before-launch-script-path": "Vybrat skript ke spuštění přes zapnutím hry"
+        "before-launch-script-path": "Vybrat skript ke spuštění přes zapnutím hry",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "message": "Hry s rozbitým nebo zakázaným anticheatem se mohou spustit, nebudou v nich ale fungovat funkce hry více hráčů. Pokud je přesto nainstalujete, neočekávejte prosím podporu.",
+                "title": "Opravdu?",
+                "understand": "Rozumím"
+            },
+            "label": "Povolit instalaci her s rozbitým nebo zakázaným anticheatem"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
