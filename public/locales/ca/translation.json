@@ -6,7 +6,8 @@
         "fonts": "Lletra tipogràfica",
         "title": "Accessibilitat",
         "zoom": "Zoom",
-        "disable_dialog_backdrop_close": "Desactiva que les finestres es tanquin en fer-hi clic fora"
+        "disable_dialog_backdrop_close": "Desactiva que les finestres es tanquin en fer-hi clic fora",
+        "titles_always_visible": "Mostra sempre els títols a la biblioteca"
     },
     "add_game": "Afegeix un joc",
     "All": "Tot",
@@ -16,7 +17,8 @@
         "reference": "Referència",
         "source": "Font",
         "status": "Estat",
-        "title": "Aquest joc inclou programari antitrampes"
+        "title": "Aquest joc inclou programari antitrampes",
+        "multiplayer_may_not_work": "Les funcions multijugador potser no funcionen perquè el suport antitrampes està trencat o s'ha denegat."
     },
     "box": {
         "cache-cleared": {
@@ -266,7 +268,8 @@
         "reset": "Restableix",
         "show_support_offline_only": "Mostra només els disponibles sense connexió",
         "select_all": "Selecciona-ho tot",
-        "no_categories": "No existeixen categories personalitzades. Afegiu-ne des del menú de cada joc."
+        "no_categories": "No existeixen categories personalitzades. Afegiu-ne des del menú de cada joc.",
+        "show_third_party_managed_only": "Mostra només els gestionats per tercers"
     },
     "help": {
         "amdfsr": "L'FSR d'AMD ajuda a augmentar els fotogrames per segon emprant resolucions més baixes en el mode de pantalla completa i després escalant-les. La qualitat d'imatge augmenta de 5 a 1 a costa d'un petit increment de rendiment. Si s'activa, podria millorar el rendiment.",
@@ -684,7 +687,15 @@
         },
         "after-launch-script-path": "Seleccioneu un script que s'executarà després de sortir del joc",
         "msync": "Activa l'Msync",
-        "before-launch-script-path": "Seleccioneu un script que s'executarà abans que s'iniciï joc"
+        "before-launch-script-path": "Seleccioneu un script que s'executarà abans que s'iniciï joc",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "title": "Esteu segur?",
+                "understand": "Sí, ho entenc.",
+                "message": "Els jocs amb suport antitrampes trencat o denegat poden funcionar, però les característiques multijugador no funcionaran. No demaneu suport si les instal·leu sabent això."
+            },
+            "label": "Permet instal·lar jocs amb suport antitrampes trencat o denegat"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
