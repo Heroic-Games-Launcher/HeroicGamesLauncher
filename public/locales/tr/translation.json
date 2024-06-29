@@ -168,7 +168,7 @@
                 "message": "Bazı özellikler şimdilik uygulamanın Snap sürümünde yok ve bunu düzeltmeye çalışıyoruz.{{newLine}}Mevcut sınırlamalar şunlardır: {{newLine}}Heroic, Steam'den Proton ya da Lutris'ten Wine'ı bulamayacak.{{newLine}}{{newLine}}Gamescope, GameMode ve MangoHud da Heroic'in bunlara erişimi olamayacağı için çalışmayacaktır.{{newLine}}{{newLine}}Bu özelliğe erişmek için lütfen Heroic'i Flatpak, DEB ya da AppImage kullanarak kurun."
             }
         },
-        "wineprefix": "Wine Prefix Klasörünü Seçin",
+        "wineprefix": "Wine Prefix Klasörünü Seç",
         "yes": "EVET",
         "dontShowAgain": "Tekrar gösterme",
         "choose-nile-binary": "Nil ikili dosyasını seçin",
@@ -685,7 +685,13 @@
         },
         "after-launch-script-path": "Oyun çıktıktan sonra çalıştırılacak betiği seç",
         "before-launch-script-path": "Oyun başlatılmadan önce başlatılacak betiği seç",
-        "msync": "Msync Etkinleştir"
+        "msync": "Msync Etkinleştir",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "understand": "Anladım",
+                "title": "Emin misiniz?"
+            }
+        }
     },
     "settings": {
         "battlEyeRuntime": {
