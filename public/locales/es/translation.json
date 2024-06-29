@@ -6,7 +6,8 @@
         "fonts": "Tipografías",
         "title": "Accesibilidad",
         "zoom": "Zoom",
-        "disable_dialog_backdrop_close": "Desactivar el cierre de diálogos pulsando fuera"
+        "disable_dialog_backdrop_close": "Desactivar el cierre de diálogos pulsando fuera",
+        "titles_always_visible": "Siempre mostrar títulos en biblioteca"
     },
     "add_game": "Añadir juego",
     "All": "Todos",
@@ -16,7 +17,8 @@
         "reference": "Referencia",
         "source": "Fuente",
         "status": "Estado",
-        "title": "Este juego contiene software anticheat"
+        "title": "Este juego contiene software anticheat",
+        "multiplayer_may_not_work": "Las características multijugador pueden no funcionar debido a la falta de soporte o soporte defectuoso de antitrampas."
     },
     "box": {
         "cache-cleared": {
@@ -120,7 +122,8 @@
         },
         "select": {
             "button": "Seleccionar",
-            "exe": "Seleccione EXE"
+            "exe": "Seleccione EXE",
+            "script": "Seleccionar secuencia de comandos ..."
         },
         "shortcuts": {
             "message": "Se han creado accesos directos en el Escritorio y en el Menú Inicio",
@@ -504,7 +507,9 @@
             "gameWidth": "Anchura del juego",
             "interger": "Escalado de enteros",
             "fpsLimiterNoFocus": "Limitador de FPS (Sin enfoque)",
-            "stretch": "Estirar la imagen"
+            "stretch": "Estirar la imagen",
+            "additionalOptions": "Opciones Adicionales",
+            "windowed": "Modo ventana"
         }
     },
     "other": {
@@ -679,7 +684,17 @@
             "enableUpscaling": "Permite la ampliación",
             "missingMsg": "No podemos encontrar Gamescope en PATH. Instálelo primero o agréguelo a PATH."
         },
-        "msync": "Habilitar Esync"
+        "msync": "Habilitar Esync",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "title": "¿Estas seguro/a?",
+                "understand": "Entiendo",
+                "message": "Los juegos con anticheat roto o denegado pueden funcionar, pero las funciones multijugador no funcionarán. No pidas asistencia si los instalas sabiendo esto."
+            },
+            "label": "Permitir la instalación de juegos con anticheat roto o denegado"
+        },
+        "before-launch-script-path": "Seleccionar una secuencia de comandos para ejecutar antes de que se inicie el juego",
+        "after-launch-script-path": "Seleccionar una secuencia de comandos para ejecutar cuando se sale del juego"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -758,7 +773,10 @@
         "advanced": {
             "clearCache": {
                 "help8": "Juegos Instalados",
-                "help9": "Configuración del juego"
+                "help9": "Configuración del juego",
+                "help1": "Esta acción borrará los siguientes cachés:",
+                "help2": "Información sobre juegos informada por terceros (puntuaciones, compatibilidad con steam, howlongtobeat, pcgamingwiki, applegamingwiki)",
+                "help10": "Configuración de Heroic"
             },
             "title": {
                 "resetHeroic": "Resetear Heroic"
@@ -888,6 +906,10 @@
         "cancel-rename": "Cancelar el cambio de nombre de \"{{name}}\"",
         "no-categories": "Aún no hay categorías.",
         "remove": "Remover \"{{name}}\"",
-        "add": "Añadir"
+        "add": "Añadir",
+        "confirm-rename": "Confirmar cambiar nombre de \"{{oldName}}\" a \"{{newName}}\"",
+        "title": "Administrar Categorías",
+        "rename": "Cambiar nombre de \"{{name}}\"",
+        "confirm-remove": "Confirmar remoción de \"{{name}}\""
     }
 }
