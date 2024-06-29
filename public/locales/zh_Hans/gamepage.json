@@ -106,7 +106,9 @@
             "toggle": "将游戏保持在特定的版本"
         },
         "changelogFor": "{{gameTitle}} 更新记录",
-        "modify": "修改安装"
+        "modify": "修改安装",
+        "extra_info": "附加信息",
+        "install_info": "安装信息"
     },
     "gamecard": {
         "moving": "移动中",
@@ -135,7 +137,8 @@
         "game-scores": "游戏分数",
         "installedInfo": "已安装信息",
         "protondb-compatibility-info": "Proton 兼容性级别",
-        "steamdeck-compatibility-info": "SteamDeck 兼容性"
+        "steamdeck-compatibility-info": "SteamDeck 兼容性",
+        "third-party-app": "第三方管理器"
     },
     "install": {
         "disk-space-left": "可用空间",
@@ -282,5 +285,10 @@
             "enable": "启用 mods"
         },
         "versionCollapsable": "游戏版本"
+    },
+    "third-party-managed": {
+        "header": "此游戏由第三方程序管理",
+        "notice2": "单击“安装”后，Heroic 为了完成安装过程将运行程序",
+        "notice1": "此游戏由下列第三方程序程序管理： \"{{application_name}}\""
     }
 }

@@ -106,7 +106,8 @@
             "toggle": "garder le jeu dans une version spécifique"
         },
         "changelogFor": "Changements effectués dans {{gameTitle}}",
-        "modify": "Modifier l'installation"
+        "modify": "Modifier l'installation",
+        "extra_info": "Informaitons supplémentaires"
     },
     "gamecard": {
         "moving": "Déplacement",
