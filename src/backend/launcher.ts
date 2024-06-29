@@ -30,7 +30,7 @@ import {
   isSteamDeckGameMode,
   runtimePath,
   userHome,
-  umuPath as umuBin
+  defaultUmuPath
 } from './constants'
 import {
   constructAndUpdateRPC,
@@ -80,7 +80,7 @@ import { download, isInstalled } from './wine/runtimes/runtimes'
 import { storeMap } from 'common/utils'
 import { runWineCommandOnGame } from './storeManagers/legendary/games'
 import { sendFrontendMessage } from './main_window'
-import { isUmuSupported } from './utils/compatibility_layers'
+import { getUmuPath, isUmuSupported } from './utils/compatibility_layers'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
@@ -234,7 +234,8 @@ async function prepareLaunch(
     GlobalConfig.get().getSettings().experimentalFeatures?.umuSupport !==
       false &&
     !isInstalled('umu') &&
-    isOnline()
+    isOnline() &&
+    getUmuPath() === defaultUmuPath
   ) {
     await download('umu')
   }
@@ -883,7 +884,7 @@ async function runWineCommand({
   return new Promise<{ stderr: string; stdout: string }>((res) => {
     const wrappers = options?.wrappers || []
     const umuSupported = isUmuSupported(wineVersion.type)
-    const runnerBin = umuSupported ? umuBin : wineBin
+    const runnerBin = umuSupported ? getUmuPath() : wineBin
     let bin = runnerBin
 
     if (wrappers.length) {
