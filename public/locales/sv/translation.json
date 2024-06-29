@@ -17,7 +17,8 @@
         "reference": "Referens",
         "source": "Källa",
         "status": "Status",
-        "title": "Spelet innehåller fuskbekämpande mjukvara (anticheat)"
+        "title": "Spelet innehåller fuskbekämpande mjukvara (anticheat)",
+        "multiplayer_may_not_work": "Flerspelarfunktioner kanske inte fungerar på grund av nekat eller trasigt antifusk stöd."
     },
     "box": {
         "cache-cleared": {
@@ -267,7 +268,8 @@
         "reset": "Återställ",
         "no_categories": "Inga anpassade kategorier. Lägg till kategorier genom att använda varje spelmeny.",
         "categories": "Kategorier",
-        "show_support_offline_only": "Visa spel med offline stöd endast"
+        "show_support_offline_only": "Visa spel med offline stöd endast",
+        "show_third_party_managed_only": "Visa tredjeparts hanterade endast"
     },
     "help": {
         "amdfsr": "AMD's FSR hjälper till att öka bildhastigheten genom att skala upp lägre upplösningar i helskärmsläge. Bildkvaliteten ökar från 5 mot 1 till priset av en liten påverkan av prestandan. Aktivering kan förbättra prestandan.",
@@ -685,7 +687,15 @@
         },
         "msync": "Aktivera Msync",
         "after-launch-script-path": "Välj ett skript att köra efter att spelet avslutats",
-        "before-launch-script-path": "Välj ett skript att köra innan spelet startas"
+        "before-launch-script-path": "Välj ett skript att köra innan spelet startas",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "title": "Är du säker?",
+                "message": "Spel med trasiga eller nekade antifusk kanske inte kan köras, men flerspelarspel funktioner fungerar inte. Be inte om support om du installerar dem med vetskap om detta.",
+                "understand": "Jag förstår"
+            },
+            "label": "Tillåt installation av spel med trasigt eller nekat antifusk"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
