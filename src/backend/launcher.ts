@@ -231,8 +231,7 @@ async function prepareLaunch(
   }
 
   if (
-    GlobalConfig.get().getSettings().experimentalFeatures?.umuSupport !==
-      false &&
+    isUmuSupported(gameSettings.wineVersion.type) &&
     !isInstalled('umu') &&
     isOnline() &&
     getUmuPath() === defaultUmuPath
@@ -779,12 +778,9 @@ export async function verifyWinePrefix(
   const haveToWait = !existsSync(systemRegPath)
 
   const command = runWineCommand({
-    commandParts:
-      wineVersion.type === 'proton' &&
-      GlobalConfig.get().getSettings().experimentalFeatures?.umuSupport !==
-        false
-        ? ['createprefix']
-        : ['wineboot', '--init'],
+    commandParts: isUmuSupported(wineVersion.type)
+      ? ['createprefix']
+      : ['wineboot', '--init'],
     wait: haveToWait,
     gameSettings: settings,
     protonVerb: 'run',
