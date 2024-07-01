@@ -225,7 +225,10 @@ export default function WebView() {
         if (validatedURL && validatedURL.match(/track\.adtraction\.com/)) {
           const parsedUrl = new URL(validatedURL)
           const redirectUrl = parsedUrl.searchParams.get('url')
-          webview.loadURL(redirectUrl || 'https://gog.com')
+          const url = new URL(redirectUrl || 'https://gog.com')
+          // Remove any port definitions, they are dumb
+          url.port = ''
+          webview.loadURL(url.toString())
           if (!localStorage.getItem('adtraction-warning')) {
             setShowAdtractionWarning(true)
           }
