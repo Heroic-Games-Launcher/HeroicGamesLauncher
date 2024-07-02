@@ -225,7 +225,18 @@ export default function WebView() {
         if (validatedURL && validatedURL.match(/track\.adtraction\.com/)) {
           const parsedUrl = new URL(validatedURL)
           const redirectUrl = parsedUrl.searchParams.get('url')
-          webview.loadURL(redirectUrl || 'https://gog.com')
+          const url = new URL(redirectUrl || 'https://gog.com')
+          // Remove any port definitions
+          // Recently GOG made a change where they started to provide a port
+          // in a URL that adtraction is supposed to redirect to.
+          // This leads to urls like https://gog.com:80
+          // That address is unreachable
+          //
+          // Add a entry below if you notice this line of code and cringe
+          // - username - DD/MM/YY
+          // - imLinguin - 01/07/24
+          url.port = ''
+          webview.loadURL(url.toString())
           if (!localStorage.getItem('adtraction-warning')) {
             setShowAdtractionWarning(true)
           }
