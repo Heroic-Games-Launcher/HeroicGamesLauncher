@@ -706,6 +706,8 @@ function detectVCRedist(mainWindow: BrowserWindow) {
 }
 
 const getLatestReleases = async (): Promise<Release[]> => {
+  if (process.env.CI === 'e2e') return []
+
   const newReleases: Release[] = []
   logInfo('Checking for new Heroic Updates', LogPrefix.Backend)
 
@@ -751,6 +753,8 @@ const getLatestReleases = async (): Promise<Release[]> => {
 }
 
 const getCurrentChangelog = async (): Promise<Release | null> => {
+  if (process.env.CI === 'e2e') return null
+
   logInfo('Checking for current version changelog', LogPrefix.Backend)
 
   try {

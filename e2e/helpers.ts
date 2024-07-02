@@ -2,7 +2,8 @@ import { join } from 'path'
 import {
   test,
   _electron as electron,
-  type ElectronApplication
+  ElectronApplication,
+  Page
 } from '@playwright/test'
 
 const main_js = join(__dirname, '../build/main/main.js')
@@ -14,15 +15,58 @@ const main_js = join(__dirname, '../build/main/main.js')
  */
 function electronTest(
   name: string,
-  func: (app: ElectronApplication) => void | Promise<void>
+  func: (app: ElectronApplication, page: Page) => void | Promise<void>
 ) {
   test(name, async () => {
-    const app = await electron.launch({
+    const electronApp = await electron.launch({
       args: [main_js]
     })
-    await func(app)
-    await app.close()
+
+    // uncomment these lines to print electron's output
+    // electronApp
+    //   .process()!
+    //   .stdout?.on('data', (data) => console.log(`stdout: ${data}`))
+    // electronApp
+    //   .process()!
+    //   .stderr?.on('data', (error) => console.log(`stderr: ${error}`))
+
+    const page = await electronApp.firstWindow()
+
+    await func(electronApp, page)
+
+    await resetAllStubs(electronApp)
+
+    await electronApp.close()
   })
 }
 
-export { electronTest }
+async function resetAllStubs(app: ElectronApplication) {
+  await resetLegendaryCommandStub(app)
+  await resetGogdlCommandStub(app)
+  await resetNileCommandStub(app)
+}
+
+async function resetLegendaryCommandStub(app: ElectronApplication) {
+  await app.evaluate(({ ipcMain }) => {
+    ipcMain.emit('resetLegendaryCommandStub')
+  })
+}
+
+async function resetGogdlCommandStub(app: ElectronApplication) {
+  await app.evaluate(({ ipcMain }) => {
+    ipcMain.emit('resetGogdlCommandStub')
+  })
+}
+
+async function resetNileCommandStub(app: ElectronApplication) {
+  await app.evaluate(({ ipcMain }) => {
+    ipcMain.emit('resetNileCommandStub')
+  })
+}
+
+export {
+  electronTest,
+  resetLegendaryCommandStub,
+  resetGogdlCommandStub,
+  resetNileCommandStub
+}

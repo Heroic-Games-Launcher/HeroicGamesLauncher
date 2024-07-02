@@ -760,3 +760,10 @@ export interface KnowFixesInfo {
   winetricks?: string[]
   runInPrefix?: string[]
 }
+
+export interface RunnerCommandStub {
+  commandParts: string[]
+  response?: Promise<ExecResult>
+  stdout?: string
+  stderr?: string
+}
