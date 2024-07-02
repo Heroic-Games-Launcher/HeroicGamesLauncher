@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { ChangelogModal } from '../../../ChangelogModal'
+import { faCircleUp } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 type Release = {
   html_url: string
@@ -48,12 +50,39 @@ export default React.memo(function HeroicVersion() {
   const newBeta: Release | undefined = newReleases?.filter(
     (r) => r.type === 'beta'
   )[0]
-  const shouldShowUpdates = newBeta || newStable
+  const releaseInfo = newBeta || newStable
+  const releaseType = newStable
+    ? t('info.heroic.stable', 'Stable')
+    : t('info.heroic.beta', 'Beta')
 
   const version = heroicVersion
 
   return (
     <>
+      {releaseInfo && (
+        <a
+          className="Sidebar__item"
+          title={releaseInfo.tag_name}
+          onClick={() => window.api.openExternalUrl(releaseInfo.html_url)}
+          data-tooltip-content={t(
+            'info.heroic.newReleases',
+            'Update Available!'
+          )}
+        >
+          <div className="Sidebar__itemIcon">
+            <FontAwesomeIcon
+              icon={faCircleUp}
+              title={t('info.heroic.newReleases', 'Update Available!')}
+            />
+          </div>
+          <div className="heroicNewReleases">
+            <span>{t('info.heroic.newReleases', 'Update Available!')}</span>
+            <span className="highlighted">
+              {releaseType} ({releaseInfo.tag_name})
+            </span>
+          </div>
+        </a>
+      )}
       {((showChangelogModal &&
         !hideChangelogsOnStartup &&
         heroicVersion !== lastChangelogShown) ||
@@ -81,27 +110,6 @@ export default React.memo(function HeroicVersion() {
         </span>
         <strong>{version}</strong>
       </span>
-      {shouldShowUpdates && (
-        <div className="heroicNewReleases">
-          <span>{t('info.heroic.newReleases', 'Update Available!')}</span>
-          {newStable && (
-            <a
-              title={newStable.tag_name}
-              onClick={() => window.api.openExternalUrl(newStable.html_url)}
-            >
-              {t('info.heroic.stable', 'Stable')} ({newStable.tag_name})
-            </a>
-          )}
-          {newBeta && (
-            <a
-              title={newBeta.tag_name}
-              onClick={() => window.api.openExternalUrl(newBeta.html_url)}
-            >
-              {t('info.heroic.beta', 'Beta')} ({newBeta.tag_name})
-            </a>
-          )}
-        </div>
-      )}
     </>
   )
 })
