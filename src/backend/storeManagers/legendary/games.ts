@@ -73,7 +73,7 @@ import { t } from 'i18next'
 import { isOnline } from '../../online_monitor'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { Catalog, Product } from 'common/types/epic-graphql'
-import { sendFrontendMessage } from '../../main_window'
+import { sendFrontendMessage } from 'common/ipc/backend'
 import { RemoveArgs } from 'common/types/game_manager'
 import {
   AllowedWineFlags,

@@ -1,10 +1,8 @@
-import { ipcMain } from 'electron'
+import { addHandler } from 'common/ipc/backend'
 import { download, isInstalled } from './runtimes'
 
-ipcMain.handle('downloadRuntime', async (e, runtime_name) =>
-  download(runtime_name)
-)
+addHandler('downloadRuntime', async (e, runtime_name) => download(runtime_name))
 
-ipcMain.handle('isRuntimeInstalled', async (e, runtime_name) =>
+addHandler('isRuntimeInstalled', async (e, runtime_name) =>
   isInstalled(runtime_name)
 )

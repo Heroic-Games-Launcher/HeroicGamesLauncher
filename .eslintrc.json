@@ -62,7 +62,19 @@
       "single",
       { "avoidEscape": true, "allowTemplateLiterals": true }
     ],
-    "import/no-duplicates": ["error"]
+    "import/no-duplicates": ["error"],
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "electron",
+            "importNames": ["ipcMain", "ipcRenderer"],
+            "message": "Use the helper functions declared in src/common/ipc instead."
+          }
+        ]
+      }
+    ]
   },
   "overrides": [
     {

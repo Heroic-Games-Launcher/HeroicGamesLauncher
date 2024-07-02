@@ -92,7 +92,7 @@ import {
 } from 'common/types/gog'
 import { t } from 'i18next'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
-import { sendFrontendMessage } from '../../main_window'
+import { sendFrontendMessage } from 'common/ipc/backend'
 import { RemoveArgs } from 'common/types/game_manager'
 import { getWineFlagsArray } from 'backend/utils/compatibility_layers'
 import axios, { AxiosError } from 'axios'

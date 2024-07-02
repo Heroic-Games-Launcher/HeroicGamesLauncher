@@ -1,16 +1,15 @@
-import { ipcMain } from 'electron'
+import { addHandler, sendFrontendMessage } from 'common/ipc/backend'
 import {
   installWineVersion,
   removeWineVersion,
   updateWineVersionInfos
 } from './utils'
 import { logError, LogPrefix } from '../../logger/logger'
-import { sendFrontendMessage } from '../../main_window'
 import type { WineManagerStatus } from 'common/types'
 import { notify } from '../../dialog/dialog'
 import { t } from 'i18next'
 
-ipcMain.handle('installWineVersion', async (e, release) => {
+addHandler('installWineVersion', async (e, release) => {
   const onProgress = (state: WineManagerStatus) => {
     sendFrontendMessage('progressOfWineManager', release.version, state)
   }
@@ -42,7 +41,7 @@ ipcMain.handle('installWineVersion', async (e, release) => {
   })
 })
 
-ipcMain.handle('refreshWineVersionInfo', async (e, fetch?) => {
+addHandler('refreshWineVersionInfo', async (e, fetch?) => {
   try {
     await updateWineVersionInfos(fetch)
     return
@@ -52,7 +51,7 @@ ipcMain.handle('refreshWineVersionInfo', async (e, fetch?) => {
   }
 })
 
-ipcMain.handle('removeWineVersion', async (e, release) => {
+addHandler('removeWineVersion', async (e, release) => {
   const result = await removeWineVersion(release)
   if (result) notify({ title: release.version, body: t('notify.uninstalled') })
 })

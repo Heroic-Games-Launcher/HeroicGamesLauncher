@@ -14,7 +14,7 @@ import {
 
 import { getAvailableVersions, installVersion } from './downloader/main'
 import { toolsPath, isMac } from '../../constants'
-import { sendFrontendMessage } from '../../main_window'
+import { sendFrontendMessage } from 'common/ipc/backend'
 import { TypeCheckedStoreBackend } from 'backend/electron_store'
 import {
   createAbortController,

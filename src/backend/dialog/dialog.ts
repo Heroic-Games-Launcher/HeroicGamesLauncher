@@ -2,7 +2,8 @@ import { LogPrefix, logWarning } from '../logger/logger'
 import { dialog, Notification } from 'electron'
 import { ButtonOptions, DialogType } from 'common/types'
 import { isSteamDeckGameMode } from '../constants'
-import { getMainWindow, sendFrontendMessage } from '../main_window'
+import { getMainWindow } from '../main_window'
+import { sendFrontendMessage } from 'common/ipc/backend'
 
 const { showErrorBox, showMessageBox } = dialog
 

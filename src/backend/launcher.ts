@@ -71,7 +71,7 @@ import { readFileSync } from 'fs'
 import { LegendaryCommand } from './storeManagers/legendary/commands'
 import { commandToArgsArray } from './storeManagers/legendary/library'
 import { searchForExecutableOnPath } from './utils/os/path'
-import { sendFrontendMessage } from './main_window'
+import { sendFrontendMessage } from 'common/ipc/backend'
 import {
   createAbortController,
   deleteAbortController

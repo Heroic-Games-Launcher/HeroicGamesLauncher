@@ -1,155 +1,77 @@
-import { GOGCloudSavesLocation } from 'common/types/gog'
-import { ipcRenderer } from 'electron'
 import {
-  Runner,
-  Tools,
-  DialogType,
-  ButtonOptions,
-  GamepadActionArgs
-} from 'common/types'
-import { NileRegisterData } from 'common/types/nile'
+  makeListenerCaller as lc,
+  makeHandlerInvoker as hi,
+  frontendListenerSlot as fls
+} from 'common/ipc/frontend'
 
-export const clearCache = (showDialog?: boolean, fromVersionChange?: boolean) =>
-  ipcRenderer.send('clearCache', showDialog, fromVersionChange)
-export const resetHeroic = () => ipcRenderer.send('resetHeroic')
+export const clearCache = lc('clearCache')
+export const resetHeroic = lc('resetHeroic')
 
-export const openWeblate = () => ipcRenderer.send('openWeblate')
-export const changeLanguage = (newLanguage: string) =>
-  ipcRenderer.send('changeLanguage', newLanguage)
+export const openWeblate = lc('openWeblate')
+export const changeLanguage = lc('changeLanguage')
 
-export const openExternalUrl = (url: string) =>
-  ipcRenderer.send('openExternalUrl', url)
-export const getHeroicVersion = async () =>
-  ipcRenderer.invoke('getHeroicVersion')
-export const getLatestReleases = async () =>
-  ipcRenderer.invoke('getLatestReleases')
-export const getCurrentChangelog = async () =>
-  ipcRenderer.invoke('getCurrentChangelog')
+export const openExternalUrl = lc('openExternalUrl')
+export const getHeroicVersion = hi('getHeroicVersion')
+export const getLatestReleases = hi('getLatestReleases')
+export const getCurrentChangelog = hi('getCurrentChangelog')
 
-export const openPatreonPage = () => ipcRenderer.send('openPatreonPage')
-export const openKofiPage = () => ipcRenderer.send('openKofiPage')
-export const isFullscreen = async () => ipcRenderer.invoke('isFullscreen')
-export const isFrameless = async () => ipcRenderer.invoke('isFrameless')
-export const isMinimized = async () => ipcRenderer.invoke('isMinimized')
-export const isMaximized = async () => ipcRenderer.invoke('isMaximized')
-export const minimizeWindow = () => ipcRenderer.send('minimizeWindow')
-export const maximizeWindow = () => ipcRenderer.send('maximizeWindow')
-export const unmaximizeWindow = () => ipcRenderer.send('unmaximizeWindow')
-export const closeWindow = () => ipcRenderer.send('closeWindow')
-export const handleMaximized = (
-  callback: (e: Electron.IpcRendererEvent) => void
-) => {
-  ipcRenderer.on('maximized', callback)
-  return () => {
-    ipcRenderer.removeListener('maximized', callback)
-  }
-}
-export const handleUnmaximized = (
-  callback: (e: Electron.IpcRendererEvent) => void
-) => {
-  ipcRenderer.on('unmaximized', callback)
-  return () => {
-    ipcRenderer.removeListener('unmaximized', callback)
-  }
-}
-export const handleFullscreen = (
-  callback: (e: Electron.IpcRendererEvent, status: boolean) => void
-) => {
-  ipcRenderer.on('fullscreen', callback)
-  return () => {
-    ipcRenderer.removeListener('fullscreen', callback)
-  }
-}
+export const openPatreonPage = lc('openPatreonPage')
+export const openKofiPage = lc('openKofiPage')
+export const isFullscreen = hi('isFullscreen')
+export const isFrameless = hi('isFrameless')
+export const isMinimized = hi('isMinimized')
+export const isMaximized = hi('isMaximized')
+export const minimizeWindow = lc('minimizeWindow')
+export const maximizeWindow = lc('maximizeWindow')
+export const unmaximizeWindow = lc('unmaximizeWindow')
+export const closeWindow = lc('closeWindow')
+export const handleMaximized = fls('maximized')
+export const handleUnmaximized = fls('unmaximized')
+export const handleFullscreen = fls('fullscreen')
 
-export const openWebviewPage = (url: string) =>
-  ipcRenderer.send('openWebviewPage', url)
+export const openWebviewPage = lc('openWebviewPage')
 
-export const setZoomFactor = (zoom: string) =>
-  ipcRenderer.send('setZoomFactor', zoom)
-export const frontendReady = () => ipcRenderer.send('frontendReady')
-export const lock = () => ipcRenderer.send('lock')
-export const unlock = () => ipcRenderer.send('unlock')
-export const login = async (sid: string) => ipcRenderer.invoke('login', sid)
-export const logoutLegendary = async () => ipcRenderer.invoke('logoutLegendary')
-export const authGOG = async (token: string) =>
-  ipcRenderer.invoke('authGOG', token)
-export const logoutGOG = () => ipcRenderer.send('logoutGOG')
-export const getAmazonLoginData = async () =>
-  ipcRenderer.invoke('getAmazonLoginData')
-export const authAmazon = async (data: NileRegisterData) =>
-  ipcRenderer.invoke('authAmazon', data)
-export const logoutAmazon = async () => ipcRenderer.invoke('logoutAmazon')
-export const checkGameUpdates = async () =>
-  ipcRenderer.invoke('checkGameUpdates')
-export const refreshLibrary = async (library?: Runner | 'all') =>
-  ipcRenderer.invoke('refreshLibrary', library)
+export const setZoomFactor = lc('setZoomFactor')
+export const frontendReady = lc('frontendReady')
+export const lock = lc('lock')
+export const unlock = lc('unlock')
+export const login = hi('login')
+export const logoutLegendary = hi('logoutLegendary')
+export const authGOG = hi('authGOG')
+export const logoutGOG = lc('logoutGOG')
+export const getAmazonLoginData = hi('getAmazonLoginData')
+export const authAmazon = hi('authAmazon')
+export const logoutAmazon = hi('logoutAmazon')
+export const checkGameUpdates = hi('checkGameUpdates')
+export const refreshLibrary = hi('refreshLibrary')
 
-export const gamepadAction = async (args: GamepadActionArgs) =>
-  ipcRenderer.invoke('gamepadAction', args)
+export const gamepadAction = hi('gamepadAction')
 
-export const logError = (error: string) => ipcRenderer.send('logError', error)
-export const logInfo = (info: string) => ipcRenderer.send('logInfo', info)
-export const showConfigFileInFolder = (appName: string) =>
-  ipcRenderer.send('showConfigFileInFolder', appName)
-export const openFolder = (installPath: string) =>
-  ipcRenderer.send('openFolder', installPath)
-export const syncGOGSaves = async (
-  gogSaves: GOGCloudSavesLocation[],
-  appName: string,
-  arg: string
-) => ipcRenderer.invoke('syncGOGSaves', gogSaves, appName, arg)
-export const getFonts = async (reload: boolean) =>
-  ipcRenderer.invoke('getFonts', reload)
-export const checkDiskSpace = async (installPath: string) =>
-  ipcRenderer.invoke('checkDiskSpace', installPath)
-export const getGOGLinuxInstallersLangs = async (appName: string) =>
-  ipcRenderer.invoke('getGOGLinuxInstallersLangs', appName)
-export const getAlternativeWine = async () =>
-  ipcRenderer.invoke('getAlternativeWine')
-export const getLocalPeloadPath = async () =>
-  ipcRenderer.invoke('getLocalPeloadPath')
-export const getShellPath = async (saveLocation: string) =>
-  ipcRenderer.invoke('getShellPath', saveLocation)
-export const callTool = async (toolArgs: Tools) =>
-  ipcRenderer.invoke('callTool', toolArgs)
-export const getAnticheatInfo = async (namespace: string) =>
-  ipcRenderer.invoke('getAnticheatInfo', namespace)
+export const logError = lc('logError')
+export const logInfo = lc('logInfo')
+export const showConfigFileInFolder = lc('showConfigFileInFolder')
+export const openFolder = lc('openFolder')
+export const syncGOGSaves = hi('syncGOGSaves')
+export const getFonts = hi('getFonts')
+export const checkDiskSpace = hi('checkDiskSpace')
+export const getGOGLinuxInstallersLangs = hi('getGOGLinuxInstallersLangs')
+export const getAlternativeWine = hi('getAlternativeWine')
+export const getLocalPeloadPath = hi('getLocalPeloadPath')
+export const getShellPath = hi('getShellPath')
+export const callTool = hi('callTool')
+export const getAnticheatInfo = hi('getAnticheatInfo')
 
-export const clipboardReadText = async () =>
-  ipcRenderer.invoke('clipboardReadText')
+export const clipboardReadText = hi('clipboardReadText')
 
-export const clipboardWriteText = async (text: string) =>
-  ipcRenderer.send('clipboardWriteText', text)
+export const clipboardWriteText = lc('clipboardWriteText')
 
-export const pathExists = async (path: string) =>
-  ipcRenderer.invoke('pathExists', path)
+export const pathExists = hi('pathExists')
 
-export const processShortcut = async (combination: string) =>
-  ipcRenderer.send('processShortcut', combination)
+export const processShortcut = lc('processShortcut')
 
-export const handleGoToScreen = (
-  callback: (e: Electron.IpcRendererEvent, screen: string) => void
-) => {
-  ipcRenderer.on('openScreen', callback)
-  return () => {
-    ipcRenderer.removeListener('openScreen', callback)
-  }
-}
+export const handleGoToScreen = fls('openScreen')
 
-export const handleShowDialog = (
-  onMessage: (
-    e: Electron.IpcRendererEvent,
-    title: string,
-    message: string,
-    type: DialogType,
-    buttons?: Array<ButtonOptions>
-  ) => void
-): (() => void) => {
-  ipcRenderer.on('showDialog', onMessage)
-  return () => {
-    ipcRenderer.removeListener('showDialog', onMessage)
-  }
-}
+export const handleShowDialog = fls('showDialog')
 
 import Store from 'electron-store'
 // FUTURE WORK
@@ -198,13 +120,6 @@ export const storeGet = (
 export const storeDelete = (storeName: string, key: string) =>
   stores[storeName].delete(key)
 
-export const getWikiGameInfo = async (
-  title: string,
-  appName: string,
-  runner: Runner
-) => ipcRenderer.invoke('getWikiGameInfo', title, appName, runner)
+export const getWikiGameInfo = hi('getWikiGameInfo')
 
-export const fetchPlaytimeFromServer = async (
-  runner: Runner,
-  appName: string
-) => ipcRenderer.invoke('getPlaytimeFromRunner', runner, appName)
+export const fetchPlaytimeFromServer = hi('getPlaytimeFromRunner')

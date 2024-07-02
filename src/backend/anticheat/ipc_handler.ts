@@ -1,7 +1,7 @@
-import { ipcMain } from 'electron'
+import { addHandler } from 'common/ipc/backend'
 import { gameAnticheatInfo } from './utils'
 
 // we use the game's `namespace` value here, it's the value that can be easily fetch by AreWeAnticheatYet
-ipcMain.handle('getAnticheatInfo', (e, appNamespace) =>
+addHandler('getAnticheatInfo', (e, appNamespace) =>
   gameAnticheatInfo(appNamespace)
 )

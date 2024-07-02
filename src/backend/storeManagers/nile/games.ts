@@ -60,7 +60,7 @@ import {
   removeShortcuts as removeShortcutsUtil
 } from '../../shortcuts/shortcuts/shortcuts'
 import { removeNonSteamGame } from 'backend/shortcuts/nonesteamgame/nonesteamgame'
-import { sendFrontendMessage } from 'backend/main_window'
+import { sendFrontendMessage } from 'common/ipc/backend'
 import setup from './setup'
 
 export async function getSettings(appName: string): Promise<GameSettings> {

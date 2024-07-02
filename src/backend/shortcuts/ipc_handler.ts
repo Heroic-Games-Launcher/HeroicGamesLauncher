@@ -1,6 +1,6 @@
 import { gameManagerMap } from 'backend/storeManagers'
 import { existsSync } from 'graceful-fs'
-import { ipcMain } from 'electron'
+import { addListener, addHandler } from 'common/ipc/backend'
 import i18next from 'i18next'
 import {
   addNonSteamGame,
@@ -12,7 +12,7 @@ import { shortcutFiles } from './shortcuts/shortcuts'
 import { isMac } from 'backend/constants'
 import { notify } from 'backend/dialog/dialog'
 
-ipcMain.on('addShortcut', async (event, appName, runner, fromMenu) => {
+addListener('addShortcut', async (event, appName, runner, fromMenu) => {
   gameManagerMap[runner].addShortcuts(appName, fromMenu)
 
   const body = i18next.t(
@@ -31,7 +31,7 @@ ipcMain.on('addShortcut', async (event, appName, runner, fromMenu) => {
   })
 })
 
-ipcMain.handle('shortcutsExists', (event, appName, runner) => {
+addHandler('shortcutsExists', (event, appName, runner) => {
   const title = gameManagerMap[runner].getGameInfo(appName).title
 
   const [desktopFile, menuFile] = shortcutFiles(title)
@@ -39,7 +39,7 @@ ipcMain.handle('shortcutsExists', (event, appName, runner) => {
   return existsSync(desktopFile ?? '') || existsSync(menuFile ?? '')
 })
 
-ipcMain.on('removeShortcut', async (event, appName, runner) => {
+addListener('removeShortcut', async (event, appName, runner) => {
   gameManagerMap[runner].removeShortcuts(appName)
 
   const body = i18next.t(
@@ -58,7 +58,7 @@ ipcMain.on('removeShortcut', async (event, appName, runner) => {
   })
 })
 
-ipcMain.handle('addToSteam', async (event, appName, runner) => {
+addHandler('addToSteam', async (event, appName, runner) => {
   const gameInfo = getInfo(appName, runner)
 
   return addNonSteamGame({
@@ -66,12 +66,12 @@ ipcMain.handle('addToSteam', async (event, appName, runner) => {
   })
 })
 
-ipcMain.handle('removeFromSteam', async (event, appName, runner) => {
+addHandler('removeFromSteam', async (event, appName, runner) => {
   const gameInfo = getInfo(appName, runner)
   await removeNonSteamGame({ gameInfo })
 })
 
-ipcMain.handle('isAddedToSteam', async (event, appName, runner) => {
+addHandler('isAddedToSteam', async (event, appName, runner) => {
   const gameInfo = getInfo(appName, runner)
   return isAddedToSteam({ gameInfo })
 })

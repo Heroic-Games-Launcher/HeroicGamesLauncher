@@ -1,13 +1,16 @@
 import { gameManagerMap } from 'backend/storeManagers'
-import { ipcMain } from 'electron'
 import { Winetricks, runWineCommandOnGame } from '.'
 import path from 'path'
 import { isWindows } from 'backend/constants'
 import { execAsync, sendGameStatusUpdate } from 'backend/utils'
 import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
-import { sendFrontendMessage } from 'backend/main_window'
+import {
+  addListener,
+  addHandler,
+  sendFrontendMessage
+} from 'common/ipc/backend'
 
-ipcMain.handle(
+addHandler(
   'runWineCommandForGame',
   async (event, { appName, commandParts, runner }) => {
     if (isWindows) {
@@ -24,7 +27,7 @@ ipcMain.handle(
 )
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
-ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
+addHandler('callTool', async (event, { tool, exe, appName, runner }) => {
   const gameSettings = await gameManagerMap[runner].getSettings(appName)
 
   switch (tool) {
@@ -61,11 +64,11 @@ ipcMain.handle('callTool', async (event, { tool, exe, appName, runner }) => {
   sendGameStatusUpdate({ appName, runner, status: 'done' })
 })
 
-ipcMain.on('winetricksInstall', async (event, { runner, appName, component }) =>
+addListener('winetricksInstall', async (event, appName, runner, component) =>
   Winetricks.install(runner, appName, component)
 )
 
-ipcMain.handle('winetricksAvailable', async (event, { runner, appName }) => {
+addHandler('winetricksAvailable', async (event, appName, runner) => {
   try {
     return await Winetricks.listAvailable(runner, appName)
   } catch {
@@ -73,7 +76,7 @@ ipcMain.handle('winetricksAvailable', async (event, { runner, appName }) => {
   }
 })
 
-ipcMain.handle('winetricksInstalled', async (event, { runner, appName }) => {
+addHandler('winetricksInstalled', async (event, appName, runner) => {
   try {
     return await Winetricks.listInstalled(runner, appName)
   } catch {

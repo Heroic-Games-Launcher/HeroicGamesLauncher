@@ -1,4 +1,4 @@
-import { ipcMain } from 'electron'
+import { addHandler } from 'common/ipc/backend'
 import {
   getStatus,
   getLatestVersion,
@@ -10,11 +10,11 @@ import {
   isEnabled
 } from './eos_overlay'
 
-ipcMain.handle('getEosOverlayStatus', getStatus)
-ipcMain.handle('getLatestEosOverlayVersion', getLatestVersion)
-ipcMain.handle('updateEosOverlayInfo', updateInfo)
-ipcMain.handle('installEosOverlay', install)
-ipcMain.handle('removeEosOverlay', remove)
-ipcMain.handle('enableEosOverlay', async (e, appName) => enable(appName))
-ipcMain.handle('disableEosOverlay', async (e, appName) => disable(appName))
-ipcMain.handle('isEosOverlayEnabled', async (e, appName?) => isEnabled(appName))
+addHandler('getEosOverlayStatus', getStatus)
+addHandler('getLatestEosOverlayVersion', getLatestVersion)
+addHandler('updateEosOverlayInfo', updateInfo)
+addHandler('installEosOverlay', install)
+addHandler('removeEosOverlay', remove)
+addHandler('enableEosOverlay', async (e, appName) => enable(appName))
+addHandler('disableEosOverlay', async (e, appName) => disable(appName))
+addHandler('isEosOverlayEnabled', async (e, appName) => isEnabled(appName))

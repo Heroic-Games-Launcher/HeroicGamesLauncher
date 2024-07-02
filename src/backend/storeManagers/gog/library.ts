@@ -1,4 +1,4 @@
-import { sendFrontendMessage } from '../../main_window'
+import { sendFrontendMessage } from 'common/ipc/backend'
 import axios, { AxiosError, AxiosRequestHeaders, AxiosResponse } from 'axios'
 import { GOGUser } from './user'
 import {

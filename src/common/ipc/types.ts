@@ -1,5 +1,4 @@
-import { EventEmitter } from 'node:events'
-import { IpcMainEvent, OpenDialogOptions, TitleBarOverlay } from 'electron'
+import type { OpenDialogOptions, TitleBarOverlay } from 'electron'
 
 import {
   Runner,
@@ -21,7 +20,6 @@ import {
   StatusPromise,
   SaveSyncArgs,
   RunWineCommandArgs,
-  SideloadGame,
   WineVersionInfo,
   AntiCheatInfo,
   RuntimeName,
@@ -31,11 +29,19 @@ import {
   ExtraInfo,
   LaunchOption,
   DownloadManagerState,
-  InstallInfo
+  InstallInfo,
+  ExecResult,
+  WikiInfo,
+  GameStatus,
+  DialogType,
+  ButtonOptions,
+  RecentGame,
+  WineManagerStatus,
+  UpdateParams
 } from 'common/types'
-import { SelectiveDownload } from 'common/types/legendary'
-import { GOGCloudSavesLocation } from 'common/types/gog'
-import {
+import type { GameOverride, SelectiveDownload } from 'common/types/legendary'
+import type { GOGCloudSavesLocation, UserData } from 'common/types/gog'
+import type {
   NileLoginData,
   NileRegisterData,
   NileUserData
@@ -50,8 +56,7 @@ import type { SystemInformation } from 'backend/utils/systeminfo'
  *    I've decided against that to keep it in line with the `AsyncIPCFunctions`
  *    interface
  */
-// ts-prune-ignore-next
-interface SyncIPCFunctions {
+export interface SyncIPCFunctions {
   setZoomFactor: (zoomFactor: string) => void
   changeLanguage: (language: string) => void
   notify: (args: { title: string; body: string }) => void
@@ -85,7 +90,7 @@ interface SyncIPCFunctions {
   showItemInFolder: (item: string) => void
   clipboardWriteText: (text: string) => void
   processShortcut: (combination: string) => void
-  addNewApp: (args: SideloadGame) => void
+  addNewApp: (args: GameInfo) => void
   showLogFileInFolder: (appNameOrRunner: string) => void
   addShortcut: (appName: string, runner: Runner, fromMenu: boolean) => void
   removeShortcut: (appName: string, runner: Runner) => void
@@ -105,20 +110,21 @@ interface SyncIPCFunctions {
   unmaximizeWindow: () => void
   closeWindow: () => void
   setTitleBarOverlay: (options: TitleBarOverlay) => void
-  winetricksInstall: ({
-    runner: Runner,
+  winetricksInstall: (
     appName: string,
+    runner: Runner,
     component: string
-  }) => void
+  ) => void
   changeGameVersionPinnedStatus: (
     appName: string,
     runner: Runner,
     status: boolean
   ) => void
+  install: (args: InstallParams) => void
+  update: (args: UpdateParams) => void
 }
 
-// ts-prune-ignore-next
-interface AsyncIPCFunctions {
+export interface AsyncIPCFunctions {
   addToDMQueue: (element: DMQueueElement) => Promise<void>
   kill: (appName: string, runner: Runner) => Promise<void>
   checkDiskSpace: (folder: string) => Promise<DiskSpaceData>
@@ -126,14 +132,8 @@ interface AsyncIPCFunctions {
   runWineCommand: (
     args: WineCommandArgs
   ) => Promise<{ stdout: string; stderr: string }>
-  winetricksInstalled: ({
-    runner: Runner,
-    appName: string
-  }) => Promise<string[]>
-  winetricksAvailable: ({
-    runner: Runner,
-    appName: string
-  }) => Promise<string[]>
+  winetricksInstalled: (appName: string, runner: Runner) => Promise<string[]>
+  winetricksAvailable: (appName: string, runner: Runner) => Promise<string[]>
   checkGameUpdates: () => Promise<string[]>
   getEpicGamesStatus: () => Promise<boolean>
   updateAll: () => Promise<({ status: 'done' | 'error' | 'abort' } | null)[]>
@@ -184,14 +184,12 @@ interface AsyncIPCFunctions {
   getAlternativeWine: () => Promise<WineInstallation[]>
   getLocalPeloadPath: () => Promise<string>
   readConfig: (config_class: 'library' | 'user') => Promise<GameInfo[] | string>
-  requestSettings: (appName: string) => Promise<AppSettings | GameSettings>
+  requestAppSettings: () => AppSettings
+  requestGameSettings: (appName: string) => Promise<GameSettings>
   writeConfig: (args: { appName: string; config: Partial<AppSettings> }) => void
   refreshLibrary: (library?: Runner | 'all') => Promise<void>
   launch: (args: LaunchParams) => StatusPromise
   openDialog: (args: OpenDialogOptions) => Promise<string | false>
-  install: (
-    args: InstallParams
-  ) => Promise<{ status: 'error' | 'done' | 'abort' }>
   uninstall: (
     appName: string,
     runner: Runner,
@@ -201,7 +199,6 @@ interface AsyncIPCFunctions {
   repair: (appName: string, runner: Runner) => Promise<void>
   moveInstall: (args: MoveGameArgs) => Promise<void>
   importGame: (args: ImportGameArgs) => StatusPromise
-  updateGame: (appName: string, runner: Runner) => StatusPromise
   changeInstallPath: (args: MoveGameArgs) => Promise<void>
   egsSync: (arg: string) => Promise<string>
   syncGOGSaves: (
@@ -267,7 +264,7 @@ interface AsyncIPCFunctions {
   getDefaultSavePath: (
     appName: string,
     runner: Runner,
-    alreadyDefinedGogSaves: GOGCloudSavesLocation[]
+    alreadyDefinedGogSaves?: GOGCloudSavesLocation[]
   ) => Promise<string | GOGCloudSavesLocation[]>
   isGameAvailable: (args: {
     appName: string
@@ -278,7 +275,7 @@ interface AsyncIPCFunctions {
   toggleDXVKNVAPI: (args: ToolArgs) => Promise<boolean>
   pathExists: (path: string) => Promise<boolean>
   getLaunchOptions: (appName: string, runner: Runner) => Promise<LaunchOption[]>
-  getGameOverride: () => Promise<GameOverride | null>
+  getGameOverride: () => Promise<GameOverride>
   getGameSdl: (appName: string) => Promise<SelectiveDownload[]>
   getPlaytimeFromRunner: (
     runner: Runner,
@@ -297,58 +294,41 @@ interface AsyncIPCFunctions {
   }) => Promise<void>
 }
 
-// This is quite ugly & throws a lot of errors in a regular .ts file
-// TODO: Find a TS magician who can improve this further
-// ts-prune-ignore-next
-declare namespace Electron {
-  class IpcMain extends EventEmitter {
-    public on: <
-      Name extends keyof SyncIPCFunctions,
-      Definition extends SyncIPCFunctions[Name]
-    >(
-      name: Name,
-      callback: (e: IpcMainEvent, ...args: Parameters<Definition>) => void
-    ) => void
+export interface FrontendMessages {
+  gameStatusUpdate: (status: GameStatus) => void
+  wineVersionsUpdated: () => void
+  showDialog: (
+    title: string,
+    message: string,
+    type: DialogType,
+    buttons?: Array<ButtonOptions>
+  ) => void
+  changedDMQueueInformation: (
+    elements: DMQueueElement[],
+    state: DownloadManagerState
+  ) => void
+  maximized: () => void
+  unmaximized: () => void
+  fullscreen: (status: boolean) => void
+  refreshLibrary: (runner?: Runner) => void
+  openScreen: (screen: string) => void
+  'connectivity-changed': (status: {
+    status: ConnectivityStatus
+    retryIn: number
+  }) => void
+  launchGame: (appName: string, runner: Runner) => void
+  installGame: (appName: string, runner: Runner) => void
+  recentGamesChanged: (newRecentGames: RecentGame[]) => void
+  pushGameToLibrary: (info: GameInfo) => void
+  progressOfWinetricks: (payload: {
+    messages: string[]
+    installingComponent: string
+  }) => void
+  progressOfWineManager: (version: string, progress: WineManagerStatus) => void
+  'installing-winetricks-component': (component: string) => void
 
-    public handle: <
-      Name extends keyof AsyncIPCFunctions,
-      Definition extends AsyncIPCFunctions[Name]
-    >(
-      name: Name,
-      callback: (
-        e: IpcMainEvent,
-        ...args: Parameters<Definition>
-      ) => ReturnType<Definition>
-    ) => void
-  }
+  progressUpdate: (progress: GameStatus) => void
 
-  class IpcRenderer extends EventEmitter {
-    public send: <
-      Name extends keyof SyncIPCFunctions,
-      Definition extends SyncIPCFunctions[Name]
-    >(
-      name: Name,
-      ...args: Parameters<Definition>
-    ) => void
-
-    public invoke: <
-      Name extends keyof AsyncIPCFunctions,
-      Definition extends AsyncIPCFunctions[Name],
-      Ret extends ReturnType<Definition>
-    >(
-      name: Name,
-      ...args: Parameters<Definition>
-    ) => Ret extends Promise<unknown> ? Ret : Promise<Ret>
-  }
-
-  namespace CrossProcessExports {
-    const ipcMain: IpcMain
-    type IpcMain = Electron.IpcMain
-    const ipcRenderer: IpcRenderer
-    type IpcRenderer = Electron.IpcRenderer
-  }
-}
-
-declare module 'electron' {
-  export = Electron.CrossProcessExports
+  // Used inside tests, so we can be a bit lenient with the type checking here
+  message: (...params: unknown[]) => void
 }

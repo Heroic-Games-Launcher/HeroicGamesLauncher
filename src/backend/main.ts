@@ -6,7 +6,9 @@ import {
   DiskSpaceData,
   StatusPromise,
   GamepadInputEvent,
-  Runner
+  Runner,
+  DMQueueElement,
+  InstallParams
 } from 'common/types'
 import * as path from 'path'
 import {
@@ -14,7 +16,6 @@ import {
   Menu,
   app,
   dialog,
-  ipcMain,
   powerSaveBlocker,
   protocol,
   screen,
@@ -115,8 +116,7 @@ import {
   runBeforeLaunchScript,
   runWineCommand
 } from './launcher'
-import shlex from 'shlex'
-import { initQueue } from './downloadmanager/downloadqueue'
+import { addToQueue, initQueue } from './downloadmanager/downloadqueue'
 import {
   initOnlineMonitor,
   isOnline,
@@ -127,12 +127,13 @@ import { addRecentGame } from './recent_games/recent_games'
 import { callAbortController } from './utils/aborthandler/aborthandler'
 import { getDefaultSavePath } from './save_sync'
 import { initTrayIcon } from './tray_icon/tray_icon'
+import { createMainWindow, getMainWindow, isFrameless } from './main_window'
 import {
-  createMainWindow,
-  getMainWindow,
-  isFrameless,
+  addListener as addIpcListener,
+  addOneTimeListener as addOneTimeIpcListener,
+  addHandler as addIpcHandler,
   sendFrontendMessage
-} from './main_window'
+} from 'common/ipc/backend'
 
 import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
 import {
@@ -158,6 +159,12 @@ import {
   getGameSdl
 } from 'backend/storeManagers/legendary/library'
 import { storeMap } from 'common/utils'
+import {
+  getDiskInfo,
+  isAccessibleWithinFlatpakSandbox,
+  isWritable
+} from './utils/filesystem'
+import { Path } from './schemas'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
@@ -263,7 +270,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
     return { action: !details.url.match(pattern) ? 'allow' : 'deny' }
   })
 
-  ipcMain.on('setZoomFactor', async (event, zoomFactor) => {
+  addIpcListener('setZoomFactor', async (event, zoomFactor) => {
     const factor = processZoomForScreen(parseFloat(zoomFactor))
     mainWindow.webContents.setZoomLevel(factor)
     mainWindow.webContents.setVisualZoomLevelLimits(1, 1)
@@ -453,7 +460,7 @@ if (!gotTheLock) {
       mainWindow.webContents.setVisualZoomLevelLimits(1, 1)
     }, 200)
 
-    ipcMain.on('changeLanguage', async (event, language) => {
+    addIpcListener('changeLanguage', async (event, language) => {
       logInfo(['Changing Language to:', language], LogPrefix.Backend)
       await i18next.changeLanguage(language)
       gameInfoStore.clear()
@@ -467,9 +474,9 @@ if (!gotTheLock) {
   })
 }
 
-ipcMain.on('notify', (event, args) => notify(args))
+addIpcListener('notify', (event, args) => notify(args))
 
-ipcMain.once('frontendReady', () => {
+addOneTimeIpcListener('frontendReady', () => {
   logInfo('Frontend Ready', LogPrefix.Backend)
   handleProtocol([openUrlArgument, ...process.argv])
 
@@ -537,7 +544,7 @@ process.on('uncaughtException', async (err) => {
 
 let powerId: number | null
 
-ipcMain.on('lock', () => {
+addIpcListener('lock', () => {
   if (!existsSync(join(gamesConfigPath, 'lock'))) {
     writeFileSync(join(gamesConfigPath, 'lock'), '')
     if (!powerId) {
@@ -547,7 +554,7 @@ ipcMain.on('lock', () => {
   }
 })
 
-ipcMain.on('unlock', () => {
+addIpcListener('unlock', () => {
   if (existsSync(join(gamesConfigPath, 'lock'))) {
     unlinkSync(join(gamesConfigPath, 'lock'))
     if (powerId) {
@@ -557,7 +564,7 @@ ipcMain.on('unlock', () => {
   }
 })
 
-ipcMain.handle('checkDiskSpace', async (_e, folder): Promise<DiskSpaceData> => {
+addIpcHandler('checkDiskSpace', async (_e, folder): Promise<DiskSpaceData> => {
   // FIXME: Propagate errors
   const parsedPath = Path.parse(folder)
 
@@ -574,14 +581,14 @@ ipcMain.handle('checkDiskSpace', async (_e, folder): Promise<DiskSpaceData> => {
   }
 })
 
-ipcMain.handle('isFrameless', () => isFrameless())
-ipcMain.handle('isMinimized', () => !!getMainWindow()?.isMinimized())
-ipcMain.handle('isMaximized', () => !!getMainWindow()?.isMaximized())
-ipcMain.on('minimizeWindow', () => getMainWindow()?.minimize())
-ipcMain.on('maximizeWindow', () => getMainWindow()?.maximize())
-ipcMain.on('unmaximizeWindow', () => getMainWindow()?.unmaximize())
-ipcMain.on('closeWindow', () => getMainWindow()?.close())
-ipcMain.on('quit', async () => handleExit())
+addIpcHandler('isFrameless', () => isFrameless())
+addIpcHandler('isMinimized', () => !!getMainWindow()?.isMinimized())
+addIpcHandler('isMaximized', () => !!getMainWindow()?.isMaximized())
+addIpcListener('minimizeWindow', () => getMainWindow()?.minimize())
+addIpcListener('maximizeWindow', () => getMainWindow()?.maximize())
+addIpcListener('unmaximizeWindow', () => getMainWindow()?.unmaximize())
+addIpcListener('closeWindow', () => getMainWindow()?.close())
+addIpcListener('quit', async () => handleExit())
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
@@ -603,39 +610,39 @@ app.on('open-url', (event, url) => {
   }
 })
 
-ipcMain.on('openExternalUrl', async (event, url) => openUrlOrFile(url))
-ipcMain.on('openFolder', async (event, folder) => openUrlOrFile(folder))
-ipcMain.on('openSupportPage', async () => openUrlOrFile(supportURL))
-ipcMain.on('openReleases', async () => openUrlOrFile(heroicGithubURL))
-ipcMain.on('openWeblate', async () => openUrlOrFile(weblateUrl))
-ipcMain.on('showAboutWindow', () => showAboutWindow())
-ipcMain.on('openLoginPage', async () => openUrlOrFile(epicLoginUrl))
-ipcMain.on('openDiscordLink', async () => openUrlOrFile(discordLink))
-ipcMain.on('openPatreonPage', async () => openUrlOrFile(patreonPage))
-ipcMain.on('openKofiPage', async () => openUrlOrFile(kofiPage))
-ipcMain.on('openWinePrefixFAQ', async () => openUrlOrFile(wineprefixFAQ))
-ipcMain.on('openWebviewPage', async (event, url) => openUrlOrFile(url))
-ipcMain.on('openWikiLink', async () => openUrlOrFile(wikiLink))
-ipcMain.on('openSidInfoPage', async () => openUrlOrFile(sidInfoUrl))
-ipcMain.on('openCustomThemesWiki', async () =>
+addIpcListener('openExternalUrl', async (event, url) => openUrlOrFile(url))
+addIpcListener('openFolder', async (event, folder) => openUrlOrFile(folder))
+addIpcListener('openSupportPage', async () => openUrlOrFile(supportURL))
+addIpcListener('openReleases', async () => openUrlOrFile(heroicGithubURL))
+addIpcListener('openWeblate', async () => openUrlOrFile(weblateUrl))
+addIpcListener('showAboutWindow', () => showAboutWindow())
+addIpcListener('openLoginPage', async () => openUrlOrFile(epicLoginUrl))
+addIpcListener('openDiscordLink', async () => openUrlOrFile(discordLink))
+addIpcListener('openPatreonPage', async () => openUrlOrFile(patreonPage))
+addIpcListener('openKofiPage', async () => openUrlOrFile(kofiPage))
+addIpcListener('openWinePrefixFAQ', async () => openUrlOrFile(wineprefixFAQ))
+addIpcListener('openWebviewPage', async (event, url) => openUrlOrFile(url))
+addIpcListener('openWikiLink', async () => openUrlOrFile(wikiLink))
+addIpcListener('openSidInfoPage', async () => openUrlOrFile(sidInfoUrl))
+addIpcListener('openCustomThemesWiki', async () =>
   openUrlOrFile(customThemesWikiLink)
 )
-ipcMain.on('showConfigFileInFolder', async (event, appName) => {
+addIpcListener('showConfigFileInFolder', async (event, appName) => {
   if (appName === 'default') {
     return openUrlOrFile(configPath)
   }
   return openUrlOrFile(path.join(gamesConfigPath, `${appName}.json`))
 })
 
-ipcMain.on('removeFolder', async (e, [path, folderName]) => {
+addIpcListener('removeFolder', async (e, [path, folderName]) => {
   removeFolder(path, folderName)
 })
 
-ipcMain.handle('runWineCommand', async (e, args) => runWineCommand(args))
+addIpcHandler('runWineCommand', async (e, args) => runWineCommand(args))
 
 /// IPC handlers begin here.
 
-ipcMain.handle('checkGameUpdates', async (): Promise<string[]> => {
+addIpcHandler('checkGameUpdates', async (): Promise<string[]> => {
   let oldGames: string[] = []
   const { autoUpdateGames } = GlobalConfig.get().getSettings()
   for (const runner in libraryManagerMap) {
@@ -649,19 +656,19 @@ ipcMain.handle('checkGameUpdates', async (): Promise<string[]> => {
   return oldGames
 })
 
-ipcMain.handle('getEpicGamesStatus', async () => isEpicServiceOffline())
+addIpcHandler('getEpicGamesStatus', async () => isEpicServiceOffline())
 
-ipcMain.handle('getMaxCpus', () => cpus().length)
+addIpcHandler('getMaxCpus', () => cpus().length)
 
-ipcMain.handle('getHeroicVersion', app.getVersion)
-ipcMain.handle('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
-ipcMain.handle('isFlatpak', () => isFlatpak)
-ipcMain.handle('getGameOverride', async () => getGameOverride())
-ipcMain.handle('getGameSdl', async (event, appName) => getGameSdl(appName))
+addIpcHandler('getHeroicVersion', app.getVersion)
+addIpcHandler('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
+addIpcHandler('isFlatpak', () => isFlatpak)
+addIpcHandler('getGameOverride', async () => getGameOverride())
+addIpcHandler('getGameSdl', async (event, appName) => getGameSdl(appName))
 
-ipcMain.handle('showUpdateSetting', () => !isFlatpak)
+addIpcHandler('showUpdateSetting', () => !isFlatpak)
 
-ipcMain.handle('getLatestReleases', async () => {
+addIpcHandler('getLatestReleases', async () => {
   const { checkForUpdatesOnStartup } = GlobalConfig.get().getSettings()
   if (checkForUpdatesOnStartup) {
     return getLatestReleases()
@@ -670,11 +677,11 @@ ipcMain.handle('getLatestReleases', async () => {
   }
 })
 
-ipcMain.handle('getCurrentChangelog', async () => {
+addIpcHandler('getCurrentChangelog', async () => {
   return getCurrentChangelog()
 })
 
-ipcMain.on('clearCache', (event, showDialog, fromVersionChange = false) => {
+addIpcListener('clearCache', (event, showDialog, fromVersionChange = false) => {
   clearCache(undefined, fromVersionChange)
   sendFrontendMessage('refreshLibrary')
 
@@ -692,18 +699,18 @@ ipcMain.on('clearCache', (event, showDialog, fromVersionChange = false) => {
   }
 })
 
-ipcMain.on('resetHeroic', () => resetHeroic())
+addIpcListener('resetHeroic', () => resetHeroic())
 
-ipcMain.on('createNewWindow', (e, url) => {
+addIpcListener('createNewWindow', (e, url) => {
   new BrowserWindow({ height: 700, width: 1200 }).loadURL(url)
 })
 
-ipcMain.handle('isGameAvailable', async (e, args) => {
+addIpcHandler('isGameAvailable', async (e, args) => {
   const { appName, runner } = args
   return gameManagerMap[runner].isGameAvailable(appName)
 })
 
-ipcMain.handle('getGameInfo', async (event, appName, runner) => {
+addIpcHandler('getGameInfo', async (event, appName, runner) => {
   // Fastpath since we sometimes have to request info for a GOG game as Legendary because we don't know it's a GOG game yet
   if (runner === 'legendary' && !LegendaryLibraryManager.hasGame(appName)) {
     return null
@@ -718,7 +725,7 @@ ipcMain.handle('getGameInfo', async (event, appName, runner) => {
   return tempGameInfo
 })
 
-ipcMain.handle('getExtraInfo', async (event, appName, runner) => {
+addIpcHandler('getExtraInfo', async (event, appName, runner) => {
   // Fastpath since we sometimes have to request info for a GOG game as Legendary because we don't know it's a GOG game yet
   if (runner === 'legendary' && !LegendaryLibraryManager.hasGame(appName)) {
     return null
@@ -726,7 +733,7 @@ ipcMain.handle('getExtraInfo', async (event, appName, runner) => {
   return gameManagerMap[runner].getExtraInfo(appName)
 })
 
-ipcMain.handle('getGameSettings', async (event, appName, runner) => {
+addIpcHandler('getGameSettings', async (event, appName, runner) => {
   try {
     return await gameManagerMap[runner].getSettings(appName)
   } catch (error) {
@@ -735,11 +742,11 @@ ipcMain.handle('getGameSettings', async (event, appName, runner) => {
   }
 })
 
-ipcMain.handle('getGOGLinuxInstallersLangs', async (event, appName) =>
+addIpcHandler('getGOGLinuxInstallersLangs', async (event, appName) =>
   GOGLibraryManager.getLinuxInstallersLanguages(appName)
 )
 
-ipcMain.handle(
+addIpcHandler(
   'getInstallInfo',
   async (event, appName, runner, installPlatform, build, branch) => {
     try {
@@ -763,32 +770,32 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle('getUserInfo', async () => {
+addIpcHandler('getUserInfo', async () => {
   return LegendaryUser.getUserInfo()
 })
 
-ipcMain.handle('getAmazonUserInfo', async () => NileUser.getUserData())
+addIpcHandler('getAmazonUserInfo', async () => NileUser.getUserData())
 
 // Checks if the user have logged in with Legendary already
-ipcMain.handle('isLoggedIn', LegendaryUser.isLoggedIn)
+addIpcHandler('isLoggedIn', LegendaryUser.isLoggedIn)
 
-ipcMain.handle('login', async (event, sid) => LegendaryUser.login(sid))
-ipcMain.handle('authGOG', async (event, code) => GOGUser.login(code))
-ipcMain.handle('logoutLegendary', LegendaryUser.logout)
-ipcMain.on('logoutGOG', GOGUser.logout)
-ipcMain.handle('getLocalPeloadPath', async () => {
+addIpcHandler('login', async (event, sid) => LegendaryUser.login(sid))
+addIpcHandler('authGOG', async (event, code) => GOGUser.login(code))
+addIpcHandler('logoutLegendary', LegendaryUser.logout)
+addIpcListener('logoutGOG', GOGUser.logout)
+addIpcHandler('getLocalPeloadPath', async () => {
   return fixAsarPath(join('file://', publicDir, 'webviewPreload.js'))
 })
 
-ipcMain.handle('getAmazonLoginData', NileUser.getLoginData)
-ipcMain.handle('authAmazon', async (event, data) => NileUser.login(data))
-ipcMain.handle('logoutAmazon', NileUser.logout)
+addIpcHandler('getAmazonLoginData', NileUser.getLoginData)
+addIpcHandler('authAmazon', async (event, data) => NileUser.login(data))
+addIpcHandler('logoutAmazon', NileUser.logout)
 
-ipcMain.handle('getAlternativeWine', async () =>
+addIpcHandler('getAlternativeWine', async () =>
   GlobalConfig.get().getAlternativeWine()
 )
 
-ipcMain.handle('readConfig', async (event, configClass) => {
+addIpcHandler('readConfig', async (event, configClass) => {
   if (configClass === 'library') {
     await libraryManagerMap['legendary'].refresh()
     return LegendaryLibraryManager.getListOfGames()
@@ -797,57 +804,12 @@ ipcMain.handle('readConfig', async (event, configClass) => {
   return userInfo?.displayName ?? ''
 })
 
-ipcMain.handle('requestSettings', async (event, appName) => {
-  // To the changes how we handle env and wrappers
-  // otherOptions is deprectaed and needs to be mapped
-  // to new approach.
-  // Can be removed if otherOptions is removed aswell
-  const mapOtherSettings = (config: AppSettings | GameSettings) => {
-    if (config.otherOptions) {
-      if (config.enviromentOptions.length <= 0) {
-        config.otherOptions
-          .split(' ')
-          .filter((val) => val.indexOf('=') !== -1)
-          .forEach((envKeyAndVar) => {
-            const keyAndValueSplit = envKeyAndVar.split('=')
-            const key = keyAndValueSplit.shift()!
-            const value = keyAndValueSplit.join('=')
-            config.enviromentOptions.push({ key, value })
-          })
-      }
+addIpcHandler('requestAppSettings', () => GlobalConfig.get().getSettings())
+addIpcHandler('requestGameSettings', async (e, appName) =>
+  GameConfig.get(appName).getSettings()
+)
 
-      if (config.wrapperOptions.length <= 0) {
-        const args: string[] = []
-        config.otherOptions
-          .split(' ')
-          .filter((val) => val.indexOf('=') === -1)
-          .forEach((val, index) => {
-            if (index === 0) {
-              config.wrapperOptions.push({ exe: val, args: '' })
-            } else {
-              args.push(val)
-            }
-          })
-
-        if (config.wrapperOptions.at(0)) {
-          config.wrapperOptions.at(0)!.args = shlex.join(args)
-        }
-      }
-
-      delete config.otherOptions
-    }
-    return config
-  }
-
-  if (appName === 'default') {
-    return mapOtherSettings(GlobalConfig.get().getSettings())
-  }
-
-  const config = await GameConfig.get(appName).getSettings()
-  return mapOtherSettings(config)
-})
-
-ipcMain.handle('toggleDXVK', async (event, { appName, action }) =>
+addIpcHandler('toggleDXVK', async (event, { appName, action }) =>
   GameConfig.get(appName)
     .getSettings()
     .then(async (gameSettings) =>
@@ -855,7 +817,7 @@ ipcMain.handle('toggleDXVK', async (event, { appName, action }) =>
     )
 )
 
-ipcMain.handle('toggleDXVKNVAPI', async (event, { appName, action }) =>
+addIpcHandler('toggleDXVKNVAPI', async (event, { appName, action }) =>
   GameConfig.get(appName)
     .getSettings()
     .then(async (gameSettings) =>
@@ -863,7 +825,7 @@ ipcMain.handle('toggleDXVKNVAPI', async (event, { appName, action }) =>
     )
 )
 
-ipcMain.handle('toggleVKD3D', async (event, { appName, action }) =>
+addIpcHandler('toggleVKD3D', async (event, { appName, action }) =>
   GameConfig.get(appName)
     .getSettings()
     .then(async (gameSettings) =>
@@ -871,7 +833,7 @@ ipcMain.handle('toggleVKD3D', async (event, { appName, action }) =>
     )
 )
 
-ipcMain.handle('writeConfig', (event, { appName, config }) => {
+addIpcHandler('writeConfig', (event, { appName, config }) => {
   logInfo(
     `Writing config for ${appName === 'default' ? 'Heroic' : appName}`,
     LogPrefix.Backend
@@ -897,7 +859,7 @@ ipcMain.handle('writeConfig', (event, { appName, config }) => {
   }
 })
 
-ipcMain.on('setSetting', (event, { appName, key, value }) => {
+addIpcListener('setSetting', (event, { appName, key, value }) => {
   if (appName === 'default') {
     GlobalConfig.get().setSetting(key, value)
   } else {
@@ -918,7 +880,7 @@ if (existsSync(installed)) {
   })
 }
 
-ipcMain.handle('refreshLibrary', async (e, library?) => {
+addIpcHandler('refreshLibrary', async (e, library?) => {
   if (library !== undefined && library !== 'all') {
     await libraryManagerMap[library].refresh()
   } else {
@@ -930,14 +892,14 @@ ipcMain.handle('refreshLibrary', async (e, library?) => {
   }
 })
 
-ipcMain.on('logError', (e, err) => logError(err, LogPrefix.Frontend))
+addIpcListener('logError', (e, err) => logError(err, LogPrefix.Frontend))
 
-ipcMain.on('logInfo', (e, info) => logInfo(info, LogPrefix.Frontend))
+addIpcListener('logInfo', (e, info) => logInfo(info, LogPrefix.Frontend))
 
 let powerDisplayId: number | null
 
 // get pid/tid on launch and inject
-ipcMain.handle(
+addIpcHandler(
   'launch',
   async (
     event,
@@ -1138,7 +1100,7 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle('openDialog', async (e, args) => {
+addIpcHandler('openDialog', async (e, args) => {
   const mainWindow = getMainWindow()
   if (!mainWindow) {
     return false
@@ -1151,9 +1113,57 @@ ipcMain.handle('openDialog', async (e, args) => {
   return false
 })
 
-ipcMain.on('showItemInFolder', async (e, item) => showItemInFolder(item))
+addIpcListener('showItemInFolder', async (e, item) => showItemInFolder(item))
 
-ipcMain.handle(
+addIpcListener('install', async (e, args) => {
+  const dmQueueElement: DMQueueElement = {
+    params: args,
+    type: 'install',
+    addToQueueTime: Date.now(),
+    endTime: 0,
+    startTime: 0
+  }
+
+  await addToQueue(dmQueueElement)
+
+  // Add Dlcs to the queue
+  if (args.installDlcs?.length && args.runner === 'legendary') {
+    for (const dlc of args.installDlcs) {
+      const dlcArgs: InstallParams = {
+        ...args,
+        appName: dlc
+      }
+      const dlcQueueElement: DMQueueElement = {
+        params: dlcArgs,
+        type: 'install',
+        addToQueueTime: Date.now(),
+        endTime: 0,
+        startTime: 0
+      }
+      await addToQueue(dlcQueueElement)
+    }
+  }
+})
+
+addIpcListener('update', (e, args) => {
+  const {
+    gameInfo: {
+      install: { platform, install_path }
+    }
+  } = args
+
+  const dmQueueElement: DMQueueElement = {
+    params: { ...args, path: install_path!, platformToInstall: platform! },
+    type: 'update',
+    addToQueueTime: Date.now(),
+    endTime: 0,
+    startTime: 0
+  }
+
+  addToQueue(dmQueueElement)
+})
+
+addIpcHandler(
   'uninstall',
   async (event, appName, runner, shouldRemovePrefix, shouldRemoveSetting) => {
     sendGameStatusUpdate({
@@ -1220,7 +1230,7 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle('repair', async (event, appName, runner) => {
+addIpcHandler('repair', async (event, appName, runner) => {
   if (!isOnline()) {
     logWarning(
       `App offline, skipping repair for game '${appName}'.`,
@@ -1256,7 +1266,7 @@ ipcMain.handle('repair', async (event, appName, runner) => {
   })
 })
 
-ipcMain.handle(
+addIpcHandler(
   'moveInstall',
   async (event, { appName, path, runner }): Promise<void> => {
     sendGameStatusUpdate({
@@ -1302,7 +1312,7 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle(
+addIpcHandler(
   'importGame',
   async (event, { appName, path, runner, platform }): StatusPromise => {
     const epicOffline = await isEpicServiceOffline()
@@ -1365,83 +1375,32 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle('kill', async (event, appName, runner) => {
+addIpcHandler('kill', async (event, appName, runner) => {
   callAbortController(appName)
   return gameManagerMap[runner].stop(appName)
 })
 
-ipcMain.handle('updateGame', async (event, appName, runner): StatusPromise => {
-  if (!isOnline()) {
-    logWarning(
-      `App offline, skipping install for game '${appName}'.`,
-      LogPrefix.Backend
-    )
-    return { status: 'error' }
-  }
-
-  const epicOffline = await isEpicServiceOffline()
-  if (epicOffline && runner === 'legendary') {
-    showDialogBoxModalAuto({
-      event,
-      title: i18next.t('box.warning.title', 'Warning'),
-      message: i18next.t(
-        'box.warning.epic.update',
-        'Epic Servers are having major outage right now, the game cannot be updated!'
-      ),
-      type: 'ERROR'
-    })
-    return { status: 'error' }
-  }
-
-  const { title } = gameManagerMap[runner].getGameInfo(appName)
-  notify({
-    title,
-    body: i18next.t('notify.update.started', 'Update Started')
-  })
-
-  let status: 'done' | 'error' | 'abort' = 'error'
-  try {
-    status = (await gameManagerMap[runner].update(appName)).status
-  } catch (error) {
-    logError(error, LogPrefix.Backend)
-    notify({ title, body: i18next.t('notify.update.canceled') })
-    return { status: 'error' }
-  }
-  notify({
-    title,
-    body:
-      status === 'done'
-        ? i18next.t('notify.update.finished')
-        : i18next.t('notify.update.canceled')
-  })
-  logInfo('finished updating', LogPrefix.Backend)
-  return { status }
+addIpcHandler('changeInstallPath', async (event, { appName, path, runner }) => {
+  await libraryManagerMap[runner].changeGameInstallPath(appName, path)
+  logInfo(
+    `Finished changing install path of ${appName} to ${path}.`,
+    LogPrefix.Backend
+  )
 })
 
-ipcMain.handle(
-  'changeInstallPath',
-  async (event, { appName, path, runner }) => {
-    await libraryManagerMap[runner].changeGameInstallPath(appName, path)
-    logInfo(
-      `Finished changing install path of ${appName} to ${path}.`,
-      LogPrefix.Backend
-    )
-  }
-)
-
-ipcMain.handle('egsSync', async (event, args) => {
+addIpcHandler('egsSync', async (event, args) => {
   return LegendaryLibraryManager.toggleGamesSync(args)
 })
 
-ipcMain.handle('syncGOGSaves', async (event, gogSaves, appName, arg) =>
+addIpcHandler('syncGOGSaves', async (event, gogSaves, appName, arg) =>
   gameManagerMap['gog'].syncSaves(appName, arg, '', gogSaves)
 )
 
-ipcMain.handle('getLaunchOptions', async (event, appName, runner) =>
+addIpcHandler('getLaunchOptions', async (event, appName, runner) =>
   libraryManagerMap[runner].getLaunchOptions(appName)
 )
 
-ipcMain.handle(
+addIpcHandler(
   'syncSaves',
   async (event, { arg = '', path, appName, runner }) => {
     if (runner === 'legendary') {
@@ -1465,14 +1424,14 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle(
+addIpcHandler(
   'getDefaultSavePath',
-  async (event, appName, runner, alreadyDefinedGogSaves) =>
+  async (event, appName, runner, alreadyDefinedGogSaves = []) =>
     getDefaultSavePath(appName, runner, alreadyDefinedGogSaves)
 )
 
 // Simulate keyboard and mouse actions as if the real input device is used
-ipcMain.handle('gamepadAction', async (event, args) => {
+addIpcHandler('gamepadAction', async (event, args) => {
   // we can only receive gamepad events if the main window exists
   const mainWindow = getMainWindow()!
 
@@ -1570,7 +1529,7 @@ ipcMain.handle('gamepadAction', async (event, args) => {
   }
 })
 
-ipcMain.handle('getFonts', async (event, reload) => {
+addIpcHandler('getFonts', async (event, reload) => {
   let cachedFonts = fontsStore.get('fonts', [])
   if (cachedFonts.length === 0 || reload) {
     cachedFonts = await getFonts()
@@ -1580,13 +1539,13 @@ ipcMain.handle('getFonts', async (event, reload) => {
   return cachedFonts
 })
 
-ipcMain.handle('getShellPath', async (event, path) => getShellPath(path))
+addIpcHandler('getShellPath', async (event, path) => getShellPath(path))
 
-ipcMain.handle('clipboardReadText', () => clipboard.readText())
+addIpcHandler('clipboardReadText', () => clipboard.readText())
 
-ipcMain.on('clipboardWriteText', (e, text) => clipboard.writeText(text))
+addIpcListener('clipboardWriteText', (e, text) => clipboard.writeText(text))
 
-ipcMain.handle('getCustomThemes', async () => {
+addIpcHandler('getCustomThemes', async () => {
   const { customThemesPath } = GlobalConfig.get().getSettings()
 
   if (!existsSync(customThemesPath)) {
@@ -1598,7 +1557,7 @@ ipcMain.handle('getCustomThemes', async () => {
   )
 })
 
-ipcMain.handle('getThemeCSS', async (event, theme) => {
+addIpcHandler('getThemeCSS', async (event, theme) => {
   const { customThemesPath = '' } = GlobalConfig.get().getSettings()
 
   const cssPath = path.join(customThemesPath, theme)
@@ -1610,7 +1569,7 @@ ipcMain.handle('getThemeCSS', async (event, theme) => {
   return readFileSync(cssPath, 'utf-8')
 })
 
-ipcMain.on('setTitleBarOverlay', (e, args) => {
+addIpcListener('setTitleBarOverlay', (e, args) => {
   const mainWindow = getMainWindow()
   if (typeof mainWindow?.['setTitleBarOverlay'] === 'function') {
     logDebug(`Setting titlebar overlay options ${JSON.stringify(args)}`)
@@ -1618,21 +1577,17 @@ ipcMain.on('setTitleBarOverlay', (e, args) => {
   }
 })
 
-ipcMain.on('addNewApp', (e, args) => addNewApp(args))
+addIpcListener('addNewApp', (e, args) => addNewApp(args))
 
-ipcMain.handle('removeApp', async (e, args) => {
-  gameManagerMap[args.runner].uninstall(args)
-})
-
-ipcMain.handle('isNative', (e, { appName, runner }) => {
+addIpcHandler('isNative', (e, { appName, runner }) => {
   return gameManagerMap[runner].isNative(appName)
 })
 
-ipcMain.handle('pathExists', async (e, path: string) => {
+addIpcHandler('pathExists', async (e, path: string) => {
   return existsSync(path)
 })
 
-ipcMain.on('processShortcut', async (e, combination: string) => {
+addIpcListener('processShortcut', async (e, combination: string) => {
   const mainWindow = getMainWindow()
 
   switch (combination) {
@@ -1662,7 +1617,7 @@ ipcMain.on('processShortcut', async (e, combination: string) => {
   }
 })
 
-ipcMain.handle(
+addIpcHandler(
   'getPlaytimeFromRunner',
   async (e, runner, appName): Promise<number | undefined> => {
     const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
@@ -1677,21 +1632,24 @@ ipcMain.handle(
   }
 )
 
-ipcMain.handle('getPrivateBranchPassword', (e, appName) =>
+addIpcHandler('getPrivateBranchPassword', (e, appName) =>
   getBranchPassword(appName)
 )
-ipcMain.handle('setPrivateBranchPassword', (e, appName, password) =>
+addIpcHandler('setPrivateBranchPassword', (e, appName, password) =>
   setBranchPassword(appName, password)
 )
 
-ipcMain.handle('getAvailableCyberpunkMods', async () => getCyberpunkMods())
-ipcMain.handle('setCyberpunkModConfig', async (e, props) =>
+addIpcHandler('getAvailableCyberpunkMods', async () => getCyberpunkMods())
+addIpcHandler('setCyberpunkModConfig', async (e, props) =>
   GOGLibraryManager.setCyberpunkModConfig(props)
 )
 
-ipcMain.on('changeGameVersionPinnedStatus', (e, appName, runner, status) => {
-  libraryManagerMap[runner].changeVersionPinnedStatus(appName, status)
-})
+addIpcListener(
+  'changeGameVersionPinnedStatus',
+  (e, appName, runner, status) => {
+    libraryManagerMap[runner].changeVersionPinnedStatus(appName, status)
+  }
+)
 
 /*
   Other Keys that should go into translation files:
@@ -1714,9 +1672,3 @@ import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
 import './tools/ipc_handler'
 import './progress_bar'
-import {
-  getDiskInfo,
-  isAccessibleWithinFlatpakSandbox,
-  isWritable
-} from './utils/filesystem'
-import { Path } from './schemas'

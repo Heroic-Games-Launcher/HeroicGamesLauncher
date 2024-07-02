@@ -2,39 +2,17 @@ import { AppSettings, WindowProps } from 'common/types'
 import { BrowserWindow, screen } from 'electron'
 import path from 'path'
 import { configStore } from './constants'
-import type { FrontendMessages } from 'common/types/frontend_messages'
 
 let mainWindow: BrowserWindow | null = null
 
 export const getMainWindow = () => {
-  return mainWindow
+  return mainWindow ?? BrowserWindow.getAllWindows().at(0)
 }
 
 let windowProps: WindowProps | null = null
 
 export const isFrameless = () => {
   return windowProps?.frame === false || windowProps?.titleBarStyle === 'hidden'
-}
-
-// send a message to the main window's webContents if available
-// returns `false` if no mainWindow or no webContents
-// returns `true` if the message was sent to the webContents
-export const sendFrontendMessage = <MessageName extends keyof FrontendMessages>(
-  message: MessageName,
-  ...payload: Parameters<FrontendMessages[MessageName]>
-) => {
-  // get the first BrowserWindow if for some reason we don't have a webContents
-  if (!mainWindow?.webContents) {
-    mainWindow = BrowserWindow.getAllWindows()[0]
-  }
-
-  // return false if we still don't have a webContents
-  if (!mainWindow?.webContents) {
-    return false
-  }
-
-  mainWindow.webContents.send(message, ...payload)
-  return true
 }
 
 // creates the mainWindow based on the configuration

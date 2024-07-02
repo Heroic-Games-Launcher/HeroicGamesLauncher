@@ -1,4 +1,5 @@
-import { BrowserWindow, ipcMain, Menu, nativeImage, Tray } from 'electron'
+import { BrowserWindow, Menu, nativeImage, Tray } from 'electron'
+import { addListener } from 'common/ipc/backend'
 import i18next from 'i18next'
 import { RecentGame } from 'common/types'
 import { logInfo, LogPrefix } from '../logger/logger'
@@ -30,11 +31,11 @@ export const initTrayIcon = async (mainWindow: BrowserWindow) => {
     mainWindow.show()
   })
 
-  ipcMain.on('changeLanguage', async () => {
+  addListener('changeLanguage', async () => {
     await loadContextMenu()
   })
 
-  ipcMain.on('changeTrayColor', () => {
+  addListener('changeTrayColor', () => {
     logInfo('Changing Tray icon Color...', LogPrefix.Backend)
     setTimeout(async () => {
       appIcon.setImage(getIcon(process.platform))

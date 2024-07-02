@@ -1,4 +1,5 @@
-import { createMainWindow, sendFrontendMessage } from '../main_window'
+import { createMainWindow } from '../main_window'
+import { sendFrontendMessage } from 'common/ipc/backend'
 import { BrowserWindow, Display, screen } from 'electron'
 import { configStore } from '../constants'
 import { overrideProcessPlatform } from './constants.test'

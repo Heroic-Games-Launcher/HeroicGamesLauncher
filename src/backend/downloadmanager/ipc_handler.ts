@@ -1,4 +1,4 @@
-import { ipcMain } from 'electron'
+import { addListener, addHandler } from 'common/ipc/backend'
 import {
   addToQueue,
   cancelCurrentDownload,
@@ -8,24 +8,24 @@ import {
   resumeCurrentDownload
 } from './downloadqueue'
 
-ipcMain.handle('addToDMQueue', async (e, element) => {
+addHandler('addToDMQueue', async (e, element) => {
   await addToQueue(element)
 })
 
-ipcMain.on('removeFromDMQueue', (e, appName) => {
+addListener('removeFromDMQueue', (e, appName) => {
   removeFromQueue(appName)
 })
 
-ipcMain.on('resumeCurrentDownload', () => {
+addListener('resumeCurrentDownload', () => {
   resumeCurrentDownload()
 })
 
-ipcMain.on('pauseCurrentDownload', () => {
+addListener('pauseCurrentDownload', () => {
   pauseCurrentDownload()
 })
 
-ipcMain.on('cancelDownload', (e, removeDownloaded) => {
+addListener('cancelDownload', (e, removeDownloaded) => {
   cancelCurrentDownload({ removeDownloaded })
 })
 
-ipcMain.handle('getDMQueueInformation', getQueueInformation)
+addHandler('getDMQueueInformation', getQueueInformation)
