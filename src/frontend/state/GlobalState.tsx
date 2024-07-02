@@ -207,10 +207,12 @@ class GlobalState extends PureComponent<Props> {
     lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null'),
     settingsModalOpen: { value: false, type: 'settings', gameInfo: undefined },
     helpItems: {},
-    experimentalFeatures: globalSettings?.experimentalFeatures || {
+    experimentalFeatures: {
       enableNewDesign: false,
       enableHelp: false,
-      automaticWinetricksFixes: true
+      automaticWinetricksFixes: true,
+      umuSupport: true,
+      ...(globalSettings?.experimentalFeatures || {})
     },
     disableDialogBackdropClose: configStore.get(
       'disableDialogBackdropClose',

@@ -1,6 +1,7 @@
 import { GlobalConfig } from 'backend/config'
 import {
   configPath,
+  defaultUmuPath,
   getSteamLibraries,
   isMac,
   toolsPath,
@@ -431,6 +432,7 @@ export function getWineFlags(
   wrapper: string
 ): AllowedWineFlags {
   let partialCommand: AllowedWineFlags = {}
+  const umuSupported = isUmuSupported(wineType)
   switch (wineType) {
     case 'wine':
     case 'toolkit':
@@ -441,7 +443,12 @@ export function getWineFlags(
       partialCommand = {
         '--no-wine': true,
         '--wrapper': NonEmptyString.parse(
-          `${wrapper} '${wineBin}' waitforexitandrun`
+          `${wrapper} "${wineBin}" waitforexitandrun`
+        )
+      }
+      if (umuSupported) {
+        partialCommand['--wrapper'] = NonEmptyString.parse(
+          `${wrapper} "${getUmuPath()}"`
         )
       }
       break
@@ -473,4 +480,28 @@ export function getWineFlagsArray(
     else commandArray.push(key, value)
   }
   return commandArray
+}
+
+export function getUmuPath() {
+  //TODO: figure out how to use searchForExecutableOnPath here
+
+  const paths = ['/app/share', '/usr/local/share', '/usr/share', '/opt']
+
+  for (const path of paths) {
+    const fullPath = join(path, 'umu', 'umu_run.py')
+    if (existsSync(fullPath)) {
+      return fullPath
+    }
+  }
+
+  return defaultUmuPath
+}
+
+export function isUmuSupported(wineType: WineInstallation['type']): boolean {
+  return (
+    wineType === 'proton' &&
+    GlobalConfig.get().getSettings().experimentalFeatures?.umuSupport !==
+      false &&
+    existsSync(getUmuPath())
+  )
 }

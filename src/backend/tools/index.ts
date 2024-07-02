@@ -54,6 +54,7 @@ import {
   DAYS,
   downloadFile as downloadFileInet
 } from '../utils/inet/downloader'
+import { getUmuPath, isUmuSupported } from 'backend/utils/compatibility_layers'
 
 interface Tool {
   name: string
@@ -504,10 +505,27 @@ export const Winetricks = {
     if (!(await validWine(wineVersion))) {
       return
     }
-    const winetricks = `${toolsPath}/winetricks`
+
+    let winetricks = `${toolsPath}/winetricks`
+    const gui = args.includes('--gui')
 
     if (!existsSync(winetricks)) {
       await Winetricks.download()
+    }
+
+    if (isUmuSupported(wineVersion.type)) {
+      winetricks = `${getUmuPath()}`
+
+      if (args.includes('-q')) {
+        args.splice(args.indexOf('-q'), 1)
+      }
+
+      if (gui) {
+        args.splice(args.indexOf('--gui'), 1)
+        args.unshift('""')
+      } else {
+        args.unshift('winetricks')
+      }
     }
 
     return new Promise<string[] | null>((resolve) => {
@@ -519,9 +537,13 @@ export const Winetricks = {
       // (e.g. `WINEESYNC=1` vs `PROTON_NO_ESYNC=0`).
       // These settings will be a copy of the normal game settings, but with
       // their wineVersion set to one always of the type `wine`
-      const settingsWithWineVersion = {
+      let settingsWithWineVersion = {
         ...gameSettings,
         wineVersion: alwaysWine_wineVersion
+      }
+
+      if (isUmuSupported(wineVersion.type)) {
+        settingsWithWineVersion = gameSettings
       }
 
       const winepath = dirname(wineBin)
@@ -531,7 +553,9 @@ export const Winetricks = {
         ...setupEnvVars(settingsWithWineVersion),
         ...setupWineEnvVars(settingsWithWineVersion, appName),
         WINEPREFIX: winePrefix,
-        PATH: `${winepath}:${process.env.PATH}`
+        PATH: `${winepath}:${process.env.PATH}`,
+        GAMEID: gui ? 'winetricks-gui' : 'umu-0',
+        PROTON_VERB: 'run'
       }
 
       const wineServer = join(winepath, 'wineserver')
@@ -589,12 +613,7 @@ export const Winetricks = {
         }
       })
 
-      logInfo(
-        `Running WINEPREFIX='${winePrefix}' PATH='${winepath}':$PATH ${winetricks} ${args.join(
-          ' '
-        )}`,
-        LogPrefix.WineTricks
-      )
+      logInfo(`Running ${winetricks} ${args.join(' ')}`, LogPrefix.WineTricks)
 
       const child = spawn(winetricks, args, { env: envs })
 
@@ -648,7 +667,7 @@ export const Winetricks = {
     })
   },
   run: async (runner: Runner, appName: string) => {
-    await Winetricks.runWithArgs(runner, appName, ['--force', '-q'])
+    await Winetricks.runWithArgs(runner, appName, ['-q', '--gui'])
   },
   listAvailable: async (runner: Runner, appName: string) => {
     try {

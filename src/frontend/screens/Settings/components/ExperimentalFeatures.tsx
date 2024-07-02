@@ -13,13 +13,18 @@ const ExperimentalFeatures = () => {
     FEATURES.push('automaticWinetricksFixes')
   }
 
+  if (platform === 'linux') {
+    FEATURES.push('umuSupport')
+  }
+
   const { t } = useTranslation()
   const [experimentalFeatures, setExperimentalFeatures] = useSetting(
     'experimentalFeatures',
     {
       enableNewDesign: false,
       enableHelp: false,
-      automaticWinetricksFixes: true
+      automaticWinetricksFixes: true,
+      umuSupport: true
     }
   )
   const { handleExperimentalFeatures } = useContext(ContextProvider)
@@ -38,6 +43,7 @@ const ExperimentalFeatures = () => {
     t('setting.experimental_features.enableNewDesign', 'New design')
     t('setting.experimental_features.enableHelp', 'Help component')
     t('setting.experimental_features.automaticWinetricksFixes', 'Apply known fixes automatically')
+    t('setting.experimental_features.umuSupport', 'Use UMU as Proton runtime')
   */
 
   return (
