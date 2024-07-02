@@ -114,7 +114,7 @@ const router = createHashRouter([
         lazy: makeLazyFunc(import('./screens/WebView'))
       },
       {
-        path: 'settings/:runner/:appName/:type',
+        path: 'settings/:type',
         lazy: makeLazyFunc(import('./screens/Settings'))
       },
       {

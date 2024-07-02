@@ -188,8 +188,8 @@ export interface SettingsContextType {
   config: Partial<AppSettings>
   isDefault: boolean
   appName: string
-  runner: Runner
-  gameInfo: GameInfo | null
+  runner?: Runner
+  gameInfo?: GameInfo
   isMacNative: boolean
   isLinuxNative: boolean
 }
@@ -270,14 +270,6 @@ export interface GameContextType {
   statusContext?: string
   status: Status | undefined
   wikiInfo: WikiInfo | null
-}
-
-export interface LocationState {
-  fromGameCard: boolean
-  runner: Runner
-  isLinuxNative: boolean
-  isMacNative: boolean
-  gameInfo: GameInfo
 }
 
 export type DMQueue = {

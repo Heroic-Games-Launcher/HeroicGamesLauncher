@@ -1,0 +1,140 @@
+.Sidebar {
+  --sidebar-horizontal-padding: var(--space-md);
+  --sidebar-vertical-padding: var(--space-lg);
+  --sidebar-width: 350px;
+  --sidebar-background: var(--navbar-background);
+  --sidebar-divider-color: var(--divider);
+
+  width: var(--sidebar-width);
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-rows: min-content 2fr min-content min-content;
+  grid-template-areas: 'icon' 'links' 'utils' 'updates' 'version';
+  grid-area: sidebar;
+  padding: 0;
+  font-family: var(--secondary-font-family);
+  text-align: start;
+  background: var(--sidebar-background);
+  overflow: auto;
+  overflow-x: hidden;
+  -webkit-app-region: drag;
+
+  .heroicIcon {
+    grid-area: icon;
+    width: 50px;
+    height: 68px;
+    margin-top: var(--space-xs);
+    justify-self: center;
+  }
+
+  .SidebarLinks {
+    grid-area: links;
+  }
+
+  .heroicVersion {
+    grid-area: version;
+    margin-block: 0 var(--sidebar-vertical-padding);
+    margin-inline: var(--sidebar-horizontal-padding) var(--space-3xs);
+    -webkit-app-region: no-drag;
+  }
+
+  .heroicNewReleases {
+    grid-area: updates;
+    margin-block: 0 var(--space-sm);
+    margin-inline: var(--sidebar-horizontal-padding) var(--space-3xs);
+  }
+
+  .Sidebar__section {
+    -webkit-app-region: no-drag;
+  }
+
+  .currentDownloads {
+    grid-area: utils;
+    margin-block: 0 var(--sidebar-vertical-padding);
+    margin-inline: var(--sidebar-horizontal-padding) var(--space-3xs);
+  }
+
+  .divider {
+    height: 1px;
+    margin: var(--space-3xs) var(--space-xs);
+    background-color: var(--sidebar-divider-color);
+  }
+
+  .resizer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 100%;
+    z-index: 1;
+    cursor: col-resize;
+  }
+
+  &.collapsed {
+    --sidebar-vertical-padding: var(--space-xs);
+    --sidebar-horizontal-padding: var(--space-lg);
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    .currentDownloads {
+      margin-inline: auto;
+    }
+
+    .heroicVersion {
+      margin: var(--space-sm);
+    }
+
+    .divider {
+      margin: var(--space-3xs) 0;
+    }
+
+    .SidebarItemWithSubmenu {
+      &:has(.SidebarSubmenu) {
+        position: relative;
+        z-index: 2;
+      }
+
+      .SidebarSubmenu {
+        display: none;
+      }
+
+      &:hover,
+      &:focus-within {
+        .SidebarSubmenu {
+          display: block;
+          position: fixed;
+          left: var(--sidebar-width);
+          top: 66px;
+          background-color: var(--sidebar-background);
+          padding: var(--space-2xs) 0;
+
+          & span {
+            display: block;
+          }
+
+          &.settings {
+            top: 114px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.isRTL .Sidebar {
+  &.collapsed .SidebarItemWithSubmenu {
+    &:hover,
+    &:focus-within {
+      .SidebarSubmenu {
+        right: var(--sidebar-width);
+        left: auto;
+      }
+    }
+  }
+
+  & .resizer {
+    left: 0;
+    right: auto;
+  }
+}
