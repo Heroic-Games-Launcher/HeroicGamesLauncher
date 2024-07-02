@@ -1,5 +1,4 @@
 import './index.scss'
-import ContextProvider from 'frontend/state/ContextProvider'
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import SettingsContext from '../../SettingsContext'
 import { Box, Button, Divider, IconButton } from '@mui/material'
@@ -11,13 +10,23 @@ import {
   DialogHeader
 } from 'frontend/components/UI/Dialog'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
 const CategorySettings = () => {
   const {
     customCategories,
-    currentCustomCategories,
-    setCurrentCustomCategories
-  } = useContext(ContextProvider)
+    addCustomCategory,
+    removeCustomCategory,
+    addGameToCustomCategory,
+    removeGameFromCustomCategory
+  } = useShallowGlobalState(
+    'customCategories',
+    'addCustomCategory',
+    'removeCustomCategory',
+    'addGameToCustomCategory',
+    'removeGameFromCustomCategory'
+  )
+  const categoriesList = Object.keys(customCategories)
   const { appName, runner } = useContext(SettingsContext)
 
   const [newCategory, setNewCategory] = useState('')
@@ -33,36 +42,36 @@ const CategorySettings = () => {
 
   const updateCategories = () => {
     setAssignedCategories(
-      customCategories
-        .listCategories()
-        .filter((cat) => customCategories.list[cat].includes(appNameWithRunner))
+      categoriesList.filter((cat) =>
+        customCategories[cat].includes(appNameWithRunner)
+      )
     )
   }
 
   useEffect(() => {
     updateCategories()
-  }, [customCategories.list])
+  }, [customCategories])
 
   const isCategorySubmissionDisabled = useMemo(
     () =>
       newCategory.trim().length <= 0 ||
-      customCategories.listCategories().includes(newCategory.trim()),
+      categoriesList.includes(newCategory.trim()),
     [newCategory, customCategories.listCategories]
   )
 
   const handleSubmit = () => {
     const formattedCategory = newCategory.trim()
-    customCategories.addCategory(formattedCategory)
+    addCustomCategory(formattedCategory)
     handleAddGameToCategory(formattedCategory)
     setNewCategory('')
   }
 
   const handleRemoveGameFromCategory = (category: string) => {
-    customCategories.removeFromGame(category, appNameWithRunner)
+    removeGameFromCustomCategory(category, appNameWithRunner)
   }
 
   const handleAddGameToCategory = (category: string) => {
-    customCategories.addToGame(category, appNameWithRunner)
+    addGameToCustomCategory(category, appNameWithRunner)
     updateCategories()
   }
 
@@ -71,12 +80,7 @@ const CategorySettings = () => {
   }
 
   const handleRemoveCategory = (category: string) => {
-    if (
-      currentCustomCategories.length === 1 &&
-      currentCustomCategories[0] === category
-    )
-      setCurrentCustomCategories([])
-    customCategories.removeCategory(category)
+    removeCustomCategory(category)
     updateCategories()
     setCategoryToDelete('')
   }
@@ -151,7 +155,7 @@ const CategorySettings = () => {
           paddingBottom: 4
         }}
       >
-        {customCategories.listCategories().map((category) => (
+        {categoriesList.map((category) => (
           <Box key={category} sx={{ display: 'flex', gap: 2 }}>
             <ToggleSwitch
               title={category}

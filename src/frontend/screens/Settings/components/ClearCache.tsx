@@ -1,11 +1,11 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { InfoBox } from 'frontend/components/UI'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { CleaningServicesOutlined } from '@mui/icons-material'
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
 const ClearCache = () => {
-  const { refreshLibrary } = useContext(ContextProvider)
+  const { refreshLibrary } = useShallowGlobalState('refreshLibrary')
   const { t } = useTranslation()
 
   async function clearHeroicCache() {

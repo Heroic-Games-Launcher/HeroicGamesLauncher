@@ -1,10 +1,10 @@
 import React, { useContext, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { GameInfo } from '../../../../common/types'
 import SearchBar from '../SearchBar'
 import { useTranslation } from 'react-i18next'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
 function fixFilter(text: string) {
   const regex = new RegExp(/([?\\|*|+|(|)|[|]|])+/, 'g')
@@ -18,17 +18,23 @@ const RUNNER_TO_STORE = {
 }
 
 export default function LibrarySearchBar() {
-  const { epic, gog, sideloadedLibrary, amazon } = useContext(ContextProvider)
+  const { epicLibrary, gogLibrary, amazonLibrary, sideloadedLibrary } =
+    useShallowGlobalState(
+      'epicLibrary',
+      'gogLibrary',
+      'amazonLibrary',
+      'sideloadedLibrary'
+    )
   const { handleSearch, filterText } = useContext(LibraryContext)
   const navigate = useNavigate()
   const { t } = useTranslation()
 
   const list = useMemo(() => {
     return [
-      ...(epic.library ?? []),
-      ...(gog.library ?? []),
-      ...(sideloadedLibrary ?? []),
-      ...(amazon.library ?? [])
+      ...epicLibrary,
+      ...Object.values(gogLibrary),
+      ...amazonLibrary,
+      ...sideloadedLibrary
     ]
       .filter(Boolean)
       .filter((el) => {
@@ -38,7 +44,7 @@ export default function LibrarySearchBar() {
         )
       })
       .sort((g1, g2) => (g1.title < g2.title ? -1 : 1))
-  }, [amazon.library, epic.library, gog.library, filterText])
+  }, [epicLibrary, gogLibrary, amazonLibrary, sideloadedLibrary, filterText])
 
   const handleClick = (game: GameInfo) => {
     handleSearch('')

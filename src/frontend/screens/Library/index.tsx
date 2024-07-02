@@ -1,7 +1,6 @@
 import './index.css'
 
 import React, {
-  useContext,
   useEffect,
   useMemo,
   useRef,
@@ -14,11 +13,8 @@ import { Header, UpdateComponent } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 import Fuse from 'fuse.js'
 
-import ContextProvider from 'frontend/state/ContextProvider'
-
 import GamesList from './components/GamesList'
 import { FavouriteGame, GameInfo, HiddenGame, Runner } from 'common/types'
-import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import LibraryHeader from './components/LibraryHeader'
 import {
   amazonCategories,
@@ -27,40 +23,53 @@ import {
   sideloadedCategories
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
-import { InstallModal } from './components'
 import LibraryContext from './LibraryContext'
 import { Category, PlatformsFilters, StoresFilters } from 'frontend/types'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 import EmptyLibraryMessage from './components/EmptyLibrary'
 import CategoriesManager from './components/CategoriesManager'
+import {
+  useGlobalState,
+  useShallowGlobalState
+} from 'frontend/state/GlobalStateV2'
+import { useShallow } from 'zustand/react/shallow'
 
 const storage = window.localStorage
-
-type ModalState = {
-  game: string
-  show: boolean
-  runner: Runner
-  gameInfo: GameInfo | null
-}
 
 export default React.memo(function Library(): JSX.Element {
   const { t } = useTranslation()
 
   const {
-    libraryStatus,
-    refreshing,
-    refreshingInTheBackground,
-    epic,
-    gog,
-    amazon,
-    sideloadedLibrary,
-    favouriteGames,
     libraryTopSection,
-    platform,
+    favouriteGames,
+    hiddenGames,
     currentCustomCategories,
     customCategories,
-    hiddenGames
-  } = useContext(ContextProvider)
+    refreshingInTheBackground,
+    refreshing,
+    epicLibrary,
+    epicUsername,
+    gogLibrary,
+    gogUsername,
+    amazonLibrary,
+    amazonUserId,
+    sideloadedLibrary
+  } = useShallowGlobalState(
+    'libraryTopSection',
+    'favouriteGames',
+    'hiddenGames',
+    'currentCustomCategories',
+    'customCategories',
+    'refreshingInTheBackground',
+    'refreshing',
+    'epicLibrary',
+    'epicUsername',
+    'gogLibrary',
+    'gogUsername',
+    'amazonLibrary',
+    'amazonUserId',
+    'sideloadedLibrary'
+  )
 
   hasHelp(
     'library',
@@ -180,12 +189,6 @@ export default React.memo(function Library(): JSX.Element {
 
   const [showCategories, setShowCategories] = useState(false)
 
-  const [showModal, setShowModal] = useState<ModalState>({
-    game: '',
-    show: false,
-    runner: 'legendary',
-    gameInfo: null
-  })
   const [sortDescending, setSortDescending] = useState(
     JSON.parse(storage?.getItem('sortDescending') || 'false')
   )
@@ -245,16 +248,23 @@ export default React.memo(function Library(): JSX.Element {
     runner: Runner,
     gameInfo: GameInfo | null
   ) {
-    setShowModal({ game: appName, show: true, runner, gameInfo })
+    useGlobalState.setState({
+      installModalOptions: {
+        show: true,
+        gameInfo,
+        appName,
+        runner
+      }
+    })
   }
 
   // cache list of games being installed
-  const installing = useMemo(
-    () =>
-      libraryStatus
+  const installing = useGlobalState(
+    useShallow((state) =>
+      Object.values(state.libraryStatus)
         .filter((st) => st.status === 'installing')
-        .map((st) => st.appName),
-    [libraryStatus]
+        .map((st) => st.appName)
+    )
   )
 
   const filterByPlatform = (library: GameInfo[]) => {
@@ -313,14 +323,14 @@ export default React.memo(function Library(): JSX.Element {
 
   const favouriteGamesList = useMemo(() => {
     if (showHidden) {
-      return favouriteGames.list
+      return favouriteGames
     }
 
-    const hiddenAppNames = hiddenGames.list.map(
+    const hiddenAppNames = hiddenGames.map(
       (hidden: HiddenGame) => hidden.appName
     )
 
-    return favouriteGames.list.filter(
+    return favouriteGames.filter(
       (game) => !hiddenAppNames.includes(game.appName)
     )
   }, [favouriteGames, showHidden, hiddenGames])
@@ -334,16 +344,16 @@ export default React.memo(function Library(): JSX.Element {
       const favouriteAppNames = favouriteGamesList.map(
         (favourite: FavouriteGame) => favourite.appName
       )
-      epic.library.forEach((game) => {
+      epicLibrary.forEach((game) => {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
-      gog.library.forEach((game) => {
+      Object.values(gogLibrary).forEach((game) => {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
       sideloadedLibrary.forEach((game) => {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
-      amazon.library.forEach((game) => {
+      amazonLibrary.forEach((game) => {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
     }
@@ -356,9 +366,10 @@ export default React.memo(function Library(): JSX.Element {
     showFavourites,
     showFavouritesLibrary,
     favouriteGamesList,
-    epic,
-    gog,
-    amazon
+    epicLibrary,
+    gogLibrary,
+    amazonLibrary,
+    sideloadedLibrary
   ])
 
   const favouritesIds = useMemo(() => {
@@ -367,13 +378,13 @@ export default React.memo(function Library(): JSX.Element {
 
   const makeLibrary = () => {
     let displayedStores: string[] = []
-    if (storesFilters['gog'] && gog.username) {
+    if (storesFilters['gog'] && gogUsername) {
       displayedStores.push('gog')
     }
-    if (storesFilters['legendary'] && epic.username) {
+    if (storesFilters['legendary'] && epicUsername) {
       displayedStores.push('legendary')
     }
-    if (storesFilters['nile'] && amazon.username) {
+    if (storesFilters['nile'] && amazonUserId) {
       displayedStores.push('nile')
     }
     if (storesFilters['sideload']) {
@@ -384,17 +395,12 @@ export default React.memo(function Library(): JSX.Element {
       displayedStores = Object.keys(storesFilters)
     }
 
-    const showEpic = epic.username && displayedStores.includes('legendary')
-    const showGog = gog.username && displayedStores.includes('gog')
-    const showAmazon = amazon.user_id && displayedStores.includes('nile')
-    const showSideloaded = displayedStores.includes('sideload')
-
-    const epicLibrary = showEpic ? epic.library : []
-    const gogLibrary = showGog ? gog.library : []
-    const sideloadedApps = showSideloaded ? sideloadedLibrary : []
-    const amazonLibrary = showAmazon ? amazon.library : []
-
-    return [...sideloadedApps, ...epicLibrary, ...gogLibrary, ...amazonLibrary]
+    return [
+      ...epicLibrary,
+      ...Object.values(gogLibrary),
+      ...amazonLibrary,
+      ...sideloadedLibrary
+    ].filter(({ runner }) => displayedStores.includes(runner))
   }
 
   // select library
@@ -415,7 +421,7 @@ export default React.memo(function Library(): JSX.Element {
             // in the case of the special "uncategorized" category, we read all
             // the categorized games and add the others to the list to show
             const categorizedGames = Array.from(
-              new Set(Object.values(customCategories.list).flat())
+              new Set(Object.values(customCategories).flat())
             )
 
             library.forEach((game) => {
@@ -426,7 +432,7 @@ export default React.memo(function Library(): JSX.Element {
               }
             })
           } else {
-            const gamesInCustomCategory = customCategories.list[category]
+            const gamesInCustomCategory = customCategories[category]
 
             if (gamesInCustomCategory) {
               gamesInCustomCategory.forEach((game) => {
@@ -492,9 +498,7 @@ export default React.memo(function Library(): JSX.Element {
     }
 
     // hide hidden
-    const hiddenGamesAppNames = hiddenGames.list.map(
-      (hidden: HiddenGame) => hidden?.appName
-    )
+    const hiddenGamesAppNames = hiddenGames.map((hidden) => hidden?.appName)
 
     if (!showHidden) {
       library = library.filter(
@@ -526,9 +530,9 @@ export default React.memo(function Library(): JSX.Element {
   }, [
     storesFilters,
     platformsFilters,
-    epic.library,
-    gog.library,
-    amazon.library,
+    epicLibrary,
+    gogLibrary,
+    amazonLibrary,
     filterText,
     installing,
     sortDescending,
@@ -539,7 +543,9 @@ export default React.memo(function Library(): JSX.Element {
     showInstalledOnly,
     showNonAvailable,
     showSupportOfflineOnly,
-    showThirdPartyManagedOnly
+    showThirdPartyManagedOnly,
+    currentCustomCategories,
+    customCategories
   ])
 
   // we need this to do proper `position: sticky` of the Add Game area
@@ -576,17 +582,6 @@ export default React.memo(function Library(): JSX.Element {
       window.removeEventListener('resize', setHeaderHightCSS)
     }
   }, [])
-
-  if (!epic && !gog && !amazon) {
-    return (
-      <ErrorComponent
-        message={t(
-          'generic.error.component',
-          'No Games found - Try to logout and login again or one of the options bellow'
-        )}
-      />
-    )
-  }
 
   return (
     <LibraryContext.Provider
@@ -662,22 +657,6 @@ export default React.memo(function Library(): JSX.Element {
       <button id="backToTopBtn" onClick={backToTop} ref={backToTopElement}>
         <ArrowDropUp id="backToTopArrow" className="material-icons" />
       </button>
-
-      {showModal.show && (
-        <InstallModal
-          appName={showModal.game}
-          runner={showModal.runner}
-          gameInfo={showModal.gameInfo}
-          backdropClick={() =>
-            setShowModal({
-              game: '',
-              show: false,
-              runner: 'legendary',
-              gameInfo: null
-            })
-          }
-        />
-      )}
 
       {showCategories && <CategoriesManager />}
     </LibraryContext.Provider>

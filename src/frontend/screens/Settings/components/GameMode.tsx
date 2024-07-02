@@ -1,14 +1,13 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import { useGlobalState } from 'frontend/state/GlobalStateV2'
 
 const GameMode = () => {
   const { t } = useTranslation()
-  const { platform, showDialogModal } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
   const [useGameMode, setUseGameMode] = useSetting('useGameMode', false)
   const [eacRuntime, setEacRuntime] = useSetting('eacRuntime', false)
@@ -21,7 +20,7 @@ const GameMode = () => {
     if (useGameMode && eacRuntime) {
       const isFlatpak = await window.api.isFlatpak()
       if (isFlatpak) {
-        showDialogModal({
+        const eacWarning = {
           showDialog: true,
           title: t(
             'settings.gameMode.eacRuntimeEnabled.title',
@@ -40,7 +39,8 @@ const GameMode = () => {
             },
             { text: t('box.no') }
           ]
-        })
+        }
+        useGlobalState.setState({ dialogModalOptions: eacWarning })
       }
     }
     setUseGameMode(!useGameMode)

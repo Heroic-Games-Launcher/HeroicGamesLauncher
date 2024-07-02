@@ -1,5 +1,4 @@
 import {
-  GameInfo,
   InstallProgress,
   Runner,
   GameSettings,
@@ -9,12 +8,8 @@ import {
 
 import { install, launch, repair, updateGame } from './library'
 import * as fileSize from 'filesize'
-const readFile = window.api.readConfig
 
 const writeConfig = window.api.writeConfig
-
-const notify = (args: { title: string; body: string }) =>
-  window.api.notify(args)
 
 const loginPage = window.api.openLoginPage
 
@@ -41,21 +36,6 @@ const syncSaves = async (
     runner
   })
   return response
-}
-
-const getLegendaryConfig = async (): Promise<{
-  library: GameInfo[]
-  user: string
-}> => {
-  // TODO: I'd say we should refactor this to be two different IPC calls, makes type annotations easier
-  const library: GameInfo[] = (await readFile('library')) as GameInfo[]
-  const user: string = (await readFile('user')) as string
-
-  if (!user) {
-    return { library: [], user: '' }
-  }
-
-  return { library, user }
 }
 
 const getGameInfo = async (appName: string, runner: Runner) => {
@@ -160,13 +140,11 @@ export {
   getGameInfo,
   getGameSettings,
   getInstallInfo,
-  getLegendaryConfig,
   getProgress,
   handleQuit,
   install,
   launch,
   loginPage,
-  notify,
   openDiscordLink,
   repair,
   sendKill,

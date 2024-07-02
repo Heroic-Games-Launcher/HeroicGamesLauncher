@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
 import { InfoBox, PathSelectionBox } from 'frontend/components/UI'
 import SettingsContext from '../SettingsContext'
@@ -8,7 +7,6 @@ import { defaultWineVersion } from '..'
 
 const WinePrefix = () => {
   const { t } = useTranslation()
-  const { platform } = useContext(ContextProvider)
   const { getSetting } = useContext(SettingsContext)
   const wineVersion = getSetting('wineVersion', defaultWineVersion)
 

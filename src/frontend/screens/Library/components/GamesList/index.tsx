@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { GameInfo, Runner } from 'common/types'
 import cx from 'classnames'
 import GameCard from '../GameCard'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
 interface Props {
   library: GameInfo[]
@@ -49,11 +49,14 @@ const GamesList = ({
   isRecent = false,
   isFavourite = false
 }: Props): JSX.Element => {
-  const { gameUpdates, allTilesInColor, titlesAlwaysVisible } =
-    useContext(ContextProvider)
   const { t } = useTranslation()
   const listRef = useRef<HTMLDivElement | null>(null)
-  const { activeController } = useContext(ContextProvider)
+  const { activeController, allTilesInColor, titlesAlwaysVisible } =
+    useShallowGlobalState(
+      'activeController',
+      'allTilesInColor',
+      'titlesAlwaysVisible'
+    )
 
   useEffect(() => {
     if (library.length) {
@@ -148,12 +151,9 @@ const GamesList = ({
           if (!is_installed && onlyInstalled) {
             return null
           }
-
-          const hasUpdate = is_installed && gameUpdates?.includes(app_name)
           return (
             <GameCard
               key={`${runner}_${app_name}${isFirstLane ? '_firstlane' : ''}`}
-              hasUpdate={hasUpdate}
               buttonClick={() => {
                 if (gameInfo.runner !== 'sideload')
                   handleGameCardClick(app_name, runner, gameInfo)

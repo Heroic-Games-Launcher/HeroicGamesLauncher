@@ -1,19 +1,25 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { Dialog, DialogContent, DialogFooter } from '../Dialog'
-import ContextProvider from '../../../state/ContextProvider'
 import ToggleSwitch from '../ToggleSwitch'
 import { useTranslation } from 'react-i18next'
+import {
+  useGlobalState,
+  useShallowGlobalState
+} from 'frontend/state/GlobalStateV2'
 
 export const SHOW_EXTERNAL_LINK_DIALOG_STORAGE_KEY = 'show_external_link_dialog'
 
 export default function ExternalLinkDialog() {
   const { t } = useTranslation()
   const [showDialog, setShowDialog] = useState(false)
-  const { externalLinkDialogOptions, handleExternalLinkDialog } =
-    useContext(ContextProvider)
+  const { externalLinkDialogOptions } = useShallowGlobalState(
+    'externalLinkDialogOptions'
+  )
 
   function onClose() {
-    handleExternalLinkDialog({ showDialog: false, linkCallback: undefined })
+    useGlobalState.setState({
+      externalLinkDialogOptions: { showDialog: false, linkCallback: undefined }
+    })
   }
 
   function onContinue() {

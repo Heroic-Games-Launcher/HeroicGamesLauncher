@@ -1,7 +1,8 @@
-import React, { ChangeEvent, ReactNode, useContext } from 'react'
+import React, { ChangeEvent, ReactNode } from 'react'
 import classnames from 'classnames'
-import ContextProvider from 'frontend/state/ContextProvider'
 import './index.css'
+import { useGlobalState } from 'frontend/state/GlobalStateV2'
+import { useShallow } from 'zustand/react/shallow'
 
 interface SelectFieldProps {
   htmlId: string
@@ -26,7 +27,7 @@ const SelectField = ({
   afterSelect,
   children
 }: SelectFieldProps) => {
-  const { isRTL } = useContext(ContextProvider)
+  const isRTL = useGlobalState(useShallow((state) => state.isRTL))
 
   return (
     <div

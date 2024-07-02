@@ -27,7 +27,6 @@ import {
   sendKill
 } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { updateGame } from 'frontend/helpers/library'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
 import ContextMenu, { Item } from '../ContextMenu'
@@ -41,10 +40,14 @@ import { getCardStatus, getImageFormatting } from './constants'
 import { hasStatus } from 'frontend/hooks/hasStatus'
 import fallBackImage from 'frontend/assets/heroic_card.jpg'
 import LibraryContext from '../../LibraryContext'
+import {
+  useGlobalState,
+  useShallowGlobalState
+} from 'frontend/state/GlobalStateV2'
+import { useShallow } from 'zustand/react/shallow'
 
 interface Card {
   buttonClick: () => void
-  hasUpdate: boolean
   isRecent: boolean
   justPlayed: boolean
   gameInfo: GameInfo
@@ -54,7 +57,6 @@ interface Card {
 const storage: Storage = window.localStorage
 
 const GameCard = ({
-  hasUpdate,
   buttonClick,
   forceCard,
   isRecent = false,
@@ -83,18 +85,34 @@ const GameCard = ({
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [isLaunching, setIsLaunching] = useState(false)
 
+  const hasUpdate = useGlobalState(
+    useShallow((state) => state.gameUpdates.includes(gameInfo.app_name))
+  )
+
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
 
   const navigate = useNavigate()
 
   const {
-    hiddenGames,
-    favouriteGames,
-    showDialogModal,
     setIsSettingsModalOpen,
+    favouriteGames,
+    addFavouriteGame,
+    removeFavouriteGame,
+    hiddenGames,
+    addHiddenGame,
+    removeHiddenGame,
     activeController
-  } = useContext(ContextProvider)
+  } = useShallowGlobalState(
+    'setIsSettingsModalOpen',
+    'favouriteGames',
+    'addFavouriteGame',
+    'removeFavouriteGame',
+    'hiddenGames',
+    'addHiddenGame',
+    'removeHiddenGame',
+    'activeController'
+  )
 
   const { layout } = useContext(LibraryContext)
 
@@ -155,7 +173,7 @@ const GameCard = ({
     : '100%'
 
   const handleRemoveFromQueue = () => {
-    window.api.removeFromDMQueue(appName)
+    window.api.removeFromDMQueue(appName, runner)
   }
 
   const renderIcon = () => {
@@ -252,13 +270,13 @@ const GameCard = ({
   }
 
   const isHiddenGame = useMemo(() => {
-    return !!hiddenGames.list.find(
+    return !!hiddenGames.find(
       (hiddenGame: HiddenGame) => hiddenGame.appName === appName
     )
   }, [hiddenGames, appName])
 
   const isFavouriteGame = useMemo(() => {
-    return !!favouriteGames.list.find(
+    return !!favouriteGames.find(
       (favouriteGame: FavouriteGame) => favouriteGame.appName === appName
     )
   }, [favouriteGames, appName])
@@ -314,39 +332,42 @@ const GameCard = ({
     {
       // settings
       label: t('submenu.settings', 'Settings'),
-      onclick: () => setIsSettingsModalOpen(true, 'settings', gameInfo),
+      onclick: () =>
+        setIsSettingsModalOpen({ value: true, type: 'settings', gameInfo }),
       show: isInstalled && !isUninstalling && !isBrowserGame
     },
     {
       label: t('submenu.logs', 'Logs'),
-      onclick: () => setIsSettingsModalOpen(true, 'log', gameInfo),
+      onclick: () =>
+        setIsSettingsModalOpen({ value: true, type: 'log', gameInfo }),
       show: isInstalled && !isUninstalling && !isBrowserGame
     },
     {
       // hide
       label: t('button.hide_game', 'Hide Game'),
-      onclick: () => hiddenGames.add(appName, title),
+      onclick: () => addHiddenGame({ appName, title }),
       show: !isHiddenGame
     },
     {
       // unhide
       label: t('button.unhide_game', 'Unhide Game'),
-      onclick: () => hiddenGames.remove(appName),
+      onclick: () => removeHiddenGame(appName),
       show: isHiddenGame
     },
     {
       label: t('button.add_to_favourites', 'Add To Favourites'),
-      onclick: () => favouriteGames.add(appName, title),
+      onclick: () => addFavouriteGame({ appName, title }),
       show: !isFavouriteGame
     },
     {
       label: t('submenu.categories', 'Categories'),
-      onclick: () => setIsSettingsModalOpen(true, 'category', gameInfo),
+      onclick: () =>
+        setIsSettingsModalOpen({ value: true, type: 'category', gameInfo }),
       show: true
     },
     {
       label: t('button.remove_from_favourites', 'Remove From Favourites'),
-      onclick: () => favouriteGames.remove(appName),
+      onclick: () => removeFavouriteGame(appName),
       show: isFavouriteGame
     },
     {
@@ -474,7 +495,11 @@ const GameCard = ({
                     title={`${t('submenu.settings')} (${title})`}
                     className="settingsIcon"
                     onClick={() =>
-                      setIsSettingsModalOpen(true, 'settings', gameInfo)
+                      setIsSettingsModalOpen({
+                        value: true,
+                        type: 'settings',
+                        gameInfo
+                      })
                     }
                   >
                     <SettingsIcon />
@@ -496,9 +521,7 @@ const GameCard = ({
         installPath: folder || 'default',
         isInstalling,
         previousProgress,
-        progress,
-        t,
-        showDialogModal
+        progress
       })
     }
 
@@ -508,17 +531,15 @@ const GameCard = ({
 
     if (isQueued) {
       storage.removeItem(appName)
-      return window.api.removeFromDMQueue(appName)
+      return window.api.removeFromDMQueue(appName, runner)
     }
 
     if (isInstalled) {
       setIsLaunching(true)
       return launch({
         appName,
-        t,
         runner,
-        hasUpdate,
-        showDialogModal
+        hasUpdate
       })
     }
     return

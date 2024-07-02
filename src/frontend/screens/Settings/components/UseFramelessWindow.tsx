@@ -1,12 +1,12 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
-import ContextProvider from 'frontend/state/ContextProvider'
+import { useGlobalState } from 'frontend/state/GlobalStateV2'
+import { DialogModalOptions } from 'frontend/types'
 
 const UseFramelessWindow = () => {
   const { t } = useTranslation()
-  const { showDialogModal } = useContext(ContextProvider)
   const [framelessWindow, setFramelessWindow] = useSetting(
     'framelessWindow',
     false
@@ -18,7 +18,8 @@ const UseFramelessWindow = () => {
 
   async function toggleFramelessWindow() {
     if (!framelessWindow) {
-      showDialogModal({
+      const experimentalWarning: DialogModalOptions = {
+        showDialog: true,
         title: t(
           'setting.frameless-window.confirmation.title',
           'Experimental feature ahead'
@@ -37,7 +38,8 @@ const UseFramelessWindow = () => {
           }
         ],
         type: 'MESSAGE'
-      })
+      }
+      useGlobalState.setState({ dialogModalOptions: experimentalWarning })
       return
     }
     setFramelessWindow(!framelessWindow)

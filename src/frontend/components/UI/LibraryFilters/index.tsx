@@ -3,7 +3,7 @@ import ToggleSwitch from '../ToggleSwitch'
 import { useTranslation } from 'react-i18next'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
 import { Category } from 'frontend/types'
-import ContextProvider from 'frontend/state/ContextProvider'
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 import './index.css'
 
 const RunnerToStore = {
@@ -15,7 +15,11 @@ const RunnerToStore = {
 
 export default function LibraryFilters() {
   const { t } = useTranslation()
-  const { platform, epic, gog, amazon } = useContext(ContextProvider)
+  const { epicUsername, gogUsername, amazonUserId } = useShallowGlobalState(
+    'epicUsername',
+    'gogUsername',
+    'amazonUserId'
+  )
   const {
     setShowFavourites,
     setShowHidden,
@@ -163,9 +167,9 @@ export default function LibraryFilters() {
     <div className="libraryFilters">
       <button className="selectStyle">{t('header.filters', 'Filters')}</button>
       <div className="dropdown">
-        {epic.username && storeToggle('legendary')}
-        {gog.username && storeToggle('gog')}
-        {amazon.user_id && storeToggle('nile')}
+        {epicUsername && storeToggle('legendary')}
+        {gogUsername && storeToggle('gog')}
+        {amazonUserId && storeToggle('nile')}
         {storeToggle('sideload')}
 
         <hr />

@@ -11,15 +11,18 @@ import { faHardDrive as hardDriveLight } from '@fortawesome/free-regular-svg-ico
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import ContextProvider from 'frontend/state/ContextProvider'
 import FormControl from '../FormControl'
 import './index.css'
 import classNames from 'classnames'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
 export default React.memo(function ActionIcons() {
   const { t } = useTranslation()
-  const { refreshLibrary, refreshing } = useContext(ContextProvider)
+  const { refreshing, refreshLibrary } = useShallowGlobalState(
+    'refreshing',
+    'refreshLibrary'
+  )
 
   const {
     handleLayout,

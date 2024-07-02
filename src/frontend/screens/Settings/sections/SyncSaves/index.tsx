@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import useSetting from 'frontend/hooks/useSetting'
-import ContextProvider from 'frontend/state/ContextProvider'
 import SettingsContext from '../../SettingsContext'
 import { defaultWineVersion } from '../..'
 import GOGSyncSaves from './gog'
@@ -10,7 +9,6 @@ import LegendarySyncSaves from './legendary'
 const SyncSaves = () => {
   const { t } = useTranslation()
   const { runner } = useContext(SettingsContext)
-  const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
 
   const [autoSyncSaves, setAutoSyncSaves] = useSetting('autoSyncSaves', false)

@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { GameInfo } from 'common/types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
 interface Props {
   gameInfo: GameInfo
@@ -11,7 +11,9 @@ interface Props {
 
 const ReportIssue = ({ gameInfo }: Props) => {
   const { t } = useTranslation('gamepage')
-  const { setIsSettingsModalOpen } = useContext(ContextProvider)
+  const { setIsSettingsModalOpen } = useShallowGlobalState(
+    'setIsSettingsModalOpen'
+  )
 
   const showReportIssue =
     gameInfo.is_installed && gameInfo.install.platform !== 'Browser'
@@ -22,7 +24,9 @@ const ReportIssue = ({ gameInfo }: Props) => {
 
   return (
     <span
-      onClick={() => setIsSettingsModalOpen(true, 'log', gameInfo)}
+      onClick={() =>
+        setIsSettingsModalOpen({ value: true, type: 'log', gameInfo })
+      }
       className="clickable reportProblem"
       role={'button'}
     >

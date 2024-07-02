@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { DLCInfo } from 'common/types/legendary'
 import './index.scss'
 import { useTranslation } from 'react-i18next'
@@ -7,12 +7,13 @@ import { GameInfo, Runner } from 'common/types'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import DownIcon from 'frontend/assets/down-icon.svg?react'
 import StopIcon from 'frontend/assets/stop-icon.svg?react'
 import StopIconAlt from 'frontend/assets/stop-icon-alt.svg?react'
 import SvgButton from '../../SvgButton'
+import { useGlobalState } from 'frontend/state/GlobalStateV2'
+import { useShallow } from 'zustand/react/shallow'
 
 type Props = {
   dlc: DLCInfo
@@ -23,7 +24,9 @@ type Props = {
 
 const DLC = ({ dlc, runner, mainAppInfo, onClose }: Props) => {
   const { title, app_name } = dlc
-  const { libraryStatus, showDialogModal } = useContext(ContextProvider)
+  const currentApp = useGlobalState(
+    useShallow((state) => state.libraryStatus[`${app_name}_${runner}`])
+  )
   const { t } = useTranslation('gamepage')
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [dlcInfo, setDlcInfo] = useState<GameInfo | null>(null)
@@ -64,7 +67,6 @@ const DLC = ({ dlc, runner, mainAppInfo, onClose }: Props) => {
     getDlcSize()
   }, [dlc, runner])
 
-  const currentApp = libraryStatus.find((app) => app.appName === app_name)
   const isInstalling = currentApp?.status === 'installing'
   const showInstallButton = !isInstalling && !refreshing
 
@@ -84,8 +86,6 @@ const DLC = ({ dlc, runner, mainAppInfo, onClose }: Props) => {
         isInstalling,
         previousProgress: null,
         progress,
-        showDialogModal,
-        t,
         installPath: install_path,
         gameInfo: dlcInfo,
         platformToInstall: platform

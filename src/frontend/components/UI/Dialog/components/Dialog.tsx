@@ -1,16 +1,15 @@
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import ContextProvider from 'frontend/state/ContextProvider'
 import React, {
   KeyboardEvent,
   ReactNode,
   SyntheticEvent,
   useCallback,
-  useContext,
   useEffect,
   useRef,
   useState
 } from 'react'
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
 interface DialogProps {
   className?: string
@@ -29,7 +28,9 @@ export const Dialog: React.FC<DialogProps> = ({
   const onCloseRef = useRef(onClose)
   onCloseRef.current = onClose
   const [focusOnClose, setFocusOnClose] = useState<HTMLElement | null>(null)
-  const { disableDialogBackdropClose } = useContext(ContextProvider)
+  const { disableDialogBackdropClose } = useShallowGlobalState(
+    'disableDialogBackdropClose'
+  )
 
   useEffect(() => {
     setFocusOnClose(document.querySelector('*:focus') as HTMLElement)

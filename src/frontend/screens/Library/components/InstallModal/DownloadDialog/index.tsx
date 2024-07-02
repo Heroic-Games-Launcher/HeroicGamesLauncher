@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 import {
   GameInfo,
-  GameStatus,
   InstallInfo,
   InstallPlatform,
   Runner,
@@ -34,15 +33,8 @@ import {
   install,
   getPreferredInstallLanguage
 } from 'frontend/helpers'
-import ContextProvider from 'frontend/state/ContextProvider'
-import { InstallProgress } from 'frontend/types'
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState
-} from 'react'
+import { DialogModalOptions, InstallProgress } from 'frontend/types'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AvailablePlatforms } from '../index'
 import { configStore } from 'frontend/helpers/electronStores'
@@ -51,6 +43,8 @@ import BuildSelector from './BuildSelector'
 import GameLanguageSelector from './GameLanguageSelector'
 import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
 import BranchSelector from './BranchSelector'
+import { useGlobalState } from 'frontend/state/GlobalStateV2'
+import { useShallow } from 'zustand/react/shallow'
 
 interface Props {
   backdropClick: () => void
@@ -106,8 +100,6 @@ export default function DownloadDialog({
   const previousProgress = JSON.parse(
     storage.getItem(appName) || '{}'
   ) as InstallProgress
-  const { libraryStatus, platform, showDialogModal } =
-    useContext(ContextProvider)
 
   const isWin = platform === 'win32'
 
@@ -129,9 +121,9 @@ export default function DownloadDialog({
   const [installPath, setInstallPath] = useState(
     previousProgress.folder || getDefaultInstallPath()
   )
-  const gameStatus: GameStatus = libraryStatus.filter(
-    (game: GameStatus) => game.appName === appName
-  )[0]
+  const gameStatus = useGlobalState(
+    useShallow((state) => state.libraryStatus[`${appName}_${runner}`])
+  )
 
   const [dlcsToInstall, setDlcsToInstall] = useState<string[]>([])
   const [sdls, setSdls] = useState<SelectiveDownload[]>([])
@@ -199,7 +191,8 @@ export default function DownloadDialog({
       'Anticheat Broken/Denied'
     )
     if (allowInstallationBrokenAnticheat) {
-      showDialogModal({
+      const acWarningDialog = {
+        showDialog: true,
         title,
         message: t(
           'install.anticheat-warning.multiplayer_message',
@@ -218,9 +211,11 @@ export default function DownloadDialog({
             onClick: () => null
           }
         ]
-      })
+      }
+      useGlobalState.setState({ dialogModalOptions: acWarningDialog })
     } else {
-      showDialogModal({
+      const acErrorDialog = {
+        showDialog: true,
         title,
         message: t(
           'install.anticheat-warning.disabled_installation',
@@ -232,7 +227,8 @@ export default function DownloadDialog({
             onClick: () => null
           }
         ]
-      })
+      }
+      useGlobalState.setState({ dialogModalOptions: acErrorDialog })
     }
   }
 
@@ -272,14 +268,12 @@ export default function DownloadDialog({
       isInstalling: false,
       previousProgress,
       progress: previousProgress,
-      t,
       sdlList,
       installDlcs: dlcsToInstall,
       installLanguage,
       platformToInstall,
       build: selectedBuild,
-      branch,
-      showDialogModal: () => backdropClick()
+      branch
     })
   }
 
@@ -301,7 +295,7 @@ export default function DownloadDialog({
           gameInstallInfo?.manifest.disk_size === 0 &&
           gameInstallInfo.manifest.download_size === 0
         ) {
-          showDialogModal({
+          const notInstallableDialog: DialogModalOptions = {
             showDialog: true,
             title: t(
               'label.game.not-installable-game',
@@ -317,7 +311,8 @@ export default function DownloadDialog({
               }
             ],
             type: 'MESSAGE'
-          })
+          }
+          useGlobalState.setState({ dialogModalOptions: notInstallableDialog })
           backdropClick()
           return
         }
@@ -378,12 +373,14 @@ export default function DownloadDialog({
           }
         }
       } catch (error) {
-        showDialogModal({
+        const errorDialog: DialogModalOptions = {
+          showDialog: true,
           type: 'ERROR',
           title: tr('box.error.generic.title', 'Error!'),
           message: `${tr('box.error.generic.message', 'Something Went Wrong!')}
           ${error}`
-        })
+        }
+        useGlobalState.setState({ dialogModalOptions: errorDialog })
         backdropClick()
         return
       }

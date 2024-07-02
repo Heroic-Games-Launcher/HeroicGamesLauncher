@@ -1,17 +1,16 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
-import ContextProvider from 'frontend/state/ContextProvider'
+import { useGlobalState } from 'frontend/state/GlobalStateV2'
 
 const EacRuntime = () => {
   const { t } = useTranslation()
   const [installing, setInstalling] = useState(false)
   const [eacRuntime, setEacRuntime] = useSetting('eacRuntime', false)
   const [useGameMode, setUseGameMode] = useSetting('useGameMode', false)
-  const { showDialogModal, platform } = useContext(ContextProvider)
 
   if (platform !== 'linux') {
     return null
@@ -22,7 +21,7 @@ const EacRuntime = () => {
       if (!useGameMode) {
         const isFlatpak = await window.api.isFlatpak()
         if (isFlatpak) {
-          showDialogModal({
+          const gamemodeDialog = {
             showDialog: true,
             message: t(
               'settings.eacRuntime.gameModeRequired.message',
@@ -39,7 +38,8 @@ const EacRuntime = () => {
               },
               { text: t('box.no') }
             ]
-          })
+          }
+          useGlobalState.setState({ dialogModalOptions: gamemodeDialog })
         }
       }
       const isInstalled = await window.api.isRuntimeInstalled('eac_runtime')

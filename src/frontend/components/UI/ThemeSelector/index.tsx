@@ -1,10 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { SelectField, InfoBox, PathSelectionBox } from '..'
 import { AppSettings } from 'common/types'
 import { writeConfig } from 'frontend/helpers'
 import { hasHelp } from 'frontend/hooks/hasHelp'
+import {
+  useGlobalState,
+  useShallowGlobalState
+} from 'frontend/state/GlobalStateV2'
 
 export const defaultThemes = {
   midnightMirage: 'Midnight Mirage',
@@ -24,7 +27,7 @@ export const defaultThemes = {
 }
 
 export const ThemeSelector = () => {
-  const { theme, setTheme } = useContext(ContextProvider)
+  const { theme } = useShallowGlobalState('theme')
   const { t } = useTranslation()
   const [appConfig, setAppConfig] = useState<AppSettings | null>(null)
   const [themesPath, setThemesPath] = useState('')
@@ -71,7 +74,9 @@ export const ThemeSelector = () => {
       <SelectField
         htmlId="theme_selector"
         label={t('setting.select_theme', 'Select Theme')}
-        onChange={(event) => setTheme(event.target.value)}
+        onChange={(event) =>
+          useGlobalState.setState({ theme: event.target.value })
+        }
         value={theme}
       >
         {themes.map((key) => (

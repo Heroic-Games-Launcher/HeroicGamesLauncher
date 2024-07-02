@@ -32,7 +32,8 @@ describe('progress_bar', () => {
     it('does nothing', () => {
       sendGameStatusUpdate({
         appName: 'Test',
-        status: 'queued'
+        status: 'queued',
+        runner: 'legendary'
       })
 
       expect(window.setProgressBar).not.toBeCalled()
@@ -43,7 +44,8 @@ describe('progress_bar', () => {
     it('sets progress bar to indeterminate', () => {
       sendGameStatusUpdate({
         appName: 'Test',
-        status: 'installing'
+        status: 'installing',
+        runner: 'legendary'
       })
 
       expect(window.setProgressBar).toBeCalledWith(2)
@@ -54,7 +56,8 @@ describe('progress_bar', () => {
 
       sendGameStatusUpdate({
         appName: 'Test',
-        status: 'installing'
+        status: 'installing',
+        runner: 'legendary'
       })
 
       expect(backendEvents.on).toBeCalledWith(
@@ -69,7 +72,8 @@ describe('progress_bar', () => {
       sendProgressUpdate({
         appName: 'Test',
         status: 'installing',
-        progress: { percent: 42, bytes: '', eta: '' }
+        progress: { percent: 42, bytes: '', eta: '' },
+        runner: 'legendary'
       })
 
       expect(window.setProgressBar).toBeCalledWith(0.42)
@@ -80,7 +84,8 @@ describe('progress_bar', () => {
     it('removes the progress bar', () => {
       sendGameStatusUpdate({
         appName: 'Test',
-        status: 'done'
+        status: 'done',
+        runner: 'legendary'
       })
 
       expect(window.setProgressBar).toBeCalledWith(-1)
@@ -91,7 +96,8 @@ describe('progress_bar', () => {
 
       sendGameStatusUpdate({
         appName: 'Test',
-        status: 'done'
+        status: 'done',
+        runner: 'legendary'
       })
 
       expect(backendEvents.off).toBeCalledWith(

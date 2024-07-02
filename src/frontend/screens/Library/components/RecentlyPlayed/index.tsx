@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { GameInfo, Runner } from 'common/types'
 import GamesList from '../GamesList'
 import { configStore } from 'frontend/helpers/electronStores'
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
 interface Props {
   handleModal: (appName: string, runner: Runner, gameInfo: GameInfo) => void
@@ -39,20 +39,31 @@ export default React.memo(function RecentlyPlayed({
   showHidden
 }: Props) {
   const { t } = useTranslation()
-  const { epic, gog, sideloadedLibrary, amazon } = useContext(ContextProvider)
   const [recentGames, setRecentGames] = useState<GameInfo[]>([])
 
-  const hiddenGames = useContext(ContextProvider).hiddenGames
+  const {
+    hiddenGames,
+    epicLibrary,
+    gogLibrary,
+    amazonLibrary,
+    sideloadedLibrary
+  } = useShallowGlobalState(
+    'hiddenGames',
+    'epicLibrary',
+    'gogLibrary',
+    'amazonLibrary',
+    'sideloadedLibrary'
+  )
 
   const loadRecentGames = async () => {
-    const hiddenAppNames = hiddenGames.list.map((game) => game.appName)
+    const hiddenAppNames = hiddenGames.map((game) => game.appName)
     const { maxRecentGames } = await window.api.requestAppSettings()
     let newRecentGames = getRecentGames(
       [
-        ...epic.library,
-        ...gog.library,
-        ...sideloadedLibrary,
-        ...amazon.library
+        ...epicLibrary,
+        ...Object.values(gogLibrary),
+        ...amazonLibrary,
+        ...sideloadedLibrary
       ],
       maxRecentGames,
       onlyInstalled
@@ -79,9 +90,9 @@ export default React.memo(function RecentlyPlayed({
       recentGamesChangedRemoveListener()
     }
   }, [
-    epic.library,
-    gog.library,
-    amazon.library,
+    epicLibrary,
+    gogLibrary,
+    amazonLibrary,
     sideloadedLibrary,
     hiddenGames,
     showHidden

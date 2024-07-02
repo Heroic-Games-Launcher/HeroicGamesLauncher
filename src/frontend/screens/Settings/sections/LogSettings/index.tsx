@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -7,10 +7,9 @@ import { Done } from '@mui/icons-material'
 import { UpdateComponent } from 'frontend/components/UI'
 import SettingsContext from '../../SettingsContext'
 import './index.css'
-import ContextProvider from 'frontend/state/ContextProvider'
-import { GameInfo } from 'common/types'
 import { openDiscordLink } from 'frontend/helpers'
 import { faDiscord } from '@fortawesome/free-brands-svg-icons'
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
 interface LogBoxProps {
   logFileContent: string
@@ -75,19 +74,25 @@ export default function LogSettings() {
   const [refreshing, setRefreshing] = useState<boolean>(true)
   const [copiedLog, setCopiedLog] = useState<boolean>(false)
 
-  const { epic, gog, amazon, sideloadedLibrary } = useContext(ContextProvider)
-  const [installedGames, setInstalledGames] = useState<GameInfo[]>([])
-
-  useEffect(() => {
-    let games: GameInfo[] = []
-    games = games.concat(epic.library.filter((game) => game.is_installed))
-    games = games.concat(gog.library.filter((game) => game.is_installed))
-    games = games.concat(amazon.library.filter((game) => game.is_installed))
-    games = games.concat(sideloadedLibrary.filter((game) => game.is_installed))
-    games = games.sort((game1, game2) => game1.title.localeCompare(game2.title))
-
-    setInstalledGames(games)
-  }, [epic.library, gog.library, amazon.library, sideloadedLibrary])
+  const { epicLibrary, gogLibrary, amazonLibrary, sideloadedLibrary } =
+    useShallowGlobalState(
+      'epicLibrary',
+      'gogLibrary',
+      'amazonLibrary',
+      'sideloadedLibrary'
+    )
+  const installedGames = useMemo(
+    () =>
+      [
+        ...epicLibrary,
+        ...Object.values(gogLibrary),
+        ...amazonLibrary,
+        ...sideloadedLibrary
+      ]
+        .filter((game) => game.is_installed)
+        .sort((game1, game2) => game1.title.localeCompare(game2.title)),
+    [epicLibrary, gogLibrary, amazonLibrary, sideloadedLibrary]
+  )
 
   const getLogContent = () => {
     window.api.getLogContent(showLogOf).then((content: string) => {

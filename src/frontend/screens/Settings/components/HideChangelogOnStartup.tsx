@@ -1,18 +1,19 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import { useTranslation } from 'react-i18next'
-import ContextProvider from '../../../state/ContextProvider'
+import { useGlobalState } from 'frontend/state/GlobalStateV2'
 
 const HideChangelogOnStartup = () => {
   const { t } = useTranslation()
   const [hideChangelogsOnStartupSetting, setHideChangelogsOnStartupSetting] =
     useSetting('hideChangelogsOnStartup', false)
-  const { setHideChangelogsOnStartup } = useContext(ContextProvider)
 
   const handleChange = () => {
     setHideChangelogsOnStartupSetting(!hideChangelogsOnStartupSetting)
-    setHideChangelogsOnStartup(!hideChangelogsOnStartupSetting)
+    useGlobalState.setState({
+      hideChangelogsOnStartup: !hideChangelogsOnStartupSetting
+    })
   }
 
   return (

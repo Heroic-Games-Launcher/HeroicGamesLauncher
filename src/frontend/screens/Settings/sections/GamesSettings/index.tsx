@@ -35,7 +35,6 @@ import {
   AfterLaunchScriptPath
 } from '../../components'
 import { TabPanel } from 'frontend/components/UI'
-import ContextProvider from 'frontend/state/ContextProvider'
 import Tools from '../../components/Tools'
 import SettingsContext from '../../SettingsContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -68,7 +67,6 @@ function getStartingTab(platform: string, gameInfo?: GameInfo | null): string {
 
 export default function GamesSettings() {
   const { t } = useTranslation()
-  const { platform } = useContext(ContextProvider)
   const { isDefault, gameInfo } = useContext(SettingsContext)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
   const [isNative, setIsNative] = useState(false)

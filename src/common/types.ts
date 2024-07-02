@@ -225,11 +225,11 @@ export type Status =
 
 export interface GameStatus {
   appName: string
+  runner: Runner
+  status: Status
   progress?: InstallProgress
   folder?: string
   context?: string // Additional context e.g current step
-  runner?: Runner
-  status: Status
 }
 
 export type GlobalConfigVersion = 'auto' | 'v0'
@@ -483,13 +483,6 @@ export type RecentGame = {
 export type HiddenGame = RecentGame
 
 export type FavouriteGame = HiddenGame
-
-export type RefreshOptions = {
-  checkForUpdates?: boolean
-  fullRefresh?: boolean
-  library?: Runner | 'all'
-  runInBackground?: boolean
-}
 
 export interface WineVersionInfo extends VersionInfo {
   isInstalled: boolean

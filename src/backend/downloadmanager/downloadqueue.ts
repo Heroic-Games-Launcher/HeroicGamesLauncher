@@ -2,7 +2,12 @@ import { gameManagerMap, libraryManagerMap } from 'backend/storeManagers'
 import { TypeCheckedStoreBackend } from './../electron_store'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { getFileSize, removeFolder, sendGameStatusUpdate } from '../utils'
-import { DMQueueElement, DMStatus, DownloadManagerState } from 'common/types'
+import {
+  DMQueueElement,
+  DMStatus,
+  DownloadManagerState,
+  Runner
+} from 'common/types'
 import { installQueueElement, updateQueueElement } from './utils'
 import { sendFrontendMessage } from '../main_window'
 import { callAbortController } from 'backend/utils/aborthandler/aborthandler'
@@ -89,7 +94,7 @@ async function initQueue() {
 
     if (!isPaused()) {
       addToFinished(element, status)
-      removeFromQueue(element.params.appName)
+      removeFromQueue(element.params.appName, element.params.runner)
       element = getFirstQueueElement()
     } else {
       element = null
@@ -178,7 +183,7 @@ async function addToQueue(element: DMQueueElement) {
   }
 }
 
-function removeFromQueue(appName: string) {
+function removeFromQueue(appName: string, runner: Runner) {
   if (appName && downloadManager.has('queue')) {
     const elements = downloadManager.get('queue', [])
     const index = elements.findIndex(
@@ -192,6 +197,7 @@ function removeFromQueue(appName: string) {
 
     sendGameStatusUpdate({
       appName,
+      runner,
       status: 'done'
     })
 
@@ -216,13 +222,13 @@ function cancelCurrentDownload({ removeDownloaded = false }) {
     if (Array.isArray(currentElement.params.installDlcs)) {
       const dlcsToRemove = currentElement.params.installDlcs
       for (const dlc of dlcsToRemove) {
-        removeFromQueue(dlc)
+        removeFromQueue(dlc, currentElement.params.runner)
       }
     }
     if (isRunning()) {
       stopCurrentDownload()
     }
-    removeFromQueue(currentElement.params.appName)
+    removeFromQueue(currentElement.params.appName, currentElement.params.runner)
 
     if (removeDownloaded) {
       const { appName, runner } = currentElement!.params

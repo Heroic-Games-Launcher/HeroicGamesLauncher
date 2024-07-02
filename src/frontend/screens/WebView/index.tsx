@@ -1,16 +1,9 @@
-import React, {
-  useContext,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState
-} from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
 
 import { ToggleSwitch, UpdateComponent } from 'frontend/components/UI'
 import WebviewControls from 'frontend/components/UI/WebviewControls'
-import ContextProvider from 'frontend/state/ContextProvider'
 import './index.css'
 import LoginWarning from '../Login/components/LoginWarning'
 import { NileLoginData } from 'common/types/nile'
@@ -19,6 +12,7 @@ import {
   DialogContent,
   DialogHeader
 } from 'frontend/components/UI/Dialog'
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
 const validStoredUrl = (url: string, store: string) => {
   switch (store) {
@@ -37,7 +31,23 @@ export default function WebView() {
   const { i18n } = useTranslation()
   const { pathname, search } = useLocation()
   const { t } = useTranslation()
-  const { epic, gog, amazon, connectivity } = useContext(ContextProvider)
+  const {
+    connectivity,
+    epicLogin,
+    epicUsername,
+    gogLogin,
+    gogUsername,
+    amazonLogin,
+    amazonUserId
+  } = useShallowGlobalState(
+    'connectivity',
+    'epicLogin',
+    'epicUsername',
+    'gogLogin',
+    'gogUsername',
+    'amazonLogin',
+    'amazonUserId'
+  )
   const [loading, setLoading] = useState<{
     refresh: boolean
     message: string
@@ -132,7 +142,7 @@ export default function WebView() {
       refresh: true,
       message: t('status.preparing_login', 'Preparing Login...')
     })
-    amazon.getLoginData().then((data) => {
+    window.api.getAmazonLoginData().then((data) => {
       setAmazonLoginData(data)
       setLoading({
         ...loading,
@@ -151,16 +161,14 @@ export default function WebView() {
       refresh: true,
       message: t('status.logging', 'Logging In...')
     })
-    amazon
-      .login({
-        client_id: amazonLoginData.client_id,
-        code: code,
-        code_verifier: amazonLoginData.code_verifier,
-        serial: amazonLoginData.serial
-      })
-      .then(() => {
-        handleSuccessfulLogin()
-      })
+    amazonLogin({
+      client_id: amazonLoginData.client_id,
+      code: code,
+      code_verifier: amazonLoginData.code_verifier,
+      serial: amazonLoginData.serial
+    }).then(() => {
+      handleSuccessfulLogin()
+    })
   }
 
   const handleSuccessfulLogin = () => {
@@ -178,7 +186,7 @@ export default function WebView() {
               refresh: true,
               message: t('status.logging', 'Logging In...')
             })
-            await epic.login(e.args[0])
+            await epicLogin(e.args[0])
             handleSuccessfulLogin()
           } catch (error) {
             console.error(error)
@@ -204,7 +212,7 @@ export default function WebView() {
               message: t('status.logging', 'Logging In...')
             })
             if (code) {
-              gog.login(code).then(() => {
+              gogLogin(code).then(() => {
                 handleSuccessfulLogin()
               })
             }
@@ -299,15 +307,15 @@ export default function WebView() {
     useState<boolean>(false)
 
   useEffect(() => {
-    if (startUrl.match(/epicgames\.com/) && !epic.username) {
+    if (startUrl.match(/epicgames\.com/) && !epicUsername) {
       setShowLoginWarningFor('epic')
     } else if (
       startUrl.match(/gog\.com/) &&
       !startUrl.match(/auth\.gog\.com/) &&
-      !gog.username
+      !gogUsername
     ) {
       setShowLoginWarningFor('gog')
-    } else if (startUrl.match(/gaming\.amazon\.com/) && !amazon.user_id) {
+    } else if (startUrl.match(/gaming\.amazon\.com/) && !amazonUserId) {
       setShowLoginWarningFor('amazon')
     } else {
       setShowLoginWarningFor(null)

@@ -1,12 +1,12 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import useSetting from 'frontend/hooks/useSetting'
 import { ToggleSwitch } from 'frontend/components/UI'
-import ContextProvider from 'frontend/state/ContextProvider'
+import { useGlobalState } from 'frontend/state/GlobalStateV2'
+import { DialogModalOptions } from 'frontend/types'
 
 const AllowInstallationBrokenAnticheat = () => {
   const { t } = useTranslation()
-  const { showDialogModal } = useContext(ContextProvider)
   const [allowInstallation, setAllowInstallation] = useSetting(
     'allowInstallationBrokenAnticheat',
     false
@@ -16,7 +16,8 @@ const AllowInstallationBrokenAnticheat = () => {
     if (allowInstallation) {
       setAllowInstallation(false)
     } else {
-      showDialogModal({
+      const confirmDialog: DialogModalOptions = {
+        showDialog: true,
         title: t(
           'setting.allow_installation_broken_anticheat.confirmation.title',
           'Are you sure?'
@@ -36,7 +37,8 @@ const AllowInstallationBrokenAnticheat = () => {
           { text: t('box.no') }
         ],
         type: 'MESSAGE'
-      })
+      }
+      useGlobalState.setState({ dialogModalOptions: confirmDialog })
     }
   }
 

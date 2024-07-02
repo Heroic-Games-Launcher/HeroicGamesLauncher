@@ -1,15 +1,9 @@
 import { faApple, faLinux, faWindows } from '@fortawesome/free-brands-svg-icons'
 import { IconDefinition, faGlobe } from '@fortawesome/free-solid-svg-icons'
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
-import ContextProvider from 'frontend/state/ContextProvider'
-import {
-  GameInfo,
-  InstallPlatform,
-  Runner,
-  WineInstallation
-} from 'common/types'
+import { InstallPlatform, WineInstallation } from 'common/types'
 import { Dialog } from 'frontend/components/UI/Dialog'
 
 import './index.scss'
@@ -20,13 +14,10 @@ import WineSelector from './WineSelector'
 import { SelectField } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 import ThirdPartyDialog from './ThirdPartyDialog'
-
-type Props = {
-  appName: string
-  backdropClick: () => void
-  runner: Runner
-  gameInfo?: GameInfo | null
-}
+import {
+  useGlobalState,
+  useShallowGlobalState
+} from 'frontend/state/GlobalStateV2'
 
 export type AvailablePlatforms = {
   name: string
@@ -35,13 +26,7 @@ export type AvailablePlatforms = {
   icon: IconDefinition
 }[]
 
-export default React.memo(function InstallModal({
-  appName,
-  backdropClick,
-  runner,
-  gameInfo = null
-}: Props) {
-  const { platform } = useContext(ContextProvider)
+function InstallModal() {
   const { t } = useTranslation('gamepage')
 
   const [winePrefix, setWinePrefix] = useState('...')
@@ -49,13 +34,20 @@ export default React.memo(function InstallModal({
   const [wineVersionList, setWineVersionList] = useState<WineInstallation[]>([])
   const [crossoverBottle, setCrossoverBottle] = useState('')
 
+  const backdropClick = useCallback(() => {
+    useGlobalState.setState({ installModalOptions: { show: false } })
+  }, [])
+
+  const { installModalOptions } = useShallowGlobalState('installModalOptions')
+  const { gameInfo } = installModalOptions
+
   const isLinuxNative = Boolean(gameInfo?.is_linux_native)
   const isMacNative = Boolean(gameInfo?.is_mac_native)
 
   const isMac = platform === 'darwin'
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
-  const isSideload = runner === 'sideload'
+  const isSideload = installModalOptions.runner === 'sideload'
 
   const platforms: AvailablePlatforms = [
     {
@@ -132,7 +124,9 @@ export default React.memo(function InstallModal({
     if (!showPlatformSelection) {
       return null
     }
-    const disabledPlatformSelection = Boolean(runner === 'sideload' && appName)
+    const disabledPlatformSelection = Boolean(
+      installModalOptions.runner === 'sideload' && installModalOptions.appName
+    )
     return (
       <SelectField
         label={`${t('game.platform', 'Select Platform Version to Install')}:`}
@@ -154,6 +148,9 @@ export default React.memo(function InstallModal({
 
   const showDownloadDialog = !isSideload && gameInfo
   const isThirdPartyManagedApp = gameInfo && !!gameInfo.thirdPartyManagedApp
+
+  if (!installModalOptions.show) return null
+  const { appName, runner } = installModalOptions
 
   return (
     <div className="InstallModal">
@@ -246,4 +243,6 @@ export default React.memo(function InstallModal({
       </Dialog>
     </div>
   )
-})
+}
+
+export default InstallModal

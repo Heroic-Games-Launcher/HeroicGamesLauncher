@@ -1,131 +1,22 @@
 import {
   AppSettings,
   GameInfo,
-  GameStatus,
   Runner,
-  ConnectivityStatus,
   DialogType,
   ButtonOptions,
-  LibraryTopSectionOptions,
   DMQueueElement,
   DownloadManagerState,
-  ExperimentalFeatures,
   GameSettings,
   WikiInfo,
   ExtraInfo,
   Status,
   InstallInfo
 } from 'common/types'
-import { NileLoginData, NileRegisterData } from 'common/types/nile'
 
 export type Category = 'all' | 'legendary' | 'gog' | 'sideload' | 'nile'
 
-export interface ContextType {
-  error: boolean
-  gameUpdates: string[]
-  isRTL: boolean
-  isFullscreen: boolean
-  isFrameless: boolean
-  language: string
-  setLanguage: (newLanguage: string) => void
-  libraryStatus: GameStatus[]
-  libraryTopSection: string
-  handleLibraryTopSection: (value: LibraryTopSectionOptions) => void
-  platform: NodeJS.Platform | 'unknown'
-  refresh: (library: Runner, checkUpdates?: boolean) => Promise<void>
-  refreshLibrary: (options: RefreshOptions) => Promise<void>
-  refreshWineVersionInfo: (fetch: boolean) => void
-  refreshing: boolean
-  refreshingInTheBackground: boolean
-  hiddenGames: {
-    list: HiddenGame[]
-    add: (appNameToHide: string, appTitle: string) => void
-    remove: (appNameToUnhide: string) => void
-  }
-  favouriteGames: {
-    list: HiddenGame[]
-    add: (appNameToAdd: string, appTitle: string) => void
-    remove: (appNameToRemove: string) => void
-  }
-  customCategories: {
-    list: Record<string, string[]>
-    listCategories: () => string[]
-    addToGame: (category: string, appName: string) => void
-    removeFromGame: (category: string, appName: string) => void
-    addCategory: (newCategory: string) => void
-    removeCategory: (category: string) => void
-    renameCategory: (oldName: string, newName: string) => void
-  }
-  currentCustomCategories: string[]
-  setCurrentCustomCategories: (newCustomCategories: string[]) => void
-  theme: string
-  setTheme: (themeName: string) => void
-  zoomPercent: number
-  setZoomPercent: (newZoomPercent: number) => void
-  epic: {
-    library: GameInfo[]
-    username?: string
-    login: (sid: string) => Promise<string>
-    logout: () => Promise<void>
-  }
-  gog: {
-    library: GameInfo[]
-    username?: string
-    login: (token: string) => Promise<string>
-    logout: () => Promise<void>
-  }
-  amazon: {
-    library: GameInfo[]
-    user_id?: string
-    username?: string
-    getLoginData: () => Promise<NileLoginData>
-    login: (data: NileRegisterData) => Promise<string>
-    logout: () => Promise<void>
-  }
-  installingEpicGame: boolean
-  allTilesInColor: boolean
-  setAllTilesInColor: (value: boolean) => void
-  titlesAlwaysVisible: boolean
-  setTitlesAlwaysVisible: (value: boolean) => void
-  setSideBarCollapsed: (value: boolean) => void
-  sidebarCollapsed: boolean
-  activeController: string
-  connectivity: { status: ConnectivityStatus; retryIn: number }
-  setSecondaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
-  setPrimaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
-  dialogModalOptions: DialogModalOptions
-  showDialogModal: (options: DialogModalOptions) => void
-  showResetDialog: () => void
-  externalLinkDialogOptions: ExternalLinkDialogOptions
-  handleExternalLinkDialog: (options: ExternalLinkDialogOptions) => void
-  sideloadedLibrary: GameInfo[]
-  hideChangelogsOnStartup: boolean
-  setHideChangelogsOnStartup: (value: boolean) => void
-  lastChangelogShown: string | null
-  setLastChangelogShown: (value: string) => void
-  isSettingsModalOpen: {
-    value: boolean
-    gameInfo?: GameInfo | null
-    type: 'settings' | 'log'
-  }
-  setIsSettingsModalOpen: (
-    value: boolean,
-    type?: 'settings' | 'log' | 'category',
-    gameInfo?: GameInfo
-  ) => void
-  help: {
-    items: { [key: string]: HelpItem }
-    addHelpItem: (helpItemId: string, helpItem: HelpItem) => void
-    removeHelpItem: (helpItemId: string) => void
-  }
-  experimentalFeatures: ExperimentalFeatures
-  handleExperimentalFeatures: (newSetting: ExperimentalFeatures) => void
-  disableDialogBackdropClose: boolean
-  setDisableDialogBackdropClose: (value: boolean) => void
-}
-
 export type DialogModalOptions = {
-  showDialog?: boolean
+  showDialog: boolean
   title?: string
   message?: string
   buttons?: Array<ButtonOptions>
@@ -137,11 +28,6 @@ export interface ExternalLinkDialogOptions {
   linkCallback?: () => void
 }
 
-interface HiddenGame {
-  appName: string
-  title: string
-}
-
 export interface InstallProgress {
   bytes: string
   eta: string
@@ -149,23 +35,17 @@ export interface InstallProgress {
   percent: number
 }
 
-type RefreshOptions = {
-  checkForUpdates?: boolean
-  fullRefresh?: boolean
-  library?: Runner | 'all'
-  runInBackground?: boolean
-}
-
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
 
 declare global {
+  const platform: NodeJS.Platform
+
   interface Window {
     imageData: (
       src: string,
       canvas_width: number,
       canvas_height: number
     ) => Promise<string>
-    setTheme: (themeClass: string) => void
     isSteamDeckGameMode: boolean
     platform: NodeJS.Platform
   }
@@ -290,3 +170,19 @@ export interface HelpItem {
   title: string
   content: JSX.Element
 }
+
+export type SettingsModalType = 'settings' | 'log' | 'category'
+
+export type InstallModalOptions =
+  | {
+      show: false
+      gameInfo?: undefined
+      appName?: undefined
+      runner?: undefined
+    }
+  | {
+      show: true
+      gameInfo: GameInfo | null
+      appName: string
+      runner: Runner
+    }

@@ -1,6 +1,6 @@
 import './index.scss'
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import {
   ArrowCircleLeft,
@@ -22,7 +22,6 @@ import {
 } from 'frontend/helpers'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { CachedImage, UpdateComponent, TabPanel } from 'frontend/components/UI'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 
@@ -39,7 +38,6 @@ import {
 import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
 
-import { InstallModal } from 'frontend/screens/Library/components'
 import { install } from 'frontend/helpers/library'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
@@ -71,6 +69,11 @@ import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 import Genres from './components/Genres'
 import ReleaseDate from './components/ReleaseDate'
+import {
+  useGlobalState,
+  useShallowGlobalState
+} from 'frontend/state/GlobalStateV2'
+import { useShallow } from 'zustand/react/shallow'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -82,20 +85,18 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   const { gameInfo: locationGameInfo } = location.state
 
-  const [showModal, setShowModal] = useState({ game: '', show: false })
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [wikiInfo, setWikiInfo] = useState<WikiInfo | null>(null)
 
-  const {
-    epic,
-    gog,
-    gameUpdates,
-    platform,
-    showDialogModal,
-    isSettingsModalOpen,
-    connectivity,
-    experimentalFeatures
-  } = useContext(ContextProvider)
+  const gameUpdatesIncludesThis = useGlobalState(
+    useShallow((state) => state.gameUpdates.includes(appName))
+  )
+  const { isSettingsModalOpen, enableNewDesign, connectivity } =
+    useShallowGlobalState(
+      'isSettingsModalOpen',
+      'enableNewDesign',
+      'connectivity'
+    )
 
   hasHelp(
     'gamePage',
@@ -176,7 +177,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       }
     }
     updateGameInfo()
-  }, [status, gog.library, epic.library, isMoving])
+  }, [status, isMoving])
 
   useEffect(() => {
     const updateConfig = async () => {
@@ -234,14 +235,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       }
     }
     updateConfig()
-  }, [
-    status,
-    epic.library,
-    gog.library,
-    gameInfo,
-    isSettingsModalOpen,
-    isOffline
-  ])
+  }, [status, gameInfo, isSettingsModalOpen, isOffline])
 
   useEffect(() => {
     window.api
@@ -262,7 +256,14 @@ export default React.memo(function GamePage(): JSX.Element | null {
   }
 
   function handleModal() {
-    setShowModal({ game: appName, show: true })
+    useGlobalState.setState({
+      installModalOptions: {
+        show: true,
+        appName,
+        runner,
+        gameInfo
+      }
+    })
   }
 
   let hasUpdate = false
@@ -279,7 +280,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       is_installed
     } = gameInfo
 
-    hasUpdate = is_installed && gameUpdates?.includes(appName)
+    hasUpdate = is_installed && gameUpdatesIncludesThis
 
     /*
     Other Keys:
@@ -351,19 +352,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
     return (
       <div className="gameConfigContainer">
-        {!!(art_background ?? art_cover) &&
-          experimentalFeatures.enableNewDesign && (
-            <CachedImage
-              src={art_background || art_cover}
-              className="backgroundImage"
-            />
-          )}
-        {gameInfo.runner !== 'sideload' && showModal.show && (
-          <InstallModal
-            appName={showModal.game}
-            runner={runner}
-            backdropClick={() => setShowModal({ game: '', show: false })}
-            gameInfo={gameInfo}
+        {!!(art_background ?? art_cover) && enableNewDesign && (
+          <CachedImage
+            src={art_background || art_cover}
+            className="backgroundImage"
           />
         )}
         {showUninstallModal && (
@@ -378,7 +370,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
         {title ? (
           <GameContext.Provider value={contextValues}>
             {/* OLD DESIGN */}
-            {!experimentalFeatures.enableNewDesign && (
+            {!enableNewDesign && (
               <>
                 <GamePicture
                   art_square={art_square}
@@ -451,7 +443,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
               </>
             )}
             {/* NEW DESIGN */}
-            {experimentalFeatures.enableNewDesign && (
+            {enableNewDesign && (
               <>
                 <div className="topRowWrapper">
                   <NavLink
@@ -603,18 +595,16 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
     await launch({
       appName,
-      t,
       launchArguments,
       runner: gameInfo.runner,
-      hasUpdate,
-      showDialogModal
+      hasUpdate
     })
   }
 
   async function handleInstall(is_installed: boolean) {
     if (isQueued) {
       storage.removeItem(appName)
-      return window.api.removeFromDMQueue(appName)
+      return window.api.removeFromDMQueue(appName, runner)
     }
 
     if (!is_installed && !isInstalling) {
@@ -632,9 +622,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       installPath: folder,
       isInstalling,
       previousProgress,
-      progress,
-      t,
-      showDialogModal: showDialogModal
+      progress
     })
   }
 })

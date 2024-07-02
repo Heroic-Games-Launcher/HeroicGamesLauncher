@@ -7,20 +7,17 @@ import { initGamepad } from './helpers/gamepad'
 
 import './index.scss'
 import './themes.scss'
-import GlobalState from './state/GlobalState'
 import { initShortcuts } from './helpers/shortcuts'
 import { configStore } from './helpers/electronStores'
 import { initOnlineMonitor } from './helpers/onlineMonitor'
-import { defaultThemes } from './components/UI/ThemeSelector'
 import Loading from './screens/Loading'
+import './state/GlobalStateV2'
 
 initOnlineMonitor()
 
 window.addEventListener('error', (ev: ErrorEvent) => {
   window.api.logError(ev.error)
 })
-
-const DEFAULT_THEME = 'midnightMirage'
 
 const Backend = new HttpApi(null, {
   addPath: 'build/locales/{{lng}}/{{ns}}',
@@ -106,53 +103,13 @@ const App = lazy(async () => import('./App'))
 
 root.render(
   // <React.StrictMode>
-  <GlobalState>
-    <I18nextProvider i18n={i18next}>
-      <Suspense fallback={<Loading />}>
-        <App />
-      </Suspense>
-    </I18nextProvider>
-  </GlobalState>
+  <I18nextProvider i18n={i18next}>
+    <Suspense fallback={<Loading />}>
+      <App />
+    </Suspense>
+  </I18nextProvider>
   // </React.StrictMode>
 )
-
-// helper function to set the theme class and load custom css if needed
-window.setTheme = async (themeClass: string) => {
-  document.querySelector('style.customTheme')?.remove()
-
-  if (
-    themeClass !== DEFAULT_THEME &&
-    !Object.keys(defaultThemes).includes(themeClass)
-  ) {
-    const cssContent = await window.api.getThemeCSS(themeClass)
-    themeClass = themeClass
-      .replace('.css', '') // remove extension
-      .replace(/[\s.]/, '_') // remove dots and empty spaces
-    const style = document.createElement('style')
-    style.classList.add('customTheme')
-    style.innerHTML = cssContent
-    document.body.insertAdjacentElement('afterbegin', style)
-  }
-
-  document.body.className = themeClass
-
-  if (navigator['windowControlsOverlay']?.visible) {
-    const titlebarOverlay = Object.fromEntries(
-      ['height', 'color', 'symbol-color']
-        .map((item) => [
-          item === 'symbol-color' ? 'symbolColor' : item,
-          getComputedStyle(document.body)
-            .getPropertyValue(`--titlebar-${item}`)
-            .trim()
-        ])
-        .filter(([, val]) => !!val)
-    )
-    window.api.setTitleBarOverlay(titlebarOverlay)
-  }
-}
-
-const themeClass = configStore.get('theme', DEFAULT_THEME)
-window.setTheme(themeClass)
 
 // helper function to generate images for steam
 // image is centered, sides are padded with blurred image

@@ -89,7 +89,7 @@ interface SyncIPCFunctions {
   showLogFileInFolder: (appNameOrRunner: string) => void
   addShortcut: (appName: string, runner: Runner, fromMenu: boolean) => void
   removeShortcut: (appName: string, runner: Runner) => void
-  removeFromDMQueue: (appName: string) => void
+  removeFromDMQueue: (appName: string, runner: Runner) => void
   clearDMFinished: () => void
   abort: (id: string) => void
   'connectivity-changed': (newStatus: ConnectivityStatus) => void

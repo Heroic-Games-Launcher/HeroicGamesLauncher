@@ -1,16 +1,18 @@
 import React, { useState } from 'react'
 
 import './index.css'
-import { HelpItem } from 'frontend/types'
 import { useTranslation } from 'react-i18next'
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
-interface Props {
-  items: { [key: string]: HelpItem }
-}
-
-export default function Help({ items }: Props) {
+export default function Help() {
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
+  const { enableHelp, helpItems: items } = useShallowGlobalState(
+    'enableHelp',
+    'helpItems'
+  )
+
+  if (!enableHelp) return null
 
   const toggleOpen = () => {
     setOpen(!open)

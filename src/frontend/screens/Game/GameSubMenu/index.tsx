@@ -1,17 +1,22 @@
 import './index.css'
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { GameInfo, GameStatus, Runner, WikiInfo } from 'common/types'
+import { GameInfo, Runner, WikiInfo } from 'common/types'
 
 import { createNewWindow, repair } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { NavLink } from 'react-router-dom'
 
-import { InstallModal } from 'frontend/screens/Library/components'
 import { CircularProgress } from '@mui/material'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
+import {
+  useGlobalState,
+  useShallowGlobalState
+} from 'frontend/state/GlobalStateV2'
+import { useShallow } from 'zustand/react/shallow'
+
+const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
 
 interface Props {
   appName: string
@@ -44,13 +49,13 @@ export default function GamesSubmenu({
   onShowModifyInstall,
   gameInfo
 }: Props) {
-  const {
-    refresh,
-    platform,
-    libraryStatus,
-    showDialogModal,
-    setIsSettingsModalOpen
-  } = useContext(ContextProvider)
+  const eosOverlayStatus = useGlobalState(
+    useShallow((state) => state.libraryStatus[`${eosOverlayAppName}_legendary`])
+  )
+  const { setIsSettingsModalOpen, refresh } = useShallowGlobalState(
+    'setIsSettingsModalOpen',
+    'refresh'
+  )
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
 
@@ -59,8 +64,6 @@ export default function GamesSubmenu({
   const [hasShortcuts, setHasShortcuts] = useState(false)
   const [eosOverlayEnabled, setEosOverlayEnabled] = useState<boolean>(false)
   const [eosOverlayRefresh, setEosOverlayRefresh] = useState<boolean>(false)
-  const [showModal, setShowModal] = useState(false)
-  const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [protonDBurl, setProtonDBurl] = useState(
     `https://www.protondb.com/search?q=${title}`
@@ -83,7 +86,7 @@ export default function GamesSubmenu({
   }
 
   function handleMoveInstall() {
-    showDialogModal({
+    const moveDialog = {
       showDialog: true,
       message: t('box.move.message'),
       title: t('box.move.title'),
@@ -91,7 +94,8 @@ export default function GamesSubmenu({
         { text: t('box.yes'), onClick: onMoveInstallYesClick },
         { text: t('box.no') }
       ]
-    })
+    }
+    useGlobalState.setState({ dialogModalOptions: moveDialog })
   }
 
   async function onChangeInstallYesClick() {
@@ -109,7 +113,7 @@ export default function GamesSubmenu({
   }
 
   function handleChangeInstall() {
-    showDialogModal({
+    const changeInstallDialog = {
       showDialog: true,
       message: t('box.change.message'),
       title: t('box.change.title'),
@@ -117,7 +121,8 @@ export default function GamesSubmenu({
         { text: t('box.yes'), onClick: onChangeInstallYesClick },
         { text: t('box.no') }
       ]
-    })
+    }
+    useGlobalState.setState({ dialogModalOptions: changeInstallDialog })
   }
 
   async function onRepairYesClick(appName: string) {
@@ -125,7 +130,7 @@ export default function GamesSubmenu({
   }
 
   function handleRepair(appName: string) {
-    showDialogModal({
+    const repairDialog = {
       showDialog: true,
       message: t('box.repair.message'),
       title: t('box.repair.title'),
@@ -133,7 +138,8 @@ export default function GamesSubmenu({
         { text: t('box.yes'), onClick: async () => onRepairYesClick(appName) },
         { text: t('box.no') }
       ]
-    })
+    }
+    useGlobalState.setState({ dialogModalOptions: repairDialog })
   }
 
   function handleShortcuts() {
@@ -147,7 +153,14 @@ export default function GamesSubmenu({
   }
 
   function handleEdit() {
-    setShowModal(true)
+    useGlobalState.setState({
+      installModalOptions: {
+        show: true,
+        gameInfo,
+        appName,
+        runner
+      }
+    })
   }
 
   async function handleEosOverlay() {
@@ -201,10 +214,7 @@ export default function GamesSubmenu({
     // only unix specific
     if (!isWin && runner === 'legendary') {
       // check if eos overlay is enabled
-      const { status } =
-        libraryStatus.filter(
-          (game: GameStatus) => game.appName === eosOverlayAppName
-        )[0] || {}
+      const { status } = eosOverlayStatus ?? {}
       setEosOverlayRefresh(status === 'installing')
 
       window.api
@@ -334,7 +344,13 @@ export default function GamesSubmenu({
             </>
           )}
           <button
-            onClick={() => setIsSettingsModalOpen(true, 'category', gameInfo)}
+            onClick={() =>
+              setIsSettingsModalOpen({
+                value: true,
+                type: 'category',
+                gameInfo
+              })
+            }
             className="link button is-text is-link"
           >
             {t('submenu.categories', 'Categories')}
@@ -381,13 +397,6 @@ export default function GamesSubmenu({
           )}
         </div>
       </div>
-      {showModal && (
-        <InstallModal
-          appName={appName}
-          runner={runner}
-          backdropClick={() => setShowModal(false)}
-        />
-      )}
     </>
   )
 }

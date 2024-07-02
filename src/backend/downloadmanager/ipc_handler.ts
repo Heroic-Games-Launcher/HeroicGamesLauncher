@@ -12,8 +12,8 @@ ipcMain.handle('addToDMQueue', async (e, element) => {
   await addToQueue(element)
 })
 
-ipcMain.on('removeFromDMQueue', (e, appName) => {
-  removeFromQueue(appName)
+ipcMain.on('removeFromDMQueue', (e, appName, runner) => {
+  removeFromQueue(appName, runner)
 })
 
 ipcMain.on('resumeCurrentDownload', () => {

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './index.scss'
 import Runner from './components/Runner'
 import { useTranslation } from 'react-i18next'
@@ -9,20 +9,38 @@ import GOGLogo from 'frontend/assets/gog-logo.svg?react'
 import HeroicLogo from 'frontend/assets/heroic-icon.svg?react'
 import AmazonLogo from 'frontend/assets/amazon-logo.svg?react'
 
-import { LanguageSelector, UpdateComponent } from '../../components/UI'
+import { LanguageSelector } from '../../components/UI'
 import { FlagPosition } from '../../components/UI/LanguageSelector'
 import SIDLogin from './components/SIDLogin'
-import ContextProvider from '../../state/ContextProvider'
 import { useAwaited } from '../../hooks/useAwaited'
 import { hasHelp } from 'frontend/hooks/hasHelp'
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
 export const epicLoginPath = '/loginweb/legendary'
 export const gogLoginPath = '/loginweb/gog'
 export const amazonLoginPath = '/loginweb/nile'
 
 export default React.memo(function NewLogin() {
-  const { epic, gog, amazon, refreshLibrary } = useContext(ContextProvider)
   const { t } = useTranslation()
+  const {
+    refreshLibrary,
+    epicUsername,
+    epicLogout,
+    gogUsername,
+    gogLogout,
+    amazonUsername,
+    amazonUserId,
+    amazonLogout
+  } = useShallowGlobalState(
+    'refreshLibrary',
+    'epicUsername',
+    'epicLogout',
+    'gogUsername',
+    'gogLogout',
+    'amazonUserId',
+    'amazonUsername',
+    'amazonLogout'
+  )
 
   hasHelp(
     'login',
@@ -31,13 +49,7 @@ export default React.memo(function NewLogin() {
   )
 
   const navigate = useNavigate()
-  const [loading, setLoading] = useState(true)
   const [showSidLogin, setShowSidLogin] = useState(false)
-  const [isEpicLoggedIn, setIsEpicLoggedIn] = useState(Boolean(epic.username))
-  const [isGogLoggedIn, setIsGogLoggedIn] = useState(Boolean(gog.username))
-  const [isAmazonLoggedIn, setIsAmazonLoggedIn] = useState(
-    Boolean(amazon.user_id)
-  )
 
   const systemInfo = useAwaited(window.api.systemInfo.get)
 
@@ -60,16 +72,6 @@ export default React.memo(function NewLogin() {
     'Login with your platform. You can login to more than one platform at the same time.'
   )
 
-  useEffect(() => {
-    setLoading(false)
-  }, [epic, gog])
-
-  useEffect(() => {
-    setIsEpicLoggedIn(Boolean(epic.username))
-    setIsGogLoggedIn(Boolean(gog.username))
-    setIsAmazonLoggedIn(Boolean(amazon.user_id))
-  }, [epic.username, gog.username, amazon.user_id, t])
-
   async function handleLibraryClick() {
     await refreshLibrary({ runInBackground: false })
     navigate('/')
@@ -77,11 +79,6 @@ export default React.memo(function NewLogin() {
 
   return (
     <div className="loginPage">
-      {loading && (
-        <div>
-          <UpdateComponent />
-        </div>
-      )}
       {showSidLogin && (
         <SIDLogin
           backdropClick={() => {
@@ -100,12 +97,12 @@ export default React.memo(function NewLogin() {
               <h2 className="subtitle">Games Launcher</h2>
             </div>
 
-            {!loading && (
+            {
               <LanguageSelector
                 flagPossition={FlagPosition.PREPEND}
                 showWeblateLink={true}
               />
-            )}
+            }
           </div>
 
           <p className="runnerMessage">{loginMessage}</p>
@@ -117,9 +114,9 @@ export default React.memo(function NewLogin() {
               buttonText={t('login.epic', 'Epic Games Login')}
               loginUrl={epicLoginPath}
               icon={() => <EpicLogo />}
-              isLoggedIn={isEpicLoggedIn}
-              user={epic.username}
-              logoutAction={epic.logout}
+              isLoggedIn={!!epicUsername}
+              user={epicUsername}
+              logoutAction={epicLogout}
               alternativeLoginAction={() => {
                 setShowSidLogin(true)
               }}
@@ -130,9 +127,9 @@ export default React.memo(function NewLogin() {
               buttonText={t('login.gog', 'GOG Login')}
               icon={() => <GOGLogo />}
               loginUrl={gogLoginPath}
-              isLoggedIn={isGogLoggedIn}
-              user={gog.username}
-              logoutAction={gog.logout}
+              isLoggedIn={!!gogUsername}
+              user={gogUsername}
+              logoutAction={gogLogout}
               disabled={oldMac}
             />
             <Runner
@@ -140,9 +137,9 @@ export default React.memo(function NewLogin() {
               buttonText={t('login.amazon', 'Amazon Login')}
               icon={() => <AmazonLogo />}
               loginUrl={amazonLoginPath}
-              isLoggedIn={isAmazonLoggedIn}
-              user={amazon.username || 'Unknown'}
-              logoutAction={amazon.logout}
+              isLoggedIn={!!amazonUserId}
+              user={amazonUsername || 'Unknown'}
+              logoutAction={amazonLogout}
               disabled={oldMac}
             />
           </div>
