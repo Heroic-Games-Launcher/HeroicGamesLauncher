@@ -90,6 +90,7 @@ interface SyncIPCFunctions {
   addShortcut: (appName: string, runner: Runner, fromMenu: boolean) => void
   removeShortcut: (appName: string, runner: Runner) => void
   removeFromDMQueue: (appName: string) => void
+  setAutoShutdown: (value: boolean) => void
   clearDMFinished: () => void
   abort: (id: string) => void
   'connectivity-changed': (newStatus: ConnectivityStatus) => void
@@ -253,6 +254,7 @@ interface AsyncIPCFunctions {
     finished: DMQueueElement[]
     state: DownloadManagerState
   }
+  getAutoShutdownValue: () => boolean
   'get-connectivity-status': () => {
     status: ConnectivityStatus
     retryIn: number

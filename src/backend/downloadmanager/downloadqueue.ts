@@ -11,6 +11,7 @@ import i18next from 'i18next'
 import { createRedistDMQueueElement } from 'backend/storeManagers/gog/redist'
 import { existsSync } from 'fs'
 import { gogRedistPath } from 'backend/constants'
+import { shutdown } from 'backend/utils/os/shutdown'
 
 const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
   cwd: 'store',
@@ -23,6 +24,7 @@ const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
 
 let queueState: DownloadManagerState = 'idle'
 let currentElement: DMQueueElement | null = null
+let didReallyDownload = false
 
 function getFirstQueueElement() {
   const elements = downloadManager.get('queue', [])
@@ -84,6 +86,7 @@ async function initQueue() {
         ? await installQueueElement(element.params)
         : await updateQueueElement(element.params)
     element.endTime = Date.now()
+    status === 'done' ? (didReallyDownload = true) : (didReallyDownload = false)
 
     processNotification(element, status)
 
@@ -97,6 +100,15 @@ async function initQueue() {
   }
 
   queueState = 'idle'
+  if (!isPaused() && isIdle() && getAutoShutdown() && didReallyDownload) {
+    logInfo(
+      'Auto shutdown enabled. Shutting down in 3s...',
+      LogPrefix.DownloadManager
+    )
+    setTimeout(() => {
+      shutdown()
+    }, 3000)
+  }
 }
 
 async function addToQueue(element: DMQueueElement) {
@@ -251,6 +263,14 @@ function resumeCurrentDownload() {
   initQueue()
 }
 
+function getAutoShutdown(): boolean {
+  return downloadManager.get('autoShutdown', false)
+}
+
+function setAutoShutdown(value: boolean) {
+  downloadManager.set('autoShutdown', value)
+}
+
 function stopCurrentDownload() {
   const { appName, runner } = currentElement!.params
   callAbortController(appName)
@@ -318,5 +338,7 @@ export {
   getQueueInformation,
   cancelCurrentDownload,
   pauseCurrentDownload,
-  resumeCurrentDownload
+  resumeCurrentDownload,
+  setAutoShutdown,
+  getAutoShutdown
 }
