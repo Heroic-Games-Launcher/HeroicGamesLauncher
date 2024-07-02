@@ -212,7 +212,7 @@ export const DXVK = {
     const is64bitPrefix = existsSync(`${winePrefix}/drive_c/windows/syswow64`)
 
     if (!is64bitPrefix) {
-      logWarning('Installing DXVK on a 32-bit prefix!', LogPrefix.DXVKInstaller)
+      logWarning('32-bit prefix detected!', LogPrefix.DXVKInstaller)
     }
 
     if (!existsSync(`${toolsPath}/${tool}/latest_${tool}`)) {
@@ -291,6 +291,79 @@ export const DXVK = {
           protonVerb: 'run'
         })
       })
+
+      logInfo('Removing DXVK DLLs', LogPrefix.DXVKInstaller)
+
+      // removing DXVK dlls
+      const lib32Path =
+        gameSettings.wineVersion.lib32 === undefined
+          ? ''
+          : gameSettings.wineVersion.lib32
+      const wineLib32Path = lib32Path.replace('~', userHome)
+      if (wineLib32Path === '') {
+        logError(
+          'invalid 32-bit library source directory! Will not remove DXVK DLLs',
+          LogPrefix.DXVKInstaller
+        )
+        return false
+      }
+      if (is64bitPrefix) {
+        const libPath =
+          gameSettings.wineVersion.lib === undefined
+            ? ''
+            : gameSettings.wineVersion.lib
+        const wineLibPath = libPath.replace('~', userHome)
+        if (wineLibPath === '') {
+          logError(
+            'invalid 64-bit library source directory! Will not remove DXVK DLLs',
+            LogPrefix.DXVKInstaller
+          )
+          return false
+        }
+        dlls32.forEach((dll) => {
+          copyFile(
+            `${wineLib32Path}/wine/i386-windows/${dll}`,
+            `${winePrefix}/drive_c/windows/syswow64/${dll}`,
+            (err) => {
+              if (err) {
+                logError(
+                  [`Error when copying ${dll}`, err],
+                  LogPrefix.DXVKInstaller
+                )
+              }
+            }
+          )
+        })
+        dlls64.forEach((dll) => {
+          copyFile(
+            `${wineLibPath}/wine/x86_64-windows/${dll}`,
+            `${winePrefix}/drive_c/windows/system32/${dll}`,
+            (err) => {
+              if (err) {
+                logError(
+                  [`Error when copying ${dll}`, err],
+                  LogPrefix.DXVKInstaller
+                )
+              }
+            }
+          )
+        })
+      } else {
+        dlls32.forEach((dll) => {
+          copyFile(
+            `${wineLib32Path}/wine/i386-windows/${dll}`,
+            `${winePrefix}/drive_c/windows/system32/${dll}`,
+            (err) => {
+              if (err) {
+                logError(
+                  [`Error when copying ${dll}`, err],
+                  LogPrefix.DXVKInstaller
+                )
+              }
+            }
+          )
+        })
+      }
       return true
     }
 
