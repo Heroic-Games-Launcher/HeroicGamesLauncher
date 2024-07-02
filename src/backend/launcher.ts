@@ -1015,6 +1015,7 @@ async function callRunner(
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
   const appName = appNameFromCommandParts(commandParts, runner.name)
+  const wrappers = options?.wrappers || []
 
   // Necessary to get rid of possible undefined or null entries, else
   // TypeError is triggered
@@ -1026,6 +1027,11 @@ async function callRunner(
   // macOS/Linux: `spawn`ing an executable in the current working directory
   // requires a "./"
   if (!isWindows) bin = './' + bin
+
+  if (runner.name === 'sideload' && wrappers.length > 0) {
+    commandParts.unshift(...wrappers, fullRunnerPath)
+    fullRunnerPath = bin = commandParts.shift()!
+  }
 
   // On Windows: Use PowerShell's `Start-Process` to wait for the process and
   // its children to exit, provided PowerShell is available
