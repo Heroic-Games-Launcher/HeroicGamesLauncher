@@ -114,25 +114,14 @@ export default function SideloadDialog({
     }
   }, [])
 
+  // Suggest default Wine prefix if we're adding a new app
   useEffect(() => {
-    const setWine = async () => {
-      if (editMode && appName) {
-        const appSettings = await window.api.getGameSettings(
-          appName,
-          'sideload'
-        )
-        if (appSettings?.winePrefix) {
-          setWinePrefix(appSettings.winePrefix)
-        }
-        return
-      } else {
-        const { defaultWinePrefix } = await window.api.requestAppSettings()
-        const sugestedWinePrefix = `${defaultWinePrefix}/${title}`
-        setWinePrefix(sugestedWinePrefix)
-      }
-    }
-    setWine()
-  }, [title])
+    if (editMode) return
+    window.api.requestAppSettings().then(({ defaultWinePrefix }) => {
+      const suggestedWinePrefix = `${defaultWinePrefix}/${title}`
+      setWinePrefix(suggestedWinePrefix)
+    })
+  }, [title, editMode])
 
   async function searchImage() {
     setSearching(true)
@@ -181,15 +170,16 @@ export default function SideloadDialog({
     if (!gameSettings) {
       return
     }
-    await writeConfig({
-      appName: app_name,
-      config: {
-        ...gameSettings,
-        winePrefix,
-        wineVersion,
-        wineCrossoverBottle: crossoverBottle
-      }
-    })
+    if (!editMode)
+      window.api.writeConfig({
+        appName: app_name,
+        config: {
+          ...gameSettings,
+          winePrefix,
+          wineVersion,
+          wineCrossoverBottle: crossoverBottle
+        }
+      })
 
     await refreshLibrary({
       library: 'sideload',
