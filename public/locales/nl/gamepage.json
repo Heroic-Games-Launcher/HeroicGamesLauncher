@@ -98,7 +98,8 @@
         },
         "builds": {
             "version": "Versie"
-        }
+        },
+        "modify": "Pas installatie aan"
     },
     "gamecard": {
         "moving": "Aan het verplaatsen",

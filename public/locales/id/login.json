@@ -8,14 +8,14 @@
         "loading": "Memuat"
     },
     "message": {
-        "part1": "Untuk masuk dan memasang permainanmu, kamu harus mengikuti langkah-langkah di bawah:",
+        "part1": "Untuk masuk dan menginstal gim, Anda harus mengikuti langkah-langkah di bawah:",
         "part2": "Buka",
         "part3": "Epic Store di sini",
-        "part4": ", log masuk ke akun Anda dan salin",
-        "part5": "Nomor informasi authorization code",
+        "part4": ", masuk ke akun Anda dan salin",
+        "part5": "nomor informasi kode otorisasi",
         "part6": "Tempel",
-        "part7": "Nomor authorization code",
-        "part8": "di kotak input di bawah dan klik tombol log masuk."
+        "part7": "nomor kode otorisasi",
+        "part8": "di kotak input di bawah dan klik tombol masuk."
     },
     "status": {
         "error": "Galat",

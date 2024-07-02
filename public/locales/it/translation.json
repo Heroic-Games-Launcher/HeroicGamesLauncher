@@ -267,7 +267,8 @@
         "uncategorized": "Senza Categoria",
         "only": "solo",
         "select_all": "Seleziona Tutto",
-        "no_categories": "Nessuna categoria personalizzata. Aggiungi categorie utilizzando il menu di ogni gioco."
+        "no_categories": "Nessuna categoria personalizzata. Aggiungi categorie utilizzando il menu di ogni gioco.",
+        "show_third_party_managed_only": "Mostra solo quelle gestite da terze parti"
     },
     "help": {
         "amdfsr": "FSR di AMD aiuta a incrementare il framerate grazie all'upscaling delle risoluzioni più basse in modalità schermo intero. La qualità dell'immagine aumenta da 5 a 1 al costo di un leggero calo delle prestazioni. L'attivazione può migliorare le prestazioni.",

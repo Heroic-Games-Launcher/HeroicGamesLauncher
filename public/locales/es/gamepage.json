@@ -150,7 +150,8 @@
             "message": "El soporte de anticheat está roto o denegado. El juego no funcionará. ¿Quieres instalarlo de todos modos?",
             "install": "Sí (entiendo que no funcionará)",
             "title": "Anticheat Roto/Denegado",
-            "ok": "Ok"
+            "ok": "Ok",
+            "install_anyway": "Sí (Entiendo que las características multijugador no funcionarán)"
         },
         "flatpak-path-not-writtable": "Error: No se ha concedido acceso al Sandbox a esta ruta, se perderán los datos."
     },
