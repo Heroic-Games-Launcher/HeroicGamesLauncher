@@ -358,7 +358,7 @@ const GameCard = ({
       // uninstall
       label: t('button.uninstall'),
       onclick: onUninstallClick,
-      show: isInstalled && !isUpdating
+      show: isInstalled && !isUpdating && !isPlaying
     }
   ]
 

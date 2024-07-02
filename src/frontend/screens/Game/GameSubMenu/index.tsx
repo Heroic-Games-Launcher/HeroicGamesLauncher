@@ -12,6 +12,7 @@ import { NavLink } from 'react-router-dom'
 import { InstallModal } from 'frontend/screens/Library/components'
 import { CircularProgress } from '@mui/material'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
+import GameContext from '../GameContext'
 
 interface Props {
   appName: string
@@ -51,6 +52,7 @@ export default function GamesSubmenu({
     showDialogModal,
     setIsSettingsModalOpen
   } = useContext(ContextProvider)
+  const { is } = useContext(GameContext)
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
 
@@ -281,6 +283,7 @@ export default function GamesSubmenu({
               <button
                 onClick={async () => setShowUninstallModal(true)}
                 className="link button is-text is-link"
+                disabled={is.playing}
               >
                 {t('button.uninstall', 'Uninstall')}
               </button>{' '}
