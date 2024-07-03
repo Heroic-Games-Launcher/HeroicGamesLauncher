@@ -9,7 +9,8 @@
     "e2e/**/*.js",
     "flathub/**/*.ts",
     "playwright.config.ts",
-    "electron.vite.config.ts"
+    "electron.vite.config.ts",
+    "meta/**/*.ts"
   ],
   "exclude": []
 }

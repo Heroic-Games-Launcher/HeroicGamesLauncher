@@ -47,7 +47,8 @@
     "i18n": "i18next --silent",
     "prepare": "husky install",
     "prettier": "prettier --check .",
-    "prettier-fix": "prettier --write ."
+    "prettier-fix": "prettier --write .",
+    "download-helper-binaries": "esbuild --bundle --platform=node --target=node21 meta/downloadHelperBinaries.ts | node"
   },
   "dependencies": {
     "@emotion/react": "11.10.6",
@@ -116,7 +117,7 @@
     "@types/i18next-fs-backend": "1.1.4",
     "@types/ini": "1.3.31",
     "@types/jest": "29.4.0",
-    "@types/node": "18.15.0",
+    "@types/node": "20.14.9",
     "@types/plist": "3.0.2",
     "@types/react": "18.2.34",
     "@types/react-beautiful-dnd": "13.1.4",
@@ -153,7 +154,8 @@
     "typescript": "4.9.4",
     "unimported": "1.26.0",
     "vite": "5.2.8",
-    "vite-plugin-svgr": "4.2.0"
+    "vite-plugin-svgr": "4.2.0",
+    "yauzl": "^3.1.3"
   },
   "resolutions": {
     "ts-morph": "17.0.1"
