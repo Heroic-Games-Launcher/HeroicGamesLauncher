@@ -47,6 +47,10 @@
     display: block;
   }
 
+  ul.autoComplete:empty {
+    display: none;
+  }
+
   .searchButton {
     padding: var(--space-2xs) var(--space-2xs) 0 var(--space-2xs);
   }
