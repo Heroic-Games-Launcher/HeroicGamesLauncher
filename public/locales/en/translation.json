@@ -785,6 +785,7 @@
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
         },
         "systemInformation": {
+            "cometVersion": "Comet: {{cometVersion}}",
             "copyToClipboard": "Copy to clipboard",
             "cpu": "CPU:",
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
