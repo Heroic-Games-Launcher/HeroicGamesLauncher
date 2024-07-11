@@ -35,7 +35,7 @@ export default defineConfig(({ mode }) => ({
         input: 'src/backend/main.ts'
       },
       outDir: 'build/main',
-      minify: mode === 'production',
+      minify: true,
       sourcemap: mode === 'development' ? 'inline' : false
     },
     resolve: { alias: srcAliases },
@@ -47,7 +47,7 @@ export default defineConfig(({ mode }) => ({
         input: 'src/backend/preload.ts'
       },
       outDir: 'build/preload',
-      minify: mode === 'production',
+      minify: true,
       sourcemap: mode === 'development' ? 'inline' : false
     },
     resolve: { alias: srcAliases },
@@ -62,7 +62,7 @@ export default defineConfig(({ mode }) => ({
       target: 'esnext',
       outDir: 'build',
       emptyOutDir: false,
-      minify: mode === 'production',
+      minify: true,
       sourcemap: mode === 'development' ? 'inline' : false
     },
     resolve: { alias: srcAliases },
