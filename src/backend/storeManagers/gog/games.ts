@@ -56,6 +56,7 @@ import {
 } from './electronStores'
 import {
   appendGamePlayLog,
+  appendRunnerLog,
   appendWinetricksGamePlayLog,
   logDebug,
   logError,
@@ -680,8 +681,15 @@ export async function launch(
     child = spawn(join(path.dir, path.bin), [
       '--from-heroic',
       '--username',
-      userData.username
+      userData.username,
+      '--quit'
     ])
+    child.stdout.on('data', (data) => {
+      appendRunnerLog('gog', data.toString())
+    })
+    child.stderr.on('data', (data) => {
+      appendRunnerLog('gog', data.toString())
+    })
     logInfo(`Launching Comet!`, LogPrefix.Gog)
   }
 
