@@ -1,16 +1,16 @@
 import { createWriteStream } from 'fs'
 import { chmod, stat, mkdir, readFile, writeFile } from 'fs/promises'
-import { join } from 'path'
-
-import { fromBuffer as zipFromBuffer, type Entry } from 'yauzl'
+import { dirname, join } from 'path'
+import { Readable } from 'stream'
+import { finished } from 'stream/promises'
 
 type SupportedPlatform = 'win32' | 'darwin' | 'linux'
 type DownloadedBinary = 'legendary' | 'gogdl' | 'nile'
 
-const RUN_IDS = {
-  legendary: '9939390786',
-  gogdl: '9939144003',
-  nile: '9938994045'
+const RELEASE_TAGS = {
+  legendary: '0.20.35',
+  gogdl: 'v1.1.1',
+  nile: 'v1.1.0'
 } as const satisfies Record<DownloadedBinary, string>
 
 const pathExists = async (path: string): Promise<boolean> =>
@@ -19,64 +19,32 @@ const pathExists = async (path: string): Promise<boolean> =>
     () => false
   )
 
-async function downloadFile(url: string) {
+async function downloadFile(url: string, dst: string) {
   const response = await fetch(url, {
     headers: {
       'User-Agent': 'HeroicBinaryUpdater/1.0'
     }
   })
-  return Buffer.from(await response.arrayBuffer())
-}
-
-/**
- * Finds a file in a ZIP file and writes it into destination
- * @param zipBuffer The ZIP file to search through
- * @param filename The file to look for
- * @param destination The destination for filename to go to
- */
-async function pickFileFromZipFile(
-  zipBuffer: Buffer,
-  filename: string,
-  destination: string
-) {
-  return new Promise<void>((resolve, reject) => {
-    zipFromBuffer(zipBuffer, (err, zipfile) => {
-      if (err) reject(err)
-
-      zipfile.on('entry', (entry: Entry) => {
-        if (entry.fileName !== filename) return
-
-        zipfile.openReadStream(entry, (err, stream) => {
-          if (err) reject(err)
-          const destWriteStream = createWriteStream(destination)
-          stream.pipe(destWriteStream)
-          stream.on('end', resolve)
-          stream.on('error', reject)
-        })
-      })
-    })
-  })
+  await mkdir(dirname(dst), { recursive: true })
+  const fileStream = createWriteStream(dst, { flags: 'w' })
+  await finished(Readable.fromWeb(response.body).pipe(fileStream))
 }
 
 async function downloadAsset(
   binaryName: string,
   repo: string,
-  runid: string,
+  tag_name: string,
   arch: string,
   platform: SupportedPlatform,
   filename: string
 ) {
-  const url = `https://nightly.link/${repo}/actions/runs/${runid}/${filename}`
+  const url = `https://github.com/${repo}/releases/download/${tag_name}/${filename}`
   console.log('Downloading', binaryName, 'for', platform, arch, 'from', url)
 
-  const fileBuffer = await downloadFile(url)
-
   const exeFilename = binaryName + (platform === 'win32' ? '.exe' : '')
-  const exeDir = join('public', 'bin', arch, platform)
-  const exePath = join(exeDir, exeFilename)
+  const exePath = join('public', 'bin', arch, platform, exeFilename)
+  await downloadFile(url, exePath)
 
-  await mkdir(exeDir, { recursive: true })
-  await pickFileFromZipFile(fileBuffer, exeFilename, exePath)
   console.log('Done downloading', binaryName, 'for', platform, arch)
 
   if (platform !== 'win32') {
@@ -85,33 +53,33 @@ async function downloadAsset(
 }
 
 /**
- * Downloads assets uploaded by a GitHub action
+ * Downloads assets uploaded to a GitHub release
  * @param binaryName The binary which was built & uploaded. Also used to get the final folder path
  * @param repo The repo to download from
- * @param runid The GitHub Actions run ID which produced the binaries
+ * @param tagName The GitHub Release tag which produced the binaries
  * @param assetNames The name(s) of the assets which were uploaded, mapped to platforms
  */
 async function downloadGithubAssets(
   binaryName: string,
   repo: string,
-  runid: string,
+  tagName: string,
   assetNames: Record<
     'x64' | 'arm64',
     Partial<Record<SupportedPlatform, string>>
   >
 ) {
   const downloadPromises = Object.entries(assetNames).map(
-    async ([arch, plarform_filename_map]) =>
+    async ([arch, platformFilenameMap]) =>
       Promise.all(
-        Object.entries(plarform_filename_map).map(([platform, filename]) => {
+        Object.entries(platformFilenameMap).map(([platform, filename]) => {
           if (!filename) return
           return downloadAsset(
             binaryName,
             repo,
-            runid,
+            tagName,
             arch,
-            platform as keyof typeof plarform_filename_map,
-            filename + '.zip'
+            platform as keyof typeof platformFilenameMap,
+            filename
           )
         })
       )
@@ -124,15 +92,15 @@ async function downloadLegendary() {
   return downloadGithubAssets(
     'legendary',
     'Heroic-Games-Launcher/legendary',
-    RUN_IDS['legendary'],
+    RELEASE_TAGS['legendary'],
     {
       x64: {
-        linux: 'ubuntu-20.04-package',
-        darwin: 'macos-12-package',
-        win32: 'windows-2022-package'
+        linux: 'legendary_linux_x86_64',
+        darwin: 'legendary_macOS_x86_64',
+        win32: 'legendary_windows_x86_64.exe'
       },
       arm64: {
-        darwin: 'macos-14-package'
+        darwin: 'legendary_macOS_arm64'
       }
     }
   )
@@ -142,57 +110,58 @@ async function downloadGogdl() {
   return downloadGithubAssets(
     'gogdl',
     'Heroic-Games-Launcher/heroic-gogdl',
-    RUN_IDS['gogdl'],
+    RELEASE_TAGS['gogdl'],
     {
       x64: {
-        linux: 'gogdl-ubuntu-20.04',
-        darwin: 'gogdl-macos-12',
-        win32: 'gogdl-windows-2022'
+        linux: 'gogdl_linux_x86_64',
+        darwin: 'gogdl_macOS_x86_64',
+        win32: 'gogdl_windows_x86_64.exe'
       },
       arm64: {
-        darwin: 'gogdl-macos-14'
+        darwin: 'gogdl_macOS_arm64'
       }
     }
   )
 }
 
 async function downloadNile() {
-  return downloadGithubAssets('nile', 'imLinguin/nile', RUN_IDS['nile'], {
+  return downloadGithubAssets('nile', 'imLinguin/nile', RELEASE_TAGS['nile'], {
     x64: {
-      linux: 'nile-ubuntu-20.04',
-      darwin: 'nile-macos-12',
-      win32: 'nile-windows-2022'
+      linux: 'nile_linux_x86_64',
+      darwin: 'nile_macOS_x86_64',
+      win32: 'nile_windows_x86_64.exe'
     },
     arm64: {
-      darwin: 'nile-macos-14'
+      darwin: 'nile_macOS_arm64'
     }
   })
 }
 
 /**
  * Finds out which binaries need to be downloaded by comparing
- * `public/bin/.runids` with RUN_IDS
+ * `public/bin/.release_tags` to RELEASE_TAGS
  */
-async function compareDownloadedRunIds(): Promise<DownloadedBinary[]> {
-  const storedRunIdsText = await readFile('public/bin/.runids', 'utf-8').catch(
-    () => '{}'
-  )
-  let storedRunIdsParsed: Partial<Record<DownloadedBinary, string>>
+async function compareDownloadedTags(): Promise<DownloadedBinary[]> {
+  const storedTagsText = await readFile(
+    'public/bin/.release_tags',
+    'utf-8'
+  ).catch(() => '{}')
+  let storedTagsParsed: Partial<Record<DownloadedBinary, string>>
   try {
-    storedRunIdsParsed = JSON.parse(storedRunIdsText)
+    storedTagsParsed = JSON.parse(storedTagsText)
   } catch {
     return ['legendary', 'gogdl', 'nile']
   }
   const binariesToDownload: DownloadedBinary[] = []
-  for (const [runner, currentRunId] of Object.entries(RUN_IDS)) {
-    if (storedRunIdsParsed[runner] !== currentRunId)
-      binariesToDownload.push(runner as keyof typeof RUN_IDS)
+  for (const [runner, currentTag] of Object.entries(RELEASE_TAGS)) {
+    if (storedTagsParsed[runner] !== currentTag)
+      binariesToDownload.push(runner as keyof typeof RELEASE_TAGS)
   }
   return binariesToDownload
 }
 
-async function storeDownloadedRunIds() {
-  await writeFile('public/bin/.runids', JSON.stringify(RUN_IDS))
+async function storeDownloadedTags() {
+  await writeFile('public/bin/.release_tags', JSON.stringify(RELEASE_TAGS))
 }
 
 async function main() {
@@ -201,7 +170,7 @@ async function main() {
     return
   }
 
-  const binariesToDownload = await compareDownloadedRunIds()
+  const binariesToDownload = await compareDownloadedTags()
   if (!binariesToDownload.length) {
     console.log('Nothing to download, binaries are up-to-date')
     return
@@ -218,7 +187,7 @@ async function main() {
 
   await Promise.all(promisesToAwait)
 
-  await storeDownloadedRunIds()
+  await storeDownloadedTags()
 }
 
 void main()
