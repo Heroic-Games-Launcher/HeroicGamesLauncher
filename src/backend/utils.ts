@@ -449,7 +449,9 @@ function getLegendaryBin(): { dir: string; bin: string } {
     return splitPathAndName(settings.altLegendaryBin)
   }
   return splitPathAndName(
-    fixAsarPath(join(publicDir, 'bin', process.platform, 'legendary'))
+    fixAsarPath(
+      join(publicDir, 'bin', process.arch, process.platform, 'legendary')
+    )
   )
 }
 
@@ -459,7 +461,7 @@ function getGOGdlBin(): { dir: string; bin: string } {
     return splitPathAndName(settings.altGogdlBin)
   }
   return splitPathAndName(
-    fixAsarPath(join(publicDir, 'bin', process.platform, 'gogdl'))
+    fixAsarPath(join(publicDir, 'bin', process.arch, process.platform, 'gogdl'))
   )
 }
 
@@ -469,7 +471,7 @@ function getNileBin(): { dir: string; bin: string } {
     return splitPathAndName(settings.altNileBin)
   }
   return splitPathAndName(
-    fixAsarPath(join(publicDir, 'bin', process.platform, 'nile'))
+    fixAsarPath(join(publicDir, 'bin', process.arch, process.platform, 'nile'))
   )
 }
 

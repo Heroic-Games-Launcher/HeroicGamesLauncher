@@ -28,10 +28,11 @@ win:
   artifactName: ${productName}-${version}-Setup-${arch}.${ext}
   icon: build/win_icon.ico
   asarUnpack:
-    - build/bin/win32/legendary.exe
-    - build/bin/win32/gogdl.exe
-    - build/bin/win32/nile.exe
-  files: build/bin/win32/*
+    - build/bin/x64/win32/legendary.exe
+    - build/bin/x64/win32/gogdl.exe
+    - build/bin/x64/win32/nile.exe
+  files:
+    - build/bin/x64/win32/*
 
 portable:
   artifactName: ${productName}-${version}-Portable-${arch}.${ext}
@@ -47,11 +48,15 @@ mac:
   extendInfo:
     com.apple.security.cs.allow-jit: true
   asarUnpack:
-    - build/bin/darwin/legendary
-    - build/bin/darwin/gogdl
-    - build/bin/darwin/nile
+    - build/bin/x64/darwin/legendary
+    - build/bin/x64/darwin/gogdl
+    - build/bin/x64/darwin/nile
+    - build/bin/arm64/darwin/legendary
+    - build/bin/arm64/darwin/gogdl
+    - build/bin/arm64/darwin/nile
   files:
-    - build/bin/darwin/*
+    - build/bin/x64/darwin/*
+    - build/bin/arm64/darwin/*
 
 dmg:
   background: public/dmg.png
@@ -75,12 +80,13 @@ linux:
     Name: Heroic Games Launcher
     Comment[de]: Ein Open Source Spielelauncher for GOG und Epic Games
   asarUnpack:
-    - build/bin/linux/legendary
-    - build/bin/linux/gogdl
-    - build/bin/linux/nile
-    - build/bin/linux/vulkan-helper
+    - build/bin/x64/linux/legendary
+    - build/bin/x64/linux/gogdl
+    - build/bin/x64/linux/nile
+    - build/bin/x64/linux/vulkan-helper
   files:
-    - build/bin/linux/*
+    - build/bin/x64/linux/*
+    - build/bin/arm64/linux/*
 
 snap:
   base: core20

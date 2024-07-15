@@ -1,16 +1,17 @@
 import { createWriteStream } from 'fs'
-import { chmod, stat } from 'fs/promises'
+import { chmod, stat, mkdir, readFile, writeFile } from 'fs/promises'
 import { join } from 'path'
 
 import { fromBuffer as zipFromBuffer, type Entry } from 'yauzl'
 
 type SupportedPlatform = 'win32' | 'darwin' | 'linux'
+type DownloadedBinary = 'legendary' | 'gogdl' | 'nile'
 
 const RUN_IDS = {
-  legendary: '9260477327',
-  gogdl: '9554628031',
-  nile: '9428563942'
-} as const
+  legendary: '9939390786',
+  gogdl: '9939144003',
+  nile: '9938994045'
+} as const satisfies Record<DownloadedBinary, string>
 
 const pathExists = async (path: string): Promise<boolean> =>
   stat(path).then(
@@ -61,18 +62,22 @@ async function downloadAsset(
   binaryName: string,
   repo: string,
   runid: string,
+  arch: string,
   platform: SupportedPlatform,
   filename: string
 ) {
   const url = `https://nightly.link/${repo}/actions/runs/${runid}/${filename}`
-  console.log('Downloading', binaryName, 'for', platform, 'from', url)
+  console.log('Downloading', binaryName, 'for', platform, arch, 'from', url)
 
   const fileBuffer = await downloadFile(url)
 
   const exeFilename = binaryName + (platform === 'win32' ? '.exe' : '')
-  const exePath = join('public', 'bin', platform, exeFilename)
+  const exeDir = join('public', 'bin', arch, platform)
+  const exePath = join(exeDir, exeFilename)
+
+  await mkdir(exeDir, { recursive: true })
   await pickFileFromZipFile(fileBuffer, exeFilename, exePath)
-  console.log('Done downloading', binaryName, 'for', platform)
+  console.log('Done downloading', binaryName, 'for', platform, arch)
 
   if (platform !== 'win32') {
     await chmod(exePath, '755')
@@ -90,19 +95,26 @@ async function downloadGithubAssets(
   binaryName: string,
   repo: string,
   runid: string,
-  assetNames: Partial<Record<SupportedPlatform, string>>
+  assetNames: Record<
+    'x64' | 'arm64',
+    Partial<Record<SupportedPlatform, string>>
+  >
 ) {
   const downloadPromises = Object.entries(assetNames).map(
-    async ([platform, filename]) => {
-      if (!filename) return
-      return downloadAsset(
-        binaryName,
-        repo,
-        runid,
-        platform as SupportedPlatform,
-        filename + '.zip'
+    async ([arch, plarform_filename_map]) =>
+      Promise.all(
+        Object.entries(plarform_filename_map).map(([platform, filename]) => {
+          if (!filename) return
+          return downloadAsset(
+            binaryName,
+            repo,
+            runid,
+            arch,
+            platform as keyof typeof plarform_filename_map,
+            filename + '.zip'
+          )
+        })
       )
-    }
   )
 
   return Promise.all(downloadPromises)
@@ -114,9 +126,14 @@ async function downloadLegendary() {
     'Heroic-Games-Launcher/legendary',
     RUN_IDS['legendary'],
     {
-      linux: 'Linux-package',
-      darwin: 'macOS-package',
-      win32: 'Windows-package'
+      x64: {
+        linux: 'ubuntu-20.04-package',
+        darwin: 'macos-12-package',
+        win32: 'windows-2022-package'
+      },
+      arm64: {
+        darwin: 'macos-14-package'
+      }
     }
   )
 }
@@ -127,19 +144,55 @@ async function downloadGogdl() {
     'Heroic-Games-Launcher/heroic-gogdl',
     RUN_IDS['gogdl'],
     {
-      linux: 'gogdl-Linux',
-      darwin: 'gogdl-macOS',
-      win32: 'gogdl-Windows'
+      x64: {
+        linux: 'gogdl-ubuntu-20.04',
+        darwin: 'gogdl-macos-12',
+        win32: 'gogdl-windows-2022'
+      },
+      arm64: {
+        darwin: 'gogdl-macos-14'
+      }
     }
   )
 }
 
 async function downloadNile() {
   return downloadGithubAssets('nile', 'imLinguin/nile', RUN_IDS['nile'], {
-    linux: 'nile-Linux',
-    darwin: 'nile-macOS',
-    win32: 'nile-Windows'
+    x64: {
+      linux: 'nile-ubuntu-20.04',
+      darwin: 'nile-macos-12',
+      win32: 'nile-windows-2022'
+    },
+    arm64: {
+      darwin: 'nile-macos-14'
+    }
   })
+}
+
+/**
+ * Finds out which binaries need to be downloaded by comparing
+ * `public/bin/.runids` with RUN_IDS
+ */
+async function compareDownloadedRunIds(): Promise<DownloadedBinary[]> {
+  const storedRunIdsText = await readFile('public/bin/.runids', 'utf-8').catch(
+    () => '{}'
+  )
+  let storedRunIdsParsed: Partial<Record<DownloadedBinary, string>>
+  try {
+    storedRunIdsParsed = JSON.parse(storedRunIdsText)
+  } catch {
+    return ['legendary', 'gogdl', 'nile']
+  }
+  const binariesToDownload: DownloadedBinary[] = []
+  for (const [runner, currentRunId] of Object.entries(RUN_IDS)) {
+    if (storedRunIdsParsed[runner] !== currentRunId)
+      binariesToDownload.push(runner as keyof typeof RUN_IDS)
+  }
+  return binariesToDownload
+}
+
+async function storeDownloadedRunIds() {
+  await writeFile('public/bin/.runids', JSON.stringify(RUN_IDS))
 }
 
 async function main() {
@@ -148,7 +201,24 @@ async function main() {
     return
   }
 
-  return Promise.all([downloadLegendary(), downloadGogdl(), downloadNile()])
+  const binariesToDownload = await compareDownloadedRunIds()
+  if (!binariesToDownload.length) {
+    console.log('Nothing to download, binaries are up-to-date')
+    return
+  }
+
+  console.log('Downloading:', binariesToDownload)
+  const promisesToAwait: Promise<unknown>[] = []
+
+  if (binariesToDownload.includes('legendary'))
+    promisesToAwait.push(downloadLegendary())
+  if (binariesToDownload.includes('gogdl'))
+    promisesToAwait.push(downloadGogdl())
+  if (binariesToDownload.includes('nile')) promisesToAwait.push(downloadNile())
+
+  await Promise.all(promisesToAwait)
+
+  await storeDownloadedRunIds()
 }
 
 void main()
