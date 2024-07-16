@@ -14,7 +14,7 @@ import {
   gogSupportPath,
   isWindows
 } from '../../constants'
-import { runWineCommand, verifyWinePrefix } from '../../launcher'
+import { getWinePath, runWineCommand, verifyWinePrefix } from '../../launcher'
 import { getGameInfo as getGogLibraryGameInfo } from 'backend/storeManagers/gog/library'
 import { readFile } from 'node:fs/promises'
 import shlex from 'shlex'
@@ -125,14 +125,46 @@ async function setup(
     return
   }
 
-  const gameSupportDir = path.join(gogSupportPath, appName) // This doesn't need to exist, scriptinterpreter.exe will handle it gracefully
+  let gameSupportDir = path.join(gogSupportPath, appName) // This doesn't need to exist, scriptinterpreter.exe will handle it gracefully
 
   const installLanguage = gameInfo.install.language?.split('-')[0]
   const languages = new Intl.DisplayNames(['en'], { type: 'language' })
   const lang: string | undefined = languages.of(installLanguage!)
 
   const dependencies: string[] = []
-  const gameDirectoryPath = gameInfo.install.install_path!
+  let gameDirectoryPath = gameInfo.install.install_path!
+
+  // Do a pass on dependencies
+  if (manifestData.version === 1) {
+    // Find redist depots and push to dependency installer
+    for (const depot of manifestData.product.depots) {
+      if ('redist' in depot && !dependencies.includes(depot.redist)) {
+        dependencies.push(depot.redist)
+      }
+    }
+  } else {
+    for (const dep of manifestData.dependencies || []) {
+      if (!dependencies.includes(dep)) {
+        dependencies.push(dep)
+      }
+    }
+  }
+
+  // When there is no scummvm in dependencies, proceed with windows paths
+  if (!isWindows) {
+    if (!dependencies.find((dep) => dep.toLowerCase() === 'scummvm')) {
+      gameSupportDir = await getWinePath({
+        path: gameSupportDir,
+        gameSettings,
+        variant: 'win'
+      })
+      gameDirectoryPath = await getWinePath({
+        path: gameDirectoryPath,
+        gameSettings,
+        variant: 'win'
+      })
+    }
+  }
 
   sendGameStatusUpdate({
     appName,
@@ -178,12 +210,6 @@ async function setup(
             startFolder: path.join(gameSupportDir, supportCommand.gameID)
           })
         }
-      }
-    }
-    // Find redist depots and push to dependency installer
-    for (const depot of manifestData.product.depots) {
-      if ('redist' in depot && !dependencies.includes(depot.redist)) {
-        dependencies.push(depot.redist)
       }
     }
   } else {
@@ -285,12 +311,6 @@ async function setup(
           skipPrefixCheckIKnowWhatImDoing: true,
           startFolder: path.join(gameSupportDir, manifestProduct.productId)
         })
-      }
-    }
-
-    for (const dep of manifestData.dependencies || []) {
-      if (!dependencies.includes(dep)) {
-        dependencies.push(dep)
       }
     }
   }
