@@ -145,7 +145,7 @@ async function getAvailableVersions({
             releases.push(...fetchedReleases)
           })
           .catch((error: Error) => {
-            throw error
+            logError(error, LogPrefix.WineDownloader)
           })
         break
       }
