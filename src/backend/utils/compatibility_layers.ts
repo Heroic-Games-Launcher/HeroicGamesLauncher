@@ -334,12 +334,12 @@ export async function getCrossover(): Promise<Set<WineInstallation>> {
  * Detects Gaming Porting Toolkit Wine installs on Mac
  * @returns Promise<Set<WineInstallation>>
  **/
-export async function getGamingPortingToolkitWine(): Promise<
+export async function getGamePortingToolkitWine(): Promise<
   Set<WineInstallation>
 > {
-  const gamingPortingToolkitWine = new Set<WineInstallation>()
+  const gamePortingToolkitWine = new Set<WineInstallation>()
   if (!isMac) {
-    return gamingPortingToolkitWine
+    return gamePortingToolkitWine
   }
 
   const GPTK_ToolPath = join(toolsPath, 'game-porting-toolkit')
@@ -358,7 +358,7 @@ export async function getGamingPortingToolkitWine(): Promise<
       try {
         const name = winePath.split('/').pop() || ''
         if (existsSync(wineBin)) {
-          gamingPortingToolkitWine.add({
+          gamePortingToolkitWine.add({
             ...getWineExecs(wineBin),
             lib: `${winePath}/Contents/Resources/wine/lib`,
             lib32: `${winePath}/Contents/Resources/wine/lib`,
@@ -377,14 +377,14 @@ export async function getGamingPortingToolkitWine(): Promise<
     }
   })
 
-  return gamingPortingToolkitWine
+  return gamePortingToolkitWine
 }
 
 /**
  * Detects Gaming Porting Toolkit Wine installs on Mac
  * @returns Promise<Set<WineInstallation>>
  **/
-export async function getSystemGamingPortingToolkitWine(): Promise<
+export async function getSystemGamePortingToolkitWine(): Promise<
   Set<WineInstallation>
 > {
   const systemGPTK = new Set<WineInstallation>()
@@ -400,7 +400,7 @@ export async function getSystemGamingPortingToolkitWine(): Promise<
 
   if (existsSync(wineBin)) {
     logInfo(
-      `Found Gaming Porting Toolkit Wine at ${dirname(wineBin)}`,
+      `Found Game Porting Toolkit Wine at ${dirname(wineBin)}`,
       LogPrefix.GlobalConfig
     )
     try {
