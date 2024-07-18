@@ -50,22 +50,22 @@ export default function WineManager(): JSX.Element | null {
     value: 'winege',
     enabled: isLinux
   }
-  const winecrossover: WineManagerUISettings = {
-    type: 'Wine-Crossover',
-    value: 'winecrossover',
+  const gamePortingToolkit: WineManagerUISettings = {
+    type: 'Game-Porting-Toolkit',
+    value: 'gpt',
     enabled: !isLinux
   }
 
   const [repository, setRepository] = useState<WineManagerUISettings>(
-    isLinux ? winege : winecrossover
+    isLinux ? winege : gamePortingToolkit
   )
   const [wineManagerSettings, setWineManagerSettings] = useState<
     WineManagerUISettings[]
   >([
     { type: 'Wine-GE', value: 'winege', enabled: isLinux },
     { type: 'Proton-GE', value: 'protonge', enabled: isLinux },
-    { type: 'Wine-Crossover', value: 'winecrossover', enabled: !isLinux },
-    { type: 'Wine-Staging-macOS', value: 'winestagingmacos', enabled: !isLinux }
+    { type: 'Game-Porting-Toolkit', value: 'gpt', enabled: !isLinux },
+    { type: 'Wine-Crossover', value: 'winecrossover', enabled: !isLinux }
   ])
 
   const getWineVersions = (repo: Type) => {

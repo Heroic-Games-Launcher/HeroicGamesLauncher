@@ -886,7 +886,7 @@ export async function downloadDefaultWine() {
         !version.version.endsWith('-LoL')
       )
     } else if (isMac) {
-      return version.version.includes('Wine-Crossover')
+      return version.version.includes('Game-Porting-Toolkit')
     }
     return false
   })[0]
