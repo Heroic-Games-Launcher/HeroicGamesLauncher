@@ -767,3 +767,12 @@ export interface KnowFixesInfo {
   winetricks?: string[]
   runInPrefix?: string[]
 }
+
+export interface UploadedLogData {
+  // Descriptive name of the log file (e.g. "Game log of ...")
+  name: string
+  // Token to modify the file (used to delete the log file on the server)
+  token: string
+  // Time the log file was uploaded (used to know whether it expired)
+  uploadedAt: number
+}

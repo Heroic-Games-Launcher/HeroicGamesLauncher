@@ -36,7 +36,8 @@ export enum LogPrefix {
   Connection = 'Connection',
   DownloadManager = 'DownloadManager',
   ExtraGameInfo = 'ExtraGameInfo',
-  Sideload = 'Sideload'
+  Sideload = 'Sideload',
+  LogUploader = 'LogUploader'
 }
 
 export const RunnerToLogPrefixMap = {

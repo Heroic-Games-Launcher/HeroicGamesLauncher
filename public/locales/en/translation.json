@@ -665,12 +665,47 @@
         },
         "library_top_section": "Library Top Section",
         "log": {
-            "copy-to-clipboard": "Copy log content to clipboard",
+            "descriptiveNames": {
+                "game-log": "Game log of {{gameTitle}}",
+                "gog": "GOG log",
+                "heroic": "General Heroic log",
+                "legendary": "Epic Games / Legendary log",
+                "nile": "Amazon / Nile log"
+            },
             "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",
             "instructions_title": "How to report a problem?",
             "join-heroic-discord": "Join our Discord",
             "no-file": "No log file found",
-            "show-in-folder": "Show log file in folder"
+            "show-in-folder": "Show log file in folder",
+            "show-uploads": "Show uploaded log files",
+            "upload": {
+                "actions": "Actions",
+                "button": "Upload log file",
+                "confirm": {
+                    "content": "Do you really want to upload \"{{name}}\"?",
+                    "title": "Upload log file?"
+                },
+                "delete": "Request log file deletion",
+                "done": {
+                    "content": "Uploaded to {{url}} (URL copied to your clipboard)",
+                    "title": "Upload complete"
+                },
+                "error": {
+                    "content": "Failed to upload log file. Check Heroic's general log for details",
+                    "title": "Upload failed"
+                },
+                "header": "Uploaded log files",
+                "hours-ago": "Uploaded {{hoursAgo, relativetime(hours)}}",
+                "minutes-ago": "Uploaded {{minutesAgo, relativetime(minutes)}}",
+                "no-files": "No log files were uploaded",
+                "open": "Open log file upload",
+                "title": "Log title",
+                "upload-date": "Upload date",
+                "uploading": {
+                    "content": "Uploading log file...",
+                    "title": "Uploading"
+                }
+            }
         },
         "mangohud": "Enable Mangohud (Mangohud needs to be installed)",
         "manualsync": {
