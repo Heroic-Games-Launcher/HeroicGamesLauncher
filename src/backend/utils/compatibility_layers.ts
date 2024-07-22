@@ -353,7 +353,7 @@ export async function getGamePortingToolkitWine(): Promise<
 
   wineGPTKPaths.forEach((winePath) => {
     const infoFilePath = join(winePath, 'Contents/Info.plist')
-    if (winePath && existsSync(infoFilePath)) {
+    if (existsSync(infoFilePath)) {
       const wineBin = join(winePath, '/Contents/Resources/wine/bin/wine64')
       try {
         const name = winePath.split('/').pop() || ''
