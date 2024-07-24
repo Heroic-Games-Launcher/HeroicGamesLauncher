@@ -6,7 +6,8 @@
         "fonts": "Czcionki",
         "title": "Ułatwienia dostępu",
         "zoom": "Przybliż",
-        "disable_dialog_backdrop_close": "Wyłącz zamykanie okieniek poprzez kliknięcie poza nimi"
+        "disable_dialog_backdrop_close": "Wyłącz zamykanie okienek poprzez kliknięcie poza nimi",
+        "titles_always_visible": "Zawsze pokazuj tytuły gier w bibliotece"
     },
     "add_game": "Dodaj Grę",
     "All": "Wszystkie",
@@ -16,7 +17,8 @@
         "reference": "Odniesienie",
         "source": "Źródło",
         "status": "Status",
-        "title": "Ta gra wykorzystuje system przeciwko oszustwom"
+        "title": "Ta gra wykorzystuje system przeciwko oszustwom",
+        "multiplayer_may_not_work": "Multiplayer może nie działać z powodu odmowy lub uszkodzenia wsparcia systemu anticheat."
     },
     "box": {
         "cache-cleared": {
@@ -164,7 +166,7 @@
             "snap": {
                 "checkbox": "Nie pokazuj tego więcej",
                 "title": "Heroic jest uruchomiony jako Snap",
-                "message": "Niektóre funkcjonalności nie są dostępne w dystrybucji Snap, pracujemy nad nimi.{{newLine}}Obecne ograniczenia to: {{newLine}}Heroic nie będzie w stanie znaleźć Proton-a należącego do Steam lub Wine należącego do Lutris.{{newLine}}{{newLine}}Gamescope, GameMode oraz MagnoHud również nie będą działać, ponieważ Heroic nie ma do nich dotępu.{{newLine}}{{newLine}}Aby uzyskać dostęp do powyższych funkcji zainstaluj Heroic za pomocą Flatpak, paczki DEB lub AppImage."
+                "message": "Niektóre funkcjonalności nie są dostępne w wersji Snap, pracujemy nad nimi.{{newLine}}Obecne ograniczenia to: {{newLine}}Heroic nie będzie w stanie znaleźć Proton-a należącego do Steam lub Wine należącego do Lutris.{{newLine}}{{newLine}}Gamescope, GameMode oraz MagnoHud również nie będą działać, ponieważ Heroic nie ma do nich dotępu.{{newLine}}{{newLine}}Aby uzyskać dostęp do powyższych funkcji zainstaluj Heroic za pomocą Flatpak, paczki DEB lub AppImage."
             }
         },
         "wineprefix": "Wybierz folder z prefiksem Wine",
@@ -310,12 +312,12 @@
         "dxvknvapi": "DXVK-NVAPI jest implementacją NVAPI zbudowaną na postawie DXVK i natywnego NVAPI Linuksa, pozwala na używanie DLSS na GPU Nvidii.",
         "disablePlaytimeSync": "Wyłącza synchronizację czasu gry z serwerem danego sklepu (obecnie jedynie GOG jest wspierany)",
         "gamescope": {
-            "fpsLimiterNoFocus": "Limit klatek na sekundę, który gamescope powinien zastosować, jeżeli gra nie znajduje się na pierwszym planie.",
+            "fpsLimiterNoFocus": "Limit klatek na sekundę, który gamescope powinien zastosować, jeżeli gra nie jest sfocusowana.",
             "upscaleMethod": "Metoda skalowania, która powinna być zastosowana przez gamescope.",
-            "gameWidth": "Szerokość w pikselach (od rozdzielczości) stosowana przez grę. Gamescope zakłada proporcje ekranu w postaci 16:9.",
-            "upscaleWidth": "Szerokość (od rozdzielczości) używana przez gamescope. Przyjmuje się proporcje 16:9.",
-            "gameHeight": "Wysokość w pikselach (od rozdzielczości) stosowana przez grę. Gamescope zakłada, proporcje ekranu w postaci 16:9.",
-            "upscaleHeight": "Wysokość (od rozdzielczości) używana przez gamescope. Przyjmuje się proporcje 16:9.",
+            "gameWidth": "Szerokość (rozdzielczość) stosowana przez grę. Gamescope zakłada proporcje ekranu w postaci 16:9.",
+            "upscaleWidth": "Szerokość (rozdzielczość) używana przez gamescope. Przyjmuje się proporcje 16:9.",
+            "gameHeight": "Wysokość (rozdzielczość) stosowana przez grę. Gamescope zakłada, proporcje ekranu w postaci 16:9.",
+            "upscaleHeight": "Wysokość (rozdzielczość) używana przez gamescope. Przyjmuje się proporcje 16:9.",
             "fpsLimiter": "Limit klatek na sekundę, który powinien zastosować gamescope. np. 60",
             "additionalOptions": "Dodatkowe argumenty polecenia dla gamescope."
         },
@@ -370,7 +372,7 @@
             "message": "Wine wykorzystuje tzw. Prefiks w celu przechowywania aplikacji Windowsowych. Prefiks ten zawiera pliki konfiguracyjne Wine oraz dokładne odwzorowanie hierarchii dysku C:// (głównego dysku w systemie Windows). Tam przechowywane są zapisy gier oraz pliki potrzebne do uruchomienia gry zainstalowane przez winetricks."
         },
         "wine-path-invalid": "Ścieżka Wine jest nieprawidłowa, wybierz inną.",
-        "wine-path-none-found": "Nie znaleziono wersji Wine, pobierz ją z Wine Managera"
+        "wine-path-none-found": "Nie znaleziono wersji Wine, pobierz ją z Menedżera WIne"
     },
     "install": {
         "path": "Wybierz ścieżkę instalacji"
@@ -481,7 +483,7 @@
             "placeholder": "Wstaw tutaj argumenty uruchamiania",
             "title": "Argumenty gry (uruchamiane po komendzie):",
             "error": {
-                "command": "Składnia %command% znana ze Steam jest niedozwolona jako argument gry.",
+                "command": "Składnia %command% ze Steam jest niedozwolona jako argument gry.",
                 "env": "Zmienne środowiskowe muszą zostać skonfigurowane w tabelce poniżej."
             }
         },
@@ -497,13 +499,13 @@
         "gamescope": {
             "nis": "Skalowanie NVIDIA NIS",
             "borderless": "Bez ramki",
-            "fpsLimiter": "Ograniczenie FPS",
+            "fpsLimiter": "Ogranicznik FPS",
             "gameHeight": "Wysokość gry",
-            "upscaleWidth": "Szerokość po przeskalowaniu",
-            "fullscreen": "Pełen ekran",
+            "upscaleWidth": "Szerokość skalowania",
+            "fullscreen": "Pełny ekran",
             "gameWidth": "Szerokość gry",
             "interger": "Integer Upscale",
-            "upscaleHeight": "Wysokość po przeskalowaniu",
+            "upscaleHeight": "Wysokość skalowania",
             "fpsLimiterNoFocus": "Ograniczenie FPS (w tle)",
             "stretch": "Rozciągnij obraz",
             "additionalOptions": "Dodatkowe Opcje",
@@ -577,7 +579,7 @@
             "cancelInstall": "Anuluj",
             "checkForUpdates": "Wyszukaj aktualizacje",
             "checkingForUpdates": "Szukanie aktualizacji...",
-            "currentVersion": "Obecna werjsa: {{version}}",
+            "currentVersion": "Obecna wersja: {{version}}",
             "disable": "Wyłącz",
             "enable": "Włącz",
             "install": "Zainstaluj",
@@ -683,7 +685,15 @@
         },
         "after-launch-script-path": "Wybierz skrypt do uruchomienia po zakończeniu gry",
         "before-launch-script-path": "Wybierz skrypt do uruchomienia przed rozpoczęciem gry",
-        "msync": "Włącz Msync"
+        "msync": "Włącz Msync",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "message": "Gra z uszkodzonym lub odmawiającym systemem anticheat może się uruchomić, ale multiplayer nie będzie działać. Nie proś o wsparcie, jeżeli instalujesz gry i o tym wiesz.",
+                "title": "Czy na pewno?",
+                "understand": "Rozumiem"
+            },
+            "label": "Zezwól na instalację gier z zepsutym lub odmawiającym anticheat'em"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -874,8 +884,8 @@
         "installed": "Zainstalowane komponenty:"
     },
     "window": {
-        "minimize": "Minimalizuj okno",
-        "maximize": "Maksymalizuj okno",
+        "minimize": "Zminimalizuj okno",
+        "maximize": "Zmaksymalizuj okno",
         "close": "Zamknij",
         "restore": "Przywróć okno"
     },
