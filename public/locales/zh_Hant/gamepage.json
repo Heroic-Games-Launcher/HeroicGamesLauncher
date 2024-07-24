@@ -33,18 +33,19 @@
         },
         "uninstall": {
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
-            "message": "你希望將這個遊戲解除安裝嗎？",
+            "message": "你希望解除安裝「{{title}}」嗎？",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "解除安裝",
             "prefix_warning": "此遊戲的 Wine 前綴是默認前綴。如果你真的想刪除它，你必須手動進行。",
-            "dlc": "您要卸載此 DLC 嗎？"
+            "dlc": "您要解除安裝「{{title}}」 DLC 嗎？"
         },
         "update": {
             "message": "此遊戲有更新，你希望現在更新嗎？",
             "title": "遊戲需要更新"
         },
         "wineprefix": "選擇 WinePrefix 資料夾",
-        "yes": "是"
+        "yes": "是",
+        "close": "關閉"
     },
     "button": {
         "add_to_favourites": "加入我的最愛",
@@ -233,7 +234,8 @@
         "store": "商店頁面",
         "verify": "驗證並修復遊戲文件",
         "extraInfo": "額外信息",
-        "logs": "日誌"
+        "logs": "日誌",
+        "categories": "分類"
     },
     "help": {
         "cloud_save_unsupported": "本遊戲不支援雲端存檔。此訊息由遊戲開發商提供。有些遊戲確實實現了自己的雲端存檔系統"

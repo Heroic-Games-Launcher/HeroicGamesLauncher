@@ -188,7 +188,8 @@
     },
     "setting": {
         "use-default-wine-settings": "デフォルトのWine設定を使用",
-        "winecrossoverbottle": "CrossOverボトル"
+        "winecrossoverbottle": "CrossOverボトル",
+        "show-wine-settings": "Wineの設定を表示する"
     },
     "sideload": {
         "field": {
@@ -231,7 +232,7 @@
         "uninstalling": "アンインストール中",
         "updating": "ゲームをアップデート中",
         "playing": "プレイ中",
-        "moving-files": "ファイル '{{file}}' を移動中: {{percent}} ",
+        "moving-files": "ファイル '{{file}}' を移動中: {{percent}} %",
         "syncingSaves": "セーブデータを同期中",
         "launching": "起動中",
         "ubisoft": "Ubisoftをインストール中",

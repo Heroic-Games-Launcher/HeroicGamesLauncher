@@ -38,7 +38,8 @@
             "title": "Kaldır",
             "prefix_warning": "Bu oyun için Wine ön eki öntanımlı ön ektir. Gerçekten silmek istiyorsanız, elle yapmanız gerekir.",
             "dlc": "{{title}} DLC'si kaldırmak istiyor musunuz?",
-            "cannotUninstallEpic": "Başka Epic oyunu kurulurken Epic oyunları kaldırılamaz."
+            "cannotUninstallEpic": "Başka Epic oyunu kurulurken Epic oyunları kaldırılamaz.",
+            "gameIsRunning": "{{title}} çalışıyor. Oyunu kaldırmak için kapatmanız gerekiyor."
         },
         "update": {
             "message": "Bu oyunun bir güncellemesi var, güncelleme şimdi uygulansın mı?",
@@ -106,7 +107,9 @@
             "toggle": "Oyunu belirli bir sürümde tut"
         },
         "changelogFor": "{{gameTitle}} değişiklik günlükleri",
-        "modify": "Kurulumu Düzenle"
+        "modify": "Kurulumu Düzenle",
+        "install_info": "Kurulum bilgisi",
+        "extra_info": "Ek bilgi"
     },
     "gamecard": {
         "moving": "Taşınıyor",
@@ -135,7 +138,8 @@
         "game-scores": "Oyun Skorları",
         "installedInfo": "Kurulu Bilgiler",
         "protondb-compatibility-info": "Proton Uyumluluk Katmanı",
-        "steamdeck-compatibility-info": "SteamDeck Uyumluluğu"
+        "steamdeck-compatibility-info": "SteamDeck Uyumluluğu",
+        "third-party-app": "Üçüncü Parti Yönetici"
     },
     "install": {
         "disk-space-left": "Kullanılabilir Alan",
@@ -152,7 +156,8 @@
             "title": "Anti Hile Bozuldu/Reddedildi",
             "install_anyway": "Evet (çoklu oyuncu özelliklerinin çalışmayabileceğini anlıyorum)",
             "multiplayer_message": "Hile önleyici desteği hatalı veya red edildi. Oyun açılabilir fakat çoklu oyuncu özellikleri çalışmayabilir. Yinede yüklemek istiyor musun?",
-            "ok": "Tamam"
+            "ok": "Tamam",
+            "disabled_installation": "Antihile desteği arızalı ya da reddedildi ve çok oyunculu özellikler çalışmayacak. Oyunu yüklemek için bunu gelişmiş ayarlardan kapatmanız gerek."
         },
         "flatpak-path-not-writtable": "Hata: Bu yola sandbox erişimi verilmedi, veri kaybı yaşanacak."
     },
@@ -281,5 +286,10 @@
             "enable": "Modları etkinleştir"
         },
         "versionCollapsable": "Oyun Sürümü"
+    },
+    "third-party-managed": {
+        "header": "Oyun üçüncü parti bir uygulama tarafından yönetiliyor",
+        "notice1": "Bu oyun üçüncü parti {{application_name}} uygulaması tarafından yönetiliyor",
+        "notice2": "Kur'a bastıktan sonra, Heroic kurulum işlemini bitirmek için uygulamayı çalıştıracak"
     }
 }

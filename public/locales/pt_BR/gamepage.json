@@ -38,7 +38,8 @@
             "title": "Desinstalar",
             "prefix_warning": "O prefixo Wine para este jogo é o prefixo padrão. Se você realmente deseja excluí-lo, deve fazê-lo manualmente.",
             "dlc": "Deseja desinstalar esta a DLC \"{{title}}\"?",
-            "cannotUninstallEpic": "A Epic games não pode ser desinstalada enquanto outra está sendo instalada."
+            "cannotUninstallEpic": "A Epic games não pode ser desinstalada enquanto outra está sendo instalada.",
+            "gameIsRunning": "{{title}}está rodando. Feche o jogo para o desinstalar."
         },
         "update": {
             "message": "Este jogo tem uma atualização, aplicar atualização agora?",
@@ -106,7 +107,9 @@
             "toggle": "Manter o jogo em uma versão específica"
         },
         "changelogFor": "Log de mudanças para {{gameTitle}}",
-        "modify": "Modificar instalação"
+        "modify": "Modificar instalação",
+        "extra_info": "Informações extras",
+        "install_info": "Dados da instalação"
     },
     "gamecard": {
         "moving": "Movendo",
@@ -135,7 +138,8 @@
         "clickToOpen": "Clique para abrir",
         "game-scores": "Pontuações do jogo",
         "protondb-compatibility-info": "Nível de compatibilidade do Proton",
-        "steamdeck-compatibility-info": "Compatibilidade com SteamDeck"
+        "steamdeck-compatibility-info": "Compatibilidade com SteamDeck",
+        "third-party-app": "Gerenciador de Aplicativos de terceiros"
     },
     "install": {
         "disk-space-left": "Espaço restante no dispositivo",
@@ -282,5 +286,10 @@
             "collapsible": "Integração REDmod",
             "enable": "Permitir mods"
         }
+    },
+    "third-party-managed": {
+        "header": "Este jogo é gerenciado por um aplicativo de terceiros",
+        "notice2": "Após clicar em instalar,Heroic irá executar o aplicativo para terminar o processo de instalação",
+        "notice1": "Este jogo é gerenciado por um aplicativo de terceiros: \"{{application_name}}\""
     }
 }

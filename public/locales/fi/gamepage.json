@@ -150,7 +150,10 @@
             "message": "Huijauksenesto on rikki tai evätty. Peli ei tule toimimaan. Haluatko asentaa sen tästä huolimatta?",
             "install": "Kyllä (ymmärtäen että tämä ei tule toimimaan)",
             "title": "Huijauksenesto rikki/evätty",
-            "ok": "Ok"
+            "ok": "Ok",
+            "install_anyway": "Kyllä (ymmärrän että moninpeliominaisuudet eivät tule toimimaan)",
+            "multiplayer_message": "Huijaukseneston tuki on rikki tai evätty. Peli voi käynnistyä mutta moninpeliominaisuudet eivät tule toimimaan. Haluatko asentaa pelin tästä huolimatta?",
+            "disabled_installation": "Huijaukseneston tuki on rikki tai evätty, eivätkä moninpeliominaisuudet toimi. Peliä ei voi asentaa. Jos haluat asentaa tämän pelin kaikesta huolimatta, poista tämä tarkistus käytöstä lisäasetuksissa."
         },
         "flatpak-path-not-writtable": "Virhe: pääsy tähän polkuun on hiekkalaatikoinnin ulkopuolella ja evätty, tiedonmenetystä tulee tapahtumaan."
     },
@@ -168,7 +171,8 @@
         },
         "launching": "Käynnistetään",
         "ubisoft": "Ubisoft Connectin asentaminen",
-        "winetricks": "Asennetaan Winetricks-paketteja"
+        "winetricks": "Asennetaan Winetricks-paketteja",
+        "redist": "Asennetaan uudelleenjaeltavat osat"
     },
     "launch": {
         "options": "Käynnistysasetukset..."
@@ -239,7 +243,8 @@
         "extracting": "Purkaminen",
         "goodie": "Ei asennettavissa",
         "gog-goodie": "Tämä peli ei näytä olevan asennettavissa. Tarkista ladattava sisältö osoitteessa https://gog.com/account",
-        "winetricks": "Asetetaan Winetricks-korjauksia"
+        "winetricks": "Asetetaan Winetricks-korjauksia",
+        "redist": "Asennetaan uudelleenjaeltavat osat ({{redist}})"
     },
     "submenu": {
         "addShortcut": "Lisää pikakuvake",

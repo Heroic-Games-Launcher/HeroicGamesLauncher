@@ -38,7 +38,8 @@
             "title": "Desinstal·la",
             "prefix_warning": "El prefix Wine d'aquest joc és el prefix predefinit. Si realment vols eliminar-lo, has de fer-ho manualment.",
             "dlc": "Vols desinstal·lar \"{{title}}\" (DLC)?",
-            "cannotUninstallEpic": "No es poden desinstal·lar jocs d'Epic Games mentre s'instal·la un altre joc d'Epic Games."
+            "cannotUninstallEpic": "No es poden desinstal·lar jocs d'Epic Games mentre s'instal·la un altre joc d'Epic Games.",
+            "gameIsRunning": "{{title}} ja s'executa. Tanqueu el joc per a desinstal·lar-lo."
         },
         "update": {
             "message": "Hi ha una actualització per a aquest joc, el vols actualitzar ara?",
@@ -106,7 +107,9 @@
             "buildsSelector": "Tria la versió del joc"
         },
         "changelogFor": "Registre de {{gameTitle}}",
-        "modify": "Modifica la instal·lació"
+        "modify": "Modifica la instal·lació",
+        "extra_info": "Informació addicional",
+        "install_info": "Informació de la instal·lació"
     },
     "gamecard": {
         "moving": "S'està movent",
@@ -135,7 +138,8 @@
         "game-scores": "Puntuacions del joc",
         "installedInfo": "Informació instal·lada",
         "protondb-compatibility-info": "Nivell de compatibilitat amb el Proton",
-        "steamdeck-compatibility-info": "Compatibilitat amb l'SteamDeck"
+        "steamdeck-compatibility-info": "Compatibilitat amb l'SteamDeck",
+        "third-party-app": "Gestor de tercers"
     },
     "install": {
         "disk-space-left": "Espai disponible",
@@ -152,7 +156,8 @@
             "title": "Antitrampes trencat/rebutjat",
             "multiplayer_message": "El suport antitrampes està trencat o s'ha blocat. El joc pot executar-se però les característiques multijugador no funcionaran. Voleu instal·lar-lo igualment?",
             "install_anyway": "Sí (entenc que les funcions multijugador no funcionen)",
-            "ok": "Ok"
+            "ok": "D'acord",
+            "disabled_installation": "El suport antitrampes està trencat o s'ha denegat i les funcions multijugador no funcionaran. El joc no es pot instal·lar. Per a instal·lar el joc, desactiveu aquesta comprovació a la configuració avançada."
         },
         "flatpak-path-not-writtable": "Error: L'accés lliure a aquest camí no està garantit. Potser es perden dades."
     },
@@ -281,5 +286,10 @@
             "enable": "Activa mods"
         },
         "versionCollapsable": "Versió del joc"
+    },
+    "third-party-managed": {
+        "header": "Aquest joc el gestiona una aplicació de tercers",
+        "notice1": "Aquest joc el gestiona una aplicació de tercers: «{{application_name}}»",
+        "notice2": "Després de fer clic a «Instal·la», el Heroic executarà l'aplicació per tal de completar el procés d'instal·lació."
     }
 }

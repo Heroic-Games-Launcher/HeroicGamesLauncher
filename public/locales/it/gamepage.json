@@ -38,7 +38,8 @@
             "title": "Disinstalla",
             "prefix_warning": "Il prefisso Wine per questo gioco è il prefisso predefinito. Se vuoi davvero eliminarlo, devi farlo manualmente.",
             "dlc": "Vuoi disinstallare \"{{title}}\" (DLC)?",
-            "cannotUninstallEpic": "I giochi Epic non possono essere disinstallati mentre è in corso l'installazione di un altro gioco Epic."
+            "cannotUninstallEpic": "I giochi Epic non possono essere disinstallati mentre è in corso l'installazione di un altro gioco Epic.",
+            "gameIsRunning": "{{title}} è in esecuzione. Chiudi il gioco per disinstallarlo."
         },
         "update": {
             "message": "Questo gioco ha un aggiornamento, desideri aggiornarlo ora?",
@@ -106,7 +107,9 @@
             "toggle": "Mantieni il gioco alla versione specifica"
         },
         "changelogFor": "Changelog di {{gameTitle}}",
-        "modify": "Modifica Installazione"
+        "modify": "Modifica Installazione",
+        "extra_info": "Informazioni aggiuntive",
+        "install_info": "Informazioni d'installazione"
     },
     "gamecard": {
         "moving": "Spostamento in corso",
@@ -135,7 +138,8 @@
         "game-scores": "Punteggi di gioco",
         "installedInfo": "Informazioni di installazione",
         "protondb-compatibility-info": "Livello di compatibilità Proton",
-        "steamdeck-compatibility-info": "Compatibilità SteamDeck"
+        "steamdeck-compatibility-info": "Compatibilità SteamDeck",
+        "third-party-app": "Gestore Terze Parti"
     },
     "install": {
         "disk-space-left": "Spazio Disponibile",
@@ -280,5 +284,10 @@
             "enable": "Abilita mods"
         },
         "versionCollapsable": "Versione Gioco"
+    },
+    "third-party-managed": {
+        "header": "Questo gioco è gestito da un'applicazione di terze parti",
+        "notice1": "Questo gioco è gestito da un'applicazione di terze parti: \"{{application_name}}\"",
+        "notice2": "Dopo aver cliccato Installa, Heroic eseguirà l'applicazione al fine di completare il processo d'installazione"
     }
 }
