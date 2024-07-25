@@ -497,11 +497,14 @@ export function getUmuPath() {
   return defaultUmuPath
 }
 
-export function isUmuSupported(wineType: WineInstallation['type']): boolean {
-  return (
-    wineType === 'proton' &&
-    GlobalConfig.get().getSettings().experimentalFeatures?.umuSupport !==
-      false &&
-    existsSync(getUmuPath())
-  )
+export function isUmuSupported(
+  wineType: WineInstallation['type'],
+  checkUmuInstalled = true
+): boolean {
+  const umuEnabled =
+    GlobalConfig.get().getSettings().experimentalFeatures?.umuSupport !== false
+  const wineVersionSupported = wineType === 'proton'
+  const umuInstalled = checkUmuInstalled ? existsSync(getUmuPath()) : true
+
+  return umuEnabled && wineVersionSupported && umuInstalled
 }

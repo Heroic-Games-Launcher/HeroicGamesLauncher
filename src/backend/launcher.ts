@@ -231,8 +231,8 @@ async function prepareLaunch(
   }
 
   if (
-    isUmuSupported(gameSettings.wineVersion.type) &&
-    !isInstalled('umu') &&
+    isUmuSupported(gameSettings.wineVersion.type, false) &&
+    !(await isInstalled('umu')) &&
     isOnline() &&
     getUmuPath() === defaultUmuPath
   ) {
