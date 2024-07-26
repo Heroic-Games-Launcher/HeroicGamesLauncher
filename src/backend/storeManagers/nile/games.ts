@@ -400,7 +400,7 @@ export async function launch(
         : wineExec
 
     wineFlag = [
-      ...getWineFlagsArray(wineBin, wineType, shlex.join(wrappers)),
+      ...(await getWineFlagsArray(wineBin, wineType, shlex.join(wrappers))),
       '--wine-prefix',
       gameSettings.winePrefix
     ]

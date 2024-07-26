@@ -468,12 +468,12 @@ export async function getWineFlags(
 /**
  * Like {@link getWineFlags}, but returns a `string[]` with the flags instead
  */
-export function getWineFlagsArray(
+export async function getWineFlagsArray(
   wineBin: string,
   wineType: WineInstallation['type'],
   wrapper: string
-): string[] {
-  const partialCommand = getWineFlags(wineBin, wineType, wrapper)
+): Promise<string[]> {
+  const partialCommand = await getWineFlags(wineBin, wineType, wrapper)
 
   const commandArray: string[] = []
   for (const [key, value] of Object.entries(partialCommand)) {
