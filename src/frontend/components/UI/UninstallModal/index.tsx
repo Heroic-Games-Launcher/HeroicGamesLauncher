@@ -34,8 +34,13 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
-  const { installingEpicGame } = useContext(ContextProvider)
+  const { installingEpicGame, libraryStatus } = useContext(ContextProvider)
   const [gameTitle, setGameTitle] = useState('')
+
+  const isGameRunning = libraryStatus.find(
+    (st) =>
+      st.appName === appName && st.runner === runner && st.status === 'playing'
+  )
 
   const checkIfIsNative = async () => {
     // This assumes native games are installed should be changed in the future
@@ -113,6 +118,32 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
                 'gamepage:box.uninstall.cannotUninstallEpic',
                 'Epic games cannot be uninstalled while another Epic game is being installed.'
               )}
+            </DialogContent>
+            <DialogFooter>
+              <button onClick={onClose} className={`button outline`}>
+                {t('box.close', 'Close')}
+              </button>
+            </DialogFooter>
+          </Dialog>
+        )}
+      </>
+    )
+  }
+
+  if (isGameRunning) {
+    return (
+      <>
+        {showUninstallModal && (
+          <Dialog onClose={onClose} showCloseButton className="uninstall-modal">
+            <DialogHeader onClose={onClose}>
+              {t('gamepage:box.uninstall.title')}
+            </DialogHeader>
+            <DialogContent>
+              {t('gamepage:box.uninstall.gameIsRunning', {
+                defaultValue:
+                  '{{title}} is running. Close the game to uninstall it.',
+                title: gameTitle
+              })}
             </DialogContent>
             <DialogFooter>
               <button onClick={onClose} className={`button outline`}>
