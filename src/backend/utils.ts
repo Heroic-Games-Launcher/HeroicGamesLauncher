@@ -88,6 +88,7 @@ import {
   vendorNameCache
 } from './utils/systeminfo/gpu/pci_ids'
 import type { WineManagerStatus } from 'common/types'
+import { isUmuSupported } from './utils/compatibility_layers'
 
 const execAsync = promisify(exec)
 
@@ -142,11 +143,14 @@ function semverGt(target: string, base: string) {
 
 const getFileSize = fileSize.partial({ base: 2 }) as (arg: unknown) => string
 
-function getWineFromProton(
+async function getWineFromProton(
   wineVersion: WineInstallation,
   winePrefix: string
-): { winePrefix: string; wineVersion: WineInstallation } {
-  if (wineVersion.type !== 'proton') {
+): Promise<{ winePrefix: string; wineVersion: WineInstallation }> {
+  if (
+    wineVersion.type !== 'proton' ||
+    (await isUmuSupported(wineVersion.type))
+  ) {
     return { winePrefix, wineVersion }
   }
 

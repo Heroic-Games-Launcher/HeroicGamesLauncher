@@ -528,23 +528,18 @@ export const Winetricks = {
       }
     }
 
-    const umuSupported = await isUmuSupported(wineVersion.type)
+    const { winePrefix, wineVersion: alwaysWine_wineVersion } =
+      await getWineFromProton(wineVersion, baseWinePrefix)
     return new Promise<string[] | null>((resolve) => {
-      const { winePrefix, wineVersion: alwaysWine_wineVersion } =
-        getWineFromProton(wineVersion, baseWinePrefix)
       const wineBin = alwaysWine_wineVersion.bin
       // We have to run Winetricks with an actual `wine` binary, meaning we
       // might need to set some environment variables differently than normal
       // (e.g. `WINEESYNC=1` vs `PROTON_NO_ESYNC=0`).
       // These settings will be a copy of the normal game settings, but with
       // their wineVersion set to one always of the type `wine`
-      let settingsWithWineVersion = {
+      const settingsWithWineVersion = {
         ...gameSettings,
         wineVersion: alwaysWine_wineVersion
-      }
-
-      if (umuSupported) {
-        settingsWithWineVersion = gameSettings
       }
 
       const winepath = dirname(wineBin)
@@ -703,7 +698,7 @@ export const Winetricks = {
   },
   listInstalled: async (runner: Runner, appName: string) => {
     const gameSettings = await gameManagerMap[runner].getSettings(appName)
-    const { winePrefix } = getWineFromProton(
+    const { winePrefix } = await getWineFromProton(
       gameSettings.wineVersion,
       gameSettings.winePrefix
     )
