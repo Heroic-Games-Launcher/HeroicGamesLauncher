@@ -522,7 +522,7 @@ export const Winetricks = {
 
       if (gui) {
         args.splice(args.indexOf('--gui'), 1)
-        args.unshift('""')
+        args.unshift('')
       } else {
         args.unshift('winetricks')
       }
