@@ -555,8 +555,7 @@ export const Winetricks = {
         ...setupWineEnvVars(settingsWithWineVersion, appName),
         WINEPREFIX: winePrefix,
         PATH: `${winepath}:${process.env.PATH}`,
-        GAMEID: gui ? 'winetricks-gui' : 'umu-0',
-        PROTON_VERB: 'run'
+        GAMEID: gui ? 'winetricks-gui' : 'umu-0'
       }
 
       const wineServer = join(winepath, 'wineserver')
