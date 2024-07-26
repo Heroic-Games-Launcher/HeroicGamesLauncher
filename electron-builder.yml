@@ -15,6 +15,8 @@ asarUnpack:
   - build/icon-dark.png
   - build/icon-light.png
   - build/webviewPreload.js
+  - build/bin/**/*
+  - '!build/bin/legendary.LICENSE'
 
 electronDownload:
   mirror: https://github.com/castlabs/electron-releases/releases/download/v
@@ -27,12 +29,7 @@ protocols:
 win:
   artifactName: ${productName}-${version}-Setup-${arch}.${ext}
   icon: build/win_icon.ico
-  asarUnpack:
-    - build/bin/win32/legendary.exe
-    - build/bin/win32/gogdl.exe
-    - build/bin/win32/nile.exe
-    - build/bin/win32/comet.exe
-  files: build/bin/win32/*
+  files: build/bin/*/win32/*
 
 portable:
   artifactName: ${productName}-${version}-Portable-${arch}.${ext}
@@ -47,13 +44,7 @@ mac:
     teamId: DLB2RYLUDX
   extendInfo:
     com.apple.security.cs.allow-jit: true
-  asarUnpack:
-    - build/bin/darwin/legendary
-    - build/bin/darwin/gogdl
-    - build/bin/darwin/nile
-    - build/bin/darwin/comet
-  files:
-    - build/bin/darwin/*
+  files: build/bin/*/darwin/*
 
 dmg:
   background: public/dmg.png
@@ -76,14 +67,7 @@ linux:
   desktop:
     Name: Heroic Games Launcher
     Comment[de]: Ein Open Source Spielelauncher for GOG und Epic Games
-  asarUnpack:
-    - build/bin/linux/legendary
-    - build/bin/linux/gogdl
-    - build/bin/linux/nile
-    - build/bin/linux/vulkan-helper
-    - build/bin/linux/comet
-  files:
-    - build/bin/linux/*
+  files: build/bin/*/linux/*
 
 snap:
   base: core20

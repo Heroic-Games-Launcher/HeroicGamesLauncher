@@ -119,7 +119,8 @@
         },
         "select": {
             "button": "선택",
-            "exe": "EXE 선택"
+            "exe": "EXE 선택",
+            "script": "스크립트 선택 …"
         },
         "shortcuts": {
             "message": "바탕 화면 및 시작 메뉴에 바로 가기가 생성되었습니다",
@@ -155,8 +156,13 @@
             },
             "sideload": {
                 "confirmExit": {
-                    "title": "정말로 로그아웃 하시겠습니까?"
+                    "title": "정말로 로그아웃 하시겠습니까?",
+                    "message": "저장되지 않은 진행 상황은 손실될 수 있습니다"
                 }
+            },
+            "snap": {
+                "checkbox": "더 이상 이 메세지 표시하지 않음",
+                "message": "일부 기능은 현재 스냅 버전의 앱에서 사용할 수 없으며 수정하려고 합니다.\n현재 제한 사항은 다음과 같습니다:\nHeroic은 스팀이 제공한 Proton이나 Lutris가 제공한 Wine을 찾을 수 없습니다.\nGamescope, GameMode 그리고 MangoHud는 Heroic에 접근권한이 없어 작동하지 않습니다.\n이 기능에 액세스하려면 Heroic을 Flatpack, DEB 또는 AppImage로 설치하십시오."
             }
         },
         "wineprefix": "WinePrefix 폴더 선택",
@@ -742,9 +748,20 @@
     },
     "category-settings": {
         "cancel": "Cancel",
-        "warning": "경고"
+        "warning": "경고",
+        "add-new-category": "새 카테고리 추가"
     },
     "window": {
         "close": "닫기"
+    },
+    "categories-manager": {
+        "cancel-rename": "\"{{name}}\" 이름 변경 취소",
+        "add-placeholder": "새 카테고리 추가",
+        "cancel-remove": "\"{{name}}\" 삭제 취소",
+        "add": "추가"
+    },
+    "adtraction-locked": {
+        "dont-show-again": "이 경고 다시 표시 안함",
+        "title": "Adtraction 차단됨"
     }
 }

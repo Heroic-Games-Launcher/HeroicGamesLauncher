@@ -106,7 +106,9 @@
             "toggle": "garder le jeu dans une version spécifique"
         },
         "changelogFor": "Changements effectués dans {{gameTitle}}",
-        "modify": "Modifier l'installation"
+        "modify": "Modifier l'installation",
+        "extra_info": "Informaitons supplémentaires",
+        "install_info": "Informations d'installation"
     },
     "gamecard": {
         "moving": "Déplacement",
@@ -135,7 +137,8 @@
         "game-scores": "Scores du jeu",
         "installedInfo": "Informations sur l'installation",
         "protondb-compatibility-info": "Niveau de compatibilité Proton",
-        "steamdeck-compatibility-info": "Compatibilité SteamDeck"
+        "steamdeck-compatibility-info": "Compatibilité SteamDeck",
+        "third-party-app": "Gestionnaire tiers"
     },
     "install": {
         "disk-space-left": "Espace Disponible",
@@ -280,5 +283,10 @@
         },
         "versionCollapsable": "Version du jeu",
         "nodlcs": "Aucune extension n'est disponible"
+    },
+    "third-party-managed": {
+        "notice2": "Après avoir cliqué sur Installer, Heroic exécutera l'application afin de terminer le processus d'installation",
+        "header": "Ce jeu est géré par une application tierce",
+        "notice1": "Ce jeu est géré par une application tierce : « {{application_name}} »"
     }
 }

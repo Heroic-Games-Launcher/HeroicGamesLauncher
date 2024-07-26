@@ -334,12 +334,62 @@ export async function getCrossover(): Promise<Set<WineInstallation>> {
  * Detects Gaming Porting Toolkit Wine installs on Mac
  * @returns Promise<Set<WineInstallation>>
  **/
-export async function getGamingPortingToolkitWine(): Promise<
+export async function getGamePortingToolkitWine(): Promise<
   Set<WineInstallation>
 > {
-  const gamingPortingToolkitWine = new Set<WineInstallation>()
+  const gamePortingToolkitWine = new Set<WineInstallation>()
   if (!isMac) {
-    return gamingPortingToolkitWine
+    return gamePortingToolkitWine
+  }
+
+  const GPTK_ToolPath = join(toolsPath, 'game-porting-toolkit')
+  const wineGPTKPaths = new Set<string>()
+
+  if (existsSync(GPTK_ToolPath)) {
+    readdirSync(GPTK_ToolPath).forEach((path) => {
+      wineGPTKPaths.add(join(GPTK_ToolPath, path))
+    })
+  }
+
+  wineGPTKPaths.forEach((winePath) => {
+    const infoFilePath = join(winePath, 'Contents/Info.plist')
+    if (existsSync(infoFilePath)) {
+      const wineBin = join(winePath, '/Contents/Resources/wine/bin/wine64')
+      try {
+        const name = winePath.split('/').pop() || ''
+        if (existsSync(wineBin)) {
+          gamePortingToolkitWine.add({
+            ...getWineExecs(wineBin),
+            lib: `${winePath}/Contents/Resources/wine/lib`,
+            lib32: `${winePath}/Contents/Resources/wine/lib`,
+            bin: wineBin,
+            name,
+            type: 'toolkit',
+            ...getWineExecs(wineBin)
+          })
+        }
+      } catch (error) {
+        logError(
+          `Error getting wine version for GPTK ${wineBin}`,
+          LogPrefix.GlobalConfig
+        )
+      }
+    }
+  })
+
+  return gamePortingToolkitWine
+}
+
+/**
+ * Detects Gaming Porting Toolkit Wine installs on Mac
+ * @returns Promise<Set<WineInstallation>>
+ **/
+export async function getSystemGamePortingToolkitWine(): Promise<
+  Set<WineInstallation>
+> {
+  const systemGPTK = new Set<WineInstallation>()
+  if (!isMac) {
+    return systemGPTK
   }
 
   logInfo('Searching for Gaming Porting Toolkit Wine', LogPrefix.GlobalConfig)
@@ -350,18 +400,19 @@ export async function getGamingPortingToolkitWine(): Promise<
 
   if (existsSync(wineBin)) {
     logInfo(
-      `Found Gaming Porting Toolkit Wine at ${dirname(wineBin)}`,
+      `Found Game Porting Toolkit Wine at ${dirname(wineBin)}`,
       LogPrefix.GlobalConfig
     )
     try {
       const { stdout: out } = await execAsync(`'${wineBin}' --version`)
       const version = out.split('\n')[0]
-      gamingPortingToolkitWine.add({
+      const GPTKDIR = join(dirname(wineBin), '..')
+      systemGPTK.add({
         ...getWineExecs(wineBin),
-        name: `GPTK Wine (DX11/DX12 Only) - ${version}`,
+        name: `GPTK System (DX11/DX12 Only) - ${version}`,
         type: 'toolkit',
-        lib: `${dirname(wineBin)}/../lib`,
-        lib32: `${dirname(wineBin)}/../lib`,
+        lib: join(GPTKDIR, 'lib'),
+        lib32: join(GPTKDIR, 'lib'),
         bin: wineBin
       })
     } catch (error) {
@@ -372,7 +423,7 @@ export async function getGamingPortingToolkitWine(): Promise<
     }
   }
 
-  return gamingPortingToolkitWine
+  return systemGPTK
 }
 
 /**

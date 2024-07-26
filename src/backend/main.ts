@@ -34,6 +34,7 @@ import {
   readdirSync,
   readFileSync
 } from 'graceful-fs'
+import 'source-map-support/register'
 
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
