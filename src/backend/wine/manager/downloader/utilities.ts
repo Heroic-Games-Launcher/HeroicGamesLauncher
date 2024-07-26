@@ -11,6 +11,16 @@ interface fetchProps {
   count: number
 }
 
+function getVersionName(type: string, tag_name: string): string {
+  if (type.includes('Wine')) {
+    return `Wine-${tag_name}`
+  } else if (type.includes('Toolkit')) {
+    return `${tag_name}`
+  } else {
+    return `Proton-${tag_name}`
+  }
+}
+
 /**
  * Helper to fetch releases from given url.
  *
@@ -32,9 +42,7 @@ async function fetchReleases({
       .then((data) => {
         for (const release of data.data) {
           const release_data = {} as VersionInfo
-          release_data.version = type.includes('Wine')
-            ? `Wine-${release.tag_name}`
-            : `Proton-${release.tag_name}`
+          release_data.version = getVersionName(type, release.tag_name)
           release_data.type = type
           release_data.date = release.published_at.split('T')[0]
           release_data.disksize = 0
